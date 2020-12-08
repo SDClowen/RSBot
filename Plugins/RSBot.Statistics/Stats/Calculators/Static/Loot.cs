@@ -1,0 +1,54 @@
+﻿using RSBot.Core.Event;
+using RSBot.Core.Objects;
+using System;
+
+namespace RSBot.Statistics.Stats.Calculators.Static
+{
+    internal class Loot : IStatisticCalculator
+    {
+        private int _currentValue;
+
+        /// <inheritdoc />
+        public string Name => "ItemsPicked";
+
+        /// <inheritdoc />
+        public string Label => "Items looted";
+
+        /// <inheritdoc />
+        public StatisticsGroup Group => StatisticsGroup.Loot;
+
+        /// <inheritdoc />
+        public string ValueFormat => "{0}";
+
+        /// <inheritdoc />
+        public UpdateType UpdateType => UpdateType.Static;
+
+        /// <inheritdoc />
+        public double GetValue()
+        {
+            return _currentValue;
+        }
+
+        /// <inheritdoc />
+        public void Reset()
+        {
+            _currentValue = 0;
+        }
+
+        /// <inheritdoc />
+        public void Initialize()
+        {
+            EventManager.SubscribeEvent("OnPickupItem", new Action<InventoryItem>(OnPickupItem));
+            EventManager.SubscribeEvent("OnPartyPickItem", new Action<InventoryItem>(OnPickupItem));
+        }
+
+        /// <summary>
+        /// Called when [pickup item].
+        /// </summary>
+        /// <param name="item">The item.</param>
+        private void OnPickupItem(InventoryItem item)
+        {
+            _currentValue++;
+        }
+    }
+}

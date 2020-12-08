@@ -1,0 +1,9 @@
+﻿namespace RSBot.Core.Objects
+{
+    public enum PvpState
+    {
+        None = 0,
+        Purple = 1,
+        Red = 2
+    }
+}

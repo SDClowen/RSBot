@@ -1,0 +1,407 @@
+﻿using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Network;
+using RSBot.Core.Objects;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using static RSBot.Core.Game;
+
+namespace RSBot.Core.Components
+{
+    public static class ShoppingManager
+    {
+        /// <summary>
+        /// Gets or sets the shopping list.
+        /// </summary>
+        /// <value>
+        /// The shopping list.
+        /// </value>
+        public static Dictionary<RefShopGood, ushort> ShoppingList { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="ShoppingManager"/> is finished.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if finished; otherwise, <c>false</c>.
+        /// </value>
+        public static bool Finished { get; private set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="ShoppingManager"/> is enabled.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if enabled; otherwise, <c>false</c>.
+        /// </value>
+        public static bool Enabled { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [repair gear].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [repair gear]; otherwise, <c>false</c>.
+        /// </value>
+        public static bool RepairGear { get; set; }
+
+        /// <summary>
+        /// Gets or sets the sell filter.
+        /// </summary>
+        /// <value>
+        /// The armor sell filter.
+        /// </value>
+        public static ItemFilter SellFilter { get; set; }
+
+        /// <summary>
+        /// Gets or sets the store filter.
+        /// </summary>
+        /// <value>
+        /// The store filter.
+        /// </value>
+        public static ItemFilter StoreFilter { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="ShoppingManager"/> is running.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if running; otherwise, <c>false</c>.
+        /// </value>
+        public static bool Running { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [sell pet items].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [sell pet items]; otherwise, <c>false</c>.
+        /// </value>
+        public static bool SellPetItems { get; set; }
+
+        /// <summary>
+        /// Gets or sets the buyback list.
+        /// </summary>
+        /// <value>
+        /// The buyback list.
+        /// </value>
+        internal static Dictionary<byte, InventoryItem> BuybackList { get; set; }
+
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        internal static void Initialize()
+        {
+            ShoppingList = new Dictionary<RefShopGood, ushort>();
+            StoreFilter = new ItemFilter();
+            SellFilter = new ItemFilter();
+
+            BuybackList = new Dictionary<byte, InventoryItem>();
+
+            Log.Debug("Initialized [ShoppingManager]!");
+        }
+
+        /// <summary>
+        /// Runs this instance.
+        /// </summary>
+        public static void Run(string npcCodeName)
+        {
+            if (!Enabled)
+                return;
+
+            Finished = false;
+            Running = true;
+
+            SelectNPC(npcCodeName);
+
+            //Prevent modification during the for-each loop
+            var tempItemSellList =
+                Game.Player.Inventory.Items.Where(i => i.Slot > 13).Where(item => SellFilter.Invoke(item.Record)).ToArray();
+
+            foreach (var item in tempItemSellList)
+                SellItem(item);
+
+            if (Game.Player.HasActiveAbilityPet && SellPetItems)
+            {
+                tempItemSellList = Game.Player.AbilityPet.Items.Where(item => SellFilter.Invoke(item.Record)).ToArray();
+
+                foreach (var item in tempItemSellList)
+                    Game.Player.AbilityPet.MoveItemToPlayer(item.Slot);
+
+                //Prevent modification during the for-each loop
+                tempItemSellList =
+                    Game.Player.Inventory.Items.Where(i => i.Slot > 13).Where(item => SellFilter.Invoke(item.Record)).ToArray();
+
+                foreach (var item in tempItemSellList)
+                    SellItem(item);
+            }
+
+            var shopGroup = ReferenceManager.GetRefShopGroup(npcCodeName);
+            if (shopGroup == null)
+            {
+                Log.Warn("Could not buy anything from this NPC - It's not a shop!");
+                CloseShop();
+
+                Finished = true;
+                Running = false;
+                return;
+            }
+
+            var shopGoods = ReferenceManager.GetRefShopGoods(shopGroup);
+
+            foreach (var item in ShoppingList)
+            {
+                if (!Running)
+                    return;
+
+                var actualItem = shopGoods.FirstOrDefault(x => x.RefPackageItemCodeName == item.Key.RefPackageItemCodeName);
+
+                if (actualItem == null)
+                    continue;
+
+                var tabIndex = ReferenceManager.GetRefShopGoodTabIndex(npcCodeName, actualItem);
+                if (tabIndex == 0xFF) //Specified item not available in this shop!
+                    continue;
+
+                var refPackageItem = ReferenceManager.GetRefPackageItem(item.Key.RefPackageItemCodeName);
+
+                var holdingAmount = Game.Player.Inventory.GetItemAmount(refPackageItem.RefItemCodeName);
+                var totalAmountToBuy = item.Value - holdingAmount;
+
+                while (totalAmountToBuy > 0)
+                {
+                    var refItem = ReferenceManager.GetRefItem(refPackageItem.RefItemCodeName);
+                    if (refItem == null) continue; //Should not happen
+
+                    var amountStep = (ushort)totalAmountToBuy;
+                    if (totalAmountToBuy >= refItem.MaxStack)
+                        amountStep = (ushort)refItem.MaxStack; //Buy only one stack
+
+                    PurchaseItem(tabIndex, actualItem.SlotIndex, amountStep);
+                    totalAmountToBuy -= amountStep; //One stack bought, substract from total amount!
+                    Thread.Sleep(100);
+                }
+            }
+
+            CloseShop();
+
+            Finished = true;
+            Running = false;
+        }
+
+        /// <summary>
+        /// Sells the item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        public static void SellItem(InventoryItem item)
+        {
+            var packet = new Packet(0x7034);
+            packet.WriteByte(0x09);
+            packet.WriteByte(item.Slot);
+            packet.WriteUShort(item.Amount);
+            packet.WriteUInt(SelectedEntity.UniqueId);
+
+            var awaitResult = new AwaitCallback(null, 0xB034);
+            PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
+            awaitResult.AwaitResponse();
+
+            Log.Debug("[Shopping manager] - Sold item (player): " + item.Record.GetRealName());
+        }
+
+        /// <summary>
+        /// Sells the item from pet.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        public static void SellItemFromPet(InventoryItem item)
+        {
+            var packet = new Packet(0x7034);
+            packet.WriteByte(0x09);
+            packet.WriteByte(item.Slot);
+            packet.WriteUShort(item.Amount);
+            packet.WriteUInt(SelectedEntity.UniqueId);
+
+            var awaitResult = new AwaitCallback(null, 0xB034);
+            PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
+            awaitResult.AwaitResponse();
+
+            Log.Debug("[Shopping manager] - Sold item (pet): " + item.Record.GetRealName());
+        }
+
+        /// <summary>
+        /// Purchases the item.
+        /// </summary>
+        /// <param name="tab">The tab.</param>
+        /// <param name="slot">The slot.</param>
+        /// <param name="amount">The amount.</param>
+        public static void PurchaseItem(int tab, int slot, ushort amount)
+        {
+            var npc = SelectedEntity;
+            if (npc == null)
+            {
+                Log.Debug("Cannot buy items, because no shop is selected!");
+                return;
+            }
+
+            var packet = new Packet(0x7034);
+            packet.WriteByte(0x08); //Buy item flag
+            packet.WriteByte(tab);
+            packet.WriteByte(slot);
+            packet.WriteUShort(amount);
+            packet.WriteUInt(npc.UniqueId);
+
+            packet.Lock();
+
+            var awaitResult = new AwaitCallback(null, 0xB034);
+            PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
+            awaitResult.AwaitResponse();
+        }
+
+        /// <summary>
+        /// Repairs the items.
+        /// </summary>
+        public static void RepairItems(string npcCodeName)
+        {
+            if (!RepairGear)
+                return;
+
+            SelectNPC(npcCodeName);
+
+            var npc = SelectedEntity ?? LastSelectedEntity;
+            if (npc == null)
+            {
+                Log.Debug("Cannot repair items because there is no smith selected!");
+                return;
+            }
+
+            var packet = new Packet(0x703E);
+            packet.WriteUInt(npc.UniqueId);
+            packet.WriteByte(2); //repair all items
+            packet.Lock();
+
+            PacketManager.SendPacket(packet, PacketDestination.Server);
+
+            CloseShop();
+        }
+
+        /// <summary>
+        /// Stores the items.
+        /// </summary>
+        /// <param name="npcCodeName">Name of the NPC code.</param>
+        public static void StoreItems(string npcCodeName)
+        {
+            var tempInventory = Game.Player.Inventory.Items.Where(x => x.Slot > 13 && StoreFilter.Invoke(x.Record)).ToList();
+
+            SelectNPC(npcCodeName);
+            var npc = SelectedEntity ?? LastSelectedEntity;
+
+            if (npc == null)
+            {
+                Log.Debug("Cannot store items because there is no storage NPC selected!");
+                return;
+            }
+
+            OpenStorage(npc.UniqueId);
+
+            if (Game.Player.Storage == null)
+                return;
+
+            foreach (var item in tempInventory)
+            {
+                //Use later to merge item!
+                var existingItem = Game.Player.Storage.Items.FirstOrDefault(storageItem => storageItem.Record.ID == item.Record.ID);
+
+                //Store item
+                var destinationSlot = Game.Player.Storage.GetFreeSlot();
+                var packet = new Packet(0x7034);
+                packet.WriteByte(0x02); //Store Item Flag
+                packet.WriteByte(item.Slot);
+                packet.WriteByte(destinationSlot);
+                packet.WriteUInt(npc.UniqueId);
+
+                packet.Lock();
+
+                var awaitResult = new AwaitCallback(null, 0xB034);
+                PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
+                awaitResult.AwaitResponse();
+
+                if (item.Record.MaxStack <= 1 || existingItem == null)
+                    continue;
+
+                //Merge with existing item.
+                var mergeAmount = existingItem.Amount + item.Amount <= existingItem.Record.MaxStack
+                    ? item.Amount
+                    : existingItem.Record.MaxStack - existingItem.Amount;
+
+                var mergePacket = new Packet(0x7034);
+                mergePacket.WriteByte(0x01); //Store Item Flag
+                mergePacket.WriteByte(destinationSlot);
+                mergePacket.WriteByte(existingItem.Slot);
+                mergePacket.WriteUShort(mergeAmount);
+                mergePacket.WriteUInt(npc.UniqueId);
+
+                mergePacket.Lock();
+
+                awaitResult = new AwaitCallback(null, 0xB034);
+                PacketManager.SendPacket(mergePacket, PacketDestination.Server, awaitResult);
+                awaitResult.AwaitResponse();
+            }
+
+            CloseShop();
+        }
+
+        /// <summary>
+        /// Closes the shop.
+        /// </summary>
+        private static void CloseShop()
+        {
+            Game.Player.DeselectEntity();
+        }
+
+        /// <summary>
+        /// Opens the storage.
+        /// </summary>
+        private static void OpenStorage(uint uniqueId)
+        {
+            if (Game.Player.Storage != null) return;
+
+            var packet = new Packet(0x703C);
+            packet.WriteInt(uniqueId);
+            packet.WriteByte(0);
+            packet.Lock();
+
+            var awaitResult = new AwaitCallback(null, 0x3049);
+            PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
+            awaitResult.AwaitResponse();
+
+            packet = new Packet(0x7046);
+            packet.WriteUInt(uniqueId);
+            packet.WriteUInt(0x04);
+            packet.Lock();
+
+            awaitResult = new AwaitCallback(null, 0xB046);
+
+            PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
+            awaitResult.AwaitResponse();
+        }
+
+        /// <summary>
+        /// Opens the shop.
+        /// </summary>
+        /// <param name="npcCodeName">Name of the NPC code.</param>
+        public static void SelectNPC(string npcCodeName)
+        {
+            var npc = Game.Spawns.GetNpc(npcCodeName);
+            if (npc == null)
+            {
+                Log.Debug("Cannot access the NPC [" + npcCodeName + "] because it does not exist nearby.");
+                return;
+            }
+
+            Game.Player.SelectEntity(npc.Bionic.UniqueId);
+        }
+
+        /// <summary>
+        /// Stops this instance.
+        /// </summary>
+        public static void Stop()
+        {
+            Running = false;
+            Finished = true;
+        }
+    }
+}

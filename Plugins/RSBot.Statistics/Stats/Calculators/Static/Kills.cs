@@ -1,0 +1,51 @@
+﻿using RSBot.Core;
+using RSBot.Core.Event;
+
+namespace RSBot.Statistics.Stats.Calculators.Static
+{
+    internal class Kills : IStatisticCalculator
+    {
+        /// <summary>
+        /// The initial value
+        /// </summary>
+        private int _lastTickValue = 0;
+
+        /// <inheritdoc />
+        public string Name => "Kills";
+
+        /// <inheritdoc />
+        public string Label => "Kills";
+
+        /// <inheritdoc />
+        public StatisticsGroup Group => StatisticsGroup.Enemy;
+
+        /// <inheritdoc />
+        public string ValueFormat => "{0}";
+
+        /// <inheritdoc />
+        public UpdateType UpdateType => UpdateType.Static;
+
+        /// <inheritdoc />
+        public double GetValue()
+        {
+            return !Game.Ready ? 0 : _lastTickValue;
+        }
+
+        /// <inheritdoc />
+        public void Reset()
+        {
+            _lastTickValue = 0;
+        }
+
+        /// <inheritdoc />
+        public void Initialize()
+        {
+            EventManager.SubscribeEvent("OnKillSelectedEnemy", OnKillEnemy);
+        }
+
+        private void OnKillEnemy()
+        {
+            _lastTickValue++;
+        }
+    }
+}

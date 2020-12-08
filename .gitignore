@@ -1,0 +1,16 @@
+.vs
+
+Build/*
+
+*bin
+*obj
+*.pdb
+*.user
+*.ipdb
+*.iobj
+*.exp
+*.lib
+*.log
+*.tlog
+Roadshark.Loader.Library/Release/**
+Roadshark.Loader/Release/**

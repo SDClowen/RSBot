@@ -1,0 +1,104 @@
+﻿using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Network;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace RSBot.Core.Objects.Spawn
+{
+    public class SpawnedPortal
+    {
+        /// <summary>
+        /// The UniqueId
+        /// </summary>
+        public uint UniqueId;
+
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        /// <value>
+        /// The identifier.
+        /// </value>
+        public uint Id;
+
+        /// <summary>
+        /// Gets the record.
+        /// </summary>
+        /// <value>
+        /// The record.
+        /// </value>
+        public RefObjStruct Record => Game.ReferenceManager.GetRefStruct(Id);
+
+        /// <summary>
+        /// Gets or sets the name of the owner.
+        /// </summary>
+        /// <value>
+        /// The name of the owner.
+        /// </value>
+        public string OwnerName;
+
+        /// <summary>
+        /// Gets or sets the owner unique identifier.
+        /// </summary>
+        /// <value>
+        /// The owner unique identifier.
+        /// </value>
+        public uint OwnerUniqueId;
+
+        /// <summary>
+        /// The position
+        /// </summary>
+        public Position Position;
+
+        /// <summary>
+        /// Froms the packet.
+        /// </summary>
+        /// <param name="packet">The packet.</param>
+        /// <param name="characterId">The character identifier.</param>
+        /// <returns></returns>
+        internal static SpawnedPortal FromPacket(Packet packet, uint characterId)
+        {
+            var result = new SpawnedPortal
+            {
+                Id = characterId,
+                UniqueId = packet.ReadUInt(),
+                Position = Position.FromPacket(packet)
+            };
+
+            packet.ReadByte(); //unkByte0
+            var unkByte1 = packet.ReadByte();
+            packet.ReadByte(); //unkByte2
+            var unkByte3 = packet.ReadByte();
+
+            if (unkByte3 == 1)
+            {
+                //Regular portal
+                packet.ReadUInt(); //unkUINT0
+                packet.ReadUInt(); //unkUINT1
+            }
+            else if (unkByte3 == 6)
+            {
+                //Dimension hole
+                result.OwnerName = packet.ReadString();
+                result.OwnerUniqueId = packet.ReadUInt();
+            }
+
+            if (unkByte1 == 1)
+            {
+                packet.ReadUInt(); //unkUInt3
+                packet.ReadByte(); //unkByte5
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Gets the links.
+        /// </summary>
+        /// <returns></returns>
+        public List<RefTeleportLink> GetLinks()
+        {
+            var teleporteBuilding = Game.ReferenceManager.StructData.FirstOrDefault(tb => tb.Value.ID == Id);
+            return Game.ReferenceManager.TeleportData.FirstOrDefault(t => t.AssocRefObjId == teleporteBuilding.Value.ID).GetLinks();
+        }
+    }
+}

@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{72B9770E-8DDF-4D83-9B9A-8292FA989C47}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RSBot.Protection</RootNamespace>
+    <AssemblyName>Protection</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Build\Plugins\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Bootstrap.cs" />
+    <Compile Include="Components\Pet\AutoSummonAttackPet.cs" />
+    <Compile Include="Components\Pet\HungerRecoveryHandler.cs" />
+    <Compile Include="Components\Pet\PetBadStatusHandler.cs" />
+    <Compile Include="Components\Pet\ReviveAttackPetHandler.cs" />
+    <Compile Include="Components\Pet\VehicleHealthRecoveryHandler.cs" />
+    <Compile Include="Components\Pet\AttackPetHealthRecoveryHandler.cs" />
+    <Compile Include="Components\Player\BadStateSkillHandler.cs" />
+    <Compile Include="Components\Player\SkillManaHandler.cs" />
+    <Compile Include="Components\Player\SkillHealthHandler.cs" />
+    <Compile Include="Components\Player\UniversalPillHandler.cs" />
+    <Compile Include="Components\Player\VigorManaRecoveryHandler.cs" />
+    <Compile Include="Components\Player\ManaRecoveryHandler.cs" />
+    <Compile Include="Components\Player\HealthRecoveryHandler.cs" />
+    <Compile Include="Components\Player\VigorHealthRecoveryHandler.cs" />
+    <Compile Include="Components\Town\AmmunitionHandler.cs" />
+    <Compile Include="Components\Town\DeadHandler.cs" />
+    <Compile Include="Components\Town\DurabilityLowHandler.cs" />
+    <Compile Include="Components\Town\InventoryFullHandler.cs" />
+    <Compile Include="Components\Town\LevelUpHandler.cs" />
+    <Compile Include="Components\Town\NoHealthPotionsHandler.cs" />
+    <Compile Include="Components\Town\NoManaPotionsHandler.cs" />
+    <Compile Include="Components\Town\PetInventoryFullHandler.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Main.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\View.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Library\RSBot.Core\RSBot.Core.csproj">
+      <Project>{84323c14-eb9f-44d9-8980-89c9f82db4ee}</Project>
+      <Name>RSBot.Core</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
