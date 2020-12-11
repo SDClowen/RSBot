@@ -32,7 +32,7 @@ namespace RSBot.General.Views
                 Servername = txtServername.Text
             };
 
-            LoadList();
+            listAccounts.Items[listAccounts.SelectedIndex] = txtUsername.Text;
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace RSBot.General.Views
                 Servername = txtServername.Text
             });
 
-            LoadList();
+            listAccounts.Items.Add(txtUsername.Text);
         }
     }
 }
