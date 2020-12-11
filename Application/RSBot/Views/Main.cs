@@ -508,7 +508,7 @@ namespace RSBot.Views
             foreach (MenuItem item in menuPlugins.MenuItems)
                 item.Enabled = true;
 
-            Text = $@"RSBot Bot - {Game.Player.Name}";
+            Text = $@"RSBot - {Game.Player.Name}";
 
             if (Game.Clientless)
                 Text += " [Clientless]";

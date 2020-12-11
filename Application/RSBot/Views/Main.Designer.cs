@@ -461,7 +461,7 @@ namespace RSBot.Views
             this.MaximumSize = new System.Drawing.Size(1048, 724);
             this.Menu = this.menuMain;
             this.Name = "Main";
-            this.Text = "RSBot Bot";
+            this.Text = "RSBot";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.Main_Load);
             this.Resize += new System.EventHandler(this.Main_Resize);
