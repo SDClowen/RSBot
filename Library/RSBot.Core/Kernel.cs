@@ -12,8 +12,6 @@ namespace RSBot.Core
 {
     public static class Kernel
     {
-        #region Fields
-
         /// <summary>
         /// The client process identifier
         /// </summary>
@@ -23,8 +21,6 @@ namespace RSBot.Core
         /// The tick timer
         /// </summary>
         private static Timer _tickTimer;
-
-        #endregion Fields
 
         /// <summary>
         /// Gets or sets the botbase manager.
