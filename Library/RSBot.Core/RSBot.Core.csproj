@@ -59,6 +59,8 @@
     <Compile Include="Components\Collision\CollisionLoader.cs" />
     <Compile Include="Components\Collision\Line.cs" />
     <Compile Include="Components\Collision\LineIntersection.cs" />
+    <Compile Include="Config\PlayerConfig.cs" />
+    <Compile Include="Config\GlobalConfig.cs" />
     <Compile Include="Extensions\NativeExtensions.cs" />
     <Compile Include="Network\Handler\Agent\Entity\EntityUpdateStatusFlag.cs" />
     <Compile Include="Network\Handler\Agent\Exchange\ExchangeApprovedResponse.cs" />
@@ -135,6 +137,7 @@
     <Compile Include="Objects\ScrollState.cs" />
     <Compile Include="Objects\TeleportType.cs" />
     <Compile Include="Objects\WeaponType.cs" />
+    <Compile Include="Config\Config.cs" />
     <Compile Include="Plugins\BotbaseInfo.cs" />
     <Compile Include="Plugins\PluginInfo.cs" />
     <Compile Include="Extensions\MonsterRarityExtensions.cs" />
@@ -163,8 +166,8 @@
     <Compile Include="Objects\StoreType.cs" />
     <Compile Include="Objects\Teleportation.cs" />
     <Compile Include="Objects\TypeIdFilter.cs" />
-    <Compile Include="PlayerConfig.cs" />
-    <Compile Include="GlobalConfig.cs" />
+    <Compile Include="Config\PlayerConfig2.cs" />
+    <Compile Include="Config\GlobalConfig2.cs" />
     <Compile Include="Event\EventManager.cs" />
     <Compile Include="Extensions\BinaryReaderExtensions.cs" />
     <Compile Include="Extensions\BinaryWriterExtensions.cs" />
