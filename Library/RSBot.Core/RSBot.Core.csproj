@@ -166,6 +166,8 @@
     <Compile Include="Objects\StoreType.cs" />
     <Compile Include="Objects\Teleportation.cs" />
     <Compile Include="Objects\TypeIdFilter.cs" />
+    <Compile Include="Config\PlayerConfig2.cs" />
+    <Compile Include="Config\GlobalConfig2.cs" />
     <Compile Include="Event\EventManager.cs" />
     <Compile Include="Extensions\BinaryReaderExtensions.cs" />
     <Compile Include="Extensions\BinaryWriterExtensions.cs" />
