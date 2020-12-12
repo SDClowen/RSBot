@@ -26,12 +26,6 @@ namespace RSBot.Shopping.Views
         {
             InitializeComponent();
             SubscribeEvents();
-
-            checkEnable.Checked = PlayerConfig.Get("RSBot.Shopping.Enabled", true);
-            checkRepairGear.Checked = PlayerConfig.Get("RSBot.Shopping.RepairGear", true);
-
-            ShoppingManager.Enabled = checkEnable.Checked;
-            ShoppingManager.RepairGear = checkRepairGear.Checked;
         }
 
         /// <summary>
@@ -616,6 +610,9 @@ namespace RSBot.Shopping.Views
             checkDontPickupInBerzerk.Checked = PlayerConfig.Get("RSBot.Items.Pickup.DontPickupInBerzerk", true);
             cbJustpickmyitems.Checked = PlayerConfig.Get("RSBot.Items.Pickup.JustPickMyItems", true);
             cbDontPickupWhileBotting.Checked = PlayerConfig.Get<bool>("RSBot.Items.Pickup.DontPickupWhileBotting");
+
+            ShoppingManager.Enabled = checkEnable.Checked;
+            ShoppingManager.RepairGear = checkRepairGear.Checked;
             ShoppingManager.SellPetItems = checkSellItemsFromPet.Checked;
 
             LoadShoppingList();
