@@ -164,6 +164,9 @@ namespace RSBot.Core.Network.Handler.Agent.Character
 
             EventManager.FireEvent("OnLoadCharacter");
             EventManager.FireEvent("OnUpdateHPMP");
+            
+            Kernel.ChangeClientProcessTitle($"{character.Name} - RSBot");
+
             if (!Core.Game.Clientless) return;
 
             var response = new Packet(0x3012);

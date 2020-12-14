@@ -11,5 +11,8 @@ namespace RSBot.Core.Extensions
 
         [DllImport("User32")]
         public static extern int ShowWindow(IntPtr hwnd, int nCmdShow);
+
+        [DllImport("user32.dll")]
+        public static extern int SetWindowText(IntPtr hWnd, string text);
     }
 }

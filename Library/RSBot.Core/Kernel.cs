@@ -1,4 +1,5 @@
 ﻿using RSBot.Core.Event;
+using RSBot.Core.Extensions;
 using RSBot.Core.Network;
 using RSBot.Core.Plugins;
 using System;
@@ -72,7 +73,7 @@ namespace RSBot.Core
                 if (ClientProcess == null || _clientProcessId == 0) return;
 
                 EventManager.FireEvent("OnStartClient");
-                Task.Run((Action)ObserveClientProcess);
+                Task.Run(ObserveClientProcess);
             }
         }
 
@@ -103,6 +104,18 @@ namespace RSBot.Core
             _tickTimer = new Timer(500) { AutoReset = true };
             _tickTimer.Elapsed += TickTimer_Elapsed;
             _tickTimer.Start();
+        }
+
+        /// <summary>
+        /// Change client process title
+        /// </summary>
+        /// <param name="title">The new title</param>
+        public static void ChangeClientProcessTitle(string title)
+        {
+            if (ClientProcess == null)
+                return;
+
+            NativeExtensions.SetWindowText(ClientProcess.MainWindowHandle, title);
         }
 
         /// <summary>
