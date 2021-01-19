@@ -10,7 +10,6 @@ Build/*
 *.iobj
 *.exp
 *.lib
-*.log
 *.tlog
-Roadshark.Loader.Library/Release/**
-Roadshark.Loader/Release/**
+*.log
+!RSBot.Log
