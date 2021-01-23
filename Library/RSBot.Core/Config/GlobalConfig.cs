@@ -69,7 +69,10 @@ namespace RSBot.Core
         /// </summary>
         /// <param name="file">The file.</param>
         public static void Save()
-        { 
+        {
+            if (_config == null)
+                return;
+
             _config.Save();
 
             Log.Notify("[Global] have been saved!");
