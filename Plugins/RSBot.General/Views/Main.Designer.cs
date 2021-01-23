@@ -55,8 +55,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.checkStayConnected = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.checkBoxBotTrayMinimized = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.checkBoxBotTrayMinimized = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -364,7 +364,7 @@
             // checkStayConnected
             // 
             this.checkStayConnected.AutoSize = true;
-            this.checkStayConnected.Location = new System.Drawing.Point(20, 21);
+            this.checkStayConnected.Location = new System.Drawing.Point(20, 23);
             this.checkStayConnected.Name = "checkStayConnected";
             this.checkStayConnected.Size = new System.Drawing.Size(227, 17);
             this.checkStayConnected.TabIndex = 17;
@@ -383,16 +383,6 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Bot Settings";
             // 
-            // checkBoxBotTrayMinimized
-            // 
-            this.checkBoxBotTrayMinimized.AutoSize = true;
-            this.checkBoxBotTrayMinimized.Location = new System.Drawing.Point(20, 23);
-            this.checkBoxBotTrayMinimized.Name = "checkBoxBotTrayMinimized";
-            this.checkBoxBotTrayMinimized.Size = new System.Drawing.Size(215, 17);
-            this.checkBoxBotTrayMinimized.TabIndex = 0;
-            this.checkBoxBotTrayMinimized.Text = "Move bot to system tray when minimized";
-            this.checkBoxBotTrayMinimized.UseVisualStyleBackColor = true;
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -403,6 +393,17 @@
             this.label8.TabIndex = 22;
             this.label8.Text = "If activated, when the bot is minimized, \r\nthe bot will automatically switch to t" +
     "ray mode \r\nand continue to run there.";
+            // 
+            // checkBoxBotTrayMinimized
+            // 
+            this.checkBoxBotTrayMinimized.AutoSize = true;
+            this.checkBoxBotTrayMinimized.Location = new System.Drawing.Point(20, 23);
+            this.checkBoxBotTrayMinimized.Name = "checkBoxBotTrayMinimized";
+            this.checkBoxBotTrayMinimized.Size = new System.Drawing.Size(215, 17);
+            this.checkBoxBotTrayMinimized.TabIndex = 0;
+            this.checkBoxBotTrayMinimized.Text = "Move bot to system tray when minimized";
+            this.checkBoxBotTrayMinimized.UseVisualStyleBackColor = true;
+            this.checkBoxBotTrayMinimized.CheckedChanged += new System.EventHandler(this.checkBoxBotTrayMinimized_CheckedChanged);
             // 
             // Main
             // 

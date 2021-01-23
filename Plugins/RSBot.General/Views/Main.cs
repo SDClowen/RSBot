@@ -45,6 +45,7 @@ namespace RSBot.General.Views
             checkStartBot.Checked = GlobalConfig.Get<bool>("RSBot.General.StartBot");
             checkUseReturnScroll.Checked = GlobalConfig.Get<bool>("RSBot.General.UseReturnScroll");
             checkStayConnected.Checked = GlobalConfig.Get<bool>("RSBot.General.StayConnected");
+            checkBoxBotTrayMinimized.Checked = GlobalConfig.Get<bool>("RSBot.General.TrayWhenMinimize");
 
             txtStaticCaptcha.Text = GlobalConfig.Get<string>("RSBot.General.StaticCaptcha");
 
@@ -419,6 +420,14 @@ namespace RSBot.General.Views
         private void checkStayConnected_CheckedChanged(object sender, EventArgs e)
         {
             GlobalConfig.Set("RSBot.General.StayConnected", checkStayConnected.Checked);
+        }
+
+        /// <summary>
+        /// Handles the CheckedChanged event of the checkBoxBotTrayMinimized control
+        /// </summary>
+        private void checkBoxBotTrayMinimized_CheckedChanged(object sender, EventArgs e)
+        {
+            GlobalConfig.Set("RSBot.General.TrayWhenMinimize", checkBoxBotTrayMinimized.Checked);
         }
 
         private void btnClientHideShow_Click(object sender, EventArgs e)

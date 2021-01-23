@@ -514,13 +514,13 @@ namespace RSBot.Views
                 Text += " [Clientless]";
         }
 
-        private void notifyIcon1_Click(object sender, EventArgs e)
+        private void notifyIcon_Click(object sender, EventArgs e)
         {
             if (WindowState == FormWindowState.Normal)
                 return;
 
-            notifyIcon.Visible = true;
-            notifyIcon.ShowBalloonTip(1000, "RSBot", "RSBot visible mode", ToolTipIcon.Info);
+            /*notifyIcon.Visible = true;
+            notifyIcon.ShowBalloonTip(1000, "RSBot", "RSBot visible mode", ToolTipIcon.Info);*/
 
             Show();
             WindowState = FormWindowState.Normal;
@@ -534,6 +534,9 @@ namespace RSBot.Views
         private void Main_Resize(object sender, EventArgs e)
         {
             if (WindowState == FormWindowState.Normal)
+                return;
+
+            if (!GlobalConfig.Get<bool>("RSBot.General.TrayWhenMinimize"))
                 return;
 
             notifyIcon.Visible = true;

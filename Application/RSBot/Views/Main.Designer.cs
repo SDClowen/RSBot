@@ -425,12 +425,12 @@ namespace RSBot.Views
             // notifyIcon
             // 
             this.notifyIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            this.notifyIcon.BalloonTipText = "RSBot now running hide mode";
+            this.notifyIcon.BalloonTipText = "RSBot is currently running in the system tray.";
             this.notifyIcon.BalloonTipTitle = "RSBot";
             this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
             this.notifyIcon.Text = "RSBot";
             this.notifyIcon.Visible = true;
-            this.notifyIcon.Click += new System.EventHandler(this.notifyIcon1_Click);
+            this.notifyIcon.Click += new System.EventHandler(this.notifyIcon_Click);
             // 
             // topCharacter
             // 
