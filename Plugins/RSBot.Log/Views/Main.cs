@@ -55,7 +55,7 @@ namespace RSBot.Log.Views
             if (!checkEnabled.Checked) 
                 return;
 
-            if (!_debug && level == LogLevel.Debug && !checkDebug.Checked) 
+            if (level == LogLevel.Debug && !checkDebug.Checked) 
                 return;
 
             if (level == LogLevel.Error && !checkError.Checked) 
