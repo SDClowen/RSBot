@@ -133,6 +133,29 @@ namespace RSBot.Core.Objects
         /// Gets the active buff by skill identifier.
         /// </summary>
         /// <returns></returns>
+        public bool HasActiveBuff(SkillInfo skill, out BuffInfo buff)
+        {
+            /*
+             * TODO:
+             * This is not a definitive solution.
+             * This will check if there is the same type of buff until you find a better way.
+             * The purpose here is to check the ReqLearn_Skill1 or groupId chain linked to each other. 
+             * This way, we could check if any buf of the same type was working.
+             * basicGroup = SKILL_CH_FIRE_GONGUP_A => SKILL_CH_FIRE_GONGUP
+             * basicGroup = SKILL_CH_FIRE_GONGUP_B => SKILL_CH_FIRE_GONGUP
+             * basicGroup = SKILL_CH_FIRE_GONGUP_C => SKILL_CH_FIRE_GONGUP
+             * basicGroup = SKILL_CH_FIRE_GONGUP_D => SKILL_CH_FIRE_GONGUP
+             */
+            var groupBase = skill.Record.Basic_Group.Remove(skill.Record.Basic_Group.Length - 2, 2);
+            buff = ActiveBuffs.Find(p => p.Record.Basic_Group.Remove(p.Record.Basic_Group.Length - 2, 2) == groupBase);
+
+            return buff != null;
+        }
+
+        /// <summary>
+        /// Gets the active buff by skill identifier.
+        /// </summary>
+        /// <returns></returns>
         public BuffInfo GetActiveBuffBySkillId(uint skillId)
         {
             return ActiveBuffs.FirstOrDefault(b => b.Id == skillId);

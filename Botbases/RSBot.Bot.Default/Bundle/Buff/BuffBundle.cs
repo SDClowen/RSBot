@@ -14,7 +14,7 @@ namespace RSBot.Bot.Default.Bundle.Buff
 
             //Imbue handling
             if (SkillManager.ImbueSkill != null &&
-                Game.Player.State.GetActiveBuffBySkillId(SkillManager.ImbueSkill.Id) == null &&
+                !Game.Player.State.HasActiveBuff(SkillManager.ImbueSkill, out _) &&
                 !Bundles.Loop.Running && Game.SelectedEntity != null
                 && Game.SelectedEntity.Monster != null)
                 Game.Player.CastBuff(SkillManager.ImbueSkill.Id);
@@ -32,8 +32,11 @@ namespace RSBot.Bot.Default.Bundle.Buff
                 if (!playerSkill.CanBeCasted)
                     continue;
 
-                if (Game.Player.State.GetActiveBuffBySkillId(buff.Id) != null)
+                if (Game.Player.State.HasActiveBuff(buff, out var runningBuff))
+                {
+                    Log.Debug($"Another buff {runningBuff.Record.GetRealName()} of the same type is already active.");
                     continue;
+                }
 
                 Game.Player.CastBuff(buff.Id);
             }
