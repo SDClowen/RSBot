@@ -862,8 +862,7 @@ namespace RSBot.Core.Objects
             }
 
             //Case 2: No weapon is equipped and the skill does not require any
-            if (currentWeapon == null && skillInfo.Record.ReqCast_Weapon1 == WeaponType.None
-                ||
+            if (currentWeapon == null && skillInfo.Record.ReqCast_Weapon1 == WeaponType.None ||
                 currentWeapon == null && skillInfo.Record.ReqCast_Weapon2 == WeaponType.None)
             {
                 CastBuff(skillInfo);
