@@ -37,8 +37,7 @@ namespace RSBot.Core.Network.Handler.Agent.Action
                 var skill = Core.Game.Player.Skills.GetSkillInfoById(action.SkillId);
                 if (skill == null) return;
 
-                skill.StartCooldownTimer();
-                skill.StartCannotBeCastedTimer();
+                skill.UpdateTicks();
 
                 EventManager.FireEvent("OnCastSkill", action.SkillId);
 

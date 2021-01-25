@@ -41,7 +41,6 @@ namespace RSBot.Core.Network.Handler.Agent.Action
 
                 Log.Debug($"The buff [{buff.Record?.GetRealName()}] expired");
 
-                Core.Game.Player.Skills.GetSkillInfoById(buff.Id)?.StopCannotBeCastedTimer();
                 Core.Game.Player.Buffs.Remove(buff);
 
                 EventManager.FireEvent("OnRemoveBuff");

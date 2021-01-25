@@ -1,6 +1,6 @@
 ﻿using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Network;
-using System.Timers;
+using System;
 
 namespace RSBot.Core.Objects.Skill
 {
@@ -38,14 +38,19 @@ namespace RSBot.Core.Objects.Skill
         public bool IsAttack => Record.Params[1] == 6386804;
 
         /// <summary>
-        /// Gets or sets the cooldown timer.
+        /// The skill buff duration
         /// </summary>
-        private Timer _cooldownTimer;
+        private int _duration;
 
         /// <summary>
-        /// Gets or sets the  cannot be casted timer.
+        /// Skill cool down environment tick
         /// </summary>
-        private Timer _canNotBeCastedTimer;
+        private int _cooldownTick;
+        
+        /// <summary>
+        /// Skill can not be casted environment tick
+        /// </summary>
+        private int _canNotBeCastedTick;
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance has cooldown.
@@ -53,7 +58,8 @@ namespace RSBot.Core.Objects.Skill
         /// <value>
         /// <c>true</c> if this instance has cooldown; otherwise, <c>false</c>.
         /// </value>
-        public bool HasCooldown;
+        public bool HasCooldown 
+            => (Environment.TickCount - _cooldownTick) < Record.Action_ReuseDelay;
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance can be used.
@@ -61,7 +67,8 @@ namespace RSBot.Core.Objects.Skill
         /// <value>
         /// <c>true</c> if this instance can be used; otherwise, <c>false</c>.
         /// </value>
-        public bool CanNotBeCasted;
+        public bool CanNotBeCasted
+            => (Environment.TickCount - _canNotBeCastedTick) < _duration;
 
         /// <summary>
         /// Gets a value indicating whether this instance can be used.
@@ -83,14 +90,8 @@ namespace RSBot.Core.Objects.Skill
             if (Record == null) return;
             if (Record.Action_ReuseDelay <= 1 || IsPassive) return;
 
-            _cooldownTimer = new Timer(Record.Action_ReuseDelay);
-            _cooldownTimer.Elapsed += CooldownTimer_Elapsed;
-
             var duraTimeIndex = Record.Params.IndexOf(1685418593) + 1;
-            var duration = duraTimeIndex != 0 ? Record.Params[duraTimeIndex] : 20000;
-
-            _canNotBeCastedTimer = new Timer(duration);
-            _canNotBeCastedTimer.Elapsed += CanNotBeCastedTimer_Elapsed;
+            _duration = duraTimeIndex != 0 ? Record.Params[duraTimeIndex] : 20000;
         }
 
         /// <summary>
@@ -104,64 +105,14 @@ namespace RSBot.Core.Objects.Skill
         }
 
         /// <summary>
-        /// Starts the cooldown timer.
+        /// Update the cooldown tick
         /// </summary>
-        public void StartCooldownTimer()
+        public void UpdateTicks()
         {
-            if (Record.Action_ReuseDelay <= 1 || IsPassive) return;
+            _cooldownTick = Environment.TickCount;
+            _canNotBeCastedTick = Environment.TickCount;
 
-            _cooldownTimer?.Start();
-            HasCooldown = true;
-        }
-
-        /// <summary>
-        /// Stop the cooldown timer.
-        /// </summary>
-        public void StopCooldownTimer()
-            => CooldownTimer_Elapsed(null, null);
-
-        /// <summary>
-        /// Starts the cannot be casted timer.
-        /// </summary>
-        public void StartCannotBeCastedTimer()
-        {
-            if (IsAttack)
-                return;
-
-            CanNotBeCasted = true;
-
-            _canNotBeCastedTimer.Start();
-
-            Log.Debug($"Lock skill [{Record.GetRealName()}] for {_canNotBeCastedTimer.Interval / 1000} seconds.");
-        }
-
-        /// <summary>
-        /// Stop the cannot be casted timer.
-        /// </summary>
-        public void StopCannotBeCastedTimer()
-            => CanNotBeCastedTimer_Elapsed(null, null);
-
-        /// <summary>
-        /// Handles the Elapsed event of the CanNotBeCastedTimer control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="ElapsedEventArgs"/> instance containing the event data.</param>
-        private void CanNotBeCastedTimer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            CanNotBeCasted = false;
-            _canNotBeCastedTimer.Stop();
-            Log.Debug($"Skill [{Record.GetRealName()}] can be casted again.");
-        }
-
-        /// <summary>
-        /// Handles the Elapsed event of the CooldownTimer control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="ElapsedEventArgs"/> instance containing the event data.</param>
-        private void CooldownTimer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            HasCooldown = false;
-            _cooldownTimer.Stop();
+            Log.Debug($"Lock skill [{Record.GetRealName()}] for {_duration / 1000} seconds.");
         }
     }
 }
