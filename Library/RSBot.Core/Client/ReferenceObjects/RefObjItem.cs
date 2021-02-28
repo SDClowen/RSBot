@@ -34,6 +34,11 @@ namespace RSBot.Core.Client.ReferenceObjects
         /// </value>
         public int DegreeOffset => ItemClass - 3 * ((ItemClass - 1) / 3) - 1; //sro_client.sub_8BA6E0
 
+        /// <summary>
+        /// Gets the item Tid(bitmask).
+        /// </summary>
+        public int Tid => CashItem + (TypeID1 * 4) + (TypeID2 * 32) + (TypeID3 * 128) + (TypeID4 * 2048);
+
         #endregion Fields
 
         public override bool Load(ReferenceParser parser)
