@@ -503,19 +503,23 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
         {
             var sourceSlot = packet.ReadByte();
             var amount = packet.ReadUShort();
-
-            packet.ReadUInt(); //NPC Unique ID
-            var buybackSlot = (byte)(packet.ReadByte() - 1); //Buyback slot
+            var uniqueId = packet.ReadUInt();
+            var buybackSlot = packet.ReadByte();
 
             var itemAtSlot = Core.Game.Player.Inventory.GetItemAt(sourceSlot);
             if (itemAtSlot == null)
                 return;
 
-            if (ShoppingManager.BuybackList.ContainsKey(buybackSlot))
-                ShoppingManager.BuybackList[buybackSlot] = itemAtSlot;
-            else
-                ShoppingManager.BuybackList.Add(buybackSlot, itemAtSlot);
-
+            if(buybackSlot != byte.MaxValue)
+			{
+				buybackSlot -= 1;
+				
+				if (ShoppingManager.BuybackList.ContainsKey(buybackSlot))
+					ShoppingManager.BuybackList[buybackSlot] = itemAtSlot;
+				else
+					ShoppingManager.BuybackList.Add(buybackSlot, itemAtSlot);
+			}
+			
             if (amount == itemAtSlot.Amount)
             {
                 Core.Game.Player.Inventory.RemoveItemAt(sourceSlot);
