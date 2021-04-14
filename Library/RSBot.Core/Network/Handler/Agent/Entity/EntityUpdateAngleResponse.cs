@@ -25,7 +25,7 @@
         public void Invoke(Packet packet)
         {
             var uniqueId = packet.ReadUInt();
-            var angle = packet.ReadUShort();
+            var angle = packet.ReadShort();
 
             if (Core.Game.Player.UniqueId == uniqueId)
             {

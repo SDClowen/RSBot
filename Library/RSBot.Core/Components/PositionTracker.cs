@@ -67,13 +67,17 @@ namespace RSBot.Core.Components
         /// </summary>
         public double ActualSpeed => State == MotionState.Walking ? WalkSpeed : RunSpeed;
 
+        /// <summary>
+        /// Get movement timer interval
+        /// </summary>
+        public double Interval => _timer.Interval;
+
         public PositionTracker(Movement movement)
         {
             _timer = new Timer();
             _timer.Elapsed += CurrentTimer_Elapsed;
             _movement = movement;
             SetAngle(movement.Angle);
-            //_Movement.Angle = (short)(movement.Angle) * Math.PI / Int16.MaxValue;
 
             if (movement.HasDestination)
                 Move(movement.Destination);
@@ -83,8 +87,9 @@ namespace RSBot.Core.Components
         {
             _timer = new Timer();
             _timer.Elapsed += CurrentTimer_Elapsed;
-            _movement.Source = position;
+
             SetAngle(position.Angle);
+            _movement.Source = position;
         }
 
         private void CurrentTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -98,16 +103,16 @@ namespace RSBot.Core.Components
                 }
 
                 _stopwatch.Stop();
-                double? left = null;
+                double? remaining = null;
 
                 if (_movement.HasDestination)
-                    left = Math.Sqrt(Math.Pow(_movement.Destination.RXOffset - _movement.Source.RXOffset, 2) + Math.Pow(_movement.Destination.RYOffset - _movement.Source.RYOffset, 2));
+                    remaining = Math.Sqrt(Math.Pow(_movement.Destination.RXOffset - _movement.Source.RXOffset, 2) + Math.Pow(_movement.Destination.RYOffset - _movement.Source.RYOffset, 2));
 
                 var finish = false;
                 var totalChange = ActualSpeed / 1000 * _stopwatch.ElapsedMilliseconds;
-                if (left != null && totalChange > left)
+                if (remaining != null && totalChange > remaining)
                 {
-                    totalChange = left.Value;
+                    totalChange = remaining.Value;
                     finish = true;
                 }
 
@@ -161,13 +166,13 @@ namespace RSBot.Core.Components
         {
             WalkSpeed = walk;
             RunSpeed = run;
-            _timer.Interval = 1000 / ActualSpeed; // (1000 / ActualSpeed) * Math.PI;
+            _timer.Interval = 1000 / ActualSpeed;
         }
 
         public void SetSource(Position source)
         {
             _movement.Source = source;
-            SetAngle(source.Angle);
+            //SetAngle(source.Angle);
 
             if (_movement.StateType == MovementState.Moving)
                 _stopwatch.Restart();
@@ -175,9 +180,7 @@ namespace RSBot.Core.Components
 
         internal void SetAngle(double angle)
         {
-            lock (_lock)
-                //_movement.Angle = angle / 180;
-                _movement.Angle = ((short)angle) * Math.PI / short.MaxValue;
+            _movement.Angle = ((short)angle) * Math.PI / short.MaxValue;
         }
 
         public void StopMoving()
