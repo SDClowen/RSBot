@@ -40,10 +40,7 @@ namespace RSBot.Map.Views
             this.label4 = new System.Windows.Forms.Label();
             this.comboViewType = new System.Windows.Forms.ComboBox();
             this.trmInterval = new System.Windows.Forms.Timer(this.components);
-            this.label3 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.lblXSec = new System.Windows.Forms.Label();
-            this.lblYSec = new System.Windows.Forms.Label();
+            this.labelSectorInfo = new System.Windows.Forms.Label();
             this.lvMonster = new RSBot.Theme.Controls.ListView();
             this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -130,14 +127,14 @@ namespace RSBot.Map.Views
             // comboViewType
             // 
             this.comboViewType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboViewType.FormattingEnabled = true;
             this.comboViewType.Items.AddRange(new object[] {
             "Monsters",
             "Players",
             "Party",
             "NPCs",
             "COS",
-            "Portals"});
+            "Portals",
+            "All"});
             this.comboViewType.Location = new System.Drawing.Point(392, 17);
             this.comboViewType.Name = "comboViewType";
             this.comboViewType.Size = new System.Drawing.Size(180, 21);
@@ -148,45 +145,17 @@ namespace RSBot.Map.Views
             this.trmInterval.Enabled = true;
             this.trmInterval.Tick += new System.EventHandler(this.trmInterval_Tick);
             // 
-            // label3
+            // labelSectorInfo
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(32, 370);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 13);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "X-Sector:";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(32, 393);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(53, 13);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "Y-Sector:";
-            // 
-            // lblXSec
-            // 
-            this.lblXSec.AutoSize = true;
-            this.lblXSec.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblXSec.Location = new System.Drawing.Point(91, 370);
-            this.lblXSec.Name = "lblXSec";
-            this.lblXSec.Size = new System.Drawing.Size(13, 13);
-            this.lblXSec.TabIndex = 14;
-            this.lblXSec.Text = "0";
-            // 
-            // lblYSec
-            // 
-            this.lblYSec.AutoSize = true;
-            this.lblYSec.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblYSec.Location = new System.Drawing.Point(91, 393);
-            this.lblYSec.Name = "lblYSec";
-            this.lblYSec.Size = new System.Drawing.Size(13, 13);
-            this.lblYSec.TabIndex = 15;
-            this.lblYSec.Text = "0";
+            this.labelSectorInfo.AutoSize = true;
+            this.labelSectorInfo.BackColor = System.Drawing.Color.White;
+            this.labelSectorInfo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.labelSectorInfo.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSectorInfo.Location = new System.Drawing.Point(240, 60);
+            this.labelSectorInfo.Name = "labelSectorInfo";
+            this.labelSectorInfo.Size = new System.Drawing.Size(50, 15);
+            this.labelSectorInfo.TabIndex = 14;
+            this.labelSectorInfo.Text = "000x000";
             // 
             // lvMonster
             // 
@@ -199,7 +168,7 @@ namespace RSBot.Map.Views
             this.lvMonster.HideSelection = false;
             this.lvMonster.Location = new System.Drawing.Point(347, 46);
             this.lvMonster.Name = "lvMonster";
-            this.lvMonster.Size = new System.Drawing.Size(388, 389);
+            this.lvMonster.Size = new System.Drawing.Size(388, 394);
             this.lvMonster.TabIndex = 8;
             this.lvMonster.UseCompatibleStateImageBehavior = false;
             this.lvMonster.View = System.Windows.Forms.View.Details;
@@ -280,10 +249,7 @@ namespace RSBot.Map.Views
             this.Controls.Add(this.buttonZoomOut);
             this.Controls.Add(this.buttonZoomReset);
             this.Controls.Add(this.buttonZoomIn);
-            this.Controls.Add(this.lblYSec);
-            this.Controls.Add(this.lblXSec);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.labelSectorInfo);
             this.Controls.Add(this.comboViewType);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.lvMonster);
@@ -317,10 +283,7 @@ namespace RSBot.Map.Views
         private System.Windows.Forms.ComboBox comboViewType;
         private System.Windows.Forms.ColumnHeader colPosition;
         private System.Windows.Forms.Timer trmInterval;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label lblXSec;
-        private System.Windows.Forms.Label lblYSec;
+        private System.Windows.Forms.Label labelSectorInfo;
         private Theme.Material.Button buttonZoomIn;
         private Theme.Material.Button buttonZoomReset;
         private Theme.Material.Button buttonZoomOut;

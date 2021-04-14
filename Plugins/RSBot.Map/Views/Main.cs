@@ -51,11 +51,6 @@ namespace RSBot.Map.Views
         private Image[] _mapEntityImages;
 
         /// <summary>
-        /// Position update timer
-        /// </summary>
-        private Timer _posTimer;
-
-        /// <summary>
         /// The Zoom identifier
         /// </summary>
         private float _scale = SectorSize / 192.0f;
@@ -69,11 +64,14 @@ namespace RSBot.Map.Views
 
             _cachedImages = _cachedImages ?? new Dictionary<string, Image>();
 
-            _posTimer = new Timer();
-            _posTimer.Tick += _posClock_Tick;
-            _posTimer.Start();
-
             EventManager.SubscribeEvent("OnEnterGame", OnEnterGame);
+            
+            // All
+            comboViewType.SelectedIndex = 6;
+
+#if RELEASE
+            labelSectorInfo.Visible = false;
+#endif
         }
 
         #region Core Handlers
@@ -96,7 +94,7 @@ namespace RSBot.Map.Views
             }
         }
 
-        #endregion Core Handlers
+#endregion Core Handlers
 
         /// <summary>
         /// Adds the grid item.
@@ -124,7 +122,7 @@ namespace RSBot.Map.Views
             try
             {
                 var x = (mapCanvas.Width / 2f) + (position.XCoordinate - Game.Player.Tracker.Position.XCoordinate) * _scale;
-                var y = (mapCanvas.Height / 2f) + ((position.YCoordinate - Game.Player.Tracker.Position.YCoordinate) * _scale) * -1.0f;
+                var y = (mapCanvas.Height / 2f) + (position.YCoordinate - Game.Player.Tracker.Position.YCoordinate) * _scale * -1.0f;
 
                 var img = (Image)_mapEntityImages[entityIndex].Clone();
 
@@ -146,7 +144,7 @@ namespace RSBot.Map.Views
             lvMonster.BeginUpdate();
             lvMonster.Items.Clear();
 
-            if (comboViewType.SelectedIndex == 0 || comboViewType.SelectedIndex == -1)
+            if (comboViewType.SelectedIndex == 0 || comboViewType.SelectedIndex == 6)
             {
                 foreach (var entry in Game.Spawns.GetMonsters())
                 {
@@ -160,7 +158,7 @@ namespace RSBot.Map.Views
                 }
             }
 
-            if (comboViewType.SelectedIndex == 4 || comboViewType.SelectedIndex == -1)
+            if (comboViewType.SelectedIndex == 4 || comboViewType.SelectedIndex == 6)
             {
                 foreach (var entry in Game.Spawns.GetCoses())
                 {
@@ -169,7 +167,7 @@ namespace RSBot.Map.Views
                 }
             }
 
-            if (comboViewType.SelectedIndex == 2 || comboViewType.SelectedIndex == -1)
+            if (comboViewType.SelectedIndex == 2 || comboViewType.SelectedIndex == 6)
             {
                 if (Game.Party != null && Game.Party.Members != null)
                     foreach (var member in Game.Party.Members.ToArray())
@@ -180,7 +178,7 @@ namespace RSBot.Map.Views
                         }
             }
 
-            if (comboViewType.SelectedIndex == 1 || comboViewType.SelectedIndex == -1)
+            if (comboViewType.SelectedIndex == 1 || comboViewType.SelectedIndex == 6)
             {
                 foreach (var entry in Game.Spawns.GetPlayers())
                 {
@@ -189,7 +187,7 @@ namespace RSBot.Map.Views
                 }
             }
 
-            if (comboViewType.SelectedIndex == 3 || comboViewType.SelectedIndex == -1)
+            if (comboViewType.SelectedIndex == 3 || comboViewType.SelectedIndex == 6)
             {
                 foreach (var entry in Game.Spawns.GetNpcs())
                 {
@@ -199,7 +197,7 @@ namespace RSBot.Map.Views
                 }
             }
 
-            if (comboViewType.SelectedIndex == 5 || comboViewType.SelectedIndex == -1)
+            if (comboViewType.SelectedIndex == 5 || comboViewType.SelectedIndex == 6)
             {
                 foreach (var entry in Game.Spawns.GetPortals())
                 {
@@ -253,7 +251,7 @@ namespace RSBot.Map.Views
                 {
                     for (var z = 0; z < GridSize; z++)
                     {
-                        var bitmap = LoadSectorImage(((_currentXSec + x) - 1), ((_currentYSec + z) - 1));
+                        var bitmap = LoadSectorImage(_currentXSec + x - 1, _currentYSec + z - 1);
                         var pos = new Point(bitmap.Width * x, bitmap.Height * (GridSize - 1 - z));
 
                         gfx.DrawImage(bitmap, pos);
@@ -286,23 +284,14 @@ namespace RSBot.Map.Views
             return sizedBitmap;
         }
 
-        private void _posClock_Tick(object sender, EventArgs e)
-        {
-            if (Game.Player == null || Game.Player.Tracker == null) return;
-            lblX.Text = Math.Ceiling(Game.Player.Tracker.Position.XCoordinate).ToString();
-            lblY.Text = Math.Ceiling(Game.Player.Tracker.Position.YCoordinate).ToString();
-            lblXSec.Text = "0x" + Game.Player.Tracker.Position.XSector;
-            lblYSec.Text = "0x" + Game.Player.Tracker.Position.YSector;
-        }
-
         private void mapCanvas_Paint(object sender, PaintEventArgs e)
         {
             if (_currentSectorGraphic != null)
             {
                 e.Graphics.InterpolationMode = InterpolationMode.Bicubic;
-                e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
-                e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighSpeed;
-                e.Graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
+                e.Graphics.SmoothingMode = SmoothingMode.HighSpeed;
+                e.Graphics.PixelOffsetMode = PixelOffsetMode.HighSpeed;
+                e.Graphics.CompositingQuality = CompositingQuality.HighSpeed;
 
                 var pointX = mapCanvas.Width / 2f - SectorSize - Game.Player.Tracker.Position.XOffset / 10f * _scale;
                 var pointY = mapCanvas.Height / 2f - SectorSize * 2f + Game.Player.Tracker.Position.YOffset / 10f * _scale;
@@ -319,12 +308,23 @@ namespace RSBot.Map.Views
 
         private void trmInterval_Tick(object sender, EventArgs e)
         {
-            if (Game.Player == null) return;
-            if (Game.Player.Tracker == null) return;
+            if (Game.Player == null) 
+                return;
 
-            _posTimer.Interval = trmInterval.Interval = (int)Math.Truncate((1000 / Game.Player.Tracker.ActualSpeed) * Math.PI);
+            if (Game.Player.Tracker == null) 
+                return;
+
+            trmInterval.Interval = (int)Math.Truncate(1000 / Game.Player.Tracker.ActualSpeed);
 
             lblRegion.Text = Game.ReferenceManager.GetTranslation(Game.Player.Tracker.Position.RegionID.ToString());
+
+            lblX.Text = Game.Player.Tracker.Position.XCoordinate.ToString("0.00");
+            lblY.Text = Game.Player.Tracker.Position.YCoordinate.ToString("0.00");
+
+#if DEBUG
+            labelSectorInfo.Text = $"{Game.Player.Tracker.Position.XSector}x{Game.Player.Tracker.Position.YSector}";
+#endif
+
             RedrawMap();
             mapCanvas.Invalidate();
         }

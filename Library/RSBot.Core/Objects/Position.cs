@@ -90,7 +90,7 @@ namespace RSBot.Core.Objects
         /// </value>
         public float XCoordinate
         {
-            get => (int)((RXOffset - (135 * 1920)) / 10);
+            get => (RXOffset - (135 * 1920)) / 10;
             set
             {
                 XSector = XSectorFromX(value);
@@ -106,7 +106,7 @@ namespace RSBot.Core.Objects
         /// </value>
         public float YCoordinate
         {
-            get => (int)((RYOffset - (92 * 1920)) / 10);
+            get => (RYOffset - (92 * 1920)) / 10;
             set
             {
                 YSector = YSectorFromY(value);
@@ -195,7 +195,7 @@ namespace RSBot.Core.Objects
         /// </returns>
         public override string ToString()
         {
-            return $"X:{XCoordinate} Y:{YCoordinate}";
+            return $"X:{XCoordinate:0.0} Y:{YCoordinate:0.0}";
         }
 
         #endregion Helper

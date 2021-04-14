@@ -72,9 +72,11 @@ namespace RSBot.Core.Objects
             else
             {
                 result.Type = packet.ReadByte();
-                result.Destination.Angle = packet.ReadUShort();
+                result.Angle = packet.ReadShort();
             }
+
             result.HasSource = packet.ReadBool();
+
             if (result.HasSource)
             {
                 result.Source.XSector = packet.ReadByte();
@@ -92,6 +94,7 @@ namespace RSBot.Core.Objects
                     result.Source.YOffset = packet.ReadInt() / 10;
                 }
             }
+
             return result;
         }
 
@@ -129,7 +132,7 @@ namespace RSBot.Core.Objects
             else
             {
                 result.StateType = (MovementState)packet.ReadByte();
-                result.Angle = packet.ReadUShort();
+                result.Angle = packet.ReadShort();
             }
             return result;
         }
