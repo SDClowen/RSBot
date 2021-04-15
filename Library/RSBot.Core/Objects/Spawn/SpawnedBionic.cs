@@ -116,13 +116,13 @@ namespace RSBot.Core.Objects.Spawn
         /// <param name="duration">The duration.</param>
         public void StartAttackingTimer(int duration = 10000)
         {
-            Log.Debug("Attacking timer has started.");
+            //Log.Debug("Attacking timer has started.");
 
             AttackingPlayer = true;
-
+            /*
             var timer = new Timer();
             timer.AutoReset = false;
-            timer.Elapsed += Timer_Elapsed;
+            timer.Elapsed += Timer_Elapsed;*/
         }
 
         /// <summary>

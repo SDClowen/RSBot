@@ -86,12 +86,13 @@ namespace RSBot.Core.Objects.Skill
             Id = id;
             Enabled = enabled;
 
-            if (!enabled) return;
-            if (Record == null) return;
-            if (Record.Action_ReuseDelay <= 1 || IsPassive) return;
+            if (Record == null || IsPassive) 
+                return;
 
-            var duraTimeIndex = Record.Params.IndexOf(1685418593) + 1;
-            _duration = duraTimeIndex != 0 ? Record.Params[duraTimeIndex] : 20000;
+            // skill buff duration param: dura
+            var index = Record.Params.IndexOf(1685418593);
+            if (index != -1)
+                _duration = Record.Params[index + 1];
         }
 
         /// <summary>
@@ -112,7 +113,15 @@ namespace RSBot.Core.Objects.Skill
             _cooldownTick = Environment.TickCount;
             _canNotBeCastedTick = Environment.TickCount;
 
-            Log.Debug($"Lock skill [{Record.GetRealName()}] for {_duration / 1000} seconds.");
+            Log.Debug($"Lock skill [{Record.GetRealName()}] for {(_duration + Record.Action_ReuseDelay) / 1000} seconds.");
+        }
+
+        /// <summary>
+        /// Get skill info
+        /// </summary>
+        public override string ToString()
+        {
+            return $"{Record} GroupId:{Record.GroupID} Enabled:{Enabled}";
         }
     }
 }
