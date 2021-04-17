@@ -1,10 +1,19 @@
 ﻿using RSBot.Core.Objects;
+using RSBot.Core.Objects.Spawn;
 using System.Linq;
 
 namespace RSBot.Core.Components
 {
     public class PickupManager
     {
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="PickupManager"/> is running.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if running; otherwise, <c>false</c>.
+        /// </value>
+        public static bool Running { get; private set; }
+
         /// <summary>
         /// Gets or sets the pickup items.
         /// </summary>
@@ -20,14 +29,6 @@ namespace RSBot.Core.Components
         ///   <c>true</c> if [pickup gold]; otherwise, <c>false</c>.
         /// </value>
         public static bool PickupGold => PlayerConfig.Get<bool>("RSBot.Items.Pickup.Gold", true);
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="PickupManager"/> is running.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if running; otherwise, <c>false</c>.
-        /// </value>
-        public static bool Running { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether [pickup rare items].
@@ -46,6 +47,14 @@ namespace RSBot.Core.Components
         public static bool UseAbilityPet => PlayerConfig.Get<bool>("RSBot.Items.Pickup.EnableAbilityPet", true);
 
         /// <summary>
+        /// Gets or sets a value indicating whether [just pick my items].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [use ability pet]; otherwise, <c>false</c>.
+        /// </value>
+        public static bool JustPickMyItems => PlayerConfig.Get<bool>("RSBot.Items.Pickup.JustPickMyItems", true);
+
+        /// <summary>
         /// Initializes this instance.
         /// </summary>
         public static void Initialize()
@@ -56,71 +65,38 @@ namespace RSBot.Core.Components
         }
 
         /// <summary>
-        /// Runs this instance.
-        /// </summary>
-        public static void Run(uint itemUniqueId)
-        {
-            var item = Game.Spawns.GetItem(itemUniqueId);
-
-            if (item.OwnerJID != Game.Player.JID && item.HasOwner && item.OwnerJID != 0xffffffff)
-            {
-                Running = false;
-                return;
-            }
-            if (PickupGold && item.Record.TypeID2 == 3 && item.Record.TypeID3 == 5)
-            {
-                if (UseAbilityPet && Game.Player.HasActiveAbilityPet && !Game.Player.AbilityPet.Full)
-                    Game.Player.AbilityPet.Pickup(item.UniqueId);
-                else
-                    Game.Player.Pickup(item.UniqueId);
-            }
-
-            if (PickupFilter.Invoke(item.Record))
-            {
-                if (UseAbilityPet && Game.Player.HasActiveAbilityPet && !Game.Player.AbilityPet.Full)
-                    Game.Player.AbilityPet.Pickup(item.UniqueId);
-                else
-                    Game.Player.Pickup(item.UniqueId);
-            }
-
-            // ReSharper disable once InvertIf
-            if ((byte)item.Rarity >= 2 && PickupRareItems)
-            {
-                if (UseAbilityPet && Game.Player.HasActiveAbilityPet && !Game.Player.AbilityPet.Full)
-                    Game.Player.AbilityPet.Pickup(item.UniqueId);
-                else
-                    Game.Player.Pickup(item.UniqueId);
-            }
-        }
-
-        /// <summary>
         /// Runs the specified center position.
         /// </summary>
         /// <param name="centerPosition">The center position.</param>
         /// <param name="radius">The radius.</param>
         public static void Run(Position centerPosition, int radius = 50)
         {
-            Running = true;
+            // if the manager is busy,return
+            if (Running)
+                return;
 
-            foreach (var item in
-                        Game.Spawns.GetItems()
-                                .Where(i => i.OwnerJID == Game.Player.JID || i.HasOwner == false)
-                                .OrderBy(item => item.Position.DistanceTo(centerPosition))
-                                .Where(item => item.Position.DistanceTo(centerPosition) <= radius)
-                                .Take(5)
-                     )
+            Running = true;
+            var playerJid = Game.Player.JID;
+
+            bool condition(SpawnedItem e)
             {
-                //Bot stopped?
+                var tolarance = 15;
+                var isInside = e.Position.DistanceTo(centerPosition) <= radius + tolarance;
+                var selfish = JustPickMyItems && e.OwnerJID == playerJid;
+
+                return isInside && (selfish || !JustPickMyItems);
+            }
+
+            foreach (var item in Game.Spawns.GetItems().Where(i => condition(i))
+                                     .OrderBy(item => item.Position.DistanceTo(centerPosition))
+                                     .Take(5))
+            {
                 if (!Running)
                     return;
 
-                if (PlayerConfig.Get<bool>("RSBot.Items.Pickup.JustPickMyItems") && item.OwnerJID != Game.Player.JID)
-                    continue;
-
-                //Pickup gold
-                if (PickupGold && item.Record.TypeID2 == 3 && item.Record.TypeID3 == 5)
+                if (PickupGold && item.Record.IsGold)
                 {
-                    if (UseAbilityPet && Game.Player.HasActiveAbilityPet && !Game.Player.AbilityPet.Full)
+                    if (UseAbilityPet && Game.Player.HasActiveAbilityPet)
                         Game.Player.AbilityPet.Pickup(item.UniqueId);
                     else
                         Game.Player.Pickup(item.UniqueId);
@@ -139,9 +115,7 @@ namespace RSBot.Core.Components
                     continue;
                 }
 
-                //Pickup rare items
-                // ReSharper disable once InvertIf
-                if ((byte)item.Rarity > 2 && PickupRareItems)
+                if (PickupRareItems && (byte)item.Rarity >= 2)
                 {
                     if (UseAbilityPet && Game.Player.HasActiveAbilityPet && !Game.Player.AbilityPet.Full)
                         Game.Player.AbilityPet.Pickup(item.UniqueId);

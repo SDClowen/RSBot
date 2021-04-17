@@ -87,21 +87,24 @@ namespace RSBot.Core.Objects.Spawn
         /// <returns></returns>
         internal static SpawnedItem FromPacket(Packet packet, uint itemId)
         {
-            var result = new SpawnedItem
-            {
-                Id = itemId
-            };
+            var result = new SpawnedItem { Id = itemId };
 
-            if (result.Record.TypeID2 == 1)
-                //ITEM_EQUIP
-                result.OptLevel = packet.ReadByte();
-            else if (result.Record.TypeID2 == 3)
+            if (result.Record.IsWear)
             {
-                //ITEM_ETC
-                if (result.Record.TypeID3 == 5 && result.Record.TypeID4 == 0) //Gold
-                    result.Amount = packet.ReadUInt();
-                else if (result.Record.TypeID3 == 8 || result.Record.TypeID3 == 9) //Quest / Trade
-                    result.OwnerName = packet.ReadString(); //Owner name
+                result.OptLevel = packet.ReadByte();
+            }
+            else if (result.Record.IsGold)
+            {
+                result.Amount = packet.ReadUInt();
+            }
+            else if (result.Record.IsQuest || result.Record.IsTrading)
+            {
+                result.OwnerName = packet.ReadString();
+            }
+            else
+            {
+                // TODO: Write log
+                Log.Debug($"Unknown item type:{result.Record}\nThe package will still be tried to be read.");
             }
 
             result.UniqueId = packet.ReadUInt();
