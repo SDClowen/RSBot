@@ -21,12 +21,14 @@ namespace RSBot.Core.Objects.Spawn
         public SpawnedNpc Character { get; set; }
 
         /// <summary>
-        /// Gets or sets the distance to player.
+        /// Gets the distance to player.
         /// </summary>
         /// <value>
         /// The distance to player.
         /// </value>
-        public double DistanceToPlayer => (Character.Bionic == null) ? 999 : Game.Player.Tracker.Position.DistanceTo(Character.Bionic.Tracker.Position);
+        public double DistanceToPlayer =>
+            (Character.Bionic == null) ? 999 :
+            Game.Player.Tracker.Position.DistanceTo(Character.Bionic.Tracker.Position);
 
         /// <summary>
         /// Froms the packet.

@@ -73,17 +73,17 @@ namespace RSBot.Bot.Default.Bot
             //Resurrect party members if needed
             Bundles.Resurrect.Invoke();
 
-            //Check for berzerk
-            Bundles.Berzerk.Invoke();
+            //Loot items
+            Bundles.Loot.Invoke();
 
             //Select next target
             Bundles.Target.Invoke();
 
+            //Check for berzerk
+            Bundles.Berzerk.Invoke();
+
             //Cast skill against enemy
             Bundles.Attack.Invoke();
-
-            //Loot items
-            Bundles.Loot.Invoke();
 
             //Move around (maybe)
             Bundles.Movement.Invoke();

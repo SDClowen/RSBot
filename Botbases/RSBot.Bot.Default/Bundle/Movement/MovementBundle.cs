@@ -27,17 +27,23 @@ namespace RSBot.Bot.Default.Bundle.Movement
         /// <exception cref="System.NotImplementedException"></exception>
         public void Invoke()
         {
-            if (Game.SelectedEntity != null && (Game.SelectedEntity.Monster != null || Game.SelectedEntity.Player != null)) return;
-            var playerUnderAttack = Game.Spawns.GetMonsters().Where(m => m.Character.Bionic.AttackingPlayer).ToArray()?.Length > 0;
+            if (Game.SelectedEntity != null && (Game.SelectedEntity.Monster != null || Game.SelectedEntity.Player != null))
+                return;
 
-            if (playerUnderAttack) return;
+            var playerUnderAttack = Game.Spawns.GetMonsters()
+                .Find(m => m.Character.Bionic.AttackingPlayer &&
+                m.Character.Bionic.Tracker.Position.DistanceTo(Container.Bot.Area.CenterPosition) < Container.Bot.Area.Radius);
+
+            if (playerUnderAttack != null)
+                return;
 
             //Go back if the player is out of the radius
             if (Game.Player.Tracker.Position.DistanceTo(Container.Bot.Area.CenterPosition) > Container.Bot.Area.Radius &&
                 !CollisionManager.HasCollisionBetween(Game.Player.Tracker.Position, Container.Bot.Area.CenterPosition))
                 Game.Player.Move(Container.Bot.Area.CenterPosition);
 
-            if (!Config.WalkAround || Game.Player.Tracker.MovementState != MovementState.Standing) return;
+            if (!Config.WalkAround || Game.Player.Tracker.MovementState != MovementState.Standing)
+                return;
 
             var randomRadius = Container.Bot.Area.Radius;
             if (randomRadius > 50)
