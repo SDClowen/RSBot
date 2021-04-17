@@ -12,6 +12,9 @@ namespace RSBot.Theme
         private const string uxtheme = "uxtheme.dll";
         private const string dwmapi = "dwmapi.dll";
 
+        public const int LVM_FIRST = 0x1000;
+        public const int LVM_SETITEMSTATE = LVM_FIRST + 43;
+
         [DllImport(user32, SetLastError = true)]
         public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
 
@@ -38,5 +41,27 @@ namespace RSBot.Theme
 
         [DllImport(uxtheme, CharSet = CharSet.Unicode, SetLastError = true)]
         public extern static int SetWindowTheme(IntPtr hWnd, string pszSubAppName, string pszSubIdList);
+
+        [DllImport(user32, EntryPoint = "SendMessage", CharSet = CharSet.Auto)]
+        public static extern IntPtr SendMessageLVItem(IntPtr hWnd, int msg, int wParam, ref LVITEM lvi);
+
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+        public struct LVITEM
+        {
+            public int mask;
+            public int iItem;
+            public int iSubItem;
+            public int state;
+            public int stateMask;
+            [MarshalAs(UnmanagedType.LPTStr)]
+            public string pszText;
+            public int cchTextMax;
+            public int iImage;
+            public IntPtr lParam;
+            public int iIndent;
+            public int iGroupId;
+            public int cColumns;
+            public IntPtr puColumns;
+        };
     }
 }

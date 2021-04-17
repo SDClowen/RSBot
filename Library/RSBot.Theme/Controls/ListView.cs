@@ -2,6 +2,8 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using RSBot.Theme.Helpers;
+using static RSBot.Theme.NativeMethods;
 
 namespace RSBot.Theme.Controls
 {
@@ -20,8 +22,13 @@ namespace RSBot.Theme.Controls
     public class ListView
         : System.Windows.Forms.ListView
     {
-        private const int LVM_SETEXTENDEDLISTVIEWSTYLE = 4150;
         private const int LVS_EX_DOUBLEBUFFER = 0x10000;
+        private const int LVM_SETEXTENDEDLISTVIEWSTYLE = 4150;
+
+        private const short UIS_SET = 1;
+        private const short UISF_HIDEFOCUS = 0x1;
+
+        private ListViewColumnSorter LvwColumnSorter { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AeroListView"/> class.
@@ -29,7 +36,13 @@ namespace RSBot.Theme.Controls
         public ListView()
             : base()
         {
-            this.FullRowSelect = true;
+            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
+            LvwColumnSorter = new ListViewColumnSorter();
+            ListViewItemSorter = LvwColumnSorter;
+            View = View.Details;
+            FullRowSelect = true;
+
+            SetStyle(ControlStyles.EnableNotifyMessage, true);
         }
 
         /// <summary>
@@ -42,8 +55,8 @@ namespace RSBot.Theme.Controls
 
             if (Environment.OSVersion.Version.Major >= 6)
             {
-                NativeMethods.SetWindowTheme(this.Handle, "explorer", null);
-                NativeMethods.SendMessage(this.Handle, LVM_SETEXTENDEDLISTVIEWSTYLE, new IntPtr(LVS_EX_DOUBLEBUFFER), new IntPtr(LVS_EX_DOUBLEBUFFER));
+                SetWindowTheme(Handle, "explorer", null);
+                SendMessage(Handle, LVM_SETEXTENDEDLISTVIEWSTYLE, new IntPtr(LVS_EX_DOUBLEBUFFER), new IntPtr(LVS_EX_DOUBLEBUFFER));
             }
         }
 
@@ -53,6 +66,72 @@ namespace RSBot.Theme.Controls
             {
                 base.OnNotifyMessage(m);
             }
+        }
+
+        /// <summary>
+        /// Raises the <see cref="E:ColumnClick" /> event.
+        /// </summary>
+        /// <param name="e">The <see cref="ColumnClickEventArgs"/> instance containing the event data.</param>
+        protected override void OnColumnClick(ColumnClickEventArgs e)
+        {
+            base.OnColumnClick(e);
+
+            // Determine if clicked column is already the column that is being sorted.
+            if (e.Column == LvwColumnSorter.SortColumn)
+            {
+                // Reverse the current sort direction for this column.
+                LvwColumnSorter.Order = (LvwColumnSorter.Order == SortOrder.Ascending)
+                    ? SortOrder.Descending
+                    : SortOrder.Ascending;
+            }
+            else
+            {
+                // Set the column number that is to be sorted; default to ascending.
+                LvwColumnSorter.SortColumn = e.Column;
+                LvwColumnSorter.Order = SortOrder.Ascending;
+            }
+
+            // Perform the sort with these new sort options.
+            if (!VirtualMode)
+                Sort();
+        }
+
+        /// <summary>
+        /// Select all rows on the given listview
+        /// </summary>
+        /// <param name="list">The listview whose items are to be selected</param>
+        public void SelectAllItems()
+        {
+            var s = System.Diagnostics.Stopwatch.StartNew();
+            Focus();
+            SetItemState(-1, 2, 2);
+            //MessageBox.Show($"Selected in: {s.ElapsedMilliseconds} ms");
+        }
+
+        /// <summary>
+        /// Deselect all rows on the given listview
+        /// </summary>
+        /// <param name="list">The listview whose items are to be deselected</param>
+        public void DeselectAllItems()
+        {
+            SetItemState(-1, 2, 0);
+        }
+
+        /// <summary>
+        /// Set the item state on the given item
+        /// </summary>
+        /// <param name="list">The listview whose item's state is to be changed</param>
+        /// <param name="itemIndex">The index of the item to be changed</param>
+        /// <param name="mask">Which bits of the value are to be set?</param>
+        /// <param name="value">The value to be set</param>
+        public void SetItemState(int itemIndex, int mask, int value)
+        {
+            LVITEM lvItem = new LVITEM();
+            lvItem.stateMask = mask;
+            lvItem.state = value;
+            SendMessageLVItem(Handle, LVM_SETITEMSTATE, itemIndex, ref lvItem);
+
+            EnsureVisible(itemIndex);
         }
     }
 }

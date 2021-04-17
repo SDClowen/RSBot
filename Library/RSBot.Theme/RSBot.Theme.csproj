@@ -47,6 +47,7 @@
     </Compile>
     <Compile Include="Controls\ListView.cs" />
     <Compile Include="Extensions\TextBoxBase.cs" />
+    <Compile Include="Helpers\ListViewColumnSorter.cs" />
     <Compile Include="IMaterialControl.cs" />
     <Compile Include="MaterialSkinManager.cs" />
     <Compile Include="Material\Button.cs">
