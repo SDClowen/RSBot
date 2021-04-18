@@ -359,7 +359,9 @@ namespace RSBot.Skills.Views
 
             PlayerConfig.SetArray("RSBot.Skills.Attacks_" + comboMonsterType.SelectedIndex, savedSkills);
 
+            _applySkills = true;
             ApplySkills();
+            _applySkills = false;
         }
 
         /// <summary>

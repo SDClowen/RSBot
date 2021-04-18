@@ -204,6 +204,11 @@ namespace RSBot.Core.Client.ReferenceObjects
         /// </summary>
         /// <returns></returns>
         public string GetRealName() => Game.ReferenceManager.GetTranslation(UI_SkillName);
+
+        public override string ToString()
+        {
+            return $"{GetRealName()} ({Basic_Level})";
+        }
     }
 }
 
