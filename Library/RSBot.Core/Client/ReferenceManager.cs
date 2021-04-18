@@ -503,53 +503,62 @@ namespace RSBot.Core.Client
         /// <param name="gender">The gender.</param>
         /// <param name="searchPattern">The search pattern.</param>
         /// <returns></returns>
-        public List<RefObjItem> GetFilteredItems(List<TypeIdFilter> filters, byte degreeFrom = 0, byte degreeTo = 0, ObjectGender gender = ObjectGender.Neutral, string searchPattern = null)
+        public List<RefObjItem> GetFilteredItems(
+            List<TypeIdFilter> filters, 
+            byte degreeFrom = 0, 
+            byte degreeTo = 0, 
+            ObjectGender gender = ObjectGender.Neutral, 
+            bool rare = false, 
+            string searchPattern = null)
         {
             var result = new List<RefObjItem>();
 
-            foreach (var refItem in ItemData)
+            foreach (var refItem in ItemData.Values)
             {
                 foreach (var filter in filters)
                 {
-                    if (!filter.EqualsRefItem(refItem.Value)) continue;
+                    if (!filter.EqualsRefItem(refItem)) 
+                        continue;
 
-                    if (refItem.Value.Service != 1) continue;
+                    if (refItem.Service != 1) 
+                        continue;
 
                     //Gear
-                    if (refItem.Value.TypeID2 == 1)
+                    if (refItem.TypeID2 == 1)
                     {
-                        if (refItem.Value.Degree >= degreeFrom && refItem.Value.Degree <= degreeTo || degreeTo == 0)
+                        if (refItem.Degree >= degreeFrom && refItem.Degree <= degreeTo || degreeTo == 0)
                         {
-                            if (refItem.Value.ReqGender == (byte)ObjectGender.Neutral || refItem.Value.ReqGender == (byte)gender || gender == ObjectGender.Neutral)
+                            var itemGender = (ObjectGender)refItem.ReqGender;
+                            if (itemGender == gender || gender == ObjectGender.Neutral)
                             {
                                 if (!string.IsNullOrEmpty(searchPattern))
                                 {
-                                    var itemRealName = refItem.Value.GetRealName();
+                                    var itemRealName = refItem.GetRealName();
 
-                                    if (itemRealName.ToLower().Contains(searchPattern.ToLower()))
-                                        result.Add(refItem.Value);
-
-                                    continue;
+                                    if (itemRealName.IndexOf(searchPattern, StringComparison.InvariantCultureIgnoreCase) < 0)
+                                        continue;
                                 }
 
-                                result.Add(refItem.Value);
+                                if (rare && (byte)refItem.Rarity < 2)
+                                    continue;
+
+                                result.Add(refItem);
                             }
                         }
+
                         continue;
                     }
 
                     //ETC
-                    if (string.IsNullOrEmpty(searchPattern))
+                    if (!string.IsNullOrEmpty(searchPattern))
                     {
-                        var itemRealName = refItem.Value.GetRealName();
+                        var itemRealName = refItem.GetRealName();
 
-                        if (itemRealName.Contains(searchPattern))
-                            result.Add(refItem.Value);
-
-                        continue;
+                        if (itemRealName.IndexOf(searchPattern, StringComparison.InvariantCultureIgnoreCase) < 0)
+                            continue;
                     }
 
-                    result.Add(refItem.Value);
+                    result.Add(refItem);
                 }
             }
 
