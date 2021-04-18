@@ -28,7 +28,8 @@ namespace RSBot.Bot.Default.Bundle.Target
 
             //Check if the monster is still inside our range
             var distanceToCenter = monster.Character.Bionic.Tracker.Position.DistanceTo(Container.Bot.Area.CenterPosition);
-            if (distanceToCenter > Container.Bot.Area.Radius) return;
+            if (distanceToCenter > Container.Bot.Area.Radius)
+                return;
 
             //Move closer to the monster
             var distanceToPlayer = monster.Character.Bionic.Tracker.Position.DistanceTo(Game.Player.Tracker.Position);
