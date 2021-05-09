@@ -30,10 +30,11 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnNo = new Theme.Material.Button();
-            this.btnYes = new Theme.Material.Button();
+            this.btnNo = new RSBot.Theme.Material.Button();
+            this.btnYes = new RSBot.Theme.Material.Button();
             this.checkDontAskAgain = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.checkExitClient = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -43,7 +44,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(160, 26);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(266, 45);
+            this.label1.Size = new System.Drawing.Size(265, 45);
             this.label1.TabIndex = 0;
             this.label1.Text = "Are you sure that you want to exit RSBot?\r\nThis will disconnect you from the Silk" +
     "road Server!\r\n\r\n";
@@ -51,6 +52,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.checkExitClient);
             this.panel1.Controls.Add(this.btnNo);
             this.panel1.Controls.Add(this.btnYes);
             this.panel1.Controls.Add(this.checkDontAskAgain);
@@ -66,10 +68,11 @@
             this.btnNo.DialogResult = System.Windows.Forms.DialogResult.No;
             this.btnNo.Icon = null;
             this.btnNo.Location = new System.Drawing.Point(349, 14);
-            this.btnNo.MouseState = Theme.IMatMouseState.HOVER;
+            this.btnNo.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnNo.Name = "btnNo";
             this.btnNo.Primary = false;
             this.btnNo.Raised = false;
+            this.btnNo.SingleColor = System.Drawing.Color.Empty;
             this.btnNo.Size = new System.Drawing.Size(75, 23);
             this.btnNo.TabIndex = 5;
             this.btnNo.Text = "No";
@@ -82,10 +85,11 @@
             this.btnYes.DialogResult = System.Windows.Forms.DialogResult.Yes;
             this.btnYes.Icon = null;
             this.btnYes.Location = new System.Drawing.Point(268, 14);
-            this.btnYes.MouseState = Theme.IMatMouseState.HOVER;
+            this.btnYes.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnYes.Name = "btnYes";
             this.btnYes.Primary = true;
             this.btnYes.Raised = true;
+            this.btnYes.SingleColor = System.Drawing.Color.Empty;
             this.btnYes.Size = new System.Drawing.Size(75, 23);
             this.btnYes.TabIndex = 4;
             this.btnYes.Text = "Yes";
@@ -112,6 +116,17 @@
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
+            // checkExitClient
+            // 
+            this.checkExitClient.AutoSize = true;
+            this.checkExitClient.Location = new System.Drawing.Point(125, 17);
+            this.checkExitClient.Name = "checkExitClient";
+            this.checkExitClient.Size = new System.Drawing.Size(77, 19);
+            this.checkExitClient.TabIndex = 3;
+            this.checkExitClient.Text = "Exit client";
+            this.checkExitClient.UseVisualStyleBackColor = true;
+            this.checkExitClient.CheckedChanged += new System.EventHandler(this.checkExitClient_CheckedChanged);
+            // 
             // ExitDialog
             // 
             this.AcceptButton = this.btnYes;
@@ -131,6 +146,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Exit RSBot";
+            this.Load += new System.EventHandler(this.ExitDialog_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -147,5 +163,6 @@
         private Theme.Material.Button btnNo;
         private Theme.Material.Button btnYes;
         private System.Windows.Forms.CheckBox checkDontAskAgain;
+        private System.Windows.Forms.CheckBox checkExitClient;
     }
 }

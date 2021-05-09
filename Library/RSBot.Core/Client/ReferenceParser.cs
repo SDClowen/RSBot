@@ -13,6 +13,11 @@ namespace RSBot.Core.Client
             _length = _data.Length;
         }
 
+        public int GetColumnCount ()
+        {
+            return _data.Length;
+        }
+
         public bool TryParseEnum<TEnum>(int index, out TEnum result)
             where TEnum : struct
         {

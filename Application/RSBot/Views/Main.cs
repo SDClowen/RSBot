@@ -416,10 +416,15 @@ namespace RSBot.Views
                 return;
             }
 
+ 
             GlobalConfig.Save();
             PlayerConfig.Save();
 
-            Kernel.KillClient();
+            if (exitDialog.ExitClient)
+            {
+                Kernel.KillClient();
+            }
+  
 
             Environment.Exit(0);
         }

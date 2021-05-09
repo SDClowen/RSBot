@@ -170,10 +170,7 @@ namespace RSBot.Core
         /// </summary>
         public static void KillClient()
         {
-            var crashPacket = new Packet(0x300A);
-            crashPacket.Lock();
-
-            PacketManager.SendPacket(crashPacket, PacketDestination.Client);
+            ClientProcess.Kill();
         }
 
         /// <summary>

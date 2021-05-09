@@ -120,6 +120,7 @@ namespace RSBot.Core.Client
             this.LoadReferenceFile("TextZoneName.txt", this.TextData);
             this.LoadReferenceListFile("TextDataName.txt", this.TextData);
             this.LoadReferenceListFile("TextQuest.txt", this.TextData);
+            
         }
 
         private void CopyObjects<TKey, TSource>(IDictionary<TKey, TSource> source, IDictionary<TKey, RefObjCommon> destination)

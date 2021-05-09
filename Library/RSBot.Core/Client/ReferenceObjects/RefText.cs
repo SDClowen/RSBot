@@ -50,15 +50,68 @@
             if (!parser.TryParseString(1, out ID))
                 return false;
 
-            //for (int i = 0; i < LANG_COUNT; i++)
-            //    parser.TryParseString(LANG_OFFSET + i, out _data[i], "0");
-            parser.TryParseString(LANG_OFFSET + Game.ReferenceManager.LanguageTab, out Data, "0");
+
+            var languageTab = 5;
+            var maxTabs = parser.GetColumnCount();
+
+            if (languageTab > maxTabs)
+            {
+                languageTab = 2;
+            }
+
+          
+            //Try parse with the already set language tab
+            parser.TryParseString(languageTab, out Data);
+
+            while (isEmptyString(Data) && languageTab <= maxTabs)
+            { 
+                parser.TryParseString(languageTab, out Data);
+
+                languageTab++;
+            }
+
+
+            ////for (int i = 0; i < LANG_COUNT; i++) 
+            ////    parser.TryParseString(LANG_OFFSET + i, out _data[i], "0");
+            //parser.TryParseString(LANG_OFFSET + Game.ReferenceManager.LanguageTab, out Data, "MISSING TRANS");
+
+            //if (Data.Length == 0)
+            //{
+            //    parser.TryParseString(Game.ReferenceManager.LanguageTab, out Data, "MISSING TRANS");
+
+            //}
 
             //Skip huge strings? (4 mb)
             //if (Data.Length > 256 || Data.EndsWith("_DESC"))
             //    return false;
 
             return true;
+        }
+
+        private bool isEmptyString(string data)
+        {
+            if (data == null)
+            {
+                return true;
+            }
+
+            if (string.IsNullOrWhiteSpace(data))
+            {
+                return true;
+            }
+
+            if (data == "0")
+            {
+                return true;
+            }
+
+
+            if (data.StartsWith("?"))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
