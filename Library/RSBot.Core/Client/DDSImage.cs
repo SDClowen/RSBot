@@ -141,6 +141,11 @@ namespace RSBot.Core.Client
             int Width = GetWidth(ddsBytes);
             int Height = GetHeight(ddsBytes);
             int[] PixelsData = Read(ddsBytes, Colour.ARGB, 0);
+
+            if (PixelsData == null)
+            {
+                return new Bitmap(256, 256);
+            }
             var BMP = new Bitmap(Width, Height, PixelFormat.Format32bppArgb);
             var BMPData = BMP.LockBits(new Rectangle(0, 0, Width, Height), ImageLockMode.WriteOnly, BMP.PixelFormat);
             Marshal.Copy(PixelsData, 0, BMPData.Scan0, PixelsData.Length);
