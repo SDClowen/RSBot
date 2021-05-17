@@ -53,6 +53,11 @@ namespace RSBot.Core.Components
         /// <param name="regionId">The region identifier.</param>
         internal static void Update(ushort regionId)
         {
+            if (_collisionLoader == null)
+            {
+                return;
+            }
+
             var stopWatch = new Stopwatch();
             stopWatch.Start();
 
