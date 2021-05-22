@@ -1,21 +1,27 @@
 # Please take a moment to review the rules and conditions detailed below.
 
 __`1.Restriction of Access`__
+
 In this segment "Officialy Restricted" means/includes WeMade, RSBOT. No one from Officialy Restricted, associated with Officialy Restricted or any such affiliated company or anyone directed by Officialy Restricted or its related companies is permitted to enter these web sites or view any content contained within these sites at any time what so ever due to controversial reasons. 
 
 __`2. Acceptance of Terms of Service`__
+
 Each time you use or cause access to this web site or services, you agree to be bound by these Terms of Service, and as amended from time to time with or without notice to you. In addition, if you are using a particular service on or through this web site, you will be subject to any rules or guidelines applicable to those services and they shall be incorporated by reference into these Terms of Service. RSBOT reserves the right to modify these Terms of Service at any time, without notice. 
 
 __`3. Our Service`__
+
 Our web sites and services provided to you on and through our web site on an AS IS basis. You agree that the owners of this web site exclusively reserve the right and may, at any time and without notice and any liability to you, modify or discontinue this web site and its services or delete the data you provide, whether temporarily or permanently. We shall have no responsibility or liability for the timeliness, deletion, failure to store, inaccuracy, or improper delivery of any data or information. RSBOT reserves the right to interrupt the Service from time to time on a regularly scheduled basis or otherwise with or without prior notice in order to perform maintenance. You acknowledge that the Service may be interrupted for reasons beyond the control of RSBOT, and RSBOT cannot guarantee that you will be able to access the Service whenever you may wish to do so. RSBOT shall not be liable for any interruption of the Service, delay or failure to perform resulting from any causes beyond its reasonable control. 
 
 `4. Your Responsibilities and Registration Obligations`
+
 In order to use ur web sites and services, you must register first, and agree to provide truthful information when requested. 
 
 __`5. Account`__
+
 During the registration process, you will be required to select a user name and a password that are specific to the Account (collectively known as the "Password"). Your Password is to be kept confidential at all times and you are solely responsible for the security of your Password. You may not disclose your Password to anyone, or allow your Password to be used by anyone other than yourself and/or your one minor child. RSBOT is not responsible for any harm that may result to the Account (including without limitation the deletion or modification of characters in the Account) as a result of a lost or shared password. The user name you choose shall be subject to the naming guidelines contained in this Agreement. RSBOT is not responsible in the event that the Account is "hacked," or if the Account or your computer is damaged by a virus, or for any other issues with your computer or the Account. If you think that the Account has been compromised, please contact RSBOT Technical Support, either through our GM or Help Desk support system. Donations are NOT requiered to use our Service, but note that users who Donate recive gifts based on the proportion of their contribution. You agree that users who contribute deserve to receive gifts, because Donations help keep the Community alive and you agree to be part of the Community by using our Web Sites and/or Service. You hereby agree to Donate, thow RSBOT, in its sole and absolute discretion, can suspend or terminate your access to the Service and disable or delete the Account if you violate any terms form our Agreement. Also RSBOT its not responsable for Donation issues caused by either SMS Company, Paypal Company, Bank Company or Phone Network Company. RSBOT does not recognize the transfer of Accounts, and will result in the permanent banning of the Account. You may not offer any Account for sale or trade, and any such offer is a violation of this Agreement and may result in suspension or termination of the Account. There are no refunds where the Account is terminated/banned. 
 
 __`6. Your Conduct`__
+
 You agree that all information or data of any kind, whether text, software, code, music or sound, photographs or graphics, video or other materials (Content), publicly or privately provided, shall be the sole responsibility of the person providing the Content or the person whose user account is used. You agree that our web site may expose you to Content that may be objectionable or offensive. We shall not be responsible to you in any way for the Content that appears on this web site nor for any error or omission. You explicitly agree, in using this web site or any service provided, that you shall not: 
 
 
@@ -36,7 +42,9 @@ Comprised of gibberish.
 You may not use a misspelling or an alternative spelling to circumvent the name restrictions listed above, nor can you have a "first" and "last" name that, when combined, violate the above name restrictions. RSBOT may, in its sole and absolute discretion, take whatever action it deems necessary to preserve the integrity of Services. Violation of any of the terms and conditions set forth above may result in actions being taken by RSBOT, effective immediately or at a time determined by RSBOT, which may include without limitation: temporarily suspending your access to our Service, or permanently terminating your access to our Service. Without limiting the foregoing, RSBOT retains the right to decline Services to any user who violates the Agreement. 
 
 __`7. Submission of Content on this Web Site`__
+
 By providing any Content to our web site: 
+
 - You agree to grant to us a worldwide, royalty-free, perpetual, non-exclusive right and license (including any moral rights or other necessary rights) to use, display, reproduce, modify, adapt, publish, distribute, perform, promote, archive, translate, and to create derivative works and compilations, in whole or in part. Such license will apply with respect to any form, media, technology known or later developed; 
 - You warrant and represent that you have all legal, moral, and other rights that may be necessary to grant us with the license set forth in this segment; 
 - You acknowledge and agree that we shall have the right (but not obligation), in our sole discretion, to refuse to publish or to remove or block access to any Content you provide at any time and for any reason, with or without notice.
