@@ -12,4 +12,4 @@ Build/*
 *.lib
 *.tlog
 *.log
-!RSBot.Log
+*.recipe

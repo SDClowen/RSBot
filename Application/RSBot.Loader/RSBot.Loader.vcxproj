@@ -15,7 +15,7 @@
     <ProjectGuid>{42E908B9-FF28-4028-8E9F-A3D115857B44}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>RoadsharkLoader</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
