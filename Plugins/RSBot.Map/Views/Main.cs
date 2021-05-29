@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -148,6 +149,9 @@ namespace RSBot.Map.Views
             {
                 foreach (var entry in Game.Spawns.GetMonsters())
                 {
+                    if (entry.Character.Bionic.Tracker == null)
+                        continue;
+
                     AddGridItem(entry.Character.Bionic.Record.GetRealName(), entry.Rarity.Getname(),
                         entry.Character.Bionic.Record.Level, entry.Character.Bionic.Tracker.Position);
 
@@ -162,6 +166,9 @@ namespace RSBot.Map.Views
             {
                 foreach (var entry in Game.Spawns.GetCoses())
                 {
+                    if (entry.Character.Bionic.Tracker == null)
+                        continue;
+
                     AddGridItem(entry.Name, "", entry.Character.Bionic.Record.Level, entry.Character.Bionic.Tracker.Position);
                     DrawPointAt(graphics, entry.Character.Bionic.Tracker.Position, 1);
                 }
@@ -170,18 +177,25 @@ namespace RSBot.Map.Views
             if (comboViewType.SelectedIndex == 2 || comboViewType.SelectedIndex == 6)
             {
                 if (Game.Party != null && Game.Party.Members != null)
+                {
                     foreach (var member in Game.Party.Members.ToArray())
+                    {
                         if (Game.Player.Tracker.Position.DistanceTo(member.Position) < 50)
                         {
                             DrawPointAt(graphics, member.Position, 6);
                             AddGridItem(member.Name, "Party Member", member.Level, member.Position);
                         }
+                    }
+                }
             }
 
             if (comboViewType.SelectedIndex == 1 || comboViewType.SelectedIndex == 6)
             {
                 foreach (var entry in Game.Spawns.GetPlayers())
                 {
+                    if (entry.Bionic.Tracker == null)
+                        continue;
+
                     AddGridItem(entry.Name, "Player", 0, entry.Bionic.Tracker.Position);
                     DrawPointAt(graphics, entry.Bionic.Tracker.Position, 3);
                 }
@@ -191,6 +205,9 @@ namespace RSBot.Map.Views
             {
                 foreach (var entry in Game.Spawns.GetNpcs())
                 {
+                    if (entry.Bionic.Tracker == null)
+                        continue;
+
                     AddGridItem(entry.Bionic.Record.GetRealName(), entry.Bionic.UniqueId.ToString(),
                         entry.Bionic.Record.Level, entry.Bionic.Tracker.Position);
                     DrawPointAt(graphics, entry.Bionic.Tracker.Position, 2);
@@ -322,7 +339,7 @@ namespace RSBot.Map.Views
             lblY.Text = Game.Player.Tracker.Position.YCoordinate.ToString("0.00");
 
 #if DEBUG
-            labelSectorInfo.Text = $"{Game.Player.Tracker.Position.XSector}x{Game.Player.Tracker.Position.YSector}";
+            labelSectorInfo.Text = $"{Game.Player.Tracker.Position.RegionID.ToString()} ({Game.Player.Tracker.Position.XSector}x{Game.Player.Tracker.Position.YSector})";
 #endif
 
             RedrawMap();
