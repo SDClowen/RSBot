@@ -12,7 +12,6 @@ namespace RSBot.Views.Controls
         {
             CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
-
             SubscribeEvents();
         }
 
@@ -25,6 +24,7 @@ namespace RSBot.Views.Controls
             EventManager.SubscribeEvent("OnDeselectEntity", OnDeselectEntity);
             EventManager.SubscribeEvent("OnUpdateSelectedEntityHP", OnUpdateSelectedEntityHP);
             EventManager.SubscribeEvent("OnSelectedEntityKilled", OnSelectedEntityKilled);
+            EventManager.SubscribeEvent("OnAgentServerDisconnected", OnAgentServerDisconnected);
         }
 
         /// <summary>
@@ -106,6 +106,14 @@ namespace RSBot.Views.Controls
             progressHP.Position = 0;
             progressHP.Text = progressHP.Position + @"%";
             lblType.Text = "";
+        }
+
+        /// <summary>
+        /// Reset UI after character disconnect
+        /// </summary>
+        private void OnAgentServerDisconnected()
+        {
+            OnSelectedEntityKilled();
         }
     }
 }

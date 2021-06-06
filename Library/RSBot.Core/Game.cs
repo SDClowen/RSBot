@@ -143,9 +143,6 @@ namespace RSBot.Core
             Kernel.Proxy = new Proxy();
             Kernel.Proxy.Start(Port, ReferenceManager.DivisionInfo.Divisions[divisionIndex].GatewayServers[severIndex], ReferenceManager.GatewayInfo.Port);
 
-            if (!Clientless)
-                Log.Notify("Please redirect the gateway server to 127.0.0.1:" + Port);
-
             Started = true;
         }
 

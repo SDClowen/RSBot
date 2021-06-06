@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace RSBot.General.Components
 {
@@ -70,20 +71,22 @@ namespace RSBot.General.Components
             if (!Directory.Exists(Environment.CurrentDirectory + DirectoryName))
                 Directory.CreateDirectory(Environment.CurrentDirectory + DirectoryName);
 
-            var accountString = string.Empty;
+            var builder = new StringBuilder();
 
             foreach (var account in SavedAccounts)
             {
-                accountString += account.Username + "\t" + account.Password + "\t" + account.Servername + "\t";
+                builder.AppendFormat("{0}\t", account.Username);
+                builder.AppendFormat("{0}\t", account.Password);
+                builder.AppendFormat("{0}\t", account.Servername);
 
-                if (account.Characters != null) accountString = account.Characters.Aggregate(accountString, (current, character) => current + (character + ","));
+                if (account.Characters != null) 
+                    builder.Append(string.Join(",", account.Characters));
 
-                accountString += '\n';
+                builder.Append("\n");
             }
 
-            accountString = RijndaelHelper.Encrypt(accountString, Key);
-
-            File.WriteAllText(Environment.CurrentDirectory + SavePath, accountString);
+            File.WriteAllText(Environment.CurrentDirectory + SavePath,
+                 RijndaelHelper.Encrypt(builder.ToString(), Key));
         }
     }
 }

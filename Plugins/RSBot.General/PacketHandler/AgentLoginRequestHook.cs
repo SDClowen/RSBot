@@ -41,10 +41,9 @@ namespace RSBot.General.PacketHandler
 
             if (Game.Clientless) return packet;
 
-            packet = new Packet(0x6103, true);
+            packet = new Packet(Opcode, true);
             packet.WriteUInt(Kernel.Proxy.Token);
-
-            packet.WriteString(selectedAccount.Username);
+            packet.WriteString(selectedAccount.Username.ToLowerInvariant());
             packet.WriteString(selectedAccount.Password);
             packet.WriteByte(Game.ReferenceManager.DivisionInfo.Locale);
 

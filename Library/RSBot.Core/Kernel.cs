@@ -70,10 +70,12 @@ namespace RSBot.Core
 
                 ClientProcess = Process.GetProcessById(_clientProcessId);
 
-                if (ClientProcess == null || _clientProcessId == 0) return;
+                if (ClientProcess == null || _clientProcessId == 0) 
+                    return;
+
+                ClientProcess.Exited += ClientProcess_Exited;
 
                 EventManager.FireEvent("OnStartClient");
-                Task.Run(ObserveClientProcess);
             }
         }
 
@@ -84,6 +86,11 @@ namespace RSBot.Core
         /// The client process.
         /// </value>
         public static Process ClientProcess { get; internal set; }
+
+        /// <summary>
+        /// Get, has client exited <c>true</c> otherwise; <c>false</c>
+        /// </summary>
+        public static bool HasClientExited => ClientProcess == null || ClientProcessId == 0;
 
         /// <summary>
         /// Initializes this instance.
@@ -170,25 +177,20 @@ namespace RSBot.Core
         /// </summary>
         public static void KillClient()
         {
+            if (HasClientExited)
+                return;
+
             ClientProcess.Kill();
         }
 
         /// <summary>
         /// Observes the process.
         /// </summary>
-        private static void ObserveClientProcess()
+        private static void ClientProcess_Exited(object sender, EventArgs e)
         {
-            while (ClientProcess != null && ClientProcess.Id != 0)
-            {
-                if (ClientProcess.HasExited)
-                {
-                    Log.Warn("Client process exited!");
-                    EventManager.FireEvent("OnExitClient");
-                    ClientProcessId = 0;
-                }
-
-                Thread.Sleep(50);
-            }
+            Log.Warn("Client process exited!");
+            EventManager.FireEvent("OnExitClient");
+            ClientProcessId = 0;
         }
     }
 }

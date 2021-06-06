@@ -30,11 +30,11 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.checkExitClient = new System.Windows.Forms.CheckBox();
             this.btnNo = new RSBot.Theme.Material.Button();
             this.btnYes = new RSBot.Theme.Material.Button();
             this.checkDontAskAgain = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.checkExitClient = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -44,7 +44,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(160, 26);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(265, 45);
+            this.label1.Size = new System.Drawing.Size(266, 45);
             this.label1.TabIndex = 0;
             this.label1.Text = "Are you sure that you want to exit RSBot?\r\nThis will disconnect you from the Silk" +
     "road Server!\r\n\r\n";
@@ -62,6 +62,17 @@
             this.panel1.Size = new System.Drawing.Size(440, 52);
             this.panel1.TabIndex = 1;
             // 
+            // checkExitClient
+            // 
+            this.checkExitClient.AutoSize = true;
+            this.checkExitClient.Location = new System.Drawing.Point(125, 17);
+            this.checkExitClient.Name = "checkExitClient";
+            this.checkExitClient.Size = new System.Drawing.Size(76, 19);
+            this.checkExitClient.TabIndex = 3;
+            this.checkExitClient.Text = "Exit client";
+            this.checkExitClient.UseVisualStyleBackColor = true;
+            this.checkExitClient.CheckedChanged += new System.EventHandler(this.checkExitClient_CheckedChanged);
+            // 
             // btnNo
             // 
             this.btnNo.Depth = 0;
@@ -74,7 +85,7 @@
             this.btnNo.Raised = false;
             this.btnNo.SingleColor = System.Drawing.Color.Empty;
             this.btnNo.Size = new System.Drawing.Size(75, 23);
-            this.btnNo.TabIndex = 5;
+            this.btnNo.TabIndex = 1;
             this.btnNo.Text = "No";
             this.btnNo.UseVisualStyleBackColor = true;
             // 
@@ -91,7 +102,7 @@
             this.btnYes.Raised = true;
             this.btnYes.SingleColor = System.Drawing.Color.Empty;
             this.btnYes.Size = new System.Drawing.Size(75, 23);
-            this.btnYes.TabIndex = 4;
+            this.btnYes.TabIndex = 0;
             this.btnYes.Text = "Yes";
             this.btnYes.UseVisualStyleBackColor = true;
             // 
@@ -101,7 +112,7 @@
             this.checkDontAskAgain.Location = new System.Drawing.Point(12, 17);
             this.checkDontAskAgain.Name = "checkDontAskAgain";
             this.checkDontAskAgain.Size = new System.Drawing.Size(107, 19);
-            this.checkDontAskAgain.TabIndex = 3;
+            this.checkDontAskAgain.TabIndex = 2;
             this.checkDontAskAgain.Text = "Don\'t ask again";
             this.checkDontAskAgain.UseVisualStyleBackColor = true;
             this.checkDontAskAgain.CheckedChanged += new System.EventHandler(this.checkDontAskAgain_CheckedChanged);
@@ -115,17 +126,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
-            // 
-            // checkExitClient
-            // 
-            this.checkExitClient.AutoSize = true;
-            this.checkExitClient.Location = new System.Drawing.Point(125, 17);
-            this.checkExitClient.Name = "checkExitClient";
-            this.checkExitClient.Size = new System.Drawing.Size(77, 19);
-            this.checkExitClient.TabIndex = 3;
-            this.checkExitClient.Text = "Exit client";
-            this.checkExitClient.UseVisualStyleBackColor = true;
-            this.checkExitClient.CheckedChanged += new System.EventHandler(this.checkExitClient_CheckedChanged);
             // 
             // ExitDialog
             // 

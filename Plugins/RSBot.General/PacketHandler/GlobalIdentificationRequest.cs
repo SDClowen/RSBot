@@ -50,7 +50,7 @@ namespace RSBot.General.PacketHandler
 
                 var response = new Packet(0x6103, false);
                 response.WriteUInt(Kernel.Proxy.Token);
-                response.WriteString(selectedAccount.Username);
+                response.WriteString(selectedAccount.Username.ToLowerInvariant());
                 response.WriteString(selectedAccount.Password);
                 response.WriteByte(Game.ReferenceManager.DivisionInfo.Locale);
 

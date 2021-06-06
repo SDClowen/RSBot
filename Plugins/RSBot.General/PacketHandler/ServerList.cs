@@ -41,11 +41,11 @@ namespace RSBot.General.PacketHandler
 
             while (packet.ReadByte() == 1)
             {
-                var id = packet.ReadUShort(); //server identifier
+                var id = packet.ReadUShort();
                 var serverName = packet.ReadString();
                 var currentCapacity = packet.ReadUShort();
                 var maxCapacity = packet.ReadUShort();
-                var status = packet.ReadByte(); //server status
+                var status = packet.ReadBool();
 
                 Serverlist.Servers.Add(new Server
                 {
@@ -58,6 +58,7 @@ namespace RSBot.General.PacketHandler
 
                 Log.Notify($"Found server: {serverName} ({currentCapacity}/{maxCapacity})");
             }
+
             BotWindow.SetStatusText("Waiting for the user to login...");
 
             AutoLogin.DoAutoLogin();

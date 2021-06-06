@@ -1,4 +1,5 @@
 ﻿using RSBot.Core;
+using RSBot.Core.Event;
 using RSBot.Core.Network;
 
 namespace RSBot.General.PacketHandler
@@ -39,9 +40,11 @@ namespace RSBot.General.PacketHandler
                     {
                         selectedAccount =
                            Components.Accounts.SavedAccounts[GlobalConfig.Get<int>("RSBot.General.AccountIndex")];
+
                         if (selectedAccount != null)
                             selectedAccount.Characters = new string[charCount];
                     }
+
                     for (var i = 0; i < charCount; i++)
                     {
                         packet.ReadInt(); //Model
@@ -85,20 +88,24 @@ namespace RSBot.General.PacketHandler
 
                         if (selectedAccount != null)
                             selectedAccount.Characters[i] = name;
+                    
                         Log.Notify($"Player detected: {name} (lv. {level})");
                     }
+
+                    EventManager.FireEvent("OnCharacterListReceived");
 
                     if (selectedAccount == null) return;
 
                     Components.Accounts.Save();
 
-                    if (charCount == 0 || GlobalConfig.Get<int>("RSBot.General.CharacterIndex") > charCount - 1)
+                    var character = GlobalConfig.Get<string>("RSBot.General.AutoLoginCharacter");
+                    if (charCount == 0 || string.IsNullOrWhiteSpace(character))
                     {
-                        Log.Notify("No auto-login character has been found.");
+                        BotWindow.SetStatusText("Select your character manually only for this time.");
                         return;
                     }
 
-                    Components.AutoLogin.EnterGame(selectedAccount.Characters[GlobalConfig.Get<int>("RSBot.General.CharacterIndex")]);
+                    Components.AutoLogin.EnterGame(character);
                 }
                 else
                     Log.Notify("Could not correctly decode the character listing!");

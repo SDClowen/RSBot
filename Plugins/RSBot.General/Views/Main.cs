@@ -21,7 +21,7 @@ namespace RSBot.General.Views
     {
         #region Fields
 
-        private bool _clientIsShowed;
+        private bool _clientVisible;
 
         #endregion Fields
 
@@ -33,6 +33,9 @@ namespace RSBot.General.Views
             CheckForIllegalCrossThreadCalls = false;
 
             InitializeComponent();
+
+            comboCharacter.SelectedIndex = 0;
+
             SubscribeEvents();
             Components.Accounts.Load();
             LoadAccounts();
@@ -46,10 +49,10 @@ namespace RSBot.General.Views
             checkUseReturnScroll.Checked = GlobalConfig.Get<bool>("RSBot.General.UseReturnScroll");
             checkStayConnected.Checked = GlobalConfig.Get<bool>("RSBot.General.StayConnected");
             checkBoxBotTrayMinimized.Checked = GlobalConfig.Get<bool>("RSBot.General.TrayWhenMinimize");
-
             txtStaticCaptcha.Text = GlobalConfig.Get<string>("RSBot.General.StaticCaptcha");
 
-            if (File.Exists(GlobalConfig.Get<string>("RSBot.SilkroadDirectory") + "\\media.pk2")) return;
+            if (File.Exists(GlobalConfig.Get<string>("RSBot.SilkroadDirectory") + "\\media.pk2"))
+                return;
 
             txtSilkroadPath.BackColor = Color.Red;
             txtSilkroadPath.Text += @" (Not a Silkroad directory!)";
@@ -80,6 +83,31 @@ namespace RSBot.General.Views
             EventManager.SubscribeEvent("OnEnterGame", OnEnterGame);
             EventManager.SubscribeEvent("OnStartClient", OnStartClient);
             EventManager.SubscribeEvent("OnExitClient", OnExitClient);
+            EventManager.SubscribeEvent("OnCharacterListReceived", OnCharacterListReceived);
+        }
+
+        /// <summary>
+        /// Fill the combobox on the form
+        /// </summary>
+        private void FillComboboxCharacters()
+        {
+            var accountIndex = GlobalConfig.Get<int>("RSBot.General.AccountIndex");
+            var selectedAccount = Components.Accounts.SavedAccounts[accountIndex];
+
+            comboCharacter.Items.Clear();
+            comboCharacter.Items.Add("No Selected");
+            comboCharacter.SelectedIndex = 0;
+
+            if (selectedAccount?.Characters == null) 
+                return;
+
+            var selectedCharacter = GlobalConfig.Get<string>("RSBot.General.AutoLoginCharacter");
+            foreach (var character in selectedAccount.Characters)
+            {
+                var index = comboCharacter.Items.Add(character);
+                if (character == selectedCharacter)
+                    comboCharacter.SelectedIndex = index;
+            }
         }
 
         /// <summary>
@@ -87,6 +115,8 @@ namespace RSBot.General.Views
         /// </summary>
         private static void StartClientProcess()
         {
+            Game.Start();
+
             using (var processLoader = new Process())
             {
                 const string paramterFormat = "\"{0}\" ";
@@ -127,9 +157,7 @@ namespace RSBot.General.Views
         {
             btnStartClient.Enabled = false;
             btnStartClientless.Enabled = false;
-            btnClientHideShow.Enabled = true;
-            btnClientHideShow.Text = "Hide Client";
-            _clientIsShowed = true;
+            _clientVisible = true;
         }
 
         /// <summary>
@@ -137,50 +165,62 @@ namespace RSBot.General.Views
         /// </summary>
         private void OnExitClient()
         {
-            _clientIsShowed = false;
-            //Client -> Clientless
+            _clientVisible = false;
+            btnStartClient.Text = "Start Client";
+
             if (Game.Clientless)
                 return;
 
-            btnGoClientless.Enabled = false;
+            btnStartClientless.Enabled = true;
+            btnClientHideShow.Enabled = false;
 
             if (!GlobalConfig.Get<bool>("RSBot.General.StayConnected"))
             {
                 btnStartClient.Enabled = true;
-                btnGoClientless.Enabled = false;
-                btnStartClientless.Enabled = true;
-                btnClientHideShow.Enabled = false;
-
-                Game.Start();
+                Kernel.Proxy.Shutdown();
             }
             else
             {
-                Game.Clientless = true;
+                btnStartClient.Enabled = false;
+
+                if (!Kernel.Proxy.IsConnectedToAgentserver)
+                    return;
+
+                ClientlessManager.GoClientless();
+
+                btnGoClientless.Enabled = false;
                 btnStartClientless.Text = "Disconnect";
-                btnStartClientless.Enabled = true;
+
+                Log.Notify("Clientless mode has been activated.");
             }
         }
 
         /// <summary>
         /// Called when [enter game].
         /// </summary>
-        private void OnEnterGame()
+        private async void OnEnterGame()
         {
-            Task.Run(() =>
+            if (!Game.Clientless)
             {
-                //Wait for the game to be ready!
-                while (!Game.Ready)
-                    Thread.Sleep(100);
+                btnClientHideShow.Enabled = true;
+                btnClientHideShow.Text = "Hide Client";
+                btnStartClient.Enabled = true;
+                btnStartClient.Text = "Kill Client";
+                btnGoClientless.Enabled = true;
+            }
 
-                var startBot = GlobalConfig.Get<bool>("RSBot.General.StartBot");
-                var useReturnScroll = GlobalConfig.Get<bool>("RSBot.General.UseReturnScroll");
+            //Wait for the game to be ready!
+            while (!Game.Ready)
+                await Task.Delay(100);
 
-                if (useReturnScroll)
-                    Game.Player.UseReturnScroll();
+            var startBot = GlobalConfig.Get<bool>("RSBot.General.StartBot");
+            var useReturnScroll = GlobalConfig.Get<bool>("RSBot.General.UseReturnScroll");
 
-                if (startBot)
-                    Kernel.Bot.Start();
-            });
+            if (useReturnScroll)
+                Game.Player.UseReturnScroll();
+
+            if (startBot)
+                Kernel.Bot.Start();
         }
 
         /// <summary>
@@ -197,8 +237,8 @@ namespace RSBot.General.Views
         /// </summary>
         private void OnAgentServerConnected()
         {
-            if (!Game.Clientless)
-                btnGoClientless.Enabled = true;
+            //if (!Game.Clientless)
+            //    btnGoClientless.Enabled = true;
         }
 
         /// <summary>
@@ -206,6 +246,25 @@ namespace RSBot.General.Views
         /// </summary>
         private void OnAgentServerDisconnected()
         {
+            Kernel.Bot.Stop();
+
+            // Skiped: Cuz managing from ClientlessManager
+            if (Game.Clientless)
+                return;
+
+            // If user disconnected with manual from clientless, we dont need open the client automatically again.
+            if (!Kernel.Proxy.ClientConnected)
+                return;
+
+            if (GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin"))
+            {
+                Kernel.KillClient();
+                Thread.Sleep(2000);
+
+                StartClientProcess();
+                return;
+            }
+
             btnGoClientless.Enabled = false;
             btnStartClient.Enabled = true;
             btnStartClientless.Enabled = true;
@@ -217,6 +276,14 @@ namespace RSBot.General.Views
         private void OnClientConnected()
         {
             btnStartClientless.Enabled = false;
+        }
+
+        /// <summary>
+        /// Called when account character list updated
+        /// </summary>
+        private void OnCharacterListReceived()
+        {
+            FillComboboxCharacters();
         }
 
         /// <summary>
@@ -307,15 +374,7 @@ namespace RSBot.General.Views
         {
             GlobalConfig.Set("RSBot.General.AccountIndex", comboAccounts.SelectedIndex.ToString());
 
-            var selectedAccount = Components.Accounts.SavedAccounts[GlobalConfig.Get<int>("RSBot.General.AccountIndex")];
-
-            comboCharacter.Items.Clear();
-            if (selectedAccount?.Characters == null) return;
-            foreach (var character in selectedAccount.Characters.Where(name => !string.IsNullOrEmpty(name)))
-                comboCharacter.Items.Add(character);
-
-            if (comboCharacter.Items.Count > GlobalConfig.Get<int>("RSBot.General.CharacterIndex"))
-                comboCharacter.SelectedIndex = GlobalConfig.Get<int>("RSBot.General.CharacterIndex");
+            FillComboboxCharacters();
         }
 
         /// <summary>
@@ -345,7 +404,11 @@ namespace RSBot.General.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void comboCharacter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            GlobalConfig.Set("RSBot.General.CharacterIndex", comboCharacter.SelectedIndex.ToString());
+            var selectedItem = comboCharacter.SelectedItem.ToString();
+            if (selectedItem == "No Selected")
+                return;
+
+            GlobalConfig.Set("RSBot.General.AutoLoginCharacter", selectedItem);
         }
 
         /// <summary>
@@ -363,9 +426,13 @@ namespace RSBot.General.Views
                     "Clientless", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
 
             ClientlessManager.GoClientless();
+            Kernel.KillClient();
+
             btnStartClientless.Text = "Disconnect";
             btnGoClientless.Enabled = false;
             btnStartClientless.Enabled = true;
+            btnStartClient.Enabled = false;
+            btnClientHideShow.Enabled = false;
         }
 
         /// <summary>
@@ -387,6 +454,8 @@ namespace RSBot.General.Views
                 }
 
                 btnStartClient.Enabled = false;
+                btnClientHideShow.Enabled = false;
+
                 Game.Clientless = true;
                 BotWindow.SetStatusText("Starting clientless session...");
                 Game.Start();
@@ -395,10 +464,19 @@ namespace RSBot.General.Views
             }
             else
             {
-                Game.Clientless = false;
-                Game.Start();
+                var result = MessageBox.Show(
+                        "Your character will be disconnect! Are you sure about that?",
+                        "Warning!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-                btnStartClientless.Text = "Start clientless";
+                if (result == DialogResult.No)
+                    return;
+
+                Game.Clientless = false;
+
+                btnStartClientless.Enabled = false;
+                btnStartClientless.Text = "Start Clientless";
+
+                Kernel.Proxy.Shutdown();
             }
         }
 
@@ -409,6 +487,18 @@ namespace RSBot.General.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnStartClient_Click(object sender, EventArgs e)
         {
+            if(!Game.Clientless && Kernel.Proxy != null && Kernel.Proxy.IsConnectedToAgentserver)
+            {
+                var extraStr = ".\nDon't worry your character will stay online (clientless)!";
+                if (!GlobalConfig.Get<bool>("RSBot.General.StayConnected"))
+                    extraStr = " and your character will be disconnected!";
+
+                if(MessageBox.Show($"The game client will now be closed{extraStr}\n\nAre you sure about this?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                    Kernel.KillClient();
+
+                return;
+            }
+
             StartClientProcess();
         }
 
@@ -435,15 +525,15 @@ namespace RSBot.General.Views
             if (Kernel.ClientProcess == null)
                 return;
 
-            if (!_clientIsShowed)
+            if (!_clientVisible)
             {
-                _clientIsShowed = true;
+                _clientVisible = true;
                 NativeExtensions.ShowWindow(Kernel.ClientProcess.MainWindowHandle, NativeExtensions.SW_SHOW);
                 btnClientHideShow.Text = "Hide Client";
             }
             else
             {
-                _clientIsShowed = false;
+                _clientVisible = false;
                 NativeExtensions.ShowWindow(Kernel.ClientProcess.MainWindowHandle, NativeExtensions.SW_HIDE);
                 btnClientHideShow.Text = "Show Client";
             }

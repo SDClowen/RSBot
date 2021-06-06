@@ -1,6 +1,8 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Event;
+using RSBot.Theme.Controls;
 using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace RSBot.Views.Controls
@@ -28,6 +30,7 @@ namespace RSBot.Views.Controls
             EventManager.SubscribeEvent("OnAttackPetHungerUpdate", OnAttackPetHungerUpdate);
             EventManager.SubscribeEvent("OnAttackPetNameChange", OnAttackPetNameChange);
             EventManager.SubscribeEvent("OnUpdatePetHPMP", OnPetHealthUpdate);
+            EventManager.SubscribeEvent("OnAgentServerDisconnected", OnAgentServerDisconnected);
         }
 
         /// <summary>
@@ -109,6 +112,19 @@ namespace RSBot.Views.Controls
             if (Game.Player.AttackPet == null) return;
 
             OnPetLevelUp();
+        }
+
+        /// <summary>
+        /// Reset UI after character disconnect
+        /// </summary>
+        private void OnAgentServerDisconnected()
+        {
+            lblPetName.Text = "No pet found";
+            foreach (XpProgressBar item in Controls.OfType<XpProgressBar>())
+            {
+                item.Position = 0;
+                item.Text = "0%";
+            }
         }
     }
 }

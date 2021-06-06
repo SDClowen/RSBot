@@ -62,6 +62,7 @@
     <Compile Include="Config\PlayerConfig.cs" />
     <Compile Include="Config\GlobalConfig.cs" />
     <Compile Include="Extensions\NativeExtensions.cs" />
+    <Compile Include="Extensions\SocketExtensions.cs" />
     <Compile Include="Network\Handler\Agent\Entity\EntityUpdateStatusFlag.cs" />
     <Compile Include="Network\Handler\Agent\Exchange\ExchangeApprovedResponse.cs" />
     <Compile Include="Network\Handler\Agent\Exchange\ExchangeCanceledResponse.cs" />

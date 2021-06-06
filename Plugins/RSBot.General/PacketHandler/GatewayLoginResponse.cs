@@ -1,5 +1,7 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Network;
+using RSBot.General.Components;
+using System.Threading;
 
 namespace RSBot.General.PacketHandler
 {
@@ -32,28 +34,40 @@ namespace RSBot.General.PacketHandler
                 Log.Notify("Gateway authentication successfull!");
                 return;
             }
+
             var code = packet.ReadByte();
 
             switch (code)
             {
                 case 1:
-                    Log.Warn("Failed to connect to login server. (C9)");
+
+                    var maxAttempts = packet.ReadUInt();
+                    var attempts = packet.ReadUInt();
+                    Log.Warn($"Wrong username or password entered ({attempts}/{maxAttempts})");
+
                     break;
 
                 case 2:
-                    Log.Warn("Failed to connect to login server. (C10)");
+                    Log.Warn("Your account has been blocked by the server administrator. Please use a different account for the auto login!");
                     break;
 
                 case 3:
-                    Log.Warn("Failed to connect to login server. (C10)");
+                    Log.Warn("This account already in the game!");
                     break;
 
                 case 4:
-                    Log.Warn("The server is full!");
+                    Log.Warn("The server is check!");
                     break;
 
                 case 5:
-                    Log.Warn("Faild to connect to server because access to the current IP has exceeded its limit.");
+                    Log.Warn("The server is full!");
+
+                    if (!GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin"))
+                    {
+                        Log.Warn("A new login attempt will be made shortly...");
+                        Thread.Sleep(1000);
+                        AutoLogin.DoAutoLogin();
+                    }
                     break;
 
                 default:
