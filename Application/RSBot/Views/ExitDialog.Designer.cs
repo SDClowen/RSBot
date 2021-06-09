@@ -30,7 +30,6 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.checkExitClient = new System.Windows.Forms.CheckBox();
             this.btnNo = new RSBot.Theme.Material.Button();
             this.btnYes = new RSBot.Theme.Material.Button();
             this.checkDontAskAgain = new System.Windows.Forms.CheckBox();
@@ -52,7 +51,6 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
-            this.panel1.Controls.Add(this.checkExitClient);
             this.panel1.Controls.Add(this.btnNo);
             this.panel1.Controls.Add(this.btnYes);
             this.panel1.Controls.Add(this.checkDontAskAgain);
@@ -61,17 +59,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(440, 52);
             this.panel1.TabIndex = 1;
-            // 
-            // checkExitClient
-            // 
-            this.checkExitClient.AutoSize = true;
-            this.checkExitClient.Location = new System.Drawing.Point(125, 17);
-            this.checkExitClient.Name = "checkExitClient";
-            this.checkExitClient.Size = new System.Drawing.Size(76, 19);
-            this.checkExitClient.TabIndex = 3;
-            this.checkExitClient.Text = "Exit client";
-            this.checkExitClient.UseVisualStyleBackColor = true;
-            this.checkExitClient.CheckedChanged += new System.EventHandler(this.checkExitClient_CheckedChanged);
             // 
             // btnNo
             // 
@@ -146,7 +133,6 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Exit RSBot";
-            this.Load += new System.EventHandler(this.ExitDialog_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -163,6 +149,5 @@
         private Theme.Material.Button btnNo;
         private Theme.Material.Button btnYes;
         private System.Windows.Forms.CheckBox checkDontAskAgain;
-        private System.Windows.Forms.CheckBox checkExitClient;
     }
 }
