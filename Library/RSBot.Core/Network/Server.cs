@@ -1,4 +1,5 @@
 ﻿using RSBot.Core.Event;
+using RSBot.Core.Extensions;
 using RSBot.Core.Network.SecurityAPI;
 using System;
 using System.Collections.Generic;
@@ -85,8 +86,20 @@ namespace RSBot.Core.Network
             if (Socket != null)
                 Disconnect();
 
+            _securityManager = new SecurityManager();
             _receiveTransferBuffer = new TransferBuffer(8192, 0, 0);
             Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+            try
+            {
+                Socket.Connect(ip, port, 3000);
+            }
+            catch (SocketException)
+            {
+                Log.Error($"Could not establish a connection to {ip}:{port}.");
+                Disconnect();
+                return;
+            }
 
             if (_packetProcessor == null)
             {
@@ -97,26 +110,6 @@ namespace RSBot.Core.Network
                 };
                 _packetProcessor.Start();
             }
-
-            _securityManager = new SecurityManager();
-
-            try
-            {
-                Socket?.Connect(ip, port);
-            }
-            catch (SocketException)
-            {
-                Log.Error($"Could not establish a connection to {ip}:{port}.");
-            }
-
-            if (Socket == null)
-            {
-                Log.Error("Network error: Server socket cannot be null");
-                return;
-            }
-
-            if (!Socket.Connected)
-                return;
 
             EnablePacketProcessor = true;
 
@@ -159,8 +152,9 @@ namespace RSBot.Core.Network
 
             if (_receivedPackets != null)
             {
-                foreach (var packet in _receivedPackets.Where(packet => packet.Opcode != 0x5000 && packet.Opcode != 0x9000)) //Ignore handshakes
-                    OnPacketReceived?.Invoke(packet);
+                foreach (var packet in _receivedPackets)
+                    if (packet.Opcode != 0x5000 && packet.Opcode != 0x9000)
+                        OnPacketReceived?.Invoke(packet);
             }
 
             _sendTransferBuffers = _securityManager.TransferOutgoing();
@@ -243,16 +237,24 @@ namespace RSBot.Core.Network
             EnablePacketProcessor = false;
             IsClosing = true;
 
-            if (Socket != null)
+            try
             {
+                if (Socket == null)
+                    return;
+
                 if (Socket.Connected)
                 {
                     Socket.Shutdown(SocketShutdown.Both);
-                    OnDisconnected?.Invoke();
+                    Socket.Close();
                 }
-
-                Socket.Close();
+            }
+            catch
+            {
+            }
+            finally
+            {
                 Socket = null;
+                OnDisconnected?.Invoke();
             }
 
             IsClosing = false;

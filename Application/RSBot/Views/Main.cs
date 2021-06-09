@@ -40,6 +40,7 @@ namespace RSBot.Views
             EventManager.SubscribeEvent("OnLoadCharacter", OnLoadCharacter);
             EventManager.SubscribeEvent("OnStartBot", OnStartBot);
             EventManager.SubscribeEvent("OnStopBot", OnStopBot);
+            EventManager.SubscribeEvent("OnAgentServerDisconnected", OnAgentServerDisconnected);
         }
 
         /// <summary>
@@ -306,10 +307,6 @@ namespace RSBot.Views
         private void comboServer_SelectedIndexChanged(object sender, EventArgs e)
         {
             GlobalConfig.Set("RSBot.GatewayIndex", comboServer.SelectedIndex.ToString());
-
-            //Restarts the proxy if required.
-            if (Kernel.Proxy != null && !Kernel.Proxy.IsConnectedToAgentserver && !Kernel.Proxy.IsConnectedToGatewayserver)
-                Game.Start();
         }
 
         /// <summary>
@@ -322,8 +319,6 @@ namespace RSBot.Views
             menuEnableCache.Checked = GlobalConfig.Get<bool>("RSBot.EnableFileCache", true);
             menuSidebar.Checked = GlobalConfig.Get<bool>("RSBot.ShowSidebar", true);
             ConfigureSidebar();
-
-            Game.Start();
         }
 
         /// <summary>
@@ -332,6 +327,12 @@ namespace RSBot.Views
         /// <param name="obj">The object.</param>
         private void btnStartStop_Click(object sender, EventArgs e)
         {
+            if (Kernel.Proxy == null)
+                return;
+
+            if (!Kernel.Proxy.IsConnectedToAgentserver)
+                return;
+
             if (Kernel.Bot == null)
             {
                 Log.Notify("Please select a proper botbase and try again");
@@ -468,6 +469,21 @@ namespace RSBot.Views
             }
 
             SelectBotbase(GlobalConfig.Get<int>("RSBot.BotIndex"));
+        }
+
+        /// <summary>
+        /// Reset UI after character disconnect
+        /// </summary>
+        private void OnAgentServerDisconnected()
+        {
+            foreach (TabPage tabPage in tabMain.TabPages)
+            {
+                if (!tabPage.Controls.ContainsKey("overlay"))
+                    continue;
+
+                tabPage.Enabled = false;
+                tabPage.Controls["overlay"].Show();
+            }
         }
 
         private void OnChangeStatusText(string text)

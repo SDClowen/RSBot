@@ -159,6 +159,7 @@ namespace RSBot.Core.Network
             Client = new Client();
             Client.Connected += Client_OnConnected;
             Client.OnPacketReceived += Client_OnPacketReceived;
+            Client.OnDisconnected += Client_OnDisconnected;
             Client.Listen(clientPort);
         }
 
@@ -182,12 +183,22 @@ namespace RSBot.Core.Network
         }
 
         /// <summary>
+        /// Fired when the client disconnected.
+        /// </summary>
+        private void Client_OnDisconnected()
+        {
+            ClientConnected = false;
+        }
+
+        /// <summary>
         /// Fired when a client packet was received
         /// </summary>
         /// <param name="packet">The packet.</param>
         private void Client_OnPacketReceived(Packet packet)
         {
-            if (IsConnectedToAgentserver && packet.Opcode == 0x6100) return;
+            if (IsConnectedToAgentserver && packet.Opcode == 0x6100) 
+                return;
+
             EventManager.FireEvent("OnClientPacketReceive", packet);
             PacketManager.CallHandler(packet, PacketDestination.Server);
             packet = PacketManager.CallHook(packet, PacketDestination.Server);

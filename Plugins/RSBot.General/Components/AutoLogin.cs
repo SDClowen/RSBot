@@ -2,6 +2,7 @@
 using RSBot.Core.Event;
 using RSBot.Core.Network;
 using RSBot.General.Models;
+using System.Threading;
 
 namespace RSBot.General.Components
 {
@@ -15,13 +16,27 @@ namespace RSBot.General.Components
             if (!GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin"))
                 return;
 
-            if (Accounts.SavedAccounts.Count <= GlobalConfig.Get<int>("RSBot.General.AccountIndex")) return;
+            if (Accounts.SavedAccounts.Count <= GlobalConfig.Get<int>("RSBot.General.AccountIndex")) 
+                return;
+
             var selectedAccount = Accounts.SavedAccounts[GlobalConfig.Get<int>("RSBot.General.AccountIndex")];
 
             var server = Serverlist.GetServerByName(selectedAccount.Servername);
 
             if (server == null && Serverlist.Servers != null && Serverlist.Servers.Count != 1)
                 Log.Notify($"The server [{selectedAccount.Servername}] assigned to this account could not be found in the serverlist!");
+
+            // is server check [Lazy :)]
+            if(!server.Status)
+            {
+                Log.Notify("The selected server is under maintainance. Retrying login in 3 seconds...");
+                Thread.Sleep(3000);
+
+                //Request the server list for check server is check. If not, it can continue to login ^^
+                PacketManager.SendPacket(new Packet(0x6101, true), PacketDestination.Server);
+
+                return;
+            }
 
             SendLoginRequest(selectedAccount, server);
         }
@@ -40,9 +55,8 @@ namespace RSBot.General.Components
 
             var loginPacket = new Packet(0x6102, true);
             loginPacket.WriteByte(Game.ReferenceManager.DivisionInfo.Locale);
-            loginPacket.WriteString(account.Username);
+            loginPacket.WriteString(account.Username.ToLowerInvariant());
             loginPacket.WriteString(account.Password);
-
             loginPacket.WriteUShort(server?.Id ?? Serverlist.Servers[0].Id);
 
             loginPacket.Lock();

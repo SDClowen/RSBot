@@ -29,6 +29,7 @@ namespace RSBot.Views.Controls
             EventManager.SubscribeEvent("OnUpdateHPMP", OnHPMPUpdate);
             EventManager.SubscribeEvent("OnUpdateGold", OnUpdateGold);
             EventManager.SubscribeEvent("OnUpdateSP", OnUpdateSP);
+            EventManager.SubscribeEvent("OnAgentServerDisconnected", OnAgentServerDisconnected);
         }
 
         private void OnUpdateSP()
@@ -110,6 +111,25 @@ namespace RSBot.Views.Controls
             var percentageExp = ((double)Game.Player.Experience / (double)Game.ReferenceManager.GetRefLevel(Game.Player.Level).Exp_C) * 100;
             progressEXP.Position = Convert.ToInt32(percentageExp);
             progressEXP.Text = Math.Round(percentageExp, 2) + @"%";
+        }
+
+        /// <summary>
+        /// Reset UI after character disconnect
+        /// </summary>
+        private void OnAgentServerDisconnected()
+        {
+            lblPlayerName.Text = "Not in game";
+            lblLevel.Text = "0";
+            lblStr.Text = "0";
+            lblInt.Text = "0";
+            lblGold.Text = "0";
+            lblSP.Text = "0";
+            progressHP.Position = 0;
+            progressHP.Text = "0 / 0";
+            progressMP.Position = 0;
+            progressMP.Text = "0 / 0";
+            progressEXP.Position = 0;
+            progressEXP.Text = "%0";
         }
     }
 }

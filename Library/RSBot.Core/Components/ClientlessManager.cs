@@ -27,7 +27,7 @@ namespace RSBot.Core.Components
 
             Game.Clientless = true;
 
-            Task.Run(() => PingServer());
+            KeepAlivePacketWorker();
         }
 
         /// <summary>
@@ -50,15 +50,14 @@ namespace RSBot.Core.Components
         /// <summary>
         /// Called when [agent server disconnected].
         /// </summary>
-        private static void OnAgentServerDisconnected()
+        private static async void OnAgentServerDisconnected()
         {
             if (!Game.Clientless)
                 return;
 
-            Log.Warn("Disconnected from game server! - Attempting relogin in 10 seconds.");
-            Thread.Sleep(10000);
+            Log.Warn("Attempting relogin in 10 seconds...");
+            await Task.Delay(10000);
 
-            Kernel.Bot.Stop();
             Game.Start();
         }
 
@@ -70,22 +69,22 @@ namespace RSBot.Core.Components
             if (!Game.Clientless)
                 return;
 
-            Thread.Sleep(5000);
-            PingServer();
+            KeepAlivePacketWorker();
         }
 
         /// <summary>
         /// Pings the server.
         /// </summary>
-        private static void PingServer()
+        private async static void KeepAlivePacketWorker()
         {
             while (Kernel.Proxy.IsConnectedToAgentserver)
             {
+                await Task.Delay(10000);
+
                 var pingPacket = new Packet(0x2002);
                 pingPacket.Lock();
 
                 PacketManager.SendPacket(pingPacket, PacketDestination.Server);
-                Thread.Sleep(10000);
             }
         }
     }

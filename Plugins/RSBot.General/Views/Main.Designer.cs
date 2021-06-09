@@ -170,6 +170,8 @@
             // 
             this.comboCharacter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboCharacter.FormattingEnabled = true;
+            this.comboCharacter.Items.AddRange(new object[] {
+            "No Selected"});
             this.comboCharacter.Location = new System.Drawing.Point(79, 52);
             this.comboCharacter.Name = "comboCharacter";
             this.comboCharacter.Size = new System.Drawing.Size(258, 21);
@@ -286,7 +288,7 @@
             this.btnClientHideShow.SingleColor = System.Drawing.Color.Empty;
             this.btnClientHideShow.Size = new System.Drawing.Size(125, 23);
             this.btnClientHideShow.TabIndex = 19;
-            this.btnClientHideShow.Text = "Client Show Hide";
+            this.btnClientHideShow.Text = "Client Visibility";
             this.btnClientHideShow.UseVisualStyleBackColor = true;
             this.btnClientHideShow.Click += new System.EventHandler(this.btnClientHideShow_Click);
             // 
@@ -302,7 +304,7 @@
             this.btnStartClient.SingleColor = System.Drawing.Color.Empty;
             this.btnStartClient.Size = new System.Drawing.Size(125, 23);
             this.btnStartClient.TabIndex = 16;
-            this.btnStartClient.Text = "Start client";
+            this.btnStartClient.Text = "Start Client";
             this.btnStartClient.UseVisualStyleBackColor = true;
             this.btnStartClient.Click += new System.EventHandler(this.btnStartClient_Click);
             // 
@@ -318,7 +320,7 @@
             this.btnStartClientless.SingleColor = System.Drawing.Color.Empty;
             this.btnStartClientless.Size = new System.Drawing.Size(125, 24);
             this.btnStartClientless.TabIndex = 18;
-            this.btnStartClientless.Text = "Start clientless";
+            this.btnStartClientless.Text = "Start Clientless";
             this.btnStartClientless.UseVisualStyleBackColor = false;
             this.btnStartClientless.Click += new System.EventHandler(this.btnStartClientless_Click);
             // 
@@ -335,7 +337,7 @@
             this.btnGoClientless.SingleColor = System.Drawing.Color.Empty;
             this.btnGoClientless.Size = new System.Drawing.Size(125, 24);
             this.btnGoClientless.TabIndex = 17;
-            this.btnGoClientless.Text = "Go clientless";
+            this.btnGoClientless.Text = "Go Clientless";
             this.btnGoClientless.UseVisualStyleBackColor = true;
             this.btnGoClientless.Click += new System.EventHandler(this.btnGoClientless_Click);
             // 
