@@ -109,9 +109,10 @@ namespace RSBot.Core.Client.ReferenceObjects
             if (!parser.TryParseUInt(1, out ID))
                 return false;
 
-            //Skip invalid group (MSKILL, HSKILL, TSKILL, GSKILL) to save memory
-            if (!parser.TryParseInt(2, out GroupID) || GroupID == 0)
-                return false;
+            //Skip invalid group (MSKILL, HSKILL, TSKILL, GSKILL, PSKILL, P2SKILL) to save memory
+            // Some idiot servers using 0 for char buffs. Close this line for now :)
+            /*if (!parser.TryParseInt(2, out GroupID) || GroupID == 0)
+                return false;*/
 
             parser.TryParseString(3, out Basic_Code);
             parser.TryParseString(4, out Basic_Name);

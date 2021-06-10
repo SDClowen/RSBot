@@ -23,11 +23,23 @@ namespace RSBot.Bot.Default.Bundle.Target
                 return;
 
             var monster = GetNearestEnemy();
+            if (monster == null) 
+                return;
 
-            if (monster == null) return;
+            var character = monster.Character;
+            if (character == null)
+                return;
+
+            var bionic = character.Bionic;
+            if (bionic == null)
+                return;
+
+            var tracker = bionic.Tracker;
+            if (tracker == null)
+                return;
 
             //Check if the monster is still inside our range
-            var distanceToCenter = monster.Character.Bionic.Tracker.Position.DistanceTo(Container.Bot.Area.CenterPosition);
+            var distanceToCenter = tracker.Position.DistanceTo(Container.Bot.Area.CenterPosition);
             if (distanceToCenter > Container.Bot.Area.Radius)
                 return;
 
@@ -52,7 +64,7 @@ namespace RSBot.Bot.Default.Bundle.Target
                            m.Character.Bionic.IsBehindObstacle == false &&
                            !Bundles.Avoidance.AvoidMonster(m.Rarity)
                           )
-                    .OrderBy(m => m.Character.Bionic.Tracker.Position.DistanceTo(Container.Bot.Area.CenterPosition))
+                    .OrderBy(m => m.Character.Bionic.Tracker?.Position.DistanceTo(Container.Bot.Area.CenterPosition))
                     .OrderByDescending(m => m.Character.Bionic.AttackingPlayer)
                     .OrderByDescending(m => Bundles.Avoidance.PreferMonster(m.Rarity))
                     .FirstOrDefault();
