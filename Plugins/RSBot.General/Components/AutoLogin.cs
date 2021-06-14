@@ -23,6 +23,11 @@ namespace RSBot.General.Components
 
             var server = Serverlist.GetServerByName(selectedAccount.Servername);
 
+            if (server == null && Serverlist.Servers.Count == 1)
+            {
+                server = Serverlist.Servers[0];
+            }
+
             if (server == null && Serverlist.Servers != null && Serverlist.Servers.Count != 1)
                 Log.Notify($"The server [{selectedAccount.Servername}] assigned to this account could not be found in the serverlist!");
 
