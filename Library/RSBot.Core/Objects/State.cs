@@ -118,7 +118,7 @@ namespace RSBot.Core.Objects
                 };
 
                 if (buff.Record == null)
-                    return result;
+                    continue;
 
                 if (buff.Record.Params.Contains(1701213281))
                     packet.ReadBool(); //IsCreator

@@ -62,7 +62,7 @@ namespace RSBot.Core.Objects.Spawn
         /// <value>
         /// <c>true</c> if this instance is behind obstacle; otherwise, <c>false</c>.
         /// </value>
-        public bool IsBehindObstacle => CollisionManager.HasCollisionBetween(Tracker.Position, Game.Player.Tracker.Position);
+        public bool IsBehindObstacle => Tracker != null && CollisionManager.HasCollisionBetween(Tracker.Position, Game.Player.Tracker.Position);
 
         /// <summary>
         /// Gets a value indicating whether [attacking player].
