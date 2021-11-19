@@ -75,60 +75,14 @@ namespace RSBot.Core.Components
         /// <returns></returns>
         public static SkillInfo GetNextSkill()
         {
-            if (Game.SelectedEntity == null || Game.SelectedEntity.Monster == null) return null;
+            if (Game.SelectedEntity == null || Game.SelectedEntity.Monster == null) 
+                return null;
 
-            if (Skills[Game.SelectedEntity.Monster.Rarity].Count == 0)
-                return Skills[MonsterRarity.General].FirstOrDefault(s => Game.Player.Skills.GetSkillInfoById(s.Id).CanBeCasted);
-            else
-                return Skills[Game.SelectedEntity.Monster.Rarity].Find(s => Game.Player.Skills.GetSkillInfoById(s.Id).CanBeCasted);
-        }
+            var rarity = MonsterRarity.General;
+            if (Skills[Game.SelectedEntity.Monster.Rarity].Count > 0)
+                rarity = Game.SelectedEntity.Monster.Rarity;
 
-        /// <summary>
-        /// Refreshes this instance.
-        /// Useful if any skill change was made and the skill list is not up to date.
-        /// Attention: If there are skills with the same name in the game, this may cause problems.
-        /// </summary>
-        public static void Refresh()
-        {
-            if (Game.Player == null || Game.Player.Skills == null) return;
-
-            var newSkillGroups = new Dictionary<MonsterRarity, List<SkillInfo>>();
-            //var cachedSkills = new List<SkillInfo>();
-
-            foreach (var skillGroup in Skills)
-            {
-                var newSkills = new List<SkillInfo>();
-                foreach (var skill in skillGroup.Value)
-                {
-                    var skillGroupId = skill.Record.GroupID;
-                    //var cachedSkill = cachedSkills.Find(p => p.Record.GroupID == skillGroupId);
-                    //if (cachedSkill != null)
-                    //{
-                    //    newSkills.Add(cachedSkill);
-                    //    continue;
-                    //}
-
-                    var characterSkill = Game.Player.Skills.GetSkillInfoByGroupId(skillGroupId);
-                    if (characterSkill != null)
-                        //{
-                        newSkills.Add(characterSkill);
-                    //cachedSkills.Add(characterSkill);
-                    //}
-                }
-
-                newSkillGroups.Add(skillGroup.Key, newSkills);
-            }
-
-            //cachedSkills.Clear();
-            Skills = newSkillGroups;
-
-            Buffs = Game.Player.Skills.KnownSkills.FindAll(p => Buffs.Find(b => b.Record.GroupID == p.Record.GroupID) != null);
-
-            if (ImbueSkill != null)
-                ImbueSkill = Game.Player.Skills.GetSkillInfoByGroupId(ImbueSkill.Record.GroupID);
-
-            if (ResurrectionSkill != null) return;
-            ResurrectionSkill = Game.Player.Skills.GetSkillInfoByGroupId(ResurrectionSkill.Record.GroupID);
+            return Skills[rarity].Find(s => Game.Player.Skills.GetSkillInfoById(s.Id).CanBeCasted);
         }
     }
 }

@@ -33,7 +33,7 @@ namespace RSBot.Core.Client.ReferenceObjects
         //public int Action_CoolTime;
         //public int Action_FlyingSpeed;
         //public byte Action_Interruptable;
-        //public int Action_Overlap;
+        public int Action_Overlap;
         //public int Action_AutoAttackType;
         //public int Action_InTown;
         //public short Action_Range;
@@ -110,9 +110,8 @@ namespace RSBot.Core.Client.ReferenceObjects
                 return false;
 
             //Skip invalid group (MSKILL, HSKILL, TSKILL, GSKILL, PSKILL, P2SKILL) to save memory
-            // Some idiot servers using 0 for char buffs. Close this line for now :)
-            /*if (!parser.TryParseInt(2, out GroupID) || GroupID == 0)
-                return false;*/
+            if (!parser.TryParseInt(2, out GroupID) /*|| GroupID == 0*/)
+                return false;
 
             parser.TryParseString(3, out Basic_Code);
             parser.TryParseString(4, out Basic_Name);
@@ -130,7 +129,7 @@ namespace RSBot.Core.Client.ReferenceObjects
             //Action_CoolTime = int.Parse(data[15]);
             //Action_FlyingSpeed = int.Parse(data[16]);
             //Action_Interruptable = byte.Parse(data[17]);
-            //Action_Overlap = int.Parse(data[18]);
+            parser.TryParseInt(18, out Action_Overlap);
             //Action_AutoAttackType = int.Parse(data[19]);
             //Action_InTown = int.Parse(data[20]);
             //Action_Range = short.Parse(data[21]);
@@ -208,7 +207,7 @@ namespace RSBot.Core.Client.ReferenceObjects
 
         public override string ToString()
         {
-            return $"{GetRealName()} ({Basic_Level})";
+            return $"{GetRealName()} lv.{Basic_Level}";
         }
     }
 }

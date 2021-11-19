@@ -59,7 +59,7 @@ namespace RSBot.Bot.Default.Bundle.Target
         private SpawnedMonster GetNearestEnemy()
         {
             return Game.Spawns.GetMonsters()
-                    .Where(m =>
+                    .Where(m => m != null &&
                            m.Character.Bionic.State.LifeState != LifeState.Dead &&
                            m.Character.Bionic.IsBehindObstacle == false &&
                            !Bundles.Avoidance.AvoidMonster(m.Rarity)

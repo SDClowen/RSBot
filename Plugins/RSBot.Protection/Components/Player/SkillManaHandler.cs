@@ -24,20 +24,26 @@ namespace RSBot.Protection.Components.Player
         /// <exception cref="System.NotImplementedException"></exception>
         private static void OnTick()
         {
-            var useHealthPotion = PlayerConfig.Get<bool>("RSBot.Protection.checkUseSkillMP");
-            if (!useHealthPotion) return;
+            if (!Kernel.Bot.Running)
+                return;
 
-            var skillName = PlayerConfig.Get<string>("RSBot.Protection.skillPlayerMP");
-            if (string.IsNullOrWhiteSpace(skillName)) return;
+            if (!PlayerConfig.Get<bool>("RSBot.Protection.checkUseSkillMP")) 
+                return;
+
+            var skillId = PlayerConfig.Get<uint>("RSBot.Protection.MpSkill");
+            if (skillId == 0)
+                return;
 
             var minMana = PlayerConfig.Get<int>("RSBot.Protection.numPlayerSkillMPMin", 50);
             var manaPercent = ((double)Game.Player.Mana / (double)Game.Player.MaximumMana) * 100;
+            if (manaPercent > minMana)
+                return;
 
-            if (!(manaPercent <= minMana)) return;
+            var skill = Game.Player.Skills.GetSkillInfoById(skillId);
+            if (skill == null)
+                return;
 
-            var skill = Game.Player.Skills.GetSkillByName(skillName);
-
-            Log.Debug("Using MP skill: " + skill.Record.GetRealName());
+            Log.Debug($"Using MP skill: {skill}");
             Game.Player.CastBuff(skill.Id);
         }
     }

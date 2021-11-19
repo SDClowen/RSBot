@@ -136,6 +136,7 @@
     <Compile Include="Objects\BattleState.cs" />
     <Compile Include="Objects\InventoryItemState.cs" />
     <Compile Include="Objects\ScrollState.cs" />
+    <Compile Include="Objects\Skill\IDataInfo.cs" />
     <Compile Include="Objects\TeleportType.cs" />
     <Compile Include="Objects\WeaponType.cs" />
     <Compile Include="Config\Config.cs" />

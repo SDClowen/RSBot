@@ -1,5 +1,6 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Components;
+using RSBot.Core.Objects;
 
 namespace RSBot.Bot.Default.Bundle.Buff
 {
@@ -10,13 +11,16 @@ namespace RSBot.Bot.Default.Bundle.Buff
         /// </summary>
         public void Invoke()
         {
-            if (Game.Player.Untouchable || Game.Player.HasActiveVehicle) return;
+            if (Game.Player.Untouchable || 
+                Game.Player.HasActiveVehicle ||
+                Game.Player.State.LifeState == LifeState.Dead) 
+                return;
 
             //Imbue handling
             if (SkillManager.ImbueSkill != null &&
                 !Game.Player.State.HasActiveBuff(SkillManager.ImbueSkill, out _) &&
-                !Bundles.Loop.Running && Game.SelectedEntity != null
-                && Game.SelectedEntity.Monster != null)
+                !Bundles.Loop.Running && 
+                Game.SelectedEntity?.Monster != null)
                 Game.Player.CastBuff(SkillManager.ImbueSkill.Id);
 
             //Check for buffs
@@ -25,7 +29,6 @@ namespace RSBot.Bot.Default.Bundle.Buff
             foreach (var buff in tempBuffs)
             {
                 var playerSkill = Game.Player.Skills.GetSkillInfoById(buff.Id);
-
                 if (playerSkill == null)
                     continue;
 

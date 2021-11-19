@@ -393,23 +393,23 @@ namespace RSBot.Theme.Controls
                         g2.Dispose();
                     }
 
-                    Image ima = new Bitmap(mDobleBack);
+                    if (mDobleBack == null)
+                        return;
+
+                    var ima = new Bitmap(mDobleBack);
 
                     Graphics gtemp = Graphics.FromImage(ima);
 
                     int mCantSteeps = (int)((((float)mPosition - mMin) / (mMax - mMin)) * mUtilWidth / mSteepTotal);
 
                     for (int i = 0; i < mCantSteeps; i++)
-                    {
                         DrawSteep(gtemp, i);
-                    }
 
-                    if (this.Text != String.Empty)
-                    {
+                    if (!string.IsNullOrWhiteSpace(Text))
                         DrawCenterString(gtemp, this.ClientRectangle);
-                    }
 
                     e.Graphics.DrawImage(ima, e.ClipRectangle.X, e.ClipRectangle.Y, e.ClipRectangle, GraphicsUnit.Pixel);
+
                     ima.Dispose();
                     gtemp.Dispose();
                 }

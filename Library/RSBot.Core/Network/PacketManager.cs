@@ -134,16 +134,23 @@ namespace RSBot.Core.Network
         {
             if (Kernel.Proxy == null) return;
 
-            switch (destination)
+            try
             {
-                case PacketDestination.Client:
-                    if (!Game.Clientless)
-                        Kernel.Proxy.Client?.Send(packet);
-                    break;
+                switch (destination)
+                {
+                    case PacketDestination.Client:
+                        if (!Game.Clientless)
+                            Kernel.Proxy.Client?.Send(packet);
+                        break;
 
-                case PacketDestination.Server:
-                    Kernel.Proxy.Server?.Send(packet);
-                    break;
+                    case PacketDestination.Server:
+                        Kernel.Proxy.Server?.Send(packet);
+                        break;
+                }
+            }
+            catch (System.Exception e)
+            {
+                Log.Fatal(e);
             }
         }
 

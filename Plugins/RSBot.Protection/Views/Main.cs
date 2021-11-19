@@ -89,9 +89,14 @@ namespace RSBot.Protection.Views
             foreach (var num in groupBackTown.Controls.OfType<NumericUpDown>().Select(control => control))
                 PlayerConfig.Set(key + num.Name, num.Value);
 
-            PlayerConfig.Set(key + "skillPlayerHP", comboSkillPlayerHP.SelectedItem);
-            PlayerConfig.Set(key + "skillPlayerMP", comboSkillPlayerMP.SelectedItem);
-            PlayerConfig.Set(key + "skillBadStatus", comboSkillBadStatus.SelectedItem);
+            if (comboSkillPlayerHP.SelectedIndex > 0)
+                PlayerConfig.Set(key + "HpSkill", (comboSkillPlayerHP.SelectedItem as ISkillDataInfo).Id);
+
+            if (comboSkillPlayerMP.SelectedIndex > 0)
+                PlayerConfig.Set(key + "MpSkill", (comboSkillPlayerMP.SelectedItem as ISkillDataInfo).Id);
+
+            if (comboSkillBadStatus.SelectedIndex > 0)
+                PlayerConfig.Set(key + "BadStatusSkill", (comboSkillBadStatus.SelectedItem as ISkillDataInfo).Id);
         }
 
         /// <summary>
@@ -105,19 +110,33 @@ namespace RSBot.Protection.Views
             comboSkillPlayerHP.Items.Clear();
             comboSkillPlayerMP.Items.Clear();
 
+            comboSkillBadStatus.SelectedIndex = comboSkillBadStatus.Items.Add("None");
+            comboSkillPlayerHP.SelectedIndex = comboSkillPlayerHP.Items.Add("None");
+            comboSkillPlayerMP.SelectedIndex = comboSkillPlayerMP.Items.Add("None");
+
             foreach (var skill in Game.Player.Skills.KnownSkills)
             {
                 if (!skill.Enabled) continue;
                 if (skill.Record.Target_Required == 1 || skill.IsPassive) continue;
 
-                comboSkillBadStatus.Items.Add(skill.Record.GetRealName());
-                comboSkillPlayerHP.Items.Add(skill.Record.GetRealName());
-                comboSkillPlayerMP.Items.Add(skill.Record.GetRealName());
-            }
+                // TODO: Check is the cure skill?
+                var badStatusIndex = comboSkillBadStatus.Items.Add(skill);
+                var badStatusSkillId = PlayerConfig.Get<uint>("RSBot.Protection.BadStatusSkill");
+                if(badStatusSkillId == skill.Id)
+                    comboSkillBadStatus.SelectedIndex = badStatusIndex;
 
-            comboSkillPlayerHP.SelectedItem = PlayerConfig.Get<string>("RSBot.Protection.skillPlayerHP");
-            comboSkillPlayerMP.SelectedItem = PlayerConfig.Get<string>("RSBot.Protection.skillPlayerMP");
-            comboSkillBadStatus.SelectedItem = PlayerConfig.Get<string>("RSBot.Protection.skillBadStatus");
+                // TODO: Check is the hp skill?
+                var hpIndex = comboSkillPlayerHP.Items.Add(skill);
+                var hpSkillId = PlayerConfig.Get<uint>("RSBot.Protection.HpSkill");
+                if (hpSkillId == skill.Id)
+                    comboSkillPlayerHP.SelectedIndex = hpIndex;
+
+                // TODO: Check is the mp skill?
+                var mpIndex = comboSkillPlayerMP.Items.Add(skill);
+                var mpSkillId = PlayerConfig.Get<uint>("RSBot.Protection.MpSkill");
+                if (mpSkillId == skill.Id)
+                    comboSkillPlayerMP.SelectedIndex = mpIndex;
+            }
 
             _skillSettingsLoaded = true;
         }

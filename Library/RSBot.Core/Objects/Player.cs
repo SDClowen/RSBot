@@ -844,7 +844,8 @@ namespace RSBot.Core.Objects
         /// <param name="skillId">The skill identifier.</param>
         public void CastBuff(uint skillId)
         {
-            if (!Skills.HasSkill(skillId)) return;
+            if (!Skills.HasSkill(skillId)) 
+                return;
 
             var skillInfo = Skills.GetSkillInfoById(skillId);
 
@@ -890,8 +891,7 @@ namespace RSBot.Core.Objects
             }
 
             //Case 4: This skill can be casted by the current weapon
-            if ((byte)skillInfo.Record.ReqCast_Weapon1 == currentWeapon.Record.TypeID4
-                ||
+            if ((byte)skillInfo.Record.ReqCast_Weapon1 == currentWeapon.Record.TypeID4 ||
                 (byte)skillInfo.Record.ReqCast_Weapon2 == currentWeapon.Record.TypeID4)
             {
                 CastBuff(skillInfo);
@@ -1224,13 +1224,17 @@ namespace RSBot.Core.Objects
             var awaitCallBack = new AwaitCallback(response =>
             {
                 var result = response.ReadByte();
-                response.ReadUShort(); //Code
+                var code = response.ReadUShort();
+                if (result == 0x2)
+                {
+                    Log.Error($"Skill error code: 0x{code:X2}");
+                }
 
                 return result == 0x01 && Action.FromPacket(response).PlayerIsExecutor;
             }, 0xB070);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallBack);
-            awaitCallBack.AwaitResponse(skill.Record.Action_CastingTime + skill.Record.Action_ActionDuration);
+            awaitCallBack.AwaitResponse(skill.Record.Action_CastingTime + skill.Record.Action_ActionDuration + 1000);
 
             return !awaitCallBack.Timeout;
         }
@@ -1289,9 +1293,20 @@ namespace RSBot.Core.Objects
 
             packet.Lock();
 
-            var asyncCallback = new AwaitCallback(null, 0xB0BD);
+            var asyncCallback = new AwaitCallback(response => 
+            {
+                var targetId = response.ReadUInt();
+                var skillId = response.ReadUInt();
+
+                if (targetId == Game.Player.UniqueId && skillId == skillInfo.Id)
+                    return true;
+
+                return false;
+
+            }, 0xB0BD);
+
             PacketManager.SendPacket(packet, PacketDestination.Server, asyncCallback);
-            asyncCallback.AwaitResponse(skillInfo.Record.Action_CastingTime + skillInfo.Record.Action_ActionDuration);
+            asyncCallback.AwaitResponse(skillInfo.Record.Action_CastingTime + skillInfo.Record.Action_ActionDuration + 1500);
         }
     }
 }

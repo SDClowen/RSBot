@@ -43,7 +43,7 @@ namespace RSBot.Core.Network.Handler.Agent.Action
 
                 Core.Game.Player.Buffs.Remove(buff);
 
-                EventManager.FireEvent("OnRemoveBuff");
+                EventManager.FireEvent("OnRemoveBuff", buff);
             }
         }
     }

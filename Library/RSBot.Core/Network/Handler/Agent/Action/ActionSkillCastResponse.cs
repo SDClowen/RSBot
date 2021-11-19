@@ -41,15 +41,20 @@ namespace RSBot.Core.Network.Handler.Agent.Action
 
                 EventManager.FireEvent("OnCastSkill", action.SkillId);
 
+                if((action.Flag & 0x80) > 0)
+                    EventManager.FireEvent("OnSelectedEntityKilled");
+
                 return;
             }
 
             var executor = action.GetExecutor();
-            if (executor == null) return;
+            if (executor == null) 
+                return;
 
             executor.Tracker?.StopMoving();
 
-            if (!action.PlayerIsTarget) return;
+            if (!action.PlayerIsTarget) 
+                return;
 
             EventManager.FireEvent("OnEnemySkillOnPlayer");
 

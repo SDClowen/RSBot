@@ -2,6 +2,7 @@
 using RSBot.Core.Event;
 using RSBot.Core.Network;
 using RSBot.General.Models;
+using System.Linq;
 using System.Threading;
 
 namespace RSBot.General.Components
@@ -16,23 +17,23 @@ namespace RSBot.General.Components
             if (!GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin"))
                 return;
 
-            if (Accounts.SavedAccounts.Count <= GlobalConfig.Get<int>("RSBot.General.AccountIndex")) 
+            if (Accounts.SavedAccounts.Count <= GlobalConfig.Get<int>("RSBot.General.AccountIndex"))
                 return;
 
             var selectedAccount = Accounts.SavedAccounts[GlobalConfig.Get<int>("RSBot.General.AccountIndex")];
 
             var server = Serverlist.GetServerByName(selectedAccount.Servername);
 
-            if (server == null && Serverlist.Servers.Count == 1)
+            if (server == null && Serverlist.Servers != null)
             {
-                server = Serverlist.Servers[0];
-            }
-
-            if (server == null && Serverlist.Servers != null && Serverlist.Servers.Count != 1)
                 Log.Notify($"The server [{selectedAccount.Servername}] assigned to this account could not be found in the serverlist!");
 
+                server = Serverlist.Servers.First();
+                Log.Notify($"Selected default server: [{server.Name}]");
+            }
+
             // is server check [Lazy :)]
-            if(!server.Status)
+            if (!server.Status)
             {
                 Log.Notify("The selected server is under maintainance. Retrying login in 3 seconds...");
                 Thread.Sleep(3000);

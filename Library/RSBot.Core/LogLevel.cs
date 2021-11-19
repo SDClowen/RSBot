@@ -8,6 +8,7 @@
         Notify,
         Debug,
         Warning,
-        Error
+        Error,
+        Fatal
     }
 }

@@ -171,7 +171,13 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
         private static void UpdateSelectedStatus(Packet packet, EntityUpdateStatusFlag updateFlag)
         {
             if ((updateFlag & EntityUpdateStatusFlag.HP) == EntityUpdateStatusFlag.HP)
-                Core.Game.SelectedEntity.Health = packet.ReadUInt();
+            {
+                var health = packet.ReadUInt();
+                Core.Game.SelectedEntity.Health = health;
+
+                if(health <= 0)
+                    EventManager.FireEvent("OnSelectedEntityKilled");
+            }
 
             if ((updateFlag & EntityUpdateStatusFlag.MP) == EntityUpdateStatusFlag.MP)
                 packet.ReadUInt();

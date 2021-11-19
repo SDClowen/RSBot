@@ -5,6 +5,7 @@ using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Skill;
+using RSBot.Theme.Extensions;
 using System;
 using System.IO;
 using System.Linq;
@@ -18,8 +19,6 @@ namespace RSBot.Skills.Views
     {
         private bool _applySkills;
 
-        private enum MoveDirection { Up = -1, Down = 1 };
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Main"/> class.
         /// </summary>
@@ -27,6 +26,50 @@ namespace RSBot.Skills.Views
         {
             InitializeComponent();
             SubscribeEvents();
+
+            ContextMenu = skillContextMenu;
+        }
+
+        /// <summary>
+        /// Subscribes the events.
+        /// </summary>
+        private void SubscribeEvents()
+        {
+            EventManager.SubscribeEvent("OnEnterGame", OnEnterGame);
+            EventManager.SubscribeEvent("OnLoadCharacter", OnLoadCharacter);
+            EventManager.SubscribeEvent("OnLearnSkill", new Action<SkillInfo, bool>(OnLearnSkill));
+            EventManager.SubscribeEvent("OnLearnSkillMastery", new Action<MasteryInfo>(OnLearnSkillMastery));
+            EventManager.SubscribeEvent("OnWithdrawSkill", new Action<SkillInfo>(OnWithdrawSkill));
+            EventManager.SubscribeEvent("OnAddBuff", new Action<BuffInfo>(OnAddBuff));
+            EventManager.SubscribeEvent("OnRemoveBuff", new Action<BuffInfo>(OnRemoveBuff));
+            EventManager.SubscribeEvent("OnResurrectionRequest", OnResurrectionRequest);
+        }
+
+        /// <summary>
+        /// The first event that will be fired after the player enters the game
+        /// </summary>
+        private void OnEnterGame()
+        {
+            checkShowAttacks.Checked = PlayerConfig.Get<bool>("RSBot.Skills.ShowAttacks", true);
+            checkShowBuffs.Checked = PlayerConfig.Get<bool>("RSBot.Skills.ShowBuffs", true);
+            checkHideLowerLevelSkills.Checked = PlayerConfig.Get<bool>("RSBot.Skills.HideLowerLevelSkills");
+            checkAcceptResurrection.Checked = PlayerConfig.Get<bool>("RSBot.Skills.AcceptResurrection");
+            checkResurrectParty.Checked = PlayerConfig.Get<bool>("RSBot.Skills.ResurrectPartyMembers");
+            checkCastBuffsInTowns.Checked = PlayerConfig.Get<bool>("RSBot.Skills.CastBuffsInTowns");
+            checkCastBuffsDuringWalkBack.Checked = PlayerConfig.Get<bool>("RSBot.Skills.CastBuffsDuringWalkBack");
+        }
+
+        /// <summary>
+        /// Check if the skill is low level for character (Lazy basic :-;)
+        /// </summary>
+        /// <param name="skill"></param>
+        /// <returns>
+        /// <c>true</c> otherwise, <c>false</c>.
+        /// </returns>
+        private bool IsLowLevelSkill(RefSkill skill)
+        {
+            return skill.ReqCommon_MasteryLevel1 <
+                                       Game.Player.Skills.GetMasteryInfoById((uint)skill.ReqCommon_Mastery1).Level - 20;
         }
 
         /// <summary>
@@ -36,20 +79,17 @@ namespace RSBot.Skills.Views
         {
             for (var i = 0; i < comboMonsterType.Items.Count; i++)
             {
-                var groupIds = PlayerConfig.GetArray<int>("RSBot.Skills.Attacks_" + i);
+                var skillIds = PlayerConfig.GetArray<uint>("RSBot.Skills.Attacks_" + i);
 
-                foreach (var groupId in groupIds)
+                foreach (var skillId in skillIds)
                 {
-                    var skillInfo = Game.Player.Skills.GetSkillInfoByGroupId(groupId);
+                    var skillInfo = Game.Player.Skills.GetSkillInfoById(skillId);
 
-                    if (skillInfo == null) continue;
+                    if (skillInfo == null) 
+                        continue;
 
-                    //Apply to core
                     switch (i)
                     {
-                        case 0:
-                            SkillManager.Skills[MonsterRarity.General].Add(skillInfo);
-                            continue;
                         case 1:
                             SkillManager.Skills[MonsterRarity.Champion].Add(skillInfo);
                             continue;
@@ -72,7 +112,7 @@ namespace RSBot.Skills.Views
                             SkillManager.Skills[MonsterRarity.Unique].Add(skillInfo);
                             continue;
                         default:
-                            SkillManager.Skills[MonsterRarity.General].Add(skillInfo); //Every other monster rarity will apply to default (general)
+                            SkillManager.Skills[MonsterRarity.General].Add(skillInfo);
                             continue;
                     }
                 }
@@ -86,12 +126,13 @@ namespace RSBot.Skills.Views
         {
             SkillManager.Buffs.Clear();
 
-            foreach (var item in PlayerConfig.GetArray<int>("RSBot.Skills.Buffs"))
+            foreach (var buffId in PlayerConfig.GetArray<uint>("RSBot.Skills.Buffs"))
             {
-                var characterSkill = Game.Player.Skills.GetSkillInfoByGroupId(item);
-                if (characterSkill == null) continue;
+                var skillInfo = Game.Player.Skills.GetSkillInfoById(buffId);
+                if (skillInfo == null) 
+                    continue;
 
-                SkillManager.Buffs.Add(characterSkill);
+                SkillManager.Buffs.Add(skillInfo);
             }
         }
 
@@ -100,16 +141,11 @@ namespace RSBot.Skills.Views
         /// </summary>
         private void ApplySkills()
         {
-            if (!_applySkills) return;
+            if (!_applySkills) 
+                return;
 
-            SkillManager.Skills[MonsterRarity.General].Clear();
-            SkillManager.Skills[MonsterRarity.Champion].Clear();
-            SkillManager.Skills[MonsterRarity.Elite].Clear();
-            SkillManager.Skills[MonsterRarity.Giant].Clear();
-            SkillManager.Skills[MonsterRarity.GeneralParty].Clear();
-            SkillManager.Skills[MonsterRarity.ChampionParty].Clear();
-            SkillManager.Skills[MonsterRarity.GiantParty].Clear();
-            SkillManager.Skills[MonsterRarity.Unique].Clear();
+            foreach (var collection in SkillManager.Skills.Values)
+                collection.Clear();
 
             ApplyAttackSkills();
             ApplyBuffSkills();
@@ -124,18 +160,17 @@ namespace RSBot.Skills.Views
             listAttackingSkills.BeginUpdate();
             listAttackingSkills.Items.Clear();
 
-            var skillArray = PlayerConfig.GetArray<int>("RSBot.Skills.Attacks_" + index);
+            var skillArray = PlayerConfig.GetArray<uint>("RSBot.Skills.Attacks_" + index);
 
-            foreach (var skillInfo in Game.Player.Skills.KnownSkills.FindAll(p => skillArray.Contains(p.Record.GroupID) && p.Enabled && p.IsAttack).ToArray())
+            foreach (var skillInfo in Game.Player.Skills.KnownSkills.FindAll(p => skillArray.Contains(p.Id) && p.Enabled && p.IsAttack).ToArray())
             {
-                var item = new ListViewItem(skillInfo.Record.GetRealName()) { Tag = skillInfo.Record };
+                var item = new ListViewItem(skillInfo.Record.GetRealName()) { Tag = skillInfo };
                 item.SubItems.Add("lv. " + skillInfo.Record.Basic_Level);
                 listAttackingSkills.Items.Add(item);
             }
 
             listAttackingSkills.EndUpdate();
 
-            //Load the skill images.
             Task.Run(() => { LoadSkillImages(listAttackingSkills); });
         }
 
@@ -147,11 +182,11 @@ namespace RSBot.Skills.Views
             listBuffs.BeginUpdate();
             listBuffs.Items.Clear();
 
-            var skillArray = PlayerConfig.GetArray<int>("RSBot.Skills.Buffs");
+            var skillArray = PlayerConfig.GetArray<uint>("RSBot.Skills.Buffs");
 
-            foreach (var skillInfo in Game.Player.Skills.KnownSkills.FindAll(p => skillArray.Contains(p.Record.GroupID) && p.Enabled && !p.IsAttack).ToArray())
+            foreach (var skillInfo in Game.Player.Skills.KnownSkills.FindAll(p => skillArray.Contains(p.Id) && p.Enabled && !p.IsAttack).ToArray())
             {
-                var item = new ListViewItem(skillInfo.Record.GetRealName()) { Tag = skillInfo.Record };
+                var item = new ListViewItem(skillInfo.Record.GetRealName()) { Tag = skillInfo };
 
                 item.SubItems.Add("lv. " + skillInfo.Record.Basic_Level);
                 listBuffs.Items.Add(item);
@@ -168,15 +203,24 @@ namespace RSBot.Skills.Views
         /// </summary>
         private void LoadImbues()
         {
-            comboImue.Items.Clear();
+            comboImbue.Items.Clear();
 
-            foreach (var skill in Game.Player.Skills.KnownSkills.Where(s => s.Record != null && s.Record.Basic_Activity == 1 && s.Record.Params[4] == 8 && s.Enabled))
-                comboImue.Items.Add(skill.Record.GetRealName());
+            comboImbue.SelectedIndex = comboImbue.Items.Add("None");
 
-            var imbueIndex = PlayerConfig.Get<int>("RSBot.Skills.ImbueIndex");
+            foreach (var skill in Game.Player.Skills.KnownSkills.Where(s => s.IsImbue && s.Enabled))
+            {
+                if (IsLowLevelSkill(skill.Record))
+                    continue;
 
-            if (comboImue.Items.Count - 1 >= imbueIndex)
-                comboImue.SelectedIndex = imbueIndex;
+                var index = comboImbue.Items.Add(skill);
+                
+                var selectedImbue = PlayerConfig.Get<int>("RSBot.Skills.Imbue");
+                if (selectedImbue == 0)
+                    continue;
+                
+                if (selectedImbue == skill.Id)
+                    comboImbue.SelectedIndex = index;
+            }
         }
 
         /// <summary>
@@ -186,17 +230,43 @@ namespace RSBot.Skills.Views
         {
             comboResurrectionSkill.Items.Clear();
 
+            comboResurrectionSkill.SelectedIndex = comboResurrectionSkill.Items.Add("None");
+
             foreach (var skill in Game.Player.Skills.KnownSkills.Where(
                 s => s.Record != null && s.Record.TargetEtc_SelectDeadBody == 1 &&
                (s.Record.Params[3] == 1751474540 || s.Record.Params[3] == 1919776116)))
             {
-                comboResurrectionSkill.Items.Add(skill.Record.GetRealName());
+                var index = comboResurrectionSkill.Items.Add(skill);
+                var resurrectionSkillId = PlayerConfig.Get<int>("RSBot.Skills.ResurrectionSkill");
+                if (resurrectionSkillId == 0)
+                    continue;
+                
+                if (skill.Id == resurrectionSkillId)
+                    comboResurrectionSkill.SelectedIndex = index;
+            }
+        }
+
+        /// <summary>
+        /// Load the skill image into the ImageList of the <seealso cref="ListViewItem"/>
+        /// </summary>
+        /// <param name="refSkill">The RefSkill</param>
+        private void LoadSkillImageForListViewItem(ListViewItem item)
+        {
+            var skill = item.Tag as ISkillDataInfo;
+            if (imgSkills.Images.Keys.Cast<string>().Contains(skill.Id.ToString()))
+            {
+                item.ImageKey = skill.Id.ToString();
+                return;
             }
 
-            var resIndex = PlayerConfig.Get<int>("RSBot.Skills.ResurrectionSkillIndex");
+            if (!Game.MediaPk2.FileExists(Path.GetFileName(skill.Record.UI_IconFile)))
+                return;
 
-            if (comboResurrectionSkill.Items.Count - 1 >= resIndex)
-                comboResurrectionSkill.SelectedIndex = resIndex;
+            var imageFile = Game.MediaPk2.GetFile(Path.GetFileName(skill.Record.UI_IconFile));
+
+            imgSkills.Images.Add(skill.Id.ToString(), imageFile.ToImage());
+
+            item.ImageKey = skill.Id.ToString();
         }
 
         /// <summary>
@@ -205,28 +275,7 @@ namespace RSBot.Skills.Views
         private void LoadSkillImages(ListView listView)
         {
             foreach (ListViewItem item in listView.Items)
-            {
-                var skill = (RefSkill)item.Tag;
-
-                if (imgSkills.Images.Keys.Cast<string>().Contains(skill.ID.ToString()))
-                {
-                    item.ImageKey = skill.ID.ToString();
-
-                    //No need to reload the image from the PK2
-                    continue;
-                }
-
-                //Skill image loading
-                if (!Game.MediaPk2.FileExists(Path.GetFileName(skill.UI_IconFile)))
-                    continue;
-
-                var imageFile = Game.MediaPk2.GetFile(Path.GetFileName(skill.UI_IconFile));
-
-                imgSkills.Images.Add(skill.ID.ToString(), imageFile.ToImage());
-
-                //Renders the image
-                item.ImageKey = skill.ID.ToString();
-            }
+                LoadSkillImageForListViewItem(item);
         }
 
         /// <summary>
@@ -253,25 +302,24 @@ namespace RSBot.Skills.Views
             var unknownSkillNamesCount = 0;
             foreach (var skill in Game.Player.Skills.KnownSkills.Where(s => s.Enabled))
             {
-                var isLowLevelSkill = skill.Record.ReqCommon_MasteryLevel1 <
-                                       Game.Player.Skills.GetMasteryInfoById((uint)skill.Record.ReqCommon_Mastery1).Level - 20;
+                var isLowLevelSkill = IsLowLevelSkill(skill.Record);
 
                 if (checkHideLowerLevelSkills.Checked && isLowLevelSkill || skill.IsPassive) continue; //Dont list passive skills or lower level skills?
 
                 var name = skill.Record.GetRealName();
 
-                if (string.IsNullOrWhiteSpace(name) || name == "" || name == "0")
+                if (string.IsNullOrWhiteSpace(name) || name == "0")
                     unknownSkillNamesCount++;
 
-                var item = new ListViewItem(name) { Tag = skill.Record };
+                var item = new ListViewItem(name) { Tag = skill };
                 item.SubItems.Add("lv. " + skill.Record.Basic_Level);
 
                 foreach (var @group in listSkills.Groups.Cast<ListViewGroup>().Where(@group => Convert.ToInt32(@group.Tag) == skill.Record.ReqCommon_Mastery1))
                     item.Group = @group;
 
-                if (skill.Record.TargetType_Animal == 1 && checkShowAttacks.Checked)
+                if (skill.IsAttack && checkShowAttacks.Checked)
                     listSkills.Items.Add(item);
-                else if (skill.Record.TargetType_Animal == 0 && checkShowBuffs.Checked)
+                else if (!skill.IsAttack && !skill.IsImbue && checkShowBuffs.Checked)
                     listSkills.Items.Add(item);
             }
 
@@ -285,77 +333,11 @@ namespace RSBot.Skills.Views
         }
 
         /// <summary>
-        /// Move the selected items by <seealso cref="MoveDirection"/>
-        /// </summary>
-        /// <param name="sender">The ListView</param>
-        /// <param name="direction">The move direction</param>
-        private void MoveListViewItems(ListView sender, MoveDirection direction)
-        {
-            var valid = sender.SelectedItems.Count > 0 &&
-                        ((direction == MoveDirection.Down && (sender.SelectedItems[sender.SelectedItems.Count - 1].Index < sender.Items.Count - 1))
-                        || (direction == MoveDirection.Up && (sender.SelectedItems[0].Index > 0)));
-
-            if (valid)
-            {
-                var firstIndex = sender.SelectedItems[0].Index;
-                var selectedItems = sender.SelectedItems.Cast<ListViewItem>().ToList();
-
-                sender.BeginUpdate();
-
-                foreach (ListViewItem item in sender.SelectedItems)
-                    item.Remove();
-
-                if (direction == MoveDirection.Up)
-                {
-                    var insertTo = firstIndex - 1;
-                    foreach (var item in selectedItems)
-                    {
-                        sender.Items.Insert(insertTo, item);
-                        insertTo++;
-                    }
-                }
-                else
-                {
-                    var insertTo = firstIndex + 1;
-                    foreach (var item in selectedItems)
-                    {
-                        sender.Items.Insert(insertTo, item);
-                        insertTo++;
-                    }
-                }
-                sender.EndUpdate();
-            }
-        }
-
-        /// <summary>
-        /// Refreshes the active buffs.
-        /// </summary>
-        private void RefreshActiveBuffs()
-        {
-            if (Game.Player == null || Game.Player.Buffs == null) return;
-
-            listActiveBuffs.BeginUpdate();
-            listActiveBuffs.Items.Clear();
-            var activeBuffs = Game.Player.Buffs.ToArray();
-            foreach (var buff in activeBuffs)
-            {
-                var lvItem = new ListViewItem(buff.Record.GetRealName()) { Tag = buff.Record };
-                lvItem.SubItems.Add("lv. " + buff.Record.Basic_Level);
-
-                listActiveBuffs.Items.Add(lvItem);
-            }
-            listActiveBuffs.EndUpdate();
-
-            // Load skill images
-            Task.Run(() => { LoadSkillImages(listActiveBuffs); });
-        }
-
-        /// <summary>
         /// Saves the attacks.
         /// </summary>
         private void SaveAttacks()
         {
-            var savedSkills = listAttackingSkills.Items.Cast<ListViewItem>().Select(p => ((RefSkill)p.Tag).GroupID).ToArray();
+            var savedSkills = listAttackingSkills.Items.Cast<ListViewItem>().Select(p => ((ISkillDataInfo)p.Tag).Id).ToArray();
 
             PlayerConfig.SetArray("RSBot.Skills.Attacks_" + comboMonsterType.SelectedIndex, savedSkills);
 
@@ -369,7 +351,7 @@ namespace RSBot.Skills.Views
         /// </summary>
         private void SaveBuffs()
         {
-            var savedBuffs = listBuffs.Items.Cast<ListViewItem>().Select(p => ((RefSkill)p.Tag).GroupID).ToArray();
+            var savedBuffs = listBuffs.Items.Cast<ListViewItem>().Select(p => ((ISkillDataInfo)p.Tag).Id).ToArray();
 
             PlayerConfig.SetArray("RSBot.Skills.Buffs", savedBuffs);
 
@@ -377,30 +359,42 @@ namespace RSBot.Skills.Views
         }
 
         /// <summary>
-        /// Subscribes the events.
+        /// Run the event after added the buff from the character
         /// </summary>
-        private void SubscribeEvents()
+        /// <param name="buffInfo">The added <see cref="BuffInfo"/></param>
+        private void OnAddBuff(BuffInfo buffInfo)
         {
-            EventManager.SubscribeEvent("OnEnterGame", OnEnterGame);
-            EventManager.SubscribeEvent("OnLoadCharacter", OnLoadCharacter);
-            EventManager.SubscribeEvent("OnLearnSkill", new Action<SkillInfo, bool>(OnLearnSkill));
-            EventManager.SubscribeEvent("OnLearnSkillMastery", new Action<MasteryInfo>(OnLearnSkillMastery));
-            EventManager.SubscribeEvent("OnWithdrawSkill", new Action<SkillInfo>(OnWithdrawSkill));
-            EventManager.SubscribeEvent("OnResurrectionRequest", OnResurrectionRequest);
+            var item = new ListViewItem
+            {
+                Text = buffInfo.Record.GetRealName(),
+                Tag = buffInfo
+            };
+
+            item.SubItems.Add("lv. " + buffInfo.Record.Basic_Level);
+            LoadSkillImageForListViewItem(item);
+            listActiveBuffs.Items.Add(item);
         }
 
         /// <summary>
-        /// The first event that will be fired after the player enters the game
+        /// Run the event after removed the buff from the character
         /// </summary>
-        private void OnEnterGame()
+        /// <param name="buffInfo">The removed <see cref="BuffInfo"/></param>
+        private void OnRemoveBuff(BuffInfo removingBuff)
         {
-            checkShowAttacks.Checked = PlayerConfig.Get<bool>("RSBot.Skills.ShowAttacks", true);
-            checkShowBuffs.Checked = PlayerConfig.Get<bool>("RSBot.Skills.ShowBuffs", true);
-            checkHideLowerLevelSkills.Checked = PlayerConfig.Get<bool>("RSBot.Skills.HideLowerLevelSkills");
-            checkAcceptResurrection.Checked = PlayerConfig.Get<bool>("RSBot.Skills.AcceptResurrection");
-            checkResurrectParty.Checked = PlayerConfig.Get<bool>("RSBot.Skills.ResurrectPartyMembers");
-            checkCastBuffsInTowns.Checked = PlayerConfig.Get<bool>("RSBot.Skills.CastBuffsInTowns");
-            checkCastBuffsDuringWalkBack.Checked = PlayerConfig.Get<bool>("RSBot.Skills.CastBuffsDuringWalkBack");
+            for (int i = 0; i < listActiveBuffs.Items.Count; i++)
+            {
+                var listItem = listActiveBuffs.Items[i];
+
+                var itemBuffInfo = listItem.Tag as BuffInfo;
+                if (itemBuffInfo != null &&
+                    itemBuffInfo.Id == removingBuff.Id &&
+                    itemBuffInfo.Token == removingBuff.Token)
+                {
+                    listItem.Remove();
+                    return;
+                }
+
+            }
         }
 
         /// <summary>
@@ -450,6 +444,9 @@ namespace RSBot.Skills.Views
             _applySkills = false;
         }
 
+        /// <summary>
+        /// Core_s the on resurrection request
+        /// </summary>
         private void OnResurrectionRequest()
         {
             if (Game.AcceptanceRequest != null && PlayerConfig.Get<bool>("RSBot.Skills.AcceptResurrection"))
@@ -479,7 +476,7 @@ namespace RSBot.Skills.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnMoveAttackSkillDown_Click(object sender, EventArgs e)
         {
-            MoveListViewItems(listAttackingSkills, MoveDirection.Down);
+            listAttackingSkills.MoveSelectedItems(MoveDirection.Down);
             SaveAttacks();
         }
 
@@ -490,7 +487,7 @@ namespace RSBot.Skills.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnMoveAttackSkillUp_Click(object sender, EventArgs e)
         {
-            MoveListViewItems(listAttackingSkills, MoveDirection.Up);
+            listAttackingSkills.MoveSelectedItems(MoveDirection.Up);
             SaveAttacks();
         }
 
@@ -501,7 +498,7 @@ namespace RSBot.Skills.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnMoveBuffSkillDown_Click(object sender, EventArgs e)
         {
-            MoveListViewItems(listBuffs, MoveDirection.Down);
+            listBuffs.MoveSelectedItems(MoveDirection.Down);
             SaveBuffs();
         }
 
@@ -512,7 +509,7 @@ namespace RSBot.Skills.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnMoveBuffSkillUp_Click(object sender, EventArgs e)
         {
-            MoveListViewItems(listBuffs, MoveDirection.Up);
+            listBuffs.MoveSelectedItems(MoveDirection.Up);
             SaveBuffs();
         }
 
@@ -587,15 +584,15 @@ namespace RSBot.Skills.Views
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void comboImue_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboImbue_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboImue.SelectedIndex != -1)
-            {
-                PlayerConfig.Set("RSBot.Skills.ImbueIndex", comboImue.SelectedIndex);
+            if (comboImbue.SelectedIndex <= 0)
+                return;
 
-                var skill = Game.Player.Skills.GetSkillByName(comboImue.SelectedItem.ToString());
-                SkillManager.ImbueSkill = skill;
-            }
+            var skill = comboImbue.SelectedItem as SkillInfo;
+
+            SkillManager.ImbueSkill = skill;
+            PlayerConfig.Set("RSBot.Skills.Imbue", skill.Id);
         }
 
         /// <summary>
@@ -615,13 +612,13 @@ namespace RSBot.Skills.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void comboResurrectionSkill_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboResurrectionSkill.SelectedIndex != -1)
-            {
-                PlayerConfig.Set("RSBot.Skills.ResurrectionSkillIndex", comboResurrectionSkill.SelectedIndex);
+            if (comboResurrectionSkill.SelectedIndex <= 0)
+                return;
 
-                var skill = Game.Player.Skills.GetSkillByName(comboResurrectionSkill.SelectedItem.ToString());
-                SkillManager.ResurrectionSkill = skill;
-            }
+            var skill = comboResurrectionSkill.SelectedItem as SkillInfo;
+
+            SkillManager.ResurrectionSkill = skill;
+            PlayerConfig.Set("RSBot.Skills.ResurrectionSkill", skill.Id);
         }
 
         /// <summary>
@@ -647,16 +644,51 @@ namespace RSBot.Skills.Views
         {
             foreach (ListViewItem item in listSkills.SelectedItems)
             {
+                var selectedRefSkill = item.Tag as SkillInfo;
                 if (listAttackingSkills.Items.Cast<ListViewItem>()
-                   .Count(p => ((RefSkill)p.Tag).GroupID == ((RefSkill)item.Tag).GroupID) != 0)
+                   .Count(p => ((SkillInfo)p.Tag).Record.Action_Overlap == selectedRefSkill.Record.Action_Overlap) != 0)
                     continue;
 
-                var skill = Game.Player.Skills.GetSkillInfoByGroupId(((RefSkill)item.Tag).GroupID);
-                if (skill != null && skill.IsAttack)
+                if (selectedRefSkill != null && selectedRefSkill.IsAttack)
                     listAttackingSkills.Items.Add((ListViewItem)item.Clone());
             }
 
             SaveAttacks();
+        }
+
+        private void MoveSkillsToOtherList(ListView.SelectedListViewItemCollection collection, 
+            ListView target, Func<RefSkill, bool> predicate)
+        {
+            foreach (ListViewItem selectedItem in collection)
+            {
+                var selectedSkill = selectedItem.Tag as RefSkill;
+
+                if (!predicate(selectedSkill))
+                    continue;
+
+                var overlapSkillItem = target.Items.Cast<ListViewItem>()
+                    .FirstOrDefault(p => ((RefSkill)p.Tag).Action_Overlap == selectedSkill.Action_Overlap);
+
+                if (overlapSkillItem != null)
+                {
+                    var overlapSkill = overlapSkillItem.Tag as RefSkill;
+                    var messageText = string.Empty;
+
+                    if (overlapSkill.Basic_Level > selectedSkill.Basic_Level)
+                        messageText = "Listede daha güncel bir beceri zaten mevcut! Bu işlem iptal edilsin mi?";
+                    else
+                        messageText = "Listede daha eski bir beceri zaten mevcut ancak seçtiğiniz beceri daha günceldir. Eski ve yeni beceriler birbirleri ile değiştirilsin mi?";
+
+                    if (MessageBox.Show(messageText, "Warning", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -668,26 +700,16 @@ namespace RSBot.Skills.Views
         {
             foreach (ListViewItem item in listSkills.SelectedItems)
             {
+                var selectedRefSkill = item.Tag as SkillInfo;
                 if (listBuffs.Items.Cast<ListViewItem>()
-                   .Count(p => ((RefSkill)p.Tag).GroupID == ((RefSkill)item.Tag).GroupID) != 0)
+                   .Count(p => ((SkillInfo)p.Tag).Record.Action_Overlap == selectedRefSkill.Record.Action_Overlap) != 0)
                     continue;
 
-                var skill = Game.Player.Skills.GetSkillInfoByGroupId(((RefSkill)item.Tag).GroupID);
-                if (skill != null && !skill.IsAttack)
+                if (selectedRefSkill != null && !selectedRefSkill.IsAttack)
                     listBuffs.Items.Add((ListViewItem)item.Clone());
             }
 
             SaveBuffs();
-        }
-
-        /// <summary>
-        /// Handles the Tick event of the trmActiveBuffs control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void trmActiveBuffs_Tick(object sender, EventArgs e)
-        {
-            RefreshActiveBuffs();
         }
     }
 }

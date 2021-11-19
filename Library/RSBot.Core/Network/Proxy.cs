@@ -196,17 +196,24 @@ namespace RSBot.Core.Network
         /// <param name="packet">The packet.</param>
         private void Client_OnPacketReceived(Packet packet)
         {
-            if (IsConnectedToAgentserver && packet.Opcode == 0x6100) 
-                return;
+            try
+            {
+                if (IsConnectedToAgentserver && packet.Opcode == 0x6100)
+                    return;
 
-            EventManager.FireEvent("OnClientPacketReceive", packet);
-            PacketManager.CallHandler(packet, PacketDestination.Server);
-            packet = PacketManager.CallHook(packet, PacketDestination.Server);
+                EventManager.FireEvent("OnClientPacketReceive", packet);
+                PacketManager.CallHandler(packet, PacketDestination.Server);
+                packet = PacketManager.CallHook(packet, PacketDestination.Server);
 
-            if (packet != null)
-                PacketManager.SendPacket(packet, PacketDestination.Server);
+                if (packet != null)
+                    PacketManager.SendPacket(packet, PacketDestination.Server);
 
-            PacketManager.CallCallback(packet);
+                PacketManager.CallCallback(packet);
+            }
+            catch (System.Exception e)
+            {
+                Log.Fatal(e);
+            }
         }
 
         #endregion Client
@@ -219,14 +226,21 @@ namespace RSBot.Core.Network
         /// <param name="packet">The packet.</param>
         private void Server_OnPacketReceived(Packet packet)
         {
-            EventManager.FireEvent("OnServerPacketReceive", packet);
-            PacketManager.CallHandler(packet, PacketDestination.Client);
-            packet = PacketManager.CallHook(packet, PacketDestination.Client);
+            try
+            {
+                EventManager.FireEvent("OnServerPacketReceive", packet);
+                PacketManager.CallHandler(packet, PacketDestination.Client);
+                packet = PacketManager.CallHook(packet, PacketDestination.Client);
 
-            if (packet != null)
-                PacketManager.SendPacket(packet, PacketDestination.Client);
+                if (packet != null)
+                    PacketManager.SendPacket(packet, PacketDestination.Client);
 
-            PacketManager.CallCallback(packet);
+                PacketManager.CallCallback(packet);
+            }
+            catch (System.Exception e)
+            {
+                Log.Fatal(e);
+            }
         }
 
         /// <summary>

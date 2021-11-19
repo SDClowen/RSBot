@@ -65,7 +65,7 @@ namespace RSBot.Core.Objects
         /// <returns></returns>
         public SkillInfo GetSkillByName(string name)
         {
-            return KnownSkills.FirstOrDefault(s => s.Record?.GetRealName() == name);
+            return KnownSkills.Find(s => s.Record?.GetRealName() == name);
         }
 
         /// <summary>
@@ -75,8 +75,10 @@ namespace RSBot.Core.Objects
         /// <returns></returns>
         public RefSkill GetSkillRecordByName(string name)
         {
-            if (KnownSkills == null || name == null) return null;
-            return KnownSkills.FirstOrDefault(s => s.Record.GetRealName() == name)?.Record;
+            if (KnownSkills == null || name == null) 
+                return null;
+
+            return KnownSkills.Find(s => s.Record.GetRealName() == name)?.Record;
         }
 
         /// <summary>
@@ -86,17 +88,7 @@ namespace RSBot.Core.Objects
         /// <returns></returns>
         public SkillInfo GetSkillInfoById(uint skillId)
         {
-            return KnownSkills.FirstOrDefault(s => s.Id == skillId);
-        }
-
-        /// <summary>
-        /// Gets the skill information by group identifier.
-        /// </summary>
-        /// <param name="groupId">The group identifier.</param>
-        /// <returns></returns>
-        public SkillInfo GetSkillInfoByGroupId(int groupId)
-        {
-            return KnownSkills.Where(s => s.Record.GroupID == groupId && s.Enabled).FirstOrDefault();
+            return KnownSkills.Find(s => s.Id == skillId);
         }
 
         /// <summary>
@@ -106,7 +98,7 @@ namespace RSBot.Core.Objects
         /// <returns></returns>
         public MasteryInfo GetMasteryInfoById(uint masteryId)
         {
-            return Masteries.FirstOrDefault(m => m.Id == masteryId);
+            return Masteries.Find(m => m.Id == masteryId);
         }
 
         /// <summary>
@@ -128,7 +120,7 @@ namespace RSBot.Core.Objects
         /// <returns></returns>
         public bool HasSkill(uint skillId)
         {
-            return KnownSkills.FirstOrDefault(s => s.Id == skillId) != null;
+            return KnownSkills.Any(p => p.Id == skillId);
         }
 
         /// <summary>
@@ -137,7 +129,7 @@ namespace RSBot.Core.Objects
         /// <param name="skillId">The skill identifier.</param>
         public void RemoveSkillById(uint skillId)
         {
-            KnownSkills.Remove(KnownSkills.FirstOrDefault(s => s.Id == skillId));
+            KnownSkills.RemoveAll(p => p.Id == skillId);
         }
     }
 }
