@@ -1,6 +1,7 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Network;
 using RSBot.Party.Bundle.PartyMatching.Objects;
+using System.Threading.Tasks;
 
 namespace RSBot.Party.Bundle.PartyMatching
 {
@@ -120,7 +121,7 @@ namespace RSBot.Party.Bundle.PartyMatching
 
             var callback = new AwaitCallback(response =>
             {
-                return response.ReadByte() == 1;
+                return response.ReadByte() == 1 && response.ReadByte() == 1;
             }, 0xB06D);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, callback);

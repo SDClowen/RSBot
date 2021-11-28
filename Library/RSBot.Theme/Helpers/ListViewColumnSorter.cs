@@ -40,6 +40,9 @@ namespace RSBot.Theme.Helpers
         {
             var listviewX = (ListViewItem)x;
             var listviewY = (ListViewItem)y;
+            if (listviewX == null ||
+               listviewY == null)
+                return 0;
 
             if (listviewX.SubItems[0].Text == ".." || listviewY.SubItems[0].Text == "..")
                 return 0;

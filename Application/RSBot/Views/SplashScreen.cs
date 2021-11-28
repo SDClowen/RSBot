@@ -110,7 +110,7 @@ namespace RSBot.Views
         /// <param name="e">The <see cref="System.ComponentModel.DoWorkEventArgs"/> instance containing the event data.</param>
         private void referenceDataLoader_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            Game.MediaPk2 = CacheController.LoadState(GlobalConfig.Get<string>("RSBot.SilkroadDirectory") + "\\media.pk2");
+            Game.MediaPk2 = CacheController.Initialize(GlobalConfig.Get<string>("RSBot.SilkroadDirectory") + "\\media.pk2");
 
             if (Game.MediaPk2 == null)
             {

@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Threading;
 
 namespace RSBot.Core.Components
 {
@@ -31,22 +33,14 @@ namespace RSBot.Core.Components
         public PK2Archive Archive { get; set; }
 
         /// <summary>
-        /// Gets or sets the index of the cache.
-        /// </summary>
-        /// <value>
-        /// The index of the cache.
-        /// </value>
-        public List<string> CacheIndex { get; set; }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="CacheController" /> class.
         /// </summary>
         /// <param name="archive">The media PK2.</param>
         public CacheController(PK2Archive archive)
         {
             Archive = archive;
-            if (Archive != null) CacheIndex = new List<string>();
-            Log.Debug("[CacheController] Use filecache=" + UseCache);
+
+            Log.Debug("[CacheController] Use filecache:" + UseCache);
 
             if (!Directory.Exists(CacheDirectory))
                 Directory.CreateDirectory(CacheDirectory);
@@ -59,38 +53,36 @@ namespace RSBot.Core.Components
         public CacheFile GetFile(string filename)
         {
             //Load from Pk2
-            if (!UseCache) return new CacheFile(filename, true);
-
-            if (!CacheIndex.Contains(CacheDirectory + filename))
-            {
-                CacheIndex.Add(filename);
-                SaveState();
-            }
+            if (!UseCache)
+                return new CacheFile(filename, true);
 
             //Load from cache
             if (UseCache && File.Exists(CacheDirectory + filename))
                 return new CacheFile(CacheDirectory + filename, false);
 
             //Extract and load
-            CacheFile(filename);
+            CacheFile(filename, out var cachedFile);
 
-            return GetFile(filename);
+            return cachedFile;
         }
 
         /// <summary>
         /// Caches the file.
         /// </summary>
         /// <param name="filename">The filename.</param>
-        public void CacheFile(string filename)
+        public void CacheFile(string filename, out CacheFile cachedFile)
         {
+            cachedFile = null;
             if (!FileExists(filename))
             {
                 Log.Debug($"Unable to create cache for {filename}. File does not exist");
-                throw new ArgumentNullException();
+                return;
             }
 
-            var file = Archive.GetFile(filename);
-            file.Extract(CacheDirectory + filename);
+            var pK2File = Archive.GetFile(filename);
+            pK2File.Extract(CacheDirectory + filename);
+
+            cachedFile = new CacheFile(CacheDirectory + filename, false);
         }
 
         /// <summary>
@@ -108,7 +100,7 @@ namespace RSBot.Core.Components
         /// </summary>
         /// <param name="mediaPk2">The media PK2.</param>
         /// <returns></returns>
-        public static CacheController LoadState(string mediaPk2)
+        public static CacheController Initialize(string mediaPk2)
         {
             var pk2Config = new PK2Config
             {
@@ -117,37 +109,7 @@ namespace RSBot.Core.Components
                 BaseKey = new byte[] { 0x03, 0xF8, 0xE4, 0x44, 0x88, 0x99, 0x3F, 0x64, 0xFE, 0x35 }
             };
 
-            if (!UseCache)
-                return new CacheController(new PK2Archive(mediaPk2, pk2Config));
-
-            if (!File.Exists(CacheDirectory + "cachestate.rsc"))
-            {
-                if (!File.Exists(mediaPk2))
-                    throw new FileNotFoundException();
-                return new CacheController(new PK2Archive(mediaPk2, pk2Config));
-            }
-
-            var cacheIndex = File.ReadAllLines(CacheDirectory + "cachestate.rsc").ToList();
-            if (cacheIndex.Any(file => file != "" && !File.Exists(CacheDirectory + file)))
-            {
-                Log.Debug("Cachefile not found, switching back to pk2...");
-
-                if (!File.Exists(mediaPk2))
-                    throw new FileNotFoundException();
-
-                return new CacheController(new PK2Archive(mediaPk2, pk2Config));
-            }
-
-            Log.Debug("[CacheController] Cache validation successful.");
-            return new CacheController(null) { CacheIndex = cacheIndex };
-        }
-
-        /// <summary>
-        /// Saves the state.
-        /// </summary>
-        public void SaveState()
-        {
-            File.WriteAllLines(CacheDirectory + "cachestate.rsc", CacheIndex);
+            return new CacheController(new PK2Archive(mediaPk2, pk2Config));
         }
     }
 
@@ -172,11 +134,14 @@ namespace RSBot.Core.Components
         /// </value>
         public string Path { get; set; }
 
-        #region Fields
 
+        /// <summary>
+        /// Gets or sets the pk2 file.
+        /// </summary>
+        /// <value>
+        /// The pk2 file.
+        /// </value>
         private PK2File _file;
-
-        #endregion Fields
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CacheFile"/> class.
@@ -188,7 +153,8 @@ namespace RSBot.Core.Components
             Path = path;
             IsPk2File = isPk2File;
 
-            if (isPk2File) _file = Game.MediaPk2.Archive.GetFile(path);
+            if (isPk2File)
+                _file = Game.MediaPk2.Archive.GetFile(path);
         }
 
         /// <summary>
@@ -208,11 +174,6 @@ namespace RSBot.Core.Components
             return !IsPk2File ? File.ReadAllText(Path) : _file.ReadAllText();
         }
 
-        public string[] ReadAllLines()
-        {
-            return !IsPk2File ? File.ReadAllLines(Path) : _file.ReadAllLines().ToArray();
-        }
-
         /// <summary>
         /// Gets the stream.
         /// </summary>
@@ -220,15 +181,6 @@ namespace RSBot.Core.Components
         public Stream GetStream()
         {
             return !IsPk2File ? File.OpenRead(Path) : _file.GetStream();
-        }
-
-        /// <summary>
-        /// Extracts the specified destination.
-        /// </summary>
-        /// <param name="destination">The destination.</param>
-        public void Extract(string destination)
-        {
-            _file.Extract(destination);
         }
     }
 }

@@ -454,7 +454,7 @@ namespace RSBot.General.Views
         {
             if (!Game.Clientless)
             {
-                if (!checkEnableAutoLogin.Checked || (string)comboAccounts.SelectedItem == "")
+                if (!checkEnableAutoLogin.Checked || comboAccounts.SelectedIndex <= 0)
                 {
                     MessageBox.Show(
                         "To start the clientless mode, you must first define a user account that can be used for automated login.\nPlease make also sure that the automated login is enabled.",

@@ -3,13 +3,12 @@ using RSBot.Core.Client;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Plugins;
-using RSBot.Pk2;
 using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RSBot.Views
@@ -177,27 +176,28 @@ namespace RSBot.Views
         /// <summary>
         /// Clears the cache.
         /// </summary>
-        private static void ClearCache()
+        private static Task ClearCacheAsync()
         {
-            var files = Directory.GetFiles(CacheController.CacheDirectory);
-            foreach (var file in files)
-                File.Delete(file);
-
-            Directory.Delete(CacheController.CacheDirectory);
-
-            if (Game.MediaPk2.Archive == null)
+            try
             {
-                var config = new PK2Config
-                {
-                    Key = GlobalConfig.Get<string>("RSBot.Pk2Key", "169841"),
-                    Mode = PK2Mode.Index,
-                    BaseKey = new byte[] { 0x03, 0xF8, 0xE4, 0x44, 0x88, 0x99, 0x3F, 0x64, 0xFE, 0x35 }
-                };
+                var files = Directory.GetFiles(CacheController.CacheDirectory);
+                foreach (var file in files)
+                    File.Delete(file);
 
-                Game.MediaPk2 = new CacheController(new PK2Archive(GlobalConfig.Get<string>("RSBot.SilkroadDirectory") + "\\media.pk2", config));
+                Directory.Delete(CacheController.CacheDirectory);
+
+                if (Game.MediaPk2.Archive == null)
+                    Game.MediaPk2 = CacheController.Initialize(GlobalConfig.Get<string>("RSBot.SilkroadDirectory") + "\\media.pk2");
+
+                Log.Notify($"[Cache] Clearing finished. [{files.Length}] files were deleted from the file system.");
+                BotWindow.SetStatusText("Cache cleared");
             }
-            Log.Notify($"[Cache] Clearing finished. [{files.Length}] files were deleted from the file system.");
-            BotWindow.SetStatusText("Cache cleared");
+            catch (Exception ex)
+            {
+                Log.Fatal(ex);
+            }
+
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -256,15 +256,15 @@ namespace RSBot.Views
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void menuClearCache_Click(object sender, EventArgs e)
+        private async void menuClearCache_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Do you realy want to clear the cache? \n It may impact the performance, because the bot has to rebuild it dynamically during the runtime.",
                     "Clear Cache", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
                 Log.Notify("[Cache] Deleting cached file(s)...");
                 BotWindow.SetStatusText("Clearing cache...");
-                var clear = new Thread(ClearCache);
-                clear.Start();
+
+                await ClearCacheAsync();
             }
         }
 

@@ -3,6 +3,7 @@ using RSBot.Pk2.IO.Stream;
 using RSBot.Pk2.Security;
 using System;
 using System.IO;
+using System.Threading;
 
 namespace RSBot.Pk2.Types
 {
@@ -225,7 +226,14 @@ namespace RSBot.Pk2.Types
             if (Type != PK2EntryType.File)
                 throw new InvalidOperationException("Directories can not be extracted."); //TODO: find something better
 
-            File.WriteAllBytes(destination, _fileAdapter.ReadData((long)Position, (int)Size));
+            using (var stream = new FileStream(destination, FileMode.OpenOrCreate, FileAccess.Write))
+            {
+                while (!stream.CanWrite)
+                    Thread.Sleep(1);
+
+                var buffer = _fileAdapter.ReadData((long)Position, (int)Size);
+                stream.Write(buffer, 0, buffer.Length);
+            }
         }
 
         /// <summary>

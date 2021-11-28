@@ -21,6 +21,9 @@ namespace RSBot.Party.Views
         public Main()
         {
             InitializeComponent();
+
+            CheckForIllegalCrossThreadCalls = false;
+
             SubscribeEvents();
             cbPartySearchPurpose.SelectedIndex = 0;
         }
@@ -115,9 +118,11 @@ namespace RSBot.Party.Views
                     listItem.SubItems.Add(party.MemberCount.ToString("#/" + party.Settings.MaxMember));
                     listItem.SubItems.Add(party.MinLevel + "~" + party.MaxLevel);
                     listItem.ToolTipText = party.Settings.ToString();
-                    if (party.Leader == Game.Player.Name || party.Leader == Game.Player.JobInformation.Name)
+                    if (party.Leader == Game.Player.Name ||
+                        party.Leader == Game.Player.JobInformation.Name ||
+                        (Game.Party?.Leader?.Name == party.Leader))
                     {
-                        listItem.Font = new Font(View.Instance.Font, FontStyle.Bold);
+                        listItem.Font = new Font(Font, FontStyle.Bold);
                         listItem.BackColor = Color.FromArgb(244, 247, 252);
                         listItem.ForeColor = Color.FromArgb(9, 40, 86);
                         listViewItems.Insert(0, listItem);
@@ -126,7 +131,8 @@ namespace RSBot.Party.Views
                     listViewItems.Add(listItem);
                 }
 
-                lvPartyMatching.Items.AddRange(listViewItems.ToArray());
+                foreach (var item in listViewItems)
+                    lvPartyMatching.Items.Add(item);
             });
             lvPartyMatching.EndUpdate();
         }
@@ -205,7 +211,8 @@ namespace RSBot.Party.Views
 
         private void OnDeletePartyEntry()
         {
-            if (tabMain.SelectedTab == tpPartyMatching && lvPartyMatching.Items[0].Name == Bundle.Container.PartyMatching.Id.ToString())
+            if (tabMain.SelectedTab == tpPartyMatching && 
+                lvPartyMatching.Items[0].Name == Bundle.Container.PartyMatching.Id.ToString())
                 lvPartyMatching.Items.Remove(lvPartyMatching.Items[0]);
 
             Bundle.Container.PartyMatching.Id = 0;
@@ -266,7 +273,8 @@ namespace RSBot.Party.Views
         /// <param name="member">The member.</param>
         private void OnPartyMemberUpdate(PartyMember member)
         {
-            if (!listParty.Items.ContainsKey(member.Name)) return;
+            if (!listParty.Items.ContainsKey(member.Name))
+                return;
 
             var lvItem = listParty.Items[member.Name];
 
@@ -400,7 +408,21 @@ namespace RSBot.Party.Views
 
             Log.Notify("Requesting to join party #" + partyNumber);
 
-            Bundle.Container.PartyMatching.Join(partyNumber);
+            Task.Run(() =>
+            {
+                btnJoinFormedParty.Enabled = false;
+                btnJoinFormedParty.Text = "Joining...";
+
+                if (Bundle.Container.PartyMatching.Join(partyNumber))
+                {
+                    RequestPartyList();
+                }
+                else
+                {
+                    btnJoinFormedParty.Text = "Join";
+                    btnJoinFormedParty.Enabled = true;
+                }
+            });
         }
 
         /// <summary>

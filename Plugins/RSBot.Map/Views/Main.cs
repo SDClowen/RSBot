@@ -66,7 +66,7 @@ namespace RSBot.Map.Views
             _cachedImages = _cachedImages ?? new Dictionary<string, Image>();
 
             EventManager.SubscribeEvent("OnEnterGame", OnEnterGame);
-            
+
             // All
             comboViewType.SelectedIndex = 6;
 
@@ -95,7 +95,7 @@ namespace RSBot.Map.Views
             }
         }
 
-#endregion Core Handlers
+        #endregion Core Handlers
 
         /// <summary>
         /// Adds the grid item.
@@ -196,6 +196,9 @@ namespace RSBot.Map.Views
                     if (entry.Bionic.Tracker == null)
                         continue;
 
+                    if (Game.Party != null && Game.Party.Members != null && Game.Party.GetMemberByName(entry.Name) != null)
+                        return;
+                    
                     AddGridItem(entry.Name, "Player", 0, entry.Bionic.Tracker.Position);
                     DrawPointAt(graphics, entry.Bionic.Tracker.Position, 3);
                 }
@@ -325,10 +328,10 @@ namespace RSBot.Map.Views
 
         private void trmInterval_Tick(object sender, EventArgs e)
         {
-            if (Game.Player == null) 
+            if (Game.Player == null)
                 return;
 
-            if (Game.Player.Tracker == null) 
+            if (Game.Player.Tracker == null)
                 return;
 
             trmInterval.Interval = (int)Math.Truncate(1000 / Game.Player.Tracker.ActualSpeed);
