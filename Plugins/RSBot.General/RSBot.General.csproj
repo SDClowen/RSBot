@@ -29,7 +29,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\Build\Release\Plugins\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -44,7 +44,6 @@
     <Compile Include="Bootstrap.cs" />
     <Compile Include="Components\Accounts.cs" />
     <Compile Include="Components\AutoLogin.cs" />
-    <Compile Include="Components\RijndaelHelper.cs" />
     <Compile Include="Components\Serverlist.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Server.cs" />

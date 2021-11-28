@@ -8,6 +8,14 @@ namespace RSBot.Core.Objects
     public class InventoryItem
     {
         /// <summary>
+        /// Gets or sets the item identifier.
+        /// </summary>
+        /// <value>
+        /// The item identifier.
+        /// </value>
+        public uint ItemId { get; set; }
+
+        /// <summary>
         /// Gets or sets the slot.
         /// </summary>
         /// <value>
@@ -22,14 +30,6 @@ namespace RSBot.Core.Objects
         /// The rental.
         /// </value>
         public RentInfo Rental { get; set; }
-
-        /// <summary>
-        /// Gets or sets the item identifier.
-        /// </summary>
-        /// <value>
-        /// The item identifier.
-        /// </value>
-        public uint ItemId { get; set; }
 
         /// <summary>
         /// Gets or sets the record.
@@ -95,6 +95,51 @@ namespace RSBot.Core.Objects
         /// </value>
         public InventoryItemState State { get; set; }
 
+        /// <summary>
+        /// Uses the item
+        /// </summary>
+        /// <returns></returns>
+        public bool Use()
+        {
+            Log.Debug($"Using item tid: 0x{Record.Tid:x2} {Record.CodeName} {Record}");
+
+            var packet = new Packet(0x704C);
+            packet.WriteByte(Slot);
+            packet.WriteUShort(Record.Tid);
+
+            packet.Lock();
+
+            var result = false;
+            var asyncCallback = new AwaitCallback(response => result = response.ReadByte() == 0x01, 0xB04C);
+
+            PacketManager.SendPacket(packet, PacketDestination.Server, asyncCallback);
+            asyncCallback.AwaitResponse(500);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Use the item for destination item
+        /// </summary>
+        /// <param name="destinationSlot">The destination item slot</param>
+        public void UseTo(byte destinationSlot)
+        {
+            var packet = new Packet(0x704C);
+            packet.WriteByte(Slot);
+            packet.WriteUShort(Record.Tid);
+            packet.WriteByte(destinationSlot);
+            packet.Lock();
+
+            PacketManager.SendPacket(packet, PacketDestination.Server);
+        }
+
+        /// <summary>
+        /// Parse from incoming packet
+        /// </summary>
+        /// <param name="packet">The packet</param>
+        /// <param name="destinationSlot">The destination slot</param>
+        /// <param name="hasDestinationSlot">The has destination slot</param>
+        /// <returns></returns>
         public static InventoryItem FromPacket(Packet packet, byte destinationSlot = 0, bool hasDestinationSlot = false)
         {
             // ReSharper disable once UseObjectOrCollectionInitializer
@@ -216,6 +261,11 @@ namespace RSBot.Core.Objects
         public TypeIdFilter GetFilter()
         {
             return new TypeIdFilter(Record.TypeID1, Record.TypeID2, Record.TypeID3, Record.TypeID4);
+        }
+
+        public override string ToString()
+        {
+            return Record.CodeName;
         }
     }
 }

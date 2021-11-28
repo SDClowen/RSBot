@@ -28,13 +28,13 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
         {
             packet.ReadUInt(); //Mobs unique ID!
 
-            var experienceAmount = packet.ReadULong();
+            var experienceAmount = packet.ReadLong();
             Core.Game.Player.Experience += experienceAmount;
 
             var iLevel = Core.Game.Player.Level;
-            while (Core.Game.Player.Experience > (ulong)Core.Game.ReferenceManager.GetRefLevel(iLevel).Exp_C)
+            while (Core.Game.Player.Experience > Core.Game.ReferenceManager.GetRefLevel(iLevel).Exp_C)
             {
-                Core.Game.Player.Experience -= (ulong)Core.Game.ReferenceManager.GetRefLevel(iLevel).Exp_C;
+                Core.Game.Player.Experience -= Core.Game.ReferenceManager.GetRefLevel(iLevel).Exp_C;
                 iLevel++;
             }
 

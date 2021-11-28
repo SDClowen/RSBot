@@ -2,7 +2,7 @@
 
 namespace RSBot.Core.Objects.Skill
 {
-    public class BuffInfo
+    public class BuffInfo : ISkillDataInfo
     {
         /// <summary>
         /// Gets or sets the identifier.

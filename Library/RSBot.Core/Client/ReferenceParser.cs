@@ -54,19 +54,27 @@ namespace RSBot.Core.Client
 
         public bool TryParseBool(int index, out bool result)
         {
-            if (index < _length && bool.TryParse(_data[index], out result))
-                return true;
+            result = false;
 
-            result = default(bool);
+            if (index >= _length)
+                return false;
+
+            if (byte.TryParse(_data[index], out var value))
+            {
+                result = value == 1;
+                return true;
+            }    
+
             return false;
         }
 
         public bool TryParseBool(int index, out bool result, bool @default)
         {
-            if (index < _length && bool.TryParse(_data[index], out result))
+            if (TryParseBool(index, out result))
                 return true;
 
             result = @default;
+
             return false;
         }
 

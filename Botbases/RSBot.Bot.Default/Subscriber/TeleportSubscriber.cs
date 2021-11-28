@@ -8,20 +8,11 @@ namespace RSBot.Bot.Default.Subscriber
 {
     internal class TeleportSubscriber
     {
-        #region Delegates
-
-        public delegate void OnTeleportCompleteEventHandler();
-
-        private static event OnTeleportCompleteEventHandler OnTeleportComplete;
-
-        #endregion Delegates
-
         /// <summary>
         /// Subscribes the events.
         /// </summary>
         public static void SubscribeEvents()
         {
-            OnTeleportComplete += TeleportSubscriber_OnTeleportComplete;
             EventManager.SubscribeEvent("OnTeleportComplete", OnTeleportComplete);
         }
 
@@ -30,9 +21,11 @@ namespace RSBot.Bot.Default.Subscriber
         /// <summary>
         /// Will be triggered when an ingame teleportation was complete
         /// </summary>
-        private static void TeleportSubscriber_OnTeleportComplete()
+        private static void OnTeleportComplete()
         {
-            if (!Kernel.Bot.Running) return;
+            if (!Kernel.Bot.Running) 
+                return;
+
             if (!ScriptManager.Running)
                 Task.Run(() => Bundles.Loop.Start());
         }

@@ -16,35 +16,40 @@ namespace RSBot.Protection.Components.Player
         /// </summary>
         private static void SubscribeEvents()
         {
-            EventManager.SubscribeEvent("OnTick", OnTick);
+            EventManager.SubscribeEvent("OnUpdateHP", OnUpdateHP);
         }
 
         /// <summary>
         /// Cores the on player HPMP update.
         /// </summary>
         /// <exception cref="System.NotImplementedException"></exception>
-        private static void OnTick()
+        private static void OnUpdateHP()
         {
+            if (!Kernel.Bot.Running)
+                return;
+
             if ((Game.Player.BadEffect & BadEffect.Zombie) == BadEffect.Zombie)
                 return;
 
-            var useHealthPotion = PlayerConfig.Get<bool>("RSBot.Protection.checkUseSkillHP");
-            if (!useHealthPotion) return;
+            if (PlayerConfig.Get<bool>("RSBot.Protection.checkUseSkillHP")) 
+                return;
 
-            var skillName = PlayerConfig.Get<string>("RSBot.Protection.skillPlayerHP", "");
-            if (string.IsNullOrWhiteSpace(skillName)) return;
+            var skillId = PlayerConfig.Get<uint>("RSBot.Protection.HpSkill");
+            if (skillId == 0)
+                return;
 
             var minHealth = PlayerConfig.Get<int>("RSBot.Protection.numPlayerSkillHPMin", 50);
 
             var healthPercent = ((double)Game.Player.Health / (double)Game.Player.MaximumHealth) * 100;
+            if (healthPercent > minHealth)
+                return;
 
-            if (healthPercent <= minHealth)
-            {
-                var skill = Game.Player.Skills.GetSkillByName(skillName);
+            var skill = Game.Player.Skills.GetSkillInfoById(skillId);
+            if (skill == null)
+                return;
 
-                Log.Debug("Using HP skill: " + skill.Record.GetRealName());
-                Game.Player.CastBuff(skill.Id);
-            }
+            Log.Debug($"Using HP skill: {skill}");
+            Game.Player.CastBuff(skill.Id);
         }
     }
 }

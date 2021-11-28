@@ -86,40 +86,46 @@ namespace RSBot.Core.Network
             if (Socket != null)
                 Disconnect();
 
-            _securityManager = new SecurityManager();
-            _receiveTransferBuffer = new TransferBuffer(8192, 0, 0);
-            Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
             try
             {
-                Socket.Connect(ip, port, 3000);
-            }
-            catch (SocketException)
-            {
-                Log.Error($"Could not establish a connection to {ip}:{port}.");
-                Disconnect();
-                return;
-            }
+                _securityManager = new SecurityManager();
+                _receiveTransferBuffer = new TransferBuffer(8192, 0, 0);
+                Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-            if (_packetProcessor == null)
-            {
-                _packetProcessor = new Thread(ProcessPacketsThreaded)
+                try
                 {
-                    Name = "Proxy.Network.Server.PacketProcessor",
-                    IsBackground = true
-                };
-                _packetProcessor.Start();
+                    Socket.Connect(ip, port, 3000);
+                }
+                catch (SocketException)
+                {
+                    Log.Error($"Could not establish a connection to {ip}:{port}.");
+                    Disconnect();
+                    return;
+                }
+
+                if (_packetProcessor == null)
+                {
+                    _packetProcessor = new Thread(ProcessPacketsThreaded)
+                    {
+                        Name = "Proxy.Network.Server.PacketProcessor",
+                        IsBackground = true
+                    };
+                    _packetProcessor.Start();
+                }
+
+                EnablePacketProcessor = true;
+
+                Socket.BeginReceive(_receiveTransferBuffer.Buffer, 0, 8192, SocketFlags.None,
+                    WaitForData, Socket);
+
+                OnConnected?.Invoke();
+
+                EventManager.FireEvent("OnServerConnected");
+                Log.Debug("Server connection established!");
             }
-
-            EnablePacketProcessor = true;
-
-            Socket.BeginReceive(_receiveTransferBuffer.Buffer, 0, 8192, SocketFlags.None,
-                WaitForData, Socket);
-
-            OnConnected?.Invoke();
-
-            EventManager.FireEvent("OnServerConnected");
-            Log.Debug("Server connection established!");
+            catch
+            {
+            }
         }
 
         /// <summary>
@@ -127,18 +133,24 @@ namespace RSBot.Core.Network
         /// </summary>
         private void ProcessPacketsThreaded()
         {
-            while (!EnablePacketProcessor && !IsClosing)
-                Thread.Sleep(1);
-
-            while (EnablePacketProcessor && !IsClosing)
+            try
             {
-                ProcessPackets();
-                Thread.Sleep(1);
+                while (!EnablePacketProcessor && !IsClosing)
+                    Thread.Sleep(1);
+
+                while (EnablePacketProcessor && !IsClosing)
+                {
+                    ProcessPackets();
+                    Thread.Sleep(1);
+                }
+
+                if (IsClosing) return;
+
+                ProcessPacketsThreaded();
             }
-
-            if (IsClosing) return;
-
-            ProcessPacketsThreaded();
+            catch
+            {
+            }
         }
 
         /// <summary>
@@ -146,23 +158,36 @@ namespace RSBot.Core.Network
         /// </summary>
         private void ProcessPackets()
         {
-            if (IsClosing || !EnablePacketProcessor) return;
-
-            _receivedPackets = _securityManager.TransferIncoming();
-
-            if (_receivedPackets != null)
+            try
             {
-                foreach (var packet in _receivedPackets)
-                    if (packet.Opcode != 0x5000 && packet.Opcode != 0x9000)
-                        OnPacketReceived?.Invoke(packet);
+                if (IsClosing || !EnablePacketProcessor)
+                    return;
+
+                _receivedPackets = _securityManager.TransferIncoming();
+
+                if (_receivedPackets != null)
+                {
+                    foreach (var packet in _receivedPackets)
+                        if (packet.Opcode != 0x5000 && packet.Opcode != 0x9000)
+                            OnPacketReceived?.Invoke(packet);
+                }
+
+                _sendTransferBuffers = _securityManager.TransferOutgoing();
+
+                if (_sendTransferBuffers == null)
+                    return;
+
+                foreach (var buffer in _sendTransferBuffers)
+                {
+                    if (Socket == null || IsClosing || !EnablePacketProcessor || !Socket.Connected)
+                        return;
+
+                    Socket.Send(buffer.Key.Buffer);
+                }
             }
-
-            _sendTransferBuffers = _securityManager.TransferOutgoing();
-
-            if (_sendTransferBuffers == null) return;
-
-            foreach (var buffer in _sendTransferBuffers)
-                Send(buffer.Key.Buffer);
+            catch
+            {
+            }
         }
 
         /// <summary>
@@ -171,11 +196,13 @@ namespace RSBot.Core.Network
         /// <param name="result">The result.</param>
         private void WaitForData(IAsyncResult result)
         {
-            if (IsClosing || !EnablePacketProcessor) return;
+            if (IsClosing || !EnablePacketProcessor) 
+                return;
 
             var worker = result.AsyncState as Socket;
 
-            if (worker == null) return;
+            if (worker == null) 
+                return;
 
             int dataLength;
 
@@ -204,17 +231,6 @@ namespace RSBot.Core.Network
                 worker.BeginReceive(_receiveTransferBuffer.Buffer, 0, 8192, SocketFlags.None, WaitForData, worker);
             else
                 Log.Notify("Connection to the server has been lost! - Please restart the game client!");
-        }
-
-        /// <summary>
-        /// Sends the specified data.
-        /// </summary>
-        /// <param name="data">The data.</param>
-        public void Send(byte[] data)
-        {
-            if (Socket == null || IsClosing || !EnablePacketProcessor || !Socket.Connected) return;
-
-            Socket.Send(data);
         }
 
         /// <summary>

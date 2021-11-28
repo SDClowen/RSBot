@@ -4,12 +4,12 @@ using System;
 
 namespace RSBot.Core.Objects.Skill
 {
-    public class SkillInfo
+    public class SkillInfo : ISkillDataInfo
     {
         /// <summary>
         /// Gets or sets the identifier.
         /// </summary>
-        public uint Id;
+        public uint Id { get; set; }
 
         /// <summary>
         /// Gets or sets the enabled.
@@ -37,6 +37,14 @@ namespace RSBot.Core.Objects.Skill
         /// </value>
         public bool IsAttack => Record.Params[1] == 6386804;
 
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="SkillInfo"/> is imbue.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if imbue; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsImbue => Record.Basic_Activity == 1 && Record.Action_Overlap == 1;
+        
         /// <summary>
         /// The skill buff duration
         /// </summary>
@@ -76,7 +84,7 @@ namespace RSBot.Core.Objects.Skill
         /// <value>
         /// <c>true</c> if this instance can be used; otherwise, <c>false</c>.
         /// </value>
-        public bool CanBeCasted => !CanNotBeCasted && !HasCooldown;
+        public bool CanBeCasted => !CanNotBeCasted && !HasCooldown && Game.Player.Mana >= Record.Consume_MP;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SkillInfo"/> class.
@@ -106,14 +114,21 @@ namespace RSBot.Core.Objects.Skill
         }
 
         /// <summary>
-        /// Update the cooldown tick
+        /// Update the ticks
         /// </summary>
-        public void UpdateTicks()
+        public void Update()
         {
             _cooldownTick = Environment.TickCount;
             _canNotBeCastedTick = Environment.TickCount;
+        }
 
-            Log.Debug($"Lock skill [{Record.GetRealName()}] for {(_duration + Record.Action_ReuseDelay) / 1000} seconds.");
+        /// <summary>
+        /// Reset the ticks
+        /// </summary>
+        public void Reset()
+        {
+            //_cooldownTick = 0;
+            _canNotBeCastedTick = 0;
         }
 
         /// <summary>
@@ -121,7 +136,7 @@ namespace RSBot.Core.Objects.Skill
         /// </summary>
         public override string ToString()
         {
-            return $"{Record} GroupId:{Record.GroupID} Enabled:{Enabled}";
+            return $"{Record}";
         }
     }
 }

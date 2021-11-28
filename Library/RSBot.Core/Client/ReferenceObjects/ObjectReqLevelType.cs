@@ -14,7 +14,6 @@
 
         //European clothing limitation
         MasteryWarrior = 513, //워리어201
-
         MasteryRogue = 515,  //로그203
         MasteryWizard = 514,  //위저드202
         MasteryWarlock = 516, //워락204

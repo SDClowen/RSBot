@@ -29,28 +29,25 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.contextSkillControl = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.menuAddAttack = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuAddBuff = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.listAttackingSkills = new Theme.Controls.ListView();
+            this.listAttackingSkills = new RSBot.Theme.Controls.ListView();
             this.columnName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imgSkills = new System.Windows.Forms.ImageList(this.components);
             this.label2 = new System.Windows.Forms.Label();
             this.comboMonsterType = new System.Windows.Forms.ComboBox();
-            this.btnMoveAttackSkillDown = new Theme.Material.Button();
-            this.btnMoveAttackSkillUp = new Theme.Material.Button();
-            this.btnRemoveAttackSkill = new Theme.Material.Button();
+            this.btnMoveAttackSkillDown = new RSBot.Theme.Material.Button();
+            this.btnMoveAttackSkillUp = new RSBot.Theme.Material.Button();
+            this.btnRemoveAttackSkill = new RSBot.Theme.Material.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.listBuffs = new Theme.Controls.ListView();
+            this.listBuffs = new RSBot.Theme.Controls.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.btnMoveBuffSkillDown = new Theme.Material.Button();
-            this.comboImue = new System.Windows.Forms.ComboBox();
-            this.btnMoveBuffSkillUp = new Theme.Material.Button();
+            this.btnMoveBuffSkillDown = new RSBot.Theme.Material.Button();
+            this.comboImbue = new System.Windows.Forms.ComboBox();
+            this.btnMoveBuffSkillUp = new RSBot.Theme.Material.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnRemoveBuffSkill = new Theme.Material.Button();
+            this.btnRemoveBuffSkill = new RSBot.Theme.Material.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -64,7 +61,7 @@
             this.checkCastBuffsInTowns = new System.Windows.Forms.CheckBox();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.listSkills = new Theme.Controls.ListView();
+            this.listSkills = new RSBot.Theme.Controls.ListView();
             this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1 = new System.Windows.Forms.Panel();
@@ -73,11 +70,13 @@
             this.checkShowAttacks = new System.Windows.Forms.CheckBox();
             this.checkShowBuffs = new System.Windows.Forms.CheckBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.listActiveBuffs = new Theme.Controls.ListView();
+            this.listActiveBuffs = new RSBot.Theme.Controls.ListView();
             this.colActiveName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colActiveLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.trmActiveBuffs = new System.Windows.Forms.Timer(this.components);
-            this.contextSkillControl.SuspendLayout();
+            this.skillContextMenu = new System.Windows.Forms.ContextMenu();
+            this.skillContextMenuAddAttackSkill = new System.Windows.Forms.MenuItem();
+            this.menuItem2 = new System.Windows.Forms.MenuItem();
+            this.skillContextMenuAddBuffSkill = new System.Windows.Forms.MenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -90,28 +89,6 @@
             this.panel1.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // contextSkillControl
-            // 
-            this.contextSkillControl.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuAddAttack,
-            this.menuAddBuff});
-            this.contextSkillControl.Name = "contextSkillControl";
-            this.contextSkillControl.Size = new System.Drawing.Size(151, 48);
-            // 
-            // menuAddAttack
-            // 
-            this.menuAddAttack.Name = "menuAddAttack";
-            this.menuAddAttack.Size = new System.Drawing.Size(150, 22);
-            this.menuAddAttack.Text = "Add to attacks";
-            this.menuAddAttack.Click += new System.EventHandler(this.menuAddAttack_Click);
-            // 
-            // menuAddBuff
-            // 
-            this.menuAddBuff.Name = "menuAddBuff";
-            this.menuAddBuff.Size = new System.Drawing.Size(150, 22);
-            this.menuAddBuff.Text = "Add to buffs";
-            this.menuAddBuff.Click += new System.EventHandler(this.menuAddBuff_Click);
             // 
             // groupBox1
             // 
@@ -136,6 +113,7 @@
             this.columnLevel});
             this.listAttackingSkills.FullRowSelect = true;
             this.listAttackingSkills.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.listAttackingSkills.HideSelection = false;
             this.listAttackingSkills.Location = new System.Drawing.Point(6, 19);
             this.listAttackingSkills.Name = "listAttackingSkills";
             this.listAttackingSkills.Size = new System.Drawing.Size(315, 146);
@@ -175,11 +153,12 @@
             this.comboMonsterType.Items.AddRange(new object[] {
             "General (Default)",
             "Champion",
-            "Elite",
             "Giant",
             "General (Party)",
             "Champion (Party)",
             "Giant (Party)",
+            "Elite",
+            "Strong",
             "Unique"});
             this.comboMonsterType.Location = new System.Drawing.Point(54, 171);
             this.comboMonsterType.Name = "comboMonsterType";
@@ -192,7 +171,7 @@
             this.btnMoveAttackSkillDown.Depth = 0;
             this.btnMoveAttackSkillDown.Icon = null;
             this.btnMoveAttackSkillDown.Location = new System.Drawing.Point(327, 79);
-            this.btnMoveAttackSkillDown.MouseState = Theme.IMatMouseState.HOVER;
+            this.btnMoveAttackSkillDown.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnMoveAttackSkillDown.Name = "btnMoveAttackSkillDown";
             this.btnMoveAttackSkillDown.Primary = false;
             this.btnMoveAttackSkillDown.Raised = false;
@@ -208,7 +187,7 @@
             this.btnMoveAttackSkillUp.Depth = 0;
             this.btnMoveAttackSkillUp.Icon = null;
             this.btnMoveAttackSkillUp.Location = new System.Drawing.Point(327, 49);
-            this.btnMoveAttackSkillUp.MouseState = Theme.IMatMouseState.HOVER;
+            this.btnMoveAttackSkillUp.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnMoveAttackSkillUp.Name = "btnMoveAttackSkillUp";
             this.btnMoveAttackSkillUp.Primary = false;
             this.btnMoveAttackSkillUp.Raised = false;
@@ -224,7 +203,7 @@
             this.btnRemoveAttackSkill.Depth = 0;
             this.btnRemoveAttackSkill.Icon = null;
             this.btnRemoveAttackSkill.Location = new System.Drawing.Point(327, 19);
-            this.btnRemoveAttackSkill.MouseState = Theme.IMatMouseState.HOVER;
+            this.btnRemoveAttackSkill.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnRemoveAttackSkill.Name = "btnRemoveAttackSkill";
             this.btnRemoveAttackSkill.Primary = false;
             this.btnRemoveAttackSkill.Raised = false;
@@ -239,7 +218,7 @@
             // 
             this.groupBox2.Controls.Add(this.listBuffs);
             this.groupBox2.Controls.Add(this.btnMoveBuffSkillDown);
-            this.groupBox2.Controls.Add(this.comboImue);
+            this.groupBox2.Controls.Add(this.comboImbue);
             this.groupBox2.Controls.Add(this.btnMoveBuffSkillUp);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.btnRemoveBuffSkill);
@@ -257,6 +236,7 @@
             this.columnHeader2});
             this.listBuffs.FullRowSelect = true;
             this.listBuffs.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.listBuffs.HideSelection = false;
             this.listBuffs.Location = new System.Drawing.Point(6, 19);
             this.listBuffs.Name = "listBuffs";
             this.listBuffs.Size = new System.Drawing.Size(315, 146);
@@ -279,7 +259,7 @@
             this.btnMoveBuffSkillDown.Depth = 0;
             this.btnMoveBuffSkillDown.Icon = null;
             this.btnMoveBuffSkillDown.Location = new System.Drawing.Point(327, 79);
-            this.btnMoveBuffSkillDown.MouseState = Theme.IMatMouseState.HOVER;
+            this.btnMoveBuffSkillDown.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnMoveBuffSkillDown.Name = "btnMoveBuffSkillDown";
             this.btnMoveBuffSkillDown.Primary = false;
             this.btnMoveBuffSkillDown.Raised = false;
@@ -290,22 +270,22 @@
             this.btnMoveBuffSkillDown.UseVisualStyleBackColor = true;
             this.btnMoveBuffSkillDown.Click += new System.EventHandler(this.btnMoveBuffSkillDown_Click);
             // 
-            // comboImue
+            // comboImbue
             // 
-            this.comboImue.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboImue.FormattingEnabled = true;
-            this.comboImue.Location = new System.Drawing.Point(54, 171);
-            this.comboImue.Name = "comboImue";
-            this.comboImue.Size = new System.Drawing.Size(267, 21);
-            this.comboImue.TabIndex = 7;
-            this.comboImue.SelectedIndexChanged += new System.EventHandler(this.comboImue_SelectedIndexChanged);
+            this.comboImbue.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboImbue.FormattingEnabled = true;
+            this.comboImbue.Location = new System.Drawing.Point(54, 171);
+            this.comboImbue.Name = "comboImbue";
+            this.comboImbue.Size = new System.Drawing.Size(267, 21);
+            this.comboImbue.TabIndex = 7;
+            this.comboImbue.SelectedIndexChanged += new System.EventHandler(this.comboImbue_SelectedIndexChanged);
             // 
             // btnMoveBuffSkillUp
             // 
             this.btnMoveBuffSkillUp.Depth = 0;
             this.btnMoveBuffSkillUp.Icon = null;
             this.btnMoveBuffSkillUp.Location = new System.Drawing.Point(327, 49);
-            this.btnMoveBuffSkillUp.MouseState = Theme.IMatMouseState.HOVER;
+            this.btnMoveBuffSkillUp.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnMoveBuffSkillUp.Name = "btnMoveBuffSkillUp";
             this.btnMoveBuffSkillUp.Primary = false;
             this.btnMoveBuffSkillUp.Raised = false;
@@ -330,7 +310,7 @@
             this.btnRemoveBuffSkill.Depth = 0;
             this.btnRemoveBuffSkill.Icon = null;
             this.btnRemoveBuffSkill.Location = new System.Drawing.Point(327, 19);
-            this.btnRemoveBuffSkill.MouseState = Theme.IMatMouseState.HOVER;
+            this.btnRemoveBuffSkill.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnRemoveBuffSkill.Name = "btnRemoveBuffSkill";
             this.btnRemoveBuffSkill.Primary = false;
             this.btnRemoveBuffSkill.Raised = false;
@@ -492,10 +472,10 @@
             this.listSkills.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colName,
             this.colLevel});
-            this.listSkills.ContextMenuStrip = this.contextSkillControl;
             this.listSkills.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listSkills.FullRowSelect = true;
             this.listSkills.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.listSkills.HideSelection = false;
             this.listSkills.Location = new System.Drawing.Point(3, 3);
             this.listSkills.Name = "listSkills";
             this.listSkills.Size = new System.Drawing.Size(336, 394);
@@ -594,6 +574,7 @@
             this.listActiveBuffs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listActiveBuffs.FullRowSelect = true;
             this.listActiveBuffs.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.listActiveBuffs.HideSelection = false;
             this.listActiveBuffs.Location = new System.Drawing.Point(3, 3);
             this.listActiveBuffs.Name = "listActiveBuffs";
             this.listActiveBuffs.Size = new System.Drawing.Size(336, 423);
@@ -612,11 +593,29 @@
             this.colActiveLevel.Text = "";
             this.colActiveLevel.Width = 69;
             // 
-            // trmActiveBuffs
+            // skillContextMenu
             // 
-            this.trmActiveBuffs.Enabled = true;
-            this.trmActiveBuffs.Interval = 1000;
-            this.trmActiveBuffs.Tick += new System.EventHandler(this.trmActiveBuffs_Tick);
+            this.skillContextMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.skillContextMenuAddAttackSkill,
+            this.menuItem2,
+            this.skillContextMenuAddBuffSkill});
+            // 
+            // skillContextMenuAddAttackSkill
+            // 
+            this.skillContextMenuAddAttackSkill.Index = 0;
+            this.skillContextMenuAddAttackSkill.Text = "Add To Attacks";
+            this.skillContextMenuAddAttackSkill.Click += new System.EventHandler(this.menuAddAttack_Click);
+            // 
+            // menuItem2
+            // 
+            this.menuItem2.Index = 1;
+            this.menuItem2.Text = "-";
+            // 
+            // skillContextMenuAddBuffSkill
+            // 
+            this.skillContextMenuAddBuffSkill.Index = 2;
+            this.skillContextMenuAddBuffSkill.Text = "Add To Buffs";
+            this.skillContextMenuAddBuffSkill.Click += new System.EventHandler(this.menuAddBuff_Click);
             // 
             // Main
             // 
@@ -628,7 +627,6 @@
             this.Name = "Main";
             this.Padding = new System.Windows.Forms.Padding(6);
             this.Size = new System.Drawing.Size(754, 467);
-            this.contextSkillControl.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -655,12 +653,9 @@
         private Theme.Material.Button btnRemoveAttackSkill;
         private Theme.Material.Button btnMoveAttackSkillDown;
         private Theme.Material.Button btnMoveAttackSkillUp;
-        private System.Windows.Forms.ComboBox comboImue;
+        private System.Windows.Forms.ComboBox comboImbue;
         private System.Windows.Forms.Label label1;
         private Theme.Material.Button btnRemoveBuffSkill;
-        private System.Windows.Forms.ContextMenuStrip contextSkillControl;
-        private System.Windows.Forms.ToolStripMenuItem menuAddAttack;
-        private System.Windows.Forms.ToolStripMenuItem menuAddBuff;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboMonsterType;
         private System.Windows.Forms.TabControl tabControl1;
@@ -686,7 +681,6 @@
         private Theme.Controls.ListView listActiveBuffs;
         private System.Windows.Forms.ColumnHeader colActiveName;
         private System.Windows.Forms.ColumnHeader colActiveLevel;
-        private System.Windows.Forms.Timer trmActiveBuffs;
         private System.Windows.Forms.ImageList imgSkills;
         private Theme.Material.Button btnMoveBuffSkillDown;
         private Theme.Material.Button btnMoveBuffSkillUp;
@@ -698,5 +692,9 @@
         private Theme.Controls.ListView listBuffs;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ContextMenu skillContextMenu;
+        private System.Windows.Forms.MenuItem menuItem2;
+        private System.Windows.Forms.MenuItem skillContextMenuAddBuffSkill;
+        private System.Windows.Forms.MenuItem skillContextMenuAddAttackSkill;
     }
 }

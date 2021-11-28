@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace RSBot.General.Components
 {
@@ -17,48 +16,73 @@ namespace RSBot.General.Components
         /// </value>
         public static List<Account> SavedAccounts { get; set; }
 
-        #region Constants
+        /// <summary>
+        /// Gets or sets the joined account.
+        /// </summary>
+        public static Account Joined { get; set; }
 
-        private const string Filename = "autologin.dat";
-        private const string DirectoryName = "\\User\\";
-        private const string SavePath = DirectoryName + Filename;
-        private const string Key = "bJc9CU3GLkHAUmYV";
+        /// <summary>
+        /// Get the data file path
+        /// </summary>
+        private static readonly string _filePath = Path.Combine(Environment.CurrentDirectory, "User", "autologin.data");
 
-        #endregion Constants
+        /// <summary>
+        /// Check the saving directory
+        /// </summary>
+        /// <returns></returns>
+        private static void CheckDirectory()
+        {
+            var directory = Path.GetDirectoryName(_filePath);
+            if (!Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
+        }
 
         /// <summary>
         /// Loads this instance.
         /// </summary>
         public static void Load()
         {
-            SavedAccounts = new List<Account>();
-
             try
             {
-                if (!File.Exists(Environment.CurrentDirectory + SavePath))
-                    File.Create(Environment.CurrentDirectory + SavePath).Dispose();
+                CheckDirectory();
 
-                var fileContent = File.ReadAllText(Environment.CurrentDirectory + SavePath);
+                SavedAccounts = new List<Account>();
 
-                if (fileContent == string.Empty)
-                    return;
-
-                fileContent = RijndaelHelper.Decrypt(fileContent, Key);
-
-                foreach (var line in fileContent.Split('\n').Where(line => !string.IsNullOrEmpty(line)))
+                using (var fileStream = new FileStream(_filePath, FileMode.OpenOrCreate))
                 {
-                    SavedAccounts.Add(new Account
+                    if (fileStream.Length == 0)
+                        return;
+
+                    // We cant use System.???? namespace serializers because the dlls not in the same directory.
+                    // Also we can use other serializers like json, but i think, its dont need. Because small code is enough for us.
+                    // But this is not bad ;)
+                    using (var reader = new BinaryReader(fileStream))
                     {
-                        Username = line.Split('\t')[0],
-                        Password = line.Split('\t')[1],
-                        Servername = line.Split('\t')[2],
-                        Characters = line.Split('\t')[3].Split(',')
-                    });
+                        var length = reader.ReadInt32();
+                        for (int i = 0; i < length; i++)
+                        {
+                            var account = new Account();
+                            account.Username = reader.ReadString();
+                            account.Password = reader.ReadString();
+                            account.Servername = reader.ReadString();
+                            account.SelectedCharacter = reader.ReadString();
+
+                            var charCount = reader.ReadInt32();
+
+                            account.Characters = new List<string>(charCount);
+
+                            for (int j = 0; j < charCount; j++)
+                                account.Characters.Add(reader.ReadString());
+
+                            SavedAccounts.Add(account);
+                        }
+                    }
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                Core.Log.Notify($"Unable to load [{Filename}] file not found or damaged!");
+                Core.Log.Notify($"Unable to load [{_filePath}] file not found or damaged!");
+                Core.Log.Fatal(ex);
             }
         }
 
@@ -67,26 +91,36 @@ namespace RSBot.General.Components
         /// </summary>
         public static void Save()
         {
-            if (SavedAccounts == null || SavedAccounts.Count == 0) return; //nothing to be saved!
-            if (!Directory.Exists(Environment.CurrentDirectory + DirectoryName))
-                Directory.CreateDirectory(Environment.CurrentDirectory + DirectoryName);
+            CheckDirectory();
 
-            var builder = new StringBuilder();
+            if (SavedAccounts == null) 
+                return;
 
-            foreach (var account in SavedAccounts)
+            try
             {
-                builder.AppendFormat("{0}\t", account.Username);
-                builder.AppendFormat("{0}\t", account.Password);
-                builder.AppendFormat("{0}\t", account.Servername);
+                using (var fileStream = new FileStream(_filePath, FileMode.OpenOrCreate))
+                {
+                    using (var writer = new BinaryWriter(fileStream))
+                    {
+                        writer.Write(SavedAccounts.Count);
 
-                if (account.Characters != null) 
-                    builder.Append(string.Join(",", account.Characters));
-
-                builder.Append("\n");
+                        foreach (var account in SavedAccounts)
+                        {
+                            writer.Write(account.Username);
+                            writer.Write(account.Password);
+                            writer.Write(account.Servername);
+                            writer.Write(account.SelectedCharacter);
+                            writer.Write(account.Characters.Count);
+                            foreach (var character in account.Characters)
+                                    writer.Write(character);
+                        }
+                    }
+                }
             }
-
-            File.WriteAllText(Environment.CurrentDirectory + SavePath,
-                 RijndaelHelper.Encrypt(builder.ToString(), Key));
+            catch
+            {
+                Core.Log.Notify($"Unable to save [{_filePath}] file not found or damaged!");
+            }
         }
     }
 }

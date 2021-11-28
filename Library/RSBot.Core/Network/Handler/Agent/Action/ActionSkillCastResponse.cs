@@ -35,9 +35,19 @@ namespace RSBot.Core.Network.Handler.Agent.Action
                 Core.Game.Player.Tracker.StopMoving();
 
                 var skill = Core.Game.Player.Skills.GetSkillInfoById(action.SkillId);
-                if (skill == null) return;
+                skill?.Update();
 
-                skill.UpdateTicks();
+                if(skill != null && action.PlayerIsExecutor)
+                {
+                    Log.Debug($@"Skill casted: {skill.Record.Basic_Code} 
+                                        TargetGroup_Self: {skill.Record.TargetGroup_Self}
+                                        TargetGroup_Party: {skill.Record.TargetGroup_Party}
+                                        TargetGroup_Ally: {skill.Record.TargetGroup_Ally}
+                                        Target_Required: {skill.Record.Target_Required}
+                                        IsAttack: {skill.IsAttack}
+                    ");
+                }
+
 
                 EventManager.FireEvent("OnCastSkill", action.SkillId);
 
@@ -45,11 +55,13 @@ namespace RSBot.Core.Network.Handler.Agent.Action
             }
 
             var executor = action.GetExecutor();
-            if (executor == null) return;
+            if (executor == null) 
+                return;
 
             executor.Tracker?.StopMoving();
 
-            if (!action.PlayerIsTarget) return;
+            if (!action.PlayerIsTarget) 
+                return;
 
             EventManager.FireEvent("OnEnemySkillOnPlayer");
 

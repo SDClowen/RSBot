@@ -231,6 +231,30 @@ namespace RSBot.Core.Objects
         }
 
         /// <summary>
+        /// Gets the best item.
+        /// </summary>
+        /// <param name="filter">The filter.</param>
+        /// <returns></returns>
+        public InventoryItem GetItemBest(TypeIdFilter filter)
+        {
+            var items = from item in Items where filter.EqualsRefItem(item.Record) select item;
+
+            InventoryItem nearestItem = null;
+            foreach (var item in items)
+            {
+                if (nearestItem == null)
+                    nearestItem = item;
+                else
+                {
+                    if (item.Record.ReqLevel1 > nearestItem.Record.ReqLevel1 && item.OptLevel > nearestItem.OptLevel)
+                        nearestItem = item;
+                }
+            }
+
+            return nearestItem;
+        }
+
+        /// <summary>
         /// Gets the item.
         /// </summary>
         /// <param name="filter">The filter.</param>
@@ -279,7 +303,20 @@ namespace RSBot.Core.Objects
 
             var asyncResult = new AwaitCallback(response =>
             {
-                return response.ReadByte() == 0x01;
+                var result = response.ReadByte();
+                if(result == 0x01)
+                {
+                    var operation = response.ReadByte();
+                    if (operation != 0)
+                        return false;
+
+                    var source = response.ReadByte();
+                    var destination = response.ReadByte();
+                    if (source == sourceSlot && destination == destinationSlot)
+                        return true;
+                }
+
+                return false;
             }, 0xB034);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, asyncResult);

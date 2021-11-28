@@ -1,4 +1,6 @@
 ﻿using RSBot.Core.Event;
+using System;
+using System.IO;
 
 namespace RSBot.Core
 {
@@ -40,5 +42,19 @@ namespace RSBot.Core
         /// </summary>
         /// <param name="obj">The message</param>
         public static void Error(object obj) => EventManager.FireEvent("OnAddLog", obj.ToString(), LogLevel.Error);
+
+        /// <summary>
+        /// Append specified fatal message
+        /// </summary>
+        /// <param name="obj">The message</param>
+        public static void Fatal(Exception obj)
+        {
+            var filePath = Path.Combine(Environment.CurrentDirectory, "User", "Logs", "Exceptions", $"{DateTime.Now:dd-MM-yyyy}.txt");
+            if (!Directory.Exists(filePath))
+                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+
+            using (var stream = File.AppendText(filePath))
+                stream.WriteLine(obj.ToString());
+        }
     }
 }

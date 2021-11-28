@@ -51,14 +51,6 @@ namespace RSBot.Bot.Default.Bundle.Loop
             //We don't need to use buffs in town...
             if (Config.CastBuffs && !TownscriptRunning)
                 Bundles.Buff.Invoke();
-
-            // ReSharper disable once InvertIf
-            if (Config.UseSpeedDrug)
-            {
-                var item = Game.Player.Inventory.GetItem(new TypeIdFilter(3, 3, 13, 1));
-                if (item != null)
-                    Game.Player.UseItem(item.Slot, 0x0EEC);
-            }
         }
 
         /// <summary>
@@ -121,7 +113,11 @@ namespace RSBot.Bot.Default.Bundle.Loop
         /// </summary>
         public void CheckForWalkbackScript()
         {
-            if (Config.WalkScript == null || ScriptManager.Running || !File.Exists(Config.WalkScript) || Kernel.Bot.IsStopping || !Kernel.Bot.Running) return;
+            if (Config.WalkScript == null || 
+                ScriptManager.Running || 
+                !File.Exists(Config.WalkScript) || 
+                !Kernel.Bot.Running) 
+                return;
 
             Invoke();
             Log.Notify($"Loading walkscript [{Config.WalkScript}]...");

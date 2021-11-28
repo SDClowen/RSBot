@@ -59,19 +59,6 @@ namespace RSBot.General.Views
         }
 
         /// <summary>
-        /// Loads the accounts.
-        /// </summary>
-        private void LoadAccounts()
-        {
-            comboAccounts.Items.Clear();
-            foreach (var account in Components.Accounts.SavedAccounts)
-                comboAccounts.Items.Add(account.Username);
-
-            if (comboAccounts.Items.Count > GlobalConfig.Get<int>("RSBot.General.AccountIndex"))
-                comboAccounts.SelectedIndex = GlobalConfig.Get<int>("RSBot.General.AccountIndex");
-        }
-
-        /// <summary>
         /// Subscribes the events.
         /// </summary>
         private void SubscribeEvents()
@@ -87,25 +74,46 @@ namespace RSBot.General.Views
         }
 
         /// <summary>
+        /// Called when account character list updated
+        /// </summary>
+        private void OnCharacterListReceived()
+        {
+            LoadAccounts();
+        }
+
+        /// <summary>
+        /// Loads the accounts.
+        /// </summary>
+        private void LoadAccounts()
+        {
+            comboAccounts.Items.Clear();
+            comboAccounts.SelectedIndex = comboAccounts.Items.Add("No Selected");
+
+            var autoLoginUserName = GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername");
+            foreach (var account in Components.Accounts.SavedAccounts)
+            {
+                var index = comboAccounts.Items.Add(account);
+                if (account.Username == autoLoginUserName)
+                    comboAccounts.SelectedIndex = index;
+            }
+        }
+
+        /// <summary>
         /// Fill the combobox on the form
         /// </summary>
-        private void FillComboboxCharacters()
+        private void LoadCharacters()
         {
-            var accountIndex = GlobalConfig.Get<int>("RSBot.General.AccountIndex");
-            var selectedAccount = Components.Accounts.SavedAccounts[accountIndex];
-
             comboCharacter.Items.Clear();
-            comboCharacter.Items.Add("No Selected");
-            comboCharacter.SelectedIndex = 0;
+            comboCharacter.SelectedIndex = comboCharacter.Items.Add("No Selected");
 
-            if (selectedAccount?.Characters == null) 
+            var selectedAccount = comboAccounts.SelectedItem as Models.Account;
+            if (selectedAccount?.Characters == null)
                 return;
 
-            var selectedCharacter = GlobalConfig.Get<string>("RSBot.General.AutoLoginCharacter");
             foreach (var character in selectedAccount.Characters)
             {
                 var index = comboCharacter.Items.Add(character);
-                if (character == selectedCharacter)
+                if (character == selectedAccount.SelectedCharacter)
                     comboCharacter.SelectedIndex = index;
             }
         }
@@ -279,14 +287,6 @@ namespace RSBot.General.Views
         }
 
         /// <summary>
-        /// Called when account character list updated
-        /// </summary>
-        private void OnCharacterListReceived()
-        {
-            FillComboboxCharacters();
-        }
-
-        /// <summary>
         /// Handles the Click event of the btnBrowseSilkroadPath control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -372,9 +372,12 @@ namespace RSBot.General.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void comboAccounts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            GlobalConfig.Set("RSBot.General.AccountIndex", comboAccounts.SelectedIndex.ToString());
+            if (comboAccounts.SelectedIndex == 0)
+                return;
 
-            FillComboboxCharacters();
+            GlobalConfig.Set("RSBot.General.AutoLoginAccountUsername", comboAccounts.SelectedItem.ToString());
+
+            LoadCharacters();
         }
 
         /// <summary>
@@ -404,11 +407,18 @@ namespace RSBot.General.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void comboCharacter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var selectedItem = comboCharacter.SelectedItem.ToString();
-            if (selectedItem == "No Selected")
+            if (comboCharacter.SelectedIndex == 0)
                 return;
 
-            GlobalConfig.Set("RSBot.General.AutoLoginCharacter", selectedItem);
+            if (comboAccounts.SelectedIndex == 0)
+                return;
+
+            var selectedAccount = comboAccounts.SelectedItem as Models.Account;
+            if (selectedAccount == null)
+                return;
+
+            selectedAccount.SelectedCharacter = comboCharacter.SelectedItem.ToString();
+            Components.Accounts.Save();
         }
 
         /// <summary>

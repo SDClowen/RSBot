@@ -1,5 +1,7 @@
 ﻿using RSBot.General.Models;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace RSBot.General.Views
@@ -12,7 +14,22 @@ namespace RSBot.General.Views
         public Accounts()
         {
             InitializeComponent();
-            LoadList();
+        }
+
+        /// <summary>
+        /// Handles the load event of the form control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void Accounts_Load(object sender, EventArgs e)
+        {
+            listAccounts.BeginUpdate();
+
+            listAccounts.Items.Clear();
+            foreach (var account in Components.Accounts.SavedAccounts)
+                listAccounts.Items.Add(account);
+
+            listAccounts.EndUpdate();
         }
 
         /// <summary>
@@ -25,14 +42,22 @@ namespace RSBot.General.Views
             if (listAccounts.SelectedIndex == -1)
                 return;
 
-            Components.Accounts.SavedAccounts[listAccounts.SelectedIndex] = new Account
-            {
-                Username = txtUsername.Text,
-                Password = txtPassword.Text,
-                Servername = txtServername.Text
-            };
+            var selectedAccount = listAccounts.SelectedItem as Account;
+            if (selectedAccount == null)
+                return;
 
-            listAccounts.Items[listAccounts.SelectedIndex] = txtUsername.Text;
+            selectedAccount.Username = txtUsername.Text.ToLowerInvariant();
+            selectedAccount.Password = txtPassword.Text;
+            selectedAccount.Servername = txtServername.Text;
+
+            /*
+             * The listAccounts. Invalidate, Update, Refresh methods not updating the item text 
+             * with class override tostring method after update the account class.
+             * For that i called the method again. No have more idea.
+             */
+
+            listAccounts.SelectedIndex = -1;
+            Accounts_Load(sender, e);
         }
 
         /// <summary>
@@ -48,13 +73,20 @@ namespace RSBot.General.Views
                 txtUsername.Clear();
                 txtServername.Clear();
                 btnSave.Enabled = false;
+                btnAdd.Visible = true;
             }
             else
             {
-                txtPassword.Text = Components.Accounts.SavedAccounts[listAccounts.SelectedIndex].Password;
-                txtUsername.Text = Components.Accounts.SavedAccounts[listAccounts.SelectedIndex].Username;
-                txtServername.Text = Components.Accounts.SavedAccounts[listAccounts.SelectedIndex].Servername;
+                var selectedAccount = listAccounts.SelectedItem as Account;
+                if (selectedAccount == null)
+                    return;
+
+                txtUsername.Text = selectedAccount.Username;
+                txtPassword.Text = selectedAccount.Password;
+                txtServername.Text = selectedAccount.Servername;
+
                 btnSave.Enabled = true;
+                btnAdd.Visible = false;
             }
         }
 
@@ -68,6 +100,11 @@ namespace RSBot.General.Views
             Components.Accounts.Save();
         }
 
+        /// <summary>
+        /// Handles the Click event of the linkLabelPwShowHide control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void linkLabelPwShowHide_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (txtPassword.UseSystemPasswordChar)
@@ -83,23 +120,19 @@ namespace RSBot.General.Views
         }
 
         /// <summary>
-        /// Loads the list.
+        /// Handles the Click event of the btnAdd control.
         /// </summary>
-        private void LoadList()
-        {
-            listAccounts.Items.Clear();
-            foreach (var account in Components.Accounts.SavedAccounts)
-                listAccounts.Items.Add(account.Username);
-        }
-
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnAdd_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtUsername.Text))
                 return;
+
             if (string.IsNullOrWhiteSpace(txtPassword.Text))
                 return;
 
-            if (listAccounts.Items.Contains(txtUsername.Text))
+            if (Components.Accounts.SavedAccounts.Any(p => p.Username == txtUsername.Text))
             {
                 MessageBox.Show(
                     "This account name is already registered, please use a different name",
@@ -107,14 +140,37 @@ namespace RSBot.General.Views
                 return;
             }
 
-            Components.Accounts.SavedAccounts.Add(new Account
+            var account = new Account
             {
-                Username = txtUsername.Text,
+                Username = txtUsername.Text.ToLowerInvariant(),
                 Password = txtPassword.Text,
-                Servername = txtServername.Text
-            });
+                Servername = txtServername.Text,
+                SelectedCharacter = string.Empty,
+                Characters = new List<string>(4)
+            };
 
-            listAccounts.Items.Add(txtUsername.Text);
+            Components.Accounts.SavedAccounts.Add(account);
+
+            listAccounts.SelectedIndex = listAccounts.Items.Add(account);
+        }
+
+        /// <summary>
+        /// Handles the Click event of the buttonRemove control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void buttonRemove_Click(object sender, EventArgs e)
+        {
+            if (listAccounts.SelectedIndex == -1)
+                return;
+
+            var selectedAccount = listAccounts.SelectedItem as Account;
+            if (selectedAccount == null)
+                return;
+
+            var isSuccess = Components.Accounts.SavedAccounts.Remove(selectedAccount);
+            if (isSuccess)
+                listAccounts.Items.Remove(selectedAccount);
         }
     }
 }

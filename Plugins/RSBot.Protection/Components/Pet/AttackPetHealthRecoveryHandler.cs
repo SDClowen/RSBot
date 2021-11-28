@@ -12,19 +12,14 @@ namespace RSBot.Protection.Components.Pet
         /// </summary>
         public static void Initialize()
         {
-            SubscribeEvents();
-        }
-
-        private static void SubscribeEvents()
-        {
-            EventManager.SubscribeEvent("OnTick", OnTick);
+            EventManager.SubscribeEvent("OnUpdatePetHPMP", OnUpdatePetHPMP);
         }
 
         /// <summary>
         /// Cores the on pet health update.
         /// </summary>
         /// <exception cref="System.NotImplementedException"></exception>
-        private static void OnTick()
+        private static void OnUpdatePetHPMP()
         {
             if (Game.Player.AttackPet == null) return;
 

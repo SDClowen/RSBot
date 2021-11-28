@@ -68,12 +68,16 @@ namespace RSBot.Core
             {
                 _clientProcessId = value;
 
-                ClientProcess = Process.GetProcessById(_clientProcessId);
-
-                if (ClientProcess == null || _clientProcessId == 0) 
+                if (_clientProcessId == 0)
                     return;
 
-                ClientProcess.Exited += ClientProcess_Exited;
+                var process = Process.GetProcessById(_clientProcessId);
+                if (process == null) 
+                    return;
+
+                process.EnableRaisingEvents = true;
+                process.Exited += ClientProcess_Exited;
+                ClientProcess = process;
 
                 EventManager.FireEvent("OnStartClient");
             }
@@ -108,7 +112,7 @@ namespace RSBot.Core
             RegisterNetworkHooks();
 
             //Global application tick
-            _tickTimer = new Timer(500) { AutoReset = true };
+            _tickTimer = new Timer(100) { AutoReset = true };
             _tickTimer.Elapsed += TickTimer_Elapsed;
             _tickTimer.Start();
         }

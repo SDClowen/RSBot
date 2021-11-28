@@ -13,14 +13,13 @@ namespace RSBot.Bot.Default.Subscriber
             EventManager.SubscribeEvent("OnSavePlayerConfig", OnSavePlayerSettings);
         }
 
-        #region Event Listeners
-
         /// <summary>
         /// Configurations the subscriber on save player settings.
         /// </summary>
         private static void OnSavePlayerSettings()
         {
-            if (Container.Lock == null) return;
+            if (Container.Lock == null || Container.Bot == null)
+                return;
 
             lock (Container.Lock)
             {
@@ -31,7 +30,5 @@ namespace RSBot.Bot.Default.Subscriber
                 Bundles.Reload();
             }
         }
-
-        #endregion Event Listeners
     }
 }

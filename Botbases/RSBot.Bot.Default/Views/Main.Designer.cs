@@ -29,23 +29,24 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Avoid", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup5 = new System.Windows.Forms.ListViewGroup("Prefer", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup6 = new System.Windows.Forms.ListViewGroup("No custom behavior", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem("General");
-            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem("Champion");
-            System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem("Giant");
-            System.Windows.Forms.ListViewItem listViewItem12 = new System.Windows.Forms.ListViewItem("General (party)");
-            System.Windows.Forms.ListViewItem listViewItem13 = new System.Windows.Forms.ListViewItem("Champion (party)");
-            System.Windows.Forms.ListViewItem listViewItem14 = new System.Windows.Forms.ListViewItem("Giant (party)");
-            System.Windows.Forms.ListViewItem listViewItem15 = new System.Windows.Forms.ListViewItem("Unique");
-            System.Windows.Forms.ListViewItem listViewItem16 = new System.Windows.Forms.ListViewItem("Elite");
+            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Avoid", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Prefer", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("No custom behavior", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("General");
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Champion");
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("Giant");
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("General (party)");
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("Champion (party)");
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("Giant (party)");
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("Unique");
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("Strong");
+            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem("Elite");
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.radioWalkAround = new System.Windows.Forms.RadioButton();
             this.radioCenter = new System.Windows.Forms.RadioButton();
-            this.btnGetCurrent = new Theme.Material.Button();
+            this.btnGetCurrent = new RSBot.Theme.Material.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -53,7 +54,7 @@
             this.txtYCoord = new System.Windows.Forms.TextBox();
             this.txtXCoord = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.lvAvoidance = new Theme.Controls.ListView();
+            this.lvAvoidance = new RSBot.Theme.Controls.ListView();
             this.ctxAvoidance = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.btnAvoid = new System.Windows.Forms.ToolStripMenuItem();
             this.btnPrefer = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,7 +64,7 @@
             this.checkUseSpeedDrug = new System.Windows.Forms.CheckBox();
             this.checkCastBuffs = new System.Windows.Forms.CheckBox();
             this.checkUseMount = new System.Windows.Forms.CheckBox();
-            this.btnBrowse = new Theme.Material.Button();
+            this.btnBrowse = new RSBot.Theme.Material.Button();
             this.txtWalkscript = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.checkBerzerkWhenFull = new System.Windows.Forms.CheckBox();
@@ -147,7 +148,7 @@
             this.btnGetCurrent.Depth = 0;
             this.btnGetCurrent.Icon = null;
             this.btnGetCurrent.Location = new System.Drawing.Point(107, 106);
-            this.btnGetCurrent.MouseState = Theme.IMatMouseState.HOVER;
+            this.btnGetCurrent.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnGetCurrent.Name = "btnGetCurrent";
             this.btnGetCurrent.Primary = false;
             this.btnGetCurrent.Raised = false;
@@ -224,33 +225,36 @@
             // 
             this.lvAvoidance.ContextMenuStrip = this.ctxAvoidance;
             this.lvAvoidance.FullRowSelect = true;
-            listViewGroup4.Header = "Avoid";
-            listViewGroup4.Name = "grpAvoid";
-            listViewGroup5.Header = "Prefer";
-            listViewGroup5.Name = "grpPrefer";
-            listViewGroup6.Header = "No custom behavior";
-            listViewGroup6.Name = "grpNone";
+            listViewGroup1.Header = "Avoid";
+            listViewGroup1.Name = "grpAvoid";
+            listViewGroup2.Header = "Prefer";
+            listViewGroup2.Name = "grpPrefer";
+            listViewGroup3.Header = "No custom behavior";
+            listViewGroup3.Name = "grpNone";
             this.lvAvoidance.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup4,
-            listViewGroup5,
-            listViewGroup6});
-            listViewItem9.Group = listViewGroup6;
-            listViewItem10.Group = listViewGroup6;
-            listViewItem11.Group = listViewGroup6;
-            listViewItem12.Group = listViewGroup6;
-            listViewItem13.Group = listViewGroup6;
-            listViewItem14.Group = listViewGroup6;
-            listViewItem15.Group = listViewGroup6;
-            listViewItem16.Group = listViewGroup6;
+            listViewGroup1,
+            listViewGroup2,
+            listViewGroup3});
+            this.lvAvoidance.HideSelection = false;
+            listViewItem1.Group = listViewGroup3;
+            listViewItem2.Group = listViewGroup3;
+            listViewItem3.Group = listViewGroup3;
+            listViewItem4.Group = listViewGroup3;
+            listViewItem5.Group = listViewGroup3;
+            listViewItem6.Group = listViewGroup3;
+            listViewItem7.Group = listViewGroup3;
+            listViewItem8.Group = listViewGroup3;
+            listViewItem9.Group = listViewGroup3;
             this.lvAvoidance.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem9,
-            listViewItem10,
-            listViewItem11,
-            listViewItem12,
-            listViewItem13,
-            listViewItem14,
-            listViewItem15,
-            listViewItem16});
+            listViewItem1,
+            listViewItem2,
+            listViewItem3,
+            listViewItem4,
+            listViewItem5,
+            listViewItem6,
+            listViewItem7,
+            listViewItem8,
+            listViewItem9});
             this.lvAvoidance.Location = new System.Drawing.Point(11, 19);
             this.lvAvoidance.Name = "lvAvoidance";
             this.lvAvoidance.Size = new System.Drawing.Size(200, 189);
@@ -348,7 +352,7 @@
             this.btnBrowse.Depth = 0;
             this.btnBrowse.Icon = null;
             this.btnBrowse.Location = new System.Drawing.Point(406, 46);
-            this.btnBrowse.MouseState = Theme.IMatMouseState.HOVER;
+            this.btnBrowse.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Primary = false;
             this.btnBrowse.Raised = false;

@@ -1,6 +1,8 @@
 ﻿using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Plugins;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace RSBot.Core
 {
@@ -20,23 +22,12 @@ namespace RSBot.Core
         /// <value>
         ///   <c>true</c> if running; otherwise, <c>false</c>.
         /// </value>
-        public bool Running { get; private set; }
+        public volatile bool Running;
 
         /// <summary>
-        /// Gets a value indicating whether this instance is starting.
+        /// Gets or sets to the <see cref="CancellationToken"/>
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is starting; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsStarting { get; private set; }
-
-        /// <summary>
-        /// Gets a value indicating whether this instance is stopping.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is stopping; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsStopping { get; private set; }
+        public CancellationTokenSource TokenSource;
 
         /// <summary>
         /// Sets the botbase.
@@ -55,21 +46,26 @@ namespace RSBot.Core
         /// </summary>
         public void Start()
         {
-            if (Running || Botbase == null) return;
+            if (Running || Botbase == null) 
+                return;
 
-            Log.Notify($"Starting bot {Botbase.Info.Name}");
+            TokenSource = new CancellationTokenSource();
+            CancellationToken token = TokenSource.Token;
 
-            IsStarting = true;
+            Task.Factory.StartNew((e) => 
+            {
+                Log.Notify($"Starting bot {Botbase.Info.Name}");
+                EventManager.FireEvent("OnStartBot");
+                Running = true;
+                
+                Botbase.Start();
 
-            Running = true;
-            Botbase.Start();
-
-            IsStarting = false;
-
-            EventManager.FireEvent("OnStartBot");
-
-            while (Running)
-                Botbase.Tick();
+                while (!TokenSource.IsCancellationRequested)
+                {
+                    Botbase.Tick();
+                }
+            },
+            token, TaskCreationOptions.LongRunning);
         }
 
         /// <summary>
@@ -77,21 +73,26 @@ namespace RSBot.Core
         /// </summary>
         public void Stop()
         {
-            if (!Running || Botbase == null) return;
+            if (Botbase == null)
+                return;
+
+            if (!Running)
+                return;
+
+            if (!TokenSource.IsCancellationRequested)
+                TokenSource.Cancel();
 
             EventManager.FireEvent("OnStopBot");
             Log.Notify($"Stopping bot {Botbase.Info.Name}");
 
-            IsStopping = true;
-
             ScriptManager.Stop();
             ShoppingManager.Stop();
             PickupManager.Stop();
-
             Botbase.Stop();
 
             Running = false;
-            IsStopping = false;
+
+            Log.Notify($"Stoped bot {Botbase.Info.Name}");
         }
     }
 }

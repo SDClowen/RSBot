@@ -19,16 +19,17 @@ namespace RSBot.Protection.Components.Pet
         /// </summary>
         private static void SubscribeEvents()
         {
-            EventManager.SubscribeEvent("OnTick", OnTick);
+            EventManager.SubscribeEvent("OnUpdateVehicleHPMP", OnUpdateVehicleHPMP);
         }
 
         /// <summary>
         /// Cores the on pet health update.
         /// </summary>
         /// <exception cref="System.NotImplementedException"></exception>
-        private static void OnTick()
+        private static void OnUpdateVehicleHPMP()
         {
-            if (Game.Player.Vehicle == null) return;
+            if (Game.Player.Vehicle == null) 
+                return;
 
             if ((Game.Player.Vehicle.BadEffect & BadEffect.Zombie) == BadEffect.Zombie)
                 return;

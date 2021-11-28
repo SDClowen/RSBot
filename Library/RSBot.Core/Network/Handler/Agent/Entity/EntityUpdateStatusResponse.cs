@@ -45,10 +45,16 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
         private static void UpdatePlayerStatus(Packet packet, EntityUpdateStatusFlag updateFlag)
         {
             if ((updateFlag & EntityUpdateStatusFlag.HP) == EntityUpdateStatusFlag.HP)
+            {
                 Core.Game.Player.Health = packet.ReadUInt();
+                EventManager.FireEvent("OnUpdateHP");
+            }
 
             if ((updateFlag & EntityUpdateStatusFlag.MP) == EntityUpdateStatusFlag.MP)
+            {
                 Core.Game.Player.Mana = packet.ReadUInt();
+                EventManager.FireEvent("OnUpdateMP");
+            }
 
             if ((updateFlag & EntityUpdateStatusFlag.HPMP) != EntityUpdateStatusFlag.HPMP)
                 EventManager.FireEvent("OnUpdateHPMP");
@@ -62,16 +68,19 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
 
                 foreach (BadEffect effectValue in Enum.GetValues(typeof(BadEffect)))
                 {
+                    if(effectValue == BadEffect.None)
+                        continue;
+
                     byte effectLevel;
 
                     if ((effectCurrent & effectValue) > BadEffect.Zombie)
                         effectLevel = packet.ReadByte(); //EffectLevel
 
                     if ((effectStarted & effectValue) == effectValue)
-                        Log.Debug($"You are under {effectValue} status.");
+                        Log.Warn($"You are under {effectValue} status.");
 
-                    if ((effectStarted & effectValue) == effectValue)
-                        Log.Debug($"{effectValue} status has ended.");
+                    if ((effectEnded & effectValue) == effectValue)
+                        Log.Warn($"{effectValue} status has ended.");
                 }
 
                 Core.Game.Player.BadEffect = effectCurrent;
@@ -104,16 +113,20 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
 
                 foreach (BadEffect effectValue in Enum.GetValues(typeof(BadEffect)))
                 {
+                    if (effectValue == BadEffect.None)
+                        continue;
+
                     byte effectLevel;
 
                     if ((effectCurrent & effectValue) > BadEffect.Zombie)
-                        effectLevel = packet.ReadByte();
+                        effectLevel = packet.ReadByte(); //EffectLevel
 
                     if ((effectStarted & effectValue) == effectValue)
-                        Log.Debug($"Your pet is under bad status {effectValue}.");
+                        Log.Warn($"Your pet are under {effectValue} status.");
 
-                    if ((effectStarted & effectValue) == effectValue)
-                        Log.Debug($"Your pet's bad status {effectValue} has ended.");
+                    if ((effectEnded & effectValue) == effectValue)
+                        Log.Warn($"Your pet's bad status {effectValue} has ended.");
+                        
                 }
 
                 Core.Game.Player.AttackPet.BadEffect = effectCurrent;
@@ -146,16 +159,19 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
 
                 foreach (BadEffect effectValue in Enum.GetValues(typeof(BadEffect)))
                 {
+                    if (effectValue == BadEffect.None)
+                        continue;
+
                     byte effectLevel;
 
                     if ((effectCurrent & effectValue) > BadEffect.Zombie)
                         effectLevel = packet.ReadByte(); //EffectLevel
 
                     if ((effectStarted & effectValue) == effectValue)
-                        Log.Debug($"Your vehicle is under bad status {effectValue}.");
+                        Log.Warn($"Your vehicle is under bad status {effectValue}.");
 
-                    if ((effectStarted & effectValue) == effectValue)
-                        Log.Debug($"Your vehicle's bad status {effectValue} has ended.");
+                    if ((effectEnded & effectValue) == effectValue)
+                        Log.Warn($"Your vehicle's bad status {effectValue} has ended.");
                 }
 
                 Core.Game.Player.Vehicle.BadEffect = effectCurrent;
@@ -171,7 +187,13 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
         private static void UpdateSelectedStatus(Packet packet, EntityUpdateStatusFlag updateFlag)
         {
             if ((updateFlag & EntityUpdateStatusFlag.HP) == EntityUpdateStatusFlag.HP)
-                Core.Game.SelectedEntity.Health = packet.ReadUInt();
+            {
+                var health = packet.ReadUInt();
+                Core.Game.SelectedEntity.Health = health;
+
+                if(health <= 0)
+                    EventManager.FireEvent("OnKillSelectedEnemy");
+            }
 
             if ((updateFlag & EntityUpdateStatusFlag.MP) == EntityUpdateStatusFlag.MP)
                 packet.ReadUInt();
@@ -181,32 +203,7 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
 
             if ((updateFlag & EntityUpdateStatusFlag.BadEffect) == EntityUpdateStatusFlag.BadEffect)
             {
-                //var effectPrevious = Core.Game.SelectedEntity.BadEffect;
-                var effectCurrent = (BadEffect)packet.ReadUInt();
-                //var effectStarted = ~effectPrevious & effectCurrent;
-                //var effectEnded = effectPrevious & ~effectCurrent;
-
-                foreach (BadEffect effectValue in Enum.GetValues(typeof(BadEffect)))
-                {
-                    byte effectLevel;
-
-                    if ((effectCurrent & effectValue) > BadEffect.Zombie)
-                        effectLevel = packet.ReadByte(); //EffectLevel
-
-                    //if ((effectStarted & effectValue) == effectValue)
-                    //    Log.Debug($"You are under {effectValue} status.");
-
-                    //if ((effectStarted & effectValue) == effectValue)
-                    //    Log.Debug($"{effectValue} status has ended.");
-                }
-
-                //Core.Game.SelectedEntity.BadEffect = effectCurrent;
-
-                //if (effectStarted != BadEffect.None)
-                //    EventManager.FireEvent("OnPlayerBadEffect");
-
-                //if (effectEnded != BadEffect.None)
-                //    EventManager.FireEvent("OnPlayerBadEffectEnd");
+                
             }
         }
     }

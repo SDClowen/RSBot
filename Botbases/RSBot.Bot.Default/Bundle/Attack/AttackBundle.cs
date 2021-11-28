@@ -10,7 +10,8 @@ namespace RSBot.Bot.Default.Bundle.Attack
         /// </summary>
         public void Invoke()
         {
-            if (Game.SelectedEntity == null || Game.SelectedEntity.Monster == null)
+            if (Game.SelectedEntity == null || 
+                Game.SelectedEntity.Monster == null)
                 return;
 
             if (Game.SelectedEntity.Bionic.IsBehindObstacle)
@@ -20,14 +21,14 @@ namespace RSBot.Bot.Default.Bundle.Attack
                 return;
             }
 
-            //Equip ammunitaion
-            if (Game.Player.Weapon?.Record.Quivered == 1 && Game.Player.GetAmmunationAmount() == 0)
-                Game.Player.EquipAmmunation();
+            if (SkillManager.ImbueSkill != null &&
+                !Game.Player.State.HasActiveBuff(SkillManager.ImbueSkill, out _) &&
+                SkillManager.ImbueSkill.CanBeCasted)
+                Game.Player.CastBuff(SkillManager.ImbueSkill.Id);
 
-            var uniqueId = Game.SelectedEntity.UniqueId;
+            uint uniqueId = Game.SelectedEntity.UniqueId;
 
             var skill = SkillManager.GetNextSkill();
-
             if (skill == null || !Game.Player.CastSkill(skill.Id, uniqueId))
                 Game.Player.CastAutoAttack(uniqueId);
         }

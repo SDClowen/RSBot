@@ -90,22 +90,11 @@ namespace RSBot.Core.Objects.Spawn
             var result = new SpawnedItem { Id = itemId };
 
             if (result.Record.IsWear)
-            {
                 result.OptLevel = packet.ReadByte();
-            }
             else if (result.Record.IsGold)
-            {
                 result.Amount = packet.ReadUInt();
-            }
             else if (result.Record.IsQuest || result.Record.IsTrading)
-            {
                 result.OwnerName = packet.ReadString();
-            }
-            else
-            {
-                // TODO: Write log
-                Log.Debug($"Unknown item type:{result.Record}\nThe package will still be tried to be read.");
-            }
 
             result.UniqueId = packet.ReadUInt();
             result.Position = Position.FromPacket(packet);

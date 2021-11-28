@@ -31,7 +31,6 @@ namespace RSBot.Party.Views
         private void SubscribeEvents()
         {
             EventManager.SubscribeEvent("OnEnterGame", OnEnterGame);
-            EventManager.SubscribeEvent("OnStartBot", OnStartBot);
             EventManager.SubscribeEvent("OnCreatePartyEntry", OnCreatePartyEntry);
             EventManager.SubscribeEvent("OnChangePartyEntry", OnChangePartyEntry);
             EventManager.SubscribeEvent("OnDeletePartyEntry", OnDeletePartyEntry);
@@ -287,11 +286,6 @@ namespace RSBot.Party.Views
 
             lvItem.SubItems[3].Text = masteryInfo;
             lvItem.SubItems[4].Text = location;
-        }
-
-        private void OnStartBot()
-        {
-            Task.Run(() => { Bundle.Container.AutoParty.Start(); });
         }
 
         /// <summary>

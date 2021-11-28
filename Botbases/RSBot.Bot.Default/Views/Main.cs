@@ -17,14 +17,15 @@ namespace RSBot.Bot.Default.Views
             InitializeComponent();
             SubscribeEvents();
 
-            lvAvoidance.Items[0].Name = @"General";
-            lvAvoidance.Items[1].Name = @"Champion";
-            lvAvoidance.Items[2].Name = @"Giant";
-            lvAvoidance.Items[3].Name = @"General_Party";
-            lvAvoidance.Items[4].Name = @"Champion_Party";
-            lvAvoidance.Items[5].Name = @"Giant_Party";
-            lvAvoidance.Items[6].Name = @"Unique";
-            lvAvoidance.Items[7].Name = @"Elite";
+            lvAvoidance.Items[0].Name = "General";
+            lvAvoidance.Items[1].Name = "Champion";
+            lvAvoidance.Items[2].Name = "Giant";
+            lvAvoidance.Items[3].Name = "General_Party";
+            lvAvoidance.Items[4].Name = "Champion_Party";
+            lvAvoidance.Items[5].Name = "Giant_Party";
+            lvAvoidance.Items[6].Name = "Unique";
+            lvAvoidance.Items[7].Name = "Strong";
+            lvAvoidance.Items[8].Name = "Elite";
         }
 
         /// <summary>

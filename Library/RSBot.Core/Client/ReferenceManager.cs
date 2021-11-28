@@ -105,11 +105,7 @@ namespace RSBot.Core.Client
                 () => this.LoadReferenceFile("RefScrapOfPackageItem.txt", this.PackageItemScrap)
             );
 
-            //this.CopyObjects(this.CharacterData, this.ObjectData);
-            //this.CopyObjects(this.StructData, this.ObjectData);
-            //this.CopyObjects(this.ItemData, this.ObjectData);
             GC.Collect();
-            Console.WriteLine("Loading SkillData:{0}", SkillData.Count);
             EventManager.FireEvent("OnLoadGameData");
         }
 
@@ -121,15 +117,6 @@ namespace RSBot.Core.Client
             this.LoadReferenceListFile("TextDataName.txt", this.TextData);
             this.LoadReferenceListFile("TextQuest.txt", this.TextData);
         }
-
-        private void CopyObjects<TKey, TSource>(IDictionary<TKey, TSource> source, IDictionary<TKey, RefObjCommon> destination)
-            where TSource : RefObjCommon
-        {
-            foreach (var item in source)
-                destination[item.Key] = item.Value;
-        }
-
-        #region TO BE MERGED INTO FEWER FUNCTIONS SOON(TM)
 
         private void LoadReferenceListFileEnc<TKey, TReference>(string fileName, IDictionary<TKey, TReference> destination)
     where TReference : IReference<TKey>, new()
@@ -292,10 +279,6 @@ namespace RSBot.Core.Client
             }
         }
 
-        #endregion TO BE MERGED INTO FEWER FUNCTIONS SOON(TM)
-
-        #region GetObject
-
         /// <summary>
         /// Gets the tab.
         /// </summary>
@@ -313,20 +296,6 @@ namespace RSBot.Core.Client
 
             return name;
         }
-
-        //public TObj GetRefObj<TObj>(uint id)
-        //    where TObj : RefObjCommon
-        //{
-        //    if (this.ObjectData.TryGetValue(id, out RefObjCommon refObjCommon))
-        //    {
-        //        if (refObjCommon is TObj obj)
-        //            return obj;
-
-        //        throw new ArgumentException($"[{refObjCommon.CodeName}] does not match the TObj ({typeof(TObj).Name})?");
-        //    }
-
-        //    return null;
-        //}
 
         public RefObjCommon GetRefObjCommon(uint refObjID)
         {
@@ -374,6 +343,10 @@ namespace RSBot.Core.Client
         public RefObjItem GetRefItem(string codeName)
         {
             return this.ItemData.FirstOrDefault(obj => obj.Value.CodeName == codeName).Value;
+        }
+        public RefObjItem GetRefItem(TypeIdFilter filter)
+        {
+            return this.ItemData.FirstOrDefault(obj => filter.EqualsRefItem(obj.Value)).Value;
         }
 
         public RefSkill GetRefSkill(uint id)
@@ -584,7 +557,5 @@ namespace RSBot.Core.Client
         {
             return TeleportData.Where(t => t.GenRegionID == regionId && t.AssocRefObjId == 0).ToArray();
         }
-
-        #endregion GetObject
     }
 }

@@ -100,6 +100,9 @@ namespace RSBot.Core.Objects
                 LifeState = (LifeState)packet.ReadByte()
             };
 
+            if (result.LifeState == 0)
+                result.LifeState = LifeState.Alive;
+
             packet.ReadByte(); //UNK1
 
             result.MotionState = (MotionState)packet.ReadByte();
@@ -135,19 +138,7 @@ namespace RSBot.Core.Objects
         /// <returns></returns>
         public bool HasActiveBuff(SkillInfo skill, out BuffInfo buff)
         {
-            /*
-             * TODO:
-             * This is not a definitive solution.
-             * This will check if there is the same type of buff until you find a better way.
-             * The purpose here is to check the ReqLearn_Skill1 or groupId chain linked to each other. 
-             * This way, we could check if any buf of the same type was working.
-             * basicGroup = SKILL_CH_FIRE_GONGUP_A => SKILL_CH_FIRE_GONGUP
-             * basicGroup = SKILL_CH_FIRE_GONGUP_B => SKILL_CH_FIRE_GONGUP
-             * basicGroup = SKILL_CH_FIRE_GONGUP_C => SKILL_CH_FIRE_GONGUP
-             * basicGroup = SKILL_CH_FIRE_GONGUP_D => SKILL_CH_FIRE_GONGUP
-             */
-            var groupBase = skill.Record.Basic_Group.Remove(skill.Record.Basic_Group.Length - 2, 2);
-            buff = ActiveBuffs.Find(p => p.Record.Basic_Group.Remove(p.Record.Basic_Group.Length - 2, 2) == groupBase);
+            buff = ActiveBuffs.Find(p => p.Record.Action_Overlap == skill.Record.Action_Overlap && p.Record.Basic_Activity == skill.Record.Basic_Activity);
 
             return buff != null;
         }

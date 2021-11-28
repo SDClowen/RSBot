@@ -41,7 +41,7 @@ namespace RSBot.Theme.Extensions
                         Directory.CreateDirectory(Path.GetDirectoryName(filePath));
 
                     using (var stream = File.AppendText(filePath))
-                        stream.WriteLine(stringBuilder.ToString());
+                        stream.Write(stringBuilder.ToString());
                 }
             }
         }

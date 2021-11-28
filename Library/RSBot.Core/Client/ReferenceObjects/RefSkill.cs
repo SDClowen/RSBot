@@ -24,7 +24,7 @@ namespace RSBot.Core.Client.ReferenceObjects
 
         //public int Basic_ChainCode;
         //public int Basic_RecycleCost;
-        //public int Action_PreparingTime;
+        public int Action_PreparingTime;
         public int Action_CastingTime;
 
         public int Action_ActionDuration;
@@ -33,29 +33,28 @@ namespace RSBot.Core.Client.ReferenceObjects
         //public int Action_CoolTime;
         //public int Action_FlyingSpeed;
         //public byte Action_Interruptable;
-        //public int Action_Overlap;
+        public int Action_Overlap;
         //public int Action_AutoAttackType;
         //public int Action_InTown;
         //public short Action_Range;
-        public byte Target_Required;
-
-        public byte TargetType_Animal;
-        public byte TargetType_Land;
-        public byte TargetType_Building;
-        public byte TargetGroup_Self;
-        public byte TargetGroup_Ally;
-        public byte TargetGroup_Party;
-        public byte TargetGroup_Enemy_M;
-        public byte TargetGroup_Enemy_P;
-        public byte TargetGroup_Neutral;
-        public byte TargetGroup_DontCare;
-        public byte TargetEtc_SelectDeadBody;
+        public bool Target_Required;
+        public bool TargetType_Animal;
+        public bool TargetType_Land;
+        public bool TargetType_Building;
+        public bool TargetGroup_Self;
+        public bool TargetGroup_Ally;
+        public bool TargetGroup_Party;
+        public bool TargetGroup_Enemy_M;
+        public bool TargetGroup_Enemy_P;
+        public bool TargetGroup_Neutral;
+        public bool TargetGroup_DontCare;
+        public bool TargetEtc_SelectDeadBody;
         public int ReqCommon_Mastery1;
         public int ReqCommon_Mastery2;
         public byte ReqCommon_MasteryLevel1;
         public byte ReqCommon_MasteryLevel2;
-        public short ReqCommon_Str;
-        public short ReqCommon_Int;
+        //public short ReqCommon_Str;
+        //public short ReqCommon_Int;
 
         //public int ReqLearn_Skill1;
         //public int ReqLearn_Skill2;
@@ -110,43 +109,42 @@ namespace RSBot.Core.Client.ReferenceObjects
                 return false;
 
             //Skip invalid group (MSKILL, HSKILL, TSKILL, GSKILL, PSKILL, P2SKILL) to save memory
-            // Some idiot servers using 0 for char buffs. Close this line for now :)
-            /*if (!parser.TryParseInt(2, out GroupID) || GroupID == 0)
-                return false;*/
+            if (!parser.TryParseInt(2, out GroupID) /*|| GroupID == 0*/)
+                return false;
 
             parser.TryParseString(3, out Basic_Code);
-            parser.TryParseString(4, out Basic_Name);
-            parser.TryParseString(5, out Basic_Group);
-            parser.TryParseInt(6, out Basic_Original);
+            //parser.TryParseString(4, out Basic_Name);
+            //parser.TryParseString(5, out Basic_Group);
+            //parser.TryParseInt(6, out Basic_Original);
             parser.TryParseByte(7, out Basic_Level);
             parser.TryParseByte(8, out Basic_Activity);
             //Basic_ChainCode = int.Parse(data[9]);
             //Basic_RecycleCost = int.Parse(data[10]);
 
-            //Action_PreparingTime = int.Parse(data[11]);
+            parser.TryParseInt(11, out Action_PreparingTime);
             parser.TryParseInt(12, out Action_CastingTime);
             parser.TryParseInt(13, out Action_ActionDuration);
             parser.TryParseInt(14, out Action_ReuseDelay);
             //Action_CoolTime = int.Parse(data[15]);
             //Action_FlyingSpeed = int.Parse(data[16]);
             //Action_Interruptable = byte.Parse(data[17]);
-            //Action_Overlap = int.Parse(data[18]);
+            parser.TryParseInt(18, out Action_Overlap);
             //Action_AutoAttackType = int.Parse(data[19]);
             //Action_InTown = int.Parse(data[20]);
             //Action_Range = short.Parse(data[21]);
 
-            parser.TryParseByte(22, out Target_Required);
-            parser.TryParseByte(23, out TargetType_Animal);
-            parser.TryParseByte(24, out TargetType_Land);
-            parser.TryParseByte(25, out TargetType_Building);
-            parser.TryParseByte(26, out TargetGroup_Self);
-            parser.TryParseByte(27, out TargetGroup_Ally);
-            parser.TryParseByte(28, out TargetGroup_Party);
-            parser.TryParseByte(29, out TargetGroup_Enemy_M);
-            parser.TryParseByte(30, out TargetGroup_Enemy_P);
-            parser.TryParseByte(31, out TargetGroup_Neutral);
-            parser.TryParseByte(32, out TargetGroup_DontCare);
-            parser.TryParseByte(33, out TargetEtc_SelectDeadBody);
+            parser.TryParseBool(22, out Target_Required);
+            parser.TryParseBool(23, out TargetType_Animal);
+            parser.TryParseBool(24, out TargetType_Land);
+            parser.TryParseBool(25, out TargetType_Building);
+            parser.TryParseBool(26, out TargetGroup_Self);
+            parser.TryParseBool(27, out TargetGroup_Ally);
+            parser.TryParseBool(28, out TargetGroup_Party);
+            parser.TryParseBool(29, out TargetGroup_Enemy_M);
+            parser.TryParseBool(30, out TargetGroup_Enemy_P);
+            parser.TryParseBool(31, out TargetGroup_Neutral);
+            parser.TryParseBool(32, out TargetGroup_DontCare);
+            parser.TryParseBool(33, out TargetEtc_SelectDeadBody);
 
             parser.TryParseInt(34, out ReqCommon_Mastery1);
             parser.TryParseInt(35, out ReqCommon_Mastery2);
@@ -154,8 +152,8 @@ namespace RSBot.Core.Client.ReferenceObjects
             parser.TryParseByte(36, out ReqCommon_MasteryLevel1);
             parser.TryParseByte(37, out ReqCommon_MasteryLevel2);
 
-            parser.TryParseShort(38, out ReqCommon_Str);
-            parser.TryParseShort(39, out ReqCommon_Int);
+            //parser.TryParseShort(38, out ReqCommon_Str);
+            //parser.TryParseShort(39, out ReqCommon_Int);
             //ReqLearn_Skill1 = int.Parse(data[40]);
             //ReqLearn_Skill2 = int.Parse(data[41]);
             //ReqLearn_Skill3 = int.Parse(data[42]);
@@ -208,7 +206,7 @@ namespace RSBot.Core.Client.ReferenceObjects
 
         public override string ToString()
         {
-            return $"{GetRealName()} ({Basic_Level})";
+            return $"{GetRealName()} lv.{Basic_Level}";
         }
     }
 }

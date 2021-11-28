@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace RSBot.Core.Event
 {
@@ -41,14 +41,22 @@ namespace RSBot.Core.Event
         /// <param name="parameters">The parameters.</param>
         public static void FireEvent(string name, params object[] parameters)
         {
-            var targets = (from o in _listeners where o.name == name select o.handler).ToList();
+            try
+            {
+                var targets = (from o in _listeners where o.name == name && o.handler.Method.GetParameters().Length == parameters.Length
+                               select o.handler).ToArray();
 
-            foreach (var target in targets.Where(target => target.Method.GetParameters().Length == parameters.Length))
-                if (Thread.CurrentThread.Name == "Proxy.Network.Server.PacketProcessor" ||
-                    Thread.CurrentThread.Name == "Proxy.Network.Client.PacketProcessor")
-                    Task.Factory.StartNew(() => target.DynamicInvoke(parameters));
-                else
-                    target.DynamicInvoke(parameters);
+                foreach (var target in targets)
+                    if (Thread.CurrentThread.Name == "Proxy.Network.Server.PacketProcessor" ||
+                        Thread.CurrentThread.Name == "Proxy.Network.Client.PacketProcessor")
+                        Task.Run(() => target.DynamicInvoke(parameters));
+                    else
+                        target.DynamicInvoke(parameters);
+            }
+            catch (Exception e)
+            {
+                Log.Fatal(e);
+            }
         }
     }
 }

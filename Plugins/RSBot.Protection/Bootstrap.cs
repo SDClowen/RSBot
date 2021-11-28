@@ -34,11 +34,9 @@ namespace RSBot.Protection
         public void Initialize()
         {
             //Player handlers
-            HealthRecoveryHandler.Initialize();
-            ManaRecoveryHandler.Initialize();
+            HealthManaRecoveryHandler.Initialize();
             UniversalPillHandler.Initialize();
-            VigorHealthRecoveryHandler.Initialize();
-            VigorManaRecoveryHandler.Initialize();
+            VigorRecoveryHandler.Initialize();
             SkillHealthHandler.Initialize();
             SkillManaHandler.Initialize();
             BadStateSkillHandler.Initialize();

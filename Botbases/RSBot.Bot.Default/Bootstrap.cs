@@ -30,11 +30,16 @@ namespace RSBot.Bot.Default
         /// </summary>
         public void Tick()
         {
-            if (!Kernel.Bot.Running || Game.Player.Untouchable) return;
+            if (!Kernel.Bot.Running || 
+                Game.Player.Untouchable ||
+                Game.Player.State.LifeState == LifeState.Dead) 
+                return;
 
             //Nothing if in scroll state!
             if (Game.Player.State.ScrollState == ScrollState.NormalScroll ||
-                Game.Player.State.ScrollState == ScrollState.ThiefScroll) return;
+                Game.Player.State.ScrollState == ScrollState.ThiefScroll) 
+                return;
+
             try
             {
                 Container.Bot.Tick();
@@ -60,6 +65,10 @@ namespace RSBot.Bot.Default
         /// <exception cref="System.NotImplementedException"></exception>
         public void Initialize()
         {
+            Container.Lock = new object();
+            Subscriber.ConfigSubscriber.SubscribeEvents();
+            Subscriber.TeleportSubscriber.SubscribeEvents();
+
             Log.Notify($"Inialized botbase [{Info.Name}]");
         }
 
@@ -68,18 +77,12 @@ namespace RSBot.Bot.Default
         /// </summary>
         public void Start()
         {
-            if (Kernel.Bot.IsStopping) return;
-
-            Container.Lock = new object();
-            Subscriber.ConfigSubscriber.SubscribeEvents();
-            Subscriber.TeleportSubscriber.SubscribeEvents();
-
             Bundles.Reload();
             Container.Bot = new Botbase();
 
             //Begin the loopback
             if (Container.Bot.Area.CenterPosition.DistanceTo(Game.Player.Tracker.Position) > 80)
-                Task.Run(() => { Bundles.Loop.Start(); });
+                Bundles.Loop.Start(); //Task.Run(() => { Bundles.Loop.Start(); });
         }
 
         /// <summary>
@@ -87,14 +90,11 @@ namespace RSBot.Bot.Default
         /// </summary>
         public void Stop()
         {
-            if (Kernel.Bot.IsStopping || !Kernel.Bot.Running) return;
-
             lock (Container.Lock)
             {
-                Container.Bot = null;
+                if (Game.Player.InAction)
+                    Game.Player.CancelAction();
             }
-
-            Container.Lock = null;
         }
     }
 }

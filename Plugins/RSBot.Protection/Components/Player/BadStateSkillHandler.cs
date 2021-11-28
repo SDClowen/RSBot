@@ -24,19 +24,22 @@ namespace RSBot.Protection.Components.Player
         /// <param name="id">The identifier.</param>
         private static void OnPlayerBadEffect(uint id)
         {
-            if (!Kernel.Bot.Running) return;
+            if (!Kernel.Bot.Running) 
+                return;
 
-            var useSkill = PlayerConfig.Get<bool>("RSBot.Protection.checkUseBadStatusSkill", true);
-            var skillName = PlayerConfig.Get<string>("RSBot.Protection.skillBadStatus");
+            if (!PlayerConfig.Get<bool>("RSBot.Protection.checkUseBadStatusSkill"))
+                return;
 
-            if (!useSkill || string.IsNullOrWhiteSpace(skillName)) return;
+            var skillId = PlayerConfig.Get<uint>("RSBot.Protection.BadStatusSkill");
+            if (skillId == 0)
+                return;
 
-            var skill = Game.Player.Skills.GetSkillByName(skillName);
-            if (skill == null) return;
+            var skill = Game.Player.Skills.GetSkillInfoById(skillId);
+            if (skill == null)
+                return;
 
+            Log.Debug($"Using bad status skill: {skill}");
             Game.Player.CastBuff(skill.Id);
-
-            Log.Debug("Use bad status skill" + skill.Record.GetRealName());
         }
     }
 }

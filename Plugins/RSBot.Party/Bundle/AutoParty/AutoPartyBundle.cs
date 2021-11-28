@@ -1,6 +1,8 @@
 ﻿using RSBot.Core;
+using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Party;
+using System;
 using System.Linq;
 using System.Threading;
 
@@ -9,12 +11,25 @@ namespace RSBot.Party.Bundle.AutoParty
     internal class AutoPartyBundle
     {
         /// <summary>
+        /// Last tick for checking party members
+        /// </summary>
+        private int _lastTick;
+
+        /// <summary>
         /// Gets or sets the configuration.
         /// </summary>
         /// <value>
         /// The configuration.
         /// </value>
         public AutoPartyConfig Config { get; set; }
+        
+        /// <summary>
+        /// Initialize this instance
+        /// </summary>
+        public AutoPartyBundle()
+        {
+            EventManager.SubscribeEvent("OnTick", OnTick);
+        }
 
         /// <summary>
         /// Refreshes this instance.
@@ -46,16 +61,16 @@ namespace RSBot.Party.Bundle.AutoParty
                 Game.Party.Settings = new PartySettings(Config.ExperienceAutoShare, Config.ItemAutoShare, Config.AllowInvitations);
         }
 
-        /// <summary>
-        /// Starts this instance.
-        /// </summary>
-        public void Start()
+        public void OnTick()
         {
-            while (Kernel.Bot.Running || Kernel.Bot.IsStarting)
+            if (!Kernel.Bot.Running)
+                return;
+
+            var elapsed = Environment.TickCount - _lastTick;
+            if (elapsed > 1000)
             {
                 CheckForPlayers();
-
-                Thread.Sleep(1000);
+                _lastTick = Environment.TickCount;
             }
         }
 
@@ -64,13 +79,17 @@ namespace RSBot.Party.Bundle.AutoParty
         /// </summary>
         public void CheckForPlayers()
         {
-            if (!Game.Party.CanInvite) return;
+            if (!Game.Party.CanInvite) 
+                return;
+
             if (Config.OnlyAtTrainingPlace &&
-                Game.Player.Tracker.Position.DistanceTo(Config.CenterPosition) > 50) return;
+                Game.Player.Tracker.Position.DistanceTo(Config.CenterPosition) > 50) 
+                return;
 
             foreach (var player in Game.Spawns.GetPlayers())
             {
-                if (Game.Party.IsInParty && Game.Party.GetMemberByName(player.Name) != null) continue;
+                if (Game.Party.IsInParty && Game.Party.GetMemberByName(player.Name) != null) 
+                    continue;
 
                 if (Config.InviteAll || Config.PlayerList.Contains(player.Name) && Config.InviteFromList)
                     Game.Party.Invite(player.Bionic.UniqueId);
