@@ -11,11 +11,6 @@ namespace RSBot.Log.Views
     public partial class Main : UserControl
     {
         /// <summary>
-        /// Log file path
-        /// </summary>
-        private static string _filePath;
-
-        /// <summary>
         /// Is active debug logs <seealso cref="true"/> otherwise <seealso cref="false"/>
         /// </summary>
         private bool _debug;
@@ -29,12 +24,9 @@ namespace RSBot.Log.Views
             InitializeComponent();
             LoadConfig();
 
-            _filePath = Path.Combine(Environment.CurrentDirectory, "User", "Logs", $"{DateTime.Now:dd-MM-yyyy}.txt");
             _debug = GlobalConfig.Get<bool>("RSBot.DebugEnvironment");
 
             EventManager.SubscribeEvent("OnAddLog", new Action<string, LogLevel>(AppendLog));
-
-            AppendLog($"Logfile: {_filePath}");
 
             if(!_debug)
             {
@@ -55,6 +47,8 @@ namespace RSBot.Log.Views
             if (!checkEnabled.Checked) 
                 return;
 
+            var logFile = Path.Combine(Environment.CurrentDirectory, "User", "Logs", Game.Player == null ? "Environment" : Game.Player.Name, $"{DateTime.Now:dd-MM-yyyy}.txt");
+
             if (level == LogLevel.Debug && !checkDebug.Checked) 
                 return;
 
@@ -67,7 +61,7 @@ namespace RSBot.Log.Views
             if (level == LogLevel.Warning && !checkWarning.Checked)
                 return;
 
-            txtLog.Write($"<{level}> \t{message}", true, _debug, _filePath);
+            txtLog.Write($"<{level}> \t{message}", true, _debug, logFile);
         }
 
         /// <summary>

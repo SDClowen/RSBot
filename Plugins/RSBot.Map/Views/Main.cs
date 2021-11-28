@@ -339,7 +339,7 @@ namespace RSBot.Map.Views
             lblY.Text = Game.Player.Tracker.Position.YCoordinate.ToString("0.00");
 
 #if DEBUG
-            labelSectorInfo.Text = $"{Game.Player.Tracker.Position.RegionID.ToString()} ({Game.Player.Tracker.Position.XSector}x{Game.Player.Tracker.Position.YSector})";
+            labelSectorInfo.Text = $"{Game.Player.Tracker.Position.RegionID} ({Game.Player.Tracker.Position.XSector}x{Game.Player.Tracker.Position.YSector})";
 #endif
 
             RedrawMap();

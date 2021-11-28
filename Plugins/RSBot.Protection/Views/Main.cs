@@ -89,14 +89,23 @@ namespace RSBot.Protection.Views
             foreach (var num in groupBackTown.Controls.OfType<NumericUpDown>().Select(control => control))
                 PlayerConfig.Set(key + num.Name, num.Value);
 
+            ISkillDataInfo skillPlayerHp = null;
             if (comboSkillPlayerHP.SelectedIndex > 0)
-                PlayerConfig.Set(key + "HpSkill", (comboSkillPlayerHP.SelectedItem as ISkillDataInfo).Id);
+                skillPlayerHp = comboSkillPlayerHP.SelectedItem as ISkillDataInfo;
 
+            PlayerConfig.Set(key + "HpSkill", skillPlayerHp == null ? 0 : skillPlayerHp.Id);
+
+            ISkillDataInfo skillPlayerMp = null;
             if (comboSkillPlayerMP.SelectedIndex > 0)
-                PlayerConfig.Set(key + "MpSkill", (comboSkillPlayerMP.SelectedItem as ISkillDataInfo).Id);
+                skillPlayerHp = comboSkillPlayerMP.SelectedItem as ISkillDataInfo;
 
+            PlayerConfig.Set(key + "MpSkill", skillPlayerMp == null ? 0 : skillPlayerMp.Id);
+
+            ISkillDataInfo skillPlayerBadStatus = null;
             if (comboSkillBadStatus.SelectedIndex > 0)
-                PlayerConfig.Set(key + "BadStatusSkill", (comboSkillBadStatus.SelectedItem as ISkillDataInfo).Id);
+                skillPlayerHp = comboSkillBadStatus.SelectedItem as ISkillDataInfo;
+
+            PlayerConfig.Set(key + "BadStatusSkill", skillPlayerBadStatus == null ? 0 : skillPlayerBadStatus.Id);
         }
 
         /// <summary>
@@ -116,8 +125,14 @@ namespace RSBot.Protection.Views
 
             foreach (var skill in Game.Player.Skills.KnownSkills)
             {
-                if (!skill.Enabled) continue;
-                if (skill.Record.Target_Required == 1 || skill.IsPassive) continue;
+                if (!skill.Enabled) 
+                    continue;
+
+                if (skill.IsPassive) 
+                    continue;
+
+                if (skill.Record.Target_Required && !skill.Record.TargetGroup_Self)
+                    continue;
 
                 // TODO: Check is the cure skill?
                 var badStatusIndex = comboSkillBadStatus.Items.Add(skill);

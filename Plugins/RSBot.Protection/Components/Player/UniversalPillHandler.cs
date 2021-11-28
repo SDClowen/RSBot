@@ -5,14 +5,9 @@ namespace RSBot.Protection.Components.Player
 {
     public class UniversalPillHandler
     {
-        #region Delegates
-
-        private delegate void OnPlayerBadEffectEventHandler();
-
-        private static event OnPlayerBadEffectEventHandler OnPlayerBadEffect;
-
-        #endregion Delegates
-
+        /// <summary>
+        /// Initialize the <see cref="UniversalPillHandler"/>
+        /// </summary>
         public static void Initialize()
         {
             SubscribeEvents();
@@ -23,14 +18,13 @@ namespace RSBot.Protection.Components.Player
         /// </summary>
         private static void SubscribeEvents()
         {
-            OnPlayerBadEffect += Core_OnPlayerBadEffect;
             EventManager.SubscribeEvent("OnPlayerBadEffect", OnPlayerBadEffect);
         }
 
         /// <summary>
         /// Cores the on player bad effect.
         /// </summary>
-        private static void Core_OnPlayerBadEffect()
+        private static void OnPlayerBadEffect()
         {
             var useUniversalPill = PlayerConfig.Get<bool>("RSBot.Protection.checkUseUniversalPills", true);
 

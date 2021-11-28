@@ -48,15 +48,18 @@ namespace RSBot.Bot.Default.Bot
         /// </summary>
         public void Tick()
         {
-            //Player is exchanging
             if (Game.Player.Exchanging)
                 return;
 
-            //Loop back invokation
+            if (Game.Player.State.LifeState == LifeState.Dead)
+                return;
+
+            if (Game.Player.Untouchable)
+                return;
+
             if (Bundles.Loop.Running)
                 return;
 
-            //We can not fight on a vehicle
             if (Game.Player.HasActiveVehicle)
             {
                 Game.Player.Vehicle.Dismount();
@@ -66,6 +69,13 @@ namespace RSBot.Bot.Default.Bot
             //Wait for the pickup manager to finish
             if (PickupManager.Running && !(Bundles.Loot.Config.UseAbilityPet && Game.Player.HasActiveAbilityPet))
                 return;
+
+            if (Bundles.Loop.Config.UseSpeedDrug && Game.Player.State.ActiveBuffs.FindIndex(p => p.Record.Action_Overlap == 6) < 0)
+            {
+                var item = Game.Player.Inventory.GetItems(new TypeIdFilter(3, 3, 13, 1)).Find(p => p.Record.Desc1.Contains("_SPEED_"));
+                if (item != null)
+                    item.Use();
+            }
 
             //Cast buffs
             Bundles.Buff.Invoke();

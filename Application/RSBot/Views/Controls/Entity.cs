@@ -23,7 +23,7 @@ namespace RSBot.Views.Controls
             EventManager.SubscribeEvent("OnSelectEntity", OnSelectEntity);
             EventManager.SubscribeEvent("OnDeselectEntity", OnDeselectEntity);
             EventManager.SubscribeEvent("OnUpdateSelectedEntityHP", OnUpdateSelectedEntityHP);
-            EventManager.SubscribeEvent("OnSelectedEntityKilled", OnSelectedEntityKilled);
+            EventManager.SubscribeEvent("OnKillSelectedEnemy", OnKillSelectedEnemy);
             EventManager.SubscribeEvent("OnAgentServerDisconnected", OnAgentServerDisconnected);
         }
 
@@ -100,7 +100,7 @@ namespace RSBot.Views.Controls
         /// <summary>
         /// Fired when the selected entity was killed
         /// </summary>
-        private void OnSelectedEntityKilled()
+        private void OnKillSelectedEnemy()
         {
             lblEntityName.Text = @"No entity selected";
             progressHP.Position = 0;
@@ -113,7 +113,7 @@ namespace RSBot.Views.Controls
         /// </summary>
         private void OnAgentServerDisconnected()
         {
-            OnSelectedEntityKilled();
+            OnKillSelectedEnemy();
         }
     }
 }

@@ -57,7 +57,7 @@ namespace RSBot.Core.Objects
         /// <value>
         /// The experience offset.
         /// </value>
-        public ulong Experience { get; set; }
+        public long Experience { get; set; }
 
         /// <summary>
         /// Gets or sets the skill experience.
@@ -471,14 +471,6 @@ namespace RSBot.Core.Objects
         }
 
         /// <summary>
-        /// Gets the potion refresh interval.
-        /// </summary>
-        /// <value>
-        /// The potion refresh interval.
-        /// </value>
-        public byte PotionRefreshInterval => Race == ObjectCountry.Chinese ? (byte)1 : (byte)15;
-
-        /// <summary>
         /// Gets or sets the buffs.
         /// </summary>
         /// <value>
@@ -547,6 +539,31 @@ namespace RSBot.Core.Objects
         /// The weapon.
         /// </value>
         public InventoryItem Weapon => Inventory.GetItemAt(6);
+
+        /// <summary>
+        /// Gets or sets the last hp potion item tick count
+        /// </summary>
+        public int _lastHpPotionTick { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the last mp potion item tick count
+        /// </summary>
+        public int _lastMpPotionTick { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the last vigor potion item tick count
+        /// </summary>
+        public int _lastVigorPotionTick { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the last universal pill potion item tick count
+        /// </summary>
+        public int _lastUniversalPillTick { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the last purification pill potion item tick count
+        /// </summary>
+        public int _lastPurificationPillTick { get; private set; }
 
         /// <summary>
         /// Gets the ammo amount.
@@ -619,6 +636,10 @@ namespace RSBot.Core.Objects
             if (distance > 100)
             {
                 Log.Warn("Player.Move: Target position too far away!");
+                
+                // Stop the bot for now! NEED IDEA!
+                Kernel.Bot.Stop();
+
                 return false;
             }
 
@@ -670,58 +691,31 @@ namespace RSBot.Core.Objects
         }
 
         /// <summary>
-        /// Uses the item.
-        /// </summary>
-        /// <param name="slot">The slot.</param>
-        /// <param name="bitMask">The bit mask.</param>
-        public bool UseItem(byte slot, ushort bitMask)
-        {
-            var packet = new Packet(0x704C);
-            packet.WriteByte(slot);
-            packet.WriteUShort(bitMask);
-
-            packet.Lock();
-
-            var result = false;
-            var asyncCallback = new AwaitCallback(response => result = response.ReadByte() == 0x01, 0xB04C);
-
-            PacketManager.SendPacket(packet, PacketDestination.Server, asyncCallback);
-            asyncCallback.AwaitResponse(500);
-
-            return result;
-        }
-
-        /// <summary>
-        /// Uses the item.
-        /// </summary>
-        /// <param name="sourceSlot">The source slot.</param>
-        /// <param name="bitMask">The bit mask.</param>
-        /// <param name="destintationSlot">The destintation slot.</param>
-        public void UseItem(byte sourceSlot, ushort bitMask, byte destintationSlot)
-        {
-            var packet = new Packet(0x704C);
-            packet.WriteByte(sourceSlot);
-            packet.WriteUShort(0x30EC);
-            packet.WriteByte(destintationSlot);
-            packet.Lock();
-
-            PacketManager.SendPacket(packet, PacketDestination.Server);
-        }
-
-        /// <summary>
         /// Uses the health potion.
         /// </summary>
         public bool UseHealthPotion()
         {
+            if (State.LifeState == LifeState.Dead)
+                return false;
+
+            var elapsed = Environment.TickCount - _lastHpPotionTick;
+            if (Race == ObjectCountry.Chinese && elapsed < 1000)
+                return false;
+
+            if (Race == ObjectCountry.Europe && elapsed < 15000)
+                return false;
+
             var typeIdFilter = new TypeIdFilter(3, 3, 1, 1);
-            var potionItem = (from item in Inventory.Items where typeIdFilter.EqualsRefItem(item.Record) select item).FirstOrDefault();
+            var potionItem = Inventory.GetItem(typeIdFilter);
+            if (potionItem == null)
+                return false;
 
-            if (potionItem == null) return false;
+            var result = potionItem.Use();
 
-            if (potionItem.Record.CashItem == 1)
-                return UseItem(potionItem.Slot, 0x08ED);
-            else
-                return UseItem(potionItem.Slot, 0x08EC);
+            //if(result)
+                _lastHpPotionTick = Environment.TickCount;
+
+            return result;
         }
 
         /// <summary>
@@ -729,15 +723,27 @@ namespace RSBot.Core.Objects
         /// </summary>
         public bool UseManaPotion()
         {
+            if (State.LifeState == LifeState.Dead)
+                return false;
+
+            var elapsed = Environment.TickCount - _lastMpPotionTick;
+            if (Race == ObjectCountry.Chinese && elapsed < 1000)
+                return false;
+
+            if (Race == ObjectCountry.Europe && elapsed < 15000)
+                return false;
+
             var typeIdFilter = new TypeIdFilter(3, 3, 1, 2);
-            var potionItem = (from item in Inventory.Items where typeIdFilter.EqualsRefItem(item.Record) select item).FirstOrDefault();
+            var potionItem = Inventory.GetItem(typeIdFilter);
+            if (potionItem == null)
+                return false;
 
-            if (potionItem == null) return false;
+            var result = potionItem.Use();
 
-            if (potionItem.Record.CashItem == 1)
-                return UseItem(potionItem.Slot, 0x10ED);
-            else
-                return UseItem(potionItem.Slot, 0x10EC);
+            //if(result)
+                _lastMpPotionTick = Environment.TickCount;
+
+            return result;
         }
 
         /// <summary>
@@ -746,12 +752,26 @@ namespace RSBot.Core.Objects
         /// <returns></returns>
         public bool UseVigorPotion()
         {
+            if (State.LifeState == LifeState.Dead)
+                return false;
+
             var typeIdFilter = new TypeIdFilter(3, 3, 1, 3);
-            var slot = (from item in Inventory.Items where typeIdFilter.EqualsRefItem(item.Record) select item.Slot).FirstOrDefault();
+            var item = Inventory.GetItem(typeIdFilter);
+            if (item == null)
+                return false;
 
-            if (slot == 0) return false;
+            var elapsed = Environment.TickCount - _lastVigorPotionTick;
 
-            return UseItem(slot, 0x18EC);
+            var normalPotion = item.Record.CodeName.Contains("_POTION_");
+            if (Race == ObjectCountry.Chinese && elapsed < (normalPotion ? 1000 : 4000))
+                return false;
+
+            if (Race == ObjectCountry.Europe && elapsed < (normalPotion ? 15000 : 4000))
+                return false;
+
+            _lastVigorPotionTick = Environment.TickCount;
+
+            return item.Use();
         }
 
         /// <summary>
@@ -760,12 +780,48 @@ namespace RSBot.Core.Objects
         /// <returns></returns>
         public bool UseUniversalPill()
         {
+            if (State.LifeState == LifeState.Dead)
+                return false;
+
+            var elapsed = Environment.TickCount - _lastUniversalPillTick;
+            if (elapsed < 1000)
+                return false;
+
             var typeIdFilter = new TypeIdFilter(3, 3, 2, 6);
-            var slot = (from item in Inventory.Items where typeIdFilter.EqualsRefItem(item.Record) select item.Slot).FirstOrDefault();
+            var slotItem = Inventory.GetItem(typeIdFilter);
+            if (slotItem == null)
+                return false;
 
-            if (slot == 0) return false;
+            var result = slotItem.Use();
+            if (result)
+                _lastUniversalPillTick = Environment.TickCount;
 
-            return UseItem(slot, 0x316C);
+            return result;
+        }
+
+        /// <summary>
+        /// Uses the purification pill.
+        /// </summary>
+        /// <returns></returns>
+        public bool UsePurificationPill()
+        {
+            if (State.LifeState == LifeState.Dead)
+                return false;
+
+            var elapsed = Environment.TickCount - _lastPurificationPillTick;
+            if (elapsed < 20000)
+                return false;
+
+            var typeIdFilter = new TypeIdFilter(3, 3, 2, 1);
+            var slotItem = Inventory.GetItem(typeIdFilter);
+            if (slotItem == null)
+                return false;
+
+            var result = slotItem.Use();
+            if (result)
+                _lastPurificationPillTick = Environment.TickCount;
+
+            return result;
         }
 
         /// <summary>
@@ -777,11 +833,11 @@ namespace RSBot.Core.Objects
             if (AbilityPet != null) return false;
 
             var typeIdFilter = new TypeIdFilter(3, 2, 1, 2);
-            var slot = (from item in Inventory.Items where typeIdFilter.EqualsRefItem(item.Record) select item.Slot).FirstOrDefault();
+            var slotItem = (from item in Inventory.Items where typeIdFilter.EqualsRefItem(item.Record) select item).FirstOrDefault();
+            if (slotItem == null) 
+                return false;
 
-            if (slot == 0) return false;
-
-            return UseItem(slot, 0x10CD);
+            return slotItem.Use();
         }
 
         /// <summary>
@@ -794,13 +850,10 @@ namespace RSBot.Core.Objects
 
             var typeIdFilter = new TypeIdFilter(3, 3, 3, 2);
             var vehicleItem = (from item in Inventory.Items where typeIdFilter.EqualsRefItem(item.Record) && item.Record.ReqLevel1 <= Game.Player.Level select item).FirstOrDefault();
+            if (vehicleItem == null) 
+                return false;
 
-            if (vehicleItem == null) return false;
-
-            if (vehicleItem.Record.CashItem == 0x01)
-                return UseItem(vehicleItem.Slot, 0x11ED);
-            else
-                return UseItem(vehicleItem.Slot, 0x11EC);
+            return vehicleItem.Use();
         }
 
         /// <summary>
@@ -810,11 +863,11 @@ namespace RSBot.Core.Objects
         public bool UseReturnScroll()
         {
             var typeIdFilter = new TypeIdFilter(3, 3, 3, 1);
-            var slot = (from item in Inventory.Items where typeIdFilter.EqualsRefItem(item.Record) && item.Record.ReqLevel1 <= Game.Player.Level select item.Slot).FirstOrDefault();
+            var slotItem = (from item in Inventory.Items where typeIdFilter.EqualsRefItem(item.Record) && item.Record.ReqLevel1 <= Game.Player.Level select item).FirstOrDefault();
+            if (slotItem == null)
+                return false;
 
-            if (slot == 0) return false;
-
-            return UseItem(slot, 0x09EC);
+            return slotItem.Use();
         }
 
         /// <summary>
@@ -836,119 +889,6 @@ namespace RSBot.Core.Objects
             callback.AwaitResponse();
 
             return !callback.Timeout;
-        }
-
-        /// <summary>
-        /// Casts the self skill.
-        /// </summary>
-        /// <param name="skillId">The skill identifier.</param>
-        public void CastBuff(uint skillId)
-        {
-            if (!Skills.HasSkill(skillId)) 
-                return;
-
-            var skillInfo = Skills.GetSkillInfoById(skillId);
-
-            if (Game.Player.Mana < skillInfo.Record.Consume_MP)
-                return;
-
-            var currentWeapon = Inventory.GetItemAt(6);
-
-            //Case 1: This skill can be casted by any weapon
-            if (currentWeapon != null && skillInfo.Record.ReqCast_Weapon1 == WeaponType.Any)
-            {
-                CastBuff(skillInfo);
-
-                return;
-            }
-
-            //Case 2: No weapon is equipped and the skill does not require any
-            if (currentWeapon == null && skillInfo.Record.ReqCast_Weapon1 == WeaponType.None ||
-                currentWeapon == null && skillInfo.Record.ReqCast_Weapon2 == WeaponType.None)
-            {
-                CastBuff(skillInfo);
-
-                return;
-            }
-
-            //Case 3: No current weapon is equiped OR the current weapon does not match the skill requirement
-            if (currentWeapon == null ||
-                (byte)skillInfo.Record.ReqCast_Weapon1 != currentWeapon.Record.TypeID1 && (byte)skillInfo.Record.ReqCast_Weapon2 != currentWeapon.Record.TypeID4)
-            {
-                //Try to equip the first weapon type
-                if (!EquipWeapon(skillInfo.Record.ReqCast_Weapon1))
-                    //That did not work - try to equip the second weapon type
-                    if (!EquipWeapon(skillInfo.Record.ReqCast_Weapon2))
-                    {
-                        Log.Notify($"Can not auto switch weapon for skill {skillInfo.Record.GetRealName()}: No matching weapon found in the player's inventory!");
-
-                        return;
-                    }
-
-                CastBuff(skillInfo);
-
-                return;
-            }
-
-            //Case 4: This skill can be casted by the current weapon
-            if ((byte)skillInfo.Record.ReqCast_Weapon1 == currentWeapon.Record.TypeID4 ||
-                (byte)skillInfo.Record.ReqCast_Weapon2 == currentWeapon.Record.TypeID4)
-            {
-                CastBuff(skillInfo);
-            }
-        }
-
-        /// <summary>
-        /// Casts the skill.
-        /// </summary>
-        /// <param name="skillId">The skill identifier.</param>
-        /// <param name="targetUniqueId">The target unique identifier.</param>
-        public bool CastSkill(uint skillId, uint targetUniqueId)
-        {
-            if (!Skills.HasSkill(skillId))
-                return false;
-
-            var skillInfo = Skills.GetSkillInfoById(skillId);
-
-            if (Game.Player.Mana < skillInfo.Record.Consume_MP)
-                return false;
-
-            var currentWeapon = Inventory.GetItemAt(6);
-
-            //Case 1: This skill can be casted by any weapon
-            if (currentWeapon != null && skillInfo.Record.ReqCast_Weapon1 == WeaponType.Any)
-                return CastSkill(skillInfo, targetUniqueId);
-
-            //Case 2: No weapon is equipped and the skill does not require any
-            if (currentWeapon == null && skillInfo.Record.ReqCast_Weapon1 == WeaponType.None
-                ||
-                currentWeapon == null && skillInfo.Record.ReqCast_Weapon2 == WeaponType.None)
-                return CastSkill(skillInfo, targetUniqueId);
-
-            //Case 3: No current weapon is equiped OR the current weapon does not match the skill requirement
-            if (currentWeapon == null ||
-                (byte)skillInfo.Record.ReqCast_Weapon1 != currentWeapon.Record.TypeID4 && (byte)skillInfo.Record.ReqCast_Weapon2 != currentWeapon.Record.TypeID4)
-            {
-                //Try to equip the first weapon type
-                if (EquipWeapon(skillInfo.Record.ReqCast_Weapon1))
-                    return CastSkill(skillInfo, targetUniqueId);
-
-                //Try to equip the second weapon type
-                if (EquipWeapon(skillInfo.Record.ReqCast_Weapon2))
-                    return CastSkill(skillInfo, targetUniqueId);
-
-                Log.Notify($"Can not auto switch weapon for skill {skillInfo.Record.GetRealName()}: No matching weapon found in the player's inventory!");
-
-                return false;
-            }
-
-            //Case 4: This skill can be casted by the current weapon
-            if ((byte)skillInfo.Record.ReqCast_Weapon1 == currentWeapon.Record.TypeID4 ||
-                (byte)skillInfo.Record.ReqCast_Weapon2 == currentWeapon.Record.TypeID4)
-
-                return CastSkill(skillInfo, targetUniqueId);
-
-            return false;
         }
 
         /// <summary>
@@ -1063,15 +1003,16 @@ namespace RSBot.Core.Objects
             var typeIdFilter = new TypeIdFilter(3, 3, 1, 6);
             var rescueItem = Inventory.GetItem(typeIdFilter);
 
-            if (rescueItem == null) return false;
+            if (rescueItem == null) 
+                return false;
 
             typeIdFilter = new TypeIdFilter(3, 2, 1, 1);
             var petItem = Inventory.GetItem(typeIdFilter);
 
-            if (petItem == null) return false;
+            if (petItem == null) 
+                return false;
 
-            UseItem(rescueItem.Slot, 0x30EC, petItem.Slot);
-
+            rescueItem.UseTo(petItem.Slot);
             return true;
         }
 
@@ -1095,52 +1036,7 @@ namespace RSBot.Core.Objects
 
             Log.Notify("Summoning attack pet");
 
-            if (petItem.Record.CashItem == 0x01)
-                return UseItem(petItem.Slot, 0x08CD);
-            else
-                return UseItem(petItem.Slot, 0x08CC);
-        }
-
-        /// <summary>
-        /// Equips the weapons.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="fallback">The fallback.</param>
-        /// <returns></returns>
-        public bool EquipWeapon(WeaponType type)
-        {
-            var typeIdFilter = new TypeIdFilter(3, 1, 6, (byte)type);
-            var items = Inventory.GetItems(typeIdFilter);
-
-            if (items == null)
-                return false;
-
-            if (InAction)
-            {
-                Log.Debug("Player is in action, canceling it now.");
-
-                for (var i = 1; i < 5; i++)
-                    if (CancelAction())
-                        break;
-            }
-
-            if (Inventory.GetItem(typeIdFilter)?.Slot == 6)
-                return true; // already equiped
-
-            // find high level item
-            InventoryItem nearestItem = null;
-            foreach (var item in items)
-            {
-                if (nearestItem == null)
-                    nearestItem = item;
-                else
-                {
-                    if (nearestItem.Record.ReqLevel1 > nearestItem.Record.ReqLevel1 && nearestItem.OptLevel > item.OptLevel)
-                        nearestItem = item;
-                }
-            }
-
-            return nearestItem != null && Inventory.MoveItem(nearestItem.Slot, 6);
+            return petItem.Use();
         }
 
         /// <summary>
@@ -1205,13 +1101,70 @@ namespace RSBot.Core.Objects
         }
 
         /// <summary>
-        /// Casts the skill. Does not check any weapon requirement.
+        /// Check required of the using skill
         /// </summary>
-        /// <param name="skill"></param>
-        /// <param name="targetId"></param>
-        /// <returns></returns>
-        private bool CastSkill(SkillInfo skill, uint targetId)
+        /// <param name="skill">The using skill</param>
+        public bool CheckSkillRequired(RefSkill skill)
         {
+            InventoryItem requiredItem = null;
+            TypeIdFilter filter = null;
+
+            if (skill.ReqCast_Weapon1 == WeaponType.Any)
+            {
+                var reqiParam = skill.Params.FindIndex(p => p == 1919250793);
+                if (reqiParam != -1)
+                {
+                    var paramTypeId3 = (byte)skill.Params[++reqiParam];
+                    var paramTypeId4 = (byte)skill.Params[++reqiParam];
+
+                    filter = new TypeIdFilter(3, 1, paramTypeId3, paramTypeId4);
+                }
+                else
+                    return true;
+            }
+            else
+            {
+                filter = new TypeIdFilter(p =>
+                    p.TypeID2 == 1 && p.TypeID3 == 6 && (
+                    p.TypeID4 == (byte)skill.ReqCast_Weapon1 ||
+                    ((byte)skill.ReqCast_Weapon2 != 0xFF && p.TypeID4 == (byte)skill.ReqCast_Weapon2)
+                ));
+            }
+
+            requiredItem = Inventory.GetItemBest(filter);
+            if (requiredItem == null)
+                return false;
+
+            var movingSlot = (byte)(requiredItem.Record.TypeID3 == 6 ? 6 : 7);
+            if (requiredItem.Slot == movingSlot)
+                return true;
+
+            if(movingSlot == 6 && requiredItem.Record.TwoHanded == 0)
+            {
+                // find and wear the shield item automaticaly
+                filter = new TypeIdFilter(3, 1, 4, (byte)(Game.Player.Race == ObjectCountry.Chinese ? 1 : 2));
+                var shieldItem = Inventory.GetItemBest(filter);
+                if (shieldItem != null && shieldItem.Slot != 7)
+                    Inventory.MoveItem(shieldItem.Slot, 7);
+            }
+
+            return Inventory.MoveItem(requiredItem.Slot, movingSlot);
+        }
+
+        /// <summary>
+        /// Casts the skill.
+        /// </summary>
+        /// <param name="skillId">The skill identifier.</param>
+        /// <param name="targetUniqueId">The target unique identifier.</param>
+        public bool CastSkill(uint skillId, uint targetId)
+        {
+            if (!Skills.HasSkill(skillId))
+                return false;
+
+            var skill = Skills.GetSkillInfoById(skillId);
+            if (!CheckSkillRequired(skill.Record))
+                return false;
+
             var packet = new Packet(0x7074);
             packet.WriteByte(1); //Execute
             packet.WriteByte(4); //Use Skill
@@ -1225,18 +1178,99 @@ namespace RSBot.Core.Objects
             {
                 var result = response.ReadByte();
                 var code = response.ReadUShort();
-                if (result == 0x2)
+                
+                if (result == 2)
                 {
-                    Log.Error($"Skill error code: 0x{code:X2}");
+                    switch (code)
+                    {
+                        case 0x300E:
+                            EquipAmmunation();
+                            break;
+
+                        case 0x3006: // invalid target
+                        case 0x3010: // obstacle
+                            break;
+                        default:
+                            Log.Error($"Invalid skill error code: 0x{code:X2}");
+                            break;
+                    }
+
+                    return false;
                 }
 
-                return result == 0x01 && Action.FromPacket(response).PlayerIsExecutor;
+                var action = Action.FromPacket(response);
+
+                return action.SkillId == skill.Id && action.PlayerIsExecutor;
             }, 0xB070);
 
-            PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallBack);
-            awaitCallBack.AwaitResponse(skill.Record.Action_CastingTime + skill.Record.Action_ActionDuration + 1000);
+            var callback = new AwaitCallback(response =>
+            {
+                return response.ReadByte() == 0x02 && response.ReadByte() == 0x00;
+            }, 0xB074);
+
+            PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallBack, callback);
+            awaitCallBack.AwaitResponse(skill.Record.Action_CastingTime + skill.Record.Action_ActionDuration + skill.Record.Action_PreparingTime);
+            callback.AwaitResponse();
 
             return !awaitCallBack.Timeout;
+        }
+
+        /// <summary>
+        /// Casts the buff skill.
+        /// </summary>
+        /// <param name="skillId">The skill identifier.</param>
+        public void CastBuff(uint skillId, uint target = 0)
+        {
+            if (!Skills.HasSkill(skillId))
+                return;
+
+            var skill = Skills.GetSkillInfoById(skillId);
+            if (!CheckSkillRequired(skill.Record))
+                return;
+
+            Log.Notify($"Casting skill (self-buff) [{skill.Record.GetRealName()}]");
+
+            var packet = new Packet(0x7074);
+            packet.WriteByte(1); //Execute
+            packet.WriteByte(4); //Use Skill
+            packet.WriteUInt(skill.Id);
+
+            if(skill.Record.TargetGroup_Self || 
+               skill.Record.TargetGroup_Party)
+            {
+                packet.WriteByte(ActionTarget.Entity);
+                packet.WriteUInt(target == 0 ? UniqueId : target);
+            }
+            else
+                packet.WriteByte(ActionTarget.None);
+
+            packet.Lock();
+
+            var asyncCallback = new AwaitCallback(response =>
+            {
+                var targetId = response.ReadUInt();
+                var castedSkillId = response.ReadUInt();
+
+                if (targetId == Game.Player.UniqueId && castedSkillId == skillId)
+                    return true;
+
+                return false;
+
+            }, 0xB0BD);
+
+            var callback = new AwaitCallback(response =>
+            {
+                return response.ReadByte() == 0x02 && response.ReadByte() == 0x00;
+            }, 0xB074);
+
+            PacketManager.SendPacket(packet, PacketDestination.Server, asyncCallback, callback);
+
+            asyncCallback.AwaitResponse(skill.Record.Action_CastingTime +
+                                        skill.Record.Action_ActionDuration +
+                                        skill.Record.Action_PreparingTime + 1500);
+            
+            if(skill.Record.Basic_Activity != 1)
+                callback.AwaitResponse();
         }
 
         /// <summary>
@@ -1263,9 +1297,19 @@ namespace RSBot.Core.Objects
                     return Action.FromPacket(response).PlayerIsExecutor;
                 else if (result == 0x02)
                 {
-                    if (code != 1025) return true;
-                    //Insufficient ammunation, try to equip it
-                    EquipAmmunation();
+                    switch (code)
+                    {
+                        case 0x300E:
+                            EquipAmmunation();
+                            break;
+
+                        case 0x3006: // invalid target
+                        case 0x3010: // obstacle
+                            break;
+                        default:
+                            Log.Error($"Invalid skill error code: 0x{code:X2}");
+                            break;
+                    }
                 }
 
                 return false;
@@ -1275,38 +1319,6 @@ namespace RSBot.Core.Objects
             awaitCallBack.AwaitResponse(2000);
 
             return !awaitCallBack.Timeout;
-        }
-
-        /// <summary>
-        /// Casts the skill. Does not check any weapon requirements.
-        /// </summary>
-        /// <param name="skillInfo"></param>
-        private void CastBuff(SkillInfo skillInfo)
-        {
-            Log.Notify($"Casting skill (self-buff) [{skillInfo.Record.GetRealName()}]");
-
-            var packet = new Packet(0x7074);
-            packet.WriteByte(1); //Execute
-            packet.WriteByte(4); //Use Skill
-            packet.WriteUInt(skillInfo.Id);
-            packet.WriteByte(ActionTarget.None);
-
-            packet.Lock();
-
-            var asyncCallback = new AwaitCallback(response => 
-            {
-                var targetId = response.ReadUInt();
-                var skillId = response.ReadUInt();
-
-                if (targetId == Game.Player.UniqueId && skillId == skillInfo.Id)
-                    return true;
-
-                return false;
-
-            }, 0xB0BD);
-
-            PacketManager.SendPacket(packet, PacketDestination.Server, asyncCallback);
-            asyncCallback.AwaitResponse(skillInfo.Record.Action_CastingTime + skillInfo.Record.Action_ActionDuration + 1500);
         }
     }
 }

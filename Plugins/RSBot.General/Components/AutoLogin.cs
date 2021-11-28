@@ -4,6 +4,7 @@ using RSBot.Core.Network;
 using RSBot.General.Models;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace RSBot.General.Components
 {
@@ -12,18 +13,19 @@ namespace RSBot.General.Components
         /// <summary>
         /// Does the automatic login.
         /// </summary>
-        public static void DoAutoLogin()
+        public static async void DoAutoLogin()
         {
             if (!GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin"))
                 return;
 
-            if (Accounts.SavedAccounts.Count <= GlobalConfig.Get<int>("RSBot.General.AccountIndex"))
+            var selectedAccount = Accounts.SavedAccounts.Find(p => p.Username == GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername"));
+            if (selectedAccount == null)
+            {
+                Log.Warn("No have any selected account for autologin. RSBot waiting for manual login from you! Do not forget select a account for auto login next time ;)");
                 return;
-
-            var selectedAccount = Accounts.SavedAccounts[GlobalConfig.Get<int>("RSBot.General.AccountIndex")];
+            }
 
             var server = Serverlist.GetServerByName(selectedAccount.Servername);
-
             if (server == null && Serverlist.Servers != null)
             {
                 Log.Notify($"The server [{selectedAccount.Servername}] assigned to this account could not be found in the serverlist!");
@@ -35,11 +37,16 @@ namespace RSBot.General.Components
             // is server check [Lazy :)]
             if (!server.Status)
             {
-                Log.Notify("The selected server is under maintainance. Retrying login in 3 seconds...");
-                Thread.Sleep(3000);
+                Log.Notify("The selected server is under maintainance. Retrying to login in few seconds...");
 
-                //Request the server list for check server is check. If not, it can continue to login ^^
-                PacketManager.SendPacket(new Packet(0x6101, true), PacketDestination.Server);
+                // Only need while clientless, otherwise the client already sending every 5 seconds instead of bot.
+                if (Game.Clientless)
+                {
+                    await Task.Delay(5000).ContinueWith((t) =>
+                    {
+                        PacketManager.SendPacket(new Packet(0x6101, true), PacketDestination.Server);
+                    });
+                }
 
                 return;
             }
@@ -61,13 +68,15 @@ namespace RSBot.General.Components
 
             var loginPacket = new Packet(0x6102, true);
             loginPacket.WriteByte(Game.ReferenceManager.DivisionInfo.Locale);
-            loginPacket.WriteString(account.Username.ToLowerInvariant());
+            loginPacket.WriteString(account.Username);
             loginPacket.WriteString(account.Password);
             loginPacket.WriteUShort(server?.Id ?? Serverlist.Servers[0].Id);
 
             loginPacket.Lock();
 
             PacketManager.SendPacket(loginPacket, PacketDestination.Server);
+
+            Accounts.Joined = account;
         }
 
         /// <summary>

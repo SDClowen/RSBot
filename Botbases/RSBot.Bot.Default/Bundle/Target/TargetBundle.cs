@@ -12,14 +12,8 @@ namespace RSBot.Bot.Default.Bundle.Target
         /// </summary>
         public void Invoke()
         {
-            //We don't need to select another mob if the selected monster is still alive or if there are
-            //no monsters nearby at this moment
-            if (Game.SelectedEntity != null
-                && Game.SelectedEntity.Bionic != null
-                && Game.SelectedEntity.Bionic.State.LifeState == LifeState.Alive
-                && !Game.SelectedEntity.Bionic.IsBehindObstacle
-                && Game.SelectedEntity.Monster != null
-                || Game.Spawns.GetMonsters().Count == 0)
+            if (Game.SelectedEntity?.Bionic?.State?.LifeState == LifeState.Alive &&
+                !Game.SelectedEntity.Bionic.IsBehindObstacle)
                 return;
 
             var monster = GetNearestEnemy();

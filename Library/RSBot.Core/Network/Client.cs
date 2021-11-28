@@ -68,28 +68,36 @@ namespace RSBot.Core.Network
         /// <param name="port">The port.</param>
         public void Listen(ushort port)
         {
-            _securityManager = new SecurityManager();
-            _securityManager.GenerateSecurity(true, true, true);
-
-            _transferBuffer = new TransferBuffer(8192, 0, 0);
-            Listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
-            //Thread Management
-            _packetProcessor = new Thread(ThreadedPacketProcessing)
+            try
             {
-                Name = "Proxy.Network.Client.PacketProcessor",
-                IsBackground = true
-            };
+                _securityManager = new SecurityManager();
+                _securityManager.GenerateSecurity(true, true, true);
 
-            _packetProcessor.Start();
+                _transferBuffer = new TransferBuffer(8192, 0, 0);
+                Listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-            if (Listener.IsBound == false)
-            {
-                Listener.Bind(new IPEndPoint(IPAddress.Loopback, port));
-                Listener.Listen(1);
+                //Thread Management
+                _packetProcessor = new Thread(ThreadedPacketProcessing)
+                {
+                    Name = "Proxy.Network.Client.PacketProcessor",
+                    IsBackground = true
+                };
+
+                _packetProcessor.Start();
+
+                if (Listener.IsBound == false)
+                {
+                    Listener.Bind(new IPEndPoint(IPAddress.Loopback, port));
+                    Listener.Listen(1);
+                }
+
+                Listener.BeginAccept(AcceptClient, null);
             }
-            Listener.BeginAccept(AcceptClient, null);
+            catch
+            {
+
+            }
         }
 
         /// <summary>
@@ -97,17 +105,23 @@ namespace RSBot.Core.Network
         /// </summary>
         private void Listen()
         {
-            EnablePacketProcessor = false;
-
-            if (Socket != null)
+            try
             {
-                Socket.Shutdown(SocketShutdown.Both);
-                Socket.Close();
+                EnablePacketProcessor = false;
+
+                if (Socket != null)
+                {
+                    Socket.Shutdown(SocketShutdown.Both);
+                    Socket.Close();
+                }
+
+                Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+                Listener.BeginAccept(AcceptClient, null);
             }
-
-            Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
-            Listener.BeginAccept(AcceptClient, null);
+            catch
+            {   
+            }
         }
 
         /// <summary>
@@ -115,32 +129,38 @@ namespace RSBot.Core.Network
         /// </summary>
         public void Shutdown()
         {
-            EnablePacketProcessor = false;
-            IsClosing = true;
-
-            //Close Socket
-            if (Socket != null)
+            try
             {
-                if (Socket.Connected)
-                    Socket.Shutdown(SocketShutdown.Both);
+                EnablePacketProcessor = false;
+                IsClosing = true;
 
-                Socket.Close();
-                Socket = null;
+                //Close Socket
+                if (Socket != null)
+                {
+                    if (Socket.Connected)
+                        Socket.Shutdown(SocketShutdown.Both);
+
+                    Socket.Close();
+                    Socket = null;
+                }
+
+                //Close listener
+                if (Listener != null)
+                {
+                    Listener.Close();
+                    Listener = null;
+                }
+
+                _securityManager = null;
+
+                _transferBuffer = null;
+                _receivedPackets = null;
+                _sendBuffers = null;
+                _packetProcessor = null;
             }
-
-            //Close listener
-            if (Listener != null)
+            catch
             {
-                Listener.Close();
-                Listener = null;
             }
-
-            _securityManager = null;
-
-            _transferBuffer = null;
-            _receivedPackets = null;
-            _sendBuffers = null;
-            _packetProcessor = null;
         }
 
         /// <summary>
@@ -149,17 +169,26 @@ namespace RSBot.Core.Network
         /// <param name="ar">The ar.</param>
         private void AcceptClient(IAsyncResult ar)
         {
-            if (IsClosing) return;
+            try
+            {
+                if (IsClosing)
+                    return;
 
-            EnablePacketProcessor = true;
-            Socket = Listener.EndAccept(ar);
-            Socket.BeginReceive(_transferBuffer.Buffer, 0, 8192, SocketFlags.None, WaitForData, Socket);
+                EnablePacketProcessor = true;
+                Socket = Listener.EndAccept(ar);
+                Socket.BeginReceive(_transferBuffer.Buffer, 0, 8192, SocketFlags.None, WaitForData, Socket);
 
-            _securityManager = new SecurityManager();
-            _securityManager.GenerateSecurity(false, false, false);
+                _securityManager = new SecurityManager();
+                _securityManager.GenerateSecurity(false, false, false);
 
-            //RaiseEvent if event is linked
-            Connected?.Invoke();
+                //RaiseEvent if event is linked
+                Connected?.Invoke();
+            }
+            catch (Exception)
+            {
+                OnDisconnected?.Invoke();
+                Listen();
+            }
         }
 
         /// <summary>
@@ -168,7 +197,9 @@ namespace RSBot.Core.Network
         /// <param name="ar">The ar.</param>
         private void WaitForData(IAsyncResult ar)
         {
-            if (IsClosing || !EnablePacketProcessor) return;
+            if (IsClosing || !EnablePacketProcessor) 
+                return;
+
             Socket worker = null;
             try
             {
@@ -202,11 +233,19 @@ namespace RSBot.Core.Network
                 Log.Notify("[Fatal]: Could not handshake the client, restarting client process now...");
                 Game.Start();
             }
-
-            if (worker != null && Socket != null && Socket.Connected)
-                worker.BeginReceive(_transferBuffer.Buffer, _transferBuffer.Offset, _transferBuffer.Size,
-                    SocketFlags.None,
-                    WaitForData, worker);
+            finally
+            {
+                try
+                {
+                    if (worker != null && Socket != null && Socket.Connected)
+                        worker.BeginReceive(_transferBuffer.Buffer, _transferBuffer.Offset, _transferBuffer.Size,
+                            SocketFlags.None,
+                            WaitForData, worker);
+                }
+                catch
+                {
+                }
+            }
         }
 
         /// <summary>
@@ -215,9 +254,16 @@ namespace RSBot.Core.Network
         /// <param name="data">The data.</param>
         public void Send(byte[] data)
         {
-            if (Socket == null || IsClosing || !EnablePacketProcessor || !Socket.Connected) return;
+            try
+            {
+                if (Socket == null || IsClosing || !EnablePacketProcessor || !Socket.Connected)
+                    return;
 
-            Socket.Send(data);
+                Socket.Send(data);
+            }
+            catch
+            {
+            }
         }
 
         /// <summary>
@@ -237,20 +283,26 @@ namespace RSBot.Core.Network
         /// </summary>
         private void ThreadedPacketProcessing()
         {
-            //Wait until we should process packets
-            while (!EnablePacketProcessor && !IsClosing)
-                Thread.Sleep(1);
-
-            while (EnablePacketProcessor && !IsClosing)
+            try
             {
-                ProcessClientPackets();
-                Thread.Sleep(1);
+                //Wait until we should process packets
+                while (!EnablePacketProcessor && !IsClosing)
+                    Thread.Sleep(1);
+
+                while (EnablePacketProcessor && !IsClosing)
+                {
+                    ProcessClientPackets();
+                    Thread.Sleep(1);
+                }
+
+                if (IsClosing)
+                    return; //Jump out.
+
+                ThreadedPacketProcessing();
             }
-
-            if (IsClosing)
-                return; //Jump out.
-
-            ThreadedPacketProcessing();
+            catch
+            {
+            }
         }
 
         /// <summary>
@@ -258,18 +310,27 @@ namespace RSBot.Core.Network
         /// </summary>
         private void ProcessClientPackets()
         {
-            if (IsClosing || !EnablePacketProcessor) return;
+            try
+            {
+                if (IsClosing || !EnablePacketProcessor) 
+                    return;
 
-            _receivedPackets = _securityManager.TransferIncoming();
+                _receivedPackets = _securityManager.TransferIncoming();
 
-            if (_receivedPackets != null)
-                foreach (var packet in _receivedPackets.Where(packet => packet.Opcode != 0x5000 && packet.Opcode != 0x9000 && packet.Opcode != 0x2001))
-                    Task.Run(() => OnPacketReceived?.Invoke(packet));
+                if (_receivedPackets != null)
+                    foreach (var packet in _receivedPackets.Where(packet => packet.Opcode != 0x5000 && packet.Opcode != 0x9000 && packet.Opcode != 0x2001))
+                        OnPacketReceived?.Invoke(packet);
 
-            _sendBuffers = _securityManager.TransferOutgoing();
-            if (_sendBuffers == null) return;
-            foreach (var buffer in _sendBuffers)
-                Send(buffer.Key.Buffer);
+                _sendBuffers = _securityManager.TransferOutgoing();
+                if (_sendBuffers == null) 
+                    return;
+
+                foreach (var buffer in _sendBuffers)
+                    Send(buffer.Key.Buffer);
+            }
+            catch
+            {
+            }
         }
     }
 }

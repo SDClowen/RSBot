@@ -44,13 +44,13 @@ namespace RSBot.General.PacketHandler
             }
             else if (serviceName == "AgentServer")
             {
-                var selectedAccount = Accounts.SavedAccounts[GlobalConfig.Get<int>("RSBot.General.AccountIndex")];
+                var selectedAccount = Accounts.SavedAccounts.Find(p => p.Username == GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername"));
                 if (selectedAccount == null)
                     return;
 
                 var response = new Packet(0x6103, false);
                 response.WriteUInt(Kernel.Proxy.Token);
-                response.WriteString(selectedAccount.Username.ToLowerInvariant());
+                response.WriteString(selectedAccount.Username);
                 response.WriteString(selectedAccount.Password);
                 response.WriteByte(Game.ReferenceManager.DivisionInfo.Locale);
 

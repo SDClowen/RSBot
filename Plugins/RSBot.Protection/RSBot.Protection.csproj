@@ -48,10 +48,8 @@
     <Compile Include="Components\Player\SkillManaHandler.cs" />
     <Compile Include="Components\Player\SkillHealthHandler.cs" />
     <Compile Include="Components\Player\UniversalPillHandler.cs" />
-    <Compile Include="Components\Player\VigorManaRecoveryHandler.cs" />
-    <Compile Include="Components\Player\ManaRecoveryHandler.cs" />
-    <Compile Include="Components\Player\HealthRecoveryHandler.cs" />
-    <Compile Include="Components\Player\VigorHealthRecoveryHandler.cs" />
+    <Compile Include="Components\Player\HealthManaRecoveryHandler.cs" />
+    <Compile Include="Components\Player\VigorRecoveryHandler.cs" />
     <Compile Include="Components\Town\AmmunitionHandler.cs" />
     <Compile Include="Components\Town\DeadHandler.cs" />
     <Compile Include="Components\Town\DurabilityLowHandler.cs" />

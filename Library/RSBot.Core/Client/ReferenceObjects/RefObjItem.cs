@@ -15,6 +15,8 @@ namespace RSBot.Core.Client.ReferenceObjects
         public byte SpeedClass;
         public byte TwoHanded;
         public byte Range;
+        public int Param1;
+        public string Desc1;
 
         /// <summary>
         /// Is item wearable:<c>true</c> otherwise:<c>false</c>
@@ -66,6 +68,8 @@ namespace RSBot.Core.Client.ReferenceObjects
             parser.TryParseByte(93, out TwoHanded);
             parser.TryParseByte(94, out Range);
 
+            parser.TryParseInt(118, out Param1);
+            parser.TryParseString(119, out Desc1);
             return true;
         }
 

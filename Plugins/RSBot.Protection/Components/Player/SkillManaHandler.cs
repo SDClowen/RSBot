@@ -15,14 +15,14 @@ namespace RSBot.Protection.Components.Player
         /// </summary>
         private static void SubscribeEvents()
         {
-            EventManager.SubscribeEvent("OnTick", OnTick);
+            EventManager.SubscribeEvent("OnUpdateMP", OnUpdateMP);
         }
 
         /// <summary>
         /// Cores the on player HPMP update.
         /// </summary>
         /// <exception cref="System.NotImplementedException"></exception>
-        private static void OnTick()
+        private static void OnUpdateMP()
         {
             if (!Kernel.Bot.Running)
                 return;

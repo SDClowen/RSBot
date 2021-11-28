@@ -23,6 +23,8 @@ namespace RSBot.Views
         {
             InitializeComponent();
 
+            CheckForIllegalCrossThreadCalls = false;
+
             RegisterEvents();
 
             toolStripStatusLabelBeta.Alignment = ToolStripItemAlignment.Right;
@@ -347,8 +349,7 @@ namespace RSBot.Views
 
             if (btnStartStop.Text == @"START BOT")
             {
-                var thread = new Thread(Kernel.Bot.Start) { Name = "Botbase.Main" };
-                thread.Start();
+                Kernel.Bot.Start();
 
                 BotWindow.SetStatusText("Running");
             }

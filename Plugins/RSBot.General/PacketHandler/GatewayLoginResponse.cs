@@ -2,6 +2,7 @@
 using RSBot.Core.Network;
 using RSBot.General.Components;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace RSBot.General.PacketHandler
 {
@@ -65,8 +66,10 @@ namespace RSBot.General.PacketHandler
                     if (!GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin"))
                     {
                         Log.Warn("A new login attempt will be made shortly...");
-                        Thread.Sleep(1000);
-                        AutoLogin.DoAutoLogin();
+                        Task.Delay(1000).ContinueWith((e) =>
+                        {
+                            AutoLogin.DoAutoLogin();
+                        });
                     }
                     break;
 

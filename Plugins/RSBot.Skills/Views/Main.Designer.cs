@@ -153,11 +153,12 @@
             this.comboMonsterType.Items.AddRange(new object[] {
             "General (Default)",
             "Champion",
-            "Elite",
             "Giant",
             "General (Party)",
             "Champion (Party)",
             "Giant (Party)",
+            "Elite",
+            "Strong",
             "Unique"});
             this.comboMonsterType.Location = new System.Drawing.Point(54, 171);
             this.comboMonsterType.Name = "comboMonsterType";

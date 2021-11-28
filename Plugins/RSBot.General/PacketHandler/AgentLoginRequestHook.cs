@@ -32,18 +32,17 @@ namespace RSBot.General.PacketHandler
         {
             if (!GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin"))
                 return packet;
-            if (Accounts.SavedAccounts.Count <= GlobalConfig.Get<int>("RSBot.General.AccountIndex"))
-                return packet;
 
-            var selectedAccount = Accounts.SavedAccounts[GlobalConfig.Get<int>("RSBot.General.AccountIndex")];
+            var selectedAccount = Accounts.SavedAccounts.Find(p => p.Username == GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername"));
             if (selectedAccount == null)
                 return packet;
 
-            if (Game.Clientless) return packet;
+            if (Game.Clientless) 
+                return packet;
 
             packet = new Packet(Opcode, true);
             packet.WriteUInt(Kernel.Proxy.Token);
-            packet.WriteString(selectedAccount.Username.ToLowerInvariant());
+            packet.WriteString(selectedAccount.Username);
             packet.WriteString(selectedAccount.Password);
             packet.WriteByte(Game.ReferenceManager.DivisionInfo.Locale);
 

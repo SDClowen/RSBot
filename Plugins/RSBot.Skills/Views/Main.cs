@@ -27,7 +27,7 @@ namespace RSBot.Skills.Views
             InitializeComponent();
             SubscribeEvents();
 
-            ContextMenu = skillContextMenu;
+            listSkills.ContextMenu = skillContextMenu;
         }
 
         /// <summary>
@@ -94,21 +94,24 @@ namespace RSBot.Skills.Views
                             SkillManager.Skills[MonsterRarity.Champion].Add(skillInfo);
                             continue;
                         case 2:
-                            SkillManager.Skills[MonsterRarity.Elite].Add(skillInfo);
-                            continue;
-                        case 3:
                             SkillManager.Skills[MonsterRarity.Giant].Add(skillInfo);
                             continue;
-                        case 4:
+                        case 3:
                             SkillManager.Skills[MonsterRarity.GeneralParty].Add(skillInfo);
                             continue;
-                        case 5:
+                        case 4:
                             SkillManager.Skills[MonsterRarity.ChampionParty].Add(skillInfo);
                             continue;
-                        case 6:
+                        case 5:
                             SkillManager.Skills[MonsterRarity.GiantParty].Add(skillInfo);
                             continue;
+                        case 6:
+                            SkillManager.Skills[MonsterRarity.Elite].Add(skillInfo);
+                            continue;
                         case 7:
+                            SkillManager.Skills[MonsterRarity.EliteStrong].Add(skillInfo);
+                            continue;
+                        case 8:
                             SkillManager.Skills[MonsterRarity.Unique].Add(skillInfo);
                             continue;
                         default:
@@ -233,9 +236,12 @@ namespace RSBot.Skills.Views
             comboResurrectionSkill.SelectedIndex = comboResurrectionSkill.Items.Add("None");
 
             foreach (var skill in Game.Player.Skills.KnownSkills.Where(
-                s => s.Record != null && s.Record.TargetEtc_SelectDeadBody == 1 &&
+                s => s.Record != null && s.Record.TargetEtc_SelectDeadBody &&
                (s.Record.Params[3] == 1751474540 || s.Record.Params[3] == 1919776116)))
             {
+                if (IsLowLevelSkill(skill.Record))
+                    continue;
+
                 var index = comboResurrectionSkill.Items.Add(skill);
                 var resurrectionSkillId = PlayerConfig.Get<int>("RSBot.Skills.ResurrectionSkill");
                 if (resurrectionSkillId == 0)
@@ -299,17 +305,19 @@ namespace RSBot.Skills.Views
                 listSkills.Groups.Add(group);
             }
 
-            var unknownSkillNamesCount = 0;
             foreach (var skill in Game.Player.Skills.KnownSkills.Where(s => s.Enabled))
             {
                 var isLowLevelSkill = IsLowLevelSkill(skill.Record);
+                if (checkHideLowerLevelSkills.Checked && isLowLevelSkill) 
+                    continue;
 
-                if (checkHideLowerLevelSkills.Checked && isLowLevelSkill || skill.IsPassive) continue; //Dont list passive skills or lower level skills?
+                if (skill.IsPassive)
+                    continue;
+
+                if (!skill.IsAttack && skill.Record.Target_Required && !skill.Record.TargetGroup_Self)
+                    continue;
 
                 var name = skill.Record.GetRealName();
-
-                if (string.IsNullOrWhiteSpace(name) || name == "0")
-                    unknownSkillNamesCount++;
 
                 var item = new ListViewItem(name) { Tag = skill };
                 item.SubItems.Add("lv. " + skill.Record.Basic_Level);
@@ -322,9 +330,6 @@ namespace RSBot.Skills.Views
                 else if (!skill.IsAttack && !skill.IsImbue && checkShowBuffs.Checked)
                     listSkills.Items.Add(item);
             }
-
-            if (unknownSkillNamesCount > 3)
-                Log.Warn("Detected wrong translation index, please go to 'Tools->Plugins->Language Wizard' to set the correct one!");
 
             listSkills.EndUpdate();
 
@@ -364,15 +369,21 @@ namespace RSBot.Skills.Views
         /// <param name="buffInfo">The added <see cref="BuffInfo"/></param>
         private void OnAddBuff(BuffInfo buffInfo)
         {
-            var item = new ListViewItem
+            try
             {
-                Text = buffInfo.Record.GetRealName(),
-                Tag = buffInfo
-            };
+                var item = new ListViewItem
+                {
+                    Text = buffInfo.Record.GetRealName(),
+                    Tag = buffInfo
+                };
 
-            item.SubItems.Add("lv. " + buffInfo.Record.Basic_Level);
-            LoadSkillImageForListViewItem(item);
-            listActiveBuffs.Items.Add(item);
+                item.SubItems.Add("lv. " + buffInfo.Record.Basic_Level);
+                LoadSkillImageForListViewItem(item);
+                listActiveBuffs.Items.Add(item);
+            }
+            catch
+            {
+            }
         }
 
         /// <summary>
@@ -381,18 +392,28 @@ namespace RSBot.Skills.Views
         /// <param name="buffInfo">The removed <see cref="BuffInfo"/></param>
         private void OnRemoveBuff(BuffInfo removingBuff)
         {
-            for (int i = 0; i < listActiveBuffs.Items.Count; i++)
+            try
             {
-                var listItem = listActiveBuffs.Items[i];
-
-                var itemBuffInfo = listItem.Tag as BuffInfo;
-                if (itemBuffInfo != null &&
-                    itemBuffInfo.Id == removingBuff.Id &&
-                    itemBuffInfo.Token == removingBuff.Token)
+                for (int i = 0; i < listActiveBuffs.Items.Count; i++)
                 {
-                    listItem.Remove();
-                    return;
+                    var listItem = listActiveBuffs.Items[i];
+                    if (listItem == null)
+                        continue;
+
+                    var itemBuffInfo = listItem.Tag as BuffInfo;
+                    if (itemBuffInfo != null &&
+                        itemBuffInfo.Id == removingBuff.Id &&
+                        itemBuffInfo.Token == removingBuff.Token)
+                    {
+                        // System.IndexOutOfRangeException: 'Index was outside the bounds of the array.' ?? 
+                        listItem.Remove();
+                        return;
+                    }
+
                 }
+            }
+            catch
+            {
 
             }
         }
@@ -442,6 +463,8 @@ namespace RSBot.Skills.Views
             _applySkills = true;
             ApplySkills();
             _applySkills = false;
+
+            listActiveBuffs.Items.Clear();
         }
 
         /// <summary>
@@ -586,13 +609,16 @@ namespace RSBot.Skills.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void comboImbue_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboImbue.SelectedIndex <= 0)
+            if (comboImbue.SelectedIndex < 0)
                 return;
 
-            var skill = comboImbue.SelectedItem as SkillInfo;
+            SkillInfo imbue = null;
 
-            SkillManager.ImbueSkill = skill;
-            PlayerConfig.Set("RSBot.Skills.Imbue", skill.Id);
+            if (comboImbue.SelectedIndex > 0)
+                imbue = comboImbue.SelectedItem as SkillInfo;
+
+            SkillManager.ImbueSkill = imbue;
+            PlayerConfig.Set("RSBot.Skills.Imbue", imbue == null ? 0 : imbue.Id);
         }
 
         /// <summary>
@@ -612,13 +638,16 @@ namespace RSBot.Skills.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void comboResurrectionSkill_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboResurrectionSkill.SelectedIndex <= 0)
+            if (comboResurrectionSkill.SelectedIndex < 0)
                 return;
 
-            var skill = comboResurrectionSkill.SelectedItem as SkillInfo;
+            SkillInfo skill = null;
+
+            if (comboResurrectionSkill.SelectedIndex > 0)
+                skill = comboResurrectionSkill.SelectedItem as SkillInfo;
 
             SkillManager.ResurrectionSkill = skill;
-            PlayerConfig.Set("RSBot.Skills.ResurrectionSkill", skill.Id);
+            PlayerConfig.Set("RSBot.Skills.ResurrectionSkill", skill == null ? 0 : skill.Id);
         }
 
         /// <summary>
@@ -646,7 +675,7 @@ namespace RSBot.Skills.Views
             {
                 var selectedRefSkill = item.Tag as SkillInfo;
                 if (listAttackingSkills.Items.Cast<ListViewItem>()
-                   .Count(p => ((SkillInfo)p.Tag).Record.Action_Overlap == selectedRefSkill.Record.Action_Overlap) != 0)
+                   .Count(p => ((SkillInfo)p.Tag).Record.Action_Overlap != 0 && ((SkillInfo)p.Tag).Record.Action_Overlap == selectedRefSkill.Record.Action_Overlap) != 0)
                     continue;
 
                 if (selectedRefSkill != null && selectedRefSkill.IsAttack)
@@ -654,41 +683,6 @@ namespace RSBot.Skills.Views
             }
 
             SaveAttacks();
-        }
-
-        private void MoveSkillsToOtherList(ListView.SelectedListViewItemCollection collection, 
-            ListView target, Func<RefSkill, bool> predicate)
-        {
-            foreach (ListViewItem selectedItem in collection)
-            {
-                var selectedSkill = selectedItem.Tag as RefSkill;
-
-                if (!predicate(selectedSkill))
-                    continue;
-
-                var overlapSkillItem = target.Items.Cast<ListViewItem>()
-                    .FirstOrDefault(p => ((RefSkill)p.Tag).Action_Overlap == selectedSkill.Action_Overlap);
-
-                if (overlapSkillItem != null)
-                {
-                    var overlapSkill = overlapSkillItem.Tag as RefSkill;
-                    var messageText = string.Empty;
-
-                    if (overlapSkill.Basic_Level > selectedSkill.Basic_Level)
-                        messageText = "Listede daha güncel bir beceri zaten mevcut! Bu işlem iptal edilsin mi?";
-                    else
-                        messageText = "Listede daha eski bir beceri zaten mevcut ancak seçtiğiniz beceri daha günceldir. Eski ve yeni beceriler birbirleri ile değiştirilsin mi?";
-
-                    if (MessageBox.Show(messageText, "Warning", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    {
-
-                    }
-                    else
-                    {
-
-                    }
-                }
-            }
         }
 
         /// <summary>
@@ -702,7 +696,7 @@ namespace RSBot.Skills.Views
             {
                 var selectedRefSkill = item.Tag as SkillInfo;
                 if (listBuffs.Items.Cast<ListViewItem>()
-                   .Count(p => ((SkillInfo)p.Tag).Record.Action_Overlap == selectedRefSkill.Record.Action_Overlap) != 0)
+                   .Count(p => ((SkillInfo)p.Tag).Record.Action_Overlap != 0 && ((SkillInfo)p.Tag).Record.Action_Overlap == selectedRefSkill.Record.Action_Overlap) != 0)
                     continue;
 
                 if (selectedRefSkill != null && !selectedRefSkill.IsAttack)

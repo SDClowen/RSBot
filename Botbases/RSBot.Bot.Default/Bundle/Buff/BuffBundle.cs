@@ -11,36 +11,23 @@ namespace RSBot.Bot.Default.Bundle.Buff
         /// </summary>
         public void Invoke()
         {
-            if (Game.Player.Untouchable || 
-                Game.Player.HasActiveVehicle ||
-                Game.Player.State.LifeState == LifeState.Dead) 
+            if (Game.Player.InAction) 
                 return;
 
-            //Imbue handling
-            if (SkillManager.ImbueSkill != null &&
-                !Game.Player.State.HasActiveBuff(SkillManager.ImbueSkill, out _) &&
-                !Bundles.Loop.Running && 
-                Game.SelectedEntity?.Monster != null)
-                Game.Player.CastBuff(SkillManager.ImbueSkill.Id);
-
-            //Check for buffs
-            var tempBuffs = SkillManager.Buffs.ToArray();
-
-            foreach (var buff in tempBuffs)
+            while (true)
             {
+                if (Game.Player.State.LifeState != LifeState.Alive)
+                    break;
+
+                var buff = SkillManager.Buffs.Find(p => !Game.Player.State.HasActiveBuff(p, out _) && p.CanBeCasted);
+                if (buff == null)
+                    break;
+
                 var playerSkill = Game.Player.Skills.GetSkillInfoById(buff.Id);
                 if (playerSkill == null)
                     continue;
 
-                if (!playerSkill.CanBeCasted)
-                    continue;
-
-                if (Game.Player.State.HasActiveBuff(buff, out var runningBuff))
-                {
-                    Log.Debug($"Another buff {runningBuff.Record.GetRealName()} of the same type is already active.");
-                    continue;
-                }
-
+                Log.Debug($"Trying to cast buff: {buff} {buff.Record.Basic_Code}");
                 Game.Player.CastBuff(buff.Id);
             }
         }

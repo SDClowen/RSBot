@@ -91,7 +91,7 @@ namespace RSBot.Bot.Default.Bundle.Avoidance
                         return item == "Elite";
 
                     case MonsterRarity.EliteStrong:
-                        return item == "Elite";
+                        return item == "Strong";
 
                     case MonsterRarity.Unique2:
                         return item == "Unique";

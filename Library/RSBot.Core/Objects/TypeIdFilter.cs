@@ -1,4 +1,5 @@
 ﻿using RSBot.Core.Client.ReferenceObjects;
+using System;
 
 namespace RSBot.Core.Objects
 {
@@ -13,6 +14,8 @@ namespace RSBot.Core.Objects
         public bool CompareByTypeID2 { get; set; }
         public bool CompareByTypeID3 { get; set; }
         public bool CompareByTypeID4 { get; set; }
+
+        Predicate<RefObjItem> _condition { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TypeIdFilter"/> class.
@@ -32,6 +35,14 @@ namespace RSBot.Core.Objects
         /// <summary>
         /// Initializes a new instance of the <see cref="TypeIdFilter" /> class.
         /// </summary>
+        public TypeIdFilter(Predicate<RefObjItem> condition)
+        {
+            _condition = condition;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TypeIdFilter" /> class.
+        /// </summary>
         public TypeIdFilter()
         {
         }
@@ -43,6 +54,9 @@ namespace RSBot.Core.Objects
         /// <returns></returns>
         public bool EqualsRefItem(RefObjItem item)
         {
+            if (_condition != null && _condition(item))
+                return true;
+
             if (CompareByTypeID1)
                 return TypeID1 == item.TypeID1;
 

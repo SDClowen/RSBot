@@ -1,4 +1,6 @@
-﻿namespace RSBot.General.Models
+﻿using System.Collections.Generic;
+
+namespace RSBot.General.Models
 {
     internal class Account
     {
@@ -27,11 +29,28 @@
         public string Servername { get; set; }
 
         /// <summary>
+        /// Gets or sets the selected character.
+        /// </summary>
+        /// <value>
+        /// The selected character.
+        /// </value>
+        public string SelectedCharacter { get; set; }
+
+        /// <summary>
         /// Gets or sets the characters.
         /// </summary>
         /// <value>
         /// The characters.
         /// </value>
-        public string[] Characters { get; set; }
+        public List<string> Characters { get; set; }
+
+        /// <summary>
+        /// Return the username instead of the type name
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return Username;
+        }
     }
 }

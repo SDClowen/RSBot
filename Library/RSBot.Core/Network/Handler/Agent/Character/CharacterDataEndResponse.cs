@@ -57,7 +57,7 @@ namespace RSBot.Core.Network.Handler.Agent.Character
             character.Scale = packet.ReadByte();
             character.Level = packet.ReadByte();
             character.MaxLevel = packet.ReadByte();
-            character.Experience = packet.ReadULong();
+            character.Experience = packet.ReadLong();
             character.SkillExperience = packet.ReadUInt();
             character.Gold = packet.ReadULong();
             character.SkillPoints = packet.ReadUInt();

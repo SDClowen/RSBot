@@ -84,7 +84,7 @@ namespace RSBot.Core.Objects.Skill
         /// <value>
         /// <c>true</c> if this instance can be used; otherwise, <c>false</c>.
         /// </value>
-        public bool CanBeCasted => !CanNotBeCasted && !HasCooldown;
+        public bool CanBeCasted => !CanNotBeCasted && !HasCooldown && Game.Player.Mana >= Record.Consume_MP;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SkillInfo"/> class.
@@ -114,14 +114,21 @@ namespace RSBot.Core.Objects.Skill
         }
 
         /// <summary>
-        /// Update the cooldown tick
+        /// Update the ticks
         /// </summary>
-        public void UpdateTicks()
+        public void Update()
         {
             _cooldownTick = Environment.TickCount;
             _canNotBeCastedTick = Environment.TickCount;
+        }
 
-            Log.Debug($"Lock skill [{Record.GetRealName()}] for {(_duration + Record.Action_ReuseDelay) / 1000} seconds.");
+        /// <summary>
+        /// Reset the ticks
+        /// </summary>
+        public void Reset()
+        {
+            //_cooldownTick = 0;
+            _canNotBeCastedTick = 0;
         }
 
         /// <summary>
