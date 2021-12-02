@@ -208,6 +208,8 @@ namespace RSBot.Skills.Views
         {
             comboImbue.Items.Clear();
 
+            var selectedImbue = PlayerConfig.Get<int>("RSBot.Skills.Imbue");
+
             comboImbue.SelectedIndex = comboImbue.Items.Add("None");
 
             foreach (var skill in Game.Player.Skills.KnownSkills.Where(s => s.IsImbue && s.Enabled))
@@ -217,7 +219,6 @@ namespace RSBot.Skills.Views
 
                 var index = comboImbue.Items.Add(skill);
                 
-                var selectedImbue = PlayerConfig.Get<int>("RSBot.Skills.Imbue");
                 if (selectedImbue == 0)
                     continue;
                 
