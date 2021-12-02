@@ -17,8 +17,8 @@ namespace RSBot.Map
             DisplayAsTab = true,
             DisplayName = "Map",
             InternalName = "RSBot.Map",
-            LoadIndex = 109,
-            TabDisplayIndex = 5
+            LoadIndex = 7,
+            TabDisplayIndex = 7
         };
 
         /// <summary>

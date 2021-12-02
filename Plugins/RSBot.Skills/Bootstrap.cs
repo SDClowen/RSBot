@@ -11,8 +11,8 @@ namespace RSBot.Skills
             DisplayAsTab = true,
             DisplayName = "Skills",
             InternalName = "RSBot.Skills",
-            LoadIndex = 97,
-            TabDisplayIndex = 4
+            LoadIndex = 2,
+            TabDisplayIndex = 2
         };
 
         /// <inheritdoc />

@@ -18,9 +18,8 @@ namespace RSBot.Statistics
             DisplayAsTab = true,
             InternalName = "RSBot.Statistics",
             DisplayName = "Statistics",
-            LoadIndex = 100,
-            RequireIngame = true,
-            TabDisplayIndex = 99
+            LoadIndex = 8,
+            TabDisplayIndex = 8
         };
 
         /// <summary>

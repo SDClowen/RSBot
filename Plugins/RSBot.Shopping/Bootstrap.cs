@@ -18,7 +18,7 @@ namespace RSBot.Shopping
             DisplayAsTab = true,
             DisplayName = "Items",
             InternalName = "RSBot.Items",
-            LoadIndex = 102,
+            LoadIndex = 5,
             TabDisplayIndex = 5
         };
 

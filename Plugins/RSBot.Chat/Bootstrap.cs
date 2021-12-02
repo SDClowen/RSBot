@@ -18,8 +18,8 @@ namespace RSBot.Chat
             InternalName = "RSBot.Chat",
             DisplayAsTab = true,
             DisplayName = "Chat",
-            LoadIndex = 101,
-            TabDisplayIndex = 8
+            LoadIndex = 99,
+            TabDisplayIndex = 99
         };
 
         /// <summary>
