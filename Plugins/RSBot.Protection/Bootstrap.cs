@@ -24,8 +24,8 @@ namespace RSBot.Protection
             DisplayAsTab = true,
             DisplayName = "Protection",
             InternalName = "RSBot.Protection",
-            LoadIndex = 108,
-            TabDisplayIndex = 4
+            LoadIndex = 3,
+            TabDisplayIndex = 3
         };
 
         /// <summary>

@@ -18,8 +18,8 @@ namespace RSBot.Party
             DisplayAsTab = true,
             DisplayName = "Party",
             InternalName = "RSBot.Party",
-            LoadIndex = 5,
-            TabDisplayIndex = 5
+            LoadIndex = 4,
+            TabDisplayIndex = 4
         };
 
         /// <summary>

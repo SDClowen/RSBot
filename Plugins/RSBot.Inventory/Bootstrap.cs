@@ -18,7 +18,7 @@ namespace RSBot.Inventory
             DisplayAsTab = true,
             DisplayName = "Inventory",
             InternalName = "RSBot.Invenotry",
-            LoadIndex = 99,
+            LoadIndex = 6,
             TabDisplayIndex = 6
         };
 
