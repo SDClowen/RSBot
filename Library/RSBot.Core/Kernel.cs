@@ -184,7 +184,13 @@ namespace RSBot.Core
             if (HasClientExited)
                 return;
 
-            ClientProcess.Kill();
+            try
+            {
+                ClientProcess.Kill();
+            }
+            catch
+            {
+            }
         }
 
         /// <summary>

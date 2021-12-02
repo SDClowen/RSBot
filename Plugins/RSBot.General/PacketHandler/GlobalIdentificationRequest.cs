@@ -46,19 +46,19 @@ namespace RSBot.General.PacketHandler
             {
                 var selectedAccount = Accounts.SavedAccounts.Find(p => p.Username == GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername"));
                 if (selectedAccount == null)
+                {
+                    Log.Warn("Could not connecting to agent server because account couldn!t not found!");
                     return;
+                }
 
-                var response = new Packet(0x6103, false);
+                Log.Notify("Sending agent server certify...");
+
+                var response = new Packet(0x6103, true);
                 response.WriteUInt(Kernel.Proxy.Token);
                 response.WriteString(selectedAccount.Username);
                 response.WriteString(selectedAccount.Password);
                 response.WriteByte(Game.ReferenceManager.DivisionInfo.Locale);
-
-                //Mac address
-                response.WriteShort(0x0000);
-
-                var rnd = new Random();
-                response.WriteInt(rnd.Next());
+                response.WriteByteArray(new byte[6]);
 
                 packet.Lock();
                 PacketManager.SendPacket(response, PacketDestination.Server);
