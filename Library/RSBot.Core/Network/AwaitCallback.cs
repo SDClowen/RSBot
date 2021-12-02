@@ -20,7 +20,7 @@ namespace RSBot.Core.Network
         /// <value>
         ///   <c>true</c> if received; otherwise, <c>false</c>.
         /// </value>
-        public bool Received { get; internal set; }
+        public volatile bool Received;
 
         /// <summary>
         /// Gets or sets the response opcode.
@@ -68,11 +68,11 @@ namespace RSBot.Core.Network
         /// <returns></returns>
         public void AwaitResponse(int timeOut = 5000)
         {
-            Task.Factory.StartNew(() =>
+            Task.Run(async () =>
             {
                 while (!Received)
                 {
-                    Thread.Sleep(10);
+                    await Task.Delay(10);
                     timeOut -= 10;
 
                     if (timeOut > 10)

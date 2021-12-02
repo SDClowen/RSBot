@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace RSBot.Core.Network.SecurityAPI
 {
-    internal class SecurityManager
+    internal class SecurityProtocol
     {
         #region SecurityFlags
 
@@ -310,7 +310,7 @@ namespace RSBot.Core.Network.SecurityAPI
         private ushort m_massive_count;
         private Packet m_massive_packet;
 
-        private object m_class_lock;
+        private object _lock;
 
         #region CoreSecurityFunction
 
@@ -788,7 +788,7 @@ namespace RSBot.Core.Network.SecurityAPI
             return false;
         }
 
-        private KeyValuePair<TransferBuffer, Packet> GetPacketToSend()
+        private byte[] GetBufferToSend()
         {
             if (m_outgoing_packets.Count == 0)
             {
@@ -841,7 +841,7 @@ namespace RSBot.Core.Network.SecurityAPI
                 // Return the collated data
                 byte[] raw_bytes = final.GetBytes();
                 packet.Lock();
-                return new KeyValuePair<TransferBuffer, Packet>(new TransferBuffer(raw_bytes, 0, raw_bytes.Length, true), packet);
+                return raw_bytes;
             }
             else
             {
@@ -855,14 +855,14 @@ namespace RSBot.Core.Network.SecurityAPI
                 }
                 byte[] raw_bytes = FormatPacket(packet.Opcode, packet.GetBytes(), encrypted);
                 packet.Lock();
-                return new KeyValuePair<TransferBuffer, Packet>(new TransferBuffer(raw_bytes, 0, raw_bytes.Length, true), packet);
+                return raw_bytes;
             }
         }
 
         #endregion ExtendedSecurityFunctions
 
         // Default constructor
-        public SecurityManager()
+        public SecurityProtocol()
         {
             m_value_x = 0;
             m_value_g = 0;
@@ -909,14 +909,14 @@ namespace RSBot.Core.Network.SecurityAPI
             m_massive_count = 0;
             m_massive_packet = null;
 
-            m_class_lock = new object();
+            _lock = new object();
         }
 
         // Changes the 0x2001 identify packet data that will be sent out by
         // this security object.
         public void ChangeIdentity(string name, byte flag)
         {
-            lock (m_class_lock)
+            lock (_lock)
             {
                 m_identity_name = name;
                 m_identity_flag = flag;
@@ -927,7 +927,7 @@ namespace RSBot.Core.Network.SecurityAPI
         // is being used to process an incoming connection's data (server).
         public void GenerateSecurity(bool blowfish, bool security_bytes, bool handshake)
         {
-            lock (m_class_lock)
+            lock (_lock)
             {
                 SecurityFlags flags = new SecurityFlags();
                 if (blowfish)
@@ -958,7 +958,7 @@ namespace RSBot.Core.Network.SecurityAPI
         // mixing security modes.
         public void AddEncryptedOpcode(ushort opcode)
         {
-            lock (m_class_lock)
+            lock (_lock)
             {
                 if (m_enc_opcodes.Contains(opcode) == false)
                 {
@@ -975,7 +975,7 @@ namespace RSBot.Core.Network.SecurityAPI
             {
                 throw (new HandshakeSecurityException("[SecurityAPI::Send] Handshake packets cannot be sent through this function."));
             }
-            lock (m_class_lock)
+            lock (_lock)
             {
                 m_outgoing_packets.Add(packet);
             }
@@ -993,7 +993,7 @@ namespace RSBot.Core.Network.SecurityAPI
         public void Recv(TransferBuffer raw_buffer)
         {
             List<TransferBuffer> incoming_buffers_tmp = new List<TransferBuffer>();
-            lock (m_class_lock)
+            lock (_lock)
             {
                 int length = raw_buffer.Size - raw_buffer.Offset;
                 int index = 0;
@@ -1232,23 +1232,16 @@ namespace RSBot.Core.Network.SecurityAPI
             }
         }
 
-        // Returns a list of buffers that is ready to be sent. These buffers must be sent in order.
-        // If no buffers are available for sending, null is returned.
-        public List<KeyValuePair<TransferBuffer, Packet>> TransferOutgoing()
+        public IEnumerable<byte[]> TransferOutgoing()
         {
-            List<KeyValuePair<TransferBuffer, Packet>> buffers = null;
-            lock (m_class_lock)
+            lock (_lock)
             {
                 if (HasPacketToSend())
                 {
-                    buffers = new List<KeyValuePair<TransferBuffer, Packet>>();
                     while (HasPacketToSend())
-                    {
-                        buffers.Add(GetPacketToSend());
-                    }
+                       yield return GetBufferToSend();
                 }
             }
-            return buffers;
         }
 
         // Returns a list of all packets that are ready for processing. If no packets are available,
@@ -1256,7 +1249,7 @@ namespace RSBot.Core.Network.SecurityAPI
         public List<Packet> TransferIncoming()
         {
             List<Packet> packets = null;
-            lock (m_class_lock)
+            lock (_lock)
             {
                 if (m_incoming_packets.Count > 0)
                 {

@@ -12,15 +12,12 @@ namespace RSBot.Core.Network
     public class Server
     {
         public delegate void OnConnectedEventHandler();
-
         public event OnConnectedEventHandler OnConnected;
 
         public delegate void OnDisconnectedEventHandler();
-
         public event OnDisconnectedEventHandler OnDisconnected;
 
         public delegate void OnPacketReceivedEventHandler(Packet packet);
-
         public event OnPacketReceivedEventHandler OnPacketReceived;
 
         /// <summary>
@@ -29,7 +26,15 @@ namespace RSBot.Core.Network
         /// <value>
         /// The socket.
         /// </value>
-        public Socket Socket { get; set; }
+        private Socket _socket;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is connected.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this socket is connected; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsConnected => _socket != null && _socket.Connected;
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is closing.
@@ -61,17 +66,31 @@ namespace RSBot.Core.Network
         /// <value>
         /// <c>true</c> if [enable packet processor]; otherwise, <c>false</c>.
         /// </value>
-        public bool EnablePacketProcessor { get; set; }
+        public bool EnablePacketDispatcher { get; set; }
 
-        #region Fields
+        /// <summary>
+        /// Gets or sets the security protocol.
+        /// </summary>
+        /// <value>
+        /// The protocol.
+        /// </value>
+        private SecurityProtocol _protocol;
 
-        private SecurityManager _securityManager;
-        private TransferBuffer _receiveTransferBuffer;
-        private List<Packet> _receivedPackets;
-        private List<KeyValuePair<TransferBuffer, Packet>> _sendTransferBuffers;
-        private Thread _packetProcessor;
+        /// <summary>
+        /// Gets or sets the packet dispatcher thread.
+        /// </summary>
+        /// <value>
+        /// The dispatcher thread.
+        /// </value>
+        private Thread _netMessageDispatcherThread;
 
-        #endregion Fields
+        /// <summary>
+        /// Get the allocated buffer.
+        /// </summary>
+        /// <value>
+        /// The allocated buffer.
+        /// </value>
+        private byte[] _buffer { get; } = new byte[4096];
 
         /// <summary>
         /// Connects the specified ip.
@@ -83,18 +102,17 @@ namespace RSBot.Core.Network
             IP = ip;
             Port = port;
 
-            if (Socket != null)
+            if (_socket != null)
                 Disconnect();
 
             try
             {
-                _securityManager = new SecurityManager();
-                _receiveTransferBuffer = new TransferBuffer(8192, 0, 0);
-                Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                _protocol = new SecurityProtocol();
+                _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
                 try
                 {
-                    Socket.Connect(ip, port, 3000);
+                    _socket.Connect(ip, port, 3000);
                 }
                 catch (SocketException)
                 {
@@ -103,20 +121,19 @@ namespace RSBot.Core.Network
                     return;
                 }
 
-                if (_packetProcessor == null)
+                if (_netMessageDispatcherThread == null)
                 {
-                    _packetProcessor = new Thread(ProcessPacketsThreaded)
+                    _netMessageDispatcherThread = new Thread(ProcessPacketsThreaded)
                     {
                         Name = "Proxy.Network.Server.PacketProcessor",
                         IsBackground = true
                     };
-                    _packetProcessor.Start();
+                    _netMessageDispatcherThread.Start();
                 }
 
-                EnablePacketProcessor = true;
+                EnablePacketDispatcher = true;
 
-                Socket.BeginReceive(_receiveTransferBuffer.Buffer, 0, 8192, SocketFlags.None,
-                    WaitForData, Socket);
+                _socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, OnBeginReceiveCallback, null);
 
                 OnConnected?.Invoke();
 
@@ -135,16 +152,17 @@ namespace RSBot.Core.Network
         {
             try
             {
-                while (!EnablePacketProcessor && !IsClosing)
+                while (!EnablePacketDispatcher && !IsClosing)
                     Thread.Sleep(1);
 
-                while (EnablePacketProcessor && !IsClosing)
+                while (EnablePacketDispatcher && !IsClosing)
                 {
-                    ProcessPackets();
+                    ProcessQueuedPackets();
                     Thread.Sleep(1);
                 }
 
-                if (IsClosing) return;
+                if (IsClosing) 
+                    return;
 
                 ProcessPacketsThreaded();
             }
@@ -156,33 +174,31 @@ namespace RSBot.Core.Network
         /// <summary>
         /// Processes the packets.
         /// </summary>
-        private void ProcessPackets()
+        private void ProcessQueuedPackets()
         {
             try
             {
-                if (IsClosing || !EnablePacketProcessor)
+                if (IsClosing || !EnablePacketDispatcher)
                     return;
 
-                _receivedPackets = _securityManager.TransferIncoming();
-
-                if (_receivedPackets != null)
+                var receiveds = _protocol.TransferIncoming();
+                if (receiveds != null)
                 {
-                    foreach (var packet in _receivedPackets)
-                        if (packet.Opcode != 0x5000 && packet.Opcode != 0x9000)
-                            OnPacketReceived?.Invoke(packet);
+                    foreach (var packet in receiveds)
+                    {
+                        if (packet.Opcode == 0x5000 || packet.Opcode == 0x9000)
+                            continue;
+
+                        OnPacketReceived?.Invoke(packet);
+                    }
                 }
 
-                _sendTransferBuffers = _securityManager.TransferOutgoing();
-
-                if (_sendTransferBuffers == null)
-                    return;
-
-                foreach (var buffer in _sendTransferBuffers)
+                foreach (var buffer in _protocol.TransferOutgoing())
                 {
-                    if (Socket == null || IsClosing || !EnablePacketProcessor || !Socket.Connected)
-                        return;
+                    //if (_socket == null || IsClosing || !EnablePacketProcessor || !_socket.Connected)
+                        //return;
 
-                    Socket.Send(buffer.Key.Buffer);
+                    _socket.Send(buffer);
                 }
             }
             catch
@@ -194,43 +210,44 @@ namespace RSBot.Core.Network
         /// Waits for data.
         /// </summary>
         /// <param name="result">The result.</param>
-        private void WaitForData(IAsyncResult result)
+        private void OnBeginReceiveCallback(IAsyncResult ar)
         {
-            if (IsClosing || !EnablePacketProcessor) 
+            if (IsClosing || !EnablePacketDispatcher)
                 return;
-
-            var worker = result.AsyncState as Socket;
-
-            if (worker == null) 
-                return;
-
-            int dataLength;
 
             try
             {
-                dataLength = worker.EndReceive(result);
-            }
-            catch (SocketException)
-            {
-                OnDisconnected?.Invoke();
-                return;
-            }
+                var receivedSize = _socket.EndReceive(ar, out var error);
+                if (receivedSize == 0 || error != SocketError.Success)
+                {
+                    OnDisconnected?.Invoke();
+                    return;
+                }
 
-            if (dataLength > 0)
-            {
-                _receiveTransferBuffer.Size = dataLength;
-                _securityManager.Recv(_receiveTransferBuffer);
+                _protocol.Recv(_buffer, 0, receivedSize);
             }
-            else
+            catch (SocketException se)
             {
-                Disconnect();
-                return;
+                if (se.SocketErrorCode == SocketError.ConnectionReset) //Client OnDisconnected > Mostly occurs during GW->AS switch
+                {
+                    OnDisconnected?.Invoke();
+                }
             }
-
-            if (worker.Connected)
-                worker.BeginReceive(_receiveTransferBuffer.Buffer, 0, 8192, SocketFlags.None, WaitForData, worker);
-            else
-                Log.Notify("Connection to the server has been lost! - Please restart the game client!");
+            catch (HandshakeSecurityException)
+            {
+                Log.Notify("[Fatal]: Could not handshake the client, restarting client process now...");
+                Game.Start();
+            }
+            finally
+            {
+                try
+                {
+                    _socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, OnBeginReceiveCallback, null);
+                }
+                catch
+                {
+                }
+            }
         }
 
         /// <summary>
@@ -239,10 +256,7 @@ namespace RSBot.Core.Network
         /// <param name="packet">The packet.</param>
         public void Send(Packet packet)
         {
-            if (!packet.Locked)
-                packet.Lock();
-
-            _securityManager.Send(packet);
+            _protocol.Send(packet);
         }
 
         /// <summary>
@@ -250,18 +264,18 @@ namespace RSBot.Core.Network
         /// </summary>
         public void Disconnect()
         {
-            EnablePacketProcessor = false;
+            EnablePacketDispatcher = false;
             IsClosing = true;
 
             try
             {
-                if (Socket == null)
+                if (_socket == null)
                     return;
 
-                if (Socket.Connected)
+                if (_socket.Connected)
                 {
-                    Socket.Shutdown(SocketShutdown.Both);
-                    Socket.Close();
+                    _socket.Shutdown(SocketShutdown.Both);
+                    _socket.Close();
                 }
             }
             catch
@@ -269,7 +283,7 @@ namespace RSBot.Core.Network
             }
             finally
             {
-                Socket = null;
+                _socket = null;
                 OnDisconnected?.Invoke();
             }
 

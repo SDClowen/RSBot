@@ -119,7 +119,7 @@
     <Compile Include="Extensions\Pk2ArchiveExtensions.cs" />
     <Compile Include="Extensions\PositionExtension.cs" />
     <Compile Include="Network\AwaitCallback.cs" />
-    <Compile Include="Network\Client.cs" />
+    <Compile Include="Network\Socket\Client.cs" />
     <Compile Include="Network\Handler\Agent\Action\ActionCommandStateResponse.cs" />
     <Compile Include="Network\Handler\Agent\Action\ActionCommandResponse.cs" />
     <Compile Include="Network\Handler\Agent\Action\ActionBuffAddResponse.cs" />
@@ -130,7 +130,7 @@
     <Compile Include="Network\Handler\Agent\Action\ActionSkillCastResponse.cs" />
     <Compile Include="Network\Hooks\Agent\Inventory\BuyItemHook.cs" />
     <Compile Include="Network\Hooks\Agent\Cos\CosActionRequestHook.cs" />
-    <Compile Include="Network\Server.cs" />
+    <Compile Include="Network\Socket\Server.cs" />
     <Compile Include="Objects\ActionTarget.cs" />
     <Compile Include="Objects\BadEffect.cs" />
     <Compile Include="Objects\BattleState.cs" />
@@ -160,9 +160,9 @@
     <Compile Include="Network\Handler\Agent\Game\GameReadyRequest.cs" />
     <Compile Include="Network\Handler\Agent\Teleport\TeleportRequest.cs" />
     <Compile Include="Network\Hooks\Gateway\GatewayLoginResponseHook.cs" />
-    <Compile Include="Network\SecurityAPI\Blowfish.cs" />
-    <Compile Include="Network\SecurityAPI\HandshakeSecurityException.cs" />
-    <Compile Include="Network\SecurityAPI\Utility.cs" />
+    <Compile Include="Network\Protocol\Blowfish.cs" />
+    <Compile Include="Network\Protocol\HandshakeSecurityException.cs" />
+    <Compile Include="Network\Protocol\Utility.cs" />
     <Compile Include="Objects\MonsterRarity.cs" />
     <Compile Include="Objects\ItemFilter.cs" />
     <Compile Include="Objects\StoreType.cs" />
@@ -219,11 +219,11 @@
     <Compile Include="Network\PacketDestination.cs" />
     <Compile Include="Network\PacketException.cs" />
     <Compile Include="Network\PacketManager.cs" />
-    <Compile Include="Network\Proxy.cs" />
-    <Compile Include="Network\SecurityAPI\PacketReader.cs" />
-    <Compile Include="Network\SecurityAPI\PacketWriter.cs" />
-    <Compile Include="Network\SecurityAPI\SecurityManager.cs" />
-    <Compile Include="Network\SecurityAPI\TransferBuffer.cs" />
+    <Compile Include="Network\Socket\Proxy.cs" />
+    <Compile Include="Network\Protocol\PacketReader.cs" />
+    <Compile Include="Network\Protocol\PacketWriter.cs" />
+    <Compile Include="Network\Protocol\SecurityProtocol.cs" />
+    <Compile Include="Network\Protocol\TransferBuffer.cs" />
     <Compile Include="Network\NetworkUtilities.cs" />
     <Compile Include="Objects\BodyState.cs" />
     <Compile Include="Objects\Entity.cs" />

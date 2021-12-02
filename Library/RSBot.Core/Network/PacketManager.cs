@@ -111,8 +111,12 @@ namespace RSBot.Core.Network
         {
             lock (_lock)
             {
-                if (packet == null) return;
-                if (!packet.Locked) packet.Lock();
+                if (packet == null) 
+                    return;
+
+                if (!packet.Locked) 
+                    packet.Lock();
+
                 var tempCallbacks = _callbacks.Where(c => c.ResponseOpcode == packet.Opcode);
 
                 foreach (var callback in tempCallbacks)
@@ -162,14 +166,13 @@ namespace RSBot.Core.Network
         /// <param name="callback">The callback.</param>
         public static void SendPacket(Packet packet, PacketDestination destination, params AwaitCallback[] callbacks)
         {
-            if (Kernel.Proxy == null) return;
-
-            SendPacket(packet, destination);
+            if (Kernel.Proxy == null)
+                return;
 
             lock (_lock)
-            {
                 _callbacks.AddRange(callbacks);
-            }
+
+            SendPacket(packet, destination);
         }
     }
 }

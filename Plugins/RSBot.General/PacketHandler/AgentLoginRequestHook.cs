@@ -45,11 +45,7 @@ namespace RSBot.General.PacketHandler
             packet.WriteString(selectedAccount.Username);
             packet.WriteString(selectedAccount.Password);
             packet.WriteByte(Game.ReferenceManager.DivisionInfo.Locale);
-
-            var rnd = new Random();
-            var buffer = new byte[6];
-            rnd.NextBytes(buffer);
-            packet.WriteByteArray(buffer);
+            packet.WriteByteArray(new byte[6]);
             packet.Lock();
 
             return packet;

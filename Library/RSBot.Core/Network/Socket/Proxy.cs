@@ -138,8 +138,8 @@ namespace RSBot.Core.Network
         /// </summary>
         private void CreateNewServerInstance()
         {
-            if (Server?.Socket != null && Server.Socket.Connected)
-                Server?.Disconnect();
+            if (Server != null && Server.IsConnected)
+                Server.Disconnect();
 
             IsConnectedToGatewayserver = false;
             IsConnectedToAgentserver = false;
@@ -157,7 +157,7 @@ namespace RSBot.Core.Network
         private void CreateNewClientInstance(ushort clientPort)
         {
             Client = new Client();
-            Client.Connected += Client_OnConnected;
+            Client.OnConnected += Client_OnConnected;
             Client.OnPacketReceived += Client_OnPacketReceived;
             Client.OnDisconnected += Client_OnDisconnected;
             Client.Listen(clientPort);
@@ -172,7 +172,7 @@ namespace RSBot.Core.Network
         /// </summary>
         private void Client_OnConnected()
         {
-            Log.Debug("A new silkroad client connected.");
+            Log.Notify("A new silkroad client connected.");
 
             EventManager.FireEvent("OnClientConnected");
 
@@ -202,13 +202,14 @@ namespace RSBot.Core.Network
                     return;
 
                 EventManager.FireEvent("OnClientPacketReceive", packet);
+
                 PacketManager.CallHandler(packet, PacketDestination.Server);
                 packet = PacketManager.CallHook(packet, PacketDestination.Server);
 
+                PacketManager.CallCallback(packet);
+
                 if (packet != null)
                     PacketManager.SendPacket(packet, PacketDestination.Server);
-
-                PacketManager.CallCallback(packet);
             }
             catch (System.Exception e)
             {
@@ -229,13 +230,14 @@ namespace RSBot.Core.Network
             try
             {
                 EventManager.FireEvent("OnServerPacketReceive", packet);
+
+
                 PacketManager.CallHandler(packet, PacketDestination.Client);
                 packet = PacketManager.CallHook(packet, PacketDestination.Client);
 
+                PacketManager.CallCallback(packet);
                 if (packet != null)
                     PacketManager.SendPacket(packet, PacketDestination.Client);
-
-                PacketManager.CallCallback(packet);
             }
             catch (System.Exception e)
             {
