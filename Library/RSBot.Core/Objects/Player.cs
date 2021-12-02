@@ -1109,18 +1109,30 @@ namespace RSBot.Core.Objects
             InventoryItem requiredItem = null;
             TypeIdFilter filter = null;
 
+            var currentWeapon = Inventory.GetItemAt(6);
             if (skill.ReqCast_Weapon1 == WeaponType.Any)
             {
-                var reqiParam = skill.Params.FindIndex(p => p == 1919250793);
-                if (reqiParam != -1)
-                {
-                    var paramTypeId3 = (byte)skill.Params[++reqiParam];
-                    var paramTypeId4 = (byte)skill.Params[++reqiParam];
+                var list = new List<TypeIdFilter>(8);
 
-                    filter = new TypeIdFilter(3, 1, paramTypeId3, paramTypeId4);
+                for (int i = 0; i < skill.Params.Count; i++)
+                {
+                    var param = skill.Params[i];
+                    if (param != 1919250793)
+                        continue;
+
+                    var paramTypeId3 = (byte)skill.Params[++i];
+                    var paramTypeId4 = (byte)skill.Params[++i];
+                    list.Add(new TypeIdFilter(3, 1, paramTypeId3, paramTypeId4));
                 }
-                else
+
+                if (list.Count == 0)
                     return true;
+
+                filter = list.FirstOrDefault(p => p.TypeID3 == currentWeapon.Record.TypeID3 && p.TypeID4 == currentWeapon.Record.TypeID4);
+                if (filter != null)
+                    return true;
+                
+                filter = list.FirstOrDefault();
             }
             else
             {
