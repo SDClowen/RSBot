@@ -483,7 +483,8 @@ namespace RSBot.General.Views
 
                 Game.Clientless = false;
 
-                btnStartClientless.Enabled = false;
+                btnStartClient.Enabled = true;
+                btnStartClientless.Enabled = true;
                 btnStartClientless.Text = "Start Clientless";
 
                 Kernel.Proxy.Shutdown();

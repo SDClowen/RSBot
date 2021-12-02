@@ -134,7 +134,7 @@ namespace RSBot.Core.Network
                 EnablePacketDispatcher = false;
                 IsClosing = true;
 
-                _dispatcherThread.Join();
+                _dispatcherThread?.Join();
 
                 //Close Socket
                 if (_socket != null)
@@ -242,7 +242,7 @@ namespace RSBot.Core.Network
         /// <param name="packet">The packet.</param>
         public void Send(Packet packet)
         {
-            _protocol.Send(packet);
+            _protocol?.Send(packet);
         }
 
         /// <summary>
