@@ -50,6 +50,8 @@
             this.txtAcademy = new System.Windows.Forms.RichTextBox();
             this.tabGlobal = new System.Windows.Forms.TabPage();
             this.txtGlobal = new System.Windows.Forms.RichTextBox();
+            this.tabUnique = new System.Windows.Forms.TabPage();
+            this.UniqueText = new System.Windows.Forms.RichTextBox();
             this.tabMain.SuspendLayout();
             this.tabAll.SuspendLayout();
             this.tabPrivate.SuspendLayout();
@@ -58,6 +60,7 @@
             this.tabUnion.SuspendLayout();
             this.tabAcademy.SuspendLayout();
             this.tabGlobal.SuspendLayout();
+            this.tabUnique.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabMain
@@ -69,6 +72,7 @@
             this.tabMain.Controls.Add(this.tabUnion);
             this.tabMain.Controls.Add(this.tabAcademy);
             this.tabMain.Controls.Add(this.tabGlobal);
+            this.tabMain.Controls.Add(this.tabUnique);
             this.tabMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabMain.Location = new System.Drawing.Point(6, 6);
             this.tabMain.Name = "tabMain";
@@ -90,20 +94,26 @@
             // 
             // txtSendAll
             // 
-            this.txtSendAll.Location = new System.Drawing.Point(3, 402);
+            this.txtSendAll.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSendAll.Location = new System.Drawing.Point(2, 413);
             this.txtSendAll.Name = "txtSendAll";
-            this.txtSendAll.Size = new System.Drawing.Size(735, 20);
+            this.txtSendAll.Size = new System.Drawing.Size(728, 20);
             this.txtSendAll.TabIndex = 3;
             this.txtSendAll.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MessagePreviewKeyDown);
             // 
             // txtAll
             // 
+            this.txtAll.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtAll.BackColor = System.Drawing.Color.White;
             this.txtAll.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtAll.Location = new System.Drawing.Point(7, 6);
+            this.txtAll.Location = new System.Drawing.Point(2, 2);
             this.txtAll.Name = "txtAll";
             this.txtAll.ReadOnly = true;
-            this.txtAll.Size = new System.Drawing.Size(728, 389);
+            this.txtAll.Size = new System.Drawing.Size(728, 406);
             this.txtAll.TabIndex = 2;
             this.txtAll.Text = "";
             // 
@@ -122,27 +132,32 @@
             // 
             // txtRecievePrivate
             // 
-            this.txtRecievePrivate.Location = new System.Drawing.Point(7, 402);
+            this.txtRecievePrivate.Location = new System.Drawing.Point(2, 413);
             this.txtRecievePrivate.Name = "txtRecievePrivate";
-            this.txtRecievePrivate.Size = new System.Drawing.Size(151, 20);
+            this.txtRecievePrivate.Size = new System.Drawing.Size(155, 20);
             this.txtRecievePrivate.TabIndex = 4;
             // 
             // txtSendPrivate
             // 
-            this.txtSendPrivate.Location = new System.Drawing.Point(164, 402);
+            this.txtSendPrivate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSendPrivate.Location = new System.Drawing.Point(164, 413);
             this.txtSendPrivate.Name = "txtSendPrivate";
-            this.txtSendPrivate.Size = new System.Drawing.Size(574, 20);
+            this.txtSendPrivate.Size = new System.Drawing.Size(566, 20);
             this.txtSendPrivate.TabIndex = 3;
             this.txtSendPrivate.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MessagePreviewKeyDown);
             // 
             // txtPrivate
             // 
+            this.txtPrivate.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtPrivate.BackColor = System.Drawing.Color.White;
             this.txtPrivate.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtPrivate.Location = new System.Drawing.Point(7, 6);
+            this.txtPrivate.Location = new System.Drawing.Point(2, 2);
             this.txtPrivate.Name = "txtPrivate";
             this.txtPrivate.ReadOnly = true;
-            this.txtPrivate.Size = new System.Drawing.Size(728, 389);
+            this.txtPrivate.Size = new System.Drawing.Size(728, 406);
             this.txtPrivate.TabIndex = 2;
             this.txtPrivate.Text = "";
             // 
@@ -160,20 +175,26 @@
             // 
             // txtSendParty
             // 
-            this.txtSendParty.Location = new System.Drawing.Point(3, 402);
+            this.txtSendParty.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSendParty.Location = new System.Drawing.Point(2, 413);
             this.txtSendParty.Name = "txtSendParty";
-            this.txtSendParty.Size = new System.Drawing.Size(735, 20);
+            this.txtSendParty.Size = new System.Drawing.Size(728, 20);
             this.txtSendParty.TabIndex = 3;
             this.txtSendParty.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MessagePreviewKeyDown);
             // 
             // txtParty
             // 
+            this.txtParty.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtParty.BackColor = System.Drawing.Color.White;
             this.txtParty.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtParty.Location = new System.Drawing.Point(7, 6);
+            this.txtParty.Location = new System.Drawing.Point(2, 2);
             this.txtParty.Name = "txtParty";
             this.txtParty.ReadOnly = true;
-            this.txtParty.Size = new System.Drawing.Size(728, 389);
+            this.txtParty.Size = new System.Drawing.Size(728, 406);
             this.txtParty.TabIndex = 2;
             this.txtParty.Text = "";
             // 
@@ -191,20 +212,26 @@
             // 
             // txtSendGuild
             // 
-            this.txtSendGuild.Location = new System.Drawing.Point(3, 402);
+            this.txtSendGuild.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSendGuild.Location = new System.Drawing.Point(2, 413);
             this.txtSendGuild.Name = "txtSendGuild";
-            this.txtSendGuild.Size = new System.Drawing.Size(735, 20);
+            this.txtSendGuild.Size = new System.Drawing.Size(725, 20);
             this.txtSendGuild.TabIndex = 3;
             this.txtSendGuild.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MessagePreviewKeyDown);
             // 
             // txtGuild
             // 
+            this.txtGuild.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtGuild.BackColor = System.Drawing.Color.White;
             this.txtGuild.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtGuild.Location = new System.Drawing.Point(7, 6);
+            this.txtGuild.Location = new System.Drawing.Point(2, 2);
             this.txtGuild.Name = "txtGuild";
             this.txtGuild.ReadOnly = true;
-            this.txtGuild.Size = new System.Drawing.Size(728, 389);
+            this.txtGuild.Size = new System.Drawing.Size(728, 406);
             this.txtGuild.TabIndex = 2;
             this.txtGuild.Text = "";
             // 
@@ -222,20 +249,26 @@
             // 
             // txtSendUnion
             // 
-            this.txtSendUnion.Location = new System.Drawing.Point(3, 402);
+            this.txtSendUnion.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSendUnion.Location = new System.Drawing.Point(2, 413);
             this.txtSendUnion.Name = "txtSendUnion";
-            this.txtSendUnion.Size = new System.Drawing.Size(735, 20);
+            this.txtSendUnion.Size = new System.Drawing.Size(728, 20);
             this.txtSendUnion.TabIndex = 5;
             this.txtSendUnion.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MessagePreviewKeyDown);
             // 
             // txtUnion
             // 
+            this.txtUnion.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtUnion.BackColor = System.Drawing.Color.White;
             this.txtUnion.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtUnion.Location = new System.Drawing.Point(7, 6);
+            this.txtUnion.Location = new System.Drawing.Point(2, 2);
             this.txtUnion.Name = "txtUnion";
             this.txtUnion.ReadOnly = true;
-            this.txtUnion.Size = new System.Drawing.Size(728, 389);
+            this.txtUnion.Size = new System.Drawing.Size(728, 406);
             this.txtUnion.TabIndex = 4;
             this.txtUnion.Text = "";
             // 
@@ -253,20 +286,26 @@
             // 
             // txtSendAcademy
             // 
-            this.txtSendAcademy.Location = new System.Drawing.Point(3, 402);
+            this.txtSendAcademy.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSendAcademy.Location = new System.Drawing.Point(2, 413);
             this.txtSendAcademy.Name = "txtSendAcademy";
-            this.txtSendAcademy.Size = new System.Drawing.Size(735, 20);
+            this.txtSendAcademy.Size = new System.Drawing.Size(728, 20);
             this.txtSendAcademy.TabIndex = 3;
             this.txtSendAcademy.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MessagePreviewKeyDown);
             // 
             // txtAcademy
             // 
+            this.txtAcademy.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtAcademy.BackColor = System.Drawing.Color.White;
             this.txtAcademy.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtAcademy.Location = new System.Drawing.Point(7, 6);
+            this.txtAcademy.Location = new System.Drawing.Point(2, 2);
             this.txtAcademy.Name = "txtAcademy";
             this.txtAcademy.ReadOnly = true;
-            this.txtAcademy.Size = new System.Drawing.Size(728, 389);
+            this.txtAcademy.Size = new System.Drawing.Size(728, 406);
             this.txtAcademy.TabIndex = 2;
             this.txtAcademy.Text = "";
             // 
@@ -283,14 +322,42 @@
             // 
             // txtGlobal
             // 
+            this.txtGlobal.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtGlobal.BackColor = System.Drawing.Color.White;
             this.txtGlobal.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtGlobal.Location = new System.Drawing.Point(7, 6);
+            this.txtGlobal.Location = new System.Drawing.Point(2, 2);
             this.txtGlobal.Name = "txtGlobal";
             this.txtGlobal.ReadOnly = true;
-            this.txtGlobal.Size = new System.Drawing.Size(728, 416);
+            this.txtGlobal.Size = new System.Drawing.Size(728, 434);
             this.txtGlobal.TabIndex = 2;
             this.txtGlobal.Text = "";
+            // 
+            // tabUnique
+            // 
+            this.tabUnique.Controls.Add(this.UniqueText);
+            this.tabUnique.Location = new System.Drawing.Point(4, 22);
+            this.tabUnique.Name = "tabUnique";
+            this.tabUnique.Padding = new System.Windows.Forms.Padding(3);
+            this.tabUnique.Size = new System.Drawing.Size(734, 439);
+            this.tabUnique.TabIndex = 7;
+            this.tabUnique.Text = "Unique";
+            this.tabUnique.UseVisualStyleBackColor = true;
+            // 
+            // UniqueText
+            // 
+            this.UniqueText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.UniqueText.BackColor = System.Drawing.Color.White;
+            this.UniqueText.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.UniqueText.Location = new System.Drawing.Point(2, 2);
+            this.UniqueText.Name = "UniqueText";
+            this.UniqueText.ReadOnly = true;
+            this.UniqueText.Size = new System.Drawing.Size(728, 434);
+            this.UniqueText.TabIndex = 3;
+            this.UniqueText.Text = "";
             // 
             // Main
             // 
@@ -315,6 +382,7 @@
             this.tabAcademy.ResumeLayout(false);
             this.tabAcademy.PerformLayout();
             this.tabGlobal.ResumeLayout(false);
+            this.tabUnique.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -343,5 +411,7 @@
         private System.Windows.Forms.TabPage tabUnion;
         private System.Windows.Forms.TextBox txtSendUnion;
         private System.Windows.Forms.RichTextBox txtUnion;
+        private System.Windows.Forms.TabPage tabUnique;
+        internal System.Windows.Forms.RichTextBox UniqueText;
     }
 }

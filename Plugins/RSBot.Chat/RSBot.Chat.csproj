@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Bootstrap.cs" />
     <Compile Include="Bundle\Chat.cs" />
+    <Compile Include="Bundle\Network\AgentNotifyResponse.cs" />
     <Compile Include="Bundle\Objects\ChatType.cs" />
     <Compile Include="Bundle\Network\ChatResponseHook.cs" />
     <Compile Include="Bundle\Network\ChatResponse.cs" />
