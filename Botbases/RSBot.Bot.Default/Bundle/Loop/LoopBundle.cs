@@ -74,7 +74,6 @@ namespace RSBot.Bot.Default.Bundle.Loop
         {
             Running = true;
 
-            Invoke();
             CheckForTownScript();
 
             Running = false;
@@ -104,6 +103,8 @@ namespace RSBot.Bot.Default.Bundle.Loop
             ScriptManager.Load(filename);
             ScriptManager.RunScript();
             TownscriptRunning = false;
+
+            Invoke();
 
             CheckForWalkbackScript();
         }

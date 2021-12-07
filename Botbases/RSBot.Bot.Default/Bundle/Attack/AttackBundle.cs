@@ -1,5 +1,6 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Components;
+using RSBot.Core.Objects;
 
 namespace RSBot.Bot.Default.Bundle.Attack
 {
@@ -10,7 +11,19 @@ namespace RSBot.Bot.Default.Bundle.Attack
         /// </summary>
         public void Invoke()
         {
-            if (Game.SelectedEntity == null || 
+            if (!Kernel.Bot.Running)
+                return;
+
+            if (Game.Player.Exchanging)
+                return;
+
+            if (Game.Player.State.LifeState == LifeState.Dead)
+                return;
+
+            if (Game.Player.Untouchable)
+                return;
+
+            if (Game.SelectedEntity == null ||
                 Game.SelectedEntity.Monster == null)
                 return;
 
@@ -24,13 +37,13 @@ namespace RSBot.Bot.Default.Bundle.Attack
             if (SkillManager.ImbueSkill != null &&
                 !Game.Player.State.HasActiveBuff(SkillManager.ImbueSkill, out _) &&
                 SkillManager.ImbueSkill.CanBeCasted)
-                Game.Player.CastBuff(SkillManager.ImbueSkill.Id);
+                SkillManager.CastBuff(SkillManager.ImbueSkill);
 
             uint uniqueId = Game.SelectedEntity.UniqueId;
 
             var skill = SkillManager.GetNextSkill();
-            if (skill == null || !Game.Player.CastSkill(skill.Id, uniqueId))
-                Game.Player.CastAutoAttack(uniqueId);
+            if (skill == null || !SkillManager.CastSkill(skill, uniqueId))
+                SkillManager.CastAutoAttack(uniqueId);
         }
 
         /// <summary>

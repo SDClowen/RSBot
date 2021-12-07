@@ -63,11 +63,14 @@
     <Compile Include="Config\GlobalConfig.cs" />
     <Compile Include="Extensions\NativeExtensions.cs" />
     <Compile Include="Extensions\SocketExtensions.cs" />
+    <Compile Include="Network\Handler\Agent\Entity\EntitySourcePositionUpdate.cs" />
     <Compile Include="Network\Handler\Agent\Entity\EntityUpdateStatusFlag.cs" />
     <Compile Include="Network\Handler\Agent\Exchange\ExchangeApprovedResponse.cs" />
     <Compile Include="Network\Handler\Agent\Exchange\ExchangeCanceledResponse.cs" />
     <Compile Include="Network\Handler\Agent\Exchange\ExchangeStartedResponse.cs" />
     <Compile Include="Network\Handler\Agent\Exchange\ExchangeStartResponse.cs" />
+    <Compile Include="Objects\ActionHitStateFlag.cs" />
+    <Compile Include="Objects\ActionStateFlag.cs" />
     <Compile Include="Objects\Exchange\ExchangeInstance.cs" />
     <Compile Include="Cryptography\SkillCryptoHelper.cs" />
     <Compile Include="Event\ISubscriber.cs" />

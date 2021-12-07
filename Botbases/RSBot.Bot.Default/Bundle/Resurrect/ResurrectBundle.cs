@@ -40,7 +40,7 @@ namespace RSBot.Bot.Default.Bundle.Resurrect
                             else
                                 _lastResurrectedPlayers[member.Name] = DateTime.Now;
 
-                            Game.Player.CastSkill(SkillManager.ResurrectionSkill.Id, memberBionic.UniqueId);
+                            SkillManager.CastBuff(SkillManager.ResurrectionSkill, memberBionic.UniqueId);
                         }
                     }
                 }

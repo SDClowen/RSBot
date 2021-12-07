@@ -1,4 +1,5 @@
 ﻿using RSBot.Core;
+using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 
@@ -49,7 +50,7 @@ namespace RSBot.Protection.Components.Player
                 return;
 
             Log.Debug($"Using HP skill: {skill}");
-            Game.Player.CastBuff(skill.Id);
+            SkillManager.CastBuff(skill);
         }
     }
 }

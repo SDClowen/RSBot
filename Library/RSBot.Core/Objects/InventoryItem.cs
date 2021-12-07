@@ -2,6 +2,7 @@
 using RSBot.Core.Network;
 using RSBot.Core.Objects.Item;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace RSBot.Core.Objects
 {
@@ -110,7 +111,11 @@ namespace RSBot.Core.Objects
             packet.Lock();
 
             var result = false;
-            var asyncCallback = new AwaitCallback(response => result = response.ReadByte() == 0x01, 0xB04C);
+            var asyncCallback = new AwaitCallback(response => 
+            { 
+                return response.ReadByte() == 0x01 ? 
+                    AwaitCallbackResult.Received : AwaitCallbackResult.Failed; 
+            }, 0xB04C);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, asyncCallback);
             asyncCallback.AwaitResponse(500);
@@ -131,6 +136,26 @@ namespace RSBot.Core.Objects
             packet.Lock();
 
             PacketManager.SendPacket(packet, PacketDestination.Server);
+        }
+
+        /// <summary>
+        /// Equip the item
+        /// </summary>
+        /// <param name="slot">The slot</param>
+        public bool Equip(byte slot)
+        {
+            int attempt = 0;
+            while (!Game.Player.Inventory.MoveItem(Slot, slot) && 
+                Kernel.Bot.Running && 
+                Game.Player.State.ScrollState == ScrollState.Cancel)
+            {
+                if (attempt++ > 5)
+                    return false;
+
+                Thread.Sleep(250);
+            }
+
+            return true;
         }
 
         /// <summary>

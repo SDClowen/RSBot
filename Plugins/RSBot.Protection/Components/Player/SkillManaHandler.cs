@@ -1,4 +1,5 @@
 ﻿using RSBot.Core;
+using RSBot.Core.Components;
 using RSBot.Core.Event;
 
 namespace RSBot.Protection.Components.Player
@@ -44,7 +45,7 @@ namespace RSBot.Protection.Components.Player
                 return;
 
             Log.Debug($"Using MP skill: {skill}");
-            Game.Player.CastBuff(skill.Id);
+            SkillManager.CastBuff(skill);
         }
     }
 }

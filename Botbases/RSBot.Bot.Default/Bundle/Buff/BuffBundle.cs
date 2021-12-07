@@ -11,7 +11,16 @@ namespace RSBot.Bot.Default.Bundle.Buff
         /// </summary>
         public void Invoke()
         {
-            if (Game.Player.InAction) 
+            if (!Kernel.Bot.Running)
+                return;
+
+            if (Game.Player.Exchanging)
+                return;
+
+            if (Game.Player.State.LifeState == LifeState.Dead)
+                return;
+
+            if (Game.Player.Untouchable)
                 return;
 
             while (true)
@@ -28,7 +37,7 @@ namespace RSBot.Bot.Default.Bundle.Buff
                     continue;
 
                 Log.Debug($"Trying to cast buff: {buff} {buff.Record.Basic_Code}");
-                Game.Player.CastBuff(buff.Id);
+                SkillManager.CastBuff(buff);
             }
         }
 
