@@ -183,7 +183,7 @@ namespace RSBot.Views
             this.lblIngameStatus,
             this.toolStripStatusLabelBeta});
             this.stripStatus.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.stripStatus.Location = new System.Drawing.Point(0, 620);
+            this.stripStatus.Location = new System.Drawing.Point(0, 578);
             this.stripStatus.Name = "stripStatus";
             this.stripStatus.Size = new System.Drawing.Size(1032, 23);
             this.stripStatus.SizingGrip = false;
@@ -233,7 +233,7 @@ namespace RSBot.Views
             this.panel1.Controls.Add(this.btnStartStop);
             this.panel1.Controls.Add(this.panel7);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 568);
+            this.panel1.Location = new System.Drawing.Point(0, 526);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1032, 52);
             this.panel1.TabIndex = 2;
@@ -314,7 +314,7 @@ namespace RSBot.Views
             this.tabMain.Location = new System.Drawing.Point(6, 3);
             this.tabMain.Name = "tabMain";
             this.tabMain.SelectedIndex = 0;
-            this.tabMain.Size = new System.Drawing.Size(773, 479);
+            this.tabMain.Size = new System.Drawing.Size(773, 437);
             this.tabMain.TabIndex = 3;
             // 
             // panel2
@@ -336,7 +336,7 @@ namespace RSBot.Views
             this.pSidebar.Dock = System.Windows.Forms.DockStyle.Right;
             this.pSidebar.Location = new System.Drawing.Point(782, 83);
             this.pSidebar.Name = "pSidebar";
-            this.pSidebar.Size = new System.Drawing.Size(250, 485);
+            this.pSidebar.Size = new System.Drawing.Size(250, 443);
             this.pSidebar.TabIndex = 6;
             // 
             // picLogo
@@ -344,7 +344,7 @@ namespace RSBot.Views
             this.picLogo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picLogo.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.picLogo.Image = ((System.Drawing.Image)(resources.GetObject("picLogo.Image")));
-            this.picLogo.Location = new System.Drawing.Point(0, 391);
+            this.picLogo.Location = new System.Drawing.Point(0, 349);
             this.picLogo.Name = "picLogo";
             this.picLogo.Size = new System.Drawing.Size(250, 94);
             this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -391,7 +391,7 @@ namespace RSBot.Views
             this.centerPanel.Location = new System.Drawing.Point(0, 83);
             this.centerPanel.Name = "centerPanel";
             this.centerPanel.Padding = new System.Windows.Forms.Padding(6, 3, 3, 3);
-            this.centerPanel.Size = new System.Drawing.Size(782, 485);
+            this.centerPanel.Size = new System.Drawing.Size(782, 443);
             this.centerPanel.TabIndex = 9;
             // 
             // panel3
@@ -446,7 +446,7 @@ namespace RSBot.Views
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1032, 643);
+            this.ClientSize = new System.Drawing.Size(1032, 601);
             this.Controls.Add(this.centerPanel);
             this.Controls.Add(this.pSidebar);
             this.Controls.Add(this.panel2);

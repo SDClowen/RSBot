@@ -57,6 +57,7 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
             this.checkBoxBotTrayMinimized = new System.Windows.Forms.CheckBox();
+            this.comboBoxClientType = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -66,10 +67,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(16, 14);
+            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(16, 11);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(138, 13);
+            this.label1.Size = new System.Drawing.Size(140, 15);
             this.label1.TabIndex = 0;
             this.label1.Text = "Silkroad executable path:";
             // 
@@ -77,20 +78,21 @@
             // 
             this.txtSilkroadPath.Location = new System.Drawing.Point(19, 30);
             this.txtSilkroadPath.Name = "txtSilkroadPath";
-            this.txtSilkroadPath.Size = new System.Drawing.Size(683, 20);
+            this.txtSilkroadPath.ReadOnly = true;
+            this.txtSilkroadPath.Size = new System.Drawing.Size(570, 20);
             this.txtSilkroadPath.TabIndex = 1;
             // 
             // btnBrowseSilkroadPath
             // 
             this.btnBrowseSilkroadPath.Depth = 0;
             this.btnBrowseSilkroadPath.Icon = null;
-            this.btnBrowseSilkroadPath.Location = new System.Drawing.Point(708, 29);
+            this.btnBrowseSilkroadPath.Location = new System.Drawing.Point(715, 30);
             this.btnBrowseSilkroadPath.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnBrowseSilkroadPath.Name = "btnBrowseSilkroadPath";
             this.btnBrowseSilkroadPath.Primary = false;
             this.btnBrowseSilkroadPath.Raised = false;
             this.btnBrowseSilkroadPath.SingleColor = System.Drawing.Color.Empty;
-            this.btnBrowseSilkroadPath.Size = new System.Drawing.Size(40, 23);
+            this.btnBrowseSilkroadPath.Size = new System.Drawing.Size(32, 21);
             this.btnBrowseSilkroadPath.TabIndex = 2;
             this.btnBrowseSilkroadPath.Text = "...";
             this.btnBrowseSilkroadPath.UseVisualStyleBackColor = true;
@@ -98,12 +100,15 @@
             // 
             // lblVersion
             // 
+            this.lblVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.lblVersion.AutoSize = true;
-            this.lblVersion.Location = new System.Drawing.Point(636, 14);
+            this.lblVersion.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVersion.Location = new System.Drawing.Point(711, 11);
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(63, 13);
+            this.lblVersion.Size = new System.Drawing.Size(40, 15);
             this.lblVersion.TabIndex = 3;
-            this.lblVersion.Text = "Client v1.00";
+            this.lblVersion.Text = "v1.000";
+            this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // groupBox1
             // 
@@ -355,8 +360,8 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-            this.label2.Location = new System.Drawing.Point(39, 37);
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.label2.Location = new System.Drawing.Point(39, 41);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(213, 39);
             this.label2.TabIndex = 22;
@@ -380,7 +385,7 @@
             this.groupBox4.Controls.Add(this.checkBoxBotTrayMinimized);
             this.groupBox4.Location = new System.Drawing.Point(389, 166);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(359, 100);
+            this.groupBox4.Size = new System.Drawing.Size(359, 88);
             this.groupBox4.TabIndex = 17;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Bot Settings";
@@ -388,7 +393,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
             this.label8.Location = new System.Drawing.Point(39, 43);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(218, 39);
@@ -407,11 +412,25 @@
             this.checkBoxBotTrayMinimized.UseVisualStyleBackColor = true;
             this.checkBoxBotTrayMinimized.CheckedChanged += new System.EventHandler(this.checkBoxBotTrayMinimized_CheckedChanged);
             // 
+            // comboBoxClientType
+            // 
+            this.comboBoxClientType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxClientType.FormattingEnabled = true;
+            this.comboBoxClientType.Items.AddRange(new object[] {
+            "VSRO",
+            "TRSRO"});
+            this.comboBoxClientType.Location = new System.Drawing.Point(595, 29);
+            this.comboBoxClientType.Name = "comboBoxClientType";
+            this.comboBoxClientType.Size = new System.Drawing.Size(115, 21);
+            this.comboBoxClientType.TabIndex = 18;
+            this.comboBoxClientType.SelectedIndexChanged += new System.EventHandler(this.comboBoxClientType_SelectedIndexChanged);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(251)))), ((int)(((byte)(251)))));
+            this.Controls.Add(this.comboBoxClientType);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -465,5 +484,6 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckBox checkBoxBotTrayMinimized;
+        private System.Windows.Forms.ComboBox comboBoxClientType;
     }
 }

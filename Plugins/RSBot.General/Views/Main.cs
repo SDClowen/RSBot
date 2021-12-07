@@ -35,6 +35,7 @@ namespace RSBot.General.Views
             InitializeComponent();
 
             comboCharacter.SelectedIndex = 0;
+            comboBoxClientType.SelectedIndex = 0;
 
             SubscribeEvents();
             Components.Accounts.Load();
@@ -237,7 +238,7 @@ namespace RSBot.General.Views
         /// <param name="info">The information.</param>
         private void OnLoadVersionInfo(VersionInfo info)
         {
-            lblVersion.Text = "Client v" + ((1000f + info.Version) / 1000f).ToString("0.000", CultureInfo.InvariantCulture);
+            lblVersion.Text = "v" + ((1000f + info.Version) / 1000f).ToString("0.000", CultureInfo.InvariantCulture);
         }
 
         /// <summary>
@@ -548,6 +549,23 @@ namespace RSBot.General.Views
                 NativeExtensions.ShowWindow(Kernel.ClientProcess.MainWindowHandle, NativeExtensions.SW_HIDE);
                 btnClientHideShow.Text = "Show Client";
             }
+        }
+
+        /// <summary>
+        /// Handles the SelectedIndexChanged event of the comboBoxClientType control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void comboBoxClientType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(comboBoxClientType.SelectedIndex == 1)
+            {
+                MessageBox.Show(this, "Coming soon...", "Don't worry");
+                comboBoxClientType.SelectedIndex = 0;
+                return;
+            }
+
+            GlobalConfig.Set("RSBot.SilkroadClientType", comboBoxClientType.SelectedIndex);
         }
     }
 }

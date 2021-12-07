@@ -30,7 +30,7 @@
         {
             this.tabMain = new System.Windows.Forms.TabControl();
             this.tabCurrentParty = new System.Windows.Forms.TabPage();
-            this.listParty = new Theme.Controls.ListView();
+            this.listParty = new RSBot.Theme.Controls.ListView();
             this.colMemberName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colGuild = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -39,8 +39,11 @@
             this.contextParty = new System.Windows.Forms.ContextMenu();
             this.menuBanish = new System.Windows.Forms.MenuItem();
             this.menuLeave = new System.Windows.Forms.MenuItem();
+            this.menuItem1 = new System.Windows.Forms.MenuItem();
+            this.menuSetBuffs = new System.Windows.Forms.MenuItem();
+            this.menuShowBuffs = new System.Windows.Forms.MenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnLeaveParty = new Theme.Material.Button();
+            this.btnLeaveParty = new RSBot.Theme.Material.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.lblLeader = new System.Windows.Forms.Label();
             this.grpPartySettings = new System.Windows.Forms.GroupBox();
@@ -50,8 +53,8 @@
             this.tpAutoParty = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.listAutoParty = new System.Windows.Forms.ListBox();
-            this.btnRemoveFromAutoParty = new Theme.Material.Button();
-            this.btnAddToAutoParty = new Theme.Material.Button();
+            this.btnRemoveFromAutoParty = new RSBot.Theme.Material.Button();
+            this.btnAddToAutoParty = new RSBot.Theme.Material.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.checkAcceptIfBotStopped = new System.Windows.Forms.CheckBox();
             this.checkAcceptAtTrainingPlace = new System.Windows.Forms.CheckBox();
@@ -65,7 +68,7 @@
             this.checkAutoItemAutoShare = new System.Windows.Forms.CheckBox();
             this.checkAutoExpAutoShare = new System.Windows.Forms.CheckBox();
             this.tpPartyMatching = new System.Windows.Forms.TabPage();
-            this.lvPartyMatching = new Theme.Controls.ListView();
+            this.lvPartyMatching = new RSBot.Theme.Controls.ListView();
             this.chPartyMatchNo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chPartyMatchRace = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chPartyMatchName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -74,8 +77,8 @@
             this.chPartyMatchMember = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chPartyMatchRange = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.topPartyPanel = new System.Windows.Forms.Panel();
-            this.btnPartyRefresh = new Theme.Material.Button();
-            this.btnPartySearch = new Theme.Material.Button();
+            this.btnPartyRefresh = new RSBot.Theme.Material.Button();
+            this.btnPartySearch = new RSBot.Theme.Material.Button();
             this.nudPartySearchMax = new System.Windows.Forms.NumericUpDown();
             this.nudPartySearchMin = new System.Windows.Forms.NumericUpDown();
             this.cbPartySearchPurpose = new System.Windows.Forms.ComboBox();
@@ -84,15 +87,15 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.bottomPartyPanel = new Theme.Controls.HorizontalPanel();
-            this.btnPartyMatchDeleteEntry = new Theme.Material.Button();
-            this.btnPartyMatchChangeEntry = new Theme.Material.Button();
-            this.btnPartyMatchForm = new Theme.Material.Button();
-            this.btnAutoMatchParty = new Theme.Material.Button();
-            this.btnWhisperPartyMaster = new Theme.Material.Button();
-            this.btnJoinFormedParty = new Theme.Material.Button();
-            this.btnPrev = new Theme.Material.Button();
-            this.btnNext = new Theme.Material.Button();
+            this.bottomPartyPanel = new RSBot.Theme.Controls.HorizontalPanel();
+            this.btnPartyMatchDeleteEntry = new RSBot.Theme.Material.Button();
+            this.btnPartyMatchChangeEntry = new RSBot.Theme.Material.Button();
+            this.btnPartyMatchForm = new RSBot.Theme.Material.Button();
+            this.btnAutoMatchParty = new RSBot.Theme.Material.Button();
+            this.btnWhisperPartyMaster = new RSBot.Theme.Material.Button();
+            this.btnJoinFormedParty = new RSBot.Theme.Material.Button();
+            this.btnPrev = new RSBot.Theme.Material.Button();
+            this.btnNext = new RSBot.Theme.Material.Button();
             this.lbl_partyPageRange = new System.Windows.Forms.Label();
             this.tpPartyBuffing = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -101,16 +104,13 @@
             this.btnRemoveBuffFromMember = new System.Windows.Forms.Button();
             this.btnAddBuffToMember = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.listView1 = new Theme.Controls.ListView();
+            this.listView1 = new RSBot.Theme.Controls.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.listPartyBuffSkills = new Theme.Controls.ListView();
+            this.listPartyBuffSkills = new RSBot.Theme.Controls.ListView();
             this.columnName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.menuItem1 = new System.Windows.Forms.MenuItem();
-            this.menuSetBuffs = new System.Windows.Forms.MenuItem();
-            this.menuShowBuffs = new System.Windows.Forms.MenuItem();
             this.tabMain.SuspendLayout();
             this.tabCurrentParty.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -170,6 +170,7 @@
             this.listParty.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listParty.FullRowSelect = true;
             this.listParty.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.listParty.HideSelection = false;
             this.listParty.Location = new System.Drawing.Point(3, 74);
             this.listParty.MultiSelect = false;
             this.listParty.Name = "listParty";
@@ -225,6 +226,21 @@
             this.menuLeave.Text = "Leave";
             this.menuLeave.Click += new System.EventHandler(this.btnLeaveParty_Click);
             // 
+            // menuItem1
+            // 
+            this.menuItem1.Index = 2;
+            this.menuItem1.Text = "-";
+            // 
+            // menuSetBuffs
+            // 
+            this.menuSetBuffs.Index = 3;
+            this.menuSetBuffs.Text = "Set buffs";
+            // 
+            // menuShowBuffs
+            // 
+            this.menuShowBuffs.Index = 4;
+            this.menuShowBuffs.Text = "Show buffs";
+            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.btnLeaveParty);
@@ -242,7 +258,7 @@
             this.btnLeaveParty.Enabled = false;
             this.btnLeaveParty.Icon = null;
             this.btnLeaveParty.Location = new System.Drawing.Point(626, 4);
-            this.btnLeaveParty.MouseState = Theme.IMatMouseState.HOVER;
+            this.btnLeaveParty.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnLeaveParty.Name = "btnLeaveParty";
             this.btnLeaveParty.Primary = false;
             this.btnLeaveParty.Raised = false;
@@ -357,7 +373,7 @@
             this.btnRemoveFromAutoParty.Depth = 0;
             this.btnRemoveFromAutoParty.Icon = null;
             this.btnRemoveFromAutoParty.Location = new System.Drawing.Point(8, 304);
-            this.btnRemoveFromAutoParty.MouseState = Theme.IMatMouseState.HOVER;
+            this.btnRemoveFromAutoParty.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnRemoveFromAutoParty.Name = "btnRemoveFromAutoParty";
             this.btnRemoveFromAutoParty.Primary = false;
             this.btnRemoveFromAutoParty.Raised = false;
@@ -373,7 +389,7 @@
             this.btnAddToAutoParty.Depth = 0;
             this.btnAddToAutoParty.Icon = null;
             this.btnAddToAutoParty.Location = new System.Drawing.Point(92, 304);
-            this.btnAddToAutoParty.MouseState = Theme.IMatMouseState.HOVER;
+            this.btnAddToAutoParty.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnAddToAutoParty.Name = "btnAddToAutoParty";
             this.btnAddToAutoParty.Primary = false;
             this.btnAddToAutoParty.Raised = false;
@@ -546,6 +562,7 @@
             this.chPartyMatchRange});
             this.lvPartyMatching.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvPartyMatching.FullRowSelect = true;
+            this.lvPartyMatching.HideSelection = false;
             this.lvPartyMatching.Location = new System.Drawing.Point(3, 51);
             this.lvPartyMatching.MultiSelect = false;
             this.lvPartyMatching.Name = "lvPartyMatching";
@@ -613,7 +630,7 @@
             this.btnPartyRefresh.Depth = 0;
             this.btnPartyRefresh.Icon = null;
             this.btnPartyRefresh.Location = new System.Drawing.Point(608, 13);
-            this.btnPartyRefresh.MouseState = Theme.IMatMouseState.HOVER;
+            this.btnPartyRefresh.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnPartyRefresh.Name = "btnPartyRefresh";
             this.btnPartyRefresh.Primary = false;
             this.btnPartyRefresh.Raised = false;
@@ -629,7 +646,7 @@
             this.btnPartySearch.Depth = 0;
             this.btnPartySearch.Icon = null;
             this.btnPartySearch.Location = new System.Drawing.Point(515, 13);
-            this.btnPartySearch.MouseState = Theme.IMatMouseState.HOVER;
+            this.btnPartySearch.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnPartySearch.Name = "btnPartySearch";
             this.btnPartySearch.Primary = false;
             this.btnPartySearch.Raised = false;
@@ -767,7 +784,7 @@
             this.btnPartyMatchDeleteEntry.Enabled = false;
             this.btnPartyMatchDeleteEntry.Icon = null;
             this.btnPartyMatchDeleteEntry.Location = new System.Drawing.Point(635, 14);
-            this.btnPartyMatchDeleteEntry.MouseState = Theme.IMatMouseState.HOVER;
+            this.btnPartyMatchDeleteEntry.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnPartyMatchDeleteEntry.Name = "btnPartyMatchDeleteEntry";
             this.btnPartyMatchDeleteEntry.Primary = false;
             this.btnPartyMatchDeleteEntry.Raised = false;
@@ -784,7 +801,7 @@
             this.btnPartyMatchChangeEntry.Enabled = false;
             this.btnPartyMatchChangeEntry.Icon = null;
             this.btnPartyMatchChangeEntry.Location = new System.Drawing.Point(542, 14);
-            this.btnPartyMatchChangeEntry.MouseState = Theme.IMatMouseState.HOVER;
+            this.btnPartyMatchChangeEntry.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnPartyMatchChangeEntry.Name = "btnPartyMatchChangeEntry";
             this.btnPartyMatchChangeEntry.Primary = false;
             this.btnPartyMatchChangeEntry.Raised = false;
@@ -800,7 +817,7 @@
             this.btnPartyMatchForm.Depth = 0;
             this.btnPartyMatchForm.Icon = null;
             this.btnPartyMatchForm.Location = new System.Drawing.Point(446, 14);
-            this.btnPartyMatchForm.MouseState = Theme.IMatMouseState.HOVER;
+            this.btnPartyMatchForm.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnPartyMatchForm.Name = "btnPartyMatchForm";
             this.btnPartyMatchForm.Primary = false;
             this.btnPartyMatchForm.Raised = false;
@@ -817,7 +834,7 @@
             this.btnAutoMatchParty.Enabled = false;
             this.btnAutoMatchParty.Icon = null;
             this.btnAutoMatchParty.Location = new System.Drawing.Point(180, 14);
-            this.btnAutoMatchParty.MouseState = Theme.IMatMouseState.HOVER;
+            this.btnAutoMatchParty.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnAutoMatchParty.Name = "btnAutoMatchParty";
             this.btnAutoMatchParty.Primary = false;
             this.btnAutoMatchParty.Raised = false;
@@ -833,7 +850,7 @@
             this.btnWhisperPartyMaster.Enabled = false;
             this.btnWhisperPartyMaster.Icon = null;
             this.btnWhisperPartyMaster.Location = new System.Drawing.Point(99, 14);
-            this.btnWhisperPartyMaster.MouseState = Theme.IMatMouseState.HOVER;
+            this.btnWhisperPartyMaster.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnWhisperPartyMaster.Name = "btnWhisperPartyMaster";
             this.btnWhisperPartyMaster.Primary = false;
             this.btnWhisperPartyMaster.Raised = false;
@@ -848,7 +865,7 @@
             this.btnJoinFormedParty.Depth = 0;
             this.btnJoinFormedParty.Icon = null;
             this.btnJoinFormedParty.Location = new System.Drawing.Point(18, 14);
-            this.btnJoinFormedParty.MouseState = Theme.IMatMouseState.HOVER;
+            this.btnJoinFormedParty.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnJoinFormedParty.Name = "btnJoinFormedParty";
             this.btnJoinFormedParty.Primary = false;
             this.btnJoinFormedParty.Raised = false;
@@ -867,7 +884,7 @@
             this.btnPrev.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnPrev.Icon = null;
             this.btnPrev.Location = new System.Drawing.Point(315, 14);
-            this.btnPrev.MouseState = Theme.IMatMouseState.HOVER;
+            this.btnPrev.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnPrev.Name = "btnPrev";
             this.btnPrev.Primary = false;
             this.btnPrev.Raised = false;
@@ -886,7 +903,7 @@
             this.btnNext.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnNext.Icon = null;
             this.btnNext.Location = new System.Drawing.Point(387, 14);
-            this.btnNext.MouseState = Theme.IMatMouseState.HOVER;
+            this.btnNext.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnNext.Name = "btnNext";
             this.btnNext.Primary = false;
             this.btnNext.Raised = false;
@@ -990,6 +1007,7 @@
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView1.FullRowSelect = true;
             this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(3, 16);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(239, 398);
@@ -1026,6 +1044,7 @@
             this.listPartyBuffSkills.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listPartyBuffSkills.FullRowSelect = true;
             this.listPartyBuffSkills.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.listPartyBuffSkills.HideSelection = false;
             this.listPartyBuffSkills.Location = new System.Drawing.Point(3, 16);
             this.listPartyBuffSkills.Name = "listPartyBuffSkills";
             this.listPartyBuffSkills.Size = new System.Drawing.Size(238, 398);
@@ -1043,25 +1062,10 @@
             this.columnLevel.Text = "Level";
             this.columnLevel.Width = 50;
             // 
-            // menuItem1
-            // 
-            this.menuItem1.Index = 2;
-            this.menuItem1.Text = "-";
-            // 
-            // menuSetBuffs
-            // 
-            this.menuSetBuffs.Index = 3;
-            this.menuSetBuffs.Text = "Set buffs";
-            // 
-            // menuShowBuffs
-            // 
-            this.menuShowBuffs.Index = 4;
-            this.menuShowBuffs.Text = "Show buffs";
-            // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(251)))), ((int)(((byte)(251)))));
             this.Controls.Add(this.tabMain);
             this.Name = "Main";

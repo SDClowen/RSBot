@@ -15,11 +15,11 @@ namespace RSBot.Core.Extensions
         public static Image ToImage(this CacheFile file)
         {
             var ddjBuffer = file.GetData();
-            var ddsBuffer = new byte[ddjBuffer.Length - 20];
-            Array.ConstrainedCopy(ddjBuffer, 20, ddsBuffer, 0, ddjBuffer.Length - 20); //Cuts the first 20 bytes.
 
             try
             {
+                var ddsBuffer = new byte[ddjBuffer.Length - 20];
+                Array.ConstrainedCopy(ddjBuffer, 20, ddsBuffer, 0, ddjBuffer.Length - 20); //Cuts the first 20 bytes.
                 return DDSImage.ToBitmap(ddsBuffer);
             }
             catch

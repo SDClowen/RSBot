@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace RSBot.Statistics.Views
 {
+    [System.ComponentModel.ToolboxItem(false)]
     public partial class Main : UserControl
     {
         #region Fields

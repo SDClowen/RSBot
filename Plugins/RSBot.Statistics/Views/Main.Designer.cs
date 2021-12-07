@@ -36,11 +36,11 @@
             this.panelStaticFilters = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panelLiveFilters = new System.Windows.Forms.Panel();
-            this.lvStatistics = new Theme.Controls.ListView();
+            this.lvStatistics = new RSBot.Theme.Controls.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnReset = new Theme.Material.Button();
+            this.btnReset = new RSBot.Theme.Material.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -125,6 +125,7 @@
             listViewGroup1,
             listViewGroup2,
             listViewGroup3});
+            this.lvStatistics.HideSelection = false;
             this.lvStatistics.Location = new System.Drawing.Point(10, 10);
             this.lvStatistics.Name = "lvStatistics";
             this.lvStatistics.Size = new System.Drawing.Size(484, 426);
@@ -156,7 +157,7 @@
             this.btnReset.Depth = 0;
             this.btnReset.Icon = null;
             this.btnReset.Location = new System.Drawing.Point(406, 17);
-            this.btnReset.MouseState = Theme.IMatMouseState.HOVER;
+            this.btnReset.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnReset.Name = "btnReset";
             this.btnReset.Primary = false;
             this.btnReset.Raised = false;
@@ -169,8 +170,8 @@
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Controls.Add(this.splitContainer1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "Main";

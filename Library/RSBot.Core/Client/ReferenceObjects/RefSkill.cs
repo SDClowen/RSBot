@@ -39,15 +39,15 @@ namespace RSBot.Core.Client.ReferenceObjects
         public short Action_Range;
         public bool Target_Required;
         public bool TargetType_Animal;
-        public bool TargetType_Land;
-        public bool TargetType_Building;
+        //public bool TargetType_Land;
+        //public bool TargetType_Building;
         public bool TargetGroup_Self;
         public bool TargetGroup_Ally;
         public bool TargetGroup_Party;
         public bool TargetGroup_Enemy_M;
         public bool TargetGroup_Enemy_P;
-        public bool TargetGroup_Neutral;
-        public bool TargetGroup_DontCare;
+        //public bool TargetGroup_Neutral;
+        //public bool TargetGroup_DontCare;
         public bool TargetEtc_SelectDeadBody;
         public int ReqCommon_Mastery1;
         public int ReqCommon_Mastery2;
@@ -62,13 +62,12 @@ namespace RSBot.Core.Client.ReferenceObjects
         //public byte ReqLearn_SkillLevel1;
         //public byte ReqLearn_SkillLevel2;
         //public byte ReqLearn_SkillLevel3;
-        public int ReqLearn_SP;
+        //public int ReqLearn_SP;
 
         //public byte ReqLearn_Race;
         //public byte Req_Restriction1;
         //public byte Req_Restriction2;
         public WeaponType ReqCast_Weapon1;
-
         public WeaponType ReqCast_Weapon2;
 
         //public short Consume_HP;
@@ -90,7 +89,7 @@ namespace RSBot.Core.Client.ReferenceObjects
         //public string UI_SkillStudy_Desc;
         //public short AI_AttackChance;
         //public byte AI_SkillType;
-        public List<int> Params = new List<int>(50); //list of 50 params
+        public List<int> Params = new List<int>(50);
 
         #endregion Fields
 
@@ -134,15 +133,15 @@ namespace RSBot.Core.Client.ReferenceObjects
             parser.TryParseShort(21, out Action_Range);
             parser.TryParseBool(22, out Target_Required);
             parser.TryParseBool(23, out TargetType_Animal);
-            parser.TryParseBool(24, out TargetType_Land);
-            parser.TryParseBool(25, out TargetType_Building);
+            //parser.TryParseBool(24, out TargetType_Land);
+            //parser.TryParseBool(25, out TargetType_Building);
             parser.TryParseBool(26, out TargetGroup_Self);
             parser.TryParseBool(27, out TargetGroup_Ally);
             parser.TryParseBool(28, out TargetGroup_Party);
             parser.TryParseBool(29, out TargetGroup_Enemy_M);
             parser.TryParseBool(30, out TargetGroup_Enemy_P);
-            parser.TryParseBool(31, out TargetGroup_Neutral);
-            parser.TryParseBool(32, out TargetGroup_DontCare);
+            //parser.TryParseBool(31, out TargetGroup_Neutral);
+            //parser.TryParseBool(32, out TargetGroup_DontCare);
             parser.TryParseBool(33, out TargetEtc_SelectDeadBody);
 
             parser.TryParseInt(34, out ReqCommon_Mastery1);
@@ -159,7 +158,7 @@ namespace RSBot.Core.Client.ReferenceObjects
             //ReqLearn_SkillLevel1 = byte.Parse(data[43]);
             //ReqLearn_SkillLevel2 = byte.Parse(data[44]);
             //ReqLearn_SkillLevel3 = byte.Parse(data[45]);
-            parser.TryParseInt(46, out ReqLearn_SP);
+            //parser.TryParseInt(46, out ReqLearn_SP);
             //ReqLearn_Race = byte.Parse(data[47]);
             //Req_Restriction1 = byte.Parse(data[48]);
             //Req_Restriction2 = byte.Parse(data[49]);
