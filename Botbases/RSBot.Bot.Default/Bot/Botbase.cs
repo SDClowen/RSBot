@@ -51,12 +51,6 @@ namespace RSBot.Bot.Default.Bot
             if (Game.Player.Exchanging)
                 return;
 
-            if (Game.Player.State.LifeState == LifeState.Dead)
-                return;
-
-            if (Game.Player.Untouchable)
-                return;
-
             if (Bundles.Loop.Running)
                 return;
 

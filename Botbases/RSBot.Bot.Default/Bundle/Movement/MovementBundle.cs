@@ -46,8 +46,8 @@ namespace RSBot.Bot.Default.Bundle.Movement
                 return;
 
             var randomRadius = Container.Bot.Area.Radius;
-            if (randomRadius > 50)
-                randomRadius = 50;
+            if (randomRadius > 100)
+                randomRadius = 100;
 
             RunInWorld(randomRadius);
         }

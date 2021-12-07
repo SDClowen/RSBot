@@ -22,7 +22,7 @@ namespace RSBot.Core.Client.ReferenceObjects
         public byte Basic_Level;
         public byte Basic_Activity;
 
-        //public int Basic_ChainCode;
+        public uint Basic_ChainCode;
         //public int Basic_RecycleCost;
         public int Action_PreparingTime;
         public int Action_CastingTime;
@@ -34,9 +34,9 @@ namespace RSBot.Core.Client.ReferenceObjects
         //public int Action_FlyingSpeed;
         //public byte Action_Interruptable;
         public int Action_Overlap;
-        //public int Action_AutoAttackType;
+        public int Action_AutoAttackType;
         //public int Action_InTown;
-        //public short Action_Range;
+        public short Action_Range;
         public bool Target_Required;
         public bool TargetType_Animal;
         public bool TargetType_Land;
@@ -118,7 +118,7 @@ namespace RSBot.Core.Client.ReferenceObjects
             //parser.TryParseInt(6, out Basic_Original);
             parser.TryParseByte(7, out Basic_Level);
             parser.TryParseByte(8, out Basic_Activity);
-            //Basic_ChainCode = int.Parse(data[9]);
+            parser.TryParseUInt(9, out Basic_ChainCode);
             //Basic_RecycleCost = int.Parse(data[10]);
 
             parser.TryParseInt(11, out Action_PreparingTime);
@@ -129,10 +129,9 @@ namespace RSBot.Core.Client.ReferenceObjects
             //Action_FlyingSpeed = int.Parse(data[16]);
             //Action_Interruptable = byte.Parse(data[17]);
             parser.TryParseInt(18, out Action_Overlap);
-            //Action_AutoAttackType = int.Parse(data[19]);
+            parser.TryParseInt(19, out Action_AutoAttackType);
             //Action_InTown = int.Parse(data[20]);
-            //Action_Range = short.Parse(data[21]);
-
+            parser.TryParseShort(21, out Action_Range);
             parser.TryParseBool(22, out Target_Required);
             parser.TryParseBool(23, out TargetType_Animal);
             parser.TryParseBool(24, out TargetType_Land);

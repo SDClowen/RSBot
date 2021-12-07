@@ -633,10 +633,10 @@ namespace RSBot.Core.Objects
         public bool Move(Position destination, bool sleep = true)
         {
             var distance = Game.Player.Tracker.Position.DistanceTo(destination);
-            if (distance > 100)
+            if (distance > 150)
             {
                 Log.Warn("Player.Move: Target position too far away!");
-                
+
                 // Stop the bot for now! NEED IDEA!
                 Kernel.Bot.Stop();
 
@@ -671,13 +671,13 @@ namespace RSBot.Core.Objects
             var awaitCallback = new AwaitCallback(response =>
             {
                 var uniqueId = response.ReadUInt();
-                return uniqueId == Game.Player.UniqueId;
+                return uniqueId == Game.Player.UniqueId ? AwaitCallbackResult.Received : AwaitCallbackResult.None;
             }, 0xB021);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallback);
             awaitCallback.AwaitResponse();
 
-            if (!awaitCallback.Timeout)
+            if (awaitCallback.IsCompleted)
             {
                 if (!sleep) return true;
 
@@ -713,7 +713,7 @@ namespace RSBot.Core.Objects
             var result = potionItem.Use();
 
             //if(result)
-                _lastHpPotionTick = Environment.TickCount;
+            _lastHpPotionTick = Environment.TickCount;
 
             return result;
         }
@@ -741,7 +741,7 @@ namespace RSBot.Core.Objects
             var result = potionItem.Use();
 
             //if(result)
-                _lastMpPotionTick = Environment.TickCount;
+            _lastMpPotionTick = Environment.TickCount;
 
             return result;
         }
@@ -834,7 +834,7 @@ namespace RSBot.Core.Objects
 
             var typeIdFilter = new TypeIdFilter(3, 2, 1, 2);
             var slotItem = (from item in Inventory.Items where typeIdFilter.EqualsRefItem(item.Record) select item).FirstOrDefault();
-            if (slotItem == null) 
+            if (slotItem == null)
                 return false;
 
             return slotItem.Use();
@@ -850,7 +850,7 @@ namespace RSBot.Core.Objects
 
             var typeIdFilter = new TypeIdFilter(3, 3, 3, 2);
             var vehicleItem = (from item in Inventory.Items where typeIdFilter.EqualsRefItem(item.Record) && item.Record.ReqLevel1 <= Game.Player.Level select item).FirstOrDefault();
-            if (vehicleItem == null) 
+            if (vehicleItem == null)
                 return false;
 
             return vehicleItem.Use();
@@ -862,6 +862,9 @@ namespace RSBot.Core.Objects
         /// <returns></returns>
         public bool UseReturnScroll()
         {
+            if (State.ScrollState != ScrollState.Cancel)
+                return false;
+
             var typeIdFilter = new TypeIdFilter(3, 3, 3, 1);
             var slotItem = (from item in Inventory.Items where typeIdFilter.EqualsRefItem(item.Record) && item.Record.ReqLevel1 <= Game.Player.Level select item).FirstOrDefault();
             if (slotItem == null)
@@ -882,13 +885,14 @@ namespace RSBot.Core.Objects
 
             var callback = new AwaitCallback(response =>
             {
-                return response.ReadByte() == 0x02 && response.ReadByte() == 0x00;
+                return response.ReadByte() == 0x02 && response.ReadByte() == 0x00
+                ? AwaitCallbackResult.Received : AwaitCallbackResult.None;
             }, 0xB074);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, callback);
             callback.AwaitResponse();
 
-            return !callback.Timeout;
+            return callback.IsCompleted;
         }
 
         /// <summary>
@@ -988,7 +992,8 @@ namespace RSBot.Core.Objects
 
             var asyncResult = new AwaitCallback(response =>
             {
-                return response.ReadByte() == 2 && response.ReadByte() == 0;
+                return response.ReadByte() == 2 && response.ReadByte() == 0
+                        ? AwaitCallbackResult.Received : AwaitCallbackResult.None;
             }, 0xB074);
             PacketManager.SendPacket(packet, PacketDestination.Server, asyncResult);
             asyncResult.AwaitResponse();
@@ -1003,13 +1008,13 @@ namespace RSBot.Core.Objects
             var typeIdFilter = new TypeIdFilter(3, 3, 1, 6);
             var rescueItem = Inventory.GetItem(typeIdFilter);
 
-            if (rescueItem == null) 
+            if (rescueItem == null)
                 return false;
 
             typeIdFilter = new TypeIdFilter(3, 2, 1, 1);
             var petItem = Inventory.GetItem(typeIdFilter);
 
-            if (petItem == null) 
+            if (petItem == null)
                 return false;
 
             rescueItem.UseTo(petItem.Slot);
@@ -1057,12 +1062,13 @@ namespace RSBot.Core.Objects
                 if (!result)
                     Log.Error("Could not select entity 0x" + response.ReadUShort());
 
-                return result;
+                return result
+                    ? AwaitCallbackResult.Received : AwaitCallbackResult.Failed;
             }, 0xB045);
             PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallback);
             awaitCallback.AwaitResponse();
 
-            return !awaitCallback.Timeout;
+            return awaitCallback.IsCompleted;
         }
 
         /// <summary>
@@ -1081,7 +1087,7 @@ namespace RSBot.Core.Objects
             PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
             awaitResult.AwaitResponse();
 
-            return !awaitResult.Timeout;
+            return awaitResult.IsCompleted;
         }
 
         /// <summary>
@@ -1098,239 +1104,6 @@ namespace RSBot.Core.Objects
             var callback = new AwaitCallback(null, 0xB0A7);
             PacketManager.SendPacket(packet, PacketDestination.Server, callback);
             callback.AwaitResponse(500);
-        }
-
-        /// <summary>
-        /// Check required of the using skill
-        /// </summary>
-        /// <param name="skill">The using skill</param>
-        public bool CheckSkillRequired(RefSkill skill)
-        {
-            InventoryItem requiredItem = null;
-            TypeIdFilter filter = null;
-
-            var currentWeapon = Inventory.GetItemAt(6);
-            if (skill.ReqCast_Weapon1 == WeaponType.Any)
-            {
-                var list = new List<TypeIdFilter>(8);
-
-                for (int i = 0; i < skill.Params.Count; i++)
-                {
-                    var param = skill.Params[i];
-                    if (param != 1919250793)
-                        continue;
-
-                    var paramTypeId3 = (byte)skill.Params[++i];
-                    var paramTypeId4 = (byte)skill.Params[++i];
-                    list.Add(new TypeIdFilter(3, 1, paramTypeId3, paramTypeId4));
-                }
-
-                if (list.Count == 0)
-                    return true;
-
-                filter = list.FirstOrDefault(p => p.TypeID3 == currentWeapon.Record.TypeID3 && p.TypeID4 == currentWeapon.Record.TypeID4);
-                if (filter != null)
-                    return true;
-                
-                filter = list.FirstOrDefault();
-            }
-            else
-            {
-                filter = new TypeIdFilter(p =>
-                    p.TypeID2 == 1 && p.TypeID3 == 6 && (
-                    p.TypeID4 == (byte)skill.ReqCast_Weapon1 ||
-                    ((byte)skill.ReqCast_Weapon2 != 0xFF && p.TypeID4 == (byte)skill.ReqCast_Weapon2)
-                ));
-            }
-
-            requiredItem = Inventory.GetItemBest(filter);
-            if (requiredItem == null)
-                return false;
-
-            var movingSlot = (byte)(requiredItem.Record.TypeID3 == 6 ? 6 : 7);
-            if (requiredItem.Slot == movingSlot)
-                return true;
-
-            if(movingSlot == 6 && requiredItem.Record.TwoHanded == 0)
-            {
-                // find and wear the shield item automaticaly
-                filter = new TypeIdFilter(3, 1, 4, (byte)(Game.Player.Race == ObjectCountry.Chinese ? 1 : 2));
-                var shieldItem = Inventory.GetItemBest(filter);
-                if (shieldItem != null && shieldItem.Slot != 7)
-                    Inventory.MoveItem(shieldItem.Slot, 7);
-            }
-
-            return Inventory.MoveItem(requiredItem.Slot, movingSlot);
-        }
-
-        /// <summary>
-        /// Casts the skill.
-        /// </summary>
-        /// <param name="skillId">The skill identifier.</param>
-        /// <param name="targetUniqueId">The target unique identifier.</param>
-        public bool CastSkill(uint skillId, uint targetId)
-        {
-            if (!Skills.HasSkill(skillId))
-                return false;
-
-            var skill = Skills.GetSkillInfoById(skillId);
-            if (!CheckSkillRequired(skill.Record))
-                return false;
-
-            var packet = new Packet(0x7074);
-            packet.WriteByte(1); //Execute
-            packet.WriteByte(4); //Use Skill
-            packet.WriteUInt(skill.Id);
-            packet.WriteByte(ActionTarget.Entity);
-            packet.WriteUInt(targetId);
-
-            packet.Lock();
-
-            var awaitCallBack = new AwaitCallback(response =>
-            {
-                var result = response.ReadByte();
-                var code = response.ReadUShort();
-                
-                if (result == 2)
-                {
-                    switch (code)
-                    {
-                        case 0x300E:
-                            EquipAmmunation();
-                            break;
-
-                        case 0x3006: // invalid target
-                        case 0x3010: // obstacle
-                            break;
-                        default:
-                            Log.Error($"Invalid skill error code: 0x{code:X2}");
-                            break;
-                    }
-
-                    return false;
-                }
-
-                var action = Action.FromPacket(response);
-
-                return action.SkillId == skill.Id && action.PlayerIsExecutor;
-            }, 0xB070);
-
-            var callback = new AwaitCallback(response =>
-            {
-                return response.ReadByte() == 0x02 && response.ReadByte() == 0x00;
-            }, 0xB074);
-
-            PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallBack, callback);
-            awaitCallBack.AwaitResponse(skill.Record.Action_CastingTime + skill.Record.Action_ActionDuration + skill.Record.Action_PreparingTime);
-            callback.AwaitResponse();
-
-            return !awaitCallBack.Timeout;
-        }
-
-        /// <summary>
-        /// Casts the buff skill.
-        /// </summary>
-        /// <param name="skillId">The skill identifier.</param>
-        public void CastBuff(uint skillId, uint target = 0)
-        {
-            if (!Skills.HasSkill(skillId))
-                return;
-
-            var skill = Skills.GetSkillInfoById(skillId);
-            if (!CheckSkillRequired(skill.Record))
-                return;
-
-            Log.Notify($"Casting skill (self-buff) [{skill.Record.GetRealName()}]");
-
-            var packet = new Packet(0x7074);
-            packet.WriteByte(1); //Execute
-            packet.WriteByte(4); //Use Skill
-            packet.WriteUInt(skill.Id);
-
-            if(skill.Record.TargetGroup_Self || 
-               skill.Record.TargetGroup_Party)
-            {
-                packet.WriteByte(ActionTarget.Entity);
-                packet.WriteUInt(target == 0 ? UniqueId : target);
-            }
-            else
-                packet.WriteByte(ActionTarget.None);
-
-            packet.Lock();
-
-            var asyncCallback = new AwaitCallback(response =>
-            {
-                var targetId = response.ReadUInt();
-                var castedSkillId = response.ReadUInt();
-
-                if (targetId == Game.Player.UniqueId && castedSkillId == skillId)
-                    return true;
-
-                return false;
-
-            }, 0xB0BD);
-
-            var callback = new AwaitCallback(response =>
-            {
-                return response.ReadByte() == 0x02 && response.ReadByte() == 0x00;
-            }, 0xB074);
-
-            PacketManager.SendPacket(packet, PacketDestination.Server, asyncCallback, callback);
-
-            asyncCallback.AwaitResponse(skill.Record.Action_CastingTime +
-                                        skill.Record.Action_ActionDuration +
-                                        skill.Record.Action_PreparingTime + 1500);
-            
-            if(skill.Record.Basic_Activity != 1)
-                callback.AwaitResponse();
-        }
-
-        /// <summary>
-        /// Casts the skill. Does not check any weapon requirement.
-        /// </summary>
-        /// <param name="skill"></param>
-        /// <param name="targetId"></param>
-        /// <returns></returns>
-        public bool CastAutoAttack(uint targetId)
-        {
-            var packet = new Packet(0x7074);
-            packet.WriteByte(1); //Execute
-            packet.WriteByte(1); //Use Skill
-            packet.WriteByte(ActionTarget.Entity);
-            packet.WriteUInt(targetId);
-            packet.Lock();
-
-            var awaitCallBack = new AwaitCallback(response =>
-            {
-                var result = response.ReadByte();
-                var code = response.ReadUShort();
-
-                if (result == 0x01)
-                    return Action.FromPacket(response).PlayerIsExecutor;
-                else if (result == 0x02)
-                {
-                    switch (code)
-                    {
-                        case 0x300E:
-                            EquipAmmunation();
-                            break;
-
-                        case 0x3006: // invalid target
-                        case 0x3010: // obstacle
-                            break;
-                        default:
-                            Log.Error($"Invalid skill error code: 0x{code:X2}");
-                            break;
-                    }
-                }
-
-                return false;
-            }, 0xB070);
-
-            PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallBack);
-            awaitCallBack.AwaitResponse(2000);
-
-            return !awaitCallBack.Timeout;
         }
     }
 }
