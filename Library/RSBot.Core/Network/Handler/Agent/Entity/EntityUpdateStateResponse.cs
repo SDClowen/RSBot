@@ -45,7 +45,10 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
 
                         bionic.State.LifeState = (LifeState)state;
                         if (uniqueId == Core.Game.SelectedEntity?.UniqueId && bionic.State.LifeState == LifeState.Dead)
+                        {
+                            EventManager.FireEvent("OnKillSelectedEnemy");
                             Core.Game.SelectedEntity = null;
+                        }
                     }
 
                     EventManager.FireEvent("OnUpdateEntityLifeState", uniqueId);
