@@ -32,6 +32,14 @@ namespace RSBot.Core.Objects
         public BodyState BodyState { get; set; }
 
         /// <summary>
+        /// Gets or sets the state of the hit.
+        /// </summary>
+        /// <value>
+        /// The state of the hit.
+        /// </value>
+        public ActionHitStateFlag HitState { get; set; }
+
+        /// <summary>
         /// Gets or sets the walk speed.
         /// </summary>
         /// <value>

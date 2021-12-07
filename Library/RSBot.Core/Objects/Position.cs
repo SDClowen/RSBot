@@ -123,7 +123,6 @@ namespace RSBot.Core.Objects
         #region Helper
 
         /// <summary>
-        ///
         /// Reads all requierd data from the packet and returns a new Postion object.
         /// </summary>
         /// <param name="packet">The packet.</param>
@@ -138,6 +137,24 @@ namespace RSBot.Core.Objects
                 ZOffset = packet.ReadFloat(),
                 YOffset = packet.ReadFloat(),
                 Angle = packet.ReadUShort()
+            };
+        }
+
+
+        /// <summary>
+        /// Reads all requierd data from the packet and returns a new Postion object.
+        /// </summary>
+        /// <param name="packet">The packet.</param>
+        /// <returns></returns>
+        public static Position FromPacketInt(Packet packet)
+        {
+            return new Position
+            {
+                XSector = packet.ReadByte(),
+                YSector = packet.ReadByte(),
+                XOffset = packet.ReadInt(),
+                ZOffset = packet.ReadInt(),
+                YOffset = packet.ReadInt()
             };
         }
 

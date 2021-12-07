@@ -43,7 +43,7 @@ namespace RSBot.Core.Objects
         /// <value>
         /// The flag.
         /// </value>
-        public byte Flag { get; set; }
+        public ActionStateFlag Flag { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether [player is executor].
@@ -61,21 +61,104 @@ namespace RSBot.Core.Objects
         /// </value>
         public bool PlayerIsTarget => Game.Player.UniqueId == TargetId;
 
+        /*
         /// <summary>
-        /// Froms the packet.
+        /// The action damage
+        /// </summary>
+        public Dictionary<uint,int> Damages { get; set; }
+        */
+
+        /// <summary>
+        /// Deserialize the packet. 0xB070
         /// </summary>
         /// <param name="packet">The packet.</param>
-        /// <returns></returns>
-        public static Action FromPacket(Packet packet)
+        /// <returns>Deserialized <see cref="Action"/></returns>
+        public static Action DeserializeBegin(Packet packet)
         {
-            return new Action
+            var action = new Action
             {
                 SkillId = packet.ReadUInt(),
                 ExecutorId = packet.ReadUInt(),
                 Id = packet.ReadUInt(),
                 TargetId = packet.ReadUInt(),
-                Flag = packet.ReadByte()
+                Flag = (ActionStateFlag)packet.ReadByte()
             };
+
+            action.SerializeDetail(packet);
+
+            return action;
+        }
+
+        /// <summary>
+        /// Deserialize the packet. 0xB071
+        /// </summary>
+        /// <param name="packet">The packet.</param>
+        /// <returns>Deserialized <see cref="Action"/></returns>
+        public static Action DeserializeEnd(Packet packet)
+        {
+            packet.ReadUInt(); //ActionId
+            packet.ReadUInt(); //originalTargetId
+
+            var action = new Action();
+            action.Flag = (ActionStateFlag)packet.ReadByte();
+            action.SerializeDetail(packet);
+
+            return action;
+        }
+
+        public void SerializeDetail(Packet packet)
+        {
+            if (Flag.HasFlag(ActionStateFlag.Attack))
+            {
+                packet.ReadByte(); // unk1
+                var affectedObjectCount = packet.ReadByte();
+                for (int i = 0; i < affectedObjectCount; i++)
+                {
+                    var uniqueId = packet.ReadUInt();
+                    var entity = Game.Spawns.GetBionic(uniqueId);
+
+                    var state = (ActionHitStateFlag)packet.ReadByte();
+
+                    if (entity != null)
+                        entity.State.HitState = state;
+
+                    if (state != ActionHitStateFlag.Block)
+                    {
+                        var damage = packet.ReadInt();
+                        packet.ReadInt(); //what status?
+
+                        /*Damages = Damages ?? new Dictionary<uint, int>();
+                        Damages.Add(uniqueId, damage);*/
+                    }
+
+                    // dont worry it will return true for knockdown states
+                    if (state.HasFlag(ActionHitStateFlag.KnockBack)) 
+                    {
+                        var position = Position.FromPacketInt(packet);
+                        if (entity == null)
+                            continue;
+
+                        entity.Tracker.SetSource(position);
+                    }
+                }
+            }
+
+            if (Flag.HasFlag(ActionStateFlag.Teleport))
+            {
+                var position = Position.FromPacketInt(packet);
+                if (PlayerIsExecutor)
+                {
+                    Game.Player.Tracker.SetSource(position);
+                }
+                else
+                {
+                    var executor = GetExecutor();
+                    if (executor == null)
+                        return;
+
+                    executor.Tracker.SetSource(position);
+                }
+            }
         }
 
         /// <summary>
