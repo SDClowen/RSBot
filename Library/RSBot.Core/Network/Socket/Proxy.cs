@@ -231,7 +231,6 @@ namespace RSBot.Core.Network
             {
                 EventManager.FireEvent("OnServerPacketReceive", packet);
 
-
                 PacketManager.CallHandler(packet, PacketDestination.Client);
                 packet = PacketManager.CallHook(packet, PacketDestination.Client);
 
