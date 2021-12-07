@@ -31,7 +31,8 @@ namespace RSBot.Core.Network.Handler.Agent.Action
         /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
-            if (packet.ReadByte() != 0x01) return;
+            if (packet.ReadByte() != 0x01) 
+                return;
 
             packet.ReadUInt(); //ActionId
             packet.ReadUInt(); //originalTargetId
@@ -47,19 +48,20 @@ namespace RSBot.Core.Network.Handler.Agent.Action
             for (var i = 0; i < hitCounter; i++)
             {
                 var entityUniqueId = packet.ReadUInt();
-                var hitResult = packet.ReadByte();
+                var state = (ActionHitStateFlag)packet.ReadByte();
 
-                if (Core.Game.SelectedEntity != null && Core.Game.SelectedEntity.Bionic != null)
-                {
-                    if (entityUniqueId == Core.Game.SelectedEntity.UniqueId && hitResult == 0x80)
-                    {
-                        Core.Game.SelectedEntity.Bionic.State.LifeState = LifeState.Dead;
-                        EventManager.FireEvent("OnKillEnemy");
-                        EventManager.FireEvent("OnKillSelectedEnemy");
-                    }
-                    else if (entityUniqueId != Core.Game.SelectedEntity.UniqueId && hitResult == 0x80)
-                        EventManager.FireEvent("OnKillEnemy");
-                }
+                var entity = Core.Game.Spawns.GetBionic(entityUniqueId);
+                if (entity == null)
+                    continue;
+
+                entity.State.HitState = state;
+
+                /*
+                  GS sending life state update after entity dead. I think dont need, but i didn't delete the commented codeblock maybe we need later
+                  if(Core.Game.SelectedEntity != null && 
+                   entityUniqueId == Core.Game.SelectedEntity.UniqueId &&
+                   (state & ActionHitStateFlag.ATTACK_STATE_DEAD) > 0)
+                    EventManager.FireEvent("OnKillSelectedEnemy");*/
             }
         }
     }

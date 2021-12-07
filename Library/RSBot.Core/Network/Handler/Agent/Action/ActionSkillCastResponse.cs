@@ -1,4 +1,5 @@
 ﻿using RSBot.Core.Event;
+using RSBot.Core.Objects;
 
 namespace RSBot.Core.Network.Handler.Agent.Action
 {
@@ -28,7 +29,7 @@ namespace RSBot.Core.Network.Handler.Agent.Action
 
             packet.ReadUShort(); //Error .. always 00 30
 
-            var action = Objects.Action.FromPacket(packet);
+            var action = Objects.Action.DeserializeBegin(packet);
 
             if (action.PlayerIsExecutor)
             {
@@ -36,18 +37,6 @@ namespace RSBot.Core.Network.Handler.Agent.Action
 
                 var skill = Core.Game.Player.Skills.GetSkillInfoById(action.SkillId);
                 skill?.Update();
-
-                if(skill != null && action.PlayerIsExecutor)
-                {
-                    Log.Debug($@"Skill casted: {skill.Record.Basic_Code} 
-                                        TargetGroup_Self: {skill.Record.TargetGroup_Self}
-                                        TargetGroup_Party: {skill.Record.TargetGroup_Party}
-                                        TargetGroup_Ally: {skill.Record.TargetGroup_Ally}
-                                        Target_Required: {skill.Record.Target_Required}
-                                        IsAttack: {skill.IsAttack}
-                    ");
-                }
-
 
                 EventManager.FireEvent("OnCastSkill", action.SkillId);
 
