@@ -1,10 +1,17 @@
 ﻿using RSBot.Core;
+using RSBot.Core.Components;
 using RSBot.Core.Event;
+using System;
 
 namespace RSBot.Protection.Components.Town
 {
     public class DurabilityLowHandler
     {
+        /// <summary>
+        /// The last tick count
+        /// </summary>
+        private static long _lastTick = Environment.TickCount;
+
         /// <summary>
         /// Initializes this instance.
         /// </summary>
@@ -19,6 +26,44 @@ namespace RSBot.Protection.Components.Town
         private static void SubscribeEvents()
         {
             EventManager.SubscribeEvent("OnUpdateItemDurability", new System.Action<byte, uint>(OnUpdateItemDurability));
+            EventManager.SubscribeEvent("OnTick", OnTick);
+        }
+
+        /// <summary>
+        /// Check the equiped items durabilities
+        /// </summary>
+        /// <param name="slot">The slot.</param>
+        /// <param name="durability">The durability.</param>
+        private static void OnTick()
+        {
+            if (!Kernel.Bot.Running)
+                return;
+
+            if (ScriptManager.Running)
+                return;
+
+            if (!PlayerConfig.Get<bool>("RSBot.Protection.checkDurability"))
+                return;
+
+            if (Environment.TickCount - _lastTick < 10000)
+                return;
+
+            _lastTick = Environment.TickCount;
+
+            for (byte slot = 0; slot < 8; slot++)
+            {
+                var item = Game.Player.Inventory.GetItemAt(slot);
+                if (item == null)
+                    return;
+
+                if (item.Durability > 6)
+                    continue;
+
+                if(Game.Player.UseReturnScroll())
+                    Log.Notify($"Returning to town: The durability of the item {item.Record.GetRealName()} low.");
+                
+                break;
+            }
         }
 
         /// <summary>
@@ -28,15 +73,11 @@ namespace RSBot.Protection.Components.Town
         /// <param name="durability">The durability.</param>
         private static void OnUpdateItemDurability(byte slot, uint durability)
         {
-            if (!Kernel.Bot.Running) return;
-            if (!PlayerConfig.Get<bool>("RSBot.Protection.checkDurability")) return;
-
             var item = Game.Player.Inventory.GetItemAt(slot);
-            if (item.Slot > 12) return; //Only equipment
-            if (durability > 5) return;
+            if (item == null)
+                return;
 
-            Log.Notify($"Returning to town: The durability of the item {item.Record.GetRealName()} low.");
-            Game.Player.UseReturnScroll();
+            item.Durability = durability;
         }
     }
 }
