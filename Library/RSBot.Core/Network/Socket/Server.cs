@@ -246,6 +246,7 @@ namespace RSBot.Core.Network
                 }
                 catch
                 {
+                    OnDisconnected?.Invoke();
                 }
             }
         }
