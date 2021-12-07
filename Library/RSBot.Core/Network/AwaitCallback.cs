@@ -4,6 +4,24 @@ using System.Threading.Tasks;
 
 namespace RSBot.Core.Network
 {
+    public enum AwaitCallbackResult
+    {
+        /// <summary>
+        /// If your condition not equals with received packet.
+        /// </summary>
+        None,
+
+        /// <summary>
+        /// If your condition successfully equal with received packet.
+        /// </summary>
+        Received,
+
+        /// <summary>
+        /// If your packet responsed with error code.
+        /// </summary>
+        Failed
+    }
+
     public class AwaitCallback
     {
         /// <summary>
@@ -12,7 +30,7 @@ namespace RSBot.Core.Network
         /// <value>
         /// The <seealso cref="Predicate{Packet}"/>.
         /// </value>
-        private Predicate<Packet> _predicate { get; }
+        private Func<Packet, AwaitCallbackResult> _predicate { get; }
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="AwaitCallback"/> is received.
@@ -39,11 +57,19 @@ namespace RSBot.Core.Network
         public bool Timeout { get; set; }
 
         /// <summary>
+        /// Gets a value indicating whether this <see cref="AwaitCallback"/> is completed.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if completed; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsCompleted => !Timeout && Received;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="AwaitCallback" /> class.
         /// </summary>
         /// <param name="predicate">The <seealso cref="Predicate{Packet}"/>.</param>
         /// <param name="responseOpcode">The response opcode.</param>
-        public AwaitCallback(Predicate<Packet> predicate, ushort responseOpcode)
+        public AwaitCallback(Func<Packet, AwaitCallbackResult> predicate, ushort responseOpcode)
         {
             _predicate = predicate;
             ResponseOpcode = responseOpcode;
@@ -58,7 +84,20 @@ namespace RSBot.Core.Network
             if (_predicate == null)
                 Received = true;
             else
-                Received = _predicate(packet);
+            {
+                var result = _predicate(packet);
+                switch (result)
+                {
+                    case AwaitCallbackResult.Received:
+                        Received = true;
+                        break;
+
+                    case AwaitCallbackResult.Failed:
+                        Received = true;
+                        Timeout = true;
+                        break;
+                }
+            }
         }
 
         /// <summary>
@@ -79,7 +118,7 @@ namespace RSBot.Core.Network
                         continue;
 
                     Timeout = true;
-                    Log.Debug("Callback timeout 0x" + ResponseOpcode.ToString("X"));
+                    Log.Notify("Callback timeout 0x" + ResponseOpcode.ToString("X"));
 
                     return;
                 }

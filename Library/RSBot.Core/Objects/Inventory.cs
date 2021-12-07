@@ -308,21 +308,21 @@ namespace RSBot.Core.Objects
                 {
                     var operation = response.ReadByte();
                     if (operation != 0)
-                        return false;
+                        return AwaitCallbackResult.None;
 
                     var source = response.ReadByte();
                     var destination = response.ReadByte();
                     if (source == sourceSlot && destination == destinationSlot)
-                        return true;
+                        return AwaitCallbackResult.Received;
                 }
 
-                return false;
+                return AwaitCallbackResult.Failed;
             }, 0xB034);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, asyncResult);
-            asyncResult.AwaitResponse();
+            asyncResult.AwaitResponse(500);
 
-            return !asyncResult.Timeout;
+            return asyncResult.IsCompleted;
         }
 
         /// <summary>
