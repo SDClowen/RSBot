@@ -51,13 +51,13 @@ namespace RSBot.Party.Bundle.PartyMatching
 
             var callback = new AwaitCallback(response =>
             {
-                return response.ReadByte() == 1;
+                return response.ReadByte() == 1 ? AwaitCallbackResult.Received : AwaitCallbackResult.Failed;
             }, 0xB06A);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, callback);
             callback.AwaitResponse(2000);
 
-            return !callback.Timeout;
+            return callback.IsCompleted;
         }
 
         /// <summary>
@@ -87,13 +87,13 @@ namespace RSBot.Party.Bundle.PartyMatching
 
             var callback = new AwaitCallback(response =>
             {
-                return response.ReadByte() == 1;
+                return response.ReadByte() == 1 ? AwaitCallbackResult.Received : AwaitCallbackResult.Failed;
             }, 0xB069);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, callback);
             callback.AwaitResponse(2000);
 
-            return !callback.Timeout;
+            return callback.IsCompleted;
         }
 
         public void Delete()
@@ -121,13 +121,17 @@ namespace RSBot.Party.Bundle.PartyMatching
 
             var callback = new AwaitCallback(response =>
             {
-                return response.ReadByte() == 1 && response.ReadByte() == 1;
+                var result = packet.ReadByte();
+                if(result == 1)
+                    return AwaitCallbackResult.Received;
+                
+                return AwaitCallbackResult.Failed;
             }, 0xB06D);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, callback);
             callback.AwaitResponse(10000);
 
-            return !callback.Timeout;
+            return callback.IsCompleted;
         }
 
         /// <summary>
@@ -146,7 +150,7 @@ namespace RSBot.Party.Bundle.PartyMatching
             var callback = new AwaitCallback(response =>
             {
                 partyList = PartyList.FromPacket(response);
-                return true;
+                return AwaitCallbackResult.Received;
             }, 0xB06C);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, callback);

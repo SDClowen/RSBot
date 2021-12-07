@@ -49,7 +49,7 @@ namespace RSBot.Core.Network.Hooks.Agent.Inventory
                 return packet;
             }
 
-            Log.Notify($"Bought x{amount} {refPackageItem.RefItemCodeName}");
+            Log.Debug($"Bought x{amount} {refPackageItem.RefItemCodeName}");
 
             var response = new Packet(0xB034);
             response.WriteByte(0x01); //Success

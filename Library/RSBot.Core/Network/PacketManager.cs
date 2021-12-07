@@ -125,7 +125,7 @@ namespace RSBot.Core.Network
                     callback.Invoke(packet);
                 }
 
-                _callbacks.RemoveAll(p => p.Timeout || p.Received);
+                _callbacks.RemoveAll(p => p.Timeout);
             }
         }
 

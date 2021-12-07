@@ -52,17 +52,17 @@ namespace RSBot.Core
             TokenSource = new CancellationTokenSource();
             CancellationToken token = TokenSource.Token;
 
-            Task.Factory.StartNew((e) => 
+            Task.Factory.StartNew(async (e) => 
             {
-                Log.Notify($"Starting bot {Botbase.Info.Name}");
                 EventManager.FireEvent("OnStartBot");
                 Running = true;
-                
+
                 Botbase.Start();
 
                 while (!TokenSource.IsCancellationRequested)
                 {
                     Botbase.Tick();
+                    await Task.Delay(1);
                 }
             },
             token, TaskCreationOptions.LongRunning);

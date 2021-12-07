@@ -268,9 +268,10 @@ namespace RSBot.Core.Objects
                 if (result == 0x01)
                 {
                     response.ReadByte();
-                    return response.ReadUInt() == UniqueId;
+                    return response.ReadUInt() == UniqueId ? AwaitCallbackResult.Received : AwaitCallbackResult.None;
                 }
-                return false;
+
+                return AwaitCallbackResult.Failed;
             }, 0xB034);
             PacketManager.SendPacket(packet, PacketDestination.Server, callback);
             callback.AwaitResponse();
