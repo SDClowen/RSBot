@@ -377,7 +377,8 @@ namespace RSBot.Core.Components
                 var targetId = response.ReadUInt();
                 var castedSkillId = response.ReadUInt();
 
-                if (targetId == Game.Player.UniqueId && castedSkillId == skill.Id)
+                if (targetId == (target == 0 ? Game.Player.UniqueId : target) && 
+                    castedSkillId == skill.Id)
                     return AwaitCallbackResult.Received;
 
                 return AwaitCallbackResult.None;

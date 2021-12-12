@@ -54,18 +54,17 @@
     <Compile Include="Bundle\PartyMatching\Objects\PartyList.cs" />
     <Compile Include="Bundle\PartyMatching\PartyMatchingBundle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Subscribers\PartySubscriber.cs" />
     <Compile Include="Views\AutoFormParty.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\AutoFormParty.designer.cs">
       <DependentUpon>AutoFormParty.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\InputDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\InputDialog.Designer.cs">
-      <DependentUpon>InputDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Main.cs">
       <SubType>UserControl</SubType>
@@ -88,11 +87,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\AutoFormParty.resx">
       <DependentUpon>AutoFormParty.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\InputDialog.resx">
-      <DependentUpon>InputDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>

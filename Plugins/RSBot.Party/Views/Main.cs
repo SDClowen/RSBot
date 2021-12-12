@@ -1,10 +1,14 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Event;
+using RSBot.Core.Extensions;
 using RSBot.Core.Objects.Party;
+using RSBot.Core.Objects.Skill;
+using RSBot.Theme.Controls;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -13,7 +17,20 @@ namespace RSBot.Party.Views
     [System.ComponentModel.ToolboxItem(false)]
     public partial class Main : UserControl
     {
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         private bool _applySettings = true;
+
+        /// <summary>
+        /// The buffing party member list
+        /// </summary>
+        private List<BuffingPartyMember> _buffings;
+
+        /// <summary>
+        /// The selected buffing group
+        /// </summary>
+        private ListViewItem _selectedBuffingGroup;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Main"/> class.
@@ -22,10 +39,14 @@ namespace RSBot.Party.Views
         {
             InitializeComponent();
 
+            selectedMemberBuffs.SmallImageList = Core.Extensions.ListViewExtensions.StaticImageList;
+            listPartyBuffSkills.SmallImageList = Core.Extensions.ListViewExtensions.StaticImageList;
+
+            _buffings = new List<BuffingPartyMember>();
             CheckForIllegalCrossThreadCalls = false;
+            cbPartySearchPurpose.SelectedIndex = 0;
 
             SubscribeEvents();
-            cbPartySearchPurpose.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -34,6 +55,7 @@ namespace RSBot.Party.Views
         private void SubscribeEvents()
         {
             EventManager.SubscribeEvent("OnEnterGame", OnEnterGame);
+            EventManager.SubscribeEvent("OnLoadCharacter", OnLoadCharacter);
             EventManager.SubscribeEvent("OnCreatePartyEntry", OnCreatePartyEntry);
             EventManager.SubscribeEvent("OnChangePartyEntry", OnChangePartyEntry);
             EventManager.SubscribeEvent("OnDeletePartyEntry", OnDeletePartyEntry);
@@ -53,6 +75,7 @@ namespace RSBot.Party.Views
         {
             var viewItem = listParty.Items.Add(member.Name, member.Name, 0);
             viewItem.UseItemStyleForSubItems = false;
+            viewItem.Tag = member;
 
             viewItem.SubItems.Add(member.Level.ToString());
             if (string.IsNullOrWhiteSpace(member.Guild))
@@ -75,6 +98,57 @@ namespace RSBot.Party.Views
         }
 
         /// <summary>
+        /// Load the buffing groups
+        /// </summary>
+        /// <returns>The groups</returns>
+        private string[] LoadBuffingGroups()
+        {
+            return PlayerConfig.GetArray<string>("RSBot.Party.Buffing.Groups");
+        }
+
+        /// <summary>
+        /// Save the buffing groups
+        /// </summary>
+        private void SaveBuffingGroups()
+        {
+            PlayerConfig.SetArray("RSBot.Party.Buffing.Groups",
+                    listViewGroups.Items.Cast<ListViewItem>().Select(p => p.Text));
+        }
+
+        /// <summary>
+        /// Get party buffing members from the config
+        /// </summary>
+        /// <returns>Configured buffed party members</returns>
+        private void LoadBuffingMembers()
+        {
+            var buffingMembers = new List<BuffingPartyMember>();
+
+            var settings = PlayerConfig.Get("RSBot.Party.Buffing", string.Empty);
+            var collection = settings.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var item in collection)
+                buffingMembers.Add(new BuffingPartyMember(item));
+
+            _buffings = buffingMembers;
+        }
+
+        /// <summary>
+        /// Saves the buffing party members
+        /// </summary>
+        /// <param name="members"></param>
+        private void SaveBuffingPartyMembers()
+        {
+            var stringBuilder = new StringBuilder();
+            foreach (var item in _buffings)
+                stringBuilder.Append(item.Serialize());
+
+            PlayerConfig.Set("RSBot.Party.Buffing", stringBuilder.ToString());
+            PlayerConfig.Save();
+
+            EventManager.FireEvent("OnPartyBuffSettingsChanged");
+        }
+
+        /// <summary>
         /// Saves the automatic party player list.
         /// </summary>
         private void SaveAutoPartyPlayerList()
@@ -82,6 +156,33 @@ namespace RSBot.Party.Views
             PlayerConfig.SetArray("RSBot.Party.AutoPartyList", listAutoParty.Items.Cast<string>().ToArray());
 
             Bundle.Container.Refresh();
+        }
+
+        /// <summary>
+        /// Refresh the buffing group members
+        /// </summary>
+        private void RefreshGroupMembers()
+        {
+            listViewPartyMembers.Items.Clear();
+
+            foreach (ListViewItem itemGroup in listViewGroups.Items)
+            {
+                var members = _buffings.FindAll(p => p.Group == itemGroup.Text);
+
+                itemGroup.SubItems[1].Text = members.Count.ToString();
+
+                if (itemGroup.Text == _selectedBuffingGroup.Text)
+                {
+                    foreach (var member in members)
+                    {
+                        var item = listViewPartyMembers.Items.Add(member.Name, member.Name, 0);
+                        if (item.Index == 0)
+                            item.Selected = true;
+                    }
+                }
+            }
+
+            LoadPartyBuffSkills();
         }
 
         /// <summary>
@@ -160,6 +261,109 @@ namespace RSBot.Party.Views
         }
 
         /// <summary>
+        /// This event will fire as soon as character loaded
+        /// </summary>
+        private void OnLoadCharacter()
+        {
+            listViewGroups.Items.Clear();
+
+            var selectedGroup = PlayerConfig.Get("RSBot.Party.Buffing.SelectedGroup", "Default");
+
+            LoadBuffingMembers();
+            var groups = LoadBuffingGroups();
+            if (groups.Length == 0)
+            {
+                var item = listViewGroups.Items.Add("Default", "Default", 0);
+                item.SubItems.Add("0");
+                item.Selected = true;
+                _selectedBuffingGroup = item;
+
+                SaveBuffingGroups();
+            }
+            else
+            {
+                foreach (var group in groups)
+                {
+                    var item = listViewGroups.Items.Add(group, group, 0);
+                    item.SubItems.Add("0");
+
+                    if (group == selectedGroup)
+                    {
+                        item.Selected = true;
+                        _selectedBuffingGroup = item;
+                    }
+                }
+            }
+
+            RefreshGroupMembers();
+        }
+
+        /// <summary>
+        /// Load party related buffs
+        /// </summary>
+        /// <summary>
+        /// Loads the skills.
+        /// </summary>
+        private void LoadPartyBuffSkills()
+        {
+            if (Game.Player == null)
+                return;
+
+            listPartyBuffSkills.BeginUpdate();
+            listPartyBuffSkills.Items.Clear();
+            listPartyBuffSkills.Groups.Clear();
+
+            foreach (var mastery in Game.Player.Skills.Masteries)
+            {
+                var group = new ListViewGroup(Game.ReferenceManager.GetTranslation(mastery.Record.NameCode) + " (lv. " + mastery.Level + ")");
+                group.Tag = mastery.Id;
+                listPartyBuffSkills.Groups.Add(group);
+            }
+
+            var skills = Game.Player.Skills.KnownSkills
+                    .Where(s => s.Enabled && s.Record.TargetGroup_Party && !s.Record.TargetEtc_SelectDeadBody);
+
+            foreach (var skill in skills)
+            {
+                if (skill.IsPassive)
+                    continue;
+
+                if (checkHideLowerLevelSkills.Checked && skill.IsLowLevel())
+                    continue;
+
+                var limit = 0;
+                var paramIndex = skill.Record.Params.FindIndex(p => p == 1819175795);
+
+                if (paramIndex != -1)
+                    limit = skill.Record.Params[paramIndex + 3];
+
+                var count = _buffings.Count(p => p.Group == _selectedBuffingGroup.Text && p.Buffs.Any(v => v == skill.Id));
+
+                var item = new ListViewItem($"{skill.Record.GetRealName()}");
+                item.Tag = skill;
+
+                var subItem = item.SubItems.Add(limit != 0 ? $"{limit - count}" : "No limit");
+                item.UseItemStyleForSubItems = false;
+
+                if (limit == 0)
+                    subItem.ForeColor = Color.DarkGreen;
+                else
+                    subItem.ForeColor = Color.DarkRed;
+
+                subItem.Font = new Font("Segoe UI", 9f, FontStyle.Bold);
+
+                foreach (var @group in listPartyBuffSkills.Groups.Cast<ListViewGroup>().Where(@group => Convert.ToInt32(@group.Tag) == skill.Record.ReqCommon_Mastery1))
+                    item.Group = @group;
+
+                listPartyBuffSkills.Items.Add(item);
+                
+                item.LoadSkillImageAsync();
+            }
+
+            listPartyBuffSkills.EndUpdate();
+        }
+
+        /// <summary>
         /// Displays the party members.
         /// </summary>
         public void OnPartyData()
@@ -211,7 +415,7 @@ namespace RSBot.Party.Views
 
         private void OnDeletePartyEntry()
         {
-            if (tabMain.SelectedTab == tpPartyMatching && 
+            if (tabMain.SelectedTab == tpPartyMatching &&
                 lvPartyMatching.Items[0].Name == Bundle.Container.PartyMatching.Id.ToString())
                 lvPartyMatching.Items.Remove(lvPartyMatching.Items[0]);
 
@@ -327,7 +531,8 @@ namespace RSBot.Party.Views
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void checkSettings_CheckedChanged(object sender, System.EventArgs e)
         {
-            if (!_applySettings) return;
+            if (!_applySettings)
+                return;
 
             PlayerConfig.Set("RSBot.Party.EXPAutoShare", checkAutoExpAutoShare.Checked);
             PlayerConfig.Set("RSBot.Party.ItemAutoShare", checkAutoItemAutoShare.Checked);
@@ -413,15 +618,12 @@ namespace RSBot.Party.Views
                 btnJoinFormedParty.Enabled = false;
                 btnJoinFormedParty.Text = "Joining...";
 
-                if (Bundle.Container.PartyMatching.Join(partyNumber))
-                {
+                var joiningResult = Bundle.Container.PartyMatching.Join(partyNumber);
+                if (joiningResult)
                     RequestPartyList();
-                }
-                else
-                {
-                    btnJoinFormedParty.Text = "Join";
-                    btnJoinFormedParty.Enabled = true;
-                }
+
+                btnJoinFormedParty.Text = "Join Party";
+                btnJoinFormedParty.Enabled = !joiningResult;
             });
         }
 
@@ -502,6 +704,237 @@ namespace RSBot.Party.Views
                 lvPartyMatching.Items.Clear();
 
                 lvPartyMatching.Items.AddRange(lvItems.ToArray());
+            }
+        }
+
+        private void checkHideLowerLevelSkills_CheckedChanged(object sender, EventArgs e)
+        {
+            LoadPartyBuffSkills();
+            PlayerConfig.Set("RSBot.Party.Buffing.HideLowerLevelSkills", checkHideLowerLevelSkills.Checked);
+        }
+
+        private void listViewGroups_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listViewGroups.SelectedIndices.Count == 0 ||
+                listViewGroups.SelectedIndices[0] == _selectedBuffingGroup.Index)
+                return;
+
+            _selectedBuffingGroup = listViewGroups.SelectedItems[0];
+
+            PlayerConfig.Set("RSBot.Party.Buffing.SelectedGroup", _selectedBuffingGroup.Text);
+            RefreshGroupMembers();
+        }
+
+        private void listViewPartyMembers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listViewPartyMembers.SelectedItems.Count == 0)
+                return;
+
+            selectedMemberBuffs.Items.Clear();
+
+            var name = listViewPartyMembers.SelectedItems[0].Text;
+            var member = _buffings.Find(p => p.Name == name);
+            if (member == null)
+                return;
+
+            foreach (var skillId in member.Buffs)
+            {
+                var listViewItemOfMainList = listPartyBuffSkills.Items.Cast<ListViewItem>()
+                    .FirstOrDefault(p => ((ISkillDataInfo)p.Tag).Id == skillId);
+                if (listViewItemOfMainList == null)
+                    continue;
+
+                var clone = (ListViewItem)listViewItemOfMainList.Clone();
+                clone.SubItems.RemoveAt(1);
+                selectedMemberBuffs.Items.Add(clone);
+            }
+        }
+
+        private void btnAddBuffToMember_Click(object sender, EventArgs e)
+        {
+            if (listViewPartyMembers.SelectedItems.Count == 0)
+                return;
+
+            if (listPartyBuffSkills.SelectedItems.Count == 0)
+                return;
+
+            var memberName = listViewPartyMembers.SelectedItems[0].Text;
+
+            var buffingMember = _buffings.Find(p => p.Name == memberName);
+            if (buffingMember == null)
+                return;
+
+            foreach (ListViewItem viewItem in listPartyBuffSkills.SelectedItems)
+            {
+                var skill = viewItem.Tag as SkillInfo;
+                if (skill == null)
+                    continue;
+
+                if (buffingMember.Buffs.Any(id => id == skill.Id || 
+                    (Game.ReferenceManager.SkillData.TryGetValue(id, out var refSkill) && 
+                    refSkill.Action_Overlap == skill.Record.Action_Overlap)))
+                    continue;
+
+                buffingMember.Buffs.Add(skill.Id);
+
+                var buffItem = (ListViewItem)viewItem.Clone();
+                buffItem.SubItems.RemoveAt(1);
+                selectedMemberBuffs.Items.Add(buffItem);
+
+                var subItem = viewItem.SubItems[1];
+                if (int.TryParse(subItem.Text, out var limit))
+                    subItem.Text = (limit - 1).ToString();
+            }
+
+            SaveBuffingPartyMembers();
+        }
+
+        private void btnRemoveBuffFromMember_Click(object sender, EventArgs e)
+        {
+            if (listViewPartyMembers.SelectedItems.Count == 0)
+                return;
+
+            if (selectedMemberBuffs.SelectedItems.Count == 0)
+                return;
+
+            var memberName = listViewPartyMembers.SelectedItems[0].Text;
+
+            var buffingMember = _buffings.FirstOrDefault(p => p.Name == memberName);
+            if (buffingMember == null)
+                return;
+
+            foreach (ListViewItem viewItem in selectedMemberBuffs.SelectedItems)
+            {
+                var skill = viewItem.Tag as SkillInfo;
+                if (skill == null)
+                    continue;
+
+                buffingMember.Buffs.Remove(skill.Id);
+                viewItem.Remove();
+
+                var mainItem = listPartyBuffSkills.Items.Cast<ListViewItem>().FirstOrDefault(p => p.Tag == skill);
+                if (mainItem == null)
+                    continue;
+
+                var subItem = mainItem.SubItems[1];
+                if (int.TryParse(subItem.Text, out var limit))
+                    subItem.Text = (limit + 1).ToString();
+            }
+
+            SaveBuffingPartyMembers();
+        }
+
+        private void menuItemAddToBuffing_Click(object sender, EventArgs e)
+        {
+            if (listParty.SelectedItems.Count == 0)
+                return;
+
+            var partyMember = listParty.SelectedItems[0].Tag as PartyMember;
+            if (partyMember == null)
+                return;
+
+            if (partyMember.Name == Game.Player.Name)
+                return;
+
+            var dialog = new InputDialog($"Select a group for [{partyMember.Name}]", "Select the group for add member to the selected group!", true);
+
+            var groups = listViewGroups.Items.Cast<ListViewItem>()
+                                             .Select(p => p.Text)
+                                             .ToArray();
+
+            dialog.Selector.Items.AddRange(groups);
+
+            dialog.Selector.SelectedIndex = 0;
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                if (_buffings.Any(p => p.Group == dialog.Value && p.Name == partyMember.Name))
+                {
+                    MessageBox.Show($"The {partyMember.Name} already in the buffing list. You can add a buff on a [Buffing] tab");
+                    return;
+                }
+
+                _buffings.Add(new BuffingPartyMember
+                {
+                    Name = partyMember.Name,
+                    Group = dialog.Value
+                });
+
+                if (dialog.Value == _selectedBuffingGroup.Text)
+                    RefreshGroupMembers();
+
+                SaveBuffingPartyMembers();
+
+                MessageBox.Show("Successfully added the party member to buffing. You can configure the party member on the [Buffing] tab.");
+            }
+        }
+
+        private void buttonAddGroup_Click(object sender, EventArgs e)
+        {
+            var dialog = new InputDialog("Create new group", "Please enter the group name to the input.");
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                var item = listViewGroups.Items.Add(dialog.Value, dialog.Value, 0);
+                item.SubItems.Add("0");
+                item.Selected = true;
+
+                SaveBuffingGroups();
+            }
+        }
+
+        private void buttonRemoveGroup_Click(object sender, EventArgs e)
+        {
+            if (listViewGroups.SelectedItems.Count == 0)
+                return;
+
+            var selectedItem = listViewGroups.SelectedItems[0];
+            var group = selectedItem.Text;
+
+            var count = _buffings.Count(p => p.Group == group);
+            if (count == 0)
+            {
+                selectedItem.Remove();
+
+                SaveBuffingGroups();
+
+                return;
+            }
+
+            if (MessageBox.Show(this, $"The group keeping {count} members! Are you sure for delete the group?",
+                "WARNING", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                if (group != "Default")
+                    selectedItem.Remove();
+
+                var affected = _buffings.RemoveAll(p => p.Group == group) > 0;
+
+                SaveBuffingGroups();
+                SaveBuffingPartyMembers();
+
+                if (affected)
+                    LoadPartyBuffSkills();
+            }
+        }
+
+        private void buttonRemoveCharFromBuffing_Click(object sender, EventArgs e)
+        {
+            if (listViewPartyMembers.SelectedItems.Count == 0)
+                return;
+
+            if (MessageBox.Show(this, $"It will delete the character from the list. Are you sure about that?",
+                "WARNING", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                var selectedItem = listViewPartyMembers.SelectedItems[0];
+                var name = selectedItem.Text;
+
+                var affected = _buffings.RemoveAll(p => p.Name == name);
+                if (affected > 0)
+                {
+                    selectedItem.Remove();
+                    RefreshGroupMembers();
+                    SaveBuffingPartyMembers();
+                    LoadPartyBuffSkills();
+                }
             }
         }
     }

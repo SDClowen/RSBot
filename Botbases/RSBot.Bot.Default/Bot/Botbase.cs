@@ -74,6 +74,9 @@ namespace RSBot.Bot.Default.Bot
             //Cast buffs
             Bundles.Buff.Invoke();
 
+            // Buff the configured party members if needed
+            Bundles.PartyBuff.Invoke();
+
             //Resurrect party members if needed
             Bundles.Resurrect.Invoke();
 

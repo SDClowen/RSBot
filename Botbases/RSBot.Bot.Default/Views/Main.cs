@@ -26,6 +26,8 @@ namespace RSBot.Bot.Default.Views
             lvAvoidance.Items[6].Name = "Unique";
             lvAvoidance.Items[7].Name = "Strong";
             lvAvoidance.Items[8].Name = "Elite";
+
+            ActiveBuffsList.SmallImageList = Core.Extensions.ListViewExtensions.StaticImageList;
         }
 
         /// <summary>
