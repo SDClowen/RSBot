@@ -61,6 +61,7 @@
     <Compile Include="Components\Collision\LineIntersection.cs" />
     <Compile Include="Config\PlayerConfig.cs" />
     <Compile Include="Config\GlobalConfig.cs" />
+    <Compile Include="Extensions\ListViewExtensions.cs" />
     <Compile Include="Extensions\NativeExtensions.cs" />
     <Compile Include="Extensions\SocketExtensions.cs" />
     <Compile Include="Network\Handler\Agent\Entity\EntitySourcePositionUpdate.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Objects\GuideTeleportType.cs" />
     <Compile Include="Objects\InviteRequestType.cs" />
     <Compile Include="Objects\Item\ItemUpdateFlag.cs" />
+    <Compile Include="Objects\Party\BuffingPartyMember.cs" />
     <Compile Include="Objects\Party\PartyPurpose.cs" />
     <Compile Include="Objects\Region.cs" />
     <Compile Include="Client\GatewayInfo.cs" />
