@@ -1,5 +1,6 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Components;
+using RSBot.Core.Objects;
 using System;
 using System.Collections.Generic;
 
@@ -7,43 +8,55 @@ namespace RSBot.Bot.Default.Bundle.Resurrect
 {
     internal class ResurrectBundle : IBundle
     {
-        #region Fields
-
         /// <summary>
         /// The Last resurrect party members
         /// </summary>
-        public Dictionary<string, DateTime> _lastResurrectedPlayers = new Dictionary<string, DateTime>();
-
-        #endregion Fields
+        public Dictionary<string, int> _lastResurrectedPlayers = new Dictionary<string, int>();
 
         public void Invoke()
         {
-            if (Game.Party != null && PlayerConfig.Get<bool>("RSBot.Skills.ResurrectPartyMembers"))
+            if (Game.Party == null ||
+                Game.Party.Members == null)
+                return;
+
+            if (!Kernel.Bot.Running)
+                return;
+
+            if (Game.Player.Exchanging)
+                return;
+
+            if (Game.Player.State.LifeState == LifeState.Dead)
+                return;
+
+            if (Game.Player.Untouchable)
+                return;
+
+            if (!PlayerConfig.Get<bool>("RSBot.Skills.ResurrectPartyMembers"))
+                return;
+
+            foreach (var member in Game.Party.Members)
             {
-                if (Game.Party.Members == null) return;
+                if (_lastResurrectedPlayers.ContainsKey(member.Name) &&
+                    Environment.TickCount - _lastResurrectedPlayers[member.Name] < 180 * 1000)
+                    continue;
 
-                foreach (var member in Game.Party.Members)
+                if (member.Player == null ||
+                    member.Player.Bionic == null)
+                    continue;
+
+                if (member.Player.Bionic.Tracker.Position.DistanceTo(Game.Player.Tracker.Position) > 100)
+                    continue;
+
+                if (member.Player.Bionic.State.LifeState == LifeState.Dead)
                 {
-                    if (_lastResurrectedPlayers.ContainsKey(member.Name) && DateTime.Now.Subtract(_lastResurrectedPlayers[member.Name]).Seconds < 180)
-                        continue;
+                    if (!_lastResurrectedPlayers.ContainsKey(member.Name))
+                        _lastResurrectedPlayers.Add(member.Name, Environment.TickCount);
+                    else
+                        _lastResurrectedPlayers[member.Name] = Environment.TickCount;
 
-                    var memberBionic = Game.Spawns.GetPlayerByName(member.Name)?.Bionic;
-                    if (memberBionic != null)
-                    {
-                        if (memberBionic.Tracker.Position.DistanceTo(Game.Player.Tracker.Position) > 50)
-                            continue;
-
-                        if (memberBionic.State.LifeState == Core.Objects.LifeState.Dead)
-                        {
-                            if (!_lastResurrectedPlayers.ContainsKey(member.Name))
-                                _lastResurrectedPlayers.Add(member.Name, DateTime.Now);
-                            else
-                                _lastResurrectedPlayers[member.Name] = DateTime.Now;
-
-                            SkillManager.CastBuff(SkillManager.ResurrectionSkill, memberBionic.UniqueId);
-                        }
-                    }
+                    SkillManager.CastBuff(SkillManager.ResurrectionSkill, member.Player.Bionic.UniqueId);
                 }
+
             }
         }
 
