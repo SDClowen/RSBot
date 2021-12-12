@@ -5,6 +5,7 @@ using RSBot.Bot.Default.Bundle.Buff;
 using RSBot.Bot.Default.Bundle.Loop;
 using RSBot.Bot.Default.Bundle.Loot;
 using RSBot.Bot.Default.Bundle.Movement;
+using RSBot.Bot.Default.Bundle.PartyBuffing;
 using RSBot.Bot.Default.Bundle.Resurrect;
 using RSBot.Bot.Default.Bundle.Target;
 
@@ -43,6 +44,14 @@ namespace RSBot.Bot.Default.Bundle
         /// The buff.
         /// </value>
         public static BuffBundle Buff { get; private set; }
+
+        /// <summary>
+        /// Gets the party buff.
+        /// </summary>
+        /// <value>
+        /// The party buff.
+        /// </value>
+        public static PartyBuffingBundle PartyBuff { get; private set; }
 
         /// <summary>
         /// Gets the target.
@@ -89,49 +98,34 @@ namespace RSBot.Bot.Default.Bundle
         /// </summary>
         public static void Reload()
         {
-            if (Berzerk == null)
-                Berzerk = new BerzerkBundle();
-
+            Berzerk = Berzerk ?? new BerzerkBundle();
             Berzerk.Refresh();
 
-            if (Avoidance == null)
-                Avoidance = new AvoidanceBundle();
-
+            Avoidance = Avoidance ?? new AvoidanceBundle();
             Avoidance.Refresh();
 
-            if (Movement == null)
-                Movement = new MovementBundle();
-
+            Movement = Movement ?? new MovementBundle();
             Movement.Refresh();
 
-            if (Buff == null)
-                Buff = new BuffBundle();
-
+            Buff = Buff ?? new BuffBundle();
             Buff.Refresh();
 
-            if (Target == null)
-                Target = new TargetBundle();
+            PartyBuff = PartyBuff ?? new PartyBuffingBundle();
+            PartyBuff.Refresh();
 
+            Target = Target ?? new TargetBundle();
             Target.Refresh();
 
-            if (Attack == null)
-                Attack = new AttackBundle();
-
+            Attack = Attack ?? new AttackBundle();
             Attack.Refresh();
 
-            if (Loot == null)
-                Loot = new LootBundle();
-
+            Loot = Loot ?? new LootBundle();
             Loot.Refresh();
 
-            if (Loop == null)
-                Loop = new LoopBundle();
-
+            Loop = Loop ?? new LoopBundle();
             Loop.Refresh();
 
-            if (Resurrect == null)
-                Resurrect = new ResurrectBundle();
-
+            Resurrect = Resurrect ?? new ResurrectBundle();
             Resurrect.Refresh();
         }
     }

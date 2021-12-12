@@ -125,7 +125,7 @@ namespace RSBot.Core.Objects
                 var buff = new BuffInfo
                 {
                     Id = packet.ReadUInt(),
-                    Duration = packet.ReadUInt()
+                    Token = packet.ReadUInt()
                 };
 
                 if (buff.Record == null)
@@ -149,6 +149,30 @@ namespace RSBot.Core.Objects
             buff = ActiveBuffs.Find(p => p.Record.Action_Overlap == skill.Record.Action_Overlap && p.Record.Basic_Activity == skill.Record.Basic_Activity);
 
             return buff != null;
+        }
+
+        /// <summary>
+        /// Gets the active buff by skill identifier.
+        /// </summary>
+        /// <returns></returns>
+        public bool HasActiveBuff(uint token, out BuffInfo buff)
+        {
+            buff = ActiveBuffs.Find(p => p.Token == token);
+
+            return buff != null;
+        }
+
+        /// <summary>
+        /// Gets the active buff by skill identifier.
+        /// </summary>
+        /// <returns></returns>
+        public bool TryRemoveActiveBuff(uint token, out BuffInfo removedBuff)
+        {
+            removedBuff = ActiveBuffs.Find(p => p.Token == token);
+            if (removedBuff == null)
+                return false;
+
+            return ActiveBuffs.Remove(removedBuff);
         }
 
         /// <summary>

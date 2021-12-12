@@ -1,5 +1,6 @@
 ﻿using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Network;
+using RSBot.Core.Objects.Spawn;
 
 namespace RSBot.Core.Objects.Party
 {
@@ -9,6 +10,11 @@ namespace RSBot.Core.Objects.Party
         /// Gets or sets the unique identifier.
         /// </summary>
         public uint MemberId;
+
+        /// <summary>
+        /// Get the party member spawned info
+        /// </summary>
+        public SpawnedPlayer Player => Game.Spawns.GetPlayerByName(Name);
 
         /// <summary>
         /// Gets or sets the name.

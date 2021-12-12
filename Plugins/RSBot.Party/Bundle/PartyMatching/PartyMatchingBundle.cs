@@ -121,7 +121,7 @@ namespace RSBot.Party.Bundle.PartyMatching
 
             var callback = new AwaitCallback(response =>
             {
-                var result = packet.ReadByte();
+                var result = response.ReadByte();
                 if(result == 1)
                     return AwaitCallbackResult.Received;
                 

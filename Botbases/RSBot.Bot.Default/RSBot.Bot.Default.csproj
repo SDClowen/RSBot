@@ -55,6 +55,7 @@
     <Compile Include="Bundle\Loot\LootConfig.cs" />
     <Compile Include="Bundle\Movement\MovementBundle.cs" />
     <Compile Include="Bundle\Movement\MovementConfig.cs" />
+    <Compile Include="Bundle\PartyBuffing\PartyBuffingBundle.cs" />
     <Compile Include="Bundle\Resurrect\ResurrectBundle.cs" />
     <Compile Include="Bundle\Target\TargetBundle.cs" />
     <Compile Include="Container.cs" />

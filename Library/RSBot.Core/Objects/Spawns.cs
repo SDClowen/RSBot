@@ -312,6 +312,45 @@ namespace RSBot.Core.Objects
         }
 
         /// <summary>
+        /// Gets the bionic by unique identifier.
+        /// </summary>
+        /// <param name="uniqueId">The unique identifier.</param>
+        /// <returns></returns>
+        public SpawnedBionic GetBionicByToken(uint token)
+        {
+            lock (_lock)
+            {
+                //search in players..
+                var playerObj = GetPlayers().FirstOrDefault(entity => entity != null && entity.Bionic.State.HasActiveBuff(token, out _));
+                if (playerObj != null)
+                    return playerObj.Bionic;
+
+                //search in Mobs..
+                var mobObj = GetMonsters().FirstOrDefault(entity => entity != null && entity.Character.Bionic.State.HasActiveBuff(token, out _));
+                if (mobObj != null)
+                    return mobObj.Character.Bionic;
+
+                //search in Cos..
+                var cosObj = GetCoses().FirstOrDefault(entity => entity != null && entity.Character.Bionic.State.HasActiveBuff(token, out _));
+                if (cosObj != null)
+                    return cosObj.Character.Bionic;
+
+                /*
+                //search in FortressStructures..
+                var fortressStructureObj = GetFortressStructures().FirstOrDefault(entity => entity.Bionic.State.HasActiveBuff(token, out _));
+                if (fortressStructureObj != null)
+                    return fortressStructureObj.Bionic;
+
+                //search in NPCs..
+                var npcObj = GetNpcs().FirstOrDefault(entity => entity != null && entity.Bionic.State.HasActiveBuff(token, out _));
+                if (npcObj != null)
+                    return npcObj.Bionic;*/
+
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Gets a player by its name
         /// </summary>
         /// <param name="playerName">Name of the player.</param>

@@ -39,9 +39,7 @@
             this.contextParty = new System.Windows.Forms.ContextMenu();
             this.menuBanish = new System.Windows.Forms.MenuItem();
             this.menuLeave = new System.Windows.Forms.MenuItem();
-            this.menuItem1 = new System.Windows.Forms.MenuItem();
-            this.menuSetBuffs = new System.Windows.Forms.MenuItem();
-            this.menuShowBuffs = new System.Windows.Forms.MenuItem();
+            this.menuItemAddToBuffing = new System.Windows.Forms.MenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnLeaveParty = new RSBot.Theme.Material.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -99,18 +97,26 @@
             this.lbl_partyPageRange = new System.Windows.Forms.Label();
             this.tpPartyBuffing = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.listPartyMembers = new System.Windows.Forms.ListBox();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.btnRemoveBuffFromMember = new System.Windows.Forms.Button();
-            this.btnAddBuffToMember = new System.Windows.Forms.Button();
+            this.btnAddBuffToMember = new RSBot.Theme.Material.Button();
+            this.buttonRemoveCharFromBuffing = new RSBot.Theme.Material.Button();
+            this.btnRemoveBuffFromMember = new RSBot.Theme.Material.Button();
+            this.listViewPartyMembers = new RSBot.Theme.Controls.ListView();
+            this.chPlayerName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chPlayerLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.buttonAddGroup = new RSBot.Theme.Material.Button();
+            this.buttonRemoveGroup = new RSBot.Theme.Material.Button();
+            this.listViewGroups = new RSBot.Theme.Controls.ListView();
+            this.columnHeaderGroupName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderMembersCount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.listView1 = new RSBot.Theme.Controls.ListView();
+            this.selectedMemberBuffs = new RSBot.Theme.Controls.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.listPartyBuffSkills = new RSBot.Theme.Controls.ListView();
             this.columnName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnLimit = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.checkHideLowerLevelSkills = new System.Windows.Forms.CheckBox();
             this.tabMain.SuspendLayout();
             this.tabCurrentParty.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -126,7 +132,7 @@
             this.bottomPartyPanel.SuspendLayout();
             this.tpPartyBuffing.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -208,9 +214,7 @@
             this.contextParty.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuBanish,
             this.menuLeave,
-            this.menuItem1,
-            this.menuSetBuffs,
-            this.menuShowBuffs});
+            this.menuItemAddToBuffing});
             // 
             // menuBanish
             // 
@@ -226,20 +230,11 @@
             this.menuLeave.Text = "Leave";
             this.menuLeave.Click += new System.EventHandler(this.btnLeaveParty_Click);
             // 
-            // menuItem1
+            // menuItemAddToBuffing
             // 
-            this.menuItem1.Index = 2;
-            this.menuItem1.Text = "-";
-            // 
-            // menuSetBuffs
-            // 
-            this.menuSetBuffs.Index = 3;
-            this.menuSetBuffs.Text = "Set buffs";
-            // 
-            // menuShowBuffs
-            // 
-            this.menuShowBuffs.Index = 4;
-            this.menuShowBuffs.Text = "Show buffs";
+            this.menuItemAddToBuffing.Index = 2;
+            this.menuItemAddToBuffing.Text = "Add to buffing";
+            this.menuItemAddToBuffing.Click += new System.EventHandler(this.menuItemAddToBuffing_Click);
             // 
             // panel1
             // 
@@ -507,6 +502,8 @@
             // checkAutoAllowInvitations
             // 
             this.checkAutoAllowInvitations.AutoSize = true;
+            this.checkAutoAllowInvitations.Checked = true;
+            this.checkAutoAllowInvitations.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkAutoAllowInvitations.Location = new System.Drawing.Point(143, 22);
             this.checkAutoAllowInvitations.Name = "checkAutoAllowInvitations";
             this.checkAutoAllowInvitations.Size = new System.Drawing.Size(101, 17);
@@ -529,6 +526,8 @@
             // checkAutoExpAutoShare
             // 
             this.checkAutoExpAutoShare.AutoSize = true;
+            this.checkAutoExpAutoShare.Checked = true;
+            this.checkAutoExpAutoShare.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkAutoExpAutoShare.Location = new System.Drawing.Point(13, 22);
             this.checkAutoExpAutoShare.Name = "checkAutoExpAutoShare";
             this.checkAutoExpAutoShare.Size = new System.Drawing.Size(101, 17);
@@ -929,7 +928,7 @@
             // tpPartyBuffing
             // 
             this.tpPartyBuffing.Controls.Add(this.groupBox4);
-            this.tpPartyBuffing.Controls.Add(this.panel2);
+            this.tpPartyBuffing.Controls.Add(this.groupBox6);
             this.tpPartyBuffing.Controls.Add(this.groupBox5);
             this.tpPartyBuffing.Controls.Add(this.groupBox1);
             this.tpPartyBuffing.Location = new System.Drawing.Point(4, 22);
@@ -942,96 +941,216 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.listPartyMembers);
+            this.groupBox4.Controls.Add(this.btnAddBuffToMember);
+            this.groupBox4.Controls.Add(this.buttonRemoveCharFromBuffing);
+            this.groupBox4.Controls.Add(this.btnRemoveBuffFromMember);
+            this.groupBox4.Controls.Add(this.listViewPartyMembers);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.Location = new System.Drawing.Point(250, 6);
+            this.groupBox4.Location = new System.Drawing.Point(273, 175);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(233, 225);
+            this.groupBox4.Size = new System.Drawing.Size(210, 248);
             this.groupBox4.TabIndex = 11;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Party Members";
             // 
-            // listPartyMembers
+            // btnAddBuffToMember
             // 
-            this.listPartyMembers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listPartyMembers.FormattingEnabled = true;
-            this.listPartyMembers.Location = new System.Drawing.Point(3, 16);
-            this.listPartyMembers.Name = "listPartyMembers";
-            this.listPartyMembers.Size = new System.Drawing.Size(227, 206);
-            this.listPartyMembers.TabIndex = 0;
+            this.btnAddBuffToMember.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAddBuffToMember.Depth = 0;
+            this.btnAddBuffToMember.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddBuffToMember.Icon = null;
+            this.btnAddBuffToMember.Location = new System.Drawing.Point(6, 219);
+            this.btnAddBuffToMember.MouseState = RSBot.Theme.IMatMouseState.HOVER;
+            this.btnAddBuffToMember.Name = "btnAddBuffToMember";
+            this.btnAddBuffToMember.Primary = true;
+            this.btnAddBuffToMember.Raised = true;
+            this.btnAddBuffToMember.SingleColor = System.Drawing.Color.Empty;
+            this.btnAddBuffToMember.Size = new System.Drawing.Size(75, 21);
+            this.btnAddBuffToMember.TabIndex = 11;
+            this.btnAddBuffToMember.Text = "Add Buff";
+            this.btnAddBuffToMember.UseVisualStyleBackColor = true;
+            this.btnAddBuffToMember.Click += new System.EventHandler(this.btnAddBuffToMember_Click);
             // 
-            // panel2
+            // buttonRemoveCharFromBuffing
             // 
-            this.panel2.Controls.Add(this.btnRemoveBuffFromMember);
-            this.panel2.Controls.Add(this.btnAddBuffToMember);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(250, 231);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(233, 192);
-            this.panel2.TabIndex = 13;
+            this.buttonRemoveCharFromBuffing.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonRemoveCharFromBuffing.Depth = 0;
+            this.buttonRemoveCharFromBuffing.Font = new System.Drawing.Font("Webdings", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.buttonRemoveCharFromBuffing.ForeColor = System.Drawing.Color.Transparent;
+            this.buttonRemoveCharFromBuffing.Icon = null;
+            this.buttonRemoveCharFromBuffing.Location = new System.Drawing.Point(179, 187);
+            this.buttonRemoveCharFromBuffing.MouseState = RSBot.Theme.IMatMouseState.HOVER;
+            this.buttonRemoveCharFromBuffing.Name = "buttonRemoveCharFromBuffing";
+            this.buttonRemoveCharFromBuffing.Primary = true;
+            this.buttonRemoveCharFromBuffing.Raised = true;
+            this.buttonRemoveCharFromBuffing.SingleColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.buttonRemoveCharFromBuffing.Size = new System.Drawing.Size(22, 19);
+            this.buttonRemoveCharFromBuffing.TabIndex = 12;
+            this.buttonRemoveCharFromBuffing.Text = "r";
+            this.buttonRemoveCharFromBuffing.UseVisualStyleBackColor = true;
+            this.buttonRemoveCharFromBuffing.Click += new System.EventHandler(this.buttonRemoveCharFromBuffing_Click);
             // 
             // btnRemoveBuffFromMember
             // 
-            this.btnRemoveBuffFromMember.Location = new System.Drawing.Point(88, 7);
+            this.btnRemoveBuffFromMember.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRemoveBuffFromMember.Depth = 0;
+            this.btnRemoveBuffFromMember.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRemoveBuffFromMember.Icon = null;
+            this.btnRemoveBuffFromMember.Location = new System.Drawing.Point(115, 219);
+            this.btnRemoveBuffFromMember.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnRemoveBuffFromMember.Name = "btnRemoveBuffFromMember";
-            this.btnRemoveBuffFromMember.Size = new System.Drawing.Size(75, 23);
-            this.btnRemoveBuffFromMember.TabIndex = 0;
-            this.btnRemoveBuffFromMember.Text = "Remove";
+            this.btnRemoveBuffFromMember.Primary = true;
+            this.btnRemoveBuffFromMember.Raised = true;
+            this.btnRemoveBuffFromMember.SingleColor = System.Drawing.Color.Crimson;
+            this.btnRemoveBuffFromMember.Size = new System.Drawing.Size(86, 21);
+            this.btnRemoveBuffFromMember.TabIndex = 12;
+            this.btnRemoveBuffFromMember.Text = "Remove Buff";
             this.btnRemoveBuffFromMember.UseVisualStyleBackColor = true;
+            this.btnRemoveBuffFromMember.Click += new System.EventHandler(this.btnRemoveBuffFromMember_Click);
             // 
-            // btnAddBuffToMember
+            // listViewPartyMembers
             // 
-            this.btnAddBuffToMember.Location = new System.Drawing.Point(7, 7);
-            this.btnAddBuffToMember.Name = "btnAddBuffToMember";
-            this.btnAddBuffToMember.Size = new System.Drawing.Size(75, 23);
-            this.btnAddBuffToMember.TabIndex = 0;
-            this.btnAddBuffToMember.Text = "Add";
-            this.btnAddBuffToMember.UseVisualStyleBackColor = true;
+            this.listViewPartyMembers.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.chPlayerName,
+            this.chPlayerLevel});
+            this.listViewPartyMembers.Dock = System.Windows.Forms.DockStyle.Top;
+            this.listViewPartyMembers.FullRowSelect = true;
+            this.listViewPartyMembers.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.listViewPartyMembers.HideSelection = false;
+            this.listViewPartyMembers.Location = new System.Drawing.Point(3, 16);
+            this.listViewPartyMembers.MultiSelect = false;
+            this.listViewPartyMembers.Name = "listViewPartyMembers";
+            this.listViewPartyMembers.Size = new System.Drawing.Size(204, 197);
+            this.listViewPartyMembers.TabIndex = 10;
+            this.listViewPartyMembers.UseCompatibleStateImageBehavior = false;
+            this.listViewPartyMembers.View = System.Windows.Forms.View.Details;
+            this.listViewPartyMembers.SelectedIndexChanged += new System.EventHandler(this.listViewPartyMembers_SelectedIndexChanged);
+            // 
+            // chPlayerName
+            // 
+            this.chPlayerName.Text = "Name";
+            this.chPlayerName.Width = 140;
+            // 
+            // chPlayerLevel
+            // 
+            this.chPlayerLevel.Text = "Level";
+            this.chPlayerLevel.Width = 50;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.buttonAddGroup);
+            this.groupBox6.Controls.Add(this.buttonRemoveGroup);
+            this.groupBox6.Controls.Add(this.listViewGroups);
+            this.groupBox6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox6.Location = new System.Drawing.Point(273, 6);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(210, 169);
+            this.groupBox6.TabIndex = 14;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Groups";
+            // 
+            // buttonAddGroup
+            // 
+            this.buttonAddGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonAddGroup.Depth = 0;
+            this.buttonAddGroup.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAddGroup.Icon = null;
+            this.buttonAddGroup.Location = new System.Drawing.Point(6, 140);
+            this.buttonAddGroup.MouseState = RSBot.Theme.IMatMouseState.HOVER;
+            this.buttonAddGroup.Name = "buttonAddGroup";
+            this.buttonAddGroup.Primary = true;
+            this.buttonAddGroup.Raised = true;
+            this.buttonAddGroup.SingleColor = System.Drawing.Color.Empty;
+            this.buttonAddGroup.Size = new System.Drawing.Size(63, 21);
+            this.buttonAddGroup.TabIndex = 0;
+            this.buttonAddGroup.Text = "Create";
+            this.buttonAddGroup.UseVisualStyleBackColor = true;
+            this.buttonAddGroup.Click += new System.EventHandler(this.buttonAddGroup_Click);
+            // 
+            // buttonRemoveGroup
+            // 
+            this.buttonRemoveGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonRemoveGroup.Depth = 0;
+            this.buttonRemoveGroup.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRemoveGroup.Icon = null;
+            this.buttonRemoveGroup.Location = new System.Drawing.Point(129, 140);
+            this.buttonRemoveGroup.MouseState = RSBot.Theme.IMatMouseState.HOVER;
+            this.buttonRemoveGroup.Name = "buttonRemoveGroup";
+            this.buttonRemoveGroup.Primary = true;
+            this.buttonRemoveGroup.Raised = true;
+            this.buttonRemoveGroup.SingleColor = System.Drawing.Color.Crimson;
+            this.buttonRemoveGroup.Size = new System.Drawing.Size(72, 21);
+            this.buttonRemoveGroup.TabIndex = 0;
+            this.buttonRemoveGroup.Text = "Remove";
+            this.buttonRemoveGroup.UseVisualStyleBackColor = true;
+            this.buttonRemoveGroup.Click += new System.EventHandler(this.buttonRemoveGroup_Click);
+            // 
+            // listViewGroups
+            // 
+            this.listViewGroups.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeaderGroupName,
+            this.columnHeaderMembersCount});
+            this.listViewGroups.Dock = System.Windows.Forms.DockStyle.Top;
+            this.listViewGroups.FullRowSelect = true;
+            this.listViewGroups.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.listViewGroups.HideSelection = false;
+            this.listViewGroups.Location = new System.Drawing.Point(3, 16);
+            this.listViewGroups.MultiSelect = false;
+            this.listViewGroups.Name = "listViewGroups";
+            this.listViewGroups.Size = new System.Drawing.Size(204, 118);
+            this.listViewGroups.TabIndex = 1;
+            this.listViewGroups.UseCompatibleStateImageBehavior = false;
+            this.listViewGroups.View = System.Windows.Forms.View.Details;
+            this.listViewGroups.SelectedIndexChanged += new System.EventHandler(this.listViewGroups_SelectedIndexChanged);
+            // 
+            // columnHeaderGroupName
+            // 
+            this.columnHeaderGroupName.Text = "Group Name";
+            this.columnHeaderGroupName.Width = 135;
+            // 
+            // columnHeaderMembersCount
+            // 
+            this.columnHeaderMembersCount.Text = "Members";
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.listView1);
+            this.groupBox5.Controls.Add(this.selectedMemberBuffs);
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Right;
             this.groupBox5.Location = new System.Drawing.Point(483, 6);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(245, 417);
             this.groupBox5.TabIndex = 12;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Party Member Buffs";
+            this.groupBox5.Text = "Member Buffs";
             // 
-            // listView1
+            // selectedMemberBuffs
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2});
-            this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView1.FullRowSelect = true;
-            this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(3, 16);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(239, 398);
-            this.listView1.TabIndex = 9;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.selectedMemberBuffs.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+            this.selectedMemberBuffs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.selectedMemberBuffs.FullRowSelect = true;
+            this.selectedMemberBuffs.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.selectedMemberBuffs.HideSelection = false;
+            this.selectedMemberBuffs.Location = new System.Drawing.Point(3, 16);
+            this.selectedMemberBuffs.Name = "selectedMemberBuffs";
+            this.selectedMemberBuffs.Size = new System.Drawing.Size(239, 398);
+            this.selectedMemberBuffs.TabIndex = 9;
+            this.selectedMemberBuffs.UseCompatibleStateImageBehavior = false;
+            this.selectedMemberBuffs.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader1
             // 
             this.columnHeader1.Text = "Name";
-            this.columnHeader1.Width = 180;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Level";
-            this.columnHeader2.Width = 50;
+            this.columnHeader1.Width = 220;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.listPartyBuffSkills);
+            this.groupBox1.Controls.Add(this.checkHideLowerLevelSkills);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Left;
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(244, 417);
+            this.groupBox1.Size = new System.Drawing.Size(267, 417);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Buffs";
@@ -1040,14 +1159,14 @@
             // 
             this.listPartyBuffSkills.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnName,
-            this.columnLevel});
+            this.columnLimit});
             this.listPartyBuffSkills.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listPartyBuffSkills.FullRowSelect = true;
             this.listPartyBuffSkills.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listPartyBuffSkills.HideSelection = false;
             this.listPartyBuffSkills.Location = new System.Drawing.Point(3, 16);
             this.listPartyBuffSkills.Name = "listPartyBuffSkills";
-            this.listPartyBuffSkills.Size = new System.Drawing.Size(238, 398);
+            this.listPartyBuffSkills.Size = new System.Drawing.Size(261, 381);
             this.listPartyBuffSkills.TabIndex = 9;
             this.listPartyBuffSkills.UseCompatibleStateImageBehavior = false;
             this.listPartyBuffSkills.View = System.Windows.Forms.View.Details;
@@ -1055,12 +1174,26 @@
             // columnName
             // 
             this.columnName.Text = "Name";
-            this.columnName.Width = 180;
+            this.columnName.Width = 160;
             // 
-            // columnLevel
+            // columnLimit
             // 
-            this.columnLevel.Text = "Level";
-            this.columnLevel.Width = 50;
+            this.columnLimit.Text = "Limit";
+            this.columnLimit.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnLimit.Width = 80;
+            // 
+            // checkHideLowerLevelSkills
+            // 
+            this.checkHideLowerLevelSkills.AutoSize = true;
+            this.checkHideLowerLevelSkills.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.checkHideLowerLevelSkills.Location = new System.Drawing.Point(3, 397);
+            this.checkHideLowerLevelSkills.Name = "checkHideLowerLevelSkills";
+            this.checkHideLowerLevelSkills.Size = new System.Drawing.Size(261, 17);
+            this.checkHideLowerLevelSkills.TabIndex = 10;
+            this.checkHideLowerLevelSkills.Text = "Hide lower level skills";
+            this.checkHideLowerLevelSkills.UseVisualStyleBackColor = true;
+            this.checkHideLowerLevelSkills.Visible = false;
+            this.checkHideLowerLevelSkills.CheckedChanged += new System.EventHandler(this.checkHideLowerLevelSkills_CheckedChanged);
             // 
             // Main
             // 
@@ -1092,9 +1225,10 @@
             this.bottomPartyPanel.PerformLayout();
             this.tpPartyBuffing.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1171,18 +1305,24 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private Theme.Controls.ListView listPartyBuffSkills;
         private System.Windows.Forms.ColumnHeader columnName;
-        private System.Windows.Forms.ColumnHeader columnLevel;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.ListBox listPartyMembers;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button btnRemoveBuffFromMember;
-        private System.Windows.Forms.Button btnAddBuffToMember;
         private System.Windows.Forms.GroupBox groupBox5;
-        private Theme.Controls.ListView listView1;
+        private Theme.Controls.ListView selectedMemberBuffs;
         private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.MenuItem menuItem1;
-        private System.Windows.Forms.MenuItem menuSetBuffs;
-        private System.Windows.Forms.MenuItem menuShowBuffs;
+        private System.Windows.Forms.CheckBox checkHideLowerLevelSkills;
+        private System.Windows.Forms.ColumnHeader columnLimit;
+        private Theme.Controls.ListView listViewPartyMembers;
+        private System.Windows.Forms.ColumnHeader chPlayerName;
+        private System.Windows.Forms.ColumnHeader chPlayerLevel;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private Theme.Material.Button buttonAddGroup;
+        private Theme.Material.Button buttonRemoveGroup;
+        private Theme.Controls.ListView listViewGroups;
+        private System.Windows.Forms.ColumnHeader columnHeaderGroupName;
+        private System.Windows.Forms.ColumnHeader columnHeaderMembersCount;
+        private Theme.Material.Button btnAddBuffToMember;
+        private Theme.Material.Button btnRemoveBuffFromMember;
+        private System.Windows.Forms.MenuItem menuItemAddToBuffing;
+        private Theme.Material.Button buttonRemoveCharFromBuffing;
     }
 }
