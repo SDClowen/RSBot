@@ -37,20 +37,24 @@ namespace RSBot.Core.Network.Handler.Agent.Action
             if (token == 0)
                 return;
 
-            if (targetId != Core.Game.Player.UniqueId) 
-                return; //Ignore other player buffs (for now)
-
-            var buffInfo = new BuffInfo 
-            { 
-                Id = skillId, 
+            var buffInfo = new BuffInfo
+            {
+                Id = skillId,
                 Token = token
             };
 
-            Core.Game.Player.Buffs.Add(buffInfo);
+            if(targetId == Core.Game.Player.UniqueId)
+            {
+                Core.Game.Player.Buffs.Add(buffInfo);
+                EventManager.FireEvent("OnAddBuff", buffInfo);
+                Log.Notify($"Buff [{buffInfo.Record.GetRealName()}] added.");
 
-            Log.Notify($"Buff [{buffInfo.Record.GetRealName()}] added.");
+                return;
+            }
 
-            EventManager.FireEvent("OnAddBuff", buffInfo);
+            var bionic = Core.Game.Spawns.GetBionic(targetId);
+            if(bionic != null)
+                bionic.State.ActiveBuffs.Add(buffInfo);
         }
     }
 }
