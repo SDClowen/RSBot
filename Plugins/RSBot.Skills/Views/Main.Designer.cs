@@ -28,12 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.listAttackingSkills = new RSBot.Theme.Controls.ListView();
             this.columnName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.imgSkills = new System.Windows.Forms.ImageList(this.components);
             this.label2 = new System.Windows.Forms.Label();
             this.comboMonsterType = new System.Windows.Forms.ComboBox();
             this.btnMoveAttackSkillDown = new RSBot.Theme.Material.Button();
@@ -117,7 +115,6 @@
             this.listAttackingSkills.Location = new System.Drawing.Point(6, 19);
             this.listAttackingSkills.Name = "listAttackingSkills";
             this.listAttackingSkills.Size = new System.Drawing.Size(315, 146);
-            this.listAttackingSkills.SmallImageList = this.imgSkills;
             this.listAttackingSkills.TabIndex = 8;
             this.listAttackingSkills.UseCompatibleStateImageBehavior = false;
             this.listAttackingSkills.View = System.Windows.Forms.View.Details;
@@ -130,12 +127,6 @@
             // columnLevel
             // 
             this.columnLevel.Text = "Level";
-            // 
-            // imgSkills
-            // 
-            this.imgSkills.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-            this.imgSkills.ImageSize = new System.Drawing.Size(24, 24);
-            this.imgSkills.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // label2
             // 
@@ -240,7 +231,6 @@
             this.listBuffs.Location = new System.Drawing.Point(6, 19);
             this.listBuffs.Name = "listBuffs";
             this.listBuffs.Size = new System.Drawing.Size(315, 146);
-            this.listBuffs.SmallImageList = this.imgSkills;
             this.listBuffs.TabIndex = 8;
             this.listBuffs.UseCompatibleStateImageBehavior = false;
             this.listBuffs.View = System.Windows.Forms.View.Details;
@@ -479,7 +469,6 @@
             this.listSkills.Location = new System.Drawing.Point(3, 3);
             this.listSkills.Name = "listSkills";
             this.listSkills.Size = new System.Drawing.Size(336, 394);
-            this.listSkills.SmallImageList = this.imgSkills;
             this.listSkills.TabIndex = 5;
             this.listSkills.UseCompatibleStateImageBehavior = false;
             this.listSkills.View = System.Windows.Forms.View.Details;
@@ -578,7 +567,6 @@
             this.listActiveBuffs.Location = new System.Drawing.Point(3, 3);
             this.listActiveBuffs.Name = "listActiveBuffs";
             this.listActiveBuffs.Size = new System.Drawing.Size(336, 423);
-            this.listActiveBuffs.SmallImageList = this.imgSkills;
             this.listActiveBuffs.TabIndex = 6;
             this.listActiveBuffs.UseCompatibleStateImageBehavior = false;
             this.listActiveBuffs.View = System.Windows.Forms.View.Details;
@@ -681,7 +669,6 @@
         private Theme.Controls.ListView listActiveBuffs;
         private System.Windows.Forms.ColumnHeader colActiveName;
         private System.Windows.Forms.ColumnHeader colActiveLevel;
-        private System.Windows.Forms.ImageList imgSkills;
         private Theme.Material.Button btnMoveBuffSkillDown;
         private Theme.Material.Button btnMoveBuffSkillUp;
         private System.Windows.Forms.Panel panel1;

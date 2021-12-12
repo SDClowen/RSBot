@@ -28,6 +28,10 @@ namespace RSBot.Skills.Views
             SubscribeEvents();
 
             listSkills.ContextMenu = skillContextMenu;
+            listAttackingSkills.SmallImageList = Core.Extensions.ListViewExtensions.StaticImageList;
+            listBuffs.SmallImageList = Core.Extensions.ListViewExtensions.StaticImageList;
+            listSkills.SmallImageList = Core.Extensions.ListViewExtensions.StaticImageList;
+            listActiveBuffs.SmallImageList = Core.Extensions.ListViewExtensions.StaticImageList;
         }
 
         /// <summary>
@@ -57,19 +61,6 @@ namespace RSBot.Skills.Views
             checkResurrectParty.Checked = PlayerConfig.Get<bool>("RSBot.Skills.ResurrectPartyMembers");
             checkCastBuffsInTowns.Checked = PlayerConfig.Get<bool>("RSBot.Skills.CastBuffsInTowns");
             checkCastBuffsDuringWalkBack.Checked = PlayerConfig.Get<bool>("RSBot.Skills.CastBuffsDuringWalkBack");
-        }
-
-        /// <summary>
-        /// Check if the skill is low level for character (Lazy basic :-;)
-        /// </summary>
-        /// <param name="skill"></param>
-        /// <returns>
-        /// <c>true</c> otherwise, <c>false</c>.
-        /// </returns>
-        private bool IsLowLevelSkill(RefSkill skill)
-        {
-            return skill.ReqCommon_MasteryLevel1 <
-                                       Game.Player.Skills.GetMasteryInfoById((uint)skill.ReqCommon_Mastery1).Level - 20;
         }
 
         /// <summary>
@@ -170,11 +161,10 @@ namespace RSBot.Skills.Views
                 var item = new ListViewItem(skillInfo.Record.GetRealName()) { Tag = skillInfo };
                 item.SubItems.Add("lv. " + skillInfo.Record.Basic_Level);
                 listAttackingSkills.Items.Add(item);
+                item.LoadSkillImageAsync();
             }
 
             listAttackingSkills.EndUpdate();
-
-            Task.Run(() => { LoadSkillImages(listAttackingSkills); });
         }
 
         /// <summary>
@@ -193,12 +183,10 @@ namespace RSBot.Skills.Views
 
                 item.SubItems.Add("lv. " + skillInfo.Record.Basic_Level);
                 listBuffs.Items.Add(item);
+                item.LoadSkillImageAsync();
             }
 
             listBuffs.EndUpdate();
-
-            //Load the skill images.
-            Task.Run(() => { LoadSkillImages(listBuffs); });
         }
 
         /// <summary>
@@ -214,7 +202,7 @@ namespace RSBot.Skills.Views
 
             foreach (var skill in Game.Player.Skills.KnownSkills.Where(s => s.IsImbue && s.Enabled))
             {
-                if (IsLowLevelSkill(skill.Record))
+                if (skill.IsLowLevel())
                     continue;
 
                 var index = comboImbue.Items.Add(skill);
@@ -240,7 +228,7 @@ namespace RSBot.Skills.Views
                 s => s.Record != null && s.Record.TargetEtc_SelectDeadBody &&
                (s.Record.Params[3] == 1751474540 || s.Record.Params[3] == 1919776116)))
             {
-                if (IsLowLevelSkill(skill.Record))
+                if (skill.IsLowLevel())
                     continue;
 
                 var index = comboResurrectionSkill.Items.Add(skill);
@@ -254,43 +242,12 @@ namespace RSBot.Skills.Views
         }
 
         /// <summary>
-        /// Load the skill image into the ImageList of the <seealso cref="ListViewItem"/>
-        /// </summary>
-        /// <param name="refSkill">The RefSkill</param>
-        private void LoadSkillImageForListViewItem(ListViewItem item)
-        {
-            var skill = item.Tag as ISkillDataInfo;
-            if (imgSkills.Images.Keys.Cast<string>().Contains(skill.Id.ToString()))
-            {
-                item.ImageKey = skill.Id.ToString();
-                return;
-            }
-
-            if (!Game.MediaPk2.FileExists(Path.GetFileName(skill.Record.UI_IconFile)))
-                return;
-
-            var imageFile = Game.MediaPk2.GetFile(Path.GetFileName(skill.Record.UI_IconFile));
-
-            imgSkills.Images.Add(skill.Id.ToString(), imageFile.ToImage());
-
-            item.ImageKey = skill.Id.ToString();
-        }
-
-        /// <summary>
-        /// Loads the skill images into the ImageList of the <seealso cref="ListView"/> control.
-        /// </summary>
-        private void LoadSkillImages(ListView listView)
-        {
-            foreach (ListViewItem item in listView.Items)
-                LoadSkillImageForListViewItem(item);
-        }
-
-        /// <summary>
         /// Loads the skills.
         /// </summary>
         private void LoadSkills()
         {
-            if (Game.Player == null) return;
+            if (Game.Player == null) 
+                return;
 
             LoadImbues();
             LoadResurrectionSkills();
@@ -308,8 +265,7 @@ namespace RSBot.Skills.Views
 
             foreach (var skill in Game.Player.Skills.KnownSkills.Where(s => s.Enabled))
             {
-                var isLowLevelSkill = IsLowLevelSkill(skill.Record);
-                if (checkHideLowerLevelSkills.Checked && isLowLevelSkill) 
+                if (checkHideLowerLevelSkills.Checked && skill.IsLowLevel()) 
                     continue;
 
                 if (skill.IsPassive)
@@ -330,12 +286,11 @@ namespace RSBot.Skills.Views
                     listSkills.Items.Add(item);
                 else if (!skill.IsAttack && !skill.IsImbue && checkShowBuffs.Checked)
                     listSkills.Items.Add(item);
+
+                item.LoadSkillImage();
             }
 
             listSkills.EndUpdate();
-
-            //Load the skill images.
-            Task.Run(() => { LoadSkillImages(listSkills); });
         }
 
         /// <summary>
@@ -379,8 +334,9 @@ namespace RSBot.Skills.Views
                 };
 
                 item.SubItems.Add("lv. " + buffInfo.Record.Basic_Level);
-                LoadSkillImageForListViewItem(item);
+                
                 listActiveBuffs.Items.Add(item);
+                item.LoadSkillImageAsync();
             }
             catch
             {

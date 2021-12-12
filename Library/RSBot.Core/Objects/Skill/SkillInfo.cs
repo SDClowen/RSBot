@@ -132,6 +132,19 @@ namespace RSBot.Core.Objects.Skill
         }
 
         /// <summary>
+        /// Check if the skill is low level for character (Lazy basic :-;)
+        /// </summary>
+        /// <param name="skill"></param>
+        /// <returns>
+        /// <c>true</c> otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsLowLevel()
+        {
+            return Record.ReqCommon_MasteryLevel1 <
+                                       Game.Player.Skills.GetMasteryInfoById((uint)Record.ReqCommon_Mastery1).Level - 20;
+        }
+
+        /// <summary>
         /// Get skill info
         /// </summary>
         public override string ToString()
