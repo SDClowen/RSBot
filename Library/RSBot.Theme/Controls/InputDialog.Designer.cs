@@ -1,4 +1,4 @@
-﻿namespace RSBot.Party.Views
+﻿namespace RSBot.Theme.Controls
 {
     partial class InputDialog
     {
@@ -32,8 +32,9 @@
             this.lblMessage = new System.Windows.Forms.Label();
             this.txtValue = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnOK = new Theme.Material.Button();
-            this.btnCancel = new Theme.Material.Button();
+            this.btnOK = new RSBot.Theme.Material.Button();
+            this.btnCancel = new RSBot.Theme.Material.Button();
+            this.comboBox = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -81,7 +82,7 @@
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOK.Icon = null;
             this.btnOK.Location = new System.Drawing.Point(158, 4);
-            this.btnOK.MouseState = Theme.IMatMouseState.HOVER;
+            this.btnOK.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnOK.Name = "btnOK";
             this.btnOK.Primary = true;
             this.btnOK.Raised = true;
@@ -98,7 +99,7 @@
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Icon = null;
             this.btnCancel.Location = new System.Drawing.Point(239, 4);
-            this.btnCancel.MouseState = Theme.IMatMouseState.HOVER;
+            this.btnCancel.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Primary = false;
             this.btnCancel.Raised = false;
@@ -108,12 +109,23 @@
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
+            // comboBox
+            // 
+            this.comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox.FormattingEnabled = true;
+            this.comboBox.Location = new System.Drawing.Point(12, 69);
+            this.comboBox.Name = "comboBox";
+            this.comboBox.Size = new System.Drawing.Size(298, 23);
+            this.comboBox.TabIndex = 4;
+            this.comboBox.Visible = false;
+            // 
             // InputDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(321, 137);
+            this.Controls.Add(this.comboBox);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.txtValue);
             this.Controls.Add(this.lblMessage);
@@ -125,6 +137,7 @@
             this.Name = "InputDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Input";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InputDialog_FormClosing);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -139,5 +152,6 @@
         private System.Windows.Forms.Panel panel1;
         private Theme.Material.Button btnOK;
         private Theme.Material.Button btnCancel;
+        private System.Windows.Forms.ComboBox comboBox;
     }
 }

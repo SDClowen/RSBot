@@ -45,6 +45,12 @@
     <Compile Include="Controls\HorizontalPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\InputDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\InputDialog.Designer.cs">
+      <DependentUpon>InputDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ListView.cs" />
     <Compile Include="Extensions\ListViewExtensions.cs" />
     <Compile Include="Extensions\TextBoxBase.cs" />
@@ -69,6 +75,9 @@
     <Compile Include="Utility.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controls\InputDialog.resx">
+      <DependentUpon>InputDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\TabDisabledInfo.resx">
       <DependentUpon>TabDisabledInfo.cs</DependentUpon>
     </EmbeddedResource>

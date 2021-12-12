@@ -24,7 +24,15 @@ namespace RSBot.Theme.Material
 
         public bool Raised { get; set; }
 
-        public Color SingleColor { get; set; } = Color.Empty;
+        private Color _singleColor = Color.Empty;
+        public Color SingleColor 
+        { 
+            get => _singleColor; 
+            set { 
+                _singleColor = value; 
+                Invalidate(); 
+            } 
+        }
 
         private readonly AnimationManager animationManager;
         private readonly AnimationManager hoverAnimationManager;
