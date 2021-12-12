@@ -123,7 +123,7 @@ namespace RSBot.Core
         /// <param name="key">The key.</param>
         /// <param name="values">The values.</param>
         /// <param name="delimiter">The delimiter.</param>
-        public void SetArray<T>(string key, IList<T> values, string delimiter = ",")
+        public void SetArray<T>(string key, IEnumerable<T> values, string delimiter = ",")
         {
             if (values == null) return;
 
