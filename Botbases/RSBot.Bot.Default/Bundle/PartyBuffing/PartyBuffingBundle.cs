@@ -81,17 +81,6 @@ namespace RSBot.Bot.Default.Bundle.PartyBuffing
 
                 var activeBuffs = member.Player.State.ActiveBuffs;
 
-
-                Container.View.ActiveBuffsList.BeginUpdate();
-                Container.View.ActiveBuffsList.Items.Clear();
-                foreach (var ab in activeBuffs)
-                {
-                    var item = Container.View.ActiveBuffsList.Items.Add(ab.Record.ToString());
-                    item.Tag = ab;
-                    item.LoadSkillImage().Wait();
-                }
-                Container.View.ActiveBuffsList.EndUpdate();
-
                 var neededBuffs = buffingMember.Buffs
                     .Where(skillId => !activeBuffs.Any(p => p.Id == skillId || 
                     (Game.ReferenceManager.SkillData.TryGetValue(skillId, out var refSkill) && refSkill.Action_Overlap == p.Record.Action_Overlap)));
