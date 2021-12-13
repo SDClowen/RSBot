@@ -50,7 +50,6 @@
     <Compile Include="BotWindow.cs" />
     <Compile Include="Client\DDSImage.cs" />
     <Compile Include="Client\IReference.cs" />
-    <Compile Include="Client\ReferenceObjects\RefObjStruct.cs" />
     <Compile Include="Client\ReferenceObjects\RefPackageItemScrap.cs" />
     <Compile Include="Client\ReferenceObjects\RefText.cs" />
     <Compile Include="Client\ReferenceParser.cs" />
@@ -142,6 +141,8 @@
     <Compile Include="Objects\InventoryItemState.cs" />
     <Compile Include="Objects\ScrollState.cs" />
     <Compile Include="Objects\Skill\IDataInfo.cs" />
+    <Compile Include="Objects\Spawn\SpawnedEntity.cs" />
+    <Compile Include="Objects\Spawn\SpawnedNpcNpc.cs" />
     <Compile Include="Objects\TeleportType.cs" />
     <Compile Include="Objects\WeaponType.cs" />
     <Compile Include="Config\Config.cs" />
@@ -231,7 +232,7 @@
     <Compile Include="Network\Protocol\TransferBuffer.cs" />
     <Compile Include="Network\NetworkUtilities.cs" />
     <Compile Include="Objects\BodyState.cs" />
-    <Compile Include="Objects\Entity.cs" />
+    <Compile Include="Objects\SelectedGameEntity.cs" />
     <Compile Include="Objects\Inventory.cs" />
     <Compile Include="Objects\InventoryItem.cs" />
     <Compile Include="Objects\AutoInverstType.cs" />
@@ -259,14 +260,13 @@
     <Compile Include="Objects\Skill\SkillInfo.cs" />
     <Compile Include="Objects\Skill\SkillLearnErrorCode.cs" />
     <Compile Include="Objects\Skill\SkillMasteryLearnErrorCode.cs" />
-    <Compile Include="Objects\Spawns.cs" />
+    <Compile Include="Components\SpawnManager.cs" />
     <Compile Include="Objects\JobType.cs" />
     <Compile Include="Objects\Spawn\SpawnedBionic.cs" />
     <Compile Include="Objects\Spawn\SpawnedCos.cs" />
     <Compile Include="Objects\Spawn\SpawnedSpellArea.cs" />
     <Compile Include="Objects\Spawn\SpawnedFortressStructure.cs" />
     <Compile Include="Objects\Spawn\SpawnedItem.cs" />
-    <Compile Include="Objects\Spawn\SpawnedBionicType.cs" />
     <Compile Include="Objects\Spawn\SpawnedMonster.cs" />
     <Compile Include="Objects\Spawn\SpawnedNpc.cs" />
     <Compile Include="Objects\Spawn\SpawnedPlayer.cs" />

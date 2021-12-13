@@ -1,6 +1,8 @@
 ﻿using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Network;
+using RSBot.Core.Objects.Spawn;
 using System.Linq;
 using System.Timers;
 
@@ -108,7 +110,7 @@ namespace RSBot.Core.Objects
         /// <value>
         /// The bionic.
         /// </value>
-        public Spawn.SpawnedBionic Bionic => Core.Game.Spawns.GetBionic(UniqueId);
+        public SpawnedBionic Bionic => SpawnManager.TryGetEntity<SpawnedBionic>(UniqueId);
 
         /// <summary>
         /// Gets or sets the bad effect.

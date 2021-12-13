@@ -1,4 +1,5 @@
 ﻿using RSBot.Core;
+using RSBot.Core.Components;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
 using System.Linq;
@@ -12,39 +13,30 @@ namespace RSBot.Bot.Default.Bundle.Target
         /// </summary>
         public void Invoke()
         {
-            if (Game.SelectedEntity?.Bionic?.State?.LifeState == LifeState.Alive &&
-                !Game.SelectedEntity.Bionic.IsBehindObstacle)
+            if (Game.SelectedEntity != null)
                 return;
 
+            /*var entity = Game.SelectedEntity.Entity;
+            if (entity.State.LifeState == LifeState.Alive && !entity.IsBehindObstacle)
+                return;
+            */
             var monster = GetNearestEnemy();
-            if (monster == null) 
-                return;
-
-            var character = monster.Character;
-            if (character == null)
-                return;
-
-            var bionic = character.Bionic;
-            if (bionic == null)
-                return;
-
-            var tracker = bionic.Tracker;
-            if (tracker == null)
+            if (monster == null)
                 return;
 
             //Check if the monster is still inside our range
-            var distanceToCenter = tracker.Position.DistanceTo(Container.Bot.Area.CenterPosition);
+            var distanceToCenter = monster.Tracker.Position.DistanceTo(Container.Bot.Area.CenterPosition);
 
             const int tolarance = 10;
             if (distanceToCenter > Container.Bot.Area.Radius + tolarance)
                 return;
 
             //Move closer to the monster
-            var distanceToPlayer = monster.Character.Bionic.Tracker.Position.DistanceTo(Game.Player.Tracker.Position);
+            var distanceToPlayer = monster.Tracker.Position.DistanceTo(Game.Player.Tracker.Position);
             if (distanceToPlayer >= 80)
-                Game.Player.Move(monster.Character.Bionic.Tracker.Position/*.BehindTo(monster.Character.Bionic.Tracker.Position, 20)*/);
+                Game.Player.Move(monster.Tracker.Position/*.BehindTo(monster.Character.Bionic.Tracker.Position, 20)*/);
 
-            if (!Game.Player.SelectEntity(monster.Character.Bionic.UniqueId))
+            if (!Game.Player.SelectEntity(monster.UniqueId))
                 Invoke();
         }
 
@@ -54,16 +46,15 @@ namespace RSBot.Bot.Default.Bundle.Target
         /// <returns></returns>
         private SpawnedMonster GetNearestEnemy()
         {
-            return Game.Spawns.GetMonsters()
-                    .Where(m => m != null &&
-                           m.Character.Bionic.State.LifeState != LifeState.Dead &&
-                           m.Character.Bionic.IsBehindObstacle == false &&
-                           !Bundles.Avoidance.AvoidMonster(m.Rarity)
-                          )
-                    .OrderBy(m => m.Character.Bionic.Tracker?.Position.DistanceTo(Container.Bot.Area.CenterPosition))
-                    .OrderByDescending(m => m.Character.Bionic.AttackingPlayer)
-                    .OrderByDescending(m => Bundles.Avoidance.PreferMonster(m.Rarity))
-                    .FirstOrDefault();
+            if (!SpawnManager.TryGetEntities<SpawnedMonster>(out var entities, m => m.State.LifeState != LifeState.Dead &&
+                            m.IsBehindObstacle == false &&
+                            !Bundles.Avoidance.AvoidMonster(m.Rarity)))
+                    return default(SpawnedMonster);
+
+            return entities.OrderBy(m => m.Tracker?.Position.DistanceTo(Container.Bot.Area.CenterPosition))
+                           .OrderByDescending(m => m.AttackingPlayer)
+                           .OrderByDescending(m => Bundles.Avoidance.PreferMonster(m.Rarity))
+                           .FirstOrDefault();
         }
 
         /// <summary>

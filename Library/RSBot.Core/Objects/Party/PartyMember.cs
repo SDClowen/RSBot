@@ -1,4 +1,5 @@
 ﻿using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Components;
 using RSBot.Core.Network;
 using RSBot.Core.Objects.Spawn;
 
@@ -14,7 +15,7 @@ namespace RSBot.Core.Objects.Party
         /// <summary>
         /// Get the party member spawned info
         /// </summary>
-        public SpawnedPlayer Player => Game.Spawns.GetPlayerByName(Name);
+        public SpawnedPlayer Player => SpawnManager.TryGetEntity<SpawnedPlayer>(p => p.Name == Name);
 
         /// <summary>
         /// Gets or sets the name.

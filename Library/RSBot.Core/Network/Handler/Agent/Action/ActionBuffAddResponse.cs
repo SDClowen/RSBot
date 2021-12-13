@@ -1,5 +1,7 @@
-﻿using RSBot.Core.Event;
+﻿using RSBot.Core.Components;
+using RSBot.Core.Event;
 using RSBot.Core.Objects.Skill;
+using RSBot.Core.Objects.Spawn;
 
 namespace RSBot.Core.Network.Handler.Agent.Action
 {
@@ -52,9 +54,8 @@ namespace RSBot.Core.Network.Handler.Agent.Action
                 return;
             }
 
-            var bionic = Core.Game.Spawns.GetBionic(targetId);
-            if(bionic != null)
-                bionic.State.ActiveBuffs.Add(buffInfo);
+            if (SpawnManager.TryGetEntity<SpawnedBionic>(targetId, out var entity))
+                entity.State.ActiveBuffs.Add(buffInfo);
         }
     }
 }

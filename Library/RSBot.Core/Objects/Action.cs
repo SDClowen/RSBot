@@ -1,4 +1,5 @@
-﻿using RSBot.Core.Network;
+﻿using RSBot.Core.Components;
+using RSBot.Core.Network;
 using RSBot.Core.Objects.Spawn;
 
 namespace RSBot.Core.Objects
@@ -115,7 +116,8 @@ namespace RSBot.Core.Objects
                 for (int i = 0; i < affectedObjectCount; i++)
                 {
                     var uniqueId = packet.ReadUInt();
-                    var entity = Game.Spawns.GetBionic(uniqueId);
+                    if (!SpawnManager.TryGetEntity<SpawnedBionic>(uniqueId, out var entity))
+                        continue;
 
                     var state = (ActionHitStateFlag)packet.ReadByte();
 
@@ -132,7 +134,7 @@ namespace RSBot.Core.Objects
                     }
 
                     // dont worry it will return true for knockdown states
-                    if (state.HasFlag(ActionHitStateFlag.KnockBack)) 
+                    if (state.HasFlag(ActionHitStateFlag.KnockBack))
                     {
                         var position = Position.FromPacketInt(packet);
                         if (entity == null)
@@ -152,7 +154,7 @@ namespace RSBot.Core.Objects
                 }
                 else
                 {
-                    var executor = GetExecutor();
+                    var executor = GetExecutor<SpawnedBionic>();
                     if (executor == null)
                         return;
 
@@ -164,20 +166,24 @@ namespace RSBot.Core.Objects
         /// <summary>
         /// Gets the executor.
         /// </summary>
-        public SpawnedBionic GetExecutor()
+        public T GetExecutor<T>() where T : SpawnedBionic
         {
-            return ExecutorId == Game.Player.UniqueId ? null : Game.Spawns.GetBionic(ExecutorId);
+            if (ExecutorId == Game.Player.UniqueId)
+                return default(T);
+
+            return SpawnManager.TryGetEntity<T>(ExecutorId);
         }
 
         /// <summary>
         /// Gets the target.
         /// </summary>
         /// <returns></returns>
-        public SpawnedBionic GetTarget()
+        public SpawnedEntity GetTarget()
         {
-            if (TargetId == Game.Player.UniqueId) return null;
+            if (TargetId == Game.Player.UniqueId)
+                return null;
 
-            return Game.Spawns.GetBionic(TargetId);
+            return SpawnManager.TryGetEntity<SpawnedEntity>(TargetId);
         }
     }
 }

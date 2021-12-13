@@ -1,4 +1,5 @@
-﻿using RSBot.Core.Event;
+﻿using RSBot.Core.Components;
+using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Network;
 using RSBot.Core.Plugins;
@@ -17,6 +18,11 @@ namespace RSBot.Core
         /// The client process identifier
         /// </summary>
         private static int _clientProcessId;
+
+        /// <summary>
+        /// The updater token source
+        /// </summary>
+        private static CancellationTokenSource _updaterTokenSource;
 
         /// <summary>
         /// The tick timer
@@ -111,10 +117,23 @@ namespace RSBot.Core
             RegisterNetworkHandlers();
             RegisterNetworkHooks();
 
-            //Global application tick
-            _tickTimer = new Timer(100) { AutoReset = true };
-            _tickTimer.Elapsed += TickTimer_Elapsed;
-            _tickTimer.Start();
+            _updaterTokenSource = new CancellationTokenSource();
+            
+            Task.Factory.StartNew(ComponentUpdaterAsync, _updaterTokenSource.Token, TaskCreationOptions.LongRunning, TaskScheduler.Current);
+        }
+
+        private static async Task ComponentUpdaterAsync()
+        {
+            while (!_updaterTokenSource.IsCancellationRequested)
+            {
+                if (Game.Ready)
+                {
+                    SpawnManager.Update();
+                    EventManager.FireEvent("OnTick");
+                }
+
+                await Task.Delay(100);
+            }
         }
 
         /// <summary>
@@ -127,17 +146,6 @@ namespace RSBot.Core
                 return;
 
             NativeExtensions.SetWindowText(ClientProcess.MainWindowHandle, title);
-        }
-
-        /// <summary>
-        /// Handles the Elapsed event of the TickTimer control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Timers.ElapsedEventArgs"/> instance containing the event data.</param>
-        private static void TickTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
-        {
-            if (Game.Ready)
-                EventManager.FireEvent("OnTick");
         }
 
         /// <summary>

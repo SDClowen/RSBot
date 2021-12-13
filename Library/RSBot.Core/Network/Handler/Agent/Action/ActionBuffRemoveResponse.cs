@@ -1,4 +1,6 @@
-﻿using RSBot.Core.Event;
+﻿using RSBot.Core.Components;
+using RSBot.Core.Event;
+using RSBot.Core.Objects.Spawn;
 
 namespace RSBot.Core.Network.Handler.Agent.Action
 {
@@ -52,8 +54,7 @@ namespace RSBot.Core.Network.Handler.Agent.Action
                     return;
                 }
 
-                var bionic = Core.Game.Spawns.GetBionicByToken(token);
-                if (bionic == null)
+                if (!SpawnManager.TryGetEntity<SpawnedBionic>(p => p.State.HasActiveBuff(token, out _), out var bionic))
                     return;
 
                 bionic.State.TryRemoveActiveBuff(token, out var removedBuff);

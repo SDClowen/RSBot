@@ -1,4 +1,6 @@
-﻿using RSBot.Core.Event;
+﻿using RSBot.Core.Components;
+using RSBot.Core.Event;
+using RSBot.Core.Objects.Spawn;
 
 namespace RSBot.Core.Network.Handler.Agent.Entity
 {
@@ -31,10 +33,10 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
         public void Invoke(Packet packet)
         {
             var itemUniqueId = packet.ReadUInt();
-            var item = Core.Game.Spawns.GetItem(itemUniqueId);
-            if (item == null) return;
+            if (!SpawnManager.TryGetEntity<SpawnedItem>(itemUniqueId, out var entity))
+                return;
 
-            item.HasOwner = false;
+            entity.HasOwner = false;
 
             EventManager.FireEvent("OnRemoveItemOwnership", itemUniqueId);
         }

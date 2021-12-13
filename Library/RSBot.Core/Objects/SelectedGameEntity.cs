@@ -1,11 +1,10 @@
-﻿using RSBot.Core.Client.ReferenceObjects;
+﻿using RSBot.Core.Components;
 using RSBot.Core.Network;
 using RSBot.Core.Objects.Spawn;
-using System.Collections.Generic;
 
 namespace RSBot.Core.Objects
 {
-    public class Entity
+    public class SelectedGameEntity
     {
         /// <summary>
         /// Gets or sets the unique identifier.
@@ -41,14 +40,11 @@ namespace RSBot.Core.Objects
         {
             get
             {
-                if (Monster == null)
+                if (!(Entity is SpawnedMonster monster))
                     return 0;
 
-                if (Bionic == null)
-                    return 0;
-
-                var baseHealth = (uint)Bionic.Record.MaxHealth;
-                switch (Monster.Rarity)
+                var baseHealth = (uint)monster.Record.MaxHealth;
+                switch (monster.Rarity)
                 {
                     case MonsterRarity.Champion:
                         return baseHealth * 2;
@@ -78,14 +74,6 @@ namespace RSBot.Core.Objects
         }
 
         /// <summary>
-        /// Gets or sets the bionic.
-        /// </summary>
-        /// <value>
-        /// The bionic.
-        /// </value>
-        public SpawnedBionic Bionic => Game.Spawns.GetBionic(UniqueId);
-
-        /// <summary>
         /// Gets or sets the talk options.
         /// </summary>
         /// <value>
@@ -94,83 +82,34 @@ namespace RSBot.Core.Objects
         public byte[] TalkOptions { get; set; }
 
         /// <summary>
-        /// Gets a value indicating whether this instance is a portal.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is gate; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsPortal => Bionic == null && TeleportLinks != null;
-
-        /// <summary>
-        /// Gets or sets the teleport links.
-        /// </summary>
-        /// <value>
-        /// The teleport links.
-        /// </value>
-        public List<RefTeleportLink> TeleportLinks { get; set; }
-
-        /// <summary>
-        /// Gets the monster.
-        /// </summary>
-        /// <value>
-        /// The monster.
-        /// </value>
-        public SpawnedMonster Monster => Game.Spawns.GetMonster(UniqueId);
-
-        /// <summary>
         /// Gets the player.
         /// </summary>
         /// <value>
         /// The player.
         /// </value>
-        public SpawnedPlayer Player => Game.Spawns.GetPlayer(UniqueId);
+        public SpawnedBionic Entity => SpawnManager.TryGetEntity<SpawnedBionic>(UniqueId);
 
         /// <summary>
         /// Froms the packet.
         /// </summary>
         /// <param name="packet">The packet.</param>
         /// <returns></returns>
-        internal static Entity FromPacket(Packet packet)
+        internal static SelectedGameEntity FromPacket(Packet packet)
         {
-            var result = new Entity
+            var result = new SelectedGameEntity
             {
                 UniqueId = packet.ReadUInt()
             };
 
-            #region Portal
-
-            if (result.Bionic == null) //Only gates have no bionic record
-            {
-                //GATE
-                var portal = Game.Spawns.GetPortal(result.UniqueId);
-                if (portal == null) return null; //could be an item either but that's invalid anyway^^
-
-                result.TeleportLinks = portal.GetLinks();
-
-                //STORE_
-                result.TalkOptions = packet.ReadByteArray(packet.ReadByte());
-                return result;
-            }
-
-            #endregion Portal
-
-            #region Monster
-
-            if (result.Bionic.Record.TypeID2 == 2 && result.Bionic.Record.TypeID3 == 1)
+            if (result.Entity is SpawnedMonster)
             {
                 var hasHealth = packet.ReadBool();
                 if (hasHealth)
                     result.Health = packet.ReadUInt();
 
                 result.TalkOptions = packet.ReadByteArray(packet.ReadByte());
-                return result;
             }
-
-            #endregion Monster
-
-            #region NPC
-
-            if (result.Bionic.Record.TypeID2 == 2 && result.Bionic.Record.TypeID3 == 2)
+            else if (result.Entity is SpawnedNpcNpc)
             {
                 var hasHealth = packet.ReadBool();
                 if (hasHealth)
@@ -178,24 +117,16 @@ namespace RSBot.Core.Objects
 
                 result.TalkOptions = packet.ReadByteArray(packet.ReadByte());
                 packet.ReadByte(); //CTF NPC
-                return result;
             }
-
-            #endregion NPC
-
-            #region Player
-
-            if (result.Bionic.Record.TypeID2 == 1)
+            else if (result.Entity is SpawnedPlayer)
+            {
                 result.TalkOptions = packet.ReadByteArray(packet.ReadByte());
-
-            #endregion Player
-
-            #region Cos
-
-            if (result.Bionic.Record.TypeID2 == 2 && result.Bionic.Record.TypeID3 == 3)
-                return result;
-
-            #endregion Cos
+            }
+            else if (result.Entity is SpawnedPortal)
+            {
+                //STORE_
+                result.TalkOptions = packet.ReadByteArray(packet.ReadByte());
+            }
 
             return result;
         }

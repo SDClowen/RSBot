@@ -41,20 +41,20 @@ namespace RSBot.Bot.Default.Bundle.Resurrect
                     continue;
 
                 if (member.Player == null ||
-                    member.Player.Bionic == null)
+                    member.Player == null)
                     continue;
 
-                if (member.Player.Bionic.Tracker.Position.DistanceTo(Game.Player.Tracker.Position) > 100)
+                if (member.Player.Tracker.Position.DistanceTo(Game.Player.Tracker.Position) > 100)
                     continue;
 
-                if (member.Player.Bionic.State.LifeState == LifeState.Dead)
+                if (member.Player.State.LifeState == LifeState.Dead)
                 {
                     if (!_lastResurrectedPlayers.ContainsKey(member.Name))
                         _lastResurrectedPlayers.Add(member.Name, Environment.TickCount);
                     else
                         _lastResurrectedPlayers[member.Name] = Environment.TickCount;
 
-                    SkillManager.CastBuff(SkillManager.ResurrectionSkill, member.Player.Bionic.UniqueId);
+                    SkillManager.CastBuff(SkillManager.ResurrectionSkill, member.Player.UniqueId);
                 }
 
             }

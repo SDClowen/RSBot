@@ -79,7 +79,7 @@ namespace RSBot.Bot.Default.Bundle.PartyBuffing
                 if(buffingMember.Buffs.Count == 0)
                     continue;
 
-                var activeBuffs = member.Player.Bionic.State.ActiveBuffs;
+                var activeBuffs = member.Player.State.ActiveBuffs;
 
 
                 Container.View.ActiveBuffsList.BeginUpdate();
@@ -102,7 +102,7 @@ namespace RSBot.Bot.Default.Bundle.PartyBuffing
                     if (skill == null || skill.HasCooldown)
                         continue;
 
-                    SkillManager.CastBuff(skill, member.Player.Bionic.UniqueId);
+                    SkillManager.CastBuff(skill, member.Player.UniqueId);
                 }
             }
         }

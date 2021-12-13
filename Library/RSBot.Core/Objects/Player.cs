@@ -2,6 +2,7 @@
 using RSBot.Core.Components;
 using RSBot.Core.Network;
 using RSBot.Core.Objects.Skill;
+using RSBot.Core.Objects.Spawn;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -971,11 +972,10 @@ namespace RSBot.Core.Objects
         /// <param name="itemUniqueId">The item unique identifier.</param>
         public void Pickup(uint itemUniqueId)
         {
-            var item = Game.Spawns.GetItem(itemUniqueId);
+            if (!SpawnManager.TryGetEntity(itemUniqueId, out var entity)) 
+                return;
 
-            if (item == null) return;
-
-            if (CollisionManager.HasCollisionBetween(item.Position, Tracker.Position))
+            if (CollisionManager.HasCollisionBetween(entity.Tracker.Position, Tracker.Position))
                 return;
 
             var packet = new Packet(0x7074);
@@ -986,7 +986,7 @@ namespace RSBot.Core.Objects
 
             packet.Lock();
 
-            var distance = Game.Player.Tracker.Position.DistanceTo(item.Position);
+            var distance = Game.Player.Tracker.Position.DistanceTo(entity.Tracker.Position);
             if (distance > 1000)
                 Log.Warn("Item too far away @" + distance);
 
@@ -1077,10 +1077,11 @@ namespace RSBot.Core.Objects
         /// <returns></returns>
         public bool DeselectEntity()
         {
-            if (Game.SelectedEntity == null || Game.SelectedEntity.Bionic == null) return true;
+            if (Game.SelectedEntity == null) 
+                return true;
 
             var packet = new Packet(0x704B);
-            packet.WriteUInt(Game.SelectedEntity.Bionic.UniqueId);
+            packet.WriteUInt(Game.SelectedEntity.UniqueId);
             packet.Lock();
 
             var awaitResult = new AwaitCallback(null, 0xB04B);

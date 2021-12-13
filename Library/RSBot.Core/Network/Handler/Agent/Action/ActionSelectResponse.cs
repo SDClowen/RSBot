@@ -28,7 +28,7 @@ namespace RSBot.Core.Network.Handler.Agent.Action
         {
             if (packet.ReadByte() != 0x01) return;
             Core.Game.LastSelectedEntity = Core.Game.SelectedEntity;
-            Core.Game.SelectedEntity = Objects.Entity.FromPacket(packet);
+            Core.Game.SelectedEntity = Objects.SelectedGameEntity.FromPacket(packet);
 
             EventManager.FireEvent("OnSelectEntity");
         }

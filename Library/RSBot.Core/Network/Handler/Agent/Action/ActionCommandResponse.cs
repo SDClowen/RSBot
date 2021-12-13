@@ -1,5 +1,6 @@
-﻿using RSBot.Core.Event;
+﻿using RSBot.Core.Components;
 using RSBot.Core.Objects;
+using RSBot.Core.Objects.Spawn;
 
 namespace RSBot.Core.Network.Handler.Agent.Action
 {
@@ -50,8 +51,7 @@ namespace RSBot.Core.Network.Handler.Agent.Action
                 var entityUniqueId = packet.ReadUInt();
                 var state = (ActionHitStateFlag)packet.ReadByte();
 
-                var entity = Core.Game.Spawns.GetBionic(entityUniqueId);
-                if (entity == null)
+                if (!SpawnManager.TryGetEntity<SpawnedBionic>(entityUniqueId, out var entity))
                     continue;
 
                 entity.State.HitState = state;

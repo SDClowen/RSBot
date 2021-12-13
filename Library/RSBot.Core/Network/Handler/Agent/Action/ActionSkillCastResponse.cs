@@ -1,5 +1,6 @@
 ﻿using RSBot.Core.Event;
 using RSBot.Core.Objects;
+using RSBot.Core.Objects.Spawn;
 
 namespace RSBot.Core.Network.Handler.Agent.Action
 {
@@ -43,7 +44,7 @@ namespace RSBot.Core.Network.Handler.Agent.Action
                 return;
             }
 
-            var executor = action.GetExecutor();
+            var executor = action.GetExecutor<SpawnedBionic>();
             if (executor == null) 
                 return;
 

@@ -3,21 +3,8 @@ using RSBot.Core.Network;
 
 namespace RSBot.Core.Objects.Spawn
 {
-    public class SpawnedItem
+    public class SpawnedItem : SpawnedEntity
     {
-        /// <summary>
-        /// The UniqueId
-        /// </summary>
-        public uint UniqueId;
-
-        /// <summary>
-        /// Gets or sets the item identifier.
-        /// </summary>
-        /// <value>
-        /// The item identifier.
-        /// </value>
-        public uint Id;
-
         /// <summary>
         /// Gets or sets the opt level.
         /// </summary>
@@ -75,11 +62,6 @@ namespace RSBot.Core.Objects.Spawn
         public RefObjItem Record => Game.ReferenceManager.GetRefItem(Id);
 
         /// <summary>
-        /// The position
-        /// </summary>
-        public Position Position;
-
-        /// <summary>
         /// Froms the packet.
         /// </summary>
         /// <param name="packet">The packet.</param>
@@ -97,7 +79,7 @@ namespace RSBot.Core.Objects.Spawn
                 result.OwnerName = packet.ReadString();
 
             result.UniqueId = packet.ReadUInt();
-            result.Position = Position.FromPacket(packet);
+            result.Tracker = new Components.PositionTracker(Position.FromPacket(packet));
             result.HasOwner = packet.ReadBool();
 
             if (result.HasOwner)

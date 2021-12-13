@@ -1,5 +1,6 @@
 ﻿using RSBot.Core.Event;
 using RSBot.Core.Extensions;
+using RSBot.Core.Objects.Spawn;
 using System;
 using System.Windows.Forms;
 using Game = RSBot.Core.Game;
@@ -33,10 +34,15 @@ namespace RSBot.Views.Controls
         private void OnSelectEntity()
         {
             var selectedEntity = Game.SelectedEntity;
+            if (selectedEntity == null || selectedEntity.Entity is SpawnedPortal) 
+                return;
 
-            if (selectedEntity == null || selectedEntity.IsPortal || selectedEntity.Bionic == null) return;
+            var entity = selectedEntity.Entity;
 
-            lblEntityName.Text = selectedEntity.Player != null ? selectedEntity.Player.Name : selectedEntity.Bionic.Record.GetRealName();
+            if (entity is SpawnedPlayer player)
+                lblEntityName.Text = player.Name;
+            else
+                lblEntityName.Text = entity.Record.GetRealName();
 
             var healthPercent = (double)selectedEntity.Health / (double)selectedEntity.MaxHealth *
                                 100;
@@ -50,7 +56,10 @@ namespace RSBot.Views.Controls
 
             progressHP.Text = progressHP.Position + @"%";
 
-            lblType.Text = selectedEntity.Monster != null ? selectedEntity.Monster.Rarity.Getname() : "";
+            if (entity is SpawnedMonster monster)
+                lblType.Text = monster.Rarity.Getname();
+            else
+                lblType.Text = string.Empty;
         }
 
         /// <summary>
@@ -71,8 +80,10 @@ namespace RSBot.Views.Controls
         {
             var selectedEntity = Game.SelectedEntity;
 
-            if (selectedEntity == null) return;
-            if (selectedEntity.Bionic == null)
+            if (selectedEntity == null) 
+                return;
+
+            if (selectedEntity.Entity == null)
             {
                 lblEntityName.Text = @"No entity selected";
                 progressHP.Position = 0;

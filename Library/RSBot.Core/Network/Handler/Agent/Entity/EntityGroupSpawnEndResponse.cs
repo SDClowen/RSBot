@@ -1,5 +1,5 @@
-﻿using RSBot.Core.Event;
-using RSBot.Core.Objects.Spawn;
+﻿using RSBot.Core.Components;
+using RSBot.Core.Event;
 using System;
 
 namespace RSBot.Core.Network.Handler.Agent.Entity
@@ -38,73 +38,15 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                     switch (Core.Game.SpawnInfo.Type)
                     {
                         case 0x01: //Spawn
-                            var refObjId = packet.ReadUInt();
 
-                            #region Skill area
-
-                            if (refObjId == uint.MaxValue)
-                            {
-                                Core.Game.Spawns.SpellAreas.Add(SpawnedSpellArea.FromPacket(packet));
-                                EventManager.FireEvent("OnSpawnSpellArea", Core.Game.Spawns.SpellAreas[Core.Game.Spawns.SpellAreas.Count - 1]);
-                                return; //End of the packet
-                            }
-
-                            #endregion Skill area
-
-                            var obj = Core.Game.ReferenceManager.GetRefObjCommon((uint)refObjId);
-
-                            switch (obj.TypeID1)
-                            {
-                                #region Player
-
-                                case 1:
-                                    var bionic = new SpawnedBionic
-                                    {
-                                        ObjId = obj.ID
-                                    };
-
-                                    if (obj.TypeID2 == 1) //Player
-                                        Core.Game.Spawns.Players.Add(SpawnedPlayer.FromPacket(packet, bionic));
-                                    else if (obj.TypeID2 == 2 && obj.TypeID3 == 5)
-                                    {
-                                        //NPC_FORTRESS_STRUCT
-                                        Core.Game.Spawns.FortressStructures.Add(SpawnedFortressStructure.FromPacket(packet,
-                                            bionic));
-
-                                        EventManager.FireEvent("OnSpawnFortressStructure", Core.Game.Spawns.GetFortressStructure(bionic.UniqueId));
-                                    }
-
-                                    bionic.ParseDetails(packet);
-
-                                    break;
-
-                                #endregion Player
-
-                                #region Item
-
-                                case 3:
-                                    Core.Game.Spawns.Items.Add(SpawnedItem.FromPacket(packet, refObjId));
-                                    EventManager.FireEvent("OnSpawnItem", Core.Game.Spawns.GetItem(Core.Game.Spawns.Items[Core.Game.Spawns.Items.Count - 1].UniqueId));
-                                    break;
-
-                                #endregion Item
-
-                                #region Teleporters
-
-                                case 4:
-                                    Core.Game.Spawns.Portals.Add(SpawnedPortal.FromPacket(packet, refObjId));
-                                    EventManager.FireEvent("OnSpawnPortal", Core.Game.Spawns.GetPortal(Core.Game.Spawns.Portals[Core.Game.Spawns.Portals.Count - 1].UniqueId));
-                                    break;
-
-                                    #endregion Teleporters
-                            }
+                            SpawnManager.Parse(packet, true);
 
                             break;
 
                         case 0x02: //Despawn
                             var uniqueId = packet.ReadUInt();
-                            Core.Game.Spawns.Remove(uniqueId);
-                            EventManager.FireEvent("OnDespawnEntity", uniqueId);
+                            SpawnManager.TryRemove(uniqueId, out var removedEntity);
+                            EventManager.FireEvent("OnDespawnEntity", removedEntity);
                             break;
                     }
                 }

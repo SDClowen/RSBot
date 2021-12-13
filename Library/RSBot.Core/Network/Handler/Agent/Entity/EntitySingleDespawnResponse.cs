@@ -1,4 +1,5 @@
-﻿using RSBot.Core.Event;
+﻿using RSBot.Core.Components;
+using RSBot.Core.Event;
 
 namespace RSBot.Core.Network.Handler.Agent.Entity
 {
@@ -27,9 +28,8 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
         public void Invoke(Packet packet)
         {
             var uniqueId = packet.ReadUInt();
-            Core.Game.Spawns.Remove(uniqueId);
-
-            EventManager.FireEvent("OnDespawnEntity", uniqueId);
+            SpawnManager.TryRemove(uniqueId, out var removedEntity);
+            EventManager.FireEvent("OnDespawnEntity", removedEntity);
         }
     }
 }

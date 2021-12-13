@@ -1,4 +1,5 @@
-﻿using RSBot.Core.Network;
+﻿using RSBot.Core.Components;
+using RSBot.Core.Network;
 using RSBot.Core.Objects.Spawn;
 using System.Collections.Generic;
 
@@ -34,7 +35,7 @@ namespace RSBot.Core.Objects.Exchange
         /// <value>
         /// The exchange player.
         /// </value>
-        public SpawnedPlayer ExchangePlayer => Game.Spawns.GetPlayer(_exchangePlayerUniqueId);
+        public SpawnedPlayer ExchangePlayer => SpawnManager.TryGetEntity<SpawnedPlayer>(_exchangePlayerUniqueId);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExchangeInstance"/> class.
