@@ -1,6 +1,7 @@
 ﻿using RSBot.Core;
-using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Event;
 using RSBot.Core.Objects;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,6 +18,50 @@ namespace RSBot.Inventory.Views
         {
             InitializeComponent();
             comboInventoryType.SelectedIndex = 0;
+            SubscribeEvents();
+        }
+
+        /// <summary>
+        /// Subscribes the events.
+        /// </summary>
+        private void SubscribeEvents()
+        {
+            EventManager.SubscribeEvent("OnLoadCharacter", () => {
+                if (Visible)
+                    UpdateInventoryList();
+            });
+
+            EventManager.SubscribeEvent("OnUpdateInventoryItem", new Action<byte>(OnUpdateInventoryItem));
+            EventManager.SubscribeEvent("OnUseItem", new Action<byte>(OnUpdateInventoryItem));
+        }
+
+        /// <summary>
+        /// Calling when update inventory item
+        /// </summary>
+        /// <param name="slot"></param>
+        private void OnUpdateInventoryItem(byte slot)
+        {
+            var key = slot.ToString();
+            if (!listViewMain.Items.ContainsKey(key))
+                return;
+
+            var inventoryItem = Game.Player.Inventory.GetItemAt(slot);
+            if (inventoryItem == null)
+                return;
+
+            var listViewItem = listViewMain.Items[key];
+
+            var name = inventoryItem.Record.GetRealName();
+            if (inventoryItem.OptLevel > 0)
+                name += " (+" + inventoryItem.OptLevel + ")";
+
+            listViewItem.SubItems[0].Text = name;
+            listViewItem.SubItems[1].Text = inventoryItem.Amount.ToString();
+
+            if (inventoryItem.Record.IsWear)
+                listViewItem.SubItems[2].Text = inventoryItem.Record.GetRarityName();
+
+            LoadItemImage(listViewItem);
         }
 
         /// <summary>
@@ -24,7 +69,8 @@ namespace RSBot.Inventory.Views
         /// </summary>
         public void UpdateInventoryList()
         {
-            if (Game.Player == null) return;
+            if (Game.Player == null) 
+                return;
 
             listViewMain.BeginUpdate();
             listViewMain.Items.Clear();
@@ -86,16 +132,37 @@ namespace RSBot.Inventory.Views
         /// <param name="item">The item.</param>
         private void AddItem(InventoryItem item)
         {
-            var lvItem = new ListViewItem { Text = item.Slot.ToString(), Tag = item.Record };
-
+            var name = item.Record.GetRealName();
             if (item.OptLevel > 0)
-                lvItem.SubItems.Add(item.Record.GetRealName(true) + " (+" + item.OptLevel + ")");
-            else
-                lvItem.SubItems.Add(item.Record.GetRealName(true));
+                name += " (+" + item.OptLevel + ")";
 
+            var lvItem = listViewMain.Items.Add(item.Slot.ToString(), name, 0);
+            lvItem.Tag = item;
             lvItem.SubItems.Add(item.Amount.ToString());
+            
+            if(item.Record.IsWear)
+                lvItem.SubItems.Add(item.Record.GetRarityName());
+        }
 
-            listViewMain.Items.Add(lvItem);
+        /// <summary>
+        /// Load the item image into the ListViewItem
+        /// </summary>
+        private void LoadItemImage(ListViewItem item)
+        {
+            var itemInfo = (InventoryItem)item.Tag;
+
+            //No need to reload the image from the PK2
+            if (imgItems.Images.ContainsKey(itemInfo.ItemId.ToString()))
+            {
+                item.ImageKey = itemInfo.ItemId.ToString();
+
+                return;
+            }
+
+            imgItems.Images.Add(itemInfo.ItemId.ToString(), itemInfo.Record.GetIcon());
+
+            //Renders the image
+            item.ImageKey = itemInfo.ItemId.ToString();
         }
 
         /// <summary>
@@ -104,22 +171,56 @@ namespace RSBot.Inventory.Views
         private void LoadItemImages()
         {
             foreach (ListViewItem item in listViewMain.Items)
-            {
-                var itemInfo = (RefObjItem)item.Tag;
+                LoadItemImage(item);
+        }
 
-                //No need to reload the image from the PK2
-                if (imgItems.Images.ContainsKey(itemInfo.ID.ToString()))
-                {
-                    item.ImageKey = itemInfo.ID.ToString();
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void Main_Load(object sender, System.EventArgs e)
+        {
+            var tab = Parent as TabPage;
+            tab.VisibleChanged += Parent_VisibleChanged;
+        }
 
-                    continue;
-                }
+        /// <summary>
+        /// Handles the visible changed event of the parent.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void Parent_VisibleChanged(object sender, System.EventArgs e)
+        {
+            if(!Visible)
+                listViewMain.Items.Clear();
+            else
+                UpdateInventoryList();
+        }
 
-                imgItems.Images.Add(itemInfo.ID.ToString(), itemInfo.GetIcon());
+        /// <summary>
+        /// Handles the selected index changed event of the comboInventoryType control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void comboInventoryType_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            UpdateInventoryList();
+        }
 
-                //Renders the image
-                item.ImageKey = itemInfo.ID.ToString();
-            }
+        /// <summary>
+        /// Handles the selected index changed event of the listViewMain control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void listViewMain_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            if (listViewMain.SelectedIndices.Count != 1)
+                return;
+
+            /*var listViewItem = listViewMain.SelectedItems[0];
+            var inventoryItem = listViewItem.Tag as InventoryItem;
+            buttonUseItem.Enabled = inventoryItem.Record.IsSkillItem;*/
         }
 
         /// <summary>
@@ -127,9 +228,21 @@ namespace RSBot.Inventory.Views
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void btnReload_Click(object sender, System.EventArgs e)
+        private void buttonUseItem_Click(object sender, System.EventArgs e)
         {
-            UpdateInventoryList();
+            if (listViewMain.SelectedIndices.Count != 1)
+                return;
+
+            var listViewItem = listViewMain.SelectedItems[0];
+            var inventoryItem = listViewItem.Tag as InventoryItem;
+            inventoryItem.Use();
+
+            /*var dialog = new UseItemDialog();
+            if(dialog.ShowDialog(this) == DialogResult.OK)
+            {
+
+                return;
+            }*/
         }
     }
 }

@@ -44,6 +44,11 @@ namespace RSBot.Core.Client.ReferenceObjects
         public bool IsQuest => IsStackable && TypeID3 == 9;
 
         /// <summary>
+        /// Is item type quest:<c>true</c> otherwise:<c>false</c>
+        /// </summary>
+        public bool IsSkillItem => IsStackable && TypeID3 == 13 && TypeID4 == 1;
+
+        /// <summary>
         /// Gets the degree of the item
         /// </summary>
         public int Degree => (ItemClass - 1) / 3 + 1;
@@ -73,13 +78,12 @@ namespace RSBot.Core.Client.ReferenceObjects
             return true;
         }
 
-        public override string GetRealName(bool displayRarity = false)
+        /// <summary>
+        /// Get item sox name
+        /// </summary>
+        /// <returns></returns>
+        public string GetRarityName()
         {
-            var baseName = base.GetRealName(displayRarity);
-
-            if (!displayRarity || Rarity < ObjectRarity.ClassC)
-                return baseName;
-
             string param = null;
             if (ItemClass < 31 || ItemClass > 34)
             {
@@ -105,7 +109,19 @@ namespace RSBot.Core.Client.ReferenceObjects
                 param = Game.ReferenceManager.GetTranslation("PARAM_RARE_FIRST2");
             }
 
-            return $"{baseName} ({param})";
+            return param;
+        }
+
+        public override string GetRealName(bool displayRarity = false)
+        {
+            var baseName = base.GetRealName(displayRarity);
+
+            if (!displayRarity || Rarity < ObjectRarity.ClassC)
+                return baseName;
+
+            
+
+            return $"{baseName} ({GetRarityName()})";
         }
 
         /// <summary>
@@ -118,11 +134,11 @@ namespace RSBot.Core.Client.ReferenceObjects
             {
                 return Game.MediaPk2.FileExists(Path.GetFileName(this.AssocFileIcon))
                     ? Game.MediaPk2.GetFile(Path.GetFileName(this.AssocFileIcon)).ToImage()
-                    : new Bitmap(16, 16);
+                    : new Bitmap(24, 24);
             }
             catch //DDS convert failed
             {
-                return new Bitmap(16, 16);
+                return new Bitmap(24, 24);
             }
         }
 

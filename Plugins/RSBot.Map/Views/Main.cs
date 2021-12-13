@@ -154,7 +154,7 @@ namespace RSBot.Map.Views
                         if (entry.Tracker == null)
                             continue;
 
-                        AddGridItem(entry.Record.GetRealName(), entry.Rarity.Getname(),
+                        AddGridItem(entry.Record.GetRealName(), entry.Rarity.GetName(),
                             entry.Record.Level, entry.Tracker.Position);
 
                         if (entry.Rarity == MonsterRarity.Unique || entry.Rarity == MonsterRarity.Unique2)

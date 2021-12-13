@@ -57,7 +57,7 @@ namespace RSBot.Views.Controls
             progressHP.Text = progressHP.Position + @"%";
 
             if (entity is SpawnedMonster monster)
-                lblType.Text = monster.Rarity.Getname();
+                lblType.Text = monster.Rarity.GetName();
             else
                 lblType.Text = string.Empty;
         }

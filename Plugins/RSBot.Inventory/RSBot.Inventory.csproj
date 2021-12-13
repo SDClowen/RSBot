@@ -37,8 +37,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrap.cs" />
@@ -49,6 +51,12 @@
     </Compile>
     <Compile Include="Views\Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UseItemDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\UseItemDialog.Designer.cs">
+      <DependentUpon>UseItemDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\View.cs" />
   </ItemGroup>
@@ -67,6 +75,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Views\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UseItemDialog.resx">
+      <DependentUpon>UseItemDialog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
