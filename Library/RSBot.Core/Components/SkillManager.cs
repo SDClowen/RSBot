@@ -50,16 +50,10 @@ namespace RSBot.Core.Components
         public static List<SkillInfo> Buffs { get; set; }
 
         /// <summary>
-        /// Gets or sets the party members buffs
-        /// </summary>
-        public static List<(string Member, List<SkillInfo> Buffs)> PartyMemberBuffs { get; set; }
-
-        /// <summary>
         /// Initializes this instance.
         /// </summary>
         internal static void Initialize()
         {
-            PartyMemberBuffs = new List<(string Member, List<SkillInfo> Buffs)>();
             Skills = Enum.GetValues(typeof(MonsterRarity)).Cast<MonsterRarity>().ToDictionary(v => v, v => new List<SkillInfo>());
             Buffs = new List<SkillInfo>();
 
@@ -159,9 +153,6 @@ namespace RSBot.Core.Components
             var currentWeapon = Game.Player.Inventory.GetItemAt(6);
             if (skill.ReqCast_Weapon1 == WeaponType.Any)
             {
-                if (skill.Basic_Code == "SKILL_EU_WARRIOR_ONEHANDA_SHIELD_A_12")
-                    Log.Debug(0);
-
                 var list = new List<TypeIdFilter>(8);
 
                 for (int i = 0; i < skill.Params.Count; i++)
