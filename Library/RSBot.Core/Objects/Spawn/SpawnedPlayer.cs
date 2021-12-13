@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace RSBot.Core.Objects.Spawn
 {
-    public class SpawnedPlayer
+    public sealed class SpawnedPlayer : SpawnedBionic
     {
         /// <summary>
         /// Gets or sets the name.
@@ -78,14 +78,6 @@ namespace RSBot.Core.Objects.Spawn
         /// The pk flag.
         /// </value>
         public byte PKFlag { get; set; }
-
-        /// <summary>
-        /// Gets or sets the bionic.
-        /// </summary>
-        /// <value>
-        /// The bionic.
-        /// </value>
-        public SpawnedBionic Bionic { get; set; }
 
         /// <summary>
         /// Gets or sets the interact mode.
@@ -196,30 +188,30 @@ namespace RSBot.Core.Objects.Spawn
         public bool WearsJobSuite { get; set; }
 
         /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <param name="objId">The obj id</param>
+        public SpawnedPlayer(uint objId)
+            : base(objId) { }
+
+        /// <summary>
         /// Froms the packet.
         /// </summary>
         /// <param name="packet">The packet.</param>
         /// <param name="bionic">The bionic.</param>
         /// <returns></returns>
-        internal static SpawnedPlayer FromPacket(Packet packet, SpawnedBionic bionic)
+        internal void Deserialize(Packet packet)
         {
-            var result = new SpawnedPlayer
-            {
-                Bionic = bionic,
-                Scale = packet.ReadByte(),
-                HwanLevel = packet.ReadByte(),
-                PvpCape = (PvpCapeType)packet.ReadByte(),
-                AutoInverstExp = (AutoInverstType)packet.ReadByte(),
-                InventorySize = packet.ReadByte()
-            };
+            Scale = packet.ReadByte();
+            HwanLevel = packet.ReadByte();
+            PvpCape = (PvpCapeType)packet.ReadByte();
+            AutoInverstExp = (AutoInverstType)packet.ReadByte();
+            InventorySize = packet.ReadByte();
 
             #region Regular equipment
 
-            //Read inventory
             var itemCount = packet.ReadByte();
-
-            if (itemCount > 0)
-                result.Inventory = new Dictionary<RefObjItem, byte>();
+            Inventory = new Dictionary<RefObjItem, byte>();
 
             for (var i = 0; i < itemCount; i++)
             {
@@ -234,23 +226,21 @@ namespace RSBot.Core.Objects.Spawn
                 }
 
                 //Check if the player wears a job-suit
-                if (itemObj.TypeID1 == 3 && itemObj.TypeID2 == 1 && itemObj.TypeID3 == 7)
-                    result.WearsJobSuite = true;
+                if (itemObj.TypeID2 == 1 && itemObj.TypeID3 == 7)
+                    WearsJobSuite = true;
 
-                if (itemObj.TypeID1 == 3 && itemObj.TypeID2 == 1)
-                    result.Inventory.Add(itemObj, packet.ReadByte()); //Item object and the "+" value as value
+                if (itemObj.TypeID2 == 1)
+                    Inventory.Add(itemObj, packet.ReadByte()); //Item object and the "+" value as value
             }
 
             #endregion Regular equipment
 
             #region Avatar equipment
 
-            //Read avatars
-            result.AvatarInventorySize = packet.ReadByte();
-            itemCount = packet.ReadByte();
+            Avatars = new Dictionary<RefObjItem, byte>();
 
-            if (itemCount > 0)
-                result.Avatars = new Dictionary<RefObjItem, byte>();
+            AvatarInventorySize = packet.ReadByte();
+            itemCount = packet.ReadByte();
 
             for (var i = 0; i < itemCount; i++)
             {
@@ -263,43 +253,34 @@ namespace RSBot.Core.Objects.Spawn
                     continue;
                 }
 
-                if (itemObj.TypeID1 == 3 && itemObj.TypeID2 == 1)
-                    result.Avatars.Add(itemObj, packet.ReadByte()); //Item object and the "+" value as value
+                Avatars.Add(itemObj, packet.ReadByte()); //Item object and the "+" value as value
             }
 
             #endregion Avatar equipment
 
             var hasMask = packet.ReadBool();
-
-            if (!hasMask)
-                return result;
-
-            var maskId = packet.ReadUInt();
-            var maskObj = Game.ReferenceManager.GetRefObjCommon(maskId);
-
-            if (maskObj == null)
+            if (hasMask)
             {
-                Log.Debug("Unknown mask item [" + maskId + "]");
-                return result;
+                var maskId = packet.ReadUInt();
+                var maskObj = Game.ReferenceManager.GetRefObjCommon(maskId);
+                if (maskObj == null)
+                {
+                    Log.Debug("Unknown mask item [" + maskId + "]");
+                    return;
+                }
+
+                if (maskObj.TypeID1 == Record.TypeID1 || maskObj.TypeID2 == Record.TypeID2)
+                {
+                    //duplicated player!
+                    var scale = packet.ReadByte();
+                    itemCount = packet.ReadByte();
+                    for (var i = 0; i < itemCount; i++)
+                        packet.ReadUInt(); //item id
+                }
             }
 
-            if (maskObj.TypeID1 != bionic.Record.TypeID1 || maskObj.TypeID2 != bionic.Record.TypeID2) return result;
+            ParseBionicDetails(packet);
 
-            //duplicated player!
-            packet.ReadByte(); //the mask scale
-            itemCount = packet.ReadByte();
-            for (var i = 0; i < itemCount; i++)
-                packet.ReadUInt(); //item id
-
-            return result;
-        }
-
-        /// <summary>
-        /// Parses the details.
-        /// </summary>
-        /// <param name="packet">The packet.</param>
-        internal void ParseDetails(Packet packet)
-        {
             Name = packet.ReadString();
             Job = (JobType)packet.ReadByte();
             JobLevel = packet.ReadByte();

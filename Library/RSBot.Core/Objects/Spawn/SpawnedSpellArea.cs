@@ -3,13 +3,8 @@ using RSBot.Core.Network;
 
 namespace RSBot.Core.Objects.Spawn
 {
-    public class SpawnedSpellArea
+    public class SpawnedSpellArea : SpawnedEntity
     {
-        /// <summary>
-        /// The UniqueId
-        /// </summary>
-        public uint CasterUniqueId;
-
         /// <summary>
         /// Gets or sets the skill identifier.
         /// </summary>
@@ -24,11 +19,6 @@ namespace RSBot.Core.Objects.Spawn
         public RefSkill Record => Game.ReferenceManager.GetRefSkill(SkillId);
 
         /// <summary>
-        /// The position
-        /// </summary>
-        public Position Position;
-
-        /// <summary>
         /// Froms the packet.
         /// </summary>
         /// <param name="packet">The packet.</param>
@@ -39,8 +29,8 @@ namespace RSBot.Core.Objects.Spawn
             var spellArea = new SpawnedSpellArea
             {
                 SkillId = packet.ReadUInt(),
-                CasterUniqueId = packet.ReadUInt(),
-                Position = Position.FromPacket(packet)
+                UniqueId = packet.ReadUInt(),
+                Tracker = new Components.PositionTracker(Position.FromPacket(packet))
             };
             return spellArea;
         }

@@ -1,4 +1,5 @@
 ﻿using RSBot.Core.Components;
+using RSBot.Core.Objects.Spawn;
 
 namespace RSBot.Core.Network.Hooks.Agent.Inventory
 {
@@ -27,19 +28,25 @@ namespace RSBot.Core.Network.Hooks.Agent.Inventory
         /// <returns></returns>
         public Packet ReplacePacket(Packet packet)
         {
-            if (packet.ReadByte() != 0x01 || !ShoppingManager.Running) return packet;
+            if (packet.ReadByte() != 0x01 || !ShoppingManager.Running) 
+                return packet;
 
             var type = packet.ReadByte();
 
-            if (type != 0x08) return packet;
+            if (type != 0x08) 
+                return packet;
 
             var tab = packet.ReadByte();
             var slot = packet.ReadByte();
             packet.ReadByte(); //count?
             var destination = packet.ReadByte();
             var amount = packet.ReadUShort();
+
+            if (!(Game.SelectedEntity.Entity is SpawnedBionic bionic))
+                return packet;
+
             var refPackageItem = Game.ReferenceManager.GetRefPackageItem(
-                Game.SelectedEntity.Bionic.Record.CodeName, tab, slot);
+                bionic.Record.CodeName, tab, slot);
 
             var refItem = Game.ReferenceManager.GetRefItem(refPackageItem.RefItemCodeName);
 

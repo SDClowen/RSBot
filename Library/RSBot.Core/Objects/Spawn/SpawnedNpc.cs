@@ -2,16 +2,8 @@
 
 namespace RSBot.Core.Objects.Spawn
 {
-    public class SpawnedNpc
+    public class SpawnedNpc : SpawnedBionic
     {
-        /// <summary>
-        /// Gets or sets the bionic.
-        /// </summary>
-        /// <value>
-        /// The bionic.
-        /// </value>
-        public SpawnedBionic Bionic { get; set; }
-
         /// <summary>
         /// Gets or sets the talk flag.
         /// </summary>
@@ -29,23 +21,24 @@ namespace RSBot.Core.Objects.Spawn
         public byte[] TalkOptions { get; set; }
 
         /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <param name="objId">The ref obj id</param>
+        public SpawnedNpc(uint objId) 
+            : base(objId) { }
+
+        /// <summary>
         /// Froms the packet.
         /// </summary>
         /// <param name="packet">The packet.</param>
         /// <param name="bionic">The bionic.</param>
         /// <returns></returns>
-        internal static SpawnedNpc FromPacket(Packet packet, SpawnedBionic bionic)
+        internal virtual void Deserialize(Packet packet)
         {
-            var result = new SpawnedNpc
-            {
-                Bionic = bionic,
-                TalkFlag = packet.ReadByte()
-            };
+            TalkFlag = packet.ReadByte();
 
-            if (result.TalkFlag == 2)
-                result.TalkOptions = packet.ReadByteArray(packet.ReadByte());
-
-            return result;
+            if (TalkFlag == 2)
+                TalkOptions = packet.ReadByteArray(packet.ReadByte());
         }
     }
 }

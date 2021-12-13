@@ -2,6 +2,7 @@
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Item;
+using RSBot.Core.Objects.Spawn;
 using System.Collections.Generic;
 
 namespace RSBot.Core.Network.Handler.Agent.Inventory
@@ -448,18 +449,20 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
             var destintationSlots = packet.ReadByteArray(itemAmount);
 
             var amount = packet.ReadUShort();
-            var npc = Core.Game.SelectedEntity == null ? Core.Game.LastSelectedEntity.Bionic : Core.Game.SelectedEntity.Bionic;
-
+            var npc = Core.Game.SelectedEntity == null ? Core.Game.LastSelectedEntity : Core.Game.SelectedEntity;
             if (npc == null)
             {
                 Log.Debug("Could not determine which item was bought, since currently no entity is selected.");
                 return;
             }
 
-            var refShopGoodObj = Core.Game.ReferenceManager.GetRefPackageItem(npc.Record.CodeName, tabIndex, tabSlot);
+            if (!(npc.Entity is SpawnedBionic bionic))
+                return;
+            
+            var refShopGoodObj = Core.Game.ReferenceManager.GetRefPackageItem(bionic.Record.CodeName, tabIndex, tabSlot);
             var item = Core.Game.ReferenceManager.GetRefItem(refShopGoodObj.RefItemCodeName);
 
-            Log.Notify($"Bought [{item.GetRealName(true)}] x {amount} from [{npc.Record.GetRealName()}]");
+            Log.Notify($"Bought [{item.GetRealName(true)}] x {amount} from [{bionic.Record.GetRealName()}]");
 
             //_ETC_
             if (itemAmount != destintationSlots.Length)
@@ -729,22 +732,24 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
             var tabSlot = packet.ReadByte();
             packet.ReadByte(); //item amount ololo.. ignore for now!
 
-            var npc = Core.Game.SelectedEntity == null ? Core.Game.LastSelectedEntity.Bionic : Core.Game.SelectedEntity.Bionic;
-
+            var npc = Core.Game.SelectedEntity == null ? Core.Game.LastSelectedEntity : Core.Game.SelectedEntity;
             if (npc == null)
             {
                 Log.Debug("Could not determine which item was bought, since currently no entity is selected.");
                 return;
             }
 
-            var refShopGoodObj = Core.Game.ReferenceManager.GetRefPackageItem(npc.Record.CodeName, tabIndex, tabSlot);
+            if (!(npc.Entity is SpawnedBionic bionic))
+                return;
+
+            var refShopGoodObj = Core.Game.ReferenceManager.GetRefPackageItem(bionic.Record.CodeName, tabIndex, tabSlot);
             var item = Core.Game.ReferenceManager.GetRefItem(refShopGoodObj.RefItemCodeName);
 
             var destinationSlot = packet.ReadByte();
 
             var amount = packet.ReadUShort();
 
-            Log.Notify($"Bought [{item.GetRealName()}] x{amount} from [{npc.Record.GetRealName()}]");
+            Log.Notify($"Bought [{item.GetRealName()}] x{amount} from [{bionic.Record.GetRealName()}]");
 
             Core.Game.Player.AbilityPet.Items.Add(new InventoryItem
             {

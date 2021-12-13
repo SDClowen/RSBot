@@ -1,6 +1,7 @@
 ﻿using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Network;
 using RSBot.Core.Objects;
+using RSBot.Core.Objects.Spawn;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -385,14 +386,13 @@ namespace RSBot.Core.Components
         /// <param name="npcCodeName">Name of the NPC code.</param>
         public static void SelectNPC(string npcCodeName)
         {
-            var npc = Game.Spawns.GetNpc(npcCodeName);
-            if (npc == null)
+            if (!SpawnManager.TryGetEntity<SpawnedNpcNpc>(p => p.Record.CodeName == npcCodeName, out var entity))
             {
                 Log.Debug("Cannot access the NPC [" + npcCodeName + "] because it does not exist nearby.");
                 return;
             }
 
-            Game.Player.SelectEntity(npc.Bionic.UniqueId);
+            Game.Player.SelectEntity(entity.UniqueId);
         }
 
         /// <summary>

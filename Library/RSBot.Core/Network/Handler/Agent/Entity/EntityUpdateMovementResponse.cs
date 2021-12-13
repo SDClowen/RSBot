@@ -1,6 +1,7 @@
 ﻿using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
+using RSBot.Core.Objects.Spawn;
 
 namespace RSBot.Core.Network.Handler.Agent.Entity
 {
@@ -59,16 +60,16 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                 return;
             }
 
-            var bionic = Core.Game.Spawns.GetBionic(uniqueId);
-            if (bionic == null) return;
+            if (!SpawnManager.TryGetEntity(uniqueId, out var entity)) 
+                return;
 
             if (movement.HasSource)
-                bionic.Tracker.SetSource(movement.Source);
+                entity.Tracker.SetSource(movement.Source);
 
             if (movement.HasDestination)
-                bionic.Tracker.Move(movement.Destination);
+                entity.Tracker.Move(movement.Destination);
             else
-                bionic.Tracker.Move(movement.Destination.Angle);
+                entity.Tracker.Move(movement.Destination.Angle);
 
             EventManager.FireEvent("OnEntityMove", uniqueId);
         }

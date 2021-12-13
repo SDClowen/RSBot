@@ -32,7 +32,8 @@ namespace RSBot.Core.Network.Handler.Agent.Game
 
             switch (Core.Game.AcceptanceRequest.Type)
             {
-                case InviteRequestType.Party:
+                case InviteRequestType.Party1:
+                case InviteRequestType.Party2:
 
                     Core.Game.AcceptanceRequest.Settings = PartySettings.FromType(packet.ReadByte());
 

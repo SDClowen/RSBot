@@ -1,5 +1,6 @@
 ﻿using RSBot.Core;
-using System.Linq;
+using RSBot.Core.Components;
+using RSBot.Core.Objects.Spawn;
 
 namespace RSBot.Bot.Default.Bundle.Berzerk
 {
@@ -29,7 +30,7 @@ namespace RSBot.Bot.Default.Bundle.Berzerk
 
             if (Config.SurroundedByMonsters)
             {
-                var mobAmount = Game.Spawns.GetMonsters().Count(m => m.Character.Bionic.AttackingPlayer && m.DistanceToPlayer < 20);
+                var mobAmount = SpawnManager.Count<SpawnedMonster>(m => m.AttackingPlayer && m.DistanceToPlayer < 20);
                 if (mobAmount >= Config.SurroundingMonsterAmount)
                 {
                     Game.Player.EnterBerzerkMode();
@@ -39,7 +40,7 @@ namespace RSBot.Bot.Default.Bundle.Berzerk
 
             if (!Config.BeeingAttackedByAwareMonster) return;
 
-            var awareMonsterAttacking = Game.Spawns.GetMonsters().Count(m => m.Character.Bionic.AttackingPlayer && Bundles.Avoidance.AvoidMonster(m.Rarity)) > 0;
+            var awareMonsterAttacking = SpawnManager.Count<SpawnedMonster>(m => m.AttackingPlayer && Bundles.Avoidance.AvoidMonster(m.Rarity)) > 0;
 
             if (awareMonsterAttacking)
                 Game.Player.EnterBerzerkMode();

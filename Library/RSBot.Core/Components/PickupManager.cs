@@ -81,15 +81,16 @@ namespace RSBot.Core.Components
             bool condition(SpawnedItem e)
             {
                 var tolarance = 15;
-                var isInside = e.Position.DistanceTo(centerPosition) <= radius + tolarance;
+                var isInside = e.Tracker.Position.DistanceTo(centerPosition) <= radius + tolarance;
                 var selfish = JustPickMyItems && e.OwnerJID == playerJid;
 
                 return isInside && (selfish || !JustPickMyItems);
             }
 
-            foreach (var item in Game.Spawns.GetItems().Where(i => condition(i))
-                                     .OrderBy(item => item.Position.DistanceTo(centerPosition))
-                                     .Take(5))
+            if (!SpawnManager.TryGetEntities<SpawnedItem>(out var entites, p => condition(p)))
+                return;
+
+            foreach (var item in entites.OrderBy(item => item.Tracker.Position.DistanceTo(centerPosition)).Take(5))
             {
                 if (!Running)
                     return;

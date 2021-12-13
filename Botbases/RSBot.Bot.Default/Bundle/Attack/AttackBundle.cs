@@ -24,10 +24,10 @@ namespace RSBot.Bot.Default.Bundle.Attack
                 return;
 
             if (Game.SelectedEntity == null ||
-                Game.SelectedEntity.Monster == null)
+                Game.SelectedEntity.Entity == null)
                 return;
 
-            if (Game.SelectedEntity.Bionic.IsBehindObstacle)
+            if (Game.SelectedEntity.Entity.IsBehindObstacle)
             {
                 Log.Debug("Deselecting entity because it moved behind an obstacle!");
                 Game.Player.DeselectEntity();

@@ -20,7 +20,7 @@ namespace RSBot.Core.Objects.Party
         /// <value>
         /// <c>true</c> if this instance has pending request; otherwise, <c>false</c>.
         /// </value>
-        public bool HasPendingRequest => Game.AcceptanceRequest != null && Game.AcceptanceRequest.Type == InviteRequestType.Party && Game.AcceptanceRequest.Player != null;
+        public bool HasPendingRequest => Game.AcceptanceRequest?.Type == InviteRequestType.Party1 || Game.AcceptanceRequest?.Type == InviteRequestType.Party2 && Game.AcceptanceRequest.Player != null;
 
         /// <summary>
         /// Gets a value indicating whether the current player is the party leader or not.

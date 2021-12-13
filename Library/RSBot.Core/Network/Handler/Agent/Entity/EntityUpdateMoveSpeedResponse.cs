@@ -1,4 +1,6 @@
-﻿using RSBot.Core.Event;
+﻿using RSBot.Core.Components;
+using RSBot.Core.Event;
+using RSBot.Core.Objects.Spawn;
 
 namespace RSBot.Core.Network.Handler.Agent.Entity
 {
@@ -40,8 +42,7 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
             }
             else
             {
-                var bionic = Core.Game.Spawns.GetBionic(uniqueId);
-                if (bionic == null)
+                if (!SpawnManager.TryGetEntity<SpawnedBionic>(uniqueId, out var bionic))
                     return;
 
                 bionic.State.WalkSpeed = walkSpeed;

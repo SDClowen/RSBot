@@ -1,7 +1,9 @@
 ﻿using RSBot.Core;
+using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
+using RSBot.Core.Objects.Spawn;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -140,37 +142,41 @@ namespace RSBot.Map.Views
         /// </summary>
         private void FillGrid(Graphics graphics)
         {
-            if (Game.Spawns == null) return;
-
             lvMonster.BeginUpdate();
             lvMonster.Items.Clear();
 
             if (comboViewType.SelectedIndex == 0 || comboViewType.SelectedIndex == 6)
             {
-                foreach (var entry in Game.Spawns.GetMonsters())
+                if (SpawnManager.TryGetEntities<SpawnedMonster>(out var monsters))
                 {
-                    if (entry.Character.Bionic.Tracker == null)
-                        continue;
+                    foreach (var entry in monsters)
+                    {
+                        if (entry.Tracker == null)
+                            continue;
 
-                    AddGridItem(entry.Character.Bionic.Record.GetRealName(), entry.Rarity.Getname(),
-                        entry.Character.Bionic.Record.Level, entry.Character.Bionic.Tracker.Position);
+                        AddGridItem(entry.Record.GetRealName(), entry.Rarity.Getname(),
+                            entry.Record.Level, entry.Tracker.Position);
 
-                    if (entry.Rarity == MonsterRarity.Unique || entry.Rarity == MonsterRarity.Unique2)
-                        DrawPointAt(graphics, entry.Character.Bionic.Tracker.Position, 5);
-                    else
-                        DrawPointAt(graphics, entry.Character.Bionic.Tracker.Position, 4);
+                        if (entry.Rarity == MonsterRarity.Unique || entry.Rarity == MonsterRarity.Unique2)
+                            DrawPointAt(graphics, entry.Tracker.Position, 5);
+                        else
+                            DrawPointAt(graphics, entry.Tracker.Position, 4);
+                    }
                 }
             }
 
             if (comboViewType.SelectedIndex == 4 || comboViewType.SelectedIndex == 6)
             {
-                foreach (var entry in Game.Spawns.GetCoses())
+                if (SpawnManager.TryGetEntities<SpawnedCos>(out var coses))
                 {
-                    if (entry.Character.Bionic.Tracker == null)
-                        continue;
+                    foreach (var entry in coses)
+                    {
+                        if (entry.Tracker == null)
+                            continue;
 
-                    AddGridItem(entry.Name, "", entry.Character.Bionic.Record.Level, entry.Character.Bionic.Tracker.Position);
-                    DrawPointAt(graphics, entry.Character.Bionic.Tracker.Position, 1);
+                        AddGridItem(entry.Name, "", entry.Record.Level, entry.Tracker.Position);
+                        DrawPointAt(graphics, entry.Tracker.Position, 1);
+                    }
                 }
             }
 
@@ -191,38 +197,47 @@ namespace RSBot.Map.Views
 
             if (comboViewType.SelectedIndex == 1 || comboViewType.SelectedIndex == 6)
             {
-                foreach (var entry in Game.Spawns.GetPlayers())
+                if (SpawnManager.TryGetEntities<SpawnedPlayer>(out var players))
                 {
-                    if (entry.Bionic.Tracker == null)
-                        continue;
+                    foreach (var entry in players)
+                    {
+                        if (entry.Tracker == null)
+                            continue;
 
-                    if (Game.Party != null && Game.Party.Members != null && Game.Party.GetMemberByName(entry.Name) != null)
-                        return;
-                    
-                    AddGridItem(entry.Name, "Player", 0, entry.Bionic.Tracker.Position);
-                    DrawPointAt(graphics, entry.Bionic.Tracker.Position, 3);
+                        if (Game.Party != null && Game.Party.Members != null && Game.Party.GetMemberByName(entry.Name) != null)
+                            return;
+
+                        AddGridItem(entry.Name, "Player", 0, entry.Tracker.Position);
+                        DrawPointAt(graphics, entry.Tracker.Position, 3);
+                    }
                 }
             }
 
             if (comboViewType.SelectedIndex == 3 || comboViewType.SelectedIndex == 6)
             {
-                foreach (var entry in Game.Spawns.GetNpcs())
+                if (SpawnManager.TryGetEntities<SpawnedNpcNpc>(out var npcs))
                 {
-                    if (entry.Bionic.Tracker == null)
-                        continue;
+                    foreach (var entry in npcs)
+                    {
+                        if (entry.Tracker == null)
+                            continue;
 
-                    AddGridItem(entry.Bionic.Record.GetRealName(), entry.Bionic.UniqueId.ToString(),
-                        entry.Bionic.Record.Level, entry.Bionic.Tracker.Position);
-                    DrawPointAt(graphics, entry.Bionic.Tracker.Position, 2);
+                        AddGridItem(entry.Record.GetRealName(), entry.UniqueId.ToString(),
+                            entry.Record.Level, entry.Tracker.Position);
+                        DrawPointAt(graphics, entry.Tracker.Position, 2);
+                    }
                 }
             }
 
             if (comboViewType.SelectedIndex == 5 || comboViewType.SelectedIndex == 6)
             {
-                foreach (var entry in Game.Spawns.GetPortals())
+                if (SpawnManager.TryGetEntities<SpawnedPortal>(out var portals))
                 {
-                    AddGridItem(entry.Record.GetRealName(), "", 0, entry.Position);
-                    DrawPointAt(graphics, entry.Position, 7);
+                    foreach (var entry in portals)
+                    {
+                        AddGridItem(entry.Record.GetRealName(), "", 0, entry.Tracker.Position);
+                        DrawPointAt(graphics, entry.Tracker.Position, 7);
+                    }
                 }
             }
             lvMonster.EndUpdate();

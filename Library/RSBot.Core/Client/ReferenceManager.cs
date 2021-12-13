@@ -18,34 +18,24 @@ namespace RSBot.Core.Client
         public int LanguageTab { get; set; }
 
         public Dictionary<string, RefText> TextData { get; set; }
-
-        //public Dictionary<uint, RefObjCommon> ObjectData { get; set; }
         public Dictionary<uint, RefObjChar> CharacterData { get; set; }
-
-        public Dictionary<uint, RefObjStruct> StructData { get; set; }
         public Dictionary<uint, RefObjItem> ItemData { get; set; }
-
         public Dictionary<byte, RefLevel> LevelData { get; set; }
         public Dictionary<uint, RefQuest> QuestData { get; set; }
-
         public Dictionary<uint, RefSkill> SkillData { get; set; }
         public Dictionary<uint, RefSkillMastery> SkillMasteryData { get; set; }
-
         public Dictionary<string, RefShop> Shops { get; set; }
         public Dictionary<string, RefShopTab> ShopTabs { get; set; }
         public Dictionary<string, RefShopGroup> ShopGroups { get; set; }
         public List<RefMappingShopGroup> ShopGroupMapping { get; set; }
         public List<RefMappingShopWithTab> ShopTabMapping { get; set; }
         public List<RefShopGood> ShopGoods { get; set; }
-
         public Dictionary<string, RefPackageItemScrap> PackageItemScrap { get; set; }
-
+        public List<RefTeleport> TeleportData { get; set; }
+        public List<RefTeleportLink> TeleportLinks { get; set; }
         public GatewayInfo GatewayInfo { get; set; }
         public DivisionInfo DivisionInfo { get; set; }
         public VersionInfo VersionInfo { get; set; }
-
-        public List<RefTeleport> TeleportData { get; set; }
-        public List<RefTeleportLink> TeleportLinks { get; set; }
 
         public void Load(int languageTab)
         {
@@ -59,7 +49,6 @@ namespace RSBot.Core.Client
 
             //this.ObjectData = new Dictionary<uint, RefObjCommon>(50000);
             this.CharacterData = new Dictionary<uint, RefObjChar>(20000);
-            this.StructData = new Dictionary<uint, RefObjStruct>(64);
             this.ItemData = new Dictionary<uint, RefObjItem>(20000);
 
             this.LevelData = new Dictionary<byte, RefLevel>(128);
@@ -84,7 +73,7 @@ namespace RSBot.Core.Client
                 () => this.LoadTextData(),
 
                 () => this.LoadReferenceListFile("CharacterData.txt", this.CharacterData),
-                () => this.LoadReferenceFile("TeleportBuilding.txt", this.StructData),
+                () => this.LoadReferenceFile("TeleportBuilding.txt", this.CharacterData),
                 () => this.LoadReferenceListFile("ItemData.txt", this.ItemData),
 
                 () => this.LoadReferenceListFileEnc("SkillDataEnc.txt", this.SkillData),
@@ -302,9 +291,6 @@ namespace RSBot.Core.Client
             if (this.CharacterData.TryGetValue(refObjID, out RefObjChar refChar))
                 return refChar;
 
-            if (this.StructData.TryGetValue(refObjID, out RefObjStruct refStruct))
-                return refStruct;
-
             if (this.ItemData.TryGetValue(refObjID, out RefObjItem refItem))
                 return refItem;
 
@@ -322,14 +308,6 @@ namespace RSBot.Core.Client
         public RefObjChar GetRefObjChar(string codeName)
         {
             return this.CharacterData.FirstOrDefault(obj => obj.Value.CodeName == codeName).Value;
-        }
-
-        public RefObjStruct GetRefStruct(uint id)
-        {
-            if (this.StructData.TryGetValue(id, out RefObjStruct data))
-                return data;
-
-            return null;
         }
 
         public RefObjItem GetRefItem(uint id)

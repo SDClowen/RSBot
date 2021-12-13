@@ -2,16 +2,8 @@
 
 namespace RSBot.Core.Objects.Spawn
 {
-    public class SpawnedCos
+    public sealed class SpawnedCos : SpawnedNpc
     {
-        /// <summary>
-        /// Gets or sets the character.
-        /// </summary>
-        /// <value>
-        /// The character.
-        /// </value>
-        public SpawnedNpc Character { get; set; }
-
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
@@ -45,51 +37,55 @@ namespace RSBot.Core.Objects.Spawn
         public uint OwnerUniqueId { get; set; }
 
         /// <summary>
-        /// Gets or sets from packet.
+        /// <inheritdoc/>
         /// </summary>
-        /// <value>
-        /// From packet.
-        /// </value>
-        internal static SpawnedCos FromPacket(Packet packet, SpawnedNpc character)
+        /// <param name="objId">The ref obj id</param>
+        public SpawnedCos(uint objId) :
+            base(objId) { }
+
+        internal override void Deserialize(Packet packet)
         {
-            var result = new SpawnedCos { Character = character };
+            ParseBionicDetails(packet);
+            base.Deserialize(packet);
 
-            if (character.Bionic.Record.TypeID4 == 2 //NPC_COS_TRASNPORT
-                || character.Bionic.Record.TypeID4 == 3 //NPC_COS_P_GROWTH
-                || character.Bionic.Record.TypeID4 == 4 //NPC_COS_P_ABILITY
-                || character.Bionic.Record.TypeID4 == 5 //NPC_COS_GUILD
-                || character.Bionic.Record.TypeID4 == 6 //NPC_COS_CAPTURED
-                || character.Bionic.Record.TypeID4 == 7 //NPC_COS_QUEST
-                || character.Bionic.Record.TypeID4 == 8) //NPC_COS_QUEST
+            var refObj = Record;
+
+            if (refObj.TypeID4 == 2 //NPC_COS_TRASNPORT
+                || refObj.TypeID4 == 3 //NPC_COS_P_GROWTH
+                || refObj.TypeID4 == 4 //NPC_COS_P_ABILITY
+                || refObj.TypeID4 == 5 //NPC_COS_GUILD
+                || refObj.TypeID4 == 6 //NPC_COS_CAPTURED
+                || refObj.TypeID4 == 7 //NPC_COS_QUEST
+                || refObj.TypeID4 == 8) //NPC_COS_QUEST
             {
-                if (character.Bionic.Record.TypeID4 == 3 // NPC_COS_P_GROWTH
-                    || character.Bionic.Record.TypeID4 == 4) //NPC_COS_P_ABILITY
-                    result.Name = packet.ReadString();
-                else if (character.Bionic.Record.TypeID4 == 5) //NPC_COS_GUILD
-                    result.GuildName = packet.ReadString();
+                if (refObj.TypeID4 == 3 // NPC_COS_P_GROWTH
+                    || refObj.TypeID4 == 4) //NPC_COS_P_ABILITY
+                    Name = packet.ReadString();
+                else if (refObj.TypeID4 == 5) //NPC_COS_GUILD
+                    GuildName = packet.ReadString();
 
-                if (character.Bionic.Record.TypeID4 == 2 //NPC_COS_TRASNPORT
-                    || character.Bionic.Record.TypeID4 == 3 //NPC_COS_P_GROWTH
-                    || character.Bionic.Record.TypeID4 == 4 //NPC_COS_P_ABILITY
-                    || character.Bionic.Record.TypeID4 == 5 //NPC_COS_GUILD
-                    || character.Bionic.Record.TypeID4 == 6) //NPC_COS_CAPTURED
+                if (refObj.TypeID4 == 2 //NPC_COS_TRASNPORT
+                    || refObj.TypeID4 == 3 //NPC_COS_P_GROWTH
+                    || refObj.TypeID4 == 4 //NPC_COS_P_ABILITY
+                    || refObj.TypeID4 == 5 //NPC_COS_GUILD
+                    || refObj.TypeID4 == 6) //NPC_COS_CAPTURED
                 {
-                    result.OwnerName = packet.ReadString();
+                    OwnerName = packet.ReadString();
 
-                    if (character.Bionic.Record.TypeID4 == 2 //NPC_COS_TRASNPORT
-                        || character.Bionic.Record.TypeID4 == 3 //NPC_COS_P_GROWTH
-                        || character.Bionic.Record.TypeID4 == 4 //NPC_COS_ABILITY
-                        || character.Bionic.Record.TypeID4 == 5) //NPC_COS_GUILD
+                    if (refObj.TypeID4 == 2 //NPC_COS_TRASNPORT
+                        || refObj.TypeID4 == 3 //NPC_COS_P_GROWTH
+                        || refObj.TypeID4 == 4 //NPC_COS_ABILITY
+                        || refObj.TypeID4 == 5) //NPC_COS_GUILD
                     {
                         packet.ReadByte(); //Owner job type
 
-                        if (character.Bionic.Record.TypeID4 == 2 //NPC_COS_TRASNPORT
-                            || character.Bionic.Record.TypeID4 == 3 //NPC_COS_P_GROWTH
-                            || character.Bionic.Record.TypeID4 == 5) //NPC_COS_GUILD
+                        if (refObj.TypeID4 == 2 //NPC_COS_TRASNPORT
+                            || refObj.TypeID4 == 3 //NPC_COS_P_GROWTH
+                            || refObj.TypeID4 == 5) //NPC_COS_GUILD
                         {
                             packet.ReadByte(); //Owner PVP state
 
-                            if (character.Bionic.Record.TypeID4 == 5) //NPC_COS_GUILD
+                            if (refObj.TypeID4 == 5) //NPC_COS_GUILD
                             {
                                 packet.ReadUInt(); //OwnerRefID guild foo
                             }
@@ -97,10 +93,8 @@ namespace RSBot.Core.Objects.Spawn
                     }
                 }
 
-                result.OwnerUniqueId = packet.ReadUInt();
+                OwnerUniqueId = packet.ReadUInt();
             }
-
-            return result;
         }
     }
 }

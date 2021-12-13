@@ -1,4 +1,5 @@
-﻿using RSBot.Core.Objects;
+﻿using RSBot.Core.Components;
+using RSBot.Core.Objects;
 
 namespace RSBot.Core.Network.Handler.Agent.Entity
 {
@@ -34,11 +35,10 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                 return;
             }
 
-            var bionic = Core.Game.Spawns.GetBionic(uniqueId);
-            if (bionic == null)
+            if (!SpawnManager.TryGetEntity(uniqueId, out var entity))
                 return;
 
-            bionic.Tracker.StopMoving(position);
+            entity.Tracker.StopMoving(position);
         }
     }
 }

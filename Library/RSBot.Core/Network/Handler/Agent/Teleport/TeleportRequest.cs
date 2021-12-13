@@ -1,5 +1,7 @@
-﻿using RSBot.Core.Event;
+﻿using RSBot.Core.Components;
+using RSBot.Core.Event;
 using RSBot.Core.Objects;
+using RSBot.Core.Objects.Spawn;
 using System.Linq;
 
 namespace RSBot.Core.Network.Handler.Agent.Teleport
@@ -32,27 +34,15 @@ namespace RSBot.Core.Network.Handler.Agent.Teleport
             var teleportType = (TeleportType)packet.ReadByte();
             var destination = packet.ReadUInt();
 
-            var npc = Core.Game.Spawns.GetPortal(teleporterUniqueId);
-
-            if (npc == null)
-            {
-                var bionic = Core.Game.Spawns.GetBionic(teleporterUniqueId);
-                Core.Game.Player.Teleportation = new Teleportation
-                {
-                    Destination = Core.Game.ReferenceManager.TeleportData.FirstOrDefault(t => t.ID == destination),
-                };
-
-                EventManager.FireEvent("OnRequestTeleport", destination, bionic.Record.CodeName);
-
+            if (!SpawnManager.TryGetEntity<SpawnedPortal>(teleporterUniqueId, out var portal))
                 return;
-            }
 
             Core.Game.Player.Teleportation = new Teleportation
             {
                 Destination = Core.Game.ReferenceManager.TeleportData.FirstOrDefault(t => t.ID == destination),
             };
 
-            EventManager.FireEvent("OnRequestTeleport", destination, npc.Record.CodeName);
+            EventManager.FireEvent("OnRequestTeleport", destination, portal.Record.CodeName);
         }
     }
 }

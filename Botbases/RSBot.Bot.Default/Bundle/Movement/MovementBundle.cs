@@ -1,6 +1,7 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Objects;
+using RSBot.Core.Objects.Spawn;
 using System;
 using System.Linq;
 
@@ -27,14 +28,12 @@ namespace RSBot.Bot.Default.Bundle.Movement
         /// <exception cref="System.NotImplementedException"></exception>
         public void Invoke()
         {
-            if (Game.SelectedEntity != null && (Game.SelectedEntity.Monster != null || Game.SelectedEntity.Player != null))
+            if (Game.SelectedEntity != null)
                 return;
 
-            var playerUnderAttack = Game.Spawns.GetMonsters()
-                .Find(m => m.Character.Bionic.AttackingPlayer &&
-                m.Character.Bionic.Tracker.Position.DistanceTo(Container.Bot.Area.CenterPosition) < Container.Bot.Area.Radius);
-
-            if (playerUnderAttack != null)
+            var playerUnderAttack = SpawnManager.Any<SpawnedMonster>(m => m.AttackingPlayer &&
+               m.Tracker.Position.DistanceTo(Container.Bot.Area.CenterPosition) < Container.Bot.Area.Radius);
+            if (playerUnderAttack)
                 return;
 
             //Go back if the player is out of the radius

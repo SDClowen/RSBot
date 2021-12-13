@@ -2,16 +2,8 @@
 
 namespace RSBot.Core.Objects.Spawn
 {
-    public class SpawnedFortressStructure
+    public sealed class SpawnedFortressStructure : SpawnedNpc
     {
-        /// <summary>
-        /// Gets or sets the bionic.
-        /// </summary>
-        /// <value>
-        /// The bionic.
-        /// </value>
-        public SpawnedBionic Bionic { get; set; }
-
         /// <summary>
         /// </summary>
         /// <value>
@@ -33,7 +25,30 @@ namespace RSBot.Core.Objects.Spawn
         /// <value>
         /// The state.
         /// </value>
-        public ushort State { get; set; }
+        public ushort CurrentState { get; set; }
+
+        /// <summary>
+        /// Gets or sets the state.
+        /// </summary>
+        /// <value>
+        /// The state.
+        /// </value>
+        public uint GuildId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the state.
+        /// </summary>
+        /// <value>
+        /// The state.
+        /// </value>
+        public string GuildName { get; set; }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <param name="objId">The ref obj id</param>
+        public SpawnedFortressStructure(uint objId) :
+            base(objId) { }
 
         /// <summary>
         /// Froms the packet.
@@ -41,15 +56,18 @@ namespace RSBot.Core.Objects.Spawn
         /// <param name="packet">The packet.</param>
         /// <param name="bionic">The bionic.</param>
         /// <returns></returns>
-        internal static SpawnedFortressStructure FromPacket(Packet packet, SpawnedBionic bionic)
+        internal override void Deserialize(Packet packet)
         {
-            return new SpawnedFortressStructure
-            {
-                Bionic = bionic,
-                HP = packet.ReadUInt(),
-                RefEventStructID = packet.ReadUInt(),
-                State = packet.ReadUShort()
-            };
+            HP = packet.ReadUInt();
+            RefEventStructID = packet.ReadUInt();
+            CurrentState = packet.ReadUShort();
+
+            ParseBionicDetails(packet);
+
+            base.Deserialize(packet);
+
+            GuildId = packet.ReadUInt();
+            GuildName = packet.ReadString();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using RSBot.Core.Network;
+﻿using RSBot.Core.Components;
+using RSBot.Core.Network;
 using RSBot.Core.Objects.Party;
 using RSBot.Core.Objects.Spawn;
 
@@ -27,7 +28,7 @@ namespace RSBot.Core.Objects
         /// <value>
         /// The player.
         /// </value>
-        public SpawnedPlayer Player => Game.Spawns.GetPlayer(PlayerUniqueId);
+        public SpawnedPlayer Player => SpawnManager.TryGetEntity<SpawnedPlayer>(PlayerUniqueId);
 
         /// <summary>
         /// Accepts this party request
@@ -51,7 +52,8 @@ namespace RSBot.Core.Objects
 
             switch (Type)
             {
-                case InviteRequestType.Party:
+                case InviteRequestType.Party1:
+                case InviteRequestType.Party2:
                     packet.WriteByte(2);
                     packet.WriteUShort(11276);
                     break;

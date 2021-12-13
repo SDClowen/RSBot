@@ -65,14 +65,6 @@ namespace RSBot.Core.Objects
         public bool Full => Items.Count >= Slots;
 
         /// <summary>
-        /// Gets or sets the bionic.
-        /// </summary>
-        /// <value>
-        /// The bionic.
-        /// </value>
-        public Spawn.SpawnedBionic Bionic => Core.Game.Spawns.GetBionic(UniqueId);
-
-        /// <summary>
         /// Froms the packet.
         /// </summary>
         /// <param name="packet">The packet.</param>

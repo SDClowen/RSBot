@@ -1,7 +1,9 @@
 ﻿using RSBot.Chat.Objects;
 using RSBot.Chat.Views;
 using RSBot.Core;
+using RSBot.Core.Components;
 using RSBot.Core.Network;
+using RSBot.Core.Objects.Spawn;
 
 namespace RSBot.Chat.Network
 {
@@ -40,8 +42,10 @@ namespace RSBot.Chat.Network
                     var messageAll = packet.ReadString();
                     if (senderId != Game.Player.UniqueId)
                     {
-                        var playerName = Game.Spawns.GetPlayer(senderId).Name;
-                        View.Instance.AppendMessage(messageAll, playerName, ChatType.All);
+                        if (!SpawnManager.TryGetEntity<SpawnedPlayer>(senderId, out var player))
+                            return;
+
+                        View.Instance.AppendMessage(messageAll, player.Name, ChatType.All);
                     }
                     else
                         View.Instance.AppendMessage(messageAll, Game.Player.Name, ChatType.All);

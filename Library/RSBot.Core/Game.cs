@@ -48,7 +48,7 @@ namespace RSBot.Core
         /// <value>
         /// The selected entity.
         /// </value>
-        public static Entity SelectedEntity { get; internal set; }
+        public static SelectedGameEntity SelectedEntity { get; internal set; }
 
         /// <summary>
         /// Gets the last selected entity.
@@ -56,7 +56,7 @@ namespace RSBot.Core
         /// <value>
         /// The last selected entity.
         /// </value>
-        public static Entity LastSelectedEntity { get; internal set; }
+        public static SelectedGameEntity LastSelectedEntity { get; internal set; }
 
         /// <summary>
         /// Gets or sets the spawn information.
@@ -73,14 +73,6 @@ namespace RSBot.Core
         /// The character packet.
         /// </value>
         internal static Packet CharacterPacket { get; set; }
-
-        /// <summary>
-        /// Gets or sets the spawns.
-        /// </summary>
-        /// <value>
-        /// The spawns.
-        /// </value>
-        public static Spawns Spawns { get; internal set; }
 
         /// <summary>
         /// Gets or sets the party.

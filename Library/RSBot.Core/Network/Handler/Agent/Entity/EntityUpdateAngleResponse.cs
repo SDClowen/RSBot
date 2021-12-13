@@ -1,4 +1,6 @@
-﻿namespace RSBot.Core.Network.Handler.Agent.Entity
+﻿using RSBot.Core.Components;
+
+namespace RSBot.Core.Network.Handler.Agent.Entity
 {
     internal class EntityUpdateAngleResponse : IPacketHandler
     {
@@ -33,10 +35,10 @@
                 return;
             }
 
-            var bionic = Core.Game.Spawns.GetBionic(uniqueId);
-            if (bionic == null) return;
+            if (!SpawnManager.TryGetEntity(uniqueId, out var entity)) 
+                return;
 
-            bionic.Tracker.SetAngle(angle);
+            entity.Tracker.SetAngle(angle);
         }
     }
 }

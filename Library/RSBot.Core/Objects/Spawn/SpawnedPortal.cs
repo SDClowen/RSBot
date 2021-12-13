@@ -5,28 +5,14 @@ using System.Linq;
 
 namespace RSBot.Core.Objects.Spawn
 {
-    public class SpawnedPortal
+    public sealed class SpawnedPortal : SpawnedBionic
     {
         /// <summary>
-        /// The UniqueId
+        /// <inheritdoc/>
         /// </summary>
-        public uint UniqueId;
-
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
-        public uint Id;
-
-        /// <summary>
-        /// Gets the record.
-        /// </summary>
-        /// <value>
-        /// The record.
-        /// </value>
-        public RefObjStruct Record => Game.ReferenceManager.GetRefStruct(Id);
+        /// <param name="objId">The ref obj id</param>
+        public SpawnedPortal(uint objId) 
+            : base(objId) { }
 
         /// <summary>
         /// Gets or sets the name of the owner.
@@ -45,9 +31,9 @@ namespace RSBot.Core.Objects.Spawn
         public uint OwnerUniqueId;
 
         /// <summary>
-        /// The position
+        /// Gets the cached teleport links
         /// </summary>
-        public Position Position;
+        public List<RefTeleportLink> Links;
 
         /// <summary>
         /// Froms the packet.
@@ -57,12 +43,9 @@ namespace RSBot.Core.Objects.Spawn
         /// <returns></returns>
         internal static SpawnedPortal FromPacket(Packet packet, uint characterId)
         {
-            var result = new SpawnedPortal
-            {
-                Id = characterId,
-                UniqueId = packet.ReadUInt(),
-                Position = Position.FromPacket(packet)
-            };
+            var result = new SpawnedPortal(characterId);
+            result.UniqueId = packet.ReadUInt();
+            result.Tracker = new Components.PositionTracker(Position.FromPacket(packet));
 
             packet.ReadByte(); //unkByte0
             var unkByte1 = packet.ReadByte();
@@ -88,17 +71,11 @@ namespace RSBot.Core.Objects.Spawn
                 packet.ReadByte(); //unkByte5
             }
 
-            return result;
-        }
+            var teleportObj = Game.ReferenceManager.GetRefObjChar(result.Id);
+            if(teleportObj != null)
+                result.Links = Game.ReferenceManager.TeleportData.FirstOrDefault(t => t.AssocRefObjId == teleportObj.ID).GetLinks();
 
-        /// <summary>
-        /// Gets the links.
-        /// </summary>
-        /// <returns></returns>
-        public List<RefTeleportLink> GetLinks()
-        {
-            var teleporteBuilding = Game.ReferenceManager.StructData.FirstOrDefault(tb => tb.Value.ID == Id);
-            return Game.ReferenceManager.TeleportData.FirstOrDefault(t => t.AssocRefObjId == teleporteBuilding.Value.ID).GetLinks();
+            return result;
         }
     }
 }

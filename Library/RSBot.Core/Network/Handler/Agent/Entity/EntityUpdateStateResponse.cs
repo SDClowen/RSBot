@@ -1,5 +1,7 @@
-﻿using RSBot.Core.Event;
+﻿using RSBot.Core.Components;
+using RSBot.Core.Event;
 using RSBot.Core.Objects;
+using RSBot.Core.Objects.Spawn;
 
 namespace RSBot.Core.Network.Handler.Agent.Entity
 {
@@ -39,8 +41,7 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                         Core.Game.Player.State.LifeState = (LifeState)state;
                     else
                     {
-                        var bionic = Core.Game.Spawns.GetBionic(uniqueId);
-                        if (bionic == null)
+                        if (!SpawnManager.TryGetEntity<SpawnedBionic>(uniqueId, out var bionic))
                             return;
 
                         bionic.State.LifeState = (LifeState)state;
@@ -59,9 +60,10 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                         Core.Game.Player.Tracker.State = (MotionState)state;
                     else
                     {
-                        var bionic = Core.Game.Spawns.GetBionic(uniqueId);
-                        if (bionic != null)
-                            bionic.Tracker.State = (MotionState)state;
+                        if (!SpawnManager.TryGetEntity<SpawnedBionic>(uniqueId, out var bionic))
+                            return;
+
+                        bionic.Tracker.State = (MotionState)state;
                     }
 
                     EventManager.FireEvent("OnUpdateEntityMotionState", uniqueId);
@@ -72,9 +74,10 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                         Core.Game.Player.State.BodyState = (BodyState)state;
                     else
                     {
-                        var bionic = Core.Game.Spawns.GetBionic(uniqueId);
-                        if (bionic != null)
-                            bionic.State.BodyState = (BodyState)state;
+                        if (!SpawnManager.TryGetEntity<SpawnedBionic>(uniqueId, out var bionic))
+                            return;
+
+                        bionic.State.BodyState = (BodyState)state;
                     }
                     EventManager.FireEvent("OnUpdateEntityBodyState", uniqueId);
                     break;
@@ -84,9 +87,10 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                         Core.Game.Player.State.PvpState = (PvpState)state;
                     else
                     {
-                        var bionic = Core.Game.Spawns.GetBionic(uniqueId);
-                        if (bionic != null)
-                            bionic.State.PvpState = (PvpState)state;
+                        if (!SpawnManager.TryGetEntity<SpawnedBionic>(uniqueId, out var bionic))
+                            return;
+
+                        bionic.State.PvpState = (PvpState)state;
                     }
 
                     EventManager.FireEvent("OnUpdateEntityPvpState", uniqueId);
@@ -97,10 +101,10 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                         Core.Game.Player.State.BattleState = (BattleState)state;
                     else
                     {
-                        var bionic = Core.Game.Spawns.GetBionic(uniqueId);
+                        if (!SpawnManager.TryGetEntity<SpawnedBionic>(uniqueId, out var bionic))
+                            return;
 
-                        if (bionic != null)
-                            bionic.State.BattleState = (BattleState)state;
+                        bionic.State.BattleState = (BattleState)state;
                     }
 
                     EventManager.FireEvent("OnUpdateEntityBattleState", uniqueId);
@@ -115,10 +119,10 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                     }
                     else
                     {
-                        var bionic = Core.Game.Spawns.GetBionic(uniqueId);
+                        if (!SpawnManager.TryGetEntity<SpawnedBionic>(uniqueId, out var bionic))
+                            return;
 
-                        if (bionic != null)
-                            bionic.State.ScrollState = (ScrollState)state;
+                        bionic.State.ScrollState = (ScrollState)state;
                     }
 
                     EventManager.FireEvent("OnUpdateEntityScrollState", uniqueId);

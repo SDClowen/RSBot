@@ -1,52 +1,19 @@
 ﻿using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Components;
-using RSBot.Core.Event;
 using RSBot.Core.Network;
 using System.Timers;
 
 namespace RSBot.Core.Objects.Spawn
 {
-    public class SpawnedBionic
+    public class SpawnedBionic : SpawnedEntity
     {
-        /// <summary>
-        /// Gets or sets the unique identifier.
-        /// </summary>
-        /// <value>
-        /// The unique identifier.
-        /// </value>
-        public uint UniqueId;
-
-        /// <summary>
-        /// Gets or sets the tracker.
-        /// </summary>
-        /// <value>
-        /// The tracker.
-        /// </value>
-        public PositionTracker Tracker;
-
-        /// <summary>
-        /// Gets or sets the model identifier.
-        /// </summary>
-        /// <value>
-        /// The model identifier.
-        /// </value>
-        public uint ObjId { get; set; }
-
         /// <summary>
         /// Gets the record.
         /// </summary>
         /// <value>
         /// The record.
         /// </value>
-        public RefObjChar Record => Game.ReferenceManager.GetRefObjChar(ObjId);
-
-        /// <summary>
-        /// Gets or sets the type.
-        /// </summary>
-        /// <value>
-        /// The type.
-        /// </value>
-        public SpawnedBionicType Type { get; set; }
+        public RefObjChar Record => Game.ReferenceManager.GetRefObjChar(Id);
 
         /// <summary>
         /// Gets or sets the state.
@@ -57,14 +24,6 @@ namespace RSBot.Core.Objects.Spawn
         public State State { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this instance is behind obstacle.
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if this instance is behind obstacle; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsBehindObstacle => Tracker != null && CollisionManager.HasCollisionBetween(Tracker.Position, Game.Player.Tracker.Position);
-
-        /// <summary>
         /// Gets a value indicating whether [attacking player].
         /// </summary>
         /// <value>
@@ -72,39 +31,25 @@ namespace RSBot.Core.Objects.Spawn
         /// </value>
         public bool AttackingPlayer { get; private set; }
 
-        internal void ParseDetails(Packet packet)
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <param name="objId">The ref obj id</param>
+        public SpawnedBionic(uint objId)
+        {
+            Id = objId;
+        }
+
+        /// <summary>
+        /// Parse the bionic details
+        /// </summary>
+        /// <param name="packet">The packet</param>
+        internal void ParseBionicDetails(Packet packet)
         {
             UniqueId = packet.ReadUInt();
 
             var movement = Movement.FromPacket(packet);
             State = State.FromPacket(packet);
-
-            if (Record.TypeID2 == 1)
-            {
-                Game.Spawns.Players[Game.Spawns.Players.Count - 1].ParseDetails(packet);
-                EventManager.FireEvent("OnSpawnPlayer", Game.Spawns.GetPlayer(UniqueId));
-            }
-            if (Record.TypeID2 == 2)
-            {
-                var npc = SpawnedNpc.FromPacket(packet, this);
-                if (Record.TypeID3 == 1)
-                {
-                    Game.Spawns.Monsters.Add(SpawnedMonster.FromPacket(packet, npc));
-                    EventManager.FireEvent("OnSpawnMonster", Game.Spawns.GetMonster(UniqueId));
-                }
-                else if (Record.TypeID3 == 3)
-                {
-                    Game.Spawns.Cos.Add(SpawnedCos.FromPacket(packet, npc));
-                    EventManager.FireEvent("OnSpawnCos", Game.Spawns.GetCos(UniqueId));
-                }
-                else if (Record.TypeID3 == 5)
-                {
-                    packet.ReadUInt(); //GuildId
-                    packet.ReadString(); //Guild name
-                }
-                else
-                    Game.Spawns.Npcs.Add(npc); //Unknown or unhandled type of NPC!
-            }
 
             Tracker = new PositionTracker(movement);
             Tracker.SetSpeed(State.WalkSpeed, State.RunSpeed);

@@ -30,22 +30,7 @@ namespace RSBot.Core.Network.Handler.Agent.Character
         /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
-            if (Core.Game.Spawns != null)
-                Core.Game.Spawns.Clear();
-            else
-            {
-                Core.Game.Spawns = new Spawns
-                {
-                    Cos = new List<SpawnedCos>(),
-                    FortressStructures = new List<SpawnedFortressStructure>(),
-                    Players = new List<SpawnedPlayer>(),
-                    Items = new List<SpawnedItem>(),
-                    Npcs = new List<SpawnedNpc>(),
-                    SpellAreas = new List<SpawnedSpellArea>(),
-                    Portals = new List<SpawnedPortal>(),
-                    Monsters = new List<SpawnedMonster>()
-                };
-            }
+            SpawnManager.Clear();
 
             packet = Core.Game.CharacterPacket;
             packet.Lock();

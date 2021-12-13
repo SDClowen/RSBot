@@ -1,10 +1,11 @@
 ﻿using RSBot.Core;
+using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Party;
+using RSBot.Core.Objects.Spawn;
 using System;
 using System.Linq;
-using System.Threading;
 
 namespace RSBot.Party.Bundle.AutoParty
 {
@@ -86,13 +87,16 @@ namespace RSBot.Party.Bundle.AutoParty
                 Game.Player.Tracker.Position.DistanceTo(Config.CenterPosition) > 50) 
                 return;
 
-            foreach (var player in Game.Spawns.GetPlayers())
+            if (!SpawnManager.TryGetEntities<SpawnedPlayer>(out var players))
+                return;
+
+            foreach (var player in players)
             {
                 if (Game.Party.IsInParty && Game.Party.GetMemberByName(player.Name) != null) 
                     continue;
 
                 if (Config.InviteAll || Config.PlayerList.Contains(player.Name) && Config.InviteFromList)
-                    Game.Party.Invite(player.Bionic.UniqueId);
+                    Game.Party.Invite(player.UniqueId);
             }
         }
     }

@@ -2,6 +2,7 @@
 using RSBot.Core.Network;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Skill;
+using RSBot.Core.Objects.Spawn;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -83,22 +84,25 @@ namespace RSBot.Core.Components
         /// <returns></returns>
         public static SkillInfo GetNextSkill()
         {
-            var entity = Game.SelectedEntity;
-            if (entity == null || entity.Monster == null)
+            var entity = Game.SelectedEntity.Entity;
+            if (!(entity is SpawnedBionic bionic))
                 return null;
 
             var rarity = MonsterRarity.General;
-            if (Skills[entity.Monster.Rarity].Count > 0)
-                rarity = entity.Monster.Rarity;
 
+            if (entity is SpawnedMonster monster)
+            {
+                if (Skills[monster.Rarity].Count > 0)
+                    rarity = monster.Rarity;
+            }
 
-            var distance = Game.Player.Tracker.Position.DistanceTo(entity.Bionic.Tracker.Position);
+            var distance = Game.Player.Tracker.Position.DistanceTo(bionic.Tracker.Position);
 
             var minDifference = int.MaxValue;
             //var weaponRange = 0;
             var closestSkill = default(SkillInfo);
 
-            if (entity.Bionic.State.HitState == ActionHitStateFlag.KnockDown)
+            if (bionic.State.HitState == ActionHitStateFlag.KnockDown)
             {
                 // try to get attack skill for only knockdown states
                 closestSkill = Skills[rarity].Find(p => p.Record.Params.Contains(25697));
@@ -222,14 +226,15 @@ namespace RSBot.Core.Components
             if (!Game.Player.Skills.HasSkill(skill.Id))
                 return false;
 
-            var weapon = Game.Player.Inventory.GetItemAt(6);
+            if (!SpawnManager.TryGetEntity<SpawnedBionic>(targetId, out var entity))
+                return false;
 
-            Log.Notify($"[BEGIN] [{skill.Record.GetRealName()}] [{skill.Record.Basic_Code}] [{weapon?.Record.GetRealName()}]");
+            var weapon = Game.Player.Inventory.GetItemAt(6);
 
             if (!CheckSkillRequired(skill.Record))
                 return false;
 
-            var distance = Game.Player.Tracker.Position.DistanceTo(Game.SelectedEntity.Bionic.Tracker.Position);
+            var distance = Game.Player.Tracker.Position.DistanceTo(entity.Tracker.Position);
             var speed = Game.Player.Tracker.ActualSpeed;
             var movingSleep = 0d;
 
@@ -333,9 +338,6 @@ namespace RSBot.Core.Components
                 callback.AwaitResponse();
             */
 
-            Log.Notify($"[END] [{awaitCallBack.IsCompleted}] [{skill.Record.GetRealName()}] [{skill.Record.Basic_Code}] [{weapon.Record.GetRealName()}] {duration}");
-            Log.Notify("-----------------------------------------------------");
-            
             //return awaitCallBack.IsCompleted;
 
             return true;

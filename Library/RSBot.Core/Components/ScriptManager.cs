@@ -1,6 +1,7 @@
 ﻿using RSBot.Core.Event;
 using RSBot.Core.Network;
 using RSBot.Core.Objects;
+using RSBot.Core.Objects.Spawn;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -188,28 +189,16 @@ namespace RSBot.Core.Components
             var npcCodeName = arguments[1];
             var destination = uint.Parse(arguments[2]);
 
-            uint uniqueId;
-
-            var npc = Game.Spawns.GetNpc(npcCodeName);
-            if (npc == null)
+            if (!SpawnManager.TryGetEntity<SpawnedNpcNpc>(p => p.Record.CodeName == npcCodeName, out var entity))
             {
-                var portal = Game.Spawns.GetPortal(npcCodeName);
-
-                if (portal == null)
-                {
-                    Log.Debug("Could not find teleportation NPC " + npcCodeName);
-                    return;
-                }
-
-                uniqueId = portal.UniqueId;
+                Log.Debug("Could not find teleportation NPC " + npcCodeName);
+                return;
             }
-            else
-                uniqueId = npc.Bionic.UniqueId;
 
-            Game.Player.SelectEntity(uniqueId);
+            Game.Player.SelectEntity(entity.UniqueId);
 
             var packet = new Packet(0x705A);
-            packet.WriteUInt(uniqueId);
+            packet.WriteUInt(entity.UniqueId);
             packet.WriteByte(0x02);
             packet.WriteUInt(destination);
             packet.Lock();

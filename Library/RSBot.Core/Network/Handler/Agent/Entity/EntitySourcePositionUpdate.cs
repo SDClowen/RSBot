@@ -1,9 +1,5 @@
-﻿using RSBot.Core.Objects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RSBot.Core.Components;
+using RSBot.Core.Objects;
 
 namespace RSBot.Core.Network.Handler.Agent.Entity
 {
@@ -25,6 +21,10 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
         /// </value>
         public ushort Opcode => 0x3028;
 
+        /// <summary>
+        /// Invoke the packet handler
+        /// </summary>
+        /// <param name="packet"></param>
         public void Invoke(Packet packet)
         {
             var position = Position.FromPacket(packet);
@@ -36,11 +36,10 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                 return;
             }
 
-            var bionic = Core.Game.Spawns.GetBionic(uniqueId);
-            if (bionic == null)
+            if (!SpawnManager.TryGetEntity(uniqueId, out var entity))
                 return;
 
-            bionic.Tracker?.SetSource(position);
+            entity.Tracker.SetSource(position);
         }
     }
 }
