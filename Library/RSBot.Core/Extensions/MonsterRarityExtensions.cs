@@ -4,7 +4,7 @@ namespace RSBot.Core.Extensions
 {
     public static class MonsterRarityExtensions
     {
-        public static string Getname(this MonsterRarity rarity)
+        public static string GetName(this MonsterRarity rarity)
         {
             switch (rarity)
             {

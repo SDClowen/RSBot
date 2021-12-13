@@ -28,19 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.comboInventoryType = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.lblFreeSlots = new System.Windows.Forms.Label();
-            this.btnReload = new Theme.Material.Button();
-            this.imgItems = new System.Windows.Forms.ImageList();
-            this.listViewMain = new Theme.Controls.ListView();
-            this.colSlot = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.imgItems = new System.Windows.Forms.ImageList(this.components);
+            this.listViewMain = new RSBot.Theme.Controls.ListView();
             this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colAmount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colGenderRace = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.buttonUseItem = new RSBot.Theme.Material.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -69,7 +69,7 @@
             this.comboInventoryType.Name = "comboInventoryType";
             this.comboInventoryType.Size = new System.Drawing.Size(186, 21);
             this.comboInventoryType.TabIndex = 1;
-            this.comboInventoryType.SelectedIndexChanged += new System.EventHandler(this.btnReload_Click);
+            this.comboInventoryType.SelectedIndexChanged += new System.EventHandler(this.comboInventoryType_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -94,21 +94,6 @@
             this.lblFreeSlots.TabIndex = 4;
             this.lblFreeSlots.Text = "not calculated";
             // 
-            // btnReload
-            // 
-            this.btnReload.Depth = 0;
-            this.btnReload.Icon = null;
-            this.btnReload.Location = new System.Drawing.Point(265, 3);
-            this.btnReload.MouseState = Theme.IMatMouseState.HOVER;
-            this.btnReload.Name = "btnReload";
-            this.btnReload.Primary = false;
-            this.btnReload.Raised = false;
-            this.btnReload.Size = new System.Drawing.Size(75, 23);
-            this.btnReload.TabIndex = 5;
-            this.btnReload.Text = "Reload";
-            this.btnReload.UseVisualStyleBackColor = true;
-            this.btnReload.Click += new System.EventHandler(this.btnReload_Click);
-            // 
             // imgItems
             // 
             this.imgItems.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
@@ -118,25 +103,22 @@
             // listViewMain
             // 
             this.listViewMain.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colSlot,
             this.colName,
             this.colAmount,
             this.colGenderRace});
             this.listViewMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewMain.FullRowSelect = true;
             this.listViewMain.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.listViewMain.HideSelection = false;
             this.listViewMain.Location = new System.Drawing.Point(6, 36);
+            this.listViewMain.MultiSelect = false;
             this.listViewMain.Name = "listViewMain";
             this.listViewMain.Size = new System.Drawing.Size(738, 394);
             this.listViewMain.SmallImageList = this.imgItems;
             this.listViewMain.TabIndex = 2;
             this.listViewMain.UseCompatibleStateImageBehavior = false;
             this.listViewMain.View = System.Windows.Forms.View.Details;
-            // 
-            // colSlot
-            // 
-            this.colSlot.Text = "Slot";
-            this.colSlot.Width = 75;
+            this.listViewMain.SelectedIndexChanged += new System.EventHandler(this.listViewMain_SelectedIndexChanged);
             // 
             // colName
             // 
@@ -166,7 +148,7 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.btnReload);
+            this.panel2.Controls.Add(this.buttonUseItem);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.comboInventoryType);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
@@ -174,6 +156,24 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(738, 30);
             this.panel2.TabIndex = 7;
+            // 
+            // buttonUseItem
+            // 
+            this.buttonUseItem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonUseItem.Depth = 0;
+            this.buttonUseItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonUseItem.Icon = null;
+            this.buttonUseItem.Location = new System.Drawing.Point(657, 3);
+            this.buttonUseItem.MouseState = RSBot.Theme.IMatMouseState.HOVER;
+            this.buttonUseItem.Name = "buttonUseItem";
+            this.buttonUseItem.Primary = true;
+            this.buttonUseItem.Raised = true;
+            this.buttonUseItem.SingleColor = System.Drawing.Color.Empty;
+            this.buttonUseItem.Size = new System.Drawing.Size(75, 23);
+            this.buttonUseItem.TabIndex = 6;
+            this.buttonUseItem.Text = "Use";
+            this.buttonUseItem.UseVisualStyleBackColor = true;
+            this.buttonUseItem.Click += new System.EventHandler(this.buttonUseItem_Click);
             // 
             // Main
             // 
@@ -186,6 +186,7 @@
             this.Name = "Main";
             this.Padding = new System.Windows.Forms.Padding(6);
             this.Size = new System.Drawing.Size(750, 458);
+            this.Load += new System.EventHandler(this.Main_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -199,15 +200,14 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboInventoryType;
         private Theme.Controls.ListView listViewMain;
-        private System.Windows.Forms.ColumnHeader colSlot;
         private System.Windows.Forms.ColumnHeader colName;
         private System.Windows.Forms.ColumnHeader colAmount;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblFreeSlots;
         private System.Windows.Forms.ColumnHeader colGenderRace;
-        private Theme.Material.Button btnReload;
         private System.Windows.Forms.ImageList imgItems;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
+        private Theme.Material.Button buttonUseItem;
     }
 }
