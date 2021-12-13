@@ -160,48 +160,51 @@
             // btnMoveAttackSkillDown
             // 
             this.btnMoveAttackSkillDown.Depth = 0;
+            this.btnMoveAttackSkillDown.Font = new System.Drawing.Font("Webdings", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.btnMoveAttackSkillDown.Icon = null;
             this.btnMoveAttackSkillDown.Location = new System.Drawing.Point(327, 79);
             this.btnMoveAttackSkillDown.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnMoveAttackSkillDown.Name = "btnMoveAttackSkillDown";
-            this.btnMoveAttackSkillDown.Primary = false;
-            this.btnMoveAttackSkillDown.Raised = false;
-            this.btnMoveAttackSkillDown.SingleColor = System.Drawing.Color.Empty;
+            this.btnMoveAttackSkillDown.Primary = true;
+            this.btnMoveAttackSkillDown.Raised = true;
+            this.btnMoveAttackSkillDown.SingleColor = System.Drawing.Color.LightSlateGray;
             this.btnMoveAttackSkillDown.Size = new System.Drawing.Size(24, 24);
             this.btnMoveAttackSkillDown.TabIndex = 1;
-            this.btnMoveAttackSkillDown.Text = "▼";
+            this.btnMoveAttackSkillDown.Text = "6";
             this.btnMoveAttackSkillDown.UseVisualStyleBackColor = true;
             this.btnMoveAttackSkillDown.Click += new System.EventHandler(this.btnMoveAttackSkillDown_Click);
             // 
             // btnMoveAttackSkillUp
             // 
             this.btnMoveAttackSkillUp.Depth = 0;
+            this.btnMoveAttackSkillUp.Font = new System.Drawing.Font("Webdings", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.btnMoveAttackSkillUp.Icon = null;
             this.btnMoveAttackSkillUp.Location = new System.Drawing.Point(327, 49);
             this.btnMoveAttackSkillUp.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnMoveAttackSkillUp.Name = "btnMoveAttackSkillUp";
-            this.btnMoveAttackSkillUp.Primary = false;
-            this.btnMoveAttackSkillUp.Raised = false;
+            this.btnMoveAttackSkillUp.Primary = true;
+            this.btnMoveAttackSkillUp.Raised = true;
             this.btnMoveAttackSkillUp.SingleColor = System.Drawing.Color.Empty;
             this.btnMoveAttackSkillUp.Size = new System.Drawing.Size(24, 24);
             this.btnMoveAttackSkillUp.TabIndex = 1;
-            this.btnMoveAttackSkillUp.Text = "▲";
+            this.btnMoveAttackSkillUp.Text = "5";
             this.btnMoveAttackSkillUp.UseVisualStyleBackColor = true;
             this.btnMoveAttackSkillUp.Click += new System.EventHandler(this.btnMoveAttackSkillUp_Click);
             // 
             // btnRemoveAttackSkill
             // 
             this.btnRemoveAttackSkill.Depth = 0;
+            this.btnRemoveAttackSkill.Font = new System.Drawing.Font("Webdings", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.btnRemoveAttackSkill.Icon = null;
             this.btnRemoveAttackSkill.Location = new System.Drawing.Point(327, 19);
             this.btnRemoveAttackSkill.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnRemoveAttackSkill.Name = "btnRemoveAttackSkill";
-            this.btnRemoveAttackSkill.Primary = false;
-            this.btnRemoveAttackSkill.Raised = false;
-            this.btnRemoveAttackSkill.SingleColor = System.Drawing.Color.Empty;
+            this.btnRemoveAttackSkill.Primary = true;
+            this.btnRemoveAttackSkill.Raised = true;
+            this.btnRemoveAttackSkill.SingleColor = System.Drawing.Color.Red;
             this.btnRemoveAttackSkill.Size = new System.Drawing.Size(24, 24);
             this.btnRemoveAttackSkill.TabIndex = 1;
-            this.btnRemoveAttackSkill.Text = "X";
+            this.btnRemoveAttackSkill.Text = "r";
             this.btnRemoveAttackSkill.UseVisualStyleBackColor = true;
             this.btnRemoveAttackSkill.Click += new System.EventHandler(this.btnRemoveAttackSkill_Click);
             // 
@@ -247,16 +250,17 @@
             // btnMoveBuffSkillDown
             // 
             this.btnMoveBuffSkillDown.Depth = 0;
+            this.btnMoveBuffSkillDown.Font = new System.Drawing.Font("Webdings", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.btnMoveBuffSkillDown.Icon = null;
             this.btnMoveBuffSkillDown.Location = new System.Drawing.Point(327, 79);
             this.btnMoveBuffSkillDown.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnMoveBuffSkillDown.Name = "btnMoveBuffSkillDown";
-            this.btnMoveBuffSkillDown.Primary = false;
-            this.btnMoveBuffSkillDown.Raised = false;
-            this.btnMoveBuffSkillDown.SingleColor = System.Drawing.Color.Empty;
+            this.btnMoveBuffSkillDown.Primary = true;
+            this.btnMoveBuffSkillDown.Raised = true;
+            this.btnMoveBuffSkillDown.SingleColor = System.Drawing.Color.LightSlateGray;
             this.btnMoveBuffSkillDown.Size = new System.Drawing.Size(24, 24);
             this.btnMoveBuffSkillDown.TabIndex = 8;
-            this.btnMoveBuffSkillDown.Text = "▼";
+            this.btnMoveBuffSkillDown.Text = "6";
             this.btnMoveBuffSkillDown.UseVisualStyleBackColor = true;
             this.btnMoveBuffSkillDown.Click += new System.EventHandler(this.btnMoveBuffSkillDown_Click);
             // 
@@ -273,16 +277,17 @@
             // btnMoveBuffSkillUp
             // 
             this.btnMoveBuffSkillUp.Depth = 0;
+            this.btnMoveBuffSkillUp.Font = new System.Drawing.Font("Webdings", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.btnMoveBuffSkillUp.Icon = null;
             this.btnMoveBuffSkillUp.Location = new System.Drawing.Point(327, 49);
             this.btnMoveBuffSkillUp.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnMoveBuffSkillUp.Name = "btnMoveBuffSkillUp";
-            this.btnMoveBuffSkillUp.Primary = false;
-            this.btnMoveBuffSkillUp.Raised = false;
+            this.btnMoveBuffSkillUp.Primary = true;
+            this.btnMoveBuffSkillUp.Raised = true;
             this.btnMoveBuffSkillUp.SingleColor = System.Drawing.Color.Empty;
             this.btnMoveBuffSkillUp.Size = new System.Drawing.Size(24, 24);
             this.btnMoveBuffSkillUp.TabIndex = 9;
-            this.btnMoveBuffSkillUp.Text = "▲";
+            this.btnMoveBuffSkillUp.Text = "5";
             this.btnMoveBuffSkillUp.UseVisualStyleBackColor = true;
             this.btnMoveBuffSkillUp.Click += new System.EventHandler(this.btnMoveBuffSkillUp_Click);
             // 
@@ -298,16 +303,17 @@
             // btnRemoveBuffSkill
             // 
             this.btnRemoveBuffSkill.Depth = 0;
+            this.btnRemoveBuffSkill.Font = new System.Drawing.Font("Webdings", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.btnRemoveBuffSkill.Icon = null;
             this.btnRemoveBuffSkill.Location = new System.Drawing.Point(327, 19);
             this.btnRemoveBuffSkill.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnRemoveBuffSkill.Name = "btnRemoveBuffSkill";
-            this.btnRemoveBuffSkill.Primary = false;
-            this.btnRemoveBuffSkill.Raised = false;
-            this.btnRemoveBuffSkill.SingleColor = System.Drawing.Color.Empty;
+            this.btnRemoveBuffSkill.Primary = true;
+            this.btnRemoveBuffSkill.Raised = true;
+            this.btnRemoveBuffSkill.SingleColor = System.Drawing.Color.Red;
             this.btnRemoveBuffSkill.Size = new System.Drawing.Size(24, 24);
             this.btnRemoveBuffSkill.TabIndex = 5;
-            this.btnRemoveBuffSkill.Text = "X";
+            this.btnRemoveBuffSkill.Text = "r";
             this.btnRemoveBuffSkill.UseVisualStyleBackColor = true;
             this.btnRemoveBuffSkill.Click += new System.EventHandler(this.btnRemoveBuffSkill_Click);
             // 

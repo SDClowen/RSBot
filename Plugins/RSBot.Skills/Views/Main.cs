@@ -632,7 +632,7 @@ namespace RSBot.Skills.Views
             {
                 var selectedRefSkill = item.Tag as SkillInfo;
                 if (listAttackingSkills.Items.Cast<ListViewItem>()
-                   .Count(p => ((SkillInfo)p.Tag).Record.Action_Overlap != 0 && ((SkillInfo)p.Tag).Record.Action_Overlap == selectedRefSkill.Record.Action_Overlap) != 0)
+                   .Count(p => ((SkillInfo)p.Tag).Record.ID != selectedRefSkill.Id && ((SkillInfo)p.Tag).Record.Action_Overlap != 0 && ((SkillInfo)p.Tag).Record.Action_Overlap == selectedRefSkill.Record.Action_Overlap) != 0)
                     continue;
 
                 if (selectedRefSkill != null && selectedRefSkill.IsAttack)
