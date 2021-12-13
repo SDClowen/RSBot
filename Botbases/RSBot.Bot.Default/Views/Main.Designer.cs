@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Avoid", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup5 = new System.Windows.Forms.ListViewGroup("Prefer", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup6 = new System.Windows.Forms.ListViewGroup("No custom behavior", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem("General");
-            System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem("Champion");
-            System.Windows.Forms.ListViewItem listViewItem12 = new System.Windows.Forms.ListViewItem("Giant");
-            System.Windows.Forms.ListViewItem listViewItem13 = new System.Windows.Forms.ListViewItem("General (party)");
-            System.Windows.Forms.ListViewItem listViewItem14 = new System.Windows.Forms.ListViewItem("Champion (party)");
-            System.Windows.Forms.ListViewItem listViewItem15 = new System.Windows.Forms.ListViewItem("Giant (party)");
-            System.Windows.Forms.ListViewItem listViewItem16 = new System.Windows.Forms.ListViewItem("Unique");
-            System.Windows.Forms.ListViewItem listViewItem17 = new System.Windows.Forms.ListViewItem("Strong");
-            System.Windows.Forms.ListViewItem listViewItem18 = new System.Windows.Forms.ListViewItem("Elite");
+            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Avoid", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Prefer", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("No custom behavior", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("General");
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Champion");
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("Giant");
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("General (party)");
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("Champion (party)");
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("Giant (party)");
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("Unique");
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("Strong");
+            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem("Elite");
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -73,8 +73,6 @@
             this.numBerzerkMonsterAmount = new System.Windows.Forms.NumericUpDown();
             this.checkBerzerkAvoidance = new System.Windows.Forms.CheckBox();
             this.checkBerzerkMonsterAmount = new System.Windows.Forms.CheckBox();
-            this.ActiveBuffsList = new RSBot.Theme.Controls.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.ctxAvoidance.SuspendLayout();
@@ -227,36 +225,36 @@
             // 
             this.lvAvoidance.ContextMenuStrip = this.ctxAvoidance;
             this.lvAvoidance.FullRowSelect = true;
-            listViewGroup4.Header = "Avoid";
-            listViewGroup4.Name = "grpAvoid";
-            listViewGroup5.Header = "Prefer";
-            listViewGroup5.Name = "grpPrefer";
-            listViewGroup6.Header = "No custom behavior";
-            listViewGroup6.Name = "grpNone";
+            listViewGroup1.Header = "Avoid";
+            listViewGroup1.Name = "grpAvoid";
+            listViewGroup2.Header = "Prefer";
+            listViewGroup2.Name = "grpPrefer";
+            listViewGroup3.Header = "No custom behavior";
+            listViewGroup3.Name = "grpNone";
             this.lvAvoidance.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup4,
-            listViewGroup5,
-            listViewGroup6});
+            listViewGroup1,
+            listViewGroup2,
+            listViewGroup3});
             this.lvAvoidance.HideSelection = false;
-            listViewItem10.Group = listViewGroup6;
-            listViewItem11.Group = listViewGroup6;
-            listViewItem12.Group = listViewGroup6;
-            listViewItem13.Group = listViewGroup6;
-            listViewItem14.Group = listViewGroup6;
-            listViewItem15.Group = listViewGroup6;
-            listViewItem16.Group = listViewGroup6;
-            listViewItem17.Group = listViewGroup6;
-            listViewItem18.Group = listViewGroup6;
+            listViewItem1.Group = listViewGroup3;
+            listViewItem2.Group = listViewGroup3;
+            listViewItem3.Group = listViewGroup3;
+            listViewItem4.Group = listViewGroup3;
+            listViewItem5.Group = listViewGroup3;
+            listViewItem6.Group = listViewGroup3;
+            listViewItem7.Group = listViewGroup3;
+            listViewItem8.Group = listViewGroup3;
+            listViewItem9.Group = listViewGroup3;
             this.lvAvoidance.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem10,
-            listViewItem11,
-            listViewItem12,
-            listViewItem13,
-            listViewItem14,
-            listViewItem15,
-            listViewItem16,
-            listViewItem17,
-            listViewItem18});
+            listViewItem1,
+            listViewItem2,
+            listViewItem3,
+            listViewItem4,
+            listViewItem5,
+            listViewItem6,
+            listViewItem7,
+            listViewItem8,
+            listViewItem9});
             this.lvAvoidance.Location = new System.Drawing.Point(11, 19);
             this.lvAvoidance.Name = "lvAvoidance";
             this.lvAvoidance.Size = new System.Drawing.Size(200, 189);
@@ -462,30 +460,11 @@
             this.checkBerzerkMonsterAmount.UseVisualStyleBackColor = true;
             this.checkBerzerkMonsterAmount.CheckedChanged += new System.EventHandler(this.checkBerzerkMonsterAmount_CheckedChanged);
             // 
-            // ActiveBuffsList
-            // 
-            this.ActiveBuffsList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1});
-            this.ActiveBuffsList.FullRowSelect = true;
-            this.ActiveBuffsList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.ActiveBuffsList.HideSelection = false;
-            this.ActiveBuffsList.Location = new System.Drawing.Point(517, 0);
-            this.ActiveBuffsList.Name = "ActiveBuffsList";
-            this.ActiveBuffsList.Size = new System.Drawing.Size(248, 467);
-            this.ActiveBuffsList.TabIndex = 6;
-            this.ActiveBuffsList.UseCompatibleStateImageBehavior = false;
-            this.ActiveBuffsList.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Width = 230;
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(251)))), ((int)(((byte)(251)))));
-            this.Controls.Add(this.ActiveBuffsList);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -539,7 +518,5 @@
         private System.Windows.Forms.CheckBox checkBerzerkAvoidance;
         private System.Windows.Forms.CheckBox checkBerzerkMonsterAmount;
         private System.Windows.Forms.Label label7;
-        public Theme.Controls.ListView ActiveBuffsList;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
     }
 }
