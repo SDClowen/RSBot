@@ -196,48 +196,52 @@ namespace RSBot.Map.Views
             // buttonZoomIn
             // 
             this.buttonZoomIn.Depth = 0;
+            this.buttonZoomIn.Font = new System.Drawing.Font("Webdings", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.buttonZoomIn.Icon = null;
             this.buttonZoomIn.Location = new System.Drawing.Point(295, 80);
             this.buttonZoomIn.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.buttonZoomIn.Name = "buttonZoomIn";
-            this.buttonZoomIn.Primary = false;
-            this.buttonZoomIn.Raised = false;
-            this.buttonZoomIn.SingleColor = System.Drawing.Color.Empty;
+            this.buttonZoomIn.Primary = true;
+            this.buttonZoomIn.Raised = true;
+            this.buttonZoomIn.SingleColor = System.Drawing.Color.RosyBrown;
             this.buttonZoomIn.Size = new System.Drawing.Size(24, 24);
             this.buttonZoomIn.TabIndex = 16;
-            this.buttonZoomIn.Text = "▲";
+            this.buttonZoomIn.Text = "5";
             this.buttonZoomIn.UseVisualStyleBackColor = true;
             this.buttonZoomIn.Click += new System.EventHandler(this.buttonZoomIn_Click);
             // 
             // buttonZoomReset
             // 
             this.buttonZoomReset.Depth = 0;
+            this.buttonZoomReset.Font = new System.Drawing.Font("Webdings", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.buttonZoomReset.ForeColor = System.Drawing.Color.AliceBlue;
             this.buttonZoomReset.Icon = null;
             this.buttonZoomReset.Location = new System.Drawing.Point(295, 110);
             this.buttonZoomReset.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.buttonZoomReset.Name = "buttonZoomReset";
-            this.buttonZoomReset.Primary = false;
-            this.buttonZoomReset.Raised = false;
+            this.buttonZoomReset.Primary = true;
+            this.buttonZoomReset.Raised = true;
             this.buttonZoomReset.SingleColor = System.Drawing.Color.Empty;
             this.buttonZoomReset.Size = new System.Drawing.Size(24, 24);
             this.buttonZoomReset.TabIndex = 16;
-            this.buttonZoomReset.Text = "♦";
+            this.buttonZoomReset.Text = "n";
             this.buttonZoomReset.UseVisualStyleBackColor = true;
             this.buttonZoomReset.Click += new System.EventHandler(this.buttonZoomReset_Click);
             // 
             // buttonZoomOut
             // 
             this.buttonZoomOut.Depth = 0;
+            this.buttonZoomOut.Font = new System.Drawing.Font("Webdings", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.buttonZoomOut.Icon = null;
             this.buttonZoomOut.Location = new System.Drawing.Point(295, 140);
             this.buttonZoomOut.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.buttonZoomOut.Name = "buttonZoomOut";
-            this.buttonZoomOut.Primary = false;
-            this.buttonZoomOut.Raised = false;
-            this.buttonZoomOut.SingleColor = System.Drawing.Color.Empty;
+            this.buttonZoomOut.Primary = true;
+            this.buttonZoomOut.Raised = true;
+            this.buttonZoomOut.SingleColor = System.Drawing.Color.Silver;
             this.buttonZoomOut.Size = new System.Drawing.Size(24, 24);
             this.buttonZoomOut.TabIndex = 16;
-            this.buttonZoomOut.Text = "▼";
+            this.buttonZoomOut.Text = "6";
             this.buttonZoomOut.UseVisualStyleBackColor = true;
             this.buttonZoomOut.Click += new System.EventHandler(this.buttonZoomOut_Click);
             // 
