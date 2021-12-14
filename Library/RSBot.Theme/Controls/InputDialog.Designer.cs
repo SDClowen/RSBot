@@ -35,7 +35,9 @@
             this.btnOK = new RSBot.Theme.Material.Button();
             this.btnCancel = new RSBot.Theme.Material.Button();
             this.comboBox = new System.Windows.Forms.ComboBox();
+            this.numValue = new System.Windows.Forms.NumericUpDown();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numValue)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTitle
@@ -119,12 +121,37 @@
             this.comboBox.TabIndex = 4;
             this.comboBox.Visible = false;
             // 
+            // numValue
+            // 
+            this.numValue.Location = new System.Drawing.Point(12, 69);
+            this.numValue.Maximum = new decimal(new int[] {
+            32765,
+            0,
+            0,
+            0});
+            this.numValue.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numValue.Name = "numValue";
+            this.numValue.Size = new System.Drawing.Size(156, 23);
+            this.numValue.TabIndex = 5;
+            this.numValue.ThousandsSeparator = true;
+            this.numValue.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numValue.KeyUp += new System.Windows.Forms.KeyEventHandler(this.numValue_KeyUp);
+            // 
             // InputDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(321, 137);
+            this.Controls.Add(this.numValue);
             this.Controls.Add(this.comboBox);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.txtValue);
@@ -139,6 +166,7 @@
             this.Text = "Input";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InputDialog_FormClosing);
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numValue)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -153,5 +181,6 @@
         private Theme.Material.Button btnOK;
         private Theme.Material.Button btnCancel;
         private System.Windows.Forms.ComboBox comboBox;
+        private System.Windows.Forms.NumericUpDown numValue;
     }
 }

@@ -77,7 +77,7 @@
             this.btnDontSell = new System.Windows.Forms.ToolStripMenuItem();
             this.btnDontStore = new System.Windows.Forms.ToolStripMenuItem();
             this.btnDontPickup = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel4 = new System.Windows.Forms.Panel();
+            this.searchImageList = new System.Windows.Forms.ImageList(this.components);
             this.filterPanel = new System.Windows.Forms.Panel();
             this.groupOthers = new System.Windows.Forms.GroupBox();
             this.checkAll = new System.Windows.Forms.CheckBox();
@@ -236,24 +236,26 @@
             this.toolStripSeparator1,
             this.menuRemoveItem});
             this.contextShoppingList.Name = "contextShoppingList";
-            this.contextShoppingList.Size = new System.Drawing.Size(161, 54);
+            this.contextShoppingList.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.contextShoppingList.ShowImageMargin = false;
+            this.contextShoppingList.Size = new System.Drawing.Size(136, 54);
             // 
             // menuChangeAmount
             // 
             this.menuChangeAmount.Name = "menuChangeAmount";
-            this.menuChangeAmount.Size = new System.Drawing.Size(160, 22);
+            this.menuChangeAmount.Size = new System.Drawing.Size(135, 22);
             this.menuChangeAmount.Text = "Change amount";
             this.menuChangeAmount.Click += new System.EventHandler(this.menuChangeAmount_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(157, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(132, 6);
             // 
             // menuRemoveItem
             // 
             this.menuRemoveItem.Name = "menuRemoveItem";
-            this.menuRemoveItem.Size = new System.Drawing.Size(160, 22);
+            this.menuRemoveItem.Size = new System.Drawing.Size(135, 22);
             this.menuRemoveItem.Text = "Remove";
             this.menuRemoveItem.Click += new System.EventHandler(this.menuRemoveItem_Click);
             // 
@@ -290,12 +292,14 @@
             this.contextAvailableProducts.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuAddToShoppingList});
             this.contextAvailableProducts.Name = "contextAvailableProducts";
-            this.contextAvailableProducts.Size = new System.Drawing.Size(182, 26);
+            this.contextAvailableProducts.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.contextAvailableProducts.ShowImageMargin = false;
+            this.contextAvailableProducts.Size = new System.Drawing.Size(157, 26);
             // 
             // menuAddToShoppingList
             // 
             this.menuAddToShoppingList.Name = "menuAddToShoppingList";
-            this.menuAddToShoppingList.Size = new System.Drawing.Size(181, 22);
+            this.menuAddToShoppingList.Size = new System.Drawing.Size(156, 22);
             this.menuAddToShoppingList.Text = "Add to shopping list";
             this.menuAddToShoppingList.Click += new System.EventHandler(this.menuAddToShoppingList_Click);
             // 
@@ -464,7 +468,6 @@
             // tabSellFilter
             // 
             this.tabSellFilter.Controls.Add(this.listFilter);
-            this.tabSellFilter.Controls.Add(this.panel4);
             this.tabSellFilter.Controls.Add(this.filterPanel);
             this.tabSellFilter.Controls.Add(this.panel3);
             this.tabSellFilter.Controls.Add(this.pictureBox1);
@@ -489,18 +492,19 @@
             this.listFilter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listFilter.FullRowSelect = true;
             this.listFilter.HideSelection = false;
-            this.listFilter.Location = new System.Drawing.Point(280, 0);
+            this.listFilter.Location = new System.Drawing.Point(265, 0);
             this.listFilter.Name = "listFilter";
-            this.listFilter.Size = new System.Drawing.Size(454, 399);
-            this.listFilter.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            this.listFilter.Size = new System.Drawing.Size(469, 399);
+            this.listFilter.StateImageList = this.searchImageList;
             this.listFilter.TabIndex = 5;
             this.listFilter.UseCompatibleStateImageBehavior = false;
             this.listFilter.View = System.Windows.Forms.View.Details;
+            this.listFilter.VirtualListSize = 15000;
             // 
             // colItemName
             // 
             this.colItemName.Text = "Name";
-            this.colItemName.Width = 131;
+            this.colItemName.Width = 150;
             // 
             // colItemLevel
             // 
@@ -586,14 +590,11 @@
             this.btnDontPickup.Text = "Don\'t pickup";
             this.btnDontPickup.Click += new System.EventHandler(this.btnDontPickup_Click);
             // 
-            // panel4
+            // searchImageList
             // 
-            this.panel4.BackColor = System.Drawing.Color.Transparent;
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel4.Location = new System.Drawing.Point(265, 0);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(15, 399);
-            this.panel4.TabIndex = 41;
+            this.searchImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth4Bit;
+            this.searchImageList.ImageSize = new System.Drawing.Size(16, 16);
+            this.searchImageList.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // filterPanel
             // 
@@ -1169,7 +1170,7 @@
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Primary = true;
             this.btnSearch.Raised = true;
-            this.btnSearch.SingleColor = System.Drawing.Color.Red;
+            this.btnSearch.SingleColor = System.Drawing.SystemColors.AppWorkspace;
             this.btnSearch.Size = new System.Drawing.Size(75, 23);
             this.btnSearch.TabIndex = 21;
             this.btnSearch.Text = "Search";
@@ -1186,9 +1187,9 @@
             this.btnReload.Primary = true;
             this.btnReload.Raised = true;
             this.btnReload.SingleColor = System.Drawing.Color.Empty;
-            this.btnReload.Size = new System.Drawing.Size(157, 23);
+            this.btnReload.Size = new System.Drawing.Size(137, 23);
             this.btnReload.TabIndex = 39;
-            this.btnReload.Text = "Reload";
+            this.btnReload.Text = "Apply";
             this.btnReload.UseVisualStyleBackColor = true;
             this.btnReload.Click += new System.EventHandler(this.btnReload_Click);
             // 
@@ -1453,7 +1454,6 @@
         private System.Windows.Forms.CheckBox cbJustpickmyitems;
         private System.Windows.Forms.CheckBox cbDontPickupWhileBotting;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.RadioButton checkEuropean;
         private System.Windows.Forms.RadioButton checkChinese;
         private System.Windows.Forms.RadioButton checkFemale;
@@ -1463,5 +1463,6 @@
         private System.Windows.Forms.Label labelResult;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.CheckBox checkBoxRareItems;
+        private System.Windows.Forms.ImageList searchImageList;
     }
 }

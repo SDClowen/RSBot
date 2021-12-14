@@ -19,7 +19,8 @@ namespace RSBot.Shopping
             DisplayName = "Items",
             InternalName = "RSBot.Items",
             LoadIndex = 5,
-            TabDisplayIndex = 5
+            TabDisplayIndex = 5,
+            RequireIngame = false
         };
 
         /// <summary>
