@@ -480,7 +480,7 @@ namespace RSBot.Core.Client
                         if (refItem.Degree >= degreeFrom && refItem.Degree <= degreeTo || degreeTo == 0)
                         {
                             var itemGender = (ObjectGender)refItem.ReqGender;
-                            if (itemGender == gender || gender == ObjectGender.Neutral||refItem.TypeID3 == 12||refItem.TypeID3 == 5)
+                            if (itemGender == gender || gender == ObjectGender.Neutral||refItem.TypeID3 == 12||refItem.TypeID3 == 5||refItem.TypeID3 == 6||refItem.TypeID3 == 4)
                             {
                                 if (!string.IsNullOrEmpty(searchPattern))
                                 {
