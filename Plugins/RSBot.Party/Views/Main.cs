@@ -559,7 +559,7 @@ namespace RSBot.Party.Views
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void btnAddToAutoParty_Click(object sender, System.EventArgs e)
         {
-            var diag = new InputDialog(@"Character name", "Please enter the character name that you want to add to the auto party list.");
+            var diag = new InputDialog("Input", "Character name", "Please enter the character name that you want to add to the auto party list.");
 
             if (diag.ShowDialog() != DialogResult.OK) return;
 
@@ -836,7 +836,8 @@ namespace RSBot.Party.Views
             if (partyMember.Name == Game.Player.Name)
                 return;
 
-            var dialog = new InputDialog($"Select a group for [{partyMember.Name}]", "Select the group for add member to the selected group!", true);
+            var dialogTitle = "Select a group for [{partyMember.Name}]";
+            var dialog = new InputDialog(dialogTitle,dialogTitle, "Select the group for add member to the selected group!", InputDialog.InputType.Combobox);
 
             var groups = listViewGroups.Items.Cast<ListViewItem>()
                                              .Select(p => p.Text)
@@ -848,7 +849,9 @@ namespace RSBot.Party.Views
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                if (_buffings.Any(p => p.Group == dialog.Value && p.Name == partyMember.Name))
+                var dialogValue = dialog.Value.ToString();
+
+                if (_buffings.Any(p => p.Group == dialogValue && p.Name == partyMember.Name))
                 {
                     MessageBox.Show($"The {partyMember.Name} already in the buffing list. You can add a buff on a [Buffing] tab");
                     return;
@@ -857,10 +860,10 @@ namespace RSBot.Party.Views
                 _buffings.Add(new BuffingPartyMember
                 {
                     Name = partyMember.Name,
-                    Group = dialog.Value
+                    Group = dialogValue
                 });
 
-                if (dialog.Value == _selectedBuffingGroup.Text)
+                if (dialogValue == _selectedBuffingGroup.Text)
                     RefreshGroupMembers();
 
                 SaveBuffingPartyMembers();
@@ -871,10 +874,11 @@ namespace RSBot.Party.Views
 
         private void buttonAddGroup_Click(object sender, EventArgs e)
         {
-            var dialog = new InputDialog("Create new group", "Please enter the group name to the input.");
+            var dialog = new InputDialog("Create new group", "Create new group", "Please enter the group name to the input.");
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                var item = listViewGroups.Items.Add(dialog.Value, dialog.Value, 0);
+                var value = dialog.Value.ToString();
+                var item = listViewGroups.Items.Add(value, value, 0);
                 item.SubItems.Add("0");
                 item.Selected = true;
 

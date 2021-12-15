@@ -455,59 +455,52 @@ namespace RSBot.Core.Client
         /// <param name="searchPattern">The search pattern.</param>
         /// <returns></returns>
         public List<RefObjItem> GetFilteredItems(
-            List<TypeIdFilter> filters, 
-            byte degreeFrom = 0, 
-            byte degreeTo = 0, 
-            ObjectGender gender = ObjectGender.Neutral, 
-            bool rare = false, 
+            List<TypeIdFilter> filters,
+            byte degreeFrom = 0,
+            byte degreeTo = 0,
+            ObjectGender gender = ObjectGender.Neutral,
+            bool rare = false,
             string searchPattern = null)
         {
-            var result = new List<RefObjItem>();
-
-            foreach (var refItem in ItemData.Values)
+            var result = new List<RefObjItem>(10000);
+            foreach(var refItem in ItemData.Values)
             {
+                if (refItem.IsGold)
+                    continue;
+
                 foreach (var filter in filters)
                 {
-                    if (!filter.EqualsRefItem(refItem)) 
+                    // step 1 compare typeids
+                    if (!filter.EqualsRefItem(refItem))
                         continue;
 
-                    if (refItem.Service != 1) 
+                    // step 2 compare gender
+                    var itemGender = (ObjectGender)refItem.ReqGender;
+                    if (gender != ObjectGender.Neutral && itemGender != gender)
                         continue;
 
-                    //Gear
-                    if (refItem.TypeID2 == 1)
-                    {
-                        if (refItem.Degree >= degreeFrom && refItem.Degree <= degreeTo || degreeTo == 0)
-                        {
-                            var itemGender = (ObjectGender)refItem.ReqGender;
-                            if (itemGender == gender || gender == ObjectGender.Neutral)
-                            {
-                                if (!string.IsNullOrEmpty(searchPattern))
-                                {
-                                    var itemRealName = refItem.GetRealName();
-
-                                    if (itemRealName.IndexOf(searchPattern, StringComparison.InvariantCultureIgnoreCase) < 0)
-                                        continue;
-                                }
-
-                                if (rare && (byte)refItem.Rarity < 2)
-                                    continue;
-
-                                result.Add(refItem);
-                            }
-                        }
-
-                        continue;
-                    }
-
-                    //ETC
+                    // step 3 compare searching item name
                     if (!string.IsNullOrEmpty(searchPattern))
                     {
                         var itemRealName = refItem.GetRealName();
 
-                        if (itemRealName.IndexOf(searchPattern, StringComparison.InvariantCultureIgnoreCase) < 0)
+                        if (itemRealName.IndexOf(searchPattern, StringComparison.InvariantCultureIgnoreCase) == -1)
                             continue;
                     }
+
+                    // step 4 compare rare
+                    if (rare && (byte)refItem.Rarity < 2)
+                        continue;
+
+                    // step 5 compare minimum degree
+                    // dont need to check the if it is equip items
+                    if (degreeFrom != 0 && refItem.Degree < degreeFrom)
+                        continue;
+
+                    // step 6 compare maximum degree
+                    // dont need to check the if it is equip items
+                    if (degreeTo != 0 && refItem.Degree > degreeTo)
+                        continue;
 
                     result.Add(refItem);
                 }

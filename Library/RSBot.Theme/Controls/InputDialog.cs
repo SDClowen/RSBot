@@ -5,13 +5,12 @@ namespace RSBot.Theme.Controls
 {
     public partial class InputDialog : Form
     {
-        /// <summary>
-        /// Gets the message.
-        /// </summary>
-        /// <value>
-        /// The message.
-        /// </value>
-        public string Message { get; private set; }
+        public enum InputType
+        {
+            Combobox,
+            Textbox,
+            Numeric
+        }
 
         /// <summary>
         /// Gets the value.
@@ -19,7 +18,7 @@ namespace RSBot.Theme.Controls
         /// <value>
         /// The value.
         /// </value>
-        public string Value { get; private set; }
+        public object Value { get; private set; }
 
         /// <summary>
         /// Gets the selector.
@@ -30,9 +29,17 @@ namespace RSBot.Theme.Controls
         public ComboBox Selector => comboBox;
 
         /// <summary>
-        /// <c>true</c> if the selector activated; otherwise <c>false</c>
+        /// Gets the selector.
         /// </summary>
-        private bool _isSelector;
+        /// <value>
+        /// The selector.
+        /// </value>
+        public NumericUpDown Numeric => numValue;
+
+        /// <summary>
+        /// Form input type
+        /// </summary>
+        private InputType _inputType;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InputDialog"/> class.
@@ -40,19 +47,32 @@ namespace RSBot.Theme.Controls
         /// <param name="title">The title.</param>
         /// <param name="message">The message.</param>
         /// <param name="selector">If you want to active the selector instead of textbox <c>true</c>; otherwise <c>false</c></param>
-        public InputDialog(string title, string message, bool selector = false)
+        public InputDialog(string formTitle, string title, string message, InputType inputType = InputType.Textbox)
         {
-            Message = message;
             InitializeComponent();
 
+            Text = formTitle;
             lblTitle.Text = title;
             lblMessage.Text = message;
-            _isSelector = selector;
+            _inputType = inputType;
 
-            if (selector)
+            switch (_inputType)
             {
-                comboBox.Visible = true;
-                txtValue.Visible = false;
+                case InputType.Combobox:
+                    comboBox.Visible = true;
+                    txtValue.Visible = false;
+                    numValue.Visible = false;
+                    break;
+                case InputType.Textbox:
+                    comboBox.Visible = false;
+                    txtValue.Visible = true;
+                    numValue.Visible = false;
+                    break;
+                case InputType.Numeric:
+                    comboBox.Visible = false;
+                    txtValue.Visible = false;
+                    numValue.Visible = true;
+                    break;
             }
         }
 
@@ -63,8 +83,8 @@ namespace RSBot.Theme.Controls
         /// <param name="message">The dialog message</param>
         /// <param name="selector">If you want to active the selector instead of textbox <c>true</c>; otherwise <c>false</c></param>
         /// <returns>The <seealso cref="DialogResult"/></returns>
-        public static DialogResult Show(string title, string message, bool selector = false)
-            => new InputDialog(title, message, selector).ShowDialog();
+        public static DialogResult Show(string formTitle, string title, string message, InputType inputType)
+            => new InputDialog(formTitle, title, message, inputType).ShowDialog();
 
         /// <summary>
         /// Handles the Click event of the btnOK control.
@@ -73,13 +93,23 @@ namespace RSBot.Theme.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnOK_Click(object sender, EventArgs e)
         {
-            string value;
-            if (!_isSelector)
-                value = txtValue.Text;
-            else
-                value = comboBox.SelectedItem.ToString();
+            object value = null;
+            switch (_inputType)
+            {
+                case InputType.Combobox:
+                    value = comboBox.SelectedItem;
+                    break;
+                case InputType.Textbox:
+                    value = txtValue.Text;
+                    break;
+                case InputType.Numeric:
+                    value = numValue.Value;
+                    break;
+                default:
+                    break;
+            }
 
-            if(string.IsNullOrWhiteSpace(value))
+            if(_inputType == InputType.Textbox && string.IsNullOrWhiteSpace(value.ToString()))
             {
                 MessageBox.Show(this, "The value can't be empty!");
 
@@ -104,10 +134,29 @@ namespace RSBot.Theme.Controls
             }
         }
 
+        /// <summary>
+        /// Handles the FormClosing event of the form control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
         private void InputDialog_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (DialogResult == DialogResult.Retry)
                 e.Cancel = true;
+        }
+
+        /// <summary>
+        /// Handles the KeyUp event of the numValue control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
+        private void numValue_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Enter) 
+                return;
+
+            Value = numValue.Value;
+            DialogResult = DialogResult.OK;
         }
     }
 }

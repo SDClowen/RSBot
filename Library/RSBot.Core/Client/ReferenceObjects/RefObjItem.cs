@@ -132,9 +132,16 @@ namespace RSBot.Core.Client.ReferenceObjects
         {
             try
             {
-                return Game.MediaPk2.FileExists(Path.GetFileName(this.AssocFileIcon))
-                    ? Game.MediaPk2.GetFile(Path.GetFileName(this.AssocFileIcon)).ToImage()
-                    : new Bitmap(24, 24);
+                Image bitmap;
+                if (Game.MediaPk2.FileExists(Path.GetFileName(this.AssocFileIcon)))
+                    bitmap = Game.MediaPk2.GetFile(Path.GetFileName(this.AssocFileIcon)).ToImage();
+                else
+                    bitmap = Game.MediaPk2.GetFile("icon_default.ddj").ToImage();
+
+                if (bitmap == null)
+                    bitmap = new Bitmap(24, 24);
+
+                return bitmap;
             }
             catch //DDS convert failed
             {

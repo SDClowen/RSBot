@@ -68,6 +68,9 @@
                 languageTab++;
             }
 
+            // fix nullreferenceexception
+            if (IsEmptyString(Data))
+                Data = ID;
 
             ////for (int i = 0; i < LANG_COUNT; i++) 
             ////    parser.TryParseString(LANG_OFFSET + i, out _data[i], "0");

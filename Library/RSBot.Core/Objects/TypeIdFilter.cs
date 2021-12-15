@@ -15,7 +15,7 @@ namespace RSBot.Core.Objects
         public bool CompareByTypeID3 { get; set; }
         public bool CompareByTypeID4 { get; set; }
 
-        Predicate<RefObjItem> _condition { get; set; }
+        Predicate<RefObjCommon> _condition { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TypeIdFilter"/> class.
@@ -35,7 +35,7 @@ namespace RSBot.Core.Objects
         /// <summary>
         /// Initializes a new instance of the <see cref="TypeIdFilter" /> class.
         /// </summary>
-        public TypeIdFilter(Predicate<RefObjItem> condition)
+        public TypeIdFilter(Predicate<RefObjCommon> condition)
         {
             _condition = condition;
         }
@@ -52,7 +52,7 @@ namespace RSBot.Core.Objects
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns></returns>
-        public bool EqualsRefItem(RefObjItem item)
+        public bool EqualsRefItem(RefObjCommon item)
         {
             if (_condition != null && _condition(item))
                 return true;
