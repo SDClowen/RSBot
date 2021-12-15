@@ -465,41 +465,21 @@ namespace RSBot.Core.Client
             var result = new List<RefObjItem>(10000);
             foreach(var refItem in ItemData.Values)
             {
+                if (refItem.IsGold)
+                    continue;
+
                 foreach (var filter in filters)
                 {
+                    // step 1 compare typeids
                     if (!filter.EqualsRefItem(refItem))
                         continue;
 
-                    if (refItem.Service != 1)
+                    // step 2 compare gender
+                    var itemGender = (ObjectGender)refItem.ReqGender;
+                    if (gender != ObjectGender.Neutral && itemGender != gender)
                         continue;
 
-                    //Gear
-                    if (refItem.TypeID2 == 1)
-                    {
-                        if (refItem.Degree >= degreeFrom && (degreeTo == 0 || refItem.Degree <= degreeTo))
-                        {
-                            var itemGender = (ObjectGender)refItem.ReqGender;
-                            if (itemGender == gender || gender == ObjectGender.Neutral)
-                            {
-                                if (!string.IsNullOrEmpty(searchPattern))
-                                {
-                                    var itemRealName = refItem.GetRealName();
-
-                                    if (itemRealName.IndexOf(searchPattern, StringComparison.InvariantCultureIgnoreCase) == -1)
-                                        continue;
-                                }
-
-                                if (rare && (byte)refItem.Rarity < 2)
-                                    continue;
-
-                                result.Add(refItem);
-                            }
-                        }
-
-                        continue;
-                    }
-
-                    //ETC
+                    // step 3 compare searching item name
                     if (!string.IsNullOrEmpty(searchPattern))
                     {
                         var itemRealName = refItem.GetRealName();
@@ -507,6 +487,20 @@ namespace RSBot.Core.Client
                         if (itemRealName.IndexOf(searchPattern, StringComparison.InvariantCultureIgnoreCase) == -1)
                             continue;
                     }
+
+                    // step 4 compare rare
+                    if (rare && (byte)refItem.Rarity < 2)
+                        continue;
+
+                    // step 5 compare minimum degree
+                    // dont need to check the if it is equip items
+                    if (degreeFrom != 0 && refItem.Degree < degreeFrom)
+                        continue;
+
+                    // step 6 compare maximum degree
+                    // dont need to check the if it is equip items
+                    if (degreeTo != 0 && refItem.Degree > degreeTo)
+                        continue;
 
                     result.Add(refItem);
                 }

@@ -178,28 +178,23 @@ namespace RSBot.Shopping.Views
         /// <summary>
         /// Loads the search result item image.
         /// </summary>
-        private void LoadSearchResultItemImage()
+        private async void LoadSearchResultItemImagesAsync()
         {
-            try
+            listFilter.BeginUpdate();
+
+            foreach (ListViewItem item in listFilter.Items)
             {
-                listFilter.BeginUpdate();
+                var refItem = (RefObjItem)item.Tag;
 
-                foreach (ListViewItem item in listFilter.Items)
-                {
-                    var refItem = (RefObjItem)item.Tag;
+                if (!searchImageList.Images.ContainsKey(refItem.CodeName))
+                    searchImageList.Images.Add(refItem.CodeName, refItem.GetIcon());
 
-                    if (!searchImageList.Images.ContainsKey(refItem.CodeName))
-                        searchImageList.Images.Add(refItem.CodeName, refItem.GetIcon());
-
-                    item.ImageKey = refItem.CodeName;
-                }
-
-                listFilter.EndUpdate();
+                item.ImageKey = refItem.CodeName;
             }
-            catch
-            {
-                Log.Debug("Could not load search result item image: Unknown error occurred.");
-            }
+
+            listFilter.EndUpdate();
+
+            await Task.Yield();
         }
 
         /// <summary>
@@ -301,8 +296,10 @@ namespace RSBot.Shopping.Views
         /// <summary>
         /// Queries the sell items.
         /// </summary>
-        private void QuerySellItems()
+        private async Task QuerySellItemsAsync()
         {
+            await Task.Delay(1).ConfigureAwait(false);
+
             listFilter.Visible = false;
             listFilter.BeginUpdate();
             listFilter.Items.Clear();
@@ -310,148 +307,200 @@ namespace RSBot.Shopping.Views
 
             var filters = new List<TypeIdFilter>();
 
-            if (checkAll.Checked)
+            #region Weapons
+
+            if (checkSword.Checked)
+                filters.Add(new TypeIdFilter(3, 1, 6, 2));
+
+            if (checkBlade.Checked)
+                filters.Add(new TypeIdFilter(3, 1, 6, 3));
+
+            if (checkSpear.Checked)
+                filters.Add(new TypeIdFilter(3, 1, 6, 4));
+
+            if (checkGlave.Checked)
+                filters.Add(new TypeIdFilter(3, 1, 6, 5));
+
+            if (checkBow.Checked)
+                filters.Add(new TypeIdFilter(3, 1, 6, 6));
+
+            if (check1HSword.Checked)
+                filters.Add(new TypeIdFilter(3, 1, 6, 7));
+
+            if (check2HSword.Checked)
+                filters.Add(new TypeIdFilter(3, 1, 6, 8));
+
+            if (checkAxe.Checked)
+                filters.Add(new TypeIdFilter(3, 1, 6, 9));
+
+            if (checkWRod.Checked)
+                filters.Add(new TypeIdFilter(3, 1, 6, 10));
+
+            if (checkStaff.Checked)
+                filters.Add(new TypeIdFilter(3, 1, 6, 11));
+
+            if (checkXBow.Checked)
+                filters.Add(new TypeIdFilter(3, 1, 6, 12));
+
+            if (checkDagger.Checked)
+                filters.Add(new TypeIdFilter(3, 1, 6, 13));
+
+            if (checkHarp.Checked)
+                filters.Add(new TypeIdFilter(3, 1, 6, 14));
+
+            if (checkCRod.Checked)
+                filters.Add(new TypeIdFilter(3, 1, 6, 15));
+
+            #endregion Weapons
+
+            #region Equipment
+
+            var clothTypes = new byte[3, 2];
+
+            if (checkClothes.Checked)
             {
+                if (checkEuropean.Checked)
+                    clothTypes[0, 0] = 9;
+
+                if (checkChinese.Checked)
+                    clothTypes[0, 1] = 1;
+            }
+
+            if (checkLight.Checked)
+            {
+                if (checkEuropean.Checked)
+                    clothTypes[1, 0] = 10;
+
+                if (checkChinese.Checked)
+                    clothTypes[1, 1] = 2;
+            }
+
+            if (checkHeavy.Checked)
+            {
+                if (checkEuropean.Checked)
+                    clothTypes[2, 0] = 11;
+
+                if (checkChinese.Checked)
+                    clothTypes[2, 1] = 3;
+            }
+
+            for (int x = 0; x < 3; x++)
+            {
+                for (int z = 0; z < 2; z++)
+                {
+                    var cloth = clothTypes[x, z];
+                    if (cloth == 0)
+                        continue;
+
+                    if (checkHead.Checked)
+                        filters.Add(new TypeIdFilter(3, 1, cloth, 1));
+
+                    if (checkShoulder.Checked)
+                        filters.Add(new TypeIdFilter(3, 1, cloth, 2));
+
+                    if (checkChest.Checked)
+                        filters.Add(new TypeIdFilter(3, 1, cloth, 3));
+
+                    if (checkLegs.Checked)
+                        filters.Add(new TypeIdFilter(3, 1, cloth, 4));
+
+                    if (checkHand.Checked)
+                        filters.Add(new TypeIdFilter(3, 1, cloth, 5));
+
+                    if (checkBoot.Checked)
+                        filters.Add(new TypeIdFilter(3, 1, cloth, 6));
+                }
+            }
+
+            #region Accessory
+
+            if (checkRing.Checked && checkEuropean.Checked)
+                filters.Add(new TypeIdFilter(3, 1, 12, 3));
+
+            if (checkRing.Checked && checkChinese.Checked)
+                filters.Add(new TypeIdFilter(3, 1, 5, 3));
+
+            if (checkRing.Checked && !checkEuropean.Checked && !checkChinese.Checked)
+            {
+                filters.Add(new TypeIdFilter(3, 1, 5, 3));
+                filters.Add(new TypeIdFilter(3, 1, 12, 3));
+            }
+
+            if (checkNecklace.Checked && checkEuropean.Checked)
+                filters.Add(new TypeIdFilter(3, 1, 12, 2));
+
+            if (checkNecklace.Checked && checkChinese.Checked)
+                filters.Add(new TypeIdFilter(3, 1, 5, 2));
+
+            if (checkNecklace.Checked && !checkEuropean.Checked && !checkChinese.Checked)
+            {
+                filters.Add(new TypeIdFilter(3, 1, 5, 2));
+                filters.Add(new TypeIdFilter(3, 1, 12, 2));
+            }
+
+            if (checkEarring.Checked && checkEuropean.Checked)
+                filters.Add(new TypeIdFilter(3, 1, 12, 1));
+
+            if (checkEarring.Checked && checkChinese.Checked)
+                filters.Add(new TypeIdFilter(3, 1, 5, 1));
+
+            if (checkEarring.Checked && !checkEuropean.Checked && !checkChinese.Checked)
+            {
+                filters.Add(new TypeIdFilter(3, 1, 5, 1));
+                filters.Add(new TypeIdFilter(3, 1, 12, 1));
+            }
+
+            #endregion Accessory
+
+            #region Shields
+            if (checkShield.Checked && checkChinese.Checked)
+                filters.Add(new TypeIdFilter(3, 1, 4, 1));
+
+            if (checkShield.Checked && checkEuropean.Checked)
+                filters.Add(new TypeIdFilter(3, 1, 4, 2));
+
+            if (checkShield.Checked && !checkEuropean.Checked && !checkChinese.Checked)
+            {
+                filters.Add(new TypeIdFilter(3, 1, 4, 1));
+                filters.Add(new TypeIdFilter(3, 1, 4, 2));
+            }
+
+            #endregion
+
+            #endregion Equipment
+
+            if (checkAlchemy.Checked)
+                filters.AddRange(GetAlchemyFilters());
+
+            if (checkQuest.Checked)
+                filters.Add(new TypeIdFilter(p => (p as RefObjItem).IsQuest));
+
+            if (checkAmmo.Checked)
+            {
+                filters.Add(new TypeIdFilter(3, 3, 4, 1));
+                filters.Add(new TypeIdFilter(3, 3, 4, 2));
+            }
+
+            if (checkCoin.Checked)
+                filters.Add(new TypeIdFilter(3, 3, 5, 1));
+
+            if (checkOther.Checked)
+            {
+                filters.Add(new TypeIdFilter
+                {
+                    CompareByTypeID2 = true,
+                    TypeID2 = 3
+                });
+            }
+
+            if (filters.Count == 0)
                 filters.Add(new TypeIdFilter { CompareByTypeID1 = true, TypeID1 = 3 });
-            }
-            else
-            {
-                #region Weapons
-
-                if (checkSword.Checked)
-                    filters.Add(new TypeIdFilter(3, 1, 6, 2));
-
-                if (checkBlade.Checked)
-                    filters.Add(new TypeIdFilter(3, 1, 6, 3));
-
-                if (checkSpear.Checked)
-                    filters.Add(new TypeIdFilter(3, 1, 6, 4));
-
-                if (checkGlave.Checked)
-                    filters.Add(new TypeIdFilter(3, 1, 6, 5));
-
-                if (checkBow.Checked)
-                    filters.Add(new TypeIdFilter(3, 1, 6, 6));
-
-                if (check1HSword.Checked)
-                    filters.Add(new TypeIdFilter(3, 1, 6, 7));
-
-                if (check2HSword.Checked)
-                    filters.Add(new TypeIdFilter(3, 1, 6, 8));
-
-                if (checkAxe.Checked)
-                    filters.Add(new TypeIdFilter(3, 1, 6, 9));
-
-                if (checkWRod.Checked)
-                    filters.Add(new TypeIdFilter(3, 1, 6, 10));
-
-                if (checkStaff.Checked)
-                    filters.Add(new TypeIdFilter(3, 1, 6, 11));
-
-                if (checkXBow.Checked)
-                    filters.Add(new TypeIdFilter(3, 1, 6, 12));
-
-                if (checkDagger.Checked)
-                    filters.Add(new TypeIdFilter(3, 1, 6, 13));
-
-                if (checkHarp.Checked)
-                    filters.Add(new TypeIdFilter(3, 1, 6, 14));
-
-                if (checkCRod.Checked)
-                    filters.Add(new TypeIdFilter(3, 1, 6, 15));
-
-                #endregion Weapons
-
-                #region Equipment
-
-                if (checkEuropean.Checked || checkChinese.Checked)
-                {
-                    var clothTypes = new byte[3];
-
-                    if (checkClothes.Checked)
-                    {
-                        if (checkEuropean.Checked)
-                            clothTypes[0] = 9;
-                        else
-                            clothTypes[0] = 1;
-                    }
-
-                    if (checkLight.Checked)
-                    {
-                        if (checkEuropean.Checked)
-                            clothTypes[1] = 10;
-                        else
-                            clothTypes[1] = 2;
-                    }
-
-                    if (checkHeavy.Checked)
-                    {
-                        if (checkEuropean.Checked)
-                            clothTypes[2] = 11;
-                        else
-                            clothTypes[2] = 3;
-                    }
-
-                    for (int i = 0; i < 3; i++)
-                    {
-                        var cloth = clothTypes[i];
-                        if (cloth == 0)
-                            continue;
-
-                        if (checkHead.Checked)
-                            filters.Add(new TypeIdFilter(3, 1, cloth, 1));
-
-                        if (checkShoulder.Checked)
-                            filters.Add(new TypeIdFilter(3, 1, cloth, 2));
-
-                        if (checkChest.Checked)
-                            filters.Add(new TypeIdFilter(3, 1, cloth, 3));
-
-                        if (checkLegs.Checked)
-                            filters.Add(new TypeIdFilter(3, 1, cloth, 4));
-
-                        if (checkHand.Checked)
-                            filters.Add(new TypeIdFilter(3, 1, cloth, 5));
-
-                        if (checkBoot.Checked)
-                            filters.Add(new TypeIdFilter(3, 1, cloth, 6));
-                    }
-
-                    #region Accessory
-
-                    var acc = (byte)(checkEuropean.Checked ? 12 : 5);
-                    if (checkRing.Checked)
-                        filters.Add(new TypeIdFilter(3, 1, acc, 3));
-
-                    if (checkNecklace.Checked)
-                        filters.Add(new TypeIdFilter(3, 1, acc, 2));
-
-                    if (checkEarring.Checked)
-                        filters.Add(new TypeIdFilter(3, 1, acc, 1));
-
-                    #endregion Accessory
-
-                    if (checkShield.Checked)
-                        filters.Add(new TypeIdFilter(3, 1, 4, (byte)(checkChinese.Checked ? 1 : 2)));
-                }
-
-                #endregion Equipment
-
-                if (checkAlchemy.Checked)
-                    filters.AddRange(GetAlchemyFilters());
-
-                if (checkStackable.Checked)
-                {
-                    filters.Add(new TypeIdFilter
-                    {
-                        CompareByTypeID2 = true,
-                        TypeID2 = 3
-                    });
-                }
-            }
 
             var gender = ObjectGender.Neutral;
-            if (checkMale.Checked)
+
+            if (checkMale.Checked && checkFemale.Checked)
+            { /* nothing do anything, already neutral */ }
+            else if (checkMale.Checked)
                 gender = ObjectGender.Male;
             else if (checkFemale.Checked)
                 gender = ObjectGender.Female;
@@ -464,7 +513,7 @@ namespace RSBot.Shopping.Views
                 return;
             }
 
-            PopulateSellList(items);
+            await PopulateSellListAsync(items);
             labelResult.Text = $"Result: {items.Count}";
         }
 
@@ -472,7 +521,7 @@ namespace RSBot.Shopping.Views
         /// Populates the sell list.
         /// </summary>
         /// <param name="items">The items.</param>
-        private void PopulateSellList(List<RefObjItem> items)
+        private async Task PopulateSellListAsync(List<RefObjItem> items)
         {
             listFilter.BeginUpdate();
 
@@ -495,16 +544,17 @@ namespace RSBot.Shopping.Views
                     }
                 };
 
-                listViewItem.Tag = item;
-
                 listViewItems[i] = listViewItem;
             }
 
             listFilter.Items.AddRange(listViewItems);
             listFilter.EndUpdate();
-            //Task.Run(LoadSearchResultItemImage);
+
+            //LoadSearchResultItemImagesAsync();
 
             listFilter.Visible = true;
+
+            await Task.Delay(1).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -684,9 +734,9 @@ namespace RSBot.Shopping.Views
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void btnSearch_Click(object sender, EventArgs e)
+        private async void btnSearch_Click(object sender, EventArgs e)
         {
-            Task.Run(() => QuerySellItems());
+            await QuerySellItemsAsync();//.ConfigureAwait(false);
         }
 
         /// <summary>
@@ -710,9 +760,9 @@ namespace RSBot.Shopping.Views
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void btnReload_Click(object sender, EventArgs e)
+        private async void btnApply_Click(object sender, EventArgs e)
         {
-            btnSearch_Click(sender, e);
+            await QuerySellItemsAsync();
         }
 
         /// <summary>
@@ -807,8 +857,8 @@ namespace RSBot.Shopping.Views
                     checkBox.Checked = false;
 
             listFilter.Items.Clear();
-            numDegreeFrom.Value = 1;
-            numDegreeTo.Value = 16;
+            numDegreeFrom.Value = 0;
+            numDegreeTo.Value = 0;
             labelResult.Text = string.Empty;
         }
 
@@ -883,10 +933,10 @@ namespace RSBot.Shopping.Views
 
         #endregion Pickup
 
-        private void txtSellSearch_KeyDown(object sender, KeyEventArgs e)
+        private async void txtSellSearch_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-                btnSearch_Click(sender, null);
+                await QuerySellItemsAsync();
         }
     }
 }

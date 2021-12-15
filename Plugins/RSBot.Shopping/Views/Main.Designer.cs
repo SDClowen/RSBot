@@ -80,19 +80,18 @@
             this.searchImageList = new System.Windows.Forms.ImageList(this.components);
             this.filterPanel = new System.Windows.Forms.Panel();
             this.groupOthers = new System.Windows.Forms.GroupBox();
-            this.checkAll = new System.Windows.Forms.CheckBox();
             this.checkAlchemy = new System.Windows.Forms.CheckBox();
-            this.checkStackable = new System.Windows.Forms.CheckBox();
-            this.groupAccessories = new System.Windows.Forms.GroupBox();
-            this.checkNecklace = new System.Windows.Forms.CheckBox();
-            this.checkEarring = new System.Windows.Forms.CheckBox();
-            this.checkRing = new System.Windows.Forms.CheckBox();
+            this.checkQuest = new System.Windows.Forms.CheckBox();
+            this.checkAmmo = new System.Windows.Forms.CheckBox();
+            this.checkCoin = new System.Windows.Forms.CheckBox();
+            this.checkOther = new System.Windows.Forms.CheckBox();
             this.groupWeapons = new System.Windows.Forms.GroupBox();
             this.checkAxe = new System.Windows.Forms.CheckBox();
             this.checkHarp = new System.Windows.Forms.CheckBox();
             this.checkDagger = new System.Windows.Forms.CheckBox();
             this.checkXBow = new System.Windows.Forms.CheckBox();
             this.checkWRod = new System.Windows.Forms.CheckBox();
+            this.checkShield = new System.Windows.Forms.CheckBox();
             this.checkCRod = new System.Windows.Forms.CheckBox();
             this.check2HSword = new System.Windows.Forms.CheckBox();
             this.check1HSword = new System.Windows.Forms.CheckBox();
@@ -102,25 +101,26 @@
             this.checkGlave = new System.Windows.Forms.CheckBox();
             this.checkSword = new System.Windows.Forms.CheckBox();
             this.checkBlade = new System.Windows.Forms.CheckBox();
-            this.groupEquipment = new System.Windows.Forms.GroupBox();
+            this.groupAccessories = new System.Windows.Forms.GroupBox();
+            this.checkNecklace = new System.Windows.Forms.CheckBox();
+            this.checkEarring = new System.Windows.Forms.CheckBox();
+            this.checkRing = new System.Windows.Forms.CheckBox();
+            this.groupClothes = new System.Windows.Forms.GroupBox();
             this.checkHand = new System.Windows.Forms.CheckBox();
             this.checkLegs = new System.Windows.Forms.CheckBox();
             this.checkHeavy = new System.Windows.Forms.CheckBox();
             this.checkLight = new System.Windows.Forms.CheckBox();
             this.checkClothes = new System.Windows.Forms.CheckBox();
-            this.checkShield = new System.Windows.Forms.CheckBox();
             this.checkBoot = new System.Windows.Forms.CheckBox();
             this.checkChest = new System.Windows.Forms.CheckBox();
             this.checkShoulder = new System.Windows.Forms.CheckBox();
             this.checkHead = new System.Windows.Forms.CheckBox();
             this.groupGender = new System.Windows.Forms.GroupBox();
+            this.checkEuropean = new System.Windows.Forms.CheckBox();
+            this.checkChinese = new System.Windows.Forms.CheckBox();
+            this.checkFemale = new System.Windows.Forms.CheckBox();
             this.checkBoxRareItems = new System.Windows.Forms.CheckBox();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.checkFemale = new System.Windows.Forms.RadioButton();
-            this.checkMale = new System.Windows.Forms.RadioButton();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.checkEuropean = new System.Windows.Forms.RadioButton();
-            this.checkChinese = new System.Windows.Forms.RadioButton();
+            this.checkMale = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.numDegreeFrom = new System.Windows.Forms.NumericUpDown();
             this.numDegreeTo = new System.Windows.Forms.NumericUpDown();
@@ -155,12 +155,10 @@
             this.contextList.SuspendLayout();
             this.filterPanel.SuspendLayout();
             this.groupOthers.SuspendLayout();
-            this.groupAccessories.SuspendLayout();
             this.groupWeapons.SuspendLayout();
-            this.groupEquipment.SuspendLayout();
+            this.groupAccessories.SuspendLayout();
+            this.groupClothes.SuspendLayout();
             this.groupGender.SuspendLayout();
-            this.panel6.SuspendLayout();
-            this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDegreeFrom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDegreeTo)).BeginInit();
             this.panel3.SuspendLayout();
@@ -495,7 +493,7 @@
             this.listFilter.Location = new System.Drawing.Point(265, 0);
             this.listFilter.Name = "listFilter";
             this.listFilter.Size = new System.Drawing.Size(469, 399);
-            this.listFilter.StateImageList = this.searchImageList;
+            this.listFilter.SmallImageList = this.searchImageList;
             this.listFilter.TabIndex = 5;
             this.listFilter.UseCompatibleStateImageBehavior = false;
             this.listFilter.View = System.Windows.Forms.View.Details;
@@ -592,7 +590,7 @@
             // 
             // searchImageList
             // 
-            this.searchImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth4Bit;
+            this.searchImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
             this.searchImageList.ImageSize = new System.Drawing.Size(16, 16);
             this.searchImageList.TransparentColor = System.Drawing.Color.Transparent;
             // 
@@ -600,9 +598,9 @@
             // 
             this.filterPanel.AutoScroll = true;
             this.filterPanel.Controls.Add(this.groupOthers);
-            this.filterPanel.Controls.Add(this.groupAccessories);
             this.filterPanel.Controls.Add(this.groupWeapons);
-            this.filterPanel.Controls.Add(this.groupEquipment);
+            this.filterPanel.Controls.Add(this.groupAccessories);
+            this.filterPanel.Controls.Add(this.groupClothes);
             this.filterPanel.Controls.Add(this.groupGender);
             this.filterPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.filterPanel.Location = new System.Drawing.Point(0, 0);
@@ -613,90 +611,68 @@
             // 
             // groupOthers
             // 
-            this.groupOthers.Controls.Add(this.checkAll);
             this.groupOthers.Controls.Add(this.checkAlchemy);
-            this.groupOthers.Controls.Add(this.checkStackable);
+            this.groupOthers.Controls.Add(this.checkQuest);
+            this.groupOthers.Controls.Add(this.checkAmmo);
+            this.groupOthers.Controls.Add(this.checkCoin);
+            this.groupOthers.Controls.Add(this.checkOther);
             this.groupOthers.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupOthers.Location = new System.Drawing.Point(12, 567);
+            this.groupOthers.Location = new System.Drawing.Point(12, 510);
             this.groupOthers.Name = "groupOthers";
-            this.groupOthers.Size = new System.Drawing.Size(224, 78);
+            this.groupOthers.Size = new System.Drawing.Size(224, 95);
             this.groupOthers.TabIndex = 42;
             this.groupOthers.TabStop = false;
             this.groupOthers.Text = "Others";
             // 
-            // checkAll
-            // 
-            this.checkAll.AutoSize = true;
-            this.checkAll.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkAll.Location = new System.Drawing.Point(11, 48);
-            this.checkAll.Name = "checkAll";
-            this.checkAll.Size = new System.Drawing.Size(205, 19);
-            this.checkAll.TabIndex = 20;
-            this.checkAll.Text = "All items (may take some seconds)";
-            this.checkAll.UseVisualStyleBackColor = true;
-            // 
             // checkAlchemy
             // 
             this.checkAlchemy.AutoSize = true;
-            this.checkAlchemy.Location = new System.Drawing.Point(11, 24);
+            this.checkAlchemy.Location = new System.Drawing.Point(99, 47);
             this.checkAlchemy.Name = "checkAlchemy";
             this.checkAlchemy.Size = new System.Drawing.Size(66, 17);
             this.checkAlchemy.TabIndex = 19;
             this.checkAlchemy.Text = "Alchemy";
             this.checkAlchemy.UseVisualStyleBackColor = true;
             // 
-            // checkStackable
+            // checkQuest
             // 
-            this.checkStackable.AutoSize = true;
-            this.checkStackable.Location = new System.Drawing.Point(100, 24);
-            this.checkStackable.Name = "checkStackable";
-            this.checkStackable.Size = new System.Drawing.Size(79, 17);
-            this.checkStackable.TabIndex = 19;
-            this.checkStackable.Text = "Stackables";
-            this.checkStackable.UseVisualStyleBackColor = true;
+            this.checkQuest.AutoSize = true;
+            this.checkQuest.Location = new System.Drawing.Point(11, 24);
+            this.checkQuest.Name = "checkQuest";
+            this.checkQuest.Size = new System.Drawing.Size(54, 17);
+            this.checkQuest.TabIndex = 19;
+            this.checkQuest.Text = "Quest";
+            this.checkQuest.UseVisualStyleBackColor = true;
             // 
-            // groupAccessories
+            // checkAmmo
             // 
-            this.groupAccessories.Controls.Add(this.checkNecklace);
-            this.groupAccessories.Controls.Add(this.checkEarring);
-            this.groupAccessories.Controls.Add(this.checkRing);
-            this.groupAccessories.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupAccessories.Location = new System.Drawing.Point(12, 491);
-            this.groupAccessories.Name = "groupAccessories";
-            this.groupAccessories.Size = new System.Drawing.Size(224, 76);
-            this.groupAccessories.TabIndex = 44;
-            this.groupAccessories.TabStop = false;
-            this.groupAccessories.Text = "Accessories";
+            this.checkAmmo.AutoSize = true;
+            this.checkAmmo.Location = new System.Drawing.Point(11, 47);
+            this.checkAmmo.Name = "checkAmmo";
+            this.checkAmmo.Size = new System.Drawing.Size(55, 17);
+            this.checkAmmo.TabIndex = 19;
+            this.checkAmmo.Text = "Ammo";
+            this.checkAmmo.UseVisualStyleBackColor = true;
             // 
-            // checkNecklace
+            // checkCoin
             // 
-            this.checkNecklace.AutoSize = true;
-            this.checkNecklace.Location = new System.Drawing.Point(99, 22);
-            this.checkNecklace.Name = "checkNecklace";
-            this.checkNecklace.Size = new System.Drawing.Size(72, 17);
-            this.checkNecklace.TabIndex = 4;
-            this.checkNecklace.Text = "Necklace";
-            this.checkNecklace.UseVisualStyleBackColor = true;
+            this.checkCoin.AutoSize = true;
+            this.checkCoin.Location = new System.Drawing.Point(99, 24);
+            this.checkCoin.Name = "checkCoin";
+            this.checkCoin.Size = new System.Drawing.Size(47, 17);
+            this.checkCoin.TabIndex = 19;
+            this.checkCoin.Text = "Coin";
+            this.checkCoin.UseVisualStyleBackColor = true;
             // 
-            // checkEarring
+            // checkOther
             // 
-            this.checkEarring.AutoSize = true;
-            this.checkEarring.Location = new System.Drawing.Point(11, 47);
-            this.checkEarring.Name = "checkEarring";
-            this.checkEarring.Size = new System.Drawing.Size(59, 17);
-            this.checkEarring.TabIndex = 3;
-            this.checkEarring.Text = "Earring";
-            this.checkEarring.UseVisualStyleBackColor = true;
-            // 
-            // checkRing
-            // 
-            this.checkRing.AutoSize = true;
-            this.checkRing.Location = new System.Drawing.Point(11, 22);
-            this.checkRing.Name = "checkRing";
-            this.checkRing.Size = new System.Drawing.Size(48, 17);
-            this.checkRing.TabIndex = 2;
-            this.checkRing.Text = "Ring";
-            this.checkRing.UseVisualStyleBackColor = true;
+            this.checkOther.AutoSize = true;
+            this.checkOther.Location = new System.Drawing.Point(11, 70);
+            this.checkOther.Name = "checkOther";
+            this.checkOther.Size = new System.Drawing.Size(52, 17);
+            this.checkOther.TabIndex = 19;
+            this.checkOther.Text = "Other";
+            this.checkOther.UseVisualStyleBackColor = true;
             // 
             // groupWeapons
             // 
@@ -705,6 +681,7 @@
             this.groupWeapons.Controls.Add(this.checkDagger);
             this.groupWeapons.Controls.Add(this.checkXBow);
             this.groupWeapons.Controls.Add(this.checkWRod);
+            this.groupWeapons.Controls.Add(this.checkShield);
             this.groupWeapons.Controls.Add(this.checkCRod);
             this.groupWeapons.Controls.Add(this.check2HSword);
             this.groupWeapons.Controls.Add(this.check1HSword);
@@ -715,7 +692,7 @@
             this.groupWeapons.Controls.Add(this.checkSword);
             this.groupWeapons.Controls.Add(this.checkBlade);
             this.groupWeapons.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupWeapons.Location = new System.Drawing.Point(12, 294);
+            this.groupWeapons.Location = new System.Drawing.Point(12, 313);
             this.groupWeapons.Margin = new System.Windows.Forms.Padding(6);
             this.groupWeapons.Name = "groupWeapons";
             this.groupWeapons.Size = new System.Drawing.Size(224, 197);
@@ -772,6 +749,16 @@
             this.checkWRod.TabIndex = 8;
             this.checkWRod.Text = "W-Rod";
             this.checkWRod.UseVisualStyleBackColor = true;
+            // 
+            // checkShield
+            // 
+            this.checkShield.AutoSize = true;
+            this.checkShield.Location = new System.Drawing.Point(161, 172);
+            this.checkShield.Name = "checkShield";
+            this.checkShield.Size = new System.Drawing.Size(55, 17);
+            this.checkShield.TabIndex = 5;
+            this.checkShield.Text = "Shield";
+            this.checkShield.UseVisualStyleBackColor = true;
             // 
             // checkCRod
             // 
@@ -863,25 +850,67 @@
             this.checkBlade.Text = "Blade";
             this.checkBlade.UseVisualStyleBackColor = true;
             // 
-            // groupEquipment
+            // groupAccessories
             // 
-            this.groupEquipment.Controls.Add(this.checkHand);
-            this.groupEquipment.Controls.Add(this.checkLegs);
-            this.groupEquipment.Controls.Add(this.checkHeavy);
-            this.groupEquipment.Controls.Add(this.checkLight);
-            this.groupEquipment.Controls.Add(this.checkClothes);
-            this.groupEquipment.Controls.Add(this.checkShield);
-            this.groupEquipment.Controls.Add(this.checkBoot);
-            this.groupEquipment.Controls.Add(this.checkChest);
-            this.groupEquipment.Controls.Add(this.checkShoulder);
-            this.groupEquipment.Controls.Add(this.checkHead);
-            this.groupEquipment.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupEquipment.Location = new System.Drawing.Point(12, 140);
-            this.groupEquipment.Name = "groupEquipment";
-            this.groupEquipment.Size = new System.Drawing.Size(224, 154);
-            this.groupEquipment.TabIndex = 41;
-            this.groupEquipment.TabStop = false;
-            this.groupEquipment.Text = "Equipment";
+            this.groupAccessories.Controls.Add(this.checkNecklace);
+            this.groupAccessories.Controls.Add(this.checkEarring);
+            this.groupAccessories.Controls.Add(this.checkRing);
+            this.groupAccessories.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupAccessories.Location = new System.Drawing.Point(12, 265);
+            this.groupAccessories.Name = "groupAccessories";
+            this.groupAccessories.Size = new System.Drawing.Size(224, 48);
+            this.groupAccessories.TabIndex = 44;
+            this.groupAccessories.TabStop = false;
+            this.groupAccessories.Text = "Accessories";
+            // 
+            // checkNecklace
+            // 
+            this.checkNecklace.AutoSize = true;
+            this.checkNecklace.Location = new System.Drawing.Point(71, 22);
+            this.checkNecklace.Name = "checkNecklace";
+            this.checkNecklace.Size = new System.Drawing.Size(72, 17);
+            this.checkNecklace.TabIndex = 4;
+            this.checkNecklace.Text = "Necklace";
+            this.checkNecklace.UseVisualStyleBackColor = true;
+            // 
+            // checkEarring
+            // 
+            this.checkEarring.AutoSize = true;
+            this.checkEarring.Location = new System.Drawing.Point(157, 22);
+            this.checkEarring.Name = "checkEarring";
+            this.checkEarring.Size = new System.Drawing.Size(59, 17);
+            this.checkEarring.TabIndex = 3;
+            this.checkEarring.Text = "Earring";
+            this.checkEarring.UseVisualStyleBackColor = true;
+            // 
+            // checkRing
+            // 
+            this.checkRing.AutoSize = true;
+            this.checkRing.Location = new System.Drawing.Point(11, 22);
+            this.checkRing.Name = "checkRing";
+            this.checkRing.Size = new System.Drawing.Size(48, 17);
+            this.checkRing.TabIndex = 2;
+            this.checkRing.Text = "Ring";
+            this.checkRing.UseVisualStyleBackColor = true;
+            // 
+            // groupClothes
+            // 
+            this.groupClothes.Controls.Add(this.checkHand);
+            this.groupClothes.Controls.Add(this.checkLegs);
+            this.groupClothes.Controls.Add(this.checkHeavy);
+            this.groupClothes.Controls.Add(this.checkLight);
+            this.groupClothes.Controls.Add(this.checkClothes);
+            this.groupClothes.Controls.Add(this.checkBoot);
+            this.groupClothes.Controls.Add(this.checkChest);
+            this.groupClothes.Controls.Add(this.checkShoulder);
+            this.groupClothes.Controls.Add(this.checkHead);
+            this.groupClothes.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupClothes.Location = new System.Drawing.Point(12, 140);
+            this.groupClothes.Name = "groupClothes";
+            this.groupClothes.Size = new System.Drawing.Size(224, 125);
+            this.groupClothes.TabIndex = 41;
+            this.groupClothes.TabStop = false;
+            this.groupClothes.Text = "Clothes";
             // 
             // checkHand
             // 
@@ -933,16 +962,6 @@
             this.checkClothes.Text = "Clothes";
             this.checkClothes.UseVisualStyleBackColor = true;
             // 
-            // checkShield
-            // 
-            this.checkShield.AutoSize = true;
-            this.checkShield.Location = new System.Drawing.Point(11, 125);
-            this.checkShield.Name = "checkShield";
-            this.checkShield.Size = new System.Drawing.Size(55, 17);
-            this.checkShield.TabIndex = 5;
-            this.checkShield.Text = "Shield";
-            this.checkShield.UseVisualStyleBackColor = true;
-            // 
             // checkBoot
             // 
             this.checkBoot.AutoSize = true;
@@ -985,9 +1004,11 @@
             // 
             // groupGender
             // 
+            this.groupGender.Controls.Add(this.checkEuropean);
+            this.groupGender.Controls.Add(this.checkChinese);
+            this.groupGender.Controls.Add(this.checkFemale);
             this.groupGender.Controls.Add(this.checkBoxRareItems);
-            this.groupGender.Controls.Add(this.panel6);
-            this.groupGender.Controls.Add(this.panel5);
+            this.groupGender.Controls.Add(this.checkMale);
             this.groupGender.Controls.Add(this.label3);
             this.groupGender.Controls.Add(this.numDegreeFrom);
             this.groupGender.Controls.Add(this.numDegreeTo);
@@ -1001,82 +1022,60 @@
             this.groupGender.TabStop = false;
             this.groupGender.Text = "Gender and Degree";
             // 
-            // checkBoxRareItems
-            // 
-            this.checkBoxRareItems.AutoSize = true;
-            this.checkBoxRareItems.Location = new System.Drawing.Point(16, 72);
-            this.checkBoxRareItems.Name = "checkBoxRareItems";
-            this.checkBoxRareItems.Size = new System.Drawing.Size(136, 17);
-            this.checkBoxRareItems.TabIndex = 40;
-            this.checkBoxRareItems.Text = "Rare Items (Sox Types)";
-            this.checkBoxRareItems.UseVisualStyleBackColor = true;
-            // 
-            // panel6
-            // 
-            this.panel6.Controls.Add(this.checkFemale);
-            this.panel6.Controls.Add(this.checkMale);
-            this.panel6.Location = new System.Drawing.Point(12, 16);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(172, 24);
-            this.panel6.TabIndex = 39;
-            // 
-            // checkFemale
-            // 
-            this.checkFemale.AutoSize = true;
-            this.checkFemale.Location = new System.Drawing.Point(88, 4);
-            this.checkFemale.Name = "checkFemale";
-            this.checkFemale.Size = new System.Drawing.Size(59, 17);
-            this.checkFemale.TabIndex = 36;
-            this.checkFemale.TabStop = true;
-            this.checkFemale.Text = "Female";
-            this.checkFemale.UseVisualStyleBackColor = true;
-            // 
-            // checkMale
-            // 
-            this.checkMale.AutoSize = true;
-            this.checkMale.Location = new System.Drawing.Point(4, 4);
-            this.checkMale.Name = "checkMale";
-            this.checkMale.Size = new System.Drawing.Size(48, 17);
-            this.checkMale.TabIndex = 36;
-            this.checkMale.TabStop = true;
-            this.checkMale.Text = "Male";
-            this.checkMale.UseVisualStyleBackColor = true;
-            // 
-            // panel5
-            // 
-            this.panel5.Controls.Add(this.checkEuropean);
-            this.panel5.Controls.Add(this.checkChinese);
-            this.panel5.Location = new System.Drawing.Point(12, 40);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(172, 24);
-            this.panel5.TabIndex = 38;
-            // 
             // checkEuropean
             // 
             this.checkEuropean.AutoSize = true;
-            this.checkEuropean.Location = new System.Drawing.Point(88, 4);
+            this.checkEuropean.Location = new System.Drawing.Point(99, 46);
             this.checkEuropean.Name = "checkEuropean";
-            this.checkEuropean.Size = new System.Drawing.Size(71, 17);
-            this.checkEuropean.TabIndex = 0;
-            this.checkEuropean.TabStop = true;
+            this.checkEuropean.Size = new System.Drawing.Size(72, 17);
+            this.checkEuropean.TabIndex = 9;
             this.checkEuropean.Text = "European";
             this.checkEuropean.UseVisualStyleBackColor = true;
             // 
             // checkChinese
             // 
             this.checkChinese.AutoSize = true;
-            this.checkChinese.Location = new System.Drawing.Point(4, 4);
+            this.checkChinese.Location = new System.Drawing.Point(16, 46);
             this.checkChinese.Name = "checkChinese";
-            this.checkChinese.Size = new System.Drawing.Size(63, 17);
-            this.checkChinese.TabIndex = 0;
-            this.checkChinese.TabStop = true;
+            this.checkChinese.Size = new System.Drawing.Size(64, 17);
+            this.checkChinese.TabIndex = 9;
             this.checkChinese.Text = "Chinese";
             this.checkChinese.UseVisualStyleBackColor = true;
+            // 
+            // checkFemale
+            // 
+            this.checkFemale.AutoSize = true;
+            this.checkFemale.Location = new System.Drawing.Point(99, 23);
+            this.checkFemale.Name = "checkFemale";
+            this.checkFemale.Size = new System.Drawing.Size(60, 17);
+            this.checkFemale.TabIndex = 9;
+            this.checkFemale.Text = "Female";
+            this.checkFemale.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxRareItems
+            // 
+            this.checkBoxRareItems.AutoSize = true;
+            this.checkBoxRareItems.Location = new System.Drawing.Point(16, 69);
+            this.checkBoxRareItems.Name = "checkBoxRareItems";
+            this.checkBoxRareItems.Size = new System.Drawing.Size(136, 17);
+            this.checkBoxRareItems.TabIndex = 40;
+            this.checkBoxRareItems.Text = "Rare Items (Sox Types)";
+            this.checkBoxRareItems.UseVisualStyleBackColor = true;
+            // 
+            // checkMale
+            // 
+            this.checkMale.AutoSize = true;
+            this.checkMale.Location = new System.Drawing.Point(16, 23);
+            this.checkMale.Name = "checkMale";
+            this.checkMale.Size = new System.Drawing.Size(49, 17);
+            this.checkMale.TabIndex = 9;
+            this.checkMale.Text = "Male";
+            this.checkMale.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 100);
+            this.label3.Location = new System.Drawing.Point(16, 97);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(45, 13);
             this.label3.TabIndex = 31;
@@ -1084,14 +1083,14 @@
             // 
             // numDegreeFrom
             // 
-            this.numDegreeFrom.Location = new System.Drawing.Point(72, 97);
+            this.numDegreeFrom.Location = new System.Drawing.Point(72, 94);
             this.numDegreeFrom.Name = "numDegreeFrom";
             this.numDegreeFrom.Size = new System.Drawing.Size(39, 20);
             this.numDegreeFrom.TabIndex = 32;
             // 
             // numDegreeTo
             // 
-            this.numDegreeTo.Location = new System.Drawing.Point(140, 97);
+            this.numDegreeTo.Location = new System.Drawing.Point(140, 94);
             this.numDegreeTo.Name = "numDegreeTo";
             this.numDegreeTo.Size = new System.Drawing.Size(39, 20);
             this.numDegreeTo.TabIndex = 34;
@@ -1101,7 +1100,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label4.ForeColor = System.Drawing.Color.Gray;
-            this.label4.Location = new System.Drawing.Point(116, 97);
+            this.label4.Location = new System.Drawing.Point(116, 94);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(18, 19);
             this.label4.TabIndex = 33;
@@ -1170,7 +1169,7 @@
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Primary = true;
             this.btnSearch.Raised = true;
-            this.btnSearch.SingleColor = System.Drawing.SystemColors.AppWorkspace;
+            this.btnSearch.SingleColor = System.Drawing.Color.CadetBlue;
             this.btnSearch.Size = new System.Drawing.Size(75, 23);
             this.btnSearch.TabIndex = 21;
             this.btnSearch.Text = "Search";
@@ -1191,7 +1190,7 @@
             this.btnReload.TabIndex = 39;
             this.btnReload.Text = "Apply";
             this.btnReload.UseVisualStyleBackColor = true;
-            this.btnReload.Click += new System.EventHandler(this.btnReload_Click);
+            this.btnReload.Click += new System.EventHandler(this.btnApply_Click);
             // 
             // txtSellSearch
             // 
@@ -1332,18 +1331,14 @@
             this.filterPanel.ResumeLayout(false);
             this.groupOthers.ResumeLayout(false);
             this.groupOthers.PerformLayout();
-            this.groupAccessories.ResumeLayout(false);
-            this.groupAccessories.PerformLayout();
             this.groupWeapons.ResumeLayout(false);
             this.groupWeapons.PerformLayout();
-            this.groupEquipment.ResumeLayout(false);
-            this.groupEquipment.PerformLayout();
+            this.groupAccessories.ResumeLayout(false);
+            this.groupAccessories.PerformLayout();
+            this.groupClothes.ResumeLayout(false);
+            this.groupClothes.PerformLayout();
             this.groupGender.ResumeLayout(false);
             this.groupGender.PerformLayout();
-            this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDegreeFrom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDegreeTo)).EndInit();
             this.panel3.ResumeLayout(false);
@@ -1393,8 +1388,8 @@
         private System.Windows.Forms.Panel filterPanel;
         private System.Windows.Forms.GroupBox groupOthers;
         private System.Windows.Forms.CheckBox checkAlchemy;
-        private System.Windows.Forms.CheckBox checkStackable;
-        private System.Windows.Forms.GroupBox groupEquipment;
+        private System.Windows.Forms.CheckBox checkOther;
+        private System.Windows.Forms.GroupBox groupClothes;
         private System.Windows.Forms.GroupBox groupWeapons;
         private Theme.Material.Button btnReload;
         private System.Windows.Forms.CheckBox checkBlade;
@@ -1433,7 +1428,6 @@
         private System.Windows.Forms.ToolStripMenuItem btnPickup;
         private System.Windows.Forms.ToolStripMenuItem btnDontPickup;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.CheckBox checkAll;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.CheckBox checkPickupGold;
@@ -1454,15 +1448,16 @@
         private System.Windows.Forms.CheckBox cbJustpickmyitems;
         private System.Windows.Forms.CheckBox cbDontPickupWhileBotting;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.RadioButton checkEuropean;
-        private System.Windows.Forms.RadioButton checkChinese;
-        private System.Windows.Forms.RadioButton checkFemale;
-        private System.Windows.Forms.RadioButton checkMale;
-        private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Label labelResult;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.CheckBox checkBoxRareItems;
         private System.Windows.Forms.ImageList searchImageList;
+        private System.Windows.Forms.CheckBox checkEuropean;
+        private System.Windows.Forms.CheckBox checkChinese;
+        private System.Windows.Forms.CheckBox checkFemale;
+        private System.Windows.Forms.CheckBox checkMale;
+        private System.Windows.Forms.CheckBox checkQuest;
+        private System.Windows.Forms.CheckBox checkCoin;
+        private System.Windows.Forms.CheckBox checkAmmo;
     }
 }
