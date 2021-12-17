@@ -141,7 +141,9 @@ namespace RSBot.Core.Network.Handler.Agent.Character
 
             character.UniqueId = packet.ReadUInt();
             character.Tracker = new PositionTracker(Movement.FromPacket(packet));
-            character.State = State.FromPacket(packet);
+            character.State = new State();
+            character.State.Deserialize(packet);
+
             character.Name = packet.ReadString();
             character.JobInformation = JobInfo.FromPacket(packet);
             character.State.PvpState = (PvpState)packet.ReadByte();

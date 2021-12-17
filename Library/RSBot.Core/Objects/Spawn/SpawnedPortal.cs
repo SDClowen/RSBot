@@ -49,7 +49,7 @@ namespace RSBot.Core.Objects.Spawn
 
             var teleportObj = Game.ReferenceManager.GetRefObjChar(result.Id);
             if (teleportObj != null)
-                result.Links = Game.ReferenceManager.TeleportData.FirstOrDefault(t => t?.AssocRefObjId == teleportObj.ID).GetLinks();
+                result.Links = Game.ReferenceManager.TeleportData.FirstOrDefault(t => t.AssocRefObjId == teleportObj.ID)?.GetLinks();
 
             if (Game.ClientType < GameClientType.Vietnam)
                 return result;

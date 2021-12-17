@@ -21,7 +21,7 @@ namespace RSBot.Core.Objects.Spawn
         /// <value>
         /// The state.
         /// </value>
-        public State State { get; set; }
+        public State State { get; } = new State();
 
         /// <summary>
         /// Gets a value indicating whether [attacking player].
@@ -49,7 +49,7 @@ namespace RSBot.Core.Objects.Spawn
             UniqueId = packet.ReadUInt();
 
             var movement = Movement.FromPacket(packet);
-            State = State.FromPacket(packet);
+            State.Deserialize(packet);
 
             Tracker = new PositionTracker(movement);
             Tracker.SetSpeed(State.WalkSpeed, State.RunSpeed);
