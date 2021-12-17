@@ -33,19 +33,22 @@
             this.btnBrowseSilkroadPath = new RSBot.Theme.Material.Button();
             this.lblVersion = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
-            this.checkUseReturnScroll = new System.Windows.Forms.CheckBox();
             this.checkStartBot = new System.Windows.Forms.CheckBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.comboCharacter = new System.Windows.Forms.ComboBox();
+            this.checkUseReturnScroll = new System.Windows.Forms.CheckBox();
+            this.captchaPanel = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
-            this.checkEnableStaticCaptcha = new System.Windows.Forms.CheckBox();
-            this.txtStaticCaptcha = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.btnAutoLoginSettings = new RSBot.Theme.Material.Button();
-            this.checkEnableAutoLogin = new System.Windows.Forms.CheckBox();
+            this.txtStaticCaptcha = new System.Windows.Forms.TextBox();
+            this.checkEnableStaticCaptcha = new System.Windows.Forms.CheckBox();
+            this.autoLoginTopPanel = new System.Windows.Forms.Panel();
             this.comboAccounts = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.checkEnableAutoLogin = new System.Windows.Forms.CheckBox();
+            this.comboCharacter = new System.Windows.Forms.ComboBox();
+            this.btnAutoLoginSettings = new RSBot.Theme.Material.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnClientHideShow = new RSBot.Theme.Material.Button();
             this.btnStartClient = new RSBot.Theme.Material.Button();
@@ -59,6 +62,9 @@
             this.checkBoxBotTrayMinimized = new System.Windows.Forms.CheckBox();
             this.comboBoxClientType = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.captchaPanel.SuspendLayout();
+            this.autoLoginTopPanel.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -112,49 +118,41 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.checkUseReturnScroll);
-            this.groupBox1.Controls.Add(this.checkStartBot);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.comboCharacter);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.checkEnableStaticCaptcha);
-            this.groupBox1.Controls.Add(this.txtStaticCaptcha);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.btnAutoLoginSettings);
-            this.groupBox1.Controls.Add(this.checkEnableAutoLogin);
-            this.groupBox1.Controls.Add(this.comboAccounts);
-            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.AutoSize = true;
+            this.groupBox1.Controls.Add(this.panel3);
+            this.groupBox1.Controls.Add(this.captchaPanel);
+            this.groupBox1.Controls.Add(this.autoLoginTopPanel);
             this.groupBox1.Location = new System.Drawing.Point(19, 163);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(355, 284);
+            this.groupBox1.Size = new System.Drawing.Size(355, 274);
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Automated login";
             // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.label3);
+            this.panel3.Controls.Add(this.checkStartBot);
+            this.panel3.Controls.Add(this.checkUseReturnScroll);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(3, 199);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(349, 72);
+            this.panel3.TabIndex = 1;
+            // 
             // label3
             // 
             this.label3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label3.Location = new System.Drawing.Point(54, 202);
+            this.label3.Location = new System.Drawing.Point(48, 5);
+            this.label3.Margin = new System.Windows.Forms.Padding(3, 0, 3, 20);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(247, 2);
             this.label3.TabIndex = 26;
             // 
-            // checkUseReturnScroll
-            // 
-            this.checkUseReturnScroll.AutoSize = true;
-            this.checkUseReturnScroll.Location = new System.Drawing.Point(79, 246);
-            this.checkUseReturnScroll.Name = "checkUseReturnScroll";
-            this.checkUseReturnScroll.Size = new System.Drawing.Size(102, 17);
-            this.checkUseReturnScroll.TabIndex = 16;
-            this.checkUseReturnScroll.Text = "Use return scroll";
-            this.checkUseReturnScroll.UseVisualStyleBackColor = true;
-            this.checkUseReturnScroll.CheckedChanged += new System.EventHandler(this.checkUseReturnScroll_CheckedChanged);
-            // 
             // checkStartBot
             // 
             this.checkStartBot.AutoSize = true;
-            this.checkStartBot.Location = new System.Drawing.Point(79, 223);
+            this.checkStartBot.Location = new System.Drawing.Point(73, 21);
             this.checkStartBot.Name = "checkStartBot";
             this.checkStartBot.Size = new System.Drawing.Size(89, 17);
             this.checkStartBot.TabIndex = 24;
@@ -162,41 +160,61 @@
             this.checkStartBot.UseVisualStyleBackColor = true;
             this.checkStartBot.CheckedChanged += new System.EventHandler(this.checkAutoStartBot_CheckedChanged);
             // 
-            // label7
+            // checkUseReturnScroll
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(26, 55);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(39, 13);
-            this.label7.TabIndex = 23;
-            this.label7.Text = "Player:";
+            this.checkUseReturnScroll.AutoSize = true;
+            this.checkUseReturnScroll.Location = new System.Drawing.Point(73, 44);
+            this.checkUseReturnScroll.Name = "checkUseReturnScroll";
+            this.checkUseReturnScroll.Size = new System.Drawing.Size(102, 17);
+            this.checkUseReturnScroll.TabIndex = 16;
+            this.checkUseReturnScroll.Text = "Use return scroll";
+            this.checkUseReturnScroll.UseVisualStyleBackColor = true;
+            this.checkUseReturnScroll.CheckedChanged += new System.EventHandler(this.checkUseReturnScroll_CheckedChanged);
             // 
-            // comboCharacter
+            // captchaPanel
             // 
-            this.comboCharacter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboCharacter.FormattingEnabled = true;
-            this.comboCharacter.Items.AddRange(new object[] {
-            "No Selected"});
-            this.comboCharacter.Location = new System.Drawing.Point(79, 52);
-            this.comboCharacter.Name = "comboCharacter";
-            this.comboCharacter.Size = new System.Drawing.Size(258, 21);
-            this.comboCharacter.TabIndex = 22;
-            this.comboCharacter.SelectedIndexChanged += new System.EventHandler(this.comboCharacter_SelectedIndexChanged);
+            this.captchaPanel.Controls.Add(this.label6);
+            this.captchaPanel.Controls.Add(this.label5);
+            this.captchaPanel.Controls.Add(this.txtStaticCaptcha);
+            this.captchaPanel.Controls.Add(this.checkEnableStaticCaptcha);
+            this.captchaPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.captchaPanel.Location = new System.Drawing.Point(3, 116);
+            this.captchaPanel.Name = "captchaPanel";
+            this.captchaPanel.Size = new System.Drawing.Size(349, 83);
+            this.captchaPanel.TabIndex = 0;
+            this.captchaPanel.Visible = false;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(95, 171);
+            this.label6.Location = new System.Drawing.Point(70, 57);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(236, 13);
             this.label6.TabIndex = 21;
             this.label6.Text = "Please use this only if the captcha never changes.";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(9, 14);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(50, 13);
+            this.label5.TabIndex = 18;
+            this.label5.Text = "Captcha:";
+            // 
+            // txtStaticCaptcha
+            // 
+            this.txtStaticCaptcha.Location = new System.Drawing.Point(73, 11);
+            this.txtStaticCaptcha.Name = "txtStaticCaptcha";
+            this.txtStaticCaptcha.Size = new System.Drawing.Size(258, 20);
+            this.txtStaticCaptcha.TabIndex = 3;
+            this.txtStaticCaptcha.TextChanged += new System.EventHandler(this.txtStaticCaptcha_TextChanged);
+            // 
             // checkEnableStaticCaptcha
             // 
             this.checkEnableStaticCaptcha.AutoSize = true;
-            this.checkEnableStaticCaptcha.Location = new System.Drawing.Point(79, 151);
+            this.checkEnableStaticCaptcha.Location = new System.Drawing.Point(73, 37);
             this.checkEnableStaticCaptcha.Name = "checkEnableStaticCaptcha";
             this.checkEnableStaticCaptcha.Size = new System.Drawing.Size(157, 17);
             this.checkEnableStaticCaptcha.TabIndex = 4;
@@ -204,28 +222,76 @@
             this.checkEnableStaticCaptcha.UseVisualStyleBackColor = true;
             this.checkEnableStaticCaptcha.CheckedChanged += new System.EventHandler(this.checkEnableStaticCaptcha_CheckedChanged);
             // 
-            // txtStaticCaptcha
+            // autoLoginTopPanel
             // 
-            this.txtStaticCaptcha.Location = new System.Drawing.Point(79, 123);
-            this.txtStaticCaptcha.Name = "txtStaticCaptcha";
-            this.txtStaticCaptcha.Size = new System.Drawing.Size(258, 20);
-            this.txtStaticCaptcha.TabIndex = 3;
-            this.txtStaticCaptcha.TextChanged += new System.EventHandler(this.txtStaticCaptcha_TextChanged);
+            this.autoLoginTopPanel.Controls.Add(this.comboAccounts);
+            this.autoLoginTopPanel.Controls.Add(this.label7);
+            this.autoLoginTopPanel.Controls.Add(this.label4);
+            this.autoLoginTopPanel.Controls.Add(this.checkEnableAutoLogin);
+            this.autoLoginTopPanel.Controls.Add(this.comboCharacter);
+            this.autoLoginTopPanel.Controls.Add(this.btnAutoLoginSettings);
+            this.autoLoginTopPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.autoLoginTopPanel.Location = new System.Drawing.Point(3, 16);
+            this.autoLoginTopPanel.Name = "autoLoginTopPanel";
+            this.autoLoginTopPanel.Size = new System.Drawing.Size(349, 100);
+            this.autoLoginTopPanel.TabIndex = 28;
             // 
-            // label5
+            // comboAccounts
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(15, 126);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(50, 13);
-            this.label5.TabIndex = 18;
-            this.label5.Text = "Captcha:";
+            this.comboAccounts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboAccounts.FormattingEnabled = true;
+            this.comboAccounts.Location = new System.Drawing.Point(73, 10);
+            this.comboAccounts.Name = "comboAccounts";
+            this.comboAccounts.Size = new System.Drawing.Size(258, 21);
+            this.comboAccounts.TabIndex = 0;
+            this.comboAccounts.SelectedIndexChanged += new System.EventHandler(this.comboAccounts_SelectedIndexChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(20, 37);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(39, 13);
+            this.label7.TabIndex = 23;
+            this.label7.Text = "Player:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(9, 13);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(50, 13);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Account:";
+            // 
+            // checkEnableAutoLogin
+            // 
+            this.checkEnableAutoLogin.AutoSize = true;
+            this.checkEnableAutoLogin.Location = new System.Drawing.Point(73, 65);
+            this.checkEnableAutoLogin.Name = "checkEnableAutoLogin";
+            this.checkEnableAutoLogin.Size = new System.Drawing.Size(137, 17);
+            this.checkEnableAutoLogin.TabIndex = 1;
+            this.checkEnableAutoLogin.Text = "Enable automated login";
+            this.checkEnableAutoLogin.UseVisualStyleBackColor = true;
+            this.checkEnableAutoLogin.CheckedChanged += new System.EventHandler(this.checkEnableAutoLogin_CheckedChanged);
+            // 
+            // comboCharacter
+            // 
+            this.comboCharacter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboCharacter.FormattingEnabled = true;
+            this.comboCharacter.Items.AddRange(new object[] {
+            "No Selected"});
+            this.comboCharacter.Location = new System.Drawing.Point(73, 34);
+            this.comboCharacter.Name = "comboCharacter";
+            this.comboCharacter.Size = new System.Drawing.Size(258, 21);
+            this.comboCharacter.TabIndex = 22;
+            this.comboCharacter.SelectedIndexChanged += new System.EventHandler(this.comboCharacter_SelectedIndexChanged);
             // 
             // btnAutoLoginSettings
             // 
             this.btnAutoLoginSettings.Depth = 0;
             this.btnAutoLoginSettings.Icon = null;
-            this.btnAutoLoginSettings.Location = new System.Drawing.Point(262, 79);
+            this.btnAutoLoginSettings.Location = new System.Drawing.Point(256, 61);
             this.btnAutoLoginSettings.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnAutoLoginSettings.Name = "btnAutoLoginSettings";
             this.btnAutoLoginSettings.Primary = false;
@@ -236,36 +302,6 @@
             this.btnAutoLoginSettings.Text = "Setup";
             this.btnAutoLoginSettings.UseVisualStyleBackColor = true;
             this.btnAutoLoginSettings.Click += new System.EventHandler(this.btnAutoLoginSettings_Click);
-            // 
-            // checkEnableAutoLogin
-            // 
-            this.checkEnableAutoLogin.AutoSize = true;
-            this.checkEnableAutoLogin.Location = new System.Drawing.Point(79, 83);
-            this.checkEnableAutoLogin.Name = "checkEnableAutoLogin";
-            this.checkEnableAutoLogin.Size = new System.Drawing.Size(137, 17);
-            this.checkEnableAutoLogin.TabIndex = 1;
-            this.checkEnableAutoLogin.Text = "Enable automated login";
-            this.checkEnableAutoLogin.UseVisualStyleBackColor = true;
-            this.checkEnableAutoLogin.CheckedChanged += new System.EventHandler(this.checkEnableAutoLogin_CheckedChanged);
-            // 
-            // comboAccounts
-            // 
-            this.comboAccounts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboAccounts.FormattingEnabled = true;
-            this.comboAccounts.Location = new System.Drawing.Point(79, 28);
-            this.comboAccounts.Name = "comboAccounts";
-            this.comboAccounts.Size = new System.Drawing.Size(258, 21);
-            this.comboAccounts.TabIndex = 0;
-            this.comboAccounts.SelectedIndexChanged += new System.EventHandler(this.comboAccounts_SelectedIndexChanged);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(15, 31);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(50, 13);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Account:";
             // 
             // groupBox2
             // 
@@ -416,9 +452,6 @@
             // 
             this.comboBoxClientType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxClientType.FormattingEnabled = true;
-            this.comboBoxClientType.Items.AddRange(new object[] {
-            "VSRO",
-            "TRSRO"});
             this.comboBoxClientType.Location = new System.Drawing.Point(595, 29);
             this.comboBoxClientType.Name = "comboBoxClientType";
             this.comboBoxClientType.Size = new System.Drawing.Size(115, 21);
@@ -442,7 +475,12 @@
             this.Name = "Main";
             this.Size = new System.Drawing.Size(754, 467);
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.captchaPanel.ResumeLayout(false);
+            this.captchaPanel.PerformLayout();
+            this.autoLoginTopPanel.ResumeLayout(false);
+            this.autoLoginTopPanel.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
@@ -485,5 +523,8 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckBox checkBoxBotTrayMinimized;
         private System.Windows.Forms.ComboBox comboBoxClientType;
+        private System.Windows.Forms.Panel captchaPanel;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel autoLoginTopPanel;
     }
 }

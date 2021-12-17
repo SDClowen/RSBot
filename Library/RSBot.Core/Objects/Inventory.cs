@@ -40,6 +40,22 @@ namespace RSBot.Core.Objects
         public List<InventoryItem> Avatars { get; set; }
 
         /// <summary>
+        /// Gets or sets the size of the avatar inventory.
+        /// </summary>
+        /// <value>
+        /// The size of the avatar inventory.
+        /// </value>
+        public byte JobInventorySize { get; set; }
+
+        /// <summary>
+        /// Gets or sets the avatars.
+        /// </summary>
+        /// <value>
+        /// The avatars.
+        /// </value>
+        public List<InventoryItem> JobItems { get; set; }
+
+        /// <summary>
         /// Gets a value indicating whether this <see cref="Inventory"/> is full.
         /// </summary>
         /// <value>
@@ -58,73 +74,48 @@ namespace RSBot.Core.Objects
         /// Creates a new Inventory object from the given packet
         /// </summary>
         /// <param name="packet">The packet.</param>
-        /// <returns></returns>
+        /// <returns>The parsed inventory</returns>
         internal static Inventory FromPacket(Packet packet)
         {
             var result = new Inventory
             {
                 Items = new List<InventoryItem>(),
                 Avatars = new List<InventoryItem>(),
+                JobItems = new List<InventoryItem>(),
                 Size = packet.ReadByte()
             };
 
-            #region Regular inventory
-
             var itemAmount = packet.ReadByte();
             for (var i = 0; i < itemAmount; i++)
-            {
                 result.Items.Add(InventoryItem.FromPacket(packet));
-            }
-
-            #endregion Regular inventory
-
-            #region Avatar inventory
 
             result.AvatarInventorySize = packet.ReadByte();
             var avatarAmount = packet.ReadByte();
-
             for (var i = 0; i < avatarAmount; i++)
+                result.Avatars.Add(InventoryItem.FromPacket(packet));
+
+            // JOB2
+            if (Game.ClientType > GameClientType.Vietnam)
             {
-                var avatarItem = new InventoryItem
+                var specialtyBagSize = packet.ReadByte();
+                if (specialtyBagSize > 0)
                 {
-                    Rental = new RentInfo(),
-                    MagicOptions = new List<MagicOptionInfo>(),
-                    BindingOptions = new List<BindingOption>(),
-                    Slot = packet.ReadByte(),
-                    Amount = 1
-                };
-
-                avatarItem.Rental = RentInfo.FromPacket(packet);
-                avatarItem.ItemId = packet.ReadUInt();
-
-                if (avatarItem.Record.TypeID2 != 1)
-                {
-                    Log.Warn($"The avataritem at sol {i} is not a type of gear!!! - Parsing would fail, therefore the process will be aborted!");
-                    return null;
+                    var bagItemCount = packet.ReadByte();
+                    for (int i = 0; i < bagItemCount; i++)
+                    {
+                        packet.ReadByte();   // slot
+                        packet.ReadInt();    // maybe rental?
+                        packet.ReadInt();    // itemId of 'ITEM_TRADE_SPECIAL_BOX'
+                        packet.ReadUShort(); //quantity
+                        packet.ReadUShort(); //unknown
+                    }
                 }
 
-                avatarItem.OptLevel = packet.ReadByte();
-                avatarItem.Variance = packet.ReadULong();
-                avatarItem.Durability = packet.ReadUInt(); //Durability?
-
-                //Read magic options for the item
-                var magicOptionsAmount = packet.ReadByte();
-                for (var iMagicOption = 0; iMagicOption < magicOptionsAmount; iMagicOption++)
-                    avatarItem.MagicOptions.Add(MagicOptionInfo.FromPacket(packet));
-
-                //Read sockets & advanced elixirs
-                for (var bindingIndex = 0; bindingIndex < 2; bindingIndex++)
-                {
-                    var bindingType = packet.ReadByte();
-                    var bindingAmount = packet.ReadByte();
-                    for (var iSocketAmount = 0; iSocketAmount < bindingAmount; iSocketAmount++)
-                        avatarItem.BindingOptions.Add(BindingOption.FromPacket(packet, bindingType));
-                }
-
-                result.Avatars.Add(avatarItem);
+                result.JobInventorySize = packet.ReadByte();
+                var itemCount = packet.ReadByte();
+                for (int i = 0; i < itemCount; i++)
+                    result.JobItems.Add(InventoryItem.FromPacket(packet));
             }
-
-            #endregion Avatar inventory
 
             return result;
         }

@@ -26,7 +26,9 @@ namespace RSBot.Core.Network.Handler.Agent.Action
         /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
-            if (packet.ReadByte() != 0x01) return;
+            if (packet.ReadByte() != 0x01) 
+                return;
+
             Core.Game.LastSelectedEntity = Core.Game.SelectedEntity;
             Core.Game.SelectedEntity = Objects.SelectedGameEntity.FromPacket(packet);
 

@@ -1060,7 +1060,7 @@ namespace RSBot.Core.Objects
                 var result = response.ReadByte() == 0x01;
 
                 if (!result)
-                    Log.Error("Could not select entity 0x" + response.ReadUShort());
+                    Log.Error("Could not select entity 0x" + (Game.ClientType < GameClientType.Vietnam ? response.ReadByte() : response.ReadUShort()));
 
                 return result
                     ? AwaitCallbackResult.Received : AwaitCallbackResult.Failed;

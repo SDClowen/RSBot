@@ -28,7 +28,8 @@ namespace RSBot.Core.Network.Handler.Agent.Action
 
             if (result != 0x01) return;
 
-            packet.ReadUShort(); //Error .. always 00 30
+            if (Core.Game.ClientType > GameClientType.Thailand)
+                packet.ReadUShort(); //Error .. always 00 30
 
             var action = Objects.Action.DeserializeBegin(packet);
 
@@ -45,12 +46,12 @@ namespace RSBot.Core.Network.Handler.Agent.Action
             }
 
             var executor = action.GetExecutor<SpawnedBionic>();
-            if (executor == null) 
+            if (executor == null)
                 return;
 
             executor.Tracker?.StopMoving();
 
-            if (!action.PlayerIsTarget) 
+            if (!action.PlayerIsTarget)
                 return;
 
             EventManager.FireEvent("OnEnemySkillOnPlayer");

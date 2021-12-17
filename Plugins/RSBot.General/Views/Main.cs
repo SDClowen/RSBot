@@ -34,8 +34,9 @@ namespace RSBot.General.Views
 
             InitializeComponent();
 
+            comboBoxClientType.Items.AddRange(Enum.GetNames(typeof(GameClientType)));
+
             comboCharacter.SelectedIndex = 0;
-            comboBoxClientType.SelectedIndex = 0;
 
             SubscribeEvents();
             Components.Accounts.Load();
@@ -51,6 +52,7 @@ namespace RSBot.General.Views
             checkStayConnected.Checked = GlobalConfig.Get<bool>("RSBot.General.StayConnected");
             checkBoxBotTrayMinimized.Checked = GlobalConfig.Get<bool>("RSBot.General.TrayWhenMinimize");
             txtStaticCaptcha.Text = GlobalConfig.Get<string>("RSBot.General.StaticCaptcha");
+            comboBoxClientType.SelectedItem = Game.ClientType.ToString();
 
             if (File.Exists(GlobalConfig.Get<string>("RSBot.SilkroadDirectory") + "\\media.pk2"))
                 return;
@@ -558,14 +560,23 @@ namespace RSBot.General.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void comboBoxClientType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(comboBoxClientType.SelectedIndex == 1)
+            if(Game.Player != null)
             {
-                MessageBox.Show(this, "Coming soon...", "Don't worry");
-                comboBoxClientType.SelectedIndex = 0;
+                MessageBox.Show("You can't change the client type right now because you are already in the game!");
                 return;
             }
 
-            GlobalConfig.Set("RSBot.SilkroadClientType", comboBoxClientType.SelectedIndex);
+            if (!Enum.TryParse<GameClientType>(comboBoxClientType.SelectedItem.ToString(), out var clientType))
+                return;
+
+            GlobalConfig.Set("RSBot.Game.ClientType", clientType);
+            Game.ClientType = clientType;
+            GlobalConfig.Save();
+
+            if (clientType == GameClientType.Vietnam)
+                captchaPanel.Visible = true;
+            else
+                captchaPanel.Visible = false;
         }
     }
 }

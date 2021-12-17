@@ -41,11 +41,7 @@ namespace RSBot.General.PacketHandler
             switch (code)
             {
                 case 1:
-
-                    var maxAttempts = packet.ReadUInt();
-                    var attempts = packet.ReadUInt();
-                    Log.Warn($"Wrong username or password entered ({attempts}/{maxAttempts})");
-
+                    Log.Warn("Wrong username or password entered!");
                     break;
 
                 case 2:

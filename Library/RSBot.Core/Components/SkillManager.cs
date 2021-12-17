@@ -270,16 +270,25 @@ namespace RSBot.Core.Components
             var awaitCallBack = new AwaitCallback(response =>
             {
                 var result = response.ReadByte();
-                var code = response.ReadUShort();
+
+                ushort code = 0;
+                if (Core.Game.ClientType > GameClientType.Thailand)
+                    code = response.ReadUShort();
 
                 if (result == 2)
                 {
+                    if (Core.Game.ClientType < GameClientType.Vietnam)
+                        code = response.ReadByte();
+
                     switch (code)
                     {
+                        case 0x0E: // thailand, jsro, ecsro
                         case 0x300E:
                             Game.Player.EquipAmmunation();
                             break;
 
+                        case 0x06: // thailand, jsro, ecsro invalid target
+                        case 0x10: // thailand, jsro, ecsro invalid target
                         case 0x3006: // invalid target
                         case 0x3010: // obstacle
                             break;
@@ -412,19 +421,27 @@ namespace RSBot.Core.Components
             var awaitCallBack = new AwaitCallback(response =>
             {
                 var result = response.ReadByte();
-                var code = response.ReadUShort();
-
+                
                 if (result == 0x01)
                     return Objects.Action.DeserializeBegin(response).PlayerIsExecutor
                         ? AwaitCallbackResult.Received : AwaitCallbackResult.None;
 
+                var code = 0;
+                if (Game.ClientType < GameClientType.Vietnam)
+                    code = response.ReadByte();
+                else
+                    code = response.ReadUShort();
+
                 switch (code)
                 {
+                    case 0x0E:
                     case 0x300E:
                         Game.Player.EquipAmmunation();
                         break;
 
+                    case 0x06: // invalid target < vietnam
                     case 0x3006: // invalid target
+                    case 0x10: // obstacle < vietnam
                     case 0x3010: // obstacle
                         break;
                     default:

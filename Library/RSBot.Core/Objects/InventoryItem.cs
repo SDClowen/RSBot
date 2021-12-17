@@ -106,7 +106,11 @@ namespace RSBot.Core.Objects
 
             var packet = new Packet(0x704C);
             packet.WriteByte(Slot);
-            packet.WriteUShort(Record.Tid);
+
+            if(Game.ClientType > GameClientType.Taiwan)
+                packet.WriteInt(Record.Tid);
+            else
+                packet.WriteUShort(Record.Tid);
 
             packet.Lock();
 
@@ -181,7 +185,10 @@ namespace RSBot.Core.Objects
             {
                 item.Slot = packet.ReadByte();
             }
-            item.Rental = RentInfo.FromPacket(packet);
+            
+            if(Game.ClientType > GameClientType.Thailand)
+                item.Rental = RentInfo.FromPacket(packet);
+
             item.ItemId = packet.ReadUInt();
 
             if (item.Record == null)
@@ -191,7 +198,7 @@ namespace RSBot.Core.Objects
             }
             if (item.Record.TypeID1 == 3)
             {
-                if (item.Record.TypeID2 == 1) //Gear
+                if (item.Record.TypeID2 == 1 || item.Record.TypeID2 == 4) //Gear
                 {
                     item.OptLevel = packet.ReadByte();
                     item.Variance = packet.ReadULong();
@@ -202,13 +209,21 @@ namespace RSBot.Core.Objects
                     for (var iMagicOption = 0; iMagicOption < magicOptionsAmount; iMagicOption++)
                         item.MagicOptions.Add(MagicOptionInfo.FromPacket(packet));
 
-                    //Read sockets & advanced elixirs
-                    for (var bindingIndex = 0; bindingIndex < 2; bindingIndex++)
+                    if (Game.ClientType > GameClientType.Thailand)
                     {
-                        var bindingType = packet.ReadByte();
-                        var bindingAmount = packet.ReadByte();
-                        for (var iSocketAmount = 0; iSocketAmount < bindingAmount; iSocketAmount++)
-                            item.BindingOptions.Add(BindingOption.FromPacket(packet, bindingType));
+                        //Read sockets & advanced elixirs
+
+                        var bindingCount = 2;
+                        if (Game.ClientType > GameClientType.Taiwan)
+                            bindingCount = 4;
+
+                        for (var bindingIndex = 0; bindingIndex < bindingCount; bindingIndex++)
+                        {
+                            var bindingType = packet.ReadByte();
+                            var bindingAmount = packet.ReadByte();
+                            for (var iSocketAmount = 0; iSocketAmount < bindingAmount; iSocketAmount++)
+                                item.BindingOptions.Add(BindingOption.FromPacket(packet, bindingType));
+                        }
                     }
                 }
                 else if (item.Record.TypeID2 == 2)

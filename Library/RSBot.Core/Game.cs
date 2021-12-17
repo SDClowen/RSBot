@@ -115,6 +115,11 @@ namespace RSBot.Core
         public static bool Ready { get; internal set; }
 
         /// <summary>
+        /// The game client type
+        /// </summary>
+        public static GameClientType ClientType { get; set; }
+
+        /// <summary>
         /// Starts the game.
         /// </summary>
         public static void Start()
@@ -143,6 +148,7 @@ namespace RSBot.Core
         /// </summary>
         public static void Initialize()
         {
+            ClientType = GlobalConfig.GetEnum("RSBot.Game.ClientType", GameClientType.Vietnam);
             ReferenceManager = new ReferenceManager();
             Party = new Party();
 

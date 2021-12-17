@@ -71,20 +71,15 @@ namespace RSBot.Core.Client
             Parallel.Invoke
             (
                 () => this.LoadTextData(),
-
                 () => this.LoadReferenceListFile("CharacterData.txt", this.CharacterData),
                 () => this.LoadReferenceFile("TeleportBuilding.txt", this.CharacterData),
                 () => this.LoadReferenceListFile("ItemData.txt", this.ItemData),
-
-                () => this.LoadReferenceListFileEnc("SkillDataEnc.txt", this.SkillData),
+                () => this.LoadSkillData(),
                 () => this.LoadReferenceFile("SkillMasteryData.txt", this.SkillMasteryData),
-
                 () => this.LoadReferenceFile("LevelData.txt", this.LevelData),
                 () => this.LoadReferenceFile("QuestData.txt", this.QuestData),
-
                 () => this.LoadReferenceFile("TeleportData.txt", this.TeleportData),
                 () => this.LoadReferenceFile("TeleportLink.txt", this.TeleportLinks),
-
                 () => this.LoadReferenceFile("RefShop.txt", this.Shops),
                 () => this.LoadReferenceFile("RefShopTab.txt", this.ShopTabs),
                 () => this.LoadReferenceFile("RefShopGroup.txt", this.ShopGroups),
@@ -105,6 +100,14 @@ namespace RSBot.Core.Client
             this.LoadReferenceFile("TextZoneName.txt", this.TextData);
             this.LoadReferenceListFile("TextDataName.txt", this.TextData);
             this.LoadReferenceListFile("TextQuest.txt", this.TextData);
+        }
+
+        private void LoadSkillData()
+        {
+            if (Game.ClientType == GameClientType.Vietnam)
+                this.LoadReferenceListFileEnc("SkillDataEnc.txt", this.SkillData);
+            else
+                this.LoadReferenceListFile("SkillData.txt", this.SkillData);
         }
 
         private void LoadReferenceListFileEnc<TKey, TReference>(string fileName, IDictionary<TKey, TReference> destination)
@@ -337,6 +340,10 @@ namespace RSBot.Core.Client
 
         public RefSkillMastery GetRefSkillMastery(uint id)
         {
+            if ((Game.ClientType == GameClientType.Chinese || Game.ClientType == GameClientType.ChineseR) &&
+                id >= 273 && id <= 275)
+                id = 277; // csro shit
+
             if (this.SkillMasteryData.TryGetValue(id, out RefSkillMastery data))
                 return data;
 
@@ -463,7 +470,7 @@ namespace RSBot.Core.Client
             string searchPattern = null)
         {
             var result = new List<RefObjItem>(10000);
-            foreach(var refItem in ItemData.Values)
+            foreach (var refItem in ItemData.Values)
             {
                 if (refItem.IsGold)
                     continue;

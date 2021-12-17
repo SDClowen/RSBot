@@ -52,13 +52,35 @@ namespace RSBot.Core.Network.Handler.Agent.Character
             character.Health = packet.ReadUInt();
             character.Mana = packet.ReadUInt();
             character.AutoInverstExperience = (AutoInverstType)packet.ReadByte();
-            character.DailyPK = packet.ReadByte();
+
+            if (Core.Game.ClientType == GameClientType.ChineseR)
+                character.DailyPK = (byte)packet.ReadUShort();
+            else
+                character.DailyPK = packet.ReadByte();
+
             character.TotalPK = packet.ReadUShort();
             character.PKPenaltyPoint = packet.ReadUInt();
             character.BerzerkLevel = packet.ReadByte();
-            character.PvpFlag = (PvpFlag)packet.ReadByte();
+
+            if(Core.Game.ClientType > GameClientType.Thailand)
+                character.PvpFlag = (PvpFlag)packet.ReadByte();
+
+            if (Core.Game.ClientType >= GameClientType.Global)
+            {
+                packet.ReadByte();
+                packet.ReadUInt();
+                packet.ReadUShort();
+                packet.ReadUShort();
+                packet.ReadUShort();
+                packet.ReadULong();
+                packet.ReadUShort();
+                packet.ReadByte();
+                packet.ReadByte();
+                packet.ReadUShort();
+            }
 
             character.Inventory = Objects.Inventory.FromPacket(packet);
+
             character.Skills = Skills.FromPacket(packet);
 
             #region Read Quests
@@ -68,7 +90,6 @@ namespace RSBot.Core.Network.Handler.Agent.Character
                 packet.ReadUInt(); //QuestID
 
             var activeQuestCount = packet.ReadByte();
-
             for (var iQuest = 0; iQuest < activeQuestCount; iQuest++)
             {
                 packet.ReadUInt(); //QuestID
@@ -105,37 +126,46 @@ namespace RSBot.Core.Network.Handler.Agent.Character
 
             #endregion Read Quests
 
-            packet.ReadByte(); //Unknown
+            packet.ReadByte(); // Unknown
 
-            #region Collection Book
-
-            var collectionBookStartedThemeCount = packet.ReadUInt();
-            for (var i = 0; i < collectionBookStartedThemeCount; i++)
+            if (Core.Game.ClientType > GameClientType.Thailand)
             {
-                packet.ReadUInt(); //index
-                packet.ReadUInt(); //Starttime
-                packet.ReadUInt(); //pages
+                var collectionBookStartedThemeCount = packet.ReadUInt();
+                for (var i = 0; i < collectionBookStartedThemeCount; i++)
+                {
+                    packet.ReadUInt(); //index
+                    packet.ReadUInt(); //Starttime
+                    packet.ReadUInt(); //pages
+                }
             }
-
-            #endregion Collection Book
 
             character.UniqueId = packet.ReadUInt();
             character.Tracker = new PositionTracker(Movement.FromPacket(packet));
-
             character.State = State.FromPacket(packet);
-
             character.Name = packet.ReadString();
             character.JobInformation = JobInfo.FromPacket(packet);
-
             character.State.PvpState = (PvpState)packet.ReadByte();
             character.OnTransport = packet.ReadBool(); //On transport?
             character.InCombat = packet.ReadBool();
 
+            if (Core.Game.ClientType > GameClientType.ChineseR)
+                packet.ReadByte();
+
             if (character.OnTransport)
                 character.TransportUniqueId = packet.ReadUInt();
 
+            if (Core.Game.ClientType > GameClientType.ChineseR)
+                packet.ReadUInt(); //unkUint2 i think it is using for balloon event or buff for events
+
+            if (Core.Game.ClientType == GameClientType.ChineseR)
+                packet.ReadByte();
+
             packet.ReadByte(); //PVP dress for the CTF event //0 = Red Side, 1 = Blue Side, 0xFF = None
             packet.ReadULong(); //GuideFlag
+
+            if (Core.Game.ClientType == GameClientType.ChineseR)
+                packet.ReadByte();
+
             character.JID = packet.ReadUInt();
             character.IsGameMaster = packet.ReadBool();
 
@@ -149,10 +179,11 @@ namespace RSBot.Core.Network.Handler.Agent.Character
 
             EventManager.FireEvent("OnLoadCharacter");
             EventManager.FireEvent("OnUpdateHPMP");
-            
+
             Kernel.ChangeClientProcessTitle($"{character.Name} - RSBot");
 
-            if (!Core.Game.Clientless) return;
+            if (!Core.Game.Clientless) 
+                return;
 
             var response = new Packet(0x3012);
             response.Lock();

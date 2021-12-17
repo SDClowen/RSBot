@@ -111,10 +111,15 @@ namespace RSBot.Core.Objects
             if (result.LifeState == 0)
                 result.LifeState = LifeState.Alive;
 
-            packet.ReadByte(); //UNK1
+            if(Game.ClientType > GameClientType.Thailand)
+                packet.ReadByte(); //unkByte0
 
             result.MotionState = (MotionState)packet.ReadByte();
             result.BodyState = (BodyState)packet.ReadByte();
+
+            if (Game.ClientType > GameClientType.Taiwan)
+                packet.ReadByte(); // hasRedArrowEffect
+
             result.WalkSpeed = packet.ReadFloat();
             result.RunSpeed = packet.ReadFloat();
             result.BerzerkSpeed = packet.ReadFloat();
