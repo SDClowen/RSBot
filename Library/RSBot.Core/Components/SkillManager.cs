@@ -103,7 +103,7 @@ namespace RSBot.Core.Components
             }
             else if(distance < 10)
             {
-                while (true)
+                while (Skills[rarity].Count > 0)
                 {
                     _lastIndex++;
                     if (_lastIndex > Skills[rarity].Count - 1)
