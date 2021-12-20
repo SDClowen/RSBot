@@ -95,11 +95,29 @@ namespace RSBot.Core.Client
 
         private void LoadTextData()
         {
-            //Load TextData synchronously, so we don't need lock
-            this.LoadReferenceFile("TextUISystem.txt", this.TextData);
-            this.LoadReferenceFile("TextZoneName.txt", this.TextData);
-            this.LoadReferenceListFile("TextDataName.txt", this.TextData);
-            this.LoadReferenceListFile("TextQuest.txt", this.TextData);
+            if (Game.ClientType >= GameClientType.Global)
+                this.LoadReferenceListFile("TextUISystem.txt", this.TextData);
+            else
+                this.LoadReferenceFile("TextUISystem.txt", this.TextData);
+
+            if (Game.ClientType >= GameClientType.Global)
+                this.LoadReferenceListFile("TextZoneName.txt", this.TextData);
+            else
+                this.LoadReferenceFile("TextZoneName.txt", this.TextData);
+
+            if (Game.ClientType >= GameClientType.Global)
+            {
+                this.LoadReferenceListFile("TextQuest_OtherString.txt", this.TextData);
+                this.LoadReferenceListFile("TextData_Object.txt", this.TextData);
+                this.LoadReferenceListFile("TextData_Equip&Skill.txt", this.TextData);
+                this.LoadReferenceListFile("TextQuest_Speech&Name.txt", this.TextData);
+                this.LoadReferenceListFile("TextQuest_QuestString.txt", this.TextData);
+            }
+            else
+            {
+                this.LoadReferenceListFile("TextDataName.txt", this.TextData);
+                this.LoadReferenceListFile("TextQuest.txt", this.TextData);
+            }
         }
 
         private void LoadSkillData()
