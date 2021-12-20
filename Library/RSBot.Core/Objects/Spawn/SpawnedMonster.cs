@@ -39,6 +39,9 @@ namespace RSBot.Core.Objects.Spawn
 
             Rarity = (MonsterRarity)packet.ReadByte();
 
+            if (Game.ClientType >= GameClientType.Global)
+                packet.ReadUInt();
+
             if (Record.TypeID4 == 2 || Record.TypeID4 == 3) //NPC_MOB_TIEF, NPC_MOB_HUNTER
                 packet.ReadByte(); //Appeareance
         }

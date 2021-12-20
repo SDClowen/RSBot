@@ -76,14 +76,24 @@ namespace RSBot.Core.Objects
         /// <returns>Deserialized <see cref="Action"/></returns>
         public static Action DeserializeBegin(Packet packet)
         {
+            if (Game.ClientType > GameClientType.Thailand)
+                packet.ReadUShort();
+
             var action = new Action
             {
                 SkillId = packet.ReadUInt(),
                 ExecutorId = packet.ReadUInt(),
                 Id = packet.ReadUInt(),
-                TargetId = packet.ReadUInt(),
-                Flag = (ActionStateFlag)packet.ReadByte()
             };
+
+            if (Game.ClientType >= GameClientType.Global)
+                packet.ReadUInt(); // ?
+
+            action.TargetId = packet.ReadUInt();
+            action.Flag = (ActionStateFlag)packet.ReadByte();
+
+            if (Game.ClientType >= GameClientType.Global)
+                packet.ReadByte();
 
             action.SerializeDetail(packet);
 
@@ -111,36 +121,43 @@ namespace RSBot.Core.Objects
         {
             if (Flag.HasFlag(ActionStateFlag.Attack))
             {
-                packet.ReadByte(); // unk1
+                var hitCount = packet.ReadByte();
                 var affectedObjectCount = packet.ReadByte();
+
                 for (int i = 0; i < affectedObjectCount; i++)
                 {
                     var uniqueId = packet.ReadUInt();
                     if (!SpawnManager.TryGetEntity<SpawnedBionic>(uniqueId, out var entity))
                         continue;
 
-                    var state = (ActionHitStateFlag)packet.ReadByte();
-
-                    if (entity != null)
-                        entity.State.HitState = state;
-
-                    if (state != ActionHitStateFlag.Block)
+                    for (int j = 0; j < hitCount; j++)
                     {
-                        var damage = packet.ReadInt();
-                        packet.ReadInt(); //what status?
+                        var state = (ActionHitStateFlag)packet.ReadByte();
 
-                        /*Damages = Damages ?? new Dictionary<uint, int>();
-                        Damages.Add(uniqueId, damage);*/
-                    }
+                        if (entity != null)
+                            entity.State.HitState = state;
 
-                    // dont worry it will return true for knockdown states
-                    if (state.HasFlag(ActionHitStateFlag.KnockBack))
-                    {
-                        var position = Position.FromPacketInt(packet);
-                        if (entity == null)
-                            continue;
+                        if (state != ActionHitStateFlag.Block)
+                        {
+                            var critStatus = packet.ReadByte();
+                            var damage = packet.ReadInt();
 
-                        entity.Tracker.SetSource(position);
+                            packet.ReadUShort();
+                            packet.ReadByte();
+
+                            /*Damages = Damages ?? new Dictionary<uint, int>();
+                            Damages.Add(uniqueId, damage);*/
+                        }
+
+                        // dont worry it will return true for knockdown states
+                        if (state.HasFlag(ActionHitStateFlag.KnockBack))
+                        {
+                            var position = Position.FromPacketInt(packet);
+                            if (entity == null)
+                                continue;
+
+                            entity.Tracker.SetSource(position);
+                        }
                     }
                 }
             }

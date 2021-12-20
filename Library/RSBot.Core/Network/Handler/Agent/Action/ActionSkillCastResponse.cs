@@ -22,14 +22,15 @@ namespace RSBot.Core.Network.Handler.Agent.Action
         /// </value>
         public ushort Opcode => 0xB070;
 
+        /// <summary>
+        /// Invokes the specified packet.
+        /// </summary>
+        /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
             var result = packet.ReadByte();
-
-            if (result != 0x01) return;
-
-            if (Core.Game.ClientType > GameClientType.Thailand)
-                packet.ReadUShort(); //Error .. always 00 30
+            if (result != 0x01) 
+                return;
 
             var action = Objects.Action.DeserializeBegin(packet);
 

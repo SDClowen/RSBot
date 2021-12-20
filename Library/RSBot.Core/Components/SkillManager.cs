@@ -101,7 +101,7 @@ namespace RSBot.Core.Components
                 // try to get attack skill for only knockdown states
                 closestSkill = Skills[rarity].Find(p => p.Record.Params.Contains(25697));
             }
-            else if(distance < 10)
+            else if (distance < 10)
             {
                 while (Skills[rarity].Count > 0)
                 {
@@ -271,29 +271,21 @@ namespace RSBot.Core.Components
             {
                 var result = response.ReadByte();
 
-                ushort code = 0;
-                if (Core.Game.ClientType > GameClientType.Thailand)
-                    code = response.ReadUShort();
-
                 if (result == 2)
                 {
-                    if (Core.Game.ClientType < GameClientType.Vietnam)
-                        code = response.ReadByte();
+                    var errorCode = response.ReadByte();
 
-                    switch (code)
+                    switch (errorCode)
                     {
-                        case 0x0E: // thailand, jsro, ecsro
-                        case 0x300E:
+                        case 0x0E:
                             Game.Player.EquipAmmunation();
                             break;
 
-                        case 0x06: // thailand, jsro, ecsro invalid target
-                        case 0x10: // thailand, jsro, ecsro invalid target
-                        case 0x3006: // invalid target
-                        case 0x3010: // obstacle
+                        case 0x06: // invalid target
+                        case 0x10: // obstacle
                             break;
                         default:
-                            Log.Error($"Invalid skill error code: 0x{code:X2}");
+                            Log.Error($"Invalid skill error code: 0x{errorCode:X2}");
                             break;
                     }
 
@@ -302,7 +294,7 @@ namespace RSBot.Core.Components
 
                 var action = Objects.Action.DeserializeBegin(response);
 
-                return action.SkillId == skill.Id && action.PlayerIsExecutor 
+                return action.SkillId == skill.Id && action.PlayerIsExecutor
                             ? AwaitCallbackResult.Received : AwaitCallbackResult.None;
             }, 0xB070);
 
@@ -312,7 +304,7 @@ namespace RSBot.Core.Components
                             ? AwaitCallbackResult.Received : AwaitCallbackResult.None;
             }, 0xB074);
 
-            
+
             RefSkill altSkill = skill.Record;
             while (altSkill != null)
             {
@@ -325,7 +317,7 @@ namespace RSBot.Core.Components
                 else
                     break;
             }
-            
+
             if (duration < 100)
                 duration = 1000;
 
@@ -379,7 +371,7 @@ namespace RSBot.Core.Components
                 var targetId = response.ReadUInt();
                 var castedSkillId = response.ReadUInt();
 
-                if (targetId == (target == 0 ? Game.Player.UniqueId : target) && 
+                if (targetId == (target == 0 ? Game.Player.UniqueId : target) &&
                     castedSkillId == skill.Id)
                     return AwaitCallbackResult.Received;
 
@@ -421,31 +413,22 @@ namespace RSBot.Core.Components
             var awaitCallBack = new AwaitCallback(response =>
             {
                 var result = response.ReadByte();
-                
                 if (result == 0x01)
                     return Objects.Action.DeserializeBegin(response).PlayerIsExecutor
                         ? AwaitCallbackResult.Received : AwaitCallbackResult.None;
 
-                var code = 0;
-                if (Game.ClientType < GameClientType.Vietnam)
-                    code = response.ReadByte();
-                else
-                    code = response.ReadUShort();
-
-                switch (code)
+                var errorCode = response.ReadByte();
+                switch (errorCode)
                 {
                     case 0x0E:
-                    case 0x300E:
                         Game.Player.EquipAmmunation();
                         break;
 
-                    case 0x06: // invalid target < vietnam
-                    case 0x3006: // invalid target
-                    case 0x10: // obstacle < vietnam
-                    case 0x3010: // obstacle
+                    case 0x06: // invalid target
+                    case 0x10: // obstacle
                         break;
                     default:
-                        Log.Error($"Invalid skill error code: 0x{code:X2}");
+                        Log.Error($"Invalid skill error code: 0x{errorCode:X2}");
                         break;
                 }
 
