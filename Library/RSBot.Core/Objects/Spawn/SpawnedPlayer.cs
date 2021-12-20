@@ -206,6 +206,10 @@ namespace RSBot.Core.Objects.Spawn
             HwanLevel = packet.ReadByte();
             PvpCape = (PvpCapeType)packet.ReadByte();
             AutoInverstExp = (AutoInverstType)packet.ReadByte();
+
+            if (Game.ClientType >= GameClientType.Global)
+                packet.ReadByte(); // Archievement Title
+
             InventorySize = packet.ReadByte();
 
             #region Regular equipment
@@ -291,10 +295,14 @@ namespace RSBot.Core.Objects.Spawn
             if (OnTransport)
                 TransportUniqueId = packet.ReadUInt();
 
-            ScrollMode = (ScrollMode)packet.ReadByte();
-            InteractMode = (InteractMode)packet.ReadByte();
+            if (Game.ClientType < GameClientType.Global)
+            {
+                ScrollMode = (ScrollMode)packet.ReadByte();
+                InteractMode = (InteractMode)packet.ReadByte();
 
-            packet.ReadByte(); //unkByte4
+                packet.ReadByte(); //unkByte4
+            }
+
             var guildName = packet.ReadString();
 
             //Check if the player is wearing job suite, if not the GUILD object has to be parsed!

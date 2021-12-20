@@ -201,6 +201,13 @@ namespace RSBot.Core.Components
                     return;
                 }
 
+                // ghidra(isro client): FUN_009dd970 maybe flowers?
+                if (refObjId == 0xfffffffe)
+                {
+                    packet.ReadUInt();
+                    packet.ReadUInt();
+                }
+
                 var obj = Game.ReferenceManager.GetRefObjCommon(refObjId);
 
                 switch (obj.TypeID1)
