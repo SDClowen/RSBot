@@ -70,6 +70,7 @@
     <Compile Include="Network\Handler\Agent\Exchange\ExchangeCanceledResponse.cs" />
     <Compile Include="Network\Handler\Agent\Exchange\ExchangeStartedResponse.cs" />
     <Compile Include="Network\Handler\Agent\Exchange\ExchangeStartResponse.cs" />
+    <Compile Include="Network\Hooks\Gateway\GatewayLoginResponseHookOfficial.cs" />
     <Compile Include="Objects\ActionHitStateFlag.cs" />
     <Compile Include="Objects\ActionStateFlag.cs" />
     <Compile Include="Objects\Exchange\ExchangeInstance.cs" />

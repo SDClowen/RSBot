@@ -32,7 +32,6 @@ namespace RSBot.General.PacketHandler
         {
             Serverlist.Servers = new List<Server>();
 
-            //Shard managers? - Dont need that
             while (packet.ReadByte() != 0)
             {
                 packet.ReadByte();
@@ -43,9 +42,30 @@ namespace RSBot.General.PacketHandler
             {
                 var id = packet.ReadUShort();
                 var serverName = packet.ReadString();
-                var currentCapacity = packet.ReadUShort();
-                var maxCapacity = packet.ReadUShort();
-                var status = packet.ReadBool();
+
+                ushort currentCapacity = 0,
+                       maxCapacity = 0;
+                bool status;
+
+                if (Game.ClientType < GameClientType.Global)
+                {
+                    currentCapacity = packet.ReadUShort();
+                    maxCapacity = packet.ReadUShort();
+                    status = packet.ReadBool();
+                }
+                else
+                /*
+                 for global:
+                    0 FULL
+                    1 Crowded
+                    2 Populate
+                    3 Easy
+                    4 Check
+                 */
+                {
+                    status = packet.ReadByte() != 4;
+                    packet.ReadByte();
+                }
 
                 Serverlist.Servers.Add(new Server
                 {
@@ -55,6 +75,9 @@ namespace RSBot.General.PacketHandler
                     MaxCapacity = maxCapacity,
                     Status = status
                 });
+
+                if (Game.ClientType == GameClientType.Vietnam)
+                    packet.ReadByte(); // FarmId
 
                 Log.Notify($"Found server: {serverName} ({currentCapacity}/{maxCapacity})");
             }

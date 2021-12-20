@@ -21,6 +21,14 @@ namespace RSBot.General.Models
         public string Password { get; set; }
 
         /// <summary>
+        /// Gets or sets the password.
+        /// </summary>
+        /// <value>
+        /// The password.
+        /// </value>
+        public string SecondaryPassword { get; set; }
+
+        /// <summary>
         /// Gets or sets the servername.
         /// </summary>
         /// <value>

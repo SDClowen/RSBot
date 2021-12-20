@@ -1,7 +1,6 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Network;
 using RSBot.General.Components;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace RSBot.General.PacketHandler

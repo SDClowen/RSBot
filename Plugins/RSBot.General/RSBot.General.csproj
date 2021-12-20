@@ -53,8 +53,11 @@
     <Compile Include="PacketHandler\CaptchaResponse.cs" />
     <Compile Include="PacketHandler\CharacterListing.cs" />
     <Compile Include="PacketHandler\CharacterSelectionResponse.cs" />
+    <Compile Include="PacketHandler\GatewayLoginResponseGlobal.cs" />
     <Compile Include="PacketHandler\GatewayLoginResponse.cs" />
+    <Compile Include="PacketHandler\GlobalGatewayLoginAccepted.cs" />
     <Compile Include="PacketHandler\GlobalIdentificationRequest.cs" />
+    <Compile Include="PacketHandler\GlobalSecondaryPasswordResponse.cs" />
     <Compile Include="PacketHandler\PatchResponse.cs" />
     <Compile Include="PacketHandler\ServerList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
