@@ -36,9 +36,11 @@ namespace RSBot.Bot.Default.Bundle.Movement
             if (playerUnderAttack)
                 return;
 
+            var distance = Game.Player.Tracker.Position.DistanceTo(Container.Bot.Area.CenterPosition);
+            var hasCollision = CollisionManager.HasCollisionBetween(Game.Player.Tracker.Position, Container.Bot.Area.CenterPosition);
+
             //Go back if the player is out of the radius
-            if (Game.Player.Tracker.Position.DistanceTo(Container.Bot.Area.CenterPosition) > Container.Bot.Area.Radius &&
-                !CollisionManager.HasCollisionBetween(Game.Player.Tracker.Position, Container.Bot.Area.CenterPosition))
+            if ((distance > Container.Bot.Area.Radius || (Config.WalkToCenter && distance > 10)) && !hasCollision)
                 Game.Player.Move(Container.Bot.Area.CenterPosition);
 
             if (!Config.WalkAround || Game.Player.Tracker.MovementState != MovementState.Standing)
