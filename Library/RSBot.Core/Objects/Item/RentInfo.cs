@@ -26,7 +26,7 @@ namespace RSBot.Core.Objects.Item
         /// <value>
         /// The period begin time.
         /// </value>
-        public uint PeriodBeginTime { get; set; }
+        public ulong PeriodBeginTime { get; set; }
 
         /// <summary>
         /// Gets or sets the period end time.
@@ -34,7 +34,7 @@ namespace RSBot.Core.Objects.Item
         /// <value>
         /// The period end time.
         /// </value>
-        public uint PeriodEndTime { get; set; }
+        public ulong PeriodEndTime { get; set; }
 
         /// <summary>
         /// Gets or sets the can recharge.
@@ -50,7 +50,7 @@ namespace RSBot.Core.Objects.Item
         /// <value>
         /// The meter rate time.
         /// </value>
-        public uint MeterRateTime { get; set; }
+        public ulong MeterRateTime { get; set; }
 
         /// <summary>
         /// Gets or sets the packing time.
@@ -58,7 +58,7 @@ namespace RSBot.Core.Objects.Item
         /// <value>
         /// The packing time.
         /// </value>
-        public uint PackingTime { get; set; }
+        public ulong PackingTime { get; set; }
 
         /// <summary>
         /// Creates a new RentInfo object from the given packet
@@ -76,22 +76,48 @@ namespace RSBot.Core.Objects.Item
             {
                 case 1:
                     result.CanDelete = packet.ReadUShort();
-                    result.PeriodBeginTime = packet.ReadUInt();
-                    result.PeriodEndTime = packet.ReadUInt();
+                    
+                    if (Game.ClientType >= GameClientType.Chinese)
+                    {
+                        result.PeriodBeginTime = packet.ReadULong();
+                        result.PeriodEndTime = packet.ReadULong();
+                    }
+                    else
+                    {
+                        result.PeriodBeginTime = packet.ReadUInt();
+                        result.PeriodEndTime = packet.ReadUInt();
+                    }
+
                     break;
 
                 case 2:
                     result.CanDelete = packet.ReadUShort();
                     result.CanRecharge = packet.ReadUShort();
-                    result.MeterRateTime = packet.ReadUInt();
+
+                    if (Game.ClientType >= GameClientType.Chinese)
+                        result.MeterRateTime = packet.ReadULong();
+                    else
+                        result.MeterRateTime = packet.ReadUInt();
+
                     break;
 
                 case 3:
                     result.CanDelete = packet.ReadUShort();
                     result.CanRecharge = packet.ReadUShort();
-                    result.PeriodBeginTime = packet.ReadUInt();
-                    result.PeriodEndTime = packet.ReadUInt();
-                    result.PackingTime = packet.ReadUInt();
+
+                    if(Game.ClientType >= GameClientType.Chinese)
+                    {
+                        result.PeriodBeginTime = packet.ReadULong();
+                        result.PeriodEndTime = packet.ReadULong();
+                        result.PackingTime = packet.ReadULong();
+                    }
+                    else
+                    {
+                        result.PeriodBeginTime = packet.ReadUInt();
+                        result.PeriodEndTime = packet.ReadUInt();
+                        result.PackingTime = packet.ReadUInt();
+                    }
+
                     break;
             }
 
