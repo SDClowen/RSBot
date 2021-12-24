@@ -53,7 +53,7 @@ namespace RSBot.Core.Network.Handler.Agent.Character
             character.Mana = packet.ReadUInt();
             character.AutoInverstExperience = (AutoInverstType)packet.ReadByte();
 
-            if (Core.Game.ClientType == GameClientType.ChineseR)
+            if (Core.Game.ClientType == GameClientType.Chinese)
                 character.DailyPK = (byte)packet.ReadUShort();
             else
                 character.DailyPK = packet.ReadByte();
@@ -150,22 +150,22 @@ namespace RSBot.Core.Network.Handler.Agent.Character
             character.OnTransport = packet.ReadBool(); //On transport?
             character.InCombat = packet.ReadBool();
 
-            if (Core.Game.ClientType > GameClientType.ChineseR)
+            if (Core.Game.ClientType > GameClientType.Chinese)
                 packet.ReadByte();
 
             if (character.OnTransport)
                 character.TransportUniqueId = packet.ReadUInt();
 
-            if (Core.Game.ClientType > GameClientType.ChineseR)
+            if (Core.Game.ClientType > GameClientType.Chinese)
                 packet.ReadUInt(); //unkUint2 i think it is using for balloon event or buff for events
 
-            if (Core.Game.ClientType == GameClientType.ChineseR)
+            if (Core.Game.ClientType == GameClientType.Chinese)
                 packet.ReadByte();
 
             packet.ReadByte(); //PVP dress for the CTF event //0 = Red Side, 1 = Blue Side, 0xFF = None
             packet.ReadULong(); //GuideFlag
 
-            if (Core.Game.ClientType == GameClientType.ChineseR)
+            if (Core.Game.ClientType == GameClientType.Chinese)
                 packet.ReadByte();
 
             character.JID = packet.ReadUInt();

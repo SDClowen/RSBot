@@ -358,7 +358,7 @@ namespace RSBot.Core.Client
 
         public RefSkillMastery GetRefSkillMastery(uint id)
         {
-            if ((Game.ClientType == GameClientType.Chinese || Game.ClientType == GameClientType.ChineseR) &&
+            if ((Game.ClientType == GameClientType.Chinese) &&
                 id >= 273 && id <= 275)
                 id = 277; // csro shit
 

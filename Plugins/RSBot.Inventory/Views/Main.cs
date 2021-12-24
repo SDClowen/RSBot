@@ -58,7 +58,7 @@ namespace RSBot.Inventory.Views
             listViewItem.SubItems[0].Text = name;
             listViewItem.SubItems[1].Text = inventoryItem.Amount.ToString();
 
-            if (inventoryItem.Record.IsWear)
+            if (inventoryItem.Record.IsEquip)
                 listViewItem.SubItems[2].Text = inventoryItem.Record.GetRarityName();
 
             LoadItemImage(listViewItem);
@@ -140,7 +140,7 @@ namespace RSBot.Inventory.Views
             lvItem.Tag = item;
             lvItem.SubItems.Add(item.Amount.ToString());
             
-            if(item.Record.IsWear)
+            if(item.Record.IsEquip)
                 lvItem.SubItems.Add(item.Record.GetRarityName());
         }
 

@@ -48,7 +48,7 @@ namespace RSBot.General.PacketHandler
                 packet.ReadInt(); //Model
                 var name = packet.ReadString();
 
-                if (Game.ClientType > GameClientType.ChineseR)
+                if (Game.ClientType > GameClientType.Chinese)
                     packet.ReadString(); // what is this?
 
                 packet.ReadByte(); //Scale
@@ -72,7 +72,7 @@ namespace RSBot.General.PacketHandler
                 if (characterDeletionFlag == 0x01)
                     packet.ReadInt(); //Time till deletion
 
-                if (Game.ClientType > GameClientType.ChineseR)
+                if (Game.ClientType > GameClientType.Chinese)
                     packet.ReadUInt(); // last logged out timestamp
 
                 packet.ReadByte(); //Has guild?

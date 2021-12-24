@@ -6,9 +6,7 @@
         Vietnam,
         Taiwan,
         Chinese,
-        ChineseR,
         Global,
-        GlobalR,
         Turkey
     }
 }

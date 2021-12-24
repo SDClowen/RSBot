@@ -71,7 +71,7 @@ namespace RSBot.Core.Objects.Spawn
         {
             var result = new SpawnedItem { Id = itemId };
 
-            if (result.Record.IsWear)
+            if (result.Record.IsEquip)
                 result.OptLevel = packet.ReadByte();
             else if (result.Record.IsGold)
                 result.Amount = packet.ReadUInt();
