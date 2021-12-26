@@ -152,6 +152,19 @@ namespace nsDetours
 		return Real_bind(s, name, namelen);
 	}
 
+	extern "C" HANDLE(WINAPI * Real_CreateSemaphoreA)(LPSECURITY_ATTRIBUTES lpSemaphoreAttributes, LONG lInitialCount, LONG lMaximumCount, LPCSTR lpName) = CreateSemaphoreA;
+	HANDLE WINAPI User_CreateSemaphoreA(LPSECURITY_ATTRIBUTES lpSemaphoreAttributes, LONG lInitialCount, LONG lMaximumCount, LPCSTR lpName)
+	{
+		if (lpName && strcmp(lpName, "Global\\Silkroad Client") == 0)
+		{
+			char newName[128] = { 0 };
+			_snprintf_s(newName, sizeof(newName), sizeof(newName) / sizeof(newName[0]) - 1, "Client_%d", 0xFFFFFFFF & __rdtsc());
+			return Real_CreateSemaphoreA(lpSemaphoreAttributes, lInitialCount, lMaximumCount, newName);
+		}
+
+		return Real_CreateSemaphoreA(lpSemaphoreAttributes, lInitialCount, lMaximumCount, lpName);
+	}
+
 	extern "C" DWORD(WINAPI * Real_GetAdaptersInfo)(PIP_ADAPTER_INFO pAdapterInfo, PULONG pOutBufLen) = GetAdaptersInfo;
 	DWORD WINAPI User_GetAdaptersInfo(PIP_ADAPTER_INFO pAdapterInfo, PULONG pOutBufLen)
 	{
@@ -291,6 +304,7 @@ namespace nsPatch
 		DetourAttach(&(PVOID&)nsDetours::Real_CreateMutexA, nsDetours::User_CreateMutexA);
 		DetourAttach(&(PVOID&)nsDetours::Real_bind, nsDetours::User_bind);
 		DetourAttach(&(PVOID&)nsDetours::Real_GetAdaptersInfo, nsDetours::User_GetAdaptersInfo);
+		DetourAttach(&(PVOID&)nsDetours::Real_CreateSemaphoreA, nsDetours::User_CreateSemaphoreA);
 
 		//Redirect detour
 		DetourAttach(&(PVOID&)nsDetours::Real_connect, nsDetours::Detour_connect);
@@ -361,6 +375,7 @@ namespace nsPatch
 		DetourDetach(&(PVOID&)nsDetours::Real_CreateMutexA, nsDetours::User_CreateMutexA);
 		DetourDetach(&(PVOID&)nsDetours::Real_bind, nsDetours::User_bind);
 		DetourDetach(&(PVOID&)nsDetours::Real_GetAdaptersInfo, nsDetours::User_GetAdaptersInfo);
+		DetourDetach(&(PVOID&)nsDetours::Real_CreateSemaphoreA, nsDetours::User_CreateSemaphoreA);
 
 		DetourTransactionCommit();
 
