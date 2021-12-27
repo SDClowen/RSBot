@@ -67,6 +67,17 @@ namespace RSBot.General.PacketHandler
                     packet.ReadByte();
                 }
 
+                // fix server names
+                if (Game.ClientType == GameClientType.Global)
+                {
+                    serverName = serverName.Remove(0, 1);
+                    if (serverName.StartsWith("Palmyra"))
+                        serverName = serverName.Remove(7, 3);
+
+                    if (serverName.EndsWith("Xian"))
+                        serverName = serverName.Remove(0, 3);
+                }
+
                 Serverlist.Servers.Add(new Server
                 {
                     Id = id,
