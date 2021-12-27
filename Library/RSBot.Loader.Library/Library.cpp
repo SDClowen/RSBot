@@ -311,56 +311,54 @@ namespace nsPatch
 
 		DetourTransactionCommit();
 
-		//Redirect gateway
+		using namespace nsDetours;
+
+		printf("Redirecting To: %s:%d\n", g_RedirectIP.c_str(), g_RedirectPort);
+
+		vector<string> tokens = TokenizeString(g_RedirectIP, "\r\n\t .");
+
+		for (size_t i = 0; i < routeListCount; ++i)
 		{
-			using namespace nsDetours;
-
-			cout << "Redirecting to: " << g_RedirectIP << ":" << g_RedirectPort << endl;
-
-			vector<string> tokens = TokenizeString(g_RedirectIP, "\r\n\t .");
-			for (size_t i = 0; i < routeListCount; i++)
-			{
-				routeArray[i].dstA = atoi(tokens[0].c_str());
-				routeArray[i].dstB = atoi(tokens[1].c_str());
-				routeArray[i].dstC = atoi(tokens[2].c_str());
-				routeArray[i].dstD = atoi(tokens[3].c_str());
-				routeArray[i].dstPort = g_RedirectPort;
-			}
-
-			WSADATA wsaData = { 0 };
-			WSAStartup(MAKEWORD(2, 2), &wsaData);
-			routeListCount = 0;
-			for (size_t i = 0; i < g_RealGatewayAddresses.size(); i++)
-			{
-				string nme = g_RealGatewayAddresses[i];
-				printf("g_RealGatewayAddresses[%d]: %s\n", i, nme.c_str());
-				struct hostent* remoteHost = gethostbyname(nme.c_str());
-				if (remoteHost)
-				{
-					struct in_addr addr;
-					addr.s_addr = *(u_long*)remoteHost->h_addr_list[0];
-					std::string hostip = inet_ntoa(addr);
-					printf("\tIP: %s:%d\n", hostip.c_str(), g_RealGatewayPort);
-					tokens = TokenizeString(hostip, ".");
-					routeArray[routeListCount].srcA = atoi(tokens[0].c_str());
-					routeArray[routeListCount].srcB = atoi(tokens[1].c_str());
-					routeArray[routeListCount].srcC = atoi(tokens[2].c_str());
-					routeArray[routeListCount].srcD = atoi(tokens[3].c_str());
-					routeArray[routeListCount].srcPort = g_RealGatewayPort;
-					routeListCount++;
-					if (routeListCount > 16)
-					{
-						MessageBoxA(0, "There are too many host addresses to track. The application will now exit.", "Fatal Error", MB_ICONERROR);
-						ExitProcess(0);
-					}
-				}
-				else
-				{
-					printf("Lookup Failed for: %s\n", nme.c_str());
-				}
-			}
-			WSACleanup();
+			routeArray[i].dstA = atoi(tokens[0].c_str());
+			routeArray[i].dstB = atoi(tokens[1].c_str());
+			routeArray[i].dstC = atoi(tokens[2].c_str());
+			routeArray[i].dstD = atoi(tokens[3].c_str());
+			routeArray[i].dstPort = g_RedirectPort;
 		}
+
+		WSADATA wsaData = { 0 };
+		WSAStartup(MAKEWORD(2, 2), &wsaData);
+		routeListCount = 0;
+		for (size_t i = 0; i < g_RealGatewayAddresses.size(); ++i)
+		{
+			string nme = g_RealGatewayAddresses[i];
+			printf("g_RealGatewayAddresses[%d]: %s\n", i, nme.c_str());
+			struct hostent* remoteHost = gethostbyname(nme.c_str());
+			if (remoteHost)
+			{
+				struct in_addr addr;
+				addr.s_addr = *(u_long*)remoteHost->h_addr_list[0];
+				std::string hostip = inet_ntoa(addr);
+				printf("\tIP: %s:%d\n", hostip.c_str(), g_RealGatewayPort);
+				tokens = TokenizeString(hostip, ".");
+				routeArray[routeListCount].srcA = atoi(tokens[0].c_str());
+				routeArray[routeListCount].srcB = atoi(tokens[1].c_str());
+				routeArray[routeListCount].srcC = atoi(tokens[2].c_str());
+				routeArray[routeListCount].srcD = atoi(tokens[3].c_str());
+				routeArray[routeListCount].srcPort = g_RealGatewayPort;
+				routeListCount++;
+				if (routeListCount > 16)
+				{
+					MessageBoxA(0, "There are too many host addresses to track. The application will now exit.", "Fatal Error", MB_ICONERROR);
+					ExitProcess(0);
+				}
+			}
+			else
+			{
+				printf("Lookup Failed for: %s\n", nme.c_str());
+			}
+		}
+		WSACleanup();
 	}
 
 	void Uninstall()
