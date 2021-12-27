@@ -84,7 +84,10 @@ namespace RSBot.Bot.Default.Bot
             Bundles.Loot.Invoke();
 
             //Select next target
-            Bundles.Target.Invoke();
+            if (Bundles.TraceMode.Config.Enabled == false)
+            {
+                Bundles.Target.Invoke();
+            }
 
             //Check for berzerk
             Bundles.Berzerk.Invoke();
@@ -93,7 +96,13 @@ namespace RSBot.Bot.Default.Bot
             Bundles.Attack.Invoke();
 
             //Move around (maybe)
-            Bundles.Movement.Invoke();
+            if (Bundles.TraceMode.Config.Enabled == false)
+            {
+                Bundles.Movement.Invoke();
+            }
+            
+            //Trace Player and select target 
+            Bundles.TraceMode.Invoke();
         }
     }
 }

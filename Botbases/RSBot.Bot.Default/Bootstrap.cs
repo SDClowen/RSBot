@@ -94,6 +94,9 @@ namespace RSBot.Bot.Default
             {
                 if (Game.Player.InAction)
                     Game.Player.CancelAction();
+                
+                if (Bundles.TraceMode.Config.Enabled)
+                    Bundles.TraceMode.Refresh();
             }
         }
     }

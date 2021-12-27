@@ -9,6 +9,7 @@ namespace RSBot.Bot.Default.Views
     [System.ComponentModel.ToolboxItem(false)]
     public partial class Main : UserControl
     {
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Main"/> class.
         /// </summary>
@@ -320,6 +321,35 @@ namespace RSBot.Bot.Default.Views
 
             //Avoidance
             LoadAvoidance();
+            
+            //TraceMode
+            radioEnableTraceMode.Checked = PlayerConfig.Get<bool>("RSBot.TraceMode.Enabled");
+            radioTargetSameMob.Checked = PlayerConfig.Get<bool>("RSBot.TraceMode.TargetSameMob");
+            txtTracePlayer.Text = PlayerConfig.Get<String>("RSBot.TraceMode.Playername");
+            txtRadiusTraceMode.Text = PlayerConfig.Get<String>("RSBot.TraceMode.Radius");
+        }
+
+        private void radioEnableTraceMode_CheckedChanged(object sender, EventArgs e)
+        {
+            PlayerConfig.Set("RSBot.TraceMode.Enabled", radioEnableTraceMode.Checked);
+        }
+
+        private void txtTracePlayer_TextChanged(object sender, EventArgs e)
+        {
+            PlayerConfig.Set("RSBot.TraceMode.Playername", txtTracePlayer.Text);
+        }
+
+        private void txtRadiusTraceMode_TextChanged(object sender, EventArgs e)
+        {
+            if (isNumeric(txtRadius.Text))
+            {
+                PlayerConfig.Set("RSBot.TraceMode.Radius", txtRadiusTraceMode.Text);
+            }
+        }
+
+        private void radioTargetSameMob_CheckedChanged(object sender, EventArgs e)
+        {
+            PlayerConfig.Set("RSBot.TraceMode.TargetSameMob", radioTargetSameMob.Checked);
         }
     }
 }

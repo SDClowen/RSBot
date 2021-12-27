@@ -8,6 +8,7 @@ using RSBot.Bot.Default.Bundle.Movement;
 using RSBot.Bot.Default.Bundle.PartyBuffing;
 using RSBot.Bot.Default.Bundle.Resurrect;
 using RSBot.Bot.Default.Bundle.Target;
+using RSBot.Bot.Default.Bundle.TraceMode;
 
 namespace RSBot.Bot.Default.Bundle
 {
@@ -92,6 +93,8 @@ namespace RSBot.Bot.Default.Bundle
         /// The Resurrect.
         /// </value>
         public static ResurrectBundle Resurrect { get; private set; }
+        
+        public static TraceModeBundle TraceMode { get; private set; }
 
         /// <summary>
         /// Reloads this instance.
@@ -127,6 +130,9 @@ namespace RSBot.Bot.Default.Bundle
 
             Resurrect = Resurrect ?? new ResurrectBundle();
             Resurrect.Refresh();
+
+            TraceMode = TraceMode ?? new TraceModeBundle();
+            TraceMode.Refresh();
         }
     }
 }

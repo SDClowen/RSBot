@@ -1,4 +1,5 @@
-﻿using RSBot.Core.Components;
+﻿using System.Diagnostics;
+using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Plugins;
 using System.Threading;

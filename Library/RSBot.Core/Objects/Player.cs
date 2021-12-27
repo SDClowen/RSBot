@@ -1106,5 +1106,48 @@ namespace RSBot.Core.Objects
             PacketManager.SendPacket(packet, PacketDestination.Server, callback);
             callback.AwaitResponse(500);
         }
+        
+        public bool StartTrace(uint uniqueId)
+        {
+            var actionPacket = new Packet(0x7074);
+            actionPacket.WriteByte(1);
+            actionPacket.WriteByte(3);
+            actionPacket.WriteByte(1);
+            actionPacket.WriteUInt(uniqueId);
+            actionPacket.Lock();
+
+            var callBack = new AwaitCallback(response =>
+            {
+                var result = response.ReadByte() == 0x01;
+                return result
+                    ? AwaitCallbackResult.Received : AwaitCallbackResult.Failed;
+            }, 0xB074);
+            PacketManager.SendPacket(actionPacket,PacketDestination.Server,callBack);
+            callBack.AwaitResponse(500);
+            return callBack.IsCompleted;
+        }
+        
+        public bool TargetSupport(uint uniqueId)
+        {
+            var packet = new Packet(0x30C4);
+            packet.WriteUInt(uniqueId);
+            packet.Lock();
+
+            var awaitCallback = new AwaitCallback(response =>
+            {
+                var result = response.ReadByte() == 0x01;
+
+                //if (!result)
+                // Log.Error("Could not select entity 0x" + (Game.ClientType < GameClientType.Vietnam ? response.ReadByte() : response.ReadUShort()));
+
+                return result
+                    ? AwaitCallbackResult.Received : AwaitCallbackResult.Failed;
+            }, 0xB045);
+            PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallback);
+            awaitCallback.AwaitResponse();
+            
+            return awaitCallback.IsCompleted;
+        }
+        
     }
 }

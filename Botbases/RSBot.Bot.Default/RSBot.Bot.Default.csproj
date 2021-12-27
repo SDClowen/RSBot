@@ -58,6 +58,8 @@
     <Compile Include="Bundle\PartyBuffing\PartyBuffingBundle.cs" />
     <Compile Include="Bundle\Resurrect\ResurrectBundle.cs" />
     <Compile Include="Bundle\Target\TargetBundle.cs" />
+    <Compile Include="Bundle\TraceMode\TraceModeBundle.cs" />
+    <Compile Include="Bundle\TraceMode\TraceModeConfig.cs" />
     <Compile Include="Container.cs" />
     <Compile Include="Bot\Objects\TrainingArea.cs" />
     <Compile Include="Bundle\IBundle.cs" />

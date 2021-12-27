@@ -22,8 +22,8 @@
 
         #region Component Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -73,12 +73,20 @@
             this.numBerzerkMonsterAmount = new System.Windows.Forms.NumericUpDown();
             this.checkBerzerkAvoidance = new System.Windows.Forms.CheckBox();
             this.checkBerzerkMonsterAmount = new System.Windows.Forms.CheckBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.radioTargetSameMob = new System.Windows.Forms.CheckBox();
+            this.txtRadiusTraceMode = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.radioEnableTraceMode = new System.Windows.Forms.CheckBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtTracePlayer = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.ctxAvoidance.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numBerzerkMonsterAmount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.numBerzerkMonsterAmount)).BeginInit();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -231,10 +239,7 @@
             listViewGroup2.Name = "grpPrefer";
             listViewGroup3.Header = "No custom behavior";
             listViewGroup3.Name = "grpNone";
-            this.lvAvoidance.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1,
-            listViewGroup2,
-            listViewGroup3});
+            this.lvAvoidance.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {listViewGroup1, listViewGroup2, listViewGroup3});
             this.lvAvoidance.HideSelection = false;
             listViewItem1.Group = listViewGroup3;
             listViewItem2.Group = listViewGroup3;
@@ -245,16 +250,7 @@
             listViewItem7.Group = listViewGroup3;
             listViewItem8.Group = listViewGroup3;
             listViewItem9.Group = listViewGroup3;
-            this.lvAvoidance.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3,
-            listViewItem4,
-            listViewItem5,
-            listViewItem6,
-            listViewItem7,
-            listViewItem8,
-            listViewItem9});
+            this.lvAvoidance.Items.AddRange(new System.Windows.Forms.ListViewItem[] {listViewItem1, listViewItem2, listViewItem3, listViewItem4, listViewItem5, listViewItem6, listViewItem7, listViewItem8, listViewItem9});
             this.lvAvoidance.Location = new System.Drawing.Point(11, 19);
             this.lvAvoidance.Name = "lvAvoidance";
             this.lvAvoidance.Size = new System.Drawing.Size(200, 189);
@@ -265,11 +261,7 @@
             // 
             // ctxAvoidance
             // 
-            this.ctxAvoidance.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnAvoid,
-            this.btnPrefer,
-            this.toolStripSeparator1,
-            this.btnNoCustomBehavior});
+            this.ctxAvoidance.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.btnAvoid, this.btnPrefer, this.toolStripSeparator1, this.btnNoCustomBehavior});
             this.ctxAvoidance.Name = "ctxAvoidance";
             this.ctxAvoidance.Size = new System.Drawing.Size(183, 76);
             // 
@@ -418,24 +410,12 @@
             // numBerzerkMonsterAmount
             // 
             this.numBerzerkMonsterAmount.Location = new System.Drawing.Point(193, 47);
-            this.numBerzerkMonsterAmount.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numBerzerkMonsterAmount.Minimum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
+            this.numBerzerkMonsterAmount.Maximum = new decimal(new int[] {10, 0, 0, 0});
+            this.numBerzerkMonsterAmount.Minimum = new decimal(new int[] {2, 0, 0, 0});
             this.numBerzerkMonsterAmount.Name = "numBerzerkMonsterAmount";
             this.numBerzerkMonsterAmount.Size = new System.Drawing.Size(37, 20);
             this.numBerzerkMonsterAmount.TabIndex = 6;
-            this.numBerzerkMonsterAmount.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
+            this.numBerzerkMonsterAmount.Value = new decimal(new int[] {5, 0, 0, 0});
             this.numBerzerkMonsterAmount.ValueChanged += new System.EventHandler(this.numBerzerkMonsterAmount_ValueChanged);
             // 
             // checkBerzerkAvoidance
@@ -460,11 +440,79 @@
             this.checkBerzerkMonsterAmount.UseVisualStyleBackColor = true;
             this.checkBerzerkMonsterAmount.CheckedChanged += new System.EventHandler(this.checkBerzerkMonsterAmount_CheckedChanged);
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.radioTargetSameMob);
+            this.groupBox5.Controls.Add(this.txtRadiusTraceMode);
+            this.groupBox5.Controls.Add(this.label9);
+            this.groupBox5.Controls.Add(this.radioEnableTraceMode);
+            this.groupBox5.Controls.Add(this.label8);
+            this.groupBox5.Controls.Add(this.txtTracePlayer);
+            this.groupBox5.Location = new System.Drawing.Point(262, 250);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(478, 158);
+            this.groupBox5.TabIndex = 6;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Trace mode";
+            // 
+            // radioTargetSameMob
+            // 
+            this.radioTargetSameMob.Location = new System.Drawing.Point(21, 104);
+            this.radioTargetSameMob.Name = "radioTargetSameMob";
+            this.radioTargetSameMob.Size = new System.Drawing.Size(163, 18);
+            this.radioTargetSameMob.TabIndex = 6;
+            this.radioTargetSameMob.Text = "Try to target same mob";
+            this.radioTargetSameMob.UseVisualStyleBackColor = true;
+            this.radioTargetSameMob.CheckedChanged += new System.EventHandler(this.radioTargetSameMob_CheckedChanged);
+            // 
+            // txtRadiusTraceMode
+            // 
+            this.txtRadiusTraceMode.Location = new System.Drawing.Point(240, 78);
+            this.txtRadiusTraceMode.Name = "txtRadiusTraceMode";
+            this.txtRadiusTraceMode.Size = new System.Drawing.Size(84, 20);
+            this.txtRadiusTraceMode.TabIndex = 5;
+            this.txtRadiusTraceMode.TextChanged += new System.EventHandler(this.txtRadiusTraceMode_TextChanged);
+            // 
+            // label9
+            // 
+            this.label9.Location = new System.Drawing.Point(239, 61);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(125, 14);
+            this.label9.TabIndex = 4;
+            this.label9.Text = "Attack mob in radius of:";
+            // 
+            // radioEnableTraceMode
+            // 
+            this.radioEnableTraceMode.Location = new System.Drawing.Point(21, 19);
+            this.radioEnableTraceMode.Name = "radioEnableTraceMode";
+            this.radioEnableTraceMode.Size = new System.Drawing.Size(173, 24);
+            this.radioEnableTraceMode.TabIndex = 3;
+            this.radioEnableTraceMode.Text = "Enable trace mode";
+            this.radioEnableTraceMode.UseVisualStyleBackColor = true;
+            this.radioEnableTraceMode.CheckedChanged += new System.EventHandler(this.radioEnableTraceMode_CheckedChanged);
+            // 
+            // label8
+            // 
+            this.label8.Location = new System.Drawing.Point(18, 61);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(114, 14);
+            this.label8.TabIndex = 2;
+            this.label8.Text = "Playername to trace:";
+            // 
+            // txtTracePlayer
+            // 
+            this.txtTracePlayer.Location = new System.Drawing.Point(21, 78);
+            this.txtTracePlayer.Name = "txtTracePlayer";
+            this.txtTracePlayer.Size = new System.Drawing.Size(189, 20);
+            this.txtTracePlayer.TabIndex = 1;
+            this.txtTracePlayer.TextChanged += new System.EventHandler(this.txtTracePlayer_TextChanged);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(251)))), ((int)(((byte)(251)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (251)))), ((int) (((byte) (251)))), ((int) (((byte) (251)))));
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -479,10 +527,26 @@
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numBerzerkMonsterAmount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.numBerzerkMonsterAmount)).EndInit();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
-
         }
+
+        private System.Windows.Forms.CheckBox radioTargetSameMob;
+
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txtRadiusTraceMode;
+
+        private System.Windows.Forms.CheckBox radioEnableTraceMode;
+
+        private System.Windows.Forms.TextBox txtTracePlayer;
+        private System.Windows.Forms.CheckBox checkBox2;
+
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label8;
 
         #endregion
 

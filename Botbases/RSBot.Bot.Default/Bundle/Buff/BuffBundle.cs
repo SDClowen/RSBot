@@ -37,7 +37,13 @@ namespace RSBot.Bot.Default.Bundle.Buff
                     continue;
 
                 Log.Debug($"Trying to cast buff: {buff} {buff.Record.Basic_Code}");
+                
                 SkillManager.CastBuff(buff);
+                
+                if (Bundles.TraceMode.Config.Enabled)
+                {
+                    Bundles.TraceMode.Refresh();
+                }
             }
         }
 
