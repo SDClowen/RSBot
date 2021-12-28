@@ -90,7 +90,7 @@ namespace RSBot.General.Views
         private void LoadAccounts()
         {
             comboAccounts.Items.Clear();
-            comboAccounts.SelectedIndex = comboAccounts.Items.Add("No Selected");
+            comboAccounts.Items.Add("No Selected");
 
             var autoLoginUserName = GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername");
             foreach (var account in Components.Accounts.SavedAccounts)
@@ -99,6 +99,9 @@ namespace RSBot.General.Views
                 if (account.Username == autoLoginUserName)
                     comboAccounts.SelectedIndex = index;
             }
+
+            if (comboAccounts.SelectedIndex == -1)
+                comboAccounts.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -107,11 +110,14 @@ namespace RSBot.General.Views
         private void LoadCharacters()
         {
             comboCharacter.Items.Clear();
-            comboCharacter.SelectedIndex = comboCharacter.Items.Add("No Selected");
+            comboCharacter.Items.Add("No Selected");
 
             var selectedAccount = comboAccounts.SelectedItem as Models.Account;
             if (selectedAccount?.Characters == null)
+            {
+                comboCharacter.SelectedIndex = 0;
                 return;
+            }
 
             foreach (var character in selectedAccount.Characters)
             {
@@ -119,6 +125,10 @@ namespace RSBot.General.Views
                 if (character == selectedAccount.SelectedCharacter)
                     comboCharacter.SelectedIndex = index;
             }
+
+            if (comboCharacter.SelectedIndex == -1 || 
+                string.IsNullOrWhiteSpace(selectedAccount.SelectedCharacter))
+                comboCharacter.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -375,10 +385,10 @@ namespace RSBot.General.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void comboAccounts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboAccounts.SelectedIndex == 0)
-                return;
+            var selectedAccount = comboAccounts.SelectedIndex == 0 ?
+                string.Empty : comboAccounts.SelectedItem.ToString();
 
-            GlobalConfig.Set("RSBot.General.AutoLoginAccountUsername", comboAccounts.SelectedItem.ToString());
+            GlobalConfig.Set("RSBot.General.AutoLoginAccountUsername", selectedAccount);
 
             LoadCharacters();
         }
@@ -410,9 +420,6 @@ namespace RSBot.General.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void comboCharacter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboCharacter.SelectedIndex == 0)
-                return;
-
             if (comboAccounts.SelectedIndex == 0)
                 return;
 
@@ -420,7 +427,9 @@ namespace RSBot.General.Views
             if (selectedAccount == null)
                 return;
 
-            selectedAccount.SelectedCharacter = comboCharacter.SelectedItem.ToString();
+            selectedAccount.SelectedCharacter = comboCharacter.SelectedIndex == 0 ?
+                string.Empty : comboCharacter.SelectedItem.ToString();
+
             Components.Accounts.Save();
         }
 
@@ -501,13 +510,13 @@ namespace RSBot.General.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnStartClient_Click(object sender, EventArgs e)
         {
-            if(!Game.Clientless && Kernel.Proxy != null && Kernel.Proxy.IsConnectedToAgentserver)
+            if (!Game.Clientless && Kernel.Proxy != null && Kernel.Proxy.IsConnectedToAgentserver)
             {
                 var extraStr = ".\nDon't worry your character will stay online (clientless)!";
                 if (!GlobalConfig.Get<bool>("RSBot.General.StayConnected"))
                     extraStr = " and your character will be disconnected!";
 
-                if(MessageBox.Show($"The game client will now be closed{extraStr}\n\nAre you sure about this?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                if (MessageBox.Show($"The game client will now be closed{extraStr}\n\nAre you sure about this?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                     Kernel.KillClient();
 
                 return;
@@ -560,7 +569,7 @@ namespace RSBot.General.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void comboBoxClientType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(Game.Player != null)
+            if (Game.Player != null)
             {
                 MessageBox.Show("You can't change the client type right now because you are already in the game!");
                 return;
@@ -573,7 +582,8 @@ namespace RSBot.General.Views
             Game.ClientType = clientType;
             GlobalConfig.Save();
 
-            if (clientType == GameClientType.Vietnam)
+            if (clientType == GameClientType.Vietnam ||
+                clientType == GameClientType.Vietnam274)
                 captchaPanel.Visible = true;
             else
                 captchaPanel.Visible = false;
