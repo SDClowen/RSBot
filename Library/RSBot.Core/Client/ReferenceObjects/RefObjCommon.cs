@@ -37,7 +37,7 @@ namespace RSBot.Core.Client.ReferenceObjects
         { 
             get
             {
-                if(Game.ClientType > GameClientType.Taiwan)
+                if(Game.ClientType >= GameClientType.Chinese)
                     return CashItem | Bionic | TypeID1 << 4 | TypeID2 << 10 | (TypeID3 << 16) | (TypeID4 << 24);
 
                 return CashItem | Bionic | TypeID1 << 2 | TypeID2 << 5 | TypeID3 << 7 | TypeID4 << 11;

@@ -58,13 +58,13 @@ namespace RSBot.General.PacketHandler
                 packet.ReadUShort(); //Intelligence
                 packet.ReadUShort(); //Stat point(s)
 
-                if (Game.ClientType > GameClientType.Taiwan)
+                if (Game.ClientType >= GameClientType.Chinese)
                     packet.ReadInt(); // skill point
 
                 packet.ReadInt(); //Health
                 packet.ReadInt(); //Mana
 
-                if (Game.ClientType > GameClientType.Taiwan)
+                if (Game.ClientType >= GameClientType.Chinese)
                     packet.ReadUShort(); // Region
 
                 //Check if the character is being deleted

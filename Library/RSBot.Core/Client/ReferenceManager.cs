@@ -122,7 +122,8 @@ namespace RSBot.Core.Client
 
         private void LoadSkillData()
         {
-            if (Game.ClientType == GameClientType.Vietnam)
+            if (Game.ClientType == GameClientType.Vietnam ||
+                Game.ClientType == GameClientType.Vietnam274)
                 this.LoadReferenceListFileEnc("SkillDataEnc.txt", this.SkillData);
             else
                 this.LoadReferenceListFile("SkillData.txt", this.SkillData);

@@ -93,8 +93,19 @@ namespace RSBot.Core.Network.Handler.Agent.Character
             for (var iQuest = 0; iQuest < activeQuestCount; iQuest++)
             {
                 packet.ReadUInt(); //QuestID
-                packet.ReadByte(); //achievementAmount
-                packet.ReadByte(); //Requiered share pt
+
+                if (Core.Game.ClientType == GameClientType.Vietnam274)
+                {
+                    // 274 shit
+                    packet.ReadUShort(); //achievementAmount
+                    packet.ReadUShort(); //Requiered share pt
+                }
+                else
+                {
+                    packet.ReadByte(); //achievementAmount
+                    packet.ReadByte(); //Requiered share pt
+                }
+
                 var type = packet.ReadByte();
 
                 if (type == 28 || type == 92)

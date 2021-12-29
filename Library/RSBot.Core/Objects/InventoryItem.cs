@@ -107,7 +107,7 @@ namespace RSBot.Core.Objects
             var packet = new Packet(0x704C);
             packet.WriteByte(Slot);
 
-            if(Game.ClientType > GameClientType.Taiwan)
+            if(Game.ClientType >= GameClientType.Chinese)
                 packet.WriteInt(Record.Tid);
             else
                 packet.WriteUShort(Record.Tid);
@@ -214,7 +214,7 @@ namespace RSBot.Core.Objects
                         //Read sockets & advanced elixirs
 
                         var bindingCount = 2;
-                        if (Game.ClientType > GameClientType.Taiwan)
+                        if (Game.ClientType >= GameClientType.Chinese)
                             bindingCount = 4;
 
                         for (var bindingIndex = 0; bindingIndex < bindingCount; bindingIndex++)
