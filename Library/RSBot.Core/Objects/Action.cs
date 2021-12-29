@@ -133,6 +133,8 @@ namespace RSBot.Core.Objects
                     for (int j = 0; j < hitCount; j++)
                     {
                         var state = (ActionHitStateFlag)packet.ReadByte();
+                        if (state == ActionHitStateFlag.Abort)
+                            break;
 
                         if (entity != null)
                             entity.State.HitState = state;
