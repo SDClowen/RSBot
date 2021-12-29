@@ -116,6 +116,10 @@ namespace RSBot.Chat.Views
                 case ChatType.Union:
                     txtUnion.Write(message);
                     break;
+
+                case ChatType.Stall:
+                    txtStall.Write(message);
+                    break;
             }
         }
 

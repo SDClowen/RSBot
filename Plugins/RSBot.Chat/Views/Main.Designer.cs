@@ -50,6 +50,8 @@
             this.txtAcademy = new System.Windows.Forms.RichTextBox();
             this.tabGlobal = new System.Windows.Forms.TabPage();
             this.txtGlobal = new System.Windows.Forms.RichTextBox();
+            this.tabStall = new System.Windows.Forms.TabPage();
+            this.txtStall = new System.Windows.Forms.RichTextBox();
             this.tabUnique = new System.Windows.Forms.TabPage();
             this.UniqueText = new System.Windows.Forms.RichTextBox();
             this.tabMain.SuspendLayout();
@@ -60,6 +62,7 @@
             this.tabUnion.SuspendLayout();
             this.tabAcademy.SuspendLayout();
             this.tabGlobal.SuspendLayout();
+            this.tabStall.SuspendLayout();
             this.tabUnique.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,6 +75,7 @@
             this.tabMain.Controls.Add(this.tabUnion);
             this.tabMain.Controls.Add(this.tabAcademy);
             this.tabMain.Controls.Add(this.tabGlobal);
+            this.tabMain.Controls.Add(this.tabStall);
             this.tabMain.Controls.Add(this.tabUnique);
             this.tabMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabMain.Location = new System.Drawing.Point(6, 6);
@@ -334,6 +338,31 @@
             this.txtGlobal.TabIndex = 2;
             this.txtGlobal.Text = "";
             // 
+            // tabStall
+            // 
+            this.tabStall.Controls.Add(this.txtStall);
+            this.tabStall.Location = new System.Drawing.Point(4, 22);
+            this.tabStall.Name = "tabStall";
+            this.tabStall.Padding = new System.Windows.Forms.Padding(3);
+            this.tabStall.Size = new System.Drawing.Size(734, 439);
+            this.tabStall.TabIndex = 5;
+            this.tabStall.Text = "Stall";
+            this.tabStall.UseVisualStyleBackColor = true;
+            // 
+            // txtStall
+            // 
+            this.txtStall.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtStall.BackColor = System.Drawing.Color.White;
+            this.txtStall.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtStall.Location = new System.Drawing.Point(2, 2);
+            this.txtStall.Name = "txtStall";
+            this.txtStall.ReadOnly = true;
+            this.txtStall.Size = new System.Drawing.Size(728, 434);
+            this.txtStall.TabIndex = 2;
+            this.txtStall.Text = "";
+            // 
             // tabUnique
             // 
             this.tabUnique.Controls.Add(this.UniqueText);
@@ -382,6 +411,7 @@
             this.tabAcademy.ResumeLayout(false);
             this.tabAcademy.PerformLayout();
             this.tabGlobal.ResumeLayout(false);
+            this.tabStall.ResumeLayout(false);
             this.tabUnique.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -396,6 +426,7 @@
         private System.Windows.Forms.TabPage tabGuild;
         private System.Windows.Forms.TabPage tabAcademy;
         private System.Windows.Forms.TabPage tabGlobal;
+        private System.Windows.Forms.TabPage tabStall;
         private System.Windows.Forms.TextBox txtSendPrivate;
         private System.Windows.Forms.RichTextBox txtPrivate;
         private System.Windows.Forms.TextBox txtSendAll;
@@ -407,6 +438,7 @@
         private System.Windows.Forms.TextBox txtSendAcademy;
         private System.Windows.Forms.RichTextBox txtAcademy;
         private System.Windows.Forms.RichTextBox txtGlobal;
+        private System.Windows.Forms.RichTextBox txtStall;
         private System.Windows.Forms.TextBox txtRecievePrivate;
         private System.Windows.Forms.TabPage tabUnion;
         private System.Windows.Forms.TextBox txtSendUnion;
