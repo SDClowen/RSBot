@@ -105,6 +105,7 @@
             this.txtSendAll.Name = "txtSendAll";
             this.txtSendAll.Size = new System.Drawing.Size(728, 20);
             this.txtSendAll.TabIndex = 3;
+            this.txtSendAll.Tag = "1";
             this.txtSendAll.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MessagePreviewKeyDown);
             // 
             // txtAll
@@ -148,7 +149,8 @@
             this.txtSendPrivate.Location = new System.Drawing.Point(164, 413);
             this.txtSendPrivate.Name = "txtSendPrivate";
             this.txtSendPrivate.Size = new System.Drawing.Size(566, 20);
-            this.txtSendPrivate.TabIndex = 3;
+            this.txtSendPrivate.TabIndex = 5;
+            this.txtSendPrivate.Tag = "2";
             this.txtSendPrivate.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MessagePreviewKeyDown);
             // 
             // txtPrivate
@@ -186,6 +188,7 @@
             this.txtSendParty.Name = "txtSendParty";
             this.txtSendParty.Size = new System.Drawing.Size(728, 20);
             this.txtSendParty.TabIndex = 3;
+            this.txtSendParty.Tag = "4";
             this.txtSendParty.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MessagePreviewKeyDown);
             // 
             // txtParty
@@ -223,6 +226,7 @@
             this.txtSendGuild.Name = "txtSendGuild";
             this.txtSendGuild.Size = new System.Drawing.Size(725, 20);
             this.txtSendGuild.TabIndex = 3;
+            this.txtSendGuild.Tag = "5";
             this.txtSendGuild.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MessagePreviewKeyDown);
             // 
             // txtGuild
@@ -260,6 +264,7 @@
             this.txtSendUnion.Name = "txtSendUnion";
             this.txtSendUnion.Size = new System.Drawing.Size(728, 20);
             this.txtSendUnion.TabIndex = 5;
+            this.txtSendUnion.Tag = "11";
             this.txtSendUnion.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MessagePreviewKeyDown);
             // 
             // txtUnion
@@ -297,6 +302,7 @@
             this.txtSendAcademy.Name = "txtSendAcademy";
             this.txtSendAcademy.Size = new System.Drawing.Size(728, 20);
             this.txtSendAcademy.TabIndex = 3;
+            this.txtSendAcademy.Tag = "16";
             this.txtSendAcademy.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MessagePreviewKeyDown);
             // 
             // txtAcademy
@@ -351,8 +357,8 @@
             // 
             // txtStall
             // 
-            this.txtStall.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.txtStall.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtStall.BackColor = System.Drawing.Color.White;
             this.txtStall.BorderStyle = System.Windows.Forms.BorderStyle.None;
