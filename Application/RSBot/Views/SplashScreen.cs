@@ -1,5 +1,6 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Components;
+using RSBot.Theme.Controls;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -56,6 +57,25 @@ namespace RSBot.Views
                 {
                     GlobalConfig.Set("RSBot.SilkroadDirectory", silkroadDirectory);
                     GlobalConfig.Set("RSBot.SilkroadExecutable", Path.GetFileName(diag.FileName));
+
+                    const string title = "Select your client type!";
+                    var sroClientTypeSelectorDialog = new InputDialog(title, title, "Please select the game type for RSBot to work properly!", InputDialog.InputType.Combobox);
+                    sroClientTypeSelectorDialog.Selector.Items.AddRange(Enum.GetNames(typeof(GameClientType)));
+                    sroClientTypeSelectorDialog.Selector.SelectedIndex = 1;
+                    sroClientTypeSelectorDialog.TopMost = true;
+
+                    if (sroClientTypeSelectorDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        if (Enum.TryParse<GameClientType>(sroClientTypeSelectorDialog.Value.ToString(), out var clientType))
+                        {
+                            GlobalConfig.Set("RSBot.Game.ClientType", clientType);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("It's set to 'Vietname' for now because you haven't selected any game type.");
+                        GlobalConfig.Set("RSBot.Game.ClientType", GameClientType.Vietnam);
+                    }
                 }
                 else
                 {
