@@ -4,44 +4,11 @@
     <Filter Include="Common">
       <UniqueIdentifier>{efeaa0f1-3532-41e0-84f2-45526ee3f491}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Detours">
-      <UniqueIdentifier>{f53d07ef-32f7-41f8-b4c9-ddf0630d0ad9}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="detours.cpp">
-      <Filter>Detours</Filter>
-    </ClCompile>
-    <ClCompile Include="creatwth.cpp">
-      <Filter>Detours</Filter>
-    </ClCompile>
-    <ClCompile Include="disasm.cpp">
-      <Filter>Detours</Filter>
-    </ClCompile>
-    <ClCompile Include="image.cpp">
-      <Filter>Detours</Filter>
-    </ClCompile>
-    <ClCompile Include="modules.cpp">
-      <Filter>Detours</Filter>
-    </ClCompile>
     <ClCompile Include="Library.cpp" />
-    <ClCompile Include="Common.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="Console.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="detours.h">
-      <Filter>Detours</Filter>
-    </ClInclude>
-    <ClInclude Include="Common.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Console.h">
-      <Filter>Common</Filter>
-    </ClInclude>
     <ClInclude Include="PayloadHelper.h">
       <Filter>Common</Filter>
     </ClInclude>
