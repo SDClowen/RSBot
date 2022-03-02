@@ -10,24 +10,8 @@ using System.Threading;
 
 namespace RSBot.Core.Objects
 {
-    public class Player
+    public class Player : SpawnedBionic
     {
-        /// <summary>
-        /// Gets or sets the tracker.
-        /// </summary>
-        /// <value>
-        /// The tracker.
-        /// </value>
-        public PositionTracker Tracker { get; set; }
-
-        /// <summary>
-        /// Gets or sets the model identifier.
-        /// </summary>
-        /// <value>
-        /// The model identifier.
-        /// </value>
-        public uint ModelId { get; set; }
-
         /// <summary>
         /// Gets or sets the scale.
         /// </summary>
@@ -195,22 +179,6 @@ namespace RSBot.Core.Objects
         /// The skills.
         /// </value>
         public Skills Skills { get; set; }
-
-        /// <summary>
-        /// Gets or sets the unique identifier.
-        /// </summary>
-        /// <value>
-        /// The unique identifier.
-        /// </value>
-        public uint UniqueId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the status.
-        /// </summary>
-        /// <value>
-        /// The status.
-        /// </value>
-        public State State { get; set; }
 
         /// <summary>
         /// Gets or sets the name.
@@ -437,41 +405,6 @@ namespace RSBot.Core.Objects
         public Teleportation Teleportation { get; set; }
 
         /// <summary>
-        /// Gets the race.
-        /// </summary>
-        /// <value>
-        /// The race.
-        /// </value>
-        public ObjectCountry Race
-        {
-            get
-            {
-                var refChar = Game.ReferenceManager.GetRefObjChar(ModelId);
-
-                return refChar?.Country ?? ObjectCountry.Unassigned;
-            }
-        }
-
-        /// <summary>
-        /// Gets the gender.
-        /// </summary>
-        /// <value>
-        /// The gender.
-        /// </value>
-        public ObjectGender Gender
-        {
-            get
-            {
-                var refChar = Game.ReferenceManager.GetRefObjChar(ModelId);
-
-                if (refChar == null)
-                    return ObjectGender.Neutral;
-
-                return (ObjectGender)refChar.CharGender;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the buffs.
         /// </summary>
         /// <value>
@@ -505,14 +438,6 @@ namespace RSBot.Core.Objects
         public bool Untouchable { get; set; }
 
         /// <summary>
-        /// Gets a value indicating whether [in cave].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [in cave]; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsInDungeon => Tracker.Position.IsInDungeon;
-
-        /// <summary>
         /// Gets or sets a value indicating whether this <see cref="Player"/> is exchanging.
         /// </summary>
         /// <value>
@@ -544,27 +469,36 @@ namespace RSBot.Core.Objects
         /// <summary>
         /// Gets or sets the last hp potion item tick count
         /// </summary>
-        public int _lastHpPotionTick { get; private set; }
+        public int _lastHpPotionTick;
 
         /// <summary>
         /// Gets or sets the last mp potion item tick count
         /// </summary>
-        public int _lastMpPotionTick { get; private set; }
+        private int _lastMpPotionTick;
 
         /// <summary>
         /// Gets or sets the last vigor potion item tick count
         /// </summary>
-        public int _lastVigorPotionTick { get; private set; }
+        private int _lastVigorPotionTick;
 
         /// <summary>
         /// Gets or sets the last universal pill potion item tick count
         /// </summary>
-        public int _lastUniversalPillTick { get; private set; }
+        private int _lastUniversalPillTick;
 
         /// <summary>
         /// Gets or sets the last purification pill potion item tick count
         /// </summary>
-        public int _lastPurificationPillTick { get; private set; }
+        private int _lastPurificationPillTick;
+        
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <param name="objId"></param>
+        public Player(uint objId) : base(objId)
+        {
+
+        }
 
         /// <summary>
         /// Gets the ammo amount.
@@ -631,9 +565,9 @@ namespace RSBot.Core.Objects
         /// <param name="destination">The destination.</param>
         /// <param name="sleep">if set to <c>true</c> [sleep].</param>
         /// <returns></returns>
-        public bool Move(Position destination, bool sleep = true)
+        public bool MoveTo(Position destination, bool sleep = true)
         {
-            var distance = Game.Player.Tracker.Position.DistanceTo(destination);
+            var distance = Game.Player.Movement.Source.DistanceTo(destination);
             if (distance > 150)
             {
                 Log.Warn("Player.Move: Target position too far away!");
@@ -646,7 +580,7 @@ namespace RSBot.Core.Objects
 
             if (HasActiveVehicle)
             {
-                Vehicle.Move(destination);
+                Vehicle.MoveTo(destination);
                 return true;
             }
 
@@ -683,7 +617,7 @@ namespace RSBot.Core.Objects
                 if (!sleep) return true;
 
                 //Wait to finish the step
-                Thread.Sleep(Convert.ToInt32(distance / Game.Player.Tracker.ActualSpeed * 10000));
+                Thread.Sleep(Convert.ToInt32(distance / Game.Player.ActualSpeed * 10000));
 
                 return true;
             }
@@ -975,7 +909,7 @@ namespace RSBot.Core.Objects
             if (!SpawnManager.TryGetEntity(itemUniqueId, out var entity)) 
                 return;
 
-            if (CollisionManager.HasCollisionBetween(entity.Tracker.Position, Tracker.Position))
+            if (CollisionManager.HasCollisionBetween(entity.Movement.Source, Movement.Source))
                 return;
 
             var packet = new Packet(0x7074);
@@ -986,7 +920,7 @@ namespace RSBot.Core.Objects
 
             packet.Lock();
 
-            var distance = Game.Player.Tracker.Position.DistanceTo(entity.Tracker.Position);
+            var distance = Game.Player.Movement.Source.DistanceTo(entity.Movement.Source);
             if (distance > 1000)
                 Log.Warn("Item too far away @" + distance);
 

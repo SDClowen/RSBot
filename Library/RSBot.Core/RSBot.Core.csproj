@@ -245,7 +245,7 @@
     <Compile Include="Objects\Item\RentInfo.cs" />
     <Compile Include="Objects\MotionState.cs" />
     <Compile Include="Objects\Movement.cs" />
-    <Compile Include="Objects\MovementState.cs" />
+    <Compile Include="Objects\MovementType.cs" />
     <Compile Include="Objects\Party\Party.cs" />
     <Compile Include="Objects\Party\PartyMember.cs" />
     <Compile Include="Objects\Party\PartyMemberUpdateType.cs" />
@@ -253,7 +253,6 @@
     <Compile Include="Objects\Party\PartySettings.cs" />
     <Compile Include="Objects\Party\PartyUpdateType.cs" />
     <Compile Include="Objects\Position.cs" />
-    <Compile Include="Components\PositionTracker.cs" />
     <Compile Include="Objects\PvpFlag.cs" />
     <Compile Include="Objects\PvpState.cs" />
     <Compile Include="Objects\ScrollMode.cs" />
@@ -279,7 +278,6 @@
     <Compile Include="Objects\Spawn\SpawnedPlayerUnion.cs" />
     <Compile Include="Objects\Spawn\SpawnedPortal.cs" />
     <Compile Include="Objects\Spawn\SpawnPacketInfo.cs" />
-    <Compile Include="Objects\SpeedMode.cs" />
     <Compile Include="Objects\State.cs" />
     <Compile Include="Objects\Storage.cs" />
     <Compile Include="Objects\Vehicle.cs" />

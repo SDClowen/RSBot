@@ -1,37 +1,14 @@
 ﻿using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Network;
+using RSBot.Core.Objects.Spawn;
 using System;
 using System.Linq;
 using System.Threading;
 
 namespace RSBot.Core.Objects
 {
-    public class Vehicle
+    public class Vehicle : SpawnedEntity
     {
-        /// <summary>
-        /// Gets or sets the unique identifier.
-        /// </summary>
-        /// <value>
-        /// The unique identifier.
-        /// </value>
-        public uint UniqueId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
-        public uint Id { get; set; }
-
-        /// <summary>
-        /// Gets the record.
-        /// </summary>
-        /// <value>
-        /// The record.
-        /// </value>
-        public RefObjChar Record => Game.ReferenceManager.GetRefObjChar(Id);
-
         /// <summary>
         /// Gets or sets the current health.
         /// </summary>
@@ -72,18 +49,8 @@ namespace RSBot.Core.Objects
         public bool UseHealthPotion()
         {
             var typeIdFilter = new TypeIdFilter(3, 3, 1, 4);
-            var slot = (from item in Game.Player.Inventory.Items where typeIdFilter.EqualsRefItem(item.Record) select item.Slot).FirstOrDefault();
-
-            if (slot == 0) return false;
-
-            var packet = new Packet(0x704C);
-            packet.WriteByte(slot);
-            packet.WriteUShort(0x20EC);
-            packet.WriteUInt(UniqueId);
-
-            packet.Lock();
-            PacketManager.SendPacket(packet, PacketDestination.Server);
-
+            var usingItem = (from item in Game.Player.Inventory.Items where typeIdFilter.EqualsRefItem(item.Record) select item).FirstOrDefault();
+            usingItem.UseFor(UniqueId);
             return true;
         }
 
@@ -103,7 +70,7 @@ namespace RSBot.Core.Objects
         /// <summary>
         /// Moves this instance.
         /// </summary>
-        public void Move(Position destination)
+        public void MoveTo(Position destination)
         {
             var packet = new Packet(0x70C5);
             packet.WriteUInt(UniqueId);
@@ -135,11 +102,9 @@ namespace RSBot.Core.Objects
 
             PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallback);
             awaitCallback.AwaitResponse();
-            var distance = Game.Player.Tracker.Position.DistanceTo(destination);
-            if (distance > 1000) return;
-
+            var distance = Game.Player.Movement.Source.DistanceTo(destination);
             //Wait to finish the step
-            Thread.Sleep(Convert.ToInt32((distance / Game.Player.Tracker.ActualSpeed) * 10000));
+            Thread.Sleep(Convert.ToInt32((distance / Game.Player.ActualSpeed) * 10000));
         }
     }
 }

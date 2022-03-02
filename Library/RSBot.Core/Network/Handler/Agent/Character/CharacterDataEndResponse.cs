@@ -34,11 +34,11 @@ namespace RSBot.Core.Network.Handler.Agent.Character
 
             packet = Core.Game.CharacterPacket;
             packet.Lock();
-            var character = new Player();
 
-            packet.ReadUInt(); //Server timestamp
+            var serverTimestamp = packet.ReadUInt();
+            var modelId = packet.ReadUInt();
 
-            character.ModelId = packet.ReadUInt();
+            var character = new Player(modelId);
             character.Scale = packet.ReadByte();
             character.Level = packet.ReadByte();
             character.MaxLevel = packet.ReadByte();
@@ -150,11 +150,8 @@ namespace RSBot.Core.Network.Handler.Agent.Character
                 }
             }
 
-            character.UniqueId = packet.ReadUInt();
-            character.Tracker = new PositionTracker(Movement.FromPacket(packet));
-            character.State = new State();
-            character.State.Deserialize(packet);
-
+            character.ParseBionicDetails(packet);
+            
             character.Name = packet.ReadString();
             character.JobInformation = JobInfo.FromPacket(packet);
             character.State.PvpState = (PvpState)packet.ReadByte();
@@ -184,11 +181,10 @@ namespace RSBot.Core.Network.Handler.Agent.Character
 
             //Set instance..
             Core.Game.Player = character;
-            character.Tracker.SetSpeed(character.State.WalkSpeed, character.State.RunSpeed);
             Core.Game.CharacterPacket = null;
+            Core.Game.NearbyTeleporters = Core.Game.ReferenceManager.GetTeleporters(character.Movement.Source.RegionID);
 
-            Core.Game.NearbyTeleporters = Core.Game.ReferenceManager.GetTeleporters(character.Tracker.Position.RegionID);
-            CollisionManager.Update(Core.Game.Player.Tracker.Position.RegionID);
+            CollisionManager.Update(Core.Game.Player.Movement.Source.RegionID);
 
             EventManager.FireEvent("OnLoadCharacter");
             EventManager.FireEvent("OnUpdateHPMP");

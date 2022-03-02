@@ -32,18 +32,18 @@ namespace RSBot.Bot.Default.Bundle.Movement
                 return;
 
             var playerUnderAttack = SpawnManager.Any<SpawnedMonster>(m => m.AttackingPlayer &&
-               m.Tracker.Position.DistanceTo(Container.Bot.Area.CenterPosition) < Container.Bot.Area.Radius);
+               m.Movement.Source.DistanceTo(Container.Bot.Area.CenterPosition) < Container.Bot.Area.Radius);
             if (playerUnderAttack)
                 return;
 
-            var distance = Game.Player.Tracker.Position.DistanceTo(Container.Bot.Area.CenterPosition);
-            var hasCollision = CollisionManager.HasCollisionBetween(Game.Player.Tracker.Position, Container.Bot.Area.CenterPosition);
+            var distance = Game.Player.Movement.Source.DistanceTo(Container.Bot.Area.CenterPosition);
+            var hasCollision = CollisionManager.HasCollisionBetween(Game.Player.Movement.Source, Container.Bot.Area.CenterPosition);
 
             //Go back if the player is out of the radius
             if ((distance > Container.Bot.Area.Radius || (Config.WalkToCenter && distance > 10)) && !hasCollision)
-                Game.Player.Move(Container.Bot.Area.CenterPosition);
+                Game.Player.MoveTo(Container.Bot.Area.CenterPosition);
 
-            if (!Config.WalkAround || Game.Player.Tracker.MovementState != MovementState.Standing)
+            if (!Config.WalkAround)
                 return;
 
             var randomRadius = Container.Bot.Area.Radius;
@@ -58,8 +58,8 @@ namespace RSBot.Bot.Default.Bundle.Movement
             var destination = Container.Bot.Area.CenterPosition;
             destination.XCoordinate += _random.Next(-randomRadius, randomRadius);
             destination.YCoordinate += _random.Next(-randomRadius, randomRadius);
-            if (!CollisionManager.HasCollisionBetween(Game.Player.Tracker.Position, destination))
-                Game.Player.Move(destination, false);
+            if (!CollisionManager.HasCollisionBetween(Game.Player.Movement.Source, destination))
+                Game.Player.MoveTo(destination, false);
         }
 
         /// <summary>

@@ -32,14 +32,14 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
 
             if(uniqueId == Core.Game.Player.UniqueId)
             {
-                Core.Game.Player.Tracker.SetSource(position);
+                Core.Game.Player.SetSource(position);
                 return;
             }
 
             if (!SpawnManager.TryGetEntity(uniqueId, out var entity))
                 return;
 
-            entity.Tracker.SetSource(position);
+            entity.SetSource(position);
         }
     }
 }

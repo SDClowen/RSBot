@@ -31,14 +31,14 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
             var position = Position.FromPacket(packet);
             if (uniqueId == Core.Game.Player.UniqueId || (Core.Game.Player.Vehicle != null && uniqueId == Core.Game.Player.Vehicle.UniqueId))
             {
-                Core.Game.Player.Tracker.StopMoving(position);
+                Core.Game.Player.StopMoving(position);
                 return;
             }
 
             if (!SpawnManager.TryGetEntity(uniqueId, out var entity))
                 return;
 
-            entity.Tracker.StopMoving(position);
+            entity.StopMoving(position);
         }
     }
 }

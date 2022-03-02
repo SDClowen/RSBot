@@ -158,7 +158,7 @@ namespace RSBot.Core.Objects
                             if (entity == null)
                                 continue;
 
-                            entity.Tracker.SetSource(position);
+                            entity.SetSource(position);
                         }
                     }
                 }
@@ -169,7 +169,7 @@ namespace RSBot.Core.Objects
                 var position = Position.FromPacketInt(packet);
                 if (PlayerIsExecutor)
                 {
-                    Game.Player.Tracker.SetSource(position);
+                    Game.Player.SetSource(position);
                 }
                 else
                 {
@@ -177,7 +177,7 @@ namespace RSBot.Core.Objects
                     if (executor == null)
                         return;
 
-                    executor.Tracker.SetSource(position);
+                    executor.SetSource(position);
                 }
             }
         }

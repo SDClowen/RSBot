@@ -84,7 +84,7 @@ namespace RSBot.Party.Bundle.AutoParty
                 return;
 
             if (Config.OnlyAtTrainingPlace &&
-                Game.Player.Tracker.Position.DistanceTo(Config.CenterPosition) > 50) 
+                Game.Player.Movement.Source.DistanceTo(Config.CenterPosition) > 50) 
                 return;
 
             if (!SpawnManager.TryGetEntities<SpawnedPlayer>(out var players))

@@ -79,7 +79,7 @@ namespace RSBot.Core.Objects.Spawn
                 result.OwnerName = packet.ReadString();
 
             result.UniqueId = packet.ReadUInt();
-            result.Tracker = new Components.PositionTracker(Position.FromPacket(packet));
+            result.Movement.Source = Position.FromPacket(packet);
             result.HasOwner = packet.ReadBool();
 
             if (result.HasOwner)

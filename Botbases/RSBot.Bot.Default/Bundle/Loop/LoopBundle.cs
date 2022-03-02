@@ -87,7 +87,7 @@ namespace RSBot.Bot.Default.Bundle.Loop
             if (ScriptManager.Running) return;
 
             var filename = Environment.CurrentDirectory + "\\Scripts\\Towns\\" +
-                           Game.Player.Tracker.Position.RegionID +
+                           Game.Player.Movement.Source.RegionID +
                            ".rbs";
 
             //The player is in town, therefore, we need to run the townscript first.

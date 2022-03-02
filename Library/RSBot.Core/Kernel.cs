@@ -25,11 +25,6 @@ namespace RSBot.Core
         private static CancellationTokenSource _updaterTokenSource;
 
         /// <summary>
-        /// The tick timer
-        /// </summary>
-        private static Timer _tickTimer;
-
-        /// <summary>
         /// Gets or sets the botbase manager.
         /// </summary>
         /// <value>
@@ -128,6 +123,7 @@ namespace RSBot.Core
             {
                 if (Game.Ready)
                 {
+                    Game.Player.Update();
                     SpawnManager.Update();
                     EventManager.FireEvent("OnTick");
                 }

@@ -18,7 +18,7 @@ namespace RSBot.Core.Objects.Spawn
         /// <value>
         /// The distance to player.
         /// </value>
-        public double DistanceToPlayer => Game.Player.Tracker.Position.DistanceTo(Tracker.Position);
+        public double DistanceToPlayer => Game.Player.Movement.Source.DistanceTo(Movement.Source);
 
         /// <summary>
         /// <inheritdoc/>

@@ -90,7 +90,7 @@ namespace RSBot.Core.Components
                     rarity = monster.Rarity;
             }
 
-            var distance = Game.Player.Tracker.Position.DistanceTo(bionic.Tracker.Position);
+            var distance = Game.Player.Movement.Source.DistanceTo(bionic.Movement.Source);
 
             var minDifference = int.MaxValue;
             //var weaponRange = 0;
@@ -225,8 +225,8 @@ namespace RSBot.Core.Components
             if (!CheckSkillRequired(skill.Record))
                 return false;
 
-            var distance = Game.Player.Tracker.Position.DistanceTo(entity.Tracker.Position);
-            var speed = Game.Player.Tracker.ActualSpeed;
+            var distance = Game.Player.Movement.Source.DistanceTo(entity.Movement.Source);
+            var speed = Game.Player.ActualSpeed;
             var movingSleep = 0d;
 
             // tel3 warrior sprint teleport

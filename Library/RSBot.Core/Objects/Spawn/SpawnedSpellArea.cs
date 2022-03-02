@@ -29,9 +29,11 @@ namespace RSBot.Core.Objects.Spawn
             var spellArea = new SpawnedSpellArea
             {
                 SkillId = packet.ReadUInt(),
-                UniqueId = packet.ReadUInt(),
-                Tracker = new Components.PositionTracker(Position.FromPacket(packet))
+                UniqueId = packet.ReadUInt()
             };
+            
+            spellArea.Movement.Source = Position.FromPacket(packet);
+
             return spellArea;
         }
     }

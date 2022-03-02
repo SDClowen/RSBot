@@ -45,7 +45,7 @@ namespace RSBot.Core.Objects.Spawn
         {
             var result = new SpawnedPortal(characterId);
             result.UniqueId = packet.ReadUInt();
-            result.Tracker = new Components.PositionTracker(Position.FromPacket(packet));
+            result.Movement.Source = Position.FromPacket(packet);
 
             var teleportObj = Game.ReferenceManager.GetRefObjChar(result.Id);
             if (teleportObj != null)

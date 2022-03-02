@@ -143,6 +143,21 @@ namespace RSBot.Core.Objects
         }
 
         /// <summary>
+        /// Use the item for destination item
+        /// </summary>
+        /// <param name="destinationSlot">The destination item slot</param>
+        public void UseFor(uint uniqueId)
+        {
+            var packet = new Packet(0x704C);
+            packet.WriteByte(Slot);
+            packet.WriteUShort(Record.Tid);
+            packet.WriteUInt(uniqueId);
+            packet.Lock();
+
+            PacketManager.SendPacket(packet, PacketDestination.Server);
+        }
+
+        /// <summary>
         /// Equip the item
         /// </summary>
         /// <param name="slot">The slot</param>

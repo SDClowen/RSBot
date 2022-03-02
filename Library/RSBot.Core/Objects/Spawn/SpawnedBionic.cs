@@ -8,22 +8,6 @@ namespace RSBot.Core.Objects.Spawn
     public class SpawnedBionic : SpawnedEntity
     {
         /// <summary>
-        /// Gets the record.
-        /// </summary>
-        /// <value>
-        /// The record.
-        /// </value>
-        public RefObjChar Record => Game.ReferenceManager.GetRefObjChar(Id);
-
-        /// <summary>
-        /// Gets or sets the state.
-        /// </summary>
-        /// <value>
-        /// The state.
-        /// </value>
-        public State State { get; } = new State();
-
-        /// <summary>
         /// Gets a value indicating whether [attacking player].
         /// </summary>
         /// <value>
@@ -50,9 +34,7 @@ namespace RSBot.Core.Objects.Spawn
 
             var movement = Movement.FromPacket(packet);
             State.Deserialize(packet);
-
-            Tracker = new PositionTracker(movement);
-            Tracker.SetSpeed(State.WalkSpeed, State.RunSpeed);
+            SetMovement(movement);
         }
 
         /// <summary>

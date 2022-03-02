@@ -31,12 +31,10 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
             var uniqueId = packet.ReadUInt();
             var walkSpeed = packet.ReadFloat();
             var runSpeed = packet.ReadFloat();
+
             if (uniqueId == Core.Game.Player.UniqueId || (Core.Game.Player.Vehicle != null && uniqueId == Core.Game.Player.Vehicle.UniqueId))
             {
-                Core.Game.Player.State.WalkSpeed = walkSpeed;
-                Core.Game.Player.State.RunSpeed = runSpeed;
-
-                Core.Game.Player.Tracker.SetSpeed(Core.Game.Player.State.WalkSpeed, Core.Game.Player.State.RunSpeed);
+                Core.Game.Player.SetSpeed(walkSpeed, runSpeed);
 
                 EventManager.FireEvent("OnUpdatePlayerSpeed");
             }
@@ -45,10 +43,7 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                 if (!SpawnManager.TryGetEntity<SpawnedBionic>(uniqueId, out var bionic))
                     return;
 
-                bionic.State.WalkSpeed = walkSpeed;
-                bionic.State.RunSpeed = runSpeed;
-
-                bionic.Tracker.SetSpeed(walkSpeed, runSpeed);
+                bionic.SetSpeed(walkSpeed, runSpeed);
 
                 EventManager.FireEvent("OnUpdateEntitySpeed", uniqueId);
             }

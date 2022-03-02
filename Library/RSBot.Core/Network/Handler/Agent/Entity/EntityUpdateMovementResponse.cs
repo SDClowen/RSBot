@@ -35,11 +35,11 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
             if (uniqueId == Core.Game.Player.UniqueId || uniqueId == Core.Game.Player.Vehicle?.UniqueId)
             {
                 if (movement.HasSource)
-                    Core.Game.Player.Tracker.SetSource(movement.Source);
+                    Core.Game.Player.SetSource(movement.Source);
 
                 if (movement.HasDestination)
                 {
-                    Core.Game.Player.Tracker.Move(movement.Destination);
+                    Core.Game.Player.Move(movement.Destination);
 
                     if (CollisionManager.Region == null || CollisionManager.Region.Id != movement.Destination.RegionID)
                     {
@@ -52,7 +52,7 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                 }
                 else
                 {
-                    Core.Game.Player.Tracker.Move(movement.Destination.Angle);
+                    Core.Game.Player.Move(movement.Destination.Angle);
                 }
 
                 EventManager.FireEvent("OnPlayerMove");
@@ -64,12 +64,12 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                 return;
 
             if (movement.HasSource)
-                entity.Tracker.SetSource(movement.Source);
+                entity.SetSource(movement.Source);
 
             if (movement.HasDestination)
-                entity.Tracker.Move(movement.Destination);
+                entity.Move(movement.Destination);
             else
-                entity.Tracker.Move(movement.Destination.Angle);
+                entity.Move(movement.Destination.Angle);
 
             EventManager.FireEvent("OnEntityMove", uniqueId);
         }

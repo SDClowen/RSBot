@@ -44,8 +44,9 @@ namespace RSBot.Core.Network.Handler.Agent.Cos
                 Core.Game.Player.Vehicle = Vehicle.FromPacket(packet, uniqueId, objectId);
                 EventManager.FireEvent("OnSummonVehicle");
                 Log.Debug("Mount vehicle");
-                Core.Game.Player.Tracker.StopMoving();
-                Core.Game.Player.Tracker.SetSpeed(objChar.Speed1, objChar.Speed2);
+
+                Core.Game.Player.StopMoving();
+                Core.Game.Player.SetSpeed(objChar.Speed1, objChar.Speed2);
             }
             else if (objChar.TypeID2 == 2 && objChar.TypeID3 == 3 && objChar.TypeID4 == 4)
             {

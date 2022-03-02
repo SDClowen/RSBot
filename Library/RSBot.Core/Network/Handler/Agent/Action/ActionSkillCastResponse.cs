@@ -36,7 +36,7 @@ namespace RSBot.Core.Network.Handler.Agent.Action
 
             if (action.PlayerIsExecutor)
             {
-                Core.Game.Player.Tracker.StopMoving();
+                Core.Game.Player.StopMoving();
 
                 var skill = Core.Game.Player.Skills.GetSkillInfoById(action.SkillId);
                 skill?.Update();
@@ -50,7 +50,7 @@ namespace RSBot.Core.Network.Handler.Agent.Action
             if (executor == null)
                 return;
 
-            executor.Tracker?.StopMoving();
+            executor.StopMoving();
 
             if (!action.PlayerIsTarget)
                 return;
