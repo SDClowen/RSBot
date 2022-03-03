@@ -5,11 +5,14 @@ namespace RSBot.Core.Extensions
 {
     public static class BinaryWriterExtensions
     {
-        public static void WriteJoymaxString(this BinaryWriter writer, string value)
+        public static void WriteAscii(this BinaryWriter writer, string value)
         {
-            var encoding = Encoding.GetEncoding(949); //Korean
-            writer.Write(encoding.GetByteCount(value));
-            writer.Write(encoding.GetBytes(value));
+            var encoding = Encoding.UTF8;
+            
+            var buffer = encoding.GetBytes(value);
+
+            writer.Write(buffer.Length);
+            writer.Write(buffer);
         }
     }
 }

@@ -79,7 +79,7 @@ namespace RSBot.Core.Objects
         /// <value>
         /// The talk options.
         /// </value>
-        public byte[] TalkOptions { get; set; }
+        public NpcTalk Talk { get; set; }
 
         /// <summary>
         /// Gets the player.
@@ -98,7 +98,8 @@ namespace RSBot.Core.Objects
         {
             var result = new SelectedGameEntity
             {
-                UniqueId = packet.ReadUInt()
+                UniqueId = packet.ReadUInt(),
+                Talk = new NpcTalk()
             };
 
             if (result.Entity is SpawnedMonster)
@@ -107,7 +108,7 @@ namespace RSBot.Core.Objects
                 if (hasHealth)
                     result.Health = packet.ReadUInt();
 
-                result.TalkOptions = packet.ReadByteArray(packet.ReadByte());
+                result.Talk.Deserialize(packet);
             }
             else if (result.Entity is SpawnedNpcNpc)
             {
@@ -115,17 +116,17 @@ namespace RSBot.Core.Objects
                 if (hasHealth)
                     result.Health = packet.ReadUInt();
 
-                result.TalkOptions = packet.ReadByteArray(packet.ReadByte());
+                result.Talk.Deserialize(packet);
                 packet.ReadByte(); //CTF NPC
             }
             else if (result.Entity is SpawnedPlayer)
             {
-                result.TalkOptions = packet.ReadByteArray(packet.ReadByte());
+                result.Talk.Deserialize(packet);
             }
             else if (result.Entity is SpawnedPortal)
             {
                 //STORE_
-                result.TalkOptions = packet.ReadByteArray(packet.ReadByte());
+                result.Talk.Deserialize(packet);
             }
 
             return result;

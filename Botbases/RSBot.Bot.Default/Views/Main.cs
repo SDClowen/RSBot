@@ -105,10 +105,10 @@ namespace RSBot.Bot.Default.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnGetCurrent_Click(object sender, EventArgs e)
         {
-            txtXCoord.Text = Convert.ToInt32(Game.Player.Tracker.Position.XCoordinate).ToString();
-            txtYCoord.Text = Convert.ToInt32(Game.Player.Tracker.Position.YCoordinate).ToString();
-            PlayerConfig.Set("RSBot.Area.XSec", Game.Player.Tracker.Position.XSector);
-            PlayerConfig.Set("RSBot.Area.YSec", Game.Player.Tracker.Position.YSector);
+            txtXCoord.Text = Convert.ToInt32(Game.Player.Movement.Source.XCoordinate).ToString();
+            txtYCoord.Text = Convert.ToInt32(Game.Player.Movement.Source.YCoordinate).ToString();
+            PlayerConfig.Set("RSBot.Area.XSec", Game.Player.Movement.Source.XSector);
+            PlayerConfig.Set("RSBot.Area.YSec", Game.Player.Movement.Source.YSector);
         }
 
         /// <summary>

@@ -64,6 +64,7 @@ namespace RSBot.General.Components
                             var account = new Account();
                             account.Username = reader.ReadString();
                             account.Password = reader.ReadString();
+                            account.SecondaryPassword = reader.ReadString();
                             account.Servername = reader.ReadString();
                             account.SelectedCharacter = reader.ReadString();
 
@@ -108,6 +109,7 @@ namespace RSBot.General.Components
                         {
                             writer.Write(account.Username);
                             writer.Write(account.Password);
+                            writer.Write(account.SecondaryPassword);
                             writer.Write(account.Servername);
                             writer.Write(account.SelectedCharacter);
                             writer.Write(account.Characters.Count);

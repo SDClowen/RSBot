@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Bot.cs" />
     <Compile Include="BotWindow.cs" />
+    <Compile Include="Loader\ClientManager.cs" />
     <Compile Include="Client\DDSImage.cs" />
     <Compile Include="Client\IReference.cs" />
     <Compile Include="Client\ReferenceObjects\RefPackageItemScrap.cs" />
@@ -63,12 +64,14 @@
     <Compile Include="Extensions\ListViewExtensions.cs" />
     <Compile Include="Extensions\NativeExtensions.cs" />
     <Compile Include="Extensions\SocketExtensions.cs" />
+    <Compile Include="GameClientType.cs" />
     <Compile Include="Network\Handler\Agent\Entity\EntitySourcePositionUpdate.cs" />
     <Compile Include="Network\Handler\Agent\Entity\EntityUpdateStatusFlag.cs" />
     <Compile Include="Network\Handler\Agent\Exchange\ExchangeApprovedResponse.cs" />
     <Compile Include="Network\Handler\Agent\Exchange\ExchangeCanceledResponse.cs" />
     <Compile Include="Network\Handler\Agent\Exchange\ExchangeStartedResponse.cs" />
     <Compile Include="Network\Handler\Agent\Exchange\ExchangeStartResponse.cs" />
+    <Compile Include="Network\Hooks\Gateway\GatewayLoginResponseHookOfficial.cs" />
     <Compile Include="Objects\ActionHitStateFlag.cs" />
     <Compile Include="Objects\ActionStateFlag.cs" />
     <Compile Include="Objects\Exchange\ExchangeInstance.cs" />
@@ -85,6 +88,7 @@
     <Compile Include="Objects\GuideTeleportType.cs" />
     <Compile Include="Objects\InviteRequestType.cs" />
     <Compile Include="Objects\Item\ItemUpdateFlag.cs" />
+    <Compile Include="Objects\NpcTalk.cs" />
     <Compile Include="Objects\Party\BuffingPartyMember.cs" />
     <Compile Include="Objects\Party\PartyPurpose.cs" />
     <Compile Include="Objects\Region.cs" />
@@ -242,7 +246,7 @@
     <Compile Include="Objects\Item\RentInfo.cs" />
     <Compile Include="Objects\MotionState.cs" />
     <Compile Include="Objects\Movement.cs" />
-    <Compile Include="Objects\MovementState.cs" />
+    <Compile Include="Objects\MovementType.cs" />
     <Compile Include="Objects\Party\Party.cs" />
     <Compile Include="Objects\Party\PartyMember.cs" />
     <Compile Include="Objects\Party\PartyMemberUpdateType.cs" />
@@ -250,7 +254,6 @@
     <Compile Include="Objects\Party\PartySettings.cs" />
     <Compile Include="Objects\Party\PartyUpdateType.cs" />
     <Compile Include="Objects\Position.cs" />
-    <Compile Include="Components\PositionTracker.cs" />
     <Compile Include="Objects\PvpFlag.cs" />
     <Compile Include="Objects\PvpState.cs" />
     <Compile Include="Objects\ScrollMode.cs" />
@@ -276,7 +279,6 @@
     <Compile Include="Objects\Spawn\SpawnedPlayerUnion.cs" />
     <Compile Include="Objects\Spawn\SpawnedPortal.cs" />
     <Compile Include="Objects\Spawn\SpawnPacketInfo.cs" />
-    <Compile Include="Objects\SpeedMode.cs" />
     <Compile Include="Objects\State.cs" />
     <Compile Include="Objects\Storage.cs" />
     <Compile Include="Objects\Vehicle.cs" />

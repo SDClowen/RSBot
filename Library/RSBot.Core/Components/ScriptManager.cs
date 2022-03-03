@@ -167,7 +167,7 @@ namespace RSBot.Core.Components
                     Game.Player.Vehicle.Dismount();
             }
 
-            var distance = pos.DistanceTo(Game.Player.Tracker.Position);
+            var distance = pos.DistanceTo(Game.Player.Movement.Source);
             if (distance > 100)
             {
                 Log.Debug("[Script] Target position too far away, bot logic aborted!");
@@ -176,7 +176,7 @@ namespace RSBot.Core.Components
                 return;
             }
 
-            Game.Player.Move(pos);
+            Game.Player.MoveTo(pos);
             Log.Debug($"[Script] Move to position X={pos.XCoordinate}, Y={pos.YCoordinate}");
         }
 

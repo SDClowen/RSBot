@@ -61,12 +61,36 @@ namespace RSBot.Core
         /// <param name="defaultValue">The default value.</param>
         public T Get<T>(string key, T defaultValue = default(T))
         {
-            if (_config == null) return (T)Convert.ChangeType(false, typeof(T));
+            if (_config == null) 
+                return (T)Convert.ChangeType(false, typeof(T));
 
             if (!_config.ContainsKey(key))
                 Set(key, defaultValue);
 
             return (T)Convert.ChangeType(_config[key], typeof(T));
+        }
+
+        /// <summary>
+        /// Gets the specified key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default value.</param>
+        public TEnum GetEnum<TEnum>(string key, TEnum defaultValue) 
+            where TEnum : struct
+        {
+            if (_config == null)
+                return default(TEnum);
+
+            if (!_config.ContainsKey(key))
+                Set(key, defaultValue);
+
+            var value = _config[key];
+
+            TEnum result;
+            if (!Enum.TryParse(value, out result))
+                return default(TEnum);
+
+            return result;
         }
 
         /// <summary>

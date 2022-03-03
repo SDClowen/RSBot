@@ -34,12 +34,12 @@ namespace RSBot.Views.Controls
 
         private void OnUpdateSP()
         {
-            lblSP.Text = Game.Player.SkillPoints.ToString("#,#");
+            lblSP.Text = Game.Player.SkillPoints.ToString("#,#0");
         }
 
         private void OnUpdateGold()
         {
-            lblGold.Text = Game.Player.Gold.ToString("#,#");
+            lblGold.Text = Game.Player.Gold.ToString("#,#0");
         }
 
         /// <summary>

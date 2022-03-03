@@ -409,6 +409,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
             {
                 itemAtSlot.Amount = item.Amount;
 
+                EventManager.FireEvent("OnUpdateInventoryItem", itemAtSlot.Slot);
                 Log.Debug(
                     $"[Floor->Inventory] Merge item {itemAtSlot.Record.GetRealName()} (slot={destinationSlot}, amount={item.Amount})");
             }

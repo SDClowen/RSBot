@@ -25,7 +25,6 @@
         /// <returns></returns>
         public Packet ReplacePacket(Packet packet)
         {
-            //Fake the agentserver packet
             var success = packet.ReadByte();
 
             if (success == 0x01)
@@ -38,15 +37,25 @@
                 if (Game.Clientless)
                     return null;
             }
-            else return packet;
+            else
+                return packet;
 
-            packet = new Packet(0xA102);
-            packet.WriteByte(success);
-            packet.WriteUInt(Kernel.Proxy.Token);
-            packet.WriteString("127.0.0.1");
-            packet.WriteUShort(Kernel.Proxy.Port);
+            var result = new Packet(packet.Opcode);
+            result.WriteByte(success);
+            result.WriteUInt(Kernel.Proxy.Token);
+            result.WriteString("127.0.0.1");
+            result.WriteUShort(Kernel.Proxy.Port);
 
-            return packet;
+            if (Game.ClientType >= GameClientType.Global)
+            {
+                var unk1 = packet.ReadByte();
+                result.WriteByte(unk1);
+
+                if (unk1 == 2)
+                    result.WriteString(packet.ReadString());
+            }
+
+            return result;
         }
     }
 }

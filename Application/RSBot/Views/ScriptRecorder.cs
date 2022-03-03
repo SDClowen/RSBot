@@ -43,11 +43,11 @@ namespace RSBot.Views
         {
             if (!_recording) return;
             var stepString = new System.Text.StringBuilder();
-            stepString.Append($"move {Game.Player.Tracker.Destination.XOffset}");
-            stepString.Append($" {Game.Player.Tracker.Destination.YOffset}");
-            stepString.Append($" {Game.Player.Tracker.Destination.ZOffset}");
-            stepString.Append($" {Game.Player.Tracker.Destination.XSector}");
-            stepString.Append($" {Game.Player.Tracker.Destination.YSector}");
+            stepString.Append($"move {Game.Player.Movement.Destination.XOffset}");
+            stepString.Append($" {Game.Player.Movement.Destination.YOffset}");
+            stepString.Append($" {Game.Player.Movement.Destination.ZOffset}");
+            stepString.Append($" {Game.Player.Movement.Destination.XSector}");
+            stepString.Append($" {Game.Player.Movement.Destination.YSector}");
             stepString.AppendLine();
             txtScript.AppendText(stepString.ToString());
         }

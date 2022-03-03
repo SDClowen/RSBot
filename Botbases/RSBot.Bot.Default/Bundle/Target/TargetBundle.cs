@@ -25,16 +25,16 @@ namespace RSBot.Bot.Default.Bundle.Target
                 return;
 
             //Check if the monster is still inside our range
-            var distanceToCenter = monster.Tracker.Position.DistanceTo(Container.Bot.Area.CenterPosition);
+            var distanceToCenter = monster.Movement.Source.DistanceTo(Container.Bot.Area.CenterPosition);
 
             const int tolarance = 10;
             if (distanceToCenter > Container.Bot.Area.Radius + tolarance)
                 return;
 
             //Move closer to the monster
-            var distanceToPlayer = monster.Tracker.Position.DistanceTo(Game.Player.Tracker.Position);
+            var distanceToPlayer = monster.Movement.Source.DistanceTo(Game.Player.Movement.Source);
             if (distanceToPlayer >= 80)
-                Game.Player.Move(monster.Tracker.Position/*.BehindTo(monster.Character.Bionic.Tracker.Position, 20)*/);
+                Game.Player.MoveTo(monster.Movement.Source/*.BehindTo(monster.Character.Bionic.Tracker.Position, 20)*/);
 
             if (!Game.Player.SelectEntity(monster.UniqueId))
                 Invoke();
@@ -51,7 +51,7 @@ namespace RSBot.Bot.Default.Bundle.Target
                             !Bundles.Avoidance.AvoidMonster(m.Rarity)))
                     return default(SpawnedMonster);
 
-            return entities.OrderBy(m => m.Tracker?.Position.DistanceTo(Container.Bot.Area.CenterPosition))
+            return entities.OrderBy(m => m.Movement.Source.DistanceTo(Container.Bot.Area.CenterPosition))
                            .OrderByDescending(m => m.AttackingPlayer)
                            .OrderByDescending(m => Bundles.Avoidance.PreferMonster(m.Rarity))
                            .FirstOrDefault();

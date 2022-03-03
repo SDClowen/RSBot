@@ -24,7 +24,7 @@ namespace RSBot.Core.Network
         /// <value>
         /// The opcode.
         /// </value>
-        public ushort Opcode { get; }
+        public ushort Opcode { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="Packet"/> is encrypted.

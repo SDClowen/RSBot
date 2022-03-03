@@ -22,19 +22,21 @@ namespace RSBot.Core.Network.Handler.Agent.Action
         /// </value>
         public ushort Opcode => 0xB070;
 
+        /// <summary>
+        /// Invokes the specified packet.
+        /// </summary>
+        /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
             var result = packet.ReadByte();
-
-            if (result != 0x01) return;
-
-            packet.ReadUShort(); //Error .. always 00 30
+            if (result != 0x01) 
+                return;
 
             var action = Objects.Action.DeserializeBegin(packet);
 
             if (action.PlayerIsExecutor)
             {
-                Core.Game.Player.Tracker.StopMoving();
+                Core.Game.Player.StopMoving();
 
                 var skill = Core.Game.Player.Skills.GetSkillInfoById(action.SkillId);
                 skill?.Update();
@@ -45,12 +47,12 @@ namespace RSBot.Core.Network.Handler.Agent.Action
             }
 
             var executor = action.GetExecutor<SpawnedBionic>();
-            if (executor == null) 
+            if (executor == null)
                 return;
 
-            executor.Tracker?.StopMoving();
+            executor.StopMoving();
 
-            if (!action.PlayerIsTarget) 
+            if (!action.PlayerIsTarget)
                 return;
 
             EventManager.FireEvent("OnEnemySkillOnPlayer");

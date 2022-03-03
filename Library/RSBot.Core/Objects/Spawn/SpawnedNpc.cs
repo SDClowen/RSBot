@@ -5,20 +5,9 @@ namespace RSBot.Core.Objects.Spawn
     public class SpawnedNpc : SpawnedBionic
     {
         /// <summary>
-        /// Gets or sets the talk flag.
+        /// Gets or sets the npc talk.
         /// </summary>
-        /// <value>
-        /// The talk flag.
-        /// </value>
-        public byte TalkFlag { get; set; }
-
-        /// <summary>
-        /// Gets or sets the talk options.
-        /// </summary>
-        /// <value>
-        /// The talk options.
-        /// </value>
-        public byte[] TalkOptions { get; set; }
+        public NpcTalk Talk { get; set; }
 
         /// <summary>
         /// <inheritdoc/>
@@ -35,10 +24,8 @@ namespace RSBot.Core.Objects.Spawn
         /// <returns></returns>
         internal virtual void Deserialize(Packet packet)
         {
-            TalkFlag = packet.ReadByte();
-
-            if (TalkFlag == 2)
-                TalkOptions = packet.ReadByteArray(packet.ReadByte());
+            Talk = new NpcTalk();
+            Talk.Deserialize(packet);
         }
     }
 }

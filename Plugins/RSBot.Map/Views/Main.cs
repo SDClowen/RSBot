@@ -124,13 +124,13 @@ namespace RSBot.Map.Views
         {
             try
             {
-                var x = (mapCanvas.Width / 2f) + (position.XCoordinate - Game.Player.Tracker.Position.XCoordinate) * _scale;
-                var y = (mapCanvas.Height / 2f) + (position.YCoordinate - Game.Player.Tracker.Position.YCoordinate) * _scale * -1.0f;
+                var x = (mapCanvas.Width / 2f) + (position.XCoordinate - Game.Player.Movement.Source.XCoordinate) * _scale;
+                var y = (mapCanvas.Height / 2f) + (position.YCoordinate - Game.Player.Movement.Source.YCoordinate) * _scale * -1.0f;
 
                 var img = (Image)_mapEntityImages[entityIndex].Clone();
 
                 if (entityIndex == 0)
-                    gfx.DrawImage(RotateImage(img, Geometry.RadianToDegree(Game.Player.Tracker.Angle)), 119.5f, 119.5f);
+                    gfx.DrawImage(RotateImage(img, Geometry.RadianToDegree(Game.Player.Movement.Angle)), 119.5f, 119.5f);
                 else
                     gfx.DrawImage(img, x - img.Width, y - img.Height);
             }
@@ -145,101 +145,97 @@ namespace RSBot.Map.Views
             lvMonster.BeginUpdate();
             lvMonster.Items.Clear();
 
-            if (comboViewType.SelectedIndex == 0 || comboViewType.SelectedIndex == 6)
+            try
             {
-                if (SpawnManager.TryGetEntities<SpawnedMonster>(out var monsters))
+                if (comboViewType.SelectedIndex == 0 || comboViewType.SelectedIndex == 6)
                 {
-                    foreach (var entry in monsters)
+                    if (SpawnManager.TryGetEntities<SpawnedMonster>(out var monsters))
                     {
-                        if (entry.Tracker == null)
-                            continue;
-
-                        AddGridItem(entry.Record.GetRealName(), entry.Rarity.GetName(),
-                            entry.Record.Level, entry.Tracker.Position);
-
-                        if (entry.Rarity == MonsterRarity.Unique || entry.Rarity == MonsterRarity.Unique2)
-                            DrawPointAt(graphics, entry.Tracker.Position, 5);
-                        else
-                            DrawPointAt(graphics, entry.Tracker.Position, 4);
-                    }
-                }
-            }
-
-            if (comboViewType.SelectedIndex == 4 || comboViewType.SelectedIndex == 6)
-            {
-                if (SpawnManager.TryGetEntities<SpawnedCos>(out var coses))
-                {
-                    foreach (var entry in coses)
-                    {
-                        if (entry.Tracker == null)
-                            continue;
-
-                        AddGridItem(entry.Name, "", entry.Record.Level, entry.Tracker.Position);
-                        DrawPointAt(graphics, entry.Tracker.Position, 1);
-                    }
-                }
-            }
-
-            if (comboViewType.SelectedIndex == 2 || comboViewType.SelectedIndex == 6)
-            {
-                if (Game.Party != null && Game.Party.Members != null)
-                {
-                    foreach (var member in Game.Party.Members.ToArray())
-                    {
-                        if (Game.Player.Tracker.Position.DistanceTo(member.Position) < 50)
+                        foreach (var entry in monsters)
                         {
-                            DrawPointAt(graphics, member.Position, 6);
-                            AddGridItem(member.Name, "Party Member", member.Level, member.Position);
+                            AddGridItem(entry.Record.GetRealName(), entry.Rarity.GetName(),
+                                entry.Record.Level, entry.Movement.Source);
+
+                            if (entry.Rarity == MonsterRarity.Unique || entry.Rarity == MonsterRarity.Unique2)
+                                DrawPointAt(graphics, entry.Movement.Source, 5);
+                            else
+                                DrawPointAt(graphics, entry.Movement.Source, 4);
+                        }
+                    }
+                }
+
+                if (comboViewType.SelectedIndex == 4 || comboViewType.SelectedIndex == 6)
+                {
+                    if (SpawnManager.TryGetEntities<SpawnedCos>(out var coses))
+                    {
+                        foreach (var entry in coses)
+                        {
+                            AddGridItem(entry.Name, "", entry.Record.Level, entry.Movement.Source);
+                            DrawPointAt(graphics, entry.Movement.Source, 1);
+                        }
+                    }
+                }
+
+                if (comboViewType.SelectedIndex == 2 || comboViewType.SelectedIndex == 6)
+                {
+                    if (Game.Party != null && Game.Party.Members != null)
+                    {
+                        foreach (var member in Game.Party.Members.ToArray())
+                        {
+                            if (Game.Player.Movement.Source.DistanceTo(member.Position) < 50)
+                            {
+                                DrawPointAt(graphics, member.Position, 6);
+                                AddGridItem(member.Name, "Party Member", member.Level, member.Position);
+                            }
+                        }
+                    }
+                }
+
+                if (comboViewType.SelectedIndex == 1 || comboViewType.SelectedIndex == 6)
+                {
+                    if (SpawnManager.TryGetEntities<SpawnedPlayer>(out var players))
+                    {
+                        foreach (var entry in players)
+                        {
+                            if (Game.Party != null && Game.Party.Members != null && Game.Party.GetMemberByName(entry.Name) != null)
+                                return;
+
+                            AddGridItem(entry.Name, "Player", 0, entry.Movement.Source);
+                            DrawPointAt(graphics, entry.Movement.Source, 3);
+                        }
+                    }
+                }
+
+                if (comboViewType.SelectedIndex == 3 || comboViewType.SelectedIndex == 6)
+                {
+                    if (SpawnManager.TryGetEntities<SpawnedNpcNpc>(out var npcs))
+                    {
+                        foreach (var entry in npcs)
+                        {
+                            AddGridItem(entry.Record.GetRealName(), entry.UniqueId.ToString(),
+                                entry.Record.Level, entry.Movement.Source);
+                            DrawPointAt(graphics, entry.Movement.Source, 2);
+                        }
+                    }
+                }
+
+                if (comboViewType.SelectedIndex == 5 || comboViewType.SelectedIndex == 6)
+                {
+                    if (SpawnManager.TryGetEntities<SpawnedPortal>(out var portals))
+                    {
+                        foreach (var entry in portals)
+                        {
+                            AddGridItem(entry.Record.GetRealName(), "", 0, entry.Movement.Source);
+                            DrawPointAt(graphics, entry.Movement.Source, 7);
                         }
                     }
                 }
             }
-
-            if (comboViewType.SelectedIndex == 1 || comboViewType.SelectedIndex == 6)
+            catch (Exception)
             {
-                if (SpawnManager.TryGetEntities<SpawnedPlayer>(out var players))
-                {
-                    foreach (var entry in players)
-                    {
-                        if (entry.Tracker == null)
-                            continue;
 
-                        if (Game.Party != null && Game.Party.Members != null && Game.Party.GetMemberByName(entry.Name) != null)
-                            return;
-
-                        AddGridItem(entry.Name, "Player", 0, entry.Tracker.Position);
-                        DrawPointAt(graphics, entry.Tracker.Position, 3);
-                    }
-                }
             }
 
-            if (comboViewType.SelectedIndex == 3 || comboViewType.SelectedIndex == 6)
-            {
-                if (SpawnManager.TryGetEntities<SpawnedNpcNpc>(out var npcs))
-                {
-                    foreach (var entry in npcs)
-                    {
-                        if (entry.Tracker == null)
-                            continue;
-
-                        AddGridItem(entry.Record.GetRealName(), entry.UniqueId.ToString(),
-                            entry.Record.Level, entry.Tracker.Position);
-                        DrawPointAt(graphics, entry.Tracker.Position, 2);
-                    }
-                }
-            }
-
-            if (comboViewType.SelectedIndex == 5 || comboViewType.SelectedIndex == 6)
-            {
-                if (SpawnManager.TryGetEntities<SpawnedPortal>(out var portals))
-                {
-                    foreach (var entry in portals)
-                    {
-                        AddGridItem(entry.Record.GetRealName(), "", 0, entry.Tracker.Position);
-                        DrawPointAt(graphics, entry.Tracker.Position, 7);
-                    }
-                }
-            }
             lvMonster.EndUpdate();
         }
 
@@ -265,8 +261,8 @@ namespace RSBot.Map.Views
         /// </summary>
         private void RedrawMap()
         {
-            var xSec = Game.Player.Tracker.Position.XSector;
-            var ySec = Game.Player.Tracker.Position.YSector;
+            var xSec = Game.Player.Movement.Source.XSector;
+            var ySec = Game.Player.Movement.Source.YSector;
 
             if (xSec == _currentXSec && ySec == _currentYSec)
                 return;
@@ -328,8 +324,8 @@ namespace RSBot.Map.Views
                 e.Graphics.PixelOffsetMode = PixelOffsetMode.HighSpeed;
                 e.Graphics.CompositingQuality = CompositingQuality.HighSpeed;
 
-                var pointX = mapCanvas.Width / 2f - SectorSize - Game.Player.Tracker.Position.XOffset / 10f * _scale;
-                var pointY = mapCanvas.Height / 2f - SectorSize * 2f + Game.Player.Tracker.Position.YOffset / 10f * _scale;
+                var pointX = mapCanvas.Width / 2f - SectorSize - Game.Player.Movement.Source.XOffset / 10f * _scale;
+                var pointY = mapCanvas.Height / 2f - SectorSize * 2f + Game.Player.Movement.Source.YOffset / 10f * _scale;
 
                 var point = new PointF(pointX, pointY);
 
@@ -337,7 +333,7 @@ namespace RSBot.Map.Views
 
                 FillGrid(e.Graphics);
 
-                DrawPointAt(e.Graphics, Game.Player.Tracker.Position, 0);
+                DrawPointAt(e.Graphics, Game.Player.Movement.Source, 0);
             }
         }
 
@@ -346,18 +342,13 @@ namespace RSBot.Map.Views
             if (Game.Player == null)
                 return;
 
-            if (Game.Player.Tracker == null)
-                return;
+            lblRegion.Text = Game.ReferenceManager.GetTranslation(Game.Player.Movement.Source.RegionID.ToString());
 
-            trmInterval.Interval = (int)Math.Truncate(1000 / Game.Player.Tracker.ActualSpeed);
-
-            lblRegion.Text = Game.ReferenceManager.GetTranslation(Game.Player.Tracker.Position.RegionID.ToString());
-
-            lblX.Text = Game.Player.Tracker.Position.XCoordinate.ToString("0.00");
-            lblY.Text = Game.Player.Tracker.Position.YCoordinate.ToString("0.00");
+            lblX.Text = Game.Player.Movement.Source.XCoordinate.ToString("0.00");
+            lblY.Text = Game.Player.Movement.Source.YCoordinate.ToString("0.00");
 
 #if DEBUG
-            labelSectorInfo.Text = $"{Game.Player.Tracker.Position.RegionID} ({Game.Player.Tracker.Position.XSector}x{Game.Player.Tracker.Position.YSector})";
+            labelSectorInfo.Text = $"{Game.Player.Movement.Source.RegionID} ({Game.Player.Movement.Source.XSector}x{Game.Player.Movement.Source.YSector})";
 #endif
 
             RedrawMap();

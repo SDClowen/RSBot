@@ -43,6 +43,9 @@
             this.btnAdd = new RSBot.Theme.Material.Button();
             this.btnSave = new RSBot.Theme.Material.Button();
             this.buttonRemove = new RSBot.Theme.Material.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textBoxSecondaryPassword = new System.Windows.Forms.TextBox();
+            this.linkLabelSecondaryPassword = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,7 +73,7 @@
             this.btnCancel.Raised = false;
             this.btnCancel.SingleColor = System.Drawing.Color.Empty;
             this.btnCancel.Size = new System.Drawing.Size(72, 23);
-            this.btnCancel.TabIndex = 6;
+            this.btnCancel.TabIndex = 7;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
@@ -86,7 +89,7 @@
             this.btnOK.Raised = true;
             this.btnOK.SingleColor = System.Drawing.Color.Empty;
             this.btnOK.Size = new System.Drawing.Size(72, 23);
-            this.btnOK.TabIndex = 5;
+            this.btnOK.TabIndex = 6;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
@@ -106,7 +109,7 @@
             this.listAccounts.Location = new System.Drawing.Point(12, 12);
             this.listAccounts.Name = "listAccounts";
             this.listAccounts.Size = new System.Drawing.Size(176, 244);
-            this.listAccounts.TabIndex = 4;
+            this.listAccounts.TabIndex = 8;
             this.listAccounts.SelectedIndexChanged += new System.EventHandler(this.listAccounts_SelectedIndexChanged);
             // 
             // label2
@@ -145,7 +148,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(194, 107);
+            this.label4.Location = new System.Drawing.Point(194, 158);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(75, 15);
             this.label4.TabIndex = 5;
@@ -153,15 +156,15 @@
             // 
             // txtServername
             // 
-            this.txtServername.Location = new System.Drawing.Point(197, 124);
+            this.txtServername.Location = new System.Drawing.Point(197, 175);
             this.txtServername.Name = "txtServername";
             this.txtServername.Size = new System.Drawing.Size(185, 23);
-            this.txtServername.TabIndex = 2;
+            this.txtServername.TabIndex = 3;
             // 
             // linkLabelPwShowHide
             // 
             this.linkLabelPwShowHide.AutoSize = true;
-            this.linkLabelPwShowHide.Location = new System.Drawing.Point(348, 60);
+            this.linkLabelPwShowHide.Location = new System.Drawing.Point(341, 80);
             this.linkLabelPwShowHide.Name = "linkLabelPwShowHide";
             this.linkLabelPwShowHide.Size = new System.Drawing.Size(36, 15);
             this.linkLabelPwShowHide.TabIndex = 9;
@@ -174,14 +177,14 @@
             this.btnAdd.Depth = 0;
             this.btnAdd.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnAdd.Icon = null;
-            this.btnAdd.Location = new System.Drawing.Point(197, 153);
+            this.btnAdd.Location = new System.Drawing.Point(197, 204);
             this.btnAdd.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Primary = true;
             this.btnAdd.Raised = true;
-            this.btnAdd.SingleColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(209)))), ((int)(((byte)(116)))));
+            this.btnAdd.SingleColor = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(189)))), ((int)(((byte)(166)))));
             this.btnAdd.Size = new System.Drawing.Size(72, 23);
-            this.btnAdd.TabIndex = 8;
+            this.btnAdd.TabIndex = 4;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
@@ -192,14 +195,14 @@
             this.btnSave.Depth = 0;
             this.btnSave.Enabled = false;
             this.btnSave.Icon = null;
-            this.btnSave.Location = new System.Drawing.Point(310, 153);
+            this.btnSave.Location = new System.Drawing.Point(310, 204);
             this.btnSave.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnSave.Name = "btnSave";
             this.btnSave.Primary = false;
             this.btnSave.Raised = false;
             this.btnSave.SingleColor = System.Drawing.Color.Empty;
             this.btnSave.Size = new System.Drawing.Size(72, 23);
-            this.btnSave.TabIndex = 3;
+            this.btnSave.TabIndex = 5;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -209,7 +212,7 @@
             this.buttonRemove.Depth = 0;
             this.buttonRemove.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.buttonRemove.Icon = null;
-            this.buttonRemove.Location = new System.Drawing.Point(197, 153);
+            this.buttonRemove.Location = new System.Drawing.Point(197, 204);
             this.buttonRemove.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.buttonRemove.Name = "buttonRemove";
             this.buttonRemove.Primary = true;
@@ -221,17 +224,48 @@
             this.buttonRemove.UseVisualStyleBackColor = true;
             this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(192, 109);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(163, 15);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "Secondary Password: (Global)";
+            // 
+            // textBoxSecondaryPassword
+            // 
+            this.textBoxSecondaryPassword.Location = new System.Drawing.Point(195, 126);
+            this.textBoxSecondaryPassword.Name = "textBoxSecondaryPassword";
+            this.textBoxSecondaryPassword.Size = new System.Drawing.Size(185, 23);
+            this.textBoxSecondaryPassword.TabIndex = 2;
+            this.textBoxSecondaryPassword.UseSystemPasswordChar = true;
+            // 
+            // linkLabelSecondaryPassword
+            // 
+            this.linkLabelSecondaryPassword.AutoSize = true;
+            this.linkLabelSecondaryPassword.Location = new System.Drawing.Point(339, 129);
+            this.linkLabelSecondaryPassword.Name = "linkLabelSecondaryPassword";
+            this.linkLabelSecondaryPassword.Size = new System.Drawing.Size(36, 15);
+            this.linkLabelSecondaryPassword.TabIndex = 9;
+            this.linkLabelSecondaryPassword.TabStop = true;
+            this.linkLabelSecondaryPassword.Text = "Show";
+            this.linkLabelSecondaryPassword.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelSecondaryPassword_LinkClicked);
+            // 
             // Accounts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(394, 314);
+            this.Controls.Add(this.linkLabelSecondaryPassword);
             this.Controls.Add(this.linkLabelPwShowHide);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtServername);
+            this.Controls.Add(this.textBoxSecondaryPassword);
             this.Controls.Add(this.label4);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtUsername);
@@ -270,5 +304,8 @@
         private Theme.Material.Button btnAdd;
         private System.Windows.Forms.LinkLabel linkLabelPwShowHide;
         private Theme.Material.Button buttonRemove;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textBoxSecondaryPassword;
+        private System.Windows.Forms.LinkLabel linkLabelSecondaryPassword;
     }
 }

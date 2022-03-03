@@ -44,7 +44,7 @@ namespace RSBot.Bot.Default.Bundle.Resurrect
                     member.Player == null)
                     continue;
 
-                if (member.Player.Tracker.Position.DistanceTo(Game.Player.Tracker.Position) > 100)
+                if (member.Player.Movement.Source.DistanceTo(Game.Player.Movement.Source) > 100)
                     continue;
 
                 if (member.Player.State.LifeState == LifeState.Dead)

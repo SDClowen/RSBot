@@ -69,7 +69,7 @@ namespace RSBot.Core.Objects
         /// <value>
         /// The active buffs.
         /// </value>
-        public List<BuffInfo> ActiveBuffs { get; set; }
+        public List<BuffInfo> ActiveBuffs { get; } = new List<BuffInfo>();
 
         /// <summary>
         /// Gets or sets the state of the PVP.
@@ -100,24 +100,25 @@ namespace RSBot.Core.Objects
         /// </summary>
         /// <param name="packet">The packet.</param>
         /// <returns></returns>
-        public static State FromPacket(Packet packet)
+        public void Deserialize(Packet packet)
         {
-            var result = new State
-            {
-                ActiveBuffs = new List<BuffInfo>(),
-                LifeState = (LifeState)packet.ReadByte()
-            };
+            LifeState = (LifeState)packet.ReadByte();
 
-            if (result.LifeState == 0)
-                result.LifeState = LifeState.Alive;
+            if (LifeState == 0)
+                LifeState = LifeState.Alive;
 
-            packet.ReadByte(); //UNK1
+            if(Game.ClientType > GameClientType.Thailand)
+                packet.ReadByte(); //unkByte0
 
-            result.MotionState = (MotionState)packet.ReadByte();
-            result.BodyState = (BodyState)packet.ReadByte();
-            result.WalkSpeed = packet.ReadFloat();
-            result.RunSpeed = packet.ReadFloat();
-            result.BerzerkSpeed = packet.ReadFloat();
+            MotionState = (MotionState)packet.ReadByte();
+            BodyState = (BodyState)packet.ReadByte();
+
+            if (Game.ClientType > GameClientType.Taiwan)
+                packet.ReadByte(); // hasRedArrowEffect
+
+            WalkSpeed = packet.ReadFloat();
+            RunSpeed = packet.ReadFloat();
+            BerzerkSpeed = packet.ReadFloat();
 
             var buffCount = packet.ReadByte();
             for (var i = 0; i < buffCount; i++)
@@ -134,10 +135,8 @@ namespace RSBot.Core.Objects
                 if (buff.Record.Params.Contains(1701213281))
                     packet.ReadBool(); //IsCreator
 
-                result.ActiveBuffs.Add(buff);
+                ActiveBuffs.Add(buff);
             }
-
-            return result;
         }
 
         /// <summary>

@@ -80,7 +80,7 @@ namespace RSBot.Core.Objects
         /// <summary>
         /// Gets or sets the angle.
         /// </summary>
-        public ushort Angle;
+        public short Angle;
 
         /// <summary>
         /// Gets the x coordinate.
@@ -136,7 +136,7 @@ namespace RSBot.Core.Objects
                 XOffset = packet.ReadFloat(),
                 ZOffset = packet.ReadFloat(),
                 YOffset = packet.ReadFloat(),
-                Angle = packet.ReadUShort()
+                Angle = packet.ReadShort()
             };
         }
 

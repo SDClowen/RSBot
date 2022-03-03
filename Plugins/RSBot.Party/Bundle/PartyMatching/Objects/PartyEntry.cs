@@ -1,4 +1,5 @@
-﻿using RSBot.Core.Client.ReferenceObjects;
+﻿using RSBot.Core;
+using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Network;
 using RSBot.Core.Objects.Party;
 
@@ -85,7 +86,11 @@ namespace RSBot.Party.Bundle.PartyMatching.Objects
                 Id = packet.ReadUInt()
             };
 
-            packet.ReadUInt(); // No visual change, unknown integer loaderUniqueID ??? :D
+            packet.ReadUInt(); // leaderUniqueId
+
+            if (Game.ClientType >= GameClientType.Global)
+                packet.ReadUInt(); // unknown
+
             result.Leader = packet.ReadString();
             result.Race = (ObjectCountry)packet.ReadByte();
             result.MemberCount = packet.ReadByte();
@@ -93,7 +98,11 @@ namespace RSBot.Party.Bundle.PartyMatching.Objects
             result.Purpose = (PartyPurpose)packet.ReadByte();
             result.MinLevel = packet.ReadByte();
             result.MaxLevel = packet.ReadByte();
-            result.Title = packet.ReadString();
+
+            if (Game.ClientType >= GameClientType.Global)
+                result.Title = packet.ReadUnicode();
+            else
+                result.Title = packet.ReadString();
 
             return result;
         }

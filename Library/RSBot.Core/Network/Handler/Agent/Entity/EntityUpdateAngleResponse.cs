@@ -31,14 +31,14 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
 
             if (Core.Game.Player.UniqueId == uniqueId)
             {
-                Core.Game.Player.Tracker.SetAngle(angle);
+                Core.Game.Player.SetAngle(angle);
                 return;
             }
 
             if (!SpawnManager.TryGetEntity(uniqueId, out var entity)) 
                 return;
 
-            entity.Tracker.SetAngle(angle);
+            entity.SetAngle(angle);
         }
     }
 }

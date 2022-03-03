@@ -33,11 +33,17 @@ namespace RSBot.Core.Client.ReferenceObjects
         /// <summary>
         /// Gets the item Tid.
         /// </summary>
-#if ITEM_BINDING_SYSTEM_EXTRA
-        public int Tid => CashItem | Bionic | TypeID1 << 4 | TypeID2 << 10 | (TypeID3 << 16) | (TypeID4 << 24);
-#else
-        public int Tid => CashItem | Bionic | TypeID1 << 2 | TypeID2 << 5 | TypeID3 << 7 | TypeID4 << 11;
-#endif
+        public int Tid 
+        { 
+            get
+            {
+                if(Game.ClientType >= GameClientType.Chinese)
+                    return CashItem | Bionic | TypeID1 << 4 | TypeID2 << 10 | (TypeID3 << 16) | (TypeID4 << 24);
+
+                return CashItem | Bionic | TypeID1 << 2 | TypeID2 << 5 | TypeID3 << 7 | TypeID4 << 11;
+            }
+        }
+
 
         //public int DecayTime; //time in milliseconds until object despawns
         public ObjectCountry Country; //Indicates where object is from

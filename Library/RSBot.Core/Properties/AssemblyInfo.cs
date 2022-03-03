@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("RSBot core library")]
-[assembly: AssemblyDescription("Acts as RSBot Botbase framework - includes all neccessary logic that the bot and 3rd party applications require.")]
+[assembly: AssemblyDescription("Acts as RSBot Library- includes all neccessary logic that the bot and 3rd party applications require.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("RSBot")]
 [assembly: AssemblyProduct("RSBot Core")]
-[assembly: AssemblyCopyright("Copyright ©  2021, RSBot team")]
+[assembly: AssemblyCopyright("Copyright ©  2022, RSBot Team")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

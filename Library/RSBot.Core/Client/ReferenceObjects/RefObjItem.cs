@@ -21,7 +21,12 @@ namespace RSBot.Core.Client.ReferenceObjects
         /// <summary>
         /// Is item wearable:<c>true</c> otherwise:<c>false</c>
         /// </summary>
-        public bool IsWear => TypeID2 == 1;
+        public bool IsEquip => TypeID2 == 1;
+
+        /// <summary>
+        /// Is item wearable for jobbing:<c>true</c> otherwise:<c>false</c>
+        /// </summary>
+        public bool IsJobEquip => TypeID2 == 1 && TypeID3 == 7;
 
         /// <summary>
         /// Is item type stackable:<c>true</c> otherwise:<c>false</c>

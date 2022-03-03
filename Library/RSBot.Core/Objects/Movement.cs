@@ -5,14 +5,19 @@ namespace RSBot.Core.Objects
     public struct Movement
     {
         /// <summary>
-        /// Gets or sets the has destination.
+        /// Gets or sets the type.
         /// </summary>
-        public bool HasDestination;
+        public MovementType Type;
 
         /// <summary>
         /// Gets or sets the type.
         /// </summary>
-        public byte Type;
+        public bool Moving;
+
+        /// <summary>
+        /// Gets or sets the has destination.
+        /// </summary>
+        public bool HasDestination;
 
         /// <summary>
         /// Gets or sets the destination.
@@ -20,19 +25,19 @@ namespace RSBot.Core.Objects
         public Position Destination;
 
         /// <summary>
+        /// Gets or sets the has source.
+        /// </summary>
+        public bool HasSource;
+
+        /// <summary>
         /// Gets or sets the source.
         /// </summary>
         public Position Source;
 
         /// <summary>
-        /// Gets or sets the source.
-        /// </summary>
-        public MovementState StateType;
-
-        /// <summary>
         /// Gets or sets the has source.
         /// </summary>
-        public bool HasSource;
+        public bool HasAngle;
 
         /// <summary>
         /// Gets or sets the angle.
@@ -71,8 +76,9 @@ namespace RSBot.Core.Objects
             }
             else
             {
-                result.Type = packet.ReadByte();
+                var hasSky = packet.ReadBool();  //0 = Spinning, 1 = Sky-/Key-walking
                 result.Angle = packet.ReadShort();
+                result.HasAngle = hasSky;
             }
 
             result.HasSource = packet.ReadBool();
@@ -109,7 +115,7 @@ namespace RSBot.Core.Objects
             {
                 Source = Position.FromPacket(packet),
                 HasDestination = packet.ReadBool(),
-                Type = packet.ReadByte()
+                Type = (MovementType)packet.ReadByte()
             };
 
             if (result.HasDestination)
@@ -131,9 +137,11 @@ namespace RSBot.Core.Objects
             }
             else
             {
-                result.StateType = (MovementState)packet.ReadByte();
+                var hasSky = packet.ReadBool();  //0 = Spinning, 1 = Sky-/Key-walking
                 result.Angle = packet.ReadShort();
+                result.HasAngle = hasSky;
             }
+
             return result;
         }
     }

@@ -34,8 +34,9 @@ namespace RSBot.General.Views
 
             InitializeComponent();
 
+            comboBoxClientType.Items.AddRange(Enum.GetNames(typeof(GameClientType)));
+
             comboCharacter.SelectedIndex = 0;
-            comboBoxClientType.SelectedIndex = 0;
 
             SubscribeEvents();
             Components.Accounts.Load();
@@ -51,6 +52,7 @@ namespace RSBot.General.Views
             checkStayConnected.Checked = GlobalConfig.Get<bool>("RSBot.General.StayConnected");
             checkBoxBotTrayMinimized.Checked = GlobalConfig.Get<bool>("RSBot.General.TrayWhenMinimize");
             txtStaticCaptcha.Text = GlobalConfig.Get<string>("RSBot.General.StaticCaptcha");
+            comboBoxClientType.SelectedItem = Game.ClientType.ToString();
 
             if (File.Exists(GlobalConfig.Get<string>("RSBot.SilkroadDirectory") + "\\media.pk2"))
                 return;
@@ -88,7 +90,7 @@ namespace RSBot.General.Views
         private void LoadAccounts()
         {
             comboAccounts.Items.Clear();
-            comboAccounts.SelectedIndex = comboAccounts.Items.Add("No Selected");
+            comboAccounts.Items.Add("No Selected");
 
             var autoLoginUserName = GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername");
             foreach (var account in Components.Accounts.SavedAccounts)
@@ -97,6 +99,9 @@ namespace RSBot.General.Views
                 if (account.Username == autoLoginUserName)
                     comboAccounts.SelectedIndex = index;
             }
+
+            if (comboAccounts.SelectedIndex == -1)
+                comboAccounts.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -105,11 +110,14 @@ namespace RSBot.General.Views
         private void LoadCharacters()
         {
             comboCharacter.Items.Clear();
-            comboCharacter.SelectedIndex = comboCharacter.Items.Add("No Selected");
+            comboCharacter.Items.Add("No Selected");
 
             var selectedAccount = comboAccounts.SelectedItem as Models.Account;
             if (selectedAccount?.Characters == null)
+            {
+                comboCharacter.SelectedIndex = 0;
                 return;
+            }
 
             foreach (var character in selectedAccount.Characters)
             {
@@ -117,6 +125,10 @@ namespace RSBot.General.Views
                 if (character == selectedAccount.SelectedCharacter)
                     comboCharacter.SelectedIndex = index;
             }
+
+            if (comboCharacter.SelectedIndex == -1 || 
+                string.IsNullOrWhiteSpace(selectedAccount.SelectedCharacter))
+                comboCharacter.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -125,38 +137,8 @@ namespace RSBot.General.Views
         private static void StartClientProcess()
         {
             Game.Start();
-
-            using (var processLoader = new Process())
-            {
-                const string paramterFormat = "\"{0}\" ";
-
-                var silkroadDirectory = GlobalConfig.Get<string>("RSBot.SilkroadDirectory");
-                var silkroadExecuteable = GlobalConfig.Get<string>("RSBot.SilkroadExecutable");
-                var divisionIndex = GlobalConfig.Get<byte>("RSBot.DivisionIndex");
-                byte contentID = Game.ReferenceManager.DivisionInfo.Locale;
-                var division = Game.ReferenceManager.DivisionInfo.Divisions[divisionIndex];
-                var gatewayIndex = GlobalConfig.Get<byte>("RSBot.GatewayIndex");
-                var gatewayPort = Game.ReferenceManager.GatewayInfo.Port;
-
-                var argsBuilder = new StringBuilder();
-                argsBuilder.AppendFormat(paramterFormat, GlobalConfig.Get<bool>("RSBot.Loader.DebugMode") ? 1 : 0);
-                argsBuilder.AppendFormat(paramterFormat, Path.Combine(silkroadDirectory, silkroadExecuteable));
-                argsBuilder.AppendFormat(paramterFormat, $"/{contentID} {divisionIndex} {gatewayIndex}");
-                argsBuilder.AppendFormat(paramterFormat, Path.GetFullPath("Loader.dll"));
-                argsBuilder.AppendFormat(paramterFormat, "127.0.0.1"); //RedirectIP
-                argsBuilder.AppendFormat(paramterFormat, Kernel.Proxy.Port); //RedirectPort
-                argsBuilder.AppendFormat(paramterFormat, division.GatewayServers.Count); //GatewayIPCount
-                foreach (var gatewayServer in division.GatewayServers)
-                    argsBuilder.AppendFormat(paramterFormat, gatewayServer); //GatewayIP[n]
-                argsBuilder.AppendFormat(paramterFormat, gatewayPort); //GatewayPort
-
-                processLoader.StartInfo.FileName = Path.GetFullPath("Loader.exe");
-                processLoader.StartInfo.Arguments = argsBuilder.ToString();
-                if (!processLoader.Start()) return;
-
-                processLoader.WaitForExit();
-                Kernel.ClientProcessId = processLoader.ExitCode;
-            }
+            if (!ClientManager.Start())
+                Log.Warn("The game client could not starting, please try again!");
         }
 
         /// <summary>
@@ -267,7 +249,7 @@ namespace RSBot.General.Views
 
             if (GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin"))
             {
-                Kernel.KillClient();
+                ClientManager.Kill();
                 Thread.Sleep(2000);
 
                 StartClientProcess();
@@ -373,10 +355,10 @@ namespace RSBot.General.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void comboAccounts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboAccounts.SelectedIndex == 0)
-                return;
+            var selectedAccount = comboAccounts.SelectedIndex == 0 ?
+                string.Empty : comboAccounts.SelectedItem.ToString();
 
-            GlobalConfig.Set("RSBot.General.AutoLoginAccountUsername", comboAccounts.SelectedItem.ToString());
+            GlobalConfig.Set("RSBot.General.AutoLoginAccountUsername", selectedAccount);
 
             LoadCharacters();
         }
@@ -408,9 +390,6 @@ namespace RSBot.General.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void comboCharacter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboCharacter.SelectedIndex == 0)
-                return;
-
             if (comboAccounts.SelectedIndex == 0)
                 return;
 
@@ -418,7 +397,9 @@ namespace RSBot.General.Views
             if (selectedAccount == null)
                 return;
 
-            selectedAccount.SelectedCharacter = comboCharacter.SelectedItem.ToString();
+            selectedAccount.SelectedCharacter = comboCharacter.SelectedIndex == 0 ?
+                string.Empty : comboCharacter.SelectedItem.ToString();
+
             Components.Accounts.Save();
         }
 
@@ -437,7 +418,7 @@ namespace RSBot.General.Views
                     "Clientless", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
 
             ClientlessManager.GoClientless();
-            Kernel.KillClient();
+            ClientManager.Kill();
 
             btnStartClientless.Text = "Disconnect";
             btnGoClientless.Enabled = false;
@@ -499,14 +480,14 @@ namespace RSBot.General.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnStartClient_Click(object sender, EventArgs e)
         {
-            if(!Game.Clientless && Kernel.Proxy != null && Kernel.Proxy.IsConnectedToAgentserver)
+            if (!Game.Clientless && Kernel.Proxy != null && Kernel.Proxy.IsConnectedToAgentserver)
             {
                 var extraStr = ".\nDon't worry your character will stay online (clientless)!";
                 if (!GlobalConfig.Get<bool>("RSBot.General.StayConnected"))
                     extraStr = " and your character will be disconnected!";
 
-                if(MessageBox.Show($"The game client will now be closed{extraStr}\n\nAre you sure about this?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-                    Kernel.KillClient();
+                if (MessageBox.Show($"The game client will now be closed{extraStr}\n\nAre you sure about this?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                    ClientManager.Kill();
 
                 return;
             }
@@ -534,19 +515,19 @@ namespace RSBot.General.Views
 
         private void btnClientHideShow_Click(object sender, EventArgs e)
         {
-            if (Kernel.ClientProcess == null)
+            if (!ClientManager.IsRunning)
                 return;
 
             if (!_clientVisible)
             {
                 _clientVisible = true;
-                NativeExtensions.ShowWindow(Kernel.ClientProcess.MainWindowHandle, NativeExtensions.SW_SHOW);
+                ClientManager.SetVisible(true);
                 btnClientHideShow.Text = "Hide Client";
             }
             else
             {
                 _clientVisible = false;
-                NativeExtensions.ShowWindow(Kernel.ClientProcess.MainWindowHandle, NativeExtensions.SW_HIDE);
+                ClientManager.SetVisible(false);
                 btnClientHideShow.Text = "Show Client";
             }
         }
@@ -558,14 +539,24 @@ namespace RSBot.General.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void comboBoxClientType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(comboBoxClientType.SelectedIndex == 1)
+            if (Game.Player != null)
             {
-                MessageBox.Show(this, "Coming soon...", "Don't worry");
-                comboBoxClientType.SelectedIndex = 0;
+                MessageBox.Show("You can't change the client type right now because you are already in the game!");
                 return;
             }
 
-            GlobalConfig.Set("RSBot.SilkroadClientType", comboBoxClientType.SelectedIndex);
+            if (!Enum.TryParse<GameClientType>(comboBoxClientType.SelectedItem.ToString(), out var clientType))
+                return;
+
+            GlobalConfig.Set("RSBot.Game.ClientType", clientType);
+            Game.ClientType = clientType;
+            GlobalConfig.Save();
+
+            if (clientType == GameClientType.Vietnam ||
+                clientType == GameClientType.Vietnam274)
+                captchaPanel.Visible = true;
+            else
+                captchaPanel.Visible = false;
         }
     }
 }

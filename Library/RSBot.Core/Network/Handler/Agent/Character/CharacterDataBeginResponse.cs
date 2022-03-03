@@ -24,7 +24,7 @@
         /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
-            Core.Game.Player?.Tracker.StopMoving();
+            Core.Game.Player?.StopMoving();
             Core.Game.CharacterPacket = new Packet(0x34A5);
         }
     }

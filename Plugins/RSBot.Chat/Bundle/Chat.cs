@@ -1,4 +1,5 @@
 ﻿using RSBot.Chat.Objects;
+using RSBot.Core;
 using RSBot.Core.Network;
 
 namespace RSBot.Chat.Bundle
@@ -18,12 +19,22 @@ namespace RSBot.Chat.Bundle
             var chatPacket = new Packet(0x7025);
 
             chatPacket.WriteByte(type);
-            chatPacket.WriteByte(1); //To Server (0x02 = client)
+            chatPacket.WriteByte(1); //chatIndex
+
+            if (Game.ClientType > GameClientType.Vietnam)
+                chatPacket.WriteByte(0); // has linking
+
+            if (Game.ClientType >= GameClientType.Chinese)
+                chatPacket.WriteByte(0);
 
             if (type == ChatType.Private)
                 chatPacket.WriteString(reciever);
 
-            chatPacket.WriteString(message);
+            if (Game.ClientType >= GameClientType.Global)
+                chatPacket.WriteUnicode(message);
+            else
+                chatPacket.WriteString(message);
+
             chatPacket.Lock();
 
             PacketManager.SendPacket(chatPacket, PacketDestination.Server);

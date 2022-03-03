@@ -46,7 +46,12 @@ namespace RSBot.Party.Bundle.PartyMatching
             packet.WriteByte(Config.Purpose);
             packet.WriteByte(Config.LevelFrom);
             packet.WriteByte(Config.LevelTo);
-            packet.WriteString(Config.Title);
+
+            if (Game.ClientType >= GameClientType.Global)
+                packet.WriteUnicode(Config.Title);
+            else
+                packet.WriteString(Config.Title);
+
             packet.Lock();
 
             var callback = new AwaitCallback(response =>
@@ -82,7 +87,12 @@ namespace RSBot.Party.Bundle.PartyMatching
             packet.WriteByte(Config.Purpose);
             packet.WriteByte(Config.LevelFrom);
             packet.WriteByte(Config.LevelTo);
-            packet.WriteString(Config.Title);
+
+            if (Game.ClientType >= GameClientType.Global)
+                packet.WriteUnicode(Config.Title);
+            else
+                packet.WriteString(Config.Title);
+
             packet.Lock();
 
             var callback = new AwaitCallback(response =>

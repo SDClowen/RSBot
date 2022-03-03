@@ -38,7 +38,7 @@ namespace RSBot.Core.Objects.Spawn
         {
             return new SpawnedPlayerStall
             {
-                Name = packet.ReadString(),
+                Name = Game.ClientType >= GameClientType.Global ? packet.ReadUnicode() : packet.ReadString(),
                 DecorationId = packet.ReadUInt()
             };
         }

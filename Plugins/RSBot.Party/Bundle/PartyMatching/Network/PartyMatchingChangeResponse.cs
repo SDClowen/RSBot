@@ -33,7 +33,14 @@ namespace RSBot.Party.Bundle.PartyMatching.Network
             Container.PartyMatching.Config.Purpose = (PartyPurpose)packet.ReadByte();
             Container.PartyMatching.Config.LevelFrom = packet.ReadByte();
             Container.PartyMatching.Config.LevelTo = packet.ReadByte();
-            Container.PartyMatching.Config.Title = packet.ReadString();
+
+            string title;
+            if(Game.ClientType >= GameClientType.Global)
+                title = packet.ReadUnicode();
+            else
+                title = packet.ReadString();
+
+            Container.PartyMatching.Config.Title = title;
 
             Core.Event.EventManager.FireEvent("OnChangePartyEntry");
         }

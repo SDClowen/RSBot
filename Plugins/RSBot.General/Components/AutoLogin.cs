@@ -1,9 +1,10 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Event;
 using RSBot.Core.Network;
+using RSBot.Core.Network.SecurityAPI;
 using RSBot.General.Models;
 using System.Linq;
-using System.Threading;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace RSBot.General.Components
@@ -55,6 +56,32 @@ namespace RSBot.General.Components
         }
 
         /// <summary>
+        /// Sends the secondary password if have.
+        /// </summary>
+        internal static void SendSecondaryPassword()
+        {
+            if (Accounts.Joined == null)
+                return;
+
+            var secondaryPassword = Accounts.Joined.SecondaryPassword;
+
+            if (string.IsNullOrWhiteSpace(secondaryPassword))
+                return;
+
+            var blowfish = new Blowfish();
+            byte[] key = { 0x0F, 0x07, 0x3D, 0x20, 0x56, 0x62, 0xC9, 0xEB };
+            blowfish.Initialize(key);
+
+            var encodedBuffer = blowfish.Encode(Encoding.ASCII.GetBytes(secondaryPassword));
+
+            var packet = new Packet(0x6117, true);
+            packet.WriteByte(4);
+            packet.WriteUShort(secondaryPassword.Length);
+            packet.WriteByteArray(encodedBuffer);
+            PacketManager.SendPacket(packet, PacketDestination.Server);
+        }
+
+        /// <summary>
         /// Sends the login request.
         /// </summary>
         /// <param name="account">The account.</param>
@@ -66,11 +93,22 @@ namespace RSBot.General.Components
             if (account == null)
                 return;
 
-            var loginPacket = new Packet(0x6102, true);
+            ushort opcode = 0x6102;
+            if (Game.ClientType >= GameClientType.Global)
+                opcode = 0x610A;
+
+            var loginPacket = new Packet(opcode, true);
             loginPacket.WriteByte(Game.ReferenceManager.DivisionInfo.Locale);
             loginPacket.WriteString(account.Username);
             loginPacket.WriteString(account.Password);
-            loginPacket.WriteUShort(server?.Id ?? Serverlist.Servers[0].Id);
+
+            if (opcode == 0x610A)
+                loginPacket.WriteByteArray(new byte[6]); // mac
+
+            loginPacket.WriteUShort(server.Id);
+
+            if (opcode == 0x610A)
+                loginPacket.WriteByte(1); // unknown!
 
             loginPacket.Lock();
 

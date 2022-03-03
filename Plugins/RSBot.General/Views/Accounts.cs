@@ -48,6 +48,7 @@ namespace RSBot.General.Views
 
             selectedAccount.Username = txtUsername.Text.ToLowerInvariant();
             selectedAccount.Password = txtPassword.Text;
+            selectedAccount.SecondaryPassword = textBoxSecondaryPassword.Text;
             selectedAccount.Servername = txtServername.Text;
 
             /*
@@ -70,6 +71,7 @@ namespace RSBot.General.Views
             if (listAccounts.SelectedIndex == -1)
             {
                 txtPassword.Clear();
+                textBoxSecondaryPassword.Clear();
                 txtUsername.Clear();
                 txtServername.Clear();
                 btnSave.Enabled = false;
@@ -83,6 +85,7 @@ namespace RSBot.General.Views
 
                 txtUsername.Text = selectedAccount.Username;
                 txtPassword.Text = selectedAccount.Password;
+                textBoxSecondaryPassword.Text = selectedAccount.SecondaryPassword;
                 txtServername.Text = selectedAccount.Servername;
 
                 btnSave.Enabled = true;
@@ -120,6 +123,25 @@ namespace RSBot.General.Views
         }
 
         /// <summary>
+        /// Handles the Click event of the linkLabelSecondaryPassword control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void linkLabelSecondaryPassword_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (textBoxSecondaryPassword.UseSystemPasswordChar)
+            {
+                textBoxSecondaryPassword.UseSystemPasswordChar = false;
+                linkLabelSecondaryPassword.Text = "Hide";
+            }
+            else
+            {
+                textBoxSecondaryPassword.UseSystemPasswordChar = true;
+                linkLabelSecondaryPassword.Text = "Show";
+            }
+        }
+
+        /// <summary>
         /// Handles the Click event of the btnAdd control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -144,6 +166,7 @@ namespace RSBot.General.Views
             {
                 Username = txtUsername.Text.ToLowerInvariant(),
                 Password = txtPassword.Text,
+                SecondaryPassword = textBoxSecondaryPassword.Text,
                 Servername = txtServername.Text,
                 SelectedCharacter = string.Empty,
                 Characters = new List<string>(4)

@@ -95,9 +95,9 @@
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Right;
             this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(210, 0);
+            this.label1.Location = new System.Drawing.Point(209, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(36, 17);
+            this.label1.Size = new System.Drawing.Size(37, 17);
             this.label1.TabIndex = 2;
             this.label1.Text = "BETA";
             // 

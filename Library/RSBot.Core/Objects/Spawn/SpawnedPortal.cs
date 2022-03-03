@@ -45,7 +45,14 @@ namespace RSBot.Core.Objects.Spawn
         {
             var result = new SpawnedPortal(characterId);
             result.UniqueId = packet.ReadUInt();
-            result.Tracker = new Components.PositionTracker(Position.FromPacket(packet));
+            result.Movement.Source = Position.FromPacket(packet);
+
+            var teleportObj = Game.ReferenceManager.GetRefObjChar(result.Id);
+            if (teleportObj != null)
+                result.Links = Game.ReferenceManager.TeleportData.FirstOrDefault(t => t.AssocRefObjId == teleportObj.ID)?.GetLinks();
+
+            if (Game.ClientType < GameClientType.Vietnam)
+                return result;
 
             packet.ReadByte(); //unkByte0
             var unkByte1 = packet.ReadByte();
@@ -70,10 +77,6 @@ namespace RSBot.Core.Objects.Spawn
                 packet.ReadUInt(); //unkUInt3
                 packet.ReadByte(); //unkByte5
             }
-
-            var teleportObj = Game.ReferenceManager.GetRefObjChar(result.Id);
-            if(teleportObj != null)
-                result.Links = Game.ReferenceManager.TeleportData.FirstOrDefault(t => t.AssocRefObjId == teleportObj.ID).GetLinks();
 
             return result;
         }

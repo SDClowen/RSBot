@@ -47,19 +47,33 @@ namespace RSBot.General.PacketHandler
             {
                 packet.ReadInt(); //Model
                 var name = packet.ReadString();
-                packet.ReadByte(); //Volume/Height
+
+                if (Game.ClientType > GameClientType.Chinese)
+                    packet.ReadString(); // what is this?
+
+                packet.ReadByte(); //Scale
                 var level = packet.ReadByte();
                 packet.ReadULong(); //EXP
                 packet.ReadUShort(); //Strength
                 packet.ReadUShort(); //Intelligence
                 packet.ReadUShort(); //Stat point(s)
+
+                if (Game.ClientType >= GameClientType.Chinese)
+                    packet.ReadInt(); // skill point
+
                 packet.ReadInt(); //Health
                 packet.ReadInt(); //Mana
+
+                if (Game.ClientType >= GameClientType.Chinese)
+                    packet.ReadUShort(); // Region
 
                 //Check if the character is being deleted
                 var characterDeletionFlag = packet.ReadByte();
                 if (characterDeletionFlag == 0x01)
                     packet.ReadInt(); //Time till deletion
+
+                if (Game.ClientType > GameClientType.Chinese)
+                    packet.ReadUInt(); // last logged out timestamp
 
                 packet.ReadByte(); //Has guild?
                 var grantNameFlag = packet.ReadByte();

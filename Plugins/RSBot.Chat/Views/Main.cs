@@ -1,12 +1,12 @@
 ﻿using RSBot.Chat.Objects;
 using RSBot.Core;
 using RSBot.Core.Event;
+using RSBot.Theme.Extensions;
+using System;
 using System.Windows.Forms;
 
 namespace RSBot.Chat.Views
 {
-    using Theme.Extensions;
-
     [System.ComponentModel.ToolboxItem(false)]
     public partial class Main : UserControl
     {
@@ -32,37 +32,14 @@ namespace RSBot.Chat.Views
         /// <param name="sender">The sender.</param>
         private void SendChatMessage(Control sender)
         {
-            switch (sender.Name)
-            {
-                case "txtSendAll":
-                    Bundle.Chat.SendChatPacket(ChatType.All, sender.Text);
-                    break;
+            if (!Enum.TryParse<ChatType>(sender.Tag.ToString(), out var chatType))
+                return;
 
-                case "txtSendParty":
-                    Bundle.Chat.SendChatPacket(ChatType.Party, sender.Text);
-                    break;
-
-                case "txtSendPrivate":
-                    Bundle.Chat.SendChatPacket(ChatType.Private, sender.Text, txtRecievePrivate.Text);
-                    PlayerConfig.Set("RSBot.Chat.LastWhisper", txtRecievePrivate.Text);
-                    break;
-
-                case "txtSendGuild":
-                    Bundle.Chat.SendChatPacket(ChatType.Guild, sender.Text);
-                    break;
-
-                case "txtSendAcademy":
-                    Bundle.Chat.SendChatPacket(ChatType.Academy, sender.Text);
-                    break;
-
-                case "txtSendUnion":
-                    Bundle.Chat.SendChatPacket(ChatType.Union, sender.Text);
-                    break;
-
-                default:
-                    Log.Warn("Unknown chat type.");
-                    break;
-            }
+            Bundle.Chat.SendChatPacket(chatType, sender.Text, txtRecievePrivate.Text);
+            AppendMessage(sender.Text, Game.Player.Name, chatType);
+            
+            if(chatType == ChatType.Private)
+                PlayerConfig.Set("RSBot.Chat.LastWhisper", txtRecievePrivate.Text);
         }
 
         /// <summary>
@@ -115,6 +92,10 @@ namespace RSBot.Chat.Views
 
                 case ChatType.Union:
                     txtUnion.Write(message);
+                    break;
+
+                case ChatType.Stall:
+                    txtStall.Write(message);
                     break;
             }
         }

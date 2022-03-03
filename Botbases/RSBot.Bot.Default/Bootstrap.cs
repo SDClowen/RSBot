@@ -81,7 +81,7 @@ namespace RSBot.Bot.Default
             Container.Bot = new Botbase();
 
             //Begin the loopback
-            if (Container.Bot.Area.CenterPosition.DistanceTo(Game.Player.Tracker.Position) > 80)
+            if (Container.Bot.Area.CenterPosition.DistanceTo(Game.Player.Movement.Source) > 80)
                 Bundles.Loop.Start(); //Task.Run(() => { Bundles.Loop.Start(); });
         }
 

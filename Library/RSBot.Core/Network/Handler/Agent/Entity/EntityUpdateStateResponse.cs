@@ -56,17 +56,43 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                     break;
 
                 case 1:
-                    if (uniqueId == Core.Game.Player.UniqueId || (Core.Game.Player.Vehicle != null && uniqueId == Core.Game.Player.Vehicle.UniqueId))
-                        Core.Game.Player.Tracker.State = (MotionState)state;
-                    else
-                    {
-                        if (!SpawnManager.TryGetEntity<SpawnedBionic>(uniqueId, out var bionic))
-                            return;
 
-                        bionic.Tracker.State = (MotionState)state;
+                    var motionState = (MotionState)state;
+                    SpawnedEntity entity;
+
+                    if (SpawnManager.TryGetEntity<SpawnedEntity>(uniqueId, out entity))
+                    {
+
+                    }
+                    else if (uniqueId == Core.Game.Player.UniqueId)
+                    {
+                        entity = Core.Game.Player;
+                    }
+                    else if (Core.Game.Player.Vehicle != null && uniqueId == Core.Game.Player.Vehicle.UniqueId)
+                    {
+                        entity = Core.Game.Player.Vehicle;
+                    }
+
+                    if (entity == null)
+                        return;
+
+                    entity.State.MotionState = motionState;
+                    switch (motionState)
+                    {
+                        case MotionState.Walking:
+
+                            entity.Movement.Type = MovementType.Walking;
+
+                            break;
+                        case MotionState.Running:
+
+                            entity.Movement.Type = MovementType.Running;
+
+                            break;
                     }
 
                     EventManager.FireEvent("OnUpdateEntityMotionState", uniqueId);
+
                     break;
 
                 case 4:

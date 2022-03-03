@@ -33,28 +33,39 @@ namespace RSBot.Chat.Network
         {
             var type = (ChatType)packet.ReadByte();
 
+            var message = string.Empty;
+
             switch (type)
             {
                 case ChatType.All:
                 case ChatType.AllGM:
                     var senderId = packet.ReadUInt();
+                    
+                    if(Game.ClientType >= GameClientType.Global)
+                        message = packet.ReadUnicode();
+                    else
+                        message = packet.ReadString();
 
-                    var messageAll = packet.ReadString();
                     if (senderId != Game.Player.UniqueId)
                     {
                         if (!SpawnManager.TryGetEntity<SpawnedPlayer>(senderId, out var player))
                             return;
 
-                        View.Instance.AppendMessage(messageAll, player.Name, ChatType.All);
+                        View.Instance.AppendMessage(message, player.Name, ChatType.All);
                     }
                     else
-                        View.Instance.AppendMessage(messageAll, Game.Player.Name, ChatType.All);
+                        View.Instance.AppendMessage(message, Game.Player.Name, ChatType.All);
 
                     break;
 
                 case ChatType.Notice:
-                    var messageNotice = packet.ReadString();
-                    View.Instance.AppendMessage(messageNotice, "Notice", type);
+
+                    if (Game.ClientType >= GameClientType.Global)
+                        message = packet.ReadUnicode();
+                    else
+                        message = packet.ReadString();
+
+                    View.Instance.AppendMessage(message, "Notice", type);
                     break;
 
                 case ChatType.Npc:
@@ -63,7 +74,11 @@ namespace RSBot.Chat.Network
 
                 default:
                     var sender = packet.ReadString();
-                    var message = packet.ReadString();
+
+                    if (Game.ClientType >= GameClientType.Global)
+                        message = packet.ReadUnicode();
+                    else
+                        message = packet.ReadString();
 
                     View.Instance.AppendMessage(message, sender, type);
                     break;

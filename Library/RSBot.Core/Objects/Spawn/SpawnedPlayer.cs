@@ -206,6 +206,10 @@ namespace RSBot.Core.Objects.Spawn
             HwanLevel = packet.ReadByte();
             PvpCape = (PvpCapeType)packet.ReadByte();
             AutoInverstExp = (AutoInverstType)packet.ReadByte();
+
+            if (Game.ClientType >= GameClientType.Global)
+                packet.ReadByte(); // Archievement Title
+
             InventorySize = packet.ReadByte();
 
             #region Regular equipment
@@ -226,10 +230,10 @@ namespace RSBot.Core.Objects.Spawn
                 }
 
                 //Check if the player wears a job-suit
-                if (itemObj.TypeID2 == 1 && itemObj.TypeID3 == 7)
+                if (itemObj.IsJobEquip)
                     WearsJobSuite = true;
 
-                if (itemObj.TypeID2 == 1)
+                if (itemObj.IsEquip)
                     Inventory.Add(itemObj, packet.ReadByte()); //Item object and the "+" value as value
             }
 
@@ -283,8 +287,22 @@ namespace RSBot.Core.Objects.Spawn
 
             Name = packet.ReadString();
             Job = (JobType)packet.ReadByte();
-            JobLevel = packet.ReadByte();
-            PvpState = (PvpState)packet.ReadByte();
+
+            if (Game.ClientType >= GameClientType.Chinese)
+            {
+                if (WearsJobSuite)
+                {
+                    packet.ReadByte(); // JobRank
+                    JobLevel = packet.ReadByte();
+                    packet.ReadByte(); // ??
+                }
+            }
+            else
+            {
+                JobLevel = packet.ReadByte();
+                PvpState = (PvpState)packet.ReadByte();
+            }
+
             OnTransport = packet.ReadBool();
             InCombat = packet.ReadBool();
 
@@ -294,7 +312,9 @@ namespace RSBot.Core.Objects.Spawn
             ScrollMode = (ScrollMode)packet.ReadByte();
             InteractMode = (InteractMode)packet.ReadByte();
 
-            packet.ReadByte(); //unkByte4
+            if(Game.ClientType < GameClientType.Chinese)
+                packet.ReadByte(); //unkByte4
+
             var guildName = packet.ReadString();
 
             //Check if the player is wearing job suite, if not the GUILD object has to be parsed!
@@ -306,11 +326,17 @@ namespace RSBot.Core.Objects.Spawn
             else
                 Guild = new SpawnedPlayerGuild { Name = guildName };
 
-            if (InteractMode == InteractMode.P2N_TALK) //Stall mode!
+            if (InteractMode == InteractMode.P2N_TALK || InteractMode == (InteractMode)3) //Stall mode! 3 for global
                 Stall = SpawnedPlayerStall.FromPacket(packet);
+
+            if (Game.ClientType >= GameClientType.Global)
+                packet.ReadByteArray(9);
 
             packet.ReadByte(); //Equipment Cooldown
             PKFlag = packet.ReadByte(); //PKFlag
+
+            if (Game.ClientType > GameClientType.Chinese)
+                packet.ReadByte(); // 0xFF what flag?
         }
     }
 }

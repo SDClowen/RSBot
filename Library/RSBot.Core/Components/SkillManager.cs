@@ -90,7 +90,7 @@ namespace RSBot.Core.Components
                     rarity = monster.Rarity;
             }
 
-            var distance = Game.Player.Tracker.Position.DistanceTo(bionic.Tracker.Position);
+            var distance = Game.Player.Movement.Source.DistanceTo(bionic.Movement.Source);
 
             var minDifference = int.MaxValue;
             //var weaponRange = 0;
@@ -101,9 +101,9 @@ namespace RSBot.Core.Components
                 // try to get attack skill for only knockdown states
                 closestSkill = Skills[rarity].Find(p => p.Record.Params.Contains(25697));
             }
-            else if(distance < 10)
+            else if (distance < 10)
             {
-                while (true)
+                while (Skills[rarity].Count > 0)
                 {
                     _lastIndex++;
                     if (_lastIndex > Skills[rarity].Count - 1)
@@ -225,8 +225,8 @@ namespace RSBot.Core.Components
             if (!CheckSkillRequired(skill.Record))
                 return false;
 
-            var distance = Game.Player.Tracker.Position.DistanceTo(entity.Tracker.Position);
-            var speed = Game.Player.Tracker.ActualSpeed;
+            var distance = Game.Player.Movement.Source.DistanceTo(entity.Movement.Source);
+            var speed = Game.Player.ActualSpeed;
             var movingSleep = 0d;
 
             // tel3 warrior sprint teleport
@@ -270,21 +270,22 @@ namespace RSBot.Core.Components
             var awaitCallBack = new AwaitCallback(response =>
             {
                 var result = response.ReadByte();
-                var code = response.ReadUShort();
 
                 if (result == 2)
                 {
-                    switch (code)
+                    var errorCode = response.ReadByte();
+
+                    switch (errorCode)
                     {
-                        case 0x300E:
+                        case 0x0E:
                             Game.Player.EquipAmmunation();
                             break;
 
-                        case 0x3006: // invalid target
-                        case 0x3010: // obstacle
+                        case 0x06: // invalid target
+                        case 0x10: // obstacle
                             break;
                         default:
-                            Log.Error($"Invalid skill error code: 0x{code:X2}");
+                            Log.Error($"Invalid skill error code: 0x{errorCode:X2}");
                             break;
                     }
 
@@ -293,7 +294,7 @@ namespace RSBot.Core.Components
 
                 var action = Objects.Action.DeserializeBegin(response);
 
-                return action.SkillId == skill.Id && action.PlayerIsExecutor 
+                return action.SkillId == skill.Id && action.PlayerIsExecutor
                             ? AwaitCallbackResult.Received : AwaitCallbackResult.None;
             }, 0xB070);
 
@@ -303,7 +304,7 @@ namespace RSBot.Core.Components
                             ? AwaitCallbackResult.Received : AwaitCallbackResult.None;
             }, 0xB074);
 
-            
+
             RefSkill altSkill = skill.Record;
             while (altSkill != null)
             {
@@ -316,7 +317,7 @@ namespace RSBot.Core.Components
                 else
                     break;
             }
-            
+
             if (duration < 100)
                 duration = 1000;
 
@@ -370,7 +371,7 @@ namespace RSBot.Core.Components
                 var targetId = response.ReadUInt();
                 var castedSkillId = response.ReadUInt();
 
-                if (targetId == (target == 0 ? Game.Player.UniqueId : target) && 
+                if (targetId == (target == 0 ? Game.Player.UniqueId : target) &&
                     castedSkillId == skill.Id)
                     return AwaitCallbackResult.Received;
 
@@ -412,23 +413,22 @@ namespace RSBot.Core.Components
             var awaitCallBack = new AwaitCallback(response =>
             {
                 var result = response.ReadByte();
-                var code = response.ReadUShort();
-
                 if (result == 0x01)
                     return Objects.Action.DeserializeBegin(response).PlayerIsExecutor
                         ? AwaitCallbackResult.Received : AwaitCallbackResult.None;
 
-                switch (code)
+                var errorCode = response.ReadByte();
+                switch (errorCode)
                 {
-                    case 0x300E:
+                    case 0x0E:
                         Game.Player.EquipAmmunation();
                         break;
 
-                    case 0x3006: // invalid target
-                    case 0x3010: // obstacle
+                    case 0x06: // invalid target
+                    case 0x10: // obstacle
                         break;
                     default:
-                        Log.Error($"Invalid skill error code: 0x{code:X2}");
+                        Log.Error($"Invalid skill error code: 0x{errorCode:X2}");
                         break;
                 }
 

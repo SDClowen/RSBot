@@ -39,6 +39,15 @@ namespace RSBot.Core
             => _config.Get(key, defaultValue);
 
         /// <summary>
+        /// Gets the enum value with specified key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default value.</param>
+        public static TEnum GetEnum<TEnum>(string key, TEnum defaultValue)
+            where TEnum : struct
+            => _config.GetEnum(key, defaultValue);
+
+        /// <summary>
         /// Sets the specified key inside the config.
         /// </summary>
         /// <param name="key">The key.</param>

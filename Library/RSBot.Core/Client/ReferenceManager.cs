@@ -71,20 +71,15 @@ namespace RSBot.Core.Client
             Parallel.Invoke
             (
                 () => this.LoadTextData(),
-
                 () => this.LoadReferenceListFile("CharacterData.txt", this.CharacterData),
                 () => this.LoadReferenceFile("TeleportBuilding.txt", this.CharacterData),
                 () => this.LoadReferenceListFile("ItemData.txt", this.ItemData),
-
-                () => this.LoadReferenceListFileEnc("SkillDataEnc.txt", this.SkillData),
+                () => this.LoadSkillData(),
                 () => this.LoadReferenceFile("SkillMasteryData.txt", this.SkillMasteryData),
-
                 () => this.LoadReferenceFile("LevelData.txt", this.LevelData),
                 () => this.LoadReferenceFile("QuestData.txt", this.QuestData),
-
                 () => this.LoadReferenceFile("TeleportData.txt", this.TeleportData),
                 () => this.LoadReferenceFile("TeleportLink.txt", this.TeleportLinks),
-
                 () => this.LoadReferenceFile("RefShop.txt", this.Shops),
                 () => this.LoadReferenceFile("RefShopTab.txt", this.ShopTabs),
                 () => this.LoadReferenceFile("RefShopGroup.txt", this.ShopGroups),
@@ -100,11 +95,38 @@ namespace RSBot.Core.Client
 
         private void LoadTextData()
         {
-            //Load TextData synchronously, so we don't need lock
-            this.LoadReferenceFile("TextUISystem.txt", this.TextData);
-            this.LoadReferenceFile("TextZoneName.txt", this.TextData);
-            this.LoadReferenceListFile("TextDataName.txt", this.TextData);
-            this.LoadReferenceListFile("TextQuest.txt", this.TextData);
+            if (Game.ClientType >= GameClientType.Global)
+                this.LoadReferenceListFile("TextUISystem.txt", this.TextData);
+            else
+                this.LoadReferenceFile("TextUISystem.txt", this.TextData);
+
+            if (Game.ClientType >= GameClientType.Global)
+                this.LoadReferenceListFile("TextZoneName.txt", this.TextData);
+            else
+                this.LoadReferenceFile("TextZoneName.txt", this.TextData);
+
+            if (Game.ClientType >= GameClientType.Global)
+            {
+                this.LoadReferenceListFile("TextQuest_OtherString.txt", this.TextData);
+                this.LoadReferenceListFile("TextData_Object.txt", this.TextData);
+                this.LoadReferenceListFile("TextData_Equip&Skill.txt", this.TextData);
+                this.LoadReferenceListFile("TextQuest_Speech&Name.txt", this.TextData);
+                this.LoadReferenceListFile("TextQuest_QuestString.txt", this.TextData);
+            }
+            else
+            {
+                this.LoadReferenceListFile("TextDataName.txt", this.TextData);
+                this.LoadReferenceListFile("TextQuest.txt", this.TextData);
+            }
+        }
+
+        private void LoadSkillData()
+        {
+            if (Game.ClientType == GameClientType.Vietnam ||
+                Game.ClientType == GameClientType.Vietnam274)
+                this.LoadReferenceListFileEnc("SkillDataEnc.txt", this.SkillData);
+            else
+                this.LoadReferenceListFile("SkillData.txt", this.SkillData);
         }
 
         private void LoadReferenceListFileEnc<TKey, TReference>(string fileName, IDictionary<TKey, TReference> destination)
@@ -337,6 +359,10 @@ namespace RSBot.Core.Client
 
         public RefSkillMastery GetRefSkillMastery(uint id)
         {
+            if ((Game.ClientType == GameClientType.Chinese) &&
+                id >= 273 && id <= 275)
+                id = 277; // csro shit
+
             if (this.SkillMasteryData.TryGetValue(id, out RefSkillMastery data))
                 return data;
 
@@ -463,7 +489,7 @@ namespace RSBot.Core.Client
             string searchPattern = null)
         {
             var result = new List<RefObjItem>(10000);
-            foreach(var refItem in ItemData.Values)
+            foreach (var refItem in ItemData.Values)
             {
                 if (refItem.IsGold)
                     continue;

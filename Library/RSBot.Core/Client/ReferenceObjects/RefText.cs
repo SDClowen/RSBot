@@ -9,12 +9,12 @@
 
         #region IRefrerence
 
-        public string PrimaryKey => ID;
+        public string PrimaryKey => NameStrId;
 
         #endregion IRefrerence
 
         private byte Service;
-        public string ID;
+        public string NameStrId;
         public string Data;
 
         // languageFlag
@@ -47,17 +47,16 @@
             if (!parser.TryParseByte(0, out Service) || Service == 0)
                 return false;
 
-            if (!parser.TryParseString(1, out ID))
+            var nameStrIndex = 1;
+            if (Game.ClientType >= GameClientType.Global)
+                nameStrIndex = 2;
+
+            if (!parser.TryParseString(nameStrIndex, out NameStrId))
                 return false;
 
-
-            var languageTab = 5;
+            var languageTab = 8;
             var maxTabs = parser.GetColumnCount();
 
-            if (languageTab > maxTabs)
-                languageTab = 2;
-
-          
             //Try parse with the already set language tab
             parser.TryParseString(languageTab, out Data);
 
@@ -70,21 +69,7 @@
 
             // fix nullreferenceexception
             if (IsEmptyString(Data))
-                Data = ID;
-
-            ////for (int i = 0; i < LANG_COUNT; i++) 
-            ////    parser.TryParseString(LANG_OFFSET + i, out _data[i], "0");
-            //parser.TryParseString(LANG_OFFSET + Game.ReferenceManager.LanguageTab, out Data, "MISSING TRANS");
-
-            //if (Data.Length == 0)
-            //{
-            //    parser.TryParseString(Game.ReferenceManager.LanguageTab, out Data, "MISSING TRANS");
-
-            //}
-
-            //Skip huge strings? (4 mb)
-            //if (Data.Length > 256 || Data.EndsWith("_DESC"))
-            //    return false;
+                Data = "0";
 
             return true;
         }
