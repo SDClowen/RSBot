@@ -20,7 +20,8 @@ namespace RSBot.Views
             CheckForIllegalCrossThreadCalls = false;
             _mainForm = new Main();
 
-            lblVersion.Text = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            lblVersion.Text = $"v{version.Major}.{version.Minor}b";
 
             referenceDataLoader.RunWorkerCompleted += ReferenceDataLoaderCompleted;
         }

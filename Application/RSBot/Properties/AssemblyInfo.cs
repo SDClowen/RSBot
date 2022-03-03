@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("RSBot")]
-[assembly: AssemblyDescription("A bot for Silkroad Online VSRO servers")]
+[assembly: AssemblyDescription("A bot for Silkroad Online")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("RSBot")]
 [assembly: AssemblyProduct("RSBot Bot")]
-[assembly: AssemblyCopyright("Copyright ©  2021, RSBot team")]
+[assembly: AssemblyCopyright("Copyright ©  2022, RSBot Team")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.1")]
+[assembly: AssemblyVersion("1.5.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.1")]
