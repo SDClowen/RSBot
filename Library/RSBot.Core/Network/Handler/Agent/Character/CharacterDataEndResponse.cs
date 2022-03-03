@@ -189,7 +189,7 @@ namespace RSBot.Core.Network.Handler.Agent.Character
             EventManager.FireEvent("OnLoadCharacter");
             EventManager.FireEvent("OnUpdateHPMP");
 
-            Kernel.ChangeClientProcessTitle($"{character.Name} - RSBot");
+            ClientManager.SetTitle($"{character.Name} - RSBot");
 
             if (!Core.Game.Clientless) 
                 return;

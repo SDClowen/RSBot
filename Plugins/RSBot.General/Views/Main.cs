@@ -137,38 +137,8 @@ namespace RSBot.General.Views
         private static void StartClientProcess()
         {
             Game.Start();
-
-            using (var processLoader = new Process())
-            {
-                const string paramterFormat = "\"{0}\" ";
-
-                var silkroadDirectory = GlobalConfig.Get<string>("RSBot.SilkroadDirectory");
-                var silkroadExecuteable = GlobalConfig.Get<string>("RSBot.SilkroadExecutable");
-                var divisionIndex = GlobalConfig.Get<byte>("RSBot.DivisionIndex");
-                byte contentID = Game.ReferenceManager.DivisionInfo.Locale;
-                var division = Game.ReferenceManager.DivisionInfo.Divisions[divisionIndex];
-                var gatewayIndex = GlobalConfig.Get<byte>("RSBot.GatewayIndex");
-                var gatewayPort = Game.ReferenceManager.GatewayInfo.Port;
-
-                var argsBuilder = new StringBuilder();
-                argsBuilder.AppendFormat(paramterFormat, GlobalConfig.Get<bool>("RSBot.Loader.DebugMode") ? 1 : 0);
-                argsBuilder.AppendFormat(paramterFormat, Path.Combine(silkroadDirectory, silkroadExecuteable));
-                argsBuilder.AppendFormat(paramterFormat, $"/{contentID} {divisionIndex} {gatewayIndex}");
-                argsBuilder.AppendFormat(paramterFormat, Path.GetFullPath("Loader.dll"));
-                argsBuilder.AppendFormat(paramterFormat, "127.0.0.1"); //RedirectIP
-                argsBuilder.AppendFormat(paramterFormat, Kernel.Proxy.Port); //RedirectPort
-                argsBuilder.AppendFormat(paramterFormat, division.GatewayServers.Count); //GatewayIPCount
-                foreach (var gatewayServer in division.GatewayServers)
-                    argsBuilder.AppendFormat(paramterFormat, gatewayServer); //GatewayIP[n]
-                argsBuilder.AppendFormat(paramterFormat, gatewayPort); //GatewayPort
-
-                processLoader.StartInfo.FileName = Path.GetFullPath("Loader.exe");
-                processLoader.StartInfo.Arguments = argsBuilder.ToString();
-                if (!processLoader.Start()) return;
-
-                processLoader.WaitForExit();
-                Kernel.ClientProcessId = processLoader.ExitCode;
-            }
+            if (!ClientManager.Start())
+                Log.Warn("The game client could not starting, please try again!");
         }
 
         /// <summary>
@@ -279,7 +249,7 @@ namespace RSBot.General.Views
 
             if (GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin"))
             {
-                Kernel.KillClient();
+                ClientManager.Kill();
                 Thread.Sleep(2000);
 
                 StartClientProcess();
@@ -448,7 +418,7 @@ namespace RSBot.General.Views
                     "Clientless", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
 
             ClientlessManager.GoClientless();
-            Kernel.KillClient();
+            ClientManager.Kill();
 
             btnStartClientless.Text = "Disconnect";
             btnGoClientless.Enabled = false;
@@ -517,7 +487,7 @@ namespace RSBot.General.Views
                     extraStr = " and your character will be disconnected!";
 
                 if (MessageBox.Show($"The game client will now be closed{extraStr}\n\nAre you sure about this?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-                    Kernel.KillClient();
+                    ClientManager.Kill();
 
                 return;
             }
@@ -545,19 +515,19 @@ namespace RSBot.General.Views
 
         private void btnClientHideShow_Click(object sender, EventArgs e)
         {
-            if (Kernel.ClientProcess == null)
+            if (!ClientManager.IsRunning)
                 return;
 
             if (!_clientVisible)
             {
                 _clientVisible = true;
-                NativeExtensions.ShowWindow(Kernel.ClientProcess.MainWindowHandle, NativeExtensions.SW_SHOW);
+                ClientManager.SetVisible(true);
                 btnClientHideShow.Text = "Hide Client";
             }
             else
             {
                 _clientVisible = false;
-                NativeExtensions.ShowWindow(Kernel.ClientProcess.MainWindowHandle, NativeExtensions.SW_HIDE);
+                ClientManager.SetVisible(false);
                 btnClientHideShow.Text = "Show Client";
             }
         }

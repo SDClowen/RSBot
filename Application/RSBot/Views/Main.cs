@@ -420,7 +420,7 @@ namespace RSBot.Views
 
             GlobalConfig.Save();
             PlayerConfig.Save();
-            Kernel.KillClient();
+            ClientManager.Kill();
 
             Environment.Exit(0);
         }
