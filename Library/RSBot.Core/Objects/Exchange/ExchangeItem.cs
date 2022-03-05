@@ -35,7 +35,7 @@ namespace RSBot.Core.Objects.Exchange
             {
                 SourceSlot = hasSource ? packet.ReadByte() : (byte)0,
                 ExchangeSlot = packet.ReadByte(),
-                Item = InventoryItem.FromPacket(packet, 0, true)
+                Item = InventoryItem.FromPacket(packet, 0xFF)
             };
         }
     }

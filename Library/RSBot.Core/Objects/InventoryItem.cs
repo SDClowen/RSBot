@@ -184,9 +184,8 @@ namespace RSBot.Core.Objects
         /// <param name="destinationSlot">The destination slot</param>
         /// <param name="hasDestinationSlot">The has destination slot</param>
         /// <returns></returns>
-        public static InventoryItem FromPacket(Packet packet, byte destinationSlot = 0, bool hasDestinationSlot = false)
+        public static InventoryItem FromPacket(Packet packet, byte destinationSlot = 0)
         {
-            // ReSharper disable once UseObjectOrCollectionInitializer
             var item = new InventoryItem
             {
                 MagicOptions = new List<MagicOptionInfo>(),
@@ -196,7 +195,7 @@ namespace RSBot.Core.Objects
 
             item.Slot = destinationSlot;
 
-            if (destinationSlot == 0 && !hasDestinationSlot)
+            if (destinationSlot == 0)
             {
                 item.Slot = packet.ReadByte();
             }
@@ -229,6 +228,18 @@ namespace RSBot.Core.Objects
                         //Read sockets & advanced elixirs
 
                         var bindingCount = 2;
+                        switch (Game.ClientType)
+                        {
+                            case GameClientType.Vietnam274:
+                            case GameClientType.Chinese:
+                            case GameClientType.Global:
+                            case GameClientType.Turkey:
+                                bindingCount = 4;
+                                break;
+                            case GameClientType.Korean:
+                                bindingCount = 3;
+                                break;
+                        }
                         if (Game.ClientType >= GameClientType.Chinese)
                             bindingCount = 4;
 
@@ -256,6 +267,8 @@ namespace RSBot.Core.Objects
                                 packet.ReadString(); //Name
                                 if (item.Record.TypeID4 == 2)
                                     packet.ReadUInt(); //Rent time
+                                else if (Game.ClientType > GameClientType.Chinese)
+                                    packet.ReadByte(); // cos level
 
                                 var buffCount = packet.ReadByte();
 
