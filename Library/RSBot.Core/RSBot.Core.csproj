@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="Bot.cs" />
     <Compile Include="BotWindow.cs" />
-    <Compile Include="Loader\ClientManager.cs" />
+    <Compile Include="ClientManager.cs" />
     <Compile Include="Client\DDSImage.cs" />
     <Compile Include="Client\IReference.cs" />
     <Compile Include="Client\ReferenceObjects\RefPackageItemScrap.cs" />

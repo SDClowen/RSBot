@@ -402,7 +402,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
                 return;
             }
 
-            var item = GetItemFromPacket(packet, destinationSlot);
+            var item = InventoryItem.FromPacket(packet, destinationSlot);
             var itemAtSlot = Core.Game.Player.Inventory.GetItemAt(item.Slot);
 
             if (itemAtSlot != null)
@@ -575,7 +575,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
             var destinationSlot = packet.ReadByte();
             packet.ReadByte(); //Reason?
 
-            Core.Game.Player.Inventory.Items.Add(GetItemFromPacket(packet, destinationSlot));
+            Core.Game.Player.Inventory.Items.Add(InventoryItem.FromPacket(packet, destinationSlot));
         }
 
         /// <summary>
@@ -686,7 +686,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
                 return;
             }
 
-            var item = GetItemFromPacket(packet, destinationSlot, true);
+            var item = InventoryItem.FromPacket(packet, destinationSlot);
             var itemAtSlot = Core.Game.Player.AbilityPet.GetItemAt(item.Slot);
 
             if (itemAtSlot != null)
@@ -885,7 +885,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
                 Core.Game.Player.Gold += packet.ReadUInt();
             else
             {
-                var item = GetItemFromPacket(packet, destinationSlot);
+                var item = InventoryItem.FromPacket(packet, destinationSlot);
                 var itemAtSlot = Core.Game.Player.Inventory.GetItemAt(destinationSlot);
 
                 if (itemAtSlot == null)
@@ -1088,18 +1088,6 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
             Core.Game.Player.Inventory.RemoveAvatarItemAt(sourceSlot);
 
             newItem.Slot = destinationSlot;
-        }
-
-        /// <summary>
-        /// Gets the item from packet.
-        /// </summary>
-        /// <param name="packet">The packet.</param>
-        /// <param name="destinationSlot">The destination slot.</param>
-        /// <param name="hasDestinationSlot">if set to <c>true</c> [has destination slot].</param>
-        /// <returns></returns>
-        private static InventoryItem GetItemFromPacket(Packet packet, byte destinationSlot, bool hasDestinationSlot = false)
-        {
-            return InventoryItem.FromPacket(packet, destinationSlot, hasDestinationSlot);
         }
     }
 }
