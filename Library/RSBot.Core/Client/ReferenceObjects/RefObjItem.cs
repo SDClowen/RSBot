@@ -14,7 +14,7 @@ namespace RSBot.Core.Client.ReferenceObjects
         public byte Quivered; //Consumes ammo
         public byte SpeedClass;
         public byte TwoHanded;
-        public byte Range;
+        public short Range;
         public int Param1;
         public string Desc1;
 
@@ -76,7 +76,7 @@ namespace RSBot.Core.Client.ReferenceObjects
             parser.TryParseByte(86, out Quivered);
             parser.TryParseByte(92, out SpeedClass);
             parser.TryParseByte(93, out TwoHanded);
-            parser.TryParseByte(94, out Range);
+            parser.TryParseShort(94, out Range);
 
             parser.TryParseInt(118, out Param1);
             parser.TryParseString(119, out Desc1);
