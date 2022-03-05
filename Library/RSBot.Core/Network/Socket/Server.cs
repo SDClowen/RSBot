@@ -242,7 +242,7 @@ namespace RSBot.Core.Network
             {
                 try
                 {
-                    _socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, OnBeginReceiveCallback, null);
+                    _socket?.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, OnBeginReceiveCallback, null);
                 }
                 catch
                 {
