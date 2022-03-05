@@ -54,6 +54,8 @@
     <Compile Include="Client\ReferenceObjects\RefPackageItemScrap.cs" />
     <Compile Include="Client\ReferenceObjects\RefText.cs" />
     <Compile Include="Client\ReferenceParser.cs" />
+    <Compile Include="Components\Pk2\ArchiveFile.cs" />
+    <Compile Include="Components\Pk2\ArchiveManager.cs" />
     <Compile Include="Components\CollisionManager.cs" />
     <Compile Include="Components\Collision\CollisionDetector.cs" />
     <Compile Include="Components\Collision\CollisionLoader.cs" />
@@ -118,7 +120,6 @@
     <Compile Include="Client\ReferenceObjects\RefTeleport.cs" />
     <Compile Include="Client\ReferenceObjects\RefTeleportLink.cs" />
     <Compile Include="Client\VersionInfo.cs" />
-    <Compile Include="Components\CacheController.cs" />
     <Compile Include="Components\ClientlessManager.cs" />
     <Compile Include="Components\PickupManager.cs" />
     <Compile Include="Components\ScriptManager.cs" />

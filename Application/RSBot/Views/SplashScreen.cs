@@ -131,15 +131,15 @@ namespace RSBot.Views
         /// <param name="e">The <see cref="System.ComponentModel.DoWorkEventArgs"/> instance containing the event data.</param>
         private void referenceDataLoader_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            Game.MediaPk2 = CacheController.Initialize(GlobalConfig.Get<string>("RSBot.SilkroadDirectory") + "\\media.pk2");
-
-            if (Game.MediaPk2 == null)
+            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+            if (!Game.InitializeArchiveFiles())
             {
                 MessageBox.Show(@"Failed to load game data. Boot process canceled!", @"Initialize Application - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             Game.ReferenceManager.Load(GlobalConfig.Get<int>("RSBot.TranslationIndex", 9));
+            System.Diagnostics.Debug.WriteLine(stopwatch.ElapsedMilliseconds.ToString());
         }
     }
 }

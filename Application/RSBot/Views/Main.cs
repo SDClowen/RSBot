@@ -174,33 +174,6 @@ namespace RSBot.Views
         }
 
         /// <summary>
-        /// Clears the cache.
-        /// </summary>
-        private static Task ClearCacheAsync()
-        {
-            try
-            {
-                var files = Directory.GetFiles(CacheController.CacheDirectory);
-                foreach (var file in files)
-                    File.Delete(file);
-
-                Directory.Delete(CacheController.CacheDirectory);
-
-                if (Game.MediaPk2.Archive == null)
-                    Game.MediaPk2 = CacheController.Initialize(GlobalConfig.Get<string>("RSBot.SilkroadDirectory") + "\\media.pk2");
-
-                Log.Notify($"[Cache] Clearing finished. [{files.Length}] files were deleted from the file system.");
-                BotWindow.SetStatusText("Cache cleared");
-            }
-            catch (Exception ex)
-            {
-                Log.Fatal(ex);
-            }
-
-            return Task.CompletedTask;
-        }
-
-        /// <summary>
         /// Handles the Click event of the MenuItem control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -230,17 +203,6 @@ namespace RSBot.Views
         }
 
         /// <summary>
-        /// Handles the Click event of the menuEnableCache control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void menuEnableCache_Click(object sender, EventArgs e)
-        {
-            menuEnableCache.Checked = !menuEnableCache.Checked;
-            GlobalConfig.Set("RSBot.EnableFileCache", menuEnableCache.Checked.ToString());
-        }
-
-        /// <summary>
         /// Handles the Click event of the menuScriptRecorder control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -249,23 +211,6 @@ namespace RSBot.Views
         {
             var scriptRecorder = new ScriptRecorder();
             scriptRecorder.Show();
-        }
-
-        /// <summary>
-        /// Handles the Click event of the menuClearCache control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private async void menuClearCache_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Do you realy want to clear the cache? \n It may impact the performance, because the bot has to rebuild it dynamically during the runtime.",
-                    "Clear Cache", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
-            {
-                Log.Notify("[Cache] Deleting cached file(s)...");
-                BotWindow.SetStatusText("Clearing cache...");
-
-                await ClearCacheAsync();
-            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -318,8 +263,7 @@ namespace RSBot.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void Main_Load(object sender, EventArgs e)
         {
-            menuEnableCache.Checked = GlobalConfig.Get<bool>("RSBot.EnableFileCache", true);
-            menuSidebar.Checked = GlobalConfig.Get<bool>("RSBot.ShowSidebar", true);
+            menuSidebar.Checked = GlobalConfig.Get("RSBot.ShowSidebar", true);
             ConfigureSidebar();
         }
 
@@ -370,19 +314,6 @@ namespace RSBot.Views
         {
             var index = (int)((ToolStripMenuItem)sender).Tag;
             SelectBotbase(index);
-        }
-
-        /// <summary>
-        /// Handles the Click event of the menuAboutCaching control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void menuAboutCaching_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("If the cache is enabled, the bot does not require a silkroad installation in order to run. " +
-                            "But to build the cache for the first time, the bot needs to have a valid silkroad directory. " +
-                            "Files will be cached as they are requested by the bot or plugins, if a file was not cached, and no silkroad directory is selected (as backup)" +
-                            "it may cause exceptions.\n\nKeep in mind to clear the cache after silkroad client updates to avoid undesirable behaviors.", "About caching", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         /// <summary>

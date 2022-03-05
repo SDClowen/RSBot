@@ -1,5 +1,4 @@
 ﻿using RSBot.Core.Client;
-using RSBot.Core.Components;
 using System;
 using System.Drawing;
 
@@ -12,7 +11,7 @@ namespace RSBot.Core.Extensions
         /// </summary>
         /// <param name="file">The archive.</param>
         /// <returns></returns>
-        public static Image ToImage(this CacheFile file)
+        public static Image ToImage(this Components.Pk2.ArchiveFile file)
         {
             var ddjBuffer = file.GetData();
 

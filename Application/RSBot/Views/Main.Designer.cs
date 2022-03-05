@@ -39,13 +39,8 @@ namespace RSBot.Views
             this.menuSidebar = new System.Windows.Forms.MenuItem();
             this.menuItem4 = new System.Windows.Forms.MenuItem();
             this.menuScriptRecorder = new System.Windows.Forms.MenuItem();
-            this.menuItem5 = new System.Windows.Forms.MenuItem();
-            this.menuEnableCache = new System.Windows.Forms.MenuItem();
-            this.menuClearCache = new System.Windows.Forms.MenuItem();
-            this.menuItem7 = new System.Windows.Forms.MenuItem();
             this.menuPlugins = new System.Windows.Forms.MenuItem();
             this.menuItem3 = new System.Windows.Forms.MenuItem();
-            this.menuAboutCaching = new System.Windows.Forms.MenuItem();
             this.stripStatus = new System.Windows.Forms.StatusStrip();
             this.menuBotbase = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -61,6 +56,8 @@ namespace RSBot.Views
             this.panel2 = new System.Windows.Forms.Panel();
             this.pSidebar = new System.Windows.Forms.Panel();
             this.picLogo = new System.Windows.Forms.PictureBox();
+            this.entity1 = new RSBot.Views.Controls.Entity();
+            this.pet1 = new RSBot.Views.Controls.Pet();
             this.panel8 = new System.Windows.Forms.Panel();
             this.linkHideSidebar = new System.Windows.Forms.LinkLabel();
             this.botbase1ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,8 +65,6 @@ namespace RSBot.Views
             this.centerPanel = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.entity1 = new RSBot.Views.Controls.Entity();
-            this.pet1 = new RSBot.Views.Controls.Pet();
             this.topCharacter = new RSBot.Views.Controls.Character();
             this.stripStatus.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -119,40 +114,14 @@ namespace RSBot.Views
             // 
             this.menuItem4.Index = 2;
             this.menuItem4.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.menuScriptRecorder,
-            this.menuItem5,
-            this.menuEnableCache,
-            this.menuClearCache,
-            this.menuItem7});
+            this.menuScriptRecorder});
             this.menuItem4.Text = "Tools";
             // 
             // menuScriptRecorder
             // 
             this.menuScriptRecorder.Index = 0;
-            this.menuScriptRecorder.Text = "Script recorder";
+            this.menuScriptRecorder.Text = "Script Recorder";
             this.menuScriptRecorder.Click += new System.EventHandler(this.menuScriptRecorder_Click);
-            // 
-            // menuItem5
-            // 
-            this.menuItem5.Index = 1;
-            this.menuItem5.Text = "-";
-            // 
-            // menuEnableCache
-            // 
-            this.menuEnableCache.Index = 2;
-            this.menuEnableCache.Text = "Cache enabled";
-            this.menuEnableCache.Click += new System.EventHandler(this.menuEnableCache_Click);
-            // 
-            // menuClearCache
-            // 
-            this.menuClearCache.Index = 3;
-            this.menuClearCache.Text = "Clear cache";
-            this.menuClearCache.Click += new System.EventHandler(this.menuClearCache_Click);
-            // 
-            // menuItem7
-            // 
-            this.menuItem7.Index = 4;
-            this.menuItem7.Text = "-";
             // 
             // menuPlugins
             // 
@@ -162,15 +131,7 @@ namespace RSBot.Views
             // menuItem3
             // 
             this.menuItem3.Index = 4;
-            this.menuItem3.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.menuAboutCaching});
             this.menuItem3.Text = "About";
-            // 
-            // menuAboutCaching
-            // 
-            this.menuAboutCaching.Index = 0;
-            this.menuAboutCaching.Text = "Caching";
-            this.menuAboutCaching.Click += new System.EventHandler(this.menuAboutCaching_Click);
             // 
             // stripStatus
             // 
@@ -352,6 +313,24 @@ namespace RSBot.Views
             this.picLogo.TabStop = false;
             this.picLogo.Click += new System.EventHandler(this.picLogo_Click);
             // 
+            // entity1
+            // 
+            this.entity1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.entity1.Location = new System.Drawing.Point(0, 129);
+            this.entity1.Margin = new System.Windows.Forms.Padding(4);
+            this.entity1.Name = "entity1";
+            this.entity1.Size = new System.Drawing.Size(250, 70);
+            this.entity1.TabIndex = 2;
+            // 
+            // pet1
+            // 
+            this.pet1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pet1.Location = new System.Drawing.Point(0, 19);
+            this.pet1.Margin = new System.Windows.Forms.Padding(4);
+            this.pet1.Name = "pet1";
+            this.pet1.Size = new System.Drawing.Size(250, 110);
+            this.pet1.TabIndex = 0;
+            // 
             // panel8
             // 
             this.panel8.Controls.Add(this.linkHideSidebar);
@@ -413,24 +392,6 @@ namespace RSBot.Views
             this.notifyIcon.Text = "RSBot";
             this.notifyIcon.Visible = true;
             this.notifyIcon.Click += new System.EventHandler(this.notifyIcon_Click);
-            // 
-            // entity1
-            // 
-            this.entity1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.entity1.Location = new System.Drawing.Point(0, 129);
-            this.entity1.Margin = new System.Windows.Forms.Padding(4);
-            this.entity1.Name = "entity1";
-            this.entity1.Size = new System.Drawing.Size(250, 70);
-            this.entity1.TabIndex = 2;
-            // 
-            // pet1
-            // 
-            this.pet1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pet1.Location = new System.Drawing.Point(0, 19);
-            this.pet1.Margin = new System.Windows.Forms.Padding(4);
-            this.pet1.Name = "pet1";
-            this.pet1.Size = new System.Drawing.Size(250, 110);
-            this.pet1.TabIndex = 0;
             // 
             // topCharacter
             // 
@@ -508,13 +469,8 @@ namespace RSBot.Views
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.MenuItem menuItem4;
         private System.Windows.Forms.MenuItem menuScriptRecorder;
-        private System.Windows.Forms.MenuItem menuClearCache;
-        private System.Windows.Forms.MenuItem menuItem5;
-        private System.Windows.Forms.MenuItem menuEnableCache;
-        private System.Windows.Forms.MenuItem menuAboutCaching;
         private System.Windows.Forms.PictureBox picLogo;
         private System.Windows.Forms.MenuItem menuPlugins;
-        private System.Windows.Forms.MenuItem menuItem7;
         private System.Windows.Forms.Panel centerPanel;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelBeta;
