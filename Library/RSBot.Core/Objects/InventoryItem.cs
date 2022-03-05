@@ -230,7 +230,6 @@ namespace RSBot.Core.Objects
                         var bindingCount = 2;
                         switch (Game.ClientType)
                         {
-                            case GameClientType.Vietnam274:
                             case GameClientType.Chinese:
                             case GameClientType.Global:
                             case GameClientType.Turkey:
