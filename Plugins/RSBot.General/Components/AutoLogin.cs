@@ -12,6 +12,21 @@ namespace RSBot.General.Components
     internal static class AutoLogin
     {
         /// <summary>
+        /// Start delayed auto login
+        /// </summary>
+        public static void DelayedLoginTry()
+        {
+            if (!GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin"))
+            {
+                Log.Warn("A new login attempt will be made shortly...");
+                Task.Delay(1000).ContinueWith((e) =>
+                {
+                    DoAutoLogin();
+                });
+            }
+        }
+
+        /// <summary>
         /// Does the automatic login.
         /// </summary>
         public static async void DoAutoLogin()

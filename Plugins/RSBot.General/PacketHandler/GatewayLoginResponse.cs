@@ -58,14 +58,12 @@ namespace RSBot.General.PacketHandler
                 case 5:
                     Log.Warn("The server is full!");
 
-                    if (!GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin"))
-                    {
-                        Log.Warn("A new login attempt will be made shortly...");
-                        Task.Delay(1000).ContinueWith((e) =>
-                        {
-                            AutoLogin.DoAutoLogin();
-                        });
-                    }
+                    AutoLogin.DelayedLoginTry();
+
+                    break;
+
+                case 29: // ksro block
+                    AutoLogin.DelayedLoginTry();
                     break;
 
                 default:

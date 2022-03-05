@@ -8,6 +8,7 @@
         Vietnam274,
         Chinese,
         Global,
-        Turkey
+        Turkey,
+        Korean
     }
 }

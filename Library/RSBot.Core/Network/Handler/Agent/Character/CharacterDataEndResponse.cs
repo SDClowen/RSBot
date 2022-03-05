@@ -72,11 +72,17 @@ namespace RSBot.Core.Network.Handler.Agent.Character
                 packet.ReadUShort();
                 packet.ReadUShort();
                 packet.ReadUShort();
-                packet.ReadULong();
+                packet.ReadUInt();
                 packet.ReadUShort();
                 packet.ReadByte();
-                packet.ReadByte();
-                packet.ReadUShort();
+
+                if (Core.Game.ClientType == GameClientType.Turkey)
+                    packet.ReadUInt();
+
+                var cap = packet.ReadByte(); // server cap
+
+                if (Core.Game.ClientType == GameClientType.Turkey)
+                    packet.ReadUShort();
             }
 
             character.Inventory = Objects.Inventory.FromPacket(packet);
