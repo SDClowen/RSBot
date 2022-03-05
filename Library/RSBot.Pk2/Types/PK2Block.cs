@@ -76,13 +76,13 @@ namespace RSBot.Pk2.Types
         {
             var result = new PK2BlockCollection();
 
-            result.Blocks.Add(this);
+            result.Add(this);
 
             var block = GetNextBlock();
 
             while (block.HasBlocks)
             {
-                result.Blocks.Add(block);
+                result.Add(block);
                 block = block.GetNextBlock();
             }
 
@@ -106,8 +106,7 @@ namespace RSBot.Pk2.Types
         /// <returns></returns>
         public PK2Block GetLastBlock()
         {
-            var collection = GetCollection();
-            return collection.Blocks[collection.Blocks.Count - 1];
+            return GetCollection().LastOrDefault();
         }
 
         /// <summary>

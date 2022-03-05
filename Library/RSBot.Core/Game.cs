@@ -5,6 +5,7 @@ using RSBot.Core.Network;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Party;
 using RSBot.Core.Objects.Spawn;
+using System.IO;
 
 namespace RSBot.Core
 {
@@ -24,7 +25,7 @@ namespace RSBot.Core
         /// <value>
         /// The PK2 reader.
         /// </value>
-        public static CacheController MediaPk2 { get; set; }
+        public static Components.Pk2.ArchiveManager MediaPk2 { get; set; }
 
         /// <summary>
         /// Gets or sets the reference manager
@@ -141,6 +142,18 @@ namespace RSBot.Core
             Kernel.Proxy.Start(Port, ReferenceManager.DivisionInfo.Divisions[divisionIndex].GatewayServers[severIndex], ReferenceManager.GatewayInfo.Port);
 
             Started = true;
+        }
+
+        /// <summary>
+        /// Initialize game archive files
+        /// </summary>
+        /// <returns></returns>
+        public static bool InitializeArchiveFiles()
+        {
+            var directory = GlobalConfig.Get<string>("RSBot.SilkroadDirectory");
+            MediaPk2 = Components.Pk2.ArchiveManager.Initialize(Path.Combine(directory, "media.pk2"));
+
+            return MediaPk2 != null;
         }
 
         /// <summary>
