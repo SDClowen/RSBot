@@ -36,6 +36,9 @@ namespace RSBot.Bot.Default.Bundle.Movement
             if (playerUnderAttack)
                 return;
 
+            if (Game.Player.Movement.Moving)
+                return;
+
             var distance = Game.Player.Movement.Source.DistanceTo(Container.Bot.Area.CenterPosition);
             var hasCollision = CollisionManager.HasCollisionBetween(Game.Player.Movement.Source, Container.Bot.Area.CenterPosition);
 
