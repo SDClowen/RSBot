@@ -107,7 +107,7 @@ namespace RSBot.Core.Objects
             var packet = new Packet(0x704C);
             packet.WriteByte(Slot);
 
-            if(Game.ClientType >= GameClientType.Chinese)
+            if(Game.ClientType >= GameClientType.Vietnam274)
                 packet.WriteInt(Record.Tid);
             else
                 packet.WriteUShort(Record.Tid);
@@ -184,7 +184,7 @@ namespace RSBot.Core.Objects
         /// <param name="destinationSlot">The destination slot</param>
         /// <param name="hasDestinationSlot">The has destination slot</param>
         /// <returns></returns>
-        public static InventoryItem FromPacket(Packet packet, byte destinationSlot = 0)
+        public static InventoryItem FromPacket(Packet packet, byte destinationSlot = 0xFE)
         {
             var item = new InventoryItem
             {
@@ -195,7 +195,7 @@ namespace RSBot.Core.Objects
 
             item.Slot = destinationSlot;
 
-            if (destinationSlot == 0)
+            if (destinationSlot == 0xFE)
             {
                 item.Slot = packet.ReadByte();
             }
@@ -212,7 +212,10 @@ namespace RSBot.Core.Objects
             }
             if (item.Record.TypeID1 == 3)
             {
-                if (item.Record.TypeID2 == 1 || item.Record.TypeID2 == 4) //Gear
+                if (item.Record.TypeID2 == 1 || 
+                    item.Record.TypeID2 == 4 ||
+                    item.Record.TypeID2 == 5
+                    ) //Gear
                 {
                     item.OptLevel = packet.ReadByte();
                     item.Variance = packet.ReadULong();
@@ -266,7 +269,7 @@ namespace RSBot.Core.Objects
                                 packet.ReadString(); //Name
                                 if (item.Record.TypeID4 == 2)
                                     packet.ReadUInt(); //Rent time
-                                else if (Game.ClientType > GameClientType.Chinese)
+                                else if (Game.ClientType >= GameClientType.Chinese)
                                     packet.ReadByte(); // cos level
 
                                 var buffCount = packet.ReadByte();

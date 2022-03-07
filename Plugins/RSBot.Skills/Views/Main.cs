@@ -18,6 +18,7 @@ namespace RSBot.Skills.Views
     public partial class Main : UserControl
     {
         private bool _applySkills;
+        private object _lock;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Main"/> class.
@@ -32,6 +33,8 @@ namespace RSBot.Skills.Views
             listBuffs.SmallImageList = Core.Extensions.ListViewExtensions.StaticImageList;
             listSkills.SmallImageList = Core.Extensions.ListViewExtensions.StaticImageList;
             listActiveBuffs.SmallImageList = Core.Extensions.ListViewExtensions.StaticImageList;
+
+            _lock = new object();
         }
 
         /// <summary>
@@ -76,7 +79,7 @@ namespace RSBot.Skills.Views
                 {
                     var skillInfo = Game.Player.Skills.GetSkillInfoById(skillId);
 
-                    if (skillInfo == null) 
+                    if (skillInfo == null)
                         continue;
 
                     switch (i)
@@ -123,7 +126,7 @@ namespace RSBot.Skills.Views
             foreach (var buffId in PlayerConfig.GetArray<uint>("RSBot.Skills.Buffs"))
             {
                 var skillInfo = Game.Player.Skills.GetSkillInfoById(buffId);
-                if (skillInfo == null) 
+                if (skillInfo == null)
                     continue;
 
                 SkillManager.Buffs.Add(skillInfo);
@@ -135,7 +138,7 @@ namespace RSBot.Skills.Views
         /// </summary>
         private void ApplySkills()
         {
-            if (!_applySkills) 
+            if (!_applySkills)
                 return;
 
             foreach (var collection in SkillManager.Skills.Values)
@@ -151,20 +154,23 @@ namespace RSBot.Skills.Views
         /// <param name="index">The index.</param>
         private void LoadAttacks(int index = 0)
         {
-            listAttackingSkills.BeginUpdate();
-            listAttackingSkills.Items.Clear();
-
-            var skillArray = PlayerConfig.GetArray<uint>("RSBot.Skills.Attacks_" + index);
-
-            foreach (var skillInfo in Game.Player.Skills.KnownSkills.FindAll(p => skillArray.Contains(p.Id) && p.Enabled && p.IsAttack).ToArray())
+            lock (_lock)
             {
-                var item = new ListViewItem(skillInfo.Record.GetRealName()) { Tag = skillInfo };
-                item.SubItems.Add("lv. " + skillInfo.Record.Basic_Level);
-                listAttackingSkills.Items.Add(item);
-                item.LoadSkillImageAsync();
-            }
+                listAttackingSkills.BeginUpdate();
+                listAttackingSkills.Items.Clear();
 
-            listAttackingSkills.EndUpdate();
+                var skillArray = PlayerConfig.GetArray<uint>("RSBot.Skills.Attacks_" + index);
+
+                foreach (var skillInfo in Game.Player.Skills.KnownSkills.FindAll(p => skillArray.Contains(p.Id) && p.Enabled && p.IsAttack).ToArray())
+                {
+                    var item = new ListViewItem(skillInfo.Record.GetRealName()) { Tag = skillInfo };
+                    item.SubItems.Add("lv. " + skillInfo.Record.Basic_Level);
+                    listAttackingSkills.Items.Add(item);
+                    item.LoadSkillImageAsync();
+                }
+
+                listAttackingSkills.EndUpdate();
+            }
         }
 
         /// <summary>
@@ -172,21 +178,24 @@ namespace RSBot.Skills.Views
         /// </summary>
         private void LoadBuffs()
         {
-            listBuffs.BeginUpdate();
-            listBuffs.Items.Clear();
-
-            var skillArray = PlayerConfig.GetArray<uint>("RSBot.Skills.Buffs");
-
-            foreach (var skillInfo in Game.Player.Skills.KnownSkills.FindAll(p => skillArray.Contains(p.Id) && p.Enabled && !p.IsAttack).ToArray())
+            lock (_lock)
             {
-                var item = new ListViewItem(skillInfo.Record.GetRealName()) { Tag = skillInfo };
+                listBuffs.BeginUpdate();
+                listBuffs.Items.Clear();
 
-                item.SubItems.Add("lv. " + skillInfo.Record.Basic_Level);
-                listBuffs.Items.Add(item);
-                item.LoadSkillImageAsync();
+                var skillArray = PlayerConfig.GetArray<uint>("RSBot.Skills.Buffs");
+
+                foreach (var skillInfo in Game.Player.Skills.KnownSkills.FindAll(p => skillArray.Contains(p.Id) && p.Enabled && !p.IsAttack).ToArray())
+                {
+                    var item = new ListViewItem(skillInfo.Record.GetRealName()) { Tag = skillInfo };
+
+                    item.SubItems.Add("lv. " + skillInfo.Record.Basic_Level);
+                    listBuffs.Items.Add(item);
+                    item.LoadSkillImageAsync();
+                }
+
+                listBuffs.EndUpdate();
             }
-
-            listBuffs.EndUpdate();
         }
 
         /// <summary>
@@ -194,24 +203,27 @@ namespace RSBot.Skills.Views
         /// </summary>
         private void LoadImbues()
         {
-            comboImbue.Items.Clear();
-
-            var selectedImbue = PlayerConfig.Get<int>("RSBot.Skills.Imbue");
-
-            comboImbue.SelectedIndex = comboImbue.Items.Add("None");
-
-            foreach (var skill in Game.Player.Skills.KnownSkills.Where(s => s.IsImbue && s.Enabled))
+            lock (_lock)
             {
-                if (skill.IsLowLevel())
-                    continue;
+                comboImbue.Items.Clear();
 
-                var index = comboImbue.Items.Add(skill);
-                
-                if (selectedImbue == 0)
-                    continue;
-                
-                if (selectedImbue == skill.Id)
-                    comboImbue.SelectedIndex = index;
+                var selectedImbue = PlayerConfig.Get<int>("RSBot.Skills.Imbue");
+
+                comboImbue.SelectedIndex = comboImbue.Items.Add("None");
+
+                foreach (var skill in Game.Player.Skills.KnownSkills.Where(s => s.IsImbue && s.Enabled))
+                {
+                    if (skill.IsLowLevel())
+                        continue;
+
+                    var index = comboImbue.Items.Add(skill);
+
+                    if (selectedImbue == 0)
+                        continue;
+
+                    if (selectedImbue == skill.Id)
+                        comboImbue.SelectedIndex = index;
+                }
             }
         }
 
@@ -220,24 +232,27 @@ namespace RSBot.Skills.Views
         /// </summary>
         private void LoadResurrectionSkills()
         {
-            comboResurrectionSkill.Items.Clear();
-
-            comboResurrectionSkill.SelectedIndex = comboResurrectionSkill.Items.Add("None");
-
-            foreach (var skill in Game.Player.Skills.KnownSkills.Where(
-                s => s.Record != null && s.Record.TargetEtc_SelectDeadBody &&
-               (s.Record.Params[3] == 1751474540 || s.Record.Params[3] == 1919776116)))
+            lock (_lock)
             {
-                if (skill.IsLowLevel())
-                    continue;
+                comboResurrectionSkill.Items.Clear();
 
-                var index = comboResurrectionSkill.Items.Add(skill);
-                var resurrectionSkillId = PlayerConfig.Get<int>("RSBot.Skills.ResurrectionSkill");
-                if (resurrectionSkillId == 0)
-                    continue;
-                
-                if (skill.Id == resurrectionSkillId)
-                    comboResurrectionSkill.SelectedIndex = index;
+                comboResurrectionSkill.SelectedIndex = comboResurrectionSkill.Items.Add("None");
+
+                foreach (var skill in Game.Player.Skills.KnownSkills.Where(
+                    s => s.Record != null && s.Record.TargetEtc_SelectDeadBody &&
+                   (s.Record.Params[3] == 1751474540 || s.Record.Params[3] == 1919776116)))
+                {
+                    if (skill.IsLowLevel())
+                        continue;
+
+                    var index = comboResurrectionSkill.Items.Add(skill);
+                    var resurrectionSkillId = PlayerConfig.Get<int>("RSBot.Skills.ResurrectionSkill");
+                    if (resurrectionSkillId == 0)
+                        continue;
+
+                    if (skill.Id == resurrectionSkillId)
+                        comboResurrectionSkill.SelectedIndex = index;
+                }
             }
         }
 
@@ -246,51 +261,54 @@ namespace RSBot.Skills.Views
         /// </summary>
         private void LoadSkills()
         {
-            if (Game.Player == null) 
-                return;
-
-            LoadImbues();
-            LoadResurrectionSkills();
-
-            listSkills.BeginUpdate();
-            listSkills.Items.Clear();
-            listSkills.Groups.Clear();
-
-            foreach (var mastery in Game.Player.Skills.Masteries)
+            lock (_lock)
             {
-                var group = new ListViewGroup(Game.ReferenceManager.GetTranslation(mastery.Record.NameCode) + " (lv. " + mastery.Level + ")");
-                group.Tag = mastery.Id;
-                listSkills.Groups.Add(group);
+                if (Game.Player == null)
+                    return;
+
+                LoadImbues();
+                LoadResurrectionSkills();
+
+                listSkills.BeginUpdate();
+                listSkills.Items.Clear();
+                listSkills.Groups.Clear();
+
+                foreach (var mastery in Game.Player.Skills.Masteries)
+                {
+                    var group = new ListViewGroup(Game.ReferenceManager.GetTranslation(mastery.Record.NameCode) + " (lv. " + mastery.Level + ")");
+                    group.Tag = mastery.Id;
+                    listSkills.Groups.Add(group);
+                }
+
+                foreach (var skill in Game.Player.Skills.KnownSkills.Where(s => s.Enabled && s.Record.ReqCommon_Mastery1 != 1000))
+                {
+                    if (checkHideLowerLevelSkills.Checked && skill.IsLowLevel())
+                        continue;
+
+                    if (skill.IsPassive)
+                        continue;
+
+                    if (!skill.IsAttack && skill.Record.Target_Required && !skill.Record.TargetGroup_Self)
+                        continue;
+
+                    var name = skill.Record.GetRealName();
+
+                    var item = new ListViewItem(name) { Tag = skill };
+                    item.SubItems.Add("lv. " + skill.Record.Basic_Level);
+
+                    foreach (var @group in listSkills.Groups.Cast<ListViewGroup>().Where(@group => Convert.ToInt32(@group.Tag) == skill.Record.ReqCommon_Mastery1))
+                        item.Group = @group;
+
+                    if (skill.IsAttack && checkShowAttacks.Checked)
+                        listSkills.Items.Add(item);
+                    else if (!skill.IsAttack && !skill.IsImbue && checkShowBuffs.Checked)
+                        listSkills.Items.Add(item);
+
+                    item.LoadSkillImage();
+                }
+
+                listSkills.EndUpdate();
             }
-
-            foreach (var skill in Game.Player.Skills.KnownSkills.Where(s => s.Enabled))
-            {
-                if (checkHideLowerLevelSkills.Checked && skill.IsLowLevel()) 
-                    continue;
-
-                if (skill.IsPassive)
-                    continue;
-
-                if (!skill.IsAttack && skill.Record.Target_Required && !skill.Record.TargetGroup_Self)
-                    continue;
-
-                var name = skill.Record.GetRealName();
-
-                var item = new ListViewItem(name) { Tag = skill };
-                item.SubItems.Add("lv. " + skill.Record.Basic_Level);
-
-                foreach (var @group in listSkills.Groups.Cast<ListViewGroup>().Where(@group => Convert.ToInt32(@group.Tag) == skill.Record.ReqCommon_Mastery1))
-                    item.Group = @group;
-
-                if (skill.IsAttack && checkShowAttacks.Checked)
-                    listSkills.Items.Add(item);
-                else if (!skill.IsAttack && !skill.IsImbue && checkShowBuffs.Checked)
-                    listSkills.Items.Add(item);
-
-                item.LoadSkillImage();
-            }
-
-            listSkills.EndUpdate();
         }
 
         /// <summary>
@@ -334,7 +352,7 @@ namespace RSBot.Skills.Views
                 };
 
                 item.SubItems.Add("lv. " + buffInfo.Record.Basic_Level);
-                
+
                 listActiveBuffs.Items.Add(item);
                 item.LoadSkillImageAsync();
             }

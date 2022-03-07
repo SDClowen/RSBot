@@ -70,23 +70,23 @@ namespace RSBot.Core.Client
 
             Parallel.Invoke
             (
-                () => this.LoadTextData(),
-                () => this.LoadReferenceListFile("CharacterData.txt", this.CharacterData),
-                () => this.LoadReferenceFile("TeleportBuilding.txt", this.CharacterData),
-                () => this.LoadReferenceListFile("ItemData.txt", this.ItemData),
-                () => this.LoadSkillData(),
-                () => this.LoadReferenceFile("SkillMasteryData.txt", this.SkillMasteryData),
-                () => this.LoadReferenceFile("LevelData.txt", this.LevelData),
-                () => this.LoadReferenceFile("QuestData.txt", this.QuestData),
-                () => this.LoadReferenceFile("TeleportData.txt", this.TeleportData),
-                () => this.LoadReferenceFile("TeleportLink.txt", this.TeleportLinks),
-                () => this.LoadReferenceFile("RefShop.txt", this.Shops),
-                () => this.LoadReferenceFile("RefShopTab.txt", this.ShopTabs),
-                () => this.LoadReferenceFile("RefShopGroup.txt", this.ShopGroups),
-                () => this.LoadReferenceFile("RefShopGoods.txt", this.ShopGoods),
-                () => this.LoadReferenceFile("RefMappingShopGroup.txt", this.ShopGroupMapping),
-                () => this.LoadReferenceFile("RefMappingShopWithTab.txt", this.ShopTabMapping),
-                () => this.LoadReferenceFile("RefScrapOfPackageItem.txt", this.PackageItemScrap)
+                () => LoadTextData(),
+                () => LoadReferenceListFile("CharacterData.txt", this.CharacterData),
+                () => LoadReferenceFile("TeleportBuilding.txt", this.CharacterData),
+                () => LoadReferenceListFile("ItemData.txt", this.ItemData),
+                () => LoadSkillData(),
+                () => LoadReferenceFile("SkillMasteryData.txt", this.SkillMasteryData),
+                () => LoadReferenceFile("LevelData.txt", this.LevelData),
+                () => LoadReferenceFile("QuestData.txt", this.QuestData),
+                () => LoadReferenceFile("TeleportData.txt", this.TeleportData),
+                () => LoadReferenceFile("TeleportLink.txt", this.TeleportLinks),
+                () => LoadReferenceFile("RefShop.txt", this.Shops),
+                () => LoadReferenceFile("RefShopTab.txt", this.ShopTabs),
+                () => LoadReferenceFile("RefShopGroup.txt", this.ShopGroups),
+                () => LoadReferenceFile("RefShopGoods.txt", this.ShopGoods),
+                () => LoadReferenceFile("RefMappingShopGroup.txt", this.ShopGroupMapping),
+                () => LoadReferenceFile("RefMappingShopWithTab.txt", this.ShopTabMapping),
+                () => LoadScrapOfPackageItemData()
             );
 
             GC.Collect();
@@ -118,6 +118,14 @@ namespace RSBot.Core.Client
                 this.LoadReferenceListFile("TextDataName.txt", this.TextData);
                 this.LoadReferenceListFile("TextQuest.txt", this.TextData);
             }
+        }
+
+        private void LoadScrapOfPackageItemData()
+        {
+            if (Game.ClientType > GameClientType.Chinese)
+                LoadReferenceListFile("RefScrapOfPackageItem.txt", this.PackageItemScrap);
+            else
+                LoadReferenceFile("RefScrapOfPackageItem.txt", this.PackageItemScrap);
         }
 
         private void LoadSkillData()
@@ -397,7 +405,10 @@ namespace RSBot.Core.Client
 
         public RefPackageItemScrap GetRefPackageItem(string npcCodeName, byte tab, byte slot)
         {
-            return PackageItemScrap[GetRefShopGroup(npcCodeName).GetShops()[0].GetTabs()[tab].GetGoods().FirstOrDefault(s => s.SlotIndex == slot).RefPackageItemCodeName];
+            var shops = GetRefShopGroup(npcCodeName).GetShops();
+            var tabs = shops[0].GetTabs();
+            var goods = tabs[tab].GetGoods();
+            return PackageItemScrap[goods.FirstOrDefault(s => s.SlotIndex == slot).RefPackageItemCodeName];
         }
 
         public RefPackageItemScrap GetRefPackageItemById(ushort id, byte group, byte tab, byte slot)

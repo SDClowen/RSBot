@@ -288,7 +288,7 @@ namespace RSBot.Core.Objects.Spawn
             Name = packet.ReadString();
             Job = (JobType)packet.ReadByte();
 
-            if (Game.ClientType >= GameClientType.Chinese)
+            if (Game.ClientType >= GameClientType.Chinese && WearsJobSuite)
             {
                 if (WearsJobSuite)
                 {
@@ -297,7 +297,8 @@ namespace RSBot.Core.Objects.Spawn
                     packet.ReadByte(); // ??
                 }
             }
-            else
+            
+            if(Game.ClientType < GameClientType.Chinese)
             {
                 JobLevel = packet.ReadByte();
                 PvpState = (PvpState)packet.ReadByte();
@@ -326,7 +327,7 @@ namespace RSBot.Core.Objects.Spawn
             else
                 Guild = new SpawnedPlayerGuild { Name = guildName };
 
-            if (InteractMode == InteractMode.P2N_TALK || InteractMode == (InteractMode)3) //Stall mode! 3 for global
+            if (InteractMode == InteractMode.P2N_TALK || InteractMode == InteractMode.P2N_TALK2)
                 Stall = SpawnedPlayerStall.FromPacket(packet);
 
             if (Game.ClientType >= GameClientType.Global)
