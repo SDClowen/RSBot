@@ -207,13 +207,15 @@ namespace RSBot.Core.Network
                 packet = PacketManager.CallHook(packet, PacketDestination.Server);
 
                 PacketManager.CallCallback(packet);
-
-                if (packet != null)
-                    PacketManager.SendPacket(packet, PacketDestination.Server);
             }
             catch (System.Exception e)
             {
                 Log.Fatal(e);
+            }
+            finally
+            {
+                if (packet != null)
+                    PacketManager.SendPacket(packet, PacketDestination.Server);
             }
         }
 
@@ -235,12 +237,15 @@ namespace RSBot.Core.Network
                 packet = PacketManager.CallHook(packet, PacketDestination.Client);
 
                 PacketManager.CallCallback(packet);
-                if (packet != null)
-                    PacketManager.SendPacket(packet, PacketDestination.Client);
             }
             catch (System.Exception e)
             {
                 Log.Fatal(e);
+            }
+            finally
+            {
+                if (packet != null)
+                    PacketManager.SendPacket(packet, PacketDestination.Client);
             }
         }
 

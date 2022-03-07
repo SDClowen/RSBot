@@ -140,8 +140,11 @@ namespace RSBot.Core.Objects.Skill
         /// </returns>
         public bool IsLowLevel()
         {
-            return Record.ReqCommon_MasteryLevel1 <
-                                       Game.Player.Skills.GetMasteryInfoById((uint)Record.ReqCommon_Mastery1).Level - 20;
+            var mastery = Game.Player.Skills.GetMasteryInfoById((uint)Record.ReqCommon_Mastery1);
+            if (mastery == null)
+                return true;
+
+            return Record.ReqCommon_MasteryLevel1 < mastery.Level - 20;
         }
 
         /// <summary>

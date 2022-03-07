@@ -80,8 +80,9 @@ namespace RSBot.Core.Network.Handler.Agent.Character
                     packet.ReadUInt();
 
                 var cap = packet.ReadByte(); // server cap
+                Log.Notify($"The game server cap is {cap}!");
 
-                if (Core.Game.ClientType == GameClientType.Turkey)
+                if (Core.Game.ClientType != GameClientType.Korean)
                     packet.ReadUShort();
             }
 
@@ -110,6 +111,12 @@ namespace RSBot.Core.Network.Handler.Agent.Character
                 {
                     packet.ReadByte(); //achievementAmount
                     packet.ReadByte(); //Requiered share pt
+                }
+
+                if (Core.Game.ClientType > GameClientType.Chinese)
+                {
+                    packet.ReadByte();
+                    packet.ReadByte();
                 }
 
                 var type = packet.ReadByte();

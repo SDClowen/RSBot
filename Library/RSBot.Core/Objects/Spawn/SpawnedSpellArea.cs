@@ -25,7 +25,12 @@ namespace RSBot.Core.Objects.Spawn
         /// <returns></returns>
         internal static SpawnedSpellArea FromPacket(Packet packet)
         {
-            packet.ReadUShort(); //UNK0
+            //UNK0
+            if (Game.ClientType > GameClientType.Chinese)
+                packet.ReadUInt();
+            else
+                packet.ReadUShort();
+
             var spellArea = new SpawnedSpellArea
             {
                 SkillId = packet.ReadUInt(),

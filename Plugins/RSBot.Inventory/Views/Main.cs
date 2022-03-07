@@ -12,10 +12,16 @@ namespace RSBot.Inventory.Views
     public partial class Main : UserControl
     {
         /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        private object _lock;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Main"/> class.
         /// </summary>
         public Main()
         {
+            _lock = new object();
             InitializeComponent();
             comboInventoryType.SelectedIndex = 0;
             SubscribeEvents();
@@ -31,8 +37,9 @@ namespace RSBot.Inventory.Views
                     UpdateInventoryList();
             });
 
-            EventManager.SubscribeEvent("OnUpdateInventoryItem", new Action<byte>(OnUpdateInventoryItem));
-            EventManager.SubscribeEvent("OnUseItem", new Action<byte>(OnUpdateInventoryItem));
+            //EventManager.SubscribeEvent("OnUpdateInventoryItem", new Action<byte>(OnUpdateInventoryItem));
+            //EventManager.SubscribeEvent("OnUseItem", new Action<byte>(OnUpdateInventoryItem));
+            EventManager.SubscribeEvent("OnInventoryUpdate", UpdateInventoryList);
         }
 
         /// <summary>
@@ -69,9 +76,15 @@ namespace RSBot.Inventory.Views
         /// </summary>
         public void UpdateInventoryList()
         {
-            if (Game.Player == null) 
+            if (Parent == null)
                 return;
 
+            if (!Parent.Visible)
+                return;
+
+            if (Game.Player == null) 
+                return;
+            
             listViewMain.BeginUpdate();
             listViewMain.Items.Clear();
             switch (comboInventoryType.SelectedIndex)
@@ -149,20 +162,23 @@ namespace RSBot.Inventory.Views
         /// </summary>
         private void LoadItemImage(ListViewItem item)
         {
-            var itemInfo = (InventoryItem)item.Tag;
-
-            //No need to reload the image from the PK2
-            if (imgItems.Images.ContainsKey(itemInfo.ItemId.ToString()))
+            lock (_lock)
             {
+                var itemInfo = (InventoryItem)item.Tag;
+
+                //No need to reload the image from the PK2
+                if (imgItems.Images.ContainsKey(itemInfo.ItemId.ToString()))
+                {
+                    item.ImageKey = itemInfo.ItemId.ToString();
+
+                    return;
+                }
+
+                imgItems.Images.Add(itemInfo.ItemId.ToString(), itemInfo.Record.GetIcon());
+
+                //Renders the image
                 item.ImageKey = itemInfo.ItemId.ToString();
-
-                return;
             }
-
-            imgItems.Images.Add(itemInfo.ItemId.ToString(), itemInfo.Record.GetIcon());
-
-            //Renders the image
-            item.ImageKey = itemInfo.ItemId.ToString();
         }
 
         /// <summary>

@@ -102,6 +102,8 @@ namespace RSBot.Core.Objects
                 Talk = new NpcTalk()
             };
 
+            return result;
+
             if (result.Entity is SpawnedMonster)
             {
                 var hasHealth = packet.ReadBool();
@@ -117,7 +119,7 @@ namespace RSBot.Core.Objects
                     result.Health = packet.ReadUInt();
 
                 result.Talk.Deserialize(packet);
-                packet.ReadByte(); //CTF NPC
+                packet.ReadByte(); // ??
             }
             else if (result.Entity is SpawnedPlayer)
             {
@@ -125,7 +127,6 @@ namespace RSBot.Core.Objects
             }
             else if (result.Entity is SpawnedPortal)
             {
-                //STORE_
                 result.Talk.Deserialize(packet);
             }
 
