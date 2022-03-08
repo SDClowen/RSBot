@@ -491,5 +491,10 @@ namespace RSBot.Views
 
             Hide();
         }
+
+        private void menuItemThis_Click(object sender, EventArgs e)
+        {
+            new About().ShowDialog();
+        }
     }
 }

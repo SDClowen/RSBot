@@ -66,6 +66,7 @@ namespace RSBot.Views
             this.panel3 = new System.Windows.Forms.Panel();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.topCharacter = new RSBot.Views.Controls.Character();
+            this.menuItemThis = new System.Windows.Forms.MenuItem();
             this.stripStatus.SuspendLayout();
             this.panel1.SuspendLayout();
             this.pSidebar.SuspendLayout();
@@ -131,6 +132,8 @@ namespace RSBot.Views
             // menuItem3
             // 
             this.menuItem3.Index = 4;
+            this.menuItem3.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItemThis});
             this.menuItem3.Text = "About";
             // 
             // stripStatus
@@ -402,6 +405,12 @@ namespace RSBot.Views
             this.topCharacter.Size = new System.Drawing.Size(1032, 79);
             this.topCharacter.TabIndex = 7;
             // 
+            // menuItemThis
+            // 
+            this.menuItemThis.Index = 0;
+            this.menuItemThis.Text = "This";
+            this.menuItemThis.Click += new System.EventHandler(this.menuItemThis_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -476,6 +485,7 @@ namespace RSBot.Views
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelBeta;
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.MenuItem topmenuItemExit;
+        private System.Windows.Forms.MenuItem menuItemThis;
     }
 }
 
