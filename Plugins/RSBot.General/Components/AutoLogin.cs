@@ -29,11 +29,12 @@ namespace RSBot.General.Components
         /// <summary>
         /// Does the automatic login.
         /// </summary>
-        public static async void DoAutoLogin()
+        public static async Task DoAutoLogin()
         {
             if (!GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin"))
                 return;
 
+			await Task.Delay(5000);
             var selectedAccount = Accounts.SavedAccounts.Find(p => p.Username == GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername"));
             if (selectedAccount == null)
             {
