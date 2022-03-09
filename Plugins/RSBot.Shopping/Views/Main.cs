@@ -538,9 +538,9 @@ namespace RSBot.Shopping.Views
                     {
                         $"{item.ReqLevel1} (Dg.{item.Degree})",
                         ((ObjectGender)item.ReqGender).ToString(),
+                        PickupManager.PickupFilter.Invoke(item.CodeName).ToString(),
                         ShoppingManager.SellFilter.Invoke(item.CodeName).ToString(),
-                        ShoppingManager.StoreFilter.Invoke(item.CodeName).ToString(),
-                        PickupManager.PickupFilter.Invoke(item.CodeName).ToString()
+                        ShoppingManager.StoreFilter.Invoke(item.CodeName).ToString()
                     }
                 };
 
