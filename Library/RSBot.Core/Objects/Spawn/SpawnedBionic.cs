@@ -1,6 +1,4 @@
-﻿using RSBot.Core.Client.ReferenceObjects;
-using RSBot.Core.Components;
-using RSBot.Core.Network;
+﻿using RSBot.Core.Network;
 using System.Timers;
 
 namespace RSBot.Core.Objects.Spawn

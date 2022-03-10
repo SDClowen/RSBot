@@ -901,39 +901,6 @@ namespace RSBot.Core.Objects
         }
 
         /// <summary>
-        /// Pickups the specified item unique identifier.
-        /// </summary>
-        /// <param name="itemUniqueId">The item unique identifier.</param>
-        public void Pickup(uint itemUniqueId)
-        {
-            if (!SpawnManager.TryGetEntity<SpawnedItem>(itemUniqueId, out var entity)) 
-                return;
-
-            if (CollisionManager.HasCollisionBetween(entity.Movement.Source, Movement.Source))
-                return;
-
-            var packet = new Packet(0x7074);
-            packet.WriteByte(1); //Execute
-            packet.WriteByte(2); //Use Skill
-            packet.WriteByte(ActionTarget.Entity);
-            packet.WriteUInt(itemUniqueId);
-
-            packet.Lock();
-
-            var distance = Game.Player.Movement.Source.DistanceTo(entity.Movement.Source);
-            if (distance > 1000)
-                Log.Warn("Item too far away @" + distance);
-
-            var asyncResult = new AwaitCallback(response =>
-            {
-                return response.ReadByte() == 2 && response.ReadByte() == 0
-                        ? AwaitCallbackResult.Received : AwaitCallbackResult.None;
-            }, 0xB074);
-            PacketManager.SendPacket(packet, PacketDestination.Server, asyncResult);
-            asyncResult.AwaitResponse();
-        }
-
-        /// <summary>
         /// Revives the attack pet.
         /// </summary>
         /// <returns></returns>
