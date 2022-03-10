@@ -1,4 +1,5 @@
 ﻿using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Components;
 using RSBot.Core.Network;
 
 namespace RSBot.Core.Objects.Spawn
@@ -59,7 +60,7 @@ namespace RSBot.Core.Objects.Spawn
         /// <value>
         /// The record.
         /// </value>
-        public RefObjItem Record => Game.ReferenceManager.GetRefItem(Id);
+        public new RefObjItem Record => Game.ReferenceManager.GetRefItem(Id);
 
         /// <summary>
         /// Froms the packet.
@@ -88,6 +89,32 @@ namespace RSBot.Core.Objects.Spawn
             result.Rarity = (ObjectRarity)packet.ReadByte();
 
             return result;
+        }
+
+        /// <summary>
+        /// Pickups the specified item unique identifier.
+        /// </summary>
+        /// <param name="itemUniqueId">The item unique identifier.</param>
+        public void Pickup()
+        {
+            if (CollisionManager.HasCollisionBetween(Game.Player.Movement.Source, Movement.Source))
+                return;
+
+            var packet = new Packet(0x7074);
+            packet.WriteByte(1); //Execute
+            packet.WriteByte(2); //Use Skill
+            packet.WriteByte(ActionTarget.Entity);
+            packet.WriteUInt(UniqueId);
+
+            packet.Lock();
+
+            var asyncResult = new AwaitCallback(response =>
+            {
+                return response.ReadByte() == 2 && response.ReadByte() == 0
+                        ? AwaitCallbackResult.Received : AwaitCallbackResult.None;
+            }, 0xB074);
+            PacketManager.SendPacket(packet, PacketDestination.Server, asyncResult);
+            asyncResult.AwaitResponse();
         }
     }
 }

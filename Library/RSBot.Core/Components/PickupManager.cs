@@ -103,7 +103,7 @@ namespace RSBot.Core.Components
                     if (UseAbilityPet && Game.Player.HasActiveAbilityPet)
                         Game.Player.AbilityPet.Pickup(item.UniqueId);
                     else
-                        Game.Player.Pickup(item.UniqueId);
+                        item.Pickup();
 
                     continue;
                 }
@@ -114,7 +114,7 @@ namespace RSBot.Core.Components
                     if (UseAbilityPet && Game.Player.HasActiveAbilityPet && !Game.Player.AbilityPet.Full)
                         Game.Player.AbilityPet.Pickup(item.UniqueId);
                     else
-                        Game.Player.Pickup(item.UniqueId);
+                        item.Pickup();
 
                     continue;
                 }
@@ -124,7 +124,7 @@ namespace RSBot.Core.Components
                     if (UseAbilityPet && Game.Player.HasActiveAbilityPet && !Game.Player.AbilityPet.Full)
                         Game.Player.AbilityPet.Pickup(item.UniqueId);
                     else
-                        Game.Player.Pickup(item.UniqueId);
+                        item.Pickup();
                 }
             }
 
