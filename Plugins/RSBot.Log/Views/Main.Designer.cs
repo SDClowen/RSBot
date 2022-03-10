@@ -132,6 +132,7 @@
             // txtLog
             // 
             this.txtLog.BackColor = System.Drawing.Color.White;
+            this.txtLog.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtLog.Location = new System.Drawing.Point(0, 52);
             this.txtLog.Multiline = true;
@@ -145,7 +146,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(251)))), ((int)(((byte)(251)))));
+            this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.txtLog);
             this.Controls.Add(this.panel1);
             this.Name = "Main";
