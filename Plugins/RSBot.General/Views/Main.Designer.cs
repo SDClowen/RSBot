@@ -462,7 +462,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(251)))), ((int)(((byte)(251)))));
+            this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.comboBoxClientType);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);

@@ -153,7 +153,7 @@
             // 
             // tabCurrentParty
             // 
-            this.tabCurrentParty.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(251)))), ((int)(((byte)(251)))));
+            this.tabCurrentParty.BackColor = System.Drawing.Color.Transparent;
             this.tabCurrentParty.Controls.Add(this.listParty);
             this.tabCurrentParty.Controls.Add(this.panel1);
             this.tabCurrentParty.Controls.Add(this.grpPartySettings);
@@ -332,7 +332,7 @@
             // 
             // tpAutoParty
             // 
-            this.tpAutoParty.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(251)))), ((int)(((byte)(251)))));
+            this.tpAutoParty.BackColor = System.Drawing.Color.Transparent;
             this.tpAutoParty.Controls.Add(this.groupBox3);
             this.tpAutoParty.Controls.Add(this.groupBox2);
             this.tpAutoParty.Controls.Add(this.grbAutoPartySettings);
@@ -538,7 +538,7 @@
             // 
             // tpPartyMatching
             // 
-            this.tpPartyMatching.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(251)))), ((int)(((byte)(251)))));
+            this.tpPartyMatching.BackColor = System.Drawing.Color.Transparent;
             this.tpPartyMatching.Controls.Add(this.lvPartyMatching);
             this.tpPartyMatching.Controls.Add(this.topPartyPanel);
             this.tpPartyMatching.Controls.Add(this.bottomPartyPanel);
@@ -1199,7 +1199,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(251)))), ((int)(((byte)(251)))));
+            this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.tabMain);
             this.Name = "Main";
             this.Padding = new System.Windows.Forms.Padding(6);

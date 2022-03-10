@@ -90,7 +90,6 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(251)))), ((int)(((byte)(251)))));
             this.groupBox1.Controls.Add(this.listAttackingSkills);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.comboMonsterType);
@@ -330,7 +329,6 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(251)))), ((int)(((byte)(251)))));
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.groupBox2);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -342,7 +340,7 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(251)))), ((int)(((byte)(251)))));
+            this.tabPage2.BackColor = System.Drawing.Color.Transparent;
             this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
@@ -452,6 +450,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.BackColor = System.Drawing.Color.Transparent;
             this.tabPage3.Controls.Add(this.listSkills);
             this.tabPage3.Controls.Add(this.panel1);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
@@ -463,7 +462,6 @@
             // 
             // listSkills
             // 
-            this.listSkills.BackColor = System.Drawing.Color.White;
             this.listSkills.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listSkills.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colName,
@@ -491,7 +489,6 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.checkHideLowerLevelSkills);
             this.panel1.Controls.Add(this.checkShowAttacks);
@@ -615,7 +612,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(251)))), ((int)(((byte)(251)))));
+            this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.tabControl2);
             this.Controls.Add(this.tabControl1);
             this.Name = "Main";
