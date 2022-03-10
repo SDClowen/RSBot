@@ -1,5 +1,7 @@
-﻿using RSBot.Core.Event;
+﻿using RSBot.Core.Components;
+using RSBot.Core.Event;
 using RSBot.Core.Objects;
+using RSBot.Core.Objects.Spawn;
 using System;
 
 namespace RSBot.Core.Network.Handler.Agent.Entity
@@ -38,8 +40,8 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                 UpdatePetStatus(packet, updateFlag);
             else if (Core.Game.Player.Vehicle != null && uniqueId == Core.Game.Player.Vehicle.UniqueId)
                 UpdateVehicleStatus(packet, updateFlag);
-            else if (Core.Game.SelectedEntity != null && uniqueId == Core.Game.SelectedEntity.UniqueId)
-                UpdateSelectedStatus(packet, updateFlag);
+            else if (SpawnManager.TryGetEntity<SpawnedBionic>(uniqueId, out var entity))
+                UpdateEntityStatus(packet, updateFlag, entity);
         }
 
         private static void UpdatePlayerStatus(Packet packet, EntityUpdateStatusFlag updateFlag)
@@ -184,22 +186,28 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
             }
         }
 
-        private static void UpdateSelectedStatus(Packet packet, EntityUpdateStatusFlag updateFlag)
+        private static void UpdateEntityStatus(Packet packet, EntityUpdateStatusFlag updateFlag, SpawnedBionic bionic)
         {
             if ((updateFlag & EntityUpdateStatusFlag.HP) == EntityUpdateStatusFlag.HP)
             {
                 var health = packet.ReadUInt();
-                Core.Game.SelectedEntity.Health = health;
+                bionic.Health = health;
 
                 if(health <= 0)
                     EventManager.FireEvent("OnKillSelectedEnemy");
+
+                if(Core.Game.SelectedEntity?.UniqueId == bionic.UniqueId)
+                    EventManager.FireEvent("OnUpdateSelectedEntityHP", bionic);
             }
 
             if ((updateFlag & EntityUpdateStatusFlag.MP) == EntityUpdateStatusFlag.MP)
                 packet.ReadUInt();
 
             if ((updateFlag & EntityUpdateStatusFlag.HPMP) != EntityUpdateStatusFlag.HPMP)
-                EventManager.FireEvent("OnUpdateSelectedEntityHP");
+            {
+                if (Core.Game.SelectedEntity?.UniqueId == bionic.UniqueId)
+                    EventManager.FireEvent("OnUpdateSelectedEntityHP", bionic);
+            }
 
             if ((updateFlag & EntityUpdateStatusFlag.BadEffect) == EntityUpdateStatusFlag.BadEffect)
             {

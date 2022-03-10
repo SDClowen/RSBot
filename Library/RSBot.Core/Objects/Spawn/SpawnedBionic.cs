@@ -16,6 +16,22 @@ namespace RSBot.Core.Objects.Spawn
         public bool AttackingPlayer { get; private set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether this instance has health.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance has health; otherwise, <c>false</c>.
+        /// </value>
+        public bool HasHealth => Health > 0;
+
+        /// <summary>
+        /// Gets or sets the health.
+        /// </summary>
+        /// <value>
+        /// The health.
+        /// </value>
+        public uint Health { get; set; }
+
+        /// <summary>
         /// <inheritdoc/>
         /// </summary>
         /// <param name="objId">The ref obj id</param>

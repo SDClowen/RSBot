@@ -78,10 +78,7 @@ namespace RSBot.Core.Components
         /// <returns></returns>
         public static SkillInfo GetNextSkill()
         {
-            var entity = Game.SelectedEntity.Entity;
-            if (!(entity is SpawnedBionic bionic))
-                return null;
-
+            var entity = Game.SelectedEntity;
             var rarity = MonsterRarity.General;
 
             if (entity is SpawnedMonster monster)
@@ -90,13 +87,13 @@ namespace RSBot.Core.Components
                     rarity = monster.Rarity;
             }
 
-            var distance = Game.Player.Movement.Source.DistanceTo(bionic.Movement.Source);
+            var distance = Game.Player.Movement.Source.DistanceTo(entity.Movement.Source);
 
             var minDifference = int.MaxValue;
             //var weaponRange = 0;
             var closestSkill = default(SkillInfo);
 
-            if (bionic.State.HitState == ActionHitStateFlag.KnockDown)
+            if (entity.State.HitState == ActionHitStateFlag.KnockDown)
             {
                 // try to get attack skill for only knockdown states
                 closestSkill = Skills[rarity].Find(p => p.Record.Params.Contains(25697));

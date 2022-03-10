@@ -1,5 +1,6 @@
 ﻿using RSBot.Core.Components;
 using RSBot.Core.Objects;
+using RSBot.Core.Objects.Spawn;
 
 namespace RSBot.Core.Network.Handler.Agent.Entity
 {
@@ -36,7 +37,7 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                 return;
             }
 
-            if (!SpawnManager.TryGetEntity(uniqueId, out var entity))
+            if (!SpawnManager.TryGetEntity<SpawnedEntity>(uniqueId, out var entity))
                 return;
 
             entity.SetSource(position);

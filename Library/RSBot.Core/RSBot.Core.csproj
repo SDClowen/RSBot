@@ -237,7 +237,6 @@
     <Compile Include="Network\Protocol\TransferBuffer.cs" />
     <Compile Include="Network\NetworkUtilities.cs" />
     <Compile Include="Objects\BodyState.cs" />
-    <Compile Include="Objects\SelectedGameEntity.cs" />
     <Compile Include="Objects\Inventory.cs" />
     <Compile Include="Objects\InventoryItem.cs" />
     <Compile Include="Objects\AutoInverstType.cs" />

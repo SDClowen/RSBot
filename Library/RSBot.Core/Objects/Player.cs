@@ -906,7 +906,7 @@ namespace RSBot.Core.Objects
         /// <param name="itemUniqueId">The item unique identifier.</param>
         public void Pickup(uint itemUniqueId)
         {
-            if (!SpawnManager.TryGetEntity(itemUniqueId, out var entity)) 
+            if (!SpawnManager.TryGetEntity<SpawnedItem>(itemUniqueId, out var entity)) 
                 return;
 
             if (CollisionManager.HasCollisionBetween(entity.Movement.Source, Movement.Source))
@@ -992,7 +992,6 @@ namespace RSBot.Core.Objects
             var awaitCallback = new AwaitCallback(response =>
             {
                 var result = response.ReadByte() == 0x01;
-
                 if (!result)
                     Log.Error("Could not select entity 0x" + (Game.ClientType < GameClientType.Vietnam ? response.ReadByte() : response.ReadUShort()));
 

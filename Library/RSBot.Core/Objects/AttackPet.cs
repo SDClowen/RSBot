@@ -110,7 +110,7 @@ namespace RSBot.Core.Objects
         /// <value>
         /// The bionic.
         /// </value>
-        public SpawnedBionic Bionic => SpawnManager.TryGetEntity<SpawnedBionic>(UniqueId);
+        public SpawnedBionic Bionic => SpawnManager.GetEntity<SpawnedBionic>(UniqueId);
 
         /// <summary>
         /// Gets or sets the bad effect.
