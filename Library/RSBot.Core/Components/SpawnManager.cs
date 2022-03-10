@@ -17,7 +17,29 @@ namespace RSBot.Core.Components
         /// <summary>
         /// The game spawned entities on the area
         /// </summary>
-        private static List<SpawnedEntity> Entities { get; set; } = new List<SpawnedEntity>(255);
+        private static List<SpawnedEntity> _entities { get; set; } = new List<SpawnedEntity>(255);
+
+        /// <summary>
+        /// Get entity by unique id with specified generic type.
+        /// </summary>
+        /// <param name="uniqueId">The unique identifier.</param>
+        /// <returns></returns>
+        public static T GetEntity<T>(uint uniqueId)
+            where T : SpawnedEntity
+        {
+            return (T)_entities.Find(p => p.UniqueId == uniqueId);
+        }
+
+        /// <summary>
+        /// Get entity by unique id with specified generic type.
+        /// </summary>
+        /// <param name="uniqueId">The unique identifier.</param>
+        /// <returns><c>true</c> is succesfully found; otherwise <c>false</c></returns>
+        public static T GetEntity<T>(Func<T, bool> condition)
+            where T : SpawnedEntity
+        {
+            return (T)_entities.Find(p => condition(p as T));
+        }
 
         /// <summary>
         /// Try get an entity by the specified unique identifier.
@@ -25,9 +47,10 @@ namespace RSBot.Core.Components
         /// <param name="uniqueId">The searching uniqueId of the entity</param>
         /// <param name="removedEntity">Returning founded entity</param>
         /// <returns><c>true</c> if success; otherwise <c>false</c></returns>
-        public static bool TryGetEntity(uint uniqueId, out SpawnedEntity entity)
+        public static bool TryGetEntity<T>(uint uniqueId, out T entity)
+            where T : SpawnedEntity
         {
-            entity = Entities.Find(p => p.UniqueId == uniqueId);
+            entity = GetEntity<T>(uniqueId);
             return entity != null;
         }
 
@@ -39,55 +62,8 @@ namespace RSBot.Core.Components
         public static bool TryGetEntity<T>(Func<T, bool> condition, out T entity)
             where T : SpawnedEntity
         {
-            lock (_lock)
-            {
-                entity = TryGetEntity<T>(p => condition(p));
-
-                return entity != null;
-            }
-        }
-
-        /// <summary>
-        /// Try get entity by unique id with specified generic type.
-        /// </summary>
-        /// <param name="uniqueId">The unique identifier.</param>
-        /// <returns></returns>
-        public static T TryGetEntity<T>(uint uniqueId)
-            where T : SpawnedEntity
-        {
-            TryGetEntity<T>(uniqueId, out var entity);
-
-            return entity;
-        }
-
-        /// <summary>
-        /// Try get entity by unique id with specified generic type.
-        /// </summary>
-        /// <param name="uniqueId">The unique identifier.</param>
-        /// <returns><c>true</c> is succesfully found; otherwise <c>false</c></returns>
-        public static bool TryGetEntity<T>(uint uniqueId, out T entity)
-            where T : SpawnedEntity
-        {
-            lock (_lock)
-            {
-                entity = TryGetEntity<T>(p => p.UniqueId == uniqueId);
-
-                return entity != null;
-            }
-        }
-
-        /// <summary>
-        /// Try get entity by unique id with specified generic type.
-        /// </summary>
-        /// <param name="uniqueId">The unique identifier.</param>
-        /// <returns><c>true</c> is succesfully found; otherwise <c>false</c></returns>
-        public static T TryGetEntity<T>(Func<T, bool> condition)
-            where T : SpawnedEntity
-        {
-            lock (_lock)
-            {
-                return Entities.FirstOrDefault(p => p is T && condition(p as T)) as T;
-            }
+            entity = GetEntity<T>(p => condition(p));
+            return entity != null;
         }
 
         /// <summary>
@@ -102,7 +78,7 @@ namespace RSBot.Core.Components
         {
             lock (_lock)
             {
-                entities = Entities.Where(p => p is T).Cast<T>();
+                entities = _entities.Where(p => p is T).Cast<T>();
 
                 return entities != null;
             }
@@ -120,7 +96,7 @@ namespace RSBot.Core.Components
         {
             lock (_lock)
             {
-                entities = Entities.Where(p => p is T && predicate(p as T)).Cast<T>();
+                entities = _entities.Cast<T>().Where(p => predicate(p));
 
                 return entities != null;
             }
@@ -138,7 +114,7 @@ namespace RSBot.Core.Components
         {
             lock (_lock)
             {
-                return Entities.Count(p => p is T && predicate(p as T));
+                return _entities.Count(p => p is T && predicate(p as T));
             }
         }
 
@@ -154,7 +130,7 @@ namespace RSBot.Core.Components
         {
             lock (_lock)
             {
-                return Entities.Any(p => p is T && predicate(p as T));
+                return _entities.Any(p => p is T && predicate(p as T));
             }
         }
 
@@ -168,8 +144,9 @@ namespace RSBot.Core.Components
         {
             lock (_lock)
             {
-                removedEntity = Entities.Find(p => p.UniqueId == uniqueId);
-                return Entities.Remove(removedEntity);
+                removedEntity = _entities.Find(p => p.UniqueId == uniqueId);
+                removedEntity.Dispose();
+                return _entities.Remove(removedEntity);
             }
         }
 
@@ -181,7 +158,7 @@ namespace RSBot.Core.Components
         {
             lock (_lock)
             {
-                return Entities.RemoveAll(p => p is T && p.Dispose());
+                return _entities.RemoveAll(p => p is T && p.Dispose());
             }
         }
 
@@ -197,7 +174,7 @@ namespace RSBot.Core.Components
 
                 if (refObjId == uint.MaxValue)
                 {
-                    Entities.Add(SpawnedSpellArea.FromPacket(packet));
+                    _entities.Add(SpawnedSpellArea.FromPacket(packet));
                     return;
                 }
 
@@ -221,7 +198,7 @@ namespace RSBot.Core.Components
                                     var spawnedPlayer = new SpawnedPlayer(refObjId);
                                     spawnedPlayer.Deserialize(packet);
 
-                                    Entities.Add(spawnedPlayer);
+                                    _entities.Add(spawnedPlayer);
                                     EventManager.FireEvent("OnSpawnPlayer", spawnedPlayer);
                                 }
                                 break;
@@ -235,7 +212,7 @@ namespace RSBot.Core.Components
                                             var spawnedMonster = new SpawnedMonster(refObjId);
                                             spawnedMonster.Deserialize(packet);
 
-                                            Entities.Add(spawnedMonster);
+                                            _entities.Add(spawnedMonster);
                                             EventManager.FireEvent("OnSpawnMonster", spawnedMonster);
                                         }
                                         break;
@@ -244,7 +221,7 @@ namespace RSBot.Core.Components
                                         {
                                             var spawnedCos = new SpawnedCos(refObjId);
                                             spawnedCos.Deserialize(packet);
-                                            Entities.Add(spawnedCos);
+                                            _entities.Add(spawnedCos);
                                             EventManager.FireEvent("OnSpawnCos", spawnedCos);
                                         }
                                         break;
@@ -253,7 +230,7 @@ namespace RSBot.Core.Components
                                         {
                                             var spawnedFortressStructure = new SpawnedFortressStructure(refObjId);
                                             spawnedFortressStructure.Deserialize(packet);
-                                            Entities.Add(spawnedFortressStructure);
+                                            _entities.Add(spawnedFortressStructure);
 
                                             EventManager.FireEvent("OnSpawnFortressStructure", spawnedFortressStructure);
                                         }
@@ -264,7 +241,7 @@ namespace RSBot.Core.Components
                                             var spawnedNpc = new SpawnedNpcNpc(refObjId);
                                             spawnedNpc.ParseBionicDetails(packet);
                                             spawnedNpc.Deserialize(packet);
-                                            Entities.Add(spawnedNpc);
+                                            _entities.Add(spawnedNpc);
                                             EventManager.FireEvent("OnSpawnNpc", spawnedNpc);
                                         }
                                         break;
@@ -277,14 +254,14 @@ namespace RSBot.Core.Components
 
                     case 3:
                         var spawnedItem = SpawnedItem.FromPacket(packet, refObjId);
-                        Entities.Add(spawnedItem);
+                        _entities.Add(spawnedItem);
 
                         EventManager.FireEvent("OnSpawnItem", spawnedItem);
                         break;
 
                     case 4:
                         var spawnedPortal = SpawnedPortal.FromPacket(packet, refObjId);
-                        Entities.Add(spawnedPortal);
+                        _entities.Add(spawnedPortal);
                         EventManager.FireEvent("OnSpawnPortal", spawnedPortal);
                         break;
                 }
@@ -307,7 +284,7 @@ namespace RSBot.Core.Components
         /// </summary>
         public static void Update()
         {
-            foreach (var entity in Entities)
+            foreach (var entity in _entities)
                 entity.Update();
         }
 
@@ -319,7 +296,7 @@ namespace RSBot.Core.Components
             lock (_lock)
             {
                 //Entities.Clear();
-                Entities = new List<SpawnedEntity>();
+                _entities = new List<SpawnedEntity>();
             }
         }
     }

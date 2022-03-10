@@ -21,6 +21,46 @@ namespace RSBot.Core.Objects.Spawn
         public double DistanceToPlayer => Game.Player.Movement.Source.DistanceTo(Movement.Source);
 
         /// <summary>
+        /// Gets the maximum health.
+        /// </summary>
+        /// <value>
+        /// The maximum health.
+        /// </value>
+        public uint MaxHealth
+        {
+            get
+            {
+                var baseHealth = (uint)Record.MaxHealth;
+                switch (Rarity)
+                {
+                    case MonsterRarity.Champion:
+                        return baseHealth * 2;
+
+                    case MonsterRarity.ChampionParty:
+                        return baseHealth * 20;
+
+                    case MonsterRarity.GeneralParty:
+                        return baseHealth * 10;
+
+                    case MonsterRarity.Elite:
+                        return baseHealth * 30;
+
+                    case MonsterRarity.EliteParty:
+                        return baseHealth * 300;
+
+                    case MonsterRarity.Giant:
+                        return baseHealth * 20;
+
+                    case MonsterRarity.GiantParty:
+                        return baseHealth * 200;
+
+                    default:
+                        return baseHealth;
+                }
+            }
+        }
+
+        /// <summary>
         /// <inheritdoc/>
         /// </summary>
         /// <param name="objId">The ref obj id</param>

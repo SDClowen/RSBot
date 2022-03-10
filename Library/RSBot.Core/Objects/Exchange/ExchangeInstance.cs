@@ -35,7 +35,7 @@ namespace RSBot.Core.Objects.Exchange
         /// <value>
         /// The exchange player.
         /// </value>
-        public SpawnedPlayer ExchangePlayer => SpawnManager.TryGetEntity<SpawnedPlayer>(_exchangePlayerUniqueId);
+        public SpawnedPlayer ExchangePlayer => SpawnManager.GetEntity<SpawnedPlayer>(_exchangePlayerUniqueId);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExchangeInstance"/> class.

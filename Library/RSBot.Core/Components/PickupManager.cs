@@ -88,7 +88,10 @@ namespace RSBot.Core.Components
             }
 
             if (!SpawnManager.TryGetEntities<SpawnedItem>(out var entites, p => condition(p)))
+            {
+                Stop();
                 return;
+            }
 
             foreach (var item in entites.OrderBy(item => item.Movement.Source.DistanceTo(centerPosition)).Take(5))
             {

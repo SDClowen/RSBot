@@ -262,7 +262,7 @@ namespace RSBot.Core.Components
 
             SelectNPC(npcCodeName);
 
-            var npc = SelectedEntity ?? LastSelectedEntity;
+            var npc = SelectedEntity;
             if (npc == null)
             {
                 Log.Debug("Cannot repair items because there is no smith selected!");
@@ -288,8 +288,7 @@ namespace RSBot.Core.Components
             var tempInventory = Game.Player.Inventory.Items.Where(x => x.Slot > 13 && StoreFilter.Invoke(x.Record)).ToList();
 
             SelectNPC(npcCodeName);
-            var npc = SelectedEntity ?? LastSelectedEntity;
-
+            var npc = SelectedEntity;
             if (npc == null)
             {
                 Log.Debug("Cannot store items because there is no storage NPC selected!");

@@ -46,8 +46,7 @@ namespace RSBot.Core.Network.Handler.Agent.Action
                 return;
             }
 
-            var executor = action.GetExecutor<SpawnedBionic>();
-            if (executor == null)
+            if(!action.TryGetExecutor<SpawnedBionic>(out var executor))
                 return;
 
             executor.StopMoving();

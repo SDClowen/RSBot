@@ -60,7 +60,7 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                 return;
             }
 
-            if (!SpawnManager.TryGetEntity(uniqueId, out var entity)) 
+            if (!SpawnManager.TryGetEntity<SpawnedEntity>(uniqueId, out var entity)) 
                 return;
 
             if (movement.HasSource)

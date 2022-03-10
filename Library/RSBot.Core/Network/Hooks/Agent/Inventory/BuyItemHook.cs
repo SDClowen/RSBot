@@ -42,7 +42,8 @@ namespace RSBot.Core.Network.Hooks.Agent.Inventory
             var destination = packet.ReadByte();
             var amount = packet.ReadUShort();
 
-            if (!(Game.SelectedEntity.Entity is SpawnedBionic bionic))
+            var bionic = Game.SelectedEntity;
+            if (bionic == null)
                 return packet;
 
             var refPackageItem = Game.ReferenceManager.GetRefPackageItem(

@@ -49,15 +49,7 @@ namespace RSBot.Core
         /// <value>
         /// The selected entity.
         /// </value>
-        public static SelectedGameEntity SelectedEntity { get; internal set; }
-
-        /// <summary>
-        /// Gets the last selected entity.
-        /// </summary>
-        /// <value>
-        /// The last selected entity.
-        /// </value>
-        public static SelectedGameEntity LastSelectedEntity { get; internal set; }
+        public static SpawnedBionic SelectedEntity { get; internal set; }
 
         /// <summary>
         /// Gets or sets the spawn information.

@@ -28,7 +28,7 @@ namespace RSBot.Core.Objects
         /// <value>
         /// The player.
         /// </value>
-        public SpawnedPlayer Player => SpawnManager.TryGetEntity<SpawnedPlayer>(PlayerUniqueId);
+        public SpawnedPlayer Player => SpawnManager.GetEntity<SpawnedPlayer>(PlayerUniqueId);
 
         /// <summary>
         /// Accepts this party request

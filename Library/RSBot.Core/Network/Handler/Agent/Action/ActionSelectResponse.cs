@@ -1,4 +1,6 @@
-﻿using RSBot.Core.Event;
+﻿using RSBot.Core.Components;
+using RSBot.Core.Event;
+using RSBot.Core.Objects.Spawn;
 
 namespace RSBot.Core.Network.Handler.Agent.Action
 {
@@ -29,10 +31,43 @@ namespace RSBot.Core.Network.Handler.Agent.Action
             if (packet.ReadByte() != 0x01) 
                 return;
 
-            Core.Game.LastSelectedEntity = Core.Game.SelectedEntity;
-            Core.Game.SelectedEntity = Objects.SelectedGameEntity.FromPacket(packet);
+            var uniqueId = packet.ReadUInt();
+            if (!SpawnManager.TryGetEntity<SpawnedBionic>(uniqueId, out var entity))
+            {
+                Log.Warn("Selected entity could not found in the spawned list!");
+                return;
+            }
 
-            EventManager.FireEvent("OnSelectEntity");
+            Core.Game.SelectedEntity = entity;
+
+            EventManager.FireEvent("OnSelectEntity", entity);
+
+            /*if (entity is SpawnedMonster)
+            {
+                var hasHealth = packet.ReadBool();
+                if (hasHealth)
+                    result.Health = packet.ReadUInt();
+
+                entity.Talk.Deserialize(packet);
+            }
+            else if (entity is SpawnedNpcNpc)
+            {
+                var hasHealth = packet.ReadBool();
+                if (hasHealth)
+                    result.Health = packet.ReadUInt();
+
+                entity.Talk.Deserialize(packet);
+                packet.ReadByte(); // ??
+            }
+            else if (entity is SpawnedPlayer)
+            {
+                entity.Talk.Deserialize(packet);
+            }
+            else if (entity is SpawnedPortal)
+            {
+                entity.Talk.Deserialize(packet);
+            }
+            */
         }
     }
 }

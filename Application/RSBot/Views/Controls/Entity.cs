@@ -21,9 +21,9 @@ namespace RSBot.Views.Controls
         /// </summary>
         private void SubscribeEvents()
         {
-            EventManager.SubscribeEvent("OnSelectEntity", OnSelectEntity);
+            EventManager.SubscribeEvent("OnSelectEntity", new Action<SpawnedBionic>(OnSelectEntity));
             EventManager.SubscribeEvent("OnDeselectEntity", OnDeselectEntity);
-            EventManager.SubscribeEvent("OnUpdateSelectedEntityHP", OnUpdateSelectedEntityHP);
+            EventManager.SubscribeEvent("OnUpdateSelectedEntityHP", new Action<SpawnedBionic>(OnUpdateSelectedEntityHP));
             EventManager.SubscribeEvent("OnKillSelectedEnemy", OnKillSelectedEnemy);
             EventManager.SubscribeEvent("OnAgentServerDisconnected", OnAgentServerDisconnected);
         }
@@ -31,35 +31,30 @@ namespace RSBot.Views.Controls
         /// <summary>
         /// Fired when an entity was selected
         /// </summary>
-        private void OnSelectEntity()
+        private void OnSelectEntity(SpawnedBionic entity)
         {
-            var selectedEntity = Game.SelectedEntity;
-            if (selectedEntity == null || selectedEntity.Entity is SpawnedPortal) 
-                return;
-
-            var entity = selectedEntity.Entity;
-
             if (entity is SpawnedPlayer player)
                 lblEntityName.Text = player.Name;
             else
                 lblEntityName.Text = entity.Record.GetRealName();
 
-            var healthPercent = (double)selectedEntity.Health / (double)selectedEntity.MaxHealth *
-                                100;
+            var hasHealth = false;
+            var healthPercent = 0.0;
+            lblType.Text = string.Empty;
+
+            if (entity is SpawnedMonster monster)
+            {
+                hasHealth = monster.HasHealth;
+                healthPercent = monster.Health / monster.MaxHealth * 100.0;
+                lblType.Text = monster.Rarity.GetName();
+            }
 
             if (double.IsInfinity(healthPercent))
                 return;
 
-            progressHP.Position = selectedEntity.HasHealth
-                ? Convert.ToInt32(Math.Round(healthPercent, 0))
-                : 100;
+            progressHP.Position = hasHealth ? Convert.ToInt32(Math.Round(healthPercent, 0)) : 100;
 
             progressHP.Text = progressHP.Position + @"%";
-
-            if (entity is SpawnedMonster monster)
-                lblType.Text = monster.Rarity.GetName();
-            else
-                lblType.Text = string.Empty;
         }
 
         /// <summary>
@@ -76,36 +71,24 @@ namespace RSBot.Views.Controls
         /// <summary>
         /// Core_s the on update selected entity hp.
         /// </summary>
-        private void OnUpdateSelectedEntityHP()
+        private void OnUpdateSelectedEntityHP(SpawnedBionic entity)
         {
-            var selectedEntity = Game.SelectedEntity;
-
-            if (selectedEntity == null) 
-                return;
-
-            if (selectedEntity.Entity == null)
-            {
-                lblEntityName.Text = @"No entity selected";
-                progressHP.Position = 0;
-                progressHP.Text = progressHP.Position + @"%";
-                lblType.Text = "";
-                return;
-            }
-
-            if (!selectedEntity.HasHealth)
+            if (!entity.HasHealth)
             {
                 progressHP.Position = 100;
                 return;
             }
 
-            var healthPercent = (double)selectedEntity.Health / (double)selectedEntity.MaxHealth * 100;
+            if (entity is SpawnedMonster monster)
+            {
+                var healthPercent = entity.Health / monster.MaxHealth * 100.0;
 
-            if (double.IsInfinity(healthPercent))
-                return;
+                if (double.IsInfinity(healthPercent))
+                    return;
 
-            progressHP.Position = Convert.ToInt32(Math.Round(healthPercent, 0));
-
-            progressHP.Text = progressHP.Position + @"%";
+                progressHP.Position = Convert.ToInt32(Math.Round(healthPercent, 0));
+                progressHP.Text = progressHP.Position + @"%";
+            }
         }
 
         /// <summary>

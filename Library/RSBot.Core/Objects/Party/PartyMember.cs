@@ -15,7 +15,7 @@ namespace RSBot.Core.Objects.Party
         /// <summary>
         /// Get the party member spawned info
         /// </summary>
-        public SpawnedPlayer Player => SpawnManager.TryGetEntity<SpawnedPlayer>(p => p.Name == Name);
+        public SpawnedPlayer Player => SpawnManager.GetEntity<SpawnedPlayer>(p => p.Name == Name);
 
         /// <summary>
         /// Gets or sets the name.

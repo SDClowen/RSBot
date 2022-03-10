@@ -7,7 +7,7 @@ namespace RSBot.Core.Objects.Spawn
         /// <summary>
         /// Gets or sets the npc talk.
         /// </summary>
-        public NpcTalk Talk { get; set; }
+        public NpcTalk Talk { get; } = new NpcTalk();
 
         /// <summary>
         /// <inheritdoc/>
@@ -24,7 +24,6 @@ namespace RSBot.Core.Objects.Spawn
         /// <returns></returns>
         internal virtual void Deserialize(Packet packet)
         {
-            Talk = new NpcTalk();
             Talk.Deserialize(packet);
         }
     }

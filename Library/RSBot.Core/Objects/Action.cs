@@ -173,8 +173,7 @@ namespace RSBot.Core.Objects
                 }
                 else
                 {
-                    var executor = GetExecutor<SpawnedBionic>();
-                    if (executor == null)
+                    if (!TryGetExecutor<SpawnedBionic>(out var executor))
                         return;
 
                     executor.SetSource(position);
@@ -185,24 +184,18 @@ namespace RSBot.Core.Objects
         /// <summary>
         /// Gets the executor.
         /// </summary>
-        public T GetExecutor<T>() where T : SpawnedBionic
+        public bool TryGetExecutor<T>(out T entity) where T : SpawnedBionic
         {
-            if (ExecutorId == Game.Player.UniqueId)
-                return default(T);
-
-            return SpawnManager.TryGetEntity<T>(ExecutorId);
+            return SpawnManager.TryGetEntity(ExecutorId, out entity);
         }
 
         /// <summary>
         /// Gets the target.
         /// </summary>
         /// <returns></returns>
-        public SpawnedEntity GetTarget()
+        public bool TryGetTarget<T>(out T entity) where T : SpawnedBionic
         {
-            if (TargetId == Game.Player.UniqueId)
-                return null;
-
-            return SpawnManager.TryGetEntity<SpawnedEntity>(TargetId);
+            return SpawnManager.TryGetEntity(TargetId, out entity);
         }
     }
 }
