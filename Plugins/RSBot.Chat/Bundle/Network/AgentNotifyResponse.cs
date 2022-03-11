@@ -28,12 +28,16 @@ namespace RSBot.Chat.Network
         /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
-            var noticeType = packet.ReadUShort();
+            var noticeType = 
+                Game.ClientType > GameClientType.Thailand ? 
+                packet.ReadUShort() : 
+                packet.ReadByte();
+
             switch(noticeType)
             {
                 //[%s] has appeared
                 case 0xC05:
-
+                case 0x5:
                     var refObjId = packet.ReadUInt();
                     if (!Game.ReferenceManager.CharacterData.TryGetValue(refObjId, out var obj))
                         return;
@@ -44,6 +48,7 @@ namespace RSBot.Chat.Network
 
                 //[%s] has disappeared or killed
                 case 0xC06:
+                case 0x6:
 
                     refObjId = packet.ReadUInt();
                     if (!Game.ReferenceManager.CharacterData.TryGetValue(refObjId, out obj))
