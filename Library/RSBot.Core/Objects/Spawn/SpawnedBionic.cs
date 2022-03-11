@@ -76,5 +76,48 @@ namespace RSBot.Core.Objects.Spawn
             Log.Debug("Attacking timer has elapsed.");
             AttackingPlayer = false;
         }
+
+        /// <summary>
+        /// Selects the entity.
+        /// </summary>
+        /// <param name="uniqueId">The unique identifier.</param>
+        /// <returns></returns>
+        public bool TrySelect()
+        {
+            var packet = new Packet(0x7045);
+            packet.WriteUInt(UniqueId);
+            packet.Lock();
+
+            var awaitCallback = new AwaitCallback(response =>
+            {
+                var result = response.ReadByte() == 0x01;
+                if (!result)
+                    Log.Error("Could not select entity 0x" + (Game.ClientType < GameClientType.Vietnam ? response.ReadByte() : response.ReadUShort()));
+
+                return result
+                    ? AwaitCallbackResult.Received : AwaitCallbackResult.Failed;
+            }, 0xB045);
+            PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallback);
+            awaitCallback.AwaitResponse();
+
+            return awaitCallback.IsCompleted;
+        }
+
+        /// <summary>
+        /// Deselects the entity.
+        /// </summary>
+        /// <returns></returns>
+        public bool TryDeselect()
+        {
+            var packet = new Packet(0x704B);
+            packet.WriteUInt(UniqueId);
+            packet.Lock();
+
+            var awaitResult = new AwaitCallback(null, 0xB04B);
+            PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
+            awaitResult.AwaitResponse();
+
+            return awaitResult.IsCompleted;
+        }
     }
 }

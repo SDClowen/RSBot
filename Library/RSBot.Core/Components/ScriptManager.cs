@@ -195,7 +195,8 @@ namespace RSBot.Core.Components
                 return;
             }
 
-            Game.Player.SelectEntity(entity.UniqueId);
+            if(entity.TrySelect())
+                Game.SelectedEntity = entity;
 
             var packet = new Packet(0x705A);
             packet.WriteUInt(entity.UniqueId);

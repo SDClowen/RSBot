@@ -1,7 +1,6 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Objects;
-using RSBot.Core.Objects.Spawn;
 
 namespace RSBot.Bot.Default.Bundle.Attack
 {
@@ -30,7 +29,9 @@ namespace RSBot.Bot.Default.Bundle.Attack
             if (Game.SelectedEntity.IsBehindObstacle)
             {
                 Log.Debug("Deselecting entity because it moved behind an obstacle!");
-                Game.Player.DeselectEntity();
+                if(Game.SelectedEntity.TryDeselect())
+                    Game.SelectedEntity = null;
+
                 return;
             }
 

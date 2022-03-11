@@ -349,7 +349,8 @@ namespace RSBot.Core.Components
         /// </summary>
         private static void CloseShop()
         {
-            Game.Player.DeselectEntity();
+            if(SelectedEntity != null && SelectedEntity.TryDeselect())
+                SelectedEntity = null;
         }
 
         /// <summary>
@@ -391,7 +392,8 @@ namespace RSBot.Core.Components
                 return;
             }
 
-            Game.Player.SelectEntity(entity.UniqueId);
+            if (entity.TrySelect())
+                SelectedEntity = entity;
         }
 
         /// <summary>
