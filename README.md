@@ -7,11 +7,14 @@ Hello respected silkroad online community. We have received notifications from m
 1. Tailand(Blackrogue 100, 110)
 2. Vietnam(VSro) [188, 274]
 3. Taiwan(TSRO 110)
-4. Chinese(Csro)
-5. Global(Isro)
-6. Turkey(TRSro)
-7. Korean
-8. JSro-R(coming soon)
+4. Chinese Old(ECSRO, Sunworld *Coming Soon*)
+5. Chinese(CSRO)
+6. Global(ISRO)
+7. Turkey(TRSRO)
+8. Korean(KSRO)
+9. ECSRO(coming soon)
+10. Japanese Old(JSRO_SL *Coming soon*)
+11. Japanese-R(coming soon)
 
 ## Development and Community
 [![GitHub Repository](https://img.shields.io/badge/github-sdclowen/rsbot-green.svg)](https://github.com/SDClowen/RSBot)
