@@ -49,6 +49,8 @@ namespace RSBot.Core
         /// <param name="obj">The message</param>
         public static void Fatal(Exception obj)
         {
+            Warn(obj.Message);
+
             var filePath = Path.Combine(Environment.CurrentDirectory, "User", "Logs", "Exceptions", $"{DateTime.Now:dd-MM-yyyy}.txt");
             if (!Directory.Exists(filePath))
                 Directory.CreateDirectory(Path.GetDirectoryName(filePath));
