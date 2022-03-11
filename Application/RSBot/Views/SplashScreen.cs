@@ -1,5 +1,4 @@
 ﻿using RSBot.Core;
-using RSBot.Core.Components;
 using RSBot.Theme.Controls;
 using System;
 using System.IO;
