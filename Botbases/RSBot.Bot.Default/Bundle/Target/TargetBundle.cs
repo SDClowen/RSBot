@@ -32,8 +32,8 @@ namespace RSBot.Bot.Default.Bundle.Target
             if (distanceToPlayer >= 80)
                 Game.Player.MoveTo(monster.Movement.Source/*.BehindTo(monster.Character.Bionic.Tracker.Position, 20)*/);
 
-            if (!Game.Player.SelectEntity(monster.UniqueId))
-                Invoke();
+            if (monster.TrySelect())
+                Game.SelectedEntity = monster;
         }
 
         /// <summary>

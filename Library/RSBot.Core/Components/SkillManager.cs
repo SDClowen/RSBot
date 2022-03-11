@@ -437,5 +437,47 @@ namespace RSBot.Core.Components
 
             return awaitCallBack.IsCompleted;
         }
+
+        /// <summary>
+        /// Casts the skill at.
+        /// </summary>
+        /// <param name="skillId">The skill identifier.</param>
+        /// <param name="position">The position.</param>
+        public static void CastSkillAt(uint skillId, Position position)
+        {
+            if (!Game.Player.Skills.HasSkill(skillId)) return;
+
+            var packet = new Packet(0x7074);
+            packet.WriteByte(1); //Execute
+            packet.WriteByte(4); //Use Skill
+            packet.WriteUInt(skillId);
+            packet.WriteByte(ActionTarget.Area);
+            packet.WriteByte(position.XSector);
+            packet.WriteByte(position.YSector);
+            packet.WriteFloat(position.XOffset);
+            packet.WriteFloat(position.ZOffset);
+            packet.WriteFloat(position.YOffset);
+            packet.Lock();
+
+            PacketManager.SendPacket(packet, PacketDestination.Server);
+        }
+
+        /// <summary>
+        /// Cancels the buff.
+        /// </summary>
+        /// <param name="skillId">The skill identifier.</param>
+        public static void CancelBuff(uint skillId)
+        {
+            if (!Game.Player.Skills.HasSkill(skillId)) return;
+
+            var packet = new Packet(0x7074);
+            packet.WriteByte(1); //Execute
+            packet.WriteByte(5); //Cancel Buff
+            packet.WriteUInt(skillId);
+            packet.WriteByte(ActionTarget.None);
+
+            packet.Lock();
+            PacketManager.SendPacket(packet, PacketDestination.Server);
+        }
     }
 }

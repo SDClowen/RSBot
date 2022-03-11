@@ -859,48 +859,6 @@ namespace RSBot.Core.Objects
         }
 
         /// <summary>
-        /// Casts the skill at.
-        /// </summary>
-        /// <param name="skillId">The skill identifier.</param>
-        /// <param name="position">The position.</param>
-        public void CastSkillAt(uint skillId, Position position)
-        {
-            if (!Skills.HasSkill(skillId)) return;
-
-            var packet = new Packet(0x7074);
-            packet.WriteByte(1); //Execute
-            packet.WriteByte(4); //Use Skill
-            packet.WriteUInt(skillId);
-            packet.WriteByte(ActionTarget.Area);
-            packet.WriteByte(position.XSector);
-            packet.WriteByte(position.YSector);
-            packet.WriteFloat(position.XOffset);
-            packet.WriteFloat(position.ZOffset);
-            packet.WriteFloat(position.YOffset);
-            packet.Lock();
-
-            PacketManager.SendPacket(packet, PacketDestination.Server);
-        }
-
-        /// <summary>
-        /// Cancels the buff.
-        /// </summary>
-        /// <param name="skillId">The skill identifier.</param>
-        public void CancelBuff(uint skillId)
-        {
-            if (!Skills.HasSkill(skillId)) return;
-
-            var packet = new Packet(0x7074);
-            packet.WriteByte(1); //Execute
-            packet.WriteByte(5); //Cancel Buff
-            packet.WriteUInt(skillId);
-            packet.WriteByte(ActionTarget.None);
-
-            packet.Lock();
-            PacketManager.SendPacket(packet, PacketDestination.Server);
-        }
-
-        /// <summary>
         /// Revives the attack pet.
         /// </summary>
         /// <returns></returns>
@@ -943,52 +901,6 @@ namespace RSBot.Core.Objects
             Log.Notify("Summoning attack pet");
 
             return petItem.Use();
-        }
-
-        /// <summary>
-        /// Selects the entity.
-        /// </summary>
-        /// <param name="uniqueId">The unique identifier.</param>
-        /// <returns></returns>
-        public bool SelectEntity(uint uniqueId)
-        {
-            var packet = new Packet(0x7045);
-            packet.WriteUInt(uniqueId);
-            packet.Lock();
-
-            var awaitCallback = new AwaitCallback(response =>
-            {
-                var result = response.ReadByte() == 0x01;
-                if (!result)
-                    Log.Error("Could not select entity 0x" + (Game.ClientType < GameClientType.Vietnam ? response.ReadByte() : response.ReadUShort()));
-
-                return result
-                    ? AwaitCallbackResult.Received : AwaitCallbackResult.Failed;
-            }, 0xB045);
-            PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallback);
-            awaitCallback.AwaitResponse();
-
-            return awaitCallback.IsCompleted;
-        }
-
-        /// <summary>
-        /// Deselects the entity.
-        /// </summary>
-        /// <returns></returns>
-        public bool DeselectEntity()
-        {
-            if (Game.SelectedEntity == null) 
-                return true;
-
-            var packet = new Packet(0x704B);
-            packet.WriteUInt(Game.SelectedEntity.UniqueId);
-            packet.Lock();
-
-            var awaitResult = new AwaitCallback(null, 0xB04B);
-            PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
-            awaitResult.AwaitResponse();
-
-            return awaitResult.IsCompleted;
         }
 
         /// <summary>
