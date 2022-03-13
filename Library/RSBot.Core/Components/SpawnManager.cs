@@ -145,6 +145,9 @@ namespace RSBot.Core.Components
             lock (_lock)
             {
                 removedEntity = _entities.Find(p => p.UniqueId == uniqueId);
+                if (removedEntity == null)
+                    return false;
+
                 removedEntity.Dispose();
                 return _entities.Remove(removedEntity);
             }
@@ -284,8 +287,11 @@ namespace RSBot.Core.Components
         /// </summary>
         public static void Update()
         {
-            foreach (var entity in _entities)
-                entity.Update();
+            lock (_lock)
+            {
+                foreach (var entity in _entities)
+                    entity.Update();
+            }
         }
 
         /// <summary>

@@ -195,8 +195,8 @@ namespace RSBot.Core.Network
 
                 foreach (var buffer in _protocol.TransferOutgoing())
                 {
-                    //if (_socket == null || IsClosing || !EnablePacketProcessor || !_socket.Connected)
-                        //return;
+                    if (_socket == null || IsClosing || !EnablePacketDispatcher || !_socket.Connected)
+                        return;
 
                     _socket.Send(buffer);
                 }
