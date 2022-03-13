@@ -80,102 +80,17 @@ namespace RSBot.Core.Objects
                 Id = id
             };
 
-            packet.ReadUInt(); //UNKNOWN
-            packet.ReadUInt(); //UNKNOWN
-            packet.ReadUInt(); //UNKNOWN
+            packet.ReadUInt(); // COS.CurHP
+            packet.ReadUInt(); // COS.MaxHP
+            packet.ReadUInt(); // COS.Settings
 
             result.Name = packet.ReadString();
             result.Slots = packet.ReadByte();
 
             var itemAmount = packet.ReadByte();
 
-            #region Regular inventory
-
             for (var i = 0; i < itemAmount; i++)
-            {
-                // ReSharper disable once UseObjectOrCollectionInitializer
-                var item = new InventoryItem
-                {
-                    MagicOptions = new List<MagicOptionInfo>(),
-                    BindingOptions = new List<BindingOption>(),
-                    Amount = 1
-                };
-
-                item.Slot = packet.ReadByte();
-                item.Rental = RentInfo.FromPacket(packet);
-                item.ItemId = packet.ReadUInt();
-
-                if (item.Record.TypeID2 == 1) //Gear
-                {
-                    item.OptLevel = packet.ReadByte();
-                    item.Variance = packet.ReadULong();
-                    item.Durability = packet.ReadUInt(); //Durability?
-
-                    //Read magic options for the item
-                    var magicOptionsAmount = packet.ReadByte();
-                    for (var iMagicOption = 0; iMagicOption < magicOptionsAmount; iMagicOption++)
-                        item.MagicOptions.Add(MagicOptionInfo.FromPacket(packet));
-
-                    //Read sockets & advanced elixirs
-                    for (var bindingIndex = 0; bindingIndex < 2; bindingIndex++)
-                    {
-                        var bindingType = packet.ReadByte();
-                        var bindingAmount = packet.ReadByte();
-                        for (var iSocketAmount = 0; iSocketAmount < bindingAmount; iSocketAmount++)
-                            item.BindingOptions.Add(BindingOption.FromPacket(packet, bindingType));
-                    }
-                }
-                else if (item.Record.TypeID2 == 2)
-                {
-                    switch (item.Record.TypeID3)
-                    {
-                        case 1:
-                            var state = packet.ReadByte(); //State
-                            if (state != 1)
-                            {
-                                packet.ReadUInt(); //Index
-                                packet.ReadString(); //CharacterName
-                                packet.ReadByte(); //Unknown
-                                if (item.Record.TypeID4 == 2)
-                                    packet.ReadUInt(); //Rent time left in seconds
-                            }
-                            break;
-
-                        case 2:
-                            packet.ReadUInt(); //Monster ObjectId
-                            break;
-
-                        default:
-                            if (item.Record.TypeID4 == 3) //Magic cube
-                                packet.ReadUInt(); //Quantity
-                            break;
-                    }
-                }
-                else if (item.Record.TypeID2 == 3) //ITEM_ETC
-                {
-                    item.Amount = packet.ReadUShort();
-
-                    if (item.Record.TypeID3 == 11) //Magic/Attr stone
-                    {
-                        if (item.Record.TypeID4 == 1 || item.Record.TypeID4 == 2)
-                            packet.ReadByte();
-                    }
-                    else if (item.Record.TypeID3 == 14 && item.Record.TypeID4 == 2)
-                    {
-                        //ITEM_MALL_GACHA_CARD_WIN
-                        //ITEM_MALL_GACHA_CARD_LOSE
-                        var magParamCount = packet.ReadByte();
-                        for (var iMagPara = 0; iMagPara < magParamCount; iMagPara++)
-                        {
-                            packet.ReadUInt();
-                            packet.ReadUInt();
-                        }
-                    }
-                }
-                result.Items.Add(item);
-            }
-
-            #endregion Regular inventory
+                result.Items.Add(InventoryItem.FromPacket(packet));
 
             return result;
         }
