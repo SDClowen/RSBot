@@ -32,6 +32,12 @@ namespace RSBot.Core.Network.Handler.Agent.Teleport
         {
             var teleporterUniqueId = packet.ReadUInt();
             var teleportType = (TeleportType)packet.ReadByte();
+            if (teleportType == TeleportType.Guide)
+            {
+                var operation = packet.ReadByte();
+                return;
+            }
+
             var destination = packet.ReadUInt();
 
             if (!SpawnManager.TryGetEntity<SpawnedPortal>(teleporterUniqueId, out var portal))

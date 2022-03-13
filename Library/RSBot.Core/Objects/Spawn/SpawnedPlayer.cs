@@ -203,8 +203,13 @@ namespace RSBot.Core.Objects.Spawn
         internal void Deserialize(Packet packet)
         {
             Scale = packet.ReadByte();
-            HwanLevel = packet.ReadByte();
-            PvpCape = (PvpCapeType)packet.ReadByte();
+            
+            //if(Game.ClientType > GameClientType.JapaneseOld) Jsro 90cap
+                HwanLevel = packet.ReadByte();
+
+            if(Game.ClientType > GameClientType.Taiwan)
+                PvpCape = (PvpCapeType)packet.ReadByte();
+
             AutoInverstExp = (AutoInverstType)packet.ReadByte();
 
             if (Game.ClientType >= GameClientType.Global)

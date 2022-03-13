@@ -3,7 +3,6 @@ using RSBot.Core.Extensions;
 using RSBot.Core.Objects.Spawn;
 using System;
 using System.Windows.Forms;
-using Game = RSBot.Core.Game;
 
 namespace RSBot.Views.Controls
 {
@@ -38,34 +37,17 @@ namespace RSBot.Views.Controls
             else
                 lblEntityName.Text = entity.Record.GetRealName();
 
-            var hasHealth = false;
-            var healthPercent = 0.0;
+            var percent = 0;
             lblType.Text = string.Empty;
 
             if (entity is SpawnedMonster monster)
             {
-                hasHealth = monster.HasHealth;
-                healthPercent = monster.Health / monster.MaxHealth * 100.0;
+                percent = (monster.Health * 100) / monster.MaxHealth;
                 lblType.Text = monster.Rarity.GetName();
             }
 
-            if (double.IsInfinity(healthPercent))
-                return;
-
-            progressHP.Position = hasHealth ? Convert.ToInt32(Math.Round(healthPercent, 0)) : 100;
-
-            progressHP.Text = progressHP.Position + @"%";
-        }
-
-        /// <summary>
-        /// Fired when an entity was deselected
-        /// </summary>
-        private void OnDeselectEntity()
-        {
-            lblEntityName.Text = @"No entity selected";
-            progressHP.Position = 0;
-            progressHP.Text = progressHP.Position + @"%";
-            lblType.Text = "";
+            progressHP.Position = percent;
+            progressHP.Text = percent + "%";
         }
 
         /// <summary>
@@ -81,14 +63,19 @@ namespace RSBot.Views.Controls
 
             if (entity is SpawnedMonster monster)
             {
-                var healthPercent = entity.Health / monster.MaxHealth * 100.0;
+                var percent = (monster.Health * 100) / monster.MaxHealth;
 
-                if (double.IsInfinity(healthPercent))
-                    return;
-
-                progressHP.Position = Convert.ToInt32(Math.Round(healthPercent, 0));
-                progressHP.Text = progressHP.Position + @"%";
+                progressHP.Position = percent;
+                progressHP.Text = percent + "%";
             }
+        }
+
+        /// <summary>
+        /// Fired when an entity was deselected
+        /// </summary>
+        private void OnDeselectEntity()
+        {
+            Clear();
         }
 
         /// <summary>
@@ -96,10 +83,7 @@ namespace RSBot.Views.Controls
         /// </summary>
         private void OnKillSelectedEnemy()
         {
-            lblEntityName.Text = @"No entity selected";
-            progressHP.Position = 0;
-            progressHP.Text = progressHP.Position + @"%";
-            lblType.Text = "";
+            Clear();
         }
 
         /// <summary>
@@ -107,7 +91,18 @@ namespace RSBot.Views.Controls
         /// </summary>
         private void OnAgentServerDisconnected()
         {
-            OnKillSelectedEnemy();
+            Clear();
+        }
+
+        /// <summary>
+        /// Clear the control
+        /// </summary>
+        private void Clear()
+        {
+            lblEntityName.Text = "No entity selected";
+            progressHP.Position = 0;
+            progressHP.Text ="0%";
+            lblType.Text = "";
         }
     }
 }

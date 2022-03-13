@@ -35,7 +35,9 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
             var result = packet.ReadByte();
             if (result != 0x01)
             {
-                Log.Debug($"ItemOperation error received:  [{result.ToString("X")}] ({packet.ReadUShort().ToString("X")})");
+                var code = packet.ReadByte();
+
+                Log.Debug($"ItemOperation error received:  [{result:X}] ({code:X})");
                 return;
             }
 
@@ -809,16 +811,20 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
 
                 foreach (var slot in itemSlots)
                 {
-                    Core.Game.Player.Inventory.Items.Add(new InventoryItem
+                    var item = new InventoryItem
                     {
                         Slot = slot,
                         Amount = (ushort)amount,
                         ItemId = itemInfo.ID,
                         Durability = (uint)refShopGoodObj.Data,
                         Variance = (ulong)refShopGoodObj.Variance,
-                        OptLevel = refShopGoodObj.OptLevel,
-                        Rental = RentInfo.FromPacket(packet)
-                    });
+                        OptLevel = refShopGoodObj.OptLevel
+                    };
+
+                    if(Core.Game.ClientType > GameClientType.Thailand)
+                        item.Rental = RentInfo.FromPacket(packet);
+
+                    Core.Game.Player.Inventory.Items.Add(item);
                 }
             }
         }
