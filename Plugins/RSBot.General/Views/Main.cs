@@ -552,8 +552,7 @@ namespace RSBot.General.Views
             Game.ClientType = clientType;
             GlobalConfig.Save();
 
-            if (clientType == GameClientType.Vietnam ||
-                clientType == GameClientType.Vietnam274)
+            if (clientType.ToString().StartsWith("Vietnam"))
                 captchaPanel.Visible = true;
             else
                 captchaPanel.Visible = false;
