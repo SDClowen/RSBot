@@ -5,7 +5,7 @@ Hello respected silkroad online community. We have received notifications from m
 ## Supported Clients:
 
 1. Tailand(Blackrogue 100, 110)
-2. Vietnam(VSro) [188, 274]
+2. Vietnam(VSro) [188, 193, 274]
 3. Taiwan(TSRO 110)
 4. Chinese Old(ECSRO, Sunworld *Coming Soon*)
 5. Chinese(CSRO)
