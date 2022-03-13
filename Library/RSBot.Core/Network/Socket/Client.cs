@@ -228,7 +228,8 @@ namespace RSBot.Core.Network
             {
                 try
                 {
-                    _socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, OnBeginReceiveCallback, null);
+                    if(_socket.Connected)
+                        _socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, OnBeginReceiveCallback, null);
                 }
                 catch
                 {
