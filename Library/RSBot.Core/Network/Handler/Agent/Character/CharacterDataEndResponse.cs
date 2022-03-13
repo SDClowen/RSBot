@@ -180,7 +180,7 @@ namespace RSBot.Core.Network.Handler.Agent.Character
             if (Core.Game.ClientType > GameClientType.Chinese)
                 packet.ReadUInt(); //unkUint2 i think it is using for balloon event or buff for events
 
-            if (Core.Game.ClientType == GameClientType.Chinese)
+            if (Core.Game.ClientType > GameClientType.Vietnam)
                 packet.ReadByte();
 
             packet.ReadByte(); //PVP dress for the CTF event //0 = Red Side, 1 = Blue Side, 0xFF = None
