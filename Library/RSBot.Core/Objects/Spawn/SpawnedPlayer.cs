@@ -207,7 +207,7 @@ namespace RSBot.Core.Objects.Spawn
             //if(Game.ClientType > GameClientType.JapaneseOld) Jsro 90cap
                 HwanLevel = packet.ReadByte();
 
-            if(Game.ClientType > GameClientType.Taiwan)
+            if(Game.ClientType > GameClientType.Thailand)
                 PvpCape = (PvpCapeType)packet.ReadByte();
 
             AutoInverstExp = (AutoInverstType)packet.ReadByte();
