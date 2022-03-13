@@ -5,6 +5,7 @@
         Thailand,
         Vietnam,
         Taiwan,
+        Vietnam193,
         Vietnam274,
         Chinese,
         Global,

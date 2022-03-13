@@ -113,7 +113,7 @@ namespace RSBot.Core.Objects
             MotionState = (MotionState)packet.ReadByte();
             BodyState = (BodyState)packet.ReadByte();
 
-            if (Game.ClientType > GameClientType.Taiwan)
+            if (Game.ClientType > GameClientType.Vietnam193)
                 packet.ReadByte(); // hasRedArrowEffect
 
             WalkSpeed = packet.ReadFloat();
