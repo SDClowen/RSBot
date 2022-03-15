@@ -190,10 +190,12 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
         {
             if ((updateFlag & EntityUpdateStatusFlag.HP) == EntityUpdateStatusFlag.HP)
             {
-                var health = packet.ReadUInt();
+                var health = packet.ReadInt();
                 bionic.Health = health;
 
-                if(health <= 0)
+                Log.Debug("HP updated: " + health);
+
+                if (health <= 0)
                 {
                     EventManager.FireEvent("OnKillSelectedEnemy");
                     Core.Game.SelectedEntity = null;
@@ -205,12 +207,6 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
 
             if ((updateFlag & EntityUpdateStatusFlag.MP) == EntityUpdateStatusFlag.MP)
                 packet.ReadUInt();
-
-            if ((updateFlag & EntityUpdateStatusFlag.HPMP) != EntityUpdateStatusFlag.HPMP)
-            {
-                if (Core.Game.SelectedEntity?.UniqueId == bionic.UniqueId)
-                    EventManager.FireEvent("OnUpdateSelectedEntityHP", bionic);
-            }
 
             if ((updateFlag & EntityUpdateStatusFlag.BadEffect) == EntityUpdateStatusFlag.BadEffect)
             {

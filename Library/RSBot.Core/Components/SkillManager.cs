@@ -10,6 +10,14 @@ using System.Threading;
 
 namespace RSBot.Core.Components
 {
+    public enum ActionType
+    {
+        None,
+        AttackSkill,
+        BuffSkill,
+        AutoAttack
+    }
+
     public static class SkillManager
     {
         /// <summary>
@@ -48,6 +56,11 @@ namespace RSBot.Core.Components
         /// The buffs.
         /// </value>
         public static List<SkillInfo> Buffs { get; set; }
+
+        /// <summary>
+        /// Last action type
+        /// </summary>
+        public static ActionType LastActionType { get; private set; }
 
         /// <summary>
         /// Initializes this instance.
@@ -203,12 +216,6 @@ namespace RSBot.Core.Components
             return result;
         }
 
-        /// <summary>
-        /// Cast player skill
-        /// </summary>
-        /// <param name="skillId">The skill identifier.</param>
-        /// <param name="targetId">The target unique identifier.</param>
-        /// <returns> <c>true</c> if this successfully used the selected skill; otherwise, <c>false</c>.</returns>
         public static bool CastSkill(SkillInfo skill, uint targetId = 0)
         {
             if (!Game.Player.Skills.HasSkill(skill.Id))
@@ -217,12 +224,54 @@ namespace RSBot.Core.Components
             if (!SpawnManager.TryGetEntity<SpawnedBionic>(targetId, out var entity))
                 return false;
 
+            if (entity.State.LifeState == LifeState.Dead)
+                return false;
+
             var weapon = Game.Player.Inventory.GetItemAt(6);
 
             if (!CheckSkillRequired(skill.Record))
                 return false;
 
-            var distance = Game.Player.Movement.Source.DistanceTo(entity.Movement.Source);
+            var packet = new Packet(0x7074);
+            packet.WriteByte(1); //Execute
+            packet.WriteByte(4); //Use Skill
+            packet.WriteUInt(skill.Id);
+            packet.WriteByte(ActionTarget.Entity);
+            packet.WriteUInt(targetId);
+            packet.Lock();
+
+            Log.Debug($"Skill Attacking to: {targetId} State: {entity.State.LifeState} Health: {entity.Health} HasHealth: {entity.HasHealth} Dst: {System.Math.Round(entity.DistanceToPlayer, 1)}");
+
+            LastActionType = ActionType.AttackSkill;
+
+            PacketManager.SendPacket(packet, PacketDestination.Server);
+            
+            return true;
+        }
+
+        /// <summary>
+        /// Cast player skill
+        /// </summary>
+        /// <param name="skillId">The skill identifier.</param>
+        /// <param name="targetId">The target unique identifier.</param>
+        /// <returns> <c>true</c> if this successfully used the selected skill; otherwise, <c>false</c>.</returns>
+        public static bool CastSkillOld(SkillInfo skill, uint targetId = 0)
+        {
+            if (!Game.Player.Skills.HasSkill(skill.Id))
+                return false;
+
+            if (!SpawnManager.TryGetEntity<SpawnedBionic>(targetId, out var entity))
+                return false;
+
+            if (entity.State.LifeState == LifeState.Dead)
+                return false;
+
+            var weapon = Game.Player.Inventory.GetItemAt(6);
+
+            if (!CheckSkillRequired(skill.Record))
+                return false;
+
+            var distance = entity.DistanceToPlayer;
             var speed = Game.Player.ActualSpeed;
             var movingSleep = 0d;
 
@@ -264,37 +313,6 @@ namespace RSBot.Core.Components
 
             packet.Lock();
 
-            var awaitCallBack = new AwaitCallback(response =>
-            {
-                var result = response.ReadByte();
-
-                if (result == 2)
-                {
-                    var errorCode = response.ReadByte();
-
-                    switch (errorCode)
-                    {
-                        case 0x0E:
-                            Game.Player.EquipAmmunation();
-                            break;
-
-                        case 0x06: // invalid target
-                        case 0x10: // obstacle
-                            break;
-                        default:
-                            Log.Error($"Invalid skill error code: 0x{errorCode:X2}");
-                            break;
-                    }
-
-                    return AwaitCallbackResult.Failed;
-                }
-
-                var action = Objects.Action.DeserializeBegin(response);
-
-                return action.SkillId == skill.Id && action.PlayerIsExecutor
-                            ? AwaitCallbackResult.Received : AwaitCallbackResult.None;
-            }, 0xB070);
-
             var callback = new AwaitCallback(response =>
             {
                 return response.ReadByte() == 0x02 && response.ReadByte() == 0x00
@@ -305,9 +323,9 @@ namespace RSBot.Core.Components
             RefSkill altSkill = skill.Record;
             while (altSkill != null)
             {
-                duration += altSkill.Action_CastingTime;/* +
+                duration += altSkill.Action_CastingTime +
                             altSkill.Action_ActionDuration +
-                            altSkill.Action_PreparingTime;*/
+                            altSkill.Action_PreparingTime;
 
                 if (altSkill.Basic_ChainCode != 0)
                     altSkill = Game.ReferenceManager.GetRefSkill(altSkill.Basic_ChainCode);
@@ -318,20 +336,19 @@ namespace RSBot.Core.Components
             if (duration < 100)
                 duration = 1000;
 
-            PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallBack, callback);
+            Log.Debug($"Skill Attacking to: {targetId} State: {entity.State.LifeState} Health: {entity.Health} HasHealth: {entity.HasHealth} Dst: {System.Math.Round(entity.DistanceToPlayer, 1)}");
+
+            PacketManager.SendPacket(packet, PacketDestination.Server, callback);
             Thread.Sleep(duration);
-            /*
-            awaitCallBack.AwaitResponse(duration);
 
             if (skill.Record.Basic_Activity != 1)
-                callback.AwaitResponse();
-            */
-
-            //return awaitCallBack.IsCompleted;
+            {
+                callback.AwaitResponse(duration);
+                return callback.IsCompleted;
+            }
 
             return true;
         }
-
 
         /// <summary>
         /// Casts the buff skill.
@@ -382,6 +399,7 @@ namespace RSBot.Core.Components
                     ? AwaitCallbackResult.Received : AwaitCallbackResult.None;
             }, 0xB074);
 
+            LastActionType = ActionType.BuffSkill;
             PacketManager.SendPacket(packet, PacketDestination.Server, asyncCallback, callback);
 
             asyncCallback.AwaitResponse(skill.Record.Action_CastingTime +
@@ -398,44 +416,28 @@ namespace RSBot.Core.Components
         /// <param name="skill"></param>
         /// <param name="targetId"></param>
         /// <returns></returns>
-        public static bool CastAutoAttack(uint targetId)
+        public static bool CastAutoAttack()
         {
+            var entity = Game.SelectedEntity;
+            if (entity == null)
+                return false;
+
+            if (entity.State.LifeState == LifeState.Dead)
+                return false;
+
             var packet = new Packet(0x7074);
             packet.WriteByte(1); //Execute
             packet.WriteByte(1); //Use Skill
             packet.WriteByte(ActionTarget.Entity);
-            packet.WriteUInt(targetId);
+            packet.WriteUInt(entity.UniqueId);
             packet.Lock();
 
-            var awaitCallBack = new AwaitCallback(response =>
-            {
-                var result = response.ReadByte();
-                if (result == 0x01)
-                    return Objects.Action.DeserializeBegin(response).PlayerIsExecutor
-                        ? AwaitCallbackResult.Received : AwaitCallbackResult.None;
+            Log.Debug($"Normal Attacking to: {entity.UniqueId} State: {entity.State.LifeState} Health: {entity.Health} HasHealth: {entity.HasHealth} Dst: {System.Math.Round(entity.DistanceToPlayer, 1)}");
 
-                var errorCode = response.ReadByte();
-                switch (errorCode)
-                {
-                    case 0x0E:
-                        Game.Player.EquipAmmunation();
-                        break;
+            LastActionType = ActionType.AutoAttack;
+            PacketManager.SendPacket(packet, PacketDestination.Server);
 
-                    case 0x06: // invalid target
-                    case 0x10: // obstacle
-                        break;
-                    default:
-                        Log.Error($"Invalid skill error code: 0x{errorCode:X2}");
-                        break;
-                }
-
-                return AwaitCallbackResult.Failed;
-            }, 0xB070);
-
-            PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallBack);
-            awaitCallBack.AwaitResponse();
-
-            return awaitCallBack.IsCompleted;
+            return true;
         }
 
         /// <summary>
@@ -478,6 +480,28 @@ namespace RSBot.Core.Components
 
             packet.Lock();
             PacketManager.SendPacket(packet, PacketDestination.Server);
+        }
+
+        /// <summary>
+        /// Cancels the action.
+        /// </summary>
+        /// <returns></returns>
+        public static bool CancelAction()
+        {
+            var packet = new Packet(0x7074);
+            packet.WriteByte(0x02); //Cancel
+            packet.Lock();
+
+            var callback = new AwaitCallback(response =>
+            {
+                return response.ReadByte() == 0x02 && response.ReadByte() == 0x00
+                ? AwaitCallbackResult.Received : AwaitCallbackResult.None;
+            }, 0xB074);
+
+            PacketManager.SendPacket(packet, PacketDestination.Server, callback);
+            callback.AwaitResponse();
+
+            return callback.IsCompleted;
         }
     }
 }

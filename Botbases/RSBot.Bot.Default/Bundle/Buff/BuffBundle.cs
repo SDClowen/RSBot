@@ -11,18 +11,6 @@ namespace RSBot.Bot.Default.Bundle.Buff
         /// </summary>
         public void Invoke()
         {
-            if (!Kernel.Bot.Running)
-                return;
-
-            if (Game.Player.Exchanging)
-                return;
-
-            if (Game.Player.State.LifeState == LifeState.Dead)
-                return;
-
-            if (Game.Player.Untouchable)
-                return;
-
             while (true)
             {
                 if (Game.Player.State.LifeState != LifeState.Alive)

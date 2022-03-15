@@ -13,24 +13,16 @@ namespace RSBot.Core.Objects.Spawn
         public MonsterRarity Rarity { get; set; }
 
         /// <summary>
-        /// Gets the distance to player.
-        /// </summary>
-        /// <value>
-        /// The distance to player.
-        /// </value>
-        public double DistanceToPlayer => Game.Player.Movement.Source.DistanceTo(Movement.Source);
-
-        /// <summary>
         /// Gets the maximum health.
         /// </summary>
         /// <value>
         /// The maximum health.
         /// </value>
-        public uint MaxHealth
+        public int MaxHealth
         {
             get
             {
-                var baseHealth = (uint)Record.MaxHealth;
+                var baseHealth = Record.MaxHealth;
                 switch (Rarity)
                 {
                     case MonsterRarity.Champion:

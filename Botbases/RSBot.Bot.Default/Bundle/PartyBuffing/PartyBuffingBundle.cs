@@ -51,18 +51,6 @@ namespace RSBot.Bot.Default.Bundle.PartyBuffing
                 Game.Party.Members == null)
                 return;
 
-            if (!Kernel.Bot.Running)
-                return;
-
-            if (Game.Player.Exchanging)
-                return;
-
-            if (Game.Player.State.LifeState == LifeState.Dead)
-                return;
-
-            if (Game.Player.Untouchable)
-                return;
-
             var selectedGroup = PlayerConfig.Get("RSBot.Party.Buffing.SelectedGroup", "Default");
 
             var members = Game.Party.Members

@@ -7,6 +7,11 @@ namespace RSBot.Core.Network
     public class PacketManager
     {
         /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        private static object _lock = new object();
+
+        /// <summary>
         /// Gets the handlers.
         /// </summary>
         /// <value>
@@ -18,17 +23,10 @@ namespace RSBot.Core.Network
         /// Gets the hooks.
         /// </summary>
         internal static List<IPacketHook> Hooks;
-
-        #region Fields
-
         /// <summary>
         /// The callbacks
         /// </summary>
         private static List<AwaitCallback> _callbacks = new List<AwaitCallback>();
-
-        private static object _lock = new object();
-
-        #endregion Fields
 
         /// <summary>
         /// Registers the handler.
@@ -125,7 +123,7 @@ namespace RSBot.Core.Network
                     callback.Invoke(packet);
                 }
 
-                _callbacks.RemoveAll(p => p.Timeout);
+                _callbacks.RemoveAll(p => p.Received || p.Timeout);
             }
         }
 
