@@ -247,9 +247,10 @@ namespace RSBot.General.Views
             if (!Kernel.Proxy.ClientConnected)
                 return;
 
+            ClientManager.Kill();
+
             if (GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin"))
             {
-                ClientManager.Kill();
                 Thread.Sleep(2000);
 
                 StartClientProcess();
