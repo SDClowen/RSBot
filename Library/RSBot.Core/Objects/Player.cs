@@ -474,15 +474,27 @@ namespace RSBot.Core.Objects
         /// Gets or sets the last purification pill potion item tick count
         /// </summary>
         private int _lastPurificationPillTick;
-        
+
+        /// <summary>
+        /// Gets or sets the last hp potion item duration
+        /// </summary>
+        private int _lastHPDuration = 0;
+
+        /// <summary>
+        /// Gets or sets the last mp potion item duration
+        /// </summary>
+        private int _lastMPDuration = 0;
+
+        /// <summary>
+        /// Gets or sets the last vigor potion item duration
+        /// </summary>
+        private int _lastVigorDuration = 0;
+
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
         /// <param name="objId"></param>
-        public Player(uint objId) : base(objId)
-        {
-
-        }
+        public Player(uint objId) : base(objId){}
 
         /// <summary>
         /// Gets the ammo amount.
@@ -609,30 +621,39 @@ namespace RSBot.Core.Objects
             return false;
         }
 
-        /// <summary>
-        /// Uses the health potion.
-        /// </summary>
-        public bool UseHealthPotion()
+        private bool UsePotion(TypeIdFilter filter, ref int tick, ref int duration)
         {
             if (State.LifeState == LifeState.Dead)
                 return false;
 
-            var elapsed = Environment.TickCount - _lastHpPotionTick;
-            if (Race == ObjectCountry.Chinese && elapsed < 1000)
-                return false;
+            InventoryItem potionItem = null;
+            if (_lastHPDuration == 0)
+            {
+                potionItem = Inventory.GetItem(filter);
+                if (potionItem == null)
+                    return false;
 
-            if (Race == ObjectCountry.Europe && elapsed < 15000)
-                return false;
+                // potion
+                if (potionItem.Record.Param1 > 0)
+                {
+                    if (Race == ObjectCountry.Chinese)
+                        duration = 1000;
+                    else
+                        duration = 15000;
+                }
+                // grain
+                else if (potionItem.Record.Param2 > 0)
+                {
+                    duration = 4000;
+                }
+            }
 
-            var typeIdFilter = new TypeIdFilter(3, 3, 1, 1);
-            var potionItem = Inventory.GetItem(typeIdFilter);
-            if (potionItem == null)
+            var elapsed = Environment.TickCount - tick;
+            if (elapsed < duration)
                 return false;
 
             var result = potionItem.Use();
-
-            //if(result)
-            _lastHpPotionTick = Environment.TickCount;
+            tick = Environment.TickCount;
 
             return result;
         }
@@ -640,29 +661,17 @@ namespace RSBot.Core.Objects
         /// <summary>
         /// Uses the health potion.
         /// </summary>
+        public bool UseHealthPotion()
+        {
+            return UsePotion(new TypeIdFilter(3, 3, 1, 1), ref _lastHpPotionTick, ref _lastHPDuration);
+        }
+
+        /// <summary>
+        /// Uses the health potion.
+        /// </summary>
         public bool UseManaPotion()
         {
-            if (State.LifeState == LifeState.Dead)
-                return false;
-
-            var elapsed = Environment.TickCount - _lastMpPotionTick;
-            if (Race == ObjectCountry.Chinese && elapsed < 1000)
-                return false;
-
-            if (Race == ObjectCountry.Europe && elapsed < 15000)
-                return false;
-
-            var typeIdFilter = new TypeIdFilter(3, 3, 1, 2);
-            var potionItem = Inventory.GetItem(typeIdFilter);
-            if (potionItem == null)
-                return false;
-
-            var result = potionItem.Use();
-
-            //if(result)
-            _lastMpPotionTick = Environment.TickCount;
-
-            return result;
+            return UsePotion(new TypeIdFilter(3, 3, 1, 2), ref _lastMpPotionTick, ref _lastMPDuration);
         }
 
         /// <summary>
@@ -671,26 +680,7 @@ namespace RSBot.Core.Objects
         /// <returns></returns>
         public bool UseVigorPotion()
         {
-            if (State.LifeState == LifeState.Dead)
-                return false;
-
-            var typeIdFilter = new TypeIdFilter(3, 3, 1, 3);
-            var item = Inventory.GetItem(typeIdFilter);
-            if (item == null)
-                return false;
-
-            var elapsed = Environment.TickCount - _lastVigorPotionTick;
-
-            var normalPotion = item.Record.CodeName.Contains("_POTION_");
-            if (Race == ObjectCountry.Chinese && elapsed < (normalPotion ? 1000 : 4000))
-                return false;
-
-            if (Race == ObjectCountry.Europe && elapsed < (normalPotion ? 15000 : 4000))
-                return false;
-
-            _lastVigorPotionTick = Environment.TickCount;
-
-            return item.Use();
+            return UsePotion(new TypeIdFilter(3, 3, 1, 2), ref _lastVigorPotionTick, ref _lastVigorDuration);
         }
 
         /// <summary>
