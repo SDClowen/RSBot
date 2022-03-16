@@ -16,7 +16,7 @@ namespace RSBot.Core.Objects.Spawn
         /// <value>
         /// The record.
         /// </value>
-        public RefSkill Record => Game.ReferenceManager.GetRefSkill(SkillId);
+        public new RefSkill Record => Game.ReferenceManager.GetRefSkill(SkillId);
 
         /// <summary>
         /// Froms the packet.

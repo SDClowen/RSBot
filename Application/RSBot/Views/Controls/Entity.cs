@@ -32,13 +32,14 @@ namespace RSBot.Views.Controls
         /// </summary>
         private void OnSelectEntity(SpawnedBionic entity)
         {
+
+            var percent = 100;
+            lblType.Text = string.Empty;
+
             if (entity is SpawnedPlayer player)
                 lblEntityName.Text = player.Name;
             else
                 lblEntityName.Text = entity.Record.GetRealName();
-
-            var percent = 0;
-            lblType.Text = string.Empty;
 
             if (entity is SpawnedMonster monster)
             {

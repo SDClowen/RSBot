@@ -1,37 +1,12 @@
-﻿using RSBot.Core.Client.ReferenceObjects;
-using RSBot.Core.Network;
-using RSBot.Core.Objects.Item;
+﻿using RSBot.Core.Network;
+using RSBot.Core.Objects.Spawn;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace RSBot.Core.Objects
 {
-    public class AbilityPet
+    public class AbilityPet : SpawnedEntity
     {
-        /// <summary>
-        /// Gets or sets the unique identifier.
-        /// </summary>
-        /// <value>
-        /// The unique identifier.
-        /// </value>
-        public uint UniqueId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
-        public uint Id { get; set; }
-
-        /// <summary>
-        /// Gets the record.
-        /// </summary>
-        /// <value>
-        /// The record.
-        /// </value>
-        public RefObjChar Record => Game.ReferenceManager.GetRefObjChar(Id);
-
         /// <summary>
         /// Gets or sets the name.
         /// </summary>

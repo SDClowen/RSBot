@@ -101,20 +101,12 @@ namespace RSBot.Core.Objects
         public uint ExperienceChunk { get; set; }
 
         /// <summary>
-        /// Gets or sets the health.
-        /// </summary>
-        /// <value>
-        /// The health.
-        /// </value>
-        public uint Health { get; set; }
-
-        /// <summary>
         /// Gets or sets the mana.
         /// </summary>
         /// <value>
         /// The mana.
         /// </value>
-        public uint Mana { get; set; }
+        public int Mana { get; set; }
 
         /// <summary>
         /// Gets or sets the automatic inverst experience.
@@ -419,14 +411,6 @@ namespace RSBot.Core.Objects
         ///   <c>true</c> if [in action]; otherwise, <c>false</c>.
         /// </value>
         public bool InAction { get; set; }
-
-        /// <summary>
-        /// Gets or sets the bad effect.
-        /// </summary>
-        /// <value>
-        /// The bad effect.
-        /// </value>
-        public BadEffect BadEffect { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="Player"/> is untouchable.

@@ -50,7 +50,7 @@ HANDLE WINAPI User_CreateMutexA(LPSECURITY_ATTRIBUTES lpMutexAttributes, BOOL bI
 	if (lpName && strcmp(lpName, "Silkroad Client") == 0)
 	{
 		char newName[128] = { 0 };
-		_snprintf_s(newName, sizeof(newName), sizeof(newName) / sizeof(newName[0]) - 1, "Silkroad Client_%d", 0xFFFFFFFF & __rdtsc());
+		_snprintf_s(newName, sizeof(newName), sizeof(newName) / sizeof(newName[0]) - 1, "Silkroad Client_%lld", 0xFFFFFFFF & __rdtsc());
 		return Real_CreateMutexA(lpMutexAttributes, bInitialOwner, newName);
 	}
 	return Real_CreateMutexA(lpMutexAttributes, bInitialOwner, lpName);
@@ -76,7 +76,7 @@ HANDLE WINAPI User_CreateSemaphoreA(LPSECURITY_ATTRIBUTES lpSemaphoreAttributes,
 	if (lpName && strcmp(lpName, "Global\\Silkroad Client") == 0)
 	{
 		char newName[128] = { 0 };
-		_snprintf_s(newName, sizeof(newName), sizeof(newName) / sizeof(newName[0]) - 1, "Global\\Silkroad Client_%d", 0xFFFFFFFF & __rdtsc());
+		_snprintf_s(newName, sizeof(newName), sizeof(newName) / sizeof(newName[0]) - 1, "Global\\Silkroad Client_%lld", 0xFFFFFFFF & __rdtsc());
 		return Real_CreateSemaphoreA(lpSemaphoreAttributes, lInitialCount, lMaximumCount, newName);
 	}
 
@@ -115,7 +115,7 @@ int WINAPI Detour_connect(SOCKET s, const struct sockaddr* name, int len)
 
 	for (auto& gatewayAddress : g_RealGatewayAddresses)
 	{
-		struct in_addr maddr;
+		struct in_addr maddr = {0};
 		maddr.s_addr = *(u_long*)gethostbyname(gatewayAddress.c_str())->h_addr_list[0];
 		if (strcmp(inet_ntoa(editing->sin_addr), inet_ntoa(maddr)) == 0 && htons(editing->sin_port) == g_RealGatewayPort)
 		{

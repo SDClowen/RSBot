@@ -24,7 +24,8 @@
         /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
-            if (Core.Game.CharacterPacket == null) return; //Something went wrong between start and stop!
+            if (Core.Game.CharacterPacket == null) 
+                return;
 
             Core.Game.CharacterPacket.WriteByteArray(packet.GetBytes());
         }

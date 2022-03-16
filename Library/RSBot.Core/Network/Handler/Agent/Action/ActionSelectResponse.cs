@@ -40,8 +40,6 @@ namespace RSBot.Core.Network.Handler.Agent.Action
 
             Core.Game.SelectedEntity = entity;
 
-            EventManager.FireEvent("OnSelectEntity", entity);
-
             if (entity is SpawnedMonster)
             {
                 var hasHealth = packet.ReadBool();
@@ -68,6 +66,8 @@ namespace RSBot.Core.Network.Handler.Agent.Action
                 entity.Talk.Deserialize(packet);
             }
             */
+
+            EventManager.FireEvent("OnSelectEntity", entity);
         }
     }
 }

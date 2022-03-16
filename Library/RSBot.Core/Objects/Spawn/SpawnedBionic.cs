@@ -38,6 +38,14 @@ namespace RSBot.Core.Objects.Spawn
         public int Health { get; set; }
 
         /// <summary>
+        /// Gets or sets the bad effect.
+        /// </summary>
+        /// <value>
+        /// The bad effect.
+        /// </value>
+        public BadEffect BadEffect { get; set; }
+
+        /// <summary>
         /// <inheritdoc/>
         /// </summary>
         /// <param name="objId">The ref obj id</param>

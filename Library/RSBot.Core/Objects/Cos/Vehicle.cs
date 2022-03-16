@@ -1,5 +1,4 @@
-﻿using RSBot.Core.Client.ReferenceObjects;
-using RSBot.Core.Network;
+﻿using RSBot.Core.Network;
 using RSBot.Core.Objects.Spawn;
 using System;
 using System.Linq;
@@ -7,39 +6,19 @@ using System.Threading;
 
 namespace RSBot.Core.Objects
 {
-    public class Vehicle : SpawnedEntity
+    public class Vehicle : SpawnedBionic
     {
         /// <summary>
-        /// Gets or sets the current health.
+        /// <inheritdoc/>
         /// </summary>
-        /// <value>
-        /// The current health.
-        /// </value>
-        public uint Health { get; set; }
-
-        /// <summary>
-        /// Gets or sets the bad effect.
-        /// </summary>
-        /// <value>
-        /// The bad effect.
-        /// </value>
-        public BadEffect BadEffect { get; set; }
-
-        /// <summary>
-        /// Froms the packet.
-        /// </summary>
-        /// <param name="packet">The packet.</param>
-        /// <param name="uniqueId">The unique identifier.</param>
-        /// <param name="id">The identifier.</param>
-        /// <returns></returns>
-        internal static Vehicle FromPacket(Packet packet, uint uniqueId, uint id)
+        /// <param name="objId">The entity model id</param>
+        /// <param name="uniqueId">The entity unique id</param>
+        /// <param name="health">The current health</param>
+        public Vehicle(uint objId, uint uniqueId, int health) 
+            : base(objId)
         {
-            return new Vehicle
-            {
-                UniqueId = uniqueId,
-                Id = id,
-                Health = packet.ReadUInt()
-            };
+            UniqueId = uniqueId;
+            Health = health;
         }
 
         /// <summary>
