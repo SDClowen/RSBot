@@ -1,6 +1,6 @@
 ﻿namespace RSBot.Core.Network.Handler.Agent.Inventory
 {
-    internal class InventoryStorageDataResponse : IPacketHandler
+    internal class InventoryStorageDataBeginResponse : IPacketHandler
     {
         /// <summary>
         /// Gets or sets the opcode.
@@ -8,7 +8,7 @@
         /// <value>
         /// The opcode.
         /// </value>
-        public ushort Opcode => 0x3049;
+        public ushort Opcode => 0x3047;
 
         /// <summary>
         /// Gets or sets the destination.
@@ -24,7 +24,7 @@
         /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
-            Core.Game.StoragePacket.WriteByteArray(packet.GetBytes());
+            Core.Game.StoragePacket = new Packet(0x3047);
         }
     }
 }

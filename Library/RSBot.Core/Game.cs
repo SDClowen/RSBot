@@ -68,6 +68,14 @@ namespace RSBot.Core
         internal static Packet CharacterPacket { get; set; }
 
         /// <summary>
+        /// Gets or sets the storage packet.
+        /// </summary>
+        /// <value>
+        /// The storage packet.
+        /// </value>
+        internal static Packet StoragePacket { get; set; }
+
+        /// <summary>
         /// Gets or sets the party.
         /// </summary>
         /// <value>
