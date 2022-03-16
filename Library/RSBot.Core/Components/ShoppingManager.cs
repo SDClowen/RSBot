@@ -392,8 +392,7 @@ namespace RSBot.Core.Components
                 return;
             }
 
-            if (entity.TrySelect())
-                SelectedEntity = entity;
+            entity.TrySelect();
         }
 
         /// <summary>

@@ -6,6 +6,14 @@ namespace RSBot.Core.Objects.Spawn
     public class SpawnedBionic : SpawnedEntity
     {
         /// <summary>
+        /// Gets the distance to player.
+        /// </summary>
+        /// <value>
+        /// The distance to player.
+        /// </value>
+        public double DistanceToPlayer => Game.Player.Movement.Source.DistanceTo(Movement.Source);
+
+        /// <summary>
         /// Gets a value indicating whether [attacking player].
         /// </summary>
         /// <value>
@@ -27,7 +35,7 @@ namespace RSBot.Core.Objects.Spawn
         /// <value>
         /// The health.
         /// </value>
-        public uint Health { get; set; }
+        public int Health { get; set; }
 
         /// <summary>
         /// <inheritdoc/>
@@ -36,6 +44,7 @@ namespace RSBot.Core.Objects.Spawn
         public SpawnedBionic(uint objId)
         {
             Id = objId;
+            Health = Record.MaxHealth;
         }
 
         /// <summary>
@@ -84,6 +93,8 @@ namespace RSBot.Core.Objects.Spawn
         /// <returns></returns>
         public bool TrySelect()
         {
+            Log.Debug($"Trying to select the entity: {UniqueId} State: {State.LifeState} Health: {Health} HasHealth: {HasHealth} Dst: {System.Math.Round(DistanceToPlayer, 1)}");
+
             var packet = new Packet(0x7045);
             packet.WriteUInt(UniqueId);
             packet.Lock();
@@ -92,7 +103,7 @@ namespace RSBot.Core.Objects.Spawn
             {
                 var result = response.ReadByte() == 0x01;
                 if (!result)
-                    Log.Error("Could not select entity 0x" + (Game.ClientType < GameClientType.Vietnam ? response.ReadByte() : response.ReadUShort()));
+                    Log.Debug($"Could not select entity 0x{response.ReadByte():X}");
 
                 return result
                     ? AwaitCallbackResult.Received : AwaitCallbackResult.Failed;
@@ -109,6 +120,8 @@ namespace RSBot.Core.Objects.Spawn
         /// <returns></returns>
         public bool TryDeselect()
         {
+            Log.Debug($"Entity deselected: {UniqueId}");
+
             var packet = new Packet(0x704B);
             packet.WriteUInt(UniqueId);
             packet.Lock();

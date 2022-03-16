@@ -148,6 +148,11 @@ namespace RSBot.Core.Components
                 if (removedEntity == null)
                     return false;
 
+                if (Game.SelectedEntity != null && removedEntity.Equals(Game.SelectedEntity))
+                {
+                    Game.SelectedEntity = null;
+                }
+
                 removedEntity.Dispose();
                 return _entities.Remove(removedEntity);
             }

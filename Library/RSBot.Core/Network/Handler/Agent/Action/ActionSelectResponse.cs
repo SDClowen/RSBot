@@ -42,24 +42,24 @@ namespace RSBot.Core.Network.Handler.Agent.Action
 
             EventManager.FireEvent("OnSelectEntity", entity);
 
-            /*if (entity is SpawnedMonster)
+            if (entity is SpawnedMonster)
             {
                 var hasHealth = packet.ReadBool();
                 if (hasHealth)
-                    result.Health = packet.ReadUInt();
+                    entity.Health = packet.ReadInt();
 
-                entity.Talk.Deserialize(packet);
+                //entity.Talk.Deserialize(packet);
             }
             else if (entity is SpawnedNpcNpc)
             {
                 var hasHealth = packet.ReadBool();
                 if (hasHealth)
-                    result.Health = packet.ReadUInt();
+                    entity.Health = packet.ReadInt();
 
-                entity.Talk.Deserialize(packet);
-                packet.ReadByte(); // ??
+                //entity.Talk.Deserialize(packet);
+                //packet.ReadByte(); // ??
             }
-            else if (entity is SpawnedPlayer)
+            /*else if (entity is SpawnedPlayer)
             {
                 entity.Talk.Deserialize(packet);
             }

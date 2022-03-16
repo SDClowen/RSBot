@@ -11,24 +11,16 @@ namespace RSBot.Bot.Default.Bundle.Attack
         /// </summary>
         public void Invoke()
         {
-            if (!Kernel.Bot.Running)
-                return;
-
-            if (Game.Player.Exchanging)
-                return;
-
-            if (Game.Player.State.LifeState == LifeState.Dead)
-                return;
-
-            if (Game.Player.Untouchable)
-                return;
-
             if (Game.SelectedEntity == null)
                 return;
 
             if (Game.SelectedEntity.IsBehindObstacle)
             {
                 Log.Debug("Deselecting entity because it moved behind an obstacle!");
+
+                if (Game.Player.InAction)
+                    SkillManager.CancelAction();
+
                 if(Game.SelectedEntity.TryDeselect())
                     Game.SelectedEntity = null;
 
@@ -40,11 +32,23 @@ namespace RSBot.Bot.Default.Bundle.Attack
                 SkillManager.ImbueSkill.CanBeCasted)
                 SkillManager.CastBuff(SkillManager.ImbueSkill);
 
-            uint uniqueId = Game.SelectedEntity.UniqueId;
+            if (Game.Player.InAction && SkillManager.LastActionType != ActionType.AutoAttack)
+                return;
 
             var skill = SkillManager.GetNextSkill();
-            if (skill == null || !SkillManager.CastSkill(skill, uniqueId))
-                SkillManager.CastAutoAttack(uniqueId);
+            if (skill == null)
+            {
+                if (Game.Player.InAction)
+                    return;
+
+                SkillManager.CastAutoAttack();
+                return;
+            }
+            else if (Game.Player.InAction && SkillManager.LastActionType == ActionType.AutoAttack)
+                SkillManager.CancelAction();
+
+            var uniqueId = Game.SelectedEntity.UniqueId;
+            SkillManager.CastSkill(skill, uniqueId);
         }
 
         /// <summary>

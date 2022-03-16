@@ -809,32 +809,13 @@ namespace RSBot.Core.Objects
         }
 
         /// <summary>
-        /// Cancels the action.
-        /// </summary>
-        /// <returns></returns>
-        public bool CancelAction()
-        {
-            var packet = new Packet(0x7074);
-            packet.WriteByte(0x02); //Cancel
-            packet.Lock();
-
-            var callback = new AwaitCallback(response =>
-            {
-                return response.ReadByte() == 0x02 && response.ReadByte() == 0x00
-                ? AwaitCallbackResult.Received : AwaitCallbackResult.None;
-            }, 0xB074);
-
-            PacketManager.SendPacket(packet, PacketDestination.Server, callback);
-            callback.AwaitResponse();
-
-            return callback.IsCompleted;
-        }
-
-        /// <summary>
         /// Equips the ammunation.
         /// </summary>
         public void EquipAmmunation()
         {
+            if (!Kernel.Bot.Running)
+                return;
+
             var currentWeapon = Inventory.GetItemAt(6);
             var currentAmmunation = Inventory.GetItemAt(7);
 

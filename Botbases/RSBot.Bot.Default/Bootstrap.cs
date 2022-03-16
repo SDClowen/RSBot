@@ -2,10 +2,10 @@
 using RSBot.Bot.Default.Bundle;
 using RSBot.Bot.Default.Views;
 using RSBot.Core;
+using RSBot.Core.Components;
 using RSBot.Core.Objects;
 using RSBot.Core.Plugins;
 using System;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RSBot.Bot.Default
@@ -93,7 +93,7 @@ namespace RSBot.Bot.Default
             lock (Container.Lock)
             {
                 if (Game.Player.InAction)
-                    Game.Player.CancelAction();
+                    SkillManager.CancelAction();
             }
         }
     }

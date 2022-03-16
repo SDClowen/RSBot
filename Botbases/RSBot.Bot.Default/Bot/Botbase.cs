@@ -48,7 +48,16 @@ namespace RSBot.Bot.Default.Bot
         /// </summary>
         public void Tick()
         {
+            if (!Kernel.Bot.Running)
+                return;
+
             if (Game.Player.Exchanging)
+                return;
+
+            if (Game.Player.Untouchable)
+                return;
+
+            if (Game.Player.State.LifeState == LifeState.Dead)
                 return;
 
             if (Bundles.Loop.Running)

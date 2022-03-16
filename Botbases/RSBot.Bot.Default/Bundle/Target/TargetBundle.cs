@@ -28,12 +28,11 @@ namespace RSBot.Bot.Default.Bundle.Target
                 return;
 
             //Move closer to the monster
-            var distanceToPlayer = monster.Movement.Source.DistanceTo(Game.Player.Movement.Source);
-            if (distanceToPlayer >= 80)
-                Game.Player.MoveTo(monster.Movement.Source/*.BehindTo(monster.Character.Bionic.Tracker.Position, 20)*/);
-
-            if (monster.TrySelect())
-                Game.SelectedEntity = monster;
+            //var distanceToPlayer = monster.Movement.Source.DistanceTo(Game.Player.Movement.Source);
+            //if (distanceToPlayer >= 80)
+                //Game.Player.MoveTo(monster.Movement.Source/*.BehindTo(monster.Character.Bionic.Tracker.Position, 20)*/);
+            
+            monster.TrySelect();
         }
 
         /// <summary>
@@ -44,7 +43,8 @@ namespace RSBot.Bot.Default.Bundle.Target
         {
             if (!SpawnManager.TryGetEntities<SpawnedMonster>(out var entities, m => m.State.LifeState == LifeState.Alive &&
                             m.IsBehindObstacle == false &&
-                            !Bundles.Avoidance.AvoidMonster(m.Rarity)))
+                            !Bundles.Avoidance.AvoidMonster(m.Rarity) && 
+                            m.DistanceToPlayer <= 40))
                     return default(SpawnedMonster);
 
             return entities.OrderBy(m => m.Movement.Source.DistanceTo(Container.Bot.Area.CenterPosition))

@@ -29,8 +29,31 @@ namespace RSBot.Core.Network.Handler.Agent.Action
         public void Invoke(Packet packet)
         {
             var result = packet.ReadByte();
-            if (result != 0x01) 
+            if (result != 0x01)
+            {
+                var errorCode = packet.ReadByte();
+
+                switch (errorCode)
+                {
+                    case 0x0E:
+                        Core.Game.Player.EquipAmmunation();
+                        break;
+
+                    case 0x05:
+                        Log.Debug("Skill cooldown error. Still have time!");
+                        break;
+
+                    case 0x06: // invalid target
+                    case 0x10: // obstacle
+                        break;
+                    default:
+                        Log.Error($"Invalid skill error code: 0x{errorCode:X2}");
+                        break;
+                }
+
                 return;
+            } 
+                
 
             var action = Objects.Action.DeserializeBegin(packet);
 

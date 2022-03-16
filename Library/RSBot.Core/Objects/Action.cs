@@ -137,7 +137,11 @@ namespace RSBot.Core.Objects
                             break;
 
                         if (entity != null)
+                        {
                             entity.State.HitState = state;
+                            if (state.HasFlag(ActionHitStateFlag.Dead))
+                                entity.State.LifeState = LifeState.Dead;
+                        }    
 
                         if (state != ActionHitStateFlag.Block)
                         {

@@ -19,18 +19,6 @@ namespace RSBot.Bot.Default.Bundle.Resurrect
                 Game.Party.Members == null)
                 return;
 
-            if (!Kernel.Bot.Running)
-                return;
-
-            if (Game.Player.Exchanging)
-                return;
-
-            if (Game.Player.State.LifeState == LifeState.Dead)
-                return;
-
-            if (Game.Player.Untouchable)
-                return;
-
             if (!PlayerConfig.Get<bool>("RSBot.Skills.ResurrectPartyMembers"))
                 return;
 

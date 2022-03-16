@@ -50,7 +50,6 @@ namespace RSBot.Core
                 return;
 
             TokenSource = new CancellationTokenSource();
-            CancellationToken token = TokenSource.Token;
 
             Task.Factory.StartNew(async (e) => 
             {
@@ -62,10 +61,10 @@ namespace RSBot.Core
                 while (!TokenSource.IsCancellationRequested)
                 {
                     Botbase.Tick();
-                    await Task.Delay(1);
+                    await Task.Delay(100);
                 }
             },
-            token, TaskCreationOptions.LongRunning);
+            TokenSource.Token, TaskCreationOptions.LongRunning);
         }
 
         /// <summary>
@@ -85,6 +84,7 @@ namespace RSBot.Core
             EventManager.FireEvent("OnStopBot");
             Log.Notify($"Stopping bot {Botbase.Info.Name}");
 
+            Game.SelectedEntity = null;
             ScriptManager.Stop();
             ShoppingManager.Stop();
             PickupManager.Stop();
