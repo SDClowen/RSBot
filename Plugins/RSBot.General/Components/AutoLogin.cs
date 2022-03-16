@@ -19,17 +19,14 @@ namespace RSBot.General.Components
             if (!GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin"))
             {
                 Log.Warn("A new login attempt will be made shortly...");
-                Task.Delay(1000).ContinueWith((e) =>
-                {
-                    DoAutoLogin();
-                });
+                DoAutoLogin();
             }
         }
 
         /// <summary>
         /// Does the automatic login.
         /// </summary>
-        public static async Task DoAutoLogin()
+        public static async void DoAutoLogin()
         {
             if (!GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin"))
                 return;

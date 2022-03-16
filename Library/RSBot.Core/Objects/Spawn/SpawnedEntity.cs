@@ -224,9 +224,8 @@ namespace RSBot.Core.Objects.Spawn
         /// Update the instance
         /// </summary>
         /// <returns></returns>
-        public bool Update()
+        public virtual bool Update()
         {
-            
             return false;
         }
 

@@ -3,50 +3,19 @@ using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Network;
 using RSBot.Core.Objects.Spawn;
+using System;
 using System.Linq;
 using System.Timers;
 
 namespace RSBot.Core.Objects
 {
-    public class AttackPet
+    public class AttackPet : SpawnedBionic
     {
-        #region Fields
-
-        private Timer _hungerTimer;
-
-        #endregion Fields
-
         /// <summary>
-        /// Gets or sets the unique identifier.
+        /// <inheritdoc/>
         /// </summary>
-        /// <value>
-        /// The unique identifier.
-        /// </value>
-        public uint UniqueId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
-        public uint Id { get; set; }
-
-        /// <summary>
-        /// Gets the record.
-        /// </summary>
-        /// <value>
-        /// The record.
-        /// </value>
-        public RefObjChar Record => Game.ReferenceManager.GetRefObjChar(Id);
-
-        /// <summary>
-        /// Gets or sets the current hp.
-        /// </summary>
-        /// <value>
-        /// The current hp.
-        /// </value>
-        public uint Health { get; set; }
+        /// <param name="objId"></param>
+        public AttackPet(uint objId) : base(objId) {}
 
         /// <summary>
         /// Gets or sets the experience.
@@ -102,7 +71,7 @@ namespace RSBot.Core.Objects
         /// <value>
         /// The maximum health.
         /// </value>
-        public uint MaxHealth { get; set; }
+        public int MaxHealth { get; set; }
 
         /// <summary>
         /// Gets or sets the bionic.
@@ -113,12 +82,9 @@ namespace RSBot.Core.Objects
         public SpawnedBionic Bionic => SpawnManager.GetEntity<SpawnedBionic>(UniqueId);
 
         /// <summary>
-        /// Gets or sets the bad effect.
+        /// Hunger last tick
         /// </summary>
-        /// <value>
-        /// The bad effect.
-        /// </value>
-        public BadEffect BadEffect { get; set; }
+        private int _lastHungerTick;
 
         /// <summary>
         /// Froms the packet.
@@ -129,14 +95,14 @@ namespace RSBot.Core.Objects
         /// <returns></returns>
         internal static AttackPet FromPacket(Packet packet, uint uniqueId, uint id)
         {
-            var result = new AttackPet
+            var result = new AttackPet(id)
             {
                 UniqueId = uniqueId,
                 Id = id,
-                Health = packet.ReadUInt()
+                Health = packet.ReadInt()
             };
 
-            var maxHealth = packet.ReadUInt(); //UNKNOWN
+            var maxHealth = packet.ReadInt(); //UNKNOWN
             result.MaxHealth = maxHealth != 0 ? maxHealth : result.Health;
 
             result.Experience = packet.ReadULong();
@@ -145,7 +111,6 @@ namespace RSBot.Core.Objects
             packet.ReadInt(); //UNKNOWN (maybe control?)
             result.Name = packet.ReadString();
 
-            result.StartHungerTimer();
             return result;
         }
 
@@ -159,27 +124,6 @@ namespace RSBot.Core.Objects
             packet.Lock();
 
             PacketManager.SendPacket(packet, PacketDestination.Server);
-        }
-
-        /// <summary>
-        /// Starts the hunger timer.
-        /// </summary>
-        private void StartHungerTimer()
-        {
-            _hungerTimer = new Timer(3000);
-            _hungerTimer.Elapsed += HungerTimer_Elapsed;
-            _hungerTimer.Start();
-        }
-
-        /// <summary>
-        /// Handles the Elapsed event of the HungerTimer control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="ElapsedEventArgs"/> instance containing the event data.</param>
-        private void HungerTimer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            CurrentHungerPoints--;
-            EventManager.FireEvent("OnAttackPetHungerUpdate");
         }
 
         /// <summary>
@@ -246,6 +190,20 @@ namespace RSBot.Core.Objects
             PacketManager.SendPacket(packet, PacketDestination.Server);
 
             return true;
+        }
+
+        /// <summary>
+        /// Update the entity
+        /// </summary>
+        public override bool Update()
+        {
+            if(Environment.TickCount - _lastHungerTick > 3000)
+            {
+                CurrentHungerPoints--;
+                EventManager.FireEvent("OnAttackPetHungerUpdate");
+            }
+
+            return base.Update();
         }
     }
 }

@@ -49,8 +49,8 @@ namespace RSBot.Core.Network.Handler.Agent.Character
             character.StatPoints = packet.ReadUShort();
             character.BerzerkPoints = packet.ReadByte();
             character.ExperienceChunk = packet.ReadUInt();
-            character.Health = packet.ReadUInt();
-            character.Mana = packet.ReadUInt();
+            character.Health = packet.ReadInt();
+            character.Mana = packet.ReadInt();
             character.AutoInverstExperience = (AutoInverstType)packet.ReadByte();
 
             if (Core.Game.ClientType == GameClientType.Chinese)

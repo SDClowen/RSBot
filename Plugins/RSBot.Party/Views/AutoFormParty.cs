@@ -35,14 +35,18 @@ namespace RSBot.Party.Views
             else if ((byte)Bundle.Container.PartyMatching.Config.Purpose > 1)
                 rbtn_Hunting.Checked = true;
 
-            tb_Title.Text = Bundle.Container.PartyMatching.Config.Title;
-
             var settingStr = Game.Party.Settings.ToString().Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
             label_partytype.Text = settingStr[0];
             label_partytype2.Text = settingStr[1];
 
             min_level.Value = Bundle.Container.PartyMatching.Config.LevelFrom;
             max_level.Value = Bundle.Container.PartyMatching.Config.LevelTo;
+
+            if (!Game.Party.Settings.ExperienceAutoShare &&
+                !Game.Party.Settings.ItemAutoShare)
+                tb_Title.Text = "Auto LTP - RSBot";
+            else
+                tb_Title.Text = Bundle.Container.PartyMatching.Config.Title;
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
@@ -71,10 +75,19 @@ namespace RSBot.Party.Views
                 return;
 
             Bundle.Container.PartyMatching.Config.Purpose = partyPurpose;
-            tb_Title.Text = Game.ReferenceManager.GetTranslation("UIIT_MSG_PARTYMATCH_RECORD_DEFAULT" + rbtn?.Tag.ToString());
 
-            if (!string.IsNullOrWhiteSpace(tb_Title.Text))
-                Bundle.Container.PartyMatching.Config.Title = tb_Title.Text;
+            if (!Game.Party.Settings.ExperienceAutoShare &&
+               !Game.Party.Settings.ItemAutoShare)
+            {
+                tb_Title.Text = "Auto LTP - RSBot";
+            }
+            else
+            {
+                tb_Title.Text = Game.ReferenceManager.GetTranslation("UIIT_MSG_PARTYMATCH_RECORD_DEFAULT" + rbtn?.Tag.ToString());
+
+                if (!string.IsNullOrWhiteSpace(tb_Title.Text))
+                    Bundle.Container.PartyMatching.Config.Title = tb_Title.Text;
+            }
         }
     }
 }

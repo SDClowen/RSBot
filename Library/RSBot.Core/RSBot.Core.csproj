@@ -73,6 +73,8 @@
     <Compile Include="Network\Handler\Agent\Exchange\ExchangeCanceledResponse.cs" />
     <Compile Include="Network\Handler\Agent\Exchange\ExchangeStartedResponse.cs" />
     <Compile Include="Network\Handler\Agent\Exchange\ExchangeStartResponse.cs" />
+    <Compile Include="Network\Handler\Agent\Inventory\InventoryStorageDataBeginResponse.cs" />
+    <Compile Include="Network\Handler\Agent\Inventory\InventoryStorageDataEndResponse.cs" />
     <Compile Include="Network\Hooks\Agent\Action\ActionSelectRequestHook.cs" />
     <Compile Include="Network\Hooks\Gateway\GatewayLoginResponseHookOfficial.cs" />
     <Compile Include="Objects\ActionHitStateFlag.cs" />
@@ -215,9 +217,9 @@
     <Compile Include="Network\Handler\Agent\Entity\EntityUpdateMoveSpeedResponse.cs" />
     <Compile Include="Network\Handler\Agent\Entity\EntityUpdatePointsResponse.cs" />
     <Compile Include="Network\Handler\Agent\Inventory\InventoryItemUseResponse.cs" />
-    <Compile Include="Objects\AbilityPet.cs" />
+    <Compile Include="Objects\Cos\AbilityPet.cs" />
     <Compile Include="Objects\AmmunitionType.cs" />
-    <Compile Include="Objects\AttackPet.cs" />
+    <Compile Include="Objects\Cos\AttackPet.cs" />
     <Compile Include="Objects\FortSiegeAuthority.cs" />
     <Compile Include="Objects\InteractMode.cs" />
     <Compile Include="Objects\JobInfo.cs" />
@@ -282,7 +284,7 @@
     <Compile Include="Objects\Spawn\SpawnPacketInfo.cs" />
     <Compile Include="Objects\State.cs" />
     <Compile Include="Objects\Storage.cs" />
-    <Compile Include="Objects\Vehicle.cs" />
+    <Compile Include="Objects\Cos\Vehicle.cs" />
     <Compile Include="Plugins\BotbaseManager.cs" />
     <Compile Include="Plugins\IBotbase.cs" />
     <Compile Include="Plugins\PluginManager.cs" />

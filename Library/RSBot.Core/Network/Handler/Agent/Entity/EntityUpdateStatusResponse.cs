@@ -48,13 +48,13 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
         {
             if ((updateFlag & EntityUpdateStatusFlag.HP) == EntityUpdateStatusFlag.HP)
             {
-                Core.Game.Player.Health = packet.ReadUInt();
+                Core.Game.Player.Health = packet.ReadInt();
                 EventManager.FireEvent("OnUpdateHP");
             }
 
             if ((updateFlag & EntityUpdateStatusFlag.MP) == EntityUpdateStatusFlag.MP)
             {
-                Core.Game.Player.Mana = packet.ReadUInt();
+                Core.Game.Player.Mana = packet.ReadInt();
                 EventManager.FireEvent("OnUpdateMP");
             }
 
@@ -98,7 +98,7 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
         private static void UpdatePetStatus(Packet packet, EntityUpdateStatusFlag updateFlag)
         {
             if ((updateFlag & EntityUpdateStatusFlag.HP) == EntityUpdateStatusFlag.HP)
-                Core.Game.Player.AttackPet.Health = packet.ReadUInt();
+                Core.Game.Player.AttackPet.Health = packet.ReadInt();
 
             if ((updateFlag & EntityUpdateStatusFlag.MP) == EntityUpdateStatusFlag.MP)
                 packet.ReadUInt();
@@ -144,7 +144,7 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
         private static void UpdateVehicleStatus(Packet packet, EntityUpdateStatusFlag updateFlag)
         {
             if ((updateFlag & EntityUpdateStatusFlag.HP) == EntityUpdateStatusFlag.HP)
-                Core.Game.Player.Vehicle.Health = packet.ReadUInt();
+                Core.Game.Player.Vehicle.Health = packet.ReadInt();
 
             if ((updateFlag & EntityUpdateStatusFlag.MP) == EntityUpdateStatusFlag.MP)
                 packet.ReadUInt();
