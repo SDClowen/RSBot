@@ -93,7 +93,7 @@ namespace RSBot.Inventory.Views
                     foreach (var item in Game.Player.Inventory.Items.Where(item => item.Slot >= 13).OrderBy(p => p.Slot))
                         AddItem(item);
 
-                    lblFreeSlots.Text = (Game.Player.Inventory.Size - Game.Player.Inventory.Items.Count) + "/" + Game.Player.Inventory.Size;
+                    lblFreeSlots.Text = Game.Player.Inventory.Items.Count + "/" + Game.Player.Inventory.Size;
                     break;
 
                 case 1:
@@ -118,7 +118,7 @@ namespace RSBot.Inventory.Views
                     foreach (var item in Game.Player.AbilityPet.Items.OrderBy(p => p.Slot))
                         AddItem(item);
 
-                    lblFreeSlots.Text = (Game.Player.AbilityPet.Slots - Game.Player.AbilityPet.Items.Count) + "/" + Game.Player.AbilityPet.Slots;
+                    lblFreeSlots.Text = Game.Player.AbilityPet.Items.Count + "/" + Game.Player.AbilityPet.Slots;
                     break;
 
                 case 4:
