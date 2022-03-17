@@ -113,11 +113,9 @@ namespace RSBot.Core.Objects.Party
 
             packet.ReadByte(); //FF
             result.MemberId = packet.ReadUInt();
-
             result.Name = packet.ReadString();
             result.ObjectId = packet.ReadUInt();
             result.Level = packet.ReadByte();
-
             result.HealthMana = packet.ReadByte(); //0-A|0-A -> 0%-100%|0%-100%
 
             result.Position = new Position
@@ -125,6 +123,7 @@ namespace RSBot.Core.Objects.Party
                 XSector = packet.ReadByte(),
                 YSector = packet.ReadByte()
             };
+
             if (!result.Position.IsInDungeon)
             {
                 result.Position.XOffset = packet.ReadShort();
@@ -137,15 +136,16 @@ namespace RSBot.Core.Objects.Party
                 result.Position.ZOffset = packet.ReadInt();
                 result.Position.YOffset = packet.ReadInt();
             }
+
             result.WorldId = packet.ReadShort();
             result.LayerId = packet.ReadShort();
-
             result.Guild = packet.ReadString();
 
             packet.ReadByte(); //04
 
             result.MasteryId1 = packet.ReadUInt();
             result.MasteryId2 = packet.ReadUInt();
+            
             return result;
         }
 
