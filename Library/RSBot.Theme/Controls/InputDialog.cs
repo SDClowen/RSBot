@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace RSBot.Theme.Controls
 {
-    public partial class InputDialog : Form
+    public partial class InputDialog : CleanForm
     {
         public enum InputType
         {

@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace RSBot.General.Views
 {
-    public partial class PendingWindow : Form
+    public partial class PendingWindow : CleanForm
     {
         /// <summary>
         /// Started tick
