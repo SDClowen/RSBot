@@ -62,12 +62,20 @@ namespace RSBot.Core.Objects
             result.Name = packet.ReadString();
             result.Slots = packet.ReadByte();
 
-            var itemAmount = packet.ReadByte();
-
-            for (var i = 0; i < itemAmount; i++)
-                result.Items.Add(InventoryItem.FromPacket(packet));
+            result.ParseInventory(packet);
 
             return result;
+        }
+
+        /// <summary>
+        /// Parse ability pet inventory
+        /// </summary>
+        /// <param name="Packet">The packet</param>
+        public void ParseInventory(Packet packet)
+        {
+            var itemAmount = packet.ReadByte();
+            for (var i = 0; i < itemAmount; i++)
+                Items.Add(InventoryItem.FromPacket(packet));
         }
 
         /// <summary>
