@@ -90,12 +90,12 @@ namespace RSBot.General.PacketHandler
                 if (Game.ClientType == GameClientType.Vietnam)
                     packet.ReadByte(); // FarmId
 
-                Log.Notify($"Found server: {serverName} ({currentCapacity}/{maxCapacity})");
+                Log.Debug($"Found server: {serverName} ({currentCapacity}/{maxCapacity})");
             }
 
             BotWindow.SetStatusText("Waiting for the user to login...");
 
-            AutoLogin.DoAutoLogin();
+            AutoLogin.Handle();
         }
     }
 }
