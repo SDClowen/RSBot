@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace RSBot.Views
 {
-    public partial class SplashScreen : Form
+    public partial class SplashScreen : CleanForm
     {
         private readonly Main _mainForm;
 

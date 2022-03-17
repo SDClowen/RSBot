@@ -56,7 +56,7 @@ namespace RSBot.Theme.Controls
             if (Environment.OSVersion.Version.Major >= 6)
             {
                 SetWindowTheme(Handle, "explorer", null);
-                SendMessage(Handle, LVM_SETEXTENDEDLISTVIEWSTYLE, new IntPtr(LVS_EX_DOUBLEBUFFER), new IntPtr(LVS_EX_DOUBLEBUFFER));
+                SendMessage(Handle, LVM_SETEXTENDEDLISTVIEWSTYLE, LVS_EX_DOUBLEBUFFER, LVS_EX_DOUBLEBUFFER);
             }
         }
 
