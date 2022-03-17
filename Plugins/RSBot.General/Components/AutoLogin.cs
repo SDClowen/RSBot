@@ -12,29 +12,27 @@ namespace RSBot.General.Components
     internal static class AutoLogin
     {
         /// <summary>
-        /// Start delayed auto login
+        /// Is the auto login handling <c>true</c> otherwise; <c>false</c>
         /// </summary>
-        public static void DelayedLoginTry()
-        {
-            if (!GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin"))
-            {
-                Log.Warn("A new login attempt will be made shortly...");
-                DoAutoLogin();
-            }
-        }
+        private static bool _busy = false;
 
         /// <summary>
         /// Does the automatic login.
         /// </summary>
-        public static async void DoAutoLogin()
+        public static async void Handle()
         {
+            if (_busy)
+                return;
+
+            _busy = true;
+
             if (!GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin"))
                 return;
 
-			await Task.Delay(5000);
             var selectedAccount = Accounts.SavedAccounts.Find(p => p.Username == GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername"));
             if (selectedAccount == null)
             {
+                _busy = false;
                 Log.Warn("No have any selected account for autologin. RSBot waiting for manual login from you! Do not forget select a account for auto login next time ;)");
                 return;
             }
@@ -51,20 +49,21 @@ namespace RSBot.General.Components
             // is server check [Lazy :)]
             if (!server.Status)
             {
+                _busy = false;
+
                 Log.Notify("The selected server is under maintainance. Retrying to login in few seconds...");
 
                 // Only need while clientless, otherwise the client already sending every 5 seconds instead of bot.
                 if (Game.Clientless)
                 {
-                    await Task.Delay(5000).ContinueWith((t) =>
-                    {
-                        PacketManager.SendPacket(new Packet(0x6101, true), PacketDestination.Server);
-                    });
+                    await Task.Delay(5000);
+                    PacketManager.SendPacket(new Packet(0x6101, true), PacketDestination.Server);
                 }
 
                 return;
             }
 
+            await Task.Delay(5000);
             SendLoginRequest(selectedAccount, server);
         }
 
@@ -74,6 +73,9 @@ namespace RSBot.General.Components
         internal static void SendSecondaryPassword()
         {
             if (Accounts.Joined == null)
+                return;
+
+            if (!GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin"))
                 return;
 
             var secondaryPassword = Accounts.Joined.SecondaryPassword;
@@ -103,9 +105,6 @@ namespace RSBot.General.Components
         {
             Log.Notify("Sending login credentials to the server...");
 
-            if (account == null)
-                return;
-
             ushort opcode = 0x6102;
             if (Game.ClientType >= GameClientType.Global)
                 opcode = 0x610A;
@@ -128,6 +127,9 @@ namespace RSBot.General.Components
             PacketManager.SendPacket(loginPacket, PacketDestination.Server);
 
             Accounts.Joined = account;
+            Serverlist.Joining = server;
+
+            _busy = false;
         }
 
         /// <summary>

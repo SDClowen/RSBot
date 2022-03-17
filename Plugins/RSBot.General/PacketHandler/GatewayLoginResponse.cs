@@ -1,7 +1,9 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Network;
 using RSBot.General.Components;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace RSBot.General.PacketHandler
 {
@@ -32,6 +34,9 @@ namespace RSBot.General.PacketHandler
             if (packet.ReadByte() == 0x01)
             {
                 Log.Notify("Gateway authentication successfull!");
+                
+                Views.View.PendingWindow?.Hide();
+
                 return;
             }
 
@@ -56,14 +61,33 @@ namespace RSBot.General.PacketHandler
                     break;
 
                 case 5:
-                    Log.Warn("The server is full!");
 
-                    AutoLogin.DelayedLoginTry();
+                    Log.Warn("The server is full! A new login attempt will be made shortly...");
+                    AutoLogin.Handle();
+
+                    break;
+
+                case 26: // queue
+
+                    var count = packet.ReadUShort();
+                    var timestamp = packet.ReadInt();
+
+                    Task.Run(() =>
+                    {
+                        SynchronizationContext.SetSynchronizationContext(new WindowsFormsSynchronizationContext());
+
+                        if (Views.View.PendingWindow == null)
+                            Views.View.PendingWindow = new Views.PendingWindow();
+
+                        Views.View.PendingWindow.Start(count, timestamp);
+                        Views.View.PendingWindow.ShowDialog(Views.View.Instance.ParentForm);
+                    });
 
                     break;
 
                 case 29: // ksro block
-                    AutoLogin.DelayedLoginTry();
+                    Log.Warn("A new login attempt will be made shortly...");
+                    AutoLogin.Handle();
                     break;
 
                 default:
