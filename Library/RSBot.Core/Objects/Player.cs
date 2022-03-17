@@ -623,39 +623,42 @@ namespace RSBot.Core.Objects
 
         private bool UsePotion(TypeIdFilter filter, ref int tick, ref int duration)
         {
-            if (State.LifeState == LifeState.Dead)
-                return false;
-
-            InventoryItem potionItem = null;
-            if (_lastHPDuration == 0)
+            lock (_lock)
             {
-                potionItem = Inventory.GetItem(filter);
+                if (State.LifeState == LifeState.Dead)
+                    return false;
+
+                var potionItem = Inventory.GetItem(filter);
                 if (potionItem == null)
                     return false;
 
-                // potion
-                if (potionItem.Record.Param1 > 0)
+                if (duration == 0)
                 {
-                    if (Race == ObjectCountry.Chinese)
-                        duration = 1000;
-                    else
-                        duration = 15000;
+                    var record = potionItem.Record;
+                    // potion
+                    if (record.Param1 > 0 || record.Param3 > 0)
+                    {
+                        if (Race == ObjectCountry.Chinese)
+                            duration = 1000;
+                        else
+                            duration = 15000;
+                    }
+                    // grain
+                    else if (record.Param2 > 0 || record.Param4 > 0)
+                    {
+                        duration = 4000;
+                    }
                 }
-                // grain
-                else if (potionItem.Record.Param2 > 0)
-                {
-                    duration = 4000;
-                }
+
+                var elapsed = Environment.TickCount - tick;
+                if (elapsed < duration)
+                    return false;
+
+                var result = potionItem.Use();
+                tick = Environment.TickCount;
+
+                return result;
             }
-
-            var elapsed = Environment.TickCount - tick;
-            if (elapsed < duration)
-                return false;
-
-            var result = potionItem.Use();
-            tick = Environment.TickCount;
-
-            return result;
         }
 
         /// <summary>
