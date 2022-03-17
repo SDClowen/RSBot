@@ -10,7 +10,7 @@ namespace RSBot.General.PacketHandler
         /// <value>
         /// The opcode.
         /// </value>
-        public ushort Opcode => 0x6103;
+        public ushort Opcode => 0x6102;
 
         /// <summary>
         /// Gets the destination.
