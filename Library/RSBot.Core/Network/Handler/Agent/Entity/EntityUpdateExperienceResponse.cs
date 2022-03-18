@@ -39,11 +39,7 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
             }
 
             if (Core.Game.Player.Level < iLevel)
-            {
                 Core.Game.Player.Level = iLevel;
-                EventManager.FireEvent("OnLevelUp");
-                Log.Notify($"Congratulations, your level has increased to [{Core.Game.Player.Level}]");
-            }
 
             EventManager.FireEvent("OnExpSpUpdate");
 
