@@ -30,7 +30,7 @@ namespace RSBot.Chat.Bundle
             if (type == ChatType.Private)
                 chatPacket.WriteString(reciever);
 
-            if (Game.ClientType >= GameClientType.Global)
+            if (!Game.ClientType.ToString().StartsWith("Vietnam"))
                 chatPacket.WriteUnicode(message);
             else
                 chatPacket.WriteString(message);

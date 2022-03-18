@@ -99,7 +99,7 @@ namespace RSBot.Party.Bundle.PartyMatching.Objects
             result.MinLevel = packet.ReadByte();
             result.MaxLevel = packet.ReadByte();
 
-            if (Game.ClientType >= GameClientType.Global)
+            if (!Game.ClientType.ToString().StartsWith("Vietnam"))
                 result.Title = packet.ReadUnicode();
             else
                 result.Title = packet.ReadString();

@@ -35,7 +35,7 @@ namespace RSBot.Party.Bundle.PartyMatching.Network
             Container.PartyMatching.Config.LevelTo = packet.ReadByte();
 
             string title;
-            if(Game.ClientType >= GameClientType.Global)
+            if (!Game.ClientType.ToString().StartsWith("Vietnam"))
                 title = packet.ReadUnicode();
             else
                 title = packet.ReadString();

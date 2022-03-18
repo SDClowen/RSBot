@@ -40,8 +40,8 @@ namespace RSBot.Chat.Network
                 case ChatType.All:
                 case ChatType.AllGM:
                     var senderId = packet.ReadUInt();
-                    
-                    if(Game.ClientType >= GameClientType.Global)
+
+                    if (!Game.ClientType.ToString().StartsWith("Vietnam"))
                         message = packet.ReadUnicode();
                     else
                         message = packet.ReadString();
@@ -60,7 +60,7 @@ namespace RSBot.Chat.Network
 
                 case ChatType.Notice:
 
-                    if (Game.ClientType >= GameClientType.Global)
+                    if (!Game.ClientType.ToString().StartsWith("Vietnam"))
                         message = packet.ReadUnicode();
                     else
                         message = packet.ReadString();
@@ -75,7 +75,7 @@ namespace RSBot.Chat.Network
                 default:
                     var sender = packet.ReadString();
 
-                    if (Game.ClientType >= GameClientType.Global)
+                    if (!Game.ClientType.ToString().StartsWith("Vietnam"))
                         message = packet.ReadUnicode();
                     else
                         message = packet.ReadString();
