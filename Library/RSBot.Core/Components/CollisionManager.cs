@@ -94,6 +94,10 @@ namespace RSBot.Core.Components
             var offsetSource = GetOffsetByRegionIndex(GetRegionIndexFromPosition(source));
             var offsetDestination = GetOffsetByRegionIndex(GetRegionIndexFromPosition(destination));
 
+            if(offsetSource.X == 1920 && offsetSource.Y == 1920 && 
+               offsetDestination.X == 1920 && offsetDestination.Y == 1920)
+                return false; // when source and destionation positions are x-y = 1920 its bugging
+
             //Position -> SharpDX.Point
             var pointSource = new Point
             {
