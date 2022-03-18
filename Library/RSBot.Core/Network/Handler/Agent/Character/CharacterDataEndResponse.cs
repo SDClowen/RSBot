@@ -200,7 +200,6 @@ namespace RSBot.Core.Network.Handler.Agent.Character
             CollisionManager.Update(Core.Game.Player.Movement.Source.RegionID);
 
             EventManager.FireEvent("OnLoadCharacter");
-            EventManager.FireEvent("OnUpdateHPMP");
 
             ClientManager.SetTitle($"{character.Name} - RSBot");
 

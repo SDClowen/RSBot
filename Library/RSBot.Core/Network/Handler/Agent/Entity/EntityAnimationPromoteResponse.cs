@@ -28,7 +28,10 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
         {
             var uniqueId = packet.ReadUInt();
             if (uniqueId == Core.Game.Player.UniqueId)
+            {
                 EventManager.FireEvent("OnLevelUp");
+                Log.Notify($"Congratulations, your level has increased to [{Core.Game.Player.Level}]");
+            }
             else if (Core.Game.Player.HasActiveAttackPet && uniqueId == Core.Game.Player.AttackPet.UniqueId)
                 EventManager.FireEvent("OnPetLevelUp");
         }

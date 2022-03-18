@@ -91,10 +91,6 @@ namespace RSBot.Views.Controls
         private void OnLevelUp()
         {
             lblLevel.Text = Game.Player.Level.ToString();
-
-            var percentageExp = ((double)Game.Player.Experience / (double)Game.ReferenceManager.GetRefLevel(Game.Player.Level).Exp_C) * 100;
-            progressEXP.Position = Convert.ToInt32(percentageExp);
-            progressEXP.Text = Math.Round(percentageExp, 2) + @"%";
         }
 
         /// <summary>
@@ -102,15 +98,13 @@ namespace RSBot.Views.Controls
         /// </summary>
         private void OnLoadCharacter()
         {
-            OnUpdateSP();
-            OnUpdateGold();
-
             lblPlayerName.Text = Game.Player.Name;
             lblLevel.Text = Game.Player.Level.ToString();
 
-            var percentageExp = ((double)Game.Player.Experience / (double)Game.ReferenceManager.GetRefLevel(Game.Player.Level).Exp_C) * 100;
-            progressEXP.Position = Convert.ToInt32(percentageExp);
-            progressEXP.Text = Math.Round(percentageExp, 2) + @"%";
+            OnHPMPUpdate();
+            OnExpUpdate();
+            OnUpdateSP();
+            OnUpdateGold();
         }
 
         /// <summary>
