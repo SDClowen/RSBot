@@ -36,7 +36,6 @@ namespace RSBot.Chat.Views
                 return;
 
             Bundle.Chat.SendChatPacket(chatType, sender.Text, txtRecievePrivate.Text);
-            AppendMessage(sender.Text, Game.Player.Name, chatType);
             
             if(chatType == ChatType.Private)
                 PlayerConfig.Set("RSBot.Chat.LastWhisper", txtRecievePrivate.Text);
