@@ -18,12 +18,12 @@ namespace RSBot.Protection.Components.Pet
         /// </summary>
         private static void SubscribeEvents()
         {
-            EventManager.SubscribeEvent("OnTick", OnTick);
+            EventManager.SubscribeEvent("OnAttackPetHungerUpdate", OnAttackPetHungerUpdate);
         }
 
         /// <summary>
         /// </summary>
-        private static void OnTick()
+        private static void OnAttackPetHungerUpdate()
         {
             if (Game.Player.AttackPet == null) return;
 

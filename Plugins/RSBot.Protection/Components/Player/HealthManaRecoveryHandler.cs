@@ -19,8 +19,7 @@ namespace RSBot.Protection.Components.Player
         /// </summary>
         private static void SubscribeEvents()
         {
-            EventManager.SubscribeEvent("OnUpdateHP", OnUpdateHP);
-            EventManager.SubscribeEvent("OnUpdateMP", OnUpdateMP);
+            EventManager.SubscribeEvent("OnTick", OnTick);
         }
 
         /// <summary>
@@ -56,6 +55,15 @@ namespace RSBot.Protection.Components.Player
             var manaPercent = ((double)Game.Player.Mana / (double)Game.Player.MaximumMana) * 100;
             if (manaPercent <= minMana)
                 Game.Player.UseManaPotion();
+        }
+
+        /// <summary>
+        /// On tick
+        /// </summary>
+        private static void OnTick()
+        {
+            OnUpdateHP();
+            OnUpdateMP();
         }
     }
 }
