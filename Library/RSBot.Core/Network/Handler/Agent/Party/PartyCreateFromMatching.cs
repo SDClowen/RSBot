@@ -34,7 +34,10 @@ namespace RSBot.Core.Network.Handler.Agent.Party
             };
 
             packet.ReadByte(); //FF
-            packet.ReadUInt();
+
+            if (Core.Game.ClientType > GameClientType.Thailand)
+                packet.ReadUInt(); // partyId
+
             var leaderId = packet.ReadUInt();
 
             Core.Game.Party.Settings = PartySettings.FromType(packet.ReadByte());
