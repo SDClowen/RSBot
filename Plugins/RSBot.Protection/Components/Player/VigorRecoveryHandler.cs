@@ -28,26 +28,26 @@ namespace RSBot.Protection.Components.Player
         /// <exception cref="System.NotImplementedException"></exception>
         private static void OnUpdateHPMP()
         {
+            if ((Game.Player.BadEffect & BadEffect.Zombie) == BadEffect.Zombie)
+                return;
+
             var useManaPotion = PlayerConfig.Get<bool>("RSBot.Protection.checkUseVigorMP");
             if (useManaPotion)
             {
-                var minMana = PlayerConfig.Get<int>("RSBot.Protection.numPlayerMPVigorPotionMin", 50);
-                var manaPercent = ((double)Game.Player.Mana / (double)Game.Player.MaximumMana) * 100;
+                var minMana = PlayerConfig.Get("RSBot.Protection.numPlayerMPVigorPotionMin", 50);
+                var manaPercent = Game.Player.Mana / Game.Player.MaximumMana * 100;
 
-                if (manaPercent <= minMana)
-                    Game.Player.UseVigorPotion();
+                if (manaPercent <= minMana && Game.Player.UseVigorPotion())
+                    return;
             }
 
             var useHealthPotion = PlayerConfig.Get<bool>("RSBot.Protection.checkUseVigorHP");
             if (!useHealthPotion) 
                 return;
 
-            if ((Game.Player.BadEffect & BadEffect.Zombie) == BadEffect.Zombie)
-                return;
-            
-            var minHealth = PlayerConfig.Get<int>("RSBot.Protection.numPlayerHPVigorPotionMin", 50);
+            var minHealth = PlayerConfig.Get("RSBot.Protection.numPlayerHPVigorPotionMin", 50);
 
-            var healthPercent = ((double)Game.Player.Health / (double)Game.Player.MaximumHealth) * 100;
+            var healthPercent = Game.Player.Health / Game.Player.MaximumHealth * 100;
             if (healthPercent <= minHealth)
                 Game.Player.UseVigorPotion();
         }
