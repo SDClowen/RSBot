@@ -75,6 +75,10 @@ namespace RSBot.Core
                 if (Game.Ready)
                 {
                     Game.Player.Update();
+                    Game.Player.Vehicle?.Update();
+                    Game.Player.AbilityPet?.Update();
+                    Game.Player.AttackPet?.Update();
+
                     SpawnManager.Update();
                     EventManager.FireEvent("OnTick");
                 }
