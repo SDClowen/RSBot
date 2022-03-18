@@ -213,9 +213,10 @@ namespace RSBot.Skills.Views
 
                 foreach (var skill in Game.Player.Skills.KnownSkills.Where(s => s.IsImbue && s.Enabled))
                 {
+                    /*
                     if (skill.IsLowLevel())
                         continue;
-
+                    */
                     var index = comboImbue.Items.Add(skill);
 
                     if (selectedImbue == 0)
