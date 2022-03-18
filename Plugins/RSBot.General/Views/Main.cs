@@ -134,10 +134,12 @@ namespace RSBot.General.Views
         /// <summary>
         /// Starts the client process.
         /// </summary>
-        private static void StartClientProcess()
+        private async void StartClientProcess()
         {
             Game.Start();
-            if (!ClientManager.Start())
+
+            var startedResult = await ClientManager.Start();
+            if (!startedResult)
                 Log.Warn("The game client could not starting, please try again!");
         }
 

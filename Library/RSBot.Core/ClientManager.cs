@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using static RSBot.Core.Extensions.NativeExtensions;
 
 namespace RSBot.Core
@@ -25,7 +26,7 @@ namespace RSBot.Core
         /// Start the game client
         /// </summary>
         /// <returns>Has successfully started <c>true</c>; otherwise <c>false</c></returns>
-        public static bool Start()
+        public static async Task<bool> Start()
         {
             var silkroadDirectory = GlobalConfig.Get<string>("RSBot.SilkroadDirectory");
             var path = Path.Combine(
@@ -92,6 +93,8 @@ namespace RSBot.Core
             _process = process;
 
             EventManager.FireEvent("OnStartClient");
+
+            await Task.Yield();
 
             return true;
         }
