@@ -11,7 +11,7 @@ namespace RSBot.Core.Network.Handler.Agent.Game
         /// <value>
         /// The opcode.
         /// </value>
-        public ushort Opcode => 0x3012;
+        public ushort Opcode => 0x3077;
 
         /// <summary>
         /// Gets or sets the destination.
@@ -19,7 +19,7 @@ namespace RSBot.Core.Network.Handler.Agent.Game
         /// <value>
         /// The destination.
         /// </value>
-        public PacketDestination Destination => PacketDestination.Server;
+        public PacketDestination Destination => PacketDestination.Client;
 
         /// <summary>
         /// Handles the packet.
