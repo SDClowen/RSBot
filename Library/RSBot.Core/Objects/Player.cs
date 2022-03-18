@@ -566,10 +566,10 @@ namespace RSBot.Core.Objects
             var distance = Game.Player.Movement.Source.DistanceTo(destination);
             if (distance > 150)
             {
-                Log.Warn("Player.Move: Target position too far away!");
+                Log.Warn($"Player.Move: Target position too far away! Target distance: {Math.Round(distance, 2)}");
 
                 // Stop the bot for now! NEED IDEA!
-                Kernel.Bot.Stop();
+                //Kernel.Bot.Stop();
 
                 return false;
             }
@@ -649,8 +649,8 @@ namespace RSBot.Core.Objects
                         duration = 4000;
                     }
                 }
-
                 var elapsed = Environment.TickCount - tick;
+                Log.Notify($"{potionItem.Record.GetRealName()} {tick}   {elapsed} {duration}    {elapsed < duration}");
                 if (elapsed < duration)
                     return false;
 
