@@ -3,6 +3,7 @@ using RSBot.Core.Client;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Plugins;
+using RSBot.Theme.Controls;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -67,7 +68,8 @@ namespace RSBot.Views
                 Name = "tabBotbase",
                 Enabled = false
             };
-
+            tabPage.BackColor = Color.FromArgb(200, BackColor);
+            tabPage.ForeColor = ForeColor;
             tabPage.Controls.Add(selectedBotbase.GetView());
 
             tabMain.TabPages.Insert(1, tabPage);
@@ -75,7 +77,7 @@ namespace RSBot.Views
             Kernel.Bot.SetBotbase(selectedBotbase);
             GlobalConfig.Set("RSBot.BotIndex", index.ToString());
 
-            var info = new Theme.Controls.TabDisabledInfo { Name = "overlay", Location = new Point(tabMain.Width / 2 - 110, tabMain.Height - 150) };
+            var info = new TabDisabledInfo { Name = "overlay", Location = new Point(tabMain.Width / 2 - 110, tabMain.Height - 150) };
             tabPage.Controls.Add(info);
 
             //So we can see it at least..
@@ -106,6 +108,9 @@ namespace RSBot.Views
                 var control = extension.Value.GetView();
 
                 control.Dock = DockStyle.Fill;
+                
+                tabPage.BackColor = Color.FromArgb(200, BackColor);
+                tabPage.ForeColor = ForeColor;
 
                 tabPage.Controls.Add(control);
                 tabMain.TabPages.Add(tabPage);
@@ -127,14 +132,14 @@ namespace RSBot.Views
 
             foreach (var extension in tempExtensions.Where(extension => !extension.Value.Information.DisplayAsTab))
             {
-                var menuItem = new MenuItem(extension.Value.Information.DisplayName)
+                var menuItem = new ToolStripMenuItem(extension.Value.Information.DisplayName)
                 {
                     Enabled = !extension.Value.Information.RequireIngame
                 };
                 menuItem.Click += PluginMenuItem_Click;
                 menuItem.Tag = extension.Value;
 
-                menuPlugins.MenuItems.Add(menuItem);
+                menuPlugins.DropDownItems.Add(menuItem);
             }
         }
 
@@ -452,7 +457,7 @@ namespace RSBot.Views
                 tabPage.Controls["overlay"]?.Hide();
             }
 
-            foreach (MenuItem item in menuPlugins.MenuItems)
+            foreach (MenuItem item in menuPlugins.DropDownItems)
                 item.Enabled = true;
 
             Text = $@"RSBot - {Game.Player.Name}";

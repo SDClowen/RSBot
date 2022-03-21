@@ -199,10 +199,6 @@
       <Project>{b62c693a-62e0-4d29-8702-dd8b3b6b308b}</Project>
       <Name>RSBot.Pk2</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Library\RSBot.Theme\RSBot.Theme.csproj">
-      <Project>{9e2a3ce3-d977-4e96-9f56-49288cf7d6b3}</Project>
-      <Name>RSBot.Theme</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <PublishFile Include="application.ico">

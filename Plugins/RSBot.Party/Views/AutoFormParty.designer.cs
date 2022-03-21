@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnAccept = new RSBot.Theme.Material.Button();
-            this.btnCancel = new RSBot.Theme.Material.Button();
+            this.btnAccept = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.gbObjective = new System.Windows.Forms.GroupBox();
             this.rbtn_Thief = new System.Windows.Forms.RadioButton();
             this.rbtn_Trade = new System.Windows.Forms.RadioButton();
@@ -61,15 +61,9 @@
             // 
             // btnAccept
             // 
-            this.btnAccept.Depth = 0;
             this.btnAccept.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnAccept.Icon = null;
             this.btnAccept.Location = new System.Drawing.Point(12, 292);
-            this.btnAccept.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnAccept.Name = "btnAccept";
-            this.btnAccept.Primary = true;
-            this.btnAccept.Raised = true;
-            this.btnAccept.SingleColor = System.Drawing.Color.Empty;
             this.btnAccept.Size = new System.Drawing.Size(75, 23);
             this.btnAccept.TabIndex = 0;
             this.btnAccept.Text = "Accept";
@@ -78,15 +72,9 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Depth = 0;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Icon = null;
             this.btnCancel.Location = new System.Drawing.Point(271, 292);
-            this.btnCancel.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Primary = false;
-            this.btnCancel.Raised = false;
-            this.btnCancel.SingleColor = System.Drawing.Color.Empty;
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Cancel";
@@ -383,8 +371,8 @@
 
         #endregion
 
-        private Theme.Material.Button btnAccept;
-        private Theme.Material.Button btnCancel;
+        private System.Windows.Forms.Button btnAccept;
+        private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.GroupBox gbObjective;
         private System.Windows.Forms.RadioButton rbtn_Quest;
         private System.Windows.Forms.RadioButton rbtn_Hunting;

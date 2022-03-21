@@ -62,11 +62,6 @@
       <Name>RSBot.Core</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\Library\RSBot.Theme\RSBot.Theme.csproj">
-      <Project>{9e2a3ce3-d977-4e96-9f56-49288cf7d6b3}</Project>
-      <Name>RSBot.Theme</Name>
-      <Private>False</Private>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Main.resx">

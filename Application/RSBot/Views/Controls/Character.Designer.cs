@@ -41,9 +41,9 @@
             this.label9 = new System.Windows.Forms.Label();
             this.lblInt = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.progressEXP = new Theme.Controls.XpProgressBar();
-            this.progressMP = new Theme.Controls.XpProgressBar();
-            this.progressHP = new Theme.Controls.XpProgressBar();
+            this.progressEXP = new System.Windows.Forms.ProgressBar();
+            this.progressMP = new System.Windows.Forms.ProgressBar();
+            this.progressHP = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // label2
@@ -158,49 +158,34 @@
             // 
             // progressEXP
             // 
-            this.progressEXP.ColorBackGround = System.Drawing.Color.Gainsboro;
-            this.progressEXP.ColorBarBorder = System.Drawing.Color.Green;
-            this.progressEXP.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.progressEXP.ColorText = System.Drawing.Color.White;
             this.progressEXP.Location = new System.Drawing.Point(10, 50);
             this.progressEXP.Name = "progressEXP";
-            this.progressEXP.Position = 0;
-            this.progressEXP.PositionMax = 100;
-            this.progressEXP.PositionMin = 0;
+            this.progressEXP.Value = 0;
+            this.progressEXP.Maximum = 100;
+            this.progressEXP.Minimum = 0;
             this.progressEXP.Size = new System.Drawing.Size(402, 19);
-            this.progressEXP.SteepDistance = ((byte)(0));
             this.progressEXP.TabIndex = 2;
             this.progressEXP.Text = "0%";
             // 
             // progressMP
             // 
-            this.progressMP.ColorBackGround = System.Drawing.Color.Gainsboro;
-            this.progressMP.ColorBarBorder = System.Drawing.Color.DarkBlue;
-            this.progressMP.ColorBarCenter = System.Drawing.Color.Blue;
-            this.progressMP.ColorText = System.Drawing.Color.White;
             this.progressMP.Location = new System.Drawing.Point(214, 28);
             this.progressMP.Name = "progressMP";
-            this.progressMP.Position = 0;
-            this.progressMP.PositionMax = 100;
-            this.progressMP.PositionMin = 0;
+            this.progressMP.Value = 0;
+            this.progressMP.Maximum = 100;
+            this.progressMP.Minimum = 0;
             this.progressMP.Size = new System.Drawing.Size(198, 19);
-            this.progressMP.SteepDistance = ((byte)(0));
             this.progressMP.TabIndex = 1;
             this.progressMP.Text = "0 / 0";
             // 
             // progressHP
             // 
-            this.progressHP.ColorBackGround = System.Drawing.Color.Gainsboro;
-            this.progressHP.ColorBarBorder = System.Drawing.Color.DarkRed;
-            this.progressHP.ColorBarCenter = System.Drawing.Color.Red;
-            this.progressHP.ColorText = System.Drawing.Color.White;
             this.progressHP.Location = new System.Drawing.Point(10, 28);
             this.progressHP.Name = "progressHP";
-            this.progressHP.Position = 0;
-            this.progressHP.PositionMax = 100;
-            this.progressHP.PositionMin = 0;
+            this.progressHP.Value = 0;
+            this.progressHP.Maximum = 100;
+            this.progressHP.Minimum = 0;
             this.progressHP.Size = new System.Drawing.Size(198, 19);
-            this.progressHP.SteepDistance = ((byte)(0));
             this.progressHP.TabIndex = 0;
             this.progressHP.Text = "0 / 0";
             // 
@@ -231,9 +216,9 @@
 
         #endregion
 
-        private Theme.Controls.XpProgressBar progressHP;
-        private Theme.Controls.XpProgressBar progressMP;
-        private Theme.Controls.XpProgressBar progressEXP;
+        private System.Windows.Forms.ProgressBar progressHP;
+        private System.Windows.Forms.ProgressBar progressMP;
+        private System.Windows.Forms.ProgressBar progressEXP;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;

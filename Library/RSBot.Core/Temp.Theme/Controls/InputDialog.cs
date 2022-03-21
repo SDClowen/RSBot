@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace RSBot.Theme.Controls
 {
-    public partial class InputDialog : CleanForm
+    public partial class InputDialog : Form
     {
         public enum InputType
         {
@@ -109,7 +109,7 @@ namespace RSBot.Theme.Controls
                     break;
             }
 
-            if(_inputType == InputType.Textbox && string.IsNullOrWhiteSpace(value.ToString()))
+            if (_inputType == InputType.Textbox && string.IsNullOrWhiteSpace(value.ToString()))
             {
                 MessageBox.Show(this, "The value can't be empty!");
 
@@ -152,7 +152,7 @@ namespace RSBot.Theme.Controls
         /// <param name="e">The <see cref="KeyEventArgs"/> instance containing the event data.</param>
         private void numValue_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode != Keys.Enter) 
+            if (e.KeyCode != Keys.Enter)
                 return;
 
             Value = numValue.Value;

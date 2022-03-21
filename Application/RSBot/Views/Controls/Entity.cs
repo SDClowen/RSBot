@@ -47,7 +47,10 @@ namespace RSBot.Views.Controls
                 lblType.Text = monster.Rarity.GetName();
             }
 
-            progressHP.Position = percent;
+            if (percent > 100)
+                percent = 100;
+
+            progressHP.Value = percent;
             progressHP.Text = percent + "%";
         }
 
@@ -58,15 +61,18 @@ namespace RSBot.Views.Controls
         {
             if (!entity.HasHealth)
             {
-                progressHP.Position = 100;
+                progressHP.Value = 100;
                 return;
             }
 
             if (entity is SpawnedMonster monster)
             {
                 var percent = (monster.Health * 100) / monster.MaxHealth;
+                if (percent > 100)
+                    percent = 100;
 
-                progressHP.Position = percent;
+                progressHP.Maximum = monster.MaxHealth;
+                progressHP.Value = percent;
                 progressHP.Text = percent + "%";
             }
         }
@@ -101,7 +107,7 @@ namespace RSBot.Views.Controls
         private void Clear()
         {
             lblEntityName.Text = "No entity selected";
-            progressHP.Position = 0;
+            progressHP.Value = 0;
             progressHP.Text ="0%";
             lblType.Text = "";
         }

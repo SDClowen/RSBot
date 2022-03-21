@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RSBot.Theme.Extensions;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -10,8 +11,6 @@ using System.Windows.Forms;
 
 namespace RSBot.Views
 {
-    using Theme.Extensions;
-
     public partial class Updater : Form
     {
         public Updater()

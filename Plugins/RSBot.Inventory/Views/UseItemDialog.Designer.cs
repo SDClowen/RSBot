@@ -29,23 +29,17 @@ namespace RSBot.Inventory.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonOk = new RSBot.Theme.Material.Button();
-            this.buttonCancel = new RSBot.Theme.Material.Button();
+            this.buttonOk = new System.Windows.Forms.Button();
+            this.buttonCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonOk
             // 
-            this.buttonOk.Depth = 0;
             this.buttonOk.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonOk.Icon = null;
             this.buttonOk.Location = new System.Drawing.Point(28, 72);
-            this.buttonOk.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Primary = true;
-            this.buttonOk.Raised = true;
-            this.buttonOk.SingleColor = System.Drawing.Color.Empty;
             this.buttonOk.Size = new System.Drawing.Size(215, 42);
             this.buttonOk.TabIndex = 0;
             this.buttonOk.Text = "Use Directly";
@@ -53,16 +47,10 @@ namespace RSBot.Inventory.Views
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Depth = 0;
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCancel.Icon = null;
             this.buttonCancel.Location = new System.Drawing.Point(28, 193);
-            this.buttonCancel.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Primary = false;
-            this.buttonCancel.Raised = false;
-            this.buttonCancel.SingleColor = System.Drawing.Color.Empty;
             this.buttonCancel.Size = new System.Drawing.Size(215, 42);
             this.buttonCancel.TabIndex = 1;
             this.buttonCancel.Text = "Use with conditions";
@@ -115,8 +103,8 @@ namespace RSBot.Inventory.Views
 
         #endregion
 
-        private Theme.Material.Button buttonOk;
-        private Theme.Material.Button buttonCancel;
+        private System.Windows.Forms.Button buttonOk;
+        private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
     }

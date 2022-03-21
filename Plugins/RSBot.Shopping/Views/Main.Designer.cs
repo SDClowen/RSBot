@@ -35,7 +35,7 @@
             System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Weapon trader", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup5 = new System.Windows.Forms.ListViewGroup("Accessory trader", System.Windows.Forms.HorizontalAlignment.Left);
             this.comboStore = new System.Windows.Forms.ComboBox();
-            this.listShoppingList = new RSBot.Theme.Controls.ListView();
+            this.listShoppingList = new System.Windows.Forms.ListView();
             this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colAmount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextShoppingList = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -43,7 +43,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuRemoveItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imgShoppingList = new System.Windows.Forms.ImageList(this.components);
-            this.listAvailableProducts = new RSBot.Theme.Controls.ListView();
+            this.listAvailableProducts = new System.Windows.Forms.ListView();
             this.colAvailableName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextAvailableProducts = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuAddToShoppingList = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,7 +62,7 @@
             this.checkRepairGear = new System.Windows.Forms.CheckBox();
             this.checkEnable = new System.Windows.Forms.CheckBox();
             this.tabSellFilter = new System.Windows.Forms.TabPage();
-            this.listFilter = new RSBot.Theme.Controls.ListView();
+            this.listFilter = new System.Windows.Forms.ListView();
             this.colItemName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colItemLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colGender = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -128,9 +128,9 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.labelResult = new System.Windows.Forms.Label();
-            this.btnResetFilter = new RSBot.Theme.Material.Button();
-            this.btnSearch = new RSBot.Theme.Material.Button();
-            this.btnReload = new RSBot.Theme.Material.Button();
+            this.btnResetFilter = new System.Windows.Forms.Button();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.btnReload = new System.Windows.Forms.Button();
             this.txtSellSearch = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -1144,14 +1144,8 @@
             // 
             // btnResetFilter
             // 
-            this.btnResetFilter.Depth = 0;
-            this.btnResetFilter.Icon = null;
             this.btnResetFilter.Location = new System.Drawing.Point(12, 7);
-            this.btnResetFilter.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnResetFilter.Name = "btnResetFilter";
-            this.btnResetFilter.Primary = false;
-            this.btnResetFilter.Raised = false;
-            this.btnResetFilter.SingleColor = System.Drawing.Color.Empty;
             this.btnResetFilter.Size = new System.Drawing.Size(96, 23);
             this.btnResetFilter.TabIndex = 39;
             this.btnResetFilter.Text = "Reset";
@@ -1161,15 +1155,9 @@
             // btnSearch
             // 
             this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSearch.Depth = 0;
             this.btnSearch.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnSearch.Icon = null;
             this.btnSearch.Location = new System.Drawing.Point(655, 7);
-            this.btnSearch.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Primary = true;
-            this.btnSearch.Raised = true;
-            this.btnSearch.SingleColor = System.Drawing.Color.CadetBlue;
             this.btnSearch.Size = new System.Drawing.Size(75, 23);
             this.btnSearch.TabIndex = 21;
             this.btnSearch.Text = "Search";
@@ -1178,14 +1166,8 @@
             // 
             // btnReload
             // 
-            this.btnReload.Depth = 0;
-            this.btnReload.Icon = null;
             this.btnReload.Location = new System.Drawing.Point(112, 7);
-            this.btnReload.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnReload.Name = "btnReload";
-            this.btnReload.Primary = true;
-            this.btnReload.Raised = true;
-            this.btnReload.SingleColor = System.Drawing.Color.Empty;
             this.btnReload.Size = new System.Drawing.Size(137, 23);
             this.btnReload.TabIndex = 39;
             this.btnReload.Text = "Apply";
@@ -1353,10 +1335,10 @@
 
         #endregion
         private System.Windows.Forms.ComboBox comboStore;
-        private Theme.Controls.ListView listShoppingList;
+        private System.Windows.Forms.ListView listShoppingList;
         private System.Windows.Forms.ColumnHeader colName;
         private System.Windows.Forms.ColumnHeader colAmount;
-        private Theme.Controls.ListView listAvailableProducts;
+        private System.Windows.Forms.ListView listAvailableProducts;
         private System.Windows.Forms.ColumnHeader colAvailableName;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.SplitContainer splitContainer1;
@@ -1371,7 +1353,7 @@
         private System.Windows.Forms.TabPage tabBuyFilter;
         private System.Windows.Forms.TabPage tabSellFilter;
         private System.Windows.Forms.TextBox txtShopSearch;
-        private Theme.Controls.ListView listFilter;
+        private System.Windows.Forms.ListView listFilter;
         private System.Windows.Forms.ColumnHeader colItemName;
         private System.Windows.Forms.ColumnHeader colItemLevel;
         private System.Windows.Forms.ColumnHeader colSell;
@@ -1381,7 +1363,7 @@
         private System.Windows.Forms.ContextMenuStrip contextList;
         private System.Windows.Forms.ToolStripMenuItem btnAddToSell;
         private System.Windows.Forms.ToolStripMenuItem btnAddToStore;
-        private Theme.Material.Button btnSearch;
+        private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem btnDontSell;
         private System.Windows.Forms.ToolStripMenuItem btnDontStore;
@@ -1391,7 +1373,7 @@
         private System.Windows.Forms.CheckBox checkOther;
         private System.Windows.Forms.GroupBox groupClothes;
         private System.Windows.Forms.GroupBox groupWeapons;
-        private Theme.Material.Button btnReload;
+        private System.Windows.Forms.Button btnReload;
         private System.Windows.Forms.CheckBox checkBlade;
         private System.Windows.Forms.CheckBox checkSword;
         private System.Windows.Forms.CheckBox checkSpear;
@@ -1434,7 +1416,7 @@
         private System.Windows.Forms.ColumnHeader colPickup;
         private System.Windows.Forms.CheckBox checkPickupRare;
         private System.Windows.Forms.CheckBox checkEnableAbilityPet;
-        private Theme.Material.Button btnResetFilter;
+        private System.Windows.Forms.Button btnResetFilter;
         private System.Windows.Forms.ImageList imgShoppingListNPC;
         private System.Windows.Forms.ImageList imgShoppingList;
         private System.Windows.Forms.CheckBox checkShowEquipment;

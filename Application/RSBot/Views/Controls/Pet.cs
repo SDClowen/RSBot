@@ -39,9 +39,9 @@ namespace RSBot.Views.Controls
         private void OnTerminateAttackPet()
         {
             lblPetName.Text = @"No pet found";
-            progressHP.Position = 0;
-            progressEXP.Position = 0;
-            progressHGP.Position = 0;
+            progressHP.Value = 0;
+            progressEXP.Value = 0;
+            progressHGP.Value = 0;
             progressHP.Text = @"0%";
             progressEXP.Text = @"0%";
             progressHGP.Text = @"0%";
@@ -77,8 +77,11 @@ namespace RSBot.Views.Controls
         {
             if (Game.Player.AttackPet == null) return;
 
-            var hpPercent = Math.Round((double)Game.Player.AttackPet.Health / (double)Game.Player.AttackPet.MaxHealth * 100, 0);
-            progressHP.Position = Convert.ToInt32(hpPercent);
+            var hpPercent = (Game.Player.AttackPet.Health * 100) / Game.Player.AttackPet.MaxHealth;
+            if(hpPercent > 100)
+                hpPercent = 100;
+
+            progressHP.Value = Convert.ToInt32(hpPercent);
             progressHP.Text = hpPercent + @"%";
         }
 
@@ -87,9 +90,14 @@ namespace RSBot.Views.Controls
         /// </summary>
         private void OnPetExpSpUpdate()
         {
-            if (Game.Player.AttackPet == null) return;
-            var expPercent = Math.Round((double)Game.Player.AttackPet.Experience / (double)Game.Player.AttackPet.MaxExperience * 100, 0);
-            progressEXP.Position = Convert.ToInt32(expPercent);
+            if (Game.Player.AttackPet == null) 
+                return;
+
+            var expPercent = (Game.Player.AttackPet.Experience * 100) / Game.Player.AttackPet.MaxExperience;
+            if(expPercent > 100)
+                expPercent = 100;
+
+            progressEXP.Value = Convert.ToInt32(expPercent);
             progressEXP.Text = expPercent + @"%";
         }
 
@@ -98,9 +106,14 @@ namespace RSBot.Views.Controls
         /// </summary>
         private void OnAttackPetHungerUpdate()
         {
-            if (Game.Player.AttackPet == null) return;
-            var hgpPercent = Math.Round((double)Game.Player.AttackPet.CurrentHungerPoints / (double)Game.Player.AttackPet.MaxHungerPoints * 100, 0);
-            progressHGP.Position = Convert.ToInt32(hgpPercent);
+            if (Game.Player.AttackPet == null)
+                return;
+
+            var hgpPercent = (Game.Player.AttackPet.CurrentHungerPoints * 100) / Game.Player.AttackPet.MaxHungerPoints;
+            if(hgpPercent > 100)
+                hgpPercent = 100;
+
+            progressHGP.Value = Convert.ToInt32(hgpPercent);
             progressHGP.Text = hgpPercent + @"%";
         }
 
@@ -120,9 +133,9 @@ namespace RSBot.Views.Controls
         private void OnAgentServerDisconnected()
         {
             lblPetName.Text = "No pet found";
-            foreach (XpProgressBar item in Controls.OfType<XpProgressBar>())
+            foreach (ProgressBar item in Controls.OfType<ProgressBar>())
             {
-                item.Position = 0;
+                item.Value = 0;
                 item.Text = "0%";
             }
         }

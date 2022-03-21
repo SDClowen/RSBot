@@ -31,7 +31,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lblEntityName = new System.Windows.Forms.Label();
             this.lblType = new System.Windows.Forms.Label();
-            this.progressHP = new Theme.Controls.XpProgressBar();
+            this.progressHP = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // label1
@@ -63,17 +63,12 @@
             // 
             // progressHP
             // 
-            this.progressHP.ColorBackGround = System.Drawing.Color.Gainsboro;
-            this.progressHP.ColorBarBorder = System.Drawing.Color.DarkRed;
-            this.progressHP.ColorBarCenter = System.Drawing.Color.Red;
-            this.progressHP.ColorText = System.Drawing.Color.White;
             this.progressHP.Location = new System.Drawing.Point(52, 35);
             this.progressHP.Name = "progressHP";
-            this.progressHP.Position = 0;
-            this.progressHP.PositionMax = 100;
-            this.progressHP.PositionMin = 0;
+            this.progressHP.Value = 0;
+            this.progressHP.Maximum = 100;
+            this.progressHP.Minimum = 0;
             this.progressHP.Size = new System.Drawing.Size(180, 19);
-            this.progressHP.SteepDistance = ((byte)(0));
             this.progressHP.TabIndex = 15;
             this.progressHP.Text = "0%";
             // 
@@ -96,7 +91,7 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblEntityName;
-        private Theme.Controls.XpProgressBar progressHP;
+        private System.Windows.Forms.ProgressBar progressHP;
         private System.Windows.Forms.Label lblType;
     }
 }

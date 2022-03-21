@@ -29,7 +29,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.buttonOk = new RSBot.Theme.Material.Button();
+            this.buttonOk = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.bottomPanel = new System.Windows.Forms.Panel();
             this.labelName = new System.Windows.Forms.Label();
@@ -51,14 +51,8 @@
             // 
             // buttonOk
             // 
-            this.buttonOk.Depth = 0;
-            this.buttonOk.Icon = null;
             this.buttonOk.Location = new System.Drawing.Point(203, 8);
-            this.buttonOk.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Primary = true;
-            this.buttonOk.Raised = true;
-            this.buttonOk.SingleColor = System.Drawing.Color.Empty;
             this.buttonOk.Size = new System.Drawing.Size(75, 23);
             this.buttonOk.TabIndex = 0;
             this.buttonOk.Text = "OK";
@@ -150,7 +144,7 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBox1;
-        private Theme.Material.Button buttonOk;
+        private System.Windows.Forms.Button buttonOk;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Panel bottomPanel;
         private System.Windows.Forms.Label labelName;

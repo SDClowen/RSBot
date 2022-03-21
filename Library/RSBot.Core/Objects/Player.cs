@@ -258,7 +258,7 @@ namespace RSBot.Core.Objects
         /// <value>
         /// The maximum health.
         /// </value>
-        public uint MaximumHealth { get; set; }
+        public int MaximumHealth { get; set; }
 
         /// <summary>
         /// Gets or sets the maximum mana.
@@ -266,7 +266,7 @@ namespace RSBot.Core.Objects
         /// <value>
         /// The maximum mana.
         /// </value>
-        public uint MaximumMana { get; set; }
+        public int MaximumMana { get; set; }
 
         /// <summary>
         /// Gets or sets the strength.
@@ -650,7 +650,7 @@ namespace RSBot.Core.Objects
                     }
                 }
                 var elapsed = Environment.TickCount - tick;
-                Log.Notify($"{potionItem.Record.GetRealName()} {tick}   {elapsed} {duration}    {elapsed < duration}");
+                Log.Debug($"{potionItem.Record.GetRealName()} {tick}   {elapsed} {duration}    {elapsed < duration}");
                 if (elapsed < duration)
                     return false;
 

@@ -23,7 +23,7 @@ namespace RSBot.Core.Objects
         /// <value>
         /// The experience.
         /// </value>
-        public ulong Experience { get; set; }
+        public long Experience { get; set; }
 
         /// <summary>
         /// Gets or sets the level.
@@ -105,7 +105,7 @@ namespace RSBot.Core.Objects
             var maxHealth = packet.ReadInt(); //UNKNOWN
             result.MaxHealth = maxHealth != 0 ? maxHealth : result.Health;
 
-            result.Experience = packet.ReadULong();
+            result.Experience = packet.ReadLong();
             result.Level = packet.ReadByte();
             result.CurrentHungerPoints = packet.ReadUShort();
             packet.ReadInt(); //UNKNOWN (maybe control?)

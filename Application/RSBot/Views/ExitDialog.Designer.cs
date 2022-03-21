@@ -30,8 +30,8 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnNo = new RSBot.Theme.Material.Button();
-            this.btnYes = new RSBot.Theme.Material.Button();
+            this.btnNo = new System.Windows.Forms.Button();
+            this.btnYes = new System.Windows.Forms.Button();
             this.checkDontAskAgain = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
@@ -62,15 +62,9 @@
             // 
             // btnNo
             // 
-            this.btnNo.Depth = 0;
             this.btnNo.DialogResult = System.Windows.Forms.DialogResult.No;
-            this.btnNo.Icon = null;
             this.btnNo.Location = new System.Drawing.Point(349, 14);
-            this.btnNo.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnNo.Name = "btnNo";
-            this.btnNo.Primary = false;
-            this.btnNo.Raised = false;
-            this.btnNo.SingleColor = System.Drawing.Color.Empty;
             this.btnNo.Size = new System.Drawing.Size(75, 23);
             this.btnNo.TabIndex = 1;
             this.btnNo.Text = "No";
@@ -79,15 +73,9 @@
             // btnYes
             // 
             this.btnYes.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnYes.Depth = 0;
             this.btnYes.DialogResult = System.Windows.Forms.DialogResult.Yes;
-            this.btnYes.Icon = null;
             this.btnYes.Location = new System.Drawing.Point(268, 14);
-            this.btnYes.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnYes.Name = "btnYes";
-            this.btnYes.Primary = true;
-            this.btnYes.Raised = true;
-            this.btnYes.SingleColor = System.Drawing.Color.Empty;
             this.btnYes.Size = new System.Drawing.Size(75, 23);
             this.btnYes.TabIndex = 0;
             this.btnYes.Text = "Yes";
@@ -146,8 +134,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private Theme.Material.Button btnNo;
-        private Theme.Material.Button btnYes;
+        private System.Windows.Forms.Button btnNo;
+        private System.Windows.Forms.Button btnYes;
         private System.Windows.Forms.CheckBox checkDontAskAgain;
     }
 }

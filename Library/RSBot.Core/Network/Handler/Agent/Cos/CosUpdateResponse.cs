@@ -43,7 +43,7 @@ namespace RSBot.Core.Network.Handler.Agent.Cos
                         break;
 
                     case 3:
-                        var experience = packet.ReadULong();
+                        var experience = packet.ReadLong();
                         var source = packet.ReadUInt();
 
                         if (source == Core.Game.Player.AttackPet.UniqueId || Core.Game.Player.AttackPet == null) return;
@@ -51,9 +51,9 @@ namespace RSBot.Core.Network.Handler.Agent.Cos
                         Core.Game.Player.AttackPet.Experience += experience;
 
                         var iLevel = Core.Game.Player.AttackPet.Level;
-                        while (Core.Game.Player.AttackPet.Experience > (ulong)Core.Game.ReferenceManager.GetRefLevel(iLevel).Exp_C)
+                        while (Core.Game.Player.AttackPet.Experience > Core.Game.ReferenceManager.GetRefLevel(iLevel).Exp_C)
                         {
-                            Core.Game.Player.AttackPet.Experience -= (ulong)Core.Game.ReferenceManager.GetRefLevel(iLevel).Exp_C;
+                            Core.Game.Player.AttackPet.Experience -= Core.Game.ReferenceManager.GetRefLevel(iLevel).Exp_C;
                             iLevel++;
                         }
 
