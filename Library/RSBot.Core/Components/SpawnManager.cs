@@ -38,7 +38,7 @@ namespace RSBot.Core.Components
         public static T GetEntity<T>(Func<T, bool> condition)
             where T : SpawnedEntity
         {
-            return (T)_entities.Find(p => condition(p as T));
+            return (T)_entities.Find(p => ((p as T) != null) && condition(p as T));
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace RSBot.Core.Components
         {
             lock (_lock)
             {
-                entities = _entities.FindAll(p => p is T && predicate(p as T)).Cast<T>();
+                entities = _entities.FindAll(p => ((p as T) != null) && predicate(p as T)).Cast<T>();
 
                 return entities != null;
             }
