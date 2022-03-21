@@ -36,11 +36,11 @@
             this.panelStaticFilters = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panelLiveFilters = new System.Windows.Forms.Panel();
-            this.lvStatistics = new RSBot.Theme.Controls.ListView();
+            this.lvStatistics = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnReset = new RSBot.Theme.Material.Button();
+            this.btnReset = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -154,14 +154,8 @@
             // 
             // btnReset
             // 
-            this.btnReset.Depth = 0;
-            this.btnReset.Icon = null;
             this.btnReset.Location = new System.Drawing.Point(406, 17);
-            this.btnReset.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnReset.Name = "btnReset";
-            this.btnReset.Primary = false;
-            this.btnReset.Raised = false;
-            this.btnReset.SingleColor = System.Drawing.Color.Empty;
             this.btnReset.Size = new System.Drawing.Size(75, 23);
             this.btnReset.TabIndex = 0;
             this.btnReset.Text = "Reset ";
@@ -191,9 +185,9 @@
         #endregion
 
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private Theme.Controls.ListView lvStatistics;
+        private System.Windows.Forms.ListView lvStatistics;
         private System.Windows.Forms.Panel panel1;
-        private Theme.Material.Button btnReset;
+        private System.Windows.Forms.Button btnReset;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.GroupBox groupBox1;

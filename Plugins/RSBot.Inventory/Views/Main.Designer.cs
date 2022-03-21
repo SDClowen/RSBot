@@ -34,13 +34,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lblFreeSlots = new System.Windows.Forms.Label();
             this.imgItems = new System.Windows.Forms.ImageList(this.components);
-            this.listViewMain = new RSBot.Theme.Controls.ListView();
+            this.listViewMain = new System.Windows.Forms.ListView();
             this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colAmount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colGenderRace = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.buttonUseItem = new RSBot.Theme.Material.Button();
+            this.buttonUseItem = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -160,15 +160,9 @@
             // buttonUseItem
             // 
             this.buttonUseItem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonUseItem.Depth = 0;
             this.buttonUseItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonUseItem.Icon = null;
             this.buttonUseItem.Location = new System.Drawing.Point(657, 3);
-            this.buttonUseItem.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.buttonUseItem.Name = "buttonUseItem";
-            this.buttonUseItem.Primary = true;
-            this.buttonUseItem.Raised = true;
-            this.buttonUseItem.SingleColor = System.Drawing.Color.Empty;
             this.buttonUseItem.Size = new System.Drawing.Size(75, 23);
             this.buttonUseItem.TabIndex = 6;
             this.buttonUseItem.Text = "Use";
@@ -199,7 +193,7 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboInventoryType;
-        private Theme.Controls.ListView listViewMain;
+        private System.Windows.Forms.ListView listViewMain;
         private System.Windows.Forms.ColumnHeader colName;
         private System.Windows.Forms.ColumnHeader colAmount;
         private System.Windows.Forms.Label label2;
@@ -208,6 +202,6 @@
         private System.Windows.Forms.ImageList imgItems;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
-        private Theme.Material.Button buttonUseItem;
+        private System.Windows.Forms.Button buttonUseItem;
     }
 }

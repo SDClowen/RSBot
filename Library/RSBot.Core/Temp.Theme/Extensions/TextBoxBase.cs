@@ -33,7 +33,7 @@ namespace RSBot.Theme.Extensions
                 value.ScrollToCaret();
             });
 
-            if(writeToFile)
+            if (writeToFile)
             {
                 lock (_lock)
                 {

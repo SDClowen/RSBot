@@ -30,7 +30,7 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.txtSilkroadPath = new System.Windows.Forms.TextBox();
-            this.btnBrowseSilkroadPath = new RSBot.Theme.Material.Button();
+            this.btnBrowseSilkroadPath = new System.Windows.Forms.Button();
             this.lblVersion = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -48,12 +48,12 @@
             this.label4 = new System.Windows.Forms.Label();
             this.checkEnableAutoLogin = new System.Windows.Forms.CheckBox();
             this.comboCharacter = new System.Windows.Forms.ComboBox();
-            this.btnAutoLoginSettings = new RSBot.Theme.Material.Button();
+            this.btnAutoLoginSettings = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnClientHideShow = new RSBot.Theme.Material.Button();
-            this.btnStartClient = new RSBot.Theme.Material.Button();
-            this.btnStartClientless = new RSBot.Theme.Material.Button();
-            this.btnGoClientless = new RSBot.Theme.Material.Button();
+            this.btnClientHideShow = new System.Windows.Forms.Button();
+            this.btnStartClient = new System.Windows.Forms.Button();
+            this.btnStartClientless = new System.Windows.Forms.Button();
+            this.btnGoClientless = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.checkStayConnected = new System.Windows.Forms.CheckBox();
@@ -90,14 +90,8 @@
             // 
             // btnBrowseSilkroadPath
             // 
-            this.btnBrowseSilkroadPath.Depth = 0;
-            this.btnBrowseSilkroadPath.Icon = null;
             this.btnBrowseSilkroadPath.Location = new System.Drawing.Point(715, 30);
-            this.btnBrowseSilkroadPath.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnBrowseSilkroadPath.Name = "btnBrowseSilkroadPath";
-            this.btnBrowseSilkroadPath.Primary = false;
-            this.btnBrowseSilkroadPath.Raised = false;
-            this.btnBrowseSilkroadPath.SingleColor = System.Drawing.Color.Empty;
             this.btnBrowseSilkroadPath.Size = new System.Drawing.Size(32, 21);
             this.btnBrowseSilkroadPath.TabIndex = 2;
             this.btnBrowseSilkroadPath.Text = "...";
@@ -106,10 +100,9 @@
             // 
             // lblVersion
             // 
-            this.lblVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.lblVersion.AutoSize = true;
             this.lblVersion.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVersion.Location = new System.Drawing.Point(711, 11);
+            this.lblVersion.Location = new System.Drawing.Point(707, 11);
             this.lblVersion.Name = "lblVersion";
             this.lblVersion.Size = new System.Drawing.Size(40, 15);
             this.lblVersion.TabIndex = 3;
@@ -122,7 +115,7 @@
             this.groupBox1.Controls.Add(this.panel3);
             this.groupBox1.Controls.Add(this.captchaPanel);
             this.groupBox1.Controls.Add(this.autoLoginTopPanel);
-            this.groupBox1.Location = new System.Drawing.Point(19, 163);
+            this.groupBox1.Location = new System.Drawing.Point(19, 166);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(355, 274);
             this.groupBox1.TabIndex = 14;
@@ -289,14 +282,8 @@
             // 
             // btnAutoLoginSettings
             // 
-            this.btnAutoLoginSettings.Depth = 0;
-            this.btnAutoLoginSettings.Icon = null;
             this.btnAutoLoginSettings.Location = new System.Drawing.Point(256, 61);
-            this.btnAutoLoginSettings.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnAutoLoginSettings.Name = "btnAutoLoginSettings";
-            this.btnAutoLoginSettings.Primary = false;
-            this.btnAutoLoginSettings.Raised = false;
-            this.btnAutoLoginSettings.SingleColor = System.Drawing.Color.Empty;
             this.btnAutoLoginSettings.Size = new System.Drawing.Size(75, 23);
             this.btnAutoLoginSettings.TabIndex = 2;
             this.btnAutoLoginSettings.Text = "Setup";
@@ -311,22 +298,16 @@
             this.groupBox2.Controls.Add(this.btnGoClientless);
             this.groupBox2.Location = new System.Drawing.Point(19, 67);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(355, 84);
+            this.groupBox2.Size = new System.Drawing.Size(355, 93);
             this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Start game";
             // 
             // btnClientHideShow
             // 
-            this.btnClientHideShow.Depth = 0;
             this.btnClientHideShow.Enabled = false;
-            this.btnClientHideShow.Icon = null;
-            this.btnClientHideShow.Location = new System.Drawing.Point(18, 46);
-            this.btnClientHideShow.MouseState = RSBot.Theme.IMatMouseState.HOVER;
+            this.btnClientHideShow.Location = new System.Drawing.Point(18, 49);
             this.btnClientHideShow.Name = "btnClientHideShow";
-            this.btnClientHideShow.Primary = false;
-            this.btnClientHideShow.Raised = false;
-            this.btnClientHideShow.SingleColor = System.Drawing.Color.Empty;
             this.btnClientHideShow.Size = new System.Drawing.Size(125, 23);
             this.btnClientHideShow.TabIndex = 19;
             this.btnClientHideShow.Text = "Client Visibility";
@@ -335,14 +316,8 @@
             // 
             // btnStartClient
             // 
-            this.btnStartClient.Depth = 0;
-            this.btnStartClient.Icon = null;
-            this.btnStartClient.Location = new System.Drawing.Point(18, 16);
-            this.btnStartClient.MouseState = RSBot.Theme.IMatMouseState.HOVER;
+            this.btnStartClient.Location = new System.Drawing.Point(18, 19);
             this.btnStartClient.Name = "btnStartClient";
-            this.btnStartClient.Primary = true;
-            this.btnStartClient.Raised = true;
-            this.btnStartClient.SingleColor = System.Drawing.Color.Empty;
             this.btnStartClient.Size = new System.Drawing.Size(125, 23);
             this.btnStartClient.TabIndex = 16;
             this.btnStartClient.Text = "Start Client";
@@ -351,14 +326,8 @@
             // 
             // btnStartClientless
             // 
-            this.btnStartClientless.Depth = 0;
-            this.btnStartClientless.Icon = null;
-            this.btnStartClientless.Location = new System.Drawing.Point(212, 16);
-            this.btnStartClientless.MouseState = RSBot.Theme.IMatMouseState.HOVER;
+            this.btnStartClientless.Location = new System.Drawing.Point(212, 19);
             this.btnStartClientless.Name = "btnStartClientless";
-            this.btnStartClientless.Primary = false;
-            this.btnStartClientless.Raised = false;
-            this.btnStartClientless.SingleColor = System.Drawing.Color.Empty;
             this.btnStartClientless.Size = new System.Drawing.Size(125, 24);
             this.btnStartClientless.TabIndex = 18;
             this.btnStartClientless.Text = "Start Clientless";
@@ -367,15 +336,9 @@
             // 
             // btnGoClientless
             // 
-            this.btnGoClientless.Depth = 0;
             this.btnGoClientless.Enabled = false;
-            this.btnGoClientless.Icon = null;
-            this.btnGoClientless.Location = new System.Drawing.Point(212, 46);
-            this.btnGoClientless.MouseState = RSBot.Theme.IMatMouseState.HOVER;
+            this.btnGoClientless.Location = new System.Drawing.Point(212, 49);
             this.btnGoClientless.Name = "btnGoClientless";
-            this.btnGoClientless.Primary = false;
-            this.btnGoClientless.Raised = false;
-            this.btnGoClientless.SingleColor = System.Drawing.Color.Empty;
             this.btnGoClientless.Size = new System.Drawing.Size(125, 24);
             this.btnGoClientless.TabIndex = 17;
             this.btnGoClientless.Text = "Go Clientless";
@@ -388,7 +351,7 @@
             this.groupBox3.Controls.Add(this.checkStayConnected);
             this.groupBox3.Location = new System.Drawing.Point(389, 67);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(359, 84);
+            this.groupBox3.Size = new System.Drawing.Size(359, 93);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Client settings";
@@ -421,7 +384,7 @@
             this.groupBox4.Controls.Add(this.checkBoxBotTrayMinimized);
             this.groupBox4.Location = new System.Drawing.Point(389, 166);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(359, 88);
+            this.groupBox4.Size = new System.Drawing.Size(359, 98);
             this.groupBox4.TabIndex = 17;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Bot Settings";
@@ -473,7 +436,7 @@
             this.Controls.Add(this.txtSilkroadPath);
             this.Controls.Add(this.label1);
             this.Name = "Main";
-            this.Size = new System.Drawing.Size(754, 467);
+            this.Size = new System.Drawing.Size(803, 467);
             this.groupBox1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
@@ -495,13 +458,13 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtSilkroadPath;
-        private Theme.Material.Button btnBrowseSilkroadPath;
+        private System.Windows.Forms.Button btnBrowseSilkroadPath;
         private System.Windows.Forms.Label lblVersion;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox comboAccounts;
         private System.Windows.Forms.CheckBox checkEnableAutoLogin;
-        private Theme.Material.Button btnAutoLoginSettings;
+        private System.Windows.Forms.Button btnAutoLoginSettings;
         private System.Windows.Forms.TextBox txtStaticCaptcha;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox checkEnableStaticCaptcha;
@@ -509,16 +472,16 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox comboCharacter;
         private System.Windows.Forms.GroupBox groupBox2;
-        private Theme.Material.Button btnGoClientless;
-        private Theme.Material.Button btnStartClientless;
-        private Theme.Material.Button btnStartClient;
+        private System.Windows.Forms.Button btnGoClientless;
+        private System.Windows.Forms.Button btnStartClientless;
+        private System.Windows.Forms.Button btnStartClient;
         private System.Windows.Forms.CheckBox checkUseReturnScroll;
         private System.Windows.Forms.CheckBox checkStartBot;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.CheckBox checkStayConnected;
         private System.Windows.Forms.Label label2;
-        private Theme.Material.Button btnClientHideShow;
+        private System.Windows.Forms.Button btnClientHideShow;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckBox checkBoxBotTrayMinimized;

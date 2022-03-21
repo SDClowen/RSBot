@@ -32,8 +32,8 @@
             this.lblMessage = new System.Windows.Forms.Label();
             this.txtValue = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnOK = new RSBot.Theme.Material.Button();
-            this.btnCancel = new RSBot.Theme.Material.Button();
+            this.btnOK = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.comboBox = new System.Windows.Forms.ComboBox();
             this.numValue = new System.Windows.Forms.NumericUpDown();
             this.panel1.SuspendLayout();
@@ -80,15 +80,9 @@
             // 
             // btnOK
             // 
-            this.btnOK.Depth = 0;
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Icon = null;
             this.btnOK.Location = new System.Drawing.Point(158, 4);
-            this.btnOK.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnOK.Name = "btnOK";
-            this.btnOK.Primary = true;
-            this.btnOK.Raised = true;
-            this.btnOK.SingleColor = System.Drawing.Color.Empty;
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 0;
             this.btnOK.Text = "OK";
@@ -97,15 +91,9 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Depth = 0;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Icon = null;
             this.btnCancel.Location = new System.Drawing.Point(239, 4);
-            this.btnCancel.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Primary = false;
-            this.btnCancel.Raised = false;
-            this.btnCancel.SingleColor = System.Drawing.Color.Empty;
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Cancel";
@@ -178,8 +166,8 @@
         private System.Windows.Forms.Label lblMessage;
         private System.Windows.Forms.TextBox txtValue;
         private System.Windows.Forms.Panel panel1;
-        private Theme.Material.Button btnOK;
-        private Theme.Material.Button btnCancel;
+        private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.ComboBox comboBox;
         private System.Windows.Forms.NumericUpDown numValue;
     }

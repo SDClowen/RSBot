@@ -32,9 +32,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.progressEXP = new Theme.Controls.XpProgressBar();
-            this.progressHGP = new Theme.Controls.XpProgressBar();
-            this.progressHP = new Theme.Controls.XpProgressBar();
+            this.progressEXP = new System.Windows.Forms.ProgressBar();
+            this.progressHGP = new System.Windows.Forms.ProgressBar();
+            this.progressHP = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // lblPetName
@@ -76,49 +76,34 @@
             // 
             // progressEXP
             // 
-            this.progressEXP.ColorBackGround = System.Drawing.Color.Gainsboro;
-            this.progressEXP.ColorBarBorder = System.Drawing.Color.Green;
-            this.progressEXP.ColorBarCenter = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.progressEXP.ColorText = System.Drawing.Color.White;
             this.progressEXP.Location = new System.Drawing.Point(51, 76);
             this.progressEXP.Name = "progressEXP";
-            this.progressEXP.Position = 0;
-            this.progressEXP.PositionMax = 100;
-            this.progressEXP.PositionMin = 0;
+            this.progressEXP.Value = 0;
+            this.progressEXP.Maximum = 100;
+            this.progressEXP.Minimum = 0;
             this.progressEXP.Size = new System.Drawing.Size(180, 19);
-            this.progressEXP.SteepDistance = ((byte)(0));
             this.progressEXP.TabIndex = 12;
             this.progressEXP.Text = "0%";
             // 
             // progressHGP
             // 
-            this.progressHGP.ColorBackGround = System.Drawing.Color.Gainsboro;
-            this.progressHGP.ColorBarBorder = System.Drawing.Color.Gold;
-            this.progressHGP.ColorBarCenter = System.Drawing.Color.Yellow;
-            this.progressHGP.ColorText = System.Drawing.Color.White;
             this.progressHGP.Location = new System.Drawing.Point(51, 55);
             this.progressHGP.Name = "progressHGP";
-            this.progressHGP.Position = 0;
-            this.progressHGP.PositionMax = 100;
-            this.progressHGP.PositionMin = 0;
+            this.progressHGP.Value = 0;
+            this.progressHGP.Maximum = 100;
+            this.progressHGP.Minimum = 0;
             this.progressHGP.Size = new System.Drawing.Size(180, 19);
-            this.progressHGP.SteepDistance = ((byte)(0));
             this.progressHGP.TabIndex = 11;
             this.progressHGP.Text = "0%";
             // 
             // progressHP
             // 
-            this.progressHP.ColorBackGround = System.Drawing.Color.Gainsboro;
-            this.progressHP.ColorBarBorder = System.Drawing.Color.DarkRed;
-            this.progressHP.ColorBarCenter = System.Drawing.Color.Red;
-            this.progressHP.ColorText = System.Drawing.Color.White;
             this.progressHP.Location = new System.Drawing.Point(51, 34);
             this.progressHP.Name = "progressHP";
-            this.progressHP.Position = 0;
-            this.progressHP.PositionMax = 100;
-            this.progressHP.PositionMin = 0;
+            this.progressHP.Value = 0;
+            this.progressHP.Maximum = 100;
+            this.progressHP.Minimum = 0;
             this.progressHP.Size = new System.Drawing.Size(180, 19);
-            this.progressHP.SteepDistance = ((byte)(0));
             this.progressHP.TabIndex = 10;
             this.progressHP.Text = "0%";
             // 
@@ -143,9 +128,9 @@
         #endregion
 
         private System.Windows.Forms.Label lblPetName;
-        private Theme.Controls.XpProgressBar progressEXP;
-        private Theme.Controls.XpProgressBar progressHGP;
-        private Theme.Controls.XpProgressBar progressHP;
+        private System.Windows.Forms.ProgressBar progressEXP;
+        private System.Windows.Forms.ProgressBar progressHGP;
+        private System.Windows.Forms.ProgressBar progressHP;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;

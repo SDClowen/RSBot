@@ -5,6 +5,7 @@ using RSBot.Core.Objects.Skill;
 using RSBot.Core.Objects.Spawn;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 
@@ -92,6 +93,9 @@ namespace RSBot.Core.Components
         public static SkillInfo GetNextSkill()
         {
             var entity = Game.SelectedEntity;
+            if (entity == null) 
+                return null;
+
             var rarity = MonsterRarity.General;
 
             if (entity is SpawnedMonster monster)
@@ -113,6 +117,7 @@ namespace RSBot.Core.Components
             }
             else if (distance < 10)
             {
+                var stopwatch = Stopwatch.StartNew();
                 while (Skills[rarity].Count > 0)
                 {
                     _lastIndex++;
@@ -126,6 +131,8 @@ namespace RSBot.Core.Components
                     closestSkill = selectedSkill;
                     break;
                 }
+
+                //Debug.WriteLine($"while loop: {stopwatch.ElapsedMilliseconds}");
             }
             else
             {
@@ -133,6 +140,9 @@ namespace RSBot.Core.Components
                 if (weapon != null)
                     weaponRange = weapon.Record.Range / 10;
                 */
+
+                var stopwatch = Stopwatch.StartNew();
+
                 for (int i = 0; i < Skills[rarity].Count; i++)
                 {
                     var s = Skills[rarity][i];
@@ -146,6 +156,7 @@ namespace RSBot.Core.Components
                         closestSkill = s;
                     }
                 }
+                //Debug.WriteLine($"for loop: {stopwatch.ElapsedMilliseconds}");
             }
 
             return closestSkill;

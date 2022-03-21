@@ -41,14 +41,14 @@ namespace RSBot.Map.Views
             this.comboViewType = new System.Windows.Forms.ComboBox();
             this.trmInterval = new System.Windows.Forms.Timer(this.components);
             this.labelSectorInfo = new System.Windows.Forms.Label();
-            this.lvMonster = new RSBot.Theme.Controls.ListView();
+            this.lvMonster = new System.Windows.Forms.ListView();
             this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colPosition = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.buttonZoomIn = new RSBot.Theme.Material.Button();
-            this.buttonZoomReset = new RSBot.Theme.Material.Button();
-            this.buttonZoomOut = new RSBot.Theme.Material.Button();
+            this.buttonZoomIn = new System.Windows.Forms.Button();
+            this.buttonZoomReset = new System.Windows.Forms.Button();
+            this.buttonZoomOut = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.mapCanvas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -195,16 +195,10 @@ namespace RSBot.Map.Views
             // 
             // buttonZoomIn
             // 
-            this.buttonZoomIn.Depth = 0;
             this.buttonZoomIn.Font = new System.Drawing.Font("Webdings", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.buttonZoomIn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.buttonZoomIn.Icon = null;
             this.buttonZoomIn.Location = new System.Drawing.Point(295, 80);
-            this.buttonZoomIn.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.buttonZoomIn.Name = "buttonZoomIn";
-            this.buttonZoomIn.Primary = true;
-            this.buttonZoomIn.Raised = true;
-            this.buttonZoomIn.SingleColor = System.Drawing.Color.SlateGray;
             this.buttonZoomIn.Size = new System.Drawing.Size(24, 24);
             this.buttonZoomIn.TabIndex = 16;
             this.buttonZoomIn.Text = "5";
@@ -213,16 +207,10 @@ namespace RSBot.Map.Views
             // 
             // buttonZoomReset
             // 
-            this.buttonZoomReset.Depth = 0;
             this.buttonZoomReset.Font = new System.Drawing.Font("Webdings", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.buttonZoomReset.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.buttonZoomReset.Icon = null;
             this.buttonZoomReset.Location = new System.Drawing.Point(295, 110);
-            this.buttonZoomReset.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.buttonZoomReset.Name = "buttonZoomReset";
-            this.buttonZoomReset.Primary = true;
-            this.buttonZoomReset.Raised = true;
-            this.buttonZoomReset.SingleColor = System.Drawing.Color.SlateGray;
             this.buttonZoomReset.Size = new System.Drawing.Size(24, 24);
             this.buttonZoomReset.TabIndex = 16;
             this.buttonZoomReset.Text = "n";
@@ -231,16 +219,10 @@ namespace RSBot.Map.Views
             // 
             // buttonZoomOut
             // 
-            this.buttonZoomOut.Depth = 0;
             this.buttonZoomOut.Font = new System.Drawing.Font("Webdings", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.buttonZoomOut.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.buttonZoomOut.Icon = null;
             this.buttonZoomOut.Location = new System.Drawing.Point(295, 140);
-            this.buttonZoomOut.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.buttonZoomOut.Name = "buttonZoomOut";
-            this.buttonZoomOut.Primary = true;
-            this.buttonZoomOut.Raised = true;
-            this.buttonZoomOut.SingleColor = System.Drawing.Color.SlateGray;
             this.buttonZoomOut.Size = new System.Drawing.Size(24, 24);
             this.buttonZoomOut.TabIndex = 16;
             this.buttonZoomOut.Text = "6";
@@ -281,7 +263,7 @@ namespace RSBot.Map.Views
         private System.Windows.Forms.Label lblX;
         private System.Windows.Forms.Label lblY;
         private System.Windows.Forms.Label lblRegion;
-        private Theme.Controls.ListView lvMonster;
+        private System.Windows.Forms.ListView lvMonster;
         private System.Windows.Forms.ColumnHeader colName;
         private System.Windows.Forms.ColumnHeader colType;
         private System.Windows.Forms.ColumnHeader colLevel;
@@ -290,8 +272,8 @@ namespace RSBot.Map.Views
         private System.Windows.Forms.ColumnHeader colPosition;
         private System.Windows.Forms.Timer trmInterval;
         private System.Windows.Forms.Label labelSectorInfo;
-        private Theme.Material.Button buttonZoomIn;
-        private Theme.Material.Button buttonZoomReset;
-        private Theme.Material.Button buttonZoomOut;
+        private System.Windows.Forms.Button buttonZoomIn;
+        private System.Windows.Forms.Button buttonZoomReset;
+        private System.Windows.Forms.Button buttonZoomOut;
     }
 }

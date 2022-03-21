@@ -46,7 +46,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.radioWalkAround = new System.Windows.Forms.RadioButton();
             this.radioCenter = new System.Windows.Forms.RadioButton();
-            this.btnGetCurrent = new RSBot.Theme.Material.Button();
+            this.btnGetCurrent = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -54,7 +54,7 @@
             this.txtYCoord = new System.Windows.Forms.TextBox();
             this.txtXCoord = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.lvAvoidance = new RSBot.Theme.Controls.ListView();
+            this.lvAvoidance = new System.Windows.Forms.ListView();
             this.ctxAvoidance = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.btnAvoid = new System.Windows.Forms.ToolStripMenuItem();
             this.btnPrefer = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,7 +64,7 @@
             this.checkUseSpeedDrug = new System.Windows.Forms.CheckBox();
             this.checkCastBuffs = new System.Windows.Forms.CheckBox();
             this.checkUseMount = new System.Windows.Forms.CheckBox();
-            this.btnBrowse = new RSBot.Theme.Material.Button();
+            this.btnBrowse = new System.Windows.Forms.Button();
             this.txtWalkscript = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.checkBerzerkWhenFull = new System.Windows.Forms.CheckBox();
@@ -145,14 +145,8 @@
             // 
             // btnGetCurrent
             // 
-            this.btnGetCurrent.Depth = 0;
-            this.btnGetCurrent.Icon = null;
             this.btnGetCurrent.Location = new System.Drawing.Point(107, 106);
-            this.btnGetCurrent.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnGetCurrent.Name = "btnGetCurrent";
-            this.btnGetCurrent.Primary = false;
-            this.btnGetCurrent.Raised = false;
-            this.btnGetCurrent.SingleColor = System.Drawing.Color.Empty;
             this.btnGetCurrent.Size = new System.Drawing.Size(97, 23);
             this.btnGetCurrent.TabIndex = 3;
             this.btnGetCurrent.Text = "Current";
@@ -349,14 +343,8 @@
             // 
             // btnBrowse
             // 
-            this.btnBrowse.Depth = 0;
-            this.btnBrowse.Icon = null;
             this.btnBrowse.Location = new System.Drawing.Point(406, 46);
-            this.btnBrowse.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnBrowse.Name = "btnBrowse";
-            this.btnBrowse.Primary = false;
-            this.btnBrowse.Raised = false;
-            this.btnBrowse.SingleColor = System.Drawing.Color.Empty;
             this.btnBrowse.Size = new System.Drawing.Size(57, 21);
             this.btnBrowse.TabIndex = 3;
             this.btnBrowse.Text = "Browse";
@@ -494,9 +482,9 @@
         private System.Windows.Forms.TextBox txtXCoord;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox2;
-        private Theme.Material.Button btnGetCurrent;
+        private System.Windows.Forms.Button btnGetCurrent;
         private System.Windows.Forms.GroupBox groupBox3;
-        private Theme.Material.Button btnBrowse;
+        private System.Windows.Forms.Button btnBrowse;
         private System.Windows.Forms.TextBox txtWalkscript;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox checkUseMount;
@@ -507,7 +495,7 @@
         private System.Windows.Forms.CheckBox checkUseSpeedDrug;
         private System.Windows.Forms.CheckBox checkCastBuffs;
         private System.Windows.Forms.CheckBox checkBerzerkWhenFull;
-        private Theme.Controls.ListView lvAvoidance;
+        private System.Windows.Forms.ListView lvAvoidance;
         private System.Windows.Forms.ContextMenuStrip ctxAvoidance;
         private System.Windows.Forms.ToolStripMenuItem btnAvoid;
         private System.Windows.Forms.ToolStripMenuItem btnPrefer;

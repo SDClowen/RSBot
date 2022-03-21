@@ -32,8 +32,8 @@
             this.lblInfo = new System.Windows.Forms.Label();
             this.cbChangeLog = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.btnDownload = new RSBot.Theme.Material.Button();
-            this.btnSkip = new RSBot.Theme.Material.Button();
+            this.btnDownload = new System.Windows.Forms.Button();
+            this.btnSkip = new System.Windows.Forms.Button();
             this.centerPanel = new System.Windows.Forms.Panel();
             this.downloadProgress = new System.Windows.Forms.ProgressBar();
             this.lblDownloadInfo = new System.Windows.Forms.Label();
@@ -90,15 +90,9 @@
             this.btnDownload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDownload.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnDownload.Depth = 0;
             this.btnDownload.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnDownload.Icon = null;
             this.btnDownload.Location = new System.Drawing.Point(332, 5);
-            this.btnDownload.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnDownload.Name = "btnDownload";
-            this.btnDownload.Primary = true;
-            this.btnDownload.Raised = true;
-            this.btnDownload.SingleColor = System.Drawing.Color.Empty;
             this.btnDownload.Size = new System.Drawing.Size(85, 23);
             this.btnDownload.TabIndex = 4;
             this.btnDownload.Text = "Update";
@@ -107,15 +101,9 @@
             // 
             // btnSkip
             // 
-            this.btnSkip.Depth = 0;
             this.btnSkip.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnSkip.Icon = null;
             this.btnSkip.Location = new System.Drawing.Point(5, 5);
-            this.btnSkip.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnSkip.Name = "btnSkip";
-            this.btnSkip.Primary = false;
-            this.btnSkip.Raised = false;
-            this.btnSkip.SingleColor = System.Drawing.Color.Empty;
             this.btnSkip.Size = new System.Drawing.Size(75, 23);
             this.btnSkip.TabIndex = 4;
             this.btnSkip.Text = "Skip";
@@ -190,8 +178,8 @@
         private System.Windows.Forms.Label lblInfo;
         private System.Windows.Forms.CheckBox cbChangeLog;
         private System.Windows.Forms.Label label2;
-        private Theme.Material.Button btnDownload;
-        private Theme.Material.Button btnSkip;
+        private System.Windows.Forms.Button btnDownload;
+        private System.Windows.Forms.Button btnSkip;
         private System.Windows.Forms.Panel centerPanel;
         private System.Windows.Forms.ProgressBar downloadProgress;
         private System.Windows.Forms.Label lblDownloadInfo;

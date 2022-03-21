@@ -37,12 +37,12 @@ namespace RSBot.Core.Network.Handler.Agent.Character
             Core.Game.Player.HitRate = packet.ReadUShort();
             Core.Game.Player.ParryRate = packet.ReadUShort();
 
-            Core.Game.Player.MaximumHealth = packet.ReadUInt();
-            Core.Game.Player.MaximumMana = packet.ReadUInt();
+            Core.Game.Player.MaximumHealth = packet.ReadInt();
+            Core.Game.Player.MaximumMana = packet.ReadInt();
 
             Core.Game.Player.Strength = packet.ReadUShort();
             Core.Game.Player.Intelligence = packet.ReadUShort();
-
+            
             EventManager.FireEvent("OnLoadCharacterStats");
         }
     }

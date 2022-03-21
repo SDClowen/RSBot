@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnCancel = new RSBot.Theme.Material.Button();
-            this.btnOK = new RSBot.Theme.Material.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnOK = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.listAccounts = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -40,9 +40,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtServername = new System.Windows.Forms.TextBox();
             this.linkLabelPwShowHide = new System.Windows.Forms.LinkLabel();
-            this.btnAdd = new RSBot.Theme.Material.Button();
-            this.btnSave = new RSBot.Theme.Material.Button();
-            this.buttonRemove = new RSBot.Theme.Material.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.buttonRemove = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxSecondaryPassword = new System.Windows.Forms.TextBox();
             this.linkLabelSecondaryPassword = new System.Windows.Forms.LinkLabel();
@@ -63,15 +63,9 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Depth = 0;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Icon = null;
             this.btnCancel.Location = new System.Drawing.Point(313, 10);
-            this.btnCancel.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Primary = false;
-            this.btnCancel.Raised = false;
-            this.btnCancel.SingleColor = System.Drawing.Color.Empty;
             this.btnCancel.Size = new System.Drawing.Size(72, 23);
             this.btnCancel.TabIndex = 7;
             this.btnCancel.Text = "Cancel";
@@ -79,15 +73,9 @@
             // 
             // btnOK
             // 
-            this.btnOK.Depth = 0;
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Icon = null;
             this.btnOK.Location = new System.Drawing.Point(235, 10);
-            this.btnOK.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnOK.Name = "btnOK";
-            this.btnOK.Primary = true;
-            this.btnOK.Raised = true;
-            this.btnOK.SingleColor = System.Drawing.Color.Empty;
             this.btnOK.Size = new System.Drawing.Size(72, 23);
             this.btnOK.TabIndex = 6;
             this.btnOK.Text = "OK";
@@ -174,15 +162,9 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Depth = 0;
             this.btnAdd.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnAdd.Icon = null;
             this.btnAdd.Location = new System.Drawing.Point(197, 204);
-            this.btnAdd.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Primary = true;
-            this.btnAdd.Raised = true;
-            this.btnAdd.SingleColor = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(189)))), ((int)(((byte)(166)))));
             this.btnAdd.Size = new System.Drawing.Size(72, 23);
             this.btnAdd.TabIndex = 4;
             this.btnAdd.Text = "Add";
@@ -192,15 +174,9 @@
             // btnSave
             // 
             this.btnSave.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnSave.Depth = 0;
             this.btnSave.Enabled = false;
-            this.btnSave.Icon = null;
             this.btnSave.Location = new System.Drawing.Point(310, 204);
-            this.btnSave.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnSave.Name = "btnSave";
-            this.btnSave.Primary = false;
-            this.btnSave.Raised = false;
-            this.btnSave.SingleColor = System.Drawing.Color.Empty;
             this.btnSave.Size = new System.Drawing.Size(72, 23);
             this.btnSave.TabIndex = 5;
             this.btnSave.Text = "Save";
@@ -209,15 +185,9 @@
             // 
             // buttonRemove
             // 
-            this.buttonRemove.Depth = 0;
             this.buttonRemove.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.buttonRemove.Icon = null;
             this.buttonRemove.Location = new System.Drawing.Point(197, 204);
-            this.buttonRemove.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.buttonRemove.Name = "buttonRemove";
-            this.buttonRemove.Primary = true;
-            this.buttonRemove.Raised = true;
-            this.buttonRemove.SingleColor = System.Drawing.Color.IndianRed;
             this.buttonRemove.Size = new System.Drawing.Size(72, 23);
             this.buttonRemove.TabIndex = 10;
             this.buttonRemove.Text = "Remove";
@@ -291,8 +261,8 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
-        private Theme.Material.Button btnCancel;
-        private Theme.Material.Button btnOK;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.ListBox listAccounts;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtUsername;
@@ -300,10 +270,10 @@
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtServername;
-        private Theme.Material.Button btnSave;
-        private Theme.Material.Button btnAdd;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.LinkLabel linkLabelPwShowHide;
-        private Theme.Material.Button buttonRemove;
+        private System.Windows.Forms.Button buttonRemove;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBoxSecondaryPassword;
         private System.Windows.Forms.LinkLabel linkLabelSecondaryPassword;

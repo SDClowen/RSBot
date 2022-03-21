@@ -37,7 +37,7 @@
             this.labelMyWaitingTime = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.buttonCancel = new RSBot.Theme.Material.Button();
+            this.buttonCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelServerName
@@ -118,15 +118,9 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Depth = 0;
             this.buttonCancel.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCancel.Icon = null;
             this.buttonCancel.Location = new System.Drawing.Point(106, 205);
-            this.buttonCancel.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Primary = true;
-            this.buttonCancel.Raised = true;
-            this.buttonCancel.SingleColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.buttonCancel.Size = new System.Drawing.Size(191, 23);
             this.buttonCancel.TabIndex = 1;
             this.buttonCancel.Text = "Cancel the waiting";
@@ -172,7 +166,7 @@
         private System.Windows.Forms.Label labelAvgWaitingTime;
         private System.Windows.Forms.Label labelMyWaitingTime;
         private System.Windows.Forms.Label label5;
-        private Theme.Material.Button buttonCancel;
+        private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Timer timer;
     }
 }

@@ -35,7 +35,9 @@ namespace RSBot.Bot.Default.Bundle.Attack
             if (Game.Player.InAction && SkillManager.LastActionType != ActionType.AutoAttack)
                 return;
 
+            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
             var skill = SkillManager.GetNextSkill();
+            Log.Debug($"Getnextskill: {stopwatch.ElapsedMilliseconds} Action:{Game.Player.InAction} Entity:{Game.SelectedEntity != null} LA:{SkillManager.LastActionType} Skill:{skill}");
             if (skill == null)
             {
                 if (Game.Player.InAction)

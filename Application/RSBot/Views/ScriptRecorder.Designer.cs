@@ -30,10 +30,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScriptRecorder));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnRunNow = new Theme.Material.Button();
-            this.btnSave = new Theme.Material.Button();
-            this.btnClear = new Theme.Material.Button();
-            this.btnStart = new Theme.Material.Button();
+            this.btnRunNow = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnClear = new System.Windows.Forms.Button();
+            this.btnStart = new System.Windows.Forms.Button();
             this.txtScript = new System.Windows.Forms.RichTextBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
@@ -55,13 +55,8 @@
             // 
             // btnRunNow
             // 
-            this.btnRunNow.Depth = 0;
-            this.btnRunNow.Icon = null;
             this.btnRunNow.Location = new System.Drawing.Point(174, 9);
-            this.btnRunNow.MouseState = Theme.IMatMouseState.HOVER;
             this.btnRunNow.Name = "btnRunNow";
-            this.btnRunNow.Primary = false;
-            this.btnRunNow.Raised = false;
             this.btnRunNow.Size = new System.Drawing.Size(75, 23);
             this.btnRunNow.TabIndex = 3;
             this.btnRunNow.Text = "Run now";
@@ -71,13 +66,8 @@
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Depth = 0;
-            this.btnSave.Icon = null;
             this.btnSave.Location = new System.Drawing.Point(464, 9);
-            this.btnSave.MouseState = Theme.IMatMouseState.HOVER;
             this.btnSave.Name = "btnSave";
-            this.btnSave.Primary = true;
-            this.btnSave.Raised = true;
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 0;
             this.btnSave.Text = "Save";
@@ -86,13 +76,8 @@
             // 
             // btnClear
             // 
-            this.btnClear.Depth = 0;
-            this.btnClear.Icon = null;
             this.btnClear.Location = new System.Drawing.Point(93, 9);
-            this.btnClear.MouseState = Theme.IMatMouseState.HOVER;
             this.btnClear.Name = "btnClear";
-            this.btnClear.Primary = false;
-            this.btnClear.Raised = false;
             this.btnClear.Size = new System.Drawing.Size(75, 23);
             this.btnClear.TabIndex = 0;
             this.btnClear.Text = "Clear";
@@ -101,13 +86,8 @@
             // 
             // btnStart
             // 
-            this.btnStart.Depth = 0;
-            this.btnStart.Icon = null;
             this.btnStart.Location = new System.Drawing.Point(12, 9);
-            this.btnStart.MouseState = Theme.IMatMouseState.HOVER;
             this.btnStart.Name = "btnStart";
-            this.btnStart.Primary = false;
-            this.btnStart.Raised = false;
             this.btnStart.Size = new System.Drawing.Size(75, 23);
             this.btnStart.TabIndex = 0;
             this.btnStart.Text = "Start";
@@ -167,11 +147,11 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.RichTextBox txtScript;
-        private Theme.Material.Button btnStart;
-        private Theme.Material.Button btnSave;
+        private System.Windows.Forms.Button btnStart;
+        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel lblStatus;
-        private Theme.Material.Button btnClear;
-        private Theme.Material.Button btnRunNow;
+        private System.Windows.Forms.Button btnClear;
+        private System.Windows.Forms.Button btnRunNow;
     }
 }

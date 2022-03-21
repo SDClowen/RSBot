@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.checkEnabled = new System.Windows.Forms.CheckBox();
-            this.btnReset = new RSBot.Theme.Material.Button();
+            this.btnReset = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.checkNormal = new System.Windows.Forms.CheckBox();
             this.checkError = new System.Windows.Forms.CheckBox();
@@ -53,14 +53,8 @@
             // btnReset
             // 
             this.btnReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnReset.Depth = 0;
-            this.btnReset.Icon = null;
             this.btnReset.Location = new System.Drawing.Point(627, 17);
-            this.btnReset.MouseState = RSBot.Theme.IMatMouseState.HOVER;
             this.btnReset.Name = "btnReset";
-            this.btnReset.Primary = false;
-            this.btnReset.Raised = false;
-            this.btnReset.SingleColor = System.Drawing.Color.Empty;
             this.btnReset.Size = new System.Drawing.Size(75, 23);
             this.btnReset.TabIndex = 0;
             this.btnReset.Text = "Clear";
@@ -159,7 +153,7 @@
         }
 
         #endregion
-        private Theme.Material.Button btnReset;
+        private System.Windows.Forms.Button btnReset;
         private System.Windows.Forms.CheckBox checkEnabled;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox txtLog;

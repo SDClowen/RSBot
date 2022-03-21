@@ -26,7 +26,7 @@ namespace RSBot.Views.Controls
             EventManager.SubscribeEvent("OnLoadCharacterStats", OnLoadCharacterStats);
             EventManager.SubscribeEvent("OnLevelUp", OnLevelUp);
             EventManager.SubscribeEvent("OnExpSpUpdate", OnExpUpdate);
-            EventManager.SubscribeEvent("OnUpdateHPMP", OnHPMPUpdate);
+            EventManager.SubscribeEvent("OnUpdateHPMP", OnLoadCharacterStats);
             EventManager.SubscribeEvent("OnUpdateGold", OnUpdateGold);
             EventManager.SubscribeEvent("OnUpdateSP", OnUpdateSP);
             EventManager.SubscribeEvent("OnAgentServerDisconnected", OnAgentServerDisconnected);
@@ -45,10 +45,28 @@ namespace RSBot.Views.Controls
         /// <summary>
         /// On Hp/MP update
         /// </summary>
-        private void OnHPMPUpdate()
+        private void OnLoadCharacterStats()
         {
-            progressHP.Position = (int)Game.Player.Health;
-            progressMP.Position = (int)Game.Player.Mana;
+            lblInt.Text = Game.Player.Intelligence.ToString();
+            lblStr.Text = Game.Player.Strength.ToString();
+
+            if (Game.Player.MaximumHealth == 0)
+                return;
+
+            if (Game.Player.MaximumMana == 0)
+                return;
+
+            progressHP.Maximum = Game.Player.MaximumHealth;
+            progressMP.Maximum = Game.Player.MaximumMana;
+            
+            if(Game.Player.Health > Game.Player.MaximumHealth)
+                progressHP.Maximum = Game.Player.Health;
+
+            if (Game.Player.Mana > Game.Player.MaximumMana)
+                progressMP.Maximum = Game.Player.Mana;
+
+            progressHP.Value = Game.Player.Health;
+            progressMP.Value = Game.Player.Mana;
 
             progressHP.Text = Game.Player.Health + @"/" + Game.Player.MaximumHealth;
             progressMP.Text = Game.Player.Mana + @"/" + Game.Player.MaximumMana;
@@ -60,29 +78,10 @@ namespace RSBot.Views.Controls
         /// <exception cref="System.NotImplementedException"></exception>
         private void OnExpUpdate()
         {
-            var percentageExp = ((double)Game.Player.Experience / (double)Game.ReferenceManager.GetRefLevel(Game.Player.Level).Exp_C) * 100;
-            progressEXP.Position = Convert.ToInt32(percentageExp);
+            var percentageExp = (Game.Player.Experience * 100.0) / Game.ReferenceManager.GetRefLevel(Game.Player.Level).Exp_C;
+
+            progressEXP.Value = Convert.ToInt32(percentageExp);
             progressEXP.Text = Math.Round(percentageExp, 2) + @"%";
-        }
-
-        /// <summary>
-        /// s the on load character stats.
-        /// </summary>
-        private void OnLoadCharacterStats()
-        {
-            lblInt.Text = Game.Player.Intelligence.ToString();
-            lblStr.Text = Game.Player.Strength.ToString();
-
-            progressHP.PositionMax = (int)Game.Player.MaximumHealth;
-            progressMP.PositionMax = (int)Game.Player.MaximumMana;
-
-            progressHP.Position = (int)Game.Player.Health;
-            progressMP.Position = (int)Game.Player.Mana;
-
-            progressEXP.PositionMax = 100;
-
-            progressHP.Text = Game.Player.Health + @"/" + Game.Player.MaximumHealth;
-            progressMP.Text = Game.Player.Mana + @"/" + Game.Player.MaximumMana;
         }
 
         /// <summary>
@@ -101,7 +100,7 @@ namespace RSBot.Views.Controls
             lblPlayerName.Text = Game.Player.Name;
             lblLevel.Text = Game.Player.Level.ToString();
 
-            OnHPMPUpdate();
+            OnLoadCharacterStats();
             OnExpUpdate();
             OnUpdateSP();
             OnUpdateGold();
@@ -118,11 +117,11 @@ namespace RSBot.Views.Controls
             lblInt.Text = "0";
             lblGold.Text = "0";
             lblSP.Text = "0";
-            progressHP.Position = 0;
+            progressHP.Value = 0;
             progressHP.Text = "0 / 0";
-            progressMP.Position = 0;
+            progressMP.Value = 0;
             progressMP.Text = "0 / 0";
-            progressEXP.Position = 0;
+            progressEXP.Value = 0;
             progressEXP.Text = "%0";
         }
     }
