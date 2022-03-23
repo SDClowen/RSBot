@@ -1,8 +1,7 @@
 ﻿using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
-using RSBot.Core.Objects.Spawn;
-using System.Collections.Generic;
+using RSBot.Core.Objects.Quests;
 
 namespace RSBot.Core.Network.Handler.Agent.Character
 {
@@ -89,66 +88,7 @@ namespace RSBot.Core.Network.Handler.Agent.Character
             character.Inventory = Objects.Inventory.FromPacket(packet);
 
             character.Skills = Skills.FromPacket(packet);
-
-            #region Read Quests
-
-            var completedQuestCount = packet.ReadUShort();
-            for (var i = 0; i < completedQuestCount; i++)
-                packet.ReadUInt(); //QuestID
-
-            var activeQuestCount = packet.ReadByte();
-            for (var iQuest = 0; iQuest < activeQuestCount; iQuest++)
-            {
-                packet.ReadUInt(); //QuestID
-
-                if (Core.Game.ClientType == GameClientType.Vietnam274)
-                {
-                    // 274 shit
-                    packet.ReadUShort(); //achievementAmount
-                    packet.ReadUShort(); //Requiered share pt
-                }
-                else
-                {
-                    packet.ReadByte(); //achievementAmount
-                    packet.ReadByte(); //Requiered share pt
-                }
-
-                if (Core.Game.ClientType > GameClientType.Chinese)
-                {
-                    packet.ReadByte();
-                    packet.ReadByte();
-                }
-
-                var type = packet.ReadByte();
-
-                if (type == 28 || type == 92)
-                    packet.ReadUInt(); //Remaining time
-
-                packet.ReadByte(); //State
-
-                if (type != 8)
-                {
-                    var objectiveAmount = packet.ReadByte();
-                    for (var iObjective = 0; iObjective < objectiveAmount; iObjective++)
-                    {
-                        packet.ReadByte(); //ObjectiveID
-                        packet.ReadByte(); //State
-                        packet.ReadString(); //CharacterName
-                        var taskCount = packet.ReadByte();
-
-                        for (var iTask = 0; iTask < taskCount; iTask++)
-                            packet.ReadUInt(); //Value
-                    }
-                }
-
-                if (type != 88 && type != 92) continue;
-
-                var npcAmount = packet.ReadByte();
-                for (var iNpc = 0; iNpc < npcAmount; iNpc++)
-                    packet.ReadUInt(); //NPC ObjectId
-            }
-
-            #endregion Read Quests
+            character.Quest = Quest.FromPacket(packet);
 
             packet.ReadByte(); // Unknown
 

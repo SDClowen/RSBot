@@ -98,6 +98,9 @@
     <Compile Include="Objects\NpcTalk.cs" />
     <Compile Include="Objects\Party\BuffingPartyMember.cs" />
     <Compile Include="Objects\Party\PartyPurpose.cs" />
+    <Compile Include="Objects\Quests\ActiveQuest.cs" />
+    <Compile Include="Objects\Quests\Quest.cs" />
+    <Compile Include="Objects\Quests\QuestObjective.cs" />
     <Compile Include="Objects\Region.cs" />
     <Compile Include="Client\GatewayInfo.cs" />
     <Compile Include="Client\ReferenceManager.cs" />

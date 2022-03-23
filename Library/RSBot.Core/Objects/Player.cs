@@ -1,6 +1,6 @@
 ﻿using RSBot.Core.Client.ReferenceObjects;
-using RSBot.Core.Components;
 using RSBot.Core.Network;
+using RSBot.Core.Objects.Quests;
 using RSBot.Core.Objects.Skill;
 using RSBot.Core.Objects.Spawn;
 using System;
@@ -171,6 +171,14 @@ namespace RSBot.Core.Objects
         /// The skills.
         /// </value>
         public Skills Skills { get; set; }
+
+        /// <summary>
+        /// Gets or sets the skills.
+        /// </summary>
+        /// <value>
+        /// The skills.
+        /// </value>
+        public Quest Quest { get; set; }
 
         /// <summary>
         /// Gets or sets the name.
