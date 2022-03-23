@@ -32,7 +32,7 @@ namespace RSBot.Core.Network.Handler.Agent.Character
         {
             SpawnManager.Clear();
 
-            packet = Core.Game.CharacterPacket;
+            packet = Core.Game.ChunkedPacket;
             packet.Lock();
 
             var serverTimestamp = packet.ReadUInt();
@@ -194,7 +194,7 @@ namespace RSBot.Core.Network.Handler.Agent.Character
 
             //Set instance..
             Core.Game.Player = character;
-            Core.Game.CharacterPacket = null;
+            Core.Game.ChunkedPacket = null;
             Core.Game.NearbyTeleporters = Core.Game.ReferenceManager.GetTeleporters(character.Movement.Source.RegionID);
 
             CollisionManager.Update(Core.Game.Player.Movement.Source.RegionID);

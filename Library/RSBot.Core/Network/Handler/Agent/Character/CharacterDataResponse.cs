@@ -24,10 +24,10 @@
         /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
-            if (Core.Game.CharacterPacket == null) 
+            if (Core.Game.ChunkedPacket == null) 
                 return;
 
-            Core.Game.CharacterPacket.WriteByteArray(packet.GetBytes());
+            Core.Game.ChunkedPacket.WriteByteArray(packet.GetBytes());
         }
     }
 }
