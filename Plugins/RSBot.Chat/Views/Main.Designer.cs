@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabMain = new RSBot.Theme.Controls.TabControl();
+            this.tabMain = new System.Windows.Forms.TabControl();
             this.tabAll = new System.Windows.Forms.TabPage();
             this.txtSendAll = new System.Windows.Forms.TextBox();
             this.txtAll = new System.Windows.Forms.RichTextBox();
@@ -425,7 +425,7 @@
 
         #endregion
 
-        private RSBot.Theme.Controls.TabControl tabMain;
+        private System.Windows.Forms.TabControl tabMain;
         private System.Windows.Forms.TabPage tabAll;
         private System.Windows.Forms.TabPage tabPrivate;
         private System.Windows.Forms.TabPage tabParty;
