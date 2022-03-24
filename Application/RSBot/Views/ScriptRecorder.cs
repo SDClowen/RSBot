@@ -1,14 +1,13 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
-using RSBot.Theme.Controls;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RSBot.Views
 {
-    public partial class ScriptRecorder : CleanForm
+    public partial class ScriptRecorder : Form
     {
         #region Fields
 

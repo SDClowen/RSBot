@@ -117,12 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="richTextBox1.Text" xml:space="preserve">
-    <value>RSBot is an open source bot that works in all silkroad online distros.
-      Repo: https://www.github.com/SDClowen/RSBot
-      Discord: https://discord.gg/GwecXfcKTk
-      Downloads folder: https://mega.nz/folder/cl8ATTSD#YiGraacXF_EcldGLONI0-Q
-      Facebook: https://m.facebook.com/rsbotofficial/
-      Releases: https://github.com/SDClowen/RSBot/releases</value>
-  </data>
 </root>

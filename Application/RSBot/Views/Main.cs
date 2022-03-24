@@ -1,20 +1,20 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Client;
+using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Plugins;
-using RSBot.Theme;
 using RSBot.Theme.Controls;
-using RSBot.Theme.Extensions;
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using static RSBot.Theme.NativeMethods;
 
 namespace RSBot.Views
 {
-    public partial class Main : CleanForm
+    public partial class Main : Form
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Main"/> class.
@@ -268,45 +268,8 @@ namespace RSBot.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void Main_Load(object sender, EventArgs e)
         {
-            ChangeTheme();
-
             menuSidebar.Checked = GlobalConfig.Get("RSBot.ShowSidebar", true);
             ConfigureSidebar();
-        }
-
-        /// <summary>
-        /// Change system theme
-        /// </summary>
-        private void ChangeTheme()
-        {
-            BackColor = ColorScheme.BackColor;
-            ForeColor = ColorScheme.ForeColor;
-            menuStrip.BackColor = ColorScheme.BackColor;
-            menuStrip.ForeColor = ColorScheme.ForeColor;
-
-            var color = Color.FromArgb(10, BackColor.Determine());
-            pSidebar.BackColor = color;
-            topCharacter.BackColor = color;
-            bottomPanel.BackColor = color;
-
-            foreach (TabPage item in tabMain.Controls)
-            {
-                item.BackColor = BackColor;
-                item.ForeColor = ForeColor;
-
-                foreach (Control controlElement in item.Controls)
-                {
-                    if (controlElement is TabDisabledInfo)
-                        continue;
-
-                    if (controlElement is Label)
-                        controlElement.BackColor = Color.Transparent;
-                    else
-                        controlElement.BackColor = BackColor;
-
-                    controlElement.ForeColor = ForeColor;
-                }
-            }
         }
 
         /// <summary>
@@ -338,6 +301,7 @@ namespace RSBot.Views
                 Kernel.Bot.Start();
 
                 BotWindow.SetStatusText("Running");
+                timer1.Start();
             }
             else
             {
@@ -533,43 +497,43 @@ namespace RSBot.Views
 
             Hide();
         }
-
-        private void menuItemThis_Click(object sender, EventArgs e)
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new About().ShowDialog();
         }
 
-        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void btnSave_MouseClick(object sender, MouseEventArgs e)
         {
-            Close();
+            btnSave.BackColor = Color.Green;
+            btnSave.ForeColor = Color.White;
+
         }
 
-        private void minimizeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void btnSave_MouseDown(object sender, MouseEventArgs e)
         {
-            WindowState = FormWindowState.Minimized;
+            btnSave.BackColor = Color.GreenYellow;
+            btnSave.ForeColor = Color.Black;
         }
 
-        private void menuStrip_MouseDown(object sender, MouseEventArgs e)
+        int sayac = 0;
+        private void timer1_Tick(object sender, EventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (btnStartStop.Text == @"STOP BOT")
+            sayac++;
+            timer1.Interval = 500;
+            if(sayac%1==0)
             {
-                ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+                this.btnStartStop.BackColor = Color.Red;
             }
-        }
+            if (sayac % 2 == 0)
+            {
+                this.btnStartStop.BackColor = Color.Blue;
+            }
+            else if (btnStartStop.Text == @"START BOT")
+            {
+                this.btnStartStop.BackColor = Color.Blue;
+            }
 
-        private void darkToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            GlobalConfig.Set("RSBot.Theme", "Dark");
-            ColorScheme.Load();
-            ChangeTheme();
-        }
-
-        private void lightToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            GlobalConfig.Set("RSBot.Theme", "Light");
-            ColorScheme.Load();
-            ChangeTheme();
         }
     }
 }
