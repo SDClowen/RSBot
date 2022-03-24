@@ -75,8 +75,11 @@
     <Compile Include="Network\Handler\Agent\Exchange\ExchangeCanceledResponse.cs" />
     <Compile Include="Network\Handler\Agent\Exchange\ExchangeStartedResponse.cs" />
     <Compile Include="Network\Handler\Agent\Exchange\ExchangeStartResponse.cs" />
+    <Compile Include="Network\Handler\Agent\Inventory\InventoryGuildStorageDataBeginResponse.cs" />
     <Compile Include="Network\Handler\Agent\Inventory\InventoryStorageDataBeginResponse.cs" />
+    <Compile Include="Network\Handler\Agent\Inventory\InventoryGuildStorageDataEndResponse.cs" />
     <Compile Include="Network\Handler\Agent\Inventory\InventoryStorageDataEndResponse.cs" />
+    <Compile Include="Network\Handler\Agent\Inventory\InventoryGuildStorageDataResponse.cs" />
     <Compile Include="Network\Hooks\Agent\Action\ActionSelectRequestHook.cs" />
     <Compile Include="Network\Hooks\Gateway\GatewayLoginResponseHookOfficial.cs" />
     <Compile Include="Objects\ActionHitStateFlag.cs" />

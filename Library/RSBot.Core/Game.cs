@@ -60,20 +60,12 @@ namespace RSBot.Core
         internal static SpawnPacketInfo SpawnInfo { get; set; }
 
         /// <summary>
-        /// Gets or sets the character packet.
+        /// Gets or sets the chunked packet.
         /// </summary>
         /// <value>
-        /// The character packet.
+        /// The chunked packet.
         /// </value>
-        internal static Packet CharacterPacket { get; set; }
-
-        /// <summary>
-        /// Gets or sets the storage packet.
-        /// </summary>
-        /// <value>
-        /// The storage packet.
-        /// </value>
-        internal static Packet StoragePacket { get; set; }
+        internal static Packet ChunkedPacket { get; set; }
 
         /// <summary>
         /// Gets or sets the party.

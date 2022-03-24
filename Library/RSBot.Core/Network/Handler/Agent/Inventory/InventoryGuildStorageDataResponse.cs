@@ -1,6 +1,6 @@
-﻿namespace RSBot.Core.Network.Handler.Agent.Character
+﻿namespace RSBot.Core.Network.Handler.Agent.Inventory
 {
-    internal class CharacterDataBeginResponse : IPacketHandler
+    internal class InventoryGuildStorageDataResponse : IPacketHandler
     {
         /// <summary>
         /// Gets or sets the opcode.
@@ -8,7 +8,7 @@
         /// <value>
         /// The opcode.
         /// </value>
-        public ushort Opcode => 0x34A5;
+        public ushort Opcode => 0x3255;
 
         /// <summary>
         /// Gets or sets the destination.
@@ -24,8 +24,7 @@
         /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
-            Core.Game.Player?.StopMoving();
-            Core.Game.ChunkedPacket = new Packet(0);
+            Core.Game.ChunkedPacket.WriteByteArray(packet.GetBytes());
         }
     }
 }

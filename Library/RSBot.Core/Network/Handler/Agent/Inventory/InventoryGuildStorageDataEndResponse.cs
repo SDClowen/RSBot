@@ -1,14 +1,10 @@
 ﻿using RSBot.Core.Event;
 using RSBot.Core.Objects;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RSBot.Core.Network.Handler.Agent.Inventory
 {
-    internal class InventoryStorageDataEndResponse : IPacketHandler
+    internal class InventoryGuildStorageDataEndResponse : IPacketHandler
     {
         /// <summary>
         /// Gets or sets the opcode.
@@ -16,7 +12,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
         /// <value>
         /// The opcode.
         /// </value>
-        public ushort Opcode => 0x3048;
+        public ushort Opcode => 0x3254;
 
         /// <summary>
         /// Gets or sets the destination.
