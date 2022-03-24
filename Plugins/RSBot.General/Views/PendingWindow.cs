@@ -1,13 +1,12 @@
 ﻿using RSBot.Core.Network;
 using RSBot.General.Components;
-using RSBot.Theme.Controls;
 using System;
 using System.Text;
 using System.Windows.Forms;
 
 namespace RSBot.General.Views
 {
-    public partial class PendingWindow : CleanForm
+    public partial class PendingWindow : Form
     {
         /// <summary>
         /// Started tick

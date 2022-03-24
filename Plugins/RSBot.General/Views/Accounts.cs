@@ -1,5 +1,4 @@
 ﻿using RSBot.General.Models;
-using RSBot.Theme.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +6,7 @@ using System.Windows.Forms;
 
 namespace RSBot.General.Views
 {
-    public partial class Accounts : CleanForm
+    public partial class Accounts : Form
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Accounts"/> class.
