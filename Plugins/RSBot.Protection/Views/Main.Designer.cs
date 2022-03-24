@@ -89,6 +89,10 @@
             this.checkDead = new System.Windows.Forms.CheckBox();
             this.checkInventory = new System.Windows.Forms.CheckBox();
             this.checkNoArrows = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.groupPet.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMountMinHP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPetMinHGP)).BeginInit();
@@ -103,6 +107,7 @@
             this.groupBadStatus.SuspendLayout();
             this.groupBackTown.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDeadTimeout)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupPet
@@ -857,11 +862,56 @@
             this.checkNoArrows.UseVisualStyleBackColor = true;
             this.checkNoArrows.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.checkBox1.Location = new System.Drawing.Point(12, 19);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(129, 17);
+            this.checkBox1.TabIndex = 18;
+            this.checkBox1.Text = "Keep unique selected";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.checkBox2);
+            this.groupBox1.Controls.Add(this.checkBox1);
+            this.groupBox1.Location = new System.Drawing.Point(500, 237);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(225, 108);
+            this.groupBox1.TabIndex = 19;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Extra";
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.Location = new System.Drawing.Point(12, 43);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(184, 23);
+            this.checkBox2.TabIndex = 0;
+            this.checkBox2.Text = "use return scroll after shopping";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "resurrected endpoint",
+            "last point dead"});
+            this.comboBox1.Location = new System.Drawing.Point(20, 72);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(162, 21);
+            this.comboBox1.TabIndex = 19;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBackTown);
             this.Controls.Add(this.label22);
             this.Controls.Add(this.groupBadStatus);
@@ -887,6 +937,8 @@
             this.groupBackTown.ResumeLayout(false);
             this.groupBackTown.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDeadTimeout)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -954,5 +1006,9 @@
         private System.Windows.Forms.CheckBox checkDead;
         private System.Windows.Forms.CheckBox checkInventory;
         private System.Windows.Forms.CheckBox checkNoArrows;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.CheckBox checkBox2;
     }
 }
