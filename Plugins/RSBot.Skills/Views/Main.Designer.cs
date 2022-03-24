@@ -46,7 +46,7 @@
             this.btnMoveBuffSkillUp = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btnRemoveBuffSkill = new System.Windows.Forms.Button();
-            this.tabControl1 = new RSBot.Theme.Controls.TabControl();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -57,7 +57,7 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.checkCastBuffsDuringWalkBack = new System.Windows.Forms.CheckBox();
             this.checkCastBuffsInTowns = new System.Windows.Forms.CheckBox();
-            this.tabControl2 = new RSBot.Theme.Controls.TabControl();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.listSkills = new System.Windows.Forms.ListView();
             this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -614,7 +614,7 @@
         private System.Windows.Forms.Button btnRemoveBuffSkill;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboMonsterType;
-        private RSBot.Theme.Controls.TabControl tabControl1;
+        private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.ComboBox comboResurrectionSkill;
@@ -625,7 +625,7 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.CheckBox checkCastBuffsDuringWalkBack;
-        private RSBot.Theme.Controls.TabControl tabControl2;
+        private System.Windows.Forms.TabControl tabControl2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.CheckBox checkShowAttacks;
         private System.Windows.Forms.CheckBox checkShowBuffs;
