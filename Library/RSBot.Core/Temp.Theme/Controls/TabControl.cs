@@ -188,7 +188,7 @@ namespace RSBot.Theme.Controls
         [Description("Occurs as a tab is being changed.")]
         public event SelectedTabPageChangeEventHandler SelectedIndexChanging;
 
-        protected override void WndProc(ref Message m)
+        /*protected override void WndProc(ref Message m)
         {
             if (m.Msg == (WM_REFLECT + WM_NOTIFY))
             {
@@ -210,7 +210,7 @@ namespace RSBot.Theme.Controls
                 }
             }
             base.WndProc(ref m);
-        }
+        }*/
 
 
         private TabPage TestTab(Point pt)
