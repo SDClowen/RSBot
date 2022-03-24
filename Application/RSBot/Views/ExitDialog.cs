@@ -1,10 +1,10 @@
 ﻿using RSBot.Core;
+using RSBot.Theme.Controls;
 using System;
-using System.Windows.Forms;
 
 namespace RSBot.Views
 {
-    public partial class ExitDialog : Form
+    public partial class ExitDialog : CleanForm
     {
         public ExitDialog()
         {
