@@ -1,9 +1,9 @@
 ﻿using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects.Spawn;
-using RSBot.Theme;
 using System;
 using System.Windows.Forms;
+using Framework.Controls;
 
 namespace RSBot.Views.Controls
 {
@@ -51,7 +51,7 @@ namespace RSBot.Views.Controls
             if (percent > 100)
                 percent = 100;
 
-            progressHP.Value = percent;
+            progressHP.Position = percent;
             progressHP.Text = percent + "%";
         }
 
@@ -62,7 +62,7 @@ namespace RSBot.Views.Controls
         {
             if (!entity.HasHealth)
             {
-                progressHP.Value = 100;
+                progressHP.Position = 100;
                 return;
             }
 
@@ -72,8 +72,8 @@ namespace RSBot.Views.Controls
                 if (percent > 100)
                     percent = 100;
 
-                progressHP.Maximum = monster.MaxHealth;
-                progressHP.Value = percent;
+                progressHP.PositionMax = monster.MaxHealth;
+                progressHP.Position = percent;
                 progressHP.Text = percent + "%";
             }
         }
@@ -108,16 +108,9 @@ namespace RSBot.Views.Controls
         private void Clear()
         {
             lblEntityName.Text = "No entity selected";
-            progressHP.Value = 0;
-            progressHP.Text ="0%";
+            progressHP.Position = 0;
+            progressHP.Text ="";
             lblType.Text = "";
-        }
-
-        protected override void OnParentBackColorChanged(EventArgs e)
-        {
-            base.OnParentBackColorChanged(e);
-
-            progressHP.BackColor = ColorScheme.BackColor;
         }
     }
 }

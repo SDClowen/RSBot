@@ -31,12 +31,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lblEntityName = new System.Windows.Forms.Label();
             this.lblType = new System.Windows.Forms.Label();
-            this.progressHP = new System.Windows.Forms.ProgressBar();
+            this.progressHP = new Framework.Controls.XpProgressBar();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.Red;
             this.label1.Location = new System.Drawing.Point(19, 38);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(25, 13);
@@ -63,22 +64,27 @@
             // 
             // progressHP
             // 
-            this.progressHP.ForeColor = System.Drawing.Color.Firebrick;
-            this.progressHP.Location = new System.Drawing.Point(52, 35);
+            this.progressHP.ColorBackGround = System.Drawing.Color.Gainsboro;
+            this.progressHP.ColorBarBorder = System.Drawing.Color.DarkRed;
+            this.progressHP.ColorBarCenter = System.Drawing.Color.Red;
+            this.progressHP.ColorText = System.Drawing.Color.Yellow;
+            this.progressHP.Location = new System.Drawing.Point(50, 35);
             this.progressHP.Name = "progressHP";
+            this.progressHP.Position = 0;
+            this.progressHP.PositionMax = 100;
+            this.progressHP.PositionMin = 0;
             this.progressHP.Size = new System.Drawing.Size(180, 19);
-            this.progressHP.TabIndex = 15;
-            this.progressHP.Text = "0%";
+            this.progressHP.SteepDistance = ((byte)(0));
+            this.progressHP.TabIndex = 19;
             // 
             // Entity
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.progressHP);
             this.Controls.Add(this.lblType);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblEntityName);
-            this.Controls.Add(this.progressHP);
             this.Name = "Entity";
             this.Size = new System.Drawing.Size(250, 75);
             this.ResumeLayout(false);
@@ -90,7 +96,7 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblEntityName;
-        private System.Windows.Forms.ProgressBar progressHP;
         private System.Windows.Forms.Label lblType;
+        private Framework.Controls.XpProgressBar progressHP;
     }
 }

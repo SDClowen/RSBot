@@ -1,9 +1,8 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Event;
-using RSBot.Theme;
 using System;
 using System.Windows.Forms;
-
+using Framework.Controls;
 namespace RSBot.Views.Controls
 {
     public partial class Character : UserControl
@@ -57,17 +56,17 @@ namespace RSBot.Views.Controls
             if (Game.Player.MaximumMana == 0)
                 return;
 
-            progressHP.Maximum = Game.Player.MaximumHealth;
-            progressMP.Maximum = Game.Player.MaximumMana;
+            progressHP.PositionMax = Game.Player.MaximumHealth;
+            progressMP.PositionMax = Game.Player.MaximumMana;
             
             if(Game.Player.Health > Game.Player.MaximumHealth)
-                progressHP.Maximum = Game.Player.Health;
+                progressHP.PositionMax = Game.Player.Health;
 
             if (Game.Player.Mana > Game.Player.MaximumMana)
-                progressMP.Maximum = Game.Player.Mana;
+                progressMP.PositionMax = Game.Player.Mana;
 
-            progressHP.Value = Game.Player.Health;
-            progressMP.Value = Game.Player.Mana;
+            progressHP.Position = Game.Player.Health;
+            progressMP.Position = Game.Player.Mana;
 
             progressHP.Text = Game.Player.Health + @"/" + Game.Player.MaximumHealth;
             progressMP.Text = Game.Player.Mana + @"/" + Game.Player.MaximumMana;
@@ -81,7 +80,7 @@ namespace RSBot.Views.Controls
         {
             var percentageExp = (Game.Player.Experience * 100.0) / Game.ReferenceManager.GetRefLevel(Game.Player.Level).Exp_C;
 
-            progressEXP.Value = Convert.ToInt32(percentageExp);
+            progressEXP.Position = Convert.ToInt32(percentageExp);
             progressEXP.Text = Math.Round(percentageExp, 2) + @"%";
         }
 
@@ -118,19 +117,17 @@ namespace RSBot.Views.Controls
             lblInt.Text = "0";
             lblGold.Text = "0";
             lblSP.Text = "0";
-            progressHP.Value = 0;
+            progressHP.Position = 0;
             progressHP.Text = "0 / 0";
-            progressMP.Value = 0;
+            progressMP.Position = 0;
             progressMP.Text = "0 / 0";
-            progressEXP.Value = 0;
+            progressEXP.Position = 0;
             progressEXP.Text = "%0";
         }
 
-        private void Character_BackColorChanged(object sender, EventArgs e)
+        private void Character_Load(object sender, EventArgs e)
         {
-            progressHP.BackColor = ColorScheme.BackColor;
-            progressMP.BackColor = ColorScheme.BackColor;
-            progressEXP.BackColor = ColorScheme.BackColor;
+
         }
     }
 }

@@ -1,11 +1,10 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Event;
-using RSBot.Theme;
 using RSBot.Theme.Controls;
 using System;
 using System.Linq;
 using System.Windows.Forms;
-
+using Framework.Controls;
 namespace RSBot.Views.Controls
 {
     public partial class Pet : UserControl
@@ -40,9 +39,9 @@ namespace RSBot.Views.Controls
         private void OnTerminateAttackPet()
         {
             lblPetName.Text = @"No pet found";
-            progressHP.Value = 0;
-            progressEXP.Value = 0;
-            progressHGP.Value = 0;
+            progressHP.Position = 0;
+            progressEXP.Position = 0;
+            progressHGP.Position = 0;
             progressHP.Text = @"0%";
             progressEXP.Text = @"0%";
             progressHGP.Text = @"0%";
@@ -82,7 +81,7 @@ namespace RSBot.Views.Controls
             if(hpPercent > 100)
                 hpPercent = 100;
 
-            progressHP.Value = Convert.ToInt32(hpPercent);
+            progressHP.Position = Convert.ToInt32(hpPercent);
             progressHP.Text = hpPercent + @"%";
         }
 
@@ -98,7 +97,7 @@ namespace RSBot.Views.Controls
             if(expPercent > 100)
                 expPercent = 100;
 
-            progressEXP.Value = Convert.ToInt32(expPercent);
+            progressEXP.Position = Convert.ToInt32(expPercent);
             progressEXP.Text = expPercent + @"%";
         }
 
@@ -114,7 +113,7 @@ namespace RSBot.Views.Controls
             if(hgpPercent > 100)
                 hgpPercent = 100;
 
-            progressHGP.Value = Convert.ToInt32(hgpPercent);
+            progressHGP.Position = Convert.ToInt32(hgpPercent);
             progressHGP.Text = hgpPercent + @"%";
         }
 
@@ -139,15 +138,6 @@ namespace RSBot.Views.Controls
                 item.Value = 0;
                 item.Text = "0%";
             }
-        }
-
-        protected override void OnParentBackColorChanged(EventArgs e)
-        {
-            base.OnParentBackColorChanged(e);
-
-            progressHP.BackColor = ColorScheme.BackColor;
-            progressHGP.BackColor = ColorScheme.BackColor;
-            progressEXP.BackColor = ColorScheme.BackColor;
         }
     }
 }
