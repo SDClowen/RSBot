@@ -1,24 +1,43 @@
-﻿using System.Drawing;
+﻿using RSBot.Theme.Extensions;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace RSBot.Theme.Controls
 {
     public partial class TabDisabledInfo : UserControl
     {
+        private const string TabDisabledInfoText = "Please enter the game...";
         public TabDisabledInfo()
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
+            Font = new Font("Segoe UI Semibold", 13.37f);
+            var size = TextRenderer.MeasureText(TabDisabledInfoText, Font);
+            size.Width += 100;
+            size.Height += 50;
+            Size = size;
+            BackColor = Color.FromArgb(33, 150, 243);
+            ForeColor = Color.White;
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
 
-            var backgroundBrush = new SolidBrush(Color.FromArgb(224, 221, 38));
-            e.Graphics.FillRectangle(backgroundBrush, 0, 0, Width, Height);
+            var brush = new SolidBrush(BackColor);
+            var pen = new Pen(Color.FromArgb(33, 100, 210));
+            pen.Width = 4;
+            pen.DashCap = DashCap.Triangle;
+            pen.DashStyle = DashStyle.DashDotDot;
+
+            e.Graphics.FillRectangle(brush, 0, 0, Width, Height);
+            e.Graphics.DrawRectangle(pen, 0, 0, Width, Height);
 
             var flags = TextFormatFlags.EndEllipsis | TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter;
-            TextRenderer.DrawText(e.Graphics, "Please enter the game", new Font("Segoe UI Semibold", 13.37f), new Point(Width, Height), Color.FromArgb(143, 140, 0), flags);
+            TextRenderer.DrawText(e.Graphics, TabDisabledInfoText, Font, ClientRectangle, ForeColor, flags);
+
+            brush.Dispose();
+            pen.Dispose();
         }
     }
 }
