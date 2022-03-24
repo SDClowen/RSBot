@@ -5,8 +5,9 @@ namespace RSBot.Theme
 {
     public class ColorScheme
     {
-        public static Color BackColor = Color.FromArgb(20, 20, 20);
-        public static Color ForeColor = Color.White;
+        //public static Color BackColor = Color.FromArgb(20, 20, 20);
+        public static Color BackColor = Color.White;
+        public static Color ForeColor = Color.Black;
 
         public static void Load()
         {
