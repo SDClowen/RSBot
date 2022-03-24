@@ -1,6 +1,7 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Party;
+using RSBot.Theme;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -13,6 +14,8 @@ namespace RSBot.Party.Views
         {
             InitializeComponent();
             Text = title;
+            BackColor = ColorScheme.BackColor;
+            ForeColor = ColorScheme.ForeColor;
         }
 
         private void AutoFormParty_Load(object sender, EventArgs e)

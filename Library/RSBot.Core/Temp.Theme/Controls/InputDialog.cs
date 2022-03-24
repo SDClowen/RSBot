@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace RSBot.Theme.Controls
 {
-    public partial class InputDialog : Form
+    public partial class InputDialog : CleanForm
     {
         public enum InputType
         {
@@ -50,6 +50,8 @@ namespace RSBot.Theme.Controls
         public InputDialog(string formTitle, string title, string message, InputType inputType = InputType.Textbox)
         {
             InitializeComponent();
+            BackColor = ColorScheme.BackColor;
+            ForeColor = ColorScheme.ForeColor;
 
             Text = formTitle;
             lblTitle.Text = title;

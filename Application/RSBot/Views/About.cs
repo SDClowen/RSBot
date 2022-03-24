@@ -1,10 +1,10 @@
-﻿using System;
+﻿using RSBot.Theme.Controls;
+using System;
 using System.Reflection;
-using System.Windows.Forms;
 
 namespace RSBot.Views
 {
-    partial class About : Form
+    partial class About : CleanForm
     {
         public About()
         {

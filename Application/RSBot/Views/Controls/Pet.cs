@@ -1,5 +1,6 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Event;
+using RSBot.Theme;
 using RSBot.Theme.Controls;
 using System;
 using System.Linq;
@@ -138,6 +139,15 @@ namespace RSBot.Views.Controls
                 item.Value = 0;
                 item.Text = "0%";
             }
+        }
+
+        protected override void OnParentBackColorChanged(EventArgs e)
+        {
+            base.OnParentBackColorChanged(e);
+
+            progressHP.BackColor = ColorScheme.BackColor;
+            progressHGP.BackColor = ColorScheme.BackColor;
+            progressEXP.BackColor = ColorScheme.BackColor;
         }
     }
 }

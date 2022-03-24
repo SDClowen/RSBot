@@ -63,11 +63,9 @@
             // 
             // progressHP
             // 
+            this.progressHP.ForeColor = System.Drawing.Color.Firebrick;
             this.progressHP.Location = new System.Drawing.Point(52, 35);
             this.progressHP.Name = "progressHP";
-            this.progressHP.Value = 0;
-            this.progressHP.Maximum = 100;
-            this.progressHP.Minimum = 0;
             this.progressHP.Size = new System.Drawing.Size(180, 19);
             this.progressHP.TabIndex = 15;
             this.progressHP.Text = "0%";
@@ -76,6 +74,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.lblType);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblEntityName);

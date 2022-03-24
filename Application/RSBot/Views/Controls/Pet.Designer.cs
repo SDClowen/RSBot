@@ -76,33 +76,27 @@
             // 
             // progressEXP
             // 
+            this.progressEXP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.progressEXP.Location = new System.Drawing.Point(51, 76);
             this.progressEXP.Name = "progressEXP";
-            this.progressEXP.Value = 0;
-            this.progressEXP.Maximum = 100;
-            this.progressEXP.Minimum = 0;
             this.progressEXP.Size = new System.Drawing.Size(180, 19);
             this.progressEXP.TabIndex = 12;
             this.progressEXP.Text = "0%";
             // 
             // progressHGP
             // 
+            this.progressHGP.ForeColor = System.Drawing.Color.Yellow;
             this.progressHGP.Location = new System.Drawing.Point(51, 55);
             this.progressHGP.Name = "progressHGP";
-            this.progressHGP.Value = 0;
-            this.progressHGP.Maximum = 100;
-            this.progressHGP.Minimum = 0;
             this.progressHGP.Size = new System.Drawing.Size(180, 19);
             this.progressHGP.TabIndex = 11;
             this.progressHGP.Text = "0%";
             // 
             // progressHP
             // 
+            this.progressHP.ForeColor = System.Drawing.Color.Firebrick;
             this.progressHP.Location = new System.Drawing.Point(51, 34);
             this.progressHP.Name = "progressHP";
-            this.progressHP.Value = 0;
-            this.progressHP.Maximum = 100;
-            this.progressHP.Minimum = 0;
             this.progressHP.Size = new System.Drawing.Size(180, 19);
             this.progressHP.TabIndex = 10;
             this.progressHP.Text = "0%";
@@ -111,6 +105,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);

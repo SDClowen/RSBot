@@ -55,7 +55,7 @@
             this.checkShowEquipment = new System.Windows.Forms.CheckBox();
             this.txtShopSearch = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.tabMain = new System.Windows.Forms.TabControl();
+            this.tabMain = new RSBot.Theme.Controls.TabControl();
             this.tabBuyFilter = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.checkSellItemsFromPet = new System.Windows.Forms.CheckBox();
@@ -1349,7 +1349,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuChangeAmount;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem menuRemoveItem;
-        private System.Windows.Forms.TabControl tabMain;
+        private RSBot.Theme.Controls.TabControl tabMain;
         private System.Windows.Forms.TabPage tabBuyFilter;
         private System.Windows.Forms.TabPage tabSellFilter;
         private System.Windows.Forms.TextBox txtShopSearch;
