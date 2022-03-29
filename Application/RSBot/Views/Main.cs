@@ -268,45 +268,8 @@ namespace RSBot.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void Main_Load(object sender, EventArgs e)
         {
-            ChangeTheme();
-
             menuSidebar.Checked = GlobalConfig.Get("RSBot.ShowSidebar", true);
             ConfigureSidebar();
-        }
-
-        /// <summary>
-        /// Change system theme
-        /// </summary>
-        private void ChangeTheme()
-        {
-            BackColor = ColorScheme.BackColor;
-            ForeColor = ColorScheme.ForeColor;
-            menuStrip.BackColor = ColorScheme.BackColor;
-            menuStrip.ForeColor = ColorScheme.ForeColor;
-
-            var color = Color.FromArgb(10, BackColor.Determine());
-            pSidebar.BackColor = color;
-            topCharacter.BackColor = color;
-            bottomPanel.BackColor = color;
-
-            foreach (TabPage item in tabMain.Controls)
-            {
-                item.BackColor = BackColor;
-                item.ForeColor = ForeColor;
-
-                foreach (Control controlElement in item.Controls)
-                {
-                    if (controlElement is TabDisabledInfo)
-                        continue;
-
-                    if (controlElement is Label)
-                        controlElement.BackColor = Color.Transparent;
-                    else
-                        controlElement.BackColor = BackColor;
-
-                    controlElement.ForeColor = ForeColor;
-                }
-            }
         }
 
         /// <summary>
@@ -560,16 +523,27 @@ namespace RSBot.Views
 
         private void darkToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GlobalConfig.Set("RSBot.Theme", "Dark");
+            GlobalConfig.Set("RSBot.Theme.Color", Color.Black.ToArgb());
             ColorScheme.Load();
             ChangeTheme();
         }
 
         private void lightToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GlobalConfig.Set("RSBot.Theme", "Light");
+            GlobalConfig.Set("RSBot.Theme.Color", Color.White.ToArgb());
             ColorScheme.Load();
             ChangeTheme();
+        }
+
+        private void coloredToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var colorDialog = new ColorDialog();
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                GlobalConfig.Set("RSBot.Theme.Color", colorDialog.Color.ToArgb());
+                ColorScheme.Load();
+                ChangeTheme();
+            }
         }
     }
 }
