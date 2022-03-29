@@ -175,6 +175,7 @@
             this.progressEXP.Size = new System.Drawing.Size(402, 19);
             this.progressEXP.TabIndex = 2;
             this.progressEXP.Text = "0%";
+            this.progressEXP.Value = 50;
             // 
             // progressMP
             // 
@@ -183,6 +184,7 @@
             this.progressMP.Size = new System.Drawing.Size(198, 19);
             this.progressMP.TabIndex = 1;
             this.progressMP.Text = "0 / 0";
+            this.progressMP.Value = 50;
             // 
             // progressHP
             // 
@@ -192,6 +194,7 @@
             this.progressHP.Size = new System.Drawing.Size(198, 19);
             this.progressHP.TabIndex = 0;
             this.progressHP.Text = "0 / 0";
+            this.progressHP.Value = 50;
             // 
             // Character
             // 

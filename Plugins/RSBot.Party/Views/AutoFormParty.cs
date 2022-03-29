@@ -1,21 +1,19 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Party;
-using RSBot.Theme;
+using RSBot.Theme.Controls;
 using System;
 using System.Linq;
 using System.Windows.Forms;
 
 namespace RSBot.Party.Views
 {
-    public partial class AutoFormParty : Form
+    public partial class AutoFormParty : CleanForm
     {
         public AutoFormParty(string title)
         {
             InitializeComponent();
             Text = title;
-            BackColor = ColorScheme.BackColor;
-            ForeColor = ColorScheme.ForeColor;
         }
 
         private void AutoFormParty_Load(object sender, EventArgs e)

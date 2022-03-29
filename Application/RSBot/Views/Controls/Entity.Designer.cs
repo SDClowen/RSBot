@@ -69,12 +69,13 @@
             this.progressHP.Size = new System.Drawing.Size(180, 19);
             this.progressHP.TabIndex = 15;
             this.progressHP.Text = "0%";
+            this.progressHP.Value = 50;
             // 
             // Entity
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.Transparent;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.lblType);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblEntityName);

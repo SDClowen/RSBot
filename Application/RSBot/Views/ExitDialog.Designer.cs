@@ -43,7 +43,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(160, 26);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(266, 45);
+            this.label1.Size = new System.Drawing.Size(265, 45);
             this.label1.TabIndex = 0;
             this.label1.Text = "Are you sure that you want to exit RSBot?\r\nThis will disconnect you from the Silk" +
     "road Server!\r\n\r\n";
@@ -114,6 +114,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

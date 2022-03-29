@@ -99,7 +99,7 @@
             this.rbtn_Thief.Enabled = false;
             this.rbtn_Thief.Location = new System.Drawing.Point(232, 22);
             this.rbtn_Thief.Name = "rbtn_Thief";
-            this.rbtn_Thief.Size = new System.Drawing.Size(87, 19);
+            this.rbtn_Thief.Size = new System.Drawing.Size(86, 19);
             this.rbtn_Thief.TabIndex = 0;
             this.rbtn_Thief.TabStop = true;
             this.rbtn_Thief.Tag = "4";
@@ -113,7 +113,7 @@
             this.rbtn_Trade.Enabled = false;
             this.rbtn_Trade.Location = new System.Drawing.Point(143, 22);
             this.rbtn_Trade.Name = "rbtn_Trade";
-            this.rbtn_Trade.Size = new System.Drawing.Size(90, 19);
+            this.rbtn_Trade.Size = new System.Drawing.Size(88, 19);
             this.rbtn_Trade.TabIndex = 0;
             this.rbtn_Trade.TabStop = true;
             this.rbtn_Trade.Tag = "3";
@@ -165,7 +165,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(174, 25);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(32, 15);
+            this.label2.Size = new System.Drawing.Size(33, 15);
             this.label2.TabIndex = 1;
             this.label2.Text = "Max.";
             // 
@@ -260,7 +260,7 @@
             this.label_partytype.AutoSize = true;
             this.label_partytype.Location = new System.Drawing.Point(62, 22);
             this.label_partytype.Name = "label_partytype";
-            this.label_partytype.Size = new System.Drawing.Size(86, 15);
+            this.label_partytype.Size = new System.Drawing.Size(87, 15);
             this.label_partytype.TabIndex = 1;
             this.label_partytype.Text = "Exp Auto Share";
             // 
@@ -332,7 +332,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(251)))), ((int)(((byte)(251)))));
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(361, 324);
+            this.ClientSize = new System.Drawing.Size(361, 323);
             this.ControlBox = false;
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
@@ -342,7 +342,7 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAccept);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(377, 362);
             this.MinimizeBox = false;
