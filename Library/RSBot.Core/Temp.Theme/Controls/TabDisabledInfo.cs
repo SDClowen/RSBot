@@ -16,15 +16,13 @@ namespace RSBot.Theme.Controls
             size.Width += 100;
             size.Height += 50;
             Size = size;
-            BackColor = Color.FromArgb(33, 150, 243);
-            ForeColor = Color.White;
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
 
-            var brush = new SolidBrush(BackColor);
+            var brush = new SolidBrush(Color.FromArgb(33, 150, 243));
             var pen = new Pen(Color.FromArgb(33, 100, 210));
             pen.Width = 4;
             pen.DashCap = DashCap.Triangle;
@@ -34,7 +32,7 @@ namespace RSBot.Theme.Controls
             e.Graphics.DrawRectangle(pen, 0, 0, Width, Height);
 
             var flags = TextFormatFlags.EndEllipsis | TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter;
-            TextRenderer.DrawText(e.Graphics, TabDisabledInfoText, Font, ClientRectangle, ForeColor, flags);
+            TextRenderer.DrawText(e.Graphics, TabDisabledInfoText, Font, ClientRectangle, Color.White, flags);
 
             brush.Dispose();
             pen.Dispose();

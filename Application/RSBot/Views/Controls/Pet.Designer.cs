@@ -82,6 +82,7 @@
             this.progressEXP.Size = new System.Drawing.Size(180, 19);
             this.progressEXP.TabIndex = 12;
             this.progressEXP.Text = "0%";
+            this.progressEXP.Value = 50;
             // 
             // progressHGP
             // 
@@ -91,6 +92,7 @@
             this.progressHGP.Size = new System.Drawing.Size(180, 19);
             this.progressHGP.TabIndex = 11;
             this.progressHGP.Text = "0%";
+            this.progressHGP.Value = 50;
             // 
             // progressHP
             // 
@@ -100,12 +102,12 @@
             this.progressHP.Size = new System.Drawing.Size(180, 19);
             this.progressHP.TabIndex = 10;
             this.progressHP.Text = "0%";
+            this.progressHP.Value = 50;
             // 
             // Pet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);

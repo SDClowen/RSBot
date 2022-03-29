@@ -125,6 +125,7 @@
             this.Name = "SplashScreen";
             this.Opacity = 0.9D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Tag = "private";
             this.Load += new System.EventHandler(this.SplashScreen_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
