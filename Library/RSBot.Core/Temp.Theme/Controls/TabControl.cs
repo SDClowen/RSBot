@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RSBot.Theme.Extensions;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.InteropServices;
@@ -136,52 +137,33 @@ namespace RSBot.Theme.Controls
         {
             base.OnPaint(e);
             e.Graphics.Clear(BackColor);
-            Rectangle r = ClientRectangle;
-            if (TabCount <= 0) return;
+
+            if (TabCount <= 0) 
+                return;
+
             //Draw a custom background for Transparent TabPages
-            r = SelectedTab.Bounds;
-            StringFormat sf = new StringFormat();
-            sf.Alignment = StringAlignment.Center;
-            sf.LineAlignment = StringAlignment.Center;
+            var r = SelectedTab.Bounds;
+
+            
+
             //Draw a border around TabPage
             r.Inflate(3, 3);
-            TabPage tp = TabPages[SelectedIndex];
-            SolidBrush PaintBrush = new SolidBrush(tp.BackColor);
-            e.Graphics.FillRectangle(PaintBrush, r);
-            ControlPaint.DrawBorder(e.Graphics, r, PaintBrush.Color, ButtonBorderStyle.Outset);
-            //Draw the Tabs
+
+            var brush = new SolidBrush(Color.FromArgb(200, BackColor));
+            var pen = new Pen(Color.FromArgb(20, brush.Color.Determine()));
+
+            e.Graphics.FillRectangle(brush, r);
+            e.Graphics.DrawRectangle(pen, r);
+
+
             for (int index = 0; index <= TabCount - 1; index++)
-            {
-                tp = TabPages[index];
-                r = GetTabRect(index);
-                ButtonBorderStyle bs = ButtonBorderStyle.Outset;
-                if (index == SelectedIndex) bs = ButtonBorderStyle.Inset;
-                PaintBrush.Color = tp.BackColor;
-                e.Graphics.FillRectangle(PaintBrush, r);
-                ControlPaint.DrawBorder(e.Graphics, r, PaintBrush.Color, bs);
-                PaintBrush.Color = tp.ForeColor;
+                if(index != SelectedIndex)
+                    DrawTab(index, e.Graphics);
 
-                //Set up rotation for left and right aligned tabs
-                if (Alignment == TabAlignment.Left || Alignment == TabAlignment.Right)
-                {
-                    float RotateAngle = 90;
-                    if (Alignment == TabAlignment.Left) RotateAngle = 270;
-                    PointF cp = new PointF(r.Left + (r.Width >> 1), r.Top + (r.Height >> 1));
-                    e.Graphics.TranslateTransform(cp.X, cp.Y);
-                    e.Graphics.RotateTransform(RotateAngle);
-                    r = new Rectangle(-(r.Height >> 1), -(r.Width >> 1), r.Height, r.Width);
-                }
-                //Draw the Tab Text
-                if (tp.Enabled)
-                    e.Graphics.DrawString(tp.Text, Font, PaintBrush, (RectangleF)r, sf);
-                else
-                    ControlPaint.DrawStringDisabled(e.Graphics, tp.Text, Font, tp.BackColor, (RectangleF)r, sf);
+            DrawTab(SelectedIndex, e.Graphics);
 
-                e.Graphics.ResetTransform();
-            }
-
-            PaintBrush.Dispose();
-
+            pen.Dispose();
+            brush.Dispose();
         }
 
 
@@ -212,15 +194,56 @@ namespace RSBot.Theme.Controls
             base.WndProc(ref m);
         }*/
 
-
-        private TabPage TestTab(Point pt)
+        private void DrawTab(int index, Graphics graphics)
         {
-            for (int index = 0; index <= TabCount - 1; index++)
+            var tp = TabPages[index];
+            var brush = new SolidBrush(Color.FromArgb(200, BackColor));
+            var pen = new Pen(Color.FromArgb(20, brush.Color.Determine()));
+
+            var r = GetTabRect(index);
+
+            brush.Color = tp.BackColor;
+
+
+            if (index != SelectedIndex)
             {
-                if (GetTabRect(index).Contains(pt.X, pt.Y))
-                    return TabPages[index];
+                graphics.FillRectangle(brush, r);
+                graphics.DrawRectangle(pen, r);
             }
-            return null;
+            else
+            {
+                graphics.FillRectangle(pen.Brush, r);
+                graphics.DrawRectangle(pen, r);
+            }
+
+            brush.Color = tp.ForeColor;
+
+            //Set up rotation for left and right aligned tabs
+            if (Alignment == TabAlignment.Left || Alignment == TabAlignment.Right)
+            {
+                float RotateAngle = 90;
+                if (Alignment == TabAlignment.Left) RotateAngle = 270;
+                PointF cp = new PointF(r.Left + (r.Width >> 1), r.Top + (r.Height >> 1));
+                graphics.TranslateTransform(cp.X, cp.Y);
+                graphics.RotateTransform(RotateAngle);
+                r = new Rectangle(-(r.Height >> 1), -(r.Width >> 1), r.Height, r.Width);
+            }
+
+            //Draw the Tab Text
+            if (tp.Enabled)
+                TextRenderer.DrawText(graphics, tp.Text, Font, r, brush.Color, TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter);
+            else
+            {
+                var stringFormat = new StringFormat();
+                stringFormat.Alignment = StringAlignment.Center;
+                stringFormat.LineAlignment = StringAlignment.Center;
+                ControlPaint.DrawStringDisabled(graphics, tp.Text, Font, tp.BackColor, (RectangleF)r, stringFormat);
+            }
+
+            graphics.ResetTransform();
+
+            brush.Dispose();
+            pen.Dispose();
         }
 
     }
