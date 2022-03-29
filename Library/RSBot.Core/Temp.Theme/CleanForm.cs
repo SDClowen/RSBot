@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RSBot.Theme.Extensions;
+using System;
 using System.Windows.Forms;
 using static RSBot.Theme.NativeMethods;
 
@@ -14,8 +15,6 @@ namespace RSBot.Theme.Controls
         public CleanForm()
         {
             this.FormBorderStyle = FormBorderStyle.None;
-            BackColor = ColorScheme.BackColor;
-            ForeColor = ColorScheme.ForeColor;
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
@@ -81,6 +80,40 @@ namespace RSBot.Theme.Controls
             if (m.Msg == WM_NCHITTEST && (int)m.Result == HTCLIENT)     // drag the form
                 m.Result = (IntPtr)HTCAPTION;
 
+        }
+
+        /// <summary>
+        /// Change ui theme
+        /// </summary>
+        public void ChangeTheme()
+        {
+            ChangeControlsTheme(this);
+        }
+
+        public void ChangeControlsTheme(Control control)
+        {
+            if (control.Tag?.ToString() == "private")
+                return;
+
+            control.BackColor = ColorScheme.BackColor;
+
+            if (!(control is ProgressBar))
+                control.ForeColor = control.BackColor.Determine();
+
+            foreach (Control subControl in control.Controls)
+            {
+                ChangeControlsTheme(subControl);
+            }
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            
+            if (DesignMode)
+                return;
+
+            ChangeTheme();
         }
     }
 }

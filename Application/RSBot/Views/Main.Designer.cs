@@ -68,6 +68,7 @@ namespace RSBot.Views
             this.hideSideBarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabMain = new RSBot.Theme.Controls.TabControl();
             this.topCharacter = new RSBot.Views.Controls.Character();
+            this.coloredToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stripStatus.SuspendLayout();
             this.bottomPanel.SuspendLayout();
             this.pSidebar.SuspendLayout();
@@ -91,6 +92,7 @@ namespace RSBot.Views
             this.stripStatus.Size = new System.Drawing.Size(1022, 23);
             this.stripStatus.SizingGrip = false;
             this.stripStatus.TabIndex = 0;
+            this.stripStatus.Tag = "private";
             // 
             // menuBotbase
             // 
@@ -170,6 +172,7 @@ namespace RSBot.Views
             this.btnSave.Size = new System.Drawing.Size(95, 23);
             this.btnSave.TabIndex = 1;
             this.btnSave.TabStop = false;
+            this.btnSave.Tag = "private";
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -186,6 +189,7 @@ namespace RSBot.Views
             this.btnStartStop.Size = new System.Drawing.Size(95, 23);
             this.btnStartStop.TabIndex = 0;
             this.btnStartStop.TabStop = false;
+            this.btnStartStop.Tag = "private";
             this.btnStartStop.Text = "START BOT";
             this.btnStartStop.UseVisualStyleBackColor = false;
             this.btnStartStop.Click += new System.EventHandler(this.btnStartStop_Click);
@@ -354,7 +358,8 @@ namespace RSBot.Views
             // 
             this.themeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.darkToolStripMenuItem,
-            this.lightToolStripMenuItem});
+            this.lightToolStripMenuItem,
+            this.coloredToolStripMenuItem});
             this.themeToolStripMenuItem.Name = "themeToolStripMenuItem";
             this.themeToolStripMenuItem.Size = new System.Drawing.Size(55, 22);
             this.themeToolStripMenuItem.Text = "Theme";
@@ -422,6 +427,13 @@ namespace RSBot.Views
             this.topCharacter.Size = new System.Drawing.Size(772, 79);
             this.topCharacter.TabIndex = 7;
             // 
+            // coloredToolStripMenuItem
+            // 
+            this.coloredToolStripMenuItem.Name = "coloredToolStripMenuItem";
+            this.coloredToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.coloredToolStripMenuItem.Text = "Choose a color";
+            this.coloredToolStripMenuItem.Click += new System.EventHandler(this.coloredToolStripMenuItem_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -436,6 +448,7 @@ namespace RSBot.Views
             this.Controls.Add(this.stripStatus);
             this.Controls.Add(this.menuStrip);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ForeColor = System.Drawing.Color.Black;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip;
             this.MaximizeBox = false;
@@ -497,6 +510,7 @@ namespace RSBot.Views
         private System.Windows.Forms.ToolStripMenuItem themeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem darkToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem lightToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem coloredToolStripMenuItem;
     }
 }
 
