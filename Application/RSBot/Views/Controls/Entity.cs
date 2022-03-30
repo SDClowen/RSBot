@@ -72,7 +72,6 @@ namespace RSBot.Views.Controls
                 if (percent > 100)
                     percent = 100;
 
-                progressHP.Maximum = monster.MaxHealth;
                 progressHP.Value = percent;
                 progressHP.Text = percent + "%";
             }
