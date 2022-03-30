@@ -23,7 +23,7 @@ Hello respected silkroad online community. We have received notifications from m
 
 ## Issues and Status
 [![GitHub issues](https://img.shields.io/github/issues/sdclowen/rsbot.svg)](https://github.com/sdclowen/rsbot/issues)
-[![Version](https://img.shields.io/badge/version-v1.7b-maroon.svg)](https://github.com/SDClowen/RSBot)
+[![Version](https://img.shields.io/badge/version-v1.8b-maroon.svg)](https://github.com/SDClowen/RSBot)
 
 ## Project Info
 ![Language](https://img.shields.io/badge/language-CSharp-blue.svg)
