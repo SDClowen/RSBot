@@ -82,11 +82,11 @@ namespace RSBot.Core.Client
                 () => LoadReferenceFile("TeleportLink.txt", this.TeleportLinks),
                 () => LoadReferenceFile("RefShop.txt", this.Shops),
                 () => LoadReferenceFile("RefShopTab.txt", this.ShopTabs),
+                () => LoadRefShopGoods("RefShopGoods.txt"),
                 () => LoadReferenceFile("RefShopGroup.txt", this.ShopGroups),
-                () => LoadReferenceFile("RefShopGoods.txt", this.ShopGoods),
                 () => LoadReferenceFile("RefMappingShopGroup.txt", this.ShopGroupMapping),
                 () => LoadReferenceFile("RefMappingShopWithTab.txt", this.ShopTabMapping),
-                () => LoadScrapOfPackageItemData()
+                () => LoadScrapOfPackageItemData("RefScrapOfPackageItem.txt")
             );
 
             GC.Collect();
@@ -120,12 +120,20 @@ namespace RSBot.Core.Client
             }
         }
 
-        private void LoadScrapOfPackageItemData()
+        private void LoadRefShopGoods(string file)
         {
             if (Game.ClientType > GameClientType.Chinese)
-                LoadReferenceListFile("RefScrapOfPackageItem.txt", this.PackageItemScrap);
+                LoadReferenceListFile(file, this.ShopGoods);
             else
-                LoadReferenceFile("RefScrapOfPackageItem.txt", this.PackageItemScrap);
+                LoadReferenceFile(file, this.ShopGoods);
+        }
+
+        private void LoadScrapOfPackageItemData(string file)
+        {
+            if (Game.ClientType > GameClientType.Chinese)
+                LoadReferenceListFile(file, this.PackageItemScrap);
+            else
+                LoadReferenceFile(file, this.PackageItemScrap);
         }
 
         private void LoadSkillData()
