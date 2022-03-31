@@ -1,4 +1,5 @@
 ﻿using RSBot.Core;
+using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Extensions;
@@ -9,7 +10,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -95,6 +95,9 @@ namespace RSBot.Map.Views
                     Game.MediaPk2.GetFile("com_diamond.ddj").ToImage()
                 };
             }
+
+            checkBoxAutoSelectUniques.Checked = PlayerConfig.Get("RSBot.Map.AutoSelectUnique", false);
+            timerUniqueChecker.Enabled = checkBoxAutoSelectUniques.Checked;
         }
 
         #endregion Core Handlers
@@ -353,6 +356,24 @@ namespace RSBot.Map.Views
 
             RedrawMap();
             mapCanvas.Invalidate();
+        }
+
+        private void checkBoxAutoSelectUniques_CheckedChanged(object sender, EventArgs e)
+        {
+            PlayerConfig.Set("RSBot.Map.AutoSelectUnique", checkBoxAutoSelectUniques.Checked);
+            timerUniqueChecker.Enabled = checkBoxAutoSelectUniques.Checked;
+        }
+
+        private void timerUniqueChecker_Tick(object sender, EventArgs e)
+        {
+            if (!checkBoxAutoSelectUniques.Checked)
+                return;
+
+            if (Kernel.Bot.Running)
+                return;
+
+            if (SpawnManager.TryGetEntity<SpawnedMonster>(p => p.Record.Rarity == ObjectRarity.ClassD, out var uniqueEntity))
+                uniqueEntity.TrySelect();
         }
 
         private void buttonZoomIn_Click(object sender, EventArgs e)

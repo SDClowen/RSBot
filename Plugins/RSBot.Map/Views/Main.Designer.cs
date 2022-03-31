@@ -49,6 +49,9 @@ namespace RSBot.Map.Views
             this.buttonZoomIn = new System.Windows.Forms.Button();
             this.buttonZoomReset = new System.Windows.Forms.Button();
             this.buttonZoomOut = new System.Windows.Forms.Button();
+            this.checkBoxAutoSelectUniques = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.timerUniqueChecker = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.mapCanvas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -229,11 +232,41 @@ namespace RSBot.Map.Views
             this.buttonZoomOut.UseVisualStyleBackColor = true;
             this.buttonZoomOut.Click += new System.EventHandler(this.buttonZoomOut_Click);
             // 
+            // checkBoxAutoSelectUniques
+            // 
+            this.checkBoxAutoSelectUniques.AutoSize = true;
+            this.checkBoxAutoSelectUniques.Location = new System.Drawing.Point(35, 379);
+            this.checkBoxAutoSelectUniques.Name = "checkBoxAutoSelectUniques";
+            this.checkBoxAutoSelectUniques.Size = new System.Drawing.Size(159, 17);
+            this.checkBoxAutoSelectUniques.TabIndex = 17;
+            this.checkBoxAutoSelectUniques.Text = "Automatically select uniques";
+            this.checkBoxAutoSelectUniques.UseVisualStyleBackColor = true;
+            this.checkBoxAutoSelectUniques.CheckedChanged += new System.EventHandler(this.checkBoxAutoSelectUniques_CheckedChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(34, 399);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(245, 39);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "This function does not work while the bot is active.\r\n If you want the bot to aut" +
+    "o attack while active,\r\n set Avoidance.";
+            // 
+            // timerUniqueChecker
+            // 
+            this.timerUniqueChecker.Enabled = true;
+            this.timerUniqueChecker.Interval = 2500;
+            this.timerUniqueChecker.Tick += new System.EventHandler(this.timerUniqueChecker_Tick);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.checkBoxAutoSelectUniques);
             this.Controls.Add(this.buttonZoomOut);
             this.Controls.Add(this.buttonZoomReset);
             this.Controls.Add(this.buttonZoomIn);
@@ -275,5 +308,8 @@ namespace RSBot.Map.Views
         private System.Windows.Forms.Button buttonZoomIn;
         private System.Windows.Forms.Button buttonZoomReset;
         private System.Windows.Forms.Button buttonZoomOut;
+        private System.Windows.Forms.CheckBox checkBoxAutoSelectUniques;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Timer timerUniqueChecker;
     }
 }
