@@ -1,4 +1,5 @@
 ﻿using RSBot.Pk2;
+using System;
 
 namespace RSBot.Core.Components.Pk2
 {
@@ -25,9 +26,9 @@ namespace RSBot.Core.Components.Pk2
         /// Gets the file.
         /// </summary>
         /// <param name="filename">The filename.</param>
-        public ArchiveFile GetFile(string filename)
+        public ArchiveFile GetFile(string filename, bool absolutePath = false)
         {
-            return new ArchiveFile(filename);
+            return new ArchiveFile(filename, absolutePath);
         }
 
         /// <summary>

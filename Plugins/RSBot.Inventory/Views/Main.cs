@@ -74,7 +74,7 @@ namespace RSBot.Inventory.Views
         /// <summary>
         /// Updates the inventory list.
         /// </summary>
-        public void UpdateInventoryList()
+        public async void UpdateInventoryList()
         {
             if (Parent == null)
                 return;
@@ -134,7 +134,7 @@ namespace RSBot.Inventory.Views
             }
 
             // Load the item icons
-            Task.Run(() => { LoadItemImages(); });
+            await Task.Run(() => { LoadItemImages(); });
 
             listViewMain.EndUpdate();
         }
