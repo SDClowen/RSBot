@@ -101,6 +101,9 @@ namespace RSBot.Core.Objects.Spawn
         /// <returns></returns>
         public bool TrySelect()
         {
+            if (Game.SelectedEntity?.UniqueId == UniqueId)
+                return true;
+
             Log.Debug($"Trying to select the entity: {UniqueId} State: {State.LifeState} Health: {Health} HasHealth: {HasHealth} Dst: {System.Math.Round(DistanceToPlayer, 1)}");
 
             var packet = new Packet(0x7045);
