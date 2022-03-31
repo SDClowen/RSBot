@@ -47,7 +47,8 @@ namespace RSBot.Party.Bundle.PartyMatching
             packet.WriteByte(Config.LevelFrom);
             packet.WriteByte(Config.LevelTo);
 
-            if (!Game.ClientType.ToString().StartsWith("Vietnam"))
+            if (!Game.ClientType.ToString().StartsWith("Vietnam") &&
+                Game.ClientType != GameClientType.Chinese)
                 packet.WriteUnicode(Config.Title);
             else
                 packet.WriteString(Config.Title);
@@ -88,7 +89,8 @@ namespace RSBot.Party.Bundle.PartyMatching
             packet.WriteByte(Config.LevelFrom);
             packet.WriteByte(Config.LevelTo);
 
-            if (!Game.ClientType.ToString().StartsWith("Vietnam"))
+            if (!Game.ClientType.ToString().StartsWith("Vietnam") &&
+                Game.ClientType != GameClientType.Chinese)
                 packet.WriteUnicode(Config.Title);
             else
                 packet.WriteString(Config.Title);
