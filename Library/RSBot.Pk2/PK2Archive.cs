@@ -168,10 +168,6 @@ namespace RSBot.Pk2
             var currentBlockBuffer = _fileAdapter.ReadData((long)position, 2560);
             var currentBlock = new PK2Block(_fileAdapter, currentBlockBuffer, position);
 
-            //Check if the chain continues at another position
-            if (currentBlock.Entries[19].NextChain > 0)
-                ReadBlockAt(currentBlock.Entries[19].NextChain);
-
             //Read the subfolder chain
             //The folder "." and ".." are required if you which to use "free-browsing" mode, without reading the whole index at once
             foreach (var pk2Entry in currentBlock.Entries.Where(entry => !entry.Name.StartsWith(".") && entry.Position > 0))
@@ -181,7 +177,7 @@ namespace RSBot.Pk2
                     case PK2EntryType.Directory:
                         if (Config.Mode == PK2Mode.Index)
                         {
-                            var subDirectory = new PK2Directory(_fileAdapter, pk2Entry, currentDirectory?.Path);
+                            var subDirectory = new PK2Directory(_fileAdapter, pk2Entry, currentDirectory);
                             _directories.Add(subDirectory);
                             ReadBlockAt(pk2Entry.Position, subDirectory);
                         }
@@ -192,10 +188,14 @@ namespace RSBot.Pk2
 
                     case PK2EntryType.File:
                         if (Config.Mode == PK2Mode.Index)
-                            _files.Add(new PK2File(_fileAdapter, pk2Entry, currentDirectory?.Path));
+                            _files.Add(new PK2File(_fileAdapter, pk2Entry, currentDirectory));
                         break;
                 }
             }
+
+            //Check if the chain continues at another position
+            if (currentBlock.Entries[19].NextChain > 0)
+                ReadBlockAt(currentBlock.Entries[19].NextChain, currentDirectory);
 
             if (Config.Mode == PK2Mode.IndexBlocks)
                 Blocks.Add(currentBlock);
@@ -276,7 +276,7 @@ namespace RSBot.Pk2
             if (Config.Mode != PK2Mode.Index)
                 throw new InvalidOperationException("The method GetDirectories() is only available in Index-Mode");
 
-            return recursive ? _directories.Where(directory => directory.Path.StartsWith(path)).ToArray() : _directories.Where(directory => directory.Parent == path).ToArray();
+            return recursive ? _directories.Where(directory => directory.Path.StartsWith(path)).ToArray() : _directories.Where(directory => directory.Path == path).ToArray();
         }
 
         /// <summary>
@@ -295,7 +295,7 @@ namespace RSBot.Pk2
             if (Config.Mode != PK2Mode.Index)
                 throw new InvalidOperationException("The method GetFiles() is only available in Index-Mode");
 
-            return recursive ? _files.Where(file => file.Path.StartsWith(path)).ToArray() : _files.Where(file => file.Parent == path).ToArray();
+            return recursive ? _files.Where(file => file.Path.StartsWith(path)).ToArray() : _files.Where(file => file.Path == path).ToArray();
         }
 
         /// <summary>

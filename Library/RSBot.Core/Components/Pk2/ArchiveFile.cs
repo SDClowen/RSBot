@@ -22,14 +22,19 @@ namespace RSBot.Core.Components.Pk2
         private PK2File _file;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CacheFile"/> class.
+        /// If file null <c>false</c> otherwise <c>true</c>
+        /// </summary>
+        public bool IsValid => _file != null;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ArchiveFile"/> class.
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="isPk2File">if set to <c>true</c> [is PK2 file].</param>
-        public ArchiveFile(string path)
+        public ArchiveFile(string path, bool absolutePath = false)
         {
             Path = path;
-            _file = Game.MediaPk2.Archive.GetFile(path);
+            _file = Game.MediaPk2.Archive.GetFile(path, absolutePath);
         }
 
         /// <summary>

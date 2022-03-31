@@ -10,6 +10,14 @@ namespace RSBot.Pk2.Types
     public class PK2Entry
     {
         /// <summary>
+        /// Gets the directory.
+        /// </summary>
+        /// <value>
+        /// The directory.
+        /// </value>
+        public PK2Entry Parent { get; internal set; }
+
+        /// <summary>
         /// Gets or sets the type.
         /// </summary>
         /// <value>
@@ -24,6 +32,14 @@ namespace RSBot.Pk2.Types
         /// The name.
         /// </value>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the path.
+        /// </summary>
+        /// <value>
+        /// The path.
+        /// </value>
+        public string Path => Parent == null ? Name == null ? string.Empty : Name : System.IO.Path.Combine(Parent.Path, Name);
 
         /// <summary>
         /// Gets or sets the access time.
@@ -260,6 +276,11 @@ namespace RSBot.Pk2.Types
         public PK2Block GetChildBlock()
         {
             return new PK2Block(_fileAdapter, _fileAdapter.ReadData((long)Position, 2560), Position);
+        }
+
+        public override string ToString()
+        {
+            return Path;
         }
     }
 }

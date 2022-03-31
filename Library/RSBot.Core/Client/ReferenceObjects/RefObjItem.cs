@@ -150,10 +150,11 @@ namespace RSBot.Core.Client.ReferenceObjects
             try
             {
                 Image bitmap;
-                if (Game.MediaPk2.FileExists(Path.GetFileName(this.AssocFileIcon)))
-                    bitmap = Game.MediaPk2.GetFile(Path.GetFileName(this.AssocFileIcon)).ToImage();
+                var file = Game.MediaPk2.GetFile(Path.Combine("icon", this.AssocFileIcon), true);
+                if (file.IsValid)
+                    bitmap = file.ToImage();
                 else
-                    bitmap = Game.MediaPk2.GetFile("icon_default.ddj").ToImage();
+                    bitmap = Game.MediaPk2.GetFile("icon\\icon_default.ddj").ToImage();
 
                 if (bitmap == null)
                     bitmap = new Bitmap(24, 24);

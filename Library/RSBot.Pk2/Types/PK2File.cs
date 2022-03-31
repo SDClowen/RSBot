@@ -7,22 +7,6 @@ namespace RSBot.Pk2.Types
     public class PK2File : PK2Entry
     {
         /// <summary>
-        /// Gets or sets the path.
-        /// </summary>
-        /// <value>
-        /// The path.
-        /// </value>
-        public string Path => Name != "" ? Parent + "/" + Name : "";
-
-        /// <summary>
-        /// Gets the directory.
-        /// </summary>
-        /// <value>
-        /// The directory.
-        /// </value>
-        public string Parent { get; }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="PK2File" /> class.
         /// </summary>
         /// <param name="fileAdapter"></param>
@@ -34,7 +18,8 @@ namespace RSBot.Pk2.Types
         /// <param name="fileAdapter">The file adapter.</param>
         /// <param name="entry">The entry.</param>
         /// <param name="parent">The parent.</param>
-        public PK2File(FileAdapter fileAdapter, PK2Entry entry, string parent) : base(fileAdapter)
+        public PK2File(FileAdapter fileAdapter, PK2Entry entry, PK2Entry parent) 
+            : base(fileAdapter)
         {
             Parent = parent;
 
