@@ -1,4 +1,5 @@
 ﻿using RSBot.Core;
+using RSBot.Theme;
 using RSBot.Theme.Controls;
 using System;
 using System.IO;
@@ -107,6 +108,8 @@ namespace RSBot.Views
         /// </summary>
         private void InitializeBot()
         {
+            Kernel.Language = GlobalConfig.Get("RSBot.Language", "English");
+
             //---- Boot kernel -----
             Kernel.Initialize();
             Game.Initialize();

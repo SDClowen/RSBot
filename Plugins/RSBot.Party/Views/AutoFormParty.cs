@@ -10,10 +10,9 @@ namespace RSBot.Party.Views
 {
     public partial class AutoFormParty : CleanForm
     {
-        public AutoFormParty(string title)
+        public AutoFormParty()
         {
             InitializeComponent();
-            Text = title;
         }
 
         private void AutoFormParty_Load(object sender, EventArgs e)

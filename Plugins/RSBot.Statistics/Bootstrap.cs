@@ -1,6 +1,7 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Plugins;
 using RSBot.Statistics.Stats;
+using RSBot.Theme;
 using System.Windows.Forms;
 
 namespace RSBot.Statistics
@@ -41,6 +42,15 @@ namespace RSBot.Statistics
         public Control GetView()
         {
             return new Views.Main();
+        }
+
+        /// <summary>
+        /// Translate the plugin
+        /// </summary>
+        /// <param name="language">The language</param>
+        public void Translate()
+        {
+            LanguageManager.Translate(GetView(), Kernel.Language);
         }
     }
 }

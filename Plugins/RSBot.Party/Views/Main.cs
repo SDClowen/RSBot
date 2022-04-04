@@ -647,8 +647,8 @@ namespace RSBot.Party.Views
         {
             var senderName = (sender as Button).Name;
 
-            var formingParty = new AutoFormParty(senderName == nameof(btnPartyMatchForm) ? "Forming party" : "Change Entry");
-            if (formingParty.ShowDialog() == DialogResult.OK)
+            View.PartyWindow.Text = senderName == nameof(btnPartyMatchForm) ? "Forming party" : "Change Entry";
+            if (View.PartyWindow.ShowDialog() == DialogResult.OK)
             {
                 if (senderName == nameof(btnPartyMatchForm))
                     Bundle.Container.PartyMatching.Create();

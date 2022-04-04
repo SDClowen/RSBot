@@ -69,6 +69,7 @@
     <Compile Include="Extensions\NativeExtensions.cs" />
     <Compile Include="Extensions\SocketExtensions.cs" />
     <Compile Include="GameClientType.cs" />
+    <Compile Include="Temp.Theme\LanguageManager.cs" />
     <Compile Include="Network\Handler\Agent\Entity\EntitySourcePositionUpdate.cs" />
     <Compile Include="Network\Handler\Agent\Entity\EntityUpdateStatusFlag.cs" />
     <Compile Include="Network\Handler\Agent\Exchange\ExchangeApprovedResponse.cs" />

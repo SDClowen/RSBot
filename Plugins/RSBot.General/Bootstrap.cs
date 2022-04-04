@@ -1,5 +1,7 @@
-﻿using RSBot.Core.Plugins;
+﻿using RSBot.Core;
+using RSBot.Core.Plugins;
 using RSBot.General.Views;
+using RSBot.Theme;
 using System.Windows.Forms;
 
 namespace RSBot.General
@@ -28,8 +30,10 @@ namespace RSBot.General
         public void Initialize()
         {
             Views.View.Instance = new Main();
+            Views.View.PendingWindow = new PendingWindow();
+            Views.View.AccountsWindow = new Accounts();
 
-            Core.Log.Notify("Plugin [General] initialized!");
+            Log.Notify("Plugin [General] initialized!");
         }
 
         /// <summary>
@@ -38,6 +42,17 @@ namespace RSBot.General
         public Control GetView()
         {
             return Views.View.Instance;
+        }
+
+        /// <summary>
+        /// Translate the plugin
+        /// </summary>
+        /// <param name="language">The language</param>
+        public void Translate()
+        {
+            LanguageManager.Translate(GetView(), Kernel.Language);
+            LanguageManager.Translate(Views.View.PendingWindow, Kernel.Language);
+            LanguageManager.Translate(Views.View.AccountsWindow, Kernel.Language);
         }
     }
 }

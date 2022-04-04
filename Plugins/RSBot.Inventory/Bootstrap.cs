@@ -1,6 +1,8 @@
-﻿using RSBot.Core.Plugins;
+﻿using RSBot.Core;
+using RSBot.Core.Plugins;
 using RSBot.Inventory.Subscriber;
 using RSBot.Inventory.Views;
+using RSBot.Theme;
 using System.Windows.Forms;
 
 namespace RSBot.Inventory
@@ -28,9 +30,10 @@ namespace RSBot.Inventory
         public void Initialize()
         {
             Views.View.Instance = new Main();
+            Views.View.ItemDialog = new UseItemDialog();
 
             BuyItemSubscriber.SubscribeEvents();
-            Core.Log.Notify("Plugin [Inventory] initialized!");
+            Log.Notify("Plugin [Inventory] initialized!");
         }
 
         /// <summary>
@@ -39,6 +42,16 @@ namespace RSBot.Inventory
         public Control GetView()
         {
             return Views.View.Instance;
+        }
+
+        /// <summary>
+        /// Translate the plugin
+        /// </summary>
+        /// <param name="language">The language</param>
+        public void Translate()
+        {
+            LanguageManager.Translate(GetView(), Kernel.Language);
+            LanguageManager.Translate(Views.View.ItemDialog, Kernel.Language);
         }
     }
 }

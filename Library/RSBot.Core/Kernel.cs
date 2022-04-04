@@ -49,6 +49,11 @@ namespace RSBot.Core
         public static Bot Bot { get; set; }
 
         /// <summary>
+        /// The application language
+        /// </summary>
+        public static string Language { get; set; }
+
+        /// <summary>
         /// Initializes this instance.
         /// </summary>
         public static void Initialize()

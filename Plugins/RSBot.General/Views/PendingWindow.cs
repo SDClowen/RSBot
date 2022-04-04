@@ -41,6 +41,7 @@ namespace RSBot.General.Views
             labelServerName.Text = labelServerName.Text.Replace("{SERVER}", Serverlist.Joining?.Name);
 
             PrintTime(labelAvgWaitingTime, timestamp);
+            timer.Enabled = true;
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -68,6 +69,7 @@ namespace RSBot.General.Views
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             PacketManager.SendPacket(new Packet(0x610F, false, false, new byte[] { 0x1 }), PacketDestination.Server);
+            timer.Enabled = false;
         }
     }
 }

@@ -63,12 +63,13 @@ namespace RSBot.Views
             this.themeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.darkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.coloredToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.minimizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hideSideBarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabMain = new RSBot.Theme.Controls.TabControl();
             this.topCharacter = new RSBot.Views.Controls.Character();
-            this.coloredToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stripStatus.SuspendLayout();
             this.bottomPanel.SuspendLayout();
             this.pSidebar.SuspendLayout();
@@ -335,6 +336,7 @@ namespace RSBot.Views
             this.viewToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.menuPlugins,
+            this.languageToolStripMenuItem,
             this.themeToolStripMenuItem,
             this.aboutToolStripMenuItem,
             this.closeToolStripMenuItem,
@@ -367,16 +369,23 @@ namespace RSBot.Views
             // darkToolStripMenuItem
             // 
             this.darkToolStripMenuItem.Name = "darkToolStripMenuItem";
-            this.darkToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.darkToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.darkToolStripMenuItem.Text = "Dark";
             this.darkToolStripMenuItem.Click += new System.EventHandler(this.darkToolStripMenuItem_Click);
             // 
             // lightToolStripMenuItem
             // 
             this.lightToolStripMenuItem.Name = "lightToolStripMenuItem";
-            this.lightToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.lightToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.lightToolStripMenuItem.Text = "Light";
             this.lightToolStripMenuItem.Click += new System.EventHandler(this.lightToolStripMenuItem_Click);
+            // 
+            // coloredToolStripMenuItem
+            // 
+            this.coloredToolStripMenuItem.Name = "coloredToolStripMenuItem";
+            this.coloredToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.coloredToolStripMenuItem.Text = "Choose a color";
+            this.coloredToolStripMenuItem.Click += new System.EventHandler(this.coloredToolStripMenuItem_Click);
             // 
             // closeToolStripMenuItem
             // 
@@ -427,12 +436,11 @@ namespace RSBot.Views
             this.topCharacter.Size = new System.Drawing.Size(772, 79);
             this.topCharacter.TabIndex = 7;
             // 
-            // coloredToolStripMenuItem
+            // languageToolStripMenuItem
             // 
-            this.coloredToolStripMenuItem.Name = "coloredToolStripMenuItem";
-            this.coloredToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.coloredToolStripMenuItem.Text = "Choose a color";
-            this.coloredToolStripMenuItem.Click += new System.EventHandler(this.coloredToolStripMenuItem_Click);
+            this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
+            this.languageToolStripMenuItem.Size = new System.Drawing.Size(71, 22);
+            this.languageToolStripMenuItem.Text = "Language";
             // 
             // Main
             // 
@@ -511,6 +519,7 @@ namespace RSBot.Views
         private System.Windows.Forms.ToolStripMenuItem darkToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem lightToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem coloredToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem languageToolStripMenuItem;
     }
 }
 

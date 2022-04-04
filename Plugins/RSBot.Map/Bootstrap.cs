@@ -1,5 +1,7 @@
-﻿using RSBot.Core.Plugins;
+﻿using RSBot.Core;
+using RSBot.Core.Plugins;
 using RSBot.Map.Views;
+using RSBot.Theme;
 using System.Windows.Forms;
 
 namespace RSBot.Map
@@ -36,6 +38,15 @@ namespace RSBot.Map
         public Control GetView()
         {
             return Views.View.Instance;
+        }
+
+        /// <summary>
+        /// Translate the plugin
+        /// </summary>
+        /// <param name="language">The language</param>
+        public void Translate()
+        {
+            LanguageManager.Translate(GetView(), Kernel.Language);
         }
     }
 }

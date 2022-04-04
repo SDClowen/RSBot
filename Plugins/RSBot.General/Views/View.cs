@@ -17,5 +17,13 @@
         /// The instance.
         /// </value>
         public static PendingWindow PendingWindow { get; set; }
+
+        /// <summary>
+        /// Gets or sets the instance.
+        /// </summary>
+        /// <value>
+        /// The instance.
+        /// </value>
+        public static Accounts AccountsWindow { get; set; }
     }
 }

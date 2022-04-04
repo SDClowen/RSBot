@@ -4,7 +4,6 @@ using RSBot.Core.Event;
 using RSBot.Core.Plugins;
 using RSBot.Theme;
 using RSBot.Theme.Controls;
-using RSBot.Theme.Extensions;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -268,14 +267,55 @@ namespace RSBot.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void Main_Load(object sender, EventArgs e)
         {
+            if (Kernel.Language != "English")
+                LanguageManager.Translate(this, Kernel.Language);
+            
             menuSidebar.Checked = GlobalConfig.Get("RSBot.ShowSidebar", true);
+
+            foreach (var item in LanguageManager.GetLanguages())
+            {
+                var dropdown = new ToolStripMenuItem(item);
+                dropdown.Click += LanguageDropdown_Click;
+                languageToolStripMenuItem.DropDownItems.Add(dropdown);
+
+                if(Kernel.Language.ToString() == dropdown.Text)
+                    dropdown.Checked = true;
+            }
+
             ConfigureSidebar();
+        }
+
+        /// <summary>
+        /// Handles the Click event of the MenuItem control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <exception cref="System.NotImplementedException"></exception>
+        private void LanguageDropdown_Click(object sender, EventArgs e)
+        {
+            var dropdown = sender as ToolStripMenuItem;
+            if (dropdown.Checked)
+                return;
+
+            Kernel.Language = dropdown.Text;
+
+            foreach (ToolStripMenuItem item in languageToolStripMenuItem.DropDownItems)
+                item.Checked = false;
+
+            foreach (var plugin in Kernel.PluginManager.Extensions.Values)
+                plugin.Translate();
+
+            foreach (var botbase in Kernel.BotbaseManager.Bots.Values)
+                botbase.Translate();
+
+            LanguageManager.Translate(this, Kernel.Language);
+
+            dropdown.Checked = true;
         }
 
         /// <summary>
         ///Handles the Click event of the btnStartStop control.
         /// </summary>
-        /// <param name="obj">The object.</param>
         private void btnStartStop_Click(object sender, EventArgs e)
         {
             if (Kernel.Proxy == null)
@@ -328,7 +368,7 @@ namespace RSBot.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void picLogo_Click(object sender, EventArgs e)
         {
-            Process.Start("http://roadshark-bot.com");
+            Process.Start("https://github.com/sdclowen/rsbot");
         }
 
         /// <summary>

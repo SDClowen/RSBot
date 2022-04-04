@@ -10,12 +10,8 @@ namespace RSBot.Views
 {
     public partial class ScriptRecorder : CleanForm
     {
-        #region Fields
-
         private bool _recording;
         private bool _running;
-
-        #endregion Fields
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ScriptRecorder"/> class.
@@ -95,13 +91,13 @@ namespace RSBot.Views
             if (_recording)
             {
                 btnStart.Text = @"Start";
-                lblStatus.Text = @"Idle";
+                labelStatus.Text = @"Idle";
                 _recording = false;
             }
             else
             {
                 btnStart.Text = @"Stop";
-                lblStatus.Text = @"Recording...";
+                labelStatus.Text = @"Recording...";
                 _recording = true;
             }
         }
@@ -163,7 +159,7 @@ namespace RSBot.Views
                 ScriptManager.Stop();
 
                 btnRunNow.Text = "Run now";
-                lblStatus.Text = string.Empty;
+                labelStatus.Text = string.Empty;
                 _running = false;
             }
             else
@@ -175,9 +171,14 @@ namespace RSBot.Views
                 Task.Run(() => { ScriptManager.RunScript(); });
 
                 btnRunNow.Text = "Stop Running";
-                lblStatus.Text = "Running...";
+                labelStatus.Text = "Running...";
                 _running = true;
             }
+        }
+
+        private void ScriptRecorder_Load(object sender, EventArgs e)
+        {
+            Theme.LanguageManager.Translate(this, Kernel.Language);
         }
     }
 }

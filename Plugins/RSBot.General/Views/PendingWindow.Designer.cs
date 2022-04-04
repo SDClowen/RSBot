@@ -76,9 +76,8 @@
             this.labelPending.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelPending.Location = new System.Drawing.Point(258, 60);
             this.labelPending.Name = "labelPending";
-            this.labelPending.Size = new System.Drawing.Size(73, 17);
+            this.labelPending.Size = new System.Drawing.Size(0, 17);
             this.labelPending.TabIndex = 0;
-            this.labelPending.Text = "1000 / 1000";
             // 
             // labelAvgWaitingTime
             // 
@@ -86,9 +85,8 @@
             this.labelAvgWaitingTime.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelAvgWaitingTime.Location = new System.Drawing.Point(193, 111);
             this.labelAvgWaitingTime.Name = "labelAvgWaitingTime";
-            this.labelAvgWaitingTime.Size = new System.Drawing.Size(182, 17);
+            this.labelAvgWaitingTime.Size = new System.Drawing.Size(0, 17);
             this.labelAvgWaitingTime.TabIndex = 0;
-            this.labelAvgWaitingTime.Text = "0 hours 0 minutes 0 seconds";
             // 
             // labelMyWaitingTime
             // 
@@ -96,9 +94,8 @@
             this.labelMyWaitingTime.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelMyWaitingTime.Location = new System.Drawing.Point(193, 146);
             this.labelMyWaitingTime.Name = "labelMyWaitingTime";
-            this.labelMyWaitingTime.Size = new System.Drawing.Size(182, 17);
+            this.labelMyWaitingTime.Size = new System.Drawing.Size(0, 17);
             this.labelMyWaitingTime.TabIndex = 0;
-            this.labelMyWaitingTime.Text = "0 hours 0 minutes 0 seconds";
             // 
             // label5
             // 
@@ -112,7 +109,6 @@
             // 
             // timer
             // 
-            this.timer.Enabled = true;
             this.timer.Interval = 1000;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 

@@ -19,5 +19,10 @@
         /// Gets the view that will be displayed as tab page.
         /// </summary>
         System.Windows.Forms.Control GetView();
+
+        /// <summary>
+        /// Translate the plugin
+        /// </summary>
+        void Translate();
     }
 }

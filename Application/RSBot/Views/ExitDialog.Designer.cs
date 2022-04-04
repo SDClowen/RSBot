@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelInfo = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnNo = new System.Windows.Forms.Button();
             this.btnYes = new System.Windows.Forms.Button();
@@ -38,14 +38,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // label1
+            // labelInfo
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(160, 26);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(265, 45);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Are you sure that you want to exit RSBot?\r\nThis will disconnect you from the Silk" +
+            this.labelInfo.AutoSize = true;
+            this.labelInfo.Location = new System.Drawing.Point(160, 26);
+            this.labelInfo.Name = "labelInfo";
+            this.labelInfo.Size = new System.Drawing.Size(265, 45);
+            this.labelInfo.TabIndex = 0;
+            this.labelInfo.Text = "Are you sure that you want to exit RSBot?\r\nThis will disconnect you from the Silk" +
     "road Server!\r\n\r\n";
             // 
             // panel1
@@ -110,7 +110,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.btnNo;
             this.ClientSize = new System.Drawing.Size(440, 136);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelInfo);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -121,7 +121,8 @@
             this.Name = "ExitDialog";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Exit RSBot";
+            this.Text = "RSBot";
+            this.Load += new System.EventHandler(this.ExitDialog_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -132,7 +133,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelInfo;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnNo;

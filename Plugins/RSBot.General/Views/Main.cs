@@ -336,8 +336,7 @@ namespace RSBot.General.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnAutoLoginSettings_Click(object sender, EventArgs e)
         {
-            var accountSettings = new Accounts();
-            if (accountSettings.ShowDialog() == DialogResult.OK)
+            if (View.AccountsWindow.ShowDialog() == DialogResult.OK)
                 LoadAccounts();
         }
 
@@ -542,6 +541,10 @@ namespace RSBot.General.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void comboBoxClientType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Created from Activator.CreateInstance easy fix ^^
+            if (comboBoxClientType.Parent.Parent == null)
+                return;
+
             if (Game.Player != null)
             {
                 MessageBox.Show("You can't change the client type right now because you are already in the game!");
