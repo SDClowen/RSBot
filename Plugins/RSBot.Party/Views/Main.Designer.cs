@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabMain = new RSBot.Theme.Controls.TabControl();
+            this.tabMain = new System.Windows.Forms.Controls.TabControl();
             this.tabCurrentParty = new System.Windows.Forms.TabPage();
             this.listParty = new System.Windows.Forms.ListView();
             this.colMemberName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -1127,7 +1127,7 @@
 
         #endregion
 
-        private RSBot.Theme.Controls.TabControl tabMain;
+        private System.Windows.Forms.Controls.TabControl tabMain;
         private System.Windows.Forms.TabPage tabCurrentParty;
         private System.Windows.Forms.ListView listParty;
         private System.Windows.Forms.ColumnHeader colMemberName;

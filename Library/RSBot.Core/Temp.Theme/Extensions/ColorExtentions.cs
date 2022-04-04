@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace RSBot.Theme.Extensions
+namespace System.Windows.Forms.Extensions
 {
     public static class ColorExtentions
     {

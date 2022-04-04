@@ -1,4 +1,4 @@
-﻿using RSBot.Theme.Extensions;
+﻿using System.Windows.Forms.Extensions;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;

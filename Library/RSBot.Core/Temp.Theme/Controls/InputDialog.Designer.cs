@@ -1,4 +1,4 @@
-﻿namespace RSBot.Theme.Controls
+﻿namespace System.Windows.Forms.Controls
 {
     partial class InputDialog
     {

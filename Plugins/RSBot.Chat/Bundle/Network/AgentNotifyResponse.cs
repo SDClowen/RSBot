@@ -1,6 +1,6 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Network;
-using RSBot.Theme.Extensions;
+using System.Windows.Forms.Extensions;
 
 namespace RSBot.Chat.Network
 {

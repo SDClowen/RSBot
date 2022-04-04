@@ -3,7 +3,7 @@ using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
-using RSBot.Theme.Controls;
+using System.Windows.Forms.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;

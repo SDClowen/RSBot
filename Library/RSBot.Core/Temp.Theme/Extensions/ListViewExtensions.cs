@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Windows.Forms;
 
-namespace RSBot.Theme.Extensions
+namespace System.Windows.Forms.Extensions
 {
     public static class ListViewExtensions
     {

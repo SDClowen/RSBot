@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
-namespace RSBot.Theme.Extensions
+namespace System.Windows.Forms.Extensions
 {
     public static class TextBoxBaseExtensions
     {

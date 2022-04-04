@@ -1,11 +1,11 @@
-﻿using RSBot.Theme.Extensions;
+﻿using System.Windows.Forms.Extensions;
 using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace RSBot.Theme.Controls
+namespace System.Windows.Forms.Controls
 {
     /// <summary>
     /// Summary description for TabControl.

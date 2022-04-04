@@ -1,4 +1,4 @@
-﻿using RSBot.Theme.Controls;
+﻿using System.Windows.Forms.Controls;
 using System;
 using System.Reflection;
 

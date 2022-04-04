@@ -5,7 +5,7 @@ using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Skill;
-using RSBot.Theme.Extensions;
+using System.Windows.Forms.Extensions;
 using System;
 using System.IO;
 using System.Linq;

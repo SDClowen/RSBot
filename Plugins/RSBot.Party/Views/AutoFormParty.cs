@@ -1,7 +1,7 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Party;
-using RSBot.Theme.Controls;
+using System.Windows.Forms.Controls;
 using System;
 using System.Linq;
 using System.Windows.Forms;

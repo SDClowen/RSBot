@@ -1,7 +1,7 @@
 ﻿using RSBot.Core;
 using System.Drawing;
 
-namespace RSBot.Theme
+namespace System.Windows.Forms
 {
     public class ColorScheme
     {
@@ -10,7 +10,7 @@ namespace RSBot.Theme
 
         public static void Load()
         {
-            BackColor = Color.FromArgb(255, Color.FromArgb(GlobalConfig.Get("RSBot.Theme.Color", 0)));
+            BackColor = Color.FromArgb(255, Color.FromArgb(GlobalConfig.Get("System.Windows.Forms.Color", 0)));
         }
     }
 }

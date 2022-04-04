@@ -1,10 +1,8 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Event;
-using RSBot.Theme;
-using RSBot.Theme.Controls;
+using System.Windows.Forms;
 using System;
 using System.Linq;
-using System.Windows.Forms;
 
 namespace RSBot.Views.Controls
 {

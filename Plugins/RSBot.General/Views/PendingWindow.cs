@@ -1,6 +1,6 @@
 ﻿using RSBot.Core.Network;
 using RSBot.General.Components;
-using RSBot.Theme.Controls;
+using System.Windows.Forms.Controls;
 using System;
 using System.Text;
 using System.Windows.Forms;

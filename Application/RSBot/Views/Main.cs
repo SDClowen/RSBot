@@ -2,15 +2,13 @@
 using RSBot.Core.Client;
 using RSBot.Core.Event;
 using RSBot.Core.Plugins;
-using RSBot.Theme;
-using RSBot.Theme.Controls;
-using RSBot.Theme.Extensions;
+using System.Windows.Forms;
+using System.Windows.Forms.Controls;
 using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
-using static RSBot.Theme.NativeMethods;
+using static System.Windows.Forms.NativeMethods;
 
 namespace RSBot.Views
 {
@@ -117,7 +115,7 @@ namespace RSBot.Views
 
                 if (tabPage.Enabled) continue;
 
-                var info = new Theme.Controls.TabDisabledInfo
+                var info = new System.Windows.Forms.Controls.TabDisabledInfo
                 {
                     Name = "overlay",
                     Location = new Point(tabMain.Width / 2 - 110, tabMain.Height - 150)
@@ -523,14 +521,14 @@ namespace RSBot.Views
 
         private void darkToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GlobalConfig.Set("RSBot.Theme.Color", Color.Black.ToArgb());
+            GlobalConfig.Set("System.Windows.Forms.Color", Color.Black.ToArgb());
             ColorScheme.Load();
             ChangeTheme();
         }
 
         private void lightToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GlobalConfig.Set("RSBot.Theme.Color", Color.White.ToArgb());
+            GlobalConfig.Set("System.Windows.Forms.Color", Color.White.ToArgb());
             ColorScheme.Load();
             ChangeTheme();
         }
@@ -540,7 +538,7 @@ namespace RSBot.Views
             var colorDialog = new ColorDialog();
             if (colorDialog.ShowDialog() == DialogResult.OK)
             {
-                GlobalConfig.Set("RSBot.Theme.Color", colorDialog.Color.ToArgb());
+                GlobalConfig.Set("System.Windows.Forms.Color", colorDialog.Color.ToArgb());
                 ColorScheme.Load();
                 ChangeTheme();
             }

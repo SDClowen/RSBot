@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace RSBot.Theme
+namespace System.Windows.Forms
 {
     public class NativeMethods
     {

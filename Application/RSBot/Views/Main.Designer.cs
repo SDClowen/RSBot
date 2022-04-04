@@ -66,7 +66,7 @@ namespace RSBot.Views
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.minimizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hideSideBarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabMain = new RSBot.Theme.Controls.TabControl();
+            this.tabMain = new System.Windows.Forms.Controls.TabControl();
             this.topCharacter = new RSBot.Views.Controls.Character();
             this.coloredToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stripStatus.SuspendLayout();
@@ -502,7 +502,7 @@ namespace RSBot.Views
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem thisToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip;
-        private RSBot.Theme.Controls.TabControl tabMain;
+        private System.Windows.Forms.Controls.TabControl tabMain;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem minimizeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hideSideBarToolStripMenuItem;

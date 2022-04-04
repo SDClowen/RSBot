@@ -1,9 +1,9 @@
-﻿using RSBot.Theme.Extensions;
+﻿using System.Windows.Forms.Extensions;
 using System;
 using System.Windows.Forms;
-using static RSBot.Theme.NativeMethods;
+using static System.Windows.Forms.NativeMethods;
 
-namespace RSBot.Theme.Controls
+namespace System.Windows.Forms.Controls
 {
     public partial class CleanForm : Form
     {

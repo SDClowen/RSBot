@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace RSBot.Theme.Controls
+namespace System.Windows.Forms.Controls
 {
     public partial class InputDialog : CleanForm
     {

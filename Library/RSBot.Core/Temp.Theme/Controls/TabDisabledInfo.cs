@@ -1,9 +1,9 @@
-﻿using RSBot.Theme.Extensions;
+﻿using System.Windows.Forms.Extensions;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace RSBot.Theme.Controls
+namespace System.Windows.Forms.Controls
 {
     public partial class TabDisabledInfo : UserControl
     {
