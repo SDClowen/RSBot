@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace RSBot.Theme
+namespace RSBot.Core
 {
     using LangDict = Dictionary<string, string>;
 
@@ -166,9 +166,24 @@ namespace RSBot.Theme
         /// Get language value
         /// </summary>
         /// <param name="key">The key</param>
-        public static string GetLang(string key)
+        public static string GetLang(string parent, string key, string @default = "")
         {
-            return _values[null][key];
+            if (_values.ContainsKey(parent) && _values[parent].ContainsKey(key))
+                return _values[parent][key];
+            else
+                return @default;
+        }
+
+        /// <summary>
+        /// Get language value
+        /// </summary>
+        /// <param name="key">The key</param>
+        public static string GetLang(string parent, string key, params string[] args)
+        {
+            if (_values.ContainsKey(parent) && _values[parent].ContainsKey(key))
+                return string.Format(_values[parent][key], args);
+
+            return string.Empty;
         }
 
         /// <summary>
@@ -200,7 +215,7 @@ namespace RSBot.Theme
             //CheckMissings(path, assembly, instance, values);
 
 
-            _values[controlName] = values;
+            _values[assembly] = values;
 
             TranslateControls(values, view, assembly);
 
