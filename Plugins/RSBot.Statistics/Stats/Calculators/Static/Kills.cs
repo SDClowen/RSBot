@@ -14,7 +14,7 @@ namespace RSBot.Statistics.Stats.Calculators.Static
         public string Name => "Kills";
 
         /// <inheritdoc />
-        public string Label => "Kills";
+        public string Label => LanguageManager.GetLang("Calculators.Kills.Label");
 
         /// <inheritdoc />
         public StatisticsGroup Group => StatisticsGroup.Enemy;

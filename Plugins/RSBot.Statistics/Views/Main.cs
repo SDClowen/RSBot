@@ -11,8 +11,6 @@ namespace RSBot.Statistics.Views
     [System.ComponentModel.ToolboxItem(false)]
     public partial class Main : UserControl
     {
-        #region Fields
-
         /// <summary>
         /// The refresh timer
         /// </summary>
@@ -22,8 +20,6 @@ namespace RSBot.Statistics.Views
         /// The initial reset
         /// </summary>
         private bool _initialReset = true;
-
-        #endregion Fields
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Main"/> class.

@@ -26,13 +26,22 @@ namespace RSBot.Protection.Components.Town
         /// </summary>
         private static void OnUpdateInventory()
         {
-            if (!Kernel.Bot.Running) return;
-            if (!PlayerConfig.Get<bool>("RSBot.Protection.checkFullPetInventory")) return;
-            if (Game.Player.AbilityPet == null) return;
-            if (!Game.Player.AbilityPet.Full) return;
-            if (ScriptManager.Running) return;
+            if (!Kernel.Bot.Running) 
+                return;
 
-            Log.Notify("Returning to town: Pet inventory full.");
+            if (!PlayerConfig.Get<bool>("RSBot.Protection.checkFullPetInventory")) 
+                return;
+
+            if (Game.Player.AbilityPet == null) 
+                return;
+
+            if (!Game.Player.AbilityPet.Full) 
+                return;
+
+            if (ScriptManager.Running) 
+                return;
+
+            Log.NotifyLang("ReturnToTownPetInventoryFull");
             Game.Player.UseReturnScroll();
         }
     }

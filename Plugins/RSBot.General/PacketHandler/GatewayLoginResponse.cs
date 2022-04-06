@@ -33,8 +33,7 @@ namespace RSBot.General.PacketHandler
         {
             if (packet.ReadByte() == 0x01)
             {
-                Log.Notify("Gateway authentication successfull!");
-                
+                Log.NotifyLang("RSBot.General", "AuthGetewaySuccess");
                 Views.View.PendingWindow?.Hide();
 
                 return;
@@ -45,24 +44,23 @@ namespace RSBot.General.PacketHandler
             switch (code)
             {
                 case 1:
-                    Log.Warn("Wrong username or password entered!");
+                    Log.NotifyLang("RSBot.General", "AuthGatewayWrongIdPw");
                     break;
 
                 case 2:
-                    Log.Warn("Your account has been blocked by the server administrator. Please use a different account for the auto login!");
+                    Log.NotifyLang("RSBot.General", "AuthAccountBanned");
                     break;
 
                 case 3:
-                    Log.Warn("This account already in the game!");
+                    Log.NotifyLang("RSBot.General", "AuthAccountAlreadyInGame");
                     break;
 
                 case 4:
-                    Log.Warn("The server is check!");
+                    Log.WarnLang("RSBot.General", "ServerCheck");
                     break;
 
                 case 5:
-
-                    Log.Warn("The server is full! A new login attempt will be made shortly...");
+                    Log.WarnLang("RSBot.General", "ServerFull");
                     AutoLogin.Handle();
 
                     break;
@@ -86,12 +84,11 @@ namespace RSBot.General.PacketHandler
                     break;
 
                 case 29: // ksro block
-                    Log.Warn("A new login attempt will be made shortly...");
                     AutoLogin.Handle();
                     break;
 
                 default:
-                    Log.Warn($"Failed to login to login server. ({code})");
+                    Log.WarnLang("RSBot.General", "AuthFailed", code);
                     break;
             }
         }

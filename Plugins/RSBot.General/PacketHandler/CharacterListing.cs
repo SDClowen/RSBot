@@ -37,7 +37,7 @@ namespace RSBot.General.PacketHandler
             if (result != 1)
                 return;
 
-            BotWindow.SetStatusText("Waiting for the user to select a character...");
+            BotWindow.SetStatusTextLang("WaitingUserForSelectCharacter");
 
             var charCount = packet.ReadByte();
 
@@ -100,7 +100,7 @@ namespace RSBot.General.PacketHandler
 
                 lobbyCharacters[i] = name;
 
-                Log.Notify($"Player detected: {name} (lv. {level})");
+                Log.NotifyLang("RSBot.General", "PlayerDetected", name, level);
             }
 
             var username = GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername");
@@ -118,7 +118,7 @@ namespace RSBot.General.PacketHandler
 
             if (string.IsNullOrWhiteSpace(selectedAccount.SelectedCharacter))
             {
-                BotWindow.SetStatusText("Select your character manually only for this time.");
+                BotWindow.SetStatusTextLang("SelectYourCharacterManually");
                 return;
             }
 

@@ -50,23 +50,23 @@ namespace RSBot.General.PacketHandler
             switch (code)
             {
                 case 1:
-                    Log.Error("Failed to connect to server. (C9)");
+                    Log.WarnLang("RSBot.General", "C9");
                     break;
 
                 case 2:
-                    Log.Error("Failed to connect to server. (C10)");
+                    Log.WarnLang("RSBot.General", "C10");
                     break;
 
                 case 3:
-                    Log.Error("Failed to connect to server. (C10)");
+                    Log.WarnLang("RSBot.General", "C10");
                     break;
 
                 case 4:
-                    Log.Error("The server is full!");
+                    Log.WarnLang("RSBot.General", "ServerFull");
                     break;
 
                 case 5:
-                    Log.Notify("Faild to connect to server because access to the current IP has exceeded its limit.");
+                    Log.WarnLang("RSBot.General", "IpLimit");
                     break;
             }
         }

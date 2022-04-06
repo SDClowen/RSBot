@@ -1,4 +1,5 @@
-﻿using RSBot.Core.Event;
+﻿using RSBot.Core;
+using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects.Spawn;
 using RSBot.Theme;
@@ -26,6 +27,12 @@ namespace RSBot.Views.Controls
             EventManager.SubscribeEvent("OnUpdateSelectedEntityHP", new Action<SpawnedBionic>(OnUpdateSelectedEntityHP));
             EventManager.SubscribeEvent("OnKillSelectedEnemy", OnKillSelectedEnemy);
             EventManager.SubscribeEvent("OnAgentServerDisconnected", OnAgentServerDisconnected);
+            EventManager.SubscribeEvent("OnMainFormLoaded", OnMainFormLoaded);
+        }
+
+        private void OnMainFormLoaded()
+        {
+            lblEntityName.Text = LanguageManager.GetLang("LabelEntityName");
         }
 
         /// <summary>
@@ -106,7 +113,7 @@ namespace RSBot.Views.Controls
         /// </summary>
         private void Clear()
         {
-            lblEntityName.Text = "No entity selected";
+            lblEntityName.Text = LanguageManager.GetLang("LabelEntityName");
             progressHP.Value = 0;
             progressHP.Text ="0%";
             lblType.Text = "";

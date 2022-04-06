@@ -87,6 +87,7 @@ namespace RSBot.Inventory.Views
             
             listViewMain.BeginUpdate();
             listViewMain.Items.Clear();
+
             switch (comboInventoryType.SelectedIndex)
             {
                 case 0:
@@ -100,13 +101,13 @@ namespace RSBot.Inventory.Views
                     foreach (var item in Game.Player.Inventory.Items.Where(item => item.Slot < 13).OrderBy(p => p.Slot))
                         AddItem(item);
 
-                    lblFreeSlots.Text = "not calculated";
+                    lblFreeSlots.Text = "0";
                     break;
 
                 case 2:
                     foreach (var item in Game.Player.Inventory.Avatars.OrderBy(p => p.Slot))
                         AddItem(item);
-                    lblFreeSlots.Text = "not calculated";
+                    lblFreeSlots.Text = "0";
                     break;
 
                 case 3:

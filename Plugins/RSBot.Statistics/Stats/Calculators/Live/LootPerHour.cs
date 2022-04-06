@@ -32,7 +32,7 @@ namespace RSBot.Statistics.Stats.Calculators.Live
         public string Name => "ItemsPerHour";
 
         /// <inheritdoc />
-        public string Label => "Items / hour";
+        public string Label => LanguageManager.GetLang("Calculators.LootPerHour.Label");
 
         /// <inheritdoc />
         public StatisticsGroup Group => StatisticsGroup.Loot;

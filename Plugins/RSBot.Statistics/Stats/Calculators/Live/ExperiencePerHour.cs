@@ -25,7 +25,7 @@ namespace RSBot.Statistics.Stats.Calculators.Live
         public string Name => "EXPPerHour";
 
         /// <inheritdoc />
-        public string Label => "Experience / hour";
+        public string Label => LanguageManager.GetLang("Calculators.ExperiencePerHour.Label");
 
         /// <inheritdoc />
         public StatisticsGroup Group => StatisticsGroup.Player;

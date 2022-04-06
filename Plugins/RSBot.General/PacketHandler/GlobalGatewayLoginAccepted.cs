@@ -13,9 +13,6 @@ namespace RSBot.General.PacketHandler
         public void Invoke(Packet packet)
         {
             var isAccepted = packet.ReadByte() != 2;
-
-            Log.Notify("Secondary password requested!");
-
             if (isAccepted)
                 AutoLogin.SendSecondaryPassword();
         }

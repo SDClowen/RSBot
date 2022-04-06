@@ -30,7 +30,7 @@ namespace RSBot.Statistics.Stats.Calculators.Live
         public string Name => "KillsPerHour";
 
         /// <inheritdoc />
-        public string Label => "Kills / hour";
+        public string Label => LanguageManager.GetLang("Calculators.KillsPerHour.Label");
 
         /// <inheritdoc />
         public StatisticsGroup Group => StatisticsGroup.Enemy;

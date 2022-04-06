@@ -166,24 +166,27 @@ namespace RSBot.Core
         /// Get language value
         /// </summary>
         /// <param name="key">The key</param>
-        public static string GetLang(string parent, string key, string @default = "")
+        public static string GetLang(string key)
         {
-            if (_values.ContainsKey(parent) && _values[parent].ContainsKey(key))
-                return _values[parent][key];
-            else
-                return @default;
+            var trace = new StackTrace();
+            var module = Path.GetFileNameWithoutExtension(trace.GetFrame(1).GetMethod().Module.Name);
+
+            if(module == "RSBot.Core")
+                module = Path.GetFileNameWithoutExtension(trace.GetFrame(2).GetMethod().Module.Name);
+
+            if (_values.ContainsKey(module) && _values[module].ContainsKey(key))
+                return _values[module][key];
+            
+            return string.Empty;
         }
 
         /// <summary>
         /// Get language value
         /// </summary>
         /// <param name="key">The key</param>
-        public static string GetLang(string parent, string key, params string[] args)
+        public static string GetLang(string key, params object[] args)
         {
-            if (_values.ContainsKey(parent) && _values[parent].ContainsKey(key))
-                return string.Format(_values[parent][key], args);
-
-            return string.Empty;
+            return string.Format(GetLang(key), args);
         }
 
         /// <summary>

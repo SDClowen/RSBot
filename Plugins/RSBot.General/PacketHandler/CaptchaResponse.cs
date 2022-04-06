@@ -30,12 +30,12 @@ namespace RSBot.General.PacketHandler
             var flag = packet.ReadByte();
 
             if (flag == 0x01)
-                Log.Notify("Captcha entered successfully.");
+                Log.NotifyLang("RSBot.General", "SuccessCaptcha");
             else
             {
                 var maxAttempts = packet.ReadUInt();
                 var attempts = packet.ReadUInt();
-                Log.Notify($"Captcha entering failed [{attempts}/{maxAttempts}]");
+                Log.NotifyLang("RSBot.General", "FailedCaptcha", attempts, maxAttempts);
             }
         }
     }

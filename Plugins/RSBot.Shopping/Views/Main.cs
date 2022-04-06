@@ -15,9 +15,6 @@ namespace RSBot.Shopping.Views
     [System.ComponentModel.ToolboxItem(false)]
     public partial class Main : UserControl
     {
-        private const string INPUT_DIALOG_TITLE = "Select Item";
-        private const string INPUT_DIALOG_DESC = "Please enter the amount the bot should buy \r\nfor the specified item:";
-
         private List<RefShopGroup> _potionTrader;
         private List<RefShopGroup> _weaponTrader;
         private List<RefShopGroup> _protectorTrader;
@@ -269,9 +266,9 @@ namespace RSBot.Shopping.Views
         /// </summary>
         private void SaveSellList()
         {
-            PlayerConfig.SetArray("RSBot.Shopping.Sell", ShoppingManager.SellFilter.Filters);
+            /*PlayerConfig.SetArray("RSBot.Shopping.Sell", ShoppingManager.SellFilter.Filters);
             PlayerConfig.SetArray("RSBot.Shopping.Store", ShoppingManager.StoreFilter.Filters);
-            PlayerConfig.SetArray("RSBot.Shopping.Pickup", PickupManager.PickupFilter.Filters);
+            PlayerConfig.SetArray("RSBot.Shopping.Pickup", PickupManager.PickupFilter.Filters);*/
         }
 
         /// <summary>
@@ -509,12 +506,12 @@ namespace RSBot.Shopping.Views
             if (items.Count == 0)
             {
                 listFilter.Visible = true;
-                MessageBox.Show(this, "No results were found. Please detail your search and try again.", "Warning");
+                MessageBox.Show(this, LanguageManager.GetLang("NoResultsFound"), "Warning");
                 return;
             }
 
             await PopulateSellListAsync(items);
-            labelResult.Text = $"Result: {items.Count}";
+            labelResult.Text = $"{items.Count}";
         }
 
         /// <summary>
@@ -538,9 +535,9 @@ namespace RSBot.Shopping.Views
                     {
                         $"{item.ReqLevel1} (Dg.{item.Degree})",
                         ((ObjectGender)item.ReqGender).ToString(),
-                        PickupManager.PickupFilter.Invoke(item.CodeName).ToString(),
-                        ShoppingManager.SellFilter.Invoke(item.CodeName).ToString(),
-                        ShoppingManager.StoreFilter.Invoke(item.CodeName).ToString()
+                        PickupManager.PickupFilter.Invoke(item.CodeName)  ? "√" : "•",
+                        ShoppingManager.SellFilter.Invoke(item.CodeName)  ? "√" : "•",
+                        ShoppingManager.StoreFilter.Invoke(item.CodeName) ? "√" : "•"
                     }
                 };
 
@@ -642,14 +639,16 @@ namespace RSBot.Shopping.Views
             {
                 var newListItem = new ListViewItem(listItem.Text) { Tag = listItem.Tag };
 
-                var amtDiag = new InputDialog(INPUT_DIALOG_TITLE, listItem.Text, INPUT_DIALOG_DESC, InputDialog.InputType.Numeric);
+                var title = LanguageManager.GetLang("InputDialogTitle");
+                var content = LanguageManager.GetLang("InputDialogContent");
 
-                if (amtDiag.ShowDialog() == DialogResult.Cancel)
+                var dialog = new InputDialog(title, listItem.Text, content, InputDialog.InputType.Numeric);
+                if (dialog.ShowDialog() == DialogResult.Cancel)
                     return;
 
                 newListItem.Group = listShoppingList.Groups[comboStore.SelectedIndex];
 
-                newListItem.SubItems.Add("x" + amtDiag.Value);
+                newListItem.SubItems.Add("x" + dialog.Value);
                 listShoppingList.Items.Add(newListItem);
 
                 SaveShoppingList();
@@ -681,7 +680,10 @@ namespace RSBot.Shopping.Views
             foreach (ListViewItem item in listShoppingList.SelectedItems)
             {
                 var defaultValue = int.Parse(item.SubItems[1].Text.Substring(1, item.SubItems[1].Text.Length - 1));
-                var dialog = new InputDialog(INPUT_DIALOG_TITLE, item.Text, INPUT_DIALOG_DESC, InputDialog.InputType.Numeric);
+
+                var title = LanguageManager.GetLang("InputDialogTitle");
+                var content = LanguageManager.GetLang("InputDialogContent");
+                var dialog = new InputDialog(title, item.Text, content, InputDialog.InputType.Numeric);
                 dialog.Numeric.Value = defaultValue;
 
                 if (dialog.ShowDialog() == DialogResult.Cancel)
@@ -730,13 +732,13 @@ namespace RSBot.Shopping.Views
         #region SellFilter
 
         /// <summary>
-        /// Handles the Click event of the btnSearch control.
+        /// Handles the Click event of the btnReload control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private async void btnSearch_Click(object sender, EventArgs e)
+        private async void btnApply_Click(object sender, EventArgs e)
         {
-            await QuerySellItemsAsync();//.ConfigureAwait(false);
+            await QuerySellItemsAsync();
         }
 
         /// <summary>
@@ -748,7 +750,7 @@ namespace RSBot.Shopping.Views
         {
             foreach (ListViewItem item in listFilter.SelectedItems)
             {
-                item.SubItems[4].Text = "True";
+                item.SubItems[4].Text = "√";
                 ShoppingManager.SellFilter.AddItem((string)item.Tag);
             }
 
@@ -756,13 +758,19 @@ namespace RSBot.Shopping.Views
         }
 
         /// <summary>
-        /// Handles the Click event of the btnReload control.
+        /// Handles the Click event of the btnPickup control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private async void btnApply_Click(object sender, EventArgs e)
+        private void btnPickup_Click(object sender, EventArgs e)
         {
-            await QuerySellItemsAsync();
+            foreach (ListViewItem item in listFilter.SelectedItems)
+            {
+                item.SubItems[3].Text = "√";
+                PickupManager.PickupFilter.AddItem((string)item.Tag);
+            }
+
+            SaveSellList();
         }
 
         /// <summary>
@@ -774,7 +782,7 @@ namespace RSBot.Shopping.Views
         {
             foreach (ListViewItem item in listFilter.SelectedItems)
             {
-                item.SubItems[5].Text = "True";
+                item.SubItems[5].Text = "√";
                 ShoppingManager.StoreFilter.AddItem((string)item.Tag);
             }
 
@@ -790,7 +798,7 @@ namespace RSBot.Shopping.Views
         {
             foreach (ListViewItem item in listFilter.SelectedItems)
             {
-                item.SubItems[4].Text = "False";
+                item.SubItems[4].Text = "•";
                 ShoppingManager.SellFilter.RemoveItem((string)item.Tag);
             }
 
@@ -806,24 +814,8 @@ namespace RSBot.Shopping.Views
         {
             foreach (ListViewItem item in listFilter.SelectedItems)
             {
-                item.SubItems[5].Text = "False";
+                item.SubItems[5].Text = "•";
                 ShoppingManager.StoreFilter.RemoveItem((string)item.Tag);
-            }
-
-            SaveSellList();
-        }
-
-        /// <summary>
-        /// Handles the Click event of the btnPickup control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void btnPickup_Click(object sender, EventArgs e)
-        {
-            foreach (ListViewItem item in listFilter.SelectedItems)
-            {
-                item.SubItems[3].Text = "True";
-                PickupManager.PickupFilter.AddItem((string)item.Tag);
             }
 
             SaveSellList();
@@ -838,7 +830,7 @@ namespace RSBot.Shopping.Views
         {
             foreach (ListViewItem item in listFilter.SelectedItems)
             {
-                item.SubItems[3].Text = "False";
+                item.SubItems[3].Text = "•";
                 PickupManager.PickupFilter.RemoveItem((string)item.Tag);
             }
 

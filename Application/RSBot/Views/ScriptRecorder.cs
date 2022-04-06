@@ -90,14 +90,14 @@ namespace RSBot.Views
 
             if (_recording)
             {
-                btnStart.Text = @"Start";
-                labelStatus.Text = @"Idle";
+                btnStart.Text = LanguageManager.GetLang("Start");
+                labelStatus.Text = LanguageManager.GetLang("Idle");
                 _recording = false;
             }
             else
             {
-                btnStart.Text = @"Stop";
-                labelStatus.Text = @"Recording...";
+                btnStart.Text = LanguageManager.GetLang("Stop");
+                labelStatus.Text = LanguageManager.GetLang("Recording");
                 _recording = true;
             }
         }
@@ -124,7 +124,7 @@ namespace RSBot.Views
 
             var diag = new SaveFileDialog
             {
-                Title = "Save recorded script",
+                Title = LanguageManager.GetLang("SaveRecordedScript"),
                 Filter = "RSBot Botbase Script|*.rbs",
                 InitialDirectory = Environment.CurrentDirectory + "\\Scripts"
             };
@@ -158,7 +158,7 @@ namespace RSBot.Views
             {
                 ScriptManager.Stop();
 
-                btnRunNow.Text = "Run now";
+                btnRunNow.Text = LanguageManager.GetLang("RunNow");
                 labelStatus.Text = string.Empty;
                 _running = false;
             }
@@ -170,15 +170,15 @@ namespace RSBot.Views
                 ScriptManager.Load(txtScript.Text.Split('\n'));
                 Task.Run(() => { ScriptManager.RunScript(); });
 
-                btnRunNow.Text = "Stop Running";
-                labelStatus.Text = "Running...";
+                btnRunNow.Text = LanguageManager.GetLang("StopRunning");
+                labelStatus.Text = LanguageManager.GetLang("Running");
                 _running = true;
             }
         }
 
         private void ScriptRecorder_Load(object sender, EventArgs e)
         {
-            Theme.LanguageManager.Translate(this, Kernel.Language);
+            LanguageManager.Translate(this, Kernel.Language);
         }
     }
 }

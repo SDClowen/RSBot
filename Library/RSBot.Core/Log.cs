@@ -31,8 +31,8 @@ namespace RSBot.Core
         /// </summary>
         /// <param name="obj">The message.</param>
         /// <param name="level">The level.</param>
-        public static void NotifyLang(string parent, string key, params string[] args) 
-            => EventManager.FireEvent("OnAddLog", string.Format(LanguageManager.GetLang(parent, key), args), LogLevel.Notify);
+        public static void NotifyLang(string key, params object[] args) 
+            => EventManager.FireEvent("OnAddLog", LanguageManager.GetLang(key, args), LogLevel.Notify);
 
         /// <summary>
         /// Append specified debug message
@@ -51,8 +51,8 @@ namespace RSBot.Core
         /// </summary>
         /// <param name="obj">The message.</param>
         /// <param name="level">The level.</param>
-        public static void WarnLang(string parent, string key, params string[] args) 
-            => EventManager.FireEvent("OnAddLog", string.Format(LanguageManager.GetLang(parent, key), args), LogLevel.Warning);
+        public static void WarnLang(string key, params object[] args) 
+            => EventManager.FireEvent("OnAddLog", LanguageManager.GetLang(key, args), LogLevel.Warning);
 
         /// <summary>
         /// Append specified Error message

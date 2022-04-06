@@ -13,7 +13,7 @@ namespace RSBot.Statistics.Stats.Calculators.Static
         public string Name => "SPGained";
 
         /// <inheritdoc />
-        public string Label => "Skill points gained";
+        public string Label => LanguageManager.GetLang("Calculators.SkillPoints.Label");
 
         /// <inheritdoc />
         public StatisticsGroup Group => StatisticsGroup.Player;

@@ -53,7 +53,10 @@ namespace RSBot.Views
             if (menuBotbase.DropDownItems.Count <= index) return;
 
             var selectedBotbase = Kernel.BotbaseManager.Bots.ElementAt(index).Value;
-            if (selectedBotbase == null) return;
+            if (selectedBotbase == null) 
+                return;
+
+            selectedBotbase.Translate();
 
             menuBotbase.Text = selectedBotbase.Info.DisplayName;
             menuBotbase.Image = selectedBotbase.Info.Image;
@@ -105,6 +108,7 @@ namespace RSBot.Views
                 };
 
                 var control = extension.Value.GetView();
+                extension.Value.Translate();
 
                 control.Dock = DockStyle.Fill;
                 
@@ -267,7 +271,7 @@ namespace RSBot.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void Main_Load(object sender, EventArgs e)
         {
-            if (Kernel.Language != "English")
+            //if (Kernel.Language != "English")
                 LanguageManager.Translate(this, Kernel.Language);
             
             menuSidebar.Checked = GlobalConfig.Get("RSBot.ShowSidebar", true);
@@ -283,6 +287,8 @@ namespace RSBot.Views
             }
 
             ConfigureSidebar();
+
+            EventManager.FireEvent("OnMainFormLoaded");
         }
 
         /// <summary>
@@ -326,27 +332,28 @@ namespace RSBot.Views
 
             if (Kernel.Bot == null)
             {
-                Log.Notify("Please select a proper botbase and try again");
+                Log.NotifyLang("NotifyPleaseSelectProperBotBase");
                 return;
             }
 
             if (Game.Player == null)
             {
-                Log.Notify("Your character has to be in the game in order to start the bot.");
+                Log.WarnLang("NotifyPlayerWasNull");
                 return;
             }
 
-            if (btnStartStop.Text == @"START BOT")
+            if (!Kernel.Bot.Running)
             {
                 Kernel.Bot.Start();
 
-                BotWindow.SetStatusText("Running");
+                BotWindow.SetStatusTextLang("Running");
             }
             else
             {
-                Log.Notify($"Stopping bot [{Kernel.Bot.Botbase.Info.DisplayName}]");
+                Log.NotifyLang("RSBot", "StopingBot", Kernel.Bot.Botbase.Info.DisplayName);
+
                 Kernel.Bot.Stop();
-                BotWindow.SetStatusText("Ready");
+                BotWindow.SetStatusTextLang("Ready");
             }
         }
 
@@ -406,7 +413,7 @@ namespace RSBot.Views
         /// </summary>
         private void OnStartBot()
         {
-            btnStartStop.Text = @"STOP BOT";
+            btnStartStop.Text = LanguageManager.GetLang("StopBot");
         }
 
         /// <summary>
@@ -414,16 +421,16 @@ namespace RSBot.Views
         /// </summary>
         private void OnStopBot()
         {
-            btnStartStop.Text = @"START BOT";
+            btnStartStop.Text = LanguageManager.GetLang("StartBot");
         }
 
         private void OnLoadBotbases()
         {
             if (Kernel.BotbaseManager.Bots == null || Kernel.BotbaseManager.Bots.Count == 0)
             {
-                var messageResult = MessageBox.Show(
-                    "The bot can not be run without any botbase!\n Please install a proper botbase and try again.\n You can find help at http://roadshark-bot.com/",
-                    "No botbase detected!", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
+                var title = LanguageManager.GetLang("NoBotbaseDetected");
+                var message = LanguageManager.GetLang("NoBotbaseDetectedDesc");
+                var messageResult = MessageBox.Show(message, title, MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
 
                 if (messageResult == DialogResult.Retry)
                     Kernel.BotbaseManager.LoadAssemblies();

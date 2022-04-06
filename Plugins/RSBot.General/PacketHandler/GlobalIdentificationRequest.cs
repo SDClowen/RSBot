@@ -47,11 +47,11 @@ namespace RSBot.General.PacketHandler
                 var selectedAccount = Accounts.SavedAccounts.Find(p => p.Username == GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername"));
                 if (selectedAccount == null)
                 {
-                    Log.Warn("Could not connecting to agent server because account couldn!t not found!");
+                    Log.WarnLang("RSBot.General", "AgentServerConnectingError");
                     return;
                 }
 
-                Log.Notify("Sending agent server certify...");
+                Log.NotifyLang("RSBot.General", "AuthAgentCertify");
 
                 var response = new Packet(0x6103, true);
                 response.WriteUInt(Kernel.Proxy.Token);

@@ -97,7 +97,7 @@ namespace RSBot.Bot.Default.Bundle.Loop
                 return;
             }
 
-            Log.Notify($"Loading townscript [{filename}]...");
+            Log.NotifyLang("RSBot.Default", "LoadingTownScript", filename);
 
             TownscriptRunning = true;
             ScriptManager.Load(filename);
@@ -121,7 +121,7 @@ namespace RSBot.Bot.Default.Bundle.Loop
                 return;
 
             Invoke();
-            Log.Notify($"Loading walkscript [{Config.WalkScript}]...");
+            Log.NotifyLang("RSBot.Default", "LoadingWalkScript", Config.WalkScript);
 
             ScriptManager.Load(Config.WalkScript);
             ScriptManager.RunScript();

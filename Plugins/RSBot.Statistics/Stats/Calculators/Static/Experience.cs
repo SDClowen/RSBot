@@ -25,7 +25,7 @@ namespace RSBot.Statistics.Stats.Calculators.Static
         public string Name => "EXPGained";
 
         /// <inheritdoc />
-        public string Label => "Experience gained";
+        public string Label => LanguageManager.GetLang("Calculators.Experience.Label");
 
         /// <inheritdoc />
         public StatisticsGroup Group => StatisticsGroup.Player;

@@ -123,13 +123,12 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label lblPetName;
         private System.Windows.Forms.ProgressBar progressEXP;
         private System.Windows.Forms.ProgressBar progressHGP;
         private System.Windows.Forms.ProgressBar progressHP;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblPetName;
     }
 }

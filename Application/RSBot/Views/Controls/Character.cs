@@ -31,6 +31,12 @@ namespace RSBot.Views.Controls
             EventManager.SubscribeEvent("OnUpdateGold", OnUpdateGold);
             EventManager.SubscribeEvent("OnUpdateSP", OnUpdateSP);
             EventManager.SubscribeEvent("OnAgentServerDisconnected", OnAgentServerDisconnected);
+            EventManager.SubscribeEvent("OnMainFormLoaded", OnMainFormLoaded);
+        }
+
+        private void OnMainFormLoaded()
+        {
+            lblPlayerName.Text = LanguageManager.GetLang("LabelPlayerName");
         }
 
         private void OnUpdateSP()
@@ -112,7 +118,7 @@ namespace RSBot.Views.Controls
         /// </summary>
         private void OnAgentServerDisconnected()
         {
-            lblPlayerName.Text = "Not in game";
+            lblPlayerName.Text = LanguageManager.GetLang("LabelPlayerName");
             lblLevel.Text = "0";
             lblStr.Text = "0";
             lblInt.Text = "0";

@@ -18,7 +18,7 @@ namespace RSBot.Views
 
         private void ExitDialog_Load(object sender, EventArgs e)
         {
-            Theme.LanguageManager.Translate(this, Kernel.Language);
+            LanguageManager.Translate(this, Kernel.Language);
         }
     }
 }

@@ -23,9 +23,10 @@ namespace RSBot.Party.Bundle.PartyMatching.Network
         /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
-            if (packet.ReadByte() != 0x01) return;
+            if (packet.ReadByte() != 0x01) 
+                return;
 
-            Log.Notify("Party matching entry removed");
+            Log.NotifyLang("PartyEntryRemoved");
 
             if (Container.PartyMatching != null)
                 Container.PartyMatching.HasMatchingEntry = false;

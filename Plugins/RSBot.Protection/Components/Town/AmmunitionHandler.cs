@@ -37,7 +37,7 @@ namespace RSBot.Protection.Components.Town
 
             if (currentAmmuniton == -1 || currentAmmuniton > 10) return;
 
-            Log.Notify("Returning to town: No ammunition inside the inventory.");
+            Log.WarnLang("ReturnToTownNoAmmo");
             Game.Player.UseReturnScroll();
         }
     }

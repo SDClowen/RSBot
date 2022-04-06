@@ -31,7 +31,7 @@ namespace RSBot.Protection.Components.Town
             if (!PlayerConfig.Get<bool>("RSBot.Protection.checkInventory")) return;
             if (!Game.Player.Inventory.Full) return;
 
-            Log.Notify("Returning to town: Player inventory full.");
+            Log.NotifyLang("ReturnToTownInventoryFull");
 
             Game.Player.UseReturnScroll();
         }

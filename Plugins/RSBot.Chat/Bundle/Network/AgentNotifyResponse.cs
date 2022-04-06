@@ -38,7 +38,7 @@ namespace RSBot.Chat.Network
                     if (!Game.ReferenceManager.CharacterData.TryGetValue(refObjId, out var obj))
                         return;
 
-                    Views.View.Instance.UniqueText.Write($"{obj.GetRealName()} has appeared.");
+                    Views.View.Instance.UniqueText.Write(LanguageManager.GetLang("UniqueAppeared", obj.GetRealName()));
 
                     break;
 
@@ -58,7 +58,7 @@ namespace RSBot.Chat.Network
                         return;
                     }
 
-                    Views.View.Instance.UniqueText.Write($"{characterName} has killed the {obj.GetRealName()}.");
+                    Views.View.Instance.UniqueText.Write(LanguageManager.GetLang("UniqueKilled", characterName, obj.GetRealName()));
 
                     break;
             }
