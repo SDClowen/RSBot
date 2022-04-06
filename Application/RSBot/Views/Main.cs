@@ -108,7 +108,7 @@ namespace RSBot.Views
                 var control = extension.Value.GetView();
 
                 control.Dock = DockStyle.Fill;
-                
+
                 tabPage.BackColor = Color.FromArgb(200, BackColor);
                 tabPage.ForeColor = ForeColor;
 
@@ -526,6 +526,7 @@ namespace RSBot.Views
             GlobalConfig.Set("RSBot.Theme.Color", Color.Black.ToArgb());
             ColorScheme.Load();
             ChangeTheme();
+            GlobalConfig.Save();
         }
 
         private void lightToolStripMenuItem_Click(object sender, EventArgs e)
@@ -533,16 +534,21 @@ namespace RSBot.Views
             GlobalConfig.Set("RSBot.Theme.Color", Color.White.ToArgb());
             ColorScheme.Load();
             ChangeTheme();
+            GlobalConfig.Save();
         }
 
         private void coloredToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var colorDialog = new ColorDialog();
+            var customColors = GlobalConfig.GetArray<int>("RSBot.Theme.CustomColors");
+            colorDialog.CustomColors = customColors;
             if (colorDialog.ShowDialog() == DialogResult.OK)
             {
                 GlobalConfig.Set("RSBot.Theme.Color", colorDialog.Color.ToArgb());
+                GlobalConfig.SetArray("RSBot.Theme.CustomColors", colorDialog.CustomColors);
                 ColorScheme.Load();
                 ChangeTheme();
+                GlobalConfig.Save();
             }
         }
     }
