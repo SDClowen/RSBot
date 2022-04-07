@@ -15,5 +15,10 @@ namespace RSBot.Views
         {
             GlobalConfig.Set("RSBot.showExitDialog", checkDontAskAgain.Checked.ToString());
         }
+
+        private void ExitDialog_Load(object sender, EventArgs e)
+        {
+            LanguageManager.Translate(this, Kernel.Language);
+        }
     }
 }

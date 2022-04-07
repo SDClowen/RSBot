@@ -37,5 +37,10 @@ namespace RSBot.Core.Plugins
         /// Stops this instance.
         /// </summary>
         void Stop();
+
+        /// <summary>
+        /// Translate the botbase plugin
+        /// </summary>
+        void Translate();
     }
 }

@@ -32,6 +32,12 @@ namespace RSBot.Views.Controls
             EventManager.SubscribeEvent("OnAttackPetNameChange", OnAttackPetNameChange);
             EventManager.SubscribeEvent("OnUpdatePetHPMP", OnPetHealthUpdate);
             EventManager.SubscribeEvent("OnAgentServerDisconnected", OnAgentServerDisconnected);
+            EventManager.SubscribeEvent("OnMainFormLoaded", OnMainFormLoaded);
+        }
+
+        private void OnMainFormLoaded()
+        {
+            lblPetName.Text = LanguageManager.GetLang("LabelPetName");
         }
 
         /// <summary>

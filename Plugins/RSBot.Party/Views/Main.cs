@@ -33,6 +33,12 @@ namespace RSBot.Party.Views
         private ListViewItem _selectedBuffingGroup;
 
         /// <summary>
+        /// Translated No Guild Text
+        /// </summary>
+        private string _noGuildText => LanguageManager.GetLang("NoGuild");
+        private string _none => LanguageManager.GetLang("none");
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Main"/> class.
         /// </summary>
         public Main()
@@ -79,7 +85,7 @@ namespace RSBot.Party.Views
 
             viewItem.SubItems.Add(member.Level.ToString());
             if (string.IsNullOrWhiteSpace(member.Guild))
-                viewItem.SubItems.Add("< No Guild > ").ForeColor = Color.DarkGray;
+                viewItem.SubItems.Add(_noGuildText).ForeColor = Color.DarkGray;
             else
                 viewItem.SubItems.Add(member.Guild);
 
@@ -87,7 +93,7 @@ namespace RSBot.Party.Views
             var mastery2 = Game.ReferenceManager.GetRefSkillMastery(member.MasteryId2);
             var location = Game.ReferenceManager.GetTranslation(member.Position.RegionID.ToString());
 
-            var masteryInfo = "<none>";
+            var masteryInfo = _none;
             if (mastery1 != null)
                 masteryInfo = mastery1.Name;
             if (mastery2 != null)
@@ -407,7 +413,7 @@ namespace RSBot.Party.Views
 
         private void OnChangePartyEntry()
         {
-            Log.Notify($"Formed party changed #{Bundle.Container.PartyMatching.Id}");
+            Log.NotifyLang("FormedPartyChanged", Bundle.Container.PartyMatching.Id);
 
             if (tabMain.SelectedTab == tpPartyMatching)
                 RequestPartyList();
@@ -433,7 +439,8 @@ namespace RSBot.Party.Views
 
         private void OnCreatePartyEntry()
         {
-            Log.Notify($"Formed party matching entry #{Bundle.Container.PartyMatching.Id}");
+            Log.NotifyLang("FormedPartyEntry", Bundle.Container.PartyMatching.Id);
+
             btnPartyMatchChangeEntry.Enabled = true;
             btnPartyMatchDeleteEntry.Enabled = true;
             btnPartyMatchForm.Enabled = false;
@@ -452,19 +459,21 @@ namespace RSBot.Party.Views
 
         private void OnPartyMemberJoin(PartyMember member)
         {
-            Log.Notify($"[{member.Name}] joined the party.");
+            Log.NotifyLang("UserJoinedParty", member.Name);
             AddNewPartyMember(member);
         }
 
         private void OnPartyMemberLeave(PartyMember member)
         {
-            Log.Notify($"[{member.Name}] has left the party.");
+            Log.NotifyLang("UserLeftParty", member.Name);
+
             listParty.Items.RemoveByKey(member.Name);
         }
 
         private void OnPartyMemberBanned(PartyMember member)
         {
-            Log.Notify($"[{member.Name}] is banned from the party.");
+            Log.NotifyLang("UserBannedParty", member.Name);
+
             if (member.Name != Game.Player.Name)
                 listParty.Items.RemoveByKey(member.Name);
             else
@@ -490,7 +499,7 @@ namespace RSBot.Party.Views
             var mastery2 = Game.ReferenceManager.GetRefSkillMastery(member.MasteryId2);
             var location = Game.ReferenceManager.GetTranslation(member.Position.RegionID.ToString());
 
-            var masteryInfo = "<none>";
+            var masteryInfo = _none;
             if (mastery1 != null)
                 masteryInfo = mastery1.Name;
             if (mastery2 != null)
@@ -508,9 +517,9 @@ namespace RSBot.Party.Views
             Bundle.Container.PartyMatching.HasMatchingEntry = false;
             btnLeaveParty.Enabled = false;
             menuLeave.Enabled = false;
-            lblLeader.Text = "<Not in a party>";
+            lblLeader.Text = LanguageManager.GetLang("NotInParty");
             listParty.Items.Clear();
-            Log.Notify("The party has been dismissed!");
+            Log.NotifyLang("PartyDismissed");
             OnDeletePartyEntry();
         }
 
@@ -559,7 +568,10 @@ namespace RSBot.Party.Views
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void btnAddToAutoParty_Click(object sender, System.EventArgs e)
         {
-            var diag = new InputDialog("Input", "Character name", "Please enter the character name that you want to add to the auto party list.");
+            var diag = new InputDialog(
+                "Input", 
+                LanguageManager.GetLang("CharName"),
+                LanguageManager.GetLang("EnterCharNameForPartyList"));
 
             if (diag.ShowDialog() != DialogResult.OK) return;
 
@@ -611,18 +623,18 @@ namespace RSBot.Party.Views
 
             var partyNumber = Convert.ToInt32(lvPartyMatching.SelectedItems[0].Text);
 
-            Log.Notify("Requesting to join party #" + partyNumber);
+            Log.NotifyLang("JoinFormedParty", partyNumber);
 
             Task.Run(() =>
             {
                 btnJoinFormedParty.Enabled = false;
-                btnJoinFormedParty.Text = "Joining...";
+                btnJoinFormedParty.Text = LanguageManager.GetLang("Joining");
 
                 var joiningResult = Bundle.Container.PartyMatching.Join(partyNumber);
                 if (joiningResult)
                     RequestPartyList();
 
-                btnJoinFormedParty.Text = "Join Party";
+                btnJoinFormedParty.Text = LanguageManager.GetLang("JoinParty");
                 btnJoinFormedParty.Enabled = !joiningResult;
             });
         }
@@ -647,8 +659,13 @@ namespace RSBot.Party.Views
         {
             var senderName = (sender as Button).Name;
 
-            var formingParty = new AutoFormParty(senderName == nameof(btnPartyMatchForm) ? "Forming party" : "Change Entry");
-            if (formingParty.ShowDialog() == DialogResult.OK)
+            View.PartyWindow.Text =
+                senderName == nameof(btnPartyMatchForm) ?
+                LanguageManager.GetLang("FormingParty")
+                :
+                LanguageManager.GetLang("ChangeEntry");
+
+            if (View.PartyWindow.ShowDialog() == DialogResult.OK)
             {
                 if (senderName == nameof(btnPartyMatchForm))
                     Bundle.Container.PartyMatching.Create();
@@ -836,8 +853,9 @@ namespace RSBot.Party.Views
             if (partyMember.Name == Game.Player.Name)
                 return;
 
-            var dialogTitle = "Select a group for [{partyMember.Name}]";
-            var dialog = new InputDialog(dialogTitle,dialogTitle, "Select the group for add member to the selected group!", InputDialog.InputType.Combobox);
+            var dialogTitle = LanguageManager.GetLang("SelectGroup", partyMember.Name);
+            var dialogDesc = LanguageManager.GetLang("SelectGroupDesc");
+            var dialog = new InputDialog(dialogTitle,dialogTitle, dialogDesc, InputDialog.InputType.Combobox);
 
             var groups = listViewGroups.Items.Cast<ListViewItem>()
                                              .Select(p => p.Text)
@@ -853,7 +871,7 @@ namespace RSBot.Party.Views
 
                 if (_buffings.Any(p => p.Group == dialogValue && p.Name == partyMember.Name))
                 {
-                    MessageBox.Show($"The {partyMember.Name} already in the buffing list. You can add a buff on a [Buffing] tab");
+                    MessageBox.Show(LanguageManager.GetLang("MsgBoxGroupAlreadyIn", partyMember.Name));
                     return;
                 }
 
@@ -868,13 +886,16 @@ namespace RSBot.Party.Views
 
                 SaveBuffingPartyMembers();
 
-                MessageBox.Show("Successfully added the party member to buffing. You can configure the party member on the [Buffing] tab.");
+                MessageBox.Show(LanguageManager.GetLang("SuccessAddedBuffing"));
             }
         }
 
         private void buttonAddGroup_Click(object sender, EventArgs e)
         {
-            var dialog = new InputDialog("Create new group", "Create new group", "Please enter the group name to the input.");
+            var title = LanguageManager.GetLang("CreateNewGroup");
+            var desc = LanguageManager.GetLang("CreateNewGroupDesc");
+
+            var dialog = new InputDialog(title, title, desc);
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 var value = dialog.Value.ToString();
@@ -904,8 +925,8 @@ namespace RSBot.Party.Views
                 return;
             }
 
-            if (MessageBox.Show(this, $"The group keeping {count} members! Are you sure for delete the group?",
-                "WARNING", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show(this, LanguageManager.GetLang("GroupDeleteWarn", count),
+                "Warning", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 if (group != "Default")
                     selectedItem.Remove();
@@ -925,8 +946,8 @@ namespace RSBot.Party.Views
             if (listViewPartyMembers.SelectedItems.Count == 0)
                 return;
 
-            if (MessageBox.Show(this, $"It will delete the character from the list. Are you sure about that?",
-                "WARNING", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show(this, LanguageManager.GetLang("GroupCharDeleteWarn"),
+                "Warning", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 var selectedItem = listViewPartyMembers.SelectedItems[0];
                 var name = selectedItem.Text;

@@ -14,8 +14,6 @@ namespace RSBot.Inventory.Subscriber
             EventManager.SubscribeEvent("OnBuyItem", new Action<byte>(OnBuyItem));
         }
 
-        #region Event Listener
-
         private static void OnBuyItem(byte slot)
         {
             var itemAtSlot = Game.Player.Inventory.GetItemAt(slot);
@@ -32,13 +30,11 @@ namespace RSBot.Inventory.Subscriber
 
                 if (item.Record.MaxStack - item.Amount >= itemAtSlot.Amount)
                 {
-                    Log.Notify($"Merging item {itemAtSlot.Record.GetRealName()} ({itemAtSlot.Amount}) with {item.Record.GetRealName()} ({item.Amount})");
+                    Log.Debug($"Merging item {itemAtSlot.Record.GetRealName()} ({itemAtSlot.Amount}) with {item.Record.GetRealName()} ({item.Amount})");
                     Game.Player.Inventory.MoveItem(slot, item.Slot, item.Amount);
                     break;
                 }
             }
         }
-
-        #endregion Event Listener
     }
 }

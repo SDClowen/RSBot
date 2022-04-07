@@ -26,10 +26,14 @@ namespace RSBot.Protection.Components.Town
         /// </summary>
         private static void OnPlayerLevelUp()
         {
-            if (!Kernel.Bot.Running) return;
-            if (!PlayerConfig.Get<bool>("RSBot.Protection.checkLevelUp")) return;
+            if (!Kernel.Bot.Running) 
+                return;
 
-            Log.Notify("Returning to town: Level up achieved.");
+            if (!PlayerConfig.Get<bool>("RSBot.Protection.checkLevelUp")) 
+                return;
+
+            Log.NotifyLang("ReturnToTownLevelUpAchieved");
+
             Game.Player.UseReturnScroll();
         }
     }

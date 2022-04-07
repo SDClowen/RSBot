@@ -3,7 +3,6 @@ using RSBot.Core.Event;
 using RSBot.Core.Network;
 using RSBot.Core.Objects;
 using System.Threading.Tasks;
-using System.Timers;
 
 namespace RSBot.Protection.Components.Town
 {
@@ -44,7 +43,8 @@ namespace RSBot.Protection.Components.Town
                 return;
 
             var timeOut = PlayerConfig.Get("RSBot.Protection.numDeadTimeout", 30);
-            Log.Notify($"Resurrect at the specified point in {timeOut} seconds");
+
+            Log.WarnLang("ResurrectSPointSeconds", timeOut);
 
             await Task.Delay(timeOut).ContinueWith((e) => 
             {

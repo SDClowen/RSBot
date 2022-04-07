@@ -1,4 +1,5 @@
-﻿using RSBot.General.Models;
+﻿using RSBot.Core;
+using RSBot.General.Models;
 using RSBot.Theme.Controls;
 using System;
 using System.Collections.Generic;
@@ -114,12 +115,12 @@ namespace RSBot.General.Views
             if (txtPassword.UseSystemPasswordChar)
             {
                 txtPassword.UseSystemPasswordChar = false;
-                linkLabelPwShowHide.Text = "Hide";
+                linkLabelPwShowHide.Text = LanguageManager.GetLang("Hide");
             }
             else
             {
                 txtPassword.UseSystemPasswordChar = true;
-                linkLabelPwShowHide.Text = "Show";
+                linkLabelPwShowHide.Text = LanguageManager.GetLang("Show");
             }
         }
 
@@ -133,12 +134,12 @@ namespace RSBot.General.Views
             if (textBoxSecondaryPassword.UseSystemPasswordChar)
             {
                 textBoxSecondaryPassword.UseSystemPasswordChar = false;
-                linkLabelSecondaryPassword.Text = "Hide";
+                linkLabelSecondaryPassword.Text = LanguageManager.GetLang("Hide");
             }
             else
             {
                 textBoxSecondaryPassword.UseSystemPasswordChar = true;
-                linkLabelSecondaryPassword.Text = "Show";
+                linkLabelSecondaryPassword.Text = LanguageManager.GetLang("Show");
             }
         }
 
@@ -157,9 +158,10 @@ namespace RSBot.General.Views
 
             if (Components.Accounts.SavedAccounts.Any(p => p.Username == txtUsername.Text))
             {
-                MessageBox.Show(
-                    "This account name is already registered, please use a different name",
-                    "Invalid account name", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                var title = LanguageManager.GetLang("MsgBoxAlreadyRegisteredTitle");
+                var content = LanguageManager.GetLang("MsgBoxAlreadyRegisteredContent");
+
+                MessageBox.Show(content, title, MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return;
             }
 

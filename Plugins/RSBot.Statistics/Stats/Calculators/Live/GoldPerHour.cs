@@ -25,7 +25,7 @@ namespace RSBot.Statistics.Stats.Calculators.Live
         public string Name => "GoldPerHour";
 
         /// <inheritdoc />
-        public string Label => "Gold / hour";
+        public string Label => LanguageManager.GetLang("Calculators.GoldPerHour.Label");
 
         /// <inheritdoc />
         public StatisticsGroup Group => StatisticsGroup.Loot;

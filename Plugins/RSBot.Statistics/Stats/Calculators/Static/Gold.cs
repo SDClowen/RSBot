@@ -13,7 +13,7 @@ namespace RSBot.Statistics.Stats.Calculators.Static
         public string Name => "GoldGained";
 
         /// <inheritdoc />
-        public string Label => "Gold gained";
+        public string Label => LanguageManager.GetLang("Calculators.Gold.Label");
 
         /// <inheritdoc />
         public StatisticsGroup Group => StatisticsGroup.Loot;

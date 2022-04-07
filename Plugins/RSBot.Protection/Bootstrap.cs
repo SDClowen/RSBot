@@ -11,8 +11,6 @@ namespace RSBot.Protection
 {
     public class Bootstrap : IPlugin
     {
-        #region Interface
-
         /// <summary>
         /// Gets or sets the information of the plugin.
         /// </summary>
@@ -58,8 +56,6 @@ namespace RSBot.Protection
             NoHealthPotionsHandler.Initialize();
             DurabilityLowHandler.Initialize();
             LevelUpHandler.Initialize();
-
-            Log.Notify("Plugin [Protection] initialized!");
         }
 
         /// <summary>
@@ -71,6 +67,13 @@ namespace RSBot.Protection
             return View.Instance ?? (View.Instance = new Main());
         }
 
-        #endregion Interface
+        /// <summary>
+        /// Translate the plugin
+        /// </summary>
+        /// <param name="language">The language</param>
+        public void Translate()
+        {
+            LanguageManager.Translate(GetView(), Kernel.Language);
+        }
     }
 }

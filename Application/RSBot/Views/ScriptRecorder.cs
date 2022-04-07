@@ -10,12 +10,8 @@ namespace RSBot.Views
 {
     public partial class ScriptRecorder : CleanForm
     {
-        #region Fields
-
         private bool _recording;
         private bool _running;
-
-        #endregion Fields
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ScriptRecorder"/> class.
@@ -94,14 +90,14 @@ namespace RSBot.Views
 
             if (_recording)
             {
-                btnStart.Text = @"Start";
-                lblStatus.Text = @"Idle";
+                btnStart.Text = LanguageManager.GetLang("Start");
+                labelStatus.Text = LanguageManager.GetLang("Idle");
                 _recording = false;
             }
             else
             {
-                btnStart.Text = @"Stop";
-                lblStatus.Text = @"Recording...";
+                btnStart.Text = LanguageManager.GetLang("Stop");
+                labelStatus.Text = LanguageManager.GetLang("Recording");
                 _recording = true;
             }
         }
@@ -128,7 +124,7 @@ namespace RSBot.Views
 
             var diag = new SaveFileDialog
             {
-                Title = "Save recorded script",
+                Title = LanguageManager.GetLang("SaveRecordedScript"),
                 Filter = "RSBot Botbase Script|*.rbs",
                 InitialDirectory = Environment.CurrentDirectory + "\\Scripts"
             };
@@ -162,8 +158,8 @@ namespace RSBot.Views
             {
                 ScriptManager.Stop();
 
-                btnRunNow.Text = "Run now";
-                lblStatus.Text = string.Empty;
+                btnRunNow.Text = LanguageManager.GetLang("RunNow");
+                labelStatus.Text = string.Empty;
                 _running = false;
             }
             else
@@ -174,10 +170,15 @@ namespace RSBot.Views
                 ScriptManager.Load(txtScript.Text.Split('\n'));
                 Task.Run(() => { ScriptManager.RunScript(); });
 
-                btnRunNow.Text = "Stop Running";
-                lblStatus.Text = "Running...";
+                btnRunNow.Text = LanguageManager.GetLang("StopRunning");
+                labelStatus.Text = LanguageManager.GetLang("Running");
                 _running = true;
             }
+        }
+
+        private void ScriptRecorder_Load(object sender, EventArgs e)
+        {
+            LanguageManager.Translate(this, Kernel.Language);
         }
     }
 }

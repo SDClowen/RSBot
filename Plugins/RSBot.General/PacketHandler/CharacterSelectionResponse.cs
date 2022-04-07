@@ -27,8 +27,8 @@ namespace RSBot.General.PacketHandler
         /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
-            Log.Notify("Welcome to another adventure on the silkroad!");
-            BotWindow.SetStatusText("Ready");
+            Log.NotifyLang("Welcome");
+            BotWindow.SetStatusTextLang("Ready");
         }
     }
 }

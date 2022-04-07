@@ -111,7 +111,7 @@ namespace RSBot.Map.Views
         private void AddGridItem(string name, string type, byte level, Position position)
         {
             if (string.IsNullOrWhiteSpace(name))
-                name = "<No name>";
+                name = LanguageManager.GetLang("NoName");
 
             var item = new ListViewItem(name);
             item.SubItems.Add(type);

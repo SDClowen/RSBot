@@ -29,8 +29,6 @@ namespace RSBot.Statistics
         public void Initialize()
         {
             CalculatorRegistry.Initialize();
-
-            Log.Notify("Plugin [Statistics] initialized!");
         }
 
         /// <summary>
@@ -41,6 +39,15 @@ namespace RSBot.Statistics
         public Control GetView()
         {
             return new Views.Main();
+        }
+
+        /// <summary>
+        /// Translate the plugin
+        /// </summary>
+        /// <param name="language">The language</param>
+        public void Translate()
+        {
+            LanguageManager.Translate(GetView(), Kernel.Language);
         }
     }
 }

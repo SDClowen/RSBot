@@ -1,6 +1,7 @@
 ﻿using RSBot.Chat.Views;
 using RSBot.Core;
 using RSBot.Core.Plugins;
+using RSBot.Theme;
 using System.Windows.Forms;
 
 namespace RSBot.Chat
@@ -28,8 +29,6 @@ namespace RSBot.Chat
         public void Initialize()
         {
             Views.View.Instance = new Main();
-
-            Log.Notify("Plugin [Chat] initialized!");
         }
 
         /// <summary>
@@ -38,6 +37,15 @@ namespace RSBot.Chat
         public Control GetView()
         {
             return Views.View.Instance;
+        }
+
+        /// <summary>
+        /// Translate the plugin
+        /// </summary>
+        /// <param name="language">The language</param>
+        public void Translate()
+        {
+            LanguageManager.Translate(GetView(), Kernel.Language);
         }
     }
 }

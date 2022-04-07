@@ -25,7 +25,7 @@ namespace RSBot.Statistics.Stats.Calculators.Live
         public string Name => "SPPerHour";
 
         /// <inheritdoc />
-        public string Label => "Skill points / hour";
+        public string Label => LanguageManager.GetLang("Calculators.SkillPointsPerHour.Label");
 
         /// <inheritdoc />
         public StatisticsGroup Group => StatisticsGroup.Player;

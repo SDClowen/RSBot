@@ -1,4 +1,5 @@
-﻿using RSBot.Core.Plugins;
+﻿using RSBot.Core;
+using RSBot.Core.Plugins;
 using RSBot.Party.Subscribers;
 using RSBot.Party.Views;
 using System.Windows.Forms;
@@ -28,9 +29,9 @@ namespace RSBot.Party
         public void Initialize()
         {
             Views.View.Instance = new Main();
-            PartySubscriber.SubscribeEvents();
+            Views.View.PartyWindow = new AutoFormParty();
 
-            Core.Log.Notify("Plugin [Party] initialized!");
+            PartySubscriber.SubscribeEvents();
         }
 
         /// <summary>
@@ -39,6 +40,16 @@ namespace RSBot.Party
         public Control GetView()
         {
             return Views.View.Instance;
+        }
+
+        /// <summary>
+        /// Translate the plugin
+        /// </summary>
+        /// <param name="language">The language</param>
+        public void Translate()
+        {
+            LanguageManager.Translate(GetView(), Kernel.Language);
+            LanguageManager.Translate(Views.View.PartyWindow, Kernel.Language);
         }
     }
 }

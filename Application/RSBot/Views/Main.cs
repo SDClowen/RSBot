@@ -4,7 +4,6 @@ using RSBot.Core.Event;
 using RSBot.Core.Plugins;
 using RSBot.Theme;
 using RSBot.Theme.Controls;
-using RSBot.Theme.Extensions;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -54,7 +53,10 @@ namespace RSBot.Views
             if (menuBotbase.DropDownItems.Count <= index) return;
 
             var selectedBotbase = Kernel.BotbaseManager.Bots.ElementAt(index).Value;
-            if (selectedBotbase == null) return;
+            if (selectedBotbase == null) 
+                return;
+
+            selectedBotbase.Translate();
 
             menuBotbase.Text = selectedBotbase.Info.DisplayName;
             menuBotbase.Image = selectedBotbase.Info.Image;
@@ -106,6 +108,7 @@ namespace RSBot.Views
                 };
 
                 var control = extension.Value.GetView();
+                extension.Value.Translate();
 
                 control.Dock = DockStyle.Fill;
 
@@ -117,7 +120,7 @@ namespace RSBot.Views
 
                 if (tabPage.Enabled) continue;
 
-                var info = new Theme.Controls.TabDisabledInfo
+                var info = new TabDisabledInfo
                 {
                     Name = "overlay",
                     Location = new Point(tabMain.Width / 2 - 110, tabMain.Height - 150)
@@ -268,14 +271,57 @@ namespace RSBot.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void Main_Load(object sender, EventArgs e)
         {
+            //if (Kernel.Language != "English")
+                LanguageManager.Translate(this, Kernel.Language);
+            
             menuSidebar.Checked = GlobalConfig.Get("RSBot.ShowSidebar", true);
+
+            foreach (var item in LanguageManager.GetLanguages())
+            {
+                var dropdown = new ToolStripMenuItem(item);
+                dropdown.Click += LanguageDropdown_Click;
+                languageToolStripMenuItem.DropDownItems.Add(dropdown);
+
+                if(Kernel.Language.ToString() == dropdown.Text)
+                    dropdown.Checked = true;
+            }
+
             ConfigureSidebar();
+
+            EventManager.FireEvent("OnMainFormLoaded");
+        }
+
+        /// <summary>
+        /// Handles the Click event of the MenuItem control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <exception cref="System.NotImplementedException"></exception>
+        private void LanguageDropdown_Click(object sender, EventArgs e)
+        {
+            var dropdown = sender as ToolStripMenuItem;
+            if (dropdown.Checked)
+                return;
+
+            Kernel.Language = dropdown.Text;
+
+            foreach (ToolStripMenuItem item in languageToolStripMenuItem.DropDownItems)
+                item.Checked = false;
+
+            foreach (var plugin in Kernel.PluginManager.Extensions.Values)
+                plugin.Translate();
+
+            foreach (var botbase in Kernel.BotbaseManager.Bots.Values)
+                botbase.Translate();
+
+            LanguageManager.Translate(this, Kernel.Language);
+
+            dropdown.Checked = true;
         }
 
         /// <summary>
         ///Handles the Click event of the btnStartStop control.
         /// </summary>
-        /// <param name="obj">The object.</param>
         private void btnStartStop_Click(object sender, EventArgs e)
         {
             if (Kernel.Proxy == null)
@@ -286,27 +332,28 @@ namespace RSBot.Views
 
             if (Kernel.Bot == null)
             {
-                Log.Notify("Please select a proper botbase and try again");
+                Log.NotifyLang("NotifyPleaseSelectProperBotBase");
                 return;
             }
 
             if (Game.Player == null)
             {
-                Log.Notify("Your character has to be in the game in order to start the bot.");
+                Log.WarnLang("NotifyPlayerWasNull");
                 return;
             }
 
-            if (btnStartStop.Text == @"START BOT")
+            if (!Kernel.Bot.Running)
             {
                 Kernel.Bot.Start();
 
-                BotWindow.SetStatusText("Running");
+                BotWindow.SetStatusTextLang("Running");
             }
             else
             {
-                Log.Notify($"Stopping bot [{Kernel.Bot.Botbase.Info.DisplayName}]");
+                Log.NotifyLang("StopingBot", Kernel.Bot.Botbase.Info.DisplayName);
+
                 Kernel.Bot.Stop();
-                BotWindow.SetStatusText("Ready");
+                BotWindow.SetStatusTextLang("Ready");
             }
         }
 
@@ -328,7 +375,7 @@ namespace RSBot.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void picLogo_Click(object sender, EventArgs e)
         {
-            Process.Start("http://roadshark-bot.com");
+            Process.Start("https://github.com/sdclowen/rsbot");
         }
 
         /// <summary>
@@ -366,7 +413,7 @@ namespace RSBot.Views
         /// </summary>
         private void OnStartBot()
         {
-            btnStartStop.Text = @"STOP BOT";
+            btnStartStop.Text = LanguageManager.GetLang("StopBot");
         }
 
         /// <summary>
@@ -374,16 +421,16 @@ namespace RSBot.Views
         /// </summary>
         private void OnStopBot()
         {
-            btnStartStop.Text = @"START BOT";
+            btnStartStop.Text = LanguageManager.GetLang("StartBot");
         }
 
         private void OnLoadBotbases()
         {
             if (Kernel.BotbaseManager.Bots == null || Kernel.BotbaseManager.Bots.Count == 0)
             {
-                var messageResult = MessageBox.Show(
-                    "The bot can not be run without any botbase!\n Please install a proper botbase and try again.\n You can find help at http://roadshark-bot.com/",
-                    "No botbase detected!", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
+                var title = LanguageManager.GetLang("NoBotbaseDetected");
+                var message = LanguageManager.GetLang("NoBotbaseDetectedDesc");
+                var messageResult = MessageBox.Show(message, title, MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
 
                 if (messageResult == DialogResult.Retry)
                     Kernel.BotbaseManager.LoadAssemblies();

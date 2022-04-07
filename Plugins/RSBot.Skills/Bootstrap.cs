@@ -1,5 +1,7 @@
-﻿using RSBot.Core.Plugins;
+﻿using RSBot.Core;
+using RSBot.Core.Plugins;
 using RSBot.Skills.Views;
+using RSBot.Theme;
 using System.Windows.Forms;
 
 namespace RSBot.Skills
@@ -19,13 +21,20 @@ namespace RSBot.Skills
         public void Initialize()
         {
             Views.View.Instance = new Main();
-            Core.Log.Notify("Plugin [Skills] initialized!");
         }
 
         /// <inheritdoc />
         public Control GetView()
         {
             return Views.View.Instance;
+        }
+
+        /// <summary>
+        /// Translate the plugin
+        /// </summary>
+        public void Translate()
+        {
+            LanguageManager.Translate(GetView(), Kernel.Language);
         }
     }
 }

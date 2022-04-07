@@ -2,14 +2,11 @@
 using RSBot.Core.Client;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
-using RSBot.Core.Extensions;
 using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -19,11 +16,7 @@ namespace RSBot.General.Views
     [System.ComponentModel.ToolboxItem(false)]
     internal partial class Main : UserControl
     {
-        #region Fields
-
         private bool _clientVisible;
-
-        #endregion Fields
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Main"/> class.
@@ -58,7 +51,6 @@ namespace RSBot.General.Views
                 return;
 
             txtSilkroadPath.BackColor = Color.Red;
-            txtSilkroadPath.Text += @" (Not a Silkroad directory!)";
         }
 
         /// <summary>
@@ -90,7 +82,7 @@ namespace RSBot.General.Views
         private void LoadAccounts()
         {
             comboAccounts.Items.Clear();
-            comboAccounts.Items.Add("No Selected");
+            comboAccounts.Items.Add(LanguageManager.GetLang("NoSelected"));
 
             var autoLoginUserName = GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername");
             foreach (var account in Components.Accounts.SavedAccounts)
@@ -110,7 +102,7 @@ namespace RSBot.General.Views
         private void LoadCharacters()
         {
             comboCharacter.Items.Clear();
-            comboCharacter.Items.Add("No Selected");
+            comboCharacter.Items.Add(LanguageManager.GetLang("NoSelected"));
 
             var selectedAccount = comboAccounts.SelectedItem as Models.Account;
             if (selectedAccount?.Characters == null)
@@ -140,7 +132,7 @@ namespace RSBot.General.Views
 
             var startedResult = await ClientManager.Start();
             if (!startedResult)
-                Log.Warn("The game client could not starting, please try again!");
+                Log.WarnLang("ClientStartingError");
         }
 
         /// <summary>
@@ -159,7 +151,7 @@ namespace RSBot.General.Views
         private void OnExitClient()
         {
             _clientVisible = false;
-            btnStartClient.Text = "Start Client";
+            btnStartClient.Text = LanguageManager.GetLang("Start")  + " Client";
 
             if (Game.Clientless)
                 return;
@@ -182,9 +174,9 @@ namespace RSBot.General.Views
                 ClientlessManager.GoClientless();
 
                 btnGoClientless.Enabled = false;
-                btnStartClientless.Text = "Disconnect";
+                btnStartClientless.Text = LanguageManager.GetLang("Disconnect");
 
-                Log.Notify("Clientless mode has been activated.");
+                Log.NotifyLang("ClientlessModeActivated");
             }
         }
 
@@ -196,9 +188,9 @@ namespace RSBot.General.Views
             if (!Game.Clientless)
             {
                 btnClientHideShow.Enabled = true;
-                btnClientHideShow.Text = "Hide Client";
+                btnClientHideShow.Text = LanguageManager.GetLang("Hide") + " Client";
                 btnStartClient.Enabled = true;
-                btnStartClient.Text = "Kill Client";
+                btnStartClient.Text = LanguageManager.GetLang("Kill") + " Client";
                 btnGoClientless.Enabled = true;
             }
 
@@ -281,8 +273,13 @@ namespace RSBot.General.Views
         {
             using (var dialog = new OpenFileDialog())
             {
-                dialog.Title = "Please select the silkroad client's executable.";
-                dialog.Filter = "Executable (*.exe)|*.exe";
+                var title = LanguageManager.GetLang("BrowseSilkroadPathDialogTitle");
+
+                var msgBoxTitle = LanguageManager.GetLang("BrowseSilkroadPathMsgBoxTitle");
+                var msgBoxContent = LanguageManager.GetLang("BrowseSilkroadPathMsgBoxContent");
+
+                dialog.Title = title;
+                dialog.Filter = "App (*.exe)|*.exe";
                 dialog.FileName = "sro_client.exe";
 
                 var result = dialog.ShowDialog();
@@ -293,11 +290,7 @@ namespace RSBot.General.Views
                 GlobalConfig.Set("RSBot.SilkroadDirectory", Path.GetDirectoryName(dialog.FileName));
                 GlobalConfig.Set("RSBot.SilkroadExecutable", Path.GetFileName(dialog.FileName));
 
-                result = MessageBox.Show(
-                    "You have set a new path to your silkroad directory. In order to apply these changes, please restart your bot. Do you want to restart the bot now?",
-                    "New path",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question);
+                result = MessageBox.Show(msgBoxContent, msgBoxTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (result == DialogResult.No)
                     return;
@@ -336,8 +329,7 @@ namespace RSBot.General.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnAutoLoginSettings_Click(object sender, EventArgs e)
         {
-            var accountSettings = new Accounts();
-            if (accountSettings.ShowDialog() == DialogResult.OK)
+            if (View.AccountsWindow.ShowDialog() == DialogResult.OK)
                 LoadAccounts();
         }
 
@@ -416,14 +408,15 @@ namespace RSBot.General.Views
             if (Game.Clientless)
                 return;
 
-            if (MessageBox.Show(
-                    "Do you want to go clientless?\n\nYou will need to restart the bot in order to get into client again.",
-                    "Clientless", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
+            var msgBoxTitle = LanguageManager.GetLang("GoClientlessMsgBoxTitle");
+            var msgBoxContent = LanguageManager.GetLang("GoClientlessMsgBoxContent");
+
+            if (MessageBox.Show(msgBoxContent, msgBoxTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
 
             ClientlessManager.GoClientless();
             ClientManager.Kill();
 
-            btnStartClientless.Text = "Disconnect";
+            btnStartClientless.Text = LanguageManager.GetLang("Disconnect");
             btnGoClientless.Enabled = false;
             btnStartClientless.Enabled = true;
             btnStartClient.Enabled = false;
@@ -441,9 +434,10 @@ namespace RSBot.General.Views
             {
                 if (!checkEnableAutoLogin.Checked || comboAccounts.SelectedIndex <= 0)
                 {
-                    MessageBox.Show(
-                        "To start the clientless mode, you must first define a user account that can be used for automated login.\nPlease make also sure that the automated login is enabled.",
-                        "The automatic login is set up incorrectly!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    var msgBoxTitle = LanguageManager.GetLang("StartClientlessMsgBoxTitle");
+                    var msgBoxContent = LanguageManager.GetLang("StartClientlessMsgBoxContent");
+
+                    MessageBox.Show(msgBoxContent, msgBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     return;
                 }
@@ -452,16 +446,17 @@ namespace RSBot.General.Views
                 btnClientHideShow.Enabled = false;
 
                 Game.Clientless = true;
-                BotWindow.SetStatusText("Starting clientless session...");
+                BotWindow.SetStatusTextLang("StartingClientless");
                 Game.Start();
 
-                btnStartClientless.Text = "Disconnect";
+                btnStartClientless.Text = LanguageManager.GetLang("Disconnect");
             }
             else
             {
-                var result = MessageBox.Show(
-                        "Your character will be disconnect! Are you sure about that?",
-                        "Warning!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                var msgBoxTitle = LanguageManager.GetLang("MsgBoxDisconnectDialogTitle");
+                var msgBoxContent = LanguageManager.GetLang("MsgBoxDisconnectDialogContent");
+
+                var result = MessageBox.Show(msgBoxContent, msgBoxTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                 if (result == DialogResult.No)
                     return;
@@ -470,7 +465,7 @@ namespace RSBot.General.Views
 
                 btnStartClient.Enabled = true;
                 btnStartClientless.Enabled = true;
-                btnStartClientless.Text = "Start Clientless";
+                btnStartClientless.Text = LanguageManager.GetLang("Start") + " Clientless";
 
                 Kernel.Proxy.Shutdown();
             }
@@ -485,11 +480,14 @@ namespace RSBot.General.Views
         {
             if (!Game.Clientless && Kernel.Proxy != null && Kernel.Proxy.IsConnectedToAgentserver)
             {
-                var extraStr = ".\nDon't worry your character will stay online (clientless)!";
+                var extraStr = LanguageManager.GetLang("KillClientWarnMsgBoxSplit1");
                 if (!GlobalConfig.Get<bool>("RSBot.General.StayConnected"))
-                    extraStr = " and your character will be disconnected!";
+                    extraStr = LanguageManager.GetLang("KillClientWarnMsgBoxSplit2");
 
-                if (MessageBox.Show($"The game client will now be closed{extraStr}\n\nAre you sure about this?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                var title = LanguageManager.GetLang("Warning");
+                var content = LanguageManager.GetLang("KillClientWarnMsgBoxContent", extraStr);
+
+                if (MessageBox.Show(content, title, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                     ClientManager.Kill();
 
                 return;
@@ -525,13 +523,13 @@ namespace RSBot.General.Views
             {
                 _clientVisible = true;
                 ClientManager.SetVisible(true);
-                btnClientHideShow.Text = "Hide Client";
+                btnClientHideShow.Text = LanguageManager.GetLang("Hide") + " Client";
             }
             else
             {
                 _clientVisible = false;
                 ClientManager.SetVisible(false);
-                btnClientHideShow.Text = "Show Client";
+                btnClientHideShow.Text = LanguageManager.GetLang("Show") + " Client";
             }
         }
 
@@ -542,9 +540,13 @@ namespace RSBot.General.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void comboBoxClientType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Created from Activator.CreateInstance easy fix ^^
+            if (comboBoxClientType.Parent.Parent == null)
+                return;
+
             if (Game.Player != null)
             {
-                MessageBox.Show("You can't change the client type right now because you are already in the game!");
+                MessageBox.Show(LanguageManager.GetLang("MsgBoxClientTypeWarn"));
                 return;
             }
 

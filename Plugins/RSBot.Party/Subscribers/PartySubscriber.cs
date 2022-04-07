@@ -25,7 +25,7 @@ namespace RSBot.Party.Subscribers
             //Check for the pending request
             if (!Game.Party.HasPendingRequest) return false;
 
-            Log.Notify($"The player [{Game.AcceptanceRequest.Player.Name}] has invited you to a party.");
+            Log.NotifyLang("PartyPlayerInvite", Game.AcceptanceRequest.Player.Name);
 
             //Check if we are near the training place
             if (Container.AutoParty.Config.OnlyAtTrainingPlace &&
@@ -37,8 +37,6 @@ namespace RSBot.Party.Subscribers
 
             return Container.AutoParty.Config.AcceptAll;
         }
-
-        #region Listeners
 
         /// <summary>
         /// Will be fired when the player is being invited to a party
@@ -52,7 +50,5 @@ namespace RSBot.Party.Subscribers
             else
                 Game.AcceptanceRequest.Refuse();
         }
-
-        #endregion Listeners
     }
 }

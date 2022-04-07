@@ -1,4 +1,5 @@
-﻿using RSBot.Core.Event;
+﻿using RSBot.Core;
+using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using System;
 
@@ -12,7 +13,7 @@ namespace RSBot.Statistics.Stats.Calculators.Static
         public string Name => "ItemsPicked";
 
         /// <inheritdoc />
-        public string Label => "Items looted";
+        public string Label => LanguageManager.GetLang("Calculators.Loot.Label");
 
         /// <inheritdoc />
         public StatisticsGroup Group => StatisticsGroup.Loot;

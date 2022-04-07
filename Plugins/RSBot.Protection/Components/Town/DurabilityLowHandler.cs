@@ -59,8 +59,8 @@ namespace RSBot.Protection.Components.Town
                 if (item.Durability > 6)
                     continue;
 
-                if(Game.Player.UseReturnScroll())
-                    Log.Notify($"Returning to town: The durability of the item {item.Record.GetRealName()} low.");
+                if (Game.Player.UseReturnScroll())
+                    Log.WarnLang("ReturnToTownDurLow", item.Record.GetRealName());
                 
                 break;
             }

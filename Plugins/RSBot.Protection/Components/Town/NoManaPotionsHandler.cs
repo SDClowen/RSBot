@@ -39,7 +39,8 @@ namespace RSBot.Protection.Components.Town
                 return;
 
             Game.Player.UseReturnScroll();
-            Log.Notify("Returning to town: No mana potions in player inventory.");
+
+            Log.WarnLang("ReturnToTownNoMana");
         }
     }
 }

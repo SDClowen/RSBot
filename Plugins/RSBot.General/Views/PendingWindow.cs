@@ -1,4 +1,5 @@
-﻿using RSBot.Core.Network;
+﻿using RSBot.Core;
+using RSBot.Core.Network;
 using RSBot.General.Components;
 using RSBot.Theme.Controls;
 using System;
@@ -41,6 +42,7 @@ namespace RSBot.General.Views
             labelServerName.Text = labelServerName.Text.Replace("{SERVER}", Serverlist.Joining?.Name);
 
             PrintTime(labelAvgWaitingTime, timestamp);
+            timer.Enabled = true;
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -52,15 +54,19 @@ namespace RSBot.General.Views
         {
             var text = new StringBuilder();
 
+            var translatedHours = LanguageManager.GetLang("Xhours");
+            var translatedMinutes = LanguageManager.GetLang("Xminutes");
+            var translatedSeconds = LanguageManager.GetLang("Xseconds");
+
             var timespan = TimeSpan.FromMilliseconds(millisecond);
             if (timespan.Hours > 0)
-                text.AppendFormat("{0} hours ", timespan.Hours);
+                text.AppendFormat(translatedHours, timespan.Hours);
 
             if (timespan.Minutes > 0)
-                text.AppendFormat("{0} minutes ", timespan.Minutes);
+                text.AppendFormat(translatedMinutes, timespan.Minutes);
 
             if (timespan.Seconds > 0)
-                text.AppendFormat("{0} seconds", timespan.Seconds);
+                text.AppendFormat(translatedSeconds, timespan.Seconds);
 
             label.Text = text.ToString();
         }
@@ -68,6 +74,7 @@ namespace RSBot.General.Views
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             PacketManager.SendPacket(new Packet(0x610F, false, false, new byte[] { 0x1 }), PacketDestination.Server);
+            timer.Enabled = false;
         }
     }
 }

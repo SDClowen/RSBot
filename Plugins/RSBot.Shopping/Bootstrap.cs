@@ -19,8 +19,7 @@ namespace RSBot.Shopping
             DisplayName = "Items",
             InternalName = "RSBot.Items",
             LoadIndex = 5,
-            TabDisplayIndex = 5,
-            RequireIngame = true
+            TabDisplayIndex = 5
         };
 
         /// <summary>
@@ -29,7 +28,6 @@ namespace RSBot.Shopping
         public void Initialize()
         {
             Views.View.Instance = new Main();
-            Log.Notify("Plugin [Shopping] initialized!");
         }
 
         /// <summary>
@@ -38,6 +36,15 @@ namespace RSBot.Shopping
         public Control GetView()
         {
             return Views.View.Instance;
+        }
+
+        /// <summary>
+        /// Translate the plugin
+        /// </summary>
+        /// <param name="language">The language</param>
+        public void Translate()
+        {
+            LanguageManager.Translate(GetView(), Kernel.Language);
         }
     }
 }

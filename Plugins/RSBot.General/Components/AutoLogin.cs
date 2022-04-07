@@ -33,17 +33,18 @@ namespace RSBot.General.Components
             if (selectedAccount == null)
             {
                 _busy = false;
-                Log.Warn("No have any selected account for autologin. RSBot waiting for manual login from you! Do not forget select a account for auto login next time ;)");
+                Log.WarnLang("NoHaveAccountForAutoLogin");
                 return;
             }
 
             var server = Serverlist.GetServerByName(selectedAccount.Servername);
             if (server == null && Serverlist.Servers != null)
             {
-                Log.Notify($"The server [{selectedAccount.Servername}] assigned to this account could not be found in the serverlist!");
+                Log.NotifyLang("ServerNotFound", selectedAccount.Servername);
 
                 server = Serverlist.Servers.First();
-                Log.Notify($"Selected default server: [{server.Name}]");
+
+                Log.NotifyLang("SelectedFirstServer", server.Name);
             }
 
             // is server check [Lazy :)]
@@ -51,7 +52,7 @@ namespace RSBot.General.Components
             {
                 _busy = false;
 
-                Log.Notify("The selected server is under maintainance. Retrying to login in few seconds...");
+                Log.NotifyLang("ServerCheck");
 
                 // Only need while clientless, otherwise the client already sending every 5 seconds instead of bot.
                 if (Game.Clientless)
@@ -103,7 +104,7 @@ namespace RSBot.General.Components
         /// <param name="server">The server.</param>
         private static void SendLoginRequest(Account account, Models.Server server)
         {
-            Log.Notify("Sending login credentials to the server...");
+            Log.NotifyLang("LoginCredentials", server.Name);
 
             ushort opcode = 0x6102;
             if (Game.ClientType >= GameClientType.Global)
@@ -140,7 +141,9 @@ namespace RSBot.General.Components
             if (!GlobalConfig.Get<bool>("RSBot.General.EnableStaticCaptcha") || !GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin")) return;
 
             var captcha = GlobalConfig.Get<string>("RSBot.General.StaticCaptcha");
-            Log.Notify($"Entering captcha ['{captcha}']...");
+
+            Log.NotifyLang("EnteringCaptcha", captcha);
+
             var packet = new Packet(0x6323);
             packet.WriteString(captcha);
             packet.Lock();

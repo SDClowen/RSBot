@@ -82,7 +82,7 @@ namespace RSBot.General.Components
             }
             catch(Exception ex)
             {
-                Core.Log.Notify($"Unable to load [{_filePath}] file not found or damaged!");
+                Core.Log.NotifyLang("FileNotFound", _filePath);
                 Core.Log.Fatal(ex);
             }
         }
@@ -121,7 +121,7 @@ namespace RSBot.General.Components
             }
             catch
             {
-                Core.Log.Notify($"Unable to save [{_filePath}] file not found or damaged!");
+                Core.Log.NotifyLang("FileNotFound", _filePath);
             }
         }
     }

@@ -5,6 +5,7 @@ using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Objects;
 using RSBot.Core.Plugins;
+using RSBot.Theme;
 using System;
 using System.Windows.Forms;
 
@@ -68,8 +69,6 @@ namespace RSBot.Bot.Default
             Container.Lock = new object();
             Subscriber.ConfigSubscriber.SubscribeEvents();
             Subscriber.TeleportSubscriber.SubscribeEvents();
-
-            Log.Notify($"Inialized botbase [{Info.Name}]");
         }
 
         /// <summary>
@@ -95,6 +94,15 @@ namespace RSBot.Bot.Default
                 if (Game.Player.InAction)
                     SkillManager.CancelAction();
             }
+        }
+
+        /// <summary>
+        /// Translate the botbase plugin
+        /// </summary>
+        /// <param name="language">The language</param>
+        public void Translate()
+        {
+            LanguageManager.Translate(GetView(), Kernel.Language);
         }
     }
 }

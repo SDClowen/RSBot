@@ -1,4 +1,6 @@
-﻿using RSBot.Core.Plugins;
+﻿using RSBot.Core;
+using RSBot.Core.Plugins;
+using RSBot.Theme;
 using System.Windows.Forms;
 
 namespace RSBot.Log
@@ -32,8 +34,6 @@ namespace RSBot.Log
         public void Initialize()
         {
             _control = new Views.Main();
-
-            Core.Log.Notify("Plugin [Log] initialized!");
         }
 
         /// <summary>
@@ -42,6 +42,15 @@ namespace RSBot.Log
         public Control GetView()
         {
             return _control;
+        }
+
+        /// <summary>
+        /// Translate the plugin
+        /// </summary>
+        /// <param name="language">The language</param>
+        public void Translate()
+        {
+            LanguageManager.Translate(GetView(), Kernel.Language);
         }
     }
 }

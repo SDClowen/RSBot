@@ -1,5 +1,4 @@
 ﻿using RSBot.Core;
-using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Extensions;
@@ -7,9 +6,7 @@ using RSBot.Core.Objects;
 using RSBot.Core.Objects.Skill;
 using RSBot.Theme.Extensions;
 using System;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RSBot.Skills.Views
@@ -401,10 +398,11 @@ namespace RSBot.Skills.Views
         /// <param name="update">if set to <c>true</c> [update].</param>
         private void OnLearnSkill(SkillInfo skill, bool update)
         {
+            var name = skill.Record.GetRealName();
             if (update)
-                Log.Notify($"The skill [{skill.Record.GetRealName()}] has been upgraded!");
+                Log.NotifyLang("SkillUpgraded", name);
             else
-                Log.Notify($"New skill [{skill.Record.GetRealName()}] has been learned!");
+                Log.NotifyLang("SkillLearned", name);
 
             LoadSkills();
             LoadAttacks();
@@ -421,7 +419,7 @@ namespace RSBot.Skills.Views
         /// <param name="info">The information.</param>
         private void OnLearnSkillMastery(MasteryInfo info)
         {
-            Log.Notify($"The mastery [{info.Record.Name}] has been upgraded!");
+            Log.NotifyLang("MasteryUpgraded", info.Record.Name);
 
             LoadSkills();
         }
@@ -458,7 +456,8 @@ namespace RSBot.Skills.Views
         /// <param name="oldSkill">The old skill.</param>
         private void OnWithdrawSkill(SkillInfo oldSkill)
         {
-            Log.Notify($"The skill [{oldSkill.Record.GetRealName()}] was withdrawn.");
+            Log.NotifyLang("SkillWithdrawn", oldSkill.Record.GetRealName());
+
             LoadSkills();
             LoadAttacks();
             LoadBuffs();

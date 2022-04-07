@@ -13,7 +13,7 @@ namespace RSBot.Statistics.Stats.Calculators.Static
         public string Name => "LevelUps";
 
         /// <inheritdoc />
-        public string Label => "Level ups";
+        public string Label => LanguageManager.GetLang("Calculators.LevelUps.Label");
 
         /// <inheritdoc />
         public StatisticsGroup Group => StatisticsGroup.Player;

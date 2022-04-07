@@ -39,27 +39,36 @@ namespace RSBot.General.PacketHandler
                     packet.ReadString(); //DLServer IP
                     packet.ReadUShort(); //DLServer Port
                     var version = packet.ReadInt();
-                    Log.Notify($"This client [{Game.ReferenceManager.VersionInfo.Version}] is not up to date [{version}]");
+                    Log.WarnLang("ClientUpdateWarn", Game.ReferenceManager.VersionInfo.Version, version);
                 }
+
+                var title = string.Empty;
+                var message = string.Empty;
 
                 switch (flag)
                 {
                     case 2:
-                        MessageBox.Show(
-                            "The client is not up to date, please manually start Launcher.exe to patch the client to the latest game version.\n\nAfter updating the client, you can use the bot again as usual.",
-                            @"Silkroad client update", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        title = LanguageManager.GetLang("PatchMsgBoxTitle2");
+                        message = LanguageManager.GetLang("PatchMsgBoxContent2");
+                        MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                         break;
 
                     case 1:
-                        MessageBox.Show(
-                            @"The client version is higher than expected by the server, therefore the client can not be started. Please reinstall the game in order to continue. If this problem still occures, you may want to contact the server administrator!",
-                            @"Silkroad process terminated: Server outdated!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        title = LanguageManager.GetLang("PatchMsgBoxTitle1");
+                        message = LanguageManager.GetLang("PatchMsgBoxContent1");
+
+                        MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     default:
-                        MessageBox.Show(
-                            @"An unknown patch request has been sent by the server [" + flag.ToString() + @"], therefore the client is not able to start!",
-                            @"Silkroad process terminated: Unknown patch!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        title = LanguageManager.GetLang("PatchMsgBoxTitle");
+                        message = LanguageManager.GetLang("PatchMsgBoxContent");
+
+                        MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
             }
