@@ -46,8 +46,9 @@ namespace RSBot.Statistics.Stats.Calculators.Live
                                      (double)Game.ReferenceManager.GetRefLevel(Game.Player.Level).Exp_C) * 100;
 
             _values[_currentTickIndex] = currentPercent - _lastTickValue;
+            if (++_currentTickIndex >= _values.Length)
+                _currentTickIndex = 0;
 
-            _currentTickIndex = _currentTickIndex == 59 ? 0 : _currentTickIndex + 1;
             _lastTickValue = currentPercent;
 
             return Math.Round(_values.Sum(val => val) / _values.Length * 3600, 2);

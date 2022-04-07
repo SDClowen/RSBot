@@ -48,7 +48,9 @@ namespace RSBot.Statistics.Stats.Calculators.Live
                 return 0;
 
             _values[_currentTickIndex] = _killCount - _lastTickValue;
-            _currentTickIndex = _currentTickIndex == 59 ? 0 : _currentTickIndex + 1;
+            if (++_currentTickIndex >= _values.Length)
+                _currentTickIndex = 0;
+
             _lastTickValue = _killCount;
 
             var sum = _values.Sum(val => val);

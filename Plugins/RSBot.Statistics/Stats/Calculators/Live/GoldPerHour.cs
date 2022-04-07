@@ -43,7 +43,9 @@ namespace RSBot.Statistics.Stats.Calculators.Live
                 return 0;
 
             _values[_currentTickIndex] = Convert.ToInt64(Game.Player.Gold) - _lastTickValue;
-            _currentTickIndex = _currentTickIndex == 59 ? 0 : _currentTickIndex + 1;
+            if (++_currentTickIndex >= _values.Length)
+                _currentTickIndex = 0;
+
             _lastTickValue = Convert.ToInt64(Game.Player.Gold);
 
             return _values.Sum(val => val) / _values.Length * 3600;
