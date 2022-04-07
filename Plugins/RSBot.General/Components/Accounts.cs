@@ -82,7 +82,7 @@ namespace RSBot.General.Components
             }
             catch(Exception ex)
             {
-                Core.Log.NotifyLang("RSBot.General", "FileNotFound", _filePath);
+                Core.Log.NotifyLang("FileNotFound", _filePath);
                 Core.Log.Fatal(ex);
             }
         }
@@ -121,7 +121,7 @@ namespace RSBot.General.Components
             }
             catch
             {
-                Core.Log.NotifyLang("RSBot.General", "FileNotFound", _filePath);
+                Core.Log.NotifyLang("FileNotFound", _filePath);
             }
         }
     }

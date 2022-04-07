@@ -19,7 +19,7 @@ namespace RSBot.General.PacketHandler
             var result = packet.ReadByte();
             if(result == 1)
             {
-                Log.NotifyLang("RSBot.General", "SecondaryPwSuccess");
+                Log.NotifyLang("SecondaryPwSuccess");
                 return;
             }
 
@@ -27,7 +27,7 @@ namespace RSBot.General.PacketHandler
             switch (errorCode)
             {
                 case 1:
-                    Log.NotifyLang("RSBot.General", "SecondaryPwWrong");
+                    Log.NotifyLang("SecondaryPwWrong");
                     break;
                 default:
                     break;

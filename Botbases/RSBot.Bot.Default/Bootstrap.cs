@@ -70,7 +70,7 @@ namespace RSBot.Bot.Default
             Subscriber.ConfigSubscriber.SubscribeEvents();
             Subscriber.TeleportSubscriber.SubscribeEvents();
 
-            Log.NotifyLang("RSBot.Default", "BotBaseInitialized", Info.Name);
+            Log.NotifyLang("BotBaseInitialized", Info.Name);
         }
 
         /// <summary>

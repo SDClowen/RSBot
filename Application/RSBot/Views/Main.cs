@@ -350,7 +350,7 @@ namespace RSBot.Views
             }
             else
             {
-                Log.NotifyLang("RSBot", "StopingBot", Kernel.Bot.Botbase.Info.DisplayName);
+                Log.NotifyLang("StopingBot", Kernel.Bot.Botbase.Info.DisplayName);
 
                 Kernel.Bot.Stop();
                 BotWindow.SetStatusTextLang("Ready");

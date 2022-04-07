@@ -100,7 +100,7 @@ namespace RSBot.General.PacketHandler
 
                 lobbyCharacters[i] = name;
 
-                Log.NotifyLang("RSBot.General", "PlayerDetected", name, level);
+                Log.NotifyLang("PlayerDetected", name, level);
             }
 
             var username = GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername");

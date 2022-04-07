@@ -33,7 +33,7 @@ namespace RSBot.General.PacketHandler
         {
             if (packet.ReadByte() == 0x01)
             {
-                Log.NotifyLang("RSBot.General", "AuthGetewaySuccess");
+                Log.NotifyLang("AuthGetewaySuccess");
                 Views.View.PendingWindow?.Hide();
 
                 return;
@@ -44,23 +44,23 @@ namespace RSBot.General.PacketHandler
             switch (code)
             {
                 case 1:
-                    Log.NotifyLang("RSBot.General", "AuthGatewayWrongIdPw");
+                    Log.NotifyLang("AuthGatewayWrongIdPw");
                     break;
 
                 case 2:
-                    Log.NotifyLang("RSBot.General", "AuthAccountBanned");
+                    Log.NotifyLang("AuthAccountBanned");
                     break;
 
                 case 3:
-                    Log.NotifyLang("RSBot.General", "AuthAccountAlreadyInGame");
+                    Log.NotifyLang("AuthAccountAlreadyInGame");
                     break;
 
                 case 4:
-                    Log.WarnLang("RSBot.General", "ServerCheck");
+                    Log.WarnLang("ServerCheck");
                     break;
 
                 case 5:
-                    Log.WarnLang("RSBot.General", "ServerFull");
+                    Log.WarnLang("ServerFull");
                     AutoLogin.Handle();
 
                     break;
@@ -88,7 +88,7 @@ namespace RSBot.General.PacketHandler
                     break;
 
                 default:
-                    Log.WarnLang("RSBot.General", "AuthFailed", code);
+                    Log.WarnLang("AuthFailed", code);
                     break;
             }
         }

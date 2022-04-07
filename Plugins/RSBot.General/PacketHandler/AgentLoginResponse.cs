@@ -50,23 +50,23 @@ namespace RSBot.General.PacketHandler
             switch (code)
             {
                 case 1:
-                    Log.WarnLang("RSBot.General", "C9");
+                    Log.WarnLang("C9");
                     break;
 
                 case 2:
-                    Log.WarnLang("RSBot.General", "C10");
+                    Log.WarnLang("C10");
                     break;
 
                 case 3:
-                    Log.WarnLang("RSBot.General", "C10");
+                    Log.WarnLang("C10");
                     break;
 
                 case 4:
-                    Log.WarnLang("RSBot.General", "ServerFull");
+                    Log.WarnLang("ServerFull");
                     break;
 
                 case 5:
-                    Log.WarnLang("RSBot.General", "IpLimit");
+                    Log.WarnLang("IpLimit");
                     break;
             }
         }

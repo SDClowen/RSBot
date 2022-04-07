@@ -1,5 +1,4 @@
 ﻿using RSBot.Core;
-using RSBot.Theme;
 using RSBot.Theme.Controls;
 using System;
 using System.IO;
@@ -45,7 +44,7 @@ namespace RSBot.Views
             {
                 var diag = new OpenFileDialog
                 {
-                    Title = @"Please select your silkroad executable in order to continue...",
+                    Title = LanguageManager.GetLang("OpenFileDialogTitle"),
                     Filter = "Executable (*.exe)|*.exe",
                     FileName = "sro_client.exe"
                 };
@@ -59,8 +58,9 @@ namespace RSBot.Views
                     GlobalConfig.Set("RSBot.SilkroadDirectory", silkroadDirectory);
                     GlobalConfig.Set("RSBot.SilkroadExecutable", Path.GetFileName(diag.FileName));
 
-                    const string title = "Select your client type!";
-                    var sroClientTypeSelectorDialog = new InputDialog(title, title, "Please select the game type for RSBot to work properly!", InputDialog.InputType.Combobox);
+                    var title = LanguageManager.GetLang("ClientTypeInputDialogTitle");
+                    var content = LanguageManager.GetLang("ClientTypeInputDialogContent");
+                    var sroClientTypeSelectorDialog = new InputDialog(title, title, content, InputDialog.InputType.Combobox);
                     sroClientTypeSelectorDialog.Selector.Items.AddRange(Enum.GetNames(typeof(GameClientType)));
                     sroClientTypeSelectorDialog.Selector.SelectedIndex = 1;
                     sroClientTypeSelectorDialog.TopMost = true;
@@ -74,13 +74,13 @@ namespace RSBot.Views
                     }
                     else
                     {
-                        MessageBox.Show("It's set to 'Vietname' for now because you haven't selected any game type.");
+                        MessageBox.Show(LanguageManager.GetLang("ClientTypeNotSelected"));
                         GlobalConfig.Set("RSBot.Game.ClientType", GameClientType.Vietnam);
                     }
                 }
                 else
                 {
-                    MessageBox.Show(@"Please select a proper Silkroad directory!");
+                    MessageBox.Show(LanguageManager.GetLang("SelectSroDirWarn"));
                     Environment.Exit(0);
                 }
             }

@@ -33,7 +33,7 @@ namespace RSBot.General.Components
             if (selectedAccount == null)
             {
                 _busy = false;
-                Log.WarnLang("RSBot.General", "NoHaveAccountForAutoLogin");
+                Log.WarnLang("NoHaveAccountForAutoLogin");
                 return;
             }
 
@@ -44,7 +44,7 @@ namespace RSBot.General.Components
 
                 server = Serverlist.Servers.First();
 
-                Log.NotifyLang("RSBot.General", "SelectedFirstServer", server.Name);
+                Log.NotifyLang("SelectedFirstServer", server.Name);
             }
 
             // is server check [Lazy :)]
@@ -52,7 +52,7 @@ namespace RSBot.General.Components
             {
                 _busy = false;
 
-                Log.NotifyLang("RSBot.General", "ServerCheck");
+                Log.NotifyLang("ServerCheck");
 
                 // Only need while clientless, otherwise the client already sending every 5 seconds instead of bot.
                 if (Game.Clientless)
@@ -104,7 +104,7 @@ namespace RSBot.General.Components
         /// <param name="server">The server.</param>
         private static void SendLoginRequest(Account account, Models.Server server)
         {
-            Log.NotifyLang("RSBot.General", "LoginCredentials", server.Name);
+            Log.NotifyLang("LoginCredentials", server.Name);
 
             ushort opcode = 0x6102;
             if (Game.ClientType >= GameClientType.Global)
@@ -142,7 +142,7 @@ namespace RSBot.General.Components
 
             var captcha = GlobalConfig.Get<string>("RSBot.General.StaticCaptcha");
 
-            Log.NotifyLang("RSBot.General", "EnteringCaptcha", captcha);
+            Log.NotifyLang("EnteringCaptcha", captcha);
 
             var packet = new Packet(0x6323);
             packet.WriteString(captcha);
