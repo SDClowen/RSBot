@@ -34,8 +34,6 @@ namespace RSBot.Log
         public void Initialize()
         {
             _control = new Views.Main();
-
-            Core.Log.Notify("Plugin [Log] initialized!");
         }
 
         /// <summary>

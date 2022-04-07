@@ -120,7 +120,7 @@ namespace RSBot.Views
 
                 if (tabPage.Enabled) continue;
 
-                var info = new Theme.Controls.TabDisabledInfo
+                var info = new TabDisabledInfo
                 {
                     Name = "overlay",
                     Location = new Point(tabMain.Width / 2 - 110, tabMain.Height - 150)

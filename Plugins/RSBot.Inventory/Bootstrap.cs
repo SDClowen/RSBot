@@ -33,7 +33,6 @@ namespace RSBot.Inventory
             Views.View.ItemDialog = new UseItemDialog();
 
             BuyItemSubscriber.SubscribeEvents();
-            Log.Notify("Plugin [Inventory] initialized!");
         }
 
         /// <summary>

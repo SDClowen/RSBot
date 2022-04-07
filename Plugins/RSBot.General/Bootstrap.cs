@@ -32,8 +32,6 @@ namespace RSBot.General
             Views.View.Instance = new Main();
             Views.View.PendingWindow = new PendingWindow();
             Views.View.AccountsWindow = new Accounts();
-
-            Log.Notify("Plugin [General] initialized!");
         }
 
         /// <summary>

@@ -2,7 +2,6 @@
 using RSBot.Core.Plugins;
 using RSBot.Party.Subscribers;
 using RSBot.Party.Views;
-using RSBot.Theme;
 using System.Windows.Forms;
 
 namespace RSBot.Party
@@ -33,8 +32,6 @@ namespace RSBot.Party
             Views.View.PartyWindow = new AutoFormParty();
 
             PartySubscriber.SubscribeEvents();
-
-            Core.Log.Notify("Plugin [Party] initialized!");
         }
 
         /// <summary>

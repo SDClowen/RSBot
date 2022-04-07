@@ -4,7 +4,6 @@ using RSBot.Protection.Components.Pet;
 using RSBot.Protection.Components.Player;
 using RSBot.Protection.Components.Town;
 using RSBot.Protection.Views;
-using RSBot.Theme;
 using System.Windows.Forms;
 using View = RSBot.Protection.Views.View;
 
@@ -57,8 +56,6 @@ namespace RSBot.Protection
             NoHealthPotionsHandler.Initialize();
             DurabilityLowHandler.Initialize();
             LevelUpHandler.Initialize();
-
-            Log.Notify("Plugin [Protection] initialized!");
         }
 
         /// <summary>

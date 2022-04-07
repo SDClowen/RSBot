@@ -1,7 +1,6 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Plugins;
 using RSBot.Statistics.Stats;
-using RSBot.Theme;
 using System.Windows.Forms;
 
 namespace RSBot.Statistics
@@ -30,8 +29,6 @@ namespace RSBot.Statistics
         public void Initialize()
         {
             CalculatorRegistry.Initialize();
-
-            Log.Notify("Plugin [Statistics] initialized!");
         }
 
         /// <summary>

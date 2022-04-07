@@ -29,8 +29,6 @@ namespace RSBot.Chat
         public void Initialize()
         {
             Views.View.Instance = new Main();
-
-            Log.Notify("Plugin [Chat] initialized!");
         }
 
         /// <summary>

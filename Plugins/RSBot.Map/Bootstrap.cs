@@ -29,7 +29,6 @@ namespace RSBot.Map
         public void Initialize()
         {
             Views.View.Instance = new Main();
-            Core.Log.Notify("Plugin [Map] initialized!");
         }
 
         /// <summary>

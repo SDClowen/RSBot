@@ -21,7 +21,6 @@ namespace RSBot.Skills
         public void Initialize()
         {
             Views.View.Instance = new Main();
-            Core.Log.Notify("Plugin [Skills] initialized!");
         }
 
         /// <inheritdoc />

@@ -1,7 +1,6 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Plugins;
 using RSBot.Shopping.Views;
-using RSBot.Theme;
 using System.Windows.Forms;
 
 namespace RSBot.Shopping
@@ -20,8 +19,7 @@ namespace RSBot.Shopping
             DisplayName = "Items",
             InternalName = "RSBot.Items",
             LoadIndex = 5,
-            TabDisplayIndex = 5,
-            RequireIngame = false
+            TabDisplayIndex = 5
         };
 
         /// <summary>
@@ -30,7 +28,6 @@ namespace RSBot.Shopping
         public void Initialize()
         {
             Views.View.Instance = new Main();
-            Log.Notify("Plugin [Shopping] initialized!");
         }
 
         /// <summary>

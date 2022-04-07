@@ -69,8 +69,6 @@ namespace RSBot.Bot.Default
             Container.Lock = new object();
             Subscriber.ConfigSubscriber.SubscribeEvents();
             Subscriber.TeleportSubscriber.SubscribeEvents();
-
-            Log.NotifyLang("BotBaseInitialized", Info.Name);
         }
 
         /// <summary>
