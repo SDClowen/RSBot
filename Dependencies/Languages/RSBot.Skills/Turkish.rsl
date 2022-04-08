@@ -1,4 +1,4 @@
-DisplayName="Skills"
+DisplayName="Beceriler"
 RSBot.Skills.Main.TabControl.TabPage.Panel.checkHideLowerLevelSkills="Düşük seviye becerileri gizle"
 RSBot.Skills.Main.TabControl.TabPage.Panel.checkShowAttacks="Saldırı"
 RSBot.Skills.Main.TabControl.TabPage.Panel.checkShowBuffs="Buff"
