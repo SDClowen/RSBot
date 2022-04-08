@@ -157,10 +157,10 @@
             this.tabCurrentParty.Controls.Add(this.listParty);
             this.tabCurrentParty.Controls.Add(this.panel1);
             this.tabCurrentParty.Controls.Add(this.grpPartySettings);
-            this.tabCurrentParty.Location = new System.Drawing.Point(4, 22);
+            this.tabCurrentParty.Location = new System.Drawing.Point(4, 25);
             this.tabCurrentParty.Name = "tabCurrentParty";
             this.tabCurrentParty.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCurrentParty.Size = new System.Drawing.Size(734, 429);
+            this.tabCurrentParty.Size = new System.Drawing.Size(734, 426);
             this.tabCurrentParty.TabIndex = 0;
             this.tabCurrentParty.Text = "Party";
             // 
@@ -180,7 +180,7 @@
             this.listParty.Location = new System.Drawing.Point(3, 74);
             this.listParty.MultiSelect = false;
             this.listParty.Name = "listParty";
-            this.listParty.Size = new System.Drawing.Size(728, 320);
+            this.listParty.Size = new System.Drawing.Size(728, 317);
             this.listParty.TabIndex = 0;
             this.listParty.UseCompatibleStateImageBehavior = false;
             this.listParty.View = System.Windows.Forms.View.Details;
@@ -242,7 +242,7 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.lblLeader);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(3, 394);
+            this.panel1.Location = new System.Drawing.Point(3, 391);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(728, 32);
             this.panel1.TabIndex = 8;
@@ -330,10 +330,10 @@
             this.tpAutoParty.Controls.Add(this.groupBox3);
             this.tpAutoParty.Controls.Add(this.groupBox2);
             this.tpAutoParty.Controls.Add(this.grbAutoPartySettings);
-            this.tpAutoParty.Location = new System.Drawing.Point(4, 22);
+            this.tpAutoParty.Location = new System.Drawing.Point(4, 25);
             this.tpAutoParty.Name = "tpAutoParty";
             this.tpAutoParty.Padding = new System.Windows.Forms.Padding(3);
-            this.tpAutoParty.Size = new System.Drawing.Size(734, 429);
+            this.tpAutoParty.Size = new System.Drawing.Size(734, 426);
             this.tpAutoParty.TabIndex = 1;
             this.tpAutoParty.Text = "Auto Party";
             // 
@@ -524,10 +524,10 @@
             this.tpPartyMatching.Controls.Add(this.lvPartyMatching);
             this.tpPartyMatching.Controls.Add(this.topPartyPanel);
             this.tpPartyMatching.Controls.Add(this.bottomPartyPanel);
-            this.tpPartyMatching.Location = new System.Drawing.Point(4, 22);
+            this.tpPartyMatching.Location = new System.Drawing.Point(4, 25);
             this.tpPartyMatching.Name = "tpPartyMatching";
             this.tpPartyMatching.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPartyMatching.Size = new System.Drawing.Size(734, 429);
+            this.tpPartyMatching.Size = new System.Drawing.Size(734, 426);
             this.tpPartyMatching.TabIndex = 2;
             this.tpPartyMatching.Text = "Party Matching";
             // 
@@ -548,7 +548,7 @@
             this.lvPartyMatching.MultiSelect = false;
             this.lvPartyMatching.Name = "lvPartyMatching";
             this.lvPartyMatching.ShowItemToolTips = true;
-            this.lvPartyMatching.Size = new System.Drawing.Size(728, 324);
+            this.lvPartyMatching.Size = new System.Drawing.Size(728, 321);
             this.lvPartyMatching.TabIndex = 15;
             this.lvPartyMatching.UseCompatibleStateImageBehavior = false;
             this.lvPartyMatching.View = System.Windows.Forms.View.Details;
@@ -742,7 +742,7 @@
             this.bottomPartyPanel.Controls.Add(this.lbl_partyPageRange);
             this.bottomPartyPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.bottomPartyPanel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bottomPartyPanel.Location = new System.Drawing.Point(3, 375);
+            this.bottomPartyPanel.Location = new System.Drawing.Point(3, 372);
             this.bottomPartyPanel.Name = "bottomPartyPanel";
             this.bottomPartyPanel.Size = new System.Drawing.Size(728, 51);
             this.bottomPartyPanel.TabIndex = 14;
@@ -853,10 +853,10 @@
             this.tpPartyBuffing.Controls.Add(this.groupBox6);
             this.tpPartyBuffing.Controls.Add(this.groupBox5);
             this.tpPartyBuffing.Controls.Add(this.groupBox1);
-            this.tpPartyBuffing.Location = new System.Drawing.Point(4, 22);
+            this.tpPartyBuffing.Location = new System.Drawing.Point(4, 25);
             this.tpPartyBuffing.Name = "tpPartyBuffing";
             this.tpPartyBuffing.Padding = new System.Windows.Forms.Padding(6);
-            this.tpPartyBuffing.Size = new System.Drawing.Size(734, 429);
+            this.tpPartyBuffing.Size = new System.Drawing.Size(734, 426);
             this.tpPartyBuffing.TabIndex = 3;
             this.tpPartyBuffing.Text = "Buffing";
             this.tpPartyBuffing.UseVisualStyleBackColor = true;
@@ -870,7 +870,7 @@
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox4.Location = new System.Drawing.Point(273, 175);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(210, 248);
+            this.groupBox4.Size = new System.Drawing.Size(210, 245);
             this.groupBox4.TabIndex = 11;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Party Members";
@@ -879,7 +879,7 @@
             // 
             this.btnAddBuffToMember.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnAddBuffToMember.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddBuffToMember.Location = new System.Drawing.Point(6, 219);
+            this.btnAddBuffToMember.Location = new System.Drawing.Point(6, 216);
             this.btnAddBuffToMember.Name = "btnAddBuffToMember";
             this.btnAddBuffToMember.Size = new System.Drawing.Size(75, 21);
             this.btnAddBuffToMember.TabIndex = 11;
@@ -904,7 +904,7 @@
             // 
             this.btnRemoveBuffFromMember.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRemoveBuffFromMember.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemoveBuffFromMember.Location = new System.Drawing.Point(115, 219);
+            this.btnRemoveBuffFromMember.Location = new System.Drawing.Point(115, 216);
             this.btnRemoveBuffFromMember.Name = "btnRemoveBuffFromMember";
             this.btnRemoveBuffFromMember.Size = new System.Drawing.Size(86, 21);
             this.btnRemoveBuffFromMember.TabIndex = 12;
@@ -1010,7 +1010,7 @@
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Right;
             this.groupBox5.Location = new System.Drawing.Point(483, 6);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(245, 417);
+            this.groupBox5.Size = new System.Drawing.Size(245, 414);
             this.groupBox5.TabIndex = 12;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Member Buffs";
@@ -1025,7 +1025,7 @@
             this.selectedMemberBuffs.HideSelection = false;
             this.selectedMemberBuffs.Location = new System.Drawing.Point(3, 16);
             this.selectedMemberBuffs.Name = "selectedMemberBuffs";
-            this.selectedMemberBuffs.Size = new System.Drawing.Size(239, 398);
+            this.selectedMemberBuffs.Size = new System.Drawing.Size(239, 395);
             this.selectedMemberBuffs.TabIndex = 9;
             this.selectedMemberBuffs.UseCompatibleStateImageBehavior = false;
             this.selectedMemberBuffs.View = System.Windows.Forms.View.Details;
@@ -1042,7 +1042,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Left;
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(267, 417);
+            this.groupBox1.Size = new System.Drawing.Size(267, 414);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Buffs";
@@ -1058,7 +1058,7 @@
             this.listPartyBuffSkills.HideSelection = false;
             this.listPartyBuffSkills.Location = new System.Drawing.Point(3, 16);
             this.listPartyBuffSkills.Name = "listPartyBuffSkills";
-            this.listPartyBuffSkills.Size = new System.Drawing.Size(261, 381);
+            this.listPartyBuffSkills.Size = new System.Drawing.Size(261, 378);
             this.listPartyBuffSkills.TabIndex = 9;
             this.listPartyBuffSkills.UseCompatibleStateImageBehavior = false;
             this.listPartyBuffSkills.View = System.Windows.Forms.View.Details;
@@ -1078,7 +1078,7 @@
             // 
             this.checkHideLowerLevelSkills.AutoSize = true;
             this.checkHideLowerLevelSkills.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.checkHideLowerLevelSkills.Location = new System.Drawing.Point(3, 397);
+            this.checkHideLowerLevelSkills.Location = new System.Drawing.Point(3, 394);
             this.checkHideLowerLevelSkills.Name = "checkHideLowerLevelSkills";
             this.checkHideLowerLevelSkills.Size = new System.Drawing.Size(261, 17);
             this.checkHideLowerLevelSkills.TabIndex = 10;
@@ -1091,7 +1091,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.tabMain);
             this.Name = "Main";
             this.Padding = new System.Windows.Forms.Padding(6);

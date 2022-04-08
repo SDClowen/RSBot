@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Potion trader", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Stable keeper", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Protector trader", System.Windows.Forms.HorizontalAlignment.Left);
@@ -38,16 +37,16 @@
             this.listShoppingList = new System.Windows.Forms.ListView();
             this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colAmount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.contextShoppingList = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextShoppingList = new System.Windows.Forms.ContextMenuStrip();
             this.menuChangeAmount = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuRemoveItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.imgShoppingList = new System.Windows.Forms.ImageList(this.components);
+            this.imgShoppingList = new System.Windows.Forms.ImageList();
             this.listAvailableProducts = new System.Windows.Forms.ListView();
             this.colAvailableName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.contextAvailableProducts = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextAvailableProducts = new System.Windows.Forms.ContextMenuStrip();
             this.menuAddToShoppingList = new System.Windows.Forms.ToolStripMenuItem();
-            this.imgShoppingListNPC = new System.Windows.Forms.ImageList(this.components);
+            this.imgShoppingListNPC = new System.Windows.Forms.ImageList();
             this.label1 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -69,7 +68,7 @@
             this.colPickup = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colSell = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.collStore = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.contextList = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextList = new System.Windows.Forms.ContextMenuStrip();
             this.btnAddToSell = new System.Windows.Forms.ToolStripMenuItem();
             this.btnAddToStore = new System.Windows.Forms.ToolStripMenuItem();
             this.btnPickup = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,7 +76,7 @@
             this.btnDontSell = new System.Windows.Forms.ToolStripMenuItem();
             this.btnDontStore = new System.Windows.Forms.ToolStripMenuItem();
             this.btnDontPickup = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchImageList = new System.Windows.Forms.ImageList(this.components);
+            this.searchImageList = new System.Windows.Forms.ImageList();
             this.filterPanel = new System.Windows.Forms.Panel();
             this.groupOthers = new System.Windows.Forms.GroupBox();
             this.checkAlchemy = new System.Windows.Forms.CheckBox();
@@ -1290,7 +1289,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.tabMain);
             this.DoubleBuffered = true;
             this.Name = "Main";

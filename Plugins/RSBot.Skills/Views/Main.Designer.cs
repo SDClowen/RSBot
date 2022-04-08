@@ -181,8 +181,7 @@
             // btnRemoveAttackSkill
             // 
             this.btnRemoveAttackSkill.Font = new System.Drawing.Font("Webdings", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
- 
-           this.btnRemoveAttackSkill.Location = new System.Drawing.Point(327, 19);
+            this.btnRemoveAttackSkill.Location = new System.Drawing.Point(327, 19);
             this.btnRemoveAttackSkill.Name = "btnRemoveAttackSkill";
             this.btnRemoveAttackSkill.Size = new System.Drawing.Size(24, 24);
             this.btnRemoveAttackSkill.TabIndex = 1;
@@ -296,10 +295,10 @@
             // 
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.groupBox2);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(384, 429);
+            this.tabPage1.Size = new System.Drawing.Size(384, 426);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General setup";
             // 
@@ -308,10 +307,10 @@
             this.tabPage2.BackColor = System.Drawing.Color.Transparent;
             this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Controls.Add(this.groupBox4);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(384, 429);
+            this.tabPage2.Size = new System.Drawing.Size(384, 426);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Advanced setup";
             // 
@@ -418,10 +417,10 @@
             this.tabPage3.BackColor = System.Drawing.Color.Transparent;
             this.tabPage3.Controls.Add(this.listSkills);
             this.tabPage3.Controls.Add(this.panel1);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(342, 429);
+            this.tabPage3.Size = new System.Drawing.Size(342, 426);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Player skills";
             // 
@@ -437,7 +436,7 @@
             this.listSkills.HideSelection = false;
             this.listSkills.Location = new System.Drawing.Point(3, 3);
             this.listSkills.Name = "listSkills";
-            this.listSkills.Size = new System.Drawing.Size(336, 394);
+            this.listSkills.Size = new System.Drawing.Size(336, 391);
             this.listSkills.TabIndex = 5;
             this.listSkills.UseCompatibleStateImageBehavior = false;
             this.listSkills.View = System.Windows.Forms.View.Details;
@@ -459,7 +458,7 @@
             this.panel1.Controls.Add(this.checkShowAttacks);
             this.panel1.Controls.Add(this.checkShowBuffs);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(3, 397);
+            this.panel1.Location = new System.Drawing.Point(3, 394);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(336, 29);
             this.panel1.TabIndex = 9;
@@ -513,10 +512,10 @@
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.listActiveBuffs);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(342, 429);
+            this.tabPage4.Size = new System.Drawing.Size(342, 426);
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "Active buffs";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -534,7 +533,7 @@
             this.listActiveBuffs.HideSelection = false;
             this.listActiveBuffs.Location = new System.Drawing.Point(3, 3);
             this.listActiveBuffs.Name = "listActiveBuffs";
-            this.listActiveBuffs.Size = new System.Drawing.Size(336, 423);
+            this.listActiveBuffs.Size = new System.Drawing.Size(336, 420);
             this.listActiveBuffs.TabIndex = 6;
             this.listActiveBuffs.UseCompatibleStateImageBehavior = false;
             this.listActiveBuffs.View = System.Windows.Forms.View.Details;
@@ -577,7 +576,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.tabControl2);
             this.Controls.Add(this.tabControl1);
             this.Name = "Main";
