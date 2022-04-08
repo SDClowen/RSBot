@@ -79,9 +79,9 @@
             this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(6, 3);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(63, 15);
+            this.label2.Size = new System.Drawing.Size(65, 15);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Free slots:";
+            this.label2.Text = "Free Slots:";
             // 
             // lblFreeSlots
             // 
@@ -90,9 +90,9 @@
             this.lblFreeSlots.AutoSize = true;
             this.lblFreeSlots.Location = new System.Drawing.Point(69, 3);
             this.lblFreeSlots.Name = "lblFreeSlots";
-            this.lblFreeSlots.Size = new System.Drawing.Size(74, 13);
+            this.lblFreeSlots.Size = new System.Drawing.Size(13, 13);
             this.lblFreeSlots.TabIndex = 4;
-            this.lblFreeSlots.Text = "not calculated";
+            this.lblFreeSlots.Text = "0";
             // 
             // imgItems
             // 

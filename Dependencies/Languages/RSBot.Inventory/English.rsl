@@ -1,8 +1,7 @@
 DisplayName="Inventory"
 RSBot.Inventory.Main.Panel.buttonUseItem="Use"
 RSBot.Inventory.Main.Panel.label1="Inventory:"
-RSBot.Inventory.Main.Panel.label2="Free slots:"
-RSBot.Inventory.Main.Panel.lblFreeSlots="not calculated"
+RSBot.Inventory.Main.Panel.label2="Free Slots:"
 RSBot.Inventory.UseItemDialog.label2="Item according to your own decision
   you can use. A condition window will open
 and from there you can set the terms you want"
