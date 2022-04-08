@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Potion trader", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Stable keeper", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Protector trader", System.Windows.Forms.HorizontalAlignment.Left);
@@ -38,16 +37,16 @@
             this.listShoppingList = new System.Windows.Forms.ListView();
             this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colAmount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.contextShoppingList = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextShoppingList = new System.Windows.Forms.ContextMenuStrip();
             this.menuChangeAmount = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuRemoveItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.imgShoppingList = new System.Windows.Forms.ImageList(this.components);
+            this.imgShoppingList = new System.Windows.Forms.ImageList();
             this.listAvailableProducts = new System.Windows.Forms.ListView();
             this.colAvailableName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.contextAvailableProducts = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextAvailableProducts = new System.Windows.Forms.ContextMenuStrip();
             this.menuAddToShoppingList = new System.Windows.Forms.ToolStripMenuItem();
-            this.imgShoppingListNPC = new System.Windows.Forms.ImageList(this.components);
+            this.imgShoppingListNPC = new System.Windows.Forms.ImageList();
             this.label1 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -69,7 +68,7 @@
             this.colPickup = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colSell = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.collStore = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.contextList = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextList = new System.Windows.Forms.ContextMenuStrip();
             this.btnAddToSell = new System.Windows.Forms.ToolStripMenuItem();
             this.btnAddToStore = new System.Windows.Forms.ToolStripMenuItem();
             this.btnPickup = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,7 +76,7 @@
             this.btnDontSell = new System.Windows.Forms.ToolStripMenuItem();
             this.btnDontStore = new System.Windows.Forms.ToolStripMenuItem();
             this.btnDontPickup = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchImageList = new System.Windows.Forms.ImageList(this.components);
+            this.searchImageList = new System.Windows.Forms.ImageList();
             this.filterPanel = new System.Windows.Forms.Panel();
             this.groupOthers = new System.Windows.Forms.GroupBox();
             this.checkAlchemy = new System.Windows.Forms.CheckBox();
@@ -404,10 +403,10 @@
             // 
             this.tabBuyFilter.Controls.Add(this.groupBox1);
             this.tabBuyFilter.Controls.Add(this.splitContainer1);
-            this.tabBuyFilter.Location = new System.Drawing.Point(4, 22);
+            this.tabBuyFilter.Location = new System.Drawing.Point(4, 25);
             this.tabBuyFilter.Name = "tabBuyFilter";
             this.tabBuyFilter.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBuyFilter.Size = new System.Drawing.Size(734, 435);
+            this.tabBuyFilter.Size = new System.Drawing.Size(734, 432);
             this.tabBuyFilter.TabIndex = 0;
             this.tabBuyFilter.Text = "Shopping";
             this.tabBuyFilter.UseVisualStyleBackColor = true;
@@ -469,9 +468,9 @@
             this.tabSellFilter.Controls.Add(this.filterPanel);
             this.tabSellFilter.Controls.Add(this.panel3);
             this.tabSellFilter.Controls.Add(this.pictureBox1);
-            this.tabSellFilter.Location = new System.Drawing.Point(4, 22);
+            this.tabSellFilter.Location = new System.Drawing.Point(4, 25);
             this.tabSellFilter.Name = "tabSellFilter";
-            this.tabSellFilter.Size = new System.Drawing.Size(734, 435);
+            this.tabSellFilter.Size = new System.Drawing.Size(734, 432);
             this.tabSellFilter.TabIndex = 1;
             this.tabSellFilter.Text = "Item filter";
             this.tabSellFilter.UseVisualStyleBackColor = true;
@@ -492,7 +491,7 @@
             this.listFilter.HideSelection = false;
             this.listFilter.Location = new System.Drawing.Point(265, 0);
             this.listFilter.Name = "listFilter";
-            this.listFilter.Size = new System.Drawing.Size(469, 399);
+            this.listFilter.Size = new System.Drawing.Size(469, 396);
             this.listFilter.SmallImageList = this.searchImageList;
             this.listFilter.TabIndex = 5;
             this.listFilter.UseCompatibleStateImageBehavior = false;
@@ -606,7 +605,7 @@
             this.filterPanel.Location = new System.Drawing.Point(0, 0);
             this.filterPanel.Name = "filterPanel";
             this.filterPanel.Padding = new System.Windows.Forms.Padding(12);
-            this.filterPanel.Size = new System.Drawing.Size(265, 399);
+            this.filterPanel.Size = new System.Drawing.Size(265, 396);
             this.filterPanel.TabIndex = 20;
             // 
             // groupOthers
@@ -1117,7 +1116,7 @@
             this.panel3.Controls.Add(this.btnReload);
             this.panel3.Controls.Add(this.txtSellSearch);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 399);
+            this.panel3.Location = new System.Drawing.Point(0, 396);
             this.panel3.Margin = new System.Windows.Forms.Padding(0);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(734, 36);
@@ -1197,10 +1196,10 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.groupBox7);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(734, 435);
+            this.tabPage1.Size = new System.Drawing.Size(734, 432);
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Pickup settings";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -1290,7 +1289,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.tabMain);
             this.DoubleBuffered = true;
             this.Name = "Main";

@@ -88,10 +88,10 @@
             // 
             this.tabAll.Controls.Add(this.txtSendAll);
             this.tabAll.Controls.Add(this.txtAll);
-            this.tabAll.Location = new System.Drawing.Point(4, 22);
+            this.tabAll.Location = new System.Drawing.Point(4, 25);
             this.tabAll.Name = "tabAll";
             this.tabAll.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAll.Size = new System.Drawing.Size(734, 439);
+            this.tabAll.Size = new System.Drawing.Size(734, 436);
             this.tabAll.TabIndex = 0;
             this.tabAll.Text = "All";
             this.tabAll.UseVisualStyleBackColor = true;
@@ -127,10 +127,10 @@
             this.tabPrivate.Controls.Add(this.txtRecievePrivate);
             this.tabPrivate.Controls.Add(this.txtSendPrivate);
             this.tabPrivate.Controls.Add(this.txtPrivate);
-            this.tabPrivate.Location = new System.Drawing.Point(4, 22);
+            this.tabPrivate.Location = new System.Drawing.Point(4, 25);
             this.tabPrivate.Name = "tabPrivate";
             this.tabPrivate.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPrivate.Size = new System.Drawing.Size(734, 439);
+            this.tabPrivate.Size = new System.Drawing.Size(734, 436);
             this.tabPrivate.TabIndex = 1;
             this.tabPrivate.Text = "Private";
             this.tabPrivate.UseVisualStyleBackColor = true;
@@ -171,10 +171,10 @@
             // 
             this.tabParty.Controls.Add(this.txtSendParty);
             this.tabParty.Controls.Add(this.txtParty);
-            this.tabParty.Location = new System.Drawing.Point(4, 22);
+            this.tabParty.Location = new System.Drawing.Point(4, 25);
             this.tabParty.Name = "tabParty";
             this.tabParty.Padding = new System.Windows.Forms.Padding(3);
-            this.tabParty.Size = new System.Drawing.Size(734, 439);
+            this.tabParty.Size = new System.Drawing.Size(734, 436);
             this.tabParty.TabIndex = 2;
             this.tabParty.Text = "Party";
             this.tabParty.UseVisualStyleBackColor = true;
@@ -209,10 +209,10 @@
             // 
             this.tabGuild.Controls.Add(this.txtSendGuild);
             this.tabGuild.Controls.Add(this.txtGuild);
-            this.tabGuild.Location = new System.Drawing.Point(4, 22);
+            this.tabGuild.Location = new System.Drawing.Point(4, 25);
             this.tabGuild.Name = "tabGuild";
             this.tabGuild.Padding = new System.Windows.Forms.Padding(3);
-            this.tabGuild.Size = new System.Drawing.Size(734, 439);
+            this.tabGuild.Size = new System.Drawing.Size(734, 436);
             this.tabGuild.TabIndex = 3;
             this.tabGuild.Text = "Guild";
             this.tabGuild.UseVisualStyleBackColor = true;
@@ -247,10 +247,10 @@
             // 
             this.tabUnion.Controls.Add(this.txtSendUnion);
             this.tabUnion.Controls.Add(this.txtUnion);
-            this.tabUnion.Location = new System.Drawing.Point(4, 22);
+            this.tabUnion.Location = new System.Drawing.Point(4, 25);
             this.tabUnion.Name = "tabUnion";
             this.tabUnion.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUnion.Size = new System.Drawing.Size(734, 439);
+            this.tabUnion.Size = new System.Drawing.Size(734, 436);
             this.tabUnion.TabIndex = 6;
             this.tabUnion.Text = "Union";
             this.tabUnion.UseVisualStyleBackColor = true;
@@ -285,10 +285,10 @@
             // 
             this.tabAcademy.Controls.Add(this.txtSendAcademy);
             this.tabAcademy.Controls.Add(this.txtAcademy);
-            this.tabAcademy.Location = new System.Drawing.Point(4, 22);
+            this.tabAcademy.Location = new System.Drawing.Point(4, 25);
             this.tabAcademy.Name = "tabAcademy";
             this.tabAcademy.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAcademy.Size = new System.Drawing.Size(734, 439);
+            this.tabAcademy.Size = new System.Drawing.Size(734, 436);
             this.tabAcademy.TabIndex = 4;
             this.tabAcademy.Text = "Academy";
             this.tabAcademy.UseVisualStyleBackColor = true;
@@ -322,10 +322,10 @@
             // tabGlobal
             // 
             this.tabGlobal.Controls.Add(this.txtGlobal);
-            this.tabGlobal.Location = new System.Drawing.Point(4, 22);
+            this.tabGlobal.Location = new System.Drawing.Point(4, 25);
             this.tabGlobal.Name = "tabGlobal";
             this.tabGlobal.Padding = new System.Windows.Forms.Padding(3);
-            this.tabGlobal.Size = new System.Drawing.Size(734, 439);
+            this.tabGlobal.Size = new System.Drawing.Size(734, 436);
             this.tabGlobal.TabIndex = 5;
             this.tabGlobal.Text = "Global / Notice";
             this.tabGlobal.UseVisualStyleBackColor = true;
@@ -347,10 +347,10 @@
             // tabStall
             // 
             this.tabStall.Controls.Add(this.txtStall);
-            this.tabStall.Location = new System.Drawing.Point(4, 22);
+            this.tabStall.Location = new System.Drawing.Point(4, 25);
             this.tabStall.Name = "tabStall";
             this.tabStall.Padding = new System.Windows.Forms.Padding(3);
-            this.tabStall.Size = new System.Drawing.Size(734, 439);
+            this.tabStall.Size = new System.Drawing.Size(734, 436);
             this.tabStall.TabIndex = 5;
             this.tabStall.Text = "Stall";
             this.tabStall.UseVisualStyleBackColor = true;
@@ -372,10 +372,10 @@
             // tabUnique
             // 
             this.tabUnique.Controls.Add(this.UniqueText);
-            this.tabUnique.Location = new System.Drawing.Point(4, 22);
+            this.tabUnique.Location = new System.Drawing.Point(4, 25);
             this.tabUnique.Name = "tabUnique";
             this.tabUnique.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUnique.Size = new System.Drawing.Size(734, 439);
+            this.tabUnique.Size = new System.Drawing.Size(734, 436);
             this.tabUnique.TabIndex = 7;
             this.tabUnique.Text = "Unique";
             this.tabUnique.UseVisualStyleBackColor = true;
@@ -398,7 +398,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.tabMain);
             this.Name = "Main";
             this.Padding = new System.Windows.Forms.Padding(6);

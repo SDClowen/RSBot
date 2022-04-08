@@ -30,7 +30,6 @@ namespace RSBot.Map.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblX = new System.Windows.Forms.Label();
@@ -39,7 +38,7 @@ namespace RSBot.Map.Views
             this.mapCanvas = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
             this.comboViewType = new System.Windows.Forms.ComboBox();
-            this.trmInterval = new System.Windows.Forms.Timer(this.components);
+            this.trmInterval = new System.Windows.Forms.Timer();
             this.labelSectorInfo = new System.Windows.Forms.Label();
             this.lvMonster = new System.Windows.Forms.ListView();
             this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -51,7 +50,7 @@ namespace RSBot.Map.Views
             this.buttonZoomOut = new System.Windows.Forms.Button();
             this.checkBoxAutoSelectUniques = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.timerUniqueChecker = new System.Windows.Forms.Timer(this.components);
+            this.timerUniqueChecker = new System.Windows.Forms.Timer();
             ((System.ComponentModel.ISupportInitialize)(this.mapCanvas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -264,7 +263,6 @@ namespace RSBot.Map.Views
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.label3);
             this.Controls.Add(this.checkBoxAutoSelectUniques);
             this.Controls.Add(this.buttonZoomOut);
