@@ -145,7 +145,7 @@
             // 
             // btnGetCurrent
             // 
-            this.btnGetCurrent.Location = new System.Drawing.Point(107, 106);
+            this.btnGetCurrent.Location = new System.Drawing.Point(76, 103);
             this.btnGetCurrent.Name = "btnGetCurrent";
             this.btnGetCurrent.Size = new System.Drawing.Size(97, 23);
             this.btnGetCurrent.TabIndex = 3;
@@ -156,7 +156,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 83);
+            this.label3.Location = new System.Drawing.Point(27, 80);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(43, 13);
             this.label3.TabIndex = 1;
@@ -165,24 +165,24 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 57);
+            this.label2.Location = new System.Drawing.Point(53, 54);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 13);
+            this.label2.Size = new System.Drawing.Size(17, 13);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Y-Coordinate:";
+            this.label2.Text = "Y:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 31);
+            this.label1.Location = new System.Drawing.Point(53, 28);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(71, 13);
+            this.label1.Size = new System.Drawing.Size(17, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "X-Coordinate:";
+            this.label1.Text = "X:";
             // 
             // txtRadius
             // 
-            this.txtRadius.Location = new System.Drawing.Point(107, 80);
+            this.txtRadius.Location = new System.Drawing.Point(76, 77);
             this.txtRadius.Name = "txtRadius";
             this.txtRadius.Size = new System.Drawing.Size(97, 20);
             this.txtRadius.TabIndex = 0;
@@ -191,7 +191,7 @@
             // 
             // txtYCoord
             // 
-            this.txtYCoord.Location = new System.Drawing.Point(107, 54);
+            this.txtYCoord.Location = new System.Drawing.Point(76, 51);
             this.txtYCoord.Name = "txtYCoord";
             this.txtYCoord.Size = new System.Drawing.Size(97, 20);
             this.txtYCoord.TabIndex = 0;
@@ -199,7 +199,7 @@
             // 
             // txtXCoord
             // 
-            this.txtXCoord.Location = new System.Drawing.Point(107, 28);
+            this.txtXCoord.Location = new System.Drawing.Point(76, 25);
             this.txtXCoord.Name = "txtXCoord";
             this.txtXCoord.Size = new System.Drawing.Size(97, 20);
             this.txtXCoord.TabIndex = 0;

@@ -404,10 +404,10 @@
             // 
             this.tabBuyFilter.Controls.Add(this.groupBox1);
             this.tabBuyFilter.Controls.Add(this.splitContainer1);
-            this.tabBuyFilter.Location = new System.Drawing.Point(4, 22);
+            this.tabBuyFilter.Location = new System.Drawing.Point(4, 25);
             this.tabBuyFilter.Name = "tabBuyFilter";
             this.tabBuyFilter.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBuyFilter.Size = new System.Drawing.Size(734, 435);
+            this.tabBuyFilter.Size = new System.Drawing.Size(734, 432);
             this.tabBuyFilter.TabIndex = 0;
             this.tabBuyFilter.Text = "Shopping";
             this.tabBuyFilter.UseVisualStyleBackColor = true;
@@ -469,9 +469,9 @@
             this.tabSellFilter.Controls.Add(this.filterPanel);
             this.tabSellFilter.Controls.Add(this.panel3);
             this.tabSellFilter.Controls.Add(this.pictureBox1);
-            this.tabSellFilter.Location = new System.Drawing.Point(4, 22);
+            this.tabSellFilter.Location = new System.Drawing.Point(4, 25);
             this.tabSellFilter.Name = "tabSellFilter";
-            this.tabSellFilter.Size = new System.Drawing.Size(734, 435);
+            this.tabSellFilter.Size = new System.Drawing.Size(734, 432);
             this.tabSellFilter.TabIndex = 1;
             this.tabSellFilter.Text = "Item filter";
             this.tabSellFilter.UseVisualStyleBackColor = true;
@@ -492,7 +492,7 @@
             this.listFilter.HideSelection = false;
             this.listFilter.Location = new System.Drawing.Point(265, 0);
             this.listFilter.Name = "listFilter";
-            this.listFilter.Size = new System.Drawing.Size(469, 399);
+            this.listFilter.Size = new System.Drawing.Size(469, 396);
             this.listFilter.SmallImageList = this.searchImageList;
             this.listFilter.TabIndex = 5;
             this.listFilter.UseCompatibleStateImageBehavior = false;
@@ -606,7 +606,7 @@
             this.filterPanel.Location = new System.Drawing.Point(0, 0);
             this.filterPanel.Name = "filterPanel";
             this.filterPanel.Padding = new System.Windows.Forms.Padding(12);
-            this.filterPanel.Size = new System.Drawing.Size(265, 399);
+            this.filterPanel.Size = new System.Drawing.Size(265, 396);
             this.filterPanel.TabIndex = 20;
             // 
             // groupOthers
@@ -1057,9 +1057,9 @@
             this.checkBoxRareItems.AutoSize = true;
             this.checkBoxRareItems.Location = new System.Drawing.Point(16, 69);
             this.checkBoxRareItems.Name = "checkBoxRareItems";
-            this.checkBoxRareItems.Size = new System.Drawing.Size(136, 17);
+            this.checkBoxRareItems.Size = new System.Drawing.Size(76, 17);
             this.checkBoxRareItems.TabIndex = 40;
-            this.checkBoxRareItems.Text = "Rare Items (Sox Types)";
+            this.checkBoxRareItems.Text = "Rare (Sox)";
             this.checkBoxRareItems.UseVisualStyleBackColor = true;
             // 
             // checkMale
@@ -1117,7 +1117,7 @@
             this.panel3.Controls.Add(this.btnReload);
             this.panel3.Controls.Add(this.txtSellSearch);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 399);
+            this.panel3.Location = new System.Drawing.Point(0, 396);
             this.panel3.Margin = new System.Windows.Forms.Padding(0);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(734, 36);
@@ -1197,10 +1197,10 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.groupBox7);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(734, 435);
+            this.tabPage1.Size = new System.Drawing.Size(734, 432);
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Pickup settings";
             this.tabPage1.UseVisualStyleBackColor = true;
