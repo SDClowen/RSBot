@@ -19,7 +19,7 @@ namespace RSBot.Inventory
         {
             DisplayAsTab = true,
             DisplayName = "Inventory",
-            InternalName = "RSBot.Invenotry",
+            InternalName = "RSBot.Inventory",
             LoadIndex = 6,
             TabDisplayIndex = 6
         };

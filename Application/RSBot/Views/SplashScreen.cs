@@ -110,6 +110,8 @@ namespace RSBot.Views
         {
             Kernel.Language = GlobalConfig.Get("RSBot.Language", "English");
 
+            LanguageManager.Translate(_mainForm, Kernel.Language);
+
             //---- Boot kernel -----
             Kernel.Initialize();
             Game.Initialize();
