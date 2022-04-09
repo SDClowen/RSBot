@@ -1,4 +1,4 @@
-DisplayName="Items"
+DisplayName="Produkte"
 RSBot.Items.Main.TabControl.TabPage.GroupBox.checkSellItemsFromPet="Verkaufen Sie Artikel von pet"
 RSBot.Items.Main.TabControl.TabPage.GroupBox.checkRepairGear="Automatisches Reparieren aller Items"
 RSBot.Items.Main.TabControl.TabPage.GroupBox.checkEnable="Automatischer Start in der Stadt"

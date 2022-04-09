@@ -1,4 +1,4 @@
-DisplayName="Skills"
+DisplayName="Fähigkeiten"
 RSBot.Skills.Main.TabControl.TabPage.Panel.checkHideLowerLevelSkills="Ausblenden von Fähigkeiten auf niedrigerem Level"
 RSBot.Skills.Main.TabControl.TabPage.Panel.checkShowAttacks="Angriffe"
 RSBot.Skills.Main.TabControl.TabPage.Panel.checkShowBuffs="Buffs"
