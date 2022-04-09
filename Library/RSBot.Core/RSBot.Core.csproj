@@ -67,6 +67,7 @@
     <Compile Include="Config\GlobalConfig.cs" />
     <Compile Include="Extensions\ListViewExtensions.cs" />
     <Compile Include="Extensions\NativeExtensions.cs" />
+    <Compile Include="Extensions\PacketExtensions.cs" />
     <Compile Include="Extensions\SocketExtensions.cs" />
     <Compile Include="GameClientType.cs" />
     <Compile Include="LanguageManager.cs" />

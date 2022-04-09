@@ -1,5 +1,6 @@
 ﻿using RSBot.Chat.Objects;
 using RSBot.Core;
+using RSBot.Core.Extensions;
 using RSBot.Core.Network;
 
 namespace RSBot.Chat.Bundle
@@ -30,11 +31,7 @@ namespace RSBot.Chat.Bundle
             if (type == ChatType.Private)
                 chatPacket.WriteString(reciever);
 
-            if (!Game.ClientType.ToString().StartsWith("Vietnam") &&
-                Game.ClientType != GameClientType.Chinese)
-                chatPacket.WriteUnicode(message);
-            else
-                chatPacket.WriteString(message);
+            chatPacket.WriteConditonalString(message);
 
             chatPacket.Lock();
 
