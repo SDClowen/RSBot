@@ -1,4 +1,5 @@
 ﻿using RSBot.Core;
+using RSBot.Core.Extensions;
 using RSBot.Core.Network;
 using RSBot.Core.Objects.Party;
 
@@ -33,15 +34,7 @@ namespace RSBot.Party.Bundle.PartyMatching.Network
             Container.PartyMatching.Config.Purpose = (PartyPurpose)packet.ReadByte();
             Container.PartyMatching.Config.LevelFrom = packet.ReadByte();
             Container.PartyMatching.Config.LevelTo = packet.ReadByte();
-
-            string title;
-            if (!Game.ClientType.ToString().StartsWith("Vietnam") &&
-                Game.ClientType != GameClientType.Chinese)
-                title = packet.ReadUnicode();
-            else
-                title = packet.ReadString();
-
-            Container.PartyMatching.Config.Title = title;
+            Container.PartyMatching.Config.Title = packet.ReadConditonalString();
 
             Core.Event.EventManager.FireEvent("OnChangePartyEntry");
         }

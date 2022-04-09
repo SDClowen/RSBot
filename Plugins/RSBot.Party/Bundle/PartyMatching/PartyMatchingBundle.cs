@@ -1,4 +1,5 @@
 ﻿using RSBot.Core;
+using RSBot.Core.Extensions;
 using RSBot.Core.Network;
 using RSBot.Party.Bundle.PartyMatching.Objects;
 using System.Threading.Tasks;
@@ -46,12 +47,7 @@ namespace RSBot.Party.Bundle.PartyMatching
             packet.WriteByte(Config.Purpose);
             packet.WriteByte(Config.LevelFrom);
             packet.WriteByte(Config.LevelTo);
-
-            if (!Game.ClientType.ToString().StartsWith("Vietnam") &&
-                Game.ClientType != GameClientType.Chinese)
-                packet.WriteUnicode(Config.Title);
-            else
-                packet.WriteString(Config.Title);
+            packet.WriteConditonalString(Config.Title);
 
             packet.Lock();
 
@@ -88,12 +84,7 @@ namespace RSBot.Party.Bundle.PartyMatching
             packet.WriteByte(Config.Purpose);
             packet.WriteByte(Config.LevelFrom);
             packet.WriteByte(Config.LevelTo);
-
-            if (!Game.ClientType.ToString().StartsWith("Vietnam") &&
-                Game.ClientType != GameClientType.Chinese)
-                packet.WriteUnicode(Config.Title);
-            else
-                packet.WriteString(Config.Title);
+            packet.WriteConditonalString(Config.Title);
 
             packet.Lock();
 

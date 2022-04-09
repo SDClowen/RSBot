@@ -1,5 +1,6 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Extensions;
 using RSBot.Core.Network;
 using RSBot.Core.Objects.Party;
 
@@ -98,12 +99,7 @@ namespace RSBot.Party.Bundle.PartyMatching.Objects
             result.Purpose = (PartyPurpose)packet.ReadByte();
             result.MinLevel = packet.ReadByte();
             result.MaxLevel = packet.ReadByte();
-
-            if (!Game.ClientType.ToString().StartsWith("Vietnam") && 
-                Game.ClientType != GameClientType.Chinese)
-                result.Title = packet.ReadUnicode();
-            else
-                result.Title = packet.ReadString();
+            result.Title = packet.ReadConditonalString();
 
             return result;
         }
