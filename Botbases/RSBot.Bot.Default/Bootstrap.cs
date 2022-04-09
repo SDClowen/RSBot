@@ -5,7 +5,6 @@ using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Objects;
 using RSBot.Core.Plugins;
-using RSBot.Theme;
 using System;
 using System.Windows.Forms;
 
@@ -21,7 +20,7 @@ namespace RSBot.Bot.Default
         /// </value>
         public BotbaseInfo Info => new BotbaseInfo
         {
-            Name = "RSBot.Bot.Default",
+            Name = "RSBot.Default",
             DisplayName = "RSBot",
             TabText = "Training"
         };

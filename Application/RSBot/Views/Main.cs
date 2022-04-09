@@ -63,13 +63,16 @@ namespace RSBot.Views
             menuBotbase.Tag = selectedBotbase;
             var tempHandle = tabMain.Handle; //Generate the handle for this bitch
 
-            tabMain.TabPages.RemoveByKey("tabBotbase");
+            if(Kernel.Bot?.Botbase != null)
+                tabMain.TabPages.RemoveByKey(Kernel.Bot.Botbase.Info.Name);
+
             //Add the tab to the tabcontrol
-            var tabPage = new TabPage(selectedBotbase.Info.TabText)
+            var tabPage = new TabPage(LanguageManager.GetLangBySpecificKey("RSBot.Default", "DisplayName"))
             {
-                Name = "tabBotbase",
+                Name = selectedBotbase.Info.Name,
                 Enabled = false
             };
+            
             tabPage.BackColor = Color.FromArgb(200, BackColor);
             tabPage.ForeColor = ForeColor;
             tabPage.Controls.Add(selectedBotbase.GetView());
@@ -92,23 +95,25 @@ namespace RSBot.Views
         /// </summary>
         private void LoadExtensions()
         {
-            foreach (var ext in Kernel.PluginManager.Extensions.Values)
-                ext.Initialize();
+            foreach (var plugin in Kernel.PluginManager.Extensions.Values)
+                plugin.Initialize();
 
-            var tempExtensions =
+            var extensions =
                 Kernel.PluginManager.Extensions.OrderBy(entry => entry.Value.Information.TabDisplayIndex)
                     .ToDictionary(x => x.Key, x => x.Value);
 
-            foreach (var extension in tempExtensions.Where(extension => extension.Value.Information.DisplayAsTab))
+            foreach (var extension in extensions.Where(extension => extension.Value.Information.DisplayAsTab))
             {
+                extension.Value.Translate();
+
                 var tabPage = new TabPage
                 {
-                    Text = extension.Value.Information.DisplayName,
-                    Enabled = !extension.Value.Information.RequireIngame
+                    Text = LanguageManager.GetLangBySpecificKey(extension.Value.Information.InternalName, "DisplayName"),
+                    Enabled = !extension.Value.Information.RequireIngame,
+                    Name = extension.Value.Information.InternalName
                 };
 
                 var control = extension.Value.GetView();
-                extension.Value.Translate();
 
                 control.Dock = DockStyle.Fill;
 
@@ -133,7 +138,7 @@ namespace RSBot.Views
                 info.BringToFront();
             }
 
-            foreach (var extension in tempExtensions.Where(extension => !extension.Value.Information.DisplayAsTab))
+            foreach (var extension in extensions.Where(extension => !extension.Value.Information.DisplayAsTab))
             {
                 var menuItem = new ToolStripMenuItem(extension.Value.Information.DisplayName)
                 {
@@ -203,6 +208,7 @@ namespace RSBot.Views
             };
 
             var content = plugin.GetView();
+            plugin.Translate();
             content.Dock = DockStyle.Fill;
 
             window.Size = new Size(content.Size.Width + 15, content.Size.Height + 15);
@@ -271,9 +277,6 @@ namespace RSBot.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void Main_Load(object sender, EventArgs e)
         {
-            //if (Kernel.Language != "English")
-                LanguageManager.Translate(this, Kernel.Language);
-            
             menuSidebar.Checked = GlobalConfig.Get("RSBot.ShowSidebar", true);
 
             foreach (var item in LanguageManager.GetLanguages())
@@ -308,11 +311,21 @@ namespace RSBot.Views
             foreach (ToolStripMenuItem item in languageToolStripMenuItem.DropDownItems)
                 item.Checked = false;
 
-            foreach (var plugin in Kernel.PluginManager.Extensions.Values)
-                plugin.Translate();
+            foreach (var plugin in Kernel.PluginManager.Extensions)
+            {
+                plugin.Value.Translate();
 
-            foreach (var botbase in Kernel.BotbaseManager.Bots.Values)
-                botbase.Translate();
+                var tabpage = tabMain.TabPages[plugin.Key];
+                tabpage.Text = LanguageManager.GetLangBySpecificKey(plugin.Key, "DisplayName");
+            }
+
+            foreach (var botbase in Kernel.BotbaseManager.Bots)
+            {
+                botbase.Value.Translate();
+
+                var tabpage = tabMain.TabPages[botbase.Key];
+                tabpage.Text = LanguageManager.GetLangBySpecificKey(botbase.Key, "DisplayName");
+            }
 
             LanguageManager.Translate(this, Kernel.Language);
 
