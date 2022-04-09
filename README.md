@@ -12,9 +12,8 @@ Hello respected silkroad online community. We have received notifications from m
 6. Global(ISRO)
 7. Turkey(TRSRO)
 8. Korean(KSRO)
-9. ECSRO(coming soon)
-10. Japanese Old(JSRO_SL *Coming soon*)
-11. Japanese-R(coming soon)
+9. Japanese Old(JSRO_SL)
+10. Japanese-R(coming soon)
 
 ## Development and Community
 [![GitHub Repository](https://img.shields.io/badge/github-sdclowen/rsbot-green.svg)](https://github.com/SDClowen/RSBot)
@@ -23,7 +22,7 @@ Hello respected silkroad online community. We have received notifications from m
 
 ## Issues and Status
 [![GitHub issues](https://img.shields.io/github/issues/sdclowen/rsbot.svg)](https://github.com/sdclowen/rsbot/issues)
-[![Version](https://img.shields.io/badge/version-v1.8b-maroon.svg)](https://github.com/SDClowen/RSBot)
+[![Version](https://img.shields.io/badge/version-v2.0-maroon.svg)](https://github.com/SDClowen/RSBot)
 
 ## Project Info
 ![Language](https://img.shields.io/badge/language-CSharp-blue.svg)
