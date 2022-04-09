@@ -28,7 +28,13 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
         {
             packet.ReadUInt(); //Mobs unique ID!
 
-            var experienceAmount = packet.ReadLong();
+            long experienceAmount = 0;
+            
+            if (Core.Game.ClientType >= GameClientType.Thailand)
+                packet.ReadLong();
+            else
+                packet.ReadUInt();
+
             Core.Game.Player.Experience += experienceAmount;
 
             var iLevel = Core.Game.Player.Level;

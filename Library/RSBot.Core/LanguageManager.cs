@@ -218,9 +218,10 @@ namespace RSBot.Core
             var assembly = type.Assembly.GetName().Name;
 
             var path = Path.Combine(_path, assembly, language + ".rsl");
+            var dir = Path.GetDirectoryName(path);
 
-            if (!Directory.Exists(path))
-                Directory.CreateDirectory(Path.GetDirectoryName(path));
+            if (!Directory.Exists(dir))
+                Directory.CreateDirectory(Path.GetDirectoryName(dir));
 
             var stopwatch = Stopwatch.StartNew();
 

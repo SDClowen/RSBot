@@ -45,6 +45,7 @@ namespace RSBot.General.PacketHandler
 
                 return;
             }
+
             var code = packet.ReadByte();
 
             switch (code)

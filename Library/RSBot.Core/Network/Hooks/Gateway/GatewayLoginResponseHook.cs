@@ -45,6 +45,10 @@
             result.WriteUInt(Kernel.Proxy.Token);
             result.WriteString("127.0.0.1");
             result.WriteUShort(Kernel.Proxy.Port);
+            
+            //unknown value
+            if (Game.ClientType == GameClientType.Japanese_Old)
+                result.WriteInt(packet.ReadInt());
 
             if (Game.ClientType >= GameClientType.Global)
             {
