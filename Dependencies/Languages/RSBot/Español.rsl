@@ -44,3 +44,5 @@ NoBotbaseDetectedDesc="The bot can not be run without any botbase!\n Please inst
 SaveRecordedScript="Guardar Script."
 RunNow="Correr"
 StopRunning="Detener"
+ClientTypeInputDialogTitle="¡Selecciona tu tipo de cliente!"
+ClientTypeInputDialogContent="¡Seleccione el tipo de juego para que RSBot funcione correctamente!"
