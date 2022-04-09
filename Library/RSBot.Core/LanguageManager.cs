@@ -169,10 +169,14 @@ namespace RSBot.Core
         public static string GetLang(string key)
         {
             var trace = new StackTrace();
-            var module = Path.GetFileNameWithoutExtension(trace.GetFrame(1).GetMethod().Module.Name);
 
-            if(module == "RSBot.Core")
-                module = Path.GetFileNameWithoutExtension(trace.GetFrame(2).GetMethod().Module.Name);
+            var module = string.Empty;
+            for (int i = 0; i < trace.FrameCount; i++)
+            {
+                module = Path.GetFileNameWithoutExtension(trace.GetFrame(i).GetMethod().Module.Name);
+                if (module != "RSBot.Core")
+                    break;
+            }
 
             if (_values.ContainsKey(module) && _values[module].ContainsKey(key))
                 return _values[module][key];
