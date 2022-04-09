@@ -2,7 +2,6 @@ DisplayName="Inventory"
 RSBot.Inventory.Main.Panel.buttonUseItem="Benutzen"
 RSBot.Inventory.Main.Panel.label1="Inventar:"
 RSBot.Inventory.Main.Panel.label2="Freie Plätze:"
-RSBot.Inventory.Main.Panel.lblFreeSlots="nicht berechnet"
 RSBot.Inventory.UseItemDialog.label2="Artikel nach Ihrer eigenen Entscheidung
   können Sie verwenden. Es öffnet sich ein Konditionsfenster
 und von dort aus können Sie die gewünschten Bedingungen festlegen"

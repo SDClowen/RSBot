@@ -34,6 +34,6 @@ ReturnToTownPetInventoryFull="Returning to town: Pet inventory full."
 ReturnToTownNoMana="Returning to town: No mana potions in player inventory."
 ReturnToTownNoHealth="Returning to town: No health potions in player inventory."
 ReturnToTownLevelUpAchieved="Returning to town: Level up achieved."
-ReturnToTownDurLow=Returning to town: The durability of the item {0} low.
+ReturnToTownDurLow="Returning to town: The durability of the item {0} low."
 ReturnToTownNoAmmo="Returning to town: No ammunition inside the inventory."
 ResurrectSPointSeconds="Resurrect at the specified point in {0} seconds"
