@@ -36,7 +36,6 @@ namespace RSBot.Views
             this.menuBotbase = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblIngameStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabelBeta = new System.Windows.Forms.ToolStripStatusLabel();
             this.bottomPanel = new System.Windows.Forms.Panel();
             this.comboServer = new System.Windows.Forms.ComboBox();
             this.comboDivision = new System.Windows.Forms.ComboBox();
@@ -60,6 +59,7 @@ namespace RSBot.Views
             this.thisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.themeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.darkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,7 +69,6 @@ namespace RSBot.Views
             this.hideSideBarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabMain = new RSBot.Theme.Controls.TabControl();
             this.topCharacter = new RSBot.Views.Controls.Character();
-            this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stripStatus.SuspendLayout();
             this.bottomPanel.SuspendLayout();
             this.pSidebar.SuspendLayout();
@@ -85,8 +84,7 @@ namespace RSBot.Views
             this.stripStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuBotbase,
             this.toolStripStatusLabel1,
-            this.lblIngameStatus,
-            this.toolStripStatusLabelBeta});
+            this.lblIngameStatus});
             this.stripStatus.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.stripStatus.Location = new System.Drawing.Point(5, 588);
             this.stripStatus.Name = "stripStatus";
@@ -119,16 +117,6 @@ namespace RSBot.Views
             this.lblIngameStatus.Name = "lblIngameStatus";
             this.lblIngameStatus.Size = new System.Drawing.Size(73, 18);
             this.lblIngameStatus.Text = "Not in game";
-            // 
-            // toolStripStatusLabelBeta
-            // 
-            this.toolStripStatusLabelBeta.BackColor = System.Drawing.Color.Red;
-            this.toolStripStatusLabelBeta.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripStatusLabelBeta.ForeColor = System.Drawing.Color.White;
-            this.toolStripStatusLabelBeta.Margin = new System.Windows.Forms.Padding(0);
-            this.toolStripStatusLabelBeta.Name = "toolStripStatusLabelBeta";
-            this.toolStripStatusLabelBeta.Size = new System.Drawing.Size(38, 23);
-            this.toolStripStatusLabelBeta.Text = "BETA";
             // 
             // bottomPanel
             // 
@@ -356,6 +344,12 @@ namespace RSBot.Views
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(28, 22);
             // 
+            // languageToolStripMenuItem
+            // 
+            this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
+            this.languageToolStripMenuItem.Size = new System.Drawing.Size(71, 22);
+            this.languageToolStripMenuItem.Text = "Language";
+            // 
             // themeToolStripMenuItem
             // 
             this.themeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -436,12 +430,6 @@ namespace RSBot.Views
             this.topCharacter.Size = new System.Drawing.Size(772, 79);
             this.topCharacter.TabIndex = 7;
             // 
-            // languageToolStripMenuItem
-            // 
-            this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
-            this.languageToolStripMenuItem.Size = new System.Drawing.Size(71, 22);
-            this.languageToolStripMenuItem.Text = "Language";
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -498,7 +486,6 @@ namespace RSBot.Views
         private System.Windows.Forms.ToolStripMenuItem botbase1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.PictureBox picLogo;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelBeta;
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuItemExit;

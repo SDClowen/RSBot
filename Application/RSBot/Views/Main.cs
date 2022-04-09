@@ -25,8 +25,6 @@ namespace RSBot.Views
             CheckForIllegalCrossThreadCalls = false;
 
             RegisterEvents();
-
-            toolStripStatusLabelBeta.Alignment = ToolStripItemAlignment.Right;
         }
 
         /// <summary>
