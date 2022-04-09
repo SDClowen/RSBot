@@ -1,4 +1,4 @@
-DisplayName="Training"
+DisplayName="Ausbildung"
 RSBot.Default.Main.GroupBox.checkUseSpeedDrug="Benutze Geschwindigkeitstrank"
 RSBot.Default.Main.GroupBox.checkCastBuffs="Cast buffs"
 RSBot.Default.Main.GroupBox.checkUseMount="Benutze Reittier wenn verfügbar"

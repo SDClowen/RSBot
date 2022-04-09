@@ -1,4 +1,4 @@
-DisplayName="Statistics"
+DisplayName="Statistiken"
 RSBot.Statistics.Main.SplitContainer.SplitterPanel.GroupBox.Panel.Kills="Getötet"
 RSBot.Statistics.Main.SplitContainer.SplitterPanel.GroupBox.Panel.ItemsPicked="Items aufgehoben"
 RSBot.Statistics.Main.SplitContainer.SplitterPanel.GroupBox.Panel.LevelUps="Level ups"

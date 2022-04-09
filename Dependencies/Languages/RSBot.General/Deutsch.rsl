@@ -1,4 +1,4 @@
-DisplayName="General"
+DisplayName="Allgemein"
 RSBot.General.Main.GroupBox.label8="Wenn aktiviert, schaltet der Bot automatisch in den Tray-Modus,
 wenn er minimiert wird
 und wird dort weiter ausgeführt."
