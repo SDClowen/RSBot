@@ -1,4 +1,5 @@
 ﻿using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Extensions;
 using RSBot.Core.Network;
 
 namespace RSBot.Core.Objects.Spawn
@@ -36,17 +37,11 @@ namespace RSBot.Core.Objects.Spawn
         /// <returns></returns>
         internal static SpawnedPlayerStall FromPacket(Packet packet)
         {
-            var spawnedPlayerStall = new SpawnedPlayerStall();
-
-            if (!Game.ClientType.ToString().StartsWith("Vietnam") && 
-                Game.ClientType != GameClientType.Chinese)
-                spawnedPlayerStall.Name = packet.ReadUnicode();
-            else
-                spawnedPlayerStall.Name = packet.ReadString();
-
-            spawnedPlayerStall.DecorationId = packet.ReadUInt();
-
-            return spawnedPlayerStall;
+            return new SpawnedPlayerStall
+            {
+                Name = packet.ReadConditonalString(),
+                DecorationId = packet.ReadUInt(),
+            };
         }
     }
 }

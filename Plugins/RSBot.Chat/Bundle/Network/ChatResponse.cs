@@ -2,6 +2,7 @@
 using RSBot.Chat.Views;
 using RSBot.Core;
 using RSBot.Core.Components;
+using RSBot.Core.Extensions;
 using RSBot.Core.Network;
 using RSBot.Core.Objects.Spawn;
 
@@ -40,12 +41,7 @@ namespace RSBot.Chat.Network
                 case ChatType.All:
                 case ChatType.AllGM:
                     var senderId = packet.ReadUInt();
-
-                    if (!Game.ClientType.ToString().StartsWith("Vietnam") && 
-                        Game.ClientType != GameClientType.Chinese)
-                        message = packet.ReadUnicode();
-                    else
-                        message = packet.ReadString();
+                    message = packet.ReadConditonalString();
 
                     if (senderId != Game.Player.UniqueId)
                     {
@@ -61,10 +57,7 @@ namespace RSBot.Chat.Network
 
                 case ChatType.Notice:
 
-                    if (!Game.ClientType.ToString().StartsWith("Vietnam") && Game.ClientType != GameClientType.Chinese)
-                        message = packet.ReadUnicode();
-                    else
-                        message = packet.ReadString();
+                    message = packet.ReadConditonalString();
 
                     View.Instance.AppendMessage(message, "Notice", type);
                     break;
@@ -75,11 +68,7 @@ namespace RSBot.Chat.Network
 
                 default:
                     var sender = packet.ReadString();
-
-                    if (!Game.ClientType.ToString().StartsWith("Vietnam") && Game.ClientType != GameClientType.Chinese)
-                        message = packet.ReadUnicode();
-                    else
-                        message = packet.ReadString();
+                    message = packet.ReadConditonalString();
 
                     View.Instance.AppendMessage(message, sender, type);
                     break;
