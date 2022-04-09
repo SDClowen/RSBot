@@ -44,7 +44,6 @@ NoBotbaseDetectedDesc="The bot can not be run without any botbase!\n Please inst
 SaveRecordedScript="Save recorded script."
 RunNow="Run now"
 StopRunning="Stop Running"
-Running="Running..."
 OpenFileDialogTitle="Please select your silkroad executable in order to continue..."
 ClientTypeInputDialogTitle="Select your client type!"
 ClientTypeInputDialogContent="Please select the game type for RSBot to work properly!"
