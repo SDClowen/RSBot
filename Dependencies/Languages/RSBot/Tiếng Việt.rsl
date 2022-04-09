@@ -44,3 +44,5 @@ NoBotbaseDetectedDesc="Không thể chạy bot mà không có cấu hình!\nVui 
 SaveRecordedScript="Lưu kịch bản."
 RunNow="Chạy Ngay"
 StopRunning="Ngừng Chạy"
+ClientTypeInputDialogTitle="Chọn loại khách hàng của bạn!"
+ClientTypeInputDialogContent="Vui lòng chọn loại trò chơi để RSBot hoạt động bình thường!"

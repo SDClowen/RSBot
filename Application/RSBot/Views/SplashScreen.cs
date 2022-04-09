@@ -39,6 +39,9 @@ namespace RSBot.Views
             }
 
             GlobalConfig.Load("config");
+            Kernel.Language = GlobalConfig.Get("RSBot.Language", "English");
+            LanguageManager.Translate(_mainForm, Kernel.Language);
+
 
             if (!GlobalConfig.Exists("RSBot.SilkroadDirectory") || !File.Exists(GlobalConfig.Get<string>("RSBot.SilkroadDirectory") + "\\media.pk2"))
             {
@@ -108,10 +111,6 @@ namespace RSBot.Views
         /// </summary>
         private void InitializeBot()
         {
-            Kernel.Language = GlobalConfig.Get("RSBot.Language", "English");
-
-            LanguageManager.Translate(_mainForm, Kernel.Language);
-
             //---- Boot kernel -----
             Kernel.Initialize();
             Game.Initialize();

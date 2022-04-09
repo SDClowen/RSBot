@@ -44,3 +44,5 @@ NoBotbaseDetectedDesc="Bot, herhangi bir bot tabanı olmadan çalıştırılamaz
 SaveRecordedScript="Komutu Kaydet."
 RunNow="Yürü"
 StopRunning="Durdur"
+ClientTypeInputDialogTitle="İstemci tipini seçiniz!"
+ClientTypeInputDialogContent="RSBot'un düzgün çalışabilmesi için istemci tipini seçiniz!"
