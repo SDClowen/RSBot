@@ -20,7 +20,7 @@ namespace RSBot.Views
             _mainForm = new Main();
 
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-            lblVersion.Text = $"v{version.Major}.{version.Minor}b";
+            lblVersion.Text = $"v{version.Major}.{version.Minor}";
 
             referenceDataLoader.RunWorkerCompleted += ReferenceDataLoaderCompleted;
         }

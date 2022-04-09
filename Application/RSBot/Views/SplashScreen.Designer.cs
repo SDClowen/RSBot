@@ -34,7 +34,6 @@
             this.lblVersion = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.referenceDataLoader = new System.ComponentModel.BackgroundWorker();
-            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -67,12 +66,12 @@
             this.lblVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblVersion.AutoSize = true;
             this.lblVersion.ForeColor = System.Drawing.Color.White;
-            this.lblVersion.Location = new System.Drawing.Point(244, 5);
+            this.lblVersion.Location = new System.Drawing.Point(265, 5);
             this.lblVersion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(55, 21);
+            this.lblVersion.Size = new System.Drawing.Size(39, 21);
             this.lblVersion.TabIndex = 0;
-            this.lblVersion.Text = "1.0.0.0";
+            this.lblVersion.Text = "v0.0";
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // pictureBox1
@@ -92,19 +91,6 @@
             // 
             this.referenceDataLoader.DoWork += new System.ComponentModel.DoWorkEventHandler(this.referenceDataLoader_DoWork);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(273, 0);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 21);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "BETA";
-            // 
             // SplashScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
@@ -112,7 +98,6 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(317, 156);
             this.ControlBox = false;
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.panel1);
             this.Cursor = System.Windows.Forms.Cursors.AppStarting;
@@ -131,7 +116,6 @@
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -142,6 +126,5 @@
         private System.Windows.Forms.Label lblVersion;
         private System.Windows.Forms.Label label4;
         private System.ComponentModel.BackgroundWorker referenceDataLoader;
-        private System.Windows.Forms.Label label1;
     }
 }
