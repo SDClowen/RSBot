@@ -71,10 +71,10 @@ namespace RSBot.Core.Client
             Parallel.Invoke
             (
                 () => LoadTextData(),
-                () => LoadReferenceListFile("CharacterData.txt", this.CharacterData),
-                () => LoadReferenceFile("TeleportBuilding.txt", this.CharacterData),
-                () => LoadReferenceListFile("ItemData.txt", this.ItemData),
+                () => LoadConditionalData("CharacterData.txt", this.CharacterData),
+                () => LoadConditionalData("ItemData.txt", this.ItemData),
                 () => LoadSkillData(),
+                () => LoadReferenceFile("TeleportBuilding.txt", this.CharacterData),
                 () => LoadReferenceFile("SkillMasteryData.txt", this.SkillMasteryData),
                 () => LoadReferenceFile("LevelData.txt", this.LevelData),
                 () => LoadReferenceFile("QuestData.txt", this.QuestData),
@@ -115,8 +115,15 @@ namespace RSBot.Core.Client
             }
             else
             {
-                this.LoadReferenceListFile("TextDataName.txt", this.TextData);
-                this.LoadReferenceListFile("TextQuest.txt", this.TextData);
+                if (Game.ClientType >= GameClientType.Thailand)
+                {
+                    this.LoadReferenceListFile("TextDataName.txt", this.TextData);
+                    this.LoadReferenceListFile("TextQuest.txt", this.TextData);
+                    return;
+                }
+
+                this.LoadReferenceFile("TextDataName.txt", this.TextData);
+                this.LoadReferenceFile("TextQuest.txt", this.TextData);
             }
         }
 
@@ -136,11 +143,22 @@ namespace RSBot.Core.Client
                 LoadReferenceFile(file, this.PackageItemScrap);
         }
 
+        private void LoadConditionalData<TKey, TReference>(string file, IDictionary<TKey, TReference> collection)
+            where TReference : IReference<TKey>, new()
+        {
+            if (Game.ClientType < GameClientType.Thailand)
+                this.LoadReferenceFile(file, collection);
+            else
+                this.LoadReferenceListFile(file, collection);
+        }
+
         private void LoadSkillData()
         {
             if (Game.ClientType == GameClientType.Vietnam ||
                 Game.ClientType == GameClientType.Vietnam274)
                 this.LoadReferenceListFileEnc("SkillDataEnc.txt", this.SkillData);
+            else if(Game.ClientType < GameClientType.Thailand)
+                this.LoadReferenceFile("SkillData.txt", this.SkillData);
             else
                 this.LoadReferenceListFile("SkillData.txt", this.SkillData);
         }

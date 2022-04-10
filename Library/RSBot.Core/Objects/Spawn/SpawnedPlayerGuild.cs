@@ -71,11 +71,14 @@ namespace RSBot.Core.Objects.Spawn
                 {
                     Id = packet.ReadUInt(),
                     LastCrestRev = packet.ReadUInt()
-                },
-                IsFriendly = packet.ReadBool()
+                }
             };
 
-            result.Member.FortSiegeAuthority = (FortSiegeAuthority)packet.ReadByte();
+            if (Game.ClientType >= GameClientType.Thailand)
+            {
+                result.IsFriendly = packet.ReadBool();
+                result.Member.FortSiegeAuthority = (FortSiegeAuthority)packet.ReadByte();
+            }
 
             return result;
         }

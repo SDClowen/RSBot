@@ -204,7 +204,7 @@ namespace RSBot.Core.Objects.Spawn
         {
             Scale = packet.ReadByte();
             
-            //if(Game.ClientType > GameClientType.JapaneseOld) Jsro 90cap
+            if(Game.ClientType > GameClientType.Japanese_Old)
                 HwanLevel = packet.ReadByte();
 
             if(Game.ClientType > GameClientType.Thailand)
@@ -247,22 +247,24 @@ namespace RSBot.Core.Objects.Spawn
             #region Avatar equipment
 
             Avatars = new Dictionary<RefObjItem, byte>();
-
-            AvatarInventorySize = packet.ReadByte();
-            itemCount = packet.ReadByte();
-
-            for (var i = 0; i < itemCount; i++)
+            if (Game.ClientType >= GameClientType.Thailand)
             {
-                var itemId = packet.ReadUInt();
-                var itemObj = Game.ReferenceManager.GetRefItem(itemId);
-                if (itemObj == null)
-                {
-                    packet.ReadByte();
-                    Log.Debug($"Unknown item [{itemId}]");
-                    continue;
-                }
+                AvatarInventorySize = packet.ReadByte();
+                itemCount = packet.ReadByte();
 
-                Avatars.Add(itemObj, packet.ReadByte()); //Item object and the "+" value as value
+                for (var i = 0; i < itemCount; i++)
+                {
+                    var itemId = packet.ReadUInt();
+                    var itemObj = Game.ReferenceManager.GetRefItem(itemId);
+                    if (itemObj == null)
+                    {
+                        packet.ReadByte();
+                        Log.Debug($"Unknown item [{itemId}]");
+                        continue;
+                    }
+
+                    Avatars.Add(itemObj, packet.ReadByte()); //Item object and the "+" value as value
+                }
             }
 
             #endregion Avatar equipment
@@ -339,6 +341,7 @@ namespace RSBot.Core.Objects.Spawn
                 packet.ReadByteArray(9);
 
             packet.ReadByte(); //Equipment Cooldown
+
             PKFlag = packet.ReadByte(); //PKFlag
 
             if (Game.ClientType > GameClientType.Chinese)

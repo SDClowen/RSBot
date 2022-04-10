@@ -2,6 +2,7 @@
 {
     public enum GameClientType : byte
     {
+        Japanese_Old,
         Thailand,
         Vietnam,
         Taiwan,

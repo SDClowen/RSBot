@@ -248,6 +248,11 @@ namespace RSBot.Core.Components
             packet.WriteByte(4); //Use Skill
             packet.WriteUInt(skill.Id);
             packet.WriteByte(ActionTarget.Entity);
+
+            // unknown byte
+            if (Game.ClientType < GameClientType.Thailand)
+                packet.WriteByte(1);
+
             packet.WriteUInt(targetId);
             packet.Lock();
 
@@ -440,6 +445,11 @@ namespace RSBot.Core.Components
             packet.WriteByte(1); //Execute
             packet.WriteByte(1); //Use Skill
             packet.WriteByte(ActionTarget.Entity);
+
+            // unknown byte
+            if (Game.ClientType < GameClientType.Thailand)
+                packet.WriteByte(1);
+
             packet.WriteUInt(entity.UniqueId);
             packet.Lock();
 

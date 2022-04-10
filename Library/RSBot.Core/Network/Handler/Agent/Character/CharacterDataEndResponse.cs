@@ -34,7 +34,9 @@ namespace RSBot.Core.Network.Handler.Agent.Character
             packet = Core.Game.ChunkedPacket;
             packet.Lock();
 
-            var serverTimestamp = packet.ReadUInt();
+            if (Core.Game.ClientType >= GameClientType.Thailand)
+                packet.ReadUInt(); // serverTimestamp 
+
             var modelId = packet.ReadUInt();
 
             var character = new Player(modelId);
@@ -59,7 +61,9 @@ namespace RSBot.Core.Network.Handler.Agent.Character
 
             character.TotalPK = packet.ReadUShort();
             character.PKPenaltyPoint = packet.ReadUInt();
-            character.BerzerkLevel = packet.ReadByte();
+
+            if (Core.Game.ClientType >= GameClientType.Thailand)
+                character.BerzerkLevel = packet.ReadByte();
 
             if(Core.Game.ClientType > GameClientType.Thailand)
                 character.PvpFlag = (PvpFlag)packet.ReadByte();
@@ -124,7 +128,11 @@ namespace RSBot.Core.Network.Handler.Agent.Character
                 packet.ReadByte();
 
             packet.ReadByte(); //PVP dress for the CTF event //0 = Red Side, 1 = Blue Side, 0xFF = None
-            packet.ReadULong(); //GuideFlag
+            //GuideFlag
+            if (Core.Game.ClientType >= GameClientType.Thailand)
+                packet.ReadULong();
+            else
+                packet.ReadUInt();
 
             if (Core.Game.ClientType == GameClientType.Chinese)
                 packet.ReadByte();

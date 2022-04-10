@@ -90,12 +90,15 @@ namespace RSBot.General.PacketHandler
                     packet.ReadByte(); //Item plus value (enhancement)
                 }
 
-                //Read avatars
-                var avatarCount = packet.ReadByte();
-                for (var iAvatar = 0; iAvatar < avatarCount; iAvatar++)
+                if (Game.ClientType >= GameClientType.Thailand)
                 {
-                    packet.ReadInt(); //Avatar identifier
-                    packet.ReadByte(); //Avatar plus value (enhancement)
+                    //Read avatars
+                    var avatarCount = packet.ReadByte();
+                    for (var iAvatar = 0; iAvatar < avatarCount; iAvatar++)
+                    {
+                        packet.ReadInt(); //Avatar identifier
+                        packet.ReadByte(); //Avatar plus value (enhancement)
+                    }
                 }
 
                 lobbyCharacters[i] = name;

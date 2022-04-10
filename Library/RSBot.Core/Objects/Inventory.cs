@@ -89,10 +89,13 @@ namespace RSBot.Core.Objects
             for (var i = 0; i < itemAmount; i++)
                 result.Items.Add(InventoryItem.FromPacket(packet));
 
-            result.AvatarInventorySize = packet.ReadByte();
-            var avatarAmount = packet.ReadByte();
-            for (var i = 0; i < avatarAmount; i++)
-                result.Avatars.Add(InventoryItem.FromPacket(packet));
+            if (Game.ClientType >= GameClientType.Thailand)
+            {
+                result.AvatarInventorySize = packet.ReadByte();
+                var avatarAmount = packet.ReadByte();
+                for (var i = 0; i < avatarAmount; i++)
+                    result.Avatars.Add(InventoryItem.FromPacket(packet));
+            }
 
             // JOB2
             if (Game.ClientType > GameClientType.Vietnam)

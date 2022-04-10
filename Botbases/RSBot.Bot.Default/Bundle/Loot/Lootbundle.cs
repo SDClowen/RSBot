@@ -41,9 +41,9 @@ namespace RSBot.Bot.Default.Bundle.Loot
         {
             Config = new LootConfig
             {
-                UseAbilityPet = PlayerConfig.Get<bool>("RSBot.Items.Pickup.EnableAbilityPet"),
-                DontPickupWhileBotting = PlayerConfig.Get<bool>("RSBot.Items.Pickup.DontPickupWhileBotting"),
-                DontPickupInBerzerk = PlayerConfig.Get<bool>("RSBot.Items.Pickup.DontPickupInBerzerk")
+                UseAbilityPet = PlayerConfig.Get<bool>("RSBot.Items.Pickup.EnableAbilityPet", true),
+                DontPickupWhileBotting = PlayerConfig.Get<bool>("RSBot.Items.Pickup.DontPickupWhileBotting", true),
+                DontPickupInBerzerk = PlayerConfig.Get<bool>("RSBot.Items.Pickup.DontPickupInBerzerk", true)
             };
         }
     }
