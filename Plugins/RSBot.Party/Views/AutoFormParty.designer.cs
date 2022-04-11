@@ -317,7 +317,7 @@
             // cb_AutoAccept
             // 
             this.cb_AutoAccept.AutoSize = true;
-            this.cb_AutoAccept.Location = new System.Drawing.Point(232, 22);
+            this.cb_AutoAccept.Location = new System.Drawing.Point(185, 22);
             this.cb_AutoAccept.Name = "cb_AutoAccept";
             this.cb_AutoAccept.Size = new System.Drawing.Size(92, 19);
             this.cb_AutoAccept.TabIndex = 0;
@@ -332,7 +332,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(251)))), ((int)(((byte)(251)))));
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(361, 323);
+            this.ClientSize = new System.Drawing.Size(377, 362);
             this.ControlBox = false;
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
@@ -342,7 +342,6 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAccept);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(377, 362);
             this.MinimizeBox = false;

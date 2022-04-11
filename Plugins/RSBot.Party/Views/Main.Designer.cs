@@ -418,7 +418,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(362, 171);
+            this.label2.Location = new System.Drawing.Point(238, 173);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(150, 13);
             this.label2.TabIndex = 11;
@@ -881,7 +881,7 @@
             this.btnAddBuffToMember.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddBuffToMember.Location = new System.Drawing.Point(6, 216);
             this.btnAddBuffToMember.Name = "btnAddBuffToMember";
-            this.btnAddBuffToMember.Size = new System.Drawing.Size(75, 21);
+            this.btnAddBuffToMember.Size = new System.Drawing.Size(86, 21);
             this.btnAddBuffToMember.TabIndex = 11;
             this.btnAddBuffToMember.Text = "Add Buff";
             this.btnAddBuffToMember.UseVisualStyleBackColor = true;
@@ -904,7 +904,7 @@
             // 
             this.btnRemoveBuffFromMember.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRemoveBuffFromMember.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemoveBuffFromMember.Location = new System.Drawing.Point(115, 216);
+            this.btnRemoveBuffFromMember.Location = new System.Drawing.Point(118, 216);
             this.btnRemoveBuffFromMember.Name = "btnRemoveBuffFromMember";
             this.btnRemoveBuffFromMember.Size = new System.Drawing.Size(86, 21);
             this.btnRemoveBuffFromMember.TabIndex = 12;

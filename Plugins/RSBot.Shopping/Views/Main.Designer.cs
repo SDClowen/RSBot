@@ -28,25 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Potion trader", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Stable keeper", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Protector trader", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Weapon trader", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup5 = new System.Windows.Forms.ListViewGroup("Accessory trader", System.Windows.Forms.HorizontalAlignment.Left);
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.ListViewGroup listViewGroup6 = new System.Windows.Forms.ListViewGroup("Potion trader", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup7 = new System.Windows.Forms.ListViewGroup("Stable keeper", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup8 = new System.Windows.Forms.ListViewGroup("Protector trader", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup9 = new System.Windows.Forms.ListViewGroup("Weapon trader", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup10 = new System.Windows.Forms.ListViewGroup("Accessory trader", System.Windows.Forms.HorizontalAlignment.Left);
             this.comboStore = new System.Windows.Forms.ComboBox();
             this.listShoppingList = new System.Windows.Forms.ListView();
             this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colAmount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.contextShoppingList = new System.Windows.Forms.ContextMenuStrip();
+            this.contextShoppingList = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuChangeAmount = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuRemoveItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.imgShoppingList = new System.Windows.Forms.ImageList();
+            this.imgShoppingList = new System.Windows.Forms.ImageList(this.components);
             this.listAvailableProducts = new System.Windows.Forms.ListView();
             this.colAvailableName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.contextAvailableProducts = new System.Windows.Forms.ContextMenuStrip();
+            this.contextAvailableProducts = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuAddToShoppingList = new System.Windows.Forms.ToolStripMenuItem();
-            this.imgShoppingListNPC = new System.Windows.Forms.ImageList();
+            this.imgShoppingListNPC = new System.Windows.Forms.ImageList(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -68,7 +69,7 @@
             this.colPickup = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colSell = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.collStore = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.contextList = new System.Windows.Forms.ContextMenuStrip();
+            this.contextList = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.btnAddToSell = new System.Windows.Forms.ToolStripMenuItem();
             this.btnAddToStore = new System.Windows.Forms.ToolStripMenuItem();
             this.btnPickup = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,7 +77,7 @@
             this.btnDontSell = new System.Windows.Forms.ToolStripMenuItem();
             this.btnDontStore = new System.Windows.Forms.ToolStripMenuItem();
             this.btnDontPickup = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchImageList = new System.Windows.Forms.ImageList();
+            this.searchImageList = new System.Windows.Forms.ImageList(this.components);
             this.filterPanel = new System.Windows.Forms.Panel();
             this.groupOthers = new System.Windows.Forms.GroupBox();
             this.checkAlchemy = new System.Windows.Forms.CheckBox();
@@ -176,9 +177,9 @@
             "Protector trader",
             "Weapon trader",
             "Accessory trader"});
-            this.comboStore.Location = new System.Drawing.Point(61, 4);
+            this.comboStore.Location = new System.Drawing.Point(86, 4);
             this.comboStore.Name = "comboStore";
-            this.comboStore.Size = new System.Drawing.Size(144, 21);
+            this.comboStore.Size = new System.Drawing.Size(131, 21);
             this.comboStore.TabIndex = 2;
             this.comboStore.SelectedIndexChanged += new System.EventHandler(this.comboStore_SelectedIndexChanged);
             // 
@@ -190,22 +191,22 @@
             this.listShoppingList.ContextMenuStrip = this.contextShoppingList;
             this.listShoppingList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listShoppingList.FullRowSelect = true;
-            listViewGroup1.Header = "Potion trader";
-            listViewGroup1.Name = "groupPotion";
-            listViewGroup2.Header = "Stable keeper";
-            listViewGroup2.Name = "groupStable";
-            listViewGroup3.Header = "Protector trader";
-            listViewGroup3.Name = "groupProtector";
-            listViewGroup4.Header = "Weapon trader";
-            listViewGroup4.Name = "groupWeapon";
-            listViewGroup5.Header = "Accessory trader";
-            listViewGroup5.Name = "groupAccessory";
+            listViewGroup6.Header = "Potion trader";
+            listViewGroup6.Name = "groupPotion";
+            listViewGroup7.Header = "Stable keeper";
+            listViewGroup7.Name = "groupStable";
+            listViewGroup8.Header = "Protector trader";
+            listViewGroup8.Name = "groupProtector";
+            listViewGroup9.Header = "Weapon trader";
+            listViewGroup9.Name = "groupWeapon";
+            listViewGroup10.Header = "Accessory trader";
+            listViewGroup10.Name = "groupAccessory";
             this.listShoppingList.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1,
-            listViewGroup2,
-            listViewGroup3,
-            listViewGroup4,
-            listViewGroup5});
+            listViewGroup6,
+            listViewGroup7,
+            listViewGroup8,
+            listViewGroup9,
+            listViewGroup10});
             this.listShoppingList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listShoppingList.HideSelection = false;
             this.listShoppingList.Location = new System.Drawing.Point(0, 57);
@@ -308,13 +309,13 @@
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 7);
+            this.label1.Location = new System.Drawing.Point(10, 8);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(37, 13);
+            this.label1.Size = new System.Drawing.Size(70, 13);
             this.label1.TabIndex = 5;
             this.label1.Text = "Store:";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // splitContainer1
             // 
@@ -351,18 +352,18 @@
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(5, 32);
+            this.label6.Location = new System.Drawing.Point(7, 32);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(44, 13);
+            this.label6.Size = new System.Drawing.Size(73, 13);
             this.label6.TabIndex = 10;
             this.label6.Text = "Search:";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // checkShowEquipment
             // 
             this.checkShowEquipment.AutoSize = true;
-            this.checkShowEquipment.Location = new System.Drawing.Point(211, 18);
+            this.checkShowEquipment.Location = new System.Drawing.Point(223, 8);
             this.checkShowEquipment.Name = "checkShowEquipment";
             this.checkShowEquipment.Size = new System.Drawing.Size(114, 17);
             this.checkShowEquipment.TabIndex = 9;
@@ -372,9 +373,9 @@
             // 
             // txtShopSearch
             // 
-            this.txtShopSearch.Location = new System.Drawing.Point(61, 29);
+            this.txtShopSearch.Location = new System.Drawing.Point(86, 29);
             this.txtShopSearch.Name = "txtShopSearch";
-            this.txtShopSearch.Size = new System.Drawing.Size(144, 22);
+            this.txtShopSearch.Size = new System.Drawing.Size(131, 22);
             this.txtShopSearch.TabIndex = 8;
             this.txtShopSearch.TextChanged += new System.EventHandler(this.txtShopSearch_TextChanged);
             // 
@@ -428,7 +429,7 @@
             this.checkSellItemsFromPet.AutoSize = true;
             this.checkSellItemsFromPet.Checked = true;
             this.checkSellItemsFromPet.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkSellItemsFromPet.Location = new System.Drawing.Point(425, 23);
+            this.checkSellItemsFromPet.Location = new System.Drawing.Point(494, 23);
             this.checkSellItemsFromPet.Name = "checkSellItemsFromPet";
             this.checkSellItemsFromPet.Size = new System.Drawing.Size(111, 17);
             this.checkSellItemsFromPet.TabIndex = 3;
@@ -441,7 +442,7 @@
             this.checkRepairGear.AutoSize = true;
             this.checkRepairGear.Checked = true;
             this.checkRepairGear.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkRepairGear.Location = new System.Drawing.Point(231, 23);
+            this.checkRepairGear.Location = new System.Drawing.Point(239, 23);
             this.checkRepairGear.Name = "checkRepairGear";
             this.checkRepairGear.Size = new System.Drawing.Size(152, 17);
             this.checkRepairGear.TabIndex = 1;
@@ -1214,7 +1215,7 @@
             this.groupBox7.Controls.Add(this.checkPickupGold);
             this.groupBox7.Location = new System.Drawing.Point(6, 6);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(481, 99);
+            this.groupBox7.Size = new System.Drawing.Size(566, 99);
             this.groupBox7.TabIndex = 0;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "General";
@@ -1222,7 +1223,7 @@
             // cbDontPickupWhileBotting
             // 
             this.cbDontPickupWhileBotting.AutoSize = true;
-            this.cbDontPickupWhileBotting.Location = new System.Drawing.Point(263, 72);
+            this.cbDontPickupWhileBotting.Location = new System.Drawing.Point(284, 72);
             this.cbDontPickupWhileBotting.Name = "cbDontPickupWhileBotting";
             this.cbDontPickupWhileBotting.Size = new System.Drawing.Size(175, 17);
             this.cbDontPickupWhileBotting.TabIndex = 3;
@@ -1233,7 +1234,7 @@
             // cbJustpickmyitems
             // 
             this.cbJustpickmyitems.AutoSize = true;
-            this.cbJustpickmyitems.Location = new System.Drawing.Point(263, 47);
+            this.cbJustpickmyitems.Location = new System.Drawing.Point(284, 47);
             this.cbJustpickmyitems.Name = "cbJustpickmyitems";
             this.cbJustpickmyitems.Size = new System.Drawing.Size(111, 17);
             this.cbJustpickmyitems.TabIndex = 1;
@@ -1244,7 +1245,7 @@
             // checkDontPickupInBerzerk
             // 
             this.checkDontPickupInBerzerk.AutoSize = true;
-            this.checkDontPickupInBerzerk.Location = new System.Drawing.Point(263, 22);
+            this.checkDontPickupInBerzerk.Location = new System.Drawing.Point(284, 22);
             this.checkDontPickupInBerzerk.Name = "checkDontPickupInBerzerk";
             this.checkDontPickupInBerzerk.Size = new System.Drawing.Size(191, 17);
             this.checkDontPickupInBerzerk.TabIndex = 2;

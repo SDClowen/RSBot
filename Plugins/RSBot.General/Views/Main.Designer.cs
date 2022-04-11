@@ -181,7 +181,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(70, 57);
+            this.label6.Location = new System.Drawing.Point(70, 65);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(236, 13);
             this.label6.TabIndex = 21;
@@ -190,7 +190,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 14);
+            this.label5.Location = new System.Drawing.Point(3, 3);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(50, 13);
             this.label5.TabIndex = 18;
@@ -198,16 +198,17 @@
             // 
             // txtStaticCaptcha
             // 
-            this.txtStaticCaptcha.Location = new System.Drawing.Point(73, 11);
+            this.txtStaticCaptcha.Location = new System.Drawing.Point(73, 19);
             this.txtStaticCaptcha.Name = "txtStaticCaptcha";
-            this.txtStaticCaptcha.Size = new System.Drawing.Size(258, 20);
+            this.txtStaticCaptcha.Size = new System.Drawing.Size(256, 20);
             this.txtStaticCaptcha.TabIndex = 3;
+            this.txtStaticCaptcha.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtStaticCaptcha.TextChanged += new System.EventHandler(this.txtStaticCaptcha_TextChanged);
             // 
             // checkEnableStaticCaptcha
             // 
             this.checkEnableStaticCaptcha.AutoSize = true;
-            this.checkEnableStaticCaptcha.Location = new System.Drawing.Point(73, 37);
+            this.checkEnableStaticCaptcha.Location = new System.Drawing.Point(73, 45);
             this.checkEnableStaticCaptcha.Name = "checkEnableStaticCaptcha";
             this.checkEnableStaticCaptcha.Size = new System.Drawing.Size(157, 17);
             this.checkEnableStaticCaptcha.TabIndex = 4;
@@ -241,21 +242,21 @@
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(20, 37);
+            this.label7.Location = new System.Drawing.Point(3, 37);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(39, 13);
+            this.label7.Size = new System.Drawing.Size(64, 13);
             this.label7.TabIndex = 23;
             this.label7.Text = "Player:";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 13);
+            this.label4.Location = new System.Drawing.Point(3, 13);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(50, 13);
+            this.label4.Size = new System.Drawing.Size(64, 13);
             this.label4.TabIndex = 0;
             this.label4.Text = "Account:";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // checkEnableAutoLogin
             // 
@@ -308,7 +309,7 @@
             this.btnClientHideShow.Enabled = false;
             this.btnClientHideShow.Location = new System.Drawing.Point(18, 49);
             this.btnClientHideShow.Name = "btnClientHideShow";
-            this.btnClientHideShow.Size = new System.Drawing.Size(125, 23);
+            this.btnClientHideShow.Size = new System.Drawing.Size(142, 25);
             this.btnClientHideShow.TabIndex = 19;
             this.btnClientHideShow.Text = "Client Visibility";
             this.btnClientHideShow.UseVisualStyleBackColor = true;
@@ -318,7 +319,7 @@
             // 
             this.btnStartClient.Location = new System.Drawing.Point(18, 19);
             this.btnStartClient.Name = "btnStartClient";
-            this.btnStartClient.Size = new System.Drawing.Size(125, 23);
+            this.btnStartClient.Size = new System.Drawing.Size(142, 25);
             this.btnStartClient.TabIndex = 16;
             this.btnStartClient.Text = "Start Client";
             this.btnStartClient.UseVisualStyleBackColor = true;
@@ -326,9 +327,9 @@
             // 
             // btnStartClientless
             // 
-            this.btnStartClientless.Location = new System.Drawing.Point(212, 19);
+            this.btnStartClientless.Location = new System.Drawing.Point(192, 19);
             this.btnStartClientless.Name = "btnStartClientless";
-            this.btnStartClientless.Size = new System.Drawing.Size(125, 24);
+            this.btnStartClientless.Size = new System.Drawing.Size(142, 25);
             this.btnStartClientless.TabIndex = 18;
             this.btnStartClientless.Text = "Start Clientless";
             this.btnStartClientless.UseVisualStyleBackColor = false;
@@ -337,9 +338,9 @@
             // btnGoClientless
             // 
             this.btnGoClientless.Enabled = false;
-            this.btnGoClientless.Location = new System.Drawing.Point(212, 49);
+            this.btnGoClientless.Location = new System.Drawing.Point(192, 49);
             this.btnGoClientless.Name = "btnGoClientless";
-            this.btnGoClientless.Size = new System.Drawing.Size(125, 24);
+            this.btnGoClientless.Size = new System.Drawing.Size(142, 25);
             this.btnGoClientless.TabIndex = 17;
             this.btnGoClientless.Text = "Go Clientless";
             this.btnGoClientless.UseVisualStyleBackColor = true;
