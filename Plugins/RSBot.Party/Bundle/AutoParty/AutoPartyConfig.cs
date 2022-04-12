@@ -91,5 +91,21 @@ namespace RSBot.Party.Bundle.AutoParty
         ///   <c>true</c> if [accept if bot is stopped]; otherwise, <c>false</c>.
         /// </value>
         public bool AcceptIfBotIsStopped { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [leave if party master is not N].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [leave if party master is not N]; otherwise, <c>false</c>.
+        /// </value>
+        public bool LeaveIfMasterNot { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [leave if party master is not N].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [leave if party master is not N]; otherwise, <c>false</c>.
+        /// </value>
+        public string LeaveIfMasterNotName { get; set; }
     }
 }

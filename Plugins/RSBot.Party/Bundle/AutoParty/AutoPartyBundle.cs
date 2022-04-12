@@ -49,6 +49,8 @@ namespace RSBot.Party.Bundle.AutoParty
                 ItemAutoShare = PlayerConfig.Get<bool>("RSBot.Party.ItemAutoShare"),
                 AllowInvitations = PlayerConfig.Get<bool>("RSBot.Party.AllowInvitations"),
                 AcceptIfBotIsStopped = PlayerConfig.Get<bool>("RSBot.Party.AcceptIfBotStopped"),
+                LeaveIfMasterNot = PlayerConfig.Get<bool>("RSBot.Party.LeaveIfMasterNot"),
+                LeaveIfMasterNotName = PlayerConfig.Get<string>("RSBot.Party.LeaveIfMasterNotName"),
                 CenterPosition = new Position
                 {
                     XSector = PlayerConfig.Get<byte>("RSBot.Area.XSec"),
@@ -64,9 +66,6 @@ namespace RSBot.Party.Bundle.AutoParty
 
         public void OnTick()
         {
-            if (!Kernel.Bot.Running)
-                return;
-
             var elapsed = Environment.TickCount - _lastTick;
             if (elapsed > 1000)
             {
@@ -80,6 +79,15 @@ namespace RSBot.Party.Bundle.AutoParty
         /// </summary>
         public void CheckForPlayers()
         {
+            if (Game.Party.IsInParty && 
+                !Game.Party.IsLeader &&
+                Config.LeaveIfMasterNot && 
+                !string.IsNullOrWhiteSpace(Config.LeaveIfMasterNotName))
+            {
+                if (Config.LeaveIfMasterNotName != Game.Party.Leader.Name)
+                    Game.Party.Leave();
+            }
+
             if (!Game.Party.CanInvite) 
                 return;
 
