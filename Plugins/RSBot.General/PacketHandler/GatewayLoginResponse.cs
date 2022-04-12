@@ -57,12 +57,12 @@ namespace RSBot.General.PacketHandler
 
                 case 4:
                     Log.WarnLang("ServerCheck");
+                    AutoLogin.Handle();
                     break;
 
                 case 5:
                     Log.WarnLang("ServerFull");
                     AutoLogin.Handle();
-
                     break;
 
                 case 26: // queue

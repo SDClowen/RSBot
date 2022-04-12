@@ -16,6 +16,7 @@ namespace RSBot.General.Views
         public Accounts()
         {
             InitializeComponent();
+            comboBoxChannel.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -52,6 +53,7 @@ namespace RSBot.General.Views
             selectedAccount.Password = txtPassword.Text;
             selectedAccount.SecondaryPassword = textBoxSecondaryPassword.Text;
             selectedAccount.Servername = txtServername.Text;
+            selectedAccount.Channel = (byte)(comboBoxChannel.SelectedIndex + 1);
 
             /*
              * The listAccounts. Invalidate, Update, Refresh methods not updating the item text 
@@ -89,7 +91,7 @@ namespace RSBot.General.Views
                 txtPassword.Text = selectedAccount.Password;
                 textBoxSecondaryPassword.Text = selectedAccount.SecondaryPassword;
                 txtServername.Text = selectedAccount.Servername;
-
+                comboBoxChannel.SelectedIndex = selectedAccount.Channel - 1;
                 btnSave.Enabled = true;
                 btnAdd.Visible = false;
             }
@@ -172,6 +174,7 @@ namespace RSBot.General.Views
                 SecondaryPassword = textBoxSecondaryPassword.Text,
                 Servername = txtServername.Text,
                 SelectedCharacter = string.Empty,
+                Channel = (byte)(comboBoxChannel.SelectedIndex + 1),
                 Characters = new List<string>(4)
             };
 

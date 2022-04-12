@@ -1,4 +1,5 @@
 ﻿using RSBot.Core;
+using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Network;
 using RSBot.Core.Network.SecurityAPI;
@@ -27,7 +28,13 @@ namespace RSBot.General.Components
             _busy = true;
 
             if (!GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin"))
+            {
+                _busy = false;
+
+                await Task.Delay(5000);
+                ClientlessManager.RequestServerList();
                 return;
+            }
 
             var selectedAccount = Accounts.SavedAccounts.Find(p => p.Username == GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername"));
             if (selectedAccount == null)
@@ -54,12 +61,8 @@ namespace RSBot.General.Components
 
                 Log.NotifyLang("ServerCheck");
 
-                // Only need while clientless, otherwise the client already sending every 5 seconds instead of bot.
-                if (Game.Clientless)
-                {
-                    await Task.Delay(5000);
-                    PacketManager.SendPacket(new Packet(0x6101, true), PacketDestination.Server);
-                }
+                await Task.Delay(5000);
+                ClientlessManager.RequestServerList();
 
                 return;
             }
@@ -115,13 +118,13 @@ namespace RSBot.General.Components
             loginPacket.WriteString(account.Username);
             loginPacket.WriteString(account.Password);
 
-            if (opcode == 0x610A)
+            if (Game.ClientType == GameClientType.Turkey)
                 loginPacket.WriteByteArray(new byte[6]); // mac
 
             loginPacket.WriteUShort(server.Id);
 
             if (opcode == 0x610A)
-                loginPacket.WriteByte(1); // unknown!
+                loginPacket.WriteByte(account.Channel);
 
             loginPacket.Lock();
 
