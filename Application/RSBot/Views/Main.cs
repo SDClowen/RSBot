@@ -360,6 +360,14 @@ namespace RSBot.Views
 
             if (!Kernel.Bot.Running)
             {
+                var xsec = PlayerConfig.Get<float>("RSBot.Area.X", 0) != 0;
+                var ysec = PlayerConfig.Get<float>("RSBot.Area.Y", 0) != 0;
+                if (!xsec && !ysec)
+                {
+                    Log.WarnLang("ConfigureTrainingAreaBeforeStartBot");
+                    return;
+                }
+
                 Kernel.Bot.Start();
 
                 BotWindow.SetStatusTextLang("Running");
