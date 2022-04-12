@@ -104,6 +104,7 @@ KillClientWarnMsgBoxSplit1="Tu personaje permanecerá en línea. (Clientless)!"
 KillClientWarnMsgBoxSplit2="y tu personaje se desconectará!"
 KillClientWarnMsgBoxContent="El Cliente se cerrará{0}
 Estas segur@ de esto?"
+NoPatchRequired="This client is up to date, no patch required!"
 Xhours="{0} Horas"
 Xminutes="{0} Minutos"
 Xseconds="{0} Segundos"

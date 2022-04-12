@@ -99,6 +99,7 @@ MsgBoxClientTypeWarn="İstemci tipini şuanda oyunda olduğun için değiştirem
 KillClientWarnMsgBoxSplit1="Endişelenme karakterin çevrimiçi kalacak (clientless)!"
 KillClientWarnMsgBoxSplit2="ve karakterinizin sunucuya olan bağlantısı kesilecek!"
 KillClientWarnMsgBoxContent="Oyun istemcisi kapanacak {0} Bundan emin misin?"
+NoPatchRequired="Bu istemci güncel, herhangi bir patch gerektirmiyor!"
 Xhours="{0} saat"
 Xminutes="{0} dakika"
 Xseconds="{0} saniye"

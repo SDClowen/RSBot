@@ -100,6 +100,7 @@ MsgBoxClientTypeWarn="Sie können den Client-Typ jetzt nicht ändern, weil Sie b
 KillClientWarnMsgBoxSplit1=".\nKeine Sorge, dein Charakter bleibt online (clientlos)!"
 KillClientWarnMsgBoxSplit2="und die Verbindung zu Ihrem Charakter wird unterbrochen!"
 KillClientWarnMsgBoxContent="Der Spiel-Client wird nun geschlossen{0}\n\nSind Sie sich sicher?"
+NoPatchRequired="This client is up to date, no patch required!"
 Xhours="{0} Stunden"
 Xminutes="{0} Minuten"
 Xseconds="{0} Sekunden"
