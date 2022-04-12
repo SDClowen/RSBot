@@ -262,6 +262,10 @@ namespace RSBot.Party.Views
             checkAcceptAll.Checked = Bundle.Container.AutoParty.Config.AcceptAll;
             checkAcceptFromList.Checked = Bundle.Container.AutoParty.Config.AcceptFromList;
 
+            checkBoxLeaveIfMasterNot.Checked = Bundle.Container.AutoParty.Config.LeaveIfMasterNot;
+            textBoxLeaveIfMasterNotName.Text = Bundle.Container.AutoParty.Config.LeaveIfMasterNotName;
+            textBoxLeaveIfMasterNotName.Enabled = !checkBoxLeaveIfMasterNot.Checked;
+
             listAutoParty.Items.AddRange(PlayerConfig.GetArray<string>("RSBot.Party.AutoPartyList"));
             _applySettings = true;
         }
@@ -422,6 +426,7 @@ namespace RSBot.Party.Views
         private void OnDeletePartyEntry()
         {
             if (tabMain.SelectedTab == tpPartyMatching &&
+                lvPartyMatching.Items.Count > 0 &&
                 lvPartyMatching.Items[0].Name == Bundle.Container.PartyMatching.Id.ToString())
                 lvPartyMatching.Items.Remove(lvPartyMatching.Items[0]);
 
@@ -599,7 +604,8 @@ namespace RSBot.Party.Views
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void checkAutoPartySetting_CheckedChanged(object sender, System.EventArgs e)
         {
-            if (!_applySettings) return;
+            if (!_applySettings) 
+                return;
 
             PlayerConfig.Set("RSBot.Party.AcceptAll", checkAcceptAll.Checked);
             PlayerConfig.Set("RSBot.Party.AcceptList", checkAcceptFromList.Checked);
@@ -607,6 +613,10 @@ namespace RSBot.Party.Views
             PlayerConfig.Set("RSBot.Party.InviteList", checkInviteFromList.Checked);
             PlayerConfig.Set("RSBot.Party.AtTrainingPlace", checkAcceptAtTrainingPlace.Checked);
             PlayerConfig.Set("RSBot.Party.AcceptIfBotStopped", checkAcceptIfBotStopped.Checked);
+            PlayerConfig.Set("RSBot.Party.LeaveIfMasterNot", checkBoxLeaveIfMasterNot.Checked);
+            PlayerConfig.Set("RSBot.Party.LeaveIfMasterNotName", textBoxLeaveIfMasterNotName.Text);
+
+            textBoxLeaveIfMasterNotName.Enabled = !checkBoxLeaveIfMasterNot.Checked;
 
             Bundle.Container.Refresh();
         }

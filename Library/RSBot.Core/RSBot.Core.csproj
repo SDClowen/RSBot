@@ -311,6 +311,9 @@
     <Compile Include="Temp.Theme\Controls\InputDialog.Designer.cs">
       <DependentUpon>InputDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Temp.Theme\Controls\Separator.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Temp.Theme\Controls\TabDisabledInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
