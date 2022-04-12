@@ -31,10 +31,10 @@ namespace RSBot.Views.Controls
             EventManager.SubscribeEvent("OnUpdateGold", OnUpdateGold);
             EventManager.SubscribeEvent("OnUpdateSP", OnUpdateSP);
             EventManager.SubscribeEvent("OnAgentServerDisconnected", OnAgentServerDisconnected);
-            EventManager.SubscribeEvent("OnMainFormLoaded", OnMainFormLoaded);
+            EventManager.SubscribeEvent("OnInitialized", OnInitialized);
         }
 
-        private void OnMainFormLoaded()
+        private void OnInitialized()
         {
             lblPlayerName.Text = LanguageManager.GetLang("LabelPlayerName");
         }

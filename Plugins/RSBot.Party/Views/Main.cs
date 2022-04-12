@@ -45,8 +45,8 @@ namespace RSBot.Party.Views
         {
             InitializeComponent();
 
-            selectedMemberBuffs.SmallImageList = Core.Extensions.ListViewExtensions.StaticImageList;
-            listPartyBuffSkills.SmallImageList = Core.Extensions.ListViewExtensions.StaticImageList;
+            selectedMemberBuffs.SmallImageList = ListViewExtensions.StaticImageList;
+            listPartyBuffSkills.SmallImageList = ListViewExtensions.StaticImageList;
 
             _buffings = new List<BuffingPartyMember>();
             CheckForIllegalCrossThreadCalls = false;

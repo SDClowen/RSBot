@@ -72,7 +72,7 @@ namespace RSBot.Map.Views
             // All
             comboViewType.SelectedIndex = 6;
 
-#if RELEASE
+#if !DEBUG
             labelSectorInfo.Visible = false;
 #endif
         }

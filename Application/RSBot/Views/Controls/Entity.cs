@@ -27,10 +27,10 @@ namespace RSBot.Views.Controls
             EventManager.SubscribeEvent("OnUpdateSelectedEntityHP", new Action<SpawnedBionic>(OnUpdateSelectedEntityHP));
             EventManager.SubscribeEvent("OnKillSelectedEnemy", OnKillSelectedEnemy);
             EventManager.SubscribeEvent("OnAgentServerDisconnected", OnAgentServerDisconnected);
-            EventManager.SubscribeEvent("OnMainFormLoaded", OnMainFormLoaded);
+            EventManager.SubscribeEvent("OnInitialized", OnInitialized);
         }
 
-        private void OnMainFormLoaded()
+        private void OnInitialized()
         {
             lblEntityName.Text = LanguageManager.GetLang("LabelEntityName");
         }
