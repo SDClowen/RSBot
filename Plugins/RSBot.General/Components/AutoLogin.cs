@@ -41,6 +41,8 @@ namespace RSBot.General.Components
             {
                 _busy = false;
                 Log.WarnLang("NoHaveAccountForAutoLogin");
+                await Task.Delay(5000);
+                ClientlessManager.RequestServerList();
                 return;
             }
 
