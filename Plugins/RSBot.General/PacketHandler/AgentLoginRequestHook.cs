@@ -1,7 +1,6 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Network;
 using RSBot.General.Components;
-using System;
 
 namespace RSBot.General.PacketHandler
 {
@@ -33,14 +32,16 @@ namespace RSBot.General.PacketHandler
             if (!GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin"))
                 return packet;
 
-            var selectedAccount = Accounts.SavedAccounts.Find(p => p.Username == GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername"));
+            var username = GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername");
+
+            var selectedAccount = Accounts.SavedAccounts.Find(p => p.Username == username);
             if (selectedAccount == null)
                 return packet;
 
             if (Game.Clientless) 
                 return packet;
 
-            packet = new Packet(Opcode, true);
+            packet = new Packet(Opcode, packet.Encrypted);
             packet.WriteUInt(Kernel.Proxy.Token);
             packet.WriteString(selectedAccount.Username);
             packet.WriteString(selectedAccount.Password);

@@ -3,7 +3,7 @@ using RSBot.Core.Network;
 
 namespace RSBot.General.PacketHandler
 {
-    internal class GatewayLoginRequest : IPacketHandler
+    internal class GatewayServerListRequestHook : IPacketHook
     {
         /// <summary>
         /// Gets the opcode.
@@ -11,7 +11,7 @@ namespace RSBot.General.PacketHandler
         /// <value>
         /// The opcode.
         /// </value>
-        public ushort Opcode => 0x6102;
+        public ushort Opcode => 0x6101;
 
         /// <summary>
         /// Gets the destination.
@@ -26,22 +26,9 @@ namespace RSBot.General.PacketHandler
         /// </summary>
         /// <param name="packet"></param>
         /// <returns></returns>
-        public void Invoke(Packet packet)
+        public Packet ReplacePacket(Packet packet)
         {
-            packet.ReadByte(); // locale
-            packet.ReadString();//username
-            packet.ReadString();//password
-
-            if (packet.Opcode == 0x610A && 
-                Game.ClientType == GameClientType.Turkey)
-                packet.ReadByteArray(6);
-
-            var shardId = packet.ReadUShort();
-
-            if (Game.ClientType >= GameClientType.Global)
-                packet.ReadByte(); // channel
-
-            Components.Serverlist.SetJoining(shardId);
+            return null;
         }
     }
 }

@@ -6,7 +6,7 @@ using Server = RSBot.General.Models.Server;
 
 namespace RSBot.General.PacketHandler
 {
-    internal class ServerList : IPacketHandler
+    internal class GatewayServerListResponse : IPacketHandler
     {
         /// <summary>
         /// Gets or sets the opcode.

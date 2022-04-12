@@ -40,7 +40,7 @@
             else
                 return packet;
 
-            var result = new Packet(packet.Opcode);
+            var result = new Packet(packet.Opcode, packet.Encrypted, packet.Massive);
             result.WriteByte(success);
             result.WriteUInt(Kernel.Proxy.Token);
             result.WriteString("127.0.0.1");

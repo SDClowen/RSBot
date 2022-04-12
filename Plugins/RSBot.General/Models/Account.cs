@@ -29,6 +29,14 @@ namespace RSBot.General.Models
         public string SecondaryPassword { get; set; }
 
         /// <summary>
+        /// Gets or sets the channel.
+        /// </summary>
+        /// <value>
+        /// The channel.
+        /// </value>
+        public byte Channel { get; set; } = 1;
+
+        /// <summary>
         /// Gets or sets the servername.
         /// </summary>
         /// <value>

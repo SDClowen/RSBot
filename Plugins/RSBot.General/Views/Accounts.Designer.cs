@@ -46,6 +46,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxSecondaryPassword = new System.Windows.Forms.TextBox();
             this.linkLabelSecondaryPassword = new System.Windows.Forms.LinkLabel();
+            this.comboBoxChannel = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,9 +57,9 @@
             this.panel1.Controls.Add(this.btnOK);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 269);
+            this.panel1.Location = new System.Drawing.Point(0, 248);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(394, 45);
+            this.panel1.Size = new System.Drawing.Size(400, 45);
             this.panel1.TabIndex = 7;
             // 
             // btnCancel
@@ -96,7 +97,7 @@
             this.listAccounts.ItemHeight = 15;
             this.listAccounts.Location = new System.Drawing.Point(12, 12);
             this.listAccounts.Name = "listAccounts";
-            this.listAccounts.Size = new System.Drawing.Size(176, 244);
+            this.listAccounts.Size = new System.Drawing.Size(176, 229);
             this.listAccounts.TabIndex = 8;
             this.listAccounts.SelectedIndexChanged += new System.EventHandler(this.listAccounts_SelectedIndexChanged);
             // 
@@ -113,7 +114,7 @@
             // 
             this.txtUsername.Location = new System.Drawing.Point(197, 29);
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(185, 23);
+            this.txtUsername.Size = new System.Drawing.Size(197, 23);
             this.txtUsername.TabIndex = 0;
             // 
             // label3
@@ -129,14 +130,14 @@
             // 
             this.txtPassword.Location = new System.Drawing.Point(197, 77);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(185, 23);
+            this.txtPassword.Size = new System.Drawing.Size(197, 23);
             this.txtPassword.TabIndex = 1;
             this.txtPassword.UseSystemPasswordChar = true;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(194, 158);
+            this.label4.Location = new System.Drawing.Point(192, 161);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(75, 15);
             this.label4.TabIndex = 5;
@@ -144,15 +145,15 @@
             // 
             // txtServername
             // 
-            this.txtServername.Location = new System.Drawing.Point(197, 175);
+            this.txtServername.Location = new System.Drawing.Point(195, 178);
             this.txtServername.Name = "txtServername";
-            this.txtServername.Size = new System.Drawing.Size(185, 23);
+            this.txtServername.Size = new System.Drawing.Size(199, 23);
             this.txtServername.TabIndex = 3;
             // 
             // linkLabelPwShowHide
             // 
             this.linkLabelPwShowHide.AutoSize = true;
-            this.linkLabelPwShowHide.Location = new System.Drawing.Point(341, 80);
+            this.linkLabelPwShowHide.Location = new System.Drawing.Point(352, 80);
             this.linkLabelPwShowHide.Name = "linkLabelPwShowHide";
             this.linkLabelPwShowHide.Size = new System.Drawing.Size(36, 15);
             this.linkLabelPwShowHide.TabIndex = 9;
@@ -163,7 +164,7 @@
             // btnAdd
             // 
             this.btnAdd.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnAdd.Location = new System.Drawing.Point(197, 204);
+            this.btnAdd.Location = new System.Drawing.Point(195, 207);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(72, 23);
             this.btnAdd.TabIndex = 4;
@@ -175,7 +176,7 @@
             // 
             this.btnSave.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnSave.Enabled = false;
-            this.btnSave.Location = new System.Drawing.Point(310, 204);
+            this.btnSave.Location = new System.Drawing.Point(322, 207);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(72, 23);
             this.btnSave.TabIndex = 5;
@@ -186,7 +187,7 @@
             // buttonRemove
             // 
             this.buttonRemove.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.buttonRemove.Location = new System.Drawing.Point(197, 204);
+            this.buttonRemove.Location = new System.Drawing.Point(195, 207);
             this.buttonRemove.Name = "buttonRemove";
             this.buttonRemove.Size = new System.Drawing.Size(72, 23);
             this.buttonRemove.TabIndex = 10;
@@ -205,16 +206,16 @@
             // 
             // textBoxSecondaryPassword
             // 
-            this.textBoxSecondaryPassword.Location = new System.Drawing.Point(195, 126);
+            this.textBoxSecondaryPassword.Location = new System.Drawing.Point(197, 126);
             this.textBoxSecondaryPassword.Name = "textBoxSecondaryPassword";
-            this.textBoxSecondaryPassword.Size = new System.Drawing.Size(185, 23);
+            this.textBoxSecondaryPassword.Size = new System.Drawing.Size(119, 23);
             this.textBoxSecondaryPassword.TabIndex = 2;
             this.textBoxSecondaryPassword.UseSystemPasswordChar = true;
             // 
             // linkLabelSecondaryPassword
             // 
             this.linkLabelSecondaryPassword.AutoSize = true;
-            this.linkLabelSecondaryPassword.Location = new System.Drawing.Point(339, 129);
+            this.linkLabelSecondaryPassword.Location = new System.Drawing.Point(271, 129);
             this.linkLabelSecondaryPassword.Name = "linkLabelSecondaryPassword";
             this.linkLabelSecondaryPassword.Size = new System.Drawing.Size(36, 15);
             this.linkLabelSecondaryPassword.TabIndex = 9;
@@ -222,18 +223,29 @@
             this.linkLabelSecondaryPassword.Text = "Show";
             this.linkLabelSecondaryPassword.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelSecondaryPassword_LinkClicked);
             // 
+            // comboBoxChannel
+            // 
+            this.comboBoxChannel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxChannel.FormattingEnabled = true;
+            this.comboBoxChannel.Items.AddRange(new object[] {
+            "Joymax",
+            "JCPlanet"});
+            this.comboBoxChannel.Location = new System.Drawing.Point(320, 126);
+            this.comboBoxChannel.Name = "comboBoxChannel";
+            this.comboBoxChannel.Size = new System.Drawing.Size(74, 23);
+            this.comboBoxChannel.TabIndex = 11;
+            // 
             // Accounts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(394, 314);
+            this.ClientSize = new System.Drawing.Size(400, 293);
             this.Controls.Add(this.linkLabelSecondaryPassword);
             this.Controls.Add(this.linkLabelPwShowHide);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtServername);
-            this.Controls.Add(this.textBoxSecondaryPassword);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtPassword);
@@ -243,6 +255,8 @@
             this.Controls.Add(this.listAccounts);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.buttonRemove);
+            this.Controls.Add(this.comboBoxChannel);
+            this.Controls.Add(this.textBoxSecondaryPassword);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -277,5 +291,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBoxSecondaryPassword;
         private System.Windows.Forms.LinkLabel linkLabelSecondaryPassword;
+        private System.Windows.Forms.ComboBox comboBoxChannel;
     }
 }

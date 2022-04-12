@@ -1,10 +1,11 @@
 ﻿using RSBot.Core;
+using RSBot.Core.Components;
 using RSBot.Core.Network;
 using System.Windows.Forms;
 
 namespace RSBot.General.PacketHandler
 {
-    public class PatchResponse : IPacketHook
+    public class GatewayPatchResponse : IPacketHook
     {
         /// <summary>
         /// Gets or sets the opcode.
@@ -29,7 +30,10 @@ namespace RSBot.General.PacketHandler
         public Packet ReplacePacket(Packet packet)
         {
             if (packet.ReadByte() == 0x01)
-                Log.Notify("This client is up to date, no patch required!");
+            {
+                Log.NotifyLang("NoPatchRequired");
+                ClientlessManager.RequestServerList();
+            }
             else
             {
                 var flag = packet.ReadByte(); //Error code;
