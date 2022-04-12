@@ -16,6 +16,11 @@ namespace RSBot.Views
     public partial class Main : CleanForm
     {
         /// <summary>
+        /// Bot player name [_cached]
+        /// </summary>
+        private string _playerName;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Main"/> class.
         /// </summary>
         public Main()
@@ -289,7 +294,7 @@ namespace RSBot.Views
 
             ConfigureSidebar();
 
-            EventManager.FireEvent("OnMainFormLoaded");
+            EventManager.FireEvent("OnInitialized");
         }
 
         /// <summary>
@@ -477,6 +482,13 @@ namespace RSBot.Views
                 tabPage.Enabled = false;
                 tabPage.Controls["overlay"].Show();
             }
+
+            var disconnectedText = LanguageManager.GetLang("Disconnected");
+            if (!Text.EndsWith(disconnectedText))
+            {
+                Text = $@"RSBot - {_playerName} - {disconnectedText}";
+                notifyIcon.Text = Text;
+            }
         }
 
         private void OnChangeStatusText(string text)
@@ -518,7 +530,9 @@ namespace RSBot.Views
             foreach (MenuItem item in menuPlugins.DropDownItems)
                 item.Enabled = true;
 
-            Text = $@"RSBot - {Game.Player.Name}";
+            _playerName = Game.Player.Name;
+            Text = $@"RSBot - {_playerName}";
+            notifyIcon.Text = Text;
 
             if (Game.Clientless)
                 Text += " [Clientless]";

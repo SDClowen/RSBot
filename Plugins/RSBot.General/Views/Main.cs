@@ -26,31 +26,7 @@ namespace RSBot.General.Views
             CheckForIllegalCrossThreadCalls = false;
 
             InitializeComponent();
-
-            comboBoxClientType.Items.AddRange(Enum.GetNames(typeof(GameClientType)));
-
-            comboCharacter.SelectedIndex = 0;
-
             SubscribeEvents();
-            Components.Accounts.Load();
-            LoadAccounts();
-
-            //Load and display config
-
-            txtSilkroadPath.Text = Path.Combine(GlobalConfig.Get<string>("RSBot.SilkroadDirectory"), GlobalConfig.Get<string>("RSBot.SilkroadExecutable"));
-            checkEnableStaticCaptcha.Checked = GlobalConfig.Get<bool>("RSBot.General.EnableStaticCaptcha");
-            checkEnableAutoLogin.Checked = GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin");
-            checkStartBot.Checked = GlobalConfig.Get<bool>("RSBot.General.StartBot");
-            checkUseReturnScroll.Checked = GlobalConfig.Get<bool>("RSBot.General.UseReturnScroll");
-            checkStayConnected.Checked = GlobalConfig.Get<bool>("RSBot.General.StayConnected");
-            checkBoxBotTrayMinimized.Checked = GlobalConfig.Get<bool>("RSBot.General.TrayWhenMinimize");
-            txtStaticCaptcha.Text = GlobalConfig.Get<string>("RSBot.General.StaticCaptcha");
-            comboBoxClientType.SelectedItem = Game.ClientType.ToString();
-
-            if (File.Exists(GlobalConfig.Get<string>("RSBot.SilkroadDirectory") + "\\media.pk2"))
-                return;
-
-            txtSilkroadPath.BackColor = Color.Red;
         }
 
         /// <summary>
@@ -66,6 +42,36 @@ namespace RSBot.General.Views
             EventManager.SubscribeEvent("OnStartClient", OnStartClient);
             EventManager.SubscribeEvent("OnExitClient", OnExitClient);
             EventManager.SubscribeEvent("OnCharacterListReceived", OnCharacterListReceived);
+            EventManager.SubscribeEvent("OnInitialized", OnInitialized);
+        }
+
+        /// <summary>
+        /// Called when main window loaded.
+        /// </summary>
+        private void OnInitialized()
+        {
+            comboBoxClientType.Items.AddRange(Enum.GetNames(typeof(GameClientType)));
+            comboCharacter.SelectedIndex = 0;
+
+            Components.Accounts.Load();
+            LoadAccounts();
+
+            //Load and display config
+
+            txtSilkroadPath.Text = Path.Combine(GlobalConfig.Get<string>("RSBot.SilkroadDirectory"), GlobalConfig.Get<string>("RSBot.SilkroadExecutable"));
+            checkEnableStaticCaptcha.Checked = GlobalConfig.Get<bool>("RSBot.General.EnableStaticCaptcha");
+            checkEnableAutoLogin.Checked = GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin");
+            checkStartBot.Checked = GlobalConfig.Get<bool>("RSBot.General.StartBot");
+            checkUseReturnScroll.Checked = GlobalConfig.Get<bool>("RSBot.General.UseReturnScroll");
+            checkStayConnected.Checked = GlobalConfig.Get<bool>("RSBot.General.StayConnected");
+            checkBoxBotTrayMinimized.Checked = GlobalConfig.Get<bool>("RSBot.General.TrayWhenMinimize");
+            txtStaticCaptcha.Text = GlobalConfig.Get<string>("RSBot.General.StaticCaptcha");
+            comboBoxClientType.SelectedIndex = (int)Game.ClientType;
+
+            if (File.Exists(GlobalConfig.Get<string>("RSBot.SilkroadDirectory") + "\\media.pk2"))
+                return;
+
+            txtSilkroadPath.BackColor = Color.Red;
         }
 
         /// <summary>
@@ -550,8 +556,7 @@ namespace RSBot.General.Views
                 return;
             }
 
-            if (!Enum.TryParse<GameClientType>(comboBoxClientType.SelectedItem.ToString(), out var clientType))
-                return;
+            var clientType = (GameClientType)comboBoxClientType.SelectedIndex;
 
             GlobalConfig.Set("RSBot.Game.ClientType", clientType);
             Game.ClientType = clientType;
