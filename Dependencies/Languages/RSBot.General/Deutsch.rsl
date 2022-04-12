@@ -65,6 +65,7 @@ WaitingUserForSelectCharacter="Warten auf die Auswahl eines Charakters durch den
 PlayerDetected="Spieler erkannt: {0} (lv. {1})"
 SelectYourCharacterManually="Wählen Sie Ihren Charakter dieses Mal manuell aus."
 Welcome="Willkommen zu einem weiteren Abenteuer in Silkroad!"
+Ready="Ready"
 AuthFailed="Anmeldung am Anmeldeserver fehlgeschlagen. ({0})"
 AuthGetewaySuccess="Gateway-Authentifizierung erfolgreich!"
 AuthGatewayWrongIdPw="Falschen Benutzernamen oder Passwort eingegeben!"
