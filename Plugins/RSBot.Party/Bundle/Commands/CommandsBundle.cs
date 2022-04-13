@@ -1,0 +1,65 @@
+﻿using RSBot.Core;
+using RSBot.Core.Network;
+using RSBot.Core.Objects.Spawn;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RSBot.Party.Bundle.Commands
+{
+    internal class CommandsBundle
+    {
+        /// <summary>
+        /// Gets or sets the configuration.
+        /// </summary>
+        /// <value>
+        /// The configuration.
+        /// </value>
+        public CommandsConfig Config { get; set; }
+
+        /// <summary>
+        /// Handle the bundle
+        /// </summary>
+        public void Handle(SpawnedPlayer player, string message)
+        {
+            if (!StringComparer.InvariantCultureIgnoreCase.Equals(message, "traceme"))
+                return;
+
+            if (Config.ListenFromList && Config.PlayerList.Contains(player.Name))
+                SendTraceRequest(player.UniqueId);
+
+            if (Config.ListenOnlyMaster && Game.Party.IsInParty)
+                SendTraceRequest(player.UniqueId);
+        }
+
+        /// <summary>
+        /// Send trace request by speficied uniqueId
+        /// </summary>
+        /// <param name="uniqueId">The unique id</param>
+        private void SendTraceRequest(uint uniqueId)
+        {
+            var packet = new Packet(0x7074);
+            packet.WriteByte(1);
+            packet.WriteByte(3);
+            packet.WriteByte(1);
+            packet.WriteUInt(uniqueId);
+
+            PacketManager.SendPacket(packet, PacketDestination.Server);
+        }
+
+        /// <summary>
+        /// Refreshes this instance.
+        /// </summary>
+        public void Refresh()
+        {
+            Config = new CommandsConfig()
+            {
+                PlayerList = PlayerConfig.GetArray<string>("RSBot.Party.Commands.PlayersList"),
+                ListenFromList = PlayerConfig.Get<bool>("RSBot.Party.Commands.ListenOnlyList"),
+                ListenOnlyMaster = PlayerConfig.Get<bool>("RSBot.Party.Commands.ListenFromMaster"),
+            };
+        }
+    }
+}

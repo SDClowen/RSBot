@@ -86,6 +86,7 @@
     <Compile Include="Network\Hooks\Gateway\GatewayLoginResponseHookOfficial.cs" />
     <Compile Include="Objects\ActionHitStateFlag.cs" />
     <Compile Include="Objects\ActionStateFlag.cs" />
+    <Compile Include="Objects\ChatType.cs" />
     <Compile Include="Objects\Exchange\ExchangeInstance.cs" />
     <Compile Include="Cryptography\SkillCryptoHelper.cs" />
     <Compile Include="Event\ISubscriber.cs" />

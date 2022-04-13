@@ -44,6 +44,9 @@
     <Compile Include="Bootstrap.cs" />
     <Compile Include="Bundle\AutoParty\AutoPartyBundle.cs" />
     <Compile Include="Bundle\AutoParty\AutoPartyConfig.cs" />
+    <Compile Include="Bundle\Commands\CommandsConfig.cs" />
+    <Compile Include="Bundle\Commands\Network\ChatResponse.cs" />
+    <Compile Include="Bundle\Commands\CommandsBundle.cs" />
     <Compile Include="Bundle\Container.cs" />
     <Compile Include="Bundle\PartyMatching\Network\PartyMatchingChangeResponse.cs" />
     <Compile Include="Bundle\PartyMatching\Network\PartyMatchingDeleteResponse.cs" />

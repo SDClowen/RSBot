@@ -1,4 +1,4 @@
-﻿namespace RSBot.Chat.Objects
+﻿namespace RSBot.Core.Objects
 {
     public enum ChatType
     {

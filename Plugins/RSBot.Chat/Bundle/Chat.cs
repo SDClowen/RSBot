@@ -1,7 +1,7 @@
-﻿using RSBot.Chat.Objects;
-using RSBot.Core;
+﻿using RSBot.Core;
 using RSBot.Core.Extensions;
 using RSBot.Core.Network;
+using RSBot.Core.Objects;
 
 namespace RSBot.Chat.Bundle
 {
