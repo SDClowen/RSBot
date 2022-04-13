@@ -50,8 +50,12 @@
             this.checkCurrentAutoShareEXP = new System.Windows.Forms.CheckBox();
             this.tpAutoParty = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.labelCommandsInfo = new System.Windows.Forms.Label();
+            this.separator2 = new RSBot.Theme.Controls.Separator();
             this.separator1 = new RSBot.Theme.Controls.Separator();
             this.textBoxLeaveIfMasterNotName = new System.Windows.Forms.TextBox();
+            this.checkBoxListenCommandsOnlyList = new System.Windows.Forms.CheckBox();
+            this.checkBoxListenMasterCommands = new System.Windows.Forms.CheckBox();
             this.checkBoxLeaveIfMasterNot = new System.Windows.Forms.CheckBox();
             this.checkAcceptIfBotStopped = new System.Windows.Forms.CheckBox();
             this.checkAcceptAtTrainingPlace = new System.Windows.Forms.CheckBox();
@@ -60,10 +64,17 @@
             this.checkInviteAll = new System.Windows.Forms.CheckBox();
             this.checkAcceptFromList = new System.Windows.Forms.CheckBox();
             this.checkAcceptAll = new System.Windows.Forms.CheckBox();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.listAutoParty = new System.Windows.Forms.ListBox();
-            this.btnRemoveFromAutoParty = new System.Windows.Forms.Button();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.btnAddToAutoParty = new System.Windows.Forms.Button();
+            this.btnRemoveFromAutoParty = new System.Windows.Forms.Button();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.listCommandPlayers = new System.Windows.Forms.ListBox();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.buttonCommandPlayerAdd = new System.Windows.Forms.Button();
+            this.buttonCommandPlayerRemove = new System.Windows.Forms.Button();
             this.grbAutoPartySettings = new System.Windows.Forms.GroupBox();
             this.checkAutoAllowInvitations = new System.Windows.Forms.CheckBox();
             this.checkAutoItemAutoShare = new System.Windows.Forms.CheckBox();
@@ -126,7 +137,11 @@
             this.grpPartySettings.SuspendLayout();
             this.tpAutoParty.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.grbAutoPartySettings.SuspendLayout();
             this.tpPartyMatching.SuspendLayout();
             this.topPartyPanel.SuspendLayout();
@@ -331,7 +346,7 @@
             // 
             this.tpAutoParty.BackColor = System.Drawing.Color.Transparent;
             this.tpAutoParty.Controls.Add(this.groupBox2);
-            this.tpAutoParty.Controls.Add(this.groupBox3);
+            this.tpAutoParty.Controls.Add(this.panel2);
             this.tpAutoParty.Controls.Add(this.grbAutoPartySettings);
             this.tpAutoParty.Location = new System.Drawing.Point(4, 25);
             this.tpAutoParty.Name = "tpAutoParty";
@@ -342,8 +357,12 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.labelCommandsInfo);
+            this.groupBox2.Controls.Add(this.separator2);
             this.groupBox2.Controls.Add(this.separator1);
             this.groupBox2.Controls.Add(this.textBoxLeaveIfMasterNotName);
+            this.groupBox2.Controls.Add(this.checkBoxListenCommandsOnlyList);
+            this.groupBox2.Controls.Add(this.checkBoxListenMasterCommands);
             this.groupBox2.Controls.Add(this.checkBoxLeaveIfMasterNot);
             this.groupBox2.Controls.Add(this.checkAcceptIfBotStopped);
             this.groupBox2.Controls.Add(this.checkAcceptAtTrainingPlace);
@@ -352,28 +371,69 @@
             this.groupBox2.Controls.Add(this.checkInviteAll);
             this.groupBox2.Controls.Add(this.checkAcceptFromList);
             this.groupBox2.Controls.Add(this.checkAcceptAll);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox2.Location = new System.Drawing.Point(184, 74);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(227, 74);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(547, 255);
+            this.groupBox2.Size = new System.Drawing.Size(504, 349);
             this.groupBox2.TabIndex = 11;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Auto party settings";
             // 
+            // labelCommandsInfo
+            // 
+            this.labelCommandsInfo.AutoSize = true;
+            this.labelCommandsInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCommandsInfo.Location = new System.Drawing.Point(248, 239);
+            this.labelCommandsInfo.Name = "labelCommandsInfo";
+            this.labelCommandsInfo.Size = new System.Drawing.Size(236, 26);
+            this.labelCommandsInfo.TabIndex = 16;
+            this.labelCommandsInfo.Text = "Commands only using in the game chat window! \r\n{traceme}: Send fallow me request " +
+    "to players";
+            // 
+            // separator2
+            // 
+            this.separator2.Location = new System.Drawing.Point(20, 214);
+            this.separator2.Name = "separator2";
+            this.separator2.Size = new System.Drawing.Size(464, 11);
+            this.separator2.TabIndex = 15;
+            this.separator2.Text = "separator1";
+            // 
             // separator1
             // 
-            this.separator1.Location = new System.Drawing.Point(20, 168);
+            this.separator1.Location = new System.Drawing.Point(20, 167);
             this.separator1.Name = "separator1";
-            this.separator1.Size = new System.Drawing.Size(298, 10);
+            this.separator1.Size = new System.Drawing.Size(464, 11);
             this.separator1.TabIndex = 15;
             this.separator1.Text = "separator1";
             // 
             // textBoxLeaveIfMasterNotName
             // 
-            this.textBoxLeaveIfMasterNotName.Location = new System.Drawing.Point(148, 188);
+            this.textBoxLeaveIfMasterNotName.Location = new System.Drawing.Point(175, 188);
             this.textBoxLeaveIfMasterNotName.Name = "textBoxLeaveIfMasterNotName";
             this.textBoxLeaveIfMasterNotName.Size = new System.Drawing.Size(85, 20);
             this.textBoxLeaveIfMasterNotName.TabIndex = 14;
+            // 
+            // checkBoxListenCommandsOnlyList
+            // 
+            this.checkBoxListenCommandsOnlyList.AutoSize = true;
+            this.checkBoxListenCommandsOnlyList.Location = new System.Drawing.Point(20, 253);
+            this.checkBoxListenCommandsOnlyList.Name = "checkBoxListenCommandsOnlyList";
+            this.checkBoxListenCommandsOnlyList.Size = new System.Drawing.Size(134, 17);
+            this.checkBoxListenCommandsOnlyList.TabIndex = 13;
+            this.checkBoxListenCommandsOnlyList.Text = "Listen commands in list";
+            this.checkBoxListenCommandsOnlyList.UseVisualStyleBackColor = true;
+            this.checkBoxListenCommandsOnlyList.CheckedChanged += new System.EventHandler(this.checkAutoPartySetting_CheckedChanged);
+            // 
+            // checkBoxListenMasterCommands
+            // 
+            this.checkBoxListenMasterCommands.AutoSize = true;
+            this.checkBoxListenMasterCommands.Location = new System.Drawing.Point(20, 231);
+            this.checkBoxListenMasterCommands.Name = "checkBoxListenMasterCommands";
+            this.checkBoxListenMasterCommands.Size = new System.Drawing.Size(168, 17);
+            this.checkBoxListenMasterCommands.TabIndex = 13;
+            this.checkBoxListenMasterCommands.Text = "Listen party master commands";
+            this.checkBoxListenMasterCommands.UseVisualStyleBackColor = true;
+            this.checkBoxListenMasterCommands.CheckedChanged += new System.EventHandler(this.checkAutoPartySetting_CheckedChanged);
             // 
             // checkBoxLeaveIfMasterNot
             // 
@@ -410,9 +470,9 @@
             // 
             // label2
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(391, 232);
+            this.label2.Location = new System.Drawing.Point(17, 323);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(150, 13);
             this.label2.TabIndex = 11;
@@ -462,30 +522,61 @@
             this.checkAcceptAll.UseVisualStyleBackColor = true;
             this.checkAcceptAll.CheckedChanged += new System.EventHandler(this.checkAutoPartySetting_CheckedChanged);
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.groupBox3);
+            this.panel2.Controls.Add(this.groupBox7);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel2.Location = new System.Drawing.Point(3, 74);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(224, 349);
+            this.panel2.TabIndex = 12;
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.listAutoParty);
-            this.groupBox3.Controls.Add(this.btnRemoveFromAutoParty);
-            this.groupBox3.Controls.Add(this.btnAddToAutoParty);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupBox3.Location = new System.Drawing.Point(3, 74);
+            this.groupBox3.Controls.Add(this.panel3);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(181, 349);
+            this.groupBox3.Size = new System.Drawing.Size(224, 184);
             this.groupBox3.TabIndex = 12;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Auto party players";
             // 
             // listAutoParty
             // 
+            this.listAutoParty.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listAutoParty.FormattingEnabled = true;
-            this.listAutoParty.Location = new System.Drawing.Point(8, 22);
+            this.listAutoParty.Location = new System.Drawing.Point(3, 16);
             this.listAutoParty.Name = "listAutoParty";
-            this.listAutoParty.Size = new System.Drawing.Size(166, 264);
+            this.listAutoParty.Size = new System.Drawing.Size(218, 132);
             this.listAutoParty.TabIndex = 9;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.btnAddToAutoParty);
+            this.panel3.Controls.Add(this.btnRemoveFromAutoParty);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel3.Location = new System.Drawing.Point(3, 148);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(218, 33);
+            this.panel3.TabIndex = 17;
+            // 
+            // btnAddToAutoParty
+            // 
+            this.btnAddToAutoParty.Location = new System.Drawing.Point(5, 4);
+            this.btnAddToAutoParty.Name = "btnAddToAutoParty";
+            this.btnAddToAutoParty.Size = new System.Drawing.Size(82, 23);
+            this.btnAddToAutoParty.TabIndex = 10;
+            this.btnAddToAutoParty.Text = "Add";
+            this.btnAddToAutoParty.UseVisualStyleBackColor = true;
+            this.btnAddToAutoParty.Click += new System.EventHandler(this.btnAddToAutoParty_Click);
             // 
             // btnRemoveFromAutoParty
             // 
-            this.btnRemoveFromAutoParty.Location = new System.Drawing.Point(8, 304);
+            this.btnRemoveFromAutoParty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRemoveFromAutoParty.Location = new System.Drawing.Point(137, 4);
             this.btnRemoveFromAutoParty.Name = "btnRemoveFromAutoParty";
             this.btnRemoveFromAutoParty.Size = new System.Drawing.Size(78, 23);
             this.btnRemoveFromAutoParty.TabIndex = 10;
@@ -493,15 +584,57 @@
             this.btnRemoveFromAutoParty.UseVisualStyleBackColor = true;
             this.btnRemoveFromAutoParty.Click += new System.EventHandler(this.btnRemoveFromAutoParty_Click);
             // 
-            // btnAddToAutoParty
+            // groupBox7
             // 
-            this.btnAddToAutoParty.Location = new System.Drawing.Point(92, 304);
-            this.btnAddToAutoParty.Name = "btnAddToAutoParty";
-            this.btnAddToAutoParty.Size = new System.Drawing.Size(82, 23);
-            this.btnAddToAutoParty.TabIndex = 10;
-            this.btnAddToAutoParty.Text = "Add";
-            this.btnAddToAutoParty.UseVisualStyleBackColor = true;
-            this.btnAddToAutoParty.Click += new System.EventHandler(this.btnAddToAutoParty_Click);
+            this.groupBox7.Controls.Add(this.listCommandPlayers);
+            this.groupBox7.Controls.Add(this.panel4);
+            this.groupBox7.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.groupBox7.Location = new System.Drawing.Point(0, 184);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(224, 165);
+            this.groupBox7.TabIndex = 13;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Their commands will be listened to";
+            // 
+            // listCommandPlayers
+            // 
+            this.listCommandPlayers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listCommandPlayers.FormattingEnabled = true;
+            this.listCommandPlayers.Location = new System.Drawing.Point(3, 16);
+            this.listCommandPlayers.Name = "listCommandPlayers";
+            this.listCommandPlayers.Size = new System.Drawing.Size(218, 113);
+            this.listCommandPlayers.TabIndex = 9;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.buttonCommandPlayerAdd);
+            this.panel4.Controls.Add(this.buttonCommandPlayerRemove);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel4.Location = new System.Drawing.Point(3, 129);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(218, 33);
+            this.panel4.TabIndex = 10;
+            // 
+            // buttonCommandPlayerAdd
+            // 
+            this.buttonCommandPlayerAdd.Location = new System.Drawing.Point(5, 5);
+            this.buttonCommandPlayerAdd.Name = "buttonCommandPlayerAdd";
+            this.buttonCommandPlayerAdd.Size = new System.Drawing.Size(82, 23);
+            this.buttonCommandPlayerAdd.TabIndex = 10;
+            this.buttonCommandPlayerAdd.Text = "Add";
+            this.buttonCommandPlayerAdd.UseVisualStyleBackColor = true;
+            this.buttonCommandPlayerAdd.Click += new System.EventHandler(this.buttonCommandPlayerAdd_Click);
+            // 
+            // buttonCommandPlayerRemove
+            // 
+            this.buttonCommandPlayerRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCommandPlayerRemove.Location = new System.Drawing.Point(136, 5);
+            this.buttonCommandPlayerRemove.Name = "buttonCommandPlayerRemove";
+            this.buttonCommandPlayerRemove.Size = new System.Drawing.Size(78, 23);
+            this.buttonCommandPlayerRemove.TabIndex = 10;
+            this.buttonCommandPlayerRemove.Text = "Remove";
+            this.buttonCommandPlayerRemove.UseVisualStyleBackColor = true;
+            this.buttonCommandPlayerRemove.Click += new System.EventHandler(this.buttonCommandPlayerRemove_Click);
             // 
             // grbAutoPartySettings
             // 
@@ -1139,7 +1272,11 @@
             this.tpAutoParty.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.panel2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
             this.grbAutoPartySettings.ResumeLayout(false);
             this.grbAutoPartySettings.PerformLayout();
             this.tpPartyMatching.ResumeLayout(false);
@@ -1160,8 +1297,6 @@
         }
 
         #endregion
-
-        private RSBot.Theme.Controls.TabControl tabMain;
         private System.Windows.Forms.TabPage tabCurrentParty;
         private System.Windows.Forms.ListView listParty;
         private System.Windows.Forms.ColumnHeader colMemberName;
@@ -1253,5 +1388,17 @@
         private System.Windows.Forms.TextBox textBoxLeaveIfMasterNotName;
         private System.Windows.Forms.CheckBox checkBoxLeaveIfMasterNot;
         private Theme.Controls.Separator separator1;
+        private System.Windows.Forms.CheckBox checkBoxListenCommandsOnlyList;
+        private System.Windows.Forms.CheckBox checkBoxListenMasterCommands;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.ListBox listCommandPlayers;
+        private System.Windows.Forms.Button buttonCommandPlayerRemove;
+        private System.Windows.Forms.Button buttonCommandPlayerAdd;
+        private System.Windows.Forms.Label labelCommandsInfo;
+        private Theme.Controls.Separator separator2;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel4;
+        private Theme.Controls.TabControl tabMain;
     }
 }

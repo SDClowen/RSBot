@@ -165,6 +165,16 @@ namespace RSBot.Party.Views
         }
 
         /// <summary>
+        /// Saves the automatic party player list.
+        /// </summary>
+        private void SaveCommandPlayersList()
+        {
+            PlayerConfig.SetArray("RSBot.Party.Commands.PlayersList", listCommandPlayers.Items.Cast<string>().ToArray());
+
+            Bundle.Container.Refresh();
+        }
+
+        /// <summary>
         /// Refresh the buffing group members
         /// </summary>
         private void RefreshGroupMembers()
@@ -267,6 +277,7 @@ namespace RSBot.Party.Views
             textBoxLeaveIfMasterNotName.Enabled = !checkBoxLeaveIfMasterNot.Checked;
 
             listAutoParty.Items.AddRange(PlayerConfig.GetArray<string>("RSBot.Party.AutoPartyList"));
+            listCommandPlayers.Items.AddRange(PlayerConfig.GetArray<string>("RSBot.Party.Commands.PlayersList"));
             _applySettings = true;
         }
 
@@ -617,6 +628,9 @@ namespace RSBot.Party.Views
             PlayerConfig.Set("RSBot.Party.LeaveIfMasterNotName", textBoxLeaveIfMasterNotName.Text);
 
             textBoxLeaveIfMasterNotName.Enabled = !checkBoxLeaveIfMasterNot.Checked;
+
+            PlayerConfig.Set("RSBot.Party.Commands.ListenFromMaster", checkBoxListenMasterCommands.Checked);
+            PlayerConfig.Set("RSBot.Party.Commands.ListenOnlyList", checkBoxListenCommandsOnlyList.Checked);
 
             Bundle.Container.Refresh();
         }
@@ -971,6 +985,30 @@ namespace RSBot.Party.Views
                     LoadPartyBuffSkills();
                 }
             }
+        }
+
+        private void buttonCommandPlayerAdd_Click(object sender, EventArgs e)
+        {
+            var diag = new InputDialog(
+                "Input",
+                LanguageManager.GetLang("CharName"),
+                LanguageManager.GetLang("EnterCharNameForCommandList"));
+
+            if (diag.ShowDialog() != DialogResult.OK) 
+                return;
+
+            listCommandPlayers.Items.Add(diag.Value);
+            SaveCommandPlayersList();
+        }
+
+        private void buttonCommandPlayerRemove_Click(object sender, EventArgs e)
+        {
+            if (listCommandPlayers.SelectedIndex == -1) 
+                return;
+
+            listCommandPlayers.Items.Remove(listCommandPlayers.SelectedItem);
+
+            SaveCommandPlayersList();
         }
     }
 }

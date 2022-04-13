@@ -1,10 +1,10 @@
-﻿using RSBot.Chat.Views;
-using RSBot.Core;
+﻿using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Extensions;
 using RSBot.Core.Network;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
+using RSBot.Party.Bundle;
 
 namespace RSBot.Chat.Network
 {
@@ -35,6 +35,7 @@ namespace RSBot.Chat.Network
             var type = (ChatType)packet.ReadByte();
 
             var message = string.Empty;
+            SpawnedPlayer player = null;
 
             switch (type)
             {
@@ -43,34 +44,27 @@ namespace RSBot.Chat.Network
                     var senderId = packet.ReadUInt();
                     message = packet.ReadConditonalString();
 
-                    if (senderId != Game.Player.UniqueId)
-                    {
-                        if (!SpawnManager.TryGetEntity<SpawnedPlayer>(senderId, out var player))
-                            return;
+                    if (senderId == Game.Player.UniqueId)
+                        return;
 
-                        View.Instance.AppendMessage(message, player.Name, ChatType.All);
-                    }
-                    else
-                        View.Instance.AppendMessage(message, Game.Player.Name, ChatType.All);
+                    if (!SpawnManager.TryGetEntity(senderId, out player))
+                        return;
+
+                    Container.Commands.Handle(player, message.Trim());
 
                     break;
 
-                case ChatType.Notice:
-
-                    message = packet.ReadConditonalString();
-
-                    View.Instance.AppendMessage(message, "Notice", type);
-                    break;
-
-                case ChatType.Npc:
-                    //TODO: get npc by guid
-                    break;
-
-                default:
+                // in party
+                case ChatType.Private:
+                case ChatType.Party:
                     var sender = packet.ReadString();
                     message = packet.ReadConditonalString();
 
-                    View.Instance.AppendMessage(message, sender, type);
+                    if (!SpawnManager.TryGetEntity(p => p.Name == sender, out player))
+                        return;
+
+                    Container.Commands.Handle(player, message.Trim());
+
                     break;
             }
         }
