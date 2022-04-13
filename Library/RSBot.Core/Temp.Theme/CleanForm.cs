@@ -1,5 +1,6 @@
 ﻿using RSBot.Theme.Extensions;
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 using static RSBot.Theme.NativeMethods;
 
@@ -95,7 +96,32 @@ namespace RSBot.Theme.Controls
             if (control.Tag?.ToString() == "private")
                 return;
 
-            control.BackColor = ColorScheme.BackColor;
+            if (control is TextBoxBase txt)
+            {
+                txt.BorderStyle = BorderStyle.FixedSingle;
+            }
+            
+            if (control is ComboBox comboBox)
+            {
+                comboBox.FlatStyle = FlatStyle.Flat;
+            }
+
+            if (control is Button btn)
+            {
+                btn.FlatStyle = FlatStyle.Flat;
+                var color = Color.FromArgb(20, ColorScheme.BackColor.Determine());
+                var borderColor = Color.FromArgb(50, ColorScheme.BackColor.Determine());
+                var mouseOverBackColor = Color.FromArgb(50, ColorScheme.BackColor.Determine());
+                var mouseDownBackColor = Color.FromArgb(10, ColorScheme.BackColor.Determine());
+                btn.FlatAppearance.BorderColor = borderColor;
+                btn.FlatAppearance.MouseOverBackColor = mouseOverBackColor;
+                btn.FlatAppearance.MouseDownBackColor = mouseDownBackColor;
+                control.BackColor = color;
+                control.ForeColor = ColorScheme.BackColor.Determine();
+                return;
+            }
+            else
+                control.BackColor = ColorScheme.BackColor;
 
             if (!(control is ProgressBar))
                 control.ForeColor = control.BackColor.Determine();
