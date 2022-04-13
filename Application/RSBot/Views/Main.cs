@@ -333,6 +333,9 @@ namespace RSBot.Views
             LanguageManager.Translate(this, Kernel.Language);
 
             dropdown.Checked = true;
+
+            GlobalConfig.Set("RSBot.Language", Kernel.Language);
+            GlobalConfig.Save();
         }
 
         /// <summary>
