@@ -80,6 +80,8 @@ namespace RSBot.Bot.Default.Bot
                     item.Use();
             }
 
+            var noAttack = PlayerConfig.Get("RSBot.Skills.NoAttack", false);
+
             //Cast buffs
             Bundles.Buff.Invoke();
 
@@ -93,13 +95,15 @@ namespace RSBot.Bot.Default.Bot
             Bundles.Loot.Invoke();
 
             //Select next target
-            Bundles.Target.Invoke();
+            if(!noAttack)
+                Bundles.Target.Invoke();
 
             //Check for berzerk
             Bundles.Berzerk.Invoke();
 
             //Cast skill against enemy
-            Bundles.Attack.Invoke();
+            if(!noAttack)
+                Bundles.Attack.Invoke();
 
             //Move around (maybe)
             Bundles.Movement.Invoke();

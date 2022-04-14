@@ -75,6 +75,7 @@
             this.skillContextMenuAddAttackSkill = new System.Windows.Forms.MenuItem();
             this.menuItem2 = new System.Windows.Forms.MenuItem();
             this.skillContextMenuAddBuffSkill = new System.Windows.Forms.MenuItem();
+            this.checkBoxNoAttack = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -90,6 +91,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBoxNoAttack);
             this.groupBox1.Controls.Add(this.listAttackingSkills);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.comboMonsterType);
@@ -152,7 +154,7 @@
             "Unique"});
             this.comboMonsterType.Location = new System.Drawing.Point(54, 171);
             this.comboMonsterType.Name = "comboMonsterType";
-            this.comboMonsterType.Size = new System.Drawing.Size(267, 21);
+            this.comboMonsterType.Size = new System.Drawing.Size(176, 21);
             this.comboMonsterType.TabIndex = 2;
             this.comboMonsterType.SelectedIndexChanged += new System.EventHandler(this.comboMonsterType_SelectedIndexChanged);
             // 
@@ -572,6 +574,17 @@
             this.skillContextMenuAddBuffSkill.Text = "Add To Buffs";
             this.skillContextMenuAddBuffSkill.Click += new System.EventHandler(this.menuAddBuff_Click);
             // 
+            // checkBoxNoAttack
+            // 
+            this.checkBoxNoAttack.AutoSize = true;
+            this.checkBoxNoAttack.Location = new System.Drawing.Point(247, 173);
+            this.checkBoxNoAttack.Name = "checkBoxNoAttack";
+            this.checkBoxNoAttack.Size = new System.Drawing.Size(74, 17);
+            this.checkBoxNoAttack.TabIndex = 9;
+            this.checkBoxNoAttack.Text = "No Attack";
+            this.checkBoxNoAttack.UseVisualStyleBackColor = true;
+            this.checkBoxNoAttack.CheckedChanged += new System.EventHandler(this.checkBoxNoAttack_CheckedChanged);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -649,5 +662,6 @@
         private System.Windows.Forms.MenuItem menuItem2;
         private System.Windows.Forms.MenuItem skillContextMenuAddBuffSkill;
         private System.Windows.Forms.MenuItem skillContextMenuAddAttackSkill;
+        private System.Windows.Forms.CheckBox checkBoxNoAttack;
     }
 }
