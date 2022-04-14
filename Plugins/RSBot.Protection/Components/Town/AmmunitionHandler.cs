@@ -28,14 +28,13 @@ namespace RSBot.Protection.Components.Town
         {
             if (!Kernel.Bot.Running)
                 return;
+
             if (!PlayerConfig.Get<bool>("RSBot.Protection.checkNoArrows"))
-                return;
-            if (Game.Player.Weapon?.Record.Quivered != 1)
                 return;
 
             var currentAmmuniton = Game.Player.GetAmmunationAmount(true);
-
-            if (currentAmmuniton == -1 || currentAmmuniton > 10) return;
+            if (currentAmmuniton == -1 || currentAmmuniton > 10) 
+                return;
 
             Log.WarnLang("ReturnToTownNoAmmo");
             Game.Player.UseReturnScroll();

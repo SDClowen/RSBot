@@ -1,4 +1,5 @@
 ﻿using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Event;
 using RSBot.Core.Network;
 using RSBot.Core.Objects.Quests;
 using RSBot.Core.Objects.Skill;
@@ -804,24 +805,32 @@ namespace RSBot.Core.Objects
             var currentWeapon = Inventory.GetItemAt(6);
             var currentAmmunation = Inventory.GetItemAt(7);
 
-            if (currentWeapon == null || currentAmmunation != null) return;
+            if (currentWeapon == null || currentAmmunation != null) 
+                return;
+
+            InventoryItem ammunationItem = null;
 
             if (currentWeapon.Record.TypeID4 == 6) //Bow
-            {
-                var ammunation = Inventory.GetItem(new TypeIdFilter(3, 3, 4, 1));
-                if (ammunation != null)
-                    Inventory.MoveItem(ammunation.Slot, 7);
-                else
-                    Log.Notify("Could not auto-equip ammunation: No correct ammunation type was found in the player's inventory");
-            }
+                ammunationItem = Inventory.GetItem(new TypeIdFilter(3, 3, 4, 1));
             else if (currentWeapon.Record.TypeID4 == 12) //Crossbow
+                ammunationItem = Inventory.GetItem(new TypeIdFilter(3, 3, 4, 2));
+            else
+                return;
+
+            if (ammunationItem != null)
             {
-                var ammunation = Inventory.GetItem(new TypeIdFilter(3, 3, 4, 2));
-                if (ammunation != null)
-                    Inventory.MoveItem(ammunation.Slot, 7);
-                else
-                    Log.Notify("Could not auto-equip ammunation: No correct ammunation type was found in the player's inventory");
+                Inventory.MoveItem(ammunationItem.Slot, 7);
+                return;
             }
+
+            if (!PlayerConfig.Get<bool>("RSBot.Protection.checkNoArrows"))
+            {
+                Kernel.Bot.Stop();
+                return;
+            }
+            
+            Log.Notify("Could not auto-equip ammunation: No correct ammunation type was found in the player's inventory");
+            EventManager.FireEvent("OnUpdateAmmunition");
         }
 
         /// <summary>
