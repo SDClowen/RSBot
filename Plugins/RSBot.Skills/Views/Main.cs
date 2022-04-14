@@ -61,6 +61,7 @@ namespace RSBot.Skills.Views
             checkResurrectParty.Checked = PlayerConfig.Get<bool>("RSBot.Skills.ResurrectPartyMembers");
             checkCastBuffsInTowns.Checked = PlayerConfig.Get<bool>("RSBot.Skills.CastBuffsInTowns");
             checkCastBuffsDuringWalkBack.Checked = PlayerConfig.Get<bool>("RSBot.Skills.CastBuffsDuringWalkBack");
+            checkBoxNoAttack.Checked = PlayerConfig.Get<bool>("RSBot.Skills.NoAttack");
         }
 
         /// <summary>
@@ -679,6 +680,11 @@ namespace RSBot.Skills.Views
             }
 
             SaveBuffs();
+        }
+
+        private void checkBoxNoAttack_CheckedChanged(object sender, EventArgs e)
+        {
+            PlayerConfig.Set("RSBot.Skills.NoAttack", checkBoxNoAttack.Checked);
         }
     }
 }
