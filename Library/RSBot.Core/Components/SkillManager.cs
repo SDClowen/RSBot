@@ -1,4 +1,5 @@
 ﻿using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Event;
 using RSBot.Core.Network;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Skill;
@@ -11,14 +12,6 @@ using System.Threading;
 
 namespace RSBot.Core.Components
 {
-    public enum ActionType
-    {
-        None,
-        AttackSkill,
-        BuffSkill,
-        AutoAttack
-    }
-
     public static class SkillManager
     {
         /// <summary>
@@ -59,9 +52,24 @@ namespace RSBot.Core.Components
         public static List<SkillInfo> Buffs { get; set; }
 
         /// <summary>
-        /// Last action type
+        /// The last casted skill id
         /// </summary>
-        public static ActionType LastActionType { get; private set; }
+        public static uint LastCastedSkillId;
+
+        /// <summary>
+        /// Is the last action basic skill (Auto attack) <c>true</c>; otherwise <c>false</c>
+        /// </summary>
+        public static bool IsLastCastedBasic => _baseSkills.Contains(LastCastedSkillId);
+
+        /// <summary>
+        /// Basic skills
+        /// </summary>
+        private static uint[] _baseSkills = new uint[]
+        {
+            70,40,2,8421,9354,
+            9355,11162,9944,8419,
+            8420,11526,10625
+        };
 
         /// <summary>
         /// Initializes this instance.
@@ -71,7 +79,18 @@ namespace RSBot.Core.Components
             Skills = Enum.GetValues(typeof(MonsterRarity)).Cast<MonsterRarity>().ToDictionary(v => v, v => new List<SkillInfo>());
             Buffs = new List<SkillInfo>();
 
+            EventManager.SubscribeEvent("OnCastSkill", new Action<uint>(OnCastSkill));
+
             Log.Debug($"Initialized [SkillManager] for [{Skills.Count}] different mob rarities!");
+        }
+
+        /// <summary>
+        /// Call after casted skill
+        /// </summary>
+        /// <param name="skillId">The casted skill id</param>
+        private static void OnCastSkill(uint skillId)
+        {
+            LastCastedSkillId = skillId;
         }
 
         /// <summary>
@@ -93,7 +112,7 @@ namespace RSBot.Core.Components
         public static SkillInfo GetNextSkill()
         {
             var entity = Game.SelectedEntity;
-            if (entity == null) 
+            if (entity == null)
                 return null;
 
             var rarity = MonsterRarity.General;
@@ -258,10 +277,8 @@ namespace RSBot.Core.Components
 
             Log.Debug($"Skill Attacking to: {targetId} State: {entity.State.LifeState} Health: {entity.Health} HasHealth: {entity.HasHealth} Dst: {System.Math.Round(entity.DistanceToPlayer, 1)}");
 
-            LastActionType = ActionType.AttackSkill;
-
             PacketManager.SendPacket(packet, PacketDestination.Server);
-            
+
             return true;
         }
 
@@ -415,7 +432,6 @@ namespace RSBot.Core.Components
                     ? AwaitCallbackResult.Received : AwaitCallbackResult.None;
             }, 0xB074);
 
-            LastActionType = ActionType.BuffSkill;
             PacketManager.SendPacket(packet, PacketDestination.Server, asyncCallback, callback);
 
             asyncCallback.AwaitResponse(skill.Record.Action_CastingTime +
@@ -455,7 +471,6 @@ namespace RSBot.Core.Components
 
             Log.Debug($"Normal Attacking to: {entity.UniqueId} State: {entity.State.LifeState} Health: {entity.Health} HasHealth: {entity.HasHealth} Dst: {System.Math.Round(entity.DistanceToPlayer, 1)}");
 
-            LastActionType = ActionType.AutoAttack;
             PacketManager.SendPacket(packet, PacketDestination.Server);
 
             return true;

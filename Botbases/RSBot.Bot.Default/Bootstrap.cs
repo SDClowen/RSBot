@@ -30,9 +30,19 @@ namespace RSBot.Bot.Default
         /// </summary>
         public void Tick()
         {
-            if (!Kernel.Bot.Running || 
-                Game.Player.Untouchable ||
-                Game.Player.State.LifeState == LifeState.Dead) 
+            if (!Kernel.Bot.Running)
+                return;
+
+            if (Game.Player.Exchanging)
+                return;
+
+            if (Game.Player.Untouchable)
+                return;
+
+            if (Game.Player.State.LifeState == LifeState.Dead)
+                return;
+
+            if (Bundles.Loop.Running)
                 return;
 
             //Nothing if in scroll state!

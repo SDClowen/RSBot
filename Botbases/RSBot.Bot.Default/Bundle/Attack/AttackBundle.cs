@@ -32,21 +32,24 @@ namespace RSBot.Bot.Default.Bundle.Attack
                 SkillManager.ImbueSkill.CanBeCasted)
                 SkillManager.CastBuff(SkillManager.ImbueSkill);
 
-            if (Game.Player.InAction && SkillManager.LastActionType != ActionType.AutoAttack)
+            if (Game.Player.InAction && !SkillManager.IsLastCastedBasic)
                 return;
 
             var stopwatch = System.Diagnostics.Stopwatch.StartNew();
             var skill = SkillManager.GetNextSkill();
-            Log.Debug($"Getnextskill: {stopwatch.ElapsedMilliseconds} Action:{Game.Player.InAction} Entity:{Game.SelectedEntity != null} LA:{SkillManager.LastActionType} Skill:{skill}");
+            
+            Log.Debug($"Getnextskill: {stopwatch.ElapsedMilliseconds} Action:{Game.Player.InAction} Entity:{Game.SelectedEntity != null} LA:{SkillManager.IsLastCastedBasic} Skill:{skill}");
+            
             if (skill == null)
             {
                 if (Game.Player.InAction)
                     return;
 
                 SkillManager.CastAutoAttack();
+
                 return;
             }
-            else if (Game.Player.InAction && SkillManager.LastActionType == ActionType.AutoAttack)
+            else if (Game.Player.InAction && SkillManager.IsLastCastedBasic)
                 SkillManager.CancelAction();
 
             var uniqueId = Game.SelectedEntity.UniqueId;

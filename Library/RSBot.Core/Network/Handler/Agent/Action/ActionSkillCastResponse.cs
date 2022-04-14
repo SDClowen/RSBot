@@ -1,5 +1,4 @@
 ﻿using RSBot.Core.Event;
-using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
 
 namespace RSBot.Core.Network.Handler.Agent.Action
@@ -63,7 +62,7 @@ namespace RSBot.Core.Network.Handler.Agent.Action
 
                 var skill = Core.Game.Player.Skills.GetSkillInfoById(action.SkillId);
                 skill?.Update();
-
+                
                 EventManager.FireEvent("OnCastSkill", action.SkillId);
 
                 return;
