@@ -200,6 +200,7 @@ namespace RSBot.Core.Objects
             if(Environment.TickCount - _lastHungerTick > 3000)
             {
                 CurrentHungerPoints--;
+                _lastHungerTick = Environment.TickCount;
                 EventManager.FireEvent("OnAttackPetHungerUpdate");
             }
 
