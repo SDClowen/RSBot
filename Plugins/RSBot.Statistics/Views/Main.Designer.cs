@@ -32,15 +32,15 @@
             System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Loot", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Enemy", System.Windows.Forms.HorizontalAlignment.Left);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.panelStaticFilters = new System.Windows.Forms.Panel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.panelLiveFilters = new System.Windows.Forms.Panel();
-            this.lvStatistics = new System.Windows.Forms.ListView();
+            this.groupBox2 = new SDUI.Controls.GroupBox();
+            this.panelStaticFilters = new SDUI.Controls.Panel();
+            this.groupBox1 = new SDUI.Controls.GroupBox();
+            this.panelLiveFilters = new SDUI.Controls.Panel();
+            this.lvStatistics = new SDUI.Controls.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btnReset = new System.Windows.Forms.Button();
+            this.panel1 = new SDUI.Controls.Panel();
+            this.btnReset = new SDUI.Controls.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -73,9 +73,12 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.BackColor = System.Drawing.Color.Transparent;
             this.groupBox2.Controls.Add(this.panelStaticFilters);
             this.groupBox2.Location = new System.Drawing.Point(10, 169);
             this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.groupBox2.Radius = 12;
             this.groupBox2.Size = new System.Drawing.Size(234, 178);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
@@ -84,17 +87,21 @@
             // panelStaticFilters
             // 
             this.panelStaticFilters.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelStaticFilters.Location = new System.Drawing.Point(3, 18);
+            this.panelStaticFilters.Location = new System.Drawing.Point(3, 25);
             this.panelStaticFilters.Name = "panelStaticFilters";
-            this.panelStaticFilters.Size = new System.Drawing.Size(228, 157);
+            this.panelStaticFilters.Radius = 12;
+            this.panelStaticFilters.Size = new System.Drawing.Size(228, 150);
             this.panelStaticFilters.TabIndex = 6;
             // 
             // groupBox1
             // 
+            this.groupBox1.BackColor = System.Drawing.Color.Transparent;
             this.groupBox1.Controls.Add(this.panelLiveFilters);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(10, 10);
             this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.groupBox1.Radius = 12;
             this.groupBox1.Size = new System.Drawing.Size(234, 153);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
@@ -103,9 +110,10 @@
             // panelLiveFilters
             // 
             this.panelLiveFilters.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelLiveFilters.Location = new System.Drawing.Point(3, 18);
+            this.panelLiveFilters.Location = new System.Drawing.Point(3, 25);
             this.panelLiveFilters.Name = "panelLiveFilters";
-            this.panelLiveFilters.Size = new System.Drawing.Size(228, 132);
+            this.panelLiveFilters.Radius = 12;
+            this.panelLiveFilters.Size = new System.Drawing.Size(228, 125);
             this.panelLiveFilters.TabIndex = 1;
             // 
             // lvStatistics
@@ -149,12 +157,14 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(10, 436);
             this.panel1.Name = "panel1";
+            this.panel1.Radius = 1;
             this.panel1.Size = new System.Drawing.Size(484, 60);
             this.panel1.TabIndex = 2;
             // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(406, 17);
+            this.btnReset.Color = System.Drawing.Color.Transparent;
+            this.btnReset.Location = new System.Drawing.Point(406, 18);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(75, 23);
             this.btnReset.TabIndex = 0;
@@ -184,14 +194,14 @@
         #endregion
 
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.ListView lvStatistics;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnReset;
+        private SDUI.Controls.ListView lvStatistics;
+        private SDUI.Controls.Panel panel1;
+        private SDUI.Controls.Button btnReset;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Panel panelLiveFilters;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Panel panelStaticFilters;
+        private SDUI.Controls.GroupBox groupBox1;
+        private SDUI.Controls.Panel panelLiveFilters;
+        private SDUI.Controls.GroupBox groupBox2;
+        private SDUI.Controls.Panel panelStaticFilters;
     }
 }

@@ -37,7 +37,7 @@
             this.labelMyWaitingTime = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonCancel = new SDUI.Controls.Button();
             this.SuspendLayout();
             // 
             // labelServerName
@@ -162,7 +162,7 @@
         private System.Windows.Forms.Label labelAvgWaitingTime;
         private System.Windows.Forms.Label labelMyWaitingTime;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button buttonCancel;
+        private SDUI.Controls.Button buttonCancel;
         private System.Windows.Forms.Timer timer;
     }
 }

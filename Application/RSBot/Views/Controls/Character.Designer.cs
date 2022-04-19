@@ -41,9 +41,9 @@
             this.label9 = new System.Windows.Forms.Label();
             this.lblInt = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.progressEXP = new System.Windows.Forms.ProgressBar();
-            this.progressMP = new System.Windows.Forms.ProgressBar();
-            this.progressHP = new System.Windows.Forms.ProgressBar();
+            this.progressEXP = new SDUI.Controls.ProgressBar();
+            this.progressMP = new SDUI.Controls.ProgressBar();
+            this.progressHP = new SDUI.Controls.ProgressBar();
             this.SuspendLayout();
             // 
             // label2
@@ -169,32 +169,56 @@
             // 
             // progressEXP
             // 
+            this.progressEXP.BackColor = System.Drawing.Color.Transparent;
             this.progressEXP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.progressEXP.Gradient = new System.Drawing.Color[] {
+        System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128))))),
+        System.Drawing.Color.Green};
             this.progressEXP.Location = new System.Drawing.Point(10, 50);
+            this.progressEXP.Maximum = ((long)(100));
             this.progressEXP.Name = "progressEXP";
+            this.progressEXP.PercentIndices = 2;
+            this.progressEXP.ShowAsPercent = true;
+            this.progressEXP.ShowValue = true;
             this.progressEXP.Size = new System.Drawing.Size(402, 19);
             this.progressEXP.TabIndex = 2;
-            this.progressEXP.Text = "0%";
-            this.progressEXP.Value = 50;
+            this.progressEXP.Text = "50%";
+            this.progressEXP.Value = ((long)(50));
             // 
             // progressMP
             // 
+            this.progressMP.BackColor = System.Drawing.Color.Transparent;
+            this.progressMP.Gradient = new System.Drawing.Color[] {
+        System.Drawing.Color.DodgerBlue,
+        System.Drawing.Color.Navy};
             this.progressMP.Location = new System.Drawing.Point(214, 28);
+            this.progressMP.Maximum = ((long)(100));
             this.progressMP.Name = "progressMP";
+            this.progressMP.PercentIndices = 2;
+            this.progressMP.ShowAsPercent = false;
+            this.progressMP.ShowValue = true;
             this.progressMP.Size = new System.Drawing.Size(198, 19);
             this.progressMP.TabIndex = 1;
-            this.progressMP.Text = "0 / 0";
-            this.progressMP.Value = 50;
+            this.progressMP.Text = "50 / 100";
+            this.progressMP.Value = ((long)(50));
             // 
             // progressHP
             // 
+            this.progressHP.BackColor = System.Drawing.Color.Transparent;
             this.progressHP.ForeColor = System.Drawing.Color.Firebrick;
+            this.progressHP.Gradient = new System.Drawing.Color[] {
+        System.Drawing.Color.Red,
+        System.Drawing.Color.Maroon};
             this.progressHP.Location = new System.Drawing.Point(10, 28);
+            this.progressHP.Maximum = ((long)(100));
             this.progressHP.Name = "progressHP";
+            this.progressHP.PercentIndices = 2;
+            this.progressHP.ShowAsPercent = false;
+            this.progressHP.ShowValue = true;
             this.progressHP.Size = new System.Drawing.Size(198, 19);
             this.progressHP.TabIndex = 0;
-            this.progressHP.Text = "0 / 0";
-            this.progressHP.Value = 50;
+            this.progressHP.Text = "50 / 100";
+            this.progressHP.Value = ((long)(50));
             // 
             // Character
             // 
@@ -224,9 +248,9 @@
 
         #endregion
 
-        private System.Windows.Forms.ProgressBar progressHP;
-        private System.Windows.Forms.ProgressBar progressMP;
-        private System.Windows.Forms.ProgressBar progressEXP;
+        private SDUI.Controls.ProgressBar progressHP;
+        private SDUI.Controls.ProgressBar progressMP;
+        private SDUI.Controls.ProgressBar progressEXP;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;

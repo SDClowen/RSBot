@@ -1,7 +1,7 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Network;
 using RSBot.General.Components;
-using RSBot.Theme.Controls;
+using SDUI.Controls;
 using System;
 using System.Text;
 using System.Windows.Forms;

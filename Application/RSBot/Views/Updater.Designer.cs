@@ -32,10 +32,10 @@
             this.lblInfo = new System.Windows.Forms.Label();
             this.cbChangeLog = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.btnDownload = new System.Windows.Forms.Button();
-            this.btnSkip = new System.Windows.Forms.Button();
-            this.centerPanel = new System.Windows.Forms.Panel();
-            this.downloadProgress = new System.Windows.Forms.ProgressBar();
+            this.btnDownload = new SDUI.Controls.Button();
+            this.btnSkip = new SDUI.Controls.Button();
+            this.centerPanel = new SDUI.Controls.Panel();
+            this.downloadProgress = new SDUI.Controls.ProgressBar();
             this.lblDownloadInfo = new System.Windows.Forms.Label();
             this.centerPanel.SuspendLayout();
             this.SuspendLayout();
@@ -128,7 +128,6 @@
             this.downloadProgress.Location = new System.Drawing.Point(20, 10);
             this.downloadProgress.Name = "downloadProgress";
             this.downloadProgress.Size = new System.Drawing.Size(400, 23);
-            this.downloadProgress.Step = 1;
             this.downloadProgress.TabIndex = 5;
             this.downloadProgress.Visible = false;
             // 
@@ -178,10 +177,10 @@
         private System.Windows.Forms.Label lblInfo;
         private System.Windows.Forms.CheckBox cbChangeLog;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button btnDownload;
-        private System.Windows.Forms.Button btnSkip;
-        private System.Windows.Forms.Panel centerPanel;
-        private System.Windows.Forms.ProgressBar downloadProgress;
+        private SDUI.Controls.Button btnDownload;
+        private SDUI.Controls.Button btnSkip;
+        private SDUI.Controls.Panel centerPanel;
+        private SDUI.Controls.ProgressBar downloadProgress;
         private System.Windows.Forms.Label lblDownloadInfo;
     }
 }

@@ -1,7 +1,7 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
-using RSBot.Theme.Controls;
+using SDUI.Controls;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Forms;

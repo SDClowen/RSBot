@@ -2,7 +2,7 @@
 using RSBot.Core.Plugins;
 using RSBot.Inventory.Subscriber;
 using RSBot.Inventory.Views;
-using RSBot.Theme;
+
 using System.Windows.Forms;
 
 namespace RSBot.Inventory

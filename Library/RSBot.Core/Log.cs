@@ -1,5 +1,5 @@
 ﻿using RSBot.Core.Event;
-using RSBot.Theme;
+
 using System;
 using System.IO;
 

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SplashScreen));
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel1 = new SDUI.Controls.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.lblVersion = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -47,6 +47,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 124);
             this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel1.Name = "panel1";
+            this.panel1.Radius = 1;
             this.panel1.Size = new System.Drawing.Size(317, 32);
             this.panel1.TabIndex = 1;
             // 
@@ -122,7 +123,7 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Panel panel1;
+        private SDUI.Controls.Panel panel1;
         private System.Windows.Forms.Label lblVersion;
         private System.Windows.Forms.Label label4;
         private System.ComponentModel.BackgroundWorker referenceDataLoader;

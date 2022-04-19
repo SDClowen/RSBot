@@ -1,5 +1,5 @@
 ﻿using RSBot.Core;
-using RSBot.Theme.Controls;
+using SDUI.Controls;
 using System;
 using System.IO;
 using System.Windows.Forms;

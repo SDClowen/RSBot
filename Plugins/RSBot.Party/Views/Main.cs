@@ -3,7 +3,7 @@ using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects.Party;
 using RSBot.Core.Objects.Skill;
-using RSBot.Theme.Controls;
+using SDUI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -45,8 +45,8 @@ namespace RSBot.Party.Views
         {
             InitializeComponent();
 
-            selectedMemberBuffs.SmallImageList = ListViewExtensions.StaticImageList;
-            listPartyBuffSkills.SmallImageList = ListViewExtensions.StaticImageList;
+            selectedMemberBuffs.SmallImageList = Core.Extensions.ListViewExtensions.StaticImageList;
+            listPartyBuffSkills.SmallImageList = Core.Extensions.ListViewExtensions.StaticImageList;
 
             _buffings = new List<BuffingPartyMember>();
             CheckForIllegalCrossThreadCalls = false;
@@ -681,7 +681,7 @@ namespace RSBot.Party.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnPartyMatchForm_Click(object sender, EventArgs e)
         {
-            var senderName = (sender as Button).Name;
+            var senderName = (sender as SDUI.Controls.Button).Name;
 
             View.PartyWindow.Text =
                 senderName == nameof(btnPartyMatchForm) ?
@@ -700,7 +700,7 @@ namespace RSBot.Party.Views
 
         private void PageNatigateBtn_Click(object sender, EventArgs e)
         {
-            var btn = sender as Button;
+            var btn = sender as SDUI.Controls.Button;
             btn.Enabled = false;
 
             RequestPartyList(Convert.ToByte(btn.Tag));

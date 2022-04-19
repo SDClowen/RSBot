@@ -1,7 +1,6 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
-using RSBot.Theme.Extensions;
 using System;
 using System.Windows.Forms;
 

@@ -1,6 +1,7 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Network;
-using RSBot.Theme.Extensions;
+using SDUI.Extensions;
+using System.Windows.Forms;
 
 namespace RSBot.Chat.Network
 {

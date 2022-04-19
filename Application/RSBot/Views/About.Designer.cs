@@ -29,9 +29,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.buttonOk = new System.Windows.Forms.Button();
+            this.buttonOk = new SDUI.Controls.Button();
             this.richTextBox = new System.Windows.Forms.RichTextBox();
-            this.bottomPanel = new System.Windows.Forms.Panel();
+            this.bottomPanel = new SDUI.Controls.Panel();
             this.labelName = new System.Windows.Forms.Label();
             this.labelDescription = new System.Windows.Forms.Label();
             this.labelVersion = new System.Windows.Forms.Label();
@@ -51,7 +51,8 @@
             // 
             // buttonOk
             // 
-            this.buttonOk.Location = new System.Drawing.Point(203, 8);
+            this.buttonOk.Color = System.Drawing.Color.Transparent;
+            this.buttonOk.Location = new System.Drawing.Point(243, 7);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(75, 23);
             this.buttonOk.TabIndex = 0;
@@ -78,6 +79,7 @@
             this.bottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.bottomPanel.Location = new System.Drawing.Point(0, 221);
             this.bottomPanel.Name = "bottomPanel";
+            this.bottomPanel.Radius = 1;
             this.bottomPanel.Size = new System.Drawing.Size(545, 38);
             this.bottomPanel.TabIndex = 3;
             // 
@@ -145,9 +147,9 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button buttonOk;
+        private SDUI.Controls.Button buttonOk;
         private System.Windows.Forms.RichTextBox richTextBox;
-        private System.Windows.Forms.Panel bottomPanel;
+        private SDUI.Controls.Panel bottomPanel;
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.Label labelDescription;
         private System.Windows.Forms.Label labelVersion;

@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.labelInfo = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btnNo = new System.Windows.Forms.Button();
-            this.btnYes = new System.Windows.Forms.Button();
+            this.panel1 = new SDUI.Controls.Panel();
+            this.btnNo = new SDUI.Controls.Button();
+            this.btnYes = new SDUI.Controls.Button();
             this.checkDontAskAgain = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
@@ -55,13 +55,15 @@
             this.panel1.Controls.Add(this.btnYes);
             this.panel1.Controls.Add(this.checkDontAskAgain);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 84);
+            this.panel1.Location = new System.Drawing.Point(0, 87);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(440, 52);
+            this.panel1.Radius = 1;
+            this.panel1.Size = new System.Drawing.Size(440, 49);
             this.panel1.TabIndex = 1;
             // 
             // btnNo
             // 
+            this.btnNo.Color = System.Drawing.Color.Transparent;
             this.btnNo.DialogResult = System.Windows.Forms.DialogResult.No;
             this.btnNo.Location = new System.Drawing.Point(349, 14);
             this.btnNo.Name = "btnNo";
@@ -73,6 +75,7 @@
             // btnYes
             // 
             this.btnYes.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnYes.Color = System.Drawing.Color.Transparent;
             this.btnYes.DialogResult = System.Windows.Forms.DialogResult.Yes;
             this.btnYes.Location = new System.Drawing.Point(268, 14);
             this.btnYes.Name = "btnYes";
@@ -84,12 +87,13 @@
             // checkDontAskAgain
             // 
             this.checkDontAskAgain.AutoSize = true;
+            this.checkDontAskAgain.BackColor = System.Drawing.Color.Transparent;
             this.checkDontAskAgain.Location = new System.Drawing.Point(12, 17);
             this.checkDontAskAgain.Name = "checkDontAskAgain";
             this.checkDontAskAgain.Size = new System.Drawing.Size(107, 19);
             this.checkDontAskAgain.TabIndex = 2;
             this.checkDontAskAgain.Text = "Don\'t ask again";
-            this.checkDontAskAgain.UseVisualStyleBackColor = true;
+            this.checkDontAskAgain.UseVisualStyleBackColor = false;
             this.checkDontAskAgain.CheckedChanged += new System.EventHandler(this.checkDontAskAgain_CheckedChanged);
             // 
             // pictureBox1
@@ -134,10 +138,10 @@
         #endregion
 
         private System.Windows.Forms.Label labelInfo;
-        private System.Windows.Forms.Panel panel1;
+        private SDUI.Controls.Panel panel1;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button btnNo;
-        private System.Windows.Forms.Button btnYes;
+        private SDUI.Controls.Button btnNo;
+        private SDUI.Controls.Button btnYes;
         private System.Windows.Forms.CheckBox checkDontAskAgain;
     }
 }

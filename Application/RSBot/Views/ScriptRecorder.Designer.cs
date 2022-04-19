@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScriptRecorder));
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btnRunNow = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnClear = new System.Windows.Forms.Button();
-            this.btnStart = new System.Windows.Forms.Button();
-            this.txtScript = new System.Windows.Forms.RichTextBox();
+            this.panel1 = new SDUI.Controls.Panel();
             this.labelStatus = new System.Windows.Forms.Label();
+            this.btnRunNow = new SDUI.Controls.Button();
+            this.btnSave = new SDUI.Controls.Button();
+            this.btnClear = new SDUI.Controls.Button();
+            this.btnStart = new SDUI.Controls.Button();
+            this.txtScript = new System.Windows.Forms.RichTextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,11 +49,22 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
+            this.panel1.Radius = 1;
             this.panel1.Size = new System.Drawing.Size(551, 43);
             this.panel1.TabIndex = 0;
             // 
+            // labelStatus
+            // 
+            this.labelStatus.AutoSize = true;
+            this.labelStatus.Location = new System.Drawing.Point(313, 13);
+            this.labelStatus.Name = "labelStatus";
+            this.labelStatus.Size = new System.Drawing.Size(42, 15);
+            this.labelStatus.TabIndex = 4;
+            this.labelStatus.Text = "<Idle>";
+            // 
             // btnRunNow
             // 
+            this.btnRunNow.Color = System.Drawing.Color.Transparent;
             this.btnRunNow.Location = new System.Drawing.Point(174, 9);
             this.btnRunNow.Name = "btnRunNow";
             this.btnRunNow.Size = new System.Drawing.Size(75, 23);
@@ -65,6 +76,7 @@
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Color = System.Drawing.Color.Transparent;
             this.btnSave.Location = new System.Drawing.Point(464, 9);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
@@ -75,6 +87,7 @@
             // 
             // btnClear
             // 
+            this.btnClear.Color = System.Drawing.Color.Transparent;
             this.btnClear.Location = new System.Drawing.Point(93, 9);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 23);
@@ -85,6 +98,7 @@
             // 
             // btnStart
             // 
+            this.btnStart.Color = System.Drawing.Color.Transparent;
             this.btnStart.Location = new System.Drawing.Point(12, 9);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(75, 23);
@@ -102,15 +116,6 @@
             this.txtScript.Size = new System.Drawing.Size(551, 468);
             this.txtScript.TabIndex = 1;
             this.txtScript.Text = "";
-            // 
-            // labelStatus
-            // 
-            this.labelStatus.AutoSize = true;
-            this.labelStatus.Location = new System.Drawing.Point(313, 13);
-            this.labelStatus.Name = "labelStatus";
-            this.labelStatus.Size = new System.Drawing.Size(42, 15);
-            this.labelStatus.TabIndex = 4;
-            this.labelStatus.Text = "<Idle>";
             // 
             // ScriptRecorder
             // 
@@ -138,12 +143,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel panel1;
+        private SDUI.Controls.Panel panel1;
         private System.Windows.Forms.RichTextBox txtScript;
-        private System.Windows.Forms.Button btnStart;
-        private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Button btnClear;
-        private System.Windows.Forms.Button btnRunNow;
+        private SDUI.Controls.Button btnStart;
+        private SDUI.Controls.Button btnSave;
+        private SDUI.Controls.Button btnClear;
+        private SDUI.Controls.Button btnRunNow;
         private System.Windows.Forms.Label labelStatus;
     }
 }

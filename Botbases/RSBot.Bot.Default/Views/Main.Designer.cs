@@ -41,34 +41,34 @@
             System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("Unique");
             System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("Strong");
             System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem("Elite");
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new SDUI.Controls.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.radioWalkAround = new System.Windows.Forms.RadioButton();
             this.radioCenter = new System.Windows.Forms.RadioButton();
-            this.btnGetCurrent = new System.Windows.Forms.Button();
+            this.btnGetCurrent = new SDUI.Controls.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtRadius = new System.Windows.Forms.TextBox();
-            this.txtYCoord = new System.Windows.Forms.TextBox();
-            this.txtXCoord = new System.Windows.Forms.TextBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.lvAvoidance = new System.Windows.Forms.ListView();
+            this.txtRadius = new SDUI.Controls.TextBox();
+            this.txtYCoord = new SDUI.Controls.TextBox();
+            this.txtXCoord = new SDUI.Controls.TextBox();
+            this.groupBox2 = new SDUI.Controls.GroupBox();
+            this.lvAvoidance = new SDUI.Controls.ListView();
             this.ctxAvoidance = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.btnAvoid = new System.Windows.Forms.ToolStripMenuItem();
             this.btnPrefer = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnNoCustomBehavior = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new SDUI.Controls.GroupBox();
             this.checkUseSpeedDrug = new System.Windows.Forms.CheckBox();
             this.checkCastBuffs = new System.Windows.Forms.CheckBox();
             this.checkUseMount = new System.Windows.Forms.CheckBox();
-            this.btnBrowse = new System.Windows.Forms.Button();
-            this.txtWalkscript = new System.Windows.Forms.TextBox();
+            this.btnBrowse = new SDUI.Controls.Button();
+            this.txtWalkscript = new SDUI.Controls.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.checkBerzerkWhenFull = new System.Windows.Forms.CheckBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new SDUI.Controls.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.numBerzerkMonsterAmount = new System.Windows.Forms.NumericUpDown();
             this.checkBerzerkAvoidance = new System.Windows.Forms.CheckBox();
@@ -83,6 +83,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.BackColor = System.Drawing.Color.Transparent;
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.radioWalkAround);
@@ -96,6 +97,8 @@
             this.groupBox1.Controls.Add(this.txtXCoord);
             this.groupBox1.Location = new System.Drawing.Point(23, 16);
             this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.groupBox1.Radius = 12;
             this.groupBox1.Size = new System.Drawing.Size(221, 228);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
@@ -145,7 +148,8 @@
             // 
             // btnGetCurrent
             // 
-            this.btnGetCurrent.Location = new System.Drawing.Point(76, 103);
+            this.btnGetCurrent.Color = System.Drawing.Color.Transparent;
+            this.btnGetCurrent.Location = new System.Drawing.Point(76, 107);
             this.btnGetCurrent.Name = "btnGetCurrent";
             this.btnGetCurrent.Size = new System.Drawing.Size(97, 23);
             this.btnGetCurrent.TabIndex = 3;
@@ -156,7 +160,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(27, 80);
+            this.label3.Location = new System.Drawing.Point(27, 84);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(43, 13);
             this.label3.TabIndex = 1;
@@ -165,7 +169,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(53, 54);
+            this.label2.Location = new System.Drawing.Point(53, 58);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(17, 13);
             this.label2.TabIndex = 1;
@@ -174,7 +178,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(53, 28);
+            this.label1.Location = new System.Drawing.Point(53, 32);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(17, 13);
             this.label1.TabIndex = 1;
@@ -182,34 +186,48 @@
             // 
             // txtRadius
             // 
-            this.txtRadius.Location = new System.Drawing.Point(76, 77);
+            this.txtRadius.Location = new System.Drawing.Point(76, 81);
+            this.txtRadius.MaxLength = 32767;
+            this.txtRadius.MultiLine = false;
             this.txtRadius.Name = "txtRadius";
-            this.txtRadius.Size = new System.Drawing.Size(97, 20);
+            this.txtRadius.Size = new System.Drawing.Size(97, 18);
             this.txtRadius.TabIndex = 0;
-            this.txtRadius.Text = "50";
+            this.txtRadius.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtRadius.UseSystemPasswordChar = false;
             this.txtRadius.TextChanged += new System.EventHandler(this.txtRadius_TextChanged);
             // 
             // txtYCoord
             // 
-            this.txtYCoord.Location = new System.Drawing.Point(76, 51);
+            this.txtYCoord.Location = new System.Drawing.Point(76, 55);
+            this.txtYCoord.MaxLength = 32767;
+            this.txtYCoord.MultiLine = false;
             this.txtYCoord.Name = "txtYCoord";
-            this.txtYCoord.Size = new System.Drawing.Size(97, 20);
+            this.txtYCoord.Size = new System.Drawing.Size(97, 18);
             this.txtYCoord.TabIndex = 0;
+            this.txtYCoord.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtYCoord.UseSystemPasswordChar = false;
             this.txtYCoord.TextChanged += new System.EventHandler(this.txtYCoord_TextChanged);
             // 
             // txtXCoord
             // 
-            this.txtXCoord.Location = new System.Drawing.Point(76, 25);
+            this.txtXCoord.Location = new System.Drawing.Point(76, 29);
+            this.txtXCoord.MaxLength = 32767;
+            this.txtXCoord.MultiLine = false;
             this.txtXCoord.Name = "txtXCoord";
-            this.txtXCoord.Size = new System.Drawing.Size(97, 20);
+            this.txtXCoord.Size = new System.Drawing.Size(97, 18);
             this.txtXCoord.TabIndex = 0;
+            this.txtXCoord.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtXCoord.UseSystemPasswordChar = false;
             this.txtXCoord.TextChanged += new System.EventHandler(this.txtXCoord_TextChanged);
             // 
             // groupBox2
             // 
+            this.groupBox2.BackColor = System.Drawing.Color.Transparent;
             this.groupBox2.Controls.Add(this.lvAvoidance);
             this.groupBox2.Location = new System.Drawing.Point(23, 250);
             this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.groupBox2.Radius = 12;
             this.groupBox2.Size = new System.Drawing.Size(221, 214);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
@@ -218,6 +236,7 @@
             // lvAvoidance
             // 
             this.lvAvoidance.ContextMenuStrip = this.ctxAvoidance;
+            this.lvAvoidance.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvAvoidance.FullRowSelect = true;
             listViewGroup1.Header = "Avoid";
             listViewGroup1.Name = "grpAvoid";
@@ -249,13 +268,13 @@
             listViewItem7,
             listViewItem8,
             listViewItem9});
-            this.lvAvoidance.Location = new System.Drawing.Point(11, 19);
+            this.lvAvoidance.Location = new System.Drawing.Point(3, 23);
             this.lvAvoidance.Name = "lvAvoidance";
-            this.lvAvoidance.Size = new System.Drawing.Size(200, 189);
+            this.lvAvoidance.Size = new System.Drawing.Size(215, 188);
             this.lvAvoidance.TabIndex = 5;
             this.lvAvoidance.TileSize = new System.Drawing.Size(168, 16);
             this.lvAvoidance.UseCompatibleStateImageBehavior = false;
-            this.lvAvoidance.View = System.Windows.Forms.View.List;
+            this.lvAvoidance.View = System.Windows.Forms.View.Tile;
             // 
             // ctxAvoidance
             // 
@@ -295,6 +314,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.BackColor = System.Drawing.Color.Transparent;
             this.groupBox3.Controls.Add(this.checkUseSpeedDrug);
             this.groupBox3.Controls.Add(this.checkCastBuffs);
             this.groupBox3.Controls.Add(this.checkUseMount);
@@ -303,6 +323,8 @@
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Location = new System.Drawing.Point(262, 16);
             this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.groupBox3.Radius = 12;
             this.groupBox3.Size = new System.Drawing.Size(478, 117);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
@@ -343,6 +365,7 @@
             // 
             // btnBrowse
             // 
+            this.btnBrowse.Color = System.Drawing.Color.Transparent;
             this.btnBrowse.Location = new System.Drawing.Point(406, 46);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(57, 23);
@@ -355,10 +378,13 @@
             // 
             this.txtWalkscript.BackColor = System.Drawing.Color.White;
             this.txtWalkscript.Location = new System.Drawing.Point(21, 47);
+            this.txtWalkscript.MaxLength = 32767;
+            this.txtWalkscript.MultiLine = false;
             this.txtWalkscript.Name = "txtWalkscript";
-            this.txtWalkscript.ReadOnly = true;
-            this.txtWalkscript.Size = new System.Drawing.Size(379, 20);
+            this.txtWalkscript.Size = new System.Drawing.Size(379, 18);
             this.txtWalkscript.TabIndex = 4;
+            this.txtWalkscript.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtWalkscript.UseSystemPasswordChar = false;
             // 
             // label4
             // 
@@ -382,6 +408,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.BackColor = System.Drawing.Color.Transparent;
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Controls.Add(this.numBerzerkMonsterAmount);
             this.groupBox4.Controls.Add(this.checkBerzerkAvoidance);
@@ -389,6 +416,8 @@
             this.groupBox4.Controls.Add(this.checkBerzerkWhenFull);
             this.groupBox4.Location = new System.Drawing.Point(262, 144);
             this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.groupBox4.Radius = 12;
             this.groupBox4.Size = new System.Drawing.Size(478, 100);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
@@ -473,18 +502,18 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
+        private SDUI.Controls.GroupBox groupBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtRadius;
-        private System.Windows.Forms.TextBox txtYCoord;
-        private System.Windows.Forms.TextBox txtXCoord;
+        private SDUI.Controls.TextBox txtRadius;
+        private SDUI.Controls.TextBox txtYCoord;
+        private SDUI.Controls.TextBox txtXCoord;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button btnGetCurrent;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button btnBrowse;
-        private System.Windows.Forms.TextBox txtWalkscript;
+        private SDUI.Controls.GroupBox groupBox2;
+        private SDUI.Controls.Button btnGetCurrent;
+        private SDUI.Controls.GroupBox groupBox3;
+        private SDUI.Controls.Button btnBrowse;
+        private SDUI.Controls.TextBox txtWalkscript;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox checkUseMount;
         private System.Windows.Forms.RadioButton radioWalkAround;
@@ -494,13 +523,13 @@
         private System.Windows.Forms.CheckBox checkUseSpeedDrug;
         private System.Windows.Forms.CheckBox checkCastBuffs;
         private System.Windows.Forms.CheckBox checkBerzerkWhenFull;
-        private System.Windows.Forms.ListView lvAvoidance;
+        private SDUI.Controls.ListView lvAvoidance;
         private System.Windows.Forms.ContextMenuStrip ctxAvoidance;
         private System.Windows.Forms.ToolStripMenuItem btnAvoid;
         private System.Windows.Forms.ToolStripMenuItem btnPrefer;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem btnNoCustomBehavior;
-        private System.Windows.Forms.GroupBox groupBox4;
+        private SDUI.Controls.GroupBox groupBox4;
         private System.Windows.Forms.NumericUpDown numBerzerkMonsterAmount;
         private System.Windows.Forms.CheckBox checkBerzerkAvoidance;
         private System.Windows.Forms.CheckBox checkBerzerkMonsterAmount;

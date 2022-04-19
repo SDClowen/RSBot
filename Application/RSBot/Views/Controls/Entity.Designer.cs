@@ -31,7 +31,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lblEntityName = new System.Windows.Forms.Label();
             this.lblType = new System.Windows.Forms.Label();
-            this.progressHP = new System.Windows.Forms.ProgressBar();
+            this.progressHP = new SDUI.Controls.ProgressBar();
             this.SuspendLayout();
             // 
             // label1
@@ -63,13 +63,21 @@
             // 
             // progressHP
             // 
+            this.progressHP.BackColor = System.Drawing.Color.Transparent;
             this.progressHP.ForeColor = System.Drawing.Color.Firebrick;
+            this.progressHP.Gradient = new System.Drawing.Color[] {
+        System.Drawing.Color.Red,
+        System.Drawing.Color.DarkRed};
             this.progressHP.Location = new System.Drawing.Point(52, 35);
+            this.progressHP.Maximum = ((long)(100));
             this.progressHP.Name = "progressHP";
+            this.progressHP.PercentIndices = 2;
+            this.progressHP.ShowAsPercent = false;
+            this.progressHP.ShowValue = true;
             this.progressHP.Size = new System.Drawing.Size(180, 19);
             this.progressHP.TabIndex = 15;
-            this.progressHP.Text = "0%";
-            this.progressHP.Value = 50;
+            this.progressHP.Text = "50 / 100";
+            this.progressHP.Value = ((long)(50));
             // 
             // Entity
             // 
@@ -91,7 +99,7 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblEntityName;
-        private System.Windows.Forms.ProgressBar progressHP;
+        private SDUI.Controls.ProgressBar progressHP;
         private System.Windows.Forms.Label lblType;
     }
 }

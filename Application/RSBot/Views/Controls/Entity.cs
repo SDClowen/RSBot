@@ -2,7 +2,7 @@
 using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects.Spawn;
-using RSBot.Theme;
+using SDUI;
 using System;
 using System.Windows.Forms;
 

@@ -3,7 +3,7 @@ using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
-using RSBot.Theme.Controls;
+using SDUI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -853,7 +853,7 @@ namespace RSBot.Shopping.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnResetFilter_Click(object sender, EventArgs e)
         {
-            foreach (var group in filterPanel.Controls.OfType<GroupBox>())
+            foreach (var group in filterPanel.Controls.OfType<SDUI.Controls.GroupBox>())
                 foreach (var checkBox in group.Controls.OfType<CheckBox>())
                     checkBox.Checked = false;
 

@@ -28,25 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabMain = new RSBot.Theme.Controls.TabControl();
+            this.tabMain = new SDUI.Controls.TabControl();
             this.tabAll = new System.Windows.Forms.TabPage();
-            this.txtSendAll = new System.Windows.Forms.TextBox();
+            this.txtSendAll = new SDUI.Controls.TextBox();
             this.txtAll = new System.Windows.Forms.RichTextBox();
             this.tabPrivate = new System.Windows.Forms.TabPage();
-            this.txtRecievePrivate = new System.Windows.Forms.TextBox();
-            this.txtSendPrivate = new System.Windows.Forms.TextBox();
+            this.txtRecievePrivate = new SDUI.Controls.TextBox();
+            this.txtSendPrivate = new SDUI.Controls.TextBox();
             this.txtPrivate = new System.Windows.Forms.RichTextBox();
             this.tabParty = new System.Windows.Forms.TabPage();
-            this.txtSendParty = new System.Windows.Forms.TextBox();
+            this.txtSendParty = new SDUI.Controls.TextBox();
             this.txtParty = new System.Windows.Forms.RichTextBox();
             this.tabGuild = new System.Windows.Forms.TabPage();
-            this.txtSendGuild = new System.Windows.Forms.TextBox();
+            this.txtSendGuild = new SDUI.Controls.TextBox();
             this.txtGuild = new System.Windows.Forms.RichTextBox();
             this.tabUnion = new System.Windows.Forms.TabPage();
-            this.txtSendUnion = new System.Windows.Forms.TextBox();
+            this.txtSendUnion = new SDUI.Controls.TextBox();
             this.txtUnion = new System.Windows.Forms.RichTextBox();
             this.tabAcademy = new System.Windows.Forms.TabPage();
-            this.txtSendAcademy = new System.Windows.Forms.TextBox();
+            this.txtSendAcademy = new SDUI.Controls.TextBox();
             this.txtAcademy = new System.Windows.Forms.RichTextBox();
             this.tabGlobal = new System.Windows.Forms.TabPage();
             this.txtGlobal = new System.Windows.Forms.RichTextBox();
@@ -86,6 +86,7 @@
             // 
             // tabAll
             // 
+            this.tabAll.BackColor = System.Drawing.Color.White;
             this.tabAll.Controls.Add(this.txtSendAll);
             this.tabAll.Controls.Add(this.txtAll);
             this.tabAll.Location = new System.Drawing.Point(4, 25);
@@ -94,7 +95,6 @@
             this.tabAll.Size = new System.Drawing.Size(734, 436);
             this.tabAll.TabIndex = 0;
             this.tabAll.Text = "All";
-            this.tabAll.UseVisualStyleBackColor = true;
             // 
             // txtSendAll
             // 
@@ -102,10 +102,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSendAll.Location = new System.Drawing.Point(2, 413);
+            this.txtSendAll.MaxLength = 32767;
+            this.txtSendAll.MultiLine = false;
             this.txtSendAll.Name = "txtSendAll";
-            this.txtSendAll.Size = new System.Drawing.Size(728, 20);
+            this.txtSendAll.Size = new System.Drawing.Size(728, 18);
             this.txtSendAll.TabIndex = 3;
             this.txtSendAll.Tag = "1";
+            this.txtSendAll.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtSendAll.UseSystemPasswordChar = false;
             this.txtSendAll.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MessagePreviewKeyDown);
             // 
             // txtAll
@@ -124,6 +128,7 @@
             // 
             // tabPrivate
             // 
+            this.tabPrivate.BackColor = System.Drawing.Color.White;
             this.tabPrivate.Controls.Add(this.txtRecievePrivate);
             this.tabPrivate.Controls.Add(this.txtSendPrivate);
             this.tabPrivate.Controls.Add(this.txtPrivate);
@@ -133,24 +138,31 @@
             this.tabPrivate.Size = new System.Drawing.Size(734, 436);
             this.tabPrivate.TabIndex = 1;
             this.tabPrivate.Text = "Private";
-            this.tabPrivate.UseVisualStyleBackColor = true;
             // 
             // txtRecievePrivate
             // 
             this.txtRecievePrivate.Location = new System.Drawing.Point(2, 413);
+            this.txtRecievePrivate.MaxLength = 32767;
+            this.txtRecievePrivate.MultiLine = false;
             this.txtRecievePrivate.Name = "txtRecievePrivate";
             this.txtRecievePrivate.Size = new System.Drawing.Size(155, 20);
             this.txtRecievePrivate.TabIndex = 4;
+            this.txtRecievePrivate.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtRecievePrivate.UseSystemPasswordChar = false;
             // 
             // txtSendPrivate
             // 
             this.txtSendPrivate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSendPrivate.Location = new System.Drawing.Point(164, 413);
+            this.txtSendPrivate.MaxLength = 32767;
+            this.txtSendPrivate.MultiLine = false;
             this.txtSendPrivate.Name = "txtSendPrivate";
             this.txtSendPrivate.Size = new System.Drawing.Size(566, 20);
             this.txtSendPrivate.TabIndex = 5;
             this.txtSendPrivate.Tag = "2";
+            this.txtSendPrivate.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtSendPrivate.UseSystemPasswordChar = false;
             this.txtSendPrivate.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MessagePreviewKeyDown);
             // 
             // txtPrivate
@@ -169,6 +181,7 @@
             // 
             // tabParty
             // 
+            this.tabParty.BackColor = System.Drawing.Color.White;
             this.tabParty.Controls.Add(this.txtSendParty);
             this.tabParty.Controls.Add(this.txtParty);
             this.tabParty.Location = new System.Drawing.Point(4, 25);
@@ -177,7 +190,6 @@
             this.tabParty.Size = new System.Drawing.Size(734, 436);
             this.tabParty.TabIndex = 2;
             this.tabParty.Text = "Party";
-            this.tabParty.UseVisualStyleBackColor = true;
             // 
             // txtSendParty
             // 
@@ -185,10 +197,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSendParty.Location = new System.Drawing.Point(2, 413);
+            this.txtSendParty.MaxLength = 32767;
+            this.txtSendParty.MultiLine = false;
             this.txtSendParty.Name = "txtSendParty";
             this.txtSendParty.Size = new System.Drawing.Size(728, 20);
             this.txtSendParty.TabIndex = 3;
             this.txtSendParty.Tag = "4";
+            this.txtSendParty.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtSendParty.UseSystemPasswordChar = false;
             this.txtSendParty.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MessagePreviewKeyDown);
             // 
             // txtParty
@@ -207,6 +223,7 @@
             // 
             // tabGuild
             // 
+            this.tabGuild.BackColor = System.Drawing.Color.White;
             this.tabGuild.Controls.Add(this.txtSendGuild);
             this.tabGuild.Controls.Add(this.txtGuild);
             this.tabGuild.Location = new System.Drawing.Point(4, 25);
@@ -215,7 +232,6 @@
             this.tabGuild.Size = new System.Drawing.Size(734, 436);
             this.tabGuild.TabIndex = 3;
             this.tabGuild.Text = "Guild";
-            this.tabGuild.UseVisualStyleBackColor = true;
             // 
             // txtSendGuild
             // 
@@ -223,10 +239,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSendGuild.Location = new System.Drawing.Point(2, 413);
+            this.txtSendGuild.MaxLength = 32767;
+            this.txtSendGuild.MultiLine = false;
             this.txtSendGuild.Name = "txtSendGuild";
             this.txtSendGuild.Size = new System.Drawing.Size(725, 20);
             this.txtSendGuild.TabIndex = 3;
             this.txtSendGuild.Tag = "5";
+            this.txtSendGuild.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtSendGuild.UseSystemPasswordChar = false;
             this.txtSendGuild.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MessagePreviewKeyDown);
             // 
             // txtGuild
@@ -245,6 +265,7 @@
             // 
             // tabUnion
             // 
+            this.tabUnion.BackColor = System.Drawing.Color.White;
             this.tabUnion.Controls.Add(this.txtSendUnion);
             this.tabUnion.Controls.Add(this.txtUnion);
             this.tabUnion.Location = new System.Drawing.Point(4, 25);
@@ -253,7 +274,6 @@
             this.tabUnion.Size = new System.Drawing.Size(734, 436);
             this.tabUnion.TabIndex = 6;
             this.tabUnion.Text = "Union";
-            this.tabUnion.UseVisualStyleBackColor = true;
             // 
             // txtSendUnion
             // 
@@ -261,10 +281,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSendUnion.Location = new System.Drawing.Point(2, 413);
+            this.txtSendUnion.MaxLength = 32767;
+            this.txtSendUnion.MultiLine = false;
             this.txtSendUnion.Name = "txtSendUnion";
             this.txtSendUnion.Size = new System.Drawing.Size(728, 20);
             this.txtSendUnion.TabIndex = 5;
             this.txtSendUnion.Tag = "11";
+            this.txtSendUnion.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtSendUnion.UseSystemPasswordChar = false;
             this.txtSendUnion.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MessagePreviewKeyDown);
             // 
             // txtUnion
@@ -283,6 +307,7 @@
             // 
             // tabAcademy
             // 
+            this.tabAcademy.BackColor = System.Drawing.Color.White;
             this.tabAcademy.Controls.Add(this.txtSendAcademy);
             this.tabAcademy.Controls.Add(this.txtAcademy);
             this.tabAcademy.Location = new System.Drawing.Point(4, 25);
@@ -291,7 +316,6 @@
             this.tabAcademy.Size = new System.Drawing.Size(734, 436);
             this.tabAcademy.TabIndex = 4;
             this.tabAcademy.Text = "Academy";
-            this.tabAcademy.UseVisualStyleBackColor = true;
             // 
             // txtSendAcademy
             // 
@@ -299,10 +323,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSendAcademy.Location = new System.Drawing.Point(2, 413);
+            this.txtSendAcademy.MaxLength = 32767;
+            this.txtSendAcademy.MultiLine = false;
             this.txtSendAcademy.Name = "txtSendAcademy";
             this.txtSendAcademy.Size = new System.Drawing.Size(728, 20);
             this.txtSendAcademy.TabIndex = 3;
             this.txtSendAcademy.Tag = "16";
+            this.txtSendAcademy.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtSendAcademy.UseSystemPasswordChar = false;
             this.txtSendAcademy.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.MessagePreviewKeyDown);
             // 
             // txtAcademy
@@ -321,6 +349,7 @@
             // 
             // tabGlobal
             // 
+            this.tabGlobal.BackColor = System.Drawing.Color.White;
             this.tabGlobal.Controls.Add(this.txtGlobal);
             this.tabGlobal.Location = new System.Drawing.Point(4, 25);
             this.tabGlobal.Name = "tabGlobal";
@@ -328,7 +357,6 @@
             this.tabGlobal.Size = new System.Drawing.Size(734, 436);
             this.tabGlobal.TabIndex = 5;
             this.tabGlobal.Text = "Global / Notice";
-            this.tabGlobal.UseVisualStyleBackColor = true;
             // 
             // txtGlobal
             // 
@@ -346,6 +374,7 @@
             // 
             // tabStall
             // 
+            this.tabStall.BackColor = System.Drawing.Color.White;
             this.tabStall.Controls.Add(this.txtStall);
             this.tabStall.Location = new System.Drawing.Point(4, 25);
             this.tabStall.Name = "tabStall";
@@ -353,7 +382,6 @@
             this.tabStall.Size = new System.Drawing.Size(734, 436);
             this.tabStall.TabIndex = 5;
             this.tabStall.Text = "Stall";
-            this.tabStall.UseVisualStyleBackColor = true;
             // 
             // txtStall
             // 
@@ -371,6 +399,7 @@
             // 
             // tabUnique
             // 
+            this.tabUnique.BackColor = System.Drawing.Color.White;
             this.tabUnique.Controls.Add(this.UniqueText);
             this.tabUnique.Location = new System.Drawing.Point(4, 25);
             this.tabUnique.Name = "tabUnique";
@@ -378,7 +407,6 @@
             this.tabUnique.Size = new System.Drawing.Size(734, 436);
             this.tabUnique.TabIndex = 7;
             this.tabUnique.Text = "Unique";
-            this.tabUnique.UseVisualStyleBackColor = true;
             // 
             // UniqueText
             // 
@@ -404,17 +432,11 @@
             this.Size = new System.Drawing.Size(754, 477);
             this.tabMain.ResumeLayout(false);
             this.tabAll.ResumeLayout(false);
-            this.tabAll.PerformLayout();
             this.tabPrivate.ResumeLayout(false);
-            this.tabPrivate.PerformLayout();
             this.tabParty.ResumeLayout(false);
-            this.tabParty.PerformLayout();
             this.tabGuild.ResumeLayout(false);
-            this.tabGuild.PerformLayout();
             this.tabUnion.ResumeLayout(false);
-            this.tabUnion.PerformLayout();
             this.tabAcademy.ResumeLayout(false);
-            this.tabAcademy.PerformLayout();
             this.tabGlobal.ResumeLayout(false);
             this.tabStall.ResumeLayout(false);
             this.tabUnique.ResumeLayout(false);
@@ -424,7 +446,7 @@
 
         #endregion
 
-        private RSBot.Theme.Controls.TabControl tabMain;
+        private SDUI.Controls.TabControl tabMain;
         private System.Windows.Forms.TabPage tabAll;
         private System.Windows.Forms.TabPage tabPrivate;
         private System.Windows.Forms.TabPage tabParty;
@@ -432,21 +454,21 @@
         private System.Windows.Forms.TabPage tabAcademy;
         private System.Windows.Forms.TabPage tabGlobal;
         private System.Windows.Forms.TabPage tabStall;
-        private System.Windows.Forms.TextBox txtSendPrivate;
+        private SDUI.Controls.TextBox txtSendPrivate;
         private System.Windows.Forms.RichTextBox txtPrivate;
-        private System.Windows.Forms.TextBox txtSendAll;
+        private SDUI.Controls.TextBox txtSendAll;
         private System.Windows.Forms.RichTextBox txtAll;
-        private System.Windows.Forms.TextBox txtSendParty;
+        private SDUI.Controls.TextBox txtSendParty;
         private System.Windows.Forms.RichTextBox txtParty;
-        private System.Windows.Forms.TextBox txtSendGuild;
+        private SDUI.Controls.TextBox txtSendGuild;
         private System.Windows.Forms.RichTextBox txtGuild;
-        private System.Windows.Forms.TextBox txtSendAcademy;
+        private SDUI.Controls.TextBox txtSendAcademy;
         private System.Windows.Forms.RichTextBox txtAcademy;
         private System.Windows.Forms.RichTextBox txtGlobal;
         private System.Windows.Forms.RichTextBox txtStall;
-        private System.Windows.Forms.TextBox txtRecievePrivate;
+        private SDUI.Controls.TextBox txtRecievePrivate;
         private System.Windows.Forms.TabPage tabUnion;
-        private System.Windows.Forms.TextBox txtSendUnion;
+        private SDUI.Controls.TextBox txtSendUnion;
         private System.Windows.Forms.RichTextBox txtUnion;
         private System.Windows.Forms.TabPage tabUnique;
         internal System.Windows.Forms.RichTextBox UniqueText;

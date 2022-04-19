@@ -28,27 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupPet = new System.Windows.Forms.GroupBox();
-            this.checkAutoSummonAttackPet = new System.Windows.Forms.CheckBox();
-            this.checkUseAbnormalStatePotion = new System.Windows.Forms.CheckBox();
-            this.checkReviveAttackPet = new System.Windows.Forms.CheckBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.numMountMinHP = new System.Windows.Forms.NumericUpDown();
-            this.label20 = new System.Windows.Forms.Label();
-            this.checkUseMountHP = new System.Windows.Forms.CheckBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.numPetMinHGP = new System.Windows.Forms.NumericUpDown();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.numPetMinHP = new System.Windows.Forms.NumericUpDown();
-            this.label16 = new System.Windows.Forms.Label();
-            this.checkUsePetHP = new System.Windows.Forms.CheckBox();
-            this.checkUseHGP = new System.Windows.Forms.CheckBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.groupBackTown = new SDUI.Controls.GroupBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.numDeadTimeout = new System.Windows.Forms.NumericUpDown();
+            this.checkLevelUp = new System.Windows.Forms.CheckBox();
+            this.checkFullPetInventory = new System.Windows.Forms.CheckBox();
+            this.checkNoMPPotions = new System.Windows.Forms.CheckBox();
+            this.checkNoHPPotions = new System.Windows.Forms.CheckBox();
+            this.checkDurability = new System.Windows.Forms.CheckBox();
+            this.checkDead = new System.Windows.Forms.CheckBox();
+            this.checkInventory = new System.Windows.Forms.CheckBox();
+            this.checkNoArrows = new System.Windows.Forms.CheckBox();
+            this.groupBadStatus = new SDUI.Controls.GroupBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.comboSkillBadStatus = new SDUI.Controls.ComboBox();
+            this.checkUseBadStatusSkill = new System.Windows.Forms.CheckBox();
             this.checkUseUniversalPills = new System.Windows.Forms.CheckBox();
-            this.groupHPMP = new System.Windows.Forms.GroupBox();
+            this.groupHPMP = new SDUI.Controls.GroupBox();
             this.label17 = new System.Windows.Forms.Label();
-            this.comboSkillPlayerMP = new System.Windows.Forms.ComboBox();
-            this.comboSkillPlayerHP = new System.Windows.Forms.ComboBox();
+            this.comboSkillPlayerMP = new SDUI.Controls.ComboBox();
+            this.comboSkillPlayerHP = new SDUI.Controls.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.numPlayerSkillMPMin = new System.Windows.Forms.NumericUpDown();
             this.label12 = new System.Windows.Forms.Label();
@@ -73,26 +73,25 @@
             this.checkUseVigorMP = new System.Windows.Forms.CheckBox();
             this.checkUseMPPotionsPlayer = new System.Windows.Forms.CheckBox();
             this.checkUseVigorHP = new System.Windows.Forms.CheckBox();
-            this.groupBadStatus = new System.Windows.Forms.GroupBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.comboSkillBadStatus = new System.Windows.Forms.ComboBox();
-            this.checkUseBadStatusSkill = new System.Windows.Forms.CheckBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.groupBackTown = new System.Windows.Forms.GroupBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.numDeadTimeout = new System.Windows.Forms.NumericUpDown();
-            this.checkLevelUp = new System.Windows.Forms.CheckBox();
-            this.checkFullPetInventory = new System.Windows.Forms.CheckBox();
-            this.checkNoMPPotions = new System.Windows.Forms.CheckBox();
-            this.checkNoHPPotions = new System.Windows.Forms.CheckBox();
-            this.checkDurability = new System.Windows.Forms.CheckBox();
-            this.checkDead = new System.Windows.Forms.CheckBox();
-            this.checkInventory = new System.Windows.Forms.CheckBox();
-            this.checkNoArrows = new System.Windows.Forms.CheckBox();
-            this.groupPet.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numMountMinHP)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numPetMinHGP)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numPetMinHP)).BeginInit();
+            this.groupPet = new SDUI.Controls.GroupBox();
+            this.checkAutoSummonAttackPet = new System.Windows.Forms.CheckBox();
+            this.checkUseAbnormalStatePotion = new System.Windows.Forms.CheckBox();
+            this.checkReviveAttackPet = new System.Windows.Forms.CheckBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.numMountMinHP = new System.Windows.Forms.NumericUpDown();
+            this.label20 = new System.Windows.Forms.Label();
+            this.checkUseMountHP = new System.Windows.Forms.CheckBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.numPetMinHGP = new System.Windows.Forms.NumericUpDown();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.numPetMinHP = new System.Windows.Forms.NumericUpDown();
+            this.label16 = new System.Windows.Forms.Label();
+            this.checkUsePetHP = new System.Windows.Forms.CheckBox();
+            this.checkUseHGP = new System.Windows.Forms.CheckBox();
+            this.groupBackTown.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numDeadTimeout)).BeginInit();
+            this.groupBadStatus.SuspendLayout();
             this.groupHPMP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numPlayerSkillMPMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPlayerSkillHPMin)).BeginInit();
@@ -100,211 +99,209 @@
             ((System.ComponentModel.ISupportInitialize)(this.numPlayerHPVigorPotionMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPlayerMPPotionMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPlayerHPPotionMin)).BeginInit();
-            this.groupBadStatus.SuspendLayout();
-            this.groupBackTown.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numDeadTimeout)).BeginInit();
+            this.groupPet.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMountMinHP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numPetMinHGP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numPetMinHP)).BeginInit();
             this.SuspendLayout();
             // 
-            // groupPet
+            // label22
             // 
-            this.groupPet.Controls.Add(this.checkAutoSummonAttackPet);
-            this.groupPet.Controls.Add(this.checkUseAbnormalStatePotion);
-            this.groupPet.Controls.Add(this.checkReviveAttackPet);
-            this.groupPet.Controls.Add(this.label19);
-            this.groupPet.Controls.Add(this.numMountMinHP);
-            this.groupPet.Controls.Add(this.label20);
-            this.groupPet.Controls.Add(this.checkUseMountHP);
-            this.groupPet.Controls.Add(this.label13);
-            this.groupPet.Controls.Add(this.numPetMinHGP);
-            this.groupPet.Controls.Add(this.label14);
-            this.groupPet.Controls.Add(this.label15);
-            this.groupPet.Controls.Add(this.numPetMinHP);
-            this.groupPet.Controls.Add(this.label16);
-            this.groupPet.Controls.Add(this.checkUsePetHP);
-            this.groupPet.Controls.Add(this.checkUseHGP);
-            this.groupPet.Location = new System.Drawing.Point(15, 294);
-            this.groupPet.Name = "groupPet";
-            this.groupPet.Size = new System.Drawing.Size(456, 170);
-            this.groupPet.TabIndex = 1;
-            this.groupPet.TabStop = false;
-            this.groupPet.Text = "Recovery - Pet";
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(497, 437);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(228, 13);
+            this.label22.TabIndex = 16;
+            this.label22.Text = "* Will also be executed, if the bot is not started.";
             // 
-            // checkAutoSummonAttackPet
+            // groupBackTown
             // 
-            this.checkAutoSummonAttackPet.AutoSize = true;
-            this.checkAutoSummonAttackPet.Location = new System.Drawing.Point(11, 139);
-            this.checkAutoSummonAttackPet.Name = "checkAutoSummonAttackPet";
-            this.checkAutoSummonAttackPet.Size = new System.Drawing.Size(141, 17);
-            this.checkAutoSummonAttackPet.TabIndex = 27;
-            this.checkAutoSummonAttackPet.Text = "Auto summon attack pet";
-            this.checkAutoSummonAttackPet.UseVisualStyleBackColor = true;
-            this.checkAutoSummonAttackPet.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            this.groupBackTown.BackColor = System.Drawing.Color.Transparent;
+            this.groupBackTown.Controls.Add(this.label21);
+            this.groupBackTown.Controls.Add(this.numDeadTimeout);
+            this.groupBackTown.Controls.Add(this.checkLevelUp);
+            this.groupBackTown.Controls.Add(this.checkFullPetInventory);
+            this.groupBackTown.Controls.Add(this.checkNoMPPotions);
+            this.groupBackTown.Controls.Add(this.checkNoHPPotions);
+            this.groupBackTown.Controls.Add(this.checkDurability);
+            this.groupBackTown.Controls.Add(this.checkDead);
+            this.groupBackTown.Controls.Add(this.checkInventory);
+            this.groupBackTown.Controls.Add(this.checkNoArrows);
+            this.groupBackTown.Location = new System.Drawing.Point(500, 13);
+            this.groupBackTown.Name = "groupBackTown";
+            this.groupBackTown.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.groupBackTown.Radius = 12;
+            this.groupBackTown.Size = new System.Drawing.Size(221, 214);
+            this.groupBackTown.TabIndex = 17;
+            this.groupBackTown.TabStop = false;
+            this.groupBackTown.Text = "Back to town";
             // 
-            // checkUseAbnormalStatePotion
+            // label21
             // 
-            this.checkUseAbnormalStatePotion.AutoSize = true;
-            this.checkUseAbnormalStatePotion.Location = new System.Drawing.Point(11, 94);
-            this.checkUseAbnormalStatePotion.Name = "checkUseAbnormalStatePotion";
-            this.checkUseAbnormalStatePotion.Size = new System.Drawing.Size(205, 17);
-            this.checkUseAbnormalStatePotion.TabIndex = 26;
-            this.checkUseAbnormalStatePotion.Text = "Use abnormal state recovery potions *";
-            this.checkUseAbnormalStatePotion.UseVisualStyleBackColor = true;
-            this.checkUseAbnormalStatePotion.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(188, 29);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(27, 13);
+            this.label21.TabIndex = 10;
+            this.label21.Text = "sec.";
             // 
-            // checkReviveAttackPet
+            // numDeadTimeout
             // 
-            this.checkReviveAttackPet.AutoSize = true;
-            this.checkReviveAttackPet.Location = new System.Drawing.Point(11, 117);
-            this.checkReviveAttackPet.Name = "checkReviveAttackPet";
-            this.checkReviveAttackPet.Size = new System.Drawing.Size(111, 17);
-            this.checkReviveAttackPet.TabIndex = 25;
-            this.checkReviveAttackPet.Text = "Revive attack pet";
-            this.checkReviveAttackPet.UseVisualStyleBackColor = true;
-            this.checkReviveAttackPet.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(273, 73);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(15, 13);
-            this.label19.TabIndex = 24;
-            this.label19.Text = "%";
-            // 
-            // numMountMinHP
-            // 
-            this.numMountMinHP.InterceptArrowKeys = false;
-            this.numMountMinHP.Location = new System.Drawing.Point(220, 70);
-            this.numMountMinHP.Minimum = new decimal(new int[] {
+            this.numDeadTimeout.InterceptArrowKeys = false;
+            this.numDeadTimeout.Location = new System.Drawing.Point(135, 27);
+            this.numDeadTimeout.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numMountMinHP.Name = "numMountMinHP";
-            this.numMountMinHP.Size = new System.Drawing.Size(47, 20);
-            this.numMountMinHP.TabIndex = 23;
-            this.numMountMinHP.Value = new decimal(new int[] {
-            50,
+            this.numDeadTimeout.Name = "numDeadTimeout";
+            this.numDeadTimeout.Size = new System.Drawing.Size(47, 20);
+            this.numDeadTimeout.TabIndex = 9;
+            this.numDeadTimeout.Value = new decimal(new int[] {
+            30,
             0,
             0,
             0});
-            this.numMountMinHP.ValueChanged += new System.EventHandler(this.numSettings_ValueChanged);
+            this.numDeadTimeout.ValueChanged += new System.EventHandler(this.numSettings_ValueChanged);
             // 
-            // label20
+            // checkLevelUp
             // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(201, 72);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(13, 13);
-            this.label20.TabIndex = 22;
-            this.label20.Text = "<";
+            this.checkLevelUp.AutoSize = true;
+            this.checkLevelUp.Location = new System.Drawing.Point(12, 189);
+            this.checkLevelUp.Name = "checkLevelUp";
+            this.checkLevelUp.Size = new System.Drawing.Size(67, 17);
+            this.checkLevelUp.TabIndex = 8;
+            this.checkLevelUp.Text = "Level up";
+            this.checkLevelUp.UseVisualStyleBackColor = true;
+            this.checkLevelUp.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
-            // checkUseMountHP
+            // checkFullPetInventory
             // 
-            this.checkUseMountHP.AutoSize = true;
-            this.checkUseMountHP.Location = new System.Drawing.Point(11, 71);
-            this.checkUseMountHP.Name = "checkUseMountHP";
-            this.checkUseMountHP.Size = new System.Drawing.Size(113, 17);
-            this.checkUseMountHP.TabIndex = 21;
-            this.checkUseMountHP.Text = "Heal mount if HP *";
-            this.checkUseMountHP.UseVisualStyleBackColor = true;
-            this.checkUseMountHP.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            this.checkFullPetInventory.AutoSize = true;
+            this.checkFullPetInventory.Location = new System.Drawing.Point(12, 97);
+            this.checkFullPetInventory.Name = "checkFullPetInventory";
+            this.checkFullPetInventory.Size = new System.Drawing.Size(106, 17);
+            this.checkFullPetInventory.TabIndex = 7;
+            this.checkFullPetInventory.Text = "Full pet inventory";
+            this.checkFullPetInventory.UseVisualStyleBackColor = true;
+            this.checkFullPetInventory.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
-            // label13
+            // checkNoMPPotions
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(273, 50);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(15, 13);
-            this.label13.TabIndex = 20;
-            this.label13.Text = "%";
+            this.checkNoMPPotions.AutoSize = true;
+            this.checkNoMPPotions.Location = new System.Drawing.Point(12, 143);
+            this.checkNoMPPotions.Name = "checkNoMPPotions";
+            this.checkNoMPPotions.Size = new System.Drawing.Size(114, 17);
+            this.checkNoMPPotions.TabIndex = 6;
+            this.checkNoMPPotions.Text = "No MP Potions left";
+            this.checkNoMPPotions.UseVisualStyleBackColor = true;
+            this.checkNoMPPotions.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
-            // numPetMinHGP
+            // checkNoHPPotions
             // 
-            this.numPetMinHGP.InterceptArrowKeys = false;
-            this.numPetMinHGP.Location = new System.Drawing.Point(220, 47);
-            this.numPetMinHGP.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numPetMinHGP.Name = "numPetMinHGP";
-            this.numPetMinHGP.Size = new System.Drawing.Size(47, 20);
-            this.numPetMinHGP.TabIndex = 19;
-            this.numPetMinHGP.Value = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.numPetMinHGP.ValueChanged += new System.EventHandler(this.numSettings_ValueChanged);
+            this.checkNoHPPotions.AutoSize = true;
+            this.checkNoHPPotions.Location = new System.Drawing.Point(12, 120);
+            this.checkNoHPPotions.Name = "checkNoHPPotions";
+            this.checkNoHPPotions.Size = new System.Drawing.Size(113, 17);
+            this.checkNoHPPotions.TabIndex = 5;
+            this.checkNoHPPotions.Text = "No HP Potions left";
+            this.checkNoHPPotions.UseVisualStyleBackColor = true;
+            this.checkNoHPPotions.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
-            // label14
+            // checkDurability
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(201, 49);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(13, 13);
-            this.label14.TabIndex = 18;
-            this.label14.Text = "<";
+            this.checkDurability.AutoSize = true;
+            this.checkDurability.Location = new System.Drawing.Point(12, 166);
+            this.checkDurability.Name = "checkDurability";
+            this.checkDurability.Size = new System.Drawing.Size(139, 17);
+            this.checkDurability.TabIndex = 4;
+            this.checkDurability.Text = "Equipment durability low";
+            this.checkDurability.UseVisualStyleBackColor = true;
+            this.checkDurability.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
-            // label15
+            // checkDead
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(273, 26);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(15, 13);
-            this.label15.TabIndex = 17;
-            this.label15.Text = "%";
+            this.checkDead.AutoSize = true;
+            this.checkDead.Location = new System.Drawing.Point(12, 28);
+            this.checkDead.Name = "checkDead";
+            this.checkDead.Size = new System.Drawing.Size(117, 17);
+            this.checkDead.TabIndex = 3;
+            this.checkDead.Text = "Dead with delay of ";
+            this.checkDead.UseVisualStyleBackColor = true;
+            this.checkDead.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
-            // numPetMinHP
+            // checkInventory
             // 
-            this.numPetMinHP.InterceptArrowKeys = false;
-            this.numPetMinHP.Location = new System.Drawing.Point(220, 23);
-            this.numPetMinHP.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numPetMinHP.Name = "numPetMinHP";
-            this.numPetMinHP.Size = new System.Drawing.Size(47, 20);
-            this.numPetMinHP.TabIndex = 16;
-            this.numPetMinHP.Value = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.numPetMinHP.ValueChanged += new System.EventHandler(this.numSettings_ValueChanged);
+            this.checkInventory.AutoSize = true;
+            this.checkInventory.Location = new System.Drawing.Point(12, 74);
+            this.checkInventory.Name = "checkInventory";
+            this.checkInventory.Size = new System.Drawing.Size(88, 17);
+            this.checkInventory.TabIndex = 4;
+            this.checkInventory.Text = "Full inventory";
+            this.checkInventory.UseVisualStyleBackColor = true;
+            this.checkInventory.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
-            // label16
+            // checkNoArrows
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(201, 25);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(13, 13);
-            this.label16.TabIndex = 15;
-            this.label16.Text = "<";
+            this.checkNoArrows.AutoSize = true;
+            this.checkNoArrows.Location = new System.Drawing.Point(12, 51);
+            this.checkNoArrows.Name = "checkNoArrows";
+            this.checkNoArrows.Size = new System.Drawing.Size(124, 17);
+            this.checkNoArrows.TabIndex = 4;
+            this.checkNoArrows.Text = "No arrows / bolts left";
+            this.checkNoArrows.UseVisualStyleBackColor = true;
+            this.checkNoArrows.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
-            // checkUsePetHP
+            // groupBadStatus
             // 
-            this.checkUsePetHP.AutoSize = true;
-            this.checkUsePetHP.Location = new System.Drawing.Point(11, 25);
-            this.checkUsePetHP.Name = "checkUsePetHP";
-            this.checkUsePetHP.Size = new System.Drawing.Size(133, 17);
-            this.checkUsePetHP.TabIndex = 13;
-            this.checkUsePetHP.Text = "Use HP potions if HP *";
-            this.checkUsePetHP.UseVisualStyleBackColor = true;
-            this.checkUsePetHP.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            this.groupBadStatus.BackColor = System.Drawing.Color.Transparent;
+            this.groupBadStatus.Controls.Add(this.label18);
+            this.groupBadStatus.Controls.Add(this.comboSkillBadStatus);
+            this.groupBadStatus.Controls.Add(this.checkUseBadStatusSkill);
+            this.groupBadStatus.Controls.Add(this.checkUseUniversalPills);
+            this.groupBadStatus.Location = new System.Drawing.Point(15, 205);
+            this.groupBadStatus.Name = "groupBadStatus";
+            this.groupBadStatus.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.groupBadStatus.Radius = 12;
+            this.groupBadStatus.Size = new System.Drawing.Size(456, 83);
+            this.groupBadStatus.TabIndex = 6;
+            this.groupBadStatus.TabStop = false;
+            this.groupBadStatus.Text = "Bad status";
             // 
-            // checkUseHGP
+            // label18
             // 
-            this.checkUseHGP.AutoSize = true;
-            this.checkUseHGP.Location = new System.Drawing.Point(11, 48);
-            this.checkUseHGP.Name = "checkUseHGP";
-            this.checkUseHGP.Size = new System.Drawing.Size(159, 17);
-            this.checkUseHGP.TabIndex = 14;
-            this.checkUseHGP.Text = "Use HGP potions if hunger *";
-            this.checkUseHGP.UseVisualStyleBackColor = true;
-            this.checkUseHGP.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(315, 37);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(29, 13);
+            this.label18.TabIndex = 27;
+            this.label18.Text = "Skill:";
+            // 
+            // comboSkillBadStatus
+            // 
+            this.comboSkillBadStatus.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.comboSkillBadStatus.DropDownHeight = 100;
+            this.comboSkillBadStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboSkillBadStatus.FormattingEnabled = true;
+            this.comboSkillBadStatus.IntegralHeight = false;
+            this.comboSkillBadStatus.ItemHeight = 17;
+            this.comboSkillBadStatus.Location = new System.Drawing.Point(318, 53);
+            this.comboSkillBadStatus.Name = "comboSkillBadStatus";
+            this.comboSkillBadStatus.Size = new System.Drawing.Size(121, 23);
+            this.comboSkillBadStatus.StartIndex = 0;
+            this.comboSkillBadStatus.TabIndex = 26;
+            this.comboSkillBadStatus.SelectedIndexChanged += new System.EventHandler(this.comboSkill_SelectedIndexChanged);
+            // 
+            // checkUseBadStatusSkill
+            // 
+            this.checkUseBadStatusSkill.AutoSize = true;
+            this.checkUseBadStatusSkill.Location = new System.Drawing.Point(11, 55);
+            this.checkUseBadStatusSkill.Name = "checkUseBadStatusSkill";
+            this.checkUseBadStatusSkill.Size = new System.Drawing.Size(67, 17);
+            this.checkUseBadStatusSkill.TabIndex = 5;
+            this.checkUseBadStatusSkill.Text = "Use Skill";
+            this.checkUseBadStatusSkill.UseVisualStyleBackColor = true;
+            this.checkUseBadStatusSkill.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // checkUseUniversalPills
             // 
@@ -319,6 +316,7 @@
             // 
             // groupHPMP
             // 
+            this.groupHPMP.BackColor = System.Drawing.Color.Transparent;
             this.groupHPMP.Controls.Add(this.label17);
             this.groupHPMP.Controls.Add(this.comboSkillPlayerMP);
             this.groupHPMP.Controls.Add(this.comboSkillPlayerHP);
@@ -348,6 +346,8 @@
             this.groupHPMP.Controls.Add(this.checkUseVigorHP);
             this.groupHPMP.Location = new System.Drawing.Point(15, 13);
             this.groupHPMP.Name = "groupHPMP";
+            this.groupHPMP.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.groupHPMP.Radius = 12;
             this.groupHPMP.Size = new System.Drawing.Size(456, 186);
             this.groupHPMP.TabIndex = 5;
             this.groupHPMP.TabStop = false;
@@ -356,7 +356,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(315, 116);
+            this.label17.Location = new System.Drawing.Point(315, 120);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(29, 13);
             this.label17.TabIndex = 26;
@@ -364,28 +364,38 @@
             // 
             // comboSkillPlayerMP
             // 
+            this.comboSkillPlayerMP.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.comboSkillPlayerMP.DropDownHeight = 100;
             this.comboSkillPlayerMP.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboSkillPlayerMP.FormattingEnabled = true;
-            this.comboSkillPlayerMP.Location = new System.Drawing.Point(318, 155);
+            this.comboSkillPlayerMP.IntegralHeight = false;
+            this.comboSkillPlayerMP.ItemHeight = 17;
+            this.comboSkillPlayerMP.Location = new System.Drawing.Point(318, 159);
             this.comboSkillPlayerMP.Name = "comboSkillPlayerMP";
-            this.comboSkillPlayerMP.Size = new System.Drawing.Size(121, 21);
+            this.comboSkillPlayerMP.Size = new System.Drawing.Size(121, 23);
+            this.comboSkillPlayerMP.StartIndex = 0;
             this.comboSkillPlayerMP.TabIndex = 25;
             this.comboSkillPlayerMP.SelectedIndexChanged += new System.EventHandler(this.comboSkill_SelectedIndexChanged);
             // 
             // comboSkillPlayerHP
             // 
+            this.comboSkillPlayerHP.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.comboSkillPlayerHP.DropDownHeight = 100;
             this.comboSkillPlayerHP.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboSkillPlayerHP.FormattingEnabled = true;
-            this.comboSkillPlayerHP.Location = new System.Drawing.Point(318, 132);
+            this.comboSkillPlayerHP.IntegralHeight = false;
+            this.comboSkillPlayerHP.ItemHeight = 17;
+            this.comboSkillPlayerHP.Location = new System.Drawing.Point(318, 136);
             this.comboSkillPlayerHP.Name = "comboSkillPlayerHP";
-            this.comboSkillPlayerHP.Size = new System.Drawing.Size(121, 21);
+            this.comboSkillPlayerHP.Size = new System.Drawing.Size(121, 23);
+            this.comboSkillPlayerHP.StartIndex = 0;
             this.comboSkillPlayerHP.TabIndex = 7;
             this.comboSkillPlayerHP.SelectedIndexChanged += new System.EventHandler(this.comboSkill_SelectedIndexChanged);
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(273, 159);
+            this.label11.Location = new System.Drawing.Point(273, 163);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(15, 13);
             this.label11.TabIndex = 24;
@@ -394,7 +404,7 @@
             // numPlayerSkillMPMin
             // 
             this.numPlayerSkillMPMin.InterceptArrowKeys = false;
-            this.numPlayerSkillMPMin.Location = new System.Drawing.Point(220, 156);
+            this.numPlayerSkillMPMin.Location = new System.Drawing.Point(220, 160);
             this.numPlayerSkillMPMin.Minimum = new decimal(new int[] {
             1,
             0,
@@ -413,7 +423,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(201, 158);
+            this.label12.Location = new System.Drawing.Point(201, 162);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(13, 13);
             this.label12.TabIndex = 22;
@@ -422,7 +432,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(273, 136);
+            this.label9.Location = new System.Drawing.Point(273, 140);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(15, 13);
             this.label9.TabIndex = 21;
@@ -431,7 +441,7 @@
             // numPlayerSkillHPMin
             // 
             this.numPlayerSkillHPMin.InterceptArrowKeys = false;
-            this.numPlayerSkillHPMin.Location = new System.Drawing.Point(220, 133);
+            this.numPlayerSkillHPMin.Location = new System.Drawing.Point(220, 137);
             this.numPlayerSkillHPMin.Minimum = new decimal(new int[] {
             1,
             0,
@@ -450,7 +460,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(201, 135);
+            this.label10.Location = new System.Drawing.Point(201, 139);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(13, 13);
             this.label10.TabIndex = 19;
@@ -459,7 +469,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(273, 105);
+            this.label7.Location = new System.Drawing.Point(273, 109);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(15, 13);
             this.label7.TabIndex = 18;
@@ -468,7 +478,7 @@
             // numPlayerMPVigorPotionMin
             // 
             this.numPlayerMPVigorPotionMin.InterceptArrowKeys = false;
-            this.numPlayerMPVigorPotionMin.Location = new System.Drawing.Point(220, 102);
+            this.numPlayerMPVigorPotionMin.Location = new System.Drawing.Point(220, 106);
             this.numPlayerMPVigorPotionMin.Minimum = new decimal(new int[] {
             1,
             0,
@@ -487,7 +497,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(201, 104);
+            this.label8.Location = new System.Drawing.Point(201, 108);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(13, 13);
             this.label8.TabIndex = 16;
@@ -496,7 +506,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(273, 82);
+            this.label5.Location = new System.Drawing.Point(273, 86);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(15, 13);
             this.label5.TabIndex = 15;
@@ -505,7 +515,7 @@
             // numPlayerHPVigorPotionMin
             // 
             this.numPlayerHPVigorPotionMin.InterceptArrowKeys = false;
-            this.numPlayerHPVigorPotionMin.Location = new System.Drawing.Point(220, 79);
+            this.numPlayerHPVigorPotionMin.Location = new System.Drawing.Point(220, 83);
             this.numPlayerHPVigorPotionMin.Minimum = new decimal(new int[] {
             1,
             0,
@@ -524,7 +534,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(201, 81);
+            this.label6.Location = new System.Drawing.Point(201, 85);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(13, 13);
             this.label6.TabIndex = 13;
@@ -533,7 +543,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(273, 49);
+            this.label3.Location = new System.Drawing.Point(273, 53);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(15, 13);
             this.label3.TabIndex = 12;
@@ -542,7 +552,7 @@
             // numPlayerMPPotionMin
             // 
             this.numPlayerMPPotionMin.InterceptArrowKeys = false;
-            this.numPlayerMPPotionMin.Location = new System.Drawing.Point(220, 46);
+            this.numPlayerMPPotionMin.Location = new System.Drawing.Point(220, 50);
             this.numPlayerMPPotionMin.Minimum = new decimal(new int[] {
             1,
             0,
@@ -561,7 +571,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(201, 48);
+            this.label4.Location = new System.Drawing.Point(201, 52);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(13, 13);
             this.label4.TabIndex = 10;
@@ -570,7 +580,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(273, 25);
+            this.label2.Location = new System.Drawing.Point(273, 29);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(15, 13);
             this.label2.TabIndex = 9;
@@ -579,7 +589,7 @@
             // numPlayerHPPotionMin
             // 
             this.numPlayerHPPotionMin.InterceptArrowKeys = false;
-            this.numPlayerHPPotionMin.Location = new System.Drawing.Point(220, 22);
+            this.numPlayerHPPotionMin.Location = new System.Drawing.Point(220, 26);
             this.numPlayerHPPotionMin.Minimum = new decimal(new int[] {
             1,
             0,
@@ -598,7 +608,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(201, 24);
+            this.label1.Location = new System.Drawing.Point(201, 28);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(13, 13);
             this.label1.TabIndex = 7;
@@ -607,7 +617,7 @@
             // checkUseSkillHP
             // 
             this.checkUseSkillHP.AutoSize = true;
-            this.checkUseSkillHP.Location = new System.Drawing.Point(11, 134);
+            this.checkUseSkillHP.Location = new System.Drawing.Point(11, 138);
             this.checkUseSkillHP.Name = "checkUseSkillHP";
             this.checkUseSkillHP.Size = new System.Drawing.Size(91, 17);
             this.checkUseSkillHP.TabIndex = 4;
@@ -618,7 +628,7 @@
             // checkUseSkillMP
             // 
             this.checkUseSkillMP.AutoSize = true;
-            this.checkUseSkillMP.Location = new System.Drawing.Point(11, 157);
+            this.checkUseSkillMP.Location = new System.Drawing.Point(11, 161);
             this.checkUseSkillMP.Name = "checkUseSkillMP";
             this.checkUseSkillMP.Size = new System.Drawing.Size(92, 17);
             this.checkUseSkillMP.TabIndex = 5;
@@ -629,7 +639,7 @@
             // checkUseHPPotionsPlayer
             // 
             this.checkUseHPPotionsPlayer.AutoSize = true;
-            this.checkUseHPPotionsPlayer.Location = new System.Drawing.Point(11, 24);
+            this.checkUseHPPotionsPlayer.Location = new System.Drawing.Point(11, 28);
             this.checkUseHPPotionsPlayer.Name = "checkUseHPPotionsPlayer";
             this.checkUseHPPotionsPlayer.Size = new System.Drawing.Size(133, 17);
             this.checkUseHPPotionsPlayer.TabIndex = 0;
@@ -640,7 +650,7 @@
             // checkUseVigorMP
             // 
             this.checkUseVigorMP.AutoSize = true;
-            this.checkUseVigorMP.Location = new System.Drawing.Point(11, 103);
+            this.checkUseVigorMP.Location = new System.Drawing.Point(11, 107);
             this.checkUseVigorMP.Name = "checkUseVigorMP";
             this.checkUseVigorMP.Size = new System.Drawing.Size(137, 17);
             this.checkUseVigorMP.TabIndex = 3;
@@ -651,7 +661,7 @@
             // checkUseMPPotionsPlayer
             // 
             this.checkUseMPPotionsPlayer.AutoSize = true;
-            this.checkUseMPPotionsPlayer.Location = new System.Drawing.Point(11, 47);
+            this.checkUseMPPotionsPlayer.Location = new System.Drawing.Point(11, 51);
             this.checkUseMPPotionsPlayer.Name = "checkUseMPPotionsPlayer";
             this.checkUseMPPotionsPlayer.Size = new System.Drawing.Size(135, 17);
             this.checkUseMPPotionsPlayer.TabIndex = 1;
@@ -662,7 +672,7 @@
             // checkUseVigorHP
             // 
             this.checkUseVigorHP.AutoSize = true;
-            this.checkUseVigorHP.Location = new System.Drawing.Point(11, 80);
+            this.checkUseVigorHP.Location = new System.Drawing.Point(11, 84);
             this.checkUseVigorHP.Name = "checkUseVigorHP";
             this.checkUseVigorHP.Size = new System.Drawing.Size(136, 17);
             this.checkUseVigorHP.TabIndex = 2;
@@ -670,192 +680,209 @@
             this.checkUseVigorHP.UseVisualStyleBackColor = true;
             this.checkUseVigorHP.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
-            // groupBadStatus
+            // groupPet
             // 
-            this.groupBadStatus.Controls.Add(this.label18);
-            this.groupBadStatus.Controls.Add(this.comboSkillBadStatus);
-            this.groupBadStatus.Controls.Add(this.checkUseBadStatusSkill);
-            this.groupBadStatus.Controls.Add(this.checkUseUniversalPills);
-            this.groupBadStatus.Location = new System.Drawing.Point(15, 205);
-            this.groupBadStatus.Name = "groupBadStatus";
-            this.groupBadStatus.Size = new System.Drawing.Size(456, 83);
-            this.groupBadStatus.TabIndex = 6;
-            this.groupBadStatus.TabStop = false;
-            this.groupBadStatus.Text = "Bad status";
+            this.groupPet.BackColor = System.Drawing.Color.Transparent;
+            this.groupPet.Controls.Add(this.checkAutoSummonAttackPet);
+            this.groupPet.Controls.Add(this.checkUseAbnormalStatePotion);
+            this.groupPet.Controls.Add(this.checkReviveAttackPet);
+            this.groupPet.Controls.Add(this.label19);
+            this.groupPet.Controls.Add(this.numMountMinHP);
+            this.groupPet.Controls.Add(this.label20);
+            this.groupPet.Controls.Add(this.checkUseMountHP);
+            this.groupPet.Controls.Add(this.label13);
+            this.groupPet.Controls.Add(this.numPetMinHGP);
+            this.groupPet.Controls.Add(this.label14);
+            this.groupPet.Controls.Add(this.label15);
+            this.groupPet.Controls.Add(this.numPetMinHP);
+            this.groupPet.Controls.Add(this.label16);
+            this.groupPet.Controls.Add(this.checkUsePetHP);
+            this.groupPet.Controls.Add(this.checkUseHGP);
+            this.groupPet.Location = new System.Drawing.Point(15, 294);
+            this.groupPet.Name = "groupPet";
+            this.groupPet.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.groupPet.Radius = 12;
+            this.groupPet.Size = new System.Drawing.Size(456, 170);
+            this.groupPet.TabIndex = 1;
+            this.groupPet.TabStop = false;
+            this.groupPet.Text = "Recovery - Pet";
             // 
-            // label18
+            // checkAutoSummonAttackPet
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(315, 37);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(29, 13);
-            this.label18.TabIndex = 27;
-            this.label18.Text = "Skill:";
+            this.checkAutoSummonAttackPet.AutoSize = true;
+            this.checkAutoSummonAttackPet.Location = new System.Drawing.Point(11, 143);
+            this.checkAutoSummonAttackPet.Name = "checkAutoSummonAttackPet";
+            this.checkAutoSummonAttackPet.Size = new System.Drawing.Size(141, 17);
+            this.checkAutoSummonAttackPet.TabIndex = 27;
+            this.checkAutoSummonAttackPet.Text = "Auto summon attack pet";
+            this.checkAutoSummonAttackPet.UseVisualStyleBackColor = true;
+            this.checkAutoSummonAttackPet.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
-            // comboSkillBadStatus
+            // checkUseAbnormalStatePotion
             // 
-            this.comboSkillBadStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboSkillBadStatus.FormattingEnabled = true;
-            this.comboSkillBadStatus.Location = new System.Drawing.Point(318, 53);
-            this.comboSkillBadStatus.Name = "comboSkillBadStatus";
-            this.comboSkillBadStatus.Size = new System.Drawing.Size(121, 21);
-            this.comboSkillBadStatus.TabIndex = 26;
-            this.comboSkillBadStatus.SelectedIndexChanged += new System.EventHandler(this.comboSkill_SelectedIndexChanged);
+            this.checkUseAbnormalStatePotion.AutoSize = true;
+            this.checkUseAbnormalStatePotion.Location = new System.Drawing.Point(11, 98);
+            this.checkUseAbnormalStatePotion.Name = "checkUseAbnormalStatePotion";
+            this.checkUseAbnormalStatePotion.Size = new System.Drawing.Size(205, 17);
+            this.checkUseAbnormalStatePotion.TabIndex = 26;
+            this.checkUseAbnormalStatePotion.Text = "Use abnormal state recovery potions *";
+            this.checkUseAbnormalStatePotion.UseVisualStyleBackColor = true;
+            this.checkUseAbnormalStatePotion.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
-            // checkUseBadStatusSkill
+            // checkReviveAttackPet
             // 
-            this.checkUseBadStatusSkill.AutoSize = true;
-            this.checkUseBadStatusSkill.Location = new System.Drawing.Point(11, 55);
-            this.checkUseBadStatusSkill.Name = "checkUseBadStatusSkill";
-            this.checkUseBadStatusSkill.Size = new System.Drawing.Size(67, 17);
-            this.checkUseBadStatusSkill.TabIndex = 5;
-            this.checkUseBadStatusSkill.Text = "Use Skill";
-            this.checkUseBadStatusSkill.UseVisualStyleBackColor = true;
-            this.checkUseBadStatusSkill.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            this.checkReviveAttackPet.AutoSize = true;
+            this.checkReviveAttackPet.Location = new System.Drawing.Point(11, 121);
+            this.checkReviveAttackPet.Name = "checkReviveAttackPet";
+            this.checkReviveAttackPet.Size = new System.Drawing.Size(111, 17);
+            this.checkReviveAttackPet.TabIndex = 25;
+            this.checkReviveAttackPet.Text = "Revive attack pet";
+            this.checkReviveAttackPet.UseVisualStyleBackColor = true;
+            this.checkReviveAttackPet.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
-            // label22
+            // label19
             // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(497, 437);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(228, 13);
-            this.label22.TabIndex = 16;
-            this.label22.Text = "* Will also be executed, if the bot is not started.";
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(273, 77);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(15, 13);
+            this.label19.TabIndex = 24;
+            this.label19.Text = "%";
             // 
-            // groupBackTown
+            // numMountMinHP
             // 
-            this.groupBackTown.Controls.Add(this.label21);
-            this.groupBackTown.Controls.Add(this.numDeadTimeout);
-            this.groupBackTown.Controls.Add(this.checkLevelUp);
-            this.groupBackTown.Controls.Add(this.checkFullPetInventory);
-            this.groupBackTown.Controls.Add(this.checkNoMPPotions);
-            this.groupBackTown.Controls.Add(this.checkNoHPPotions);
-            this.groupBackTown.Controls.Add(this.checkDurability);
-            this.groupBackTown.Controls.Add(this.checkDead);
-            this.groupBackTown.Controls.Add(this.checkInventory);
-            this.groupBackTown.Controls.Add(this.checkNoArrows);
-            this.groupBackTown.Location = new System.Drawing.Point(500, 13);
-            this.groupBackTown.Name = "groupBackTown";
-            this.groupBackTown.Size = new System.Drawing.Size(221, 214);
-            this.groupBackTown.TabIndex = 17;
-            this.groupBackTown.TabStop = false;
-            this.groupBackTown.Text = "Back to town";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(188, 25);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(27, 13);
-            this.label21.TabIndex = 10;
-            this.label21.Text = "sec.";
-            // 
-            // numDeadTimeout
-            // 
-            this.numDeadTimeout.InterceptArrowKeys = false;
-            this.numDeadTimeout.Location = new System.Drawing.Point(135, 23);
-            this.numDeadTimeout.Minimum = new decimal(new int[] {
+            this.numMountMinHP.InterceptArrowKeys = false;
+            this.numMountMinHP.Location = new System.Drawing.Point(220, 74);
+            this.numMountMinHP.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numDeadTimeout.Name = "numDeadTimeout";
-            this.numDeadTimeout.Size = new System.Drawing.Size(47, 20);
-            this.numDeadTimeout.TabIndex = 9;
-            this.numDeadTimeout.Value = new decimal(new int[] {
-            30,
+            this.numMountMinHP.Name = "numMountMinHP";
+            this.numMountMinHP.Size = new System.Drawing.Size(47, 20);
+            this.numMountMinHP.TabIndex = 23;
+            this.numMountMinHP.Value = new decimal(new int[] {
+            50,
             0,
             0,
             0});
-            this.numDeadTimeout.ValueChanged += new System.EventHandler(this.numSettings_ValueChanged);
+            this.numMountMinHP.ValueChanged += new System.EventHandler(this.numSettings_ValueChanged);
             // 
-            // checkLevelUp
+            // label20
             // 
-            this.checkLevelUp.AutoSize = true;
-            this.checkLevelUp.Location = new System.Drawing.Point(12, 185);
-            this.checkLevelUp.Name = "checkLevelUp";
-            this.checkLevelUp.Size = new System.Drawing.Size(67, 17);
-            this.checkLevelUp.TabIndex = 8;
-            this.checkLevelUp.Text = "Level up";
-            this.checkLevelUp.UseVisualStyleBackColor = true;
-            this.checkLevelUp.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(201, 76);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(13, 13);
+            this.label20.TabIndex = 22;
+            this.label20.Text = "<";
             // 
-            // checkFullPetInventory
+            // checkUseMountHP
             // 
-            this.checkFullPetInventory.AutoSize = true;
-            this.checkFullPetInventory.Location = new System.Drawing.Point(12, 93);
-            this.checkFullPetInventory.Name = "checkFullPetInventory";
-            this.checkFullPetInventory.Size = new System.Drawing.Size(106, 17);
-            this.checkFullPetInventory.TabIndex = 7;
-            this.checkFullPetInventory.Text = "Full pet inventory";
-            this.checkFullPetInventory.UseVisualStyleBackColor = true;
-            this.checkFullPetInventory.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            this.checkUseMountHP.AutoSize = true;
+            this.checkUseMountHP.Location = new System.Drawing.Point(11, 75);
+            this.checkUseMountHP.Name = "checkUseMountHP";
+            this.checkUseMountHP.Size = new System.Drawing.Size(113, 17);
+            this.checkUseMountHP.TabIndex = 21;
+            this.checkUseMountHP.Text = "Heal mount if HP *";
+            this.checkUseMountHP.UseVisualStyleBackColor = true;
+            this.checkUseMountHP.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
-            // checkNoMPPotions
+            // label13
             // 
-            this.checkNoMPPotions.AutoSize = true;
-            this.checkNoMPPotions.Location = new System.Drawing.Point(12, 139);
-            this.checkNoMPPotions.Name = "checkNoMPPotions";
-            this.checkNoMPPotions.Size = new System.Drawing.Size(114, 17);
-            this.checkNoMPPotions.TabIndex = 6;
-            this.checkNoMPPotions.Text = "No MP Potions left";
-            this.checkNoMPPotions.UseVisualStyleBackColor = true;
-            this.checkNoMPPotions.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(273, 54);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(15, 13);
+            this.label13.TabIndex = 20;
+            this.label13.Text = "%";
             // 
-            // checkNoHPPotions
+            // numPetMinHGP
             // 
-            this.checkNoHPPotions.AutoSize = true;
-            this.checkNoHPPotions.Location = new System.Drawing.Point(12, 116);
-            this.checkNoHPPotions.Name = "checkNoHPPotions";
-            this.checkNoHPPotions.Size = new System.Drawing.Size(113, 17);
-            this.checkNoHPPotions.TabIndex = 5;
-            this.checkNoHPPotions.Text = "No HP Potions left";
-            this.checkNoHPPotions.UseVisualStyleBackColor = true;
-            this.checkNoHPPotions.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            this.numPetMinHGP.InterceptArrowKeys = false;
+            this.numPetMinHGP.Location = new System.Drawing.Point(220, 51);
+            this.numPetMinHGP.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numPetMinHGP.Name = "numPetMinHGP";
+            this.numPetMinHGP.Size = new System.Drawing.Size(47, 20);
+            this.numPetMinHGP.TabIndex = 19;
+            this.numPetMinHGP.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.numPetMinHGP.ValueChanged += new System.EventHandler(this.numSettings_ValueChanged);
             // 
-            // checkDurability
+            // label14
             // 
-            this.checkDurability.AutoSize = true;
-            this.checkDurability.Location = new System.Drawing.Point(12, 162);
-            this.checkDurability.Name = "checkDurability";
-            this.checkDurability.Size = new System.Drawing.Size(139, 17);
-            this.checkDurability.TabIndex = 4;
-            this.checkDurability.Text = "Equipment durability low";
-            this.checkDurability.UseVisualStyleBackColor = true;
-            this.checkDurability.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(201, 53);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(13, 13);
+            this.label14.TabIndex = 18;
+            this.label14.Text = "<";
             // 
-            // checkDead
+            // label15
             // 
-            this.checkDead.AutoSize = true;
-            this.checkDead.Location = new System.Drawing.Point(12, 24);
-            this.checkDead.Name = "checkDead";
-            this.checkDead.Size = new System.Drawing.Size(117, 17);
-            this.checkDead.TabIndex = 3;
-            this.checkDead.Text = "Dead with delay of ";
-            this.checkDead.UseVisualStyleBackColor = true;
-            this.checkDead.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(273, 30);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(15, 13);
+            this.label15.TabIndex = 17;
+            this.label15.Text = "%";
             // 
-            // checkInventory
+            // numPetMinHP
             // 
-            this.checkInventory.AutoSize = true;
-            this.checkInventory.Location = new System.Drawing.Point(12, 70);
-            this.checkInventory.Name = "checkInventory";
-            this.checkInventory.Size = new System.Drawing.Size(88, 17);
-            this.checkInventory.TabIndex = 4;
-            this.checkInventory.Text = "Full inventory";
-            this.checkInventory.UseVisualStyleBackColor = true;
-            this.checkInventory.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            this.numPetMinHP.InterceptArrowKeys = false;
+            this.numPetMinHP.Location = new System.Drawing.Point(220, 27);
+            this.numPetMinHP.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numPetMinHP.Name = "numPetMinHP";
+            this.numPetMinHP.Size = new System.Drawing.Size(47, 20);
+            this.numPetMinHP.TabIndex = 16;
+            this.numPetMinHP.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.numPetMinHP.ValueChanged += new System.EventHandler(this.numSettings_ValueChanged);
             // 
-            // checkNoArrows
+            // label16
             // 
-            this.checkNoArrows.AutoSize = true;
-            this.checkNoArrows.Location = new System.Drawing.Point(12, 47);
-            this.checkNoArrows.Name = "checkNoArrows";
-            this.checkNoArrows.Size = new System.Drawing.Size(124, 17);
-            this.checkNoArrows.TabIndex = 4;
-            this.checkNoArrows.Text = "No arrows / bolts left";
-            this.checkNoArrows.UseVisualStyleBackColor = true;
-            this.checkNoArrows.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(201, 29);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(13, 13);
+            this.label16.TabIndex = 15;
+            this.label16.Text = "<";
+            // 
+            // checkUsePetHP
+            // 
+            this.checkUsePetHP.AutoSize = true;
+            this.checkUsePetHP.Location = new System.Drawing.Point(11, 29);
+            this.checkUsePetHP.Name = "checkUsePetHP";
+            this.checkUsePetHP.Size = new System.Drawing.Size(133, 17);
+            this.checkUsePetHP.TabIndex = 13;
+            this.checkUsePetHP.Text = "Use HP potions if HP *";
+            this.checkUsePetHP.UseVisualStyleBackColor = true;
+            this.checkUsePetHP.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            // 
+            // checkUseHGP
+            // 
+            this.checkUseHGP.AutoSize = true;
+            this.checkUseHGP.Location = new System.Drawing.Point(11, 52);
+            this.checkUseHGP.Name = "checkUseHGP";
+            this.checkUseHGP.Size = new System.Drawing.Size(159, 17);
+            this.checkUseHGP.TabIndex = 14;
+            this.checkUseHGP.Text = "Use HGP potions if hunger *";
+            this.checkUseHGP.UseVisualStyleBackColor = true;
+            this.checkUseHGP.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // Main
             // 
@@ -868,11 +895,11 @@
             this.Controls.Add(this.groupPet);
             this.Name = "Main";
             this.Size = new System.Drawing.Size(754, 467);
-            this.groupPet.ResumeLayout(false);
-            this.groupPet.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numMountMinHP)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numPetMinHGP)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numPetMinHP)).EndInit();
+            this.groupBackTown.ResumeLayout(false);
+            this.groupBackTown.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numDeadTimeout)).EndInit();
+            this.groupBadStatus.ResumeLayout(false);
+            this.groupBadStatus.PerformLayout();
             this.groupHPMP.ResumeLayout(false);
             this.groupHPMP.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numPlayerSkillMPMin)).EndInit();
@@ -881,25 +908,25 @@
             ((System.ComponentModel.ISupportInitialize)(this.numPlayerHPVigorPotionMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPlayerMPPotionMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPlayerHPPotionMin)).EndInit();
-            this.groupBadStatus.ResumeLayout(false);
-            this.groupBadStatus.PerformLayout();
-            this.groupBackTown.ResumeLayout(false);
-            this.groupBackTown.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numDeadTimeout)).EndInit();
+            this.groupPet.ResumeLayout(false);
+            this.groupPet.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMountMinHP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numPetMinHGP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numPetMinHP)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.GroupBox groupPet;
+        private SDUI.Controls.GroupBox groupPet;
         private System.Windows.Forms.CheckBox checkUseUniversalPills;
-        private System.Windows.Forms.GroupBox groupHPMP;
+        private SDUI.Controls.GroupBox groupHPMP;
         private System.Windows.Forms.CheckBox checkUseHPPotionsPlayer;
         private System.Windows.Forms.CheckBox checkUseVigorMP;
         private System.Windows.Forms.CheckBox checkUseMPPotionsPlayer;
         private System.Windows.Forms.CheckBox checkUseVigorHP;
-        private System.Windows.Forms.GroupBox groupBadStatus;
+        private SDUI.Controls.GroupBox groupBadStatus;
         private System.Windows.Forms.CheckBox checkUseSkillHP;
         private System.Windows.Forms.CheckBox checkUseSkillMP;
         private System.Windows.Forms.Label label11;
@@ -921,9 +948,9 @@
         private System.Windows.Forms.NumericUpDown numPlayerHPPotionMin;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox checkUseBadStatusSkill;
-        private System.Windows.Forms.ComboBox comboSkillPlayerMP;
-        private System.Windows.Forms.ComboBox comboSkillPlayerHP;
-        private System.Windows.Forms.ComboBox comboSkillBadStatus;
+        private SDUI.Controls.ComboBox comboSkillPlayerMP;
+        private SDUI.Controls.ComboBox comboSkillPlayerHP;
+        private SDUI.Controls.ComboBox comboSkillBadStatus;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.NumericUpDown numPetMinHGP;
         private System.Windows.Forms.Label label14;
@@ -942,7 +969,7 @@
         private System.Windows.Forms.CheckBox checkUseMountHP;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.CheckBox checkAutoSummonAttackPet;
-        private System.Windows.Forms.GroupBox groupBackTown;
+        private SDUI.Controls.GroupBox groupBackTown;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.NumericUpDown numDeadTimeout;
         private System.Windows.Forms.CheckBox checkLevelUp;
