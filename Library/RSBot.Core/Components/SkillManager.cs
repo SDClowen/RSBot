@@ -349,7 +349,7 @@ namespace RSBot.Core.Components
             var callback = new AwaitCallback(response =>
             {
                 return response.ReadByte() == 0x02 && response.ReadByte() == 0x00
-                            ? AwaitCallbackResult.Received : AwaitCallbackResult.None;
+                            ? AwaitCallbackResult.Successed : AwaitCallbackResult.ConditionFailed;
             }, 0xB074);
 
 
@@ -420,16 +420,16 @@ namespace RSBot.Core.Components
 
                 if (targetId == (target == 0 ? Game.Player.UniqueId : target) &&
                     castedSkillId == skill.Id)
-                    return AwaitCallbackResult.Received;
+                    return AwaitCallbackResult.Successed;
 
-                return AwaitCallbackResult.None;
+                return AwaitCallbackResult.ConditionFailed;
 
             }, 0xB0BD);
 
             var callback = new AwaitCallback(response =>
             {
                 return response.ReadByte() == 0x02 && response.ReadByte() == 0x00
-                    ? AwaitCallbackResult.Received : AwaitCallbackResult.None;
+                    ? AwaitCallbackResult.Successed : AwaitCallbackResult.ConditionFailed;
             }, 0xB074);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, asyncCallback, callback);
@@ -531,7 +531,7 @@ namespace RSBot.Core.Components
             var callback = new AwaitCallback(response =>
             {
                 return response.ReadByte() == 0x02 && response.ReadByte() == 0x00
-                ? AwaitCallbackResult.Received : AwaitCallbackResult.None;
+                ? AwaitCallbackResult.Successed : AwaitCallbackResult.ConditionFailed;
             }, 0xB074);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, callback);
