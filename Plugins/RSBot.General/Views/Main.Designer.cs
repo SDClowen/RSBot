@@ -43,16 +43,17 @@
             this.btnStartClientless = new SDUI.Controls.Button();
             this.btnGoClientless = new SDUI.Controls.Button();
             this.groupBox1 = new SDUI.Controls.GroupBox();
-            this.panel3 = new SDUI.Controls.Panel();
-            this.label3 = new System.Windows.Forms.Label();
+            this.separator1 = new SDUI.Controls.Separator();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.checkStartBot = new System.Windows.Forms.CheckBox();
             this.checkUseReturnScroll = new System.Windows.Forms.CheckBox();
-            this.captchaPanel = new SDUI.Controls.Panel();
+            this.captchaPanel = new System.Windows.Forms.Panel();
+            this.separator2 = new SDUI.Controls.Separator();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.txtStaticCaptcha = new SDUI.Controls.TextBox();
             this.checkEnableStaticCaptcha = new System.Windows.Forms.CheckBox();
-            this.autoLoginTopPanel = new SDUI.Controls.Panel();
+            this.autoLoginTopPanel = new System.Windows.Forms.Panel();
             this.comboAccounts = new SDUI.Controls.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -201,7 +202,7 @@
             this.btnClientHideShow.Enabled = false;
             this.btnClientHideShow.Location = new System.Drawing.Point(18, 60);
             this.btnClientHideShow.Name = "btnClientHideShow";
-            this.btnClientHideShow.Size = new System.Drawing.Size(125, 23);
+            this.btnClientHideShow.Size = new System.Drawing.Size(125, 21);
             this.btnClientHideShow.TabIndex = 19;
             this.btnClientHideShow.Text = "Client Visibility";
             this.btnClientHideShow.UseVisualStyleBackColor = true;
@@ -212,7 +213,7 @@
             this.btnStartClient.Color = System.Drawing.Color.Transparent;
             this.btnStartClient.Location = new System.Drawing.Point(18, 28);
             this.btnStartClient.Name = "btnStartClient";
-            this.btnStartClient.Size = new System.Drawing.Size(125, 23);
+            this.btnStartClient.Size = new System.Drawing.Size(125, 21);
             this.btnStartClient.TabIndex = 16;
             this.btnStartClient.Text = "Start Client";
             this.btnStartClient.UseVisualStyleBackColor = true;
@@ -221,9 +222,9 @@
             // btnStartClientless
             // 
             this.btnStartClientless.Color = System.Drawing.Color.Transparent;
-            this.btnStartClientless.Location = new System.Drawing.Point(212, 26);
+            this.btnStartClientless.Location = new System.Drawing.Point(212, 28);
             this.btnStartClientless.Name = "btnStartClientless";
-            this.btnStartClientless.Size = new System.Drawing.Size(125, 24);
+            this.btnStartClientless.Size = new System.Drawing.Size(125, 21);
             this.btnStartClientless.TabIndex = 18;
             this.btnStartClientless.Text = "Start Clientless";
             this.btnStartClientless.UseVisualStyleBackColor = false;
@@ -235,7 +236,7 @@
             this.btnGoClientless.Enabled = false;
             this.btnGoClientless.Location = new System.Drawing.Point(212, 60);
             this.btnGoClientless.Name = "btnGoClientless";
-            this.btnGoClientless.Size = new System.Drawing.Size(125, 24);
+            this.btnGoClientless.Size = new System.Drawing.Size(125, 21);
             this.btnGoClientless.TabIndex = 17;
             this.btnGoClientless.Text = "Go Clientless";
             this.btnGoClientless.UseVisualStyleBackColor = true;
@@ -245,6 +246,7 @@
             // 
             this.groupBox1.AutoSize = true;
             this.groupBox1.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox1.Controls.Add(this.separator1);
             this.groupBox1.Controls.Add(this.panel3);
             this.groupBox1.Controls.Add(this.captchaPanel);
             this.groupBox1.Controls.Add(this.autoLoginTopPanel);
@@ -252,31 +254,30 @@
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupBox1.Radius = 12;
-            this.groupBox1.Size = new System.Drawing.Size(355, 274);
+            this.groupBox1.Size = new System.Drawing.Size(355, 282);
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Automated login";
             // 
+            // separator1
+            // 
+            this.separator1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.separator1.IsVertical = false;
+            this.separator1.Location = new System.Drawing.Point(3, 206);
+            this.separator1.Name = "separator1";
+            this.separator1.Size = new System.Drawing.Size(349, 2);
+            this.separator1.TabIndex = 19;
+            this.separator1.Text = "separator1";
+            // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.label3);
             this.panel3.Controls.Add(this.checkStartBot);
             this.panel3.Controls.Add(this.checkUseReturnScroll);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(3, 206);
             this.panel3.Name = "panel3";
-            this.panel3.Radius = 12;
-            this.panel3.Size = new System.Drawing.Size(349, 65);
+            this.panel3.Size = new System.Drawing.Size(349, 73);
             this.panel3.TabIndex = 1;
-            // 
-            // label3
-            // 
-            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label3.Location = new System.Drawing.Point(48, 5);
-            this.label3.Margin = new System.Windows.Forms.Padding(3, 0, 3, 20);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(247, 2);
-            this.label3.TabIndex = 26;
             // 
             // checkStartBot
             // 
@@ -302,6 +303,7 @@
             // 
             // captchaPanel
             // 
+            this.captchaPanel.Controls.Add(this.separator2);
             this.captchaPanel.Controls.Add(this.label6);
             this.captchaPanel.Controls.Add(this.label5);
             this.captchaPanel.Controls.Add(this.txtStaticCaptcha);
@@ -309,10 +311,19 @@
             this.captchaPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.captchaPanel.Location = new System.Drawing.Point(3, 123);
             this.captchaPanel.Name = "captchaPanel";
-            this.captchaPanel.Radius = 12;
             this.captchaPanel.Size = new System.Drawing.Size(349, 83);
             this.captchaPanel.TabIndex = 0;
             this.captchaPanel.Visible = false;
+            // 
+            // separator2
+            // 
+            this.separator2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.separator2.IsVertical = false;
+            this.separator2.Location = new System.Drawing.Point(0, 0);
+            this.separator2.Name = "separator2";
+            this.separator2.Size = new System.Drawing.Size(349, 2);
+            this.separator2.TabIndex = 29;
+            this.separator2.Text = "separator2";
             // 
             // label6
             // 
@@ -359,6 +370,7 @@
             // 
             // autoLoginTopPanel
             // 
+            this.autoLoginTopPanel.BackColor = System.Drawing.Color.Transparent;
             this.autoLoginTopPanel.Controls.Add(this.comboAccounts);
             this.autoLoginTopPanel.Controls.Add(this.label7);
             this.autoLoginTopPanel.Controls.Add(this.label4);
@@ -368,7 +380,6 @@
             this.autoLoginTopPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.autoLoginTopPanel.Location = new System.Drawing.Point(3, 23);
             this.autoLoginTopPanel.Name = "autoLoginTopPanel";
-            this.autoLoginTopPanel.Radius = 12;
             this.autoLoginTopPanel.Size = new System.Drawing.Size(349, 100);
             this.autoLoginTopPanel.TabIndex = 28;
             // 
@@ -480,7 +491,7 @@
             this.Controls.Add(this.txtSilkroadPath);
             this.Controls.Add(this.label1);
             this.Name = "Main";
-            this.Size = new System.Drawing.Size(803, 467);
+            this.Size = new System.Drawing.Size(760, 465);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -521,7 +532,6 @@
         private SDUI.Controls.Button btnStartClient;
         private System.Windows.Forms.CheckBox checkUseReturnScroll;
         private System.Windows.Forms.CheckBox checkStartBot;
-        private System.Windows.Forms.Label label3;
         private SDUI.Controls.GroupBox groupBox3;
         private System.Windows.Forms.CheckBox checkStayConnected;
         private System.Windows.Forms.Label label2;
@@ -530,8 +540,10 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckBox checkBoxBotTrayMinimized;
         private SDUI.Controls.ComboBox comboBoxClientType;
-        private SDUI.Controls.Panel captchaPanel;
-        private SDUI.Controls.Panel panel3;
-        private SDUI.Controls.Panel autoLoginTopPanel;
+        private System.Windows.Forms.Panel captchaPanel;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel autoLoginTopPanel;
+        private SDUI.Controls.Separator separator2;
+        private SDUI.Controls.Separator separator1;
     }
 }

@@ -85,7 +85,12 @@ namespace RSBot.Views
             Kernel.Bot.SetBotbase(selectedBotbase);
             GlobalConfig.Set("RSBot.BotIndex", index.ToString());
 
-            var info = new InfoControl { Name = "overlay", Location = new Point(tabMain.Width / 2 - 110, tabMain.Height - 150) };
+            var info = new InfoControl { 
+                Name = "overlay", 
+                Text = LanguageManager.GetLang("PleaseEnterGame"), 
+                Location = new Point(tabMain.Width / 2 - 110, tabMain.Height - 150) 
+            };
+
             tabPage.Controls.Add(info);
 
             //So we can see it at least..
@@ -126,11 +131,13 @@ namespace RSBot.Views
                 tabPage.Controls.Add(control);
                 tabMain.TabPages.Add(tabPage);
 
-                if (tabPage.Enabled) continue;
+                if (tabPage.Enabled) 
+                    continue;
 
                 var info = new InfoControl
                 {
                     Name = "overlay",
+                    Text = LanguageManager.GetLang("PleaseEnterGame"),
                     Location = new Point(tabMain.Width / 2 - 110, tabMain.Height - 150)
                 };
 

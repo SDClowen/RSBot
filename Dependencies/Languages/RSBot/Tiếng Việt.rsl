@@ -51,3 +51,4 @@ ClientTypeInputDialogContent="Vui lòng chọn loại client để RSBot hoạt 
 SelectSroDirWarn="Vui lòng chọn một thư mục Con Đường Tơ Lụa thích hợp!"
 ClientTypeNotSelected="Bây giờ nó được đặt thành 'Vietnam' vì bạn chưa chọn bất kỳ loại client nào."
 ConfigureTrainingAreaBeforeStartBot="Please configure the training area before start the bot!"
+PleaseEnterGame="Vui lòng tham gia trò chơi!"

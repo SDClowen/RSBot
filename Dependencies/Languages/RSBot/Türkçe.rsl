@@ -50,3 +50,4 @@ ClientTypeInputDialogContent="RSBot'un düzgün çalışabilmesi için istemci t
 SelectSroDirWarn="Lütfen bir silkroad dizini seçin!"
 ClientTypeNotSelected="Herhangi bir oyun türü seçmediğiniz için şimdilik 'Vietnam' olarak ayarlandı."
 ConfigureTrainingAreaBeforeStartBot="Lütfen botu başlatmadan önce lokasyon ayarını yapınız!"
+PleaseEnterGame="Lütfen oyuna girin!"
