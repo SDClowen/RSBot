@@ -86,7 +86,7 @@ namespace RSBot.Views
             this.toolStripStatusLabel1,
             this.lblIngameStatus});
             this.stripStatus.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.stripStatus.Location = new System.Drawing.Point(5, 588);
+            this.stripStatus.Location = new System.Drawing.Point(5, 696);
             this.stripStatus.Name = "stripStatus";
             this.stripStatus.Size = new System.Drawing.Size(1022, 23);
             this.stripStatus.SizingGrip = false;
@@ -126,7 +126,7 @@ namespace RSBot.Views
             this.bottomPanel.Controls.Add(this.btnSave);
             this.bottomPanel.Controls.Add(this.btnStartStop);
             this.bottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottomPanel.Location = new System.Drawing.Point(5, 536);
+            this.bottomPanel.Location = new System.Drawing.Point(5, 644);
             this.bottomPanel.Name = "bottomPanel";
             this.bottomPanel.Size = new System.Drawing.Size(1022, 52);
             this.bottomPanel.TabIndex = 2;
@@ -192,7 +192,7 @@ namespace RSBot.Views
             this.pSidebar.Dock = System.Windows.Forms.DockStyle.Right;
             this.pSidebar.Location = new System.Drawing.Point(777, 31);
             this.pSidebar.Name = "pSidebar";
-            this.pSidebar.Size = new System.Drawing.Size(250, 505);
+            this.pSidebar.Size = new System.Drawing.Size(250, 613);
             this.pSidebar.TabIndex = 6;
             // 
             // picLogo
@@ -200,7 +200,7 @@ namespace RSBot.Views
             this.picLogo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picLogo.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.picLogo.Image = ((System.Drawing.Image)(resources.GetObject("picLogo.Image")));
-            this.picLogo.Location = new System.Drawing.Point(0, 411);
+            this.picLogo.Location = new System.Drawing.Point(0, 519);
             this.picLogo.Name = "picLogo";
             this.picLogo.Size = new System.Drawing.Size(250, 94);
             this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -417,7 +417,7 @@ namespace RSBot.Views
             this.tabMain.Location = new System.Drawing.Point(5, 110);
             this.tabMain.Name = "tabMain";
             this.tabMain.SelectedIndex = 0;
-            this.tabMain.Size = new System.Drawing.Size(772, 426);
+            this.tabMain.Size = new System.Drawing.Size(772, 534);
             this.tabMain.TabIndex = 3;
             // 
             // topCharacter
@@ -435,7 +435,7 @@ namespace RSBot.Views
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
-            this.ClientSize = new System.Drawing.Size(1032, 616);
+            this.ClientSize = new System.Drawing.Size(1032, 724);
             this.ControlBox = false;
             this.Controls.Add(this.tabMain);
             this.Controls.Add(this.topCharacter);

@@ -1,13 +1,10 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
-using RSBot.Core.Extensions;
-using RSBot.Core.Objects;
 using RSBot.Core.Objects.Party;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 
 namespace RSBot.Bot.Default.Bundle.PartyBuffing
 {
@@ -63,14 +60,14 @@ namespace RSBot.Bot.Default.Bundle.PartyBuffing
                 var buffingMember = BuffingPartyMembers.Find(p => p.Name == member.Name);
                 if (buffingMember == null)
                     continue;
-                
-                if(buffingMember.Buffs.Count == 0)
+
+                if (buffingMember.Buffs.Count == 0)
                     continue;
 
                 var activeBuffs = member.Player.State.ActiveBuffs;
 
                 var neededBuffs = buffingMember.Buffs
-                    .Where(skillId => !activeBuffs.Any(p => p.Id == skillId || 
+                    .Where(skillId => !activeBuffs.Any(p => p.Id == skillId ||
                     (Game.ReferenceManager.SkillData.TryGetValue(skillId, out var refSkill) && refSkill.Action_Overlap == p.Record.Action_Overlap)));
 
                 foreach (var castingBuffId in neededBuffs)
