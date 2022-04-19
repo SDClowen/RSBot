@@ -54,7 +54,7 @@ namespace RSBot.Core.Objects.Spawn
             Id = objId;
 
             if (Record != null)
-            Health = Record.MaxHealth;
+                Health = Record.MaxHealth;
         }
 
         /// <summary>
