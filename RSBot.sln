@@ -25,7 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.Party", "Plugins\RSBo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.Protection", "Plugins\RSBot.Protection\RSBot.Protection.csproj", "{72B9770E-8DDF-4D83-9B9A-8292FA989C47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.Items", "Plugins\RSBot.Shopping\RSBot.Items.csproj", "{2512902C-3EF4-4395-9925-258F49A5813B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.Shopping", "Plugins\RSBot.Shopping\RSBot.Shopping.csproj", "{2512902C-3EF4-4395-9925-258F49A5813B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.Skills", "Plugins\RSBot.Skills\RSBot.Skills.csproj", "{68324AEA-4BC0-4C76-8091-C3BBE6BB618C}"
 EndProject
@@ -42,6 +42,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RSBot.Loader.Library", "Library\RSBot.Loader.Library\RSBot.Loader.Library.vcxproj", "{1C0AECF2-7A9C-4EEE-BDD2-AF257118EC65}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.Statistics", "Plugins\RSBot.Statistics\RSBot.Statistics.csproj", "{37414591-BE70-4333-B82F-EE7DC40F8D3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDUI", "SDUI\SDUI\SDUI.csproj", "{38B06E05-D80D-4E99-9F62-8B3AF0B7AC53}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -245,6 +247,18 @@ Global
 		{37414591-BE70-4333-B82F-EE7DC40F8D3A}.Release|x64.Build.0 = Release|Any CPU
 		{37414591-BE70-4333-B82F-EE7DC40F8D3A}.Release|x86.ActiveCfg = Release|Any CPU
 		{37414591-BE70-4333-B82F-EE7DC40F8D3A}.Release|x86.Build.0 = Release|Any CPU
+		{38B06E05-D80D-4E99-9F62-8B3AF0B7AC53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38B06E05-D80D-4E99-9F62-8B3AF0B7AC53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38B06E05-D80D-4E99-9F62-8B3AF0B7AC53}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{38B06E05-D80D-4E99-9F62-8B3AF0B7AC53}.Debug|x64.Build.0 = Debug|Any CPU
+		{38B06E05-D80D-4E99-9F62-8B3AF0B7AC53}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{38B06E05-D80D-4E99-9F62-8B3AF0B7AC53}.Debug|x86.Build.0 = Debug|Any CPU
+		{38B06E05-D80D-4E99-9F62-8B3AF0B7AC53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38B06E05-D80D-4E99-9F62-8B3AF0B7AC53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38B06E05-D80D-4E99-9F62-8B3AF0B7AC53}.Release|x64.ActiveCfg = Release|Any CPU
+		{38B06E05-D80D-4E99-9F62-8B3AF0B7AC53}.Release|x64.Build.0 = Release|Any CPU
+		{38B06E05-D80D-4E99-9F62-8B3AF0B7AC53}.Release|x86.ActiveCfg = Release|Any CPU
+		{38B06E05-D80D-4E99-9F62-8B3AF0B7AC53}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -266,6 +280,7 @@ Global
 		{EBA7F066-8BD6-488D-A65A-B9FFFF2667C4} = {AC1664CE-FD32-4A07-8C5C-0C96D973960C}
 		{1C0AECF2-7A9C-4EEE-BDD2-AF257118EC65} = {06762F99-9EA8-4E3E-91E8-73F2ED402CFB}
 		{37414591-BE70-4333-B82F-EE7DC40F8D3A} = {50ECA1E3-A0CF-4DC6-B0D9-AB5668D17EC3}
+		{38B06E05-D80D-4E99-9F62-8B3AF0B7AC53} = {06762F99-9EA8-4E3E-91E8-73F2ED402CFB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9E2A0162-C6BF-4792-97DC-C8824F69B98C}

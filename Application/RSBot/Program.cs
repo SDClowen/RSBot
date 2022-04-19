@@ -14,6 +14,7 @@ namespace RSBot
             GlobalConfig.Load("config");
             ColorScheme.Load();
             Application.SetCompatibleTextRenderingDefault(false);
+            Application.EnableVisualStyles();
             Application.Run(new SplashScreen());
         }
     }

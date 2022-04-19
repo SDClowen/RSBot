@@ -1,0 +1,3 @@
+[submodule "SDUI"]
+	path = SDUI
+	url = https://github.com/SDClowen/SDUI.git

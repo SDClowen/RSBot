@@ -66,9 +66,9 @@ namespace RSBot.Views
             this.coloredToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.minimizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hideSideBarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabMain = new RSBot.Theme.Controls.TabControl();
             this.topCharacter = new RSBot.Views.Controls.Character();
+            this.separator = new RSBot.Theme.Controls.Separator();
             this.stripStatus.SuspendLayout();
             this.bottomPanel.SuspendLayout();
             this.pSidebar.SuspendLayout();
@@ -86,9 +86,9 @@ namespace RSBot.Views
             this.toolStripStatusLabel1,
             this.lblIngameStatus});
             this.stripStatus.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.stripStatus.Location = new System.Drawing.Point(5, 588);
+            this.stripStatus.Location = new System.Drawing.Point(1, 592);
             this.stripStatus.Name = "stripStatus";
-            this.stripStatus.Size = new System.Drawing.Size(1022, 23);
+            this.stripStatus.Size = new System.Drawing.Size(1030, 23);
             this.stripStatus.SizingGrip = false;
             this.stripStatus.TabIndex = 0;
             this.stripStatus.Tag = "private";
@@ -126,9 +126,9 @@ namespace RSBot.Views
             this.bottomPanel.Controls.Add(this.btnSave);
             this.bottomPanel.Controls.Add(this.btnStartStop);
             this.bottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottomPanel.Location = new System.Drawing.Point(5, 536);
+            this.bottomPanel.Location = new System.Drawing.Point(1, 540);
             this.bottomPanel.Name = "bottomPanel";
-            this.bottomPanel.Size = new System.Drawing.Size(1022, 52);
+            this.bottomPanel.Size = new System.Drawing.Size(1030, 52);
             this.bottomPanel.TabIndex = 2;
             // 
             // comboServer
@@ -156,7 +156,7 @@ namespace RSBot.Views
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSave.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
-            this.btnSave.Location = new System.Drawing.Point(814, 16);
+            this.btnSave.Location = new System.Drawing.Point(822, 16);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(95, 23);
             this.btnSave.TabIndex = 1;
@@ -173,7 +173,7 @@ namespace RSBot.Views
             this.btnStartStop.BackColor = System.Drawing.Color.DodgerBlue;
             this.btnStartStop.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnStartStop.ForeColor = System.Drawing.Color.White;
-            this.btnStartStop.Location = new System.Drawing.Point(915, 16);
+            this.btnStartStop.Location = new System.Drawing.Point(923, 16);
             this.btnStartStop.Name = "btnStartStop";
             this.btnStartStop.Size = new System.Drawing.Size(95, 23);
             this.btnStartStop.TabIndex = 0;
@@ -190,9 +190,9 @@ namespace RSBot.Views
             this.pSidebar.Controls.Add(this.entity1);
             this.pSidebar.Controls.Add(this.pet1);
             this.pSidebar.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pSidebar.Location = new System.Drawing.Point(777, 31);
+            this.pSidebar.Location = new System.Drawing.Point(781, 32);
             this.pSidebar.Name = "pSidebar";
-            this.pSidebar.Size = new System.Drawing.Size(250, 505);
+            this.pSidebar.Size = new System.Drawing.Size(250, 508);
             this.pSidebar.TabIndex = 6;
             // 
             // picLogo
@@ -200,7 +200,7 @@ namespace RSBot.Views
             this.picLogo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picLogo.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.picLogo.Image = ((System.Drawing.Image)(resources.GetObject("picLogo.Image")));
-            this.picLogo.Location = new System.Drawing.Point(0, 411);
+            this.picLogo.Location = new System.Drawing.Point(0, 414);
             this.picLogo.Name = "picLogo";
             this.picLogo.Size = new System.Drawing.Size(250, 94);
             this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -318,6 +318,7 @@ namespace RSBot.Views
             // 
             // menuStrip
             // 
+            this.menuStrip.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1,
             this.fileToolStripMenuItem,
@@ -328,13 +329,13 @@ namespace RSBot.Views
             this.themeToolStripMenuItem,
             this.aboutToolStripMenuItem,
             this.closeToolStripMenuItem,
-            this.minimizeToolStripMenuItem,
-            this.hideSideBarToolStripMenuItem});
-            this.menuStrip.Location = new System.Drawing.Point(5, 5);
+            this.minimizeToolStripMenuItem});
+            this.menuStrip.Location = new System.Drawing.Point(1, 1);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(1022, 26);
+            this.menuStrip.Padding = new System.Windows.Forms.Padding(6, 4, 6, 4);
+            this.menuStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.menuStrip.Size = new System.Drawing.Size(1030, 30);
             this.menuStrip.TabIndex = 10;
-            this.menuStrip.Text = "menuStrip1";
             this.menuStrip.MouseDown += new System.Windows.Forms.MouseEventHandler(this.menuStrip_MouseDown);
             // 
             // toolStripMenuItem1
@@ -399,36 +400,34 @@ namespace RSBot.Views
             this.minimizeToolStripMenuItem.Text = "0";
             this.minimizeToolStripMenuItem.Click += new System.EventHandler(this.minimizeToolStripMenuItem_Click);
             // 
-            // hideSideBarToolStripMenuItem
-            // 
-            this.hideSideBarToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.hideSideBarToolStripMenuItem.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.hideSideBarToolStripMenuItem.Name = "hideSideBarToolStripMenuItem";
-            this.hideSideBarToolStripMenuItem.Size = new System.Drawing.Size(33, 22);
-            this.hideSideBarToolStripMenuItem.Text = ".";
-            this.hideSideBarToolStripMenuItem.Visible = false;
-            this.hideSideBarToolStripMenuItem.Click += new System.EventHandler(this.menuSidebar_Click);
-            // 
             // tabMain
             // 
             this.tabMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabMain.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.tabMain.ItemSize = new System.Drawing.Size(0, 23);
-            this.tabMain.Location = new System.Drawing.Point(5, 110);
+            this.tabMain.Location = new System.Drawing.Point(1, 111);
             this.tabMain.Name = "tabMain";
             this.tabMain.SelectedIndex = 0;
-            this.tabMain.Size = new System.Drawing.Size(772, 426);
+            this.tabMain.Size = new System.Drawing.Size(780, 429);
             this.tabMain.TabIndex = 3;
             // 
             // topCharacter
             // 
             this.topCharacter.BackColor = System.Drawing.Color.Transparent;
             this.topCharacter.Dock = System.Windows.Forms.DockStyle.Top;
-            this.topCharacter.Location = new System.Drawing.Point(5, 31);
+            this.topCharacter.Location = new System.Drawing.Point(1, 32);
             this.topCharacter.Margin = new System.Windows.Forms.Padding(4);
             this.topCharacter.Name = "topCharacter";
-            this.topCharacter.Size = new System.Drawing.Size(772, 79);
+            this.topCharacter.Size = new System.Drawing.Size(780, 79);
             this.topCharacter.TabIndex = 7;
+            // 
+            // separator
+            // 
+            this.separator.Dock = System.Windows.Forms.DockStyle.Top;
+            this.separator.Location = new System.Drawing.Point(1, 31);
+            this.separator.Name = "separator";
+            this.separator.Size = new System.Drawing.Size(1030, 1);
+            this.separator.TabIndex = 11;
             // 
             // Main
             // 
@@ -442,6 +441,7 @@ namespace RSBot.Views
             this.Controls.Add(this.pSidebar);
             this.Controls.Add(this.bottomPanel);
             this.Controls.Add(this.stripStatus);
+            this.Controls.Add(this.separator);
             this.Controls.Add(this.menuStrip);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
@@ -450,7 +450,7 @@ namespace RSBot.Views
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(1048, 724);
             this.Name = "Main";
-            this.Padding = new System.Windows.Forms.Padding(5);
+            this.Padding = new System.Windows.Forms.Padding(1);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RSBot";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
@@ -500,13 +500,13 @@ namespace RSBot.Views
         private RSBot.Theme.Controls.TabControl tabMain;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem minimizeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem hideSideBarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem themeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem darkToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem lightToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem coloredToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem languageToolStripMenuItem;
+        private Theme.Controls.Separator separator;
     }
 }
 
