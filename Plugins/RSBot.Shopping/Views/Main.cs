@@ -202,21 +202,22 @@ namespace RSBot.Shopping.Views
             ShoppingManager.ShoppingList.Clear();
             foreach (ListViewGroup grp in listShoppingList.Groups)
             {
-                var values = new string[grp.Items.Count];
-                var i = 0;
+                var values = new List<string>(grp.Items.Count);
+
                 foreach (ListViewItem item in grp.Items)
                 {
-                    if (!(item.Tag is RefShopGood packageItem)) continue;
+                    if (!(item.Tag is RefShopGood packageItem)) 
+                        continue;
 
                     if (ShoppingManager.ShoppingList.ContainsKey(packageItem))
                         continue;
 
-                    var amount = ushort.Parse(item.SubItems[1].Text.Substring(1, item.SubItems[1].Text.Length - 1));
+                    if (!int.TryParse(item.SubItems[1].Text.Substring(1), out var amount))
+                        continue;
 
                     ShoppingManager.ShoppingList.Add(packageItem, amount);
-                    values[i] = packageItem.RefPackageItemCodeName + "|" + amount;
 
-                    i++;
+                    values.Add(packageItem.RefPackageItemCodeName + "|" + amount);
                 }
 
                 PlayerConfig.SetArray("RSBot.Shopping." + grp.Name, values);
@@ -241,24 +242,25 @@ namespace RSBot.Shopping.Views
                     var amount = value.Split('|')[1];
                     var good = Game.ReferenceManager.GetRefShopGood(packageCodeName);
 
-                    if (good == null) continue;
+                    if (good == null) 
+                        continue;
+
                     var refPackageItem = Game.ReferenceManager.GetRefPackageItem(good.RefPackageItemCodeName);
                     var item = Game.ReferenceManager.GetRefItem(refPackageItem.RefItemCodeName);
 
-                    var listItem = new ListViewItem(item.GetRealName()) { Tag = good };
+                    var listItem = new ListViewItem(item.GetRealName()) { Name = item.CodeName, Tag = good };
                     listItem.SubItems.Add("x" + amount);
                     listItem.Group = group;
                     listShoppingList.Items.Add(listItem);
 
                     if (!imgShoppingList.Images.ContainsKey(item.ID.ToString()))
                         imgShoppingList.Images.Add(item.ID.ToString(), item.GetIcon());
+
                     listItem.ImageKey = item.ID.ToString();
                 }
             }
 
             listShoppingList.EndUpdate();
-
-            SaveShoppingList(); //Apply loaded data to core component
         }
 
         /// <summary>
@@ -266,9 +268,9 @@ namespace RSBot.Shopping.Views
         /// </summary>
         private void SaveSellList()
         {
-            /*PlayerConfig.SetArray("RSBot.Shopping.Sell", ShoppingManager.SellFilter.Filters);
+            PlayerConfig.SetArray("RSBot.Shopping.Sell", ShoppingManager.SellFilter.Filters);
             PlayerConfig.SetArray("RSBot.Shopping.Store", ShoppingManager.StoreFilter.Filters);
-            PlayerConfig.SetArray("RSBot.Shopping.Pickup", PickupManager.PickupFilter.Filters);*/
+            PlayerConfig.SetArray("RSBot.Shopping.Pickup", PickupManager.PickupFilter.Filters);
         }
 
         /// <summary>
@@ -637,8 +639,6 @@ namespace RSBot.Shopping.Views
         {
             foreach (ListViewItem listItem in listAvailableProducts.SelectedItems)
             {
-                var newListItem = new ListViewItem(listItem.Text) { Tag = listItem.Tag };
-
                 var title = LanguageManager.GetLang("InputDialogTitle");
                 var content = LanguageManager.GetLang("InputDialogContent");
 
@@ -646,15 +646,24 @@ namespace RSBot.Shopping.Views
                 if (dialog.ShowDialog() == DialogResult.Cancel)
                     return;
 
+                if (listShoppingList.Items.ContainsKey(listItem.Name))
+                {
+                    var item = listShoppingList.Items[listItem.Name];
+                    if (!int.TryParse(item.SubItems[1].Text.Substring(1), out var amount))
+                        continue;
+
+                    item.SubItems[1].Text = $"x{Convert.ToInt32(dialog.Value) + amount}";
+                    continue;
+                }
+
+                var newListItem = (ListViewItem)listItem.Clone();
                 newListItem.Group = listShoppingList.Groups[comboStore.SelectedIndex];
 
                 newListItem.SubItems.Add("x" + dialog.Value);
                 listShoppingList.Items.Add(newListItem);
-
-                SaveShoppingList();
             }
 
-            LoadShoppingList();
+            SaveShoppingList();
         }
 
         /// <summary>

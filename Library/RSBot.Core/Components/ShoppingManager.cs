@@ -17,7 +17,7 @@ namespace RSBot.Core.Components
         /// <value>
         /// The shopping list.
         /// </value>
-        public static Dictionary<RefShopGood, ushort> ShoppingList { get; set; }
+        public static Dictionary<RefShopGood, int> ShoppingList { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="ShoppingManager"/> is finished.
@@ -88,7 +88,7 @@ namespace RSBot.Core.Components
         /// </summary>
         internal static void Initialize()
         {
-            ShoppingList = new Dictionary<RefShopGood, ushort>();
+            ShoppingList = new Dictionary<RefShopGood, int>();
             StoreFilter = new ItemFilter();
             SellFilter = new ItemFilter();
 
@@ -167,13 +167,14 @@ namespace RSBot.Core.Components
                 while (totalAmountToBuy > 0)
                 {
                     var refItem = ReferenceManager.GetRefItem(refPackageItem.RefItemCodeName);
-                    if (refItem == null) continue; //Should not happen
+                    if (refItem == null) 
+                        continue; //Should not happen
 
-                    var amountStep = (ushort)totalAmountToBuy;
+                    var amountStep = totalAmountToBuy;
                     if (totalAmountToBuy >= refItem.MaxStack)
-                        amountStep = (ushort)refItem.MaxStack; //Buy only one stack
+                        amountStep = refItem.MaxStack; //Buy only one stack
 
-                    PurchaseItem(tabIndex, actualItem.SlotIndex, amountStep);
+                    PurchaseItem(tabIndex, actualItem.SlotIndex, (ushort)amountStep);
                     totalAmountToBuy -= amountStep; //One stack bought, substract from total amount!
                     Thread.Sleep(100);
                 }

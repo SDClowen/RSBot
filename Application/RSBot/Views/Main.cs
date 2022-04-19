@@ -244,7 +244,6 @@ namespace RSBot.Views
         private void menuSidebar_Click(object sender, EventArgs e)
         {
             menuSidebar.Checked = !menuSidebar.Checked;
-
             GlobalConfig.Set("RSBot.ShowSidebar", menuSidebar.Checked.ToString());
 
             ConfigureSidebar();
