@@ -117,7 +117,7 @@ namespace RSBot.Core.Objects.Spawn
                     Log.Debug($"Could not select entity 0x{response.ReadByte():X}");
 
                 return result
-                    ? AwaitCallbackResult.Received : AwaitCallbackResult.Failed;
+                    ? AwaitCallbackResult.Successed : AwaitCallbackResult.Failed;
             }, 0xB045);
             PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallback);
             awaitCallback.AwaitResponse();

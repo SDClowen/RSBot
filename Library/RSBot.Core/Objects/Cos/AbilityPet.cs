@@ -158,7 +158,7 @@ namespace RSBot.Core.Objects
                 if (result == 0x01)
                 {
                     response.ReadByte();
-                    return response.ReadUInt() == UniqueId ? AwaitCallbackResult.Received : AwaitCallbackResult.None;
+                    return response.ReadUInt() == UniqueId ? AwaitCallbackResult.Successed : AwaitCallbackResult.ConditionFailed;
                 }
 
                 return AwaitCallbackResult.Failed;

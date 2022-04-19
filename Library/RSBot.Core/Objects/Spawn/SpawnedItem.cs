@@ -111,7 +111,7 @@ namespace RSBot.Core.Objects.Spawn
             var asyncResult = new AwaitCallback(response =>
             {
                 return response.ReadByte() == 2 && response.ReadByte() == 0
-                        ? AwaitCallbackResult.Received : AwaitCallbackResult.None;
+                        ? AwaitCallbackResult.Successed : AwaitCallbackResult.ConditionFailed;
             }, 0xB074);
             PacketManager.SendPacket(packet, PacketDestination.Server, asyncResult);
             asyncResult.AwaitResponse();
