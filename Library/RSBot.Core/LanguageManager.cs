@@ -103,7 +103,7 @@ namespace RSBot.Core
         /// <param name="file">The language file path</param>
         /// <param name="controls">The controls</param>
         /// <param name="languages">the parsed languages list</param>
-        private static void CheckMissings(string file, string header, Control main, Dictionary<string, string> languages)
+        private static void CheckMissings(string file, string header, Control main, LangDict languages)
         {
             var contents = new List<string>();
 

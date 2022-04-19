@@ -52,7 +52,9 @@ namespace RSBot.Core.Objects.Spawn
         public SpawnedBionic(uint objId)
         {
             Id = objId;
-            Health = Record.MaxHealth;
+
+            if (Record != null)
+                Health = Record.MaxHealth;
         }
 
         /// <summary>

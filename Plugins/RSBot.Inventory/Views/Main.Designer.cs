@@ -67,7 +67,7 @@
             "Storage"});
             this.comboInventoryType.Location = new System.Drawing.Point(73, 4);
             this.comboInventoryType.Name = "comboInventoryType";
-            this.comboInventoryType.Size = new System.Drawing.Size(186, 21);
+            this.comboInventoryType.Size = new System.Drawing.Size(186, 39);
             this.comboInventoryType.TabIndex = 1;
             this.comboInventoryType.SelectedIndexChanged += new System.EventHandler(this.comboInventoryType_SelectedIndexChanged);
             // 
@@ -90,7 +90,7 @@
             this.lblFreeSlots.AutoSize = true;
             this.lblFreeSlots.Location = new System.Drawing.Point(69, 3);
             this.lblFreeSlots.Name = "lblFreeSlots";
-            this.lblFreeSlots.Size = new System.Drawing.Size(13, 13);
+            this.lblFreeSlots.Size = new System.Drawing.Size(29, 31);
             this.lblFreeSlots.TabIndex = 4;
             this.lblFreeSlots.Text = "0";
             // 
@@ -119,6 +119,7 @@
             this.listViewMain.UseCompatibleStateImageBehavior = false;
             this.listViewMain.View = System.Windows.Forms.View.Details;
             this.listViewMain.SelectedIndexChanged += new System.EventHandler(this.listViewMain_SelectedIndexChanged);
+            this.listViewMain.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listViewMain_MouseDoubleClick);
             // 
             // colName
             // 
