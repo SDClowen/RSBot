@@ -257,6 +257,8 @@ namespace RSBot.Shopping.Views
                         imgShoppingList.Images.Add(item.ID.ToString(), item.GetIcon());
 
                     listItem.ImageKey = item.ID.ToString();
+
+                    ShoppingManager.ShoppingList.Add(good, int.Parse(amount));
                 }
             }
 
