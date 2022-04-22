@@ -154,9 +154,9 @@ namespace RSBot.Core.Components
             {
                 XSector = byte.Parse(arguments[4]),
                 YSector = byte.Parse(arguments[5]),
-                XOffset = short.Parse(arguments[1]),
-                YOffset = short.Parse(arguments[2]),
-                ZOffset = short.Parse(arguments[3])
+                XOffset = float.Parse(arguments[1]),
+                YOffset = float.Parse(arguments[2]),
+                ZOffset = float.Parse(arguments[3])
             };
 
             //Check if the new position is nearby a cave enterance.
