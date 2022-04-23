@@ -145,14 +145,5 @@ namespace RSBot.Views.Controls
                 item.Text = "0%";
             }
         }
-
-        protected override void OnParentBackColorChanged(EventArgs e)
-        {
-            base.OnParentBackColorChanged(e);
-
-            progressHP.BackColor = ColorScheme.BackColor;
-            progressHGP.BackColor = ColorScheme.BackColor;
-            progressEXP.BackColor = ColorScheme.BackColor;
-        }
     }
 }

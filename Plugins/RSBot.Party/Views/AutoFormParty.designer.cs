@@ -31,25 +31,25 @@
             this.btnAccept = new SDUI.Controls.Button();
             this.btnCancel = new SDUI.Controls.Button();
             this.gbObjective = new SDUI.Controls.GroupBox();
-            this.rbtn_Thief = new System.Windows.Forms.RadioButton();
-            this.rbtn_Trade = new System.Windows.Forms.RadioButton();
-            this.rbtn_Quest = new System.Windows.Forms.RadioButton();
-            this.rbtn_Hunting = new System.Windows.Forms.RadioButton();
+            this.rbtn_Thief = new SDUI.Controls.Radio();
+            this.rbtn_Trade = new SDUI.Controls.Radio();
+            this.rbtn_Quest = new SDUI.Controls.Radio();
+            this.rbtn_Hunting = new SDUI.Controls.Radio();
             this.groupBox2 = new SDUI.Controls.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new SDUI.Controls.Label();
+            this.label1 = new SDUI.Controls.Label();
             this.max_level = new System.Windows.Forms.NumericUpDown();
             this.min_level = new System.Windows.Forms.NumericUpDown();
             this.groupBox3 = new SDUI.Controls.GroupBox();
-            this.label_partytype2 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label_partytype = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.label_partytype2 = new SDUI.Controls.Label();
+            this.label5 = new SDUI.Controls.Label();
+            this.label_partytype = new SDUI.Controls.Label();
+            this.label3 = new SDUI.Controls.Label();
             this.groupBox4 = new SDUI.Controls.GroupBox();
             this.tb_Title = new SDUI.Controls.TextBox();
             this.groupBox5 = new SDUI.Controls.GroupBox();
-            this.cb_AutoReform = new System.Windows.Forms.CheckBox();
-            this.cb_AutoAccept = new System.Windows.Forms.CheckBox();
+            this.cb_AutoReform = new SDUI.Controls.CheckBox();
+            this.cb_AutoAccept = new SDUI.Controls.CheckBox();
             this.gbObjective.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.max_level)).BeginInit();
@@ -63,7 +63,7 @@
             // 
             this.btnAccept.Color = System.Drawing.Color.Transparent;
             this.btnAccept.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnAccept.Location = new System.Drawing.Point(12, 311);
+            this.btnAccept.Location = new System.Drawing.Point(12, 323);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(75, 23);
             this.btnAccept.TabIndex = 0;
@@ -75,7 +75,7 @@
             // 
             this.btnCancel.Color = System.Drawing.Color.Transparent;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(271, 311);
+            this.btnCancel.Location = new System.Drawing.Point(271, 323);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 1;
@@ -109,8 +109,8 @@
             this.rbtn_Thief.TabStop = true;
             this.rbtn_Thief.Tag = "4";
             this.rbtn_Thief.Text = "Thief Union";
-            this.rbtn_Thief.UseVisualStyleBackColor = true;
             this.rbtn_Thief.CheckedChanged += new System.EventHandler(this.radioCheckedChanged);
+            
             // 
             // rbtn_Trade
             // 
@@ -123,7 +123,6 @@
             this.rbtn_Trade.TabStop = true;
             this.rbtn_Trade.Tag = "3";
             this.rbtn_Trade.Text = "Trade Union";
-            this.rbtn_Trade.UseVisualStyleBackColor = true;
             this.rbtn_Trade.CheckedChanged += new System.EventHandler(this.radioCheckedChanged);
             // 
             // rbtn_Quest
@@ -136,7 +135,6 @@
             this.rbtn_Quest.TabStop = true;
             this.rbtn_Quest.Tag = "2";
             this.rbtn_Quest.Text = "Quest";
-            this.rbtn_Quest.UseVisualStyleBackColor = true;
             this.rbtn_Quest.CheckedChanged += new System.EventHandler(this.radioCheckedChanged);
             // 
             // rbtn_Hunting
@@ -149,7 +147,6 @@
             this.rbtn_Hunting.TabStop = true;
             this.rbtn_Hunting.Tag = "1";
             this.rbtn_Hunting.Text = "Hunting";
-            this.rbtn_Hunting.UseVisualStyleBackColor = true;
             this.rbtn_Hunting.CheckedChanged += new System.EventHandler(this.radioCheckedChanged);
             // 
             // groupBox2
@@ -171,7 +168,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(172, 32);
+            this.label2.Location = new System.Drawing.Point(172, 35);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(33, 15);
             this.label2.TabIndex = 1;
@@ -180,7 +177,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(26, 32);
+            this.label1.Location = new System.Drawing.Point(26, 35);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(31, 15);
             this.label1.TabIndex = 1;
@@ -188,7 +185,7 @@
             // 
             // max_level
             // 
-            this.max_level.Location = new System.Drawing.Point(209, 29);
+            this.max_level.Location = new System.Drawing.Point(209, 32);
             this.max_level.Maximum = new decimal(new int[] {
             255,
             0,
@@ -210,7 +207,7 @@
             // 
             // min_level
             // 
-            this.min_level.Location = new System.Drawing.Point(63, 29);
+            this.min_level.Location = new System.Drawing.Point(63, 32);
             this.min_level.Maximum = new decimal(new int[] {
             255,
             0,
@@ -241,7 +238,7 @@
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupBox3.Radius = 12;
-            this.groupBox3.Size = new System.Drawing.Size(334, 45);
+            this.groupBox3.Size = new System.Drawing.Size(334, 57);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Party Type";
@@ -249,7 +246,7 @@
             // label_partytype2
             // 
             this.label_partytype2.AutoSize = true;
-            this.label_partytype2.Location = new System.Drawing.Point(206, 27);
+            this.label_partytype2.Location = new System.Drawing.Point(206, 32);
             this.label_partytype2.Name = "label_partytype2";
             this.label_partytype2.Size = new System.Drawing.Size(92, 15);
             this.label_partytype2.TabIndex = 1;
@@ -260,7 +257,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Blue;
-            this.label5.Location = new System.Drawing.Point(181, 22);
+            this.label5.Location = new System.Drawing.Point(181, 27);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(19, 21);
             this.label5.TabIndex = 0;
@@ -269,7 +266,7 @@
             // label_partytype
             // 
             this.label_partytype.AutoSize = true;
-            this.label_partytype.Location = new System.Drawing.Point(63, 27);
+            this.label_partytype.Location = new System.Drawing.Point(63, 32);
             this.label_partytype.Name = "label_partytype";
             this.label_partytype.Size = new System.Drawing.Size(87, 15);
             this.label_partytype.TabIndex = 1;
@@ -280,7 +277,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Blue;
-            this.label3.Location = new System.Drawing.Point(40, 21);
+            this.label3.Location = new System.Drawing.Point(40, 27);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(19, 21);
             this.label3.TabIndex = 0;
@@ -290,7 +287,7 @@
             // 
             this.groupBox4.BackColor = System.Drawing.Color.Transparent;
             this.groupBox4.Controls.Add(this.tb_Title);
-            this.groupBox4.Location = new System.Drawing.Point(12, 190);
+            this.groupBox4.Location = new System.Drawing.Point(12, 202);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupBox4.Radius = 12;
@@ -315,7 +312,7 @@
             this.groupBox5.BackColor = System.Drawing.Color.Transparent;
             this.groupBox5.Controls.Add(this.cb_AutoReform);
             this.groupBox5.Controls.Add(this.cb_AutoAccept);
-            this.groupBox5.Location = new System.Drawing.Point(12, 251);
+            this.groupBox5.Location = new System.Drawing.Point(12, 263);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupBox5.Radius = 12;
@@ -326,24 +323,22 @@
             // 
             // cb_AutoReform
             // 
-            this.cb_AutoReform.AutoSize = true;
+            this.cb_AutoReform.Checked = false;
             this.cb_AutoReform.Location = new System.Drawing.Point(12, 29);
             this.cb_AutoReform.Name = "cb_AutoReform";
             this.cb_AutoReform.Size = new System.Drawing.Size(94, 19);
             this.cb_AutoReform.TabIndex = 0;
             this.cb_AutoReform.Text = "Auto Reform";
-            this.cb_AutoReform.UseVisualStyleBackColor = true;
             this.cb_AutoReform.CheckedChanged += new System.EventHandler(this.cb_AutoReform_CheckedChanged);
             // 
             // cb_AutoAccept
             // 
-            this.cb_AutoAccept.AutoSize = true;
+            this.cb_AutoAccept.Checked = false;
             this.cb_AutoAccept.Location = new System.Drawing.Point(232, 29);
             this.cb_AutoAccept.Name = "cb_AutoAccept";
             this.cb_AutoAccept.Size = new System.Drawing.Size(92, 19);
             this.cb_AutoAccept.TabIndex = 0;
             this.cb_AutoAccept.Text = "Auto Accept";
-            this.cb_AutoAccept.UseVisualStyleBackColor = true;
             this.cb_AutoAccept.CheckedChanged += new System.EventHandler(this.cb_AutoAccept_CheckedChanged);
             // 
             // AutoFormParty
@@ -353,7 +348,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(251)))), ((int)(((byte)(251)))));
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(360, 345);
+            this.ClientSize = new System.Drawing.Size(360, 355);
             this.ControlBox = false;
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
@@ -364,9 +359,8 @@
             this.Controls.Add(this.btnAccept);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(360, 345);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(360, 345);
+            this.MinimumSize = new System.Drawing.Size(360, 355);
             this.Name = "AutoFormParty";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
@@ -393,24 +387,24 @@
         private SDUI.Controls.Button btnAccept;
         private SDUI.Controls.Button btnCancel;
         private SDUI.Controls.GroupBox gbObjective;
-        private System.Windows.Forms.RadioButton rbtn_Quest;
-        private System.Windows.Forms.RadioButton rbtn_Hunting;
-        private System.Windows.Forms.RadioButton rbtn_Trade;
-        private System.Windows.Forms.RadioButton rbtn_Thief;
+        private SDUI.Controls.Radio rbtn_Quest;
+        private SDUI.Controls.Radio rbtn_Hunting;
+        private SDUI.Controls.Radio rbtn_Trade;
+        private SDUI.Controls.Radio rbtn_Thief;
         private SDUI.Controls.GroupBox groupBox2;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private SDUI.Controls.Label label2;
+        private SDUI.Controls.Label label1;
         private System.Windows.Forms.NumericUpDown max_level;
         private System.Windows.Forms.NumericUpDown min_level;
         private SDUI.Controls.GroupBox groupBox3;
-        private System.Windows.Forms.Label label_partytype2;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label_partytype;
-        private System.Windows.Forms.Label label3;
+        private SDUI.Controls.Label label_partytype2;
+        private SDUI.Controls.Label label5;
+        private SDUI.Controls.Label label_partytype;
+        private SDUI.Controls.Label label3;
         private SDUI.Controls.GroupBox groupBox4;
         private SDUI.Controls.TextBox tb_Title;
         private SDUI.Controls.GroupBox groupBox5;
-        private System.Windows.Forms.CheckBox cb_AutoReform;
-        private System.Windows.Forms.CheckBox cb_AutoAccept;
+        private SDUI.Controls.CheckBox cb_AutoReform;
+        private SDUI.Controls.CheckBox cb_AutoAccept;
     }
 }

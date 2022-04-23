@@ -31,8 +31,8 @@ namespace RSBot.Inventory.Views
         {
             this.buttonOk = new SDUI.Controls.Button();
             this.buttonCancel = new SDUI.Controls.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new SDUI.Controls.Label();
+            this.label2 = new SDUI.Controls.Label();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -105,7 +105,7 @@ namespace RSBot.Inventory.Views
 
         private SDUI.Controls.Button buttonOk;
         private SDUI.Controls.Button buttonCancel;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private SDUI.Controls.Label label1;
+        private SDUI.Controls.Label label2;
     }
 }

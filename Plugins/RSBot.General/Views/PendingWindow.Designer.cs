@@ -28,15 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.labelServerName = new System.Windows.Forms.Label();
-            this.labelNumberOfPeopleWaiting = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.labelPending = new System.Windows.Forms.Label();
-            this.labelAvgWaitingTime = new System.Windows.Forms.Label();
-            this.labelMyWaitingTime = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.timer = new System.Windows.Forms.Timer(this.components);
+            this.labelServerName = new SDUI.Controls.Label();
+            this.labelNumberOfPeopleWaiting = new SDUI.Controls.Label();
+            this.label1 = new SDUI.Controls.Label();
+            this.labelPending = new SDUI.Controls.Label();
+            this.labelAvgWaitingTime = new SDUI.Controls.Label();
+            this.labelMyWaitingTime = new SDUI.Controls.Label();
+            this.label5 = new SDUI.Controls.Label();
+            this.timer = new System.Windows.Forms.Timer();
             this.buttonCancel = new SDUI.Controls.Button();
             this.SuspendLayout();
             // 
@@ -114,7 +113,8 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCancel.Color = System.Drawing.Color.Transparent;
+            this.buttonCancel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonCancel.Location = new System.Drawing.Point(106, 205);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(191, 23);
@@ -155,13 +155,13 @@
 
         #endregion
 
-        private System.Windows.Forms.Label labelServerName;
-        private System.Windows.Forms.Label labelNumberOfPeopleWaiting;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label labelPending;
-        private System.Windows.Forms.Label labelAvgWaitingTime;
-        private System.Windows.Forms.Label labelMyWaitingTime;
-        private System.Windows.Forms.Label label5;
+        private SDUI.Controls.Label labelServerName;
+        private SDUI.Controls.Label labelNumberOfPeopleWaiting;
+        private SDUI.Controls.Label label1;
+        private SDUI.Controls.Label labelPending;
+        private SDUI.Controls.Label labelAvgWaitingTime;
+        private SDUI.Controls.Label labelMyWaitingTime;
+        private SDUI.Controls.Label label5;
         private SDUI.Controls.Button buttonCancel;
         private System.Windows.Forms.Timer timer;
     }

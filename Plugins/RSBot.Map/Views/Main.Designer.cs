@@ -30,16 +30,17 @@ namespace RSBot.Map.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.lblX = new System.Windows.Forms.Label();
-            this.lblY = new System.Windows.Forms.Label();
-            this.lblRegion = new System.Windows.Forms.Label();
+            this.components = new System.ComponentModel.Container();
+            this.label1 = new SDUI.Controls.Label();
+            this.label2 = new SDUI.Controls.Label();
+            this.lblX = new SDUI.Controls.Label();
+            this.lblY = new SDUI.Controls.Label();
+            this.lblRegion = new SDUI.Controls.Label();
             this.mapCanvas = new System.Windows.Forms.PictureBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.label4 = new SDUI.Controls.Label();
             this.comboViewType = new SDUI.Controls.ComboBox();
-            this.trmInterval = new System.Windows.Forms.Timer();
-            this.labelSectorInfo = new System.Windows.Forms.Label();
+            this.trmInterval = new System.Windows.Forms.Timer(this.components);
+            this.labelSectorInfo = new SDUI.Controls.Label();
             this.lvMonster = new SDUI.Controls.ListView();
             this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -48,9 +49,9 @@ namespace RSBot.Map.Views
             this.buttonZoomIn = new SDUI.Controls.Button();
             this.buttonZoomReset = new SDUI.Controls.Button();
             this.buttonZoomOut = new SDUI.Controls.Button();
-            this.checkBoxAutoSelectUniques = new System.Windows.Forms.CheckBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.timerUniqueChecker = new System.Windows.Forms.Timer();
+            this.checkBoxAutoSelectUniques = new SDUI.Controls.CheckBox();
+            this.label3 = new SDUI.Controls.Label();
+            this.timerUniqueChecker = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.mapCanvas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -107,7 +108,6 @@ namespace RSBot.Map.Views
             // mapCanvas
             // 
             this.mapCanvas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.mapCanvas.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.mapCanvas.Location = new System.Drawing.Point(35, 80);
             this.mapCanvas.Name = "mapCanvas";
             this.mapCanvas.Size = new System.Drawing.Size(256, 256);
@@ -155,12 +155,10 @@ namespace RSBot.Map.Views
             // labelSectorInfo
             // 
             this.labelSectorInfo.AutoSize = true;
-            this.labelSectorInfo.BackColor = System.Drawing.Color.White;
-            this.labelSectorInfo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.labelSectorInfo.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelSectorInfo.Location = new System.Drawing.Point(240, 60);
             this.labelSectorInfo.Name = "labelSectorInfo";
-            this.labelSectorInfo.Size = new System.Drawing.Size(50, 15);
+            this.labelSectorInfo.Size = new System.Drawing.Size(48, 13);
             this.labelSectorInfo.TabIndex = 14;
             this.labelSectorInfo.Text = "000x000";
             // 
@@ -241,20 +239,19 @@ namespace RSBot.Map.Views
             // 
             // checkBoxAutoSelectUniques
             // 
-            this.checkBoxAutoSelectUniques.AutoSize = true;
-            this.checkBoxAutoSelectUniques.Location = new System.Drawing.Point(35, 379);
+            this.checkBoxAutoSelectUniques.Checked = false;
+            this.checkBoxAutoSelectUniques.Location = new System.Drawing.Point(35, 374);
             this.checkBoxAutoSelectUniques.Name = "checkBoxAutoSelectUniques";
-            this.checkBoxAutoSelectUniques.Size = new System.Drawing.Size(159, 17);
+            this.checkBoxAutoSelectUniques.Size = new System.Drawing.Size(224, 20);
             this.checkBoxAutoSelectUniques.TabIndex = 17;
             this.checkBoxAutoSelectUniques.Text = "Automatically select uniques";
-            this.checkBoxAutoSelectUniques.UseVisualStyleBackColor = true;
             this.checkBoxAutoSelectUniques.CheckedChanged += new System.EventHandler(this.checkBoxAutoSelectUniques_CheckedChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(34, 399);
+            this.label3.Location = new System.Drawing.Point(33, 399);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(245, 39);
             this.label3.TabIndex = 18;
@@ -286,6 +283,7 @@ namespace RSBot.Map.Views
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.mapCanvas);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "Main";
             this.Size = new System.Drawing.Size(750, 458);
             ((System.ComponentModel.ISupportInitialize)(this.mapCanvas)).EndInit();
@@ -297,25 +295,25 @@ namespace RSBot.Map.Views
         #endregion
 
         private System.Windows.Forms.PictureBox mapCanvas;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label lblX;
-        private System.Windows.Forms.Label lblY;
-        private System.Windows.Forms.Label lblRegion;
+        private SDUI.Controls.Label label1;
+        private SDUI.Controls.Label label2;
+        private SDUI.Controls.Label lblX;
+        private SDUI.Controls.Label lblY;
+        private SDUI.Controls.Label lblRegion;
         private SDUI.Controls.ListView lvMonster;
         private System.Windows.Forms.ColumnHeader colName;
         private System.Windows.Forms.ColumnHeader colType;
         private System.Windows.Forms.ColumnHeader colLevel;
-        private System.Windows.Forms.Label label4;
+        private SDUI.Controls.Label label4;
         private SDUI.Controls.ComboBox comboViewType;
         private System.Windows.Forms.ColumnHeader colPosition;
         private System.Windows.Forms.Timer trmInterval;
-        private System.Windows.Forms.Label labelSectorInfo;
+        private SDUI.Controls.Label labelSectorInfo;
         private SDUI.Controls.Button buttonZoomIn;
         private SDUI.Controls.Button buttonZoomReset;
         private SDUI.Controls.Button buttonZoomOut;
-        private System.Windows.Forms.CheckBox checkBoxAutoSelectUniques;
-        private System.Windows.Forms.Label label3;
+        private SDUI.Controls.CheckBox checkBoxAutoSelectUniques;
+        private SDUI.Controls.Label label3;
         private System.Windows.Forms.Timer timerUniqueChecker;
     }
 }

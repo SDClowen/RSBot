@@ -30,17 +30,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.lblLevel = new System.Windows.Forms.Label();
-            this.lblGold = new System.Windows.Forms.Label();
-            this.lblSP = new System.Windows.Forms.Label();
-            this.lblPlayerName = new System.Windows.Forms.Label();
-            this.lblStr = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.lblInt = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
+            this.label2 = new SDUI.Controls.Label();
+            this.label3 = new SDUI.Controls.Label();
+            this.label4 = new SDUI.Controls.Label();
+            this.lblLevel = new SDUI.Controls.Label();
+            this.lblGold = new SDUI.Controls.Label();
+            this.lblSP = new SDUI.Controls.Label();
+            this.lblPlayerName = new SDUI.Controls.Label();
+            this.lblStr = new SDUI.Controls.Label();
+            this.label9 = new SDUI.Controls.Label();
+            this.lblInt = new SDUI.Controls.Label();
+            this.label11 = new SDUI.Controls.Label();
             this.progressEXP = new SDUI.Controls.ProgressBar();
             this.progressMP = new SDUI.Controls.ProgressBar();
             this.progressHP = new SDUI.Controls.ProgressBar();
@@ -114,7 +114,6 @@
             // 
             // lblPlayerName
             // 
-            this.lblPlayerName.AutoSize = true;
             this.lblPlayerName.BackColor = System.Drawing.Color.Transparent;
             this.lblPlayerName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPlayerName.Location = new System.Drawing.Point(7, 7);
@@ -172,15 +171,15 @@
             this.progressEXP.BackColor = System.Drawing.Color.Transparent;
             this.progressEXP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.progressEXP.Gradient = new System.Drawing.Color[] {
-        System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128))))),
-        System.Drawing.Color.Green};
+        System.Drawing.Color.DarkGreen,
+        System.Drawing.Color.Lime};
             this.progressEXP.Location = new System.Drawing.Point(10, 50);
             this.progressEXP.Maximum = ((long)(100));
             this.progressEXP.Name = "progressEXP";
             this.progressEXP.PercentIndices = 2;
             this.progressEXP.ShowAsPercent = true;
             this.progressEXP.ShowValue = true;
-            this.progressEXP.Size = new System.Drawing.Size(402, 19);
+            this.progressEXP.Size = new System.Drawing.Size(402, 16);
             this.progressEXP.TabIndex = 2;
             this.progressEXP.Text = "50%";
             this.progressEXP.Value = ((long)(50));
@@ -189,15 +188,15 @@
             // 
             this.progressMP.BackColor = System.Drawing.Color.Transparent;
             this.progressMP.Gradient = new System.Drawing.Color[] {
-        System.Drawing.Color.DodgerBlue,
-        System.Drawing.Color.Navy};
+        System.Drawing.Color.MidnightBlue,
+        System.Drawing.Color.RoyalBlue};
             this.progressMP.Location = new System.Drawing.Point(214, 28);
             this.progressMP.Maximum = ((long)(100));
             this.progressMP.Name = "progressMP";
             this.progressMP.PercentIndices = 2;
             this.progressMP.ShowAsPercent = false;
             this.progressMP.ShowValue = true;
-            this.progressMP.Size = new System.Drawing.Size(198, 19);
+            this.progressMP.Size = new System.Drawing.Size(198, 16);
             this.progressMP.TabIndex = 1;
             this.progressMP.Text = "50 / 100";
             this.progressMP.Value = ((long)(50));
@@ -207,15 +206,15 @@
             this.progressHP.BackColor = System.Drawing.Color.Transparent;
             this.progressHP.ForeColor = System.Drawing.Color.Firebrick;
             this.progressHP.Gradient = new System.Drawing.Color[] {
-        System.Drawing.Color.Red,
-        System.Drawing.Color.Maroon};
+        System.Drawing.Color.Maroon,
+        System.Drawing.Color.Red};
             this.progressHP.Location = new System.Drawing.Point(10, 28);
             this.progressHP.Maximum = ((long)(100));
             this.progressHP.Name = "progressHP";
             this.progressHP.PercentIndices = 2;
             this.progressHP.ShowAsPercent = false;
             this.progressHP.ShowValue = true;
-            this.progressHP.Size = new System.Drawing.Size(198, 19);
+            this.progressHP.Size = new System.Drawing.Size(198, 16);
             this.progressHP.TabIndex = 0;
             this.progressHP.Text = "50 / 100";
             this.progressHP.Value = ((long)(50));
@@ -240,7 +239,6 @@
             this.Controls.Add(this.progressHP);
             this.Name = "Character";
             this.Size = new System.Drawing.Size(784, 79);
-            this.BackColorChanged += new System.EventHandler(this.Character_BackColorChanged);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -251,16 +249,16 @@
         private SDUI.Controls.ProgressBar progressHP;
         private SDUI.Controls.ProgressBar progressMP;
         private SDUI.Controls.ProgressBar progressEXP;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label lblLevel;
-        private System.Windows.Forms.Label lblGold;
-        private System.Windows.Forms.Label lblSP;
-        private System.Windows.Forms.Label lblPlayerName;
-        private System.Windows.Forms.Label lblStr;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label lblInt;
-        private System.Windows.Forms.Label label11;
+        private SDUI.Controls.Label label2;
+        private SDUI.Controls.Label label3;
+        private SDUI.Controls.Label label4;
+        private SDUI.Controls.Label lblLevel;
+        private SDUI.Controls.Label lblGold;
+        private SDUI.Controls.Label lblSP;
+        private SDUI.Controls.Label lblPlayerName;
+        private SDUI.Controls.Label lblStr;
+        private SDUI.Controls.Label label9;
+        private SDUI.Controls.Label lblInt;
+        private SDUI.Controls.Label label11;
     }
 }

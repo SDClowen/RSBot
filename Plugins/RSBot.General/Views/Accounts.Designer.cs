@@ -31,35 +31,36 @@
             this.panel1 = new SDUI.Controls.Panel();
             this.btnCancel = new SDUI.Controls.Button();
             this.btnOK = new SDUI.Controls.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.listAccounts = new System.Windows.Forms.ListBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new SDUI.Controls.Label();
+            this.label2 = new SDUI.Controls.Label();
             this.txtUsername = new SDUI.Controls.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.label3 = new SDUI.Controls.Label();
             this.txtPassword = new SDUI.Controls.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.label4 = new SDUI.Controls.Label();
             this.txtServername = new SDUI.Controls.TextBox();
             this.linkLabelPwShowHide = new System.Windows.Forms.LinkLabel();
             this.btnAdd = new SDUI.Controls.Button();
             this.btnSave = new SDUI.Controls.Button();
             this.buttonRemove = new SDUI.Controls.Button();
-            this.label5 = new System.Windows.Forms.Label();
+            this.label5 = new SDUI.Controls.Label();
             this.textBoxSecondaryPassword = new SDUI.Controls.TextBox();
             this.linkLabelSecondaryPassword = new System.Windows.Forms.LinkLabel();
             this.comboBoxChannel = new SDUI.Controls.ComboBox();
+            this.listAccounts = new System.Windows.Forms.ListBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
             this.panel1.Controls.Add(this.btnCancel);
             this.panel1.Controls.Add(this.btnOK);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 248);
             this.panel1.Name = "panel1";
-            this.panel1.Radius = 1;
+            this.panel1.Radius = 0;
             this.panel1.Size = new System.Drawing.Size(400, 45);
             this.panel1.TabIndex = 7;
             // 
@@ -67,9 +68,10 @@
             // 
             this.btnCancel.Color = System.Drawing.Color.Transparent;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(313, 10);
+            this.btnCancel.Location = new System.Drawing.Point(313, 12);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(72, 23);
+            this.btnCancel.Radius = 2;
+            this.btnCancel.Size = new System.Drawing.Size(72, 21);
             this.btnCancel.TabIndex = 7;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -78,9 +80,10 @@
             // 
             this.btnOK.Color = System.Drawing.Color.Transparent;
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(235, 10);
+            this.btnOK.Location = new System.Drawing.Point(235, 12);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(72, 23);
+            this.btnOK.Radius = 2;
+            this.btnOK.Size = new System.Drawing.Size(72, 21);
             this.btnOK.TabIndex = 6;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
@@ -88,21 +91,10 @@
             // 
             // label1
             // 
-            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(394, 2);
             this.label1.TabIndex = 1;
-            // 
-            // listAccounts
-            // 
-            this.listAccounts.FormattingEnabled = true;
-            this.listAccounts.ItemHeight = 15;
-            this.listAccounts.Location = new System.Drawing.Point(12, 12);
-            this.listAccounts.Name = "listAccounts";
-            this.listAccounts.Size = new System.Drawing.Size(176, 229);
-            this.listAccounts.TabIndex = 8;
-            this.listAccounts.SelectedIndexChanged += new System.EventHandler(this.listAccounts_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -167,7 +159,10 @@
             // linkLabelPwShowHide
             // 
             this.linkLabelPwShowHide.AutoSize = true;
-            this.linkLabelPwShowHide.Location = new System.Drawing.Point(352, 80);
+            this.linkLabelPwShowHide.BackColor = System.Drawing.Color.DimGray;
+            this.linkLabelPwShowHide.ForeColor = System.Drawing.Color.White;
+            this.linkLabelPwShowHide.LinkColor = System.Drawing.Color.White;
+            this.linkLabelPwShowHide.Location = new System.Drawing.Point(354, 80);
             this.linkLabelPwShowHide.Name = "linkLabelPwShowHide";
             this.linkLabelPwShowHide.Size = new System.Drawing.Size(36, 15);
             this.linkLabelPwShowHide.TabIndex = 9;
@@ -177,11 +172,13 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Color = System.Drawing.Color.Transparent;
-            this.btnAdd.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnAdd.Color = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+            this.btnAdd.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnAdd.ForeColor = System.Drawing.Color.White;
             this.btnAdd.Location = new System.Drawing.Point(195, 207);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(72, 23);
+            this.btnAdd.Radius = 2;
+            this.btnAdd.Size = new System.Drawing.Size(72, 21);
             this.btnAdd.TabIndex = 4;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -194,7 +191,8 @@
             this.btnSave.Enabled = false;
             this.btnSave.Location = new System.Drawing.Point(322, 207);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(72, 23);
+            this.btnSave.Radius = 2;
+            this.btnSave.Size = new System.Drawing.Size(72, 21);
             this.btnSave.TabIndex = 5;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -202,11 +200,13 @@
             // 
             // buttonRemove
             // 
-            this.buttonRemove.Color = System.Drawing.Color.Transparent;
+            this.buttonRemove.Color = System.Drawing.Color.DarkRed;
             this.buttonRemove.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.buttonRemove.ForeColor = System.Drawing.Color.White;
             this.buttonRemove.Location = new System.Drawing.Point(195, 207);
             this.buttonRemove.Name = "buttonRemove";
-            this.buttonRemove.Size = new System.Drawing.Size(72, 23);
+            this.buttonRemove.Radius = 2;
+            this.buttonRemove.Size = new System.Drawing.Size(72, 21);
             this.buttonRemove.TabIndex = 10;
             this.buttonRemove.Text = "Remove";
             this.buttonRemove.UseVisualStyleBackColor = true;
@@ -235,7 +235,10 @@
             // linkLabelSecondaryPassword
             // 
             this.linkLabelSecondaryPassword.AutoSize = true;
-            this.linkLabelSecondaryPassword.Location = new System.Drawing.Point(271, 129);
+            this.linkLabelSecondaryPassword.BackColor = System.Drawing.Color.DimGray;
+            this.linkLabelSecondaryPassword.ForeColor = System.Drawing.Color.White;
+            this.linkLabelSecondaryPassword.LinkColor = System.Drawing.Color.White;
+            this.linkLabelSecondaryPassword.Location = new System.Drawing.Point(276, 129);
             this.linkLabelSecondaryPassword.Name = "linkLabelSecondaryPassword";
             this.linkLabelSecondaryPassword.Size = new System.Drawing.Size(36, 15);
             this.linkLabelSecondaryPassword.TabIndex = 9;
@@ -260,12 +263,23 @@
             this.comboBoxChannel.StartIndex = 0;
             this.comboBoxChannel.TabIndex = 11;
             // 
+            // listAccounts
+            // 
+            this.listAccounts.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.listAccounts.ItemHeight = 15;
+            this.listAccounts.Location = new System.Drawing.Point(8, 12);
+            this.listAccounts.Name = "listAccounts";
+            this.listAccounts.Size = new System.Drawing.Size(178, 212);
+            this.listAccounts.TabIndex = 18;
+            this.listAccounts.SelectedIndexChanged += new System.EventHandler(this.listAccounts_SelectedIndexChanged);
+            // 
             // Accounts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(400, 293);
+            this.Controls.Add(this.listAccounts);
             this.Controls.Add(this.linkLabelSecondaryPassword);
             this.Controls.Add(this.linkLabelPwShowHide);
             this.Controls.Add(this.btnAdd);
@@ -277,7 +291,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtUsername);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.listAccounts);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.buttonRemove);
             this.Controls.Add(this.comboBoxChannel);
@@ -299,23 +312,23 @@
         #endregion
 
         private SDUI.Controls.Panel panel1;
-        private System.Windows.Forms.Label label1;
+        private SDUI.Controls.Label label1;
         private SDUI.Controls.Button btnCancel;
         private SDUI.Controls.Button btnOK;
-        private System.Windows.Forms.ListBox listAccounts;
-        private System.Windows.Forms.Label label2;
+        private SDUI.Controls.Label label2;
         private SDUI.Controls.TextBox txtUsername;
-        private System.Windows.Forms.Label label3;
+        private SDUI.Controls.Label label3;
         private SDUI.Controls.TextBox txtPassword;
-        private System.Windows.Forms.Label label4;
+        private SDUI.Controls.Label label4;
         private SDUI.Controls.TextBox txtServername;
         private SDUI.Controls.Button btnSave;
         private SDUI.Controls.Button btnAdd;
         private System.Windows.Forms.LinkLabel linkLabelPwShowHide;
         private SDUI.Controls.Button buttonRemove;
-        private System.Windows.Forms.Label label5;
+        private SDUI.Controls.Label label5;
         private SDUI.Controls.TextBox textBoxSecondaryPassword;
         private System.Windows.Forms.LinkLabel linkLabelSecondaryPassword;
         private SDUI.Controls.ComboBox comboBoxChannel;
+        private System.Windows.Forms.ListBox listAccounts;
     }
 }

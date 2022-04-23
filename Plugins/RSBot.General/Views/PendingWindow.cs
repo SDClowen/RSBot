@@ -50,7 +50,7 @@ namespace RSBot.General.Views
             PrintTime(labelMyWaitingTime, Environment.TickCount - _startedTick);
         }
 
-        private void PrintTime(Label label, int millisecond)
+        private void PrintTime(SDUI.Controls.Label label, int millisecond)
         {
             var text = new StringBuilder();
 

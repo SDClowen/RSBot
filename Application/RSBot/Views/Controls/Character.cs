@@ -131,12 +131,5 @@ namespace RSBot.Views.Controls
             progressEXP.Value = 0;
             progressEXP.Text = "%0";
         }
-
-        private void Character_BackColorChanged(object sender, EventArgs e)
-        {
-            progressHP.BackColor = ColorScheme.BackColor;
-            progressMP.BackColor = ColorScheme.BackColor;
-            progressEXP.BackColor = ColorScheme.BackColor;
-        }
     }
 }

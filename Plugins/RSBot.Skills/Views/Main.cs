@@ -24,7 +24,6 @@ namespace RSBot.Skills.Views
             InitializeComponent();
             SubscribeEvents();
 
-            listSkills.ContextMenu = skillContextMenu;
             listAttackingSkills.SmallImageList = Core.Extensions.ListViewExtensions.StaticImageList;
             listBuffs.SmallImageList = Core.Extensions.ListViewExtensions.StaticImageList;
             listSkills.SmallImageList = Core.Extensions.ListViewExtensions.StaticImageList;

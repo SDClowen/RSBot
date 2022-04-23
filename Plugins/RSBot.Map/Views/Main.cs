@@ -74,6 +74,9 @@ namespace RSBot.Map.Views
 
 #if !DEBUG
             labelSectorInfo.Visible = false;
+            buttonZoomIn.Visible = false;
+            buttonZoomReset.Visible = false;
+            buttonZoomOut.Visible = false;
 #endif
         }
 

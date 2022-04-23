@@ -854,7 +854,7 @@ namespace RSBot.Shopping.Views
         private void btnResetFilter_Click(object sender, EventArgs e)
         {
             foreach (var group in filterPanel.Controls.OfType<SDUI.Controls.GroupBox>())
-                foreach (var checkBox in group.Controls.OfType<CheckBox>())
+                foreach (var checkBox in group.Controls.OfType<SDUI.Controls.CheckBox>())
                     checkBox.Checked = false;
 
             listFilter.Items.Clear();

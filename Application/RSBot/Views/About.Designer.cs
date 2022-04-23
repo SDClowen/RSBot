@@ -32,9 +32,9 @@
             this.buttonOk = new SDUI.Controls.Button();
             this.richTextBox = new System.Windows.Forms.RichTextBox();
             this.bottomPanel = new SDUI.Controls.Panel();
-            this.labelName = new System.Windows.Forms.Label();
-            this.labelDescription = new System.Windows.Forms.Label();
-            this.labelVersion = new System.Windows.Forms.Label();
+            this.labelName = new SDUI.Controls.Label();
+            this.labelDescription = new SDUI.Controls.Label();
+            this.labelVersion = new SDUI.Controls.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.bottomPanel.SuspendLayout();
             this.SuspendLayout();
@@ -74,18 +74,18 @@
             // 
             // bottomPanel
             // 
-            this.bottomPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(253)))), ((int)(((byte)(253)))));
+            this.bottomPanel.BackColor = System.Drawing.Color.Transparent;
+            this.bottomPanel.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
             this.bottomPanel.Controls.Add(this.buttonOk);
             this.bottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.bottomPanel.Location = new System.Drawing.Point(0, 221);
             this.bottomPanel.Name = "bottomPanel";
-            this.bottomPanel.Radius = 1;
+            this.bottomPanel.Radius = 0;
             this.bottomPanel.Size = new System.Drawing.Size(545, 38);
             this.bottomPanel.TabIndex = 3;
             // 
             // labelName
             // 
-            this.labelName.AutoSize = true;
             this.labelName.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelName.Location = new System.Drawing.Point(147, 8);
             this.labelName.Name = "labelName";
@@ -95,7 +95,6 @@
             // 
             // labelDescription
             // 
-            this.labelDescription.AutoSize = true;
             this.labelDescription.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelDescription.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
             this.labelDescription.Location = new System.Drawing.Point(149, 33);
@@ -106,7 +105,6 @@
             // 
             // labelVersion
             // 
-            this.labelVersion.AutoSize = true;
             this.labelVersion.Font = new System.Drawing.Font("Segoe UI", 10.25F);
             this.labelVersion.ForeColor = System.Drawing.Color.RosyBrown;
             this.labelVersion.Location = new System.Drawing.Point(421, 8);
@@ -150,8 +148,8 @@
         private SDUI.Controls.Button buttonOk;
         private System.Windows.Forms.RichTextBox richTextBox;
         private SDUI.Controls.Panel bottomPanel;
-        private System.Windows.Forms.Label labelName;
-        private System.Windows.Forms.Label labelDescription;
-        private System.Windows.Forms.Label labelVersion;
+        private SDUI.Controls.Label labelName;
+        private SDUI.Controls.Label labelDescription;
+        private SDUI.Controls.Label labelVersion;
     }
 }

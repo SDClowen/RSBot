@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Avoid", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Prefer", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("No custom behavior", System.Windows.Forms.HorizontalAlignment.Left);
@@ -42,37 +41,38 @@
             System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("Strong");
             System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem("Elite");
             this.groupBox1 = new SDUI.Controls.GroupBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.radioWalkAround = new System.Windows.Forms.RadioButton();
-            this.radioCenter = new System.Windows.Forms.RadioButton();
+            this.label6 = new SDUI.Controls.Label();
+            this.label5 = new SDUI.Controls.Label();
+            this.radioWalkAround = new SDUI.Controls.Radio();
+            this.radioCenter = new SDUI.Controls.Radio();
             this.btnGetCurrent = new SDUI.Controls.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.label3 = new SDUI.Controls.Label();
+            this.label2 = new SDUI.Controls.Label();
+            this.label1 = new SDUI.Controls.Label();
             this.txtRadius = new SDUI.Controls.TextBox();
             this.txtYCoord = new SDUI.Controls.TextBox();
             this.txtXCoord = new SDUI.Controls.TextBox();
             this.groupBox2 = new SDUI.Controls.GroupBox();
             this.lvAvoidance = new SDUI.Controls.ListView();
-            this.ctxAvoidance = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ctxAvoidance = new SDUI.Controls.ContextMenuStrip();
             this.btnAvoid = new System.Windows.Forms.ToolStripMenuItem();
             this.btnPrefer = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnNoCustomBehavior = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox3 = new SDUI.Controls.GroupBox();
-            this.checkUseSpeedDrug = new System.Windows.Forms.CheckBox();
-            this.checkCastBuffs = new System.Windows.Forms.CheckBox();
-            this.checkUseMount = new System.Windows.Forms.CheckBox();
+            this.checkUseSpeedDrug = new SDUI.Controls.CheckBox();
+            this.checkCastBuffs = new SDUI.Controls.CheckBox();
+            this.checkUseMount = new SDUI.Controls.CheckBox();
             this.btnBrowse = new SDUI.Controls.Button();
             this.txtWalkscript = new SDUI.Controls.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.checkBerzerkWhenFull = new System.Windows.Forms.CheckBox();
+            this.label4 = new SDUI.Controls.Label();
+            this.checkBerzerkWhenFull = new SDUI.Controls.CheckBox();
             this.groupBox4 = new SDUI.Controls.GroupBox();
-            this.label7 = new System.Windows.Forms.Label();
+            this.label7 = new SDUI.Controls.Label();
             this.numBerzerkMonsterAmount = new System.Windows.Forms.NumericUpDown();
-            this.checkBerzerkAvoidance = new System.Windows.Forms.CheckBox();
-            this.checkBerzerkMonsterAmount = new System.Windows.Forms.CheckBox();
+            this.checkBerzerkAvoidance = new SDUI.Controls.CheckBox();
+            this.checkBerzerkMonsterAmount = new SDUI.Controls.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.ctxAvoidance.SuspendLayout();
@@ -98,7 +98,7 @@
             this.groupBox1.Location = new System.Drawing.Point(23, 16);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBox1.Radius = 12;
+            this.groupBox1.Radius = 1;
             this.groupBox1.Size = new System.Drawing.Size(221, 228);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
@@ -109,13 +109,12 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(15, 156);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(143, 13);
+            this.label6.Size = new System.Drawing.Size(159, 15);
             this.label6.TabIndex = 7;
             this.label6.Text = "If there is no enemy nearby...";
             // 
             // label5
             // 
-            this.label5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label5.Location = new System.Drawing.Point(11, 142);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(200, 2);
@@ -123,27 +122,22 @@
             // 
             // radioWalkAround
             // 
-            this.radioWalkAround.AutoSize = true;
+            this.radioWalkAround.Checked = false;
             this.radioWalkAround.Location = new System.Drawing.Point(35, 199);
             this.radioWalkAround.Name = "radioWalkAround";
-            this.radioWalkAround.Size = new System.Drawing.Size(86, 17);
+            this.radioWalkAround.Size = new System.Drawing.Size(92, 19);
             this.radioWalkAround.TabIndex = 5;
-            this.radioWalkAround.TabStop = true;
             this.radioWalkAround.Text = "Walk around";
-            this.radioWalkAround.UseVisualStyleBackColor = true;
             this.radioWalkAround.CheckedChanged += new System.EventHandler(this.radioWalkAround_CheckedChanged);
             // 
             // radioCenter
             // 
-            this.radioCenter.AutoSize = true;
             this.radioCenter.Checked = true;
             this.radioCenter.Location = new System.Drawing.Point(35, 176);
             this.radioCenter.Name = "radioCenter";
-            this.radioCenter.Size = new System.Drawing.Size(111, 17);
+            this.radioCenter.Size = new System.Drawing.Size(118, 19);
             this.radioCenter.TabIndex = 4;
-            this.radioCenter.TabStop = true;
             this.radioCenter.Text = "Go back to center";
-            this.radioCenter.UseVisualStyleBackColor = true;
             this.radioCenter.CheckedChanged += new System.EventHandler(this.radioCenter_CheckedChanged);
             // 
             // btnGetCurrent
@@ -162,7 +156,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(27, 84);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(43, 13);
+            this.label3.Size = new System.Drawing.Size(45, 15);
             this.label3.TabIndex = 1;
             this.label3.Text = "Radius:";
             // 
@@ -171,7 +165,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(53, 58);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(17, 13);
+            this.label2.Size = new System.Drawing.Size(17, 15);
             this.label2.TabIndex = 1;
             this.label2.Text = "Y:";
             // 
@@ -180,7 +174,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(53, 32);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(17, 13);
+            this.label1.Size = new System.Drawing.Size(17, 15);
             this.label1.TabIndex = 1;
             this.label1.Text = "X:";
             // 
@@ -190,7 +184,7 @@
             this.txtRadius.MaxLength = 32767;
             this.txtRadius.MultiLine = false;
             this.txtRadius.Name = "txtRadius";
-            this.txtRadius.Size = new System.Drawing.Size(97, 18);
+            this.txtRadius.Size = new System.Drawing.Size(97, 21);
             this.txtRadius.TabIndex = 0;
             this.txtRadius.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtRadius.UseSystemPasswordChar = false;
@@ -202,7 +196,7 @@
             this.txtYCoord.MaxLength = 32767;
             this.txtYCoord.MultiLine = false;
             this.txtYCoord.Name = "txtYCoord";
-            this.txtYCoord.Size = new System.Drawing.Size(97, 18);
+            this.txtYCoord.Size = new System.Drawing.Size(97, 21);
             this.txtYCoord.TabIndex = 0;
             this.txtYCoord.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtYCoord.UseSystemPasswordChar = false;
@@ -214,7 +208,7 @@
             this.txtXCoord.MaxLength = 32767;
             this.txtXCoord.MultiLine = false;
             this.txtXCoord.Name = "txtXCoord";
-            this.txtXCoord.Size = new System.Drawing.Size(97, 18);
+            this.txtXCoord.Size = new System.Drawing.Size(97, 21);
             this.txtXCoord.TabIndex = 0;
             this.txtXCoord.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtXCoord.UseSystemPasswordChar = false;
@@ -226,8 +220,8 @@
             this.groupBox2.Controls.Add(this.lvAvoidance);
             this.groupBox2.Location = new System.Drawing.Point(23, 250);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBox2.Radius = 12;
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
+            this.groupBox2.Radius = 1;
             this.groupBox2.Size = new System.Drawing.Size(221, 214);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
@@ -235,6 +229,10 @@
             // 
             // lvAvoidance
             // 
+            this.lvAvoidance.Alignment = System.Windows.Forms.ListViewAlignment.Default;
+            this.lvAvoidance.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lvAvoidance.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
             this.lvAvoidance.ContextMenuStrip = this.ctxAvoidance;
             this.lvAvoidance.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvAvoidance.FullRowSelect = true;
@@ -248,6 +246,7 @@
             listViewGroup1,
             listViewGroup2,
             listViewGroup3});
+            this.lvAvoidance.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.lvAvoidance.HideSelection = false;
             listViewItem1.Group = listViewGroup3;
             listViewItem2.Group = listViewGroup3;
@@ -268,13 +267,17 @@
             listViewItem7,
             listViewItem8,
             listViewItem9});
-            this.lvAvoidance.Location = new System.Drawing.Point(3, 23);
+            this.lvAvoidance.Location = new System.Drawing.Point(1, 24);
             this.lvAvoidance.Name = "lvAvoidance";
-            this.lvAvoidance.Size = new System.Drawing.Size(215, 188);
+            this.lvAvoidance.Size = new System.Drawing.Size(219, 189);
             this.lvAvoidance.TabIndex = 5;
             this.lvAvoidance.TileSize = new System.Drawing.Size(168, 16);
             this.lvAvoidance.UseCompatibleStateImageBehavior = false;
-            this.lvAvoidance.View = System.Windows.Forms.View.Tile;
+            this.lvAvoidance.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Width = 190;
             // 
             // ctxAvoidance
             // 
@@ -324,7 +327,7 @@
             this.groupBox3.Location = new System.Drawing.Point(262, 16);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBox3.Radius = 12;
+            this.groupBox3.Radius = 1;
             this.groupBox3.Size = new System.Drawing.Size(478, 117);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
@@ -332,35 +335,32 @@
             // 
             // checkUseSpeedDrug
             // 
-            this.checkUseSpeedDrug.AutoSize = true;
-            this.checkUseSpeedDrug.Location = new System.Drawing.Point(258, 76);
+            this.checkUseSpeedDrug.Checked = false;
+            this.checkUseSpeedDrug.Location = new System.Drawing.Point(273, 84);
             this.checkUseSpeedDrug.Name = "checkUseSpeedDrug";
-            this.checkUseSpeedDrug.Size = new System.Drawing.Size(101, 17);
+            this.checkUseSpeedDrug.Size = new System.Drawing.Size(137, 17);
             this.checkUseSpeedDrug.TabIndex = 7;
             this.checkUseSpeedDrug.Text = "Use speed drug";
-            this.checkUseSpeedDrug.UseVisualStyleBackColor = true;
             this.checkUseSpeedDrug.CheckedChanged += new System.EventHandler(this.checkUseSpeedDrug_CheckedChanged);
             // 
             // checkCastBuffs
             // 
-            this.checkCastBuffs.AutoSize = true;
-            this.checkCastBuffs.Location = new System.Drawing.Point(166, 76);
+            this.checkCastBuffs.Checked = false;
+            this.checkCastBuffs.Location = new System.Drawing.Point(178, 84);
             this.checkCastBuffs.Name = "checkCastBuffs";
-            this.checkCastBuffs.Size = new System.Drawing.Size(73, 17);
+            this.checkCastBuffs.Size = new System.Drawing.Size(89, 17);
             this.checkCastBuffs.TabIndex = 6;
             this.checkCastBuffs.Text = "Cast buffs";
-            this.checkCastBuffs.UseVisualStyleBackColor = true;
             this.checkCastBuffs.CheckedChanged += new System.EventHandler(this.checkCastBuffs_CheckedChanged);
             // 
             // checkUseMount
             // 
-            this.checkUseMount.AutoSize = true;
-            this.checkUseMount.Location = new System.Drawing.Point(21, 76);
+            this.checkUseMount.Checked = false;
+            this.checkUseMount.Location = new System.Drawing.Point(21, 84);
             this.checkUseMount.Name = "checkUseMount";
-            this.checkUseMount.Size = new System.Drawing.Size(130, 17);
+            this.checkUseMount.Size = new System.Drawing.Size(140, 17);
             this.checkUseMount.TabIndex = 3;
             this.checkUseMount.Text = "Use mount if available";
-            this.checkUseMount.UseVisualStyleBackColor = true;
             this.checkUseMount.CheckedChanged += new System.EventHandler(this.checkUseMount_CheckedChanged);
             // 
             // btnBrowse
@@ -381,7 +381,7 @@
             this.txtWalkscript.MaxLength = 32767;
             this.txtWalkscript.MultiLine = false;
             this.txtWalkscript.Name = "txtWalkscript";
-            this.txtWalkscript.Size = new System.Drawing.Size(379, 18);
+            this.txtWalkscript.Size = new System.Drawing.Size(379, 21);
             this.txtWalkscript.TabIndex = 4;
             this.txtWalkscript.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtWalkscript.UseSystemPasswordChar = false;
@@ -391,19 +391,18 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(18, 28);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(60, 13);
+            this.label4.Size = new System.Drawing.Size(65, 15);
             this.label4.TabIndex = 3;
             this.label4.Text = "Walkscript:";
             // 
             // checkBerzerkWhenFull
             // 
-            this.checkBerzerkWhenFull.AutoSize = true;
-            this.checkBerzerkWhenFull.Location = new System.Drawing.Point(21, 27);
+            this.checkBerzerkWhenFull.Checked = false;
+            this.checkBerzerkWhenFull.Location = new System.Drawing.Point(21, 34);
             this.checkBerzerkWhenFull.Name = "checkBerzerkWhenFull";
-            this.checkBerzerkWhenFull.Size = new System.Drawing.Size(163, 17);
+            this.checkBerzerkWhenFull.Size = new System.Drawing.Size(200, 17);
             this.checkBerzerkWhenFull.TabIndex = 4;
             this.checkBerzerkWhenFull.Text = "Enter berzerk mode when full";
-            this.checkBerzerkWhenFull.UseVisualStyleBackColor = true;
             this.checkBerzerkWhenFull.CheckedChanged += new System.EventHandler(this.checkBerzerkWhenFull_CheckedChanged);
             // 
             // groupBox4
@@ -417,8 +416,8 @@
             this.groupBox4.Location = new System.Drawing.Point(262, 144);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBox4.Radius = 12;
-            this.groupBox4.Size = new System.Drawing.Size(478, 100);
+            this.groupBox4.Radius = 1;
+            this.groupBox4.Size = new System.Drawing.Size(478, 125);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Berzerk";
@@ -426,15 +425,15 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(236, 50);
+            this.label7.Location = new System.Drawing.Point(245, 62);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(49, 13);
+            this.label7.Size = new System.Drawing.Size(56, 15);
             this.label7.TabIndex = 7;
             this.label7.Text = "monsters";
             // 
             // numBerzerkMonsterAmount
             // 
-            this.numBerzerkMonsterAmount.Location = new System.Drawing.Point(193, 47);
+            this.numBerzerkMonsterAmount.Location = new System.Drawing.Point(202, 59);
             this.numBerzerkMonsterAmount.Maximum = new decimal(new int[] {
             10,
             0,
@@ -446,7 +445,7 @@
             0,
             0});
             this.numBerzerkMonsterAmount.Name = "numBerzerkMonsterAmount";
-            this.numBerzerkMonsterAmount.Size = new System.Drawing.Size(37, 20);
+            this.numBerzerkMonsterAmount.Size = new System.Drawing.Size(37, 23);
             this.numBerzerkMonsterAmount.TabIndex = 6;
             this.numBerzerkMonsterAmount.Value = new decimal(new int[] {
             5,
@@ -457,24 +456,22 @@
             // 
             // checkBerzerkAvoidance
             // 
-            this.checkBerzerkAvoidance.AutoSize = true;
-            this.checkBerzerkAvoidance.Location = new System.Drawing.Point(21, 71);
+            this.checkBerzerkAvoidance.Checked = false;
+            this.checkBerzerkAvoidance.Location = new System.Drawing.Point(21, 88);
             this.checkBerzerkAvoidance.Name = "checkBerzerkAvoidance";
-            this.checkBerzerkAvoidance.Size = new System.Drawing.Size(303, 17);
+            this.checkBerzerkAvoidance.Size = new System.Drawing.Size(333, 17);
             this.checkBerzerkAvoidance.TabIndex = 5;
             this.checkBerzerkAvoidance.Text = "If being attacked by a monster type that should be avoided";
-            this.checkBerzerkAvoidance.UseVisualStyleBackColor = true;
             this.checkBerzerkAvoidance.CheckedChanged += new System.EventHandler(this.checkBerzerkAvoidance_CheckedChanged);
             // 
             // checkBerzerkMonsterAmount
             // 
-            this.checkBerzerkMonsterAmount.AutoSize = true;
-            this.checkBerzerkMonsterAmount.Location = new System.Drawing.Point(21, 48);
+            this.checkBerzerkMonsterAmount.Checked = false;
+            this.checkBerzerkMonsterAmount.Location = new System.Drawing.Point(21, 60);
             this.checkBerzerkMonsterAmount.Name = "checkBerzerkMonsterAmount";
-            this.checkBerzerkMonsterAmount.Size = new System.Drawing.Size(162, 17);
+            this.checkBerzerkMonsterAmount.Size = new System.Drawing.Size(175, 17);
             this.checkBerzerkMonsterAmount.TabIndex = 4;
             this.checkBerzerkMonsterAmount.Text = "Being attacked by more than";
-            this.checkBerzerkMonsterAmount.UseVisualStyleBackColor = true;
             this.checkBerzerkMonsterAmount.CheckedChanged += new System.EventHandler(this.checkBerzerkMonsterAmount_CheckedChanged);
             // 
             // Main
@@ -485,8 +482,9 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox4);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "Main";
-            this.Size = new System.Drawing.Size(765, 467);
+            this.Size = new System.Drawing.Size(765, 474);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -503,36 +501,37 @@
         #endregion
 
         private SDUI.Controls.GroupBox groupBox1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private SDUI.Controls.Label label2;
+        private SDUI.Controls.Label label1;
         private SDUI.Controls.TextBox txtRadius;
         private SDUI.Controls.TextBox txtYCoord;
         private SDUI.Controls.TextBox txtXCoord;
-        private System.Windows.Forms.Label label3;
+        private SDUI.Controls.Label label3;
         private SDUI.Controls.GroupBox groupBox2;
         private SDUI.Controls.Button btnGetCurrent;
         private SDUI.Controls.GroupBox groupBox3;
         private SDUI.Controls.Button btnBrowse;
         private SDUI.Controls.TextBox txtWalkscript;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.CheckBox checkUseMount;
-        private System.Windows.Forms.RadioButton radioWalkAround;
-        private System.Windows.Forms.RadioButton radioCenter;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.CheckBox checkUseSpeedDrug;
-        private System.Windows.Forms.CheckBox checkCastBuffs;
-        private System.Windows.Forms.CheckBox checkBerzerkWhenFull;
+        private SDUI.Controls.Label label4;
+        private SDUI.Controls.CheckBox checkUseMount;
+        private SDUI.Controls.Radio radioWalkAround;
+        private SDUI.Controls.Radio radioCenter;
+        private SDUI.Controls.Label label5;
+        private SDUI.Controls.Label label6;
+        private SDUI.Controls.CheckBox checkUseSpeedDrug;
+        private SDUI.Controls.CheckBox checkCastBuffs;
+        private SDUI.Controls.CheckBox checkBerzerkWhenFull;
         private SDUI.Controls.ListView lvAvoidance;
-        private System.Windows.Forms.ContextMenuStrip ctxAvoidance;
+        private SDUI.Controls.ContextMenuStrip ctxAvoidance;
         private System.Windows.Forms.ToolStripMenuItem btnAvoid;
         private System.Windows.Forms.ToolStripMenuItem btnPrefer;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem btnNoCustomBehavior;
         private SDUI.Controls.GroupBox groupBox4;
         private System.Windows.Forms.NumericUpDown numBerzerkMonsterAmount;
-        private System.Windows.Forms.CheckBox checkBerzerkAvoidance;
-        private System.Windows.Forms.CheckBox checkBerzerkMonsterAmount;
-        private System.Windows.Forms.Label label7;
+        private SDUI.Controls.CheckBox checkBerzerkAvoidance;
+        private SDUI.Controls.CheckBox checkBerzerkMonsterAmount;
+        private SDUI.Controls.Label label7;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
     }
 }

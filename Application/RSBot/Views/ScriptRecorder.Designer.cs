@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScriptRecorder));
             this.panel1 = new SDUI.Controls.Panel();
-            this.labelStatus = new System.Windows.Forms.Label();
+            this.labelStatus = new SDUI.Controls.Label();
             this.btnRunNow = new SDUI.Controls.Button();
             this.btnSave = new SDUI.Controls.Button();
             this.btnClear = new SDUI.Controls.Button();
@@ -41,6 +41,7 @@
             // 
             // panel1
             // 
+            this.panel1.Border = new System.Windows.Forms.Padding(0, 0, 0, 1);
             this.panel1.Controls.Add(this.labelStatus);
             this.panel1.Controls.Add(this.btnRunNow);
             this.panel1.Controls.Add(this.btnSave);
@@ -49,13 +50,12 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Radius = 1;
+            this.panel1.Radius = 0;
             this.panel1.Size = new System.Drawing.Size(551, 43);
             this.panel1.TabIndex = 0;
             // 
             // labelStatus
             // 
-            this.labelStatus.AutoSize = true;
             this.labelStatus.Location = new System.Drawing.Point(313, 13);
             this.labelStatus.Name = "labelStatus";
             this.labelStatus.Size = new System.Drawing.Size(42, 15);
@@ -65,7 +65,7 @@
             // btnRunNow
             // 
             this.btnRunNow.Color = System.Drawing.Color.Transparent;
-            this.btnRunNow.Location = new System.Drawing.Point(174, 9);
+            this.btnRunNow.Location = new System.Drawing.Point(174, 11);
             this.btnRunNow.Name = "btnRunNow";
             this.btnRunNow.Size = new System.Drawing.Size(75, 23);
             this.btnRunNow.TabIndex = 3;
@@ -77,7 +77,7 @@
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSave.Color = System.Drawing.Color.Transparent;
-            this.btnSave.Location = new System.Drawing.Point(464, 9);
+            this.btnSave.Location = new System.Drawing.Point(464, 11);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 0;
@@ -88,7 +88,7 @@
             // btnClear
             // 
             this.btnClear.Color = System.Drawing.Color.Transparent;
-            this.btnClear.Location = new System.Drawing.Point(93, 9);
+            this.btnClear.Location = new System.Drawing.Point(93, 11);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 23);
             this.btnClear.TabIndex = 0;
@@ -99,7 +99,7 @@
             // btnStart
             // 
             this.btnStart.Color = System.Drawing.Color.Transparent;
-            this.btnStart.Location = new System.Drawing.Point(12, 9);
+            this.btnStart.Location = new System.Drawing.Point(12, 11);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(75, 23);
             this.btnStart.TabIndex = 0;
@@ -136,7 +136,6 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ScriptRecorder_FormClosed);
             this.Load += new System.EventHandler(this.ScriptRecorder_Load);
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -149,6 +148,6 @@
         private SDUI.Controls.Button btnSave;
         private SDUI.Controls.Button btnClear;
         private SDUI.Controls.Button btnRunNow;
-        private System.Windows.Forms.Label labelStatus;
+        private SDUI.Controls.Label labelStatus;
     }
 }

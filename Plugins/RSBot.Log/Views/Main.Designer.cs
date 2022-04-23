@@ -28,27 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.checkEnabled = new System.Windows.Forms.CheckBox();
+            this.checkEnabled = new SDUI.Controls.CheckBox();
             this.btnReset = new SDUI.Controls.Button();
             this.panel1 = new SDUI.Controls.Panel();
-            this.checkNormal = new System.Windows.Forms.CheckBox();
-            this.checkError = new System.Windows.Forms.CheckBox();
-            this.checkWarning = new System.Windows.Forms.CheckBox();
-            this.checkDebug = new System.Windows.Forms.CheckBox();
+            this.checkNormal = new SDUI.Controls.CheckBox();
+            this.checkError = new SDUI.Controls.CheckBox();
+            this.checkWarning = new SDUI.Controls.CheckBox();
+            this.checkDebug = new SDUI.Controls.CheckBox();
             this.txtLog = new System.Windows.Forms.RichTextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // checkEnabled
             // 
-            this.checkEnabled.AutoSize = true;
             this.checkEnabled.BackColor = System.Drawing.Color.Transparent;
+            this.checkEnabled.Checked = false;
             this.checkEnabled.Location = new System.Drawing.Point(14, 17);
             this.checkEnabled.Name = "checkEnabled";
             this.checkEnabled.Size = new System.Drawing.Size(65, 17);
             this.checkEnabled.TabIndex = 1;
             this.checkEnabled.Text = "Enabled";
-            this.checkEnabled.UseVisualStyleBackColor = false;
             this.checkEnabled.CheckedChanged += new System.EventHandler(this.checkEnabled_CheckedChanged);
             // 
             // btnReset
@@ -65,6 +64,7 @@
             // 
             // panel1
             // 
+            this.panel1.Border = new System.Windows.Forms.Padding(0, 0, 0, 1);
             this.panel1.Controls.Add(this.checkNormal);
             this.panel1.Controls.Add(this.checkError);
             this.panel1.Controls.Add(this.checkWarning);
@@ -74,61 +74,49 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Radius = 1;
+            this.panel1.Radius = 0;
             this.panel1.Size = new System.Drawing.Size(719, 52);
             this.panel1.TabIndex = 2;
             // 
             // checkNormal
             // 
-            this.checkNormal.AutoSize = true;
             this.checkNormal.BackColor = System.Drawing.Color.Transparent;
             this.checkNormal.Checked = true;
-            this.checkNormal.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkNormal.Location = new System.Drawing.Point(85, 17);
+            this.checkNormal.Location = new System.Drawing.Point(100, 17);
             this.checkNormal.Name = "checkNormal";
             this.checkNormal.Size = new System.Drawing.Size(59, 17);
             this.checkNormal.TabIndex = 6;
             this.checkNormal.Text = "Normal";
-            this.checkNormal.UseVisualStyleBackColor = false;
             // 
             // checkError
             // 
-            this.checkError.AutoSize = true;
             this.checkError.BackColor = System.Drawing.Color.Transparent;
             this.checkError.Checked = true;
-            this.checkError.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkError.Location = new System.Drawing.Point(286, 17);
+            this.checkError.Location = new System.Drawing.Point(332, 17);
             this.checkError.Name = "checkError";
             this.checkError.Size = new System.Drawing.Size(48, 17);
             this.checkError.TabIndex = 3;
             this.checkError.Text = "Error";
-            this.checkError.UseVisualStyleBackColor = false;
             // 
             // checkWarning
             // 
-            this.checkWarning.AutoSize = true;
             this.checkWarning.BackColor = System.Drawing.Color.Transparent;
             this.checkWarning.Checked = true;
-            this.checkWarning.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkWarning.Location = new System.Drawing.Point(214, 17);
+            this.checkWarning.Location = new System.Drawing.Point(249, 17);
             this.checkWarning.Name = "checkWarning";
             this.checkWarning.Size = new System.Drawing.Size(66, 17);
             this.checkWarning.TabIndex = 4;
             this.checkWarning.Text = "Warning";
-            this.checkWarning.UseVisualStyleBackColor = false;
             // 
             // checkDebug
             // 
-            this.checkDebug.AutoSize = true;
             this.checkDebug.BackColor = System.Drawing.Color.Transparent;
             this.checkDebug.Checked = true;
-            this.checkDebug.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkDebug.Location = new System.Drawing.Point(150, 17);
+            this.checkDebug.Location = new System.Drawing.Point(175, 17);
             this.checkDebug.Name = "checkDebug";
             this.checkDebug.Size = new System.Drawing.Size(58, 17);
             this.checkDebug.TabIndex = 5;
             this.checkDebug.Text = "Debug";
-            this.checkDebug.UseVisualStyleBackColor = false;
             // 
             // txtLog
             // 
@@ -146,22 +134,22 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Controls.Add(this.txtLog);
             this.Controls.Add(this.panel1);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "Main";
             this.Size = new System.Drawing.Size(719, 459);
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
         private SDUI.Controls.Button btnReset;
-        private System.Windows.Forms.CheckBox checkEnabled;
+        private SDUI.Controls.CheckBox checkEnabled;
         private SDUI.Controls.Panel panel1;
-        private System.Windows.Forms.CheckBox checkError;
-        private System.Windows.Forms.CheckBox checkWarning;
-        private System.Windows.Forms.CheckBox checkDebug;
-        private System.Windows.Forms.CheckBox checkNormal;
+        private SDUI.Controls.CheckBox checkError;
+        private SDUI.Controls.CheckBox checkWarning;
+        private SDUI.Controls.CheckBox checkDebug;
+        private SDUI.Controls.CheckBox checkNormal;
         private System.Windows.Forms.RichTextBox txtLog;
     }
 }
