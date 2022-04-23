@@ -39,7 +39,7 @@ namespace RSBot.Core.Network
         /// <summary>
         /// Default value of timeout[millisecond].
         /// </summary>
-        private const int TIMEOUT_DEFAULT = 5_000;
+        public const int TIMEOUT_DEFAULT = 5_000;
         /// <summary>
         /// Step value of timeout[millisecond].
         /// </summary>

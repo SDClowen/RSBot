@@ -97,53 +97,56 @@ namespace RSBot.Core.Objects.Spawn
         }
 
         /// <summary>
-        /// Selects the entity.
+        /// Selects the entity by its UniqueId.
         /// </summary>
-        /// <param name="uniqueId">The unique identifier.</param>
-        /// <returns></returns>
+        /// <returns><c>true</c> if succesfully selected; otherwise <c>false</c>.</returns>
         public bool TrySelect()
         {
-            if (Game.SelectedEntity?.UniqueId == UniqueId)
+            var isSelectedAnotherEntity = Game.SelectedEntity != null;
+            if (isSelectedAnotherEntity && Game.SelectedEntity.UniqueId == UniqueId)
                 return true;
 
-            Log.Debug($"Trying to select the entity: {UniqueId} State: {State.LifeState} Health: {Health} HasHealth: {HasHealth} Dst: {System.Math.Round(DistanceToPlayer, 1)}");
+            var msgTheEntity = $"the entity(UniqueId: {UniqueId} State: {State.LifeState} Health: {Health} HasHealth: {HasHealth} Distance: {System.Math.Round(DistanceToPlayer, 1)})";
+            
+            Log.Debug($"Trying to select {msgTheEntity}");
+            if (isSelectedAnotherEntity) isSelectedAnotherEntity = !Game.SelectedEntity.TryDeselect($", it's called from TrySelect(UniqueId: {UniqueId})");
+            var result = Operations.SelectEntity(UniqueId);
 
-            var packet = new Packet(0x7045);
-            packet.WriteUInt(UniqueId);
-            packet.Lock();
-
-            var awaitCallback = new AwaitCallback(response =>
+            if (result)
+                Log.Debug($"Selected {msgTheEntity}");
+            else
             {
-                var result = response.ReadByte() == 0x01;
-                if (!result)
-                    Log.Debug($"Could not select entity 0x{response.ReadByte():X}");
+                var msgFailReason = string.Empty;
+                if (isSelectedAnotherEntity)
+                    msgFailReason = $", because of another entity is selected, and could not deselect it";
 
-                return result
-                    ? AwaitCallbackResult.Successed : AwaitCallbackResult.Failed;
-            }, 0xB045);
-            PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallback);
-            awaitCallback.AwaitResponse();
+                Log.Debug($"Could not select {msgTheEntity}{msgFailReason}");
+            }
 
-            return awaitCallback.IsCompleted;
+            return result;
         }
 
         /// <summary>
-        /// Deselects the entity.
+        /// Deselects this entity by its UniqueId.
         /// </summary>
-        /// <returns></returns>
-        public bool TryDeselect()
+        /// <param name="msgCaller">Caller message text to the end of log</param>
+        /// <returns><c>true</c> if succesfully deselected; otherwise <c>false</c>.</returns>
+        public bool TryDeselect(string msgCaller = "")
         {
-            Log.Debug($"Entity deselected: {UniqueId}");
+            if (Game.SelectedEntity == null || Game.SelectedEntity.UniqueId != UniqueId)
+                return true;
 
-            var packet = new Packet(0x704B);
-            packet.WriteUInt(UniqueId);
-            packet.Lock();
+            var msgEnd = $"the entity(UniqueId: {UniqueId}){msgCaller}";
+            
+            Log.Debug($"Trying to deselect {msgEnd}");
+            var result = Operations.DeselectEntity(UniqueId);
+            
+            if (result)
+                Log.Debug($"Deselected {msgEnd}");
+            else
+                Log.Debug($"Could not deselect {msgEnd}");
 
-            var awaitResult = new AwaitCallback(null, 0xB04B);
-            PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
-            awaitResult.AwaitResponse();
-
-            return awaitResult.IsCompleted;
+            return result;
         }
     }
 }

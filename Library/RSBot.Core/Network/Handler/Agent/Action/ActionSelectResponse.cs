@@ -12,7 +12,7 @@ namespace RSBot.Core.Network.Handler.Agent.Action
         /// <value>
         /// The opcode.
         /// </value>
-        public ushort Opcode => 0xB045;
+        public ushort Opcode => OpcodePairs.SelectEntity.Response;//0xB045;
 
         /// <summary>
         /// Gets or sets the destination.

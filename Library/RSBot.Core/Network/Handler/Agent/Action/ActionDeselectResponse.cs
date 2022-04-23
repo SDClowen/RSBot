@@ -10,7 +10,7 @@ namespace RSBot.Core.Network.Handler.Agent.Action
         /// <value>
         /// The opcode.
         /// </value>
-        public ushort Opcode => 0xB04B;
+        public ushort Opcode => OpcodePairs.DeselectEntity.Response;//0xB04B;
 
         /// <summary>
         /// Gets or sets the destination.
@@ -28,6 +28,8 @@ namespace RSBot.Core.Network.Handler.Agent.Action
         {
             if (packet.ReadByte() != 1) 
                 return;
+
+            Core.Game.SelectedEntity = null;
 
             EventManager.FireEvent("OnDeselectEntity");
         }

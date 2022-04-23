@@ -84,6 +84,9 @@
     <Compile Include="Network\Handler\Agent\Inventory\InventoryGuildStorageDataResponse.cs" />
     <Compile Include="Network\Hooks\Agent\Action\ActionSelectRequestHook.cs" />
     <Compile Include="Network\Hooks\Gateway\GatewayLoginResponseHookOfficial.cs" />
+    <Compile Include="Network\OpcodePairs.cs" />
+    <Compile Include="Network\Operations.cs" />
+    <Compile Include="Network\Predicates.cs" />
     <Compile Include="Objects\ActionHitStateFlag.cs" />
     <Compile Include="Objects\ActionStateFlag.cs" />
     <Compile Include="Objects\ChatType.cs" />

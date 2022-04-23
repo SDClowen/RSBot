@@ -6,8 +6,74 @@ using System.Text;
 
 namespace RSBot.Core.Network
 {
+    /// <summary>
+    /// <see cref="Packet"/> numeric types, equivalent  <see cref="System.TypeCode"/>.
+    /// </summary>
+    public enum PacketNumericType
+    {
+        SByte = TypeCode.SByte,
+        Byte = TypeCode.Byte,
+        Short = TypeCode.Int16,
+        UShort = TypeCode.UInt16,
+        Int = TypeCode.Int32,
+        UInt = TypeCode.UInt32,
+        Long = TypeCode.Int64,
+        ULong = TypeCode.UInt64,
+        Float = TypeCode.Single,
+        Double = TypeCode.Double
+    }
+
     public class Packet
     {
+        #region PacketNumericType static methods
+        /// <summary>
+        /// Gets the length value of the <see cref="PacketNumericType"/>.
+        /// </summary>
+        /// <param name="types">The <see cref="PacketNumericType"/>.</param>
+        /// <returns>length in byte</returns>
+        private static int GetLengthNumericType(PacketNumericType type)
+        {
+            var length = 0;
+            
+            switch (type)
+            {
+                case PacketNumericType.Byte:
+                case PacketNumericType.SByte:
+                    length = 1;
+                    break;
+                case PacketNumericType.Short:
+                case PacketNumericType.UShort:
+                    length = 2;
+                    break;
+                case PacketNumericType.Int:
+                case PacketNumericType.UInt:
+                case PacketNumericType.Float:
+                    length = 4;
+                    break;
+                case PacketNumericType.Long:
+                case PacketNumericType.ULong:
+                case PacketNumericType.Double:
+                    length = 8;
+                    break;
+            }
+
+            return length;
+        }
+
+        /// <summary>
+        /// Gets the length value of the <see cref="PacketNumericType"/> list.
+        /// </summary>
+        /// <param name="types">The <see cref="PacketNumericType"/> list</param>
+        /// <returns>length in byte</returns>
+        public static int GetLengthNumericTypes(params PacketNumericType[] types)
+        {
+            int sum = 0;
+            foreach (var type in types) sum += GetLengthNumericType(type);
+
+            return sum;
+        }
+        #endregion PacketNumericType static methods
+
         #region Fields
 
         private PacketWriter _writer;

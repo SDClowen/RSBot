@@ -350,8 +350,7 @@ namespace RSBot.Core.Components
         /// </summary>
         private static void CloseShop()
         {
-            if(SelectedEntity != null && SelectedEntity.TryDeselect())
-                SelectedEntity = null;
+            SelectedEntity?.TryDeselect();
         }
 
         /// <summary>
