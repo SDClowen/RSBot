@@ -1,7 +1,7 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Plugins;
 using RSBot.General.Views;
-using RSBot.Theme;
+
 using System.Windows.Forms;
 
 namespace RSBot.General

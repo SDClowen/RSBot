@@ -50,3 +50,4 @@ ClientTypeInputDialogContent="¡Seleccione el tipo de juego para que RSBot funci
 SelectSroDirWarn="Please select a proper Silkroad directory!"
 ClientTypeNotSelected="It's set to 'Vietname' for now because you haven't selected any game type."
 ConfigureTrainingAreaBeforeStartBot="Please configure the training area before start the bot!"
+PleaseEnterGame="¡Por favor ingrese al juego!"

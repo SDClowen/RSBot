@@ -1,7 +1,7 @@
 ﻿using RSBot.Chat.Views;
 using RSBot.Core;
 using RSBot.Core.Plugins;
-using RSBot.Theme;
+
 using System.Windows.Forms;
 
 namespace RSBot.Chat

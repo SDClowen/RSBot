@@ -29,18 +29,19 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScriptRecorder));
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btnRunNow = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnClear = new System.Windows.Forms.Button();
-            this.btnStart = new System.Windows.Forms.Button();
+            this.panel1 = new SDUI.Controls.Panel();
+            this.labelStatus = new SDUI.Controls.Label();
+            this.btnRunNow = new SDUI.Controls.Button();
+            this.btnSave = new SDUI.Controls.Button();
+            this.btnClear = new SDUI.Controls.Button();
+            this.btnStart = new SDUI.Controls.Button();
             this.txtScript = new System.Windows.Forms.RichTextBox();
-            this.labelStatus = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Border = new System.Windows.Forms.Padding(0, 0, 0, 1);
             this.panel1.Controls.Add(this.labelStatus);
             this.panel1.Controls.Add(this.btnRunNow);
             this.panel1.Controls.Add(this.btnSave);
@@ -49,12 +50,22 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
+            this.panel1.Radius = 0;
             this.panel1.Size = new System.Drawing.Size(551, 43);
             this.panel1.TabIndex = 0;
             // 
+            // labelStatus
+            // 
+            this.labelStatus.Location = new System.Drawing.Point(313, 13);
+            this.labelStatus.Name = "labelStatus";
+            this.labelStatus.Size = new System.Drawing.Size(42, 15);
+            this.labelStatus.TabIndex = 4;
+            this.labelStatus.Text = "<Idle>";
+            // 
             // btnRunNow
             // 
-            this.btnRunNow.Location = new System.Drawing.Point(174, 9);
+            this.btnRunNow.Color = System.Drawing.Color.Transparent;
+            this.btnRunNow.Location = new System.Drawing.Point(174, 11);
             this.btnRunNow.Name = "btnRunNow";
             this.btnRunNow.Size = new System.Drawing.Size(75, 23);
             this.btnRunNow.TabIndex = 3;
@@ -65,7 +76,8 @@
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(464, 9);
+            this.btnSave.Color = System.Drawing.Color.Transparent;
+            this.btnSave.Location = new System.Drawing.Point(464, 11);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 0;
@@ -75,7 +87,8 @@
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(93, 9);
+            this.btnClear.Color = System.Drawing.Color.Transparent;
+            this.btnClear.Location = new System.Drawing.Point(93, 11);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 23);
             this.btnClear.TabIndex = 0;
@@ -85,7 +98,8 @@
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(12, 9);
+            this.btnStart.Color = System.Drawing.Color.Transparent;
+            this.btnStart.Location = new System.Drawing.Point(12, 11);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(75, 23);
             this.btnStart.TabIndex = 0;
@@ -102,15 +116,6 @@
             this.txtScript.Size = new System.Drawing.Size(551, 468);
             this.txtScript.TabIndex = 1;
             this.txtScript.Text = "";
-            // 
-            // labelStatus
-            // 
-            this.labelStatus.AutoSize = true;
-            this.labelStatus.Location = new System.Drawing.Point(313, 13);
-            this.labelStatus.Name = "labelStatus";
-            this.labelStatus.Size = new System.Drawing.Size(42, 15);
-            this.labelStatus.TabIndex = 4;
-            this.labelStatus.Text = "<Idle>";
             // 
             // ScriptRecorder
             // 
@@ -131,19 +136,18 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ScriptRecorder_FormClosed);
             this.Load += new System.EventHandler(this.ScriptRecorder_Load);
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel panel1;
+        private SDUI.Controls.Panel panel1;
         private System.Windows.Forms.RichTextBox txtScript;
-        private System.Windows.Forms.Button btnStart;
-        private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Button btnClear;
-        private System.Windows.Forms.Button btnRunNow;
-        private System.Windows.Forms.Label labelStatus;
+        private SDUI.Controls.Button btnStart;
+        private SDUI.Controls.Button btnSave;
+        private SDUI.Controls.Button btnClear;
+        private SDUI.Controls.Button btnRunNow;
+        private SDUI.Controls.Label labelStatus;
     }
 }

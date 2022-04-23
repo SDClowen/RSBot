@@ -3,6 +3,7 @@ using RSBot.Core.Event;
 using RSBot.Statistics.Stats;
 using RSBot.Statistics.Stats.Calculators;
 using System.Drawing;
+using System.Linq;
 using System.Timers;
 using System.Windows.Forms;
 
@@ -48,9 +49,9 @@ namespace RSBot.Statistics.Views
         /// </summary>
         private void LoadSettings()
         {
-            foreach (CheckBox check in panelLiveFilters.Controls)
+            foreach (var check in panelLiveFilters.Controls.OfType<SDUI.Controls.CheckBox>())
                 check.Checked = PlayerConfig.Get($"RSBot.Statistics.{check.Name}", true);
-            foreach (CheckBox check in panelStaticFilters.Controls)
+            foreach (var check in panelStaticFilters.Controls.OfType<SDUI.Controls.CheckBox>())
                 check.Checked = PlayerConfig.Get($"RSBot.Statistics.{check.Name}", true);
         }
 
@@ -62,9 +63,9 @@ namespace RSBot.Statistics.Views
             if (_initialReset)
                 return;
 
-            foreach (CheckBox check in panelLiveFilters.Controls)
+            foreach (SDUI.Controls.CheckBox check in panelLiveFilters.Controls)
                 PlayerConfig.Set($"RSBot.Statistics.{check.Name}", check.Checked);
-            foreach (CheckBox check in panelStaticFilters.Controls)
+            foreach (SDUI.Controls.CheckBox check in panelStaticFilters.Controls)
                 PlayerConfig.Set($"RSBot.Statistics.{check.Name}", check.Checked);
         }
 
@@ -79,7 +80,7 @@ namespace RSBot.Statistics.Views
 
             foreach (var calculator in CalculatorRegistry.Calculators)
             {
-                var checkBox = new CheckBox
+                var checkBox = new SDUI.Controls.CheckBox
                 {
                     Location = new Point(locationX, calculator.UpdateType == UpdateType.Live ? locationY1 : locationY2),
                     Width = 300,
@@ -161,8 +162,8 @@ namespace RSBot.Statistics.Views
         private bool StatatisticActive(string name)
         {
             return panelLiveFilters.Controls.ContainsKey(name)
-                ? ((CheckBox)panelLiveFilters.Controls[name]).Checked
-                : ((CheckBox)panelStaticFilters.Controls[name]).Checked;
+                ? ((SDUI.Controls.CheckBox)panelLiveFilters.Controls[name]).Checked
+                : ((SDUI.Controls.CheckBox)panelStaticFilters.Controls[name]).Checked;
         }
 
         /// <summary>

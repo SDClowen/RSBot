@@ -2,14 +2,14 @@
 using RSBot.Core.Client;
 using RSBot.Core.Event;
 using RSBot.Core.Plugins;
-using RSBot.Theme;
-using RSBot.Theme.Controls;
+using SDUI;
+using SDUI.Controls;
 using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using static RSBot.Theme.NativeMethods;
+using static SDUI.NativeMethods;
 
 namespace RSBot.Views
 {
@@ -89,13 +89,17 @@ namespace RSBot.Views
             GlobalConfig.Set("RSBot.BotIndex", index.ToString());
 
             if (Game.Player == null) {
-                var info = new TabDisabledInfo { Name = "overlay", Location = new Point(tabMain.Width / 2 - 110, tabMain.Height - 150) };
+                var info = new InfoControl { 
+                  Name = "overlay", 
+                  Text = LanguageManager.GetLang("PleaseEnterGame"), 
+                  Location = new Point(tabMain.Width / 2 - 110, tabMain.Height - 150) 
+                };
+
                 tabPage.Controls.Add(info);
                 //So we can see it at least..
                 //control.BringToFront();
                 info.BringToFront();
             }
-
         }
 
         /// <summary>
@@ -131,11 +135,13 @@ namespace RSBot.Views
                 tabPage.Controls.Add(control);
                 tabMain.TabPages.Add(tabPage);
 
-                if (tabPage.Enabled) continue;
+                if (tabPage.Enabled) 
+                    continue;
 
-                var info = new TabDisabledInfo
+                var info = new InfoControl
                 {
                     Name = "overlay",
+                    Text = LanguageManager.GetLang("PleaseEnterGame"),
                     Location = new Point(tabMain.Width / 2 - 110, tabMain.Height - 150)
                 };
 
@@ -297,6 +303,7 @@ namespace RSBot.Views
             }
 
             ConfigureSidebar();
+            BackColor = ColorScheme.BackColor;
 
             EventManager.FireEvent("OnInitialized");
         }
@@ -602,31 +609,31 @@ namespace RSBot.Views
 
         private void darkToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GlobalConfig.Set("RSBot.Theme.Color", Color.Black.ToArgb());
-            ColorScheme.Load();
-            ChangeTheme();
+            GlobalConfig.Set("SDUI.Color", Color.Black.ToArgb());
+            ColorScheme.BackColor = Color.Black;
+            BackColor = ColorScheme.BackColor;
             GlobalConfig.Save();
         }
 
         private void lightToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GlobalConfig.Set("RSBot.Theme.Color", Color.White.ToArgb());
-            ColorScheme.Load();
-            ChangeTheme();
+            GlobalConfig.Set("SDUI.Color", Color.White.ToArgb());
+            ColorScheme.BackColor = Color.White;
+            BackColor = ColorScheme.BackColor;
             GlobalConfig.Save();
         }
 
         private void coloredToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var colorDialog = new ColorDialog();
-            var customColors = GlobalConfig.GetArray<int>("RSBot.Theme.CustomColors");
+            var customColors = GlobalConfig.GetArray<int>("SDUI.CustomColors");
             colorDialog.CustomColors = customColors;
             if (colorDialog.ShowDialog() == DialogResult.OK)
             {
-                GlobalConfig.Set("RSBot.Theme.Color", colorDialog.Color.ToArgb());
-                GlobalConfig.SetArray("RSBot.Theme.CustomColors", colorDialog.CustomColors);
-                ColorScheme.Load();
-                ChangeTheme();
+                GlobalConfig.Set("SDUI.Color", colorDialog.Color.ToArgb());
+                GlobalConfig.SetArray("SDUI.CustomColors", colorDialog.CustomColors);
+                ColorScheme.BackColor = colorDialog.Color;
+                BackColor = ColorScheme.BackColor;
                 GlobalConfig.Save();
             }
         }

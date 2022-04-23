@@ -1,6 +1,6 @@
 ﻿using RSBot.Core;
 using RSBot.General.Models;
-using RSBot.Theme.Controls;
+using SDUI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,10 +74,10 @@ namespace RSBot.General.Views
         {
             if (listAccounts.SelectedIndex == -1)
             {
-                txtPassword.Clear();
-                textBoxSecondaryPassword.Clear();
-                txtUsername.Clear();
-                txtServername.Clear();
+                txtPassword.Text = string.Empty;
+                textBoxSecondaryPassword.Text = string.Empty;
+                txtUsername.Text = string.Empty;
+                txtServername.Text = string.Empty;
                 btnSave.Enabled = false;
                 btnAdd.Visible = true;
             }

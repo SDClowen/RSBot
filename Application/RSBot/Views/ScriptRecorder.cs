@@ -1,7 +1,7 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
-using RSBot.Theme.Controls;
+using SDUI.Controls;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -40,9 +40,9 @@ namespace RSBot.Views
         {
             if (!_recording) return;
             var stepString = new System.Text.StringBuilder();
-            stepString.Append($"move {Game.Player.Movement.Destination.XOffset}");
-            stepString.Append($" {Game.Player.Movement.Destination.YOffset}");
-            stepString.Append($" {Game.Player.Movement.Destination.ZOffset}");
+            stepString.Append($"move {Math.Round(Game.Player.Movement.Destination.XOffset, MidpointRounding.AwayFromZero)}");
+            stepString.Append($" {Math.Round(Game.Player.Movement.Destination.YOffset, MidpointRounding.AwayFromZero)}");
+            stepString.Append($" {Math.Round(Game.Player.Movement.Destination.ZOffset, MidpointRounding.AwayFromZero)}");
             stepString.Append($" {Game.Player.Movement.Destination.XSector}");
             stepString.Append($" {Game.Player.Movement.Destination.YSector}");
             stepString.AppendLine();

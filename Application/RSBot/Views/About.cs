@@ -1,6 +1,4 @@
-﻿using RSBot.Core;
-using RSBot.Theme;
-using RSBot.Theme.Controls;
+﻿using SDUI.Controls;
 using System;
 using System.Reflection;
 

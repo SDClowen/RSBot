@@ -1,6 +1,6 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Event;
-using RSBot.Theme;
+using SDUI;
 using System;
 using System.Windows.Forms;
 
@@ -130,13 +130,6 @@ namespace RSBot.Views.Controls
             progressMP.Text = "0 / 0";
             progressEXP.Value = 0;
             progressEXP.Text = "%0";
-        }
-
-        private void Character_BackColorChanged(object sender, EventArgs e)
-        {
-            progressHP.BackColor = ColorScheme.BackColor;
-            progressMP.BackColor = ColorScheme.BackColor;
-            progressEXP.BackColor = ColorScheme.BackColor;
         }
     }
 }

@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.rtbUpdateInfo = new System.Windows.Forms.RichTextBox();
-            this.lblInfo = new System.Windows.Forms.Label();
-            this.cbChangeLog = new System.Windows.Forms.CheckBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.btnDownload = new System.Windows.Forms.Button();
-            this.btnSkip = new System.Windows.Forms.Button();
-            this.centerPanel = new System.Windows.Forms.Panel();
-            this.downloadProgress = new System.Windows.Forms.ProgressBar();
-            this.lblDownloadInfo = new System.Windows.Forms.Label();
+            this.lblInfo = new SDUI.Controls.Label();
+            this.cbChangeLog = new SDUI.Controls.CheckBox();
+            this.label2 = new SDUI.Controls.Label();
+            this.btnDownload = new SDUI.Controls.Button();
+            this.btnSkip = new SDUI.Controls.Button();
+            this.centerPanel = new SDUI.Controls.Panel();
+            this.downloadProgress = new SDUI.Controls.ProgressBar();
+            this.lblDownloadInfo = new SDUI.Controls.Label();
             this.centerPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,14 +72,12 @@
             this.cbChangeLog.Size = new System.Drawing.Size(90, 19);
             this.cbChangeLog.TabIndex = 2;
             this.cbChangeLog.Text = "Change Log";
-            this.cbChangeLog.UseVisualStyleBackColor = true;
             this.cbChangeLog.CheckedChanged += new System.EventHandler(this.cbChangeLog_CheckedChanged);
             // 
             // label2
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label2.Location = new System.Drawing.Point(0, 33);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(430, 2);
@@ -128,7 +126,6 @@
             this.downloadProgress.Location = new System.Drawing.Point(20, 10);
             this.downloadProgress.Name = "downloadProgress";
             this.downloadProgress.Size = new System.Drawing.Size(400, 23);
-            this.downloadProgress.Step = 1;
             this.downloadProgress.TabIndex = 5;
             this.downloadProgress.Visible = false;
             // 
@@ -175,14 +172,14 @@
         #endregion
 
         private System.Windows.Forms.RichTextBox rtbUpdateInfo;
-        private System.Windows.Forms.Label lblInfo;
-        private System.Windows.Forms.CheckBox cbChangeLog;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button btnDownload;
-        private System.Windows.Forms.Button btnSkip;
-        private System.Windows.Forms.Panel centerPanel;
-        private System.Windows.Forms.ProgressBar downloadProgress;
-        private System.Windows.Forms.Label lblDownloadInfo;
+        private SDUI.Controls.Label lblInfo;
+        private SDUI.Controls.CheckBox cbChangeLog;
+        private SDUI.Controls.Label label2;
+        private SDUI.Controls.Button btnDownload;
+        private SDUI.Controls.Button btnSkip;
+        private SDUI.Controls.Panel centerPanel;
+        private SDUI.Controls.ProgressBar downloadProgress;
+        private SDUI.Controls.Label lblDownloadInfo;
     }
 }
 

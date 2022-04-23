@@ -1,5 +1,5 @@
 ﻿using RSBot.Core;
-using RSBot.Theme.Controls;
+using SDUI.Controls;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -20,7 +20,7 @@ namespace RSBot.Views
             _mainForm = new Main();
 
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-            lblVersion.Text = $"v{version.Major}.{version.Minor}";
+            this.labelVersion.Text = $"v{version.Major}.{version.Minor}";
 
             referenceDataLoader.RunWorkerCompleted += ReferenceDataLoaderCompleted;
         }

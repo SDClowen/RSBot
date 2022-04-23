@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RSBot.Log</RootNamespace>
     <AssemblyName>RSBot.Log</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
@@ -58,6 +58,10 @@
       <Project>{84323c14-eb9f-44d9-8980-89c9f82db4ee}</Project>
       <Name>RSBot.Core</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SDUI\SDUI\SDUI.csproj">
+      <Project>{38b06e05-d80d-4e99-9f62-8b3af0b7ac53}</Project>
+      <Name>SDUI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

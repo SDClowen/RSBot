@@ -1,7 +1,7 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Network;
 using RSBot.General.Components;
-using RSBot.Theme.Controls;
+using SDUI.Controls;
 using System;
 using System.Text;
 using System.Windows.Forms;
@@ -50,7 +50,7 @@ namespace RSBot.General.Views
             PrintTime(labelMyWaitingTime, Environment.TickCount - _startedTick);
         }
 
-        private void PrintTime(Label label, int millisecond)
+        private void PrintTime(SDUI.Controls.Label label, int millisecond)
         {
             var text = new StringBuilder();
 

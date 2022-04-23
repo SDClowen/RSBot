@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RSBot</RootNamespace>
     <AssemblyName>RSBot</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -170,6 +170,7 @@
     <EmbeddedResource Include="Views\Updater.resx">
       <DependentUpon>Updater.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -199,6 +200,10 @@
     <ProjectReference Include="..\..\Library\RSBot.Pk2\RSBot.Pk2.csproj">
       <Project>{b62c693a-62e0-4d29-8702-dd8b3b6b308b}</Project>
       <Name>RSBot.Pk2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SDUI\SDUI\SDUI.csproj">
+      <Project>{38b06e05-d80d-4e99-9f62-8b3af0b7ac53}</Project>
+      <Name>SDUI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

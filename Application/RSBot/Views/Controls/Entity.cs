@@ -2,7 +2,7 @@
 using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects.Spawn;
-using RSBot.Theme;
+using SDUI;
 using System;
 using System.Windows.Forms;
 
@@ -117,13 +117,6 @@ namespace RSBot.Views.Controls
             progressHP.Value = 0;
             progressHP.Text ="0%";
             lblType.Text = "";
-        }
-
-        protected override void OnParentBackColorChanged(EventArgs e)
-        {
-            base.OnParentBackColorChanged(e);
-
-            progressHP.BackColor = ColorScheme.BackColor;
         }
     }
 }

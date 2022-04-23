@@ -1,6 +1,5 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Event;
-using RSBot.Theme.Extensions;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -89,7 +88,7 @@ namespace RSBot.Log.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnReset_Click(object sender, EventArgs e)
         {
-            txtLog.Clear();
+            txtLog.Text = string.Empty;
         }
     }
 }

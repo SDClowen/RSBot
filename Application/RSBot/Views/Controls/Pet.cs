@@ -1,14 +1,13 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Event;
-using RSBot.Theme;
-using RSBot.Theme.Controls;
+using SDUI;
+using SDUI.Controls;
 using System;
 using System.Linq;
-using System.Windows.Forms;
 
 namespace RSBot.Views.Controls
 {
-    public partial class Pet : UserControl
+    public partial class Pet : System.Windows.Forms.UserControl
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Pet"/> class.
@@ -140,20 +139,11 @@ namespace RSBot.Views.Controls
         private void OnAgentServerDisconnected()
         {
             lblPetName.Text = "No pet found";
-            foreach (ProgressBar item in Controls.OfType<ProgressBar>())
+            foreach (var item in Controls.OfType<ProgressBar>())
             {
                 item.Value = 0;
                 item.Text = "0%";
             }
-        }
-
-        protected override void OnParentBackColorChanged(EventArgs e)
-        {
-            base.OnParentBackColorChanged(e);
-
-            progressHP.BackColor = ColorScheme.BackColor;
-            progressHGP.BackColor = ColorScheme.BackColor;
-            progressEXP.BackColor = ColorScheme.BackColor;
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using RSBot.Core;
-using RSBot.Theme;
+
 using RSBot.Views;
 using System;
 using System.Windows.Forms;
@@ -12,8 +12,8 @@ namespace RSBot
         private static void Main()
         {
             GlobalConfig.Load("config");
-            ColorScheme.Load();
             Application.SetCompatibleTextRenderingDefault(false);
+            Application.EnableVisualStyles();
             Application.Run(new SplashScreen());
         }
     }
