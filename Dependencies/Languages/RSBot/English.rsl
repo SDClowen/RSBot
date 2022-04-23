@@ -50,3 +50,4 @@ ClientTypeInputDialogContent="Please select the game type for RSBot to work prop
 SelectSroDirWarn="Please select a proper Silkroad directory!"
 ClientTypeNotSelected="It's set to 'Vietname' for now because you haven't selected any game type."
 ConfigureTrainingAreaBeforeStartBot="Please configure the training area before start the bot!"
+PleaseEnterGame="Please enter to game!"

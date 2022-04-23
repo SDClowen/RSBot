@@ -1,5 +1,5 @@
 ﻿using RSBot.Core;
-using RSBot.Theme.Controls;
+using SDUI.Controls;
 using System;
 
 namespace RSBot.Views

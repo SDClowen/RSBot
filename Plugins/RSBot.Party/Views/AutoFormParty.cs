@@ -1,7 +1,7 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Party;
-using RSBot.Theme.Controls;
+using SDUI.Controls;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -19,7 +19,7 @@ namespace RSBot.Party.Views
         {
             cb_AutoReform.Checked = Bundle.Container.PartyMatching.Config.AutoReform;
             cb_AutoAccept.Checked = Bundle.Container.PartyMatching.Config.AutoAccept;
-            gbObjective.Controls.OfType<RadioButton>().FirstOrDefault(p => p.Name == "rbtn_" + Bundle.Container.PartyMatching.Config.Purpose).Checked = true;
+            gbObjective.Controls.OfType<Radio>().FirstOrDefault(p => p.Name == "rbtn_" + Bundle.Container.PartyMatching.Config.Purpose).Checked = true;
 
             if (Game.Player.Inventory.GetItemAt(8) != null)
             {
@@ -68,7 +68,7 @@ namespace RSBot.Party.Views
 
         private void radioCheckedChanged(object sender, EventArgs e)
         {
-            var rbtn = sender as RadioButton;
+            var rbtn = sender as Radio;
             var partyPurpose = (PartyPurpose)(Convert.ToByte(rbtn?.Tag) - 1);
 
             if (partyPurpose == Bundle.Container.PartyMatching.Config.Purpose)

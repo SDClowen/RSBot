@@ -4,7 +4,6 @@ using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Skill;
-using RSBot.Theme.Extensions;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -25,7 +24,6 @@ namespace RSBot.Skills.Views
             InitializeComponent();
             SubscribeEvents();
 
-            listSkills.ContextMenu = skillContextMenu;
             listAttackingSkills.SmallImageList = Core.Extensions.ListViewExtensions.StaticImageList;
             listBuffs.SmallImageList = Core.Extensions.ListViewExtensions.StaticImageList;
             listSkills.SmallImageList = Core.Extensions.ListViewExtensions.StaticImageList;

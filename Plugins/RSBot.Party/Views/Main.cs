@@ -3,7 +3,7 @@ using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects.Party;
 using RSBot.Core.Objects.Skill;
-using RSBot.Theme.Controls;
+using SDUI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -45,8 +45,8 @@ namespace RSBot.Party.Views
         {
             InitializeComponent();
 
-            selectedMemberBuffs.SmallImageList = ListViewExtensions.StaticImageList;
-            listPartyBuffSkills.SmallImageList = ListViewExtensions.StaticImageList;
+            selectedMemberBuffs.SmallImageList = Core.Extensions.ListViewExtensions.StaticImageList;
+            listPartyBuffSkills.SmallImageList = Core.Extensions.ListViewExtensions.StaticImageList;
 
             _buffings = new List<BuffingPartyMember>();
             CheckForIllegalCrossThreadCalls = false;
@@ -159,7 +159,7 @@ namespace RSBot.Party.Views
         /// </summary>
         private void SaveAutoPartyPlayerList()
         {
-            PlayerConfig.SetArray("RSBot.Party.AutoPartyList", listAutoParty.Items.Cast<string>().ToArray());
+            PlayerConfig.SetArray("RSBot.Party.AutoPartyList", listAutoParty.Items.OfType<ListViewItem>().Select(p => p.Text).ToArray());
 
             Bundle.Container.Refresh();
         }
@@ -169,7 +169,7 @@ namespace RSBot.Party.Views
         /// </summary>
         private void SaveCommandPlayersList()
         {
-            PlayerConfig.SetArray("RSBot.Party.Commands.PlayersList", listCommandPlayers.Items.Cast<string>().ToArray());
+            PlayerConfig.SetArray("RSBot.Party.Commands.PlayersList", listCommandPlayers.Items.OfType<ListViewItem>().Select(p => p.Text).ToArray());
 
             Bundle.Container.Refresh();
         }
@@ -276,8 +276,14 @@ namespace RSBot.Party.Views
             textBoxLeaveIfMasterNotName.Text = Bundle.Container.AutoParty.Config.LeaveIfMasterNotName;
             textBoxLeaveIfMasterNotName.Enabled = !checkBoxLeaveIfMasterNot.Checked;
 
-            listAutoParty.Items.AddRange(PlayerConfig.GetArray<string>("RSBot.Party.AutoPartyList"));
-            listCommandPlayers.Items.AddRange(PlayerConfig.GetArray<string>("RSBot.Party.Commands.PlayersList"));
+            var autoPartyList = PlayerConfig.GetArray<string>("RSBot.Party.AutoPartyList");
+            foreach(var item in autoPartyList)
+                listAutoParty.Items.Add(item);
+
+            var playerList = PlayerConfig.GetArray<string>("RSBot.Party.Commands.PlayersList");
+            foreach (var item in playerList)
+                listCommandPlayers.Items.Add(item);
+
             _applySettings = true;
         }
 
@@ -589,9 +595,10 @@ namespace RSBot.Party.Views
                 LanguageManager.GetLang("CharName"),
                 LanguageManager.GetLang("EnterCharNameForPartyList"));
 
-            if (diag.ShowDialog() != DialogResult.OK) return;
+            if (diag.ShowDialog() != DialogResult.OK) 
+                return;
 
-            listAutoParty.Items.Add(diag.Value);
+            listAutoParty.Items.Add(diag.Value.ToString());
             SaveAutoPartyPlayerList();
         }
 
@@ -602,8 +609,10 @@ namespace RSBot.Party.Views
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void btnRemoveFromAutoParty_Click(object sender, System.EventArgs e)
         {
-            if (listAutoParty.SelectedIndex == -1) return;
-            listAutoParty.Items.Remove(listAutoParty.SelectedItem);
+            if (listAutoParty.SelectedIndices.Count == 0) 
+                return;
+
+            listAutoParty.Items.RemoveAt(listAutoParty.SelectedIndices[0]);
 
             SaveAutoPartyPlayerList();
         }
@@ -681,7 +690,7 @@ namespace RSBot.Party.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnPartyMatchForm_Click(object sender, EventArgs e)
         {
-            var senderName = (sender as Button).Name;
+            var senderName = (sender as SDUI.Controls.Button).Name;
 
             View.PartyWindow.Text =
                 senderName == nameof(btnPartyMatchForm) ?
@@ -700,7 +709,7 @@ namespace RSBot.Party.Views
 
         private void PageNatigateBtn_Click(object sender, EventArgs e)
         {
-            var btn = sender as Button;
+            var btn = sender as SDUI.Controls.Button;
             btn.Enabled = false;
 
             RequestPartyList(Convert.ToByte(btn.Tag));
@@ -997,16 +1006,16 @@ namespace RSBot.Party.Views
             if (diag.ShowDialog() != DialogResult.OK) 
                 return;
 
-            listCommandPlayers.Items.Add(diag.Value);
+            listCommandPlayers.Items.Add(diag.Value.ToString());
             SaveCommandPlayersList();
         }
 
         private void buttonCommandPlayerRemove_Click(object sender, EventArgs e)
         {
-            if (listCommandPlayers.SelectedIndex == -1) 
+            if (listCommandPlayers.SelectedIndices.Count == 0) 
                 return;
 
-            listCommandPlayers.Items.Remove(listCommandPlayers.SelectedItem);
+            listCommandPlayers.Items.RemoveAt(listCommandPlayers.SelectedIndices[0]);
 
             SaveCommandPlayersList();
         }

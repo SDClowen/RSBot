@@ -29,10 +29,10 @@ namespace RSBot.Inventory.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonOk = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.buttonOk = new SDUI.Controls.Button();
+            this.buttonCancel = new SDUI.Controls.Button();
+            this.label1 = new SDUI.Controls.Label();
+            this.label2 = new SDUI.Controls.Label();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -103,9 +103,9 @@ namespace RSBot.Inventory.Views
 
         #endregion
 
-        private System.Windows.Forms.Button buttonOk;
-        private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private SDUI.Controls.Button buttonOk;
+        private SDUI.Controls.Button buttonCancel;
+        private SDUI.Controls.Label label1;
+        private SDUI.Controls.Label label2;
     }
 }

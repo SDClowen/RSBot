@@ -1,11 +1,9 @@
 DisplayName="General"
-RSBot.General.Main.GroupBox.label8="If activated, when the bot is minimized, 
-the bot will automatically switch to tray mode 
-and continue to run there."
+RSBot.General.Main.GroupBox.label8="If activated, when the bot is minimized, the bot will 
+automatically switch to tray mode and continue to run there."
 RSBot.General.Main.GroupBox.checkBoxBotTrayMinimized="Move bot to system tray when minimized"
-RSBot.General.Main.GroupBox.label2="If the client exits due to a crash, the bot will 
-automatically switch to clientless mode and 
-continue its tasks"
+RSBot.General.Main.GroupBox.label2="If the client exits due to a crash, the bot will automatically switch
+ to clientless mode and continue its tasks"
 RSBot.General.Main.GroupBox.checkStayConnected="Stay connected if client exits unexpectedly"
 RSBot.General.Main.GroupBox.btnClientHideShow="Client Visibility"
 RSBot.General.Main.GroupBox.btnStartClient="Start Client"
