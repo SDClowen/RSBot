@@ -53,7 +53,7 @@ namespace RSBot.Party.Bundle.PartyMatching
 
             var callback = new AwaitCallback(response =>
             {
-                return response.ReadByte() == 1 ? AwaitCallbackResult.Received : AwaitCallbackResult.Failed;
+                return response.ReadByte() == 1 ? AwaitCallbackResult.Successed : AwaitCallbackResult.Failed;
             }, 0xB06A);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, callback);
@@ -90,7 +90,7 @@ namespace RSBot.Party.Bundle.PartyMatching
 
             var callback = new AwaitCallback(response =>
             {
-                return response.ReadByte() == 1 ? AwaitCallbackResult.Received : AwaitCallbackResult.Failed;
+                return response.ReadByte() == 1 ? AwaitCallbackResult.Successed : AwaitCallbackResult.Failed;
             }, 0xB069);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, callback);
@@ -126,7 +126,7 @@ namespace RSBot.Party.Bundle.PartyMatching
             {
                 var result = response.ReadByte();
                 if(result == 1)
-                    return AwaitCallbackResult.Received;
+                    return AwaitCallbackResult.Successed;
                 
                 return AwaitCallbackResult.Failed;
             }, 0xB06D);
@@ -153,7 +153,7 @@ namespace RSBot.Party.Bundle.PartyMatching
             var callback = new AwaitCallback(response =>
             {
                 partyList = PartyList.FromPacket(response);
-                return AwaitCallbackResult.Received;
+                return AwaitCallbackResult.Successed;
             }, 0xB06C);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, callback);

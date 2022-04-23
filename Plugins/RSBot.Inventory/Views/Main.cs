@@ -261,5 +261,14 @@ namespace RSBot.Inventory.Views
                 return;
             }*/
         }
+
+        private void listViewMain_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (GlobalConfig.Get<bool>("RSBot.DebugEnvironment") == false || listViewMain.SelectedItems.Count <= 0)
+                return;
+
+            var itemForm = new ItemProperties(listViewMain.SelectedItems[0].Tag as InventoryItem);
+            itemForm.Show();
+        }
     }
 }

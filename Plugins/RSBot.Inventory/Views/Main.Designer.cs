@@ -127,6 +127,7 @@
             this.listViewMain.UseCompatibleStateImageBehavior = false;
             this.listViewMain.View = System.Windows.Forms.View.Details;
             this.listViewMain.SelectedIndexChanged += new System.EventHandler(this.listViewMain_SelectedIndexChanged);
+            this.listViewMain.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listViewMain_MouseDoubleClick);
             // 
             // colName
             // 

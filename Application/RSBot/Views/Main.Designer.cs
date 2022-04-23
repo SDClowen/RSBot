@@ -1,4 +1,4 @@
-﻿using RSBot.Views.Controls;
+using RSBot.Views.Controls;
 using System.Windows.Forms;
 
 namespace RSBot.Views
@@ -475,7 +475,7 @@ namespace RSBot.Views
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
-            this.ClientSize = new System.Drawing.Size(1032, 616);
+            this.ClientSize = new System.Drawing.Size(1032, 724);
             this.ControlBox = false;
             this.Controls.Add(this.tabMain);
             this.Controls.Add(this.separator1);

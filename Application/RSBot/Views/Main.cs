@@ -53,6 +53,9 @@ namespace RSBot.Views
         /// <param name="index">The index.</param>
         private void SelectBotbase(int index)
         {
+            if (Kernel.Bot.Running)
+                return;
+
             if (menuBotbase.DropDownItems.Count <= index) return;
 
             var selectedBotbase = Kernel.BotbaseManager.Bots.ElementAt(index).Value;
@@ -61,19 +64,19 @@ namespace RSBot.Views
 
             selectedBotbase.Translate();
 
-            menuBotbase.Text = selectedBotbase.Info.DisplayName;
+            menuBotbase.Text =  selectedBotbase.Info.DisplayName;
             menuBotbase.Image = selectedBotbase.Info.Image;
             menuBotbase.Tag = selectedBotbase;
-            var tempHandle = tabMain.Handle; //Generate the handle for this bitch
+            _ = tabMain.Handle; //Generate the handle for the tab control
 
             if(Kernel.Bot?.Botbase != null)
                 tabMain.TabPages.RemoveByKey(Kernel.Bot.Botbase.Info.Name);
 
             //Add the tab to the tabcontrol
-            var tabPage = new TabPage(LanguageManager.GetLangBySpecificKey("RSBot.Default", "DisplayName"))
+            var tabPage = new TabPage(LanguageManager.GetLangBySpecificKey(selectedBotbase.Info.Name, "TabText"))
             {
                 Name = selectedBotbase.Info.Name,
-                Enabled = false
+                Enabled = false,
             };
             
             tabPage.BackColor = Color.FromArgb(200, BackColor);
@@ -150,7 +153,7 @@ namespace RSBot.Views
 
             foreach (var extension in extensions.Where(extension => !extension.Value.Information.DisplayAsTab))
             {
-                var menuItem = new ToolStripMenuItem(extension.Value.Information.DisplayName)
+                var menuItem = new ToolStripMenuItem(LanguageManager.GetLangBySpecificKey(extension.Value.Information.InternalName, "DisplayName"))
                 {
                     Enabled = !extension.Value.Information.RequireIngame
                 };
@@ -370,14 +373,6 @@ namespace RSBot.Views
 
             if (!Kernel.Bot.Running)
             {
-                var xsec = PlayerConfig.Get<float>("RSBot.Area.X", 0) != 0;
-                var ysec = PlayerConfig.Get<float>("RSBot.Area.Y", 0) != 0;
-                if (!xsec && !ysec)
-                {
-                    Log.WarnLang("ConfigureTrainingAreaBeforeStartBot");
-                    return;
-                }
-
                 Kernel.Bot.Start();
 
                 BotWindow.SetStatusTextLang("Running");

@@ -1,47 +1,60 @@
 ﻿using System;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace RSBot.Core.Network
 {
+    /// <summary>
+    /// The result of <see cref="AwaitCallback"/>-processing the received packet 
+    /// </summary>
     public enum AwaitCallbackResult
     {
         /// <summary>
         /// If your condition not equals with received packet.
         /// </summary>
-        None,
+        ConditionFailed = 0,
 
         /// <summary>
         /// If your condition successfully equal with received packet.
         /// </summary>
-        Received,
+        Successed,
 
         /// <summary>
-        /// If your packet responsed with error code.
+        /// If your received packet responsed with error code, or could not read required data from received.
         /// </summary>
-        Failed
+        Failed,
     }
+    
+    /// <summary>
+    /// Predicate delegate for <see cref="AwaitCallback"/> received packet
+    /// </summary>
+    /// <param name="packet">The received <see cref="Packet"/></param>
+    /// <returns><see cref="AwaitCallbackResult"/></returns>
+    public delegate AwaitCallbackResult AwaitCallbackPredicate(Packet packet);
 
+    /// <summary>
+    /// <see cref="AwaitCallback"/> is a callback with wait for response method.
+    /// </summary>
     public class AwaitCallback
     {
         /// <summary>
-        /// Gets the predicate.
+        /// Default value of timeout[millisecond].
         /// </summary>
-        /// <value>
-        /// The <seealso cref="Predicate{Packet}"/>.
-        /// </value>
-        private Func<Packet, AwaitCallbackResult> _predicate { get; }
-
+        private const int TIMEOUT_DEFAULT = 5_000;
         /// <summary>
-        /// Gets a value indicating whether this <see cref="AwaitCallback"/> is received.
+        /// Step value of timeout[millisecond].
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if received; otherwise, <c>false</c>.
-        /// </value>
-        public volatile bool Received;
-
+        private const int TIMEOUT_STEP = 10;
         /// <summary>
-        /// Gets or sets the response opcode.
+        /// Lock object.
+        /// </summary>
+        private readonly object _lock = new object();
+        
+        /// <summary>
+        /// Predicate for received packet
+        /// </summary>
+        private readonly AwaitCallbackPredicate Predicate;
+        /// <summary>
+        /// Gets the response opcode.
         /// </summary>
         /// <value>
         /// The response opcode.
@@ -49,81 +62,145 @@ namespace RSBot.Core.Network
         public ushort ResponseOpcode { get; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="AwaitCallback"/> is timeout.
+        /// The value indicating whether the <see cref="AwaitCallback"/> is invoked.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if timeout; otherwise, <c>false</c>.
+        /// <c>true</c> if invoked; otherwise <c>false</c>.
         /// </value>
-        public bool Timeout { get; set; }
-
+        private bool _invoked;
         /// <summary>
-        /// Gets a value indicating whether this <see cref="AwaitCallback"/> is completed.
+        /// The value indicating whether the <see cref="AwaitCallback"/> is timeout.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if completed; otherwise, <c>false</c>.
+        /// <c>true</c> if timeout; otherwise <c>false</c>.
         /// </value>
-        public bool IsCompleted => !Timeout && Received;
+        private bool _timeout;
+        /// <summary>
+        /// The value indicating whether the <see cref="AwaitCallback"/> is successed.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if successed; otherwise <c>false</c>.
+        /// </value>
+        private bool _successed;
+        /// <summary>
+        /// The value indicating whether the <see cref="AwaitCallback"/> is waited for response.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if waited; otherwise <c>false</c>.
+        /// </value>
+        private bool _waited;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AwaitCallback" /> class.
+        /// Gets the value indicating whether the <see cref="AwaitCallback"/> is completed.
         /// </summary>
-        /// <param name="predicate">The <seealso cref="Predicate{Packet}"/>.</param>
-        /// <param name="responseOpcode">The response opcode.</param>
-        public AwaitCallback(Func<Packet, AwaitCallbackResult> predicate, ushort responseOpcode)
+        /// <value>
+        /// <c>true</c> if completed(not timeout and invoked and successed); otherwise <c>false</c>.
+        /// </value>
+        public bool IsCompleted
         {
-            _predicate = predicate;
-            ResponseOpcode = responseOpcode;
+            get
+            {
+                var temp = false;
+                lock (_lock) { temp = !_timeout && _invoked && _successed; }
+
+                return temp;
+            }
+        }
+        /// <summary>
+        /// Gets the value indicating whether the <see cref="AwaitCallback"/> is closed.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if closed(timeout or invoked); otherwise, <c>false</c>.
+        /// </value>
+        public bool IsClosed
+        {
+            get
+            {
+                var temp = false;
+                lock (_lock) { temp = _timeout || _invoked; }
+
+                return temp;
+            }
         }
 
         /// <summary>
-        /// Invokes the specified packet.
+        /// Constructor of the <see cref="AwaitCallback"/> class.
         /// </summary>
-        /// <param name="packet">The packet.</param>
+        /// <param name="predicate">The <see cref="AwaitCallbackPredicate"/>.</param>
+        /// <param name="responseOpcode">The response opcode.</param>
+        public AwaitCallback(AwaitCallbackPredicate predicate, ushort responseOpcode)
+        {
+            Predicate = predicate;
+            ResponseOpcode = responseOpcode;
+            
+            _invoked = _timeout =_successed = _waited = false;
+        }
+
+        /// <summary>
+        /// Invokes this <see cref="AwaitCallback"/> instance.
+        /// </summary>
+        /// <param name="packet">The received <see cref="Packet"/>.</param>
         internal void Invoke(Packet packet)
         {
-            if (_predicate == null)
-                Received = true;
-            else
+            lock (_lock)
             {
-                var result = _predicate(packet);
-                switch (result)
-                {
-                    case AwaitCallbackResult.Received:
-                        Received = true;
-                        break;
+                _invoked = true;
 
-                    case AwaitCallbackResult.Failed:
-                        Received = true;
-                        Timeout = true;
-                        break;
+                if (Predicate == null)
+                    _successed = true;
+                else
+                {
+                    AwaitCallbackResult result = AwaitCallbackResult.Failed;
+                    try { result = Predicate(packet); } catch { }
+
+                    switch (result)
+                    {
+                        case AwaitCallbackResult.Successed:
+                            _successed = true;
+                            break;
+                        case AwaitCallbackResult.ConditionFailed:
+                        case AwaitCallbackResult.Failed:
+                            _successed = false;
+                            break;
+                    }
                 }
             }
         }
 
         /// <summary>
-        /// Waits for response.
+        /// Waits for the first response.<br/>
+        /// If you call it one more time, then it does nothing.
         /// </summary>
-        /// <param name="timeOut">The timeout.</param>
+        /// <param name="milliseconds">The timeout in milliseconds, default value is <see cref="TIMEOUT_DEFAULT"/>.</param>
         /// <returns></returns>
-        public void AwaitResponse(int timeOut = 5000)
+        public void AwaitResponse(int milliseconds = TIMEOUT_DEFAULT)
         {
+            if (_waited)
+                return;
+            _waited = true;
+
+            if (milliseconds < TIMEOUT_STEP)
+                milliseconds = TIMEOUT_STEP;
+
             Task.Run(async () =>
             {
-                while (!Received)
+                var invoked = false;
+                do
                 {
-                    await Task.Delay(10);
-                    timeOut -= 10;
+                    await Task.Delay(TIMEOUT_STEP);
+                    milliseconds -= 10;
 
-                    if (timeOut > 10)
-                        continue;
+                    lock (_lock) { invoked = _invoked; }
+                } while (!invoked && milliseconds > 0);
+            }).Wait();
 
-                    Timeout = true;
-                    Log.Notify("Callback timeout 0x" + ResponseOpcode.ToString("X"));
+            lock (_lock)
+            {
+                _timeout = !_invoked;
 
-                    return;
-                }
-            })
-            .Wait(timeOut);
+                if (_timeout)
+                    Log.Notify($"Callback timeout, ResponseOpcode: 0x{ResponseOpcode:X}");
+            }
         }
     }
 }

@@ -76,7 +76,7 @@ namespace RSBot.Core.Objects
             var awaitCallback = new AwaitCallback(response =>
             {
                 return response.ReadUInt() == UniqueId 
-                ? AwaitCallbackResult.Received : AwaitCallbackResult.None;
+                ? AwaitCallbackResult.Successed : AwaitCallbackResult.ConditionFailed;
             }, 0xB021);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallback);

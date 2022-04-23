@@ -302,12 +302,12 @@ namespace RSBot.Core.Objects
                 {
                     var operation = response.ReadByte();
                     if (operation != 0)
-                        return AwaitCallbackResult.None;
+                        return AwaitCallbackResult.ConditionFailed;
 
                     var source = response.ReadByte();
                     var destination = response.ReadByte();
                     if (source == sourceSlot && destination == destinationSlot)
-                        return AwaitCallbackResult.Received;
+                        return AwaitCallbackResult.Successed;
                 }
 
                 return AwaitCallbackResult.Failed;

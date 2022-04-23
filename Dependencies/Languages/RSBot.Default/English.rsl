@@ -1,4 +1,5 @@
 DisplayName="Training"
+TabText="Training"
 RSBot.Default.Main.GroupBox.checkUseSpeedDrug="Use speed drug"
 RSBot.Default.Main.GroupBox.checkCastBuffs="Cast buffs"
 RSBot.Default.Main.GroupBox.checkUseMount="Use mount if available"

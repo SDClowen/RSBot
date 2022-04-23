@@ -52,7 +52,9 @@ namespace RSBot.Core.Objects.Spawn
         public SpawnedBionic(uint objId)
         {
             Id = objId;
-            Health = Record.MaxHealth;
+
+            if (Record != null)
+                Health = Record.MaxHealth;
         }
 
         /// <summary>
@@ -117,7 +119,7 @@ namespace RSBot.Core.Objects.Spawn
                     Log.Debug($"Could not select entity 0x{response.ReadByte():X}");
 
                 return result
-                    ? AwaitCallbackResult.Received : AwaitCallbackResult.Failed;
+                    ? AwaitCallbackResult.Successed : AwaitCallbackResult.Failed;
             }, 0xB045);
             PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallback);
             awaitCallback.AwaitResponse();
