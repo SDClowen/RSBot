@@ -208,6 +208,7 @@ namespace RSBot.Core.Objects
             if (item.Record == null)
             {
                 Log.Notify("No item found for " + item.ItemId);
+
                 return null;
             }
             if (item.Record.TypeID1 == 3)

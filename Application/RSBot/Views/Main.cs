@@ -76,7 +76,7 @@ namespace RSBot.Views
             var tabPage = new TabPage(LanguageManager.GetLangBySpecificKey(selectedBotbase.Info.Name, "TabText"))
             {
                 Name = selectedBotbase.Info.Name,
-                Enabled = false,
+                Enabled = Game.Player != null
             };
             
             tabPage.BackColor = Color.FromArgb(200, BackColor);
@@ -88,12 +88,14 @@ namespace RSBot.Views
             Kernel.Bot.SetBotbase(selectedBotbase);
             GlobalConfig.Set("RSBot.BotIndex", index.ToString());
 
-            var info = new TabDisabledInfo { Name = "overlay", Location = new Point(tabMain.Width / 2 - 110, tabMain.Height - 150) };
-            tabPage.Controls.Add(info);
+            if (Game.Player == null) {
+                var info = new TabDisabledInfo { Name = "overlay", Location = new Point(tabMain.Width / 2 - 110, tabMain.Height - 150) };
+                tabPage.Controls.Add(info);
+                //So we can see it at least..
+                //control.BringToFront();
+                info.BringToFront();
+            }
 
-            //So we can see it at least..
-            //control.BringToFront();
-            info.BringToFront();
         }
 
         /// <summary>

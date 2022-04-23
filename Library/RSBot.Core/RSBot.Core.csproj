@@ -53,6 +53,10 @@
     <Compile Include="ClientManager.cs" />
     <Compile Include="Client\DDSImage.cs" />
     <Compile Include="Client\IReference.cs" />
+    <Compile Include="Client\ReferenceObjects\AlchemyAction.cs" />
+    <Compile Include="Client\ReferenceObjects\AlchemyType.cs" />
+    <Compile Include="Client\ReferenceObjects\RefMagicOpt.cs" />
+    <Compile Include="Client\ReferenceObjects\RefMagicOptAssign.cs" />
     <Compile Include="Client\ReferenceObjects\RefPackageItemScrap.cs" />
     <Compile Include="Client\ReferenceObjects\RefText.cs" />
     <Compile Include="Client\ReferenceParser.cs" />
@@ -71,6 +75,14 @@
     <Compile Include="Extensions\SocketExtensions.cs" />
     <Compile Include="GameClientType.cs" />
     <Compile Include="LanguageManager.cs" />
+    <Compile Include="Network\Handler\Agent\Alchemy\ElixirAckResponseHandler.cs" />
+    <Compile Include="Network\Handler\Agent\Alchemy\GenericAlchemyAckResponse.cs" />
+    <Compile Include="Network\Handler\Agent\Alchemy\MagicOptionGrantResponse.cs" />
+    <Compile Include="Network\Handler\Agent\Alchemy\MagicOptionUpdateResponse.cs" />
+    <Compile Include="Network\Handler\Agent\Alchemy\StoneFuseRequestHandler.cs" />
+    <Compile Include="Network\Handler\Agent\Alchemy\ElixirFuseRequestHandler.cs" />
+    <Compile Include="Network\Handler\Agent\Alchemy\GenericAlchemyRequestHandler.cs" />
+    <Compile Include="Network\Handler\Agent\Alchemy\StoneAckResponseHandler.cs" />
     <Compile Include="Network\Handler\Agent\Entity\EntitySourcePositionUpdate.cs" />
     <Compile Include="Network\Handler\Agent\Entity\EntityUpdateStatusFlag.cs" />
     <Compile Include="Network\Handler\Agent\Exchange\ExchangeApprovedResponse.cs" />
