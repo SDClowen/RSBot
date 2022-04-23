@@ -219,16 +219,16 @@ namespace RSBot.Core.Network
                     Listen();
                 }
             }
-            catch (HandshakeSecurityException)
+            catch (HandshakeSecurityException ex)
             {
-                Log.Notify("[Fatal]: Could not handshake the client, restarting client process now...");
+                Log.Error("[Fatal]: Could not handshake the client, restarting client process now...");
                 Game.Start();
             }
             finally
             {
                 try
                 {
-                    if(_socket.Connected)
+                    if(_socket != null && _socket.Connected)
                         _socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, OnBeginReceiveCallback, null);
                 }
                 catch
