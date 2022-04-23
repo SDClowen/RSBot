@@ -59,17 +59,17 @@ namespace RSBot.Views
             if (menuBotbase.DropDownItems.Count <= index) return;
 
             var selectedBotbase = Kernel.BotbaseManager.Bots.ElementAt(index).Value;
-            if (selectedBotbase == null) 
+            if (selectedBotbase == null)
                 return;
 
             selectedBotbase.Translate();
 
-            menuBotbase.Text =  selectedBotbase.Info.DisplayName;
+            menuBotbase.Text = selectedBotbase.Info.DisplayName;
             menuBotbase.Image = selectedBotbase.Info.Image;
             menuBotbase.Tag = selectedBotbase;
             _ = tabMain.Handle; //Generate the handle for the tab control
 
-            if(Kernel.Bot?.Botbase != null)
+            if (Kernel.Bot?.Botbase != null)
                 tabMain.TabPages.RemoveByKey(Kernel.Bot.Botbase.Info.Name);
 
             //Add the tab to the tabcontrol
@@ -78,7 +78,7 @@ namespace RSBot.Views
                 Name = selectedBotbase.Info.Name,
                 Enabled = Game.Player != null
             };
-            
+
             tabPage.BackColor = Color.FromArgb(200, BackColor);
             tabPage.ForeColor = ForeColor;
             tabPage.Controls.Add(selectedBotbase.GetView());
@@ -88,11 +88,13 @@ namespace RSBot.Views
             Kernel.Bot.SetBotbase(selectedBotbase);
             GlobalConfig.Set("RSBot.BotIndex", index.ToString());
 
-            if (Game.Player == null) {
-                var info = new InfoControl { 
-                  Name = "overlay", 
-                  Text = LanguageManager.GetLang("PleaseEnterGame"), 
-                  Location = new Point(tabMain.Width / 2 - 110, tabMain.Height - 150) 
+            if (Game.Player == null)
+            {
+                var info = new InfoControl
+                {
+                    Name = "overlay",
+                    Text = LanguageManager.GetLang("PleaseEnterGame"),
+                    Location = new Point(tabMain.Width / 2 - 110, tabMain.Height - 150),
                 };
 
                 tabPage.Controls.Add(info);
@@ -135,7 +137,7 @@ namespace RSBot.Views
                 tabPage.Controls.Add(control);
                 tabMain.TabPages.Add(tabPage);
 
-                if (tabPage.Enabled) 
+                if (tabPage.Enabled)
                     continue;
 
                 var info = new InfoControl
@@ -298,7 +300,7 @@ namespace RSBot.Views
                 dropdown.Click += LanguageDropdown_Click;
                 languageToolStripMenuItem.DropDownItems.Add(dropdown);
 
-                if(Kernel.Language.ToString() == dropdown.Text)
+                if (Kernel.Language.ToString() == dropdown.Text)
                     dropdown.Checked = true;
             }
 
