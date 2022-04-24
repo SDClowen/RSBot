@@ -85,9 +85,9 @@ namespace RSBot.Bot.Default
         /// </summary>
         public void Start()
         {
-            var xsec = PlayerConfig.Get<float>("RSBot.Area.X", 0) != 0;
-            var ysec = PlayerConfig.Get<float>("RSBot.Area.Y", 0) != 0;
-            if (!xsec && !ysec)
+            var x = PlayerConfig.Get<float>("RSBot.Area.X", 0);
+            var y = PlayerConfig.Get<float>("RSBot.Area.Y", 0);
+            if (x == 0 && y == 0)
             {
                 Log.WarnLang("ConfigureTrainingAreaBeforeStartBot");
                 Kernel.Bot.Stop();
