@@ -115,11 +115,10 @@ namespace RSBot.Core.Objects.Spawn
             var awaitCallback = new AwaitCallback(response =>
             {
                 var result = response.ReadByte() == 0x01;
-                if (!result)
-                    Log.Debug($"Could not select entity 0x{response.ReadByte():X}");
+                if(result)
+                    return response.ReadUInt() == UniqueId ? AwaitCallbackResult.Successed : AwaitCallbackResult.ConditionFailed;
 
-                return result
-                    ? AwaitCallbackResult.Successed : AwaitCallbackResult.Failed;
+                return AwaitCallbackResult.Failed;
             }, 0xB045);
             PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallback);
             awaitCallback.AwaitResponse();
@@ -139,7 +138,12 @@ namespace RSBot.Core.Objects.Spawn
             packet.WriteUInt(UniqueId);
             packet.Lock();
 
-            var awaitResult = new AwaitCallback(null, 0xB04B);
+            var awaitResult = new AwaitCallback(response =>
+                response.ReadByte() == 1 ? 
+                AwaitCallbackResult.Successed : 
+                AwaitCallbackResult.ConditionFailed
+            , 0xB04B);
+
             PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
             awaitResult.AwaitResponse();
 

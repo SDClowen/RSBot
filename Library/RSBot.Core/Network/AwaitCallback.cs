@@ -101,7 +101,10 @@ namespace RSBot.Core.Network
             get
             {
                 var temp = false;
-                lock (_lock) { temp = !_timeout && _invoked && _successed; }
+                lock (_lock) 
+                { 
+                    temp = !_timeout && _invoked && _successed; 
+                }
 
                 return temp;
             }
