@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Threading;
 using System.Threading.Tasks;
 
 namespace RSBot.Core.Network
@@ -153,8 +153,12 @@ namespace RSBot.Core.Network
                     _successed = true;
                 else
                 {
-                    AwaitCallbackResult result = AwaitCallbackResult.Failed;
-                    try { result = Predicate(packet); } catch { }
+                    var result = AwaitCallbackResult.Failed;
+
+                    try { 
+                        result = Predicate(packet); 
+                    } 
+                    catch { }
 
                     switch (result)
                     {
@@ -180,30 +184,35 @@ namespace RSBot.Core.Network
         {
             if (_waited)
                 return;
+
             _waited = true;
 
             if (milliseconds < TIMEOUT_STEP)
                 milliseconds = TIMEOUT_STEP;
 
-            Task.Run(async () =>
+            Task.Factory.StartNew(() =>
             {
                 var invoked = false;
                 do
                 {
-                    await Task.Delay(TIMEOUT_STEP);
-                    milliseconds -= 10;
+                    Thread.Sleep(TIMEOUT_STEP);
+                    milliseconds -= TIMEOUT_STEP;
 
-                    lock (_lock) { invoked = _invoked; }
+                    lock (_lock) 
+                    { 
+                        invoked = _invoked;
+                    }
                 } while (!invoked && milliseconds > 0);
+
+                lock (_lock)
+                {
+                    _timeout = !_invoked;
+
+                    if (_timeout)
+                        Log.Error($"Callback timeout, ResponseOpcode: 0x{ResponseOpcode:X}");
+                }
+
             }).Wait();
-
-            lock (_lock)
-            {
-                _timeout = !_invoked;
-
-                if (_timeout)
-                    Log.Notify($"Callback timeout, ResponseOpcode: 0x{ResponseOpcode:X}");
-            }
         }
     }
 }

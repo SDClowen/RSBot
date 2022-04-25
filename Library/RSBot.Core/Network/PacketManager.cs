@@ -77,7 +77,9 @@ namespace RSBot.Core.Network
         /// <param name="destination">The destination.</param>
         internal static void CallHandler(Packet packet, PacketDestination destination)
         {
-            if (Handlers == null) return;
+            if (Handlers == null) 
+                return;
+
             foreach (var handler in Handlers.Where(handler => handler != null && handler.Opcode == packet.Opcode && handler.Destination == destination))
             {
                 handler.Invoke(packet);
@@ -93,7 +95,8 @@ namespace RSBot.Core.Network
         /// <returns></returns>
         internal static Packet CallHook(Packet packet, PacketDestination destination)
         {
-            if (Hooks == null || packet == null) return packet;
+            if (Hooks == null || packet == null) 
+                return packet;
 
             foreach (var hook in Hooks.Where(hook => packet != null && (hook.Opcode == packet.Opcode && hook.Destination == destination)))
                 packet = hook.ReplacePacket(packet);
@@ -109,12 +112,6 @@ namespace RSBot.Core.Network
         {
             lock (_lock)
             {
-                if (packet == null) 
-                    return;
-
-                if (!packet.Locked) 
-                    packet.Lock();
-
                 var tempCallbacks = _callbacks.Where(c => c.ResponseOpcode == packet.Opcode);
 
                 foreach (var callback in tempCallbacks)
