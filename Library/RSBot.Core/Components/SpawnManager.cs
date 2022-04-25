@@ -78,7 +78,7 @@ namespace RSBot.Core.Components
         {
             lock (_lock)
             {
-                entities = _entities.Where(p => p is T).Cast<T>();
+                entities = _entities.FindAll(p => p is T).Cast<T>();
 
                 return entities != null;
             }
