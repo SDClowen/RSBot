@@ -19,7 +19,7 @@ namespace RSBot.Statistics.Stats.Calculators.Live
         /// <summary>
         /// The current tick index
         /// </summary>
-        private int _currentTickIndex;
+        private int _currentTickIndex = -1;
 
         /// <inheritdoc />
         public string Name => "EXPPerHour";
@@ -45,10 +45,10 @@ namespace RSBot.Statistics.Stats.Calculators.Live
             var currentPercent = ((double)Game.Player.Experience /
                                      (double)Game.ReferenceManager.GetRefLevel(Game.Player.Level).Exp_C) * 100;
 
-            _values[_currentTickIndex] = currentPercent - _lastTickValue;
             if (++_currentTickIndex >= _values.Length)
                 _currentTickIndex = 0;
 
+            _values[_currentTickIndex] = currentPercent - _lastTickValue;
             _lastTickValue = currentPercent;
 
             return Math.Round(_values.Sum(val => val) / _values.Length * 3600, 2);

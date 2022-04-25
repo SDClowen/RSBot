@@ -29,6 +29,7 @@ namespace RSBot.Statistics
         public void Initialize()
         {
             CalculatorRegistry.Initialize();
+            Views.View.Instance = new Views.Main();
         }
 
         /// <summary>
@@ -38,7 +39,7 @@ namespace RSBot.Statistics
         /// <exception cref="System.NotImplementedException"></exception>
         public Control GetView()
         {
-            return new Views.Main();
+            return Views.View.Instance;
         }
 
         /// <summary>

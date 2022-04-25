@@ -66,18 +66,18 @@
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
             this.splitContainer1.Panel2.Padding = new System.Windows.Forms.Padding(10);
             this.splitContainer1.Size = new System.Drawing.Size(762, 506);
-            this.splitContainer1.SplitterDistance = 254;
+            this.splitContainer1.SplitterDistance = 255;
             this.splitContainer1.TabIndex = 0;
             // 
             // panelStaticFilters
             // 
             this.panelStaticFilters.BackColor = System.Drawing.Color.Transparent;
             this.panelStaticFilters.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelStaticFilters.Location = new System.Drawing.Point(10, 206);
+            this.panelStaticFilters.Location = new System.Drawing.Point(10, 218);
             this.panelStaticFilters.Name = "panelStaticFilters";
-            this.panelStaticFilters.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.panelStaticFilters.Radius = 1;
-            this.panelStaticFilters.Size = new System.Drawing.Size(234, 178);
+            this.panelStaticFilters.Padding = new System.Windows.Forms.Padding(8, 10, 3, 10);
+            this.panelStaticFilters.Radius = 2;
+            this.panelStaticFilters.Size = new System.Drawing.Size(235, 190);
             this.panelStaticFilters.TabIndex = 9;
             this.panelStaticFilters.TabStop = false;
             this.panelStaticFilters.Text = "Tracking";
@@ -86,9 +86,9 @@
             // 
             this.separator1.Dock = System.Windows.Forms.DockStyle.Top;
             this.separator1.IsVertical = false;
-            this.separator1.Location = new System.Drawing.Point(10, 188);
+            this.separator1.Location = new System.Drawing.Point(10, 200);
             this.separator1.Name = "separator1";
-            this.separator1.Size = new System.Drawing.Size(234, 18);
+            this.separator1.Size = new System.Drawing.Size(235, 18);
             this.separator1.TabIndex = 10;
             this.separator1.Text = "separator1";
             // 
@@ -98,9 +98,9 @@
             this.panelLiveFilters.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelLiveFilters.Location = new System.Drawing.Point(10, 10);
             this.panelLiveFilters.Name = "panelLiveFilters";
-            this.panelLiveFilters.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.panelLiveFilters.Radius = 1;
-            this.panelLiveFilters.Size = new System.Drawing.Size(234, 178);
+            this.panelLiveFilters.Padding = new System.Windows.Forms.Padding(8, 10, 3, 10);
+            this.panelLiveFilters.Radius = 2;
+            this.panelLiveFilters.Size = new System.Drawing.Size(235, 190);
             this.panelLiveFilters.TabIndex = 1;
             this.panelLiveFilters.TabStop = false;
             this.panelLiveFilters.Text = "Prognosis";
@@ -125,7 +125,7 @@
             this.lvStatistics.HideSelection = false;
             this.lvStatistics.Location = new System.Drawing.Point(10, 10);
             this.lvStatistics.Name = "lvStatistics";
-            this.lvStatistics.Size = new System.Drawing.Size(484, 451);
+            this.lvStatistics.Size = new System.Drawing.Size(483, 451);
             this.lvStatistics.TabIndex = 0;
             this.lvStatistics.UseCompatibleStateImageBehavior = false;
             this.lvStatistics.View = System.Windows.Forms.View.Details;
@@ -148,7 +148,7 @@
             this.panel1.Location = new System.Drawing.Point(10, 461);
             this.panel1.Name = "panel1";
             this.panel1.Radius = 0;
-            this.panel1.Size = new System.Drawing.Size(484, 35);
+            this.panel1.Size = new System.Drawing.Size(483, 35);
             this.panel1.TabIndex = 2;
             // 
             // btnReset
@@ -156,6 +156,7 @@
             this.btnReset.Color = System.Drawing.Color.Transparent;
             this.btnReset.Location = new System.Drawing.Point(401, 6);
             this.btnReset.Name = "btnReset";
+            this.btnReset.Radius = 1;
             this.btnReset.Size = new System.Drawing.Size(75, 23);
             this.btnReset.TabIndex = 0;
             this.btnReset.Text = "Reset ";
