@@ -67,7 +67,7 @@ namespace RSBot.Party.Bundle.AutoParty
         public void OnTick()
         {
             var elapsed = Environment.TickCount - _lastTick;
-            if (elapsed > 1000)
+            if (elapsed > 5000)
             {
                 CheckForPlayers();
                 _lastTick = Environment.TickCount;

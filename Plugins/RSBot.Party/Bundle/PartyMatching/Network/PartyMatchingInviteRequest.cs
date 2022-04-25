@@ -19,7 +19,11 @@ namespace RSBot.Party.Bundle.PartyMatching.Network
             //var unkByte0 = packet.ReadByte();
             //var member = PartyMember.FromPacket(packet);
 
-            var requestPacket = new Packet(0x306E);
+            ushort opcode = 0x306E;
+            if (Game.ClientType > GameClientType.Chinese)
+                opcode = 0x308D;
+
+            var requestPacket = new Packet(opcode);
             requestPacket.WriteUInt(requestID);
             requestPacket.WriteUInt(requestType);
             requestPacket.WriteByte(Container.PartyMatching.Config.AutoAccept ? 1 : 2);

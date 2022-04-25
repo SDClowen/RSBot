@@ -308,6 +308,7 @@
             this.btnLeaveParty.ForeColor = System.Drawing.Color.White;
             this.btnLeaveParty.Location = new System.Drawing.Point(637, 6);
             this.btnLeaveParty.Name = "btnLeaveParty";
+            this.btnLeaveParty.Radius = 2;
             this.btnLeaveParty.Size = new System.Drawing.Size(97, 20);
             this.btnLeaveParty.TabIndex = 2;
             this.btnLeaveParty.Text = "Leave party";
@@ -343,7 +344,7 @@
             this.grpPartySettings.Location = new System.Drawing.Point(3, 3);
             this.grpPartySettings.Name = "grpPartySettings";
             this.grpPartySettings.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.grpPartySettings.Radius = 1;
+            this.grpPartySettings.Radius = 2;
             this.grpPartySettings.Size = new System.Drawing.Size(740, 80);
             this.grpPartySettings.TabIndex = 7;
             this.grpPartySettings.TabStop = false;
@@ -415,7 +416,7 @@
             this.groupBox2.Location = new System.Drawing.Point(234, 93);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBox2.Radius = 1;
+            this.groupBox2.Radius = 2;
             this.groupBox2.Size = new System.Drawing.Size(509, 342);
             this.groupBox2.TabIndex = 11;
             this.groupBox2.TabStop = false;
@@ -589,7 +590,7 @@
             this.groupBox7.Location = new System.Drawing.Point(0, 189);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
-            this.groupBox7.Radius = 1;
+            this.groupBox7.Radius = 2;
             this.groupBox7.Size = new System.Drawing.Size(221, 153);
             this.groupBox7.TabIndex = 13;
             this.groupBox7.TabStop = false;
@@ -633,6 +634,7 @@
             this.buttonCommandPlayerAdd.Color = System.Drawing.Color.Transparent;
             this.buttonCommandPlayerAdd.Location = new System.Drawing.Point(5, 5);
             this.buttonCommandPlayerAdd.Name = "buttonCommandPlayerAdd";
+            this.buttonCommandPlayerAdd.Radius = 2;
             this.buttonCommandPlayerAdd.Size = new System.Drawing.Size(82, 23);
             this.buttonCommandPlayerAdd.TabIndex = 10;
             this.buttonCommandPlayerAdd.Text = "Add";
@@ -644,6 +646,7 @@
             this.buttonCommandPlayerRemove.Color = System.Drawing.Color.Transparent;
             this.buttonCommandPlayerRemove.Location = new System.Drawing.Point(137, 5);
             this.buttonCommandPlayerRemove.Name = "buttonCommandPlayerRemove";
+            this.buttonCommandPlayerRemove.Radius = 2;
             this.buttonCommandPlayerRemove.Size = new System.Drawing.Size(78, 23);
             this.buttonCommandPlayerRemove.TabIndex = 10;
             this.buttonCommandPlayerRemove.Text = "Remove";
@@ -668,7 +671,7 @@
             this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
-            this.groupBox3.Radius = 1;
+            this.groupBox3.Radius = 2;
             this.groupBox3.Size = new System.Drawing.Size(221, 179);
             this.groupBox3.TabIndex = 12;
             this.groupBox3.TabStop = false;
@@ -712,6 +715,7 @@
             this.btnAddToAutoParty.Color = System.Drawing.Color.Transparent;
             this.btnAddToAutoParty.Location = new System.Drawing.Point(5, 4);
             this.btnAddToAutoParty.Name = "btnAddToAutoParty";
+            this.btnAddToAutoParty.Radius = 2;
             this.btnAddToAutoParty.Size = new System.Drawing.Size(82, 23);
             this.btnAddToAutoParty.TabIndex = 10;
             this.btnAddToAutoParty.Text = "Add";
@@ -723,6 +727,7 @@
             this.btnRemoveFromAutoParty.Color = System.Drawing.Color.Transparent;
             this.btnRemoveFromAutoParty.Location = new System.Drawing.Point(138, 4);
             this.btnRemoveFromAutoParty.Name = "btnRemoveFromAutoParty";
+            this.btnRemoveFromAutoParty.Radius = 2;
             this.btnRemoveFromAutoParty.Size = new System.Drawing.Size(78, 23);
             this.btnRemoveFromAutoParty.TabIndex = 10;
             this.btnRemoveFromAutoParty.Text = "Remove";
@@ -748,7 +753,7 @@
             this.grbAutoPartySettings.Location = new System.Drawing.Point(3, 3);
             this.grbAutoPartySettings.Name = "grbAutoPartySettings";
             this.grbAutoPartySettings.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.grbAutoPartySettings.Radius = 1;
+            this.grbAutoPartySettings.Radius = 2;
             this.grbAutoPartySettings.Size = new System.Drawing.Size(740, 80);
             this.grbAutoPartySettings.TabIndex = 8;
             this.grbAutoPartySettings.TabStop = false;
@@ -882,6 +887,7 @@
             this.btnPartyRefresh.Color = System.Drawing.Color.Transparent;
             this.btnPartyRefresh.Location = new System.Drawing.Point(621, 12);
             this.btnPartyRefresh.Name = "btnPartyRefresh";
+            this.btnPartyRefresh.Radius = 2;
             this.btnPartyRefresh.Size = new System.Drawing.Size(85, 21);
             this.btnPartyRefresh.TabIndex = 4;
             this.btnPartyRefresh.Text = "Refresh";
@@ -892,6 +898,7 @@
             this.btnPartySearch.Color = System.Drawing.Color.Transparent;
             this.btnPartySearch.Location = new System.Drawing.Point(515, 13);
             this.btnPartySearch.Name = "btnPartySearch";
+            this.btnPartySearch.Radius = 2;
             this.btnPartySearch.Size = new System.Drawing.Size(87, 21);
             this.btnPartySearch.TabIndex = 4;
             this.btnPartySearch.Text = "Search";
@@ -1035,6 +1042,7 @@
             this.btnPartyMatchDeleteEntry.Enabled = false;
             this.btnPartyMatchDeleteEntry.Location = new System.Drawing.Point(635, 14);
             this.btnPartyMatchDeleteEntry.Name = "btnPartyMatchDeleteEntry";
+            this.btnPartyMatchDeleteEntry.Radius = 2;
             this.btnPartyMatchDeleteEntry.Size = new System.Drawing.Size(87, 23);
             this.btnPartyMatchDeleteEntry.TabIndex = 16;
             this.btnPartyMatchDeleteEntry.Text = "Delete Entry";
@@ -1046,6 +1054,7 @@
             this.btnPartyMatchChangeEntry.Enabled = false;
             this.btnPartyMatchChangeEntry.Location = new System.Drawing.Point(542, 14);
             this.btnPartyMatchChangeEntry.Name = "btnPartyMatchChangeEntry";
+            this.btnPartyMatchChangeEntry.Radius = 2;
             this.btnPartyMatchChangeEntry.Size = new System.Drawing.Size(87, 23);
             this.btnPartyMatchChangeEntry.TabIndex = 15;
             this.btnPartyMatchChangeEntry.Text = "Change Entry";
@@ -1056,6 +1065,7 @@
             this.btnPartyMatchForm.Color = System.Drawing.Color.Transparent;
             this.btnPartyMatchForm.Location = new System.Drawing.Point(445, 14);
             this.btnPartyMatchForm.Name = "btnPartyMatchForm";
+            this.btnPartyMatchForm.Radius = 2;
             this.btnPartyMatchForm.Size = new System.Drawing.Size(90, 23);
             this.btnPartyMatchForm.TabIndex = 14;
             this.btnPartyMatchForm.Text = "Form Party";
@@ -1067,6 +1077,7 @@
             this.btnAutoMatchParty.Enabled = false;
             this.btnAutoMatchParty.Location = new System.Drawing.Point(180, 14);
             this.btnAutoMatchParty.Name = "btnAutoMatchParty";
+            this.btnAutoMatchParty.Radius = 2;
             this.btnAutoMatchParty.Size = new System.Drawing.Size(96, 23);
             this.btnAutoMatchParty.TabIndex = 10;
             this.btnAutoMatchParty.Text = "Auto Match";
@@ -1077,6 +1088,7 @@
             this.btnWhisperPartyMaster.Enabled = false;
             this.btnWhisperPartyMaster.Location = new System.Drawing.Point(99, 14);
             this.btnWhisperPartyMaster.Name = "btnWhisperPartyMaster";
+            this.btnWhisperPartyMaster.Radius = 2;
             this.btnWhisperPartyMaster.Size = new System.Drawing.Size(75, 23);
             this.btnWhisperPartyMaster.TabIndex = 9;
             this.btnWhisperPartyMaster.Text = "Whisper";
@@ -1086,6 +1098,7 @@
             this.btnJoinFormedParty.Color = System.Drawing.Color.Transparent;
             this.btnJoinFormedParty.Location = new System.Drawing.Point(18, 14);
             this.btnJoinFormedParty.Name = "btnJoinFormedParty";
+            this.btnJoinFormedParty.Radius = 2;
             this.btnJoinFormedParty.Size = new System.Drawing.Size(75, 23);
             this.btnJoinFormedParty.TabIndex = 8;
             this.btnJoinFormedParty.Text = "Join Party";
@@ -1099,6 +1112,7 @@
             this.btnPrev.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnPrev.Location = new System.Drawing.Point(315, 14);
             this.btnPrev.Name = "btnPrev";
+            this.btnPrev.Radius = 2;
             this.btnPrev.Size = new System.Drawing.Size(23, 23);
             this.btnPrev.TabIndex = 11;
             this.btnPrev.Text = "◀";
@@ -1112,6 +1126,7 @@
             this.btnNext.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnNext.Location = new System.Drawing.Point(387, 14);
             this.btnNext.Name = "btnNext";
+            this.btnNext.Radius = 2;
             this.btnNext.Size = new System.Drawing.Size(23, 23);
             this.btnNext.TabIndex = 12;
             this.btnNext.Text = "▶";
@@ -1156,7 +1171,7 @@
             this.groupBox4.Location = new System.Drawing.Point(283, 191);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
-            this.groupBox4.Radius = 1;
+            this.groupBox4.Radius = 2;
             this.groupBox4.Size = new System.Drawing.Size(214, 241);
             this.groupBox4.TabIndex = 11;
             this.groupBox4.TabStop = false;
@@ -1169,6 +1184,7 @@
             this.btnAddBuffToMember.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddBuffToMember.Location = new System.Drawing.Point(4, 213);
             this.btnAddBuffToMember.Name = "btnAddBuffToMember";
+            this.btnAddBuffToMember.Radius = 2;
             this.btnAddBuffToMember.Size = new System.Drawing.Size(75, 21);
             this.btnAddBuffToMember.TabIndex = 11;
             this.btnAddBuffToMember.Text = "Add Buff";
@@ -1182,6 +1198,7 @@
             this.buttonRemoveCharFromBuffing.ForeColor = System.Drawing.Color.White;
             this.buttonRemoveCharFromBuffing.Location = new System.Drawing.Point(184, 173);
             this.buttonRemoveCharFromBuffing.Name = "buttonRemoveCharFromBuffing";
+            this.buttonRemoveCharFromBuffing.Radius = 2;
             this.buttonRemoveCharFromBuffing.Size = new System.Drawing.Size(23, 23);
             this.buttonRemoveCharFromBuffing.TabIndex = 12;
             this.buttonRemoveCharFromBuffing.Text = "r";
@@ -1194,6 +1211,7 @@
             this.btnRemoveBuffFromMember.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRemoveBuffFromMember.Location = new System.Drawing.Point(121, 213);
             this.btnRemoveBuffFromMember.Name = "btnRemoveBuffFromMember";
+            this.btnRemoveBuffFromMember.Radius = 2;
             this.btnRemoveBuffFromMember.Size = new System.Drawing.Size(86, 21);
             this.btnRemoveBuffFromMember.TabIndex = 12;
             this.btnRemoveBuffFromMember.Text = "Remove Buff";
@@ -1248,7 +1266,7 @@
             this.groupBox6.Location = new System.Drawing.Point(283, 6);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
-            this.groupBox6.Radius = 1;
+            this.groupBox6.Radius = 2;
             this.groupBox6.Size = new System.Drawing.Size(214, 175);
             this.groupBox6.TabIndex = 14;
             this.groupBox6.TabStop = false;
@@ -1261,6 +1279,7 @@
             this.buttonAddGroup.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonAddGroup.Location = new System.Drawing.Point(5, 147);
             this.buttonAddGroup.Name = "buttonAddGroup";
+            this.buttonAddGroup.Radius = 2;
             this.buttonAddGroup.Size = new System.Drawing.Size(63, 21);
             this.buttonAddGroup.TabIndex = 0;
             this.buttonAddGroup.Text = "Create";
@@ -1273,6 +1292,7 @@
             this.buttonRemoveGroup.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonRemoveGroup.Location = new System.Drawing.Point(137, 147);
             this.buttonRemoveGroup.Name = "buttonRemoveGroup";
+            this.buttonRemoveGroup.Radius = 2;
             this.buttonRemoveGroup.Size = new System.Drawing.Size(72, 21);
             this.buttonRemoveGroup.TabIndex = 0;
             this.buttonRemoveGroup.Text = "Remove";
@@ -1324,7 +1344,7 @@
             this.groupBox5.Location = new System.Drawing.Point(507, 6);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
-            this.groupBox5.Radius = 1;
+            this.groupBox5.Radius = 2;
             this.groupBox5.Size = new System.Drawing.Size(233, 426);
             this.groupBox5.TabIndex = 12;
             this.groupBox5.TabStop = false;
@@ -1370,7 +1390,7 @@
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
-            this.groupBox1.Radius = 1;
+            this.groupBox1.Radius = 2;
             this.groupBox1.Size = new System.Drawing.Size(267, 426);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
