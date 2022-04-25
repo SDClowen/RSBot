@@ -39,16 +39,13 @@ namespace RSBot.Core.Network.Handler.Agent.Action
             if (token == 0)
                 return;
 
-            var buffInfo = new BuffInfo
-            {
-                Id = skillId,
-                Token = token
-            };
+            var buffInfo = new SkillInfo(skillId, token);
 
             if(targetId == Core.Game.Player.UniqueId)
             {
-                Core.Game.Player.Buffs.Add(buffInfo);
+                Core.Game.Player.State.ActiveBuffs.Add(buffInfo);
                 EventManager.FireEvent("OnAddBuff", buffInfo);
+
                 Log.Notify($"Buff [{buffInfo.Record.GetRealName()}] added.");
 
                 return;

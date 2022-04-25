@@ -40,13 +40,12 @@ namespace RSBot.Core.Network.Handler.Agent.Action
                 if (token == 0) // debuffs
                     continue;
 
-                var buff = Core.Game.Player.State.GetActiveBuff(token);
-                if (buff != null)
+                if (Core.Game.Player.State.TryGetActiveBuff(token, out var buff))
                 {
-                    Log.Debug($"The buff [{buff.Record?.GetRealName()}] expired");
+                    Log.Notify($"The buff [{buff.Record?.GetRealName()}] expired");
 
-                    Core.Game.Player.Buffs.Remove(buff);
-                    EventManager.FireEvent("OnRemoveBuff", buff);
+                    Core.Game.Player.State.TryRemoveActiveBuff(token, out var removedBuff);
+                    EventManager.FireEvent("OnRemoveBuff", removedBuff);
 
                     var playerSkill = Core.Game.Player.Skills.GetSkillInfoById(buff.Id);
                     playerSkill?.Reset();
@@ -54,10 +53,10 @@ namespace RSBot.Core.Network.Handler.Agent.Action
                     return;
                 }
 
-                if (!SpawnManager.TryGetEntity<SpawnedBionic>(p => p.State.HasActiveBuff(token, out _), out var bionic))
+                if (!SpawnManager.TryGetEntity<SpawnedBionic>(p => p.State.TryGetActiveBuff(token, out _), out var bionic))
                     return;
 
-                bionic.State.TryRemoveActiveBuff(token, out var removedBuff);
+                bionic.State.TryRemoveActiveBuff(token, out _);
             }
         }
     }

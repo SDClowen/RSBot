@@ -42,8 +42,8 @@ namespace RSBot.Skills.Views
             EventManager.SubscribeEvent("OnLearnSkill", new Action<SkillInfo, bool>(OnLearnSkill));
             EventManager.SubscribeEvent("OnLearnSkillMastery", new Action<MasteryInfo>(OnLearnSkillMastery));
             EventManager.SubscribeEvent("OnWithdrawSkill", new Action<SkillInfo>(OnWithdrawSkill));
-            EventManager.SubscribeEvent("OnAddBuff", new Action<BuffInfo>(OnAddBuff));
-            EventManager.SubscribeEvent("OnRemoveBuff", new Action<BuffInfo>(OnRemoveBuff));
+            EventManager.SubscribeEvent("OnAddBuff", new Action<SkillInfo>(OnAddBuff));
+            EventManager.SubscribeEvent("OnRemoveBuff", new Action<SkillInfo>(OnRemoveBuff));
             EventManager.SubscribeEvent("OnResurrectionRequest", OnResurrectionRequest);
         }
 
@@ -313,7 +313,7 @@ namespace RSBot.Skills.Views
         /// </summary>
         private void SaveAttacks()
         {
-            var savedSkills = listAttackingSkills.Items.Cast<ListViewItem>().Select(p => ((ISkillDataInfo)p.Tag).Id).ToArray();
+            var savedSkills = listAttackingSkills.Items.Cast<ListViewItem>().Select(p => ((SkillInfo)p.Tag).Id).ToArray();
 
             PlayerConfig.SetArray("RSBot.Skills.Attacks_" + comboMonsterType.SelectedIndex, savedSkills);
 
@@ -327,7 +327,7 @@ namespace RSBot.Skills.Views
         /// </summary>
         private void SaveBuffs()
         {
-            var savedBuffs = listBuffs.Items.Cast<ListViewItem>().Select(p => ((ISkillDataInfo)p.Tag).Id).ToArray();
+            var savedBuffs = listBuffs.Items.Cast<ListViewItem>().Select(p => ((SkillInfo)p.Tag).Id).ToArray();
 
             PlayerConfig.SetArray("RSBot.Skills.Buffs", savedBuffs);
 
@@ -338,7 +338,7 @@ namespace RSBot.Skills.Views
         /// Run the event after added the buff from the character
         /// </summary>
         /// <param name="buffInfo">The added <see cref="BuffInfo"/></param>
-        private void OnAddBuff(BuffInfo buffInfo)
+        private void OnAddBuff(SkillInfo buffInfo)
         {
             try
             {
@@ -362,7 +362,7 @@ namespace RSBot.Skills.Views
         /// Run the event after removed the buff from the character
         /// </summary>
         /// <param name="buffInfo">The removed <see cref="BuffInfo"/></param>
-        private void OnRemoveBuff(BuffInfo removingBuff)
+        private void OnRemoveBuff(SkillInfo removingBuff)
         {
             try
             {
@@ -372,7 +372,7 @@ namespace RSBot.Skills.Views
                     if (listItem == null)
                         continue;
 
-                    var itemBuffInfo = listItem.Tag as BuffInfo;
+                    var itemBuffInfo = listItem.Tag as SkillInfo;
                     if (itemBuffInfo != null &&
                         itemBuffInfo.Id == removingBuff.Id &&
                         itemBuffInfo.Token == removingBuff.Token)
