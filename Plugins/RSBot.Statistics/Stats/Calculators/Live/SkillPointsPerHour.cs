@@ -19,7 +19,7 @@ namespace RSBot.Statistics.Stats.Calculators.Live
         /// <summary>
         /// The current tick index
         /// </summary>
-        private int _currentTickIndex;
+        private int _currentTickIndex = -1;
 
         /// <inheritdoc />
         public string Name => "SPPerHour";
@@ -42,10 +42,10 @@ namespace RSBot.Statistics.Stats.Calculators.Live
             if (!Game.Ready)
                 return 0;
 
-            _values[_currentTickIndex] = Convert.ToInt32(Game.Player.SkillPoints) - _lastTickValue;
             if (++_currentTickIndex >= _values.Length)
                 _currentTickIndex = 0;
 
+            _values[_currentTickIndex] = Convert.ToInt32(Game.Player.SkillPoints) - _lastTickValue;
             _lastTickValue = Convert.ToInt32(Game.Player.SkillPoints);
 
             return _values.Sum(val => val) / _values.Length * 3600;

@@ -2,6 +2,7 @@
 using RSBot.Core.Event;
 using RSBot.Statistics.Stats;
 using RSBot.Statistics.Stats.Calculators;
+using System;
 using System.Drawing;
 using System.Linq;
 using System.Timers;
@@ -28,8 +29,6 @@ namespace RSBot.Statistics.Views
         public Main()
         {
             InitializeComponent();
-
-            PopulateFilterList();
             SubscribeEvents();
 
             _refreshTimer = new System.Timers.Timer(1000) { AutoReset = true };
@@ -74,33 +73,29 @@ namespace RSBot.Statistics.Views
         /// </summary>
         private void PopulateFilterList()
         {
-            var locationX = 8;
-            var locationY1 = 0;
-            var locationY2 = 0;
+            var calculators = CalculatorRegistry.Calculators;
+            calculators.Reverse();
 
-            foreach (var calculator in CalculatorRegistry.Calculators)
+            this.Invoke(new Action(() =>
             {
-                var checkBox = new SDUI.Controls.CheckBox
+                foreach (var calculator in calculators)
                 {
-                    Location = new Point(locationX, calculator.UpdateType == UpdateType.Live ? locationY1 : locationY2),
-                    Width = 300,
-                    Text = calculator.Label,
-                    Name = calculator.Name,
-                };
+                    var checkBox = new SDUI.Controls.CheckBox
+                    {
+                        Dock = DockStyle.Top,
+                        Text = calculator.Label,
+                        Name = calculator.Name,
+                        Size = new Size(75, 25)
+                    };
 
-                checkBox.CheckedChanged += Filter_CheckedChanged;
+                    checkBox.CheckedChanged += Filter_CheckedChanged;
 
-                if (calculator.UpdateType == UpdateType.Live)
-                {
-                    panelLiveFilters.Controls.Add(checkBox);
-                    locationY1 += 23;
+                    if (calculator.UpdateType == UpdateType.Live)
+                        panelLiveFilters.Controls.Add(checkBox);
+                    else
+                        panelStaticFilters.Controls.Add(checkBox);
                 }
-                else
-                {
-                    panelStaticFilters.Controls.Add(checkBox);
-                    locationY2 += 23;
-                }
-            }
+            }));
         }
 
         /// <summary>
@@ -138,8 +133,6 @@ namespace RSBot.Statistics.Views
             }
 
             lvStatistics.EndUpdate();
-
-            UpdateStatistics();
         }
 
         /// <summary>
@@ -206,7 +199,11 @@ namespace RSBot.Statistics.Views
         private void OnLoadCharacter()
         {
             //Don't reset after teleportation or something equal
-            if (!_initialReset) return;
+            if (!_initialReset)
+                return;
+
+
+            PopulateFilterList();
 
             LoadSettings();
 

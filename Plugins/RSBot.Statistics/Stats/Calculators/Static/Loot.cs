@@ -7,6 +7,7 @@ namespace RSBot.Statistics.Stats.Calculators.Static
 {
     internal class Loot : IStatisticCalculator
     {
+        /// <inheritdoc />
         private int _currentValue;
 
         /// <inheritdoc />

@@ -21,7 +21,7 @@ namespace RSBot.Statistics.Stats.Calculators.Live
         /// <summary>
         /// The current tick index
         /// </summary>
-        private int _currentTickIndex;
+        private int _currentTickIndex = -1;
 
         /// <summary>
         /// The kill count
@@ -49,10 +49,10 @@ namespace RSBot.Statistics.Stats.Calculators.Live
             if (!Game.Ready)
                 return 0;
 
-            _values[_currentTickIndex] = _pickedItemCount - _lastTickValue;
             if (++_currentTickIndex >= _values.Length)
                 _currentTickIndex = 0;
 
+            _values[_currentTickIndex] = _pickedItemCount - _lastTickValue;
             _lastTickValue = _pickedItemCount;
 
             var sum = _values.Sum(val => val);
