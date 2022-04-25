@@ -206,10 +206,11 @@ namespace RSBot.Party.Views
         /// </summary>
         private void RequestPartyList(byte page = 0)
         {
-            lvPartyMatching.BeginUpdate();
-            lvPartyMatching.Items.Clear();
             Task.Run(() =>
             {
+                lvPartyMatching.BeginUpdate();
+                lvPartyMatching.Items.Clear();
+
                 var listViewItems = new List<ListViewItem>();
                 var currentPage = Bundle.Container.PartyMatching.RequestPartyList(page);
 
@@ -234,11 +235,13 @@ namespace RSBot.Party.Views
                     listItem.SubItems.Add(party.Purpose.ToString());
                     listItem.SubItems.Add(party.MemberCount.ToString("#/" + party.Settings.MaxMember));
                     listItem.SubItems.Add(party.MinLevel + "~" + party.MaxLevel);
+                    
                     listItem.ToolTipText = party.Settings.ToString();
                     if (party.Leader == Game.Player.Name ||
                         party.Leader == Game.Player.JobInformation.Name ||
                         (Game.Party?.Leader?.Name == party.Leader))
                     {
+                        listItem.UseItemStyleForSubItems = false;
                         listItem.Font = new Font(Font, FontStyle.Bold);
                         listItem.BackColor = Color.FromArgb(244, 247, 252);
                         listItem.ForeColor = Color.FromArgb(9, 40, 86);
@@ -250,8 +253,9 @@ namespace RSBot.Party.Views
 
                 foreach (var item in listViewItems)
                     lvPartyMatching.Items.Add(item);
+
+                lvPartyMatching.EndUpdate();
             });
-            lvPartyMatching.EndUpdate();
         }
 
         /// <summary>
@@ -790,7 +794,7 @@ namespace RSBot.Party.Views
             foreach (var skillId in member.Buffs)
             {
                 var listViewItemOfMainList = listPartyBuffSkills.Items.Cast<ListViewItem>()
-                    .FirstOrDefault(p => ((ISkillDataInfo)p.Tag).Id == skillId);
+                    .FirstOrDefault(p => ((SkillInfo)p.Tag).Id == skillId);
                 if (listViewItemOfMainList == null)
                     continue;
 

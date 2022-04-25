@@ -122,11 +122,18 @@ namespace RSBot.Party.Bundle.PartyMatching
             packet.WriteUInt(id);
             packet.Lock();
 
+            var joiningResult = 0;
             var callback = new AwaitCallback(response =>
             {
                 var result = response.ReadByte();
                 if(result == 1)
+                {
+                    // 0 => canceled
+                    // 1 => accepted
+                    // 2 => didnt answered
+                    joiningResult = response.ReadByte();
                     return AwaitCallbackResult.Successed;
+                }
                 
                 return AwaitCallbackResult.Failed;
             }, 0xB06D);
@@ -134,7 +141,7 @@ namespace RSBot.Party.Bundle.PartyMatching
             PacketManager.SendPacket(packet, PacketDestination.Server, callback);
             callback.AwaitResponse(10000);
 
-            return callback.IsCompleted;
+            return callback.IsCompleted && joiningResult == 1;
         }
 
         /// <summary>

@@ -103,6 +103,9 @@ namespace RSBot.Core.Network.Handler.Agent.Party
                                 member.Position.ZOffset = packet.ReadInt();
                                 member.Position.YOffset = packet.ReadInt();
                             }
+
+                            packet.ReadInt(); // layer & world id
+
                             break;
 
                         case PartyMemberUpdateType.Guild:
