@@ -406,14 +406,6 @@ namespace RSBot.Core.Objects
         public Teleportation Teleportation { get; set; }
 
         /// <summary>
-        /// Gets or sets the buffs.
-        /// </summary>
-        /// <value>
-        /// The buffs.
-        /// </value>
-        public List<BuffInfo> Buffs => State?.ActiveBuffs;
-
-        /// <summary>
         /// Gets or sets a value indicating whether [in action].
         /// </summary>
         /// <value>

@@ -38,7 +38,7 @@ namespace RSBot.Core.Extensions
         {
             lock (_lock)
             {
-                var skill = item.Tag as ISkillDataInfo;
+                var skill = item.Tag as SkillInfo;
                 if (StaticImageList.Images.Keys.Cast<string>().Contains(skill.Id.ToString()))
                 {
                     item.ImageKey = skill.Id.ToString();

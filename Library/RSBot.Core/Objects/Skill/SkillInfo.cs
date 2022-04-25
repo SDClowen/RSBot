@@ -4,7 +4,7 @@ using System;
 
 namespace RSBot.Core.Objects.Skill
 {
-    public class SkillInfo : ISkillDataInfo
+    public class SkillInfo
     {
         /// <summary>
         /// Gets or sets the identifier.
@@ -85,6 +85,20 @@ namespace RSBot.Core.Objects.Skill
         /// <c>true</c> if this instance can be used; otherwise, <c>false</c>.
         /// </value>
         public bool CanBeCasted => !CanNotBeCasted && !HasCooldown && Game.Player.Mana >= Record.Consume_MP;
+
+        /// <summary>
+        /// Skill Token (using for buffs)
+        /// </summary>
+        public uint Token { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SkillInfo"/> class.
+        /// </summary>
+        public SkillInfo(uint id, uint token)
+            : this(id, false)
+        {
+            Token = token;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SkillInfo"/> class.

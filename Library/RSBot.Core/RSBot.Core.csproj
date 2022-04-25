@@ -171,7 +171,6 @@
     <Compile Include="Objects\BattleState.cs" />
     <Compile Include="Objects\InventoryItemState.cs" />
     <Compile Include="Objects\ScrollState.cs" />
-    <Compile Include="Objects\Skill\IDataInfo.cs" />
     <Compile Include="Objects\Spawn\SpawnedEntity.cs" />
     <Compile Include="Objects\Spawn\SpawnedNpcNpc.cs" />
     <Compile Include="Objects\TeleportType.cs" />
@@ -284,7 +283,6 @@
     <Compile Include="Objects\PvpState.cs" />
     <Compile Include="Objects\ScrollMode.cs" />
     <Compile Include="Objects\Skills.cs" />
-    <Compile Include="Objects\Skill\BuffInfo.cs" />
     <Compile Include="Objects\Skill\MasteryInfo.cs" />
     <Compile Include="Objects\Skill\SkillInfo.cs" />
     <Compile Include="Objects\Skill\SkillLearnErrorCode.cs" />

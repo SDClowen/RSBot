@@ -89,21 +89,21 @@ namespace RSBot.Protection.Views
             foreach (var num in groupBackTown.Controls.OfType<NumericUpDown>().Select(control => control))
                 PlayerConfig.Set(key + num.Name, num.Value);
 
-            ISkillDataInfo skillPlayerHp = null;
+            SkillInfo skillPlayerHp = null;
             if (comboSkillPlayerHP.SelectedIndex > 0)
-                skillPlayerHp = comboSkillPlayerHP.SelectedItem as ISkillDataInfo;
+                skillPlayerHp = comboSkillPlayerHP.SelectedItem as SkillInfo;
 
             PlayerConfig.Set(key + "HpSkill", skillPlayerHp == null ? 0 : skillPlayerHp.Id);
 
-            ISkillDataInfo skillPlayerMp = null;
+            SkillInfo skillPlayerMp = null;
             if (comboSkillPlayerMP.SelectedIndex > 0)
-                skillPlayerHp = comboSkillPlayerMP.SelectedItem as ISkillDataInfo;
+                skillPlayerHp = comboSkillPlayerMP.SelectedItem as SkillInfo;
 
             PlayerConfig.Set(key + "MpSkill", skillPlayerMp == null ? 0 : skillPlayerMp.Id);
 
-            ISkillDataInfo skillPlayerBadStatus = null;
+            SkillInfo skillPlayerBadStatus = null;
             if (comboSkillBadStatus.SelectedIndex > 0)
-                skillPlayerHp = comboSkillBadStatus.SelectedItem as ISkillDataInfo;
+                skillPlayerHp = comboSkillBadStatus.SelectedItem as SkillInfo;
 
             PlayerConfig.Set(key + "BadStatusSkill", skillPlayerBadStatus == null ? 0 : skillPlayerBadStatus.Id);
         }
