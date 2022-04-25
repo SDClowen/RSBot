@@ -37,13 +37,7 @@ namespace RSBot.Core.Components
             if (!Kernel.Proxy.IsConnectedToGatewayserver)
                 return;
 
-            var packet = new Packet(0x6101, true);
-            packet.Lock();
-
-            var callback = new AwaitCallback(null, 0xA101);
-
-            PacketManager.SendPacket(packet, PacketDestination.Server, callback);
-            callback.AwaitResponse();
+            PacketManager.SendPacket(new Packet(0x6101, true), PacketDestination.Server);
         }
 
         /// <summary>

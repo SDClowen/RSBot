@@ -39,9 +39,7 @@ namespace RSBot.General.PacketHandler
                 response.WriteByte(0x02); //List
                 response.Lock();
 
-                var callback = new AwaitCallback(null, 0xB007);
-                PacketManager.SendPacket(response, PacketDestination.Server, callback);
-                callback.AwaitResponse();
+                PacketManager.SendPacket(response, PacketDestination.Server);
 
                 return;
             }

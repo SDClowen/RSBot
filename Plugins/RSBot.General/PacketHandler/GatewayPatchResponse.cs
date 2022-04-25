@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace RSBot.General.PacketHandler
 {
-    public class GatewayPatchResponse : IPacketHook
+    public class GatewayPatchResponse : IPacketHandler
     {
         /// <summary>
         /// Gets or sets the opcode.
@@ -27,7 +27,7 @@ namespace RSBot.General.PacketHandler
         /// Handles the packet.
         /// </summary>
         /// <param name="packet">The packet.</param>
-        public Packet ReplacePacket(Packet packet)
+        public void Invoke(Packet packet)
         {
             if (packet.ReadByte() == 0x01)
             {
@@ -76,8 +76,6 @@ namespace RSBot.General.PacketHandler
                         break;
                 }
             }
-
-            return packet;
         }
     }
 }
