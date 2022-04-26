@@ -30,6 +30,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
             Core.Game.Player.Inventory.UpdateItemAmount(7, ammunitionAmount);
 
             EventManager.FireEvent("OnUpdateAmmunition");
+            EventManager.FireEvent("OnInventoryUpdate");
         }
     }
 }

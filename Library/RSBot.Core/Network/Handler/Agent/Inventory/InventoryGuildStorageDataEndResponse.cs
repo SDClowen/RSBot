@@ -46,6 +46,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
                 Core.Game.Player.Storage.Items.Add(InventoryItem.FromPacket(packet));
 
             EventManager.FireEvent("OnStorageData");
+            EventManager.FireEvent("OnInventoryUpdate");
 
             Log.Notify($"Found {Core.Game.Player.Storage.Items.Count} item(s) in storage");
 

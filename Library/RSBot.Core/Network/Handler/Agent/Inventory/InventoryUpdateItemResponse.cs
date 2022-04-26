@@ -70,6 +70,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
             }
 
             EventManager.FireEvent("OnUpdateInventoryItem", sourceSlot);
+            EventManager.FireEvent("OnInventoryUpdate");
         }
     }
 }

@@ -34,6 +34,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
             Core.Game.Player.Inventory.UpdateItemAmount(sourceSlot, newAmount);
 
             EventManager.FireEvent("OnUseItem", sourceSlot);
+            EventManager.FireEvent("OnInventoryUpdate");
         }
     }
 }
