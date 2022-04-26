@@ -69,7 +69,7 @@ namespace RSBot.General.Components
                 return;
             }
 
-            await Task.Delay(5000);
+            await Task.Delay(10_000);
             SendLoginRequest(selectedAccount, server);
         }
 
