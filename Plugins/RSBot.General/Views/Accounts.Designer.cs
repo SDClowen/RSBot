@@ -260,7 +260,6 @@
             this.comboBoxChannel.Location = new System.Drawing.Point(320, 126);
             this.comboBoxChannel.Name = "comboBoxChannel";
             this.comboBoxChannel.Size = new System.Drawing.Size(74, 23);
-            this.comboBoxChannel.StartIndex = 0;
             this.comboBoxChannel.TabIndex = 11;
             // 
             // listAccounts

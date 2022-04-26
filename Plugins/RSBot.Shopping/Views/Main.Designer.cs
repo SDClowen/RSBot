@@ -410,7 +410,6 @@
             this.comboStore.Location = new System.Drawing.Point(61, 4);
             this.comboStore.Name = "comboStore";
             this.comboStore.Size = new System.Drawing.Size(144, 23);
-            this.comboStore.StartIndex = 0;
             this.comboStore.TabIndex = 2;
             this.comboStore.SelectedIndexChanged += new System.EventHandler(this.comboStore_SelectedIndexChanged);
             // 

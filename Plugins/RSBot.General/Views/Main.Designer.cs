@@ -100,7 +100,6 @@
             this.comboBoxClientType.Location = new System.Drawing.Point(595, 29);
             this.comboBoxClientType.Name = "comboBoxClientType";
             this.comboBoxClientType.Size = new System.Drawing.Size(115, 23);
-            this.comboBoxClientType.StartIndex = 0;
             this.comboBoxClientType.TabIndex = 18;
             this.comboBoxClientType.SelectedIndexChanged += new System.EventHandler(this.comboBoxClientType_SelectedIndexChanged);
             // 
@@ -382,7 +381,6 @@
             this.comboAccounts.Location = new System.Drawing.Point(73, 10);
             this.comboAccounts.Name = "comboAccounts";
             this.comboAccounts.Size = new System.Drawing.Size(258, 23);
-            this.comboAccounts.StartIndex = 0;
             this.comboAccounts.TabIndex = 0;
             this.comboAccounts.SelectedIndexChanged += new System.EventHandler(this.comboAccounts_SelectedIndexChanged);
             // 
@@ -425,7 +423,6 @@
             this.comboCharacter.Location = new System.Drawing.Point(73, 34);
             this.comboCharacter.Name = "comboCharacter";
             this.comboCharacter.Size = new System.Drawing.Size(258, 23);
-            this.comboCharacter.StartIndex = 0;
             this.comboCharacter.TabIndex = 22;
             this.comboCharacter.SelectedIndexChanged += new System.EventHandler(this.comboCharacter_SelectedIndexChanged);
             // 

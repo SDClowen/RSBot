@@ -146,7 +146,6 @@ namespace RSBot.Views
             this.comboServer.Location = new System.Drawing.Point(109, 18);
             this.comboServer.Name = "comboServer";
             this.comboServer.Size = new System.Drawing.Size(132, 23);
-            this.comboServer.StartIndex = 0;
             this.comboServer.TabIndex = 11;
             this.comboServer.SelectedIndexChanged += new System.EventHandler(this.comboServer_SelectedIndexChanged);
             // 
@@ -161,7 +160,6 @@ namespace RSBot.Views
             this.comboDivision.Location = new System.Drawing.Point(12, 18);
             this.comboDivision.Name = "comboDivision";
             this.comboDivision.Size = new System.Drawing.Size(91, 23);
-            this.comboDivision.StartIndex = 0;
             this.comboDivision.TabIndex = 10;
             this.comboDivision.SelectedIndexChanged += new System.EventHandler(this.comboDivision_SelectedIndexChanged);
             // 

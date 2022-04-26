@@ -173,7 +173,6 @@
             this.comboMonsterType.Location = new System.Drawing.Point(54, 177);
             this.comboMonsterType.Name = "comboMonsterType";
             this.comboMonsterType.Size = new System.Drawing.Size(176, 23);
-            this.comboMonsterType.StartIndex = 0;
             this.comboMonsterType.TabIndex = 2;
             this.comboMonsterType.SelectedIndexChanged += new System.EventHandler(this.comboMonsterType_SelectedIndexChanged);
             // 
@@ -278,7 +277,6 @@
             this.comboImbue.Location = new System.Drawing.Point(54, 171);
             this.comboImbue.Name = "comboImbue";
             this.comboImbue.Size = new System.Drawing.Size(267, 23);
-            this.comboImbue.StartIndex = 0;
             this.comboImbue.TabIndex = 7;
             this.comboImbue.SelectedIndexChanged += new System.EventHandler(this.comboImbue_SelectedIndexChanged);
             // 
@@ -378,7 +376,6 @@
             this.comboResurrectionSkill.Location = new System.Drawing.Point(86, 32);
             this.comboResurrectionSkill.Name = "comboResurrectionSkill";
             this.comboResurrectionSkill.Size = new System.Drawing.Size(255, 23);
-            this.comboResurrectionSkill.StartIndex = 0;
             this.comboResurrectionSkill.TabIndex = 8;
             this.comboResurrectionSkill.SelectedIndexChanged += new System.EventHandler(this.comboResurrectionSkill_SelectedIndexChanged);
             // 

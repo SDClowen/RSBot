@@ -144,7 +144,6 @@ namespace RSBot.Map.Views
             this.comboViewType.Location = new System.Drawing.Point(392, 17);
             this.comboViewType.Name = "comboViewType";
             this.comboViewType.Size = new System.Drawing.Size(180, 23);
-            this.comboViewType.StartIndex = 0;
             this.comboViewType.TabIndex = 10;
             // 
             // trmInterval

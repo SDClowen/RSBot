@@ -280,7 +280,6 @@
             this.comboSkillBadStatus.Location = new System.Drawing.Point(318, 53);
             this.comboSkillBadStatus.Name = "comboSkillBadStatus";
             this.comboSkillBadStatus.Size = new System.Drawing.Size(121, 23);
-            this.comboSkillBadStatus.StartIndex = 0;
             this.comboSkillBadStatus.TabIndex = 26;
             this.comboSkillBadStatus.SelectedIndexChanged += new System.EventHandler(this.comboSkill_SelectedIndexChanged);
             // 
@@ -363,7 +362,6 @@
             this.comboSkillPlayerMP.Location = new System.Drawing.Point(318, 167);
             this.comboSkillPlayerMP.Name = "comboSkillPlayerMP";
             this.comboSkillPlayerMP.Size = new System.Drawing.Size(121, 23);
-            this.comboSkillPlayerMP.StartIndex = 0;
             this.comboSkillPlayerMP.TabIndex = 25;
             this.comboSkillPlayerMP.SelectedIndexChanged += new System.EventHandler(this.comboSkill_SelectedIndexChanged);
             // 
@@ -378,7 +376,6 @@
             this.comboSkillPlayerHP.Location = new System.Drawing.Point(318, 144);
             this.comboSkillPlayerHP.Name = "comboSkillPlayerHP";
             this.comboSkillPlayerHP.Size = new System.Drawing.Size(121, 23);
-            this.comboSkillPlayerHP.StartIndex = 0;
             this.comboSkillPlayerHP.TabIndex = 7;
             this.comboSkillPlayerHP.SelectedIndexChanged += new System.EventHandler(this.comboSkill_SelectedIndexChanged);
             // 

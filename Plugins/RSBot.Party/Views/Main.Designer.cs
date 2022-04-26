@@ -965,7 +965,6 @@
             this.cbPartySearchPurpose.Location = new System.Drawing.Point(222, 13);
             this.cbPartySearchPurpose.Name = "cbPartySearchPurpose";
             this.cbPartySearchPurpose.Size = new System.Drawing.Size(108, 23);
-            this.cbPartySearchPurpose.StartIndex = 0;
             this.cbPartySearchPurpose.TabIndex = 2;
             // 
             // tbPartySearchName
