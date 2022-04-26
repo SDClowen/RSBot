@@ -336,5 +336,57 @@ namespace RSBot.Core.Objects
         {
             return Record.CodeName;
         }
+        
+        /// <summary>
+        /// Creates a clone from this.
+        /// </summary>
+        /// <returns>The clone.</returns>
+        public InventoryItem CreateClone()
+        {
+            var rental = new RentInfo
+            {
+                CanDelete = Rental.CanDelete,
+                CanRecharge = Rental.CanRecharge,
+                MeterRateTime = Rental.MeterRateTime,
+                PackingTime = Rental.PackingTime,
+                PeriodBeginTime = Rental.PeriodBeginTime,
+                PeriodEndTime = Rental.PeriodEndTime,
+                Type = Rental.Type
+            };
+
+            List<MagicOptionInfo> magicOptions = MagicOptions == null ? null : new List<MagicOptionInfo>(MagicOptions.Count);
+            if (MagicOptions != null)
+                foreach (var item in MagicOptions)
+                    magicOptions.Add(new MagicOptionInfo
+                    {
+                        Id = item.Id,
+                        Value = item.Value
+                    });
+
+            List<BindingOption> bindingOptions = BindingOptions == null ? null : new List<BindingOption>(BindingOptions.Count);
+            if (BindingOptions != null)
+                foreach (var item in BindingOptions)
+                    BindingOptions.Add(new BindingOption
+                    {
+                        Id = item.Id,
+                        Slot = item.Slot,
+                        Type = item.Type,
+                        Value = item.Value
+                    });
+
+            return new InventoryItem
+            {
+                ItemId = ItemId,
+                Slot = Slot,
+                Rental = rental,
+                OptLevel = OptLevel,
+                Variance = Variance,
+                Durability = Durability,
+                MagicOptions = magicOptions,
+                BindingOptions = bindingOptions,
+                Amount = Amount,
+                State = State
+            };
+        }
     }
 }

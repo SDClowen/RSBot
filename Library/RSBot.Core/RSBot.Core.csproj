@@ -111,6 +111,7 @@
     <Compile Include="Objects\Exchange\ExchangeItem.cs" />
     <Compile Include="Objects\Exchange\ExchangeUpdateType.cs" />
     <Compile Include="Objects\GuideTeleportType.cs" />
+    <Compile Include="Objects\IBag.cs" />
     <Compile Include="Objects\InviteRequestType.cs" />
     <Compile Include="Objects\Item\ItemUpdateFlag.cs" />
     <Compile Include="Objects\NpcTalk.cs" />

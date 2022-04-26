@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace RSBot.Core.Objects
 {
-    public class Inventory
+    public class Inventory : IBag
     {
         /// <summary>
         /// Gets or sets the size.

@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace RSBot.Core.Objects
 {
-    public class Storage
+    public class Storage : IBag
     {
         /// <summary>
         /// Gets or sets the items.

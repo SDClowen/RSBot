@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace RSBot.Core.Objects
 {
-    public class AbilityPet : SpawnedEntity
+    public class AbilityPet : SpawnedEntity, IBag
     {
         /// <summary>
         /// Gets or sets the name.
