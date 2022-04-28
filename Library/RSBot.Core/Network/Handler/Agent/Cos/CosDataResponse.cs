@@ -32,7 +32,7 @@ namespace RSBot.Core.Network.Handler.Agent.Cos
 
             var objChar = Core.Game.ReferenceManager.GetRefObjChar(objectId);
 
-            if (objChar.TypeID2 == 2 && objChar.TypeID3 == 3 && objChar.TypeID4 == 3)
+            if (objChar.TypeID2 == 2 && objChar.TypeID3 == 3 && (objChar.TypeID4 == 3 || objChar.TypeID4 == 9))
             {
                 //Attackpet
                 Core.Game.Player.AttackPet = AttackPet.FromPacket(packet, uniqueId, objectId);
@@ -43,7 +43,7 @@ namespace RSBot.Core.Network.Handler.Agent.Cos
             {
                 var health = packet.ReadInt();
 
-                Core.Game.Player.Vehicle = new Vehicle(uniqueId, objectId, health);
+                Core.Game.Player.Vehicle = new Vehicle(objectId, uniqueId, health);
                 EventManager.FireEvent("OnSummonVehicle");
                 Log.Debug("Mount vehicle");
 
