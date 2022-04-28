@@ -30,6 +30,8 @@ namespace RSBot.Chat.Network
         public void Invoke(Packet packet)
         {
             var noticeType = packet.ReadByte();
+            if (Game.ClientType > GameClientType.Thailand)
+                packet.ReadByte();
 
             switch (noticeType)
             {
