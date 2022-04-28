@@ -85,7 +85,6 @@ namespace RSBot.Core.Objects
         {
             var packet = new Packet(0x7117);
             packet.WriteUInt(UniqueId);
-            packet.Lock();
 
             PacketManager.SendPacket(packet, PacketDestination.Server);
         }
@@ -150,7 +149,6 @@ namespace RSBot.Core.Objects
             packet.WriteUInt(UniqueId);
             packet.WriteByte(0x08);
             packet.WriteUInt(itemUniqueId);
-            packet.Lock();
 
             var callback = new AwaitCallback(response =>
             {
@@ -163,6 +161,7 @@ namespace RSBot.Core.Objects
 
                 return AwaitCallbackResult.Failed;
             }, 0xB034);
+
             PacketManager.SendPacket(packet, PacketDestination.Server, callback);
             callback.AwaitResponse();
         }
@@ -182,7 +181,6 @@ namespace RSBot.Core.Objects
             packet.WriteUInt(UniqueId);
             packet.WriteByte(slot);
             packet.WriteByte(destinationSlot);
-            packet.Lock();
 
             var callback = new AwaitCallback(null, 0xB034);
             PacketManager.SendPacket(packet, PacketDestination.Server, callback);

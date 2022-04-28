@@ -93,7 +93,6 @@ namespace RSBot.Core.Objects.Party
                 var packet = new Packet(0x7060);
                 packet.WriteUInt(playerUniqueId);
                 packet.WriteByte(Settings.GetPartyType());
-                packet.Lock();
 
                 PacketManager.SendPacket(packet, PacketDestination.Server);
             }
@@ -101,7 +100,6 @@ namespace RSBot.Core.Objects.Party
             {
                 var packet = new Packet(0x7062);
                 packet.WriteUInt(playerUniqueId);
-                packet.Lock();
 
                 PacketManager.SendPacket(packet, PacketDestination.Server);
             }
@@ -112,10 +110,7 @@ namespace RSBot.Core.Objects.Party
         /// </summary>
         public void Leave()
         {
-            var packet = new Packet(0x7061);
-            packet.Lock();
-
-            PacketManager.SendPacket(packet, PacketDestination.Server);
+            PacketManager.SendPacket(new Packet(0x7061), PacketDestination.Server);
         }
 
         /// <summary>

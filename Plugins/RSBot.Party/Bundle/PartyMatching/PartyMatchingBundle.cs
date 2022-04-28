@@ -49,8 +49,6 @@ namespace RSBot.Party.Bundle.PartyMatching
             packet.WriteByte(Config.LevelTo);
             packet.WriteConditonalString(Config.Title);
 
-            packet.Lock();
-
             var callback = new AwaitCallback(response =>
             {
                 return response.ReadByte() == 1 ? AwaitCallbackResult.Successed : AwaitCallbackResult.Failed;
@@ -86,8 +84,6 @@ namespace RSBot.Party.Bundle.PartyMatching
             packet.WriteByte(Config.LevelTo);
             packet.WriteConditonalString(Config.Title);
 
-            packet.Lock();
-
             var callback = new AwaitCallback(response =>
             {
                 return response.ReadByte() == 1 ? AwaitCallbackResult.Successed : AwaitCallbackResult.Failed;
@@ -120,7 +116,6 @@ namespace RSBot.Party.Bundle.PartyMatching
         {
             var packet = new Packet(0x706D);
             packet.WriteUInt(id);
-            packet.Lock();
 
             var joiningResult = 0;
             var callback = new AwaitCallback(response =>
@@ -153,7 +148,6 @@ namespace RSBot.Party.Bundle.PartyMatching
         {
             var packet = new Packet(0x706C);
             packet.WriteByte(page);
-            packet.Lock();
 
             var partyList = PartyList.FromPacket(null); //placeholder for the callback
 

@@ -37,8 +37,6 @@ namespace RSBot.General.PacketHandler
 
                 var response = new Packet(0x7007);
                 response.WriteByte(0x02); //List
-                response.Lock();
-
                 PacketManager.SendPacket(response, PacketDestination.Server);
 
                 return;

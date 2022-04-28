@@ -603,8 +603,6 @@ namespace RSBot.Core.Objects
                 packet.WriteInt(destination.YOffset);
             }
 
-            packet.Lock();
-
             var awaitCallback = new AwaitCallback(response =>
             {
                 var uniqueId = response.ReadUInt();
@@ -880,11 +878,11 @@ namespace RSBot.Core.Objects
         /// </summary>
         public void EnterBerzerkMode()
         {
-            if (!CanEnterBerzerk) return;
+            if (!CanEnterBerzerk) 
+                return;
 
             var packet = new Packet(0x70A7);
             packet.WriteByte(0x1); //Enter HWAN
-            packet.Lock();
 
             var callback = new AwaitCallback(null, 0xB0A7);
             PacketManager.SendPacket(packet, PacketDestination.Server, callback);

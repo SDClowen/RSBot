@@ -53,7 +53,6 @@ namespace RSBot.Protection.Components.Town
 
                 var packet = new Packet(0x3053);
                 packet.WriteByte(1);
-                packet.Lock();
                 PacketManager.SendPacket(packet, PacketDestination.Server);
             }, 
             TaskContinuationOptions.ExecuteSynchronously);

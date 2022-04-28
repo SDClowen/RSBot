@@ -186,9 +186,6 @@ namespace RSBot.Core.Network
                     {
                         PacketManager.SendPacket(packet, destination);
 
-                        if (!packet.Locked)
-                            packet.Lock();
-
                         packet.SeekRead(0, System.IO.SeekOrigin.Begin);
 
                         PacketManager.CallHandler(packet, destination);

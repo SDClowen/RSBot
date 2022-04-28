@@ -41,7 +41,6 @@ namespace RSBot.Core.Objects
             var packet = new Packet(0x70CB);
             packet.WriteByte(0);
             packet.WriteUInt(UniqueId);
-            packet.Lock();
 
             PacketManager.SendPacket(packet, PacketDestination.Server);
         }
@@ -70,8 +69,6 @@ namespace RSBot.Core.Objects
                 packet.WriteInt(destination.ZOffset);
                 packet.WriteInt(destination.YOffset);
             }
-
-            packet.Lock();
 
             var awaitCallback = new AwaitCallback(response =>
             {

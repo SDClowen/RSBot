@@ -112,8 +112,6 @@ namespace RSBot.Core.Objects
             else
                 packet.WriteUShort(Record.Tid);
 
-            packet.Lock();
-
             var result = false;
             var asyncCallback = new AwaitCallback(response => 
             { 
@@ -137,7 +135,6 @@ namespace RSBot.Core.Objects
             packet.WriteByte(Slot);
             packet.WriteUShort(Record.Tid);
             packet.WriteByte(destinationSlot);
-            packet.Lock();
 
             PacketManager.SendPacket(packet, PacketDestination.Server);
         }
@@ -152,7 +149,6 @@ namespace RSBot.Core.Objects
             packet.WriteByte(Slot);
             packet.WriteUShort(Record.Tid);
             packet.WriteUInt(uniqueId);
-            packet.Lock();
 
             PacketManager.SendPacket(packet, PacketDestination.Server);
         }

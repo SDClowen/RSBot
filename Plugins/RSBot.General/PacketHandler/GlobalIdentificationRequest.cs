@@ -59,8 +59,6 @@ namespace RSBot.General.PacketHandler
                 response.WriteString(selectedAccount.Password);
                 response.WriteByte(Game.ReferenceManager.DivisionInfo.Locale);
                 response.WriteByteArray(new byte[6]);
-
-                packet.Lock();
                 PacketManager.SendPacket(response, PacketDestination.Server);
             }
         }

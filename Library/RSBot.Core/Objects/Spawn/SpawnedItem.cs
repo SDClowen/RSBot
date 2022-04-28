@@ -106,8 +106,6 @@ namespace RSBot.Core.Objects.Spawn
             packet.WriteByte(ActionTarget.Entity);
             packet.WriteUInt(UniqueId);
 
-            packet.Lock();
-
             var asyncResult = new AwaitCallback(response =>
             {
                 return response.ReadByte() == 2 && response.ReadByte() == 0

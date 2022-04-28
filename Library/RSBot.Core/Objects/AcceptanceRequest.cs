@@ -38,7 +38,6 @@ namespace RSBot.Core.Objects
             var packet = new Packet(0x3080);
             packet.WriteByte(1);
             packet.WriteByte(1);
-            packet.Lock();
 
             PacketManager.SendPacket(packet, PacketDestination.Server);
         }
@@ -64,8 +63,6 @@ namespace RSBot.Core.Objects
                     packet.WriteByte(2);
                     break;
             }
-
-            packet.Lock();
 
             PacketManager.SendPacket(packet, PacketDestination.Server);
         }

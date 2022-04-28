@@ -158,7 +158,6 @@ namespace RSBot.Core.Objects.Party
 
             var packet = new Packet(0x7063);
             packet.WriteUInt(MemberId);
-            packet.Lock();
 
             PacketManager.SendPacket(packet, PacketDestination.Server);
         }
