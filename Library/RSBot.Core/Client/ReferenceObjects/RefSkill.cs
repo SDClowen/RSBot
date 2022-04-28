@@ -1,5 +1,8 @@
-﻿using RSBot.Core.Objects;
+﻿using RSBot.Core.Extensions;
+using RSBot.Core.Objects;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 
 namespace RSBot.Core.Client.ReferenceObjects
 {
@@ -200,7 +203,34 @@ namespace RSBot.Core.Client.ReferenceObjects
         /// Gets the ingame name of the spell
         /// </summary>
         /// <returns></returns>
-        public string GetRealName() => Game.ReferenceManager.GetTranslation(UI_SkillName);
+        public string GetRealName() 
+            => Game.ReferenceManager.GetTranslation(UI_SkillName);
+
+        /// <summary>
+        /// Gets the icon.
+        /// </summary>
+        /// <returns></returns>
+        public Image GetIcon()
+        {
+            Image bitmap = null;
+
+            try
+            {
+                var file = Game.MediaPk2.GetFile(Path.Combine("icon", this.UI_IconFile), true);
+                if (file.IsValid)
+                    bitmap = file.ToImage();
+                else
+                    bitmap = Game.MediaPk2.GetFile("icon\\icon_default.ddj").ToImage();
+            }
+            catch{ }
+            finally
+            {
+                if (bitmap == null)
+                    bitmap = new Bitmap(24, 24);
+            }
+
+            return bitmap;
+        }
 
         public override string ToString()
         {

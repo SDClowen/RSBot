@@ -2,6 +2,7 @@
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
+using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
 using SDUI.Controls;
 using System;
@@ -28,6 +29,9 @@ namespace RSBot.Shopping.Views
         {
             InitializeComponent();
             SubscribeEvents();
+
+            listShoppingList.SmallImageList = Core.Extensions.ListViewExtensions.StaticItemsImageList;
+            listAvailableProducts.SmallImageList = Core.Extensions.ListViewExtensions.StaticItemsImageList;
         }
 
         /// <summary>
@@ -79,7 +83,6 @@ namespace RSBot.Shopping.Views
 
             listAvailableProducts.BeginUpdate();
             listAvailableProducts.Items.Clear();
-            imgShoppingListNPC.Images.Clear();
 
             List<RefShopGroup> groups;
             switch (index)
@@ -135,6 +138,7 @@ namespace RSBot.Shopping.Views
                     if (filter != "" && !realItemName.Contains(filter)) continue;
 
                     var listItem = new ListViewItem(realItemName) { Tag = good, Name = item.CodeName, Group = listAvailableProducts.Groups[tabName] };
+                    listItem.LoadItemImageAsync(good);
 
                     if (!listAvailableProducts.Items.ContainsKey(item.CodeName))
                         listAvailableProducts.Items.Add(listItem);
@@ -142,34 +146,6 @@ namespace RSBot.Shopping.Views
             }
 
             listAvailableProducts.EndUpdate();
-
-            Task.Run(() => LoadProductListImages());
-        }
-
-        /// <summary>
-        /// Loads the product list images.
-        /// </summary>
-        private void LoadProductListImages()
-        {
-            try
-            {
-                foreach (ListViewItem item in listAvailableProducts.Items)
-                {
-                    var good = (RefShopGood)item.Tag;
-
-                    var refPackageItem = Game.ReferenceManager.GetRefPackageItem(good.RefPackageItemCodeName);
-                    var refItem = Game.ReferenceManager.GetRefItem(refPackageItem.RefItemCodeName);
-
-                    if (!imgShoppingListNPC.Images.ContainsKey(refItem.ID.ToString()))
-                        imgShoppingListNPC.Images.Add(refItem.ID.ToString(), refItem.GetIcon());
-
-                    item.ImageKey = refItem.ID.ToString();
-                }
-            }
-            catch
-            {
-                Log.Debug("Could not load shopping list images: Unknown error occurred.");
-            }
         }
 
         /// <summary>
@@ -253,10 +229,7 @@ namespace RSBot.Shopping.Views
                     listItem.Group = group;
                     listShoppingList.Items.Add(listItem);
 
-                    if (!imgShoppingList.Images.ContainsKey(item.ID.ToString()))
-                        imgShoppingList.Images.Add(item.ID.ToString(), item.GetIcon());
-
-                    listItem.ImageKey = item.ID.ToString();
+                    listItem.LoadItemImageAsync(good);
 
                     ShoppingManager.ShoppingList.Add(good, int.Parse(amount));
                 }

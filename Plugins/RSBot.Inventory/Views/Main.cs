@@ -1,9 +1,8 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Event;
+using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
-using System;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RSBot.Inventory.Views
@@ -25,6 +24,8 @@ namespace RSBot.Inventory.Views
             InitializeComponent();
             comboInventoryType.SelectedIndex = 0;
             SubscribeEvents();
+
+            listViewMain.SmallImageList = Core.Extensions.ListViewExtensions.StaticItemsImageList;
         }
 
         /// <summary>
@@ -68,7 +69,7 @@ namespace RSBot.Inventory.Views
             if (inventoryItem.Record.IsEquip)
                 listViewItem.SubItems[2].Text = inventoryItem.Record.GetRarityName();
 
-            LoadItemImage(listViewItem);
+            listViewItem.LoadItemImageAsync(inventoryItem.Record);
         }
 
         /// <summary>
@@ -134,9 +135,6 @@ namespace RSBot.Inventory.Views
                     break;
             }
 
-            // Load the item icons
-            await Task.Run(() => { LoadItemImages(); });
-
             listViewMain.EndUpdate();
         }
 
@@ -156,39 +154,8 @@ namespace RSBot.Inventory.Views
             
             if(item.Record.IsEquip)
                 lvItem.SubItems.Add(item.Record.GetRarityName());
-        }
 
-        /// <summary>
-        /// Load the item image into the ListViewItem
-        /// </summary>
-        private void LoadItemImage(ListViewItem item)
-        {
-            lock (_lock)
-            {
-                var itemInfo = (InventoryItem)item.Tag;
-
-                //No need to reload the image from the PK2
-                if (imgItems.Images.ContainsKey(itemInfo.ItemId.ToString()))
-                {
-                    item.ImageKey = itemInfo.ItemId.ToString();
-
-                    return;
-                }
-
-                imgItems.Images.Add(itemInfo.ItemId.ToString(), itemInfo.Record.GetIcon());
-
-                //Renders the image
-                item.ImageKey = itemInfo.ItemId.ToString();
-            }
-        }
-
-        /// <summary>
-        /// Loads the items images into the ImageList of the listViewMain control.
-        /// </summary>
-        private void LoadItemImages()
-        {
-            foreach (ListViewItem item in listViewMain.Items)
-                LoadItemImage(item);
+            lvItem.LoadItemImageAsync(item.Record);
         }
 
         /// <summary>

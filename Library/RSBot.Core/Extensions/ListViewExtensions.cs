@@ -1,7 +1,6 @@
-﻿using RSBot.Core.Objects.Skill;
+﻿using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Objects.Skill;
 using System.Drawing;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -13,6 +12,11 @@ namespace RSBot.Core.Extensions
         /// The cached image list for skills
         /// </summary>
         public static ImageList StaticImageList;
+
+        /// <summary>
+        /// The cached image list for items
+        /// </summary>
+        public static ImageList StaticItemsImageList;
 
         /// <summary>
         /// The sync object
@@ -29,27 +33,45 @@ namespace RSBot.Core.Extensions
                 ColorDepth = ColorDepth.Depth32Bit,
                 ImageSize = new Size(24, 24)
             };
+
+            StaticItemsImageList = new ImageList
+            {
+                ColorDepth = ColorDepth.Depth32Bit,
+                ImageSize = new Size(24, 24)
+            };
         }
 
         /// <summary>
         /// Load the skill image into the ImageList of the <seealso cref="ListViewItem"/>
         /// </summary>
-        public static Task LoadSkillImage(this ListViewItem item)
+        public static Task LoadSkillImage(this ListViewItem listViewItem)
         {
             lock (_lock)
             {
-                var skill = item.Tag as SkillInfo;
-                if (StaticImageList.Images.Keys.Cast<string>().Contains(skill.Id.ToString()))
-                {
-                    item.ImageKey = skill.Id.ToString();
-                }
+                var skill = listViewItem.Tag as SkillInfo;
+                if (!StaticImageList.Images.ContainsKey(skill.Id.ToString()))
+                    StaticImageList.Images.Add(skill.Id.ToString(), skill.Record.GetIcon());
 
-                else if (Game.MediaPk2.FileExists(Path.GetFileName(skill.Record.UI_IconFile)))
-                {
-                    var imageFile = Game.MediaPk2.GetFile(Path.GetFileName(skill.Record.UI_IconFile));
-                    StaticImageList.Images.Add(skill.Id.ToString(), imageFile.ToImage());
-                    item.ImageKey = skill.Id.ToString();
-                }
+                //Renders the image
+                listViewItem.ImageKey = skill.Id.ToString();
+            }
+
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// Load the item image into the ListViewItem
+        /// </summary>
+        public static Task LoadItemImage(this ListViewItem listViewItem, RefObjItem item)
+        {
+            lock (_lock)
+            {
+                //No need to reload the image from the PK2
+                if (!StaticItemsImageList.Images.ContainsKey(item.CodeName))
+                    StaticItemsImageList.Images.Add(item.CodeName, item.GetIcon());
+
+                //Renders the image
+                listViewItem.ImageKey = item.CodeName;
             }
 
             return Task.CompletedTask;
@@ -61,6 +83,31 @@ namespace RSBot.Core.Extensions
         public static async void LoadSkillImageAsync(this ListViewItem item)
         {
             await item.LoadSkillImage();
+        }
+
+        /// <summary>
+        /// Load the skill image into the ImageList of the <seealso cref="ListViewItem"/> with async
+        /// </summary>
+        public static async void LoadItemImageAsync(this ListViewItem listViewItem, RefObjItem item)
+        {
+            await listViewItem.LoadItemImage(item);
+        }
+
+        /// <summary>
+        /// Load the skill image into the ImageList of the <seealso cref="ListViewItem"/> with async
+        /// </summary>
+        public static async void LoadItemImageAsync(this ListViewItem listViewItem, RefShopGood good)
+        {
+            try
+            {
+                var refPackageItem = Game.ReferenceManager.GetRefPackageItem(good.RefPackageItemCodeName);
+                var refItem = Game.ReferenceManager.GetRefItem(refPackageItem.RefItemCodeName);
+
+                await listViewItem.LoadItemImage(refItem);
+            }
+            catch
+            {
+            }
         }
 
         /// <summary>

@@ -147,24 +147,24 @@ namespace RSBot.Core.Client.ReferenceObjects
         /// <returns></returns>
         public Image GetIcon()
         {
+            Image bitmap = null;
+
             try
             {
-                Image bitmap;
                 var file = Game.MediaPk2.GetFile(Path.Combine("icon", this.AssocFileIcon), true);
                 if (file.IsValid)
                     bitmap = file.ToImage();
                 else
                     bitmap = Game.MediaPk2.GetFile("icon\\icon_default.ddj").ToImage();
-
+            }
+            catch { }
+            finally
+            {
                 if (bitmap == null)
                     bitmap = new Bitmap(24, 24);
+            }
 
-                return bitmap;
-            }
-            catch //DDS convert failed
-            {
-                return new Bitmap(24, 24);
-            }
+            return bitmap;
         }
 
         public override string ToString()
