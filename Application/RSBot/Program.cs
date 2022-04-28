@@ -11,7 +11,6 @@ namespace RSBot
         [STAThread]
         private static void Main()
         {
-            GlobalConfig.Load("config");
             Application.SetCompatibleTextRenderingDefault(false);
             Application.EnableVisualStyles();
             Application.Run(new SplashScreen());
