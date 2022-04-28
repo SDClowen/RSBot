@@ -190,7 +190,6 @@
     <None Include="Resources\logo2.png" />
     <None Include="Resources\loading_icon.gif" />
     <Content Include="Resources\shark.ico" />
-    <None Include="Resources\save.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Library\RSBot.Core\RSBot.Core.csproj">

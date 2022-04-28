@@ -69,12 +69,12 @@
             this.progressHP.Maximum = ((long)(100));
             this.progressHP.Name = "progressHP";
             this.progressHP.PercentIndices = 2;
-            this.progressHP.ShowAsPercent = false;
+            this.progressHP.ShowAsPercent = true;
             this.progressHP.ShowValue = true;
             this.progressHP.Size = new System.Drawing.Size(180, 16);
             this.progressHP.TabIndex = 15;
-            this.progressHP.Text = "50 / 100";
-            this.progressHP.Value = ((long)(50));
+            this.progressHP.Text = "0%";
+            this.progressHP.Value = ((long)(0));
             // 
             // Entity
             // 

@@ -1,8 +1,6 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Event;
-using SDUI;
 using SDUI.Controls;
-using System;
 using System.Linq;
 
 namespace RSBot.Views.Controls
@@ -30,7 +28,7 @@ namespace RSBot.Views.Controls
             EventManager.SubscribeEvent("OnAttackPetHungerUpdate", OnAttackPetHungerUpdate);
             EventManager.SubscribeEvent("OnAttackPetNameChange", OnAttackPetNameChange);
             EventManager.SubscribeEvent("OnUpdatePetHPMP", OnPetHealthUpdate);
-            EventManager.SubscribeEvent("OnAgentServerDisconnected", OnAgentServerDisconnected);
+            EventManager.SubscribeEvent("OnAgentServerDisconnected", OnTerminateAttackPet);
             EventManager.SubscribeEvent("OnInitialized", OnInitialized);
         }
 
@@ -44,13 +42,13 @@ namespace RSBot.Views.Controls
         /// </summary>
         private void OnTerminateAttackPet()
         {
-            lblPetName.Text = @"No pet found";
+            lblPetName.Text = LanguageManager.GetLang("LabelPetName");
             progressHP.Value = 0;
             progressEXP.Value = 0;
             progressHGP.Value = 0;
-            progressHP.Text = @"0%";
-            progressEXP.Text = @"0%";
-            progressHGP.Text = @"0%";
+            progressHP.Maximum = 0;
+            progressEXP.Maximum = 0;
+            progressHGP.Maximum = 0;
         }
 
         /// <summary>
@@ -58,7 +56,8 @@ namespace RSBot.Views.Controls
         /// </summary>
         private void OnAttackPetNameChange()
         {
-            if (Game.Player.AttackPet == null) return;
+            if (Game.Player.AttackPet == null) 
+                return;
 
             lblPetName.Text = Game.Player.AttackPet.Name + @" (lv." + Game.Player.AttackPet.Level + @")";
         }
@@ -68,7 +67,8 @@ namespace RSBot.Views.Controls
         /// </summary>
         private void OnPetLevelUp()
         {
-            if (Game.Player.AttackPet == null) return;
+            if (Game.Player.AttackPet == null) 
+                return;
 
             OnAttackPetNameChange();
             OnPetHealthUpdate();
@@ -81,14 +81,11 @@ namespace RSBot.Views.Controls
         /// </summary>
         private void OnPetHealthUpdate()
         {
-            if (Game.Player.AttackPet == null) return;
+            if (Game.Player.AttackPet == null) 
+                return;
 
-            var hpPercent = (Game.Player.AttackPet.Health * 100) / Game.Player.AttackPet.MaxHealth;
-            if(hpPercent > 100)
-                hpPercent = 100;
-
-            progressHP.Value = Convert.ToInt32(hpPercent);
-            progressHP.Text = hpPercent + @"%";
+            progressHP.Value = Game.Player.AttackPet.Health;
+            progressHP.Maximum = Game.Player.AttackPet.MaxHealth;
         }
 
         /// <summary>
@@ -99,12 +96,8 @@ namespace RSBot.Views.Controls
             if (Game.Player.AttackPet == null) 
                 return;
 
-            var expPercent = (Game.Player.AttackPet.Experience * 100) / Game.Player.AttackPet.MaxExperience;
-            if(expPercent > 100)
-                expPercent = 100;
-
-            progressEXP.Value = Convert.ToInt32(expPercent);
-            progressEXP.Text = expPercent + @"%";
+            progressEXP.Value = Game.Player.AttackPet.Experience;
+            progressEXP.Maximum = Game.Player.AttackPet.MaxExperience;
         }
 
         /// <summary>
@@ -115,12 +108,8 @@ namespace RSBot.Views.Controls
             if (Game.Player.AttackPet == null)
                 return;
 
-            var hgpPercent = (Game.Player.AttackPet.CurrentHungerPoints * 100) / Game.Player.AttackPet.MaxHungerPoints;
-            if(hgpPercent > 100)
-                hgpPercent = 100;
-
-            progressHGP.Value = Convert.ToInt32(hgpPercent);
-            progressHGP.Text = hgpPercent + @"%";
+            progressHGP.Value = Game.Player.AttackPet.CurrentHungerPoints;
+            progressHGP.Maximum = Game.Player.AttackPet.MaxHungerPoints;
         }
 
         /// <summary>
@@ -128,22 +117,10 @@ namespace RSBot.Views.Controls
         /// </summary>
         private void OnSummonAttackPet()
         {
-            if (Game.Player.AttackPet == null) return;
+            if (Game.Player.AttackPet == null) 
+                return;
 
             OnPetLevelUp();
-        }
-
-        /// <summary>
-        /// Reset UI after character disconnect
-        /// </summary>
-        private void OnAgentServerDisconnected()
-        {
-            lblPetName.Text = "No pet found";
-            foreach (var item in Controls.OfType<ProgressBar>())
-            {
-                item.Value = 0;
-                item.Text = "0%";
-            }
         }
     }
 }
