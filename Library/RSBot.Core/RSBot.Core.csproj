@@ -163,7 +163,6 @@
     <Compile Include="Network\Handler\Agent\Guild\GuildStorageDataResponse.cs" />
     <Compile Include="Network\Handler\Agent\Action\ActionBuffRemoveResponse.cs" />
     <Compile Include="Network\Handler\Agent\Action\ActionSkillCastResponse.cs" />
-    <Compile Include="Network\Hooks\Agent\Inventory\BuyItemHook.cs" />
     <Compile Include="Network\Hooks\Agent\Cos\CosActionRequestHook.cs" />
     <Compile Include="Network\Socket\Server.cs" />
     <Compile Include="Objects\ActionTarget.cs" />
