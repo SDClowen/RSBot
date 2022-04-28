@@ -121,7 +121,6 @@ namespace RSBot.Core.Objects
         {
             var packet = new Packet(0x70C6);
             packet.WriteUInt(UniqueId);
-            packet.Lock();
 
             PacketManager.SendPacket(packet, PacketDestination.Server);
         }
@@ -142,7 +141,6 @@ namespace RSBot.Core.Objects
             packet.WriteUShort(0x20EC);
             packet.WriteInt(UniqueId);
 
-            packet.Lock();
             PacketManager.SendPacket(packet, PacketDestination.Server);
 
             return true;
@@ -164,7 +162,6 @@ namespace RSBot.Core.Objects
             packet.WriteUShort(0x396C);
             packet.WriteInt(UniqueId);
 
-            packet.Lock();
             PacketManager.SendPacket(packet, PacketDestination.Server);
 
             return true;
@@ -186,7 +183,6 @@ namespace RSBot.Core.Objects
             packet.WriteUShort(0x48EC);
             packet.WriteInt(UniqueId);
 
-            packet.Lock();
             PacketManager.SendPacket(packet, PacketDestination.Server);
 
             return true;

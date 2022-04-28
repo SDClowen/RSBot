@@ -131,7 +131,11 @@ namespace RSBot.Core.Network
         /// <param name="destination">The destination.</param>
         public static void SendPacket(Packet packet, PacketDestination destination)
         {
-            if (Kernel.Proxy == null) return;
+            if (Kernel.Proxy == null) 
+                return;
+
+            if(!packet.Locked)
+                packet.Lock();
 
             try
             {

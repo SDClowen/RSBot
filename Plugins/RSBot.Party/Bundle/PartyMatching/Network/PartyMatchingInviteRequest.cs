@@ -27,7 +27,6 @@ namespace RSBot.Party.Bundle.PartyMatching.Network
             requestPacket.WriteUInt(requestID);
             requestPacket.WriteUInt(requestType);
             requestPacket.WriteByte(Container.PartyMatching.Config.AutoAccept ? 1 : 2);
-            requestPacket.Lock();
             PacketManager.SendPacket(requestPacket, PacketDestination.Server);
 
             if (Container.PartyMatching.Config.AutoReform)

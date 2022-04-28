@@ -201,7 +201,6 @@ namespace RSBot.Core.Components
             packet.WriteUInt(entity.UniqueId);
             packet.WriteByte(0x02);
             packet.WriteUInt(destination);
-            packet.Lock();
 
             var callback = new AwaitCallback(null, 0x3012); //Game Ready
             PacketManager.SendPacket(packet, PacketDestination.Server, callback);

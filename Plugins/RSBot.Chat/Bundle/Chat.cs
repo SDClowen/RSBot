@@ -33,8 +33,6 @@ namespace RSBot.Chat.Bundle
 
             chatPacket.WriteConditonalString(message);
 
-            chatPacket.Lock();
-
             PacketManager.SendPacket(chatPacket, PacketDestination.Server);
             IgnoreChatResponsePacket = true;
         }

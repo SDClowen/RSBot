@@ -128,8 +128,6 @@ namespace RSBot.General.Components
             if (opcode == 0x610A)
                 loginPacket.WriteByte(account.Channel);
 
-            loginPacket.Lock();
-
             PacketManager.SendPacket(loginPacket, PacketDestination.Server);
 
             Accounts.Joined = account;
@@ -151,7 +149,7 @@ namespace RSBot.General.Components
 
             var packet = new Packet(0x6323);
             packet.WriteString(captcha);
-            packet.Lock();
+
             PacketManager.SendPacket(packet, PacketDestination.Server);
         }
 
@@ -166,9 +164,10 @@ namespace RSBot.General.Components
 
             var packet = new Packet(0x7001);
             packet.WriteString(character);
-            packet.Lock();
             PacketManager.SendPacket(packet, PacketDestination.Server);
+
             PlayerConfig.Load("User\\" + character);
+
             EventManager.FireEvent("OnEnterGame");
         }
     }

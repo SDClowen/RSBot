@@ -154,9 +154,7 @@ namespace RSBot.Core.Network.Handler.Agent.Character
             if (!Core.Game.Clientless) 
                 return;
 
-            var response = new Packet(0x3012);
-            response.Lock();
-            PacketManager.SendPacket(response, PacketDestination.Server);
+            PacketManager.SendPacket(new Packet(0x3012), PacketDestination.Server);
         }
     }
 }

@@ -110,7 +110,6 @@ namespace RSBot.Core.Objects.Spawn
 
             var packet = new Packet(0x7045);
             packet.WriteUInt(UniqueId);
-            packet.Lock();
 
             var awaitCallback = new AwaitCallback(response =>
             {
@@ -120,6 +119,7 @@ namespace RSBot.Core.Objects.Spawn
 
                 return AwaitCallbackResult.Failed;
             }, 0xB045);
+
             PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallback);
             awaitCallback.AwaitResponse();
 
@@ -136,7 +136,6 @@ namespace RSBot.Core.Objects.Spawn
 
             var packet = new Packet(0x704B);
             packet.WriteUInt(UniqueId);
-            packet.Lock();
 
             var awaitResult = new AwaitCallback(response =>
                 response.ReadByte() == 1 ? 

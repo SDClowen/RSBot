@@ -293,8 +293,6 @@ namespace RSBot.Core.Objects
             packet.WriteByte(destinationSlot);
             packet.WriteUShort(amount);
 
-            packet.Lock();
-
             var asyncResult = new AwaitCallback(response =>
             {
                 var result = response.ReadByte();

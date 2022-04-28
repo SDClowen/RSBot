@@ -273,7 +273,6 @@ namespace RSBot.Core.Components
                 packet.WriteByte(1);
 
             packet.WriteUInt(targetId);
-            packet.Lock();
 
             Log.Debug($"Skill Attacking to: {targetId} State: {entity.State.LifeState} Health: {entity.Health} HasHealth: {entity.HasHealth} Dst: {System.Math.Round(entity.DistanceToPlayer, 1)}");
 
@@ -344,8 +343,6 @@ namespace RSBot.Core.Components
             packet.WriteByte(ActionTarget.Entity);
             packet.WriteUInt(targetId);
 
-            packet.Lock();
-
             var callback = new AwaitCallback(response =>
             {
                 return response.ReadByte() == 0x02 && response.ReadByte() == 0x00
@@ -411,8 +408,6 @@ namespace RSBot.Core.Components
             else
                 packet.WriteByte(ActionTarget.None);
 
-            packet.Lock();
-
             var asyncCallback = new AwaitCallback(response =>
             {
                 var targetId = response.ReadUInt();
@@ -467,7 +462,6 @@ namespace RSBot.Core.Components
                 packet.WriteByte(1);
 
             packet.WriteUInt(entity.UniqueId);
-            packet.Lock();
 
             Log.Debug($"Normal Attacking to: {entity.UniqueId} State: {entity.State.LifeState} Health: {entity.Health} HasHealth: {entity.HasHealth} Dst: {System.Math.Round(entity.DistanceToPlayer, 1)}");
 
@@ -495,7 +489,6 @@ namespace RSBot.Core.Components
             packet.WriteFloat(position.XOffset);
             packet.WriteFloat(position.ZOffset);
             packet.WriteFloat(position.YOffset);
-            packet.Lock();
 
             PacketManager.SendPacket(packet, PacketDestination.Server);
         }
@@ -514,7 +507,6 @@ namespace RSBot.Core.Components
             packet.WriteUInt(skillId);
             packet.WriteByte(ActionTarget.None);
 
-            packet.Lock();
             PacketManager.SendPacket(packet, PacketDestination.Server);
         }
 
@@ -526,7 +518,6 @@ namespace RSBot.Core.Components
         {
             var packet = new Packet(0x7074);
             packet.WriteByte(0x02); //Cancel
-            packet.Lock();
 
             var callback = new AwaitCallback(response =>
             {

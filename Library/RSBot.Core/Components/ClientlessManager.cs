@@ -74,10 +74,7 @@ namespace RSBot.Core.Components
             {
                 await Task.Delay(10000);
 
-                var pingPacket = new Packet(0x2002);
-                pingPacket.Lock();
-
-                PacketManager.SendPacket(pingPacket, PacketDestination.Server);
+                PacketManager.SendPacket(new Packet(0x2002), PacketDestination.Server);
             }
         }
     }

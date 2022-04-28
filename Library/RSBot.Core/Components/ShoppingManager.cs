@@ -246,8 +246,6 @@ namespace RSBot.Core.Components
             packet.WriteUShort(amount);
             packet.WriteUInt(npc.UniqueId);
 
-            packet.Lock();
-
             var awaitResult = new AwaitCallback(null, 0xB034);
             PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
             awaitResult.AwaitResponse();
@@ -273,7 +271,6 @@ namespace RSBot.Core.Components
             var packet = new Packet(0x703E);
             packet.WriteUInt(npc.UniqueId);
             packet.WriteByte(2); //repair all items
-            packet.Lock();
 
             PacketManager.SendPacket(packet, PacketDestination.Server);
 
@@ -314,8 +311,6 @@ namespace RSBot.Core.Components
                 packet.WriteByte(destinationSlot);
                 packet.WriteUInt(npc.UniqueId);
 
-                packet.Lock();
-
                 var awaitResult = new AwaitCallback(null, 0xB034);
                 PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
                 awaitResult.AwaitResponse();
@@ -334,8 +329,6 @@ namespace RSBot.Core.Components
                 mergePacket.WriteByte(existingItem.Slot);
                 mergePacket.WriteUShort(mergeAmount);
                 mergePacket.WriteUInt(npc.UniqueId);
-
-                mergePacket.Lock();
 
                 awaitResult = new AwaitCallback(null, 0xB034);
                 PacketManager.SendPacket(mergePacket, PacketDestination.Server, awaitResult);
@@ -364,7 +357,6 @@ namespace RSBot.Core.Components
             var packet = new Packet(0x703C);
             packet.WriteInt(uniqueId);
             packet.WriteByte(0);
-            packet.Lock();
 
             var awaitResult = new AwaitCallback(null, 0x3049);
             PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
@@ -373,7 +365,6 @@ namespace RSBot.Core.Components
             packet = new Packet(0x7046);
             packet.WriteUInt(uniqueId);
             packet.WriteUInt(0x04);
-            packet.Lock();
 
             awaitResult = new AwaitCallback(null, 0xB046);
 
