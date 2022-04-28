@@ -88,7 +88,7 @@ namespace RSBot.Views
             this.toolStripStatusLabel1,
             this.lblIngameStatus});
             this.stripStatus.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.stripStatus.Location = new System.Drawing.Point(1, 592);
+            this.stripStatus.Location = new System.Drawing.Point(1, 700);
             this.stripStatus.Name = "stripStatus";
             this.stripStatus.Size = new System.Drawing.Size(1030, 23);
             this.stripStatus.SizingGrip = false;
@@ -98,7 +98,6 @@ namespace RSBot.Views
             // menuBotbase
             // 
             this.menuBotbase.ForeColor = System.Drawing.Color.White;
-            this.menuBotbase.Image = global::RSBot.Properties.Resources.botbase_error;
             this.menuBotbase.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.menuBotbase.Name = "menuBotbase";
             this.menuBotbase.ShowDropDownArrow = false;
@@ -129,9 +128,9 @@ namespace RSBot.Views
             this.bottomPanel.Controls.Add(this.btnSave);
             this.bottomPanel.Controls.Add(this.btnStartStop);
             this.bottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottomPanel.Location = new System.Drawing.Point(1, 540);
+            this.bottomPanel.Location = new System.Drawing.Point(1, 648);
             this.bottomPanel.Name = "bottomPanel";
-            this.bottomPanel.Radius = 1;
+            this.bottomPanel.Radius = 0;
             this.bottomPanel.Size = new System.Drawing.Size(1030, 52);
             this.bottomPanel.TabIndex = 2;
             // 
@@ -171,6 +170,7 @@ namespace RSBot.Views
             this.btnSave.ForeColor = System.Drawing.Color.White;
             this.btnSave.Location = new System.Drawing.Point(822, 16);
             this.btnSave.Name = "btnSave";
+            this.btnSave.Radius = 2;
             this.btnSave.Size = new System.Drawing.Size(95, 23);
             this.btnSave.TabIndex = 1;
             this.btnSave.TabStop = false;
@@ -189,6 +189,7 @@ namespace RSBot.Views
             this.btnStartStop.ForeColor = System.Drawing.Color.White;
             this.btnStartStop.Location = new System.Drawing.Point(923, 16);
             this.btnStartStop.Name = "btnStartStop";
+            this.btnStartStop.Radius = 2;
             this.btnStartStop.Size = new System.Drawing.Size(95, 23);
             this.btnStartStop.TabIndex = 0;
             this.btnStartStop.TabStop = false;
@@ -208,7 +209,7 @@ namespace RSBot.Views
             this.pSidebar.Location = new System.Drawing.Point(781, 32);
             this.pSidebar.Name = "pSidebar";
             this.pSidebar.Radius = 0;
-            this.pSidebar.Size = new System.Drawing.Size(250, 508);
+            this.pSidebar.Size = new System.Drawing.Size(250, 616);
             this.pSidebar.TabIndex = 6;
             // 
             // picLogo
@@ -216,7 +217,7 @@ namespace RSBot.Views
             this.picLogo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picLogo.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.picLogo.Image = ((System.Drawing.Image)(resources.GetObject("picLogo.Image")));
-            this.picLogo.Location = new System.Drawing.Point(0, 414);
+            this.picLogo.Location = new System.Drawing.Point(0, 522);
             this.picLogo.Name = "picLogo";
             this.picLogo.Size = new System.Drawing.Size(250, 94);
             this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -436,7 +437,7 @@ namespace RSBot.Views
             this.tabMain.Location = new System.Drawing.Point(1, 121);
             this.tabMain.Name = "tabMain";
             this.tabMain.SelectedIndex = 0;
-            this.tabMain.Size = new System.Drawing.Size(780, 419);
+            this.tabMain.Size = new System.Drawing.Size(780, 527);
             this.tabMain.TabIndex = 3;
             // 
             // separator

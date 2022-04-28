@@ -174,15 +174,15 @@
         System.Drawing.Color.DarkGreen,
         System.Drawing.Color.Lime};
             this.progressEXP.Location = new System.Drawing.Point(10, 50);
-            this.progressEXP.Maximum = ((long)(100));
+            this.progressEXP.Maximum = ((long)(1));
             this.progressEXP.Name = "progressEXP";
             this.progressEXP.PercentIndices = 2;
             this.progressEXP.ShowAsPercent = true;
             this.progressEXP.ShowValue = true;
             this.progressEXP.Size = new System.Drawing.Size(402, 16);
             this.progressEXP.TabIndex = 2;
-            this.progressEXP.Text = "50%";
-            this.progressEXP.Value = ((long)(50));
+            this.progressEXP.Text = "0%";
+            this.progressEXP.Value = ((long)(0));
             // 
             // progressMP
             // 
@@ -191,15 +191,15 @@
         System.Drawing.Color.MidnightBlue,
         System.Drawing.Color.RoyalBlue};
             this.progressMP.Location = new System.Drawing.Point(214, 28);
-            this.progressMP.Maximum = ((long)(100));
+            this.progressMP.Maximum = ((long)(1));
             this.progressMP.Name = "progressMP";
             this.progressMP.PercentIndices = 2;
             this.progressMP.ShowAsPercent = false;
             this.progressMP.ShowValue = true;
             this.progressMP.Size = new System.Drawing.Size(198, 16);
             this.progressMP.TabIndex = 1;
-            this.progressMP.Text = "50 / 100";
-            this.progressMP.Value = ((long)(50));
+            this.progressMP.Text = "0 / 1";
+            this.progressMP.Value = ((long)(0));
             // 
             // progressHP
             // 
@@ -209,15 +209,15 @@
         System.Drawing.Color.Maroon,
         System.Drawing.Color.Red};
             this.progressHP.Location = new System.Drawing.Point(10, 28);
-            this.progressHP.Maximum = ((long)(100));
+            this.progressHP.Maximum = ((long)(1));
             this.progressHP.Name = "progressHP";
             this.progressHP.PercentIndices = 2;
             this.progressHP.ShowAsPercent = false;
             this.progressHP.ShowValue = true;
             this.progressHP.Size = new System.Drawing.Size(198, 16);
             this.progressHP.TabIndex = 0;
-            this.progressHP.Text = "50 / 100";
-            this.progressHP.Value = ((long)(50));
+            this.progressHP.Text = "0 / 1";
+            this.progressHP.Value = ((long)(0));
             // 
             // Character
             // 

@@ -2,7 +2,6 @@
 using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects.Spawn;
-using SDUI;
 using System;
 using System.Windows.Forms;
 
@@ -40,10 +39,7 @@ namespace RSBot.Views.Controls
         /// </summary>
         private void OnSelectEntity(SpawnedBionic entity)
         {
-
-            var percent = 100;
             lblType.Text = string.Empty;
-
             if (entity is SpawnedPlayer player)
                 lblEntityName.Text = player.Name;
             else
@@ -51,15 +47,16 @@ namespace RSBot.Views.Controls
 
             if (entity is SpawnedMonster monster)
             {
-                percent = (monster.Health * 100) / monster.MaxHealth;
+                progressHP.Value = monster.Health;
+                progressHP.Maximum = monster.MaxHealth;
+
                 lblType.Text = monster.Rarity.GetName();
             }
-
-            if (percent > 100)
-                percent = 100;
-
-            progressHP.Value = percent;
-            progressHP.Text = percent + "%";
+            else
+            {
+                progressHP.Value = 100;
+                progressHP.Maximum = 100;
+            }
         }
 
         /// <summary>
@@ -70,17 +67,14 @@ namespace RSBot.Views.Controls
             if (!entity.HasHealth)
             {
                 progressHP.Value = 100;
+                progressHP.Maximum = 100;
                 return;
             }
 
             if (entity is SpawnedMonster monster)
             {
-                var percent = (monster.Health * 100) / monster.MaxHealth;
-                if (percent > 100)
-                    percent = 100;
-
-                progressHP.Value = percent;
-                progressHP.Text = percent + "%";
+                progressHP.Value = monster.Health;
+                progressHP.Maximum = monster.MaxHealth;
             }
         }
 
@@ -115,7 +109,7 @@ namespace RSBot.Views.Controls
         {
             lblEntityName.Text = LanguageManager.GetLang("LabelEntityName");
             progressHP.Value = 0;
-            progressHP.Text ="0%";
+            progressHP.Maximum = 100;
             lblType.Text = "";
         }
     }

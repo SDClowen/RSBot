@@ -85,8 +85,8 @@
             this.progressEXP.ShowValue = true;
             this.progressEXP.Size = new System.Drawing.Size(180, 16);
             this.progressEXP.TabIndex = 12;
-            this.progressEXP.Text = "50%";
-            this.progressEXP.Value = ((long)(50));
+            this.progressEXP.Text = "0%";
+            this.progressEXP.Value = ((long)(0));
             // 
             // progressHGP
             // 
@@ -103,8 +103,8 @@
             this.progressHGP.ShowValue = true;
             this.progressHGP.Size = new System.Drawing.Size(180, 16);
             this.progressHGP.TabIndex = 11;
-            this.progressHGP.Text = "50%";
-            this.progressHGP.Value = ((long)(50));
+            this.progressHGP.Text = "0%";
+            this.progressHGP.Value = ((long)(0));
             // 
             // progressHP
             // 
@@ -121,8 +121,8 @@
             this.progressHP.ShowValue = true;
             this.progressHP.Size = new System.Drawing.Size(180, 16);
             this.progressHP.TabIndex = 10;
-            this.progressHP.Text = "50 / 100";
-            this.progressHP.Value = ((long)(50));
+            this.progressHP.Text = "0 / 100";
+            this.progressHP.Value = ((long)(0));
             // 
             // Pet
             // 
