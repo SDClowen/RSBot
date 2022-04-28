@@ -445,13 +445,26 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
         /// <param name="packet">The packet.</param>
         private static void ParseNpcToInventory(Packet packet)
         {
+            byte[] destinationSlots = null;
+            ushort amount = 0;
+            byte itemAmount = 0;
+
             var tabIndex = packet.ReadByte();
             var tabSlot = packet.ReadByte();
-            var itemAmount = packet.ReadByte(); //item amount ololo.. ignore for now!
 
-            var destintationSlots = packet.ReadByteArray(itemAmount);
+            if(Core.Game.ClientType > GameClientType.Chinese)
+            {
+                amount = packet.ReadUShort();
+                itemAmount = packet.ReadByte();
+                destinationSlots = packet.ReadByteArray(itemAmount);
+            }
+            else
+            {
+                itemAmount = packet.ReadByte();
+                destinationSlots = packet.ReadByteArray(itemAmount);
+                amount = packet.ReadUShort();
+            }
 
-            var amount = packet.ReadUShort();
             var npc = Core.Game.SelectedEntity;
             if (npc == null)
             {
@@ -465,11 +478,11 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
             Log.Notify($"Bought [{item.GetRealName(true)}] x {amount} from [{npc.Record.GetRealName()}]");
 
             //_ETC_
-            if (itemAmount != destintationSlots.Length)
+            if (itemAmount != destinationSlots.Length)
             {
                 Core.Game.Player.Inventory.Items.Add(new InventoryItem
                 {
-                    Slot = destintationSlots[0],
+                    Slot = destinationSlots[0],
                     Amount = amount,
                     ItemId = item.ID,
                     Durability = (uint)refShopGoodObj.Data,
@@ -477,11 +490,11 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
                     OptLevel = refShopGoodObj.OptLevel
                 });
 
-                EventManager.FireEvent("OnBuyItem", destintationSlots[0]);
+                EventManager.FireEvent("OnBuyItem", destinationSlots[0]);
             }
             else
             {
-                foreach (var slot in destintationSlots)
+                foreach (var slot in destinationSlots)
                 {
                     Core.Game.Player.Inventory.Items.Add(new InventoryItem
                     {
