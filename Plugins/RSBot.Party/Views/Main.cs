@@ -48,6 +48,7 @@ namespace RSBot.Party.Views
             selectedMemberBuffs.SmallImageList = Core.Extensions.ListViewExtensions.StaticImageList;
             listPartyBuffSkills.SmallImageList = Core.Extensions.ListViewExtensions.StaticImageList;
 
+            _selectedBuffingGroup = new ListViewItem();
             _buffings = new List<BuffingPartyMember>();
             CheckForIllegalCrossThreadCalls = false;
             cbPartySearchPurpose.SelectedIndex = 0;
