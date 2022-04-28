@@ -334,7 +334,9 @@ namespace RSBot.Core.Objects.Spawn
             else
                 Guild = new SpawnedPlayerGuild { Name = guildName };
 
-            if (InteractMode == InteractMode.P2N_TALK || InteractMode == InteractMode.P2N_TALK2)
+            if(Game.ClientType > GameClientType.Chinese && InteractMode == InteractMode.P2N_TALK2)
+                Stall = SpawnedPlayerStall.FromPacket(packet);
+            else if(Game.ClientType <= GameClientType.Chinese && InteractMode == InteractMode.P2N_TALK)
                 Stall = SpawnedPlayerStall.FromPacket(packet);
 
             if (Game.ClientType >= GameClientType.Global)
