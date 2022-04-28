@@ -1,6 +1,8 @@
 ﻿using RSBot.Core;
+using SDUI;
 using SDUI.Controls;
 using System;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
@@ -40,6 +42,7 @@ namespace RSBot.Views
 
             GlobalConfig.Load("config");
             Kernel.Language = GlobalConfig.Get("RSBot.Language", "English");
+            ColorScheme.BackColor = Color.FromArgb(GlobalConfig.Get("SDUI.Color", 0));
             LanguageManager.Translate(_mainForm, Kernel.Language);
 
 
@@ -102,8 +105,6 @@ namespace RSBot.Views
         {
             _mainForm.Show();
             Hide();
-
-            GlobalConfig.Save();
         }
 
         /// <summary>
