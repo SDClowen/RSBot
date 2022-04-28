@@ -38,17 +38,15 @@
             this.menuChangeAmount = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuRemoveItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.imgShoppingList = new System.Windows.Forms.ImageList(this.components);
             this.contextAvailableProducts = new SDUI.Controls.ContextMenuStrip();
             this.menuAddToShoppingList = new System.Windows.Forms.ToolStripMenuItem();
-            this.imgShoppingListNPC = new System.Windows.Forms.ImageList(this.components);
             this.tabMain = new SDUI.Controls.TabControl();
             this.tabBuyFilter = new System.Windows.Forms.TabPage();
             this.groupBox1 = new SDUI.Controls.GroupBox();
             this.checkSellItemsFromPet = new SDUI.Controls.CheckBox();
             this.checkRepairGear = new SDUI.Controls.CheckBox();
             this.checkEnable = new SDUI.Controls.CheckBox();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.listAvailableProducts = new SDUI.Controls.ListView();
             this.colAvailableName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1 = new SDUI.Controls.Panel();
@@ -145,15 +143,16 @@
             this.checkEnableAbilityPet = new SDUI.Controls.CheckBox();
             this.checkPickupRare = new SDUI.Controls.CheckBox();
             this.checkPickupGold = new SDUI.Controls.CheckBox();
+            this.separator5 = new SDUI.Controls.Separator();
             this.contextShoppingList.SuspendLayout();
             this.contextAvailableProducts.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tabBuyFilter.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
+            this.splitContainer.Panel1.SuspendLayout();
+            this.splitContainer.Panel2.SuspendLayout();
+            this.splitContainer.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabSellFilter.SuspendLayout();
             this.contextList.SuspendLayout();
@@ -201,12 +200,6 @@
             this.menuRemoveItem.Text = "Remove";
             this.menuRemoveItem.Click += new System.EventHandler(this.menuRemoveItem_Click);
             // 
-            // imgShoppingList
-            // 
-            this.imgShoppingList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-            this.imgShoppingList.ImageSize = new System.Drawing.Size(24, 24);
-            this.imgShoppingList.TransparentColor = System.Drawing.Color.Transparent;
-            // 
             // contextAvailableProducts
             // 
             this.contextAvailableProducts.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -223,15 +216,9 @@
             this.menuAddToShoppingList.Text = "Add to shopping list";
             this.menuAddToShoppingList.Click += new System.EventHandler(this.menuAddToShoppingList_Click);
             // 
-            // imgShoppingListNPC
-            // 
-            this.imgShoppingListNPC.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-            this.imgShoppingListNPC.ImageSize = new System.Drawing.Size(24, 24);
-            this.imgShoppingListNPC.TransparentColor = System.Drawing.Color.Transparent;
-            // 
             // tabMain
             // 
-            this.tabMain.Border = new System.Windows.Forms.Padding(1);
+            this.tabMain.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
             this.tabMain.Controls.Add(this.tabBuyFilter);
             this.tabMain.Controls.Add(this.tabSellFilter);
             this.tabMain.Controls.Add(this.tabPage1);
@@ -245,11 +232,12 @@
             // tabBuyFilter
             // 
             this.tabBuyFilter.BackColor = System.Drawing.Color.White;
+            this.tabBuyFilter.Controls.Add(this.splitContainer);
+            this.tabBuyFilter.Controls.Add(this.separator5);
             this.tabBuyFilter.Controls.Add(this.groupBox1);
-            this.tabBuyFilter.Controls.Add(this.splitContainer1);
             this.tabBuyFilter.Location = new System.Drawing.Point(4, 25);
             this.tabBuyFilter.Name = "tabBuyFilter";
-            this.tabBuyFilter.Padding = new System.Windows.Forms.Padding(3);
+            this.tabBuyFilter.Padding = new System.Windows.Forms.Padding(8);
             this.tabBuyFilter.Size = new System.Drawing.Size(746, 444);
             this.tabBuyFilter.TabIndex = 0;
             this.tabBuyFilter.Text = "Shopping";
@@ -260,10 +248,11 @@
             this.groupBox1.Controls.Add(this.checkSellItemsFromPet);
             this.groupBox1.Controls.Add(this.checkRepairGear);
             this.groupBox1.Controls.Add(this.checkEnable);
-            this.groupBox1.Location = new System.Drawing.Point(3, 378);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.groupBox1.Location = new System.Drawing.Point(8, 376);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBox1.Radius = 1;
+            this.groupBox1.Radius = 2;
             this.groupBox1.Size = new System.Drawing.Size(730, 60);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
@@ -299,24 +288,25 @@
             this.checkEnable.Text = "Automaticaly run when in town";
             this.checkEnable.CheckedChanged += new System.EventHandler(this.checkEnable_CheckedChanged);
             // 
-            // splitContainer1
+            // splitContainer
             // 
-            this.splitContainer1.Location = new System.Drawing.Point(-4, 4);
-            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer.Location = new System.Drawing.Point(8, 8);
+            this.splitContainer.Name = "splitContainer";
             // 
-            // splitContainer1.Panel1
+            // splitContainer.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.listAvailableProducts);
-            this.splitContainer1.Panel1.Controls.Add(this.panel1);
+            this.splitContainer.Panel1.Controls.Add(this.listAvailableProducts);
+            this.splitContainer.Panel1.Controls.Add(this.panel1);
             // 
-            // splitContainer1.Panel2
+            // splitContainer.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.listShoppingList);
-            this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(737, 366);
-            this.splitContainer1.SplitterDistance = 340;
-            this.splitContainer1.SplitterWidth = 1;
-            this.splitContainer1.TabIndex = 6;
+            this.splitContainer.Panel2.Controls.Add(this.listShoppingList);
+            this.splitContainer.Panel2.Controls.Add(this.panel2);
+            this.splitContainer.Size = new System.Drawing.Size(730, 358);
+            this.splitContainer.SplitterDistance = 336;
+            this.splitContainer.SplitterWidth = 1;
+            this.splitContainer.TabIndex = 6;
             // 
             // listAvailableProducts
             // 
@@ -325,15 +315,14 @@
             this.listAvailableProducts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colAvailableName});
             this.listAvailableProducts.ContextMenuStrip = this.contextAvailableProducts;
+            this.listAvailableProducts.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listAvailableProducts.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.listAvailableProducts.FullRowSelect = true;
             this.listAvailableProducts.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listAvailableProducts.HideSelection = false;
-            this.listAvailableProducts.Location = new System.Drawing.Point(6, 57);
-            this.listAvailableProducts.Margin = new System.Windows.Forms.Padding(8);
+            this.listAvailableProducts.Location = new System.Drawing.Point(0, 57);
             this.listAvailableProducts.Name = "listAvailableProducts";
-            this.listAvailableProducts.Size = new System.Drawing.Size(334, 309);
-            this.listAvailableProducts.SmallImageList = this.imgShoppingListNPC;
+            this.listAvailableProducts.Size = new System.Drawing.Size(336, 301);
             this.listAvailableProducts.TabIndex = 4;
             this.listAvailableProducts.UseCompatibleStateImageBehavior = false;
             this.listAvailableProducts.View = System.Windows.Forms.View.Details;
@@ -356,7 +345,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Radius = 0;
-            this.panel1.Size = new System.Drawing.Size(340, 57);
+            this.panel1.Size = new System.Drawing.Size(336, 57);
             this.panel1.TabIndex = 6;
             // 
             // label6
@@ -455,8 +444,7 @@
             this.listShoppingList.HideSelection = false;
             this.listShoppingList.Location = new System.Drawing.Point(0, 57);
             this.listShoppingList.Name = "listShoppingList";
-            this.listShoppingList.Size = new System.Drawing.Size(396, 309);
-            this.listShoppingList.SmallImageList = this.imgShoppingList;
+            this.listShoppingList.Size = new System.Drawing.Size(393, 301);
             this.listShoppingList.TabIndex = 3;
             this.listShoppingList.UseCompatibleStateImageBehavior = false;
             this.listShoppingList.View = System.Windows.Forms.View.Details;
@@ -479,7 +467,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
             this.panel2.Radius = 0;
-            this.panel2.Size = new System.Drawing.Size(396, 57);
+            this.panel2.Size = new System.Drawing.Size(393, 57);
             this.panel2.TabIndex = 7;
             // 
             // tabSellFilter
@@ -648,7 +636,7 @@
             this.groupOthers.Location = new System.Drawing.Point(12, 590);
             this.groupOthers.Name = "groupOthers";
             this.groupOthers.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupOthers.Radius = 1;
+            this.groupOthers.Radius = 2;
             this.groupOthers.Size = new System.Drawing.Size(224, 106);
             this.groupOthers.TabIndex = 42;
             this.groupOthers.TabStop = false;
@@ -732,7 +720,7 @@
             this.groupWeapons.Margin = new System.Windows.Forms.Padding(6);
             this.groupWeapons.Name = "groupWeapons";
             this.groupWeapons.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupWeapons.Radius = 1;
+            this.groupWeapons.Radius = 2;
             this.groupWeapons.Size = new System.Drawing.Size(224, 207);
             this.groupWeapons.TabIndex = 40;
             this.groupWeapons.TabStop = false;
@@ -893,7 +881,7 @@
             this.groupAccessories.Location = new System.Drawing.Point(12, 305);
             this.groupAccessories.Name = "groupAccessories";
             this.groupAccessories.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupAccessories.Radius = 1;
+            this.groupAccessories.Radius = 2;
             this.groupAccessories.Size = new System.Drawing.Size(224, 58);
             this.groupAccessories.TabIndex = 44;
             this.groupAccessories.TabStop = false;
@@ -952,7 +940,7 @@
             this.groupClothes.Location = new System.Drawing.Point(12, 160);
             this.groupClothes.Name = "groupClothes";
             this.groupClothes.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupClothes.Radius = 1;
+            this.groupClothes.Radius = 2;
             this.groupClothes.Size = new System.Drawing.Size(224, 135);
             this.groupClothes.TabIndex = 41;
             this.groupClothes.TabStop = false;
@@ -1066,7 +1054,7 @@
             this.groupGender.Margin = new System.Windows.Forms.Padding(6);
             this.groupGender.Name = "groupGender";
             this.groupGender.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupGender.Radius = 1;
+            this.groupGender.Radius = 2;
             this.groupGender.Size = new System.Drawing.Size(224, 138);
             this.groupGender.TabIndex = 44;
             this.groupGender.TabStop = false;
@@ -1195,6 +1183,7 @@
             this.btnResetFilter.Color = System.Drawing.Color.Transparent;
             this.btnResetFilter.Location = new System.Drawing.Point(12, 7);
             this.btnResetFilter.Name = "btnResetFilter";
+            this.btnResetFilter.Radius = 2;
             this.btnResetFilter.Size = new System.Drawing.Size(96, 23);
             this.btnResetFilter.TabIndex = 39;
             this.btnResetFilter.Text = "Reset";
@@ -1208,6 +1197,7 @@
             this.btnSearch.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnSearch.Location = new System.Drawing.Point(667, 7);
             this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Radius = 2;
             this.btnSearch.Size = new System.Drawing.Size(75, 23);
             this.btnSearch.TabIndex = 21;
             this.btnSearch.Text = "Search";
@@ -1219,6 +1209,7 @@
             this.btnReload.Color = System.Drawing.Color.Transparent;
             this.btnReload.Location = new System.Drawing.Point(112, 7);
             this.btnReload.Name = "btnReload";
+            this.btnReload.Radius = 2;
             this.btnReload.Size = new System.Drawing.Size(137, 23);
             this.btnReload.TabIndex = 39;
             this.btnReload.Text = "Apply";
@@ -1272,7 +1263,7 @@
             this.groupBox7.Location = new System.Drawing.Point(6, 6);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBox7.Radius = 1;
+            this.groupBox7.Radius = 2;
             this.groupBox7.Size = new System.Drawing.Size(491, 112);
             this.groupBox7.TabIndex = 0;
             this.groupBox7.TabStop = false;
@@ -1338,6 +1329,16 @@
             this.checkPickupGold.Text = "Pickup gold";
             this.checkPickupGold.CheckedChanged += new System.EventHandler(this.checkPickupGold_CheckedChanged);
             // 
+            // separator5
+            // 
+            this.separator5.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.separator5.IsVertical = false;
+            this.separator5.Location = new System.Drawing.Point(8, 366);
+            this.separator5.Name = "separator5";
+            this.separator5.Size = new System.Drawing.Size(730, 10);
+            this.separator5.TabIndex = 9;
+            this.separator5.Text = "separator5";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -1352,10 +1353,10 @@
             this.tabMain.ResumeLayout(false);
             this.tabBuyFilter.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
+            this.splitContainer.Panel1.ResumeLayout(false);
+            this.splitContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
+            this.splitContainer.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tabSellFilter.ResumeLayout(false);
@@ -1451,8 +1452,6 @@
         private SDUI.Controls.CheckBox checkPickupRare;
         private SDUI.Controls.CheckBox checkEnableAbilityPet;
         private SDUI.Controls.Button btnResetFilter;
-        private System.Windows.Forms.ImageList imgShoppingListNPC;
-        private System.Windows.Forms.ImageList imgShoppingList;
         private SDUI.Controls.CheckBox checkDontPickupInBerzerk;
         private SDUI.Controls.CheckBox cbJustpickmyitems;
         private SDUI.Controls.CheckBox cbDontPickupWhileBotting;
@@ -1473,7 +1472,7 @@
         private SDUI.Controls.CheckBox checkSellItemsFromPet;
         private SDUI.Controls.CheckBox checkRepairGear;
         private SDUI.Controls.CheckBox checkEnable;
-        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.SplitContainer splitContainer;
         private SDUI.Controls.ListView listAvailableProducts;
         private System.Windows.Forms.ColumnHeader colAvailableName;
         private SDUI.Controls.Panel panel1;
@@ -1490,5 +1489,6 @@
         private SDUI.Controls.Separator separator4;
         private SDUI.Controls.Separator separator1;
         private SDUI.Controls.Separator separator2;
+        private SDUI.Controls.Separator separator5;
     }
 }

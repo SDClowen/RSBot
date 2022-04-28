@@ -28,12 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.label1 = new SDUI.Controls.Label();
             this.comboInventoryType = new SDUI.Controls.ComboBox();
             this.label2 = new SDUI.Controls.Label();
             this.lblFreeSlots = new SDUI.Controls.Label();
-            this.imgItems = new System.Windows.Forms.ImageList(this.components);
             this.listViewMain = new SDUI.Controls.ListView();
             this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colAmount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -100,12 +98,6 @@
             this.lblFreeSlots.TabIndex = 4;
             this.lblFreeSlots.Text = "0";
             // 
-            // imgItems
-            // 
-            this.imgItems.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-            this.imgItems.ImageSize = new System.Drawing.Size(24, 24);
-            this.imgItems.TransparentColor = System.Drawing.Color.Transparent;
-            // 
             // listViewMain
             // 
             this.listViewMain.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -121,7 +113,6 @@
             this.listViewMain.MultiSelect = false;
             this.listViewMain.Name = "listViewMain";
             this.listViewMain.Size = new System.Drawing.Size(750, 393);
-            this.listViewMain.SmallImageList = this.imgItems;
             this.listViewMain.TabIndex = 2;
             this.listViewMain.UseCompatibleStateImageBehavior = false;
             this.listViewMain.View = System.Windows.Forms.View.Details;
@@ -177,6 +168,7 @@
             this.buttonUseItem.ForeColor = System.Drawing.Color.White;
             this.buttonUseItem.Location = new System.Drawing.Point(662, 8);
             this.buttonUseItem.Name = "buttonUseItem";
+            this.buttonUseItem.Radius = 4;
             this.buttonUseItem.Size = new System.Drawing.Size(75, 23);
             this.buttonUseItem.TabIndex = 6;
             this.buttonUseItem.Text = "Use";
@@ -211,7 +203,6 @@
         private SDUI.Controls.Label label2;
         private SDUI.Controls.Label lblFreeSlots;
         private System.Windows.Forms.ColumnHeader colGenderRace;
-        private System.Windows.Forms.ImageList imgItems;
         private SDUI.Controls.Panel panel1;
         private SDUI.Controls.Panel panel2;
         private SDUI.Controls.Button buttonUseItem;
