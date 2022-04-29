@@ -5,9 +5,10 @@ using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Skill;
+using RSBot.Skills.Components;
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace RSBot.Skills.Views
@@ -29,7 +30,7 @@ namespace RSBot.Skills.Views
 
         private bool _applySkills;
         private object _lock;
-        private int _selectedMasteryId;
+        private MasteryComboBoxItem _selectedMastery;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Main"/> class.
@@ -60,6 +61,18 @@ namespace RSBot.Skills.Views
             EventManager.SubscribeEvent("OnAddBuff", new Action<SkillInfo>(OnAddBuff));
             EventManager.SubscribeEvent("OnRemoveBuff", new Action<SkillInfo>(OnRemoveBuff));
             EventManager.SubscribeEvent("OnResurrectionRequest", OnResurrectionRequest);
+            EventManager.SubscribeEvent("OnExpSpUpdate", OnSpUpdated);
+        }
+
+        private void OnSpUpdated()
+        {
+            if (_selectedMastery == null || !checkLearnMastery.Checked) return;
+
+            while (_selectedMastery.Level + numMasteryGap.Value < Game.Player.Level)
+            {
+                LearnMasteryHandler.LearnMastery(_selectedMastery.Record.ID);
+                Thread.Sleep(500);
+            }
         }
 
         /// <summary>
@@ -163,18 +176,20 @@ namespace RSBot.Skills.Views
 
         private void LoadMasteries()
         {
-            var selectedMastery = PlayerConfig.Get<int>("RSBot.Skills.selectedMastery", 0);
+            var selectedMastery = PlayerConfig.Get<string>("RSBot.Skills.selectedMastery");
             comboLearnMastery.BeginUpdate();
             comboLearnMastery.Items.Clear();
 
             foreach (var mastery in Game.Player.Skills.Masteries)
                 comboLearnMastery.Items.Add(new MasteryComboBoxItem { Level = mastery.Level, Record = mastery.Record });
-            
+
             foreach (MasteryComboBoxItem item in comboLearnMastery.Items)
-                if (item.Record.ID == selectedMastery)
+                if (item.Record.NameCode == selectedMastery)
                     comboLearnMastery.SelectedItem = item;
-            
+
             comboLearnMastery.EndUpdate();
+
+            comboLearnMastery.Update();
         }
 
         /// <summary>
@@ -464,7 +479,7 @@ namespace RSBot.Skills.Views
             LoadSkills();
             LoadAttacks();
             LoadBuffs();
-
+            LoadMasteries();
             _applySkills = true;
             ApplySkills();
             _applySkills = false;
@@ -725,6 +740,16 @@ namespace RSBot.Skills.Views
         private void numMasteryGap_ValueChanged(object sender, EventArgs e)
         {
             PlayerConfig.Set("RSBot.Skills.masteryGap", numMasteryGap.Value);
+        }
+
+        private void comboLearnMastery_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboLearnMastery.SelectedIndex < 0) return;
+
+            var selectedItem = (MasteryComboBoxItem)comboLearnMastery.SelectedItem;
+            _selectedMastery = selectedItem;
+
+            PlayerConfig.Set("RSBot.Skills.selectedMastery", selectedItem.Record.NameCode);
         }
     }
 }

@@ -50,6 +50,11 @@
             this.tabControl1 = new SDUI.Controls.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.grpMasteryLearn = new SDUI.Controls.GroupBox();
+            this.label4 = new SDUI.Controls.Label();
+            this.numMasteryGap = new System.Windows.Forms.NumericUpDown();
+            this.comboLearnMastery = new SDUI.Controls.ComboBox();
+            this.checkLearnMastery = new SDUI.Controls.CheckBox();
             this.groupBox3 = new SDUI.Controls.GroupBox();
             this.comboResurrectionSkill = new SDUI.Controls.ComboBox();
             this.checkAcceptResurrection = new SDUI.Controls.CheckBox();
@@ -76,16 +81,13 @@
             this.listActiveBuffs = new SDUI.Controls.ListView();
             this.colActiveName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colActiveLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.grpMasteryLearn = new SDUI.Controls.GroupBox();
-            this.checkLearnMastery = new SDUI.Controls.CheckBox();
-            this.comboLearnMastery = new SDUI.Controls.ComboBox();
-            this.numMasteryGap = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new SDUI.Controls.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.grpMasteryLearn.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMasteryGap)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -93,8 +95,6 @@
             this.skillContextMenu.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabPage4.SuspendLayout();
-            this.grpMasteryLearn.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numMasteryGap)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -362,6 +362,68 @@
             this.tabPage2.Size = new System.Drawing.Size(384, 438);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Advanced setup";
+            // 
+            // grpMasteryLearn
+            // 
+            this.grpMasteryLearn.BackColor = System.Drawing.Color.Transparent;
+            this.grpMasteryLearn.Controls.Add(this.label4);
+            this.grpMasteryLearn.Controls.Add(this.numMasteryGap);
+            this.grpMasteryLearn.Controls.Add(this.comboLearnMastery);
+            this.grpMasteryLearn.Controls.Add(this.checkLearnMastery);
+            this.grpMasteryLearn.Location = new System.Drawing.Point(8, 229);
+            this.grpMasteryLearn.Name = "grpMasteryLearn";
+            this.grpMasteryLearn.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.grpMasteryLearn.Radius = 2;
+            this.grpMasteryLearn.Size = new System.Drawing.Size(367, 100);
+            this.grpMasteryLearn.TabIndex = 13;
+            this.grpMasteryLearn.TabStop = false;
+            this.grpMasteryLearn.Text = "Mastery update";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(252, 51);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(28, 15);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Gap";
+            // 
+            // numMasteryGap
+            // 
+            this.numMasteryGap.Location = new System.Drawing.Point(286, 48);
+            this.numMasteryGap.Maximum = new decimal(new int[] {
+            9,
+            0,
+            0,
+            0});
+            this.numMasteryGap.Name = "numMasteryGap";
+            this.numMasteryGap.Size = new System.Drawing.Size(64, 23);
+            this.numMasteryGap.TabIndex = 2;
+            this.numMasteryGap.ValueChanged += new System.EventHandler(this.numMasteryGap_ValueChanged);
+            // 
+            // comboLearnMastery
+            // 
+            this.comboLearnMastery.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.comboLearnMastery.DropDownHeight = 100;
+            this.comboLearnMastery.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboLearnMastery.FormattingEnabled = true;
+            this.comboLearnMastery.IntegralHeight = false;
+            this.comboLearnMastery.ItemHeight = 17;
+            this.comboLearnMastery.Location = new System.Drawing.Point(86, 48);
+            this.comboLearnMastery.Name = "comboLearnMastery";
+            this.comboLearnMastery.Size = new System.Drawing.Size(151, 23);
+            this.comboLearnMastery.TabIndex = 1;
+            this.comboLearnMastery.SelectedIndexChanged += new System.EventHandler(this.comboLearnMastery_SelectedIndexChanged);
+            // 
+            // checkLearnMastery
+            // 
+            this.checkLearnMastery.Checked = false;
+            this.checkLearnMastery.Location = new System.Drawing.Point(15, 48);
+            this.checkLearnMastery.Name = "checkLearnMastery";
+            this.checkLearnMastery.Size = new System.Drawing.Size(65, 23);
+            this.checkLearnMastery.TabIndex = 0;
+            this.checkLearnMastery.Text = "Mastery";
+            this.checkLearnMastery.Click += new System.EventHandler(this.checkLearnMastery_Click);
             // 
             // groupBox3
             // 
@@ -638,67 +700,6 @@
             this.colActiveLevel.Text = "";
             this.colActiveLevel.Width = 69;
             // 
-            // grpMasteryLearn
-            // 
-            this.grpMasteryLearn.BackColor = System.Drawing.Color.Transparent;
-            this.grpMasteryLearn.Controls.Add(this.label4);
-            this.grpMasteryLearn.Controls.Add(this.numMasteryGap);
-            this.grpMasteryLearn.Controls.Add(this.comboLearnMastery);
-            this.grpMasteryLearn.Controls.Add(this.checkLearnMastery);
-            this.grpMasteryLearn.Location = new System.Drawing.Point(8, 229);
-            this.grpMasteryLearn.Name = "grpMasteryLearn";
-            this.grpMasteryLearn.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.grpMasteryLearn.Radius = 2;
-            this.grpMasteryLearn.Size = new System.Drawing.Size(367, 100);
-            this.grpMasteryLearn.TabIndex = 13;
-            this.grpMasteryLearn.TabStop = false;
-            this.grpMasteryLearn.Text = "Mastery update";
-            // 
-            // checkLearnMastery
-            // 
-            this.checkLearnMastery.Checked = false;
-            this.checkLearnMastery.Location = new System.Drawing.Point(15, 48);
-            this.checkLearnMastery.Name = "checkLearnMastery";
-            this.checkLearnMastery.Size = new System.Drawing.Size(65, 23);
-            this.checkLearnMastery.TabIndex = 0;
-            this.checkLearnMastery.Text = "Mastery";
-            this.checkLearnMastery.Click += new System.EventHandler(this.checkLearnMastery_Click);
-            // 
-            // comboLearnMastery
-            // 
-            this.comboLearnMastery.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.comboLearnMastery.DropDownHeight = 100;
-            this.comboLearnMastery.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboLearnMastery.FormattingEnabled = true;
-            this.comboLearnMastery.IntegralHeight = false;
-            this.comboLearnMastery.ItemHeight = 17;
-            this.comboLearnMastery.Location = new System.Drawing.Point(86, 48);
-            this.comboLearnMastery.Name = "comboLearnMastery";
-            this.comboLearnMastery.Size = new System.Drawing.Size(151, 23);
-            this.comboLearnMastery.TabIndex = 1;
-            // 
-            // numMasteryGap
-            // 
-            this.numMasteryGap.Location = new System.Drawing.Point(286, 48);
-            this.numMasteryGap.Maximum = new decimal(new int[] {
-            9,
-            0,
-            0,
-            0});
-            this.numMasteryGap.Name = "numMasteryGap";
-            this.numMasteryGap.Size = new System.Drawing.Size(64, 23);
-            this.numMasteryGap.TabIndex = 2;
-            this.numMasteryGap.ValueChanged += new System.EventHandler(this.numMasteryGap_ValueChanged);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(252, 51);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(28, 15);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Gap";
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -715,6 +716,9 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
+            this.grpMasteryLearn.ResumeLayout(false);
+            this.grpMasteryLearn.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMasteryGap)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -723,9 +727,6 @@
             this.skillContextMenu.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
-            this.grpMasteryLearn.ResumeLayout(false);
-            this.grpMasteryLearn.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numMasteryGap)).EndInit();
             this.ResumeLayout(false);
 
         }
