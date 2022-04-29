@@ -81,6 +81,7 @@
             this.listActiveBuffs = new SDUI.Controls.ListView();
             this.colActiveName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colActiveLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.checkLearnMasteryBotStopped = new SDUI.Controls.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -366,6 +367,7 @@
             // grpMasteryLearn
             // 
             this.grpMasteryLearn.BackColor = System.Drawing.Color.Transparent;
+            this.grpMasteryLearn.Controls.Add(this.checkLearnMasteryBotStopped);
             this.grpMasteryLearn.Controls.Add(this.label4);
             this.grpMasteryLearn.Controls.Add(this.numMasteryGap);
             this.grpMasteryLearn.Controls.Add(this.comboLearnMastery);
@@ -374,7 +376,7 @@
             this.grpMasteryLearn.Name = "grpMasteryLearn";
             this.grpMasteryLearn.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.grpMasteryLearn.Radius = 2;
-            this.grpMasteryLearn.Size = new System.Drawing.Size(367, 100);
+            this.grpMasteryLearn.Size = new System.Drawing.Size(367, 115);
             this.grpMasteryLearn.TabIndex = 13;
             this.grpMasteryLearn.TabStop = false;
             this.grpMasteryLearn.Text = "Mastery update";
@@ -700,6 +702,15 @@
             this.colActiveLevel.Text = "";
             this.colActiveLevel.Width = 69;
             // 
+            // checkLearnMasteryBotStopped
+            // 
+            this.checkLearnMasteryBotStopped.Checked = false;
+            this.checkLearnMasteryBotStopped.Location = new System.Drawing.Point(15, 77);
+            this.checkLearnMasteryBotStopped.Name = "checkLearnMasteryBotStopped";
+            this.checkLearnMasteryBotStopped.Size = new System.Drawing.Size(156, 23);
+            this.checkLearnMasteryBotStopped.TabIndex = 25;
+            this.checkLearnMasteryBotStopped.Text = "Enabled if bot is stopped";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -785,5 +796,6 @@
         private System.Windows.Forms.NumericUpDown numMasteryGap;
         private SDUI.Controls.ComboBox comboLearnMastery;
         private SDUI.Controls.CheckBox checkLearnMastery;
+        private SDUI.Controls.CheckBox checkLearnMasteryBotStopped;
     }
 }

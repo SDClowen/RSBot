@@ -64,12 +64,27 @@ namespace RSBot.Skills.Views
             EventManager.SubscribeEvent("OnExpSpUpdate", OnSpUpdated);
         }
 
+        /// <summary>
+        /// Will be triggered if EXP/SP were gained. Increases the selected mastery level (if available)
+        /// </summary>
         private void OnSpUpdated()
         {
             if (_selectedMastery == null || !checkLearnMastery.Checked) return;
-
+            
             while (_selectedMastery.Level + numMasteryGap.Value < Game.Player.Level)
             {
+                if (!checkLearnMasteryBotStopped.Checked && !Kernel.Bot.Running) break;
+
+                var nextMasteryLevel = Game.ReferenceManager.GetRefLevel((byte) (_selectedMastery.Level + 1));
+
+                if (nextMasteryLevel.Exp_M > Game.Player.SkillPoints)
+                {
+                    Log.Debug($"Auto. upping mastery cancelled due to insufficient skill points. Required: {nextMasteryLevel.Exp_M}");
+
+                    break;
+                }
+
+                Log.Notify($"Auto. train mastery [{_selectedMastery.Record.Name} to lv. {nextMasteryLevel}");
                 LearnMasteryHandler.LearnMastery(_selectedMastery.Record.ID);
                 Thread.Sleep(500);
             }
