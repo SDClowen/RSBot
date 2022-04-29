@@ -38,6 +38,7 @@ namespace RSBot.Protection
             SkillHealthHandler.Initialize();
             SkillManaHandler.Initialize();
             BadStateSkillHandler.Initialize();
+            StatPointsHandler.Initialize();
 
             //Pet handlers
             AttackPetHealthRecoveryHandler.Initialize();
@@ -54,7 +55,6 @@ namespace RSBot.Protection
             PetInventoryFullHandler.Initialize();
             NoManaPotionsHandler.Initialize();
             NoHealthPotionsHandler.Initialize();
-            DurabilityLowHandler.Initialize();
             LevelUpHandler.Initialize();
         }
 

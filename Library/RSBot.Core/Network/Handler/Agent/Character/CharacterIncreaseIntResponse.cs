@@ -29,6 +29,7 @@ namespace RSBot.Core.Network.Handler.Agent.Character
             if (packet.ReadByte() != 1)
                 return;
 
+            Core.Game.Player.StatPoints--;
             EventManager.FireEvent("OnIncreaseIntelligence");
         }
     }
