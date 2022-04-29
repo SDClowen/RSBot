@@ -3,7 +3,10 @@ using RSBot.Core.Event;
 using RSBot.Core.Objects.Skill;
 using System;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using RSBot.Protection.Components.Player;
 
 namespace RSBot.Protection.Views
 {
@@ -14,7 +17,7 @@ namespace RSBot.Protection.Views
 
         private bool _settingsLoaded;
         private bool _skillSettingsLoaded;
-
+        private bool _statIncreaseRunning;
         #endregion Fields
 
         public Main()
@@ -31,6 +34,10 @@ namespace RSBot.Protection.Views
             EventManager.SubscribeEvent("OnEnterGame", OnEnterGame);
             EventManager.SubscribeEvent("OnLoadCharacter", OnLoadCharacter);
             EventManager.SubscribeEvent("OnLearnSkill", new Action<SkillInfo, bool>(OnLearnSkill));
+
+            EventManager.SubscribeEvent("OnLevelUp", new Action<byte>(OnLevelUp));
+            EventManager.SubscribeEvent("OnIncreaseStrength", OnIncreaseStat);
+            EventManager.SubscribeEvent("OnIncreaseIntelligence", OnIncreaseStat);
         }
 
         /// <summary>
@@ -60,6 +67,12 @@ namespace RSBot.Protection.Views
 
             foreach (var num in groupBackTown.Controls.OfType<NumericUpDown>())
                 num.Value = PlayerConfig.Get<int>(key + num.Name, 50);
+
+            foreach (var checkbox in groupStatPoints.Controls.OfType<SDUI.Controls.CheckBox>())
+                checkbox.Checked = PlayerConfig.Get<bool>(key + checkbox.Name);
+
+            foreach (var num in groupStatPoints.Controls.OfType<NumericUpDown>())
+                num.Value = PlayerConfig.Get<int>(key + num.Name, 0);
         }
 
         /// <summary>
@@ -87,6 +100,12 @@ namespace RSBot.Protection.Views
                 PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
 
             foreach (var num in groupBackTown.Controls.OfType<NumericUpDown>())
+                PlayerConfig.Set(key + num.Name, num.Value);
+
+            foreach (var checkbox in groupStatPoints.Controls.OfType<SDUI.Controls.CheckBox>())
+                PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
+
+            foreach (var num in groupStatPoints.Controls.OfType<NumericUpDown>())
                 PlayerConfig.Set(key + num.Name, num.Value);
 
             SkillInfo skill = null;
@@ -123,10 +142,10 @@ namespace RSBot.Protection.Views
 
             foreach (var skill in Game.Player.Skills.KnownSkills)
             {
-                if (!skill.Enabled) 
+                if (!skill.Enabled)
                     continue;
 
-                if (skill.IsPassive) 
+                if (skill.IsPassive)
                     continue;
 
                 if (skill.Record.Target_Required && !skill.Record.TargetGroup_Self)
@@ -135,7 +154,7 @@ namespace RSBot.Protection.Views
                 // TODO: Check is the cure skill?
                 var badStatusIndex = comboSkillBadStatus.Items.Add(skill);
                 var badStatusSkillId = PlayerConfig.Get<uint>("RSBot.Protection.BadStatusSkill");
-                if(badStatusSkillId == skill.Id)
+                if (badStatusSkillId == skill.Id)
                     comboSkillBadStatus.SelectedIndex = badStatusIndex;
 
                 // TODO: Check is the hp skill?
@@ -211,6 +230,84 @@ namespace RSBot.Protection.Views
         private void OnLoadCharacter()
         {
             RefreshSkills();
+
+            lblStatPoints.Text = Game.Player.StatPoints.ToString();
+        }
+
+        /// <summary>
+        /// Re-calculates the max points of the Str numeric
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void numIncInt_ValueChanged(object sender, EventArgs e)
+        {
+            numIncStr.Maximum = 3 - numIncInt.Value;
+
+            PlayerConfig.Set("RSBot.Protection.numIncInt", numIncInt.Value);
+        }
+
+        /// <summary>
+        /// Re-calculates the max points of the Int numeric
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void numIncStr_ValueChanged(object sender, EventArgs e)
+        {
+            numIncInt.Maximum = 3 - numIncStr.Value;
+
+            PlayerConfig.Set("RSBot.Protection.numIncStr", numIncStr.Value);
+        }
+
+        private void OnIncreaseStat()
+        {
+            lblStatPoints.Text = Game.Player.StatPoints.ToString();
+
+            if (Game.Player.StatPoints < numIncInt.Value + numIncStr.Value) 
+            {
+                linkRunStatInc.Text = "Run";
+
+                _statIncreaseRunning = false;
+            }
+        }
+
+        private void OnLevelUp(byte oldLevel)
+        {
+            lblStatPoints.Text = Game.Player.StatPoints.ToString();
+        }
+
+        private void linkRunStatInc_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (_statIncreaseRunning)
+            {
+                linkRunStatInc.Text = "Run";
+
+                _statIncreaseRunning = false;
+
+                StatPointsHandler.CancellationRequested = true;
+
+                return;
+            }
+
+            StatPointsHandler.CancellationRequested = false;
+            var stepSize = numIncInt.Value + numIncStr.Value;
+
+            if (stepSize == 0) return;
+            //Only run if at least 3 stat points can be increased
+            if (Game.Player.StatPoints < stepSize)
+                return;
+
+            var availableSteps = Math.Floor(Game.Player.StatPoints / stepSize);
+
+            if (Game.Player.StatPoints == stepSize)
+                availableSteps = 1;
+
+            if (availableSteps == 0) return;
+
+            Task.Run(() => StatPointsHandler.IncreaseStatPoints((int) availableSteps));
+            
+            _statIncreaseRunning = true;
+
+            linkRunStatInc.Text = "Cancel";
         }
     }
 }
