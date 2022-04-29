@@ -3,6 +3,7 @@ using RSBot.Core.Event;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using RSBot.Core.Network;
 
 namespace RSBot.Protection.Components.Player
 {
@@ -59,7 +60,7 @@ namespace RSBot.Protection.Components.Player
 
                         Log.Notify($"Auto. increasing stat STR to {Game.Player.Strength + 1}");
 
-                        Game.Player.IncreaseStr();
+                        IncreaseStr();
 
                         //Make sure the user has time to cancel, otherwise it's just too fast (but would still work due to the callback await)
                         Thread.Sleep(500);
@@ -74,12 +75,52 @@ namespace RSBot.Protection.Components.Player
 
                         Log.Notify($"Auto. increasing stat INT to {Game.Player.Intelligence + 1}");
 
-                        Game.Player.IncreaseInt();
+                        IncreaseInt();
 
                         Thread.Sleep(500);
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Sends the STR increase packet to the server
+        /// </summary>
+        private static void IncreaseStr()
+        {
+            if (Game.Player.StatPoints == 0)
+            {
+                Log.Debug("Could not invest stat point: The player does not have enough points to invest.");
+
+                return;
+            }
+
+            var callback = new AwaitCallback(null, 0xB050);
+
+            var packet = new Packet(0x7050);
+
+            PacketManager.SendPacket(packet, PacketDestination.Server, callback);
+            callback.AwaitResponse(1000);
+        }
+
+        /// <summary>
+        /// Sends the STR increase packet to the server
+        /// </summary>
+        private static void IncreaseInt()
+        {
+            if (Game.Player.StatPoints == 0)
+            {
+                Log.Debug("Could not invest stat point: The player does not have enough points to invest.");
+
+                return;
+            }
+
+            var callback = new AwaitCallback(null, 0xB051);
+
+            var packet = new Packet(0x7051);
+
+            PacketManager.SendPacket(packet, PacketDestination.Server, callback);
+            callback.AwaitResponse(1000);
         }
     }
 }

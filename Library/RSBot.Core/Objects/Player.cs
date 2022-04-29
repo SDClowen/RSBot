@@ -887,45 +887,5 @@ namespace RSBot.Core.Objects
             PacketManager.SendPacket(packet, PacketDestination.Server, callback);
             callback.AwaitResponse(500);
         }
-
-        /// <summary>
-        /// Sends the STR increase packet to the server
-        /// </summary>
-        public void IncreaseStr()
-        {
-            if (StatPoints == 0)
-            {
-                Log.Debug("Could not invest stat point: The player does not have enough points to invest.");
-
-                return;
-            }
-
-            var callback = new AwaitCallback(null, 0xB050);
-
-            var packet = new Packet(0x7050);
-
-            PacketManager.SendPacket(packet, PacketDestination.Server, callback);
-            callback.AwaitResponse(1000);
-        }
-
-        /// <summary>
-        /// Sends the STR increase packet to the server
-        /// </summary>
-        public void IncreaseInt()
-        {
-            if (StatPoints == 0)
-            {
-                Log.Debug("Could not invest stat point: The player does not have enough points to invest.");
-
-                return;
-            }
-
-            var callback = new AwaitCallback(null, 0xB051);
-           
-            var packet = new Packet(0x7051);
-
-            PacketManager.SendPacket(packet, PacketDestination.Server, callback);
-            callback.AwaitResponse(1000);
-        }
     }
 }
