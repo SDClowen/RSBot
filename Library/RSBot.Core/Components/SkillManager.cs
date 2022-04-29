@@ -137,9 +137,13 @@ namespace RSBot.Core.Components
             else if (distance < 10)
             {
                 var stopwatch = Stopwatch.StartNew();
-                while (Skills[rarity].Count > 0)
+                var counter = -1;
+                var skillCount = Skills[rarity].Count;
+                while (skillCount > 0 && counter < skillCount)
                 {
+                    counter++;
                     _lastIndex++;
+
                     if (_lastIndex > Skills[rarity].Count - 1)
                         _lastIndex = 0;
 
