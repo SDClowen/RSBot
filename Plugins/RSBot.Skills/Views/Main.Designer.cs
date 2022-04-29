@@ -50,6 +50,11 @@
             this.tabControl1 = new SDUI.Controls.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.grpMasteryLearn = new SDUI.Controls.GroupBox();
+            this.label4 = new SDUI.Controls.Label();
+            this.numMasteryGap = new System.Windows.Forms.NumericUpDown();
+            this.comboLearnMastery = new SDUI.Controls.ComboBox();
+            this.checkLearnMastery = new SDUI.Controls.CheckBox();
             this.groupBox3 = new SDUI.Controls.GroupBox();
             this.comboResurrectionSkill = new SDUI.Controls.ComboBox();
             this.checkAcceptResurrection = new SDUI.Controls.CheckBox();
@@ -76,11 +81,14 @@
             this.listActiveBuffs = new SDUI.Controls.ListView();
             this.colActiveName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colActiveLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.checkLearnMasteryBotStopped = new SDUI.Controls.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.grpMasteryLearn.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMasteryGap)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -103,7 +111,7 @@
             this.groupBox1.Location = new System.Drawing.Point(14, 5);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBox1.Radius = 1;
+            this.groupBox1.Radius = 2;
             this.groupBox1.Size = new System.Drawing.Size(357, 205);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
@@ -182,6 +190,7 @@
             this.btnMoveAttackSkillDown.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.btnMoveAttackSkillDown.Location = new System.Drawing.Point(327, 85);
             this.btnMoveAttackSkillDown.Name = "btnMoveAttackSkillDown";
+            this.btnMoveAttackSkillDown.Radius = 2;
             this.btnMoveAttackSkillDown.Size = new System.Drawing.Size(24, 24);
             this.btnMoveAttackSkillDown.TabIndex = 1;
             this.btnMoveAttackSkillDown.Text = "6";
@@ -194,6 +203,7 @@
             this.btnMoveAttackSkillUp.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.btnMoveAttackSkillUp.Location = new System.Drawing.Point(327, 55);
             this.btnMoveAttackSkillUp.Name = "btnMoveAttackSkillUp";
+            this.btnMoveAttackSkillUp.Radius = 2;
             this.btnMoveAttackSkillUp.Size = new System.Drawing.Size(24, 24);
             this.btnMoveAttackSkillUp.TabIndex = 1;
             this.btnMoveAttackSkillUp.Text = "5";
@@ -206,6 +216,7 @@
             this.btnRemoveAttackSkill.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.btnRemoveAttackSkill.Location = new System.Drawing.Point(327, 25);
             this.btnRemoveAttackSkill.Name = "btnRemoveAttackSkill";
+            this.btnRemoveAttackSkill.Radius = 2;
             this.btnRemoveAttackSkill.Size = new System.Drawing.Size(24, 22);
             this.btnRemoveAttackSkill.TabIndex = 1;
             this.btnRemoveAttackSkill.Text = "r";
@@ -224,7 +235,7 @@
             this.groupBox2.Location = new System.Drawing.Point(14, 216);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBox2.Radius = 1;
+            this.groupBox2.Radius = 2;
             this.groupBox2.Size = new System.Drawing.Size(357, 198);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
@@ -260,6 +271,7 @@
             this.btnMoveBuffSkillDown.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.btnMoveBuffSkillDown.Location = new System.Drawing.Point(327, 87);
             this.btnMoveBuffSkillDown.Name = "btnMoveBuffSkillDown";
+            this.btnMoveBuffSkillDown.Radius = 2;
             this.btnMoveBuffSkillDown.Size = new System.Drawing.Size(24, 24);
             this.btnMoveBuffSkillDown.TabIndex = 8;
             this.btnMoveBuffSkillDown.Text = "6";
@@ -286,6 +298,7 @@
             this.btnMoveBuffSkillUp.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.btnMoveBuffSkillUp.Location = new System.Drawing.Point(327, 57);
             this.btnMoveBuffSkillUp.Name = "btnMoveBuffSkillUp";
+            this.btnMoveBuffSkillUp.Radius = 2;
             this.btnMoveBuffSkillUp.Size = new System.Drawing.Size(24, 24);
             this.btnMoveBuffSkillUp.TabIndex = 9;
             this.btnMoveBuffSkillUp.Text = "5";
@@ -307,6 +320,7 @@
             this.btnRemoveBuffSkill.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.btnRemoveBuffSkill.Location = new System.Drawing.Point(327, 27);
             this.btnRemoveBuffSkill.Name = "btnRemoveBuffSkill";
+            this.btnRemoveBuffSkill.Radius = 2;
             this.btnRemoveBuffSkill.Size = new System.Drawing.Size(24, 24);
             this.btnRemoveBuffSkill.TabIndex = 5;
             this.btnRemoveBuffSkill.Text = "r";
@@ -340,6 +354,7 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.White;
+            this.tabPage2.Controls.Add(this.grpMasteryLearn);
             this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
@@ -348,6 +363,69 @@
             this.tabPage2.Size = new System.Drawing.Size(384, 438);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Advanced setup";
+            // 
+            // grpMasteryLearn
+            // 
+            this.grpMasteryLearn.BackColor = System.Drawing.Color.Transparent;
+            this.grpMasteryLearn.Controls.Add(this.checkLearnMasteryBotStopped);
+            this.grpMasteryLearn.Controls.Add(this.label4);
+            this.grpMasteryLearn.Controls.Add(this.numMasteryGap);
+            this.grpMasteryLearn.Controls.Add(this.comboLearnMastery);
+            this.grpMasteryLearn.Controls.Add(this.checkLearnMastery);
+            this.grpMasteryLearn.Location = new System.Drawing.Point(8, 229);
+            this.grpMasteryLearn.Name = "grpMasteryLearn";
+            this.grpMasteryLearn.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.grpMasteryLearn.Radius = 2;
+            this.grpMasteryLearn.Size = new System.Drawing.Size(367, 115);
+            this.grpMasteryLearn.TabIndex = 13;
+            this.grpMasteryLearn.TabStop = false;
+            this.grpMasteryLearn.Text = "Mastery update";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(252, 51);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(28, 15);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Gap";
+            // 
+            // numMasteryGap
+            // 
+            this.numMasteryGap.Location = new System.Drawing.Point(286, 48);
+            this.numMasteryGap.Maximum = new decimal(new int[] {
+            9,
+            0,
+            0,
+            0});
+            this.numMasteryGap.Name = "numMasteryGap";
+            this.numMasteryGap.Size = new System.Drawing.Size(64, 23);
+            this.numMasteryGap.TabIndex = 2;
+            this.numMasteryGap.ValueChanged += new System.EventHandler(this.numMasteryGap_ValueChanged);
+            // 
+            // comboLearnMastery
+            // 
+            this.comboLearnMastery.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.comboLearnMastery.DropDownHeight = 100;
+            this.comboLearnMastery.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboLearnMastery.FormattingEnabled = true;
+            this.comboLearnMastery.IntegralHeight = false;
+            this.comboLearnMastery.ItemHeight = 17;
+            this.comboLearnMastery.Location = new System.Drawing.Point(86, 48);
+            this.comboLearnMastery.Name = "comboLearnMastery";
+            this.comboLearnMastery.Size = new System.Drawing.Size(151, 23);
+            this.comboLearnMastery.TabIndex = 1;
+            this.comboLearnMastery.SelectedIndexChanged += new System.EventHandler(this.comboLearnMastery_SelectedIndexChanged);
+            // 
+            // checkLearnMastery
+            // 
+            this.checkLearnMastery.Checked = false;
+            this.checkLearnMastery.Location = new System.Drawing.Point(15, 48);
+            this.checkLearnMastery.Name = "checkLearnMastery";
+            this.checkLearnMastery.Size = new System.Drawing.Size(65, 23);
+            this.checkLearnMastery.TabIndex = 0;
+            this.checkLearnMastery.Text = "Mastery";
+            this.checkLearnMastery.Click += new System.EventHandler(this.checkLearnMastery_Click);
             // 
             // groupBox3
             // 
@@ -359,7 +437,7 @@
             this.groupBox3.Location = new System.Drawing.Point(8, 6);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBox3.Radius = 1;
+            this.groupBox3.Radius = 2;
             this.groupBox3.Size = new System.Drawing.Size(367, 119);
             this.groupBox3.TabIndex = 11;
             this.groupBox3.TabStop = false;
@@ -416,7 +494,7 @@
             this.groupBox4.Location = new System.Drawing.Point(8, 131);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBox4.Radius = 1;
+            this.groupBox4.Radius = 2;
             this.groupBox4.Size = new System.Drawing.Size(367, 92);
             this.groupBox4.TabIndex = 12;
             this.groupBox4.TabStop = false;
@@ -624,6 +702,15 @@
             this.colActiveLevel.Text = "";
             this.colActiveLevel.Width = 69;
             // 
+            // checkLearnMasteryBotStopped
+            // 
+            this.checkLearnMasteryBotStopped.Checked = false;
+            this.checkLearnMasteryBotStopped.Location = new System.Drawing.Point(15, 77);
+            this.checkLearnMasteryBotStopped.Name = "checkLearnMasteryBotStopped";
+            this.checkLearnMasteryBotStopped.Size = new System.Drawing.Size(156, 23);
+            this.checkLearnMasteryBotStopped.TabIndex = 25;
+            this.checkLearnMasteryBotStopped.Text = "Enabled if bot is stopped";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -640,6 +727,9 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
+            this.grpMasteryLearn.ResumeLayout(false);
+            this.grpMasteryLearn.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMasteryGap)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -701,5 +791,11 @@
         private System.Windows.Forms.ToolStripMenuItem skillContextMenuAddBuffSkill;
         private System.Windows.Forms.ToolStripMenuItem skillContextMenuAddAttackSkill;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private SDUI.Controls.GroupBox grpMasteryLearn;
+        private SDUI.Controls.Label label4;
+        private System.Windows.Forms.NumericUpDown numMasteryGap;
+        private SDUI.Controls.ComboBox comboLearnMastery;
+        private SDUI.Controls.CheckBox checkLearnMastery;
+        private SDUI.Controls.CheckBox checkLearnMasteryBotStopped;
     }
 }
