@@ -56,6 +56,7 @@ namespace RSBot.Protection
             NoManaPotionsHandler.Initialize();
             NoHealthPotionsHandler.Initialize();
             LevelUpHandler.Initialize();
+            DurabilityLowHandler.Initialize();
         }
 
         /// <summary>
