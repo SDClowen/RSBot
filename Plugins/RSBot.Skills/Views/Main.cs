@@ -1,10 +1,12 @@
 ﻿using RSBot.Core;
+using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Skill;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -13,8 +15,21 @@ namespace RSBot.Skills.Views
     [System.ComponentModel.ToolboxItem(false)]
     public partial class Main : UserControl
     {
+        private class MasteryComboBoxItem
+        {
+            public RefSkillMastery Record;
+
+            public byte Level;
+
+            public override string ToString()
+            {
+                return Record.Name + $" lv.{Level}";
+            }
+        }
+
         private bool _applySkills;
         private object _lock;
+        private int _selectedMasteryId;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Main"/> class.
@@ -60,6 +75,8 @@ namespace RSBot.Skills.Views
             checkCastBuffsInTowns.Checked = PlayerConfig.Get<bool>("RSBot.Skills.CastBuffsInTowns");
             checkCastBuffsDuringWalkBack.Checked = PlayerConfig.Get<bool>("RSBot.Skills.CastBuffsDuringWalkBack");
             checkBoxNoAttack.Checked = PlayerConfig.Get<bool>("RSBot.Skills.NoAttack");
+            checkLearnMastery.Checked = PlayerConfig.Get<bool>("RSBot.Skills.learnMastery");
+            numMasteryGap.Value = PlayerConfig.Get<byte>("RSBot.Skills.masteryGap", 0);
         }
 
         /// <summary>
@@ -142,6 +159,22 @@ namespace RSBot.Skills.Views
 
             ApplyAttackSkills();
             ApplyBuffSkills();
+        }
+
+        private void LoadMasteries()
+        {
+            var selectedMastery = PlayerConfig.Get<int>("RSBot.Skills.selectedMastery", 0);
+            comboLearnMastery.BeginUpdate();
+            comboLearnMastery.Items.Clear();
+
+            foreach (var mastery in Game.Player.Skills.Masteries)
+                comboLearnMastery.Items.Add(new MasteryComboBoxItem { Level = mastery.Level, Record = mastery.Record });
+            
+            foreach (MasteryComboBoxItem item in comboLearnMastery.Items)
+                if (item.Record.ID == selectedMastery)
+                    comboLearnMastery.SelectedItem = item;
+            
+            comboLearnMastery.EndUpdate();
         }
 
         /// <summary>
@@ -377,16 +410,14 @@ namespace RSBot.Skills.Views
                         itemBuffInfo.Id == removingBuff.Id &&
                         itemBuffInfo.Token == removingBuff.Token)
                     {
-                        // System.IndexOutOfRangeException: 'Index was outside the bounds of the array.' ?? 
+                        // System.IndexOutOfRangeException: 'Index was outside the bounds of the array.' ??
                         listItem.Remove();
                         return;
                     }
-
                 }
             }
             catch
             {
-
             }
         }
 
@@ -420,6 +451,7 @@ namespace RSBot.Skills.Views
         {
             Log.NotifyLang("MasteryUpgraded", info.Record.Name);
 
+            LoadMasteries();
             LoadSkills();
         }
 
@@ -683,6 +715,16 @@ namespace RSBot.Skills.Views
         private void checkBoxNoAttack_CheckedChanged(object sender, EventArgs e)
         {
             PlayerConfig.Set("RSBot.Skills.NoAttack", checkBoxNoAttack.Checked);
+        }
+
+        private void checkLearnMastery_Click(object sender, EventArgs e)
+        {
+            PlayerConfig.Set("RSBot.Skills.learnMastery", checkLearnMastery.Checked);
+        }
+
+        private void numMasteryGap_ValueChanged(object sender, EventArgs e)
+        {
+            PlayerConfig.Set("RSBot.Skills.masteryGap", numMasteryGap.Value);
         }
     }
 }
