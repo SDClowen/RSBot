@@ -1,11 +1,14 @@
 ﻿using RSBot.Core;
+using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Skill;
+using RSBot.Skills.Components;
 using System;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace RSBot.Skills.Views
@@ -13,8 +16,21 @@ namespace RSBot.Skills.Views
     [System.ComponentModel.ToolboxItem(false)]
     public partial class Main : UserControl
     {
+        private class MasteryComboBoxItem
+        {
+            public RefSkillMastery Record;
+
+            public byte Level;
+
+            public override string ToString()
+            {
+                return Record.Name + $" lv.{Level}";
+            }
+        }
+
         private bool _applySkills;
         private object _lock;
+        private MasteryComboBoxItem _selectedMastery;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Main"/> class.
@@ -45,6 +61,33 @@ namespace RSBot.Skills.Views
             EventManager.SubscribeEvent("OnAddBuff", new Action<SkillInfo>(OnAddBuff));
             EventManager.SubscribeEvent("OnRemoveBuff", new Action<SkillInfo>(OnRemoveBuff));
             EventManager.SubscribeEvent("OnResurrectionRequest", OnResurrectionRequest);
+            EventManager.SubscribeEvent("OnExpSpUpdate", OnSpUpdated);
+        }
+
+        /// <summary>
+        /// Will be triggered if EXP/SP were gained. Increases the selected mastery level (if available)
+        /// </summary>
+        private void OnSpUpdated()
+        {
+            if (_selectedMastery == null || !checkLearnMastery.Checked) return;
+            
+            while (_selectedMastery.Level + numMasteryGap.Value < Game.Player.Level)
+            {
+                if (!checkLearnMasteryBotStopped.Checked && !Kernel.Bot.Running) break;
+
+                var nextMasteryLevel = Game.ReferenceManager.GetRefLevel((byte) (_selectedMastery.Level + 1));
+
+                if (nextMasteryLevel.Exp_M > Game.Player.SkillPoints)
+                {
+                    Log.Debug($"Auto. upping mastery cancelled due to insufficient skill points. Required: {nextMasteryLevel.Exp_M}");
+
+                    break;
+                }
+
+                Log.Notify($"Auto. train mastery [{_selectedMastery.Record.Name} to lv. {nextMasteryLevel}");
+                LearnMasteryHandler.LearnMastery(_selectedMastery.Record.ID);
+                Thread.Sleep(500);
+            }
         }
 
         /// <summary>
@@ -60,6 +103,8 @@ namespace RSBot.Skills.Views
             checkCastBuffsInTowns.Checked = PlayerConfig.Get<bool>("RSBot.Skills.CastBuffsInTowns");
             checkCastBuffsDuringWalkBack.Checked = PlayerConfig.Get<bool>("RSBot.Skills.CastBuffsDuringWalkBack");
             checkBoxNoAttack.Checked = PlayerConfig.Get<bool>("RSBot.Skills.NoAttack");
+            checkLearnMastery.Checked = PlayerConfig.Get<bool>("RSBot.Skills.learnMastery");
+            numMasteryGap.Value = PlayerConfig.Get<byte>("RSBot.Skills.masteryGap", 0);
         }
 
         /// <summary>
@@ -142,6 +187,24 @@ namespace RSBot.Skills.Views
 
             ApplyAttackSkills();
             ApplyBuffSkills();
+        }
+
+        private void LoadMasteries()
+        {
+            var selectedMastery = PlayerConfig.Get<string>("RSBot.Skills.selectedMastery");
+            comboLearnMastery.BeginUpdate();
+            comboLearnMastery.Items.Clear();
+
+            foreach (var mastery in Game.Player.Skills.Masteries)
+                comboLearnMastery.Items.Add(new MasteryComboBoxItem { Level = mastery.Level, Record = mastery.Record });
+
+            foreach (MasteryComboBoxItem item in comboLearnMastery.Items)
+                if (item.Record.NameCode == selectedMastery)
+                    comboLearnMastery.SelectedItem = item;
+
+            comboLearnMastery.EndUpdate();
+
+            comboLearnMastery.Update();
         }
 
         /// <summary>
@@ -377,16 +440,14 @@ namespace RSBot.Skills.Views
                         itemBuffInfo.Id == removingBuff.Id &&
                         itemBuffInfo.Token == removingBuff.Token)
                     {
-                        // System.IndexOutOfRangeException: 'Index was outside the bounds of the array.' ?? 
+                        // System.IndexOutOfRangeException: 'Index was outside the bounds of the array.' ??
                         listItem.Remove();
                         return;
                     }
-
                 }
             }
             catch
             {
-
             }
         }
 
@@ -420,6 +481,7 @@ namespace RSBot.Skills.Views
         {
             Log.NotifyLang("MasteryUpgraded", info.Record.Name);
 
+            LoadMasteries();
             LoadSkills();
         }
 
@@ -432,7 +494,7 @@ namespace RSBot.Skills.Views
             LoadSkills();
             LoadAttacks();
             LoadBuffs();
-
+            LoadMasteries();
             _applySkills = true;
             ApplySkills();
             _applySkills = false;
@@ -683,6 +745,26 @@ namespace RSBot.Skills.Views
         private void checkBoxNoAttack_CheckedChanged(object sender, EventArgs e)
         {
             PlayerConfig.Set("RSBot.Skills.NoAttack", checkBoxNoAttack.Checked);
+        }
+
+        private void checkLearnMastery_Click(object sender, EventArgs e)
+        {
+            PlayerConfig.Set("RSBot.Skills.learnMastery", checkLearnMastery.Checked);
+        }
+
+        private void numMasteryGap_ValueChanged(object sender, EventArgs e)
+        {
+            PlayerConfig.Set("RSBot.Skills.masteryGap", numMasteryGap.Value);
+        }
+
+        private void comboLearnMastery_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboLearnMastery.SelectedIndex < 0) return;
+
+            var selectedItem = (MasteryComboBoxItem)comboLearnMastery.SelectedItem;
+            _selectedMastery = selectedItem;
+
+            PlayerConfig.Set("RSBot.Skills.selectedMastery", selectedItem.Record.NameCode);
         }
     }
 }

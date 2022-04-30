@@ -45,6 +45,7 @@
     <Compile Include="Components\Pet\VehicleHealthRecoveryHandler.cs" />
     <Compile Include="Components\Pet\AttackPetHealthRecoveryHandler.cs" />
     <Compile Include="Components\Player\BadStateSkillHandler.cs" />
+    <Compile Include="Components\Player\StatPointsHandler.cs" />
     <Compile Include="Components\Player\SkillManaHandler.cs" />
     <Compile Include="Components\Player\SkillHealthHandler.cs" />
     <Compile Include="Components\Player\UniversalPillHandler.cs" />

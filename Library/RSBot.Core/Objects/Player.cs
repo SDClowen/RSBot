@@ -2,7 +2,6 @@
 using RSBot.Core.Event;
 using RSBot.Core.Network;
 using RSBot.Core.Objects.Quests;
-using RSBot.Core.Objects.Skill;
 using RSBot.Core.Objects.Spawn;
 using System;
 using System.Collections.Generic;
@@ -500,7 +499,7 @@ namespace RSBot.Core.Objects
         /// <inheritdoc/>
         /// </summary>
         /// <param name="objId"></param>
-        public Player(uint objId) : base(objId){}
+        public Player(uint objId) : base(objId) { }
 
         /// <summary>
         /// Gets the ammo amount.
@@ -800,7 +799,7 @@ namespace RSBot.Core.Objects
             var currentWeapon = Inventory.GetItemAt(6);
             var currentAmmunation = Inventory.GetItemAt(7);
 
-            if (currentWeapon == null || currentAmmunation != null) 
+            if (currentWeapon == null || currentAmmunation != null)
                 return;
 
             InventoryItem ammunationItem = null;
@@ -823,7 +822,7 @@ namespace RSBot.Core.Objects
                 Kernel.Bot.Stop();
                 return;
             }
-            
+
             Log.Notify("Could not auto-equip ammunation: No correct ammunation type was found in the player's inventory");
             EventManager.FireEvent("OnUpdateAmmunition");
         }
@@ -878,7 +877,7 @@ namespace RSBot.Core.Objects
         /// </summary>
         public void EnterBerzerkMode()
         {
-            if (!CanEnterBerzerk) 
+            if (!CanEnterBerzerk)
                 return;
 
             var packet = new Packet(0x70A7);

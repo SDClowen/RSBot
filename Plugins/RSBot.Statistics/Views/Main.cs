@@ -202,7 +202,6 @@ namespace RSBot.Statistics.Views
             if (!_initialReset)
                 return;
 
-
             PopulateFilterList();
 
             LoadSettings();

@@ -1,4 +1,5 @@
-﻿using RSBot.Core;
+﻿using System;
+using RSBot.Core;
 using RSBot.Core.Event;
 using System.Windows.Forms;
 
@@ -23,13 +24,18 @@ namespace RSBot.Views.Controls
         {
             EventManager.SubscribeEvent("OnLoadCharacter", OnLoadCharacter);
             EventManager.SubscribeEvent("OnLoadCharacterStats", OnLoadCharacterStats);
-            EventManager.SubscribeEvent("OnLevelUp", OnLevelUp);
+            EventManager.SubscribeEvent("OnLevelUp", new Action<byte>(OnLevelUp));
             EventManager.SubscribeEvent("OnExpSpUpdate", OnExpUpdate);
             EventManager.SubscribeEvent("OnUpdateHPMP", OnLoadCharacterStats);
             EventManager.SubscribeEvent("OnUpdateGold", OnUpdateGold);
             EventManager.SubscribeEvent("OnUpdateSP", OnUpdateSP);
             EventManager.SubscribeEvent("OnAgentServerDisconnected", OnAgentServerDisconnected);
             EventManager.SubscribeEvent("OnInitialized", OnInitialized);
+        }
+
+        private void OnLevelUp(byte oldLevel)
+        {
+            lblLevel.Text = Game.Player.Level.ToString();
         }
 
         private void OnInitialized()
@@ -78,21 +84,13 @@ namespace RSBot.Views.Controls
         }
 
         /// <summary>
-        /// s the on level up.
-        /// </summary>
-        private void OnLevelUp()
-        {
-            lblLevel.Text = Game.Player.Level.ToString();
-        }
-
-        /// <summary>
         /// s the on load character.
         /// </summary>
         private void OnLoadCharacter()
         {
             lblPlayerName.Text = Game.Player.Name;
 
-            OnLevelUp();
+            OnLevelUp(Game.Player.Level);
             OnLoadCharacterStats();
             OnExpUpdate();
             OnUpdateSP();

@@ -89,6 +89,15 @@
             this.label16 = new SDUI.Controls.Label();
             this.checkUsePetHP = new SDUI.Controls.CheckBox();
             this.checkUseHGP = new SDUI.Controls.CheckBox();
+            this.groupStatPoints = new SDUI.Controls.GroupBox();
+            this.checkIncBotStopped = new SDUI.Controls.CheckBox();
+            this.lblStatPointText = new SDUI.Controls.Label();
+            this.numIncStr = new System.Windows.Forms.NumericUpDown();
+            this.numIncInt = new System.Windows.Forms.NumericUpDown();
+            this.checkIncStr = new SDUI.Controls.CheckBox();
+            this.checkIncInt = new SDUI.Controls.CheckBox();
+            this.lblStatPoints = new SDUI.Controls.Label();
+            this.linkRunStatInc = new System.Windows.Forms.LinkLabel();
             this.groupBackTown.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDeadTimeout)).BeginInit();
             this.groupBadStatus.SuspendLayout();
@@ -103,6 +112,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numMountMinHP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPetMinHGP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPetMinHP)).BeginInit();
+            this.groupStatPoints.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numIncStr)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numIncInt)).BeginInit();
             this.SuspendLayout();
             // 
             // label22
@@ -130,7 +142,7 @@
             this.groupBackTown.Location = new System.Drawing.Point(500, 13);
             this.groupBackTown.Name = "groupBackTown";
             this.groupBackTown.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBackTown.Radius = 12;
+            this.groupBackTown.Radius = 2;
             this.groupBackTown.Size = new System.Drawing.Size(221, 221);
             this.groupBackTown.TabIndex = 17;
             this.groupBackTown.TabStop = false;
@@ -254,7 +266,7 @@
             this.groupBadStatus.Location = new System.Drawing.Point(15, 220);
             this.groupBadStatus.Name = "groupBadStatus";
             this.groupBadStatus.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBadStatus.Radius = 12;
+            this.groupBadStatus.Radius = 2;
             this.groupBadStatus.Size = new System.Drawing.Size(456, 83);
             this.groupBadStatus.TabIndex = 6;
             this.groupBadStatus.TabStop = false;
@@ -336,7 +348,7 @@
             this.groupHPMP.Location = new System.Drawing.Point(15, 13);
             this.groupHPMP.Name = "groupHPMP";
             this.groupHPMP.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupHPMP.Radius = 12;
+            this.groupHPMP.Radius = 2;
             this.groupHPMP.Size = new System.Drawing.Size(456, 201);
             this.groupHPMP.TabIndex = 5;
             this.groupHPMP.TabStop = false;
@@ -682,7 +694,7 @@
             this.groupPet.Location = new System.Drawing.Point(15, 309);
             this.groupPet.Name = "groupPet";
             this.groupPet.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupPet.Radius = 12;
+            this.groupPet.Radius = 2;
             this.groupPet.Size = new System.Drawing.Size(456, 178);
             this.groupPet.TabIndex = 1;
             this.groupPet.TabStop = false;
@@ -859,10 +871,121 @@
             this.checkUseHGP.Text = "Use HGP potions if hunger *";
             this.checkUseHGP.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
+            // groupStatPoints
+            // 
+            this.groupStatPoints.BackColor = System.Drawing.Color.Transparent;
+            this.groupStatPoints.Controls.Add(this.linkRunStatInc);
+            this.groupStatPoints.Controls.Add(this.lblStatPoints);
+            this.groupStatPoints.Controls.Add(this.checkIncBotStopped);
+            this.groupStatPoints.Controls.Add(this.lblStatPointText);
+            this.groupStatPoints.Controls.Add(this.numIncStr);
+            this.groupStatPoints.Controls.Add(this.numIncInt);
+            this.groupStatPoints.Controls.Add(this.checkIncStr);
+            this.groupStatPoints.Controls.Add(this.checkIncInt);
+            this.groupStatPoints.Location = new System.Drawing.Point(500, 247);
+            this.groupStatPoints.Name = "groupStatPoints";
+            this.groupStatPoints.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.groupStatPoints.Radius = 2;
+            this.groupStatPoints.Size = new System.Drawing.Size(221, 165);
+            this.groupStatPoints.TabIndex = 18;
+            this.groupStatPoints.TabStop = false;
+            this.groupStatPoints.Text = "Stat points";
+            // 
+            // checkIncBotStopped
+            // 
+            this.checkIncBotStopped.Checked = false;
+            this.checkIncBotStopped.Location = new System.Drawing.Point(12, 121);
+            this.checkIncBotStopped.Name = "checkIncBotStopped";
+            this.checkIncBotStopped.Size = new System.Drawing.Size(156, 23);
+            this.checkIncBotStopped.TabIndex = 24;
+            this.checkIncBotStopped.Text = "Enabled if bot is stopped";
+            this.checkIncBotStopped.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            // 
+            // lblStatPointText
+            // 
+            this.lblStatPointText.AutoSize = true;
+            this.lblStatPointText.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblStatPointText.Location = new System.Drawing.Point(9, 34);
+            this.lblStatPointText.Name = "lblStatPointText";
+            this.lblStatPointText.Size = new System.Drawing.Size(66, 15);
+            this.lblStatPointText.TabIndex = 23;
+            this.lblStatPointText.Text = "Stat points:";
+            // 
+            // numIncStr
+            // 
+            this.numIncStr.InterceptArrowKeys = false;
+            this.numIncStr.Location = new System.Drawing.Point(115, 91);
+            this.numIncStr.Maximum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.numIncStr.Name = "numIncStr";
+            this.numIncStr.Size = new System.Drawing.Size(47, 23);
+            this.numIncStr.TabIndex = 22;
+            this.numIncStr.ValueChanged += new System.EventHandler(this.numIncStr_ValueChanged);
+            // 
+            // numIncInt
+            // 
+            this.numIncInt.InterceptArrowKeys = false;
+            this.numIncInt.Location = new System.Drawing.Point(115, 62);
+            this.numIncInt.Maximum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.numIncInt.Name = "numIncInt";
+            this.numIncInt.Size = new System.Drawing.Size(47, 23);
+            this.numIncInt.TabIndex = 21;
+            this.numIncInt.ValueChanged += new System.EventHandler(this.numIncInt_ValueChanged);
+            // 
+            // checkIncStr
+            // 
+            this.checkIncStr.Checked = false;
+            this.checkIncStr.Location = new System.Drawing.Point(12, 91);
+            this.checkIncStr.Name = "checkIncStr";
+            this.checkIncStr.Size = new System.Drawing.Size(99, 23);
+            this.checkIncStr.TabIndex = 20;
+            this.checkIncStr.Text = "Increase STR";
+            this.checkIncStr.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            // 
+            // checkIncInt
+            // 
+            this.checkIncInt.Checked = false;
+            this.checkIncInt.Location = new System.Drawing.Point(12, 62);
+            this.checkIncInt.Name = "checkIncInt";
+            this.checkIncInt.Size = new System.Drawing.Size(99, 23);
+            this.checkIncInt.TabIndex = 19;
+            this.checkIncInt.Text = "Increase INT";
+            this.checkIncInt.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            // 
+            // lblStatPoints
+            // 
+            this.lblStatPoints.AutoSize = true;
+            this.lblStatPoints.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStatPoints.Location = new System.Drawing.Point(112, 34);
+            this.lblStatPoints.Name = "lblStatPoints";
+            this.lblStatPoints.Size = new System.Drawing.Size(14, 15);
+            this.lblStatPoints.TabIndex = 25;
+            this.lblStatPoints.Text = "0";
+            // 
+            // linkRunStatInc
+            // 
+            this.linkRunStatInc.AutoSize = true;
+            this.linkRunStatInc.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.linkRunStatInc.Location = new System.Drawing.Point(171, 126);
+            this.linkRunStatInc.Name = "linkRunStatInc";
+            this.linkRunStatInc.Size = new System.Drawing.Size(28, 15);
+            this.linkRunStatInc.TabIndex = 26;
+            this.linkRunStatInc.TabStop = true;
+            this.linkRunStatInc.Text = "Run";
+            this.linkRunStatInc.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkRunStatInc_LinkClicked);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.Controls.Add(this.groupStatPoints);
             this.Controls.Add(this.groupBackTown);
             this.Controls.Add(this.label22);
             this.Controls.Add(this.groupBadStatus);
@@ -889,6 +1012,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.numMountMinHP)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPetMinHGP)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPetMinHP)).EndInit();
+            this.groupStatPoints.ResumeLayout(false);
+            this.groupStatPoints.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numIncStr)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numIncInt)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -956,5 +1083,14 @@
         private SDUI.Controls.CheckBox checkDead;
         private SDUI.Controls.CheckBox checkInventory;
         private SDUI.Controls.CheckBox checkNoArrows;
+        private SDUI.Controls.GroupBox groupStatPoints;
+        private System.Windows.Forms.NumericUpDown numIncStr;
+        private System.Windows.Forms.NumericUpDown numIncInt;
+        private SDUI.Controls.CheckBox checkIncStr;
+        private SDUI.Controls.CheckBox checkIncInt;
+        private SDUI.Controls.Label lblStatPointText;
+        private SDUI.Controls.CheckBox checkIncBotStopped;
+        private SDUI.Controls.Label lblStatPoints;
+        private System.Windows.Forms.LinkLabel linkRunStatInc;
     }
 }
