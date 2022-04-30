@@ -13,7 +13,7 @@ namespace RSBot.Bot.Default.Bundle.Target
         /// </summary>
         public void Invoke()
         {
-            if (Game.SelectedEntity != null && Game.SelectedEntity.State.LifeState == LifeState.Alive)
+            if (Game.SelectedEntity != null && Game.SelectedEntity.State.LifeState == LifeState.Alive && !Game.SelectedEntity.State.HasTwoDots())
                 return;
 
             var monster = GetNearestEnemy();
@@ -42,6 +42,7 @@ namespace RSBot.Bot.Default.Bundle.Target
         private SpawnedMonster GetNearestEnemy()
         {
             if (!SpawnManager.TryGetEntities<SpawnedMonster>(out var entities, m => m.State.LifeState == LifeState.Alive &&
+                            m.State.HasTwoDots() == false &&
                             m.IsBehindObstacle == false &&
                             !Bundles.Avoidance.AvoidMonster(m.Rarity) && 
                             m.DistanceToPlayer <= 40))
