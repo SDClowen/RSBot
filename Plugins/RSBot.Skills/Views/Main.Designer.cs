@@ -82,6 +82,8 @@
             this.colActiveName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colActiveLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.checkLearnMasteryBotStopped = new SDUI.Controls.CheckBox();
+            this.groupWarlockMode = new SDUI.Controls.GroupBox();
+            this.checkWarlockMode = new SDUI.Controls.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -96,6 +98,7 @@
             this.skillContextMenu.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.groupWarlockMode.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -354,6 +357,7 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.White;
+            this.tabPage2.Controls.Add(this.groupWarlockMode);
             this.tabPage2.Controls.Add(this.grpMasteryLearn);
             this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Controls.Add(this.groupBox4);
@@ -710,6 +714,30 @@
             this.checkLearnMasteryBotStopped.Size = new System.Drawing.Size(156, 23);
             this.checkLearnMasteryBotStopped.TabIndex = 25;
             this.checkLearnMasteryBotStopped.Text = "Enabled if bot is stopped";
+            //
+            // groupWarlockMode
+            // 
+            this.groupWarlockMode.BackColor = System.Drawing.Color.Transparent;
+            this.groupWarlockMode.Controls.Add(this.checkWarlockMode);
+            this.groupWarlockMode.Location = new System.Drawing.Point(8, 350);
+            this.groupWarlockMode.Name = "groupWarlockMode";
+            this.groupWarlockMode.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.groupWarlockMode.Radius = 2;
+            this.groupWarlockMode.Size = new System.Drawing.Size(367, 67);
+            this.groupWarlockMode.TabIndex = 14;
+            this.groupWarlockMode.TabStop = false;
+            this.groupWarlockMode.Text = "Warlock mode";
+            // 
+            // checkWarlockMode
+            // 
+            this.checkWarlockMode.BackColor = System.Drawing.Color.Transparent;
+            this.checkWarlockMode.Checked = false;
+            this.checkWarlockMode.Location = new System.Drawing.Point(86, 33);
+            this.checkWarlockMode.Name = "checkWarlockMode";
+            this.checkWarlockMode.Size = new System.Drawing.Size(163, 23);
+            this.checkWarlockMode.TabIndex = 0;
+            this.checkWarlockMode.Text = "Change target after 2 DoTs";
+            this.checkWarlockMode.CheckedChanged += new System.EventHandler(this.checkWarlockMode_CheckedChanged);
             // 
             // Main
             // 
@@ -738,6 +766,7 @@
             this.skillContextMenu.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
+            this.groupWarlockMode.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -797,5 +826,7 @@
         private SDUI.Controls.ComboBox comboLearnMastery;
         private SDUI.Controls.CheckBox checkLearnMastery;
         private SDUI.Controls.CheckBox checkLearnMasteryBotStopped;
+        private SDUI.Controls.GroupBox groupWarlockMode;
+        private SDUI.Controls.CheckBox checkWarlockMode;
     }
 }
