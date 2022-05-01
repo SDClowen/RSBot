@@ -299,9 +299,8 @@ namespace RSBot.Skills.Views
 
                 comboResurrectionSkill.SelectedIndex = comboResurrectionSkill.Items.Add("None");
 
-                foreach (var skill in Game.Player.Skills.KnownSkills.Where(
-                    s => s.Record != null && s.Record.TargetEtc_SelectDeadBody &&
-                   (s.Record.Params[3] == 1751474540 || s.Record.Params[3] == 1919776116)))
+                 foreach (var skill in Game.Player.Skills.KnownSkills.Where(
+                   s => s.Record != null && s.Record.TargetEtc_SelectDeadBody))
                 {
                     if (skill.IsLowLevel())
                         continue;
