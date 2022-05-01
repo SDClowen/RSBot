@@ -182,7 +182,7 @@ namespace RSBot.Shopping.Views
 
                 foreach (ListViewItem item in grp.Items)
                 {
-                    if (!(item.Tag is RefShopGood packageItem)) 
+                    if (!(item.Tag is RefShopGood packageItem))
                         continue;
 
                     if (ShoppingManager.ShoppingList.ContainsKey(packageItem))
@@ -218,7 +218,7 @@ namespace RSBot.Shopping.Views
                     var amount = value.Split('|')[1];
                     var good = Game.ReferenceManager.GetRefShopGood(packageCodeName);
 
-                    if (good == null) 
+                    if (good == null)
                         continue;
 
                     var refPackageItem = Game.ReferenceManager.GetRefPackageItem(good.RefPackageItemCodeName);
@@ -231,7 +231,8 @@ namespace RSBot.Shopping.Views
 
                     listItem.LoadItemImageAsync(good);
 
-                    ShoppingManager.ShoppingList.Add(good, int.Parse(amount));
+                    if (!ShoppingManager.ShoppingList.ContainsKey(good))
+                        ShoppingManager.ShoppingList.Add(good, int.Parse(amount));
                 }
             }
 
