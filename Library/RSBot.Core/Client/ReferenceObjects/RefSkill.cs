@@ -190,7 +190,7 @@ namespace RSBot.Core.Client.ReferenceObjects
 
             for (var i = 0; i < PARAM_COUNT; i++)
             {
-                if (parser.TryParse(68 + i, out var paramValue))
+                if (parser.TryParse(68 + i, out int paramValue))
                     Params.Add(paramValue);
             }
 
