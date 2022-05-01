@@ -3,6 +3,7 @@ using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects.Party;
 using RSBot.Core.Objects.Skill;
+using SDUI;
 using SDUI.Controls;
 using System;
 using System.Collections.Generic;
@@ -242,11 +243,13 @@ namespace RSBot.Party.Views
                         party.Leader == Game.Player.JobInformation.Name ||
                         (Game.Party?.Leader?.Name == party.Leader))
                     {
-                        listItem.UseItemStyleForSubItems = false;
                         listItem.Font = new Font(Font, FontStyle.Bold);
-                        listItem.BackColor = Color.FromArgb(244, 247, 252);
-                        listItem.ForeColor = Color.FromArgb(9, 40, 86);
+
+                        listItem.BackColor = ControlPaint.Light(ColorScheme.BackColor, .15f);
+                        listItem.Font = new Font(Font, FontStyle.Bold);
+
                         listViewItems.Insert(0, listItem);
+
                         continue;
                     }
                     listViewItems.Add(listItem);

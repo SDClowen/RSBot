@@ -97,8 +97,8 @@
             this.topPartyPanel = new SDUI.Controls.Panel();
             this.btnPartyRefresh = new SDUI.Controls.Button();
             this.btnPartySearch = new SDUI.Controls.Button();
-            this.nudPartySearchMax = new System.Windows.Forms.NumericUpDown();
-            this.nudPartySearchMin = new System.Windows.Forms.NumericUpDown();
+            this.nudPartySearchMax = new SDUI.Controls.NumUpDown();
+            this.nudPartySearchMin = new SDUI.Controls.NumUpDown();
             this.cbPartySearchPurpose = new SDUI.Controls.ComboBox();
             this.tbPartySearchName = new SDUI.Controls.TextBox();
             this.label6 = new SDUI.Controls.Label();
@@ -1541,8 +1541,8 @@
         private SDUI.Controls.Label label3;
         private SDUI.Controls.Button btnPartyRefresh;
         private SDUI.Controls.Button btnPartySearch;
-        private System.Windows.Forms.NumericUpDown nudPartySearchMax;
-        private System.Windows.Forms.NumericUpDown nudPartySearchMin;
+        private SDUI.Controls.NumUpDown nudPartySearchMax;
+        private SDUI.Controls.NumUpDown nudPartySearchMin;
         private SDUI.Controls.Label label6;
         private SDUI.Controls.Label label5;
         private SDUI.Controls.CheckBox checkAcceptIfBotStopped;

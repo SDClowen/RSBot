@@ -37,26 +37,6 @@ namespace RSBot.Bot.Default.Views
         }
 
         /// <summary>
-        /// Determines whether the specified value is numeric.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>
-        ///   <c>true</c> if the specified value is numeric; otherwise, <c>false</c>.
-        /// </returns>
-        private bool isNumeric(string value)
-        {
-            try
-            {
-                Convert.ToDouble(value);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
         /// Saves the avoidance.
         /// </summary>
         private void SaveAvoidance()
@@ -118,8 +98,8 @@ namespace RSBot.Bot.Default.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void txtXCoord_TextChanged(object sender, EventArgs e)
         {
-            if (isNumeric(txtXCoord.Text))
-                PlayerConfig.Set("RSBot.Area.X", txtXCoord.Text);
+            if (float.TryParse(txtXCoord.Text, out var result))
+                PlayerConfig.Set("RSBot.Area.X", result);
         }
 
         /// <summary>
@@ -129,8 +109,8 @@ namespace RSBot.Bot.Default.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void txtYCoord_TextChanged(object sender, EventArgs e)
         {
-            if (isNumeric(txtYCoord.Text))
-                PlayerConfig.Set("RSBot.Area.Y", txtYCoord.Text);
+            if (float.TryParse(txtYCoord.Text, out var result))
+                PlayerConfig.Set("RSBot.Area.Y", result);
         }
 
         /// <summary>
@@ -140,8 +120,8 @@ namespace RSBot.Bot.Default.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void txtRadius_TextChanged(object sender, EventArgs e)
         {
-            if (isNumeric(txtRadius.Text))
-                PlayerConfig.Set("RSBot.Area.Radius", txtRadius.Text);
+            if (int.TryParse(txtRadius.Text, out var result))
+                PlayerConfig.Set("RSBot.Area.Radius", result);
         }
 
         /// <summary>

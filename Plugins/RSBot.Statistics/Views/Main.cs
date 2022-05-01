@@ -85,7 +85,8 @@ namespace RSBot.Statistics.Views
                         Dock = DockStyle.Top,
                         Text = calculator.Label,
                         Name = calculator.Name,
-                        Size = new Size(75, 25)
+                        Size = new Size(75, 25),
+                        AutoSize = false
                     };
 
                     checkBox.CheckedChanged += Filter_CheckedChanged;

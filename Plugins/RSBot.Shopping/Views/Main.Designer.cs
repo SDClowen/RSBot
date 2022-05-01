@@ -124,8 +124,8 @@
             this.checkBoxRareItems = new SDUI.Controls.CheckBox();
             this.checkMale = new SDUI.Controls.CheckBox();
             this.label3 = new SDUI.Controls.Label();
-            this.numDegreeFrom = new System.Windows.Forms.NumericUpDown();
-            this.numDegreeTo = new System.Windows.Forms.NumericUpDown();
+            this.numDegreeFrom = new SDUI.Controls.NumUpDown();
+            this.numDegreeTo = new SDUI.Controls.NumUpDown();
             this.label4 = new SDUI.Controls.Label();
             this.panel3 = new SDUI.Controls.Panel();
             this.panel7 = new SDUI.Controls.Panel();
@@ -1433,8 +1433,8 @@
         private SDUI.Controls.CheckBox checkNecklace;
         private SDUI.Controls.GroupBox groupGender;
         private SDUI.Controls.Label label3;
-        private System.Windows.Forms.NumericUpDown numDegreeFrom;
-        private System.Windows.Forms.NumericUpDown numDegreeTo;
+        private SDUI.Controls.NumUpDown numDegreeFrom;
+        private SDUI.Controls.NumUpDown numDegreeTo;
         private SDUI.Controls.Label label4;
         private SDUI.Controls.CheckBox checkLight;
         private SDUI.Controls.CheckBox checkClothes;

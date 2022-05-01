@@ -52,7 +52,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.grpMasteryLearn = new SDUI.Controls.GroupBox();
             this.label4 = new SDUI.Controls.Label();
-            this.numMasteryGap = new System.Windows.Forms.NumericUpDown();
+            this.numMasteryGap = new SDUI.Controls.NumUpDown();
             this.comboLearnMastery = new SDUI.Controls.ComboBox();
             this.checkLearnMastery = new SDUI.Controls.CheckBox();
             this.groupBox3 = new SDUI.Controls.GroupBox();
@@ -822,7 +822,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private SDUI.Controls.GroupBox grpMasteryLearn;
         private SDUI.Controls.Label label4;
-        private System.Windows.Forms.NumericUpDown numMasteryGap;
+        private SDUI.Controls.NumUpDown numMasteryGap;
         private SDUI.Controls.ComboBox comboLearnMastery;
         private SDUI.Controls.CheckBox checkLearnMastery;
         private SDUI.Controls.CheckBox checkLearnMasteryBotStopped;
