@@ -25,21 +25,21 @@
             if (!base.Load(parser))
                 return false;
 
-            parser.TryParseByte(57, out Level);
-            parser.TryParseEnum(58, out CharGender);
-            parser.TryParseInt(59, out MaxHealth);
-            parser.TryParseInt(60, out MaxMP);
+            parser.TryParse(57, out Level);
+            parser.TryParse(58, out CharGender);
+            parser.TryParse(59, out MaxHealth);
+            parser.TryParse(60, out MaxMP);
 
-            parser.TryParseByte(61, out InventorySize);
+            parser.TryParse(61, out InventorySize);
 
-            parser.TryParseByte(62, out CanStore_TID1);
-            parser.TryParseByte(63, out CanStore_TID2);
-            parser.TryParseByte(64, out CanStore_TID3);
-            parser.TryParseByte(65, out CanStore_TID4);
-            parser.TryParseByte(66, out CanBeVehicle);
-            parser.TryParseByte(67, out CanControl);
-            parser.TryParseByte(68, out DamagePortion);
-            parser.TryParseShort(69, out MaxPassenger);
+            parser.TryParse(62, out CanStore_TID1);
+            parser.TryParse(63, out CanStore_TID2);
+            parser.TryParse(64, out CanStore_TID3);
+            parser.TryParse(65, out CanStore_TID4);
+            parser.TryParse(66, out CanBeVehicle);
+            parser.TryParse(67, out CanControl);
+            parser.TryParse(68, out DamagePortion);
+            parser.TryParse(69, out MaxPassenger);
 
             return true;
         }

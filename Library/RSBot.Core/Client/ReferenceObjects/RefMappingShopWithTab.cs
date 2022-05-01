@@ -41,12 +41,12 @@
         public bool Load(ReferenceParser parser)
         {
             //Skip disabled
-            if (!parser.TryParseByte(0, out Service) || Service == 0)
+            if (!parser.TryParse(0, out Service) || Service == 0)
                 return false;
 
-            parser.TryParseInt(1, out Country);
-            parser.TryParseString(2, out Shop);
-            parser.TryParseString(3, out Tab);
+            parser.TryParse(1, out Country);
+            parser.TryParse(2, out Shop);
+            parser.TryParse(3, out Tab);
 
             return true;
         }

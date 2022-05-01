@@ -103,55 +103,55 @@ namespace RSBot.Core.Client.ReferenceObjects
         public bool Load(ReferenceParser parser)
         {
             //Skip disabled
-            if (!parser.TryParseByte(0, out Service) || Service == 0)
+            if (!parser.TryParse(0, out Service) || Service == 0)
                 return false;
 
             //Skip invalid ID (PK)
-            if (!parser.TryParseUInt(1, out ID))
+            if (!parser.TryParse(1, out ID))
                 return false;
 
             //Skip invalid group (MSKILL, HSKILL, TSKILL, GSKILL, PSKILL, P2SKILL) to save memory
-            if (!parser.TryParseInt(2, out GroupID) /*|| GroupID == 0*/)
+            if (!parser.TryParse(2, out GroupID) /*|| GroupID == 0*/)
                 return false;
 
-            parser.TryParseString(3, out Basic_Code);
+            parser.TryParse(3, out Basic_Code);
             //parser.TryParseString(4, out Basic_Name);
             //parser.TryParseString(5, out Basic_Group);
             //parser.TryParseInt(6, out Basic_Original);
-            parser.TryParseByte(7, out Basic_Level);
-            parser.TryParseByte(8, out Basic_Activity);
-            parser.TryParseUInt(9, out Basic_ChainCode);
+            parser.TryParse(7, out Basic_Level);
+            parser.TryParse(8, out Basic_Activity);
+            parser.TryParse(9, out Basic_ChainCode);
             //Basic_RecycleCost = int.Parse(data[10]);
 
-            parser.TryParseInt(11, out Action_PreparingTime);
-            parser.TryParseInt(12, out Action_CastingTime);
-            parser.TryParseInt(13, out Action_ActionDuration);
-            parser.TryParseInt(14, out Action_ReuseDelay);
+            parser.TryParse(11, out Action_PreparingTime);
+            parser.TryParse(12, out Action_CastingTime);
+            parser.TryParse(13, out Action_ActionDuration);
+            parser.TryParse(14, out Action_ReuseDelay);
             //Action_CoolTime = int.Parse(data[15]);
             //Action_FlyingSpeed = int.Parse(data[16]);
             //Action_Interruptable = byte.Parse(data[17]);
-            parser.TryParseInt(18, out Action_Overlap);
-            parser.TryParseInt(19, out Action_AutoAttackType);
+            parser.TryParse(18, out Action_Overlap);
+            parser.TryParse(19, out Action_AutoAttackType);
             //Action_InTown = int.Parse(data[20]);
-            parser.TryParseShort(21, out Action_Range);
-            parser.TryParseBool(22, out Target_Required);
-            parser.TryParseBool(23, out TargetType_Animal);
+            parser.TryParse(21, out Action_Range);
+            parser.TryParse(22, out Target_Required);
+            parser.TryParse(23, out TargetType_Animal);
             //parser.TryParseBool(24, out TargetType_Land);
             //parser.TryParseBool(25, out TargetType_Building);
-            parser.TryParseBool(26, out TargetGroup_Self);
-            parser.TryParseBool(27, out TargetGroup_Ally);
-            parser.TryParseBool(28, out TargetGroup_Party);
-            parser.TryParseBool(29, out TargetGroup_Enemy_M);
-            parser.TryParseBool(30, out TargetGroup_Enemy_P);
+            parser.TryParse(26, out TargetGroup_Self);
+            parser.TryParse(27, out TargetGroup_Ally);
+            parser.TryParse(28, out TargetGroup_Party);
+            parser.TryParse(29, out TargetGroup_Enemy_M);
+            parser.TryParse(30, out TargetGroup_Enemy_P);
             //parser.TryParseBool(31, out TargetGroup_Neutral);
             //parser.TryParseBool(32, out TargetGroup_DontCare);
-            parser.TryParseBool(33, out TargetEtc_SelectDeadBody);
+            parser.TryParse(33, out TargetEtc_SelectDeadBody);
 
-            parser.TryParseInt(34, out ReqCommon_Mastery1);
-            parser.TryParseInt(35, out ReqCommon_Mastery2);
+            parser.TryParse(34, out ReqCommon_Mastery1);
+            parser.TryParse(35, out ReqCommon_Mastery2);
 
-            parser.TryParseByte(36, out ReqCommon_MasteryLevel1);
-            parser.TryParseByte(37, out ReqCommon_MasteryLevel2);
+            parser.TryParse(36, out ReqCommon_MasteryLevel1);
+            parser.TryParse(37, out ReqCommon_MasteryLevel2);
 
             //parser.TryParseShort(38, out ReqCommon_Str);
             //parser.TryParseShort(39, out ReqCommon_Int);
@@ -165,11 +165,11 @@ namespace RSBot.Core.Client.ReferenceObjects
             //ReqLearn_Race = byte.Parse(data[47]);
             //Req_Restriction1 = byte.Parse(data[48]);
             //Req_Restriction2 = byte.Parse(data[49]);
-            parser.TryParseEnum(50, out ReqCast_Weapon1);
-            parser.TryParseEnum(51, out ReqCast_Weapon2);
+            parser.TryParse(50, out ReqCast_Weapon1);
+            parser.TryParse(51, out ReqCast_Weapon2);
 
             //Consume_HP = short.Parse(data[52]);
-            parser.TryParseShort(53, out Consume_MP);
+            parser.TryParse(53, out Consume_MP);
             //Consume_HPRatio = short.Parse(data[54]);
             //Consume_MPRatio = short.Parse(data[55]);
             //Consume_HWAN = byte.Parse(data[56]);
@@ -179,8 +179,8 @@ namespace RSBot.Core.Client.ReferenceObjects
             //UI_SkillColumn = byte.Parse(data[59]);
             //UI_SkillRow = byte.Parse(data[60]);
 
-            parser.TryParseString(61, out UI_IconFile);
-            parser.TryParseString(62, out UI_SkillName);
+            parser.TryParse(61, out UI_IconFile);
+            parser.TryParse(62, out UI_SkillName);
             //UI_SkillToolTip = data[63];
             //UI_SkillToolTip_Desc = data[64];
             //UI_SkillStudy_Desc = data[65];
@@ -190,7 +190,7 @@ namespace RSBot.Core.Client.ReferenceObjects
 
             for (var i = 0; i < PARAM_COUNT; i++)
             {
-                if (parser.TryParseInt(68 + i, out var paramValue))
+                if (parser.TryParse(68 + i, out var paramValue))
                     Params.Add(paramValue);
             }
 

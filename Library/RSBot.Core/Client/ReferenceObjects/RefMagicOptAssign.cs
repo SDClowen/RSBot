@@ -19,14 +19,14 @@ namespace RSBot.Core.Client.ReferenceObjects
         {
             if (parser == null) return false;
 
-            parser.TryParseByte(1, out Race);
-            parser.TryParseByte(2, out TypeId3);
-            parser.TryParseByte(3, out TypeId4);
+            parser.TryParse(1, out Race);
+            parser.TryParse(2, out TypeId3);
+            parser.TryParse(3, out TypeId4);
 
             AvailableMagicOptions = new List<string>(80);
             for (var i = 4; i < parser.GetColumnCount(); i++)
             {
-                if (parser.TryParseString(i, out var option))
+                if (parser.TryParse(i, out var option))
                     AvailableMagicOptions.Add(option);
             }
 

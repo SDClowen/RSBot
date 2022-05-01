@@ -74,23 +74,23 @@ namespace RSBot.Core.Client.ReferenceObjects
             if (!base.Load(parser))
                 return false;
 
-            parser.TryParseInt(57, out MaxStack);
-            parser.TryParseByte(58, out ReqGender);
-            parser.TryParseInt(59, out ReqStr);
-            parser.TryParseInt(60, out ReqInt);
-            parser.TryParseByte(61, out ItemClass);
-            parser.TryParseByte(86, out Quivered);
-            parser.TryParseByte(92, out SpeedClass);
-            parser.TryParseByte(93, out TwoHanded);
-            parser.TryParseShort(94, out Range);
-            parser.TryParseInt(118, out Param1);
-            parser.TryParseString(119, out Desc1);
-            parser.TryParseInt(120, out Param2);
-            parser.TryParseString(121, out Desc2);
-            parser.TryParseInt(122, out Param3);
-            parser.TryParseString(123, out Desc3);
-            parser.TryParseInt(124, out Param4);
-            parser.TryParseString(125, out Desc4);
+            parser.TryParse(57, out MaxStack);
+            parser.TryParse(58, out ReqGender);
+            parser.TryParse(59, out ReqStr);
+            parser.TryParse(60, out ReqInt);
+            parser.TryParse(61, out ItemClass);
+            parser.TryParse(86, out Quivered);
+            parser.TryParse(92, out SpeedClass);
+            parser.TryParse(93, out TwoHanded);
+            parser.TryParse(94, out Range);
+            parser.TryParse(118, out Param1);
+            parser.TryParse(119, out Desc1);
+            parser.TryParse(120, out Param2);
+            parser.TryParse(121, out Desc2);
+            parser.TryParse(122, out Param3);
+            parser.TryParse(123, out Desc3);
+            parser.TryParse(124, out Param4);
+            parser.TryParse(125, out Desc4);
 
             return true;
         }

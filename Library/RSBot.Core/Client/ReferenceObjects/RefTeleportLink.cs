@@ -36,34 +36,34 @@
         public bool Load(ReferenceParser reader)
         {
             //Skip disabled
-            if (!reader.TryParseByte(0, out Service) || Service == 0)
+            if (!reader.TryParse(0, out Service) || Service == 0)
                 return false;
 
-            reader.TryParseInt(1, out OwnerTeleport);
-            reader.TryParseInt(2, out TargetTeleport);
-            reader.TryParseInt(3, out Fee);
-            reader.TryParseByte(4, out RestrictBindMethod);
-            reader.TryParseByte(5, out CheckResult);
+            reader.TryParse(1, out OwnerTeleport);
+            reader.TryParse(2, out TargetTeleport);
+            reader.TryParse(3, out Fee);
+            reader.TryParse(4, out RestrictBindMethod);
+            reader.TryParse(5, out CheckResult);
 
-            reader.TryParseInt(6, out Restrict1);
-            reader.TryParseInt(7, out Data1_1);
-            reader.TryParseInt(8, out Data1_2);
+            reader.TryParse(6, out Restrict1);
+            reader.TryParse(7, out Data1_1);
+            reader.TryParse(8, out Data1_2);
 
-            reader.TryParseInt(9, out Restrict2);
-            reader.TryParseInt(10, out Data2_1);
-            reader.TryParseInt(11, out Data2_2);
+            reader.TryParse(9, out Restrict2);
+            reader.TryParse(10, out Data2_1);
+            reader.TryParse(11, out Data2_2);
 
-            reader.TryParseInt(12, out Restrict3);
-            reader.TryParseInt(13, out Data3_1);
-            reader.TryParseInt(14, out Data3_2);
+            reader.TryParse(12, out Restrict3);
+            reader.TryParse(13, out Data3_1);
+            reader.TryParse(14, out Data3_2);
 
-            reader.TryParseInt(15, out Restrict4);
-            reader.TryParseInt(16, out Data4_1);
-            reader.TryParseInt(17, out Data4_2);
+            reader.TryParse(15, out Restrict4);
+            reader.TryParse(16, out Data4_1);
+            reader.TryParse(17, out Data4_2);
 
-            reader.TryParseInt(18, out Restrict5);
-            reader.TryParseInt(19, out Data5_1);
-            reader.TryParseInt(20, out Data5_2);
+            reader.TryParse(18, out Restrict5);
+            reader.TryParse(19, out Data5_1);
+            reader.TryParse(20, out Data5_2);
 
             return true;
         }

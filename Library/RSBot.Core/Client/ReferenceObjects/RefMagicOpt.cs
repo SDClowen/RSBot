@@ -57,10 +57,10 @@ namespace RSBot.Core.Client.ReferenceObjects
             if (parser == null) return false;
 
             AvailableValues = new List<ushort>(8);
-            parser.TryParseBool(0, out Active);
-            parser.TryParseUInt(1, out Id);
-            parser.TryParseString(2, out Group);
-            parser.TryParseByte(4, out Level);
+            parser.TryParse(0, out Active);
+            parser.TryParse(1, out Id);
+            parser.TryParse(2, out Group);
+            parser.TryParse(4, out Level);
 
             //param1 = name of the attribute
             /*
@@ -74,17 +74,17 @@ namespace RSBot.Core.Client.ReferenceObjects
 
             for (var i = 8; i < 11; i++)
             {
-                parser.TryParseUInt(i, out var paramVal);
+                parser.TryParse(i, out var paramVal);
                 var param = GetAvailableValues(paramVal);
 
                 AvailableValues.Add(param.Item1);
                 AvailableValues.Add(param.Item2);
             }
 
-            parser.TryParseString(28, out AvailabilityGroup1);
-            parser.TryParseString(30, out AvailabilityGroup2);
-            parser.TryParseString(32, out AvailabilityGroup3);
-            parser.TryParseString(34, out AvailabilityGroup4);
+            parser.TryParse(28, out AvailabilityGroup1);
+            parser.TryParse(30, out AvailabilityGroup2);
+            parser.TryParse(32, out AvailabilityGroup3);
+            parser.TryParse(34, out AvailabilityGroup4);
 
             return true;
         }
