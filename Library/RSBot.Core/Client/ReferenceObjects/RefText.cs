@@ -44,25 +44,25 @@
 
         public bool Load(ReferenceParser parser)
         {
-            if (!parser.TryParseByte(0, out Service) || Service == 0)
+            if (!parser.TryParse(0, out Service) || Service == 0)
                 return false;
 
             var nameStrIndex = 1;
             if (Game.ClientType >= GameClientType.Global)
                 nameStrIndex = 2;
 
-            if (!parser.TryParseString(nameStrIndex, out NameStrId))
+            if (!parser.TryParse(nameStrIndex, out NameStrId))
                 return false;
 
             var languageTab = 8;
             var maxTabs = parser.GetColumnCount();
 
             //Try parse with the already set language tab
-            parser.TryParseString(languageTab, out Data);
+            parser.TryParse(languageTab, out Data);
 
             while (IsEmptyString(Data) && languageTab <= maxTabs)
             { 
-                parser.TryParseString(languageTab, out Data);
+                parser.TryParse(languageTab, out Data);
 
                 languageTab++;
             }

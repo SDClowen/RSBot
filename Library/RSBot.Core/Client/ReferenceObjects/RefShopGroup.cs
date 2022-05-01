@@ -61,13 +61,13 @@ namespace RSBot.Core.Client.ReferenceObjects
         public bool Load(ReferenceParser parser)
         {
             //Skip disabled
-            if (!parser.TryParseByte(0, out Service) || Service == 0)
+            if (!parser.TryParse(0, out Service) || Service == 0)
                 return false;
 
-            parser.TryParseInt(1, out Country);
-            parser.TryParseInt(2, out Id);
-            parser.TryParseString(3, out CodeName);
-            parser.TryParseString(4, out RefNpcCodeName);
+            parser.TryParse(1, out Country);
+            parser.TryParse(2, out Id);
+            parser.TryParse(3, out CodeName);
+            parser.TryParse(4, out RefNpcCodeName);
 
             return true;
         }

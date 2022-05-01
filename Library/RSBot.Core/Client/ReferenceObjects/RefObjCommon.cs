@@ -111,33 +111,33 @@ namespace RSBot.Core.Client.ReferenceObjects
         public virtual bool Load(ReferenceParser parser)
         {
             //Skip disabled
-            if (!parser.TryParseByte(0, out Service) || Service == 0)
+            if (!parser.TryParse(0, out Service) || Service == 0)
                 return false;
 
             //Skip invalid ID (PK)
-            if (!parser.TryParseUInt(1, out ID))
+            if (!parser.TryParse(1, out ID))
                 return false;
 
             //Skip invalid CodeName
-            if (!parser.TryParseString(2, out CodeName))
+            if (!parser.TryParse(2, out CodeName))
                 return false;
 
-            parser.TryParseString(3, out ObjName);
+            parser.TryParse(3, out ObjName);
 
             //OrgObjCodeName = data[4];
-            parser.TryParseString(5, out NameStrID);
+            parser.TryParse(5, out NameStrID);
             //DescStrID = data[6];
 
-            parser.TryParseByte(7, out CashItem);
-            parser.TryParseByte(8, out Bionic);
-            parser.TryParseByte(9, out TypeID1);
-            parser.TryParseByte(10, out TypeID2);
-            parser.TryParseByte(11, out TypeID3);
-            parser.TryParseByte(12, out TypeID4);
+            parser.TryParse(7, out CashItem);
+            parser.TryParse(8, out Bionic);
+            parser.TryParse(9, out TypeID1);
+            parser.TryParse(10, out TypeID2);
+            parser.TryParse(11, out TypeID3);
+            parser.TryParse(12, out TypeID4);
 
             //DecayTime = int.Parse(data[13]);
-            parser.TryParseEnum(14, out Country);
-            parser.TryParseEnum(15, out Rarity);
+            parser.TryParse(14, out Country);
+            parser.TryParse(15, out Rarity);
 
             //CanTrade = byte.Parse(data[16]);
             //CanSell = byte.Parse(data[17]);
@@ -159,14 +159,14 @@ namespace RSBot.Core.Client.ReferenceObjects
             //SellPrice = int.Parse(data[31]);
 
             //Requirements
-            parser.TryParseEnum(32, out ReqLevelType1);
-            parser.TryParseByte(33, out ReqLevel1);
-            parser.TryParseEnum(34, out ReqLevelType2);
-            parser.TryParseByte(35, out ReqLevel2);
-            parser.TryParseEnum(36, out ReqLevelType3);
-            parser.TryParseByte(37, out ReqLevel3);
-            parser.TryParseEnum(38, out ReqLevelType4);
-            parser.TryParseByte(39, out ReqLevel4);
+            parser.TryParse(32, out ReqLevelType1);
+            parser.TryParse(33, out ReqLevel1);
+            parser.TryParse(34, out ReqLevelType2);
+            parser.TryParse(35, out ReqLevel2);
+            parser.TryParse(36, out ReqLevelType3);
+            parser.TryParse(37, out ReqLevel3);
+            parser.TryParse(38, out ReqLevelType4);
+            parser.TryParse(39, out ReqLevel4);
 
             //MaxContain = int.Parse(data[40]);
 
@@ -176,8 +176,8 @@ namespace RSBot.Core.Client.ReferenceObjects
             //OffsetX = short.Parse(data[44]);
             //OffsetY = short.Parse(data[45]);
 
-            parser.TryParseShort(46, out Speed1);
-            parser.TryParseShort(47, out Speed2);
+            parser.TryParse(46, out Speed1);
+            parser.TryParse(47, out Speed2);
 
             //Scale = int.Parse(data[48]);
 
@@ -186,7 +186,7 @@ namespace RSBot.Core.Client.ReferenceObjects
             //EventID = int.Parse(data[51]);
             //AssocFileObj = data[52];
             //AssocFileDrop = data[53];
-            parser.TryParseString(54, out AssocFileIcon);
+            parser.TryParse(54, out AssocFileIcon);
             //AssocFile1 = data[55];
             //AssocFile2 = data[56];
 

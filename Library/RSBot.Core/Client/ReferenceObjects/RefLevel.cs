@@ -14,11 +14,11 @@
 
         public bool Load(ReferenceParser parser)
         {
-            if (!parser.TryParseByte(0, out Level))
+            if (!parser.TryParse(0, out Level))
                 return false;
 
-            parser.TryParseLong(1, out Exp_C);
-            parser.TryParseInt(2, out Exp_M);
+            parser.TryParse(1, out Exp_C);
+            parser.TryParse(2, out Exp_M);
 
             return true;
         }

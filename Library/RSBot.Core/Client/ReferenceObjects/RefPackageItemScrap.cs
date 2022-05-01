@@ -67,17 +67,17 @@
         public bool Load(ReferenceParser parser)
         {
             //Skip disabled
-            if (!parser.TryParseByte(0, out Service) || Service == 0)
+            if (!parser.TryParse(0, out Service) || Service == 0)
                 return false;
 
-            parser.TryParseInt(1, out Country);
-            if (!parser.TryParseString(2, out RefPackageItemCodeName))
+            parser.TryParse(1, out Country);
+            if (!parser.TryParse(2, out RefPackageItemCodeName))
                 return false;
 
-            parser.TryParseString(3, out RefItemCodeName);
-            parser.TryParseByte(4, out OptLevel);
-            parser.TryParseLong(5, out Variance);
-            parser.TryParseInt(6, out Data);
+            parser.TryParse(3, out RefItemCodeName);
+            parser.TryParse(4, out OptLevel);
+            parser.TryParse(5, out Variance);
+            parser.TryParse(6, out Data);
 
             return true;
         }

@@ -23,25 +23,25 @@
         public bool Load(ReferenceParser parser)
         {
             //Skip disabled
-            if (!parser.TryParseByte(0, out Service) || Service == 0)
+            if (!parser.TryParse(0, out Service) || Service == 0)
                 return false;
 
             //Skip invalid ID (PK)
-            if (!parser.TryParseUInt(1, out ID))
+            if (!parser.TryParse(1, out ID))
                 return false;
 
             //Skip invalid CodeName
-            if (!parser.TryParseString(2, out CodeName))
+            if (!parser.TryParse(2, out CodeName))
                 return false;
 
-            parser.TryParseByte(3, out Level);
-            parser.TryParseString(4, out DescName);
-            parser.TryParseString(5, out NameString);
-            parser.TryParseString(6, out PayString);
-            parser.TryParseString(7, out ContentsString);
-            parser.TryParseString(8, out PayContents);
-            parser.TryParseString(9, out NoticeNPC);
-            parser.TryParseString(10, out NoticeCondition);
+            parser.TryParse(3, out Level);
+            parser.TryParse(4, out DescName);
+            parser.TryParse(5, out NameString);
+            parser.TryParse(6, out PayString);
+            parser.TryParse(7, out ContentsString);
+            parser.TryParse(8, out PayContents);
+            parser.TryParse(9, out NoticeNPC);
+            parser.TryParse(10, out NoticeCondition);
 
             return true;
         }

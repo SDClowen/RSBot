@@ -56,26 +56,26 @@ namespace RSBot.Core.Client.ReferenceObjects
         public bool Load(ReferenceParser parser)
         {
             //Skip disabled
-            if (!parser.TryParseByte(0, out Service) || Service == 0)
+            if (!parser.TryParse(0, out Service) || Service == 0)
                 return false;
 
             //Skip invalid ID (PK)
-            if (!parser.TryParseUInt(1, out ID))
+            if (!parser.TryParse(1, out ID))
                 return false;
 
             //Skip invalid CodeName
-            if (!parser.TryParseString(2, out CodeName))
+            if (!parser.TryParse(2, out CodeName))
                 return false;
 
-            parser.TryParseUInt(3, out AssocRefObjId);
-            parser.TryParseString(4, out ZoneName128);
-            parser.TryParseUShort(5, out GenRegionID);
-            parser.TryParseShort(6, out GenPos_X);
-            parser.TryParseShort(7, out GenPos_Y);
-            parser.TryParseShort(8, out GenPos_Z);
-            parser.TryParseShort(9, out GenAreaRadius);
-            parser.TryParseByte(10, out CanBeResurrectPos);
-            parser.TryParseByte(11, out CanGotoResurrectPos);
+            parser.TryParse(3, out AssocRefObjId);
+            parser.TryParse(4, out ZoneName128);
+            parser.TryParse(5, out GenRegionID);
+            parser.TryParse(6, out GenPos_X);
+            parser.TryParse(7, out GenPos_Y);
+            parser.TryParse(8, out GenPos_Z);
+            parser.TryParse(9, out GenAreaRadius);
+            parser.TryParse(10, out CanBeResurrectPos);
+            parser.TryParse(11, out CanGotoResurrectPos);
 
             return true;
         }

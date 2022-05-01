@@ -49,13 +49,13 @@
         public bool Load(ReferenceParser parser)
         {
             //Skip disabled
-            if (!parser.TryParseByte(0, out Service) || Service == 0)
+            if (!parser.TryParse(0, out Service) || Service == 0)
                 return false;
 
-            parser.TryParseInt(1, out Country);
-            parser.TryParseString(2, out RefTabCodeName);
-            parser.TryParseString(3, out RefPackageItemCodeName);
-            parser.TryParseByte(4, out SlotIndex);
+            parser.TryParse(1, out Country);
+            parser.TryParse(2, out RefTabCodeName);
+            parser.TryParse(3, out RefPackageItemCodeName);
+            parser.TryParse(4, out SlotIndex);
 
             return true;
         }
