@@ -171,5 +171,14 @@ namespace RSBot.Core.Objects
 
             return ActiveBuffs.Remove(removedBuff);
         }
+
+        /// <summary>
+        /// Checks two active DoTs.
+        /// </summary>
+        /// <returns></returns>
+        public bool HasTwoDots()
+        {
+            return ActiveBuffs.Where(b => b.IsDot).Count() >= 2;
+        }
     }
 }

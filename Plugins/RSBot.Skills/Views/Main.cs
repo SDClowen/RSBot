@@ -105,6 +105,7 @@ namespace RSBot.Skills.Views
             checkBoxNoAttack.Checked = PlayerConfig.Get<bool>("RSBot.Skills.NoAttack");
             checkLearnMastery.Checked = PlayerConfig.Get<bool>("RSBot.Skills.learnMastery");
             numMasteryGap.Value = PlayerConfig.Get<byte>("RSBot.Skills.masteryGap", 0);
+            checkWarlockMode.Checked = PlayerConfig.Get<bool>("RSBot.Skills.WarlockMode", false);
         }
 
         /// <summary>
@@ -765,6 +766,11 @@ namespace RSBot.Skills.Views
             _selectedMastery = selectedItem;
 
             PlayerConfig.Set("RSBot.Skills.selectedMastery", selectedItem.Record.NameCode);
+        }
+
+        private void checkWarlockMode_CheckedChanged(object sender, EventArgs e)
+        {
+            PlayerConfig.Set("RSBot.Skills.WarlockMode", checkWarlockMode.Checked);
         }
     }
 }

@@ -35,7 +35,15 @@ namespace RSBot.Core.Objects.Skill
         /// <value>
         ///   <c>true</c> if attack; otherwise, <c>false</c>.
         /// </value>
-        public bool IsAttack => Record.Params[1] == 6386804;
+        public bool IsAttack => Record.Params[1] == 6386804 || IsDot;
+
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="SkillInfo"/> is a DoT.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if DoT; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsDot => Record.Basic_Code.StartsWith("SKILL_EU_WARLOCK_DOTA");
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="SkillInfo"/> is imbue.
@@ -84,7 +92,7 @@ namespace RSBot.Core.Objects.Skill
         /// <value>
         /// <c>true</c> if this instance can be used; otherwise, <c>false</c>.
         /// </value>
-        public bool CanBeCasted => !CanNotBeCasted && !HasCooldown && Game.Player.Mana >= Record.Consume_MP;
+        public bool CanBeCasted => (IsDot || !CanNotBeCasted) && !HasCooldown && Game.Player.Mana >= Record.Consume_MP;
 
         /// <summary>
         /// Skill Token (using for buffs)

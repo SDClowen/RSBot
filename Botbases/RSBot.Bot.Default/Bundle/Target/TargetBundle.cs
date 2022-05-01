@@ -13,7 +13,8 @@ namespace RSBot.Bot.Default.Bundle.Target
         /// </summary>
         public void Invoke()
         {
-            if (Game.SelectedEntity != null && Game.SelectedEntity.State.LifeState == LifeState.Alive)
+            bool warlockModeEnabled = PlayerConfig.Get<bool>("RSBot.Skills.WarlockMode", false);
+            if (Game.SelectedEntity != null && Game.SelectedEntity.State.LifeState == LifeState.Alive && !(warlockModeEnabled && Game.SelectedEntity.State.HasTwoDots()))
                 return;
 
             var monster = GetNearestEnemy();
@@ -41,7 +42,9 @@ namespace RSBot.Bot.Default.Bundle.Target
         /// <returns></returns>
         private SpawnedMonster GetNearestEnemy()
         {
+            bool warlockModeEnabled = PlayerConfig.Get<bool>("RSBot.Skills.WarlockMode", false);
             if (!SpawnManager.TryGetEntities<SpawnedMonster>(out var entities, m => m.State.LifeState == LifeState.Alive &&
+                            !(warlockModeEnabled && m.State.HasTwoDots()) &&
                             m.IsBehindObstacle == false &&
                             !Bundles.Avoidance.AvoidMonster(m.Rarity) && 
                             m.DistanceToPlayer <= 40))
