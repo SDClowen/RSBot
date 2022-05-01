@@ -38,8 +38,8 @@
             this.groupBox2 = new SDUI.Controls.GroupBox();
             this.label2 = new SDUI.Controls.Label();
             this.label1 = new SDUI.Controls.Label();
-            this.max_level = new System.Windows.Forms.NumericUpDown();
-            this.min_level = new System.Windows.Forms.NumericUpDown();
+            this.max_level = new SDUI.Controls.NumUpDown();
+            this.min_level = new SDUI.Controls.NumUpDown();
             this.groupBox3 = new SDUI.Controls.GroupBox();
             this.label_partytype2 = new SDUI.Controls.Label();
             this.label5 = new SDUI.Controls.Label();
@@ -394,8 +394,8 @@
         private SDUI.Controls.GroupBox groupBox2;
         private SDUI.Controls.Label label2;
         private SDUI.Controls.Label label1;
-        private System.Windows.Forms.NumericUpDown max_level;
-        private System.Windows.Forms.NumericUpDown min_level;
+        private SDUI.Controls.NumUpDown max_level;
+        private SDUI.Controls.NumUpDown min_level;
         private SDUI.Controls.GroupBox groupBox3;
         private SDUI.Controls.Label label_partytype2;
         private SDUI.Controls.Label label5;

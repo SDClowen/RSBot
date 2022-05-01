@@ -70,7 +70,7 @@
             this.checkBerzerkWhenFull = new SDUI.Controls.CheckBox();
             this.groupBox4 = new SDUI.Controls.GroupBox();
             this.label7 = new SDUI.Controls.Label();
-            this.numBerzerkMonsterAmount = new System.Windows.Forms.NumericUpDown();
+            this.numBerzerkMonsterAmount = new SDUI.Controls.NumUpDown();
             this.checkBerzerkAvoidance = new SDUI.Controls.CheckBox();
             this.checkBerzerkMonsterAmount = new SDUI.Controls.CheckBox();
             this.groupBox1.SuspendLayout();
@@ -528,7 +528,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem btnNoCustomBehavior;
         private SDUI.Controls.GroupBox groupBox4;
-        private System.Windows.Forms.NumericUpDown numBerzerkMonsterAmount;
+        private SDUI.Controls.NumUpDown numBerzerkMonsterAmount;
         private SDUI.Controls.CheckBox checkBerzerkAvoidance;
         private SDUI.Controls.CheckBox checkBerzerkMonsterAmount;
         private SDUI.Controls.Label label7;

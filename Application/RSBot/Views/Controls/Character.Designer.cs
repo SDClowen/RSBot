@@ -114,6 +114,7 @@
             // 
             // lblPlayerName
             // 
+            this.lblPlayerName.AutoSize = true;
             this.lblPlayerName.BackColor = System.Drawing.Color.Transparent;
             this.lblPlayerName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPlayerName.Location = new System.Drawing.Point(7, 7);
