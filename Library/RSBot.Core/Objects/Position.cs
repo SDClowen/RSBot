@@ -159,6 +159,33 @@ namespace RSBot.Core.Objects
         }
 
         /// <summary>
+        /// Reads X and Y coordinates and returns a new Postion object.
+        /// </summary>
+        /// <param name="packet">The packet.</param>
+        /// <returns></returns>
+        public static Position FromCoordinates(float x, float y, byte? xSector = null)
+        {
+            if (xSector != null)
+            {
+                return new Position
+                {
+                    YSector = 128,
+                    XSector = (byte)xSector,
+                    XCoordinate = x,
+                    YCoordinate = y,
+                };
+            }
+            else
+            {
+                return new Position
+                {
+                    XCoordinate = x,
+                    YCoordinate = y,
+                };
+            }
+        }
+
+        /// <summary>
         /// Calculates the distance to the destination
         /// </summary>
         /// <param name="position">The position.</param>

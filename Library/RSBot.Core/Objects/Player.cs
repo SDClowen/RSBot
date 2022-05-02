@@ -569,7 +569,7 @@ namespace RSBot.Core.Objects
         public bool MoveTo(Position destination, bool sleep = true)
         {
             var distance = Game.Player.Movement.Source.DistanceTo(destination);
-            if (distance > 150)
+            if (distance > 300)
             {
                 Log.Warn($"Player.Move: Target position too far away! Target distance: {Math.Round(distance, 2)}");
 
@@ -616,7 +616,7 @@ namespace RSBot.Core.Objects
                 if (!sleep) return true;
 
                 //Wait to finish the step
-                Thread.Sleep(Convert.ToInt32(distance / Game.Player.ActualSpeed * 10000));
+                Thread.Sleep(Convert.ToInt32(distance / Game.Player.ActualSpeed * 10000 + 100));
 
                 return true;
             }
@@ -651,6 +651,7 @@ namespace RSBot.Core.Objects
                     {
                         duration = 4050;
                     }
+                    //duration = 500;
                 }
                 var elapsed = Environment.TickCount - tick;
                 Log.Debug($"{potionItem.Record.GetRealName()} {tick}   {elapsed} {duration}    {elapsed < duration}");

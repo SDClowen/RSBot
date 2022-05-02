@@ -26,7 +26,7 @@ namespace RSBot.Core.Components
         /// <value>
         /// The commands.
         /// </value>
-        public static string[] Commands { get; set; }
+        public static ScriptCommand[] Commands { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="ScriptManager"/> is running.
@@ -49,9 +49,7 @@ namespace RSBot.Core.Components
             }
 
             Script = script;
-            Commands = File.ReadAllLines(script);
-
-            EventManager.FireEvent("OnLoadScript");
+            Load(File.ReadAllLines(script));
         }
 
         /// <summary>
@@ -60,7 +58,23 @@ namespace RSBot.Core.Components
         /// <param name="commands">The commands.</param>
         public static void Load(string[] commands)
         {
-            Commands = commands;
+            if(commands.Length == 0)
+            {
+                Log.Notify($"Cannot load script commands (empty array)!");
+                return;
+            }
+
+            IScriptParser parser;
+            if (commands[0].Contains(",") || commands[0].Contains("scriptversion") || commands[0].Trim().ToLower()=="wait") //mbot script
+            {
+                parser = new MbotScriptParser();
+            }
+            else //rsbot script
+            {
+                parser = new NativeScriptParser();
+            }
+
+            Commands = parser.ParseCommands(commands);
             EventManager.FireEvent("OnLoadScript");
         }
 
@@ -80,37 +94,36 @@ namespace RSBot.Core.Components
             {
                 if (!Running) return;
 
-                var arguments = command.Split(' ');
-
-                switch (arguments[0])
+                switch (command.Type)
                 {
-                    case "move":
-                        ExecuteMove(arguments);
+                    case ScriptCommandType.Move:
+                        ExecuteMove((Position)command.arguments[0]);
                         break;
 
-                    case "buy":
+                    case ScriptCommandType.Buy:
                         Log.Notify("[Script] Purchasing items...");
-                        ShoppingManager.Run(arguments[1]);
+                        ShoppingManager.Run((string)command.arguments[0]);
                         while (!ShoppingManager.Finished)
                             Thread.Sleep(50); //Wait until shopping is finished
                         break;
 
-                    case "repair":
+                    case ScriptCommandType.Repair:
                         Log.Notify("[Script] Repairing items...");
-                        ShoppingManager.RepairItems(arguments[1]);
+                        ShoppingManager.RepairItems((string)command.arguments[0]);
                         break;
 
-                    case "store":
-                        ShoppingManager.StoreItems(arguments[1]);
+                    case ScriptCommandType.Store:
+                        ShoppingManager.StoreItems((string)command.arguments[0]);
                         Log.Notify("[Script] Storing items...");
                         break;
 
-                    case "teleport":
+                    case ScriptCommandType.TeleportByCode:
+                    case ScriptCommandType.TeleportById:
                         Log.Notify("[Script] Teleporting...");
-                        ExecuteTeleport(arguments);
+                        ExecuteTeleport(command);
                         break;
 
-                    case "dismount":
+                    case ScriptCommandType.Dismount:
                         Log.Notify("[Script] Dismounting vehicle...");
                         if (Game.Player.HasActiveVehicle)
                         {
@@ -119,14 +132,13 @@ namespace RSBot.Core.Components
                         }
                         break;
 
-                    case "wait":
-                        var duration = Convert.ToInt32(arguments[1]);
+                    case ScriptCommandType.Wait:
+                        var duration = (int)command.arguments[0];
                         Log.Notify($"[Script] Waiting for {duration}ms");
                         Thread.Sleep(duration);
                         break;
 
                     default:
-                        Log.Notify($"Unknown script command [{arguments[0]}]");
                         break;
                 }
             }
@@ -148,16 +160,8 @@ namespace RSBot.Core.Components
         /// Executes the move.
         /// </summary>
         /// <param name="arguments">The arguments.</param>
-        private static void ExecuteMove(IReadOnlyList<string> arguments)
+        private static void ExecuteMove(Position pos)
         {
-            var pos = new Position
-            {
-                XSector = byte.Parse(arguments[4]),
-                YSector = byte.Parse(arguments[5]),
-                XOffset = float.Parse(arguments[1]),
-                YOffset = float.Parse(arguments[2]),
-                ZOffset = float.Parse(arguments[3])
-            };
 
             //Check if the new position is nearby a cave enterance.
             //If so dismount the vehicle
@@ -168,7 +172,7 @@ namespace RSBot.Core.Components
             }
 
             var distance = pos.DistanceTo(Game.Player.Movement.Source);
-            if (distance > 100)
+            if (distance > 300)
             {
                 Log.Debug("[Script] Target position too far away, bot logic aborted!");
 
@@ -184,16 +188,31 @@ namespace RSBot.Core.Components
         /// Executes the teleport.
         /// </summary>
         /// <param name="arguments">The arguments.</param>
-        private static void ExecuteTeleport(IReadOnlyList<string> arguments)
+        private static void ExecuteTeleport(ScriptCommand teleportCommand)
         {
-            var npcCodeName = arguments[1];
-            var destination = uint.Parse(arguments[2]);
+            var destination = teleportCommand.arguments[1];
+            SpawnedBionic entity = null;
 
-            if (!SpawnManager.TryGetEntity<SpawnedBionic>(p => p.Record.CodeName == npcCodeName, out var entity))
+            if (teleportCommand.Type == ScriptCommandType.TeleportByCode)
             {
-                Log.Debug("Could not find teleportation NPC " + npcCodeName);
-                return;
+                var npcCodeName = (string)teleportCommand.arguments[0];
+
+                if (!SpawnManager.TryGetEntity<SpawnedBionic>(p => p.Record.CodeName == npcCodeName, out entity))
+                {
+                    Log.Debug("Could not find teleportation NPC " + npcCodeName);
+                    return;
+                }
             }
+            else if (teleportCommand.Type == ScriptCommandType.TeleportById)
+            {
+                var npcId = (uint)teleportCommand.arguments[0];
+                if (!SpawnManager.TryGetEntity<SpawnedBionic>(p => p.Id == npcId, out entity))
+                {
+                    Log.Debug("Could not find teleportation NPC id:" + npcId);
+                    return;
+                }
+            }
+            else return;
 
             entity.TrySelect();
 
