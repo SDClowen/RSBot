@@ -74,7 +74,7 @@ namespace RSBot.Core.Client.ReferenceObjects
 
             for (var i = 8; i < 11; i++)
             {
-                parser.TryParse(i, out var paramVal);
+                parser.TryParse(i, out uint paramVal);
                 var param = GetAvailableValues(paramVal);
 
                 AvailableValues.Add(param.Item1);
