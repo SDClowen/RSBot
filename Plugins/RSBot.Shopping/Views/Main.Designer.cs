@@ -144,6 +144,7 @@
             this.checkPickupRare = new SDUI.Controls.CheckBox();
             this.checkPickupGold = new SDUI.Controls.CheckBox();
             this.separator5 = new SDUI.Controls.Separator();
+            this.checkStoreItemsFromPet = new SDUI.Controls.CheckBox();
             this.contextShoppingList.SuspendLayout();
             this.contextAvailableProducts.SuspendLayout();
             this.tabMain.SuspendLayout();
@@ -246,6 +247,7 @@
             // 
             this.groupBox1.BackColor = System.Drawing.Color.Transparent;
             this.groupBox1.Controls.Add(this.checkSellItemsFromPet);
+            this.groupBox1.Controls.Add(this.checkStoreItemsFromPet);
             this.groupBox1.Controls.Add(this.checkRepairGear);
             this.groupBox1.Controls.Add(this.checkEnable);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -1338,6 +1340,18 @@
             this.separator5.Size = new System.Drawing.Size(730, 10);
             this.separator5.TabIndex = 9;
             this.separator5.Text = "separator5";
+            //
+            // checkStoreItemsFromPet
+            // 
+            this.checkStoreItemsFromPet.AutoSize = true;
+            this.checkStoreItemsFromPet.BackColor = System.Drawing.Color.Transparent;
+            this.checkStoreItemsFromPet.Checked = true;
+            this.checkStoreItemsFromPet.Location = new System.Drawing.Point(567, 33);
+            this.checkStoreItemsFromPet.Name = "checkStoreItemsFromPet";
+            this.checkStoreItemsFromPet.Size = new System.Drawing.Size(131, 15);
+            this.checkStoreItemsFromPet.TabIndex = 4;
+            this.checkStoreItemsFromPet.Text = "Store items from pet";
+            this.checkStoreItemsFromPet.CheckedChanged += new System.EventHandler(this.checkStoreItemsFromPet_CheckedChanged);
             // 
             // Main
             // 
@@ -1490,5 +1504,6 @@
         private SDUI.Controls.Separator separator1;
         private SDUI.Controls.Separator separator2;
         private SDUI.Controls.Separator separator5;
+        private SDUI.Controls.CheckBox checkStoreItemsFromPet;
     }
 }

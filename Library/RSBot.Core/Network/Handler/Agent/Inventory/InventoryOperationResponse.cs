@@ -243,7 +243,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
                 if (itemAtDestination.ItemId == itemAtSource.ItemId)
                 {
                     //Check if the items can stack, otherwise move A to B and B to A
-                    var newItemAmount = itemAtDestination.Amount + itemAtSource.Amount;
+                    var newItemAmount = itemAtDestination.Amount + amount;
                     if (newItemAmount > itemAtDestination.Record.MaxStack)
                     {
                         itemAtDestination.Slot = sourceSlot;
@@ -254,9 +254,10 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
                     else
                     {
                         itemAtDestination.Amount = (ushort)newItemAmount;
+                        itemAtSource.Amount -= amount;
 
                         Log.Debug($"[Inventory->Inventory] Merge item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={itemAtSource.Amount}) with (slot={itemAtDestination.Slot}, amount={itemAtDestination.Amount})");
-                        Core.Game.Player.Inventory.RemoveItemAt(sourceSlot);
+                        if (itemAtSource.Amount <= 0) Core.Game.Player.Inventory.RemoveItemAt(sourceSlot);
                     }
                 }
                 else

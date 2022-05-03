@@ -170,9 +170,9 @@ namespace RSBot.Core.Objects
         /// Moves the item to player.
         /// </summary>
         /// <param name="slot">The slot.</param>
-        public void MoveItemToPlayer(byte slot)
+        public byte? MoveItemToPlayer(byte slot)
         {
-            if (Game.Player.Inventory.Full) return;
+            if (Game.Player.Inventory.Full) return null;
 
             var destinationSlot = Game.Player.Inventory.GetFreeSlot();
 
@@ -185,6 +185,7 @@ namespace RSBot.Core.Objects
             var callback = new AwaitCallback(null, 0xB034);
             PacketManager.SendPacket(packet, PacketDestination.Server, callback);
             callback.AwaitResponse();
+            return destinationSlot;
         }
     }
 }

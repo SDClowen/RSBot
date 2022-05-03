@@ -2,6 +2,7 @@
 using RSBot.Core.Network;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -76,6 +77,14 @@ namespace RSBot.Core.Components
         public static bool SellPetItems { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [store pet items].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [store pet items]; otherwise, <c>false</c>.
+        /// </value>
+        public static bool StorePetItems { get; set; }
+
+        /// <summary>
         /// Gets or sets the buyback list.
         /// </summary>
         /// <value>
@@ -122,14 +131,10 @@ namespace RSBot.Core.Components
                 tempItemSellList = Game.Player.AbilityPet.Items.Where(item => SellFilter.Invoke(item.Record)).ToArray();
 
                 foreach (var item in tempItemSellList)
-                    Game.Player.AbilityPet.MoveItemToPlayer(item.Slot);
-
-                //Prevent modification during the for-each loop
-                tempItemSellList =
-                    Game.Player.Inventory.Items.Where(i => i.Slot > 13).Where(item => SellFilter.Invoke(item.Record)).ToArray();
-
-                foreach (var item in tempItemSellList)
-                    SellItem(item);
+                {
+                    var playerSlot = Game.Player.AbilityPet.MoveItemToPlayer(item.Slot);
+                    if(playerSlot != null) SellItem(Game.Player.Inventory.GetItemAt((byte)playerSlot));
+                }   
             }
 
             var shopGroup = ReferenceManager.GetRefShopGroup(npcCodeName);
@@ -164,12 +169,12 @@ namespace RSBot.Core.Components
                 var holdingAmount = Game.Player.Inventory.GetItemAmount(refPackageItem.RefItemCodeName);
                 var totalAmountToBuy = item.Value - holdingAmount;
 
+                var refItem = ReferenceManager.GetRefItem(refPackageItem.RefItemCodeName);
+                if (refItem == null)
+                    continue; //Should not happen
+
                 while (totalAmountToBuy > 0)
                 {
-                    var refItem = ReferenceManager.GetRefItem(refPackageItem.RefItemCodeName);
-                    if (refItem == null) 
-                        continue; //Should not happen
-
                     var amountStep = totalAmountToBuy;
                     if (totalAmountToBuy >= refItem.MaxStack)
                         amountStep = refItem.MaxStack; //Buy only one stack
@@ -177,6 +182,18 @@ namespace RSBot.Core.Components
                     PurchaseItem(tabIndex, actualItem.SlotIndex, (ushort)amountStep);
                     totalAmountToBuy -= amountStep; //One stack bought, substract from total amount!
                     Thread.Sleep(100);
+                }
+
+                //merge stacks
+                if(refItem.MaxStack > 1)
+                {
+                    var nonFullStacks = Game.Player.Inventory.Items.Where(i => i.Record.CodeName == refPackageItem.RefItemCodeName && i.Amount < refItem.MaxStack).ToList();
+                    while(nonFullStacks.Count >= 2)
+                    {
+                        Game.Player.Inventory.MoveItem(nonFullStacks[1].Slot, nonFullStacks[0].Slot, (ushort)Math.Min(refItem.MaxStack - nonFullStacks[0].Amount, nonFullStacks[1].Amount));
+                        nonFullStacks = Game.Player.Inventory.Items.Where(i => i.Record.CodeName == refPackageItem.RefItemCodeName && i.Amount < refItem.MaxStack).ToList();
+                        Thread.Sleep(100);
+                    }
                 }
             }
 
@@ -300,39 +317,22 @@ namespace RSBot.Core.Components
 
             foreach (var item in tempInventory)
             {
-                //Use later to merge item!
-                var existingItem = Game.Player.Storage.Items.FirstOrDefault(storageItem => storageItem.Record.ID == item.Record.ID);
+                StoreItem(item, npc);
+            }
 
-                //Store item
-                var destinationSlot = Game.Player.Storage.GetFreeSlot();
-                var packet = new Packet(0x7034);
-                packet.WriteByte(0x02); //Store Item Flag
-                packet.WriteByte(item.Slot);
-                packet.WriteByte(destinationSlot);
-                packet.WriteUInt(npc.UniqueId);
+            if (Game.Player.HasActiveAbilityPet && StorePetItems)
+            {
+                var petItemStoreList = Game.Player.AbilityPet.Items.Where(item => StoreFilter.Invoke(item.Record)).ToArray();
 
-                var awaitResult = new AwaitCallback(null, 0xB034);
-                PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
-                awaitResult.AwaitResponse();
-
-                if (item.Record.MaxStack <= 1 || existingItem == null)
-                    continue;
-
-                //Merge with existing item.
-                var mergeAmount = existingItem.Amount + item.Amount <= existingItem.Record.MaxStack
-                    ? item.Amount
-                    : existingItem.Record.MaxStack - existingItem.Amount;
-
-                var mergePacket = new Packet(0x7034);
-                mergePacket.WriteByte(0x01); //Store Item Flag
-                mergePacket.WriteByte(destinationSlot);
-                mergePacket.WriteByte(existingItem.Slot);
-                mergePacket.WriteUShort(mergeAmount);
-                mergePacket.WriteUInt(npc.UniqueId);
-
-                awaitResult = new AwaitCallback(null, 0xB034);
-                PacketManager.SendPacket(mergePacket, PacketDestination.Server, awaitResult);
-                awaitResult.AwaitResponse();
+                foreach (var item in petItemStoreList)
+                {
+                    var playerSlot = Game.Player.AbilityPet.MoveItemToPlayer(item.Slot);
+                    if (playerSlot != null)
+                    {
+                        var movedItem = Game.Player.Inventory.GetItemAt((byte)playerSlot);
+                        StoreItem(movedItem, npc);
+                    }
+                }
             }
 
             CloseShop();
@@ -385,6 +385,47 @@ namespace RSBot.Core.Components
             }
 
             entity.TrySelect();
+        }
+
+        /// <summary>
+        /// Stores an item.
+        /// </summary>
+        /// <param name="item">Item to put in storage.</param>
+        private static void StoreItem(InventoryItem item, SpawnedBionic npc)
+        {
+            //Use later to merge item!
+            var existingItem = Game.Player.Storage.Items.FirstOrDefault(storageItem => storageItem.Record.ID == item.Record.ID);
+
+            //Store item
+            var destinationSlot = Game.Player.Storage.GetFreeSlot();
+            var packet = new Packet(0x7034);
+            packet.WriteByte(0x02); //Store Item Flag
+            packet.WriteByte(item.Slot);
+            packet.WriteByte(destinationSlot);
+            packet.WriteUInt(npc.UniqueId);
+
+            var awaitResult = new AwaitCallback(null, 0xB034);
+            PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
+            awaitResult.AwaitResponse();
+
+            if (item.Record.MaxStack <= 1 || existingItem == null)
+                return;
+
+            //Merge with existing item.
+            var mergeAmount = existingItem.Amount + item.Amount <= existingItem.Record.MaxStack
+                ? item.Amount
+                : existingItem.Record.MaxStack - existingItem.Amount;
+
+            var mergePacket = new Packet(0x7034);
+            mergePacket.WriteByte(0x01); //Store Item Flag
+            mergePacket.WriteByte(destinationSlot);
+            mergePacket.WriteByte(existingItem.Slot);
+            mergePacket.WriteUShort(mergeAmount);
+            mergePacket.WriteUInt(npc.UniqueId);
+
+            awaitResult = new AwaitCallback(null, 0xB034);
+            PacketManager.SendPacket(mergePacket, PacketDestination.Server, awaitResult);
+            awaitResult.AwaitResponse();
         }
 
         /// <summary>
