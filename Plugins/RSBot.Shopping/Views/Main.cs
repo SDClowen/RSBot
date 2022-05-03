@@ -570,7 +570,7 @@ namespace RSBot.Shopping.Views
             checkPickupGold.Checked = PlayerConfig.Get("RSBot.Items.Pickup.Gold", true);
             checkPickupRare.Checked = PlayerConfig.Get("RSBot.Items.Pickup.Rare", true);
             checkEnableAbilityPet.Checked = PlayerConfig.Get("RSBot.Items.Pickup.EnableAbilityPet", true);
-            checkSellItemsFromPet.Checked = PlayerConfig.Get("RSBot.Shopping.SellPetItems", true);
+            checkStoreItemsFromPet.Checked = PlayerConfig.Get("RSBot.Shopping.StorePetItems", true);
             checkDontPickupInBerzerk.Checked = PlayerConfig.Get("RSBot.Items.Pickup.DontPickupInBerzerk", true);
             cbJustpickmyitems.Checked = PlayerConfig.Get("RSBot.Items.Pickup.JustPickMyItems", true);
             cbDontPickupWhileBotting.Checked = PlayerConfig.Get<bool>("RSBot.Items.Pickup.DontPickupWhileBotting");
@@ -578,6 +578,7 @@ namespace RSBot.Shopping.Views
             ShoppingManager.Enabled = checkEnable.Checked;
             ShoppingManager.RepairGear = checkRepairGear.Checked;
             ShoppingManager.SellPetItems = checkSellItemsFromPet.Checked;
+            ShoppingManager.StorePetItems = checkStoreItemsFromPet.Checked;
 
             LoadShoppingList();
             LoadSellList();
@@ -594,6 +595,17 @@ namespace RSBot.Shopping.Views
         {
             PlayerConfig.Set("RSBot.Shopping.SellPetItems", checkSellItemsFromPet.Checked);
             ShoppingManager.SellPetItems = checkSellItemsFromPet.Checked;
+        }
+
+        /// <summary>
+        /// Handles the CheckedChanged event of the checkStoreItemsFromPet control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void checkStoreItemsFromPet_CheckedChanged(object sender, EventArgs e)
+        {
+            PlayerConfig.Set("RSBot.Shopping.StorePetItems", checkSellItemsFromPet.Checked);
+            ShoppingManager.StorePetItems = checkStoreItemsFromPet.Checked;
         }
 
         /// <summary>

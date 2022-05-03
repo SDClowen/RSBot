@@ -642,14 +642,14 @@ namespace RSBot.Core.Objects
                     if (record.Param1 > 0 || record.Param3 > 0)
                     {
                         if (Race == ObjectCountry.Chinese)
-                            duration = 1000;
+                            duration = 1050;
                         else
-                            duration = 15000;
+                            duration = 15050;
                     }
                     // grain
                     else if (record.Param2 > 0 || record.Param4 > 0)
                     {
-                        duration = 4000;
+                        duration = 4050;
                     }
                 }
                 var elapsed = Environment.TickCount - tick;
@@ -699,7 +699,7 @@ namespace RSBot.Core.Objects
                 return false;
 
             var elapsed = Environment.TickCount - _lastUniversalPillTick;
-            if (elapsed < 1000)
+            if (elapsed < 1050)
                 return false;
 
             var typeIdFilter = new TypeIdFilter(3, 3, 2, 6);
@@ -724,7 +724,7 @@ namespace RSBot.Core.Objects
                 return false;
 
             var elapsed = Environment.TickCount - _lastPurificationPillTick;
-            if (elapsed < 20000)
+            if (elapsed < 20050)
                 return false;
 
             var typeIdFilter = new TypeIdFilter(3, 3, 2, 1);

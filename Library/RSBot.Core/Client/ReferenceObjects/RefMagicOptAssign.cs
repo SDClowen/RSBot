@@ -26,7 +26,7 @@ namespace RSBot.Core.Client.ReferenceObjects
             AvailableMagicOptions = new List<string>(80);
             for (var i = 4; i < parser.GetColumnCount(); i++)
             {
-                if (parser.TryParse(i, out var option))
+                if (parser.TryParse(i, out string option))
                     AvailableMagicOptions.Add(option);
             }
 
