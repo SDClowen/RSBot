@@ -189,7 +189,7 @@ namespace RSBot.Core.Components
             var npcCodeName = arguments[1];
             var destination = uint.Parse(arguments[2]);
 
-            if (!SpawnManager.TryGetEntity<SpawnedPortal>(p => p.Record.CodeName == npcCodeName, out var entity))
+            if (!SpawnManager.TryGetEntity<SpawnedBionic>(p => p.Record.CodeName == npcCodeName, out var entity))
             {
                 Log.Debug("Could not find teleportation NPC " + npcCodeName);
                 return;
