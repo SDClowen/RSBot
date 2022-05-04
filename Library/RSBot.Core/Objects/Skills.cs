@@ -91,6 +91,17 @@ namespace RSBot.Core.Objects
             return KnownSkills.Find(s => s.Id == skillId);
         }
 
+
+        /// <summary>
+        /// Gets the skill information by the group identifier.
+        /// </summary>
+        /// <param name="skillGroupId">The skill group identifier.</param>
+        /// <returns></returns>
+        public SkillInfo GetSkillInfoByGroupId(int skillGroupId)
+        {
+            return KnownSkills.FirstOrDefault(s => s.Record.GroupID == skillGroupId);
+        }
+
         /// <summary>
         /// Gets the mastery information by identifier.
         /// </summary>
