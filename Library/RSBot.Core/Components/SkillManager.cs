@@ -136,7 +136,6 @@ namespace RSBot.Core.Components
             }
             else if (distance < 10)
             {
-                var stopwatch = Stopwatch.StartNew();
                 var counter = -1;
                 var skillCount = Skills[rarity].Count;
                 while (skillCount > 0 && counter < skillCount)
@@ -163,9 +162,7 @@ namespace RSBot.Core.Components
                 if (weapon != null)
                     weaponRange = weapon.Record.Range / 10;
                 */
-
-                var stopwatch = Stopwatch.StartNew();
-
+                
                 for (int i = 0; i < Skills[rarity].Count; i++)
                 {
                     var s = Skills[rarity][i];
@@ -240,7 +237,7 @@ namespace RSBot.Core.Components
 
             if (movingSlot == 6 && requiredItem.Record.TwoHanded == 0)
             {
-                // find and equip the shield item automaticaly
+                // find and equip the shield item automatically
                 filter = new TypeIdFilter(3, 1, 4, (byte)(Game.Player.Race == ObjectCountry.Chinese ? 1 : 2));
                 var shieldItem = Game.Player.Inventory.GetItemBest(filter);
                 if (shieldItem != null && shieldItem.Slot != 7)
@@ -260,9 +257,7 @@ namespace RSBot.Core.Components
 
             if (entity.State.LifeState == LifeState.Dead)
                 return false;
-
-            var weapon = Game.Player.Inventory.GetItemAt(6);
-
+            
             if (!CheckSkillRequired(skill.Record))
                 return false;
 

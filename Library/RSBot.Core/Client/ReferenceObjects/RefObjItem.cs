@@ -55,6 +55,11 @@ namespace RSBot.Core.Client.ReferenceObjects
         public bool IsQuest => IsStackable && TypeID3 == 9;
 
         /// <summary>
+        /// A value indicating if the item is of type ammunition
+        /// </summary>
+        public bool IsAmmunition => TypeID2 == 3 && TypeID3 == 4;
+
+        /// <summary>
         /// Is item type quest:<c>true</c> otherwise:<c>false</c>
         /// </summary>
         public bool IsSkillItem => IsStackable && TypeID3 == 13 && TypeID4 == 1;

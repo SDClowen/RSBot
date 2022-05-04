@@ -789,9 +789,9 @@ namespace RSBot.Core.Objects
         }
 
         /// <summary>
-        /// Equips the ammunation.
+        /// Equips the ammunition.
         /// </summary>
-        public void EquipAmmunation()
+        public void EquipAmmunition()
         {
             if (!Kernel.Bot.Running)
                 return;
@@ -802,18 +802,18 @@ namespace RSBot.Core.Objects
             if (currentWeapon == null || currentAmmunation != null)
                 return;
 
-            InventoryItem ammunationItem = null;
+            InventoryItem ammunition;
 
             if (currentWeapon.Record.TypeID4 == 6) //Bow
-                ammunationItem = Inventory.GetItem(new TypeIdFilter(3, 3, 4, 1));
+                ammunition = Inventory.GetItem(new TypeIdFilter(3, 3, 4, 1));
             else if (currentWeapon.Record.TypeID4 == 12) //Crossbow
-                ammunationItem = Inventory.GetItem(new TypeIdFilter(3, 3, 4, 2));
+                ammunition = Inventory.GetItem(new TypeIdFilter(3, 3, 4, 2));
             else
                 return;
 
-            if (ammunationItem != null)
+            if (ammunition != null)
             {
-                Inventory.MoveItem(ammunationItem.Slot, 7);
+                Inventory.MoveItem(ammunition.Slot, 7);
                 return;
             }
 
@@ -823,7 +823,7 @@ namespace RSBot.Core.Objects
                 return;
             }
 
-            Log.Notify("Could not auto-equip ammunation: No correct ammunation type was found in the player's inventory");
+            Log.Notify("Could not auto-equip ammunition: No correct ammunition type was found in the player's inventory");
             EventManager.FireEvent("OnUpdateAmmunition");
         }
 

@@ -35,7 +35,7 @@ namespace RSBot.Core.Network.Handler.Agent.Action
                 switch (errorCode)
                 {
                     case 0x0E:
-                        Core.Game.Player.EquipAmmunation();
+                        Core.Game.Player.EquipAmmunition();
                         break;
 
                     case 0x05:

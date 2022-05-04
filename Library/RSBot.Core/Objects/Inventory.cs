@@ -1,5 +1,4 @@
 ﻿using RSBot.Core.Network;
-using RSBot.Core.Objects.Item;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -240,7 +239,9 @@ namespace RSBot.Core.Objects
                     nearestItem = item;
                 else
                 {
-                    if (item.Record.ReqLevel1 > nearestItem.Record.ReqLevel1 && item.OptLevel > nearestItem.OptLevel)
+                    if (item.Record.ReqLevel1 > nearestItem.Record.ReqLevel1 //Compare level
+                        && item.OptLevel > nearestItem.OptLevel //Compare opt level
+                        && item.CanBeEquipped()) //Make sure the gender is either neutral or matches the player's gender
                         nearestItem = item;
                 }
             }
@@ -282,6 +283,14 @@ namespace RSBot.Core.Objects
 
             if (itemAtSource == null) return false;
 
+            //Is the player able to equip it?
+            if (destinationSlot < 13)
+            {
+                if (itemAtSource.Record.ReqLevel1 > Game.Player.Level) return false;
+                if (itemAtSource.Record.ReqGender != 2 &&
+                    itemAtSource.Record.ReqGender != (byte)Game.Player.Gender) return false;
+            }
+
             if (amount == null)
                 amount = 0;
             if (amount == 0)
@@ -296,7 +305,7 @@ namespace RSBot.Core.Objects
             var asyncResult = new AwaitCallback(response =>
             {
                 var result = response.ReadByte();
-                if(result == 0x01)
+                if (result == 0x01)
                 {
                     var operation = response.ReadByte();
                     if (operation != 0)
