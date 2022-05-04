@@ -47,10 +47,6 @@ namespace RSBot.Bot.Default.Bundle.Loop
                 //Wait for the vehicle to spawn
                 Thread.Sleep(1000);
             }
-
-            //We don't need to use buffs in town...
-            if (Config.CastBuffs && !TownscriptRunning)
-                Bundles.Buff.Invoke();
         }
 
         /// <summary>
@@ -124,7 +120,7 @@ namespace RSBot.Bot.Default.Bundle.Loop
             Log.NotifyLang("LoadingWalkScript", Config.WalkScript);
 
             ScriptManager.Load(Config.WalkScript);
-            ScriptManager.RunScript();
+            ScriptManager.RunScript(Config.CastBuffs);
         }
     }
 }

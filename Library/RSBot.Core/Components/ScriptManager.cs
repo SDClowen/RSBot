@@ -81,7 +81,7 @@ namespace RSBot.Core.Components
         /// <summary>
         /// Runs this instance.
         /// </summary>
-        public static void RunScript()
+        public static void RunScript(bool castBuffs = false)
         {
             if (Commands == null || Commands.Length == 0)
             {
@@ -90,9 +90,20 @@ namespace RSBot.Core.Components
             }
 
             Running = true;
+            var useSpeedDrug = PlayerConfig.Get<bool>("RSBot.Walkback.UseSpeedDrug", false);
+            var canBuff = true;
+
             foreach (var command in Commands)
             {
                 if (!Running) return;
+                if (canBuff)
+                {
+                    if (useSpeedDrug && Game.Player.State.ActiveBuffs.FindIndex(p => p.Record.Action_Overlap == 6) < 0)
+                        Game.Player.UseSpeedDrug();
+                    if (castBuffs)
+                        SkillManager.CastBuffs();
+                }
+                else canBuff = true;
 
                 switch (command.Type)
                 {
@@ -120,6 +131,7 @@ namespace RSBot.Core.Components
                     case ScriptCommandType.TeleportByCode:
                     case ScriptCommandType.TeleportById:
                         Log.Notify("[Script] Teleporting...");
+                        canBuff = false;
                         ExecuteTeleport(command);
                         break;
 

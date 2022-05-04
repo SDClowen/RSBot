@@ -83,8 +83,7 @@ namespace RSBot.Core.Objects.Skill
         /// <value>
         /// <c>true</c> if this instance can be used; otherwise, <c>false</c>.
         /// </value>
-        public bool CanNotBeCasted
-            => (Environment.TickCount - _canNotBeCastedTick) < _duration;
+        public bool CanNotBeCasted => !CanBeCasted;
 
         /// <summary>
         /// Gets a value indicating whether this instance can be used.
@@ -92,7 +91,7 @@ namespace RSBot.Core.Objects.Skill
         /// <value>
         /// <c>true</c> if this instance can be used; otherwise, <c>false</c>.
         /// </value>
-        public bool CanBeCasted => (IsDot || !CanNotBeCasted) && !HasCooldown && Game.Player.Mana >= Record.Consume_MP;
+        public bool CanBeCasted => !HasCooldown && Game.Player.Mana >= Record.Consume_MP;
 
         /// <summary>
         /// Skill Token (using for buffs)

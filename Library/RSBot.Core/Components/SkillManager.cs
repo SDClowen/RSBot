@@ -534,5 +534,27 @@ namespace RSBot.Core.Components
 
             return callback.IsCompleted;
         }
+
+        public static bool CastBuffs()
+        {
+            if (Game.Player.State.LifeState != LifeState.Alive)
+                return false;
+
+            var buffs = Buffs.FindAll(p => !Game.Player.State.HasActiveBuff(p, out _) && p.CanBeCasted);
+
+            foreach (var buff in buffs)
+            {
+                if (Game.Player.State.LifeState != LifeState.Alive)
+                    return false;
+                var playerSkill = Game.Player.Skills.GetSkillInfoById(buff.Id);
+                if (playerSkill == null)
+                    continue;
+
+                Log.Debug($"Trying to cast buff: {buff} {buff.Record.Basic_Code}");
+                CastBuff(buff);
+            }
+
+            return true;
+        }
     }
 }

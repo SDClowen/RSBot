@@ -1,6 +1,4 @@
-﻿using RSBot.Core;
-using RSBot.Core.Components;
-using RSBot.Core.Objects;
+﻿using RSBot.Core.Components;
 
 namespace RSBot.Bot.Default.Bundle.Buff
 {
@@ -11,22 +9,7 @@ namespace RSBot.Bot.Default.Bundle.Buff
         /// </summary>
         public void Invoke()
         {
-            while (true)
-            {
-                if (Game.Player.State.LifeState != LifeState.Alive)
-                    break;
-
-                var buff = SkillManager.Buffs.Find(p => !Game.Player.State.HasActiveBuff(p, out _) && p.CanBeCasted);
-                if (buff == null)
-                    break;
-
-                var playerSkill = Game.Player.Skills.GetSkillInfoById(buff.Id);
-                if (playerSkill == null)
-                    continue;
-
-                Log.Debug($"Trying to cast buff: {buff} {buff.Record.Basic_Code}");
-                SkillManager.CastBuff(buff);
-            }
+            SkillManager.CastBuffs();
         }
 
         /// <summary>

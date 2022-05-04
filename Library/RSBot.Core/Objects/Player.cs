@@ -651,7 +651,6 @@ namespace RSBot.Core.Objects
                     {
                         duration = 4050;
                     }
-                    //duration = 500;
                 }
                 var elapsed = Environment.TickCount - tick;
                 Log.Debug($"{potionItem.Record.GetRealName()} {tick}   {elapsed} {duration}    {elapsed < duration}");
@@ -738,6 +737,22 @@ namespace RSBot.Core.Objects
                 _lastPurificationPillTick = Environment.TickCount;
 
             return result;
+        }
+
+        /// <summary>
+        /// Uses the speed drug.
+        /// </summary>
+        /// <returns></returns>
+        public bool UseSpeedDrug()
+        {
+            if (State.LifeState == LifeState.Dead)
+                return false;
+
+            var item = Game.Player.Inventory.GetItems(new TypeIdFilter(3, 3, 13, 1)).Find(p => p.Record.Desc1.Contains("_SPEED_"));
+            if (item != null)
+                return item.Use();
+
+            return false;
         }
 
         /// <summary>
