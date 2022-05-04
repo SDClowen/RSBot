@@ -19,6 +19,12 @@ namespace RSBot.Protection.Components.Town
         private static void SubscribeEvents()
         {
             EventManager.SubscribeEvent("OnUpdateAmmunition", OnUpdateAmmunition);
+            EventManager.SubscribeEvent("OnStartBot", OnStartBot);
+        }
+
+        private static void OnStartBot()
+        {
+            CheckForAmmunition();
         }
 
         /// <summary>
@@ -26,14 +32,16 @@ namespace RSBot.Protection.Components.Town
         /// </summary>
         private static void OnUpdateAmmunition()
         {
-            if (!Kernel.Bot.Running)
-                return;
+            if (Kernel.Bot.Running) CheckForAmmunition();
+        }
 
+        private static void CheckForAmmunition()
+        {
             if (!PlayerConfig.Get<bool>("RSBot.Protection.checkNoArrows"))
                 return;
 
-            var currentAmmuniton = Game.Player.GetAmmunationAmount(true);
-            if (currentAmmuniton == -1 || currentAmmuniton > 10) 
+            var currentAmmunition = Game.Player.GetAmmunationAmount(true);
+            if (currentAmmunition == -1 || currentAmmunition > 10)
                 return;
 
             Log.WarnLang("ReturnToTownNoAmmo");

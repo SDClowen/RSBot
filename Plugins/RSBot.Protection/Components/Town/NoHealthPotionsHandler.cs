@@ -21,6 +21,13 @@ namespace RSBot.Protection.Components.Town
         private static void SubscribeEvents()
         {
             EventManager.SubscribeEvent("OnUseItem", new System.Action<byte>(OnUseItem));
+            EventManager.SubscribeEvent("OnStartBot", OnStartBot);
+        }
+
+        private static void OnStartBot()
+        {
+            //Check if we need to return to town right after the bot started.
+            CheckForHpPotions();
         }
 
         /// <summary>
@@ -28,7 +35,11 @@ namespace RSBot.Protection.Components.Town
         /// </summary>
         private static void OnUseItem(byte slot)
         {
-            if (!Kernel.Bot.Running) return;
+            if (Kernel.Bot.Running) CheckForHpPotions();
+        }
+
+        private static void CheckForHpPotions()
+        {
             if (!PlayerConfig.Get<bool>("RSBot.Protection.checkNoHPPotions")) return;
 
             var typeIdFilter = new TypeIdFilter(3, 3, 1, 1);
