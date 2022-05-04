@@ -284,12 +284,8 @@ namespace RSBot.Core.Objects
             if (itemAtSource == null) return false;
 
             //Is the player able to equip it?
-            if (destinationSlot < 13)
-            {
-                if (itemAtSource.Record.ReqLevel1 > Game.Player.Level) return false;
-                if (itemAtSource.Record.ReqGender != 2 &&
-                    itemAtSource.Record.ReqGender != (byte)Game.Player.Gender) return false;
-            }
+            if (destinationSlot < 13 && !itemAtSource.CanBeEquipped())
+                return false;
 
             if (amount == null)
                 amount = 0;
