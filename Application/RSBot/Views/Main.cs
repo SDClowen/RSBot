@@ -85,7 +85,7 @@ namespace RSBot.Views
 
             tabMain.TabPages.Insert(1, tabPage);
 
-            Kernel.Bot.SetBotbase(selectedBotbase);
+            Kernel.Bot?.SetBotbase(selectedBotbase);
             GlobalConfig.Set("RSBot.BotIndex", index.ToString());
 
             if (Game.Player == null)
@@ -122,7 +122,7 @@ namespace RSBot.Views
 
                 var tabPage = new TabPage
                 {
-                    Text = LanguageManager.GetLangBySpecificKey(extension.Value.Information.InternalName, "DisplayName"),
+                    Text = LanguageManager.GetLangBySpecificKey(extension.Value.Information.InternalName, "DisplayName", extension.Value.Information.DisplayName),
                     Enabled = !extension.Value.Information.RequireIngame,
                     Name = extension.Value.Information.InternalName
                 };
@@ -156,7 +156,8 @@ namespace RSBot.Views
 
             foreach (var extension in extensions.Where(extension => !extension.Value.Information.DisplayAsTab))
             {
-                var menuItem = new ToolStripMenuItem(LanguageManager.GetLangBySpecificKey(extension.Value.Information.InternalName, "DisplayName"))
+                var menuItemText = LanguageManager.GetLangBySpecificKey(extension.Value.Information.InternalName, "DisplayName", extension.Value.Information.DisplayName);
+                var menuItem = new ToolStripMenuItem(menuItemText)
                 {
                     Enabled = !extension.Value.Information.RequireIngame
                 };
@@ -210,7 +211,7 @@ namespace RSBot.Views
         /// <exception cref="System.NotImplementedException"></exception>
         private void PluginMenuItem_Click(object sender, EventArgs e)
         {
-            var menuItem = (MenuItem)sender;
+            var menuItem = (ToolStripMenuItem)sender;
             var plugin = (IPlugin)menuItem.Tag;
 
             var window = new Form()

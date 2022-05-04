@@ -128,6 +128,9 @@ namespace RSBot.Shopping.Views
                     var refPackageItem = Game.ReferenceManager.GetRefPackageItem(good.RefPackageItemCodeName);
                     var item = Game.ReferenceManager.GetRefItem(refPackageItem.RefItemCodeName);
 
+                    if (item == null)
+                        continue;
+
                     if (!checkShowEquipment.Checked && item.TypeID2 == 1)
                         continue;
 
