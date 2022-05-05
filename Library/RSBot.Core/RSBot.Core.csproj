@@ -60,6 +60,9 @@
     <Compile Include="Client\ReferenceObjects\RefPackageItemScrap.cs" />
     <Compile Include="Client\ReferenceObjects\RefText.cs" />
     <Compile Include="Client\ReferenceParser.cs" />
+    <Compile Include="Components\IScriptParser.cs" />
+    <Compile Include="Components\MbotScriptParser.cs" />
+    <Compile Include="Components\NativeScriptParser.cs" />
     <Compile Include="Components\Pk2\ArchiveFile.cs" />
     <Compile Include="Components\Pk2\ArchiveManager.cs" />
     <Compile Include="Components\CollisionManager.cs" />
@@ -170,6 +173,8 @@
     <Compile Include="Objects\BadEffect.cs" />
     <Compile Include="Objects\BattleState.cs" />
     <Compile Include="Objects\InventoryItemState.cs" />
+    <Compile Include="Objects\ScriptCommand.cs" />
+    <Compile Include="Objects\ScriptCommandType.cs" />
     <Compile Include="Objects\ScrollState.cs" />
     <Compile Include="Objects\Spawn\SpawnedEntity.cs" />
     <Compile Include="Objects\Spawn\SpawnedNpcNpc.cs" />

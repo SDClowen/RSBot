@@ -569,7 +569,7 @@ namespace RSBot.Core.Objects
         public bool MoveTo(Position destination, bool sleep = true)
         {
             var distance = Game.Player.Movement.Source.DistanceTo(destination);
-            if (distance > 150)
+            if (distance > 300)
             {
                 Log.Warn($"Player.Move: Target position too far away! Target distance: {Math.Round(distance, 2)}");
 
@@ -616,7 +616,7 @@ namespace RSBot.Core.Objects
                 if (!sleep) return true;
 
                 //Wait to finish the step
-                Thread.Sleep(Convert.ToInt32(distance / Game.Player.ActualSpeed * 10000));
+                Thread.Sleep(Convert.ToInt32(distance / Game.Player.ActualSpeed * 10000 + 100));
 
                 return true;
             }
@@ -737,6 +737,22 @@ namespace RSBot.Core.Objects
                 _lastPurificationPillTick = Environment.TickCount;
 
             return result;
+        }
+
+        /// <summary>
+        /// Uses the speed drug.
+        /// </summary>
+        /// <returns></returns>
+        public bool UseSpeedDrug()
+        {
+            if (State.LifeState == LifeState.Dead)
+                return false;
+
+            var item = Game.Player.Inventory.GetItems(new TypeIdFilter(3, 3, 13, 1)).Find(p => p.Record.Desc1.Contains("_SPEED_"));
+            if (item != null)
+                return item.Use();
+
+            return false;
         }
 
         /// <summary>

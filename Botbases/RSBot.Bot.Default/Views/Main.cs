@@ -133,7 +133,7 @@ namespace RSBot.Bot.Default.Views
         {
             var diag = new OpenFileDialog
             {
-                Filter = @"RSBot Bot script|*.rbs",
+                Filter = @"RSBot Bot script|*.rbs|mBot script|*.txt",
                 Title = @"Browse for a walkback script"
             };
 
