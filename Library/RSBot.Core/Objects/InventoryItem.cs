@@ -332,5 +332,16 @@ namespace RSBot.Core.Objects
         {
             return Record.CodeName;
         }
+
+        public bool CanBeEquipped()
+        {
+            if (Record.IsAmmunition) return true;
+            if (!Record.IsEquip) return false;
+            if (Record.ReqLevel1 > Game.Player.Level) return false;
+            if (Record.ReqGender != 2 && Record.ReqGender != (byte) Game.Player.Gender) return false;
+            if (Record.Country != Game.Player.Record.Country) return false;
+
+            return true;
+        }
     }
 }
