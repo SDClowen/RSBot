@@ -197,12 +197,13 @@ namespace RSBot.Core
         /// Get language value
         /// </summary>
         /// <param name="key">The key</param>
-        public static string GetLangBySpecificKey(string parent, string key)
+        /// <param name="default">The default value that will be returned if the translation could not be found</param>
+        public static string GetLangBySpecificKey(string parent, string key, string @default = "")
         {
             if (_values.ContainsKey(parent) && _values[parent].ContainsKey(key))
                 return _values[parent][key];
 
-            return string.Empty;
+            return @default;
         }
 
         /// <summary>
