@@ -1,6 +1,5 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Event;
-using RSBot.Protection.Views;
 
 namespace RSBot.Protection.Components.Town
 {
@@ -37,7 +36,5 @@ namespace RSBot.Protection.Components.Town
 
             Game.Player.UseReturnScroll();
         }
-
-        
     }
 }
