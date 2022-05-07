@@ -52,8 +52,9 @@
             // buttonOk
             // 
             this.buttonOk.Color = System.Drawing.Color.Transparent;
-            this.buttonOk.Location = new System.Drawing.Point(243, 7);
+            this.buttonOk.Location = new System.Drawing.Point(243, 8);
             this.buttonOk.Name = "buttonOk";
+            this.buttonOk.Radius = 2;
             this.buttonOk.Size = new System.Drawing.Size(75, 23);
             this.buttonOk.TabIndex = 0;
             this.buttonOk.Text = "OK";
@@ -86,6 +87,7 @@
             // 
             // labelName
             // 
+            this.labelName.AutoSize = true;
             this.labelName.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelName.Location = new System.Drawing.Point(147, 8);
             this.labelName.Name = "labelName";
@@ -95,6 +97,7 @@
             // 
             // labelDescription
             // 
+            this.labelDescription.AutoSize = true;
             this.labelDescription.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelDescription.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
             this.labelDescription.Location = new System.Drawing.Point(149, 33);
@@ -105,9 +108,10 @@
             // 
             // labelVersion
             // 
+            this.labelVersion.AutoSize = true;
             this.labelVersion.Font = new System.Drawing.Font("Segoe UI", 10.25F);
             this.labelVersion.ForeColor = System.Drawing.Color.RosyBrown;
-            this.labelVersion.Location = new System.Drawing.Point(421, 8);
+            this.labelVersion.Location = new System.Drawing.Point(214, 13);
             this.labelVersion.Name = "labelVersion";
             this.labelVersion.Size = new System.Drawing.Size(46, 19);
             this.labelVersion.TabIndex = 4;
@@ -128,7 +132,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "About";

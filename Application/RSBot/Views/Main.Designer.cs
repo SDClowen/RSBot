@@ -44,6 +44,8 @@ namespace RSBot.Views
             this.btnStartStop = new SDUI.Controls.Button();
             this.pSidebar = new SDUI.Controls.Panel();
             this.picLogo = new System.Windows.Forms.PictureBox();
+            this.entity1 = new RSBot.Views.Controls.Entity();
+            this.pet1 = new RSBot.Views.Controls.Pet();
             this.botbase1ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.botbase1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
@@ -69,8 +71,6 @@ namespace RSBot.Views
             this.separator = new SDUI.Controls.Separator();
             this.separator1 = new SDUI.Controls.Separator();
             this.topCharacter = new RSBot.Views.Controls.Character();
-            this.entity1 = new RSBot.Views.Controls.Entity();
-            this.pet1 = new RSBot.Views.Controls.Pet();
             this.stripStatus.SuspendLayout();
             this.bottomPanel.SuspendLayout();
             this.pSidebar.SuspendLayout();
@@ -224,6 +224,28 @@ namespace RSBot.Views
             this.picLogo.TabIndex = 8;
             this.picLogo.TabStop = false;
             this.picLogo.Click += new System.EventHandler(this.picLogo_Click);
+            // 
+            // entity1
+            // 
+            this.entity1.BackColor = System.Drawing.Color.Transparent;
+            this.entity1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.entity1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.entity1.Location = new System.Drawing.Point(0, 110);
+            this.entity1.Margin = new System.Windows.Forms.Padding(4);
+            this.entity1.Name = "entity1";
+            this.entity1.Size = new System.Drawing.Size(250, 70);
+            this.entity1.TabIndex = 2;
+            // 
+            // pet1
+            // 
+            this.pet1.BackColor = System.Drawing.Color.Transparent;
+            this.pet1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pet1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pet1.Location = new System.Drawing.Point(0, 0);
+            this.pet1.Margin = new System.Windows.Forms.Padding(4);
+            this.pet1.Name = "pet1";
+            this.pet1.Size = new System.Drawing.Size(250, 110);
+            this.pet1.TabIndex = 0;
             // 
             // botbase1ToolStripMenuItem1
             // 
@@ -411,6 +433,7 @@ namespace RSBot.Views
             this.tabMain.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
             this.tabMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabMain.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+            this.tabMain.HideTabArea = false;
             this.tabMain.ItemSize = new System.Drawing.Size(0, 23);
             this.tabMain.Location = new System.Drawing.Point(1, 121);
             this.tabMain.Name = "tabMain";
@@ -447,28 +470,6 @@ namespace RSBot.Views
             this.topCharacter.Size = new System.Drawing.Size(780, 79);
             this.topCharacter.TabIndex = 7;
             // 
-            // entity1
-            // 
-            this.entity1.BackColor = System.Drawing.Color.Transparent;
-            this.entity1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.entity1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.entity1.Location = new System.Drawing.Point(0, 110);
-            this.entity1.Margin = new System.Windows.Forms.Padding(4);
-            this.entity1.Name = "entity1";
-            this.entity1.Size = new System.Drawing.Size(250, 70);
-            this.entity1.TabIndex = 2;
-            // 
-            // pet1
-            // 
-            this.pet1.BackColor = System.Drawing.Color.Transparent;
-            this.pet1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pet1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pet1.Location = new System.Drawing.Point(0, 0);
-            this.pet1.Margin = new System.Windows.Forms.Padding(4);
-            this.pet1.Name = "pet1";
-            this.pet1.Size = new System.Drawing.Size(250, 110);
-            this.pet1.TabIndex = 0;
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -485,7 +486,7 @@ namespace RSBot.Views
             this.Controls.Add(this.menuStrip);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip;
             this.MaximizeBox = false;

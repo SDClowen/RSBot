@@ -48,14 +48,15 @@
             this.panel1.Controls.Add(this.btnClear);
             this.panel1.Controls.Add(this.btnStart);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Location = new System.Drawing.Point(1, 1);
             this.panel1.Name = "panel1";
             this.panel1.Radius = 0;
-            this.panel1.Size = new System.Drawing.Size(551, 43);
+            this.panel1.Size = new System.Drawing.Size(543, 43);
             this.panel1.TabIndex = 0;
             // 
             // labelStatus
             // 
+            this.labelStatus.AutoSize = true;
             this.labelStatus.Location = new System.Drawing.Point(313, 13);
             this.labelStatus.Name = "labelStatus";
             this.labelStatus.Size = new System.Drawing.Size(42, 15);
@@ -67,6 +68,7 @@
             this.btnRunNow.Color = System.Drawing.Color.Transparent;
             this.btnRunNow.Location = new System.Drawing.Point(174, 11);
             this.btnRunNow.Name = "btnRunNow";
+            this.btnRunNow.Radius = 2;
             this.btnRunNow.Size = new System.Drawing.Size(75, 23);
             this.btnRunNow.TabIndex = 3;
             this.btnRunNow.Text = "Run now";
@@ -77,8 +79,9 @@
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSave.Color = System.Drawing.Color.Transparent;
-            this.btnSave.Location = new System.Drawing.Point(464, 11);
+            this.btnSave.Location = new System.Drawing.Point(456, 11);
             this.btnSave.Name = "btnSave";
+            this.btnSave.Radius = 2;
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 0;
             this.btnSave.Text = "Save";
@@ -90,6 +93,7 @@
             this.btnClear.Color = System.Drawing.Color.Transparent;
             this.btnClear.Location = new System.Drawing.Point(93, 11);
             this.btnClear.Name = "btnClear";
+            this.btnClear.Radius = 2;
             this.btnClear.Size = new System.Drawing.Size(75, 23);
             this.btnClear.TabIndex = 0;
             this.btnClear.Text = "Clear";
@@ -101,6 +105,7 @@
             this.btnStart.Color = System.Drawing.Color.Transparent;
             this.btnStart.Location = new System.Drawing.Point(12, 11);
             this.btnStart.Name = "btnStart";
+            this.btnStart.Radius = 2;
             this.btnStart.Size = new System.Drawing.Size(75, 23);
             this.btnStart.TabIndex = 0;
             this.btnStart.Text = "Start";
@@ -109,11 +114,12 @@
             // 
             // txtScript
             // 
+            this.txtScript.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtScript.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtScript.Location = new System.Drawing.Point(0, 43);
+            this.txtScript.Location = new System.Drawing.Point(1, 44);
             this.txtScript.Name = "txtScript";
             this.txtScript.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.txtScript.Size = new System.Drawing.Size(551, 468);
+            this.txtScript.Size = new System.Drawing.Size(543, 461);
             this.txtScript.TabIndex = 1;
             this.txtScript.Text = "";
             // 
@@ -122,20 +128,21 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(251)))), ((int)(((byte)(251)))));
-            this.ClientSize = new System.Drawing.Size(551, 511);
+            this.ClientSize = new System.Drawing.Size(545, 506);
             this.Controls.Add(this.txtScript);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ScriptRecorder";
+            this.Padding = new System.Windows.Forms.Padding(1);
             this.ShowInTaskbar = false;
             this.Text = "RSBot - Script recorder";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ScriptRecorder_FormClosed);
             this.Load += new System.EventHandler(this.ScriptRecorder_Load);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
