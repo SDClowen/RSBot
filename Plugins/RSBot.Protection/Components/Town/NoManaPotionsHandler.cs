@@ -44,10 +44,7 @@ namespace RSBot.Protection.Components.Town
             if (!PlayerConfig.Get<bool>("RSBot.Protection.checkNoMPPotions")) return;
 
             var typeIdFilter = new TypeIdFilter(3, 3, 1, 2);
-
-            var items = Game.Player.Inventory.GetItems(typeIdFilter);
-            var amount = items.Aggregate(0, (current, item) => current + item.Amount);
-            if (amount > 0)
+            if (Game.Player.Inventory.GetSumAmount_ByTypeIdFilter(typeIdFilter) > 0)
                 return;
 
             Game.Player.UseReturnScroll();

@@ -31,7 +31,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
             var sourceSlot = packet.ReadByte();
             var newAmount = packet.ReadUShort();
 
-            Core.Game.Player.Inventory.UpdateItemAmount(sourceSlot, newAmount);
+            Core.Game.Player.Inventory.UpdateItemAmount_BySlot(sourceSlot, newAmount);
 
             EventManager.FireEvent("OnUseItem", sourceSlot);
         }

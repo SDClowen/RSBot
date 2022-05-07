@@ -38,20 +38,15 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
             packet = Core.Game.ChunkedPacket;
             packet.Lock();
 
-            Core.Game.Player.Storage = new Storage
-            {
-                Items = new List<InventoryItem>(),
-                Size = packet.ReadByte()
-            };
+            Core.Game.Player.Storage = new InventoryBase(packet.ReadByte());
 
             var itemAmount = packet.ReadByte();
-
             for (var i = 0; i < itemAmount; i++)
-                Core.Game.Player.Storage.Items.Add(InventoryItem.FromPacket(packet));
+                Core.Game.Player.Storage.AddItem(InventoryItem.FromPacket(packet));
 
             EventManager.FireEvent("OnStorageData");
 
-            Log.Notify($"Found {Core.Game.Player.Storage.Items.Count} item(s) in storage");
+            Log.Notify($"Found {Core.Game.Player.Storage.ItemsCount} item(s) in storage");
 
             Core.Game.ChunkedPacket = null;
         }

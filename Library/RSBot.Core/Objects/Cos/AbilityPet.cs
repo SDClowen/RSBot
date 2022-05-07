@@ -16,28 +16,12 @@ namespace RSBot.Core.Objects
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the size of the inventory.
+        /// Gets or sets the AbilityPet's Inventory.
         /// </summary>
         /// <value>
-        /// The size of the inventory.
+        /// The AbilityPet's Inventory.
         /// </value>
-        public byte Slots { get; set; }
-
-        /// <summary>
-        /// Gets or sets the items.
-        /// </summary>
-        /// <value>
-        /// The items.
-        /// </value>
-        public List<InventoryItem> Items { get; set; }
-
-        /// <summary>
-        /// Gets a value indicating whether this <see cref="AbilityPet"/> is full.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if full; otherwise, <c>false</c>.
-        /// </value>
-        public bool Full => Items.Count >= Slots;
+        public InventoryBase Inventory { get; set; }
 
         /// <summary>
         /// Froms the packet.
@@ -50,7 +34,6 @@ namespace RSBot.Core.Objects
         {
             var result = new AbilityPet
             {
-                Items = new List<InventoryItem>(),
                 UniqueId = uniqueId,
                 Id = id
             };
@@ -60,7 +43,7 @@ namespace RSBot.Core.Objects
             packet.ReadUInt(); // COS.Settings
 
             result.Name = packet.ReadString();
-            result.Slots = packet.ReadByte();
+            result.Inventory = new InventoryBase(packet.ReadByte());
 
             result.ParseInventory(packet);
 
@@ -75,7 +58,7 @@ namespace RSBot.Core.Objects
         {
             var itemAmount = packet.ReadByte();
             for (var i = 0; i < itemAmount; i++)
-                Items.Add(InventoryItem.FromPacket(packet));
+                Inventory.AddItem(InventoryItem.FromPacket(packet));
         }
 
         /// <summary>
@@ -87,56 +70,6 @@ namespace RSBot.Core.Objects
             packet.WriteUInt(UniqueId);
 
             PacketManager.SendPacket(packet, PacketDestination.Server);
-        }
-
-        /// <summary>
-        /// Updates the item amount.
-        /// </summary>
-        /// <param name="slot">The slot.</param>
-        /// <param name="amount">The amount.</param>
-        public void UpdateItemAmount(byte slot, ushort amount)
-        {
-            var itemToUpdate = Items.FirstOrDefault(item => item.Slot == slot);
-            if (itemToUpdate != null) itemToUpdate.Amount = amount;
-        }
-
-        /// <summary>
-        /// Updates the item slot.
-        /// </summary>
-        /// <param name="sourceSlot">The source slot.</param>
-        /// <param name="desintationSlot">The desintation slot.</param>
-        public void UpdateItemSlot(byte sourceSlot, byte desintationSlot)
-        {
-            GetItemAt(sourceSlot).Slot = desintationSlot;
-        }
-
-        /// <summary>
-        /// Gets the item at.
-        /// </summary>
-        /// <param name="slot">The slot.</param>
-        /// <returns></returns>
-        public InventoryItem GetItemAt(byte slot)
-        {
-            return Items.FirstOrDefault(item => item.Slot == slot);
-        }
-
-        /// <summary>
-        /// Determines whether [has item at] [the specified slot].
-        /// </summary>
-        /// <param name="slot">The slot.</param>
-        /// <returns></returns>
-        public bool HasItemAt(byte slot)
-        {
-            return Items.FirstOrDefault(item => item.Slot == slot) != null;
-        }
-
-        /// <summary>
-        /// Removes the item at.
-        /// </summary>
-        /// <param name="slot">The slot.</param>
-        public void RemoveItemAt(byte slot)
-        {
-            Items.Remove(GetItemAt(slot));
         }
 
         /// <summary>

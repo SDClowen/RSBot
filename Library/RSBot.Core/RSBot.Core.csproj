@@ -99,6 +99,7 @@
     <Compile Include="Network\Hooks\Gateway\GatewayLoginResponseHookOfficial.cs" />
     <Compile Include="Objects\ActionHitStateFlag.cs" />
     <Compile Include="Objects\ActionStateFlag.cs" />
+    <Compile Include="Objects\CharacterInventory.cs" />
     <Compile Include="Objects\ChatType.cs" />
     <Compile Include="Objects\Exchange\ExchangeInstance.cs" />
     <Compile Include="Cryptography\SkillCryptoHelper.cs" />
@@ -112,6 +113,8 @@
     <Compile Include="Objects\Exchange\ExchangeItem.cs" />
     <Compile Include="Objects\Exchange\ExchangeUpdateType.cs" />
     <Compile Include="Objects\GuideTeleportType.cs" />
+    <Compile Include="Objects\InventoriesOfCharacter.cs" />
+    <Compile Include="Objects\InventoryBase.cs" />
     <Compile Include="Objects\InviteRequestType.cs" />
     <Compile Include="Objects\Item\ItemUpdateFlag.cs" />
     <Compile Include="Objects\NpcTalk.cs" />
@@ -262,7 +265,6 @@
     <Compile Include="Network\Protocol\TransferBuffer.cs" />
     <Compile Include="Network\NetworkUtilities.cs" />
     <Compile Include="Objects\BodyState.cs" />
-    <Compile Include="Objects\Inventory.cs" />
     <Compile Include="Objects\InventoryItem.cs" />
     <Compile Include="Objects\AutoInverstType.cs" />
     <Compile Include="Objects\Item\MagicOptionInfo.cs" />

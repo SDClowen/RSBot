@@ -51,7 +51,7 @@ namespace RSBot.Core.Network.Handler.Agent.Alchemy
             var newItem = InventoryItem.FromPacket(packet, slot);
 
             Core.Game.Player.Inventory.RemoveItemAt(slot);
-            Core.Game.Player.Inventory.Items.Add(newItem);
+            Core.Game.Player.Inventory.AddItem(newItem);
 
             EventManager.FireEvent(isSuccess ? "OnAlchemySuccess" : "OnAlchemyFailed", oldItem, newItem, type);
         }

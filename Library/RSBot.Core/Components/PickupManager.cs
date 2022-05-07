@@ -113,7 +113,7 @@ namespace RSBot.Core.Components
                     //Pickup regular items
                     if (PickupFilter.Invoke(item.Record))
                     {
-                        if (UseAbilityPet && Game.Player.HasActiveAbilityPet && !Game.Player.AbilityPet.Full)
+                        if (UseAbilityPet && Game.Player.HasActiveAbilityPet && !Game.Player.AbilityPet.Inventory.Full)
                             Game.Player.AbilityPet.Pickup(item.UniqueId);
                         else
                             item.Pickup();
@@ -123,7 +123,7 @@ namespace RSBot.Core.Components
 
                     if (PickupRareItems && (byte)item.Rarity >= 2)
                     {
-                        if (UseAbilityPet && Game.Player.HasActiveAbilityPet && !Game.Player.AbilityPet.Full)
+                        if (UseAbilityPet && Game.Player.HasActiveAbilityPet && !Game.Player.AbilityPet.Inventory.Full)
                             Game.Player.AbilityPet.Pickup(item.UniqueId);
                         else
                             item.Pickup();
