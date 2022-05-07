@@ -35,7 +35,6 @@ namespace RSBot.Protection.Views
             EventManager.SubscribeEvent("OnLoadCharacter", OnLoadCharacter);
             EventManager.SubscribeEvent("OnLearnSkill", new Action<SkillInfo, bool>(OnLearnSkill));
 
-            EventManager.SubscribeEvent("OnLevelUp", new Action<byte>(OnLevelUp));
             EventManager.SubscribeEvent("OnIncreaseStrength", OnIncreaseStat);
             EventManager.SubscribeEvent("OnIncreaseIntelligence", OnIncreaseStat);
         }
@@ -230,8 +229,6 @@ namespace RSBot.Protection.Views
         private void OnLoadCharacter()
         {
             RefreshSkills();
-
-            lblStatPoints.Text = Game.Player.StatPoints.ToString();
         }
 
         /// <summary>
@@ -260,26 +257,19 @@ namespace RSBot.Protection.Views
 
         private void OnIncreaseStat()
         {
-            lblStatPoints.Text = Game.Player.StatPoints.ToString();
-
             if (Game.Player.StatPoints < numIncInt.Value + numIncStr.Value) 
             {
-                linkRunStatInc.Text = "Run";
+                buttonRun.Text = "Run";
 
                 _statIncreaseRunning = false;
             }
         }
 
-        private void OnLevelUp(byte oldLevel)
-        {
-            lblStatPoints.Text = Game.Player.StatPoints.ToString();
-        }
-
-        private void linkRunStatInc_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void buttonRun_Click(object sender, EventArgs e)
         {
             if (_statIncreaseRunning)
             {
-                linkRunStatInc.Text = "Run";
+                buttonRun.Text = "Run";
 
                 _statIncreaseRunning = false;
 
@@ -307,7 +297,7 @@ namespace RSBot.Protection.Views
             
             _statIncreaseRunning = true;
 
-            linkRunStatInc.Text = "Cancel";
+            buttonRun.Text = "Cancel";
         }
     }
 }

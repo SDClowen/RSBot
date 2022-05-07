@@ -19,6 +19,7 @@ namespace RSBot.General.Views
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
+            Text = "Pending";
         }
 
         internal void Update(Packet packet)

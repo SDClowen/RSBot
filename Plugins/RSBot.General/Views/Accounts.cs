@@ -17,6 +17,7 @@ namespace RSBot.General.Views
         {
             InitializeComponent();
             comboBoxChannel.SelectedIndex = 0;
+            Text = "Accounts";
         }
 
         /// <summary>

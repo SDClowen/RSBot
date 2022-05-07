@@ -58,17 +58,18 @@
             this.panel1.Controls.Add(this.btnOK);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 248);
+            this.panel1.Location = new System.Drawing.Point(0, 242);
             this.panel1.Name = "panel1";
             this.panel1.Radius = 0;
-            this.panel1.Size = new System.Drawing.Size(400, 45);
+            this.panel1.Size = new System.Drawing.Size(404, 45);
             this.panel1.TabIndex = 7;
             // 
             // btnCancel
             // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.Color = System.Drawing.Color.Transparent;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(313, 12);
+            this.btnCancel.Location = new System.Drawing.Point(320, 12);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Radius = 2;
             this.btnCancel.Size = new System.Drawing.Size(72, 21);
@@ -78,9 +79,10 @@
             // 
             // btnOK
             // 
+            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnOK.Color = System.Drawing.Color.Transparent;
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(235, 12);
+            this.btnOK.Location = new System.Drawing.Point(12, 12);
             this.btnOK.Name = "btnOK";
             this.btnOK.Radius = 2;
             this.btnOK.Size = new System.Drawing.Size(72, 21);
@@ -91,9 +93,10 @@
             // 
             // label1
             // 
+            this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(394, 2);
+            this.label1.Size = new System.Drawing.Size(0, 15);
             this.label1.TabIndex = 1;
             // 
             // label2
@@ -277,7 +280,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(400, 293);
+            this.ClientSize = new System.Drawing.Size(404, 287);
+            this.ControlBox = false;
             this.Controls.Add(this.listAccounts);
             this.Controls.Add(this.linkLabelSecondaryPassword);
             this.Controls.Add(this.linkLabelPwShowHide);
@@ -295,14 +299,19 @@
             this.Controls.Add(this.comboBoxChannel);
             this.Controls.Add(this.textBoxSecondaryPassword);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(410, 293);
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(410, 293);
             this.Name = "Accounts";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Stored accounts";
             this.Load += new System.EventHandler(this.Accounts_Load);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

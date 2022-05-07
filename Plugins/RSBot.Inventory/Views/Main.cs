@@ -231,8 +231,13 @@ namespace RSBot.Inventory.Views
 
         private void listViewMain_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (GlobalConfig.Get<bool>("RSBot.DebugEnvironment") == false || listViewMain.SelectedItems.Count <= 0)
+            if (listViewMain.SelectedItems.Count <= 0)
                 return;
+
+#if !DEBUG
+            if(GlobalConfig.Get<bool>("RSBot.DebugEnvironment") == false)
+                return;
+#endif
 
             var itemForm = new ItemProperties(listViewMain.SelectedItems[0].Tag as InventoryItem);
             itemForm.Show();

@@ -44,23 +44,29 @@
             this.propItem.HelpVisible = false;
             this.propItem.LineColor = System.Drawing.SystemColors.WindowFrame;
             this.propItem.Location = new System.Drawing.Point(0, 0);
+            this.propItem.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.propItem.Name = "propItem";
             this.propItem.SelectedItemWithFocusBackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.propItem.SelectedItemWithFocusForeColor = System.Drawing.SystemColors.GrayText;
-            this.propItem.Size = new System.Drawing.Size(607, 693);
+            this.propItem.Size = new System.Drawing.Size(228, 291);
             this.propItem.TabIndex = 0;
             this.propItem.ViewBackColor = System.Drawing.SystemColors.InfoText;
             this.propItem.ViewForeColor = System.Drawing.SystemColors.HighlightText;
             // 
             // ItemProperties
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(607, 693);
+            this.ClientSize = new System.Drawing.Size(228, 291);
             this.Controls.Add(this.propItem);
+            this.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ItemProperties";
-            this.Text = "ItemProperties";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
+            this.Text = "Item Properties";
             this.ResumeLayout(false);
 
         }

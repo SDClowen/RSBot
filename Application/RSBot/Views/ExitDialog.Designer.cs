@@ -40,9 +40,10 @@
             // 
             // labelInfo
             // 
+            this.labelInfo.AutoSize = true;
             this.labelInfo.Location = new System.Drawing.Point(160, 26);
             this.labelInfo.Name = "labelInfo";
-            this.labelInfo.Size = new System.Drawing.Size(280, 45);
+            this.labelInfo.Size = new System.Drawing.Size(265, 45);
             this.labelInfo.TabIndex = 0;
             this.labelInfo.Text = "Are you sure that you want to exit RSBot?\r\nThis will disconnect you from the Silk" +
     "road Server!\r\n\r\n";
@@ -67,6 +68,7 @@
             this.btnNo.DialogResult = System.Windows.Forms.DialogResult.No;
             this.btnNo.Location = new System.Drawing.Point(349, 14);
             this.btnNo.Name = "btnNo";
+            this.btnNo.Radius = 2;
             this.btnNo.Size = new System.Drawing.Size(75, 23);
             this.btnNo.TabIndex = 1;
             this.btnNo.Text = "No";
@@ -79,6 +81,7 @@
             this.btnYes.DialogResult = System.Windows.Forms.DialogResult.Yes;
             this.btnYes.Location = new System.Drawing.Point(268, 14);
             this.btnYes.Name = "btnYes";
+            this.btnYes.Radius = 2;
             this.btnYes.Size = new System.Drawing.Size(75, 23);
             this.btnYes.TabIndex = 0;
             this.btnYes.Text = "Yes";
@@ -86,11 +89,12 @@
             // 
             // checkDontAskAgain
             // 
+            this.checkDontAskAgain.AutoSize = true;
             this.checkDontAskAgain.BackColor = System.Drawing.Color.Transparent;
             this.checkDontAskAgain.Checked = false;
             this.checkDontAskAgain.Location = new System.Drawing.Point(12, 17);
             this.checkDontAskAgain.Name = "checkDontAskAgain";
-            this.checkDontAskAgain.Size = new System.Drawing.Size(127, 19);
+            this.checkDontAskAgain.Size = new System.Drawing.Size(104, 15);
             this.checkDontAskAgain.TabIndex = 2;
             this.checkDontAskAgain.Text = "Don\'t ask again";
             this.checkDontAskAgain.CheckedChanged += new System.EventHandler(this.checkDontAskAgain_CheckedChanged);
@@ -118,16 +122,20 @@
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.ForeColor = System.Drawing.Color.Black;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ExitDialog";
             this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "RSBot";
             this.Load += new System.EventHandler(this.ExitDialog_Load);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

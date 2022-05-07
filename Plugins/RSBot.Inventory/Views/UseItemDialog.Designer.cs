@@ -37,9 +37,11 @@ namespace RSBot.Inventory.Views
             // 
             // buttonOk
             // 
+            this.buttonOk.Color = System.Drawing.Color.Transparent;
             this.buttonOk.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonOk.Location = new System.Drawing.Point(28, 72);
             this.buttonOk.Name = "buttonOk";
+            this.buttonOk.Radius = 2;
             this.buttonOk.Size = new System.Drawing.Size(215, 42);
             this.buttonOk.TabIndex = 0;
             this.buttonOk.Text = "Use Directly";
@@ -47,10 +49,12 @@ namespace RSBot.Inventory.Views
             // 
             // buttonCancel
             // 
+            this.buttonCancel.Color = System.Drawing.Color.Transparent;
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonCancel.Location = new System.Drawing.Point(28, 193);
             this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Radius = 2;
             this.buttonCancel.Size = new System.Drawing.Size(215, 42);
             this.buttonCancel.TabIndex = 1;
             this.buttonCancel.Text = "Use with conditions";
@@ -81,20 +85,21 @@ namespace RSBot.Inventory.Views
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(271, 247);
+            this.ClientSize = new System.Drawing.Size(267, 243);
             this.ControlBox = false;
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(287, 263);
             this.MinimizeBox = false;
             this.Name = "UseItemDialog";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.ResumeLayout(false);
             this.PerformLayout();
