@@ -119,7 +119,8 @@ namespace RSBot.Skills.Views
 
                 foreach (var skillId in skillIds)
                 {
-                    var skillInfo = Game.Player.Skills.GetSkillInfoById(skillId);
+                    var refSkill = Game.ReferenceManager.GetRefSkill(skillId);
+                    var skillInfo = Game.Player.Skills.GetSkillInfoByGroupId(refSkill.GroupID);
 
                     if (skillInfo == null)
                         continue;
@@ -167,7 +168,9 @@ namespace RSBot.Skills.Views
 
             foreach (var buffId in PlayerConfig.GetArray<uint>("RSBot.Skills.Buffs"))
             {
-                var skillInfo = Game.Player.Skills.GetSkillInfoById(buffId);
+                var refSkill = Game.ReferenceManager.GetRefSkill(buffId);
+                var skillInfo = Game.Player.Skills.GetSkillInfoByGroupId(refSkill.GroupID);
+
                 if (skillInfo == null)
                     continue;
 
@@ -220,15 +223,21 @@ namespace RSBot.Skills.Views
                 listAttackingSkills.Items.Clear();
 
                 var skillArray = PlayerConfig.GetArray<uint>("RSBot.Skills.Attacks_" + index);
+                var refSkills = skillArray.Select(s => Game.ReferenceManager.GetRefSkill(s)).ToList();
 
-                foreach (var skillInfo in Game.Player.Skills.KnownSkills.FindAll(p => skillArray.Contains(p.Id) && p.Enabled && p.IsAttack).ToArray())
+                foreach (var skillInfo in Game.Player.Skills.KnownSkills.FindAll(p => p.Enabled && p.IsAttack).ToArray())
                 {
+                    var hasAnyOfThisSkill = refSkills.FirstOrDefault(s => s.GroupID == skillInfo.Record.GroupID) != null;
+                    if (!hasAnyOfThisSkill)
+                        continue;
+
                     var item = new ListViewItem(skillInfo.Record.GetRealName()) { Tag = skillInfo };
                     item.SubItems.Add("lv. " + skillInfo.Record.Basic_Level);
                     listAttackingSkills.Items.Add(item);
                     item.LoadSkillImageAsync();
                 }
 
+                ApplyAttackSkills();
                 listAttackingSkills.EndUpdate();
             }
         }
@@ -244,9 +253,14 @@ namespace RSBot.Skills.Views
                 listBuffs.Items.Clear();
 
                 var skillArray = PlayerConfig.GetArray<uint>("RSBot.Skills.Buffs");
+                var refSkills = skillArray.Select(s => Game.ReferenceManager.GetRefSkill(s)).ToList();
 
-                foreach (var skillInfo in Game.Player.Skills.KnownSkills.FindAll(p => skillArray.Contains(p.Id) && p.Enabled && !p.IsAttack).ToArray())
+                foreach (var skillInfo in Game.Player.Skills.KnownSkills.FindAll(p => p.Enabled && !p.IsAttack).ToArray())
                 {
+                    var hasAnyOfThisSkill = refSkills.FirstOrDefault(s => s.GroupID == skillInfo.Record.GroupID) != null;
+                    if (!hasAnyOfThisSkill)
+                        continue;
+
                     var item = new ListViewItem(skillInfo.Record.GetRealName()) { Tag = skillInfo };
 
                     item.SubItems.Add("lv. " + skillInfo.Record.Basic_Level);
@@ -254,6 +268,7 @@ namespace RSBot.Skills.Views
                     item.LoadSkillImageAsync();
                 }
 
+                ApplyBuffSkills();
                 listBuffs.EndUpdate();
             }
         }
@@ -771,6 +786,17 @@ namespace RSBot.Skills.Views
         private void checkWarlockMode_CheckedChanged(object sender, EventArgs e)
         {
             PlayerConfig.Set("RSBot.Skills.WarlockMode", checkWarlockMode.Checked);
+        }
+
+        private void listSkills_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (GlobalConfig.Get<bool>("RSBot.DebugEnvironment") == false || listSkills.SelectedItems.Count <= 0)
+                return;
+
+            if (!(listSkills.SelectedItems[0].Tag is SkillInfo skillInfo)) return;
+
+            var itemForm = new SkillProperties(skillInfo.Record);
+            itemForm.Show();
         }
     }
 }

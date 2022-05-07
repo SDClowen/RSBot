@@ -50,7 +50,10 @@
             this.tabControl1 = new SDUI.Controls.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupWarlockMode = new SDUI.Controls.GroupBox();
+            this.checkWarlockMode = new SDUI.Controls.CheckBox();
             this.grpMasteryLearn = new SDUI.Controls.GroupBox();
+            this.checkLearnMasteryBotStopped = new SDUI.Controls.CheckBox();
             this.label4 = new SDUI.Controls.Label();
             this.numMasteryGap = new SDUI.Controls.NumUpDown();
             this.comboLearnMastery = new SDUI.Controls.ComboBox();
@@ -81,14 +84,12 @@
             this.listActiveBuffs = new SDUI.Controls.ListView();
             this.colActiveName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colActiveLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.checkLearnMasteryBotStopped = new SDUI.Controls.CheckBox();
-            this.groupWarlockMode = new SDUI.Controls.GroupBox();
-            this.checkWarlockMode = new SDUI.Controls.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.groupWarlockMode.SuspendLayout();
             this.grpMasteryLearn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMasteryGap)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -98,7 +99,6 @@
             this.skillContextMenu.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabPage4.SuspendLayout();
-            this.groupWarlockMode.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -122,10 +122,12 @@
             // 
             // checkBoxNoAttack
             // 
+            this.checkBoxNoAttack.AutoSize = true;
+            this.checkBoxNoAttack.BackColor = System.Drawing.Color.Transparent;
             this.checkBoxNoAttack.Checked = false;
             this.checkBoxNoAttack.Location = new System.Drawing.Point(247, 179);
             this.checkBoxNoAttack.Name = "checkBoxNoAttack";
-            this.checkBoxNoAttack.Size = new System.Drawing.Size(74, 17);
+            this.checkBoxNoAttack.Size = new System.Drawing.Size(76, 15);
             this.checkBoxNoAttack.TabIndex = 9;
             this.checkBoxNoAttack.Text = "No Attack";
             this.checkBoxNoAttack.CheckedChanged += new System.EventHandler(this.checkBoxNoAttack_CheckedChanged);
@@ -336,6 +338,7 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.tabControl1.HideTabArea = false;
             this.tabControl1.Location = new System.Drawing.Point(362, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -368,6 +371,31 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Advanced setup";
             // 
+            // groupWarlockMode
+            // 
+            this.groupWarlockMode.BackColor = System.Drawing.Color.Transparent;
+            this.groupWarlockMode.Controls.Add(this.checkWarlockMode);
+            this.groupWarlockMode.Location = new System.Drawing.Point(8, 350);
+            this.groupWarlockMode.Name = "groupWarlockMode";
+            this.groupWarlockMode.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.groupWarlockMode.Radius = 2;
+            this.groupWarlockMode.Size = new System.Drawing.Size(367, 67);
+            this.groupWarlockMode.TabIndex = 14;
+            this.groupWarlockMode.TabStop = false;
+            this.groupWarlockMode.Text = "Warlock mode";
+            // 
+            // checkWarlockMode
+            // 
+            this.checkWarlockMode.AutoSize = true;
+            this.checkWarlockMode.BackColor = System.Drawing.Color.Transparent;
+            this.checkWarlockMode.Checked = false;
+            this.checkWarlockMode.Location = new System.Drawing.Point(86, 33);
+            this.checkWarlockMode.Name = "checkWarlockMode";
+            this.checkWarlockMode.Size = new System.Drawing.Size(162, 15);
+            this.checkWarlockMode.TabIndex = 0;
+            this.checkWarlockMode.Text = "Change target after 2 DoTs";
+            this.checkWarlockMode.CheckedChanged += new System.EventHandler(this.checkWarlockMode_CheckedChanged);
+            // 
             // grpMasteryLearn
             // 
             this.grpMasteryLearn.BackColor = System.Drawing.Color.Transparent;
@@ -385,6 +413,17 @@
             this.grpMasteryLearn.TabStop = false;
             this.grpMasteryLearn.Text = "Mastery update";
             // 
+            // checkLearnMasteryBotStopped
+            // 
+            this.checkLearnMasteryBotStopped.AutoSize = true;
+            this.checkLearnMasteryBotStopped.BackColor = System.Drawing.Color.Transparent;
+            this.checkLearnMasteryBotStopped.Checked = false;
+            this.checkLearnMasteryBotStopped.Location = new System.Drawing.Point(15, 77);
+            this.checkLearnMasteryBotStopped.Name = "checkLearnMasteryBotStopped";
+            this.checkLearnMasteryBotStopped.Size = new System.Drawing.Size(153, 15);
+            this.checkLearnMasteryBotStopped.TabIndex = 25;
+            this.checkLearnMasteryBotStopped.Text = "Enabled if bot is stopped";
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -396,6 +435,7 @@
             // 
             // numMasteryGap
             // 
+            this.numMasteryGap.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numMasteryGap.Location = new System.Drawing.Point(286, 48);
             this.numMasteryGap.Maximum = new decimal(new int[] {
             9,
@@ -423,10 +463,12 @@
             // 
             // checkLearnMastery
             // 
+            this.checkLearnMastery.AutoSize = true;
+            this.checkLearnMastery.BackColor = System.Drawing.Color.Transparent;
             this.checkLearnMastery.Checked = false;
             this.checkLearnMastery.Location = new System.Drawing.Point(15, 48);
             this.checkLearnMastery.Name = "checkLearnMastery";
-            this.checkLearnMastery.Size = new System.Drawing.Size(65, 23);
+            this.checkLearnMastery.Size = new System.Drawing.Size(65, 15);
             this.checkLearnMastery.TabIndex = 0;
             this.checkLearnMastery.Text = "Mastery";
             this.checkLearnMastery.Click += new System.EventHandler(this.checkLearnMastery_Click);
@@ -463,10 +505,12 @@
             // 
             // checkAcceptResurrection
             // 
+            this.checkAcceptResurrection.AutoSize = true;
+            this.checkAcceptResurrection.BackColor = System.Drawing.Color.Transparent;
             this.checkAcceptResurrection.Checked = false;
             this.checkAcceptResurrection.Location = new System.Drawing.Point(86, 90);
             this.checkAcceptResurrection.Name = "checkAcceptResurrection";
-            this.checkAcceptResurrection.Size = new System.Drawing.Size(142, 17);
+            this.checkAcceptResurrection.Size = new System.Drawing.Size(153, 15);
             this.checkAcceptResurrection.TabIndex = 9;
             this.checkAcceptResurrection.Text = "Auto accept resurrection";
             this.checkAcceptResurrection.CheckedChanged += new System.EventHandler(this.checkAcceptResurrection_CheckedChanged);
@@ -482,10 +526,12 @@
             // 
             // checkResurrectParty
             // 
+            this.checkResurrectParty.AutoSize = true;
+            this.checkResurrectParty.BackColor = System.Drawing.Color.Transparent;
             this.checkResurrectParty.Checked = false;
             this.checkResurrectParty.Location = new System.Drawing.Point(86, 65);
             this.checkResurrectParty.Name = "checkResurrectParty";
-            this.checkResurrectParty.Size = new System.Drawing.Size(163, 17);
+            this.checkResurrectParty.Size = new System.Drawing.Size(181, 15);
             this.checkResurrectParty.TabIndex = 6;
             this.checkResurrectParty.Text = "Auto resurrect party members";
             this.checkResurrectParty.CheckedChanged += new System.EventHandler(this.checkResurrectParty_CheckedChanged);
@@ -506,20 +552,24 @@
             // 
             // checkCastBuffsDuringWalkBack
             // 
+            this.checkCastBuffsDuringWalkBack.AutoSize = true;
+            this.checkCastBuffsDuringWalkBack.BackColor = System.Drawing.Color.Transparent;
             this.checkCastBuffsDuringWalkBack.Checked = false;
             this.checkCastBuffsDuringWalkBack.Location = new System.Drawing.Point(86, 61);
             this.checkCastBuffsDuringWalkBack.Name = "checkCastBuffsDuringWalkBack";
-            this.checkCastBuffsDuringWalkBack.Size = new System.Drawing.Size(163, 19);
+            this.checkCastBuffsDuringWalkBack.Size = new System.Drawing.Size(164, 15);
             this.checkCastBuffsDuringWalkBack.TabIndex = 10;
             this.checkCastBuffsDuringWalkBack.Text = "Cast buffs while walk-back";
             this.checkCastBuffsDuringWalkBack.CheckedChanged += new System.EventHandler(this.checkCastBuffsWhenWalkBack_CheckedChanged);
             // 
             // checkCastBuffsInTowns
             // 
+            this.checkCastBuffsInTowns.AutoSize = true;
+            this.checkCastBuffsInTowns.BackColor = System.Drawing.Color.Transparent;
             this.checkCastBuffsInTowns.Checked = false;
             this.checkCastBuffsInTowns.Location = new System.Drawing.Point(86, 34);
             this.checkCastBuffsInTowns.Name = "checkCastBuffsInTowns";
-            this.checkCastBuffsInTowns.Size = new System.Drawing.Size(115, 17);
+            this.checkCastBuffsInTowns.Size = new System.Drawing.Size(124, 15);
             this.checkCastBuffsInTowns.TabIndex = 10;
             this.checkCastBuffsInTowns.Text = "Cast buffs in towns";
             this.checkCastBuffsInTowns.CheckedChanged += new System.EventHandler(this.checkCastBuffsInTowns_CheckedChanged);
@@ -530,6 +580,7 @@
             this.tabControl2.Controls.Add(this.tabPage3);
             this.tabControl2.Controls.Add(this.tabPage4);
             this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl2.HideTabArea = false;
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
@@ -567,6 +618,7 @@
             this.listSkills.TabIndex = 5;
             this.listSkills.UseCompatibleStateImageBehavior = false;
             this.listSkills.View = System.Windows.Forms.View.Details;
+            this.listSkills.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listSkills_MouseDoubleClick);
             // 
             // colName
             // 
@@ -635,33 +687,36 @@
             // 
             // checkHideLowerLevelSkills
             // 
+            this.checkHideLowerLevelSkills.AutoSize = true;
             this.checkHideLowerLevelSkills.BackColor = System.Drawing.Color.Transparent;
             this.checkHideLowerLevelSkills.Checked = false;
             this.checkHideLowerLevelSkills.Location = new System.Drawing.Point(207, 6);
             this.checkHideLowerLevelSkills.Name = "checkHideLowerLevelSkills";
-            this.checkHideLowerLevelSkills.Size = new System.Drawing.Size(126, 17);
+            this.checkHideLowerLevelSkills.Size = new System.Drawing.Size(135, 15);
             this.checkHideLowerLevelSkills.TabIndex = 6;
             this.checkHideLowerLevelSkills.Text = "Hide lower level skills";
             this.checkHideLowerLevelSkills.CheckedChanged += new System.EventHandler(this.Filter_CheckedChanged);
             // 
             // checkShowAttacks
             // 
+            this.checkShowAttacks.AutoSize = true;
             this.checkShowAttacks.BackColor = System.Drawing.Color.Transparent;
             this.checkShowAttacks.Checked = true;
             this.checkShowAttacks.Location = new System.Drawing.Point(8, 6);
             this.checkShowAttacks.Name = "checkShowAttacks";
-            this.checkShowAttacks.Size = new System.Drawing.Size(62, 17);
+            this.checkShowAttacks.Size = new System.Drawing.Size(62, 15);
             this.checkShowAttacks.TabIndex = 7;
             this.checkShowAttacks.Text = "Attacks";
             this.checkShowAttacks.CheckedChanged += new System.EventHandler(this.Filter_CheckedChanged);
             // 
             // checkShowBuffs
             // 
+            this.checkShowBuffs.AutoSize = true;
             this.checkShowBuffs.BackColor = System.Drawing.Color.Transparent;
             this.checkShowBuffs.Checked = true;
             this.checkShowBuffs.Location = new System.Drawing.Point(79, 6);
             this.checkShowBuffs.Name = "checkShowBuffs";
-            this.checkShowBuffs.Size = new System.Drawing.Size(50, 17);
+            this.checkShowBuffs.Size = new System.Drawing.Size(50, 15);
             this.checkShowBuffs.TabIndex = 8;
             this.checkShowBuffs.Text = "Buffs";
             this.checkShowBuffs.CheckedChanged += new System.EventHandler(this.Filter_CheckedChanged);
@@ -706,39 +761,6 @@
             this.colActiveLevel.Text = "";
             this.colActiveLevel.Width = 69;
             // 
-            // checkLearnMasteryBotStopped
-            // 
-            this.checkLearnMasteryBotStopped.Checked = false;
-            this.checkLearnMasteryBotStopped.Location = new System.Drawing.Point(15, 77);
-            this.checkLearnMasteryBotStopped.Name = "checkLearnMasteryBotStopped";
-            this.checkLearnMasteryBotStopped.Size = new System.Drawing.Size(156, 23);
-            this.checkLearnMasteryBotStopped.TabIndex = 25;
-            this.checkLearnMasteryBotStopped.Text = "Enabled if bot is stopped";
-            //
-            // groupWarlockMode
-            // 
-            this.groupWarlockMode.BackColor = System.Drawing.Color.Transparent;
-            this.groupWarlockMode.Controls.Add(this.checkWarlockMode);
-            this.groupWarlockMode.Location = new System.Drawing.Point(8, 350);
-            this.groupWarlockMode.Name = "groupWarlockMode";
-            this.groupWarlockMode.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupWarlockMode.Radius = 2;
-            this.groupWarlockMode.Size = new System.Drawing.Size(367, 67);
-            this.groupWarlockMode.TabIndex = 14;
-            this.groupWarlockMode.TabStop = false;
-            this.groupWarlockMode.Text = "Warlock mode";
-            // 
-            // checkWarlockMode
-            // 
-            this.checkWarlockMode.BackColor = System.Drawing.Color.Transparent;
-            this.checkWarlockMode.Checked = false;
-            this.checkWarlockMode.Location = new System.Drawing.Point(86, 33);
-            this.checkWarlockMode.Name = "checkWarlockMode";
-            this.checkWarlockMode.Size = new System.Drawing.Size(163, 23);
-            this.checkWarlockMode.TabIndex = 0;
-            this.checkWarlockMode.Text = "Change target after 2 DoTs";
-            this.checkWarlockMode.CheckedChanged += new System.EventHandler(this.checkWarlockMode_CheckedChanged);
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -755,18 +777,21 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
+            this.groupWarlockMode.ResumeLayout(false);
+            this.groupWarlockMode.PerformLayout();
             this.grpMasteryLearn.ResumeLayout(false);
             this.grpMasteryLearn.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMasteryGap)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.tabControl2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.skillContextMenu.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.tabPage4.ResumeLayout(false);
-            this.groupWarlockMode.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
