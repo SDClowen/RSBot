@@ -4,10 +4,11 @@ using RSBot.Core.Objects;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using SDUI.Controls;
 
 namespace RSBot.Skills.Views
 {
-    public partial class SkillProperties : Form
+    public partial class SkillProperties : CleanForm
     {
         #region Properties
 

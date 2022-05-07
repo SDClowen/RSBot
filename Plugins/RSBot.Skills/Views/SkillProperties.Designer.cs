@@ -44,7 +44,7 @@
             this.propItem.HelpVisible = false;
             this.propItem.LineColor = System.Drawing.SystemColors.WindowFrame;
             this.propItem.Location = new System.Drawing.Point(0, 0);
-            this.propItem.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.propItem.Margin = new System.Windows.Forms.Padding(1);
             this.propItem.Name = "propItem";
             this.propItem.SelectedItemWithFocusBackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.propItem.SelectedItemWithFocusForeColor = System.Drawing.SystemColors.GrayText;
@@ -60,9 +60,9 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(662, 650);
             this.Controls.Add(this.propItem);
-            this.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.Margin = new System.Windows.Forms.Padding(1);
             this.Name = "SkillProperties";
-            this.Text = "SkillProperties";
+            this.Text = "Skill Properties";
             this.ResumeLayout(false);
 
         }

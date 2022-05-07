@@ -790,10 +790,16 @@ namespace RSBot.Skills.Views
 
         private void listSkills_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (GlobalConfig.Get<bool>("RSBot.DebugEnvironment") == false || listSkills.SelectedItems.Count <= 0)
+            if (listSkills.SelectedItems.Count <= 0)
                 return;
 
-            if (!(listSkills.SelectedItems[0].Tag is SkillInfo skillInfo)) return;
+#if !DEBUG
+            if(GlobalConfig.Get<bool>("RSBot.DebugEnvironment") == false)
+                return;
+#endif
+
+            if (!(listSkills.SelectedItems[0].Tag is SkillInfo skillInfo)) 
+                return;
 
             var itemForm = new SkillProperties(skillInfo.Record);
             itemForm.Show();
