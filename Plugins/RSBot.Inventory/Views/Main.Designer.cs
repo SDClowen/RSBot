@@ -66,7 +66,8 @@
             "Equipment",
             "Avatars",
             "Pet",
-            "Storage"});
+            "Storage",
+            "GuildStorage"});
             this.comboInventoryType.Location = new System.Drawing.Point(88, 9);
             this.comboInventoryType.Name = "comboInventoryType";
             this.comboInventoryType.Size = new System.Drawing.Size(186, 23);

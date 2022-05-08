@@ -89,7 +89,10 @@ namespace RSBot.Core.Network.Handler.Agent.Character
                     packet.ReadUShort();
             }
 
-            character.Inventory = Objects.Inventory.FromPacket(packet);
+            var invsChar = InventoriesOfCharacter.FromPacket(packet);
+            character.Inventory = invsChar.Inventory;
+            character.Avatars = invsChar.Avatars;
+            character.Job2 = invsChar.Job2;
 
             character.Skills = Skills.FromPacket(packet);
             character.Quest = Quest.FromPacket(packet);

@@ -13,6 +13,43 @@ namespace RSBot.Core.Objects
     public class Player : SpawnedBionic
     {
         /// <summary>
+        /// Gets or sets the Character's Inventory.
+        /// </summary>
+        /// <value>
+        /// The Character's Inventory.
+        /// </value>
+        public CharacterInventory Inventory { get; set; }
+        /// <summary>
+        /// Gets or sets the Avatar Inventory.
+        /// </summary>
+        /// <value>
+        /// The Avatar Inventory.
+        /// </value>
+        public InventoryBase Avatars { get; set; }
+        /// <summary>
+        /// Gets or sets the Job2 Inventory.
+        /// </summary>
+        /// <value>
+        /// The Job2 Inventory.
+        /// </value>
+        public InventoryBase Job2 { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Storage.
+        /// </summary>
+        /// <value>
+        /// The Storage.
+        /// </value>
+        public InventoryBase Storage { get; set; }
+        /// <summary>
+        /// Gets or sets the GuildStorage.
+        /// </summary>
+        /// <value>
+        /// The GuildStorage.
+        /// </value>
+        public InventoryBase GuildStorage { get; set; }
+
+        /// <summary>
         /// Gets or sets the scale.
         /// </summary>
         /// <value>
@@ -157,14 +194,6 @@ namespace RSBot.Core.Objects
         public PvpFlag PvpFlag { get; set; }
 
         /// <summary>
-        /// Gets or sets the inventory.
-        /// </summary>
-        /// <value>
-        /// The inventory.
-        /// </value>
-        public Inventory Inventory { get; set; }
-
-        /// <summary>
         /// Gets or sets the skills.
         /// </summary>
         /// <value>
@@ -291,22 +320,6 @@ namespace RSBot.Core.Objects
         /// The intelligence.
         /// </value>
         public ushort Intelligence { get; set; }
-
-        /// <summary>
-        /// Gets or sets the storage.
-        /// </summary>
-        /// <value>
-        /// The storage.
-        /// </value>
-        public Storage Storage { get; set; }
-
-        /// <summary>
-        /// Gets or sets the guild storage.
-        /// </summary>
-        /// <value>
-        /// The guild storage.
-        /// </value>
-        public Storage GuildStorage { get; set; }
 
         /// <summary>
         /// Gets or sets the job information.
@@ -505,7 +518,7 @@ namespace RSBot.Core.Objects
         /// Gets the ammo amount.
         /// </summary>
         /// <returns></returns>
-        public short GetAmmunationAmount(bool fullInventory = false)
+        public int GetAmmunationAmount(bool fullInventory = false)
         {
             if (!fullInventory)
             {
@@ -530,8 +543,7 @@ namespace RSBot.Core.Objects
                 else if (GetCurrentAmmunationType() == AmmunitionType.Bolt)
                     typeIdFilter.TypeID4 = 2;
 
-                var items = (from item in Inventory.Items where typeIdFilter.EqualsRefItem(item.Record) select item).ToList();
-                return (short)items.Aggregate(0, (current, item) => current + item.Amount);
+                return Inventory.GetSumAmount(typeIdFilter);
             }
 
             return -1;
@@ -748,7 +760,7 @@ namespace RSBot.Core.Objects
             if (AbilityPet != null) return false;
 
             var typeIdFilter = new TypeIdFilter(3, 2, 1, 2);
-            var slotItem = (from item in Inventory.Items where typeIdFilter.EqualsRefItem(item.Record) select item).FirstOrDefault();
+            var slotItem = Inventory.GetItem(typeIdFilter);
             if (slotItem == null)
                 return false;
 
@@ -764,7 +776,7 @@ namespace RSBot.Core.Objects
             if (HasActiveVehicle) return false;
 
             var typeIdFilter = new TypeIdFilter(3, 3, 3, 2);
-            var vehicleItem = (from item in Inventory.Items where typeIdFilter.EqualsRefItem(item.Record) && item.Record.ReqLevel1 <= Game.Player.Level select item).FirstOrDefault();
+            var vehicleItem = Inventory.GetItem(item => typeIdFilter.EqualsRefItem(item.Record) && item.Record.ReqLevel1 <= Game.Player.Level);
             if (vehicleItem == null)
                 return false;
 
@@ -781,7 +793,7 @@ namespace RSBot.Core.Objects
                 return false;
 
             var typeIdFilter = new TypeIdFilter(3, 3, 3, 1);
-            var slotItem = (from item in Inventory.Items where typeIdFilter.EqualsRefItem(item.Record) && item.Record.ReqLevel1 <= Game.Player.Level select item).FirstOrDefault();
+            var slotItem = Inventory.GetItem(item => typeIdFilter.EqualsRefItem(item.Record) && item.Record.ReqLevel1 <= Game.Player.Level);
             if (slotItem == null)
                 return false;
 

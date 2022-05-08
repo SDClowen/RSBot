@@ -35,7 +35,7 @@ namespace RSBot.Protection.Components.Town
             if (Game.Player.AbilityPet == null) 
                 return;
 
-            if (!Game.Player.AbilityPet.Full) 
+            if (!Game.Player.AbilityPet.Inventory.Full) 
                 return;
 
             if (ScriptManager.Running) 

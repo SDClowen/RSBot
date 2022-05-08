@@ -88,7 +88,7 @@ namespace RSBot.Core.Objects.Exchange
             foreach (var item in ReceivingItems)
             {
                 item.Item.Slot = Game.Player.Inventory.GetFreeSlot();
-                Game.Player.Inventory.Items.Add(item.Item);
+                Game.Player.Inventory.AddItem(item.Item);
             }
 
             if (SendingItems != null)

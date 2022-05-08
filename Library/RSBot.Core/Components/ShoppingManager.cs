@@ -121,14 +121,14 @@ namespace RSBot.Core.Components
 
             //Prevent modification during the for-each loop
             var tempItemSellList =
-                Game.Player.Inventory.Items.Where(i => i.Slot > 13).Where(item => SellFilter.Invoke(item.Record)).ToArray();
+                Game.Player.Inventory.GetItems(item => item.Slot > 13 && SellFilter.Invoke(item.Record));
 
             foreach (var item in tempItemSellList)
                 SellItem(item);
 
             if (Game.Player.HasActiveAbilityPet && SellPetItems)
             {
-                tempItemSellList = Game.Player.AbilityPet.Items.Where(item => SellFilter.Invoke(item.Record)).ToArray();
+                tempItemSellList = Game.Player.AbilityPet.Inventory.GetItems(item => SellFilter.Invoke(item.Record));
 
                 foreach (var item in tempItemSellList)
                 {
@@ -166,7 +166,7 @@ namespace RSBot.Core.Components
 
                 var refPackageItem = ReferenceManager.GetRefPackageItem(item.Key.RefPackageItemCodeName);
 
-                var holdingAmount = Game.Player.Inventory.GetItemAmount(refPackageItem.RefItemCodeName);
+                var holdingAmount = Game.Player.Inventory.GetSumAmount(refPackageItem.RefItemCodeName);
                 var totalAmountToBuy = item.Value - holdingAmount;
 
                 var refItem = ReferenceManager.GetRefItem(refPackageItem.RefItemCodeName);
@@ -187,11 +187,11 @@ namespace RSBot.Core.Components
                 //merge stacks
                 if(refItem.MaxStack > 1)
                 {
-                    var nonFullStacks = Game.Player.Inventory.Items.Where(i => i.Record.CodeName == refPackageItem.RefItemCodeName && i.Amount < refItem.MaxStack).ToList();
+                    var nonFullStacks = Game.Player.Inventory.GetItems(i => i.Record.CodeName == refPackageItem.RefItemCodeName && i.Amount < refItem.MaxStack);
                     while(nonFullStacks.Count >= 2)
                     {
                         Game.Player.Inventory.MoveItem(nonFullStacks[1].Slot, nonFullStacks[0].Slot, (ushort)Math.Min(refItem.MaxStack - nonFullStacks[0].Amount, nonFullStacks[1].Amount));
-                        nonFullStacks = Game.Player.Inventory.Items.Where(i => i.Record.CodeName == refPackageItem.RefItemCodeName && i.Amount < refItem.MaxStack).ToList();
+                        nonFullStacks = Game.Player.Inventory.GetItems(i => i.Record.CodeName == refPackageItem.RefItemCodeName && i.Amount < refItem.MaxStack);
                         Thread.Sleep(100);
                     }
                 }
@@ -300,7 +300,7 @@ namespace RSBot.Core.Components
         /// <param name="npcCodeName">Name of the NPC code.</param>
         public static void StoreItems(string npcCodeName)
         {
-            var tempInventory = Game.Player.Inventory.Items.Where(x => x.Slot > 13 && StoreFilter.Invoke(x.Record)).ToList();
+            var tempInventory = Game.Player.Inventory.GetItems(x => x.Slot > 13 && StoreFilter.Invoke(x.Record));
 
             SelectNPC(npcCodeName);
             var npc = SelectedEntity;
@@ -322,7 +322,7 @@ namespace RSBot.Core.Components
 
             if (Game.Player.HasActiveAbilityPet && StorePetItems)
             {
-                var petItemStoreList = Game.Player.AbilityPet.Items.Where(item => StoreFilter.Invoke(item.Record)).ToArray();
+                var petItemStoreList = Game.Player.AbilityPet.Inventory.GetItems(item => StoreFilter.Invoke(item.Record));
 
                 foreach (var item in petItemStoreList)
                 {
@@ -394,7 +394,7 @@ namespace RSBot.Core.Components
         private static void StoreItem(InventoryItem item, SpawnedBionic npc)
         {
             //Use later to merge item!
-            var existingItem = Game.Player.Storage.Items.FirstOrDefault(storageItem => storageItem.Record.ID == item.Record.ID);
+            var existingItem = Game.Player.Storage.GetItem(item.Record.ID);
 
             //Store item
             var destinationSlot = Game.Player.Storage.GetFreeSlot();

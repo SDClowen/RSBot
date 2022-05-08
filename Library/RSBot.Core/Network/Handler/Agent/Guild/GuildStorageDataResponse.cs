@@ -28,18 +28,14 @@ namespace RSBot.Core.Network.Handler.Agent.Guild
         /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
-            Core.Game.Player.GuildStorage = new Storage
-            {
-                Items = new List<InventoryItem>(),
-                Size = packet.ReadByte()
-            };
+            Core.Game.Player.GuildStorage = new InventoryBase(packet.ReadByte());
 
             var itemAmount = packet.ReadByte();
-
             for (var i = 0; i < itemAmount; i++)
-                Core.Game.Player.GuildStorage.Items.Add(InventoryItem.FromPacket(packet));
+                Core.Game.Player.GuildStorage.AddItem(InventoryItem.FromPacket(packet));
 
             EventManager.FireEvent("OnGuildStorageData");
+            Log.Notify($"Found {Core.Game.Player.GuildStorage.ItemsCount} item(s) in guildstorage");
         }
     }
 }

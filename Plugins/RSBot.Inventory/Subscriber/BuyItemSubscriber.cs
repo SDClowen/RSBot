@@ -21,7 +21,7 @@ namespace RSBot.Inventory.Subscriber
             //Only stackable items
             if (itemAtSlot.Record.MaxStack == 1 || itemAtSlot.Record.MaxStack == 0) return;
 
-            var itemsOfSameKind = Game.Player.Inventory.GetItems(itemAtSlot.ItemId);
+            var itemsOfSameKind = Game.Player.Inventory.GetNormalPartItems(itemAtSlot.ItemId);
             if (itemsOfSameKind.Count == 1) return;
 
             foreach (var item in itemsOfSameKind)
