@@ -132,7 +132,7 @@ namespace RSBot.Core.Objects
         public bool UseHealthPotion()
         {
             var typeIdFilter = new TypeIdFilter(3, 3, 1, 4);
-            var slot = Game.Player.Inventory.GetFirstSlot_ByTypeIdFilter(typeIdFilter);
+            var slot = Game.Player.Inventory.GetFirstSlot(typeIdFilter);
 
             if (slot == 0) return false;
 
@@ -153,7 +153,7 @@ namespace RSBot.Core.Objects
         public bool UseBadStatusPotion()
         {
             var typeIdFilter = new TypeIdFilter(3, 3, 2, 7);
-            var slot = Game.Player.Inventory.GetFirstSlot_ByTypeIdFilter(typeIdFilter);
+            var slot = Game.Player.Inventory.GetFirstSlot(typeIdFilter);
 
             if (slot == 0) return false;
 
@@ -174,7 +174,7 @@ namespace RSBot.Core.Objects
         public bool UseHungerPotion()
         {
             var typeIdFilter = new TypeIdFilter(3, 3, 1, 9);
-            var slot = Game.Player.Inventory.GetFirstSlot_ByTypeIdFilter(typeIdFilter);
+            var slot = Game.Player.Inventory.GetFirstSlot(typeIdFilter);
 
             if (slot == 0) return false;
 

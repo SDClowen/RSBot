@@ -225,7 +225,7 @@ namespace RSBot.Core.Components
                 ));
             }
 
-            requiredItem = Game.Player.Inventory.GetItemBest_ByTypeIdFilter(filter);
+            requiredItem = Game.Player.Inventory.GetItemBest(filter);
             if (requiredItem == null)
                 return false;
 
@@ -239,7 +239,7 @@ namespace RSBot.Core.Components
             {
                 // find and equip the shield item automatically
                 filter = new TypeIdFilter(3, 1, 4, (byte)(Game.Player.Race == ObjectCountry.Chinese ? 1 : 2));
-                var shieldItem = Game.Player.Inventory.GetItemBest_ByTypeIdFilter(filter);
+                var shieldItem = Game.Player.Inventory.GetItemBest(filter);
                 if (shieldItem != null && shieldItem.Slot != 7)
                     shieldItem.Equip(7);
             }

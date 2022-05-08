@@ -43,7 +43,7 @@ namespace RSBot.Protection.Components.Town
             if (!PlayerConfig.Get<bool>("RSBot.Protection.checkNoHPPotions")) return;
 
             var typeIdFilter = new TypeIdFilter(3, 3, 1, 1);
-            if (Game.Player.Inventory.GetSumAmount_ByTypeIdFilter(typeIdFilter) > 0)
+            if (Game.Player.Inventory.GetSumAmount(typeIdFilter) > 0)
                 return;
 
             Game.Player.UseReturnScroll();

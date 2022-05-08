@@ -235,7 +235,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
                 }
 
                 Log.Debug($"[Inventory->Inventory] Move item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={amount}) to (slot= {destinationSlot})");
-                Core.Game.Player.Inventory.UpdateItemSlot_BySlot(sourceSlot, destinationSlot);
+                Core.Game.Player.Inventory.UpdateItemSlot(sourceSlot, destinationSlot);
             }
             else
             {
@@ -315,7 +315,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
                 }
 
                 Log.Debug($"[Storage->Storage] Move item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={amount}) to (slot= {destinationSlot})");
-                Core.Game.Player.Storage.UpdateItemSlot_BySlot(sourceSlot, destinationSlot);
+                Core.Game.Player.Storage.UpdateItemSlot(sourceSlot, destinationSlot);
             }
             else
             {
@@ -543,7 +543,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
             }
             else
             {
-                Core.Game.Player.Inventory.UpdateItemAmount_BySlot(sourceSlot, (ushort)(itemAtSlot.Amount - amount));
+                Core.Game.Player.Inventory.UpdateItemAmount(sourceSlot, (ushort)(itemAtSlot.Amount - amount));
 
                 Log.Debug($"[Inventory->NPC] Update item {itemAtSlot.Record.GetRealName()} (slot={sourceSlot}, amount={amount})");
             }
@@ -647,7 +647,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
                 }
 
                 Log.Debug($"[Pet->Pet] Move item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={amount}) to (slot= {destinationSlot})");
-                Core.Game.Player.AbilityPet.Inventory.UpdateItemSlot_BySlot(sourceSlot, destinationSlot);
+                Core.Game.Player.AbilityPet.Inventory.UpdateItemSlot(sourceSlot, destinationSlot);
             }
             else
             {
@@ -790,7 +790,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
             if (amount == itemAtSlot.Amount)
                 Core.Game.Player.AbilityPet.Inventory.RemoveItemAt(sourceSlot);
             else
-                Core.Game.Player.AbilityPet.Inventory.UpdateItemAmount_BySlot(sourceSlot, (ushort)(itemAtSlot.Amount - amount));
+                Core.Game.Player.AbilityPet.Inventory.UpdateItemAmount(sourceSlot, (ushort)(itemAtSlot.Amount - amount));
         }
 
         /// <summary>
@@ -952,7 +952,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
                     return;
                 }
 
-                Core.Game.Player.GuildStorage.UpdateItemSlot_BySlot(sourceSlot, destinationSlot);
+                Core.Game.Player.GuildStorage.UpdateItemSlot(sourceSlot, destinationSlot);
             }
             else
             {

@@ -76,14 +76,14 @@ namespace RSBot.Core.Objects
         /// </summary>
         /// <param name="slot">The slot.</param>
         /// <returns>if found: the item at the slot; otherwise: null</returns>
-        public InventoryItem GetItemAt(byte slot) => GetItem_ByPredicate(item => item.Slot == slot);
+        public InventoryItem GetItemAt(byte slot) => GetItem(item => item.Slot == slot);
 
         /// <summary>
         /// Determines whether [has item at] the slot.
         /// </summary>
         /// <param name="slot">The slot.</param>
         /// <returns>if has item at the slot: true; otherwise: false</returns>
-        public bool HasItemAt(byte slot) => GetItem_ByPredicate(item => item.Slot == slot) != null;
+        public bool HasItemAt(byte slot) => GetItem(item => item.Slot == slot) != null;
 
         #region UpdateItem
         /// <summary>
@@ -91,7 +91,7 @@ namespace RSBot.Core.Objects
         /// </summary>
         /// <param name="slot">The slot of the item.</param>
         /// <param name="newSlot">The new slot.</param>
-        public void UpdateItemSlot_BySlot(byte slot, byte newSlot)
+        public void UpdateItemSlot(byte slot, byte newSlot)
         {
             if (GetItemAt(slot) is InventoryItem itemToUpdate)
                 itemToUpdate.Slot = newSlot;
@@ -102,7 +102,7 @@ namespace RSBot.Core.Objects
         /// </summary>
         /// <param name="slot">The slot of the item.</param>
         /// <param name="newAmount">The new amount.</param>
-        public void UpdateItemAmount_BySlot(byte slot, ushort newAmount)
+        public void UpdateItemAmount(byte slot, ushort newAmount)
         {
             if (GetItemAt(slot) is InventoryItem itemToUpdate)
                 itemToUpdate.Amount = newAmount;
@@ -130,7 +130,7 @@ namespace RSBot.Core.Objects
         /// </summary>
         /// <param name="predicate">The predicate.</param>
         /// <returns>if found: the item from first slot; otherwise: null</returns>
-        public InventoryItem GetItem_ByPredicate(Predicate<InventoryItem> predicate)
+        public InventoryItem GetItem(Predicate<InventoryItem> predicate)
         {
             OrderBySlot();
             return _Items.Find(predicate);
@@ -141,7 +141,7 @@ namespace RSBot.Core.Objects
         /// </summary>
         /// <param name="predicate">The predicate.</param>
         /// <returns>If found: list of item(s), oredered by slot; otherwise empty list</returns>
-        public List<InventoryItem> GetItems_ByPredicate(Predicate<InventoryItem> predicate)
+        public List<InventoryItem> GetItems(Predicate<InventoryItem> predicate)
         {
             OrderBySlot();
             return _Items.FindAll(predicate);
@@ -154,24 +154,24 @@ namespace RSBot.Core.Objects
         /// </summary>
         /// <param name="filter">The <see cref="TypeIdFilter"/>.</param>
         /// <returns>if found: the item from first slot; otherwise: null</returns>
-        public InventoryItem GetItem_ByTypeIdFilter(TypeIdFilter filter) => GetItem_ByPredicate(item => filter.EqualsRefItem(item.Record));
+        public InventoryItem GetItem(TypeIdFilter filter) => GetItem(item => filter.EqualsRefItem(item.Record));
 
         /// <summary>
         /// Gets all items by <see cref="TypeIdFilter"/>, ordered by slot..
         /// </summary>
         /// <param name="filter">The filter.</param>
         /// <returns>If found: list of item(s), oredered by slot; otherwise empty list</returns>
-        public List<InventoryItem> GetItems_ByTypeIdFilter(TypeIdFilter filter) => GetItems_ByPredicate(item => filter.EqualsRefItem(item.Record));
+        public List<InventoryItem> GetItems(TypeIdFilter filter) => GetItems(item => filter.EqualsRefItem(item.Record));
 
         /// <summary>
         /// Gets the best item from the first slot by <see cref="TypeIdFilter"/>.
         /// </summary>
         /// <param name="filter">The <see cref="TypeIdFilter"/>.</param>
         /// <returns>If found: the best item from the first slot; otherwise null</returns>
-        public InventoryItem GetItemBest_ByTypeIdFilter(TypeIdFilter filter)
+        public InventoryItem GetItemBest(TypeIdFilter filter)
         {
             InventoryItem nearestItem = null;
-            foreach (var item in GetItems_ByTypeIdFilter(filter))
+            foreach (var item in GetItems(filter))
             {
                 if (nearestItem == null)
                     nearestItem = item;
@@ -190,10 +190,10 @@ namespace RSBot.Core.Objects
         /// </summary>
         /// <param name="filter">The <see cref="TypeIdFilter"/>.</param>
         /// <returns>if found: the SumAmount; otherwise: 0</returns>
-        public int GetSumAmount_ByTypeIdFilter(TypeIdFilter filter)
+        public int GetSumAmount(TypeIdFilter filter)
         {
             int sum = 0;
-            foreach (var item in GetItems_ByTypeIdFilter(filter))
+            foreach (var item in GetItems(filter))
                 sum += item.Amount;
 
             return sum;
@@ -206,14 +206,14 @@ namespace RSBot.Core.Objects
         /// </summary>
         /// <param name="recordID">The Record.ID of item.</param>
         /// <returns>If found: the item from first slot; otherwise null</returns>
-        public InventoryItem GetItem_ByRecordID(uint recordID) => GetItem_ByPredicate(item => item.Record.ID == recordID);
+        public InventoryItem GetItem(uint recordID) => GetItem(item => item.Record.ID == recordID);
 
         /// <summary>
         /// Gets all items by Record.ID, ordered by slot.
         /// </summary>
         /// <param name="recordID">The Record.ID of item.</param>
         /// <returns>If found: list of item(s), oredered by slot; otherwise empty list</returns>
-        public List<InventoryItem> GetItems_ByRecordID(uint recordID) => GetItems_ByPredicate(item => item.Record.ID == recordID);
+        public List<InventoryItem> GetItems(uint recordID) => GetItems(item => item.Record.ID == recordID);
         #endregion by Record.ID
 
         #region by Record.CodeName
@@ -222,24 +222,24 @@ namespace RSBot.Core.Objects
         /// </summary>
         /// <param name="recordCodeName">The Record.CodeName of item.</param>
         /// <returns>If found: the item from first slot; otherwise null</returns>
-        public InventoryItem GetItem_ByRecordCodeName(string recordCodeName) => GetItem_ByPredicate(item => item.Record.CodeName == recordCodeName);
+        public InventoryItem GetItem(string recordCodeName) => GetItem(item => item.Record.CodeName == recordCodeName);
 
         /// <summary>
         /// Gets all items by Record.CodeName of item, ordered by slot.
         /// </summary>
         /// <param name="recordCodeName">The Record.CodeName of item.</param>
         /// <returns>If found: list of item(s), oredered by slot; otherwise empty list</returns>
-        public List<InventoryItem> GetItems_ByRecordCodeName(string recordCodeName) => GetItems_ByPredicate(item => item.Record.CodeName == recordCodeName);
+        public List<InventoryItem> GetItems(string recordCodeName) => GetItems(item => item.Record.CodeName == recordCodeName);
 
         /// <summary>
         /// Gets the SumAmount by Record.CodeName of item.
         /// </summary>
         /// <param name="recordCodeName">The Record.CodeName of item.</param>
         /// <returns>if found: the SumAmount; otherwise: 0</returns>
-        public int GetSumAmount_ByRecordCodeName(string recordCodeName)
+        public int GetSumAmount(string recordCodeName)
         {
             int sum = 0;
-            foreach (var item in GetItems_ByRecordCodeName(recordCodeName))
+            foreach (var item in GetItems(recordCodeName))
                 sum += item.Amount;
 
             return sum;

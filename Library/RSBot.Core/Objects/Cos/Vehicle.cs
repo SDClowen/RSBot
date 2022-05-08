@@ -28,7 +28,7 @@ namespace RSBot.Core.Objects
         public bool UseHealthPotion()
         {
             var typeIdFilter = new TypeIdFilter(3, 3, 1, 4);
-            var usingItem = Game.Player.Inventory.GetItem_ByTypeIdFilter(typeIdFilter);
+            var usingItem = Game.Player.Inventory.GetItem(typeIdFilter);
             usingItem.UseFor(UniqueId);
             return true;
         }

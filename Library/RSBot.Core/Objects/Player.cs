@@ -543,7 +543,7 @@ namespace RSBot.Core.Objects
                 else if (GetCurrentAmmunationType() == AmmunitionType.Bolt)
                     typeIdFilter.TypeID4 = 2;
 
-                return Inventory.GetSumAmount_ByTypeIdFilter(typeIdFilter);
+                return Inventory.GetSumAmount(typeIdFilter);
             }
 
             return -1;
@@ -643,7 +643,7 @@ namespace RSBot.Core.Objects
                 if (State.LifeState == LifeState.Dead)
                     return false;
 
-                var potionItem = Inventory.GetItem_ByTypeIdFilter(filter);
+                var potionItem = Inventory.GetItem(filter);
                 if (potionItem == null)
                     return false;
 
@@ -715,7 +715,7 @@ namespace RSBot.Core.Objects
                 return false;
 
             var typeIdFilter = new TypeIdFilter(3, 3, 2, 6);
-            var slotItem = Inventory.GetItem_ByTypeIdFilter(typeIdFilter);
+            var slotItem = Inventory.GetItem(typeIdFilter);
             if (slotItem == null)
                 return false;
 
@@ -740,7 +740,7 @@ namespace RSBot.Core.Objects
                 return false;
 
             var typeIdFilter = new TypeIdFilter(3, 3, 2, 1);
-            var slotItem = Inventory.GetItem_ByTypeIdFilter(typeIdFilter);
+            var slotItem = Inventory.GetItem(typeIdFilter);
             if (slotItem == null)
                 return false;
 
@@ -760,7 +760,7 @@ namespace RSBot.Core.Objects
             if (AbilityPet != null) return false;
 
             var typeIdFilter = new TypeIdFilter(3, 2, 1, 2);
-            var slotItem = Inventory.GetItem_ByTypeIdFilter(typeIdFilter);
+            var slotItem = Inventory.GetItem(typeIdFilter);
             if (slotItem == null)
                 return false;
 
@@ -776,7 +776,7 @@ namespace RSBot.Core.Objects
             if (HasActiveVehicle) return false;
 
             var typeIdFilter = new TypeIdFilter(3, 3, 3, 2);
-            var vehicleItem = Inventory.GetItem_ByPredicate(item => typeIdFilter.EqualsRefItem(item.Record) && item.Record.ReqLevel1 <= Game.Player.Level);
+            var vehicleItem = Inventory.GetItem(item => typeIdFilter.EqualsRefItem(item.Record) && item.Record.ReqLevel1 <= Game.Player.Level);
             if (vehicleItem == null)
                 return false;
 
@@ -793,7 +793,7 @@ namespace RSBot.Core.Objects
                 return false;
 
             var typeIdFilter = new TypeIdFilter(3, 3, 3, 1);
-            var slotItem = Inventory.GetItem_ByPredicate(item => typeIdFilter.EqualsRefItem(item.Record) && item.Record.ReqLevel1 <= Game.Player.Level);
+            var slotItem = Inventory.GetItem(item => typeIdFilter.EqualsRefItem(item.Record) && item.Record.ReqLevel1 <= Game.Player.Level);
             if (slotItem == null)
                 return false;
 
@@ -817,9 +817,9 @@ namespace RSBot.Core.Objects
             InventoryItem ammunition;
 
             if (currentWeapon.Record.TypeID4 == 6) //Bow
-                ammunition = Inventory.GetItem_ByTypeIdFilter(new TypeIdFilter(3, 3, 4, 1));
+                ammunition = Inventory.GetItem(new TypeIdFilter(3, 3, 4, 1));
             else if (currentWeapon.Record.TypeID4 == 12) //Crossbow
-                ammunition = Inventory.GetItem_ByTypeIdFilter(new TypeIdFilter(3, 3, 4, 2));
+                ammunition = Inventory.GetItem(new TypeIdFilter(3, 3, 4, 2));
             else
                 return;
 
@@ -846,13 +846,13 @@ namespace RSBot.Core.Objects
         public bool ReviveAttackPet()
         {
             var typeIdFilter = new TypeIdFilter(3, 3, 1, 6);
-            var rescueItem = Inventory.GetItem_ByTypeIdFilter(typeIdFilter);
+            var rescueItem = Inventory.GetItem(typeIdFilter);
 
             if (rescueItem == null)
                 return false;
 
             typeIdFilter = new TypeIdFilter(3, 2, 1, 1);
-            var petItem = Inventory.GetItem_ByTypeIdFilter(typeIdFilter);
+            var petItem = Inventory.GetItem(typeIdFilter);
 
             if (petItem == null)
                 return false;
@@ -871,7 +871,7 @@ namespace RSBot.Core.Objects
                 return false;
 
             var typeIdFilter = new TypeIdFilter(3, 2, 1, 1);
-            var petItem = Inventory.GetItem_ByTypeIdFilter(typeIdFilter);
+            var petItem = Inventory.GetItem(typeIdFilter);
 
             if (petItem == null)
                 return false;

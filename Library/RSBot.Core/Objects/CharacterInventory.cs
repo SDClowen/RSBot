@@ -53,27 +53,27 @@ namespace RSBot.Core.Objects
         /// Gets items of EquippedPart, ordered by slot.
         /// </summary>
         /// <returns>If found: list of item(s), ordered by slot; otherwise empty list</returns>
-        public List<InventoryItem> GetEquippedPartItems() => GetItems_ByPredicate(item => item.Slot < NORMAL_PART_MIN_SLOT);
+        public List<InventoryItem> GetEquippedPartItems() => GetItems(item => item.Slot < NORMAL_PART_MIN_SLOT);
 
         /// <summary>
         /// Gets items of NormalPart, ordered by slot.
         /// </summary>
         /// <returns>If found: list of item(s), ordered by slot; otherwise empty list</returns>
-        public List<InventoryItem> GetNormalPartItems() => GetItems_ByPredicate(item => item.Slot >= NORMAL_PART_MIN_SLOT);
+        public List<InventoryItem> GetNormalPartItems() => GetItems(item => item.Slot >= NORMAL_PART_MIN_SLOT);
 
         /// <summary>
         /// Gets items of NormalPart by ItemId, ordered by slot.
         /// </summary>
         /// <param name="itemId">The identifier of item.</param>
         /// <returns>If found: list of item(s), ordered by slot; otherwise empty list</returns>
-        public List<InventoryItem> GetNormalPartItems_ByItemId(uint itemId) => GetItems_ByPredicate(item => item.Slot >= NORMAL_PART_MIN_SLOT && item.ItemId == itemId);
+        public List<InventoryItem> GetNormalPartItems(uint itemId) => GetItems(item => item.Slot >= NORMAL_PART_MIN_SLOT && item.ItemId == itemId);
 
         /// <summary>
         /// Gets item from first slot by <see cref="TypeIdFilter"/>.
         /// </summary>
         /// <param name="filter">The <see cref="TypeIdFilter"/>.</param>
         /// <returns>if found: the first slot number; otherwise: 0</returns>
-        public byte GetFirstSlot_ByTypeIdFilter(TypeIdFilter filter) => GetItem_ByTypeIdFilter(filter) is InventoryItem item ? item.Slot : (byte)0x00;
+        public byte GetFirstSlot(TypeIdFilter filter) => GetItem(filter) is InventoryItem item ? item.Slot : (byte)0x00;
 
         /// <summary>
         /// Moves the item inside Character's Inventory.
