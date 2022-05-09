@@ -115,6 +115,7 @@
     <Compile Include="Objects\GuideTeleportType.cs" />
     <Compile Include="Objects\InventoriesOfCharacter.cs" />
     <Compile Include="Objects\InventoryBase.cs" />
+    <Compile Include="Objects\InventoryType.cs" />
     <Compile Include="Objects\InviteRequestType.cs" />
     <Compile Include="Objects\Item\ItemUpdateFlag.cs" />
     <Compile Include="Objects\NpcTalk.cs" />

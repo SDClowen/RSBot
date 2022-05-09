@@ -43,24 +43,24 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
 
             switch (type)
             {
-                case 0:
-                    ParseInventoryToInventory(packet);
-                    //e.g when equipping a Bow (see ammo)
+                case 0: // InventoryToInventory
+                    ParseInventoryTypes(InventoryType.Inventory, InventoryType.Inventory, packet);
+                    // 2nd item - e.g when equipping a Bow (see ammo)
                     if (packet.ReadBool())
                         if (packet.ReadByte() == 0x00)
-                            ParseInventoryToInventory(packet);
+                            ParseInventoryTypes(InventoryType.Inventory, InventoryType.Inventory, packet);
                     break;
 
-                case 1:
-                    ParseStorageToStorage(packet);
+                case 1: // StorageToStorage
+                    ParseInventoryTypes(InventoryType.Storage, InventoryType.Storage, packet);
                     break;
 
-                case 2:
-                    ParseInventoryToStorage(packet);
+                case 2: // InventoryToStorage
+                    ParseInventoryTypes(InventoryType.Inventory, InventoryType.Storage, packet);
                     break;
 
-                case 3:
-                    ParseStorageToInventory(packet);
+                case 3: // StorageToInventory
+                    ParseInventoryTypes(InventoryType.Storage, InventoryType.Inventory, packet);
                     break;
 
                 case 4: //exchange in
@@ -106,8 +106,8 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
                     ParseDeleteItemByServer(packet);
                     break;
 
-                case 16:
-                    ParsePetToPet(packet);
+                case 16: // PetToPet
+                    ParseInventoryTypes(InventoryType.Pet, InventoryType.Pet, packet);
                     break;
 
                 case 17:
@@ -133,28 +133,28 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
                     ParseMallToPlayer(packet);
                     break;
 
-                case 26:
-                    ParsePetToInventory(packet);
+                case 26: // PetToInventory
+                    ParseInventoryTypes(InventoryType.Pet, InventoryType.Inventory, packet);
                     break;
 
-                case 27:
-                    ParseInventoryToPet(packet);
+                case 27: // InventoryToPet
+                    ParseInventoryTypes(InventoryType.Inventory, InventoryType.Pet, packet);
                     break;
 
                 case 28:
                     ParseOtherToInventory(packet);
                     break;
 
-                case 29:
-                    ParseGuildStorageToGuildStorage(packet);
+                case 29: // GuildStorageToGuildStorage
+                    ParseInventoryTypes(InventoryType.GuildStorage, InventoryType.GuildStorage, packet);
                     break;
 
-                case 30:
-                    ParseInventoryToGuildStorage(packet);
+                case 30: // InventoryToGuildStorage
+                    ParseInventoryTypes(InventoryType.Inventory, InventoryType.GuildStorage, packet);
                     break;
 
-                case 31:
-                    ParseGuildStorageToInventory(packet);
+                case 31: // GuildStorageToInventory
+                    ParseInventoryTypes(InventoryType.GuildStorage, InventoryType.Inventory, packet);
                     break;
 
                 case 32:
@@ -169,224 +169,24 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
                     ParseBuybackToInventory(packet);
                     break;
 
-                case 35:
-                    ParseAvatarToInventory(packet);
+                case 35: // AvatarToInventory
+                    ParseInventoryTypes(InventoryType.Avatars, InventoryType.Inventory, packet);
 
                     if (packet.ReadBool())
                         if (packet.ReadByte() == 0x23)
-                            ParseAvatarToInventory(packet);
+                            ParseInventoryTypes(InventoryType.Avatars, InventoryType.Inventory, packet); ;
                     break;
 
-                case 36:
-                    ParseInventoryToAvatar(packet);
+                case 36: // InventoryToAvatar
+                    ParseInventoryTypes(InventoryType.Inventory, InventoryType.Avatars, packet);
 
                     if (packet.ReadBool())
                         if (packet.ReadByte() == 0x00)
-                            ParseInventoryToAvatar(packet);
+                            ParseInventoryTypes(InventoryType.Inventory, InventoryType.Avatars, packet);
                     break;
             }
 
             EventManager.FireEvent("OnInventoryUpdate");
-        }
-
-        /// <summary>
-        /// Parses the inventory to inventory.
-        /// </summary>
-        /// <param name="packet">The packet.</param>
-        private static void ParseInventoryToInventory(Packet packet)
-        {
-            var sourceSlot = packet.ReadByte();
-            var destinationSlot = packet.ReadByte();
-            var amount = packet.ReadUShort();
-
-            var itemAtSource = Core.Game.Player.Inventory.GetItemAt(sourceSlot);
-            var itemAtDestination = Core.Game.Player.Inventory.GetItemAt(destinationSlot);
-
-            if (itemAtSource == null) return;
-
-            //Move the item from A -> B
-            if (itemAtDestination == null)
-            {
-                //Split item
-                if (itemAtSource.Amount != amount && amount != 0)
-                {
-                    itemAtSource.Amount -= amount;
-
-                    //The item has been split in two parts.
-                    //Copy the item with the given amount to the new slot
-                    var newInventoryItem = new InventoryItem
-                    {
-                        //Copy the item infos from the source item. Some may be useless because only ETC items can be split but anyway, just to make sure assign everything
-                        Amount = amount,
-                        Slot = destinationSlot,
-                        Durability = itemAtSource.Durability,
-                        ItemId = itemAtSource.ItemId,
-                        MagicOptions = itemAtSource.MagicOptions,
-                        OptLevel = itemAtSource.OptLevel,
-                        BindingOptions = itemAtSource.BindingOptions,
-                        Rental = itemAtSource.Rental,
-                        Variance = itemAtSource.Variance
-                    };
-
-                    Core.Game.Player.Inventory.AddItem(newInventoryItem);
-
-                    Log.Debug($"[Inventory->Inventory] Split item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={itemAtSource.Amount}) to (slot={destinationSlot}, amount={amount}");
-                    return;
-                }
-
-                Log.Debug($"[Inventory->Inventory] Move item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={amount}) to (slot= {destinationSlot})");
-                Core.Game.Player.Inventory.UpdateItemSlot(sourceSlot, destinationSlot);
-            }
-            else
-            {
-                //The items will be merged!
-                if (itemAtDestination.ItemId == itemAtSource.ItemId)
-                {
-                    //Check if the items can stack, otherwise move A to B and B to A
-                    var newItemAmount = itemAtDestination.Amount + amount;
-                    if (newItemAmount > itemAtDestination.Record.MaxStack)
-                    {
-                        itemAtDestination.Slot = sourceSlot;
-                        itemAtSource.Slot = destinationSlot;
-
-                        Log.Debug($"[Inventory->Inventory] Switch item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}) with (slot={itemAtDestination.Slot}) because the max stack was reached.");
-                    }
-                    else
-                    {
-                        itemAtDestination.Amount = (ushort)newItemAmount;
-                        itemAtSource.Amount -= amount;
-
-                        Log.Debug($"[Inventory->Inventory] Merge item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={itemAtSource.Amount}) with (slot={itemAtDestination.Slot}, amount={itemAtDestination.Amount})");
-                        if (itemAtSource.Amount <= 0) Core.Game.Player.Inventory.RemoveItemAt(sourceSlot);
-                    }
-                }
-                else
-                {
-                    itemAtDestination.Slot = sourceSlot;
-                    itemAtSource.Slot = destinationSlot;
-                    Log.Debug($"[Inventory->Inventory] Switch item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}) with (slot={itemAtDestination.Slot}) because the items are not identically.");
-                }
-            }
-        }
-
-        /// <summary>
-        /// Parses the storage to storage.
-        /// </summary>
-        /// <param name="packet">The packet.</param>
-        private static void ParseStorageToStorage(Packet packet)
-        {
-            var sourceSlot = packet.ReadByte();
-            var destinationSlot = packet.ReadByte();
-            var amount = packet.ReadUShort();
-
-            var itemAtSource = Core.Game.Player.Storage.GetItemAt(sourceSlot);
-            var itemAtDestination = Core.Game.Player.Storage.GetItemAt(destinationSlot);
-
-            if (itemAtSource == null) return;
-
-            //Move the item from A -> B
-            if (itemAtDestination == null)
-            {
-                //Split item
-                if (itemAtSource.Amount != amount && amount != 0)
-                {
-                    itemAtSource.Amount -= amount;
-
-                    //The item has been split in two parts.
-                    //Copy the item with the given amount to the new slot
-                    var newInventoryItem = new InventoryItem
-                    {
-                        //Copy the item infos from the source item. Some may be useless because only ETC items can be split but anyway, just to make sure assign everything
-                        Amount = amount,
-                        Slot = destinationSlot,
-                        Durability = itemAtSource.Durability,
-                        ItemId = itemAtSource.ItemId,
-                        MagicOptions = itemAtSource.MagicOptions,
-                        OptLevel = itemAtSource.OptLevel,
-                        BindingOptions = itemAtSource.BindingOptions,
-                        Rental = itemAtSource.Rental,
-                        Variance = itemAtSource.Variance
-                    };
-
-                    Core.Game.Player.Storage.AddItem(newInventoryItem);
-
-                    Log.Debug($"[Storage->Storage] Split item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={itemAtSource.Amount}) to (slot={destinationSlot}, amount={amount}");
-                    return;
-                }
-
-                Log.Debug($"[Storage->Storage] Move item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={amount}) to (slot= {destinationSlot})");
-                Core.Game.Player.Storage.UpdateItemSlot(sourceSlot, destinationSlot);
-            }
-            else
-            {
-                //The items will be merged!
-                if (itemAtDestination.ItemId == itemAtSource.ItemId)
-                {
-                    //Check if the items can stack, otherwise move A to B and B to A
-                    var newItemAmount = itemAtDestination.Amount + itemAtSource.Amount;
-                    if (newItemAmount > itemAtDestination.Record.MaxStack)
-                    {
-                        itemAtDestination.Slot = sourceSlot;
-                        itemAtSource.Slot = destinationSlot;
-
-                        Log.Debug($"[Storage->Storage] Switch item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}) with (slot={itemAtDestination.Slot}) because the max stack was reached.");
-                    }
-                    else
-                    {
-                        itemAtDestination.Amount = (ushort)newItemAmount;
-
-                        Log.Debug($"[Storage->Storage] Merge item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={itemAtSource.Amount}) with (slot={itemAtDestination.Slot}, amount={itemAtDestination.Amount})");
-                        Core.Game.Player.Storage.RemoveItemAt(sourceSlot);
-                    }
-                }
-                else
-                {
-                    itemAtDestination.Slot = sourceSlot;
-                    itemAtSource.Slot = destinationSlot;
-
-                    Log.Debug($"[Storage->Storage] Switch item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}) with (slot={itemAtDestination.Slot}) because the items are not identically.");
-                }
-            }
-        }
-
-        /// <summary>
-        /// Parses the inventory to storage.
-        /// </summary>
-        /// <param name="packet">The packet.</param>
-        private static void ParseInventoryToStorage(Packet packet)
-        {
-            var sourceSlot = packet.ReadByte();
-            var destinationSlot = packet.ReadByte();
-
-            var sourceItem = Core.Game.Player.Inventory.GetItemAt(sourceSlot);
-            if (sourceItem == null) return; //Invalid?! should not happen at all.
-
-            sourceItem.Slot = destinationSlot;
-            Core.Game.Player.Storage.AddItem(sourceItem);
-
-            Core.Game.Player.Inventory.RemoveItemAt(sourceItem.Slot);
-
-            Log.Debug($"[Inventory->Storage] Move item {sourceItem.Record.GetRealName()} (slot={sourceSlot}) to storage (slot={destinationSlot}");
-        }
-
-        /// <summary>
-        /// Parses the storage to inventory.
-        /// </summary>
-        /// <param name="packet">The packet.</param>
-        private static void ParseStorageToInventory(Packet packet)
-        {
-            var sourceSlot = packet.ReadByte();
-            var destinationSlot = packet.ReadByte();
-
-            var sourceItem = Core.Game.Player.Storage.GetItemAt(sourceSlot);
-            if (sourceItem == null) return; //Invalid?! should not happen at all.
-
-            Core.Game.Player.Storage.RemoveItemAt(sourceItem.Slot);
-
-            sourceItem.Slot = destinationSlot;
-            Core.Game.Player.Inventory.AddItem(sourceItem);
-
-            Log.Debug($"[Storage->Inventory] Move item {sourceItem.Record.GetRealName()} (slot={sourceSlot}, amount={sourceItem.Amount}) to inventory (slot={destinationSlot})");
         }
 
         /// <summary>
@@ -600,87 +400,6 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
         }
 
         /// <summary>
-        /// Parses the pet to pet.
-        /// </summary>
-        /// <param name="packet">The packet.</param>
-        private static void ParsePetToPet(Packet packet)
-        {
-            var petUniqueId = packet.ReadUInt();
-            var sourceSlot = packet.ReadByte();
-            var destinationSlot = packet.ReadByte();
-            var amount = packet.ReadUShort();
-
-            if (!Core.Game.Player.HasActiveAbilityPet || Core.Game.Player.AbilityPet.UniqueId != petUniqueId) return;
-
-            var itemAtSource = Core.Game.Player.AbilityPet.Inventory.GetItemAt(sourceSlot);
-            var itemAtDestination = Core.Game.Player.AbilityPet.Inventory.GetItemAt(destinationSlot);
-
-            if (itemAtSource == null) return;
-
-            //Move the item from A -> B
-            if (itemAtDestination == null)
-            {
-                //Split item
-                if (itemAtSource.Amount != amount && amount != 0)
-                {
-                    itemAtSource.Amount -= amount;
-
-                    //The item has been split in two parts.
-                    //Copy the item with the given amount to the new slot
-                    var newInventoryItem = new InventoryItem
-                    {
-                        //Copy the item infos from the source item. Some may be useless because only ETC items can be split but anyway, just to make sure assign everything
-                        Amount = amount,
-                        Slot = destinationSlot,
-                        Durability = itemAtSource.Durability,
-                        ItemId = itemAtSource.ItemId,
-                        MagicOptions = itemAtSource.MagicOptions,
-                        OptLevel = itemAtSource.OptLevel,
-                        BindingOptions = itemAtSource.BindingOptions,
-                        Rental = itemAtSource.Rental,
-                        Variance = itemAtSource.Variance
-                    };
-
-                    Core.Game.Player.AbilityPet.Inventory.AddItem(newInventoryItem);
-                    Log.Debug($"[Pet->Pet] Split item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={itemAtSource.Amount}) to (slot={destinationSlot}, amount={amount}");
-                    return;
-                }
-
-                Log.Debug($"[Pet->Pet] Move item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={amount}) to (slot= {destinationSlot})");
-                Core.Game.Player.AbilityPet.Inventory.UpdateItemSlot(sourceSlot, destinationSlot);
-            }
-            else
-            {
-                //The items will be merged!
-                if (itemAtDestination.ItemId == itemAtSource.ItemId)
-                {
-                    //Check if the items can stack, otherwise move A to B and B to A
-                    var newItemAmount = itemAtDestination.Amount + itemAtSource.Amount;
-                    if (newItemAmount > itemAtDestination.Record.MaxStack)
-                    {
-                        itemAtDestination.Slot = sourceSlot;
-                        itemAtSource.Slot = destinationSlot;
-                        Log.Debug($"[Pet->Pet] Switch item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}) with (slot={itemAtDestination.Slot}) because the max stack was reached.");
-                    }
-                    else
-                    {
-                        itemAtDestination.Amount = (ushort)newItemAmount;
-
-                        Core.Game.Player.AbilityPet.Inventory.RemoveItemAt(sourceSlot);
-                        Log.Debug($"[Pet->Pet] Merge item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={itemAtSource.Amount}) with (slot={itemAtDestination.Slot}, amount={itemAtDestination.Amount})");
-                    }
-                }
-                else
-                {
-                    itemAtDestination.Slot = sourceSlot;
-                    itemAtSource.Slot = destinationSlot;
-
-                    Log.Debug($"[Pet->Pet] Switch item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}) with (slot={itemAtDestination.Slot}) because the items are not identically.");
-                }
-            }
-        }
-
-        /// <summary>
         /// Parses the floor to pet.
         /// </summary>
         /// <param name="packet">The packet.</param>
@@ -842,49 +561,6 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
         }
 
         /// <summary>
-        /// Parses the pet to inventory.
-        /// </summary>
-        /// <param name="packet">The packet.</param>
-        private static void ParsePetToInventory(Packet packet)
-        {
-            var petUniqueId = packet.ReadUInt();
-
-            if (!Core.Game.Player.HasActiveAbilityPet || Core.Game.Player.AbilityPet.UniqueId != petUniqueId) return;
-
-            var sourceSlot = packet.ReadByte();
-            var destinationSlot = packet.ReadByte();
-
-            var newItem = Core.Game.Player.AbilityPet.Inventory.GetItemAt(sourceSlot);
-
-            if (newItem == null) return;
-
-            Core.Game.Player.Inventory.AddItem(newItem);
-            Core.Game.Player.AbilityPet.Inventory.RemoveItemAt(sourceSlot);
-            newItem.Slot = destinationSlot;
-        }
-
-        /// <summary>
-        /// Parses the inventory to pet.
-        /// </summary>
-        /// <param name="packet">The packet.</param>
-        private static void ParseInventoryToPet(Packet packet)
-        {
-            var petUniqueId = packet.ReadUInt();
-
-            if (!Core.Game.Player.HasActiveAbilityPet || Core.Game.Player.AbilityPet.UniqueId != petUniqueId) return;
-
-            var sourceSlot = packet.ReadByte();
-            var destinationSlot = packet.ReadByte();
-
-            var newItem = Core.Game.Player.Inventory.GetItemAt(sourceSlot);
-
-            Core.Game.Player.AbilityPet.Inventory.AddItem(newItem);
-            Core.Game.Player.Inventory.RemoveItemAt(sourceSlot);
-
-            newItem.Slot = destinationSlot;
-        }
-
-        /// <summary>
         /// Parses the other to inventory.
         /// </summary>
         /// <param name="packet">The packet.</param>
@@ -910,124 +586,12 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
         }
 
         /// <summary>
-        /// Parses the guild storage to guild storage.
-        /// </summary>
-        /// <param name="packet">The packet.</param>
-        private static void ParseGuildStorageToGuildStorage(Packet packet)
-        {
-            var sourceSlot = packet.ReadByte();
-            var destinationSlot = packet.ReadByte();
-            var amount = packet.ReadUShort();
-
-            var itemAtSource = Core.Game.Player.GuildStorage.GetItemAt(sourceSlot);
-            var itemAtDestination = Core.Game.Player.GuildStorage.GetItemAt(destinationSlot);
-
-            if (itemAtSource == null) return;
-
-            //Move the item from A -> B
-            if (itemAtDestination == null)
-            {
-                //Split item
-                if (itemAtSource.Amount != amount && amount != 0)
-                {
-                    itemAtSource.Amount -= amount;
-
-                    //The item has been split in two parts.
-                    //Copy the item with the given amount to the new slot
-                    var newInventoryItem = new InventoryItem
-                    {
-                        //Copy the item infos from the source item. Some may be useless because only ETC items can be split but anyway, just to make sure assign everything
-                        Amount = amount,
-                        Slot = destinationSlot,
-                        Durability = itemAtSource.Durability,
-                        ItemId = itemAtSource.ItemId,
-                        MagicOptions = itemAtSource.MagicOptions,
-                        OptLevel = itemAtSource.OptLevel,
-                        BindingOptions = itemAtSource.BindingOptions,
-                        Rental = itemAtSource.Rental,
-                        Variance = itemAtSource.Variance
-                    };
-
-                    Core.Game.Player.GuildStorage.AddItem(newInventoryItem);
-                    return;
-                }
-
-                Core.Game.Player.GuildStorage.UpdateItemSlot(sourceSlot, destinationSlot);
-            }
-            else
-            {
-                //The items will be merged!
-                if (itemAtDestination.ItemId == itemAtSource.ItemId)
-                {
-                    //Check if the items can stack, otherwise move A to B and B to A
-                    var newItemAmount = itemAtDestination.Amount + itemAtSource.Amount;
-                    if (newItemAmount > itemAtDestination.Record.MaxStack)
-                    {
-                        itemAtDestination.Slot = sourceSlot;
-                        itemAtSource.Slot = destinationSlot;
-                    }
-                    else
-                    {
-                        itemAtDestination.Amount = (ushort)newItemAmount;
-
-                        Core.Game.Player.GuildStorage.RemoveItemAt(sourceSlot);
-                    }
-                }
-                else
-                {
-                    itemAtDestination.Slot = sourceSlot;
-                    itemAtSource.Slot = destinationSlot;
-                }
-            }
-        }
-
-        /// <summary>
         /// Parses the guild to gold.
         /// </summary>
         /// <param name="packet">The packet.</param>
         private static void ParseGuildStorageToGold(Packet packet)
         {
             Core.Game.Player.Gold += packet.ReadULong();
-        }
-
-        /// <summary>
-        /// Parses the guild to inventory.
-        /// </summary>
-        /// <param name="packet">The packet.</param>
-        private static void ParseGuildStorageToInventory(Packet packet)
-        {
-            if (Core.Game.Player.GuildStorage == null) return;
-
-            var sourceSlot = packet.ReadByte();
-            var destinationSlot = packet.ReadByte();
-
-            var sourceItem = Core.Game.Player.GuildStorage.GetItemAt(sourceSlot);
-            if (sourceItem == null) return; //Invalid?! should not happen at all.
-
-            Core.Game.Player.GuildStorage.RemoveItemAt(sourceItem.Slot);
-
-            sourceItem.Slot = destinationSlot;
-            Core.Game.Player.Inventory.AddItem(sourceItem);
-        }
-
-        /// <summary>
-        /// Parses the inventory to guild storage.
-        /// </summary>
-        /// <param name="packet">The packet.</param>
-        private static void ParseInventoryToGuildStorage(Packet packet)
-        {
-            if (Core.Game.Player.GuildStorage == null) return;
-
-            var sourceSlot = packet.ReadByte();
-            var destinationSlot = packet.ReadByte();
-
-            var sourceItem = Core.Game.Player.Inventory.GetItemAt(sourceSlot);
-            if (sourceItem == null) return; //Invalid?! should not happen at all.
-
-            Core.Game.Player.Inventory.RemoveItemAt(sourceItem.Slot);
-
-            sourceItem.Slot = destinationSlot;
-            Core.Game.Player.GuildStorage.AddItem(sourceItem);
         }
 
         /// <summary>
@@ -1069,37 +633,206 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
         }
 
         /// <summary>
-        /// Parses the inventory to avatar.
+        /// Parses <see cref="InventoryBase"/> instance to <see cref="InventoryBase"/> instance operations by their <see cref="InventoryType"/>s.
         /// </summary>
-        /// <param name="packet">The packet.</param>
-        private static void ParseInventoryToAvatar(Packet packet)
+        /// <param name="srcType">The source <see cref="InventoryType"/>.</param>
+        /// <param name="destType">The destination <see cref="InventoryType"/>.</param>
+        /// <param name="packet">The <see cref="Packet"/>.</param>
+        private void ParseInventoryTypes(InventoryType srcType, InventoryType destType, Packet packet)
         {
-            var sourceSlot = packet.ReadByte();
-            var destinationSlot = packet.ReadByte();
+            var abilityPet = Core.Game.Player.AbilityPet;
+            var srcInv = GetInventory(srcType, abilityPet);
+            if (srcInv == null || srcInv.Size == 0)
+                return;
 
-            var newItem = Core.Game.Player.Inventory.GetItemAt(sourceSlot);
+            if ((srcType == InventoryType.Pet || destType == InventoryType.Pet) && (abilityPet == null || packet.ReadUInt() != abilityPet.UniqueId))
+                return;
 
-            Core.Game.Player.Avatars.AddItem(newItem);
-            Core.Game.Player.Inventory.RemoveItemAt(sourceSlot);
+            if (srcType == destType)
+                SameInvsOperations(srcInv, srcType.ToString(), packet);
+            else
+            {
+                var destInv = GetInventory(destType, abilityPet);
+                if (destInv == null || destInv.Size == 0)
+                    return;
 
-            newItem.Slot = destinationSlot;
+                DifferentInvsOperations(srcInv, destInv, srcType.ToString(), destType.ToString(), packet);
+            }
+        }
+  
+        /// <summary>
+        /// Gets the <see cref="InventoryBase"/> instance by its <see cref="InventoryType"/>.
+        /// </summary>
+        /// <param name="type">The <see cref="InventoryType"/>.</param>
+        /// <param name="abilityPet">The current summoned <see cref="AbilityPet"/>.</param>
+        /// <returns>The <see cref="InventoryType"/> instance if exists; otherwise null.</returns>
+        private InventoryBase GetInventory(InventoryType type, AbilityPet abilityPet)
+        {
+            InventoryBase result = null;
+            switch (type)
+            {
+                case InventoryType.Inventory:
+                    result = Core.Game.Player.Inventory;
+                    break;
+                case InventoryType.Avatars:
+                    result = Core.Game.Player.Avatars;
+                    break;
+                case InventoryType.Pet:
+                    result = abilityPet?.Inventory;
+                    break;
+                case InventoryType.Storage:
+                    result = Core.Game.Player.Storage;
+                    break;
+                case InventoryType.GuildStorage:
+                    result = Core.Game.Player.GuildStorage;
+                    break;
+            }
+
+            return result;
         }
 
         /// <summary>
-        /// Parses the avatar to inventory.
+        /// For Operations of Same <see cref="InventoryBase"/> instances.
         /// </summary>
-        /// <param name="packet">The packet.</param>
-        private static void ParseAvatarToInventory(Packet packet)
+        /// <param name="inv">The inventory.</param>
+        /// <param name="invName">The name of the inventory.</param>
+        /// <param name="packet">The <see cref="Packet"/>.</param>
+        private void SameInvsOperations(InventoryBase inv, string invName, Packet packet)
         {
-            var sourceSlot = packet.ReadByte();
-            var destinationSlot = packet.ReadByte();
+            #region infos
+            // packet
+            var srcSlot = packet.ReadByte();
+            var destSlot = packet.ReadByte();
+            var movedAmount = packet.ReadUShort();
+            // bag
+            var srcItem = inv.GetItemAt(srcSlot);
+            var destItem = inv.GetItemAt(destSlot);
+            var srcAmount = srcItem.Amount;
+            if (movedAmount == 0)
+                movedAmount = srcAmount;
+            var destAmount = destItem == null ? (ushort)0 : destItem.Amount;
+            var srcMaxStack = srcItem.Record.MaxStack;
+            #endregion infos
 
-            var newItem = Core.Game.Player.Avatars.GetItemAt(sourceSlot);
+            #region options
+            // to empty slot
+            if (destItem == null)
+            {
+                if (srcAmount == movedAmount)
+                    Move();
+                else
+                    Split();
+            }
+            // to not empty slot
+            else
+            {
+                // different type
+                if (destItem.ItemId != srcItem.ItemId)
+                    SwitchDifferentType();
+                // same type
+                else
+                {
+                    if (srcAmount == srcMaxStack || destAmount == srcMaxStack)
+                        SwitchSameType();
+                    else
+                    {
+                        srcItem.Amount -= movedAmount;
+                        destItem.Amount += movedAmount;
 
-            Core.Game.Player.Inventory.AddItem(newItem);
-            Core.Game.Player.Avatars.RemoveItemAt(sourceSlot);
+                        if (srcAmount != movedAmount)
+                            MergeTwoSlots();
+                        else
+                            MergeIntoOneSlot();
+                    }
+                }
+            }
+            #endregion options
 
-            newItem.Slot = destinationSlot;
+            #region local methods
+            void Move()
+            {
+                srcItem.Slot = destSlot;
+
+                Log.Debug($"[{invName}->{invName}] Move item(amount={movedAmount}) {srcItem.Record.GetRealName()} from (slot={srcSlot}, amount={srcAmount}) to (slot= {destSlot})");
+            }
+
+            void Split()
+            {
+                srcItem.Amount -= movedAmount;
+
+                var newItem = srcItem.CreateClone();
+                newItem.Slot = destSlot;
+                newItem.Amount = movedAmount;
+                inv.AddItem(newItem);
+
+                Log.Debug($"[{invName}->{invName}] Split item(amount={movedAmount}) {srcItem.Record.GetRealName()} (slot={srcSlot}, amount={srcAmount}) to (slot={destSlot}");
+            }
+
+            void SwitchDifferentType()
+            {
+                destItem.Slot = srcSlot;
+                srcItem.Slot = destSlot;
+
+                Log.Debug($"[{invName}->{invName}] Switch item {srcItem.Record.GetRealName()} (slot={srcSlot}) with (slot={destSlot}) because the items are not identically.");
+            }
+
+            void SwitchSameType()
+            {
+                destItem.Slot = srcSlot;
+                srcItem.Slot = destSlot;
+
+                Log.Debug($"[{invName}->{invName}] Switch item {srcItem.Record.GetRealName()} (slot={srcSlot}) with (slot={destSlot}) because the max stack({srcMaxStack}) was reached.");
+            }
+
+            void MergeTwoSlots()
+            {
+                Log.Debug($"[{invName}->{invName}] Merge item {srcItem.Record.GetRealName()} (slot={srcSlot}, amount={srcAmount}) with (slot={destSlot}, amount={destAmount})");
+            }
+
+            void MergeIntoOneSlot()
+            {
+                inv.RemoveItemAt(srcSlot);
+
+                Log.Debug($"[{invName}->{invName}] Merge item {srcItem.Record.GetRealName()} (slot={srcSlot}, amount={srcAmount}) with (slot={destSlot}, amount={destAmount}) into one (slot={destSlot})");
+            }
+            #endregion local methods
         }
+
+        /// <summary>
+        /// For Operations of Different <see cref="InventoryBase"/> instances.
+        /// </summary>
+        /// <param name="srcInv">The source <see cref="InventoryBase"/> instance.</param>
+        /// <param name="destInv">The destination <see cref="InventoryBase"/> instance.</param>
+        /// <param name="srcInvName">The name of the source <see cref="InventoryType"/>.</param>
+        /// <param name="destInvName">The name of the destination <see cref="InventoryType"/>.</param>
+        /// <param name="packet">The <see cref="Packet"/>.</param>
+        private void DifferentInvsOperations(InventoryBase srcInv, InventoryBase destInv, string srcInvName, string destInvName, Packet packet)
+        {
+            #region infos
+            // packet
+            var srcSlot = packet.ReadByte();
+            var destSlot = packet.ReadByte();
+            // bag
+            var srcItem = srcInv.GetItemAt(srcSlot);
+            #endregion infos
+
+            #region options
+            // to empty slot, no more options
+            Move();
+            #endregion options
+
+            #region local methods
+            void Move()
+            {
+                srcInv.RemoveItemAt(srcSlot);
+                
+                srcItem.Slot = destSlot;
+                destInv.AddItem(srcItem);
+
+                Log.Debug($"[{srcInvName}->{destInvName}] Move item {srcItem.Record.GetRealName()} from {srcInvName}(slot={srcSlot}) to {destInvName}(slot={destSlot})");
+            }
+            #endregion local methods
+        }
+
     }
 }
