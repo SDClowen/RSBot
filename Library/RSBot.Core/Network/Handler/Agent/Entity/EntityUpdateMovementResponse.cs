@@ -32,27 +32,27 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
             var uniqueId = packet.ReadUInt();
 
             var movement = Movement.MotionFromPacket(packet);
-            if (uniqueId == Core.Game.Player.UniqueId || uniqueId == Core.Game.Player.Vehicle?.UniqueId)
+            if (uniqueId == Game.Player.UniqueId || uniqueId == Game.Player.Vehicle?.UniqueId)
             {
                 if (movement.HasSource)
-                    Core.Game.Player.SetSource(movement.Source);
+                    Game.Player.SetSource(movement.Source);
 
                 if (movement.HasDestination)
                 {
-                    Core.Game.Player.Move(movement.Destination);
+                    Game.Player.Move(movement.Destination);
 
                     if (CollisionManager.Region == null || CollisionManager.Region.Id != movement.Destination.RegionID)
                     {
-                        Core.Game.NearbyTeleporters = Core.Game.ReferenceManager.GetTeleporters(movement.Destination.RegionID);
+                        Game.NearbyTeleporters = Game.ReferenceManager.GetTeleporters(movement.Destination.RegionID);
 
-                        Log.Debug($"Found teleporters: {Core.Game.NearbyTeleporters.Length}");
+                        Log.Debug($"Found teleporters: {Game.NearbyTeleporters.Length}");
 
                         CollisionManager.Update(movement.Destination.RegionID);
                     }
                 }
                 else
                 {
-                    Core.Game.Player.Move(movement.Destination.Angle);
+                    Game.Player.Move(movement.Destination.Angle);
                 }
 
                 EventManager.FireEvent("OnPlayerMove");

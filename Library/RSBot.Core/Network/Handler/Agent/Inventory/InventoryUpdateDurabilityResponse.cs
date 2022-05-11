@@ -29,7 +29,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
             var slot = packet.ReadByte();
             var durability = packet.ReadUInt();
 
-            var item = Core.Game.Player.Inventory.GetItemAt(slot);
+            var item = Game.Player.Inventory.GetItemAt(slot);
             item.Durability = durability;
 
             EventManager.FireEvent("OnUpdateItemDurability", slot, durability);

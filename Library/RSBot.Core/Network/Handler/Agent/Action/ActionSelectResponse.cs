@@ -38,7 +38,7 @@ namespace RSBot.Core.Network.Handler.Agent.Action
                 return;
             }
 
-            Core.Game.SelectedEntity = entity;
+            Game.SelectedEntity = entity;
 
             if (entity is SpawnedMonster)
             {

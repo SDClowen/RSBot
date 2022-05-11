@@ -13,7 +13,7 @@ namespace RSBot.Core.Network.Handler.Agent.Exchange
         /// <inheritdoc />
         public void Invoke(Packet packet)
         {
-            Core.Game.Player.Exchange?.UpdateItems(packet);
+            Game.Player.Exchange?.UpdateItems(packet);
 
             EventManager.FireEvent("OnUpdateExchangeItems");
         }

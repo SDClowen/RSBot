@@ -29,22 +29,22 @@ namespace RSBot.Core.Network.Handler.Agent.Skill
         {
             if (packet.ReadByte() != 1)
             {
-                Core.Game.Player.Skills.PendingWithdrawSkill = 0;
+                Game.Player.Skills.PendingWithdrawSkill = 0;
                 return;
             }
 
             var skillId = packet.ReadUInt(); //the new skill's id
 
-            var oldSkill = Core.Game.Player.Skills.GetSkillInfoById(Core.Game.Player.Skills.PendingWithdrawSkill);
+            var oldSkill = Game.Player.Skills.GetSkillInfoById(Game.Player.Skills.PendingWithdrawSkill);
 
             if (oldSkill == null) return; //Should not happen! (Player unlearned an unknown skill!)
 
-            Core.Game.Player.Skills.RemoveSkillById(oldSkill.Id);
+            Game.Player.Skills.RemoveSkillById(oldSkill.Id);
 
             if (skillId != oldSkill.Id)
-                Core.Game.Player.Skills.KnownSkills.Add(new SkillInfo(skillId, true));
+                Game.Player.Skills.KnownSkills.Add(new SkillInfo(skillId, true));
 
-            Core.Game.Player.Skills.PendingWithdrawSkill = 0;
+            Game.Player.Skills.PendingWithdrawSkill = 0;
             EventManager.FireEvent("OnWithdrawSkill", oldSkill);
         }
     }

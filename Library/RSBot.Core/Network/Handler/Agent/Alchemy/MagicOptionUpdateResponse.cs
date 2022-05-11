@@ -24,7 +24,7 @@ namespace RSBot.Core.Network.Handler.Agent.Alchemy
             {
                 var slot = packet.ReadByte();
 
-                var oldItem = Core.Game.Player.Inventory.GetItemAt(slot);
+                var oldItem = Game.Player.Inventory.GetItemAt(slot);
                 var item = InventoryItem.FromPacket(packet, slot);
 
                 EventManager.FireEvent("OnMagicOptionUpdate", oldItem, item);

@@ -13,8 +13,8 @@ namespace RSBot.Core.Network.Handler.Agent.Exchange
         /// <inheritdoc />
         public void Invoke(Packet packet)
         {
-            Core.Game.Player.Exchange.Complete();
-            Core.Game.Player.Exchange = null;
+            Game.Player.Exchange.Complete();
+            Game.Player.Exchange = null;
 
             Log.Notify("Exchange completed.");
 

@@ -16,11 +16,11 @@ namespace RSBot.Core.Network.Handler.Agent.Alchemy
             var type = (AlchemyType)packet.ReadByte();
             if (type == AlchemyType.SocketInsert)
             {
-                var item = Core.Game.Player.Inventory.GetItemAt(packet.ReadByte()); //Target item
-                var socketItem = Core.Game.Player.Inventory.GetItemAt(packet.ReadByte()); //Target item
+                var item = Game.Player.Inventory.GetItemAt(packet.ReadByte()); //Target item
+                var socketItem = Game.Player.Inventory.GetItemAt(packet.ReadByte()); //Target item
 
                 if (item != null && socketItem != null)
-                    Core.Game.Player.ActiveAlchemyItems = new Dictionary<byte, InventoryItem>
+                    Game.Player.ActiveAlchemyItems = new Dictionary<byte, InventoryItem>
                     {
                         { item.Slot, item },
                         { socketItem.Slot, item }
@@ -31,14 +31,14 @@ namespace RSBot.Core.Network.Handler.Agent.Alchemy
 
             var slots = packet.ReadByteArray(packet.ReadByte());
 
-            Core.Game.Player.ActiveAlchemyItems = new Dictionary<byte, InventoryItem>(slots.Length);
+            Game.Player.ActiveAlchemyItems = new Dictionary<byte, InventoryItem>(slots.Length);
 
             foreach (var slot in slots)
             {
-                var item = Core.Game.Player.Inventory.GetItemAt(slot);
+                var item = Game.Player.Inventory.GetItemAt(slot);
 
                 if (item != null)
-                    Core.Game.Player.ActiveAlchemyItems.Add(item.Slot, item);
+                    Game.Player.ActiveAlchemyItems.Add(item.Slot, item);
             }
 
             EventManager.FireEvent("OnFuseRequest", action, type);

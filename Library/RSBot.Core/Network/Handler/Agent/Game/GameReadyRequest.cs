@@ -1,7 +1,7 @@
 ﻿using RSBot.Core.Event;
 using System.Timers;
 
-namespace RSBot.Core.Network.Handler.Agent.Game
+namespace RSBot.Core.Network.Handler.Agent
 {
     internal class GameReadyRequest : IPacketHandler
     {
@@ -27,7 +27,7 @@ namespace RSBot.Core.Network.Handler.Agent.Game
         /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
-            Core.Game.Player.Teleportation = null;
+            Game.Player.Teleportation = null;
 
             Log.Debug("The player is untouchable for 5s");
             var untouchableTimer = new Timer(5000) { AutoReset = false };
@@ -36,7 +36,7 @@ namespace RSBot.Core.Network.Handler.Agent.Game
             Log.Debug("Teleportation complete");
             EventManager.FireEvent("OnTeleportComplete");
 
-            Core.Game.Ready = true;
+            Game.Ready = true;
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace RSBot.Core.Network.Handler.Agent.Game
         private void UntouchableTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             Log.Debug("The player is no longer untouchable");
-            Core.Game.Player.Untouchable = false;
+            Game.Player.Untouchable = false;
         }
     }
 }

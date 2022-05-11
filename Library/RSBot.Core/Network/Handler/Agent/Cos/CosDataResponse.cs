@@ -30,12 +30,12 @@ namespace RSBot.Core.Network.Handler.Agent.Cos
             var uniqueId = packet.ReadUInt();
             var objectId = packet.ReadUInt();
 
-            var objChar = Core.Game.ReferenceManager.GetRefObjChar(objectId);
+            var objChar = Game.ReferenceManager.GetRefObjChar(objectId);
 
             if (objChar.TypeID2 == 2 && objChar.TypeID3 == 3 && (objChar.TypeID4 == 3 || objChar.TypeID4 == 9))
             {
                 //Attackpet
-                Core.Game.Player.AttackPet = AttackPet.FromPacket(packet, uniqueId, objectId);
+                Game.Player.AttackPet = AttackPet.FromPacket(packet, uniqueId, objectId);
                 EventManager.FireEvent("OnSummonAttackPet");
                 Log.Debug("Summoned attack pet");
             }
@@ -43,16 +43,16 @@ namespace RSBot.Core.Network.Handler.Agent.Cos
             {
                 var health = packet.ReadInt();
 
-                Core.Game.Player.Vehicle = new Vehicle(objectId, uniqueId, health);
+                Game.Player.Vehicle = new Vehicle(objectId, uniqueId, health);
                 EventManager.FireEvent("OnSummonVehicle");
                 Log.Debug("Mount vehicle");
 
-                Core.Game.Player.StopMoving();
-                Core.Game.Player.SetSpeed(objChar.Speed1, objChar.Speed2);
+                Game.Player.StopMoving();
+                Game.Player.SetSpeed(objChar.Speed1, objChar.Speed2);
             }
             else if (objChar.TypeID2 == 2 && objChar.TypeID3 == 3 && objChar.TypeID4 == 4)
             {
-                Core.Game.Player.AbilityPet = AbilityPet.FromPacket(packet, uniqueId, objectId);
+                Game.Player.AbilityPet = AbilityPet.FromPacket(packet, uniqueId, objectId);
                 EventManager.FireEvent("OnSummonAbilityPet");
                 Log.Debug("Summoned ability pet");
             }

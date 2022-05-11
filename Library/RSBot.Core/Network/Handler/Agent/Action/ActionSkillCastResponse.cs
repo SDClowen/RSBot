@@ -35,7 +35,7 @@ namespace RSBot.Core.Network.Handler.Agent.Action
                 switch (errorCode)
                 {
                     case 0x0E:
-                        Core.Game.Player.EquipAmmunition();
+                        Game.Player.EquipAmmunition();
                         break;
 
                     case 0x05:
@@ -58,9 +58,9 @@ namespace RSBot.Core.Network.Handler.Agent.Action
 
             if (action.PlayerIsExecutor)
             {
-                Core.Game.Player.StopMoving();
+                Game.Player.StopMoving();
 
-                var skill = Core.Game.Player.Skills.GetSkillInfoById(action.SkillId);
+                var skill = Game.Player.Skills.GetSkillInfoById(action.SkillId);
                 skill?.Update();
                 
                 EventManager.FireEvent("OnCastSkill", action.SkillId);

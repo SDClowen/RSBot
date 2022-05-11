@@ -32,7 +32,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
             var sourceSlot = packet.ReadByte();
             var itemUpdateFlag = (ItemUpdateFlag)packet.ReadByte();
 
-            var item = Core.Game.Player.Inventory.GetItemAt(sourceSlot);
+            var item = Game.Player.Inventory.GetItemAt(sourceSlot);
             if (item == null)
                 return;
 

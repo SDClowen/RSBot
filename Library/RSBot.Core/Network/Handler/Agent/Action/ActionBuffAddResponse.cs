@@ -41,9 +41,9 @@ namespace RSBot.Core.Network.Handler.Agent.Action
 
             var buffInfo = new SkillInfo(skillId, token);
 
-            if(targetId == Core.Game.Player.UniqueId)
+            if(targetId == Game.Player.UniqueId)
             {
-                Core.Game.Player.State.ActiveBuffs.Add(buffInfo);
+                Game.Player.State.ActiveBuffs.Add(buffInfo);
                 EventManager.FireEvent("OnAddBuff", buffInfo);
 
                 Log.Notify($"Buff [{buffInfo.Record.GetRealName()}] added.");

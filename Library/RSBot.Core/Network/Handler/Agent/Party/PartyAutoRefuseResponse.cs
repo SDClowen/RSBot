@@ -26,8 +26,8 @@ namespace RSBot.Core.Network.Handler.Agent.Party
         /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
-            if (Core.Game.Party.HasPendingRequest)
-                Core.Game.AcceptanceRequest = null;
+            if (Game.Party.HasPendingRequest)
+                Game.AcceptanceRequest = null;
 
             EventManager.FireEvent("OnPartyRequestRefused");
         }

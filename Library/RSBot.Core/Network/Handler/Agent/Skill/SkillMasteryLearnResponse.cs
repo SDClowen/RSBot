@@ -33,8 +33,8 @@ namespace RSBot.Core.Network.Handler.Agent.Skill
             var masteryId = packet.ReadUInt();
             var level = packet.ReadByte();
 
-            Core.Game.Player.Skills.UpdateMasteryLevel(masteryId, level);
-            EventManager.FireEvent("OnLearnSkillMastery", Core.Game.Player.Skills.GetMasteryInfoById(masteryId));
+            Game.Player.Skills.UpdateMasteryLevel(masteryId, level);
+            EventManager.FireEvent("OnLearnSkillMastery", Game.Player.Skills.GetMasteryInfoById(masteryId));
         }
     }
 }

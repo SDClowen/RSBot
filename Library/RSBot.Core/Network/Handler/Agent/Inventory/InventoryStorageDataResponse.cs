@@ -24,7 +24,7 @@
         /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
-            Core.Game.ChunkedPacket.WriteByteArray(packet.GetBytes());
+            Game.ChunkedPacket.WriteByteArray(packet.GetBytes());
         }
     }
 }

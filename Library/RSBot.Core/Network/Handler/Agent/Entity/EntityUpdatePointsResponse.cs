@@ -30,17 +30,17 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
             switch (type)
             {
                 case 1: //Gold
-                    Core.Game.Player.Gold = packet.ReadULong();
+                    Game.Player.Gold = packet.ReadULong();
                     EventManager.FireEvent("OnUpdateGold");
                     break;
 
                 case 2: //Skill points
-                    Core.Game.Player.SkillPoints = packet.ReadUInt();
+                    Game.Player.SkillPoints = packet.ReadUInt();
                     EventManager.FireEvent("OnUpdateSP");
                     break;
 
                 case 4: //Berzerker
-                    Core.Game.Player.BerzerkPoints = packet.ReadByte();
+                    Game.Player.BerzerkPoints = packet.ReadByte();
                     EventManager.FireEvent("OnUpdateBerzerkerPoints");
                     break;
             }

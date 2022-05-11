@@ -24,9 +24,10 @@
         /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
-            if (Core.Game.SpawnInfo == null) return; //No active spawn!
+            if (Game.SpawnInfo == null) 
+                return; //No active spawn!
 
-            Core.Game.SpawnInfo.Packet.WriteByteArray(packet.GetBytes());
+            Game.SpawnInfo.Packet.WriteByteArray(packet.GetBytes());
         }
     }
 }

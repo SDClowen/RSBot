@@ -26,7 +26,7 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
         /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
-            Core.Game.SpawnInfo = new SpawnPacketInfo
+            Game.SpawnInfo = new SpawnPacketInfo
             {
                 Packet = new Packet(0x3019),
                 Type = packet.ReadByte(),

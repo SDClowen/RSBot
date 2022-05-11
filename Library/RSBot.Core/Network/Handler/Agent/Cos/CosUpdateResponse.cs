@@ -29,12 +29,12 @@ namespace RSBot.Core.Network.Handler.Agent.Cos
             var uniqueId = packet.ReadUInt();
             var type = packet.ReadByte();
 
-            if (Core.Game.Player.AttackPet != null && Core.Game.Player.AttackPet.UniqueId == uniqueId)
+            if (Game.Player.AttackPet != null && Game.Player.AttackPet.UniqueId == uniqueId)
             {
                 switch (type)
                 {
                     case 1:
-                        Core.Game.Player.AttackPet = null;
+                        Game.Player.AttackPet = null;
                         EventManager.FireEvent("OnTerminateAttackPet");
                         break;
 
@@ -46,34 +46,35 @@ namespace RSBot.Core.Network.Handler.Agent.Cos
                         var experience = packet.ReadLong();
                         var source = packet.ReadUInt();
 
-                        if (source == Core.Game.Player.AttackPet.UniqueId || Core.Game.Player.AttackPet == null) return;
+                        if (source == Game.Player.AttackPet.UniqueId || Game.Player.AttackPet == null) 
+                            return;
 
-                        Core.Game.Player.AttackPet.Experience += experience;
+                        Game.Player.AttackPet.Experience += experience;
 
-                        var iLevel = Core.Game.Player.AttackPet.Level;
-                        while (Core.Game.Player.AttackPet.Experience > Core.Game.ReferenceManager.GetRefLevel(iLevel).Exp_C)
+                        var iLevel = Game.Player.AttackPet.Level;
+                        while (Game.Player.AttackPet.Experience > Game.ReferenceManager.GetRefLevel(iLevel).Exp_C)
                         {
-                            Core.Game.Player.AttackPet.Experience -= Core.Game.ReferenceManager.GetRefLevel(iLevel).Exp_C;
+                            Game.Player.AttackPet.Experience -= Game.ReferenceManager.GetRefLevel(iLevel).Exp_C;
                             iLevel++;
                         }
 
-                        if (Core.Game.Player.AttackPet.Level < iLevel)
+                        if (Game.Player.AttackPet.Level < iLevel)
                         {
-                            Core.Game.Player.AttackPet.Level = iLevel;
+                            Game.Player.AttackPet.Level = iLevel;
                             EventManager.FireEvent("OnPetLevelUp");
-                            Log.Notify($"Congratulations, your pet [{Core.Game.Player.AttackPet.Name}] level has increased to [{Core.Game.Player.AttackPet.Level}]");
+                            Log.Notify($"Congratulations, your pet [{Game.Player.AttackPet.Name}] level has increased to [{Game.Player.AttackPet.Level}]");
                         }
 
                         EventManager.FireEvent("OnPetExperienceUpdate");
                         break;
 
                     case 4:
-                        Core.Game.Player.AttackPet.CurrentHungerPoints = packet.ReadUShort();
+                        Game.Player.AttackPet.CurrentHungerPoints = packet.ReadUShort();
                         EventManager.FireEvent("OnAttackPetHungerUpdate");
                         break;
 
                     case 5:
-                        Core.Game.Player.AttackPet.Name = packet.ReadString();
+                        Game.Player.AttackPet.Name = packet.ReadString();
                         EventManager.FireEvent("OnAttackPetNameChange");
                         break;
 
@@ -83,30 +84,30 @@ namespace RSBot.Core.Network.Handler.Agent.Cos
                         break;
                 }
             }
-            else if (Core.Game.Player.AbilityPet != null && Core.Game.Player.AbilityPet.UniqueId == uniqueId)
+            else if (Game.Player.AbilityPet != null && Game.Player.AbilityPet.UniqueId == uniqueId)
             {
                 switch (type)
                 {
                     case 1:
-                        Core.Game.Player.AbilityPet = null;
+                        Game.Player.AbilityPet = null;
                         EventManager.FireEvent("OnTerminateAbilityPet");
                         break;
 
                     case 2:
-                        Core.Game.Player.AbilityPet.Inventory.Size = packet.ReadByte();
-                        Core.Game.Player.AbilityPet.ParseInventory(packet);
+                        Game.Player.AbilityPet.Inventory.Capacity = packet.ReadByte();
+                        Game.Player.AbilityPet.ParseInventory(packet);
                         EventManager.FireEvent("OnUpdateAbilityPetInventorySize");
                         break;
 
                     case 5:
-                        Core.Game.Player.AbilityPet.Name = packet.ReadString();
+                        Game.Player.AbilityPet.Name = packet.ReadString();
                         EventManager.FireEvent("OnAbilityPetNameChange");
                         break;
                 }
             }
-            else if (Core.Game.Player.Vehicle != null && Core.Game.Player.Vehicle.UniqueId == uniqueId)
+            else if (Game.Player.Vehicle != null && Game.Player.Vehicle.UniqueId == uniqueId)
             {
-                Core.Game.Player.Vehicle = null;
+                Game.Player.Vehicle = null;
                 EventManager.FireEvent("OnTerminateVehicle");
             }
         }

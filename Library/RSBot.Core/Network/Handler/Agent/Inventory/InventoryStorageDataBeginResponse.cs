@@ -24,7 +24,7 @@
         /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
-            Core.Game.ChunkedPacket = new Packet(0);
+            Game.ChunkedPacket = new Packet(0);
         }
     }
 }
