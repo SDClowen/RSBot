@@ -598,15 +598,15 @@ namespace RSBot.Party.Views
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void btnAddToAutoParty_Click(object sender, System.EventArgs e)
         {
-            var diag = new InputDialog(
+            var dialog = new InputDialog(
                 "Input", 
                 LanguageManager.GetLang("CharName"),
                 LanguageManager.GetLang("EnterCharNameForPartyList"));
 
-            if (diag.ShowDialog() != DialogResult.OK) 
+            if (dialog.ShowDialog(this) != DialogResult.OK) 
                 return;
 
-            listAutoParty.Items.Add(diag.Value.ToString());
+            listAutoParty.Items.Add(dialog.Value.ToString());
             SaveAutoPartyPlayerList();
         }
 
@@ -896,7 +896,7 @@ namespace RSBot.Party.Views
 
             var dialogTitle = LanguageManager.GetLang("SelectGroup", partyMember.Name);
             var dialogDesc = LanguageManager.GetLang("SelectGroupDesc");
-            var dialog = new InputDialog(dialogTitle,dialogTitle, dialogDesc, InputDialog.InputType.Combobox);
+            var dialog = new InputDialog(dialogTitle, dialogTitle, dialogDesc, InputDialog.InputType.Combobox);
 
             var groups = listViewGroups.Items.Cast<ListViewItem>()
                                              .Select(p => p.Text)
@@ -906,7 +906,7 @@ namespace RSBot.Party.Views
 
             dialog.Selector.SelectedIndex = 0;
 
-            if (dialog.ShowDialog() == DialogResult.OK)
+            if (dialog.ShowDialog(this) == DialogResult.OK)
             {
                 var dialogValue = dialog.Value.ToString();
 
@@ -937,7 +937,7 @@ namespace RSBot.Party.Views
             var desc = LanguageManager.GetLang("CreateNewGroupDesc");
 
             var dialog = new InputDialog(title, title, desc);
-            if (dialog.ShowDialog() == DialogResult.OK)
+            if (dialog.ShowDialog(this) == DialogResult.OK)
             {
                 var value = dialog.Value.ToString();
                 var item = listViewGroups.Items.Add(value, value, 0);
@@ -1011,7 +1011,7 @@ namespace RSBot.Party.Views
                 LanguageManager.GetLang("CharName"),
                 LanguageManager.GetLang("EnterCharNameForCommandList"));
 
-            if (diag.ShowDialog() != DialogResult.OK) 
+            if (diag.ShowDialog(this) != DialogResult.OK) 
                 return;
 
             listCommandPlayers.Items.Add(diag.Value.ToString());

@@ -71,7 +71,7 @@ namespace RSBot.Views
                     sroClientTypeSelectorDialog.Selector.SelectedIndex = 1;
                     sroClientTypeSelectorDialog.TopMost = true;
 
-                    if (sroClientTypeSelectorDialog.ShowDialog() == DialogResult.OK)
+                    if (sroClientTypeSelectorDialog.ShowDialog(this) == DialogResult.OK)
                     {
                         if (Enum.TryParse<GameClientType>(sroClientTypeSelectorDialog.Value.ToString(), out var clientType))
                         {

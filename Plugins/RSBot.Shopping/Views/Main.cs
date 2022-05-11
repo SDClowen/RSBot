@@ -634,7 +634,7 @@ namespace RSBot.Shopping.Views
                 var content = LanguageManager.GetLang("InputDialogContent");
 
                 var dialog = new InputDialog(title, listItem.Text, content, InputDialog.InputType.Numeric);
-                if (dialog.ShowDialog() == DialogResult.Cancel)
+                if (dialog.ShowDialog(this) == DialogResult.Cancel)
                     return;
 
                 if (listShoppingList.Items.ContainsKey(listItem.Name))
@@ -686,7 +686,7 @@ namespace RSBot.Shopping.Views
                 var dialog = new InputDialog(title, item.Text, content, InputDialog.InputType.Numeric);
                 dialog.Numeric.Value = defaultValue;
 
-                if (dialog.ShowDialog() == DialogResult.Cancel)
+                if (dialog.ShowDialog(this) == DialogResult.Cancel)
                     return;
 
                 item.SubItems[1].Text = "x" + dialog.Value;
