@@ -185,13 +185,16 @@ namespace RSBot.Core.Components
                 }
 
                 //merge stacks
-                if(refItem.MaxStack > 1)
+                if (refItem.MaxStack > 1)
                 {
-                    var nonFullStacks = Game.Player.Inventory.GetItems(i => i.Record.CodeName == refPackageItem.RefItemCodeName && i.Amount < refItem.MaxStack);
-                    while(nonFullStacks.Count >= 2)
+                    IList<InventoryItem> getItems() 
+                        => Game.Player.Inventory.GetItems(i => i.Record.CodeName == refPackageItem.RefItemCodeName && i.Amount < refItem.MaxStack); 
+
+                    var nonFullStacks = getItems();
+                    while (nonFullStacks.Count >= 2)
                     {
                         Game.Player.Inventory.MoveItem(nonFullStacks[1].Slot, nonFullStacks[0].Slot, (ushort)Math.Min(refItem.MaxStack - nonFullStacks[0].Amount, nonFullStacks[1].Amount));
-                        nonFullStacks = Game.Player.Inventory.GetItems(i => i.Record.CodeName == refPackageItem.RefItemCodeName && i.Amount < refItem.MaxStack);
+                        nonFullStacks = getItems();
                         Thread.Sleep(100);
                     }
                 }
