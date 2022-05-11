@@ -6,15 +6,14 @@ namespace RSBot.Core.Objects
     /// <summary>
     /// The Character's Invetory with EquippedPart and NormalPart.
     /// </summary>
-    public class CharacterInventory : InventoryBase
+    public class CharacterInventory : InventoryItemCollection
     {
         /// <summary>
         /// The constructor.
         /// </summary>
         /// <param name="size">The size.</param>
-        public CharacterInventory(byte size) : base(size)
-        {
-        }
+        public CharacterInventory(Packet packet) 
+            : base(packet) {}
 
         /// <summary>
         /// Minimum slot of NormalPart.
@@ -24,7 +23,7 @@ namespace RSBot.Core.Objects
         /// <summary>
         /// Gets the size of NormalPart.
         /// </summary>
-        public byte NormalPartSize => (byte)(Size - NORMAL_PART_MIN_SLOT);
+        public byte NormalPartSize => (byte)(Capacity - NORMAL_PART_MIN_SLOT);
 
         /// <summary>
         /// Gets a value indicating whether the NormalPart is full.
@@ -40,7 +39,7 @@ namespace RSBot.Core.Objects
         /// <returns>if found: the first free slot number; otherwise: 0</returns>
         public override byte GetFreeSlot()
         {
-            for (byte slot = NORMAL_PART_MIN_SLOT; slot < Size; slot++)
+            for (byte slot = NORMAL_PART_MIN_SLOT; slot < Capacity; slot++)
             {
                 if (GetItemAt(slot) == null)
                     return slot;
@@ -53,27 +52,23 @@ namespace RSBot.Core.Objects
         /// Gets items of EquippedPart, ordered by slot.
         /// </summary>
         /// <returns>If found: list of item(s), ordered by slot; otherwise empty list</returns>
-        public List<InventoryItem> GetEquippedPartItems() => GetItems(item => item.Slot < NORMAL_PART_MIN_SLOT);
+        public ICollection<InventoryItem> GetEquippedPartItems() 
+            => GetItems(item => item.Slot < NORMAL_PART_MIN_SLOT);
 
         /// <summary>
         /// Gets items of NormalPart, ordered by slot.
         /// </summary>
         /// <returns>If found: list of item(s), ordered by slot; otherwise empty list</returns>
-        public List<InventoryItem> GetNormalPartItems() => GetItems(item => item.Slot >= NORMAL_PART_MIN_SLOT);
+        public ICollection<InventoryItem> GetNormalPartItems() 
+            => GetItems(item => item.Slot >= NORMAL_PART_MIN_SLOT);
 
         /// <summary>
         /// Gets items of NormalPart by ItemId, ordered by slot.
         /// </summary>
         /// <param name="itemId">The identifier of item.</param>
         /// <returns>If found: list of item(s), ordered by slot; otherwise empty list</returns>
-        public List<InventoryItem> GetNormalPartItems(uint itemId) => GetItems(item => item.Slot >= NORMAL_PART_MIN_SLOT && item.ItemId == itemId);
-
-        /// <summary>
-        /// Gets item from first slot by <see cref="TypeIdFilter"/>.
-        /// </summary>
-        /// <param name="filter">The <see cref="TypeIdFilter"/>.</param>
-        /// <returns>if found: the first slot number; otherwise: 0</returns>
-        public byte GetFirstSlot(TypeIdFilter filter) => GetItem(filter) is InventoryItem item ? item.Slot : (byte)0x00;
+        public ICollection<InventoryItem> GetNormalPartItems(uint itemId) 
+            => GetItems(item => item.Slot >= NORMAL_PART_MIN_SLOT && item.ItemId == itemId);
 
         /// <summary>
         /// Moves the item inside Character's Inventory.
@@ -82,14 +77,12 @@ namespace RSBot.Core.Objects
         /// <param name="destinationSlot">The destination slot.</param>
         /// <param name="amount">The amount.</param>
         /// <returns><c>true</c> if successfully moved; otherwise, <c>false</c>.</returns>
-        public bool MoveItem(byte sourceSlot, byte destinationSlot, ushort? amount = null)
+        public bool MoveItem(byte sourceSlot, byte destinationSlot, ushort amount = 0)
         {
             var itemAtSource = GetItemAt(sourceSlot);
+            if (itemAtSource == null) 
+                return false;
 
-            if (itemAtSource == null) return false;
-
-            if (amount == null)
-                amount = 0;
             if (amount == 0)
                 amount = itemAtSource.Amount;
 

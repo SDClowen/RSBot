@@ -1,6 +1,7 @@
 ﻿using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Event;
 using RSBot.Core.Network;
+using RSBot.Core.Objects.Inventory;
 using RSBot.Core.Objects.Quests;
 using RSBot.Core.Objects.Spawn;
 using System;
@@ -12,43 +13,6 @@ namespace RSBot.Core.Objects
 {
     public class Player : SpawnedBionic
     {
-        /// <summary>
-        /// Gets or sets the Character's Inventory.
-        /// </summary>
-        /// <value>
-        /// The Character's Inventory.
-        /// </value>
-        public CharacterInventory Inventory { get; set; }
-        /// <summary>
-        /// Gets or sets the Avatar Inventory.
-        /// </summary>
-        /// <value>
-        /// The Avatar Inventory.
-        /// </value>
-        public InventoryBase Avatars { get; set; }
-        /// <summary>
-        /// Gets or sets the Job2 Inventory.
-        /// </summary>
-        /// <value>
-        /// The Job2 Inventory.
-        /// </value>
-        public InventoryBase Job2 { get; set; }
-
-        /// <summary>
-        /// Gets or sets the Storage.
-        /// </summary>
-        /// <value>
-        /// The Storage.
-        /// </value>
-        public InventoryBase Storage { get; set; }
-        /// <summary>
-        /// Gets or sets the GuildStorage.
-        /// </summary>
-        /// <value>
-        /// The GuildStorage.
-        /// </value>
-        public InventoryBase GuildStorage { get; set; }
-
         /// <summary>
         /// Gets or sets the scale.
         /// </summary>
@@ -416,6 +380,46 @@ namespace RSBot.Core.Objects
         /// The teleportation.
         /// </value>
         public Teleportation Teleportation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Character's Inventory.
+        /// </summary>
+        /// <value>
+        /// The Character's Inventory.
+        /// </value>
+        public CharacterInventory Inventory { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Avatar Inventory.
+        /// </summary>
+        /// <value>
+        /// The Avatar Inventory.
+        /// </value>
+        public InventoryItemCollection Avatars { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Job2 Inventory.
+        /// </summary>
+        /// <value>
+        /// The Job2 Inventory.
+        /// </value>
+        public InventoryItemCollection Job2 { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Storage.
+        /// </summary>
+        /// <value>
+        /// The Storage.
+        /// </value>
+        public Storage Storage { get; set; }
+
+        /// <summary>
+        /// Gets or sets the GuildStorage.
+        /// </summary>
+        /// <value>
+        /// The GuildStorage.
+        /// </value>
+        public Storage GuildStorage { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether [in action].

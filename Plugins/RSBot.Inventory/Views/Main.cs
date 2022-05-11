@@ -75,7 +75,7 @@ namespace RSBot.Inventory.Views
         /// <summary>
         /// Updates the inventory list.
         /// </summary>
-        public async void UpdateInventoryList()
+        public void UpdateInventoryList()
         {
             if (Parent == null)
                 return;
@@ -92,70 +92,76 @@ namespace RSBot.Inventory.Views
             switch (comboInventoryType.SelectedIndex)
             {
                 case 0:
+
                     var itemsPlayer = Game.Player.Inventory.GetNormalPartItems();
                     foreach (var item in itemsPlayer)
                         AddItem(item);
 
-                    var countPlayer = itemsPlayer.Count;
-                    var sizePlayer = Game.Player.Inventory.NormalPartSize;
-                    lblFreeSlots.Text = $"{sizePlayer - countPlayer}/{sizePlayer}";
+                    lblFreeSlots.Text = Game.Player.Inventory.Count + "/" + Game.Player.Inventory.Capacity;
+
                     break;
+
                 case 1:
+
                     foreach (var item in Game.Player.Inventory.GetEquippedPartItems())
                         AddItem(item);
 
                     lblFreeSlots.Text = "0";
+
                     break;
+
                 case 2:
-                    foreach (var item in Game.Player.Avatars.GetItems())
+
+                    foreach (var item in Game.Player.Avatars)
                         AddItem(item);
 
                     lblFreeSlots.Text = "0";
+
                     break;
+
                 case 3:
+
                     if (!Game.Player.HasActiveAbilityPet)
                     {
                         listViewMain.EndUpdate();
                         return;
                     }
 
-                    var itemsPet = Game.Player.AbilityPet.Inventory.GetItems();
-                    foreach (var item in itemsPet)
+                    foreach (var item in Game.Player.AbilityPet.Inventory)
                         AddItem(item);
 
-                    var countPet = Game.Player.AbilityPet.Inventory.ItemsCount;
-                    var sizePet = Game.Player.AbilityPet.Inventory.Size;
-                    lblFreeSlots.Text = $"{sizePet - countPet}/{sizePet}";
+                    lblFreeSlots.Text = Game.Player.AbilityPet.Inventory.Count + "/" + Game.Player.AbilityPet.Inventory.Capacity;
+
                     break;
+
                 case 4:
+
                     if (Game.Player.Storage == null)
                     {
                         listViewMain.EndUpdate();
                         return;
                     }
 
-                    var itemsStorage = Game.Player.Storage.GetItems();
-                    foreach (var item in itemsStorage)
+                    foreach (var item in Game.Player.Storage)
                         AddItem(item);
 
-                    var countStorage = Game.Player.Storage.ItemsCount;
-                    var sizeStorage = Game.Player.Storage.Size;
-                    lblFreeSlots.Text = $"{sizeStorage - countStorage}/{sizeStorage}";
+                    lblFreeSlots.Text = Game.Player.Storage.Count + "/" + Game.Player.Storage.Capacity;
+
                     break;
+
                 case 5:
+
                     if (Game.Player.GuildStorage == null)
                     {
                         listViewMain.EndUpdate();
                         return;
                     }
 
-                    var itemsGuildStorage = Game.Player.GuildStorage.GetItems();
-                    foreach (var item in itemsGuildStorage)
+                    foreach (var item in Game.Player.GuildStorage)
                         AddItem(item);
 
-                    var countGuildStorage = Game.Player.GuildStorage.ItemsCount;
-                    var sizeGuildStorage = Game.Player.GuildStorage.Size;
-                    lblFreeSlots.Text = $"{sizeGuildStorage - countGuildStorage}/{sizeGuildStorage}";
+                    lblFreeSlots.Text = Game.Player.GuildStorage.Count + "/" + Game.Player.GuildStorage.Capacity;
+
                     break;
             }
 

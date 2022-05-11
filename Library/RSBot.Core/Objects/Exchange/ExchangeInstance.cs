@@ -88,12 +88,12 @@ namespace RSBot.Core.Objects.Exchange
             foreach (var item in ReceivingItems)
             {
                 item.Item.Slot = Game.Player.Inventory.GetFreeSlot();
-                Game.Player.Inventory.AddItem(item.Item);
+                Game.Player.Inventory.Add(item.Item);
             }
 
             if (SendingItems != null)
                 foreach (var item in SendingItems)
-                    Game.Player.Inventory.RemoveItemAt(item.SourceSlot);
+                    Game.Player.Inventory.RemoveAt(item.SourceSlot);
         }
     }
 }
