@@ -101,11 +101,11 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::RSBot.Properties.Resources.logo;
-            this.pictureBox1.Location = new System.Drawing.Point(-10, -1);
+            this.pictureBox1.Image = global::RSBot.Properties.Resources.shark;
+            this.pictureBox1.Location = new System.Drawing.Point(15, 5);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(183, 82);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.Size = new System.Drawing.Size(128, 128);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
@@ -118,18 +118,19 @@
             this.CancelButton = this.btnNo;
             this.ClientSize = new System.Drawing.Size(440, 136);
             this.Controls.Add(this.labelInfo);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pictureBox1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(456, 175);
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(456, 175);
             this.Name = "ExitDialog";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "RSBot";
             this.Load += new System.EventHandler(this.ExitDialog_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

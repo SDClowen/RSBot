@@ -427,8 +427,7 @@ namespace RSBot.Views
             }
 
             var exitDialog = new ExitDialog();
-
-            if (exitDialog.ShowDialog() != DialogResult.Yes)
+            if (exitDialog.ShowDialog(this) != DialogResult.Yes)
             {
                 e.Cancel = true;
                 return;
