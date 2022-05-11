@@ -30,9 +30,9 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
             var uniqueId = packet.ReadUInt();
             var angle = packet.ReadShort();
 
-            if (Core.Game.Player.UniqueId == uniqueId)
+            if (Game.Player.UniqueId == uniqueId)
             {
-                Core.Game.Player.SetAngle(angle);
+                Game.Player.SetAngle(angle);
                 return;
             }
 

@@ -34,13 +34,13 @@ namespace RSBot.Core.Network.Handler.Agent.Action
             var recurring = packet.ReadByte();
             if (recurring == 0)
             {
-                Core.Game.Player.InAction = false;
+                Game.Player.InAction = false;
                 Log.Debug("Player has exited in action!");
                 EventManager.FireEvent("OnPlayerExitAction");
             }
             else
             {
-                Core.Game.Player.InAction = true;
+                Game.Player.InAction = true;
                 Log.Debug("Player has entered in action!");
                 EventManager.FireEvent("OnPlayerInAction");
             }
@@ -48,12 +48,12 @@ namespace RSBot.Core.Network.Handler.Agent.Action
             switch (state)
             {
                 case 0x01:
-                    Core.Game.Player.InAction = true;
+                    Game.Player.InAction = true;
                     EventManager.FireEvent("OnPlayerInAction");
                     break;
 
                 case 0x02:
-                    Core.Game.Player.InAction = recurring != 0;
+                    Game.Player.InAction = recurring != 0;
 
                     EventManager.FireEvent("OnPlayerExitAction");
                     break;

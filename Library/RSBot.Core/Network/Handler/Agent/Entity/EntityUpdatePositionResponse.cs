@@ -30,9 +30,9 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
         {
             var uniqueId = packet.ReadUInt();
             var position = Position.FromPacket(packet);
-            if (uniqueId == Core.Game.Player.UniqueId || (Core.Game.Player.Vehicle != null && uniqueId == Core.Game.Player.Vehicle.UniqueId))
+            if (uniqueId == Game.Player.UniqueId || (Game.Player.Vehicle != null && uniqueId == Game.Player.Vehicle.UniqueId))
             {
-                Core.Game.Player.StopMoving(position);
+                Game.Player.StopMoving(position);
                 return;
             }
 

@@ -32,14 +32,14 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
             switch (type)
             {
                 case 1:
-                    Core.Game.Player.Inventory.Size = size;
+                    Game.Player.Inventory.Capacity = size;
                     Log.Debug($"Inventory size has been updated to [{size}] slots");
                     EventManager.FireEvent("OnUpdateInventorySize");
                     break;
 
                 case 2:
-                    if (Core.Game.Player.Storage != null)
-                        Core.Game.Player.Storage.Size = size;
+                    if (Game.Player.Storage != null)
+                        Game.Player.Storage.Capacity = size;
                     Log.Debug($"Storage size has been updated to [{size}] slots");
                     EventManager.FireEvent("OnUpdateStorageSize");
                     break;

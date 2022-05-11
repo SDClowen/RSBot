@@ -28,14 +28,14 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
         /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
-            packet = Core.Game.SpawnInfo.Packet;
+            packet = Game.SpawnInfo.Packet;
             packet.Lock();
 
-            for (var i = 0; i < Core.Game.SpawnInfo.Amount; i++)
+            for (var i = 0; i < Game.SpawnInfo.Amount; i++)
             {
                 try
                 {
-                    switch (Core.Game.SpawnInfo.Type)
+                    switch (Game.SpawnInfo.Type)
                     {
                         case 0x01: //Spawn
 
@@ -57,7 +57,7 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                 }
             }
 
-            Core.Game.SpawnInfo = null; //release some resources!
+            Game.SpawnInfo = null; //release some resources!
         }
     }
 }

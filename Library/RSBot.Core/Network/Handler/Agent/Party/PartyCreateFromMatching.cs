@@ -28,25 +28,25 @@ namespace RSBot.Core.Network.Handler.Agent.Party
         /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
-            Core.Game.Party = new Objects.Party.Party
+            Game.Party = new Objects.Party.Party
             {
                 Members = new List<PartyMember>()
             };
 
             packet.ReadByte(); //FF
 
-            if (Core.Game.ClientType > GameClientType.Thailand)
+            if (Game.ClientType > GameClientType.Thailand)
                 packet.ReadUInt(); // partyId
 
             var leaderId = packet.ReadUInt();
 
-            Core.Game.Party.Settings = PartySettings.FromType(packet.ReadByte());
+            Game.Party.Settings = PartySettings.FromType(packet.ReadByte());
 
             var memberAmount = packet.ReadByte();
             for (var iMember = 0; iMember < memberAmount; iMember++)
-                Core.Game.Party.Members.Add(PartyMember.FromPacket(packet));
+                Game.Party.Members.Add(PartyMember.FromPacket(packet));
 
-            Core.Game.Party.Leader = Core.Game.Party.GetMemberById(leaderId);
+            Game.Party.Leader = Game.Party.GetMemberById(leaderId);
 
             EventManager.FireEvent("OnPartyData");
         }

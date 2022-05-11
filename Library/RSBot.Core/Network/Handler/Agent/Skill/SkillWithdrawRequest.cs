@@ -30,7 +30,7 @@ namespace RSBot.Core.Network.Handler.Agent.Skill
             var skillId = packet.ReadUInt();
             var level = packet.ReadByte();
 
-            Core.Game.Player.Skills.PendingWithdrawSkill = skillId;
+            Game.Player.Skills.PendingWithdrawSkill = skillId;
             EventManager.FireEvent("OnWithdrawSkillRequest", skillId, level);
         }
     }

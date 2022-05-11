@@ -1,6 +1,6 @@
 ﻿using RSBot.Core.Event;
 
-namespace RSBot.Core.Network.Handler.Agent.Game
+namespace RSBot.Core.Network.Handler.Agent
 {
     internal class GameResetCompleteResponse : IPacketHandler
     {
@@ -26,9 +26,10 @@ namespace RSBot.Core.Network.Handler.Agent.Game
         /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
-            if (Core.Game.Player.Teleportation == null) return;
+            if (Game.Player.Teleportation == null) 
+                return;
 
-            Core.Game.Player.Teleportation.IsTeleporting = true;
+            Game.Player.Teleportation.IsTeleporting = true;
             EventManager.FireEvent("OnTeleportStart");
         }
     }

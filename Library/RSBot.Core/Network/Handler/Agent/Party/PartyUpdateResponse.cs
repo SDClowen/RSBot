@@ -33,27 +33,27 @@ namespace RSBot.Core.Network.Handler.Agent.Party
             switch (type)
             {
                 case PartyUpdateType.Dismissed:
-                    Core.Game.Party.Clear();
+                    Game.Party.Clear();
                     EventManager.FireEvent("OnPartyDismiss");
                     break;
 
                 case PartyUpdateType.Joined:
-                    Core.Game.Party.Members?.Add(PartyMember.FromPacket(packet));
-                    EventManager.FireEvent("OnPartyMemberJoin", Core.Game.Party.Members?[Core.Game.Party.Members.Count - 1]);
+                    Game.Party.Members?.Add(PartyMember.FromPacket(packet));
+                    EventManager.FireEvent("OnPartyMemberJoin", Game.Party.Members?[Game.Party.Members.Count - 1]);
                     break;
 
                 case PartyUpdateType.Leave:
-                    var memberLeft = Core.Game.Party.GetMemberById(packet.ReadUInt());
-                    Core.Game.Party.Members.Remove(memberLeft);
+                    var memberLeft = Game.Party.GetMemberById(packet.ReadUInt());
+                    Game.Party.Members.Remove(memberLeft);
                     /*
                         0x03 => ????
                      */
                     if (packet.ReadByte() == 0x04)
                         EventManager.FireEvent("OnPartyMemberBanned", memberLeft);
-                    else if (memberLeft.Name == Core.Game.Player.Name)
+                    else if (memberLeft.Name == Game.Player.Name)
                     {
                         EventManager.FireEvent("OnPartyDismiss");
-                        Core.Game.Party.Clear();
+                        Game.Party.Clear();
                     }
                     else
                         EventManager.FireEvent("OnPartyMemberLeave", memberLeft);
@@ -62,7 +62,7 @@ namespace RSBot.Core.Network.Handler.Agent.Party
 
                 case PartyUpdateType.Member:
                     var memberId = packet.ReadUInt();
-                    var member = Core.Game.Party.GetMemberById(memberId);
+                    var member = Game.Party.GetMemberById(memberId);
                     var memberUpdateType = (PartyMemberUpdateType)packet.ReadByte();
 
                     switch (memberUpdateType)
@@ -117,7 +117,7 @@ namespace RSBot.Core.Network.Handler.Agent.Party
                     break;
 
                 case PartyUpdateType.Leader:
-                    Core.Game.Party.Leader = Core.Game.Party.GetMemberById(packet.ReadUInt());
+                    Game.Party.Leader = Game.Party.GetMemberById(packet.ReadUInt());
                     EventManager.FireEvent("OnPartyLeaderChange");
                     break;
 

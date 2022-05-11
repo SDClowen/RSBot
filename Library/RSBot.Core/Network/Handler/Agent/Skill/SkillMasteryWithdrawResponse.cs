@@ -31,8 +31,8 @@ namespace RSBot.Core.Network.Handler.Agent.Skill
             var masteryId = packet.ReadUInt();
             var level = packet.ReadByte();
 
-            Core.Game.Player.Skills.UpdateMasteryLevel(masteryId, level);
-            Log.Notify($"The mastery [{Core.Game.Player.Skills.GetMasteryInfoById(masteryId).Record.Name}] was withdrawn to [lv.{level}]");
+            Game.Player.Skills.UpdateMasteryLevel(masteryId, level);
+            Log.Notify($"The mastery [{Game.Player.Skills.GetMasteryInfoById(masteryId).Record.Name}] was withdrawn to [lv.{level}]");
             EventManager.FireEvent("OnWithdrawMastery", masteryId, level);
         }
     }

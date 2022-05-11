@@ -31,9 +31,9 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
             var position = Position.FromPacket(packet);
             var uniqueId = packet.ReadUInt();
 
-            if(uniqueId == Core.Game.Player.UniqueId)
+            if(uniqueId == Game.Player.UniqueId)
             {
-                Core.Game.Player.SetSource(position);
+                Game.Player.SetSource(position);
                 return;
             }
 

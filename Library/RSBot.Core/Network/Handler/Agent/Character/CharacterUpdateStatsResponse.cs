@@ -26,22 +26,23 @@ namespace RSBot.Core.Network.Handler.Agent.Character
         /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
-            Core.Game.Player.PhysicalAttackMin = packet.ReadUInt();
-            Core.Game.Player.PhysicalAttackMax = packet.ReadUInt();
-            Core.Game.Player.MagicalAttackMin = packet.ReadUInt();
-            Core.Game.Player.MagicalAttackMax = packet.ReadUInt();
-
-            Core.Game.Player.PhysicalDefence = packet.ReadUShort();
-            Core.Game.Player.MagicalDefence = packet.ReadUShort();
-
-            Core.Game.Player.HitRate = packet.ReadUShort();
-            Core.Game.Player.ParryRate = packet.ReadUShort();
-
-            Core.Game.Player.MaximumHealth = packet.ReadInt();
-            Core.Game.Player.MaximumMana = packet.ReadInt();
-
-            Core.Game.Player.Strength = packet.ReadUShort();
-            Core.Game.Player.Intelligence = packet.ReadUShort();
+            var player = Game.Player;
+            player.PhysicalAttackMin = packet.ReadUInt();
+            player.PhysicalAttackMax = packet.ReadUInt();
+            player.MagicalAttackMin = packet.ReadUInt();
+            player.MagicalAttackMax = packet.ReadUInt();
+            
+            player.PhysicalDefence = packet.ReadUShort();
+            player.MagicalDefence = packet.ReadUShort();
+            
+            player.HitRate = packet.ReadUShort();
+            player.ParryRate = packet.ReadUShort();
+            
+            player.MaximumHealth = packet.ReadInt();
+            player.MaximumMana = packet.ReadInt();
+            
+            player.Strength = packet.ReadUShort();
+            player.Intelligence = packet.ReadUShort();
             
             EventManager.FireEvent("OnLoadCharacterStats");
         }

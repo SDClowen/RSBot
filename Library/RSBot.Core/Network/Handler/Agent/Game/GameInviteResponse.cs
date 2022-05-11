@@ -2,7 +2,7 @@
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Party;
 
-namespace RSBot.Core.Network.Handler.Agent.Game
+namespace RSBot.Core.Network.Handler.Agent
 {
     internal class GameInviteResponse : IPacketHandler
     {
@@ -28,16 +28,16 @@ namespace RSBot.Core.Network.Handler.Agent.Game
         /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
-            Core.Game.AcceptanceRequest = AcceptanceRequest.FromPacket(packet);
+            Game.AcceptanceRequest = AcceptanceRequest.FromPacket(packet);
 
-            switch (Core.Game.AcceptanceRequest.Type)
+            switch (Game.AcceptanceRequest.Type)
             {
                 case InviteRequestType.Party1:
                 case InviteRequestType.Party2:
 
-                    Core.Game.AcceptanceRequest.Settings = PartySettings.FromType(packet.ReadByte());
+                    Game.AcceptanceRequest.Settings = PartySettings.FromType(packet.ReadByte());
 
-                    if (Core.Game.Party.HasPendingRequest)
+                    if (Game.Party.HasPendingRequest)
                         EventManager.FireEvent("OnPartyRequest");
 
                     break;

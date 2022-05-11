@@ -37,18 +37,18 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
             switch (type)
             {
                 case 0:
-                    if (uniqueId == Core.Game.Player.UniqueId)
-                        Core.Game.Player.State.LifeState = (LifeState)state;
+                    if (uniqueId == Game.Player.UniqueId)
+                        Game.Player.State.LifeState = (LifeState)state;
                     else
                     {
                         if (!SpawnManager.TryGetEntity<SpawnedBionic>(uniqueId, out var bionic))
                             return;
 
                         bionic.State.LifeState = (LifeState)state;
-                        if (uniqueId == Core.Game.SelectedEntity?.UniqueId && bionic.State.LifeState == LifeState.Dead)
+                        if (uniqueId == Game.SelectedEntity?.UniqueId && bionic.State.LifeState == LifeState.Dead)
                         {
                             EventManager.FireEvent("OnKillSelectedEnemy");
-                            Core.Game.SelectedEntity = null;
+                            Game.SelectedEntity = null;
                         }
                     }
 
@@ -64,13 +64,13 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                     {
 
                     }
-                    else if (uniqueId == Core.Game.Player.UniqueId)
+                    else if (uniqueId == Game.Player.UniqueId)
                     {
-                        entity = Core.Game.Player;
+                        entity = Game.Player;
                     }
-                    else if (Core.Game.Player.Vehicle != null && uniqueId == Core.Game.Player.Vehicle.UniqueId)
+                    else if (Game.Player.Vehicle != null && uniqueId == Game.Player.Vehicle.UniqueId)
                     {
-                        entity = Core.Game.Player.Vehicle;
+                        entity = Game.Player.Vehicle;
                     }
 
                     if (entity == null)
@@ -96,8 +96,8 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                     break;
 
                 case 4:
-                    if (uniqueId == Core.Game.Player.UniqueId)
-                        Core.Game.Player.State.BodyState = (BodyState)state;
+                    if (uniqueId == Game.Player.UniqueId)
+                        Game.Player.State.BodyState = (BodyState)state;
                     else
                     {
                         if (!SpawnManager.TryGetEntity<SpawnedBionic>(uniqueId, out var bionic))
@@ -109,8 +109,8 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                     break;
 
                 case 7:
-                    if (uniqueId == Core.Game.Player.UniqueId)
-                        Core.Game.Player.State.PvpState = (PvpState)state;
+                    if (uniqueId == Game.Player.UniqueId)
+                        Game.Player.State.PvpState = (PvpState)state;
                     else
                     {
                         if (!SpawnManager.TryGetEntity<SpawnedBionic>(uniqueId, out var bionic))
@@ -123,8 +123,8 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                     break;
 
                 case 8:
-                    if (uniqueId == Core.Game.Player.UniqueId)
-                        Core.Game.Player.State.BattleState = (BattleState)state;
+                    if (uniqueId == Game.Player.UniqueId)
+                        Game.Player.State.BattleState = (BattleState)state;
                     else
                     {
                         if (!SpawnManager.TryGetEntity<SpawnedBionic>(uniqueId, out var bionic))
@@ -137,10 +137,10 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                     break;
 
                 case 11:
-                    if (uniqueId == Core.Game.Player.UniqueId)
+                    if (uniqueId == Game.Player.UniqueId)
                     {
-                        Core.Game.Player.State.ScrollState = (ScrollState)state;
-                        if (Core.Game.Player.State.ScrollState == ScrollState.Cancel && Kernel.Bot.Running)
+                        Game.Player.State.ScrollState = (ScrollState)state;
+                        if (Game.Player.State.ScrollState == ScrollState.Cancel && Kernel.Bot.Running)
                             Kernel.Bot.Stop();
                     }
                     else

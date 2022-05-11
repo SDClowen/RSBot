@@ -27,7 +27,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
         public void Invoke(Packet packet)
         {
             var ammunitionAmount = packet.ReadUShort();
-            Core.Game.Player.Inventory.UpdateItemAmount(7, ammunitionAmount);
+            Game.Player.Inventory.UpdateItemAmount(7, ammunitionAmount);
 
             EventManager.FireEvent("OnUpdateAmmunition");
         }

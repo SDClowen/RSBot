@@ -40,14 +40,14 @@ namespace RSBot.Core.Network.Handler.Agent.Action
                 if (token == 0) // debuffs
                     continue;
 
-                if (Core.Game.Player.State.TryGetActiveBuff(token, out var buff))
+                if (Game.Player.State.TryGetActiveBuff(token, out var buff))
                 {
                     Log.Notify($"The buff [{buff.Record?.GetRealName()}] expired");
 
-                    Core.Game.Player.State.TryRemoveActiveBuff(token, out var removedBuff);
+                    Game.Player.State.TryRemoveActiveBuff(token, out var removedBuff);
                     EventManager.FireEvent("OnRemoveBuff", removedBuff);
 
-                    var playerSkill = Core.Game.Player.Skills.GetSkillInfoById(buff.Id);
+                    var playerSkill = Game.Player.Skills.GetSkillInfoById(buff.Id);
                     playerSkill?.Reset();
 
                     return;

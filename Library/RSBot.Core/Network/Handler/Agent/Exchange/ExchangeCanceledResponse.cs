@@ -13,7 +13,7 @@ namespace RSBot.Core.Network.Handler.Agent.Exchange
         /// <inheritdoc />
         public void Invoke(Packet packet)
         {
-            Core.Game.Player.Exchange = null;
+            Game.Player.Exchange = null;
 
             Log.Notify("Exchange has been canceled.");
 

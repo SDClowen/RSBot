@@ -33,15 +33,15 @@ namespace RSBot.Core.Network.Handler.Agent.Skill
 
             var skillId = packet.ReadUInt();
 
-            var skill = Core.Game.ReferenceManager.GetRefSkill(skillId);
-            var existingSkill = Core.Game.Player.Skills.GetSkillRecordByName(skill.GetRealName());
+            var skill = Game.ReferenceManager.GetRefSkill(skillId);
+            var existingSkill = Game.Player.Skills.GetSkillRecordByName(skill.GetRealName());
 
             if (existingSkill == null) //New skill learned
-                Core.Game.Player.Skills.KnownSkills.Add(new SkillInfo(skill.ID, true));
+                Game.Player.Skills.KnownSkills.Add(new SkillInfo(skill.ID, true));
             else //Skill leveled up
-                Core.Game.Player.Skills.GetSkillInfoById(existingSkill.ID).Id = skill.ID;
+                Game.Player.Skills.GetSkillInfoById(existingSkill.ID).Id = skill.ID;
 
-            EventManager.FireEvent("OnLearnSkill", Core.Game.Player.Skills.GetSkillInfoById(skill.ID), existingSkill != null);
+            EventManager.FireEvent("OnLearnSkill", Game.Player.Skills.GetSkillInfoById(skill.ID), existingSkill != null);
         }
     }
 }
