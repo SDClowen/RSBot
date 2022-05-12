@@ -55,7 +55,7 @@ namespace RSBot.Views
                     FileName = "sro_client.exe"
                 };
 
-                var result = diag.ShowDialog();
+                var result = diag.ShowDialog(this);
 
                 var silkroadDirectory = Path.GetDirectoryName(diag.FileName);
 
@@ -66,14 +66,16 @@ namespace RSBot.Views
 
                     var title = LanguageManager.GetLang("ClientTypeInputDialogTitle");
                     var content = LanguageManager.GetLang("ClientTypeInputDialogContent");
-                    var sroClientTypeSelectorDialog = new InputDialog(title, title, content, InputDialog.InputType.Combobox);
-                    sroClientTypeSelectorDialog.Selector.Items.AddRange(Enum.GetNames(typeof(GameClientType)));
-                    sroClientTypeSelectorDialog.Selector.SelectedIndex = 1;
-                    sroClientTypeSelectorDialog.TopMost = true;
 
-                    if (sroClientTypeSelectorDialog.ShowDialog(this) == DialogResult.OK)
+                    var clientTypeDialog = new InputDialog(title, title, content, InputDialog.InputType.Combobox);
+                    clientTypeDialog.Selector.Items.AddRange(Enum.GetNames(typeof(GameClientType)));
+                    clientTypeDialog.Selector.SelectedIndex = 1;
+                    clientTypeDialog.TopMost = true;
+                    clientTypeDialog.StartPosition = FormStartPosition.CenterScreen;
+
+                    if (clientTypeDialog.ShowDialog() == DialogResult.OK)
                     {
-                        if (Enum.TryParse<GameClientType>(sroClientTypeSelectorDialog.Value.ToString(), out var clientType))
+                        if (Enum.TryParse<GameClientType>(clientTypeDialog.Value.ToString(), out var clientType))
                         {
                             GlobalConfig.Set("RSBot.Game.ClientType", clientType);
                         }
