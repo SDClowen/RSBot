@@ -1,11 +1,8 @@
-﻿using RSBot.Core.Client.ReferenceObjects;
-using RSBot.Core.Components;
+﻿using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Network;
 using RSBot.Core.Objects.Spawn;
 using System;
-using System.Linq;
-using System.Timers;
 
 namespace RSBot.Core.Objects
 {
@@ -132,9 +129,9 @@ namespace RSBot.Core.Objects
         public bool UseHealthPotion()
         {
             var typeIdFilter = new TypeIdFilter(3, 3, 1, 4);
-            var slot = Game.Player.Inventory.GetFirstSlot(typeIdFilter);
-
-            if (slot == 0) return false;
+            var slot = Game.Player.Inventory.GetItem(typeIdFilter);
+            if (slot == null) 
+                return false;
 
             var packet = new Packet(0x704C);
             packet.WriteByte(slot);
@@ -153,9 +150,9 @@ namespace RSBot.Core.Objects
         public bool UseBadStatusPotion()
         {
             var typeIdFilter = new TypeIdFilter(3, 3, 2, 7);
-            var slot = Game.Player.Inventory.GetFirstSlot(typeIdFilter);
-
-            if (slot == 0) return false;
+            var slot = Game.Player.Inventory.GetItem(typeIdFilter);
+            if (slot == null) 
+                return false;
 
             var packet = new Packet(0x704C);
             packet.WriteByte(slot);
@@ -174,9 +171,9 @@ namespace RSBot.Core.Objects
         public bool UseHungerPotion()
         {
             var typeIdFilter = new TypeIdFilter(3, 3, 1, 9);
-            var slot = Game.Player.Inventory.GetFirstSlot(typeIdFilter);
-
-            if (slot == 0) return false;
+            var slot = Game.Player.Inventory.GetItem(typeIdFilter);
+            if (slot == null) 
+                return false;
 
             var packet = new Packet(0x704C);
             packet.WriteByte(slot);

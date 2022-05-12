@@ -9,7 +9,7 @@ namespace RSBot.Core.Network.Handler.Agent.Alchemy
         public static void Invoke(Packet packet, AlchemyType type)
         {
             EventManager.FireEvent("OnAlchemy", type);
-            Core.Game.Player.ActiveAlchemyItems = null;
+            Game.Player.ActiveAlchemyItems = null;
 
             var result = packet.ReadByte();
 
@@ -32,7 +32,7 @@ namespace RSBot.Core.Network.Handler.Agent.Alchemy
             var isSuccess = packet.ReadBool();
             var slot = packet.ReadByte();
 
-            var oldItem = Core.Game.Player.Inventory.GetItemAt(slot);
+            var oldItem = Game.Player.Inventory.GetItemAt(slot);
 
             if (!isSuccess)
             {
@@ -42,7 +42,7 @@ namespace RSBot.Core.Network.Handler.Agent.Alchemy
                 {
 
                     EventManager.FireEvent("OnAlchemyDestroyed", oldItem, type);
-                    Core.Game.Player.Inventory.RemoveItemAt(slot);
+                    Game.Player.Inventory.RemoveAt(slot);
 
                     return;
                 }
@@ -50,8 +50,8 @@ namespace RSBot.Core.Network.Handler.Agent.Alchemy
             
             var newItem = InventoryItem.FromPacket(packet, slot);
 
-            Core.Game.Player.Inventory.RemoveItemAt(slot);
-            Core.Game.Player.Inventory.AddItem(newItem);
+            Game.Player.Inventory.RemoveAt(slot);
+            Game.Player.Inventory.Add(newItem);
 
             EventManager.FireEvent(isSuccess ? "OnAlchemySuccess" : "OnAlchemyFailed", oldItem, newItem, type);
         }

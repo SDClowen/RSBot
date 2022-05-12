@@ -60,9 +60,8 @@ namespace RSBot.Bot.Default.Bot
 
             if (Bundles.Loop.Config.UseSpeedDrug && Game.Player.State.ActiveBuffs.FindIndex(p => p.Record.Action_Overlap == 6) < 0)
             {
-                var item = Game.Player.Inventory.GetItems(new TypeIdFilter(3, 3, 13, 1)).Find(p => p.Record.Desc1.Contains("_SPEED_"));
-                if (item != null)
-                    item.Use();
+                var item = Game.Player.Inventory.GetItem(new TypeIdFilter(3, 3, 13, 1), p => p.Record.Desc1.Contains("_SPEED_"));
+                item?.Use();
             }
 
             var noAttack = PlayerConfig.Get("RSBot.Skills.NoAttack", false);

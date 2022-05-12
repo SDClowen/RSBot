@@ -1,7 +1,5 @@
 ﻿using RSBot.Core.Network;
 using RSBot.Core.Objects.Spawn;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace RSBot.Core.Objects
 {
@@ -21,7 +19,7 @@ namespace RSBot.Core.Objects
         /// <value>
         /// The AbilityPet's Inventory.
         /// </value>
-        public InventoryBase Inventory { get; set; }
+        public InventoryItemCollection Inventory { get; set; }
 
         /// <summary>
         /// Froms the packet.
@@ -43,7 +41,7 @@ namespace RSBot.Core.Objects
             packet.ReadUInt(); // COS.Settings
 
             result.Name = packet.ReadString();
-            result.Inventory = new InventoryBase(packet.ReadByte());
+            result.Inventory = new InventoryItemCollection(packet.ReadByte());
 
             result.ParseInventory(packet);
 
@@ -58,7 +56,7 @@ namespace RSBot.Core.Objects
         {
             var itemAmount = packet.ReadByte();
             for (var i = 0; i < itemAmount; i++)
-                Inventory.AddItem(InventoryItem.FromPacket(packet));
+                Inventory.Add(InventoryItem.FromPacket(packet));
         }
 
         /// <summary>
