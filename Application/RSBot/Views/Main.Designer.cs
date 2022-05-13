@@ -106,6 +106,7 @@ namespace RSBot.Views
             // 
             // toolStripStatusLabel1
             // 
+            this.toolStripStatusLabel1.BackColor = System.Drawing.Color.Transparent;
             this.toolStripStatusLabel1.ForeColor = System.Drawing.Color.White;
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(16, 17);
@@ -313,8 +314,8 @@ namespace RSBot.Views
             // menuScriptRecorder
             // 
             this.menuScriptRecorder.Name = "menuScriptRecorder";
-            this.menuScriptRecorder.Size = new System.Drawing.Size(154, 22);
-            this.menuScriptRecorder.Text = "Script Recorder";
+            this.menuScriptRecorder.Size = new System.Drawing.Size(142, 22);
+            this.menuScriptRecorder.Text = "File Recorder";
             this.menuScriptRecorder.Click += new System.EventHandler(this.menuScriptRecorder_Click);
             // 
             // menuPlugins
@@ -481,9 +482,9 @@ namespace RSBot.Views
             this.Controls.Add(this.topCharacter);
             this.Controls.Add(this.pSidebar);
             this.Controls.Add(this.bottomPanel);
-            this.Controls.Add(this.stripStatus);
             this.Controls.Add(this.separator);
             this.Controls.Add(this.menuStrip);
+            this.Controls.Add(this.stripStatus);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;

@@ -1,24 +1,23 @@
-﻿using RSBot.Core.Event;
-using RSBot.Core.Network;
+﻿using RSBot.Core.Components.Scripting;
+using RSBot.Core.Event;
 using RSBot.Core.Objects;
-using RSBot.Core.Objects.Spawn;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading;
 
 namespace RSBot.Core.Components
 {
     public class ScriptManager
     {
+        #region Properties
+
         /// <summary>
-        /// Gets or sets the script.
+        /// Gets or sets the file.
         /// </summary>
         /// <value>
-        /// The script.
+        /// The file.
         /// </value>
-        public static string Script { get; set; }
+        public static string File { get; set; }
 
         /// <summary>
         /// Gets or sets the commands.
@@ -37,19 +36,62 @@ namespace RSBot.Core.Components
         public static bool Running { get; set; }
 
         /// <summary>
-        /// Loads the specified script.
+        /// Gets the command handlers.
         /// </summary>
-        /// <param name="script">The script.</param>
-        public static void Load(string script)
+        /// <value>The command handlers.</value>
+        public static List<IScriptCommand> CommandHandlers { get; private set; }
+
+        /// <summary>
+        /// Gets the index of the current line.
+        /// </summary>
+        /// <value>
+        /// The index of the current line.
+        /// </value>
+        public static int CurrentLineIndex { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the argument separator.
+        ///
+        /// Modify this value in case of custom script syntax support
+        /// </summary>
+        /// <value>
+        /// The argument separator.
+        /// </value>
+        public static char ArgumentSeparator { get; set; } = ' ';
+
+        #endregion Properties
+
+        public static void Initialize()
         {
-            if (!File.Exists(script))
+            CommandHandlers = new List<IScriptCommand>(10);
+
+            var type = typeof(IScriptCommand);
+            var types = AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(s => s.GetTypes())
+                .Where(p => type.IsAssignableFrom(p) && !p.IsInterface).ToArray();
+
+            foreach (var handler in types)
             {
-                Log.Notify($"Cannot load script [{script}] (File does not exist)!");
+                var instance = (IScriptCommand)Activator.CreateInstance(handler);
+
+                CommandHandlers.Add(instance);
+            }
+        }
+
+        /// <summary>
+        /// Loads the specified file.
+        /// </summary>
+        /// <param name="file">The file.</param>
+        public static void Load(string file)
+        {
+            if (!System.IO.File.Exists(file))
+            {
+                Log.Notify($"Cannot load file [{file}] (File does not exist)!");
                 return;
             }
 
-            Script = script;
-            Commands = File.ReadAllLines(script);
+            File = file;
+            Commands = System.IO.File.ReadAllLines(file);
 
             EventManager.FireEvent("OnLoadScript");
         }
@@ -71,64 +113,52 @@ namespace RSBot.Core.Components
         {
             if (Commands == null || Commands.Length == 0)
             {
-                Log.Notify("Cannot run an empty or unloaded script!");
+                LogScriptMessage("No script loaded.", 0, LogLevel.Warning);
+
                 return;
             }
 
             Running = true;
-            foreach (var command in Commands)
+            CurrentLineIndex = FindNearestMoveCommandLine();
+
+            if (CurrentLineIndex != 0)
+                Log.Debug($"[Script] Found nearby walk position at line #{CurrentLineIndex}");
+
+            foreach (var scriptLine in Commands.Skip(CurrentLineIndex + 1))
             {
                 if (!Running) return;
 
-                var arguments = command.Split(' ');
+                var arguments = scriptLine.Split(' ');
+                var commandName = arguments.Length == 0 ? scriptLine : arguments[0];
 
-                switch (arguments[0])
+                if (string.IsNullOrEmpty(commandName)
+                    || commandName.Trim().StartsWith("//")
+                    || commandName.Trim().StartsWith("#"))
+                    continue; //No command name given / empty line
+
+                var handler = CommandHandlers.FirstOrDefault(h => h.Name == commandName);
+                if (handler == null)
                 {
-                    case "move":
-                        ExecuteMove(arguments);
-                        break;
+                    LogScriptMessage("No script command handler found.", CurrentLineIndex, LogLevel.Warning);
 
-                    case "buy":
-                        Log.Notify("[Script] Purchasing items...");
-                        ShoppingManager.Run(arguments[1]);
-                        while (!ShoppingManager.Finished)
-                            Thread.Sleep(50); //Wait until shopping is finished
-                        break;
-
-                    case "repair":
-                        Log.Notify("[Script] Repairing items...");
-                        ShoppingManager.RepairItems(arguments[1]);
-                        break;
-
-                    case "store":
-                        ShoppingManager.StoreItems(arguments[1]);
-                        Log.Notify("[Script] Storing items...");
-                        break;
-
-                    case "teleport":
-                        Log.Notify("[Script] Teleporting...");
-                        ExecuteTeleport(arguments);
-                        break;
-
-                    case "dismount":
-                        Log.Notify("[Script] Dismounting vehicle...");
-                        if (Game.Player.HasActiveVehicle)
-                        {
-                            Game.Player.Vehicle.Dismount();
-                            Thread.Sleep(1000);
-                        }
-                        break;
-
-                    case "wait":
-                        var duration = Convert.ToInt32(arguments[1]);
-                        Log.Notify($"[Script] Waiting for {duration}ms");
-                        Thread.Sleep(duration);
-                        break;
-
-                    default:
-                        Log.Notify($"Unknown script command [{arguments[0]}]");
-                        break;
+                    continue; //No matching handler found for this command
                 }
+
+                if (handler.IsRunning)
+                {
+                    LogScriptMessage("The script command is still busy.", CurrentLineIndex, LogLevel.Warning, commandName);
+
+                    continue; //Command is busy (possible threading issue)
+                }
+
+                EventManager.FireEvent("OnScriptStartExecuteCommand", handler, CurrentLineIndex);
+                var executionResult = handler.Execute(arguments.Skip(1).ToArray());
+                EventManager.FireEvent("OnScriptFinishExecuteCommand", handler, executionResult, CurrentLineIndex);
+
+                if (executionResult == false)
+                    LogScriptMessage("The execution of the script command failed.", CurrentLineIndex, LogLevel.Warning, commandName);
+
+                CurrentLineIndex++;
             }
 
             Running = false;
@@ -145,67 +175,93 @@ namespace RSBot.Core.Components
         }
 
         /// <summary>
-        /// Executes the move.
+        /// A convenience function that returns all positions in the walk script.
+        ///
+        /// Warning: This method is not extendable at the moment, that means that there can not be
+        /// a custom implementation of the "move" command. The move command currently always needs to have the arguments XOffset, YOffset, ZOffset, XSector, YSector.
         /// </summary>
-        /// <param name="arguments">The arguments.</param>
-        private static void ExecuteMove(IReadOnlyList<string> arguments)
+        /// <returns></returns>
+        public static List<Position> GetWalkScript()
         {
-            var pos = new Position
-            {
-                XSector = byte.Parse(arguments[4]),
-                YSector = byte.Parse(arguments[5]),
-                XOffset = float.Parse(arguments[1]),
-                YOffset = float.Parse(arguments[2]),
-                ZOffset = float.Parse(arguments[3])
-            };
+            var walkCommands = Commands.Where(c => c.Trim().StartsWith("move"));
 
-            //Check if the new position is nearby a cave enterance.
-            //If so dismount the vehicle
-            if (Game.Player.HasActiveVehicle)
-            {
-                if (Game.ReferenceManager.GetGroundTeleporters(pos.RegionID).Select(teleporter => pos.DistanceTo(teleporter.GetPosition())).Any(distanceToTeleporter => !(distanceToTeleporter > 5)))
-                    Game.Player.Vehicle.Dismount();
-            }
-
-            var distance = pos.DistanceTo(Game.Player.Movement.Source);
-            if (distance > 100)
-            {
-                Log.Debug("[Script] Target position too far away, bot logic aborted!");
-
-                Kernel.Bot.Stop();
-                return;
-            }
-
-            Game.Player.MoveTo(pos);
-            Log.Debug($"[Script] Move to position X={pos.XCoordinate}, Y={pos.YCoordinate}");
+            return walkCommands.Select(command => command.Split(ArgumentSeparator).Skip(1).ToArray()).Select(ParsePosition).ToList();
         }
 
         /// <summary>
-        /// Executes the teleport.
+        /// Parses the position from the given arguments.
         /// </summary>
-        /// <param name="arguments">The arguments.</param>
-        private static void ExecuteTeleport(IReadOnlyList<string> arguments)
+        /// <param name="args">The arguments.</param>
+        /// <returns></returns>
+        private static Position ParsePosition(string[] args)
         {
-            var npcCodeName = arguments[1];
-            var destination = uint.Parse(arguments[2]);
+            if (!float.TryParse(args[0], out var xOffset)
+                || !float.TryParse(args[1], out var yOffset)
+                || !float.TryParse(args[2], out var zOffset)
+                || !byte.TryParse(args[3], out var xSector)
+                || !byte.TryParse(args[4], out var ySector)
+               )
+                return default; //Invalid format
 
-            if (!SpawnManager.TryGetEntity<SpawnedBionic>(p => p.Record.CodeName == npcCodeName, out var entity))
+            return new Position
             {
-                Log.Debug("Could not find teleportation NPC " + npcCodeName);
-                return;
+                XOffset = xOffset,
+                YOffset = yOffset,
+                ZOffset = zOffset,
+                XSector = xSector,
+                YSector = ySector
+            };
+        }
+
+        /// <summary>
+        /// Logs the script message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="line">The line.</param>
+        /// <param name="level">The level.</param>
+        /// <param name="command">The command.</param>
+        private static void LogScriptMessage(string message, int line, LogLevel level = LogLevel.Notify, string command = null)
+        {
+            if (command == null)
+                command = "<none>";
+
+            Log.AppendFormat(level, $"[Script] {message} (command={command}; line={line})");
+        }
+
+        /// <summary>
+        /// Finds the nearest walk command line.
+        /// </summary>
+        /// <returns></returns>
+        private static int FindNearestMoveCommandLine()
+        {
+            var playerPos = Game.Player.Movement.Source;
+
+            var nearestCommandLineIndex = 0;
+            Position nearestPosition = default;
+
+            var line = 0;
+            foreach (var command in Commands)
+            {
+                if (command.Trim().StartsWith("//") || command.Trim().StartsWith("#"))
+                    continue;
+
+                var args = command.Split(ArgumentSeparator).Skip(1).ToArray();
+                var curPos = ParsePosition(args);
+
+                //Always prefer the first line if it's in range
+                if (line == 0 && playerPos.DistanceTo(curPos) < 100) return line;
+
+                if (playerPos.DistanceTo(curPos) < playerPos.DistanceTo(nearestPosition)
+                    && !CollisionManager.HasCollisionBetween(playerPos, nearestPosition))
+                {
+                    nearestPosition = curPos;
+                    nearestCommandLineIndex = line;
+                }
+
+                line++;
             }
 
-            entity.TrySelect();
-
-            var packet = new Packet(0x705A);
-            packet.WriteUInt(entity.UniqueId);
-            packet.WriteByte(0x02);
-            packet.WriteUInt(destination);
-
-            var callback = new AwaitCallback(null, 0x3012); //Game Ready
-            PacketManager.SendPacket(packet, PacketDestination.Server, callback);
-
-            callback.AwaitResponse(10000);
+            return nearestCommandLineIndex;
         }
     }
 }

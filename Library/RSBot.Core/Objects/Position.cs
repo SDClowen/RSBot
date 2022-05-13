@@ -168,6 +168,11 @@ namespace RSBot.Core.Objects
             return Math.Sqrt(Math.Pow(XCoordinate - position.XCoordinate, 2) + Math.Pow(YCoordinate - position.YCoordinate, 2));
         }
 
+        public double DistanceToPlayer()
+        {
+            return DistanceTo(Game.Player.Movement.Source);
+        }
+
         public byte XSectorFromX(float x)
         {
             if (IsInDungeon)

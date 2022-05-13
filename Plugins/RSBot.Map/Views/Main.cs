@@ -111,6 +111,7 @@ namespace RSBot.Map.Views
         /// <param name="name">The name.</param>
         /// <param name="type">The type.</param>
         /// <param name="level">The level.</param>
+        /// <param name="position"></param>
         private void AddGridItem(string name, string type, byte level, Position position)
         {
             if (string.IsNullOrWhiteSpace(name))
@@ -128,6 +129,10 @@ namespace RSBot.Map.Views
         /// </summary>
         private void DrawPointAt(Graphics gfx, Position position, int entityIndex)
         {
+            var distanceToPosition = position.DistanceToPlayer();
+            if (distanceToPosition > 150)
+                return;
+
             try
             {
                 var x = (mapCanvas.Width / 2f) + (position.XCoordinate - Game.Player.Movement.Source.XCoordinate) * _scale;
@@ -143,16 +148,61 @@ namespace RSBot.Map.Views
             catch { }
         }
 
+        private void DrawRectangleAt(Graphics gfx, Position position, Brush brush, Size size)
+        {
+            var distanceToPosition = position.DistanceToPlayer();
+            if (distanceToPosition > 150)
+                return;
+            try
+            {
+                var x = (int)((mapCanvas.Width / 2f) +
+                        (position.XCoordinate - Game.Player.Movement.Source.XCoordinate) * _scale);
+                var y = (int)((mapCanvas.Height / 2f) +
+                        (position.YCoordinate - Game.Player.Movement.Source.YCoordinate) * _scale * -1.0f);
+
+                gfx.FillRectangle(brush, new Rectangle(new Point(x, y), size));
+            }
+            catch { }
+        }
+
+        private void DrawLineAt(Graphics gfx, Position source, Position destination, Pen color)
+        {
+            var distanceToPositionA = source.DistanceToPlayer();
+            var distanceToPositionB = destination.DistanceToPlayer();
+            if (distanceToPositionA > 150 || distanceToPositionB > 150)
+                return;
+
+            var srcX = (mapCanvas.Width / 2f) + (source.XCoordinate - Game.Player.Movement.Source.XCoordinate) * _scale;
+            var srcY = (mapCanvas.Height / 2f) + (source.YCoordinate - Game.Player.Movement.Source.YCoordinate) * _scale * -1.0f;
+            var destinationX = (mapCanvas.Width / 2f) + (destination.XCoordinate - Game.Player.Movement.Source.XCoordinate) * _scale;
+            var destinationY = (mapCanvas.Height / 2f) + (destination.YCoordinate - Game.Player.Movement.Source.YCoordinate) * _scale * -1.0f;
+
+            gfx.DrawLine(color, srcX, srcY, destinationX, destinationY);
+        }
+
         /// <summary>
         /// Fills the grid.
         /// </summary>
-        private void FillGrid(Graphics graphics)
+        private void PopulateMapAndGrid(Graphics graphics)
         {
             lvMonster.BeginUpdate();
             lvMonster.Items.Clear();
 
             try
             {
+                //Draw walk script
+                if (ScriptManager.Running)
+                {
+                    var walkScript = ScriptManager.GetWalkScript();
+                    for (var i = 0; i < walkScript.Count; i++)
+                    {
+                        var nextPosition = walkScript[i];
+
+                        DrawLineAt(graphics, i != 0 ? walkScript[i - 1] : nextPosition, nextPosition, Pens.LightBlue);
+                        DrawRectangleAt(graphics, nextPosition, Brushes.CornflowerBlue, new Size(4, 4));
+                    }
+                }
+
                 if (comboViewType.SelectedIndex == 0 || comboViewType.SelectedIndex == 6)
                 {
                     if (SpawnManager.TryGetEntities<SpawnedMonster>(out var monsters))
@@ -237,9 +287,9 @@ namespace RSBot.Map.Views
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                Log.Debug($"[Map] Render error: {ex.Message}");
             }
 
             lvMonster.EndUpdate();
@@ -337,7 +387,7 @@ namespace RSBot.Map.Views
 
                 e.Graphics.DrawImage(_currentSectorGraphic, point);
 
-                FillGrid(e.Graphics);
+                PopulateMapAndGrid(e.Graphics);
 
                 DrawPointAt(e.Graphics, Game.Player.Movement.Source, 0);
             }
