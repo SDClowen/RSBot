@@ -1,4 +1,5 @@
 ﻿using RSBot.Core.Network;
+using RSBot.Core.Objects.Inventory;
 using System.Collections.Generic;
 
 namespace RSBot.Core.Objects
@@ -11,7 +12,7 @@ namespace RSBot.Core.Objects
         /// <summary>
         /// The constructor.
         /// </summary>
-        /// <param name="size">The size.</param>
+        /// <param name="packet">The packet.</param>
         public CharacterInventory(Packet packet) 
             : base(packet) {}
 

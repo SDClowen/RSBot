@@ -1,4 +1,4 @@
-﻿namespace RSBot.Core.Objects
+﻿namespace RSBot.Core.Objects.Inventory
 {
     public enum InventoryItemState
     {

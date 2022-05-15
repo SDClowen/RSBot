@@ -1,6 +1,6 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Event;
-using RSBot.Core.Objects;
+using RSBot.Core.Objects.Inventory;
 using System;
 using System.Linq;
 

@@ -1,4 +1,5 @@
 ﻿using RSBot.Core.Network;
+using RSBot.Core.Objects.Inventory;
 
 namespace RSBot.Core.Objects.Exchange
 {

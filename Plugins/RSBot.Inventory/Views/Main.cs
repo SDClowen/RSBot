@@ -1,8 +1,7 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Event;
 using RSBot.Core.Extensions;
-using RSBot.Core.Objects;
-using System.Linq;
+using RSBot.Core.Objects.Inventory;
 using System.Windows.Forms;
 
 namespace RSBot.Inventory.Views

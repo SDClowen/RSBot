@@ -94,8 +94,7 @@ namespace RSBot.Core.Network.Handler.Agent.Cos
                         break;
 
                     case 2:
-                        Game.Player.AbilityPet.Inventory.Capacity = packet.ReadByte();
-                        Game.Player.AbilityPet.ParseInventory(packet);
+                        Game.Player.AbilityPet.UpdateInventorySize(packet);
                         EventManager.FireEvent("OnUpdateAbilityPetInventorySize");
                         break;
 

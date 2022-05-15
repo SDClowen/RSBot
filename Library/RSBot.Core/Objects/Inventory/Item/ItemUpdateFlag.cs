@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RSBot.Core.Objects.Item
+namespace RSBot.Core.Objects.Inventory.Item
 {
     [Flags]
     public enum ItemUpdateFlag : byte

@@ -4,19 +4,19 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RSBot.Core.Objects
+namespace RSBot.Core.Objects.Inventory
 {
     public class InventoryItemCollection : ICollection<InventoryItem>
     {
         /// <summary>
         /// The constructor.
         /// </summary>
-        /// <param name="size">The size.</param>
+        /// <param name="packet">The packet.</param>
         public InventoryItemCollection(Packet packet)
             : this(packet.ReadByte())
         {
-            var size = packet.ReadByte();
-            for (var i = 0; i < size; i++)
+            var count = packet.ReadByte();
+            for (var i = 0; i < count; i++)
                 _collection.Add(InventoryItem.FromPacket(packet));
         }
 
@@ -336,15 +336,11 @@ namespace RSBot.Core.Objects
         /// <summary>
         /// Move via packet operation
         /// </summary>
-        /// <param name="justMove">Just move the item to new slot without control others</param>
-        public void Move(Packet packet, bool justMove = false)
+        public void Move(Packet packet)
         {
             var sourceSlot = packet.ReadByte();
             var destinationSlot = packet.ReadByte();
-            ushort amount = 0;
-
-            if (!justMove)
-                amount = packet.ReadUShort();
+            var amount = packet.ReadUShort();
 
             var itemAtSource = GetItemAt(sourceSlot);
             var itemAtDestination = GetItemAt(destinationSlot);
@@ -352,69 +348,56 @@ namespace RSBot.Core.Objects
             if (itemAtSource == null)
                 return;
 
-            if (justMove)
-            {
-                itemAtDestination.Slot = sourceSlot;
-                itemAtSource.Slot = destinationSlot;
-                Log.Debug($"[InventoryItemCollection::Move]  Switch item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}) with (slot={itemAtDestination.Slot}) because the items are not identically.");
-
-                return;
-            }
+            var sourceRealName = itemAtSource.Record.GetRealName();
+            var sourceAmount = itemAtSource.Amount;
+            if (amount == 0) // operation inside Character's Inventory between Equipped and Normal parts
+                amount = sourceAmount;
+            var sourceMaxStack = itemAtSource.Record.MaxStack;
+            var destinationAmount = itemAtDestination?.Amount ?? 0;
 
             //Move the item from A -> B
             if (itemAtDestination == null)
             {
                 //Split item
-                if (itemAtSource.Amount != amount && amount != 0)
+                if (sourceAmount != amount)
                 {
                     itemAtSource.Amount -= amount;
 
                     //The item has been split in two parts.
                     //Copy the item with the given amount to the new slot
-                    var newInventoryItem = new InventoryItem
-                    {
-                        //Copy the item infos from the source item. Some may be useless because only ETC items can be split but anyway, just to make sure assign everything
-                        Amount = amount,
-                        Slot = destinationSlot,
-                        Durability = itemAtSource.Durability,
-                        ItemId = itemAtSource.ItemId,
-                        MagicOptions = itemAtSource.MagicOptions,
-                        OptLevel = itemAtSource.OptLevel,
-                        BindingOptions = itemAtSource.BindingOptions,
-                        Rental = itemAtSource.Rental,
-                        Variance = itemAtSource.Variance
-                    };
-
+                    var newInventoryItem = itemAtSource.Clone();
+                    newInventoryItem.Amount = amount;
+                    newInventoryItem.Slot = destinationSlot;
                     Add(newInventoryItem);
 
-                    Log.Debug($"[InventoryItemCollection::Move] Split item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={itemAtSource.Amount}) to (slot={destinationSlot}, amount={amount}");
+                    Log.Debug($"[InventoryItemCollection::Move] Split item {sourceRealName} (slot={sourceSlot}, amount={sourceAmount}) to (slot={destinationSlot}, amount={amount}");
                     return;
                 }
 
-                Log.Debug($"[InventoryItemCollection::Move]  Move item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={amount}) to (slot= {destinationSlot})");
-                
+                // Move item
                 itemAtSource.Slot = destinationSlot;
+                Log.Debug($"[InventoryItemCollection::Move]  Move item {sourceRealName} (slot={sourceSlot}, amount={amount}) to (slot={destinationSlot})");
             }
             else
             {
                 //The items will be merged!
                 if (itemAtDestination.ItemId == itemAtSource.ItemId)
                 {
-                    //Check if the items can stack, otherwise move A to B and B to A
-                    var newItemAmount = itemAtDestination.Amount + amount;
-                    if (newItemAmount > itemAtDestination.Record.MaxStack)
+                    // Switch, because the max stack was reached
+                    if (sourceAmount == sourceMaxStack || destinationAmount == sourceMaxStack)
                     {
                         itemAtDestination.Slot = sourceSlot;
                         itemAtSource.Slot = destinationSlot;
 
-                        Log.Debug($"[InventoryItemCollection::Move]  Switch item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}) with (slot={itemAtDestination.Slot}) because the max stack was reached.");
+                        Log.Debug($"[InventoryItemCollection::Move]  Switch item {sourceRealName} (slot={sourceSlot}) with (slot={destinationSlot}) because the max stack was reached.");
                     }
+                    // Merge
                     else
                     {
-                        itemAtDestination.Amount = (ushort)newItemAmount;
+                        itemAtDestination.Amount += amount;
                         itemAtSource.Amount -= amount;
 
-                        Log.Debug($"[InventoryItemCollection::Move]  Merge item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={itemAtSource.Amount}) with (slot={itemAtDestination.Slot}, amount={itemAtDestination.Amount})");
+                        Log.Debug($"[InventoryItemCollection::Move]  Merge item {sourceRealName} (slot={sourceSlot}, amount={sourceAmount}) with (slot={destinationSlot}, amount={destinationAmount})");
                         if (itemAtSource.Amount <= 0) RemoveAt(sourceSlot);
                     }
                 }
@@ -422,7 +405,7 @@ namespace RSBot.Core.Objects
                 {
                     itemAtDestination.Slot = sourceSlot;
                     itemAtSource.Slot = destinationSlot;
-                    Log.Debug($"[InventoryItemCollection::Move]  Switch item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}) with (slot={itemAtDestination.Slot}) because the items are not identically.");
+                    Log.Debug($"[InventoryItemCollection::Move]  Switch item {sourceRealName} (slot={sourceSlot}) with (slot={destinationSlot}) because the items are not identically.");
                 }
             }
         }
@@ -439,9 +422,9 @@ namespace RSBot.Core.Objects
             sourceItem.Slot = destinationSlot;
             inventory.Add(sourceItem);
 
-            RemoveAt(sourceItem.Slot);
+            RemoveAt(sourceSlot);
 
-            Log.Debug($"[InventoryItemCollection::MoveTo] Move item {sourceItem.Record.GetRealName()} (slot={sourceSlot}) to storage (slot={destinationSlot}");
+            Log.Debug($"[InventoryItemCollection::MoveTo] Move item {sourceItem.Record.GetRealName()} (slot={sourceSlot}) to another inventory (slot={destinationSlot}");
         }
     }
 }

@@ -2,6 +2,7 @@
 using RSBot.Core.Network;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
+using RSBot.Core.Objects.Inventory;
 using System;
 using System.Collections.Generic;
 using System.Linq;

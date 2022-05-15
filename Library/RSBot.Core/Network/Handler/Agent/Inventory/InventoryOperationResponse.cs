@@ -2,7 +2,7 @@
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Inventory;
-using RSBot.Core.Objects.Item;
+using RSBot.Core.Objects.Inventory.Item;
 using System.Collections.Generic;
 
 namespace RSBot.Core.Network.Handler.Agent.Inventory

@@ -1,6 +1,7 @@
 ﻿using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
+using RSBot.Core.Objects.Inventory;
 using RSBot.Core.Objects.Quests;
 
 namespace RSBot.Core.Network.Handler.Agent.Character

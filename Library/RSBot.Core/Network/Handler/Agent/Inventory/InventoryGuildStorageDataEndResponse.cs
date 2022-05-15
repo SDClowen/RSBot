@@ -1,5 +1,4 @@
 ﻿using RSBot.Core.Event;
-using RSBot.Core.Objects;
 using RSBot.Core.Objects.Inventory;
 
 namespace RSBot.Core.Network.Handler.Agent.Inventory
@@ -34,8 +33,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
             packet = Game.ChunkedPacket;
             packet.Lock();
 
-            var storage = Game.Player.GuildStorage = Game.Player.GuildStorage ?? new Storage();
-            storage.Deserialize(packet);
+            var storage = Game.Player.GuildStorage = new Storage(packet);
 
             EventManager.FireEvent("OnGuildStorageData");
 

@@ -1,7 +1,7 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
-using RSBot.Core.Objects;
-using RSBot.Core.Objects.Item;
+using RSBot.Core.Objects.Inventory;
+using RSBot.Core.Objects.Inventory.Item;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;

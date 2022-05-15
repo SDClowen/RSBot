@@ -1,6 +1,6 @@
 ﻿using RSBot.Core.Network;
 
-namespace RSBot.Core.Objects.Item
+namespace RSBot.Core.Objects.Inventory.Item
 {
     public class MagicOptionInfo
     {

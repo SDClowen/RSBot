@@ -1,5 +1,5 @@
 ﻿using RSBot.Core.Event;
-using RSBot.Core.Objects;
+using RSBot.Core.Objects.Inventory;
 
 namespace RSBot.Core.Network.Handler.Agent.Alchemy
 {

@@ -2,31 +2,22 @@
 
 namespace RSBot.Core.Objects.Inventory
 {
+    /// <summary>
+    /// Base class derived from <seealso cref="InventoryItemCollection"/> for handling Storage and GuildStorage.
+    /// </summary>
     public class Storage : InventoryItemCollection
     {
-
         /// <summary>
-        /// Create instance of the <seealso cref="Storage"/>
+        /// Create instance of the <seealso cref="Storage"/> from packet.
         /// </summary>
-        /// <param name="size">The standart 150(5 page)</param>
-        public Storage(byte size = 150)
-            : base(size) {}
+        /// <param name="packet">The packet.</param>
+        public Storage(Packet packet) : base(packet)
+        {
+        }
 
         /// <summary>
         /// The gold amount in the storage
         /// </summary>
         public ulong Gold;
-
-        /// <summary>
-        /// Deserialize the storage packet
-        /// </summary>
-        /// <param name="packet">The storage packet</param>
-        public void Deserialize(Packet packet)
-        {
-            Capacity = packet.ReadByte();
-            var itemAmount = packet.ReadByte();
-            for (var i = 0; i < itemAmount; i++)
-                Add(InventoryItem.FromPacket(packet));
-        }
     }
 }

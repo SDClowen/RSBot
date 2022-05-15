@@ -1,12 +1,12 @@
 ﻿using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Network;
-using RSBot.Core.Objects.Item;
+using RSBot.Core.Objects.Inventory.Item;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace RSBot.Core.Objects
+namespace RSBot.Core.Objects.Inventory
 {
-    public class InventoryItem
+    public class InventoryItem : ICloneable<InventoryItem>
     {
         /// <summary>
         /// Gets or sets the item identifier.
@@ -342,6 +342,58 @@ namespace RSBot.Core.Objects
             if (Record.Country != Game.Player.Record.Country) return false;
 
             return true;
+        }
+
+        /// <summary>
+        /// Creates a clone from this.
+        /// </summary>
+        /// <returns>The clone <see cref="InventoryItem"/> instance.</returns>
+        public InventoryItem Clone()
+        {
+            var rental = new RentInfo
+            {
+                CanDelete = Rental.CanDelete,
+                CanRecharge = Rental.CanRecharge,
+                MeterRateTime = Rental.MeterRateTime,
+                PackingTime = Rental.PackingTime,
+                PeriodBeginTime = Rental.PeriodBeginTime,
+                PeriodEndTime = Rental.PeriodEndTime,
+                Type = Rental.Type
+            };
+
+            List<MagicOptionInfo> magicOptions = MagicOptions == null ? null : new List<MagicOptionInfo>(MagicOptions.Count);
+            if (MagicOptions != null)
+                foreach (var item in MagicOptions)
+                    magicOptions.Add(new MagicOptionInfo
+                    {
+                        Id = item.Id,
+                        Value = item.Value
+                    });
+
+            List<BindingOption> bindingOptions = BindingOptions == null ? null : new List<BindingOption>(BindingOptions.Count);
+            if (BindingOptions != null)
+                foreach (var item in BindingOptions)
+                    BindingOptions.Add(new BindingOption
+                    {
+                        Id = item.Id,
+                        Slot = item.Slot,
+                        Type = item.Type,
+                        Value = item.Value
+                    });
+
+            return new InventoryItem
+            {
+                ItemId = ItemId,
+                Slot = Slot,
+                Rental = rental,
+                OptLevel = OptLevel,
+                Variance = Variance,
+                Durability = Durability,
+                MagicOptions = magicOptions,
+                BindingOptions = bindingOptions,
+                Amount = Amount,
+                State = State
+            };
         }
     }
 }

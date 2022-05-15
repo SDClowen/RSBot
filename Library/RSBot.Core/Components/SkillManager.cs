@@ -2,11 +2,11 @@
 using RSBot.Core.Event;
 using RSBot.Core.Network;
 using RSBot.Core.Objects;
+using RSBot.Core.Objects.Inventory;
 using RSBot.Core.Objects.Skill;
 using RSBot.Core.Objects.Spawn;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 

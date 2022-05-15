@@ -1,4 +1,5 @@
 ﻿using RSBot.Core.Network;
+using RSBot.Core.Objects.Inventory;
 using RSBot.Core.Objects.Spawn;
 
 namespace RSBot.Core.Objects
@@ -41,21 +42,21 @@ namespace RSBot.Core.Objects
             packet.ReadUInt(); // COS.Settings
 
             result.Name = packet.ReadString();
-            result.Inventory = new InventoryItemCollection(packet.ReadByte());
-
-            result.ParseInventory(packet);
+            result.Inventory = new InventoryItemCollection(packet);
 
             return result;
         }
 
         /// <summary>
-        /// Parse ability pet inventory
+        /// Parse ability pet's UpdateInventorySize.
         /// </summary>
-        /// <param name="Packet">The packet</param>
-        public void ParseInventory(Packet packet)
+        /// <param name="packet">The packet</param>
+        public void UpdateInventorySize(Packet packet)
         {
-            var itemAmount = packet.ReadByte();
-            for (var i = 0; i < itemAmount; i++)
+            Inventory.Capacity = packet.ReadByte();
+
+            var count = packet.ReadByte();
+            for (var i = 0; i < count; i++)
                 Inventory.Add(InventoryItem.FromPacket(packet));
         }
 
