@@ -113,7 +113,6 @@
     <Compile Include="Objects\Exchange\ExchangeItem.cs" />
     <Compile Include="Objects\Exchange\ExchangeUpdateType.cs" />
     <Compile Include="Objects\GuideTeleportType.cs" />
-    <Compile Include="Objects\Inventory\ICloneable.cs" />
     <Compile Include="Objects\Inventory\InventoryItemCollection.cs" />
     <Compile Include="Objects\Inventory\InventoryOperation.cs" />
     <Compile Include="Objects\Inventory\Storage.cs" />

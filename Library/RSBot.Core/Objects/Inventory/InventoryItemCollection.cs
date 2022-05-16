@@ -365,7 +365,7 @@ namespace RSBot.Core.Objects.Inventory
 
                     //The item has been split in two parts.
                     //Copy the item with the given amount to the new slot
-                    var newInventoryItem = itemAtSource.Clone();
+                    var newInventoryItem = itemAtSource.ShallowCopy();
                     newInventoryItem.Amount = amount;
                     newInventoryItem.Slot = destinationSlot;
                     Add(newInventoryItem);

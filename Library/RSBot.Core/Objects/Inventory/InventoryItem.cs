@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace RSBot.Core.Objects.Inventory
 {
-    public class InventoryItem : ICloneable<InventoryItem>
+    public class InventoryItem
     {
         /// <summary>
         /// Gets or sets the item identifier.
@@ -345,55 +345,12 @@ namespace RSBot.Core.Objects.Inventory
         }
 
         /// <summary>
-        /// Creates a clone from this.
+        /// Creates a shallow copy of this with <see cref="object.MemberwiseClone()"/>.
         /// </summary>
-        /// <returns>The clone <see cref="InventoryItem"/> instance.</returns>
-        public InventoryItem Clone()
+        /// <returns>The shallow copy of this.</returns>
+        public InventoryItem ShallowCopy()
         {
-            var rental = new RentInfo
-            {
-                CanDelete = Rental.CanDelete,
-                CanRecharge = Rental.CanRecharge,
-                MeterRateTime = Rental.MeterRateTime,
-                PackingTime = Rental.PackingTime,
-                PeriodBeginTime = Rental.PeriodBeginTime,
-                PeriodEndTime = Rental.PeriodEndTime,
-                Type = Rental.Type
-            };
-
-            List<MagicOptionInfo> magicOptions = MagicOptions == null ? null : new List<MagicOptionInfo>(MagicOptions.Count);
-            if (MagicOptions != null)
-                foreach (var item in MagicOptions)
-                    magicOptions.Add(new MagicOptionInfo
-                    {
-                        Id = item.Id,
-                        Value = item.Value
-                    });
-
-            List<BindingOption> bindingOptions = BindingOptions == null ? null : new List<BindingOption>(BindingOptions.Count);
-            if (BindingOptions != null)
-                foreach (var item in BindingOptions)
-                    BindingOptions.Add(new BindingOption
-                    {
-                        Id = item.Id,
-                        Slot = item.Slot,
-                        Type = item.Type,
-                        Value = item.Value
-                    });
-
-            return new InventoryItem
-            {
-                ItemId = ItemId,
-                Slot = Slot,
-                Rental = rental,
-                OptLevel = OptLevel,
-                Variance = Variance,
-                Durability = Durability,
-                MagicOptions = magicOptions,
-                BindingOptions = bindingOptions,
-                Amount = Amount,
-                State = State
-            };
+            return (InventoryItem)this.MemberwiseClone();
         }
     }
 }
