@@ -4,16 +4,22 @@ Hello reputable Silkroad online community. This is a free Silkroad online bot wi
 
 ## Supported Clients:
 
-1. Tailand(Blackrogue 100, 110)
-2. Vietnam(VSro) [188, 193, 274]
-3. Taiwan(TSRO 110)
-4. Chinese Old(ECSRO, Sunworld *Coming Soon*)
-5. Chinese(CSRO)
-6. Global(ISRO)
-7. Turkey(TRSRO)
-8. Korean(KSRO)
-9. Japanese Old(JSRO_SL)
-10. Japanese-R(coming soon)
+1. Tailand | Blackrogue 100
+2. Tailand | Blackrogue 110
+3. Vietnam | VSRO 188
+4. Vietnam | VSRO 193
+5. Vietnam | VSRO 274
+6. Taiwan  | TSRO 110
+7. Chinese | CSRO/-R
+8. Global  | ISRO (Internalional Silkroad)
+9. Turkey  | TRSRO
+10. Korean | KSRO
+11. Japanese Old JSRO_SL
+
+## Planing for supporting clients:
+
+1. Chinese Old | MHTC
+2. Japanese-R
 
 ## Development and Community
 [![GitHub Repository](https://img.shields.io/badge/github-sdclowen/rsbot-green.svg)](https://github.com/SDClowen/RSBot)
