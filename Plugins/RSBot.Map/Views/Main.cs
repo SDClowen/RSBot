@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -148,7 +149,7 @@ namespace RSBot.Map.Views
             catch { }
         }
 
-        private void DrawRectangleAt(Graphics gfx, Position position, Brush brush, Size size)
+        private void DrawRectangleAt(Graphics gfx, Position position, Brush brush, Size size, string label = "")
         {
             var distanceToPosition = position.DistanceToPlayer();
             if (distanceToPosition > 150)
@@ -160,11 +161,14 @@ namespace RSBot.Map.Views
                 var y = (int)((mapCanvas.Height / 2f) +
                         (position.YCoordinate - Game.Player.Movement.Source.YCoordinate) * _scale * -1.0f);
 
+                if (!string.IsNullOrEmpty(label))
+                    gfx.DrawString(label, Font, brush, x + size.Width, y - (size.Width / 2));
+
                 gfx.FillRectangle(brush, new Rectangle(new Point(x, y), size));
             }
             catch { }
         }
-
+        
         private void DrawLineAt(Graphics gfx, Position source, Position destination, Pen color)
         {
             var distanceToPositionA = source.DistanceToPlayer();
@@ -342,6 +346,10 @@ namespace RSBot.Map.Views
                         var pos = new Point(bitmap.Width * x, bitmap.Height * (GridSize - 1 - z));
 
                         gfx.DrawImage(bitmap, pos);
+
+#if DEBUG
+                        gfx.DrawRectangle(Pens.Black, new Rectangle(pos, new Size(SectorSize, SectorSize)));
+#endif               
                         bitmap.Dispose();
                     }
                 }

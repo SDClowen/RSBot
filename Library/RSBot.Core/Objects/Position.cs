@@ -170,6 +170,13 @@ namespace RSBot.Core.Objects
                 Angle = 0
             };
         }
+        public static Position FromOffsets(float xOffset, float yOffset, float zOffset, ushort regionId)
+        {
+            var xSec = GetXSector(regionId);
+            var ySec = GetYSector(regionId);
+
+            return FromOffsets(xOffset, yOffset, zOffset, xSec, ySec);
+        }
 
         /// <summary>
         /// Calculates the distance to the destination

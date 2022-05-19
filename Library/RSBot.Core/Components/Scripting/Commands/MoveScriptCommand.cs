@@ -88,18 +88,16 @@ namespace RSBot.Core.Components.Scripting.Commands
             
             var pos = Position.FromOffsets(xOffset, yOffset, zOffset, xSector, ySector);
 
-            //Check if the new position is nearby a cave entrance.
-            //If so dismount the vehicle
-            if (Game.Player.HasActiveVehicle)
+            if (PlayerConfig.Get<bool>("RSBot.Walkback.UseMount", true))
             {
-                //TODO: Find out how to get the positions of ground teleporters like dw cave...
-                //var teleporters = Game.ReferenceManager.GetGroundTeleporters(pos.RegionID);
-                SpawnManager.TryGetEntities<SpawnedPortal>(out var spawnedPortals);
-
-                if (spawnedPortals.FirstOrDefault(t => pos.DistanceTo(t.Movement.Source) < 5) != null)
-                    Game.Player.Vehicle.Dismount();
+                if (!Game.Player.HasActiveVehicle && !Game.Player.IsInDungeon && !Game.Player.InAction)
+                    Game.Player.SummonVehicle();
             }
 
+            //Check if the new position is nearby a cave entrance.
+            //If so dismount the vehicle
+                //TODO: Find out how to get the ingame positions of ground teleporters like dw cave...
+    
             var distance = pos.DistanceTo(Game.Player.Movement.Source);
             if (distance > 100)
             {

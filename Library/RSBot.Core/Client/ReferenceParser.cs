@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace RSBot.Core.Client
 {
@@ -206,7 +207,7 @@ namespace RSBot.Core.Client
 
         public bool TryParse(int index, out float result)
         {
-            if (index < _length && float.TryParse(_data[index], out result))
+            if (index < _length  && float.TryParse(_data[index], NumberStyles.Any, CultureInfo.InvariantCulture, out result))
                 return true;
 
             result = default(float);
