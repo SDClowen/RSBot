@@ -16,7 +16,8 @@ namespace RSBot.Bot.Default.Bundle.Resurrect
         public void Invoke()
         {
             if (Game.Party == null ||
-                Game.Party.Members == null)
+                Game.Party.Members == null ||
+                Game.Player.HasActiveVehicle)
                 return;
 
             if (!PlayerConfig.Get<bool>("RSBot.Skills.ResurrectPartyMembers"))

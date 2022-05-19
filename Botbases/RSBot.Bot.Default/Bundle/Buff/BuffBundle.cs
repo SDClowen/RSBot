@@ -13,7 +13,7 @@ namespace RSBot.Bot.Default.Bundle.Buff
         {
             while (true)
             {
-                if (Game.Player.State.LifeState != LifeState.Alive)
+                if (Game.Player.State.LifeState != LifeState.Alive || Game.Player.HasActiveVehicle)
                     break;
 
                 var buff = SkillManager.Buffs.Find(p => !Game.Player.State.HasActiveBuff(p, out _) && p.CanBeCasted);

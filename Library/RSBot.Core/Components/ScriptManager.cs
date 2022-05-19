@@ -203,14 +203,7 @@ namespace RSBot.Core.Components
                )
                 return default; //Invalid format
 
-            return new Position
-            {
-                XOffset = xOffset,
-                YOffset = yOffset,
-                ZOffset = zOffset,
-                XSector = xSector,
-                YSector = ySector
-            };
+            return Position.FromOffsets(xOffset, yOffset, zOffset, xSector, ySector);
         }
 
         /// <summary>

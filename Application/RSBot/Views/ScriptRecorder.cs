@@ -162,8 +162,8 @@ namespace RSBot.Views
         {
             if (!_recording) return;
             var stepString = new System.Text.StringBuilder();
-            stepString.Append($"move {Math.Round(Game.Player.Movement.Destination.RXOffset, MidpointRounding.AwayFromZero)}");
-            stepString.Append($" {Math.Round(Game.Player.Movement.Destination.RYOffset, MidpointRounding.AwayFromZero)}");
+            stepString.Append($"move {Math.Round(Game.Player.Movement.Destination.XOffset, MidpointRounding.AwayFromZero)}");
+            stepString.Append($" {Math.Round(Game.Player.Movement.Destination.YOffset, MidpointRounding.AwayFromZero)}");
             stepString.Append($" {Math.Round(Game.Player.Movement.Destination.ZOffset, MidpointRounding.AwayFromZero)}");
             stepString.Append($" {Game.Player.Movement.Destination.XSector}");
             stepString.Append($" {Game.Player.Movement.Destination.YSector}");

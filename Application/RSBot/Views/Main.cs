@@ -37,8 +37,7 @@ namespace RSBot.Views
         public void RefreshTheme()
         {
             BackColor = ColorScheme.BackColor;
-            var brightness = BackColor.GetBrightness();
-            stripStatus.BackColor = brightness < 0.8 ? ColorScheme.BorderColor : Color.FromArgb(33, 150, 243);
+            stripStatus.BackColor = BackColor.IsDark() ? ColorScheme.ForeColor.Alpha(60) : Color.FromArgb(33, 150, 243);
             stripStatus.ForeColor = ColorScheme.ForeColor;
         }
 

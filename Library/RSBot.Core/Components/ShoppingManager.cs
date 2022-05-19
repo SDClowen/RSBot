@@ -173,7 +173,7 @@ namespace RSBot.Core.Components
                 if (refItem == null)
                     continue; //Should not happen
 
-                while (totalAmountToBuy > 0)
+                while (totalAmountToBuy > 0 && !Game.Player.Inventory.Full)
                 {
                     var amountStep = totalAmountToBuy;
                     if (totalAmountToBuy >= refItem.MaxStack)

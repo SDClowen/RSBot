@@ -80,20 +80,13 @@ namespace RSBot.Core.Components.Scripting.Commands
         {
             if (!float.TryParse(arguments[0], out var xOffset)
                 || !float.TryParse(arguments[1], out var yOffset)
-                || !float.TryParse(arguments[2], out var zOffset)
+                || !float.TryParse(arguments[2], out var zOffset)  
                 || !byte.TryParse(arguments[3], out var xSector)
                 || !byte.TryParse(arguments[4], out var ySector)
                 )
                 return false; //Invalid format
-
-            var pos = new Position
-            {
-                XOffset = xOffset,
-                YOffset = yOffset,
-                ZOffset = zOffset,
-                XSector = xSector,
-                YSector = ySector
-            };
+            
+            var pos = Position.FromOffsets(xOffset, yOffset, zOffset, xSector, ySector);
 
             //Check if the new position is nearby a cave entrance.
             //If so dismount the vehicle

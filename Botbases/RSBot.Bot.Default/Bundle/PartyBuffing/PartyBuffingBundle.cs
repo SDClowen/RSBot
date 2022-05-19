@@ -45,7 +45,8 @@ namespace RSBot.Bot.Default.Bundle.PartyBuffing
                 return;
 
             if (Game.Party == null ||
-                Game.Party.Members == null)
+                Game.Party.Members == null || 
+                Game.Player.HasActiveVehicle)
                 return;
 
             var selectedGroup = PlayerConfig.Get("RSBot.Party.Buffing.SelectedGroup", "Default");

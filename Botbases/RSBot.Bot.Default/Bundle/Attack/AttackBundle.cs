@@ -11,7 +11,7 @@ namespace RSBot.Bot.Default.Bundle.Attack
         /// </summary>
         public void Invoke()
         {
-            if (Game.SelectedEntity == null)
+            if (Game.SelectedEntity == null || Game.Player.HasActiveVehicle)
                 return;
 
             if (Game.SelectedEntity.IsBehindObstacle)
