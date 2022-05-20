@@ -63,9 +63,18 @@ namespace RSBot.Views
             EventManager.SubscribeEvent("OnStorageOpenRequest", new Action<uint>(StorageOpenRequest));
             EventManager.SubscribeEvent("OnTalkRequest", new Action<uint, TalkOption>(OnTalkRequest));
             EventManager.SubscribeEvent("OnFinishScript", OnFinishScript);
+            EventManager.SubscribeEvent("OnCastSkill", new Action<uint>(OnCastSkill));
 
             //Use EventManager.FireEvent("AppendScriptCommand", "<name> <parameters>"); to add your own commands to the output
             EventManager.SubscribeEvent("AppendScriptCommand", new Action<string>(AppendScriptCommand));
+        }
+
+        private void OnCastSkill(uint skillId)
+        {
+            if (!_recording)
+                return;
+
+            txtScript.AppendText($"cast {Game.ReferenceManager.GetRefSkill(skillId).Basic_Code}\n");
         }
 
         /// <summary>
@@ -74,6 +83,9 @@ namespace RSBot.Views
         /// <param name="command">The command.</param>
         private void AppendScriptCommand(string command)
         {
+            if (!_recording)
+                return;
+
             txtScript.AppendText(command + Environment.NewLine);
         }
 

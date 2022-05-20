@@ -68,6 +68,11 @@ namespace RSBot.Core.Objects
             return KnownSkills.Find(s => s.Record?.GetRealName() == name);
         }
 
+        public SkillInfo GetSkillByCodeName(string codeName)
+        {
+            return KnownSkills.FirstOrDefault(s => s.Record?.Basic_Code == codeName);
+        }
+
         /// <summary>
         /// Gets the name of the skill by.
         /// </summary>

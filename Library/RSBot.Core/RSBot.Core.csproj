@@ -71,6 +71,7 @@
     <Compile Include="Components\Scripting\Commands\DismountScriptCommand.cs" />
     <Compile Include="Components\Scripting\Commands\MoveScriptCommand.cs" />
     <Compile Include="Components\Scripting\Commands\RepairScriptCommand.cs" />
+    <Compile Include="Components\Scripting\Commands\SkillCastScriptCommand.cs" />
     <Compile Include="Components\Scripting\Commands\StoreScriptCommand.cs" />
     <Compile Include="Components\Scripting\Commands\TeleportScriptCommand.cs" />
     <Compile Include="Components\Scripting\Commands\WaitScriptCommand.cs" />
