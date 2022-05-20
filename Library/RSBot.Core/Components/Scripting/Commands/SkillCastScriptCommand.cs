@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace RSBot.Core.Components.Scripting.Commands
 {
@@ -25,9 +24,7 @@ namespace RSBot.Core.Components.Scripting.Commands
 
             try
             {
-
                 IsRunning = true;
-
 
                 if (Game.Player.HasActiveVehicle)
                 {
@@ -45,14 +42,13 @@ namespace RSBot.Core.Components.Scripting.Commands
 
                     return false;
                 }
-                
+
                 SkillManager.CastBuff(skill);
             }
             finally
             {
                 IsRunning = false;
             }
-        
 
             return true;
         }
