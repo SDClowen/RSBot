@@ -1,7 +1,5 @@
 ﻿using RSBot.Core.Objects;
-using RSBot.Core.Objects.Spawn;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace RSBot.Core.Components.Scripting.Commands
 {
@@ -80,12 +78,12 @@ namespace RSBot.Core.Components.Scripting.Commands
         {
             if (!float.TryParse(arguments[0], out var xOffset)
                 || !float.TryParse(arguments[1], out var yOffset)
-                || !float.TryParse(arguments[2], out var zOffset)  
+                || !float.TryParse(arguments[2], out var zOffset)
                 || !byte.TryParse(arguments[3], out var xSector)
                 || !byte.TryParse(arguments[4], out var ySector)
                 )
                 return false; //Invalid format
-            
+
             var pos = Position.FromOffsets(xOffset, yOffset, zOffset, xSector, ySector);
 
             if (PlayerConfig.Get<bool>("RSBot.Walkback.UseMount", true))
@@ -96,8 +94,8 @@ namespace RSBot.Core.Components.Scripting.Commands
 
             //Check if the new position is nearby a cave entrance.
             //If so dismount the vehicle
-                //TODO: Find out how to get the ingame positions of ground teleporters like dw cave...
-    
+            //TODO: Find out how to get the ingame positions of ground teleporters like dw cave...
+
             var distance = pos.DistanceTo(Game.Player.Movement.Source);
             if (distance > 100)
             {
