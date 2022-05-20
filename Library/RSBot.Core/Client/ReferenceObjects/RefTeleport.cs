@@ -43,14 +43,11 @@ namespace RSBot.Core.Client.ReferenceObjects
         /// <returns></returns>
         public Position GetPosition()
         {
-            return new Position
-            {
-                XSector = Position.GetXSector(GenRegionID),
-                YSector = Position.GetYSector(GenRegionID),
-                XOffset = GenPos_X,
-                YOffset = GenPos_Z,
-                ZOffset = GenPos_Y,
-            };
+            return Position.FromOffsets(
+                GenPos_X, 
+                GenPos_Y, 
+                GenPos_Z, 
+                GenRegionID);
         }
 
         public bool Load(ReferenceParser parser)
@@ -71,8 +68,8 @@ namespace RSBot.Core.Client.ReferenceObjects
             parser.TryParse(4, out ZoneName128);
             parser.TryParse(5, out GenRegionID);
             parser.TryParse(6, out GenPos_X);
-            parser.TryParse(7, out GenPos_Y);
-            parser.TryParse(8, out GenPos_Z);
+            parser.TryParse(7, out GenPos_Z);
+            parser.TryParse(8, out GenPos_Y);
             parser.TryParse(9, out GenAreaRadius);
             parser.TryParse(10, out CanBeResurrectPos);
             parser.TryParse(11, out CanGotoResurrectPos);

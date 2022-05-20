@@ -140,7 +140,7 @@ namespace RSBot.Bot.Default.Views
             if (diag.ShowDialog() != DialogResult.OK) return;
 
             txtWalkscript.Text = diag.FileName;
-            PlayerConfig.Set("RSBot.Walkback.Script", txtWalkscript.Text);
+            PlayerConfig.Set("RSBot.Walkback.File", txtWalkscript.Text);
         }
 
         /// <summary>
@@ -287,7 +287,7 @@ namespace RSBot.Bot.Default.Views
             radioWalkAround.Checked = PlayerConfig.Get<bool>("RSBot.Area.WalkAround");
 
             //Walkback
-            txtWalkscript.Text = PlayerConfig.Get<string>("RSBot.Walkback.Script");
+            txtWalkscript.Text = PlayerConfig.Get<string>("RSBot.Walkback.File");
             checkUseMount.Checked = PlayerConfig.Get<bool>("RSBot.Walkback.UseMount");
             checkCastBuffs.Checked = PlayerConfig.Get<bool>("RSBot.Walkback.CastBuffs", true);
             checkUseSpeedDrug.Checked = PlayerConfig.Get<bool>("RSBot.Walkback.UseSpeedDrug");

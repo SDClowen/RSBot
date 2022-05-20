@@ -17,7 +17,7 @@ namespace RSBot.Core.Objects
 
         public byte XSector
         {
-            get => !IsInDungeon ? ((RXOffset == 0) ? _XSector : (byte)(RXOffset / 1920)) : _XSector;
+            get => !IsInDungeon ? ((WorldXOffset == 0) ? _XSector : (byte)(WorldXOffset / 1920)) : _XSector;
             set
             {
                 _XSector = value;
@@ -31,7 +31,7 @@ namespace RSBot.Core.Objects
 
         public byte YSector
         {
-            get => !IsInDungeon ? ((RYOffset == 0) ? _YSector : (byte)(RYOffset / 1920)) : _YSector;
+            get => !IsInDungeon ? ((WorldYOffset == 0) ? _YSector : (byte)(WorldYOffset / 1920)) : _YSector;
             set
             {
                 _YSector = value;
@@ -41,22 +41,22 @@ namespace RSBot.Core.Objects
         /// <summary>
         /// Gets or set the regional XOffset
         /// </summary>
-        public float RXOffset;
+        public float WorldXOffset;
 
         /// <summary>
         /// Gets or set the regional YOffset
         /// </summary>
-        public float RYOffset;
+        public float WorldYOffset;
 
         /// <summary>
         /// Gets or sets the x offset.
         /// </summary>
         public float XOffset
         {
-            get => IsInDungeon ? XOffsetFromX(XCoordinate) : RXOffset % 1920;
+            get => IsInDungeon ? XOffsetFromX(XCoordinate) : WorldXOffset % 1920;
             set
             {
-                RXOffset = _XSector * 1920 + value;
+                WorldXOffset = _XSector * 1920 + value;
             }
         }
 
@@ -70,10 +70,10 @@ namespace RSBot.Core.Objects
         /// </summary>
         public float YOffset
         {
-            get => IsInDungeon ? YOffsetFromY(YCoordinate) : RYOffset % 1920;
+            get => IsInDungeon ? YOffsetFromY(YCoordinate) : WorldYOffset % 1920;
             set
             {
-                RYOffset = _YSector * 1920 + value;
+                WorldYOffset = _YSector * 1920 + value;
             }
         }
 
@@ -90,7 +90,7 @@ namespace RSBot.Core.Objects
         /// </value>
         public float XCoordinate
         {
-            get => (RXOffset - (135 * 1920)) / 10;
+            get => (WorldXOffset - (135 * 1920)) / 10;
             set
             {
                 XSector = XSectorFromX(value);
@@ -106,7 +106,7 @@ namespace RSBot.Core.Objects
         /// </value>
         public float YCoordinate
         {
-            get => (RYOffset - (92 * 1920)) / 10;
+            get => (WorldYOffset - (92 * 1920)) / 10;
             set
             {
                 YSector = YSectorFromY(value);
@@ -119,7 +119,7 @@ namespace RSBot.Core.Objects
         /// </summary>
         /// <value><c>true</c> if this instance is in dungeon; otherwise, <c>false</c>.</value>
         public bool IsInDungeon => _YSector == 0x80;
-
+        
         #region Helper
 
         /// <summary>
@@ -158,6 +158,26 @@ namespace RSBot.Core.Objects
             };
         }
 
+        public static Position FromOffsets(float xOffset, float yOffset, float zOffset, byte xSector, byte ySector)
+        {
+            return new Position
+            {
+                XSector = xSector,
+                YSector = ySector,
+                XOffset = xOffset,
+                ZOffset = zOffset,
+                YOffset = yOffset,
+                Angle = 0
+            };
+        }
+        public static Position FromOffsets(float xOffset, float yOffset, float zOffset, ushort regionId)
+        {
+            var xSec = GetXSector(regionId);
+            var ySec = GetYSector(regionId);
+
+            return FromOffsets(xOffset, yOffset, zOffset, xSec, ySec);
+        }
+
         /// <summary>
         /// Calculates the distance to the destination
         /// </summary>
@@ -166,6 +186,11 @@ namespace RSBot.Core.Objects
         public double DistanceTo(Position position)
         {
             return Math.Sqrt(Math.Pow(XCoordinate - position.XCoordinate, 2) + Math.Pow(YCoordinate - position.YCoordinate, 2));
+        }
+
+        public double DistanceToPlayer()
+        {
+            return DistanceTo(Game.Player.Movement.Source);
         }
 
         public byte XSectorFromX(float x)

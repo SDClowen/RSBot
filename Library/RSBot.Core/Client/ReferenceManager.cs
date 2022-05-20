@@ -450,7 +450,7 @@ namespace RSBot.Core.Client
             var shops = GetRefShopGroup(npcCodeName).GetShops();
             var tabs = shops[0].GetTabs();
             var goods = tabs[tab].GetGoods();
-            return PackageItemScrap[goods.FirstOrDefault(s => s.SlotIndex == slot).RefPackageItemCodeName];
+            return PackageItemScrap[goods.FirstOrDefault(s => s.SlotIndex == slot)?.RefPackageItemCodeName];
         }
 
         public RefPackageItemScrap GetRefPackageItemById(ushort id, byte group, byte tab, byte slot)

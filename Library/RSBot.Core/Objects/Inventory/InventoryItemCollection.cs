@@ -33,7 +33,7 @@ namespace RSBot.Core.Objects
         /// </value>
         public byte Capacity
         {
-            get => (byte)(_collection.Capacity - 1);
+            get => (byte) (_collection.Capacity - 1);
             set => _collection.Capacity = value + 1;
         }
 
@@ -160,6 +160,7 @@ namespace RSBot.Core.Objects
             OrderBySlot();
             return _collection.FindAll(predicate);
         }
+
         /// <summary>
         /// Gets all items by Record.ID
         /// </summary>
@@ -239,11 +240,7 @@ namespace RSBot.Core.Objects
         /// <returns>if found: the SumAmount; otherwise: 0</returns>
         public int GetSumAmount(string recordCodeName)
         {
-            var sum = 0;
-            foreach (var item in GetItems(recordCodeName))
-                sum += item.Amount;
-
-            return sum;
+            return GetItems(recordCodeName).Aggregate(0, (current, item) => current + item.Amount);
         }
 
         /// <summary>
@@ -253,11 +250,7 @@ namespace RSBot.Core.Objects
         /// <returns>if found: the SumAmount; otherwise: 0</returns>
         public int GetSumAmount(TypeIdFilter filter)
         {
-            var sum = 0;
-            foreach (var item in GetItems(filter))
-                sum += item.Amount;
-
-            return sum;
+            return GetItems(filter).Aggregate(0, (current, item) => current + item.Amount);
         }
 
         /// <summary>
@@ -320,7 +313,7 @@ namespace RSBot.Core.Objects
         public IEnumerator<InventoryItem> GetEnumerator()
         {
             OrderBySlot();
-             return _collection.GetEnumerator();
+            return _collection.GetEnumerator();
         }
 
         /// <summary>
@@ -356,7 +349,8 @@ namespace RSBot.Core.Objects
             {
                 itemAtDestination.Slot = sourceSlot;
                 itemAtSource.Slot = destinationSlot;
-                Log.Debug($"[InventoryItemCollection::Move]  Switch item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}) with (slot={itemAtDestination.Slot}) because the items are not identically.");
+                Log.Debug(
+                    $"[InventoryItemCollection::Move]  Switch item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}) with (slot={itemAtDestination.Slot}) because the items are not identically.");
 
                 return;
             }
@@ -387,12 +381,14 @@ namespace RSBot.Core.Objects
 
                     Add(newInventoryItem);
 
-                    Log.Debug($"[InventoryItemCollection::Move] Split item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={itemAtSource.Amount}) to (slot={destinationSlot}, amount={amount}");
+                    Log.Debug(
+                        $"[InventoryItemCollection::Move] Split item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={itemAtSource.Amount}) to (slot={destinationSlot}, amount={amount}");
                     return;
                 }
 
-                Log.Debug($"[InventoryItemCollection::Move]  Move item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={amount}) to (slot= {destinationSlot})");
-                
+                Log.Debug(
+                    $"[InventoryItemCollection::Move]  Move item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={amount}) to (slot= {destinationSlot})");
+
                 itemAtSource.Slot = destinationSlot;
             }
             else
@@ -407,14 +403,16 @@ namespace RSBot.Core.Objects
                         itemAtDestination.Slot = sourceSlot;
                         itemAtSource.Slot = destinationSlot;
 
-                        Log.Debug($"[InventoryItemCollection::Move]  Switch item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}) with (slot={itemAtDestination.Slot}) because the max stack was reached.");
+                        Log.Debug(
+                            $"[InventoryItemCollection::Move]  Switch item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}) with (slot={itemAtDestination.Slot}) because the max stack was reached.");
                     }
                     else
                     {
-                        itemAtDestination.Amount = (ushort)newItemAmount;
+                        itemAtDestination.Amount = (ushort) newItemAmount;
                         itemAtSource.Amount -= amount;
 
-                        Log.Debug($"[InventoryItemCollection::Move]  Merge item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={itemAtSource.Amount}) with (slot={itemAtDestination.Slot}, amount={itemAtDestination.Amount})");
+                        Log.Debug(
+                            $"[InventoryItemCollection::Move]  Merge item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={itemAtSource.Amount}) with (slot={itemAtDestination.Slot}, amount={itemAtDestination.Amount})");
                         if (itemAtSource.Amount <= 0) RemoveAt(sourceSlot);
                     }
                 }
@@ -422,7 +420,8 @@ namespace RSBot.Core.Objects
                 {
                     itemAtDestination.Slot = sourceSlot;
                     itemAtSource.Slot = destinationSlot;
-                    Log.Debug($"[InventoryItemCollection::Move]  Switch item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}) with (slot={itemAtDestination.Slot}) because the items are not identically.");
+                    Log.Debug(
+                        $"[InventoryItemCollection::Move]  Switch item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}) with (slot={itemAtDestination.Slot}) because the items are not identically.");
                 }
             }
         }
@@ -441,7 +440,8 @@ namespace RSBot.Core.Objects
 
             RemoveAt(sourceItem.Slot);
 
-            Log.Debug($"[InventoryItemCollection::MoveTo] Move item {sourceItem.Record.GetRealName()} (slot={sourceSlot}) to storage (slot={destinationSlot}");
+            Log.Debug(
+                $"[InventoryItemCollection::MoveTo] Move item {sourceItem.Record.GetRealName()} (slot={sourceSlot}) to storage (slot={destinationSlot}");
         }
     }
 }

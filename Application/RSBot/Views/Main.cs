@@ -28,8 +28,17 @@ namespace RSBot.Views
             InitializeComponent();
 
             CheckForIllegalCrossThreadCalls = false;
-
             RegisterEvents();
+        }
+
+        /// <summary>
+        /// Refreshes the theme.
+        /// </summary>
+        public void RefreshTheme()
+        {
+            BackColor = ColorScheme.BackColor;
+            stripStatus.BackColor = BackColor.IsDark() ? ColorScheme.ForeColor.Alpha(60) : Color.FromArgb(33, 150, 243);
+            stripStatus.ForeColor = ColorScheme.ForeColor;
         }
 
         /// <summary>
@@ -214,7 +223,7 @@ namespace RSBot.Views
             var menuItem = (ToolStripMenuItem)sender;
             var plugin = (IPlugin)menuItem.Tag;
 
-            var window = new Form()
+            var window = new CleanForm()
             {
                 Text = plugin.Information.DisplayName,
                 Name = plugin.Information.InternalName,
@@ -481,7 +490,7 @@ namespace RSBot.Views
                 menuBotbase.DropDownItems.Add(item);
                 index++;
             }
-
+            
             SelectBotbase(GlobalConfig.Get<int>("RSBot.BotIndex"));
         }
 
@@ -613,7 +622,9 @@ namespace RSBot.Views
         {
             GlobalConfig.Set("SDUI.Color", Color.Black.ToArgb());
             ColorScheme.BackColor = Color.Black;
-            BackColor = ColorScheme.BackColor;
+
+            RefreshTheme();
+
             GlobalConfig.Save();
         }
 
@@ -621,7 +632,9 @@ namespace RSBot.Views
         {
             GlobalConfig.Set("SDUI.Color", Color.White.ToArgb());
             ColorScheme.BackColor = Color.White;
-            BackColor = ColorScheme.BackColor;
+
+            RefreshTheme();
+
             GlobalConfig.Save();
         }
 
@@ -637,6 +650,8 @@ namespace RSBot.Views
                 ColorScheme.BackColor = colorDialog.Color;
                 BackColor = ColorScheme.BackColor;
                 GlobalConfig.Save();
+
+                RefreshTheme();
             }
         }
     }

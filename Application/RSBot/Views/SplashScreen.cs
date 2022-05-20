@@ -22,7 +22,7 @@ namespace RSBot.Views
             _mainForm = new Main();
 
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-            this.labelVersion.Text = $"v{version.Major}.{version.Minor}";
+            labelVersion.Text = $"v{version.Major}.{version.Minor}";
 
             referenceDataLoader.RunWorkerCompleted += ReferenceDataLoaderCompleted;
         }
@@ -106,6 +106,8 @@ namespace RSBot.Views
         private void ReferenceDataLoaderCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
             _mainForm.Show();
+            _mainForm.RefreshTheme();
+
             Hide();
         }
 

@@ -116,7 +116,7 @@ namespace RSBot.Core.Objects.Spawn
                 double? remaining = null;
 
                 if (Movement.HasDestination)
-                    remaining = Math.Sqrt(Math.Pow(Movement.Destination.RXOffset - Movement.Source.RXOffset, 2) + Math.Pow(Movement.Destination.RYOffset - Movement.Source.RYOffset, 2));
+                    remaining = Math.Sqrt(Math.Pow(Movement.Destination.WorldXOffset - Movement.Source.WorldXOffset, 2) + Math.Pow(Movement.Destination.WorldYOffset - Movement.Source.WorldYOffset, 2));
 
                 var speed = ActualSpeed;
 
@@ -128,8 +128,8 @@ namespace RSBot.Core.Objects.Spawn
                     finish = true;
                 }
 
-                Movement.Source.RXOffset += (float)(Math.Cos(Movement.Angle) * totalChange);
-                Movement.Source.RYOffset += (float)(Math.Sin(Movement.Angle) * totalChange);
+                Movement.Source.WorldXOffset += (float)(Math.Cos(Movement.Angle) * totalChange);
+                Movement.Source.WorldYOffset += (float)(Math.Sin(Movement.Angle) * totalChange);
 
                 if (finish)
                     StopMoving();
@@ -161,8 +161,8 @@ namespace RSBot.Core.Objects.Spawn
                 Movement.HasDestination = true;
                 Movement.Destination = destination;
 
-                var xDelta = Movement.Destination.RXOffset - Movement.Source.RXOffset;
-                var yDelta = Movement.Destination.RYOffset - Movement.Source.RYOffset;
+                var xDelta = Movement.Destination.WorldXOffset - Movement.Source.WorldXOffset;
+                var yDelta = Movement.Destination.WorldYOffset - Movement.Source.WorldYOffset;
 
                 Movement.Angle = Math.Atan2(yDelta, xDelta);
                 _stopwatch.Restart();

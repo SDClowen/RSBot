@@ -20,7 +20,7 @@ namespace RSBot.Bot.Default.Bundle.Berzerk
         /// <exception cref="System.NotImplementedException"></exception>
         public void Invoke()
         {
-            if (!Game.Player.CanEnterBerzerk) return;
+            if (!Game.Player.CanEnterBerzerk || Game.Player.HasActiveVehicle) return;
 
             if (Config.WhenFull)
             {

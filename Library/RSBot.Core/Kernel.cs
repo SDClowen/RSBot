@@ -59,8 +59,6 @@ namespace RSBot.Core
         public static void Initialize()
         {
             Bot = new Bot();
-
-            //External Libraries
             BotbaseManager = new BotbaseManager();
             PluginManager = new PluginManager();
 
