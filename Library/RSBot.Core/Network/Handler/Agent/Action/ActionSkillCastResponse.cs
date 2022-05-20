@@ -45,14 +45,14 @@ namespace RSBot.Core.Network.Handler.Agent.Action
                     case 0x06: // invalid target
                     case 0x10: // obstacle
                         break;
+
                     default:
                         Log.Error($"Invalid skill error code: 0x{errorCode:X2}");
                         break;
                 }
 
                 return;
-            } 
-                
+            }
 
             var action = Objects.Action.DeserializeBegin(packet);
 
@@ -62,15 +62,16 @@ namespace RSBot.Core.Network.Handler.Agent.Action
 
                 var skill = Game.Player.Skills.GetSkillInfoById(action.SkillId);
                 skill?.Update();
-                
+
                 EventManager.FireEvent("OnCastSkill", action.SkillId);
 
                 return;
             }
 
-            if(!action.TryGetExecutor<SpawnedBionic>(out var executor))
+            if (!action.TryGetExecutor<SpawnedBionic>(out var executor))
                 return;
 
+            executor.TargetId = action.TargetId;
             executor.StopMoving();
 
             if (!action.PlayerIsTarget)

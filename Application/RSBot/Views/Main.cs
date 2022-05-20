@@ -82,7 +82,7 @@ namespace RSBot.Views
                 tabMain.TabPages.RemoveByKey(Kernel.Bot.Botbase.Info.Name);
 
             //Add the tab to the tabcontrol
-            var tabPage = new TabPage(LanguageManager.GetLangBySpecificKey(selectedBotbase.Info.Name, "TabText"))
+            var tabPage = new TabPage(LanguageManager.GetLangBySpecificKey(selectedBotbase.Info.Name, "TabText", selectedBotbase.Info.TabText))
             {
                 Name = selectedBotbase.Info.Name,
                 Enabled = Game.Player != null
