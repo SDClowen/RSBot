@@ -1,6 +1,4 @@
-﻿using RSBot.Core;
-
-using RSBot.Views;
+﻿using RSBot.Views;
 using System;
 using System.Windows.Forms;
 

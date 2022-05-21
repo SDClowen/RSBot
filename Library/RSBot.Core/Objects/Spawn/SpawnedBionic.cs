@@ -1,5 +1,8 @@
-﻿using RSBot.Core.Network;
+﻿using System.Collections.Generic;
+using System.Linq;
+using RSBot.Core.Network;
 using System.Timers;
+using RSBot.Core.Components;
 
 namespace RSBot.Core.Objects.Spawn
 {
@@ -44,6 +47,14 @@ namespace RSBot.Core.Objects.Spawn
         /// The bad effect.
         /// </value>
         public BadEffect BadEffect { get; set; }
+
+        /// <summary>
+        /// Gets or sets the target identifier.
+        /// </summary>
+        /// <value>
+        /// The target identifier.
+        /// </value>
+        public uint TargetId { get; set; }
 
         /// <summary>
         /// <inheritdoc/>
@@ -147,6 +158,15 @@ namespace RSBot.Core.Objects.Spawn
             awaitResult.AwaitResponse();
 
             return awaitResult.IsCompleted;
+        }
+
+        /// <summary>
+        /// Gets a list of spawned bionics that are attacking this entity.
+        /// </summary>
+        /// <returns></returns>
+        public List<SpawnedBionic> GetAttackers()
+        {
+            return !SpawnManager.TryGetEntities<SpawnedBionic>(out var attackers, e => e.TargetId == UniqueId) ? null : attackers.ToList();
         }
     }
 }
