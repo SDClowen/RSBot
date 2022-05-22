@@ -1,7 +1,4 @@
 ﻿using RSBot.Core.Components;
-using RSBot.Core.Event;
-using RSBot.Core.Objects;
-using RSBot.Core.Objects.Spawn;
 
 namespace RSBot.Core.Network.Handler.Agent.Entity
 {
