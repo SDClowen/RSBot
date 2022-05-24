@@ -93,6 +93,7 @@
     <Compile Include="Network\Handler\Agent\Alchemy\ElixirFuseRequestHandler.cs" />
     <Compile Include="Network\Handler\Agent\Alchemy\GenericAlchemyRequestHandler.cs" />
     <Compile Include="Network\Handler\Agent\Alchemy\StoneAckResponseHandler.cs" />
+    <Compile Include="Network\Handler\Agent\Cos\UpdateMountStateResponse.cs" />
     <Compile Include="Network\Handler\Agent\Entity\EntitySourcePositionUpdate.cs" />
     <Compile Include="Network\Handler\Agent\Entity\EntityUpdateStatusFlag.cs" />
     <Compile Include="Network\Handler\Agent\Exchange\ExchangeApprovedResponse.cs" />
