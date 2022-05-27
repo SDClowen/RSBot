@@ -47,12 +47,11 @@ namespace RSBot.Bot.Default.Views
             var yPos = PlayerConfig.Get<float>("RSBot.Area.Y");
             var radius = PlayerConfig.Get<int>("RSBot.Area.Radius");
 
-            EventManager.FireEvent("AppendScriptCommand", $"area {xPos} {yPos} {radius}");
-
-            txtRadius.CausesValidation = false;
             txtRadius.Text = radius.ToString();
-            txtXCoord.Text = xPos.ToString(CultureInfo.InvariantCulture);
-            txtYCoord.Text = yPos.ToString(CultureInfo.InvariantCulture);
+            txtXCoord.Text = xPos.ToString();
+            txtYCoord.Text = yPos.ToString();
+
+            EventManager.FireEvent("AppendScriptCommand", $"area {xPos} {yPos} {radius}");
         }
 
         /// <summary>
