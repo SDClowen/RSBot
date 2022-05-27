@@ -280,23 +280,23 @@ namespace RSBot.Bot.Default.Views
         private void OnLoadCharacter()
         {
             //Training Area
-            txtXCoord.Text = PlayerConfig.Get<string>("RSBot.Area.X", "0");
-            txtYCoord.Text = PlayerConfig.Get<string>("RSBot.Area.Y", "0");
-            txtRadius.Text = PlayerConfig.Get<string>("RSBot.Area.Radius", "50");
+            txtXCoord.Text = PlayerConfig.Get("RSBot.Area.X", "0");
+            txtYCoord.Text = PlayerConfig.Get("RSBot.Area.Y", "0");
+            txtRadius.Text = PlayerConfig.Get("RSBot.Area.Radius", "50");
             radioCenter.Checked = PlayerConfig.Get("RSBot.Area.GoToCenter", true);
             radioWalkAround.Checked = PlayerConfig.Get<bool>("RSBot.Area.WalkAround");
 
             //Walkback
             txtWalkscript.Text = PlayerConfig.Get<string>("RSBot.Walkback.File");
             checkUseMount.Checked = PlayerConfig.Get<bool>("RSBot.Walkback.UseMount");
-            checkCastBuffs.Checked = PlayerConfig.Get<bool>("RSBot.Walkback.CastBuffs", true);
+            checkCastBuffs.Checked = PlayerConfig.Get("RSBot.Walkback.CastBuffs", true);
             checkUseSpeedDrug.Checked = PlayerConfig.Get<bool>("RSBot.Walkback.UseSpeedDrug");
 
             //BerzerkBundle
             checkBerzerkWhenFull.Checked = PlayerConfig.Get<bool>("RSBot.Berzerk.WhenFull");
             checkBerzerkAvoidance.Checked = PlayerConfig.Get<bool>("RSBot.Berzerk.MonsterAvoidance");
             checkBerzerkMonsterAmount.Checked = PlayerConfig.Get<bool>("RSBot.Berzerk.MonsterAmount");
-            numBerzerkMonsterAmount.Value = PlayerConfig.Get<int>("RSBot.Berzerk.MonsterAmountNumber", 3);
+            numBerzerkMonsterAmount.Value = PlayerConfig.Get("RSBot.Berzerk.MonsterAmountNumber", 3);
 
             //Avoidance
             LoadAvoidance();

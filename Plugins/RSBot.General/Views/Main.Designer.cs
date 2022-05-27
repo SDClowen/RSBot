@@ -74,6 +74,7 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label1.Location = new System.Drawing.Point(16, 11);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(140, 15);
@@ -83,6 +84,7 @@
             // lblVersion
             // 
             this.lblVersion.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVersion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblVersion.Location = new System.Drawing.Point(707, 11);
             this.lblVersion.Name = "lblVersion";
             this.lblVersion.Size = new System.Drawing.Size(40, 15);
@@ -111,7 +113,7 @@
             this.groupBox4.Location = new System.Drawing.Point(389, 183);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBox4.Radius = 1;
+            this.groupBox4.Radius = 2;
             this.groupBox4.Size = new System.Drawing.Size(359, 110);
             this.groupBox4.TabIndex = 17;
             this.groupBox4.TabStop = false;
@@ -120,7 +122,7 @@
             // label8
             // 
             this.label8.Enabled = false;
-            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label8.Location = new System.Drawing.Point(6, 55);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(347, 52);
@@ -130,10 +132,12 @@
             // 
             // checkBoxBotTrayMinimized
             // 
+            this.checkBoxBotTrayMinimized.AutoSize = true;
+            this.checkBoxBotTrayMinimized.BackColor = System.Drawing.Color.Transparent;
             this.checkBoxBotTrayMinimized.Checked = false;
             this.checkBoxBotTrayMinimized.Location = new System.Drawing.Point(20, 28);
             this.checkBoxBotTrayMinimized.Name = "checkBoxBotTrayMinimized";
-            this.checkBoxBotTrayMinimized.Size = new System.Drawing.Size(284, 20);
+            this.checkBoxBotTrayMinimized.Size = new System.Drawing.Size(242, 15);
             this.checkBoxBotTrayMinimized.TabIndex = 0;
             this.checkBoxBotTrayMinimized.Text = "Move bot to system tray when minimized";
             this.checkBoxBotTrayMinimized.CheckedChanged += new System.EventHandler(this.checkBoxBotTrayMinimized_CheckedChanged);
@@ -146,7 +150,7 @@
             this.groupBox3.Location = new System.Drawing.Point(389, 67);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBox3.Radius = 1;
+            this.groupBox3.Radius = 2;
             this.groupBox3.Size = new System.Drawing.Size(359, 105);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
@@ -154,7 +158,7 @@
             // 
             // label2
             // 
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label2.Location = new System.Drawing.Point(6, 52);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(347, 50);
@@ -164,10 +168,12 @@
             // 
             // checkStayConnected
             // 
+            this.checkStayConnected.AutoSize = true;
+            this.checkStayConnected.BackColor = System.Drawing.Color.Transparent;
             this.checkStayConnected.Checked = false;
             this.checkStayConnected.Location = new System.Drawing.Point(20, 27);
             this.checkStayConnected.Name = "checkStayConnected";
-            this.checkStayConnected.Size = new System.Drawing.Size(301, 22);
+            this.checkStayConnected.Size = new System.Drawing.Size(247, 15);
             this.checkStayConnected.TabIndex = 17;
             this.checkStayConnected.Text = "Stay connected if client exits unexpectedly";
             this.checkStayConnected.CheckedChanged += new System.EventHandler(this.checkStayConnected_CheckedChanged);
@@ -182,7 +188,7 @@
             this.groupBox2.Location = new System.Drawing.Point(19, 67);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBox2.Radius = 1;
+            this.groupBox2.Radius = 2;
             this.groupBox2.Size = new System.Drawing.Size(355, 105);
             this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
@@ -194,6 +200,7 @@
             this.btnClientHideShow.Enabled = false;
             this.btnClientHideShow.Location = new System.Drawing.Point(18, 68);
             this.btnClientHideShow.Name = "btnClientHideShow";
+            this.btnClientHideShow.Radius = 2;
             this.btnClientHideShow.Size = new System.Drawing.Size(125, 21);
             this.btnClientHideShow.TabIndex = 19;
             this.btnClientHideShow.Text = "Client Visibility";
@@ -205,6 +212,7 @@
             this.btnStartClient.Color = System.Drawing.Color.Transparent;
             this.btnStartClient.Location = new System.Drawing.Point(18, 36);
             this.btnStartClient.Name = "btnStartClient";
+            this.btnStartClient.Radius = 2;
             this.btnStartClient.Size = new System.Drawing.Size(125, 21);
             this.btnStartClient.TabIndex = 16;
             this.btnStartClient.Text = "Start Client";
@@ -216,6 +224,7 @@
             this.btnStartClientless.Color = System.Drawing.Color.Transparent;
             this.btnStartClientless.Location = new System.Drawing.Point(212, 36);
             this.btnStartClientless.Name = "btnStartClientless";
+            this.btnStartClientless.Radius = 2;
             this.btnStartClientless.Size = new System.Drawing.Size(125, 21);
             this.btnStartClientless.TabIndex = 18;
             this.btnStartClientless.Text = "Start Clientless";
@@ -228,6 +237,7 @@
             this.btnGoClientless.Enabled = false;
             this.btnGoClientless.Location = new System.Drawing.Point(212, 68);
             this.btnGoClientless.Name = "btnGoClientless";
+            this.btnGoClientless.Radius = 2;
             this.btnGoClientless.Size = new System.Drawing.Size(125, 21);
             this.btnGoClientless.TabIndex = 17;
             this.btnGoClientless.Text = "Go Clientless";
@@ -245,7 +255,7 @@
             this.groupBox1.Location = new System.Drawing.Point(19, 183);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBox1.Radius = 1;
+            this.groupBox1.Radius = 2;
             this.groupBox1.Size = new System.Drawing.Size(355, 282);
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
@@ -273,20 +283,24 @@
             // 
             // checkStartBot
             // 
+            this.checkStartBot.AutoSize = true;
+            this.checkStartBot.BackColor = System.Drawing.Color.Transparent;
             this.checkStartBot.Checked = false;
             this.checkStartBot.Location = new System.Drawing.Point(73, 21);
             this.checkStartBot.Name = "checkStartBot";
-            this.checkStartBot.Size = new System.Drawing.Size(136, 17);
+            this.checkStartBot.Size = new System.Drawing.Size(96, 15);
             this.checkStartBot.TabIndex = 24;
             this.checkStartBot.Text = "Auto start bot";
             this.checkStartBot.CheckedChanged += new System.EventHandler(this.checkAutoStartBot_CheckedChanged);
             // 
             // checkUseReturnScroll
             // 
+            this.checkUseReturnScroll.AutoSize = true;
+            this.checkUseReturnScroll.BackColor = System.Drawing.Color.Transparent;
             this.checkUseReturnScroll.Checked = false;
             this.checkUseReturnScroll.Location = new System.Drawing.Point(73, 44);
             this.checkUseReturnScroll.Name = "checkUseReturnScroll";
-            this.checkUseReturnScroll.Size = new System.Drawing.Size(136, 23);
+            this.checkUseReturnScroll.Size = new System.Drawing.Size(108, 15);
             this.checkUseReturnScroll.TabIndex = 16;
             this.checkUseReturnScroll.Text = "Use return scroll";
             this.checkUseReturnScroll.CheckedChanged += new System.EventHandler(this.checkUseReturnScroll_CheckedChanged);
@@ -318,7 +332,7 @@
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label6.Location = new System.Drawing.Point(70, 60);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(260, 13);
@@ -327,9 +341,10 @@
             // 
             // label5
             // 
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label5.Location = new System.Drawing.Point(9, 14);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(50, 13);
+            this.label5.Size = new System.Drawing.Size(58, 18);
             this.label5.TabIndex = 18;
             this.label5.Text = "Captcha:";
             // 
@@ -347,10 +362,12 @@
             // 
             // checkEnableStaticCaptcha
             // 
+            this.checkEnableStaticCaptcha.AutoSize = true;
+            this.checkEnableStaticCaptcha.BackColor = System.Drawing.Color.Transparent;
             this.checkEnableStaticCaptcha.Checked = false;
             this.checkEnableStaticCaptcha.Location = new System.Drawing.Point(73, 37);
             this.checkEnableStaticCaptcha.Name = "checkEnableStaticCaptcha";
-            this.checkEnableStaticCaptcha.Size = new System.Drawing.Size(214, 20);
+            this.checkEnableStaticCaptcha.Size = new System.Drawing.Size(164, 15);
             this.checkEnableStaticCaptcha.TabIndex = 4;
             this.checkEnableStaticCaptcha.Text = "Enable static captcha solve";
             this.checkEnableStaticCaptcha.CheckedChanged += new System.EventHandler(this.checkEnableStaticCaptcha_CheckedChanged);
@@ -386,26 +403,30 @@
             // 
             // label7
             // 
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label7.Location = new System.Drawing.Point(20, 37);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(39, 13);
+            this.label7.Size = new System.Drawing.Size(47, 16);
             this.label7.TabIndex = 23;
             this.label7.Text = "Player:";
             // 
             // label4
             // 
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label4.Location = new System.Drawing.Point(9, 13);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(50, 13);
+            this.label4.Size = new System.Drawing.Size(66, 13);
             this.label4.TabIndex = 0;
             this.label4.Text = "Account:";
             // 
             // checkEnableAutoLogin
             // 
+            this.checkEnableAutoLogin.AutoSize = true;
+            this.checkEnableAutoLogin.BackColor = System.Drawing.Color.Transparent;
             this.checkEnableAutoLogin.Checked = false;
             this.checkEnableAutoLogin.Location = new System.Drawing.Point(73, 65);
             this.checkEnableAutoLogin.Name = "checkEnableAutoLogin";
-            this.checkEnableAutoLogin.Size = new System.Drawing.Size(167, 19);
+            this.checkEnableAutoLogin.Size = new System.Drawing.Size(149, 15);
             this.checkEnableAutoLogin.TabIndex = 1;
             this.checkEnableAutoLogin.Text = "Enable automated login";
             this.checkEnableAutoLogin.CheckedChanged += new System.EventHandler(this.checkEnableAutoLogin_CheckedChanged);
@@ -431,6 +452,7 @@
             this.btnAutoLoginSettings.Color = System.Drawing.Color.Transparent;
             this.btnAutoLoginSettings.Location = new System.Drawing.Point(256, 61);
             this.btnAutoLoginSettings.Name = "btnAutoLoginSettings";
+            this.btnAutoLoginSettings.Radius = 2;
             this.btnAutoLoginSettings.Size = new System.Drawing.Size(75, 23);
             this.btnAutoLoginSettings.TabIndex = 2;
             this.btnAutoLoginSettings.Text = "Setup";
@@ -442,6 +464,7 @@
             this.btnBrowseSilkroadPath.Color = System.Drawing.Color.Transparent;
             this.btnBrowseSilkroadPath.Location = new System.Drawing.Point(715, 30);
             this.btnBrowseSilkroadPath.Name = "btnBrowseSilkroadPath";
+            this.btnBrowseSilkroadPath.Radius = 2;
             this.btnBrowseSilkroadPath.Size = new System.Drawing.Size(32, 21);
             this.btnBrowseSilkroadPath.TabIndex = 2;
             this.btnBrowseSilkroadPath.Text = "...";
@@ -476,12 +499,17 @@
             this.Name = "Main";
             this.Size = new System.Drawing.Size(765, 480);
             this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.captchaPanel.ResumeLayout(false);
+            this.captchaPanel.PerformLayout();
             this.autoLoginTopPanel.ResumeLayout(false);
+            this.autoLoginTopPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
