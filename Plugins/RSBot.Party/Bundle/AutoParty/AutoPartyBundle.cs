@@ -53,8 +53,6 @@ namespace RSBot.Party.Bundle.AutoParty
                 LeaveIfMasterNotName = PlayerConfig.Get<string>("RSBot.Party.LeaveIfMasterNotName"),
                 CenterPosition = new Position
                 {
-                    XSector = PlayerConfig.Get<byte>("RSBot.Area.XSec"),
-                    YSector = PlayerConfig.Get<byte>("RSBot.Area.YSec"),
                     XCoordinate = PlayerConfig.Get<float>("RSBot.Area.X"),
                     YCoordinate = PlayerConfig.Get<float>("RSBot.Area.Y")
                 }

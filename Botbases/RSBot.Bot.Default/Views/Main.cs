@@ -2,6 +2,7 @@
 using RSBot.Core.Event;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace RSBot.Bot.Default.Views
@@ -34,6 +35,23 @@ namespace RSBot.Bot.Default.Views
         private void SubscribeEvents()
         {
             EventManager.SubscribeEvent("OnLoadCharacter", OnLoadCharacter);
+            EventManager.SubscribeEvent("OnSetTrainingArea", OnSetTrainingArea);
+        }
+
+        /// <summary>
+        /// Called when the training area has been set to a certain location. Will append a new script command "area" and update the UI.
+        /// </summary>
+        private void OnSetTrainingArea()
+        {
+            var xPos = PlayerConfig.Get<float>("RSBot.Area.X");
+            var yPos = PlayerConfig.Get<float>("RSBot.Area.Y");
+            var radius = PlayerConfig.Get<int>("RSBot.Area.Radius");
+
+            txtRadius.Text = radius.ToString();
+            txtXCoord.Text = xPos.ToString();
+            txtYCoord.Text = yPos.ToString();
+
+            EventManager.FireEvent("AppendScriptCommand", $"area {xPos} {yPos} {radius}");
         }
 
         /// <summary>
@@ -87,8 +105,8 @@ namespace RSBot.Bot.Default.Views
         {
             txtXCoord.Text = Convert.ToInt32(Game.Player.Movement.Source.XCoordinate).ToString();
             txtYCoord.Text = Convert.ToInt32(Game.Player.Movement.Source.YCoordinate).ToString();
-            PlayerConfig.Set("RSBot.Area.XSec", Game.Player.Movement.Source.XSector);
-            PlayerConfig.Set("RSBot.Area.YSec", Game.Player.Movement.Source.YSector);
+
+            EventManager.FireEvent("OnSetTrainingArea");
         }
 
         /// <summary>
@@ -98,8 +116,10 @@ namespace RSBot.Bot.Default.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void txtXCoord_TextChanged(object sender, EventArgs e)
         {
-            if (float.TryParse(txtXCoord.Text, out var result))
-                PlayerConfig.Set("RSBot.Area.X", result);
+            if (!float.TryParse(txtXCoord.Text, out var result))
+                return;
+
+            PlayerConfig.Set("RSBot.Area.X", result);
         }
 
         /// <summary>
@@ -109,8 +129,10 @@ namespace RSBot.Bot.Default.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void txtYCoord_TextChanged(object sender, EventArgs e)
         {
-            if (float.TryParse(txtYCoord.Text, out var result))
-                PlayerConfig.Set("RSBot.Area.Y", result);
+            if (!float.TryParse(txtYCoord.Text, out var result))
+                return;
+
+            PlayerConfig.Set("RSBot.Area.Y", result);
         }
 
         /// <summary>
@@ -120,8 +142,10 @@ namespace RSBot.Bot.Default.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void txtRadius_TextChanged(object sender, EventArgs e)
         {
-            if (int.TryParse(txtRadius.Text, out var result))
-                PlayerConfig.Set("RSBot.Area.Radius", result);
+            if (!int.TryParse(txtRadius.Text, out var result))
+                return;
+
+            PlayerConfig.Set("RSBot.Area.Radius", result);
         }
 
         /// <summary>
