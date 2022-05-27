@@ -7,6 +7,7 @@ using RSBot.Core.Objects;
 using RSBot.Core.Plugins;
 using System;
 using System.Windows.Forms;
+using RSBot.Bot.Default.Components;
 
 namespace RSBot.Bot.Default
 {
@@ -78,6 +79,8 @@ namespace RSBot.Bot.Default
             Container.Lock = new object();
             Subscriber.ConfigSubscriber.SubscribeEvents();
             Subscriber.TeleportSubscriber.SubscribeEvents();
+
+            ScriptManager.CommandHandlers.Add(new TrainingAreaScriptCommand());
         }
 
         /// <summary>

@@ -34,8 +34,6 @@ namespace RSBot.Bot.Default.Bot
             {
                 CenterPosition = new Position
                 {
-                    XSector = PlayerConfig.Get<byte>("RSBot.Area.XSec"),
-                    YSector = PlayerConfig.Get<byte>("RSBot.Area.YSec"),
                     XCoordinate = PlayerConfig.Get<float>("RSBot.Area.X"),
                     YCoordinate = PlayerConfig.Get<float>("RSBot.Area.Y")
                 },
