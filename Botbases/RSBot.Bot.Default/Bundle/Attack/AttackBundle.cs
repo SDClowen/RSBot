@@ -1,6 +1,5 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Components;
-using RSBot.Core.Objects;
 
 namespace RSBot.Bot.Default.Bundle.Attack
 {
@@ -21,7 +20,7 @@ namespace RSBot.Bot.Default.Bundle.Attack
                 if (Game.Player.InAction)
                     SkillManager.CancelAction();
 
-                if(Game.SelectedEntity.TryDeselect())
+                if (Game.SelectedEntity.TryDeselect())
                     Game.SelectedEntity = null;
 
                 return;
@@ -37,9 +36,9 @@ namespace RSBot.Bot.Default.Bundle.Attack
 
             var stopwatch = System.Diagnostics.Stopwatch.StartNew();
             var skill = SkillManager.GetNextSkill();
-            
+
             Log.Debug($"Getnextskill: {stopwatch.ElapsedMilliseconds} Action:{Game.Player.InAction} Entity:{Game.SelectedEntity != null} LA:{SkillManager.IsLastCastedBasic} Skill:{skill}");
-            
+
             if (skill == null)
             {
                 if (Game.Player.InAction)
@@ -49,11 +48,14 @@ namespace RSBot.Bot.Default.Bundle.Attack
 
                 return;
             }
-            else if (Game.Player.InAction && SkillManager.IsLastCastedBasic)
+            if (Game.Player.InAction && SkillManager.IsLastCastedBasic)
                 SkillManager.CancelAction();
 
-            var uniqueId = Game.SelectedEntity.UniqueId;
-            SkillManager.CastSkill(skill, uniqueId);
+            var uniqueId = Game.SelectedEntity?.UniqueId;
+            if (uniqueId == null)
+                return;
+
+            SkillManager.CastSkill(skill, (uint) uniqueId);
         }
 
         /// <summary>

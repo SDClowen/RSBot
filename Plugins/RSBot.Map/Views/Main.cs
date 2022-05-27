@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -75,9 +74,6 @@ namespace RSBot.Map.Views
 
 #if !DEBUG
             labelSectorInfo.Visible = false;
-            buttonZoomIn.Visible = false;
-            buttonZoomReset.Visible = false;
-            buttonZoomOut.Visible = false;
 #endif
         }
 
@@ -136,8 +132,9 @@ namespace RSBot.Map.Views
 
             try
             {
-                var x = (mapCanvas.Width / 2f) + (position.XCoordinate - Game.Player.Movement.Source.XCoordinate) * _scale;
-                var y = (mapCanvas.Height / 2f) + (position.YCoordinate - Game.Player.Movement.Source.YCoordinate) * _scale * -1.0f;
+
+                var x = GetMapX(position);
+                var y = GetMapY(position);
 
                 var img = (Image)_mapEntityImages[entityIndex].Clone();
 
@@ -154,21 +151,20 @@ namespace RSBot.Map.Views
             var distanceToPosition = position.DistanceToPlayer();
             if (distanceToPosition > 150)
                 return;
+
             try
             {
-                var x = (int)((mapCanvas.Width / 2f) +
-                        (position.XCoordinate - Game.Player.Movement.Source.XCoordinate) * _scale);
-                var y = (int)((mapCanvas.Height / 2f) +
-                        (position.YCoordinate - Game.Player.Movement.Source.YCoordinate) * _scale * -1.0f);
+                var x = GetMapX(position);
+                var y = GetMapY(position);
 
                 if (!string.IsNullOrEmpty(label))
-                    gfx.DrawString(label, Font, brush, x + size.Width, y - (size.Width / 2));
+                    gfx.DrawString(label, Font, brush, x + size.Width, y - size.Width / 2);
 
-                gfx.FillRectangle(brush, new Rectangle(new Point(x, y), size));
+                gfx.FillRectangle(brush, new RectangleF(new PointF(x, y), size));
             }
             catch { }
         }
-        
+
         private void DrawLineAt(Graphics gfx, Position source, Position destination, Pen color)
         {
             var distanceToPositionA = source.DistanceToPlayer();
@@ -176,12 +172,35 @@ namespace RSBot.Map.Views
             if (distanceToPositionA > 150 || distanceToPositionB > 150)
                 return;
 
-            var srcX = (mapCanvas.Width / 2f) + (source.XCoordinate - Game.Player.Movement.Source.XCoordinate) * _scale;
-            var srcY = (mapCanvas.Height / 2f) + (source.YCoordinate - Game.Player.Movement.Source.YCoordinate) * _scale * -1.0f;
-            var destinationX = (mapCanvas.Width / 2f) + (destination.XCoordinate - Game.Player.Movement.Source.XCoordinate) * _scale;
-            var destinationY = (mapCanvas.Height / 2f) + (destination.YCoordinate - Game.Player.Movement.Source.YCoordinate) * _scale * -1.0f;
+            var srcX = GetMapX(source);
+            var srcY = GetMapY(source);
+            var destinationX = GetMapX(destination);
+            var destinationY = GetMapY(destination);
 
             gfx.DrawLine(color, srcX, srcY, destinationX, destinationY);
+        }
+
+        private void DrawCircleAt(Graphics gfx, Position position, Color color, int diameter)
+        {
+            var distanceToPosition = position.DistanceToPlayer();
+            if (distanceToPosition > 150)
+                return;
+
+            try
+            {
+                var x = GetMapX(position);
+                var y = GetMapY(position);
+
+                var semiTransBrush = new SolidBrush(Color.FromArgb(90, color.R, color.G, color.B));
+
+
+                var diameterF = diameter * _scale;
+                var point = new PointF(x - diameterF / 2, y - diameterF / 2);
+
+                gfx.FillEllipse(semiTransBrush, new RectangleF(point, new SizeF(diameterF, diameterF)));
+                gfx.DrawEllipse(new Pen(color), new RectangleF(point, new SizeF(diameterF, diameterF)));
+            }
+            catch { }
         }
 
         /// <summary>
@@ -194,6 +213,10 @@ namespace RSBot.Map.Views
 
             try
             {
+#if DEBUG
+                if (Game.Player.Movement.HasDestination)
+                    DrawCircleAt(graphics, Game.Player.Movement.Destination, Color.DarkBlue, 5);
+#endif
                 //Draw walk script
                 if (ScriptManager.Running)
                 {
@@ -203,7 +226,19 @@ namespace RSBot.Map.Views
                         var nextPosition = walkScript[i];
 
                         DrawLineAt(graphics, i != 0 ? walkScript[i - 1] : nextPosition, nextPosition, Pens.LightBlue);
-                        DrawRectangleAt(graphics, nextPosition, Brushes.CornflowerBlue, new Size(4, 4));
+                        DrawCircleAt(graphics, nextPosition, Color.CornflowerBlue, 4);
+                    }
+                }
+
+                if (Kernel.Bot.Running)
+                {
+                    if (float.TryParse(PlayerConfig.Get("RSBot.Area.X", "0"), out var xCoord) &&
+                        float.TryParse(PlayerConfig.Get("RSBot.Area.Y", "0"), out var yCoord) &&
+                        int.TryParse(PlayerConfig.Get("RSBot.Area.Radius", "50"), out var radius))
+                    {
+                        var position = new Position { XCoordinate = xCoord, YCoordinate = yCoord };
+
+                        DrawCircleAt(graphics, position, Color.SteelBlue, radius * 2);
                     }
                 }
 
@@ -242,11 +277,10 @@ namespace RSBot.Map.Views
                     {
                         foreach (var member in Game.Party.Members.ToArray())
                         {
-                            if (Game.Player.Movement.Source.DistanceTo(member.Position) < 50)
-                            {
-                                DrawPointAt(graphics, member.Position, 6);
-                                AddGridItem(member.Name, "Party Member", member.Level, member.Position);
-                            }
+                            if (!(Game.Player.Movement.Source.DistanceTo(member.Position) < 50))
+                                continue;
+                            DrawPointAt(graphics, member.Position, 6);
+                            AddGridItem(member.Name, "Party Member", member.Level, member.Position);
                         }
                     }
                 }
@@ -312,8 +346,8 @@ namespace RSBot.Map.Views
                 _cachedImages.Add(sectorImgName, img);
                 return (Image)img.Clone();
             }
-            else
-                return new Bitmap(SectorSize, SectorSize);
+        
+            return new Bitmap(SectorSize, SectorSize);
         }
 
         /// <summary>
@@ -348,8 +382,10 @@ namespace RSBot.Map.Views
                         gfx.DrawImage(bitmap, pos);
 
 #if DEBUG
-                        gfx.DrawRectangle(Pens.Black, new Rectangle(pos, new Size(SectorSize, SectorSize)));
-#endif               
+                        var pen = new Pen(Color.Black);
+                        pen.DashStyle  = DashStyle.Dot;
+                        gfx.DrawRectangle(pen, new Rectangle(pos, new Size(SectorSize, SectorSize)));
+#endif
                         bitmap.Dispose();
                     }
                 }
@@ -396,7 +432,6 @@ namespace RSBot.Map.Views
                 e.Graphics.DrawImage(_currentSectorGraphic, point);
 
                 PopulateMapAndGrid(e.Graphics);
-
                 DrawPointAt(e.Graphics, Game.Player.Movement.Source, 0);
             }
         }
@@ -437,61 +472,14 @@ namespace RSBot.Map.Views
                 uniqueEntity.TrySelect();
         }
 
-        private void buttonZoomIn_Click(object sender, EventArgs e)
+        private float GetMapX(Position gamePosition)
         {
-            //if (_scale >= 2.0)
-            //    return;
-
-            Task.Run(() =>
-            {
-                var r = _scale / 0.75f;
-
-                while (r >= _scale)
-                {
-                    _scale += r * 0.0175f;
-
-                    mapCanvas.Refresh();
-                }
-            });
+            return mapCanvas.Width / 2f + (gamePosition.XCoordinate - Game.Player.Movement.Source.XCoordinate) * _scale;
         }
 
-        private void buttonZoomOut_Click(object sender, EventArgs e)
+        private float GetMapY(Position gamePosition)
         {
-            //if (_scale <= 1.0)
-            //    return;
-            Task.Run(() =>
-            {
-                var r = _scale * 0.75f;
-
-                while (r <= _scale)
-                {
-                    _scale -= r * 0.0175f;
-                    mapCanvas.Refresh();
-                }
-            });
-        }
-
-        private void buttonZoomReset_Click(object sender, EventArgs e)
-        {
-            var originalZoom = SectorSize / 192.0f;
-            if (originalZoom == _scale)
-                return;
-
-            Task.Run(() =>
-            {
-                if (originalZoom > _scale)
-                    while (originalZoom >= _scale)
-                    {
-                        _scale += originalZoom * 0.035f;
-                        mapCanvas.Refresh();
-                    }
-                else
-                    while (originalZoom <= _scale)
-                    {
-                        _scale -= originalZoom * 0.035f;
-                        mapCanvas.Refresh();
-                    }
-            });
+            return mapCanvas.Height / 2f + (gamePosition.YCoordinate - Game.Player.Movement.Source.YCoordinate) * _scale * -1.0f;
         }
     }
 }
