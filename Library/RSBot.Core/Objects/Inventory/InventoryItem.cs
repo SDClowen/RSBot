@@ -97,6 +97,14 @@ namespace RSBot.Core.Objects
         public InventoryItemState State { get; set; }
 
         /// <summary>
+        /// Gets or sets the state.
+        /// </summary>
+        /// <value>
+        /// The state.
+        /// </value>
+        public InventoryItemCosInfo Cos;
+
+        /// <summary>
         /// Uses the item
         /// </summary>
         /// <returns></returns>
@@ -107,16 +115,16 @@ namespace RSBot.Core.Objects
             var packet = new Packet(0x704C);
             packet.WriteByte(Slot);
 
-            if(Game.ClientType > GameClientType.Vietnam)
+            if (Game.ClientType > GameClientType.Vietnam)
                 packet.WriteInt(Record.Tid);
             else
                 packet.WriteUShort(Record.Tid);
 
             var result = false;
-            var asyncCallback = new AwaitCallback(response => 
-            { 
-                return response.ReadByte() == 0x01 ? 
-                    AwaitCallbackResult.Successed : AwaitCallbackResult.Failed; 
+            var asyncCallback = new AwaitCallback(response =>
+            {
+                return response.ReadByte() == 0x01 ?
+                    AwaitCallbackResult.Successed : AwaitCallbackResult.Failed;
             }, 0xB04C);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, asyncCallback);
@@ -133,7 +141,12 @@ namespace RSBot.Core.Objects
         {
             var packet = new Packet(0x704C);
             packet.WriteByte(Slot);
-            packet.WriteUShort(Record.Tid);
+
+            if (Game.ClientType > GameClientType.Vietnam)
+                packet.WriteInt(Record.Tid);
+            else
+                packet.WriteUShort(Record.Tid);
+
             packet.WriteByte(destinationSlot);
 
             PacketManager.SendPacket(packet, PacketDestination.Server);
@@ -147,7 +160,12 @@ namespace RSBot.Core.Objects
         {
             var packet = new Packet(0x704C);
             packet.WriteByte(Slot);
-            packet.WriteUShort(Record.Tid);
+
+            if (Game.ClientType > GameClientType.Vietnam)
+                packet.WriteInt(Record.Tid);
+            else
+                packet.WriteUShort(Record.Tid);
+
             packet.WriteUInt(uniqueId);
 
             PacketManager.SendPacket(packet, PacketDestination.Server);
@@ -160,8 +178,8 @@ namespace RSBot.Core.Objects
         public bool Equip(byte slot)
         {
             int attempt = 0;
-            while (!Game.Player.Inventory.MoveItem(Slot, slot) && 
-                Kernel.Bot.Running && 
+            while (!Game.Player.Inventory.MoveItem(Slot, slot) &&
+                Kernel.Bot.Running &&
                 Game.Player.State.ScrollState == ScrollState.Cancel)
             {
                 if (attempt++ > 5)
@@ -195,123 +213,120 @@ namespace RSBot.Core.Objects
             {
                 item.Slot = packet.ReadByte();
             }
-            
-            if(Game.ClientType > GameClientType.Thailand)
+
+            if (Game.ClientType > GameClientType.Thailand)
                 item.Rental = RentInfo.FromPacket(packet);
 
             item.ItemId = packet.ReadUInt();
 
-            if (item.Record == null)
+            var record = item.Record;
+            if (record == null)
             {
                 Log.Notify("No item found for " + item.ItemId);
 
                 return null;
             }
-            if (item.Record.TypeID1 == 3)
+
+            if (record.IsEquip || record.IsFellowEquip || record.IsJobEquip)
             {
-                if (item.Record.TypeID2 == 1 || 
-                    item.Record.TypeID2 == 4 ||
-                    item.Record.TypeID2 == 5
-                    ) //Gear
+                item.OptLevel = packet.ReadByte();
+                item.Variance = packet.ReadULong();
+                item.Durability = packet.ReadUInt();
+
+                //Read magic options for the item
+                var magicOptionsAmount = packet.ReadByte();
+                for (var iMagicOption = 0; iMagicOption < magicOptionsAmount; iMagicOption++)
+                    item.MagicOptions.Add(MagicOptionInfo.FromPacket(packet));
+
+                if (Game.ClientType > GameClientType.Thailand)
                 {
-                    item.OptLevel = packet.ReadByte();
-                    item.Variance = packet.ReadULong();
-                    item.Durability = packet.ReadUInt(); //Durability?
+                    //Read sockets & advanced elixirs
 
-                    //Read magic options for the item
-                    var magicOptionsAmount = packet.ReadByte();
-                    for (var iMagicOption = 0; iMagicOption < magicOptionsAmount; iMagicOption++)
-                        item.MagicOptions.Add(MagicOptionInfo.FromPacket(packet));
-
-                    if (Game.ClientType > GameClientType.Thailand)
+                    var bindingCount = 2;
+                    switch (Game.ClientType)
                     {
-                        //Read sockets & advanced elixirs
+                        case GameClientType.Chinese:
+                        case GameClientType.Global:
+                        case GameClientType.Turkey:
+                            bindingCount = 4;
+                            break;
+                        case GameClientType.Korean:
+                            bindingCount = 3;
+                            break;
+                    }
 
-                        var bindingCount = 2;
-                        switch (Game.ClientType)
+                    for (var bindingIndex = 0; bindingIndex < bindingCount; bindingIndex++)
+                    {
+                        var bindingType = packet.ReadByte();
+                        var bindingAmount = packet.ReadByte();
+                        for (var iSocketAmount = 0; iSocketAmount < bindingAmount; iSocketAmount++)
+                            item.BindingOptions.Add(BindingOption.FromPacket(packet, bindingType));
+                    }
+                }
+            }
+            else if (record.IsPet)
+            {
+                item.State = (InventoryItemState)packet.ReadByte();
+                item.Amount = 1;
+
+                if (item.State != InventoryItemState.Inactive)
+                {
+                    item.Cos.Id = packet.ReadUInt(); //RefCharID
+                    item.Cos.Name = packet.ReadString(); //Name
+
+                    if (record.TypeID4 == 2)
+                        item.Cos.Rental = RentInfo.FromPacket(packet);
+                    else if (Game.ClientType >= GameClientType.Chinese)
+                        item.Cos.Level = packet.ReadByte(); // cos level
+
+                    var buffCount = packet.ReadByte();
+                    for (int i = 0; i < buffCount; i++)
+                    {
+                        var p1 = packet.ReadByte(); // type, but for what?
+                        if (p1 == 0)
                         {
-                            case GameClientType.Chinese:
-                            case GameClientType.Global:
-                            case GameClientType.Turkey:
-                                bindingCount = 4;
-                                break;
-                            case GameClientType.Korean:
-                                bindingCount = 3;
-                                break;
+                            var skillId = packet.ReadUInt(); // skillId??? if p1 == 0
+                            var skillLeftTime = packet.ReadUInt(); // skillLeftTime?? if p1 == 0
                         }
 
-                        for (var bindingIndex = 0; bindingIndex < bindingCount; bindingIndex++)
+                        if (p1 == 5)
                         {
-                            var bindingType = packet.ReadByte();
-                            var bindingAmount = packet.ReadByte();
-                            for (var iSocketAmount = 0; iSocketAmount < bindingAmount; iSocketAmount++)
-                                item.BindingOptions.Add(BindingOption.FromPacket(packet, bindingType));
+                            var unk1 = packet.ReadUInt(); // ??
+                            var unk2 = packet.ReadByte(); // ??
                         }
                     }
                 }
-                else if (item.Record.TypeID2 == 2)
+            }
+            else if (record.IsTransmonster)
+            {
+                item.Cos.Id = packet.ReadUInt(); //Monster ObjectId
+            }
+            else if (record.IsMagicCube)
+            {
+                item.Amount = (ushort)packet.ReadUInt(); //Quantity
+            }
+            else if (record.IsSpecialtyGoodBox)
+            {
+                item.Amount = (ushort)packet.ReadUInt(); //Quantity
+            }
+            else if (record.IsStackable) //ITEM_ETC
+            {
+                item.Amount = packet.ReadUShort();
+
+                if (record.TypeID3 == 11) //Magic/Attr stone
                 {
-                    switch (item.Record.TypeID3)
-                    {
-                        case 1: // COS
-                            var state = packet.ReadByte(); //State
-                            item.State = (InventoryItemState)state;
-                            item.Amount = 1;
-
-                            if (state != 0x01)
-                            {
-                                packet.ReadUInt(); //RefCharID
-                                packet.ReadString(); //Name
-                                if (item.Record.TypeID4 == 2)
-                                    packet.ReadUInt(); //Rent time
-                                else if (Game.ClientType >= GameClientType.Chinese)
-                                    packet.ReadByte(); // cos level
-
-                                var buffCount = packet.ReadByte();
-
-                                for (int i = 0; i < buffCount; i++)
-                                {
-                                    var p1 = packet.ReadByte(); // type, but for what?
-                                    packet.ReadUInt(); // skillId??? if p1 == 0
-                                    packet.ReadUInt(); // skillLeftTime?? if p1 == 0
-
-                                    if (p1 == 5)
-                                    {
-                                        var unk1 = packet.ReadUInt(); // ??
-                                        var unk2 = packet.ReadByte(); // ??
-                                    }
-                                }
-                            }
-                            break;
-
-                        case 2:
-                            packet.ReadUInt(); //Monster ObjectId
-                            break;
-
-                        case 3:
-                            packet.ReadUInt(); //Quantity
-                            break;
-                    }
+                    if (record.TypeID4 == 1 || record.TypeID4 == 2)
+                        packet.ReadByte();
                 }
-                else if (item.Record.TypeID2 == 3) //ITEM_ETC
+                else if (record.TypeID3 == 14 && record.TypeID4 == 2)
                 {
-                    item.Amount = packet.ReadUShort();
-
-                    if (item.Record.TypeID3 == 11) //Magic/Attr stone
+                    //ITEM_MALL_GACHA_CARD_WIN
+                    //ITEM_MALL_GACHA_CARD_LOSE
+                    var magParamCount = packet.ReadByte();
+                    for (var i = 0; i < magParamCount; i++)
                     {
-                        if (item.Record.TypeID4 == 1 || item.Record.TypeID4 == 2)
-                            packet.ReadByte();
-                    }
-                    else if (item.Record.TypeID3 == 14 && item.Record.TypeID4 == 2)
-                    {
-                        //ITEM_MALL_GACHA_CARD_WIN
-                        //ITEM_MALL_GACHA_CARD_LOSE
-                        var magParamCount = packet.ReadByte();
-                        for (var iMagPara = 0; iMagPara < magParamCount; iMagPara++)
-                        {
-                            packet.ReadUInt();
-                            packet.ReadUInt();
-                        }
+                        packet.ReadUInt();
+                        packet.ReadUInt();
                     }
                 }
             }
@@ -338,10 +353,23 @@ namespace RSBot.Core.Objects
             if (Record.IsAmmunition) return true;
             if (!Record.IsEquip) return false;
             if (Record.ReqLevel1 > Game.Player.Level) return false;
-            if (Record.ReqGender != 2 && Record.ReqGender != (byte) Game.Player.Gender) return false;
+            if (Record.ReqGender != 2 && Record.ReqGender != (byte)Game.Player.Gender) return false;
             if (Record.Country != Game.Player.Record.Country) return false;
 
             return true;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if(obj is TypeIdFilter filter)
+                return filter.EqualsRefItem(Record);
+
+            return false;
+        }
+
+        public InventoryItem Clone()
+        {
+            return (InventoryItem)MemberwiseClone();
         }
     }
 }

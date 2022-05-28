@@ -9,18 +9,6 @@ namespace RSBot.Core.Objects
     public class InventoryItemCollection : ICollection<InventoryItem>
     {
         /// <summary>
-        /// The constructor.
-        /// </summary>
-        /// <param name="size">The size.</param>
-        public InventoryItemCollection(Packet packet)
-            : this(packet.ReadByte())
-        {
-            var size = packet.ReadByte();
-            for (var i = 0; i < size; i++)
-                _collection.Add(InventoryItem.FromPacket(packet));
-        }
-
-        /// <summary>
         /// The list of items.
         /// </summary>
         protected List<InventoryItem> _collection;
@@ -33,7 +21,7 @@ namespace RSBot.Core.Objects
         /// </value>
         public byte Capacity
         {
-            get => (byte) (_collection.Capacity - 1);
+            get => (byte)(_collection.Capacity - 1);
             set => _collection.Capacity = value + 1;
         }
 
@@ -75,6 +63,16 @@ namespace RSBot.Core.Objects
         public InventoryItemCollection(byte size)
         {
             _collection = new List<InventoryItem>(size + 1);
+        }
+
+        /// <summary>
+        /// The constructor.
+        /// </summary>
+        /// <param name="size">The size.</param>
+        public InventoryItemCollection(Packet packet)
+        {
+            _collection = new List<InventoryItem>();
+            Deserialize(packet);
         }
 
         /// <summary>
@@ -140,6 +138,12 @@ namespace RSBot.Core.Objects
         /// <param name="newAmount">The new amount.</param>
         public void UpdateItemAmount(byte slot, ushort newAmount)
         {
+            if (newAmount <= 0)
+            {
+                RemoveAt(slot);
+                return;
+            }
+
             if (GetItemAt(slot) is InventoryItem itemToUpdate)
                 itemToUpdate.Amount = newAmount;
         }
@@ -160,7 +164,6 @@ namespace RSBot.Core.Objects
             OrderBySlot();
             return _collection.FindAll(predicate);
         }
-
         /// <summary>
         /// Gets all items by Record.ID
         /// </summary>
@@ -240,7 +243,11 @@ namespace RSBot.Core.Objects
         /// <returns>if found: the SumAmount; otherwise: 0</returns>
         public int GetSumAmount(string recordCodeName)
         {
-            return GetItems(recordCodeName).Aggregate(0, (current, item) => current + item.Amount);
+            var sum = 0;
+            foreach (var item in GetItems(recordCodeName))
+                sum += item.Amount;
+
+            return sum;
         }
 
         /// <summary>
@@ -250,7 +257,11 @@ namespace RSBot.Core.Objects
         /// <returns>if found: the SumAmount; otherwise: 0</returns>
         public int GetSumAmount(TypeIdFilter filter)
         {
-            return GetItems(filter).Aggregate(0, (current, item) => current + item.Amount);
+            var sum = 0;
+            foreach (var item in GetItems(filter))
+                sum += item.Amount;
+
+            return sum;
         }
 
         /// <summary>
@@ -330,30 +341,17 @@ namespace RSBot.Core.Objects
         /// Move via packet operation
         /// </summary>
         /// <param name="justMove">Just move the item to new slot without control others</param>
-        public void Move(Packet packet, bool justMove = false)
+        public void Move(Packet packet)
         {
             var sourceSlot = packet.ReadByte();
             var destinationSlot = packet.ReadByte();
-            ushort amount = 0;
-
-            if (!justMove)
-                amount = packet.ReadUShort();
+            var amount = packet.ReadUShort();
 
             var itemAtSource = GetItemAt(sourceSlot);
-            var itemAtDestination = GetItemAt(destinationSlot);
-
             if (itemAtSource == null)
                 return;
 
-            if (justMove)
-            {
-                itemAtDestination.Slot = sourceSlot;
-                itemAtSource.Slot = destinationSlot;
-                Log.Debug(
-                    $"[InventoryItemCollection::Move]  Switch item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}) with (slot={itemAtDestination.Slot}) because the items are not identically.");
-
-                return;
-            }
+            var itemAtDestination = GetItemAt(destinationSlot);
 
             //Move the item from A -> B
             if (itemAtDestination == null)
@@ -363,31 +361,17 @@ namespace RSBot.Core.Objects
                 {
                     itemAtSource.Amount -= amount;
 
-                    //The item has been split in two parts.
-                    //Copy the item with the given amount to the new slot
-                    var newInventoryItem = new InventoryItem
-                    {
-                        //Copy the item infos from the source item. Some may be useless because only ETC items can be split but anyway, just to make sure assign everything
-                        Amount = amount,
-                        Slot = destinationSlot,
-                        Durability = itemAtSource.Durability,
-                        ItemId = itemAtSource.ItemId,
-                        MagicOptions = itemAtSource.MagicOptions,
-                        OptLevel = itemAtSource.OptLevel,
-                        BindingOptions = itemAtSource.BindingOptions,
-                        Rental = itemAtSource.Rental,
-                        Variance = itemAtSource.Variance
-                    };
+                    var newInventoryItem = itemAtSource.Clone();
+                    newInventoryItem.Slot = destinationSlot;
+                    newInventoryItem.Amount = amount;
 
                     Add(newInventoryItem);
 
-                    Log.Debug(
-                        $"[InventoryItemCollection::Move] Split item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={itemAtSource.Amount}) to (slot={destinationSlot}, amount={amount}");
+                    Log.Debug($"[InventoryItemCollection::Move] Split item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={itemAtSource.Amount}) to (slot={destinationSlot}, amount={amount}");
                     return;
                 }
 
-                Log.Debug(
-                    $"[InventoryItemCollection::Move]  Move item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={amount}) to (slot= {destinationSlot})");
+                Log.Debug($"[InventoryItemCollection::Move]  Move item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={amount}) to (slot= {destinationSlot})");
 
                 itemAtSource.Slot = destinationSlot;
             }
@@ -403,25 +387,24 @@ namespace RSBot.Core.Objects
                         itemAtDestination.Slot = sourceSlot;
                         itemAtSource.Slot = destinationSlot;
 
-                        Log.Debug(
-                            $"[InventoryItemCollection::Move]  Switch item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}) with (slot={itemAtDestination.Slot}) because the max stack was reached.");
+                        Log.Debug($"[InventoryItemCollection::Move]  Switch item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}) with (slot={itemAtDestination.Slot}) because the max stack was reached.");
                     }
                     else
                     {
-                        itemAtDestination.Amount = (ushort) newItemAmount;
+                        itemAtDestination.Amount = (ushort)newItemAmount;
                         itemAtSource.Amount -= amount;
 
-                        Log.Debug(
-                            $"[InventoryItemCollection::Move]  Merge item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={itemAtSource.Amount}) with (slot={itemAtDestination.Slot}, amount={itemAtDestination.Amount})");
-                        if (itemAtSource.Amount <= 0) RemoveAt(sourceSlot);
+                        if (itemAtSource.Amount <= 0)
+                            RemoveAt(sourceSlot);
+
+                        Log.Debug($"[InventoryItemCollection::Move]  Merge item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={itemAtSource.Amount}) with (slot={itemAtDestination.Slot}, amount={itemAtDestination.Amount})");
                     }
                 }
                 else
                 {
                     itemAtDestination.Slot = sourceSlot;
                     itemAtSource.Slot = destinationSlot;
-                    Log.Debug(
-                        $"[InventoryItemCollection::Move]  Switch item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}) with (slot={itemAtDestination.Slot}) because the items are not identically.");
+                    Log.Debug($"[InventoryItemCollection::Move]  Switch item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}) with (slot={itemAtDestination.Slot}) because the items are not identically.");
                 }
             }
         }
@@ -440,8 +423,22 @@ namespace RSBot.Core.Objects
 
             RemoveAt(sourceItem.Slot);
 
-            Log.Debug(
-                $"[InventoryItemCollection::MoveTo] Move item {sourceItem.Record.GetRealName()} (slot={sourceSlot}) to storage (slot={destinationSlot}");
+            Log.Debug($"[InventoryItemCollection::MoveTo] Move item {sourceItem.Record.GetRealName()} (slot={sourceSlot}) to storage (slot={destinationSlot}");
+        }
+
+        /// <summary>
+        /// Deserialize the storage packet
+        /// </summary>
+        /// <param name="packet">The storage packet</param>
+        public void Deserialize(Packet packet)
+        {
+            Capacity = packet.ReadByte();
+            if (Capacity <= 0)
+                return;
+
+            var amount = packet.ReadByte();
+            for (var i = 0; i < amount; i++)
+                _collection.Add(InventoryItem.FromPacket(packet));
         }
     }
 }

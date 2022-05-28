@@ -1,11 +1,4 @@
 ﻿using RSBot.Core.Event;
-using RSBot.Core.Objects;
-using RSBot.Core.Objects.Inventory;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RSBot.Core.Network.Handler.Agent.Inventory
 {
@@ -39,7 +32,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
             packet = Game.ChunkedPacket;
             packet.Lock();
 
-            var storage = Game.Player.Storage = Game.Player.Storage ?? new Storage();
+            var storage = Game.Player.Storage;
             storage.Deserialize(packet);
 
             EventManager.FireEvent("OnStorageData");

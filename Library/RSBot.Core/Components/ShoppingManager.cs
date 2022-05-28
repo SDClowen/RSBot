@@ -121,7 +121,7 @@ namespace RSBot.Core.Components
 
             //Prevent modification during the for-each loop
             var tempItemSellList =
-                Game.Player.Inventory.GetItems(item => item.Slot > 13 && SellFilter.Invoke(item.Record));
+                 Game.Player.Inventory.GetNormalPartItems(item => SellFilter.Invoke(item.Record));
 
             foreach (var item in tempItemSellList)
                 SellItem(item);
@@ -133,8 +133,9 @@ namespace RSBot.Core.Components
                 foreach (var item in tempItemSellList)
                 {
                     var playerSlot = Game.Player.AbilityPet.MoveItemToPlayer(item.Slot);
-                    if(playerSlot != null) SellItem(Game.Player.Inventory.GetItemAt((byte)playerSlot));
-                }   
+                    if (playerSlot != 0xFF)
+                        SellItem(Game.Player.Inventory.GetItemAt((byte)playerSlot));
+                } 
             }
 
             var shopGroup = ReferenceManager.GetRefShopGroup(npcCodeName);
@@ -330,7 +331,7 @@ namespace RSBot.Core.Components
                 foreach (var item in petItemStoreList)
                 {
                     var playerSlot = Game.Player.AbilityPet.MoveItemToPlayer(item.Slot);
-                    if (playerSlot != null)
+                    if (playerSlot != 0xFF)
                     {
                         var movedItem = Game.Player.Inventory.GetItemAt((byte)playerSlot);
                         StoreItem(movedItem, npc);
@@ -346,7 +347,7 @@ namespace RSBot.Core.Components
         /// </summary>
         private static void CloseShop()
         {
-            if(SelectedEntity != null && SelectedEntity.TryDeselect())
+            if (SelectedEntity != null && SelectedEntity.TryDeselect())
                 SelectedEntity = null;
         }
 

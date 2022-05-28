@@ -65,7 +65,7 @@ namespace RSBot.Core.Network.Handler.Agent.Character
             if (Game.ClientType >= GameClientType.Thailand)
                 character.BerzerkLevel = packet.ReadByte();
 
-            if(Game.ClientType > GameClientType.Thailand)
+            if (Game.ClientType > GameClientType.Thailand)
                 character.PvpFlag = (PvpFlag)packet.ReadByte();
 
             if (Game.ClientType >= GameClientType.Global)
@@ -90,7 +90,8 @@ namespace RSBot.Core.Network.Handler.Agent.Character
             }
 
             character.Inventory = new CharacterInventory(packet);
-            if(Game.ClientType >= GameClientType.Thailand)
+
+            if (Game.ClientType >= GameClientType.Thailand)
                 character.Avatars = new InventoryItemCollection(packet);
             else
                 character.Avatars = new InventoryItemCollection(5);
@@ -98,19 +99,7 @@ namespace RSBot.Core.Network.Handler.Agent.Character
             // JOB2
             if (Game.ClientType > GameClientType.Vietnam)
             {
-                var specialtyBagSize = packet.ReadByte();
-                if (specialtyBagSize > 0)
-                {
-                    var bagItemCount = packet.ReadByte();
-                    for (int i = 0; i < bagItemCount; i++)
-                    {
-                        packet.ReadByte();   // slot
-                        packet.ReadInt();    // maybe rental?
-                        packet.ReadInt();    // itemId of 'ITEM_TRADE_SPECIAL_BOX'
-                        packet.ReadUShort(); //quantity
-                        packet.ReadUShort(); //unknown
-                    }
-                }
+                character.Job2SpecialtyBag = new InventoryItemCollection(packet);
 
                 character.Job2 = new InventoryItemCollection(packet);
             }
@@ -132,7 +121,7 @@ namespace RSBot.Core.Network.Handler.Agent.Character
             }
 
             character.ParseBionicDetails(packet);
-            
+
             character.Name = packet.ReadString();
             character.JobInformation = JobInfo.FromPacket(packet);
             character.State.PvpState = (PvpState)packet.ReadByte();
@@ -175,7 +164,7 @@ namespace RSBot.Core.Network.Handler.Agent.Character
 
             ClientManager.SetTitle($"{character.Name} - RSBot");
 
-            if (!Game.Clientless) 
+            if (!Game.Clientless)
                 return;
 
             PacketManager.SendPacket(new Packet(0x3012), PacketDestination.Server);
