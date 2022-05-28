@@ -28,7 +28,7 @@ Thao tác này sẽ ngắt kết nối bạn khỏi
 Máy chủ Con Đường Tơ Lụa!"
 LabelPlayerName="Không trong trò chơi"
 LabelEntityName="Không có mục tiêu nào được chọn"
-LabelPetName="Không tìm thấy thú chiến đấu"
+LabelPetName="< No Name >"
 NotifyPleaseSelectProperBotBase="Vui lòng chọn một cấu hình thích hợp và thử lại"
 NotifyPlayerWasNull="Nhân vật của bạn phải ở trong trò chơi để khởi động bot."
 Running="Đang Chạy"

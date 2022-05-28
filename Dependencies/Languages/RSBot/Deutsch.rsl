@@ -27,7 +27,7 @@ RSBot.ExitDialog.labelInfo="Bist du dir sicher, dass du RSBot beenden möchtest?
 Das wird die Verbindung zum Silkroad Online Server beenden!"
 LabelPlayerName="Nicht im Spiel"
 LabelEntityName="Keine Einheit gewählt"
-LabelPetName="Kein Haustier gefunden"
+LabelPetName="< No Name >"
 NotifyPleaseSelectProperBotBase="Bitte wählen Sie eine geeignete Botbase und versuchen Sie es erneut"
 NotifyPlayerWasNull="Du musst um Spiel sein, um den Bot starten zu können."
 Running="Läuft"

@@ -49,7 +49,8 @@ namespace RSBot.Core.Components.Scripting.Commands
                 IsRunning = true;
 
                 Log.Notify("[Script] Dismounting vehicle...");
-                if (!Game.Player.HasActiveVehicle) return true;
+                if (!Game.Player.HasActiveVehicle) 
+                    return true;
 
                 Game.Player.Vehicle.Dismount();
                 Thread.Sleep(500);
