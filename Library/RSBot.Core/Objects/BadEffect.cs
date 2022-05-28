@@ -43,5 +43,15 @@ namespace RSBot.Core.Objects
         Bit31 = 1u << 31,
 
         #endregion EffectLevel
+
+        /// <summary>
+        /// Bad effects curable by universal pills.
+        /// </summary>
+        UniversallPillEffects = Frozen | Frostbitten | Shocked | Burnt | Poisoned | Zombie,
+
+        /// <summary>
+        /// Bad effects curable by purification pills.
+        /// </summary>
+        PurificationPillEffects = Sleep | Bind | Dull | Fear | ShortSighted | Bleed | Darkness | Disease | Decay | Weak | Impotent | Division | Panic | Hidden
     }
 }

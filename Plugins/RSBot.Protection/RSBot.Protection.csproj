@@ -39,11 +39,10 @@
   <ItemGroup>
     <Compile Include="Bootstrap.cs" />
     <Compile Include="Components\Pet\AutoSummonAttackPet.cs" />
-    <Compile Include="Components\Pet\HungerRecoveryHandler.cs" />
-    <Compile Include="Components\Pet\PetBadStatusHandler.cs" />
-    <Compile Include="Components\Pet\ReviveAttackPetHandler.cs" />
-    <Compile Include="Components\Pet\VehicleHealthRecoveryHandler.cs" />
-    <Compile Include="Components\Pet\AttackPetHealthRecoveryHandler.cs" />
+    <Compile Include="Components\Pet\CosHGPRecoveryHandler.cs" />
+    <Compile Include="Components\Pet\CosBadStatusHandler.cs" />
+    <Compile Include="Components\Pet\CosReviveHandler.cs" />
+    <Compile Include="Components\Pet\CosHealthRecoveryHandler.cs" />
     <Compile Include="Components\Player\BadStateSkillHandler.cs" />
     <Compile Include="Components\Player\StatPointsHandler.cs" />
     <Compile Include="Components\Player\SkillManaHandler.cs" />

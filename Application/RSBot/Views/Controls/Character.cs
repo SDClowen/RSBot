@@ -2,9 +2,11 @@
 using RSBot.Core;
 using RSBot.Core.Event;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace RSBot.Views.Controls
 {
+    [ToolboxItem(false)]
     public partial class Character : UserControl
     {
         /// <summary>

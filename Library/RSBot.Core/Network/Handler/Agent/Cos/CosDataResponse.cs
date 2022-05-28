@@ -1,7 +1,7 @@
 ﻿using RSBot.Core.Event;
-using RSBot.Core.Objects;
+using RSBot.Core.Objects.Cos;
 
-namespace RSBot.Core.Network.Handler.Agent.Cos
+namespace RSBot.Core.Network.Handler.Agent
 {
     internal class CosDataResponse : IPacketHandler
     {
@@ -31,30 +31,95 @@ namespace RSBot.Core.Network.Handler.Agent.Cos
             var objectId = packet.ReadUInt();
 
             var objChar = Game.ReferenceManager.GetRefObjChar(objectId);
-
-            if (objChar.TypeID2 == 2 && objChar.TypeID3 == 3 && (objChar.TypeID4 == 3 || objChar.TypeID4 == 9))
+            if (objChar.TypeID2 == 2 && objChar.TypeID3 == 3)
             {
-                //Attackpet
-                Game.Player.AttackPet = AttackPet.FromPacket(packet, uniqueId, objectId);
-                EventManager.FireEvent("OnSummonAttackPet");
-                Log.Debug("Summoned attack pet");
-            }
-            else if (objChar.TypeID2 == 2 && objChar.TypeID3 == 3 && objChar.TypeID4 == 1)
-            {
-                var health = packet.ReadInt();
+                var hp = packet.ReadInt();
+                var maxHp = packet.ReadInt();
+                maxHp = maxHp != 0 && maxHp != 200 ? maxHp : hp;
 
-                Game.Player.Vehicle = new Vehicle(objectId, uniqueId, health);
-                EventManager.FireEvent("OnSummonVehicle");
-                Log.Debug("Mount vehicle");
+                switch (objChar.TypeID4)
+                {
+                    case 1:
 
-                Game.Player.StopMoving();
-                Game.Player.SetSpeed(objChar.Speed1, objChar.Speed2);
-            }
-            else if (objChar.TypeID2 == 2 && objChar.TypeID3 == 3 && objChar.TypeID4 == 4)
-            {
-                Game.Player.AbilityPet = AbilityPet.FromPacket(packet, uniqueId, objectId);
-                EventManager.FireEvent("OnSummonAbilityPet");
-                Log.Debug("Summoned ability pet");
+                        Game.Player.Transport = new Transport
+                        {
+                            Id = objectId,
+                            UniqueId = uniqueId,
+                            Health = hp,
+                            MaxHealth = maxHp,
+                        };
+
+                        Game.Player.StopMoving();
+                        Game.Player.SetSpeed(objChar.Speed1, objChar.Speed2);
+
+                        EventManager.FireEvent("OnSummonTransport");
+                        EventManager.FireEvent("OnSummonCos", Game.Player.Transport);
+
+                        break;
+                    case 2:
+
+                        Game.Player.JobTransport = new JobTransport
+                        {
+                            Id = objectId,
+                            UniqueId = uniqueId,
+                            Health = hp,
+                            MaxHealth = maxHp,
+                            Inventory = new Objects.InventoryItemCollection(packet),
+                            OwnerUniqueId = packet.ReadUInt()
+                        };
+
+                        EventManager.FireEvent("OnSummonJobTransport");
+                        EventManager.FireEvent("OnSummonCos", Game.Player.JobTransport);
+
+                        Game.Player.StopMoving();
+                        Game.Player.SetSpeed(objChar.Speed1, objChar.Speed2);
+
+                        break;
+                    case 3:
+
+                        Game.Player.Growth = new Growth
+                        {
+                            Id = objectId,
+                            UniqueId = uniqueId,
+                            Health = hp,
+                            MaxHealth = maxHp == 200 ? hp : maxHp,
+                        };
+                        Game.Player.Growth.Deserialize(packet);
+
+                        EventManager.FireEvent("OnSummonGrowth");
+                        EventManager.FireEvent("OnSummonCos", Game.Player.Growth);
+
+                        break;
+                    case 4:
+
+                        Game.Player.AbilityPet = new Ability
+                        {
+                            Id = objectId,
+                            UniqueId = uniqueId,
+                            Health = hp,
+                            MaxHealth = maxHp,
+                        };
+
+                        Game.Player.AbilityPet.Deserialize(packet);
+                        EventManager.FireEvent("OnSummonCos", Game.Player.AbilityPet);
+                        EventManager.FireEvent("OnSummonAbility");
+
+                        break;
+                    case 9:
+
+                        Game.Player.Fellow = new Fellow
+                        {
+                            Id = objectId,
+                            UniqueId = uniqueId,
+                            Health = hp,
+                            MaxHealth = maxHp,
+                        };
+
+                        Game.Player.Fellow.Deserialize(packet);
+                        EventManager.FireEvent("OnSummonCos", Game.Player.Fellow);
+
+                        break;
+                }
             }
         }
     }

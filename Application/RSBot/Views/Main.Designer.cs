@@ -37,6 +37,7 @@ namespace RSBot.Views
             this.menuBotbase = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblIngameStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.cosController = new RSBot.Views.Controls.Cos.CosController();
             this.bottomPanel = new SDUI.Controls.Panel();
             this.comboServer = new SDUI.Controls.ComboBox();
             this.comboDivision = new SDUI.Controls.ComboBox();
@@ -45,7 +46,6 @@ namespace RSBot.Views
             this.pSidebar = new SDUI.Controls.Panel();
             this.picLogo = new System.Windows.Forms.PictureBox();
             this.entity1 = new RSBot.Views.Controls.Entity();
-            this.pet1 = new RSBot.Views.Controls.Pet();
             this.botbase1ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.botbase1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
@@ -124,6 +124,7 @@ namespace RSBot.Views
             // 
             this.bottomPanel.BackColor = System.Drawing.Color.Transparent;
             this.bottomPanel.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
+            this.bottomPanel.BorderColor = System.Drawing.Color.Transparent;
             this.bottomPanel.Controls.Add(this.comboServer);
             this.bottomPanel.Controls.Add(this.comboDivision);
             this.bottomPanel.Controls.Add(this.btnSave);
@@ -202,10 +203,11 @@ namespace RSBot.Views
             // pSidebar
             // 
             this.pSidebar.BackColor = System.Drawing.Color.Transparent;
+            this.pSidebar.BorderColor = System.Drawing.Color.Transparent;
             this.pSidebar.Border = new System.Windows.Forms.Padding(1, 0, 0, 0);
             this.pSidebar.Controls.Add(this.picLogo);
             this.pSidebar.Controls.Add(this.entity1);
-            this.pSidebar.Controls.Add(this.pet1);
+            this.pSidebar.Controls.Add(this.cosController);
             this.pSidebar.Dock = System.Windows.Forms.DockStyle.Right;
             this.pSidebar.Location = new System.Drawing.Point(781, 32);
             this.pSidebar.Name = "pSidebar";
@@ -231,22 +233,24 @@ namespace RSBot.Views
             this.entity1.BackColor = System.Drawing.Color.Transparent;
             this.entity1.Dock = System.Windows.Forms.DockStyle.Top;
             this.entity1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.entity1.Location = new System.Drawing.Point(0, 110);
+            this.entity1.Location = new System.Drawing.Point(0, 66);
             this.entity1.Margin = new System.Windows.Forms.Padding(4);
             this.entity1.Name = "entity1";
-            this.entity1.Size = new System.Drawing.Size(250, 70);
+            this.entity1.MinimumSize = new System.Drawing.Size(250, 76);
+            this.entity1.Size = new System.Drawing.Size(250, 76);
             this.entity1.TabIndex = 2;
             // 
-            // pet1
+            // cosController
             // 
-            this.pet1.BackColor = System.Drawing.Color.Transparent;
-            this.pet1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pet1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pet1.Location = new System.Drawing.Point(0, 0);
-            this.pet1.Margin = new System.Windows.Forms.Padding(4);
-            this.pet1.Name = "pet1";
-            this.pet1.Size = new System.Drawing.Size(250, 110);
-            this.pet1.TabIndex = 0;
+            this.cosController.AutoSize = true;
+            this.cosController.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cosController.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cosController.Location = new System.Drawing.Point(0, 0);
+            this.cosController.Name = "cosController";
+            this.cosController.Padding = new System.Windows.Forms.Padding(3);
+            this.cosController.Size = new System.Drawing.Size(250, 66);
+            this.cosController.TabIndex = 9;
+            this.cosController.Visible = false;
             // 
             // botbase1ToolStripMenuItem1
             // 
@@ -521,7 +525,7 @@ namespace RSBot.Views
         private SDUI.Controls.Button btnStartStop;
         private SDUI.Controls.Button btnSave;
         private Controls.Character topCharacter;
-        private Controls.Pet pet1;
+        private Controls.Cos.CosController cosController;
         private Entity entity1;
         private SDUI.Controls.ComboBox comboServer;
         private SDUI.Controls.ComboBox comboDivision;

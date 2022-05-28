@@ -118,6 +118,7 @@
             // label22
             // 
             this.label22.AutoSize = true;
+            this.label22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label22.Location = new System.Drawing.Point(497, 465);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(254, 15);
@@ -137,7 +138,7 @@
             this.groupBackTown.Controls.Add(this.checkDead);
             this.groupBackTown.Controls.Add(this.checkInventory);
             this.groupBackTown.Controls.Add(this.checkNoArrows);
-            this.groupBackTown.Location = new System.Drawing.Point(500, 13);
+            this.groupBackTown.Location = new System.Drawing.Point(500, 7);
             this.groupBackTown.Name = "groupBackTown";
             this.groupBackTown.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupBackTown.Radius = 2;
@@ -149,6 +150,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
+            this.label21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label21.Location = new System.Drawing.Point(206, 35);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(27, 15);
@@ -280,11 +282,11 @@
             this.groupBadStatus.Controls.Add(this.comboSkillBadStatus);
             this.groupBadStatus.Controls.Add(this.checkUseBadStatusSkill);
             this.groupBadStatus.Controls.Add(this.checkUseUniversalPills);
-            this.groupBadStatus.Location = new System.Drawing.Point(15, 220);
+            this.groupBadStatus.Location = new System.Drawing.Point(15, 214);
             this.groupBadStatus.Name = "groupBadStatus";
             this.groupBadStatus.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupBadStatus.Radius = 2;
-            this.groupBadStatus.Size = new System.Drawing.Size(456, 90);
+            this.groupBadStatus.Size = new System.Drawing.Size(456, 80);
             this.groupBadStatus.TabIndex = 6;
             this.groupBadStatus.TabStop = false;
             this.groupBadStatus.Text = "Bad status";
@@ -292,7 +294,8 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(315, 38);
+            this.label18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label18.Location = new System.Drawing.Point(315, 33);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(31, 15);
             this.label18.TabIndex = 27;
@@ -306,7 +309,7 @@
             this.comboSkillBadStatus.FormattingEnabled = true;
             this.comboSkillBadStatus.IntegralHeight = false;
             this.comboSkillBadStatus.ItemHeight = 17;
-            this.comboSkillBadStatus.Location = new System.Drawing.Point(318, 56);
+            this.comboSkillBadStatus.Location = new System.Drawing.Point(318, 50);
             this.comboSkillBadStatus.Name = "comboSkillBadStatus";
             this.comboSkillBadStatus.Size = new System.Drawing.Size(121, 23);
             this.comboSkillBadStatus.TabIndex = 26;
@@ -317,7 +320,7 @@
             this.checkUseBadStatusSkill.AutoSize = true;
             this.checkUseBadStatusSkill.BackColor = System.Drawing.Color.Transparent;
             this.checkUseBadStatusSkill.Checked = false;
-            this.checkUseBadStatusSkill.Location = new System.Drawing.Point(11, 61);
+            this.checkUseBadStatusSkill.Location = new System.Drawing.Point(11, 58);
             this.checkUseBadStatusSkill.Name = "checkUseBadStatusSkill";
             this.checkUseBadStatusSkill.Size = new System.Drawing.Size(66, 15);
             this.checkUseBadStatusSkill.TabIndex = 5;
@@ -366,7 +369,7 @@
             this.groupHPMP.Controls.Add(this.checkUseVigorMP);
             this.groupHPMP.Controls.Add(this.checkUseMPPotionsPlayer);
             this.groupHPMP.Controls.Add(this.checkUseVigorHP);
-            this.groupHPMP.Location = new System.Drawing.Point(15, 13);
+            this.groupHPMP.Location = new System.Drawing.Point(15, 7);
             this.groupHPMP.Name = "groupHPMP";
             this.groupHPMP.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupHPMP.Radius = 2;
@@ -378,6 +381,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
+            this.label17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label17.Location = new System.Drawing.Point(315, 128);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(31, 15);
@@ -415,6 +419,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
+            this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label11.Location = new System.Drawing.Point(273, 173);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(17, 15);
@@ -446,6 +451,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
+            this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label12.Location = new System.Drawing.Point(201, 170);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(15, 15);
@@ -455,6 +461,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
+            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label9.Location = new System.Drawing.Point(273, 150);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(17, 15);
@@ -486,6 +493,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
+            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label10.Location = new System.Drawing.Point(201, 147);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(15, 15);
@@ -495,6 +503,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label7.Location = new System.Drawing.Point(273, 122);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(17, 15);
@@ -526,6 +535,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
+            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label8.Location = new System.Drawing.Point(199, 121);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(15, 15);
@@ -535,6 +545,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label5.Location = new System.Drawing.Point(273, 96);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(17, 15);
@@ -566,6 +577,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label6.Location = new System.Drawing.Point(201, 93);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(15, 15);
@@ -575,6 +587,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label3.Location = new System.Drawing.Point(273, 62);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(17, 15);
@@ -606,6 +619,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label4.Location = new System.Drawing.Point(201, 60);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(15, 15);
@@ -615,6 +629,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label2.Location = new System.Drawing.Point(273, 39);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(17, 15);
@@ -646,6 +661,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label1.Location = new System.Drawing.Point(201, 36);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(15, 15);
@@ -742,11 +758,11 @@
             this.groupPet.Controls.Add(this.label16);
             this.groupPet.Controls.Add(this.checkUsePetHP);
             this.groupPet.Controls.Add(this.checkUseHGP);
-            this.groupPet.Location = new System.Drawing.Point(15, 318);
+            this.groupPet.Location = new System.Drawing.Point(15, 300);
             this.groupPet.Name = "groupPet";
             this.groupPet.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupPet.Radius = 2;
-            this.groupPet.Size = new System.Drawing.Size(456, 178);
+            this.groupPet.Size = new System.Drawing.Size(456, 185);
             this.groupPet.TabIndex = 1;
             this.groupPet.TabStop = false;
             this.groupPet.Text = "Recovery - Pet";
@@ -756,11 +772,11 @@
             this.checkAutoSummonAttackPet.AutoSize = true;
             this.checkAutoSummonAttackPet.BackColor = System.Drawing.Color.Transparent;
             this.checkAutoSummonAttackPet.Checked = false;
-            this.checkAutoSummonAttackPet.Location = new System.Drawing.Point(11, 156);
+            this.checkAutoSummonAttackPet.Location = new System.Drawing.Point(11, 164);
             this.checkAutoSummonAttackPet.Name = "checkAutoSummonAttackPet";
-            this.checkAutoSummonAttackPet.Size = new System.Drawing.Size(155, 15);
+            this.checkAutoSummonAttackPet.Size = new System.Drawing.Size(209, 15);
             this.checkAutoSummonAttackPet.TabIndex = 27;
-            this.checkAutoSummonAttackPet.Text = "Auto summon attack pet";
+            this.checkAutoSummonAttackPet.Text = "Auto summon growth && fellow pet";
             this.checkAutoSummonAttackPet.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // checkUseAbnormalStatePotion
@@ -768,7 +784,7 @@
             this.checkUseAbnormalStatePotion.AutoSize = true;
             this.checkUseAbnormalStatePotion.BackColor = System.Drawing.Color.Transparent;
             this.checkUseAbnormalStatePotion.Checked = false;
-            this.checkUseAbnormalStatePotion.Location = new System.Drawing.Point(11, 111);
+            this.checkUseAbnormalStatePotion.Location = new System.Drawing.Point(11, 115);
             this.checkUseAbnormalStatePotion.Name = "checkUseAbnormalStatePotion";
             this.checkUseAbnormalStatePotion.Size = new System.Drawing.Size(223, 15);
             this.checkUseAbnormalStatePotion.TabIndex = 26;
@@ -780,17 +796,18 @@
             this.checkReviveAttackPet.AutoSize = true;
             this.checkReviveAttackPet.BackColor = System.Drawing.Color.Transparent;
             this.checkReviveAttackPet.Checked = false;
-            this.checkReviveAttackPet.Location = new System.Drawing.Point(11, 134);
+            this.checkReviveAttackPet.Location = new System.Drawing.Point(11, 140);
             this.checkReviveAttackPet.Name = "checkReviveAttackPet";
-            this.checkReviveAttackPet.Size = new System.Drawing.Size(112, 15);
+            this.checkReviveAttackPet.Size = new System.Drawing.Size(166, 15);
             this.checkReviveAttackPet.TabIndex = 25;
-            this.checkReviveAttackPet.Text = "Revive attack pet";
+            this.checkReviveAttackPet.Text = "Revive growth && fellow pet";
             this.checkReviveAttackPet.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(273, 89);
+            this.label19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label19.Location = new System.Drawing.Point(302, 93);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(17, 15);
             this.label19.TabIndex = 24;
@@ -802,7 +819,7 @@
             this.numMountMinHP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numMountMinHP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.numMountMinHP.InterceptArrowKeys = false;
-            this.numMountMinHP.Location = new System.Drawing.Point(220, 86);
+            this.numMountMinHP.Location = new System.Drawing.Point(249, 90);
             this.numMountMinHP.Minimum = new decimal(new int[] {
             1,
             0,
@@ -821,7 +838,8 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(201, 88);
+            this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label20.Location = new System.Drawing.Point(230, 92);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(15, 15);
             this.label20.TabIndex = 22;
@@ -832,7 +850,7 @@
             this.checkUseMountHP.AutoSize = true;
             this.checkUseMountHP.BackColor = System.Drawing.Color.Transparent;
             this.checkUseMountHP.Checked = false;
-            this.checkUseMountHP.Location = new System.Drawing.Point(11, 85);
+            this.checkUseMountHP.Location = new System.Drawing.Point(11, 89);
             this.checkUseMountHP.Name = "checkUseMountHP";
             this.checkUseMountHP.Size = new System.Drawing.Size(123, 15);
             this.checkUseMountHP.TabIndex = 21;
@@ -842,7 +860,8 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(273, 61);
+            this.label13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label13.Location = new System.Drawing.Point(302, 65);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(17, 15);
             this.label13.TabIndex = 20;
@@ -854,7 +873,7 @@
             this.numPetMinHGP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numPetMinHGP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.numPetMinHGP.InterceptArrowKeys = false;
-            this.numPetMinHGP.Location = new System.Drawing.Point(220, 58);
+            this.numPetMinHGP.Location = new System.Drawing.Point(249, 62);
             this.numPetMinHGP.Minimum = new decimal(new int[] {
             1,
             0,
@@ -873,7 +892,8 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(201, 60);
+            this.label14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label14.Location = new System.Drawing.Point(230, 64);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(15, 15);
             this.label14.TabIndex = 18;
@@ -882,7 +902,8 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(273, 34);
+            this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label15.Location = new System.Drawing.Point(302, 38);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(17, 15);
             this.label15.TabIndex = 17;
@@ -894,7 +915,7 @@
             this.numPetMinHP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numPetMinHP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.numPetMinHP.InterceptArrowKeys = false;
-            this.numPetMinHP.Location = new System.Drawing.Point(220, 31);
+            this.numPetMinHP.Location = new System.Drawing.Point(249, 35);
             this.numPetMinHP.Minimum = new decimal(new int[] {
             1,
             0,
@@ -913,7 +934,8 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(201, 33);
+            this.label16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label16.Location = new System.Drawing.Point(230, 37);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(15, 15);
             this.label16.TabIndex = 15;
@@ -924,7 +946,7 @@
             this.checkUsePetHP.AutoSize = true;
             this.checkUsePetHP.BackColor = System.Drawing.Color.Transparent;
             this.checkUsePetHP.Checked = false;
-            this.checkUsePetHP.Location = new System.Drawing.Point(11, 33);
+            this.checkUsePetHP.Location = new System.Drawing.Point(11, 37);
             this.checkUsePetHP.Name = "checkUsePetHP";
             this.checkUsePetHP.Size = new System.Drawing.Size(141, 15);
             this.checkUsePetHP.TabIndex = 13;
@@ -936,11 +958,11 @@
             this.checkUseHGP.AutoSize = true;
             this.checkUseHGP.BackColor = System.Drawing.Color.Transparent;
             this.checkUseHGP.Checked = false;
-            this.checkUseHGP.Location = new System.Drawing.Point(11, 59);
+            this.checkUseHGP.Location = new System.Drawing.Point(11, 63);
             this.checkUseHGP.Name = "checkUseHGP";
-            this.checkUseHGP.Size = new System.Drawing.Size(171, 15);
+            this.checkUseHGP.Size = new System.Drawing.Size(218, 15);
             this.checkUseHGP.TabIndex = 14;
-            this.checkUseHGP.Text = "Use HGP potions if hunger *";
+            this.checkUseHGP.Text = "Use HGP && Saiety potions if hunger *";
             this.checkUseHGP.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // groupStatPoints
@@ -952,7 +974,7 @@
             this.groupStatPoints.Controls.Add(this.numIncInt);
             this.groupStatPoints.Controls.Add(this.checkIncStr);
             this.groupStatPoints.Controls.Add(this.checkIncInt);
-            this.groupStatPoints.Location = new System.Drawing.Point(500, 249);
+            this.groupStatPoints.Location = new System.Drawing.Point(500, 241);
             this.groupStatPoints.Name = "groupStatPoints";
             this.groupStatPoints.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupStatPoints.Radius = 2;
