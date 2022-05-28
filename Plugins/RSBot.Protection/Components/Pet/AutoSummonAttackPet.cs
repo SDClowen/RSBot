@@ -34,7 +34,8 @@ namespace RSBot.Protection.Components.Pet
             if (uniqueId != Game.Player.UniqueId)
                 return;
 
-            if (Game.Player.AttackPet != null)
+           if (Game.Player.Growth != null ||
+               Game.Player.Fellow != null)
                 return;
 
             if (!PlayerConfig.Get<bool>("RSBot.Protection.checkAutoSummonAttackPet"))
@@ -43,14 +44,18 @@ namespace RSBot.Protection.Components.Pet
             if (Game.Player.State.BattleState != BattleState.InPeace)
                 return;
 
-            Game.Player.SummonAttackPet();
+            if (Game.Player.SummonFellow())
+                return;
+
+            Game.Player.SummonGrowth();
         }
 
         /// <summary>
         /// </summary>
         private static void OnStartBot()
         {
-            if (Game.Player.AttackPet != null)
+            if (Game.Player.Growth != null ||
+                Game.Player.Fellow != null)
                 return;
 
             if (!PlayerConfig.Get<bool>("RSBot.Protection.checkAutoSummonAttackPet"))
@@ -59,7 +64,10 @@ namespace RSBot.Protection.Components.Pet
             if (Game.Player.State.BattleState != BattleState.InPeace)
                 return;
 
-            Game.Player.SummonAttackPet();
+            if (Game.Player.SummonFellow())
+                return;
+
+            Game.Player.SummonGrowth();
         }
     }
 }

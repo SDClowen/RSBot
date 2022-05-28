@@ -28,8 +28,10 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
         {
             var uniqueId = packet.ReadUInt();
 
-            if (Game.Player.HasActiveAttackPet && uniqueId == Game.Player.AttackPet.UniqueId)
-                EventManager.FireEvent("OnPetLevelUp");
+            if (Game.Player.HasActiveAttackPet && uniqueId == Game.Player.Growth.UniqueId)
+                EventManager.FireEvent("OnGrowthLevelUp");
+            else if (Game.Player.HasActiveFellowPet && uniqueId == Game.Player.Fellow.UniqueId)
+                EventManager.FireEvent("OnFellowLevelUp");
         }
     }
 }

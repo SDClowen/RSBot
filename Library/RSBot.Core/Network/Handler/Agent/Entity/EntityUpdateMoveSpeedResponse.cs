@@ -32,7 +32,7 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
             var walkSpeed = packet.ReadFloat();
             var runSpeed = packet.ReadFloat();
 
-            if (uniqueId == Game.Player.UniqueId || (Game.Player.Vehicle != null && uniqueId == Game.Player.Vehicle.UniqueId))
+            if (uniqueId == Game.Player.UniqueId || Game.Player.Vehicle?.UniqueId == uniqueId)
             {
                 Game.Player.SetSpeed(walkSpeed, runSpeed);
 

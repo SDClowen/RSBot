@@ -4,7 +4,7 @@ using RSBot.Core.Objects;
 
 namespace RSBot.Protection.Components.Pet
 {
-    public class ReviveAttackPetHandler
+    public class CosReviveHandler
     {
         /// <summary>
         /// Initializes this instance.
@@ -35,9 +35,19 @@ namespace RSBot.Protection.Components.Pet
                 return;
 
             var item = Game.Player.Inventory.GetItemAt(slot);
-            if (item.Record.TypeID2 != 2 || item.Record.TypeID3 != 1 || item.Record.TypeID4 != 1 || item.State != InventoryItemState.Dead) return;
+            var itemRecord = item.Record;
 
-            Game.Player.ReviveAttackPet();
+            if (!itemRecord.IsPet)
+                return;
+
+            if (item.State != InventoryItemState.Dead)
+                return;
+
+            if (itemRecord.IsGrowthPet)
+                Game.Player.ReviveGrowth();
+           
+            if (item.Record.IsFellowPet)
+                Game.Player.ReviveFellow();
         }
 
         /// <summary>
@@ -50,7 +60,10 @@ namespace RSBot.Protection.Components.Pet
             if (!PlayerConfig.Get<bool>("RSBot.Protection.checkReviveAttackPet"))
                 return;
 
-            Game.Player.ReviveAttackPet();
+            if (Game.Player.ReviveFellow())
+                return;
+
+            Game.Player.ReviveGrowth();
         }
     }
 }

@@ -91,17 +91,56 @@
     <Compile Include="Views\Controls\Character.Designer.cs">
       <DependentUpon>Character.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Controls\Cos\Ability.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Controls\Cos\Ability.designer.cs">
+      <DependentUpon>Ability.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\Cos\CosControlBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Controls\Cos\CosController.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Controls\Cos\CosController.designer.cs">
+      <DependentUpon>CosController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\Cos\Fellow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Controls\Cos\Fellow.designer.cs">
+      <DependentUpon>Fellow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\Cos\Growth.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Controls\Cos\Growth.designer.cs">
+      <DependentUpon>Growth.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\Cos\JobTransport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Controls\Cos\JobTransport.designer.cs">
+      <DependentUpon>JobTransport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\Cos\MiniCosControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Controls\Cos\MiniCosControl.designer.cs">
+      <DependentUpon>MiniCosControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\Cos\Transport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Controls\Cos\Transport.designer.cs">
+      <DependentUpon>Transport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Controls\Entity.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\Controls\Entity.Designer.cs">
       <DependentUpon>Entity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Controls\Pet.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\Controls\Pet.Designer.cs">
-      <DependentUpon>Pet.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Dialog\CommandDialog.cs">
       <SubType>Form</SubType>
@@ -148,11 +187,32 @@
     <EmbeddedResource Include="Views\Controls\Character.resx">
       <DependentUpon>Character.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Controls\Cos\Ability.resx">
+      <DependentUpon>Ability.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Controls\Cos\CosControlBase.resx">
+      <DependentUpon>CosControlBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Controls\Cos\CosController.resx">
+      <DependentUpon>CosController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Controls\Cos\Fellow.resx">
+      <DependentUpon>Fellow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Controls\Cos\Growth.resx">
+      <DependentUpon>Growth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Controls\Cos\JobTransport.resx">
+      <DependentUpon>JobTransport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Controls\Cos\MiniCosControl.resx">
+      <DependentUpon>MiniCosControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Controls\Cos\Transport.resx">
+      <DependentUpon>Transport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Controls\Entity.resx">
       <DependentUpon>Entity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Controls\Pet.resx">
-      <DependentUpon>Pet.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Dialog\CommandDialog.resx">
       <DependentUpon>CommandDialog.cs</DependentUpon>

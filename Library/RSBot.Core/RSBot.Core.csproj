@@ -114,6 +114,9 @@
     <Compile Include="Objects\ActionStateFlag.cs" />
     <Compile Include="Objects\CharacterInventory.cs" />
     <Compile Include="Objects\ChatType.cs" />
+    <Compile Include="Objects\Cos\Cos.cs" />
+    <Compile Include="Objects\Cos\Fellow.cs" />
+    <Compile Include="Objects\Cos\JobTransport.cs" />
     <Compile Include="Objects\Exchange\ExchangeInstance.cs" />
     <Compile Include="Cryptography\SkillCryptoHelper.cs" />
     <Compile Include="Event\ISubscriber.cs" />
@@ -128,6 +131,7 @@
     <Compile Include="Objects\GuideTeleportType.cs" />
     <Compile Include="Objects\Inventory\InventoryItemCollection.cs" />
     <Compile Include="Objects\Inventory\InventoryOperation.cs" />
+    <Compile Include="Objects\Inventory\Item\InventoryItemCosInfo.cs" />
     <Compile Include="Objects\Inventory\Storage.cs" />
     <Compile Include="Objects\InviteRequestType.cs" />
     <Compile Include="Objects\Inventory\Item\ItemUpdateFlag.cs" />
@@ -256,9 +260,9 @@
     <Compile Include="Network\Handler\Agent\Entity\EntityUpdateMoveSpeedResponse.cs" />
     <Compile Include="Network\Handler\Agent\Entity\EntityUpdatePointsResponse.cs" />
     <Compile Include="Network\Handler\Agent\Inventory\InventoryItemUseResponse.cs" />
-    <Compile Include="Objects\Cos\AbilityPet.cs" />
+    <Compile Include="Objects\Cos\Ability.cs" />
     <Compile Include="Objects\AmmunitionType.cs" />
-    <Compile Include="Objects\Cos\AttackPet.cs" />
+    <Compile Include="Objects\Cos\Growth.cs" />
     <Compile Include="Objects\FortSiegeAuthority.cs" />
     <Compile Include="Objects\InteractMode.cs" />
     <Compile Include="Objects\JobInfo.cs" />
@@ -320,7 +324,7 @@
     <Compile Include="Objects\Spawn\SpawnedPortal.cs" />
     <Compile Include="Objects\Spawn\SpawnPacketInfo.cs" />
     <Compile Include="Objects\State.cs" />
-    <Compile Include="Objects\Cos\Vehicle.cs" />
+    <Compile Include="Objects\Cos\Transport.cs" />
     <Compile Include="Plugins\BotbaseManager.cs" />
     <Compile Include="Plugins\IBotbase.cs" />
     <Compile Include="Plugins\PluginManager.cs" />

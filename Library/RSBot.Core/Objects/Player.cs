@@ -6,6 +6,7 @@ using RSBot.Core.Objects.Quests;
 using RSBot.Core.Objects.Spawn;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace RSBot.Core.Objects
@@ -330,7 +331,15 @@ namespace RSBot.Core.Objects
         /// <value>
         /// <c>true</c> if this instance has active attack pet; otherwise, <c>false</c>.
         /// </value>
-        public bool HasActiveAttackPet => AttackPet != null;
+        public bool HasActiveAttackPet => Growth != null;
+
+        /// <summary>
+        /// Gets a value indicating whether this instance has active fellow pet.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance has active fellow pet; otherwise, <c>false</c>.
+        /// </value>
+        public bool HasActiveFellowPet => Fellow != null;
 
         /// <summary>
         /// Gets a value indicating whether this instance has active ability pet.
@@ -354,7 +363,15 @@ namespace RSBot.Core.Objects
         /// <value>
         /// The attack pet.
         /// </value>
-        public AttackPet AttackPet { get; set; }
+        public Cos.Growth Growth { get; set; }
+
+        /// <summary>
+        /// Gets or sets the attack pet.
+        /// </summary>
+        /// <value>
+        /// The attack pet.
+        /// </value>
+        public Cos.Fellow Fellow { get; set; }
 
         /// <summary>
         /// Gets or sets the vehicle.
@@ -362,7 +379,15 @@ namespace RSBot.Core.Objects
         /// <value>
         /// The vehicle.
         /// </value>
-        public Vehicle Vehicle { get; set; }
+        public Cos.Transport Transport { get; set; }
+
+        /// <summary>
+        /// Gets or sets the vehicle.
+        /// </summary>
+        /// <value>
+        /// The vehicle.
+        /// </value>
+        public Cos.JobTransport JobTransport { get; set; }
 
         /// <summary>
         /// Gets or sets the ability pet.
@@ -370,7 +395,15 @@ namespace RSBot.Core.Objects
         /// <value>
         /// The ability pet.
         /// </value>
-        public AbilityPet AbilityPet { get; set; }
+        public Cos.Ability AbilityPet { get; set; }
+
+        /// <summary>
+        /// Gets or sets the mounted pet.
+        /// </summary>
+        /// <value>
+        /// The mounted pet.
+        /// </value>
+        public Cos.Cos Vehicle { get; set; }
 
         /// <summary>
         /// Gets or sets the teleportation.
@@ -403,6 +436,14 @@ namespace RSBot.Core.Objects
         /// The Job2 Inventory.
         /// </value>
         public InventoryItemCollection Job2 { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Specialty Good Box Inventory.
+        /// </summary>
+        /// <value>
+        /// The Job2 Specialty Good Box Inventory.
+        /// </value>
+        public InventoryItemCollection Job2SpecialtyBag { get; set; }
 
         /// <summary>
         /// Gets or sets the Storage.
@@ -596,7 +637,7 @@ namespace RSBot.Core.Objects
 
             if (HasActiveVehicle)
             {
-                Vehicle.MoveTo(destination);
+                Transport.MoveTo(destination);
                 return true;
             }
 
@@ -673,7 +714,9 @@ namespace RSBot.Core.Objects
                     return false;
 
                 var result = potionItem.Use();
-                tick = Environment.TickCount;
+
+                if (result)
+                    tick = Environment.TickCount;
 
                 return result;
             }
@@ -701,7 +744,7 @@ namespace RSBot.Core.Objects
         /// <returns></returns>
         public bool UseVigorPotion()
         {
-            return UsePotion(new TypeIdFilter(3, 3, 1, 2), ref _lastVigorPotionTick, ref _lastVigorDuration);
+            return UsePotion(new TypeIdFilter(3, 3, 1, 3), ref _lastVigorPotionTick, ref _lastVigorDuration);
         }
 
         /// <summary>
@@ -760,7 +803,8 @@ namespace RSBot.Core.Objects
         /// <returns></returns>
         public bool SummonAbilityPet()
         {
-            if (AbilityPet != null) return false;
+            if (AbilityPet != null)
+                return false;
 
             var typeIdFilter = new TypeIdFilter(3, 2, 1, 2);
             var slotItem = Inventory.GetItem(typeIdFilter);
@@ -776,7 +820,8 @@ namespace RSBot.Core.Objects
         /// <returns></returns>
         public bool SummonVehicle()
         {
-            if (HasActiveVehicle) return false;
+            if (HasActiveVehicle)
+                return false;
 
             var typeIdFilter = new TypeIdFilter(3, 3, 3, 2);
             var vehicleItem = Inventory.GetItem(item => typeIdFilter.EqualsRefItem(item.Record) && item.Record.ReqLevel1 <= Game.Player.Level);
@@ -843,21 +888,17 @@ namespace RSBot.Core.Objects
         }
 
         /// <summary>
-        /// Revives the attack pet.
+        /// Revives the growth pet.
         /// </summary>
         /// <returns></returns>
-        public bool ReviveAttackPet()
+        public bool ReviveGrowth()
         {
-            var typeIdFilter = new TypeIdFilter(3, 3, 1, 6);
-            var rescueItem = Inventory.GetItem(typeIdFilter);
-
-            if (rescueItem == null)
+            var petItem = Inventory.GetItem(p => p.Record.IsGrowthPet && p.State == InventoryItemState.Dead);
+            if (petItem == null)
                 return false;
 
-            typeIdFilter = new TypeIdFilter(3, 2, 1, 1);
-            var petItem = Inventory.GetItem(typeIdFilter);
-
-            if (petItem == null)
+            var rescueItem = Inventory.GetItem(p => p.Record.IsCosRevivalPotion);
+            if (rescueItem == null)
                 return false;
 
             rescueItem.UseTo(petItem.Slot);
@@ -865,24 +906,66 @@ namespace RSBot.Core.Objects
         }
 
         /// <summary>
+        /// Revives the fellow pet.
+        /// </summary>
+        /// <returns></returns>
+        public bool ReviveFellow()
+        {
+            var petItem = Inventory.GetItem(p => p.Record.IsFellowPet && p.State == InventoryItemState.Dead);
+            if (petItem == null)
+                return false;
+
+            var petLevel = petItem.Cos.Level;
+            var rescueItem = Inventory.GetItem(p => p.Record.IsCosRevivalPotion &&
+                p.Record.CodeName.StartsWith("ITEM_PET2_GOODS_REVIVAL_") &&
+                petLevel >= p.Record.ReqLevel1 && petLevel <= p.Record.ReqLevel2);
+
+            if (rescueItem == null)
+                return false;
+
+            rescueItem.UseTo(petItem.Slot);
+
+            return true;
+        }
+
+        /// <summary>
         /// Summons the attack pet.
         /// </summary>
         /// <returns></returns>
-        public bool SummonAttackPet()
+        public bool SummonGrowth()
         {
-            if (AttackPet != null)
+            if (Growth != null)
                 return false;
 
             var typeIdFilter = new TypeIdFilter(3, 2, 1, 1);
-            var petItem = Inventory.GetItem(typeIdFilter);
 
+            var petItem = Inventory.GetItem(typeIdFilter);
             if (petItem == null)
                 return false;
 
             if (petItem.State == InventoryItemState.Summoned || petItem.State == InventoryItemState.Dead)
                 return false;
 
-            Log.Notify("Summoning attack pet");
+            return petItem.Use();
+        }
+
+        /// <summary>
+        /// Summons the fellow pet.
+        /// </summary>
+        /// <returns></returns>
+        public bool SummonFellow()
+        {
+            if (Fellow != null)
+                return false;
+
+            var typeIdFilter = new TypeIdFilter(3, 2, 1, 3);
+
+            var petItem = Inventory.GetItem(typeIdFilter);
+            if (petItem == null)
+                return false;
+
+            if (petItem.State == InventoryItemState.Summoned || petItem.State == InventoryItemState.Dead)
+                return false;
 
             return petItem.Use();
         }
