@@ -1,4 +1,5 @@
 ﻿using RSBot.Core.Network;
+using System;
 using System.Collections.Generic;
 
 namespace RSBot.Core.Objects
@@ -12,8 +13,8 @@ namespace RSBot.Core.Objects
         /// The constructor.
         /// </summary>
         /// <param name="size">The size.</param>
-        public CharacterInventory(Packet packet) 
-            : base(packet) {}
+        public CharacterInventory(Packet packet)
+            : base(packet) { }
 
         /// <summary>
         /// Minimum slot of NormalPart.
@@ -52,22 +53,29 @@ namespace RSBot.Core.Objects
         /// Gets items of EquippedPart, ordered by slot.
         /// </summary>
         /// <returns>If found: list of item(s), ordered by slot; otherwise empty list</returns>
-        public ICollection<InventoryItem> GetEquippedPartItems() 
+        public ICollection<InventoryItem> GetEquippedPartItems()
             => GetItems(item => item.Slot < NORMAL_PART_MIN_SLOT);
 
         /// <summary>
         /// Gets items of NormalPart, ordered by slot.
         /// </summary>
         /// <returns>If found: list of item(s), ordered by slot; otherwise empty list</returns>
-        public ICollection<InventoryItem> GetNormalPartItems() 
+        public ICollection<InventoryItem> GetNormalPartItems()
             => GetItems(item => item.Slot >= NORMAL_PART_MIN_SLOT);
+
+        /// <summary>
+        /// Gets items of NormalPart, ordered by slot.
+        /// </summary>
+        /// <returns>If found: list of item(s), ordered by slot; otherwise empty list</returns>
+        public ICollection<InventoryItem> GetNormalPartItems(Predicate<InventoryItem> predicate)
+            => GetItems(item => item.Slot >= NORMAL_PART_MIN_SLOT && predicate(item));
 
         /// <summary>
         /// Gets items of NormalPart by ItemId, ordered by slot.
         /// </summary>
         /// <param name="itemId">The identifier of item.</param>
         /// <returns>If found: list of item(s), ordered by slot; otherwise empty list</returns>
-        public ICollection<InventoryItem> GetNormalPartItems(uint itemId) 
+        public ICollection<InventoryItem> GetNormalPartItems(uint itemId)
             => GetItems(item => item.Slot >= NORMAL_PART_MIN_SLOT && item.ItemId == itemId);
 
         /// <summary>
@@ -80,7 +88,7 @@ namespace RSBot.Core.Objects
         public bool MoveItem(byte sourceSlot, byte destinationSlot, ushort amount = 0)
         {
             var itemAtSource = GetItemAt(sourceSlot);
-            if (itemAtSource == null) 
+            if (itemAtSource == null)
                 return false;
 
             if (amount == 0)

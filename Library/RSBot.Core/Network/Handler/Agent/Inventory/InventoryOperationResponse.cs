@@ -1,6 +1,7 @@
 ﻿using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
+using RSBot.Core.Objects.Cos;
 using RSBot.Core.Objects.Inventory;
 using RSBot.Core.Objects.Item;
 using System.Collections.Generic;
@@ -119,7 +120,11 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
                     break;
 
                 case InventoryOperation.SP_SELL_ITEM_COS:
-                    ParsePetToNpc(packet);
+                    ParseCosToNpc(packet);
+                    break;
+
+                case InventoryOperation.SP_DEL_COSITEM_BY_SERVER:
+                    ParseDeleteCosItemByServer(packet);
                     break;
 
                 case InventoryOperation.SP_BUY_CASH_ITEM:
@@ -127,11 +132,11 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
                     break;
 
                 case InventoryOperation.SP_MOVE_ITEM_PET_PC:
-                    ParsePetToInventory(packet);
+                    ParseCosToInventory(packet);
                     break;
 
                 case InventoryOperation.SP_MOVE_ITEM_PC_PET:
-                    ParseInventoryToPet(packet);
+                    ParseInventoryToCos(packet);
                     break;
 
                 case InventoryOperation.SP_PICK_ITEM_BY_OTHER:
@@ -165,6 +170,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
                 case InventoryOperation.SP_MOVE_ITEM_AVATAR_PC:
 
                     Game.Player.Avatars.MoveTo(Game.Player.Inventory, packet);
+                    packet.ReadUShort(); // amount
 
                     if (packet.ReadBool())
                         if (packet.ReadByte() == 0x23)
@@ -175,6 +181,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
                 case InventoryOperation.SP_MOVE_ITEM_PC_AVATAR:
 
                     Game.Player.Inventory.MoveTo(Game.Player.Avatars, packet);
+                    packet.ReadUShort(); // amount
 
                     if (packet.ReadBool())
                         if (packet.ReadByte() == 0x00)
@@ -182,12 +189,49 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
 
                     break;
 
+                case InventoryOperation.SP_BUY_ITEM_WITH_TOKEN:
+                    ParseTokenNpcToInventory(packet);
+                    break;
+
+                case InventoryOperation.SP_PICK_SPECIAL_GOODS:
+                    ParseFloorToSpecialtyBag(packet);
+                    break;
+
+                case InventoryOperation.SP_MOVE_ITEM_BAG_TO_JOBTRANSPORT:
+
+                    var cosUniqueId = packet.ReadUInt();
+                    Cos cos = Game.Player.JobTransport;
+                    if (cos == null || cosUniqueId != cos.UniqueId)
+                        return;
+
+                    Game.Player.Job2SpecialtyBag.MoveTo(cos.Inventory, packet);
+
+                    break;
+
+                case InventoryOperation.SP_DELETE_BAG_ITEM_BY_SERVER:
+
+                    var sourceSlot = packet.ReadByte();
+                    Game.Player.Job2SpecialtyBag.RemoveAt(sourceSlot);
+
+                    break;
+
                 default:
-                    Log.Debug($"If you see this message in debug mode, please open an issue by explaining your last inventory operation! InventoryOperationType: {type}");
+                    Log.Error($"If you see this message i, please open an issue by explaining your last inventory operation! InventoryOperationType: {type}");
                     break;
             }
 
             EventManager.FireEvent("OnInventoryUpdate");
+        }
+
+        /// <summary>
+        /// Parses the floor to inventory.
+        /// </summary>
+        /// <param name="packet">The packet.</param>
+        private static void ParseFloorToSpecialtyBag(Packet packet)
+        {
+            var unknown1 = packet.ReadUInt();
+
+            ParseFloorToInventory(packet, Game.Player.Job2SpecialtyBag);
         }
 
         /// <summary>
@@ -263,6 +307,9 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
             var refShopGoodObj = Game.ReferenceManager.GetRefPackageItem(npc.Record.CodeName, tabIndex, tabSlot);
             var item = Game.ReferenceManager.GetRefItem(refShopGoodObj.RefItemCodeName);
 
+            if (item.IsStackable && refShopGoodObj.Data > 0)
+                amount = (ushort)refShopGoodObj.Data;
+
             Log.Notify($"Bought [{item.GetRealName(true)}] x {amount} from [{npc.Record.GetRealName()}]");
 
             //_ETC_
@@ -297,6 +344,23 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
                     EventManager.FireEvent("OnBuyItem", slot);
                 }
             }
+        }
+
+        /// <summary>
+        /// Parses the NPC to inventory.
+        /// </summary>
+        /// <param name="packet">The packet.</param>
+        private static void ParseTokenNpcToInventory(Packet packet)
+        {
+            var inventory = Game.Player.Inventory;
+            ParseNpcToInventory(packet, inventory);
+
+            var unknown1 = packet.ReadByte();
+            var tokenSlot = packet.ReadByte();
+            var updatedTokenCount = packet.ReadUShort();
+            var unknown2 = packet.ReadInt();
+
+            inventory.UpdateItemAmount(tokenSlot, updatedTokenCount);
         }
 
         /// <summary>
@@ -404,16 +468,49 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
         }
 
         /// <summary>
+        /// Parses the delete item by server.
+        /// </summary>
+        /// <param name="packet">The packet.</param>
+        private static void ParseDeleteCosItemByServer(Packet packet)
+        {
+            var uniqueId = packet.ReadUInt();
+
+            Cos cos = null;
+
+            if (uniqueId == Game.Player.AbilityPet?.UniqueId)
+                cos = Game.Player.AbilityPet;
+            else if (uniqueId == Game.Player.JobTransport?.UniqueId)
+                cos = Game.Player.JobTransport;
+
+            if (cos == null)
+                return;
+
+            var sourceSlot = packet.ReadByte();
+            var reason = packet.ReadByte();
+
+            cos.Inventory.RemoveAt(sourceSlot);
+
+            Log.Debug($"[Inventory->Delete] Remove cos item (slot={sourceSlot})");
+        }
+
+        /// <summary>
         /// Parses the pet to pet.
         /// </summary>
         /// <param name="packet">The packet.</param>
         private static void ParseCosInventoryMoving(Packet packet)
         {
-            var petUniqueId = packet.ReadUInt();
+            var uniqueId = packet.ReadUInt();
 
-            var cos = Game.Player.AbilityPet;
-            if (!Game.Player.HasActiveAbilityPet || cos.UniqueId != petUniqueId) 
+            Cos cos = null;
+
+            if (uniqueId == Game.Player.AbilityPet?.UniqueId)
+                cos = Game.Player.AbilityPet;
+            else if (uniqueId == Game.Player.JobTransport?.UniqueId)
+                cos = Game.Player.JobTransport;
+
+            if (cos == null)
                 return;
+
 
             cos.Inventory.Move(packet);
         }
@@ -424,10 +521,16 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
         /// <param name="packet">The packet.</param>
         private static void ParseFloorToCos(Packet packet)
         {
-            var petUniqueId = packet.ReadUInt();
+            var uniqueId = packet.ReadUInt();
 
-            var cos = Game.Player.AbilityPet;
-            if (!Game.Player.HasActiveAbilityPet || cos.UniqueId != petUniqueId)
+            Cos cos = null;
+
+            if (uniqueId == Game.Player.AbilityPet?.UniqueId)
+                cos = Game.Player.AbilityPet;
+            else if (uniqueId == Game.Player.JobTransport?.UniqueId)
+                cos = Game.Player.JobTransport;
+
+            if (cos == null)
                 return;
 
             ParseFloorToInventory(packet, cos.Inventory);
@@ -442,11 +545,18 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
             var uniqueId = packet.ReadUInt();
             var sourceSlot = packet.ReadByte();
 
-            if (Game.Player.AbilityPet?.UniqueId == uniqueId)
-            {
-                Game.Player.AbilityPet.Inventory.RemoveAt(sourceSlot);
-                Log.Debug($"[Pet->Floor] Remove item (slot={sourceSlot})");
-            }
+            Cos cos = null;
+
+            if (uniqueId == Game.Player.AbilityPet?.UniqueId)
+                cos = Game.Player.AbilityPet;
+            else if (uniqueId == Game.Player.JobTransport?.UniqueId)
+                cos = Game.Player.JobTransport;
+
+            if (cos == null)
+                return;
+
+            cos.Inventory.RemoveAt(sourceSlot);
+            Log.Debug($"[Pet->Floor] Remove item (slot={sourceSlot})");
         }
 
         /// <summary>
@@ -457,9 +567,12 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
         {
             var uniqueId = packet.ReadUInt();
 
-            AbilityPet cos = null;
-            if (Game.Player.AbilityPet?.UniqueId == uniqueId)
+            Cos cos = null;
+
+            if (uniqueId == Game.Player.AbilityPet?.UniqueId)
                 cos = Game.Player.AbilityPet;
+            else if (uniqueId == Game.Player.JobTransport?.UniqueId)
+                cos = Game.Player.JobTransport;
 
             if (cos == null)
                 return;
@@ -471,16 +584,20 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
         /// Parses the pet to NPC.
         /// </summary>
         /// <param name="packet">The packet.</param>
-        private static void ParsePetToNpc(Packet packet)
+        private static void ParseCosToNpc(Packet packet)
         {
             var uniqueId = packet.ReadUInt();
-            AbilityPet cos = null;
-            if (Game.Player.AbilityPet?.UniqueId == uniqueId)
+
+            Cos cos = null;
+
+            if (uniqueId == Game.Player.AbilityPet?.UniqueId)
                 cos = Game.Player.AbilityPet;
+            else if (uniqueId == Game.Player.JobTransport?.UniqueId)
+                cos = Game.Player.JobTransport;
 
             if (cos == null)
                 return;
-            
+
             ParseInventoryToNpc(packet, cos.Inventory);
         }
 
@@ -536,7 +653,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
         /// Parses the pet to inventory.
         /// </summary>
         /// <param name="packet">The packet.</param>
-        private static void ParsePetToInventory(Packet packet)
+        private static void ParseCosToInventory(Packet packet)
         {
             var petUniqueId = packet.ReadUInt();
 
@@ -552,12 +669,12 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
         /// Parses the inventory to pet.
         /// </summary>
         /// <param name="packet">The packet.</param>
-        private static void ParseInventoryToPet(Packet packet)
+        private static void ParseInventoryToCos(Packet packet)
         {
             var petUniqueId = packet.ReadUInt();
             var cos = Game.Player.AbilityPet;
 
-            if (!Game.Player.HasActiveAbilityPet || cos.UniqueId != petUniqueId) 
+            if (!Game.Player.HasActiveAbilityPet || cos.UniqueId != petUniqueId)
                 return;
 
             Game.Player.Inventory.MoveTo(cos.Inventory, packet);

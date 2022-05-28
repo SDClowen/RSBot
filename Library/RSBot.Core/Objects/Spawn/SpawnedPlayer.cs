@@ -217,8 +217,6 @@ namespace RSBot.Core.Objects.Spawn
 
             InventorySize = packet.ReadByte();
 
-            #region Regular equipment
-
             var itemCount = packet.ReadByte();
             Inventory = new Dictionary<RefObjItem, byte>();
 
@@ -235,16 +233,12 @@ namespace RSBot.Core.Objects.Spawn
                 }
 
                 //Check if the player wears a job-suit
-                if (itemObj.IsJobEquip)
+                if (itemObj.IsJobOutfit)
                     WearsJobSuite = true;
 
                 if (itemObj.IsEquip)
                     Inventory.Add(itemObj, packet.ReadByte()); //Item object and the "+" value as value
             }
-
-            #endregion Regular equipment
-
-            #region Avatar equipment
 
             Avatars = new Dictionary<RefObjItem, byte>();
             if (Game.ClientType >= GameClientType.Thailand)
@@ -266,8 +260,6 @@ namespace RSBot.Core.Objects.Spawn
                     Avatars.Add(itemObj, packet.ReadByte()); //Item object and the "+" value as value
                 }
             }
-
-            #endregion Avatar equipment
 
             var hasMask = packet.ReadBool();
             if (hasMask)

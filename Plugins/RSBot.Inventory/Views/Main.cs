@@ -2,6 +2,9 @@
 using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
+using SDUI;
+using System;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -16,16 +19,24 @@ namespace RSBot.Inventory.Views
         private object _lock;
 
         /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        private int _selectedIndex = 0;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Main"/> class.
         /// </summary>
         public Main()
         {
             _lock = new object();
             InitializeComponent();
-            comboInventoryType.SelectedIndex = 0;
             SubscribeEvents();
 
             listViewMain.SmallImageList = Core.Extensions.ListViewExtensions.StaticItemsImageList;
+
+            var backColor = ColorScheme.BorderColor.Determine().Alpha(85);
+            buttonInventory.ForeColor = backColor.Determine();
+            buttonInventory.Color = backColor;
         }
 
         /// <summary>
@@ -33,13 +44,10 @@ namespace RSBot.Inventory.Views
         /// </summary>
         private void SubscribeEvents()
         {
-            EventManager.SubscribeEvent("OnLoadCharacter", () => {
-                if (Visible)
-                    UpdateInventoryList();
-            });
+            EventManager.SubscribeEvent("OnLoadCharacter", UpdateInventoryList);
 
-            //EventManager.SubscribeEvent("OnUpdateInventoryItem", new Action<byte>(OnUpdateInventoryItem));
-            //EventManager.SubscribeEvent("OnUseItem", new Action<byte>(OnUpdateInventoryItem));
+            EventManager.SubscribeEvent("OnUpdateInventoryItem", new Action<byte>(OnUpdateInventoryItem));
+            EventManager.SubscribeEvent("OnUseItem", new Action<byte>(OnUpdateInventoryItem));
             EventManager.SubscribeEvent("OnInventoryUpdate", UpdateInventoryList);
         }
 
@@ -83,13 +91,13 @@ namespace RSBot.Inventory.Views
             if (!Parent.Visible)
                 return;
 
-            if (Game.Player == null) 
+            if (Game.Player == null)
                 return;
 
             listViewMain.BeginUpdate();
             listViewMain.Items.Clear();
 
-            switch (comboInventoryType.SelectedIndex)
+            switch (_selectedIndex)
             {
                 case 0:
 
@@ -163,6 +171,36 @@ namespace RSBot.Inventory.Views
                     lblFreeSlots.Text = Game.Player.GuildStorage.Count + "/" + Game.Player.GuildStorage.Capacity;
 
                     break;
+
+                case 6:
+
+                    if (Game.Player.JobTransport == null)
+                    {
+                        listViewMain.EndUpdate();
+                        return;
+                    }
+
+                    foreach (var item in Game.Player.JobTransport.Inventory)
+                        AddItem(item);
+
+                    lblFreeSlots.Text = Game.Player.JobTransport.Inventory.Count + "/" + Game.Player.JobTransport.Inventory.Capacity;
+
+                    break;
+
+                case 7:
+
+                    if (Game.Player.Job2SpecialtyBag == null)
+                    {
+                        listViewMain.EndUpdate();
+                        return;
+                    }
+
+                    foreach (var item in Game.Player.Job2SpecialtyBag)
+                        AddItem(item);
+
+                    lblFreeSlots.Text = Game.Player.Job2SpecialtyBag.Count + "/" + Game.Player.Job2SpecialtyBag.Capacity;
+
+                    break;
             }
 
             listViewMain.EndUpdate();
@@ -181,8 +219,8 @@ namespace RSBot.Inventory.Views
             var lvItem = listViewMain.Items.Add(item.Slot.ToString(), name, 0);
             lvItem.Tag = item;
             lvItem.SubItems.Add(item.Amount.ToString());
-            
-            if(item.Record.IsEquip)
+
+            if (item.Record.IsEquip)
                 lvItem.SubItems.Add(item.Record.GetRarityName());
 
             lvItem.LoadItemImageAsync(item.Record);
@@ -206,20 +244,10 @@ namespace RSBot.Inventory.Views
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void Parent_VisibleChanged(object sender, System.EventArgs e)
         {
-            if(!Visible)
+            if (!Visible)
                 listViewMain.Items.Clear();
             else
                 UpdateInventoryList();
-        }
-
-        /// <summary>
-        /// Handles the selected index changed event of the comboInventoryType control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void comboInventoryType_SelectedIndexChanged(object sender, System.EventArgs e)
-        {
-            UpdateInventoryList();
         }
 
         /// <summary>
@@ -259,6 +287,11 @@ namespace RSBot.Inventory.Views
             }*/
         }
 
+        /// <summary>
+        /// Handles the mouse double click event of the listviewmain control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void listViewMain_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (listViewMain.SelectedItems.Count <= 0)
@@ -271,6 +304,40 @@ namespace RSBot.Inventory.Views
 
             var itemForm = new ItemProperties(listViewMain.SelectedItems[0].Tag as InventoryItem);
             itemForm.Show();
+        }
+
+
+        /// <summary>
+        /// Handles the selected index changed event of the button's control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void ButtonSwitcher(object sender, EventArgs e)
+        {
+            var button = sender as SDUI.Controls.Button;
+            if (_selectedIndex == button.TabIndex)
+                return;
+
+            _selectedIndex = button.TabIndex;
+
+            foreach (var control in topPanel.Controls.OfType<SDUI.Controls.Button>())
+            {
+                if (control.TabIndex > 7)
+                    continue;
+
+                control.Color = Color.Transparent;
+
+                if (control == button)
+                {
+                    var backColor = ColorScheme.BorderColor.Determine().Alpha(85);
+                    control.ForeColor = backColor.Determine();
+                    control.Color = backColor;
+                }
+
+                control.Invalidate();
+            }
+
+            UpdateInventoryList();
         }
     }
 }

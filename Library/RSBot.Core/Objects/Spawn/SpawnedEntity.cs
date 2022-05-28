@@ -226,7 +226,7 @@ namespace RSBot.Core.Objects.Spawn
         /// <returns></returns>
         public virtual bool Update()
         {
-            return false;
+            return true;
         }
 
         /// <summary>
