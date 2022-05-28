@@ -27,7 +27,7 @@ RSBot.ExitDialog.labelInfo="Are you sure that you want to exit RSBot?
 This will disconnect you from the Silkroad Server!"
 LabelPlayerName="Not in game"
 LabelEntityName="No entity selected"
-LabelPetName="No pet found"
+LabelPetName="< No Name >"
 NotifyPleaseSelectProperBotBase="Please select a proper botbase and try again"
 NotifyPlayerWasNull="Your character has to be in the game in order to start the bot."
 Running="Running"

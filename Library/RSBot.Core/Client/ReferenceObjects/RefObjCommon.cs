@@ -1,4 +1,7 @@
-﻿using System.Diagnostics;
+﻿using RSBot.Core.Extensions;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 
 namespace RSBot.Core.Client.ReferenceObjects
 {
@@ -33,11 +36,11 @@ namespace RSBot.Core.Client.ReferenceObjects
         /// <summary>
         /// Gets the item Tid.
         /// </summary>
-        public int Tid 
-        { 
+        public int Tid
+        {
             get
             {
-                if(Game.ClientType > GameClientType.Vietnam)
+                if (Game.ClientType > GameClientType.Vietnam)
                     return CashItem | Bionic | TypeID1 << 4 | TypeID2 << 10 | (TypeID3 << 16) | (TypeID4 << 24);
 
                 return CashItem | Bionic | TypeID1 << 2 | TypeID2 << 5 | TypeID3 << 7 | TypeID4 << 11;
@@ -192,123 +195,31 @@ namespace RSBot.Core.Client.ReferenceObjects
 
             return true;
         }
+
+        /// <summary>
+        /// Gets the icon.
+        /// </summary>
+        /// <returns></returns>
+        public Image GetIcon()
+        {
+            Image bitmap = null;
+
+            try
+            {
+                var file = Game.MediaPk2.GetFile(Path.Combine("icon", this.AssocFileIcon), true);
+                if (file.IsValid)
+                    bitmap = file.ToImage();
+                else
+                    bitmap = Game.MediaPk2.GetFile("icon\\icon_default.ddj", true).ToImage();
+            }
+            catch { }
+            finally
+            {
+                if (bitmap == null)
+                    bitmap = new Bitmap(24, 24);
+            }
+
+            return bitmap;
+        }
     }
 }
-
-//Service	                1
-//ID	                    1934
-//CodeName128               MOB_CH_BIGEYEGHOST_CLON
-//ObjName128                소안귀
-//OrgObjCodeName128         MOB_CH_BIGEYEGHOST
-//NameStrID128          	SN_MOB_CH_BIGEYEGHOST_CLON
-//DescStrID128          	xxx
-//CashItem	                0
-//Bionic	                1
-//TypeID1	                1
-//TypeID2	                2
-//TypeID3	                1
-//TypeID4	                1
-//DecayTime	                5000
-//Country	                0
-//Rarity	                0
-//CanTrade	                0
-//CanSell	                0
-//CanBuy	                0
-//CanBorrow	                0
-//CanDrop	                0
-//CanPick	                0
-//CanRepair	                0
-//CanRevive	                0
-//CanUse	                0
-//CanThrow	                0
-//Price                 	0
-//CostRepair	            0
-//CostRevive	            0
-//CostBorrow	            0
-//KeepingFee	            0
-//SellPrice	                0
-//ReqLevelType1         	-1
-//ReqLevel1	                0
-//ReqLevelType2         	-1
-//ReqLevel2	                0
-//ReqLevelType3	            -1
-//ReqLevel3	                0
-//ReqLevelType4	            -1
-//ReqLevel4             	0
-//MaxContain            	4
-//RegionID	                0
-//Dir	                    0
-//OffsetX	                0
-//OffsetY	                0
-//OffsetZ	                0
-//Speed1	                14
-//Speed2	                55
-//Scale                 	100
-//BCHeight	                0
-//BCRadius	                6
-//EventID	                0
-//AssocFileObj128	        xxx
-//AssocFileDrop128	        xxx
-//AssocFileIcon128	        xxx
-//AssocFile1_128	        xxx
-//AssocFile2_128	        xxx
-
-//_RefObjCommon:
-//Service	                int
-//ID	                    int
-//CodeName128               varchar(129)
-//ObjName128                varchar(129)
-//OrgObjCodeName128         varchar(129)
-//NameStrID128          	varchar(129)
-//DescStrID128          	varchar(129)
-//CashItem	                tinyint
-//Bionic	                tinyint
-//TypeID1	                tinyint
-//TypeID2	                tinyint
-//TypeID3	                tinyint
-//TypeID4	                tinyint
-//DecayTime	                int
-//Country	                tinyint
-//Rarity	                tinyint
-//CanTrade	                tinyint
-//CanSell	                tinyint
-//CanBuy	                tinyint
-//CanBorrow	                tinyint
-//CanDrop	                tinyint
-//CanPick	                tinyint
-//CanRepair	                tinyint
-//CanRevive	                tinyint
-//CanUse	                tinyint
-//CanThrow	                tinyint
-//Price                 	int
-//CostRepair	            int
-//CostRevive	            int
-//CostBorrow	            int
-//KeepingFee	            int
-//SellPrice	                int
-//ReqLevelType1         	int
-//ReqLevel1	                tinyint
-//ReqLevelType2         	int
-//ReqLevel2	                tinyint
-//ReqLevelType3	            int
-//ReqLevel3	                tinyint
-//ReqLevelType4	            int
-//ReqLevel4             	tinyint
-//MaxContain            	int
-//RegionID	                smallint
-//Dir	                    smallint
-//OffsetX	                smallint
-//OffsetY	                smallint
-//OffsetZ	                smallint
-//Speed1	                smallint
-//Speed2	                smallint
-//Scale                 	int
-//BCHeight	                smallint
-//BCRadius	                smallint
-//EventID	                int
-//AssocFileObj128	        varchar(129)
-//AssocFileDrop128	        varchar(129)
-//AssocFileIcon128	        varchar(129)
-//AssocFile1_128	        varchar(129)
-//AssocFile2_128	        varchar(129)
-//Link	                    int

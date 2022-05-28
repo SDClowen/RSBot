@@ -27,7 +27,7 @@ RSBot.ExitDialog.labelInfo="RSBot'tan çıkmak istediğine emin misin?
 Ayrıca Silkroad sunucusunda bağlantın kesilecek!"
 LabelPlayerName="Oyunda değil"
 LabelEntityName="Seçilmedi"
-LabelPetName="Pet Bulunamadı"
+LabelPetName="< İsimsiz >"
 NotifyPleaseSelectProperBotBase="Lütfen uygun bir bot tabanı seçin ve tekrar deneyin."
 NotifyPlayerWasNull="Botu başlatmak için karakterinizin oyunda olması gerekir."
 Running="Çalışıyor"
