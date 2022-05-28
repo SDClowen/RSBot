@@ -37,8 +37,9 @@ namespace RSBot.Views
         public void RefreshTheme()
         {
             BackColor = ColorScheme.BackColor;
-            stripStatus.BackColor = BackColor.IsDark() ? ColorScheme.ForeColor.Alpha(60) : Color.FromArgb(33, 150, 243);
+            stripStatus.BackColor = BackColor.IsDark() ? ColorScheme.BorderColor : Color.FromArgb(33, 150, 243);
             stripStatus.ForeColor = ColorScheme.ForeColor;
+            GlobalConfig.Save();
         }
 
         /// <summary>
@@ -182,16 +183,24 @@ namespace RSBot.Views
         /// </summary>
         private void ConfigureSidebar()
         {
+            var size = Size;
             if (menuSidebar.Checked)
             {
-                Size = new Size(1048, 724);
+                size.Width = 1048;
                 pSidebar.Visible = true;
             }
             else
             {
-                Size = new Size(800, 724);
+                size.Width = 800;
                 pSidebar.Visible = false;
             }
+
+            size.Height = 724;
+            Size = size;
+            Width = size.Width;
+            Height = size.Height;
+            MinimumSize = size;
+            MaximumSize = size;
         }
 
         /// <summary>
@@ -624,8 +633,6 @@ namespace RSBot.Views
             ColorScheme.BackColor = Color.Black;
 
             RefreshTheme();
-
-            GlobalConfig.Save();
         }
 
         private void lightToolStripMenuItem_Click(object sender, EventArgs e)
@@ -634,8 +641,6 @@ namespace RSBot.Views
             ColorScheme.BackColor = Color.White;
 
             RefreshTheme();
-
-            GlobalConfig.Save();
         }
 
         private void coloredToolStripMenuItem_Click(object sender, EventArgs e)
@@ -649,7 +654,6 @@ namespace RSBot.Views
                 GlobalConfig.SetArray("SDUI.CustomColors", colorDialog.CustomColors);
                 ColorScheme.BackColor = colorDialog.Color;
                 BackColor = ColorScheme.BackColor;
-                GlobalConfig.Save();
 
                 RefreshTheme();
             }
