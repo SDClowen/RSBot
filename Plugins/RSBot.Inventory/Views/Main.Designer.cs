@@ -37,15 +37,16 @@
             this.panel1 = new SDUI.Controls.Panel();
             this.buttonUseItem = new SDUI.Controls.Button();
             this.buttonInventory = new SDUI.Controls.Button();
-            this.button2 = new SDUI.Controls.Button();
-            this.button3 = new SDUI.Controls.Button();
-            this.button4 = new SDUI.Controls.Button();
+            this.buttonEquipment = new SDUI.Controls.Button();
+            this.buttonAvatars = new SDUI.Controls.Button();
+            this.buttonGrabpet = new SDUI.Controls.Button();
             this.topPanel = new SDUI.Controls.Panel();
-            this.button8 = new SDUI.Controls.Button();
-            this.button6 = new SDUI.Controls.Button();
-            this.button7 = new SDUI.Controls.Button();
-            this.button5 = new SDUI.Controls.Button();
+            this.buttonSpecialty = new SDUI.Controls.Button();
+            this.buttonGuildStorage = new SDUI.Controls.Button();
+            this.buttonJobTransport = new SDUI.Controls.Button();
+            this.buttonStorage = new SDUI.Controls.Button();
             this.separator1 = new SDUI.Controls.Separator();
+            this.buttonJobEquipment = new SDUI.Controls.Button();
             this.panel1.SuspendLayout();
             this.topPanel.SuspendLayout();
             this.SuspendLayout();
@@ -91,7 +92,7 @@
             this.listViewMain.Location = new System.Drawing.Point(0, 38);
             this.listViewMain.MultiSelect = false;
             this.listViewMain.Name = "listViewMain";
-            this.listViewMain.Size = new System.Drawing.Size(750, 393);
+            this.listViewMain.Size = new System.Drawing.Size(792, 393);
             this.listViewMain.TabIndex = 2;
             this.listViewMain.UseCompatibleStateImageBehavior = false;
             this.listViewMain.View = System.Windows.Forms.View.Details;
@@ -124,20 +125,20 @@
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(3);
             this.panel1.Radius = 0;
-            this.panel1.Size = new System.Drawing.Size(750, 27);
+            this.panel1.Size = new System.Drawing.Size(792, 27);
             this.panel1.TabIndex = 6;
             // 
             // buttonUseItem
             // 
-            this.buttonUseItem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonUseItem.Color = System.Drawing.Color.DodgerBlue;
+            this.buttonUseItem.Dock = System.Windows.Forms.DockStyle.Right;
             this.buttonUseItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonUseItem.ForeColor = System.Drawing.Color.White;
-            this.buttonUseItem.Location = new System.Drawing.Point(661, 7);
+            this.buttonUseItem.Location = new System.Drawing.Point(709, 8);
             this.buttonUseItem.Name = "buttonUseItem";
             this.buttonUseItem.Radius = 4;
-            this.buttonUseItem.Size = new System.Drawing.Size(75, 23);
-            this.buttonUseItem.TabIndex = 8;
+            this.buttonUseItem.Size = new System.Drawing.Size(75, 22);
+            this.buttonUseItem.TabIndex = 9;
             this.buttonUseItem.Text = "Use";
             this.buttonUseItem.UseVisualStyleBackColor = true;
             this.buttonUseItem.Click += new System.EventHandler(this.buttonUseItem_Click);
@@ -155,127 +156,141 @@
             this.buttonInventory.UseVisualStyleBackColor = true;
             this.buttonInventory.Click += new System.EventHandler(this.ButtonSwitcher);
             // 
-            // button2
+            // buttonEquipment
             // 
-            this.button2.Color = System.Drawing.Color.Transparent;
-            this.button2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(77, 7);
-            this.button2.Name = "button2";
-            this.button2.Radius = 4;
-            this.button2.Size = new System.Drawing.Size(69, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Equipment";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.ButtonSwitcher);
+            this.buttonEquipment.Color = System.Drawing.Color.Transparent;
+            this.buttonEquipment.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonEquipment.Location = new System.Drawing.Point(77, 7);
+            this.buttonEquipment.Name = "buttonEquipment";
+            this.buttonEquipment.Radius = 4;
+            this.buttonEquipment.Size = new System.Drawing.Size(69, 23);
+            this.buttonEquipment.TabIndex = 1;
+            this.buttonEquipment.Text = "Equipment";
+            this.buttonEquipment.UseVisualStyleBackColor = true;
+            this.buttonEquipment.Click += new System.EventHandler(this.ButtonSwitcher);
             // 
-            // button3
+            // buttonAvatars
             // 
-            this.button3.Color = System.Drawing.Color.Transparent;
-            this.button3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(152, 7);
-            this.button3.Name = "button3";
-            this.button3.Radius = 4;
-            this.button3.Size = new System.Drawing.Size(57, 23);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Avatars";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.ButtonSwitcher);
+            this.buttonAvatars.Color = System.Drawing.Color.Transparent;
+            this.buttonAvatars.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAvatars.Location = new System.Drawing.Point(245, 7);
+            this.buttonAvatars.Name = "buttonAvatars";
+            this.buttonAvatars.Radius = 4;
+            this.buttonAvatars.Size = new System.Drawing.Size(57, 23);
+            this.buttonAvatars.TabIndex = 2;
+            this.buttonAvatars.Text = "Avatars";
+            this.buttonAvatars.UseVisualStyleBackColor = true;
+            this.buttonAvatars.Click += new System.EventHandler(this.ButtonSwitcher);
             // 
-            // button4
+            // buttonGrabpet
             // 
-            this.button4.Color = System.Drawing.Color.Transparent;
-            this.button4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(215, 7);
-            this.button4.Name = "button4";
-            this.button4.Radius = 4;
-            this.button4.Size = new System.Drawing.Size(59, 23);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "Grab Pet";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.ButtonSwitcher);
+            this.buttonGrabpet.Color = System.Drawing.Color.Transparent;
+            this.buttonGrabpet.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonGrabpet.Location = new System.Drawing.Point(308, 7);
+            this.buttonGrabpet.Name = "buttonGrabpet";
+            this.buttonGrabpet.Radius = 4;
+            this.buttonGrabpet.Size = new System.Drawing.Size(59, 23);
+            this.buttonGrabpet.TabIndex = 3;
+            this.buttonGrabpet.Text = "Grab Pet";
+            this.buttonGrabpet.UseVisualStyleBackColor = true;
+            this.buttonGrabpet.Click += new System.EventHandler(this.ButtonSwitcher);
             // 
             // topPanel
             // 
             this.topPanel.Border = new System.Windows.Forms.Padding(0, 0, 0, 1);
             this.topPanel.BorderColor = System.Drawing.Color.Transparent;
-            this.topPanel.Controls.Add(this.button8);
-            this.topPanel.Controls.Add(this.button6);
-            this.topPanel.Controls.Add(this.button4);
+            this.topPanel.Controls.Add(this.buttonSpecialty);
+            this.topPanel.Controls.Add(this.buttonGuildStorage);
+            this.topPanel.Controls.Add(this.buttonGrabpet);
             this.topPanel.Controls.Add(this.buttonInventory);
-            this.topPanel.Controls.Add(this.button7);
-            this.topPanel.Controls.Add(this.button5);
-            this.topPanel.Controls.Add(this.button2);
-            this.topPanel.Controls.Add(this.button3);
+            this.topPanel.Controls.Add(this.buttonJobTransport);
+            this.topPanel.Controls.Add(this.buttonStorage);
+            this.topPanel.Controls.Add(this.buttonJobEquipment);
+            this.topPanel.Controls.Add(this.buttonEquipment);
+            this.topPanel.Controls.Add(this.buttonAvatars);
             this.topPanel.Controls.Add(this.buttonUseItem);
             this.topPanel.Controls.Add(this.separator1);
             this.topPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.topPanel.Location = new System.Drawing.Point(0, 0);
             this.topPanel.Name = "topPanel";
+            this.topPanel.Padding = new System.Windows.Forms.Padding(8);
             this.topPanel.Radius = 0;
-            this.topPanel.Size = new System.Drawing.Size(750, 38);
+            this.topPanel.Size = new System.Drawing.Size(792, 38);
             this.topPanel.TabIndex = 8;
             // 
-            // button8
+            // buttonSpecialty
             // 
-            this.button8.Color = System.Drawing.Color.Transparent;
-            this.button8.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button8.Location = new System.Drawing.Point(370, 7);
-            this.button8.Name = "button8";
-            this.button8.Radius = 4;
-            this.button8.Size = new System.Drawing.Size(66, 23);
-            this.button8.TabIndex = 7;
-            this.button8.Text = "Specialty";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.ButtonSwitcher);
+            this.buttonSpecialty.Color = System.Drawing.Color.Transparent;
+            this.buttonSpecialty.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSpecialty.Location = new System.Drawing.Point(463, 7);
+            this.buttonSpecialty.Name = "buttonSpecialty";
+            this.buttonSpecialty.Radius = 4;
+            this.buttonSpecialty.Size = new System.Drawing.Size(66, 23);
+            this.buttonSpecialty.TabIndex = 7;
+            this.buttonSpecialty.Text = "Specialty";
+            this.buttonSpecialty.UseVisualStyleBackColor = true;
+            this.buttonSpecialty.Click += new System.EventHandler(this.ButtonSwitcher);
             // 
-            // button6
+            // buttonGuildStorage
             // 
-            this.button6.Color = System.Drawing.Color.Transparent;
-            this.button6.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.Location = new System.Drawing.Point(501, 7);
-            this.button6.Name = "button6";
-            this.button6.Radius = 4;
-            this.button6.Size = new System.Drawing.Size(81, 23);
-            this.button6.TabIndex = 5;
-            this.button6.Text = "Guild Storage";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.ButtonSwitcher);
+            this.buttonGuildStorage.Color = System.Drawing.Color.Transparent;
+            this.buttonGuildStorage.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonGuildStorage.Location = new System.Drawing.Point(594, 7);
+            this.buttonGuildStorage.Name = "buttonGuildStorage";
+            this.buttonGuildStorage.Radius = 4;
+            this.buttonGuildStorage.Size = new System.Drawing.Size(81, 23);
+            this.buttonGuildStorage.TabIndex = 5;
+            this.buttonGuildStorage.Text = "Guild Storage";
+            this.buttonGuildStorage.UseVisualStyleBackColor = true;
+            this.buttonGuildStorage.Click += new System.EventHandler(this.ButtonSwitcher);
             // 
-            // button7
+            // buttonJobTransport
             // 
-            this.button7.Color = System.Drawing.Color.Transparent;
-            this.button7.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.Location = new System.Drawing.Point(280, 7);
-            this.button7.Name = "button7";
-            this.button7.Radius = 4;
-            this.button7.Size = new System.Drawing.Size(84, 23);
-            this.button7.TabIndex = 6;
-            this.button7.Text = "Job Transport";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.ButtonSwitcher);
+            this.buttonJobTransport.Color = System.Drawing.Color.Transparent;
+            this.buttonJobTransport.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonJobTransport.Location = new System.Drawing.Point(373, 7);
+            this.buttonJobTransport.Name = "buttonJobTransport";
+            this.buttonJobTransport.Radius = 4;
+            this.buttonJobTransport.Size = new System.Drawing.Size(84, 23);
+            this.buttonJobTransport.TabIndex = 6;
+            this.buttonJobTransport.Text = "Job Transport";
+            this.buttonJobTransport.UseVisualStyleBackColor = true;
+            this.buttonJobTransport.Click += new System.EventHandler(this.ButtonSwitcher);
             // 
-            // button5
+            // buttonStorage
             // 
-            this.button5.Color = System.Drawing.Color.Transparent;
-            this.button5.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.Location = new System.Drawing.Point(442, 7);
-            this.button5.Name = "button5";
-            this.button5.Radius = 4;
-            this.button5.Size = new System.Drawing.Size(53, 23);
-            this.button5.TabIndex = 4;
-            this.button5.Text = "Storage";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.ButtonSwitcher);
+            this.buttonStorage.Color = System.Drawing.Color.Transparent;
+            this.buttonStorage.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonStorage.Location = new System.Drawing.Point(535, 7);
+            this.buttonStorage.Name = "buttonStorage";
+            this.buttonStorage.Radius = 4;
+            this.buttonStorage.Size = new System.Drawing.Size(53, 23);
+            this.buttonStorage.TabIndex = 4;
+            this.buttonStorage.Text = "Storage";
+            this.buttonStorage.UseVisualStyleBackColor = true;
+            this.buttonStorage.Click += new System.EventHandler(this.ButtonSwitcher);
             // 
             // separator1
             // 
-            this.separator1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.separator1.IsVertical = true;
-            this.separator1.Location = new System.Drawing.Point(641, 0);
+            this.separator1.Location = new System.Drawing.Point(701, 0);
             this.separator1.Name = "separator1";
             this.separator1.Size = new System.Drawing.Size(2, 38);
             this.separator1.TabIndex = 8;
             this.separator1.Text = "separator1";
+            // 
+            // buttonJobEquipment
+            // 
+            this.buttonJobEquipment.Color = System.Drawing.Color.Transparent;
+            this.buttonJobEquipment.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonJobEquipment.Location = new System.Drawing.Point(152, 7);
+            this.buttonJobEquipment.Name = "buttonJobEquipment";
+            this.buttonJobEquipment.Radius = 4;
+            this.buttonJobEquipment.Size = new System.Drawing.Size(87, 23);
+            this.buttonJobEquipment.TabIndex = 8;
+            this.buttonJobEquipment.Text = "Job Equipment";
+            this.buttonJobEquipment.UseVisualStyleBackColor = true;
+            this.buttonJobEquipment.Click += new System.EventHandler(this.ButtonSwitcher);
             // 
             // Main
             // 
@@ -286,7 +301,7 @@
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "Main";
-            this.Size = new System.Drawing.Size(750, 458);
+            this.Size = new System.Drawing.Size(792, 458);
             this.Load += new System.EventHandler(this.Main_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -305,14 +320,15 @@
         private SDUI.Controls.Panel panel1;
         private SDUI.Controls.Button buttonUseItem;
         private SDUI.Controls.Button buttonInventory;
-        private SDUI.Controls.Button button2;
-        private SDUI.Controls.Button button3;
-        private SDUI.Controls.Button button4;
+        private SDUI.Controls.Button buttonEquipment;
+        private SDUI.Controls.Button buttonAvatars;
+        private SDUI.Controls.Button buttonGrabpet;
         private SDUI.Controls.Panel topPanel;
-        private SDUI.Controls.Button button8;
-        private SDUI.Controls.Button button6;
-        private SDUI.Controls.Button button7;
-        private SDUI.Controls.Button button5;
+        private SDUI.Controls.Button buttonSpecialty;
+        private SDUI.Controls.Button buttonGuildStorage;
+        private SDUI.Controls.Button buttonJobTransport;
+        private SDUI.Controls.Button buttonStorage;
         private SDUI.Controls.Separator separator1;
+        private SDUI.Controls.Button buttonJobEquipment;
     }
 }
