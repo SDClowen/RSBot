@@ -189,6 +189,20 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
 
                     break;
 
+                case InventoryOperation.SP_MOVE_ITEM_PC_JOB:
+
+                    Game.Player.Inventory.MoveTo(Game.Player.Job2, packet);
+                    packet.ReadUShort(); // amount
+
+                    break;
+
+                case InventoryOperation.SP_MOVE_ITEM_JOB_PC:
+
+                    Game.Player.Job2.MoveTo(Game.Player.Inventory, packet);
+                    packet.ReadUShort(); // amount
+
+                    break;
+
                 case InventoryOperation.SP_BUY_ITEM_WITH_TOKEN:
                     ParseTokenNpcToInventory(packet);
                     break;
