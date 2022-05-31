@@ -94,7 +94,7 @@ namespace RSBot.Core.Objects
         /// </summary>
         /// <param name="slot">The slot.</param>
         public void RemoveAt(byte slot)
-            => _collection.Remove(GetItemAt(slot));
+            => _collection.RemoveAll(p => p.Slot == slot);
 
         /// <summary>
         /// Gets the item at the slot.
@@ -416,12 +416,12 @@ namespace RSBot.Core.Objects
 
             var sourceItem = GetItemAt(sourceSlot);
             if (sourceItem == null)
-                return; //Invalid?! should not happen at all.
+                return;
+
+            RemoveAt(sourceSlot);
 
             sourceItem.Slot = destinationSlot;
             inventory.Add(sourceItem);
-
-            RemoveAt(sourceItem.Slot);
 
             Log.Debug($"[InventoryItemCollection::MoveTo] Move item {sourceItem.Record.GetRealName()} (slot={sourceSlot}) to storage (slot={destinationSlot}");
         }
