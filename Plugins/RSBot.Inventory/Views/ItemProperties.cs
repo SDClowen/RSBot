@@ -2,14 +2,14 @@
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Item;
+using SDUI.Controls;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Windows.Forms;
 
 namespace RSBot.Inventory.Views
 {
-    public partial class ItemProperties : Form
+    public partial class ItemProperties : CleanForm
     {
         #region Properties
 

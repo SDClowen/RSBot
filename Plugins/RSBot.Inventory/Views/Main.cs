@@ -201,6 +201,21 @@ namespace RSBot.Inventory.Views
                     lblFreeSlots.Text = Game.Player.Job2SpecialtyBag.Count + "/" + Game.Player.Job2SpecialtyBag.Capacity;
 
                     break;
+
+                case 8:
+
+                    if (Game.Player.Job2 == null)
+                    {
+                        listViewMain.EndUpdate();
+                        return;
+                    }
+
+                    foreach (var item in Game.Player.Job2)
+                        AddItem(item);
+
+                    lblFreeSlots.Text = Game.Player.Job2.Count + "/" + Game.Player.Job2.Capacity;
+
+                    break;
             }
 
             listViewMain.EndUpdate();
@@ -322,7 +337,7 @@ namespace RSBot.Inventory.Views
 
             foreach (var control in topPanel.Controls.OfType<SDUI.Controls.Button>())
             {
-                if (control.TabIndex > 7)
+                if (control.TabIndex > 8)
                     continue;
 
                 control.Color = Color.Transparent;
