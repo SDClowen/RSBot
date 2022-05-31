@@ -76,7 +76,7 @@ namespace RSBot.Core
                     if (skipDoubleQuotes)
                         continue;
 
-                    value = builder.ToString().Trim();
+                    value = builder.ToString();/*.Trim()*/
                     builder.Clear();
 
                     languages[key] = value;
@@ -239,8 +239,6 @@ namespace RSBot.Core
             _values[assembly] = values;
 
             TranslateControls(values, view, assembly);
-
-            Debug.WriteLine($"Translate control finished: {stopwatch.ElapsedMilliseconds} ms");
         }
 
         private static void TranslateControls(LangDict values, Control view, string header)
