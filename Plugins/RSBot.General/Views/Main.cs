@@ -37,12 +37,32 @@ namespace RSBot.General.Views
             EventManager.SubscribeEvent("OnLoadVersionInfo", new Action<VersionInfo>(OnLoadVersionInfo));
             EventManager.SubscribeEvent("OnAgentServerConnected", OnAgentServerConnected);
             EventManager.SubscribeEvent("OnAgentServerDisconnected", OnAgentServerDisconnected);
+            EventManager.SubscribeEvent("OnGatewayServerDisconnected", OnGatewayServerDisconnected);
             EventManager.SubscribeEvent("OnClientConnected", OnClientConnected);
             EventManager.SubscribeEvent("OnEnterGame", OnEnterGame);
             EventManager.SubscribeEvent("OnStartClient", OnStartClient);
             EventManager.SubscribeEvent("OnExitClient", OnExitClient);
             EventManager.SubscribeEvent("OnCharacterListReceived", OnCharacterListReceived);
             EventManager.SubscribeEvent("OnInitialized", OnInitialized);
+        }
+
+        /// <summary>
+        /// Called when gateway server disconnected.
+        /// </summary>
+        private void OnGatewayServerDisconnected()
+        {
+            View.PendingWindow?.Hide();
+
+            if (!Kernel.Proxy.IsConnectedToAgentserver)
+            {
+                Game.Clientless = false;
+
+                btnStartClient.Enabled = true;
+                btnStartClientless.Enabled = true;
+                btnStartClientless.Text = LanguageManager.GetLang("Start") + " Clientless";
+
+                Kernel.Proxy.Shutdown();
+            }
         }
 
         /// <summary>
@@ -463,7 +483,6 @@ namespace RSBot.General.Views
                 var msgBoxContent = LanguageManager.GetLang("MsgBoxDisconnectDialogContent");
 
                 var result = MessageBox.Show(msgBoxContent, msgBoxTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
                 if (result == DialogResult.No)
                     return;
 

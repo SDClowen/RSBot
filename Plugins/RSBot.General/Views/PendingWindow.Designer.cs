@@ -44,6 +44,7 @@
             // 
             this.labelServerName.AutoSize = true;
             this.labelServerName.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelServerName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.labelServerName.Location = new System.Drawing.Point(63, 10);
             this.labelServerName.Name = "labelServerName";
             this.labelServerName.Size = new System.Drawing.Size(286, 20);
@@ -54,6 +55,7 @@
             // 
             this.labelNumberOfPeopleWaiting.AutoSize = true;
             this.labelNumberOfPeopleWaiting.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelNumberOfPeopleWaiting.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.labelNumberOfPeopleWaiting.Location = new System.Drawing.Point(79, 61);
             this.labelNumberOfPeopleWaiting.Name = "labelNumberOfPeopleWaiting";
             this.labelNumberOfPeopleWaiting.Size = new System.Drawing.Size(165, 17);
@@ -64,6 +66,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label1.Location = new System.Drawing.Point(34, 112);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(137, 17);
@@ -101,6 +104,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label5.Location = new System.Drawing.Point(64, 147);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(103, 17);
@@ -152,6 +156,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PendingWindow_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

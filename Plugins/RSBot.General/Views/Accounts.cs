@@ -21,12 +21,26 @@ namespace RSBot.General.Views
         }
 
         /// <summary>
+        /// Clear the textboxes
+        /// </summary>
+        private void ClearTextboxes()
+        {
+            txtPassword.Text = string.Empty;
+            textBoxSecondaryPassword.Text = string.Empty;
+            txtUsername.Text = string.Empty;
+            txtServername.Text = string.Empty;
+            btnSave.Enabled = false;
+            btnAdd.Visible = true;
+        }
+
+        /// <summary>
         /// Handles the load event of the form control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void Accounts_Load(object sender, EventArgs e)
         {
+            ClearTextboxes();
             listAccounts.BeginUpdate();
 
             listAccounts.Items.Clear();
@@ -75,12 +89,7 @@ namespace RSBot.General.Views
         {
             if (listAccounts.SelectedIndex == -1)
             {
-                txtPassword.Text = string.Empty;
-                textBoxSecondaryPassword.Text = string.Empty;
-                txtUsername.Text = string.Empty;
-                txtServername.Text = string.Empty;
-                btnSave.Enabled = false;
-                btnAdd.Visible = true;
+                ClearTextboxes();
             }
             else
             {
