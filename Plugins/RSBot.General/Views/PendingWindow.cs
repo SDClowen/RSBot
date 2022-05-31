@@ -75,6 +75,10 @@ namespace RSBot.General.Views
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             PacketManager.SendPacket(new Packet(0x610F, false, false, new byte[] { 0x1 }), PacketDestination.Server);
+        }
+
+        private void PendingWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
             timer.Enabled = false;
         }
     }
