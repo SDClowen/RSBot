@@ -25,6 +25,7 @@ Hello reputable Silkroad online community. This is a free Silkroad online bot wi
 [![GitHub Repository](https://img.shields.io/badge/github-sdclowen/rsbot-green.svg)](https://github.com/SDClowen/RSBot)
 [![Join the chat in Discord](https://img.shields.io/discord/454345032846016515.svg)](https://discord.gg/GwecXfcKTk)
 [![Facebook](https://img.shields.io/badge/facebook-page%20-blue)](https://www.facebook.com/rsbotofficial/)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSDClowen%2FRSBot.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FSDClowen%2FRSBot?ref=badge_shield)
 
 ## Issues and Status
 [![GitHub issues](https://img.shields.io/github/issues/sdclowen/rsbot.svg)](https://github.com/sdclowen/rsbot/issues)
@@ -36,3 +37,7 @@ Hello reputable Silkroad online community. This is a free Silkroad online bot wi
 
 ## Would you like to motivate me?
 [![Coffee](https://img.shields.io/badge/Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/sdclowen)
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSDClowen%2FRSBot.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FSDClowen%2FRSBot?ref=badge_large)
