@@ -35,10 +35,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.MaximumSize = new System.Drawing.Size(242, 65);
-            this.MinimumSize = new System.Drawing.Size(242, 65);
+            this.MaximumSize = new System.Drawing.Size(242, 70);
+            this.MinimumSize = new System.Drawing.Size(242, 70);
             this.Name = "Transport";
-            this.Size = new System.Drawing.Size(242, 65);
+            this.Size = new System.Drawing.Size(242, 70);
             this.ResumeLayout(false);
             this.PerformLayout();
 

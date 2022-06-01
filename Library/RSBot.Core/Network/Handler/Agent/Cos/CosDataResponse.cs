@@ -82,7 +82,7 @@ namespace RSBot.Core.Network.Handler.Agent
                             Id = objectId,
                             UniqueId = uniqueId,
                             Health = hp,
-                            MaxHealth = maxHp == 200 ? hp : maxHp,
+                            MaxHealth = maxHp,
                         };
                         Game.Player.Growth.Deserialize(packet);
 

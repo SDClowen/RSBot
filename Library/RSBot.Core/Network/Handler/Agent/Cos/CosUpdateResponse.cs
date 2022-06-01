@@ -45,8 +45,7 @@ namespace RSBot.Core.Network.Handler.Agent
                     case 3:
                         var experience = packet.ReadLong();
                         var source = packet.ReadUInt();
-
-                        if (source == Game.Player.Growth.UniqueId || Game.Player.Growth == null)
+                        if (source == Game.Player.Growth.UniqueId)
                             return;
 
                         Game.Player.Growth.Experience += experience;
@@ -79,7 +78,12 @@ namespace RSBot.Core.Network.Handler.Agent
                         break;
 
                     case 7:
+                        
                         Game.Player.Growth.Id = packet.ReadUInt();
+                        var record = Game.Player.Growth.Record;
+                        if(record != null)
+                            Game.Player.Growth.Health = Game.Player.Growth.MaxHealth = record.MaxHealth;
+
                         break;
 
                     default:
@@ -105,8 +109,7 @@ namespace RSBot.Core.Network.Handler.Agent
                     case 3:
                         var experience = packet.ReadLong();
                         var source = packet.ReadUInt();
-
-                        if (source == Game.Player.Fellow.UniqueId || Game.Player.Fellow == null)
+                        if (source == Game.Player.Fellow.UniqueId)
                             return;
 
                         Game.Player.Fellow.Experience += experience;
@@ -122,7 +125,7 @@ namespace RSBot.Core.Network.Handler.Agent
                         {
                             Game.Player.Fellow.Level = iLevel;
                             Game.Player.Fellow.MaxHealth = Game.Player.Fellow.Health;
-                            EventManager.FireEvent("OnFellowLevelUp", Game.Player.Fellow);
+                            EventManager.FireEvent("OnFellowLevelUp");
                             Log.Notify($"Congratulations, your fellow pet [{Game.Player.Fellow.Name}] level has increased to [{Game.Player.Fellow.Level}]");
                         }
 
@@ -140,7 +143,12 @@ namespace RSBot.Core.Network.Handler.Agent
                         break;
 
                     case 7:
+
                         Game.Player.Fellow.Id = packet.ReadUInt();
+                        var record = Game.Player.Fellow.Record;
+                        if (record != null)
+                            Game.Player.Fellow.Health = Game.Player.Fellow.MaxHealth = record.MaxHealth;
+
                         break;
 
                     default:

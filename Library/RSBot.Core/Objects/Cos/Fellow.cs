@@ -85,6 +85,9 @@ namespace RSBot.Core.Objects.Cos
             Settings = packet.ReadInt();
             Name = packet.ReadString();
             Inventory = new InventoryItemCollection(packet);
+
+            if (string.IsNullOrWhiteSpace(Name))
+                Name = LanguageManager.GetLangBySpecificKey("RSBot", "LabelPetName");
         }
     }
 }

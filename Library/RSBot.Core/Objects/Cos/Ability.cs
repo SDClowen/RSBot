@@ -16,6 +16,9 @@ namespace RSBot.Core.Objects.Cos
             Inventory = new InventoryItemCollection(packet);
             OwnerUniqueId = packet.ReadUInt();
             packet.ReadByte(); // inventorySlot
+
+            if (string.IsNullOrWhiteSpace(Name))
+                Name = LanguageManager.GetLangBySpecificKey("RSBot", "LabelPetName");
         }
 
         public override bool Terminate()
