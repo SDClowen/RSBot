@@ -31,11 +31,7 @@ namespace RSBot.Views.Controls.Cos
             if (Game.Player.AbilityPet == null)
                 return;
 
-            var name = Game.Player.AbilityPet.Name;
-            if (string.IsNullOrWhiteSpace(name))
-                name = LanguageManager.GetLang("LabelPetName");
-
-            lblPetName.Text = name;
+            lblPetName.Text = Game.Player.AbilityPet.Name;
         }
 
         public override void Initialize()
@@ -51,11 +47,7 @@ namespace RSBot.Views.Controls.Cos
             MiniCosControl.Hp.Value = 100;
             MiniCosControl.Hp.Maximum = 100;
 
-            var name = Game.Player.AbilityPet.Name;
-            if (string.IsNullOrWhiteSpace(name))
-                name = LanguageManager.GetLang("LabelPetName");
-
-            lblPetName.Text = name;
+            lblPetName.Text = Game.Player.AbilityPet.Name;
 
             var icon = Game.Player.AbilityPet.Record?.GetIcon();
             if (icon != null)

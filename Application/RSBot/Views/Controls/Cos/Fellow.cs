@@ -38,12 +38,7 @@ namespace RSBot.Views.Controls.Cos
             if (Game.Player.Fellow == null)
                 return;
 
-            var name = Game.Player.Fellow.Name;
-            if (string.IsNullOrWhiteSpace(name))
-                name = LanguageManager.GetLang("LabelPetName");
-
-            lblPetName.Text = name;
-            labelLevel.Text = "lv." + Game.Player.Fellow.Level;
+            lblPetName.Text = Game.Player.Fellow.Name;
         }
 
         /// <summary>
@@ -54,8 +49,9 @@ namespace RSBot.Views.Controls.Cos
             if (Game.Player.Fellow == null)
                 return;
 
-            MiniCosControl.Level.Text = "Lv." + Game.Player.Fellow.Level;
-            progressBarStoredSp.Value = 0;
+            labelLevel.Text = "lv." + Game.Player.Fellow.Level;
+            MiniCosControl.Level.Text = labelLevel.Text;
+
             progressBarStoredSp.Maximum = Game.Player.Fellow.MaxStoredSp;
 
             OnFellowNameChange();

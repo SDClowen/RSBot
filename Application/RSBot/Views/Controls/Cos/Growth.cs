@@ -37,12 +37,7 @@ namespace RSBot.Views.Controls.Cos
             if (Game.Player.Growth == null) 
                 return;
 
-            var name = Game.Player.Growth.Name;
-            if (string.IsNullOrWhiteSpace(name))
-                name = LanguageManager.GetLang("LabelPetName");
-
-            lblPetName.Text = name;
-            labelLevel.Text = "lv." + Game.Player.Growth.Level;
+            lblPetName.Text = Game.Player.Growth.Name;
         }
 
         /// <summary>
@@ -53,7 +48,8 @@ namespace RSBot.Views.Controls.Cos
             if (Game.Player.Growth == null) 
                 return;
 
-            MiniCosControl.Level.Text = "Lv." + Game.Player.Growth.Level;
+            labelLevel.Text = "lv." + Game.Player.Growth.Level;
+            MiniCosControl.Level.Text = labelLevel.Text;
 
             OnGrowthNameChange();
             OnGrowthHealthUpdate();
