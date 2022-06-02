@@ -1,5 +1,6 @@
-﻿using SharpDX;
+﻿using System.Drawing;
 using System.IO;
+using System.Numerics;
 using System.Text;
 
 namespace RSBot.Core.Extensions

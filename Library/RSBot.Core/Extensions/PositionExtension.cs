@@ -1,5 +1,5 @@
 ﻿using RSBot.Core.Objects;
-using SharpDX;
+using System.Numerics;
 
 namespace RSBot.Core.Extensions
 {

@@ -4,8 +4,8 @@
     {
         #region Fields
 
-        public SharpDX.Point Source;
-        public SharpDX.Point Destination;
+        public System.Drawing.Point Source;
+        public System.Drawing.Point Destination;
 
         #endregion Fields
     }

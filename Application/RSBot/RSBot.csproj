@@ -241,21 +241,10 @@
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="app.manifest" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shark.png" />
-    <None Include="Resources\botbase.png" />
     <None Include="Resources\loading.gif" />
-    <None Include="Resources\botbase_error.png" />
     <None Include="Resources\logo2.png" />
     <None Include="Resources\loading_icon.gif" />
     <Content Include="Resources\shark.ico" />
