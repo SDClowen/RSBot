@@ -4,14 +4,15 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
-    <ImplicitUsings>enable</ImplicitUsings>
-	  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-	  <Description>A open source bot for Silkroad Online</Description>
-	  <Copyright>Copyright © 2022, RSBot Team</Copyright>
-	  <PackageProjectUrl>https://github.com/SDClowen/RSBot</PackageProjectUrl>
-	  <RepositoryUrl>https://github.com/SDClowen/RSBot</RepositoryUrl>
-	  <OutputType>WinExe</OutputType>
-	  <ApplicationIcon>Resources\shark.ico</ApplicationIcon>
+    <ImplicitUsings>disable</ImplicitUsings>
+	<OutputPath>.\..\..\Build</OutputPath>
+	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+	<Description>A open source bot for Silkroad Online</Description>
+	<Copyright>Copyright © 2022, RSBot Team</Copyright>
+	<PackageProjectUrl>https://github.com/SDClowen/RSBot</PackageProjectUrl>
+	<RepositoryUrl>https://github.com/SDClowen/RSBot</RepositoryUrl>
+	<OutputType>WinExe</OutputType>
+	<ApplicationIcon>Resources\shark.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>

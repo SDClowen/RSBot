@@ -4,7 +4,7 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <ImplicitUsings>disable</ImplicitUsings>
 	  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	  <Description>Acts as RSBot Pk2 Library- includes all neccessary logic for reading pk2 files</Description>
 	  <Copyright>Copyright © 2022, RSBot Team</Copyright>
