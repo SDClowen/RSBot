@@ -9,13 +9,14 @@ namespace RSBot.Core.Extensions
     {
         /// <summary>
         /// Reads the joymax string.
+        /// korean codepage: 949
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <returns></returns>
         public static string ReadJoymaxString(this BinaryReader reader)
         {
             var stringLength = reader.ReadInt32();
-            return Encoding.GetEncoding(949).GetString(reader.ReadBytes(stringLength));
+            return Encoding.GetEncoding(65001).GetString(reader.ReadBytes(stringLength));
         }
 
         /// <summary>

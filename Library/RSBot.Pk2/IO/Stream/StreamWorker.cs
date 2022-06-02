@@ -210,7 +210,7 @@ namespace RSBot.Pk2.IO.Stream
         /// Reads the next string from the stream by a specific codepage
         /// </summary>
         /// <returns>Next string</returns>
-        public string ReadString(int length, int codepage = 1252)
+        public string ReadString(int length, int codepage = 65001)
         {
             lock (_lock)
             {
