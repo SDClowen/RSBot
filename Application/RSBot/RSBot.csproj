@@ -12,13 +12,10 @@
 	<PackageProjectUrl>https://github.com/SDClowen/RSBot</PackageProjectUrl>
 	<RepositoryUrl>https://github.com/SDClowen/RSBot</RepositoryUrl>
 	<OutputType>WinExe</OutputType>
-	<ApplicationIcon>Resources\shark.ico</ApplicationIcon>
+	<ApplicationIcon>Assets\shark.ico</ApplicationIcon>
 	<Version>2.0.0</Version>
+	<ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Content Include="Resources\shark.ico" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Library\RSBot.Core\RSBot.Core.csproj" />
