@@ -283,10 +283,10 @@ namespace RSBot.Core.Objects
                     for (int i = 0; i < buffCount; i++)
                     {
                         var p1 = packet.ReadByte(); // type, but for what?
-                        if (p1 == 0)
+                        if (p1 == 0 || p1 == 20)
                         {
-                            var skillId = packet.ReadUInt(); // skillId??? if p1 == 0
-                            var skillLeftTime = packet.ReadUInt(); // skillLeftTime?? if p1 == 0
+                            var itemId = packet.ReadUInt(); // skillId??? if p1 == 0
+                            var leftTime = packet.ReadUInt(); // skillLeftTime?? if p1 == 0
                         }
 
                         if (p1 == 5)

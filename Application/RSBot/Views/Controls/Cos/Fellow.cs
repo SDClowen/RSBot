@@ -52,6 +52,7 @@ namespace RSBot.Views.Controls.Cos
             labelLevel.Text = "lv." + Game.Player.Fellow.Level;
             MiniCosControl.Level.Text = labelLevel.Text;
 
+            progressBarStoredSp.Value = Game.Player.Fellow.StoredSp;
             progressBarStoredSp.Maximum = Game.Player.Fellow.MaxStoredSp;
 
             OnFellowNameChange();

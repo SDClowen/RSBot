@@ -94,9 +94,9 @@ namespace RSBot.Core.Objects.Item
                     result.CanDelete = packet.ReadUShort();
                     result.CanRecharge = packet.ReadUShort();
 
-                    if (Game.ClientType >= GameClientType.Chinese)
+                    /*if (Game.ClientType >= GameClientType.Chinese)
                         result.MeterRateTime = packet.ReadULong();
-                    else
+                    else*/
                         result.MeterRateTime = packet.ReadUInt();
 
                     break;

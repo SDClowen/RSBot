@@ -19,6 +19,14 @@ namespace RSBot.Core.Objects.Cos
         public int Satiety { get; set; }
 
         /// <summary>
+        /// Gets or sets the stored sp.
+        /// </summary>
+        /// <value>
+        /// The stored sp.
+        /// </value>
+        public int StoredSp { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether this cos is offensive
         /// </summary>
         /// <value>
@@ -80,8 +88,8 @@ namespace RSBot.Core.Objects.Cos
             Level = packet.ReadByte();
             Satiety = packet.ReadInt();
             var unknown1 = packet.ReadUShort();
+            StoredSp = packet.ReadInt();
             var unknown2 = packet.ReadInt();
-            var unknown3 = packet.ReadInt();
             Settings = packet.ReadInt();
             Name = packet.ReadString();
             Inventory = new InventoryItemCollection(packet);
