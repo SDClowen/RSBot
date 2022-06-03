@@ -9,8 +9,9 @@ namespace RSBot
         [STAThread]
         private static void Main()
         {
-            Application.SetCompatibleTextRenderingDefault(false);
             Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.Run(new SplashScreen());
         }
     }
