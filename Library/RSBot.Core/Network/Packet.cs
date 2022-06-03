@@ -8,15 +8,14 @@ namespace RSBot.Core.Network
 {
     public class Packet
     {
-        #region Fields
+        public const int DEFAULT_CODEPAGE = 65001; //1254
+        public static readonly Encoding Encoding = Encoding.UTF8; // Encoding.GetEncoding(DEFAULT_CODEPAGE)
 
         private PacketWriter _writer;
         private PacketReader _reader;
 
         private byte[] _readerBytes;
         private readonly object _lock;
-
-        #endregion Fields
 
         /// <summary>
         /// Gets the opcode.
@@ -518,7 +517,7 @@ namespace RSBot.Core.Network
         /// <param name="codepage">The codepage.</param>
         /// <returns></returns>
         /// <exception cref="PacketException">Cannot Read from an unlocked Packet.</exception>
-        public string ReadString(int codepage = 1254)
+        public string ReadString(int codepage = DEFAULT_CODEPAGE)
         {
             lock (_lock)
             {
@@ -793,7 +792,7 @@ namespace RSBot.Core.Network
         /// <param name="codepage">The codepage.</param>
         /// <returns></returns>
         /// <exception cref="PacketException">Cannot Read from an unlocked Packet.</exception>
-        public string[] ReadStringArray(int count, int codepage = 1254)
+        public string[] ReadStringArray(int count, int codepage = DEFAULT_CODEPAGE)
         {
             lock (_lock)
             {
@@ -1036,8 +1035,7 @@ namespace RSBot.Core.Network
         /// </summary>
         /// <param name="value">The value.</param>
         /// <param name="codePage">The Codepage.</param>
-
-        public void WriteString(string value, int codePage = 1254)
+        public void WriteString(string value, int codePage = DEFAULT_CODEPAGE)
         {
             lock (_lock)
             {
@@ -1570,7 +1568,7 @@ namespace RSBot.Core.Network
         /// </summary>
         /// <param name="values">The values.</param>
         /// <param name="codepage">The codepage.</param>
-        public void WriteStringArray(string[] values, int codepage = 1254)
+        public void WriteStringArray(string[] values, int codepage = DEFAULT_CODEPAGE)
         {
             WriteStringArray(values, 0, values.Length, codepage);
         }
@@ -1583,7 +1581,7 @@ namespace RSBot.Core.Network
         /// <param name="count">The count.</param>
         /// <param name="codepage">The codepage.</param>
         /// <exception cref="PacketException">Cannot Write to a locked Packet.</exception>
-        public void WriteStringArray(string[] values, int index, int count, int codepage = 1254)
+        public void WriteStringArray(string[] values, int index, int count, int codepage = DEFAULT_CODEPAGE)
         {
             lock (_lock)
             {
@@ -1940,7 +1938,7 @@ namespace RSBot.Core.Network
         /// </summary>
         /// <param name="values">The values.</param>
         /// <param name="codepage">The codepage.</param>
-        public void WriteStringArray(object[] values, int codepage = 1254)
+        public void WriteStringArray(object[] values, int codepage = DEFAULT_CODEPAGE)
         {
             WriteStringArray(values, 0, values.Length, codepage);
         }
@@ -1953,7 +1951,7 @@ namespace RSBot.Core.Network
         /// <param name="count">The count.</param>
         /// <param name="codepage">The codepage.</param>
         /// <exception cref="PacketException">Cannot Write to a locked Packet.</exception>
-        public void WriteStringArray(object[] values, int index, int count, int codepage = 1254)
+        public void WriteStringArray(object[] values, int index, int count, int codepage = DEFAULT_CODEPAGE)
         {
             lock (_lock)
             {
