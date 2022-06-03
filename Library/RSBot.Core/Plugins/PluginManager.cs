@@ -82,6 +82,13 @@ namespace RSBot.Core.Plugins
             try
             {
                 var assemblyTypes = assembly.GetTypes();
+
+                foreach (var extension in (from type in assemblyTypes where type.IsPublic && !type.IsAbstract && type.GetInterface("IPlugin") != null select Activator.CreateInstance(type)).OfType<IPlugin>())
+                    result.Add(extension.Information.InternalName, extension);
+
+                if (result.Count == 0)
+                    return result;
+
                 var handlerType = typeof(IPacketHandler);
                 var hookType = typeof(IPacketHook);
 
@@ -96,9 +103,6 @@ namespace RSBot.Core.Plugins
 
                 foreach (var hook in types)
                     PacketManager.RegisterHook((IPacketHook)Activator.CreateInstance(hook));
-
-                foreach (var extension in (from type in assemblyTypes where type.IsPublic && !type.IsAbstract && type.GetInterface("IPlugin") != null select Activator.CreateInstance(type)).OfType<IPlugin>())
-                    result.Add(extension.Information.InternalName, extension);
             }
             catch { /* ignore, it's an invalid extension */ }
 
