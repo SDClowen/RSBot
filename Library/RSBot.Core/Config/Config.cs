@@ -29,7 +29,7 @@ namespace RSBot.Core
         /// <param name="file">The file.</param>
         public Config(string file)
         {
-            _path = $"{Environment.CurrentDirectory}\\{file}.rs";
+            _path = file;
 
             CheckPath();
 
