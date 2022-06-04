@@ -35,8 +35,8 @@ namespace RSBot.Core.Components
         /// </summary>
         internal static void Initialize()
         {
-            var collisionFile = Path.Combine(Environment.CurrentDirectory, "Data", "map.rsc");
-            var collisionIndexFile = Path.Combine(Environment.CurrentDirectory, "Data", "map.rsci");
+            var collisionFile = Path.Combine(Environment.CurrentDirectory, "Data", "Game", "map.rsc");
+            var collisionIndexFile = Path.Combine(Environment.CurrentDirectory, "Data", "Game", "map.rsci");
 
             if (!File.Exists(collisionFile) || !File.Exists(collisionIndexFile))
             {
@@ -54,9 +54,7 @@ namespace RSBot.Core.Components
         internal static void Update(ushort regionId)
         {
             if (_collisionLoader == null)
-            {
                 return;
-            }
 
             var stopWatch = new Stopwatch();
             stopWatch.Start();

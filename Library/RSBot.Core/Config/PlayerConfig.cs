@@ -3,9 +3,16 @@
 namespace RSBot.Core
 {
     using Event;
+    using System;
+    using System.IO;
 
     public static class PlayerConfig
     {
+        /// <summary>
+        /// The config directory
+        /// </summary>
+        private static string _configDirectory => Path.Combine(Environment.CurrentDirectory, "Data", "User");
+
         /// <summary>
         /// The config
         /// </summary>
@@ -15,9 +22,9 @@ namespace RSBot.Core
         /// Load config from file
         /// </summary>
         /// <param name="file">The config file path</param>
-        public static void Load(string file)
+        public static void Load(string charName)
         {
-            _config = new Config(file);
+            _config = new Config(Path.Combine(_configDirectory, charName));
 
             Log.Notify("[Player] settings have been loaded!");
         }

@@ -270,7 +270,7 @@ namespace RSBot.Views
             {
                 Title = LanguageManager.GetLang("SaveRecordedScript"),
                 Filter = "RSBot Botbase File|*.rbs",
-                InitialDirectory = Environment.CurrentDirectory + "\\Scripts"
+                InitialDirectory = ScriptManager.InitialDirectory
             };
 
             if (diag.ShowDialog() == DialogResult.OK)

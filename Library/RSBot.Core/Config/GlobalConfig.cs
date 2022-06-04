@@ -3,6 +3,8 @@
 namespace RSBot.Core
 {
     using Event;
+    using System;
+    using System.IO;
 
     public static class GlobalConfig
     {
@@ -15,9 +17,9 @@ namespace RSBot.Core
         /// Load config from file
         /// </summary>
         /// <param name="file">The config file path</param>
-        public static void Load(string file)
+        public static void Load()
         {
-            _config = new Config(file);
+            _config = new Config(Path.Combine(Environment.CurrentDirectory, "Data", "Config.rs"));
 
             Log.Notify("[Global] settings have been loaded!");
         }
