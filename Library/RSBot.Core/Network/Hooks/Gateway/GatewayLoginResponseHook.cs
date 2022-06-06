@@ -29,7 +29,7 @@
             if (result == 0x01)
             {
                 Kernel.Proxy.Token = packet.ReadUInt();
-                Kernel.Proxy.SetAgentModuleAddress(packet.ReadString(), packet.ReadUShort());
+                Kernel.Proxy.SetAgentserverAddress(packet.ReadString(), packet.ReadUShort());
 
                 if (Game.Clientless)
                     return null;
