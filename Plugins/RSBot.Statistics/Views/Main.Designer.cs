@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Player", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Loot", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Enemy", System.Windows.Forms.HorizontalAlignment.Left);
@@ -36,10 +37,11 @@
             this.separator1 = new SDUI.Controls.Separator();
             this.panelLiveFilters = new SDUI.Controls.GroupBox();
             this.lvStatistics = new SDUI.Controls.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.panel1 = new SDUI.Controls.Panel();
             this.btnReset = new SDUI.Controls.Button();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -122,7 +124,6 @@
             listViewGroup1,
             listViewGroup2,
             listViewGroup3});
-            this.lvStatistics.HideSelection = false;
             this.lvStatistics.Location = new System.Drawing.Point(10, 10);
             this.lvStatistics.Name = "lvStatistics";
             this.lvStatistics.Size = new System.Drawing.Size(483, 451);
@@ -143,6 +144,7 @@
             // panel1
             // 
             this.panel1.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
+            this.panel1.BorderColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.btnReset);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(10, 461);
@@ -163,12 +165,18 @@
             this.btnReset.UseVisualStyleBackColor = true;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
+            // timer
+            // 
+            this.timer.Enabled = true;
+            this.timer.Interval = 1000;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Controls.Add(this.splitContainer1);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "Main";
             this.Size = new System.Drawing.Size(762, 506);
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -191,5 +199,6 @@
         private SDUI.Controls.GroupBox panelLiveFilters;
         private SDUI.Controls.GroupBox panelStaticFilters;
         private SDUI.Controls.Separator separator1;
+        private System.Windows.Forms.Timer timer;
     }
 }

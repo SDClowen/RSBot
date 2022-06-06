@@ -14,11 +14,6 @@ namespace RSBot.Statistics.Views
     public partial class Main : UserControl
     {
         /// <summary>
-        /// The refresh timer
-        /// </summary>
-        private System.Timers.Timer _refreshTimer;
-
-        /// <summary>
         /// The initial reset
         /// </summary>
         private bool _initialReset = true;
@@ -30,9 +25,6 @@ namespace RSBot.Statistics.Views
         {
             InitializeComponent();
             SubscribeEvents();
-
-            _refreshTimer = new System.Timers.Timer(1000) { AutoReset = true };
-            _refreshTimer.Elapsed += RefreshTimer_Elapsed;
         }
 
         /// <summary>
@@ -212,8 +204,11 @@ namespace RSBot.Statistics.Views
 
             PopulateStatisticsList();
             _initialReset = false;
+        }
 
-            _refreshTimer.Start();
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            UpdateStatistics();
         }
     }
 }
