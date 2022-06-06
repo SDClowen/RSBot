@@ -7,41 +7,41 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{50EC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{06762F99-9EA8-4E3E-91E8-73F2ED402CFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.Core", "Library\RSBot.Core\RSBot.Core.csproj", "{84323C14-EB9F-44D9-8980-89C9F82DB4EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSBot.Core", "Library\RSBot.Core\RSBot.Core.csproj", "{84323C14-EB9F-44D9-8980-89C9F82DB4EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.Pk2", "Library\RSBot.Pk2\RSBot.Pk2.csproj", "{B62C693A-62E0-4D29-8702-DD8B3B6B308B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSBot.Pk2", "Library\RSBot.Pk2\RSBot.Pk2.csproj", "{B62C693A-62E0-4D29-8702-DD8B3B6B308B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.Chat", "Plugins\RSBot.Chat\RSBot.Chat.csproj", "{10CB2A7E-46CC-4427-986C-D2CCEE919DFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSBot.Chat", "Plugins\RSBot.Chat\RSBot.Chat.csproj", "{10CB2A7E-46CC-4427-986C-D2CCEE919DFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.General", "Plugins\RSBot.General\RSBot.General.csproj", "{1912F216-0ED6-45D5-A54D-6E5DCD3609B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSBot.General", "Plugins\RSBot.General\RSBot.General.csproj", "{1912F216-0ED6-45D5-A54D-6E5DCD3609B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.Inventory", "Plugins\RSBot.Inventory\RSBot.Inventory.csproj", "{0CD455EA-A75D-4273-BE3E-DA570C783726}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSBot.Inventory", "Plugins\RSBot.Inventory\RSBot.Inventory.csproj", "{0CD455EA-A75D-4273-BE3E-DA570C783726}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.Log", "Plugins\RSBot.Log\RSBot.Log.csproj", "{BF751457-F464-4E61-BDE7-ECA8C147BC93}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSBot.Log", "Plugins\RSBot.Log\RSBot.Log.csproj", "{BF751457-F464-4E61-BDE7-ECA8C147BC93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.Map", "Plugins\RSBot.Map\RSBot.Map.csproj", "{977F3DA7-3963-414B-B474-63BA941CF726}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSBot.Map", "Plugins\RSBot.Map\RSBot.Map.csproj", "{977F3DA7-3963-414B-B474-63BA941CF726}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.Party", "Plugins\RSBot.Party\RSBot.Party.csproj", "{31FA393B-4919-4BD8-B2B2-F75A8B5272AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSBot.Party", "Plugins\RSBot.Party\RSBot.Party.csproj", "{31FA393B-4919-4BD8-B2B2-F75A8B5272AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.Protection", "Plugins\RSBot.Protection\RSBot.Protection.csproj", "{72B9770E-8DDF-4D83-9B9A-8292FA989C47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSBot.Protection", "Plugins\RSBot.Protection\RSBot.Protection.csproj", "{72B9770E-8DDF-4D83-9B9A-8292FA989C47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.Shopping", "Plugins\RSBot.Shopping\RSBot.Shopping.csproj", "{2512902C-3EF4-4395-9925-258F49A5813B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSBot.Items", "Plugins\RSBot.Items\RSBot.Items.csproj", "{2512902C-3EF4-4395-9925-258F49A5813B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.Skills", "Plugins\RSBot.Skills\RSBot.Skills.csproj", "{68324AEA-4BC0-4C76-8091-C3BBE6BB618C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSBot.Skills", "Plugins\RSBot.Skills\RSBot.Skills.csproj", "{68324AEA-4BC0-4C76-8091-C3BBE6BB618C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Botbases", "Botbases", "{981CBAF8-4F97-48A9-9A42-6682029D7508}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{AC1664CE-FD32-4A07-8C5C-0C96D973960C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.Bot.Default", "Botbases\RSBot.Bot.Default\RSBot.Bot.Default.csproj", "{BDDCA486-B41F-4CB5-AAB8-F15A5BBD0638}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSBot.Default", "Botbases\RSBot.Default\RSBot.Default.csproj", "{BDDCA486-B41F-4CB5-AAB8-F15A5BBD0638}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot", "Application\RSBot\RSBot.csproj", "{259A396E-2479-493E-A360-6CAD48E3CB5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSBot", "Application\RSBot\RSBot.csproj", "{259A396E-2479-493E-A360-6CAD48E3CB5E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.Replacer", "Application\RSBot.Replacer\RSBot.Replacer.csproj", "{EBA7F066-8BD6-488D-A65A-B9FFFF2667C4}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RSBot.Loader.Library", "Library\RSBot.Loader.Library\RSBot.Loader.Library.vcxproj", "{1C0AECF2-7A9C-4EEE-BDD2-AF257118EC65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.Statistics", "Plugins\RSBot.Statistics\RSBot.Statistics.csproj", "{37414591-BE70-4333-B82F-EE7DC40F8D3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSBot.Statistics", "Plugins\RSBot.Statistics\RSBot.Statistics.csproj", "{37414591-BE70-4333-B82F-EE7DC40F8D3A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDUI", "SDUI\SDUI\SDUI.csproj", "{38B06E05-D80D-4E99-9F62-8B3AF0B7AC53}"
 EndProject
