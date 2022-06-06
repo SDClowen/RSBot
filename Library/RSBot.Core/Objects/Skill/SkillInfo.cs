@@ -35,7 +35,7 @@ namespace RSBot.Core.Objects.Skill
         /// <value>
         ///   <c>true</c> if attack; otherwise, <c>false</c>.
         /// </value>
-        public bool IsAttack => Record.Params[1] == 6386804 || IsDot;
+        public bool IsAttack => Record.Params.Contains(6386804);
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="SkillInfo"/> is a DoT.
@@ -51,8 +51,8 @@ namespace RSBot.Core.Objects.Skill
         /// <value>
         ///   <c>true</c> if imbue; otherwise, <c>false</c>.
         /// </value>
-        public bool IsImbue => Record.Basic_Activity == 1 && (Record.Action_Overlap == 1 || Record.Action_Overlap == 352321537);
-        
+        public bool IsImbue => Record.Basic_Activity == 1 && IsAttack;
+
         /// <summary>
         /// The skill buff duration
         /// </summary>
