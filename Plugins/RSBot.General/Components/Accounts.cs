@@ -24,7 +24,7 @@ namespace RSBot.General.Components
         /// <summary>
         /// Get the data file path
         /// </summary>
-        private static readonly string _filePath = Path.Combine(Environment.CurrentDirectory, "User", "autologin.data");
+        private static readonly string _filePath = Path.Combine(Environment.CurrentDirectory, "Data", "User", "autologin.data");
 
         /// <summary>
         /// Check the saving directory

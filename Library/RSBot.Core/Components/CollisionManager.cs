@@ -1,9 +1,9 @@
 ﻿using RSBot.Core.Components.Collision;
 using RSBot.Core.Objects;
-using SharpDX;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 
 namespace RSBot.Core.Components
@@ -16,7 +16,7 @@ namespace RSBot.Core.Components
         /// <value>
         /// The regions.
         /// </value>
-        public static List<Region> LoadedRegions { get; private set; }
+        public static List<Objects.Region> LoadedRegions { get; private set; }
 
         /// <summary>
         /// Gets the region.
@@ -24,7 +24,7 @@ namespace RSBot.Core.Components
         /// <value>
         /// The region.
         /// </value>
-        public static Region Region { get; private set; }
+        public static Objects.Region Region { get; private set; }
 
         private static CollisionLoader _collisionLoader;
 
@@ -35,8 +35,8 @@ namespace RSBot.Core.Components
         /// </summary>
         internal static void Initialize()
         {
-            var collisionFile = Path.Combine(Environment.CurrentDirectory, "Data", "map.rsc");
-            var collisionIndexFile = Path.Combine(Environment.CurrentDirectory, "Data", "map.rsci");
+            var collisionFile = Path.Combine(Environment.CurrentDirectory, "Data", "Game", "map.rsc");
+            var collisionIndexFile = Path.Combine(Environment.CurrentDirectory, "Data", "Game", "map.rsci");
 
             if (!File.Exists(collisionFile) || !File.Exists(collisionIndexFile))
             {
@@ -54,15 +54,13 @@ namespace RSBot.Core.Components
         internal static void Update(ushort regionId)
         {
             if (_collisionLoader == null)
-            {
                 return;
-            }
 
             var stopWatch = new Stopwatch();
             stopWatch.Start();
 
-            Region = new Region(regionId);
-            LoadedRegions = Region.GetSurroundingRegions(Region.XSector, Region.YSector);
+            Region = new Objects.Region(regionId);
+            LoadedRegions = Objects.Region.GetSurroundingRegions(Region.XSector, Region.YSector);
 
             var rawLines = new Dictionary<int, List<Line>>();
 

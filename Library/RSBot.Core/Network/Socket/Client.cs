@@ -198,9 +198,11 @@ namespace RSBot.Core.Network
             if (IsClosing || !EnablePacketDispatcher)
                 return;
 
+            int receivedSize = 0;
+
             try
             {
-                var receivedSize = _socket.EndReceive(ar, out var error);
+                receivedSize = _socket.EndReceive(ar, out var error);
                 if(receivedSize == 0 || error != SocketError.Success)
                 {
                     OnDisconnected?.Invoke();
@@ -228,7 +230,7 @@ namespace RSBot.Core.Network
             {
                 try
                 {
-                    if(_socket != null && _socket.Connected)
+                    if(receivedSize != 0 && _socket != null && _socket.Connected)
                         _socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, OnBeginReceiveCallback, null);
                 }
                 catch

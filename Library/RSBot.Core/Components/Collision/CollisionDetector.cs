@@ -1,5 +1,5 @@
-﻿using SharpDX;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Drawing;
 
 namespace RSBot.Core.Components.Collision
 {

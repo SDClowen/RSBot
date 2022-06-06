@@ -1,5 +1,6 @@
-﻿using SharpDX;
-using System;
+﻿using System;
+using System.Drawing;
+using System.Numerics;
 
 namespace RSBot.Core.Extensions
 {
@@ -18,18 +19,6 @@ namespace RSBot.Core.Extensions
         public static Vector3 ToVector3(this Vector2 v, float y)
         {
             return new Vector3(v.X, y, v.Y);
-        }
-
-        public static Vector2 Normalized(this Vector2 v)
-        {
-            v.Normalize();
-            return v;
-        }
-
-        public static Vector3 Normalized(this Vector3 v)
-        {
-            v.Normalize();
-            return v;
         }
 
         public static Vector2 Perpendicular(this Vector2 v)

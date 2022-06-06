@@ -28,7 +28,7 @@ namespace RSBot.Core.Network.Handler.Agent.CharacterSelection
         {
             var characterName = packet.ReadString();
 
-            PlayerConfig.Load("User\\" + characterName);
+            PlayerConfig.Load(characterName);
 
             EventManager.FireEvent("OnEnterGame");
         }

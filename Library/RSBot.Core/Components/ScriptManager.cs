@@ -3,13 +3,17 @@ using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace RSBot.Core.Components
 {
     public class ScriptManager
     {
-        #region Properties
+        /// <summary>
+        /// Gets the initial directory
+        /// </summary>
+        public static string InitialDirectory => Path.Combine(Environment.CurrentDirectory, "Data", "Scripts");
 
         /// <summary>
         /// Gets or sets the file.
@@ -51,15 +55,12 @@ namespace RSBot.Core.Components
 
         /// <summary>
         /// Gets or sets the argument separator.
-        ///
         /// Modify this value in case of custom script syntax support
         /// </summary>
         /// <value>
         /// The argument separator.
         /// </value>
         public static char ArgumentSeparator { get; set; } = ' ';
-
-        #endregion Properties
 
         public static void Initialize()
         {

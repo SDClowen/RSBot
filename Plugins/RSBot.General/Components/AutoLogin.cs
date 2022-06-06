@@ -167,7 +167,7 @@ namespace RSBot.General.Components
             packet.WriteString(character);
             PacketManager.SendPacket(packet, PacketDestination.Server);
 
-            PlayerConfig.Load("User\\" + character);
+            PlayerConfig.Load(character);
 
             EventManager.FireEvent("OnEnterGame");
         }

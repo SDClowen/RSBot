@@ -561,7 +561,7 @@ namespace RSBot.Views
                 tabPage.Controls["overlay"]?.Hide();
             }
 
-            foreach (MenuItem item in menuPlugins.DropDownItems)
+            foreach (ToolStripItem item in menuPlugins.DropDownItems)
                 item.Enabled = true;
 
             _playerName = Game.Player.Name;

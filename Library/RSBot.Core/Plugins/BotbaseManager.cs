@@ -9,17 +9,13 @@ namespace RSBot.Core.Plugins
 {
     public class BotbaseManager
     {
-        #region Constants
-
         /// <summary>
         /// Gets the extension directory.
         /// </summary>
         /// <value>
         /// The extension directory.
         /// </value>
-        public string DirectoryPath => Environment.CurrentDirectory + "\\Bots";
-
-        #endregion Constants
+        public string DirectoryPath => Path.Combine(Environment.CurrentDirectory, "Data", "Extensions", "Bots");
 
         /// <summary>
         /// Gets the extensions.

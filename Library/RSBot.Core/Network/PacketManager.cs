@@ -95,10 +95,8 @@ namespace RSBot.Core.Network
         /// <returns></returns>
         internal static Packet CallHook(Packet packet, PacketDestination destination)
         {
-            if (Hooks == null || packet == null) 
-                return packet;
-
-            foreach (var hook in Hooks.Where(hook => packet != null && (hook.Opcode == packet.Opcode && hook.Destination == destination)))
+            var hooks = Hooks?.Where(hook => packet != null && hook.Opcode == packet.Opcode && hook.Destination == destination);
+            foreach (var hook in hooks)
                 packet = hook.ReplacePacket(packet);
 
             return packet;

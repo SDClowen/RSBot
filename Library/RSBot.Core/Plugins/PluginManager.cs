@@ -10,17 +10,13 @@ namespace RSBot.Core.Plugins
 {
     public class PluginManager
     {
-        #region Constants
-
         /// <summary>
         /// Gets the extension directory.
         /// </summary>
         /// <value>
         /// The extension directory.
         /// </value>
-        public string DirectoryPath => Environment.CurrentDirectory + "\\Plugins";
-
-        #endregion Constants
+        public string InitialDirectory => Path.Combine(Environment.CurrentDirectory, "Data", "Extensions", "Plugins");
 
         /// <summary>
         /// Gets the extensions.
@@ -41,7 +37,7 @@ namespace RSBot.Core.Plugins
 
             try
             {
-                foreach (var extension in from file in Directory.GetFiles(DirectoryPath)
+                foreach (var extension in from file in Directory.GetFiles(InitialDirectory)
                                           let fileInfo = new FileInfo(file)
                                           where fileInfo.Extension == ".dll"
                                           select GetExtensionsFromAssembly(file)
@@ -82,6 +78,13 @@ namespace RSBot.Core.Plugins
             try
             {
                 var assemblyTypes = assembly.GetTypes();
+
+                foreach (var extension in (from type in assemblyTypes where type.IsPublic && !type.IsAbstract && type.GetInterface("IPlugin") != null select Activator.CreateInstance(type)).OfType<IPlugin>())
+                    result.Add(extension.Information.InternalName, extension);
+
+                if (result.Count == 0)
+                    return result;
+
                 var handlerType = typeof(IPacketHandler);
                 var hookType = typeof(IPacketHook);
 
@@ -96,9 +99,6 @@ namespace RSBot.Core.Plugins
 
                 foreach (var hook in types)
                     PacketManager.RegisterHook((IPacketHook)Activator.CreateInstance(hook));
-
-                foreach (var extension in (from type in assemblyTypes where type.IsPublic && !type.IsAbstract && type.GetInterface("IPlugin") != null select Activator.CreateInstance(type)).OfType<IPlugin>())
-                    result.Add(extension.Information.InternalName, extension);
             }
             catch { /* ignore, it's an invalid extension */ }
 

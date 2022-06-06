@@ -25,13 +25,10 @@
         /// <returns></returns>
         public Packet ReplacePacket(Packet packet)
         {
-            var success = packet.ReadByte();
-
-            if (success == 0x01)
+            var result = packet.ReadByte();
+            if (result == 0x01)
             {
                 Kernel.Proxy.Token = packet.ReadUInt();
-
-                Log.Debug($"Connecting to game server using the token {Kernel.Proxy.Token}");
                 Kernel.Proxy.SetAgentserverAddress(packet.ReadString(), packet.ReadUShort());
 
                 if (Game.Clientless)
@@ -40,26 +37,26 @@
             else
                 return packet;
 
-            var result = new Packet(packet.Opcode, packet.Encrypted, packet.Massive);
-            result.WriteByte(success);
-            result.WriteUInt(Kernel.Proxy.Token);
-            result.WriteString("127.0.0.1");
-            result.WriteUShort(Kernel.Proxy.Port);
+            var resultPacket = new Packet(packet.Opcode, packet.Encrypted, packet.Massive);
+            resultPacket.WriteByte(result);
+            resultPacket.WriteUInt(Kernel.Proxy.Token);
+            resultPacket.WriteString("127.0.0.1");
+            resultPacket.WriteUShort(Kernel.Proxy.Port);
             
             //unknown value
             if (Game.ClientType == GameClientType.Japanese_Old)
-                result.WriteInt(packet.ReadInt());
+                resultPacket.WriteInt(packet.ReadInt());
 
             if (Game.ClientType >= GameClientType.Global)
             {
                 var unk1 = packet.ReadByte();
-                result.WriteByte(unk1);
+                resultPacket.WriteByte(unk1);
 
                 if (unk1 == 2)
-                    result.WriteString(packet.ReadString());
+                    resultPacket.WriteString(packet.ReadString());
             }
 
-            return result;
+            return resultPacket;
         }
     }
 }

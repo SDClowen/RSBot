@@ -156,7 +156,7 @@ namespace RSBot.General.Views
         {
             Game.Start();
 
-            var startedResult = await ClientManager.Start();
+            var startedResult = await ClientManager.Start().ConfigureAwait(false);
             if (!startedResult)
                 Log.WarnLang("ClientStartingError");
         }

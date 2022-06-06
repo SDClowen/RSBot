@@ -1,6 +1,7 @@
-﻿using SharpDX;
+﻿using RSBot.Core.Network;
+using System.Drawing;
 using System.IO;
-using System.Text;
+using System.Numerics;
 
 namespace RSBot.Core.Extensions
 {
@@ -8,13 +9,14 @@ namespace RSBot.Core.Extensions
     {
         /// <summary>
         /// Reads the joymax string.
+        /// korean codepage: 949
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <returns></returns>
         public static string ReadJoymaxString(this BinaryReader reader)
         {
             var stringLength = reader.ReadInt32();
-            return Encoding.GetEncoding(949).GetString(reader.ReadBytes(stringLength));
+            return Packet.Encoding.GetString(reader.ReadBytes(stringLength));
         }
 
         /// <summary>

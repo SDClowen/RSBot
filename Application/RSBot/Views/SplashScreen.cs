@@ -40,7 +40,7 @@ namespace RSBot.Views
                     updaterDialog.ShowDialog(this);
             }
 
-            GlobalConfig.Load("config");
+            GlobalConfig.Load();
             Kernel.Language = GlobalConfig.Get("RSBot.Language", "English");
             ColorScheme.BackColor = Color.FromArgb(GlobalConfig.Get("SDUI.Color", Color.White.ToArgb()));
             LanguageManager.Translate(_mainForm, Kernel.Language);
