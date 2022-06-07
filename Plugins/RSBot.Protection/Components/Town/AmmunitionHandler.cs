@@ -40,7 +40,7 @@ namespace RSBot.Protection.Components.Town
             if (!PlayerConfig.Get<bool>("RSBot.Protection.checkNoArrows"))
                 return;
 
-            var currentAmmunition = Game.Player.GetAmmunationAmount(true);
+            var currentAmmunition = Game.Player.GetAmmunitionAmount(true);
             if (currentAmmunition == -1 || currentAmmunition > 10)
                 return;
 
