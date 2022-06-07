@@ -39,7 +39,7 @@
             this.propItem.CommandsBackColor = System.Drawing.SystemColors.ControlDark;
             this.propItem.DisabledItemForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.propItem.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.propItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.propItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.propItem.HelpBackColor = System.Drawing.SystemColors.ControlDark;
             this.propItem.HelpVisible = false;
             this.propItem.LineColor = System.Drawing.SystemColors.WindowFrame;
@@ -48,20 +48,21 @@
             this.propItem.Name = "propItem";
             this.propItem.SelectedItemWithFocusBackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.propItem.SelectedItemWithFocusForeColor = System.Drawing.SystemColors.GrayText;
-            this.propItem.Size = new System.Drawing.Size(662, 650);
+            this.propItem.Size = new System.Drawing.Size(772, 750);
             this.propItem.TabIndex = 0;
             this.propItem.ViewBackColor = System.Drawing.SystemColors.InfoText;
             this.propItem.ViewForeColor = System.Drawing.SystemColors.HighlightText;
             // 
             // SkillProperties
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(662, 650);
+            this.ClientSize = new System.Drawing.Size(772, 750);
             this.Controls.Add(this.propItem);
             this.Margin = new System.Windows.Forms.Padding(1);
             this.Name = "SkillProperties";
+            this.ShowIcon = false;
             this.Text = "Skill Properties";
             this.ResumeLayout(false);
 

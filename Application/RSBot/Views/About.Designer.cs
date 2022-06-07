@@ -77,18 +77,20 @@
             // 
             this.bottomPanel.BackColor = System.Drawing.Color.Transparent;
             this.bottomPanel.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
+            this.bottomPanel.BorderColor = System.Drawing.Color.Transparent;
             this.bottomPanel.Controls.Add(this.buttonOk);
             this.bottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottomPanel.Location = new System.Drawing.Point(0, 221);
+            this.bottomPanel.Location = new System.Drawing.Point(0, 217);
             this.bottomPanel.Name = "bottomPanel";
             this.bottomPanel.Radius = 0;
-            this.bottomPanel.Size = new System.Drawing.Size(545, 38);
+            this.bottomPanel.Size = new System.Drawing.Size(541, 38);
             this.bottomPanel.TabIndex = 3;
             // 
             // labelName
             // 
             this.labelName.AutoSize = true;
-            this.labelName.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelName.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.labelName.Location = new System.Drawing.Point(147, 8);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(61, 25);
@@ -98,8 +100,8 @@
             // labelDescription
             // 
             this.labelDescription.AutoSize = true;
-            this.labelDescription.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelDescription.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
+            this.labelDescription.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelDescription.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.labelDescription.Location = new System.Drawing.Point(149, 33);
             this.labelDescription.Name = "labelDescription";
             this.labelDescription.Size = new System.Drawing.Size(211, 17);
@@ -109,8 +111,8 @@
             // labelVersion
             // 
             this.labelVersion.AutoSize = true;
-            this.labelVersion.Font = new System.Drawing.Font("Segoe UI", 10.25F);
-            this.labelVersion.ForeColor = System.Drawing.Color.RosyBrown;
+            this.labelVersion.Font = new System.Drawing.Font("Segoe UI", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelVersion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.labelVersion.Location = new System.Drawing.Point(214, 13);
             this.labelVersion.Name = "labelVersion";
             this.labelVersion.Size = new System.Drawing.Size(46, 19);
@@ -122,17 +124,16 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(545, 259);
-            this.ControlBox = false;
+            this.ClientSize = new System.Drawing.Size(541, 255);
             this.Controls.Add(this.labelDescription);
             this.Controls.Add(this.labelVersion);
             this.Controls.Add(this.labelName);
             this.Controls.Add(this.bottomPanel);
             this.Controls.Add(this.richTextBox);
             this.Controls.Add(this.pictureBox1);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.Color.Black;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "About";
