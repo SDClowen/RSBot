@@ -56,6 +56,9 @@ namespace RSBot.Protection.Components.Town
                 if (item == null)
                     return;
 
+                if (!item.Record.IsEquip)
+                    continue;
+                
                 if (item.Durability > 6)
                     continue;
 

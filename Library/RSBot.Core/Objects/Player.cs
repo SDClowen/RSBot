@@ -559,19 +559,16 @@ namespace RSBot.Core.Objects
         public Player(uint objId) : base(objId) { }
 
         /// <summary>
-        /// Gets the ammo amount.
+        /// Gets the ammunition amount.
         /// </summary>
         /// <returns></returns>
-        public int GetAmmunationAmount(bool fullInventory = false)
+        public int GetAmmunitionAmount(bool fullInventory = false)
         {
             if (!fullInventory)
             {
                 var itemAtSlot = Inventory.GetItemAt(7);
-                if (itemAtSlot != null && itemAtSlot.Record.TypeID2 == 3 && (itemAtSlot.Record.TypeID3 == 4))
+                if (itemAtSlot?.Record.TypeID2 == 3 && itemAtSlot?.Record.TypeID3 == 4)
                     return (short)itemAtSlot.Amount;
-
-                if (itemAtSlot == null)
-                    return 0;
             }
             else
             {
@@ -579,13 +576,9 @@ namespace RSBot.Core.Objects
                 {
                     TypeID1 = 3,
                     TypeID2 = 3,
-                    TypeID3 = 4
+                    TypeID3 = 4,
+                    TypeID4 = (byte) GetCurrentAmmunitionType()
                 };
-
-                if (GetCurrentAmmunationType() == AmmunitionType.Arrow)
-                    typeIdFilter.TypeID4 = 1;
-                else if (GetCurrentAmmunationType() == AmmunitionType.Bolt)
-                    typeIdFilter.TypeID4 = 2;
 
                 return Inventory.GetSumAmount(typeIdFilter);
             }
@@ -594,26 +587,17 @@ namespace RSBot.Core.Objects
         }
 
         /// <summary>
-        /// Gets the type of the current ammunation.
+        /// Gets the type of the current ammunition.
         /// </summary>
         /// <returns></returns>
-        public AmmunitionType GetCurrentAmmunationType()
+        public AmmunitionType GetCurrentAmmunitionType()
         {
-            var itemAtSlot = Inventory.GetItemAt(7);
-            if (itemAtSlot == null || itemAtSlot.Record.TypeID2 != 3 || itemAtSlot.Record.TypeID3 != 4)
-                return AmmunitionType.None;
-
-            switch (itemAtSlot.Record.TypeID4)
+            return Game.Player.Race switch
             {
-                case 1:
-                    return AmmunitionType.Arrow;
-
-                case 2:
-                    return AmmunitionType.Bolt;
-
-                default: //Unknown ammo type
-                    return AmmunitionType.None;
-            }
+                ObjectCountry.Europe => AmmunitionType.Bolt,
+                ObjectCountry.Chinese => AmmunitionType.Arrow,
+                _ => AmmunitionType.None
+            };
         }
 
         /// <summary>
