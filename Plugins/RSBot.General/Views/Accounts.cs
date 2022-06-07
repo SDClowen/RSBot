@@ -71,7 +71,7 @@ namespace RSBot.General.Views
             selectedAccount.Channel = (byte)(comboBoxChannel.SelectedIndex + 1);
 
             /*
-             * The listAccounts. Invalidate, Update, Refresh methods not updating the item text 
+             * The listAccounts. Invalidate, Update, Refresh methods not updating the item text
              * with class override tostring method after update the account class.
              * For that i called the method again. No have more idea.
              */

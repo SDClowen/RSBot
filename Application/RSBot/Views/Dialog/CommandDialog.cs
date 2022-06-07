@@ -71,14 +71,16 @@ namespace RSBot.Views.Dialog
                 {
                     new SDUI.Controls.Label
                     {
-                        Location = new Point(13, 10),
-                        Text = arg.Key
+                        Location = new Point(13, 2),
+                        Text = arg.Key,
+                        BackColor = Color.Transparent
                     },
                     input,
                     new SDUI.Controls.Label
                     {
                         Location = new Point(13, 50),
-                        Text = arg.Value
+                        Text = arg.Value,
+                        Size = new Size(250, 16)
                     },
                     new SDUI.Controls.Separator
                     {
