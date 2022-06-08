@@ -236,7 +236,9 @@ namespace RSBot.Core.Components
             var line = 0;
             foreach (var command in Commands)
             {
-                if (command.Trim().StartsWith("//") || command.Trim().StartsWith("#"))
+                if (command.Trim().StartsWith("//") || 
+                    command.Trim().StartsWith("#") || 
+                    string.IsNullOrWhiteSpace(command))
                     continue;
 
                 var args = command.Split(ArgumentSeparator).Skip(1).ToArray();
