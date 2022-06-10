@@ -30,6 +30,10 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
             var durability = packet.ReadUInt();
 
             var item = Game.Player.Inventory.GetItemAt(slot);
+
+            if (item == null)
+                return;
+
             item.Durability = durability;
 
             EventManager.FireEvent("OnUpdateItemDurability", slot, durability);

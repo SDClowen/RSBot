@@ -96,7 +96,7 @@ namespace RSBot.Default.Bundle.Loop
 
             var filename = Path.Combine(ScriptManager.InitialDirectory, "Towns", Game.Player.Movement.Source.RegionID + ".rbs");
 
-            //The player is in town, therefore, we need to run the townscript first.
+            //The player is in town, therefore, we need to run the town script first.
             if (!File.Exists(filename))
             {
                 CheckForWalkbackScript();
@@ -107,7 +107,7 @@ namespace RSBot.Default.Bundle.Loop
 
             TownscriptRunning = true;
             ScriptManager.Load(filename);
-            ScriptManager.RunScript();
+            ScriptManager.RunScript(false);
             TownscriptRunning = false;
 
             Invoke();

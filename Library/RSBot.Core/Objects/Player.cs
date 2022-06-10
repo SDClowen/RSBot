@@ -805,7 +805,7 @@ namespace RSBot.Core.Objects
         /// <returns></returns>
         public bool SummonVehicle()
         {
-            if (HasActiveVehicle)
+            if (HasActiveVehicle || Game.Player.State.BattleState == BattleState.InBattle)
                 return false;
 
             var typeIdFilter = new TypeIdFilter(3, 3, 3, 2);

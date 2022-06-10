@@ -110,7 +110,7 @@ namespace RSBot.Core.Components
         /// <summary>
         /// Runs this instance.
         /// </summary>
-        public static void RunScript()
+        public static void RunScript(bool useNearbyWaypoint = true)
         {
             if (Commands == null || Commands.Length == 0)
             {
@@ -120,7 +120,11 @@ namespace RSBot.Core.Components
             }
 
             Running = true;
-            CurrentLineIndex = FindNearestMoveCommandLine();
+
+            if (useNearbyWaypoint)
+                CurrentLineIndex = FindNearestMoveCommandLine();
+            else
+                CurrentLineIndex = 0;
 
             if (CurrentLineIndex != 0)
                 Log.Debug($"[Script] Found nearby walk position at line #{CurrentLineIndex}");
@@ -230,11 +234,13 @@ namespace RSBot.Core.Components
         {
             var playerPos = Game.Player.Movement.Source;
 
-            var line = 0;
+            var line = -1;
             var moveCommands = new Dictionary<int, Position>();
 
             foreach (var command in Commands)
             {
+                line++;
+
                 if (command.Trim().StartsWith("//") ||
                     command.Trim().StartsWith("#") ||
                     !command.StartsWith("move") ||
@@ -246,10 +252,10 @@ namespace RSBot.Core.Components
                 var distance = curPos.DistanceToPlayer();
 
                 if (distance < 100 && !CollisionManager.HasCollisionBetween(playerPos, curPos))
-                    moveCommands.Add(++line, curPos);
+                    moveCommands.Add(line, curPos);
             }
 
-            return moveCommands.MinBy(c => c.Value.DistanceToPlayer()).Key;
+            return moveCommands.Count == 0 ? 0 : moveCommands.MinBy(c => c.Value.DistanceToPlayer()).Key;
         }
     }
 }
