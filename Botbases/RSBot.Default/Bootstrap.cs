@@ -1,15 +1,13 @@
-﻿using RSBot.Default.Bot;
-using RSBot.Default.Bundle;
-using RSBot.Default.Views;
-using RSBot.Core;
+﻿using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Objects;
 using RSBot.Core.Plugins;
+using RSBot.Default.Bot;
+using RSBot.Default.Bundle;
+using RSBot.Default.Components;
+using RSBot.Default.Views;
 using System;
 using System.Windows.Forms;
-using RSBot.Default.Bundle.Loop;
-using RSBot.Default.Bundle.Loot;
-using RSBot.Default.Components;
 
 namespace RSBot.Default
 {
@@ -21,7 +19,7 @@ namespace RSBot.Default
         /// <value>
         /// The information.
         /// </value>
-        public BotbaseInfo Info => new BotbaseInfo
+        public BotbaseInfo Info => new()
         {
             Name = "RSBot.Default",
             DisplayName = "RSBot",
@@ -50,7 +48,7 @@ namespace RSBot.Default
 
             //Nothing if in scroll state!
             if (Game.Player.State.ScrollState == ScrollState.NormalScroll ||
-                Game.Player.State.ScrollState == ScrollState.ThiefScroll) 
+                Game.Player.State.ScrollState == ScrollState.ThiefScroll)
                 return;
 
             try
@@ -69,7 +67,7 @@ namespace RSBot.Default
         /// <returns></returns>
         public Control GetView()
         {
-            return Container.View ?? (Container.View = new Main());
+            return Container.View;
         }
 
         /// <summary>
