@@ -57,7 +57,7 @@ namespace RSBot.Default
             }
             catch (Exception ex)
             {
-                Log.Debug($"An exception was thrown in the botloop: {ex} {Environment.NewLine}------------------------------------------------------");
+                Log.Debug($"An exception was thrown in the bot loop: {ex} {Environment.NewLine}------------------------------------------------------");
             }
         }
 
@@ -67,7 +67,7 @@ namespace RSBot.Default
         /// <returns></returns>
         public Control GetView()
         {
-            return Container.View;
+            return Container.View ?? (Container.View = new Main());
         }
 
         /// <summary>
