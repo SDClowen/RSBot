@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using RSBot.Core.Components;
 using RSBot.Core.Network;
+using System.Collections.Generic;
+using System.Linq;
 using System.Timers;
-using RSBot.Core.Components;
 
 namespace RSBot.Core.Objects.Spawn
 {
@@ -125,10 +125,10 @@ namespace RSBot.Core.Objects.Spawn
             var awaitCallback = new AwaitCallback(response =>
             {
                 var result = response.ReadByte() == 0x01;
-                if(result)
-                    return response.ReadUInt() == UniqueId ? AwaitCallbackResult.Successed : AwaitCallbackResult.ConditionFailed;
+                if (result)
+                    return response.ReadUInt() == UniqueId ? AwaitCallbackResult.Success : AwaitCallbackResult.ConditionFailed;
 
-                return AwaitCallbackResult.Failed;
+                return AwaitCallbackResult.Fail;
             }, 0xB045);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallback);
@@ -148,11 +148,8 @@ namespace RSBot.Core.Objects.Spawn
             var packet = new Packet(0x704B);
             packet.WriteUInt(UniqueId);
 
-            var awaitResult = new AwaitCallback(response =>
-                response.ReadByte() == 1 ? 
-                AwaitCallbackResult.Successed : 
-                AwaitCallbackResult.ConditionFailed
-            , 0xB04B);
+            var awaitResult = new AwaitCallback(response => response.ReadByte() == 1 ?
+                AwaitCallbackResult.Success : AwaitCallbackResult.ConditionFailed, 0xB04B);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
             awaitResult.AwaitResponse();

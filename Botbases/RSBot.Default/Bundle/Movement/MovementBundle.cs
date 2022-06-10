@@ -23,17 +23,25 @@ namespace RSBot.Default.Bundle.Movement
         private Random _random;
 
         /// <summary>
+        /// Gets or sets a value indicating whether [last entity was behind obstacle].
+        /// Used to move around even though the player is being attacked.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [last entity was behind obstacle]; otherwise, <c>false</c>.
+        /// </value>
+        public bool LastEntityWasBehindObstacle { get; set; }
+
+        /// <summary>
         /// Invokes this instance.
         /// </summary>
-        /// <exception cref="System.NotImplementedException"></exception>
         public void Invoke()
         {
-            if (Game.SelectedEntity != null)
+            if (Game.SelectedEntity != null && !LastEntityWasBehindObstacle)
                 return;
 
             var playerUnderAttack = SpawnManager.Any<SpawnedMonster>(m => m.AttackingPlayer &&
                m.Movement.Source.DistanceTo(Container.Bot.Area.CenterPosition) < Container.Bot.Area.Radius);
-            if (playerUnderAttack)
+            if (playerUnderAttack && !LastEntityWasBehindObstacle)
                 return;
 
             if (Game.Player.Movement.Moving)
@@ -77,6 +85,11 @@ namespace RSBot.Default.Bundle.Movement
             };
 
             _random = new Random();
+        }
+
+        public void Stop()
+        {
+            LastEntityWasBehindObstacle = false;
         }
     }
 }

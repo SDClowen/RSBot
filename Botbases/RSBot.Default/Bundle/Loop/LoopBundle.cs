@@ -79,6 +79,14 @@ namespace RSBot.Default.Bundle.Loop
             Running = false;
         }
 
+        public void Stop()
+        {
+            if (ScriptManager.Running)
+                ScriptManager.Stop();
+
+            Running = false;
+        }
+
         /// <summary>
         /// Checks for town script.
         /// </summary>

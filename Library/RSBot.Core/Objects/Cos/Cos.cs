@@ -163,7 +163,7 @@ namespace RSBot.Core.Objects.Cos
             var awaitCallback = new AwaitCallback(response =>
             {
                 return response.ReadByte() == 1
-                ? AwaitCallbackResult.Successed : AwaitCallbackResult.ConditionFailed;
+                ? AwaitCallbackResult.Success : AwaitCallbackResult.ConditionFailed;
             }, 0xB0C6);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallback);
@@ -189,10 +189,10 @@ namespace RSBot.Core.Objects.Cos
                 if (result == 0x01)
                 {
                     response.ReadByte();
-                    return response.ReadUInt() == UniqueId ? AwaitCallbackResult.Successed : AwaitCallbackResult.ConditionFailed;
+                    return response.ReadUInt() == UniqueId ? AwaitCallbackResult.Success : AwaitCallbackResult.ConditionFailed;
                 }
 
-                return AwaitCallbackResult.Failed;
+                return AwaitCallbackResult.Fail;
             }, 0xB034);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, callback);
@@ -224,11 +224,8 @@ namespace RSBot.Core.Objects.Cos
                 packet.WriteInt(destination.YOffset);
             }
 
-            var awaitCallback = new AwaitCallback(response =>
-            {
-                return response.ReadUInt() == UniqueId
-                ? AwaitCallbackResult.Successed : AwaitCallbackResult.ConditionFailed;
-            }, 0xB021);
+            var awaitCallback = new AwaitCallback(response => response.ReadUInt() == UniqueId
+                ? AwaitCallbackResult.Success : AwaitCallbackResult.ConditionFailed, 0xB021);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallback);
             awaitCallback.AwaitResponse();
@@ -239,7 +236,6 @@ namespace RSBot.Core.Objects.Cos
 
         public virtual void Deserialize(Packet packet)
         {
-
         }
     }
 }

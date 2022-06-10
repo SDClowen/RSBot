@@ -109,7 +109,7 @@ namespace RSBot.Core.Components
         /// Gets the next skill.
         /// </summary>
         /// <returns></returns>
-        public static SkillInfo GetNextSkill()
+        public static SkillInfo? GetNextSkill()
         {
             var entity = Game.SelectedEntity;
             if (entity == null)
@@ -342,14 +342,10 @@ namespace RSBot.Core.Components
             packet.WriteByte(ActionTarget.Entity);
             packet.WriteUInt(targetId);
 
-            var callback = new AwaitCallback(response =>
-            {
-                return response.ReadByte() == 0x02 && response.ReadByte() == 0x00
-                            ? AwaitCallbackResult.Successed : AwaitCallbackResult.ConditionFailed;
-            }, 0xB074);
+            var callback = new AwaitCallback(response => response.ReadByte() == 0x02 && response.ReadByte() == 0x00
+                ? AwaitCallbackResult.Success : AwaitCallbackResult.ConditionFailed, 0xB074);
 
-
-            RefSkill altSkill = skill.Record;
+            var altSkill = skill.Record;
             while (altSkill != null)
             {
                 duration += altSkill.Action_CastingTime +
@@ -414,7 +410,7 @@ namespace RSBot.Core.Components
 
                 if (targetId == (target == 0 ? Game.Player.UniqueId : target) &&
                     castedSkillId == skill.Id)
-                    return AwaitCallbackResult.Successed;
+                    return AwaitCallbackResult.Success;
 
                 return AwaitCallbackResult.ConditionFailed;
 
@@ -423,7 +419,7 @@ namespace RSBot.Core.Components
             var callback = new AwaitCallback(response =>
             {
                 return response.ReadByte() == 0x02 && response.ReadByte() == 0x00
-                    ? AwaitCallbackResult.Successed : AwaitCallbackResult.ConditionFailed;
+                    ? AwaitCallbackResult.Success : AwaitCallbackResult.ConditionFailed;
             }, 0xB074);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, asyncCallback, callback);
@@ -521,7 +517,7 @@ namespace RSBot.Core.Components
             var callback = new AwaitCallback(response =>
             {
                 return response.ReadByte() == 0x02 && response.ReadByte() == 0x00
-                ? AwaitCallbackResult.Successed : AwaitCallbackResult.ConditionFailed;
+                ? AwaitCallbackResult.Success : AwaitCallbackResult.ConditionFailed;
             }, 0xB074);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, callback);

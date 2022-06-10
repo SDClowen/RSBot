@@ -121,5 +121,10 @@ namespace RSBot.Default.Bundle.Avoidance
 
             return false;
         }
+
+        public void Stop()
+        {
+            //Nothing to do
+        }
     }
 }

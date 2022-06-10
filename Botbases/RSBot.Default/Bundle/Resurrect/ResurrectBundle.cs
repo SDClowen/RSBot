@@ -56,5 +56,10 @@ namespace RSBot.Default.Bundle.Resurrect
         {
             //Nothing to do here
         }
+
+        public void Stop()
+        {
+            //Nothing to do here
+        }
     }
 }

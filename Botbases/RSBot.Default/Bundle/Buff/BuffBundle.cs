@@ -1,6 +1,10 @@
-﻿using RSBot.Core;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Timers;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Objects;
+using RSBot.Core.Objects.Skill;
 
 namespace RSBot.Default.Bundle.Buff
 {
@@ -16,7 +20,7 @@ namespace RSBot.Default.Bundle.Buff
                 if (Game.Player.State.LifeState != LifeState.Alive || Game.Player.HasActiveVehicle)
                     break;
 
-                var buff = SkillManager.Buffs.Find(p => !Game.Player.State.HasActiveBuff(p, out _) && p.CanBeCasted);
+                var buff = SkillManager.Buffs.Find(p => !Game.Player.State.HasActiveBuff(p, out _));
                 if (buff == null)
                     break;
 
@@ -34,7 +38,12 @@ namespace RSBot.Default.Bundle.Buff
         /// </summary>
         public void Refresh()
         {
-            //Nothing to do here
+            //Nothing to do
+        }
+
+        public void Stop()
+        {
+            //Nothing to do
         }
     }
 }

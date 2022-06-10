@@ -44,11 +44,12 @@ namespace RSBot.Core.Network.Handler.Agent.Action
 
                     case 0x06: // invalid target
                     case 0x10: // obstacle
+                        EventManager.FireEvent("OnTargetBehindObstacle");
                         break;
 
                     default:
                         Log.Error($"Invalid skill error code: 0x{errorCode:X2}");
-                        break;
+                        break; 
                 }
 
                 return;

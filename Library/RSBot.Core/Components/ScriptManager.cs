@@ -230,34 +230,26 @@ namespace RSBot.Core.Components
         {
             var playerPos = Game.Player.Movement.Source;
 
-            var nearestCommandLineIndex = 0;
-            Position nearestPosition = default;
-
             var line = 0;
+            var moveCommands = new Dictionary<int, Position>();
+
             foreach (var command in Commands)
             {
-                if (command.Trim().StartsWith("//") || 
-                    command.Trim().StartsWith("#") || 
+                if (command.Trim().StartsWith("//") ||
+                    command.Trim().StartsWith("#") ||
+                    !command.StartsWith("move") ||
                     string.IsNullOrWhiteSpace(command))
                     continue;
 
                 var args = command.Split(ArgumentSeparator).Skip(1).ToArray();
                 var curPos = ParsePosition(args);
+                var distance = curPos.DistanceToPlayer();
 
-                //Always prefer the first line if it's in range
-                if (line == 0 && playerPos.DistanceTo(curPos) < 100) return line;
-
-                if (playerPos.DistanceTo(curPos) < playerPos.DistanceTo(nearestPosition)
-                    && !CollisionManager.HasCollisionBetween(playerPos, nearestPosition))
-                {
-                    nearestPosition = curPos;
-                    nearestCommandLineIndex = line;
-                }
-
-                line++;
+                if (distance < 100 && !CollisionManager.HasCollisionBetween(playerPos, curPos))
+                    moveCommands.Add(++line, curPos);
             }
 
-            return nearestCommandLineIndex;
+            return moveCommands.MinBy(c => c.Value.DistanceToPlayer()).Key;
         }
     }
 }

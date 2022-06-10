@@ -49,10 +49,7 @@ namespace RSBot.Party.Bundle.PartyMatching
             packet.WriteByte(Config.LevelTo);
             packet.WriteConditonalString(Config.Title);
 
-            var callback = new AwaitCallback(response =>
-            {
-                return response.ReadByte() == 1 ? AwaitCallbackResult.Successed : AwaitCallbackResult.Failed;
-            }, 0xB06A);
+            var callback = new AwaitCallback(response => response.ReadByte() == 1 ? AwaitCallbackResult.Success : AwaitCallbackResult.Fail, 0xB06A);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, callback);
             callback.AwaitResponse(2000);
@@ -84,10 +81,7 @@ namespace RSBot.Party.Bundle.PartyMatching
             packet.WriteByte(Config.LevelTo);
             packet.WriteConditonalString(Config.Title);
 
-            var callback = new AwaitCallback(response =>
-            {
-                return response.ReadByte() == 1 ? AwaitCallbackResult.Successed : AwaitCallbackResult.Failed;
-            }, 0xB069);
+            var callback = new AwaitCallback(response => response.ReadByte() == 1 ? AwaitCallbackResult.Success : AwaitCallbackResult.Fail, 0xB069);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, callback);
             callback.AwaitResponse(2000);
@@ -125,12 +119,12 @@ namespace RSBot.Party.Bundle.PartyMatching
                 {
                     // 0 => canceled
                     // 1 => accepted
-                    // 2 => didnt answered
+                    // 2 => didnt answer
                     joiningResult = response.ReadByte();
-                    return AwaitCallbackResult.Successed;
+                    return AwaitCallbackResult.Success;
                 }
                 
-                return AwaitCallbackResult.Failed;
+                return AwaitCallbackResult.Fail;
             }, 0xB06D);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, callback);
@@ -154,7 +148,7 @@ namespace RSBot.Party.Bundle.PartyMatching
             var callback = new AwaitCallback(response =>
             {
                 partyList = PartyList.FromPacket(response);
-                return AwaitCallbackResult.Successed;
+                return AwaitCallbackResult.Success;
             }, 0xB06C);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, callback);

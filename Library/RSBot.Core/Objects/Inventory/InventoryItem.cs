@@ -119,18 +119,14 @@ namespace RSBot.Core.Objects
                 packet.WriteInt(Record.Tid);
             else
                 packet.WriteUShort(Record.Tid);
-
-            var result = false;
-            var asyncCallback = new AwaitCallback(response =>
-            {
-                return response.ReadByte() == 0x01 ?
-                    AwaitCallbackResult.Successed : AwaitCallbackResult.Failed;
-            }, 0xB04C);
+            
+            var asyncCallback = new AwaitCallback(response => response.ReadByte() == 0x01 ?
+                AwaitCallbackResult.Success : AwaitCallbackResult.Fail, 0xB04C);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, asyncCallback);
             asyncCallback.AwaitResponse(500);
-
-            return result;
+            
+            return asyncCallback.IsCompleted;
         }
 
         /// <summary>
@@ -204,10 +200,9 @@ namespace RSBot.Core.Objects
             {
                 MagicOptions = new List<MagicOptionInfo>(),
                 BindingOptions = new List<BindingOption>(),
-                Amount = 1
+                Amount = 1,
+                Slot = destinationSlot
             };
-
-            item.Slot = destinationSlot;
 
             if (destinationSlot == 0xFE)
             {

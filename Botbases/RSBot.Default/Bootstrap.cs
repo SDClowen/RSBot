@@ -7,6 +7,8 @@ using RSBot.Core.Objects;
 using RSBot.Core.Plugins;
 using System;
 using System.Windows.Forms;
+using RSBot.Default.Bundle.Loop;
+using RSBot.Default.Bundle.Loot;
 using RSBot.Default.Components;
 
 namespace RSBot.Default
@@ -115,6 +117,8 @@ namespace RSBot.Default
             {
                 if (Game.Player.InAction)
                     SkillManager.CancelAction();
+
+                Bundles.Stop();
             }
         }
 

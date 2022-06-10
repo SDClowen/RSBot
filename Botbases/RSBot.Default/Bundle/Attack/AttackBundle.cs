@@ -65,5 +65,10 @@ namespace RSBot.Default.Bundle.Attack
         {
             //Nothing to do here
         }
+
+        public void Stop()
+        {
+            //Nothing to do
+        }
     }
 }

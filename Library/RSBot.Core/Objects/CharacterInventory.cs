@@ -112,10 +112,10 @@ namespace RSBot.Core.Objects
                     var source = response.ReadByte();
                     var destination = response.ReadByte();
                     if (source == sourceSlot && destination == destinationSlot)
-                        return AwaitCallbackResult.Successed;
+                        return AwaitCallbackResult.Success;
                 }
 
-                return AwaitCallbackResult.Failed;
+                return AwaitCallbackResult.Fail;
             }, 0xB034);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, asyncResult);
