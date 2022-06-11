@@ -69,7 +69,15 @@ namespace RSBot.Core.Objects
         /// <value>
         /// The active buffs.
         /// </value>
-        public List<SkillInfo> ActiveBuffs { get; } = new List<SkillInfo>();
+        public List<SkillInfo> ActiveBuffs { get; } = new();
+
+        /// <summary>
+        /// Gets the active item perks.
+        /// </summary>
+        /// <value>
+        /// The active item perks.
+        /// </value>
+        public Dictionary<uint, ItemPerk> ActiveItemPerks { get; } = new();
 
         /// <summary>
         /// Gets or sets the state of the PVP.

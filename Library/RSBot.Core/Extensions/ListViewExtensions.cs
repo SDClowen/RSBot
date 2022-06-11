@@ -3,6 +3,7 @@ using RSBot.Core.Objects.Skill;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using RSBot.Core.Objects;
 
 namespace RSBot.Core.Extensions
 {
@@ -48,12 +49,24 @@ namespace RSBot.Core.Extensions
         {
             lock (_lock)
             {
-                var skill = listViewItem.Tag as SkillInfo;
-                if (!StaticImageList.Images.ContainsKey(skill.Id.ToString()))
-                    StaticImageList.Images.Add(skill.Id.ToString(), skill.Record.GetIcon());
+                if (listViewItem.Tag is SkillInfo skill)
+                {
+                    var imageKey = "skill:" + skill.Id;
+                    if (!StaticImageList.Images.ContainsKey(imageKey))
+                        StaticImageList.Images.Add(imageKey, skill.Record.GetIcon());
 
-                //Renders the image
-                listViewItem.ImageKey = skill.Id.ToString();
+                    //Renders the image
+                    listViewItem.ImageKey = imageKey;
+                }
+
+                if (listViewItem.Tag is ItemPerk perk)
+                {
+                    var imageKey = "perk:" + perk.ItemId;
+                    if (!StaticImageList.Images.ContainsKey(imageKey))
+                        StaticImageList.Images.Add(imageKey, perk.Item?.GetIcon() ?? new Bitmap(0, 0));
+
+                    listViewItem.ImageKey = imageKey;
+                }
             }
 
             return Task.CompletedTask;
