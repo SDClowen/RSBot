@@ -1,7 +1,5 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Components;
-using RSBot.Core.Objects;
-using System;
 using System.IO;
 using System.Threading;
 
@@ -84,6 +82,9 @@ namespace RSBot.Default.Bundle.Loop
             if (ScriptManager.Running)
                 ScriptManager.Stop();
 
+            if (ShoppingManager.Running)
+                ShoppingManager.Stop();
+
             Running = false;
         }
 
@@ -120,10 +121,10 @@ namespace RSBot.Default.Bundle.Loop
         /// </summary>
         public void CheckForWalkbackScript()
         {
-            if (Config.WalkScript == null || 
-                ScriptManager.Running || 
-                !File.Exists(Config.WalkScript) || 
-                !Kernel.Bot.Running) 
+            if (Config.WalkScript == null ||
+                ScriptManager.Running ||
+                !File.Exists(Config.WalkScript) ||
+                !Kernel.Bot.Running)
                 return;
 
             Invoke();
