@@ -46,7 +46,6 @@ namespace RSBot.Default.Bundle.Target
         private void SubscribeEvents()
         {
             EventManager.SubscribeEvent("OnTargetBehindObstacle", OnTargetBehindObstacle);
-            EventManager.SubscribeEvent("OnDestinationBehindObstacle", OnTargetBehindObstacle);
         }
 
         /// <summary>
@@ -65,8 +64,8 @@ namespace RSBot.Default.Bundle.Target
             //Check if the monster is still inside our range
             var distanceToCenter = monster.Movement.Source.DistanceTo(Container.Bot.Area.CenterPosition);
 
-            const int tolarance = 10;
-            if (distanceToCenter > Container.Bot.Area.Radius + tolarance)
+            const int tolerance = 10;
+            if (distanceToCenter > Container.Bot.Area.Radius + tolerance)
                 return;
 
             //Move closer to the monster

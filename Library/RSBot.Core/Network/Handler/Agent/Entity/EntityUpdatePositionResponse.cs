@@ -35,7 +35,6 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
             {
                 Game.Player.StopMoving(position);
 
-                EventManager.FireEvent("OnDestinationBehindObstacle");
                 return;
             }
 
