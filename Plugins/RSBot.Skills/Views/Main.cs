@@ -62,8 +62,52 @@ namespace RSBot.Skills.Views
             EventManager.SubscribeEvent("OnRemoveBuff", new Action<SkillInfo>(OnRemoveBuff));
             EventManager.SubscribeEvent("OnResurrectionRequest", OnResurrectionRequest);
             EventManager.SubscribeEvent("OnExpSpUpdate", OnSpUpdated);
+            EventManager.SubscribeEvent("OnAddItemPerk", new Action<uint, uint>(OnAddItemPerk));
+            EventManager.SubscribeEvent("OnRemoveItemPerk", new Action<uint, ItemPerk>(OnRemoveItemPerk));
         }
 
+        /// <summary>
+        /// Called when [remove item perk].
+        /// </summary>
+        /// <param name="targetId">The target identifier.</param>
+        /// <param name="removedPerk">The removed perk.</param>
+        private void OnRemoveItemPerk(uint targetId, ItemPerk? removedPerk)
+        {
+            if (targetId != Game.Player.UniqueId || removedPerk == null)
+                return;
+
+            for (var i = 0; i < listActiveBuffs.Items.Count; i++)
+            {
+                var listItem = listActiveBuffs.Items[i];
+
+                if (listItem?.Tag is not ItemPerk perkInfo || perkInfo.Token != removedPerk.Token) continue;
+                
+                listItem.Remove();
+                return;
+            }
+        }
+
+        /// <summary>
+        /// Called when [add item perk].
+        /// </summary>
+        /// <param name="targetId">The target identifier.</param>
+        /// <param name="token">The token.</param>
+        private void OnAddItemPerk(uint targetId, uint token)
+        {
+            if (targetId != Game.Player.UniqueId)
+                return;
+
+            var perk = Game.Player.State.ActiveItemPerks[token];
+            var item = new ListViewItem
+            {
+                Text = perk.Item?.GetRealName(),
+                Tag = perk
+            };
+
+            listActiveBuffs.Items.Add(item);
+
+            item.LoadSkillImage();
+        }
         /// <summary>
         /// Will be triggered if EXP/SP were gained. Increases the selected mastery level (if available)
         /// </summary>
