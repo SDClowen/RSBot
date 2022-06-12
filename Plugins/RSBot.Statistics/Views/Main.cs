@@ -170,17 +170,23 @@ namespace RSBot.Statistics.Views
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="ElapsedEventArgs"/> instance containing the event data.</param>
         /// <exception cref="System.NotImplementedException"></exception>
-        private void RefreshTimer_Elapsed(object sender, ElapsedEventArgs e)
+        private void RefreshTimer_Elapsed(object sender, EventArgs e)
         {
-            UpdateStatistics();
+            try
+            {
+                UpdateStatistics();
+            }
+            catch
+            {
+            }
         }
 
         /// <summary>
         /// Handles the Click event of the btnReset control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void btnReset_Click(object sender, System.EventArgs e)
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void btnReset_Click(object sender, EventArgs e)
         {
             foreach (var calculator in CalculatorRegistry.Calculators)
                 calculator.Reset();
@@ -204,11 +210,6 @@ namespace RSBot.Statistics.Views
 
             PopulateStatisticsList();
             _initialReset = false;
-        }
-
-        private void timer_Tick(object sender, EventArgs e)
-        {
-            UpdateStatistics();
         }
     }
 }
