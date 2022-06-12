@@ -299,7 +299,7 @@ namespace RSBot.Skills.Views
 
                     var refSkill = Game.ReferenceManager.GetRefSkill(selectedImbue);
            
-                    if (refSkill != null && refSkill.GroupID == skill.Record.GroupID)
+                    if (refSkill?.GroupID == skill.Record?.GroupID)
                         comboImbue.SelectedIndex = index;
                 }
             }
@@ -329,8 +329,7 @@ namespace RSBot.Skills.Views
                         continue;
 
                     var refSkill = Game.ReferenceManager.GetRefSkill(resurrectionSkillId);
-
-                    if (refSkill != null && refSkill.GroupID == skill.Record.GroupID)
+                    if (refSkill?.GroupID == skill.Record?.GroupID)
                         comboResurrectionSkill.SelectedIndex = index;
                 }
             }
