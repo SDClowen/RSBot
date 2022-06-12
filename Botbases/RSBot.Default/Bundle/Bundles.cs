@@ -128,5 +128,19 @@ namespace RSBot.Default.Bundle
             Resurrect = Resurrect ?? new ResurrectBundle();
             Resurrect.Refresh();
         }
+
+        public static void Stop()
+        {
+            Berzerk?.Stop();
+            Avoidance?.Stop();
+            Movement?.Stop();
+            Buff?.Stop();
+            PartyBuff?.Stop();
+            Target?.Stop();
+            Attack?.Stop();
+            Loot?.Stop();
+            Loop?.Stop();
+            Resurrect?.Stop();
+        }
     }
 }

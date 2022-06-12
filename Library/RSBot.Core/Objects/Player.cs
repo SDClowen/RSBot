@@ -645,7 +645,7 @@ namespace RSBot.Core.Objects
             var awaitCallback = new AwaitCallback(response =>
             {
                 var uniqueId = response.ReadUInt();
-                return uniqueId == Game.Player.UniqueId ? AwaitCallbackResult.Successed : AwaitCallbackResult.ConditionFailed;
+                return uniqueId == Game.Player.UniqueId ? AwaitCallbackResult.Success : AwaitCallbackResult.ConditionFailed;
             }, 0xB021);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallback);
@@ -693,7 +693,7 @@ namespace RSBot.Core.Objects
                     }
                 }
                 var elapsed = Environment.TickCount - tick;
-                Log.Debug($"{potionItem.Record.GetRealName()} {tick}   {elapsed} {duration}    {elapsed < duration}");
+               
                 if (elapsed < duration)
                     return false;
 
@@ -702,6 +702,7 @@ namespace RSBot.Core.Objects
                 if (result)
                     tick = Environment.TickCount;
 
+                Log.Debug($"Potion [{potionItem.Record.GetRealName()}] used");
                 return result;
             }
         }
@@ -804,7 +805,7 @@ namespace RSBot.Core.Objects
         /// <returns></returns>
         public bool SummonVehicle()
         {
-            if (HasActiveVehicle)
+            if (HasActiveVehicle || Game.Player.State.BattleState == BattleState.InBattle)
                 return false;
 
             var typeIdFilter = new TypeIdFilter(3, 3, 3, 2);

@@ -34,7 +34,12 @@ namespace RSBot.Default.Bundle.Buff
         /// </summary>
         public void Refresh()
         {
-            //Nothing to do here
+            //Nothing to do
+        }
+
+        public void Stop()
+        {
+            //Nothing to do
         }
     }
 }

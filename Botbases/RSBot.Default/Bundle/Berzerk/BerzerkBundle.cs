@@ -59,5 +59,10 @@ namespace RSBot.Default.Bundle.Berzerk
                 SurroundingMonsterAmount = PlayerConfig.Get<byte>("RSBot.Berzerk.MonsterAmountNumber", 5)
             };
         }
+
+        public void Stop()
+        {
+            //Nothing to do
+        }
     }
 }

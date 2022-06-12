@@ -16,12 +16,12 @@ namespace RSBot.Core.Network
         /// <summary>
         /// If your condition successfully equal with received packet.
         /// </summary>
-        Successed,
+        Success,
 
         /// <summary>
         /// If your received packet responsed with error code, or could not read required data from received.
         /// </summary>
-        Failed,
+        Fail,
     }
     
     /// <summary>
@@ -81,7 +81,7 @@ namespace RSBot.Core.Network
         /// <value>
         /// <c>true</c> if successed; otherwise <c>false</c>.
         /// </value>
-        private bool _successed;
+        private bool _succeeded;
         /// <summary>
         /// The value indicating whether the <see cref="AwaitCallback"/> is waited for response.
         /// </summary>
@@ -103,7 +103,7 @@ namespace RSBot.Core.Network
                 var temp = false;
                 lock (_lock) 
                 { 
-                    temp = !_timeout && _invoked && _successed; 
+                    temp = !_timeout && _invoked && _succeeded; 
                 }
 
                 return temp;
@@ -136,7 +136,7 @@ namespace RSBot.Core.Network
             Predicate = predicate;
             ResponseOpcode = responseOpcode;
             
-            _invoked = _timeout =_successed = _waited = false;
+            _invoked = _timeout =_succeeded = _waited = false;
         }
 
         /// <summary>
@@ -150,24 +150,28 @@ namespace RSBot.Core.Network
                 _invoked = true;
 
                 if (Predicate == null)
-                    _successed = true;
+                    _succeeded = true;
                 else
                 {
-                    var result = AwaitCallbackResult.Failed;
+                    var result = AwaitCallbackResult.Fail;
 
-                    try { 
-                        result = Predicate(packet); 
-                    } 
-                    catch { }
+                    try
+                    {
+                        result = Predicate(packet);
+                    }
+                    catch(System.Exception ex)
+                    {
+                        Log.Debug($"Callback predicate threw an exception: {ex.Message}\n{ex.StackTrace}");
+                    }
 
                     switch (result)
                     {
-                        case AwaitCallbackResult.Successed:
-                            _successed = true;
+                        case AwaitCallbackResult.Success:
+                            _succeeded = true;
                             break;
                         case AwaitCallbackResult.ConditionFailed:
-                        case AwaitCallbackResult.Failed:
-                            _successed = false;
+                        case AwaitCallbackResult.Fail:
+                            _succeeded = false;
                             break;
                     }
                 }

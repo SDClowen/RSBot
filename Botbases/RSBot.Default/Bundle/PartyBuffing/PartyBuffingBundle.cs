@@ -100,5 +100,10 @@ namespace RSBot.Default.Bundle.PartyBuffing
 
             _refreshing = false;
         }
+
+        public void Stop()
+        {
+            //Nothing to do here
+        }
     }
 }

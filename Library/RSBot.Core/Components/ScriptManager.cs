@@ -110,7 +110,7 @@ namespace RSBot.Core.Components
         /// <summary>
         /// Runs this instance.
         /// </summary>
-        public static void RunScript()
+        public static void RunScript(bool useNearbyWaypoint = true)
         {
             if (Commands == null || Commands.Length == 0)
             {
@@ -120,7 +120,11 @@ namespace RSBot.Core.Components
             }
 
             Running = true;
-            CurrentLineIndex = FindNearestMoveCommandLine();
+
+            if (useNearbyWaypoint)
+                CurrentLineIndex = FindNearestMoveCommandLine();
+            else
+                CurrentLineIndex = 0;
 
             if (CurrentLineIndex != 0)
                 Log.Debug($"[Script] Found nearby walk position at line #{CurrentLineIndex}");
@@ -230,34 +234,28 @@ namespace RSBot.Core.Components
         {
             var playerPos = Game.Player.Movement.Source;
 
-            var nearestCommandLineIndex = 0;
-            Position nearestPosition = default;
+            var line = -1;
+            var moveCommands = new Dictionary<int, Position>();
 
-            var line = 0;
             foreach (var command in Commands)
             {
-                if (command.Trim().StartsWith("//") || 
-                    command.Trim().StartsWith("#") || 
+                line++;
+
+                if (command.Trim().StartsWith("//") ||
+                    command.Trim().StartsWith("#") ||
+                    !command.StartsWith("move") ||
                     string.IsNullOrWhiteSpace(command))
                     continue;
 
                 var args = command.Split(ArgumentSeparator).Skip(1).ToArray();
                 var curPos = ParsePosition(args);
+                var distance = curPos.DistanceToPlayer();
 
-                //Always prefer the first line if it's in range
-                if (line == 0 && playerPos.DistanceTo(curPos) < 100) return line;
-
-                if (playerPos.DistanceTo(curPos) < playerPos.DistanceTo(nearestPosition)
-                    && !CollisionManager.HasCollisionBetween(playerPos, nearestPosition))
-                {
-                    nearestPosition = curPos;
-                    nearestCommandLineIndex = line;
-                }
-
-                line++;
+                if (distance < 100 && !CollisionManager.HasCollisionBetween(playerPos, curPos))
+                    moveCommands.Add(line, curPos);
             }
 
-            return nearestCommandLineIndex;
+            return moveCommands.Count == 0 ? 0 : moveCommands.MinBy(c => c.Value.DistanceToPlayer()).Key;
         }
     }
 }
