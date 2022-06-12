@@ -276,7 +276,7 @@ namespace RSBot.Default.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void checkBerzerkMonsterAmount_CheckedChanged(object sender, EventArgs e)
         {
-            PlayerConfig.Set("RSBot.Berzerk.MonsterAmount", checkBerzerkWhenFull.Checked);
+            PlayerConfig.Set("RSBot.Berzerk.MonsterAmount", checkBerzerkMonsterAmount.Checked);
         }
 
         /// <summary>

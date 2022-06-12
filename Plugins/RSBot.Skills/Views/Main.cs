@@ -282,7 +282,7 @@ namespace RSBot.Skills.Views
             {
                 comboImbue.Items.Clear();
 
-                var selectedImbue = PlayerConfig.Get<int>("RSBot.Skills.Imbue");
+                var selectedImbue = PlayerConfig.Get<uint>("RSBot.Skills.Imbue");
 
                 comboImbue.SelectedIndex = comboImbue.Items.Add("None");
 
@@ -297,7 +297,9 @@ namespace RSBot.Skills.Views
                     if (selectedImbue == 0)
                         continue;
 
-                    if (selectedImbue == skill.Id)
+                    var refSkill = Game.ReferenceManager.GetRefSkill(selectedImbue);
+           
+                    if (refSkill?.GroupID == skill.Record?.GroupID)
                         comboImbue.SelectedIndex = index;
                 }
             }
@@ -322,11 +324,12 @@ namespace RSBot.Skills.Views
                         continue;
 
                     var index = comboResurrectionSkill.Items.Add(skill);
-                    var resurrectionSkillId = PlayerConfig.Get<int>("RSBot.Skills.ResurrectionSkill");
+                    var resurrectionSkillId = PlayerConfig.Get<uint>("RSBot.Skills.ResurrectionSkill");
                     if (resurrectionSkillId == 0)
                         continue;
 
-                    if (skill.Id == resurrectionSkillId)
+                    var refSkill = Game.ReferenceManager.GetRefSkill(resurrectionSkillId);
+                    if (refSkill?.GroupID == skill.Record?.GroupID)
                         comboResurrectionSkill.SelectedIndex = index;
                 }
             }
