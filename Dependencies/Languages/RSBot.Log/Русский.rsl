@@ -1,0 +1,7 @@
+DisplayName="Журнал"
+RSBot.Log.Main.Panel.checkNormal="Обычный"
+RSBot.Log.Main.Panel.checkError="Ошибка"
+RSBot.Log.Main.Panel.checkWarning="Предупреждение"
+RSBot.Log.Main.Panel.checkDebug="Отладка"
+RSBot.Log.Main.Panel.btnReset="чистый"
+RSBot.Log.Main.Panel.checkEnabled="Включено"
