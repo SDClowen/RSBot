@@ -1,0 +1,11 @@
+DisplayName="Инвентарь"
+RSBot.Inventory.Main.Panel.buttonUseItem="Использовать"
+RSBot.Inventory.Main.Panel.label1="Инвентарь:"
+RSBot.Inventory.Main.Panel.label2="Бесплатные слоты:"
+RSBot.Inventory.UseItemDialog.label2="Товар по вашему собственному решению
+  вы можете использовать. Откроется окно условия
+и оттуда вы можете установить условия, которые вы хотите"
+RSBot.Inventory.UseItemDialog.label1="Если вы хотите использовать товар напрямую,
+ просто нажмите кнопку"
+RSBot.Inventory.UseItemDialog.buttonCancel="Использовать с условиями"
+RSBot.Inventory.UseItemDialog.buttonOk="Использовать напрямую"
