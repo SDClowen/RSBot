@@ -1,0 +1,7 @@
+DisplayName="Log"
+RSBot.Log.Main.Panel.checkNormal="عادي"
+RSBot.Log.Main.Panel.checkError="خطأ"
+RSBot.Log.Main.Panel.checkWarning="تحذير"
+RSBot.Log.Main.Panel.checkDebug="تصحيح"
+RSBot.Log.Main.Panel.btnReset="مسح الكل"
+RSBot.Log.Main.Panel.checkEnabled="تمكين"
