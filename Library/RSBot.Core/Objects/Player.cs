@@ -629,7 +629,7 @@ namespace RSBot.Core.Objects
             packet.WriteByte(1);
             packet.WriteUShort(destination.RegionID);
 
-            if (!destination.IsInDungeon)
+            if (!Game.Player.IsInDungeon)
             {
                 packet.WriteShort(destination.XOffset);
                 packet.WriteShort(destination.ZOffset);
