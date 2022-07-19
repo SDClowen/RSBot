@@ -31,10 +31,10 @@ namespace RSBot.Protection.Components.Player
             if (!useUniversalPill)
                 return;
 
-            if ((Game.Player.BadEffect & BadEffect.UniversallPillEffects) != 0)
+            if ((Game.Player.BadEffect & BadEffectAll.UniversallPillEffects) != 0)
                 Game.Player.UseUniversalPill();
 
-            if ((Game.Player.BadEffect & BadEffect.PurificationPillEffects) != 0)
+            if ((Game.Player.BadEffect & BadEffectAll.PurificationPillEffects) != 0)
                 Game.Player.UsePurificationPill();
         }
     }

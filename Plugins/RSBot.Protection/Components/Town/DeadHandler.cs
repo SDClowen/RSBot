@@ -46,16 +46,14 @@ namespace RSBot.Protection.Components.Town
 
             Log.WarnLang("ResurrectSPointSeconds", timeOut);
 
-            await Task.Delay(timeOut).ContinueWith((e) => 
-            {
-                if (Game.Player.State.LifeState != LifeState.Dead)
-                    return;
+            await Task.Delay(timeOut);
 
-                var packet = new Packet(0x3053);
-                packet.WriteByte(1);
-                PacketManager.SendPacket(packet, PacketDestination.Server);
-            }, 
-            TaskContinuationOptions.ExecuteSynchronously);
+            if (Game.Player.State.LifeState != LifeState.Dead)
+                return;
+
+            var packet = new Packet(0x3053);
+            packet.WriteByte(1);
+            PacketManager.SendPacket(packet, PacketDestination.Server);
         }
     }
 }
