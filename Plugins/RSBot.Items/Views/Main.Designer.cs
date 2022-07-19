@@ -143,6 +143,7 @@
             this.cbJustpickmyitems = new SDUI.Controls.CheckBox();
             this.checkDontPickupInBerzerk = new SDUI.Controls.CheckBox();
             this.checkEnableAbilityPet = new SDUI.Controls.CheckBox();
+            this.checkPickupBlue = new SDUI.Controls.CheckBox();
             this.checkPickupRare = new SDUI.Controls.CheckBox();
             this.checkPickupGold = new SDUI.Controls.CheckBox();
             this.contextShoppingList.SuspendLayout();
@@ -1362,10 +1363,10 @@
             // 
             this.tabPage1.BackColor = System.Drawing.Color.White;
             this.tabPage1.Controls.Add(this.groupBox7);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(746, 444);
+            this.tabPage1.Size = new System.Drawing.Size(746, 445);
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Pickup settings";
             // 
@@ -1376,13 +1377,14 @@
             this.groupBox7.Controls.Add(this.cbJustpickmyitems);
             this.groupBox7.Controls.Add(this.checkDontPickupInBerzerk);
             this.groupBox7.Controls.Add(this.checkEnableAbilityPet);
+            this.groupBox7.Controls.Add(this.checkPickupBlue);
             this.groupBox7.Controls.Add(this.checkPickupRare);
             this.groupBox7.Controls.Add(this.checkPickupGold);
             this.groupBox7.Location = new System.Drawing.Point(6, 6);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupBox7.Radius = 2;
-            this.groupBox7.Size = new System.Drawing.Size(491, 112);
+            this.groupBox7.Size = new System.Drawing.Size(734, 112);
             this.groupBox7.TabIndex = 0;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "General";
@@ -1392,7 +1394,7 @@
             this.cbDontPickupWhileBotting.AutoSize = true;
             this.cbDontPickupWhileBotting.BackColor = System.Drawing.Color.Transparent;
             this.cbDontPickupWhileBotting.Checked = false;
-            this.cbDontPickupWhileBotting.Location = new System.Drawing.Point(264, 82);
+            this.cbDontPickupWhileBotting.Location = new System.Drawing.Point(495, 32);
             this.cbDontPickupWhileBotting.Name = "cbDontPickupWhileBotting";
             this.cbDontPickupWhileBotting.Size = new System.Drawing.Size(196, 15);
             this.cbDontPickupWhileBotting.TabIndex = 3;
@@ -1404,7 +1406,7 @@
             this.cbJustpickmyitems.AutoSize = true;
             this.cbJustpickmyitems.BackColor = System.Drawing.Color.Transparent;
             this.cbJustpickmyitems.Checked = false;
-            this.cbJustpickmyitems.Location = new System.Drawing.Point(264, 57);
+            this.cbJustpickmyitems.Location = new System.Drawing.Point(232, 82);
             this.cbJustpickmyitems.Name = "cbJustpickmyitems";
             this.cbJustpickmyitems.Size = new System.Drawing.Size(120, 15);
             this.cbJustpickmyitems.TabIndex = 1;
@@ -1416,7 +1418,7 @@
             this.checkDontPickupInBerzerk.AutoSize = true;
             this.checkDontPickupInBerzerk.BackColor = System.Drawing.Color.Transparent;
             this.checkDontPickupInBerzerk.Checked = false;
-            this.checkDontPickupInBerzerk.Location = new System.Drawing.Point(264, 32);
+            this.checkDontPickupInBerzerk.Location = new System.Drawing.Point(232, 57);
             this.checkDontPickupInBerzerk.Name = "checkDontPickupInBerzerk";
             this.checkDontPickupInBerzerk.Size = new System.Drawing.Size(211, 15);
             this.checkDontPickupInBerzerk.TabIndex = 2;
@@ -1428,12 +1430,24 @@
             this.checkEnableAbilityPet.AutoSize = true;
             this.checkEnableAbilityPet.BackColor = System.Drawing.Color.Transparent;
             this.checkEnableAbilityPet.Checked = false;
-            this.checkEnableAbilityPet.Location = new System.Drawing.Point(16, 82);
+            this.checkEnableAbilityPet.Location = new System.Drawing.Point(232, 32);
             this.checkEnableAbilityPet.Name = "checkEnableAbilityPet";
             this.checkEnableAbilityPet.Size = new System.Drawing.Size(185, 15);
             this.checkEnableAbilityPet.TabIndex = 1;
             this.checkEnableAbilityPet.Text = "Use ability pet to pickup items ";
             this.checkEnableAbilityPet.CheckedChanged += new System.EventHandler(this.checkEnableAbilityPet_CheckedChanged);
+            // 
+            // checkPickupBlue
+            // 
+            this.checkPickupBlue.AutoSize = true;
+            this.checkPickupBlue.BackColor = System.Drawing.Color.Transparent;
+            this.checkPickupBlue.Checked = false;
+            this.checkPickupBlue.Location = new System.Drawing.Point(16, 82);
+            this.checkPickupBlue.Name = "checkPickupBlue";
+            this.checkPickupBlue.Size = new System.Drawing.Size(157, 15);
+            this.checkPickupBlue.TabIndex = 1;
+            this.checkPickupBlue.Text = "Always pickup blue items";
+            this.checkPickupBlue.CheckedChanged += new System.EventHandler(this.checkPickupBlue_CheckedChanged);
             // 
             // checkPickupRare
             // 
@@ -1617,5 +1631,6 @@
         private SDUI.Controls.Separator separator2;
         private SDUI.Controls.Separator separator5;
         private SDUI.Controls.CheckBox checkStoreItemsFromPet;
+        private SDUI.Controls.CheckBox checkPickupBlue;
     }
 }

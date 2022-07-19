@@ -572,10 +572,11 @@ namespace RSBot.Items.Views
             checkSellItemsFromPet.Checked = PlayerConfig.Get("RSBot.Shopping.SellPetItems", true);
             checkPickupGold.Checked = PlayerConfig.Get("RSBot.Items.Pickup.Gold", true);
             checkPickupRare.Checked = PlayerConfig.Get("RSBot.Items.Pickup.Rare", true);
+            checkPickupBlue.Checked = PlayerConfig.Get("RSBot.Items.Pickup.Blue", true);
             checkEnableAbilityPet.Checked = PlayerConfig.Get("RSBot.Items.Pickup.EnableAbilityPet", true);
             checkStoreItemsFromPet.Checked = PlayerConfig.Get("RSBot.Shopping.StorePetItems", true);
             checkDontPickupInBerzerk.Checked = PlayerConfig.Get("RSBot.Items.Pickup.DontPickupInBerzerk", true);
-            cbJustpickmyitems.Checked = PlayerConfig.Get("RSBot.Items.Pickup.JustPickMyItems", true);
+            cbJustpickmyitems.Checked = PlayerConfig.Get("RSBot.Items.Pickup.JustPickMyItems", false);
             cbDontPickupWhileBotting.Checked = PlayerConfig.Get<bool>("RSBot.Items.Pickup.DontPickupWhileBotting");
 
             ShoppingManager.Enabled = checkEnable.Checked;
@@ -876,6 +877,16 @@ namespace RSBot.Items.Views
         private void checkPickupRare_CheckedChanged(object sender, EventArgs e)
         {
             PlayerConfig.Set("RSBot.Items.Pickup.Rare", checkPickupRare.Checked);
+        }
+
+        /// <summary>
+        /// Handles the CheckedChanged event of the checkPickupBlue control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void checkPickupBlue_CheckedChanged(object sender, EventArgs e)
+        {
+            PlayerConfig.Set("RSBot.Items.Pickup.Blue", checkPickupBlue.Checked);
         }
 
         /// <summary>

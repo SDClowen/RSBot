@@ -27,7 +27,7 @@ namespace RSBot.Default.Bundle.Loot
                 Task.Run(() => PickupManager.Run(Container.Bot.Area.CenterPosition, Container.Bot.Area.Radius));
             else
             {
-                if (Bundles.Loot.Config.DontPickupInBerzerk && Game.Player.Berzerking && Config.UseAbilityPet && Game.Player.HasActiveAbilityPet)
+                if (Bundles.Loot.Config.DontPickupInBerzerk && Game.Player.Berzerking)
                     return;
 
                 PickupManager.Run(Container.Bot.Area.CenterPosition, Container.Bot.Area.Radius);
