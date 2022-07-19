@@ -1,5 +1,6 @@
 DisplayName="Entrenamiento"
 TabText="Entrenamiento"
+RSBot.Default.Main.GroupBox.checkBoxUseReverse="Use Reverse"
 RSBot.Default.Main.GroupBox.checkUseSpeedDrug="Usar Drogas de Velocidad"
 RSBot.Default.Main.GroupBox.checkCastBuffs="Usar Buffs"
 RSBot.Default.Main.GroupBox.checkUseMount="Usar Caballo Disponible"

@@ -198,6 +198,16 @@ namespace RSBot.Default.Views
         }
 
         /// <summary>
+        /// Handles the CheckedChanged event of the checkBoxUseReverse control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void checkBoxUseReverse_CheckedChanged(object sender, EventArgs e)
+        {
+            PlayerConfig.Set("RSBot.Walkback.UseReverse", checkBoxUseReverse.Checked);
+        }
+
+        /// <summary>
         /// Handles the CheckedChanged event of the checkCastBuffs control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -315,6 +325,7 @@ namespace RSBot.Default.Views
             checkUseMount.Checked = PlayerConfig.Get<bool>("RSBot.Walkback.UseMount");
             checkCastBuffs.Checked = PlayerConfig.Get("RSBot.Walkback.CastBuffs", true);
             checkUseSpeedDrug.Checked = PlayerConfig.Get<bool>("RSBot.Walkback.UseSpeedDrug");
+            checkBoxUseReverse.Checked = PlayerConfig.Get<bool>("RSBot.Walkback.UseReverse");
 
             //BerzerkBundle
             checkBerzerkWhenFull.Checked = PlayerConfig.Get<bool>("RSBot.Berzerk.WhenFull");
