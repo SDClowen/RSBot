@@ -33,7 +33,9 @@ namespace RSBot.Protection.Views
         {
             EventManager.SubscribeEvent("OnEnterGame", OnEnterGame);
             EventManager.SubscribeEvent("OnLoadCharacter", OnLoadCharacter);
-            EventManager.SubscribeEvent("OnLearnSkill", new Action<SkillInfo, bool>(OnLearnSkill));
+
+            EventManager.SubscribeEvent("OnSkillLearned", new Action<SkillInfo>(OnSkillLearned));
+            EventManager.SubscribeEvent("OnSkillUpgraded", new Action<SkillInfo, SkillInfo>(OnSkillUpgraded));
 
             EventManager.SubscribeEvent("OnIncreaseStrength", OnIncreaseStat);
             EventManager.SubscribeEvent("OnIncreaseIntelligence", OnIncreaseStat);
@@ -216,12 +218,21 @@ namespace RSBot.Protection.Views
         }
 
         /// <summary>
+        /// Call after skill learned
         /// </summary>
-        /// <param name="skill">The skill.</param>
-        /// <param name="update">if set to <c>true</c> [update].</param>
-        private void OnLearnSkill(SkillInfo skill, bool update)
+        /// <param name="skill">The learned skill.</param>
+        private void OnSkillLearned(SkillInfo skill)
         {
             RefreshSkills();
+        }
+
+        /// <summary>
+        /// Call after skill learned
+        /// </summary>
+        /// <param name="skill">The learned skill.</param>
+        private void OnSkillUpgraded(SkillInfo oldSkill, SkillInfo newSkill)
+        {
+            // TODO: Update old skill ids in config
         }
 
         /// <summary>

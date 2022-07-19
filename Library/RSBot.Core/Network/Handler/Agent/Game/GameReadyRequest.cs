@@ -1,4 +1,5 @@
-﻿using RSBot.Core.Event;
+﻿using RSBot.Core.Components;
+using RSBot.Core.Event;
 using System.Timers;
 
 namespace RSBot.Core.Network.Handler.Agent
@@ -27,6 +28,34 @@ namespace RSBot.Core.Network.Handler.Agent
         /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
+            var itemCount = packet.ReadByte();
+            for (int i = 0; i < itemCount; i++)
+            {
+                var itemId = packet.ReadUInt();
+                var milliseconds = packet.ReadInt();
+            }
+
+            var skillCount = packet.ReadByte();
+            for (int i = 0; i < skillCount; i++)
+            {
+                var skillId = packet.ReadUInt();
+                var milliseconds = packet.ReadInt();
+
+                var skillInfo = Game.Player.Skills.GetSkillInfoById(skillId);
+                if (skillInfo == null)
+                {
+                    skillInfo = SkillManager.Buffs.Find(p => p.Id == skillId);
+                    if (skillInfo == null)
+                    {
+                        skillInfo = new Objects.Skill.SkillInfo(skillId, true);
+                        SkillManager.Buffs.Add(skillInfo);
+                    }
+
+                }
+
+                skillInfo.SetCoolDown(milliseconds);
+            }
+
             Game.Player.Teleportation = null;
 
             Log.Debug("The player is untouchable for 5s");

@@ -1,6 +1,7 @@
 ﻿using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Network;
 using System;
+using System.Diagnostics;
 
 namespace RSBot.Core.Objects.Skill
 {
@@ -61,12 +62,12 @@ namespace RSBot.Core.Objects.Skill
         /// <summary>
         /// Skill cool down environment tick
         /// </summary>
-        private int _cooldownTick;
+        private long _cooldownTick;
         
         /// <summary>
         /// Skill can not be casted environment tick
         /// </summary>
-        private int _canNotBeCastedTick;
+        private long _canNotBeCastedTick;
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance has cooldown.
@@ -75,7 +76,7 @@ namespace RSBot.Core.Objects.Skill
         /// <c>true</c> if this instance has cooldown; otherwise, <c>false</c>.
         /// </value>
         public bool HasCooldown 
-            => (Environment.TickCount - _cooldownTick) < Record.Action_ReuseDelay;
+            => (Environment.TickCount64 - _cooldownTick) < Record.Action_ReuseDelay;
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance can be used.
@@ -84,7 +85,7 @@ namespace RSBot.Core.Objects.Skill
         /// <c>true</c> if this instance can be used; otherwise, <c>false</c>.
         /// </value>
         public bool CanNotBeCasted
-            => (Environment.TickCount - _canNotBeCastedTick) < _duration;
+            => (Environment.TickCount64 - _canNotBeCastedTick) < _duration;
 
         /// <summary>
         /// Gets a value indicating whether this instance can be used.
@@ -140,8 +141,24 @@ namespace RSBot.Core.Objects.Skill
         /// </summary>
         public void Update()
         {
-            _cooldownTick = Environment.TickCount;
-            _canNotBeCastedTick = Environment.TickCount;
+            _cooldownTick = Environment.TickCount64;
+            _canNotBeCastedTick = Environment.TickCount64;
+        }
+
+        /// <summary>
+        /// Set cooldown
+        /// </summary>
+        public void SetCoolDown(int milliseconds)
+        {
+            _cooldownTick = Environment.TickCount64 - milliseconds;
+        }
+
+        /// <summary>
+        /// Set cooldown
+        /// </summary>
+        public void SetCannotBeCasted(int milliseconds)
+        {
+            _canNotBeCastedTick = Environment.TickCount64 - milliseconds;
         }
 
         /// <summary>

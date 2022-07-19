@@ -188,6 +188,9 @@ namespace RSBot.Core.Components
         /// <param name="skill">The using skill</param>
         public static bool CheckSkillRequired(RefSkill skill)
         {
+            if (skill.ReqCommon_Mastery1 == 1)
+                return true;
+
             InventoryItem requiredItem = null;
             TypeIdFilter filter = null;
 
@@ -381,9 +384,10 @@ namespace RSBot.Core.Components
         /// <param name="skillId">The skill identifier.</param>
         public static void CastBuff(SkillInfo skill, uint target = 0)
         {
+            /*
             if (!Game.Player.Skills.HasSkill(skill.Id))
                 return;
-
+            */
             if (!CheckSkillRequired(skill.Record))
                 return;
 

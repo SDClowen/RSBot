@@ -31,8 +31,8 @@
             this.groupBox1 = new SDUI.Controls.GroupBox();
             this.checkBoxNoAttack = new SDUI.Controls.CheckBox();
             this.listAttackingSkills = new SDUI.Controls.ListView();
-            this.columnName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnName = new System.Windows.Forms.ColumnHeader();
+            this.columnLevel = new System.Windows.Forms.ColumnHeader();
             this.label2 = new SDUI.Controls.Label();
             this.comboMonsterType = new SDUI.Controls.ComboBox();
             this.btnMoveAttackSkillDown = new SDUI.Controls.Button();
@@ -40,8 +40,8 @@
             this.btnRemoveAttackSkill = new SDUI.Controls.Button();
             this.groupBox2 = new SDUI.Controls.GroupBox();
             this.listBuffs = new SDUI.Controls.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.btnMoveBuffSkillDown = new SDUI.Controls.Button();
             this.comboImbue = new SDUI.Controls.ComboBox();
             this.btnMoveBuffSkillUp = new SDUI.Controls.Button();
@@ -69,8 +69,8 @@
             this.tabControl2 = new SDUI.Controls.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.listSkills = new SDUI.Controls.ListView();
-            this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colName = new System.Windows.Forms.ColumnHeader();
+            this.colLevel = new System.Windows.Forms.ColumnHeader();
             this.skillContextMenu = new SDUI.Controls.ContextMenuStrip();
             this.skillContextMenuAddAttackSkill = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -82,8 +82,8 @@
             this.checkShowBuffs = new SDUI.Controls.CheckBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.listActiveBuffs = new SDUI.Controls.ListView();
-            this.colActiveName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colActiveLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colActiveName = new System.Windows.Forms.ColumnHeader();
+            this.colActiveLevel = new System.Windows.Forms.ColumnHeader();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -139,7 +139,6 @@
             this.columnLevel});
             this.listAttackingSkills.FullRowSelect = true;
             this.listAttackingSkills.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listAttackingSkills.HideSelection = false;
             this.listAttackingSkills.Location = new System.Drawing.Point(6, 25);
             this.listAttackingSkills.Name = "listAttackingSkills";
             this.listAttackingSkills.Size = new System.Drawing.Size(315, 146);
@@ -159,6 +158,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label2.Location = new System.Drawing.Point(9, 180);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(34, 15);
@@ -192,7 +192,7 @@
             // btnMoveAttackSkillDown
             // 
             this.btnMoveAttackSkillDown.Color = System.Drawing.Color.Transparent;
-            this.btnMoveAttackSkillDown.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.btnMoveAttackSkillDown.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnMoveAttackSkillDown.Location = new System.Drawing.Point(327, 85);
             this.btnMoveAttackSkillDown.Name = "btnMoveAttackSkillDown";
             this.btnMoveAttackSkillDown.Radius = 2;
@@ -205,7 +205,7 @@
             // btnMoveAttackSkillUp
             // 
             this.btnMoveAttackSkillUp.Color = System.Drawing.Color.Transparent;
-            this.btnMoveAttackSkillUp.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.btnMoveAttackSkillUp.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnMoveAttackSkillUp.Location = new System.Drawing.Point(327, 55);
             this.btnMoveAttackSkillUp.Name = "btnMoveAttackSkillUp";
             this.btnMoveAttackSkillUp.Radius = 2;
@@ -218,7 +218,7 @@
             // btnRemoveAttackSkill
             // 
             this.btnRemoveAttackSkill.Color = System.Drawing.Color.Transparent;
-            this.btnRemoveAttackSkill.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.btnRemoveAttackSkill.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnRemoveAttackSkill.Location = new System.Drawing.Point(327, 25);
             this.btnRemoveAttackSkill.Name = "btnRemoveAttackSkill";
             this.btnRemoveAttackSkill.Radius = 2;
@@ -253,7 +253,6 @@
             this.columnHeader2});
             this.listBuffs.FullRowSelect = true;
             this.listBuffs.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listBuffs.HideSelection = false;
             this.listBuffs.Location = new System.Drawing.Point(6, 27);
             this.listBuffs.Name = "listBuffs";
             this.listBuffs.Size = new System.Drawing.Size(315, 138);
@@ -273,7 +272,7 @@
             // btnMoveBuffSkillDown
             // 
             this.btnMoveBuffSkillDown.Color = System.Drawing.Color.Transparent;
-            this.btnMoveBuffSkillDown.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.btnMoveBuffSkillDown.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnMoveBuffSkillDown.Location = new System.Drawing.Point(327, 87);
             this.btnMoveBuffSkillDown.Name = "btnMoveBuffSkillDown";
             this.btnMoveBuffSkillDown.Radius = 2;
@@ -300,7 +299,7 @@
             // btnMoveBuffSkillUp
             // 
             this.btnMoveBuffSkillUp.Color = System.Drawing.Color.Transparent;
-            this.btnMoveBuffSkillUp.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.btnMoveBuffSkillUp.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnMoveBuffSkillUp.Location = new System.Drawing.Point(327, 57);
             this.btnMoveBuffSkillUp.Name = "btnMoveBuffSkillUp";
             this.btnMoveBuffSkillUp.Radius = 2;
@@ -313,6 +312,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label1.Location = new System.Drawing.Point(9, 174);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 15);
@@ -322,7 +322,7 @@
             // btnRemoveBuffSkill
             // 
             this.btnRemoveBuffSkill.Color = System.Drawing.Color.Transparent;
-            this.btnRemoveBuffSkill.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.btnRemoveBuffSkill.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnRemoveBuffSkill.Location = new System.Drawing.Point(327, 27);
             this.btnRemoveBuffSkill.Name = "btnRemoveBuffSkill";
             this.btnRemoveBuffSkill.Radius = 2;
@@ -350,10 +350,10 @@
             this.tabPage1.BackColor = System.Drawing.Color.White;
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.groupBox2);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(384, 438);
+            this.tabPage1.Size = new System.Drawing.Size(384, 439);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General setup";
             // 
@@ -364,10 +364,10 @@
             this.tabPage2.Controls.Add(this.grpMasteryLearn);
             this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Controls.Add(this.groupBox4);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(384, 438);
+            this.tabPage2.Size = new System.Drawing.Size(384, 439);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Advanced setup";
             // 
@@ -389,7 +389,7 @@
             this.checkWarlockMode.AutoSize = true;
             this.checkWarlockMode.BackColor = System.Drawing.Color.Transparent;
             this.checkWarlockMode.Checked = false;
-            this.checkWarlockMode.Location = new System.Drawing.Point(86, 33);
+            this.checkWarlockMode.Location = new System.Drawing.Point(86, 39);
             this.checkWarlockMode.Name = "checkWarlockMode";
             this.checkWarlockMode.Size = new System.Drawing.Size(162, 15);
             this.checkWarlockMode.TabIndex = 0;
@@ -427,7 +427,8 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(252, 51);
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label4.Location = new System.Drawing.Point(252, 48);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(28, 15);
             this.label4.TabIndex = 3;
@@ -435,8 +436,10 @@
             // 
             // numMasteryGap
             // 
+            this.numMasteryGap.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
             this.numMasteryGap.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numMasteryGap.Location = new System.Drawing.Point(286, 48);
+            this.numMasteryGap.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.numMasteryGap.Location = new System.Drawing.Point(286, 45);
             this.numMasteryGap.Maximum = new decimal(new int[] {
             9,
             0,
@@ -455,7 +458,7 @@
             this.comboLearnMastery.FormattingEnabled = true;
             this.comboLearnMastery.IntegralHeight = false;
             this.comboLearnMastery.ItemHeight = 17;
-            this.comboLearnMastery.Location = new System.Drawing.Point(86, 48);
+            this.comboLearnMastery.Location = new System.Drawing.Point(88, 45);
             this.comboLearnMastery.Name = "comboLearnMastery";
             this.comboLearnMastery.Size = new System.Drawing.Size(151, 23);
             this.comboLearnMastery.TabIndex = 1;
@@ -518,6 +521,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label3.Location = new System.Drawing.Point(26, 35);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(54, 15);
@@ -592,10 +596,10 @@
             this.tabPage3.BackColor = System.Drawing.Color.White;
             this.tabPage3.Controls.Add(this.listSkills);
             this.tabPage3.Controls.Add(this.panel1);
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(354, 438);
+            this.tabPage3.Size = new System.Drawing.Size(354, 439);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Player skills";
             // 
@@ -611,10 +615,9 @@
             this.listSkills.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.listSkills.FullRowSelect = true;
             this.listSkills.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listSkills.HideSelection = false;
             this.listSkills.Location = new System.Drawing.Point(3, 3);
             this.listSkills.Name = "listSkills";
-            this.listSkills.Size = new System.Drawing.Size(348, 403);
+            this.listSkills.Size = new System.Drawing.Size(348, 404);
             this.listSkills.TabIndex = 5;
             this.listSkills.UseCompatibleStateImageBehavior = false;
             this.listSkills.View = System.Windows.Forms.View.Details;
@@ -663,12 +666,13 @@
             // panel1
             // 
             this.panel1.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
+            this.panel1.BorderColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.checkHideLowerLevelSkills);
             this.panel1.Controls.Add(this.checkShowAttacks);
             this.panel1.Controls.Add(this.checkShowBuffs);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(3, 406);
+            this.panel1.Location = new System.Drawing.Point(3, 407);
             this.panel1.Name = "panel1";
             this.panel1.Radius = 0;
             this.panel1.Size = new System.Drawing.Size(348, 29);
@@ -678,6 +682,7 @@
             // 
             this.panel2.BackColor = System.Drawing.Color.Transparent;
             this.panel2.Border = new System.Windows.Forms.Padding(0, 0, 0, 0);
+            this.panel2.BorderColor = System.Drawing.Color.Transparent;
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
@@ -743,7 +748,6 @@
             this.listActiveBuffs.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.listActiveBuffs.FullRowSelect = true;
             this.listActiveBuffs.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listActiveBuffs.HideSelection = false;
             this.listActiveBuffs.Location = new System.Drawing.Point(3, 3);
             this.listActiveBuffs.Name = "listActiveBuffs";
             this.listActiveBuffs.Size = new System.Drawing.Size(348, 432);
@@ -767,7 +771,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Controls.Add(this.tabControl2);
             this.Controls.Add(this.tabControl1);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "Main";
             this.Size = new System.Drawing.Size(754, 467);
             this.groupBox1.ResumeLayout(false);
