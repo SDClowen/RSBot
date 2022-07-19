@@ -43,6 +43,8 @@ namespace RSBot.Core.Network.Handler.Agent.Action
                         break;
 
                     case 0x06: // invalid target
+                        break;
+
                     case 0x10: // obstacle
                         EventManager.FireEvent("OnTargetBehindObstacle");
                         break;
