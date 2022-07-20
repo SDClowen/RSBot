@@ -86,6 +86,7 @@ namespace RSBot.Default.Bundle.Target
             if (!SpawnManager.TryGetEntities<SpawnedMonster>(out var entities, m => m.State.LifeState == LifeState.Alive &&
                             !(warlockModeEnabled && m.State.HasTwoDots()) &&
                             m.IsBehindObstacle == false &&
+                            !_blacklistTimers.ContainsKey(m) &&
                             !Bundles.Avoidance.AvoidMonster(m.Rarity) &&
                             m.DistanceToPlayer <= 40))
                 return default(SpawnedMonster);
