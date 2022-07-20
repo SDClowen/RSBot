@@ -78,12 +78,12 @@ namespace RSBot.Core.Objects
         /// </summary>
         /// <param name="name">The name.</param>
         /// <returns></returns>
-        public RefSkill GetSkillRecordByName(string name)
+        public SkillInfo? GetSkillRecordByName(string name)
         {
             if (KnownSkills == null || name == null) 
                 return null;
 
-            return KnownSkills.Find(s => s.Record.GetRealName() == name)?.Record;
+            return KnownSkills.Find(s => s.Record.GetRealName() == name);
         }
 
         /// <summary>

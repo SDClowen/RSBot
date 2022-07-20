@@ -133,7 +133,7 @@ namespace RSBot.Core.Objects
         /// Use the item for destination item
         /// </summary>
         /// <param name="destinationSlot">The destination item slot</param>
-        public void UseTo(byte destinationSlot)
+        public bool UseTo(byte destinationSlot)
         {
             var packet = new Packet(0x704C);
             packet.WriteByte(Slot);
@@ -145,7 +145,13 @@ namespace RSBot.Core.Objects
 
             packet.WriteByte(destinationSlot);
 
-            PacketManager.SendPacket(packet, PacketDestination.Server);
+            var asyncCallback = new AwaitCallback(response => response.ReadByte() == 0x01 ?
+                AwaitCallbackResult.Success : AwaitCallbackResult.Fail, 0xB04C);
+
+            PacketManager.SendPacket(packet, PacketDestination.Server, asyncCallback);
+            asyncCallback.AwaitResponse(500);
+
+            return asyncCallback.IsCompleted;
         }
 
         /// <summary>
@@ -354,6 +360,13 @@ namespace RSBot.Core.Objects
             if (Record.Country != Game.Player.Record.Country) return false;
 
             return true;
+        }
+
+        public bool HasAbility(out RefAbilityByItemOptLevel abilityItem)
+        {
+            abilityItem = Game.ReferenceManager.GetAbilityItem(ItemId, OptLevel);
+
+            return abilityItem != null;
         }
 
         public override bool Equals(object obj)

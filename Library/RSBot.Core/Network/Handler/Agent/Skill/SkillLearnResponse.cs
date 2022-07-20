@@ -28,20 +28,26 @@ namespace RSBot.Core.Network.Handler.Agent.Skill
         public void Invoke(Packet packet)
         {
             var result = packet.ReadByte();
-
-            if (result != 1) return;
+            if (result != 1) 
+                return;
 
             var skillId = packet.ReadUInt();
-
             var skill = Game.ReferenceManager.GetRefSkill(skillId);
+
             var existingSkill = Game.Player.Skills.GetSkillRecordByName(skill.GetRealName());
+            if (existingSkill == null)
+            {
+                var skillInfo = new SkillInfo(skillId, true);
 
-            if (existingSkill == null) //New skill learned
-                Game.Player.Skills.KnownSkills.Add(new SkillInfo(skill.ID, true));
-            else //Skill leveled up
-                Game.Player.Skills.GetSkillInfoById(existingSkill.ID).Id = skill.ID;
-
-            EventManager.FireEvent("OnLearnSkill", Game.Player.Skills.GetSkillInfoById(skill.ID), existingSkill != null);
+                Game.Player.Skills.KnownSkills.Add(skillInfo);
+                EventManager.FireEvent("OnSkillLearned", skillInfo);
+            }
+            else
+            {
+                var oldSkill = new SkillInfo(existingSkill.Id, false);
+                existingSkill.Id = skillId;
+                EventManager.FireEvent("OnSkillUpgraded", oldSkill, existingSkill);
+            }
         }
     }
 }

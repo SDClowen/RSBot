@@ -17,35 +17,37 @@ namespace RSBot.Core.Client
     {
         public int LanguageTab { get; set; }
 
-        public Dictionary<string, RefText> TextData { get; set; }
-        public Dictionary<uint, RefObjChar> CharacterData { get; set; }
-        public Dictionary<uint, RefObjItem> ItemData { get; set; }
-        public Dictionary<byte, RefLevel> LevelData { get; set; }
-        public Dictionary<uint, RefQuest> QuestData { get; set; }
-        public Dictionary<uint, RefSkill> SkillData { get; set; }
-        public Dictionary<uint, RefSkillMastery> SkillMasteryData { get; set; }
-        public Dictionary<string, RefShop> Shops { get; set; }
-        public Dictionary<string, RefShopTab> ShopTabs { get; set; }
-        public Dictionary<string, RefShopGroup> ShopGroups { get; set; }
-        public List<RefMappingShopGroup> ShopGroupMapping { get; set; }
-        public List<RefMappingShopWithTab> ShopTabMapping { get; set; }
-        public List<RefShopGood> ShopGoods { get; set; }
-        public Dictionary<string, RefPackageItemScrap> PackageItemScrap { get; set; }
-        public List<RefTeleport> TeleportData { get; set; }
-        public List<RefTeleportLink> TeleportLinks { get; set; }
-        public GatewayInfo GatewayInfo { get; set; }
-        public DivisionInfo DivisionInfo { get; set; }
-        public VersionInfo VersionInfo { get; set; }
+        public Dictionary<string, RefText> TextData { get; } = new(50000);
+        public Dictionary<uint, RefObjChar> CharacterData { get; } = new(20000);
+        public Dictionary<uint, RefObjItem> ItemData { get; } = new(20000);
+        public Dictionary<byte, RefLevel> LevelData { get; } = new(128);
+        public Dictionary<uint, RefQuest> QuestData { get; } = new(1024);
+        public Dictionary<uint, RefSkill> SkillData { get; } = new(35000);
+        public Dictionary<uint, RefSkillMastery> SkillMasteryData { get; } = new(32);
+        public Dictionary<int, RefAbilityByItemOptLevel> AbilityItemByOptLevel { get; } = new(256);
+        public List<RefSkillByItemOptLevel> SkillByItemOptLevels { get; } = new(256);
+        public Dictionary<string, RefShop> Shops { get; } = new(128);
+        public Dictionary<string, RefShopTab> ShopTabs { get; } = new(256);
+        public Dictionary<string, RefShopGroup> ShopGroups { get; } = new(128);
+        public List<RefMappingShopGroup> ShopGroupMapping { get; } = new(128);
+        public List<RefMappingShopWithTab> ShopTabMapping { get; } = new(128);
+        public List<RefShopGood> ShopGoods { get; } = new(4096);
+        public Dictionary<string, RefPackageItemScrap> PackageItemScrap { get; } = new(2048);
+        public List<RefTeleport> TeleportData { get; } = new(256);
+        public List<RefTeleportLink> TeleportLinks { get; } = new(256);
+        public GatewayInfo GatewayInfo { get; private set; }
+        public DivisionInfo DivisionInfo { get; private set; }
+        public VersionInfo VersionInfo { get; private set; }
 
         /// <summary>
         /// Gets the list of magic options
         /// </summary>
-        public List<RefMagicOpt> MagicOptions { get; private set; }
+        public List<RefMagicOpt> MagicOptions { get; } = new(1024);
 
         /// <summary>
         /// Gets the list of all magic option assignments
         /// </summary>
-        public List<RefMagicOptAssign> MagicOptionAssignments { get; private set; }
+        public List<RefMagicOptAssign> MagicOptionAssignments { get; } = new(128);
 
         public void Load(int languageTab)
         {
@@ -54,32 +56,6 @@ namespace RSBot.Core.Client
             DivisionInfo = DivisionInfo.Load();
             GatewayInfo = GatewayInfo.Load();
             VersionInfo = VersionInfo.Load();
-
-            TextData = new Dictionary<string, RefText>(50000);
-
-            //this.ObjectData = new Dictionary<uint, RefObjCommon>(50000);
-            CharacterData = new Dictionary<uint, RefObjChar>(20000);
-            ItemData = new Dictionary<uint, RefObjItem>(20000);
-
-            LevelData = new Dictionary<byte, RefLevel>(128);
-            QuestData = new Dictionary<uint, RefQuest>(1024);
-
-            SkillData = new Dictionary<uint, RefSkill>(35000);
-            SkillMasteryData = new Dictionary<uint, RefSkillMastery>(32);
-
-            TeleportData = new List<RefTeleport>(256);
-            TeleportLinks = new List<RefTeleportLink>(256);
-
-            Shops = new Dictionary<string, RefShop>(128);
-            ShopTabs = new Dictionary<string, RefShopTab>(256);
-            ShopGroups = new Dictionary<string, RefShopGroup>(128);
-            ShopGoods = new List<RefShopGood>(4096);
-            ShopGroupMapping = new List<RefMappingShopGroup>(128);
-            ShopTabMapping = new List<RefMappingShopWithTab>(128);
-            PackageItemScrap = new Dictionary<string, RefPackageItemScrap>(2048);
-
-            MagicOptionAssignments = new List<RefMagicOptAssign>(128);
-            MagicOptions = new List<RefMagicOpt>(1024);
 
             Parallel.Invoke
             (
@@ -103,6 +79,12 @@ namespace RSBot.Core.Client
                 () => LoadReferenceFile("magicoption.txt", MagicOptions),
                 () => LoadReferenceFile("magicoptionassign.txt", MagicOptionAssignments)
             );
+
+            if(Game.ClientType > GameClientType.Japanese_Old)
+            {
+                LoadReferenceFile("refabilitybyitemoptleveldata.txt", AbilityItemByOptLevel);
+                LoadReferenceFile("refskillbyitemoptleveldata.txt", SkillByItemOptLevels);
+            }
 
             GC.Collect();
             EventManager.FireEvent("OnLoadGameData");
@@ -648,6 +630,17 @@ namespace RSBot.Core.Client
         public List<RefMagicOpt> GetAssignments(byte typeId3, byte typeId4)
         {
             return MagicOptionAssignments.FirstOrDefault(a => a.TypeId3 == typeId3 && a.TypeId4 == typeId4)?.AvailableMagicOptions.Select(GetMagicOption).ToList();
+        }
+
+        /// <summary>
+        /// Gets a ability item for the specified <paramref name="itemId"/> and <paramref name="optLevel"/>
+        /// </summary>
+        /// <param name="itemId">Item Id</param>
+        /// <param name="optLevel">Opt Level</param>
+        /// <returns></returns>
+        public RefAbilityByItemOptLevel GetAbilityItem(uint itemId, byte optLevel)
+        {
+            return AbilityItemByOptLevel.Values.FirstOrDefault(p => p.ItemId == itemId && p.OptLevel == optLevel);
         }
     }
 }
