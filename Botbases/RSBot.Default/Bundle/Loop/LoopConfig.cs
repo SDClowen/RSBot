@@ -27,6 +27,14 @@
         public bool UseSpeedDrug { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [use speed drug].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [use speed drug]; otherwise, <c>false</c>.
+        /// </value>
+        public bool UseReverse { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [cast buffs].
         /// </summary>
         /// <value>

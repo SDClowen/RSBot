@@ -45,6 +45,9 @@ namespace RSBot.Core.Network.Handler.Agent.Action
                 var hasHealth = packet.ReadBool();
                 if (hasHealth)
                     entity.Health = packet.ReadInt();
+                
+                /*if (Game.ClientType >= GameClientType.Global)
+                    packet.ReadUInt(); // ??*/
 
                 //entity.Talk.Deserialize(packet);
             }

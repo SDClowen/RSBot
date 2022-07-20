@@ -42,13 +42,14 @@
             System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem("Elite");
             this.groupBox2 = new SDUI.Controls.GroupBox();
             this.lvAvoidance = new SDUI.Controls.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.ctxAvoidance = new SDUI.Controls.ContextMenuStrip();
             this.btnAvoid = new System.Windows.Forms.ToolStripMenuItem();
             this.btnPrefer = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnNoCustomBehavior = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox3 = new SDUI.Controls.GroupBox();
+            this.checkBoxUseReverse = new SDUI.Controls.CheckBox();
             this.checkUseSpeedDrug = new SDUI.Controls.CheckBox();
             this.checkCastBuffs = new SDUI.Controls.CheckBox();
             this.checkUseMount = new SDUI.Controls.CheckBox();
@@ -62,17 +63,17 @@
             this.checkBerzerkAvoidance = new SDUI.Controls.CheckBox();
             this.checkBerzerkMonsterAmount = new SDUI.Controls.CheckBox();
             this.groupBox1 = new SDUI.Controls.GroupBox();
-            this.txtXCoord = new SDUI.Controls.TextBox();
-            this.txtYCoord = new SDUI.Controls.TextBox();
-            this.txtRadius = new SDUI.Controls.TextBox();
-            this.label1 = new SDUI.Controls.Label();
-            this.label2 = new SDUI.Controls.Label();
-            this.label3 = new SDUI.Controls.Label();
-            this.btnGetCurrent = new SDUI.Controls.Button();
-            this.radioCenter = new SDUI.Controls.Radio();
-            this.radioWalkAround = new SDUI.Controls.Radio();
-            this.label5 = new SDUI.Controls.Label();
             this.label6 = new SDUI.Controls.Label();
+            this.label5 = new SDUI.Controls.Label();
+            this.radioWalkAround = new SDUI.Controls.Radio();
+            this.radioCenter = new SDUI.Controls.Radio();
+            this.btnGetCurrent = new SDUI.Controls.Button();
+            this.label3 = new SDUI.Controls.Label();
+            this.label2 = new SDUI.Controls.Label();
+            this.label1 = new SDUI.Controls.Label();
+            this.txtRadius = new SDUI.Controls.TextBox();
+            this.txtYCoord = new SDUI.Controls.TextBox();
+            this.txtXCoord = new SDUI.Controls.TextBox();
             this.groupBox2.SuspendLayout();
             this.ctxAvoidance.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -114,7 +115,6 @@
             listViewGroup2,
             listViewGroup3});
             this.lvAvoidance.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.lvAvoidance.HideSelection = false;
             listViewItem1.Group = listViewGroup3;
             listViewItem2.Group = listViewGroup3;
             listViewItem3.Group = listViewGroup3;
@@ -185,6 +185,7 @@
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox3.Controls.Add(this.checkBoxUseReverse);
             this.groupBox3.Controls.Add(this.checkUseSpeedDrug);
             this.groupBox3.Controls.Add(this.checkCastBuffs);
             this.groupBox3.Controls.Add(this.checkUseMount);
@@ -200,12 +201,24 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Back to training";
             // 
+            // checkBoxUseReverse
+            // 
+            this.checkBoxUseReverse.AutoSize = true;
+            this.checkBoxUseReverse.BackColor = System.Drawing.Color.Transparent;
+            this.checkBoxUseReverse.Checked = false;
+            this.checkBoxUseReverse.Location = new System.Drawing.Point(378, 84);
+            this.checkBoxUseReverse.Name = "checkBoxUseReverse";
+            this.checkBoxUseReverse.Size = new System.Drawing.Size(85, 15);
+            this.checkBoxUseReverse.TabIndex = 7;
+            this.checkBoxUseReverse.Text = "Use Reverse";
+            this.checkBoxUseReverse.CheckedChanged += new System.EventHandler(this.checkBoxUseReverse_CheckedChanged);
+            // 
             // checkUseSpeedDrug
             // 
             this.checkUseSpeedDrug.AutoSize = true;
             this.checkUseSpeedDrug.BackColor = System.Drawing.Color.Transparent;
             this.checkUseSpeedDrug.Checked = false;
-            this.checkUseSpeedDrug.Location = new System.Drawing.Point(273, 84);
+            this.checkUseSpeedDrug.Location = new System.Drawing.Point(261, 84);
             this.checkUseSpeedDrug.Name = "checkUseSpeedDrug";
             this.checkUseSpeedDrug.Size = new System.Drawing.Size(104, 15);
             this.checkUseSpeedDrug.TabIndex = 7;
@@ -217,7 +230,7 @@
             this.checkCastBuffs.AutoSize = true;
             this.checkCastBuffs.BackColor = System.Drawing.Color.Transparent;
             this.checkCastBuffs.Checked = false;
-            this.checkCastBuffs.Location = new System.Drawing.Point(178, 84);
+            this.checkCastBuffs.Location = new System.Drawing.Point(171, 84);
             this.checkCastBuffs.Name = "checkCastBuffs";
             this.checkCastBuffs.Size = new System.Drawing.Size(76, 15);
             this.checkCastBuffs.TabIndex = 6;
@@ -382,71 +395,45 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Area";
             // 
-            // txtXCoord
+            // label6
             // 
-            this.txtXCoord.Location = new System.Drawing.Point(76, 29);
-            this.txtXCoord.MaxLength = 32767;
-            this.txtXCoord.MultiLine = false;
-            this.txtXCoord.Name = "txtXCoord";
-            this.txtXCoord.Size = new System.Drawing.Size(97, 21);
-            this.txtXCoord.TabIndex = 0;
-            this.txtXCoord.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtXCoord.UseSystemPasswordChar = false;
-            this.txtXCoord.TextChanged += new System.EventHandler(this.txtXCoord_TextChanged);
+            this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label6.Location = new System.Drawing.Point(15, 156);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(159, 15);
+            this.label6.TabIndex = 7;
+            this.label6.Text = "If there is no enemy nearby...";
             // 
-            // txtYCoord
+            // label5
             // 
-            this.txtYCoord.Location = new System.Drawing.Point(76, 55);
-            this.txtYCoord.MaxLength = 32767;
-            this.txtYCoord.MultiLine = false;
-            this.txtYCoord.Name = "txtYCoord";
-            this.txtYCoord.Size = new System.Drawing.Size(97, 21);
-            this.txtYCoord.TabIndex = 0;
-            this.txtYCoord.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtYCoord.UseSystemPasswordChar = false;
-            this.txtYCoord.TextChanged += new System.EventHandler(this.txtYCoord_TextChanged);
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label5.Location = new System.Drawing.Point(11, 142);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(200, 2);
+            this.label5.TabIndex = 6;
             // 
-            // txtRadius
+            // radioWalkAround
             // 
-            this.txtRadius.Location = new System.Drawing.Point(76, 81);
-            this.txtRadius.MaxLength = 32767;
-            this.txtRadius.MultiLine = false;
-            this.txtRadius.Name = "txtRadius";
-            this.txtRadius.Size = new System.Drawing.Size(97, 21);
-            this.txtRadius.TabIndex = 0;
-            this.txtRadius.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtRadius.UseSystemPasswordChar = false;
-            this.txtRadius.TextChanged += new System.EventHandler(this.txtRadius_TextChanged);
+            this.radioWalkAround.AutoSize = true;
+            this.radioWalkAround.Checked = false;
+            this.radioWalkAround.Location = new System.Drawing.Point(35, 199);
+            this.radioWalkAround.Name = "radioWalkAround";
+            this.radioWalkAround.Size = new System.Drawing.Size(99, 15);
+            this.radioWalkAround.TabIndex = 5;
+            this.radioWalkAround.Text = "Walk around";
+            this.radioWalkAround.CheckedChanged += new System.EventHandler(this.radioWalkAround_CheckedChanged);
             // 
-            // label1
+            // radioCenter
             // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label1.Location = new System.Drawing.Point(53, 32);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(17, 15);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "X:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label2.Location = new System.Drawing.Point(53, 58);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(17, 15);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Y:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label3.Location = new System.Drawing.Point(27, 84);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(45, 15);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Radius:";
+            this.radioCenter.AutoSize = true;
+            this.radioCenter.Checked = true;
+            this.radioCenter.Location = new System.Drawing.Point(35, 176);
+            this.radioCenter.Name = "radioCenter";
+            this.radioCenter.Size = new System.Drawing.Size(125, 15);
+            this.radioCenter.TabIndex = 4;
+            this.radioCenter.Text = "Go back to center";
+            this.radioCenter.CheckedChanged += new System.EventHandler(this.radioCenter_CheckedChanged);
             // 
             // btnGetCurrent
             // 
@@ -460,45 +447,71 @@
             this.btnGetCurrent.UseVisualStyleBackColor = true;
             this.btnGetCurrent.Click += new System.EventHandler(this.btnGetCurrent_Click);
             // 
-            // radioCenter
+            // label3
             // 
-            this.radioCenter.AutoSize = true;
-            this.radioCenter.Checked = true;
-            this.radioCenter.Location = new System.Drawing.Point(35, 176);
-            this.radioCenter.Name = "radioCenter";
-            this.radioCenter.Size = new System.Drawing.Size(125, 15);
-            this.radioCenter.TabIndex = 4;
-            this.radioCenter.Text = "Go back to center";
-            this.radioCenter.CheckedChanged += new System.EventHandler(this.radioCenter_CheckedChanged);
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label3.Location = new System.Drawing.Point(27, 84);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(45, 15);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Radius:";
             // 
-            // radioWalkAround
+            // label2
             // 
-            this.radioWalkAround.AutoSize = true;
-            this.radioWalkAround.Checked = false;
-            this.radioWalkAround.Location = new System.Drawing.Point(35, 199);
-            this.radioWalkAround.Name = "radioWalkAround";
-            this.radioWalkAround.Size = new System.Drawing.Size(99, 15);
-            this.radioWalkAround.TabIndex = 5;
-            this.radioWalkAround.Text = "Walk around";
-            this.radioWalkAround.CheckedChanged += new System.EventHandler(this.radioWalkAround_CheckedChanged);
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label2.Location = new System.Drawing.Point(53, 58);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(17, 15);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Y:";
             // 
-            // label5
+            // label1
             // 
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label5.Location = new System.Drawing.Point(11, 142);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(200, 2);
-            this.label5.TabIndex = 6;
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label1.Location = new System.Drawing.Point(53, 32);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(17, 15);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "X:";
             // 
-            // label6
+            // txtRadius
             // 
-            this.label6.AutoSize = true;
-            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label6.Location = new System.Drawing.Point(15, 156);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(159, 15);
-            this.label6.TabIndex = 7;
-            this.label6.Text = "If there is no enemy nearby...";
+            this.txtRadius.Location = new System.Drawing.Point(76, 81);
+            this.txtRadius.MaxLength = 32767;
+            this.txtRadius.MultiLine = false;
+            this.txtRadius.Name = "txtRadius";
+            this.txtRadius.Size = new System.Drawing.Size(97, 21);
+            this.txtRadius.TabIndex = 0;
+            this.txtRadius.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtRadius.UseSystemPasswordChar = false;
+            this.txtRadius.TextChanged += new System.EventHandler(this.txtRadius_TextChanged);
+            // 
+            // txtYCoord
+            // 
+            this.txtYCoord.Location = new System.Drawing.Point(76, 55);
+            this.txtYCoord.MaxLength = 32767;
+            this.txtYCoord.MultiLine = false;
+            this.txtYCoord.Name = "txtYCoord";
+            this.txtYCoord.Size = new System.Drawing.Size(97, 21);
+            this.txtYCoord.TabIndex = 0;
+            this.txtYCoord.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtYCoord.UseSystemPasswordChar = false;
+            this.txtYCoord.TextChanged += new System.EventHandler(this.txtYCoord_TextChanged);
+            // 
+            // txtXCoord
+            // 
+            this.txtXCoord.Location = new System.Drawing.Point(76, 29);
+            this.txtXCoord.MaxLength = 32767;
+            this.txtXCoord.MultiLine = false;
+            this.txtXCoord.Name = "txtXCoord";
+            this.txtXCoord.Size = new System.Drawing.Size(97, 21);
+            this.txtXCoord.TabIndex = 0;
+            this.txtXCoord.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtXCoord.UseSystemPasswordChar = false;
+            this.txtXCoord.TextChanged += new System.EventHandler(this.txtXCoord_TextChanged);
             // 
             // Main
             // 
@@ -508,7 +521,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox4);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "Main";
             this.Size = new System.Drawing.Size(765, 474);
             this.groupBox2.ResumeLayout(false);
@@ -558,5 +571,6 @@
         private SDUI.Controls.TextBox txtRadius;
         private SDUI.Controls.TextBox txtYCoord;
         private SDUI.Controls.TextBox txtXCoord;
+        private SDUI.Controls.CheckBox checkBoxUseReverse;
     }
 }

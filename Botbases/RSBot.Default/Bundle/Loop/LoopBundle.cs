@@ -1,5 +1,6 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Components;
+using RSBot.Core.Objects;
 using System.IO;
 using System.Threading;
 
@@ -61,7 +62,8 @@ namespace RSBot.Default.Bundle.Loop
                 WalkScript = PlayerConfig.Get<string>("RSBot.Walkback.File"),
                 UseSpeedDrug = PlayerConfig.Get<bool>("RSBot.Walkback.UseSpeedDrug"),
                 UseVehicle = PlayerConfig.Get<bool>("RSBot.Walkback.UseMount", true),
-                CastBuffs = PlayerConfig.Get<bool>("RSBot.Walkback.CastBuffs", true)
+                CastBuffs = PlayerConfig.Get<bool>("RSBot.Walkback.CastBuffs", true),
+                UseReverse = PlayerConfig.Get<bool>("RSBot.Walkback.UseReverse", false)
             };
         }
 
@@ -109,6 +111,31 @@ namespace RSBot.Default.Bundle.Loop
             TownscriptRunning = true;
             ScriptManager.Load(filename);
             ScriptManager.RunScript(false);
+
+            if (Running && Config.UseReverse)
+            {
+                var filter = new TypeIdFilter(3, 3, 3, 3);
+                var item = Game.Player.Inventory.GetItem(filter);
+                if (item != null)
+                {
+                    /*
+                        2 => go to last recall point
+                        3 => go to last died position
+                        7 => select position on map
+
+                        error codes:
+                            85: Cannot find the place where you selected as recall point.
+                            86: Cannot find the place where you died.
+                     */
+
+                    if (item.UseTo(3))
+                    {
+                        TownscriptRunning = false;
+                        return;
+                    }
+                }
+            }
+
             TownscriptRunning = false;
 
             Invoke();
