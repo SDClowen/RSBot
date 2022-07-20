@@ -39,6 +39,14 @@ namespace RSBot.Core.Components
         public static bool PickupRareItems => PlayerConfig.Get<bool>("RSBot.Items.Pickup.Rare", true);
 
         /// <summary>
+        /// Gets or sets a value indicating whether [pickup rare items].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [pickup rare items]; otherwise, <c>false</c>.
+        /// </value>
+        public static bool PickupBlueItems => PlayerConfig.Get<bool>("RSBot.Items.Pickup.Blue", true);
+
+        /// <summary>
         /// Gets or sets a value indicating whether [use ability pet].
         /// </summary>
         /// <value>
@@ -80,54 +88,49 @@ namespace RSBot.Core.Components
             {
                 var playerJid = Game.Player.JID;
 
-                bool Condition(SpawnedItem e)
+                bool condition(SpawnedItem e)
                 {
+                    if (e.OwnerJID != 0 && e.OwnerJID != playerJid)
+                        return false;
+
                     const int tolerance = 15;
                     var isInside = e.Movement.Source.DistanceTo(centerPosition) <= radius + tolerance;
                     var selfish = JustPickMyItems && e.OwnerJID == playerJid;
 
-                    return isInside && (selfish || !JustPickMyItems);
+                    var flag =  isInside && (selfish || !JustPickMyItems);
+                    if(flag)
+                    {
+                        if (PickupGold && e.Record.IsGold)
+                            return true;
+
+                        if (PickupFilter.Invoke(e.Record))
+                            return true;
+
+                        if (PickupRareItems && (byte)e.Rarity >= 2)
+                            return true;
+
+                        if (PickupBlueItems && (byte)e.Rarity >= 1)
+                            return true;
+                    }
+
+                    return false;
                 }
 
-                if (!SpawnManager.TryGetEntities<SpawnedItem>(out var entities, Condition))
+                if (!SpawnManager.TryGetEntities<SpawnedItem>(out var entities, condition))
                 {
                     Stop();
                     return;
                 }
 
-                foreach (var item in entities.OrderBy(item => item.Movement.Source.DistanceTo(centerPosition)).Take(5))
+                foreach (var item in entities.OrderBy(item => item.Movement.Source.DistanceTo(centerPosition))/*.Take(5)*/)
                 {
                     if (!Running)
                         return;
 
-                    if (PickupGold && item.Record.IsGold)
-                    {
-                        if (UseAbilityPet && Game.Player.HasActiveAbilityPet)
-                            Game.Player.AbilityPet.Pickup(item.UniqueId);
-                        else
-                            item.Pickup();
-
-                        continue;
-                    }
-
-                    //Pickup regular items
-                    if (PickupFilter.Invoke(item.Record))
-                    {
-                        if (UseAbilityPet && Game.Player.HasActiveAbilityPet && !Game.Player.AbilityPet.Inventory.Full)
-                            Game.Player.AbilityPet.Pickup(item.UniqueId);
-                        else
-                            item.Pickup();
-
-                        continue;
-                    }
-
-                    if (PickupRareItems && (byte)item.Rarity >= 2)
-                    {
-                        if (UseAbilityPet && Game.Player.HasActiveAbilityPet && !Game.Player.AbilityPet.Inventory.Full)
-                            Game.Player.AbilityPet.Pickup(item.UniqueId);
-                        else
-                            item.Pickup();
-                    }
+                    if (UseAbilityPet && Game.Player.HasActiveAbilityPet)
+                        Game.Player.AbilityPet.Pickup(item.UniqueId);
+                    else
+                        item.Pickup();
                 }
             }
             catch (System.Exception e)
