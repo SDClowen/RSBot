@@ -43,15 +43,21 @@ namespace RSBot.Core.Objects
         Bit31 = 1u << 31,
 
         #endregion EffectLevel
+    }
 
+    public struct BadEffectAll
+    {
         /// <summary>
         /// Bad effects curable by universal pills.
         /// </summary>
-        UniversallPillEffects = Frozen | Frostbitten | Shocked | Burnt | Poisoned | Zombie,
+        public static BadEffect UniversallPillEffects = BadEffect.Frozen | BadEffect.Frostbitten | BadEffect.Shocked | BadEffect.Burnt | BadEffect.Poisoned | BadEffect.Zombie;
 
         /// <summary>
         /// Bad effects curable by purification pills.
         /// </summary>
-        PurificationPillEffects = Sleep | Bind | Dull | Fear | ShortSighted | Bleed | Darkness | Disease | Decay | Weak | Impotent | Division | Panic | Hidden
+        public static BadEffect PurificationPillEffects =
+            BadEffect.Sleep | BadEffect.Bind | BadEffect.Dull | BadEffect.Fear |
+            BadEffect.ShortSighted | BadEffect.Bleed | BadEffect.Darkness | BadEffect.Disease |
+            BadEffect.Decay | BadEffect.Weak | BadEffect.Impotent | BadEffect.Division | BadEffect.Panic | BadEffect.Hidden;
     }
 }
