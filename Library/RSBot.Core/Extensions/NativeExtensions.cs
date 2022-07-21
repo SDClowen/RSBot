@@ -21,7 +21,7 @@ namespace RSBot.Core.Extensions
         public static extern int SetWindowText(IntPtr hWnd, string text);
 
         [DllImport("kernel32.dll")]
-        public static extern bool CreateProcessA(
+        public static extern bool CreateProcess/*A*/(
             string lpApplicationName,
             string lpCommandLine,
             IntPtr lpProcessAttributes,
@@ -84,7 +84,10 @@ namespace RSBot.Core.Extensions
         public static extern uint WaitForSingleObject(IntPtr hHandle, uint dwMilliseconds);
 
         [DllImport("kernel32.dll")]
-        internal static extern IntPtr LoadLibrary(string lpFileName);
+        public static extern IntPtr LoadLibrary(string lpFileName); 
+        
+        [DllImport("kernel32.dll")]
+        public static extern IntPtr CreateSemaphore([In] IntPtr lpSemaphoreAttributes, [In] int lInitialCount, [In] int lMaximumCount, [In] IntPtr lpName);
 
         public struct PROCESS_INFORMATION
         {
