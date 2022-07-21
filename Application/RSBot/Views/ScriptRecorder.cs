@@ -65,6 +65,11 @@ namespace RSBot.Views
             EventManager.SubscribeEvent("OnFinishScript", OnFinishScript);
             EventManager.SubscribeEvent("OnCastSkill", new Action<uint>(OnCastSkill));
 
+            EventManager.SubscribeEvent("OnBuyItemRequest", new Action<byte, byte, ushort, uint>(OnBuyItemRequest));
+            EventManager.SubscribeEvent("OnSellItemRequest", new Action<byte, ushort, uint>(OnSellItemRequest));
+            EventManager.SubscribeEvent("OnBuyItemToCosRequest", new Action<byte, byte, ushort, uint>(OnBuyItemToCos));
+            EventManager.SubscribeEvent("OnSellItemFromCosRequest", new Action<byte, ushort, uint>(OnSellItemFromCos));
+
             //Use EventManager.FireEvent("AppendScriptCommand", "<name> <parameters>"); to add your own commands to the output
             EventManager.SubscribeEvent("AppendScriptCommand", new Action<string>(AppendScriptCommand));
         }
@@ -128,40 +133,49 @@ namespace RSBot.Views
 
         private void OnTalkRequest(uint entityId, TalkOption option)
         {
-            if (!_recording) return;
-
-            if (option != TalkOption.Store)
+            if (!_recording)
                 return;
 
-            var entity = SpawnManager.GetEntity<SpawnedBionic>(entityId);
+            if (!SpawnManager.TryGetEntity<SpawnedBionic>(entityId, out var entity))
+                return;
 
-            if (entity != null)
-                txtScript.AppendText($"buy {entity.Record.CodeName}\n");
+            switch (option)
+            {
+                case TalkOption.Store:
+                    txtScript.AppendText($"buy {entity.Record.CodeName}\n");
+                    break;
+
+                case TalkOption.Trader:
+                    txtScript.AppendText($"open-trade {entity.Record.CodeName}\n");
+                    break;
+            }
         }
 
         private void StorageOpenRequest(uint entityId)
         {
-            if (!_recording) return;
+            if (!_recording)
+                return;
 
-            var entity = SpawnManager.GetEntity<SpawnedBionic>(entityId);
+            if (!SpawnManager.TryGetEntity<SpawnedBionic>(entityId, out var entity))
+                return;
 
-            if (entity != null)
-                txtScript.AppendText($"store {entity.Record.CodeName}\n");
+            txtScript.AppendText($"store {entity.Record.CodeName}\n");
         }
 
         private void OnNpcRepairRequest(uint entityId, byte type, byte slot)
         {
             if (!_recording) return;
 
-            var entity = SpawnManager.GetEntity<SpawnedBionic>(entityId);
+            if (!SpawnManager.TryGetEntity<SpawnedBionic>(entityId, out var entity))
+                return;
 
-            if (entity != null)
-                txtScript.AppendText($"repair {entity.Record.CodeName}\n");
+            txtScript.AppendText($"repair {entity.Record.CodeName}\n");
         }
 
         private void OnScriptStartExecuteCommand(IScriptCommand command, int lineNumber)
         {
-            if (!ScriptManager.Running) return;
+            if (!ScriptManager.Running) 
+                return;
 
             if (txtScript.Text.Split('\n').Length >= lineNumber)
                 HighlightLine(lineNumber != 0 ? lineNumber + 1 : 0, Color.CornflowerBlue);
@@ -172,7 +186,9 @@ namespace RSBot.Views
         /// </summary>
         private void OnPlayerMove()
         {
-            if (!_recording) return;
+            if (!_recording)
+                return;
+
             var stepString = new System.Text.StringBuilder();
             stepString.Append($"move {Math.Round(Game.Player.Movement.Destination.XOffset, MidpointRounding.AwayFromZero)}");
             stepString.Append($" {Math.Round(Game.Player.Movement.Destination.YOffset, MidpointRounding.AwayFromZero)}");
@@ -190,7 +206,8 @@ namespace RSBot.Views
         /// <param name="npcCodeName">Name of the NPC code.</param>
         private void OnRequestTeleport(uint destination, string npcCodeName)
         {
-            if (!_recording) return;
+            if (!_recording) 
+                return;
 
             txtScript.AppendText($"teleport {npcCodeName} {destination}\n");
         }
@@ -200,9 +217,64 @@ namespace RSBot.Views
         /// </summary>
         private void OnTerminateVehicle()
         {
-            if (!_recording) return;
+            if (!_recording) 
+                return;
 
             txtScript.AppendText("dismount\n");
+        }
+
+        /// <summary>
+        /// On buy item for job transport
+        /// </summary>
+        /// <param name="tab">The tab</param>
+        /// <param name="index">The item index</param>
+        /// <param name="quantity">The item quantity</param>
+        /// <param name="npcUniqueId">The npc unique id</param>
+        private void OnBuyItemToCos(byte tab, byte index, ushort quantity, uint npcUniqueId)
+        {
+            if (!SpawnManager.TryGetEntity<SpawnedBionic>(npcUniqueId, out var entity))
+                return;
+
+        }
+
+        /// <summary>
+        /// On sell item from job transport
+        /// </summary>
+        /// <param name="slot">The inventory item slot</param>
+        /// <param name="quantity">The item quantity</param>
+        /// <param name="npcUniqueId">The npc unique id</param>
+        private void OnSellItemFromCos(byte slot, ushort quantity, uint npcUniqueId)
+        {
+            if (!SpawnManager.TryGetEntity<SpawnedBionic>(npcUniqueId, out var entity))
+                return;
+
+        }
+
+        /// <summary>
+        /// On buy item for job transport
+        /// </summary>
+        /// <param name="tab">The tab</param>
+        /// <param name="index">The item index</param>
+        /// <param name="quantity">The item quantity</param>
+        /// <param name="npcUniqueId">The npc unique id</param>
+        private void OnBuyItemRequest(byte tab, byte index, ushort quantity, uint npcUniqueId)
+        {
+            if (!SpawnManager.TryGetEntity<SpawnedBionic>(npcUniqueId, out var entity))
+                return;
+
+        }
+
+        /// <summary>
+        /// On sell item from job transport
+        /// </summary>
+        /// <param name="slot">The inventory item slot</param>
+        /// <param name="quantity">The item quantity</param>
+        /// <param name="npcUniqueId">The npc unique id</param>
+        private void OnSellItemRequest(byte slot, ushort quantity, uint npcUniqueId)
+        {
+            if (!SpawnManager.TryGetEntity<SpawnedBionic>(npcUniqueId, out var entity))
+                return;
+
         }
 
         private void OnTeleportComplete()
