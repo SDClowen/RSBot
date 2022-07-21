@@ -1,4 +1,5 @@
-﻿using RSBot.Core.Event;
+﻿using RSBot.Core.Components;
+using RSBot.Core.Event;
 using RSBot.Core.Objects.Spawn;
 
 namespace RSBot.Core.Network.Handler.Agent.Action
@@ -34,6 +35,10 @@ namespace RSBot.Core.Network.Handler.Agent.Action
 
                 switch (errorCode)
                 {
+                    case 0x0C:
+                        // Same other skills are already running
+                        break;
+
                     case 0x0E:
                         Game.Player.EquipAmmunition();
                         break;
@@ -51,7 +56,7 @@ namespace RSBot.Core.Network.Handler.Agent.Action
 
                     default:
                         Log.Error($"Invalid skill error code: 0x{errorCode:X2}");
-                        break; 
+                        break;
                 }
 
                 return;
@@ -63,8 +68,11 @@ namespace RSBot.Core.Network.Handler.Agent.Action
             {
                 Game.Player.StopMoving();
 
-                var skill = Game.Player.Skills.GetSkillInfoById(action.SkillId);
-                skill?.Update();
+                var skillInfo = Game.Player.Skills.GetSkillInfoById(action.SkillId);
+                if (skillInfo == null)
+                    skillInfo = SkillManager.Buffs.Find(p => p.Id == action.SkillId);
+
+                skillInfo?.Update();
 
                 EventManager.FireEvent("OnCastSkill", action.SkillId);
 
