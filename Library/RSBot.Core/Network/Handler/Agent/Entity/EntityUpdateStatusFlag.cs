@@ -9,6 +9,7 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
         HP = 1,
         MP = 2,
         HPMP = HP | MP,
-        BadEffect = 4
+        BadEffect = 4,
+        Fellow = 13
     }
 }

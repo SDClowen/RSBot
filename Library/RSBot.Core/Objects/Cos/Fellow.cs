@@ -10,6 +10,79 @@ namespace RSBot.Core.Objects.Cos
 {
     public class Fellow : Cos
     {
+
+        /// <summary>
+        /// Gets or sets the strength.
+        /// </summary>
+        /// <value>
+        /// The strength.
+        /// </value>
+        public ushort Strength { get; set; }
+
+        /// <summary>
+        /// Gets or sets the intelligence.
+        /// </summary>
+        /// <value>
+        /// The intelligence.
+        /// </value>
+        public ushort Intelligence { get; set; }
+
+        /// <summary>
+        /// Gets or sets the physical attack minimum.
+        /// </summary>
+        /// <value>
+        /// The physical attack minimum.
+        /// </value>
+        public uint PhysicalAttackMin { get; set; }
+
+        /// <summary>
+        /// Gets or sets the physical attack maximum.
+        /// </summary>
+        /// <value>
+        /// The physical attack maximum.
+        /// </value>
+        public uint PhysicalAttackMax { get; set; }
+
+        /// <summary>
+        /// Gets or sets the magical attack minimum.
+        /// </summary>
+        /// <value>
+        /// The magical attack minimum.
+        /// </value>
+        public uint MagicalAttackMin { get; set; }
+
+        /// <summary>
+        /// Gets or sets the magical attack maximum.
+        /// </summary>
+        /// <value>
+        /// The magical attack maximum.
+        /// </value>
+        public uint MagicalAttackMax { get; set; }
+
+        /// <summary>
+        /// Gets or sets the physical defence.
+        /// </summary>
+        /// <value>
+        /// The physical defence.
+        /// </value>
+        public ushort PhysicalDefence { get; set; }
+
+        /// <summary>
+        /// Gets or sets the magical defence.
+        /// </summary>
+        /// <value>
+        /// The magical defence.
+        /// </value>
+        public ushort MagicalDefence { get; set; }
+
+        /// <summary>
+        /// Gets or sets the hit rate.
+        /// </summary>
+        /// <value>
+        /// The hit rate.
+        /// </value>
+        public ushort HitRate { get; set; }
+
         /// <summary>
         /// Gets or sets the satiety.
         /// </summary>
