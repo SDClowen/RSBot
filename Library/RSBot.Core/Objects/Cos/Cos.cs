@@ -234,6 +234,72 @@ namespace RSBot.Core.Objects.Cos
             Thread.Sleep(Convert.ToInt32((distance / Game.Player.ActualSpeed) * 10000));
         }
 
+        /// <summary>
+        /// Purchases the item.
+        /// </summary>
+        /// <param name="tab">The tab.</param>
+        /// <param name="slot">The slot.</param>
+        /// <param name="amount">The amount.</param>
+        public bool PurchaseItemFromNpc(int tab, int slot, ushort amount)
+        {
+            var npc = Game.SelectedEntity;
+            if (npc == null)
+            {
+                Log.Debug("Cannot buy items for cos, because no shop is selected!");
+                return false;
+            }
+
+            var packet = new Packet(0x7034);
+            packet.WriteByte(0x13); //Buy item flag
+            packet.WriteUInt(UniqueId);
+            packet.WriteByte(tab);
+            packet.WriteByte(slot);
+            packet.WriteUShort(amount);
+            packet.WriteUInt(npc.UniqueId);
+
+            var awaitResult = new AwaitCallback(packet => 
+                packet.ReadByte() == 1 ? AwaitCallbackResult.Success : AwaitCallbackResult.Fail
+                , 0xB034);
+            PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
+
+            awaitResult.AwaitResponse();
+
+            return awaitResult.IsCompleted;
+        }
+
+        /// <summary>
+        /// Sells the item from pet.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        public bool SellItemToNpc(byte slot)
+        {
+            var item = Inventory.GetItemAt(slot);
+            if (item == null)
+                return false;
+
+            var entity = Game.SelectedEntity;
+            if (entity == null)
+                return false;
+
+            var packet = new Packet(0x7034);
+            packet.WriteByte(0x14);
+            packet.WriteInt(UniqueId);
+            packet.WriteByte(item.Slot);
+            packet.WriteUShort(item.Amount);
+            packet.WriteUInt(entity.UniqueId);
+
+            var awaitResult = new AwaitCallback((packet) =>
+            {
+                return packet.ReadByte() == 1 ? AwaitCallbackResult.Success : AwaitCallbackResult.Fail;
+            }, 0xB034);
+            PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
+            awaitResult.AwaitResponse();
+
+            Log.Debug("Sold item (pet): " + item.Record.GetRealName());
+
+            return awaitResult.IsCompleted;
+        }
+
         public virtual void Deserialize(Packet packet)
         {
         }
