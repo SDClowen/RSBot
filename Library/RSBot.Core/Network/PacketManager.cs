@@ -171,5 +171,28 @@ namespace RSBot.Core.Network
 
             SendPacket(packet, destination);
         }
+
+        /// <summary>
+        /// Gets the handlers by the specified opcode. If none specified, all handlers will be returned.
+        /// </summary>
+        /// <param name="opcode">The opcode.</param>
+        /// <returns></returns>
+        public static List<IPacketHandler> GetHandlers(ushort? opcode = null)
+        {
+            if (opcode == null)
+                return Handlers;
+
+            return Handlers.Where(h => h.Opcode == opcode).ToList();
+        }
+
+        /// <summary>
+        /// Gets the hooks by the specified opcode. If none specified, all hooks will be returned.
+        /// </summary>
+        /// <param name="opcode">The opcode.</param>
+        /// <returns></returns>
+        public static List<IPacketHook> GetHooks(ushort? opcode = null)
+        {
+            return opcode == null ? Hooks : Hooks.Where(h => h.Opcode == opcode).ToList();
+        }
     }
 }
