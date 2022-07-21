@@ -1,5 +1,6 @@
 ﻿using RSBot.Core.Objects;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace RSBot.Core.Components.Scripting.Commands
 {
@@ -62,6 +63,9 @@ namespace RSBot.Core.Components.Scripting.Commands
             {
                 IsRunning = true;
 
+                while (Game.Player.InAction)
+                    Task.Delay(50);
+
                 return ExecuteMove(arguments);
             }
             finally
@@ -81,7 +85,7 @@ namespace RSBot.Core.Components.Scripting.Commands
                 || !float.TryParse(arguments[2], out var zOffset)
                 || !byte.TryParse(arguments[3], out var xSector)
                 || !byte.TryParse(arguments[4], out var ySector)
-                )
+               )
                 return false; //Invalid format
 
             var pos = Position.FromOffsets(xOffset, yOffset, zOffset, xSector, ySector);
