@@ -1,7 +1,6 @@
 ﻿using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Network;
 using System;
-using System.Diagnostics;
 
 namespace RSBot.Core.Objects.Skill
 {
@@ -63,11 +62,11 @@ namespace RSBot.Core.Objects.Skill
         /// Skill cool down environment tick
         /// </summary>
         private long _cooldownTick;
-        
+
         /// <summary>
         /// Skill can not be casted environment tick
         /// </summary>
-        private long _canNotBeCastedTick;
+        private long _lastCastTick;
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance has cooldown.
@@ -75,7 +74,7 @@ namespace RSBot.Core.Objects.Skill
         /// <value>
         /// <c>true</c> if this instance has cooldown; otherwise, <c>false</c>.
         /// </value>
-        public bool HasCooldown 
+        public bool HasCooldown
             => (Environment.TickCount64 - _cooldownTick) < Record.Action_ReuseDelay;
 
         /// <summary>
@@ -84,8 +83,16 @@ namespace RSBot.Core.Objects.Skill
         /// <value>
         /// <c>true</c> if this instance can be used; otherwise, <c>false</c>.
         /// </value>
-        public bool CanNotBeCasted
-            => (Environment.TickCount64 - _canNotBeCastedTick) < _duration;
+        public bool DoTCanNotBeCasted
+        {
+            get
+            {
+                if (_lastCastTick == 0)
+                    return false;
+
+                return (Environment.TickCount64 - _lastCastTick) < _duration;
+            }
+        }
 
         /// <summary>
         /// Gets a value indicating whether this instance can be used.
@@ -93,7 +100,25 @@ namespace RSBot.Core.Objects.Skill
         /// <value>
         /// <c>true</c> if this instance can be used; otherwise, <c>false</c>.
         /// </value>
-        public bool CanBeCasted => (IsDot || !CanNotBeCasted) && !HasCooldown && Game.Player.Mana >= Record.Consume_MP;
+        public bool CanBeCasted
+        {
+            get
+            {
+                var hasCooldown = HasCooldown;
+                var notEnoughMana = Game.Player.Mana < Record.Consume_MP;
+
+                if (hasCooldown)
+                    return false;
+
+                if (notEnoughMana)
+                    return false;
+
+                if (IsDot && DoTCanNotBeCasted)
+                    return false;
+
+                return true;
+            }
+        }
 
         /// <summary>
         /// Skill Token (using for buffs)
@@ -117,7 +142,7 @@ namespace RSBot.Core.Objects.Skill
             Id = id;
             Enabled = enabled;
 
-            if (Record == null || IsPassive) 
+            if (Record == null || IsPassive)
                 return;
 
             // skill buff duration param: dura
@@ -142,7 +167,7 @@ namespace RSBot.Core.Objects.Skill
         public void Update()
         {
             _cooldownTick = Environment.TickCount64;
-            _canNotBeCastedTick = Environment.TickCount64;
+            _lastCastTick = Environment.TickCount64;
         }
 
         /// <summary>
@@ -154,20 +179,12 @@ namespace RSBot.Core.Objects.Skill
         }
 
         /// <summary>
-        /// Set cooldown
-        /// </summary>
-        public void SetCannotBeCasted(int milliseconds)
-        {
-            _canNotBeCastedTick = Environment.TickCount64 - milliseconds;
-        }
-
-        /// <summary>
         /// Reset the ticks
         /// </summary>
         public void Reset()
         {
             //_cooldownTick = 0;
-            _canNotBeCastedTick = 0;
+            _lastCastTick = 0;
         }
 
         /// <summary>
