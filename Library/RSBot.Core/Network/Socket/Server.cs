@@ -20,6 +20,9 @@ namespace RSBot.Core.Network
         public delegate void OnPacketReceivedEventHandler(Packet packet);
         public event OnPacketReceivedEventHandler OnPacketReceived;
 
+        public delegate void PacketSentEventHandler(Packet packet);
+        public event PacketSentEventHandler OnPacketSent;
+
         /// <summary>
         /// Gets or sets the socket.
         /// </summary>
@@ -260,6 +263,7 @@ namespace RSBot.Core.Network
         /// <param name="packet">The packet.</param>
         public void Send(Packet packet)
         {
+            OnPacketSent?.Invoke(packet);
             _protocol.Send(packet);
         }
 
