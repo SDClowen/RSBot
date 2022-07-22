@@ -227,25 +227,6 @@ namespace RSBot.Core.Components
         }
 
         /// <summary>
-        /// Sells the item from pet.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        public static void SellItemFromPet(InventoryItem item)
-        {
-            var packet = new Packet(0x7034);
-            packet.WriteByte(0x09);
-            packet.WriteByte(item.Slot);
-            packet.WriteUShort(item.Amount);
-            packet.WriteUInt(SelectedEntity.UniqueId);
-
-            var awaitResult = new AwaitCallback(null, 0xB034);
-            PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
-            awaitResult.AwaitResponse();
-
-            Log.Debug("[Shopping manager] - Sold item (pet): " + item.Record.GetRealName());
-        }
-
-        /// <summary>
         /// Purchases the item.
         /// </summary>
         /// <param name="tab">The tab.</param>
