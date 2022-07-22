@@ -44,7 +44,6 @@ namespace RSBot.Views
             this.btnSave = new SDUI.Controls.Button();
             this.btnStartStop = new SDUI.Controls.Button();
             this.pSidebar = new SDUI.Controls.Panel();
-            this.picLogo = new System.Windows.Forms.PictureBox();
             this.entity1 = new RSBot.Views.Controls.Entity();
             this.botbase1ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.botbase1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -71,10 +70,10 @@ namespace RSBot.Views
             this.separator = new SDUI.Controls.Separator();
             this.separator1 = new SDUI.Controls.Separator();
             this.topCharacter = new RSBot.Views.Controls.Character();
+            this.menuSelectProfile = new System.Windows.Forms.ToolStripMenuItem();
             this.stripStatus.SuspendLayout();
             this.bottomPanel.SuspendLayout();
             this.pSidebar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -119,6 +118,18 @@ namespace RSBot.Views
             this.lblIngameStatus.Name = "lblIngameStatus";
             this.lblIngameStatus.Size = new System.Drawing.Size(73, 17);
             this.lblIngameStatus.Text = "Not in game";
+            // 
+            // cosController
+            // 
+            this.cosController.AutoSize = true;
+            this.cosController.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cosController.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cosController.Location = new System.Drawing.Point(0, 0);
+            this.cosController.Name = "cosController";
+            this.cosController.Padding = new System.Windows.Forms.Padding(3);
+            this.cosController.Size = new System.Drawing.Size(250, 70);
+            this.cosController.TabIndex = 9;
+            this.cosController.Visible = false;
             // 
             // bottomPanel
             // 
@@ -187,7 +198,7 @@ namespace RSBot.Views
             this.btnStartStop.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnStartStop.BackColor = System.Drawing.Color.DodgerBlue;
             this.btnStartStop.Color = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.btnStartStop.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnStartStop.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnStartStop.ForeColor = System.Drawing.Color.White;
             this.btnStartStop.Location = new System.Drawing.Point(923, 16);
             this.btnStartStop.Name = "btnStartStop";
@@ -203,9 +214,8 @@ namespace RSBot.Views
             // pSidebar
             // 
             this.pSidebar.BackColor = System.Drawing.Color.Transparent;
-            this.pSidebar.BorderColor = System.Drawing.Color.Transparent;
             this.pSidebar.Border = new System.Windows.Forms.Padding(1, 0, 0, 0);
-            this.pSidebar.Controls.Add(this.picLogo);
+            this.pSidebar.BorderColor = System.Drawing.Color.Transparent;
             this.pSidebar.Controls.Add(this.entity1);
             this.pSidebar.Controls.Add(this.cosController);
             this.pSidebar.Dock = System.Windows.Forms.DockStyle.Right;
@@ -215,42 +225,17 @@ namespace RSBot.Views
             this.pSidebar.Size = new System.Drawing.Size(250, 578);
             this.pSidebar.TabIndex = 6;
             // 
-            // picLogo
-            // 
-            this.picLogo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picLogo.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.picLogo.Image = ((System.Drawing.Image)(resources.GetObject("picLogo.Image")));
-            this.picLogo.Location = new System.Drawing.Point(0, 484);
-            this.picLogo.Name = "picLogo";
-            this.picLogo.Size = new System.Drawing.Size(250, 94);
-            this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.picLogo.TabIndex = 8;
-            this.picLogo.TabStop = false;
-            this.picLogo.Click += new System.EventHandler(this.picLogo_Click);
-            // 
             // entity1
             // 
             this.entity1.BackColor = System.Drawing.Color.Transparent;
             this.entity1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.entity1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.entity1.Location = new System.Drawing.Point(0, 66);
+            this.entity1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.entity1.Location = new System.Drawing.Point(0, 70);
             this.entity1.Margin = new System.Windows.Forms.Padding(4);
-            this.entity1.Name = "entity1";
             this.entity1.MinimumSize = new System.Drawing.Size(250, 76);
+            this.entity1.Name = "entity1";
             this.entity1.Size = new System.Drawing.Size(250, 76);
             this.entity1.TabIndex = 2;
-            // 
-            // cosController
-            // 
-            this.cosController.AutoSize = true;
-            this.cosController.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cosController.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cosController.Location = new System.Drawing.Point(0, 0);
-            this.cosController.Name = "cosController";
-            this.cosController.Padding = new System.Windows.Forms.Padding(3);
-            this.cosController.Size = new System.Drawing.Size(250, 66);
-            this.cosController.TabIndex = 9;
-            this.cosController.Visible = false;
             // 
             // botbase1ToolStripMenuItem1
             // 
@@ -277,6 +262,7 @@ namespace RSBot.Views
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuSelectProfile,
             this.menuItemExit});
             this.fileToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -285,8 +271,9 @@ namespace RSBot.Views
             // 
             // menuItemExit
             // 
+            this.menuItemExit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.menuItemExit.Name = "menuItemExit";
-            this.menuItemExit.Size = new System.Drawing.Size(93, 22);
+            this.menuItemExit.Size = new System.Drawing.Size(180, 22);
             this.menuItemExit.Text = "Exit";
             this.menuItemExit.Click += new System.EventHandler(this.menuItemExit_Click);
             // 
@@ -348,7 +335,7 @@ namespace RSBot.Views
             // menuStrip
             // 
             this.menuStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.menuStrip.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuStrip.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1,
             this.fileToolStripMenuItem,
@@ -416,7 +403,7 @@ namespace RSBot.Views
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.closeToolStripMenuItem.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.closeToolStripMenuItem.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.closeToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
             this.closeToolStripMenuItem.Size = new System.Drawing.Size(33, 22);
@@ -426,7 +413,7 @@ namespace RSBot.Views
             // minimizeToolStripMenuItem
             // 
             this.minimizeToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.minimizeToolStripMenuItem.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.minimizeToolStripMenuItem.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.minimizeToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.minimizeToolStripMenuItem.Name = "minimizeToolStripMenuItem";
             this.minimizeToolStripMenuItem.Size = new System.Drawing.Size(33, 22);
@@ -475,6 +462,14 @@ namespace RSBot.Views
             this.topCharacter.Size = new System.Drawing.Size(780, 79);
             this.topCharacter.TabIndex = 7;
             // 
+            // menuSelectProfile
+            // 
+            this.menuSelectProfile.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.menuSelectProfile.Name = "menuSelectProfile";
+            this.menuSelectProfile.Size = new System.Drawing.Size(180, 22);
+            this.menuSelectProfile.Text = "Select Profile...";
+            this.menuSelectProfile.Click += new System.EventHandler(this.menuSelectProfile_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -489,7 +484,7 @@ namespace RSBot.Views
             this.Controls.Add(this.separator);
             this.Controls.Add(this.menuStrip);
             this.Controls.Add(this.stripStatus);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -509,7 +504,6 @@ namespace RSBot.Views
             this.bottomPanel.ResumeLayout(false);
             this.pSidebar.ResumeLayout(false);
             this.pSidebar.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -533,7 +527,6 @@ namespace RSBot.Views
         private System.Windows.Forms.ToolStripMenuItem botbase1ToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem botbase1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.PictureBox picLogo;
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuItemExit;
@@ -556,6 +549,7 @@ namespace RSBot.Views
         private System.Windows.Forms.ToolStripMenuItem languageToolStripMenuItem;
         private SDUI.Controls.Separator separator;
         private SDUI.Controls.Separator separator1;
+        private ToolStripMenuItem menuSelectProfile;
     }
 }
 

@@ -1,9 +1,11 @@
 ﻿using RSBot.Core;
+using RSBot.Views.Dialog;
 using SDUI;
 using SDUI.Controls;
 using System;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace RSBot.Views
@@ -32,19 +34,13 @@ namespace RSBot.Views
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private async void SplashScreen_Load(object sender, EventArgs e)
+        private void SplashScreen_Load(object sender, EventArgs e)
         {
-            using (var updaterDialog = new Updater())
-            {
-                if (await updaterDialog.Check())
-                    updaterDialog.ShowDialog(this);
-            }
+            LoadProfileConfig();
 
-            GlobalConfig.Load();
             Kernel.Language = GlobalConfig.Get("RSBot.Language", "English");
             ColorScheme.BackColor = Color.FromArgb(GlobalConfig.Get("SDUI.Color", Color.White.ToArgb()));
             LanguageManager.Translate(_mainForm, Kernel.Language);
-
 
             if (!GlobalConfig.Exists("RSBot.SilkroadDirectory") || !File.Exists(GlobalConfig.Get<string>("RSBot.SilkroadDirectory") + "\\media.pk2"))
             {
@@ -109,6 +105,37 @@ namespace RSBot.Views
             _mainForm.RefreshTheme();
 
             Hide();
+        }
+
+        /// <summary>
+        /// Loads the profile configuration.
+        /// </summary>
+        private void LoadProfileConfig()
+        {
+            var profileConfig = new Config(Path.Combine(Environment.CurrentDirectory, "User", "Profiles.rs"));
+
+            if (profileConfig.Get("RSBot.ShowProfileDialog", true))
+            {
+                var dialog = new ProfileSelectionDialog();
+
+                if (dialog.ShowDialog() != DialogResult.Cancel)
+                {
+                    Kernel.Profile = dialog.SelectedProfile;
+                    GlobalConfig.Load();
+                }
+                else //Dialog cancelled, no profile to load
+                    Application.Exit();
+            }
+            else //Load selected profile without dialog
+            {
+                var selectedProfile = profileConfig.Get("RSBot.SelectedProfile", "Default");
+
+                Kernel.Profile = selectedProfile;
+                
+                if (selectedProfile != null)
+                    GlobalConfig.Load();
+            }
+
         }
 
         /// <summary>

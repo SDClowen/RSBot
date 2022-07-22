@@ -54,6 +54,14 @@ namespace RSBot.Core
         public static string Language { get; set; }
 
         /// <summary>
+        /// Gets or sets the profile.
+        /// </summary>
+        /// <value>
+        /// The profile.
+        /// </value>
+        public static string Profile { get; set; }
+
+        /// <summary>
         /// Initializes this instance.
         /// </summary>
         public static void Initialize()

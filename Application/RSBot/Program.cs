@@ -7,7 +7,7 @@ namespace RSBot
     internal static class Program
     {
         [STAThread]
-        private static void Main()
+        private static void Main(string[] arguments) //TODO: Add config arg to startup?
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
