@@ -26,6 +26,7 @@ namespace RSBot.Core.Client
         public Dictionary<uint, RefSkillMastery> SkillMasteryData { get; } = new(32);
         public Dictionary<int, RefAbilityByItemOptLevel> AbilityItemByOptLevel { get; } = new(256);
         public List<RefSkillByItemOptLevel> SkillByItemOptLevels { get; } = new(256);
+        public List<RefExtraAbilityByEquipItemOptLevel> ExtraAbilityByEquipItemOptLevel { get; } = new(4096);
         public Dictionary<string, RefShop> Shops { get; } = new(128);
         public Dictionary<string, RefShopTab> ShopTabs { get; } = new(256);
         public Dictionary<string, RefShopGroup> ShopGroups { get; } = new(128);
@@ -85,6 +86,9 @@ namespace RSBot.Core.Client
                 LoadReferenceFile("refabilitybyitemoptleveldata.txt", AbilityItemByOptLevel);
                 LoadReferenceFile("refskillbyitemoptleveldata.txt", SkillByItemOptLevels);
             }
+
+            if (Game.ClientType >= GameClientType.Chinese)
+                LoadReferenceFile("refextraabilitybyequipitemoptlevel.txt", ExtraAbilityByEquipItemOptLevel);
 
             GC.Collect();
             EventManager.FireEvent("OnLoadGameData");
@@ -641,6 +645,17 @@ namespace RSBot.Core.Client
         public RefAbilityByItemOptLevel GetAbilityItem(uint itemId, byte optLevel)
         {
             return AbilityItemByOptLevel.Values.FirstOrDefault(p => p.ItemId == itemId && p.OptLevel == optLevel);
+        }
+
+        /// <summary>
+        /// Gets a ability item for the specified <paramref name="itemId"/> and <paramref name="optLevel"/>
+        /// </summary>
+        /// <param name="itemId">Item Id</param>
+        /// <param name="optLevel">Opt Level</param>
+        /// <returns></returns>
+        public IEnumerable<RefExtraAbilityByEquipItemOptLevel> GetExtraAbilityItems(uint itemId, byte optLevel)
+        {
+            return ExtraAbilityByEquipItemOptLevel.Where(p => p.ItemId == itemId && p.OptLevel == optLevel);
         }
     }
 }
