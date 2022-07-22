@@ -247,10 +247,10 @@ namespace RSBot.Alchemy.Views
             // 
             this.tabPage2.BackColor = System.Drawing.Color.White;
             this.tabPage2.Controls.Add(this.listAttributes);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(268, 148);
+            this.tabPage2.Size = new System.Drawing.Size(268, 145);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Attributes";
             // 
@@ -260,7 +260,7 @@ namespace RSBot.Alchemy.Views
             this.listAttributes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listAttributes.Location = new System.Drawing.Point(3, 3);
             this.listAttributes.Name = "listAttributes";
-            this.listAttributes.Size = new System.Drawing.Size(262, 142);
+            this.listAttributes.Size = new System.Drawing.Size(262, 139);
             this.listAttributes.TabIndex = 3;
             // 
             // linkGithub
@@ -315,7 +315,7 @@ namespace RSBot.Alchemy.Views
             // 
             this.radioAttributes.AutoSize = true;
             this.radioAttributes.Checked = false;
-            this.radioAttributes.Location = new System.Drawing.Point(205, 11);
+            this.radioAttributes.Location = new System.Drawing.Point(216, 11);
             this.radioAttributes.Name = "radioAttributes";
             this.radioAttributes.Size = new System.Drawing.Size(83, 13);
             this.radioAttributes.TabIndex = 2;
@@ -325,7 +325,7 @@ namespace RSBot.Alchemy.Views
             // 
             this.radioMagicOptions.AutoSize = true;
             this.radioMagicOptions.Checked = false;
-            this.radioMagicOptions.Location = new System.Drawing.Point(98, 11);
+            this.radioMagicOptions.Location = new System.Drawing.Point(109, 11);
             this.radioMagicOptions.Name = "radioMagicOptions";
             this.radioMagicOptions.Size = new System.Drawing.Size(101, 13);
             this.radioMagicOptions.TabIndex = 1;

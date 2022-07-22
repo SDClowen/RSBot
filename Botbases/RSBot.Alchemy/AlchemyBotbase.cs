@@ -1,10 +1,8 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Plugins;
 using System;
-using System.Drawing;
 using System.Windows.Forms;
 using RSBot.Alchemy.Bot;
-using RSBot.Alchemy.Properties;
 using RSBot.Alchemy.Subscriber;
 using RSBot.Alchemy.Views;
 
@@ -16,7 +14,7 @@ namespace RSBot.Alchemy
 
         public static string Name => "Alchemy";
 
-        public static bool IsActive => Kernel.Bot != null && Kernel.Bot.Running && Kernel.Bot.Botbase.Info.Name == Name;
+        public static bool IsActive => Kernel.Bot is {Running: true} && Kernel.Bot.Botbase.Info.Name == Name;
 
         public static Version Version => new("1.0.0");
 
@@ -24,8 +22,7 @@ namespace RSBot.Alchemy
         {
             Name = "AlchemyBot",
             DisplayName = "Alchemy",
-            TabText = "Alchemy",
-            Image = Resources.ResourceManager.GetObject("plugin-icon") as Image
+            TabText = "Alchemy"
         };
 
         #endregion Properties
@@ -42,7 +39,7 @@ namespace RSBot.Alchemy
             AlchemyEventsSubscriber.Subscribe();
             Globals.Botbase = new Botbase();
 
-            Log.AppendFormat(LogLevel.Notify, $"[Alchemy] Initialized botbase");
+            Log.AppendFormat(LogLevel.Notify, "[Alchemy] Initialized botbase");
         }
 
         public void Start()
@@ -50,7 +47,7 @@ namespace RSBot.Alchemy
             if (Globals.Botbase != null)
                 Globals.Botbase.Start();
 
-            Log.AppendFormat(LogLevel.Debug, $"[Alchemy] Starting automated alchemy...");
+            Log.AppendFormat(LogLevel.Debug, "[Alchemy] Starting automated alchemy...");
         }
 
         public void Stop()
@@ -58,7 +55,7 @@ namespace RSBot.Alchemy
             if (Globals.Botbase != null)
                 Globals.Botbase.Stop();
 
-            Log.AppendFormat(LogLevel.Debug, $"[Alchemy] Stopped automated alchemy");
+            Log.AppendFormat(LogLevel.Debug, "[Alchemy] Stopped automated alchemy");
         }
 
         public void Tick()

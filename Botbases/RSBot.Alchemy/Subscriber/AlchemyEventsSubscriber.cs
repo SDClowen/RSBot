@@ -36,18 +36,17 @@ namespace RSBot.Alchemy.Subscriber
 
             Globals.View.SelectedItem = null;
             Globals.View.AddLog(oldItem.Record.GetRealName(), false, Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_BREAKDOWN"));
-            Log.Warn($"[Alchemy] The item has been destroyed, stopping now...");
+            Log.Warn("[Alchemy] The item has been destroyed, stopping now...");
 
             Kernel.Bot?.Stop();
         }
 
         private static void OnAlchemyError(ushort errorCode, AlchemyType type)
         {
-            if (errorCode == 0x5423)
-            {
-                return;
-            }
             if (!AlchemyBotbase.IsActive)
+                return;
+
+            if (errorCode == 0x5423)
                 return;
 
             Kernel.Bot?.Stop();
