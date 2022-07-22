@@ -5,6 +5,7 @@ using RSBot.Core.Objects.Cos;
 using RSBot.Core.Objects.Inventory;
 using RSBot.Core.Objects.Item;
 using System.Collections.Generic;
+using RSBot.Core.Objects.Inventory.Item;
 
 namespace RSBot.Core.Network.Handler.Agent.Inventory
 {
@@ -335,7 +336,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
                     Amount = amount,
                     ItemId = item.ID,
                     Durability = (uint)refShopGoodObj.Data,
-                    Variance = (ulong)refShopGoodObj.Variance,
+                    Attributes = new AttributesInfo((ulong)refShopGoodObj.Variance),
                     OptLevel = refShopGoodObj.OptLevel
                 });
 
@@ -351,7 +352,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
                         Amount = amount,
                         ItemId = item.ID,
                         Durability = (uint)refShopGoodObj.Data,
-                        Variance = (ulong)refShopGoodObj.Variance,
+                        Attributes = new AttributesInfo((ulong)refShopGoodObj.Variance),
                         OptLevel = refShopGoodObj.OptLevel
                     });
 
@@ -651,7 +652,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
                         Amount = (ushort)amount,
                         ItemId = itemInfo.ID,
                         Durability = (uint)refShopGoodObj.Data,
-                        Variance = (ulong)refShopGoodObj.Variance,
+                        Attributes = new AttributesInfo((ulong)refShopGoodObj.Variance),
                         OptLevel = refShopGoodObj.OptLevel
                     };
 

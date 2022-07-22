@@ -2,6 +2,7 @@
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Item;
 using System.Collections.Generic;
+using RSBot.Core.Objects.Inventory.Item;
 
 namespace RSBot.Core.Network.Handler.Agent.Inventory
 {
@@ -43,7 +44,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
                 item.OptLevel = packet.ReadByte();
 
             if (itemUpdateFlag.HasFlag(ItemUpdateFlag.Variance))
-                item.Variance = packet.ReadULong();
+                item.Attributes = new AttributesInfo(packet.ReadULong());
 
             if (itemUpdateFlag.HasFlag(ItemUpdateFlag.Quanity))
                 item.Amount = packet.ReadUShort();
