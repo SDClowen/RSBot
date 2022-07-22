@@ -32,10 +32,10 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
         /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
-            var operation = packet.ReadByte();
+            var operation = (InventoryOperation)packet.ReadByte();
             switch (operation)
             {
-                case 8:
+                case InventoryOperation.SP_BUY_ITEM:
 
                     var tab = packet.ReadByte();
                     var slot = packet.ReadByte();
@@ -46,7 +46,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
 
                     break;
 
-                case 9:
+                case InventoryOperation.SP_SELL_ITEM:
 
                     slot = packet.ReadByte();
                     quantity = packet.ReadUShort();
@@ -56,7 +56,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
 
                     break;
 
-                case 0x13:
+                case ImventoryOperation.SP_BUY_ITEM_COS:
 
                     var cosUniqueId = packet.ReadUInt();
                     if (Game.Player.Transport?.UniqueId != cosUniqueId)
@@ -71,7 +71,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
 
                     break;
 
-                case 0x14:
+                case InventoryOperation.SP_SELL_ITEM_COS:
 
                     cosUniqueId = packet.ReadUInt();
                     if (Game.Player.Transport?.UniqueId != cosUniqueId)
