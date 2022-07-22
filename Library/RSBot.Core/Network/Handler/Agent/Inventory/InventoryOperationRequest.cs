@@ -56,7 +56,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
 
                     break;
 
-                case ImventoryOperation.SP_BUY_ITEM_COS:
+                case InventoryOperation.SP_BUY_ITEM_COS:
 
                     var cosUniqueId = packet.ReadUInt();
                     if (Game.Player.Transport?.UniqueId != cosUniqueId)
