@@ -175,7 +175,7 @@ void LoadConfig()
 	_dupenv_s(&tempFolder, NULL, "TMP");
 
 	stringstream payloadPath;
-	payloadPath << tempFolder << "\\RSBot_" << GetCurrentProcessId() << ".dat";
+	payloadPath << tempFolder << "\\RSBot_" << GetCurrentProcessId() << ".tmp";
 
 	ifstream stream(payloadPath.str(), ifstream::binary);
 
