@@ -148,13 +148,22 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
         private static void UpdateFellowStatus(Packet packet, EntityUpdateStatusFlag updateFlag)
         {
             if ((updateFlag & EntityUpdateStatusFlag.HP) == EntityUpdateStatusFlag.HP)
+            {
                 Game.Player.Fellow.Health = packet.ReadInt();
+            }
 
             if ((updateFlag & EntityUpdateStatusFlag.MP) == EntityUpdateStatusFlag.MP)
                 packet.ReadUInt();
 
             if ((updateFlag & EntityUpdateStatusFlag.HPMP) != EntityUpdateStatusFlag.HPMP)
                 EventManager.FireEvent("OnFellowHealthUpdate");
+
+            if(updateFlag == EntityUpdateStatusFlag.Fellow)
+            {
+                Game.Player.Fellow.Satiety = packet.ReadInt();
+                EventManager.FireEvent("OnFellowSatietyUpdate");
+                //packet.ReadInt(); // bad status??
+            }
 
             if ((updateFlag & EntityUpdateStatusFlag.BadEffect) == EntityUpdateStatusFlag.BadEffect)
             {

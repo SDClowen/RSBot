@@ -75,20 +75,19 @@ namespace RSBot.Core
         {
             while (!_updaterTokenSource.IsCancellationRequested)
             {
-                if (Game.Ready)
-                {
-                    Game.Player.Update();
-                    Game.Player.Transport?.Update();
-                    Game.Player.JobTransport?.Update();
-                    Game.Player.AbilityPet?.Update();
-                    Game.Player.Growth?.Update();
-                    Game.Player.Fellow?.Update();
-
-                    SpawnManager.Update();
-                    EventManager.FireEvent("OnTick");
-                }
-
                 await Task.Delay(100);
+                if (!Game.Ready)
+                    continue;
+
+                Game.Player.Update();
+                Game.Player.Transport?.Update();
+                Game.Player.JobTransport?.Update();
+                Game.Player.AbilityPet?.Update();
+                Game.Player.Growth?.Update();
+                Game.Player.Fellow?.Update();
+
+                SpawnManager.Update();
+                EventManager.FireEvent("OnTick");
             }
         }
 
