@@ -422,6 +422,9 @@ namespace RSBot.Skills.Views
                     if (skill.IsPassive)
                         continue;
 
+                    if (skill.IsImbue)
+                        continue;
+
                     if (checkHideLowerLevelSkills.Checked && skill.IsLowLevel())
                         continue;
 
