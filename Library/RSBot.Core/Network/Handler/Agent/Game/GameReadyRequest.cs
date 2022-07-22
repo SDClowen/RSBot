@@ -43,15 +43,7 @@ namespace RSBot.Core.Network.Handler.Agent
 
                 var skillInfo = Game.Player.Skills.GetSkillInfoById(skillId);
                 if (skillInfo == null)
-                {
                     skillInfo = SkillManager.Buffs.Find(p => p.Id == skillId);
-                    if (skillInfo == null)
-                    {
-                        skillInfo = new Objects.Skill.SkillInfo(skillId, true);
-                        SkillManager.Buffs.Add(skillInfo);
-                    }
-
-                }
 
                 skillInfo.SetCoolDown(milliseconds);
             }
