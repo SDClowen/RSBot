@@ -90,28 +90,25 @@ namespace RSBot.Core.Components
 
                 bool condition(SpawnedItem e)
                 {
-                    if (e.OwnerJID != 0 && e.OwnerJID != playerJid)
+                    if (JustPickMyItems && (e.OwnerJID != playerJid && e.OwnerJID != 0))
                         return false;
 
                     const int tolerance = 15;
                     var isInside = e.Movement.Source.DistanceTo(centerPosition) <= radius + tolerance;
-                    var selfish = JustPickMyItems && e.OwnerJID == playerJid;
+                    if (!isInside)
+                        return false;
 
-                    var flag =  isInside && (selfish || !JustPickMyItems);
-                    if(flag)
-                    {
-                        if (PickupGold && e.Record.IsGold)
-                            return true;
+                    if (PickupGold && e.Record.IsGold)
+                        return true;
 
-                        if (PickupFilter.Invoke(e.Record))
-                            return true;
+                    if (PickupFilter.Invoke(e.Record))
+                        return true;
 
-                        if (PickupRareItems && (byte)e.Rarity >= 2)
-                            return true;
+                    if (PickupRareItems && (byte)e.Rarity >= 2)
+                        return true;
 
-                        if (PickupBlueItems && (byte)e.Rarity >= 1)
-                            return true;
-                    }
+                    if (PickupBlueItems && (byte)e.Rarity >= 1)
+                        return true;
 
                     return false;
                 }
