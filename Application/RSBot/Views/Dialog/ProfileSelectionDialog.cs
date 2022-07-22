@@ -26,6 +26,8 @@ namespace RSBot.Views.Dialog
             LoadProfiles();
         }
 
+        #region Methods
+
         private void LoadProfiles()
         {
             comboProfiles.Items.Clear();
@@ -45,14 +47,16 @@ namespace RSBot.Views.Dialog
             }
 
             foreach (var profile in profiles)
-            {
                 comboProfiles.Items.Add(profile);
-            }
 
             comboProfiles.Items.Add("New..."); //The last item is ALWAYS new
 
             comboProfiles.SelectedItem = _profileConfig.Get("RSBot.SelectedProfile", "Default");
         }
+
+        #endregion Methods
+
+        #region Events
 
         private void comboProfiles_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -102,12 +106,49 @@ namespace RSBot.Views.Dialog
 
             existingProfiles.Add($"{profileName}");
 
+            var newProfileDirectory = Path.Combine(Environment.CurrentDirectory, "User", profileName);
+            Directory.CreateDirectory(newProfileDirectory);
+
             _profileConfig.SetArray("RSBot.Profiles", existingProfiles, "|");
             _profileConfig.Set("RSBot.SelectedProfile", profileName);
             _profileConfig.Save();
 
+            CopyOldProfileData(profileName);
+
             return profileName;
         }
+
+        /// <summary>
+        /// Copies the old profile data to the new profile.
+        /// </summary>
+        /// <param name="profileName">Name of the profile.</param>
+        private static void CopyOldProfileData(string profileName)
+        {
+            //Copy the old profile to use it as the base
+            if (profileName != Kernel.Profile)
+            {
+                try
+                {
+                    var profilesPath = Path.Combine(Environment.CurrentDirectory, "User");
+                    var oldProfileFilePath = Path.Combine(profilesPath, Kernel.Profile + ".rs");
+                    var newProfileFilePath = Path.Combine(profilesPath, profileName + ".rs");
+                    var oldAutoLoginFile = Path.Combine(profilesPath, Kernel.Profile, "autologin.data");
+                    var newAutoLoginFile = Path.Combine(profilesPath, profileName, "autologin.data");
+
+                    if (File.Exists(oldProfileFilePath))
+                        File.Copy(oldProfileFilePath, newProfileFilePath);
+
+                    if (File.Exists(oldAutoLoginFile))
+                        File.Copy(oldAutoLoginFile, newAutoLoginFile);
+                }
+                catch (Exception ex)
+                {
+                    Log.Warn($"Could not copy old profile data to the new profile: {ex.Message}");
+                }
+            }
+        }
+
+        #endregion Events
 
         private void checkSaveSelection_CheckedChanged(object sender, EventArgs e)
         {

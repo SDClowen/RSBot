@@ -687,9 +687,10 @@ namespace RSBot.Views
             if (Game.Player == null)
                 return;
 
+            //Reload player config
             PlayerConfig.Load(Game.Player.Name);
 
-            //Tell all plugins to reload
+            //A little hack to tell all plugins to reload their UI
             EventManager.FireEvent("OnLoadCharacter");
         }
     }

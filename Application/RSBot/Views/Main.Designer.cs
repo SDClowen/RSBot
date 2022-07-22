@@ -49,6 +49,7 @@ namespace RSBot.Views
             this.botbase1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuSelectProfile = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemExit = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuSidebar = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,7 +71,6 @@ namespace RSBot.Views
             this.separator = new SDUI.Controls.Separator();
             this.separator1 = new SDUI.Controls.Separator();
             this.topCharacter = new RSBot.Views.Controls.Character();
-            this.menuSelectProfile = new System.Windows.Forms.ToolStripMenuItem();
             this.stripStatus.SuspendLayout();
             this.bottomPanel.SuspendLayout();
             this.pSidebar.SuspendLayout();
@@ -269,6 +269,14 @@ namespace RSBot.Views
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 22);
             this.fileToolStripMenuItem.Text = "File";
             // 
+            // menuSelectProfile
+            // 
+            this.menuSelectProfile.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.menuSelectProfile.Name = "menuSelectProfile";
+            this.menuSelectProfile.Size = new System.Drawing.Size(180, 22);
+            this.menuSelectProfile.Text = "Select Profile...";
+            this.menuSelectProfile.Click += new System.EventHandler(this.menuSelectProfile_Click);
+            // 
             // menuItemExit
             // 
             this.menuItemExit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
@@ -381,22 +389,25 @@ namespace RSBot.Views
             // 
             // darkToolStripMenuItem
             // 
+            this.darkToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.darkToolStripMenuItem.Name = "darkToolStripMenuItem";
-            this.darkToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.darkToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.darkToolStripMenuItem.Text = "Dark";
             this.darkToolStripMenuItem.Click += new System.EventHandler(this.darkToolStripMenuItem_Click);
             // 
             // lightToolStripMenuItem
             // 
+            this.lightToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lightToolStripMenuItem.Name = "lightToolStripMenuItem";
-            this.lightToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.lightToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.lightToolStripMenuItem.Text = "Light";
             this.lightToolStripMenuItem.Click += new System.EventHandler(this.lightToolStripMenuItem_Click);
             // 
             // coloredToolStripMenuItem
             // 
+            this.coloredToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.coloredToolStripMenuItem.Name = "coloredToolStripMenuItem";
-            this.coloredToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.coloredToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.coloredToolStripMenuItem.Text = "Choose a color";
             this.coloredToolStripMenuItem.Click += new System.EventHandler(this.coloredToolStripMenuItem_Click);
             // 
@@ -461,14 +472,6 @@ namespace RSBot.Views
             this.topCharacter.Name = "topCharacter";
             this.topCharacter.Size = new System.Drawing.Size(780, 79);
             this.topCharacter.TabIndex = 7;
-            // 
-            // menuSelectProfile
-            // 
-            this.menuSelectProfile.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.menuSelectProfile.Name = "menuSelectProfile";
-            this.menuSelectProfile.Size = new System.Drawing.Size(180, 22);
-            this.menuSelectProfile.Text = "Select Profile...";
-            this.menuSelectProfile.Click += new System.EventHandler(this.menuSelectProfile_Click);
             // 
             // Main
             // 
