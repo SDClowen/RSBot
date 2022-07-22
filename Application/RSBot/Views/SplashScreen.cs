@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using RSBot.Helper;
 
 namespace RSBot.Views
 {
@@ -64,6 +65,8 @@ namespace RSBot.Views
                     var content = LanguageManager.GetLang("ClientTypeInputDialogContent");
 
                     var clientTypeDialog = new InputDialog(title, title, content, InputDialog.InputType.Combobox);
+                    clientTypeDialog.ShowInTaskbar = true;
+                    clientTypeDialog.StartPosition = FormStartPosition.CenterScreen;
                     clientTypeDialog.Selector.Items.AddRange(Enum.GetNames(typeof(GameClientType)));
                     clientTypeDialog.Selector.SelectedIndex = 1;
                     clientTypeDialog.TopMost = true;
@@ -112,7 +115,7 @@ namespace RSBot.Views
         /// </summary>
         private void LoadProfileConfig()
         {
-            var profileConfig = new Config(Path.Combine(Environment.CurrentDirectory, "User", "Profiles.rs"));
+            var profileConfig = new Config(ProfilePathHelper.GetProfileConfigFileName());
 
             if (profileConfig.Get("RSBot.ShowProfileDialog", true))
             {
@@ -129,13 +132,17 @@ namespace RSBot.Views
             else //Load selected profile without dialog
             {
                 var selectedProfile = profileConfig.Get("RSBot.SelectedProfile", "Default");
+                var profilePath = ProfilePathHelper.GetProfileFile(selectedProfile);
+                
+                //Configured profile could not be found. Fallback to default profile
+                if (!string.IsNullOrEmpty(selectedProfile) && !File.Exists(profilePath))
+                    selectedProfile = "Default";
 
                 Kernel.Profile = selectedProfile;
-                
-                if (selectedProfile != null)
-                    GlobalConfig.Load();
+                GlobalConfig.Load();
             }
 
+            Log.Notify($"Loaded profile {Kernel.Profile}");
         }
 
         /// <summary>

@@ -71,6 +71,7 @@ namespace RSBot.Views
             this.separator = new SDUI.Controls.Separator();
             this.separator1 = new SDUI.Controls.Separator();
             this.topCharacter = new RSBot.Views.Controls.Character();
+            this.menuCurrentProfile = new System.Windows.Forms.ToolStripMenuItem();
             this.stripStatus.SuspendLayout();
             this.bottomPanel.SuspendLayout();
             this.pSidebar.SuspendLayout();
@@ -273,7 +274,7 @@ namespace RSBot.Views
             // 
             this.menuSelectProfile.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.menuSelectProfile.Name = "menuSelectProfile";
-            this.menuSelectProfile.Size = new System.Drawing.Size(180, 22);
+            this.menuSelectProfile.Size = new System.Drawing.Size(151, 22);
             this.menuSelectProfile.Text = "Select Profile...";
             this.menuSelectProfile.Click += new System.EventHandler(this.menuSelectProfile_Click);
             // 
@@ -281,7 +282,7 @@ namespace RSBot.Views
             // 
             this.menuItemExit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.menuItemExit.Name = "menuItemExit";
-            this.menuItemExit.Size = new System.Drawing.Size(180, 22);
+            this.menuItemExit.Size = new System.Drawing.Size(151, 22);
             this.menuItemExit.Text = "Exit";
             this.menuItemExit.Click += new System.EventHandler(this.menuItemExit_Click);
             // 
@@ -354,7 +355,8 @@ namespace RSBot.Views
             this.themeToolStripMenuItem,
             this.aboutToolStripMenuItem,
             this.closeToolStripMenuItem,
-            this.minimizeToolStripMenuItem});
+            this.minimizeToolStripMenuItem,
+            this.menuCurrentProfile});
             this.menuStrip.Location = new System.Drawing.Point(1, 1);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Padding = new System.Windows.Forms.Padding(6, 4, 6, 4);
@@ -391,7 +393,7 @@ namespace RSBot.Views
             // 
             this.darkToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.darkToolStripMenuItem.Name = "darkToolStripMenuItem";
-            this.darkToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.darkToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.darkToolStripMenuItem.Text = "Dark";
             this.darkToolStripMenuItem.Click += new System.EventHandler(this.darkToolStripMenuItem_Click);
             // 
@@ -399,7 +401,7 @@ namespace RSBot.Views
             // 
             this.lightToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lightToolStripMenuItem.Name = "lightToolStripMenuItem";
-            this.lightToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.lightToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.lightToolStripMenuItem.Text = "Light";
             this.lightToolStripMenuItem.Click += new System.EventHandler(this.lightToolStripMenuItem_Click);
             // 
@@ -407,7 +409,7 @@ namespace RSBot.Views
             // 
             this.coloredToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.coloredToolStripMenuItem.Name = "coloredToolStripMenuItem";
-            this.coloredToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.coloredToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.coloredToolStripMenuItem.Text = "Choose a color";
             this.coloredToolStripMenuItem.Click += new System.EventHandler(this.coloredToolStripMenuItem_Click);
             // 
@@ -472,6 +474,15 @@ namespace RSBot.Views
             this.topCharacter.Name = "topCharacter";
             this.topCharacter.Size = new System.Drawing.Size(780, 79);
             this.topCharacter.TabIndex = 7;
+            // 
+            // menuCurrentProfile
+            // 
+            this.menuCurrentProfile.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.menuCurrentProfile.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.menuCurrentProfile.Name = "menuCurrentProfile";
+            this.menuCurrentProfile.Size = new System.Drawing.Size(97, 22);
+            this.menuCurrentProfile.Text = "Profile: Default";
+            this.menuCurrentProfile.Click += new System.EventHandler(this.menuSelectProfile_Click);
             // 
             // Main
             // 
@@ -553,6 +564,7 @@ namespace RSBot.Views
         private SDUI.Controls.Separator separator;
         private SDUI.Controls.Separator separator1;
         private ToolStripMenuItem menuSelectProfile;
+        private ToolStripMenuItem menuCurrentProfile;
     }
 }
 

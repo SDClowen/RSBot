@@ -35,6 +35,7 @@
             this.btnCancel = new SDUI.Controls.Button();
             this.btnOK = new SDUI.Controls.Button();
             this.checkSaveSelection = new SDUI.Controls.CheckBox();
+            this.linkDeleteProfile = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,7 +46,7 @@
             this.comboProfiles.FormattingEnabled = true;
             this.comboProfiles.Location = new System.Drawing.Point(112, 12);
             this.comboProfiles.Name = "comboProfiles";
-            this.comboProfiles.Size = new System.Drawing.Size(245, 24);
+            this.comboProfiles.Size = new System.Drawing.Size(225, 24);
             this.comboProfiles.TabIndex = 1;
             this.comboProfiles.SelectedIndexChanged += new System.EventHandler(this.comboProfiles_SelectedIndexChanged);
             // 
@@ -94,7 +95,7 @@
             this.btnOK.Radius = 2;
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 4;
-            this.btnOK.Text = "Next";
+            this.btnOK.Text = "Select";
             this.btnOK.UseVisualStyleBackColor = true;
             // 
             // checkSaveSelection
@@ -109,11 +110,24 @@
             this.checkSaveSelection.Text = "Save selection";
             this.checkSaveSelection.CheckedChanged += new System.EventHandler(this.checkSaveSelection_CheckedChanged);
             // 
+            // linkDeleteProfile
+            // 
+            this.linkDeleteProfile.AutoSize = true;
+            this.linkDeleteProfile.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.linkDeleteProfile.Location = new System.Drawing.Point(340, 15);
+            this.linkDeleteProfile.Name = "linkDeleteProfile";
+            this.linkDeleteProfile.Size = new System.Drawing.Size(16, 17);
+            this.linkDeleteProfile.TabIndex = 7;
+            this.linkDeleteProfile.TabStop = true;
+            this.linkDeleteProfile.Text = "X";
+            this.linkDeleteProfile.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkDeleteProfile_LinkClicked);
+            // 
             // ProfileSelectionDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(375, 110);
+            this.Controls.Add(this.linkDeleteProfile);
             this.Controls.Add(this.checkSaveSelection);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
@@ -123,6 +137,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ProfileSelectionDialog";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "RSBot - Profile";
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -137,5 +152,6 @@
         private SDUI.Controls.Button btnCancel;
         private SDUI.Controls.Button btnOK;
         private SDUI.Controls.CheckBox checkSaveSelection;
+        private System.Windows.Forms.LinkLabel linkDeleteProfile;
     }
 }

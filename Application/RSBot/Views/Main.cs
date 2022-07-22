@@ -11,6 +11,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using RSBot.Helper;
 using static SDUI.NativeMethods;
 
 namespace RSBot.Views
@@ -327,6 +328,7 @@ namespace RSBot.Views
 
             ConfigureSidebar();
             BackColor = ColorScheme.BackColor;
+            menuCurrentProfile.Text = Kernel.Profile;
 
             EventManager.FireEvent("OnInitialized");
         }
@@ -664,25 +666,27 @@ namespace RSBot.Views
         private void menuSelectProfile_Click(object sender, EventArgs e)
         {
             var diag = new ProfileSelectionDialog();
-
+            diag.StartPosition = FormStartPosition.CenterParent;
             if (diag.ShowDialog() != DialogResult.OK)
                 return;
 
             var oldSroPath = GlobalConfig.Get("RSBot.SilkroadDirectory", "");
 
             //We need this to check if the sro directories are different
-            var tempNewConfig = new Config(Path.Combine(Environment.CurrentDirectory, "User", diag.SelectedProfile + ".rs"));
+            var tempNewConfig = new Config(ProfilePathHelper.GetProfileFile(diag.SelectedProfile));
 
             if (oldSroPath != tempNewConfig.Get("RSBot.SilkroadDirectory", ""))
             {
                 if (MessageBox.Show("This profile references to a different client, do you want to restart the bot?", "Restart bot?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
                     Environment.Exit(0);
+
             }
 
             Kernel.Profile = diag.SelectedProfile;
             GlobalConfig.Load();
 
             EventManager.FireEvent("OnProfileChanged");
+            menuCurrentProfile.Text = Kernel.Profile;
 
             if (Game.Player == null)
                 return;
