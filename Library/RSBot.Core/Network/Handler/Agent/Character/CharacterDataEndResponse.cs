@@ -70,6 +70,19 @@ namespace RSBot.Core.Network.Handler.Agent.Character
 
             if (Game.ClientType >= GameClientType.Global)
             {
+                // new 
+
+                packet.ReadByte();
+                packet.ReadUInt();
+                packet.ReadByte();
+                packet.ReadUInt();
+
+                var serverCap = packet.ReadByte();
+                Log.Notify($"The game server cap is {serverCap}!");
+
+                packet.ReadUShort();
+
+                /*
                 packet.ReadByte();
                 packet.ReadUInt();
                 packet.ReadUShort();
@@ -86,7 +99,7 @@ namespace RSBot.Core.Network.Handler.Agent.Character
                 Log.Notify($"The game server cap is {cap}!");
 
                 if (Game.ClientType != GameClientType.Korean)
-                    packet.ReadUShort();
+                    packet.ReadUShort();*/
             }
 
             character.Inventory = new CharacterInventory(packet);
@@ -142,8 +155,12 @@ namespace RSBot.Core.Network.Handler.Agent.Character
 
             packet.ReadByte(); //PVP dress for the CTF event //0 = Red Side, 1 = Blue Side, 0xFF = None
 
-            if (Game.ClientType > GameClientType.Chinese) // unknown side value 0xFF None
-                packet.ReadByte();
+            if (Game.ClientType > GameClientType.Chinese)
+            {
+                packet.ReadByte();      // 0xFF
+                packet.ReadUShort();    // 0xFF
+                packet.ReadUShort();    // 0xFF
+            }
 
             //GuideFlag
             if (Game.ClientType >= GameClientType.Thailand)
