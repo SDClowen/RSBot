@@ -1,5 +1,6 @@
 ﻿using RSBot.Core.Components;
 using RSBot.Core.Network;
+using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
 using System;
 using System.Threading;
@@ -250,7 +251,7 @@ namespace RSBot.Core.Objects.Cos
             }
 
             var packet = new Packet(0x7034);
-            packet.WriteByte(0x13); //Buy item flag
+            packet.WriteByte(InventoryOperation.SP_BUY_ITEM_COS); //Buy item flag
             packet.WriteUInt(UniqueId);
             packet.WriteByte(tab);
             packet.WriteByte(slot);
@@ -282,7 +283,7 @@ namespace RSBot.Core.Objects.Cos
                 return false;
 
             var packet = new Packet(0x7034);
-            packet.WriteByte(0x14);
+            packet.WriteByte(InventoryOperation.SP_SELL_ITEM_COS);
             packet.WriteInt(UniqueId);
             packet.WriteByte(item.Slot);
             packet.WriteUShort(item.Amount);
