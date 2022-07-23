@@ -1,6 +1,6 @@
 DisplayName="Training"
 TabText="Training"
-RSBot.Default.Main.GroupBox.checkBoxUseReverse="Use Reverse"
+RSBot.Default.Main.GroupBox.checkBoxUseReverse="إستخدام Reverse"
 RSBot.Default.Main.GroupBox.checkUseSpeedDrug="speed استخدام"
 RSBot.Default.Main.GroupBox.checkCastBuffs="استخدام مهارات buff"
 RSBot.Default.Main.GroupBox.checkUseMount="استخدم الحصان اذا كان متاح"
