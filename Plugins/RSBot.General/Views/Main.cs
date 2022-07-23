@@ -44,6 +44,14 @@ namespace RSBot.General.Views
             EventManager.SubscribeEvent("OnExitClient", OnExitClient);
             EventManager.SubscribeEvent("OnCharacterListReceived", OnCharacterListReceived);
             EventManager.SubscribeEvent("OnInitialized", OnInitialized);
+            EventManager.SubscribeEvent("OnProfileChanged", OnProfileChanged);
+
+        }
+
+        private void OnProfileChanged()
+        {
+            Components.Accounts.Load();
+            LoadAccounts();
         }
 
         /// <summary>
