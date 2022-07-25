@@ -42,7 +42,7 @@ namespace RSBot.Views.Dialog
             //Add the default profile if no profiles have been saved by the user
             if (profiles.Count == 0)
             {
-                profiles.Add("Default"); //Always points to Data\Default.rs
+                profiles.Add("Default");
 
                 _profileConfig.SetArray("RSBot.Profiles", profiles); //Save default to profiles
                 _profileConfig.Save();
@@ -50,38 +50,11 @@ namespace RSBot.Views.Dialog
 
             foreach (var profile in profiles)
                 comboProfiles.Items.Add(profile);
-
-            comboProfiles.Items.Add("New..."); //The last item is ALWAYS new
             
             comboProfiles.SelectedItem = _profileConfig.Get("RSBot.SelectedProfile", "Default");
 
             if (comboProfiles.SelectedItem == null)
                 comboProfiles.SelectedItem = "Default";
-        }
-
-        #endregion Methods
-
-        #region Events
-
-        private void comboProfiles_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (comboProfiles.SelectedItem == null)
-                return;
-
-            if (comboProfiles.SelectedIndex != comboProfiles.Items.Count - 1) //New...?
-            {
-                SelectedProfile = (string)comboProfiles.SelectedItem;
-
-                _profileConfig.Set("RSBot.SelectedProfile", SelectedProfile);
-
-                _profileConfig.Save();
-            }
-            else //New profile...
-            {
-                SelectedProfile = CreateNewProfile();
-
-                LoadProfiles();
-            }
         }
 
         private string CreateNewProfile()
@@ -114,7 +87,9 @@ namespace RSBot.Views.Dialog
             existingProfiles.Add($"{profileName}");
 
             var newProfileDirectory = ProfilePathHelper.GetProfileDirectory(profileName);
-            Directory.CreateDirectory(newProfileDirectory);
+
+            if(!Directory.Exists(newProfileDirectory))
+                Directory.CreateDirectory(newProfileDirectory);
 
             _profileConfig.SetArray("RSBot.Profiles", existingProfiles, "|");
             _profileConfig.Set("RSBot.SelectedProfile", profileName);
@@ -154,7 +129,21 @@ namespace RSBot.Views.Dialog
             }
         }
 
-        #endregion Events
+        #endregion Methods
+
+        #region Events
+
+        private void comboProfiles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboProfiles.SelectedItem == null)
+                return;
+
+            SelectedProfile = (string)comboProfiles.SelectedItem;
+
+            _profileConfig.Set("RSBot.SelectedProfile", SelectedProfile);
+
+            _profileConfig.Save();
+        }
 
         private void checkSaveSelection_CheckedChanged(object sender, EventArgs e)
         {
@@ -162,11 +151,8 @@ namespace RSBot.Views.Dialog
             _profileConfig.Save();
         }
 
-        private void linkDeleteProfile_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void buttonDeleteProfile_Click(object sender, EventArgs e)
         {
-            if (comboProfiles.SelectedIndex == comboProfiles.Items.Count - 1) //New...
-                return;
-
             if (comboProfiles.SelectedIndex == 0) //Default
             {
                 MessageBox.Show("You can not delete the default profile!", "Default profile",
@@ -175,11 +161,11 @@ namespace RSBot.Views.Dialog
                 return;
             }
 
-            if (Kernel.Profile == (string) comboProfiles.SelectedItem) //Active profile?
+            if (Kernel.Profile == (string)comboProfiles.SelectedItem) //Active profile?
             {
                 MessageBox.Show("You can not delete the active profile!", "Profile active",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-                
+
                 return;
             }
 
@@ -189,12 +175,21 @@ namespace RSBot.Views.Dialog
                 return;
 
             var profiles = _profileConfig.GetArray<string>("RSBot.Profiles", '|').ToList();
-            profiles.Remove((string) comboProfiles.SelectedItem);
+            profiles.Remove((string)comboProfiles.SelectedItem);
 
             _profileConfig.SetArray("RSBot.Profiles", profiles, "|");
             _profileConfig.Save();
 
             LoadProfiles();
         }
+
+        private void buttonCreateProfile_Click(object sender, EventArgs e)
+        {
+            SelectedProfile = CreateNewProfile();
+
+            LoadProfiles();
+        }
+
+        #endregion Events
     }
 }

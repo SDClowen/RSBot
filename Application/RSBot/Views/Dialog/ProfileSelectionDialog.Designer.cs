@@ -35,7 +35,8 @@
             this.btnCancel = new SDUI.Controls.Button();
             this.btnOK = new SDUI.Controls.Button();
             this.checkSaveSelection = new SDUI.Controls.CheckBox();
-            this.linkDeleteProfile = new System.Windows.Forms.LinkLabel();
+            this.buttonCreateProfile = new SDUI.Controls.Button();
+            this.buttonDeleteProfile = new SDUI.Controls.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,7 +47,7 @@
             this.comboProfiles.FormattingEnabled = true;
             this.comboProfiles.Location = new System.Drawing.Point(112, 12);
             this.comboProfiles.Name = "comboProfiles";
-            this.comboProfiles.Size = new System.Drawing.Size(225, 24);
+            this.comboProfiles.Size = new System.Drawing.Size(191, 24);
             this.comboProfiles.TabIndex = 1;
             this.comboProfiles.SelectedIndexChanged += new System.EventHandler(this.comboProfiles_SelectedIndexChanged);
             // 
@@ -71,14 +72,14 @@
             this.panel1.Location = new System.Drawing.Point(0, 71);
             this.panel1.Name = "panel1";
             this.panel1.Radius = 1;
-            this.panel1.Size = new System.Drawing.Size(375, 39);
+            this.panel1.Size = new System.Drawing.Size(369, 39);
             this.panel1.TabIndex = 3;
             // 
             // btnCancel
             // 
             this.btnCancel.Color = System.Drawing.Color.Transparent;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(208, 9);
+            this.btnCancel.Location = new System.Drawing.Point(279, 8);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Radius = 2;
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
@@ -90,7 +91,7 @@
             // 
             this.btnOK.Color = System.Drawing.Color.Transparent;
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(289, 9);
+            this.btnOK.Location = new System.Drawing.Point(198, 8);
             this.btnOK.Name = "btnOK";
             this.btnOK.Radius = 2;
             this.btnOK.Size = new System.Drawing.Size(75, 23);
@@ -110,24 +111,41 @@
             this.checkSaveSelection.Text = "Save selection";
             this.checkSaveSelection.CheckedChanged += new System.EventHandler(this.checkSaveSelection_CheckedChanged);
             // 
-            // linkDeleteProfile
+            // buttonCreateProfile
             // 
-            this.linkDeleteProfile.AutoSize = true;
-            this.linkDeleteProfile.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.linkDeleteProfile.Location = new System.Drawing.Point(340, 15);
-            this.linkDeleteProfile.Name = "linkDeleteProfile";
-            this.linkDeleteProfile.Size = new System.Drawing.Size(16, 17);
-            this.linkDeleteProfile.TabIndex = 7;
-            this.linkDeleteProfile.TabStop = true;
-            this.linkDeleteProfile.Text = "X";
-            this.linkDeleteProfile.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkDeleteProfile_LinkClicked);
+            this.buttonCreateProfile.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.buttonCreateProfile.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonCreateProfile.ForeColor = System.Drawing.Color.White;
+            this.buttonCreateProfile.Location = new System.Drawing.Point(330, 12);
+            this.buttonCreateProfile.Name = "buttonCreateProfile";
+            this.buttonCreateProfile.Radius = 6;
+            this.buttonCreateProfile.Size = new System.Drawing.Size(24, 24);
+            this.buttonCreateProfile.TabIndex = 8;
+            this.buttonCreateProfile.Text = "+";
+            this.buttonCreateProfile.UseVisualStyleBackColor = true;
+            this.buttonCreateProfile.Click += new System.EventHandler(this.buttonCreateProfile_Click);
+            // 
+            // buttonDeleteProfile
+            // 
+            this.buttonDeleteProfile.Color = System.Drawing.Color.IndianRed;
+            this.buttonDeleteProfile.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonDeleteProfile.ForeColor = System.Drawing.Color.White;
+            this.buttonDeleteProfile.Location = new System.Drawing.Point(305, 12);
+            this.buttonDeleteProfile.Name = "buttonDeleteProfile";
+            this.buttonDeleteProfile.Radius = 6;
+            this.buttonDeleteProfile.Size = new System.Drawing.Size(24, 24);
+            this.buttonDeleteProfile.TabIndex = 8;
+            this.buttonDeleteProfile.Text = "x";
+            this.buttonDeleteProfile.UseVisualStyleBackColor = true;
+            this.buttonDeleteProfile.Click += new System.EventHandler(this.buttonDeleteProfile_Click);
             // 
             // ProfileSelectionDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(375, 110);
-            this.Controls.Add(this.linkDeleteProfile);
+            this.ClientSize = new System.Drawing.Size(369, 110);
+            this.Controls.Add(this.buttonDeleteProfile);
+            this.Controls.Add(this.buttonCreateProfile);
             this.Controls.Add(this.checkSaveSelection);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
@@ -137,7 +155,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ProfileSelectionDialog";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RSBot - Profile";
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -152,6 +170,7 @@
         private SDUI.Controls.Button btnCancel;
         private SDUI.Controls.Button btnOK;
         private SDUI.Controls.CheckBox checkSaveSelection;
-        private System.Windows.Forms.LinkLabel linkDeleteProfile;
+        private SDUI.Controls.Button buttonCreateProfile;
+        private SDUI.Controls.Button buttonDeleteProfile;
     }
 }

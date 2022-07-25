@@ -665,24 +665,28 @@ namespace RSBot.Views
 
         private void menuSelectProfile_Click(object sender, EventArgs e)
         {
-            var diag = new ProfileSelectionDialog();
-            diag.StartPosition = FormStartPosition.CenterParent;
-            if (diag.ShowDialog() != DialogResult.OK)
+            var dialog = new ProfileSelectionDialog();
+            dialog.StartPosition = FormStartPosition.CenterParent;
+            dialog.ShowInTaskbar = false;
+            if (dialog.ShowDialog() != DialogResult.OK)
+                return;
+
+            if (dialog.SelectedProfile == Kernel.Profile)
                 return;
 
             var oldSroPath = GlobalConfig.Get("RSBot.SilkroadDirectory", "");
 
             //We need this to check if the sro directories are different
-            var tempNewConfig = new Config(ProfilePathHelper.GetProfileFile(diag.SelectedProfile));
+            var tempNewConfig = new Config(ProfilePathHelper.GetProfileFile(dialog.SelectedProfile));
 
             if (oldSroPath != tempNewConfig.Get("RSBot.SilkroadDirectory", ""))
             {
                 if (MessageBox.Show("This profile references to a different client, do you want to restart the bot?", "Restart bot?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
-                    Environment.Exit(0);
+                    Application.Restart();
 
             }
 
-            Kernel.Profile = diag.SelectedProfile;
+            Kernel.Profile = dialog.SelectedProfile;
             GlobalConfig.Load();
 
             EventManager.FireEvent("OnProfileChanged");
