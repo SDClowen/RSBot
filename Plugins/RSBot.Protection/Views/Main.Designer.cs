@@ -77,10 +77,6 @@
             this.checkAutoSummonAttackPet = new SDUI.Controls.CheckBox();
             this.checkUseAbnormalStatePotion = new SDUI.Controls.CheckBox();
             this.checkReviveAttackPet = new SDUI.Controls.CheckBox();
-            this.label19 = new SDUI.Controls.Label();
-            this.numMountMinHP = new SDUI.Controls.NumUpDown();
-            this.label20 = new SDUI.Controls.Label();
-            this.checkUseMountHP = new SDUI.Controls.CheckBox();
             this.label13 = new SDUI.Controls.Label();
             this.numPetMinHGP = new SDUI.Controls.NumUpDown();
             this.label14 = new SDUI.Controls.Label();
@@ -107,7 +103,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numPlayerMPPotionMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPlayerHPPotionMin)).BeginInit();
             this.groupPet.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numMountMinHP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPetMinHGP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPetMinHP)).BeginInit();
             this.groupStatPoints.SuspendLayout();
@@ -119,7 +114,7 @@
             // 
             this.label22.AutoSize = true;
             this.label22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label22.Location = new System.Drawing.Point(497, 465);
+            this.label22.Location = new System.Drawing.Point(500, 449);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(254, 15);
             this.label22.TabIndex = 16;
@@ -746,10 +741,6 @@
             this.groupPet.Controls.Add(this.checkAutoSummonAttackPet);
             this.groupPet.Controls.Add(this.checkUseAbnormalStatePotion);
             this.groupPet.Controls.Add(this.checkReviveAttackPet);
-            this.groupPet.Controls.Add(this.label19);
-            this.groupPet.Controls.Add(this.numMountMinHP);
-            this.groupPet.Controls.Add(this.label20);
-            this.groupPet.Controls.Add(this.checkUseMountHP);
             this.groupPet.Controls.Add(this.label13);
             this.groupPet.Controls.Add(this.numPetMinHGP);
             this.groupPet.Controls.Add(this.label14);
@@ -762,7 +753,7 @@
             this.groupPet.Name = "groupPet";
             this.groupPet.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupPet.Radius = 2;
-            this.groupPet.Size = new System.Drawing.Size(456, 185);
+            this.groupPet.Size = new System.Drawing.Size(456, 164);
             this.groupPet.TabIndex = 1;
             this.groupPet.TabStop = false;
             this.groupPet.Text = "Recovery - Pet";
@@ -772,7 +763,7 @@
             this.checkAutoSummonAttackPet.AutoSize = true;
             this.checkAutoSummonAttackPet.BackColor = System.Drawing.Color.Transparent;
             this.checkAutoSummonAttackPet.Checked = false;
-            this.checkAutoSummonAttackPet.Location = new System.Drawing.Point(11, 164);
+            this.checkAutoSummonAttackPet.Location = new System.Drawing.Point(11, 137);
             this.checkAutoSummonAttackPet.Name = "checkAutoSummonAttackPet";
             this.checkAutoSummonAttackPet.Size = new System.Drawing.Size(209, 15);
             this.checkAutoSummonAttackPet.TabIndex = 27;
@@ -784,7 +775,7 @@
             this.checkUseAbnormalStatePotion.AutoSize = true;
             this.checkUseAbnormalStatePotion.BackColor = System.Drawing.Color.Transparent;
             this.checkUseAbnormalStatePotion.Checked = false;
-            this.checkUseAbnormalStatePotion.Location = new System.Drawing.Point(11, 115);
+            this.checkUseAbnormalStatePotion.Location = new System.Drawing.Point(11, 88);
             this.checkUseAbnormalStatePotion.Name = "checkUseAbnormalStatePotion";
             this.checkUseAbnormalStatePotion.Size = new System.Drawing.Size(223, 15);
             this.checkUseAbnormalStatePotion.TabIndex = 26;
@@ -796,66 +787,12 @@
             this.checkReviveAttackPet.AutoSize = true;
             this.checkReviveAttackPet.BackColor = System.Drawing.Color.Transparent;
             this.checkReviveAttackPet.Checked = false;
-            this.checkReviveAttackPet.Location = new System.Drawing.Point(11, 140);
+            this.checkReviveAttackPet.Location = new System.Drawing.Point(11, 113);
             this.checkReviveAttackPet.Name = "checkReviveAttackPet";
             this.checkReviveAttackPet.Size = new System.Drawing.Size(166, 15);
             this.checkReviveAttackPet.TabIndex = 25;
             this.checkReviveAttackPet.Text = "Revive growth && fellow pet";
             this.checkReviveAttackPet.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label19.Location = new System.Drawing.Point(302, 93);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(17, 15);
-            this.label19.TabIndex = 24;
-            this.label19.Text = "%";
-            // 
-            // numMountMinHP
-            // 
-            this.numMountMinHP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
-            this.numMountMinHP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numMountMinHP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.numMountMinHP.InterceptArrowKeys = false;
-            this.numMountMinHP.Location = new System.Drawing.Point(249, 90);
-            this.numMountMinHP.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numMountMinHP.Name = "numMountMinHP";
-            this.numMountMinHP.Size = new System.Drawing.Size(47, 23);
-            this.numMountMinHP.TabIndex = 23;
-            this.numMountMinHP.Value = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.numMountMinHP.ValueChanged += new System.EventHandler(this.numSettings_ValueChanged);
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label20.Location = new System.Drawing.Point(230, 92);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(15, 15);
-            this.label20.TabIndex = 22;
-            this.label20.Text = "<";
-            // 
-            // checkUseMountHP
-            // 
-            this.checkUseMountHP.AutoSize = true;
-            this.checkUseMountHP.BackColor = System.Drawing.Color.Transparent;
-            this.checkUseMountHP.Checked = false;
-            this.checkUseMountHP.Location = new System.Drawing.Point(11, 89);
-            this.checkUseMountHP.Name = "checkUseMountHP";
-            this.checkUseMountHP.Size = new System.Drawing.Size(123, 15);
-            this.checkUseMountHP.TabIndex = 21;
-            this.checkUseMountHP.Text = "Heal mount if HP *";
-            this.checkUseMountHP.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // label13
             // 
@@ -1075,9 +1012,9 @@
             this.Controls.Add(this.groupBadStatus);
             this.Controls.Add(this.groupHPMP);
             this.Controls.Add(this.groupPet);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "Main";
-            this.Size = new System.Drawing.Size(776, 510);
+            this.Size = new System.Drawing.Size(776, 479);
             this.groupBackTown.ResumeLayout(false);
             this.groupBackTown.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDeadTimeout)).EndInit();
@@ -1093,7 +1030,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numPlayerHPPotionMin)).EndInit();
             this.groupPet.ResumeLayout(false);
             this.groupPet.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numMountMinHP)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPetMinHGP)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPetMinHP)).EndInit();
             this.groupStatPoints.ResumeLayout(false);
