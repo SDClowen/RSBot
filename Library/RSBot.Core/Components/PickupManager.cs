@@ -119,16 +119,29 @@ namespace RSBot.Core.Components
                     return;
                 }
 
-                foreach (var item in entities.OrderBy(item => item.Movement.Source.DistanceTo(centerPosition))/*.Take(5)*/)
+                if (UseAbilityPet && Game.Player.HasActiveAbilityPet)
                 {
-                    if (!Running)
-                        return;
+                    foreach (var item in entities.OrderBy(item => item.Movement.Source.DistanceTo(centerPosition))/*.Take(5)*/)
+                    {
+                        if (!Running)
+                            return;
 
-                    if (UseAbilityPet && Game.Player.HasActiveAbilityPet)
                         Game.Player.AbilityPet.Pickup(item.UniqueId);
-                    else
-                        item.Pickup();
+                    }
                 }
+                else
+                {
+                    var pickingItem = entities.OrderBy(item => item.Movement.Source.DistanceTo(centerPosition)).FirstOrDefault();
+                    if(pickingItem == null)
+                    {
+                        Stop();
+                        return;
+                    }
+
+                    pickingItem.Pickup();
+                }
+
+                
             }
             catch (System.Exception e)
             {
