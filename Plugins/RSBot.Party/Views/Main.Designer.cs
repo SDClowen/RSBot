@@ -31,11 +31,11 @@
             this.tabMain = new SDUI.Controls.TabControl();
             this.tabCurrentParty = new System.Windows.Forms.TabPage();
             this.listParty = new SDUI.Controls.ListView();
-            this.colMemberName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colGuild = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colMasteries = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colLocation = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colMemberName = new System.Windows.Forms.ColumnHeader();
+            this.colLevel = new System.Windows.Forms.ColumnHeader();
+            this.colGuild = new System.Windows.Forms.ColumnHeader();
+            this.colMasteries = new System.Windows.Forms.ColumnHeader();
+            this.colLocation = new System.Windows.Forms.ColumnHeader();
             this.contextParty = new SDUI.Controls.ContextMenuStrip();
             this.menuBanish = new System.Windows.Forms.ToolStripMenuItem();
             this.menuLeave = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,14 +69,14 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.groupBox7 = new SDUI.Controls.GroupBox();
             this.listCommandPlayers = new SDUI.Controls.ListView();
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
             this.panel4 = new SDUI.Controls.Panel();
             this.buttonCommandPlayerAdd = new SDUI.Controls.Button();
             this.buttonCommandPlayerRemove = new SDUI.Controls.Button();
             this.separator4 = new SDUI.Controls.Separator();
             this.groupBox3 = new SDUI.Controls.GroupBox();
             this.listAutoParty = new SDUI.Controls.ListView();
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.panel3 = new SDUI.Controls.Panel();
             this.btnAddToAutoParty = new SDUI.Controls.Button();
             this.btnRemoveFromAutoParty = new SDUI.Controls.Button();
@@ -87,13 +87,13 @@
             this.checkAutoExpAutoShare = new SDUI.Controls.CheckBox();
             this.tpPartyMatching = new System.Windows.Forms.TabPage();
             this.lvPartyMatching = new SDUI.Controls.ListView();
-            this.chPartyMatchNo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chPartyMatchRace = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chPartyMatchName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chPartyMatchTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chPartyMatchPurporse = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chPartyMatchMember = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chPartyMatchRange = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chPartyMatchNo = new System.Windows.Forms.ColumnHeader();
+            this.chPartyMatchRace = new System.Windows.Forms.ColumnHeader();
+            this.chPartyMatchName = new System.Windows.Forms.ColumnHeader();
+            this.chPartyMatchTitle = new System.Windows.Forms.ColumnHeader();
+            this.chPartyMatchPurporse = new System.Windows.Forms.ColumnHeader();
+            this.chPartyMatchMember = new System.Windows.Forms.ColumnHeader();
+            this.chPartyMatchRange = new System.Windows.Forms.ColumnHeader();
             this.topPartyPanel = new SDUI.Controls.Panel();
             this.btnPartyRefresh = new SDUI.Controls.Button();
             this.btnPartySearch = new SDUI.Controls.Button();
@@ -121,24 +121,24 @@
             this.buttonRemoveCharFromBuffing = new SDUI.Controls.Button();
             this.btnRemoveBuffFromMember = new SDUI.Controls.Button();
             this.listViewPartyMembers = new SDUI.Controls.ListView();
-            this.chPlayerName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chPlayerLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chPlayerName = new System.Windows.Forms.ColumnHeader();
+            this.chPlayerLevel = new System.Windows.Forms.ColumnHeader();
             this.separator9 = new SDUI.Controls.Separator();
             this.groupBox6 = new SDUI.Controls.GroupBox();
             this.buttonAddGroup = new SDUI.Controls.Button();
             this.buttonRemoveGroup = new SDUI.Controls.Button();
             this.listViewGroups = new SDUI.Controls.ListView();
-            this.columnHeaderGroupName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderMembersCount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderGroupName = new System.Windows.Forms.ColumnHeader();
+            this.columnHeaderMembersCount = new System.Windows.Forms.ColumnHeader();
             this.separator8 = new SDUI.Controls.Separator();
             this.groupBox5 = new SDUI.Controls.GroupBox();
             this.selectedMemberBuffs = new SDUI.Controls.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.separator7 = new SDUI.Controls.Separator();
             this.groupBox1 = new SDUI.Controls.GroupBox();
             this.listPartyBuffSkills = new SDUI.Controls.ListView();
-            this.columnName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnLimit = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnName = new System.Windows.Forms.ColumnHeader();
+            this.columnLimit = new System.Windows.Forms.ColumnHeader();
             this.panel5 = new SDUI.Controls.Panel();
             this.checkHideLowerLevelSkills = new SDUI.Controls.CheckBox();
             this.tabMain.SuspendLayout();
@@ -175,6 +175,7 @@
             this.tabMain.Controls.Add(this.tpPartyMatching);
             this.tabMain.Controls.Add(this.tpPartyBuffing);
             this.tabMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabMain.HideTabArea = false;
             this.tabMain.Location = new System.Drawing.Point(0, 0);
             this.tabMain.Name = "tabMain";
             this.tabMain.SelectedIndex = 0;
@@ -189,10 +190,10 @@
             this.tabCurrentParty.Controls.Add(this.separator3);
             this.tabCurrentParty.Controls.Add(this.panel1);
             this.tabCurrentParty.Controls.Add(this.grpPartySettings);
-            this.tabCurrentParty.Location = new System.Drawing.Point(4, 25);
+            this.tabCurrentParty.Location = new System.Drawing.Point(4, 24);
             this.tabCurrentParty.Name = "tabCurrentParty";
             this.tabCurrentParty.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCurrentParty.Size = new System.Drawing.Size(746, 438);
+            this.tabCurrentParty.Size = new System.Drawing.Size(746, 439);
             this.tabCurrentParty.TabIndex = 0;
             this.tabCurrentParty.Text = "Party";
             // 
@@ -211,11 +212,10 @@
             this.listParty.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.listParty.FullRowSelect = true;
             this.listParty.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listParty.HideSelection = false;
             this.listParty.Location = new System.Drawing.Point(3, 93);
             this.listParty.MultiSelect = false;
             this.listParty.Name = "listParty";
-            this.listParty.Size = new System.Drawing.Size(740, 310);
+            this.listParty.Size = new System.Drawing.Size(740, 311);
             this.listParty.TabIndex = 0;
             this.listParty.UseCompatibleStateImageBehavior = false;
             this.listParty.View = System.Windows.Forms.View.Details;
@@ -289,11 +289,12 @@
             // panel1
             // 
             this.panel1.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
+            this.panel1.BorderColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.btnLeaveParty);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.lblLeader);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(3, 403);
+            this.panel1.Location = new System.Drawing.Point(3, 404);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(6);
             this.panel1.Radius = 0;
@@ -317,7 +318,8 @@
             // label1
             // 
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label1.Location = new System.Drawing.Point(3, 8);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(61, 15);
@@ -327,6 +329,7 @@
             // lblLeader
             // 
             this.lblLeader.BackColor = System.Drawing.Color.Transparent;
+            this.lblLeader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblLeader.Location = new System.Drawing.Point(70, 9);
             this.lblLeader.Name = "lblLeader";
             this.lblLeader.Size = new System.Drawing.Size(143, 14);
@@ -352,31 +355,37 @@
             // 
             // checkCurrentAllowInvitations
             // 
+            this.checkCurrentAllowInvitations.AutoSize = true;
+            this.checkCurrentAllowInvitations.BackColor = System.Drawing.Color.Transparent;
             this.checkCurrentAllowInvitations.Checked = false;
             this.checkCurrentAllowInvitations.Enabled = false;
             this.checkCurrentAllowInvitations.Location = new System.Drawing.Point(143, 31);
             this.checkCurrentAllowInvitations.Name = "checkCurrentAllowInvitations";
-            this.checkCurrentAllowInvitations.Size = new System.Drawing.Size(119, 17);
+            this.checkCurrentAllowInvitations.Size = new System.Drawing.Size(111, 15);
             this.checkCurrentAllowInvitations.TabIndex = 6;
             this.checkCurrentAllowInvitations.Text = "Allow invitations";
             // 
             // checkCurrentAutoShareItems
             // 
+            this.checkCurrentAutoShareItems.AutoSize = true;
+            this.checkCurrentAutoShareItems.BackColor = System.Drawing.Color.Transparent;
             this.checkCurrentAutoShareItems.Checked = false;
             this.checkCurrentAutoShareItems.Enabled = false;
             this.checkCurrentAutoShareItems.Location = new System.Drawing.Point(13, 54);
             this.checkCurrentAutoShareItems.Name = "checkCurrentAutoShareItems";
-            this.checkCurrentAutoShareItems.Size = new System.Drawing.Size(126, 16);
+            this.checkCurrentAutoShareItems.Size = new System.Drawing.Size(105, 15);
             this.checkCurrentAutoShareItems.TabIndex = 5;
             this.checkCurrentAutoShareItems.Text = "Item auto share";
             // 
             // checkCurrentAutoShareEXP
             // 
+            this.checkCurrentAutoShareEXP.AutoSize = true;
+            this.checkCurrentAutoShareEXP.BackColor = System.Drawing.Color.Transparent;
             this.checkCurrentAutoShareEXP.Checked = false;
             this.checkCurrentAutoShareEXP.Enabled = false;
             this.checkCurrentAutoShareEXP.Location = new System.Drawing.Point(13, 31);
             this.checkCurrentAutoShareEXP.Name = "checkCurrentAutoShareEXP";
-            this.checkCurrentAutoShareEXP.Size = new System.Drawing.Size(112, 17);
+            this.checkCurrentAutoShareEXP.Size = new System.Drawing.Size(103, 15);
             this.checkCurrentAutoShareEXP.TabIndex = 5;
             this.checkCurrentAutoShareEXP.Text = "EXP Auto share";
             // 
@@ -388,10 +397,10 @@
             this.tpAutoParty.Controls.Add(this.panel2);
             this.tpAutoParty.Controls.Add(this.separator5);
             this.tpAutoParty.Controls.Add(this.grbAutoPartySettings);
-            this.tpAutoParty.Location = new System.Drawing.Point(4, 25);
+            this.tpAutoParty.Location = new System.Drawing.Point(4, 24);
             this.tpAutoParty.Name = "tpAutoParty";
             this.tpAutoParty.Padding = new System.Windows.Forms.Padding(3);
-            this.tpAutoParty.Size = new System.Drawing.Size(746, 438);
+            this.tpAutoParty.Size = new System.Drawing.Size(746, 439);
             this.tpAutoParty.TabIndex = 1;
             this.tpAutoParty.Text = "Auto Party";
             // 
@@ -417,14 +426,15 @@
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupBox2.Radius = 2;
-            this.groupBox2.Size = new System.Drawing.Size(509, 342);
+            this.groupBox2.Size = new System.Drawing.Size(509, 343);
             this.groupBox2.TabIndex = 11;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Auto party settings";
             // 
             // labelCommandsInfo
             // 
-            this.labelCommandsInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCommandsInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.labelCommandsInfo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.labelCommandsInfo.Location = new System.Drawing.Point(233, 239);
             this.labelCommandsInfo.Name = "labelCommandsInfo";
             this.labelCommandsInfo.Size = new System.Drawing.Size(251, 41);
@@ -463,50 +473,60 @@
             // 
             // checkBoxListenCommandsOnlyList
             // 
+            this.checkBoxListenCommandsOnlyList.AutoSize = true;
+            this.checkBoxListenCommandsOnlyList.BackColor = System.Drawing.Color.Transparent;
             this.checkBoxListenCommandsOnlyList.Checked = false;
             this.checkBoxListenCommandsOnlyList.Location = new System.Drawing.Point(20, 253);
             this.checkBoxListenCommandsOnlyList.Name = "checkBoxListenCommandsOnlyList";
-            this.checkBoxListenCommandsOnlyList.Size = new System.Drawing.Size(200, 16);
+            this.checkBoxListenCommandsOnlyList.Size = new System.Drawing.Size(148, 15);
             this.checkBoxListenCommandsOnlyList.TabIndex = 13;
             this.checkBoxListenCommandsOnlyList.Text = "Listen commands in list";
             this.checkBoxListenCommandsOnlyList.CheckedChanged += new System.EventHandler(this.checkAutoPartySetting_CheckedChanged);
             // 
             // checkBoxListenMasterCommands
             // 
+            this.checkBoxListenMasterCommands.AutoSize = true;
+            this.checkBoxListenMasterCommands.BackColor = System.Drawing.Color.Transparent;
             this.checkBoxListenMasterCommands.Checked = false;
             this.checkBoxListenMasterCommands.Location = new System.Drawing.Point(20, 231);
             this.checkBoxListenMasterCommands.Name = "checkBoxListenMasterCommands";
-            this.checkBoxListenMasterCommands.Size = new System.Drawing.Size(207, 16);
+            this.checkBoxListenMasterCommands.Size = new System.Drawing.Size(186, 15);
             this.checkBoxListenMasterCommands.TabIndex = 13;
             this.checkBoxListenMasterCommands.Text = "Listen party master commands";
             this.checkBoxListenMasterCommands.CheckedChanged += new System.EventHandler(this.checkAutoPartySetting_CheckedChanged);
             // 
             // checkBoxLeaveIfMasterNot
             // 
+            this.checkBoxLeaveIfMasterNot.AutoSize = true;
+            this.checkBoxLeaveIfMasterNot.BackColor = System.Drawing.Color.Transparent;
             this.checkBoxLeaveIfMasterNot.Checked = false;
             this.checkBoxLeaveIfMasterNot.Location = new System.Drawing.Point(20, 190);
             this.checkBoxLeaveIfMasterNot.Name = "checkBoxLeaveIfMasterNot";
-            this.checkBoxLeaveIfMasterNot.Size = new System.Drawing.Size(122, 17);
+            this.checkBoxLeaveIfMasterNot.Size = new System.Drawing.Size(129, 15);
             this.checkBoxLeaveIfMasterNot.TabIndex = 13;
             this.checkBoxLeaveIfMasterNot.Text = "Leave, if master not:";
             this.checkBoxLeaveIfMasterNot.CheckedChanged += new System.EventHandler(this.checkAutoPartySetting_CheckedChanged);
             // 
             // checkAcceptIfBotStopped
             // 
+            this.checkAcceptIfBotStopped.AutoSize = true;
+            this.checkAcceptIfBotStopped.BackColor = System.Drawing.Color.Transparent;
             this.checkAcceptIfBotStopped.Checked = false;
             this.checkAcceptIfBotStopped.Location = new System.Drawing.Point(20, 144);
             this.checkAcceptIfBotStopped.Name = "checkAcceptIfBotStopped";
-            this.checkAcceptIfBotStopped.Size = new System.Drawing.Size(228, 17);
+            this.checkAcceptIfBotStopped.Size = new System.Drawing.Size(168, 15);
             this.checkAcceptIfBotStopped.TabIndex = 12;
             this.checkAcceptIfBotStopped.Text = "Accept if the bot is stopped";
             this.checkAcceptIfBotStopped.CheckedChanged += new System.EventHandler(this.checkAutoPartySetting_CheckedChanged);
             // 
             // checkAcceptAtTrainingPlace
             // 
+            this.checkAcceptAtTrainingPlace.AutoSize = true;
+            this.checkAcceptAtTrainingPlace.BackColor = System.Drawing.Color.Transparent;
             this.checkAcceptAtTrainingPlace.Checked = false;
             this.checkAcceptAtTrainingPlace.Location = new System.Drawing.Point(20, 121);
             this.checkAcceptAtTrainingPlace.Name = "checkAcceptAtTrainingPlace";
-            this.checkAcceptAtTrainingPlace.Size = new System.Drawing.Size(259, 17);
+            this.checkAcceptAtTrainingPlace.Size = new System.Drawing.Size(208, 15);
             this.checkAcceptAtTrainingPlace.TabIndex = 10;
             this.checkAcceptAtTrainingPlace.Text = "Accept/Invite only at training place";
             this.checkAcceptAtTrainingPlace.CheckedChanged += new System.EventHandler(this.checkAutoPartySetting_CheckedChanged);
@@ -514,7 +534,8 @@
             // label2
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label2.Location = new System.Drawing.Point(17, 311);
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label2.Location = new System.Drawing.Point(17, 312);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(231, 18);
             this.label2.TabIndex = 11;
@@ -522,40 +543,48 @@
             // 
             // checkInviteFromList
             // 
+            this.checkInviteFromList.AutoSize = true;
+            this.checkInviteFromList.BackColor = System.Drawing.Color.Transparent;
             this.checkInviteFromList.Checked = false;
             this.checkInviteFromList.Location = new System.Drawing.Point(20, 98);
             this.checkInviteFromList.Name = "checkInviteFromList";
-            this.checkInviteFromList.Size = new System.Drawing.Size(259, 17);
+            this.checkInviteFromList.Size = new System.Drawing.Size(218, 15);
             this.checkInviteFromList.TabIndex = 9;
             this.checkInviteFromList.Text = "Auto invite all players from player list";
             this.checkInviteFromList.CheckedChanged += new System.EventHandler(this.checkAutoPartySetting_CheckedChanged);
             // 
             // checkInviteAll
             // 
+            this.checkInviteAll.AutoSize = true;
+            this.checkInviteAll.BackColor = System.Drawing.Color.Transparent;
             this.checkInviteAll.Checked = false;
             this.checkInviteAll.Location = new System.Drawing.Point(20, 75);
             this.checkInviteAll.Name = "checkInviteAll";
-            this.checkInviteAll.Size = new System.Drawing.Size(228, 17);
+            this.checkInviteAll.Size = new System.Drawing.Size(136, 15);
             this.checkInviteAll.TabIndex = 8;
             this.checkInviteAll.Text = "Auto invite all players";
             this.checkInviteAll.CheckedChanged += new System.EventHandler(this.checkAutoPartySetting_CheckedChanged);
             // 
             // checkAcceptFromList
             // 
+            this.checkAcceptFromList.AutoSize = true;
+            this.checkAcceptFromList.BackColor = System.Drawing.Color.Transparent;
             this.checkAcceptFromList.Checked = false;
             this.checkAcceptFromList.Location = new System.Drawing.Point(20, 52);
             this.checkAcceptFromList.Name = "checkAcceptFromList";
-            this.checkAcceptFromList.Size = new System.Drawing.Size(228, 17);
+            this.checkAcceptFromList.Size = new System.Drawing.Size(200, 15);
             this.checkAcceptFromList.TabIndex = 7;
             this.checkAcceptFromList.Text = "Accept invitations from player list";
             this.checkAcceptFromList.CheckedChanged += new System.EventHandler(this.checkAutoPartySetting_CheckedChanged);
             // 
             // checkAcceptAll
             // 
+            this.checkAcceptAll.AutoSize = true;
+            this.checkAcceptAll.BackColor = System.Drawing.Color.Transparent;
             this.checkAcceptAll.Checked = false;
             this.checkAcceptAll.Location = new System.Drawing.Point(20, 29);
             this.checkAcceptAll.Name = "checkAcceptAll";
-            this.checkAcceptAll.Size = new System.Drawing.Size(217, 17);
+            this.checkAcceptAll.Size = new System.Drawing.Size(138, 15);
             this.checkAcceptAll.TabIndex = 6;
             this.checkAcceptAll.Text = "Accept all invitations*";
             this.checkAcceptAll.CheckedChanged += new System.EventHandler(this.checkAutoPartySetting_CheckedChanged);
@@ -566,7 +595,7 @@
             this.separator6.IsVertical = true;
             this.separator6.Location = new System.Drawing.Point(224, 93);
             this.separator6.Name = "separator6";
-            this.separator6.Size = new System.Drawing.Size(10, 342);
+            this.separator6.Size = new System.Drawing.Size(10, 343);
             this.separator6.TabIndex = 16;
             this.separator6.Text = "separator6";
             // 
@@ -578,7 +607,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(3, 93);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(221, 342);
+            this.panel2.Size = new System.Drawing.Size(221, 343);
             this.panel2.TabIndex = 14;
             // 
             // groupBox7
@@ -591,7 +620,7 @@
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
             this.groupBox7.Radius = 2;
-            this.groupBox7.Size = new System.Drawing.Size(221, 153);
+            this.groupBox7.Size = new System.Drawing.Size(221, 154);
             this.groupBox7.TabIndex = 13;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Their commands will be listened to";
@@ -604,11 +633,10 @@
             this.listCommandPlayers.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listCommandPlayers.FullRowSelect = true;
             this.listCommandPlayers.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listCommandPlayers.HideSelection = false;
             this.listCommandPlayers.Location = new System.Drawing.Point(1, 24);
             this.listCommandPlayers.MultiSelect = false;
             this.listCommandPlayers.Name = "listCommandPlayers";
-            this.listCommandPlayers.Size = new System.Drawing.Size(219, 95);
+            this.listCommandPlayers.Size = new System.Drawing.Size(219, 96);
             this.listCommandPlayers.TabIndex = 18;
             this.listCommandPlayers.UseCompatibleStateImageBehavior = false;
             this.listCommandPlayers.View = System.Windows.Forms.View.Details;
@@ -620,10 +648,11 @@
             // panel4
             // 
             this.panel4.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
+            this.panel4.BorderColor = System.Drawing.Color.Transparent;
             this.panel4.Controls.Add(this.buttonCommandPlayerAdd);
             this.panel4.Controls.Add(this.buttonCommandPlayerRemove);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(1, 119);
+            this.panel4.Location = new System.Drawing.Point(1, 120);
             this.panel4.Name = "panel4";
             this.panel4.Radius = 1;
             this.panel4.Size = new System.Drawing.Size(219, 33);
@@ -685,7 +714,6 @@
             this.listAutoParty.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listAutoParty.FullRowSelect = true;
             this.listAutoParty.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listAutoParty.HideSelection = false;
             this.listAutoParty.Location = new System.Drawing.Point(1, 24);
             this.listAutoParty.MultiSelect = false;
             this.listAutoParty.Name = "listAutoParty";
@@ -701,6 +729,7 @@
             // panel3
             // 
             this.panel3.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
+            this.panel3.BorderColor = System.Drawing.Color.Transparent;
             this.panel3.Controls.Add(this.btnAddToAutoParty);
             this.panel3.Controls.Add(this.btnRemoveFromAutoParty);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -761,30 +790,36 @@
             // 
             // checkAutoAllowInvitations
             // 
+            this.checkAutoAllowInvitations.AutoSize = true;
+            this.checkAutoAllowInvitations.BackColor = System.Drawing.Color.Transparent;
             this.checkAutoAllowInvitations.Checked = true;
             this.checkAutoAllowInvitations.Location = new System.Drawing.Point(143, 31);
             this.checkAutoAllowInvitations.Name = "checkAutoAllowInvitations";
-            this.checkAutoAllowInvitations.Size = new System.Drawing.Size(129, 17);
+            this.checkAutoAllowInvitations.Size = new System.Drawing.Size(111, 15);
             this.checkAutoAllowInvitations.TabIndex = 6;
             this.checkAutoAllowInvitations.Text = "Allow invitations";
             this.checkAutoAllowInvitations.CheckedChanged += new System.EventHandler(this.checkSettings_CheckedChanged);
             // 
             // checkAutoItemAutoShare
             // 
+            this.checkAutoItemAutoShare.AutoSize = true;
+            this.checkAutoItemAutoShare.BackColor = System.Drawing.Color.Transparent;
             this.checkAutoItemAutoShare.Checked = false;
             this.checkAutoItemAutoShare.Location = new System.Drawing.Point(13, 54);
             this.checkAutoItemAutoShare.Name = "checkAutoItemAutoShare";
-            this.checkAutoItemAutoShare.Size = new System.Drawing.Size(137, 16);
+            this.checkAutoItemAutoShare.Size = new System.Drawing.Size(105, 15);
             this.checkAutoItemAutoShare.TabIndex = 5;
             this.checkAutoItemAutoShare.Text = "Item auto share";
             this.checkAutoItemAutoShare.CheckedChanged += new System.EventHandler(this.checkSettings_CheckedChanged);
             // 
             // checkAutoExpAutoShare
             // 
+            this.checkAutoExpAutoShare.AutoSize = true;
+            this.checkAutoExpAutoShare.BackColor = System.Drawing.Color.Transparent;
             this.checkAutoExpAutoShare.Checked = true;
             this.checkAutoExpAutoShare.Location = new System.Drawing.Point(13, 31);
             this.checkAutoExpAutoShare.Name = "checkAutoExpAutoShare";
-            this.checkAutoExpAutoShare.Size = new System.Drawing.Size(123, 17);
+            this.checkAutoExpAutoShare.Size = new System.Drawing.Size(103, 15);
             this.checkAutoExpAutoShare.TabIndex = 5;
             this.checkAutoExpAutoShare.Text = "EXP Auto share";
             this.checkAutoExpAutoShare.CheckedChanged += new System.EventHandler(this.checkSettings_CheckedChanged);
@@ -795,10 +830,10 @@
             this.tpPartyMatching.Controls.Add(this.lvPartyMatching);
             this.tpPartyMatching.Controls.Add(this.topPartyPanel);
             this.tpPartyMatching.Controls.Add(this.bottomPartyPanel);
-            this.tpPartyMatching.Location = new System.Drawing.Point(4, 25);
+            this.tpPartyMatching.Location = new System.Drawing.Point(4, 24);
             this.tpPartyMatching.Name = "tpPartyMatching";
             this.tpPartyMatching.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPartyMatching.Size = new System.Drawing.Size(746, 438);
+            this.tpPartyMatching.Size = new System.Drawing.Size(746, 439);
             this.tpPartyMatching.TabIndex = 2;
             this.tpPartyMatching.Text = "Party Matching";
             // 
@@ -817,12 +852,11 @@
             this.lvPartyMatching.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvPartyMatching.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lvPartyMatching.FullRowSelect = true;
-            this.lvPartyMatching.HideSelection = false;
             this.lvPartyMatching.Location = new System.Drawing.Point(3, 51);
             this.lvPartyMatching.MultiSelect = false;
             this.lvPartyMatching.Name = "lvPartyMatching";
             this.lvPartyMatching.ShowItemToolTips = true;
-            this.lvPartyMatching.Size = new System.Drawing.Size(740, 333);
+            this.lvPartyMatching.Size = new System.Drawing.Size(740, 334);
             this.lvPartyMatching.TabIndex = 15;
             this.lvPartyMatching.UseCompatibleStateImageBehavior = false;
             this.lvPartyMatching.View = System.Windows.Forms.View.Details;
@@ -865,6 +899,7 @@
             // topPartyPanel
             // 
             this.topPartyPanel.Border = new System.Windows.Forms.Padding(0, 0, 0, 1);
+            this.topPartyPanel.BorderColor = System.Drawing.Color.Transparent;
             this.topPartyPanel.Controls.Add(this.btnPartyRefresh);
             this.topPartyPanel.Controls.Add(this.btnPartySearch);
             this.topPartyPanel.Controls.Add(this.nudPartySearchMax);
@@ -906,6 +941,9 @@
             // 
             // nudPartySearchMax
             // 
+            this.nudPartySearchMax.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
+            this.nudPartySearchMax.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.nudPartySearchMax.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.nudPartySearchMax.Location = new System.Drawing.Point(437, 13);
             this.nudPartySearchMax.Maximum = new decimal(new int[] {
             140,
@@ -928,6 +966,9 @@
             // 
             // nudPartySearchMin
             // 
+            this.nudPartySearchMin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
+            this.nudPartySearchMin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.nudPartySearchMin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.nudPartySearchMin.Location = new System.Drawing.Point(376, 13);
             this.nudPartySearchMin.Maximum = new decimal(new int[] {
             140,
@@ -981,6 +1022,7 @@
             // label6
             // 
             this.label6.BackColor = System.Drawing.Color.Transparent;
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label6.Location = new System.Drawing.Point(419, 16);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(22, 18);
@@ -990,6 +1032,7 @@
             // label5
             // 
             this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label5.Location = new System.Drawing.Point(336, 16);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(34, 18);
@@ -999,6 +1042,7 @@
             // label4
             // 
             this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label4.Location = new System.Drawing.Point(166, 16);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(50, 13);
@@ -1008,6 +1052,7 @@
             // label3
             // 
             this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label3.Location = new System.Drawing.Point(15, 16);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(39, 13);
@@ -1018,6 +1063,7 @@
             // 
             this.bottomPartyPanel.BackColor = System.Drawing.Color.Transparent;
             this.bottomPartyPanel.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
+            this.bottomPartyPanel.BorderColor = System.Drawing.Color.Transparent;
             this.bottomPartyPanel.Controls.Add(this.btnPartyMatchDeleteEntry);
             this.bottomPartyPanel.Controls.Add(this.btnPartyMatchChangeEntry);
             this.bottomPartyPanel.Controls.Add(this.btnPartyMatchForm);
@@ -1028,8 +1074,8 @@
             this.bottomPartyPanel.Controls.Add(this.btnNext);
             this.bottomPartyPanel.Controls.Add(this.lbl_partyPageRange);
             this.bottomPartyPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottomPartyPanel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bottomPartyPanel.Location = new System.Drawing.Point(3, 384);
+            this.bottomPartyPanel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.bottomPartyPanel.Location = new System.Drawing.Point(3, 385);
             this.bottomPartyPanel.Name = "bottomPartyPanel";
             this.bottomPartyPanel.Radius = 0;
             this.bottomPartyPanel.Size = new System.Drawing.Size(740, 51);
@@ -1107,7 +1153,7 @@
             // 
             this.btnPrev.Color = System.Drawing.Color.Transparent;
             this.btnPrev.Enabled = false;
-            this.btnPrev.Font = new System.Drawing.Font("Arial", 11.25F);
+            this.btnPrev.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnPrev.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnPrev.Location = new System.Drawing.Point(315, 14);
             this.btnPrev.Name = "btnPrev";
@@ -1121,7 +1167,7 @@
             // 
             this.btnNext.Color = System.Drawing.Color.Transparent;
             this.btnNext.Enabled = false;
-            this.btnNext.Font = new System.Drawing.Font("Arial", 11.25F);
+            this.btnNext.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnNext.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnNext.Location = new System.Drawing.Point(387, 14);
             this.btnNext.Name = "btnNext";
@@ -1134,8 +1180,8 @@
             // lbl_partyPageRange
             // 
             this.lbl_partyPageRange.BackColor = System.Drawing.Color.Transparent;
-            this.lbl_partyPageRange.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_partyPageRange.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lbl_partyPageRange.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lbl_partyPageRange.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lbl_partyPageRange.Location = new System.Drawing.Point(344, 15);
             this.lbl_partyPageRange.Name = "lbl_partyPageRange";
             this.lbl_partyPageRange.Size = new System.Drawing.Size(39, 19);
@@ -1152,10 +1198,10 @@
             this.tpPartyBuffing.Controls.Add(this.groupBox5);
             this.tpPartyBuffing.Controls.Add(this.separator7);
             this.tpPartyBuffing.Controls.Add(this.groupBox1);
-            this.tpPartyBuffing.Location = new System.Drawing.Point(4, 25);
+            this.tpPartyBuffing.Location = new System.Drawing.Point(4, 24);
             this.tpPartyBuffing.Name = "tpPartyBuffing";
             this.tpPartyBuffing.Padding = new System.Windows.Forms.Padding(6);
-            this.tpPartyBuffing.Size = new System.Drawing.Size(746, 438);
+            this.tpPartyBuffing.Size = new System.Drawing.Size(746, 439);
             this.tpPartyBuffing.TabIndex = 3;
             this.tpPartyBuffing.Text = "Buffing";
             // 
@@ -1171,7 +1217,7 @@
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
             this.groupBox4.Radius = 2;
-            this.groupBox4.Size = new System.Drawing.Size(214, 241);
+            this.groupBox4.Size = new System.Drawing.Size(214, 242);
             this.groupBox4.TabIndex = 11;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Party Members";
@@ -1180,8 +1226,8 @@
             // 
             this.btnAddBuffToMember.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnAddBuffToMember.Color = System.Drawing.Color.Transparent;
-            this.btnAddBuffToMember.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddBuffToMember.Location = new System.Drawing.Point(4, 213);
+            this.btnAddBuffToMember.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnAddBuffToMember.Location = new System.Drawing.Point(4, 214);
             this.btnAddBuffToMember.Name = "btnAddBuffToMember";
             this.btnAddBuffToMember.Radius = 2;
             this.btnAddBuffToMember.Size = new System.Drawing.Size(75, 21);
@@ -1193,7 +1239,7 @@
             // 
             this.buttonRemoveCharFromBuffing.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRemoveCharFromBuffing.Color = System.Drawing.Color.IndianRed;
-            this.buttonRemoveCharFromBuffing.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.buttonRemoveCharFromBuffing.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonRemoveCharFromBuffing.ForeColor = System.Drawing.Color.White;
             this.buttonRemoveCharFromBuffing.Location = new System.Drawing.Point(184, 173);
             this.buttonRemoveCharFromBuffing.Name = "buttonRemoveCharFromBuffing";
@@ -1207,8 +1253,8 @@
             // 
             this.btnRemoveBuffFromMember.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRemoveBuffFromMember.Color = System.Drawing.Color.Transparent;
-            this.btnRemoveBuffFromMember.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemoveBuffFromMember.Location = new System.Drawing.Point(121, 213);
+            this.btnRemoveBuffFromMember.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnRemoveBuffFromMember.Location = new System.Drawing.Point(121, 214);
             this.btnRemoveBuffFromMember.Name = "btnRemoveBuffFromMember";
             this.btnRemoveBuffFromMember.Radius = 2;
             this.btnRemoveBuffFromMember.Size = new System.Drawing.Size(86, 21);
@@ -1225,7 +1271,6 @@
             this.listViewPartyMembers.Dock = System.Windows.Forms.DockStyle.Top;
             this.listViewPartyMembers.FullRowSelect = true;
             this.listViewPartyMembers.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listViewPartyMembers.HideSelection = false;
             this.listViewPartyMembers.Location = new System.Drawing.Point(1, 24);
             this.listViewPartyMembers.MultiSelect = false;
             this.listViewPartyMembers.Name = "listViewPartyMembers";
@@ -1275,7 +1320,7 @@
             // 
             this.buttonAddGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonAddGroup.Color = System.Drawing.Color.Transparent;
-            this.buttonAddGroup.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAddGroup.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonAddGroup.Location = new System.Drawing.Point(5, 147);
             this.buttonAddGroup.Name = "buttonAddGroup";
             this.buttonAddGroup.Radius = 2;
@@ -1288,7 +1333,7 @@
             // 
             this.buttonRemoveGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRemoveGroup.Color = System.Drawing.Color.Transparent;
-            this.buttonRemoveGroup.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRemoveGroup.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonRemoveGroup.Location = new System.Drawing.Point(137, 147);
             this.buttonRemoveGroup.Name = "buttonRemoveGroup";
             this.buttonRemoveGroup.Radius = 2;
@@ -1306,7 +1351,6 @@
             this.listViewGroups.Dock = System.Windows.Forms.DockStyle.Top;
             this.listViewGroups.FullRowSelect = true;
             this.listViewGroups.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listViewGroups.HideSelection = false;
             this.listViewGroups.Location = new System.Drawing.Point(1, 24);
             this.listViewGroups.MultiSelect = false;
             this.listViewGroups.Name = "listViewGroups";
@@ -1331,7 +1375,7 @@
             this.separator8.IsVertical = true;
             this.separator8.Location = new System.Drawing.Point(497, 6);
             this.separator8.Name = "separator8";
-            this.separator8.Size = new System.Drawing.Size(10, 426);
+            this.separator8.Size = new System.Drawing.Size(10, 427);
             this.separator8.TabIndex = 16;
             this.separator8.Text = "separator8";
             // 
@@ -1344,7 +1388,7 @@
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
             this.groupBox5.Radius = 2;
-            this.groupBox5.Size = new System.Drawing.Size(233, 426);
+            this.groupBox5.Size = new System.Drawing.Size(233, 427);
             this.groupBox5.TabIndex = 12;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Member Buffs";
@@ -1357,10 +1401,9 @@
             this.selectedMemberBuffs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.selectedMemberBuffs.FullRowSelect = true;
             this.selectedMemberBuffs.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.selectedMemberBuffs.HideSelection = false;
             this.selectedMemberBuffs.Location = new System.Drawing.Point(1, 24);
             this.selectedMemberBuffs.Name = "selectedMemberBuffs";
-            this.selectedMemberBuffs.Size = new System.Drawing.Size(231, 401);
+            this.selectedMemberBuffs.Size = new System.Drawing.Size(231, 402);
             this.selectedMemberBuffs.TabIndex = 9;
             this.selectedMemberBuffs.UseCompatibleStateImageBehavior = false;
             this.selectedMemberBuffs.View = System.Windows.Forms.View.Details;
@@ -1376,7 +1419,7 @@
             this.separator7.IsVertical = true;
             this.separator7.Location = new System.Drawing.Point(273, 6);
             this.separator7.Name = "separator7";
-            this.separator7.Size = new System.Drawing.Size(10, 426);
+            this.separator7.Size = new System.Drawing.Size(10, 427);
             this.separator7.TabIndex = 15;
             this.separator7.Text = "separator7";
             // 
@@ -1390,7 +1433,7 @@
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
             this.groupBox1.Radius = 2;
-            this.groupBox1.Size = new System.Drawing.Size(267, 426);
+            this.groupBox1.Size = new System.Drawing.Size(267, 427);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Buffs";
@@ -1404,10 +1447,9 @@
             this.listPartyBuffSkills.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listPartyBuffSkills.FullRowSelect = true;
             this.listPartyBuffSkills.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listPartyBuffSkills.HideSelection = false;
             this.listPartyBuffSkills.Location = new System.Drawing.Point(1, 24);
             this.listPartyBuffSkills.Name = "listPartyBuffSkills";
-            this.listPartyBuffSkills.Size = new System.Drawing.Size(265, 375);
+            this.listPartyBuffSkills.Size = new System.Drawing.Size(265, 376);
             this.listPartyBuffSkills.TabIndex = 9;
             this.listPartyBuffSkills.UseCompatibleStateImageBehavior = false;
             this.listPartyBuffSkills.View = System.Windows.Forms.View.Details;
@@ -1426,9 +1468,10 @@
             // panel5
             // 
             this.panel5.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
+            this.panel5.BorderColor = System.Drawing.Color.Transparent;
             this.panel5.Controls.Add(this.checkHideLowerLevelSkills);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel5.Location = new System.Drawing.Point(1, 399);
+            this.panel5.Location = new System.Drawing.Point(1, 400);
             this.panel5.Name = "panel5";
             this.panel5.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.panel5.Radius = 1;
@@ -1437,11 +1480,13 @@
             // 
             // checkHideLowerLevelSkills
             // 
+            this.checkHideLowerLevelSkills.AutoSize = true;
+            this.checkHideLowerLevelSkills.BackColor = System.Drawing.Color.Transparent;
             this.checkHideLowerLevelSkills.Checked = false;
             this.checkHideLowerLevelSkills.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkHideLowerLevelSkills.Location = new System.Drawing.Point(10, 0);
             this.checkHideLowerLevelSkills.Name = "checkHideLowerLevelSkills";
-            this.checkHideLowerLevelSkills.Size = new System.Drawing.Size(255, 26);
+            this.checkHideLowerLevelSkills.Size = new System.Drawing.Size(135, 15);
             this.checkHideLowerLevelSkills.TabIndex = 10;
             this.checkHideLowerLevelSkills.Text = "Hide lower level skills";
             this.checkHideLowerLevelSkills.Visible = false;
@@ -1452,7 +1497,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Controls.Add(this.tabMain);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "Main";
             this.Size = new System.Drawing.Size(754, 467);
             this.tabMain.ResumeLayout(false);
@@ -1460,14 +1505,17 @@
             this.contextParty.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.grpPartySettings.ResumeLayout(false);
+            this.grpPartySettings.PerformLayout();
             this.tpAutoParty.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.grbAutoPartySettings.ResumeLayout(false);
+            this.grbAutoPartySettings.PerformLayout();
             this.tpPartyMatching.ResumeLayout(false);
             this.topPartyPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nudPartySearchMax)).EndInit();
@@ -1479,6 +1527,7 @@
             this.groupBox5.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.ResumeLayout(false);
 
         }

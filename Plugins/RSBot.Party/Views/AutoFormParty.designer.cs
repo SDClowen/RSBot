@@ -105,7 +105,7 @@
             this.rbtn_Thief.AutoSize = true;
             this.rbtn_Thief.Checked = false;
             this.rbtn_Thief.Enabled = false;
-            this.rbtn_Thief.Location = new System.Drawing.Point(238, 27);
+            this.rbtn_Thief.Location = new System.Drawing.Point(238, 31);
             this.rbtn_Thief.Name = "rbtn_Thief";
             this.rbtn_Thief.Size = new System.Drawing.Size(93, 15);
             this.rbtn_Thief.TabIndex = 0;
@@ -119,7 +119,7 @@
             this.rbtn_Trade.AutoSize = true;
             this.rbtn_Trade.Checked = false;
             this.rbtn_Trade.Enabled = false;
-            this.rbtn_Trade.Location = new System.Drawing.Point(149, 27);
+            this.rbtn_Trade.Location = new System.Drawing.Point(149, 31);
             this.rbtn_Trade.Name = "rbtn_Trade";
             this.rbtn_Trade.Size = new System.Drawing.Size(95, 15);
             this.rbtn_Trade.TabIndex = 0;
@@ -132,7 +132,7 @@
             // 
             this.rbtn_Quest.AutoSize = true;
             this.rbtn_Quest.Checked = false;
-            this.rbtn_Quest.Location = new System.Drawing.Point(87, 27);
+            this.rbtn_Quest.Location = new System.Drawing.Point(87, 31);
             this.rbtn_Quest.Name = "rbtn_Quest";
             this.rbtn_Quest.Size = new System.Drawing.Size(63, 15);
             this.rbtn_Quest.TabIndex = 0;
@@ -145,7 +145,7 @@
             // 
             this.rbtn_Hunting.AutoSize = true;
             this.rbtn_Hunting.Checked = false;
-            this.rbtn_Hunting.Location = new System.Drawing.Point(12, 27);
+            this.rbtn_Hunting.Location = new System.Drawing.Point(12, 31);
             this.rbtn_Hunting.Name = "rbtn_Hunting";
             this.rbtn_Hunting.Size = new System.Drawing.Size(76, 15);
             this.rbtn_Hunting.TabIndex = 0;
@@ -341,7 +341,7 @@
             this.cb_AutoReform.AutoSize = true;
             this.cb_AutoReform.BackColor = System.Drawing.Color.Transparent;
             this.cb_AutoReform.Checked = false;
-            this.cb_AutoReform.Location = new System.Drawing.Point(12, 29);
+            this.cb_AutoReform.Location = new System.Drawing.Point(12, 32);
             this.cb_AutoReform.Name = "cb_AutoReform";
             this.cb_AutoReform.Size = new System.Drawing.Size(91, 15);
             this.cb_AutoReform.TabIndex = 0;
@@ -353,7 +353,7 @@
             this.cb_AutoAccept.AutoSize = true;
             this.cb_AutoAccept.BackColor = System.Drawing.Color.Transparent;
             this.cb_AutoAccept.Checked = false;
-            this.cb_AutoAccept.Location = new System.Drawing.Point(232, 29);
+            this.cb_AutoAccept.Location = new System.Drawing.Point(232, 32);
             this.cb_AutoAccept.Name = "cb_AutoAccept";
             this.cb_AutoAccept.Size = new System.Drawing.Size(89, 15);
             this.cb_AutoAccept.TabIndex = 0;
