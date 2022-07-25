@@ -134,7 +134,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(395, 234);
+            this.ClientSize = new System.Drawing.Size(385, 201);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.labelMyWaitingTime);
@@ -144,7 +144,7 @@
             this.Controls.Add(this.labelNumberOfPeopleWaiting);
             this.Controls.Add(this.labelServerName);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(401, 240);
             this.MinimizeBox = false;
@@ -153,6 +153,7 @@
             this.Opacity = 0.95D;
             this.Padding = new System.Windows.Forms.Padding(1);
             this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PendingWindow_FormClosing);
             this.ResumeLayout(false);
