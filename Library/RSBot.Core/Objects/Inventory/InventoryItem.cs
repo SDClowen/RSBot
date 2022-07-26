@@ -370,6 +370,13 @@ namespace RSBot.Core.Objects
             return abilityItem != null;
         }
 
+        public bool HasExtraAbility(out IEnumerable<RefExtraAbilityByEquipItemOptLevel> abilityItems)
+        {
+            abilityItems = Game.ReferenceManager.GetExtraAbilityItems(ItemId, OptLevel);
+
+            return abilityItems != null;
+        }
+
         public override bool Equals(object obj)
         {
             if(obj is TypeIdFilter filter)

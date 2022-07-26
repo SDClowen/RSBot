@@ -45,6 +45,7 @@ namespace RSBot.Views.Controls.Cos
             panelTopCenter.Controls.Clear();
             _cachedControls.Clear();
             _selectedIndex = 0;
+            Visible = false;
         }
 
         private void OnSummonCos(CosBase obj)

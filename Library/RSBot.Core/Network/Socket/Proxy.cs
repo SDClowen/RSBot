@@ -278,6 +278,9 @@ namespace RSBot.Core.Network
 
                 IsConnectedToAgentserver = false;
 
+                Game.Ready = false;
+                Game.Started = false;
+
                 EventManager.FireEvent("OnAgentServerDisconnected");
             }
             else if (IsConnectedToGatewayserver)

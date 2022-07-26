@@ -16,16 +16,17 @@ namespace RSBot.Core
         /// <summary>
         /// Load config from file
         /// </summary>
-        /// <param name="file">The config file path</param>
         public static void Load()
         {
-            _config = new Config(Path.Combine(Environment.CurrentDirectory, "Data", "Config.rs"));
+            var path = Path.Combine(Environment.CurrentDirectory, "Data", "User", Kernel.Profile + ".rs");
+
+            _config = new Config(path);
 
             Log.Notify("[Global] settings have been loaded!");
         }
 
         /// <summary>
-        /// Existses the specified key.
+        /// Returns a value indicating if the given config key exists.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns></returns>

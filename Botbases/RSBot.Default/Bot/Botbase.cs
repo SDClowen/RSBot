@@ -56,7 +56,7 @@ namespace RSBot.Default.Bot
             if (PickupManager.Running && !(Bundles.Loot.Config.UseAbilityPet && Game.Player.HasActiveAbilityPet))
                 return;
 
-            if (Bundles.Loop.Config.UseSpeedDrug && Game.Player.State.ActiveBuffs.FindIndex(p => p.Record.Action_Overlap == 6) < 0)
+            if (Bundles.Loop.Config.UseSpeedDrug && Game.Player.State.ActiveBuffs.FindIndex(p => p.Record.Params.Contains(1752396901)) < 0)
             {
                 var item = Game.Player.Inventory.GetItem(new TypeIdFilter(3, 3, 13, 1), p => p.Record.Desc1.Contains("_SPEED_"));
                 item?.Use();

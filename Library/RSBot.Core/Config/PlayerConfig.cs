@@ -11,7 +11,7 @@ namespace RSBot.Core
         /// <summary>
         /// The config directory
         /// </summary>
-        private static string _configDirectory => Path.Combine(Environment.CurrentDirectory, "Data", "User");
+        private static string _configDirectory => Path.Combine(Environment.CurrentDirectory, "User", Kernel.Profile);
 
         /// <summary>
         /// The config

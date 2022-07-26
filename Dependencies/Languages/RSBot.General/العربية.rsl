@@ -1,7 +1,7 @@
 DisplayName="General"
 RSBot.General.Main.GroupBox.label8="إذا تم التفعيل بينما البوت في شريط المهام
 سينتقل البوت الى وضع التصغير تلقائيا ويعمل من هناك."
-RSBot.General.Main.GroupBox.checkBoxBotTrayMinimized="نقل البوت الى ايقونات النظام عن تصغيره الى شريط المهام"
+RSBot.General.Main.GroupBox.checkBoxBotTrayMinimized="نقل البوت الى ايقونات النظام عند تصغيره الى شريط المهام"
 RSBot.General.Main.GroupBox.label2="إذا تم قفل البوت بسبب كراش سينتقل البوت
  الى وضع ’بدون كلينت, ويستمر في عمله"
 RSBot.General.Main.GroupBox.checkStayConnected="البقاء متصل اذا تم قفل الكلينت فجأة"

@@ -34,25 +34,27 @@ namespace RSBot.Core
                 GlobalConfig.Get<string>("RSBot.SilkroadExecutable")
             );
 
-            var buffer = Encoding.UTF8.GetBytes(Path.Combine(Environment.CurrentDirectory, "Loader.dll"));
+            var buffer = Encoding.UTF8.GetBytes(Path.Combine(Environment.CurrentDirectory, "Client.Library.dll"));
             var pathLen = (uint)buffer.Length;
 
             var gatewayIndex = GlobalConfig.Get<byte>("RSBot.GatewayIndex");
             var divisionIndex = GlobalConfig.Get<byte>("RSBot.DivisionIndex");
             byte contentId = Game.ReferenceManager.DivisionInfo.Locale;
 
-            var args = $"/{contentId} {divisionIndex} {gatewayIndex}";
+            var args = $"/{contentId} {divisionIndex} {gatewayIndex} 0";
 
             var si = new STARTUPINFO();
 
             var full = $"\"{path}\" {args}";
-            bool result = CreateProcessA(null, full, IntPtr.Zero, IntPtr.Zero, false, CREATE_SUSPENDED, IntPtr.Zero, silkroadDirectory, ref si, out var pi);
+            bool result = CreateProcess(null, full, IntPtr.Zero, IntPtr.Zero, false, CREATE_SUSPENDED, IntPtr.Zero, silkroadDirectory, ref si, out var pi);
             if (!result)
                 return false;
 
             PrepareTempConfigFile(pi.dwProcessId, divisionIndex);
 
-            var semaphore = new Semaphore(0, 1, pi.dwProcessId.ToString());
+            //CreateSemaphore(IntPtr.Zero, 0, 1,
+            //System.Runtime.InteropServices.Marshal.StringToHGlobalAuto(pi.dwProcessId.ToString()));
+            //var semaphore = new Semaphore(0, 1, pi.dwProcessId.ToString());
 
             var handle = OpenProcess(PROCESS_ALL_ACCESS, false, pi.dwProcessId);
             if (handle == IntPtr.Zero)
@@ -157,7 +159,7 @@ namespace RSBot.Core
         /// <param name="divisionIndex"></param>
         private static void PrepareTempConfigFile(uint processId, int divisionIndex)
         {
-            var tmpConfigFile = $"RSBot_{processId}.dat";
+            var tmpConfigFile = $"RSBot_{processId}.tmp";
 
             var division = Game.ReferenceManager.DivisionInfo.Divisions[divisionIndex];
             var gatewayPort = Game.ReferenceManager.GatewayInfo.Port;

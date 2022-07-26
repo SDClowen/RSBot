@@ -54,6 +54,14 @@ namespace RSBot.Core
         public static string Language { get; set; }
 
         /// <summary>
+        /// Gets or sets the profile.
+        /// </summary>
+        /// <value>
+        /// The profile.
+        /// </value>
+        public static string Profile { get; set; }
+
+        /// <summary>
         /// Initializes this instance.
         /// </summary>
         public static void Initialize()
@@ -75,20 +83,19 @@ namespace RSBot.Core
         {
             while (!_updaterTokenSource.IsCancellationRequested)
             {
-                if (Game.Ready)
-                {
-                    Game.Player.Update();
-                    Game.Player.Transport?.Update();
-                    Game.Player.JobTransport?.Update();
-                    Game.Player.AbilityPet?.Update();
-                    Game.Player.Growth?.Update();
-                    Game.Player.Fellow?.Update();
-
-                    SpawnManager.Update();
-                    EventManager.FireEvent("OnTick");
-                }
-
                 await Task.Delay(100);
+                if (!Game.Ready)
+                    continue;
+
+                Game.Player.Update();
+                Game.Player.Transport?.Update();
+                Game.Player.JobTransport?.Update();
+                Game.Player.AbilityPet?.Update();
+                Game.Player.Growth?.Update();
+                Game.Player.Fellow?.Update();
+
+                SpawnManager.Update();
+                EventManager.FireEvent("OnTick");
             }
         }
 

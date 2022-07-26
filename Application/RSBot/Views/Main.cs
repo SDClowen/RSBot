@@ -2,13 +2,16 @@
 using RSBot.Core.Client;
 using RSBot.Core.Event;
 using RSBot.Core.Plugins;
+using RSBot.Views.Dialog;
 using SDUI;
 using SDUI.Controls;
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using RSBot.Helper;
 using static SDUI.NativeMethods;
 
 namespace RSBot.Views
@@ -232,12 +235,12 @@ namespace RSBot.Views
             var menuItem = (ToolStripMenuItem)sender;
             var plugin = (IPlugin)menuItem.Tag;
 
-            var window = new CleanForm()
+            var window = new CleanForm
             {
                 Text = plugin.Information.DisplayName,
                 Name = plugin.Information.InternalName,
                 MaximizeBox = false,
-                FormBorderStyle = FormBorderStyle.FixedSingle,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
                 Icon = Icon,
                 StartPosition = FormStartPosition.CenterScreen
             };
@@ -325,6 +328,7 @@ namespace RSBot.Views
 
             ConfigureSidebar();
             BackColor = ColorScheme.BackColor;
+            menuCurrentProfile.Text = Kernel.Profile;
 
             EventManager.FireEvent("OnInitialized");
         }
@@ -499,7 +503,7 @@ namespace RSBot.Views
                 menuBotbase.DropDownItems.Add(item);
                 index++;
             }
-            
+
             SelectBotbase(GlobalConfig.Get<int>("RSBot.BotIndex"));
         }
 
@@ -657,6 +661,45 @@ namespace RSBot.Views
 
                 RefreshTheme();
             }
+        }
+
+        private void menuSelectProfile_Click(object sender, EventArgs e)
+        {
+            var dialog = new ProfileSelectionDialog();
+            dialog.StartPosition = FormStartPosition.CenterParent;
+            dialog.ShowInTaskbar = false;
+            if (dialog.ShowDialog() != DialogResult.OK)
+                return;
+
+            if (dialog.SelectedProfile == Kernel.Profile)
+                return;
+
+            var oldSroPath = GlobalConfig.Get("RSBot.SilkroadDirectory", "");
+
+            //We need this to check if the sro directories are different
+            var tempNewConfig = new Config(ProfilePathHelper.GetProfileFile(dialog.SelectedProfile));
+
+            if (oldSroPath != tempNewConfig.Get("RSBot.SilkroadDirectory", ""))
+            {
+                if (MessageBox.Show("This profile references to a different client, do you want to restart the bot?", "Restart bot?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                    Application.Restart();
+
+            }
+
+            Kernel.Profile = dialog.SelectedProfile;
+            GlobalConfig.Load();
+
+            EventManager.FireEvent("OnProfileChanged");
+            menuCurrentProfile.Text = Kernel.Profile;
+
+            if (Game.Player == null)
+                return;
+
+            //Reload player config
+            PlayerConfig.Load(Game.Player.Name);
+
+            //A little hack to tell all plugins to reload their UI
+            EventManager.FireEvent("OnLoadCharacter");
         }
     }
 }

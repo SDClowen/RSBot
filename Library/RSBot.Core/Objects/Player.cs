@@ -983,12 +983,16 @@ namespace RSBot.Core.Objects
 
             foreach (var item in player.Inventory.GetEquippedPartItems().Union(player.Avatars))
             {
-                if (!item.HasAbility(out var abilityItem))
-                    continue;
+                if (item.HasAbility(out var abilityItem))
+                    abilitySkills.AddRange(abilityItem.GetLinks().Select(skillId => new SkillInfo(skillId, true)));
 
-                var links = abilityItem.GetLinks().Select(skillId => new SkillInfo(skillId, true));
+                if(Game.ClientType >= GameClientType.Chinese)
+                {
+                    if (!item.HasExtraAbility(out var extraAbilityItems))
+                        continue;
 
-                abilitySkills.AddRange(links);
+                    abilitySkills.AddRange(extraAbilityItems.Select(p => new SkillInfo(p.SkillId, true)));
+                }    
             }
 
             return abilitySkills.Any();
