@@ -833,6 +833,7 @@ namespace RSBot.Core.Network.SecurityAPI
                 final_header.Write((byte)1); // Header flag
                 final_header.Write((short)parts);
                 final_header.Write(packet.Opcode);
+                final_header.Write((byte)0);
                 final.Write(FormatPacket(0x600D, final_header.GetBytes(), false));
 
                 // Finish the large packet of all the data
