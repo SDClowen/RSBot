@@ -288,7 +288,8 @@ namespace RSBot.Alchemy.Bot
         /// <param name="type">The type of alchemy that was triggered</param>
         private void OnElixirAlchemyFailed(InventoryItem oldItem, InventoryItem newItem, AlchemyType type)
         {
-            if (type != AlchemyType.Elixir) return;
+            if (type != AlchemyType.Elixir) 
+                return;
 
             _shouldRun = true;
             var message = Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL");

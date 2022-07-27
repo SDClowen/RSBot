@@ -20,7 +20,7 @@ namespace RSBot.Core.Network.Handler.Agent.Alchemy
                 var socketItem = Game.Player.Inventory.GetItemAt(packet.ReadByte()); //Target item
 
                 if (item != null && socketItem != null)
-                    Game.Player.ActiveAlchemyItems = new Dictionary<byte, InventoryItem>
+                    Game.Player.AlchemySlots = new Dictionary<byte, InventoryItem>
                     {
                         { item.Slot, item },
                         { socketItem.Slot, item }
@@ -31,14 +31,14 @@ namespace RSBot.Core.Network.Handler.Agent.Alchemy
 
             var slots = packet.ReadByteArray(packet.ReadByte());
 
-            Game.Player.ActiveAlchemyItems = new Dictionary<byte, InventoryItem>(slots.Length);
+            Game.Player.AlchemySlots = new Dictionary<byte, InventoryItem>(slots.Length);
 
             foreach (var slot in slots)
             {
                 var item = Game.Player.Inventory.GetItemAt(slot);
 
                 if (item != null)
-                    Game.Player.ActiveAlchemyItems.Add(item.Slot, item);
+                    Game.Player.AlchemySlots.Add(item.Slot, item);
             }
 
             EventManager.FireEvent("OnFuseRequest", action, type);

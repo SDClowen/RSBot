@@ -124,10 +124,10 @@ namespace RSBot.Alchemy.Views.Settings
                 };
 
                 item.SubItems.Add(current == null ? "0" : current.Value.ToString());
-                item.SubItems.Add(Game.ReferenceManager.GetMagicOption(assignment.Group, (byte)selectedItem.Record.Degree)?.GetMaxValue().ToString());
+                item.SubItems.Add(Game.ReferenceManager.GetMagicOption(assignment.Group, (byte)selectedItem.Record.Degree).GetMaxValue().ToString());
                 item.SubItems.Add($"{matchingItem?.Amount}");
 
-                if (Globals.Botbase.MagicOptionsConfig != null && Globals.Botbase.MagicOptionsConfig.MagicStones.Keys.Contains(matchingItem))
+                if (Globals.Botbase.MagicOptionsConfig != null && Globals.Botbase.MagicOptionsConfig.MagicStones.Keys.FirstOrDefault(i => i.Record.ID == matchingItem.ItemId) != null)
                     item.Checked = true;
                 else
                     item.Checked = false;

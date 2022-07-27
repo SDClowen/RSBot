@@ -117,7 +117,7 @@ namespace RSBot.Alchemy.Bot
                 //Gets the current magic option info from the selected item if available
                 var current = config.Item.MagicOptions.FirstOrDefault(m => m.Id == stone.Value.Id);
 
-                //Enough immortal?
+                //Enough immortal to fuse the astral stone?
                 if (stone.Value.Group == RefMagicOpt.MaterialAstral)
                 {
                     var immortalInfo = config.Item.MagicOptions.FirstOrDefault(m =>
@@ -221,7 +221,8 @@ namespace RSBot.Alchemy.Bot
         /// <param name="newItem">The new item after the operation failed</param>
         private void OnStoneAlchemyFailed(InventoryItem oldItem, InventoryItem newItem, AlchemyType type)
         {
-            if (type != AlchemyType.MagicStone) return;
+            if (type != AlchemyType.MagicStone)
+                return;
 
             Globals.View.AddLog(newItem.Record.GetRealName(), false, Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL"));
 
@@ -234,11 +235,12 @@ namespace RSBot.Alchemy.Bot
         /// <param name="errorCode">The error code</param>
         private void OnStoneAlchemyError(ushort errorCode, AlchemyType type)
         {
-            if (type != AlchemyType.MagicStone) return;
+            if (type != AlchemyType.MagicStone)
+                return;
 
             var translationName = GetErrorTranslationName(errorCode);
 
-            Globals.View.AddLog(Game.Player.ActiveAlchemyItems?.Count > 0 ? Game.Player.ActiveAlchemyItems.First().Value.Record.GetRealName() : "", false, Game.ReferenceManager.GetTranslation(translationName));
+            Globals.View.AddLog(Game.Player.AlchemySlots?.Count > 0 ? Game.Player.AlchemySlots.First().Value.Record.GetRealName() : "", false, Game.ReferenceManager.GetTranslation(translationName));
         }
 
         #endregion Events

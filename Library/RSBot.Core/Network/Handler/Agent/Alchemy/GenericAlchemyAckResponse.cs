@@ -9,7 +9,7 @@ namespace RSBot.Core.Network.Handler.Agent.Alchemy
         public static void Invoke(Packet packet, AlchemyType type)
         {
             EventManager.FireEvent("OnAlchemy", type);
-            Game.Player.ActiveAlchemyItems = null;
+            Game.Player.AlchemySlots = null;
 
             var result = packet.ReadByte();
 

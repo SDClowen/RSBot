@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using RSBot.Core;
+﻿using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Event;
 using RSBot.Core.Network;
 using RSBot.Core.Objects;
+using System.Collections.Generic;
 
 namespace RSBot.Alchemy.Helper
 {
@@ -32,7 +32,7 @@ namespace RSBot.Alchemy.Helper
 
             packet.WriteByte(item.Slot);
             packet.WriteByte(magicStone.Slot);
-     
+
             packet.Lock();
             Kernel.Proxy.Server.Send(packet);
 
@@ -47,7 +47,8 @@ namespace RSBot.Alchemy.Helper
         {
             var action = (AlchemyAction)packet.ReadByte();
 
-            if (action != AlchemyAction.Fuse) return;
+            if (action != AlchemyAction.Fuse)
+                return;
 
             var type = (AlchemyType)packet.ReadByte();
             if (type == AlchemyType.SocketInsert)
@@ -56,7 +57,7 @@ namespace RSBot.Alchemy.Helper
                 var socketItem = Game.Player.Inventory.GetItemAt(packet.ReadByte()); //Target item
 
                 if (item != null && socketItem != null)
-                    RSBot.Core.Game.Player.ActiveAlchemyItems = new Dictionary<byte, InventoryItem>
+                    Game.Player.AlchemySlots = new Dictionary<byte, InventoryItem>
                     {
                         { item.Slot, item },
                         { socketItem.Slot, item }
@@ -67,14 +68,14 @@ namespace RSBot.Alchemy.Helper
 
             var slots = packet.ReadByteArray(packet.ReadByte());
 
-            Game.Player.ActiveAlchemyItems = new Dictionary<byte, InventoryItem>(slots.Length);
+            Game.Player.AlchemySlots = new Dictionary<byte, InventoryItem>(slots.Length);
 
             foreach (var slot in slots)
             {
                 var item = Game.Player.Inventory.GetItemAt(slot);
 
                 if (item != null)
-                    Game.Player.ActiveAlchemyItems.Add(item.Slot, item);
+                    Game.Player.AlchemySlots.Add(item.Slot, item);
             }
 
             EventManager.FireEvent("OnFuseRequest", action, type);

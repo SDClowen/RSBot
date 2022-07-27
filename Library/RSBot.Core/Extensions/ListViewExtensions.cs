@@ -49,24 +49,32 @@ namespace RSBot.Core.Extensions
         {
             lock (_lock)
             {
-                if (listViewItem.Tag is SkillInfo skill)
+                try
                 {
-                    var imageKey = "skill:" + skill.Id;
-                    if (!StaticImageList.Images.ContainsKey(imageKey))
-                        StaticImageList.Images.Add(imageKey, skill.Record.GetIcon());
+                    if (listViewItem.Tag is SkillInfo skill)
+                    {
+                        var imageKey = "skill:" + skill.Id;
+                        if (!StaticImageList.Images.ContainsKey(imageKey))
+                            StaticImageList.Images.Add(imageKey, skill.Record.GetIcon());
 
-                    //Renders the image
-                    listViewItem.ImageKey = imageKey;
+                        //Renders the image
+                        listViewItem.ImageKey = imageKey;
+                    }
+
+                    if (listViewItem.Tag is ItemPerk perk)
+                    {
+                        var imageKey = "perk:" + perk.ItemId;
+                        if (!StaticImageList.Images.ContainsKey(imageKey))
+                            StaticImageList.Images.Add(imageKey, perk.Item?.GetIcon() ?? new Bitmap(0, 0));
+
+                        listViewItem.ImageKey = imageKey;
+                    }
                 }
-
-                if (listViewItem.Tag is ItemPerk perk)
+                catch
                 {
-                    var imageKey = "perk:" + perk.ItemId;
-                    if (!StaticImageList.Images.ContainsKey(imageKey))
-                        StaticImageList.Images.Add(imageKey, perk.Item?.GetIcon() ?? new Bitmap(0, 0));
-
-                    listViewItem.ImageKey = imageKey;
+                    Log.Debug("Error while loading skill image");
                 }
+   
             }
 
             return Task.CompletedTask;

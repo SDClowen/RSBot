@@ -60,8 +60,8 @@ namespace RSBot.Alchemy.Subscriber
         /// <param name="type">The type of alchemy</param>
         private static void OnFuseRequest(AlchemyAction action, AlchemyType type)
         {
-            var elixir = Game.Player.ActiveAlchemyItems.ElementAtOrDefault(1);
-            var item = Game.Player.ActiveAlchemyItems.ElementAtOrDefault(0);
+            var elixir = Game.Player.AlchemySlots.ElementAtOrDefault(1);
+            var item = Game.Player.AlchemySlots.ElementAtOrDefault(0);
 
             if (elixir.Value == null || item.Value == null) return;
             switch (type)
