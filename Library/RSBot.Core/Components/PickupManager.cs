@@ -93,6 +93,10 @@ namespace RSBot.Core.Components
                     if (JustPickMyItems && (e.OwnerJID != playerJid && e.OwnerJID != 0))
                         return false;
 
+                    //Don't pickup items that still belong to another player
+                    if (!JustPickMyItems && e.HasOwner)
+                        return false;
+
                     const int tolerance = 15;
                     var isInside = e.Movement.Source.DistanceTo(centerPosition) <= radius + tolerance;
                     if (!isInside)
