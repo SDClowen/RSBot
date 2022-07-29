@@ -35,13 +35,13 @@ namespace RSBot.Core.Network.Handler.Agent.Action
         {
             var targetId = packet.ReadUInt();
             var skillId = packet.ReadUInt();
-            var token = packet.ReadUInt();
+            var token = packet.ReadUInt(); 
             if (token == 0)
                 return;
 
-            var buffInfo = new SkillInfo(skillId, token);
 
-            if(targetId == Game.Player.UniqueId)
+            var buffInfo = new SkillInfo(skillId, token);
+            if (targetId == Game.Player.UniqueId)
             {
                 Game.Player.State.ActiveBuffs.Add(buffInfo);
                 EventManager.FireEvent("OnAddBuff", buffInfo);
