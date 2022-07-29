@@ -46,7 +46,7 @@ namespace RSBot.Protection.Components.Town
 
             Log.WarnLang("ResurrectSPointSeconds", timeOut);
 
-            await Task.Delay(timeOut);
+            await Task.Delay(timeOut * 1000);
 
             if (Game.Player.State.LifeState != LifeState.Dead)
                 return;
