@@ -37,6 +37,7 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                 return;
 
             entity.HasOwner = false;
+            entity.OwnerJID = 0;
 
             EventManager.FireEvent("OnRemoveItemOwnership", itemUniqueId);
         }
