@@ -211,7 +211,7 @@ namespace RSBot.Core
         /// </summary>
         /// <param name="view">The control view</param>
         /// <param name="file">The language file path</param>
-        public static void Translate(Control view, string language = "English")
+        public static void Translate(Control view, string language = "en_US")
         {
             var type = view.GetType();
 
@@ -271,7 +271,7 @@ namespace RSBot.Core
             }
         }
 
-        public static string[] GetLanguages()
+        public static Dictionary<string, string> GetLanguages()
         {
             var filePath = Path.Combine(_path, "langs.rsl");
             if (!File.Exists(filePath))
@@ -280,7 +280,8 @@ namespace RSBot.Core
                 Environment.Exit(0);
             }
 
-            return File.ReadAllLines(filePath);
+            return File.ReadAllLines(filePath)
+                .ToDictionary(p => p.Split(':')[0], p => p.Split(':')[1]);
         }
     }
 }

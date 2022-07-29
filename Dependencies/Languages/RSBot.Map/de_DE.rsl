@@ -1,0 +1,8 @@
+DisplayName="Karte"
+RSBot.Map.Main.label3="Diese Funktion funktioniert nicht, wenn der Bot aktiv ist.
+ Wenn du willst, dass der Bot automatisch angreift, während er aktiv ist,
+ Vermeiden einstellen."
+RSBot.Map.Main.checkBoxAutoSelectUniques="Automatisch Uniques auswählen"
+RSBot.Map.Main.label4="Anzeigen:"
+RSBot.Map.Main.lblRegion="Nicht im Spiel"
+NoName="<kein Name>"

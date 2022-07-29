@@ -318,8 +318,9 @@ namespace RSBot.Views
 
             foreach (var item in LanguageManager.GetLanguages())
             {
-                var dropdown = new ToolStripMenuItem(item);
+                var dropdown = new ToolStripMenuItem(item.Value);
                 dropdown.Click += LanguageDropdown_Click;
+                dropdown.Tag = item.Key;
                 languageToolStripMenuItem.DropDownItems.Add(dropdown);
 
                 if (Kernel.Language.ToString() == dropdown.Text)
@@ -345,7 +346,7 @@ namespace RSBot.Views
             if (dropdown.Checked)
                 return;
 
-            Kernel.Language = dropdown.Text;
+            Kernel.Language = dropdown.Tag.ToString();
 
             foreach (ToolStripMenuItem item in languageToolStripMenuItem.DropDownItems)
                 item.Checked = false;

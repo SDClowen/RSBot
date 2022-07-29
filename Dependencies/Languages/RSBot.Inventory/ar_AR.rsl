@@ -1,0 +1,9 @@
+DisplayName="Inventory"
+RSBot.Inventory.Main.Panel.buttonUseItem="استخدام"
+RSBot.Inventory.Main.Panel.label1="المخزون"
+RSBot.Inventory.Main.Panel.label2="Free Slots:"
+RSBot.Inventory.UseItemDialog.label2="العنصر  وفقا لقرارك الخاص يمكنك استخدام. سيتم فتح نافذة الشرط ومن هناك يمكنك تعيين الشروط التي تريدها"
+RSBot.Inventory.UseItemDialog.label1="إذا كنت ترغب في استخدام العنصر مباشرة،
+ فقط انقر فوق الزر"
+RSBot.Inventory.UseItemDialog.buttonCancel="الاستخدام مع الشروط"
+RSBot.Inventory.UseItemDialog.buttonOk="استخدم مباشرة"

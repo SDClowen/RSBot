@@ -1,0 +1,9 @@
+DisplayName="Hòm Đồ"
+RSBot.Inventory.Main.Panel.buttonUseItem="Sử Dụng"
+RSBot.Inventory.Main.Panel.label1="Thùng đồ:"
+RSBot.Inventory.Main.Panel.label2="Ô trống:"
+RSBot.Inventory.UseItemDialog.label2="Chọn lọc vật phẩm theo ý muốn của bạn. Một cửa số điều kiện sẽ mở ra từ đó hãy làm gì mà bạn muốn"
+RSBot.Inventory.UseItemDialog.label1="Nếu bạn muốn sử dụng vật phẩm trực tiếp,
+  chỉ cần nhấp vào nút"
+RSBot.Inventory.UseItemDialog.buttonCancel="Sử dụng với các điều kiện"
+RSBot.Inventory.UseItemDialog.buttonOk="Sử dụng trực tiếp"

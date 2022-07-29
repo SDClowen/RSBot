@@ -1,0 +1,11 @@
+DisplayName="Inventar"
+RSBot.Inventory.Main.Panel.buttonUseItem="Benutzen"
+RSBot.Inventory.Main.Panel.label1="Inventar:"
+RSBot.Inventory.Main.Panel.label2="Freie Plätze:"
+RSBot.Inventory.UseItemDialog.label2="Artikel nach Ihrer eigenen Entscheidung
+  können Sie verwenden. Es öffnet sich ein Konditionsfenster
+und von dort aus können Sie die gewünschten Bedingungen festlegen"
+RSBot.Inventory.UseItemDialog.label1="Wenn Sie den Artikel direkt verwenden möchten,
+ klicken Sie einfach auf den Button"
+RSBot.Inventory.UseItemDialog.buttonCancel="Verwendung mit Bedingungen"
+RSBot.Inventory.UseItemDialog.buttonOk="Direkt verwenden"
