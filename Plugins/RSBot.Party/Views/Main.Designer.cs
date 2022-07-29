@@ -433,14 +433,14 @@
             // 
             // labelCommandsInfo
             // 
-            this.labelCommandsInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.labelCommandsInfo.Font = new System.Drawing.Font("Segoe UI", 7.55F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.labelCommandsInfo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelCommandsInfo.Location = new System.Drawing.Point(233, 239);
+            this.labelCommandsInfo.Location = new System.Drawing.Point(232, 253);
             this.labelCommandsInfo.Name = "labelCommandsInfo";
-            this.labelCommandsInfo.Size = new System.Drawing.Size(251, 41);
+            this.labelCommandsInfo.Size = new System.Drawing.Size(261, 54);
             this.labelCommandsInfo.TabIndex = 16;
-            this.labelCommandsInfo.Text = "Commands only using in the game chat window! \r\n{traceme}: Send fallow me request " +
-    "to players";
+            this.labelCommandsInfo.Text = "Commands only using in the game chat window! \r\n\r\ntraceme: Send follow me request " +
+    "to players \r\nsitdown: Send sitdown request to players";
             // 
             // separator2
             // 
@@ -830,10 +830,10 @@
             this.tpPartyMatching.Controls.Add(this.lvPartyMatching);
             this.tpPartyMatching.Controls.Add(this.topPartyPanel);
             this.tpPartyMatching.Controls.Add(this.bottomPartyPanel);
-            this.tpPartyMatching.Location = new System.Drawing.Point(4, 24);
+            this.tpPartyMatching.Location = new System.Drawing.Point(4, 25);
             this.tpPartyMatching.Name = "tpPartyMatching";
             this.tpPartyMatching.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPartyMatching.Size = new System.Drawing.Size(746, 439);
+            this.tpPartyMatching.Size = new System.Drawing.Size(746, 438);
             this.tpPartyMatching.TabIndex = 2;
             this.tpPartyMatching.Text = "Party Matching";
             // 
@@ -856,7 +856,7 @@
             this.lvPartyMatching.MultiSelect = false;
             this.lvPartyMatching.Name = "lvPartyMatching";
             this.lvPartyMatching.ShowItemToolTips = true;
-            this.lvPartyMatching.Size = new System.Drawing.Size(740, 334);
+            this.lvPartyMatching.Size = new System.Drawing.Size(740, 333);
             this.lvPartyMatching.TabIndex = 15;
             this.lvPartyMatching.UseCompatibleStateImageBehavior = false;
             this.lvPartyMatching.View = System.Windows.Forms.View.Details;
@@ -1075,7 +1075,7 @@
             this.bottomPartyPanel.Controls.Add(this.lbl_partyPageRange);
             this.bottomPartyPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.bottomPartyPanel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.bottomPartyPanel.Location = new System.Drawing.Point(3, 385);
+            this.bottomPartyPanel.Location = new System.Drawing.Point(3, 384);
             this.bottomPartyPanel.Name = "bottomPartyPanel";
             this.bottomPartyPanel.Radius = 0;
             this.bottomPartyPanel.Size = new System.Drawing.Size(740, 51);
@@ -1198,10 +1198,10 @@
             this.tpPartyBuffing.Controls.Add(this.groupBox5);
             this.tpPartyBuffing.Controls.Add(this.separator7);
             this.tpPartyBuffing.Controls.Add(this.groupBox1);
-            this.tpPartyBuffing.Location = new System.Drawing.Point(4, 24);
+            this.tpPartyBuffing.Location = new System.Drawing.Point(4, 25);
             this.tpPartyBuffing.Name = "tpPartyBuffing";
             this.tpPartyBuffing.Padding = new System.Windows.Forms.Padding(6);
-            this.tpPartyBuffing.Size = new System.Drawing.Size(746, 439);
+            this.tpPartyBuffing.Size = new System.Drawing.Size(746, 438);
             this.tpPartyBuffing.TabIndex = 3;
             this.tpPartyBuffing.Text = "Buffing";
             // 
@@ -1217,7 +1217,7 @@
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
             this.groupBox4.Radius = 2;
-            this.groupBox4.Size = new System.Drawing.Size(214, 242);
+            this.groupBox4.Size = new System.Drawing.Size(214, 241);
             this.groupBox4.TabIndex = 11;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Party Members";
@@ -1227,7 +1227,7 @@
             this.btnAddBuffToMember.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnAddBuffToMember.Color = System.Drawing.Color.Transparent;
             this.btnAddBuffToMember.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnAddBuffToMember.Location = new System.Drawing.Point(4, 214);
+            this.btnAddBuffToMember.Location = new System.Drawing.Point(4, 213);
             this.btnAddBuffToMember.Name = "btnAddBuffToMember";
             this.btnAddBuffToMember.Radius = 2;
             this.btnAddBuffToMember.Size = new System.Drawing.Size(75, 21);
@@ -1254,7 +1254,7 @@
             this.btnRemoveBuffFromMember.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRemoveBuffFromMember.Color = System.Drawing.Color.Transparent;
             this.btnRemoveBuffFromMember.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnRemoveBuffFromMember.Location = new System.Drawing.Point(121, 214);
+            this.btnRemoveBuffFromMember.Location = new System.Drawing.Point(121, 213);
             this.btnRemoveBuffFromMember.Name = "btnRemoveBuffFromMember";
             this.btnRemoveBuffFromMember.Radius = 2;
             this.btnRemoveBuffFromMember.Size = new System.Drawing.Size(86, 21);
@@ -1375,7 +1375,7 @@
             this.separator8.IsVertical = true;
             this.separator8.Location = new System.Drawing.Point(497, 6);
             this.separator8.Name = "separator8";
-            this.separator8.Size = new System.Drawing.Size(10, 427);
+            this.separator8.Size = new System.Drawing.Size(10, 426);
             this.separator8.TabIndex = 16;
             this.separator8.Text = "separator8";
             // 
@@ -1388,7 +1388,7 @@
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
             this.groupBox5.Radius = 2;
-            this.groupBox5.Size = new System.Drawing.Size(233, 427);
+            this.groupBox5.Size = new System.Drawing.Size(233, 426);
             this.groupBox5.TabIndex = 12;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Member Buffs";
@@ -1403,7 +1403,7 @@
             this.selectedMemberBuffs.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.selectedMemberBuffs.Location = new System.Drawing.Point(1, 24);
             this.selectedMemberBuffs.Name = "selectedMemberBuffs";
-            this.selectedMemberBuffs.Size = new System.Drawing.Size(231, 402);
+            this.selectedMemberBuffs.Size = new System.Drawing.Size(231, 401);
             this.selectedMemberBuffs.TabIndex = 9;
             this.selectedMemberBuffs.UseCompatibleStateImageBehavior = false;
             this.selectedMemberBuffs.View = System.Windows.Forms.View.Details;
@@ -1419,7 +1419,7 @@
             this.separator7.IsVertical = true;
             this.separator7.Location = new System.Drawing.Point(273, 6);
             this.separator7.Name = "separator7";
-            this.separator7.Size = new System.Drawing.Size(10, 427);
+            this.separator7.Size = new System.Drawing.Size(10, 426);
             this.separator7.TabIndex = 15;
             this.separator7.Text = "separator7";
             // 
@@ -1433,7 +1433,7 @@
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
             this.groupBox1.Radius = 2;
-            this.groupBox1.Size = new System.Drawing.Size(267, 427);
+            this.groupBox1.Size = new System.Drawing.Size(267, 426);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Buffs";
@@ -1449,7 +1449,7 @@
             this.listPartyBuffSkills.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listPartyBuffSkills.Location = new System.Drawing.Point(1, 24);
             this.listPartyBuffSkills.Name = "listPartyBuffSkills";
-            this.listPartyBuffSkills.Size = new System.Drawing.Size(265, 376);
+            this.listPartyBuffSkills.Size = new System.Drawing.Size(265, 375);
             this.listPartyBuffSkills.TabIndex = 9;
             this.listPartyBuffSkills.UseCompatibleStateImageBehavior = false;
             this.listPartyBuffSkills.View = System.Windows.Forms.View.Details;
@@ -1471,7 +1471,7 @@
             this.panel5.BorderColor = System.Drawing.Color.Transparent;
             this.panel5.Controls.Add(this.checkHideLowerLevelSkills);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel5.Location = new System.Drawing.Point(1, 400);
+            this.panel5.Location = new System.Drawing.Point(1, 399);
             this.panel5.Name = "panel5";
             this.panel5.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.panel5.Radius = 1;

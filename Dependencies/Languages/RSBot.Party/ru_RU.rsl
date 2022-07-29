@@ -50,7 +50,9 @@ RSBot.Party.Main.TabControl.TabPage.GroupBox.checkBoxLeaveIfMasterNot="Уйти,
 RSBot.Party.Main.TabControl.TabPage.GroupBox.checkBoxListenMasterCommands="Слушайте команды лидера группы"
 RSBot.Party.Main.TabControl.TabPage.GroupBox.checkBoxListenCommandsOnlyList="Слушайте команды в списке"
 RSBot.Party.Main.TabControl.TabPage.GroupBox.labelCommandsInfo="Команды только в окне игрового чата!
-{traceme}: Отправить запрос игрокам"
+
+traceme: отправить игрокам запрос на подписку
+sitdown: Отправить игрокам запрос на сидячую посадку"
 RSBot.Party.Main.TabControl.TabPage.Panel.GroupBox.Panel.buttonCommandPlayerRemove="Удалить"
 RSBot.Party.Main.TabControl.TabPage.Panel.GroupBox.Panel.buttonCommandPlayerAdd="Добавить"
 RSBot.Party.AutoFormParty.GroupBox.cb_AutoReform="Авто реформа"

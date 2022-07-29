@@ -60,7 +60,7 @@ namespace RSBot.Core.Components
         /// <value>
         ///   <c>true</c> if [use ability pet]; otherwise, <c>false</c>.
         /// </value>
-        public static bool JustPickMyItems => PlayerConfig.Get<bool>("RSBot.Items.Pickup.JustPickMyItems", true);
+        public static bool JustPickMyItems => PlayerConfig.Get<bool>("RSBot.Items.Pickup.JustPickMyItems", false);
 
         /// <summary>
         /// Initializes this instance.
