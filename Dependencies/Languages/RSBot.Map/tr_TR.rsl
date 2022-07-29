@@ -1,0 +1,8 @@
+DisplayName="Harita"
+RSBot.Map.Main.label3="Bot aktifken bu fonksiyon çalışmaz. Bot aktifken
+otomatik saldırmasını istiyorsanız, canavar
+tercihlerinden ayarlayınız."
+RSBot.Map.Main.checkBoxAutoSelectUniques="Otomatik Unique Seçme"
+RSBot.Map.Main.label4="Göster:"
+RSBot.Map.Main.lblRegion="Oyunda değil"
+NoName="<No name>"
