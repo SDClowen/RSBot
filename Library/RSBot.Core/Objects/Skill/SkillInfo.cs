@@ -61,12 +61,12 @@ namespace RSBot.Core.Objects.Skill
         /// <summary>
         /// Skill cool down environment tick
         /// </summary>
-        private long _cooldownTick;
+        private int _cooldownTick;
 
         /// <summary>
         /// Skill can not be casted environment tick
         /// </summary>
-        private long _lastCastTick;
+        private int _lastCastTick;
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance has cooldown.
@@ -75,7 +75,7 @@ namespace RSBot.Core.Objects.Skill
         /// <c>true</c> if this instance has cooldown; otherwise, <c>false</c>.
         /// </value>
         public bool HasCooldown
-            => (Environment.TickCount64 - _cooldownTick) < Record.Action_ReuseDelay;
+            => (Kernel.TickCount - _cooldownTick) < Record.Action_ReuseDelay;
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance can be used.
@@ -90,7 +90,7 @@ namespace RSBot.Core.Objects.Skill
                 if (_lastCastTick == 0)
                     return false;
 
-                return (Environment.TickCount64 - _lastCastTick) < _duration;
+                return (Kernel.TickCount - _lastCastTick) < _duration;
             }
         }
 
@@ -166,8 +166,8 @@ namespace RSBot.Core.Objects.Skill
         /// </summary>
         public void Update()
         {
-            _cooldownTick = Environment.TickCount64;
-            _lastCastTick = Environment.TickCount64;
+            _cooldownTick = Kernel.TickCount;
+            _lastCastTick = Kernel.TickCount;
         }
 
         /// <summary>
@@ -175,7 +175,7 @@ namespace RSBot.Core.Objects.Skill
         /// </summary>
         public void SetCoolDown(int milliseconds)
         {
-            _cooldownTick = Environment.TickCount64 - milliseconds;
+            _cooldownTick = Kernel.TickCount - milliseconds;
         }
 
         /// <summary>

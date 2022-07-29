@@ -37,7 +37,7 @@ namespace RSBot.General.Views
 
         internal void Start(int count, int timestamp)
         {
-            _startedTick = Environment.TickCount;
+            _startedTick = Kernel.TickCount;
 
             labelPending.Text = $"{count} / {count}";
             labelServerName.Text = labelServerName.Text.Replace("{SERVER}", Serverlist.Joining?.Name);
@@ -48,7 +48,7 @@ namespace RSBot.General.Views
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            PrintTime(labelMyWaitingTime, Environment.TickCount - _startedTick);
+            PrintTime(labelMyWaitingTime, Kernel.TickCount - _startedTick);
         }
 
         private void PrintTime(SDUI.Controls.Label label, int millisecond)
