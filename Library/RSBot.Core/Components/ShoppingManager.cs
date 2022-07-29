@@ -213,6 +213,9 @@ namespace RSBot.Core.Components
         /// <param name="item">The item.</param>
         public static void SellItem(InventoryItem item)
         {
+            if (SelectedEntity == null)
+                return;
+
             var packet = new Packet(0x7034);
             packet.WriteByte(0x09);
             packet.WriteByte(item.Slot);
