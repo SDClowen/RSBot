@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>disable</ImplicitUsings>
-	<OutputPath>.\..\..\Build\Data\Extensions\Plugins</OutputPath>
+	<OutputPath>.\..\..\Build\Data\Plugins</OutputPath>
 	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	<Description>A open source bot for Silkroad Online</Description>
 	<Copyright>Copyright © 2022, RSBot Team</Copyright>
