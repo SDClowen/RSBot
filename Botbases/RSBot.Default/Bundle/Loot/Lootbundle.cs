@@ -1,7 +1,5 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Components;
-using RSBot.Core.Objects;
-using RSBot.Core.Objects.Spawn;
 using System.Threading.Tasks;
 
 namespace RSBot.Default.Bundle.Loot
@@ -30,10 +28,6 @@ namespace RSBot.Default.Bundle.Loot
             else
             {
                 if (Bundles.Loot.Config.DontPickupInBerzerk && Game.Player.Berzerking)
-                    return;
-
-                //Don't pickup if a mob is selected
-                if (Game.SelectedEntity is SpawnedMonster monster && monster.State.LifeState == LifeState.Alive)
                     return;
 
                 PickupManager.Run(Container.Bot.Area.CenterPosition, Container.Bot.Area.Radius);
