@@ -43,7 +43,7 @@ namespace RSBot.Core.Network.Handler.Agent.Action
 
             if(targetId == Game.Player.UniqueId)
             {
-                Game.Player.State.ActiveBuffs.Add(buffInfo);
+                Game.Player.State.TryAddActiveBuff(buffInfo);
                 EventManager.FireEvent("OnAddBuff", buffInfo);
 
                 Log.Notify($"Buff [{buffInfo.Record.GetRealName()}] added.");
@@ -52,7 +52,7 @@ namespace RSBot.Core.Network.Handler.Agent.Action
             }
 
             if (SpawnManager.TryGetEntity<SpawnedBionic>(targetId, out var entity))
-                entity.State.ActiveBuffs.Add(buffInfo);
+                entity.State.TryAddActiveBuff(buffInfo);
         }
     }
 }

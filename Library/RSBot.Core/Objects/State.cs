@@ -110,38 +110,41 @@ namespace RSBot.Core.Objects
         /// <returns></returns>
         public void Deserialize(Packet packet)
         {
-            LifeState = (LifeState)packet.ReadByte();
-
-            if (LifeState == 0)
-                LifeState = LifeState.Alive;
-
-            if(Game.ClientType > GameClientType.Thailand)
-                packet.ReadByte(); //unkByte0
-
-            MotionState = (MotionState)packet.ReadByte();
-            BodyState = (BodyState)packet.ReadByte();
-
-            if (Game.ClientType > GameClientType.Vietnam193)
-                packet.ReadByte(); // hasRedArrowEffect
-
-            WalkSpeed = packet.ReadFloat();
-            RunSpeed = packet.ReadFloat();
-            BerzerkSpeed = packet.ReadFloat();
-
-            var buffCount = packet.ReadByte();
-            for (var i = 0; i < buffCount; i++)
+            lock (ActiveBuffs)
             {
-                var id = packet.ReadUInt();
-                var token = packet.ReadUInt();
+                LifeState = (LifeState)packet.ReadByte();
 
-                var buff = new SkillInfo(id, token);
-                if (buff.Record == null)
-                    continue;
+                if (LifeState == 0)
+                    LifeState = LifeState.Alive;
 
-                if (buff.Record.Params.Contains(1701213281))
-                    packet.ReadBool(); //IsCreator
+                if(Game.ClientType > GameClientType.Thailand)
+                    packet.ReadByte(); //unkByte0
 
-                ActiveBuffs.Add(buff);
+                MotionState = (MotionState)packet.ReadByte();
+                BodyState = (BodyState)packet.ReadByte();
+
+                if (Game.ClientType > GameClientType.Vietnam193)
+                    packet.ReadByte(); // hasRedArrowEffect
+
+                WalkSpeed = packet.ReadFloat();
+                RunSpeed = packet.ReadFloat();
+                BerzerkSpeed = packet.ReadFloat();
+
+                var buffCount = packet.ReadByte();
+                for (var i = 0; i < buffCount; i++)
+                {
+                    var id = packet.ReadUInt();
+                    var token = packet.ReadUInt();
+
+                    var buff = new SkillInfo(id, token);
+                    if (buff.Record == null)
+                        continue;
+
+                    if (buff.Record.Params.Contains(1701213281))
+                        packet.ReadBool(); //IsCreator
+
+                    ActiveBuffs.Add(buff);
+                }
             }
         }
 
@@ -151,9 +154,12 @@ namespace RSBot.Core.Objects
         /// <returns></returns>
         public bool HasActiveBuff(SkillInfo skill, out SkillInfo buff)
         {
-            buff = ActiveBuffs.Find(p => p.Record.Action_Overlap == skill.Record.Action_Overlap && p.Record.Basic_Activity == skill.Record.Basic_Activity);
+            lock (ActiveBuffs)
+            {
+                buff = ActiveBuffs.FirstOrDefault(p => p.Record.Action_Overlap == skill.Record.Action_Overlap && p.Record.Basic_Activity == skill.Record.Basic_Activity);
 
-            return buff != null;
+                return buff != null;
+            }
         }
 
         /// <summary>
@@ -162,9 +168,12 @@ namespace RSBot.Core.Objects
         /// <returns></returns>
         public bool TryGetActiveBuff(uint token, out SkillInfo buff)
         {
-            buff = ActiveBuffs.Find(p => p.Token == token);
+            lock (ActiveBuffs)
+            {
+                buff = ActiveBuffs.FirstOrDefault(p => p.Token == token);
 
-            return buff != null;
+                return buff != null;
+            }
         }
 
         /// <summary>
@@ -173,20 +182,38 @@ namespace RSBot.Core.Objects
         /// <returns></returns>
         public bool TryRemoveActiveBuff(uint token, out SkillInfo removedBuff)
         {
-            removedBuff = ActiveBuffs.Find(p => p.Token == token);
-            if (removedBuff == null)
-                return false;
+            lock (ActiveBuffs)
+            {
+                removedBuff = ActiveBuffs.FirstOrDefault(p => p.Token == token);
+                if (removedBuff == null)
+                    return false;
 
-            return ActiveBuffs.Remove(removedBuff);
+                return ActiveBuffs.Remove(removedBuff);
+            }
         }
 
+        public bool TryAddActiveBuff(SkillInfo buff)
+        {
+            lock (ActiveBuffs)
+            {
+                if (buff == null)
+                    return false;
+
+                ActiveBuffs.Add(buff);
+
+                return true;
+            }
+        }
         /// <summary>
         /// Checks two active DoTs.
         /// </summary>
         /// <returns></returns>
         public bool HasTwoDots()
         {
-            return ActiveBuffs.Where(b => b.IsDot).Count() >= 2;
+            lock (ActiveBuffs)
+            {
+                return ActiveBuffs.Where(b => b.IsDot).Count() >= 2;
+            }
         }
     }
 }
