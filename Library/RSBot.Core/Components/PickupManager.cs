@@ -131,14 +131,14 @@ namespace RSBot.Core.Components
                 }
                 else
                 {
-                    var pickingItem = entities.OrderBy(item => item.Movement.Source.DistanceTo(centerPosition)).FirstOrDefault();
-                    if(pickingItem == null)
-                    {
-                        Stop();
-                        return;
-                    }
+                    var itemsToPickup = entities.OrderBy(item => item.Movement.Source.DistanceTo(centerPosition));
 
-                    pickingItem.Pickup();
+                    foreach (var item in itemsToPickup) {
+                        //Make sure the player is at the item's location
+                        Game.Player.MoveTo(item.Movement.Source);
+
+                        item.Pickup();
+                    }
                 }
 
                 
@@ -149,7 +149,7 @@ namespace RSBot.Core.Components
             }
             finally
             {
-                Running = false;
+                Stop();
             }
         }
 
