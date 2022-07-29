@@ -49,8 +49,7 @@ RSBot.Party.Main.TabControl.TabPage.Panel.groupBox7="Komutu dinlenecek üyeler"
 RSBot.Party.Main.TabControl.TabPage.GroupBox.checkBoxLeaveIfMasterNot="Master şu değilse çık"
 RSBot.Party.Main.TabControl.TabPage.GroupBox.checkBoxListenMasterCommands="Parti başkanının komutunu dinle"
 RSBot.Party.Main.TabControl.TabPage.GroupBox.checkBoxListenCommandsOnlyList="Listedekilerin komutunu dinle"
-RSBot.Party.Main.TabControl.TabPage.GroupBox.labelCommandsInfo="
-Sohbet penceresinde kullanılan özel komutlar! 
+RSBot.Party.Main.TabControl.TabPage.GroupBox.labelCommandsInfo="Sohbet penceresinde kullanılan özel komutlar! 
 
 traceme: Oyunculara beni takip etme isteği gönder
 sitdown: Oyunculara oturma isteği yolla"

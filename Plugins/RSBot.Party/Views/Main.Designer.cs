@@ -433,11 +433,11 @@
             // 
             // labelCommandsInfo
             // 
-            this.labelCommandsInfo.Font = new System.Drawing.Font("Segoe UI", 7.55F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelCommandsInfo.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.labelCommandsInfo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelCommandsInfo.Location = new System.Drawing.Point(232, 253);
+            this.labelCommandsInfo.Location = new System.Drawing.Point(212, 253);
             this.labelCommandsInfo.Name = "labelCommandsInfo";
-            this.labelCommandsInfo.Size = new System.Drawing.Size(261, 54);
+            this.labelCommandsInfo.Size = new System.Drawing.Size(285, 77);
             this.labelCommandsInfo.TabIndex = 16;
             this.labelCommandsInfo.Text = "Commands only using in the game chat window! \r\n\r\ntraceme: Send follow me request " +
     "to players \r\nsitdown: Send sitdown request to players";
@@ -537,7 +537,7 @@
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label2.Location = new System.Drawing.Point(17, 312);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(231, 18);
+            this.label2.Size = new System.Drawing.Size(189, 18);
             this.label2.TabIndex = 11;
             this.label2.Text = "* If party settings filter matches";
             // 
