@@ -1,4 +1,5 @@
 ﻿using RSBot.Core;
+using RSBot.Core.Components;
 using RSBot.General.Models;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace RSBot.General.Components
         /// <summary>
         /// Get the data file path
         /// </summary>
-        private static string _filePath => Path.Combine(Environment.CurrentDirectory, "User", Kernel.Profile, "autologin.data");
+        private static string _filePath => Path.Combine(Environment.CurrentDirectory, "User", ProfileManager.SelectedProfile, "autologin.data");
 
         /// <summary>
         /// Check the saving directory

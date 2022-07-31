@@ -3,6 +3,7 @@
 namespace RSBot.Core
 {
     using Event;
+    using RSBot.Core.Components;
     using System;
     using System.IO;
 
@@ -11,7 +12,7 @@ namespace RSBot.Core
         /// <summary>
         /// The config directory
         /// </summary>
-        private static string _configDirectory => Path.Combine(Environment.CurrentDirectory, "User", Kernel.Profile);
+        private static string _configDirectory => Path.Combine(Environment.CurrentDirectory, "User", ProfileManager.SelectedProfile);
 
         /// <summary>
         /// The config

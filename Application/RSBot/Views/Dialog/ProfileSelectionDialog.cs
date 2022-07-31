@@ -1,10 +1,9 @@
 ﻿using RSBot.Core;
+using RSBot.Core.Components;
 using SDUI.Controls;
 using System;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
-using RSBot.Helper;
 
 namespace RSBot.Views.Dialog
 {
@@ -18,13 +17,12 @@ namespace RSBot.Views.Dialog
         /// </value>
         public string SelectedProfile { get; private set; }
 
-        private Config _profileConfig;
-
         public ProfileSelectionDialog()
         {
             InitializeComponent();
 
             LoadProfiles();
+            checkSaveSelection.Checked = !ProfileManager.ShowProfileDialog;
         }
 
         #region Methods
@@ -32,41 +30,22 @@ namespace RSBot.Views.Dialog
         private void LoadProfiles()
         {
             comboProfiles.Items.Clear();
-
-            var profileFilePath = ProfilePathHelper.GetProfileConfigFileName();
-
-            _profileConfig = new Config(profileFilePath);
-
-            var profiles = _profileConfig.GetArray<string>("RSBot.Profiles", '|').ToList(); //Using ':' instead of comma, because : is not available inside file paths.
-
-            //Add the default profile if no profiles have been saved by the user
-            if (profiles.Count == 0)
-            {
-                profiles.Add("Default");
-
-                _profileConfig.SetArray("RSBot.Profiles", profiles); //Save default to profiles
-                _profileConfig.Save();
-            }
-
-            foreach (var profile in profiles)
-                comboProfiles.Items.Add(profile);
+            if(!ProfileManager.Any())
+                ProfileManager.Add("Default");
             
-            comboProfiles.SelectedItem = _profileConfig.Get("RSBot.SelectedProfile", "Default");
-
-            if (comboProfiles.SelectedItem == null)
-                comboProfiles.SelectedItem = "Default";
+            comboProfiles.Items.AddRange(ProfileManager.Profiles);
+            comboProfiles.SelectedItem = ProfileManager.SelectedProfile;
         }
 
         private string CreateNewProfile()
         {
             var inputDialog = new InputDialog("New profile", "New profile", "Please enter a profile name");
-
             if (inputDialog.ShowDialog() != DialogResult.OK)
                 return string.Empty;
 
-            var profileName = (string)inputDialog.Value;
+            var profile = (string)inputDialog.Value;
 
-            if (profileName.LastIndexOfAny(Path.GetInvalidFileNameChars(), 0) != -1)
+            if (profile.LastIndexOfAny(Path.GetInvalidFileNameChars(), 0) != -1)
             {
                 MessageBox.Show("The profile name contains invalid characters!", "Invalid name", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
@@ -74,59 +53,17 @@ namespace RSBot.Views.Dialog
                 return string.Empty;
             }
 
-            var existingProfiles = _profileConfig.GetArray<string>("RSBot.Profiles", '|').ToList();
-
-            if (existingProfiles.Contains(profileName))
+            if (ProfileManager.IsExists(profile))
             {
-                MessageBox.Show($"The profile name '{profileName}' already exists!", "Invalid name", MessageBoxButtons.OK,
+                MessageBox.Show($"The profile name '{profile}' already exists!", "Invalid name", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
 
                 return string.Empty;
             }
 
-            existingProfiles.Add($"{profileName}");
+            ProfileManager.Add(profile, true);
 
-            var newProfileDirectory = ProfilePathHelper.GetProfileDirectory(profileName);
-
-            if(!Directory.Exists(newProfileDirectory))
-                Directory.CreateDirectory(newProfileDirectory);
-
-            _profileConfig.SetArray("RSBot.Profiles", existingProfiles, "|");
-            _profileConfig.Set("RSBot.SelectedProfile", profileName);
-            _profileConfig.Save();
-
-            CopyOldProfileData(profileName);
-
-            return profileName;
-        }
-
-        /// <summary>
-        /// Copies the old profile data to the new profile.
-        /// </summary>
-        /// <param name="profileName">Name of the profile.</param>
-        private static void CopyOldProfileData(string profileName)
-        {
-            //Copy the old profile to use it as the base
-            if (profileName == Kernel.Profile)
-                return;
-
-            try
-            {
-                var oldProfileFilePath = ProfilePathHelper.GetProfileFile(Kernel.Profile);
-                var newProfileFilePath = ProfilePathHelper.GetProfileFile(profileName);
-                var oldAutoLoginFile = Path.Combine(ProfilePathHelper.GetProfileDirectory(Kernel.Profile), "autologin.data");
-                var newAutoLoginFile = Path.Combine(ProfilePathHelper.GetProfileDirectory(profileName), "autologin.data");
-
-                if (File.Exists(oldProfileFilePath))
-                    File.Copy(oldProfileFilePath, newProfileFilePath);
-
-                if (File.Exists(oldAutoLoginFile))
-                    File.Copy(oldAutoLoginFile, newAutoLoginFile);
-            }
-            catch (Exception ex)
-            {
-                Log.Warn($"Could not copy old profile data to the new profile: {ex.Message}");
-            }
+            return profile;
         }
 
         #endregion Methods
@@ -139,16 +76,11 @@ namespace RSBot.Views.Dialog
                 return;
 
             SelectedProfile = (string)comboProfiles.SelectedItem;
-
-            _profileConfig.Set("RSBot.SelectedProfile", SelectedProfile);
-
-            _profileConfig.Save();
         }
 
         private void checkSaveSelection_CheckedChanged(object sender, EventArgs e)
         {
-            _profileConfig.Set("RSBot.ShowProfileDialog", !checkSaveSelection.Checked);
-            _profileConfig.Save();
+            ProfileManager.ShowProfileDialog = !checkSaveSelection.Checked;
         }
 
         private void buttonDeleteProfile_Click(object sender, EventArgs e)
@@ -161,7 +93,7 @@ namespace RSBot.Views.Dialog
                 return;
             }
 
-            if (Kernel.Profile == (string)comboProfiles.SelectedItem) //Active profile?
+            if (ProfileManager.SelectedProfile == (string)comboProfiles.SelectedItem) //Active profile?
             {
                 MessageBox.Show("You can not delete the active profile!", "Profile active",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -174,11 +106,7 @@ namespace RSBot.Views.Dialog
                     "Delete profile?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
                 return;
 
-            var profiles = _profileConfig.GetArray<string>("RSBot.Profiles", '|').ToList();
-            profiles.Remove((string)comboProfiles.SelectedItem);
-
-            _profileConfig.SetArray("RSBot.Profiles", profiles, "|");
-            _profileConfig.Save();
+            ProfileManager.Remove((string)comboProfiles.SelectedItem);
 
             LoadProfiles();
         }
