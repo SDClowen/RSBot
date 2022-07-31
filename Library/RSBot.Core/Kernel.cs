@@ -54,14 +54,6 @@ namespace RSBot.Core
         public static string Language { get; set; }
 
         /// <summary>
-        /// Gets or sets the profile.
-        /// </summary>
-        /// <value>
-        /// The profile.
-        /// </value>
-        public static string Profile { get; set; }
-
-        /// <summary>
         /// Get environment fixed tick count
         /// </summary>
         public static int TickCount => (Environment.TickCount & int.MaxValue);
