@@ -238,7 +238,8 @@ namespace RSBot.Map.Views
                     {
                         var position = new Position { XCoordinate = xCoord, YCoordinate = yCoord };
 
-                        DrawCircleAt(graphics, position, Color.SteelBlue, radius * 2);
+                        DrawCircleAt(graphics, position, Color.FromArgb(100, 250, 50, 50), radius * 2);
+                        DrawCircleAt(graphics, position, Color.SteelBlue, radius);
                     }
                 }
 
@@ -480,6 +481,18 @@ namespace RSBot.Map.Views
         private float GetMapY(Position gamePosition)
         {
             return mapCanvas.Height / 2f + (gamePosition.YCoordinate - Game.Player.Movement.Source.YCoordinate) * _scale * -1.0f;
+        }
+
+        private void mapCanvas_MouseClick(object sender, MouseEventArgs e)
+        {
+            var mapX = (Game.Player.Movement.Source.XCoordinate + (((mapCanvas.Width / 2f - e.X) / SectorSize) * 192f * -1f));
+            var mapY = (Game.Player.Movement.Source.YCoordinate + (((mapCanvas.Height / 2f - e.Y) / SectorSize) * 192f));
+
+            Game.Player.MoveTo(new Position
+            {
+                XCoordinate = mapX,
+                YCoordinate = mapY
+            }, false);
         }
     }
 }
