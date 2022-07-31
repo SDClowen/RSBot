@@ -129,7 +129,7 @@ namespace RSBot.Core.Components
             if (CurrentLineIndex != 0)
                 Log.Debug($"[Script] Found nearby walk position at line #{CurrentLineIndex}");
 
-            foreach (var scriptLine in Commands.Skip(CurrentLineIndex + 1))
+            foreach (var scriptLine in Commands.Skip(CurrentLineIndex/* + 1*/))
             {
                 if (!Running) return;
 
