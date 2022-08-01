@@ -1,6 +1,5 @@
 DisplayName="Khu Vực Luyện"
 TabText="Khu Vực Luyện"
-RSBot.Default.Main.GroupBox.checkBoxUseReverse="Use Reverse"
 RSBot.Default.Main.GroupBox.checkUseSpeedDrug="Sử dụng chân chạy nhanh"
 RSBot.Default.Main.GroupBox.checkCastBuffs="Sử dụng kỹ năng hỗ trợ"
 RSBot.Default.Main.GroupBox.checkUseMount="Sử dụng ngựa nếu có"

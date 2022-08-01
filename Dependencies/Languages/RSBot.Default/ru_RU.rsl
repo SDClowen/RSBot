@@ -1,6 +1,5 @@
 DisplayName="Подготовка"
 TabText="Подготовка"
-RSBot.Default.Main.GroupBox.checkBoxUseReverse="Use Reverse"
 RSBot.Default.Main.GroupBox.checkUseSpeedDrug="Использувать банку скорости"
 RSBot.Default.Main.GroupBox.checkCastBuffs="Применение баффов"
 RSBot.Default.Main.GroupBox.checkUseMount="Используйте mount, если он доступен"

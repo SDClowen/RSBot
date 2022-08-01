@@ -42,10 +42,10 @@ namespace RSBot.Map.Views
             this.trmInterval = new System.Windows.Forms.Timer(this.components);
             this.labelSectorInfo = new SDUI.Controls.Label();
             this.lvMonster = new SDUI.Controls.ListView();
-            this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colPosition = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colName = new System.Windows.Forms.ColumnHeader();
+            this.colType = new System.Windows.Forms.ColumnHeader();
+            this.colLevel = new System.Windows.Forms.ColumnHeader();
+            this.colPosition = new System.Windows.Forms.ColumnHeader();
             this.checkBoxAutoSelectUniques = new SDUI.Controls.CheckBox();
             this.label3 = new SDUI.Controls.Label();
             this.timerUniqueChecker = new System.Windows.Forms.Timer(this.components);
@@ -55,7 +55,7 @@ namespace RSBot.Map.Views
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label1.Location = new System.Drawing.Point(32, 339);
             this.label1.Name = "label1";
@@ -66,7 +66,7 @@ namespace RSBot.Map.Views
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label2.Location = new System.Drawing.Point(134, 339);
             this.label2.Name = "label2";
@@ -77,7 +77,7 @@ namespace RSBot.Map.Views
             // lblX
             // 
             this.lblX.AutoSize = true;
-            this.lblX.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblX.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblX.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblX.Location = new System.Drawing.Point(55, 339);
             this.lblX.Name = "lblX";
@@ -88,7 +88,7 @@ namespace RSBot.Map.Views
             // lblY
             // 
             this.lblY.AutoSize = true;
-            this.lblY.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblY.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblY.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblY.Location = new System.Drawing.Point(157, 339);
             this.lblY.Name = "lblY";
@@ -99,7 +99,7 @@ namespace RSBot.Map.Views
             // lblRegion
             // 
             this.lblRegion.AutoSize = true;
-            this.lblRegion.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRegion.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblRegion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblRegion.Location = new System.Drawing.Point(33, 61);
             this.lblRegion.Name = "lblRegion";
@@ -117,11 +117,12 @@ namespace RSBot.Map.Views
             this.mapCanvas.TabIndex = 0;
             this.mapCanvas.TabStop = false;
             this.mapCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.mapCanvas_Paint);
+            this.mapCanvas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mapCanvas_MouseClick);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label4.Location = new System.Drawing.Point(347, 20);
             this.label4.Name = "label4";
@@ -157,7 +158,7 @@ namespace RSBot.Map.Views
             // labelSectorInfo
             // 
             this.labelSectorInfo.AutoSize = true;
-            this.labelSectorInfo.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSectorInfo.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.labelSectorInfo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.labelSectorInfo.Location = new System.Drawing.Point(240, 60);
             this.labelSectorInfo.Name = "labelSectorInfo";
@@ -173,7 +174,6 @@ namespace RSBot.Map.Views
             this.colLevel,
             this.colPosition});
             this.lvMonster.FullRowSelect = true;
-            this.lvMonster.HideSelection = false;
             this.lvMonster.Location = new System.Drawing.Point(347, 46);
             this.lvMonster.Name = "lvMonster";
             this.lvMonster.Size = new System.Drawing.Size(388, 394);
@@ -216,7 +216,7 @@ namespace RSBot.Map.Views
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label3.Location = new System.Drawing.Point(33, 399);
             this.label3.Name = "label3";
@@ -247,7 +247,7 @@ namespace RSBot.Map.Views
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.mapCanvas);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "Main";
             this.Size = new System.Drawing.Size(750, 458);
             ((System.ComponentModel.ISupportInitialize)(this.mapCanvas)).EndInit();

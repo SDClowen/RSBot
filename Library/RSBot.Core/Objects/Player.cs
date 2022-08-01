@@ -693,7 +693,7 @@ namespace RSBot.Core.Objects
                         duration = 4050;
                     }
                 }
-                var elapsed = Environment.TickCount - tick;
+                var elapsed = Kernel.TickCount - tick;
                
                 if (elapsed < duration)
                     return false;
@@ -701,7 +701,7 @@ namespace RSBot.Core.Objects
                 var result = potionItem.Use();
 
                 if (result)
-                    tick = Environment.TickCount;
+                    tick = Kernel.TickCount;
 
                 Log.Debug($"Potion [{potionItem.Record.GetRealName()}] used");
                 return result;
@@ -742,7 +742,7 @@ namespace RSBot.Core.Objects
             if (State.LifeState == LifeState.Dead)
                 return false;
 
-            var elapsed = Environment.TickCount - _lastUniversalPillTick;
+            var elapsed = Kernel.TickCount - _lastUniversalPillTick;
             if (elapsed < 1050)
                 return false;
 
@@ -753,7 +753,7 @@ namespace RSBot.Core.Objects
 
             var result = slotItem.Use();
             if (result)
-                _lastUniversalPillTick = Environment.TickCount;
+                _lastUniversalPillTick = Kernel.TickCount;
 
             return result;
         }
@@ -767,7 +767,7 @@ namespace RSBot.Core.Objects
             if (State.LifeState == LifeState.Dead)
                 return false;
 
-            var elapsed = Environment.TickCount - _lastPurificationPillTick;
+            var elapsed = Kernel.TickCount - _lastPurificationPillTick;
             if (elapsed < 20050)
                 return false;
 
@@ -778,7 +778,7 @@ namespace RSBot.Core.Objects
 
             var result = slotItem.Use();
             if (result)
-                _lastPurificationPillTick = Environment.TickCount;
+                _lastPurificationPillTick = Kernel.TickCount;
 
             return result;
         }

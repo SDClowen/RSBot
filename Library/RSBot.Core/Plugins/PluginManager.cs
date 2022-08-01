@@ -16,7 +16,7 @@ namespace RSBot.Core.Plugins
         /// <value>
         /// The extension directory.
         /// </value>
-        public string InitialDirectory => Path.Combine(Environment.CurrentDirectory, "Data", "Extensions", "Plugins");
+        public string InitialDirectory => Path.Combine(Environment.CurrentDirectory, "Data", "Plugins");
 
         /// <summary>
         /// Gets the extensions.

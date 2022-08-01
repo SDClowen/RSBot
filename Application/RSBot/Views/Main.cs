@@ -1,5 +1,6 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Client;
+using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Plugins;
 using RSBot.Views.Dialog;
@@ -8,10 +9,8 @@ using SDUI.Controls;
 using System;
 using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using RSBot.Helper;
 using static SDUI.NativeMethods;
 
 namespace RSBot.Views
@@ -318,8 +317,9 @@ namespace RSBot.Views
 
             foreach (var item in LanguageManager.GetLanguages())
             {
-                var dropdown = new ToolStripMenuItem(item);
+                var dropdown = new ToolStripMenuItem(item.Value);
                 dropdown.Click += LanguageDropdown_Click;
+                dropdown.Tag = item.Key;
                 languageToolStripMenuItem.DropDownItems.Add(dropdown);
 
                 if (Kernel.Language.ToString() == dropdown.Text)
@@ -328,7 +328,7 @@ namespace RSBot.Views
 
             ConfigureSidebar();
             BackColor = ColorScheme.BackColor;
-            menuCurrentProfile.Text = Kernel.Profile;
+            menuCurrentProfile.Text = ProfileManager.SelectedProfile;
 
             EventManager.FireEvent("OnInitialized");
         }
@@ -345,7 +345,7 @@ namespace RSBot.Views
             if (dropdown.Checked)
                 return;
 
-            Kernel.Language = dropdown.Text;
+            Kernel.Language = dropdown.Tag.ToString();
 
             foreach (ToolStripMenuItem item in languageToolStripMenuItem.DropDownItems)
                 item.Checked = false;
@@ -671,13 +671,13 @@ namespace RSBot.Views
             if (dialog.ShowDialog() != DialogResult.OK)
                 return;
 
-            if (dialog.SelectedProfile == Kernel.Profile)
+            if (dialog.SelectedProfile == ProfileManager.SelectedProfile)
                 return;
 
             var oldSroPath = GlobalConfig.Get("RSBot.SilkroadDirectory", "");
 
             //We need this to check if the sro directories are different
-            var tempNewConfig = new Config(ProfilePathHelper.GetProfileFile(dialog.SelectedProfile));
+            var tempNewConfig = new Config(ProfileManager.GetProfileFile(dialog.SelectedProfile));
 
             if (oldSroPath != tempNewConfig.Get("RSBot.SilkroadDirectory", ""))
             {
@@ -686,11 +686,11 @@ namespace RSBot.Views
 
             }
 
-            Kernel.Profile = dialog.SelectedProfile;
+            ProfileManager.SetSelectedProfile(dialog.SelectedProfile);
             GlobalConfig.Load();
 
             EventManager.FireEvent("OnProfileChanged");
-            menuCurrentProfile.Text = Kernel.Profile;
+            menuCurrentProfile.Text = dialog.SelectedProfile;
 
             if (Game.Player == null)
                 return;

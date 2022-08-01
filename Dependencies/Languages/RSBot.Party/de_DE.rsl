@@ -50,7 +50,9 @@ RSBot.Party.Main.TabControl.TabPage.GroupBox.checkBoxLeaveIfMasterNot="Leave, if
 RSBot.Party.Main.TabControl.TabPage.GroupBox.checkBoxListenMasterCommands="Listen party master commands"
 RSBot.Party.Main.TabControl.TabPage.GroupBox.checkBoxListenCommandsOnlyList="Listen commands in list"
 RSBot.Party.Main.TabControl.TabPage.GroupBox.labelCommandsInfo="Commands only using in the game chat window! 
-{traceme}: Send fallow me request to players"
+
+traceme: Send fallow me request to players
+sitdown: Send sitdown request to players"
 RSBot.Party.Main.TabControl.TabPage.Panel.GroupBox.Panel.buttonCommandPlayerRemove="Remove"
 RSBot.Party.Main.TabControl.TabPage.Panel.GroupBox.Panel.buttonCommandPlayerAdd="Add"
 RSBot.Party.AutoFormParty.GroupBox.cb_AutoReform="Auto Reform"

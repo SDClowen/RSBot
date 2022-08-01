@@ -85,10 +85,10 @@ namespace RSBot.Core.Objects.Cos
         /// </summary>
         public override bool Update()
         {
-            if (Environment.TickCount - _lastHungerTick > 3000)
+            if (Kernel.TickCount - _lastHungerTick > 3000)
             {
                 CurrentHungerPoints--;
-                _lastHungerTick = Environment.TickCount;
+                _lastHungerTick = Kernel.TickCount;
                 EventManager.FireEvent("OnGrowthHungerUpdate");
             }
 

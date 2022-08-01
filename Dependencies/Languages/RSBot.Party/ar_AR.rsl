@@ -49,8 +49,10 @@ RSBot.Party.Main.TabControl.TabPage.Panel.groupBox7="سيتم الاستماع �
 RSBot.Party.Main.TabControl.TabPage.GroupBox.checkBoxLeaveIfMasterNot="اترك ، إذا لم يكن قائد الفريق :"
 RSBot.Party.Main.TabControl.TabPage.GroupBox.checkBoxListenMasterCommands="انصتوا  أوامر قائد الفريق"
 RSBot.Party.Main.TabControl.TabPage.GroupBox.checkBoxListenCommandsOnlyList="الاستماع في القائمة"
-RSBot.Party.Main.TabControl.TabPage.GroupBox.labelCommandsInfo="الأوامر تستخدم فقط في نافذة دردشة اللعبة! 
-{traceme}: إرسال طلب السماح لي إلى اللاعبين"
+RSBot.Party.Main.TabControl.TabPage.GroupBox.labelCommandsInfo="الأوامر تستخدم فقط في نافذة دردشة اللعبة!
+ 
+traceme: إرسال طلب السماح لي إلى اللاعبين
+sitdown: إرسال طلب تحديد موقع للاعبين"
 RSBot.Party.Main.TabControl.TabPage.Panel.GroupBox.Panel.buttonCommandPlayerRemove="إزالة"
 RSBot.Party.Main.TabControl.TabPage.Panel.GroupBox.Panel.buttonCommandPlayerAdd="اضف"
 RSBot.Party.AutoFormParty.GroupBox.cb_AutoReform="Auto Reform"

@@ -60,7 +60,7 @@ namespace RSBot.Core.Components
         /// <value>
         ///   <c>true</c> if [use ability pet]; otherwise, <c>false</c>.
         /// </value>
-        public static bool JustPickMyItems => PlayerConfig.Get<bool>("RSBot.Items.Pickup.JustPickMyItems", true);
+        public static bool JustPickMyItems => PlayerConfig.Get<bool>("RSBot.Items.Pickup.JustPickMyItems", false);
 
         /// <summary>
         /// Initializes this instance.
@@ -91,6 +91,10 @@ namespace RSBot.Core.Components
                 bool condition(SpawnedItem e)
                 {
                     if (JustPickMyItems && (e.OwnerJID != playerJid && e.OwnerJID != 0))
+                        return false;
+
+                    //Don't pickup items that still belong to another player
+                    if (!JustPickMyItems && e.HasOwner)
                         return false;
 
                     const int tolerance = 15;
@@ -131,14 +135,14 @@ namespace RSBot.Core.Components
                 }
                 else
                 {
-                    var pickingItem = entities.OrderBy(item => item.Movement.Source.DistanceTo(centerPosition)).FirstOrDefault();
-                    if(pickingItem == null)
-                    {
-                        Stop();
-                        return;
-                    }
+                    var itemsToPickup = entities.OrderBy(item => item.Movement.Source.DistanceTo(centerPosition));
 
-                    pickingItem.Pickup();
+                    foreach (var item in itemsToPickup) {
+                        //Make sure the player is at the item's location
+                        Game.Player.MoveTo(item.Movement.Source);
+
+                        item.Pickup();
+                    }
                 }
 
                 
@@ -149,7 +153,7 @@ namespace RSBot.Core.Components
             }
             finally
             {
-                Running = false;
+                Stop();
             }
         }
 

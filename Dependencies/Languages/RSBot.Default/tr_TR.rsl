@@ -1,6 +1,5 @@
 DisplayName="Kasma"
 TabText="Kasma"
-RSBot.Default.Main.GroupBox.checkBoxUseReverse="Reverse Kullan"
 RSBot.Default.Main.GroupBox.checkUseSpeedDrug="Hızlı Koşma Kullan"
 RSBot.Default.Main.GroupBox.checkCastBuffs="Skill Kullan"
 RSBot.Default.Main.GroupBox.checkUseMount="Binek varsa kullan"

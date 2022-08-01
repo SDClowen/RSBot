@@ -16,22 +16,10 @@ namespace RSBot.Default.Bundle.Buff
             if (buffs == null || buffs.Count == 0)
                 return;
 
-            //Game.Player.TryGetAbilitySkills(out var abilitySkills);
-
             foreach (var buff in buffs)
             {
                 if (Game.Player.State.LifeState != LifeState.Alive || Game.Player.HasActiveVehicle)
                     break;
-
-                /* working stable but i dont think to need check again here
-                var skillInfo = Game.Player.Skills.GetSkillInfoById(buff.Id);
-                if (skillInfo == null)
-                {
-                    skillInfo = abilitySkills.FirstOrDefault(p => p.Id == buff.Id);
-                    if (skillInfo == null)
-                        continue;
-                }
-                */
 
                 Log.Debug($"Trying to cast buff: {buff} {buff.Record.Basic_Code}");
                 SkillManager.CastBuff(buff);

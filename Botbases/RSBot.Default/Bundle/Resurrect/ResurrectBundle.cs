@@ -26,7 +26,7 @@ namespace RSBot.Default.Bundle.Resurrect
             foreach (var member in Game.Party.Members)
             {
                 if (_lastResurrectedPlayers.ContainsKey(member.Name) &&
-                    Environment.TickCount - _lastResurrectedPlayers[member.Name] < 180 * 1000)
+                    Kernel.TickCount - _lastResurrectedPlayers[member.Name] < 180 * 1000)
                     continue;
 
                 if (member.Player == null ||
@@ -39,9 +39,9 @@ namespace RSBot.Default.Bundle.Resurrect
                 if (member.Player.State.LifeState == LifeState.Dead)
                 {
                     if (!_lastResurrectedPlayers.ContainsKey(member.Name))
-                        _lastResurrectedPlayers.Add(member.Name, Environment.TickCount);
+                        _lastResurrectedPlayers.Add(member.Name, Kernel.TickCount);
                     else
-                        _lastResurrectedPlayers[member.Name] = Environment.TickCount;
+                        _lastResurrectedPlayers[member.Name] = Kernel.TickCount;
 
                     SkillManager.CastBuff(SkillManager.ResurrectionSkill, member.Player.UniqueId);
                 }

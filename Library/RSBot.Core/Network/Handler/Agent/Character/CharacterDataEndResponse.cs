@@ -70,36 +70,18 @@ namespace RSBot.Core.Network.Handler.Agent.Character
 
             if (Game.ClientType >= GameClientType.Global)
             {
-                // new 
-
                 packet.ReadByte();
                 packet.ReadUInt();
-                packet.ReadByte();
-                packet.ReadUInt();
-
-                var serverCap = packet.ReadByte();
-                Log.Notify($"The game server cap is {serverCap}!");
-
-                packet.ReadUShort();
-
-                /*
-                packet.ReadByte();
-                packet.ReadUInt();
-                packet.ReadUShort();
-                packet.ReadUShort();
-                packet.ReadUShort();
-                packet.ReadUInt();
-                packet.ReadUShort();
                 packet.ReadByte();
 
                 if (Game.ClientType == GameClientType.Turkey)
                     packet.ReadUInt();
 
-                var cap = packet.ReadByte(); // server cap
-                Log.Notify($"The game server cap is {cap}!");
+                var serverCap = packet.ReadByte();
+                Log.Notify($"The game server cap is {serverCap}!");
 
                 if (Game.ClientType != GameClientType.Korean)
-                    packet.ReadUShort();*/
+                    packet.ReadUShort();
             }
 
             character.Inventory = new CharacterInventory(packet);
