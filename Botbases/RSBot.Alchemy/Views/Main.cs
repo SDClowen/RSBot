@@ -9,6 +9,7 @@ using System.Linq;
 using System.Windows.Forms;
 using RSBot.Alchemy.Helper;
 using RSBot.Alchemy.Bot;
+using RSBot.Alchemy.Views.Settings;
 using RSBot.Core.Objects.Inventory.Item;
 
 namespace RSBot.Alchemy.Views
@@ -54,8 +55,9 @@ namespace RSBot.Alchemy.Views
 
         #region Members
 
-        private readonly Settings.EnhanceSettingsView _enhanceSettingsView;
-        private readonly Settings.MagicOptionsSettingsView _magicOptionsSettingsView;
+        private readonly EnhanceSettingsView _enhanceSettingsView;
+        private readonly MagicOptionsSettingsView _magicOptionsSettingsView;
+        private readonly AttributesSettingsView _attributeSettingsView;
 
         #endregion Members
 
@@ -71,11 +73,13 @@ namespace RSBot.Alchemy.Views
             EventManager.SubscribeEvent("OnLoadCharacter", ReloadItemList);
             EventManager.SubscribeEvent("OnAlchemy", new Action<AlchemyType>(OnAlchemy));
 
-            _enhanceSettingsView = new Settings.EnhanceSettingsView { Visible = true, Dock = DockStyle.Fill };
-            _magicOptionsSettingsView = new Settings.MagicOptionsSettingsView { Visible = false, Dock = DockStyle.Fill };
+            _enhanceSettingsView = new EnhanceSettingsView { Visible = true, Dock = DockStyle.Fill };
+            _magicOptionsSettingsView = new MagicOptionsSettingsView { Visible = false, Dock = DockStyle.Fill };
+            _attributeSettingsView = new AttributesSettingsView {Visible = false, Dock = DockStyle.Fill};
 
             panelSettings.Controls.Add(_enhanceSettingsView);
             panelSettings.Controls.Add(_magicOptionsSettingsView);
+            panelSettings.Controls.Add(_attributeSettingsView);
         }
 
         #endregion Constructor
@@ -252,6 +256,9 @@ namespace RSBot.Alchemy.Views
 
             if (radioMagicOptions.Checked)
                 LoadEngineSettings(Engine.Magic);
+
+            if (radioAttributes.Checked)
+                LoadEngineSettings(Engine.Attribute);
         }
 
         /// <summary>
@@ -260,7 +267,7 @@ namespace RSBot.Alchemy.Views
         /// <param name="engine">The engine to load the settings for</param>
         private void LoadEngineSettings(Engine engine)
         {
-            if (_enhanceSettingsView == null || _magicOptionsSettingsView == null)
+            if (_enhanceSettingsView == null || _magicOptionsSettingsView == null || _attributeSettingsView == null)
                 return;
 
             EngineChanged?.Invoke(SelectedItem, engine);
@@ -272,12 +279,21 @@ namespace RSBot.Alchemy.Views
             {
                 _enhanceSettingsView.Show();
                 _magicOptionsSettingsView.Hide();
+                _attributeSettingsView.Hide();
             }
 
             if (engine == Engine.Magic)
             {
                 _enhanceSettingsView.Hide();
                 _magicOptionsSettingsView.Show();
+                _attributeSettingsView.Hide();
+            }
+
+            if (engine == Engine.Attribute)
+            {
+                _enhanceSettingsView.Hide();
+                _magicOptionsSettingsView.Hide();
+                _attributeSettingsView.Show();
             }
         }
 

@@ -1,9 +1,11 @@
-﻿using RSBot.Alchemy.Client.ReferenceObjects;
+﻿using System;
+using RSBot.Alchemy.Client.ReferenceObjects;
 using RSBot.Core;
 using RSBot.Core.Objects;
 using System.Collections.Generic;
 using System.Linq;
 using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Objects.Inventory.Item;
 
 namespace RSBot.Alchemy.Helper
 {
@@ -93,6 +95,22 @@ namespace RSBot.Alchemy.Helper
                 return Game.Player.Inventory.GetItems(new TypeIdFilter(3, 3, 10, 1));
 
             return default;
+        }
+
+        public static IEnumerable<InventoryItem> GetAttributeStones(InventoryItem targetItem, AttributesGroup group)
+        {
+            var typeIdFilter = new TypeIdFilter(3, 3, 11, 2);
+
+            var attributeStones = Game.Player.Inventory.GetItems(typeIdFilter);
+
+            foreach (var stone in attributeStones)
+            {
+                var x = stone.Record.Param1;
+                var buffer = BitConverter.GetBytes(x);
+                var name = System.Text.Encoding.ASCII.GetString(buffer.Reverse().ToArray());
+            }
+
+            return null;
         }
     }
 }

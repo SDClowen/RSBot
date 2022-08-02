@@ -2,6 +2,22 @@
 
 namespace RSBot.Core.Objects.Inventory.Item
 {
+    public enum AttributesGroup
+    {
+        Durability,
+        PhysicalSpecialize,
+        MagicalSpecialize,
+        HitRatio,
+        PhysicalDamage,
+        MagicalDamage,
+        Critical,
+        BlockRatio,
+        PhysicalDefense,
+        MagicalDefense,
+        PhysicalAbsorbRatio,
+        MagicalAbsorbRatio
+    }
+
     public struct AttributesInfo : IEquatable<AttributesInfo>
     {
         #region Properties
@@ -93,6 +109,7 @@ namespace RSBot.Core.Objects.Inventory.Item
 
             return (byte) value;
         }
+
         #endregion Methods
     }
 }
