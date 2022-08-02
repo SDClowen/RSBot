@@ -7,10 +7,7 @@ namespace RSBot.Core.Objects.Item
         /// <summary>
         /// Gets or sets the type.
         /// </summary>
-        /// <value>
-        /// 1 = Socket, 2 = Advanced Elixir
-        /// </value>
-        public byte Type { get; set; }
+        public BindingOptionType Type { get; set; }
 
         /// <summary>
         /// Gets or sets the slot.
@@ -42,7 +39,7 @@ namespace RSBot.Core.Objects.Item
         /// <param name="packet">The packet.</param>
         /// <param name="type">The type.</param>
         /// <returns></returns>
-        internal static BindingOption FromPacket(Packet packet, byte type)
+        internal static BindingOption FromPacket(Packet packet, BindingOptionType type)
         {
             return new BindingOption
             {
@@ -52,5 +49,11 @@ namespace RSBot.Core.Objects.Item
                 Value = packet.ReadUInt()
             };
         }
+    }
+
+    public enum BindingOptionType : byte
+    {
+        Socket = 1,
+        AdvancedElixir = 2
     }
 }

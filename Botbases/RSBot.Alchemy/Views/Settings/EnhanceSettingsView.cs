@@ -1,4 +1,5 @@
-﻿using RSBot.Core.Event;
+﻿using System.Collections.Generic;
+using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using System.Linq;
 using System.Windows.Forms;
@@ -13,16 +14,19 @@ namespace RSBot.Alchemy.Views.Settings
             /// <summary>
             /// Gets or sets the inventory item
             /// </summary>
-            public InventoryItem Item { get; set; }
+            public IEnumerable<InventoryItem> Items { get; set; }
 
-            public ElixirComboboxItem(InventoryItem item)
+            public ElixirComboboxItem(IEnumerable<InventoryItem> items)
             {
-                Item = item;
+                Items = items;
             }
 
             public override string ToString()
             {
-                return $"{Item.Amount}x {Item.Record.GetRealName()}";
+                if (!Items.Any())
+                    return string.Empty;
+                
+                return $"{Items.Sum(i => i.Amount)}x {Items.First().Record.GetRealName()}";
             }
         }
 
@@ -71,7 +75,9 @@ namespace RSBot.Alchemy.Views.Settings
                 return;
             }
 
+            
             _selectedItem = Globals.View.SelectedItem;
+            
             lblCurrentOptLevel.Text = _selectedItem == null ? "+0" : $"+{Globals.View.SelectedItem.OptLevel}";
 
             var type = Helper.AlchemyItemHelper.ElixirType.Unspecified;
@@ -87,7 +93,7 @@ namespace RSBot.Alchemy.Views.Settings
 
             if (accessorryTypeId3.Contains(_selectedItem.Record.TypeID3) && _selectedItem.Record.TypeID2 == 1)
                 type = Helper.AlchemyItemHelper.ElixirType.Accessory;
-
+            
             if (armorTypeId3.Contains(_selectedItem.Record.TypeID3) && _selectedItem.Record.TypeID2 == 1)
                 type = Helper.AlchemyItemHelper.ElixirType.Protector;
 
@@ -95,14 +101,23 @@ namespace RSBot.Alchemy.Views.Settings
 
             comboElixir.Items.Clear();
 
-            foreach (var item in matchingElixirs)
-                comboElixir.Items.Add(new ElixirComboboxItem(item));
+            var index = 0;
+            foreach (var items in matchingElixirs.GroupBy(i => i.ItemId))
+            {
+                comboElixir.Items.Add(new ElixirComboboxItem(items));
+        
+                if (items.Key == Globals.Botbase.EnhancementConfig?.Elixirs?.FirstOrDefault()?.ItemId)
+                    comboElixir.SelectedIndex = index;
+                
+                index++;
 
-            if (comboElixir.Items.Count > 0)
+            }
+
+            if (comboElixir.Items.Count > 0 && comboElixir.SelectedItem == null)
                 comboElixir.SelectedIndex = 0;
 
-            var luckyPowders = Helper.AlchemyItemHelper.GetLuckyPowder(_selectedItem);
-            lblLuckyPowderCount.Text = luckyPowders == null ? "x0" : $"x{luckyPowders.Amount}";
+            var luckyPowders = Helper.AlchemyItemHelper.GetLuckyPowders(_selectedItem);
+            lblLuckyPowderCount.Text = $"x{luckyPowders.Sum(i => i.Amount)}";
 
             var luckyStones = Helper.AlchemyItemHelper.GetLuckyStone(_selectedItem);
             checkUseLuckyStones.Enabled = luckyStones != null && luckyStones.Amount > 0;
@@ -169,14 +184,14 @@ namespace RSBot.Alchemy.Views.Settings
             if (Globals.Botbase == null || Globals.Botbase.Engine != Engine.Enhancement)
                 return;
 
-            Globals.Botbase.EnhancementConfig = new Bot.EnhancementConfig
+            Globals.Botbase.EnhancementConfig = new EnhancementConfig
             {
                 Item = Globals.View.SelectedItem,
                 UseAstralStones = checkUseAstralStones.Checked,
                 UseLuckyStones = checkUseLuckyStones.Checked,
                 UseImmortalStones = checkUseImmortalStones.Checked,
                 UseSteadyStones = checkUseSteadyStones.Checked,
-                Elixir = (comboElixir.SelectedItem as ElixirComboboxItem)?.Item,
+                Elixirs = (comboElixir.SelectedItem as ElixirComboboxItem)?.Items,
                 MaxOptLevel = (byte)numMaxEnhancement.Value,
                 StopIfLuckyPowderEmpty = checkStopLuckyPowder.Checked
             };

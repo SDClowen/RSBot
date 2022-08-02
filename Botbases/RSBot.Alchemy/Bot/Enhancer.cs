@@ -4,6 +4,7 @@ using RSBot.Core.Event;
 using RSBot.Core.Network;
 using RSBot.Core.Objects;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using RSBot.Alchemy.Helper;
@@ -16,7 +17,7 @@ namespace RSBot.Alchemy.Bot
 
         private bool _shouldRun;
 
-        private InventoryItem _luckyPowder;
+        private IEnumerable<InventoryItem> _luckyPowders;
 
         #endregion Members
 
@@ -80,17 +81,23 @@ namespace RSBot.Alchemy.Bot
                 Kernel.Bot.Stop();
 
             //Config incomplete?
-            if (!_shouldRun || config == null || Globals.Botbase.Engine != Engine.Enhancement || config.Item == null ||
-                config.Elixir == null) return;
+            if (!_shouldRun || config == null || Globals.Botbase.Engine != Engine.Enhancement || config.Item == null) 
+                return;
+
+            if (!config.Elixirs.Any() || config.Elixirs.Sum(i => i.Amount) == 0)
+            {
+                Log.Warn("[Alchemy] No enhancement elixir selected");
+
+                return;
+            }
 
             _config = config;
-            _luckyPowder = AlchemyItemHelper.GetLuckyPowder(config.Item);
+            _luckyPowders = AlchemyItemHelper.GetLuckyPowders(config.Item);
 
             //Bot should stop without lucky powder?
-            if ((_luckyPowder == null || _luckyPowder.Amount == 0) && config.StopIfLuckyPowderEmpty)
+            if (!_luckyPowders.Any() && config.StopIfLuckyPowderEmpty)
             {
-           
-                Log.Warn("[LuckyAlchemyBot] No lucky powder left, stopping alchemy now!");
+                Log.Warn("[Alchemy] No lucky powder left, stopping alchemy now!");
 
                 Kernel.Bot.Stop();
                 MessageBox.Show("No more lucky powder left in the inventory.", "Lucky powder", MessageBoxButtons.OK,
@@ -101,7 +108,7 @@ namespace RSBot.Alchemy.Bot
             //Max opt level reached?
             if (config.Item.OptLevel >= config.MaxOptLevel)
             {
-                Log.Warn($"[LuckyAlchemyBot] Item is already +{config.Item.OptLevel}");
+                Log.Warn($"[Alchemy] Item is already +{config.Item.OptLevel}");
 
                 Kernel.Bot.Stop();
 
@@ -174,7 +181,7 @@ namespace RSBot.Alchemy.Bot
                     if (magicOptionInfo == null)
                     {
                         Log.Notify(
-                            $"[LuckyAlchemyBot] Could not fuse {astralStone.Record.GetRealName()} because the immortal is not high enough");
+                            $"[Alchemy] Could not fuse {astralStone.Record.GetRealName()} because the immortality option is not high enough");
 
                         _config.UseAstralStones = false;
                         return;
@@ -190,7 +197,7 @@ namespace RSBot.Alchemy.Bot
 
             var nextPlusValue = config.Item.OptLevel + 1;
 
-            Log.Notify($"[LuckyAlchemyBot] Attempting +{nextPlusValue}...");
+            Log.Notify($"[Alchemy] Attempting +{nextPlusValue}...");
 
             SendFusePacket();
 
@@ -204,7 +211,7 @@ namespace RSBot.Alchemy.Bot
         {
             if (_config == null || !_shouldRun) return;
 
-            var hasLuckyPowder = _luckyPowder != null && _luckyPowder.Amount > 0;
+            var hasLuckyPowder = _luckyPowders.Any();
 
             var packet = new Packet(0x7150);
             packet.WriteByte(AlchemyAction.Fuse); //fuse
@@ -212,11 +219,15 @@ namespace RSBot.Alchemy.Bot
 
             packet.WriteByte(hasLuckyPowder ? (byte)3 : (byte)2);
 
+            //Problem: _config.Elixirs ist beim zweiten durchlauf nicht aktualisiert
+            var elixirSlot = GetElixir(_config.Elixirs.First().ItemId).Slot;
+            var powderSlot = hasLuckyPowder ? _luckyPowders.First(i => i.Amount > 0).Slot : 0;
+
             packet.WriteByte(_config.Item.Slot);
-            packet.WriteByte(_config.Elixir.Slot);
+            packet.WriteByte(elixirSlot);
 
             if (hasLuckyPowder)
-                packet.WriteByte(_luckyPowder.Slot);
+                packet.WriteByte(powderSlot);
 
             packet.Lock();
 
@@ -228,6 +239,11 @@ namespace RSBot.Alchemy.Bot
         #endregion Methods
 
         #region Events
+
+        private InventoryItem GetElixir(uint itemId)
+        {
+            return Game.Player.Inventory.GetItem(itemId);
+        }
 
         /// <summary>
         /// Will be triggered if any elixir alchemy operation was completed

@@ -1,4 +1,5 @@
-﻿using RSBot.Core.Objects;
+﻿using System.Collections.Generic;
+using RSBot.Core.Objects;
 
 namespace RSBot.Alchemy.Bot
 {
@@ -44,7 +45,7 @@ namespace RSBot.Alchemy.Bot
         /// <summary>
         /// Gets or sets the selected enhancer elixir
         /// </summary>
-        public InventoryItem Elixir { get; set; }
+        public IEnumerable<InventoryItem> Elixirs { get; set; }
 
         #endregion Properties
     }

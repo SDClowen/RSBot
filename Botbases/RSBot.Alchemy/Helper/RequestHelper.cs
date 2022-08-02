@@ -22,7 +22,7 @@ namespace RSBot.Alchemy.Helper
 
         public static void SendMagicStoneRequest(InventoryItem item, InventoryItem magicStone)
         {
-            Log.Notify($"[LuckyAlchemyBot] Fusing {magicStone.Record.GetRealName()}...");
+            Log.Notify($"[Alchemy] Fusing {magicStone.Record.GetRealName()}...");
 
             var packet = new Packet(0x7151);
 
@@ -54,7 +54,7 @@ namespace RSBot.Alchemy.Helper
             if (type == AlchemyType.SocketInsert)
             {
                 var item = Game.Player.Inventory.GetItemAt(packet.ReadByte()); //Target item
-                var socketItem = Game.Player.Inventory.GetItemAt(packet.ReadByte()); //Target item
+                var socketItem = Game.Player.Inventory.GetItemAt(packet.ReadByte());
 
                 if (item != null && socketItem != null)
                     Game.Player.AlchemySlots = new Dictionary<byte, InventoryItem>

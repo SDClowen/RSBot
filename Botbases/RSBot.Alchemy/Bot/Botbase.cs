@@ -102,7 +102,7 @@ namespace RSBot.Alchemy.Bot
                 case Engine.Enhancement:
                     if (EnhancementConfig == null || Enhancer == null)
                     {
-                        Log.Warn("[LuckyAlchemyBot] Configuration issue detected!");
+                        Log.Warn("[Alchemy] Configuration issue detected!");
 
                         Kernel.Bot.Stop();
                     }
@@ -114,7 +114,7 @@ namespace RSBot.Alchemy.Bot
                 case Engine.Magic:
                     if (MagicOptionGranter == null || MagicOptionsConfig == null)
                     {
-                        Log.Warn("[LuckyAlchemyBot] Configuration issue detected!");
+                        Log.Warn("[Alchemy] Configuration issue detected!");
 
                         Kernel.Bot.Stop();
                     }

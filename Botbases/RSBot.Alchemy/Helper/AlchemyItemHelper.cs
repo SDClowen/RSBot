@@ -23,9 +23,9 @@ namespace RSBot.Alchemy.Helper
         private const int ParamAccessoryElixir = 83886080;
         private const int ParamShieldElixir = 67108864;
 
-        public static InventoryItem GetLuckyPowder(InventoryItem targetItem)
+        public static IEnumerable<InventoryItem> GetLuckyPowders(InventoryItem targetItem)
         {
-            return Game.Player.Inventory.GetItems(new TypeIdFilter(3, 3, 10, 2)).FirstOrDefault(i => i.Record.ItemClass == targetItem.Record.Degree);
+            return Game.Player.Inventory.GetItems(new TypeIdFilter(3, 3, 10, 2)).Where(i => i.Record.ItemClass == targetItem.Record.Degree);
         }
 
         public static InventoryItem GetLuckyStone(InventoryItem targetItem)
@@ -69,22 +69,22 @@ namespace RSBot.Alchemy.Helper
             return false;
         }
 
-        public static List<InventoryItem> GetElixirItems(ElixirType elixirType = ElixirType.Unspecified)
+        public static IEnumerable<InventoryItem> GetElixirItems(ElixirType elixirType = ElixirType.Unspecified)
         {
             if (elixirType == ElixirType.Protector)
-                return Game.Player.Inventory.Where(i => i.Record.Param1 == ParamProtectorElixir).ToList();
+                return Game.Player.Inventory.Where(i => i.Record.Param1 == ParamProtectorElixir);
 
             if (elixirType == ElixirType.Weapon)
-                return Game.Player.Inventory.Where(i => i.Record.Param1 == ParamWeaponElixir).ToList();
+                return Game.Player.Inventory.Where(i => i.Record.Param1 == ParamWeaponElixir);
 
             if (elixirType == ElixirType.Accessory)
-                return Game.Player.Inventory.Where(i => i.Record.Param1 == ParamAccessoryElixir).ToList();
+                return Game.Player.Inventory.Where(i => i.Record.Param1 == ParamAccessoryElixir);
 
             if (elixirType == ElixirType.Shield)
-                return Game.Player.Inventory.Where(i => i.Record.Param1 == ParamShieldElixir).ToList();
+                return Game.Player.Inventory.Where(i => i.Record.Param1 == ParamShieldElixir);
 
             if (elixirType == ElixirType.Unspecified)
-                return Game.Player.Inventory.GetItems(new TypeIdFilter(3, 3, 10, 1)).ToList();
+                return Game.Player.Inventory.GetItems(new TypeIdFilter(3, 3, 10, 1));
 
             return default;
         }

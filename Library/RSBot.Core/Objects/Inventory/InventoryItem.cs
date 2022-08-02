@@ -2,6 +2,7 @@
 using RSBot.Core.Network;
 using RSBot.Core.Objects.Item;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using RSBot.Core.Objects.Inventory.Item;
 
@@ -40,6 +41,8 @@ namespace RSBot.Core.Objects
         /// The record.
         /// </value>
         public RefObjItem Record => Game.ReferenceManager.GetRefItem(ItemId);
+        
+        private byte _optLevel;
 
         /// <summary>
         /// Gets or sets the opt level.
@@ -47,7 +50,20 @@ namespace RSBot.Core.Objects
         /// <value>
         /// The opt level.
         /// </value>
-        public byte OptLevel { get; set; }
+        public byte OptLevel
+        {
+            get
+            {
+                var advancedElixirOptLevel = BindingOptions.Where(b => b.Type == BindingOptionType.AdvancedElixir)
+                    .Sum(b => b.Value);
+
+                if (_optLevel + advancedElixirOptLevel > byte.MaxValue)
+                    return byte.MaxValue;
+
+                return (byte) (_optLevel + advancedElixirOptLevel);
+            }
+            set => _optLevel = value;
+        }
 
         /// <summary>
         /// Gets or sets the variance.
@@ -259,7 +275,7 @@ namespace RSBot.Core.Objects
 
                     for (var bindingIndex = 0; bindingIndex < bindingCount; bindingIndex++)
                     {
-                        var bindingType = packet.ReadByte();
+                        var bindingType = (BindingOptionType)packet.ReadByte();
                         var bindingAmount = packet.ReadByte();
                         for (var iSocketAmount = 0; iSocketAmount < bindingAmount; iSocketAmount++)
                             item.BindingOptions.Add(BindingOption.FromPacket(packet, bindingType));

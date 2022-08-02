@@ -86,33 +86,9 @@ namespace RSBot.Core.Objects.Inventory.Item
 
         public byte GetPercentage(byte slot)
         {
+            if (slot > 6)
+                return 0;
 
-            ////F = Fixed, ? = To be calculated
-            //Min: 46 F
-            //Max: 68 F
-            //Cur: 65 ?
-            //    Val : 27 F
-            //Per: 87 % ?
-
-
-            //Durability:
-            //    Different min / max: 22
-            //27 % von 68 = 18.36
-            //27 % von 46 = 12.42
-            //27 * 100 / 31 = 87
-
-            //How to get percentage value:
-            //1. 27 % von 46
-
-            //var percentDurability = Val / 100 * Min;   // (27 / 100 * 46) = 12.42
-
-            //2. 46 + Result 1.
-            //    var percentDurabilityAbsolute = Min + percentDurability;
-
-            //How to get current value
-            //var differenceMinMax = Max - Min;
-            //var durabilityDifferencePercent = percentageDurabilityAbsolute / 100 * differenceMinMax; //= 19,41
-            //var durabilityValue = Min + durabilityOffsetPercent; //= 65,14
             var value = Math.Floor(this[slot] / 31f * 100f);
 
             return (byte) value;

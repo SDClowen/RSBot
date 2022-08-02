@@ -119,39 +119,39 @@ namespace RSBot.Alchemy.Views
 
             if (item.Record.IsArmor())
             {
-                listAttributes.Items.Add($"{GetTranslation("PARAM_DUR")} {item.Attributes.GetPercentage(AttributesInfo.ArmorDurability)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_PHYSICAL_SPECIALIZE")} {item.Attributes.GetPercentage(AttributesInfo.ArmorPhySpecialize)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_MAGICAL_SPECIALIZE")} {item.Attributes.GetPercentage(AttributesInfo.ArmorMagSpecialize)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_PD")} {item.Attributes.GetPercentage(AttributesInfo.ArmorPhyDefense)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_MD")} {item.Attributes.GetPercentage(AttributesInfo.ArmorMagDefense)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_ER")} {item.Attributes.GetPercentage(AttributesInfo.ArmorEvasionRatio)}%");
+                listAttributes.Items.Add($"{GetTranslation("PARAM_DUR")} +{item.Attributes.GetPercentage(AttributesInfo.ArmorDurability)}%");
+                listAttributes.Items.Add($"{GetTranslation("PARAM_PHYSICAL_SPECIALIZE")} +{item.Attributes.GetPercentage(AttributesInfo.ArmorPhySpecialize)}%");
+                listAttributes.Items.Add($"{GetTranslation("PARAM_MAGICAL_SPECIALIZE")} +{item.Attributes.GetPercentage(AttributesInfo.ArmorMagSpecialize)}%");
+                listAttributes.Items.Add($"{GetTranslation("PARAM_PD")} +{item.Attributes.GetPercentage(AttributesInfo.ArmorPhyDefense)}%");
+                listAttributes.Items.Add($"{GetTranslation("PARAM_MD")} +{item.Attributes.GetPercentage(AttributesInfo.ArmorMagDefense)}%");
+                listAttributes.Items.Add($"{GetTranslation("PARAM_ER")} +{item.Attributes.GetPercentage(AttributesInfo.ArmorEvasionRatio)}%");
             }
 
             if (item.Record.IsShield())
             {
-                listAttributes.Items.Add($"{GetTranslation("PARAM_DUR")} {item.Attributes.GetPercentage(AttributesInfo.ShieldDurability)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_PHYSICAL_SPECIALIZE")} {item.Attributes.GetPercentage(AttributesInfo.ShieldPhySpecialize)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_MAGICAL_SPECIALIZE")} {item.Attributes.GetPercentage(AttributesInfo.ShieldMagSpecialize)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_PD")} {item.Attributes.GetPercentage(AttributesInfo.ShieldPhyDefense)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_MD")} {item.Attributes.GetPercentage(AttributesInfo.ShieldMagDefense)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_BLOCKING")} {item.Attributes.GetPercentage(AttributesInfo.ShieldBlockRatio)}%");
+                listAttributes.Items.Add($"{GetTranslation("PARAM_DUR")} +{item.Attributes.GetPercentage(AttributesInfo.ShieldDurability)}%");
+                listAttributes.Items.Add($"{GetTranslation("PARAM_PHYSICAL_SPECIALIZE")} +{item.Attributes.GetPercentage(AttributesInfo.ShieldPhySpecialize)}%");
+                listAttributes.Items.Add($"{GetTranslation("PARAM_MAGICAL_SPECIALIZE")} +{item.Attributes.GetPercentage(AttributesInfo.ShieldMagSpecialize)}%");
+                listAttributes.Items.Add($"{GetTranslation("PARAM_PD")} +{item.Attributes.GetPercentage(AttributesInfo.ShieldPhyDefense)}%");
+                listAttributes.Items.Add($"{GetTranslation("PARAM_MD")} +{item.Attributes.GetPercentage(AttributesInfo.ShieldMagDefense)}%");
+                listAttributes.Items.Add($"{GetTranslation("PARAM_BLOCKING")} +{item.Attributes.GetPercentage(AttributesInfo.ShieldBlockRatio)}%");
             }
 
             if (item.Record.IsWeapon())
             {
-                listAttributes.Items.Add($"{GetTranslation("PARAM_DUR")}\t\t+{item.Attributes.GetPercentage(AttributesInfo.WeaponDurability)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_PHYSICAL_SPECIALIZE")}\t\t+{item.Attributes.GetPercentage(AttributesInfo.WeaponPhySpecialize)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_MAGICAL_SPECIALIZE")}\t\t+{item.Attributes.GetPercentage(AttributesInfo.WeaponMagSpecialize)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_HR")}\t\t+{item.Attributes.GetPercentage(AttributesInfo.WeaponHitRatio)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_PA")}\t\t+{item.Attributes.GetPercentage(AttributesInfo.WeaponPhyDmg)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_MA")}\t\t+{item.Attributes.GetPercentage(AttributesInfo.WeaponMagDmg)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_CRITICAL")}\t\t\t+{item.Attributes.GetPercentage(AttributesInfo.WeaponCriticalHitRatio)}%");
+                listAttributes.Items.Add($"{GetTranslation("PARAM_DUR")} +{item.Attributes.GetPercentage(AttributesInfo.WeaponDurability)}%");
+                listAttributes.Items.Add($"{GetTranslation("PARAM_PHYSICAL_SPECIALIZE")} +{item.Attributes.GetPercentage(AttributesInfo.WeaponPhySpecialize)}%");
+                listAttributes.Items.Add($"{GetTranslation("PARAM_MAGICAL_SPECIALIZE")} +{item.Attributes.GetPercentage(AttributesInfo.WeaponMagSpecialize)}%");
+                listAttributes.Items.Add($"{GetTranslation("PARAM_HR")} +{item.Attributes.GetPercentage(AttributesInfo.WeaponHitRatio)}%");
+                listAttributes.Items.Add($"{GetTranslation("PARAM_PA")} +{item.Attributes.GetPercentage(AttributesInfo.WeaponPhyDmg)}%");
+                listAttributes.Items.Add($"{GetTranslation("PARAM_MA")} +{item.Attributes.GetPercentage(AttributesInfo.WeaponMagDmg)}%");
+                listAttributes.Items.Add($"{GetTranslation("PARAM_CRITICAL")} +{item.Attributes.GetPercentage(AttributesInfo.WeaponCriticalHitRatio)}%");
             }
 
             if (item.Record.IsAccessory())
             {
-                listAttributes.Items.Add($"{GetTranslation("PARAM_PR")} {item.Attributes.GetPercentage(AttributesInfo.AccessoryPhyAbsorbRatio)}");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_MR")} {item.Attributes.GetPercentage(AttributesInfo.AccessoryMagAbsorbRatio)}");
+                listAttributes.Items.Add($"{GetTranslation("PARAM_PR")} +{item.Attributes.GetPercentage(AttributesInfo.AccessoryPhyAbsorbRatio)}%");
+                listAttributes.Items.Add($"{GetTranslation("PARAM_MR")} +{item.Attributes.GetPercentage(AttributesInfo.AccessoryMagAbsorbRatio)}%");
             }
         }
 
@@ -277,16 +277,6 @@ namespace RSBot.Alchemy.Views
                 _enhanceSettingsView.Hide();
                 _magicOptionsSettingsView.Show();
             }
-        }
-
-        /// <summary>
-        /// Navigates the user to the github.com project page
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void linkGithub_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://github.com/ngoedde/lucky-alchemy-bot");
         }
 
         #endregion Events

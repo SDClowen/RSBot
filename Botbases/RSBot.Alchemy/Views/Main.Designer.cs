@@ -52,13 +52,11 @@ namespace RSBot.Alchemy.Views
             this.colItem = new System.Windows.Forms.ColumnHeader();
             this.colSuccess = new System.Windows.Forms.ColumnHeader();
             this.colResult = new System.Windows.Forms.ColumnHeader();
-            this.lblCopyright = new SDUI.Controls.Label();
             this.tabControlItemInfo = new SDUI.Controls.TabControl();
             this.tabMagicOptions = new System.Windows.Forms.TabPage();
             this.listMagicOptions = new System.Windows.Forms.ListBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.listAttributes = new System.Windows.Forms.ListBox();
-            this.linkGithub = new System.Windows.Forms.LinkLabel();
             this.panelSettingsGroup = new SDUI.Controls.Panel();
             this.panelSettings = new SDUI.Controls.Panel();
             this.panel2 = new SDUI.Controls.Panel();
@@ -200,17 +198,6 @@ namespace RSBot.Alchemy.Views
             this.colResult.Text = "Result";
             this.colResult.Width = 383;
             // 
-            // lblCopyright
-            // 
-            this.lblCopyright.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblCopyright.AutoSize = true;
-            this.lblCopyright.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblCopyright.Location = new System.Drawing.Point(307, 472);
-            this.lblCopyright.Name = "lblCopyright";
-            this.lblCopyright.Size = new System.Drawing.Size(188, 13);
-            this.lblCopyright.TabIndex = 4;
-            this.lblCopyright.Text = "LuckyAlchemyBot © 2022 Wimbeam";
-            // 
             // tabControlItemInfo
             // 
             this.tabControlItemInfo.Border = new System.Windows.Forms.Padding(1);
@@ -262,17 +249,6 @@ namespace RSBot.Alchemy.Views
             this.listAttributes.Name = "listAttributes";
             this.listAttributes.Size = new System.Drawing.Size(262, 139);
             this.listAttributes.TabIndex = 3;
-            // 
-            // linkGithub
-            // 
-            this.linkGithub.AutoSize = true;
-            this.linkGithub.Location = new System.Drawing.Point(704, 471);
-            this.linkGithub.Name = "linkGithub";
-            this.linkGithub.Size = new System.Drawing.Size(44, 13);
-            this.linkGithub.TabIndex = 6;
-            this.linkGithub.TabStop = true;
-            this.linkGithub.Text = "GitHub";
-            this.linkGithub.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkGithub_LinkClicked);
             // 
             // panelSettingsGroup
             // 
@@ -348,11 +324,9 @@ namespace RSBot.Alchemy.Views
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panelSettingsGroup);
-            this.Controls.Add(this.linkGithub);
             this.Controls.Add(this.tabControlItemInfo);
             this.Controls.Add(this.lvLog);
             this.Controls.Add(this.groupItem);
-            this.Controls.Add(this.lblCopyright);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "Main";
             this.Size = new System.Drawing.Size(765, 491);
@@ -365,7 +339,6 @@ namespace RSBot.Alchemy.Views
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -383,13 +356,11 @@ namespace RSBot.Alchemy.Views
         private Label lblDegreeText;
         private Label lblOptLevel;
         private ListBox listMagicOptions;
-        private Label lblCopyright;
         private TabControl tabControlItemInfo;
         private TabPage tabPage2;
         private TabPage tabMagicOptions;
         private Label lblItemSelection;
         private ListBox listAttributes;
-        private LinkLabel linkGithub;
         private Panel panelSettingsGroup;
         private Panel panel2;
         private RadioButton radioEnhance;
