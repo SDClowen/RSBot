@@ -36,6 +36,7 @@ namespace RSBot.Core.Client
         public Dictionary<string, RefPackageItemScrap> PackageItemScrap { get; } = new(2048);
         public List<RefTeleport> TeleportData { get; } = new(256);
         public List<RefTeleportLink> TeleportLinks { get; } = new(256);
+        public Dictionary<int, RefOptionalTeleport> OptionalTeleports { get; } = new(32);
         public GatewayInfo GatewayInfo { get; private set; }
         public DivisionInfo DivisionInfo { get; private set; }
         public VersionInfo VersionInfo { get; private set; }
@@ -78,7 +79,8 @@ namespace RSBot.Core.Client
                 () => LoadReferenceFile("RefMappingShopWithTab.txt", ShopTabMapping),
                 () => LoadScrapOfPackageItemData("RefScrapOfPackageItem.txt"),
                 () => LoadReferenceFile("magicoption.txt", MagicOptions),
-                () => LoadReferenceFile("magicoptionassign.txt", MagicOptionAssignments)
+                () => LoadReferenceFile("magicoptionassign.txt", MagicOptionAssignments),
+                () => LoadReferenceFile("refoptionalteleport.txt", OptionalTeleports)
             );
 
             if(Game.ClientType > GameClientType.Japanese_Old)

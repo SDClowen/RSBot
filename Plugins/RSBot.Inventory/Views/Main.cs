@@ -1,6 +1,8 @@
 ﻿using RSBot.Core;
+using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Event;
 using RSBot.Core.Extensions;
+using RSBot.Core.Network;
 using RSBot.Core.Objects;
 using SDUI;
 using System;
@@ -216,6 +218,21 @@ namespace RSBot.Inventory.Views
                     lblFreeSlots.Text = Game.Player.Job2.Count + "/" + Game.Player.Job2.Capacity;
 
                     break;
+
+                case 9:
+
+                    if (!Game.Player.HasActiveFellowPet)
+                    {
+                        listViewMain.EndUpdate();
+                        return;
+                    }
+
+                    foreach (var item in Game.Player.Fellow.Inventory)
+                        AddItem(item);
+
+                    lblFreeSlots.Text = Game.Player.Fellow.Inventory.Count + "/" + Game.Player.Fellow.Inventory.Capacity;
+
+                    break;
             }
 
             listViewMain.EndUpdate();
@@ -266,21 +283,6 @@ namespace RSBot.Inventory.Views
         }
 
         /// <summary>
-        /// Handles the selected index changed event of the listViewMain control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void listViewMain_SelectedIndexChanged(object sender, System.EventArgs e)
-        {
-            if (listViewMain.SelectedIndices.Count != 1)
-                return;
-
-            /*var listViewItem = listViewMain.SelectedItems[0];
-            var inventoryItem = listViewItem.Tag as InventoryItem;
-            buttonUseItem.Enabled = inventoryItem.Record.IsSkillItem;*/
-        }
-
-        /// <summary>
         /// Handles the Click event of the btnReload control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -292,14 +294,7 @@ namespace RSBot.Inventory.Views
 
             var listViewItem = listViewMain.SelectedItems[0];
             var inventoryItem = listViewItem.Tag as InventoryItem;
-            inventoryItem.Use();
-
-            /*var dialog = new UseItemDialog();
-            if(dialog.ShowDialog(this) == DialogResult.OK)
-            {
-
-                return;
-            }*/
+            inventoryItem?.Use();
         }
 
         /// <summary>
@@ -337,7 +332,7 @@ namespace RSBot.Inventory.Views
 
             foreach (var control in topPanel.Controls.OfType<SDUI.Controls.Button>())
             {
-                if (control.TabIndex > 8)
+                if (control.TabIndex > 9)
                     continue;
 
                 control.Color = Color.Transparent;
@@ -353,6 +348,156 @@ namespace RSBot.Inventory.Views
             }
 
             UpdateInventoryList();
+        }
+
+        private void dropToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listViewMain.SelectedIndices.Count != 1)
+                return;
+
+            var listViewItem = listViewMain.SelectedItems[0];
+            var inventoryItem = listViewItem.Tag as InventoryItem;
+            if (inventoryItem == null)
+                return;
+
+            var cos = _selectedIndex == 3;
+            inventoryItem?.Drop(cos, Game.Player.AbilityPet.UniqueId);
+        }
+
+        private void contextMenuStrip_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (listViewMain.SelectedIndices.Count != 1)
+            {
+                e.Cancel = true;
+                return;
+            }
+
+            var listViewItem = listViewMain.SelectedItems[0];
+            var inventoryItem = listViewItem.Tag as InventoryItem;
+            if (inventoryItem == null)
+                return;
+
+            if (_selectedIndex != 0)
+            {
+                useToolStripMenuItem.Visible = false;
+                moveToLastDeathPositionToolStripMenuItem.Visible = false;
+                moveToLastRecallPositionToolStripMenuItem.Visible = false;
+                moveToPetToolStripMenuItem.Visible = false;
+                moveToPlayerToolStripMenuItem.Visible = _selectedIndex == 3;
+                selectMapLocationToolStripMenuItem.Visible = false;
+                return;
+            }
+
+            bool isReverseScroll = inventoryItem.Equals(new TypeIdFilter(3, 3, 3, 3));
+            useToolStripMenuItem.Visible = !isReverseScroll;
+            useToolStripMenuItem.Enabled = inventoryItem.Record.CanUse != ObjectUseType.No;
+            moveToLastDeathPositionToolStripMenuItem.Visible = isReverseScroll;
+            moveToLastRecallPositionToolStripMenuItem.Visible = isReverseScroll;
+            selectMapLocationToolStripMenuItem.Visible = isReverseScroll;
+            dropToolStripMenuItem.Visible = inventoryItem.Record.CanDrop != ObjectDropType.No;
+
+            moveToPetToolStripMenuItem.Visible = Game.Player.AbilityPet != null && _selectedIndex != 3;
+            moveToPlayerToolStripMenuItem.Visible = _selectedIndex == 3;
+            
+            if (isReverseScroll)
+            {
+                var tagItem = selectMapLocationToolStripMenuItem.Tag as InventoryItem;
+                if(tagItem != inventoryItem)
+                {
+                    selectMapLocationToolStripMenuItem.Tag = inventoryItem;
+                    selectMapLocationToolStripMenuItem.DropDownItems.Clear();
+
+                    foreach (var item in Game.ReferenceManager.OptionalTeleports)
+                    {
+                        var mapName = Game.ReferenceManager.GetTranslation(item.Value.RegionID.ToString());
+
+                        var menuItem = new ToolStripMenuItem { Text = mapName };
+
+                        menuItem.Click += (itemSender, itemEvent) =>
+                        {
+                            inventoryItem.UseTo(7, item.Value.ID);
+                        };
+
+                        selectMapLocationToolStripMenuItem.DropDownItems.Add(menuItem);
+                    }
+                }
+            }
+        }
+
+        private void moveToLastRecallPositionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listViewMain.SelectedIndices.Count != 1)
+                return;
+
+            var listViewItem = listViewMain.SelectedItems[0];
+            var inventoryItem = listViewItem.Tag as InventoryItem;
+            if (inventoryItem == null)
+                return;
+
+            inventoryItem.UseTo(2);
+        }
+
+        private void moveToLastDeathPositionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listViewMain.SelectedIndices.Count != 1)
+                return;
+
+            var listViewItem = listViewMain.SelectedItems[0];
+            var inventoryItem = listViewItem.Tag as InventoryItem;
+            if (inventoryItem == null)
+                return;
+
+            inventoryItem.UseTo(3);
+        }
+
+        private void moveToPetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listViewMain.SelectedIndices.Count != 1)
+                return;
+
+            var listViewItem = listViewMain.SelectedItems[0];
+            var inventoryItem = listViewItem.Tag as InventoryItem;
+            if (inventoryItem == null)
+                return;
+
+            if (Game.Player.AbilityPet != null)
+                return;
+
+            var freeSlot = Game.Player.AbilityPet.Inventory.GetFreeSlot();
+            if (freeSlot == 0xFF)
+                return;
+
+            var packet = new Packet(0x7034);
+            packet.WriteByte(InventoryOperation.SP_MOVE_ITEM_PC_PET);
+            packet.WriteUInt(Game.Player.AbilityPet.UniqueId);
+            packet.WriteByte(inventoryItem.Slot);
+            packet.WriteByte(freeSlot);
+            PacketManager.SendPacket(packet, PacketDestination.Server);
+        }
+
+        private void moveToPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listViewMain.SelectedIndices.Count != 1)
+                return;
+
+            var listViewItem = listViewMain.SelectedItems[0];
+            var inventoryItem = listViewItem.Tag as InventoryItem;
+            if (inventoryItem == null)
+                return;
+
+            if (Game.Player.AbilityPet == null)
+                return;
+
+            var freeSlot = Game.Player.Inventory.GetFreeSlot();
+            if (freeSlot == 0xFF)
+                return;
+
+            var packet = new Packet(0x7034);
+            packet.WriteByte(InventoryOperation.SP_MOVE_ITEM_PET_PC);
+            packet.WriteUInt(Game.Player.AbilityPet.UniqueId);
+            packet.WriteByte(inventoryItem.Slot);
+            packet.WriteByte(freeSlot);
+            PacketManager.SendPacket(packet, PacketDestination.Server);
         }
     }
 }
