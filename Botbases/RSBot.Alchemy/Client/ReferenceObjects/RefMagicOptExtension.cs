@@ -11,7 +11,7 @@ namespace RSBot.Alchemy.Client.ReferenceObjects
         /// <returns></returns>
         public static string GetGroupTranslation(this RefMagicOpt magicOption)
         {
-            var translationGroup = magicOption.Group.Replace("MATTR", "PARAM");
+            var translationGroup = magicOption.Group.Replace("MATTR", "PARAM").Replace("AVATAR_", "");
 
             switch (translationGroup)
             {
@@ -118,6 +118,7 @@ namespace RSBot.Alchemy.Client.ReferenceObjects
                     return $"MP {value} Increase";
 
                 case "MATTR_CRITICAL":
+                case "MATTR_EVADE_CRITICAL":
                     return $"Critical {value}";
 
                 case "MATTR_NOT_REPARABLE":

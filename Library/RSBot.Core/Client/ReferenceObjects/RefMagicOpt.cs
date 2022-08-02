@@ -97,12 +97,7 @@ namespace RSBot.Core.Client.ReferenceObjects
         {
             if (AvailableValues == null) return 0;
 
-            ushort highest = 0;
-
-            foreach (var value in AvailableValues.Where(value => value > highest))
-                highest = value;
-
-            return highest;
+            return AvailableValues.Max();
         }
 
         /// <summary>

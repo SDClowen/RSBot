@@ -1,10 +1,10 @@
-﻿using RSBot.Core;
+﻿using RSBot.Alchemy.Client.ReferenceObjects;
+using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using System;
 using System.Linq;
-using RSBot.Alchemy.Client.ReferenceObjects;
 
 namespace RSBot.Alchemy.Subscriber
 {
@@ -21,7 +21,7 @@ namespace RSBot.Alchemy.Subscriber
         private static void OnMagicOptionGranted(byte slot, string group)
         {
             var item = Game.Player.Inventory.GetItemAt(slot);
-            var option = Game.ReferenceManager.GetMagicOption(group, (byte) item.Record.Degree);
+            var option = Game.ReferenceManager.GetMagicOption(group, (byte)item.Record.Degree);
 
             Game.ReferenceManager.GetTranslation("UIIT_MSG_ALCHEMY_APPEND_ATTR").JoymaxFormat(option.GetGroupTranslation(), item.Record.GetRealName());
         }
@@ -35,7 +35,7 @@ namespace RSBot.Alchemy.Subscriber
             Globals.Botbase.MagicOptionsConfig = null;
 
             Globals.View.SelectedItem = null;
-            Globals.View.AddLog(oldItem.Record.GetRealName(), false, Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_BREAKDOWN"));
+            Globals.View.AddLog(oldItem.Record.GetRealName(), Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_BREAKDOWN"));
             Log.Warn("[Alchemy] The item has been destroyed, stopping now...");
 
             Kernel.Bot?.Stop();
@@ -67,19 +67,19 @@ namespace RSBot.Alchemy.Subscriber
             switch (type)
             {
                 case AlchemyType.Elixir:
-                    Globals.View.AddLog(item.Value.Record.GetRealName(), true, $"Fusing elixir [{elixir.Value.Record.GetRealName()}");
+                    Globals.View.AddLog(item.Value.Record.GetRealName(), $"Fusing elixir [{elixir.Value.Record.GetRealName()}");
                     break;
 
                 case AlchemyType.MagicStone:
-                    Globals.View.AddLog(item.Value.Record.GetRealName(), true, $"Fusing magic stone [{elixir.Value.Record.GetRealName()}");
+                    Globals.View.AddLog(item.Value.Record.GetRealName(), $"Fusing magic stone [{elixir.Value.Record.GetRealName()}");
                     break;
 
                 case AlchemyType.AttributeStone:
-                    Globals.View.AddLog(item.Value.Record.GetRealName(), true, $"Fusing attribute stone [{elixir.Value.Record.GetRealName()}");
+                    Globals.View.AddLog(item.Value.Record.GetRealName(), $"Fusing attribute stone [{elixir.Value.Record.GetRealName()}");
                     break;
 
                 default:
-                    Globals.View.AddLog(item.Value.Record.GetRealName(), true, $"Fusing [{elixir.Value.Record.GetRealName()}");
+                    Globals.View.AddLog(item.Value.Record.GetRealName(), $"Fusing [{elixir.Value.Record.GetRealName()}");
                     break;
             }
         }

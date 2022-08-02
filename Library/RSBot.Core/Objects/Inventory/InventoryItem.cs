@@ -54,8 +54,10 @@ namespace RSBot.Core.Objects
         {
             get
             {
-                var advancedElixirOptLevel = BindingOptions.Where(b => b.Type == BindingOptionType.AdvancedElixir)
-                    .Sum(b => b.Value);
+                if (BindingOptions == null)
+                    return _optLevel;
+
+                var advancedElixirOptLevel = BindingOptions.Where(b => b.Type == BindingOptionType.AdvancedElixir).Sum(b => b.Value != null ? b.Value : 0);
 
                 if (_optLevel + advancedElixirOptLevel > byte.MaxValue)
                     return byte.MaxValue;

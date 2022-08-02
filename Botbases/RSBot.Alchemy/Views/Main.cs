@@ -28,7 +28,7 @@ namespace RSBot.Alchemy.Views
                 InventoryItem = inventoryItem;
             }
 
-            public override string ToString() => $"[{InventoryItem.Slot}] {InventoryItem.Record.GetRealName()} (+{InventoryItem.OptLevel})";
+            public override string ToString() => $"[{InventoryItem?.Slot}] {InventoryItem?.Record?.GetRealName()} (+{InventoryItem?.OptLevel})";
         }
 
         #region Delegates
@@ -94,9 +94,9 @@ namespace RSBot.Alchemy.Views
         {
             comboItem.Items.Clear();
 
-            var items = Game.Player.Inventory.Where(i => i.Record.IsEquip).ToList();
+            var items = Game.Player.Inventory.Where(i => i.Record.IsEquip && !i.Record.IsAvatar && !i.Record.IsJobOutfit).ToList();
 
-            items.ForEach((item) =>
+            items.ForEach(item =>
             {
                 var newComboItem = new InventoryItemComboboxItem(item);
 
@@ -106,6 +106,10 @@ namespace RSBot.Alchemy.Views
                 if (SelectedItem != null && item.Slot == SelectedItem.Slot)
                     comboItem.SelectedItem = newComboItem;
             });
+
+            if (comboItem.SelectedItem == null)
+                SelectedItem = null;
+            
         }
 
         /*
@@ -188,13 +192,11 @@ namespace RSBot.Alchemy.Views
         /// Adds a new log message to the alchemy log listview
         /// </summary>
         /// <param name="itemName"></param>
-        /// <param name="success"></param>
         /// <param name="message"></param>
-        public void AddLog(string itemName, bool success, string message)
+        public void AddLog(string itemName, string message)
         {
             var item = new ListViewItem(itemName);
-
-            item.SubItems.Add(success ? "Success" : "Fail");
+            
             item.SubItems.Add(message);
 
             lvLog.Items.Add(item);

@@ -1,4 +1,5 @@
 ﻿using RSBot.Alchemy.Client.ReferenceObjects;
+using RSBot.Alchemy.Helper;
 using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Event;
@@ -6,7 +7,6 @@ using RSBot.Core.Objects;
 using RSBot.Core.Objects.Item;
 using System;
 using System.Linq;
-using RSBot.Alchemy.Helper;
 
 namespace RSBot.Alchemy.Bot
 {
@@ -108,11 +108,17 @@ namespace RSBot.Alchemy.Bot
                 return;
 
             //Loops over every stone that should be fused
-            foreach (var stone in config.MagicStones)
+            foreach (var stone in config.MagicStones.Where(i => i.Key.Amount > 0))
             {
+       
                 //Wait for the next tick
                 if (_shouldRun == false) break;
-                if (stone.Value == null) continue;
+
+                //Check if the stone to be fused is in the correct slot, otherwise get the same item type again from the inventory
+                var magicStone = Game.Player.Inventory.GetItem(stone.Key.ItemId);
+                if (magicStone == null)
+                    continue;
+
 
                 //Gets the current magic option info from the selected item if available
                 var current = config.Item.MagicOptions.FirstOrDefault(m => m.Id == stone.Value.Id);
@@ -129,19 +135,28 @@ namespace RSBot.Alchemy.Bot
                 }
 
                 //Max value reached?
-                var max = stone.Value.GetMaxValue();
-                if (current == null || current.Value < max)
+                if (current != null && current.Record.Level != config.Item.Record.Degree)
                 {
-                    RequestHelper.SendMagicStoneRequest(config.Item, stone.Key);
+                    //Fix in case the server sends a lower magic option id than expected (dunno why this happens)
+                    var actualMagicOption = Game.ReferenceManager.GetMagicOption(current.Record.Group,
+                        (byte)config.Item.Record.Degree);
+
+                    current = new MagicOptionInfo { Id = actualMagicOption.Id, Value = current.Value };
+                }
+                
+                if (current == null || current.Value < current.Record.GetMaxValue())
+                {
+                    RequestHelper.SendMagicStoneRequest(config.Item, magicStone);
 
                     _shouldRun = false;
                 }
-
+                else
+                    Log.Notify("[Alchemy] Maximum option level reached!");
             }
 
             if (_shouldRun)
             {
-                Log.Notify("[LuckyAlchemyBot] Magic stone fusing finished!");
+                Log.Notify("[Alchemy] Magic stone fusing finished!");
 
                 Kernel.Bot.Stop();
             }
@@ -196,8 +211,9 @@ namespace RSBot.Alchemy.Bot
                     break;
                 }
 
-                if (oldMagicOption.Value == newMagicOption.Value) continue;
-                
+                if (oldMagicOption.Value == newMagicOption.Value)
+                    continue;
+
                 changedOption = newMagicOption;
 
                 break;
@@ -212,7 +228,7 @@ namespace RSBot.Alchemy.Bot
                     ? Game.ReferenceManager.GetTranslation("UIIT_MSG_ALCHEMY_CHANGE_CATTR").JoymaxFormat(newItem.Record.GetRealName(), record.GetGroupTranslation(), $"{oldItem.MagicOptions.FirstOrDefault(m => m.Id == changedOption.Id).Value} -> {changedOption.Value}")
                     : Game.ReferenceManager.GetTranslation("UIIT_MSG_ALCHEMY_APPEND_ATTR").JoymaxFormat(record.GetGroupTranslation(), newItem.Record.GetRealName());
 
-            Globals.View.AddLog(newItem.Record.GetRealName(), true, message);
+            Globals.View.AddLog(newItem.Record.GetRealName(), message);
         }
 
         /// <summary>
@@ -224,7 +240,7 @@ namespace RSBot.Alchemy.Bot
             if (type != AlchemyType.MagicStone)
                 return;
 
-            Globals.View.AddLog(newItem.Record.GetRealName(), false, Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL"));
+            Globals.View.AddLog(newItem.Record.GetRealName(), Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL"));
 
             _shouldRun = true;
         }
@@ -240,7 +256,7 @@ namespace RSBot.Alchemy.Bot
 
             var translationName = GetErrorTranslationName(errorCode);
 
-            Globals.View.AddLog(Game.Player.AlchemySlots?.Count > 0 ? Game.Player.AlchemySlots.First().Value.Record.GetRealName() : "", false, Game.ReferenceManager.GetTranslation(translationName));
+            Globals.View.AddLog(Game.Player.AlchemySlots?.Count > 0 ? Game.Player.AlchemySlots.First().Value.Record.GetRealName() : "", Game.ReferenceManager.GetTranslation(translationName));
         }
 
         #endregion Events

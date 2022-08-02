@@ -30,27 +30,33 @@ namespace RSBot.Alchemy.Helper
 
         public static InventoryItem GetLuckyStone(InventoryItem targetItem)
         {
-            return GetStoneByGroup(targetItem, RefMagicOpt.MaterialLuck);
+            return GetStonesByGroup(targetItem, RefMagicOpt.MaterialLuck).FirstOrDefault();
         }
 
         public static InventoryItem GetAstralStone(InventoryItem targetItem)
         {
-            return GetStoneByGroup(targetItem, RefMagicOpt.MaterialAstral);
+            return GetStonesByGroup(targetItem, RefMagicOpt.MaterialAstral).FirstOrDefault();
         }
 
         public static InventoryItem GetImmortalStone(InventoryItem targetItem)
         {
-            return GetStoneByGroup(targetItem, RefMagicOpt.MaterialImmortal);
+            return GetStonesByGroup(targetItem, RefMagicOpt.MaterialImmortal).FirstOrDefault();
         }
 
         public static InventoryItem GetSteadyStone(InventoryItem targetItem)
         {
-            return GetStoneByGroup(targetItem, RefMagicOpt.MaterialSteady);
+            return GetStonesByGroup(targetItem, RefMagicOpt.MaterialSteady).FirstOrDefault();
         }
 
-        public static InventoryItem GetStoneByGroup(InventoryItem targetItem, string name)
+        public static IEnumerable<InventoryItem> GetStonesByGroup(InventoryItem targetItem, string name)
         {
-            return Game.Player.Inventory.FirstOrDefault(i => i.Record.Desc1 == name && i.Record.ItemClass == targetItem.Record.Degree);
+            return Game.Player.Inventory.Where(i => i.Record.Desc1 == name && i.Record.ItemClass == targetItem.Record.Degree);
+        }
+
+
+        public static IEnumerable<InventoryItem> GetStonesByGroup(byte level, string name)
+        {
+            return Game.Player.Inventory.Where(i => i.Record.Desc1 == name && i.Record.ItemClass == level);
         }
 
         public static bool HasMagicOption(InventoryItem inventoryItem, string materialGroup)

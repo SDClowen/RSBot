@@ -40,7 +40,6 @@ namespace RSBot.Core.Network.Handler.Agent.Alchemy
 
                 if (isDestroyed)
                 {
-
                     EventManager.FireEvent("OnAlchemyDestroyed", oldItem, type);
                     Game.Player.Inventory.RemoveAt(slot);
 

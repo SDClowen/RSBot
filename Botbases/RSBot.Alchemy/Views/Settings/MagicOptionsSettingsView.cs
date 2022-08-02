@@ -1,4 +1,5 @@
-﻿using RSBot.Alchemy.Client.ReferenceObjects;
+﻿using System;
+using RSBot.Alchemy.Client.ReferenceObjects;
 using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Event;
@@ -7,6 +8,7 @@ using RSBot.Core.Objects.Item;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using RSBot.Alchemy.Helper;
 
 namespace RSBot.Alchemy.Views.Settings
 {
@@ -14,10 +16,10 @@ namespace RSBot.Alchemy.Views.Settings
     {
         private class MagicStoneListViewItemTag
         {
-            public InventoryItem Item { get; set; }
-            public RefMagicOpt MagicOption { get; set; }
+            public InventoryItem? Item { get; set; }
+            public RefMagicOpt? MagicOption { get; set; }
 
-            public MagicOptionInfo MagicOptionInfo { get; set; }
+            public MagicOptionInfo? MagicOptionInfo { get; set; }
         }
 
         #region Members
@@ -75,6 +77,15 @@ namespace RSBot.Alchemy.Views.Settings
         /// <param name="e"></param>
         private void lvMagicOptions_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
+            var tag = e.Item.Tag as MagicStoneListViewItemTag;
+
+            if (tag.MagicOptionInfo != null && tag?.MagicOptionInfo?.Value >= tag?.MagicOptionInfo?.Record?.GetMaxValue() || tag.Item == null)
+            {
+                e.Item.Checked = false;
+
+                return;
+            }
+
             ReloadConfig();
         }
 
@@ -87,47 +98,74 @@ namespace RSBot.Alchemy.Views.Settings
         /// </summary>
         public void PopulateListView()
         {
-            if (Globals.View.SelectedItem == null) return;
+            if (Globals.View.SelectedItem == null) 
+                return;
 
             lvMagicOptions.BeginUpdate();
             lvMagicOptions.Items.Clear();
             _reloadConfig = false;
 
             var selectedItem = Globals.View.SelectedItem;
+            if (selectedItem == null)
+            {
+                lvMagicOptions.EndUpdate();
+                return;
+            }
+
             var assignments = Game.ReferenceManager.GetAssignments(selectedItem.Record.TypeID3, selectedItem.Record.TypeID4);
             foreach (var assignment in assignments)
             {
-                if (assignment == null) continue;
-
-                var matchingItem = Helper.AlchemyItemHelper.GetStoneByGroup(selectedItem, assignment.Group);
-                if (matchingItem == null) continue;
-
-                MagicOptionInfo current = null;
-                RefMagicOpt currentRecord = null;
+                if (assignment == null)
+                    continue;
+                
+                var matchingMagicStones = AlchemyItemHelper.GetStonesByGroup(selectedItem, assignment.Group);
+                
+                MagicOptionInfo currentMagicOptionInfo = null;
                 if (selectedItem.MagicOptions != null)
                     foreach (var magicOption in selectedItem.MagicOptions)
-                    {
-                        var record = Game.ReferenceManager.GetMagicOption(magicOption.Id);
-                        if (record == null || record.Group != assignment.Group) continue;
+                    {;
+                        if (magicOption.Record?.Group != assignment.Group) 
+                            continue;
 
-                        current = magicOption;
-                        currentRecord = record;
+                        if (magicOption.Record.Level != selectedItem.Record.Degree)
+                        {
+                            //Fix in case the server sends a lower magic option id than expected (dunno why this happens)
+                            var actualMagicOption = Game.ReferenceManager.GetMagicOption(assignment.Group,
+                                (byte) selectedItem.Record.Degree);
+
+                            matchingMagicStones =
+                                AlchemyItemHelper.GetStonesByGroup(magicOption.Record.Level, assignment.Group);
+
+                            currentMagicOptionInfo = new MagicOptionInfo { Id = actualMagicOption.Id, Value = magicOption.Value };
+                        }
+                        else 
+                            currentMagicOptionInfo = magicOption;
+
                         break;
                     }
 
-                var hasMax = currentRecord != null && currentRecord.GetMaxValue() <= current.Value;
-                if (hasMax) continue;
+                var canBeIncreased = !!matchingMagicStones.Any();
+                
+                //Max option
+                if (currentMagicOptionInfo != null &&
+                    currentMagicOptionInfo.Value >= currentMagicOptionInfo.Record.GetMaxValue())
+                    canBeIncreased = false;
+
+                var refMagicOption = Game.ReferenceManager.GetMagicOption(assignment.Group, (byte) selectedItem.Record.Degree);
+                if (refMagicOption == null)
+                    continue;
 
                 var item = new ListViewItem(assignment.GetGroupTranslation())
                 {
-                    Tag = new MagicStoneListViewItemTag { Item = matchingItem, MagicOption = assignment, MagicOptionInfo = current }
+                    Tag = new MagicStoneListViewItemTag { Item = matchingMagicStones.FirstOrDefault(), MagicOption = assignment, MagicOptionInfo = currentMagicOptionInfo },
+                    ForeColor = canBeIncreased ? Color.Green : Color.Red
                 };
 
-                item.SubItems.Add(current == null ? "0" : current.Value.ToString());
-                item.SubItems.Add(Game.ReferenceManager.GetMagicOption(assignment.Group, (byte)selectedItem.Record.Degree).GetMaxValue().ToString());
-                item.SubItems.Add($"{matchingItem?.Amount}");
+                item.SubItems.Add(currentMagicOptionInfo == null ? "0" : currentMagicOptionInfo.Value.ToString());
+                item.SubItems.Add(refMagicOption.GetMaxValue().ToString());
+                item.SubItems.Add(!matchingMagicStones.Any() ? "x0" : $"x{matchingMagicStones.Sum(i => i.Amount)}");
 
-                if (Globals.Botbase.MagicOptionsConfig != null && Globals.Botbase.MagicOptionsConfig.MagicStones.Keys.FirstOrDefault(i => i.Record.ID == matchingItem.ItemId) != null)
+                if (Globals.Botbase.MagicOptionsConfig != null && Globals.Botbase.MagicOptionsConfig.MagicStones.Keys.FirstOrDefault(i => i.Record.ID == matchingMagicStones.FirstOrDefault()?.ItemId) != null && canBeIncreased)
                     item.Checked = true;
                 else
                     item.Checked = false;
@@ -138,7 +176,6 @@ namespace RSBot.Alchemy.Views.Settings
             }
 
             lvMagicOptions.EndUpdate();
-
             _reloadConfig = true;
 
             ReloadConfig();
@@ -150,20 +187,28 @@ namespace RSBot.Alchemy.Views.Settings
         private void ReloadConfig()
         {
             if (!_reloadConfig) return;
-
+            
             Globals.Botbase.MagicOptionsConfig = new Bot.MagicOptionsConfig
             {
                 Item = Globals.View.SelectedItem,
                 MagicStones = new System.Collections.Generic.Dictionary<InventoryItem, RefMagicOpt>()
             };
 
-            foreach (ListViewItem item in lvMagicOptions.CheckedItems)
+            try
             {
-                var invItem = (MagicStoneListViewItemTag)item.Tag;
+                foreach (ListViewItem item in lvMagicOptions.CheckedItems)
+                {
+                    var invItem = (MagicStoneListViewItemTag)item.Tag;
 
-                if (invItem != null)
-                    Globals.Botbase.MagicOptionsConfig.MagicStones.Add(invItem.Item, invItem.MagicOption);
+                    if (invItem.Item != null)
+                        Globals.Botbase.MagicOptionsConfig.MagicStones.Add(invItem.Item, invItem.MagicOption);
+                }
             }
+            catch (Exception e)
+            {
+                Log.Warn($"[Alchemy] Unhandled exception while reloading magic options configuration: {e.Message}");
+            }
+            
         }
 
         #endregion Methods

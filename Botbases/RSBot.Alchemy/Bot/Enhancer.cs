@@ -23,6 +23,8 @@ namespace RSBot.Alchemy.Bot
 
         private EnhancementConfig _config;
 
+        private bool _isStoneFusing;
+
         #region Constructor
 
         /// <summary>
@@ -80,6 +82,16 @@ namespace RSBot.Alchemy.Bot
             if (config?.Item == null)
                 Kernel.Bot.Stop();
 
+            //Item still there and available?
+            var item = Game.Player.Inventory.GetItemAt(config.Item.Slot);
+            if (item == null || item.Amount == 0)
+            {
+                Log.Warn("[Alchemy] Item to enhance is unavailable");
+                Kernel.Bot.Stop();
+
+                return;
+            }
+
             //Config incomplete?
             if (!_shouldRun || config == null || Globals.Botbase.Engine != Engine.Enhancement || config.Item == null) 
                 return;
@@ -110,6 +122,7 @@ namespace RSBot.Alchemy.Bot
             {
                 Log.Warn($"[Alchemy] Item is already +{config.Item.OptLevel}");
 
+                Globals.View.AddLog(config.Item.Record.GetRealName(),$"The item's option level is {config.Item.OptLevel}/{config.MaxOptLevel}");
                 Kernel.Bot.Stop();
 
                 return;
@@ -123,9 +136,11 @@ namespace RSBot.Alchemy.Bot
                 if (steadyStone != null && steadyStone.Amount > 0 &&
                     !AlchemyItemHelper.HasMagicOption(config.Item, RefMagicOpt.MaterialSteady))
                 {
+
                     RequestHelper.SendMagicStoneRequest(_config.Item, steadyStone);
 
                     _shouldRun = false;
+                    _isStoneFusing = true;
 
                     return;
                 }
@@ -142,6 +157,7 @@ namespace RSBot.Alchemy.Bot
                     RequestHelper.SendMagicStoneRequest(_config.Item, luckyStone);
 
                     _shouldRun = false;
+                    _isStoneFusing = true;
 
                     return;
                 }
@@ -157,7 +173,8 @@ namespace RSBot.Alchemy.Bot
                 {
                     RequestHelper.SendMagicStoneRequest(_config.Item, immortalStone);
 
-                    _shouldRun = false;
+                    _shouldRun = false; 
+                    _isStoneFusing = true;
 
                     return;
                 }
@@ -190,6 +207,7 @@ namespace RSBot.Alchemy.Bot
                     RequestHelper.SendMagicStoneRequest(_config.Item, astralStone);
 
                     _shouldRun = false;
+                    _isStoneFusing = true;
 
                     return;
                 }
@@ -260,13 +278,24 @@ namespace RSBot.Alchemy.Bot
 
         private void OnElixirAlchemySuccess(InventoryItem oldItem, InventoryItem newItem, AlchemyType type)
         {
-            if (type != AlchemyType.Elixir) return;
+            if (Globals.Botbase.Engine != Engine.Enhancement)
+                return;
+
+            //After fusing a magic stone (steady, astral & co.) tell the bot to continue to fuse elixirs!
+            if (AlchemyBotbase.IsActive && _isStoneFusing) 
+            {
+                _shouldRun = true;
+                _isStoneFusing = false;
+            }
+
+            if (type != AlchemyType.Elixir) 
+                return;
 
             var message = Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_SUCCESS")
                 .JoymaxFormat(newItem.OptLevel);
 
             Log.Notify(message);
-            Globals.View.AddLog(newItem.Record.GetRealName(), true, message);
+            Globals.View.AddLog(newItem.Record.GetRealName(), message);
 
             if (_config != null)
                 _config.Item = newItem;
@@ -310,7 +339,7 @@ namespace RSBot.Alchemy.Bot
             _shouldRun = true;
             var message = Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL");
             Log.Warn(message);
-            Globals.View.AddLog(newItem.Record.GetRealName(), false, message);
+            Globals.View.AddLog(newItem.Record.GetRealName(), message);
 
             if (oldItem == null) return;
 
@@ -330,7 +359,7 @@ namespace RSBot.Alchemy.Bot
             if (message != string.Empty)
             {
                 Log.Debug(message);
-                Globals.View.AddLog(newItem.Record.GetRealName(), false, message);
+                Globals.View.AddLog(newItem.Record.GetRealName(), message);
             }
 
             if (_config != null)

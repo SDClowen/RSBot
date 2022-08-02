@@ -20,7 +20,7 @@ namespace RSBot.Alchemy
 
         public BotbaseInfo Info => new ()
         {
-            Name = "AlchemyBot",
+            Name = Name,
             DisplayName = "Alchemy",
             TabText = "Alchemy"
         };

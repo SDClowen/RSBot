@@ -50,7 +50,6 @@ namespace RSBot.Alchemy.Views
             this.linkRefreshItemList = new SDUI.Controls.Label();
             this.lvLog = new SDUI.Controls.ListView();
             this.colItem = new System.Windows.Forms.ColumnHeader();
-            this.colSuccess = new System.Windows.Forms.ColumnHeader();
             this.colResult = new System.Windows.Forms.ColumnHeader();
             this.tabControlItemInfo = new SDUI.Controls.TabControl();
             this.tabMagicOptions = new System.Windows.Forms.TabPage();
@@ -173,7 +172,6 @@ namespace RSBot.Alchemy.Views
             // 
             this.lvLog.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colItem,
-            this.colSuccess,
             this.colResult});
             this.lvLog.FullRowSelect = true;
             this.lvLog.Location = new System.Drawing.Point(14, 324);
@@ -188,15 +186,10 @@ namespace RSBot.Alchemy.Views
             this.colItem.Text = "Item";
             this.colItem.Width = 228;
             // 
-            // colSuccess
-            // 
-            this.colSuccess.Text = "Success";
-            this.colSuccess.Width = 109;
-            // 
             // colResult
             // 
             this.colResult.Text = "Result";
-            this.colResult.Width = 383;
+            this.colResult.Width = 500;
             // 
             // tabControlItemInfo
             // 
@@ -234,10 +227,10 @@ namespace RSBot.Alchemy.Views
             // 
             this.tabPage2.BackColor = System.Drawing.Color.White;
             this.tabPage2.Controls.Add(this.listAttributes);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(268, 145);
+            this.tabPage2.Size = new System.Drawing.Size(268, 148);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Attributes";
             // 
@@ -247,7 +240,7 @@ namespace RSBot.Alchemy.Views
             this.listAttributes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listAttributes.Location = new System.Drawing.Point(3, 3);
             this.listAttributes.Name = "listAttributes";
-            this.listAttributes.Size = new System.Drawing.Size(262, 139);
+            this.listAttributes.Size = new System.Drawing.Size(262, 142);
             this.listAttributes.TabIndex = 3;
             // 
             // panelSettingsGroup
@@ -349,7 +342,6 @@ namespace RSBot.Alchemy.Views
         private ComboBox comboItem;
         private ListView lvLog;
         private System.Windows.Forms.ColumnHeader colItem;
-        private System.Windows.Forms.ColumnHeader colSuccess;
         private System.Windows.Forms.ColumnHeader colResult;
         private Label lblOptLevelText;
         private Label lblDegree;
