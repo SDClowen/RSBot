@@ -48,7 +48,7 @@ namespace RSBot.Statistics.Stats
         /// Collects the value of the calculator.
         /// </summary>
         /// <returns></returns>
-        double GetValue();
+        object GetValue();
 
         /// <summary>
         /// Resets this calculator.

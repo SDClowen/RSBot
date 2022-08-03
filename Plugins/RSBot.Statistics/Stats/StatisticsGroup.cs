@@ -4,6 +4,7 @@
     {
         Player,
         Loot,
-        Enemy
+        Enemy,
+        Bot
     }
 }
