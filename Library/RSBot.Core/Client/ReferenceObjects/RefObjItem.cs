@@ -202,6 +202,9 @@
         /// <returns></returns>
         public string GetRarityName()
         {
+            if (Rarity < ObjectRarity.ClassC)
+                return string.Empty;
+
             string param = null;
             if (ItemClass < 31 || ItemClass > 34)
             {
@@ -234,12 +237,14 @@
         {
             var baseName = base.GetRealName(displayRarity);
 
-            if (!displayRarity || Rarity < ObjectRarity.ClassC)
+            if (!displayRarity)
                 return baseName;
 
+            var rarityName = GetRarityName();
+            if (string.IsNullOrWhiteSpace(rarityName))
+                return baseName;
 
-
-            return $"{baseName} ({GetRarityName()})";
+            return $"{baseName} ({rarityName})";
         }
 
         public override string ToString()
