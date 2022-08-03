@@ -8,9 +8,13 @@ namespace RSBot.Statistics.Stats.Calculators.Static
         #region Properties
 
         public string Name => "BottingTime";
+
         public string Label => "Time botting";
-        public StatisticsGroup Group => StatisticsGroup.Player;
+
+        public StatisticsGroup Group => StatisticsGroup.Bot;
+
         public string ValueFormat => "{0}";
+
         public UpdateType UpdateType => UpdateType.Static;
 
         #endregion Properties
