@@ -25,12 +25,12 @@ namespace RSBot.Statistics.Stats.Calculators.Static
         public UpdateType UpdateType => UpdateType.Static;
 
         /// <inheritdoc />
-        public double GetValue()
+        public object GetValue()
         {
             if (!Game.Ready)
                 return 0;
 
-            return (double)Game.Player.SkillPoints - (double)_initialValue;
+            return Game.Player.SkillPoints - _initialValue;
         }
 
         /// <inheritdoc />

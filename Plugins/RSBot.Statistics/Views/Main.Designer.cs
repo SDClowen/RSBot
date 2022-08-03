@@ -32,6 +32,7 @@
             System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Player", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Loot", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Enemy", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Bot", System.Windows.Forms.HorizontalAlignment.Left);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panelStaticFilters = new SDUI.Controls.GroupBox();
             this.separator1 = new SDUI.Controls.Separator();
@@ -79,7 +80,7 @@
             this.panelStaticFilters.Name = "panelStaticFilters";
             this.panelStaticFilters.Padding = new System.Windows.Forms.Padding(8, 10, 3, 10);
             this.panelStaticFilters.Radius = 2;
-            this.panelStaticFilters.Size = new System.Drawing.Size(235, 190);
+            this.panelStaticFilters.Size = new System.Drawing.Size(235, 278);
             this.panelStaticFilters.TabIndex = 9;
             this.panelStaticFilters.TabStop = false;
             this.panelStaticFilters.Text = "Tracking";
@@ -120,10 +121,13 @@
             listViewGroup2.Name = "grpLoot";
             listViewGroup3.Header = "Enemy";
             listViewGroup3.Name = "grpEnemy";
+            listViewGroup4.Header = "Bot";
+            listViewGroup4.Name = "grpBot";
             this.lvStatistics.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
             listViewGroup1,
             listViewGroup2,
-            listViewGroup3});
+            listViewGroup3,
+            listViewGroup4});
             this.lvStatistics.Location = new System.Drawing.Point(10, 10);
             this.lvStatistics.Name = "lvStatistics";
             this.lvStatistics.Size = new System.Drawing.Size(483, 451);

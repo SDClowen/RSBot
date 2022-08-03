@@ -26,7 +26,7 @@ namespace RSBot.Statistics.Stats.Calculators.Static
         public UpdateType UpdateType => UpdateType.Static;
 
         /// <inheritdoc />
-        public double GetValue()
+        public object GetValue()
         {
             return !Game.Ready ? 0 : _lastTickValue;
         }
