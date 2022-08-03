@@ -1,10 +1,5 @@
-﻿using RSBot.Core.Components;
-using RSBot.Core.Event;
+﻿using RSBot.Core.Event;
 using RSBot.Core.Objects;
-using RSBot.Core.Objects.Cos;
-using RSBot.Core.Objects.Inventory;
-using RSBot.Core.Objects.Item;
-using System.Collections.Generic;
 
 namespace RSBot.Core.Network.Handler.Agent.Inventory
 {
@@ -32,6 +27,9 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
         /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
+            if (packet.ReadByte() != 1)
+                return;
+
             var operation = (InventoryOperation)packet.ReadByte();
             switch (operation)
             {
