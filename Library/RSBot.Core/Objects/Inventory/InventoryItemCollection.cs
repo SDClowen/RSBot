@@ -161,7 +161,7 @@ namespace RSBot.Core.Objects
         /// <returns>If found: list of item(s); otherwise empty list</returns>
         public IList<InventoryItem> GetItems(Predicate<InventoryItem> predicate)
         {
-            OrderBySlot();
+            //OrderBySlot();
             return _collection.FindAll(predicate);
         }
         /// <summary>
@@ -323,7 +323,7 @@ namespace RSBot.Core.Objects
         /// <returns>The enumerator</returns>
         public IEnumerator<InventoryItem> GetEnumerator()
         {
-            OrderBySlot();
+            //OrderBySlot();
             return _collection.GetEnumerator();
         }
 
@@ -333,7 +333,7 @@ namespace RSBot.Core.Objects
         /// <returns>The enumerator</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
-            OrderBySlot();
+            //OrderBySlot();
             return _collection.GetEnumerator();
         }
 
