@@ -30,7 +30,6 @@ namespace RSBot.Inventory
         public void Initialize()
         {
             Views.View.Instance = new Main();
-            Views.View.ItemDialog = new UseItemDialog();
 
             BuyItemSubscriber.SubscribeEvents();
         }
@@ -50,7 +49,6 @@ namespace RSBot.Inventory
         public void Translate()
         {
             LanguageManager.Translate(GetView(), Kernel.Language);
-            LanguageManager.Translate(Views.View.ItemDialog, Kernel.Language);
         }
     }
 }

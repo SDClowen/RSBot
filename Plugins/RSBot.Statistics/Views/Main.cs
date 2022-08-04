@@ -120,6 +120,9 @@ namespace RSBot.Statistics.Views
                     case StatisticsGroup.Enemy:
                         lvItem.Group = lvStatistics.Groups["grpEnemy"];
                         break;
+                    case StatisticsGroup.Bot:
+                        lvItem.Group = lvStatistics.Groups["grpBot"];
+                        break;
                 }
 
                 lvStatistics.Items.Add(lvItem);

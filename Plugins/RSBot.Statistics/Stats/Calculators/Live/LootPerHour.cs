@@ -44,7 +44,7 @@ namespace RSBot.Statistics.Stats.Calculators.Live
         public UpdateType UpdateType => UpdateType.Live;
 
         /// <inheritdoc />
-        public double GetValue()
+        public object GetValue()
         {
             if (!Game.Ready)
                 return 0;

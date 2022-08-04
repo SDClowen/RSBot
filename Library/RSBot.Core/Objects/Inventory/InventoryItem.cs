@@ -152,7 +152,7 @@ namespace RSBot.Core.Objects
         /// Use the item for destination item
         /// </summary>
         /// <param name="destinationSlot">The destination item slot</param>
-        public bool UseTo(byte destinationSlot)
+        public bool UseTo(byte destinationSlot, int mapId = -1)
         {
             var packet = new Packet(0x704C);
             packet.WriteByte(Slot);
@@ -163,6 +163,9 @@ namespace RSBot.Core.Objects
                 packet.WriteUShort(Record.Tid);
 
             packet.WriteByte(destinationSlot);
+
+            if (mapId > -1)
+                packet.WriteInt(mapId);
 
             var asyncCallback = new AwaitCallback(response => response.ReadByte() == 0x01 ?
                 AwaitCallbackResult.Success : AwaitCallbackResult.Fail, 0xB04C);
@@ -208,6 +211,29 @@ namespace RSBot.Core.Objects
 
                 Thread.Sleep(250);
             }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Drop the item
+        /// </summary>
+        public bool Drop(bool cos = false, uint cosUniqueId = 0)
+        {
+            if (Record.CanDrop == ObjectDropType.No)
+                return false;
+
+            var packet = new Packet(0x7034);
+            if(cos)
+            {
+                packet.WriteByte(InventoryOperation.SP_DROP_ITEM_COS);
+                packet.WriteUInt(cosUniqueId);
+            }
+            else
+                packet.WriteByte(InventoryOperation.SP_DROP_ITEM);
+
+            packet.WriteByte(Slot);
+            PacketManager.SendPacket(packet, PacketDestination.Server);
 
             return true;
         }

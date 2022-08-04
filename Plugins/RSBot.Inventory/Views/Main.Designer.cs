@@ -34,8 +34,19 @@
             this.colName = new System.Windows.Forms.ColumnHeader();
             this.colAmount = new System.Windows.Forms.ColumnHeader();
             this.colGenderRace = new System.Windows.Forms.ColumnHeader();
+            this.contextMenuStrip = new SDUI.Controls.ContextMenuStrip();
+            this.useToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dropToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.moveToPetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.moveToPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.conditionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.afterTrainingPlaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.beforeTrainingPlaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.repeatAfterFinishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.moveToLastDeathPositionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.moveToLastRecallPositionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectMapLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new SDUI.Controls.Panel();
-            this.buttonUseItem = new SDUI.Controls.Button();
             this.buttonInventory = new SDUI.Controls.Button();
             this.buttonEquipment = new SDUI.Controls.Button();
             this.buttonAvatars = new SDUI.Controls.Button();
@@ -43,10 +54,11 @@
             this.topPanel = new SDUI.Controls.Panel();
             this.buttonSpecialty = new SDUI.Controls.Button();
             this.buttonGuildStorage = new SDUI.Controls.Button();
+            this.buttonFellowPet = new SDUI.Controls.Button();
             this.buttonJobTransport = new SDUI.Controls.Button();
             this.buttonStorage = new SDUI.Controls.Button();
             this.buttonJobEquipment = new SDUI.Controls.Button();
-            this.separator1 = new SDUI.Controls.Separator();
+            this.contextMenuStrip.SuspendLayout();
             this.panel1.SuspendLayout();
             this.topPanel.SuspendLayout();
             this.SuspendLayout();
@@ -85,6 +97,7 @@
             this.colName,
             this.colAmount,
             this.colGenderRace});
+            this.listViewMain.ContextMenuStrip = this.contextMenuStrip;
             this.listViewMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewMain.FullRowSelect = true;
             this.listViewMain.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
@@ -95,7 +108,6 @@
             this.listViewMain.TabIndex = 2;
             this.listViewMain.UseCompatibleStateImageBehavior = false;
             this.listViewMain.View = System.Windows.Forms.View.Details;
-            this.listViewMain.SelectedIndexChanged += new System.EventHandler(this.listViewMain_SelectedIndexChanged);
             this.listViewMain.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listViewMain_MouseDoubleClick);
             // 
             // colName
@@ -113,6 +125,111 @@
             this.colGenderRace.Text = "Rarity";
             this.colGenderRace.Width = 153;
             // 
+            // contextMenuStrip
+            // 
+            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.useToolStripMenuItem,
+            this.dropToolStripMenuItem,
+            this.moveToPetToolStripMenuItem,
+            this.moveToPlayerToolStripMenuItem,
+            this.conditionsToolStripMenuItem,
+            this.moveToLastDeathPositionToolStripMenuItem,
+            this.moveToLastRecallPositionToolStripMenuItem,
+            this.selectMapLocationToolStripMenuItem});
+            this.contextMenuStrip.Name = "contextMenuStrip";
+            this.contextMenuStrip.Size = new System.Drawing.Size(220, 202);
+            this.contextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip_Opening);
+            // 
+            // useToolStripMenuItem
+            // 
+            this.useToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.useToolStripMenuItem.Name = "useToolStripMenuItem";
+            this.useToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.useToolStripMenuItem.Text = "Use";
+            this.useToolStripMenuItem.Click += new System.EventHandler(this.buttonUseItem_Click);
+            // 
+            // dropToolStripMenuItem
+            // 
+            this.dropToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.dropToolStripMenuItem.Name = "dropToolStripMenuItem";
+            this.dropToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.dropToolStripMenuItem.Text = "Drop";
+            this.dropToolStripMenuItem.Click += new System.EventHandler(this.dropToolStripMenuItem_Click);
+            // 
+            // moveToPetToolStripMenuItem
+            // 
+            this.moveToPetToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.moveToPetToolStripMenuItem.Name = "moveToPetToolStripMenuItem";
+            this.moveToPetToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.moveToPetToolStripMenuItem.Text = "Move to active pet";
+            this.moveToPetToolStripMenuItem.Click += new System.EventHandler(this.moveToPetToolStripMenuItem_Click);
+            // 
+            // moveToPlayerToolStripMenuItem
+            // 
+            this.moveToPlayerToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.moveToPlayerToolStripMenuItem.Name = "moveToPlayerToolStripMenuItem";
+            this.moveToPlayerToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.moveToPlayerToolStripMenuItem.Text = "Move to player";
+            this.moveToPlayerToolStripMenuItem.Click += new System.EventHandler(this.moveToPlayerToolStripMenuItem_Click);
+            // 
+            // conditionsToolStripMenuItem
+            // 
+            this.conditionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.afterTrainingPlaceToolStripMenuItem,
+            this.beforeTrainingPlaceToolStripMenuItem,
+            this.repeatAfterFinishToolStripMenuItem});
+            this.conditionsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.conditionsToolStripMenuItem.Name = "conditionsToolStripMenuItem";
+            this.conditionsToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.conditionsToolStripMenuItem.Text = "Conditions";
+            // 
+            // afterTrainingPlaceToolStripMenuItem
+            // 
+            this.afterTrainingPlaceToolStripMenuItem.Enabled = false;
+            this.afterTrainingPlaceToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.afterTrainingPlaceToolStripMenuItem.Name = "afterTrainingPlaceToolStripMenuItem";
+            this.afterTrainingPlaceToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.afterTrainingPlaceToolStripMenuItem.Text = "After Training Place";
+            // 
+            // beforeTrainingPlaceToolStripMenuItem
+            // 
+            this.beforeTrainingPlaceToolStripMenuItem.Enabled = false;
+            this.beforeTrainingPlaceToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.beforeTrainingPlaceToolStripMenuItem.Name = "beforeTrainingPlaceToolStripMenuItem";
+            this.beforeTrainingPlaceToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.beforeTrainingPlaceToolStripMenuItem.Text = "Before Training Place";
+            // 
+            // repeatAfterFinishToolStripMenuItem
+            // 
+            this.repeatAfterFinishToolStripMenuItem.Enabled = false;
+            this.repeatAfterFinishToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.repeatAfterFinishToolStripMenuItem.Name = "repeatAfterFinishToolStripMenuItem";
+            this.repeatAfterFinishToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.repeatAfterFinishToolStripMenuItem.Text = "Repeat after finish";
+            // 
+            // moveToLastDeathPositionToolStripMenuItem
+            // 
+            this.moveToLastDeathPositionToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.moveToLastDeathPositionToolStripMenuItem.Name = "moveToLastDeathPositionToolStripMenuItem";
+            this.moveToLastDeathPositionToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.moveToLastDeathPositionToolStripMenuItem.Text = "Move to last death position";
+            this.moveToLastDeathPositionToolStripMenuItem.Click += new System.EventHandler(this.moveToLastDeathPositionToolStripMenuItem_Click);
+            // 
+            // moveToLastRecallPositionToolStripMenuItem
+            // 
+            this.moveToLastRecallPositionToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.moveToLastRecallPositionToolStripMenuItem.Name = "moveToLastRecallPositionToolStripMenuItem";
+            this.moveToLastRecallPositionToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.moveToLastRecallPositionToolStripMenuItem.Text = "Move to Last recall position";
+            this.moveToLastRecallPositionToolStripMenuItem.Click += new System.EventHandler(this.moveToLastRecallPositionToolStripMenuItem_Click);
+            // 
+            // selectMapLocationToolStripMenuItem
+            // 
+            this.selectMapLocationToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.selectMapLocationToolStripMenuItem.Name = "selectMapLocationToolStripMenuItem";
+            this.selectMapLocationToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.selectMapLocationToolStripMenuItem.Text = "Select Map Location";
+            // 
             // panel1
             // 
             this.panel1.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
@@ -126,21 +243,6 @@
             this.panel1.Radius = 0;
             this.panel1.Size = new System.Drawing.Size(792, 27);
             this.panel1.TabIndex = 6;
-            // 
-            // buttonUseItem
-            // 
-            this.buttonUseItem.Color = System.Drawing.Color.DodgerBlue;
-            this.buttonUseItem.Dock = System.Windows.Forms.DockStyle.Right;
-            this.buttonUseItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonUseItem.ForeColor = System.Drawing.Color.White;
-            this.buttonUseItem.Location = new System.Drawing.Point(709, 8);
-            this.buttonUseItem.Name = "buttonUseItem";
-            this.buttonUseItem.Radius = 4;
-            this.buttonUseItem.Size = new System.Drawing.Size(75, 22);
-            this.buttonUseItem.TabIndex = 9;
-            this.buttonUseItem.Text = "Use";
-            this.buttonUseItem.UseVisualStyleBackColor = true;
-            this.buttonUseItem.Click += new System.EventHandler(this.buttonUseItem_Click);
             // 
             // buttonInventory
             // 
@@ -202,13 +304,12 @@
             this.topPanel.Controls.Add(this.buttonGuildStorage);
             this.topPanel.Controls.Add(this.buttonGrabpet);
             this.topPanel.Controls.Add(this.buttonInventory);
+            this.topPanel.Controls.Add(this.buttonFellowPet);
             this.topPanel.Controls.Add(this.buttonJobTransport);
             this.topPanel.Controls.Add(this.buttonStorage);
             this.topPanel.Controls.Add(this.buttonJobEquipment);
             this.topPanel.Controls.Add(this.buttonEquipment);
             this.topPanel.Controls.Add(this.buttonAvatars);
-            this.topPanel.Controls.Add(this.buttonUseItem);
-            this.topPanel.Controls.Add(this.separator1);
             this.topPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.topPanel.Location = new System.Drawing.Point(0, 0);
             this.topPanel.Name = "topPanel";
@@ -221,7 +322,7 @@
             // 
             this.buttonSpecialty.Color = System.Drawing.Color.Transparent;
             this.buttonSpecialty.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonSpecialty.Location = new System.Drawing.Point(463, 8);
+            this.buttonSpecialty.Location = new System.Drawing.Point(553, 8);
             this.buttonSpecialty.Name = "buttonSpecialty";
             this.buttonSpecialty.Radius = 3;
             this.buttonSpecialty.Size = new System.Drawing.Size(66, 22);
@@ -234,7 +335,7 @@
             // 
             this.buttonGuildStorage.Color = System.Drawing.Color.Transparent;
             this.buttonGuildStorage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonGuildStorage.Location = new System.Drawing.Point(594, 8);
+            this.buttonGuildStorage.Location = new System.Drawing.Point(684, 8);
             this.buttonGuildStorage.Name = "buttonGuildStorage";
             this.buttonGuildStorage.Radius = 3;
             this.buttonGuildStorage.Size = new System.Drawing.Size(81, 22);
@@ -243,11 +344,24 @@
             this.buttonGuildStorage.UseVisualStyleBackColor = true;
             this.buttonGuildStorage.Click += new System.EventHandler(this.ButtonSwitcher);
             // 
+            // buttonFellowPet
+            // 
+            this.buttonFellowPet.Color = System.Drawing.Color.Transparent;
+            this.buttonFellowPet.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonFellowPet.Location = new System.Drawing.Point(373, 8);
+            this.buttonFellowPet.Name = "buttonFellowPet";
+            this.buttonFellowPet.Radius = 3;
+            this.buttonFellowPet.Size = new System.Drawing.Size(84, 22);
+            this.buttonFellowPet.TabIndex = 9;
+            this.buttonFellowPet.Text = "Fellow Pet";
+            this.buttonFellowPet.UseVisualStyleBackColor = true;
+            this.buttonFellowPet.Click += new System.EventHandler(this.ButtonSwitcher);
+            // 
             // buttonJobTransport
             // 
             this.buttonJobTransport.Color = System.Drawing.Color.Transparent;
             this.buttonJobTransport.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonJobTransport.Location = new System.Drawing.Point(373, 8);
+            this.buttonJobTransport.Location = new System.Drawing.Point(463, 8);
             this.buttonJobTransport.Name = "buttonJobTransport";
             this.buttonJobTransport.Radius = 3;
             this.buttonJobTransport.Size = new System.Drawing.Size(84, 22);
@@ -260,7 +374,7 @@
             // 
             this.buttonStorage.Color = System.Drawing.Color.Transparent;
             this.buttonStorage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonStorage.Location = new System.Drawing.Point(535, 8);
+            this.buttonStorage.Location = new System.Drawing.Point(625, 8);
             this.buttonStorage.Name = "buttonStorage";
             this.buttonStorage.Radius = 3;
             this.buttonStorage.Size = new System.Drawing.Size(53, 22);
@@ -282,15 +396,6 @@
             this.buttonJobEquipment.UseVisualStyleBackColor = true;
             this.buttonJobEquipment.Click += new System.EventHandler(this.ButtonSwitcher);
             // 
-            // separator1
-            // 
-            this.separator1.IsVertical = true;
-            this.separator1.Location = new System.Drawing.Point(701, 0);
-            this.separator1.Name = "separator1";
-            this.separator1.Size = new System.Drawing.Size(2, 38);
-            this.separator1.TabIndex = 8;
-            this.separator1.Text = "separator1";
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -302,6 +407,7 @@
             this.Name = "Main";
             this.Size = new System.Drawing.Size(792, 458);
             this.Load += new System.EventHandler(this.Main_Load);
+            this.contextMenuStrip.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.topPanel.ResumeLayout(false);
@@ -317,7 +423,6 @@
         private SDUI.Controls.Label lblFreeSlots;
         private System.Windows.Forms.ColumnHeader colGenderRace;
         private SDUI.Controls.Panel panel1;
-        private SDUI.Controls.Button buttonUseItem;
         private SDUI.Controls.Button buttonInventory;
         private SDUI.Controls.Button buttonEquipment;
         private SDUI.Controls.Button buttonAvatars;
@@ -327,7 +432,19 @@
         private SDUI.Controls.Button buttonGuildStorage;
         private SDUI.Controls.Button buttonJobTransport;
         private SDUI.Controls.Button buttonStorage;
-        private SDUI.Controls.Separator separator1;
         private SDUI.Controls.Button buttonJobEquipment;
+        private SDUI.Controls.ContextMenuStrip contextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem useToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dropToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem conditionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem afterTrainingPlaceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem beforeTrainingPlaceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem moveToLastDeathPositionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem moveToLastRecallPositionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem selectMapLocationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem repeatAfterFinishToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem moveToPetToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem moveToPlayerToolStripMenuItem;
+        private SDUI.Controls.Button buttonFellowPet;
     }
 }

@@ -57,11 +57,11 @@ namespace RSBot.Core.Client.ReferenceObjects
         //public byte CanSell; //bool
         //public byte CanBuy; //bool
         //public ObjectBorrowType CanBorrow; //link to ObjectBorrowType
-        //public ObjectDropType CanDrop; //link to ObjectDropType
+        public ObjectDropType CanDrop;
         //public byte CanPick; //bool
         //public byte CanRepair; //bool
         //public byte CanRevive; //bool
-        //public ObjectUseType CanUse; //link to ObjectUseType
+        public ObjectUseType CanUse; //link to ObjectUseType
         //public byte CanThrow; //bool -> only ITEM_FORT_SHOCK_BOMB
 
         //public int Price;
@@ -146,11 +146,13 @@ namespace RSBot.Core.Client.ReferenceObjects
             //CanSell = byte.Parse(data[17]);
             //CanBuy = byte.Parse(data[18]);
             //CanBorrow = (ObjectBorrowType)byte.Parse(data[19]);
-            //CanDrop = (ObjectDropType)byte.Parse(data[20]);
+            
+            parser.TryParse<ObjectDropType>(20, out CanDrop);
+
             //CanPick = byte.Parse(data[21]);
             //CanRepair = byte.Parse(data[22]);
             //CanRevive = byte.Parse(data[23]);
-            //CanUse = (ObjectUseType)byte.Parse(data[24]);
+            parser.TryParse<ObjectUseType>(24, out CanUse);
             //CanThrow = byte.Parse(data[25]);
 
             //Pricing
