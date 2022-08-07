@@ -36,7 +36,7 @@ namespace RSBot.Views
             get
             {
                 var version = Assembly.GetExecutingAssembly().GetName().Version;
-                return $"v{version.Major}.{version.Minor}.{version.MinorRevision}";
+                return $"v{version.Major}.{version.Minor}";
             }
         }
 
