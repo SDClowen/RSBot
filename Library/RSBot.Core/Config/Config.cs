@@ -36,7 +36,7 @@ namespace RSBot.Core
             _config = new ConcurrentDictionary<string, string>();
             foreach (var line in File.ReadAllLines(_path))
             {
-                if (string.IsNullOrWhiteSpace(line)) 
+                if (string.IsNullOrWhiteSpace(line))
                     continue;
 
                 var key = line.Split('{')[0];
@@ -81,7 +81,7 @@ namespace RSBot.Core
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="defaultValue">The default value.</param>
-        public TEnum GetEnum<TEnum>(string key, TEnum defaultValue) 
+        public TEnum GetEnum<TEnum>(string key, TEnum defaultValue)
             where TEnum : struct
         {
             if (!_isLoaded)
@@ -130,7 +130,7 @@ namespace RSBot.Core
         /// <param name="file">The file.</param>
         public void Save()
         {
-            if (!_isLoaded || string.IsNullOrWhiteSpace(_path)) 
+            if (!_isLoaded || string.IsNullOrWhiteSpace(_path))
                 return;
 
             CheckPath();
@@ -155,7 +155,7 @@ namespace RSBot.Core
         /// <param name="delimiter">The delimiter.</param>
         public void SetArray<T>(string key, IEnumerable<T> values, string delimiter = ",")
         {
-            if (values == null) 
+            if (values == null)
                 return;
 
             Set(key, string.Join(delimiter, values));
@@ -169,11 +169,32 @@ namespace RSBot.Core
         /// <returns></returns>
         public T[] GetArray<T>(string key, char delimiter = ',')
         {
+            if (!_isLoaded)
+                return new T[] { };
+
             var data = Get<string>(key).Split(new[] { delimiter }, StringSplitOptions.RemoveEmptyEntries);
             if (data.Length == 0)
                 return new T[] { };
 
             return data?.Select(p => (T)Convert.ChangeType(p, typeof(T))).ToArray();
+        }
+
+        /// <summary>
+        /// Get array the specified key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default value.</param>
+        public TEnum[] GetEnums<TEnum>(string key, char delimiter = ',')
+            where TEnum : struct
+        {
+            if (!_isLoaded)
+                return new TEnum[] { };
+
+            var data = Get<string>(key).Split(new[] { delimiter }, StringSplitOptions.RemoveEmptyEntries);
+            if (data.Length == 0)
+                return new TEnum[] { };
+
+            return data?.Select(p => Enum.Parse<TEnum>(p)).ToArray();
         }
     }
 }
