@@ -225,6 +225,38 @@
         public bool IsRepairKit => IsPotion && TypeID4 == 10;
 
         /// <summary>
+        /// Gets a value indicating whether this instance is armor.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is armor; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsArmor => IsEquip && TypeID3 == 1 || TypeID3 is 2 or 3 or 9 or 10 or 11;
+
+        /// <summary>
+        /// Gets a value indicating whether this instance is a shield.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is shield; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsShield => IsEquip && TypeID3 == 4;
+
+        /// <summary>
+        /// Gets a value indicating whether this instance is an accessory.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is accessory; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsAccessory => IsEquip && TypeID3 == 5 || TypeID3 == 12;
+
+        /// <summary>
+        /// Gets a value indicating whether this instance is a weapon.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is weapon; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsWeapon => IsEquip && TypeID3 == 6;
+
+        /// <summary>
         /// Gets the degree of the item
         /// </summary>
         public int Degree => (ItemClass - 1) / 3 + 1;

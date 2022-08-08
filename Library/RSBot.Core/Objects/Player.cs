@@ -514,11 +514,6 @@ namespace RSBot.Core.Objects
         public int _lastHpPotionTick;
 
         /// <summary>
-        /// Gets or sets a dictionary of inventory items currently used in an alchemy operation
-        /// </summary>
-        public Dictionary<byte, InventoryItem> AlchemySlots { get; set; }
-
-        /// <summary>
         /// Gets or sets the last mp potion item tick count
         /// </summary>
         private int _lastMpPotionTick;

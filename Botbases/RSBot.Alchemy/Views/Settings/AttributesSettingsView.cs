@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using RSBot.Alchemy.Helper;
+using RSBot.Core;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Inventory.Item;
@@ -40,46 +42,24 @@ namespace RSBot.Alchemy.Views.Settings
             if (selectedItem == null)
                 return;
 
-            if (selectedItem.Record.IsAccessory())
+            var availableItemAttributes = AttributesInfo.GetAvailableAttributeGroupsForItem(selectedItem.Record);
+
+            if (availableItemAttributes == null)
             {
-                _attributePanels.Add(new AttributeInfoPanel(AlchemyItemHelper.GetAttributeStones(selectedItem, AttributesGroup.Durability), selectedItem, "PARAM_PR", 0));
-                _attributePanels.Add(new AttributeInfoPanel(null, selectedItem, "PARAM_MR", 1));
-            }
-            else if (selectedItem.Record.IsWeapon())
-            {
-                _attributePanels.Add(new AttributeInfoPanel(null, selectedItem, "PARAM_DUR", 0));
-                _attributePanels.Add(new AttributeInfoPanel(null, selectedItem, "PARAM_PHYSICAL_SPECIALIZE", 1));
-                _attributePanels.Add(new AttributeInfoPanel(null, selectedItem, "PARAM_MAGICAL_SPECIALIZE", 2));
-                _attributePanels.Add(new AttributeInfoPanel(null, selectedItem, "PARAM_HR", 3));
-                _attributePanels.Add(new AttributeInfoPanel(null, selectedItem, "PARAM_PA", 4));
-                _attributePanels.Add(new AttributeInfoPanel(null, selectedItem, "PARAM_MA", 5));
-                _attributePanels.Add(new AttributeInfoPanel(null, selectedItem, "PARAM_CRITICAL", 6));
-            } 
-            else if (selectedItem.Record.IsArmor())
-            {
-                _attributePanels.Add(new AttributeInfoPanel(null, selectedItem, "PARAM_DUR",0));
-                _attributePanels.Add(new AttributeInfoPanel(null, selectedItem, "PARAM_PHYSICAL_SPECIALIZE", 1));
-                _attributePanels.Add(new AttributeInfoPanel(null, selectedItem, "PARAM_MAGICAL_SPECIALIZE", 2));
-                _attributePanels.Add(new AttributeInfoPanel(null, selectedItem, "PARAM_PD",3));
-                _attributePanels.Add(new AttributeInfoPanel(null, selectedItem, "PARAM_MD",4));
-                _attributePanels.Add(new AttributeInfoPanel(null, selectedItem, "PARAM_ER",5));
-            }
-            else if (selectedItem.Record.IsShield())
-            {
-                _attributePanels.Add(new AttributeInfoPanel(null, selectedItem, "PARAM_DUR",0));
-                _attributePanels.Add(new AttributeInfoPanel(null, selectedItem, "PARAM_PHYSICAL_SPECIALIZE", 1));
-                _attributePanels.Add(new AttributeInfoPanel(null, selectedItem, "PARAM_MAGICAL_SPECIALIZE", 2));
-                _attributePanels.Add(new AttributeInfoPanel(null, selectedItem, "PARAM_PD", 3));
-                _attributePanels.Add(new AttributeInfoPanel(null, selectedItem, "PARAM_MD", 4));
-                _attributePanels.Add(new AttributeInfoPanel(null, selectedItem, "PARAM_BLOCKING", 5));
+                Log.Error($"[Alchemy] Could not identify the selected item's attribute information. [ItemId = {selectedItem.ItemId}]");
+                
+                return;
             }
 
-            foreach (var panel in _attributePanels)
+            foreach (var attributeGroup in availableItemAttributes)
             {
-                panel.Dock = DockStyle.Top;
+                var matchingStones = AlchemyItemHelper.GetAttributeStones(selectedItem, attributeGroup);
+
+
+                var panel = new AttributeInfoPanel(attributeGroup, matchingStones, selectedItem) {Dock = DockStyle.Top};
+                panelAttributes.Controls.Add(panel);
             }
 
-            panelAttributes.Controls.AddRange(_attributePanels.ToArray());
             panelAttributes.Show();
         }
 

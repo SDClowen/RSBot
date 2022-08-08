@@ -4,12 +4,11 @@ using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
-using RSBot.Alchemy.Helper;
 using RSBot.Alchemy.Bot;
 using RSBot.Alchemy.Views.Settings;
+using RSBot.Core.Extensions;
 using RSBot.Core.Objects.Inventory.Item;
 
 namespace RSBot.Alchemy.Views
@@ -125,52 +124,18 @@ namespace RSBot.Alchemy.Views
 
             if (item.Attributes == 0) return;
 
-            if (item.Record.IsArmor())
-            {
-                listAttributes.Items.Add($"{GetTranslation("PARAM_DUR")} +{item.Attributes.GetPercentage(AttributesInfo.ArmorDurability)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_PHYSICAL_SPECIALIZE")} +{item.Attributes.GetPercentage(AttributesInfo.ArmorPhySpecialize)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_MAGICAL_SPECIALIZE")} +{item.Attributes.GetPercentage(AttributesInfo.ArmorMagSpecialize)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_PD")} +{item.Attributes.GetPercentage(AttributesInfo.ArmorPhyDefense)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_MD")} +{item.Attributes.GetPercentage(AttributesInfo.ArmorMagDefense)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_ER")} +{item.Attributes.GetPercentage(AttributesInfo.ArmorEvasionRatio)}%");
-            }
+            var availableAttributes = AttributesInfo.GetAvailableAttributeGroupsForItem(item.Record);
 
-            if (item.Record.IsShield())
-            {
-                listAttributes.Items.Add($"{GetTranslation("PARAM_DUR")} +{item.Attributes.GetPercentage(AttributesInfo.ShieldDurability)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_PHYSICAL_SPECIALIZE")} +{item.Attributes.GetPercentage(AttributesInfo.ShieldPhySpecialize)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_MAGICAL_SPECIALIZE")} +{item.Attributes.GetPercentage(AttributesInfo.ShieldMagSpecialize)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_PD")} +{item.Attributes.GetPercentage(AttributesInfo.ShieldPhyDefense)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_MD")} +{item.Attributes.GetPercentage(AttributesInfo.ShieldMagDefense)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_BLOCKING")} +{item.Attributes.GetPercentage(AttributesInfo.ShieldBlockRatio)}%");
-            }
+            if (availableAttributes == null)
+                return;
 
-            if (item.Record.IsWeapon())
+            foreach (var attribute in availableAttributes)
             {
-                listAttributes.Items.Add($"{GetTranslation("PARAM_DUR")} +{item.Attributes.GetPercentage(AttributesInfo.WeaponDurability)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_PHYSICAL_SPECIALIZE")} +{item.Attributes.GetPercentage(AttributesInfo.WeaponPhySpecialize)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_MAGICAL_SPECIALIZE")} +{item.Attributes.GetPercentage(AttributesInfo.WeaponMagSpecialize)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_HR")} +{item.Attributes.GetPercentage(AttributesInfo.WeaponHitRatio)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_PA")} +{item.Attributes.GetPercentage(AttributesInfo.WeaponPhyDmg)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_MA")} +{item.Attributes.GetPercentage(AttributesInfo.WeaponMagDmg)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_CRITICAL")} +{item.Attributes.GetPercentage(AttributesInfo.WeaponCriticalHitRatio)}%");
-            }
+                var slot = AttributesInfo.GetAttributeSlotForItem(attribute, item.Record);
+                var translation = attribute.GetTranslation();
 
-            if (item.Record.IsAccessory())
-            {
-                listAttributes.Items.Add($"{GetTranslation("PARAM_PR")} +{item.Attributes.GetPercentage(AttributesInfo.AccessoryPhyAbsorbRatio)}%");
-                listAttributes.Items.Add($"{GetTranslation("PARAM_MR")} +{item.Attributes.GetPercentage(AttributesInfo.AccessoryMagAbsorbRatio)}%");
+                listAttributes.Items.Add($"{translation} +{item.Attributes.GetPercentage(slot)}%");
             }
-        }
-
-        /// <summary>
-        /// Just a shorthand for Game.ReferenceManager.GetTranslation(name);
-        /// </summary>
-        /// <param name = "name" > Name of the translation</param>
-        /// <returns></returns>
-        private string GetTranslation(string name)
-        {
-            return Game.ReferenceManager.GetTranslation(name);
         }
 
         /// <summary>

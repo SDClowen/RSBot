@@ -1,13 +1,13 @@
-﻿using RSBot.Core;
+﻿using RSBot.Alchemy.Helper;
+using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Components;
 using RSBot.Core.Event;
-using RSBot.Core.Network;
 using RSBot.Core.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using RSBot.Alchemy.Helper;
 
 namespace RSBot.Alchemy.Bot
 {
@@ -46,7 +46,7 @@ namespace RSBot.Alchemy.Bot
             _shouldRun = false;
             _config = null;
 
-            RequestHelper.SendCancelPacket();
+            AlchemyManager.CancelPending();
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace RSBot.Alchemy.Bot
             }
 
             //Config incomplete?
-            if (!_shouldRun || config == null || Globals.Botbase.Engine != Engine.Enhancement || config.Item == null) 
+            if (!_shouldRun || config == null || Globals.Botbase.Engine != Engine.Enhancement || config.Item == null)
                 return;
 
             if (!config.Elixirs.Any() || config.Elixirs.Sum(i => i.Amount) == 0)
@@ -122,7 +122,7 @@ namespace RSBot.Alchemy.Bot
             {
                 Log.Warn($"[Alchemy] Item is already +{config.Item.OptLevel}");
 
-                Globals.View.AddLog(config.Item.Record.GetRealName(),$"The item's option level is {config.Item.OptLevel}/{config.MaxOptLevel}");
+                Globals.View.AddLog(config.Item.Record.GetRealName(), $"The item's option level is {config.Item.OptLevel}/{config.MaxOptLevel}");
                 Kernel.Bot.Stop();
 
                 return;
@@ -136,8 +136,7 @@ namespace RSBot.Alchemy.Bot
                 if (steadyStone != null && steadyStone.Amount > 0 &&
                     !AlchemyItemHelper.HasMagicOption(config.Item, RefMagicOpt.MaterialSteady))
                 {
-
-                    RequestHelper.SendMagicStoneRequest(_config.Item, steadyStone);
+                    AlchemyManager.FuseMagicStone(_config.Item, steadyStone);
 
                     _shouldRun = false;
                     _isStoneFusing = true;
@@ -154,7 +153,7 @@ namespace RSBot.Alchemy.Bot
                 if (luckyStone != null && luckyStone.Amount > 0 &&
                     !AlchemyItemHelper.HasMagicOption(config.Item, RefMagicOpt.MaterialLuck))
                 {
-                    RequestHelper.SendMagicStoneRequest(_config.Item, luckyStone);
+                    AlchemyManager.FuseMagicStone(_config.Item, luckyStone);
 
                     _shouldRun = false;
                     _isStoneFusing = true;
@@ -171,9 +170,9 @@ namespace RSBot.Alchemy.Bot
                 if (immortalStone != null && immortalStone.Amount > 0 &&
                     !AlchemyItemHelper.HasMagicOption(config.Item, RefMagicOpt.MaterialImmortal))
                 {
-                    RequestHelper.SendMagicStoneRequest(_config.Item, immortalStone);
+                    AlchemyManager.FuseMagicStone(_config.Item, immortalStone);
 
-                    _shouldRun = false; 
+                    _shouldRun = false;
                     _isStoneFusing = true;
 
                     return;
@@ -204,7 +203,7 @@ namespace RSBot.Alchemy.Bot
                         return;
                     }
 
-                    RequestHelper.SendMagicStoneRequest(_config.Item, astralStone);
+                    AlchemyManager.FuseMagicStone(_config.Item, astralStone);
 
                     _shouldRun = false;
                     _isStoneFusing = true;
@@ -229,29 +228,10 @@ namespace RSBot.Alchemy.Bot
         {
             if (_config == null || !_shouldRun) return;
 
-            var hasLuckyPowder = _luckyPowders.Any();
+            var powder = _luckyPowders.FirstOrDefault();
+            var elixir = GetElixir(_config.Elixirs.First().ItemId);
 
-            var packet = new Packet(0x7150);
-            packet.WriteByte(AlchemyAction.Fuse); //fuse
-            packet.WriteByte(AlchemyType.Elixir); //type (Elixir)
-
-            packet.WriteByte(hasLuckyPowder ? (byte)3 : (byte)2);
-
-            //Problem: _config.Elixirs ist beim zweiten durchlauf nicht aktualisiert
-            var elixirSlot = GetElixir(_config.Elixirs.First().ItemId).Slot;
-            var powderSlot = hasLuckyPowder ? _luckyPowders.First(i => i.Amount > 0).Slot : 0;
-
-            packet.WriteByte(_config.Item.Slot);
-            packet.WriteByte(elixirSlot);
-
-            if (hasLuckyPowder)
-                packet.WriteByte(powderSlot);
-
-            packet.Lock();
-
-            Kernel.Proxy.Server.Send(packet);
-
-            RequestHelper.ManuallyHandleFuseRequest(packet);
+            AlchemyManager.FuseElixir(_config.Item, elixir, powder);
         }
 
         #endregion Methods
@@ -282,13 +262,13 @@ namespace RSBot.Alchemy.Bot
                 return;
 
             //After fusing a magic stone (steady, astral & co.) tell the bot to continue to fuse elixirs!
-            if (AlchemyBotbase.IsActive && _isStoneFusing) 
+            if (AlchemyBotbase.IsActive && _isStoneFusing)
             {
                 _shouldRun = true;
                 _isStoneFusing = false;
             }
 
-            if (type != AlchemyType.Elixir) 
+            if (type != AlchemyType.Elixir)
                 return;
 
             var message = Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_SUCCESS")
@@ -333,7 +313,7 @@ namespace RSBot.Alchemy.Bot
         /// <param name="type">The type of alchemy that was triggered</param>
         private void OnElixirAlchemyFailed(InventoryItem oldItem, InventoryItem newItem, AlchemyType type)
         {
-            if (type != AlchemyType.Elixir) 
+            if (type != AlchemyType.Elixir)
                 return;
 
             _shouldRun = true;

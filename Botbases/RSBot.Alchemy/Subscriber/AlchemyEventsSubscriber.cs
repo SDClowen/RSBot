@@ -5,6 +5,7 @@ using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using System;
 using System.Linq;
+using RSBot.Core.Components;
 
 namespace RSBot.Alchemy.Subscriber
 {
@@ -50,7 +51,7 @@ namespace RSBot.Alchemy.Subscriber
                 return;
 
             Kernel.Bot?.Stop();
-            Log.Warn($"[Alchemy] Alchemy fusion error: {errorCode:X}");
+            Log.Error($"[Alchemy] Alchemy fusion error: {errorCode:X}");
         }
 
         /// <summary>
@@ -60,26 +61,28 @@ namespace RSBot.Alchemy.Subscriber
         /// <param name="type">The type of alchemy</param>
         private static void OnFuseRequest(AlchemyAction action, AlchemyType type)
         {
-            var elixir = Game.Player.AlchemySlots.ElementAtOrDefault(1);
-            var item = Game.Player.AlchemySlots.ElementAtOrDefault(0);
+            if (AlchemyManager.ActiveAlchemyItems == null)
+                return;
 
-            if (elixir.Value == null || item.Value == null) return;
+            var ingredient = AlchemyManager.ActiveAlchemyItems.ElementAtOrDefault(1);
+            var item = AlchemyManager.ActiveAlchemyItems.ElementAtOrDefault(0);
+            
             switch (type)
             {
                 case AlchemyType.Elixir:
-                    Globals.View.AddLog(item.Value.Record.GetRealName(), $"Fusing elixir [{elixir.Value.Record.GetRealName()}");
+                    Globals.View.AddLog(item.Record.GetRealName(), $"Fusing elixir [{ingredient.Record.GetRealName()}");
                     break;
 
                 case AlchemyType.MagicStone:
-                    Globals.View.AddLog(item.Value.Record.GetRealName(), $"Fusing magic stone [{elixir.Value.Record.GetRealName()}");
+                    Globals.View.AddLog(item.Record.GetRealName(), $"Fusing magic stone [{ingredient.Record.GetRealName()}");
                     break;
 
                 case AlchemyType.AttributeStone:
-                    Globals.View.AddLog(item.Value.Record.GetRealName(), $"Fusing attribute stone [{elixir.Value.Record.GetRealName()}");
+                    Globals.View.AddLog(item.Record.GetRealName(), $"Fusing attribute stone [{ingredient.Record.GetRealName()}");
                     break;
 
                 default:
-                    Globals.View.AddLog(item.Value.Record.GetRealName(), $"Fusing [{elixir.Value.Record.GetRealName()}");
+                    Globals.View.AddLog(item.Record.GetRealName(), $"Fusing [{ingredient.Record.GetRealName()}");
                     break;
             }
         }

@@ -64,9 +64,9 @@
             // 
             this.separator1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.separator1.IsVertical = false;
-            this.separator1.Location = new System.Drawing.Point(0, 33);
+            this.separator1.Location = new System.Drawing.Point(0, 32);
             this.separator1.Name = "separator1";
-            this.separator1.Size = new System.Drawing.Size(391, 10);
+            this.separator1.Size = new System.Drawing.Size(438, 10);
             this.separator1.TabIndex = 3;
             this.separator1.Text = "separator1";
             // 
@@ -91,7 +91,7 @@
             this.Controls.Add(this.comboMaxValue);
             this.Controls.Add(this.checkSelected);
             this.Name = "AttributeInfoPanel";
-            this.Size = new System.Drawing.Size(391, 43);
+            this.Size = new System.Drawing.Size(438, 42);
             this.ResumeLayout(false);
             this.PerformLayout();
 

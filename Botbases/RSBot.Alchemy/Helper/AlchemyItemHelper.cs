@@ -1,11 +1,10 @@
-﻿using System;
-using RSBot.Alchemy.Client.ReferenceObjects;
-using RSBot.Core;
+﻿using RSBot.Core;
+using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Objects;
+using RSBot.Core.Objects.Inventory.Item;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using RSBot.Core.Client.ReferenceObjects;
-using RSBot.Core.Objects.Inventory.Item;
 
 namespace RSBot.Alchemy.Helper
 {
@@ -55,7 +54,6 @@ namespace RSBot.Alchemy.Helper
             return Game.Player.Inventory.Where(i => i.Record.Desc1 == name && i.Record.ItemClass == targetItem.Record.Degree);
         }
 
-
         public static IEnumerable<InventoryItem> GetStonesByGroup(byte level, string name)
         {
             return Game.Player.Inventory.Where(i => i.Record.Desc1 == name && i.Record.ItemClass == level);
@@ -101,16 +99,10 @@ namespace RSBot.Alchemy.Helper
         {
             var typeIdFilter = new TypeIdFilter(3, 3, 11, 2);
 
-            var attributeStones = Game.Player.Inventory.GetItems(typeIdFilter);
+            var actualGroupName = AttributesInfo.GetActualAttributeGroupNameForItem(targetItem.Record, group);
+            var attributeStones = Game.Player.Inventory.GetItems(typeIdFilter).Where(i => i.Record.Desc1 == actualGroupName);
 
-            foreach (var stone in attributeStones)
-            {
-                var x = stone.Record.Param1;
-                var buffer = BitConverter.GetBytes(x);
-                var name = System.Text.Encoding.ASCII.GetString(buffer.Reverse().ToArray());
-            }
-
-            return null;
+            return attributeStones;
         }
     }
 }

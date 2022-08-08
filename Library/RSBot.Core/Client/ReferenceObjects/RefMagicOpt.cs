@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using RSBot.Core.Network;
 
 namespace RSBot.Core.Client.ReferenceObjects
 {
@@ -69,9 +71,9 @@ namespace RSBot.Core.Client.ReferenceObjects
 					var buffer = BitConverter.GetBytes(x);
 					var name = System.Text.Encoding.ASCII.GetString(buffer.Reverse().ToArray());
 					Console.WriteLine(name); //atha
-
+            
 			 */
-
+            
             for (var i = 8; i < 11; i++)
             {
                 parser.TryParse(i, out uint paramVal);

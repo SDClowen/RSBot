@@ -1,4 +1,5 @@
 ﻿using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 
@@ -9,7 +10,7 @@ namespace RSBot.Core.Network.Handler.Agent.Alchemy
         public static void Invoke(Packet packet, AlchemyType type)
         {
             EventManager.FireEvent("OnAlchemy", type);
-            Game.Player.AlchemySlots = null;
+            AlchemyManager.ActiveAlchemyItems = null;
 
             var result = packet.ReadByte();
 

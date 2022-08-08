@@ -143,11 +143,11 @@ namespace RSBot.Alchemy.Views
             // 
             this.tabPage2.BackColor = System.Drawing.Color.White;
             this.tabPage2.Controls.Add(this.listAttributes);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tabPage2.Size = new System.Drawing.Size(296, 133);
+            this.tabPage2.Size = new System.Drawing.Size(296, 134);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Attributes";
             // 
@@ -159,7 +159,7 @@ namespace RSBot.Alchemy.Views
             this.listAttributes.Location = new System.Drawing.Point(4, 3);
             this.listAttributes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.listAttributes.Name = "listAttributes";
-            this.listAttributes.Size = new System.Drawing.Size(288, 127);
+            this.listAttributes.Size = new System.Drawing.Size(288, 128);
             this.listAttributes.TabIndex = 3;
             // 
             // comboItem

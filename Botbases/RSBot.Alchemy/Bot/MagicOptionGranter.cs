@@ -7,6 +7,7 @@ using RSBot.Core.Objects;
 using RSBot.Core.Objects.Item;
 using System;
 using System.Linq;
+using RSBot.Core.Components;
 
 namespace RSBot.Alchemy.Bot
 {
@@ -48,7 +49,7 @@ namespace RSBot.Alchemy.Bot
         {
             _shouldRun = false;
 
-            RequestHelper.SendCancelPacket();
+            AlchemyManager.CancelPending();
         }
 
         /// <summary>
@@ -88,8 +89,7 @@ namespace RSBot.Alchemy.Bot
 
                 case 21543:
                     return "UIIT_MSG_STRGERR_ASTRAL";
-
-                case 21539:
+                    
                 default:
                     return "UIIT_MSG_ENCHANT_FAILED";
             }
@@ -146,7 +146,7 @@ namespace RSBot.Alchemy.Bot
                 
                 if (current == null || current.Value < current.Record.GetMaxValue())
                 {
-                    RequestHelper.SendMagicStoneRequest(config.Item, magicStone);
+                    AlchemyManager.FuseMagicStone(config.Item, magicStone);
 
                     _shouldRun = false;
                 }
@@ -256,7 +256,7 @@ namespace RSBot.Alchemy.Bot
 
             var translationName = GetErrorTranslationName(errorCode);
 
-            Globals.View.AddLog(Game.Player.AlchemySlots?.Count > 0 ? Game.Player.AlchemySlots.First().Value.Record.GetRealName() : "", Game.ReferenceManager.GetTranslation(translationName));
+            Globals.View.AddLog(AlchemyManager.ActiveAlchemyItems?.Count > 0 ? AlchemyManager.ActiveAlchemyItems.First().Record.GetRealName() : "", Game.ReferenceManager.GetTranslation(translationName));
         }
 
         #endregion Events
