@@ -11,7 +11,7 @@ namespace RSBot.Default.Bundle.Avoidance
         /// <value>
         /// The avoidance list.
         /// </value>
-        public string[] AvoidanceList { get; private set; }
+        public MonsterRarity[] AvoidanceList { get; private set; }
 
         /// <summary>
         /// Gets the preferance list.
@@ -19,7 +19,7 @@ namespace RSBot.Default.Bundle.Avoidance
         /// <value>
         /// The preferance list.
         /// </value>
-        public string[] PreferanceList { get; private set; }
+        public MonsterRarity[] PreferanceList { get; private set; }
 
         /// <summary>
         /// Invokes this instance.
@@ -33,8 +33,8 @@ namespace RSBot.Default.Bundle.Avoidance
         /// </summary>
         public void Refresh()
         {
-            AvoidanceList = PlayerConfig.GetArray<string>("RSBot.Avoidance.Avoid");
-            PreferanceList = PlayerConfig.GetArray<string>("RSBot.Avoidance.Prefer");
+            AvoidanceList = PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Avoid");
+            PreferanceList = PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Prefer");
         }
 
         /// <summary>
@@ -63,61 +63,11 @@ namespace RSBot.Default.Bundle.Avoidance
         /// <param name="avoidanceList">The avoidance list.</param>
         /// <param name="rarity">The rarity.</param>
         /// <returns></returns>
-        public bool CheckForRarity(string[] avoidanceList, MonsterRarity rarity)
+        public bool CheckForRarity(MonsterRarity[] avoidanceList, MonsterRarity rarity)
         {
             foreach (var item in avoidanceList)
-            {
-                switch (rarity)
-                {
-                    case MonsterRarity.Champion:
-                        return item == "Champion";
-
-                    case MonsterRarity.ChampionParty:
-                        return item == "Champion_Party";
-
-                    case MonsterRarity.General:
-                        return item == "General";
-
-                    case MonsterRarity.Unique:
-                        return item == "Unique";
-
-                    case MonsterRarity.Giant:
-                        return item == "Giant";
-
-                    case MonsterRarity.Titan:
-                        return item == "Elite";
-
-                    case MonsterRarity.Elite:
-                        return item == "Elite";
-
-                    case MonsterRarity.EliteStrong:
-                        return item == "Strong";
-
-                    case MonsterRarity.Unique2:
-                        return item == "Unique";
-
-                    case MonsterRarity.GeneralParty:
-                        return item == "General_Party";
-
-                    case MonsterRarity.UniqueParty:
-                        return item == "Unique";
-
-                    case MonsterRarity.GiantParty:
-                        return item == "Giant_Party";
-
-                    case MonsterRarity.TitanParty:
-                        return item == "Elite";
-
-                    case MonsterRarity.EliteParty:
-                        return item == "Elite";
-
-                    case MonsterRarity.Unique2Party:
-                        return item == "Unique";
-
-                    default:
-                        return false;
-                }
-            }
+                if ((item & rarity) == rarity)
+                    return true;
 
             return false;
         }

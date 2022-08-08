@@ -20,7 +20,8 @@ namespace RSBot.Default.Bundle.Berzerk
         /// <exception cref="System.NotImplementedException"></exception>
         public void Invoke()
         {
-            if (!Game.Player.CanEnterBerzerk || Game.Player.HasActiveVehicle) return;
+            if (!Game.Player.CanEnterBerzerk || Game.Player.HasActiveVehicle) 
+                return;
 
             if (Config.WhenFull)
             {
@@ -38,11 +39,14 @@ namespace RSBot.Default.Bundle.Berzerk
                 }
             }
 
-            if (!Config.BeeingAttackedByAwareMonster) return;
+            if (!Config.BeeingAttackedByAwareMonster) 
+                return;
 
-            var awareMonsterAttacking = SpawnManager.Count<SpawnedMonster>(m => m.AttackingPlayer && Bundles.Avoidance.AvoidMonster(m.Rarity)) > 0;
+            var entity = Game.SelectedEntity as SpawnedMonster;
+            if (entity == null)
+                return;
 
-            if (awareMonsterAttacking)
+            if(Bundles.Avoidance.AvoidMonster(entity.Rarity))
                 Game.Player.EnterBerzerkMode();
         }
 

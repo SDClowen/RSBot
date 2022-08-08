@@ -139,7 +139,11 @@ namespace RSBot.Map.Views
                 var img = (Image)_mapEntityImages[entityIndex].Clone();
 
                 if (entityIndex == 0)
-                    gfx.DrawImage(RotateImage(img, Geometry.RadianToDegree(Game.Player.Movement.Angle)), 119.5f, 119.5f);
+                {
+                    gfx.DrawImage(RotateImage(img, Geometry.RadianToDegree(Game.Player.Movement.Angle)), 
+                        x - img.Width / 2,
+                        y - img.Height / 2);
+                }
                 else
                     gfx.DrawImage(img, x - img.Width, y - img.Height);
             }
