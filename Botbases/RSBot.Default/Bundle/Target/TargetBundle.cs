@@ -87,7 +87,7 @@ namespace RSBot.Default.Bundle.Target
                             !(warlockModeEnabled && m.State.HasTwoDots()) &&
                             m.IsBehindObstacle == false &&
                             !_blacklistTimers.ContainsKey(m) &&
-                            !Bundles.Avoidance.AvoidMonster(m.Rarity) &&
+                            //!Bundles.Avoidance.AvoidMonster(m.Rarity) &&
                             m.DistanceToPlayer <= 40))
                 return default(SpawnedMonster);
 

@@ -857,7 +857,7 @@ namespace RSBot.Skills.Views
                     continue;
 
                 //if (selectedRefSkill != null && selectedRefSkill.IsAttack)
-                if (selectedRefSkill != null && selectedRefSkill.Record.TargetGroup_Enemy_M)
+                if (selectedRefSkill != null && (selectedRefSkill.Record.TargetGroup_Enemy_M || selectedRefSkill.IsAttack))
                     listAttackingSkills.Items.Add((ListViewItem)item.Clone());
             }
 

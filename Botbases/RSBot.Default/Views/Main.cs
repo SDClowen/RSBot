@@ -1,8 +1,10 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Event;
+using RSBot.Core.Objects;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace RSBot.Default.Views
@@ -18,15 +20,15 @@ namespace RSBot.Default.Views
             InitializeComponent();
             SubscribeEvents();
 
-            lvAvoidance.Items[0].Name = "General";
-            lvAvoidance.Items[1].Name = "Champion";
-            lvAvoidance.Items[2].Name = "Giant";
-            lvAvoidance.Items[3].Name = "General_Party";
-            lvAvoidance.Items[4].Name = "Champion_Party";
-            lvAvoidance.Items[5].Name = "Giant_Party";
-            lvAvoidance.Items[6].Name = "Unique";
-            lvAvoidance.Items[7].Name = "Strong";
-            lvAvoidance.Items[8].Name = "Elite";
+            lvAvoidance.Items[0].Tag = MonsterRarity.General;
+            lvAvoidance.Items[1].Tag = MonsterRarity.Champion;
+            lvAvoidance.Items[2].Tag = MonsterRarity.Giant;
+            lvAvoidance.Items[3].Tag = MonsterRarity.GeneralParty;
+            lvAvoidance.Items[4].Tag = MonsterRarity.ChampionParty;
+            lvAvoidance.Items[5].Tag = MonsterRarity.GiantParty;
+            lvAvoidance.Items[6].Tag = MonsterRarity.Unique | MonsterRarity.Unique2;
+            lvAvoidance.Items[7].Tag = MonsterRarity.EliteStrong;
+            lvAvoidance.Items[8].Tag = MonsterRarity.Elite;
         }
 
         /// <summary>
@@ -59,22 +61,18 @@ namespace RSBot.Default.Views
         /// </summary>
         private void SaveAvoidance()
         {
-            var avoid = new List<string>();
-            var prefer = new List<string>();
-            var none = new List<string>();
+            var avoid = new List<MonsterRarity>();
+            var prefer = new List<MonsterRarity>();
             foreach (ListViewItem item in lvAvoidance.Items)
             {
                 if (item.Group == lvAvoidance.Groups["grpAvoid"])
-                    avoid.Add(item.Name);
+                    avoid.Add((MonsterRarity)item.Tag);
                 else if (item.Group == lvAvoidance.Groups["grpPrefer"])
-                    prefer.Add(item.Name);
-                else
-                    none.Add(item.Name);
+                    prefer.Add((MonsterRarity)item.Tag);
             }
 
             PlayerConfig.SetArray("RSBot.Avoidance.Avoid", avoid);
             PlayerConfig.SetArray("RSBot.Avoidance.Prefer", prefer);
-            PlayerConfig.SetArray("RSBot.Avoidance.None", none);
         }
 
         /// <summary>
@@ -82,18 +80,20 @@ namespace RSBot.Default.Views
         /// </summary>
         private void LoadAvoidance()
         {
-            var avoid = PlayerConfig.GetArray<string>("RSBot.Avoidance.Avoid");
-            var prefer = PlayerConfig.GetArray<string>("RSBot.Avoidance.Prefer");
-            var none = PlayerConfig.GetArray<string>("RSBot.Avoidance.None");
+            var avoid = PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Avoid")
+                .ToDictionary(p => "Avoid", p => p);
+            var prefer = PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Prefer")
+                .ToDictionary(p => "Prefer", p => p);
+            
+            foreach (var item in avoid.Union(prefer))
+            {
+                var listViewItem = lvAvoidance.Items.Cast<ListViewItem>()
+                    .FirstOrDefault(p => ((MonsterRarity)p.Tag & item.Value) == item.Value);
+                if (listViewItem == null)
+                    continue;
 
-            foreach (var item in avoid)
-                lvAvoidance.Items[item].Group = lvAvoidance.Groups["grpAvoid"];
-
-            foreach (var item in prefer)
-                lvAvoidance.Items[item].Group = lvAvoidance.Groups["grpPrefer"];
-
-            foreach (var item in none)
-                lvAvoidance.Items[item].Group = lvAvoidance.Groups["grpNone"];
+                listViewItem.Group = lvAvoidance.Groups[$"grp{item.Key}"];
+            }
         }
 
         /// <summary>
@@ -234,7 +234,9 @@ namespace RSBot.Default.Views
         /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
         private void btnAvoid_Click(object sender, EventArgs e)
         {
-            if (lvAvoidance.SelectedItems.Count <= 0) return;
+            if (lvAvoidance.SelectedItems.Count <= 0) 
+                return;
+
             foreach (ListViewItem item in lvAvoidance.SelectedItems)
                 item.Group = lvAvoidance.Groups["grpAvoid"];
 

@@ -96,6 +96,20 @@ namespace RSBot.Core
         }
 
         /// <summary>
+        /// Gets the enum value with specified key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default value.</param>
+        public static TEnum[] GetEnums<TEnum>(string key, char delimiter = ',')
+            where TEnum : struct
+        {
+            if (_config == null)
+                return new TEnum[] { };
+
+            return _config.GetEnums<TEnum>(key, delimiter);
+        }
+
+        /// <summary>
         /// Sets the array.
         /// </summary>
         /// <param name="key">The key.</param>
