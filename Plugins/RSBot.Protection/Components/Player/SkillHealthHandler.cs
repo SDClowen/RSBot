@@ -41,7 +41,7 @@ namespace RSBot.Protection.Components.Player
 
             var minHealth = PlayerConfig.Get<int>("RSBot.Protection.numPlayerSkillHPMin", 50);
 
-            var healthPercent = ((double)Game.Player.Health / (double)Game.Player.MaximumHealth) * 100;
+            var healthPercent = 100.0 * Game.Player.Health / Game.Player.MaximumHealth;
             if (healthPercent > minHealth)
                 return;
 
