@@ -30,15 +30,14 @@ namespace RSBot.Protection.Components.Pet
             if (Game.Player.Growth == null)
                 return;
 
-            var useHGPPotions = PlayerConfig.Get<bool>("RSBot.Protection.checkUseHGP");
-            if (!useHGPPotions)
+            var use = PlayerConfig.Get<bool>("RSBot.Protection.checkUseHGP");
+            if (!use)
                 return;
 
-            var minHGP = PlayerConfig.Get<int>("RSBot.Protection.numPetMinHGP", 50);
+            var min = PlayerConfig.Get<int>("RSBot.Protection.numPetMinHGP", 50);
 
-            var hgpPercent = ((double)Game.Player.Growth.CurrentHungerPoints / (double)Game.Player.Growth.MaxHungerPoints) * 100;
-
-            if (hgpPercent < minHGP)
+            var percent = 100.0 * Game.Player.Growth.CurrentHungerPoints / Game.Player.Growth.MaxHungerPoints;
+            if (percent < min)
                 Game.Player.Growth.UseHungerPotion();
         }
 
@@ -50,15 +49,14 @@ namespace RSBot.Protection.Components.Pet
             if (Game.Player.Fellow == null)
                 return;
 
-            var useSatietyPotions = PlayerConfig.Get<bool>("RSBot.Protection.checkUseHGP");
-            if (!useSatietyPotions)
+            var use = PlayerConfig.Get<bool>("RSBot.Protection.checkUseHGP");
+            if (!use)
                 return;
 
-            var minHGP = PlayerConfig.Get<int>("RSBot.Protection.numPetMinHGP", 50);
+            var min = PlayerConfig.Get<int>("RSBot.Protection.numPetMinHGP", 50);
 
-            var hgpPercent = ((double)Game.Player.Fellow.Satiety / 36000.0) * 100;
-
-            if (hgpPercent < minHGP)
+            var percent = 100.0 * Game.Player.Fellow.Satiety / 36000;
+            if (percent < min)
                 Game.Player.Fellow.UseSatietyPotion();
         }
     }

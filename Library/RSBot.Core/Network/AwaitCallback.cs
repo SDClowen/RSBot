@@ -213,7 +213,7 @@ namespace RSBot.Core.Network
                     _timeout = !_invoked;
 
                     if (_timeout)
-                        Log.Error($"Callback timeout, ResponseOpcode: 0x{ResponseOpcode:X}");
+                        Log.Debug($"Callback timeout, ResponseOpcode: 0x{ResponseOpcode:X}");
                 }
 
             }).Wait();

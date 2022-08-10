@@ -2,7 +2,6 @@
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Cos;
-using System;
 
 namespace RSBot.Protection.Components.Pet
 {
@@ -36,8 +35,7 @@ namespace RSBot.Protection.Components.Pet
             if ((cos.BadEffect & BadEffect.Zombie) == BadEffect.Zombie)
                 return;
 
-            var percent = Math.Round((double)cos.Health / (double)cos.MaxHealth * 100, 0);
-
+            var percent = 100.0 * cos.Health / cos.MaxHealth;
             if (percent < minHp)
                 cos.UseHealthPotion();
         }

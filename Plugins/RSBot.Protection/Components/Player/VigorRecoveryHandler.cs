@@ -35,8 +35,8 @@ namespace RSBot.Protection.Components.Player
             if (useManaPotion)
             {
                 var minMana = PlayerConfig.Get("RSBot.Protection.numPlayerMPVigorPotionMin", 50);
-                var manaPercent = Game.Player.Mana / Game.Player.MaximumMana * 100;
 
+                var manaPercent = 100.0 * Game.Player.Mana / Game.Player.MaximumMana;
                 if (manaPercent <= minMana && Game.Player.UseVigorPotion())
                     return;
             }
@@ -47,7 +47,7 @@ namespace RSBot.Protection.Components.Player
 
             var minHealth = PlayerConfig.Get("RSBot.Protection.numPlayerHPVigorPotionMin", 50);
 
-            var healthPercent = Game.Player.Health / Game.Player.MaximumHealth * 100;
+            var healthPercent = 100.0 * Game.Player.Health / Game.Player.MaximumHealth;
             if (healthPercent <= minHealth)
                 Game.Player.UseVigorPotion();
         }
