@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms.VisualStyles;
 
 namespace RSBot.Core.Components
 {
@@ -131,6 +132,8 @@ namespace RSBot.Core.Components
 
             foreach (var scriptLine in Commands.Skip(CurrentLineIndex/* + 1*/))
             {
+                EventManager.FireEvent("OnChangeStatusText", "Running walk script");
+
                 if (!Running) return;
 
                 var arguments = scriptLine.Split(' ');

@@ -3,6 +3,7 @@ using RSBot.Core.Components;
 using RSBot.Core.Objects;
 using System.IO;
 using System.Threading;
+using RSBot.Core.Event;
 
 namespace RSBot.Default.Bundle.Loop
 {
@@ -109,6 +110,7 @@ namespace RSBot.Default.Bundle.Loop
             Log.NotifyLang("LoadingTownScript", filename);
 
             TownscriptRunning = true;
+
             ScriptManager.Load(filename);
             ScriptManager.RunScript(false);
 
@@ -156,7 +158,7 @@ namespace RSBot.Default.Bundle.Loop
 
             Invoke();
             Log.NotifyLang("LoadingWalkScript", Config.WalkScript);
-
+            
             ScriptManager.Load(Config.WalkScript);
             ScriptManager.RunScript();
         }

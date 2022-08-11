@@ -1,5 +1,6 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Components;
+using RSBot.Core.Event;
 
 namespace RSBot.Default.Bundle.Attack
 {
@@ -38,6 +39,8 @@ namespace RSBot.Default.Bundle.Attack
             var skill = SkillManager.GetNextSkill();
 
             Log.Debug($"Getnextskill: {stopwatch.ElapsedMilliseconds} Action:{Game.Player.InAction} Entity:{Game.SelectedEntity != null} LA:{SkillManager.IsLastCastedBasic} Skill:{skill}");
+
+            EventManager.FireEvent("OnChangeStatusText", "Attacking");
 
             if (skill == null)
             {

@@ -1,6 +1,7 @@
 ﻿using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
 using System.Linq;
+using RSBot.Core.Event;
 
 namespace RSBot.Core.Components
 {
@@ -136,6 +137,8 @@ namespace RSBot.Core.Components
                 else
                 {
                     var itemsToPickup = entities.OrderBy(item => item.Movement.Source.DistanceTo(centerPosition));
+
+                    EventManager.FireEvent("OnChangeStatusText", "Picking up");
 
                     foreach (var item in itemsToPickup) {
                         //Make sure the player is at the item's location
