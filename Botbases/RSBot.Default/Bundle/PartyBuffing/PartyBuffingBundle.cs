@@ -65,7 +65,6 @@ namespace RSBot.Default.Bundle.PartyBuffing
                 if (buffingMember.Buffs.Count == 0)
                     continue;
 
-
                 EventManager.FireEvent("OnChangeStatusText", "Buffing party");
 
                 var activeBuffs = member.Player.State.ActiveBuffs;

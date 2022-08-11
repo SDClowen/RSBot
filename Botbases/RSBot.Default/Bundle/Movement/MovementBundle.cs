@@ -65,7 +65,7 @@ namespace RSBot.Default.Bundle.Movement
             if (randomRadius > 100)
                 randomRadius = 100;
             
-            EventManager.FireEvent("OnChangeStatusText", "Walking to center");
+            EventManager.FireEvent("OnChangeStatusText", "Walking around");
 
             RunInWorld(randomRadius);
         }
