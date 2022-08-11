@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-using RSBot.Alchemy.Bot;
+﻿using RSBot.Alchemy.Bot;
 using RSBot.Alchemy.Helper;
 using RSBot.Core;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace RSBot.Alchemy.Views.Settings
 {
@@ -15,7 +16,7 @@ namespace RSBot.Alchemy.Views.Settings
         {
             get
             {
-                var result = new AttributesConfig{Item = SelectedItem};
+                var result = new AttributesConfig { Item = SelectedItem };
 
                 var attributes = new List<AttributesConfig.AttributesConfigItem>(10);
 
@@ -25,7 +26,7 @@ namespace RSBot.Alchemy.Views.Settings
                         continue;
 
                     if (attributePanel.Stones != null && attributePanel.Stones.Any())
-                        attributes.Add(new() {Group = attributePanel.AttributeGroup, MaxValue = attributePanel.MaxValue, Stone = attributePanel.Stones.First() });
+                        attributes.Add(new() { Group = attributePanel.AttributeGroup, MaxValue = attributePanel.MaxValue, Stone = attributePanel.Stones.First() });
                 }
 
                 result.Attributes = attributes;
@@ -41,6 +42,12 @@ namespace RSBot.Alchemy.Views.Settings
         public AttributesSettingsView()
         {
             InitializeComponent();
+            SetStyle(
+                ControlStyles.UserPaint |
+                ControlStyles.AllPaintingInWmPaint |
+                ControlStyles.OptimizedDoubleBuffer,
+                true);
+
             CheckForIllegalCrossThreadCalls = false;
 
             EventManager.SubscribeEvent("OnEnterGame", SubscribeMainFormEvents);
@@ -60,52 +67,55 @@ namespace RSBot.Alchemy.Views.Settings
 
         public void PopulateView()
         {
-            panelAttributes.Hide();
-            panelAttributes.Controls.Clear();
-
-            _attributePanels = new List<AttributeInfoPanel>(6);
-            var selectedItem = Globals.View.SelectedItem;
-
-            if (selectedItem == null)
-                return;
-
-            var availableItemAttributes = ItemAttributesInfo.GetAvailableAttributeGroupsForItem(selectedItem.Record);
-
-            if (availableItemAttributes == null)
+            try
             {
-                Log.Error($"[Alchemy] Could not identify the selected item's attribute information. [ItemId = {selectedItem.ItemId}]");
-                
-                return;
-            }
+                _attributePanels = new List<AttributeInfoPanel>(6);
+                var selectedItem = Globals.View.SelectedItem;
 
-            if (Globals.Botbase.AttributesConfig == null)
-                Globals.Botbase.AttributesConfig = Config;
+                if (selectedItem == null)
+                    return;
 
-            foreach (var attributeGroup in availableItemAttributes)
-            {
-                var matchingStones = AlchemyItemHelper.GetAttributeStones(selectedItem, attributeGroup);
+                var availableItemAttributes = ItemAttributesInfo.GetAvailableAttributeGroupsForItem(selectedItem.Record);
 
-                var config = Globals.Botbase.AttributesConfig.Attributes.FirstOrDefault(x => x.Group == attributeGroup);
-
-                var panel = new AttributeInfoPanel(attributeGroup, matchingStones, selectedItem, config == null ? 0 : config.MaxValue) {Dock = DockStyle.Top};
-                _attributePanels.Add(panel);
-
-                if (config == null || !matchingStones.Any())
+                if (availableItemAttributes == null)
                 {
-                    panel.OnChange += PanelOnChange;
+                    Log.Error($"[Alchemy] Could not identify the selected item's attribute information. [ItemId = {selectedItem.ItemId}]");
 
-                    continue;
+                    return;
                 }
 
-                panel.Checked = true;
+                if (Globals.Botbase.AttributesConfig == null)
+                    Globals.Botbase.AttributesConfig = Config;
 
-                panel.OnChange += PanelOnChange;
+                foreach (var attributeGroup in availableItemAttributes)
+                {
+                    var matchingStones = AlchemyItemHelper.GetAttributeStones(selectedItem, attributeGroup);
+
+                    var config = Globals.Botbase.AttributesConfig.Attributes.FirstOrDefault(x => x.Group == attributeGroup);
+
+                    var panel = new AttributeInfoPanel(attributeGroup, matchingStones, selectedItem, config == null ? 0 : config.MaxValue) { Dock = DockStyle.Top };
+                    _attributePanels.Add(panel);
+
+                    if (config == null || !matchingStones.Any())
+                    {
+                        panel.OnChange += PanelOnChange;
+
+                        continue;
+                    }
+
+                    panel.Checked = true;
+                    panel.OnChange += PanelOnChange;
+                }
+
+                Controls.Clear();
+                Controls.AddRange(_attributePanels.ToArray());
+
+                Globals.Botbase.AttributesConfig = Config;
             }
-
-            panelAttributes.Controls.AddRange(_attributePanels.ToArray());
-            Globals.Botbase.AttributesConfig = Config;
-
-            panelAttributes.Show();
+            catch (Exception ex)
+            {
+                Log.Debug($"[Alchemy] Error refreshing attributes view: {ex.Message}");
+            }
         }
 
         private void PanelOnChange(bool @checked, int maxValue)
@@ -115,7 +125,7 @@ namespace RSBot.Alchemy.Views.Settings
 
         private void View_EngineChanged(InventoryItem item, Engine engine)
         {
-            PopulateView();
+            Invoke(PopulateView);
         }
 
         /// <summary>
@@ -126,7 +136,7 @@ namespace RSBot.Alchemy.Views.Settings
         {
             SelectedItem = item;
 
-            PopulateView();
+            Invoke(PopulateView);
         }
     }
 }

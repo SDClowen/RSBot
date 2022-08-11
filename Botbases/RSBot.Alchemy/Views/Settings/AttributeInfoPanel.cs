@@ -1,8 +1,10 @@
 ﻿using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace RSBot.Alchemy.Views.Settings
 {
@@ -54,9 +56,22 @@ namespace RSBot.Alchemy.Views.Settings
         /// </value>
         public IEnumerable<InventoryItem>? Stones { get; init; }
 
+
         #endregion
 
         /// <summary>
+        /// Gets the current attribute.
+        /// </summary>
+        /// <value>
+        /// The current attribute.
+        /// </value>
+        private ItemAttributesInfo _currentAttribute;
+
+        /// <summary>
+        /// The current attribute slot
+        /// </summary>
+        private byte _currentAttributeSlot;
+
         /// Initializes a new instance of the <see cref="AttributeInfoPanel"/> class.
         /// </summary>
         /// <param name="group">The group.</param>
@@ -64,10 +79,14 @@ namespace RSBot.Alchemy.Views.Settings
         /// <param name="item">The item.</param>
         public AttributeInfoPanel(ItemAttributeGroup group, IEnumerable<InventoryItem>? stones, InventoryItem item, int maxValue = 22)
         {
+            CheckForIllegalCrossThreadCalls = false;
+         
             InitializeComponent();
 
             AttributeGroup = group;
             Stones = stones;
+            _currentAttribute = item.Attributes;
+            _currentAttributeSlot = ItemAttributesInfo.GetAttributeSlotForItem(group, item.Record);
 
             SetMaxValue(maxValue);
 
@@ -82,18 +101,27 @@ namespace RSBot.Alchemy.Views.Settings
                 checkSelected.Enabled = false;
             }
             else
-                lblItemAmount.Text = $"x{stones?.Sum(i => i.Amount)}";
+                lblItemAmount.Text = $"x{totalAmount}";
 
             var attributeSlot = ItemAttributesInfo.GetAttributeSlotForItem(group, item.Record);
             checkSelected.Text = $"{group.GetTranslation()} +{item.Attributes.GetPercentage(attributeSlot)}%";
             checkSelected.CheckedChanged += CheckSelected_CheckedChanged;
             comboMaxValue.SelectedIndexChanged += ComboMaxValue_SelectedIndexChanged;
+            
+            if (Stones.Any())
+                tipStone.SetToolTip(checkSelected, $"{Stones.First().Record.GetRealName()}x{totalAmount}");
+
         }
 
         private void ComboMaxValue_SelectedIndexChanged(object? sender, System.EventArgs e)
         {
             if (comboMaxValue.SelectedItem == null)
                 return;
+
+            if (GetMaxValue() <= _currentAttribute.GetPercentage(_currentAttributeSlot))
+                checkSelected.Checked = false;
+            else
+                checkSelected.Checked = true;
 
             OnChange?.Invoke(checkSelected.Checked, GetMaxValue());
         }
@@ -158,6 +186,9 @@ namespace RSBot.Alchemy.Views.Settings
             }
 
             comboMaxValue.SelectedIndex = 4;
+
+            if (GetMaxValue() <= _currentAttribute.GetPercentage(_currentAttributeSlot))
+                checkSelected.Checked = false;
         }
 
         #endregion Methods

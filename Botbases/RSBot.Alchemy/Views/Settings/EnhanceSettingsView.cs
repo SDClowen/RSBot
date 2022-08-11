@@ -45,8 +45,14 @@ namespace RSBot.Alchemy.Views.Settings
         {
             CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
+            SetStyle(
+                ControlStyles.UserPaint |
+                ControlStyles.AllPaintingInWmPaint |
+                ControlStyles.OptimizedDoubleBuffer,
+                true);
 
             EventManager.SubscribeEvent("OnEnterGame", SubscribeMainFormEvents);
+
         }
 
         #endregion Constructor

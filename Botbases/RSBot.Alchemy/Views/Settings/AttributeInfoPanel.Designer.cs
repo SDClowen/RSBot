@@ -28,10 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.comboMaxValue = new SDUI.Controls.ComboBox();
             this.lblItemAmount = new SDUI.Controls.Label();
             this.separator1 = new SDUI.Controls.Separator();
             this.checkSelected = new SDUI.Controls.CheckBox();
+            this.tipStone = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // comboMaxValue
@@ -82,6 +84,11 @@
             this.checkSelected.TabIndex = 4;
             this.checkSelected.Text = "Phy. reinforce";
             // 
+            // tipStone
+            // 
+            this.tipStone.AutomaticDelay = 0;
+            this.tipStone.IsBalloon = true;
+            // 
             // AttributeInfoPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -102,5 +109,6 @@
         private SDUI.Controls.Label lblItemAmount;
         private SDUI.Controls.Separator separator1;
         private SDUI.Controls.CheckBox checkSelected;
+        private System.Windows.Forms.ToolTip tipStone;
     }
 }

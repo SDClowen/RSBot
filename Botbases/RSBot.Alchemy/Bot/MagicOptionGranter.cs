@@ -178,6 +178,9 @@ namespace RSBot.Alchemy.Bot
         /// <param name="type"></param>
         private void OnFuseRequest(AlchemyAction action, AlchemyType type)
         {
+            if (Globals.Botbase.Engine != Engine.Magic)
+                return;
+
             _shouldRun = false;
         }
 
@@ -186,6 +189,9 @@ namespace RSBot.Alchemy.Bot
         /// </summary>
         private void OnStoneAlchemy(AlchemyType type)
         {
+            if (Globals.Botbase.Engine != Engine.Magic)
+                return;
+
             _shouldRun = true;
         }
 
@@ -195,6 +201,9 @@ namespace RSBot.Alchemy.Bot
         /// <param name="newItem">The new item after the successful action</param>
         private void OnStoneAlchemySuccess(InventoryItem oldItem, InventoryItem newItem, AlchemyType type)
         {
+            if (Globals.Botbase.Engine != Engine.Magic)
+                return;
+
             if (type != AlchemyType.MagicStone) 
                 return;
 
@@ -247,7 +256,7 @@ namespace RSBot.Alchemy.Bot
         /// <param name="newItem">The new item after the operation failed</param>
         private void OnStoneAlchemyFailed(InventoryItem oldItem, InventoryItem newItem, AlchemyType type)
         {
-            if (type != AlchemyType.MagicStone)
+            if (Globals.Botbase.Engine != Engine.Magic)
                 return;
 
             Globals.View.AddLog(newItem.Record.GetRealName(), Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL"));
@@ -261,7 +270,7 @@ namespace RSBot.Alchemy.Bot
         /// <param name="errorCode">The error code</param>
         private void OnStoneAlchemyError(ushort errorCode, AlchemyType type)
         {
-            if (type != AlchemyType.MagicStone)
+            if (Globals.Botbase.Engine != Engine.Magic)
                 return;
 
             var translationName = GetErrorTranslationName(errorCode);

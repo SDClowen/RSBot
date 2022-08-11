@@ -5,6 +5,7 @@ using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using System;
 using System.Linq;
+using RSBot.Core.Extensions;
 
 namespace RSBot.Alchemy.Bot
 {
@@ -57,6 +58,9 @@ namespace RSBot.Alchemy.Bot
 
             foreach (var attribute in config.Attributes)
             {
+                if (_shouldRun == false)
+                    break;
+
                 var slot = ItemAttributesInfo.GetAttributeSlotForItem(attribute.Group, config.Item.Record);
                 var currentValue = config.Item.Attributes.GetPercentage(slot);
 
@@ -66,6 +70,13 @@ namespace RSBot.Alchemy.Bot
                 AlchemyManager.FuseAttributeStone(config.Item, attribute.Stone);
 
                 _shouldRun = false;
+            }
+
+            if (_shouldRun)
+            {
+                Log.Notify("[Alchemy] Attribute stone fusing finished!");
+
+                Kernel.Bot.Stop();
             }
         }
 
@@ -96,10 +107,9 @@ namespace RSBot.Alchemy.Bot
         /// <param name="type"></param>
         private void OnFuseRequest(AlchemyAction action, AlchemyType type)
         {
-            if (type != AlchemyType.AttributeStone)
+            if (Globals.Botbase.Engine != Engine.Attribute)
                 return;
 
-            Globals.View.AddLog(AlchemyManager.ActiveAlchemyItems?.First()?.Record.GetRealName(), "Fusing request...");
             _shouldRun = false;
         }
 
@@ -108,10 +118,8 @@ namespace RSBot.Alchemy.Bot
         /// </summary>
         private void OnStoneAlchemy(AlchemyType type)
         {
-            if (type != AlchemyType.AttributeStone)
+            if (Globals.Botbase.Engine != Engine.Attribute)
                 return;
-
-            Globals.View.AddLog(AlchemyManager.ActiveAlchemyItems?.First()?.Record.GetRealName(), "Fusing response...");
 
             _shouldRun = true;
         }
@@ -124,10 +132,18 @@ namespace RSBot.Alchemy.Bot
         /// <param name="type"></param>
         private void OnStoneAlchemySuccess(InventoryItem oldItem, InventoryItem newItem, AlchemyType type)
         {
-            if (type != AlchemyType.AttributeStone)
+            if (Globals.Botbase.Engine != Engine.Attribute)
                 return;
 
-            Globals.View.AddLog(AlchemyManager.ActiveAlchemyItems?.First()?.Record.GetRealName(), "Fusing response (success)...");
+            var changedAttributeSlots = oldItem.Attributes.CompareSlots(newItem.Attributes);
+
+            foreach (var slot in changedAttributeSlots)
+            {
+                var attributeGroup = ItemAttributesInfo.GetAttributeGroupBySlot(newItem.Record, slot);
+                var attributeValue = newItem.Attributes.GetPercentage(slot);
+
+                Globals.View.AddLog(newItem.Record.GetRealName(), $"The attribute [{attributeGroup.GetTranslation()}] changed to [+{attributeValue}%]");
+            }
 
             _shouldRun = true;
         }
@@ -140,10 +156,11 @@ namespace RSBot.Alchemy.Bot
         /// <param name="type"></param>
         private void OnStoneAlchemyFailed(InventoryItem oldItem, InventoryItem newItem, AlchemyType type)
         {
-            if (type != AlchemyType.AttributeStone)
+            if (Globals.Botbase.Engine != Engine.Attribute)
                 return;
 
-            Globals.View.AddLog(AlchemyManager.ActiveAlchemyItems?.First()?.Record.GetRealName(), "Fusing response (fail)...");
+            Globals.View.AddLog(newItem.Record.GetRealName(), Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL"));
+
             _shouldRun = true;
         }
 
@@ -154,11 +171,12 @@ namespace RSBot.Alchemy.Bot
         /// <param name="type"></param>
         private void OnStoneAlchemyError(ushort errorCode, AlchemyType type)
         {
-            if (type != AlchemyType.AttributeStone)
+            if (Globals.Botbase.Engine != Engine.Attribute)
                 return;
 
-            Globals.View.AddLog(AlchemyManager.ActiveAlchemyItems?.First()?.Record.GetRealName(), "Fusing response (error)...");
             _shouldRun = true;
+            
+            Globals.View.AddLog(Globals.Botbase.AttributesConfig?.Item?.Record?.GetRealName(), Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL"));
         }
 
         #endregion Events

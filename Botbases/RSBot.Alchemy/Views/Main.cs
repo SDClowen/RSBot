@@ -76,7 +76,12 @@ namespace RSBot.Alchemy.Views
             CheckForIllegalCrossThreadCalls = false;
 
             InitializeComponent();
-            
+            SetStyle(
+                ControlStyles.UserPaint |
+                ControlStyles.AllPaintingInWmPaint |
+                ControlStyles.OptimizedDoubleBuffer,
+                true);
+
             EventManager.SubscribeEvent("OnLoadCharacter", ReloadItemList);
             EventManager.SubscribeEvent("OnAlchemy", new Action<AlchemyType>(OnAlchemy));
 
@@ -194,6 +199,8 @@ namespace RSBot.Alchemy.Views
 
             //Scroll to bottom of the list
             lvLog.Items[lvLog.Items.Count - 1].EnsureVisible();
+
+            Log.Notify($"[Alchemy] [{itemName}]: {message}");
         }
 
         #endregion Methods

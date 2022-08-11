@@ -129,6 +129,26 @@ namespace RSBot.Core.Objects
 
         public override int GetHashCode() => Variance.GetHashCode();
 
+        /// <summary>
+        /// Compares the slots and return those which are different.
+        /// </summary>
+        /// <param name="info">The information.</param>
+        /// <returns></returns>
+        public IEnumerable<byte> CompareSlots(ItemAttributesInfo info)
+        {
+            var result = new List<byte>(6);
+
+            for (byte i = 0; i < 6; i++)
+            {
+                if (info[i] != this[i])
+                {
+                    result.Add(i);
+                }
+            }
+
+            return result;
+        }
+
         public static explicit operator ItemAttributesInfo(ulong value) => new(value);
 
         public static implicit operator ulong(ItemAttributesInfo variance) => variance.Variance;
@@ -186,6 +206,61 @@ namespace RSBot.Core.Objects
             }
 
             return null;
+        }
+
+        public static ItemAttributeGroup GetAttributeGroupBySlot(RefObjItem item, byte slot)
+        {
+            if ((item.IsWeapon || item.IsShield || item.IsArmor) && slot == 0)
+                return ItemAttributeGroup.Durability;
+
+            if ((item.IsWeapon || item.IsShield || item.IsArmor) && slot == 1)
+                return ItemAttributeGroup.PhysicalSpecialize;
+
+            if ((item.IsWeapon || item.IsShield || item.IsArmor) && slot == 2)
+                return ItemAttributeGroup.MagicalSpecialize;
+
+            //Weapon
+            if (item.IsWeapon && slot == 3)
+                return ItemAttributeGroup.HitRatio;
+
+            if (item.IsWeapon && slot == 4)
+                return ItemAttributeGroup.PhysicalDamage;
+
+            if (item.IsWeapon && slot == 5)
+                return ItemAttributeGroup.MagicalDamage;
+
+            if (item.IsWeapon && slot == 6)
+                return ItemAttributeGroup.Critical;
+
+            //Armor
+            if (item.IsArmor && slot == 3)
+                return ItemAttributeGroup.PhysicalDefense;
+
+            if (item.IsArmor && slot == 4)
+                return ItemAttributeGroup.MagicalDefense;
+
+            if (item.IsArmor && slot == 5)
+                return ItemAttributeGroup.EvasionRatio;
+
+            //Shield
+            if (item.IsShield && slot == 3)
+                return ItemAttributeGroup.BlockRatio;
+
+            if (item.IsShield && slot == 4)
+                return ItemAttributeGroup.PhysicalDefense;
+
+            if (item.IsShield && slot == 5)
+                return ItemAttributeGroup.MagicalDefense;
+
+            //Accessory
+            if (item.IsAccessory && slot == 0)
+                return ItemAttributeGroup.PhysicalAbsorbRatio;
+
+            if (item.IsAccessory && slot == 1)
+                return ItemAttributeGroup.MagicalAbsorbRatio;
+
+            throw new Exception($"Unknown attribute type requested! [slot={slot}]");
+
         }
 
         public static string? GetActualAttributeGroupNameForItem(RefObjItem item, ItemAttributeGroup group)

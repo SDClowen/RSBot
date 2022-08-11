@@ -70,19 +70,19 @@ namespace RSBot.Alchemy.Subscriber
             switch (type)
             {
                 case AlchemyType.Elixir:
-                    Globals.View.AddLog(item.Record.GetRealName(), $"Fusing elixir [{ingredient.Record.GetRealName()}");
+                    Globals.View.AddLog(item.Record.GetRealName(), $"Fusing elixir [{ingredient.Record.GetRealName()}]");
                     break;
 
                 case AlchemyType.MagicStone:
-                    Globals.View.AddLog(item.Record.GetRealName(), $"Fusing magic stone [{ingredient.Record.GetRealName()}");
+                    Globals.View.AddLog(item.Record.GetRealName(), $"Fusing magic stone [{ingredient.Record.GetRealName()}]");
                     break;
 
                 case AlchemyType.AttributeStone:
-                    Globals.View.AddLog(item.Record.GetRealName(), $"Fusing attribute stone [{ingredient.Record.GetRealName()}");
+                    Globals.View.AddLog(item.Record.GetRealName(), $"Fusing attribute stone [{ingredient.Record.GetRealName()}]");
                     break;
 
                 default:
-                    Globals.View.AddLog(item.Record.GetRealName(), $"Fusing [{ingredient.Record.GetRealName()}");
+                    Globals.View.AddLog(item.Record.GetRealName(), $"Fusing [{ingredient.Record.GetRealName()}]");
                     break;
             }
         }

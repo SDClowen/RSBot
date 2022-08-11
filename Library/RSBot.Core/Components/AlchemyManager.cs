@@ -132,7 +132,7 @@ namespace RSBot.Core.Components
         /// <param name="attributeStone">The attribute stone.</param>
         public static void FuseAttributeStone(InventoryItem item, InventoryItem attributeStone)
         {
-            if (Game.Player.Inventory.GetItemAt(item.Slot).ItemId != item.ItemId || Game.Player.Inventory.GetItemAt(attributeStone.Slot).ItemId != attributeStone.ItemId)
+            if (Game.Player.Inventory.GetItemAt(item.Slot)?.ItemId != item.ItemId || Game.Player.Inventory.GetItemAt(attributeStone.Slot)?.ItemId != attributeStone.ItemId)
             {
                 Log.Warn("[Alchemy] Requested to fuse an item that does not match the current item at the specified slot.");
 
