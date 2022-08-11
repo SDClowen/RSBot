@@ -1,4 +1,5 @@
 ﻿using RSBot.Alchemy.Client.ReferenceObjects;
+using RSBot.Alchemy.Extension;
 using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Components;
@@ -10,11 +11,11 @@ using System.Linq;
 
 namespace RSBot.Alchemy.Bot
 {
-    internal class MagicOptionGranter
+    internal class MagicEngine : IAlchemyEngine
     {
         #region Constructor
 
-        public MagicOptionGranter()
+        public MagicEngine()
         {
             SubscribeEvents();
         }
@@ -97,9 +98,12 @@ namespace RSBot.Alchemy.Bot
         /// <summary>
         /// Runs a tick of this manager
         /// </summary>
-        /// <param name="config">The configuration for this manager</param>
-        public void Run(MagicOptionsConfig config)
+        /// <param name="engineConfig">The configuration for this manager</param>
+        public void Run<T>(T engineConfig)
         {
+            if (engineConfig is not MagicEngineConfig config)
+                return;
+
             if (config?.MagicStones?.Count == 0)
             {
                 Log.Warn("[Alchemy] No magic stones configured!");
@@ -115,7 +119,7 @@ namespace RSBot.Alchemy.Bot
             foreach (var stone in config.MagicStones.Where(i => i.Key.Amount > 0))
             {
                 //Wait for the next tick
-                if (_shouldRun == false) 
+                if (_shouldRun == false)
                     break;
 
                 //Check if the stone to be fused is in the correct slot, otherwise get the same item type again from the inventory
@@ -204,10 +208,10 @@ namespace RSBot.Alchemy.Bot
             if (Globals.Botbase.Engine != Engine.Magic)
                 return;
 
-            if (type != AlchemyType.MagicStone) 
+            if (type != AlchemyType.MagicStone)
                 return;
 
-            if (oldItem == null) 
+            if (oldItem == null)
                 return;
 
             MagicOptionInfo changedOption = null;

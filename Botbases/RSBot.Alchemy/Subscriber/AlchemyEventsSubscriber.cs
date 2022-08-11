@@ -6,6 +6,7 @@ using RSBot.Core.Objects;
 using System;
 using System.Linq;
 using RSBot.Core.Components;
+using RSBot.Alchemy.Extension;
 
 namespace RSBot.Alchemy.Subscriber
 {
@@ -32,8 +33,8 @@ namespace RSBot.Alchemy.Subscriber
             if (!AlchemyBotbase.IsActive)
                 return;
 
-            Globals.Botbase.EnhancementConfig = null;
-            Globals.Botbase.MagicOptionsConfig = null;
+            Globals.Botbase.EnhancerEngineConfig = null;
+            Globals.Botbase.MagicEngineConfig = null;
 
             Globals.View.SelectedItem = null;
             Globals.View.AddLog(oldItem.Record.GetRealName(), Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_BREAKDOWN"));

@@ -177,8 +177,8 @@ namespace RSBot.Alchemy.Views.Settings
                     item.SubItems.Add(refMagicOption.GetMaxValue().ToString());
                     item.SubItems.Add(!matchingMagicStones.Any() ? "x0" : $"x{matchingMagicStones.Sum(i => i.Amount)}");
 
-                    if (Globals.Botbase.MagicOptionsConfig != null &&
-                        Globals.Botbase.MagicOptionsConfig.MagicStones.Keys.FirstOrDefault(i =>
+                    if (Globals.Botbase.MagicEngineConfig != null &&
+                        Globals.Botbase.MagicEngineConfig.MagicStones.Keys.FirstOrDefault(i =>
                             i.Record.ID == matchingMagicStones.FirstOrDefault()?.ItemId) != null && canBeIncreased)
                         item.Checked = true;
                     else
@@ -207,7 +207,7 @@ namespace RSBot.Alchemy.Views.Settings
         {
             if (!_reloadConfig) return;
             
-            Globals.Botbase.MagicOptionsConfig = new Bot.MagicOptionsConfig
+            Globals.Botbase.MagicEngineConfig = new Bot.MagicEngineConfig
             {
                 Item = Globals.View.SelectedItem,
                 MagicStones = new System.Collections.Generic.Dictionary<InventoryItem, RefMagicOpt>()
@@ -220,7 +220,7 @@ namespace RSBot.Alchemy.Views.Settings
                     var invItem = (MagicStoneListViewItemTag)item.Tag;
 
                     if (invItem.Item != null)
-                        Globals.Botbase.MagicOptionsConfig.MagicStones.Add(invItem.Item, invItem.MagicOption);
+                        Globals.Botbase.MagicEngineConfig.MagicStones.Add(invItem.Item, invItem.MagicOption);
                 }
             }
             catch (Exception e)

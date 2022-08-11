@@ -2,14 +2,14 @@
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
+using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
 using System;
 using System.Linq;
-using RSBot.Core.Extensions;
 
 namespace RSBot.Alchemy.Bot
 {
-    internal class AttributeGranter
+    internal class AttributeEngine : IAlchemyEngine
     {
         #region Members
 
@@ -19,7 +19,7 @@ namespace RSBot.Alchemy.Bot
 
         #region Constructor
 
-        public AttributeGranter()
+        public AttributeEngine()
         {
             SubscribeEvents();
         }
@@ -40,9 +40,12 @@ namespace RSBot.Alchemy.Bot
         /// <summary>
         /// Runs the attribute granter using the specified configuration.
         /// </summary>
-        /// <param name="config">The configuration.</param>
-        public void Run(AttributesConfig config)
+        /// <param name="engineConfig">The configuration.</param>
+        public void Run<T>(T engineConfig)
         {
+            if (engineConfig is not AttributesEngineConfig config)
+                return;
+
             //Wait for the next tick to operate
             if (!_shouldRun)
                 return;
@@ -175,8 +178,8 @@ namespace RSBot.Alchemy.Bot
                 return;
 
             _shouldRun = true;
-            
-            Globals.View.AddLog(Globals.Botbase.AttributesConfig?.Item?.Record?.GetRealName(), Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL"));
+
+            Globals.View.AddLog(Globals.Botbase.AttributesEngineConfig?.Item?.Record?.GetRealName(), Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL"));
         }
 
         #endregion Events

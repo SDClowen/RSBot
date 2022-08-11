@@ -12,13 +12,13 @@ namespace RSBot.Alchemy.Views.Settings
 {
     public partial class AttributesSettingsView : UserControl
     {
-        internal AttributesConfig Config
+        internal AttributesEngineConfig EngineConfig
         {
             get
             {
-                var result = new AttributesConfig { Item = SelectedItem };
+                var result = new AttributesEngineConfig { Item = SelectedItem };
 
-                var attributes = new List<AttributesConfig.AttributesConfigItem>(10);
+                var attributes = new List<AttributesEngineConfig.AttributesEngineConfigItem>(10);
 
                 foreach (var attributePanel in _attributePanels)
                 {
@@ -84,14 +84,14 @@ namespace RSBot.Alchemy.Views.Settings
                     return;
                 }
 
-                if (Globals.Botbase.AttributesConfig == null)
-                    Globals.Botbase.AttributesConfig = Config;
+                if (Globals.Botbase.AttributesEngineConfig == null)
+                    Globals.Botbase.AttributesEngineConfig = EngineConfig;
 
                 foreach (var attributeGroup in availableItemAttributes)
                 {
                     var matchingStones = AlchemyItemHelper.GetAttributeStones(selectedItem, attributeGroup);
 
-                    var config = Globals.Botbase.AttributesConfig.Attributes.FirstOrDefault(x => x.Group == attributeGroup);
+                    var config = Globals.Botbase.AttributesEngineConfig.Attributes.FirstOrDefault(x => x.Group == attributeGroup);
 
                     var panel = new AttributeInfoPanel(attributeGroup, matchingStones, selectedItem, config == null ? 0 : config.MaxValue) { Dock = DockStyle.Top };
                     _attributePanels.Add(panel);
@@ -110,7 +110,7 @@ namespace RSBot.Alchemy.Views.Settings
                 Controls.Clear();
                 Controls.AddRange(_attributePanels.ToArray());
 
-                Globals.Botbase.AttributesConfig = Config;
+                Globals.Botbase.AttributesEngineConfig = EngineConfig;
             }
             catch (Exception ex)
             {
@@ -120,7 +120,7 @@ namespace RSBot.Alchemy.Views.Settings
 
         private void PanelOnChange(bool @checked, int maxValue)
         {
-            Globals.Botbase.AttributesConfig = Config;
+            Globals.Botbase.AttributesEngineConfig = EngineConfig;
         }
 
         private void View_EngineChanged(InventoryItem item, Engine engine)

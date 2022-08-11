@@ -112,7 +112,7 @@ namespace RSBot.Alchemy.Views.Settings
             {
                 comboElixir.Items.Add(new ElixirComboboxItem(items));
         
-                if (items.Key == Globals.Botbase.EnhancementConfig?.Elixirs?.FirstOrDefault()?.ItemId)
+                if (items.Key == Globals.Botbase.EnhancerEngineConfig?.Elixirs?.FirstOrDefault()?.ItemId)
                     comboElixir.SelectedIndex = index;
                 
                 index++;
@@ -190,7 +190,7 @@ namespace RSBot.Alchemy.Views.Settings
             if (Globals.Botbase == null || Globals.Botbase.Engine != Engine.Enhancement)
                 return;
 
-            Globals.Botbase.EnhancementConfig = new EnhancementConfig
+            Globals.Botbase.EnhancerEngineConfig = new EnhancerEngineConfig
             {
                 Item = Globals.View.SelectedItem,
                 UseAstralStones = checkUseAstralStones.Checked,

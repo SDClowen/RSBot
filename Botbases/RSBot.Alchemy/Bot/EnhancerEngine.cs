@@ -1,4 +1,5 @@
-﻿using RSBot.Alchemy.Helper;
+﻿using RSBot.Alchemy.Extension;
+using RSBot.Alchemy.Helper;
 using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Components;
@@ -11,7 +12,7 @@ using System.Windows.Forms;
 
 namespace RSBot.Alchemy.Bot
 {
-    internal class Enhancer
+    internal class EnhancerEngine : IAlchemyEngine
     {
         #region Members
 
@@ -21,7 +22,7 @@ namespace RSBot.Alchemy.Bot
 
         #endregion Members
 
-        private EnhancementConfig _config;
+        private EnhancerEngineConfig _config;
 
         private bool _isStoneFusing;
 
@@ -30,7 +31,7 @@ namespace RSBot.Alchemy.Bot
         /// <summary>
         /// Subscribes events
         /// </summary>
-        public Enhancer()
+        public EnhancerEngine()
         {
             SubscribeEvents();
 
@@ -76,9 +77,12 @@ namespace RSBot.Alchemy.Bot
         /// <summary>
         /// Runs a new tick of this manager
         /// </summary>
-        /// <param name="config"></param>
-        public void Run(EnhancementConfig config)
+        /// <param name="engineConfig"></param>
+        public void Run<T>(T engineConfig)
         {
+            if (engineConfig is not EnhancerEngineConfig config)
+                return;
+
             if (config.Item == null)
             {
                 Log.Warn("[Alchemy] No item configured");

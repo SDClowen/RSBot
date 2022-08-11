@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace RSBot.Alchemy.Bot
 {
-    internal class MagicOptionsConfig
+    internal class MagicEngineConfig
     {
         #region Properties
 

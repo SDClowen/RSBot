@@ -1,10 +1,8 @@
 ﻿using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 
 namespace RSBot.Alchemy.Views.Settings
 {
@@ -15,6 +13,7 @@ namespace RSBot.Alchemy.Views.Settings
         public event OnChangedEventHandler OnChange;
 
         #region Properties
+
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="AttributeInfoPanel"/> is checked.
         /// </summary>
@@ -56,8 +55,7 @@ namespace RSBot.Alchemy.Views.Settings
         /// </value>
         public IEnumerable<InventoryItem>? Stones { get; init; }
 
-
-        #endregion
+        #endregion Properties
 
         /// <summary>
         /// Gets the current attribute.
@@ -80,7 +78,7 @@ namespace RSBot.Alchemy.Views.Settings
         public AttributeInfoPanel(ItemAttributeGroup group, IEnumerable<InventoryItem>? stones, InventoryItem item, int maxValue = 22)
         {
             CheckForIllegalCrossThreadCalls = false;
-         
+
             InitializeComponent();
 
             AttributeGroup = group;
@@ -107,10 +105,9 @@ namespace RSBot.Alchemy.Views.Settings
             checkSelected.Text = $"{group.GetTranslation()} +{item.Attributes.GetPercentage(attributeSlot)}%";
             checkSelected.CheckedChanged += CheckSelected_CheckedChanged;
             comboMaxValue.SelectedIndexChanged += ComboMaxValue_SelectedIndexChanged;
-            
+
             if (Stones.Any())
                 tipStone.SetToolTip(checkSelected, $"{Stones.First().Record.GetRealName()}x{totalAmount}");
-
         }
 
         private void ComboMaxValue_SelectedIndexChanged(object? sender, System.EventArgs e)
@@ -162,7 +159,6 @@ namespace RSBot.Alchemy.Views.Settings
 
                 return;
             }
-
 
             if (maxValue <= 41)
             {

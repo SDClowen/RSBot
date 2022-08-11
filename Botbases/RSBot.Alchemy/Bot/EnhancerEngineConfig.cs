@@ -3,7 +3,7 @@ using RSBot.Core.Objects;
 
 namespace RSBot.Alchemy.Bot
 {
-    internal class EnhancementConfig
+    internal class EnhancerEngineConfig
     {
         #region Properties
 

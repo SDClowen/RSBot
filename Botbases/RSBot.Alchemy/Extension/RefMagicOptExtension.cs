@@ -5,6 +5,8 @@ namespace RSBot.Alchemy.Client.ReferenceObjects
 {
     internal static class RefMagicOptExtension
     {
+        #region Methods
+
         /// <summary>
         /// Returns the translation of the group
         /// </summary>
@@ -151,5 +153,7 @@ namespace RSBot.Alchemy.Client.ReferenceObjects
 
             return magicOption.Group;
         }
+
+        #endregion Methods
     }
 }

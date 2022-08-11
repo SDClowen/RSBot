@@ -12,32 +12,9 @@ namespace RSBot.Alchemy.Bot
         public Engine Engine { get; set; }
 
         /// <summary>
-        /// The configuration for the Enhancer
-        /// </summary>
-        public EnhancementConfig EnhancementConfig { get; set; }
-
-        /// <summary>
         /// The enhancement manager used to increase item OptLevel
         /// </summary>
-        public Enhancer Enhancer { get; private set; }
-
-        /// <summary>
-        /// The magic option manager used to fuse magic stones
-        /// </summary>
-        public MagicOptionGranter MagicOptionGranter { get; set; }
-
-        /// <summary>
-        /// The configuration for the magic option granter
-        /// </summary>
-        public MagicOptionsConfig MagicOptionsConfig { get; set; }
-
-        /// <summary>
-        /// Gets or sets the attributes configuration.
-        /// </summary>
-        /// <value>
-        /// The attributes configuration.
-        /// </value>
-        public AttributesConfig AttributesConfig { get; set; }
+        public IAlchemyEngine EnhancerEngine { get; private set; }
 
         /// <summary>
         /// Gets or sets the attribute granter.
@@ -45,7 +22,30 @@ namespace RSBot.Alchemy.Bot
         /// <value>
         /// The attribute granter.
         /// </value>
-        public AttributeGranter AttributeGranter { get; set; }
+        public IAlchemyEngine AttributeEngine { get; set; }
+
+        /// <summary>
+        /// The magic option manager used to fuse magic stones
+        /// </summary>
+        public IAlchemyEngine MagicEngine { get; set; }
+
+        /// <summary>
+        /// The configuration for the Enhancer
+        /// </summary>
+        public EnhancerEngineConfig EnhancerEngineConfig { get; set; }
+
+        /// <summary>
+        /// The configuration for the magic option granter
+        /// </summary>
+        public MagicEngineConfig MagicEngineConfig { get; set; }
+
+        /// <summary>
+        /// Gets or sets the attributes configuration.
+        /// </summary>
+        /// <value>
+        /// The attributes configuration.
+        /// </value>
+        public AttributesEngineConfig AttributesEngineConfig { get; set; }
 
         #endregion Properties
 
@@ -53,9 +53,9 @@ namespace RSBot.Alchemy.Bot
 
         public Botbase()
         {
-            Enhancer = new Enhancer();
-            MagicOptionGranter = new MagicOptionGranter();
-            AttributeGranter = new AttributeGranter();
+            EnhancerEngine = new EnhancerEngine();
+            MagicEngine = new MagicEngine();
+            AttributeEngine = new AttributeEngine();
         }
 
         #endregion Constructor
@@ -69,7 +69,7 @@ namespace RSBot.Alchemy.Bot
         {
             if (Engine == Engine.Enhancement)
             {
-                if (EnhancementConfig == null)
+                if (EnhancerEngineConfig == null)
                 {
                     Log.Warn("[LuckyAlchemyBot] Configuration issue detected!");
 
@@ -78,12 +78,12 @@ namespace RSBot.Alchemy.Bot
                     return;
                 }
 
-                Enhancer?.Start();
+                EnhancerEngine?.Start();
             }
 
             if (Engine == Engine.Magic)
             {
-                if (MagicOptionsConfig == null)
+                if (MagicEngineConfig == null)
                 {
                     Log.Warn("[LuckyAlchemyBot] Configuration issue detected!");
 
@@ -92,12 +92,12 @@ namespace RSBot.Alchemy.Bot
                     return;
                 }
 
-                MagicOptionGranter?.Start();
+                MagicEngine?.Start();
             }
 
             if (Engine == Engine.Attribute)
             {
-                if (AttributesConfig == null)
+                if (AttributesEngineConfig == null)
                 {
                     Log.Warn("[LuckyAlchemyBot] Configuration issue detected!");
 
@@ -106,7 +106,7 @@ namespace RSBot.Alchemy.Bot
                     return;
                 }
 
-                AttributeGranter?.Start();
+                AttributeEngine?.Start();
             }
         }
 
@@ -116,13 +116,13 @@ namespace RSBot.Alchemy.Bot
         public void Stop()
         {
             if (Engine == Engine.Enhancement)
-                Enhancer?.Stop();
+                EnhancerEngine?.Stop();
 
             if (Engine == Engine.Magic)
-                MagicOptionGranter?.Stop();
+                MagicEngine?.Stop();
 
             if (Engine == Engine.Attribute)
-                AttributeGranter?.Stop();
+                AttributeEngine?.Stop();
         }
 
         /// <summary>
@@ -134,7 +134,7 @@ namespace RSBot.Alchemy.Bot
 
             {
                 case Engine.Enhancement:
-                    if (EnhancementConfig == null || Enhancer == null)
+                    if (EnhancerEngineConfig == null || EnhancerEngine == null)
                     {
                         Log.Warn("[Alchemy] Configuration issue detected!");
 
@@ -143,12 +143,12 @@ namespace RSBot.Alchemy.Bot
                         return;
                     }
 
-                    Enhancer.Run(EnhancementConfig);
+                    EnhancerEngine.Run(EnhancerEngineConfig);
 
                     break;
 
                 case Engine.Magic:
-                    if (MagicOptionGranter == null || MagicOptionsConfig == null)
+                    if (MagicEngine == null || MagicEngineConfig == null)
                     {
                         Log.Warn("[Alchemy] Configuration issue detected!");
 
@@ -157,12 +157,12 @@ namespace RSBot.Alchemy.Bot
                         return;
                     }
 
-                    MagicOptionGranter.Run(MagicOptionsConfig);
+                    MagicEngine.Run(MagicEngineConfig);
 
                     break;
 
                 case Engine.Attribute:
-                    if (AttributeGranter == null || AttributesConfig == null)
+                    if (AttributeEngine == null || AttributesEngineConfig == null)
                     {
                         Log.Warn("[Alchemy] Configuration issue detected!");
 
@@ -171,7 +171,7 @@ namespace RSBot.Alchemy.Bot
                         return;
                     }
 
-                    AttributeGranter.Run(AttributesConfig);
+                    AttributeEngine.Run(AttributesEngineConfig);
 
                     break;
             }

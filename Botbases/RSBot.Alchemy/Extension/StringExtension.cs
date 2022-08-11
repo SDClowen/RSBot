@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace RSBot.Alchemy
+namespace RSBot.Alchemy.Extension
 {
     internal static class StringExtension
     {
