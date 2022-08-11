@@ -111,8 +111,6 @@ namespace RSBot.Default.Bundle.Loop
 
             TownscriptRunning = true;
 
-
-            EventManager.FireEvent("OnChangeStatusText", "Running town script...");
             ScriptManager.Load(filename);
             ScriptManager.RunScript(false);
 
@@ -160,8 +158,7 @@ namespace RSBot.Default.Bundle.Loop
 
             Invoke();
             Log.NotifyLang("LoadingWalkScript", Config.WalkScript);
-
-            EventManager.FireEvent("OnChangeStatusText", "Running walk script");
+            
             ScriptManager.Load(Config.WalkScript);
             ScriptManager.RunScript();
         }

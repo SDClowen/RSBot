@@ -6,7 +6,6 @@ using RSBot.Core.Objects.Skill;
 using RSBot.Core.Objects.Spawn;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 
@@ -162,7 +161,7 @@ namespace RSBot.Core.Components
                 if (weapon != null)
                     weaponRange = weapon.Record.Range / 10;
                 */
-                
+
                 for (int i = 0; i < Skills[rarity].Count; i++)
                 {
                     var s = Skills[rarity][i];
@@ -260,7 +259,7 @@ namespace RSBot.Core.Components
 
             if (entity.State.LifeState == LifeState.Dead)
                 return false;
-            
+
             if (!CheckSkillRequired(skill.Record))
                 return false;
 
@@ -417,7 +416,6 @@ namespace RSBot.Core.Components
                     return AwaitCallbackResult.Success;
 
                 return AwaitCallbackResult.ConditionFailed;
-
             }, 0xB0BD);
 
             var callback = new AwaitCallback(response =>

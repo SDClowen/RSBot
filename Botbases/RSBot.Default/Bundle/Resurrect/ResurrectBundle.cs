@@ -37,8 +37,8 @@ namespace RSBot.Default.Bundle.Resurrect
                 if (member.Player.Movement.Source.DistanceTo(Game.Player.Movement.Source) > 100)
                     continue;
 
-
                 EventManager.FireEvent("OnChangeStatusText", $"Resurrecting player {member.Name}");
+                
                 if (member.Player.State.LifeState == LifeState.Dead)
                 {
                     if (!_lastResurrectedPlayers.ContainsKey(member.Name))
