@@ -35,6 +35,8 @@ namespace RSBot.Alchemy.Views.Settings
         /// </summary>
         public MagicOptionsSettingsView()
         {
+            CheckForIllegalCrossThreadCalls = false;
+
             InitializeComponent();
 
             EventManager.SubscribeEvent("OnEnterGame", SubscribeMainFormEvents);
@@ -101,84 +103,101 @@ namespace RSBot.Alchemy.Views.Settings
             if (Globals.View.SelectedItem == null) 
                 return;
 
-            lvMagicOptions.BeginUpdate();
-            lvMagicOptions.Items.Clear();
-            _reloadConfig = false;
-
-            var selectedItem = Globals.View.SelectedItem;
-            if (selectedItem == null)
+            try
             {
-                lvMagicOptions.EndUpdate();
-                return;
-            }
+                lvMagicOptions.BeginUpdate();
+                lvMagicOptions.Items.Clear();
+                _reloadConfig = false;
 
-            var assignments = Game.ReferenceManager.GetAssignments(selectedItem.Record.TypeID3, selectedItem.Record.TypeID4);
-            foreach (var assignment in assignments)
-            {
-                if (assignment == null)
-                    continue;
-                
-                var matchingMagicStones = AlchemyItemHelper.GetStonesByGroup(selectedItem, assignment.Group);
-                
-                MagicOptionInfo currentMagicOptionInfo = null;
-                if (selectedItem.MagicOptions != null)
-                    foreach (var magicOption in selectedItem.MagicOptions)
-                    {;
-                        if (magicOption.Record?.Group != assignment.Group) 
-                            continue;
-
-                        if (magicOption.Record.Level != selectedItem.Record.Degree)
-                        {
-                            //Fix in case the server sends a lower magic option id than expected (dunno why this happens)
-                            var actualMagicOption = Game.ReferenceManager.GetMagicOption(assignment.Group,
-                                (byte) selectedItem.Record.Degree);
-
-                            matchingMagicStones =
-                                AlchemyItemHelper.GetStonesByGroup(magicOption.Record.Level, assignment.Group);
-
-                            currentMagicOptionInfo = new MagicOptionInfo { Id = actualMagicOption.Id, Value = magicOption.Value };
-                        }
-                        else 
-                            currentMagicOptionInfo = magicOption;
-
-                        break;
-                    }
-
-                var canBeIncreased = !!matchingMagicStones.Any();
-                
-                //Max option
-                if (currentMagicOptionInfo != null &&
-                    currentMagicOptionInfo.Value >= currentMagicOptionInfo.Record.GetMaxValue())
-                    canBeIncreased = false;
-
-                var refMagicOption = Game.ReferenceManager.GetMagicOption(assignment.Group, (byte) selectedItem.Record.Degree);
-                if (refMagicOption == null)
-                    continue;
-
-                var item = new ListViewItem(assignment.GetGroupTranslation())
+                var selectedItem = Globals.View.SelectedItem;
+                if (selectedItem == null)
                 {
-                    Tag = new MagicStoneListViewItemTag { Item = matchingMagicStones.FirstOrDefault(), MagicOption = assignment, MagicOptionInfo = currentMagicOptionInfo },
-                    ForeColor = canBeIncreased ? Color.Green : Color.Red
-                };
+                    lvMagicOptions.EndUpdate();
+                    return;
+                }
 
-                item.SubItems.Add(currentMagicOptionInfo == null ? "0" : currentMagicOptionInfo.Value.ToString());
-                item.SubItems.Add(refMagicOption.GetMaxValue().ToString());
-                item.SubItems.Add(!matchingMagicStones.Any() ? "x0" : $"x{matchingMagicStones.Sum(i => i.Amount)}");
+                var assignments =
+                    Game.ReferenceManager.GetAssignments(selectedItem.Record.TypeID3, selectedItem.Record.TypeID4);
+                foreach (var assignment in assignments)
+                {
+                    if (assignment == null)
+                        continue;
 
-                if (Globals.Botbase.MagicOptionsConfig != null && Globals.Botbase.MagicOptionsConfig.MagicStones.Keys.FirstOrDefault(i => i.Record.ID == matchingMagicStones.FirstOrDefault()?.ItemId) != null && canBeIncreased)
-                    item.Checked = true;
-                else
-                    item.Checked = false;
+                    var matchingMagicStones = AlchemyItemHelper.GetStonesByGroup(selectedItem, assignment.Group);
 
-                item.Font = new Font(Font, FontStyle.Bold);
+                    MagicOptionInfo currentMagicOptionInfo = null;
+                    if (selectedItem.MagicOptions != null)
+                        foreach (var magicOption in selectedItem.MagicOptions)
+                        {
+                            ;
+                            if (magicOption.Record?.Group != assignment.Group)
+                                continue;
 
-                lvMagicOptions.Items.Add(item);
+                            if (magicOption.Record.Level != selectedItem.Record.Degree)
+                            {
+                                //Fix in case the server sends a lower magic option id than expected (dunno why this happens)
+                                var actualMagicOption = Game.ReferenceManager.GetMagicOption(assignment.Group,
+                                    (byte) selectedItem.Record.Degree);
+
+                                matchingMagicStones =
+                                    AlchemyItemHelper.GetStonesByGroup(magicOption.Record.Level, assignment.Group);
+
+                                currentMagicOptionInfo = new MagicOptionInfo
+                                    {Id = actualMagicOption.Id, Value = magicOption.Value};
+                            }
+                            else
+                                currentMagicOptionInfo = magicOption;
+
+                            break;
+                        }
+
+                    var canBeIncreased = !!matchingMagicStones.Any();
+
+                    //Max option
+                    if (currentMagicOptionInfo != null &&
+                        currentMagicOptionInfo.Value >= currentMagicOptionInfo.Record.GetMaxValue())
+                        canBeIncreased = false;
+
+                    var refMagicOption =
+                        Game.ReferenceManager.GetMagicOption(assignment.Group, (byte) selectedItem.Record.Degree);
+                    if (refMagicOption == null)
+                        continue;
+
+                    var item = new ListViewItem(assignment.GetGroupTranslation())
+                    {
+                        Tag = new MagicStoneListViewItemTag
+                        {
+                            Item = matchingMagicStones.FirstOrDefault(), MagicOption = assignment,
+                            MagicOptionInfo = currentMagicOptionInfo
+                        },
+                        ForeColor = canBeIncreased ? Color.Green : Color.Red
+                    };
+
+                    item.SubItems.Add(currentMagicOptionInfo == null ? "0" : currentMagicOptionInfo.Value.ToString());
+                    item.SubItems.Add(refMagicOption.GetMaxValue().ToString());
+                    item.SubItems.Add(!matchingMagicStones.Any() ? "x0" : $"x{matchingMagicStones.Sum(i => i.Amount)}");
+
+                    if (Globals.Botbase.MagicOptionsConfig != null &&
+                        Globals.Botbase.MagicOptionsConfig.MagicStones.Keys.FirstOrDefault(i =>
+                            i.Record.ID == matchingMagicStones.FirstOrDefault()?.ItemId) != null && canBeIncreased)
+                        item.Checked = true;
+                    else
+                        item.Checked = false;
+
+                    item.Font = new Font(Font, FontStyle.Bold);
+
+                    lvMagicOptions.Items.Add(item);
+                }
+
+                lvMagicOptions.EndUpdate();
+                _reloadConfig = true;
+
+                ReloadConfig();
             }
-
-            lvMagicOptions.EndUpdate();
-            _reloadConfig = true;
-
-            ReloadConfig();
+            catch (Exception ex)
+            {
+                Log.Debug($"[Alchemy] Unknown error while populating magic options settings list: {ex.Message}");
+            }
         }
 
         /// <summary>

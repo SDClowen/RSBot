@@ -61,9 +61,10 @@ namespace RSBot.Alchemy.Views.Settings
             // lblMaxOptLevel
             // 
             this.lblMaxOptLevel.AutoSize = true;
+            this.lblMaxOptLevel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblMaxOptLevel.Location = new System.Drawing.Point(13, 34);
             this.lblMaxOptLevel.Name = "lblMaxOptLevel";
-            this.lblMaxOptLevel.Size = new System.Drawing.Size(104, 13);
+            this.lblMaxOptLevel.Size = new System.Drawing.Size(109, 15);
             this.lblMaxOptLevel.TabIndex = 0;
             this.lblMaxOptLevel.Text = "Max enhancement:";
             // 
@@ -84,7 +85,7 @@ namespace RSBot.Alchemy.Views.Settings
             0,
             0});
             this.numMaxEnhancement.Name = "numMaxEnhancement";
-            this.numMaxEnhancement.Size = new System.Drawing.Size(54, 22);
+            this.numMaxEnhancement.Size = new System.Drawing.Size(54, 23);
             this.numMaxEnhancement.TabIndex = 1;
             this.numMaxEnhancement.Value = new decimal(new int[] {
             1,
@@ -97,9 +98,10 @@ namespace RSBot.Alchemy.Views.Settings
             // lblPlus
             // 
             this.lblPlus.AutoSize = true;
+            this.lblPlus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblPlus.Location = new System.Drawing.Point(119, 34);
             this.lblPlus.Name = "lblPlus";
-            this.lblPlus.Size = new System.Drawing.Size(15, 13);
+            this.lblPlus.Size = new System.Drawing.Size(15, 15);
             this.lblPlus.TabIndex = 2;
             this.lblPlus.Text = "+";
             // 
@@ -110,7 +112,7 @@ namespace RSBot.Alchemy.Views.Settings
             this.checkUseLuckyStones.Checked = false;
             this.checkUseLuckyStones.Location = new System.Drawing.Point(141, 130);
             this.checkUseLuckyStones.Name = "checkUseLuckyStones";
-            this.checkUseLuckyStones.Size = new System.Drawing.Size(108, 13);
+            this.checkUseLuckyStones.Size = new System.Drawing.Size(110, 15);
             this.checkUseLuckyStones.TabIndex = 3;
             this.checkUseLuckyStones.Text = "Use lucky stones";
             this.checkUseLuckyStones.CheckedChanged += new System.EventHandler(this.config_CheckedChange);
@@ -122,7 +124,7 @@ namespace RSBot.Alchemy.Views.Settings
             this.checkUseImmortalStones.Checked = false;
             this.checkUseImmortalStones.Location = new System.Drawing.Point(141, 153);
             this.checkUseImmortalStones.Name = "checkUseImmortalStones";
-            this.checkUseImmortalStones.Size = new System.Drawing.Size(127, 13);
+            this.checkUseImmortalStones.Size = new System.Drawing.Size(131, 15);
             this.checkUseImmortalStones.TabIndex = 4;
             this.checkUseImmortalStones.Text = "Use immortal stones";
             this.checkUseImmortalStones.CheckedChanged += new System.EventHandler(this.config_CheckedChange);
@@ -130,9 +132,10 @@ namespace RSBot.Alchemy.Views.Settings
             // lblElixir
             // 
             this.lblElixir.AutoSize = true;
+            this.lblElixir.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblElixir.Location = new System.Drawing.Point(83, 70);
             this.lblElixir.Name = "lblElixir";
-            this.lblElixir.Size = new System.Drawing.Size(34, 13);
+            this.lblElixir.Size = new System.Drawing.Size(35, 15);
             this.lblElixir.TabIndex = 5;
             this.lblElixir.Text = "Elixir:";
             // 
@@ -155,8 +158,8 @@ namespace RSBot.Alchemy.Views.Settings
             // 
             this.linkRefreshItemList.AutoSize = true;
             this.linkRefreshItemList.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.linkRefreshItemList.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkRefreshItemList.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.linkRefreshItemList.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.linkRefreshItemList.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.linkRefreshItemList.Location = new System.Drawing.Point(328, 60);
             this.linkRefreshItemList.Name = "linkRefreshItemList";
             this.linkRefreshItemList.Size = new System.Drawing.Size(34, 30);
@@ -171,7 +174,7 @@ namespace RSBot.Alchemy.Views.Settings
             this.checkUseAstralStones.Checked = false;
             this.checkUseAstralStones.Location = new System.Drawing.Point(141, 176);
             this.checkUseAstralStones.Name = "checkUseAstralStones";
-            this.checkUseAstralStones.Size = new System.Drawing.Size(110, 13);
+            this.checkUseAstralStones.Size = new System.Drawing.Size(110, 15);
             this.checkUseAstralStones.TabIndex = 8;
             this.checkUseAstralStones.Text = "Use astral stones";
             this.checkUseAstralStones.CheckedChanged += new System.EventHandler(this.config_CheckedChange);
@@ -179,27 +182,30 @@ namespace RSBot.Alchemy.Views.Settings
             // lblLuckyCount
             // 
             this.lblLuckyCount.AutoSize = true;
+            this.lblLuckyCount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblLuckyCount.Location = new System.Drawing.Point(288, 131);
             this.lblLuckyCount.Name = "lblLuckyCount";
-            this.lblLuckyCount.Size = new System.Drawing.Size(18, 13);
+            this.lblLuckyCount.Size = new System.Drawing.Size(19, 15);
             this.lblLuckyCount.TabIndex = 9;
             this.lblLuckyCount.Text = "x0";
             // 
             // lblImmortalCount
             // 
             this.lblImmortalCount.AutoSize = true;
+            this.lblImmortalCount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblImmortalCount.Location = new System.Drawing.Point(288, 154);
             this.lblImmortalCount.Name = "lblImmortalCount";
-            this.lblImmortalCount.Size = new System.Drawing.Size(18, 13);
+            this.lblImmortalCount.Size = new System.Drawing.Size(19, 15);
             this.lblImmortalCount.TabIndex = 9;
             this.lblImmortalCount.Text = "x0";
             // 
             // lblAstralCount
             // 
             this.lblAstralCount.AutoSize = true;
+            this.lblAstralCount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblAstralCount.Location = new System.Drawing.Point(288, 177);
             this.lblAstralCount.Name = "lblAstralCount";
-            this.lblAstralCount.Size = new System.Drawing.Size(18, 13);
+            this.lblAstralCount.Size = new System.Drawing.Size(19, 15);
             this.lblAstralCount.TabIndex = 9;
             this.lblAstralCount.Text = "x0";
             // 
@@ -210,7 +216,7 @@ namespace RSBot.Alchemy.Views.Settings
             this.checkUseSteadyStones.Checked = false;
             this.checkUseSteadyStones.Location = new System.Drawing.Point(141, 199);
             this.checkUseSteadyStones.Name = "checkUseSteadyStones";
-            this.checkUseSteadyStones.Size = new System.Drawing.Size(115, 13);
+            this.checkUseSteadyStones.Size = new System.Drawing.Size(116, 15);
             this.checkUseSteadyStones.TabIndex = 8;
             this.checkUseSteadyStones.Text = "Use steady stones";
             this.checkUseSteadyStones.CheckedChanged += new System.EventHandler(this.config_CheckedChange);
@@ -218,18 +224,20 @@ namespace RSBot.Alchemy.Views.Settings
             // lblSteadyStonesCount
             // 
             this.lblSteadyStonesCount.AutoSize = true;
+            this.lblSteadyStonesCount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblSteadyStonesCount.Location = new System.Drawing.Point(288, 200);
             this.lblSteadyStonesCount.Name = "lblSteadyStonesCount";
-            this.lblSteadyStonesCount.Size = new System.Drawing.Size(18, 13);
+            this.lblSteadyStonesCount.Size = new System.Drawing.Size(19, 15);
             this.lblSteadyStonesCount.TabIndex = 9;
             this.lblSteadyStonesCount.Text = "x0";
             // 
             // lblLuckyPowderCount
             // 
             this.lblLuckyPowderCount.AutoSize = true;
+            this.lblLuckyPowderCount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblLuckyPowderCount.Location = new System.Drawing.Point(288, 108);
             this.lblLuckyPowderCount.Name = "lblLuckyPowderCount";
-            this.lblLuckyPowderCount.Size = new System.Drawing.Size(18, 13);
+            this.lblLuckyPowderCount.Size = new System.Drawing.Size(19, 15);
             this.lblLuckyPowderCount.TabIndex = 11;
             this.lblLuckyPowderCount.Text = "x0";
             // 
@@ -240,7 +248,7 @@ namespace RSBot.Alchemy.Views.Settings
             this.checkStopLuckyPowder.Checked = true;
             this.checkStopLuckyPowder.Location = new System.Drawing.Point(141, 107);
             this.checkStopLuckyPowder.Name = "checkStopLuckyPowder";
-            this.checkStopLuckyPowder.Size = new System.Drawing.Size(138, 13);
+            this.checkStopLuckyPowder.Size = new System.Drawing.Size(140, 15);
             this.checkStopLuckyPowder.TabIndex = 10;
             this.checkStopLuckyPowder.Text = "Stop if 0 lucky powder";
             this.checkStopLuckyPowder.CheckedChanged += new System.EventHandler(this.config_CheckedChange);
@@ -250,7 +258,8 @@ namespace RSBot.Alchemy.Views.Settings
             this.lblCurrentOptLevel.AutoSize = true;
             this.lblCurrentOptLevel.BackColor = System.Drawing.Color.Transparent;
             this.lblCurrentOptLevel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblCurrentOptLevel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentOptLevel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblCurrentOptLevel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblCurrentOptLevel.Location = new System.Drawing.Point(200, 32);
             this.lblCurrentOptLevel.Name = "lblCurrentOptLevel";
             this.lblCurrentOptLevel.Size = new System.Drawing.Size(31, 22);
@@ -278,7 +287,7 @@ namespace RSBot.Alchemy.Views.Settings
             this.Controls.Add(this.linkRefreshItemList);
             this.Controls.Add(this.lblCurrentOptLevel);
             this.Enabled = false;
-            this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "EnhanceSettingsView";
             this.Size = new System.Drawing.Size(438, 306);
             ((System.ComponentModel.ISupportInitialize)(this.numMaxEnhancement)).EndInit();

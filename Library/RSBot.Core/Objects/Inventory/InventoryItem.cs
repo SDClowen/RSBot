@@ -4,7 +4,6 @@ using RSBot.Core.Objects.Item;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using RSBot.Core.Objects.Inventory.Item;
 
 namespace RSBot.Core.Objects
 {
@@ -73,7 +72,7 @@ namespace RSBot.Core.Objects
         /// <value>
         /// The variance.
         /// </value>
-        public AttributesInfo Attributes { get; set; }
+        public ItemAttributesInfo Attributes { get; set; }
 
         /// <summary>
         /// Gets or sets the data.
@@ -276,7 +275,7 @@ namespace RSBot.Core.Objects
             if (record.IsEquip || record.IsFellowEquip || record.IsJobEquip)
             {
                 item.OptLevel = packet.ReadByte();
-                item.Attributes = new AttributesInfo(packet.ReadULong());
+                item.Attributes = new ItemAttributesInfo(packet.ReadULong());
                 item.Durability = packet.ReadUInt();
 
                 //Read magic options for the item

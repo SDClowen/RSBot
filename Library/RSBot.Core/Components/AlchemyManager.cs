@@ -3,12 +3,21 @@ using RSBot.Core.Network;
 using RSBot.Core.Network.Handler.Agent.Alchemy;
 using RSBot.Core.Objects;
 using System.Collections.Generic;
-using System.Linq;
+using System.Timers;
 
 namespace RSBot.Core.Components
 {
+    /// <summary>
+    /// @ToDo: Currently completely unsupported operations are:
+    ///             * Socket alchemy
+    ///             * Dismantle/Disjoint
+    ///             * Manufacture
+    ///
+    /// </summary>
     public class AlchemyManager
     {
+        #region Properties
+
         /// <summary>
         /// Gets or sets a list of inventory items currently used in an alchemy operation.
         ///
@@ -17,12 +26,22 @@ namespace RSBot.Core.Components
         public static List<InventoryItem>? ActiveAlchemyItems { get; internal set; }
 
         /// <summary>
-        /// Gets a value indicating whether the player is performing an alchemy operation
+        /// Gets a value indicating whether this instance is fusing.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if this instance is active; otherwise, <c>false</c>.
+        ///   <c>true</c> if this instance is fusing; otherwise, <c>false</c>.
         /// </value>
-        public static bool IsActive => ActiveAlchemyItems == null || !ActiveAlchemyItems.Any();
+        public static bool IsFusing { get; internal set; }
+
+        #endregion Properties
+
+        #region Members
+
+        private static Timer _fusingTimer;
+
+        #endregion Members
+
+        #region Methods
 
         /// <summary>
         /// Cancels the pending alchemy operation.
@@ -44,12 +63,23 @@ namespace RSBot.Core.Components
         /// <param name="powder">The powder.</param>
         public static void FuseElixir(InventoryItem item, InventoryItem elixir, InventoryItem? powder)
         {
-            Log.Notify($"[Alchemy] Fusing elixir {elixir.Record.GetRealName()} to {item.Record.GetRealName()}");
+            if (Game.Player.Inventory.GetItemAt(item.Slot).ItemId != item.ItemId ||
+                Game.Player.Inventory.GetItemAt(elixir.Slot).ItemId != elixir.ItemId ||
+                (powder != null && Game.Player.Inventory.GetItemAt(powder.Slot).ItemId != powder.ItemId))
+            {
+                Log.Warn("[Alchemy] Requested to fuse an item that does not match the current item at the specified slot.");
+
+                return;
+            }
+
+            Log.Notify(powder == null
+                ? $"[Alchemy] Fusing elixir {elixir.Record.GetRealName()} to {item.Record.GetRealName()}"
+                : $"[Alchemy] Fusing elixir {elixir.Record.GetRealName()} to {item.Record.GetRealName()} using powder {powder.Record.GetRealName()}");
 
             var packet = new Packet(0x7150);
             packet.WriteByte(AlchemyAction.Fuse); //fuse
             packet.WriteByte(AlchemyType.Elixir); //type (Elixir)
-            packet.WriteByte(powder != null ? (byte)3 : (byte)2); //slots
+            packet.WriteByte(powder != null ? (byte)3 : (byte)2); //Slot count
             packet.WriteByte(item.Slot);
             packet.WriteByte(elixir.Slot);
 
@@ -70,6 +100,13 @@ namespace RSBot.Core.Components
         /// <param name="magicStone">The elixir.</param>
         public static void FuseMagicStone(InventoryItem item, InventoryItem magicStone)
         {
+            if (Game.Player.Inventory.GetItemAt(item.Slot).ItemId != item.ItemId || Game.Player.Inventory.GetItemAt(magicStone.Slot).ItemId != magicStone.ItemId)
+            {
+                Log.Warn("[Alchemy] Requested to fuse an item that does not match the current item at the specified slot.");
+
+                return;
+            }
+
             Log.Notify($"[Alchemy] Fusing magic stone {magicStone.Record.GetRealName()} to item {item.Record.GetRealName()}");
 
             var packet = new Packet(0x7151);
@@ -82,6 +119,7 @@ namespace RSBot.Core.Components
             packet.WriteByte(magicStone.Slot);
 
             packet.Lock();
+
             Kernel.Proxy.Server.Send(packet);
 
             GenericAlchemyRequestHandler.Invoke(packet);
@@ -94,6 +132,13 @@ namespace RSBot.Core.Components
         /// <param name="attributeStone">The attribute stone.</param>
         public static void FuseAttributeStone(InventoryItem item, InventoryItem attributeStone)
         {
+            if (Game.Player.Inventory.GetItemAt(item.Slot).ItemId != item.ItemId || Game.Player.Inventory.GetItemAt(attributeStone.Slot).ItemId != attributeStone.ItemId)
+            {
+                Log.Warn("[Alchemy] Requested to fuse an item that does not match the current item at the specified slot.");
+
+                return;
+            }
+
             Log.Notify($"[Alchemy] Fusing attribute stone {attributeStone.Record.GetRealName()} to item {item.Record.GetRealName()}");
 
             var packet = new Packet(0x7151);
@@ -110,5 +155,46 @@ namespace RSBot.Core.Components
 
             GenericAlchemyRequestHandler.Invoke(packet);
         }
+
+        /// <summary>
+        /// Starts the alchemy timer.
+        /// </summary>
+        internal static void StartTimer()
+        {
+            IsFusing = true;
+
+            //An alchemy operation should not take longer than 10s
+            _fusingTimer = new Timer(10_000)
+            {
+                AutoReset = false,
+                Enabled = false
+            };
+
+            _fusingTimer.Elapsed += FusingActionFusingTimerElapsed;
+            _fusingTimer.Start();
+        }
+
+        /// <summary>
+        /// Stops the alchemy timer.
+        /// </summary>
+        internal static void StopTimer()
+        {
+            IsFusing = false;
+
+            _fusingTimer?.Dispose();
+            _fusingTimer = null;
+        }
+
+        /// <summary>
+        /// Triggered when the alchemy timer elapses. Stops the timer.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="ElapsedEventArgs"/> instance containing the event data.</param>
+        private static void FusingActionFusingTimerElapsed(object? sender, ElapsedEventArgs e)
+        {
+            StopTimer();
+        }
+
+        #endregion Methods
     }
 }

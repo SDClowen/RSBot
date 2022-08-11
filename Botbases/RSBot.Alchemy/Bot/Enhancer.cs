@@ -79,8 +79,14 @@ namespace RSBot.Alchemy.Bot
         /// <param name="config"></param>
         public void Run(EnhancementConfig config)
         {
-            if (config?.Item == null)
+            if (config.Item == null)
+            {
+                Log.Warn("[Alchemy] No item configured");
                 Kernel.Bot.Stop();
+
+                return;
+            }
+
 
             //Item still there and available?
             var item = Game.Player.Inventory.GetItemAt(config.Item.Slot);
@@ -93,12 +99,13 @@ namespace RSBot.Alchemy.Bot
             }
 
             //Config incomplete?
-            if (!_shouldRun || config == null || Globals.Botbase.Engine != Engine.Enhancement || config.Item == null)
+            if (!_shouldRun || Globals.Botbase.Engine != Engine.Enhancement)
                 return;
 
-            if (!config.Elixirs.Any() || config.Elixirs.Sum(i => i.Amount) == 0)
+            if (config.Elixirs == null || !config.Elixirs.Any() || config.Elixirs.Sum(i => i.Amount) == 0)
             {
                 Log.Warn("[Alchemy] No enhancement elixir selected");
+                Kernel.Bot.Stop();
 
                 return;
             }

@@ -9,12 +9,12 @@ using System.Windows.Forms;
 using RSBot.Alchemy.Bot;
 using RSBot.Alchemy.Views.Settings;
 using RSBot.Core.Extensions;
-using RSBot.Core.Objects.Inventory.Item;
 
 namespace RSBot.Alchemy.Views
 {
     public partial class Main : UserControl
     {
+
         internal class InventoryItemComboboxItem
         {
             /// <summary>
@@ -30,6 +30,12 @@ namespace RSBot.Alchemy.Views
 
             public override string ToString() => $"[{InventoryItem?.Slot}] {InventoryItem?.Record?.GetRealName()} (+{InventoryItem?.OptLevel})";
         }
+
+        #region Properties
+
+        public bool IsRefreshing { get; private set; }
+
+        #endregion
 
         #region Delegates
 
@@ -67,6 +73,8 @@ namespace RSBot.Alchemy.Views
         /// </summary>
         public Main()
         {
+            CheckForIllegalCrossThreadCalls = false;
+
             InitializeComponent();
             
             EventManager.SubscribeEvent("OnLoadCharacter", ReloadItemList);
@@ -95,43 +103,57 @@ namespace RSBot.Alchemy.Views
         /// </summary>
         private void ReloadItemList()
         {
+            IsRefreshing = true;
+
             comboItem.Items.Clear();
 
             var items = Game.Player.Inventory.Where(i => i.Record.IsEquip && !i.Record.IsAvatar && !i.Record.IsJobOutfit).ToList();
 
-            items.ForEach(item =>
+            try
             {
-                var newComboItem = new InventoryItemComboboxItem(item);
+                foreach (var item in items)
+                {
+                    var newComboItem = new InventoryItemComboboxItem(item);
 
-                if (item.Slot > 12)
-                    comboItem.Items.Add(newComboItem);
+                    if (item.Slot > 12)
+                        comboItem.Items.Add(newComboItem);
 
-                if (SelectedItem != null && item.Slot == SelectedItem.Slot)
-                    comboItem.SelectedItem = newComboItem;
-            });
+                    if (SelectedItem != null && item.Slot == SelectedItem.Slot)
+                        comboItem.SelectedItem = newComboItem;
+                }
+
+            }
+            catch (Exception e)
+            {
+                Log.Debug($"[Alchemy] Unknown error while reloading item list: {e.Message}");
+            }
+            finally
+            {
+                IsRefreshing = false;
+            }
 
             if (comboItem.SelectedItem == null)
                 SelectedItem = null;
-            
         }
 
-        /*
-         * Unfinished logic. Need to find out how to get the % increase values for the params correctly.
-         */
+        /// <summary>
+        /// Populates the attributes list.
+        /// </summary>
+        /// <param name="item">The item.</param>
         private void PopulateAttributes(InventoryItem item)
         {
             listAttributes.Items.Clear();
 
             if (item.Attributes == 0) return;
 
-            var availableAttributes = AttributesInfo.GetAvailableAttributeGroupsForItem(item.Record);
+            var availableAttributes = ItemAttributesInfo.GetAvailableAttributeGroupsForItem(item.Record);
 
             if (availableAttributes == null)
                 return;
 
             foreach (var attribute in availableAttributes)
             {
-                var slot = AttributesInfo.GetAttributeSlotForItem(attribute, item.Record);
+                var slot = ItemAttributesInfo.GetAttributeSlotForItem(attribute, item.Record);
                 var translation = attribute.GetTranslation();
 
                 listAttributes.Items.Add($"{translation} +{item.Attributes.GetPercentage(slot)}%");
@@ -195,6 +217,8 @@ namespace RSBot.Alchemy.Views
         /// <param name="e"></param>
         private void comboItem_SelectedIndexChanged(object sender, EventArgs e)
         {
+            IsRefreshing = true;
+
             if (comboItem.SelectedIndex < 0) return;
             var selectedItem = (InventoryItemComboboxItem)comboItem.Items[comboItem.SelectedIndex];
             SelectedItem = selectedItem.InventoryItem;
@@ -207,6 +231,8 @@ namespace RSBot.Alchemy.Views
             lblDegree.Text = SelectedItem.Record.Degree.ToString();
             lblOptLevel.Text = $"+{SelectedItem.OptLevel}";
             ItemChanged?.Invoke(SelectedItem);
+
+            IsRefreshing = false;
         }
 
         /// <summary>
@@ -232,10 +258,10 @@ namespace RSBot.Alchemy.Views
         /// <param name="engine">The engine to load the settings for</param>
         private void LoadEngineSettings(Engine engine)
         {
+            IsRefreshing = true;
+
             if (_enhanceSettingsView == null || _magicOptionsSettingsView == null || _attributeSettingsView == null)
                 return;
-
-            EngineChanged?.Invoke(SelectedItem, engine);
 
             if (Globals.Botbase != null && !Kernel.Bot.Running)
                 Globals.Botbase.Engine = engine;
@@ -260,6 +286,10 @@ namespace RSBot.Alchemy.Views
                 _magicOptionsSettingsView.Hide();
                 _attributeSettingsView.Show();
             }
+
+            EngineChanged?.Invoke(SelectedItem, engine);
+
+            IsRefreshing = false;
         }
 
         #endregion Events

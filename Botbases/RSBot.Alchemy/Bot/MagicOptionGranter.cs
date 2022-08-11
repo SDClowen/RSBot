@@ -1,13 +1,12 @@
 ﻿using RSBot.Alchemy.Client.ReferenceObjects;
-using RSBot.Alchemy.Helper;
 using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Item;
 using System;
 using System.Linq;
-using RSBot.Core.Components;
 
 namespace RSBot.Alchemy.Bot
 {
@@ -89,7 +88,7 @@ namespace RSBot.Alchemy.Bot
 
                 case 21543:
                     return "UIIT_MSG_STRGERR_ASTRAL";
-                    
+
                 default:
                     return "UIIT_MSG_ENCHANT_FAILED";
             }
@@ -102,7 +101,12 @@ namespace RSBot.Alchemy.Bot
         public void Run(MagicOptionsConfig config)
         {
             if (config?.MagicStones?.Count == 0)
+            {
+                Log.Warn("[Alchemy] No magic stones configured!");
                 Kernel.Bot.Stop();
+
+                return;
+            }
 
             if (config == null || _shouldRun is false || config.Item == null || config.MagicStones == null || config.MagicStones?.Count == 0)
                 return;
@@ -110,18 +114,17 @@ namespace RSBot.Alchemy.Bot
             //Loops over every stone that should be fused
             foreach (var stone in config.MagicStones.Where(i => i.Key.Amount > 0))
             {
-       
                 //Wait for the next tick
-                if (_shouldRun == false) break;
+                if (_shouldRun == false) 
+                    break;
 
                 //Check if the stone to be fused is in the correct slot, otherwise get the same item type again from the inventory
                 var magicStone = Game.Player.Inventory.GetItem(stone.Key.ItemId);
                 if (magicStone == null)
                     continue;
 
-
                 //Gets the current magic option info from the selected item if available
-                var current = config.Item.MagicOptions.FirstOrDefault(m => m.Id == stone.Value.Id);
+                var current = config.Item.MagicOptions.FirstOrDefault(m => m.Record.Group == stone.Value.Group);
 
                 //Enough immortal to fuse the astral stone?
                 if (stone.Value.Group == RefMagicOpt.MaterialAstral)
@@ -143,7 +146,9 @@ namespace RSBot.Alchemy.Bot
 
                     current = new MagicOptionInfo { Id = actualMagicOption.Id, Value = current.Value };
                 }
-                
+
+                Log.Debug($"[Alchemy] MaxStat: {current?.Record.GetMaxValue()}");
+
                 if (current == null || current.Value < current.Record.GetMaxValue())
                 {
                     AlchemyManager.FuseMagicStone(config.Item, magicStone);
@@ -190,8 +195,11 @@ namespace RSBot.Alchemy.Bot
         /// <param name="newItem">The new item after the successful action</param>
         private void OnStoneAlchemySuccess(InventoryItem oldItem, InventoryItem newItem, AlchemyType type)
         {
-            if (type != AlchemyType.MagicStone) return;
-            if (oldItem == null) return;
+            if (type != AlchemyType.MagicStone) 
+                return;
+
+            if (oldItem == null) 
+                return;
 
             MagicOptionInfo changedOption = null;
 
@@ -229,6 +237,8 @@ namespace RSBot.Alchemy.Bot
                     : Game.ReferenceManager.GetTranslation("UIIT_MSG_ALCHEMY_APPEND_ATTR").JoymaxFormat(record.GetGroupTranslation(), newItem.Record.GetRealName());
 
             Globals.View.AddLog(newItem.Record.GetRealName(), message);
+
+            _shouldRun = true;
         }
 
         /// <summary>
@@ -257,6 +267,8 @@ namespace RSBot.Alchemy.Bot
             var translationName = GetErrorTranslationName(errorCode);
 
             Globals.View.AddLog(AlchemyManager.ActiveAlchemyItems?.Count > 0 ? AlchemyManager.ActiveAlchemyItems.First().Record.GetRealName() : "", Game.ReferenceManager.GetTranslation(translationName));
+
+            _shouldRun = true;
         }
 
         #endregion Events

@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using RSBot.Alchemy.Bot;
 using RSBot.Alchemy.Subscriber;
 using RSBot.Alchemy.Views;
+using RSBot.Core.Components;
 
 namespace RSBot.Alchemy
 {
@@ -60,7 +61,7 @@ namespace RSBot.Alchemy
 
         public void Tick()
         {
-            if (Globals.Botbase != null)
+            if (!Globals.View.IsRefreshing && !AlchemyManager.IsFusing)
                 Globals.Botbase.Tick();
         }
 

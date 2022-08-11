@@ -1,7 +1,6 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Objects;
-using RSBot.Core.Objects.Inventory.Item;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -95,11 +94,11 @@ namespace RSBot.Alchemy.Helper
             return default;
         }
 
-        public static IEnumerable<InventoryItem> GetAttributeStones(InventoryItem targetItem, AttributesGroup group)
+        public static IEnumerable<InventoryItem> GetAttributeStones(InventoryItem targetItem, ItemAttributeGroup group)
         {
             var typeIdFilter = new TypeIdFilter(3, 3, 11, 2);
 
-            var actualGroupName = AttributesInfo.GetActualAttributeGroupNameForItem(targetItem.Record, group);
+            var actualGroupName = ItemAttributesInfo.GetActualAttributeGroupNameForItem(targetItem.Record, group);
             var attributeStones = Game.Player.Inventory.GetItems(typeIdFilter).Where(i => i.Record.Desc1 == actualGroupName);
 
             return attributeStones;

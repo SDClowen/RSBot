@@ -1,5 +1,4 @@
 ﻿using RSBot.Core.Objects;
-using RSBot.Core.Objects.Inventory.Item;
 using System.Collections.Generic;
 
 namespace RSBot.Alchemy.Bot
@@ -9,8 +8,10 @@ namespace RSBot.Alchemy.Bot
         internal class AttributesConfigItem
         {
             public int MaxValue { get; init; }
+
             public InventoryItem Stone { get; init; }
-            public AttributesGroup Group { get; init; }
+
+            public ItemAttributeGroup Group { get; init; }
         }
 
         #region Properties

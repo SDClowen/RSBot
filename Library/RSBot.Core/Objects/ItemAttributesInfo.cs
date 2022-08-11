@@ -1,19 +1,19 @@
-﻿using RSBot.Core.Client.ReferenceObjects;
-using RSBot.Core.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Extensions;
 
-namespace RSBot.Core.Objects.Inventory.Item
+namespace RSBot.Core.Objects
 {
     /// <summary>
     /// This enumeration defines the different attributes an item may have.
     /// Even though items may share attributes of the same group, it's not guaranteed, that
     /// the attribute does have the exact same name. You can check the actual group names in constants defined in.
-    /// <see cref="AttributesInfo"/>
+    /// <see cref="ItemAttributesInfo"/>
     ///
     /// Use the static method of AttributeInfo to identify the actual name of attributes by its group.
     /// </summary>
-    public enum AttributesGroup
+    public enum ItemAttributeGroup
     {
         Durability,
         PhysicalSpecialize,
@@ -30,7 +30,7 @@ namespace RSBot.Core.Objects.Inventory.Item
         MagicalAbsorbRatio
     }
 
-    public struct AttributesInfo : IEquatable<AttributesInfo>
+    public struct ItemAttributesInfo : IEquatable<ItemAttributesInfo>
     {
         #region Properties
 
@@ -96,7 +96,7 @@ namespace RSBot.Core.Objects.Inventory.Item
 
         #region Constructor
 
-        public AttributesInfo(ulong value)
+        public ItemAttributesInfo(ulong value)
         {
             Variance = value;
         }
@@ -123,19 +123,19 @@ namespace RSBot.Core.Objects.Inventory.Item
             }
         }
 
-        public override bool Equals(object obj) => obj is AttributesInfo variance && Equals(variance);
+        public override bool Equals(object obj) => obj is ItemAttributesInfo variance && Equals(variance);
 
-        public bool Equals(AttributesInfo other) => Variance == other.Variance;
+        public bool Equals(ItemAttributesInfo other) => Variance == other.Variance;
 
         public override int GetHashCode() => Variance.GetHashCode();
 
-        public static explicit operator AttributesInfo(ulong value) => new(value);
+        public static explicit operator ItemAttributesInfo(ulong value) => new(value);
 
-        public static implicit operator ulong(AttributesInfo variance) => variance.Variance;
+        public static implicit operator ulong(ItemAttributesInfo variance) => variance.Variance;
 
-        public static bool operator ==(AttributesInfo left, AttributesInfo right) => left.Equals(right);
+        public static bool operator ==(ItemAttributesInfo left, ItemAttributesInfo right) => left.Equals(right);
 
-        public static bool operator !=(AttributesInfo left, AttributesInfo right) => !(left == right);
+        public static bool operator !=(ItemAttributesInfo left, ItemAttributesInfo right) => !(left == right);
 
         public byte GetPercentage(byte slot)
         {
@@ -147,14 +147,14 @@ namespace RSBot.Core.Objects.Inventory.Item
             return (byte)value;
         }
 
-        public static IEnumerable<AttributesGroup>? GetAvailableAttributeGroupsForItem(RefObjItem item)
+        public static IEnumerable<ItemAttributeGroup>? GetAvailableAttributeGroupsForItem(RefObjItem item)
         {
             if (item.IsArmor)
             {
                 return new[]
                 {
-                    AttributesGroup.Durability, AttributesGroup.PhysicalSpecialize, AttributesGroup.MagicalSpecialize,
-                    AttributesGroup.PhysicalDefense, AttributesGroup.MagicalDefense, AttributesGroup.EvasionRatio
+                    ItemAttributeGroup.Durability, ItemAttributeGroup.PhysicalSpecialize, ItemAttributeGroup.MagicalSpecialize,
+                    ItemAttributeGroup.PhysicalDefense, ItemAttributeGroup.MagicalDefense, ItemAttributeGroup.EvasionRatio
                 };
             }
 
@@ -162,9 +162,9 @@ namespace RSBot.Core.Objects.Inventory.Item
             {
                 return new[]
                 {
-                    AttributesGroup.Durability, AttributesGroup.PhysicalSpecialize, AttributesGroup.MagicalSpecialize,
-                    AttributesGroup.HitRatio, AttributesGroup.PhysicalDamage, AttributesGroup.MagicalDamage,
-                    AttributesGroup.Critical
+                    ItemAttributeGroup.Durability, ItemAttributeGroup.PhysicalSpecialize, ItemAttributeGroup.MagicalSpecialize,
+                    ItemAttributeGroup.HitRatio, ItemAttributeGroup.PhysicalDamage, ItemAttributeGroup.MagicalDamage,
+                    ItemAttributeGroup.Critical
                 };
             }
 
@@ -172,8 +172,8 @@ namespace RSBot.Core.Objects.Inventory.Item
             {
                 return new[]
                 {
-                    AttributesGroup.Durability, AttributesGroup.PhysicalSpecialize, AttributesGroup.MagicalSpecialize,
-                    AttributesGroup.BlockRatio, AttributesGroup.PhysicalDefense, AttributesGroup.MagicalDefense
+                    ItemAttributeGroup.Durability, ItemAttributeGroup.PhysicalSpecialize, ItemAttributeGroup.MagicalSpecialize,
+                    ItemAttributeGroup.BlockRatio, ItemAttributeGroup.PhysicalDefense, ItemAttributeGroup.MagicalDefense
                 };
             }
 
@@ -181,153 +181,153 @@ namespace RSBot.Core.Objects.Inventory.Item
             {
                 return new[]
                 {
-                    AttributesGroup.PhysicalAbsorbRatio, AttributesGroup.MagicalAbsorbRatio
+                    ItemAttributeGroup.PhysicalAbsorbRatio, ItemAttributeGroup.MagicalAbsorbRatio
                 };
             }
 
             return null;
         }
 
-        public static string? GetActualAttributeGroupNameForItem(RefObjItem item, AttributesGroup group)
+        public static string? GetActualAttributeGroupNameForItem(RefObjItem item, ItemAttributeGroup group)
         {
             //Weapon attributes
-            if (item.IsWeapon && group == AttributesGroup.Durability)
+            if (item.IsWeapon && group == ItemAttributeGroup.Durability)
                 return WeaponDurabilityGroup;
 
-            if (item.IsWeapon && group == AttributesGroup.Critical)
+            if (item.IsWeapon && group == ItemAttributeGroup.Critical)
                 return WeaponCriticalHitRatioGroup;
 
-            if (item.IsWeapon && group == AttributesGroup.HitRatio)
+            if (item.IsWeapon && group == ItemAttributeGroup.HitRatio)
                 return WeaponHitRatioGroup;
 
-            if (item.IsWeapon && group == AttributesGroup.PhysicalDamage)
+            if (item.IsWeapon && group == ItemAttributeGroup.PhysicalDamage)
                 return WeaponPhyDmgGroup;
 
-            if (item.IsWeapon && group == AttributesGroup.MagicalDamage)
+            if (item.IsWeapon && group == ItemAttributeGroup.MagicalDamage)
                 return WeaponMagDmgGroup;
 
-            if (item.IsWeapon && group == AttributesGroup.PhysicalSpecialize)
+            if (item.IsWeapon && group == ItemAttributeGroup.PhysicalSpecialize)
                 return WeaponPhySpecializeGroup;
 
-            if (item.IsWeapon && group == AttributesGroup.MagicalSpecialize)
+            if (item.IsWeapon && group == ItemAttributeGroup.MagicalSpecialize)
                 return WeaponMagSpecializeGroup;
 
             //Accessory attributes
-            if (item.IsAccessory && group == AttributesGroup.MagicalAbsorbRatio)
+            if (item.IsAccessory && group == ItemAttributeGroup.MagicalAbsorbRatio)
                 return AccessoryMagAbsorbRatioGroup;
 
-            if (item.IsAccessory && group == AttributesGroup.PhysicalAbsorbRatio)
+            if (item.IsAccessory && group == ItemAttributeGroup.PhysicalAbsorbRatio)
                 return AccessoryPhyAbsorbRatioGroup;
 
             //Shield
-            if (item.IsShield && group == AttributesGroup.Durability)
+            if (item.IsShield && group == ItemAttributeGroup.Durability)
                 return ShieldDurabilityGroup;
 
-            if (item.IsShield && group == AttributesGroup.PhysicalSpecialize)
+            if (item.IsShield && group == ItemAttributeGroup.PhysicalSpecialize)
                 return ShieldPhySpecializeGroup;
 
-            if (item.IsShield && group == AttributesGroup.MagicalSpecialize)
+            if (item.IsShield && group == ItemAttributeGroup.MagicalSpecialize)
                 return ShieldMagSpecializeGroup;
 
-            if (item.IsShield && group == AttributesGroup.BlockRatio)
+            if (item.IsShield && group == ItemAttributeGroup.BlockRatio)
                 return ShieldBlockRatioGroup;
 
-            if (item.IsShield && group == AttributesGroup.MagicalDefense)
+            if (item.IsShield && group == ItemAttributeGroup.MagicalDefense)
                 return ShieldMagDefenseGroup;
 
-            if (item.IsShield && group == AttributesGroup.PhysicalDefense)
+            if (item.IsShield && group == ItemAttributeGroup.PhysicalDefense)
                 return ShieldPhyDefenseGroup;
 
             //Armor
-            if (item.IsArmor && group == AttributesGroup.Durability)
+            if (item.IsArmor && group == ItemAttributeGroup.Durability)
                 return ArmorDurabilityGroup;
 
-            if (item.IsArmor && group == AttributesGroup.PhysicalSpecialize)
+            if (item.IsArmor && group == ItemAttributeGroup.PhysicalSpecialize)
                 return ArmorPhySpecializeGroup;
 
-            if (item.IsArmor && group == AttributesGroup.MagicalSpecialize)
+            if (item.IsArmor && group == ItemAttributeGroup.MagicalSpecialize)
                 return ArmorMagSpecializeGroup;
 
-            if (item.IsArmor && group == AttributesGroup.MagicalDefense)
+            if (item.IsArmor && group == ItemAttributeGroup.MagicalDefense)
                 return ArmorMagDefenseGroup;
 
-            if (item.IsArmor && group == AttributesGroup.PhysicalDefense)
+            if (item.IsArmor && group == ItemAttributeGroup.PhysicalDefense)
                 return ArmorPhyDefenseGroup;
 
-            if (item.IsArmor && group == AttributesGroup.EvasionRatio)
+            if (item.IsArmor && group == ItemAttributeGroup.EvasionRatio)
                 return ArmorEvasionRatioGroup;
 
             return null;
         }
 
-        public static byte GetAttributeSlotForItem(AttributesGroup group, RefObjItem item)
+        public static byte GetAttributeSlotForItem(ItemAttributeGroup group, RefObjItem item)
 
         {
             //Weapon attributes
-            if (item.IsWeapon && group == AttributesGroup.Durability)
+            if (item.IsWeapon && group == ItemAttributeGroup.Durability)
                 return WeaponDurability;
 
-            if (item.IsWeapon && group == AttributesGroup.Critical)
+            if (item.IsWeapon && group == ItemAttributeGroup.Critical)
                 return WeaponCriticalHitRatio;
 
-            if (item.IsWeapon && group == AttributesGroup.HitRatio)
+            if (item.IsWeapon && group == ItemAttributeGroup.HitRatio)
                 return WeaponHitRatio;
 
-            if (item.IsWeapon && group == AttributesGroup.PhysicalDamage)
+            if (item.IsWeapon && group == ItemAttributeGroup.PhysicalDamage)
                 return WeaponPhyDmg;
 
-            if (item.IsWeapon && group == AttributesGroup.MagicalDamage)
+            if (item.IsWeapon && group == ItemAttributeGroup.MagicalDamage)
                 return WeaponMagDmg;
 
-            if (item.IsWeapon && group == AttributesGroup.PhysicalSpecialize)
+            if (item.IsWeapon && group == ItemAttributeGroup.PhysicalSpecialize)
                 return WeaponPhySpecialize;
 
-            if (item.IsWeapon && group == AttributesGroup.MagicalSpecialize)
+            if (item.IsWeapon && group == ItemAttributeGroup.MagicalSpecialize)
                 return WeaponMagSpecialize;
 
             //Accessory attributes
-            if (item.IsAccessory && group == AttributesGroup.MagicalAbsorbRatio)
+            if (item.IsAccessory && group == ItemAttributeGroup.MagicalAbsorbRatio)
                 return AccessoryMagAbsorbRatio;
 
-            if (item.IsAccessory && group == AttributesGroup.PhysicalAbsorbRatio)
+            if (item.IsAccessory && group == ItemAttributeGroup.PhysicalAbsorbRatio)
                 return AccessoryPhyAbsorbRatio;
 
             //Shield
-            if (item.IsShield && group == AttributesGroup.Durability)
+            if (item.IsShield && group == ItemAttributeGroup.Durability)
                 return ShieldDurability;
 
-            if (item.IsShield && group == AttributesGroup.PhysicalSpecialize)
+            if (item.IsShield && group == ItemAttributeGroup.PhysicalSpecialize)
                 return ShieldPhySpecialize;
 
-            if (item.IsShield && group == AttributesGroup.MagicalSpecialize)
+            if (item.IsShield && group == ItemAttributeGroup.MagicalSpecialize)
                 return ShieldMagSpecialize;
 
-            if (item.IsShield && group == AttributesGroup.BlockRatio)
+            if (item.IsShield && group == ItemAttributeGroup.BlockRatio)
                 return ShieldBlockRatio;
 
-            if (item.IsShield && group == AttributesGroup.MagicalDefense)
+            if (item.IsShield && group == ItemAttributeGroup.MagicalDefense)
                 return ShieldMagDefense;
 
-            if (item.IsShield && group == AttributesGroup.PhysicalDefense)
+            if (item.IsShield && group == ItemAttributeGroup.PhysicalDefense)
                 return ShieldPhyDefense;
 
             //Armor
-            if (item.IsArmor && group == AttributesGroup.Durability)
+            if (item.IsArmor && group == ItemAttributeGroup.Durability)
                 return ArmorDurability;
 
-            if (item.IsArmor && group == AttributesGroup.PhysicalSpecialize)
+            if (item.IsArmor && group == ItemAttributeGroup.PhysicalSpecialize)
                 return ArmorPhySpecialize;
 
-            if (item.IsArmor && group == AttributesGroup.MagicalSpecialize)
+            if (item.IsArmor && group == ItemAttributeGroup.MagicalSpecialize)
                 return ArmorMagSpecialize;
 
-            if (item.IsArmor && group == AttributesGroup.MagicalDefense)
+            if (item.IsArmor && group == ItemAttributeGroup.MagicalDefense)
                 return ArmorMagDefense;
 
-            if (item.IsArmor && group == AttributesGroup.PhysicalDefense)
+            if (item.IsArmor && group == ItemAttributeGroup.PhysicalDefense)
                 return ArmorPhyDefense;
 
-            if (item.IsArmor && group == AttributesGroup.EvasionRatio)
+            if (item.IsArmor && group == ItemAttributeGroup.EvasionRatio)
                 return ArmorEvasionRatio;
 
             throw new ArgumentException(

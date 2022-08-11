@@ -1,6 +1,5 @@
 ﻿using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
-using RSBot.Core.Objects.Inventory.Item;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -9,12 +8,11 @@ namespace RSBot.Alchemy.Views.Settings
 {
     public partial class AttributeInfoPanel : UserControl
     {
-        public delegate void OnChangeEventHandler();
+        public delegate void OnChangedEventHandler(bool @checked, int maxValue);
 
-        public event OnChangeEventHandler OnChange;
+        public event OnChangedEventHandler OnChange;
 
-        private bool _checked;
-
+        #region Properties
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="AttributeInfoPanel"/> is checked.
         /// </summary>
@@ -23,15 +21,12 @@ namespace RSBot.Alchemy.Views.Settings
         /// </value>
         public bool Checked
         {
-            get
-            {
-                return checkSelected.Checked;
-            }
+            get => checkSelected.Checked;
 
             set
             {
-                _checked = value;
-                checkSelected.Checked = value;
+                if (checkSelected != null)
+                    checkSelected.Checked = value;
             }
         }
 
@@ -44,6 +39,14 @@ namespace RSBot.Alchemy.Views.Settings
         public int MaxValue => GetMaxValue();
 
         /// <summary>
+        /// Gets or sets the attribute group.
+        /// </summary>
+        /// <value>
+        /// The attribute group.
+        /// </value>
+        public ItemAttributeGroup AttributeGroup { get; set; }
+
+        /// <summary>
         /// Gets the stones assigned to this attribute.
         /// </summary>
         /// <value>
@@ -51,11 +54,22 @@ namespace RSBot.Alchemy.Views.Settings
         /// </value>
         public IEnumerable<InventoryItem>? Stones { get; init; }
 
-        public AttributeInfoPanel(AttributesGroup group, IEnumerable<InventoryItem>? stones, InventoryItem item)
+        #endregion
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AttributeInfoPanel"/> class.
+        /// </summary>
+        /// <param name="group">The group.</param>
+        /// <param name="stones">The stones.</param>
+        /// <param name="item">The item.</param>
+        public AttributeInfoPanel(ItemAttributeGroup group, IEnumerable<InventoryItem>? stones, InventoryItem item, int maxValue = 22)
         {
             InitializeComponent();
 
+            AttributeGroup = group;
             Stones = stones;
+
+            SetMaxValue(maxValue);
 
             var totalAmount = stones == null || !stones.Any() ? 0 : stones.Sum(i => i.Amount);
 
@@ -70,9 +84,28 @@ namespace RSBot.Alchemy.Views.Settings
             else
                 lblItemAmount.Text = $"x{stones?.Sum(i => i.Amount)}";
 
-            var attributeSlot = AttributesInfo.GetAttributeSlotForItem(group, item.Record);
+            var attributeSlot = ItemAttributesInfo.GetAttributeSlotForItem(group, item.Record);
             checkSelected.Text = $"{group.GetTranslation()} +{item.Attributes.GetPercentage(attributeSlot)}%";
+            checkSelected.CheckedChanged += CheckSelected_CheckedChanged;
+            comboMaxValue.SelectedIndexChanged += ComboMaxValue_SelectedIndexChanged;
         }
+
+        private void ComboMaxValue_SelectedIndexChanged(object? sender, System.EventArgs e)
+        {
+            if (comboMaxValue.SelectedItem == null)
+                return;
+
+            OnChange?.Invoke(checkSelected.Checked, GetMaxValue());
+        }
+
+        #region Events
+
+        private void CheckSelected_CheckedChanged(object? sender, System.EventArgs e)
+        {
+            OnChange?.Invoke(checkSelected.Checked, GetMaxValue());
+        }
+
+        #endregion Events
 
         #region Methods
 
@@ -89,8 +122,42 @@ namespace RSBot.Alchemy.Views.Settings
                 2 => 61,
                 3 => 80,
                 4 => 100,
-                _ => 0
+                _ => 22
             };
+        }
+
+        private void SetMaxValue(int maxValue)
+        {
+            if (maxValue <= 22)
+            {
+                comboMaxValue.SelectedIndex = 0;
+
+                return;
+            }
+
+
+            if (maxValue <= 41)
+            {
+                comboMaxValue.SelectedIndex = 1;
+
+                return;
+            }
+
+            if (maxValue <= 61)
+            {
+                comboMaxValue.SelectedIndex = 2;
+
+                return;
+            }
+
+            if (maxValue <= 80)
+            {
+                comboMaxValue.SelectedIndex = 3;
+
+                return;
+            }
+
+            comboMaxValue.SelectedIndex = 4;
         }
 
         #endregion Methods

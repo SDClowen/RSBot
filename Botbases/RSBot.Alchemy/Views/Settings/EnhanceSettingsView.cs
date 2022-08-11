@@ -43,6 +43,7 @@ namespace RSBot.Alchemy.Views.Settings
         /// </summary>
         public EnhanceSettingsView()
         {
+            CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
 
             EventManager.SubscribeEvent("OnEnterGame", SubscribeMainFormEvents);
@@ -75,7 +76,6 @@ namespace RSBot.Alchemy.Views.Settings
                 return;
             }
 
-            
             _selectedItem = Globals.View.SelectedItem;
             
             lblCurrentOptLevel.Text = _selectedItem == null ? "+0" : $"+{Globals.View.SelectedItem.OptLevel}";

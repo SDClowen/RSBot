@@ -44,6 +44,9 @@ namespace RSBot.Core.Network.Handler.Agent.Alchemy
             }
 
             EventManager.FireEvent("OnFuseRequest", action, type);
+
+            AlchemyManager.IsFusing = true;
+            AlchemyManager.StartTimer();
         }
     }
 }
