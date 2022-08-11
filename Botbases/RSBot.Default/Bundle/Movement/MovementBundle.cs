@@ -4,6 +4,7 @@ using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
 using System;
 using System.Linq;
+using RSBot.Core.Event;
 
 namespace RSBot.Default.Bundle.Movement
 {
@@ -50,6 +51,8 @@ namespace RSBot.Default.Bundle.Movement
             var distance = Game.Player.Movement.Source.DistanceTo(Container.Bot.Area.CenterPosition);
             var hasCollision = CollisionManager.HasCollisionBetween(Game.Player.Movement.Source, Container.Bot.Area.CenterPosition);
 
+
+            EventManager.FireEvent("OnChangeStatusText", "Moving");
             //Go back if the player is out of the radius
             if ((distance > Container.Bot.Area.Radius || (Config.WalkToCenter && distance > 10)) && !hasCollision)
                 Game.Player.MoveTo(Container.Bot.Area.CenterPosition);

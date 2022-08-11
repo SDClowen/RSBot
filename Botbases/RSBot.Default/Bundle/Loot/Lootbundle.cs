@@ -3,6 +3,7 @@ using RSBot.Core.Components;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
 using System.Threading.Tasks;
+using RSBot.Core.Event;
 
 namespace RSBot.Default.Bundle.Loot
 {
@@ -37,6 +38,9 @@ namespace RSBot.Default.Bundle.Loot
                     return;
 
                 PickupManager.Run(Container.Bot.Area.CenterPosition, Container.Bot.Area.Radius);
+
+
+                EventManager.FireEvent("OnChangeStatusText", "Picking up");
             }
         }
 
