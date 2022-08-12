@@ -9,13 +9,13 @@ using RSBot.Core.Objects.Item;
 using System;
 using System.Linq;
 
-namespace RSBot.Alchemy.Bot
+namespace RSBot.Alchemy.Bundle.Magic
 {
-    internal class MagicEngine : IAlchemyEngine
+    internal class MagicBundle : IAlchemyBundle
     {
         #region Constructor
 
-        public MagicEngine()
+        public MagicBundle()
         {
             SubscribeEvents();
         }
@@ -101,7 +101,7 @@ namespace RSBot.Alchemy.Bot
         /// <param name="engineConfig">The configuration for this manager</param>
         public void Run<T>(T engineConfig)
         {
-            if (engineConfig is not MagicEngineConfig config)
+            if (engineConfig is not MagicBundleConfig config)
                 return;
 
             if (config?.MagicStones?.Count == 0)
@@ -155,7 +155,8 @@ namespace RSBot.Alchemy.Bot
 
                 if (current == null || current.Value < current.Record.GetMaxValue())
                 {
-                    AlchemyManager.FuseMagicStone(config.Item, magicStone);
+                    if (!AlchemyManager.TryFuseMagicStone(config.Item, magicStone))
+                        continue;
 
                     _shouldRun = false;
                 }
@@ -182,7 +183,7 @@ namespace RSBot.Alchemy.Bot
         /// <param name="type"></param>
         private void OnFuseRequest(AlchemyAction action, AlchemyType type)
         {
-            if (Globals.Botbase.Engine != Engine.Magic)
+            if (type != AlchemyType.MagicStone || !AlchemyBotbase.IsActive)
                 return;
 
             _shouldRun = false;
@@ -193,7 +194,7 @@ namespace RSBot.Alchemy.Bot
         /// </summary>
         private void OnStoneAlchemy(AlchemyType type)
         {
-            if (Globals.Botbase.Engine != Engine.Magic)
+            if (type != AlchemyType.MagicStone || !AlchemyBotbase.IsActive)
                 return;
 
             _shouldRun = true;
@@ -205,10 +206,7 @@ namespace RSBot.Alchemy.Bot
         /// <param name="newItem">The new item after the successful action</param>
         private void OnStoneAlchemySuccess(InventoryItem oldItem, InventoryItem newItem, AlchemyType type)
         {
-            if (Globals.Botbase.Engine != Engine.Magic)
-                return;
-
-            if (type != AlchemyType.MagicStone)
+            if (type != AlchemyType.MagicStone || !AlchemyBotbase.IsActive)
                 return;
 
             if (oldItem == null)
@@ -260,7 +258,7 @@ namespace RSBot.Alchemy.Bot
         /// <param name="newItem">The new item after the operation failed</param>
         private void OnStoneAlchemyFailed(InventoryItem oldItem, InventoryItem newItem, AlchemyType type)
         {
-            if (Globals.Botbase.Engine != Engine.Magic)
+            if (type != AlchemyType.MagicStone || !AlchemyBotbase.IsActive)
                 return;
 
             Globals.View.AddLog(newItem.Record.GetRealName(), Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL"));
@@ -274,7 +272,7 @@ namespace RSBot.Alchemy.Bot
         /// <param name="errorCode">The error code</param>
         private void OnStoneAlchemyError(ushort errorCode, AlchemyType type)
         {
-            if (Globals.Botbase.Engine != Engine.Magic)
+            if (type != AlchemyType.MagicStone || !AlchemyBotbase.IsActive)
                 return;
 
             var translationName = GetErrorTranslationName(errorCode);

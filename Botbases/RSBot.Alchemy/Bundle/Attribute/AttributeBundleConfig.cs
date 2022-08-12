@@ -1,11 +1,11 @@
 ﻿using RSBot.Core.Objects;
 using System.Collections.Generic;
 
-namespace RSBot.Alchemy.Bot
+namespace RSBot.Alchemy.Bundle.Attribute
 {
-    internal class AttributesEngineConfig
+    internal class AttributeBundleConfig
     {
-        internal class AttributesEngineConfigItem
+        internal class AttributeBundleConfigItem
         {
             /// <summary>
             /// Gets the maximum value.
@@ -48,7 +48,7 @@ namespace RSBot.Alchemy.Bot
         /// <value>
         /// The attributes.
         /// </value>
-        public IEnumerable<AttributesEngineConfigItem> Attributes { get; set; }
+        public IEnumerable<AttributeBundleConfigItem> Attributes { get; set; }
 
         #endregion Properties
     }

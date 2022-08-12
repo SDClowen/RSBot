@@ -7,9 +7,9 @@ using RSBot.Core.Objects;
 using System;
 using System.Linq;
 
-namespace RSBot.Alchemy.Bot
+namespace RSBot.Alchemy.Bundle.Attribute
 {
-    internal class AttributeEngine : IAlchemyEngine
+    internal class AttributeBundle : IAlchemyBundle
     {
         #region Members
 
@@ -19,7 +19,7 @@ namespace RSBot.Alchemy.Bot
 
         #region Constructor
 
-        public AttributeEngine()
+        public AttributeBundle()
         {
             SubscribeEvents();
         }
@@ -43,7 +43,7 @@ namespace RSBot.Alchemy.Bot
         /// <param name="engineConfig">The configuration.</param>
         public void Run<T>(T engineConfig)
         {
-            if (engineConfig is not AttributesEngineConfig config)
+            if (engineConfig is not AttributeBundleConfig config)
                 return;
 
             //Wait for the next tick to operate
@@ -70,7 +70,8 @@ namespace RSBot.Alchemy.Bot
                 if (currentValue >= attribute.MaxValue && attribute.MaxValue > 0)
                     continue;
 
-                AlchemyManager.FuseAttributeStone(config.Item, attribute.Stone);
+                if (!AlchemyManager.TryFuseAttributeStone(config.Item, attribute.Stone))
+                    continue;
 
                 _shouldRun = false;
             }
@@ -110,7 +111,7 @@ namespace RSBot.Alchemy.Bot
         /// <param name="type"></param>
         private void OnFuseRequest(AlchemyAction action, AlchemyType type)
         {
-            if (Globals.Botbase.Engine != Engine.Attribute)
+            if (type != AlchemyType.AttributeStone || !AlchemyBotbase.IsActive)
                 return;
 
             _shouldRun = false;
@@ -121,7 +122,7 @@ namespace RSBot.Alchemy.Bot
         /// </summary>
         private void OnStoneAlchemy(AlchemyType type)
         {
-            if (Globals.Botbase.Engine != Engine.Attribute)
+            if (type != AlchemyType.AttributeStone || !AlchemyBotbase.IsActive)
                 return;
 
             _shouldRun = true;
@@ -135,7 +136,7 @@ namespace RSBot.Alchemy.Bot
         /// <param name="type"></param>
         private void OnStoneAlchemySuccess(InventoryItem oldItem, InventoryItem newItem, AlchemyType type)
         {
-            if (Globals.Botbase.Engine != Engine.Attribute)
+            if (type != AlchemyType.AttributeStone || !AlchemyBotbase.IsActive)
                 return;
 
             var changedAttributeSlots = oldItem.Attributes.CompareSlots(newItem.Attributes);
@@ -159,7 +160,7 @@ namespace RSBot.Alchemy.Bot
         /// <param name="type"></param>
         private void OnStoneAlchemyFailed(InventoryItem oldItem, InventoryItem newItem, AlchemyType type)
         {
-            if (Globals.Botbase.Engine != Engine.Attribute)
+            if (type != AlchemyType.AttributeStone || !AlchemyBotbase.IsActive)
                 return;
 
             Globals.View.AddLog(newItem.Record.GetRealName(), Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL"));
@@ -174,12 +175,12 @@ namespace RSBot.Alchemy.Bot
         /// <param name="type"></param>
         private void OnStoneAlchemyError(ushort errorCode, AlchemyType type)
         {
-            if (Globals.Botbase.Engine != Engine.Attribute)
+            if (type != AlchemyType.AttributeStone || !AlchemyBotbase.IsActive)
                 return;
 
             _shouldRun = true;
 
-            Globals.View.AddLog(Globals.Botbase.AttributesEngineConfig?.Item?.Record?.GetRealName(), Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL"));
+            Globals.View.AddLog(Globals.Botbase.AttributeBundleConfig?.Item?.Record?.GetRealName(), Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL"));
         }
 
         #endregion Events

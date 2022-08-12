@@ -1,11 +1,11 @@
-﻿using RSBot.Core;
+﻿using RSBot.Alchemy.Bot;
+using RSBot.Alchemy.Subscriber;
+using RSBot.Alchemy.Views;
+using RSBot.Core;
+using RSBot.Core.Components;
 using RSBot.Core.Plugins;
 using System;
 using System.Windows.Forms;
-using RSBot.Alchemy.Bot;
-using RSBot.Alchemy.Subscriber;
-using RSBot.Alchemy.Views;
-using RSBot.Core.Components;
 
 namespace RSBot.Alchemy
 {
@@ -15,11 +15,11 @@ namespace RSBot.Alchemy
 
         public static string Name => "Alchemy";
 
-        public static bool IsActive => Kernel.Bot is {Running: true} && Kernel.Bot.Botbase.Info.Name == Name;
+        public static bool IsActive => Kernel.Bot is { Running: true } && Kernel.Bot.Botbase.Info.Name == Name;
 
         public static Version Version => new("1.0.0");
 
-        public BotbaseInfo Info => new ()
+        public BotbaseInfo Info => new()
         {
             Name = Name,
             DisplayName = "Alchemy",

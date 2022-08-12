@@ -1,12 +1,10 @@
-﻿using RSBot.Alchemy.Client.ReferenceObjects;
-using RSBot.Core;
+﻿using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using System;
 using System.Linq;
-using RSBot.Core.Components;
-using RSBot.Alchemy.Extension;
 
 namespace RSBot.Alchemy.Subscriber
 {
@@ -17,15 +15,6 @@ namespace RSBot.Alchemy.Subscriber
             EventManager.SubscribeEvent("OnAlchemyError", new Action<ushort, AlchemyType>(OnAlchemyError));
             EventManager.SubscribeEvent("OnAlchemyDestroyed", new Action<InventoryItem, AlchemyType>(OnAlchemyDestroyed));
             EventManager.SubscribeEvent("OnFuseRequest", new Action<AlchemyAction, AlchemyType>(OnFuseRequest));
-            EventManager.SubscribeEvent("OnMagicOptionGranted", new Action<byte, string>(OnMagicOptionGranted));
-        }
-
-        private static void OnMagicOptionGranted(byte slot, string group)
-        {
-            var item = Game.Player.Inventory.GetItemAt(slot);
-            var option = Game.ReferenceManager.GetMagicOption(group, (byte)item.Record.Degree);
-
-            Game.ReferenceManager.GetTranslation("UIIT_MSG_ALCHEMY_APPEND_ATTR").JoymaxFormat(option.GetGroupTranslation(), item.Record.GetRealName());
         }
 
         private static void OnAlchemyDestroyed(InventoryItem oldItem, AlchemyType type)
@@ -33,8 +22,8 @@ namespace RSBot.Alchemy.Subscriber
             if (!AlchemyBotbase.IsActive)
                 return;
 
-            Globals.Botbase.EnhancerEngineConfig = null;
-            Globals.Botbase.MagicEngineConfig = null;
+            Globals.Botbase.EnhanceBundleConfig = null;
+            Globals.Botbase.MagicBundleConfig = null;
 
             Globals.View.SelectedItem = null;
             Globals.View.AddLog(oldItem.Record.GetRealName(), Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_BREAKDOWN"));
@@ -48,10 +37,11 @@ namespace RSBot.Alchemy.Subscriber
             if (!AlchemyBotbase.IsActive)
                 return;
 
-            if (errorCode == 0x5423)
+            if (errorCode is 0x5423)
                 return;
 
             Kernel.Bot?.Stop();
+
             Log.Error($"[Alchemy] Alchemy fusion error: {errorCode:X}");
         }
 
@@ -67,23 +57,23 @@ namespace RSBot.Alchemy.Subscriber
 
             var ingredient = AlchemyManager.ActiveAlchemyItems.ElementAtOrDefault(1);
             var item = AlchemyManager.ActiveAlchemyItems.ElementAtOrDefault(0);
-            
+
             switch (type)
             {
                 case AlchemyType.Elixir:
-                    Globals.View.AddLog(item.Record.GetRealName(), $"Fusing elixir [{ingredient.Record.GetRealName()}]");
+                    Globals.View.AddLog(item?.Record.GetRealName(), $"Fusing elixir [{ingredient.Record.GetRealName()}]");
                     break;
 
                 case AlchemyType.MagicStone:
-                    Globals.View.AddLog(item.Record.GetRealName(), $"Fusing magic stone [{ingredient.Record.GetRealName()}]");
+                    Globals.View.AddLog(item?.Record.GetRealName(), $"Fusing magic stone [{ingredient.Record.GetRealName()}]");
                     break;
 
                 case AlchemyType.AttributeStone:
-                    Globals.View.AddLog(item.Record.GetRealName(), $"Fusing attribute stone [{ingredient.Record.GetRealName()}]");
+                    Globals.View.AddLog(item?.Record.GetRealName(), $"Fusing attribute stone [{ingredient.Record.GetRealName()}]");
                     break;
 
                 default:
-                    Globals.View.AddLog(item.Record.GetRealName(), $"Fusing [{ingredient.Record.GetRealName()}]");
+                    Globals.View.AddLog(item?.Record.GetRealName(), $"Fusing [{ingredient.Record.GetRealName()}]");
                     break;
             }
         }

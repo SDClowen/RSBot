@@ -2,9 +2,9 @@
 using RSBot.Core.Objects;
 using System.Collections.Generic;
 
-namespace RSBot.Alchemy.Bot
+namespace RSBot.Alchemy.Bundle.Magic
 {
-    internal class MagicEngineConfig
+    internal class MagicBundleConfig
     {
         #region Properties
 

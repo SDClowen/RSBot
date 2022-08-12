@@ -1,6 +1,6 @@
-﻿namespace RSBot.Alchemy.Bot
+﻿namespace RSBot.Alchemy.Bundle
 {
-    internal interface IAlchemyEngine
+    internal interface IAlchemyBundle
     {
         void Start();
 

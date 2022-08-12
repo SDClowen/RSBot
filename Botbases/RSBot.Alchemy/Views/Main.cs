@@ -1,20 +1,19 @@
-﻿using RSBot.Alchemy.Client.ReferenceObjects;
+﻿using RSBot.Alchemy.Bot;
+using RSBot.Alchemy.Client.ReferenceObjects;
+using RSBot.Alchemy.Views.Settings;
 using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Event;
+using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
 using System;
 using System.Linq;
 using System.Windows.Forms;
-using RSBot.Alchemy.Bot;
-using RSBot.Alchemy.Views.Settings;
-using RSBot.Core.Extensions;
 
 namespace RSBot.Alchemy.Views
 {
     public partial class Main : UserControl
     {
-
         internal class InventoryItemComboboxItem
         {
             /// <summary>
@@ -35,7 +34,7 @@ namespace RSBot.Alchemy.Views
 
         public bool IsRefreshing { get; private set; }
 
-        #endregion
+        #endregion Properties
 
         #region Delegates
 
@@ -47,8 +46,16 @@ namespace RSBot.Alchemy.Views
         /// </summary>
         internal event SelectedItemChanged ItemChanged;
 
-        internal delegate void SelectedEngineChanged(InventoryItem item, Engine engine);
+        /// <summary>
+        /// Will be triggered when the user selects a different engine
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <param name="alchemyEngine">The alchemy engine.</param>
+        internal delegate void SelectedEngineChanged(InventoryItem item, AlchemyEngine alchemyEngine);
 
+        /// <summary>
+        /// Will be triggered when the user selects a different engine
+        /// </summary>
         internal event SelectedEngineChanged EngineChanged;
 
         #endregion Delegates
@@ -82,12 +89,13 @@ namespace RSBot.Alchemy.Views
                 ControlStyles.OptimizedDoubleBuffer,
                 true);
 
-            EventManager.SubscribeEvent("OnLoadCharacter", ReloadItemList);
+            EventManager.SubscribeEvent("OnLoadCharacter", () => { Invoke(ReloadItemList); });
+
             EventManager.SubscribeEvent("OnAlchemy", new Action<AlchemyType>(OnAlchemy));
 
             _enhanceSettingsView = new EnhanceSettingsView { Visible = true, Dock = DockStyle.Fill };
             _magicOptionsSettingsView = new MagicOptionsSettingsView { Visible = false, Dock = DockStyle.Fill };
-            _attributeSettingsView = new AttributesSettingsView {Visible = false, Dock = DockStyle.Fill};
+            _attributeSettingsView = new AttributesSettingsView { Visible = false, Dock = DockStyle.Fill };
 
             panelSettings.Controls.Add(_enhanceSettingsView);
             panelSettings.Controls.Add(_magicOptionsSettingsView);
@@ -100,7 +108,7 @@ namespace RSBot.Alchemy.Views
 
         private void OnAlchemy(AlchemyType type)
         {
-            ReloadItemList();
+            Invoke(ReloadItemList);
         }
 
         /// <summary>
@@ -126,7 +134,6 @@ namespace RSBot.Alchemy.Views
                     if (SelectedItem != null && item.Slot == SelectedItem.Slot)
                         comboItem.SelectedItem = newComboItem;
                 }
-
             }
             catch (Exception e)
             {
@@ -192,7 +199,7 @@ namespace RSBot.Alchemy.Views
         public void AddLog(string itemName, string message)
         {
             var item = new ListViewItem(itemName);
-            
+
             item.SubItems.Add(message);
 
             lvLog.Items.Add(item);
@@ -214,7 +221,7 @@ namespace RSBot.Alchemy.Views
         /// <param name="e"></param>
         private void linkRefreshItemList_Click(object sender, EventArgs e)
         {
-            ReloadItemList();
+            Invoke(ReloadItemList);
         }
 
         /// <summary>
@@ -232,8 +239,8 @@ namespace RSBot.Alchemy.Views
 
             if (SelectedItem == null) return;
 
-            PopulateAttributes(SelectedItem);
-            PopulateMagicOptions(SelectedItem);
+            Invoke(() => PopulateAttributes(SelectedItem));
+            Invoke(() => PopulateMagicOptions(SelectedItem));
 
             lblDegree.Text = SelectedItem.Record.Degree.ToString();
             lblOptLevel.Text = $"+{SelectedItem.OptLevel}";
@@ -250,20 +257,20 @@ namespace RSBot.Alchemy.Views
         private void radioEngine_CheckedChanged(object sender, EventArgs e)
         {
             if (radioEnhance.Checked)
-                LoadEngineSettings(Engine.Enhancement);
+                LoadEngineSettings(AlchemyEngine.Enhance);
 
             if (radioMagicOptions.Checked)
-                LoadEngineSettings(Engine.Magic);
+                LoadEngineSettings(AlchemyEngine.Magic);
 
             if (radioAttributes.Checked)
-                LoadEngineSettings(Engine.Attribute);
+                LoadEngineSettings(AlchemyEngine.Attribute);
         }
 
         /// <summary>
         /// Reloads the engine settings depending on the selected engine
         /// </summary>
-        /// <param name="engine">The engine to load the settings for</param>
-        private void LoadEngineSettings(Engine engine)
+        /// <param name="alchemyEngine">The engine to load the settings for</param>
+        private void LoadEngineSettings(AlchemyEngine alchemyEngine)
         {
             IsRefreshing = true;
 
@@ -271,30 +278,30 @@ namespace RSBot.Alchemy.Views
                 return;
 
             if (Globals.Botbase != null && !Kernel.Bot.Running)
-                Globals.Botbase.Engine = engine;
+                Globals.Botbase.AlchemyEngine = alchemyEngine;
 
-            if (engine == Engine.Enhancement)
+            if (alchemyEngine == AlchemyEngine.Enhance)
             {
                 _enhanceSettingsView.Show();
                 _magicOptionsSettingsView.Hide();
                 _attributeSettingsView.Hide();
             }
 
-            if (engine == Engine.Magic)
+            if (alchemyEngine == AlchemyEngine.Magic)
             {
                 _enhanceSettingsView.Hide();
                 _magicOptionsSettingsView.Show();
                 _attributeSettingsView.Hide();
             }
 
-            if (engine == Engine.Attribute)
+            if (alchemyEngine == AlchemyEngine.Attribute)
             {
                 _enhanceSettingsView.Hide();
                 _magicOptionsSettingsView.Hide();
                 _attributeSettingsView.Show();
             }
 
-            EngineChanged?.Invoke(SelectedItem, engine);
+            EngineChanged?.Invoke(SelectedItem, alchemyEngine);
 
             IsRefreshing = false;
         }

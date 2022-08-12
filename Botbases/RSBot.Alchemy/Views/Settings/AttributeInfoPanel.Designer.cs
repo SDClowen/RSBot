@@ -34,6 +34,7 @@
             this.separator1 = new SDUI.Controls.Separator();
             this.checkSelected = new SDUI.Controls.CheckBox();
             this.tipStone = new System.Windows.Forms.ToolTip(this.components);
+            this.lblFinished = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // comboMaxValue
@@ -89,10 +90,23 @@
             this.tipStone.AutomaticDelay = 0;
             this.tipStone.IsBalloon = true;
             // 
+            // lblFinished
+            // 
+            this.lblFinished.AutoSize = true;
+            this.lblFinished.BackColor = System.Drawing.Color.Transparent;
+            this.lblFinished.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblFinished.ForeColor = System.Drawing.Color.Green;
+            this.lblFinished.Location = new System.Drawing.Point(378, 4);
+            this.lblFinished.Name = "lblFinished";
+            this.lblFinished.Size = new System.Drawing.Size(27, 25);
+            this.lblFinished.TabIndex = 5;
+            this.lblFinished.Text = "✓";
+            // 
             // AttributeInfoPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lblFinished);
             this.Controls.Add(this.separator1);
             this.Controls.Add(this.lblItemAmount);
             this.Controls.Add(this.comboMaxValue);
@@ -110,5 +124,6 @@
         private SDUI.Controls.Separator separator1;
         private SDUI.Controls.CheckBox checkSelected;
         private System.Windows.Forms.ToolTip tipStone;
+        private System.Windows.Forms.Label lblFinished;
     }
 }

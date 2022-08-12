@@ -61,15 +61,19 @@ namespace RSBot.Core.Components
         /// <param name="item">The item.</param>
         /// <param name="elixir">The elixir.</param>
         /// <param name="powder">The powder.</param>
-        public static void FuseElixir(InventoryItem item, InventoryItem elixir, InventoryItem? powder)
+        public static bool TryFuseElixir(InventoryItem item, InventoryItem elixir, InventoryItem? powder)
         {
-            if (Game.Player.Inventory.GetItemAt(item.Slot).ItemId != item.ItemId ||
-                Game.Player.Inventory.GetItemAt(elixir.Slot).ItemId != elixir.ItemId ||
-                (powder != null && Game.Player.Inventory.GetItemAt(powder.Slot).ItemId != powder.ItemId))
+            var itemInInventory = Game.Player.Inventory.GetItemAt(item.Slot);
+            var elixirInInventory = Game.Player.Inventory.GetItemAt(elixir.Slot);
+            var powderInInventory = Game.Player.Inventory.GetItemAt(powder.Slot);
+
+            if ( itemInInventory?.ItemId != item.ItemId ||
+                elixirInInventory?.ItemId != elixir.ItemId ||
+                (powderInInventory != null && powderInInventory.ItemId != powder.ItemId))
             {
                 Log.Warn("[Alchemy] Requested to fuse an item that does not match the current item at the specified slot.");
 
-                return;
+                return false;
             }
 
             Log.Notify(powder == null
@@ -91,6 +95,8 @@ namespace RSBot.Core.Components
             Kernel.Proxy.Server.Send(packet);
 
             GenericAlchemyRequestHandler.Invoke(packet);
+
+            return true;
         }
 
         /// <summary>
@@ -98,13 +104,17 @@ namespace RSBot.Core.Components
         /// </summary>
         /// <param name="item">The item.</param>
         /// <param name="magicStone">The elixir.</param>
-        public static void FuseMagicStone(InventoryItem item, InventoryItem magicStone)
+        public static bool TryFuseMagicStone(InventoryItem item, InventoryItem magicStone)
         {
-            if (Game.Player.Inventory.GetItemAt(item.Slot).ItemId != item.ItemId || Game.Player.Inventory.GetItemAt(magicStone.Slot).ItemId != magicStone.ItemId)
-            {
-                Log.Warn("[Alchemy] Requested to fuse an item that does not match the current item at the specified slot.");
+            var itemInInventory = Game.Player.Inventory.GetItemAt(item.Slot);
+            var stoneInInventory = Game.Player.Inventory.GetItemAt(magicStone.Slot);
 
-                return;
+            if (itemInInventory?.ItemId != item.ItemId ||
+                stoneInInventory?.ItemId != magicStone.ItemId)
+            {
+                Log.Debug("[Alchemy] Requested to fuse an item that does not match the current item at the specified slot.");
+
+                return false;
             }
 
             Log.Notify($"[Alchemy] Fusing magic stone {magicStone.Record.GetRealName()} to item {item.Record.GetRealName()}");
@@ -123,6 +133,8 @@ namespace RSBot.Core.Components
             Kernel.Proxy.Server.Send(packet);
 
             GenericAlchemyRequestHandler.Invoke(packet);
+
+            return true;
         }
 
         /// <summary>
@@ -130,13 +142,17 @@ namespace RSBot.Core.Components
         /// </summary>
         /// <param name="item">The item.</param>
         /// <param name="attributeStone">The attribute stone.</param>
-        public static void FuseAttributeStone(InventoryItem item, InventoryItem attributeStone)
+        public static bool TryFuseAttributeStone(InventoryItem item, InventoryItem attributeStone)
         {
-            if (Game.Player.Inventory.GetItemAt(item.Slot)?.ItemId != item.ItemId || Game.Player.Inventory.GetItemAt(attributeStone.Slot)?.ItemId != attributeStone.ItemId)
+            var itemInInventory = Game.Player.Inventory.GetItemAt(item.Slot);
+            var stoneInInventory = Game.Player.Inventory.GetItemAt(attributeStone.Slot);
+
+            if (itemInInventory?.ItemId != item.ItemId ||
+                stoneInInventory?.ItemId != attributeStone.ItemId)
             {
                 Log.Warn("[Alchemy] Requested to fuse an item that does not match the current item at the specified slot.");
-
-                return;
+                
+                return false;
             }
 
             Log.Notify($"[Alchemy] Fusing attribute stone {attributeStone.Record.GetRealName()} to item {item.Record.GetRealName()}");
@@ -154,6 +170,8 @@ namespace RSBot.Core.Components
             Kernel.Proxy.Server.Send(packet);
 
             GenericAlchemyRequestHandler.Invoke(packet);
+
+            return true;
         }
 
         /// <summary>

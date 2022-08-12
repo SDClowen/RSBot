@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using RSBot.Core.Objects;
+﻿using RSBot.Core.Objects;
+using System.Collections.Generic;
 
-namespace RSBot.Alchemy.Bot
+namespace RSBot.Alchemy.Bundle.Enhance
 {
-    internal class EnhancerEngineConfig
+    internal class EnhanceBundleConfig
     {
         #region Properties
 

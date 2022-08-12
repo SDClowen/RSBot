@@ -1,4 +1,5 @@
-﻿using RSBot.Alchemy.Extension;
+﻿using RSBot.Alchemy.Bot;
+using RSBot.Alchemy.Extension;
 using RSBot.Alchemy.Helper;
 using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
@@ -10,9 +11,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace RSBot.Alchemy.Bot
+namespace RSBot.Alchemy.Bundle.Enhance
 {
-    internal class EnhancerEngine : IAlchemyEngine
+    internal class EnhanceBundle : IAlchemyBundle
     {
         #region Members
 
@@ -22,7 +23,7 @@ namespace RSBot.Alchemy.Bot
 
         #endregion Members
 
-        private EnhancerEngineConfig _config;
+        private EnhanceBundleConfig _config;
 
         private bool _isStoneFusing;
 
@@ -31,7 +32,7 @@ namespace RSBot.Alchemy.Bot
         /// <summary>
         /// Subscribes events
         /// </summary>
-        public EnhancerEngine()
+        public EnhanceBundle()
         {
             SubscribeEvents();
 
@@ -63,7 +64,6 @@ namespace RSBot.Alchemy.Bot
         /// </summary>
         private void SubscribeEvents()
         {
-            EventManager.SubscribeEvent("OnAlchemyCanceled", new Action<AlchemyType>(OnElixirAlchemyCanceled));
             EventManager.SubscribeEvent("OnAlchemyDestroyed",
                 new Action<InventoryItem, AlchemyType>(OnElixirAlchemyDestroyed));
             EventManager.SubscribeEvent("OnAlchemySuccess",
@@ -80,7 +80,7 @@ namespace RSBot.Alchemy.Bot
         /// <param name="engineConfig"></param>
         public void Run<T>(T engineConfig)
         {
-            if (engineConfig is not EnhancerEngineConfig config)
+            if (engineConfig is not EnhanceBundleConfig config)
                 return;
 
             if (config.Item == null)
@@ -90,7 +90,6 @@ namespace RSBot.Alchemy.Bot
 
                 return;
             }
-
 
             //Item still there and available?
             var item = Game.Player.Inventory.GetItemAt(config.Item.Slot);
@@ -103,7 +102,7 @@ namespace RSBot.Alchemy.Bot
             }
 
             //Config incomplete?
-            if (!_shouldRun || Globals.Botbase.Engine != Engine.Enhancement)
+            if (!_shouldRun || Globals.Botbase.AlchemyEngine != AlchemyEngine.Enhance)
                 return;
 
             if (config.Elixirs == null || !config.Elixirs.Any() || config.Elixirs.Sum(i => i.Amount) == 0)
@@ -147,7 +146,8 @@ namespace RSBot.Alchemy.Bot
                 if (steadyStone != null && steadyStone.Amount > 0 &&
                     !AlchemyItemHelper.HasMagicOption(config.Item, RefMagicOpt.MaterialSteady))
                 {
-                    AlchemyManager.FuseMagicStone(_config.Item, steadyStone);
+                    if (!AlchemyManager.TryFuseMagicStone(_config.Item, steadyStone))
+                        return;
 
                     _shouldRun = false;
                     _isStoneFusing = true;
@@ -164,7 +164,8 @@ namespace RSBot.Alchemy.Bot
                 if (luckyStone != null && luckyStone.Amount > 0 &&
                     !AlchemyItemHelper.HasMagicOption(config.Item, RefMagicOpt.MaterialLuck))
                 {
-                    AlchemyManager.FuseMagicStone(_config.Item, luckyStone);
+                    if (!AlchemyManager.TryFuseMagicStone(_config.Item, luckyStone))
+                        return;
 
                     _shouldRun = false;
                     _isStoneFusing = true;
@@ -178,10 +179,11 @@ namespace RSBot.Alchemy.Bot
             {
                 var immortalStone = AlchemyItemHelper.GetImmortalStone(config.Item);
 
-                if (immortalStone != null && immortalStone.Amount > 0 &&
+                if (immortalStone?.Amount > 0 &&
                     !AlchemyItemHelper.HasMagicOption(config.Item, RefMagicOpt.MaterialImmortal))
                 {
-                    AlchemyManager.FuseMagicStone(_config.Item, immortalStone);
+                    if (!AlchemyManager.TryFuseMagicStone(_config.Item, immortalStone))
+                        return;
 
                     _shouldRun = false;
                     _isStoneFusing = true;
@@ -214,7 +216,8 @@ namespace RSBot.Alchemy.Bot
                         return;
                     }
 
-                    AlchemyManager.FuseMagicStone(_config.Item, astralStone);
+                    if (!AlchemyManager.TryFuseMagicStone(_config.Item, astralStone))
+                        return;
 
                     _shouldRun = false;
                     _isStoneFusing = true;
@@ -237,22 +240,18 @@ namespace RSBot.Alchemy.Bot
         /// </summary>
         private void SendFusePacket()
         {
-            if (_config == null || !_shouldRun) return;
+            if (_config == null || !_shouldRun || !_config.Elixirs.Any())
+                return;
 
             var powder = _luckyPowders.FirstOrDefault();
-            var elixir = GetElixir(_config.Elixirs.First().ItemId);
+            var elixir = Game.Player.Inventory.GetItem(_config.Elixirs.First().ItemId);
 
-            AlchemyManager.FuseElixir(_config.Item, elixir, powder);
+            AlchemyManager.TryFuseElixir(_config.Item, elixir, powder);
         }
 
         #endregion Methods
 
         #region Events
-
-        private InventoryItem GetElixir(uint itemId)
-        {
-            return Game.Player.Inventory.GetItem(itemId);
-        }
 
         /// <summary>
         /// Will be triggered if any elixir alchemy operation was completed
@@ -269,7 +268,7 @@ namespace RSBot.Alchemy.Bot
 
         private void OnElixirAlchemySuccess(InventoryItem oldItem, InventoryItem newItem, AlchemyType type)
         {
-            if (Globals.Botbase.Engine != Engine.Enhancement)
+            if (Globals.Botbase.AlchemyEngine != AlchemyEngine.Enhance)
                 return;
 
             //After fusing a magic stone (steady, astral & co.) tell the bot to continue to fuse elixirs!
@@ -292,19 +291,6 @@ namespace RSBot.Alchemy.Bot
                 _config.Item = newItem;
 
             _shouldRun = true;
-        }
-
-        /// <summary>
-        /// Will be triggered if any elixir alchemy operation was canceled
-        /// </summary>
-        ///
-        private void OnElixirAlchemyCanceled(AlchemyType type)
-        {
-            if (type != AlchemyType.Elixir) return;
-
-            Log.Notify(Game.ReferenceManager.GetTranslation("UIIT_MSG_ENCHANT_CANCEL"));
-
-            _shouldRun = false;
         }
 
         /// <summary>
@@ -357,6 +343,11 @@ namespace RSBot.Alchemy.Bot
                 _config.Item = newItem;
         }
 
+        /// <summary>
+        /// Called when [fuse request].
+        /// </summary>
+        /// <param name="action">The action.</param>
+        /// <param name="type">The type.</param>
         private void OnFuseRequest(AlchemyAction action, AlchemyType type)
         {
             _shouldRun = false;

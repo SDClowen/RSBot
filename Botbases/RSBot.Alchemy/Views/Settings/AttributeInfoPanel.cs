@@ -26,8 +26,7 @@ namespace RSBot.Alchemy.Views.Settings
 
             set
             {
-                if (checkSelected != null)
-                    checkSelected.Checked = value;
+                checkSelected.Checked = GetMaxValue() > _currentAttribute.GetPercentage(_currentAttributeSlot) && value;
             }
         }
 
@@ -75,7 +74,8 @@ namespace RSBot.Alchemy.Views.Settings
         /// <param name="group">The group.</param>
         /// <param name="stones">The stones.</param>
         /// <param name="item">The item.</param>
-        public AttributeInfoPanel(ItemAttributeGroup group, IEnumerable<InventoryItem>? stones, InventoryItem item, int maxValue = 22)
+        public AttributeInfoPanel(ItemAttributeGroup group, IEnumerable<InventoryItem>? stones, InventoryItem item,
+            int maxValue = 22)
         {
             CheckForIllegalCrossThreadCalls = false;
 
@@ -108,6 +108,11 @@ namespace RSBot.Alchemy.Views.Settings
 
             if (Stones.Any())
                 tipStone.SetToolTip(checkSelected, $"{Stones.First().Record.GetRealName()}x{totalAmount}");
+
+            if (GetMaxValue() <= _currentAttribute.GetPercentage(_currentAttributeSlot))
+                lblFinished.Show();
+            else
+                lblFinished.Hide();
         }
 
         private void ComboMaxValue_SelectedIndexChanged(object? sender, System.EventArgs e)
@@ -116,9 +121,15 @@ namespace RSBot.Alchemy.Views.Settings
                 return;
 
             if (GetMaxValue() <= _currentAttribute.GetPercentage(_currentAttributeSlot))
+            {
                 checkSelected.Checked = false;
+                lblFinished.Show();
+            }
             else
+            {
                 checkSelected.Checked = true;
+                lblFinished.Hide();
+            }
 
             OnChange?.Invoke(checkSelected.Checked, GetMaxValue());
         }
@@ -153,35 +164,32 @@ namespace RSBot.Alchemy.Views.Settings
 
         private void SetMaxValue(int maxValue)
         {
-            if (maxValue <= 22)
+            switch (maxValue)
             {
-                comboMaxValue.SelectedIndex = 0;
+                case <= 22:
+                    comboMaxValue.SelectedIndex = 0;
 
-                return;
+                    return;
+
+                case <= 41:
+                    comboMaxValue.SelectedIndex = 1;
+
+                    return;
+
+                case <= 61:
+                    comboMaxValue.SelectedIndex = 2;
+
+                    return;
+
+                case <= 80:
+                    comboMaxValue.SelectedIndex = 3;
+
+                    return;
+
+                default:
+                    comboMaxValue.SelectedIndex = 0;
+                    break;
             }
-
-            if (maxValue <= 41)
-            {
-                comboMaxValue.SelectedIndex = 1;
-
-                return;
-            }
-
-            if (maxValue <= 61)
-            {
-                comboMaxValue.SelectedIndex = 2;
-
-                return;
-            }
-
-            if (maxValue <= 80)
-            {
-                comboMaxValue.SelectedIndex = 3;
-
-                return;
-            }
-
-            comboMaxValue.SelectedIndex = 4;
 
             if (GetMaxValue() <= _currentAttribute.GetPercentage(_currentAttributeSlot))
                 checkSelected.Checked = false;

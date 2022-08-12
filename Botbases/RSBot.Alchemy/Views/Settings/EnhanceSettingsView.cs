@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using RSBot.Alchemy.Bot;
+using RSBot.Alchemy.Bundle.Enhance;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using RSBot.Alchemy.Bot;
 
 namespace RSBot.Alchemy.Views.Settings
 {
@@ -25,7 +26,7 @@ namespace RSBot.Alchemy.Views.Settings
             {
                 if (!Items.Any())
                     return string.Empty;
-                
+
                 return $"{Items.Sum(i => i.Amount)}x {Items.First().Record.GetRealName()}";
             }
         }
@@ -52,7 +53,6 @@ namespace RSBot.Alchemy.Views.Settings
                 true);
 
             EventManager.SubscribeEvent("OnEnterGame", SubscribeMainFormEvents);
-
         }
 
         #endregion Constructor
@@ -83,7 +83,7 @@ namespace RSBot.Alchemy.Views.Settings
             }
 
             _selectedItem = Globals.View.SelectedItem;
-            
+
             lblCurrentOptLevel.Text = _selectedItem == null ? "+0" : $"+{Globals.View.SelectedItem.OptLevel}";
 
             var type = Helper.AlchemyItemHelper.ElixirType.Unspecified;
@@ -99,7 +99,7 @@ namespace RSBot.Alchemy.Views.Settings
 
             if (accessorryTypeId3.Contains(_selectedItem.Record.TypeID3) && _selectedItem.Record.TypeID2 == 1)
                 type = Helper.AlchemyItemHelper.ElixirType.Accessory;
-            
+
             if (armorTypeId3.Contains(_selectedItem.Record.TypeID3) && _selectedItem.Record.TypeID2 == 1)
                 type = Helper.AlchemyItemHelper.ElixirType.Protector;
 
@@ -111,12 +111,11 @@ namespace RSBot.Alchemy.Views.Settings
             foreach (var items in matchingElixirs.GroupBy(i => i.ItemId))
             {
                 comboElixir.Items.Add(new ElixirComboboxItem(items));
-        
-                if (items.Key == Globals.Botbase.EnhancerEngineConfig?.Elixirs?.FirstOrDefault()?.ItemId)
-                    comboElixir.SelectedIndex = index;
-                
-                index++;
 
+                if (items.Key == Globals.Botbase.EnhanceBundleConfig?.Elixirs?.FirstOrDefault()?.ItemId)
+                    comboElixir.SelectedIndex = index;
+
+                index++;
             }
 
             if (comboElixir.Items.Count > 0 && comboElixir.SelectedItem == null)
@@ -156,7 +155,7 @@ namespace RSBot.Alchemy.Views.Settings
 
         #region Events
 
-        private void View_EngineChanged(InventoryItem item, Engine engine)
+        private void View_EngineChanged(InventoryItem item, AlchemyEngine alchemyEngine)
         {
             PopulateView();
         }
@@ -187,10 +186,10 @@ namespace RSBot.Alchemy.Views.Settings
         /// <param name="e"></param>
         private void config_CheckedChange(object sender, System.EventArgs e)
         {
-            if (Globals.Botbase == null || Globals.Botbase.Engine != Engine.Enhancement)
+            if (Globals.Botbase == null || Globals.Botbase.AlchemyEngine != AlchemyEngine.Enhance)
                 return;
 
-            Globals.Botbase.EnhancerEngineConfig = new EnhancerEngineConfig
+            Globals.Botbase.EnhanceBundleConfig = new EnhanceBundleConfig
             {
                 Item = Globals.View.SelectedItem,
                 UseAstralStones = checkUseAstralStones.Checked,

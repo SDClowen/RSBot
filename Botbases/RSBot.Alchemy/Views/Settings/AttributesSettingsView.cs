@@ -1,4 +1,5 @@
 ﻿using RSBot.Alchemy.Bot;
+using RSBot.Alchemy.Bundle.Attribute;
 using RSBot.Alchemy.Helper;
 using RSBot.Core;
 using RSBot.Core.Event;
@@ -12,13 +13,13 @@ namespace RSBot.Alchemy.Views.Settings
 {
     public partial class AttributesSettingsView : UserControl
     {
-        internal AttributesEngineConfig EngineConfig
+        internal AttributeBundleConfig BundleConfig
         {
             get
             {
-                var result = new AttributesEngineConfig { Item = SelectedItem };
+                var result = new AttributeBundleConfig { Item = SelectedItem };
 
-                var attributes = new List<AttributesEngineConfig.AttributesEngineConfigItem>(10);
+                var attributes = new List<AttributeBundleConfig.AttributeBundleConfigItem>(10);
 
                 foreach (var attributePanel in _attributePanels)
                 {
@@ -84,14 +85,14 @@ namespace RSBot.Alchemy.Views.Settings
                     return;
                 }
 
-                if (Globals.Botbase.AttributesEngineConfig == null)
-                    Globals.Botbase.AttributesEngineConfig = EngineConfig;
+                if (Globals.Botbase.AttributeBundleConfig == null)
+                    Globals.Botbase.AttributeBundleConfig = BundleConfig;
 
                 foreach (var attributeGroup in availableItemAttributes)
                 {
                     var matchingStones = AlchemyItemHelper.GetAttributeStones(selectedItem, attributeGroup);
 
-                    var config = Globals.Botbase.AttributesEngineConfig.Attributes.FirstOrDefault(x => x.Group == attributeGroup);
+                    var config = Globals.Botbase.AttributeBundleConfig.Attributes.FirstOrDefault(x => x.Group == attributeGroup);
 
                     var panel = new AttributeInfoPanel(attributeGroup, matchingStones, selectedItem, config == null ? 0 : config.MaxValue) { Dock = DockStyle.Top };
                     _attributePanels.Add(panel);
@@ -107,10 +108,12 @@ namespace RSBot.Alchemy.Views.Settings
                     panel.OnChange += PanelOnChange;
                 }
 
-                Controls.Clear();
-                Controls.AddRange(_attributePanels.ToArray());
+                panelAttributes.Hide();
+                panelAttributes.Controls.Clear();
+                panelAttributes.Controls.AddRange(_attributePanels.ToArray());
+                panelAttributes.Show();
 
-                Globals.Botbase.AttributesEngineConfig = EngineConfig;
+                Globals.Botbase.AttributeBundleConfig = BundleConfig;
             }
             catch (Exception ex)
             {
@@ -120,10 +123,10 @@ namespace RSBot.Alchemy.Views.Settings
 
         private void PanelOnChange(bool @checked, int maxValue)
         {
-            Globals.Botbase.AttributesEngineConfig = EngineConfig;
+            Globals.Botbase.AttributeBundleConfig = BundleConfig;
         }
 
-        private void View_EngineChanged(InventoryItem item, Engine engine)
+        private void View_EngineChanged(InventoryItem item, AlchemyEngine alchemyEngine)
         {
             Invoke(PopulateView);
         }

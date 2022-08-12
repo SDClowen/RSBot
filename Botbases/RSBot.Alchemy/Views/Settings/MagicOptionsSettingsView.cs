@@ -1,14 +1,15 @@
-﻿using System;
+﻿using RSBot.Alchemy.Bundle.Magic;
 using RSBot.Alchemy.Client.ReferenceObjects;
+using RSBot.Alchemy.Helper;
 using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Item;
+using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using RSBot.Alchemy.Helper;
 
 namespace RSBot.Alchemy.Views.Settings
 {
@@ -58,7 +59,7 @@ namespace RSBot.Alchemy.Views.Settings
             }
         }
 
-        private void View_EngineChanged(InventoryItem item, Bot.Engine engine)
+        private void View_EngineChanged(InventoryItem item, Bot.AlchemyEngine alchemyEngine)
         {
             PopulateListView();
         }
@@ -100,7 +101,7 @@ namespace RSBot.Alchemy.Views.Settings
         /// </summary>
         public void PopulateListView()
         {
-            if (Globals.View.SelectedItem == null) 
+            if (Globals.View.SelectedItem == null)
                 return;
 
             try
@@ -137,13 +138,13 @@ namespace RSBot.Alchemy.Views.Settings
                             {
                                 //Fix in case the server sends a lower magic option id than expected (dunno why this happens)
                                 var actualMagicOption = Game.ReferenceManager.GetMagicOption(assignment.Group,
-                                    (byte) selectedItem.Record.Degree);
+                                    (byte)selectedItem.Record.Degree);
 
                                 matchingMagicStones =
                                     AlchemyItemHelper.GetStonesByGroup(magicOption.Record.Level, assignment.Group);
 
                                 currentMagicOptionInfo = new MagicOptionInfo
-                                    {Id = actualMagicOption.Id, Value = magicOption.Value};
+                                { Id = actualMagicOption.Id, Value = magicOption.Value };
                             }
                             else
                                 currentMagicOptionInfo = magicOption;
@@ -159,7 +160,7 @@ namespace RSBot.Alchemy.Views.Settings
                         canBeIncreased = false;
 
                     var refMagicOption =
-                        Game.ReferenceManager.GetMagicOption(assignment.Group, (byte) selectedItem.Record.Degree);
+                        Game.ReferenceManager.GetMagicOption(assignment.Group, (byte)selectedItem.Record.Degree);
                     if (refMagicOption == null)
                         continue;
 
@@ -167,7 +168,8 @@ namespace RSBot.Alchemy.Views.Settings
                     {
                         Tag = new MagicStoneListViewItemTag
                         {
-                            Item = matchingMagicStones.FirstOrDefault(), MagicOption = assignment,
+                            Item = matchingMagicStones.FirstOrDefault(),
+                            MagicOption = assignment,
                             MagicOptionInfo = currentMagicOptionInfo
                         },
                         ForeColor = canBeIncreased ? Color.Green : Color.Red
@@ -177,8 +179,8 @@ namespace RSBot.Alchemy.Views.Settings
                     item.SubItems.Add(refMagicOption.GetMaxValue().ToString());
                     item.SubItems.Add(!matchingMagicStones.Any() ? "x0" : $"x{matchingMagicStones.Sum(i => i.Amount)}");
 
-                    if (Globals.Botbase.MagicEngineConfig != null &&
-                        Globals.Botbase.MagicEngineConfig.MagicStones.Keys.FirstOrDefault(i =>
+                    if (Globals.Botbase.MagicBundleConfig != null &&
+                        Globals.Botbase.MagicBundleConfig.MagicStones.Keys.FirstOrDefault(i =>
                             i.Record.ID == matchingMagicStones.FirstOrDefault()?.ItemId) != null && canBeIncreased)
                         item.Checked = true;
                     else
@@ -206,8 +208,8 @@ namespace RSBot.Alchemy.Views.Settings
         private void ReloadConfig()
         {
             if (!_reloadConfig) return;
-            
-            Globals.Botbase.MagicEngineConfig = new Bot.MagicEngineConfig
+
+            Globals.Botbase.MagicBundleConfig = new MagicBundleConfig()
             {
                 Item = Globals.View.SelectedItem,
                 MagicStones = new System.Collections.Generic.Dictionary<InventoryItem, RefMagicOpt>()
@@ -220,14 +222,13 @@ namespace RSBot.Alchemy.Views.Settings
                     var invItem = (MagicStoneListViewItemTag)item.Tag;
 
                     if (invItem.Item != null)
-                        Globals.Botbase.MagicEngineConfig.MagicStones.Add(invItem.Item, invItem.MagicOption);
+                        Globals.Botbase.MagicBundleConfig.MagicStones.Add(invItem.Item, invItem.MagicOption);
                 }
             }
             catch (Exception e)
             {
                 Log.Warn($"[Alchemy] Unhandled exception while reloading magic options configuration: {e.Message}");
             }
-            
         }
 
         #endregion Methods
