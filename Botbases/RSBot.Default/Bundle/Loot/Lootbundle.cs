@@ -3,6 +3,7 @@ using RSBot.Core.Components;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
 using System.Threading.Tasks;
+using RSBot.Core.Event;
 
 namespace RSBot.Default.Bundle.Loot
 {
@@ -29,7 +30,7 @@ namespace RSBot.Default.Bundle.Loot
                 Task.Run(() => PickupManager.Run(Container.Bot.Area.CenterPosition, Container.Bot.Area.Radius));
             else
             {
-                if (Bundles.Loot.Config.DontPickupInBerzerk && Game.Player.Berzerking)
+                if (Bundles.Loot.Config.DontPickupInBerzerk && Game.Player.Berzerking || ScriptManager.Running)
                     return;
 
                 //Don't pickup if a mob is selected

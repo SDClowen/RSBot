@@ -2,6 +2,7 @@
 using RSBot.Core.Components;
 using RSBot.Core.Objects;
 using System.Linq;
+using RSBot.Core.Event;
 
 namespace RSBot.Default.Bundle.Buff
 {
@@ -15,6 +16,8 @@ namespace RSBot.Default.Bundle.Buff
             var buffs = SkillManager.Buffs.FindAll(p => !Game.Player.State.HasActiveBuff(p, out _) && p.CanBeCasted);
             if (buffs == null || buffs.Count == 0)
                 return;
+
+            EventManager.FireEvent("OnChangeStatusText", "Buffing");
 
             foreach (var buff in buffs)
             {

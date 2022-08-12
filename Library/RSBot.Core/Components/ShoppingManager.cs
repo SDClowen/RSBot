@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using RSBot.Core.Event;
 using static RSBot.Core.Game;
 
 namespace RSBot.Core.Components
@@ -119,6 +120,8 @@ namespace RSBot.Core.Components
 
             SelectNPC(npcCodeName);
 
+            EventManager.FireEvent("OnChangeStatusText", "Selling items");
+
             //Prevent modification during the for-each loop
             var tempItemSellList =
                  Game.Player.Inventory.GetNormalPartItems(item => SellFilter.Invoke(item.Record));
@@ -173,6 +176,8 @@ namespace RSBot.Core.Components
                 var refItem = ReferenceManager.GetRefItem(refPackageItem.RefItemCodeName);
                 if (refItem == null)
                     continue; //Should not happen
+
+                EventManager.FireEvent("OnChangeStatusText", "Buying items");
 
                 while (totalAmountToBuy > 0 && !Game.Player.Inventory.Full)
                 {
@@ -303,6 +308,7 @@ namespace RSBot.Core.Components
             if (Game.Player.Storage == null)
                 return;
 
+            EventManager.FireEvent("OnChangeStatusText", "Storing items");
             foreach (var item in tempInventory)
             {
                 StoreItem(item, npc);

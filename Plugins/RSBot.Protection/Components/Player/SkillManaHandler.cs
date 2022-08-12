@@ -36,7 +36,8 @@ namespace RSBot.Protection.Components.Player
                 return;
 
             var minMana = PlayerConfig.Get<int>("RSBot.Protection.numPlayerSkillMPMin", 50);
-            var manaPercent = ((double)Game.Player.Mana / (double)Game.Player.MaximumMana) * 100;
+
+            var manaPercent = 100.0 * Game.Player.Mana / Game.Player.MaximumMana;
             if (manaPercent > minMana)
                 return;
 
