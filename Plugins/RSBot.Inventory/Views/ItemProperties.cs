@@ -254,7 +254,7 @@ namespace RSBot.Inventory.Views
             Desc3 = item.Record.Desc3;
             Desc4 = item.Record.Desc4;
             OptLevel = item.OptLevel;
-            Variance = item.Variance;
+            Variance = item.Attributes.Variance;
             Durability = item.Durability;
             MagicOptions = item.MagicOptions;
             BindingOptions = item.BindingOptions;

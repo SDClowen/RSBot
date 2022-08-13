@@ -2,6 +2,7 @@
 using RSBot.Core.Network;
 using RSBot.Core.Objects.Item;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace RSBot.Core.Objects
@@ -39,6 +40,8 @@ namespace RSBot.Core.Objects
         /// The record.
         /// </value>
         public RefObjItem Record => Game.ReferenceManager.GetRefItem(ItemId);
+        
+        private byte _optLevel;
 
         /// <summary>
         /// Gets or sets the opt level.
@@ -46,7 +49,22 @@ namespace RSBot.Core.Objects
         /// <value>
         /// The opt level.
         /// </value>
-        public byte OptLevel { get; set; }
+        public byte OptLevel
+        {
+            get
+            {
+                if (BindingOptions == null)
+                    return _optLevel;
+
+                var advancedElixirOptLevel = BindingOptions.Where(b => b.Type == BindingOptionType.AdvancedElixir).Sum(b => b.Value != null ? b.Value : 0);
+
+                if (_optLevel + advancedElixirOptLevel > byte.MaxValue)
+                    return byte.MaxValue;
+
+                return (byte) (_optLevel + advancedElixirOptLevel);
+            }
+            set => _optLevel = value;
+        }
 
         /// <summary>
         /// Gets or sets the variance.
@@ -54,7 +72,7 @@ namespace RSBot.Core.Objects
         /// <value>
         /// The variance.
         /// </value>
-        public ulong Variance { get; set; }
+        public ItemAttributesInfo Attributes { get; set; }
 
         /// <summary>
         /// Gets or sets the data.
@@ -257,7 +275,7 @@ namespace RSBot.Core.Objects
             if (record.IsEquip || record.IsFellowEquip || record.IsJobEquip)
             {
                 item.OptLevel = packet.ReadByte();
-                item.Variance = packet.ReadULong();
+                item.Attributes = new ItemAttributesInfo(packet.ReadULong());
                 item.Durability = packet.ReadUInt();
 
                 //Read magic options for the item
@@ -284,7 +302,7 @@ namespace RSBot.Core.Objects
 
                     for (var bindingIndex = 0; bindingIndex < bindingCount; bindingIndex++)
                     {
-                        var bindingType = packet.ReadByte();
+                        var bindingType = (BindingOptionType)packet.ReadByte();
                         var bindingAmount = packet.ReadByte();
                         for (var iSocketAmount = 0; iSocketAmount < bindingAmount; iSocketAmount++)
                             item.BindingOptions.Add(BindingOption.FromPacket(packet, bindingType));

@@ -221,6 +221,13 @@ namespace RSBot.Core.Components
 
                 var obj = Game.ReferenceManager.GetRefObjCommon(refObjId);
 
+                if (obj == null)
+                {
+                    Log.Debug($"SpawnManager::Parse error while getting RefObjCommon by id {refObjId}");
+
+                    return;
+                }
+
                 switch (obj.TypeID1)
                 {
                     case 1:

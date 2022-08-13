@@ -1,4 +1,5 @@
 ﻿using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 
@@ -8,8 +9,9 @@ namespace RSBot.Core.Network.Handler.Agent.Alchemy
     {
         public static void Invoke(Packet packet, AlchemyType type)
         {
+            AlchemyManager.IsFusing = false;
+
             EventManager.FireEvent("OnAlchemy", type);
-            Game.Player.ActiveAlchemyItems = null;
 
             var result = packet.ReadByte();
 
@@ -17,6 +19,7 @@ namespace RSBot.Core.Network.Handler.Agent.Alchemy
             if (result == 2)
             {
                 EventManager.FireEvent("OnAlchemyError", packet.ReadUShort(), type);
+                AlchemyManager.ActiveAlchemyItems = null;
 
                 return;
             }
@@ -25,6 +28,7 @@ namespace RSBot.Core.Network.Handler.Agent.Alchemy
             if (action == AlchemyAction.Cancel)
             {
                 EventManager.FireEvent("OnAlchemyCanceled", type);
+                AlchemyManager.ActiveAlchemyItems = null;
 
                 return;
             }
@@ -40,9 +44,9 @@ namespace RSBot.Core.Network.Handler.Agent.Alchemy
 
                 if (isDestroyed)
                 {
-
                     EventManager.FireEvent("OnAlchemyDestroyed", oldItem, type);
                     Game.Player.Inventory.RemoveAt(slot);
+                    AlchemyManager.ActiveAlchemyItems = null;
 
                     return;
                 }
@@ -54,6 +58,7 @@ namespace RSBot.Core.Network.Handler.Agent.Alchemy
             Game.Player.Inventory.Add(newItem);
 
             EventManager.FireEvent(isSuccess ? "OnAlchemySuccess" : "OnAlchemyFailed", oldItem, newItem, type);
+            AlchemyManager.ActiveAlchemyItems = null;
         }
     }
 }

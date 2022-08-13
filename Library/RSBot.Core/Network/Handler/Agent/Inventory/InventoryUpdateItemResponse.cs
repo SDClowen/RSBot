@@ -43,7 +43,7 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
                 item.OptLevel = packet.ReadByte();
 
             if (itemUpdateFlag.HasFlag(ItemUpdateFlag.Variance))
-                item.Variance = packet.ReadULong();
+                item.Attributes = new ItemAttributesInfo(packet.ReadULong());
 
             if (itemUpdateFlag.HasFlag(ItemUpdateFlag.Quanity))
                 item.Amount = packet.ReadUShort();

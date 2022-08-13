@@ -138,8 +138,10 @@ namespace RSBot.Statistics.Views
         {
             foreach (ListViewItem item in lvStatistics.Items)
             {
-                var calculator = (IStatisticCalculator)item.Tag;
-                item.SubItems[1].Text = string.Format(calculator.ValueFormat, calculator.GetValue());
+                var calculator = (IStatisticCalculator) item?.Tag;
+
+                if (calculator != null)
+                    item.SubItems[1].Text = string.Format(calculator.ValueFormat, calculator.GetValue());
             }
         }
 

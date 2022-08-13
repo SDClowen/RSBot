@@ -2,6 +2,7 @@
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using System.Collections.Generic;
+using RSBot.Core.Components;
 
 namespace RSBot.Core.Network.Handler.Agent.Alchemy
 {
@@ -10,8 +11,9 @@ namespace RSBot.Core.Network.Handler.Agent.Alchemy
         public static void Invoke(Packet packet)
         {
             var action = (AlchemyAction)packet.ReadByte();
-
-            if (action != AlchemyAction.Fuse) return;
+            
+            if (action != AlchemyAction.Fuse) 
+                return;
 
             var type = (AlchemyType)packet.ReadByte();
             if (type == AlchemyType.SocketInsert)
@@ -20,10 +22,10 @@ namespace RSBot.Core.Network.Handler.Agent.Alchemy
                 var socketItem = Game.Player.Inventory.GetItemAt(packet.ReadByte()); //Target item
 
                 if (item != null && socketItem != null)
-                    Game.Player.ActiveAlchemyItems = new Dictionary<byte, InventoryItem>
+                    AlchemyManager.ActiveAlchemyItems = new List<InventoryItem>
                     {
-                        { item.Slot, item },
-                        { socketItem.Slot, item }
+                        item,
+                        socketItem
                     };
 
                 return;
@@ -31,17 +33,20 @@ namespace RSBot.Core.Network.Handler.Agent.Alchemy
 
             var slots = packet.ReadByteArray(packet.ReadByte());
 
-            Game.Player.ActiveAlchemyItems = new Dictionary<byte, InventoryItem>(slots.Length);
+            AlchemyManager.ActiveAlchemyItems = new List<InventoryItem>(slots.Length);
 
             foreach (var slot in slots)
             {
                 var item = Game.Player.Inventory.GetItemAt(slot);
 
                 if (item != null)
-                    Game.Player.ActiveAlchemyItems.Add(item.Slot, item);
+                    AlchemyManager.ActiveAlchemyItems.Add(item);
             }
 
             EventManager.FireEvent("OnFuseRequest", action, type);
+
+            AlchemyManager.IsFusing = true;
+            AlchemyManager.StartTimer();
         }
     }
 }
