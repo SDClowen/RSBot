@@ -1,4 +1,4 @@
-DisplayName="Plaudern"
+DisplayName="Chat"
 RSBot.Chat.Main.TabControl.tabAll="Alle"
 RSBot.Chat.Main.TabControl.tabPrivate="Privat"
 RSBot.Chat.Main.TabControl.tabParty="Gruppe"
