@@ -272,7 +272,7 @@ namespace RSBot.Alchemy.Bundle.Enhance
                 return;
 
             //After fusing a magic stone (steady, astral & co.) tell the bot to continue to fuse elixirs!
-            if (AlchemyBotbase.IsActive && _isStoneFusing)
+            if (Bootstrap.IsActive && _isStoneFusing)
             {
                 _shouldRun = true;
                 _isStoneFusing = false;

@@ -19,7 +19,7 @@ namespace RSBot.Alchemy.Subscriber
 
         private static void OnAlchemyDestroyed(InventoryItem oldItem, AlchemyType type)
         {
-            if (!AlchemyBotbase.IsActive)
+            if (!Bootstrap.IsActive)
                 return;
 
             Globals.Botbase.EnhanceBundleConfig = null;
@@ -34,7 +34,7 @@ namespace RSBot.Alchemy.Subscriber
 
         private static void OnAlchemyError(ushort errorCode, AlchemyType type)
         {
-            if (!AlchemyBotbase.IsActive)
+            if (!Bootstrap.IsActive)
                 return;
 
             if (errorCode is 0x5423)

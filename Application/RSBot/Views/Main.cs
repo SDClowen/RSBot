@@ -362,6 +362,9 @@ namespace RSBot.Views
             {
                 botbase.Value.Translate();
 
+                if (!tabMain.TabPages.ContainsKey(botbase.Key))
+                    continue;
+
                 var tabpage = tabMain.TabPages[botbase.Key];
                 tabpage.Text = LanguageManager.GetLangBySpecificKey(botbase.Key, "DisplayName");
             }

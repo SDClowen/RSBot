@@ -6,6 +6,7 @@ using System.Windows.Forms;
 
 namespace RSBot.Alchemy.Views.Settings
 {
+    [System.ComponentModel.ToolboxItem(false)]
     public partial class AttributeInfoPanel : UserControl
     {
         public delegate void OnChangedEventHandler(bool @checked, int maxValue);

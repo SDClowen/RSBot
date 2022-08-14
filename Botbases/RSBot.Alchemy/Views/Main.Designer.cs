@@ -45,7 +45,7 @@ namespace RSBot.Alchemy.Views
             this.tabControlItemInfo = new SDUI.Controls.TabControl();
             this.tabMagicOptions = new System.Windows.Forms.TabPage();
             this.listMagicOptions = new System.Windows.Forms.ListBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPageAttributes = new System.Windows.Forms.TabPage();
             this.listAttributes = new System.Windows.Forms.ListBox();
             this.comboItem = new SDUI.Controls.ComboBox();
             this.lblOptLevelText = new SDUI.Controls.Label();
@@ -65,7 +65,7 @@ namespace RSBot.Alchemy.Views
             this.groupItem.SuspendLayout();
             this.tabControlItemInfo.SuspendLayout();
             this.tabMagicOptions.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.tabPageAttributes.SuspendLayout();
             this.panelSettingsGroup.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -86,7 +86,8 @@ namespace RSBot.Alchemy.Views
             this.groupItem.Name = "groupItem";
             this.groupItem.Padding = new System.Windows.Forms.Padding(4, 12, 4, 3);
             this.groupItem.Radius = 2;
-            this.groupItem.Size = new System.Drawing.Size(322, 315);
+            this.groupItem.ShadowDepth = 4;
+            this.groupItem.Size = new System.Drawing.Size(322, 331);
             this.groupItem.TabIndex = 0;
             this.groupItem.TabStop = false;
             this.groupItem.Text = "Item";
@@ -107,13 +108,13 @@ namespace RSBot.Alchemy.Views
             // 
             this.tabControlItemInfo.Border = new System.Windows.Forms.Padding(1);
             this.tabControlItemInfo.Controls.Add(this.tabMagicOptions);
-            this.tabControlItemInfo.Controls.Add(this.tabPage2);
+            this.tabControlItemInfo.Controls.Add(this.tabPageAttributes);
             this.tabControlItemInfo.HideTabArea = false;
             this.tabControlItemInfo.Location = new System.Drawing.Point(9, 146);
             this.tabControlItemInfo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabControlItemInfo.Name = "tabControlItemInfo";
             this.tabControlItemInfo.SelectedIndex = 0;
-            this.tabControlItemInfo.Size = new System.Drawing.Size(304, 162);
+            this.tabControlItemInfo.Size = new System.Drawing.Size(304, 179);
             this.tabControlItemInfo.TabIndex = 5;
             // 
             // tabMagicOptions
@@ -124,9 +125,9 @@ namespace RSBot.Alchemy.Views
             this.tabMagicOptions.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabMagicOptions.Name = "tabMagicOptions";
             this.tabMagicOptions.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tabMagicOptions.Size = new System.Drawing.Size(296, 134);
+            this.tabMagicOptions.Size = new System.Drawing.Size(296, 151);
             this.tabMagicOptions.TabIndex = 0;
-            this.tabMagicOptions.Text = "Magic options";
+            this.tabMagicOptions.Text = "Blues";
             // 
             // listMagicOptions
             // 
@@ -136,20 +137,20 @@ namespace RSBot.Alchemy.Views
             this.listMagicOptions.Location = new System.Drawing.Point(4, 3);
             this.listMagicOptions.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.listMagicOptions.Name = "listMagicOptions";
-            this.listMagicOptions.Size = new System.Drawing.Size(288, 128);
+            this.listMagicOptions.Size = new System.Drawing.Size(288, 145);
             this.listMagicOptions.TabIndex = 2;
             // 
-            // tabPage2
+            // tabPageAttributes
             // 
-            this.tabPage2.BackColor = System.Drawing.Color.White;
-            this.tabPage2.Controls.Add(this.listAttributes);
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tabPage2.Size = new System.Drawing.Size(296, 134);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Attributes";
+            this.tabPageAttributes.BackColor = System.Drawing.Color.White;
+            this.tabPageAttributes.Controls.Add(this.listAttributes);
+            this.tabPageAttributes.Location = new System.Drawing.Point(4, 25);
+            this.tabPageAttributes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.tabPageAttributes.Name = "tabPageAttributes";
+            this.tabPageAttributes.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.tabPageAttributes.Size = new System.Drawing.Size(296, 150);
+            this.tabPageAttributes.TabIndex = 1;
+            this.tabPageAttributes.Text = "Stats";
             // 
             // listAttributes
             // 
@@ -159,7 +160,7 @@ namespace RSBot.Alchemy.Views
             this.listAttributes.Location = new System.Drawing.Point(4, 3);
             this.listAttributes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.listAttributes.Name = "listAttributes";
-            this.listAttributes.Size = new System.Drawing.Size(288, 128);
+            this.listAttributes.Size = new System.Drawing.Size(288, 144);
             this.listAttributes.TabIndex = 3;
             // 
             // comboItem
@@ -173,6 +174,8 @@ namespace RSBot.Alchemy.Views
             this.comboItem.Location = new System.Drawing.Point(21, 47);
             this.comboItem.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.comboItem.Name = "comboItem";
+            this.comboItem.Radius = 5;
+            this.comboItem.ShadowDepth = 4F;
             this.comboItem.Size = new System.Drawing.Size(255, 23);
             this.comboItem.TabIndex = 4;
             this.comboItem.SelectedIndexChanged += new System.EventHandler(this.comboItem_SelectedIndexChanged);
@@ -242,10 +245,10 @@ namespace RSBot.Alchemy.Views
             this.colItem,
             this.colResult});
             this.lvLog.FullRowSelect = true;
-            this.lvLog.Location = new System.Drawing.Point(16, 335);
+            this.lvLog.Location = new System.Drawing.Point(16, 351);
             this.lvLog.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.lvLog.Name = "lvLog";
-            this.lvLog.Size = new System.Drawing.Size(759, 153);
+            this.lvLog.Size = new System.Drawing.Size(759, 137);
             this.lvLog.TabIndex = 1;
             this.lvLog.UseCompatibleStateImageBehavior = false;
             this.lvLog.View = System.Windows.Forms.View.Details;
@@ -262,6 +265,7 @@ namespace RSBot.Alchemy.Views
             // 
             // panelSettingsGroup
             // 
+            this.panelSettingsGroup.BackColor = System.Drawing.Color.Transparent;
             this.panelSettingsGroup.Border = new System.Windows.Forms.Padding(0, 0, 0, 0);
             this.panelSettingsGroup.BorderColor = System.Drawing.Color.Transparent;
             this.panelSettingsGroup.Controls.Add(this.panelSettings);
@@ -270,23 +274,27 @@ namespace RSBot.Alchemy.Views
             this.panelSettingsGroup.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panelSettingsGroup.Name = "panelSettingsGroup";
             this.panelSettingsGroup.Radius = 1;
-            this.panelSettingsGroup.Size = new System.Drawing.Size(424, 315);
+            this.panelSettingsGroup.ShadowDepth = 4F;
+            this.panelSettingsGroup.Size = new System.Drawing.Size(424, 331);
             this.panelSettingsGroup.TabIndex = 7;
             // 
             // panelSettings
             // 
+            this.panelSettings.BackColor = System.Drawing.Color.Transparent;
             this.panelSettings.Border = new System.Windows.Forms.Padding(0, 0, 0, 0);
             this.panelSettings.BorderColor = System.Drawing.Color.Transparent;
             this.panelSettings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelSettings.Location = new System.Drawing.Point(0, 44);
-            this.panelSettings.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.panelSettings.Location = new System.Drawing.Point(0, 38);
+            this.panelSettings.Margin = new System.Windows.Forms.Padding(0);
             this.panelSettings.Name = "panelSettings";
-            this.panelSettings.Radius = 1;
-            this.panelSettings.Size = new System.Drawing.Size(424, 271);
+            this.panelSettings.Radius = 0;
+            this.panelSettings.ShadowDepth = 4F;
+            this.panelSettings.Size = new System.Drawing.Size(424, 293);
             this.panelSettings.TabIndex = 1;
             // 
             // panel2
             // 
+            this.panel2.BackColor = System.Drawing.Color.Transparent;
             this.panel2.Border = new System.Windows.Forms.Padding(0, 0, 0, 0);
             this.panel2.BorderColor = System.Drawing.Color.Transparent;
             this.panel2.Controls.Add(this.radioAttributes);
@@ -297,31 +305,32 @@ namespace RSBot.Alchemy.Views
             this.panel2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panel2.Name = "panel2";
             this.panel2.Radius = 1;
-            this.panel2.Size = new System.Drawing.Size(424, 44);
+            this.panel2.ShadowDepth = 4F;
+            this.panel2.Size = new System.Drawing.Size(424, 38);
             this.panel2.TabIndex = 0;
             // 
             // radioAttributes
             // 
             this.radioAttributes.AutoSize = true;
-            this.radioAttributes.Checked = false;
             this.radioAttributes.Location = new System.Drawing.Point(237, 13);
             this.radioAttributes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.radioAttributes.Name = "radioAttributes";
-            this.radioAttributes.Size = new System.Drawing.Size(84, 15);
+            this.radioAttributes.ShadowDepth = 0;
+            this.radioAttributes.Size = new System.Drawing.Size(57, 15);
             this.radioAttributes.TabIndex = 2;
-            this.radioAttributes.Text = "Attributes";
+            this.radioAttributes.Text = "Stats";
             this.radioAttributes.CheckedChanged += new System.EventHandler(this.radioEngine_CheckedChanged);
             // 
             // radioMagicOptions
             // 
             this.radioMagicOptions.AutoSize = true;
-            this.radioMagicOptions.Checked = false;
-            this.radioMagicOptions.Location = new System.Drawing.Point(127, 13);
+            this.radioMagicOptions.Location = new System.Drawing.Point(137, 13);
             this.radioMagicOptions.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.radioMagicOptions.Name = "radioMagicOptions";
-            this.radioMagicOptions.Size = new System.Drawing.Size(102, 15);
+            this.radioMagicOptions.ShadowDepth = 0;
+            this.radioMagicOptions.Size = new System.Drawing.Size(60, 15);
             this.radioMagicOptions.TabIndex = 1;
-            this.radioMagicOptions.Text = "Mag. options";
+            this.radioMagicOptions.Text = "Blues";
             this.radioMagicOptions.CheckedChanged += new System.EventHandler(this.radioEngine_CheckedChanged);
             // 
             // radioEnhance
@@ -331,8 +340,10 @@ namespace RSBot.Alchemy.Views
             this.radioEnhance.Location = new System.Drawing.Point(12, 13);
             this.radioEnhance.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.radioEnhance.Name = "radioEnhance";
+            this.radioEnhance.ShadowDepth = 0;
             this.radioEnhance.Size = new System.Drawing.Size(96, 15);
             this.radioEnhance.TabIndex = 0;
+            this.radioEnhance.TabStop = true;
             this.radioEnhance.Text = "Enhance (+)";
             this.radioEnhance.CheckedChanged += new System.EventHandler(this.radioEngine_CheckedChanged);
             // 
@@ -343,6 +354,7 @@ namespace RSBot.Alchemy.Views
             this.Controls.Add(this.panelSettingsGroup);
             this.Controls.Add(this.lvLog);
             this.Controls.Add(this.groupItem);
+            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "Main";
@@ -351,7 +363,7 @@ namespace RSBot.Alchemy.Views
             this.groupItem.PerformLayout();
             this.tabControlItemInfo.ResumeLayout(false);
             this.tabMagicOptions.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
+            this.tabPageAttributes.ResumeLayout(false);
             this.panelSettingsGroup.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
@@ -373,7 +385,7 @@ namespace RSBot.Alchemy.Views
         private Label lblOptLevel;
         private ListBox listMagicOptions;
         private TabControl tabControlItemInfo;
-        private TabPage tabPage2;
+        private TabPage tabPageAttributes;
         private TabPage tabMagicOptions;
         private Label lblItemSelection;
         private ListBox listAttributes;

@@ -111,7 +111,7 @@ namespace RSBot.Alchemy.Bundle.Attribute
         /// <param name="type"></param>
         private void OnFuseRequest(AlchemyAction action, AlchemyType type)
         {
-            if (type != AlchemyType.AttributeStone || !AlchemyBotbase.IsActive)
+            if (type != AlchemyType.AttributeStone || !Bootstrap.IsActive)
                 return;
 
             _shouldRun = false;
@@ -122,7 +122,7 @@ namespace RSBot.Alchemy.Bundle.Attribute
         /// </summary>
         private void OnStoneAlchemy(AlchemyType type)
         {
-            if (type != AlchemyType.AttributeStone || !AlchemyBotbase.IsActive)
+            if (type != AlchemyType.AttributeStone || !Bootstrap.IsActive)
                 return;
 
             _shouldRun = true;
@@ -136,7 +136,7 @@ namespace RSBot.Alchemy.Bundle.Attribute
         /// <param name="type"></param>
         private void OnStoneAlchemySuccess(InventoryItem oldItem, InventoryItem newItem, AlchemyType type)
         {
-            if (type != AlchemyType.AttributeStone || !AlchemyBotbase.IsActive)
+            if (type != AlchemyType.AttributeStone || !Bootstrap.IsActive)
                 return;
 
             var changedAttributeSlots = oldItem.Attributes.CompareSlots(newItem.Attributes);
@@ -160,7 +160,7 @@ namespace RSBot.Alchemy.Bundle.Attribute
         /// <param name="type"></param>
         private void OnStoneAlchemyFailed(InventoryItem oldItem, InventoryItem newItem, AlchemyType type)
         {
-            if (type != AlchemyType.AttributeStone || !AlchemyBotbase.IsActive)
+            if (type != AlchemyType.AttributeStone || !Bootstrap.IsActive)
                 return;
 
             Globals.View.AddLog(newItem.Record.GetRealName(), Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL"));
@@ -175,7 +175,7 @@ namespace RSBot.Alchemy.Bundle.Attribute
         /// <param name="type"></param>
         private void OnStoneAlchemyError(ushort errorCode, AlchemyType type)
         {
-            if (type != AlchemyType.AttributeStone || !AlchemyBotbase.IsActive)
+            if (type != AlchemyType.AttributeStone || !Bootstrap.IsActive)
                 return;
 
             _shouldRun = true;

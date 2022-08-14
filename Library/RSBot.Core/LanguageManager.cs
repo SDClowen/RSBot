@@ -222,7 +222,7 @@ namespace RSBot.Core
             var dir = Path.GetDirectoryName(path);
 
             if (!Directory.Exists(dir))
-                Directory.CreateDirectory(Path.GetDirectoryName(dir));
+                Directory.CreateDirectory(dir);
 
             var stopwatch = Stopwatch.StartNew();
 
