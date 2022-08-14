@@ -1,4 +1,5 @@
-﻿using RSBot.Alchemy.Bot;
+﻿using Accessibility;
+using RSBot.Alchemy.Bot;
 using RSBot.Alchemy.Subscriber;
 using RSBot.Alchemy.Views;
 using RSBot.Core;
@@ -9,19 +10,16 @@ using System.Windows.Forms;
 
 namespace RSBot.Alchemy
 {
-    public class AlchemyBotbase : IBotbase
+    public class Bootstrap : IBotbase
     {
         #region Properties
 
-        public static string Name => "Alchemy";
-
-        public static bool IsActive => Kernel.Bot is { Running: true } && Kernel.Bot.Botbase.Info.Name == Name;
-
-        public static Version Version => new("1.0.0");
+        private static string _name = "RSBot.Alchemy";
+        public static bool IsActive => Kernel.Bot.Running && Kernel.Bot.Botbase.Info.Name == _name;
 
         public BotbaseInfo Info => new()
         {
-            Name = Name,
+            Name = _name,
             DisplayName = "Alchemy",
             TabText = "Alchemy"
         };

@@ -11,6 +11,7 @@ using System.Windows.Forms;
 
 namespace RSBot.Alchemy.Views.Settings
 {
+    [System.ComponentModel.ToolboxItem(false)]
     public partial class AttributesSettingsView : UserControl
     {
         internal AttributeBundleConfig BundleConfig
@@ -43,11 +44,6 @@ namespace RSBot.Alchemy.Views.Settings
         public AttributesSettingsView()
         {
             InitializeComponent();
-            SetStyle(
-                ControlStyles.UserPaint |
-                ControlStyles.AllPaintingInWmPaint |
-                ControlStyles.OptimizedDoubleBuffer,
-                true);
 
             CheckForIllegalCrossThreadCalls = false;
 
@@ -108,10 +104,10 @@ namespace RSBot.Alchemy.Views.Settings
                     panel.OnChange += PanelOnChange;
                 }
 
-                panelAttributes.Hide();
-                panelAttributes.Controls.Clear();
-                panelAttributes.Controls.AddRange(_attributePanels.ToArray());
-                panelAttributes.Show();
+                Hide();
+                Controls.Clear();
+                Controls.AddRange(_attributePanels.ToArray());
+                Show();
 
                 Globals.Botbase.AttributeBundleConfig = BundleConfig;
             }
@@ -128,7 +124,7 @@ namespace RSBot.Alchemy.Views.Settings
 
         private void View_EngineChanged(InventoryItem item, AlchemyEngine alchemyEngine)
         {
-            Invoke(PopulateView);
+            PopulateView();
         }
 
         /// <summary>
@@ -138,8 +134,7 @@ namespace RSBot.Alchemy.Views.Settings
         private void View_ItemChanged(InventoryItem item)
         {
             SelectedItem = item;
-
-            Invoke(PopulateView);
+            PopulateView();
         }
     }
 }

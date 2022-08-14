@@ -13,6 +13,7 @@ using System.Windows.Forms;
 
 namespace RSBot.Alchemy.Views.Settings
 {
+    [System.ComponentModel.ToolboxItem(false)]
     public partial class MagicOptionsSettingsView : UserControl
     {
         private class MagicStoneListViewItemTag

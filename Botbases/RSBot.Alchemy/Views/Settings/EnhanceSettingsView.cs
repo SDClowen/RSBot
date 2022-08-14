@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace RSBot.Alchemy.Views.Settings
 {
+    [System.ComponentModel.ToolboxItem(false)]
     public partial class EnhanceSettingsView : UserControl
     {
         internal class ElixirComboboxItem

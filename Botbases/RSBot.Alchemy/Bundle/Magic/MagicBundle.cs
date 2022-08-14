@@ -183,7 +183,7 @@ namespace RSBot.Alchemy.Bundle.Magic
         /// <param name="type"></param>
         private void OnFuseRequest(AlchemyAction action, AlchemyType type)
         {
-            if (type != AlchemyType.MagicStone || !AlchemyBotbase.IsActive)
+            if (type != AlchemyType.MagicStone || !Bootstrap.IsActive)
                 return;
 
             _shouldRun = false;
@@ -194,7 +194,7 @@ namespace RSBot.Alchemy.Bundle.Magic
         /// </summary>
         private void OnStoneAlchemy(AlchemyType type)
         {
-            if (type != AlchemyType.MagicStone || !AlchemyBotbase.IsActive)
+            if (type != AlchemyType.MagicStone || !Bootstrap.IsActive)
                 return;
 
             _shouldRun = true;
@@ -206,7 +206,7 @@ namespace RSBot.Alchemy.Bundle.Magic
         /// <param name="newItem">The new item after the successful action</param>
         private void OnStoneAlchemySuccess(InventoryItem oldItem, InventoryItem newItem, AlchemyType type)
         {
-            if (type != AlchemyType.MagicStone || !AlchemyBotbase.IsActive)
+            if (type != AlchemyType.MagicStone || !Bootstrap.IsActive)
                 return;
 
             if (oldItem == null)
@@ -258,7 +258,7 @@ namespace RSBot.Alchemy.Bundle.Magic
         /// <param name="newItem">The new item after the operation failed</param>
         private void OnStoneAlchemyFailed(InventoryItem oldItem, InventoryItem newItem, AlchemyType type)
         {
-            if (type != AlchemyType.MagicStone || !AlchemyBotbase.IsActive)
+            if (type != AlchemyType.MagicStone || !Bootstrap.IsActive)
                 return;
 
             Globals.View.AddLog(newItem.Record.GetRealName(), Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL"));
@@ -272,7 +272,7 @@ namespace RSBot.Alchemy.Bundle.Magic
         /// <param name="errorCode">The error code</param>
         private void OnStoneAlchemyError(ushort errorCode, AlchemyType type)
         {
-            if (type != AlchemyType.MagicStone || !AlchemyBotbase.IsActive)
+            if (type != AlchemyType.MagicStone || !Bootstrap.IsActive)
                 return;
 
             var translationName = GetErrorTranslationName(errorCode);

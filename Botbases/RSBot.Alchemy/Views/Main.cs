@@ -12,6 +12,7 @@ using System.Windows.Forms;
 
 namespace RSBot.Alchemy.Views
 {
+    [System.ComponentModel.ToolboxItem(false)]
     public partial class Main : UserControl
     {
         internal class InventoryItemComboboxItem
