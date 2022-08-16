@@ -4,7 +4,7 @@ using System.IO;
 
 namespace RSBot.Core.Components.Collision
 {
-    internal class CollisionLoader
+    internal class CollisionLoader : ICollisionLoader
     {
         /// <summary>
         /// The collisions

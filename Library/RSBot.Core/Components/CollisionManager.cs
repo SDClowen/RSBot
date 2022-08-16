@@ -26,7 +26,7 @@ namespace RSBot.Core.Components
         /// </value>
         public static Objects.Region Region { get; private set; }
 
-        private static CollisionLoader _collisionLoader;
+        private static ICollisionLoader _collisionLoader = new NoCollisionLoader();
 
         private static List<Line> _collisions;
 
@@ -40,7 +40,7 @@ namespace RSBot.Core.Components
 
             if (!File.Exists(collisionFile) || !File.Exists(collisionIndexFile))
             {
-                Log.Error("Could not find collision files, collision detection will not be functional.");
+                Log.Warn("Could not find collision files, collision detection will not be functional.");
                 return;
             }
 
@@ -53,9 +53,6 @@ namespace RSBot.Core.Components
         /// <param name="regionId">The region identifier.</param>
         internal static void Update(ushort regionId)
         {
-            if (_collisionLoader == null)
-                return;
-
             var stopWatch = new Stopwatch();
             stopWatch.Start();
 
