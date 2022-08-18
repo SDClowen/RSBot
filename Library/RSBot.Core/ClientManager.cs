@@ -52,9 +52,7 @@ namespace RSBot.Core
 
             PrepareTempConfigFile(pi.dwProcessId, divisionIndex);
 
-            //CreateSemaphore(IntPtr.Zero, 0, 1,
-            //System.Runtime.InteropServices.Marshal.StringToHGlobalAuto(pi.dwProcessId.ToString()));
-            //var semaphore = new Semaphore(0, 1, pi.dwProcessId.ToString());
+            var semaphore = new Semaphore(0, 1, pi.dwProcessId.ToString());
 
             var handle = OpenProcess(PROCESS_ALL_ACCESS, false, pi.dwProcessId);
             if (handle == IntPtr.Zero)
