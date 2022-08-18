@@ -107,7 +107,7 @@
         /// <summary>
         /// A value indicating if the item is of type wearable for job
         /// </summary>
-        public bool IsJobOutfit => IsEquip && TypeID3 == 7;
+        public bool IsJobOutfit => IsEquip && TypeID3 == 7 && TypeID4 != 4 && TypeID4 != 5;
 
         /// <summary>
         /// A value indicating if the item is of type stackable
