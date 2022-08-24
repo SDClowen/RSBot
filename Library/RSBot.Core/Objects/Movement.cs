@@ -1,4 +1,5 @@
 ﻿using RSBot.Core.Network;
+using System;
 
 namespace RSBot.Core.Objects
 {
@@ -42,7 +43,10 @@ namespace RSBot.Core.Objects
         /// <summary>
         /// Gets or sets the angle.
         /// </summary>
-        public double Angle;
+        public float Angle;
+
+        internal double MovingX, MovingY;
+        internal TimeSpan RemainingTime;
 
         /// <summary>
         /// Motion from packet.

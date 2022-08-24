@@ -78,21 +78,27 @@ namespace RSBot.Core
 
         private static async Task ComponentUpdaterAsync()
         {
+            var lastUpdate = TickCount;
+
             while (!_updaterTokenSource.IsCancellationRequested)
             {
-                await Task.Delay(100);
+                await Task.Delay(10);
                 if (!Game.Ready)
                     continue;
 
-                Game.Player.Update();
-                Game.Player.Transport?.Update();
-                Game.Player.JobTransport?.Update();
-                Game.Player.AbilityPet?.Update();
-                Game.Player.Growth?.Update();
-                Game.Player.Fellow?.Update();
+                var elapsed = TickCount - lastUpdate;
 
-                SpawnManager.Update();
+                Game.Player.Update(elapsed);
+                Game.Player.Transport?.Update(elapsed);
+                Game.Player.JobTransport?.Update(elapsed);
+                Game.Player.AbilityPet?.Update(elapsed);
+                Game.Player.Growth?.Update(elapsed);
+                Game.Player.Fellow?.Update(elapsed);
+
+                SpawnManager.Update(elapsed);
                 EventManager.FireEvent("OnTick");
+
+                lastUpdate = TickCount;
             }
         }
 
