@@ -159,7 +159,6 @@ namespace RSBot.Core
 
             SkillManager.Initialize();
             ShoppingManager.Initialize();
-            PickupManager.Initialize();
             CollisionManager.Initialize();
             ClientlessManager.Initialize();
             ScriptManager.Initialize();

@@ -51,7 +51,7 @@ namespace RSBot.Core.Components
         /// <value>
         /// The armor sell filter.
         /// </value>
-        public static ItemFilter SellFilter { get; set; }
+        public static List<string> SellFilter { get; set; }
 
         /// <summary>
         /// Gets or sets the store filter.
@@ -59,7 +59,7 @@ namespace RSBot.Core.Components
         /// <value>
         /// The store filter.
         /// </value>
-        public static ItemFilter StoreFilter { get; set; }
+        public static List<string> StoreFilter { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="ShoppingManager"/> is running.
@@ -98,11 +98,10 @@ namespace RSBot.Core.Components
         /// </summary>
         internal static void Initialize()
         {
-            ShoppingList = new Dictionary<RefShopGood, int>();
-            StoreFilter = new ItemFilter();
-            SellFilter = new ItemFilter();
-
-            BuybackList = new Dictionary<byte, InventoryItem>();
+            ShoppingList = new();
+            StoreFilter = new();
+            SellFilter = new();
+            BuybackList = new();
 
             Log.Debug("Initialized [ShoppingManager]!");
         }
@@ -124,14 +123,14 @@ namespace RSBot.Core.Components
 
             //Prevent modification during the for-each loop
             var tempItemSellList =
-                 Game.Player.Inventory.GetNormalPartItems(item => SellFilter.Invoke(item.Record));
+                 Game.Player.Inventory.GetNormalPartItems(item => SellFilter.Any(p => p == item.Record.CodeName));
 
             foreach (var item in tempItemSellList)
                 SellItem(item);
 
             if (Game.Player.HasActiveAbilityPet && SellPetItems)
             {
-                tempItemSellList = Game.Player.AbilityPet.Inventory.GetItems(item => SellFilter.Invoke(item.Record));
+                tempItemSellList = Game.Player.AbilityPet.Inventory.GetItems(item => SellFilter.Any(p => p == item.Record.CodeName));
 
                 foreach (var item in tempItemSellList)
                 {
@@ -293,7 +292,7 @@ namespace RSBot.Core.Components
         /// <param name="npcCodeName">Name of the NPC code.</param>
         public static void StoreItems(string npcCodeName)
         {
-            var tempInventory = Game.Player.Inventory.GetItems(x => x.Slot > 13 && StoreFilter.Invoke(x.Record));
+            var tempInventory = Game.Player.Inventory.GetItems(item => item.Slot > 13 && StoreFilter.Any(p => p == item.Record.CodeName));
 
             SelectNPC(npcCodeName);
             var npc = SelectedEntity;
@@ -316,7 +315,7 @@ namespace RSBot.Core.Components
 
             if (Game.Player.HasActiveAbilityPet && StorePetItems)
             {
-                var petItemStoreList = Game.Player.AbilityPet.Inventory.GetItems(item => StoreFilter.Invoke(item.Record));
+                var petItemStoreList = Game.Player.AbilityPet.Inventory.GetItems(item => StoreFilter.Any(p => p == item.Record.CodeName));
 
                 foreach (var item in petItemStoreList)
                 {
@@ -420,6 +419,24 @@ namespace RSBot.Core.Components
             awaitResult = new AwaitCallback(null, 0xB034);
             PacketManager.SendPacket(mergePacket, PacketDestination.Server, awaitResult);
             awaitResult.AwaitResponse();
+        }
+
+        public static void LoadFilters() 
+        {
+            var configSell = PlayerConfig.GetArray<string>("RSBot.Shopping.Sell");
+            var configStore = PlayerConfig.GetArray<string>("RSBot.Shopping.Store");
+
+            foreach (var item in configSell)
+                SellFilter.Add(item);
+
+            foreach (var item in configStore)
+                StoreFilter.Add(item);
+        }
+
+        public static void SaveFilters()
+        {
+            PlayerConfig.SetArray("RSBot.Shopping.Sell", SellFilter);
+            PlayerConfig.SetArray("RSBot.Shopping.Store", StoreFilter);
         }
 
         /// <summary>

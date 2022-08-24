@@ -243,35 +243,6 @@ namespace RSBot.Items.Views
         }
 
         /// <summary>
-        /// Saves the sell list.
-        /// </summary>
-        private void SaveSellList()
-        {
-            PlayerConfig.SetArray("RSBot.Shopping.Sell", ShoppingManager.SellFilter.Filters);
-            PlayerConfig.SetArray("RSBot.Shopping.Store", ShoppingManager.StoreFilter.Filters);
-            PlayerConfig.SetArray("RSBot.Shopping.Pickup", PickupManager.PickupFilter.Filters);
-        }
-
-        /// <summary>
-        /// Loads the sell list.
-        /// </summary>
-        private void LoadSellList()
-        {
-            var configSell = PlayerConfig.GetArray<string>("RSBot.Shopping.Sell");
-            var configStore = PlayerConfig.GetArray<string>("RSBot.Shopping.Store");
-            var configPickup = PlayerConfig.GetArray<string>("RSBot.Shopping.Pickup");
-
-            foreach (var item in configSell)
-                ShoppingManager.SellFilter.AddItem(item);
-
-            foreach (var item in configStore)
-                ShoppingManager.StoreFilter.AddItem(item);
-
-            foreach (var item in configPickup)
-                PickupManager.PickupFilter.AddItem(item);
-        }
-
-        /// <summary>
         /// Queries the sell items.
         /// </summary>
         private async Task QuerySellItemsAsync()
@@ -503,6 +474,18 @@ namespace RSBot.Items.Views
         {
             listFilter.BeginUpdate();
 
+            string getSubItemString(RefObjItem item)
+            {
+                var filter = PickupManager.PickupFilter.Find(p => p.CodeName == item.CodeName);
+                if(string.IsNullOrWhiteSpace(filter.CodeName))
+                    return "•";
+
+                if (filter.PickOnlyChar)
+                    return "√ (C)";
+
+                return "√";
+            }
+
             var listViewItems = new ListViewItem[items.Count];
             for (int i = 0; i < items.Count; i++)
             {
@@ -516,9 +499,9 @@ namespace RSBot.Items.Views
                     {
                         $"{item.ReqLevel1} (Dg.{item.Degree})",
                         ((ObjectGender)item.ReqGender).ToString(),
-                        PickupManager.PickupFilter.Invoke(item.CodeName)  ? "√" : "•",
-                        ShoppingManager.SellFilter.Invoke(item.CodeName)  ? "√" : "•",
-                        ShoppingManager.StoreFilter.Invoke(item.CodeName) ? "√" : "•"
+                        getSubItemString(item),
+                        ShoppingManager.SellFilter.Contains(item.CodeName)  ? "√" : "•",
+                        ShoppingManager.StoreFilter.Contains(item.CodeName) ? "√" : "•"
                     }
                 };
 
@@ -585,7 +568,9 @@ namespace RSBot.Items.Views
             ShoppingManager.StorePetItems = checkStoreItemsFromPet.Checked;
 
             LoadShoppingList();
-            LoadSellList();
+
+            ShoppingManager.LoadFilters();
+            PickupManager.LoadFilter();
         }
 
         #region Shopping manager
@@ -752,10 +737,12 @@ namespace RSBot.Items.Views
             foreach (ListViewItem item in listFilter.SelectedItems)
             {
                 item.SubItems[4].Text = "√";
-                ShoppingManager.SellFilter.AddItem((string)item.Tag);
+
+                ShoppingManager.SellFilter.Remove((string)item.Tag);
+                ShoppingManager.SellFilter.Add((string)item.Tag);
             }
 
-            SaveSellList();
+            ShoppingManager.SaveFilters();
         }
 
         /// <summary>
@@ -768,10 +755,25 @@ namespace RSBot.Items.Views
             foreach (ListViewItem item in listFilter.SelectedItems)
             {
                 item.SubItems[3].Text = "√";
-                PickupManager.PickupFilter.AddItem((string)item.Tag);
-            }
 
-            SaveSellList();
+                PickupManager.RemoveFilter((string)item.Tag);
+                PickupManager.AddFilter((string)item.Tag);
+            }
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnPickOnlyCharacter control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void btnPickOnlyCharacter_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem item in listFilter.SelectedItems)
+            {
+                item.SubItems[3].Text = "√ (C)";
+                PickupManager.RemoveFilter((string)item.Tag);
+                PickupManager.AddFilter((string)item.Tag, true);
+            }
         }
 
         /// <summary>
@@ -784,10 +786,12 @@ namespace RSBot.Items.Views
             foreach (ListViewItem item in listFilter.SelectedItems)
             {
                 item.SubItems[5].Text = "√";
-                ShoppingManager.StoreFilter.AddItem((string)item.Tag);
+
+                ShoppingManager.StoreFilter.Remove((string)item.Tag);
+                ShoppingManager.StoreFilter.Add((string)item.Tag);
             }
 
-            SaveSellList();
+            ShoppingManager.SaveFilters();
         }
 
         /// <summary>
@@ -800,10 +804,10 @@ namespace RSBot.Items.Views
             foreach (ListViewItem item in listFilter.SelectedItems)
             {
                 item.SubItems[4].Text = "•";
-                ShoppingManager.SellFilter.RemoveItem((string)item.Tag);
+                ShoppingManager.SellFilter.Remove((string)item.Tag);
             }
 
-            SaveSellList();
+            ShoppingManager.SaveFilters();
         }
 
         /// <summary>
@@ -816,10 +820,10 @@ namespace RSBot.Items.Views
             foreach (ListViewItem item in listFilter.SelectedItems)
             {
                 item.SubItems[5].Text = "•";
-                ShoppingManager.StoreFilter.RemoveItem((string)item.Tag);
+                ShoppingManager.StoreFilter.Remove((string)item.Tag);
             }
 
-            SaveSellList();
+            ShoppingManager.SaveFilters();
         }
 
         /// <summary>
@@ -832,10 +836,10 @@ namespace RSBot.Items.Views
             foreach (ListViewItem item in listFilter.SelectedItems)
             {
                 item.SubItems[3].Text = "•";
-                PickupManager.PickupFilter.RemoveItem((string)item.Tag);
+                PickupManager.RemoveFilter((string)item.Tag);
             }
 
-            SaveSellList();
+            ShoppingManager.SaveFilters();
         }
 
         /// <summary>
@@ -940,6 +944,26 @@ namespace RSBot.Items.Views
         {
             if (e.KeyCode == Keys.Enter)
                 await QuerySellItemsAsync();
+        }
+
+        private void contextList_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (listFilter.SelectedItems.Count != 1)
+            {
+                btnAddToSell.Checked = false;
+                btnAddToStore.Checked = false;
+                btnPickup.Checked = false;
+                btnPickOnlyCharacter.Checked = false;
+                return;
+            }
+
+            var item = listFilter.SelectedItems[0];
+            var codeName = (string)item.Tag;
+
+            btnAddToSell.Checked = ShoppingManager.SellFilter.Contains(codeName);
+            btnAddToStore.Checked = ShoppingManager.StoreFilter.Contains(codeName);
+            btnPickup.Checked = PickupManager.PickupFilter.Any(p => p.CodeName == codeName && !p.PickOnlyChar);
+            btnPickOnlyCharacter.Checked = PickupManager.PickupFilter.Any(p => p.CodeName == codeName && p.PickOnlyChar);
         }
     }
 }
