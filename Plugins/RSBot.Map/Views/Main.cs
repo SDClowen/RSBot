@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RSBot.Map.Views
@@ -140,7 +139,7 @@ namespace RSBot.Map.Views
 
                 if (entityIndex == 0)
                 {
-                    gfx.DrawImage(RotateImage(img, Geometry.RadianToDegree(Game.Player.Movement.Angle)), 
+                    gfx.DrawImage(RotateImage(img, Geometry.RadianToDegree(Game.Player.Movement.Angle)),
                         x - img.Width / 2,
                         y - img.Height / 2);
                 }
@@ -351,7 +350,7 @@ namespace RSBot.Map.Views
                 _cachedImages.Add(sectorImgName, img);
                 return (Image)img.Clone();
             }
-        
+
             return new Bitmap(SectorSize, SectorSize);
         }
 
@@ -388,7 +387,7 @@ namespace RSBot.Map.Views
 
 #if DEBUG
                         var pen = new Pen(Color.Black);
-                        pen.DashStyle  = DashStyle.Dot;
+                        pen.DashStyle = DashStyle.Dot;
                         gfx.DrawRectangle(pen, new Rectangle(pos, new Size(SectorSize, SectorSize)));
 #endif
                         bitmap.Dispose();
@@ -448,8 +447,8 @@ namespace RSBot.Map.Views
 
             lblRegion.Text = Game.ReferenceManager.GetTranslation(Game.Player.Movement.Source.RegionID.ToString());
 
-            lblX.Text = Game.Player.Movement.Source.XCoordinate.ToString("0.00");
-            lblY.Text = Game.Player.Movement.Source.YCoordinate.ToString("0.00");
+            lblX.Text = Game.Player.Movement.Source.XCoordinate.ToString("0.0");
+            lblY.Text = Game.Player.Movement.Source.YCoordinate.ToString("0.0");
 
 #if DEBUG
             labelSectorInfo.Text = $"{Game.Player.Movement.Source.RegionID} ({Game.Player.Movement.Source.XSector}x{Game.Player.Movement.Source.YSector})";
