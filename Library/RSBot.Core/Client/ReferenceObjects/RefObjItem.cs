@@ -97,7 +97,7 @@
         /// <summary>
         /// A value indicating if the item is of type wearable for job2 (job2 part items)
         /// </summary>
-        public bool IsJobEquip => IsEquip && TypeID2 == 4;
+        public bool IsJobEquip => TypeID2 == 4;
 
         /// <summary>
         /// A value indicating if the item is of type weareable for fellow pet
@@ -107,7 +107,7 @@
         /// <summary>
         /// A value indicating if the item is of type wearable for job
         /// </summary>
-        public bool IsJobOutfit => IsEquip && TypeID3 == 7 && TypeID4 != 4 && TypeID4 != 5;
+        public bool IsJobOutfit => IsEquip && TypeID3 == 7 && TypeID4 is not 4 or 5;
 
         /// <summary>
         /// A value indicating if the item is of type stackable
