@@ -147,12 +147,15 @@ namespace RSBot.Map.Views
             "All"});
             this.comboViewType.Location = new System.Drawing.Point(392, 17);
             this.comboViewType.Name = "comboViewType";
+            this.comboViewType.Radius = 5;
+            this.comboViewType.ShadowDepth = 4F;
             this.comboViewType.Size = new System.Drawing.Size(180, 23);
             this.comboViewType.TabIndex = 10;
             // 
             // trmInterval
             // 
             this.trmInterval.Enabled = true;
+            this.trmInterval.Interval = 50;
             this.trmInterval.Tick += new System.EventHandler(this.trmInterval_Tick);
             // 
             // labelSectorInfo
@@ -205,12 +208,13 @@ namespace RSBot.Map.Views
             // 
             this.checkBoxAutoSelectUniques.AutoSize = true;
             this.checkBoxAutoSelectUniques.BackColor = System.Drawing.Color.Transparent;
-            this.checkBoxAutoSelectUniques.Checked = false;
             this.checkBoxAutoSelectUniques.Location = new System.Drawing.Point(35, 374);
             this.checkBoxAutoSelectUniques.Name = "checkBoxAutoSelectUniques";
+            this.checkBoxAutoSelectUniques.ShadowDepth = 1;
             this.checkBoxAutoSelectUniques.Size = new System.Drawing.Size(175, 15);
             this.checkBoxAutoSelectUniques.TabIndex = 17;
             this.checkBoxAutoSelectUniques.Text = "Automatically select uniques";
+            this.checkBoxAutoSelectUniques.UseVisualStyleBackColor = false;
             this.checkBoxAutoSelectUniques.CheckedChanged += new System.EventHandler(this.checkBoxAutoSelectUniques_CheckedChanged);
             // 
             // label3
