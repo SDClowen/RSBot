@@ -73,6 +73,7 @@
             this.btnAddToSell = new System.Windows.Forms.ToolStripMenuItem();
             this.btnAddToStore = new System.Windows.Forms.ToolStripMenuItem();
             this.btnPickup = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnPickOnlyCharacter = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnDontSell = new System.Windows.Forms.ToolStripMenuItem();
             this.btnDontStore = new System.Windows.Forms.ToolStripMenuItem();
@@ -179,7 +180,7 @@
             this.toolStripSeparator1,
             this.menuRemoveItem});
             this.contextShoppingList.Name = "contextShoppingList";
-            this.contextShoppingList.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.contextShoppingList.RenderMode = System.Windows.Forms.ToolStripRenderMode.Custom;
             this.contextShoppingList.ShowImageMargin = false;
             this.contextShoppingList.Size = new System.Drawing.Size(136, 54);
             // 
@@ -207,7 +208,7 @@
             this.contextAvailableProducts.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuAddToShoppingList});
             this.contextAvailableProducts.Name = "contextAvailableProducts";
-            this.contextAvailableProducts.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.contextAvailableProducts.RenderMode = System.Windows.Forms.ToolStripRenderMode.Custom;
             this.contextAvailableProducts.ShowImageMargin = false;
             this.contextAvailableProducts.Size = new System.Drawing.Size(157, 26);
             // 
@@ -290,6 +291,7 @@
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Border = new System.Windows.Forms.Padding(0, 0, 0, 1);
             this.panel1.BorderColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.label6);
@@ -301,6 +303,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Radius = 0;
+            this.panel1.ShadowDepth = 4F;
             this.panel1.Size = new System.Drawing.Size(336, 57);
             this.panel1.TabIndex = 6;
             // 
@@ -319,12 +322,13 @@
             // 
             this.checkShowEquipment.AutoSize = true;
             this.checkShowEquipment.BackColor = System.Drawing.Color.Transparent;
-            this.checkShowEquipment.Checked = false;
             this.checkShowEquipment.Location = new System.Drawing.Point(211, 21);
             this.checkShowEquipment.Name = "checkShowEquipment";
+            this.checkShowEquipment.ShadowDepth = 1;
             this.checkShowEquipment.Size = new System.Drawing.Size(113, 15);
             this.checkShowEquipment.TabIndex = 9;
             this.checkShowEquipment.Text = "Show equipment";
+            this.checkShowEquipment.UseVisualStyleBackColor = false;
             this.checkShowEquipment.CheckedChanged += new System.EventHandler(this.checkShowEquipment_CheckedChanged);
             // 
             // txtShopSearch
@@ -333,6 +337,7 @@
             this.txtShopSearch.MaxLength = 32767;
             this.txtShopSearch.MultiLine = false;
             this.txtShopSearch.Name = "txtShopSearch";
+            this.txtShopSearch.Radius = 2;
             this.txtShopSearch.Size = new System.Drawing.Size(144, 21);
             this.txtShopSearch.TabIndex = 8;
             this.txtShopSearch.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
@@ -355,6 +360,8 @@
             "Accessory trader"});
             this.comboStore.Location = new System.Drawing.Point(61, 4);
             this.comboStore.Name = "comboStore";
+            this.comboStore.Radius = 5;
+            this.comboStore.ShadowDepth = 4F;
             this.comboStore.Size = new System.Drawing.Size(144, 23);
             this.comboStore.TabIndex = 2;
             this.comboStore.SelectedIndexChanged += new System.EventHandler(this.comboStore_SelectedIndexChanged);
@@ -418,6 +425,7 @@
             // 
             // panel2
             // 
+            this.panel2.BackColor = System.Drawing.Color.Transparent;
             this.panel2.Border = new System.Windows.Forms.Padding(0, 0, 0, 1);
             this.panel2.BorderColor = System.Drawing.Color.Transparent;
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
@@ -425,6 +433,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
             this.panel2.Radius = 0;
+            this.panel2.ShadowDepth = 4F;
             this.panel2.Size = new System.Drawing.Size(393, 57);
             this.panel2.TabIndex = 7;
             // 
@@ -450,6 +459,7 @@
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupBox1.Radius = 2;
+            this.groupBox1.ShadowDepth = 4;
             this.groupBox1.Size = new System.Drawing.Size(730, 60);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
@@ -460,11 +470,14 @@
             this.checkSellItemsFromPet.AutoSize = true;
             this.checkSellItemsFromPet.BackColor = System.Drawing.Color.Transparent;
             this.checkSellItemsFromPet.Checked = true;
+            this.checkSellItemsFromPet.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkSellItemsFromPet.Location = new System.Drawing.Point(425, 33);
             this.checkSellItemsFromPet.Name = "checkSellItemsFromPet";
+            this.checkSellItemsFromPet.ShadowDepth = 1;
             this.checkSellItemsFromPet.Size = new System.Drawing.Size(122, 15);
             this.checkSellItemsFromPet.TabIndex = 3;
             this.checkSellItemsFromPet.Text = "Sell items from pet";
+            this.checkSellItemsFromPet.UseVisualStyleBackColor = false;
             this.checkSellItemsFromPet.CheckedChanged += new System.EventHandler(this.checkSellItemsFromPet_CheckedChanged);
             // 
             // checkStoreItemsFromPet
@@ -472,11 +485,14 @@
             this.checkStoreItemsFromPet.AutoSize = true;
             this.checkStoreItemsFromPet.BackColor = System.Drawing.Color.Transparent;
             this.checkStoreItemsFromPet.Checked = true;
+            this.checkStoreItemsFromPet.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkStoreItemsFromPet.Location = new System.Drawing.Point(567, 33);
             this.checkStoreItemsFromPet.Name = "checkStoreItemsFromPet";
+            this.checkStoreItemsFromPet.ShadowDepth = 1;
             this.checkStoreItemsFromPet.Size = new System.Drawing.Size(131, 15);
             this.checkStoreItemsFromPet.TabIndex = 4;
             this.checkStoreItemsFromPet.Text = "Store items from pet";
+            this.checkStoreItemsFromPet.UseVisualStyleBackColor = false;
             this.checkStoreItemsFromPet.CheckedChanged += new System.EventHandler(this.checkStoreItemsFromPet_CheckedChanged);
             // 
             // checkRepairGear
@@ -484,11 +500,14 @@
             this.checkRepairGear.AutoSize = true;
             this.checkRepairGear.BackColor = System.Drawing.Color.Transparent;
             this.checkRepairGear.Checked = true;
+            this.checkRepairGear.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkRepairGear.Location = new System.Drawing.Point(231, 33);
             this.checkRepairGear.Name = "checkRepairGear";
+            this.checkRepairGear.ShadowDepth = 1;
             this.checkRepairGear.Size = new System.Drawing.Size(168, 15);
             this.checkRepairGear.TabIndex = 1;
             this.checkRepairGear.Text = "Automaticaly repair all gear";
+            this.checkRepairGear.UseVisualStyleBackColor = false;
             this.checkRepairGear.CheckedChanged += new System.EventHandler(this.checkRepairGear_CheckedChanged);
             // 
             // checkEnable
@@ -496,11 +515,14 @@
             this.checkEnable.AutoSize = true;
             this.checkEnable.BackColor = System.Drawing.Color.Transparent;
             this.checkEnable.Checked = true;
+            this.checkEnable.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkEnable.Location = new System.Drawing.Point(13, 33);
             this.checkEnable.Name = "checkEnable";
+            this.checkEnable.ShadowDepth = 1;
             this.checkEnable.Size = new System.Drawing.Size(190, 15);
             this.checkEnable.TabIndex = 0;
             this.checkEnable.Text = "Automaticaly run when in town";
+            this.checkEnable.UseVisualStyleBackColor = false;
             this.checkEnable.CheckedChanged += new System.EventHandler(this.checkEnable_CheckedChanged);
             // 
             // tabSellFilter
@@ -510,9 +532,9 @@
             this.tabSellFilter.Controls.Add(this.filterPanel);
             this.tabSellFilter.Controls.Add(this.panel3);
             this.tabSellFilter.Controls.Add(this.pictureBox1);
-            this.tabSellFilter.Location = new System.Drawing.Point(4, 24);
+            this.tabSellFilter.Location = new System.Drawing.Point(4, 25);
             this.tabSellFilter.Name = "tabSellFilter";
-            this.tabSellFilter.Size = new System.Drawing.Size(746, 445);
+            this.tabSellFilter.Size = new System.Drawing.Size(746, 444);
             this.tabSellFilter.TabIndex = 1;
             this.tabSellFilter.Text = "Item filter";
             // 
@@ -533,7 +555,7 @@
             this.listFilter.FullRowSelect = true;
             this.listFilter.Location = new System.Drawing.Point(265, 0);
             this.listFilter.Name = "listFilter";
-            this.listFilter.Size = new System.Drawing.Size(481, 409);
+            this.listFilter.Size = new System.Drawing.Size(481, 408);
             this.listFilter.SmallImageList = this.searchImageList;
             this.listFilter.TabIndex = 5;
             this.listFilter.UseCompatibleStateImageBehavior = false;
@@ -573,59 +595,69 @@
             this.btnAddToSell,
             this.btnAddToStore,
             this.btnPickup,
+            this.btnPickOnlyCharacter,
             this.toolStripSeparator2,
             this.btnDontSell,
             this.btnDontStore,
             this.btnDontPickup});
             this.contextList.Name = "contextSellList";
-            this.contextList.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.contextList.RenderMode = System.Windows.Forms.ToolStripRenderMode.Custom;
+            this.contextList.ShowCheckMargin = true;
             this.contextList.ShowImageMargin = false;
-            this.contextList.Size = new System.Drawing.Size(118, 142);
+            this.contextList.Size = new System.Drawing.Size(189, 186);
+            this.contextList.Opening += new System.ComponentModel.CancelEventHandler(this.contextList_Opening);
             // 
             // btnAddToSell
             // 
             this.btnAddToSell.Name = "btnAddToSell";
-            this.btnAddToSell.Size = new System.Drawing.Size(117, 22);
+            this.btnAddToSell.Size = new System.Drawing.Size(188, 22);
             this.btnAddToSell.Text = "Sell";
             this.btnAddToSell.Click += new System.EventHandler(this.btnAddToSell_Click);
             // 
             // btnAddToStore
             // 
             this.btnAddToStore.Name = "btnAddToStore";
-            this.btnAddToStore.Size = new System.Drawing.Size(117, 22);
+            this.btnAddToStore.Size = new System.Drawing.Size(188, 22);
             this.btnAddToStore.Text = "Store";
             this.btnAddToStore.Click += new System.EventHandler(this.btnAddToStore_Click);
             // 
             // btnPickup
             // 
             this.btnPickup.Name = "btnPickup";
-            this.btnPickup.Size = new System.Drawing.Size(117, 22);
+            this.btnPickup.Size = new System.Drawing.Size(188, 22);
             this.btnPickup.Text = "Pickup";
             this.btnPickup.Click += new System.EventHandler(this.btnPickup_Click);
+            // 
+            // btnPickOnlyCharacter
+            // 
+            this.btnPickOnlyCharacter.Name = "btnPickOnlyCharacter";
+            this.btnPickOnlyCharacter.Size = new System.Drawing.Size(188, 22);
+            this.btnPickOnlyCharacter.Text = "Pickup only character";
+            this.btnPickOnlyCharacter.Click += new System.EventHandler(this.btnPickOnlyCharacter_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(114, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(185, 6);
             // 
             // btnDontSell
             // 
             this.btnDontSell.Name = "btnDontSell";
-            this.btnDontSell.Size = new System.Drawing.Size(117, 22);
+            this.btnDontSell.Size = new System.Drawing.Size(188, 22);
             this.btnDontSell.Text = "Don\'t sell";
             this.btnDontSell.Click += new System.EventHandler(this.btnDontSell_Click);
             // 
             // btnDontStore
             // 
             this.btnDontStore.Name = "btnDontStore";
-            this.btnDontStore.Size = new System.Drawing.Size(117, 22);
+            this.btnDontStore.Size = new System.Drawing.Size(188, 22);
             this.btnDontStore.Text = "Don\'t store";
             this.btnDontStore.Click += new System.EventHandler(this.btnDontStore_Click);
             // 
             // btnDontPickup
             // 
             this.btnDontPickup.Name = "btnDontPickup";
-            this.btnDontPickup.Size = new System.Drawing.Size(117, 22);
+            this.btnDontPickup.Size = new System.Drawing.Size(188, 22);
             this.btnDontPickup.Text = "Don\'t pickup";
             this.btnDontPickup.Click += new System.EventHandler(this.btnDontPickup_Click);
             // 
@@ -640,6 +672,7 @@
             this.filterPanel.AutoScroll = true;
             this.filterPanel.AutoScrollMargin = new System.Drawing.Size(0, 10);
             this.filterPanel.AutoScrollMinSize = new System.Drawing.Size(0, 720);
+            this.filterPanel.BackColor = System.Drawing.Color.Transparent;
             this.filterPanel.Border = new System.Windows.Forms.Padding(0, 0, 1, 0);
             this.filterPanel.BorderColor = System.Drawing.Color.Transparent;
             this.filterPanel.Controls.Add(this.groupOthers);
@@ -656,7 +689,8 @@
             this.filterPanel.Name = "filterPanel";
             this.filterPanel.Padding = new System.Windows.Forms.Padding(12);
             this.filterPanel.Radius = 0;
-            this.filterPanel.Size = new System.Drawing.Size(265, 409);
+            this.filterPanel.ShadowDepth = 4F;
+            this.filterPanel.Size = new System.Drawing.Size(265, 408);
             this.filterPanel.TabIndex = 20;
             // 
             // groupOthers
@@ -672,6 +706,7 @@
             this.groupOthers.Name = "groupOthers";
             this.groupOthers.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupOthers.Radius = 2;
+            this.groupOthers.ShadowDepth = 4;
             this.groupOthers.Size = new System.Drawing.Size(224, 106);
             this.groupOthers.TabIndex = 42;
             this.groupOthers.TabStop = false;
@@ -681,56 +716,61 @@
             // 
             this.checkAlchemy.AutoSize = true;
             this.checkAlchemy.BackColor = System.Drawing.Color.Transparent;
-            this.checkAlchemy.Checked = false;
             this.checkAlchemy.Location = new System.Drawing.Point(99, 56);
             this.checkAlchemy.Name = "checkAlchemy";
+            this.checkAlchemy.ShadowDepth = 1;
             this.checkAlchemy.Size = new System.Drawing.Size(70, 15);
             this.checkAlchemy.TabIndex = 19;
             this.checkAlchemy.Text = "Alchemy";
+            this.checkAlchemy.UseVisualStyleBackColor = false;
             // 
             // checkQuest
             // 
             this.checkQuest.AutoSize = true;
             this.checkQuest.BackColor = System.Drawing.Color.Transparent;
-            this.checkQuest.Checked = false;
             this.checkQuest.Location = new System.Drawing.Point(11, 33);
             this.checkQuest.Name = "checkQuest";
+            this.checkQuest.ShadowDepth = 1;
             this.checkQuest.Size = new System.Drawing.Size(54, 15);
             this.checkQuest.TabIndex = 19;
             this.checkQuest.Text = "Quest";
+            this.checkQuest.UseVisualStyleBackColor = false;
             // 
             // checkAmmo
             // 
             this.checkAmmo.AutoSize = true;
             this.checkAmmo.BackColor = System.Drawing.Color.Transparent;
-            this.checkAmmo.Checked = false;
             this.checkAmmo.Location = new System.Drawing.Point(11, 56);
             this.checkAmmo.Name = "checkAmmo";
+            this.checkAmmo.ShadowDepth = 1;
             this.checkAmmo.Size = new System.Drawing.Size(60, 15);
             this.checkAmmo.TabIndex = 19;
             this.checkAmmo.Text = "Ammo";
+            this.checkAmmo.UseVisualStyleBackColor = false;
             // 
             // checkCoin
             // 
             this.checkCoin.AutoSize = true;
             this.checkCoin.BackColor = System.Drawing.Color.Transparent;
-            this.checkCoin.Checked = false;
             this.checkCoin.Location = new System.Drawing.Point(99, 33);
             this.checkCoin.Name = "checkCoin";
+            this.checkCoin.ShadowDepth = 1;
             this.checkCoin.Size = new System.Drawing.Size(48, 15);
             this.checkCoin.TabIndex = 19;
             this.checkCoin.Text = "Coin";
+            this.checkCoin.UseVisualStyleBackColor = false;
             // 
             // checkOther
             // 
             this.checkOther.AutoSize = true;
             this.checkOther.BackColor = System.Drawing.Color.Transparent;
-            this.checkOther.Checked = false;
             this.checkOther.Location = new System.Drawing.Point(11, 79);
             this.checkOther.Name = "checkOther";
+            this.checkOther.ShadowDepth = 1;
             this.checkOther.Size = new System.Drawing.Size(53, 15);
             this.checkOther.TabIndex = 19;
             this.checkOther.Text = "Other";
+            this.checkOther.UseVisualStyleBackColor = false;
             // 
             // separator1
             // 
@@ -766,6 +806,7 @@
             this.groupWeapons.Name = "groupWeapons";
             this.groupWeapons.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupWeapons.Radius = 2;
+            this.groupWeapons.ShadowDepth = 4;
             this.groupWeapons.Size = new System.Drawing.Size(224, 207);
             this.groupWeapons.TabIndex = 40;
             this.groupWeapons.TabStop = false;
@@ -775,166 +816,181 @@
             // 
             this.checkAxe.AutoSize = true;
             this.checkAxe.BackColor = System.Drawing.Color.Transparent;
-            this.checkAxe.Checked = false;
             this.checkAxe.Location = new System.Drawing.Point(99, 180);
             this.checkAxe.Name = "checkAxe";
+            this.checkAxe.ShadowDepth = 1;
             this.checkAxe.Size = new System.Drawing.Size(43, 15);
             this.checkAxe.TabIndex = 10;
             this.checkAxe.Text = "Axe";
+            this.checkAxe.UseVisualStyleBackColor = false;
             // 
             // checkHarp
             // 
             this.checkHarp.AutoSize = true;
             this.checkHarp.BackColor = System.Drawing.Color.Transparent;
-            this.checkHarp.Checked = false;
             this.checkHarp.Location = new System.Drawing.Point(11, 180);
             this.checkHarp.Name = "checkHarp";
+            this.checkHarp.ShadowDepth = 1;
             this.checkHarp.Size = new System.Drawing.Size(49, 15);
             this.checkHarp.TabIndex = 10;
             this.checkHarp.Text = "Harp";
+            this.checkHarp.UseVisualStyleBackColor = false;
             // 
             // checkDagger
             // 
             this.checkDagger.AutoSize = true;
             this.checkDagger.BackColor = System.Drawing.Color.Transparent;
-            this.checkDagger.Checked = false;
             this.checkDagger.Location = new System.Drawing.Point(99, 155);
             this.checkDagger.Name = "checkDagger";
+            this.checkDagger.ShadowDepth = 1;
             this.checkDagger.Size = new System.Drawing.Size(61, 15);
             this.checkDagger.TabIndex = 9;
             this.checkDagger.Text = "Dagger";
+            this.checkDagger.UseVisualStyleBackColor = false;
             // 
             // checkXBow
             // 
             this.checkXBow.AutoSize = true;
             this.checkXBow.BackColor = System.Drawing.Color.Transparent;
-            this.checkXBow.Checked = false;
             this.checkXBow.Location = new System.Drawing.Point(11, 155);
             this.checkXBow.Name = "checkXBow";
+            this.checkXBow.ShadowDepth = 1;
             this.checkXBow.Size = new System.Drawing.Size(58, 15);
             this.checkXBow.TabIndex = 9;
             this.checkXBow.Text = "X-Bow";
+            this.checkXBow.UseVisualStyleBackColor = false;
             // 
             // checkWRod
             // 
             this.checkWRod.AutoSize = true;
             this.checkWRod.BackColor = System.Drawing.Color.Transparent;
-            this.checkWRod.Checked = false;
             this.checkWRod.Location = new System.Drawing.Point(99, 130);
             this.checkWRod.Name = "checkWRod";
+            this.checkWRod.ShadowDepth = 1;
             this.checkWRod.Size = new System.Drawing.Size(60, 15);
             this.checkWRod.TabIndex = 8;
             this.checkWRod.Text = "W-Rod";
+            this.checkWRod.UseVisualStyleBackColor = false;
             // 
             // checkShield
             // 
             this.checkShield.AutoSize = true;
             this.checkShield.BackColor = System.Drawing.Color.Transparent;
-            this.checkShield.Checked = false;
             this.checkShield.Location = new System.Drawing.Point(161, 180);
             this.checkShield.Name = "checkShield";
+            this.checkShield.ShadowDepth = 1;
             this.checkShield.Size = new System.Drawing.Size(55, 15);
             this.checkShield.TabIndex = 5;
             this.checkShield.Text = "Shield";
+            this.checkShield.UseVisualStyleBackColor = false;
             // 
             // checkCRod
             // 
             this.checkCRod.AutoSize = true;
             this.checkCRod.BackColor = System.Drawing.Color.Transparent;
-            this.checkCRod.Checked = false;
             this.checkCRod.Location = new System.Drawing.Point(11, 130);
             this.checkCRod.Name = "checkCRod";
+            this.checkCRod.ShadowDepth = 1;
             this.checkCRod.Size = new System.Drawing.Size(57, 15);
             this.checkCRod.TabIndex = 7;
             this.checkCRod.Text = "C-Rod";
+            this.checkCRod.UseVisualStyleBackColor = false;
             // 
             // check2HSword
             // 
             this.check2HSword.AutoSize = true;
             this.check2HSword.BackColor = System.Drawing.Color.Transparent;
-            this.check2HSword.Checked = false;
             this.check2HSword.Location = new System.Drawing.Point(99, 105);
             this.check2HSword.Name = "check2HSword";
+            this.check2HSword.ShadowDepth = 1;
             this.check2HSword.Size = new System.Drawing.Size(74, 15);
             this.check2HSword.TabIndex = 6;
             this.check2HSword.Text = "2H Sword";
+            this.check2HSword.UseVisualStyleBackColor = false;
             // 
             // check1HSword
             // 
             this.check1HSword.AutoSize = true;
             this.check1HSword.BackColor = System.Drawing.Color.Transparent;
-            this.check1HSword.Checked = false;
             this.check1HSword.Location = new System.Drawing.Point(11, 105);
             this.check1HSword.Name = "check1HSword";
+            this.check1HSword.ShadowDepth = 1;
             this.check1HSword.Size = new System.Drawing.Size(74, 15);
             this.check1HSword.TabIndex = 5;
             this.check1HSword.Text = "1H Sword";
+            this.check1HSword.UseVisualStyleBackColor = false;
             // 
             // checkStaff
             // 
             this.checkStaff.AutoSize = true;
             this.checkStaff.BackColor = System.Drawing.Color.Transparent;
-            this.checkStaff.Checked = false;
             this.checkStaff.Location = new System.Drawing.Point(99, 80);
             this.checkStaff.Name = "checkStaff";
+            this.checkStaff.ShadowDepth = 1;
             this.checkStaff.Size = new System.Drawing.Size(47, 15);
             this.checkStaff.TabIndex = 5;
             this.checkStaff.Text = "Staff";
+            this.checkStaff.UseVisualStyleBackColor = false;
             // 
             // checkBow
             // 
             this.checkBow.AutoSize = true;
             this.checkBow.BackColor = System.Drawing.Color.Transparent;
-            this.checkBow.Checked = false;
             this.checkBow.Location = new System.Drawing.Point(11, 80);
             this.checkBow.Name = "checkBow";
+            this.checkBow.ShadowDepth = 1;
             this.checkBow.Size = new System.Drawing.Size(46, 15);
             this.checkBow.TabIndex = 4;
             this.checkBow.Text = "Bow";
+            this.checkBow.UseVisualStyleBackColor = false;
             // 
             // checkSpear
             // 
             this.checkSpear.AutoSize = true;
             this.checkSpear.BackColor = System.Drawing.Color.Transparent;
-            this.checkSpear.Checked = false;
             this.checkSpear.Location = new System.Drawing.Point(99, 55);
             this.checkSpear.Name = "checkSpear";
+            this.checkSpear.ShadowDepth = 1;
             this.checkSpear.Size = new System.Drawing.Size(52, 15);
             this.checkSpear.TabIndex = 3;
             this.checkSpear.Text = "Spear";
+            this.checkSpear.UseVisualStyleBackColor = false;
             // 
             // checkGlave
             // 
             this.checkGlave.AutoSize = true;
             this.checkGlave.BackColor = System.Drawing.Color.Transparent;
-            this.checkGlave.Checked = false;
             this.checkGlave.Location = new System.Drawing.Point(11, 55);
             this.checkGlave.Name = "checkGlave";
+            this.checkGlave.ShadowDepth = 1;
             this.checkGlave.Size = new System.Drawing.Size(52, 15);
             this.checkGlave.TabIndex = 2;
             this.checkGlave.Text = "Glave";
+            this.checkGlave.UseVisualStyleBackColor = false;
             // 
             // checkSword
             // 
             this.checkSword.AutoSize = true;
             this.checkSword.BackColor = System.Drawing.Color.Transparent;
-            this.checkSword.Checked = false;
             this.checkSword.Location = new System.Drawing.Point(99, 30);
             this.checkSword.Name = "checkSword";
+            this.checkSword.ShadowDepth = 1;
             this.checkSword.Size = new System.Drawing.Size(56, 15);
             this.checkSword.TabIndex = 1;
             this.checkSword.Text = "Sword";
+            this.checkSword.UseVisualStyleBackColor = false;
             // 
             // checkBlade
             // 
             this.checkBlade.AutoSize = true;
             this.checkBlade.BackColor = System.Drawing.Color.Transparent;
-            this.checkBlade.Checked = false;
             this.checkBlade.Location = new System.Drawing.Point(11, 30);
             this.checkBlade.Name = "checkBlade";
+            this.checkBlade.ShadowDepth = 1;
             this.checkBlade.Size = new System.Drawing.Size(52, 15);
             this.checkBlade.TabIndex = 0;
             this.checkBlade.Text = "Blade";
+            this.checkBlade.UseVisualStyleBackColor = false;
             // 
             // separator2
             // 
@@ -957,6 +1013,7 @@
             this.groupAccessories.Name = "groupAccessories";
             this.groupAccessories.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupAccessories.Radius = 2;
+            this.groupAccessories.ShadowDepth = 4;
             this.groupAccessories.Size = new System.Drawing.Size(224, 58);
             this.groupAccessories.TabIndex = 44;
             this.groupAccessories.TabStop = false;
@@ -966,34 +1023,37 @@
             // 
             this.checkNecklace.AutoSize = true;
             this.checkNecklace.BackColor = System.Drawing.Color.Transparent;
-            this.checkNecklace.Checked = false;
             this.checkNecklace.Location = new System.Drawing.Point(71, 30);
             this.checkNecklace.Name = "checkNecklace";
+            this.checkNecklace.ShadowDepth = 1;
             this.checkNecklace.Size = new System.Drawing.Size(71, 15);
             this.checkNecklace.TabIndex = 4;
             this.checkNecklace.Text = "Necklace";
+            this.checkNecklace.UseVisualStyleBackColor = false;
             // 
             // checkEarring
             // 
             this.checkEarring.AutoSize = true;
             this.checkEarring.BackColor = System.Drawing.Color.Transparent;
-            this.checkEarring.Checked = false;
             this.checkEarring.Location = new System.Drawing.Point(157, 30);
             this.checkEarring.Name = "checkEarring";
+            this.checkEarring.ShadowDepth = 1;
             this.checkEarring.Size = new System.Drawing.Size(60, 15);
             this.checkEarring.TabIndex = 3;
             this.checkEarring.Text = "Earring";
+            this.checkEarring.UseVisualStyleBackColor = false;
             // 
             // checkRing
             // 
             this.checkRing.AutoSize = true;
             this.checkRing.BackColor = System.Drawing.Color.Transparent;
-            this.checkRing.Checked = false;
             this.checkRing.Location = new System.Drawing.Point(11, 30);
             this.checkRing.Name = "checkRing";
+            this.checkRing.ShadowDepth = 1;
             this.checkRing.Size = new System.Drawing.Size(47, 15);
             this.checkRing.TabIndex = 2;
             this.checkRing.Text = "Ring";
+            this.checkRing.UseVisualStyleBackColor = false;
             // 
             // separator3
             // 
@@ -1022,6 +1082,7 @@
             this.groupClothes.Name = "groupClothes";
             this.groupClothes.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupClothes.Radius = 2;
+            this.groupClothes.ShadowDepth = 4;
             this.groupClothes.Size = new System.Drawing.Size(224, 135);
             this.groupClothes.TabIndex = 41;
             this.groupClothes.TabStop = false;
@@ -1031,100 +1092,109 @@
             // 
             this.checkHand.AutoSize = true;
             this.checkHand.BackColor = System.Drawing.Color.Transparent;
-            this.checkHand.Checked = false;
             this.checkHand.Location = new System.Drawing.Point(99, 108);
             this.checkHand.Name = "checkHand";
+            this.checkHand.ShadowDepth = 1;
             this.checkHand.Size = new System.Drawing.Size(52, 15);
             this.checkHand.TabIndex = 8;
             this.checkHand.Text = "Hand";
+            this.checkHand.UseVisualStyleBackColor = false;
             // 
             // checkLegs
             // 
             this.checkLegs.AutoSize = true;
             this.checkLegs.BackColor = System.Drawing.Color.Transparent;
-            this.checkLegs.Checked = false;
             this.checkLegs.Location = new System.Drawing.Point(11, 108);
             this.checkLegs.Name = "checkLegs";
+            this.checkLegs.ShadowDepth = 1;
             this.checkLegs.Size = new System.Drawing.Size(42, 15);
             this.checkLegs.TabIndex = 7;
             this.checkLegs.Text = "Leg";
+            this.checkLegs.UseVisualStyleBackColor = false;
             // 
             // checkHeavy
             // 
             this.checkHeavy.AutoSize = true;
             this.checkHeavy.BackColor = System.Drawing.Color.Transparent;
-            this.checkHeavy.Checked = false;
             this.checkHeavy.Location = new System.Drawing.Point(164, 30);
             this.checkHeavy.Name = "checkHeavy";
+            this.checkHeavy.ShadowDepth = 1;
             this.checkHeavy.Size = new System.Drawing.Size(56, 15);
             this.checkHeavy.TabIndex = 6;
             this.checkHeavy.Text = "Heavy";
+            this.checkHeavy.UseVisualStyleBackColor = false;
             // 
             // checkLight
             // 
             this.checkLight.AutoSize = true;
             this.checkLight.BackColor = System.Drawing.Color.Transparent;
-            this.checkLight.Checked = false;
             this.checkLight.Location = new System.Drawing.Point(99, 30);
             this.checkLight.Name = "checkLight";
+            this.checkLight.ShadowDepth = 1;
             this.checkLight.Size = new System.Drawing.Size(50, 15);
             this.checkLight.TabIndex = 6;
             this.checkLight.Text = "Light";
+            this.checkLight.UseVisualStyleBackColor = false;
             // 
             // checkClothes
             // 
             this.checkClothes.AutoSize = true;
             this.checkClothes.BackColor = System.Drawing.Color.Transparent;
-            this.checkClothes.Checked = false;
             this.checkClothes.Location = new System.Drawing.Point(11, 30);
             this.checkClothes.Name = "checkClothes";
+            this.checkClothes.ShadowDepth = 1;
             this.checkClothes.Size = new System.Drawing.Size(63, 15);
             this.checkClothes.TabIndex = 6;
             this.checkClothes.Text = "Clothes";
+            this.checkClothes.UseVisualStyleBackColor = false;
             // 
             // checkBoot
             // 
             this.checkBoot.AutoSize = true;
             this.checkBoot.BackColor = System.Drawing.Color.Transparent;
-            this.checkBoot.Checked = false;
             this.checkBoot.Location = new System.Drawing.Point(99, 83);
             this.checkBoot.Name = "checkBoot";
+            this.checkBoot.ShadowDepth = 1;
             this.checkBoot.Size = new System.Drawing.Size(48, 15);
             this.checkBoot.TabIndex = 4;
             this.checkBoot.Text = "Boot";
+            this.checkBoot.UseVisualStyleBackColor = false;
             // 
             // checkChest
             // 
             this.checkChest.AutoSize = true;
             this.checkChest.BackColor = System.Drawing.Color.Transparent;
-            this.checkChest.Checked = false;
             this.checkChest.Location = new System.Drawing.Point(11, 83);
             this.checkChest.Name = "checkChest";
+            this.checkChest.ShadowDepth = 1;
             this.checkChest.Size = new System.Drawing.Size(53, 15);
             this.checkChest.TabIndex = 4;
             this.checkChest.Text = "Chest";
+            this.checkChest.UseVisualStyleBackColor = false;
             // 
             // checkShoulder
             // 
             this.checkShoulder.AutoSize = true;
             this.checkShoulder.BackColor = System.Drawing.Color.Transparent;
-            this.checkShoulder.Checked = false;
             this.checkShoulder.Location = new System.Drawing.Point(99, 58);
             this.checkShoulder.Name = "checkShoulder";
+            this.checkShoulder.ShadowDepth = 1;
             this.checkShoulder.Size = new System.Drawing.Size(70, 15);
             this.checkShoulder.TabIndex = 4;
             this.checkShoulder.Text = "Shoulder";
+            this.checkShoulder.UseVisualStyleBackColor = false;
             // 
             // checkHead
             // 
             this.checkHead.AutoSize = true;
             this.checkHead.BackColor = System.Drawing.Color.Transparent;
-            this.checkHead.Checked = false;
             this.checkHead.Location = new System.Drawing.Point(11, 58);
             this.checkHead.Name = "checkHead";
+            this.checkHead.ShadowDepth = 1;
             this.checkHead.Size = new System.Drawing.Size(51, 15);
             this.checkHead.TabIndex = 4;
             this.checkHead.Text = "Head";
+            this.checkHead.UseVisualStyleBackColor = false;
             // 
             // separator4
             // 
@@ -1154,6 +1224,7 @@
             this.groupGender.Name = "groupGender";
             this.groupGender.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupGender.Radius = 2;
+            this.groupGender.ShadowDepth = 4;
             this.groupGender.Size = new System.Drawing.Size(224, 138);
             this.groupGender.TabIndex = 44;
             this.groupGender.TabStop = false;
@@ -1163,56 +1234,61 @@
             // 
             this.checkEuropean.AutoSize = true;
             this.checkEuropean.BackColor = System.Drawing.Color.Transparent;
-            this.checkEuropean.Checked = false;
             this.checkEuropean.Location = new System.Drawing.Point(99, 53);
             this.checkEuropean.Name = "checkEuropean";
+            this.checkEuropean.ShadowDepth = 1;
             this.checkEuropean.Size = new System.Drawing.Size(73, 15);
             this.checkEuropean.TabIndex = 9;
             this.checkEuropean.Text = "European";
+            this.checkEuropean.UseVisualStyleBackColor = false;
             // 
             // checkChinese
             // 
             this.checkChinese.AutoSize = true;
             this.checkChinese.BackColor = System.Drawing.Color.Transparent;
-            this.checkChinese.Checked = false;
             this.checkChinese.Location = new System.Drawing.Point(16, 53);
             this.checkChinese.Name = "checkChinese";
+            this.checkChinese.ShadowDepth = 1;
             this.checkChinese.Size = new System.Drawing.Size(65, 15);
             this.checkChinese.TabIndex = 9;
             this.checkChinese.Text = "Chinese";
+            this.checkChinese.UseVisualStyleBackColor = false;
             // 
             // checkFemale
             // 
             this.checkFemale.AutoSize = true;
             this.checkFemale.BackColor = System.Drawing.Color.Transparent;
-            this.checkFemale.Checked = false;
             this.checkFemale.Location = new System.Drawing.Point(99, 30);
             this.checkFemale.Name = "checkFemale";
+            this.checkFemale.ShadowDepth = 1;
             this.checkFemale.Size = new System.Drawing.Size(61, 15);
             this.checkFemale.TabIndex = 9;
             this.checkFemale.Text = "Female";
+            this.checkFemale.UseVisualStyleBackColor = false;
             // 
             // checkBoxRareItems
             // 
             this.checkBoxRareItems.AutoSize = true;
             this.checkBoxRareItems.BackColor = System.Drawing.Color.Transparent;
-            this.checkBoxRareItems.Checked = false;
             this.checkBoxRareItems.Location = new System.Drawing.Point(16, 76);
             this.checkBoxRareItems.Name = "checkBoxRareItems";
+            this.checkBoxRareItems.ShadowDepth = 1;
             this.checkBoxRareItems.Size = new System.Drawing.Size(76, 15);
             this.checkBoxRareItems.TabIndex = 40;
             this.checkBoxRareItems.Text = "Rare (Sox)";
+            this.checkBoxRareItems.UseVisualStyleBackColor = false;
             // 
             // checkMale
             // 
             this.checkMale.AutoSize = true;
             this.checkMale.BackColor = System.Drawing.Color.Transparent;
-            this.checkMale.Checked = false;
             this.checkMale.Location = new System.Drawing.Point(16, 30);
             this.checkMale.Name = "checkMale";
+            this.checkMale.ShadowDepth = 1;
             this.checkMale.Size = new System.Drawing.Size(49, 15);
             this.checkMale.TabIndex = 9;
             this.checkMale.Text = "Male";
+            this.checkMale.UseVisualStyleBackColor = false;
             // 
             // label3
             // 
@@ -1267,10 +1343,11 @@
             this.panel3.Controls.Add(this.btnReload);
             this.panel3.Controls.Add(this.txtSellSearch);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 409);
+            this.panel3.Location = new System.Drawing.Point(0, 408);
             this.panel3.Margin = new System.Windows.Forms.Padding(0);
             this.panel3.Name = "panel3";
             this.panel3.Radius = 0;
+            this.panel3.ShadowDepth = 4F;
             this.panel3.Size = new System.Drawing.Size(746, 36);
             this.panel3.TabIndex = 40;
             // 
@@ -1284,6 +1361,7 @@
             this.panel7.Margin = new System.Windows.Forms.Padding(0);
             this.panel7.Name = "panel7";
             this.panel7.Radius = 1;
+            this.panel7.ShadowDepth = 4F;
             this.panel7.Size = new System.Drawing.Size(746, 1);
             this.panel7.TabIndex = 41;
             // 
@@ -1302,6 +1380,7 @@
             this.btnResetFilter.Location = new System.Drawing.Point(12, 7);
             this.btnResetFilter.Name = "btnResetFilter";
             this.btnResetFilter.Radius = 2;
+            this.btnResetFilter.ShadowDepth = 4F;
             this.btnResetFilter.Size = new System.Drawing.Size(96, 23);
             this.btnResetFilter.TabIndex = 39;
             this.btnResetFilter.Text = "Reset";
@@ -1317,6 +1396,7 @@
             this.btnSearch.Location = new System.Drawing.Point(667, 6);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Radius = 4;
+            this.btnSearch.ShadowDepth = 4F;
             this.btnSearch.Size = new System.Drawing.Size(75, 23);
             this.btnSearch.TabIndex = 21;
             this.btnSearch.Text = "Search";
@@ -1329,6 +1409,7 @@
             this.btnReload.Location = new System.Drawing.Point(112, 7);
             this.btnReload.Name = "btnReload";
             this.btnReload.Radius = 2;
+            this.btnReload.ShadowDepth = 4F;
             this.btnReload.Size = new System.Drawing.Size(137, 23);
             this.btnReload.TabIndex = 39;
             this.btnReload.Text = "Apply";
@@ -1343,6 +1424,7 @@
             this.txtSellSearch.MaxLength = 32767;
             this.txtSellSearch.MultiLine = false;
             this.txtSellSearch.Name = "txtSellSearch";
+            this.txtSellSearch.Radius = 2;
             this.txtSellSearch.Size = new System.Drawing.Size(221, 21);
             this.txtSellSearch.TabIndex = 20;
             this.txtSellSearch.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
@@ -1363,10 +1445,10 @@
             // 
             this.tabPage1.BackColor = System.Drawing.Color.White;
             this.tabPage1.Controls.Add(this.groupBox7);
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(746, 445);
+            this.tabPage1.Size = new System.Drawing.Size(746, 444);
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Pickup settings";
             // 
@@ -1384,6 +1466,7 @@
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupBox7.Radius = 2;
+            this.groupBox7.ShadowDepth = 4;
             this.groupBox7.Size = new System.Drawing.Size(734, 112);
             this.groupBox7.TabIndex = 0;
             this.groupBox7.TabStop = false;
@@ -1393,84 +1476,91 @@
             // 
             this.cbDontPickupWhileBotting.AutoSize = true;
             this.cbDontPickupWhileBotting.BackColor = System.Drawing.Color.Transparent;
-            this.cbDontPickupWhileBotting.Checked = false;
             this.cbDontPickupWhileBotting.Location = new System.Drawing.Point(495, 32);
             this.cbDontPickupWhileBotting.Name = "cbDontPickupWhileBotting";
+            this.cbDontPickupWhileBotting.ShadowDepth = 1;
             this.cbDontPickupWhileBotting.Size = new System.Drawing.Size(196, 15);
             this.cbDontPickupWhileBotting.TabIndex = 3;
             this.cbDontPickupWhileBotting.Text = "Don\'t pickup items while botting";
+            this.cbDontPickupWhileBotting.UseVisualStyleBackColor = false;
             this.cbDontPickupWhileBotting.CheckedChanged += new System.EventHandler(this.cbDontPickupWhileBotting_CheckedChanged);
             // 
             // cbJustpickmyitems
             // 
             this.cbJustpickmyitems.AutoSize = true;
             this.cbJustpickmyitems.BackColor = System.Drawing.Color.Transparent;
-            this.cbJustpickmyitems.Checked = false;
             this.cbJustpickmyitems.Location = new System.Drawing.Point(232, 82);
             this.cbJustpickmyitems.Name = "cbJustpickmyitems";
+            this.cbJustpickmyitems.ShadowDepth = 1;
             this.cbJustpickmyitems.Size = new System.Drawing.Size(120, 15);
             this.cbJustpickmyitems.TabIndex = 1;
             this.cbJustpickmyitems.Text = "Just pick my items";
+            this.cbJustpickmyitems.UseVisualStyleBackColor = false;
             this.cbJustpickmyitems.CheckedChanged += new System.EventHandler(this.cbJustpickmyitems_CheckedChanged);
             // 
             // checkDontPickupInBerzerk
             // 
             this.checkDontPickupInBerzerk.AutoSize = true;
             this.checkDontPickupInBerzerk.BackColor = System.Drawing.Color.Transparent;
-            this.checkDontPickupInBerzerk.Checked = false;
             this.checkDontPickupInBerzerk.Location = new System.Drawing.Point(232, 57);
             this.checkDontPickupInBerzerk.Name = "checkDontPickupInBerzerk";
+            this.checkDontPickupInBerzerk.ShadowDepth = 1;
             this.checkDontPickupInBerzerk.Size = new System.Drawing.Size(211, 15);
             this.checkDontPickupInBerzerk.TabIndex = 2;
             this.checkDontPickupInBerzerk.Text = "Don\'t pickup items in berzerk mode";
+            this.checkDontPickupInBerzerk.UseVisualStyleBackColor = false;
             this.checkDontPickupInBerzerk.CheckedChanged += new System.EventHandler(this.checkDontPickupInBerzerk_CheckedChanged);
             // 
             // checkEnableAbilityPet
             // 
             this.checkEnableAbilityPet.AutoSize = true;
             this.checkEnableAbilityPet.BackColor = System.Drawing.Color.Transparent;
-            this.checkEnableAbilityPet.Checked = false;
             this.checkEnableAbilityPet.Location = new System.Drawing.Point(232, 32);
             this.checkEnableAbilityPet.Name = "checkEnableAbilityPet";
+            this.checkEnableAbilityPet.ShadowDepth = 1;
             this.checkEnableAbilityPet.Size = new System.Drawing.Size(185, 15);
             this.checkEnableAbilityPet.TabIndex = 1;
             this.checkEnableAbilityPet.Text = "Use ability pet to pickup items ";
+            this.checkEnableAbilityPet.UseVisualStyleBackColor = false;
             this.checkEnableAbilityPet.CheckedChanged += new System.EventHandler(this.checkEnableAbilityPet_CheckedChanged);
             // 
             // checkPickupBlue
             // 
             this.checkPickupBlue.AutoSize = true;
             this.checkPickupBlue.BackColor = System.Drawing.Color.Transparent;
-            this.checkPickupBlue.Checked = false;
             this.checkPickupBlue.Location = new System.Drawing.Point(16, 82);
             this.checkPickupBlue.Name = "checkPickupBlue";
+            this.checkPickupBlue.ShadowDepth = 1;
             this.checkPickupBlue.Size = new System.Drawing.Size(157, 15);
             this.checkPickupBlue.TabIndex = 1;
             this.checkPickupBlue.Text = "Always pickup blue items";
+            this.checkPickupBlue.UseVisualStyleBackColor = false;
             this.checkPickupBlue.CheckedChanged += new System.EventHandler(this.checkPickupBlue_CheckedChanged);
             // 
             // checkPickupRare
             // 
             this.checkPickupRare.AutoSize = true;
             this.checkPickupRare.BackColor = System.Drawing.Color.Transparent;
-            this.checkPickupRare.Checked = false;
             this.checkPickupRare.Location = new System.Drawing.Point(16, 57);
             this.checkPickupRare.Name = "checkPickupRare";
+            this.checkPickupRare.ShadowDepth = 1;
             this.checkPickupRare.Size = new System.Drawing.Size(154, 15);
             this.checkPickupRare.TabIndex = 1;
             this.checkPickupRare.Text = "Always pickup rare items";
+            this.checkPickupRare.UseVisualStyleBackColor = false;
             this.checkPickupRare.CheckedChanged += new System.EventHandler(this.checkPickupRare_CheckedChanged);
             // 
             // checkPickupGold
             // 
             this.checkPickupGold.AutoSize = true;
             this.checkPickupGold.BackColor = System.Drawing.Color.Transparent;
-            this.checkPickupGold.Checked = false;
             this.checkPickupGold.Location = new System.Drawing.Point(16, 32);
             this.checkPickupGold.Name = "checkPickupGold";
+            this.checkPickupGold.ShadowDepth = 1;
             this.checkPickupGold.Size = new System.Drawing.Size(86, 15);
             this.checkPickupGold.TabIndex = 0;
             this.checkPickupGold.Text = "Pickup gold";
+            this.checkPickupGold.UseVisualStyleBackColor = false;
             this.checkPickupGold.CheckedChanged += new System.EventHandler(this.checkPickupGold_CheckedChanged);
             // 
             // Main
@@ -1632,5 +1722,6 @@
         private SDUI.Controls.Separator separator5;
         private SDUI.Controls.CheckBox checkStoreItemsFromPet;
         private SDUI.Controls.CheckBox checkPickupBlue;
+        private System.Windows.Forms.ToolStripMenuItem btnPickOnlyCharacter;
     }
 }

@@ -2,6 +2,8 @@
 using RSBot.Core.Objects.Spawn;
 using System.Linq;
 using RSBot.Core.Event;
+using System;
+using System.Collections.Generic;
 
 namespace RSBot.Core.Components
 {
@@ -21,7 +23,7 @@ namespace RSBot.Core.Components
         /// <value>
         /// The pickup items.
         /// </value>
-        public static ItemFilter PickupFilter { get; set; }
+        public static List<(string CodeName, bool PickOnlyChar)> PickupFilter { get; } = new();
 
         /// <summary>
         /// Gets or sets a value indicating whether [pickup gold].
@@ -64,16 +66,6 @@ namespace RSBot.Core.Components
         public static bool JustPickMyItems => PlayerConfig.Get<bool>("RSBot.Items.Pickup.JustPickMyItems", false);
 
         /// <summary>
-        /// Initializes this instance.
-        /// </summary>
-        public static void Initialize()
-        {
-            PickupFilter = new ItemFilter();
-
-            Log.Debug("[PickupManager] Initialized!");
-        }
-
-        /// <summary>
         /// Runs the specified center position.
         /// </summary>
         /// <param name="centerPosition">The center position.</param>
@@ -106,7 +98,7 @@ namespace RSBot.Core.Components
                     if (PickupGold && e.Record.IsGold)
                         return true;
 
-                    if (PickupFilter.Invoke(e.Record))
+                    if (PickupFilter.Any(p => p.CodeName == e.Record.CodeName))
                         return true;
 
                     if (PickupRareItems && (byte)e.Rarity >= 2)
@@ -131,7 +123,14 @@ namespace RSBot.Core.Components
                         if (!Running)
                             return;
 
-                        Game.Player.AbilityPet.Pickup(item.UniqueId);
+                        if (PickupFilter.Any(p => p.CodeName == item.Record.CodeName && p.PickOnlyChar))
+                        {
+                            Game.Player.MoveTo(item.Movement.Source);
+
+                            item.Pickup();
+                        }
+                        else
+                            Game.Player.AbilityPet.Pickup(item.UniqueId);
                     }
                 }
                 else
@@ -140,7 +139,8 @@ namespace RSBot.Core.Components
 
                     EventManager.FireEvent("OnChangeStatusText", "Picking up");
 
-                    foreach (var item in itemsToPickup) {
+                    foreach (var item in itemsToPickup)
+                    {
                         //Make sure the player is at the item's location
                         Game.Player.MoveTo(item.Movement.Source);
 
@@ -148,7 +148,7 @@ namespace RSBot.Core.Components
                     }
                 }
 
-                
+
             }
             catch (System.Exception e)
             {
@@ -158,6 +158,43 @@ namespace RSBot.Core.Components
             {
                 Stop();
             }
+        }
+
+        public static void AddFilter(string codeName, bool pickOnlyChar = false)
+        {
+            PickupFilter.RemoveAll(p => p.CodeName == codeName);
+            PickupFilter.Add((codeName, pickOnlyChar));
+
+            SaveFilter();
+        }
+
+        public static void RemoveFilter(string codeName)
+        {
+            PickupFilter.RemoveAll(p => p.CodeName == codeName);
+            SaveFilter();
+        }
+
+        public static void LoadFilter()
+        {
+            var config = PlayerConfig.GetArray<string>("RSBot.Shopping.Pickup");
+
+            foreach (var item in config)
+            {
+                var split = item.Split('|');
+                if (split.Length < 2)
+                    continue;
+
+                PickupFilter.Add((split[0], Convert.ToBoolean(split[1])));
+            }
+        }
+
+        public static void SaveFilter()
+        {
+            var array = PickupFilter.Select(p => $"{p.CodeName}|{p.PickOnlyChar}").ToArray();
+            if (array.Length == 0)
+                return;
+
+            PlayerConfig.SetArray("RSBot.Shopping.Pickup", array);
         }
 
         /// <summary>
