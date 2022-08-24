@@ -83,7 +83,7 @@ namespace RSBot.Core.Objects.Cos
         /// <summary>
         /// Update the entity
         /// </summary>
-        public override bool Update()
+        public override bool Update(int delta)
         {
             if (Kernel.TickCount - _lastHungerTick > 3000)
             {
@@ -92,7 +92,7 @@ namespace RSBot.Core.Objects.Cos
                 EventManager.FireEvent("OnGrowthHungerUpdate");
             }
 
-            return base.Update();
+            return base.Update(delta);
         }
     }
 }
