@@ -180,7 +180,6 @@
             this.toolStripSeparator1,
             this.menuRemoveItem});
             this.contextShoppingList.Name = "contextShoppingList";
-            this.contextShoppingList.RenderMode = System.Windows.Forms.ToolStripRenderMode.Custom;
             this.contextShoppingList.ShowImageMargin = false;
             this.contextShoppingList.Size = new System.Drawing.Size(136, 54);
             // 
@@ -208,7 +207,6 @@
             this.contextAvailableProducts.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuAddToShoppingList});
             this.contextAvailableProducts.Name = "contextAvailableProducts";
-            this.contextAvailableProducts.RenderMode = System.Windows.Forms.ToolStripRenderMode.Custom;
             this.contextAvailableProducts.ShowImageMargin = false;
             this.contextAvailableProducts.Size = new System.Drawing.Size(157, 26);
             // 
@@ -601,7 +599,6 @@
             this.btnDontStore,
             this.btnDontPickup});
             this.contextList.Name = "contextSellList";
-            this.contextList.RenderMode = System.Windows.Forms.ToolStripRenderMode.Custom;
             this.contextList.ShowCheckMargin = true;
             this.contextList.ShowImageMargin = false;
             this.contextList.Size = new System.Drawing.Size(189, 186);
