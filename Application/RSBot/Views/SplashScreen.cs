@@ -71,7 +71,7 @@ namespace RSBot.Views
                     clientTypeDialog.ShowInTaskbar = true;
                     clientTypeDialog.StartPosition = FormStartPosition.CenterScreen;
                     clientTypeDialog.Selector.Items.AddRange(Enum.GetNames(typeof(GameClientType)));
-                    clientTypeDialog.Selector.SelectedIndex = 1;
+                    clientTypeDialog.Selector.SelectedIndex = 2;
                     clientTypeDialog.TopMost = true;
                     clientTypeDialog.StartPosition = FormStartPosition.CenterScreen;
 
