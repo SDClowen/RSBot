@@ -383,6 +383,9 @@ namespace RSBot.Core.Components
         /// <param name="skillId">The skill identifier.</param>
         public static void CastBuff(SkillInfo skill, uint target = 0)
         {
+            if (skill.Id == 0)
+                return;
+
             /*
             if (!Game.Player.Skills.HasSkill(skill.Id))
                 return;

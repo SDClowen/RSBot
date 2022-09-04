@@ -35,9 +35,6 @@ namespace RSBot.Protection
             HealthManaRecoveryHandler.Initialize();
             UniversalPillHandler.Initialize();
             VigorRecoveryHandler.Initialize();
-            SkillHealthHandler.Initialize();
-            SkillManaHandler.Initialize();
-            BadStateSkillHandler.Initialize();
             StatPointsHandler.Initialize();
 
             //Pet handlers
