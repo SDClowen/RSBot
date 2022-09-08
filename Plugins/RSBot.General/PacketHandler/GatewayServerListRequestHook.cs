@@ -1,4 +1,4 @@
-﻿using RSBot.Core;
+﻿using RSBot.Core.Components;
 using RSBot.Core.Network;
 
 namespace RSBot.General.PacketHandler
@@ -28,6 +28,7 @@ namespace RSBot.General.PacketHandler
         /// <returns></returns>
         public Packet ReplacePacket(Packet packet)
         {
+            ClientlessManager.RequestServerList();
             return null;
         }
     }

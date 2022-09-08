@@ -32,7 +32,9 @@ namespace RSBot.General.PacketHandler
             if (packet.ReadByte() == 0x01)
             {
                 Log.NotifyLang("NoPatchRequired");
-                ClientlessManager.RequestServerList();
+
+                if(Game.Clientless)
+                    ClientlessManager.RequestServerList();
             }
             else
             {
