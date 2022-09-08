@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 
 namespace RSBot.Core.Extensions
@@ -11,6 +12,8 @@ namespace RSBot.Core.Extensions
         public const uint MEM_RESERVE = 0x00002000;
         public const uint MEM_RELEASE = 0x00008000;
         public const uint PAGE_READWRITE = 0x04;
+        public const uint PAGE_EXECUTE_READWRITE = 0x40;
+
         public const uint SW_HIDE = 0x00;
         public const uint SW_SHOW = 0x05;
 
@@ -32,6 +35,15 @@ namespace RSBot.Core.Extensions
             string lpCurrentDirectory,
             ref STARTUPINFO lpStartupInfo,
             out PROCESS_INFORMATION lpProcessInformation
+        );
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern bool ReadProcessMemory(
+            IntPtr hProcess,
+            IntPtr lpBaseAddress,
+            byte[] lpBuffer,
+            int dwSize,
+            out IntPtr lpNumberOfBytesRead
         );
 
         [DllImport("kernel32.dll")]
@@ -76,7 +88,7 @@ namespace RSBot.Core.Extensions
 
         [DllImport("kernel32.dll")]
         public static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, uint flAllocationType, uint flProtect);
-
+        
         [DllImport("kernel32.dll")]
         public static extern bool VirtualFreeEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, uint dwFreeType);
 
@@ -88,6 +100,25 @@ namespace RSBot.Core.Extensions
         
         [DllImport("kernel32.dll")]
         public static extern IntPtr CreateSemaphore([In] IntPtr lpSemaphoreAttributes, [In] int lInitialCount, [In] int lMaximumCount, [In] IntPtr lpName);
+
+        [DllImport("kernel32.dll")]
+        public static extern bool VirtualProtectEx(IntPtr hProcess, IntPtr lpAddress, UIntPtr dwSize, uint flNewProtect, out uint lpflOldProtect);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern IntPtr LoadLibraryEx(string lpFileName, IntPtr hReservedNull, uint dwFlags);
+
+        public static IntPtr GetAPIAddress(string lpFileName, string procName)
+        {
+            IntPtr moduleHandle = LoadLibraryEx(lpFileName, IntPtr.Zero, 0);
+            if (moduleHandle == IntPtr.Zero)
+                throw new Win32Exception(Marshal.GetLastWin32Error());
+
+            IntPtr procHandle = GetProcAddress(moduleHandle, procName);
+            if (moduleHandle == IntPtr.Zero)
+                throw new Win32Exception(Marshal.GetLastWin32Error());
+
+            return procHandle;
+        }
 
         public struct PROCESS_INFORMATION
         {

@@ -40,19 +40,27 @@ namespace RSBot.Core.Network.Handler.Agent.Action
                 return;
 
 
-            var buffInfo = new SkillInfo(skillId, token);
+            var buff = new SkillInfo(skillId, token);
             if (targetId == Game.Player.UniqueId)
             {
-                Game.Player.State.ActiveBuffs.Add(buffInfo);
-                EventManager.FireEvent("OnAddBuff", buffInfo);
+                var playerBuff = Game.Player.Skills.GetSkillInfoById(buff.Id);
+                if(playerBuff != null)
+                {
+                    buff = playerBuff;
+                    playerBuff.Token = token;
+                }
 
-                Log.Notify($"Buff [{buffInfo.Record.GetRealName()}] added.");
+                Game.Player.State.ActiveBuffs.Add(buff);
+
+                EventManager.FireEvent("OnAddBuff", buff);
+
+                Log.Notify($"Buff [{buff.Record.GetRealName()}] added.");
 
                 return;
             }
 
             if (SpawnManager.TryGetEntity<SpawnedBionic>(targetId, out var entity))
-                entity.State.ActiveBuffs.Add(buffInfo);
+                entity.State.ActiveBuffs.Add(buff);
         }
     }
 }

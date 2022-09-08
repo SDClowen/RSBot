@@ -53,7 +53,10 @@ namespace RSBot.Core.Network.Handler.Agent.Action
                 }
 
                 if (!SpawnManager.TryGetEntity<SpawnedBionic>(p => p.State.TryGetActiveBuff(token, out _), out var bionic))
-                    return;
+                {
+                    Log.Warn($"{token} not found while trying buff with token!");
+                    return; 
+                }
 
                 bionic.State.TryRemoveActiveBuff(token, out _);
             }
