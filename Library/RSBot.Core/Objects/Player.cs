@@ -741,8 +741,7 @@ namespace RSBot.Core.Objects
             if (elapsed < 1050)
                 return false;
 
-            var typeIdFilter = new TypeIdFilter(3, 3, 2, 6);
-            var slotItem = Inventory.GetItem(typeIdFilter);
+            var slotItem = Inventory.GetItem(p => p.Record.IsUniversalPill || p.Record.IsAbnormalPotion);
             if (slotItem == null)
                 return false;
 
@@ -766,8 +765,7 @@ namespace RSBot.Core.Objects
             if (elapsed < 20050)
                 return false;
 
-            var typeIdFilter = new TypeIdFilter(3, 3, 2, 1);
-            var slotItem = Inventory.GetItem(typeIdFilter);
+            var slotItem = Inventory.GetItem(p => p.Record.IsPurificationPill || p.Record.IsAbnormalPotion);
             if (slotItem == null)
                 return false;
 

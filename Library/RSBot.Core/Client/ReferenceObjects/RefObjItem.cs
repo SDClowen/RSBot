@@ -190,6 +190,21 @@
         public bool IsAllPotion => IsPotion && TypeID4 == 3;
 
         /// <summary>
+        /// A value indicating if the item is of type Universal Pill
+        /// </summary>
+        public bool IsUniversalPill => IsStackable && TypeID3 == 2 && TypeID4 == 6;
+
+        /// <summary>
+        /// A value indicating if the item is of type Purification Pill
+        /// </summary>
+        public bool IsPurificationPill => IsStackable && TypeID3 == 2 && TypeID4 == 1;
+
+        /// <summary>
+        /// A value indicating if the item is of type abnormal potion
+        /// </summary>
+        public bool IsAbnormalPotion => IsStackable && TypeID3 == 2 && TypeID4 == 9;
+
+        /// <summary>
         /// A value indicating if the item is of type cos hp potion
         /// </summary>
         public bool IsCosHpPotion => IsPotion && TypeID4 == 4 && Param2 == 0;
