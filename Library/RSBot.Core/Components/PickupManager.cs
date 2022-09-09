@@ -83,11 +83,11 @@ namespace RSBot.Core.Components
 
                 bool condition(SpawnedItem e)
                 {
-                    if (JustPickMyItems && (e.OwnerJID != playerJid && e.OwnerJID != 0))
+                    if (JustPickMyItems && e.OwnerJID != playerJid)
                         return false;
 
                     //Don't pickup items that still belong to another player
-                    if (!JustPickMyItems && e.HasOwner)
+                    if (e.HasOwner && e.OwnerJID != playerJid)
                         return false;
 
                     const int tolerance = 15;
@@ -142,15 +142,13 @@ namespace RSBot.Core.Components
                     foreach (var item in itemsToPickup)
                     {
                         //Make sure the player is at the item's location
-                        Game.Player.MoveTo(item.Movement.Source);
+                        //Game.Player.MoveTo(item.Movement.Source);
 
                         item.Pickup();
                     }
                 }
-
-
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 Log.Fatal(e);
             }
