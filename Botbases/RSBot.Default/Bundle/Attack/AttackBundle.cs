@@ -21,7 +21,7 @@ namespace RSBot.Default.Bundle.Attack
                 if (Game.Player.InAction)
                     SkillManager.CancelAction();
 
-                Game.SelectedEntity.TryDeselect();
+                Game.SelectedEntity?.TryDeselect();
                 Game.SelectedEntity = null;
 
                 return;

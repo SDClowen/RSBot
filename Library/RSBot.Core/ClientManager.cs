@@ -94,9 +94,7 @@ namespace RSBot.Core
 
             EventManager.FireEvent("OnStartClient");
 
-            await Task.Yield();
-
-            return true;
+            return await Task.FromResult(true);
         }
 
         /// <summary>
