@@ -75,6 +75,8 @@
             this.skillContextMenuAddAttackSkill = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.skillContextMenuAddBuffSkill = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.useToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new SDUI.Controls.Panel();
             this.panel2 = new SDUI.Controls.Panel();
             this.checkHideLowerLevelSkills = new SDUI.Controls.CheckBox();
@@ -84,6 +86,7 @@
             this.listActiveBuffs = new SDUI.Controls.ListView();
             this.colActiveName = new System.Windows.Forms.ColumnHeader();
             this.colActiveLevel = new System.Windows.Forms.ColumnHeader();
+            this.useToPartyMemberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -115,6 +118,7 @@
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupBox1.Radius = 2;
+            this.groupBox1.ShadowDepth = 4;
             this.groupBox1.Size = new System.Drawing.Size(357, 205);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
@@ -124,12 +128,13 @@
             // 
             this.checkBoxNoAttack.AutoSize = true;
             this.checkBoxNoAttack.BackColor = System.Drawing.Color.Transparent;
-            this.checkBoxNoAttack.Checked = false;
             this.checkBoxNoAttack.Location = new System.Drawing.Point(247, 179);
             this.checkBoxNoAttack.Name = "checkBoxNoAttack";
+            this.checkBoxNoAttack.ShadowDepth = 1;
             this.checkBoxNoAttack.Size = new System.Drawing.Size(76, 15);
             this.checkBoxNoAttack.TabIndex = 9;
             this.checkBoxNoAttack.Text = "No Attack";
+            this.checkBoxNoAttack.UseVisualStyleBackColor = false;
             this.checkBoxNoAttack.CheckedChanged += new System.EventHandler(this.checkBoxNoAttack_CheckedChanged);
             // 
             // listAttackingSkills
@@ -185,6 +190,8 @@
             "Unique"});
             this.comboMonsterType.Location = new System.Drawing.Point(54, 177);
             this.comboMonsterType.Name = "comboMonsterType";
+            this.comboMonsterType.Radius = 5;
+            this.comboMonsterType.ShadowDepth = 4F;
             this.comboMonsterType.Size = new System.Drawing.Size(176, 23);
             this.comboMonsterType.TabIndex = 2;
             this.comboMonsterType.SelectedIndexChanged += new System.EventHandler(this.comboMonsterType_SelectedIndexChanged);
@@ -196,6 +203,7 @@
             this.btnMoveAttackSkillDown.Location = new System.Drawing.Point(327, 85);
             this.btnMoveAttackSkillDown.Name = "btnMoveAttackSkillDown";
             this.btnMoveAttackSkillDown.Radius = 2;
+            this.btnMoveAttackSkillDown.ShadowDepth = 4F;
             this.btnMoveAttackSkillDown.Size = new System.Drawing.Size(24, 24);
             this.btnMoveAttackSkillDown.TabIndex = 1;
             this.btnMoveAttackSkillDown.Text = "6";
@@ -209,6 +217,7 @@
             this.btnMoveAttackSkillUp.Location = new System.Drawing.Point(327, 55);
             this.btnMoveAttackSkillUp.Name = "btnMoveAttackSkillUp";
             this.btnMoveAttackSkillUp.Radius = 2;
+            this.btnMoveAttackSkillUp.ShadowDepth = 4F;
             this.btnMoveAttackSkillUp.Size = new System.Drawing.Size(24, 24);
             this.btnMoveAttackSkillUp.TabIndex = 1;
             this.btnMoveAttackSkillUp.Text = "5";
@@ -222,6 +231,7 @@
             this.btnRemoveAttackSkill.Location = new System.Drawing.Point(327, 25);
             this.btnRemoveAttackSkill.Name = "btnRemoveAttackSkill";
             this.btnRemoveAttackSkill.Radius = 2;
+            this.btnRemoveAttackSkill.ShadowDepth = 4F;
             this.btnRemoveAttackSkill.Size = new System.Drawing.Size(24, 22);
             this.btnRemoveAttackSkill.TabIndex = 1;
             this.btnRemoveAttackSkill.Text = "r";
@@ -241,6 +251,7 @@
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupBox2.Radius = 2;
+            this.groupBox2.ShadowDepth = 4;
             this.groupBox2.Size = new System.Drawing.Size(357, 198);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
@@ -276,6 +287,7 @@
             this.btnMoveBuffSkillDown.Location = new System.Drawing.Point(327, 87);
             this.btnMoveBuffSkillDown.Name = "btnMoveBuffSkillDown";
             this.btnMoveBuffSkillDown.Radius = 2;
+            this.btnMoveBuffSkillDown.ShadowDepth = 4F;
             this.btnMoveBuffSkillDown.Size = new System.Drawing.Size(24, 24);
             this.btnMoveBuffSkillDown.TabIndex = 8;
             this.btnMoveBuffSkillDown.Text = "6";
@@ -292,6 +304,8 @@
             this.comboImbue.ItemHeight = 17;
             this.comboImbue.Location = new System.Drawing.Point(54, 171);
             this.comboImbue.Name = "comboImbue";
+            this.comboImbue.Radius = 5;
+            this.comboImbue.ShadowDepth = 4F;
             this.comboImbue.Size = new System.Drawing.Size(267, 23);
             this.comboImbue.TabIndex = 7;
             this.comboImbue.SelectedIndexChanged += new System.EventHandler(this.comboImbue_SelectedIndexChanged);
@@ -303,6 +317,7 @@
             this.btnMoveBuffSkillUp.Location = new System.Drawing.Point(327, 57);
             this.btnMoveBuffSkillUp.Name = "btnMoveBuffSkillUp";
             this.btnMoveBuffSkillUp.Radius = 2;
+            this.btnMoveBuffSkillUp.ShadowDepth = 4F;
             this.btnMoveBuffSkillUp.Size = new System.Drawing.Size(24, 24);
             this.btnMoveBuffSkillUp.TabIndex = 9;
             this.btnMoveBuffSkillUp.Text = "5";
@@ -326,6 +341,7 @@
             this.btnRemoveBuffSkill.Location = new System.Drawing.Point(327, 27);
             this.btnRemoveBuffSkill.Name = "btnRemoveBuffSkill";
             this.btnRemoveBuffSkill.Radius = 2;
+            this.btnRemoveBuffSkill.ShadowDepth = 4F;
             this.btnRemoveBuffSkill.Size = new System.Drawing.Size(24, 24);
             this.btnRemoveBuffSkill.TabIndex = 5;
             this.btnRemoveBuffSkill.Text = "r";
@@ -364,10 +380,10 @@
             this.tabPage2.Controls.Add(this.grpMasteryLearn);
             this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Controls.Add(this.groupBox4);
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(384, 439);
+            this.tabPage2.Size = new System.Drawing.Size(384, 438);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Advanced setup";
             // 
@@ -379,6 +395,7 @@
             this.groupWarlockMode.Name = "groupWarlockMode";
             this.groupWarlockMode.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupWarlockMode.Radius = 2;
+            this.groupWarlockMode.ShadowDepth = 4;
             this.groupWarlockMode.Size = new System.Drawing.Size(367, 67);
             this.groupWarlockMode.TabIndex = 14;
             this.groupWarlockMode.TabStop = false;
@@ -388,12 +405,13 @@
             // 
             this.checkWarlockMode.AutoSize = true;
             this.checkWarlockMode.BackColor = System.Drawing.Color.Transparent;
-            this.checkWarlockMode.Checked = false;
             this.checkWarlockMode.Location = new System.Drawing.Point(86, 39);
             this.checkWarlockMode.Name = "checkWarlockMode";
+            this.checkWarlockMode.ShadowDepth = 1;
             this.checkWarlockMode.Size = new System.Drawing.Size(162, 15);
             this.checkWarlockMode.TabIndex = 0;
             this.checkWarlockMode.Text = "Change target after 2 DoTs";
+            this.checkWarlockMode.UseVisualStyleBackColor = false;
             this.checkWarlockMode.CheckedChanged += new System.EventHandler(this.checkWarlockMode_CheckedChanged);
             // 
             // grpMasteryLearn
@@ -408,6 +426,7 @@
             this.grpMasteryLearn.Name = "grpMasteryLearn";
             this.grpMasteryLearn.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.grpMasteryLearn.Radius = 2;
+            this.grpMasteryLearn.ShadowDepth = 4;
             this.grpMasteryLearn.Size = new System.Drawing.Size(367, 115);
             this.grpMasteryLearn.TabIndex = 13;
             this.grpMasteryLearn.TabStop = false;
@@ -417,12 +436,13 @@
             // 
             this.checkLearnMasteryBotStopped.AutoSize = true;
             this.checkLearnMasteryBotStopped.BackColor = System.Drawing.Color.Transparent;
-            this.checkLearnMasteryBotStopped.Checked = false;
             this.checkLearnMasteryBotStopped.Location = new System.Drawing.Point(15, 77);
             this.checkLearnMasteryBotStopped.Name = "checkLearnMasteryBotStopped";
+            this.checkLearnMasteryBotStopped.ShadowDepth = 1;
             this.checkLearnMasteryBotStopped.Size = new System.Drawing.Size(153, 15);
             this.checkLearnMasteryBotStopped.TabIndex = 25;
             this.checkLearnMasteryBotStopped.Text = "Enabled if bot is stopped";
+            this.checkLearnMasteryBotStopped.UseVisualStyleBackColor = false;
             // 
             // label4
             // 
@@ -460,6 +480,8 @@
             this.comboLearnMastery.ItemHeight = 17;
             this.comboLearnMastery.Location = new System.Drawing.Point(88, 45);
             this.comboLearnMastery.Name = "comboLearnMastery";
+            this.comboLearnMastery.Radius = 5;
+            this.comboLearnMastery.ShadowDepth = 4F;
             this.comboLearnMastery.Size = new System.Drawing.Size(151, 23);
             this.comboLearnMastery.TabIndex = 1;
             this.comboLearnMastery.SelectedIndexChanged += new System.EventHandler(this.comboLearnMastery_SelectedIndexChanged);
@@ -468,12 +490,13 @@
             // 
             this.checkLearnMastery.AutoSize = true;
             this.checkLearnMastery.BackColor = System.Drawing.Color.Transparent;
-            this.checkLearnMastery.Checked = false;
             this.checkLearnMastery.Location = new System.Drawing.Point(15, 48);
             this.checkLearnMastery.Name = "checkLearnMastery";
+            this.checkLearnMastery.ShadowDepth = 1;
             this.checkLearnMastery.Size = new System.Drawing.Size(65, 15);
             this.checkLearnMastery.TabIndex = 0;
             this.checkLearnMastery.Text = "Mastery";
+            this.checkLearnMastery.UseVisualStyleBackColor = false;
             this.checkLearnMastery.Click += new System.EventHandler(this.checkLearnMastery_Click);
             // 
             // groupBox3
@@ -487,6 +510,7 @@
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupBox3.Radius = 2;
+            this.groupBox3.ShadowDepth = 4;
             this.groupBox3.Size = new System.Drawing.Size(367, 119);
             this.groupBox3.TabIndex = 11;
             this.groupBox3.TabStop = false;
@@ -502,6 +526,8 @@
             this.comboResurrectionSkill.ItemHeight = 17;
             this.comboResurrectionSkill.Location = new System.Drawing.Point(86, 32);
             this.comboResurrectionSkill.Name = "comboResurrectionSkill";
+            this.comboResurrectionSkill.Radius = 5;
+            this.comboResurrectionSkill.ShadowDepth = 4F;
             this.comboResurrectionSkill.Size = new System.Drawing.Size(255, 23);
             this.comboResurrectionSkill.TabIndex = 8;
             this.comboResurrectionSkill.SelectedIndexChanged += new System.EventHandler(this.comboResurrectionSkill_SelectedIndexChanged);
@@ -510,12 +536,13 @@
             // 
             this.checkAcceptResurrection.AutoSize = true;
             this.checkAcceptResurrection.BackColor = System.Drawing.Color.Transparent;
-            this.checkAcceptResurrection.Checked = false;
             this.checkAcceptResurrection.Location = new System.Drawing.Point(86, 90);
             this.checkAcceptResurrection.Name = "checkAcceptResurrection";
+            this.checkAcceptResurrection.ShadowDepth = 1;
             this.checkAcceptResurrection.Size = new System.Drawing.Size(153, 15);
             this.checkAcceptResurrection.TabIndex = 9;
             this.checkAcceptResurrection.Text = "Auto accept resurrection";
+            this.checkAcceptResurrection.UseVisualStyleBackColor = false;
             this.checkAcceptResurrection.CheckedChanged += new System.EventHandler(this.checkAcceptResurrection_CheckedChanged);
             // 
             // label3
@@ -532,12 +559,13 @@
             // 
             this.checkResurrectParty.AutoSize = true;
             this.checkResurrectParty.BackColor = System.Drawing.Color.Transparent;
-            this.checkResurrectParty.Checked = false;
             this.checkResurrectParty.Location = new System.Drawing.Point(86, 65);
             this.checkResurrectParty.Name = "checkResurrectParty";
+            this.checkResurrectParty.ShadowDepth = 1;
             this.checkResurrectParty.Size = new System.Drawing.Size(181, 15);
             this.checkResurrectParty.TabIndex = 6;
             this.checkResurrectParty.Text = "Auto resurrect party members";
+            this.checkResurrectParty.UseVisualStyleBackColor = false;
             this.checkResurrectParty.CheckedChanged += new System.EventHandler(this.checkResurrectParty_CheckedChanged);
             // 
             // groupBox4
@@ -549,6 +577,7 @@
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupBox4.Radius = 2;
+            this.groupBox4.ShadowDepth = 4;
             this.groupBox4.Size = new System.Drawing.Size(367, 92);
             this.groupBox4.TabIndex = 12;
             this.groupBox4.TabStop = false;
@@ -558,24 +587,26 @@
             // 
             this.checkCastBuffsDuringWalkBack.AutoSize = true;
             this.checkCastBuffsDuringWalkBack.BackColor = System.Drawing.Color.Transparent;
-            this.checkCastBuffsDuringWalkBack.Checked = false;
             this.checkCastBuffsDuringWalkBack.Location = new System.Drawing.Point(86, 61);
             this.checkCastBuffsDuringWalkBack.Name = "checkCastBuffsDuringWalkBack";
+            this.checkCastBuffsDuringWalkBack.ShadowDepth = 1;
             this.checkCastBuffsDuringWalkBack.Size = new System.Drawing.Size(164, 15);
             this.checkCastBuffsDuringWalkBack.TabIndex = 10;
             this.checkCastBuffsDuringWalkBack.Text = "Cast buffs while walk-back";
+            this.checkCastBuffsDuringWalkBack.UseVisualStyleBackColor = false;
             this.checkCastBuffsDuringWalkBack.CheckedChanged += new System.EventHandler(this.checkCastBuffsWhenWalkBack_CheckedChanged);
             // 
             // checkCastBuffsInTowns
             // 
             this.checkCastBuffsInTowns.AutoSize = true;
             this.checkCastBuffsInTowns.BackColor = System.Drawing.Color.Transparent;
-            this.checkCastBuffsInTowns.Checked = false;
             this.checkCastBuffsInTowns.Location = new System.Drawing.Point(86, 34);
             this.checkCastBuffsInTowns.Name = "checkCastBuffsInTowns";
+            this.checkCastBuffsInTowns.ShadowDepth = 1;
             this.checkCastBuffsInTowns.Size = new System.Drawing.Size(124, 15);
             this.checkCastBuffsInTowns.TabIndex = 10;
             this.checkCastBuffsInTowns.Text = "Cast buffs in towns";
+            this.checkCastBuffsInTowns.UseVisualStyleBackColor = false;
             this.checkCastBuffsInTowns.CheckedChanged += new System.EventHandler(this.checkCastBuffsInTowns_CheckedChanged);
             // 
             // tabControl2
@@ -638,33 +669,52 @@
             this.skillContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.skillContextMenuAddAttackSkill,
             this.toolStripSeparator1,
-            this.skillContextMenuAddBuffSkill});
+            this.skillContextMenuAddBuffSkill,
+            this.toolStripSeparator2,
+            this.useToolStripMenuItem,
+            this.useToPartyMemberToolStripMenuItem});
             this.skillContextMenu.Name = "skillContextMenu";
-            this.skillContextMenu.Size = new System.Drawing.Size(154, 54);
+            this.skillContextMenu.Size = new System.Drawing.Size(186, 126);
+            this.skillContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.skillContextMenu_Opening);
             // 
             // skillContextMenuAddAttackSkill
             // 
             this.skillContextMenuAddAttackSkill.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.skillContextMenuAddAttackSkill.Name = "skillContextMenuAddAttackSkill";
-            this.skillContextMenuAddAttackSkill.Size = new System.Drawing.Size(153, 22);
+            this.skillContextMenuAddAttackSkill.Size = new System.Drawing.Size(185, 22);
             this.skillContextMenuAddAttackSkill.Text = "Add To Attacks";
             this.skillContextMenuAddAttackSkill.Click += new System.EventHandler(this.menuAddAttack_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(150, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(182, 6);
             // 
             // skillContextMenuAddBuffSkill
             // 
             this.skillContextMenuAddBuffSkill.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.skillContextMenuAddBuffSkill.Name = "skillContextMenuAddBuffSkill";
-            this.skillContextMenuAddBuffSkill.Size = new System.Drawing.Size(153, 22);
+            this.skillContextMenuAddBuffSkill.Size = new System.Drawing.Size(185, 22);
             this.skillContextMenuAddBuffSkill.Text = "Add To Buffs";
             this.skillContextMenuAddBuffSkill.Click += new System.EventHandler(this.menuAddBuff_Click);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(182, 6);
+            // 
+            // useToolStripMenuItem
+            // 
+            this.useToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.useToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.useToolStripMenuItem.Name = "useToolStripMenuItem";
+            this.useToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.useToolStripMenuItem.Text = "Use";
+            this.useToolStripMenuItem.Click += new System.EventHandler(this.useToolStripMenuItem_Click);
+            // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
             this.panel1.BorderColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.panel2);
@@ -675,6 +725,7 @@
             this.panel1.Location = new System.Drawing.Point(3, 407);
             this.panel1.Name = "panel1";
             this.panel1.Radius = 0;
+            this.panel1.ShadowDepth = 4F;
             this.panel1.Size = new System.Drawing.Size(348, 29);
             this.panel1.TabIndex = 9;
             // 
@@ -687,6 +738,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
             this.panel2.Radius = 1;
+            this.panel2.ShadowDepth = 4F;
             this.panel2.Size = new System.Drawing.Size(348, 1);
             this.panel2.TabIndex = 9;
             // 
@@ -694,12 +746,13 @@
             // 
             this.checkHideLowerLevelSkills.AutoSize = true;
             this.checkHideLowerLevelSkills.BackColor = System.Drawing.Color.Transparent;
-            this.checkHideLowerLevelSkills.Checked = false;
             this.checkHideLowerLevelSkills.Location = new System.Drawing.Point(207, 6);
             this.checkHideLowerLevelSkills.Name = "checkHideLowerLevelSkills";
+            this.checkHideLowerLevelSkills.ShadowDepth = 1;
             this.checkHideLowerLevelSkills.Size = new System.Drawing.Size(135, 15);
             this.checkHideLowerLevelSkills.TabIndex = 6;
             this.checkHideLowerLevelSkills.Text = "Hide lower level skills";
+            this.checkHideLowerLevelSkills.UseVisualStyleBackColor = false;
             this.checkHideLowerLevelSkills.CheckedChanged += new System.EventHandler(this.Filter_CheckedChanged);
             // 
             // checkShowAttacks
@@ -707,11 +760,14 @@
             this.checkShowAttacks.AutoSize = true;
             this.checkShowAttacks.BackColor = System.Drawing.Color.Transparent;
             this.checkShowAttacks.Checked = true;
+            this.checkShowAttacks.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkShowAttacks.Location = new System.Drawing.Point(8, 6);
             this.checkShowAttacks.Name = "checkShowAttacks";
+            this.checkShowAttacks.ShadowDepth = 1;
             this.checkShowAttacks.Size = new System.Drawing.Size(62, 15);
             this.checkShowAttacks.TabIndex = 7;
             this.checkShowAttacks.Text = "Attacks";
+            this.checkShowAttacks.UseVisualStyleBackColor = false;
             this.checkShowAttacks.CheckedChanged += new System.EventHandler(this.Filter_CheckedChanged);
             // 
             // checkShowBuffs
@@ -719,11 +775,14 @@
             this.checkShowBuffs.AutoSize = true;
             this.checkShowBuffs.BackColor = System.Drawing.Color.Transparent;
             this.checkShowBuffs.Checked = true;
+            this.checkShowBuffs.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkShowBuffs.Location = new System.Drawing.Point(79, 6);
             this.checkShowBuffs.Name = "checkShowBuffs";
+            this.checkShowBuffs.ShadowDepth = 1;
             this.checkShowBuffs.Size = new System.Drawing.Size(50, 15);
             this.checkShowBuffs.TabIndex = 8;
             this.checkShowBuffs.Text = "Buffs";
+            this.checkShowBuffs.UseVisualStyleBackColor = false;
             this.checkShowBuffs.CheckedChanged += new System.EventHandler(this.Filter_CheckedChanged);
             // 
             // tabPage4
@@ -764,6 +823,13 @@
             // 
             this.colActiveLevel.Text = "";
             this.colActiveLevel.Width = 69;
+            // 
+            // useToPartyMemberToolStripMenuItem
+            // 
+            this.useToPartyMemberToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.useToPartyMemberToolStripMenuItem.Name = "useToPartyMemberToolStripMenuItem";
+            this.useToPartyMemberToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.useToPartyMemberToolStripMenuItem.Text = "Use to party member";
             // 
             // Main
             // 
@@ -857,5 +923,8 @@
         private SDUI.Controls.CheckBox checkLearnMasteryBotStopped;
         private SDUI.Controls.GroupBox groupWarlockMode;
         private SDUI.Controls.CheckBox checkWarlockMode;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem useToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem useToPartyMemberToolStripMenuItem;
     }
 }

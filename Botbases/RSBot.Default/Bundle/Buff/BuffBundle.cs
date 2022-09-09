@@ -54,7 +54,8 @@ namespace RSBot.Default.Bundle.Buff
                     break;
 
                 Log.Debug($"Trying to cast buff: {buff} {buff.Record.Basic_Code}");
-                SkillManager.CastBuff(buff);
+
+                buff.Cast(buff: true);
             }
         }
 

@@ -931,5 +931,60 @@ namespace RSBot.Skills.Views
             var itemForm = new SkillProperties(skillInfo.Record);
             itemForm.Show();
         }
+
+        private void useToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listSkills.SelectedItems.Count <= 0)
+                return;
+
+            if (!(listSkills.SelectedItems[0].Tag is SkillInfo skillInfo))
+                return;
+
+            if (skillInfo.IsAttack)
+                return;
+
+            skillInfo.Cast(buff: true);
+        }
+
+        private void skillContextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            useToPartyMemberToolStripMenuItem.DropDownItems.Clear();
+
+            if (!Game.Party.IsInParty)
+                return;
+
+            foreach (var member in Game.Party.Members)
+            {
+                if (member == null)
+                    return;
+
+                useToPartyMemberToolStripMenuItem.DropDown.Items.Add(member.Name, null, (menuItemSender, _2) =>
+                {
+                    try
+                    {
+                        if (listSkills.SelectedItems.Count <= 0)
+                            return;
+
+                        if (!(listSkills.SelectedItems[0].Tag is SkillInfo skillInfo))
+                            return;
+
+                        if (skillInfo.IsAttack)
+                            return;
+
+                        var menuItem = menuItemSender as ToolStripMenuItem;
+                        if (menuItem == null)
+                            return;
+
+                        var member = Game.Party.GetMemberByName(menuItem.Text);
+                        if (member == null)
+                            return;
+
+
+                        skillInfo.Cast(member.Player.UniqueId, buff: true);
+                    }
+                    catch{}
+                });
+            }
+        }
     }
 }

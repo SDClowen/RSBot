@@ -1,4 +1,5 @@
 ﻿using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Components;
 using RSBot.Core.Network;
 using System;
 
@@ -216,6 +217,17 @@ namespace RSBot.Core.Objects.Skill
                 return true;
 
             return Record.ReqCommon_MasteryLevel1 < mastery.Level - 20;
+        }
+
+        /// <summary>
+        /// Cast the skill
+        /// </summary>
+        public void Cast(uint target = 0, bool buff = false)
+        {
+            if(buff)
+                SkillManager.CastBuff(this, target);
+            else
+                SkillManager.CastSkill(this, target);
         }
 
         /// <summary>
