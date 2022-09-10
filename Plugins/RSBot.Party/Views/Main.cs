@@ -523,7 +523,17 @@ namespace RSBot.Party.Views
 
             lvItem.Text = member.Name;
             lvItem.SubItems[1].Text = member.Level.ToString();
-            lvItem.SubItems[2].Text = member.Guild;
+            if (string.IsNullOrWhiteSpace(member.Guild))
+            {
+                lvItem.SubItems[2].Text = _noGuildText; 
+                lvItem.SubItems[2].ForeColor = Color.DarkGray;
+
+            }
+            else
+            {
+                lvItem.SubItems[2].Text = member.Guild;
+                lvItem.SubItems[2].ResetStyle();
+            }
 
             var mastery1 = Game.ReferenceManager.GetRefSkillMastery(member.MasteryId1);
             var mastery2 = Game.ReferenceManager.GetRefSkillMastery(member.MasteryId2);
