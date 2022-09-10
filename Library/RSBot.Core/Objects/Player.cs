@@ -986,7 +986,7 @@ namespace RSBot.Core.Objects
                     if (!item.HasExtraAbility(out var extraAbilityItems))
                         continue;
 
-                    abilitySkills.AddRange(extraAbilityItems.Select(p => new SkillInfo(p.SkillId, true)));
+                    abilitySkills.AddRange(extraAbilityItems.SelectMany(p => p.Skills).Select(skillId => new SkillInfo(skillId, true)));
                 }    
             }
 
