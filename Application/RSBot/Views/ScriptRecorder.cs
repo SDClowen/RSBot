@@ -174,6 +174,9 @@ namespace RSBot.Views
 
         private void OnScriptStartExecuteCommand(IScriptCommand command, int lineNumber)
         {
+            if (IsDisposed)
+                return;
+
             if (!ScriptManager.Running) 
                 return;
 
