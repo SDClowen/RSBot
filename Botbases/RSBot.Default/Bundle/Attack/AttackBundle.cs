@@ -30,7 +30,7 @@ namespace RSBot.Default.Bundle.Attack
             if (SkillManager.ImbueSkill != null &&
                 !Game.Player.State.HasActiveBuff(SkillManager.ImbueSkill, out _) &&
                 SkillManager.ImbueSkill.CanBeCasted)
-                SkillManager.CastBuff(SkillManager.ImbueSkill);
+                SkillManager.ImbueSkill.Cast(buff: true);
 
             if (Game.Player.InAction && !SkillManager.IsLastCastedBasic)
                 return;
@@ -58,7 +58,7 @@ namespace RSBot.Default.Bundle.Attack
             if (uniqueId == null)
                 return;
 
-            SkillManager.CastSkill(skill, (uint) uniqueId);
+            skill?.Cast(uniqueId.Value);
         }
 
         /// <summary>

@@ -46,7 +46,7 @@ namespace RSBot.Default.Bundle.Resurrect
                     else
                         _lastResurrectedPlayers[member.Name] = Kernel.TickCount;
 
-                    SkillManager.CastBuff(SkillManager.ResurrectionSkill, member.Player.UniqueId);
+                    SkillManager.ResurrectionSkill.Cast(member.Player.UniqueId, buff: true);
                 }
 
             }

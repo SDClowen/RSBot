@@ -79,7 +79,7 @@ namespace RSBot.Default.Bundle.PartyBuffing
                     if (skill == null || skill.HasCooldown)
                         continue;
 
-                    SkillManager.CastBuff(skill, member.Player.UniqueId);
+                    skill.Cast(member.Player.UniqueId, buff: true);
                 }
             }
         }
