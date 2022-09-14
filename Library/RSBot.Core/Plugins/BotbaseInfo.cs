@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace RSBot.Core.Plugins
+﻿namespace RSBot.Core.Plugins
 {
     public class BotbaseInfo
     {
@@ -13,7 +11,9 @@ namespace RSBot.Core.Plugins
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets the display name.
+        /// Gets the display name (label).
+        ///
+        /// This value will be displayed as item text botbase ComboBox in the main window.
         /// </summary>
         /// <value>
         /// The display name.
@@ -21,15 +21,7 @@ namespace RSBot.Core.Plugins
         public string DisplayName { get; set; }
 
         /// <summary>
-        /// Gets or sets the image.
-        /// </summary>
-        /// <value>
-        /// The image.
-        /// </value>
-        public Image Image { get; set; }
-
-        /// <summary>
-        /// Gets the tab text.
+        /// This value will be displayed as TabPage text in the main window.
         /// </summary>
         /// <value>
         /// The tab text.

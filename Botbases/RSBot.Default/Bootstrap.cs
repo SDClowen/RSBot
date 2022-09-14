@@ -22,7 +22,7 @@ namespace RSBot.Default
         public BotbaseInfo Info => new()
         {
             Name = "RSBot.Default",
-            DisplayName = "RSBot",
+            DisplayName = "Training",
             TabText = "Training"
         };
 
