@@ -15,13 +15,13 @@ namespace RSBot.Assistant.Views
             InitializeComponent();
             SubscribeEvents();
         }
-
-        #region Core events
-
         private void SubscribeEvents()
         {
             EventManager.SubscribeEvent("OnLoadCharacter", OnLoadCharacter);
         }
+
+        #region Core events
+
 
         private void OnLoadCharacter()
         {

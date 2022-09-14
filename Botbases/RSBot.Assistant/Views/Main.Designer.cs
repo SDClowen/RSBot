@@ -39,19 +39,20 @@
             // 
             this.checkBuff.AutoSize = true;
             this.checkBuff.BackColor = System.Drawing.Color.Transparent;
-            this.checkBuff.Location = new System.Drawing.Point(12, 229);
+            this.checkBuff.Location = new System.Drawing.Point(12, 225);
             this.checkBuff.Name = "checkBuff";
             this.checkBuff.ShadowDepth = 1;
             this.checkBuff.Size = new System.Drawing.Size(74, 15);
             this.checkBuff.TabIndex = 2;
             this.checkBuff.Text = "Auto buff";
             this.checkBuff.UseVisualStyleBackColor = false;
+            this.checkBuff.CheckedChanged += new System.EventHandler(this.config_CheckedChanged);
             // 
             // checkAttack
             // 
             this.checkAttack.AutoSize = true;
             this.checkAttack.BackColor = System.Drawing.Color.Transparent;
-            this.checkAttack.Location = new System.Drawing.Point(12, 208);
+            this.checkAttack.Location = new System.Drawing.Point(12, 204);
             this.checkAttack.Name = "checkAttack";
             this.checkAttack.ShadowDepth = 1;
             this.checkAttack.Size = new System.Drawing.Size(177, 15);
@@ -74,20 +75,20 @@
             // lblDescription
             // 
             this.lblDescription.AutoSize = true;
-            this.lblDescription.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblDescription.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblDescription.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblDescription.Location = new System.Drawing.Point(12, 43);
             this.lblDescription.Name = "lblDescription";
-            this.lblDescription.Size = new System.Drawing.Size(339, 119);
+            this.lblDescription.Size = new System.Drawing.Size(311, 105);
             this.lblDescription.TabIndex = 2;
             this.lblDescription.Text = "Automatically runs certain bot actions in the background.\r\nThe user will not lose" +
-    " control over the character!\r\n\r\nThe bot will NOT\r\n* Walk around\r\n* Select monste" +
-    "rs\r\n* Pick up items";
+    " control of the character!\r\n\r\nThe bot will NOT\r\n- Walk around\r\n- Select monsters" +
+    "\r\n- Pick up items";
             // 
             // separator1
             // 
             this.separator1.IsVertical = false;
-            this.separator1.Location = new System.Drawing.Point(12, 177);
+            this.separator1.Location = new System.Drawing.Point(12, 167);
             this.separator1.Name = "separator1";
             this.separator1.Size = new System.Drawing.Size(120, 10);
             this.separator1.TabIndex = 3;

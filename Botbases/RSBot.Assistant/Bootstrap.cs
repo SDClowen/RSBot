@@ -33,6 +33,9 @@ namespace RSBot.Assistant
             
             if (PlayerConfig.Get("RSBot.Assistant.AutoAttack", false)) 
                 Bundles.Buff.Invoke();
+
+            if (PlayerConfig.Get("RSBot.Assistant.AutoPickup", false))
+                Bundles.Loot.Invoke();
         }
 
         /// <summary>
