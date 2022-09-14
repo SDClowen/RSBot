@@ -14,26 +14,29 @@ using static SDUI.NativeMethods;
 
 namespace RSBot.Views
 {
-    internal class BotbaseComboboxItem
-    {
-        public string Name { get; }
-
-        public string Label { get; }
-
-        public BotbaseComboboxItem(string name, string label)
-        {
-            Name = name;
-            Label = label;
-        }
-
-        public override string ToString()
-        {
-            return Label;
-        }
-    }
-
     public partial class Main : CleanForm
     {
+        #region Subclasses
+
+        private class BotbaseComboboxItem
+        {
+            public string Name { get; }
+
+            public string Label { get; }
+
+            public BotbaseComboboxItem(string name, string label)
+            {
+                Name = name;
+                Label = label;
+            }
+
+            public override string ToString()
+            {
+                return Label;
+            }
+        }
+
+        #endregion Subclasses
 
         #region Members
 
