@@ -7,7 +7,6 @@ using RSBot.Views.Dialog;
 using SDUI;
 using SDUI.Controls;
 using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -17,6 +16,24 @@ namespace RSBot.Views
 {
     public partial class Main : CleanForm
     {
+        private class BotbaseComboboxItem
+        {
+            public string Name { get; }
+
+            public string Label { get; }
+
+            public BotbaseComboboxItem(string name, string label)
+            {
+                Name = name;
+                Label = label;
+            }
+
+            public override string ToString()
+            {
+                return Label;
+            }
+        }
+
         /// <summary>
         /// Bot player name [_cached]
         /// </summary>
@@ -63,22 +80,23 @@ namespace RSBot.Views
         /// Selects the botbase.
         /// </summary>
         /// <param name="index">The index.</param>
-        private void SelectBotbase(int index)
+        private void SelectBotbase(string name)
         {
             if (Kernel.Bot.Running)
                 return;
 
-            if (menuBotbase.DropDownItems.Count <= index) return;
+            var botbase = Kernel.BotbaseManager.Bots.FirstOrDefault(bot => bot.Value.Info.Name == name);
 
-            var selectedBotbase = Kernel.BotbaseManager.Bots.ElementAt(index).Value;
-            if (selectedBotbase == null)
+            if (botbase.Value == null)
+            {
+                Log.Error($"Botbase [{name}] could not be found!");
                 return;
+            }
+
+            var selectedBotbase = botbase.Value;
 
             selectedBotbase.Translate();
 
-            menuBotbase.Text = selectedBotbase.Info.DisplayName;
-            menuBotbase.Image = selectedBotbase.Info.Image;
-            menuBotbase.Tag = selectedBotbase;
             _ = tabMain.Handle; //Generate the handle for the tab control
 
             if (Kernel.Bot?.Botbase != null)
@@ -98,7 +116,7 @@ namespace RSBot.Views
             tabMain.TabPages.Insert(1, tabPage);
 
             Kernel.Bot?.SetBotbase(selectedBotbase);
-            GlobalConfig.Set("RSBot.BotIndex", index.ToString());
+            GlobalConfig.Set("RSBot.BotName", selectedBotbase.Info.Name);
 
             if (Game.Player == null)
             {
@@ -114,6 +132,8 @@ namespace RSBot.Views
                 //control.BringToFront();
                 info.BringToFront();
             }
+
+            comboBotbase.SelectedIndex = Kernel.BotbaseManager.Bots.Keys.ToList().IndexOf(selectedBotbase.Info.Name);
         }
 
         /// <summary>
@@ -416,27 +436,6 @@ namespace RSBot.Views
         }
 
         /// <summary>
-        /// Handles the Click event of the BotbaseItem control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void BotbaseItem_Click(object sender, EventArgs e)
-        {
-            var index = (int)((ToolStripMenuItem)sender).Tag;
-            SelectBotbase(index);
-        }
-
-        /// <summary>
-        /// Handles the Click event of the picLogo control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void picLogo_Click(object sender, EventArgs e)
-        {
-            Process.Start("https://github.com/sdclowen/rsbot");
-        }
-
-        /// <summary>
         /// Handles the FormClosing event of the Main control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -494,20 +493,27 @@ namespace RSBot.Views
                 else if (messageResult == DialogResult.Abort)
                     Environment.Exit(-1);
             }
-            var index = 0;
-            foreach (var item in Kernel.BotbaseManager.Bots.Select(botbase => new ToolStripMenuItem
+
+            foreach (var item in Kernel.BotbaseManager.Bots.Select(botbase => new BotbaseComboboxItem(botbase.Value.Info.Name, botbase.Value.Info.DisplayName)))
             {
-                Tag = index,
-                Text = botbase.Value.Info.DisplayName,
-                Image = botbase.Value.Info.Image
-            }))
-            {
-                item.Click += BotbaseItem_Click;
-                menuBotbase.DropDownItems.Add(item);
-                index++;
+                comboBotbase.Items.Add(item);
             }
 
-            SelectBotbase(GlobalConfig.Get<int>("RSBot.BotIndex"));
+            //var index = 0;
+            //foreach (var item in Kernel.BotbaseManager.Bots.Select(botbase => new ToolStripMenuItem
+            //{
+            //    Tag = index,
+            //    Text = botbase.Value.Info.DisplayName,
+            //    Image = botbase.Value.Info.Image
+            //}))
+            //{
+            //    item.Click += BotbaseItem_Click;
+            //    menuBotbase.DropDownItems.Add(item);
+            //    index++;
+
+            //}
+
+            SelectBotbase(GlobalConfig.Get("RSBot.BotName", "RSBot.Default"));
         }
 
         /// <summary>
@@ -577,6 +583,9 @@ namespace RSBot.Views
 
             if (Game.Clientless)
                 Text += " [Clientless]";
+
+            if (GlobalConfig.Get("RSBot.DebugEnvironment", false))
+                Text += $@" [JID = {Game.Player.JID}]";
         }
 
         private void notifyIcon_Click(object sender, EventArgs e)
@@ -686,7 +695,6 @@ namespace RSBot.Views
             {
                 if (MessageBox.Show("This profile references to a different client, do you want to restart the bot?", "Restart bot?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
                     Application.Restart();
-
             }
 
             ProfileManager.SetSelectedProfile(dialog.SelectedProfile);
@@ -703,6 +711,19 @@ namespace RSBot.Views
 
             //A little hack to tell all plugins to reload their UI
             EventManager.FireEvent("OnLoadCharacter");
+        }
+
+        private void comboBotbase_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBotbase.SelectedItem == null)
+                return;
+
+            var selectedBotbase = (BotbaseComboboxItem)comboBotbase.SelectedItem;
+
+            if (selectedBotbase == null)
+                return;
+
+            SelectBotbase(selectedBotbase.Name);
         }
     }
 }

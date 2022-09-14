@@ -30,7 +30,8 @@ namespace RSBot.Core.Plugins
         /// </summary>
         public bool LoadAssemblies()
         {
-            if (Bots != null) return false;
+            if (Bots != null) 
+                return false;
 
             try
             {
