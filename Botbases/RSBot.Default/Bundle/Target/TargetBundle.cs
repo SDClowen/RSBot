@@ -1,14 +1,14 @@
-﻿using RSBot.Core;
+﻿using System.Collections.Generic;
+using System.Linq;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace RSBot.Default.Bundle.Target
+namespace RSBot.Training.Bundle.Target
 {
-    internal class TargetBundle : IBundle
+    public class TargetBundle : IBundle
     {
         private class BlacklistTimer : System.Timers.Timer
         {

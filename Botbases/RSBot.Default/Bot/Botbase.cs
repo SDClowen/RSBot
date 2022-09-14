@@ -1,11 +1,11 @@
-﻿using RSBot.Default.Bot.Objects;
-using RSBot.Default.Bundle;
+﻿using System.Threading;
 using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Objects;
-using System.Threading;
+using RSBot.Training.Bot.Objects;
+using RSBot.Training.Bundle;
 
-namespace RSBot.Default.Bot
+namespace RSBot.Training.Bot
 {
     internal class Botbase
     {

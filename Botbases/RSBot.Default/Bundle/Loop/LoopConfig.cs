@@ -1,4 +1,4 @@
-﻿namespace RSBot.Default.Bundle.Loop
+﻿namespace RSBot.Training.Bundle.Loop
 {
     public class LoopConfig
     {

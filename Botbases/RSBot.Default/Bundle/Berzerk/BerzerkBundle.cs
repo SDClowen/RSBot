@@ -2,9 +2,9 @@
 using RSBot.Core.Components;
 using RSBot.Core.Objects.Spawn;
 
-namespace RSBot.Default.Bundle.Berzerk
+namespace RSBot.Training.Bundle.Berzerk
 {
-    internal class BerzerkBundle : IBundle
+    public class BerzerkBundle : IBundle
     {
         /// <summary>
         /// Gets or sets the configuration.
@@ -12,7 +12,7 @@ namespace RSBot.Default.Bundle.Berzerk
         /// <value>
         /// The configuration.
         /// </value>
-        public BerzerkConfig Config { get; set; }
+        internal BerzerkConfig Config { get; set; }
 
         /// <summary>
         /// Invokes this instance.

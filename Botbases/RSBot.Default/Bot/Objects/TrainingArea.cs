@@ -1,6 +1,6 @@
 ﻿using RSBot.Core.Objects;
 
-namespace RSBot.Default.Bot.Objects
+namespace RSBot.Training.Bot.Objects
 {
     internal class TrainingArea
     {

@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+	  <TargetFramework>net6.0-windows</TargetFramework>
+	  <ImplicitUsings>disable</ImplicitUsings>
+	  <Nullable>enable</Nullable>
+	  <OutputType>Library</OutputType>
+	  <OutputPath>.\..\..\Build\Data\Bots</OutputPath>
+	  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+	  <Description>An assistance botbase for RSBot</Description>
+	  <Copyright>Copyright © 2022, RSBot Team</Copyright>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Library\RSBot.Core\RSBot.Core.csproj" />
+		<ProjectReference Include="..\..\SDUI\SDUI\SDUI.csproj" />
+		<ProjectReference Include="..\RSBot.Default\RSBot.Training.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Views\Main.cs">
+	    <SubType>UserControl</SubType>
+	  </Compile>
+	</ItemGroup>
+</Project>

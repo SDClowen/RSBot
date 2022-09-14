@@ -2,9 +2,9 @@
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 
-namespace RSBot.Default.Bundle.Attack
+namespace RSBot.Training.Bundle.Attack
 {
-    internal class AttackBundle : IBundle
+    public class AttackBundle : IBundle
     {
         /// <summary>
         /// Invokes this instance.

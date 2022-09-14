@@ -1,9 +1,9 @@
-﻿using RSBot.Core;
+﻿using System.Collections.Generic;
+using RSBot.Core;
 using RSBot.Core.Components.Scripting;
-using System.Collections.Generic;
 using RSBot.Core.Event;
 
-namespace RSBot.Default.Components
+namespace RSBot.Training.Components
 {
     internal class TrainingAreaScriptCommand : IScriptCommand
     {

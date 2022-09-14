@@ -1,8 +1,8 @@
 ﻿using RSBot.Core;
 
-namespace RSBot.Default.Bundle.Protection
+namespace RSBot.Training.Bundle.Protection
 {
-    internal class HealthRecovery
+    class HealthRecovery
     {
         public static bool Active => PlayerConfig.Get<bool>("RSBot.Protection.checkUseSkillHP");
         public static int Value => PlayerConfig.Get("RSBot.Protection.numPlayerSkillHPMin", 50);

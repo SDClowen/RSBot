@@ -1,17 +1,17 @@
-﻿using RSBot.Default.Bundle.Attack;
-using RSBot.Default.Bundle.Avoidance;
-using RSBot.Default.Bundle.Berzerk;
-using RSBot.Default.Bundle.Buff;
-using RSBot.Default.Bundle.Loop;
-using RSBot.Default.Bundle.Loot;
-using RSBot.Default.Bundle.Movement;
-using RSBot.Default.Bundle.PartyBuffing;
-using RSBot.Default.Bundle.Resurrect;
-using RSBot.Default.Bundle.Target;
+﻿using RSBot.Training.Bundle.Attack;
+using RSBot.Training.Bundle.Avoidance;
+using RSBot.Training.Bundle.Berzerk;
+using RSBot.Training.Bundle.Buff;
+using RSBot.Training.Bundle.Loop;
+using RSBot.Training.Bundle.Loot;
+using RSBot.Training.Bundle.Movement;
+using RSBot.Training.Bundle.PartyBuffing;
+using RSBot.Training.Bundle.Resurrect;
+using RSBot.Training.Bundle.Target;
 
-namespace RSBot.Default.Bundle
+namespace RSBot.Training.Bundle
 {
-    internal static class Bundles
+    public static class Bundles
     {
         /// <summary>
         /// Gets the berzerk.

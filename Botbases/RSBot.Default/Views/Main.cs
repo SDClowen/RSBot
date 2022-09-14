@@ -1,13 +1,12 @@
-﻿using RSBot.Core;
-using RSBot.Core.Event;
-using RSBot.Core.Objects;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using RSBot.Core;
+using RSBot.Core.Event;
+using RSBot.Core.Objects;
 
-namespace RSBot.Default.Views
+namespace RSBot.Training.Views
 {
     [System.ComponentModel.ToolboxItem(false)]
     public partial class Main : UserControl

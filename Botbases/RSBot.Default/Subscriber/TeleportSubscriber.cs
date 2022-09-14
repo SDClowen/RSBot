@@ -1,10 +1,10 @@
-﻿using RSBot.Default.Bundle;
+﻿using System.Threading.Tasks;
 using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
-using System.Threading.Tasks;
+using RSBot.Training.Bundle;
 
-namespace RSBot.Default.Subscriber
+namespace RSBot.Training.Subscriber
 {
     internal class TeleportSubscriber
     {

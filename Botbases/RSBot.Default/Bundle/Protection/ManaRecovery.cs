@@ -1,8 +1,8 @@
 ﻿using RSBot.Core;
 
-namespace RSBot.Default.Bundle.Protection
+namespace RSBot.Training.Bundle.Protection
 {
-    internal class ManaRecovery
+    class ManaRecovery
     {
         public static bool Active => PlayerConfig.Get<bool>("RSBot.Protection.checkUseSkillMP");
         public static int Value => PlayerConfig.Get("RSBot.Protection.numPlayerSkillMPMin", 50);

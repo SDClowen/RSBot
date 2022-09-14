@@ -1,15 +1,15 @@
-﻿using RSBot.Core;
+﻿using System;
+using System.Windows.Forms;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Objects;
 using RSBot.Core.Plugins;
-using RSBot.Default.Bot;
-using RSBot.Default.Bundle;
-using RSBot.Default.Components;
-using RSBot.Default.Views;
-using System;
-using System.Windows.Forms;
+using RSBot.Training.Bot;
+using RSBot.Training.Bundle;
+using RSBot.Training.Components;
+using RSBot.Training.Views;
 
-namespace RSBot.Default
+namespace RSBot.Training
 {
     public class Bootstrap : IBotbase
     {

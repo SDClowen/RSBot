@@ -1,12 +1,12 @@
-﻿using RSBot.Core;
+﻿using System.Linq;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
-using System.Linq;
 
-namespace RSBot.Default.Bundle.Buff
+namespace RSBot.Training.Bundle.Buff
 {
-    internal class BuffBundle : IBundle
+    public class BuffBundle : IBundle
     {
         /// <summary>
         /// Invokes this instance.

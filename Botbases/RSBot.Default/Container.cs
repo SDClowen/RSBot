@@ -1,7 +1,7 @@
-﻿using RSBot.Default.Bot;
-using RSBot.Default.Views;
+﻿using RSBot.Training.Bot;
+using RSBot.Training.Views;
 
-namespace RSBot.Default
+namespace RSBot.Training
 {
     internal static class Container
     {

@@ -1,13 +1,12 @@
-﻿using RSBot.Core;
+﻿using System.Threading.Tasks;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
-using System.Threading.Tasks;
-using RSBot.Core.Event;
 
-namespace RSBot.Default.Bundle.Loot
+namespace RSBot.Training.Bundle.Loot
 {
-    internal class LootBundle : IBundle
+    public class LootBundle : IBundle
     {
         /// <summary>
         /// Gets the configuration.
@@ -15,7 +14,7 @@ namespace RSBot.Default.Bundle.Loot
         /// <value>
         /// The configuration.
         /// </value>
-        public LootConfig Config { get; private set; }
+        internal LootConfig Config { get; private set; }
 
         /// <summary>
         /// Invokes this instance.

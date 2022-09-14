@@ -1,13 +1,12 @@
-﻿using RSBot.Core;
+﻿using System.IO;
+using System.Threading;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Objects;
-using System.IO;
-using System.Threading;
-using RSBot.Core.Event;
 
-namespace RSBot.Default.Bundle.Loop
+namespace RSBot.Training.Bundle.Loop
 {
-    internal class LoopBundle : IBundle
+    public class LoopBundle : IBundle
     {
         /// <summary>
         /// Gets the configuration.
@@ -15,7 +14,7 @@ namespace RSBot.Default.Bundle.Loop
         /// <value>
         /// The configuration.
         /// </value>
-        public LoopConfig Config { get; private set; }
+        internal LoopConfig Config { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="LoopBundle"/> is running.

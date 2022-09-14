@@ -1,4 +1,4 @@
-﻿namespace RSBot.Default.Views
+﻿namespace RSBot.Training.Views
 {
     partial class Main
     {

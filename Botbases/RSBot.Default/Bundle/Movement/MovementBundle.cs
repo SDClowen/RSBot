@@ -1,14 +1,12 @@
-﻿using RSBot.Core;
+﻿using System;
+using RSBot.Core;
 using RSBot.Core.Components;
-using RSBot.Core.Objects;
-using RSBot.Core.Objects.Spawn;
-using System;
-using System.Linq;
 using RSBot.Core.Event;
+using RSBot.Core.Objects.Spawn;
 
-namespace RSBot.Default.Bundle.Movement
+namespace RSBot.Training.Bundle.Movement
 {
-    internal class MovementBundle : IBundle
+    public class MovementBundle : IBundle
     {
         /// <summary>
         /// Gets or sets the configuration.
@@ -16,7 +14,7 @@ namespace RSBot.Default.Bundle.Movement
         /// <value>
         /// The configuration.
         /// </value>
-        public MovementConfig Config { get; set; }
+        internal MovementConfig Config { get; set; }
 
         /// <summary>
         /// The random

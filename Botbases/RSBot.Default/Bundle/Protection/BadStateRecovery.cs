@@ -1,9 +1,9 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Objects;
 
-namespace RSBot.Default.Bundle.Protection
+namespace RSBot.Training.Bundle.Protection
 {
-    internal class BadStateRecovery
+    class BadStateRecovery
     {
         public static bool Active => PlayerConfig.Get<bool>("RSBot.Protection.checkUseBadStatusSkill");
         public static uint SkillId => PlayerConfig.Get<uint>("RSBot.Protection.BadStatusSkill");

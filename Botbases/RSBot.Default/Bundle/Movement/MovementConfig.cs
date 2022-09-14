@@ -1,4 +1,4 @@
-﻿namespace RSBot.Default.Bundle.Movement
+﻿namespace RSBot.Training.Bundle.Movement
 {
     internal class MovementConfig
     {

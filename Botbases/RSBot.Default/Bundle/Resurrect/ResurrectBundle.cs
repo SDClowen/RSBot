@@ -1,13 +1,12 @@
-﻿using RSBot.Core;
+﻿using System.Collections.Generic;
+using RSBot.Core;
 using RSBot.Core.Components;
-using RSBot.Core.Objects;
-using System;
-using System.Collections.Generic;
 using RSBot.Core.Event;
+using RSBot.Core.Objects;
 
-namespace RSBot.Default.Bundle.Resurrect
+namespace RSBot.Training.Bundle.Resurrect
 {
-    internal class ResurrectBundle : IBundle
+    public class ResurrectBundle : IBundle
     {
         /// <summary>
         /// The Last resurrect party members
@@ -38,7 +37,7 @@ namespace RSBot.Default.Bundle.Resurrect
                     continue;
 
                 EventManager.FireEvent("OnChangeStatusText", $"Resurrecting player {member.Name}");
-                
+
                 if (member.Player.State.LifeState == LifeState.Dead)
                 {
                     if (!_lastResurrectedPlayers.ContainsKey(member.Name))
@@ -48,7 +47,6 @@ namespace RSBot.Default.Bundle.Resurrect
 
                     SkillManager.ResurrectionSkill.Cast(member.Player.UniqueId, buff: true);
                 }
-
             }
         }
 

@@ -1,6 +1,6 @@
-﻿namespace RSBot.Default.Bundle
+﻿namespace RSBot.Training.Bundle
 {
-    internal interface IBundle
+    public interface IBundle
     {
         /// <summary>
         /// Invokes this instance.

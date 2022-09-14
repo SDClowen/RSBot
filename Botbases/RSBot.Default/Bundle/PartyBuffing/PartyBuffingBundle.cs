@@ -1,14 +1,13 @@
-﻿using RSBot.Core;
-using RSBot.Core.Components;
-using RSBot.Core.Event;
-using RSBot.Core.Objects.Party;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using RSBot.Core;
+using RSBot.Core.Event;
+using RSBot.Core.Objects.Party;
 
-namespace RSBot.Default.Bundle.PartyBuffing
+namespace RSBot.Training.Bundle.PartyBuffing
 {
-    internal class PartyBuffingBundle : IBundle
+    public class PartyBuffingBundle : IBundle
     {
         /// <summary>
         /// The buffing party members
@@ -45,7 +44,7 @@ namespace RSBot.Default.Bundle.PartyBuffing
                 return;
 
             if (Game.Party == null ||
-                Game.Party.Members == null || 
+                Game.Party.Members == null ||
                 Game.Player.HasActiveVehicle)
                 return;
 

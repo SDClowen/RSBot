@@ -1,9 +1,9 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Objects;
 
-namespace RSBot.Default.Bundle.Avoidance
+namespace RSBot.Training.Bundle.Avoidance
 {
-    internal class AvoidanceBundle : IBundle
+    public class AvoidanceBundle : IBundle
     {
         /// <summary>
         /// Gets the avoidance list.
