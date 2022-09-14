@@ -14,30 +14,37 @@ using static SDUI.NativeMethods;
 
 namespace RSBot.Views
 {
+    internal class BotbaseComboboxItem
+    {
+        public string Name { get; }
+
+        public string Label { get; }
+
+        public BotbaseComboboxItem(string name, string label)
+        {
+            Name = name;
+            Label = label;
+        }
+
+        public override string ToString()
+        {
+            return Label;
+        }
+    }
+
     public partial class Main : CleanForm
     {
-        private class BotbaseComboboxItem
-        {
-            public string Name { get; }
 
-            public string Label { get; }
-
-            public BotbaseComboboxItem(string name, string label)
-            {
-                Name = name;
-                Label = label;
-            }
-
-            public override string ToString()
-            {
-                return Label;
-            }
-        }
+        #region Members
 
         /// <summary>
         /// Bot player name [_cached]
         /// </summary>
         private string _playerName;
+
+        #endregion Members
+
+        #region Constructor
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Main"/> class.
@@ -49,6 +56,10 @@ namespace RSBot.Views
             CheckForIllegalCrossThreadCalls = false;
             RegisterEvents();
         }
+
+        #endregion Constructor
+
+        #region Methods
 
         /// <summary>
         /// Refreshes the theme.
@@ -242,6 +253,10 @@ namespace RSBot.Views
 
             GlobalConfig.Set("RSBot.GatewayIndex", comboServer.SelectedIndex.ToString());
         }
+
+        #endregion Methods
+
+        #region Form events
 
         /// <summary>
         /// Handles the Click event of the MenuItem control.
@@ -465,129 +480,28 @@ namespace RSBot.Views
         }
 
         /// <summary>
-        /// Called when [start bot].
+        /// Handles the SelectedIndexChanged event of the comboBotbase control.
         /// </summary>
-        private void OnStartBot()
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void comboBotbase_SelectedIndexChanged(object sender, EventArgs e)
         {
-            btnStartStop.Text = LanguageManager.GetLang("StopBot");
+            if (comboBotbase.SelectedItem == null)
+                return;
+
+            var selectedBotbase = (BotbaseComboboxItem)comboBotbase.SelectedItem;
+
+            if (selectedBotbase == null)
+                return;
+
+            SelectBotbase(selectedBotbase.Name);
         }
 
         /// <summary>
-        /// Called when [stop bot].
+        /// Handles the Click event of the notifyIcon control.
         /// </summary>
-        private void OnStopBot()
-        {
-            btnStartStop.Text = LanguageManager.GetLang("StartBot");
-        }
-
-        private void OnLoadBotbases()
-        {
-            if (Kernel.BotbaseManager.Bots == null || Kernel.BotbaseManager.Bots.Count == 0)
-            {
-                var title = LanguageManager.GetLang("NoBotbaseDetected");
-                var message = LanguageManager.GetLang("NoBotbaseDetectedDesc");
-                var messageResult = MessageBox.Show(message, title, MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
-
-                if (messageResult == DialogResult.Retry)
-                    Kernel.BotbaseManager.LoadAssemblies();
-                else if (messageResult == DialogResult.Abort)
-                    Environment.Exit(-1);
-            }
-
-            foreach (var item in Kernel.BotbaseManager.Bots.Select(botbase => new BotbaseComboboxItem(botbase.Value.Info.Name, botbase.Value.Info.DisplayName)))
-            {
-                comboBotbase.Items.Add(item);
-            }
-
-            //var index = 0;
-            //foreach (var item in Kernel.BotbaseManager.Bots.Select(botbase => new ToolStripMenuItem
-            //{
-            //    Tag = index,
-            //    Text = botbase.Value.Info.DisplayName,
-            //    Image = botbase.Value.Info.Image
-            //}))
-            //{
-            //    item.Click += BotbaseItem_Click;
-            //    menuBotbase.DropDownItems.Add(item);
-            //    index++;
-
-            //}
-
-            SelectBotbase(GlobalConfig.Get("RSBot.BotName", "RSBot.Default"));
-        }
-
-        /// <summary>
-        /// Reset UI after character disconnect
-        /// </summary>
-        private void OnAgentServerDisconnected()
-        {
-            foreach (TabPage tabPage in tabMain.TabPages)
-            {
-                if (!tabPage.Controls.ContainsKey("overlay"))
-                    continue;
-
-                tabPage.Enabled = false;
-                tabPage.Controls["overlay"].Show();
-            }
-
-            var disconnectedText = LanguageManager.GetLang("Disconnected");
-            if (!Text.EndsWith(disconnectedText))
-            {
-                Text = $@"RSBot - {_playerName} - {disconnectedText}";
-                notifyIcon.Text = Text;
-            }
-        }
-
-        private void OnChangeStatusText(string text)
-        {
-            lblIngameStatus.Text = text;
-        }
-
-        private void OnLoadPlugins()
-        {
-            LoadExtensions();
-        }
-
-        private void OnLoadDivisionInfo(DivisionInfo info)
-        {
-            comboDivision.Items.Clear();
-            foreach (var divInfo in info.Divisions)
-                comboDivision.Items.Add(divInfo.Name);
-
-            var divisionIndex = GlobalConfig.Get<int>("RSBot.DivisionIndex");
-
-            if (comboDivision.Items.Count >= info.Divisions.Count)
-                comboDivision.SelectedIndex = comboDivision.SelectedIndex = comboDivision.Items.Count - 1 >= divisionIndex ? divisionIndex : 0;
-
-            PopulateServerCombobox(info);
-        }
-
-        /// <summary>
-        /// Cores the on enter game.
-        /// </summary>
-        private void OnLoadCharacter()
-        {
-            foreach (TabPage tabPage in tabMain.TabPages)
-            {
-                tabPage.Enabled = true;
-
-                tabPage.Controls["overlay"]?.Hide();
-            }
-
-            foreach (ToolStripItem item in menuPlugins.DropDownItems)
-                item.Enabled = true;
-
-            _playerName = Game.Player.Name;
-            Text = $@"RSBot - {_playerName}";
-            notifyIcon.Text = Text;
-
-            if (Game.Clientless)
-                Text += " [Clientless]";
-
-            if (GlobalConfig.Get("RSBot.DebugEnvironment", false))
-                Text += $@" [JID = {Game.Player.JID}]";
-        }
-
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void notifyIcon_Click(object sender, EventArgs e)
         {
             if (WindowState == FormWindowState.Normal)
@@ -600,11 +514,21 @@ namespace RSBot.Views
             WindowState = FormWindowState.Normal;
         }
 
+        /// <summary>
+        /// Handles the Click event of the menuItemExit control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void menuItemExit_Click(object sender, EventArgs e)
         {
             Environment.Exit(0);
         }
 
+        /// <summary>
+        /// Handles the Resize event of the Main control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void Main_Resize(object sender, EventArgs e)
         {
             if (WindowState == FormWindowState.Normal)
@@ -619,21 +543,41 @@ namespace RSBot.Views
             Hide();
         }
 
+        /// <summary>
+        /// Handles the Click event of the menuItemThis control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void menuItemThis_Click(object sender, EventArgs e)
         {
             new About().ShowDialog();
         }
 
+        /// <summary>
+        /// Handles the Click event of the closeToolStripMenuItem control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
         }
 
+        /// <summary>
+        /// Handles the Click event of the minimizeToolStripMenuItem control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void minimizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Minimized;
         }
 
+        /// <summary>
+        /// Handles the MouseDown event of the menuStrip control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="MouseEventArgs"/> instance containing the event data.</param>
         private void menuStrip_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -643,6 +587,11 @@ namespace RSBot.Views
             }
         }
 
+        /// <summary>
+        /// Handles the Click event of the darkToolStripMenuItem control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void darkToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GlobalConfig.Set("SDUI.Color", Color.Black.ToArgb());
@@ -651,6 +600,11 @@ namespace RSBot.Views
             RefreshTheme();
         }
 
+        /// <summary>
+        /// Handles the Click event of the lightToolStripMenuItem control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void lightToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GlobalConfig.Set("SDUI.Color", Color.White.ToArgb());
@@ -659,6 +613,11 @@ namespace RSBot.Views
             RefreshTheme();
         }
 
+        /// <summary>
+        /// Handles the Click event of the coloredToolStripMenuItem control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void coloredToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var colorDialog = new ColorDialog();
@@ -675,6 +634,11 @@ namespace RSBot.Views
             }
         }
 
+        /// <summary>
+        /// Handles the Click event of the menuSelectProfile control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void menuSelectProfile_Click(object sender, EventArgs e)
         {
             var dialog = new ProfileSelectionDialog();
@@ -713,17 +677,132 @@ namespace RSBot.Views
             EventManager.FireEvent("OnLoadCharacter");
         }
 
-        private void comboBotbase_SelectedIndexChanged(object sender, EventArgs e)
+        #endregion Form events
+
+        #region Core events
+
+        /// <summary>
+        /// Called when [start bot].
+        /// </summary>
+        private void OnStartBot()
         {
-            if (comboBotbase.SelectedItem == null)
-                return;
-
-            var selectedBotbase = (BotbaseComboboxItem)comboBotbase.SelectedItem;
-
-            if (selectedBotbase == null)
-                return;
-
-            SelectBotbase(selectedBotbase.Name);
+            btnStartStop.Text = LanguageManager.GetLang("StopBot");
         }
+
+        /// <summary>
+        /// Called when [stop bot].
+        /// </summary>
+        private void OnStopBot()
+        {
+            btnStartStop.Text = LanguageManager.GetLang("StartBot");
+        }
+
+        /// <summary>
+        /// Called when [load botbases].
+        /// </summary>
+        private void OnLoadBotbases()
+        {
+            if (Kernel.BotbaseManager.Bots == null || Kernel.BotbaseManager.Bots.Count == 0)
+            {
+                var title = LanguageManager.GetLang("NoBotbaseDetected");
+                var message = LanguageManager.GetLang("NoBotbaseDetectedDesc");
+                var messageResult = MessageBox.Show(message, title, MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
+
+                if (messageResult == DialogResult.Retry)
+                    Kernel.BotbaseManager.LoadAssemblies();
+                else if (messageResult == DialogResult.Abort)
+                    Environment.Exit(-1);
+            }
+
+            foreach (var item in Kernel.BotbaseManager.Bots.Select(botbase => new BotbaseComboboxItem(botbase.Value.Info.Name, botbase.Value.Info.DisplayName)))
+                comboBotbase.Items.Add(item);
+
+            SelectBotbase(GlobalConfig.Get("RSBot.BotName", "RSBot.Default"));
+        }
+
+        /// <summary>
+        /// Reset UI after character disconnect
+        /// </summary>
+        private void OnAgentServerDisconnected()
+        {
+            foreach (TabPage tabPage in tabMain.TabPages)
+            {
+                if (!tabPage.Controls.ContainsKey("overlay"))
+                    continue;
+
+                tabPage.Enabled = false;
+                tabPage.Controls["overlay"].Show();
+            }
+
+            var disconnectedText = LanguageManager.GetLang("Disconnected");
+            if (!Text.EndsWith(disconnectedText))
+            {
+                Text = $@"RSBot - {_playerName} - {disconnectedText}";
+                notifyIcon.Text = Text;
+            }
+        }
+
+        /// <summary>
+        /// Called when [change status text].
+        /// </summary>
+        /// <param name="text">The text.</param>
+        private void OnChangeStatusText(string text)
+        {
+            lblIngameStatus.Text = text;
+        }
+
+        /// <summary>
+        /// Called when [load plugins].
+        /// </summary>
+        private void OnLoadPlugins()
+        {
+            LoadExtensions();
+        }
+
+        /// <summary>
+        /// Called when [load division information].
+        /// </summary>
+        /// <param name="info">The information.</param>
+        private void OnLoadDivisionInfo(DivisionInfo info)
+        {
+            comboDivision.Items.Clear();
+            foreach (var divInfo in info.Divisions)
+                comboDivision.Items.Add(divInfo.Name);
+
+            var divisionIndex = GlobalConfig.Get<int>("RSBot.DivisionIndex");
+
+            if (comboDivision.Items.Count >= info.Divisions.Count)
+                comboDivision.SelectedIndex = comboDivision.SelectedIndex = comboDivision.Items.Count - 1 >= divisionIndex ? divisionIndex : 0;
+
+            PopulateServerCombobox(info);
+        }
+
+        /// <summary>
+        /// Called when [load character].
+        /// </summary>
+        private void OnLoadCharacter()
+        {
+            foreach (TabPage tabPage in tabMain.TabPages)
+            {
+                tabPage.Enabled = true;
+
+                tabPage.Controls["overlay"]?.Hide();
+            }
+
+            foreach (ToolStripItem item in menuPlugins.DropDownItems)
+                item.Enabled = true;
+
+            _playerName = Game.Player.Name;
+            Text = $@"RSBot - {_playerName}";
+            notifyIcon.Text = Text;
+
+            if (Game.Clientless)
+                Text += " [Clientless]";
+
+            if (GlobalConfig.Get("RSBot.DebugEnvironment", false))
+                Text += $@" [JID = {Game.Player.JID}]";
+        }
+
+        #endregion Core events
     }
 }
