@@ -1,9 +1,12 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Components;
+using RSBot.Core.Network.SecurityAPI;
 using RSBot.General.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
+using System.Text.Json;
 
 namespace RSBot.General.Components
 {
@@ -31,7 +34,7 @@ namespace RSBot.General.Components
         /// Check the saving directory
         /// </summary>
         /// <returns></returns>
-        private static void CheckDirectory()
+        private static void EnsureDirectoryExists()
         {
             var directory = Path.GetDirectoryName(_filePath);
 
@@ -45,42 +48,29 @@ namespace RSBot.General.Components
         {
             try
             {
-                CheckDirectory();
+                EnsureDirectoryExists();
 
                 SavedAccounts = new List<Account>();
 
-                using var fileStream = new FileStream(_filePath, FileMode.OpenOrCreate);
-                if (fileStream.Length == 0)
+                if (!File.Exists(_filePath))
                     return;
 
-                // We cant use System.???? namespace serializers because the dlls not in the same directory.
-                // Also we can use other serializers like json, but i think, its dont need. Because small code is enough for us.
-                // But this is not bad ;)
-                using var reader = new BinaryReader(fileStream);
-                var length = reader.ReadInt32();
-                for (var i = 0; i < length; i++)
-                {
-                    var account = new Account();
-                    account.Username = reader.ReadString();
-                    account.Password = reader.ReadString();
-                    account.SecondaryPassword = reader.ReadString();
-                    account.Servername = reader.ReadString();
-                    account.SelectedCharacter = reader.ReadString();
+                var buffer = File.ReadAllBytes(_filePath);
+                if (buffer.Length == 0)
+                    return;
 
-                    var charCount = reader.ReadInt32();
+                //Decode credentials
+                var blowfish = new Blowfish();
+                buffer = blowfish.Decode(buffer);
 
-                    account.Characters = new List<string>(charCount);
+                var serialized = Encoding.UTF8.GetString(buffer).Trim('\0');
 
-                    for (var j = 0; j < charCount; j++)
-                        account.Characters.Add(reader.ReadString());
-
-                    SavedAccounts.Add(account);
-                }
+                SavedAccounts = JsonSerializer.Deserialize<List<Account>>(serialized) ?? new List<Account>(4);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Core.Log.NotifyLang("FileNotFound", _filePath);
-                Core.Log.Fatal(ex);
+                Log.NotifyLang("FileNotFound", _filePath);
+                Log.Fatal(ex);
             }
         }
 
@@ -89,33 +79,25 @@ namespace RSBot.General.Components
         /// </summary>
         public static void Save()
         {
-            CheckDirectory();
+            EnsureDirectoryExists();
 
-            if (SavedAccounts == null) 
+            if (SavedAccounts == null)
                 return;
 
             try
             {
-                using var fileStream = new FileStream(_filePath, FileMode.OpenOrCreate);
-                using var writer = new BinaryWriter(fileStream);
+                //Encode user credentials
+                var buffer = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(SavedAccounts));
 
-                writer.Write(SavedAccounts.Count);
+                //Maybe add some password protection and use blowfish.initialize(password)
+                var blowfish = new Blowfish();
+                buffer = blowfish.Encode(buffer);
 
-                foreach (var account in SavedAccounts)
-                {
-                    writer.Write(account.Username);
-                    writer.Write(account.Password);
-                    writer.Write(account.SecondaryPassword);
-                    writer.Write(account.Servername);
-                    writer.Write(account.SelectedCharacter);
-                    writer.Write(account.Characters.Count);
-                    foreach (var character in account.Characters)
-                        writer.Write(character);
-                }
+                File.WriteAllBytes(_filePath, buffer);
             }
             catch
             {
-                Core.Log.NotifyLang("FileNotFound", _filePath);
+                Log.NotifyLang("FileNotFound", _filePath);
             }
         }
     }
