@@ -63,6 +63,7 @@
             this.checkBerzerkAvoidance = new SDUI.Controls.CheckBox();
             this.checkBerzerkMonsterAmount = new SDUI.Controls.CheckBox();
             this.groupBox1 = new SDUI.Controls.GroupBox();
+            this.buttonSelectTrainingArea = new SDUI.Controls.Button();
             this.label6 = new SDUI.Controls.Label();
             this.label5 = new SDUI.Controls.Label();
             this.radioWalkAround = new SDUI.Controls.Radio();
@@ -89,7 +90,8 @@
             this.groupBox2.Location = new System.Drawing.Point(23, 250);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
-            this.groupBox2.Radius = 2;
+            this.groupBox2.Radius = 10;
+            this.groupBox2.ShadowDepth = 4;
             this.groupBox2.Size = new System.Drawing.Size(221, 214);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
@@ -195,7 +197,8 @@
             this.groupBox3.Location = new System.Drawing.Point(262, 16);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBox3.Radius = 2;
+            this.groupBox3.Radius = 10;
+            this.groupBox3.ShadowDepth = 4;
             this.groupBox3.Size = new System.Drawing.Size(478, 117);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
@@ -205,48 +208,52 @@
             // 
             this.checkBoxUseReverse.AutoSize = true;
             this.checkBoxUseReverse.BackColor = System.Drawing.Color.Transparent;
-            this.checkBoxUseReverse.Checked = false;
             this.checkBoxUseReverse.Location = new System.Drawing.Point(378, 84);
             this.checkBoxUseReverse.Name = "checkBoxUseReverse";
+            this.checkBoxUseReverse.ShadowDepth = 1;
             this.checkBoxUseReverse.Size = new System.Drawing.Size(85, 15);
             this.checkBoxUseReverse.TabIndex = 7;
             this.checkBoxUseReverse.Text = "Use Reverse";
+            this.checkBoxUseReverse.UseVisualStyleBackColor = false;
             this.checkBoxUseReverse.CheckedChanged += new System.EventHandler(this.checkBoxUseReverse_CheckedChanged);
             // 
             // checkUseSpeedDrug
             // 
             this.checkUseSpeedDrug.AutoSize = true;
             this.checkUseSpeedDrug.BackColor = System.Drawing.Color.Transparent;
-            this.checkUseSpeedDrug.Checked = false;
             this.checkUseSpeedDrug.Location = new System.Drawing.Point(261, 84);
             this.checkUseSpeedDrug.Name = "checkUseSpeedDrug";
+            this.checkUseSpeedDrug.ShadowDepth = 1;
             this.checkUseSpeedDrug.Size = new System.Drawing.Size(104, 15);
             this.checkUseSpeedDrug.TabIndex = 7;
             this.checkUseSpeedDrug.Text = "Use speed drug";
+            this.checkUseSpeedDrug.UseVisualStyleBackColor = false;
             this.checkUseSpeedDrug.CheckedChanged += new System.EventHandler(this.checkUseSpeedDrug_CheckedChanged);
             // 
             // checkCastBuffs
             // 
             this.checkCastBuffs.AutoSize = true;
             this.checkCastBuffs.BackColor = System.Drawing.Color.Transparent;
-            this.checkCastBuffs.Checked = false;
             this.checkCastBuffs.Location = new System.Drawing.Point(171, 84);
             this.checkCastBuffs.Name = "checkCastBuffs";
+            this.checkCastBuffs.ShadowDepth = 1;
             this.checkCastBuffs.Size = new System.Drawing.Size(76, 15);
             this.checkCastBuffs.TabIndex = 6;
             this.checkCastBuffs.Text = "Cast buffs";
+            this.checkCastBuffs.UseVisualStyleBackColor = false;
             this.checkCastBuffs.CheckedChanged += new System.EventHandler(this.checkCastBuffs_CheckedChanged);
             // 
             // checkUseMount
             // 
             this.checkUseMount.AutoSize = true;
             this.checkUseMount.BackColor = System.Drawing.Color.Transparent;
-            this.checkUseMount.Checked = false;
             this.checkUseMount.Location = new System.Drawing.Point(21, 84);
             this.checkUseMount.Name = "checkUseMount";
+            this.checkUseMount.ShadowDepth = 1;
             this.checkUseMount.Size = new System.Drawing.Size(140, 15);
             this.checkUseMount.TabIndex = 3;
             this.checkUseMount.Text = "Use mount if available";
+            this.checkUseMount.UseVisualStyleBackColor = false;
             this.checkUseMount.CheckedChanged += new System.EventHandler(this.checkUseMount_CheckedChanged);
             // 
             // btnBrowse
@@ -254,7 +261,8 @@
             this.btnBrowse.Color = System.Drawing.Color.Transparent;
             this.btnBrowse.Location = new System.Drawing.Point(406, 46);
             this.btnBrowse.Name = "btnBrowse";
-            this.btnBrowse.Radius = 2;
+            this.btnBrowse.Radius = 6;
+            this.btnBrowse.ShadowDepth = 4F;
             this.btnBrowse.Size = new System.Drawing.Size(57, 23);
             this.btnBrowse.TabIndex = 3;
             this.btnBrowse.Text = "Browse";
@@ -268,6 +276,7 @@
             this.txtWalkscript.MaxLength = 32767;
             this.txtWalkscript.MultiLine = false;
             this.txtWalkscript.Name = "txtWalkscript";
+            this.txtWalkscript.Radius = 2;
             this.txtWalkscript.Size = new System.Drawing.Size(379, 21);
             this.txtWalkscript.TabIndex = 4;
             this.txtWalkscript.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
@@ -287,12 +296,13 @@
             // 
             this.checkBerzerkWhenFull.AutoSize = true;
             this.checkBerzerkWhenFull.BackColor = System.Drawing.Color.Transparent;
-            this.checkBerzerkWhenFull.Checked = false;
             this.checkBerzerkWhenFull.Location = new System.Drawing.Point(21, 34);
             this.checkBerzerkWhenFull.Name = "checkBerzerkWhenFull";
+            this.checkBerzerkWhenFull.ShadowDepth = 1;
             this.checkBerzerkWhenFull.Size = new System.Drawing.Size(177, 15);
             this.checkBerzerkWhenFull.TabIndex = 4;
             this.checkBerzerkWhenFull.Text = "Enter berzerk mode when full";
+            this.checkBerzerkWhenFull.UseVisualStyleBackColor = false;
             this.checkBerzerkWhenFull.CheckedChanged += new System.EventHandler(this.checkBerzerkWhenFull_CheckedChanged);
             // 
             // groupBox4
@@ -306,7 +316,8 @@
             this.groupBox4.Location = new System.Drawing.Point(262, 144);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBox4.Radius = 2;
+            this.groupBox4.Radius = 10;
+            this.groupBox4.ShadowDepth = 4;
             this.groupBox4.Size = new System.Drawing.Size(478, 125);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
@@ -352,29 +363,32 @@
             // 
             this.checkBerzerkAvoidance.AutoSize = true;
             this.checkBerzerkAvoidance.BackColor = System.Drawing.Color.Transparent;
-            this.checkBerzerkAvoidance.Checked = false;
             this.checkBerzerkAvoidance.Location = new System.Drawing.Point(21, 88);
             this.checkBerzerkAvoidance.Name = "checkBerzerkAvoidance";
+            this.checkBerzerkAvoidance.ShadowDepth = 1;
             this.checkBerzerkAvoidance.Size = new System.Drawing.Size(333, 15);
             this.checkBerzerkAvoidance.TabIndex = 5;
             this.checkBerzerkAvoidance.Text = "If being attacked by a monster type that should be avoided";
+            this.checkBerzerkAvoidance.UseVisualStyleBackColor = false;
             this.checkBerzerkAvoidance.CheckedChanged += new System.EventHandler(this.checkBerzerkAvoidance_CheckedChanged);
             // 
             // checkBerzerkMonsterAmount
             // 
             this.checkBerzerkMonsterAmount.AutoSize = true;
             this.checkBerzerkMonsterAmount.BackColor = System.Drawing.Color.Transparent;
-            this.checkBerzerkMonsterAmount.Checked = false;
             this.checkBerzerkMonsterAmount.Location = new System.Drawing.Point(21, 60);
             this.checkBerzerkMonsterAmount.Name = "checkBerzerkMonsterAmount";
+            this.checkBerzerkMonsterAmount.ShadowDepth = 1;
             this.checkBerzerkMonsterAmount.Size = new System.Drawing.Size(175, 15);
             this.checkBerzerkMonsterAmount.TabIndex = 4;
             this.checkBerzerkMonsterAmount.Text = "Being attacked by more than";
+            this.checkBerzerkMonsterAmount.UseVisualStyleBackColor = false;
             this.checkBerzerkMonsterAmount.CheckedChanged += new System.EventHandler(this.checkBerzerkMonsterAmount_CheckedChanged);
             // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox1.Controls.Add(this.buttonSelectTrainingArea);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.radioWalkAround);
@@ -389,11 +403,27 @@
             this.groupBox1.Location = new System.Drawing.Point(23, 16);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBox1.Radius = 2;
+            this.groupBox1.Radius = 10;
+            this.groupBox1.ShadowDepth = 4;
             this.groupBox1.Size = new System.Drawing.Size(221, 228);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Area";
+            // 
+            // buttonSelectTrainingArea
+            // 
+            this.buttonSelectTrainingArea.Color = System.Drawing.Color.DeepSkyBlue;
+            this.buttonSelectTrainingArea.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonSelectTrainingArea.ForeColor = System.Drawing.Color.White;
+            this.buttonSelectTrainingArea.Location = new System.Drawing.Point(179, 107);
+            this.buttonSelectTrainingArea.Name = "buttonSelectTrainingArea";
+            this.buttonSelectTrainingArea.Radius = 6;
+            this.buttonSelectTrainingArea.ShadowDepth = 4F;
+            this.buttonSelectTrainingArea.Size = new System.Drawing.Size(24, 24);
+            this.buttonSelectTrainingArea.TabIndex = 7;
+            this.buttonSelectTrainingArea.Text = "...";
+            this.buttonSelectTrainingArea.UseVisualStyleBackColor = true;
+            this.buttonSelectTrainingArea.Click += new System.EventHandler(this.buttonSelectTrainingArea_Click);
             // 
             // label6
             // 
@@ -416,20 +446,22 @@
             // radioWalkAround
             // 
             this.radioWalkAround.AutoSize = true;
-            this.radioWalkAround.Checked = false;
+            this.radioWalkAround.Checked = true;
             this.radioWalkAround.Location = new System.Drawing.Point(35, 199);
             this.radioWalkAround.Name = "radioWalkAround";
+            this.radioWalkAround.ShadowDepth = 0;
             this.radioWalkAround.Size = new System.Drawing.Size(99, 15);
             this.radioWalkAround.TabIndex = 5;
+            this.radioWalkAround.TabStop = true;
             this.radioWalkAround.Text = "Walk around";
             this.radioWalkAround.CheckedChanged += new System.EventHandler(this.radioWalkAround_CheckedChanged);
             // 
             // radioCenter
             // 
             this.radioCenter.AutoSize = true;
-            this.radioCenter.Checked = true;
             this.radioCenter.Location = new System.Drawing.Point(35, 176);
             this.radioCenter.Name = "radioCenter";
+            this.radioCenter.ShadowDepth = 0;
             this.radioCenter.Size = new System.Drawing.Size(125, 15);
             this.radioCenter.TabIndex = 4;
             this.radioCenter.Text = "Go back to center";
@@ -440,7 +472,8 @@
             this.btnGetCurrent.Color = System.Drawing.Color.Transparent;
             this.btnGetCurrent.Location = new System.Drawing.Point(76, 107);
             this.btnGetCurrent.Name = "btnGetCurrent";
-            this.btnGetCurrent.Radius = 2;
+            this.btnGetCurrent.Radius = 6;
+            this.btnGetCurrent.ShadowDepth = 4F;
             this.btnGetCurrent.Size = new System.Drawing.Size(97, 23);
             this.btnGetCurrent.TabIndex = 3;
             this.btnGetCurrent.Text = "Current";
@@ -483,6 +516,7 @@
             this.txtRadius.MaxLength = 32767;
             this.txtRadius.MultiLine = false;
             this.txtRadius.Name = "txtRadius";
+            this.txtRadius.Radius = 2;
             this.txtRadius.Size = new System.Drawing.Size(97, 21);
             this.txtRadius.TabIndex = 0;
             this.txtRadius.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
@@ -495,6 +529,7 @@
             this.txtYCoord.MaxLength = 32767;
             this.txtYCoord.MultiLine = false;
             this.txtYCoord.Name = "txtYCoord";
+            this.txtYCoord.Radius = 2;
             this.txtYCoord.Size = new System.Drawing.Size(97, 21);
             this.txtYCoord.TabIndex = 0;
             this.txtYCoord.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
@@ -507,6 +542,7 @@
             this.txtXCoord.MaxLength = 32767;
             this.txtXCoord.MultiLine = false;
             this.txtXCoord.Name = "txtXCoord";
+            this.txtXCoord.Radius = 2;
             this.txtXCoord.Size = new System.Drawing.Size(97, 21);
             this.txtXCoord.TabIndex = 0;
             this.txtXCoord.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
@@ -523,7 +559,7 @@
             this.Controls.Add(this.groupBox4);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "Main";
-            this.Size = new System.Drawing.Size(765, 474);
+            this.Size = new System.Drawing.Size(772, 491);
             this.groupBox2.ResumeLayout(false);
             this.ctxAvoidance.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
@@ -572,5 +608,6 @@
         private SDUI.Controls.TextBox txtYCoord;
         private SDUI.Controls.TextBox txtXCoord;
         private SDUI.Controls.CheckBox checkBoxUseReverse;
+        private SDUI.Controls.Button buttonSelectTrainingArea;
     }
 }

@@ -338,5 +338,12 @@ namespace RSBot.Default.Views
             //Avoidance
             LoadAvoidance();
         }
+
+        private void buttonSelectTrainingArea_Click(object sender, EventArgs e)
+        {
+            var trainingArea = new Dialogs.TrainingAreasDialog();
+            if (trainingArea.ShowDialog(this) == DialogResult.OK)
+                EventManager.FireEvent("OnSetTrainingArea");
+        }
     }
 }
