@@ -34,8 +34,8 @@ namespace RSBot.General.Components
         private static void CheckDirectory()
         {
             var directory = Path.GetDirectoryName(_filePath);
-            if (!Directory.Exists(directory))
-                Directory.CreateDirectory(directory);
+
+            Directory.CreateDirectory(directory);
         }
 
         /// <summary>
@@ -49,36 +49,32 @@ namespace RSBot.General.Components
 
                 SavedAccounts = new List<Account>();
 
-                using (var fileStream = new FileStream(_filePath, FileMode.OpenOrCreate))
+                using var fileStream = new FileStream(_filePath, FileMode.OpenOrCreate);
+                if (fileStream.Length == 0)
+                    return;
+
+                // We cant use System.???? namespace serializers because the dlls not in the same directory.
+                // Also we can use other serializers like json, but i think, its dont need. Because small code is enough for us.
+                // But this is not bad ;)
+                using var reader = new BinaryReader(fileStream);
+                var length = reader.ReadInt32();
+                for (var i = 0; i < length; i++)
                 {
-                    if (fileStream.Length == 0)
-                        return;
+                    var account = new Account();
+                    account.Username = reader.ReadString();
+                    account.Password = reader.ReadString();
+                    account.SecondaryPassword = reader.ReadString();
+                    account.Servername = reader.ReadString();
+                    account.SelectedCharacter = reader.ReadString();
 
-                    // We cant use System.???? namespace serializers because the dlls not in the same directory.
-                    // Also we can use other serializers like json, but i think, its dont need. Because small code is enough for us.
-                    // But this is not bad ;)
-                    using (var reader = new BinaryReader(fileStream))
-                    {
-                        var length = reader.ReadInt32();
-                        for (int i = 0; i < length; i++)
-                        {
-                            var account = new Account();
-                            account.Username = reader.ReadString();
-                            account.Password = reader.ReadString();
-                            account.SecondaryPassword = reader.ReadString();
-                            account.Servername = reader.ReadString();
-                            account.SelectedCharacter = reader.ReadString();
+                    var charCount = reader.ReadInt32();
 
-                            var charCount = reader.ReadInt32();
+                    account.Characters = new List<string>(charCount);
 
-                            account.Characters = new List<string>(charCount);
+                    for (var j = 0; j < charCount; j++)
+                        account.Characters.Add(reader.ReadString());
 
-                            for (int j = 0; j < charCount; j++)
-                                account.Characters.Add(reader.ReadString());
-
-                            SavedAccounts.Add(account);
-                        }
-                    }
+                    SavedAccounts.Add(account);
                 }
             }
             catch(Exception ex)
@@ -100,24 +96,21 @@ namespace RSBot.General.Components
 
             try
             {
-                using (var fileStream = new FileStream(_filePath, FileMode.OpenOrCreate))
-                {
-                    using (var writer = new BinaryWriter(fileStream))
-                    {
-                        writer.Write(SavedAccounts.Count);
+                using var fileStream = new FileStream(_filePath, FileMode.OpenOrCreate);
+                using var writer = new BinaryWriter(fileStream);
 
-                        foreach (var account in SavedAccounts)
-                        {
-                            writer.Write(account.Username);
-                            writer.Write(account.Password);
-                            writer.Write(account.SecondaryPassword);
-                            writer.Write(account.Servername);
-                            writer.Write(account.SelectedCharacter);
-                            writer.Write(account.Characters.Count);
-                            foreach (var character in account.Characters)
-                                    writer.Write(character);
-                        }
-                    }
+                writer.Write(SavedAccounts.Count);
+
+                foreach (var account in SavedAccounts)
+                {
+                    writer.Write(account.Username);
+                    writer.Write(account.Password);
+                    writer.Write(account.SecondaryPassword);
+                    writer.Write(account.Servername);
+                    writer.Write(account.SelectedCharacter);
+                    writer.Write(account.Characters.Count);
+                    foreach (var character in account.Characters)
+                        writer.Write(character);
                 }
             }
             catch

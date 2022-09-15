@@ -113,11 +113,8 @@ namespace RSBot.General.PacketHandler
             if (selectedAccount == null)
                 return;
 
-            if (selectedAccount.Characters.Count == 0)
-            {
-                selectedAccount.Characters.AddRange(lobbyCharacters);
-                Components.Accounts.Save();
-            }
+            selectedAccount.Characters = lobbyCharacters.ToList();
+            Components.Accounts.Save();
 
             EventManager.FireEvent("OnCharacterListReceived");
 

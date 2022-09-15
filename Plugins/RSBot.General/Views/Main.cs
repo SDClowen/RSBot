@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -145,14 +146,14 @@ namespace RSBot.General.Views
                 return;
             }
 
-            foreach (var character in selectedAccount.Characters)
+            foreach (var character in selectedAccount.Characters.Where(n => n != null))
             {
                 var index = comboCharacter.Items.Add(character);
                 if (character == selectedAccount.SelectedCharacter)
                     comboCharacter.SelectedIndex = index;
             }
 
-            if (comboCharacter.SelectedIndex == -1 || 
+            if (comboCharacter.SelectedIndex == -1 ||
                 string.IsNullOrWhiteSpace(selectedAccount.SelectedCharacter))
                 comboCharacter.SelectedIndex = 0;
         }
@@ -185,7 +186,7 @@ namespace RSBot.General.Views
         private void OnExitClient()
         {
             _clientVisible = false;
-            btnStartClient.Text = LanguageManager.GetLang("Start")  + " Client";
+            btnStartClient.Text = LanguageManager.GetLang("Start") + " Client";
 
             if (Game.Clientless)
                 return;
