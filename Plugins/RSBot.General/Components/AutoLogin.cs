@@ -7,7 +7,6 @@ using RSBot.General.Models;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RSBot.General.PacketHandler;
 
 namespace RSBot.General.Components
 {
@@ -70,7 +69,13 @@ namespace RSBot.General.Components
                 return;
             }
 
-            await Task.Delay(10_000);
+            //Wait for the configured delay before sending the login request
+            if (GlobalConfig.Get("RSBot.General.EnableLoginDelay", false))
+            {
+                var delay = GlobalConfig.Get("RSBot.General.LoginDelay", 10) * 1000;
+                await Task.Delay(delay);
+            }
+
             SendLoginRequest(selectedAccount, server);
         }
 
@@ -162,7 +167,7 @@ namespace RSBot.General.Components
         {
             if (!GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin"))
                 return;
-            
+
             var packet = new Packet(0x7001);
             packet.WriteString(character);
             PacketManager.SendPacket(packet, PacketDestination.Server);
