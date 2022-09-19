@@ -413,7 +413,7 @@ namespace RSBot.Map.Views
                         return "rn_jupiter_01_{0}x{1}.ddj";
                     // Bahgdad Room
                     case 32793:
-                        return "rn_jupiter_01_{0}x{1}.ddj";
+                        return "RN_ARABIA_FIELD_02_BOSS_{0}x{1}.ddj";
                     // 32791 - GM's Room
                     // 32792 - Fortress Prison
                 }
