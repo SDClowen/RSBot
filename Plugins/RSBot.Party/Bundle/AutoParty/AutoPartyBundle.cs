@@ -51,11 +51,7 @@ namespace RSBot.Party.Bundle.AutoParty
                 AcceptIfBotIsStopped = PlayerConfig.Get<bool>("RSBot.Party.AcceptIfBotStopped"),
                 LeaveIfMasterNot = PlayerConfig.Get<bool>("RSBot.Party.LeaveIfMasterNot"),
                 LeaveIfMasterNotName = PlayerConfig.Get<string>("RSBot.Party.LeaveIfMasterNotName"),
-                CenterPosition = new Position
-                {
-                    XCoordinate = PlayerConfig.Get<float>("RSBot.Area.X"),
-                    YCoordinate = PlayerConfig.Get<float>("RSBot.Area.Y")
-                }
+                CenterPosition = new Position(PlayerConfig.Get<float>("RSBot.Area.X"), PlayerConfig.Get<float>("RSBot.Area.Y")),
             };
 
             if (!Game.Party.IsInParty)
