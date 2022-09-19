@@ -73,8 +73,9 @@ namespace RSBot.Default.Bundle.Movement
         private void RunInWorld(int randomRadius)
         {
             var destination = Container.Bot.Area.CenterPosition;
-            destination.XCoordinate += _random.Next(-randomRadius, randomRadius);
-            destination.YCoordinate += _random.Next(-randomRadius, randomRadius);
+            randomRadius /= 10;
+            destination.XOffset += _random.Next(-randomRadius, randomRadius);
+            destination.YOffset += _random.Next(-randomRadius, randomRadius);
             if (!CollisionManager.HasCollisionBetween(Game.Player.Movement.Source, destination))
                 Game.Player.MoveTo(destination, false);
         }

@@ -114,8 +114,8 @@ namespace RSBot.Core.Objects.Spawn
                 Movement.HasDestination = true;
                 Movement.Destination = destination;
 
-                var xDelta = Movement.Destination.WorldXOffset - Movement.Source.WorldXOffset;
-                var yDelta = Movement.Destination.WorldYOffset - Movement.Source.WorldYOffset;
+                var xDelta = Movement.Destination.XCoordinate - Movement.Source.XCoordinate;
+                var yDelta = Movement.Destination.YCoordinate - Movement.Source.YCoordinate;
 
                 Movement.Angle = MathF.Atan2(yDelta, xDelta);
 
@@ -158,18 +158,17 @@ namespace RSBot.Core.Objects.Spawn
             lock (_lock)
             {
                 Movement.Source = pos;
-                SetAngle(pos.Angle);
             }
         }
 
         private void CalculateMovingConditional()
         {
             var position = this.Movement.Source;
-            var diffX = Movement.Destination.WorldXOffset - position.WorldXOffset;
-            var diffY = Movement.Destination.WorldYOffset - position.WorldYOffset;
-            var distance = Math.Sqrt(diffX * diffX + diffY * diffY);
+            var diffX = Movement.Destination.XCoordinate - position.XCoordinate;
+            var diffY = Movement.Destination.YCoordinate - position.YCoordinate;
+            var distance = Movement.Destination.DistanceTo(position);
 
-            var speed = ActualSpeed;
+            var speed = ActualSpeed * 0.1f;
 
             // Don't move if too close to destination
             if (distance <= 1)
@@ -199,11 +198,8 @@ namespace RSBot.Core.Objects.Spawn
                 // If there's still move time left, update the current position.
                 else
                 {
-                    var position = this.Movement.Source;
-                    position.WorldXOffset += (float)(Movement.MovingX * elapsed.TotalSeconds);
-                    position.WorldYOffset += (float)(Movement.MovingY * elapsed.TotalSeconds);
-
-                    this.Movement.Source = position;
+                    Movement.Source.XOffset += (float)(Movement.MovingX * 10 * elapsed.TotalSeconds);
+                    Movement.Source.YOffset += (float)(Movement.MovingY * 10 * elapsed.TotalSeconds);
                 }
 
                 return;
@@ -219,10 +215,11 @@ namespace RSBot.Core.Objects.Spawn
                 finish = true;
             }
 
-            var dir = MathF.SinCos(Movement.Angle);
+            var dirCos = MathF.Cos(Movement.Angle);
+            var dirSin = MathF.Sin(Movement.Angle);
 
-            Movement.Source.WorldXOffset += dir.Cos * totalChange;
-            Movement.Source.WorldYOffset += dir.Sin * totalChange;
+            Movement.Source.XOffset += dirCos * totalChange;
+            Movement.Source.YOffset += dirSin * totalChange;
 
             if (finish)
                 StopMoving(Movement.Destination);

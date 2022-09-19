@@ -120,8 +120,7 @@ namespace RSBot.Core.Objects.Party
 
             result.Position = new Position
             {
-                XSector = packet.ReadByte(),
-                YSector = packet.ReadByte()
+                RegionID = packet.ReadUShort()
             };
 
             if (!result.Position.IsInDungeon)

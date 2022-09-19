@@ -46,11 +46,7 @@ namespace RSBot.Default.Bot.Objects
             return new TrainingArea
             {
                 Name = split[0],
-                CenterPosition = new Position
-                {
-                    XCoordinate = posX,
-                    YCoordinate = posY
-                },
+                CenterPosition = Position.FromOffsets(posX,posY),
                 Radius = radius
             };
         }
