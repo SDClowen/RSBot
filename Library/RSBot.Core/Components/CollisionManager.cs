@@ -99,15 +99,15 @@ namespace RSBot.Core.Components
             //Position -> SharpDX.Point
             var pointSource = new Point
             {
-                X = Convert.ToInt32(offsetSource.X + source.XOffset),
-                Y = Convert.ToInt32(offsetSource.Y + (1920 - source.YOffset))
+                X = Convert.ToInt32(offsetSource.X + source.XSectorOffset),
+                Y = Convert.ToInt32(offsetSource.Y + (1920 - source.YSectorOffset))
             };
 
             //Position -> SharpDX.Point
             var pointDestination = new Point
             {
-                X = Convert.ToInt32(offsetDestination.X + destination.XOffset),
-                Y = Convert.ToInt32(offsetDestination.Y + (1920 - destination.YOffset))
+                X = Convert.ToInt32(offsetDestination.X + destination.XSectorOffset),
+                Y = Convert.ToInt32(offsetDestination.Y + (1920 - destination.YSectorOffset))
             };
 
             //It might be possible, that the player is standing right next to an obstacle, that would cause calculation issues and false positives,
