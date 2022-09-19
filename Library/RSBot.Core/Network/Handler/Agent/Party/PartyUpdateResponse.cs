@@ -86,11 +86,7 @@ namespace RSBot.Core.Network.Handler.Agent.Party
                             break;
 
                         case PartyMemberUpdateType.Position:
-                            member.Position = new Position
-                            {
-                                XSector = packet.ReadByte(),
-                                YSector = packet.ReadByte(),
-                            };
+                            member.Position = new Position { RegionID = packet.ReadUShort() };
                             if (!member.Position.IsInDungeon)
                             {
                                 member.Position.XOffset = packet.ReadShort();

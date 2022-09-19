@@ -34,8 +34,8 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
             var movement = Movement.MotionFromPacket(packet);
             if (uniqueId == Game.Player.UniqueId || uniqueId == Game.Player.Vehicle?.UniqueId)
             {
-                if (movement.HasSource)
-                    Game.Player.SetSource(movement.Source);
+                if (movement.HasAngle)
+                    Game.Player.SetAngle(movement.Angle);
 
                 if (movement.HasDestination)
                 {
@@ -63,8 +63,8 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
             if (!SpawnManager.TryGetEntity<SpawnedEntity>(uniqueId, out var entity)) 
                 return;
 
-            if (movement.HasSource)
-                entity.SetSource(movement.Source);
+            if (movement.HasAngle)
+                entity.SetAngle(movement.Angle);
 
             if (movement.HasDestination)
                 entity.Move(movement.Destination);

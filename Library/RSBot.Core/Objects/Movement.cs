@@ -61,8 +61,7 @@ namespace RSBot.Core.Objects
             {
                 result.Destination = new Position
                 {
-                    XSector = packet.ReadByte(),
-                    YSector = packet.ReadByte(),
+                    RegionID = packet.ReadUShort()
                 };
 
                 if (!result.Destination.IsInDungeon)
@@ -85,26 +84,31 @@ namespace RSBot.Core.Objects
                 result.HasAngle = hasSky;
             }
 
-            result.HasSource = packet.ReadBool();
-
-            if (result.HasSource)
+            var hasEvent = packet.ReadBool();
+            if (hasEvent)
             {
-                result.Source.XSector = packet.ReadByte();
-                result.Source.YSector = packet.ReadByte();
-                if (!result.Source.IsInDungeon)
+                if (result.HasDestination)
                 {
-                    result.Source.XOffset = packet.ReadShort() / 10;
-                    result.Source.ZOffset = packet.ReadInt() / 10;
-                    result.Source.YOffset = packet.ReadShort() / 10;
+                    // Sector changed
+
+                    //ushort latestRegionID = packet.ReadUShort();
+                    // ushort unkUShort01
+                    // ushort unkUShort02
+                    // ushort unkUShort03
+                    // ushort unkUShort04
                 }
                 else
                 {
-                    result.Source.XOffset = packet.ReadInt() / 10;
-                    result.Source.ZOffset = packet.ReadInt() / 10;
-                    result.Source.YOffset = packet.ReadInt() / 10;
+                    // Angle changed
+
+                    result.HasAngle = true;
+                    result.Angle = packet.ReadShort();
+                    // short unkShort01 = packet.ReadShort();
+                    // short unkShort02 = packet.ReadShort();
+                    // short unkShort03 = packet.ReadShort();
+                    // short unkShort04 = packet.ReadShort();
                 }
             }
-
             return result;
         }
 
@@ -124,7 +128,7 @@ namespace RSBot.Core.Objects
 
             if (result.HasDestination)
             {
-                result.Destination = new Position { XSector = packet.ReadByte(), YSector = packet.ReadByte() };
+                result.Destination = new Position { RegionID = packet.ReadUShort() };
 
                 if (!result.Destination.IsInDungeon)
                 {
@@ -141,9 +145,9 @@ namespace RSBot.Core.Objects
             }
             else
             {
-                var hasSky = packet.ReadBool();  //0 = Spinning, 1 = Sky-/Key-walking
+                var actionType = packet.ReadByte();  //0 = Spinning, 1 = Sky-/Key-walking
+                result.HasAngle = true;
                 result.Angle = packet.ReadShort();
-                result.HasAngle = hasSky;
             }
 
             return result;
