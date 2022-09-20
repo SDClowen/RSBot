@@ -36,7 +36,7 @@ namespace RSBot.Core.Objects
         public Position Source;
 
         /// <summary>
-        /// Gets or sets the has source.
+        /// Gets or sets the has angle.
         /// </summary>
         public bool HasAngle;
 
@@ -79,9 +79,9 @@ namespace RSBot.Core.Objects
             }
             else
             {
-                var hasSky = packet.ReadBool();  //0 = Spinning, 1 = Sky-/Key-walking
+                result.HasDestination = packet.ReadByte() == 1; //0 = Spinning, 1 = Sky-/Key-walking
+                result.HasAngle = true;
                 result.Angle = packet.ReadShort();
-                result.HasAngle = hasSky;
             }
 
             var hasEvent = packet.ReadBool();
