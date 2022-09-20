@@ -52,7 +52,7 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                 }
                 else
                 {
-                    Game.Player.Move(movement.Destination.Angle);
+                    Game.Player.Move(movement.Angle);
                 }
 
                 EventManager.FireEvent("OnPlayerMove");
@@ -69,7 +69,7 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
             if (movement.HasDestination)
                 entity.Move(movement.Destination);
             else
-                entity.Move(movement.Destination.Angle);
+                entity.Move(movement.Angle);
 
             EventManager.FireEvent("OnEntityMove", uniqueId);
         }

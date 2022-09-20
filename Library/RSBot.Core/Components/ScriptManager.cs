@@ -211,7 +211,7 @@ namespace RSBot.Core.Components
                )
                 return default; //Invalid format
 
-            return Position.FromOffsets(xOffset, yOffset, zOffset, xSector, ySector);
+            return new Position(xOffset, yOffset, zOffset, xSector, ySector);
         }
 
         /// <summary>

@@ -32,7 +32,7 @@ namespace RSBot.Default.Bot
         {
             Area = new TrainingArea
             {
-                CenterPosition = Position.FromOffsets(
+                CenterPosition = new Position(
                     PlayerConfig.Get<float>("RSBot.Area.X"),
                     PlayerConfig.Get<float>("RSBot.Area.Y")),
                 Radius = PlayerConfig.Get<int>("RSBot.Area.Radius", 50)

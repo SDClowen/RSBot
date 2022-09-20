@@ -3,7 +3,7 @@ using System;
 
 namespace RSBot.Core.Objects
 {
-    public struct Position
+    public class Position
     {
         #region Private Members
         private ushort _RegionID;
@@ -136,6 +136,61 @@ namespace RSBot.Core.Objects
         public float YSectorOffset => IsInDungeon ? (128 * 192 + _YCoordinate) * 10 % 1920 : _YOffset;
         #endregion Public Properties
 
+        #region Constructors
+        public Position() { }
+        /// <summary>
+        /// Creates a position by using world map coordinates
+        /// </summary>
+        /// <param name="regionId">Region ID required for dungeon maps</param>
+        public Position(float xCoordinate, float yCoordinate, ushort regionId = 0)
+        {
+            // World map coordinates has been provided
+            if (regionId == 0)
+            {
+                var xOffset = (int)(Math.Abs(xCoordinate) % 192 * 10);
+                if (xCoordinate < 0)
+                    xOffset = 1920 - xOffset;
+                var yOffset = (int)(Math.Abs(yCoordinate) % 192 * 10);
+                if (yCoordinate < 0)
+                    yOffset = 1920 - yOffset;
+
+                _XSector = (byte)Math.Round((xCoordinate - xOffset / 10f) / 192f + 135);
+                _YSector = (byte)Math.Round((yCoordinate - yOffset / 10f) / 192f + 92);
+                _RegionID = (ushort)((_YSector << 8) | _XSector);
+
+                XOffset = xOffset;
+                YOffset = yOffset;
+            }
+            // Dungeon map coordinates
+            else
+            {
+                RegionID = regionId;
+                XOffset = xCoordinate * 10;
+                YOffset = yCoordinate * 10;
+            }            
+        }
+        /// <summary>
+        /// Creates a position using map offsets
+        /// </summary>
+        public Position(float xOffset, float yOffset, float zOffset, byte xSector, byte ySector)
+        {
+            _RegionID = (ushort)((ySector << 8) | xSector);
+            XOffset = xOffset;
+            YOffset = yOffset;
+            ZOffset = zOffset;
+        }
+        /// <summary>
+        /// Creates a position using map offsets
+        /// </summary>
+        public Position(float xOffset, float yOffset, float zOffset, ushort regionID)
+        {
+            RegionID = regionID;
+            XOffset = xOffset;
+            YOffset = yOffset;
+            ZOffset = zOffset;
+        }
+        #endregion
+
         #region Public Methods
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -200,35 +255,6 @@ namespace RSBot.Core.Objects
                 ZOffset = packet.ReadInt(),
                 YOffset = packet.ReadInt()
             };
-        }
-
-        public static Position FromOffsets(float xOffset, float yOffset, float zOffset, byte xSector, byte ySector)
-        {
-            return FromOffsets(xOffset, yOffset, zOffset, (ushort)((ySector << 8) | xSector));
-        }
-        public static Position FromOffsets(float xOffset, float yOffset, float zOffset, ushort regionId)
-        {
-            return new Position
-            {
-                RegionID = regionId,
-                XOffset = xOffset,
-                YOffset = yOffset,
-                ZOffset = zOffset
-            };
-        }
-        public static Position FromOffsets(float xCoordinate, float yCoordinate)
-        {
-            var xOffset = (int)(Math.Abs(xCoordinate) % 192 * 10);
-            if (xCoordinate < 0)
-                xOffset = 1920 - xOffset;
-            var yOffset = (int)(Math.Abs(yCoordinate) % 192 * 10);
-            if (yCoordinate < 0)
-                yOffset = 1920 - yOffset;
-
-            var xSector = (byte)Math.Round((xCoordinate - xOffset / 10f) / 192f + 135);
-            var ySector = (byte)Math.Round((yCoordinate - yOffset / 10f) / 192f + 92);
-
-            return FromOffsets(xOffset, yOffset, 0, xSector, ySector);
         }
         /// <summary>
         /// Calculates the distance to the current player

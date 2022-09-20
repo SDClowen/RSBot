@@ -43,7 +43,7 @@ namespace RSBot.Core.Client.ReferenceObjects
         /// <returns></returns>
         public Position GetPosition()
         {
-            return Position.FromOffsets(
+            return new Position(
                 GenPos_X, 
                 GenPos_Y, 
                 GenPos_Z, 
