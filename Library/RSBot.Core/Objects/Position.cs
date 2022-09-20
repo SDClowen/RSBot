@@ -141,11 +141,12 @@ namespace RSBot.Core.Objects
         /// <summary>
         /// Creates a position by using world map coordinates
         /// </summary>
-        /// <param name="regionId">Region ID required for dungeon maps</param>
-        public Position(float xCoordinate, float yCoordinate, ushort regionId = 0)
+        /// <param name="regionID">Region ID required for dungeon maps</param>
+        public Position(float xCoordinate, float yCoordinate, ushort regionID = 0)
         {
+            RegionID = regionID;
             // World map coordinates has been provided
-            if (regionId == 0)
+            if (!IsInDungeon)
             {
                 var xOffset = (int)(Math.Abs(xCoordinate) % 192 * 10);
                 if (xCoordinate < 0)
@@ -164,7 +165,6 @@ namespace RSBot.Core.Objects
             // Dungeon map coordinates
             else
             {
-                RegionID = regionId;
                 XOffset = xCoordinate * 10;
                 YOffset = yCoordinate * 10;
             }            
@@ -213,12 +213,10 @@ namespace RSBot.Core.Objects
             if (IsInDungeon != position.IsInDungeon)
                 return double.MaxValue;
             // Make sure they are in the same dungeon
-            if (IsInDungeon && IsInDungeon == position.IsInDungeon)
-            {
-                // Distance cannot be calculated
-                if (RegionID != position.RegionID)
-                    return double.MaxValue;
-            }
+            if (IsInDungeon && RegionID != position.RegionID)
+                return double.MaxValue;
+
+            // Both are in the same region
             return Math.Sqrt(Math.Pow(XCoordinate - position.XCoordinate, 2) + Math.Pow(YCoordinate - position.YCoordinate, 2));
         }
         #endregion Public Methods
