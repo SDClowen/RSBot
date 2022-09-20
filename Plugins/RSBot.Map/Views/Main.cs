@@ -244,7 +244,7 @@ namespace RSBot.Map.Views
                         float.TryParse(PlayerConfig.Get("RSBot.Area.Y", "0"), out var yCoord) &&
                         int.TryParse(PlayerConfig.Get("RSBot.Area.Radius", "50"), out var radius))
                     {
-                        var position = Position.FromOffsets(xCoord, yCoord);
+                        var position = new Position(xCoord, yCoord);
 
                         DrawCircleAt(graphics, position, Color.FromArgb(100, 250, 50, 50), radius * 2);
                         DrawCircleAt(graphics, position, Color.SteelBlue, radius);
@@ -563,14 +563,14 @@ namespace RSBot.Map.Views
                 var mapX = (Game.Player.Movement.Source.XOffset + (((mapCanvas.Width / 2f - e.X) / SectorSize) * 192f * 10 * -1f));
                 var mapY = (Game.Player.Movement.Source.YOffset + (((mapCanvas.Height / 2f - e.Y) / SectorSize) * 192f * 10));
                 var p = Game.Player.Movement.Source;
-                var newPos = Position.FromOffsets(mapX, mapY, p.ZOffset, p.RegionID);
+                var newPos = new Position(mapX, mapY, p.ZOffset, p.RegionID);
                 Game.Player.MoveTo(newPos, false);
             }
             else
             {
                 var mapX = (Game.Player.Movement.Source.XCoordinate + (((mapCanvas.Width / 2f - e.X) / SectorSize) * 192f * -1f));
                 var mapY = (Game.Player.Movement.Source.YCoordinate + (((mapCanvas.Height / 2f - e.Y) / SectorSize) * 192f));
-                var p = Position.FromOffsets(mapX, mapY);
+                var p = new Position(mapX, mapY);
                 Game.Player.MoveTo(p, false);
             }
         }

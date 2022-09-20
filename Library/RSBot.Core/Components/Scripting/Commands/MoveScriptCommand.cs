@@ -88,7 +88,7 @@ namespace RSBot.Core.Components.Scripting.Commands
                )
                 return false; //Invalid format
 
-            var pos = Position.FromOffsets(xOffset, yOffset, zOffset, xSector, ySector);
+            var pos = new Position(xOffset, yOffset, zOffset, xSector, ySector);
 
             if (PlayerConfig.Get<bool>("RSBot.Walkback.UseMount", true))
             {
