@@ -274,8 +274,12 @@ namespace RSBot.Map.Views
                     {
                         foreach (var entry in coses)
                         {
-                            AddGridItem(entry.Name, "", entry.Record.Level, entry.Movement.Source);
-                            DrawPointAt(graphics, entry.Movement.Source, 1);
+                            // Avoid painting vehicles from main player
+                            if(Game.Player.Vehicle?.Id != entry.Id)
+                            {
+                                AddGridItem(entry.Name, "", entry.Record.Level, entry.Movement.Source);
+                                DrawPointAt(graphics, entry.Movement.Source, 1);
+                            }
                         }
                     }
                 }

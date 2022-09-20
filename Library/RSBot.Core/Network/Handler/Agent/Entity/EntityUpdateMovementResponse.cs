@@ -34,43 +34,60 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
             var movement = Movement.MotionFromPacket(packet);
             if (uniqueId == Game.Player.UniqueId || uniqueId == Game.Player.Vehicle?.UniqueId)
             {
+                // Set source from movement
+                movement.Source = Game.Player.Movement.Source;
+
                 if (movement.HasAngle)
-                    Game.Player.SetAngle(movement.Angle);
-
-                if (movement.HasDestination)
                 {
-                    Game.Player.Move(movement.Destination);
-
-                    if (CollisionManager.Region == null || CollisionManager.Region.Id != movement.Destination.RegionID)
+                    // Movement through angle
+                    if (movement.HasDestination)
                     {
-                        Game.NearbyTeleporters = Game.ReferenceManager.GetTeleporters(movement.Destination.RegionID);
-
-                        Log.Debug($"Found teleporters: {Game.NearbyTeleporters.Length}");
-
-                        CollisionManager.Update(movement.Destination.RegionID);
+                        Game.Player.Move(movement.Angle);
+                        EventManager.FireEvent("OnPlayerMove");
                     }
+                    else
+                    {
+                        Game.Player.SetAngle(movement.Angle);
+                    }
+                    return;
                 }
-                else
+
+                // Collision stuffs
+                if (CollisionManager.Region == null || CollisionManager.Region.Id != movement.Destination.RegionID)
                 {
-                    Game.Player.Move(movement.Angle);
+                    Game.NearbyTeleporters = Game.ReferenceManager.GetTeleporters(movement.Destination.RegionID);
+                    Log.Debug($"Found teleporters: {Game.NearbyTeleporters.Length}");
+                    CollisionManager.Update(movement.Destination.RegionID);
                 }
 
+                // Movement through click
+                Game.Player.Move(movement.Destination);
                 EventManager.FireEvent("OnPlayerMove");
-
                 return;
             }
 
             if (!SpawnManager.TryGetEntity<SpawnedEntity>(uniqueId, out var entity)) 
                 return;
 
+            // Set source from movement
+            movement.Source = entity.Movement.Source;
             if (movement.HasAngle)
-                entity.SetAngle(movement.Angle);
+            {
+                // Movement through angle
+                if (movement.HasDestination)
+                {
+                    entity.Move(movement.Angle);
+                    EventManager.FireEvent("OnEntityMove");
+                }
+                else
+                {
+                    entity.SetAngle(movement.Angle);
+                }
+                return;
+            }
 
-            if (movement.HasDestination)
-                entity.Move(movement.Destination);
-            else
-                entity.Move(movement.Angle);
-
+            // Movement through click
+            entity.Move(movement.Destination);
             EventManager.FireEvent("OnEntityMove", uniqueId);
         }
     }
