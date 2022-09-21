@@ -275,7 +275,7 @@ namespace RSBot.Map.Views
                         foreach (var entry in coses)
                         {
                             // Avoid painting vehicles from main player
-                            if(Game.Player.Vehicle?.Id != entry.Id)
+                            if(Game.Player.Vehicle?.UniqueId != entry.UniqueId)
                             {
                                 AddGridItem(entry.Name, "", entry.Record.Level, entry.Movement.Source);
                                 DrawPointAt(graphics, entry.Movement.Source, 1);
