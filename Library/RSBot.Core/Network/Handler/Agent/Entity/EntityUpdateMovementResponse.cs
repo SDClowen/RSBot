@@ -35,7 +35,8 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
             if (uniqueId == Game.Player.UniqueId || uniqueId == Game.Player.Vehicle?.UniqueId)
             {
                 // Set source from movement
-                movement.Source = Game.Player.Movement.Source;
+                if (movement.HasSource)
+                    Game.Player.SetSource(movement.Source);
 
                 if (movement.HasAngle)
                 {
@@ -70,7 +71,9 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                 return;
 
             // Set source from movement
-            movement.Source = entity.Movement.Source;
+            if (movement.HasSource)
+                entity.SetSource(movement.Source);
+
             if (movement.HasAngle)
             {
                 // Movement through angle
