@@ -84,29 +84,24 @@ namespace RSBot.Core.Objects
                 result.Angle = packet.ReadShort();
             }
 
-            var hasEvent = packet.ReadBool();
-            if (hasEvent)
+            result.HasSource = packet.ReadBool();
+            if (result.HasSource)
             {
-                if (result.HasDestination)
+                result.Source = new Position()
                 {
-                    // Sector changed
-
-                    //ushort latestRegionID = packet.ReadUShort();
-                    // ushort unkUShort01
-                    // ushort unkUShort02
-                    // ushort unkUShort03
-                    // ushort unkUShort04
+                    RegionID = packet.ReadUShort()
+                };
+                if (result.Source.IsInDungeon)
+                {
+                    result.Source.XOffset = packet.ReadInt() / 10f;
+                    result.Source.ZOffset = packet.ReadFloat();
+                    result.Source.YOffset = packet.ReadInt() / 10f;
                 }
                 else
                 {
-                    // Angle changed
-
-                    result.HasAngle = true;
-                    result.Angle = packet.ReadShort();
-                    // short unkShort01 = packet.ReadShort();
-                    // short unkShort02 = packet.ReadShort();
-                    // short unkShort03 = packet.ReadShort();
-                    // short unkShort04 = packet.ReadShort();
+                    result.Source.XOffset = packet.ReadShort() / 10f;
+                    result.Source.ZOffset = packet.ReadFloat();
+                    result.Source.YOffset = packet.ReadShort() / 10f;
                 }
             }
             return result;

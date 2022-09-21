@@ -11,8 +11,6 @@ namespace RSBot.Core.Objects
         private byte _YSector;
         private float _XOffset;
         private float _YOffset;
-        private float _XCoordinate;
-        private float _YCoordinate;
         #endregion Private Members
 
         #region Public Properties
@@ -53,7 +51,6 @@ namespace RSBot.Core.Objects
                 if (IsInDungeon)
                 {
                     _XOffset = value;
-                    _XCoordinate = value / 10;
                     _XSector = (byte)(((128.0 * 192.0 + (128 * 192 + value / 10)) / 192.0) - 128);
                 }
                 else
@@ -69,7 +66,6 @@ namespace RSBot.Core.Objects
                         _XOffset -= 1920;
                         _XSector += 1;
                     }
-                    _XCoordinate = (_XSector - 135) * 192 + value / 10;
                 }
             }
         }
@@ -84,7 +80,6 @@ namespace RSBot.Core.Objects
                 if (IsInDungeon)
                 {
                     _YOffset = value;
-                    _YCoordinate = value / 10;
                     _YSector = (byte)(((128.0 * 192.0 + (128 * 192 + value / 10)) / 192.0) - 128);
                 }
                 else
@@ -100,7 +95,6 @@ namespace RSBot.Core.Objects
                         _YOffset -= 1920;
                         _YSector += 1;
                     }
-                    _YCoordinate = (_YSector - 92) * 192 + value / 10;
                 }
             }
         }
@@ -118,22 +112,22 @@ namespace RSBot.Core.Objects
         /// <value>
         /// The x coordinate.
         /// </value>
-        public float XCoordinate => _XCoordinate;
+        public float XCoordinate => IsInDungeon ? _XOffset / 10 : (_XSector - 135) * 192 + _XOffset / 10;
         /// <summary>
         /// Gets the y coordinate.
         /// </summary>
         /// <value>
         /// The y coordinate.
         /// </value>
-        public float YCoordinate => _YCoordinate;
+        public float YCoordinate => IsInDungeon ? _YOffset / 10 : (_YSector - 92) * 192 + _YOffset / 10;
         /// <summary>
         /// Gets offset from x sector.
         /// </summary>
-        public float XSectorOffset => IsInDungeon? (127 * 192 + _XCoordinate) * 10 % 1920 : _XOffset;
+        public float XSectorOffset => IsInDungeon? (127 * 192 + _XOffset / 10) * 10 % 1920 : _XOffset;
         /// <summary>
         /// Gets offset from y sector.
         /// </summary>
-        public float YSectorOffset => IsInDungeon ? (128 * 192 + _YCoordinate) * 10 % 1920 : _YOffset;
+        public float YSectorOffset => IsInDungeon ? (128 * 192 + _YOffset / 10) * 10 % 1920 : _YOffset;
         #endregion Public Properties
 
         #region Constructors
