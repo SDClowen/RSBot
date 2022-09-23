@@ -1,7 +1,8 @@
-﻿using RSBot.Core;
+﻿using System;
+using System.IO;
+using RSBot.Core;
 using RSBot.Core.Plugins;
 using RSBot.Map.Views;
-
 using System.Windows.Forms;
 
 namespace RSBot.Map

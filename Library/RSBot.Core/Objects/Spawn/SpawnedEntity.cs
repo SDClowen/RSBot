@@ -67,6 +67,14 @@ namespace RSBot.Core.Objects.Spawn
         public Movement Movement;
 
         /// <summary>
+        /// Gets the position.
+        /// </summary>
+        /// <value>
+        /// The position.
+        /// </value>
+        public Position Position => Movement.Source;
+
+        /// <summary>
         /// Gets a value indicating whether [in cave].
         /// </summary>
         /// <value>
@@ -80,7 +88,7 @@ namespace RSBot.Core.Objects.Spawn
         /// <value>
         /// <c>true</c> if this instance is behind obstacle; otherwise, <c>false</c>.
         /// </value>
-        public bool IsBehindObstacle => CollisionManager.HasCollisionBetween(Movement.Source, Game.Player.Movement.Source);
+        public bool IsBehindObstacle => CollisionManager.HasCollisionBetween(Game.Player.Position, Position);
 
         /// <summary>
         /// Entity current speed
@@ -163,22 +171,32 @@ namespace RSBot.Core.Objects.Spawn
 
         private void CalculateMovingConditional()
         {
-            var position = this.Movement.Source;
-            var diffX = Movement.Destination.XCoordinate - position.XCoordinate;
-            var diffY = Movement.Destination.YCoordinate - position.YCoordinate;
-            var distance = Movement.Destination.DistanceTo(position);
+            try
+            {
+                var position = this.Movement.Source;
+                var diffX = Movement.Destination?.XCoordinate - position.XCoordinate;
+                var diffY = Movement.Destination?.YCoordinate - position.YCoordinate;
+                var distance = Movement.Destination?.DistanceTo(position);
 
-            var speed = ActualSpeed * 0.1f;
+                if (distance == null || diffX == null || diffY == null)
+                    return;
 
-            // Don't move if too close to destination
-            if (distance <= 1)
-                return;
+                var speed = ActualSpeed * 0.1f;
 
-            // Calculate movement and move time
-            var remaining = TimeSpan.FromSeconds(distance / speed);
-            Movement.MovingX = diffX / remaining.TotalSeconds;
-            Movement.MovingY = diffY / remaining.TotalSeconds;
-            Movement.RemainingTime = remaining;
+                // Don't move if too close to destination
+                if (distance <= 1)
+                    return;
+
+                // Calculate movement and move time
+                var remaining = TimeSpan.FromSeconds((double) distance / speed);
+                Movement.MovingX = (float)diffX / remaining.TotalSeconds;
+                Movement.MovingY = (float)diffY / remaining.TotalSeconds;
+                Movement.RemainingTime = remaining;
+            }
+            catch (NullReferenceException) //can happen if the entity has reached its destination but the core didn't handle it yet
+            {
+                Log.Debug($"SpawnedEntity::CalculateMovingConditional->Ignored Null reference exception");
+            }
         }
 
         private void CheckMovement(int delta)

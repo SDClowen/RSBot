@@ -36,7 +36,7 @@ namespace RSBot.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void SplashScreen_Load(object sender, EventArgs e)
         {
-            if(!LoadProfileConfig())
+            if (!LoadProfileConfig())
             {
                 Environment.Exit(0);
                 return;
@@ -118,7 +118,7 @@ namespace RSBot.Views
         /// </summary>
         private bool LoadProfileConfig()
         {
-            if(!ProfileManager.IsProfileLoadedByArgs)
+            if (!ProfileManager.IsProfileLoadedByArgs)
             {
                 if (ProfileManager.ShowProfileDialog)
                 {
@@ -166,6 +166,18 @@ namespace RSBot.Views
             //---- Load Botbases ----
             if (!Kernel.BotbaseManager.LoadAssemblies())
                 MessageBox.Show(@"Failed to load botbases. Process canceled!", @"Initialize Application - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            //---- Load Map ----
+            var mapFile = Path.Combine(Environment.CurrentDirectory, "Data", "Game", "map.rsc");
+
+            if (!File.Exists(mapFile))
+            {
+                Log.Error($"[Collisions] Directory {mapFile} not found!");
+
+                return;
+            }
+
+            CollisionManager.Initialize(mapFile);
         }
 
         /// <summary>

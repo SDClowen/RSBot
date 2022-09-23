@@ -97,7 +97,7 @@ namespace RSBot.Core.Objects.Spawn
         /// <param name="itemUniqueId">The item unique identifier.</param>F
         public void Pickup()
         {
-            if (CollisionManager.HasCollisionBetween(Game.Player.Movement.Source, Movement.Source))
+            if (IsBehindObstacle)
                 return;
 
             var packet = new Packet(0x7074);

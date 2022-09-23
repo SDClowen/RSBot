@@ -54,7 +54,7 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                 }
 
                 // Collision stuffs
-                if (CollisionManager.Region == null || CollisionManager.Region.Id != movement.Destination.RegionID)
+                if (CollisionManager.CenterRegionId != movement.Destination.RegionID)
                 {
                     Game.NearbyTeleporters = Game.ReferenceManager.GetTeleporters(movement.Destination.RegionID);
                     Log.Debug($"Found teleporters: {Game.NearbyTeleporters.Length}");
