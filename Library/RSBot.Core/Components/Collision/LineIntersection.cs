@@ -10,13 +10,13 @@ namespace RSBot.Core.Components.Collision
     /// </summary>
     internal class LineIntersection
     {
-        public static Tuple<Position, CalculatedCollisionLine>? FindIntersection(CalculatedCollisionLine lineA, CalculatedCollisionLine lineB, double tolerance = 1)
+        public static (Position collidedAt, CalculatedCollisionLine collidedWith)? FindIntersection(CalculatedCollisionLine lineA, CalculatedCollisionLine lineB, double tolerance = 1)
         {
             double x1 = lineA.Source.XCoordinate, y1 = lineA.Source.YCoordinate;
             double x2 = lineA.Destination.XCoordinate, y2 = lineA.Destination.YCoordinate;
 
             double x3 = lineB.Source.XCoordinate, y3 = lineB.Source.YCoordinate;
-            double x4 = lineB.Destination.YCoordinate, y4 = lineB.Destination.YCoordinate;
+            double x4 = lineB.Destination.XCoordinate, y4 = lineB.Destination.YCoordinate;
 
             double x, y;
 
@@ -84,7 +84,7 @@ namespace RSBot.Core.Components.Collision
             if (IsInsideLine(lineA, x, y) &&
                 IsInsideLine(lineB, x, y))
             {
-                return new Tuple<Position, CalculatedCollisionLine>(new Position((float)x, (float)y), lineB);
+                return new(new Position((float)x, (float)y), lineB);
             }
             //return default null (no intersection)
             return null;

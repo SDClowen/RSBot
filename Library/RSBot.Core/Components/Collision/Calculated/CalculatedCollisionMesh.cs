@@ -26,6 +26,10 @@ public class CalculatedCollisionMesh
         Calculate(original);
     }
 
+    /// <summary>
+    /// Calculates the specified original.
+    /// </summary>
+    /// <param name="original">The original.</param>
     private void Calculate(RSCollisionMesh original)
     {
         foreach (var line in original.CollisionLines)
