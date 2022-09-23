@@ -22,7 +22,7 @@ internal class CollisionCalculator
         {
             foreach (var line in mesh.Collisions.Where(x => x.Source.DistanceToPlayer() < 150).OrderBy(x => x.Source.DistanceToPlayer()))
             {
-                var collision = LineIntersection.FindIntersection(sourceLine, line);
+                var collision = Intersection.FindIntersection(sourceLine, line);
 
                 if (collision.HasValue)
                 {

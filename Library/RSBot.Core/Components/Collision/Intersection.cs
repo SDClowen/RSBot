@@ -5,10 +5,10 @@ using RSBot.Core.Objects;
 namespace RSBot.Core.Components.Collision
 {
     /// <summary>
-    /// Taken from https://github.com/justcoding121/Advanced-Algorithms/blob/master/Advanced.Algorithms/Geometry/LineIntersection.cs
+    /// Taken from https://github.com/justcoding121/Advanced-Algorithms/blob/master/Advanced.Algorithms/Geometry/Intersection.cs
     /// Slightly modified to match RSBot purposes!
     /// </summary>
-    internal class LineIntersection
+    internal class Intersection
     {
         public static (Position collidedAt, CalculatedCollisionLine collidedWith)? FindIntersection(CalculatedCollisionLine lineA, CalculatedCollisionLine lineB, double tolerance = 1)
         {
