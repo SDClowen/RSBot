@@ -5,6 +5,7 @@ using RSBot.Core.Network;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Party;
 using RSBot.Core.Objects.Spawn;
+using System;
 using System.IO;
 
 namespace RSBot.Core
@@ -159,7 +160,6 @@ namespace RSBot.Core
 
             SkillManager.Initialize();
             ShoppingManager.Initialize();
-            CollisionManager.Initialize();
             ClientlessManager.Initialize();
             ScriptManager.Initialize();
         }

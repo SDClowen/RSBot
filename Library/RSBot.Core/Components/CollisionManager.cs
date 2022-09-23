@@ -1,264 +1,173 @@
 ﻿using RSBot.Core.Components.Collision;
+using RSBot.Core.Components.Collision.Calculated;
+using RSBot.Core.Event;
 using RSBot.Core.Objects;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
+using System.Linq;
 
-namespace RSBot.Core.Components
+namespace RSBot.Core.Components;
+
+public static class CollisionManager
 {
-    public class CollisionManager
+    /// <summary>
+    /// Gets a value indicating whether this instance is initialized.
+    /// </summary>
+    /// <value>
+    ///   <c>true</c> if this instance is initialized; otherwise, <c>false</c>.
+    /// </value>
+    public static bool IsInitialized { get; private set; }
+
+    /// <summary>
+    /// Gets a value indicating whether this instance is updating.
+    /// </summary>
+    /// <value>
+    ///   <c>true</c> if this instance is updating; otherwise, <c>false</c>.
+    /// </value>
+    public static bool IsUpdating { get; private set; }
+
+    /// <summary>
+    /// Gets the center region identifier.
+    /// </summary>
+    /// <value>
+    /// The center region identifier.
+    /// </value>
+    public static ushort CenterRegionId { get; private set; }
+
+    /// <summary>
+    /// Gets a value indicating whether this instance has active collision meshes.
+    /// </summary>
+    /// <value>
+    ///   <c>true</c> if this instance has active meshes; otherwise, <c>false</c>.
+    /// </value>
+    public static bool HasActiveMeshes
     {
-        /// <summary>
-        /// Gets the regions.
-        /// </summary>
-        /// <value>
-        /// The regions.
-        /// </value>
-        public static List<Objects.Region> LoadedRegions { get; private set; }
-
-        /// <summary>
-        /// Gets the region.
-        /// </summary>
-        /// <value>
-        /// The region.
-        /// </value>
-        public static Objects.Region Region { get; private set; }
-
-        private static CollisionLoader _collisionLoader;
-
-        private static List<Line> _collisions;
-
-        /// <summary>
-        /// Initializes this instance.
-        /// </summary>
-        internal static void Initialize()
+        get
         {
-            var collisionFile = Path.Combine(Environment.CurrentDirectory, "Data", "Game", "map.rsc");
-            var collisionIndexFile = Path.Combine(Environment.CurrentDirectory, "Data", "Game", "map.rsci");
+            if (!IsInitialized)
+                return false;
 
-            if (!File.Exists(collisionFile) || !File.Exists(collisionIndexFile))
-            {
-                Log.Error("Could not find collision files, collision detection will not be functional.");
-                return;
-            }
+            if (ActiveCollisionMeshes == null)
+                return false;
 
-            _collisionLoader = new CollisionLoader(collisionFile, collisionIndexFile);
+            if (IsUpdating)
+                return false;
+
+            return ActiveCollisionMeshes.Count > 0;
+        }
+    }
+
+    /// <summary>
+    /// Gets the active collision meshes.
+    /// </summary>
+    /// <value>
+    /// The active collision meshes.
+    /// </value>
+    public static List<CalculatedCollisionMesh>? ActiveCollisionMeshes { get; private set; }
+
+    private static Dictionary<ushort, RSCollisionMesh> _loadedCollisions;
+
+    /// <summary>
+    /// Initializes the specified map data directory.
+    /// </summary>
+    /// <param name="fileName">Path to the RS map.</param>
+    public static void Initialize(string fileName)
+    {
+        LoadCollisions(fileName);
+
+        IsInitialized = true;
+    }
+
+    /// <summary>
+    /// Loads the collisions from the specified file path.
+    /// </summary>
+    /// <param name="path">The path.</param>
+    public static void LoadCollisions(string path)
+    {
+        var sw = Stopwatch.StartNew();
+
+        _loadedCollisions = new Dictionary<ushort, RSCollisionMesh>(1024);
+
+        var fileStream = new BinaryReader(File.OpenRead(path));
+
+        while (fileStream.ReadBoolean())
+        {
+            var collisionMesh = new RSCollisionMesh(fileStream);
+
+            _loadedCollisions.Add(collisionMesh.RegionId, collisionMesh);
         }
 
-        /// <summary>
-        /// Updates the specified region identifier.
-        /// </summary>
-        /// <param name="regionId">The region identifier.</param>
-        internal static void Update(ushort regionId)
+        Log.Notify($"[Collision] Loaded {_loadedCollisions.Count} collision regions in {sw.ElapsedMilliseconds}ms");
+
+        EventManager.FireEvent("OnLoadCollisions");
+    }
+
+    /// <summary>
+    /// Updates the collision that are currently stored as active.
+    /// If the center region equals the new one, no action will be executed.
+    /// </summary>
+    /// <param name="centerRegionId">The center region identifier.</param>
+    public static void Update(ushort centerRegionId)
+    {
+        if (centerRegionId == CenterRegionId || !IsInitialized)
+            return;
+
+        IsUpdating = true;
+        CenterRegionId = centerRegionId;
+
+        ActiveCollisionMeshes = new List<CalculatedCollisionMesh>(9);
+
+        var centerRegion = new Region(centerRegionId);
+        var surroundedBy = Region.GetSurroundingRegions(centerRegion.XSector, centerRegion.YSector);
+
+        foreach (var region in surroundedBy.Where(region => _loadedCollisions.ContainsKey(region.Id)))
         {
-            if (_collisionLoader == null)
-                return;
+            var mesh = _loadedCollisions[region.Id];
+            var calculatedMesh = new CalculatedCollisionMesh(mesh);
 
-            var stopWatch = new Stopwatch();
-            stopWatch.Start();
-
-            Region = new Objects.Region(regionId);
-            LoadedRegions = Objects.Region.GetSurroundingRegions(Region.XSector, Region.YSector);
-
-            var rawLines = new Dictionary<int, List<Line>>();
-
-            var index = 0; //0-8
-            foreach (var region in LoadedRegions)
-            {
-                rawLines.Add(index, _collisionLoader.GetCollisions(region.Id));
-                index++;
-            }
-
-            //Take all "raw" lines and recalculate their positions to match the 3x3 grid.
-            _collisions = TranslatePoints(rawLines);
-
-            stopWatch.Stop();
-
-            Log.Debug($"[CollisionManager] {LoadedRegions.Count} regions with a total of {_collisions.Count} collisions loaded in {stopWatch.ElapsedMilliseconds}ms");
+            ActiveCollisionMeshes.Add(calculatedMesh);
         }
 
-        /// <summary>
-        /// Determines whether [has collision between] [the specified source and destionation].
-        /// </summary>
-        /// <param name="source">The source.</param>
-        /// <param name="destination">The destination.</param>
-        /// <returns>
-        ///   <c>true</c> if [has collision between] [the specified a]; otherwise, <c>false</c>.
-        /// </returns>
-        public static bool HasCollisionBetween(Position source, Position destination)
-        {
-            var offsetSource = GetOffsetByRegionIndex(GetRegionIndexFromPosition(source));
-            var offsetDestination = GetOffsetByRegionIndex(GetRegionIndexFromPosition(destination));
+        IsUpdating = false;
 
-            if(offsetSource.X == 1920 && offsetSource.Y == 1920 && 
-               offsetDestination.X == 1920 && offsetDestination.Y == 1920)
-                return false; // when source and destionation positions are x-y = 1920 its bugging
+        Log.Debug($"[Collision] Loaded {ActiveCollisionMeshes.Count} regions!");
+        EventManager.FireEvent("OnUpdateCollisions");
+    }
 
-            //Position -> SharpDX.Point
-            var pointSource = new Point
-            {
-                X = Convert.ToInt32(offsetSource.X + source.XSectorOffset),
-                Y = Convert.ToInt32(offsetSource.Y + (1920 - source.YSectorOffset))
-            };
+    /// <summary>
+    /// Determines whether [has collision between] [the specified source].
+    /// </summary>
+    /// <param name="source">The source.</param>
+    /// <param name="destination">The destination.</param>
+    /// <returns>
+    ///   <c>true</c> if [has collision between] [the specified source]; otherwise, <c>false</c>.
+    /// </returns>
+    public static bool HasCollisionBetween(Position? source, Position? destination)
+    {
+        if (!HasActiveMeshes)
+            return false;
 
-            //Position -> SharpDX.Point
-            var pointDestination = new Point
-            {
-                X = Convert.ToInt32(offsetDestination.X + destination.XSectorOffset),
-                Y = Convert.ToInt32(offsetDestination.Y + (1920 - destination.YSectorOffset))
-            };
+        if (source == null || destination == null)
+            return false;
 
-            //It might be possible, that the player is standing right next to an obstacle, that would cause calculation issues and false positives,
-            //Therefore it's required to reset the source point to a point right next to the source and between source and destination.
-            var pointBetweenSourceAndDestination = CalculatePointBetweenPoints(pointSource, pointDestination, 2); //2 = size of player.. or at least kind of.
-            if (CollisionDetector.HasCollisionBetween(pointSource, pointBetweenSourceAndDestination, _collisions))
-                pointSource = pointBetweenSourceAndDestination;
+        return CollisionCalculator.GetCalculatedCollisionBetween(source, destination, ActiveCollisionMeshes) != null;
+    }
 
-            return CollisionDetector.HasCollisionBetween(pointSource, pointDestination, _collisions);
-        }
+    /// <summary>
+    /// Gets the collision between the source and destination.
+    /// </summary>
+    /// <param name="source">The source.</param>
+    /// <param name="destination">The destination.</param>
+    /// <returns>null if no collision was found</returns>
+    public static CollisionResult? GetCollisionBetween(Position? source, Position? destination)
+    {
+        if (!HasActiveMeshes)
+            return null;
 
-        /// <summary>
-        /// Translates the collision points (relative for each sector) to absolute points in the sector grid.
-        /// </summary>
-        private static List<Line> TranslatePoints(Dictionary<int, List<Line>> rawLines)
-        {
-            var result = new List<Line>();
+        if (source == null || destination == null)
+            return null;
 
-            var index = 0;
-            foreach (var region in rawLines.Keys)
-            {
-                var gridOffset = GetOffsetByRegionIndex(region);
-                var lines = rawLines[index];
-
-                var calculatedLines = new List<Line>(lines.Count);
-
-                foreach (var line in lines)
-                {
-                    //Recalculate the obstacle position to match the grid (3x3) instead of only one sector.
-                    var translatedLine = new Line
-                    {
-                        Source = new Point
-                        (
-                            Convert.ToInt32(gridOffset.X + line.Source.X),
-                            Convert.ToInt32(gridOffset.Y + line.Source.Y)
-                        ),
-                        Destination = new Point
-                        (
-                            Convert.ToInt32(gridOffset.X + line.Destination.X),
-                            Convert.ToInt32(gridOffset.Y + line.Destination.Y)
-                        )
-                    };
-
-                    calculatedLines.Add(translatedLine);
-                }
-
-                result.AddRange(calculatedLines);
-
-                index++;
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Gets the x offset.
-        /// </summary>
-        /// <param name="regionIndex">Index of the region.</param>
-        /// <returns></returns>
-        private static Point GetOffsetByRegionIndex(int regionIndex)
-        {
-            var offsetX = 0;
-            var offsetY = 0;
-
-            switch (regionIndex)
-            {
-                case 0: //Top left
-                    offsetX = 0;
-                    offsetY = 0;
-                    break;
-
-                case 1: //Top center
-                    offsetX = 1920;
-                    offsetY = 0;
-                    break;
-
-                case 2: //Top right
-                    offsetX = 1920 * 2;
-                    offsetY = 0;
-                    break;
-
-                case 3: //Center left
-                    offsetX = 0;
-                    offsetY = 1920;
-                    break;
-
-                case 4: //Center center
-                    offsetX = 1920;
-                    offsetY = 1920;
-                    break;
-
-                case 5: //Center right
-                    offsetX = 1920 * 2;
-                    offsetY = 1920;
-                    break;
-
-                case 6: //Bottom left
-                    offsetX = 0;
-                    offsetY = 1920 * 2;
-                    break;
-
-                case 7: //Bottom center
-                    offsetX = 1920;
-                    offsetY = 1920 * 2;
-                    break;
-
-                case 8: //Bottom right
-                    offsetX = 1920 * 2;
-                    offsetY = 1920 * 2;
-                    break;
-            }
-
-            return new Point(offsetX, offsetY);
-        }
-
-        /// <summary>
-        /// Gets the region index from position.
-        /// </summary>
-        /// <param name="position">The position.</param>
-        /// <returns></returns>
-        private static int GetRegionIndexFromPosition(Position position)
-        {
-            for (var i = 0; i < LoadedRegions.Count; i++)
-                if (LoadedRegions[i].Id == position.RegionID)
-                    return i;
-
-            return -1;
-        }
-
-        /// <summary>
-        /// Calculates the point between points.
-        /// </summary>
-        /// <param name="a">a.</param>
-        /// <param name="b">The b.</param>
-        /// <param name="distance">The distance.</param>
-        /// <returns></returns>
-        private static Point CalculatePointBetweenPoints(Point a, Point b, int distance)
-        {
-            // a. calculate the vector from o to g:
-            double vectorX = b.X - a.X;
-            double vectorY = b.Y - a.Y;
-
-            // b. calculate the proportion of hypotenuse
-            var factor = distance / Math.Sqrt(vectorX * vectorX + vectorY * vectorY);
-
-            // c. factor the lengths
-            vectorX *= factor;
-            vectorY *= factor;
-
-            // d. calculate and Draw the new vector,
-            return new Point((int)(a.X + vectorX), (int)(a.Y + vectorY));
-        }
+        return CollisionCalculator.GetCalculatedCollisionBetween(source, destination, ActiveCollisionMeshes);
     }
 }

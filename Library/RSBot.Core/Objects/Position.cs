@@ -128,6 +128,7 @@ namespace RSBot.Core.Objects
         /// Gets offset from y sector.
         /// </summary>
         public float YSectorOffset => IsInDungeon ? (128 * 192 + _YOffset / 10) * 10 % 1920 : _YOffset;
+
         #endregion Public Properties
 
         #region Constructors
@@ -153,6 +154,7 @@ namespace RSBot.Core.Objects
                 _YSector = (byte)Math.Round((yCoordinate - yOffset / 10f) / 192f + 92);
                 _RegionID = (ushort)((_YSector << 8) | _XSector);
 
+                RegionID = regionID;
                 XOffset = xOffset;
                 YOffset = yOffset;
             }
@@ -168,7 +170,7 @@ namespace RSBot.Core.Objects
         /// </summary>
         public Position(float xOffset, float yOffset, float zOffset, byte xSector, byte ySector)
         {
-            _RegionID = (ushort)((ySector << 8) | xSector);
+            RegionID = (ushort)((ySector << 8) | xSector);
             XOffset = xOffset;
             YOffset = yOffset;
             ZOffset = zOffset;

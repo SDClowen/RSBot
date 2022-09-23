@@ -51,7 +51,6 @@ namespace RSBot.Default.Bundle.Movement
             var distance = Game.Player.Movement.Source.DistanceTo(Container.Bot.Area.CenterPosition);
             var hasCollision = CollisionManager.HasCollisionBetween(Game.Player.Movement.Source, Container.Bot.Area.CenterPosition);
 
-            
             //Go back if the player is out of the radius
             if ((distance > Container.Bot.Area.Radius || (Config.WalkToCenter && distance > 10)) && !hasCollision)
             {
@@ -76,7 +75,7 @@ namespace RSBot.Default.Bundle.Movement
             randomRadius /= 10;
             destination.XOffset += _random.Next(-randomRadius, randomRadius);
             destination.YOffset += _random.Next(-randomRadius, randomRadius);
-            if (!CollisionManager.HasCollisionBetween(Game.Player.Movement.Source, destination))
+            if (CollisionManager.HasCollisionBetween(Game.Player.Movement.Source, destination) == null)
                 Game.Player.MoveTo(destination, false);
         }
 

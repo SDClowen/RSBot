@@ -54,7 +54,7 @@ namespace RSBot.Default.Bundle.Target
         public void Invoke()
         {
             bool warlockModeEnabled = PlayerConfig.Get<bool>("RSBot.Skills.WarlockMode", false);
-            if (Game.SelectedEntity != null && Game.SelectedEntity.State.LifeState == LifeState.Alive && !(warlockModeEnabled && Game.SelectedEntity.State.HasTwoDots()))
+            if (Game.SelectedEntity != null && Game.SelectedEntity.State.LifeState == LifeState.Alive && !(warlockModeEnabled && Game.SelectedEntity.State.HasTwoDots()) && !Game.SelectedEntity.IsBehindObstacle)
                 return;
 
             var monster = GetNearestEnemy();

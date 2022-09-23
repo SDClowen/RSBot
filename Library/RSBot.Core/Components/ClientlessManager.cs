@@ -1,6 +1,5 @@
 ﻿using RSBot.Core.Event;
 using RSBot.Core.Network;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace RSBot.Core.Components

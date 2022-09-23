@@ -11,6 +11,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
+using Region = RSBot.Core.Objects.Region;
 
 namespace RSBot.Map.Views
 {
@@ -61,6 +62,8 @@ namespace RSBot.Map.Views
         /// The Zoom identifier
         /// </summary>
         private float _scale = SectorSize / 192.0f;
+
+        private Region _currentRegion => Core.Objects.Region.FromSectors(_currentXSec, _currentYSec);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Main"/> class.
@@ -136,7 +139,6 @@ namespace RSBot.Map.Views
 
             try
             {
-
                 var x = GetMapX(position);
                 var y = GetMapY(position);
 
@@ -200,7 +202,6 @@ namespace RSBot.Map.Views
                 var y = GetMapY(position);
 
                 var semiTransBrush = new SolidBrush(Color.FromArgb(90, color.R, color.G, color.B));
-
 
                 var diameterF = diameter * _scale;
                 var point = new PointF(x - diameterF / 2, y - diameterF / 2);
@@ -275,7 +276,7 @@ namespace RSBot.Map.Views
                         foreach (var entry in coses)
                         {
                             // Avoid painting vehicles from main player
-                            if(Game.Player.Vehicle?.UniqueId != entry.UniqueId)
+                            if (Game.Player.Vehicle?.UniqueId != entry.UniqueId)
                             {
                                 AddGridItem(entry.Name, "", entry.Record.Level, entry.Movement.Source);
                                 DrawPointAt(graphics, entry.Movement.Source, 1);
@@ -346,6 +347,38 @@ namespace RSBot.Map.Views
             lvMonster.EndUpdate();
         }
 
+        private void DrawCollisions(Graphics gfx)
+        {
+            if (CollisionManager.HasActiveMeshes)
+            {
+                //Draw collisions
+                foreach (var collisionNavmesh in CollisionManager.ActiveCollisionMeshes)
+                {
+                    foreach (var collider in collisionNavmesh.Collisions)
+                        DrawLineAt(gfx, collider.Source, collider.Destination, Pens.Red);
+                }
+
+                if (!SpawnManager.TryGetEntities<SpawnedEntity>(out var entities))
+                    return;
+
+                foreach (var entity in entities)
+                {
+                    var collision =
+                        CollisionManager.GetCollisionBetween(Game.Player.Position, entity.Position);
+
+                    if (!collision.HasValue)
+                        continue;
+
+                    var rayPen = new Pen(Color.AliceBlue);
+                    rayPen.DashStyle = DashStyle.Dot;
+
+                    DrawLineAt(gfx, Game.Player.Position, entity.Position, rayPen);
+                    DrawLineAt(gfx, Game.Player.Position, collision.Value.CollidedWith.Source, Pens.DeepSkyBlue);
+                    DrawLineAt(gfx, collision.Value.Source, collision.Value.CollidedWith.Destination, Pens.Yellow);
+                }
+            }
+        }
+
         private Image LoadSectorImage(string sectorImgName)
         {
             if (_cachedImages.ContainsKey(sectorImgName))
@@ -360,6 +393,7 @@ namespace RSBot.Map.Views
 
             return new Bitmap(SectorSize, SectorSize);
         }
+
         /// <summary>
         /// Get path from map layer
         /// </summary>
@@ -381,14 +415,19 @@ namespace RSBot.Map.Views
                     // QinShi Tomb
                     case 32770:
                         return "qt_a01_floor06_{0}x{1}.ddj";
+
                     case 32771:
                         return "qt_a01_floor05_{0}x{1}.ddj";
+
                     case 32772:
                         return "qt_a01_floor04_{0}x{1}.ddj";
+
                     case 32773:
                         return "qt_a01_floor03_{0}x{1}.ddj";
+
                     case 32774:
                         return "qt_a01_floor02_{0}x{1}.ddj";
+
                     case 32775:
                         return "qt_a01_floor01_{0}x{1}.ddj";
                     // Job Temple
@@ -398,6 +437,7 @@ namespace RSBot.Map.Views
                     case 32782:
                     case 32784:
                         return "rn_sd_egypt1_01_{0}x{1}.ddj";
+
                     case 32783:
                         return "rn_sd_egypt1_02_{0}x{1}.ddj";
                     // Fortress Dungeon
@@ -409,22 +449,26 @@ namespace RSBot.Map.Views
                     // Jupiter Temple Rooms
                     case 32787:
                         return "rn_jupiter_02_{0}x{1}.ddj";
+
                     case 32788:
                         return "rn_jupiter_03_{0}x{1}.ddj";
+
                     case 32789:
                         return "rn_jupiter_04_{0}x{1}.ddj";
+
                     case 32790:
                         return "rn_jupiter_01_{0}x{1}.ddj";
                     // Bahgdad Room
                     case 32793:
                         return "RN_ARABIA_FIELD_02_BOSS_{0}x{1}.ddj";
-                    // 32791 - GM's Room
-                    // 32792 - Fortress Prison
+                        // 32791 - GM's Room
+                        // 32792 - Fortress Prison
                 }
             }
             // Default as world map
             return "{0}x{1}.ddj";
         }
+
         /// <summary>
         /// Redraw the map image
         /// </summary>
@@ -511,6 +555,10 @@ namespace RSBot.Map.Views
 
                 PopulateMapAndGrid(e.Graphics);
                 DrawPointAt(e.Graphics, Game.Player.Movement.Source, 0);
+
+#if DEBUG
+                DrawCollisions(e.Graphics);
+#endif
             }
         }
 
@@ -527,7 +575,6 @@ namespace RSBot.Map.Views
 #if DEBUG
             labelSectorInfo.Text = $"{Game.Player.Movement.Source.RegionID} ({Game.Player.Movement.Source.XSector}x{Game.Player.Movement.Source.YSector})";
 #endif
-
             RedrawMap();
             mapCanvas.Invalidate();
         }
@@ -568,6 +615,7 @@ namespace RSBot.Map.Views
                 var mapY = (Game.Player.Movement.Source.YOffset + (((mapCanvas.Height / 2f - e.Y) / SectorSize) * 192f * 10));
                 var p = Game.Player.Movement.Source;
                 var newPos = new Position(mapX, mapY, p.ZOffset, p.RegionID);
+
                 Game.Player.MoveTo(newPos, false);
             }
             else
@@ -575,6 +623,7 @@ namespace RSBot.Map.Views
                 var mapX = (Game.Player.Movement.Source.XCoordinate + (((mapCanvas.Width / 2f - e.X) / SectorSize) * 192f * -1f));
                 var mapY = (Game.Player.Movement.Source.YCoordinate + (((mapCanvas.Height / 2f - e.Y) / SectorSize) * 192f));
                 var p = new Position(mapX, mapY);
+
                 Game.Player.MoveTo(p, false);
             }
         }
