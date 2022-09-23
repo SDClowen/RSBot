@@ -264,7 +264,7 @@ namespace RSBot.Map.Views
                             if (entry.Rarity == MonsterRarity.Unique || entry.Rarity == MonsterRarity.Unique2)
                                 DrawPointAt(graphics, entry.Movement.Source, 5);
                             else
-                                DrawPointAt(graphics, entry.Movement.Source, 4);
+                                DrawPointAt(graphics, entry.Position, !entry.IsBehindObstacle ? 4 : 2); //Other style for mobs behind obstacles
                         }
                     }
                 }
@@ -369,12 +369,12 @@ namespace RSBot.Map.Views
                     if (!collision.HasValue)
                         continue;
 
-                    var rayPen = new Pen(Color.AliceBlue);
+                    var rayPen = new Pen(Color.DeepSkyBlue);
                     rayPen.DashStyle = DashStyle.Dot;
-
-                    DrawLineAt(gfx, Game.Player.Position, entity.Position, rayPen);
-                    DrawLineAt(gfx, Game.Player.Position, collision.Value.CollidedWith.Source, Pens.DeepSkyBlue);
-                    DrawLineAt(gfx, collision.Value.Source, collision.Value.CollidedWith.Destination, Pens.Yellow);
+                    rayPen.EndCap = LineCap.Square;
+                    
+                    DrawLineAt(gfx, Game.Player.Position, collision.Value.CollidedAt, Pens.DeepSkyBlue);
+                    DrawLineAt(gfx, collision.Value.CollidedWith.Source, collision.Value.CollidedWith.Destination, Pens.Yellow);
                 }
             }
         }

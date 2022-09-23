@@ -1,10 +1,8 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Components;
-using RSBot.Core.Objects;
+using RSBot.Core.Event;
 using RSBot.Core.Objects.Spawn;
 using System;
-using System.Linq;
-using RSBot.Core.Event;
 
 namespace RSBot.Default.Bundle.Movement
 {
@@ -63,7 +61,7 @@ namespace RSBot.Default.Bundle.Movement
             var randomRadius = Container.Bot.Area.Radius;
             if (randomRadius > 100)
                 randomRadius = 100;
-            
+
             EventManager.FireEvent("OnChangeStatusText", "Walking around");
 
             RunInWorld(randomRadius);
@@ -75,7 +73,7 @@ namespace RSBot.Default.Bundle.Movement
             randomRadius /= 10;
             destination.XOffset += _random.Next(-randomRadius, randomRadius);
             destination.YOffset += _random.Next(-randomRadius, randomRadius);
-            if (CollisionManager.HasCollisionBetween(Game.Player.Movement.Source, destination) == null)
+            if (!CollisionManager.HasCollisionBetween(Game.Player.Movement.Source, destination))
                 Game.Player.MoveTo(destination, false);
         }
 

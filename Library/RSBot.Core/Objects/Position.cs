@@ -1,5 +1,6 @@
 ﻿using RSBot.Core.Network;
 using System;
+using System.Drawing;
 
 namespace RSBot.Core.Objects
 {
@@ -165,6 +166,35 @@ namespace RSBot.Core.Objects
                 YOffset = yCoordinate * 10;
             }            
         }
+
+        public Position(float xCoordinate, float yCoordinate)
+        {
+            // World map coordinates has been provided
+            if (!IsInDungeon)
+            {
+                var xOffset = (int)(Math.Abs(xCoordinate) % 192 * 10);
+                if (xCoordinate < 0)
+                    xOffset = 1920 - xOffset;
+                var yOffset = (int)(Math.Abs(yCoordinate) % 192 * 10);
+                if (yCoordinate < 0)
+                    yOffset = 1920 - yOffset;
+
+                _XSector = (byte)Math.Round((xCoordinate - xOffset / 10f) / 192f + 135);
+                _YSector = (byte)Math.Round((yCoordinate - yOffset / 10f) / 192f + 92);
+                _RegionID = (ushort)((_YSector << 8) | _XSector);
+
+                RegionID = _RegionID;
+                XOffset = xOffset;
+                YOffset = yOffset;
+            }
+            // Dungeon map coordinates
+            else
+            {
+                XOffset = xCoordinate * 10;
+                YOffset = yCoordinate * 10;
+            }
+        }
+
         /// <summary>
         /// Creates a position using map offsets
         /// </summary>

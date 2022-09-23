@@ -24,12 +24,12 @@ internal class CollisionCalculator
             {
                 var collision = LineIntersection.FindIntersection(sourceLine, line);
 
-                if (collision != null)
+                if (collision.HasValue)
                 {
                     return new CollisionResult
                     {
-                        CollidedAt = collision.Item1,
-                        CollidedWith = collision.Item2,
+                        CollidedAt = collision.Value.collidedAt,
+                        CollidedWith = collision.Value.collidedWith,
                         Source = source,
                         Destination = destination
                     };
