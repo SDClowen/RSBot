@@ -51,7 +51,7 @@ namespace RSBot.Default.Bot
             }
 
             //Wait for the pickup manager to finish
-            if (PickupManager.Running && !(Bundles.Loot.Config.UseAbilityPet && Game.Player.HasActiveAbilityPet))
+            if (PickupManager.RunningPlayerPickup && !(Bundles.Loot.Config.UseAbilityPet && Game.Player.HasActiveAbilityPet))
                 return;
 
             if (Bundles.Loop.Config.UseSpeedDrug && Game.Player.State.ActiveBuffs.FindIndex(p => p.Record.Params.Contains(1752396901)) < 0)
