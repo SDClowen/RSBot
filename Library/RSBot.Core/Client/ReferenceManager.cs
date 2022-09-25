@@ -526,7 +526,7 @@ namespace RSBot.Core.Client
             byte degreeFrom = 0,
             byte degreeTo = 0,
             ObjectGender gender = ObjectGender.Neutral,
-            bool rare = false,
+            bool? rare = false,
             string searchPattern = null)
         {
             var result = new List<RefObjItem>(10000);
@@ -556,8 +556,12 @@ namespace RSBot.Core.Client
                     }
 
                     // step 4 compare rare
-                    if (rare && (byte)refItem.Rarity < 2)
-                        continue;
+                    if( rare.HasValue ) {
+                        if( rare.Value && ( byte )refItem.Rarity < 2 )
+                            continue;
+                        else if( !rare.Value && ( byte )refItem.Rarity > 2 )
+                            continue;
+                    }
 
                     // step 5 compare minimum degree
                     // dont need to check the if it is equip items

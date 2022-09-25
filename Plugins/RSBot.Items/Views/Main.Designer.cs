@@ -121,10 +121,13 @@
             this.checkHead = new SDUI.Controls.CheckBox();
             this.separator4 = new SDUI.Controls.Separator();
             this.groupGender = new SDUI.Controls.GroupBox();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.radioRareItems = new SDUI.Controls.Radio();
+            this.radioRareAndNonRareItems = new SDUI.Controls.Radio();
+            this.radioNonRareItems = new SDUI.Controls.Radio();
             this.checkEuropean = new SDUI.Controls.CheckBox();
             this.checkChinese = new SDUI.Controls.CheckBox();
             this.checkFemale = new SDUI.Controls.CheckBox();
-            this.checkBoxRareItems = new SDUI.Controls.CheckBox();
             this.checkMale = new SDUI.Controls.CheckBox();
             this.label3 = new SDUI.Controls.Label();
             this.numDegreeFrom = new SDUI.Controls.NumUpDown();
@@ -165,6 +168,7 @@
             this.groupAccessories.SuspendLayout();
             this.groupClothes.SuspendLayout();
             this.groupGender.SuspendLayout();
+            this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDegreeFrom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDegreeTo)).BeginInit();
             this.panel3.SuspendLayout();
@@ -456,7 +460,7 @@
             this.groupBox1.Location = new System.Drawing.Point(8, 377);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBox1.Radius = 2;
+            this.groupBox1.Radius = 10;
             this.groupBox1.ShadowDepth = 4;
             this.groupBox1.Size = new System.Drawing.Size(730, 60);
             this.groupBox1.TabIndex = 8;
@@ -530,9 +534,9 @@
             this.tabSellFilter.Controls.Add(this.filterPanel);
             this.tabSellFilter.Controls.Add(this.panel3);
             this.tabSellFilter.Controls.Add(this.pictureBox1);
-            this.tabSellFilter.Location = new System.Drawing.Point(4, 25);
+            this.tabSellFilter.Location = new System.Drawing.Point(4, 24);
             this.tabSellFilter.Name = "tabSellFilter";
-            this.tabSellFilter.Size = new System.Drawing.Size(746, 444);
+            this.tabSellFilter.Size = new System.Drawing.Size(746, 445);
             this.tabSellFilter.TabIndex = 1;
             this.tabSellFilter.Text = "Item filter";
             // 
@@ -553,7 +557,7 @@
             this.listFilter.FullRowSelect = true;
             this.listFilter.Location = new System.Drawing.Point(265, 0);
             this.listFilter.Name = "listFilter";
-            this.listFilter.Size = new System.Drawing.Size(481, 408);
+            this.listFilter.Size = new System.Drawing.Size(481, 409);
             this.listFilter.SmallImageList = this.searchImageList;
             this.listFilter.TabIndex = 5;
             this.listFilter.UseCompatibleStateImageBehavior = false;
@@ -601,7 +605,7 @@
             this.contextList.Name = "contextSellList";
             this.contextList.ShowCheckMargin = true;
             this.contextList.ShowImageMargin = false;
-            this.contextList.Size = new System.Drawing.Size(189, 186);
+            this.contextList.Size = new System.Drawing.Size(189, 164);
             this.contextList.Opening += new System.ComponentModel.CancelEventHandler(this.contextList_Opening);
             // 
             // btnAddToSell
@@ -687,7 +691,7 @@
             this.filterPanel.Padding = new System.Windows.Forms.Padding(12);
             this.filterPanel.Radius = 0;
             this.filterPanel.ShadowDepth = 4F;
-            this.filterPanel.Size = new System.Drawing.Size(265, 408);
+            this.filterPanel.Size = new System.Drawing.Size(265, 409);
             this.filterPanel.TabIndex = 20;
             // 
             // groupOthers
@@ -699,10 +703,10 @@
             this.groupOthers.Controls.Add(this.checkCoin);
             this.groupOthers.Controls.Add(this.checkOther);
             this.groupOthers.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupOthers.Location = new System.Drawing.Point(12, 590);
+            this.groupOthers.Location = new System.Drawing.Point(12, 585);
             this.groupOthers.Name = "groupOthers";
             this.groupOthers.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupOthers.Radius = 2;
+            this.groupOthers.Radius = 10;
             this.groupOthers.ShadowDepth = 4;
             this.groupOthers.Size = new System.Drawing.Size(224, 106);
             this.groupOthers.TabIndex = 42;
@@ -773,7 +777,7 @@
             // 
             this.separator1.Dock = System.Windows.Forms.DockStyle.Top;
             this.separator1.IsVertical = false;
-            this.separator1.Location = new System.Drawing.Point(12, 580);
+            this.separator1.Location = new System.Drawing.Point(12, 575);
             this.separator1.Name = "separator1";
             this.separator1.Size = new System.Drawing.Size(224, 10);
             this.separator1.TabIndex = 5;
@@ -798,11 +802,11 @@
             this.groupWeapons.Controls.Add(this.checkSword);
             this.groupWeapons.Controls.Add(this.checkBlade);
             this.groupWeapons.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupWeapons.Location = new System.Drawing.Point(12, 373);
+            this.groupWeapons.Location = new System.Drawing.Point(12, 368);
             this.groupWeapons.Margin = new System.Windows.Forms.Padding(6);
             this.groupWeapons.Name = "groupWeapons";
             this.groupWeapons.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupWeapons.Radius = 2;
+            this.groupWeapons.Radius = 10;
             this.groupWeapons.ShadowDepth = 4;
             this.groupWeapons.Size = new System.Drawing.Size(224, 207);
             this.groupWeapons.TabIndex = 40;
@@ -993,7 +997,7 @@
             // 
             this.separator2.Dock = System.Windows.Forms.DockStyle.Top;
             this.separator2.IsVertical = false;
-            this.separator2.Location = new System.Drawing.Point(12, 363);
+            this.separator2.Location = new System.Drawing.Point(12, 358);
             this.separator2.Name = "separator2";
             this.separator2.Size = new System.Drawing.Size(224, 10);
             this.separator2.TabIndex = 45;
@@ -1006,10 +1010,10 @@
             this.groupAccessories.Controls.Add(this.checkEarring);
             this.groupAccessories.Controls.Add(this.checkRing);
             this.groupAccessories.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupAccessories.Location = new System.Drawing.Point(12, 305);
+            this.groupAccessories.Location = new System.Drawing.Point(12, 300);
             this.groupAccessories.Name = "groupAccessories";
             this.groupAccessories.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupAccessories.Radius = 2;
+            this.groupAccessories.Radius = 10;
             this.groupAccessories.ShadowDepth = 4;
             this.groupAccessories.Size = new System.Drawing.Size(224, 58);
             this.groupAccessories.TabIndex = 44;
@@ -1056,7 +1060,7 @@
             // 
             this.separator3.Dock = System.Windows.Forms.DockStyle.Top;
             this.separator3.IsVertical = false;
-            this.separator3.Location = new System.Drawing.Point(12, 295);
+            this.separator3.Location = new System.Drawing.Point(12, 290);
             this.separator3.Name = "separator3";
             this.separator3.Size = new System.Drawing.Size(224, 10);
             this.separator3.TabIndex = 46;
@@ -1075,10 +1079,10 @@
             this.groupClothes.Controls.Add(this.checkShoulder);
             this.groupClothes.Controls.Add(this.checkHead);
             this.groupClothes.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupClothes.Location = new System.Drawing.Point(12, 160);
+            this.groupClothes.Location = new System.Drawing.Point(12, 155);
             this.groupClothes.Name = "groupClothes";
             this.groupClothes.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupClothes.Radius = 2;
+            this.groupClothes.Radius = 10;
             this.groupClothes.ShadowDepth = 4;
             this.groupClothes.Size = new System.Drawing.Size(224, 135);
             this.groupClothes.TabIndex = 41;
@@ -1197,7 +1201,7 @@
             // 
             this.separator4.Dock = System.Windows.Forms.DockStyle.Top;
             this.separator4.IsVertical = false;
-            this.separator4.Location = new System.Drawing.Point(12, 150);
+            this.separator4.Location = new System.Drawing.Point(12, 145);
             this.separator4.Name = "separator4";
             this.separator4.Size = new System.Drawing.Size(224, 10);
             this.separator4.TabIndex = 47;
@@ -1206,10 +1210,10 @@
             // groupGender
             // 
             this.groupGender.BackColor = System.Drawing.Color.Transparent;
+            this.groupGender.Controls.Add(this.panel4);
             this.groupGender.Controls.Add(this.checkEuropean);
             this.groupGender.Controls.Add(this.checkChinese);
             this.groupGender.Controls.Add(this.checkFemale);
-            this.groupGender.Controls.Add(this.checkBoxRareItems);
             this.groupGender.Controls.Add(this.checkMale);
             this.groupGender.Controls.Add(this.label3);
             this.groupGender.Controls.Add(this.numDegreeFrom);
@@ -1220,12 +1224,57 @@
             this.groupGender.Margin = new System.Windows.Forms.Padding(6);
             this.groupGender.Name = "groupGender";
             this.groupGender.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupGender.Radius = 2;
+            this.groupGender.Radius = 10;
             this.groupGender.ShadowDepth = 4;
-            this.groupGender.Size = new System.Drawing.Size(224, 138);
+            this.groupGender.Size = new System.Drawing.Size(224, 133);
             this.groupGender.TabIndex = 44;
             this.groupGender.TabStop = false;
             this.groupGender.Text = "Gender and Degree";
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.radioRareItems);
+            this.panel4.Controls.Add(this.radioRareAndNonRareItems);
+            this.panel4.Controls.Add(this.radioNonRareItems);
+            this.panel4.Location = new System.Drawing.Point(3, 71);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(217, 23);
+            this.panel4.TabIndex = 38;
+            // 
+            // radioRareItems
+            // 
+            this.radioRareItems.AutoSize = true;
+            this.radioRareItems.Location = new System.Drawing.Point(5, 3);
+            this.radioRareItems.Name = "radioRareItems";
+            this.radioRareItems.ShadowDepth = 0;
+            this.radioRareItems.Size = new System.Drawing.Size(85, 15);
+            this.radioRareItems.TabIndex = 35;
+            this.radioRareItems.Text = "Rare (Sox)";
+            this.radioRareItems.UseVisualStyleBackColor = true;
+            // 
+            // radioRareAndNonRareItems
+            // 
+            this.radioRareAndNonRareItems.AutoSize = true;
+            this.radioRareAndNonRareItems.Checked = true;
+            this.radioRareAndNonRareItems.Location = new System.Drawing.Point(156, 3);
+            this.radioRareAndNonRareItems.Name = "radioRareAndNonRareItems";
+            this.radioRareAndNonRareItems.ShadowDepth = 0;
+            this.radioRareAndNonRareItems.Size = new System.Drawing.Size(57, 15);
+            this.radioRareAndNonRareItems.TabIndex = 37;
+            this.radioRareAndNonRareItems.TabStop = true;
+            this.radioRareAndNonRareItems.Text = "Both";
+            this.radioRareAndNonRareItems.UseVisualStyleBackColor = true;
+            // 
+            // radioNonRareItems
+            // 
+            this.radioNonRareItems.AutoSize = true;
+            this.radioNonRareItems.Location = new System.Drawing.Point(77, 3);
+            this.radioNonRareItems.Name = "radioNonRareItems";
+            this.radioNonRareItems.ShadowDepth = 0;
+            this.radioNonRareItems.Size = new System.Drawing.Size(81, 15);
+            this.radioNonRareItems.TabIndex = 36;
+            this.radioNonRareItems.Text = "Non Rare";
+            this.radioNonRareItems.UseVisualStyleBackColor = true;
             // 
             // checkEuropean
             // 
@@ -1262,18 +1311,6 @@
             this.checkFemale.TabIndex = 9;
             this.checkFemale.Text = "Female";
             this.checkFemale.UseVisualStyleBackColor = false;
-            // 
-            // checkBoxRareItems
-            // 
-            this.checkBoxRareItems.AutoSize = true;
-            this.checkBoxRareItems.BackColor = System.Drawing.Color.Transparent;
-            this.checkBoxRareItems.Location = new System.Drawing.Point(16, 76);
-            this.checkBoxRareItems.Name = "checkBoxRareItems";
-            this.checkBoxRareItems.ShadowDepth = 1;
-            this.checkBoxRareItems.Size = new System.Drawing.Size(76, 15);
-            this.checkBoxRareItems.TabIndex = 40;
-            this.checkBoxRareItems.Text = "Rare (Sox)";
-            this.checkBoxRareItems.UseVisualStyleBackColor = false;
             // 
             // checkMale
             // 
@@ -1340,7 +1377,7 @@
             this.panel3.Controls.Add(this.btnReload);
             this.panel3.Controls.Add(this.txtSellSearch);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 408);
+            this.panel3.Location = new System.Drawing.Point(0, 409);
             this.panel3.Margin = new System.Windows.Forms.Padding(0);
             this.panel3.Name = "panel3";
             this.panel3.Radius = 0;
@@ -1376,7 +1413,7 @@
             this.btnResetFilter.Color = System.Drawing.Color.Transparent;
             this.btnResetFilter.Location = new System.Drawing.Point(12, 7);
             this.btnResetFilter.Name = "btnResetFilter";
-            this.btnResetFilter.Radius = 2;
+            this.btnResetFilter.Radius = 6;
             this.btnResetFilter.ShadowDepth = 4F;
             this.btnResetFilter.Size = new System.Drawing.Size(96, 23);
             this.btnResetFilter.TabIndex = 39;
@@ -1392,7 +1429,7 @@
             this.btnSearch.ForeColor = System.Drawing.Color.White;
             this.btnSearch.Location = new System.Drawing.Point(667, 6);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Radius = 4;
+            this.btnSearch.Radius = 6;
             this.btnSearch.ShadowDepth = 4F;
             this.btnSearch.Size = new System.Drawing.Size(75, 23);
             this.btnSearch.TabIndex = 21;
@@ -1405,7 +1442,7 @@
             this.btnReload.Color = System.Drawing.Color.Transparent;
             this.btnReload.Location = new System.Drawing.Point(112, 7);
             this.btnReload.Name = "btnReload";
-            this.btnReload.Radius = 2;
+            this.btnReload.Radius = 6;
             this.btnReload.ShadowDepth = 4F;
             this.btnReload.Size = new System.Drawing.Size(137, 23);
             this.btnReload.TabIndex = 39;
@@ -1462,7 +1499,7 @@
             this.groupBox7.Location = new System.Drawing.Point(6, 6);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBox7.Radius = 2;
+            this.groupBox7.Radius = 10;
             this.groupBox7.ShadowDepth = 4;
             this.groupBox7.Size = new System.Drawing.Size(734, 112);
             this.groupBox7.TabIndex = 0;
@@ -1594,6 +1631,8 @@
             this.groupClothes.PerformLayout();
             this.groupGender.ResumeLayout(false);
             this.groupGender.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDegreeFrom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDegreeTo)).EndInit();
             this.panel3.ResumeLayout(false);
@@ -1685,7 +1724,6 @@
         private SDUI.Controls.Panel panel3;
         private SDUI.Controls.Label labelResult;
         private SDUI.Controls.Panel panel7;
-        private SDUI.Controls.CheckBox checkBoxRareItems;
         private System.Windows.Forms.ImageList searchImageList;
         private SDUI.Controls.CheckBox checkEuropean;
         private SDUI.Controls.CheckBox checkChinese;
@@ -1720,5 +1758,9 @@
         private SDUI.Controls.CheckBox checkStoreItemsFromPet;
         private SDUI.Controls.CheckBox checkPickupBlue;
         private System.Windows.Forms.ToolStripMenuItem btnPickOnlyCharacter;
+        private SDUI.Controls.Radio radioRareAndNonRareItems;
+        private SDUI.Controls.Radio radioNonRareItems;
+        private SDUI.Controls.Radio radioRareItems;
+        private System.Windows.Forms.Panel panel4;
     }
 }

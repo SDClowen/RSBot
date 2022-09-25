@@ -454,7 +454,13 @@ namespace RSBot.Items.Views
             else if (checkFemale.Checked)
                 gender = ObjectGender.Female;
 
-            var items = Game.ReferenceManager.GetFilteredItems(filters, Convert.ToByte(numDegreeFrom.Value), Convert.ToByte(numDegreeTo.Value), gender, checkBoxRareItems.Checked, txtSellSearch.Text);
+            bool? rareItems = null;
+            if( radioRareItems.Checked )
+                rareItems = true;
+            else if( radioNonRareItems.Checked )
+                rareItems = false;
+
+            var items = Game.ReferenceManager.GetFilteredItems(filters, Convert.ToByte(numDegreeFrom.Value), Convert.ToByte(numDegreeTo.Value), gender, rareItems, txtSellSearch.Text);
             if (items.Count == 0)
             {
                 listFilter.Visible = true;
