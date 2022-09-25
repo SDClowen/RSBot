@@ -118,8 +118,14 @@ namespace RSBot.Core.Components
 
             if (entity is SpawnedMonster monster)
             {
-                if (Skills[monster.Rarity].Count > 0)
-                    rarity = monster.Rarity;
+                for( var i = monster.Rarity; i > MonsterRarity.General; i-- ) 
+                {
+                    if( Skills[ i ].Count > 0 ) 
+                    {
+                        rarity = i;
+                        break;
+                    }
+                }
             }
 
             var distance = Game.Player.Movement.Source.DistanceTo(entity.Movement.Source);
@@ -128,55 +134,29 @@ namespace RSBot.Core.Components
             //var weaponRange = 0;
             var closestSkill = default(SkillInfo);
 
+            var skills = Skills[ rarity ];
             if (entity.State.HitState == ActionHitStateFlag.KnockDown)
             {
                 // try to get attack skill for only knockdown states
-                closestSkill = Skills[rarity].Find(p => p.Record.Params.Contains(25697));
+                skills = Skills[rarity].Where(p => p.Record.Params.Contains(25697)).ToList();
             }
-            else if (distance < 10)
-            {
-                var counter = -1;
-                var skillCount = Skills[rarity].Count;
-                while (skillCount > 0 && counter < skillCount)
-                {
-                    counter++;
-                    _lastIndex++;
 
-                    if (_lastIndex > Skills[rarity].Count - 1)
-                        _lastIndex = 0;
+            foreach( var s in Skills[rarity] ) {
+                if( !s.CanBeCasted )
+                    continue;
 
-                    var selectedSkill = Skills[rarity][_lastIndex];
-                    if (!selectedSkill.CanBeCasted)
-                        continue;
-
-                    closestSkill = selectedSkill;
+                if( distance < 10 ) {
+                    closestSkill = s;
                     break;
-                }
-
-                //Debug.WriteLine($"while loop: {stopwatch.ElapsedMilliseconds}");
-            }
-            else
-            {
-                /*var weapon = Game.Player.Inventory.GetItemAt(6);
-                if (weapon != null)
-                    weaponRange = weapon.Record.Range / 10;
-                */
-
-                for (int i = 0; i < Skills[rarity].Count; i++)
-                {
-                    var s = Skills[rarity][i];
-                    if (!s.CanBeCasted)
-                        continue;
-
-                    var difference = Math.Abs((s.Record.Action_Range / 10) - distance/* + weaponRange*/);
-                    if (minDifference > difference)
-                    {
-                        minDifference = (short)difference;
+                } else {
+                    var difference = Math.Abs( ( s.Record.Action_Range / 10 ) - distance/* + weaponRange*/);
+                    if( minDifference > difference ) {
+                        minDifference = ( short )difference;
                         closestSkill = s;
                     }
                 }
-                //Debug.WriteLine($"for loop: {stopwatch.ElapsedMilliseconds}");
             }
+            //Debug.WriteLine($"while loop: {stopwatch.ElapsedMilliseconds}");
 
             return closestSkill;
         }
