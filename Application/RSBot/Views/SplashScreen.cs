@@ -167,9 +167,26 @@ namespace RSBot.Views
             if (!Kernel.BotbaseManager.LoadAssemblies())
                 MessageBox.Show(@"Failed to load botbases. Process canceled!", @"Initialize Application - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+            InitializeMap();
+        }
+
+        /// <summary>
+        /// Initializes the map.
+        /// </summary>
+        private void InitializeMap()
+        {
             //---- Load Map ----
             var mapFile = Path.Combine(Environment.CurrentDirectory, "Data", "Game", "map.rsc");
+            var collisionEnabled = GlobalConfig.Get("RSBot.EnableCollisionDetection", true);
 
+            CollisionManager.Enabled = collisionEnabled;
+
+            if (!collisionEnabled)
+            {
+                Log.Warn("[Collision] Collision detection has been deactivated by the user!");
+
+                return;
+            }
             if (!File.Exists(mapFile))
             {
                 Log.Error($"[Collisions] Directory {mapFile} not found!");

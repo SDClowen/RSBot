@@ -45,7 +45,7 @@ public static class CollisionManager
     {
         get
         {
-            if (!IsInitialized)
+            if (!IsInitialized || !Enabled)
                 return false;
 
             if (ActiveCollisionMeshes == null)
@@ -57,6 +57,14 @@ public static class CollisionManager
             return ActiveCollisionMeshes.Count > 0;
         }
     }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether this <see cref="CollisionManager"/> is enabled.
+    /// </summary>
+    /// <value>
+    ///   <c>true</c> if enabled; otherwise, <c>false</c>.
+    /// </value>
+    public static bool Enabled { get; set; }
 
     /// <summary>
     /// Gets the active collision meshes.
@@ -110,7 +118,7 @@ public static class CollisionManager
     /// <param name="centerRegionId">The center region identifier.</param>
     public static void Update(ushort centerRegionId)
     {
-        if (centerRegionId == CenterRegionId || !IsInitialized)
+        if (centerRegionId == CenterRegionId || !IsInitialized || !Enabled)
             return;
 
         IsUpdating = true;
