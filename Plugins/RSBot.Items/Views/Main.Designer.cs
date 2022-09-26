@@ -1244,7 +1244,8 @@
             // radioRareItems
             // 
             this.radioRareItems.AutoSize = true;
-            this.radioRareItems.Location = new System.Drawing.Point(5, 3);
+            this.radioRareItems.Location = new System.Drawing.Point(0, 3);
+            this.radioRareItems.Margin = new System.Windows.Forms.Padding(0);
             this.radioRareItems.Name = "radioRareItems";
             this.radioRareItems.ShadowDepth = 0;
             this.radioRareItems.Size = new System.Drawing.Size(85, 15);
@@ -1256,7 +1257,7 @@
             // 
             this.radioRareAndNonRareItems.AutoSize = true;
             this.radioRareAndNonRareItems.Checked = true;
-            this.radioRareAndNonRareItems.Location = new System.Drawing.Point(156, 3);
+            this.radioRareAndNonRareItems.Location = new System.Drawing.Point(164, 3);
             this.radioRareAndNonRareItems.Name = "radioRareAndNonRareItems";
             this.radioRareAndNonRareItems.ShadowDepth = 0;
             this.radioRareAndNonRareItems.Size = new System.Drawing.Size(57, 15);
@@ -1268,7 +1269,8 @@
             // radioNonRareItems
             // 
             this.radioNonRareItems.AutoSize = true;
-            this.radioNonRareItems.Location = new System.Drawing.Point(77, 3);
+            this.radioNonRareItems.Location = new System.Drawing.Point(85, 3);
+            this.radioNonRareItems.Margin = new System.Windows.Forms.Padding(0);
             this.radioNonRareItems.Name = "radioNonRareItems";
             this.radioNonRareItems.ShadowDepth = 0;
             this.radioNonRareItems.Size = new System.Drawing.Size(81, 15);
