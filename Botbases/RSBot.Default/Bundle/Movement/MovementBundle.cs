@@ -72,12 +72,22 @@ namespace RSBot.Default.Bundle.Movement
 
         private void RunInWorld(int randomRadius)
         {
-            var destination = Container.Bot.Area.CenterPosition;
-            randomRadius /= 10;
-            destination.XOffset += _random.Next(-randomRadius, randomRadius);
-            destination.YOffset += _random.Next(-randomRadius, randomRadius);
+            var destination = GetRandomDestination( Container.Bot.Area.CenterPosition, randomRadius );
             if (!CollisionManager.HasCollisionBetween(Game.Player.Movement.Source, destination))
                 Game.Player.MoveTo(destination, false);
+        }
+
+        /// <summary>
+        /// Thanks to https://gamedev.stackexchange.com/questions/26713/calculate-random-points-pixel-within-a-circle-image
+        /// I chose the concentrated to the middle method. Bot should walk rather in the middle then from edge to edge.
+        /// </summary>
+        private Position GetRandomDestination( Position centerPosition, int radius) {
+            var angle = _random.NextDouble() * Math.PI * 2;
+            var randomRadius = _random.NextDouble() * radius;
+            var x = centerPosition.XCoordinate + randomRadius * Math.Cos( angle );
+            var y = centerPosition.YCoordinate + randomRadius * Math.Sin( angle );
+            var destination = new Position( (float)x, (float)y, centerPosition.RegionID );
+            return destination;
         }
 
         /// <summary>
