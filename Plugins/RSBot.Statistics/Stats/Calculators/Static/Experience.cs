@@ -42,21 +42,22 @@ namespace RSBot.Statistics.Stats.Calculators.Static
             if (!Game.Ready)
                 return 0;
 
-            var currentPercent = ((double)Game.Player.Experience /
-                                  (double)Game.ReferenceManager.GetRefLevel(Game.Player.Level).Exp_C) * 100;
-
-            var difference = (double)Math.Round(currentPercent - _initialValue, 2);
             var levelDifference = Game.Player.Level - _initialLevel;
 
-            double result;
-            if (levelDifference == 0)
-                result = difference;
-            else if (levelDifference == 1)
-                result = _initialOffset + difference;
-            else
-                result = (_initialOffset + difference) + (levelDifference - 1) * 100;
+            double gainedExpPercent = 0;
+            double offset = _initialOffset;
+            if( levelDifference >= 1 ) 
+            {
+                for( var i = levelDifference; i > 0; i-- ) 
+                {
+                    gainedExpPercent += 100 - offset;
+                    offset = 0;
+                }
+            }
 
-            return Math.Round(result, 2);
+            gainedExpPercent += ( ( ( double )Game.Player.Experience / ( double )Game.ReferenceManager.GetRefLevel( Game.Player.Level ).Exp_C ) * 100 ) - offset;
+
+            return Math.Round( gainedExpPercent, 2);
         }
 
         /// <inheritdoc />
