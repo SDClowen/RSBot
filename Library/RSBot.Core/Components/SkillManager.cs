@@ -120,7 +120,7 @@ namespace RSBot.Core.Components
             {
                 for( var i = monster.Rarity; i > MonsterRarity.General; i-- ) 
                 {
-                    if( Skills[ i ].Count > 0 ) 
+                    if( Skills.TryGetValue( i, out var s ) && s.Count > 0 ) 
                     {
                         rarity = i;
                         break;
