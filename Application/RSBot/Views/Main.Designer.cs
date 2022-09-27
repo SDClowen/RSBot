@@ -37,8 +37,6 @@ namespace RSBot.Views
             this.lblIngameStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.cosController = new RSBot.Views.Controls.Cos.CosController();
             this.bottomPanel = new SDUI.Controls.Panel();
-            this.label1 = new SDUI.Controls.Label();
-            this.comboBotbase = new SDUI.Controls.ComboBox();
             this.comboServer = new SDUI.Controls.ComboBox();
             this.comboDivision = new SDUI.Controls.ComboBox();
             this.btnSave = new SDUI.Controls.Button();
@@ -60,6 +58,7 @@ namespace RSBot.Views
             this.thisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip = new SDUI.Controls.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.botsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.themeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.darkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -118,8 +117,6 @@ namespace RSBot.Views
             this.bottomPanel.BackColor = System.Drawing.Color.Transparent;
             this.bottomPanel.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
             this.bottomPanel.BorderColor = System.Drawing.Color.Transparent;
-            this.bottomPanel.Controls.Add(this.label1);
-            this.bottomPanel.Controls.Add(this.comboBotbase);
             this.bottomPanel.Controls.Add(this.comboServer);
             this.bottomPanel.Controls.Add(this.comboDivision);
             this.bottomPanel.Controls.Add(this.btnSave);
@@ -131,29 +128,6 @@ namespace RSBot.Views
             this.bottomPanel.ShadowDepth = 4F;
             this.bottomPanel.Size = new System.Drawing.Size(1030, 52);
             this.bottomPanel.TabIndex = 2;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label1.Location = new System.Drawing.Point(661, 19);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(28, 15);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "Bot:";
-            // 
-            // comboBotbase
-            // 
-            this.comboBotbase.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.comboBotbase.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBotbase.FormattingEnabled = true;
-            this.comboBotbase.Location = new System.Drawing.Point(695, 14);
-            this.comboBotbase.Name = "comboBotbase";
-            this.comboBotbase.Radius = 5;
-            this.comboBotbase.ShadowDepth = 4F;
-            this.comboBotbase.Size = new System.Drawing.Size(121, 24);
-            this.comboBotbase.TabIndex = 12;
-            this.comboBotbase.SelectedIndexChanged += new System.EventHandler(this.comboBotbase_SelectedIndexChanged);
             // 
             // comboServer
             // 
@@ -350,6 +324,7 @@ namespace RSBot.Views
             // 
             // thisToolStripMenuItem
             // 
+            this.thisToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.thisToolStripMenuItem.Name = "thisToolStripMenuItem";
             this.thisToolStripMenuItem.Size = new System.Drawing.Size(95, 22);
             this.thisToolStripMenuItem.Text = "This";
@@ -365,6 +340,7 @@ namespace RSBot.Views
             this.viewToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.menuPlugins,
+            this.botsToolStripMenuItem,
             this.languageToolStripMenuItem,
             this.themeToolStripMenuItem,
             this.aboutToolStripMenuItem,
@@ -384,6 +360,13 @@ namespace RSBot.Views
             this.toolStripMenuItem1.Image = global::RSBot.Properties.Resources.shark;
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(28, 22);
+            // 
+            // botsToolStripMenuItem
+            // 
+            this.botsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.botsToolStripMenuItem.Name = "botsToolStripMenuItem";
+            this.botsToolStripMenuItem.Size = new System.Drawing.Size(42, 22);
+            this.botsToolStripMenuItem.Text = "Bots";
             // 
             // languageToolStripMenuItem
             // 
@@ -530,7 +513,6 @@ namespace RSBot.Views
             this.stripStatus.ResumeLayout(false);
             this.stripStatus.PerformLayout();
             this.bottomPanel.ResumeLayout(false);
-            this.bottomPanel.PerformLayout();
             this.pSidebar.ResumeLayout(false);
             this.pSidebar.PerformLayout();
             this.menuStrip.ResumeLayout(false);
@@ -578,8 +560,7 @@ namespace RSBot.Views
         private SDUI.Controls.Separator separator1;
         private ToolStripMenuItem menuSelectProfile;
         private ToolStripMenuItem menuCurrentProfile;
-        private SDUI.Controls.Label label1;
-        private SDUI.Controls.ComboBox comboBotbase;
+        private ToolStripMenuItem botsToolStripMenuItem;
     }
 }
 

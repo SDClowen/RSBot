@@ -16,28 +16,6 @@ namespace RSBot.Views
 {
     public partial class Main : CleanForm
     {
-        #region Subclasses
-
-        private class BotbaseComboboxItem
-        {
-            public string Name { get; }
-
-            public string Label { get; }
-
-            public BotbaseComboboxItem(string name, string label)
-            {
-                Name = name;
-                Label = label;
-            }
-
-            public override string ToString()
-            {
-                return Label;
-            }
-        }
-
-        #endregion Subclasses
-
         #region Members
 
         /// <summary>
@@ -147,7 +125,8 @@ namespace RSBot.Views
                 info.BringToFront();
             }
 
-            comboBotbase.SelectedIndex = Kernel.BotbaseManager.Bots.Keys.ToList().IndexOf(selectedBotbase.Info.Name);
+            foreach (ToolStripMenuItem item in botsToolStripMenuItem.DropDown.Items)
+                item.Checked = selectedBotbase.Info.Name == item.Name;
         }
 
         /// <summary>
@@ -483,24 +462,6 @@ namespace RSBot.Views
         }
 
         /// <summary>
-        /// Handles the SelectedIndexChanged event of the comboBotbase control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void comboBotbase_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (comboBotbase.SelectedItem == null)
-                return;
-
-            var selectedBotbase = (BotbaseComboboxItem)comboBotbase.SelectedItem;
-
-            if (selectedBotbase == null)
-                return;
-
-            SelectBotbase(selectedBotbase.Name);
-        }
-
-        /// <summary>
         /// Handles the Click event of the notifyIcon control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -717,10 +678,30 @@ namespace RSBot.Views
                     Environment.Exit(-1);
             }
 
-            foreach (var item in Kernel.BotbaseManager.Bots.Select(botbase => new BotbaseComboboxItem(botbase.Value.Info.Name, botbase.Value.Info.DisplayName)))
-                comboBotbase.Items.Add(item);
+            foreach (var bot in Kernel.BotbaseManager.Bots)
+            {
+                var item = new ToolStripMenuItem
+                {
+                    Name = bot.Value.Info.Name,
+                    Text = bot.Value.Info.DisplayName,
+                };
+                item.Click += Item_Click;
+                botsToolStripMenuItem.DropDown.Items.Add(item);
+            }
 
             SelectBotbase(GlobalConfig.Get("RSBot.BotName", "RSBot.Default"));
+        }
+
+        /// <summary>
+        /// Handles the Click event of the MenuItem control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <exception cref="System.NotImplementedException"></exception>
+        private void Item_Click(object? sender, EventArgs e)
+        {
+            var item = sender as ToolStripMenuItem;
+            SelectBotbase(item.Name);
         }
 
         /// <summary>
