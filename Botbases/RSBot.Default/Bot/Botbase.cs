@@ -76,20 +76,18 @@ namespace RSBot.Default.Bot
             Bundles.Loot.Invoke();
 
             //Select next target
-            if(!noAttack)
+            if (!noAttack)
                 Bundles.Target.Invoke();
 
             //Check for berzerk
             Bundles.Berzerk.Invoke();
 
             //Cast skill against enemy
-            if(!noAttack)
+            if (!noAttack)
                 Bundles.Attack.Invoke();
 
-            var stand = PlayerConfig.Get("RSBot.Area.Stand", false);
             //Move around (maybe)
-            if (!stand)
-                Bundles.Movement.Invoke();
+            Bundles.Movement.Invoke();
         }
     }
 }

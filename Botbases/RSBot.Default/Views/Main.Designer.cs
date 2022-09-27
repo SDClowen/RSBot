@@ -63,7 +63,6 @@
             this.checkBerzerkAvoidance = new SDUI.Controls.CheckBox();
             this.checkBerzerkMonsterAmount = new SDUI.Controls.CheckBox();
             this.groupBox1 = new SDUI.Controls.GroupBox();
-            this.radioStand = new SDUI.Controls.Radio();
             this.buttonSelectTrainingArea = new SDUI.Controls.Button();
             this.label6 = new SDUI.Controls.Label();
             this.label5 = new SDUI.Controls.Label();
@@ -392,7 +391,6 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox1.Controls.Add(this.radioStand);
             this.groupBox1.Controls.Add(this.buttonSelectTrainingArea);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label5);
@@ -415,19 +413,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Area";
             // 
-            // radioStand
-            // 
-            this.radioStand.AutoSize = true;
-            this.radioStand.Location = new System.Drawing.Point(35, 159);
-            this.radioStand.Name = "radioStand";
-            this.radioStand.ShadowDepth = 0;
-            this.radioStand.Size = new System.Drawing.Size(62, 15);
-            this.radioStand.TabIndex = 8;
-            this.radioStand.TabStop = true;
-            this.radioStand.Text = "Stand";
-            this.radioStand.UseVisualStyleBackColor = true;
-            this.radioStand.CheckedChanged += new System.EventHandler(this.radioStand_CheckedChanged);
-            // 
             // buttonSelectTrainingArea
             // 
             this.buttonSelectTrainingArea.Color = System.Drawing.Color.DeepSkyBlue;
@@ -447,7 +432,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label6.Location = new System.Drawing.Point(14, 142);
+            this.label6.Location = new System.Drawing.Point(14, 145);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(159, 15);
             this.label6.TabIndex = 7;
@@ -465,7 +450,7 @@
             // 
             this.radioWalkAround.AutoSize = true;
             this.radioWalkAround.Checked = true;
-            this.radioWalkAround.Location = new System.Drawing.Point(35, 199);
+            this.radioWalkAround.Location = new System.Drawing.Point(35, 195);
             this.radioWalkAround.Name = "radioWalkAround";
             this.radioWalkAround.ShadowDepth = 0;
             this.radioWalkAround.Size = new System.Drawing.Size(99, 15);
@@ -477,7 +462,7 @@
             // radioCenter
             // 
             this.radioCenter.AutoSize = true;
-            this.radioCenter.Location = new System.Drawing.Point(35, 179);
+            this.radioCenter.Location = new System.Drawing.Point(35, 169);
             this.radioCenter.Name = "radioCenter";
             this.radioCenter.ShadowDepth = 0;
             this.radioCenter.Size = new System.Drawing.Size(125, 15);

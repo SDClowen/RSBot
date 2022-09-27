@@ -188,16 +188,6 @@ namespace RSBot.Default.Views
         }
 
         /// <summary>
-        /// Handles the CheckedChanged event of the radioStand control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void radioStand_CheckedChanged(object sender, EventArgs e)
-        {
-            PlayerConfig.Set("RSBot.Area.Stand", radioStand.Checked);
-        }
-
-        /// <summary>
         /// Handles the CheckedChanged event of the checkUseMount control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
