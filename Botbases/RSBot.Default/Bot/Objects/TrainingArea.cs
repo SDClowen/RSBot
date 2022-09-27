@@ -76,7 +76,7 @@ namespace RSBot.Default.Bot.Objects
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Position GetRandomPosition()
         {
-            var destination = Position;
+            var destination = new Position( Position.X, Position.Y, Position.RegionId );
 
             var angle = MathF.SinCos(2.0f * MathF.PI * _random.NextFloat());
 
