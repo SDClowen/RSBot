@@ -20,6 +20,9 @@
 
         #endregion Fields
 
+        public bool IsDimensionPillar => NameStrID == "SN_MOB_GOD_PILLAR";
+        public bool IsSummonFlower => CodeName.StartsWith("STRUCTURE_SUMMON_FLOWER_");
+
         public override bool Load(ReferenceParser parser)
         {
             if (!base.Load(parser))

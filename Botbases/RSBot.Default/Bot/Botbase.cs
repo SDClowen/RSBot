@@ -86,8 +86,10 @@ namespace RSBot.Default.Bot
             if(!noAttack)
                 Bundles.Attack.Invoke();
 
+            var stand = PlayerConfig.Get("RSBot.Area.Stand", false);
             //Move around (maybe)
-            Bundles.Movement.Invoke();
+            if (!stand)
+                Bundles.Movement.Invoke();
         }
     }
 }

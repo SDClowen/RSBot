@@ -77,17 +77,21 @@ namespace RSBot.Default.Bundle.Target
         private SpawnedMonster GetNearestEnemy()
         {
             var warlockModeEnabled = PlayerConfig.Get<bool>("RSBot.Skills.WarlockMode");
+            var ignorePillar = PlayerConfig.Get<bool>("RSBot.Ignores.DimensionPillar");
+
             if (!SpawnManager.TryGetEntities<SpawnedMonster>(out var entities, m => m.State.LifeState == LifeState.Alive &&
                             !(warlockModeEnabled && m.State.HasTwoDots()) &&
                             m.IsBehindObstacle == false &&
                             _blacklistTimers != null &&
                             !_blacklistTimers.ContainsKey(m) &&
                             Container.Bot.Area.IsInSight(m) &&
-                            m.DistanceToPlayer <= 40))
+                            m.DistanceToPlayer <= 40 &&
+                            !_blacklistTimers.Any(be => be.Key.Id == m.Id) &&
+                            !(ignorePillar == m.Record.IsDimensionPillar) &&
+                            !m.Record.IsSummonFlower))
                 return default(SpawnedMonster);
 
-            return entities.Where(e => _blacklistTimers.Count(be => be.Key.Id == e.Id) == 0)
-                .OrderBy(m => m.Movement.Source.DistanceTo(Container.Bot.Area.Position))
+            return entities.OrderBy(m => m.Movement.Source.DistanceTo(Container.Bot.Area.Position))
                 .OrderByDescending(m => m.AttackingPlayer)
                 .OrderByDescending(m => Bundles.Avoidance.PreferMonster(m.Rarity))
                 .FirstOrDefault();
