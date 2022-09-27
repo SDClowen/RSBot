@@ -1,8 +1,9 @@
-﻿using RSBot.Default.Bot.Objects;
-using RSBot.Default.Bundle;
-using RSBot.Core;
+﻿using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Objects;
+using RSBot.Default.Bot.Objects;
+using RSBot.Default.Bundle;
+using System;
 using System.Threading;
 
 namespace RSBot.Default.Bot
@@ -32,10 +33,10 @@ namespace RSBot.Default.Bot
         {
             Area = new TrainingArea
             {
-                CenterPosition = new Position(
+                Position = new Position(
                     PlayerConfig.Get<float>("RSBot.Area.X"),
                     PlayerConfig.Get<float>("RSBot.Area.Y")),
-                Radius = PlayerConfig.Get<int>("RSBot.Area.Radius", 50)
+                Radius = Math.Clamp(PlayerConfig.Get<int>("RSBot.Area.Radius", 50), 5, 100)
             };
         }
 

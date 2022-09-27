@@ -53,21 +53,13 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                     return;
                 }
 
-                // Collision stuffs
-                if (CollisionManager.CenterRegionId != movement.Destination.RegionID)
-                {
-                    Game.NearbyTeleporters = Game.ReferenceManager.GetTeleporters(movement.Destination.RegionID);
-                    Log.Debug($"Found teleporters: {Game.NearbyTeleporters.Length}");
-                    CollisionManager.Update(movement.Destination.RegionID);
-                }
-
                 // Movement through click
                 Game.Player.Move(movement.Destination);
                 EventManager.FireEvent("OnPlayerMove");
                 return;
             }
 
-            if (!SpawnManager.TryGetEntity<SpawnedEntity>(uniqueId, out var entity)) 
+            if (!SpawnManager.TryGetEntity<SpawnedEntity>(uniqueId, out var entity))
                 return;
 
             // Set source from movement

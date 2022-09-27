@@ -88,7 +88,7 @@ namespace RSBot.Core.Components.Scripting.Commands
                )
                 return false; //Invalid format
 
-            var pos = new Position(xOffset, yOffset, zOffset, xSector, ySector);
+            Position pos = new(xOffset, yOffset, zOffset, xSector, ySector);
 
             if (PlayerConfig.Get<bool>("RSBot.Walkback.UseMount", true))
             {
@@ -108,7 +108,7 @@ namespace RSBot.Core.Components.Scripting.Commands
                 return false;
             }
 
-            Log.Debug($"[Script] Move to position X={pos.XCoordinate}, Y={pos.YCoordinate}");
+            Log.Debug($"[Script] Move to position X={pos.X}, Y={pos.Y}");
 
             return Game.Player.MoveTo(pos);
         }

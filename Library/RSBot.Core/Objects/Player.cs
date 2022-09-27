@@ -623,7 +623,7 @@ namespace RSBot.Core.Objects
 
             var packet = new Packet(0x7021);
             packet.WriteByte(1);
-            packet.WriteUShort(destination.RegionID);
+            packet.WriteUShort(destination.RegionId);
 
             if (!Game.Player.IsInDungeon)
             {

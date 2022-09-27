@@ -27,8 +27,8 @@ namespace RSBot.Default.Views.Dialogs
         private void CreateTrainingAreaDialog_Load(object sender, System.EventArgs e)
         {
             var pos = Game.Player.Movement.Source;
-            labelPos.Text = $"X: {pos.XCoordinate:0.0}  Y:{pos.YCoordinate:0.0}";
-            labelArea.Text = Game.ReferenceManager.GetTranslation(pos.RegionID.ToString());
+            labelPos.Text = $"X: {pos.X:0.0}  Y:{pos.Y:0.0}";
+            labelArea.Text = Game.ReferenceManager.GetTranslation(pos.RegionId.ToString());
         }
     }
 }

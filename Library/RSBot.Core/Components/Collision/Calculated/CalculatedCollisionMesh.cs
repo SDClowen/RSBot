@@ -34,8 +34,21 @@ public class CalculatedCollisionMesh
     {
         foreach (var line in original.CollisionLines)
         {
-            var posSource = new Position(line.Source.X, line.Source.Y, 0, original.RegionId);
-            var posDestination = new Position(line.Destination.X, line.Destination.Y, 0, original.RegionId);
+            Position posSource = new()
+            {
+                XOffset = line.Source.X,
+                ZOffset = 0,
+                YOffset = line.Source.Y,
+                RegionId = original.RegionId
+            };
+
+            Position posDestination = new()
+            {
+                XOffset = line.Destination.X,
+                ZOffset = 0,
+                YOffset = line.Destination.Y,
+                RegionId = original.RegionId
+            };
 
             Collisions.Add(new CalculatedCollisionLine(posSource, posDestination));
         }

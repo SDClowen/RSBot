@@ -1,9 +1,9 @@
 ﻿using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Network;
+using RSBot.Core.Objects;
 using RSBot.Core.Plugins;
 using System;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -73,7 +73,7 @@ namespace RSBot.Core
             RegisterNetworkHooks();
 
             _updaterTokenSource = new CancellationTokenSource();
-            
+
             Task.Factory.StartNew(ComponentUpdaterAsync, _updaterTokenSource.Token, TaskCreationOptions.LongRunning, TaskScheduler.Current);
         }
 
@@ -97,6 +97,16 @@ namespace RSBot.Core
                 Game.Player.Fellow?.Update(elapsed);
 
                 SpawnManager.Update(elapsed);
+
+                // Collision stuffs
+                var currentRegionId = Game.Player.Movement.Source.RegionId;
+                if (CollisionManager.CenterRegionId != currentRegionId)
+                {
+                    Game.NearbyTeleporters = Game.ReferenceManager.GetTeleporters(currentRegionId);
+                    Log.Debug($"Found teleporters: {Game.NearbyTeleporters.Length}");
+                    CollisionManager.Update(currentRegionId);
+                }
+
                 EventManager.FireEvent("OnTick");
 
                 lastUpdate = TickCount;

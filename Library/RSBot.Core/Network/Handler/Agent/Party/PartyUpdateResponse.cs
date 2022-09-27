@@ -1,6 +1,7 @@
 ﻿using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Party;
+using System.Linq;
 
 namespace RSBot.Core.Network.Handler.Agent.Party
 {
@@ -38,8 +39,9 @@ namespace RSBot.Core.Network.Handler.Agent.Party
                     break;
 
                 case PartyUpdateType.Joined:
-                    Game.Party.Members?.Add(PartyMember.FromPacket(packet));
-                    EventManager.FireEvent("OnPartyMemberJoin", Game.Party.Members?[Game.Party.Members.Count - 1]);
+                    var memberJoined = PartyMember.FromPacket(packet);
+                    Game.Party.Members?.Add(memberJoined);
+                    EventManager.FireEvent("OnPartyMemberJoin", memberJoined);
                     break;
 
                 case PartyUpdateType.Leave:
@@ -86,21 +88,8 @@ namespace RSBot.Core.Network.Handler.Agent.Party
                             break;
 
                         case PartyMemberUpdateType.Position:
-                            member.Position = new Position { RegionID = packet.ReadUShort() };
-                            if (!member.Position.IsInDungeon)
-                            {
-                                member.Position.XOffset = packet.ReadShort();
-                                member.Position.ZOffset = packet.ReadShort();
-                                member.Position.YOffset = packet.ReadShort();
-                            }
-                            else
-                            {
-                                member.Position.XOffset = packet.ReadInt();
-                                member.Position.ZOffset = packet.ReadInt();
-                                member.Position.YOffset = packet.ReadInt();
-                            }
 
-                            packet.ReadInt(); // layer & world id
+                            member.Position = Position.FromPacketConditional(packet);
 
                             break;
 

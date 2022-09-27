@@ -159,9 +159,6 @@ namespace RSBot.Core.Network.Handler.Agent.Character
             //Set instance..
             Game.Player = character;
             Game.ChunkedPacket = null;
-            Game.NearbyTeleporters = Game.ReferenceManager.GetTeleporters(character.Movement.Source.RegionID);
-
-            CollisionManager.Update(Game.Player.Movement.Source.RegionID);
 
             EventManager.FireEvent("OnLoadCharacter");
 
