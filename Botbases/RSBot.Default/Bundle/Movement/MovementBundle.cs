@@ -51,6 +51,9 @@ namespace RSBot.Default.Bundle.Movement
                 return;
             }
 
+            if (Config.WalkToCenter)
+                return;
+
             EventManager.FireEvent("OnChangeStatusText", "Walking around");
 
             var destination = Container.Bot.Area.GetRandomPosition();

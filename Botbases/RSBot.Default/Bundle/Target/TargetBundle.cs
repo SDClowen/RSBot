@@ -87,7 +87,7 @@ namespace RSBot.Default.Bundle.Target
                             Container.Bot.Area.IsInSight(m) &&
                             m.DistanceToPlayer <= 40 &&
                             !_blacklistTimers.Any(be => be.Key.Id == m.Id) &&
-                            !(ignorePillar == m.Record.IsDimensionPillar) &&
+                            !(m.Record.IsDimensionPillar && ignorePillar) &&
                             !m.Record.IsSummonFlower))
                 return default(SpawnedMonster);
 
