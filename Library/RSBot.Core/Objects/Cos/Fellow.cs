@@ -141,7 +141,7 @@ namespace RSBot.Core.Objects.Cos
         public bool UseSatietyPotion()
         {
             var item = Game.Player.Inventory.GetItem(p => p.Record.IsPet2SatietyPotion &&
-                (p.Record.ReqLevelType1 == ObjectReqLevelType.None || (p.Record.ReqLevel1 >= Level && p.Record.ReqLevel2 <= Level)));
+                (p.Record.ReqLevelType1 == ObjectReqLevelType.None || (Level >= p.Record.ReqLevel1 && Level <= p.Record.ReqLevel2)));
             if (item == null)
                 return false;
 
