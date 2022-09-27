@@ -43,11 +43,13 @@ namespace RSBot.Core.Client.ReferenceObjects
         /// <returns></returns>
         public Position GetPosition()
         {
-            return new Position(
-                GenPos_X, 
-                GenPos_Y, 
-                GenPos_Z, 
-                GenRegionID);
+            return new()
+            {
+                XOffset = GenPos_X,
+                ZOffset = GenPos_Z,
+                YOffset = GenPos_Y,
+                RegionId = GenRegionID
+            };
         }
 
         public bool Load(ReferenceParser parser)
@@ -78,20 +80,3 @@ namespace RSBot.Core.Client.ReferenceObjects
         }
     }
 }
-
-//Service int
-//ID  int
-//CodeName128 varchar(129)
-//AssocRefObjCodeName128 varchar(129)
-//AssocRefObjID int
-//ZoneName128 varchar(129)
-//GenRegionID smallint
-//GenPos_X smallint
-//GenPos_Y smallint
-//GenPos_Z smallint
-//GenAreaRadius smallint
-//CanBeResurrectPos tinyint
-//CanGotoResurrectPos tinyint
-//GenWorldID smallint
-//BindInteractionMask tinyint
-//FixedService tinyint

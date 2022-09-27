@@ -27,7 +27,7 @@ namespace RSBot.Default.Bundle.Loot
 
             //If we use the ability pet, we can attack during the work of the Pickup manager
             if (Config.UseAbilityPet && Game.Player.HasActiveAbilityPet)
-                Task.Run(() => PickupManager.Run(Container.Bot.Area.CenterPosition, Container.Bot.Area.Radius));
+                Task.Run(() => PickupManager.Run(Container.Bot.Area.Position, Container.Bot.Area.Radius));
             else
             {
                 if (Bundles.Loot.Config.DontPickupInBerzerk && Game.Player.Berzerking || ScriptManager.Running)
@@ -37,7 +37,7 @@ namespace RSBot.Default.Bundle.Loot
                 if (Game.SelectedEntity is SpawnedMonster monster && monster.State.LifeState == LifeState.Alive)
                     return;
 
-                PickupManager.Run(Container.Bot.Area.CenterPosition, Container.Bot.Area.Radius);
+                PickupManager.Run(Container.Bot.Area.Position, Container.Bot.Area.Radius);
             }
         }
 

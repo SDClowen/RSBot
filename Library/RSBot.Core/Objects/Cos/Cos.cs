@@ -209,7 +209,7 @@ namespace RSBot.Core.Objects.Cos
             packet.WriteUInt(UniqueId);
             packet.WriteByte(1); //Move
             packet.WriteByte(1); //To point
-            packet.WriteUShort(destination.RegionID);
+            packet.WriteUShort(destination.RegionId);
 
             //Normal world
             if (!destination.IsInDungeon)

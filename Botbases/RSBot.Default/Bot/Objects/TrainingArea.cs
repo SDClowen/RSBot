@@ -1,5 +1,8 @@
-﻿using Microsoft.VisualBasic;
+﻿using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
+using RSBot.Core.Objects.Spawn;
+using System;
+using System.Runtime.CompilerServices;
 
 namespace RSBot.Default.Bot.Objects
 {
@@ -19,7 +22,7 @@ namespace RSBot.Default.Bot.Objects
         /// <value>
         /// The center position.
         /// </value>
-        public Position CenterPosition { get; set; }
+        public Position Position { get; set; }
 
         /// <summary>
         /// Gets or sets the radius.
@@ -28,6 +31,11 @@ namespace RSBot.Default.Bot.Objects
         /// The radius.
         /// </value>
         public int Radius { get; set; }
+
+        /// <summary>
+        /// The random
+        /// </summary>
+        private Random _random = new(Environment.TickCount);
 
         /// <summary>
         /// Return training area from split
@@ -46,9 +54,38 @@ namespace RSBot.Default.Bot.Objects
             return new TrainingArea
             {
                 Name = split[0],
-                CenterPosition = new Position(posX, posY),
-                Radius = radius
+                Position = new Position(posX, posY),
+                Radius = Math.Clamp(radius, 5, 100)
             };
+        }
+
+        /// <summary>
+        /// Is destination position in sight
+        /// </summary>
+        /// <param name="position">The position.</param>
+        /// <returns>If is in sight: <seealso cref="true"/> otherwise <seealso cref="false"/></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool IsInSight(SpawnedEntity entity)
+        {
+            return Position.DistanceTo(entity.Movement.Source) <= Radius;
+        }
+
+        /// <summary>
+        /// Get random position on this area
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Position GetRandomPosition()
+        {
+            var destination = Position;
+
+            var angle = MathF.SinCos(2.0f * MathF.PI * _random.NextFloat());
+
+            var radius = MathF.Sqrt(Radius / MathF.PI) * Radius;
+
+            destination.XOffset += _random.NextFloat(-radius, radius) * angle.Cos;
+            destination.YOffset += _random.NextFloat(-radius, radius) * angle.Sin;
+
+            return destination;
         }
     }
 }

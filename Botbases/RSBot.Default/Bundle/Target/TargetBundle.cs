@@ -54,7 +54,7 @@ namespace RSBot.Default.Bundle.Target
         public void Invoke()
         {
             bool warlockModeEnabled = PlayerConfig.Get<bool>("RSBot.Skills.WarlockMode", false);
-            if (Game.SelectedEntity != null && Game.SelectedEntity.State.LifeState == LifeState.Alive && !(warlockModeEnabled && Game.SelectedEntity.State.HasTwoDots()) && !Game.SelectedEntity.IsBehindObstacle)
+            if (Game.SelectedEntity != null && Game.SelectedEntity.State.LifeState == LifeState.Alive && !(warlockModeEnabled && Game.SelectedEntity.State.HasTwoDots()))
                 return;
 
             var monster = GetNearestEnemy();
@@ -62,16 +62,10 @@ namespace RSBot.Default.Bundle.Target
                 return;
 
             //Check if the monster is still inside our range
-            var distanceToCenter = monster.Movement.Source.DistanceTo(Container.Bot.Area.CenterPosition);
+            var distanceToCenter = monster.Movement.Source.DistanceTo(Container.Bot.Area.Position);
 
-            const int tolerance = 10;
-            if (distanceToCenter > Container.Bot.Area.Radius + tolerance)
+            if (distanceToCenter > Container.Bot.Area.Radius)
                 return;
-
-            //Move closer to the monster
-            //var distanceToPlayer = monster.Movement.Source.DistanceTo(Game.Player.Movement.Source);
-            //if (distanceToPlayer >= 80)
-            //Game.Player.MoveTo(monster.Movement.Source/*.BehindTo(monster.Character.Bionic.Tracker.Position, 20)*/);
 
             monster.TrySelect();
         }
@@ -88,12 +82,12 @@ namespace RSBot.Default.Bundle.Target
                             m.IsBehindObstacle == false &&
                             _blacklistTimers != null &&
                             !_blacklistTimers.ContainsKey(m) &&
-                            //!Bundles.Avoidance.AvoidMonster(m.Rarity) &&
+                            Container.Bot.Area.IsInSight(m) &&
                             m.DistanceToPlayer <= 40))
                 return default(SpawnedMonster);
 
             return entities.Where(e => _blacklistTimers.Count(be => be.Key.Id == e.Id) == 0)
-                .OrderBy(m => m.Movement.Source.DistanceTo(Container.Bot.Area.CenterPosition))
+                .OrderBy(m => m.Movement.Source.DistanceTo(Container.Bot.Area.Position))
                 .OrderByDescending(m => m.AttackingPlayer)
                 .OrderByDescending(m => Bundles.Avoidance.PreferMonster(m.Rarity))
                 .FirstOrDefault();

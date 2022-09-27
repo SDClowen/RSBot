@@ -76,22 +76,6 @@ namespace RSBot.Core.Objects.Party
         public uint MasteryId2;
 
         /// <summary>
-        /// Gets or sets the world identifier.
-        /// </summary>
-        /// <value>
-        /// The world identifier.
-        /// </value>
-        public short WorldId;
-
-        /// <summary>
-        /// Gets or sets the layer identifier.
-        /// </summary>
-        /// <value>
-        /// The layer identifier.
-        /// </value>
-        public short LayerId;
-
-        /// <summary>
         /// Gets or sets the health mana.
         /// </summary>
         /// var hpmp = HealthMana.ToString("X2");
@@ -117,27 +101,7 @@ namespace RSBot.Core.Objects.Party
             result.ObjectId = packet.ReadUInt();
             result.Level = packet.ReadByte();
             result.HealthMana = packet.ReadByte(); //0-A|0-A -> 0%-100%|0%-100%
-
-            result.Position = new Position
-            {
-                RegionID = packet.ReadUShort()
-            };
-
-            if (!result.Position.IsInDungeon)
-            {
-                result.Position.XOffset = packet.ReadShort();
-                result.Position.ZOffset = packet.ReadShort();
-                result.Position.YOffset = packet.ReadShort();
-            }
-            else
-            {
-                result.Position.XOffset = packet.ReadInt();
-                result.Position.ZOffset = packet.ReadInt();
-                result.Position.YOffset = packet.ReadInt();
-            }
-
-            result.WorldId = packet.ReadShort();
-            result.LayerId = packet.ReadShort();
+            result.Position = Position.FromPacketConditional(packet);
             result.Guild = packet.ReadString();
 
             packet.ReadByte(); //04

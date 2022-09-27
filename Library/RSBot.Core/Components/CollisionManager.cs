@@ -151,12 +151,9 @@ public static class CollisionManager
     /// <returns>
     ///   <c>true</c> if [has collision between] [the specified source]; otherwise, <c>false</c>.
     /// </returns>
-    public static bool HasCollisionBetween(Position? source, Position? destination)
+    public static bool HasCollisionBetween(Position source, Position destination)
     {
         if (!HasActiveMeshes)
-            return false;
-
-        if (source == null || destination == null)
             return false;
 
         return CollisionCalculator.GetCalculatedCollisionBetween(source, destination, ActiveCollisionMeshes) != null;
@@ -168,12 +165,9 @@ public static class CollisionManager
     /// <param name="source">The source.</param>
     /// <param name="destination">The destination.</param>
     /// <returns>null if no collision was found</returns>
-    public static CollisionResult? GetCollisionBetween(Position? source, Position? destination)
+    public static CollisionResult? GetCollisionBetween(Position source, Position destination)
     {
         if (!HasActiveMeshes)
-            return null;
-
-        if (source == null || destination == null)
             return null;
 
         return CollisionCalculator.GetCalculatedCollisionBetween(source, destination, ActiveCollisionMeshes);

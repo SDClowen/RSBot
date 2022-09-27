@@ -122,8 +122,8 @@ namespace RSBot.Core.Objects.Spawn
                 Movement.HasDestination = true;
                 Movement.Destination = destination;
 
-                var xDelta = Movement.Destination.XCoordinate - Movement.Source.XCoordinate;
-                var yDelta = Movement.Destination.YCoordinate - Movement.Source.YCoordinate;
+                var xDelta = Movement.Destination.X - Movement.Source.X;
+                var yDelta = Movement.Destination.Y - Movement.Source.Y;
 
                 Movement.Angle = MathF.Atan2(yDelta, xDelta);
 
@@ -171,32 +171,22 @@ namespace RSBot.Core.Objects.Spawn
 
         private void CalculateMovingConditional()
         {
-            try
-            {
-                var position = this.Movement.Source;
-                var diffX = Movement.Destination?.XCoordinate - position.XCoordinate;
-                var diffY = Movement.Destination?.YCoordinate - position.YCoordinate;
-                var distance = Movement.Destination?.DistanceTo(position);
+            var position = this.Movement.Source;
+            var diffX = Movement.Destination.X - position.X;
+            var diffY = Movement.Destination.Y - position.Y;
+            var distance = Movement.Destination.DistanceTo(position);
 
-                if (distance == null || diffX == null || diffY == null)
-                    return;
+            var speed = ActualSpeed * 0.1f;
 
-                var speed = ActualSpeed * 0.1f;
+            // Don't move if too close to destination
+            if (distance <= 1)
+                return;
 
-                // Don't move if too close to destination
-                if (distance <= 1)
-                    return;
-
-                // Calculate movement and move time
-                var remaining = TimeSpan.FromSeconds((double) distance / speed);
-                Movement.MovingX = (float)diffX / remaining.TotalSeconds;
-                Movement.MovingY = (float)diffY / remaining.TotalSeconds;
-                Movement.RemainingTime = remaining;
-            }
-            catch (NullReferenceException) //can happen if the entity has reached its destination but the core didn't handle it yet
-            {
-                Log.Debug($"SpawnedEntity::CalculateMovingConditional->Ignored Null reference exception");
-            }
+            // Calculate movement and move time
+            var remaining = TimeSpan.FromSeconds(distance / speed);
+            Movement.MovingX = diffX / remaining.TotalSeconds;
+            Movement.MovingY = diffY / remaining.TotalSeconds;
+            Movement.RemainingTime = remaining;
         }
 
         private void CheckMovement(int delta)
