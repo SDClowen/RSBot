@@ -135,7 +135,15 @@ namespace RSBot.Core
             if (visible)
                 ShowWindow(_process.MainWindowHandle, SW_SHOW);
             else
+            {
+                while (string.IsNullOrEmpty(_process.MainWindowTitle))
+                {
+                    System.Threading.Thread.Sleep(200);
+                    _process.Refresh();
+                }
                 ShowWindow(_process.MainWindowHandle, SW_HIDE);
+            }
+
         }
 
         /// <summary>

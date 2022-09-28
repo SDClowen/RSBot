@@ -97,6 +97,7 @@ namespace RSBot.General.Views
             txtStaticCaptcha.Text = GlobalConfig.Get<string>("RSBot.General.StaticCaptcha");
             checkEnableLoginDelay.Checked = GlobalConfig.Get<bool>("RSBot.General.EnableLoginDelay");
             numLoginDelay.Value = GlobalConfig.Get("RSBot.General.LoginDelay", 10);
+            checkHideClient.Checked = GlobalConfig.Get<bool>("RSBot.General.HideOnStartClient");
 
             comboBoxClientType.SelectedIndex = (int)Game.ClientType;
 
@@ -181,6 +182,10 @@ namespace RSBot.General.Views
             btnStartClient.Enabled = false;
             btnStartClientless.Enabled = false;
             _clientVisible = true;
+            btnClientHideShow.Enabled = true;
+
+            if (GlobalConfig.Get<bool>("RSBot.General.HideOnStartClient"))
+                ClientManager.SetVisible(false);
         }
 
         /// <summary>
@@ -621,6 +626,16 @@ namespace RSBot.General.Views
         private void numLoginDelay_ValueChanged(object sender, EventArgs e)
         {
             GlobalConfig.Set("RSBot.General.LoginDelay", numLoginDelay.Value);
+        }
+
+        /// <summary>
+        /// Handles the CheckedChanged event of the checkHideClient control. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void checkHideClient_CheckedChanged(object sender, EventArgs e)
+        {
+            GlobalConfig.Set("RSBot.General.HideOnStartClient", checkHideClient.Checked);
         }
     }
 }
