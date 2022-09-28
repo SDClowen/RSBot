@@ -142,6 +142,10 @@ public static class CollisionManager
         Log.Debug($"[Collision] Loaded {ActiveCollisionMeshes.Count} regions!");
         EventManager.FireEvent("OnUpdateCollisions");
     }
+    internal static RSCollisionMesh? GetCollisionMesh(ushort regionId)
+    {
+        return _loadedCollisions.FirstOrDefault(r => r.Key == regionId).Value;
+    }
 
     /// <summary>
     /// Determines whether [has collision between] [the specified source].

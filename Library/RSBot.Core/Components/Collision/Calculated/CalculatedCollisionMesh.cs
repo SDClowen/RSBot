@@ -11,33 +11,28 @@ public class CalculatedCollisionMesh
 {
     public ushort RegionId;
 
-    public List<CalculatedCollisionLine> Collisions;
-
-    public CalculatedCollisionMesh(List<CalculatedCollisionLine> collisions)
-    {
-        Collisions = collisions;
-    }
+    public CalculatedCollisionLine[] Collisions;
 
     internal CalculatedCollisionMesh(RSCollisionMesh original)
     {
         RegionId = original.RegionId;
-        Collisions = new List<CalculatedCollisionLine>(original.CollisionLines.Length);
 
-        Calculate(original);
+        var collisions = original.GetCollisions();
+        Collisions = new CalculatedCollisionLine[collisions.Length];
+
+        Calculate(collisions);
     }
-
-    /// <summary>
-    /// Calculates the specified original.
-    /// </summary>
-    /// <param name="original">The original.</param>
-    private void Calculate(RSCollisionMesh original)
+    
+    private void Calculate(IReadOnlyList<RSCollisionLine> collisions)
     {
-        foreach (var line in original.CollisionLines)
+        for (var iLine = 0; iLine < collisions.Count; iLine++)
         {
-            var posSource = new Position(line.Source.X, line.Source.Y, 0, original.RegionId);
-            var posDestination = new Position(line.Destination.X, line.Destination.Y, 0, original.RegionId);
+            var line = collisions[iLine];
 
-            Collisions.Add(new CalculatedCollisionLine(posSource, posDestination));
+            var posSource = new Position(line.Source.X, line.Source.Y, 0, RegionId);
+            var posDestination = new Position(line.Destination.X, line.Destination.Y, 0, RegionId);
+
+            Collisions[iLine] = new CalculatedCollisionLine(posSource, posDestination);
         }
     }
 }

@@ -10,7 +10,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Linq;
 using System.Windows.Forms;
+using TriangleNet.Topology;
 using Region = RSBot.Core.Objects.Region;
 
 namespace RSBot.Map.Views
@@ -173,6 +175,21 @@ namespace RSBot.Map.Views
                 gfx.FillRectangle(brush, new RectangleF(new PointF(x, y), size));
             }
             catch { }
+        }
+
+        private void DrawTriangleAt(Graphics gfx, Triangle triangle, Pen pen)
+        {
+            var vertexA = triangle.GetVertex(0);
+            var vertexB = triangle.GetVertex(1);
+            var vertexC = triangle.GetVertex(2);
+
+            var posA = new Position((float)vertexA.X, (float)vertexA.Y);
+            var posB = new Position((float)vertexB.X, (float)vertexB.Y);
+            var posC = new Position((float)vertexC.X, (float)vertexC.Y);
+
+            DrawLineAt(gfx, posA, posB, pen);
+            DrawLineAt(gfx, posB, posC, pen);
+            DrawLineAt(gfx, posA, posC, pen);
         }
 
         private void DrawLineAt(Graphics gfx, Position source, Position destination, Pen color)
@@ -349,6 +366,15 @@ namespace RSBot.Map.Views
 
         private void DrawCollisions(Graphics gfx)
         {
+            if (PathManager.HasActiveGrids)
+            {
+                var triangles = PathManager.Triangles;
+                foreach (var triangle in triangles)
+                {
+                    DrawTriangleAt(gfx, triangle, Pens.Aquamarine);
+                }
+            }
+
             if (CollisionManager.HasActiveMeshes)
             {
                 //Draw collisions
@@ -378,6 +404,7 @@ namespace RSBot.Map.Views
                 }
             }
         }
+
 
         private Image LoadSectorImage(string sectorImgName)
         {
