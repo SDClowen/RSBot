@@ -137,6 +137,9 @@ namespace RSBot.Core.Objects.Spawn
         {
             State.WalkSpeed = walk;
             State.RunSpeed = run;
+
+            if (Movement.HasDestination && Movement.Moving)
+                CalculateMovingConditional();
         }
 
         public void SetSource(Position source)
