@@ -83,7 +83,7 @@ namespace RSBot.Core.Network.Handler.Agent.Action
                 return;
 
             executor.TargetId = action.TargetId;
-            executor.StopMoving();
+            //executor.StopMoving();
 
             if (!action.PlayerIsTarget)
                 return;
