@@ -49,6 +49,7 @@ namespace RSBot.Map.Views
             this.checkBoxAutoSelectUniques = new SDUI.Controls.CheckBox();
             this.label3 = new SDUI.Controls.Label();
             this.timerUniqueChecker = new System.Windows.Forms.Timer(this.components);
+            this.checkEnableCollisions = new SDUI.Controls.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.mapCanvas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -208,7 +209,7 @@ namespace RSBot.Map.Views
             // 
             this.checkBoxAutoSelectUniques.AutoSize = true;
             this.checkBoxAutoSelectUniques.BackColor = System.Drawing.Color.Transparent;
-            this.checkBoxAutoSelectUniques.Location = new System.Drawing.Point(35, 374);
+            this.checkBoxAutoSelectUniques.Location = new System.Drawing.Point(35, 385);
             this.checkBoxAutoSelectUniques.Name = "checkBoxAutoSelectUniques";
             this.checkBoxAutoSelectUniques.ShadowDepth = 1;
             this.checkBoxAutoSelectUniques.Size = new System.Drawing.Size(175, 15);
@@ -222,7 +223,7 @@ namespace RSBot.Map.Views
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label3.Location = new System.Drawing.Point(33, 399);
+            this.label3.Location = new System.Drawing.Point(33, 410);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(245, 39);
             this.label3.TabIndex = 18;
@@ -235,10 +236,24 @@ namespace RSBot.Map.Views
             this.timerUniqueChecker.Interval = 2500;
             this.timerUniqueChecker.Tick += new System.EventHandler(this.timerUniqueChecker_Tick);
             // 
+            // checkEnableCollisions
+            // 
+            this.checkEnableCollisions.AutoSize = true;
+            this.checkEnableCollisions.BackColor = System.Drawing.Color.Transparent;
+            this.checkEnableCollisions.Location = new System.Drawing.Point(35, 364);
+            this.checkEnableCollisions.Name = "checkEnableCollisions";
+            this.checkEnableCollisions.ShadowDepth = 1;
+            this.checkEnableCollisions.Size = new System.Drawing.Size(158, 15);
+            this.checkEnableCollisions.TabIndex = 19;
+            this.checkEnableCollisions.Text = "Enable collision detection";
+            this.checkEnableCollisions.UseVisualStyleBackColor = false;
+            this.checkEnableCollisions.CheckedChanged += new System.EventHandler(this.checkEnableCollisions_CheckedChanged);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.Controls.Add(this.checkEnableCollisions);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.checkBoxAutoSelectUniques);
             this.Controls.Add(this.labelSectorInfo);
@@ -280,5 +295,6 @@ namespace RSBot.Map.Views
         private SDUI.Controls.CheckBox checkBoxAutoSelectUniques;
         private SDUI.Controls.Label label3;
         private System.Windows.Forms.Timer timerUniqueChecker;
+        private SDUI.Controls.CheckBox checkEnableCollisions;
     }
 }

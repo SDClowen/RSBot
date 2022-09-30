@@ -75,6 +75,7 @@ namespace RSBot.Map.Views
 
             // All
             comboViewType.SelectedIndex = 6;
+            checkEnableCollisions.Checked = GlobalConfig.Get("RSBot.EnableCollisionDetection", true);
 
 #if !DEBUG
             labelSectorInfo.Visible = false;
@@ -614,6 +615,14 @@ namespace RSBot.Map.Views
             position.YOffset = (Game.Player.Movement.Source.YOffset + (((mapCanvas.Height / 2f - e.Y) / SectorSize) * 192f * 10));
 
             Game.Player.MoveTo(position, false);
+        }
+
+        private void checkEnableCollisions_CheckedChanged(object sender, EventArgs e)
+        {
+            GlobalConfig.Set("RSBot.EnableCollisionDetection", checkEnableCollisions.Checked);
+
+            if (checkEnableCollisions.Checked)
+                CollisionManager.Update(Game.Player.Position.RegionId);
         }
     }
 }
