@@ -56,4 +56,20 @@ public class CalculatedWalkGrid
             Floor[iLine] = new CalculatedCollisionLine(posSource, posDestination);
         }
     }
+
+    public List<Vertex> GetVerticies()
+    {
+        var result = new List<Vertex>();
+        foreach (var line in Floor)
+        {
+            result.Add(new(line.Source.XCoordinate, line.Source.YCoordinate));
+        }
+
+        foreach (var obj in Objects)
+        {
+            result.AddRange(obj.GetOutlineVertices());
+        }
+
+        return result;
+    }
 }

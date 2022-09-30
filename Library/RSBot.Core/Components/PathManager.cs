@@ -142,7 +142,7 @@ public static class PathManager
             var positionTL = new Position(0, 0, 0f, regionTopLeft);
             var positionTR = new Position(1920, 0, 0f, regionTopRight);
             var positionBL = new Position(0, 1920, 0f, regionBottomLeft);
-            var positionBR = new Position(192, 1920, 0f, regionBottomRight);
+            var positionBR = new Position(1920, 1920, 0f, regionBottomRight);
 
             var points = new List<Vertex>();
             points.Add(new(positionTL.XCoordinate, positionTL.YCoordinate));
@@ -150,25 +150,26 @@ public static class PathManager
             points.Add(new(positionBL.XCoordinate, positionBL.YCoordinate));
             points.Add(new(positionBR.XCoordinate, positionBR.YCoordinate));
 
-            return new Contour(points);
+            return new Contour(points, 0, false);
     }
 
     private static Triangle[] TriangulateWalkMesh()
     {
         var polygon = new Polygon();
-        polygon.Add(GetBoundingBox());
+        polygon.Add(GetBoundingBox(), false);
 
         foreach (var grid in ActiveWalkGrids)
         {
+            //polygon.Points.AddRange(grid.GetVerticies()); 
             foreach (var obj in grid.Objects)
             {
                 //polygon.Points.AddRange(obj.GetOutlineVertices());
-                //var verticies = obj.GetOutlineVertices();
-                ////polygon.Points.AddRange(verticies);
+                var verticies = obj.GetOutlineVertices();
+                polygon.Points.AddRange(verticies);
 
                 //var contour = new Contour(verticies, 0, true);
-                polygon.Segments.AddRange(obj.GetSegments());
-                //polygon.Add(contour, true);
+                //polygon.Segments.AddRange(obj.GetSegments());
+                //polygon.Add(contour, false);
             }
         }
 
@@ -183,7 +184,7 @@ public static class PathManager
             //    MinimumAngle = 25.0,
             //    VariableArea = true
             //};
-            var options = new ConstraintOptions() { ConformingDelaunay = true, SegmentSplitting = 2 };
+            var options = new ConstraintOptions() { ConformingDelaunay = true, Convex = false };
             var mesh = polygon.Triangulate(options);
             var smoother = new SimpleSmoother();
 

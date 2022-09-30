@@ -14,7 +14,7 @@ public struct CalculatedCollisionObject
         foreach (var line in CollisionLines)
         {
             result.Add(new Vertex(line.Source.XCoordinate, line.Source.YCoordinate));
-            //result.Add(new Vertex(line.Destination.XCoordinate, line.Destination.YCoordinate));
+            result.Add(new Vertex(line.Destination.XCoordinate, line.Destination.YCoordinate));
         }
 
         return result;
