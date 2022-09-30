@@ -11,6 +11,9 @@ namespace RSBot.Core.Components;
 
 public static class CollisionManager
 {
+    private const string SupportedHeader = "RSNVM";
+    private const int SupportedVersion = 1100;
+
     /// <summary>
     /// Gets a value indicating whether this instance is initialized.
     /// </summary>
@@ -97,7 +100,17 @@ public static class CollisionManager
 
         _loadedCollisions = new Dictionary<ushort, RSCollisionMesh>(1024);
 
-        var fileStream = new BinaryReader(File.OpenRead(path));
+        using var fileStream = new BinaryReader(File.OpenRead(path));
+
+        var header = fileStream.ReadString();
+        var version = fileStream.ReadInt32();
+
+        if (header != SupportedHeader || version != SupportedVersion)
+        {
+            Log.Error("[Collision] Outdated or invalid collision file!");
+
+            return;
+        }
 
         while (fileStream.ReadBoolean())
         {

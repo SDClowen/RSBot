@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 
 namespace RSBot.Core.Components.Collision;
 
@@ -9,18 +7,6 @@ namespace RSBot.Core.Components.Collision;
 /// </summary>
 internal struct RSCollisionMesh
 {
-    private const int SupportedVersion = 1100;
-
-    /// <summary>
-    /// The header of the rs navmesh file
-    /// </summary>
-    public string Header;
-
-    /// <summary>
-    /// The version of the rs navmesh file
-    /// </summary>
-    public int Version;
-
     /// <summary>
     /// The region identifier this navmesh is used for
     /// </summary>
@@ -30,7 +16,7 @@ internal struct RSCollisionMesh
     /// Gets the collision lines
     /// </summary>
     public RSCollisionLine[] Collisions;
-    
+
     /// <summary>
     /// Initializes a new instance of the <see cref="RSCollisionMesh"/> struct.
     /// Takes the binary reader and parses a new instance.
@@ -38,12 +24,6 @@ internal struct RSCollisionMesh
     /// <param name="reader">The reader.</param>
     public RSCollisionMesh(BinaryReader reader)
     {
-        Header = reader.ReadString();
-        Version = reader.ReadInt32();
-
-        if (Version != SupportedVersion)
-            throw new Exception("The collision mesh has an unsupported version.");
-
         RegionId = reader.ReadUInt16();
         var collisionLineCount = reader.ReadInt32();
 

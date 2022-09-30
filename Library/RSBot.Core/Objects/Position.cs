@@ -172,6 +172,13 @@ namespace RSBot.Core.Objects
             YOffset = y * 10;
         }
 
+        /// <summary>
+        /// Creates a position using sector offsets
+        /// </summary>
+        /// <param name="xOffset">The x offset.</param>
+        /// <param name="yOffset">The y offset.</param>
+        /// <param name="zOffset">The z offset.</param>
+        /// <param name="regionId">The region identifier.</param>
         public Position(short xOffset, short yOffset, short zOffset, ushort regionId)
             : this()
         {
