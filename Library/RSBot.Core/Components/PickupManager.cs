@@ -149,12 +149,14 @@ namespace RSBot.Core.Components
 
         private static bool Condition( SpawnedItem e, Position centerPosition, int radius ) {
             var playerJid = Game.Player.JID;
+            var playerItemJid = Game.Player.ItemJID;
 
-            if( JustPickMyItems && e.OwnerJID != playerJid )
+
+            if( JustPickMyItems && e.OwnerJID != playerJid && e.OwnerJID!=playerItemJid )
                 return false;
 
             // Don't pickup items that still belong to another player
-            if( e.HasOwner && e.OwnerJID != playerJid )
+            if( e.HasOwner && e.OwnerJID != playerJid && e.OwnerJID != playerItemJid)
                 return false;
 
             // Check if Item is within the training area + tolerance

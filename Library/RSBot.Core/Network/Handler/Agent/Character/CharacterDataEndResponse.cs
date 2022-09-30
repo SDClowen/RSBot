@@ -2,6 +2,9 @@
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Quests;
+using System.IO;
+using System;
+using System.Text.Json;
 
 namespace RSBot.Core.Network.Handler.Agent.Character
 {
@@ -146,12 +149,22 @@ namespace RSBot.Core.Network.Handler.Agent.Character
 
             //GuideFlag
             if (Game.ClientType >= GameClientType.Thailand)
-                packet.ReadULong();
+            {
+                if (Game.ClientType == GameClientType.Global)
+                {
+                    packet.ReadUInt();
+                    character.ItemJID = packet.ReadUInt();
+                }
+                else
+                    packet.ReadULong();
+
+            }
             else
                 packet.ReadUInt();
 
             if (Game.ClientType == GameClientType.Chinese)
                 packet.ReadByte();
+
 
             character.JID = packet.ReadUInt();
             character.IsGameMaster = packet.ReadBool();
@@ -159,6 +172,7 @@ namespace RSBot.Core.Network.Handler.Agent.Character
             //Set instance..
             Game.Player = character;
             Game.ChunkedPacket = null;
+
 
             EventManager.FireEvent("OnLoadCharacter");
 

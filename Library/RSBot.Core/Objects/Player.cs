@@ -317,6 +317,13 @@ namespace RSBot.Core.Objects
         /// The account identifier.
         /// </value>
         public uint JID { get; set; }
+        /// <summary>
+        /// Gets or sets the account identifier.
+        /// </summary>
+        /// <value>
+        /// The account identifier.
+        /// </value>
+        public uint ItemJID { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is gm.
