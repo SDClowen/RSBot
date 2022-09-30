@@ -138,7 +138,11 @@ public static class CollisionManager
         CenterRegionId = centerRegionId;
 
         if (!Enabled)
+        {
+            ActiveCollisionMeshes = null;
+
             return;
+        }
 
         IsUpdating = true;
         ActiveCollisionMeshes = new List<CalculatedCollisionMesh>(9);
