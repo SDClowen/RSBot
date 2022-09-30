@@ -15,11 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RSBot.Pk2\RSBot.Pk2.csproj" />
-    <ProjectReference Include="..\Triangle\Triangle.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Components\Collision\Path\" />
   </ItemGroup>
 
 </Project>

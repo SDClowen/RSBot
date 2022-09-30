@@ -17,7 +17,7 @@ public class CalculatedCollisionMesh
     {
         RegionId = original.RegionId;
 
-        var collisions = original.GetCollisions();
+        var collisions = original.Collisions;
         Collisions = new CalculatedCollisionLine[collisions.Length];
 
         Calculate(collisions);

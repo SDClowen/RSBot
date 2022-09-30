@@ -195,7 +195,6 @@ namespace RSBot.Views
             }
 
             CollisionManager.Initialize(mapFile);
-            PathManager.Initialize();
         }
 
         /// <summary>
