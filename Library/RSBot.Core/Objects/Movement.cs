@@ -55,27 +55,14 @@ namespace RSBot.Core.Objects
         /// <returns></returns>
         public static Movement MotionFromPacket(Packet packet)
         {
-            var result = new Movement { HasDestination = packet.ReadBool() };
+            var result = new Movement 
+            { 
+                HasDestination = packet.ReadBool() 
+            };
 
             if (result.HasDestination)
             {
-                result.Destination = new Position
-                {
-                    RegionID = packet.ReadUShort()
-                };
-
-                if (!result.Destination.IsInDungeon)
-                {
-                    result.Destination.XOffset = packet.ReadShort();
-                    result.Destination.ZOffset = packet.ReadShort();
-                    result.Destination.YOffset = packet.ReadShort();
-                }
-                else
-                {
-                    result.Destination.XOffset = packet.ReadInt();
-                    result.Destination.ZOffset = packet.ReadInt();
-                    result.Destination.YOffset = packet.ReadInt();
-                }
+                result.Destination = Position.FromPacketConditional(packet, false);
             }
             else
             {
@@ -87,10 +74,11 @@ namespace RSBot.Core.Objects
             result.HasSource = packet.ReadBool();
             if (result.HasSource)
             {
-                result.Source = new Position()
+                result.Source = new()
                 {
-                    RegionID = packet.ReadUShort()
+                    RegionId = packet.ReadUShort()
                 };
+
                 if (result.Source.IsInDungeon)
                 {
                     result.Source.XOffset = packet.ReadInt() / 10f;
@@ -104,6 +92,7 @@ namespace RSBot.Core.Objects
                     result.Source.YOffset = packet.ReadShort() / 10f;
                 }
             }
+
             return result;
         }
 
@@ -123,24 +112,11 @@ namespace RSBot.Core.Objects
 
             if (result.HasDestination)
             {
-                result.Destination = new Position { RegionID = packet.ReadUShort() };
-
-                if (!result.Destination.IsInDungeon)
-                {
-                    result.Destination.XOffset = packet.ReadShort();
-                    result.Destination.ZOffset = packet.ReadShort();
-                    result.Destination.YOffset = packet.ReadShort();
-                }
-                else
-                {
-                    result.Destination.XOffset = packet.ReadInt();
-                    result.Destination.ZOffset = packet.ReadInt();
-                    result.Destination.YOffset = packet.ReadInt();
-                }
+                result.Destination = Position.FromPacketConditional(packet, false);
             }
             else
             {
-                var actionType = packet.ReadByte();  //0 = Spinning, 1 = Sky-/Key-walking
+                result.HasDestination = packet.ReadByte() == 1; //0 = Spinning, 1 = Sky-/Key-walking
                 result.HasAngle = true;
                 result.Angle = packet.ReadShort();
             }

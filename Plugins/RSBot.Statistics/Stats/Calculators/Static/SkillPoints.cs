@@ -7,7 +7,7 @@ namespace RSBot.Statistics.Stats.Calculators.Static
         /// <summary>
         /// The initial value
         /// </summary>
-        private uint _initialValue;
+        private long _initialValue;
 
         /// <inheritdoc />
         public string Name => "SPGained";
@@ -29,8 +29,8 @@ namespace RSBot.Statistics.Stats.Calculators.Static
         {
             if (!Game.Ready)
                 return 0;
-
-            return Game.Player.SkillPoints - _initialValue;
+            
+            return ((long)Game.Player.SkillPoints) - _initialValue;
         }
 
         /// <inheritdoc />

@@ -93,7 +93,7 @@ namespace RSBot.Party.Views
 
             var mastery1 = Game.ReferenceManager.GetRefSkillMastery(member.MasteryId1);
             var mastery2 = Game.ReferenceManager.GetRefSkillMastery(member.MasteryId2);
-            var location = Game.ReferenceManager.GetTranslation(member.Position.RegionID.ToString());
+            var location = Game.ReferenceManager.GetTranslation(member.Position.RegionId.ToString());
 
             var masteryInfo = _none;
             if (mastery1 != null)
@@ -537,7 +537,7 @@ namespace RSBot.Party.Views
 
             var mastery1 = Game.ReferenceManager.GetRefSkillMastery(member.MasteryId1);
             var mastery2 = Game.ReferenceManager.GetRefSkillMastery(member.MasteryId2);
-            var location = Game.ReferenceManager.GetTranslation(member.Position.RegionID.ToString());
+            var location = Game.ReferenceManager.GetTranslation(member.Position.RegionId.ToString());
 
             var masteryInfo = _none;
             if (mastery1 != null)

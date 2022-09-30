@@ -87,7 +87,8 @@ namespace RSBot.Core
             Game.SelectedEntity = null;
             ScriptManager.Stop();
             ShoppingManager.Stop();
-            PickupManager.Stop();
+            PickupManager.StopPlayerPickup();
+            PickupManager.StopAbilityPetPickup();
             Botbase.Stop();
 
             Running = false;

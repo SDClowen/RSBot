@@ -36,8 +36,8 @@ namespace RSBot.Default.Views.Dialogs
                 return;
             }
 
-            PlayerConfig.Set<float>("RSBot.Area.X", trainingArea.CenterPosition.XCoordinate);
-            PlayerConfig.Set<float>("RSBot.Area.Y", trainingArea.CenterPosition.YCoordinate);
+            PlayerConfig.Set<float>("RSBot.Area.X", trainingArea.Position.X);
+            PlayerConfig.Set<float>("RSBot.Area.Y", trainingArea.Position.Y);
             PlayerConfig.Set<int>("RSBot.Area.Radius", trainingArea.Radius);
         }
 
@@ -59,7 +59,7 @@ namespace RSBot.Default.Views.Dialogs
                 if (trainingArea == null)
                     continue;
 
-                var regionName = Game.ReferenceManager.GetTranslation(trainingArea.CenterPosition.RegionID.ToString());
+                var regionName = Game.ReferenceManager.GetTranslation(trainingArea.Position.RegionId.ToString());
 
                 var listViewItem = listView.Items.Add(new ListViewItem
                 {
@@ -71,8 +71,8 @@ namespace RSBot.Default.Views.Dialogs
                 {
                     trainingArea.Name,
                     regionName,
-                    trainingArea.CenterPosition.XCoordinate.ToString("0.0"),
-                    trainingArea.CenterPosition.YCoordinate.ToString("0.0"),
+                    trainingArea.Position.X.ToString("0.0"),
+                    trainingArea.Position.Y.ToString("0.0"),
                     trainingArea.Radius.ToString(),
                     listViewItem.Index ==  selectedIndex ? "Yes" : "No"
                 });
@@ -101,11 +101,11 @@ namespace RSBot.Default.Views.Dialogs
                 var trainingArea = new TrainingArea
                 {
                     Name = dialog.TrainingName.Text,
-                    CenterPosition = position,
+                    Position = position,
                     Radius = (int)dialog.Radius.Value
                 };
 
-                var regionName = Game.ReferenceManager.GetTranslation(trainingArea.CenterPosition.RegionID.ToString());
+                var regionName = Game.ReferenceManager.GetTranslation(trainingArea.Position.RegionId.ToString());
 
                 var listViewItem = listView.Items.Add(new ListViewItem
                 {
@@ -116,14 +116,14 @@ namespace RSBot.Default.Views.Dialogs
                 {
                     trainingArea.Name,
                     regionName,
-                    trainingArea.CenterPosition.XCoordinate.ToString("0.0"),
-                    trainingArea.CenterPosition.YCoordinate.ToString("0.0"),
+                    trainingArea.Position.X.ToString("0.0"),
+                    trainingArea.Position.Y.ToString("0.0"),
                     trainingArea.Radius.ToString(),
                     "No"
                 });
 
                 var areas = PlayerConfig.GetArray<string>("RSBot.Training.Areas").ToList();
-                areas.Add($"{trainingArea.Name}|{trainingArea.CenterPosition.XCoordinate:0.0}|{trainingArea.CenterPosition.YCoordinate:0.0}|{trainingArea.Radius}");
+                areas.Add($"{trainingArea.Name}|{trainingArea.Position.X:0.0}|{trainingArea.Position.Y:0.0}|{trainingArea.Radius}");
                 PlayerConfig.SetArray("RSBot.Training.Areas", areas);
             }
         }

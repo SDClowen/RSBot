@@ -43,11 +43,14 @@
             this.panel1 = new SDUI.Controls.Panel();
             this.btnReset = new SDUI.Controls.Button();
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.contextMenuStrip = new SDUI.Controls.ContextMenuStrip();
+            this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -79,7 +82,8 @@
             this.panelStaticFilters.Location = new System.Drawing.Point(10, 218);
             this.panelStaticFilters.Name = "panelStaticFilters";
             this.panelStaticFilters.Padding = new System.Windows.Forms.Padding(8, 10, 3, 10);
-            this.panelStaticFilters.Radius = 2;
+            this.panelStaticFilters.Radius = 10;
+            this.panelStaticFilters.ShadowDepth = 4;
             this.panelStaticFilters.Size = new System.Drawing.Size(235, 278);
             this.panelStaticFilters.TabIndex = 9;
             this.panelStaticFilters.TabStop = false;
@@ -102,7 +106,8 @@
             this.panelLiveFilters.Location = new System.Drawing.Point(10, 10);
             this.panelLiveFilters.Name = "panelLiveFilters";
             this.panelLiveFilters.Padding = new System.Windows.Forms.Padding(8, 10, 3, 10);
-            this.panelLiveFilters.Radius = 2;
+            this.panelLiveFilters.Radius = 10;
+            this.panelLiveFilters.ShadowDepth = 4;
             this.panelLiveFilters.Size = new System.Drawing.Size(235, 190);
             this.panelLiveFilters.TabIndex = 1;
             this.panelLiveFilters.TabStop = false;
@@ -113,6 +118,7 @@
             this.lvStatistics.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
+            this.lvStatistics.ContextMenuStrip = this.contextMenuStrip;
             this.lvStatistics.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvStatistics.FullRowSelect = true;
             listViewGroup1.Header = "Player";
@@ -147,6 +153,7 @@
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
             this.panel1.BorderColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.btnReset);
@@ -154,6 +161,7 @@
             this.panel1.Location = new System.Drawing.Point(10, 461);
             this.panel1.Name = "panel1";
             this.panel1.Radius = 0;
+            this.panel1.ShadowDepth = 4F;
             this.panel1.Size = new System.Drawing.Size(483, 35);
             this.panel1.TabIndex = 2;
             // 
@@ -162,7 +170,8 @@
             this.btnReset.Color = System.Drawing.Color.Transparent;
             this.btnReset.Location = new System.Drawing.Point(401, 6);
             this.btnReset.Name = "btnReset";
-            this.btnReset.Radius = 1;
+            this.btnReset.Radius = 6;
+            this.btnReset.ShadowDepth = 4F;
             this.btnReset.Size = new System.Drawing.Size(75, 23);
             this.btnReset.TabIndex = 0;
             this.btnReset.Text = "Reset ";
@@ -174,6 +183,21 @@
             this.timer.Enabled = true;
             this.timer.Interval = 1000;
             this.timer.Tick += new System.EventHandler(this.RefreshTimer_Elapsed);
+            // 
+            // contextMenuStrip
+            // 
+            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.resetToolStripMenuItem});
+            this.contextMenuStrip.Name = "contextMenuStrip";
+            this.contextMenuStrip.Size = new System.Drawing.Size(181, 48);
+            // 
+            // resetToolStripMenuItem
+            // 
+            this.resetToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.resetToolStripMenuItem.Text = "Reset";
+            this.resetToolStripMenuItem.Click += new System.EventHandler(this.resetToolStripMenuItem_Click);
             // 
             // Main
             // 
@@ -188,6 +212,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.contextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -204,5 +229,7 @@
         private SDUI.Controls.GroupBox panelStaticFilters;
         private SDUI.Controls.Separator separator1;
         private System.Windows.Forms.Timer timer;
+        private SDUI.Controls.ContextMenuStrip contextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
     }
 }

@@ -75,12 +75,15 @@
             this.txtRadius = new SDUI.Controls.TextBox();
             this.txtYCoord = new SDUI.Controls.TextBox();
             this.txtXCoord = new SDUI.Controls.TextBox();
+            this.groupBoxIgnores = new SDUI.Controls.GroupBox();
+            this.checkBoxDimensionPillar = new SDUI.Controls.CheckBox();
             this.groupBox2.SuspendLayout();
             this.ctxAvoidance.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numBerzerkMonsterAmount)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.groupBoxIgnores.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
@@ -89,7 +92,7 @@
             this.groupBox2.Controls.Add(this.lvAvoidance);
             this.groupBox2.Location = new System.Drawing.Point(23, 250);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 7, 2, 3);
             this.groupBox2.Radius = 10;
             this.groupBox2.ShadowDepth = 4;
             this.groupBox2.Size = new System.Drawing.Size(221, 214);
@@ -136,9 +139,9 @@
             listViewItem7,
             listViewItem8,
             listViewItem9});
-            this.lvAvoidance.Location = new System.Drawing.Point(1, 24);
+            this.lvAvoidance.Location = new System.Drawing.Point(2, 23);
             this.lvAvoidance.Name = "lvAvoidance";
-            this.lvAvoidance.Size = new System.Drawing.Size(219, 189);
+            this.lvAvoidance.Size = new System.Drawing.Size(217, 188);
             this.lvAvoidance.TabIndex = 5;
             this.lvAvoidance.TileSize = new System.Drawing.Size(168, 16);
             this.lvAvoidance.UseCompatibleStateImageBehavior = false;
@@ -429,7 +432,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label6.Location = new System.Drawing.Point(15, 156);
+            this.label6.Location = new System.Drawing.Point(14, 145);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(159, 15);
             this.label6.TabIndex = 7;
@@ -447,7 +450,7 @@
             // 
             this.radioWalkAround.AutoSize = true;
             this.radioWalkAround.Checked = true;
-            this.radioWalkAround.Location = new System.Drawing.Point(35, 199);
+            this.radioWalkAround.Location = new System.Drawing.Point(35, 195);
             this.radioWalkAround.Name = "radioWalkAround";
             this.radioWalkAround.ShadowDepth = 0;
             this.radioWalkAround.Size = new System.Drawing.Size(99, 15);
@@ -459,7 +462,7 @@
             // radioCenter
             // 
             this.radioCenter.AutoSize = true;
-            this.radioCenter.Location = new System.Drawing.Point(35, 176);
+            this.radioCenter.Location = new System.Drawing.Point(35, 169);
             this.radioCenter.Name = "radioCenter";
             this.radioCenter.ShadowDepth = 0;
             this.radioCenter.Size = new System.Drawing.Size(125, 15);
@@ -549,10 +552,38 @@
             this.txtXCoord.UseSystemPasswordChar = false;
             this.txtXCoord.TextChanged += new System.EventHandler(this.txtXCoord_TextChanged);
             // 
+            // groupBoxIgnores
+            // 
+            this.groupBoxIgnores.BackColor = System.Drawing.Color.Transparent;
+            this.groupBoxIgnores.Controls.Add(this.checkBoxDimensionPillar);
+            this.groupBoxIgnores.Location = new System.Drawing.Point(262, 275);
+            this.groupBoxIgnores.Name = "groupBoxIgnores";
+            this.groupBoxIgnores.Padding = new System.Windows.Forms.Padding(3, 8, 3, 3);
+            this.groupBoxIgnores.Radius = 10;
+            this.groupBoxIgnores.ShadowDepth = 4;
+            this.groupBoxIgnores.Size = new System.Drawing.Size(478, 100);
+            this.groupBoxIgnores.TabIndex = 6;
+            this.groupBoxIgnores.TabStop = false;
+            this.groupBoxIgnores.Text = "Ignores";
+            // 
+            // checkBoxDimensionPillar
+            // 
+            this.checkBoxDimensionPillar.AutoSize = true;
+            this.checkBoxDimensionPillar.BackColor = System.Drawing.Color.Transparent;
+            this.checkBoxDimensionPillar.Location = new System.Drawing.Point(18, 36);
+            this.checkBoxDimensionPillar.Name = "checkBoxDimensionPillar";
+            this.checkBoxDimensionPillar.ShadowDepth = 1;
+            this.checkBoxDimensionPillar.Size = new System.Drawing.Size(109, 15);
+            this.checkBoxDimensionPillar.TabIndex = 0;
+            this.checkBoxDimensionPillar.Text = "Dimension Pillar";
+            this.checkBoxDimensionPillar.UseVisualStyleBackColor = false;
+            this.checkBoxDimensionPillar.CheckedChanged += new System.EventHandler(this.checkBoxIgnorePillars_CheckedChanged);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.Controls.Add(this.groupBoxIgnores);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -569,6 +600,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numBerzerkMonsterAmount)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBoxIgnores.ResumeLayout(false);
+            this.groupBoxIgnores.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -609,5 +642,8 @@
         private SDUI.Controls.TextBox txtXCoord;
         private SDUI.Controls.CheckBox checkBoxUseReverse;
         private SDUI.Controls.Button buttonSelectTrainingArea;
+        private SDUI.Controls.Radio radioStand;
+        private SDUI.Controls.GroupBox groupBoxIgnores;
+        private SDUI.Controls.CheckBox checkBoxDimensionPillar;
     }
 }

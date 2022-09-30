@@ -22,7 +22,7 @@ public class CalculatedCollisionMesh
 
         Calculate(collisions);
     }
-    
+
     private void Calculate(IReadOnlyList<RSCollisionLine> collisions)
     {
         for (var iLine = 0; iLine < collisions.Count; iLine++)

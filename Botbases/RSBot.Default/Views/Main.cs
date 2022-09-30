@@ -103,8 +103,8 @@ namespace RSBot.Default.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnGetCurrent_Click(object sender, EventArgs e)
         {
-            txtXCoord.Text = Convert.ToInt32(Game.Player.Movement.Source.XCoordinate).ToString();
-            txtYCoord.Text = Convert.ToInt32(Game.Player.Movement.Source.YCoordinate).ToString();
+            txtXCoord.Text = Game.Player.Position.X.ToString("0.0");
+            txtYCoord.Text = Game.Player.Position.Y.ToString("0.0");
 
             EventManager.FireEvent("OnSetTrainingArea");
         }
@@ -335,6 +335,8 @@ namespace RSBot.Default.Views
             checkBerzerkMonsterAmount.Checked = PlayerConfig.Get<bool>("RSBot.Berzerk.MonsterAmount");
             numBerzerkMonsterAmount.Value = PlayerConfig.Get("RSBot.Berzerk.MonsterAmountNumber", 3);
 
+            checkBoxDimensionPillar.Checked = PlayerConfig.Get<bool>("RSBot.Ignores.DimensionPillar");
+
             //Avoidance
             LoadAvoidance();
         }
@@ -344,6 +346,11 @@ namespace RSBot.Default.Views
             var trainingArea = new Dialogs.TrainingAreasDialog();
             if (trainingArea.ShowDialog(this) == DialogResult.OK)
                 EventManager.FireEvent("OnSetTrainingArea");
+        }
+
+        private void checkBoxIgnorePillars_CheckedChanged(object sender, EventArgs e)
+        {
+            PlayerConfig.Set("RSBot.Ignores.DimensionPillar", checkBoxDimensionPillar.Checked);
         }
     }
 }

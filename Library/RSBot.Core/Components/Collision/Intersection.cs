@@ -12,11 +12,11 @@ namespace RSBot.Core.Components.Collision
     {
         public static (Position collidedAt, CalculatedCollisionLine collidedWith)? FindIntersection(CalculatedCollisionLine lineA, CalculatedCollisionLine lineB, double tolerance = 1)
         {
-            double x1 = lineA.Source.XCoordinate, y1 = lineA.Source.YCoordinate;
-            double x2 = lineA.Destination.XCoordinate, y2 = lineA.Destination.YCoordinate;
+            double x1 = lineA.Source.X, y1 = lineA.Source.Y;
+            double x2 = lineA.Destination.X, y2 = lineA.Destination.Y;
 
-            double x3 = lineB.Source.XCoordinate, y3 = lineB.Source.YCoordinate;
-            double x4 = lineB.Destination.XCoordinate, y4 = lineB.Destination.YCoordinate;
+            double x3 = lineB.Source.X, y3 = lineB.Source.Y;
+            double x4 = lineB.Destination.X, y4 = lineB.Destination.Y;
 
             double x, y;
 
@@ -99,11 +99,11 @@ namespace RSBot.Core.Components.Collision
         /// <returns></returns>
         private static bool IsInsideLine(CalculatedCollisionLine line, double x, double y)
         {
-            var isInX = (x >= line.Source.XCoordinate && x <= line.Destination.XCoordinate
-                         || x >= line.Destination.XCoordinate && x <= line.Source.XCoordinate);
+            var isInX = (x >= line.Source.X && x <= line.Destination.X
+                         || x >= line.Destination.X && x <= line.Source.X);
 
-            var isInY = (y >= line.Source.YCoordinate && y <= line.Destination.YCoordinate
-                         || y >= line.Destination.YCoordinate && y <= line.Source.YCoordinate);
+            var isInY = (y >= line.Source.Y && y <= line.Destination.Y
+                         || y >= line.Destination.Y && y <= line.Source.Y);
 
             return isInX && isInY;
         }

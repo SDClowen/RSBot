@@ -98,7 +98,7 @@ namespace RSBot.Default.Bundle.Loop
         {
             if (ScriptManager.Running) return;
 
-            var filename = Path.Combine(ScriptManager.InitialDirectory, "Towns", Game.Player.Movement.Source.RegionID + ".rbs");
+            var filename = Path.Combine(ScriptManager.InitialDirectory, "Towns", Game.Player.Movement.Source.RegionId + ".rbs");
 
             //The player is in town, therefore, we need to run the town script first.
             if (!File.Exists(filename))

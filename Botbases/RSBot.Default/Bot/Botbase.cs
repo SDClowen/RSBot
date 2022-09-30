@@ -1,8 +1,9 @@
-﻿using RSBot.Default.Bot.Objects;
-using RSBot.Default.Bundle;
-using RSBot.Core;
+﻿using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Objects;
+using RSBot.Default.Bot.Objects;
+using RSBot.Default.Bundle;
+using System;
 using System.Threading;
 
 namespace RSBot.Default.Bot
@@ -32,10 +33,10 @@ namespace RSBot.Default.Bot
         {
             Area = new TrainingArea
             {
-                CenterPosition = new Position(
+                Position = new Position(
                     PlayerConfig.Get<float>("RSBot.Area.X"),
                     PlayerConfig.Get<float>("RSBot.Area.Y")),
-                Radius = PlayerConfig.Get<int>("RSBot.Area.Radius", 50)
+                Radius = Math.Clamp(PlayerConfig.Get<int>("RSBot.Area.Radius", 50), 5, 100)
             };
         }
 
@@ -51,7 +52,7 @@ namespace RSBot.Default.Bot
             }
 
             //Wait for the pickup manager to finish
-            if (PickupManager.Running && !(Bundles.Loot.Config.UseAbilityPet && Game.Player.HasActiveAbilityPet))
+            if (PickupManager.RunningPlayerPickup)
                 return;
 
             if (Bundles.Loop.Config.UseSpeedDrug && Game.Player.State.ActiveBuffs.FindIndex(p => p.Record.Params.Contains(1752396901)) < 0)
@@ -75,14 +76,14 @@ namespace RSBot.Default.Bot
             Bundles.Loot.Invoke();
 
             //Select next target
-            if(!noAttack)
+            if (!noAttack)
                 Bundles.Target.Invoke();
 
             //Check for berzerk
             Bundles.Berzerk.Invoke();
 
             //Cast skill against enemy
-            if(!noAttack)
+            if (!noAttack)
                 Bundles.Attack.Invoke();
 
             //Move around (maybe)
