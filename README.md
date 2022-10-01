@@ -30,7 +30,7 @@ Hello reputable Silkroad Online community. This is a free and open source Silkro
 
 ## Issues and status
 [![GitHub issues](https://img.shields.io/github/issues/sdclowen/rsbot.svg)](https://github.com/sdclowen/rsbot/issues)
-[![Version](https://img.shields.io/badge/version-v2.0-maroon.svg)](https://github.com/SDClowen/RSBot)
+[![Version](https://img.shields.io/badge/version-v2.x-maroon.svg)](https://github.com/SDClowen/RSBot)
 
 ## Project info
 ![Language](https://img.shields.io/badge/language-CSharp-blue.svg)
