@@ -20,6 +20,7 @@ Hello reputable Silkroad Online community. This is a free and open source Silkro
 
 1. Chinese Old | MHTC
 2. Japanese-R
+3. Global-2015 (Rigid)
 
 ## Links for development and community
 [![GitHub Repository](https://img.shields.io/badge/github-sdclowen/rsbot-green.svg)](https://github.com/SDClowen/RSBot)
