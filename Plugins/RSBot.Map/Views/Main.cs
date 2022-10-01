@@ -363,7 +363,7 @@ namespace RSBot.Map.Views
                 //Draw collisions
                 foreach (var collisionNavmesh in CollisionManager.ActiveCollisionMeshes)
                 {
-                    foreach (var collider in collisionNavmesh.Collisions)
+                    foreach (var collider in collisionNavmesh.Collisions.Where(c => c.Source.DistanceToPlayer() < 100 || c.Destination.DistanceToPlayer() < 100))
                         DrawLineAt(gfx, collider.Source, collider.Destination, Pens.Red);
                 }
                 if (!SpawnManager.TryGetEntities<SpawnedEntity>(out var entities))

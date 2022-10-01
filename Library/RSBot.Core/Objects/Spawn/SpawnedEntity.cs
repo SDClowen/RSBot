@@ -101,7 +101,7 @@ namespace RSBot.Core.Objects.Spawn
                 }
 
                 //It's enough to check for collision every 1 second
-                if (DateTime.Now.Ticks - _lastCollisionTick >= 100000)
+                if (DateTime.Now.Ticks - _lastCollisionTick >= 100000 * 10)
                 {
                     _isBehindObstacle = CollisionManager.HasCollisionBetween(Game.Player.Position, Position);
                 }
