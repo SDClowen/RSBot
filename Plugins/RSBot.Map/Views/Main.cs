@@ -357,7 +357,7 @@ namespace RSBot.Map.Views
 
         private void DrawCollisions(Graphics gfx)
         {
-            if (CollisionManager.HasActiveMeshes && GlobalConfig.Get("RSBot.EnableCollisionDetection", true))
+            if (CollisionManager.HasActiveMeshes && CollisionManager.Enabled)
             {
                 //Draw collisions
                 foreach (var collisionNavmesh in CollisionManager.ActiveCollisionMeshes)
