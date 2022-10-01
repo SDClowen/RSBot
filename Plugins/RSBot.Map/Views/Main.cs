@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace RSBot.Map.Views
@@ -367,10 +368,12 @@ namespace RSBot.Map.Views
                 }
                 if (!SpawnManager.TryGetEntities<SpawnedEntity>(out var entities))
                     return;
-                foreach (var entity in entities)
+
+                foreach (var entity in entities.Where(e => e.IsBehindObstacle))
                 {
                     var collision =
                         CollisionManager.GetCollisionBetween(Game.Player.Position, entity.Position);
+
                     if (!collision.HasValue)
                         continue;
                     var rayPen = new Pen(Color.DeepSkyBlue);
