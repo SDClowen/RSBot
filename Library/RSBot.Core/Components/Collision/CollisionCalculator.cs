@@ -21,9 +21,9 @@ internal class CollisionCalculator
 
         foreach (var mesh in meshes)
         {
-            foreach (var line in mesh.Collisions.Where(x => x.Source.DistanceToPlayer() < 150).OrderBy(x => x.Source.DistanceToPlayer()))
+            foreach (var line in mesh.Collisions.Where(x => x.Source.DistanceToPlayer() <= destination.DistanceToPlayer() || x.Destination.DistanceToPlayer() <= destination.DistanceToPlayer()).OrderBy(x => x.Source.DistanceToPlayer()))
             {
-                var collision = Intersection.FindIntersection(sourceLine, line, 0.1);
+                var collision = Intersection.FindIntersection(sourceLine, line, 0.01);
 
                 if (collision.HasValue)
                 {

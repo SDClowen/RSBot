@@ -56,9 +56,14 @@ namespace RSBot.Default.Bundle.Movement
 
             EventManager.FireEvent("OnChangeStatusText", "Walking around");
 
+            //Find a not colliding position. Do it in a while loop to prevent the bot from processing it in the next cycle (tick).
+            //This is how we can find our next position very fast instead of waiting for the next circle to come.
             var destination = Container.Bot.Area.GetRandomPosition();
-            if (!CollisionManager.HasCollisionBetween(Game.Player.Movement.Source, destination))
-                Game.Player.MoveTo(destination, false);
+
+            while (CollisionManager.HasCollisionBetween(Game.Player.Position, destination))
+                destination = Container.Bot.Area.GetRandomPosition();
+
+            Game.Player.MoveTo(destination, false);
         }
 
         /// <summary>
