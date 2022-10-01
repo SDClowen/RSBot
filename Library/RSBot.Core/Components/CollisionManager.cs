@@ -1,8 +1,8 @@
-﻿using System;
-using RSBot.Core.Components.Collision;
+﻿using RSBot.Core.Components.Collision;
 using RSBot.Core.Components.Collision.Calculated;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
