@@ -7,17 +7,9 @@ namespace RSBot.Core.Objects
     public class Action
     {
         /// <summary>
-        /// Gets or sets the action identifier.
-        /// </summary>
-        /// <value>
-        /// The action identifier.
-        /// </value>
-        public byte Code { get; set; }
-
-        /// <summary>
         /// Gets or sets the skill identifier.
         /// </summary>
-        /// w<value>
+        /// <value>
         /// The skill identifier.
         /// </value>
         public uint SkillId { get; set; }
@@ -45,14 +37,6 @@ namespace RSBot.Core.Objects
         /// The target identifier.
         /// </value>
         public uint TargetId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the target identifier.
-        /// </summary>
-        /// <value>
-        /// The target identifier.
-        /// </value>
-        public uint UnknownId { get; set; }
 
         /// <summary>
         /// Gets or sets the flag.
@@ -92,28 +76,25 @@ namespace RSBot.Core.Objects
         /// <returns>Deserialized <see cref="Action"/></returns>
         public static Action DeserializeBegin(Packet packet)
         {
-            var actionCode = packet.ReadByte(); 
-
             if (Game.ClientType > GameClientType.Thailand)
-                packet.ReadByte(); // always 0x30
+                packet.ReadUShort();
 
             var action = new Action
             {
-                Code = actionCode,
                 SkillId = packet.ReadUInt(),
                 ExecutorId = packet.ReadUInt(),
                 Id = packet.ReadUInt(),
             };
 
             if (Game.ClientType >= GameClientType.Global)
-                action.UnknownId = packet.ReadUInt();
+                packet.ReadUInt(); // ?
 
             action.TargetId = packet.ReadUInt();
+            action.Flag = (ActionStateFlag)packet.ReadByte();
 
             if (Game.ClientType >= GameClientType.Global)
                 packet.ReadByte();
 
-            action.Flag = (ActionStateFlag)packet.ReadByte();
             action.SerializeDetail(packet);
 
             return action;
@@ -160,11 +141,11 @@ namespace RSBot.Core.Objects
                             entity.State.HitState = state;
                             if (state.HasFlag(ActionHitStateFlag.Dead))
                                 entity.State.LifeState = LifeState.Dead;
-                        }
+                        }    
 
                         if (state != ActionHitStateFlag.Block)
                         {
-                            var critStatus = packet.ReadByte(); // 0x01: normal 0x02 critical
+                            var critStatus = packet.ReadByte();
                             var damage = packet.ReadInt();
 
                             packet.ReadUShort();
