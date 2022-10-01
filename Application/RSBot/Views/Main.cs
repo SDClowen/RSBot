@@ -1,4 +1,5 @@
-﻿using RSBot.Core;
+﻿using Microsoft.Win32;
+using RSBot.Core;
 using RSBot.Core.Client;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
@@ -16,6 +17,13 @@ namespace RSBot.Views
 {
     public partial class Main : CleanForm
     {
+        private const int DarkThemeColor = 0x101010;
+        private const int LightThemeColor = 0xFFFFFF;
+
+        #region Events
+        public static event UserPreferenceChangingEventHandler UserPreferenceChanging;
+        #endregion
+
         #region Members
 
         /// <summary>
@@ -33,14 +41,49 @@ namespace RSBot.Views
         public Main()
         {
             InitializeComponent();
-
             CheckForIllegalCrossThreadCalls = false;
+            SystemEvents.UserPreferenceChanging += new UserPreferenceChangingEventHandler(SystemEvents_UserPreferenceChanging);
             RegisterEvents();
         }
 
         #endregion Constructor
 
         #region Methods
+
+        /// <summary>
+        /// Called when user preference changing
+        /// </summary>
+        /// <param name="sender">The sender</param>
+        /// <param name="e">The event arags</param>
+        private void SystemEvents_UserPreferenceChanging(object sender, UserPreferenceChangingEventArgs e)
+        {
+            var detectDarkLight = GlobalConfig.Get("RSBot.Theme.Auto", true);
+            if (!detectDarkLight)
+                return;
+
+            try
+            {
+                var useLight = (int)Registry.GetValue("HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", "AppsUseLightTheme", 0) == 1;
+                if (useLight)
+                    SetThemeColor(LightThemeColor);
+                else
+                    SetThemeColor(DarkThemeColor);
+            }
+            catch
+            {  
+            }
+        }
+
+        /// <summary>
+        /// Set theme color
+        /// </summary>
+        /// <param name="color">The color</param>
+        private void SetThemeColor(int hexColor)
+        {
+            GlobalConfig.Set("SDUI.Color", hexColor);
+            ColorScheme.BackColor = Color.FromArgb(255, Color.FromArgb(hexColor));
+            RefreshTheme();
+        }
 
         /// <summary>
         /// Refreshes the theme.
@@ -558,10 +601,8 @@ namespace RSBot.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void darkToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GlobalConfig.Set("SDUI.Color", Color.Black.ToArgb());
-            ColorScheme.BackColor = Color.Black;
-
-            RefreshTheme();
+            GlobalConfig.Set("RSBot.Theme.Auto", false);
+            SetThemeColor(DarkThemeColor);
         }
 
         /// <summary>
@@ -571,10 +612,19 @@ namespace RSBot.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void lightToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GlobalConfig.Set("SDUI.Color", Color.White.ToArgb());
-            ColorScheme.BackColor = Color.White;
+            GlobalConfig.Set("RSBot.Theme.Auto", false);
+            SetThemeColor(LightThemeColor);
+        }
 
-            RefreshTheme();
+        /// <summary>
+        /// Handles the Click event of the autoToolStripMenuItem control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void autoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GlobalConfig.Set("RSBot.Theme.Auto", true);
+            SystemEvents_UserPreferenceChanging(null, null);
         }
 
         /// <summary>
@@ -584,17 +634,15 @@ namespace RSBot.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void coloredToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var colorDialog = new ColorDialog();
-            var customColors = GlobalConfig.GetArray<int>("SDUI.CustomColors");
-            colorDialog.CustomColors = customColors;
+            var colorDialog = new ColorDialog
+            {
+                CustomColors = GlobalConfig.GetArray<int>("SDUI.CustomColors")
+            };
+
             if (colorDialog.ShowDialog() == DialogResult.OK)
             {
-                GlobalConfig.Set("SDUI.Color", colorDialog.Color.ToArgb());
                 GlobalConfig.SetArray("SDUI.CustomColors", colorDialog.CustomColors);
-                ColorScheme.BackColor = colorDialog.Color;
-                BackColor = ColorScheme.BackColor;
-
-                RefreshTheme();
+                SetThemeColor(colorDialog.Color.ToArgb());
             }
         }
 
