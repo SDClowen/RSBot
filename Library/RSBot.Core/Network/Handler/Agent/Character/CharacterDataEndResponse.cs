@@ -137,7 +137,8 @@ namespace RSBot.Core.Network.Handler.Agent.Character
 
             packet.ReadByte(); //PVP dress for the CTF event //0 = Red Side, 1 = Blue Side, 0xFF = None
 
-            if (Game.ClientType > GameClientType.Chinese)
+            if (Game.ClientType > GameClientType.Chinese &&
+                Game.ClientType != GameClientType.Global)
             {
                 packet.ReadByte();      // 0xFF
                 packet.ReadUShort();    // 0xFF
