@@ -7,6 +7,7 @@ using RSBot.Core.Plugins;
 using RSBot.Views.Dialog;
 using SDUI;
 using SDUI.Controls;
+using SDUI.Helpers;
 using System;
 using System.Drawing;
 using System.Linq;
@@ -17,8 +18,8 @@ namespace RSBot.Views
 {
     public partial class Main : CleanForm
     {
-        private const int DarkThemeColor = 0x101010;
-        private const int LightThemeColor = 0xFFFFFF;
+        public static readonly Color LightThemeColor = Color.FromArgb(255, 255, 255);
+        public static readonly Color DarkThemeColor = Color.FromArgb(16, 16, 16);
 
         #region Events
         public static event UserPreferenceChangingEventHandler UserPreferenceChanging;
@@ -61,27 +62,20 @@ namespace RSBot.Views
             if (!detectDarkLight)
                 return;
 
-            try
-            {
-                var useLight = (int)Registry.GetValue("HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", "AppsUseLightTheme", 0) == 1;
-                if (useLight)
-                    SetThemeColor(LightThemeColor);
-                else
-                    SetThemeColor(DarkThemeColor);
-            }
-            catch
-            {  
-            }
+            if (WindowsHelper.IsDark())
+                SetThemeColor(DarkThemeColor);
+            else
+                SetThemeColor(LightThemeColor);
         }
 
         /// <summary>
         /// Set theme color
         /// </summary>
         /// <param name="color">The color</param>
-        private void SetThemeColor(int hexColor)
+        private void SetThemeColor(Color color)
         {
-            GlobalConfig.Set("SDUI.Color", hexColor);
-            ColorScheme.BackColor = Color.FromArgb(255, Color.FromArgb(hexColor));
+            GlobalConfig.Set("SDUI.Color", color.ToArgb());
+            ColorScheme.BackColor = color;
             RefreshTheme();
         }
 
@@ -623,8 +617,19 @@ namespace RSBot.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void autoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GlobalConfig.Set("RSBot.Theme.Auto", true);
-            SystemEvents_UserPreferenceChanging(null, null);
+            if (WindowsHelper.TenOrHigher || WindowsHelper.ElevenOrHigher)
+            {
+                GlobalConfig.Set("RSBot.Theme.Auto", true);
+                SystemEvents_UserPreferenceChanging(null, null);
+                return;
+            }
+
+            MessageBox.Show(
+                    "Unfortunately, it does not support this mode because your operating system is outdated!",
+                    "Warning",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
         }
 
         /// <summary>
@@ -642,7 +647,7 @@ namespace RSBot.Views
             if (colorDialog.ShowDialog() == DialogResult.OK)
             {
                 GlobalConfig.SetArray("SDUI.CustomColors", colorDialog.CustomColors);
-                SetThemeColor(colorDialog.Color.ToArgb());
+                SetThemeColor(colorDialog.Color);
             }
         }
 
