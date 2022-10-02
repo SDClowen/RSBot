@@ -29,3 +29,4 @@ NoResultsFound="Sin resultados. Detalle su búsqueda y vuelva a intentarlo."
 InputDialogTitle="Artículo Seleccionado"
 InputDialogContent="Ingrese la cantidad que el bot debe comprar 
 para el artículo seleccionado:"
+InputDialogItemName="{0} (Stack x{1})"

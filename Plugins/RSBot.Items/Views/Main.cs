@@ -402,6 +402,7 @@ namespace RSBot.Items.Views
             #endregion Accessory
 
             #region Shields
+
             if (checkShield.Checked && checkChinese.Checked)
                 filters.Add(new TypeIdFilter(3, 1, 4, 1));
 
@@ -414,7 +415,7 @@ namespace RSBot.Items.Views
                 filters.Add(new TypeIdFilter(3, 1, 4, 2));
             }
 
-            #endregion
+            #endregion Shields
 
             #endregion Equipment
 
@@ -477,7 +478,7 @@ namespace RSBot.Items.Views
             string getSubItemString(RefObjItem item)
             {
                 var filter = PickupManager.PickupFilter.Find(p => p.CodeName == item.CodeName);
-                if(string.IsNullOrWhiteSpace(filter.CodeName))
+                if (string.IsNullOrWhiteSpace(filter.CodeName))
                     return "•";
 
                 if (filter.PickOnlyChar)
@@ -616,10 +617,11 @@ namespace RSBot.Items.Views
         {
             foreach (ListViewItem listItem in listAvailableProducts.SelectedItems)
             {
+                var refItem = Game.ReferenceManager.GetRefItem(listItem.Name);
                 var title = LanguageManager.GetLang("InputDialogTitle");
                 var content = LanguageManager.GetLang("InputDialogContent");
-
-                var dialog = new InputDialog(title, listItem.Text, content, InputDialog.InputType.Numeric);
+                var itemNameTrans = LanguageManager.GetLang("InputDialogItemName", refItem.GetRealName(), refItem.MaxStack);
+                var dialog = new InputDialog(title, itemNameTrans, content, InputDialog.InputType.Numeric);
                 if (dialog.ShowDialog(this) == DialogResult.Cancel)
                     return;
 
