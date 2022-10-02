@@ -45,6 +45,7 @@
             this.groupBox1 = new SDUI.Controls.GroupBox();
             this.separator1 = new SDUI.Controls.Separator();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.checkHideClient = new SDUI.Controls.CheckBox();
             this.lblLoginDelaySeconds = new SDUI.Controls.Label();
             this.numLoginDelay = new SDUI.Controls.NumUpDown();
             this.checkEnableLoginDelay = new SDUI.Controls.CheckBox();
@@ -272,7 +273,7 @@
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupBox1.Radius = 10;
             this.groupBox1.ShadowDepth = 4;
-            this.groupBox1.Size = new System.Drawing.Size(355, 294);
+            this.groupBox1.Size = new System.Drawing.Size(355, 310);
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Automated login";
@@ -289,6 +290,7 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.checkHideClient);
             this.panel3.Controls.Add(this.lblLoginDelaySeconds);
             this.panel3.Controls.Add(this.numLoginDelay);
             this.panel3.Controls.Add(this.checkEnableLoginDelay);
@@ -297,8 +299,21 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(3, 209);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(349, 82);
+            this.panel3.Size = new System.Drawing.Size(349, 98);
             this.panel3.TabIndex = 1;
+            // 
+            // checkHideClient
+            // 
+            this.checkHideClient.AutoSize = true;
+            this.checkHideClient.BackColor = System.Drawing.Color.Transparent;
+            this.checkHideClient.Location = new System.Drawing.Point(73, 77);
+            this.checkHideClient.Name = "checkHideClient";
+            this.checkHideClient.ShadowDepth = 1;
+            this.checkHideClient.Size = new System.Drawing.Size(111, 15);
+            this.checkHideClient.TabIndex = 31;
+            this.checkHideClient.Text = "Auto Hide Client";
+            this.checkHideClient.UseVisualStyleBackColor = false;
+            this.checkHideClient.CheckedChanged += new System.EventHandler(this.checkHideClient_CheckedChanged);
             // 
             // lblLoginDelaySeconds
             // 
@@ -577,7 +592,7 @@
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "Main";
-            this.Size = new System.Drawing.Size(765, 480);
+            this.Size = new System.Drawing.Size(765, 496);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -635,5 +650,6 @@
         private SDUI.Controls.Label lblLoginDelaySeconds;
         private SDUI.Controls.NumUpDown numLoginDelay;
         private SDUI.Controls.CheckBox checkEnableLoginDelay;
+        private SDUI.Controls.CheckBox checkHideClient;
     }
 }

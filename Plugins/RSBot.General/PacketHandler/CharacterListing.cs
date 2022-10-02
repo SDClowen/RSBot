@@ -126,6 +126,8 @@ namespace RSBot.General.PacketHandler
 
             if (lobbyCharacters.Contains(selectedAccount.SelectedCharacter))
                 Components.AutoLogin.EnterGame(selectedAccount.SelectedCharacter);
+            else
+                Components.AutoLogin.EnterGame(lobbyCharacters[0]);
         }
     }
 }
