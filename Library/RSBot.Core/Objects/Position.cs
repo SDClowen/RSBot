@@ -173,6 +173,23 @@ namespace RSBot.Core.Objects
         }
 
         /// <summary>
+        /// Creates a position using sector offsets
+        /// </summary>
+        /// <param name="xOffset">The x offset.</param>
+        /// <param name="yOffset">The y offset.</param>
+        /// <param name="zOffset">The z offset.</param>
+        /// <param name="regionId">The region identifier.</param>
+        public Position(short xOffset, short yOffset, short zOffset, ushort regionId)
+            : this()
+        {
+            RegionId = regionId;
+
+            XOffset = xOffset;
+            YOffset = yOffset;
+            ZOffset = zOffset;
+        }
+
+        /// <summary>
         /// Creates a position using map offsets
         /// </summary>
         public Position(float xOffset, float yOffset, float zOffset, byte xSector, byte ySector)

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace RSBot.Map.Views
@@ -75,6 +76,7 @@ namespace RSBot.Map.Views
 
             // All
             comboViewType.SelectedIndex = 6;
+            checkEnableCollisions.Checked = GlobalConfig.Get("RSBot.EnableCollisionDetection", true);
 
 #if !DEBUG
             labelSectorInfo.Visible = false;
@@ -356,20 +358,22 @@ namespace RSBot.Map.Views
 
         private void DrawCollisions(Graphics gfx)
         {
-            if (CollisionManager.HasActiveMeshes)
+            if (CollisionManager.HasActiveMeshes && CollisionManager.Enabled)
             {
                 //Draw collisions
                 foreach (var collisionNavmesh in CollisionManager.ActiveCollisionMeshes)
                 {
-                    foreach (var collider in collisionNavmesh.Collisions)
+                    foreach (var collider in collisionNavmesh.Collisions.Where(c => c.Source.DistanceToPlayer() < 100 || c.Destination.DistanceToPlayer() < 100))
                         DrawLineAt(gfx, collider.Source, collider.Destination, Pens.Red);
                 }
                 if (!SpawnManager.TryGetEntities<SpawnedEntity>(out var entities))
                     return;
-                foreach (var entity in entities)
+
+                foreach (var entity in entities.Where(e => e.IsBehindObstacle))
                 {
                     var collision =
                         CollisionManager.GetCollisionBetween(Game.Player.Position, entity.Position);
+
                     if (!collision.HasValue)
                         continue;
                     var rayPen = new Pen(Color.DeepSkyBlue);
@@ -381,6 +385,7 @@ namespace RSBot.Map.Views
                 }
             }
         }
+
         private Image LoadSectorImage(string sectorImgName)
         {
             if (_cachedImages.ContainsKey(sectorImgName))
@@ -613,6 +618,14 @@ namespace RSBot.Map.Views
             position.YOffset = (Game.Player.Movement.Source.YOffset + (((mapCanvas.Height / 2f - e.Y) / SectorSize) * 192f * 10));
 
             Game.Player.MoveTo(position, false);
+        }
+
+        private void checkEnableCollisions_CheckedChanged(object sender, EventArgs e)
+        {
+            GlobalConfig.Set("RSBot.EnableCollisionDetection", checkEnableCollisions.Checked);
+
+            if (checkEnableCollisions.Checked && Game.Player != null)
+                CollisionManager.Update(Game.Player.Position.RegionId);
         }
     }
 }

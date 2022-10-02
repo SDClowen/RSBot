@@ -18,11 +18,12 @@ internal class CollisionCalculator
         Position destination, List<CalculatedCollisionMesh> meshes)
     {
         var sourceLine = new CalculatedCollisionLine(source, destination);
+
         foreach (var mesh in meshes)
         {
-            foreach (var line in mesh.Collisions.Where(x => x.Source.DistanceToPlayer() < 150).OrderBy(x => x.Source.DistanceToPlayer()))
+            foreach (var line in mesh.Collisions.Where(x => x.Source.DistanceToPlayer() <= destination.DistanceToPlayer() || x.Destination.DistanceToPlayer() <= destination.DistanceToPlayer()).OrderBy(x => x.Source.DistanceToPlayer()))
             {
-                var collision = Intersection.FindIntersection(sourceLine, line);
+                var collision = Intersection.FindIntersection(sourceLine, line, 0.05);
 
                 if (collision.HasValue)
                 {

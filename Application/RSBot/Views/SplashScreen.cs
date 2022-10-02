@@ -177,16 +177,12 @@ namespace RSBot.Views
         {
             //---- Load Map ----
             var mapFile = Path.Combine(Environment.CurrentDirectory, "Data", "Game", "map.rsc");
-            var collisionEnabled = GlobalConfig.Get("RSBot.EnableCollisionDetection", true);
-
-            CollisionManager.Enabled = collisionEnabled;
-
-            if (!collisionEnabled)
+            
+            if (!CollisionManager.Enabled)
             {
                 Log.Warn("[Collision] Collision detection has been deactivated by the user!");
-
-                return;
             }
+            
             if (!File.Exists(mapFile))
             {
                 Log.Error($"[Collisions] Directory {mapFile} not found!");
@@ -194,7 +190,7 @@ namespace RSBot.Views
                 return;
             }
 
-            CollisionManager.Initialize(mapFile);
+            CollisionManager.Initialize();
         }
 
         /// <summary>

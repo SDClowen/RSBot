@@ -2,7 +2,7 @@
 
 namespace RSBot.Core.Components.Collision.Calculated;
 
-public class CalculatedCollisionLine
+public struct CalculatedCollisionLine
 {
     public Position Source;
     public Position Destination;

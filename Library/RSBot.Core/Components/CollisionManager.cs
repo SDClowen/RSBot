@@ -2,6 +2,7 @@
 using RSBot.Core.Components.Collision.Calculated;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -11,6 +12,9 @@ namespace RSBot.Core.Components;
 
 public static class CollisionManager
 {
+    private const string SupportedHeader = "RSNVM";
+    private const int SupportedVersion = 1100;
+
     /// <summary>
     /// Gets a value indicating whether this instance is initialized.
     /// </summary>
@@ -64,7 +68,7 @@ public static class CollisionManager
     /// <value>
     ///   <c>true</c> if enabled; otherwise, <c>false</c>.
     /// </value>
-    public static bool Enabled { get; set; }
+    public static bool Enabled => GlobalConfig.Get("RSBot.EnableCollisionDetection", true);
 
     /// <summary>
     /// Gets the active collision meshes.
@@ -80,9 +84,9 @@ public static class CollisionManager
     /// Initializes the specified map data directory.
     /// </summary>
     /// <param name="fileName">Path to the RS map.</param>
-    public static void Initialize(string fileName)
+    public static void Initialize()
     {
-        LoadCollisions(fileName);
+        LoadCollisions();
 
         IsInitialized = true;
     }
@@ -91,13 +95,23 @@ public static class CollisionManager
     /// Loads the collisions from the specified file path.
     /// </summary>
     /// <param name="path">The path.</param>
-    public static void LoadCollisions(string path)
+    public static void LoadCollisions()
     {
         var sw = Stopwatch.StartNew();
 
         _loadedCollisions = new Dictionary<ushort, RSCollisionMesh>(1024);
 
-        var fileStream = new BinaryReader(File.OpenRead(path));
+        using var fileStream = new BinaryReader(File.OpenRead(Path.Combine(Environment.CurrentDirectory, "Data", "Game", "map.rsc")));
+
+        var header = fileStream.ReadString();
+        var version = fileStream.ReadInt32();
+
+        if (header != SupportedHeader || version != SupportedVersion)
+        {
+            Log.Error("[Collision] Outdated or invalid collision file!");
+
+            return;
+        }
 
         while (fileStream.ReadBoolean())
         {
@@ -118,12 +132,19 @@ public static class CollisionManager
     /// <param name="centerRegionId">The center region identifier.</param>
     public static void Update(ushort centerRegionId)
     {
-        if (centerRegionId == CenterRegionId || !IsInitialized || !Enabled)
+        if (centerRegionId == CenterRegionId && HasActiveMeshes)
             return;
 
-        IsUpdating = true;
         CenterRegionId = centerRegionId;
 
+        if (!Enabled)
+        {
+            ActiveCollisionMeshes = null;
+
+            return;
+        }
+
+        IsUpdating = true;
         ActiveCollisionMeshes = new List<CalculatedCollisionMesh>(9);
 
         var centerRegion = new Region(centerRegionId);
