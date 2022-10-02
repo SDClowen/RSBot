@@ -3,6 +3,7 @@ using RSBot.Core.Components;
 using RSBot.Views.Dialog;
 using SDUI;
 using SDUI.Controls;
+using SDUI.Helpers;
 using System;
 using System.Drawing;
 using System.IO;
@@ -43,7 +44,18 @@ namespace RSBot.Views
             }
 
             Kernel.Language = GlobalConfig.Get("RSBot.Language", "en_US");
-            ColorScheme.BackColor = Color.FromArgb(GlobalConfig.Get("SDUI.Color", Color.White.ToArgb()));
+
+            var detectDarkLight = GlobalConfig.Get("RSBot.Theme.Auto", true);
+            if (detectDarkLight)
+            {
+                if (WindowsHelper.IsDark())
+                    ColorScheme.BackColor = Main.DarkThemeColor;
+                else
+                    ColorScheme.BackColor = Main.LightThemeColor;
+            }
+            else
+                ColorScheme.BackColor = Color.FromArgb(GlobalConfig.Get("SDUI.Color", Color.White.ToArgb()));
+
             LanguageManager.Translate(_mainForm, Kernel.Language);
 
             if (!GlobalConfig.Exists("RSBot.SilkroadDirectory") || !File.Exists(GlobalConfig.Get<string>("RSBot.SilkroadDirectory") + "\\media.pk2"))

@@ -1,4 +1,5 @@
-﻿using RSBot.Core;
+﻿using Microsoft.Win32;
+using RSBot.Core;
 using RSBot.Core.Client;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
@@ -6,6 +7,7 @@ using RSBot.Core.Plugins;
 using RSBot.Views.Dialog;
 using SDUI;
 using SDUI.Controls;
+using SDUI.Helpers;
 using System;
 using System.Drawing;
 using System.Linq;
@@ -16,6 +18,13 @@ namespace RSBot.Views
 {
     public partial class Main : CleanForm
     {
+        public static readonly Color LightThemeColor = Color.FromArgb(255, 255, 255);
+        public static readonly Color DarkThemeColor = Color.FromArgb(16, 16, 16);
+
+        #region Events
+        public static event UserPreferenceChangingEventHandler UserPreferenceChanging;
+        #endregion
+
         #region Members
 
         /// <summary>
@@ -33,14 +42,42 @@ namespace RSBot.Views
         public Main()
         {
             InitializeComponent();
-
             CheckForIllegalCrossThreadCalls = false;
+            SystemEvents.UserPreferenceChanging += new UserPreferenceChangingEventHandler(SystemEvents_UserPreferenceChanging);
             RegisterEvents();
         }
 
         #endregion Constructor
 
         #region Methods
+
+        /// <summary>
+        /// Called when user preference changing
+        /// </summary>
+        /// <param name="sender">The sender</param>
+        /// <param name="e">The event arags</param>
+        private void SystemEvents_UserPreferenceChanging(object sender, UserPreferenceChangingEventArgs e)
+        {
+            var detectDarkLight = GlobalConfig.Get("RSBot.Theme.Auto", true);
+            if (!detectDarkLight)
+                return;
+
+            if (WindowsHelper.IsDark())
+                SetThemeColor(DarkThemeColor);
+            else
+                SetThemeColor(LightThemeColor);
+        }
+
+        /// <summary>
+        /// Set theme color
+        /// </summary>
+        /// <param name="color">The color</param>
+        private void SetThemeColor(Color color)
+        {
+            GlobalConfig.Set("SDUI.Color", color.ToArgb());
+            ColorScheme.BackColor = color;
+            RefreshTheme();
+        }
 
         /// <summary>
         /// Refreshes the theme.
@@ -558,10 +595,8 @@ namespace RSBot.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void darkToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GlobalConfig.Set("SDUI.Color", Color.Black.ToArgb());
-            ColorScheme.BackColor = Color.Black;
-
-            RefreshTheme();
+            GlobalConfig.Set("RSBot.Theme.Auto", false);
+            SetThemeColor(DarkThemeColor);
         }
 
         /// <summary>
@@ -571,10 +606,30 @@ namespace RSBot.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void lightToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GlobalConfig.Set("SDUI.Color", Color.White.ToArgb());
-            ColorScheme.BackColor = Color.White;
+            GlobalConfig.Set("RSBot.Theme.Auto", false);
+            SetThemeColor(LightThemeColor);
+        }
 
-            RefreshTheme();
+        /// <summary>
+        /// Handles the Click event of the autoToolStripMenuItem control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void autoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (WindowsHelper.TenOrHigher || WindowsHelper.ElevenOrHigher)
+            {
+                GlobalConfig.Set("RSBot.Theme.Auto", true);
+                SystemEvents_UserPreferenceChanging(null, null);
+                return;
+            }
+
+            MessageBox.Show(
+                    "Unfortunately, it does not support this mode because your operating system is outdated!",
+                    "Warning",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
         }
 
         /// <summary>
@@ -584,17 +639,15 @@ namespace RSBot.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void coloredToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var colorDialog = new ColorDialog();
-            var customColors = GlobalConfig.GetArray<int>("SDUI.CustomColors");
-            colorDialog.CustomColors = customColors;
+            var colorDialog = new ColorDialog
+            {
+                CustomColors = GlobalConfig.GetArray<int>("SDUI.CustomColors")
+            };
+
             if (colorDialog.ShowDialog() == DialogResult.OK)
             {
-                GlobalConfig.Set("SDUI.Color", colorDialog.Color.ToArgb());
                 GlobalConfig.SetArray("SDUI.CustomColors", colorDialog.CustomColors);
-                ColorScheme.BackColor = colorDialog.Color;
-                BackColor = ColorScheme.BackColor;
-
-                RefreshTheme();
+                SetThemeColor(colorDialog.Color);
             }
         }
 
