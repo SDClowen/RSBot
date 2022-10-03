@@ -151,7 +151,7 @@ namespace RSBot.Core.Network.Handler.Agent.Character
             else
                 packet.ReadUInt();
 
-            if (Game.ClientType == GameClientType.Chinese)
+            if (Game.ClientType == GameClientType.Chinese || Game.ClientType == GameClientType.Global )
                 packet.ReadByte();
 
             character.JID = packet.ReadUInt();
