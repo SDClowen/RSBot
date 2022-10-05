@@ -24,7 +24,7 @@ Hello reputable Silkroad Online community. This is a free and open source Silkro
 
 ## Links for development and community
 [![GitHub Repository](https://img.shields.io/badge/github-sdclowen/rsbot-green.svg)](https://github.com/SDClowen/RSBot)
-[![Join the chat in Discord](https://img.shields.io/discord/454345032846016515.svg)](https://discord.gg/GwecXfcKTk)
+[![Join the chat in Discord](https://img.shields.io/discord/454345032846016515.svg)](https://discord.gg/rmd96aus9A)
 [![Facebook](https://img.shields.io/badge/facebook-page%20-blue)](https://www.facebook.com/rsbotofficial/)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSDClowen%2FRSBot.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FSDClowen%2FRSBot?ref=badge_shield)
 
