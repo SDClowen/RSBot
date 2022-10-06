@@ -27,5 +27,6 @@ RSBot.Items.Main.TabControl.tabSellFilter="Lọc Vật Phẩm"
 RSBot.Items.Main.TabControl.tabPage1="Cài đặt nhặt đồ"
 NoResultsFound="Không tìm thây kêt quả.Vui lòng nêu chi tiết tìm kiếm và thử lại."
 InputDialogTitle="Lựa chọn vật phẩm"
-InputDialogContent="Vui lòng nhập số lượng bot sẽ tự động mua\r\n đối với các mặt hàng được chỉ định:"
+InputDialogContent="Vui lòng nhập số lượng bot sẽ tự động mua
+ đối với các mặt hàng được chỉ định:"
 InputDialogItemName="{0} (Stack x{1})"
