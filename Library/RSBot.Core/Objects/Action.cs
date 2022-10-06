@@ -109,11 +109,23 @@ namespace RSBot.Core.Objects
                 action.UnknownId = packet.ReadUInt();
 
             action.TargetId = packet.ReadUInt();
+            if (Game.ClientType == GameClientType.Global)
+            {
+                packet.ReadByte();
+                action.Flag = (ActionStateFlag)packet.ReadByte();
+            }
+            else if (Game.ClientType == GameClientType.Turkey)
+            {
+                action.Flag = (ActionStateFlag)packet.ReadByte();
+                packet.ReadByte();
+            }
+            else
+                action.Flag = (ActionStateFlag)packet.ReadByte();
 
-            if (Game.ClientType >= GameClientType.Global)
+            /*if (Game.ClientType >= GameClientType.Global)
                 packet.ReadByte();
 
-            action.Flag = (ActionStateFlag)packet.ReadByte();
+            action.Flag = (ActionStateFlag)packet.ReadByte();*/
             action.SerializeDetail(packet);
 
             return action;
