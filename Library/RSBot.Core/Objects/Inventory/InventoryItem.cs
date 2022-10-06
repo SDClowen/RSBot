@@ -328,7 +328,7 @@ namespace RSBot.Core.Objects
                     for (int i = 0; i < buffCount; i++)
                     {
                         var buffType = packet.ReadByte();
-                        if (buffType == 0 || buffType == 20)
+                        if (buffType == 0 || buffType == 20 || buffType == 6)
                         {
                             var itemId = packet.ReadUInt(); // buffType: 0 => skillId ? 20 => itemId
                             var leftTime = packet.ReadUInt();

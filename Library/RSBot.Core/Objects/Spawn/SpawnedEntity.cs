@@ -109,7 +109,21 @@ namespace RSBot.Core.Objects.Spawn
         /// <summary>
         /// Entity current speed
         /// </summary>
-        public float ActualSpeed => Movement.Type == MovementType.Walking ? State.WalkSpeed : State.RunSpeed;
+        public float ActualSpeed
+        {
+            get
+            {
+                if(Movement.Type == MovementType.Walking)
+                {
+                    if (State.WalkSpeed == 0 && State.RunSpeed != 0)
+                        return State.RunSpeed;
+
+                    return State.WalkSpeed;
+                }
+
+                return State.RunSpeed;
+            }
+        }
 
         public void SetMovement(Movement movement)
         {
