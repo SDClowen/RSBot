@@ -1,6 +1,6 @@
 ﻿namespace RSBot.Views
 {
-    partial class About
+    partial class AboutDialog
     {
         /// <summary>
         /// Required designer variable.
@@ -27,7 +27,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutDialog));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonOk = new SDUI.Controls.Button();
             this.richTextBox = new System.Windows.Forms.RichTextBox();

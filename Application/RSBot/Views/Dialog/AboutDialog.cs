@@ -4,9 +4,9 @@ using System.Reflection;
 
 namespace RSBot.Views
 {
-    partial class About : CleanForm
+    partial class AboutDialog : CleanForm
     {
-        public About()
+        public AboutDialog()
         {
             InitializeComponent();
             labelName.Text = AssemblyTitle;

@@ -2,8 +2,7 @@
 using RSBot.Core.Extensions;
 using RSBot.Core.Network.SecurityAPI;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 
@@ -115,6 +114,12 @@ namespace RSBot.Core.Network
 
                 try
                 {
+                    var bindIp = GlobalConfig.Get("RSBot.Network.BindIp", "127.0.0.1");
+                    if (!string.IsNullOrWhiteSpace(bindIp) && bindIp != "0.0.0.0")
+                    {
+                        _socket.Bind(new IPEndPoint(IPAddress.Parse(bindIp), port));
+                    }
+
                     _socket.Connect(ip, port, 3000);
                 }
                 catch (SocketException)
