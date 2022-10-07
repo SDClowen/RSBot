@@ -203,7 +203,7 @@ namespace RSBot.Core.Objects.Cos
         /// <summary>
         /// Moves this instance.
         /// </summary>
-        public void MoveTo(Position destination)
+        public void MoveTo(Position destination, bool sleep = true)
         {
             var packet = new Packet(0x70C5);
             packet.WriteUInt(UniqueId);
@@ -232,7 +232,8 @@ namespace RSBot.Core.Objects.Cos
             awaitCallback.AwaitResponse();
             var distance = Game.Player.Movement.Source.DistanceTo(destination);
             //Wait to finish the step
-            Thread.Sleep(Convert.ToInt32((distance / Game.Player.ActualSpeed) * 10000));
+            if(sleep)
+                Thread.Sleep(Convert.ToInt32((distance / Game.Player.ActualSpeed) * 10000));
         }
 
         /// <summary>
@@ -303,6 +304,18 @@ namespace RSBot.Core.Objects.Cos
 
         public virtual void Deserialize(Packet packet)
         {
+        }
+
+        public override bool Update(int delta)
+        {
+            base.Update(delta);
+
+            if (Bionic == null)
+                return false;
+
+            Movement = Bionic.Movement;
+
+            return true;
         }
     }
 }

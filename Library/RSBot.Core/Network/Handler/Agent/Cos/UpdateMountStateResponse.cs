@@ -60,12 +60,10 @@ namespace RSBot.Core.Network.Handler.Agent
             }
 
             //Assertion: only player's are supported to have active vehicles. Think it's the same in the client.
-            var owner = SpawnManager.GetEntity<SpawnedPlayer>(e => e.UniqueId == ownerUniqueId);
-            if (owner == null)
+            if(!SpawnManager.TryGetEntity<SpawnedPlayer>(ownerUniqueId, out var owner))
                 return;
-
-            var cos = SpawnManager.GetEntity<SpawnedCos>(e => e.UniqueId == cosUniqueId);
-            if (cos == null)
+            
+            if(!SpawnManager.TryGetEntity<SpawnedCos>(cosUniqueId, out var cos))
                 return;
 
             owner.OnTransport = isMounted;
