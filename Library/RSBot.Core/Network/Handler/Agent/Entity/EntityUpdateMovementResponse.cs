@@ -69,9 +69,13 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                 return;
             }
 
+            if (Game.Player.Vehicle?.UniqueId == uniqueId)
+                EventManager.FireEvent("OnVehicleMove");
+            else
+                EventManager.FireEvent("OnEntityMove", uniqueId);
+
             // Movement through click
             entity.Move(movement.Destination);
-            EventManager.FireEvent("OnEntityMove", uniqueId);
         }
     }
 }

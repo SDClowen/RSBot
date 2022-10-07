@@ -8,6 +8,7 @@ using RSBot.Views.Dialog;
 using SDUI.Controls;
 using System;
 using System.Drawing;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -55,6 +56,7 @@ namespace RSBot.Views
         private void SubscribeEvents()
         {
             EventManager.SubscribeEvent("OnPlayerMove", OnPlayerMove);
+            EventManager.SubscribeEvent("OnVehicleMove", OnPlayerMove);
             EventManager.SubscribeEvent("OnRequestTeleport", new Action<uint, string>(OnRequestTeleport));
             EventManager.SubscribeEvent("OnTerminateVehicle", OnTerminateVehicle);
             EventManager.SubscribeEvent("OnTeleportComplete", OnTeleportComplete);
@@ -177,7 +179,7 @@ namespace RSBot.Views
             if (IsDisposed)
                 return;
 
-            if (!ScriptManager.Running) 
+            if (!ScriptManager.Running)
                 return;
 
             if (txtScript.Text.Split('\n').Length >= lineNumber)
@@ -192,13 +194,24 @@ namespace RSBot.Views
             if (!_recording)
                 return;
 
-            var stepString = new System.Text.StringBuilder();
-            stepString.Append($"move {Math.Round(Game.Player.Movement.Destination.XOffset, MidpointRounding.AwayFromZero)}");
-            stepString.Append($" {Math.Round(Game.Player.Movement.Destination.YOffset, MidpointRounding.AwayFromZero)}");
-            stepString.Append($" {Math.Round(Game.Player.Movement.Destination.ZOffset, MidpointRounding.AwayFromZero)}");
-            stepString.Append($" {Game.Player.Movement.Destination.XSector}");
-            stepString.Append($" {Game.Player.Movement.Destination.YSector}");
+            
+            SpawnedEntity entity = Game.Player;
+            if (Game.Player.HasActiveVehicle)
+                entity = Game.Player.Vehicle.Bionic;
+
+            if (!entity.Movement.HasDestination)
+                return;
+
+            var destination = entity.Movement.Destination;
+
+            StringBuilder stepString = new(); //you prefer it like this? so its not problem var stepString = new StringBuilder() same for me so np :D kk
+            stepString.Append($"move {destination.XOffset:0}");
+            stepString.Append($" {destination.YOffset:0}");
+            stepString.Append($" {destination.ZOffset:0}");
+            stepString.Append($" {destination.XSector}");
+            stepString.Append($" {destination.YSector}");
             stepString.AppendLine();
+
             txtScript.AppendText(stepString.ToString());
         }
 
@@ -209,7 +222,7 @@ namespace RSBot.Views
         /// <param name="npcCodeName">Name of the NPC code.</param>
         private void OnRequestTeleport(uint destination, string npcCodeName)
         {
-            if (!_recording) 
+            if (!_recording)
                 return;
 
             txtScript.AppendText($"teleport {npcCodeName} {destination}\n");
@@ -220,7 +233,7 @@ namespace RSBot.Views
         /// </summary>
         private void OnTerminateVehicle()
         {
-            if (!_recording) 
+            if (!_recording)
                 return;
 
             txtScript.AppendText("dismount\n");
