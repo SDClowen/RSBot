@@ -555,6 +555,20 @@ namespace RSBot.Core.Objects
         public Player(uint objId) : base(objId) { }
 
         /// <summary>
+        /// The update method
+        /// </summary>
+        /// <param name="delta">Time between previous and current run</param>
+        public override bool Update(int delta)
+        {
+            base.Update(delta);
+
+            if(HasActiveVehicle)
+                Movement = Vehicle.Movement;
+
+            return true;
+        }
+
+        /// <summary>
         /// Gets the ammunition amount.
         /// </summary>
         /// <returns></returns>
@@ -617,7 +631,7 @@ namespace RSBot.Core.Objects
 
             if (HasActiveVehicle)
             {
-                Transport.MoveTo(destination);
+                Vehicle.MoveTo(destination, sleep);
                 return true;
             }
 
@@ -649,7 +663,8 @@ namespace RSBot.Core.Objects
 
             if (awaitCallback.IsCompleted)
             {
-                if (!sleep) return true;
+                if (!sleep) 
+                    return true;
 
                 //Wait to finish the step
                 Thread.Sleep(Convert.ToInt32(distance / Game.Player.ActualSpeed * 10000));
