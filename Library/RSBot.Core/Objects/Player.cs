@@ -508,6 +508,53 @@ namespace RSBot.Core.Objects
         /// </value>
         public InventoryItem Weapon => Inventory.GetItemAt(6);
 
+
+        /// <summary>
+        /// Gets a value indicating whether this player is able to attack.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance can attack; otherwise, <c>false</c>.
+        /// </value>
+        public bool CanAttack
+        {
+            get
+            {
+                //State
+                if (State.LifeState == LifeState.Dead)
+                    return false;
+
+                if (State.ScrollState == ScrollState.NormalScroll)
+                    return false;
+
+                if (State.BodyState == BodyState.Untouchable)
+                    return false;
+
+                if (State.HitState == ActionHitStateFlag.KnockDown)
+                    return false;
+
+                if (HasActiveVehicle)
+                    return false;
+
+                if (State.MotionState == MotionState.Sitting)
+                    return false;
+
+                //Bad effects - probably there are more
+                if ((BadEffect & BadEffect.Fear) != 0)
+                    return false;
+
+                if ((BadEffect & BadEffect.Sleep) != 0)
+                    return false;
+
+                if ((BadEffect & BadEffect.Frozen) != 0)
+                    return false;
+
+                if ((BadEffect & BadEffect.Stunned) != 0)
+                    return false;
+
+                return true;
+            }
+        }
+
         /// <summary>
         /// Gets or sets the last hp potion item tick count
         /// </summary>
