@@ -1,6 +1,6 @@
 ﻿using RSBot.Core.Objects;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace RSBot.Core.Components.Scripting.Commands
 {
@@ -50,7 +50,7 @@ namespace RSBot.Core.Components.Scripting.Commands
         /// <returns>
         /// A value indicating if the command has been executed successfully.
         /// </returns>
-        public bool Execute(string[] arguments = null)
+        public bool Execute(string[]? arguments = null)
         {
             if (arguments == null || arguments.Length != Arguments.Count)
             {
@@ -64,9 +64,29 @@ namespace RSBot.Core.Components.Scripting.Commands
                 IsRunning = true;
 
                 while (Game.Player.InAction)
-                    Task.Delay(50);
+                    Thread.Sleep(50);
 
-                return ExecuteMove(arguments);
+                const int retryAttempts = 5;
+                var stepRetryCounter = 0;
+
+                //In some cases the move command fails for no reason, that's why we retry the move x times if it fails.
+                //This bug is server side. Sometimes it simply sends back a failed packet because the player state doesn't allow to move.
+                while (!ExecuteMove(arguments))
+                {
+                    if (stepRetryCounter++ >= retryAttempts)
+                    {
+                        Log.Warn("[Script] The move command failed due to an unknown reason! Please check the walk script.");
+                        
+                        return false;
+                    }
+
+                    Log.Debug($"[Script] Retry this step {stepRetryCounter}/{retryAttempts}...");
+
+                    //Wait until executing the next step so the server can get its shit done so most likely the next step will not fail.
+                    Thread.Sleep(1000);
+                }
+
+                return true;
             }
             finally
             {
@@ -100,7 +120,7 @@ namespace RSBot.Core.Components.Scripting.Commands
             //If so dismount the vehicle
             //TODO: Find out how to get the ingame positions of ground teleporters like dw cave...
 
-            var distance = pos.DistanceTo(Game.Player.Movement.Source);
+            var distance = pos.DistanceTo(Game.Player.Position);
             if (distance > 100)
             {
                 Log.Debug("[Script] Target position too far away, bot logic aborted!");
