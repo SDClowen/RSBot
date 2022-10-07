@@ -95,8 +95,12 @@ namespace RSBot.General.Components
             if (string.IsNullOrWhiteSpace(secondaryPassword))
                 return;
 
-            var blowfish = new Blowfish();
+            Blowfish blowfish = new();
             byte[] key = { 0x0F, 0x07, 0x3D, 0x20, 0x56, 0x62, 0xC9, 0xEB };
+            
+            if (Game.ClientType == GameClientType.Rigid)
+                key = key.Reverse().ToArray();
+
             blowfish.Initialize(key);
 
             var encodedBuffer = blowfish.Encode(Encoding.ASCII.GetBytes(secondaryPassword));

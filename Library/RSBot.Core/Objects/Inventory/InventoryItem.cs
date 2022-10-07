@@ -293,6 +293,7 @@ namespace RSBot.Core.Objects
                         case GameClientType.Chinese:
                         case GameClientType.Global:
                         case GameClientType.Turkey:
+                        case GameClientType.Rigid:
                             bindingCount = 4;
                             break;
                         case GameClientType.Korean:

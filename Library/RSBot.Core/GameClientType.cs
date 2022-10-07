@@ -11,6 +11,7 @@
         Chinese,
         Global,
         Turkey,
-        Korean
+        Korean,
+        Rigid
     }
 }
