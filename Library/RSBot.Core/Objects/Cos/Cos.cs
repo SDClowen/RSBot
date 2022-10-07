@@ -177,7 +177,7 @@ namespace RSBot.Core.Objects.Cos
         /// Pickups the specified item unique identifier.
         /// </summary>
         /// <param name="itemUniqueId">The item unique identifier.</param>
-        public virtual void Pickup(uint itemUniqueId)
+        public virtual bool Pickup(uint itemUniqueId)
         {
             var packet = new Packet(0x70C5);
             packet.WriteUInt(UniqueId);
@@ -198,6 +198,8 @@ namespace RSBot.Core.Objects.Cos
 
             PacketManager.SendPacket(packet, PacketDestination.Server, callback);
             callback.AwaitResponse();
+
+            return callback.IsCompleted;
         }
 
         /// <summary>

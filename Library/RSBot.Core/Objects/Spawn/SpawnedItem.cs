@@ -1,5 +1,4 @@
 ﻿using RSBot.Core.Client.ReferenceObjects;
-using RSBot.Core.Components;
 using RSBot.Core.Network;
 
 namespace RSBot.Core.Objects.Spawn
@@ -95,29 +94,34 @@ namespace RSBot.Core.Objects.Spawn
         /// Pickups the specified item unique identifier.
         /// </summary>
         /// <param name="itemUniqueId">The item unique identifier.</param>F
-        public void Pickup()
+        public bool Pickup()
         {
             if (IsBehindObstacle)
-                return;
+                return false;
+
+            if (Game.Player.InAction)
+                return false;
 
             var packet = new Packet(0x7074);
-            packet.WriteByte(1); //Execute
-            packet.WriteByte(2); //Use Skill
+            packet.WriteByte(ActionCommandType.Execute);
+            packet.WriteByte(ActionType.Pickup);
             packet.WriteByte(ActionTarget.Entity);
             packet.WriteUInt(UniqueId);
 
             var asyncResult = new AwaitCallback(response =>
             {
-                var actionState = response.ReadByte();
-                var repeatState = response.ReadByte();
+                var actionState = (ActionState)response.ReadByte();
+                var repeatAction = response.ReadBool();
 
-                Log.Debug($"Picked up item response: State={actionState} Repeat={repeatState}");
+                Log.Debug($"Picked up item response: State={actionState} Repeat={repeatAction}");
 
-                return actionState == 2 && repeatState == 0
-                        ? AwaitCallbackResult.Success : AwaitCallbackResult.ConditionFailed;
+                return (actionState is ActionState.Begin or ActionState.End)
+                    ? AwaitCallbackResult.Success : AwaitCallbackResult.ConditionFailed;
             }, 0xB074);
             PacketManager.SendPacket(packet, PacketDestination.Server, asyncResult);
             asyncResult.AwaitResponse(500);
+
+            return asyncResult.IsCompleted;
         }
     }
 }
