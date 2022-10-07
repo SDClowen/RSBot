@@ -114,7 +114,8 @@ namespace RSBot.Core.Objects
                 packet.ReadByte();
                 action.Flag = (ActionStateFlag)packet.ReadByte();
             }
-            else if (Game.ClientType == GameClientType.Turkey)
+            else if (Game.ClientType == GameClientType.Turkey ||
+                    Game.ClientType == GameClientType.Rigid)
             {
                 action.Flag = (ActionStateFlag)packet.ReadByte();
                 packet.ReadByte();
