@@ -71,6 +71,15 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
 
             // Movement through click
             entity.Move(movement.Destination);
+
+            if (Game.Player.HasActiveVehicle && Game.Player.Vehicle.UniqueId == uniqueId)
+            {
+                //Introduce new event for this type of movement, because it's common to track the vehicle position in plugins
+                EventManager.FireEvent("OnVehicleMove");
+
+                return;
+            }
+
             EventManager.FireEvent("OnEntityMove", uniqueId);
         }
     }

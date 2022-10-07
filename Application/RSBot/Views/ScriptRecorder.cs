@@ -55,6 +55,7 @@ namespace RSBot.Views
         private void SubscribeEvents()
         {
             EventManager.SubscribeEvent("OnPlayerMove", OnPlayerMove);
+            EventManager.SubscribeEvent("OnVehicleMove", OnPlayerMove);
             EventManager.SubscribeEvent("OnRequestTeleport", new Action<uint, string>(OnRequestTeleport));
             EventManager.SubscribeEvent("OnTerminateVehicle", OnTerminateVehicle);
             EventManager.SubscribeEvent("OnTeleportComplete", OnTeleportComplete);
@@ -193,12 +194,36 @@ namespace RSBot.Views
                 return;
 
             var stepString = new System.Text.StringBuilder();
-            stepString.Append($"move {Math.Round(Game.Player.Movement.Destination.XOffset, MidpointRounding.AwayFromZero)}");
-            stepString.Append($" {Math.Round(Game.Player.Movement.Destination.YOffset, MidpointRounding.AwayFromZero)}");
-            stepString.Append($" {Math.Round(Game.Player.Movement.Destination.ZOffset, MidpointRounding.AwayFromZero)}");
-            stepString.Append($" {Game.Player.Movement.Destination.XSector}");
-            stepString.Append($" {Game.Player.Movement.Destination.YSector}");
+
+            float destinationXOffset, destinationYOffset, destinationZOffset = 0;
+            byte destinationXSector, destinationYSector = 0;
+
+            if (!Game.Player.HasActiveVehicle && Game.Player.Movement.HasDestination)
+            {
+                destinationXOffset = Game.Player.Movement.Destination.XOffset;
+                destinationYOffset = Game.Player.Movement.Destination.YOffset;
+                destinationZOffset = Game.Player.Movement.Destination.ZOffset;
+                destinationXSector = Game.Player.Movement.Destination.XSector;
+                destinationYSector = Game.Player.Movement.Destination.YSector;
+            }
+            else if (Game.Player.HasActiveVehicle && Game.Player.Vehicle.Movement.HasDestination)
+            {
+                destinationXOffset = Game.Player.Vehicle.Movement.Destination.XOffset;
+                destinationYOffset = Game.Player.Vehicle.Movement.Destination.YOffset;
+                destinationZOffset = Game.Player.Vehicle.Movement.Destination.ZOffset;
+                destinationXSector = Game.Player.Vehicle.Movement.Destination.XSector;
+                destinationYSector = Game.Player.Vehicle.Movement.Destination.YSector;
+            }
+            else
+                return; //Step without destination
+
+            stepString.Append($"move {Math.Round(destinationXOffset, MidpointRounding.AwayFromZero)}");
+            stepString.Append($" {Math.Round(destinationYOffset, MidpointRounding.AwayFromZero)}");
+            stepString.Append($" {Math.Round(destinationZOffset, MidpointRounding.AwayFromZero)}");
+            stepString.Append($" {destinationXSector}");
+            stepString.Append($" {destinationYSector}");
             stepString.AppendLine();
+
             txtScript.AppendText(stepString.ToString());
         }
 
