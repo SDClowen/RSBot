@@ -64,6 +64,16 @@ namespace RSBot.Map.Views
         private float _scale = SectorSize / 192.0f;
 
         /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        private BufferedGraphicsContext bufferedGraphicsContext;
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        private BufferedGraphics bufferedGraphics;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Main"/> class.
         /// </summary>
         public Main()
@@ -74,6 +84,10 @@ namespace RSBot.Map.Views
 
             EventManager.SubscribeEvent("OnEnterGame", OnEnterGame);
 
+            bufferedGraphicsContext = BufferedGraphicsManager.Current;
+            bufferedGraphicsContext.MaximumBuffer = new Size(mapCanvas.Width + 1, mapCanvas.Height + 1);
+            bufferedGraphics = bufferedGraphicsContext.Allocate(mapCanvas.CreateGraphics(), mapCanvas.ClientRectangle);
+            
             // All
             comboViewType.SelectedIndex = 6;
             checkEnableCollisions.Checked = GlobalConfig.Get("RSBot.EnableCollisionDetection", true);
@@ -232,7 +246,6 @@ namespace RSBot.Map.Views
                     using var pen = new Pen(Color.White, 1);
                     pen.DashStyle = DashStyle.Dash;
                     DrawLineAt(graphics, Game.Player.Movement.Source, Game.Player.Movement.Destination, pen);
-
                 }
 #endif
                 //Draw walk script
@@ -270,10 +283,14 @@ namespace RSBot.Map.Views
                             AddGridItem(entry.Record.GetRealName(), entry.Rarity.GetName(),
                                 entry.Record.Level, entry.Movement.Source);
 
+                            //Other style for mobs behind obstacles
+                            if (entry.IsBehindObstacle)
+                                DrawCircleAt(graphics, entry.Position, Color.DarkRed, 12);
+
                             if (entry.Rarity == MonsterRarity.Unique || entry.Rarity == MonsterRarity.Unique2)
                                 DrawPointAt(graphics, entry.Movement.Source, 5);
                             else
-                                DrawPointAt(graphics, entry.Position, !entry.IsBehindObstacle ? 4 : 2); //Other style for mobs behind obstacles
+                                DrawPointAt(graphics, entry.Position, 4);
                         }
                     }
                 }
@@ -540,27 +557,27 @@ namespace RSBot.Map.Views
             return sizedBitmap;
         }
 
-        private void mapCanvas_Paint(object sender, PaintEventArgs e)
+        private void DrawObjects(Graphics graphics)
         {
             if (_currentSectorGraphic != null)
             {
-                e.Graphics.InterpolationMode = InterpolationMode.Bicubic;
-                e.Graphics.SmoothingMode = SmoothingMode.HighSpeed;
-                e.Graphics.PixelOffsetMode = PixelOffsetMode.HighSpeed;
-                e.Graphics.CompositingQuality = CompositingQuality.HighSpeed;
+                graphics.InterpolationMode = InterpolationMode.Bicubic;
+                graphics.SmoothingMode = SmoothingMode.HighSpeed;
+                graphics.PixelOffsetMode = PixelOffsetMode.HighSpeed;
+                graphics.CompositingQuality = CompositingQuality.HighSpeed;
 
                 var pointX = mapCanvas.Width / 2f - SectorSize - Game.Player.Movement.Source.XSectorOffset / 10f * _scale;
                 var pointY = mapCanvas.Height / 2f - SectorSize * 2f + Game.Player.Movement.Source.YSectorOffset / 10f * _scale;
 
                 var point = new PointF(pointX, pointY);
 
-                e.Graphics.DrawImage(_currentSectorGraphic, point);
+                graphics.DrawImage(_currentSectorGraphic, point);
 
-                PopulateMapAndGrid(e.Graphics);
-                DrawPointAt(e.Graphics, Game.Player.Movement.Source, 0);
+                PopulateMapAndGrid(graphics);
+                DrawPointAt(graphics, Game.Player.Movement.Source, 0);
 
 #if DEBUG
-                DrawCollisions(e.Graphics);
+                DrawCollisions(graphics);
 #endif
             }
         }
@@ -579,8 +596,10 @@ namespace RSBot.Map.Views
             labelSectorInfo.Text = $"{Game.Player.Movement.Source.RegionId} ({Game.Player.Movement.Source.XSector}x{Game.Player.Movement.Source.YSector})";
 #endif
 
+            bufferedGraphics.Graphics.Clear(Color.Black);
             RedrawMap();
-            mapCanvas.Invalidate();
+            DrawObjects(bufferedGraphics.Graphics);
+            bufferedGraphics.Render();
         }
 
         private void checkBoxAutoSelectUniques_CheckedChanged(object sender, EventArgs e)
