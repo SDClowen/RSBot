@@ -114,11 +114,9 @@ namespace RSBot.Core.Network
 
                 try
                 {
-                    var bindIp = GlobalConfig.Get("RSBot.Network.BindIp", "127.0.0.1");
+                    var bindIp = GlobalConfig.Get("RSBot.Network.BindIp", "0.0.0.0");
                     if (!string.IsNullOrWhiteSpace(bindIp) && bindIp != "0.0.0.0")
-                    {
                         _socket.Bind(new IPEndPoint(IPAddress.Parse(bindIp), port));
-                    }
 
                     _socket.Connect(ip, port, 3000);
                 }
