@@ -104,6 +104,7 @@ namespace RSBot.Core.Network.Hooks.Agent.Inventory
                                 case GameClientType.Chinese:
                                 case GameClientType.Global:
                                 case GameClientType.Turkey:
+                                case GameClientType.Rigid:
                                     bindingCount = 4;
                                     break;
                                 case GameClientType.Korean:
