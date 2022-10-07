@@ -704,9 +704,9 @@ namespace RSBot.Views
         {
             const string title = "IP Bind";
 
-            var currentBind = GlobalConfig.Get("RSBot.Network.BindIp", "127.0.0.1");
+            var currentBind = GlobalConfig.Get("RSBot.Network.BindIp", "0.0.0.0");
 
-            const string message = $"Use your custom interface ip for connect to game.\nEnter your interface Ip:\t(default: 127.0.0.1)";
+            const string message = $"Use your custom interface ip for connect to game.\nEnter your interface Ip:\t(default: 0.0.0.0)";
             
             var dialog = new InputDialog(title, title, message, defaultValue: currentBind);
             if (dialog.ShowDialog() != DialogResult.OK)
