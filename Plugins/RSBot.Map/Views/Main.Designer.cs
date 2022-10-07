@@ -36,7 +36,7 @@ namespace RSBot.Map.Views
             this.lblX = new SDUI.Controls.Label();
             this.lblY = new SDUI.Controls.Label();
             this.lblRegion = new SDUI.Controls.Label();
-            this.mapCanvas = new System.Windows.Forms.PictureBox();
+            this.mapCanvas = new System.Windows.Forms.Panel();
             this.label4 = new SDUI.Controls.Label();
             this.comboViewType = new SDUI.Controls.ComboBox();
             this.trmInterval = new System.Windows.Forms.Timer(this.components);
@@ -50,7 +50,6 @@ namespace RSBot.Map.Views
             this.label3 = new SDUI.Controls.Label();
             this.timerUniqueChecker = new System.Windows.Forms.Timer(this.components);
             this.checkEnableCollisions = new SDUI.Controls.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.mapCanvas)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -114,10 +113,8 @@ namespace RSBot.Map.Views
             this.mapCanvas.Location = new System.Drawing.Point(35, 80);
             this.mapCanvas.Name = "mapCanvas";
             this.mapCanvas.Size = new System.Drawing.Size(256, 256);
-            this.mapCanvas.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.mapCanvas.TabIndex = 0;
             this.mapCanvas.TabStop = false;
-            this.mapCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.mapCanvas_Paint);
             this.mapCanvas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mapCanvas_MouseClick);
             // 
             // label4
@@ -269,7 +266,6 @@ namespace RSBot.Map.Views
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "Main";
             this.Size = new System.Drawing.Size(750, 458);
-            ((System.ComponentModel.ISupportInitialize)(this.mapCanvas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -277,7 +273,7 @@ namespace RSBot.Map.Views
 
         #endregion
 
-        private System.Windows.Forms.PictureBox mapCanvas;
+        private System.Windows.Forms.Panel mapCanvas;
         private SDUI.Controls.Label label1;
         private SDUI.Controls.Label label2;
         private SDUI.Controls.Label lblX;
