@@ -4,6 +4,7 @@ using RSBot.Core.Objects.Spawn;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace RSBot.Core.Components
 {
@@ -89,7 +90,7 @@ namespace RSBot.Core.Components
             try
             {
                 if (!SpawnManager.TryGetEntities<SpawnedItem>(out var entities, (si) => Condition(si, centerPosition, radius)
-                    && (!UseAbilityPet || !Game.Player.HasActiveAbilityPet || PickupFilter.Any(p => p.CodeName == si.Record.CodeName && p.PickOnlyChar))))
+                    && (!UseAbilityPet || !Game.Player.HasActiveAbilityPet || !si.Record.IsGold || PickupFilter.Any(p => p.CodeName == si.Record.CodeName && p.PickOnlyChar))))
                 {
                     StopPlayerPickup();
                     return;
@@ -100,6 +101,9 @@ namespace RSBot.Core.Components
                 {
                     if (!RunningPlayerPickup)
                         return;
+
+                    while (Game.Player.InAction)
+                        Thread.Sleep(50);
 
                     //Make sure the player is at the item's location
                     //Game.Player.MoveTo(item.Movement.Source);

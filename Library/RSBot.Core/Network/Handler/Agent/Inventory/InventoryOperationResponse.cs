@@ -258,7 +258,12 @@ namespace RSBot.Core.Network.Handler.Agent.Inventory
 
             if (destinationSlot == 0xFE) //gold
             {
-                Game.Player.Gold += packet.ReadUInt();
+                var goldAmount = packet.ReadUInt();
+                Game.Player.Gold += goldAmount;
+             
+                EventManager.FireEvent("OnPickupGold", goldAmount);
+
+                Log.Notify($"Picked up [{goldAmount}] gold");
                 return;
             }
 
