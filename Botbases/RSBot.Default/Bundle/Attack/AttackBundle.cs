@@ -47,7 +47,8 @@ namespace RSBot.Default.Bundle.Attack
                 if (Game.Player.InAction)
                     return;
 
-                SkillManager.CastAutoAttack();
+                if (PlayerConfig.Get("RSBot.Skills.UseDefaultAttack", true))
+                    SkillManager.CastAutoAttack();
 
                 return;
             }

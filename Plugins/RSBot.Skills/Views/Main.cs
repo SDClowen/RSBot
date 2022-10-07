@@ -152,6 +152,7 @@ namespace RSBot.Skills.Views
             checkLearnMastery.Checked = PlayerConfig.Get<bool>("RSBot.Skills.learnMastery");
             numMasteryGap.Value = PlayerConfig.Get<byte>("RSBot.Skills.masteryGap", 0);
             checkWarlockMode.Checked = PlayerConfig.Get<bool>("RSBot.Skills.WarlockMode", false);
+            checkUseDefaultAttack.Checked = PlayerConfig.Get("RSBot.Skills.UseDefaultAttack", true);
         }
 
         /// <summary>
@@ -852,6 +853,7 @@ namespace RSBot.Skills.Views
             foreach (ListViewItem item in listSkills.SelectedItems)
             {
                 var selectedRefSkill = item.Tag as SkillInfo;
+
                 if (listAttackingSkills.Items.Cast<ListViewItem>()
                    .Any(p => ((SkillInfo)p.Tag).Record.Action_Overlap != 0 && ((SkillInfo)p.Tag).Record.Action_Overlap == selectedRefSkill.Record.Action_Overlap))
                     continue;
@@ -985,6 +987,11 @@ namespace RSBot.Skills.Views
                     catch{}
                 });
             }
+        }
+
+        private void checkUseDefaultAttack_CheckedChanged(object sender, EventArgs e)
+        {
+            PlayerConfig.Set("RSBot.Skills.UseDefaultAttack", checkUseDefaultAttack.Checked);
         }
     }
 }
