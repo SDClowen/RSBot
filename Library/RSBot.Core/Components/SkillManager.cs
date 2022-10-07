@@ -264,8 +264,8 @@ namespace RSBot.Core.Components
                 return false;
 
             var packet = new Packet(0x7074);
-            packet.WriteByte(1); //Execute
-            packet.WriteByte(4); //Use Skill
+            packet.WriteByte(ActionCommandType.Execute); //Execute
+            packet.WriteByte(ActionType.Cast); //Use Skill
             packet.WriteUInt(skill.Id);
             packet.WriteByte(ActionTarget.Entity);
 
@@ -453,8 +453,8 @@ namespace RSBot.Core.Components
                 return false;
 
             var packet = new Packet(0x7074);
-            packet.WriteByte(1); //Execute
-            packet.WriteByte(1); //Use Skill
+            packet.WriteByte(ActionCommandType.Execute); //Execute
+            packet.WriteByte(ActionType.Attack); //Use Skill
             packet.WriteByte(ActionTarget.Entity);
 
             // unknown byte
@@ -480,8 +480,8 @@ namespace RSBot.Core.Components
             if (!Game.Player.Skills.HasSkill(skillId)) return;
 
             var packet = new Packet(0x7074);
-            packet.WriteByte(1); //Execute
-            packet.WriteByte(4); //Use Skill
+            packet.WriteByte(ActionCommandType.Execute); //Execute
+            packet.WriteByte(ActionType.Cast); //Use Skill
             packet.WriteUInt(skillId);
             packet.WriteByte(ActionTarget.Area);
             packet.WriteByte(position.XSector);
@@ -499,11 +499,12 @@ namespace RSBot.Core.Components
         /// <param name="skillId">The skill identifier.</param>
         public static void CancelBuff(uint skillId)
         {
-            if (!Game.Player.Skills.HasSkill(skillId)) return;
+            if (!Game.Player.Skills.HasSkill(skillId)) 
+                return;
 
             var packet = new Packet(0x7074);
-            packet.WriteByte(1); //Execute
-            packet.WriteByte(5); //Cancel Buff
+            packet.WriteByte(ActionCommandType.Execute); //Execute
+            packet.WriteByte(ActionType.Dispel); //Cancel Buff
             packet.WriteUInt(skillId);
             packet.WriteByte(ActionTarget.None);
 
