@@ -197,7 +197,7 @@ namespace RSBot.Views
             
             SpawnedEntity entity = Game.Player;
             if (Game.Player.HasActiveVehicle)
-                entity = Game.Player.Vehicle;
+                entity = Game.Player.Vehicle.Bionic;
 
             if (!entity.Movement.HasDestination)
                 return;
