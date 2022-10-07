@@ -1,6 +1,6 @@
 ﻿using RSBot.Core.Objects;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace RSBot.Core.Components.Scripting.Commands
 {
@@ -64,21 +64,26 @@ namespace RSBot.Core.Components.Scripting.Commands
                 IsRunning = true;
 
                 while (Game.Player.InAction)
-                    Task.Delay(50);
+                    Thread.Sleep(50);
 
                 const int retryAttempts = 5;
                 var stepRetryCounter = 0;
 
                 //In some cases the move command fails for no reason, that's why we retry the move x times if it fails.
-                //This bug is server side. Sometimes it simply sends back a failed packet.
+                //This bug is server side. Sometimes it simply sends back a failed packet because the player state doesn't allow to move.
                 while (!ExecuteMove(arguments))
                 {
                     if (stepRetryCounter++ >= retryAttempts)
+                    {
+                        Log.Warn("[Script] The move command failed due to an unknown reason! Please check the walk script.");
+                        
                         return false;
+                    }
 
                     Log.Debug($"[Script] Retry this step {stepRetryCounter}/{retryAttempts}...");
 
-                    Task.Delay(1000);
+                    //Wait until executing the next step so the server can get its shit done so most likely the next step will not fail.
+                    Thread.Sleep(1000);
                 }
 
                 return true;

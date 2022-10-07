@@ -96,7 +96,8 @@ namespace RSBot.Default.Bundle.Loop
         /// </summary>
         public void CheckForTownScript()
         {
-            if (ScriptManager.Running) return;
+            if (ScriptManager.Running) 
+                return;
 
             var filename = Path.Combine(ScriptManager.InitialDirectory, "Towns", Game.Player.Movement.Source.RegionId + ".rbs");
 
@@ -142,13 +143,13 @@ namespace RSBot.Default.Bundle.Loop
 
             Invoke();
 
-            CheckForWalkbackScript();
+            CheckForWalkbackScript(true);
         }
 
         /// <summary>
         /// Checks for walkback script.
         /// </summary>
-        public void CheckForWalkbackScript()
+        public void CheckForWalkbackScript(bool startFromTown = false)
         {
             if (Config.WalkScript == null ||
                 ScriptManager.Running ||
@@ -160,7 +161,7 @@ namespace RSBot.Default.Bundle.Loop
             Log.NotifyLang("LoadingWalkScript", Config.WalkScript);
             
             ScriptManager.Load(Config.WalkScript);
-            ScriptManager.RunScript();
+            ScriptManager.RunScript(!startFromTown);
         }
     }
 }
