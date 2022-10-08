@@ -108,6 +108,12 @@ namespace RSBot.Default.Bundle.Loop
                 return;
             }
 
+            if( PlayerConfig.Get<bool>( "RSBot.Protection.checkStopBotOnReturnToTown" ) ) 
+            {
+                Kernel.Bot.Stop();
+                return;
+            }
+
             Log.NotifyLang("LoadingTownScript", filename);
 
             TownscriptRunning = true;
