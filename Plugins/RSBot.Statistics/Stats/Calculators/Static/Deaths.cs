@@ -27,7 +27,7 @@ namespace RSBot.Statistics.Stats.Calculators.Static
 
         private void SubscribeEvents()
         {
-            EventManager.SubscribeEvent("OnPlayerDead", OnPlayerDead);
+            EventManager.SubscribeEvent("OnPlayerDied", OnPlayerDead);
         }
 
         private void OnPlayerDead()
@@ -35,6 +35,5 @@ namespace RSBot.Statistics.Stats.Calculators.Static
             if (Kernel.Bot.Running)
                 _deathsCounter++;
         }
-        
     }
 }
