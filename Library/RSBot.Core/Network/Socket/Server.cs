@@ -118,7 +118,23 @@ namespace RSBot.Core.Network
                     if (!string.IsNullOrWhiteSpace(bindIp) && bindIp != "0.0.0.0")
                         _socket.Bind(new IPEndPoint(IPAddress.Parse(bindIp), port));
 
-                    _socket.Connect(ip, port, 3000);
+                    if(ProxyConfig.TryGetProxy(ip, port, out var proxyConfig))
+                    {
+                        if (!_socket.ConnectProxy(proxyConfig).Result)
+                        {
+                            Log.Warn($"Proxy receiving has timeout!");
+                            Disconnect();
+                            return;
+                        }
+                    }
+                    else
+                        _socket.Connect(ip, port, 3000);
+                }
+                catch (AggregateException s)
+                {
+                    Log.Error(s.Message);
+                    Disconnect();
+                    return;
                 }
                 catch (SocketException)
                 {

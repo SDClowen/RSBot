@@ -1049,6 +1049,24 @@ namespace RSBot.Core.Network
         }
 
         /// <summary>
+        /// Writes the ASCII.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="codePage">The Codepage.</param>
+        public void WriteStringUTF8(string value)
+        {
+            lock (_lock)
+            {
+                if (Locked)
+                    throw new PacketException(this, "Cannot Write to a locked Packet.");
+
+                var bytes = Encoding.UTF8.GetBytes(value);
+                _writer.Write((byte)bytes.Length);
+                _writer.Write(bytes);
+            }
+        }
+
+        /// <summary>
         /// Writes the unicode.
         /// </summary>
         /// <param name="value">The value.</param>
