@@ -44,7 +44,7 @@ namespace RSBot.Views
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
-            SystemEvents.UserPreferenceChanging += new UserPreferenceChangingEventHandler(SystemEvents_UserPreferenceChanging);
+            SystemEvents.UserPreferenceChanged += SystemEvents_UserPreferenceChanged;
             RegisterEvents();
         }
 
@@ -57,8 +57,11 @@ namespace RSBot.Views
         /// </summary>
         /// <param name="sender">The sender</param>
         /// <param name="e">The event arags</param>
-        private void SystemEvents_UserPreferenceChanging(object sender, UserPreferenceChangingEventArgs e)
+        private void SystemEvents_UserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
         {
+            if (e?.Category != UserPreferenceCategory.Color)
+                return;
+
             var detectDarkLight = GlobalConfig.Get("RSBot.Theme.Auto", true);
             if (!detectDarkLight)
                 return;
@@ -621,7 +624,9 @@ namespace RSBot.Views
             if (WindowsHelper.TenOrHigher || WindowsHelper.ElevenOrHigher)
             {
                 GlobalConfig.Set("RSBot.Theme.Auto", true);
-                SystemEvents_UserPreferenceChanging(null, null);
+                SystemEvents_UserPreferenceChanged(null, 
+                    new UserPreferenceChangedEventArgs(UserPreferenceCategory.Color));
+
                 return;
             }
 
