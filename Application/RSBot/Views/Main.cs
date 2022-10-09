@@ -566,6 +566,17 @@ namespace RSBot.Views
         }
 
         /// <summary>
+        /// Handles the Click event of the networkConfigToolStripMenuItem control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void networkConfigToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using var configDialog = new ConfigDialog();
+            configDialog.ShowDialog();
+        }
+
+        /// <summary>
         /// Handles the Click event of the minimizeToolStripMenuItem control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>

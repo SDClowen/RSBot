@@ -83,12 +83,13 @@ namespace RSBot.Core
         /// <param name="key">The key.</param>
         /// <param name="delimiter">The delimiter.</param>
         /// <returns></returns>
-        public static T[] GetArray<T>(string key, char delimiter = ',')
+        public static T[] GetArray<T>(string key, char delimiter = ',',
+            StringSplitOptions options = StringSplitOptions.RemoveEmptyEntries)
         {
             if (_config == null)
                 return new T[] {};
 
-            return _config.GetArray<T>(key, delimiter);
+            return _config.GetArray<T>(key, delimiter, options);
         }
 
         /// <summary>

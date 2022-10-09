@@ -167,12 +167,13 @@ namespace RSBot.Core
         /// <param name="key">The key.</param>
         /// <param name="delimiter">The delimiter.</param>
         /// <returns></returns>
-        public T[] GetArray<T>(string key, char delimiter = ',')
+        public T[] GetArray<T>(string key, char delimiter = ',', 
+            StringSplitOptions options = StringSplitOptions.RemoveEmptyEntries)
         {
             if (!_isLoaded)
                 return new T[] { };
 
-            var data = Get<string>(key).Split(new[] { delimiter }, StringSplitOptions.RemoveEmptyEntries);
+            var data = Get<string>(key).Split(new[] { delimiter }, options);
             if (data.Length == 0)
                 return new T[] { };
 
