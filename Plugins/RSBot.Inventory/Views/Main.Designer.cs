@@ -47,6 +47,8 @@
             this.moveToLastRecallPositionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectMapLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new SDUI.Controls.Panel();
+            this.checkAutoSort = new SDUI.Controls.CheckBox();
+            this.btnSort = new SDUI.Controls.Button();
             this.buttonInventory = new SDUI.Controls.Button();
             this.buttonEquipment = new SDUI.Controls.Button();
             this.buttonAvatars = new SDUI.Controls.Button();
@@ -137,7 +139,7 @@
             this.moveToLastRecallPositionToolStripMenuItem,
             this.selectMapLocationToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(220, 202);
+            this.contextMenuStrip.Size = new System.Drawing.Size(220, 180);
             this.contextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip_Opening);
             // 
             // useToolStripMenuItem
@@ -232,8 +234,11 @@
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
             this.panel1.BorderColor = System.Drawing.Color.Transparent;
+            this.panel1.Controls.Add(this.checkAutoSort);
+            this.panel1.Controls.Add(this.btnSort);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.lblFreeSlots);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -241,8 +246,36 @@
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(3);
             this.panel1.Radius = 0;
+            this.panel1.ShadowDepth = 4F;
             this.panel1.Size = new System.Drawing.Size(792, 27);
             this.panel1.TabIndex = 6;
+            // 
+            // checkAutoSort
+            // 
+            this.checkAutoSort.AutoSize = true;
+            this.checkAutoSort.BackColor = System.Drawing.Color.Transparent;
+            this.checkAutoSort.Location = new System.Drawing.Point(636, 7);
+            this.checkAutoSort.Name = "checkAutoSort";
+            this.checkAutoSort.ShadowDepth = 1;
+            this.checkAutoSort.Size = new System.Drawing.Size(72, 15);
+            this.checkAutoSort.TabIndex = 6;
+            this.checkAutoSort.Text = "Auto sort";
+            this.checkAutoSort.UseVisualStyleBackColor = false;
+            this.checkAutoSort.CheckedChanged += new System.EventHandler(this.checkAutoSort_CheckedChanged);
+            // 
+            // btnSort
+            // 
+            this.btnSort.Color = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(155)))), ((int)(((byte)(90)))));
+            this.btnSort.ForeColor = System.Drawing.Color.White;
+            this.btnSort.Location = new System.Drawing.Point(714, 2);
+            this.btnSort.Name = "btnSort";
+            this.btnSort.Radius = 6;
+            this.btnSort.ShadowDepth = 4F;
+            this.btnSort.Size = new System.Drawing.Size(75, 23);
+            this.btnSort.TabIndex = 5;
+            this.btnSort.Text = "Sort";
+            this.btnSort.UseVisualStyleBackColor = false;
+            this.btnSort.Click += new System.EventHandler(this.btnSort_Click);
             // 
             // buttonInventory
             // 
@@ -250,7 +283,8 @@
             this.buttonInventory.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonInventory.Location = new System.Drawing.Point(9, 8);
             this.buttonInventory.Name = "buttonInventory";
-            this.buttonInventory.Radius = 3;
+            this.buttonInventory.Radius = 6;
+            this.buttonInventory.ShadowDepth = 4F;
             this.buttonInventory.Size = new System.Drawing.Size(62, 22);
             this.buttonInventory.TabIndex = 0;
             this.buttonInventory.Text = "Inventory";
@@ -263,7 +297,8 @@
             this.buttonEquipment.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonEquipment.Location = new System.Drawing.Point(77, 8);
             this.buttonEquipment.Name = "buttonEquipment";
-            this.buttonEquipment.Radius = 3;
+            this.buttonEquipment.Radius = 6;
+            this.buttonEquipment.ShadowDepth = 4F;
             this.buttonEquipment.Size = new System.Drawing.Size(69, 22);
             this.buttonEquipment.TabIndex = 1;
             this.buttonEquipment.Text = "Equipment";
@@ -276,7 +311,8 @@
             this.buttonAvatars.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonAvatars.Location = new System.Drawing.Point(245, 8);
             this.buttonAvatars.Name = "buttonAvatars";
-            this.buttonAvatars.Radius = 3;
+            this.buttonAvatars.Radius = 6;
+            this.buttonAvatars.ShadowDepth = 4F;
             this.buttonAvatars.Size = new System.Drawing.Size(57, 22);
             this.buttonAvatars.TabIndex = 2;
             this.buttonAvatars.Text = "Avatars";
@@ -289,7 +325,8 @@
             this.buttonGrabpet.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonGrabpet.Location = new System.Drawing.Point(308, 8);
             this.buttonGrabpet.Name = "buttonGrabpet";
-            this.buttonGrabpet.Radius = 3;
+            this.buttonGrabpet.Radius = 6;
+            this.buttonGrabpet.ShadowDepth = 4F;
             this.buttonGrabpet.Size = new System.Drawing.Size(59, 22);
             this.buttonGrabpet.TabIndex = 3;
             this.buttonGrabpet.Text = "Grab Pet";
@@ -298,6 +335,7 @@
             // 
             // topPanel
             // 
+            this.topPanel.BackColor = System.Drawing.Color.Transparent;
             this.topPanel.Border = new System.Windows.Forms.Padding(0, 0, 0, 1);
             this.topPanel.BorderColor = System.Drawing.Color.Transparent;
             this.topPanel.Controls.Add(this.buttonSpecialty);
@@ -315,6 +353,7 @@
             this.topPanel.Name = "topPanel";
             this.topPanel.Padding = new System.Windows.Forms.Padding(8);
             this.topPanel.Radius = 0;
+            this.topPanel.ShadowDepth = 4F;
             this.topPanel.Size = new System.Drawing.Size(792, 38);
             this.topPanel.TabIndex = 8;
             // 
@@ -324,7 +363,8 @@
             this.buttonSpecialty.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonSpecialty.Location = new System.Drawing.Point(553, 8);
             this.buttonSpecialty.Name = "buttonSpecialty";
-            this.buttonSpecialty.Radius = 3;
+            this.buttonSpecialty.Radius = 6;
+            this.buttonSpecialty.ShadowDepth = 4F;
             this.buttonSpecialty.Size = new System.Drawing.Size(66, 22);
             this.buttonSpecialty.TabIndex = 7;
             this.buttonSpecialty.Text = "Specialty";
@@ -337,7 +377,8 @@
             this.buttonGuildStorage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonGuildStorage.Location = new System.Drawing.Point(684, 8);
             this.buttonGuildStorage.Name = "buttonGuildStorage";
-            this.buttonGuildStorage.Radius = 3;
+            this.buttonGuildStorage.Radius = 6;
+            this.buttonGuildStorage.ShadowDepth = 4F;
             this.buttonGuildStorage.Size = new System.Drawing.Size(81, 22);
             this.buttonGuildStorage.TabIndex = 5;
             this.buttonGuildStorage.Text = "Guild Storage";
@@ -350,7 +391,8 @@
             this.buttonFellowPet.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonFellowPet.Location = new System.Drawing.Point(373, 8);
             this.buttonFellowPet.Name = "buttonFellowPet";
-            this.buttonFellowPet.Radius = 3;
+            this.buttonFellowPet.Radius = 6;
+            this.buttonFellowPet.ShadowDepth = 4F;
             this.buttonFellowPet.Size = new System.Drawing.Size(84, 22);
             this.buttonFellowPet.TabIndex = 9;
             this.buttonFellowPet.Text = "Fellow Pet";
@@ -363,7 +405,8 @@
             this.buttonJobTransport.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonJobTransport.Location = new System.Drawing.Point(463, 8);
             this.buttonJobTransport.Name = "buttonJobTransport";
-            this.buttonJobTransport.Radius = 3;
+            this.buttonJobTransport.Radius = 6;
+            this.buttonJobTransport.ShadowDepth = 4F;
             this.buttonJobTransport.Size = new System.Drawing.Size(84, 22);
             this.buttonJobTransport.TabIndex = 6;
             this.buttonJobTransport.Text = "Job Transport";
@@ -376,7 +419,8 @@
             this.buttonStorage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonStorage.Location = new System.Drawing.Point(625, 8);
             this.buttonStorage.Name = "buttonStorage";
-            this.buttonStorage.Radius = 3;
+            this.buttonStorage.Radius = 6;
+            this.buttonStorage.ShadowDepth = 4F;
             this.buttonStorage.Size = new System.Drawing.Size(53, 22);
             this.buttonStorage.TabIndex = 4;
             this.buttonStorage.Text = "Storage";
@@ -389,7 +433,8 @@
             this.buttonJobEquipment.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonJobEquipment.Location = new System.Drawing.Point(152, 8);
             this.buttonJobEquipment.Name = "buttonJobEquipment";
-            this.buttonJobEquipment.Radius = 3;
+            this.buttonJobEquipment.Radius = 6;
+            this.buttonJobEquipment.ShadowDepth = 4F;
             this.buttonJobEquipment.Size = new System.Drawing.Size(87, 22);
             this.buttonJobEquipment.TabIndex = 8;
             this.buttonJobEquipment.Text = "Job Equipment";
@@ -446,5 +491,7 @@
         private System.Windows.Forms.ToolStripMenuItem moveToPetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem moveToPlayerToolStripMenuItem;
         private SDUI.Controls.Button buttonFellowPet;
+        private SDUI.Controls.Button btnSort;
+        private SDUI.Controls.CheckBox checkAutoSort;
     }
 }
