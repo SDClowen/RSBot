@@ -79,7 +79,14 @@ namespace RSBot.Core.Objects
         public ICollection<InventoryItem> GetNormalPartItems(uint itemId)
             => GetItems(item => item.Slot >= NORMAL_PART_MIN_SLOT && item.ItemId == itemId);
 
+        /// <summary>
+        /// Gets a value indicating whether this instance is sorting.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is sorting; otherwise, <c>false</c>.
+        /// </value>
         public bool IsSorting { get; private set; }
+
         /// <summary>
         /// Moves the item inside Character's Inventory.
         /// </summary>
@@ -131,17 +138,21 @@ namespace RSBot.Core.Objects
             if (IsSorting)
                 return;
 
-            Log.Debug("Sorting the character inventory...");
             IsSorting = true;
+            Log.Debug("Sorting the character inventory...");
 
             //Use iterations to avoid deadlocks!
             const int maxIterations = 10;
             var iterations = 0;
+
+            //Ignore items which move operations failed in the next iteration
+            var blacklistedItems = new List<uint>(4);
+
             for (var iIteration = 0; iIteration < maxIterations; iIteration++)
             {
                 iterations++;
 
-                var itemsToStackGroups = this.Where(i => i.Record.IsStackable && i.Record.MaxStack > i.Amount)
+                var itemsToStackGroups = this.Where(i => i.Record.IsStackable && i.Record.MaxStack > i.Amount && !blacklistedItems.Contains(i.ItemId))
                     .GroupBy(i => i.ItemId);
 
                 if (!itemsToStackGroups.Any())
@@ -157,15 +168,16 @@ namespace RSBot.Core.Objects
                 var source = itemsToStack.FirstOrDefault();
                 if (source == null)
                     continue;
-
+                
                 var destination = itemsToStack.FirstOrDefault(i => i.Record.ID == source.ItemId && i.Slot != source.Slot);
                 if (destination == null)
                     continue;
-
+                
                 var amount = destination.Record.MaxStack - destination.Amount;
                 var actualAmount = source.Amount > amount ? amount : source.Amount;
 
-                MoveItem(source.Slot, destination.Slot, (ushort)actualAmount);
+                if (!MoveItem(source.Slot, destination.Slot, (ushort)actualAmount))
+                    blacklistedItems.Add(source.ItemId);
             }
 
             IsSorting = false;
