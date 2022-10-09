@@ -8,6 +8,7 @@ using SDUI;
 using System;
 using System.Drawing;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RSBot.Inventory.Views
@@ -46,13 +47,18 @@ namespace RSBot.Inventory.Views
         /// </summary>
         private void SubscribeEvents()
         {
-            EventManager.SubscribeEvent("OnLoadCharacter", UpdateInventoryList);
-
+            EventManager.SubscribeEvent("OnLoadCharacter", OnLoadCharacter);
             EventManager.SubscribeEvent("OnUpdateInventoryItem", new Action<byte>(OnUpdateInventoryItem));
             EventManager.SubscribeEvent("OnUseItem", new Action<byte>(OnUpdateInventoryItem));
             EventManager.SubscribeEvent("OnInventoryUpdate", UpdateInventoryList);
         }
 
+        private void OnLoadCharacter()
+        {
+            checkAutoSort.Checked = PlayerConfig.Get("RSBot.Inventory.AutoSortInventory", true);
+
+            UpdateInventoryList();
+        }
         /// <summary>
         /// Calling when update inventory item
         /// </summary>
@@ -96,146 +102,153 @@ namespace RSBot.Inventory.Views
             if (Game.Player == null)
                 return;
 
-            listViewMain.BeginUpdate();
-            listViewMain.Items.Clear();
-
-            switch (_selectedIndex)
+            lock (_lock)
             {
-                case 0:
+                listViewMain.BeginUpdate();
+                listViewMain.Items.Clear();
 
-                    var itemsPlayer = Game.Player.Inventory.GetNormalPartItems();
-                    foreach (var item in itemsPlayer)
-                        AddItem(item);
+                switch (_selectedIndex)
+                {
+                    case 0:
 
-                    lblFreeSlots.Text = Game.Player.Inventory.Count + "/" + Game.Player.Inventory.Capacity;
+                        var itemsPlayer = Game.Player.Inventory.GetNormalPartItems();
+                        foreach (var item in itemsPlayer)
+                            AddItem(item);
 
-                    break;
+                        lblFreeSlots.Text = Game.Player.Inventory.Count + "/" + Game.Player.Inventory.Capacity;
 
-                case 1:
+                        break;
 
-                    foreach (var item in Game.Player.Inventory.GetEquippedPartItems())
-                        AddItem(item);
+                    case 1:
 
-                    lblFreeSlots.Text = "0";
+                        foreach (var item in Game.Player.Inventory.GetEquippedPartItems())
+                            AddItem(item);
 
-                    break;
+                        lblFreeSlots.Text = "0";
 
-                case 2:
+                        break;
 
-                    foreach (var item in Game.Player.Avatars)
-                        AddItem(item);
+                    case 2:
 
-                    lblFreeSlots.Text = "0";
+                        foreach (var item in Game.Player.Avatars)
+                            AddItem(item);
 
-                    break;
+                        lblFreeSlots.Text = "0";
 
-                case 3:
+                        break;
 
-                    if (!Game.Player.HasActiveAbilityPet)
-                    {
-                        listViewMain.EndUpdate();
-                        return;
-                    }
+                    case 3:
 
-                    foreach (var item in Game.Player.AbilityPet.Inventory)
-                        AddItem(item);
+                        if (!Game.Player.HasActiveAbilityPet)
+                        {
+                            listViewMain.EndUpdate();
+                            return;
+                        }
 
-                    lblFreeSlots.Text = Game.Player.AbilityPet.Inventory.Count + "/" + Game.Player.AbilityPet.Inventory.Capacity;
+                        foreach (var item in Game.Player.AbilityPet.Inventory)
+                            AddItem(item);
 
-                    break;
+                        lblFreeSlots.Text = Game.Player.AbilityPet.Inventory.Count + "/" +
+                                            Game.Player.AbilityPet.Inventory.Capacity;
 
-                case 4:
+                        break;
 
-                    if (Game.Player.Storage == null)
-                    {
-                        listViewMain.EndUpdate();
-                        return;
-                    }
+                    case 4:
 
-                    foreach (var item in Game.Player.Storage)
-                        AddItem(item);
+                        if (Game.Player.Storage == null)
+                        {
+                            listViewMain.EndUpdate();
+                            return;
+                        }
 
-                    lblFreeSlots.Text = Game.Player.Storage.Count + "/" + Game.Player.Storage.Capacity;
+                        foreach (var item in Game.Player.Storage)
+                            AddItem(item);
 
-                    break;
+                        lblFreeSlots.Text = Game.Player.Storage.Count + "/" + Game.Player.Storage.Capacity;
 
-                case 5:
+                        break;
 
-                    if (Game.Player.GuildStorage == null)
-                    {
-                        listViewMain.EndUpdate();
-                        return;
-                    }
+                    case 5:
 
-                    foreach (var item in Game.Player.GuildStorage)
-                        AddItem(item);
+                        if (Game.Player.GuildStorage == null)
+                        {
+                            listViewMain.EndUpdate();
+                            return;
+                        }
 
-                    lblFreeSlots.Text = Game.Player.GuildStorage.Count + "/" + Game.Player.GuildStorage.Capacity;
+                        foreach (var item in Game.Player.GuildStorage)
+                            AddItem(item);
 
-                    break;
+                        lblFreeSlots.Text = Game.Player.GuildStorage.Count + "/" + Game.Player.GuildStorage.Capacity;
 
-                case 6:
+                        break;
 
-                    if (Game.Player.JobTransport == null)
-                    {
-                        listViewMain.EndUpdate();
-                        return;
-                    }
+                    case 6:
 
-                    foreach (var item in Game.Player.JobTransport.Inventory)
-                        AddItem(item);
+                        if (Game.Player.JobTransport == null)
+                        {
+                            listViewMain.EndUpdate();
+                            return;
+                        }
 
-                    lblFreeSlots.Text = Game.Player.JobTransport.Inventory.Count + "/" + Game.Player.JobTransport.Inventory.Capacity;
+                        foreach (var item in Game.Player.JobTransport.Inventory)
+                            AddItem(item);
 
-                    break;
+                        lblFreeSlots.Text = Game.Player.JobTransport.Inventory.Count + "/" +
+                                            Game.Player.JobTransport.Inventory.Capacity;
 
-                case 7:
+                        break;
 
-                    if (Game.Player.Job2SpecialtyBag == null)
-                    {
-                        listViewMain.EndUpdate();
-                        return;
-                    }
+                    case 7:
 
-                    foreach (var item in Game.Player.Job2SpecialtyBag)
-                        AddItem(item);
+                        if (Game.Player.Job2SpecialtyBag == null)
+                        {
+                            listViewMain.EndUpdate();
+                            return;
+                        }
 
-                    lblFreeSlots.Text = Game.Player.Job2SpecialtyBag.Count + "/" + Game.Player.Job2SpecialtyBag.Capacity;
+                        foreach (var item in Game.Player.Job2SpecialtyBag)
+                            AddItem(item);
 
-                    break;
+                        lblFreeSlots.Text = Game.Player.Job2SpecialtyBag.Count + "/" +
+                                            Game.Player.Job2SpecialtyBag.Capacity;
 
-                case 8:
+                        break;
 
-                    if (Game.Player.Job2 == null)
-                    {
-                        listViewMain.EndUpdate();
-                        return;
-                    }
+                    case 8:
 
-                    foreach (var item in Game.Player.Job2)
-                        AddItem(item);
+                        if (Game.Player.Job2 == null)
+                        {
+                            listViewMain.EndUpdate();
+                            return;
+                        }
 
-                    lblFreeSlots.Text = Game.Player.Job2.Count + "/" + Game.Player.Job2.Capacity;
+                        foreach (var item in Game.Player.Job2)
+                            AddItem(item);
 
-                    break;
+                        lblFreeSlots.Text = Game.Player.Job2.Count + "/" + Game.Player.Job2.Capacity;
 
-                case 9:
+                        break;
 
-                    if (!Game.Player.HasActiveFellowPet)
-                    {
-                        listViewMain.EndUpdate();
-                        return;
-                    }
+                    case 9:
 
-                    foreach (var item in Game.Player.Fellow.Inventory)
-                        AddItem(item);
+                        if (!Game.Player.HasActiveFellowPet)
+                        {
+                            listViewMain.EndUpdate();
+                            return;
+                        }
 
-                    lblFreeSlots.Text = Game.Player.Fellow.Inventory.Count + "/" + Game.Player.Fellow.Inventory.Capacity;
+                        foreach (var item in Game.Player.Fellow.Inventory)
+                            AddItem(item);
 
-                    break;
+                        lblFreeSlots.Text = Game.Player.Fellow.Inventory.Count + "/" +
+                                            Game.Player.Fellow.Inventory.Capacity;
+
+                        break;
+                }
+
+                listViewMain.EndUpdate();
             }
-
-            listViewMain.EndUpdate();
         }
 
         /// <summary>
@@ -316,7 +329,6 @@ namespace RSBot.Inventory.Views
             itemForm.Show();
         }
 
-
         /// <summary>
         /// Handles the selected index changed event of the button's control.
         /// </summary>
@@ -329,6 +341,10 @@ namespace RSBot.Inventory.Views
                 return;
 
             _selectedIndex = button.TabIndex;
+
+            //Only character inventory sorting is supported for now!
+            btnSort.Visible = _selectedIndex == 0;
+            checkAutoSort.Visible = _selectedIndex == 0;
 
             foreach (var control in topPanel.Controls.OfType<SDUI.Controls.Button>())
             {
@@ -398,11 +414,11 @@ namespace RSBot.Inventory.Views
 
             moveToPetToolStripMenuItem.Visible = Game.Player.AbilityPet != null && _selectedIndex != 3;
             moveToPlayerToolStripMenuItem.Visible = _selectedIndex == 3;
-            
+
             if (isReverseScroll)
             {
                 var tagItem = selectMapLocationToolStripMenuItem.Tag as InventoryItem;
-                if(tagItem != inventoryItem)
+                if (tagItem != inventoryItem)
                 {
                     selectMapLocationToolStripMenuItem.Tag = inventoryItem;
                     selectMapLocationToolStripMenuItem.DropDownItems.Clear();
@@ -498,6 +514,16 @@ namespace RSBot.Inventory.Views
             packet.WriteByte(inventoryItem.Slot);
             packet.WriteByte(freeSlot);
             PacketManager.SendPacket(packet, PacketDestination.Server);
+        }
+
+        private void btnSort_Click(object sender, EventArgs e)
+        {
+            Task.Run(() => Game.Player?.Inventory?.Sort());
+        }
+
+        private void checkAutoSort_CheckedChanged(object sender, EventArgs e)
+        {
+            PlayerConfig.Set("RSBot.Inventory.AutoSortInventory", checkAutoSort.Checked);
         }
     }
 }

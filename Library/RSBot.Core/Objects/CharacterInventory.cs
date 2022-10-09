@@ -1,6 +1,7 @@
 ﻿using RSBot.Core.Network;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RSBot.Core.Objects
 {
@@ -78,6 +79,7 @@ namespace RSBot.Core.Objects
         public ICollection<InventoryItem> GetNormalPartItems(uint itemId)
             => GetItems(item => item.Slot >= NORMAL_PART_MIN_SLOT && item.ItemId == itemId);
 
+        public bool IsSorting { get; private set; }
         /// <summary>
         /// Moves the item inside Character's Inventory.
         /// </summary>
@@ -122,6 +124,52 @@ namespace RSBot.Core.Objects
             asyncResult.AwaitResponse(500);
 
             return asyncResult.IsCompleted;
+        }
+
+        public void Sort()
+        {
+            if (IsSorting)
+                return;
+
+            Log.Debug("Sorting the character inventory...");
+            IsSorting = true;
+
+            //Use iterations to avoid deadlocks!
+            const int maxIterations = 10;
+            var iterations = 0;
+            for (var iIteration = 0; iIteration < maxIterations; iIteration++)
+            {
+                iterations++;
+
+                var itemsToStackGroups = this.Where(i => i.Record.IsStackable && i.Record.MaxStack > i.Amount)
+                    .GroupBy(i => i.ItemId);
+
+                if (!itemsToStackGroups.Any())
+                    break;
+
+                var itemsToStack = itemsToStackGroups.FirstOrDefault(g => g.Count() >= 2)
+                   ?.OrderBy(i => i.Slot)
+                   .ToList();
+
+                if (itemsToStack == null)
+                    break;
+
+                var source = itemsToStack.FirstOrDefault();
+                if (source == null)
+                    continue;
+
+                var destination = itemsToStack.FirstOrDefault(i => i.Record.ID == source.ItemId && i.Slot != source.Slot);
+                if (destination == null)
+                    continue;
+
+                var amount = destination.Record.MaxStack - destination.Amount;
+                var actualAmount = source.Amount > amount ? amount : source.Amount;
+
+                MoveItem(source.Slot, destination.Slot, (ushort)actualAmount);
+            }
+
+            IsSorting = false;
+            Log.Debug($"Sorting finished after {iterations}/{maxIterations}");
         }
     }
 }
