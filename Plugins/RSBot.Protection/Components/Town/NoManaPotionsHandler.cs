@@ -2,10 +2,11 @@
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using System.Linq;
+using RSBot.Core.Components;
 
 namespace RSBot.Protection.Components.Town
 {
-    public class NoManaPotionsHandler
+    public class NoManaPotionsHandler : AbstractTownHandler
     {
         /// <summary>
         /// Initializes this instance.
@@ -35,13 +36,18 @@ namespace RSBot.Protection.Components.Town
         /// </summary>
         private static void OnUseItem(byte slot)
         {
-            if (Kernel.Bot.Running) CheckForMpPotions();
+            if (Kernel.Bot.Running) 
+                CheckForMpPotions();
  
         }
 
         private static void CheckForMpPotions()
         {
-            if (!PlayerConfig.Get<bool>("RSBot.Protection.checkNoMPPotions")) return;
+            if (!PlayerConfig.Get<bool>("RSBot.Protection.checkNoMPPotions"))
+                return;
+            
+            if (PlayerInTownScriptRegion())
+                return;
 
             var typeIdFilter = new TypeIdFilter(3, 3, 1, 2);
             if (Game.Player.Inventory.GetSumAmount(typeIdFilter) > 0)

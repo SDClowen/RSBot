@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RSBot.Protection.Components.Town
 {
-    public class DeadHandler
+    public class DeadHandler : AbstractTownHandler
     {
         /// <summary>
         /// Initializes this instance.
