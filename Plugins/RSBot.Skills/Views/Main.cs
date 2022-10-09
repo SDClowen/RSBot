@@ -153,6 +153,7 @@ namespace RSBot.Skills.Views
             numMasteryGap.Value = PlayerConfig.Get<byte>("RSBot.Skills.masteryGap", 0);
             checkWarlockMode.Checked = PlayerConfig.Get<bool>("RSBot.Skills.WarlockMode", false);
             checkUseDefaultAttack.Checked = PlayerConfig.Get("RSBot.Skills.UseDefaultAttack", true);
+            checkUseSkillsInOrder.Checked = PlayerConfig.Get("RSBot.Skills.UseSkillsInOrder", false);
         }
 
         /// <summary>
@@ -992,6 +993,11 @@ namespace RSBot.Skills.Views
         private void checkUseDefaultAttack_CheckedChanged(object sender, EventArgs e)
         {
             PlayerConfig.Set("RSBot.Skills.UseDefaultAttack", checkUseDefaultAttack.Checked);
+        }
+
+        private void checkUseSkillsInOrder_CheckedChanged( object sender, EventArgs e ) 
+        {
+            PlayerConfig.Set( "RSBot.Skills.UseSkillsInOrder", checkUseSkillsInOrder.Checked );
         }
     }
 }

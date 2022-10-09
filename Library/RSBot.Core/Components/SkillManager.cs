@@ -51,6 +51,11 @@ namespace RSBot.Core.Components
         public static List<SkillInfo> Buffs { get; set; }
 
         /// <summary>
+        /// Gets the config to always use skills in order.
+        /// </summary>
+        public static bool UseSkillsInOrder => PlayerConfig.Get( "RSBot.Skills.UseSkillsInOrder", false );
+
+        /// <summary>
         /// The last casted skill id
         /// </summary>
         public static uint LastCastedSkillId;
@@ -133,7 +138,7 @@ namespace RSBot.Core.Components
                 // try to get attack skill for only knockdown states
                 closestSkill = Skills[rarity].Find(p => p.Record.Params.Contains(25697));
             }
-            else if (distance < 10)
+            else if ( UseSkillsInOrder || distance < 10)
             {
                 var counter = -1;
                 var skillCount = Skills[rarity].Count;

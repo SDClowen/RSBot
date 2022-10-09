@@ -88,6 +88,7 @@
             this.listActiveBuffs = new SDUI.Controls.ListView();
             this.colActiveName = new System.Windows.Forms.ColumnHeader();
             this.colActiveLevel = new System.Windows.Forms.ColumnHeader();
+            this.checkUseSkillsInOrder = new SDUI.Controls.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -108,6 +109,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox1.Controls.Add(this.checkUseSkillsInOrder);
             this.groupBox1.Controls.Add(this.checkBoxNoAttack);
             this.groupBox1.Controls.Add(this.listAttackingSkills);
             this.groupBox1.Controls.Add(this.label2);
@@ -120,7 +122,7 @@
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupBox1.Radius = 10;
             this.groupBox1.ShadowDepth = 4;
-            this.groupBox1.Size = new System.Drawing.Size(357, 205);
+            this.groupBox1.Size = new System.Drawing.Size(357, 213);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Attacking skills";
@@ -129,7 +131,7 @@
             // 
             this.checkBoxNoAttack.AutoSize = true;
             this.checkBoxNoAttack.BackColor = System.Drawing.Color.Transparent;
-            this.checkBoxNoAttack.Location = new System.Drawing.Point(247, 179);
+            this.checkBoxNoAttack.Location = new System.Drawing.Point(231, 177);
             this.checkBoxNoAttack.Name = "checkBoxNoAttack";
             this.checkBoxNoAttack.ShadowDepth = 1;
             this.checkBoxNoAttack.Size = new System.Drawing.Size(76, 15);
@@ -165,7 +167,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label2.Location = new System.Drawing.Point(9, 180);
+            this.label2.Location = new System.Drawing.Point(9, 183);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(34, 15);
             this.label2.TabIndex = 7;
@@ -189,11 +191,11 @@
             "Elite",
             "Strong",
             "Unique"});
-            this.comboMonsterType.Location = new System.Drawing.Point(54, 177);
+            this.comboMonsterType.Location = new System.Drawing.Point(54, 180);
             this.comboMonsterType.Name = "comboMonsterType";
             this.comboMonsterType.Radius = 5;
             this.comboMonsterType.ShadowDepth = 4F;
-            this.comboMonsterType.Size = new System.Drawing.Size(176, 23);
+            this.comboMonsterType.Size = new System.Drawing.Size(171, 23);
             this.comboMonsterType.TabIndex = 2;
             this.comboMonsterType.SelectedIndexChanged += new System.EventHandler(this.comboMonsterType_SelectedIndexChanged);
             // 
@@ -248,7 +250,7 @@
             this.groupBox2.Controls.Add(this.btnMoveBuffSkillUp);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.btnRemoveBuffSkill);
-            this.groupBox2.Location = new System.Drawing.Point(14, 216);
+            this.groupBox2.Location = new System.Drawing.Point(14, 224);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupBox2.Radius = 10;
@@ -381,10 +383,10 @@
             this.tabPage2.Controls.Add(this.grpMasteryLearn);
             this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Controls.Add(this.groupBox4);
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(384, 439);
+            this.tabPage2.Size = new System.Drawing.Size(384, 438);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Advanced setup";
             // 
@@ -846,6 +848,19 @@
             this.colActiveLevel.Text = "";
             this.colActiveLevel.Width = 69;
             // 
+            // checkUseSkillsInOrder
+            // 
+            this.checkUseSkillsInOrder.AutoSize = true;
+            this.checkUseSkillsInOrder.BackColor = System.Drawing.Color.Transparent;
+            this.checkUseSkillsInOrder.Location = new System.Drawing.Point(231, 192);
+            this.checkUseSkillsInOrder.Name = "checkUseSkillsInOrder";
+            this.checkUseSkillsInOrder.ShadowDepth = 1;
+            this.checkUseSkillsInOrder.Size = new System.Drawing.Size(86, 15);
+            this.checkUseSkillsInOrder.TabIndex = 10;
+            this.checkUseSkillsInOrder.Text = "Use in order";
+            this.checkUseSkillsInOrder.UseVisualStyleBackColor = false;
+            this.checkUseSkillsInOrder.CheckedChanged += new System.EventHandler(this.checkUseSkillsInOrder_CheckedChanged);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -942,5 +957,6 @@
         private System.Windows.Forms.ToolStripMenuItem useToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem useToPartyMemberToolStripMenuItem;
         private SDUI.Controls.CheckBox checkUseDefaultAttack;
+        private SDUI.Controls.CheckBox checkUseSkillsInOrder;
     }
 }
