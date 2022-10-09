@@ -114,7 +114,6 @@ namespace RSBot.Map.Views
             this.mapCanvas.Name = "mapCanvas";
             this.mapCanvas.Size = new System.Drawing.Size(256, 256);
             this.mapCanvas.TabIndex = 0;
-            this.mapCanvas.TabStop = false;
             this.mapCanvas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mapCanvas_MouseClick);
             // 
             // label4
@@ -181,6 +180,7 @@ namespace RSBot.Map.Views
             this.lvMonster.TabIndex = 8;
             this.lvMonster.UseCompatibleStateImageBehavior = false;
             this.lvMonster.View = System.Windows.Forms.View.Details;
+            this.lvMonster.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvMonster_MouseDoubleClick);
             // 
             // colName
             // 

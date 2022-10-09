@@ -12,6 +12,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Windows.Forms;
+using RSBot.Map.Views.Dialog;
 
 namespace RSBot.Map.Views
 {
@@ -73,11 +74,15 @@ namespace RSBot.Map.Views
         /// </summary>
         private BufferedGraphics bufferedGraphics;
 
+        private object _lock;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Main"/> class.
         /// </summary>
         public Main()
         {
+            _lock = new();
+
             InitializeComponent();
 
             _cachedImages = _cachedImages ?? new Dictionary<string, Image>();
@@ -87,7 +92,7 @@ namespace RSBot.Map.Views
             bufferedGraphicsContext = BufferedGraphicsManager.Current;
             bufferedGraphicsContext.MaximumBuffer = new Size(mapCanvas.Width + 1, mapCanvas.Height + 1);
             bufferedGraphics = bufferedGraphicsContext.Allocate(mapCanvas.CreateGraphics(), mapCanvas.ClientRectangle);
-            
+
             // All
             comboViewType.SelectedIndex = 6;
             checkEnableCollisions.Checked = GlobalConfig.Get("RSBot.EnableCollisionDetection", true);
@@ -129,16 +134,43 @@ namespace RSBot.Map.Views
         /// <param name="type">The type.</param>
         /// <param name="level">The level.</param>
         /// <param name="position"></param>
-        private void AddGridItem(string name, string type, byte level, Position position)
+        private void UpsertGridItem(string name, string type, byte level, Position position, uint uniqueId)
         {
             if (string.IsNullOrWhiteSpace(name))
                 name = LanguageManager.GetLang("NoName");
 
             var item = new ListViewItem(name);
-            item.SubItems.Add(type);
-            item.SubItems.Add(level.ToString());
-            item.SubItems.Add(position.ToString());
-            lvMonster.Items.Add(item);
+            var insert = true;
+            foreach (ListViewItem? lvItem in lvMonster.Items)
+            {
+                if (lvItem?.Tag == null)
+                    continue;
+
+                var lvUniqueId = (uint)lvItem.Tag;
+                if (lvUniqueId != uniqueId)
+                    continue;
+
+                item = lvItem;
+                insert = false;
+
+                break;
+            }
+
+            if (insert)
+            {
+                item.SubItems.Add(type);
+                item.SubItems.Add(level.ToString());
+                item.SubItems.Add(position.ToString());
+                item.Tag = uniqueId;
+
+                lvMonster.Items.Add(item);
+            }
+            else
+            {
+                item.SubItems[1].Text = type;
+                item.SubItems[2].Text = level.ToString();
+                item.SubItems[3].Text = position.ToString();
+            }
         }
 
         /// <summary>
@@ -152,7 +184,6 @@ namespace RSBot.Map.Views
 
             try
             {
-
                 var x = GetMapX(position);
                 var y = GetMapY(position);
 
@@ -217,7 +248,6 @@ namespace RSBot.Map.Views
 
                 using var brush = new SolidBrush(color);
 
-
                 var diameterF = diameter * _scale;
                 var point = new PointF(x - diameterF / 2, y - diameterF / 2);
 
@@ -232,11 +262,11 @@ namespace RSBot.Map.Views
         /// </summary>
         private void PopulateMapAndGrid(Graphics graphics)
         {
-            lvMonster.BeginUpdate();
-            lvMonster.Items.Clear();
-
-            try
+            lock (_lock)
             {
+                lvMonster.BeginUpdate();
+
+                RemoveEntitiesFromGrid();
 #if DEBUG
                 if (Game.Player.Movement.HasDestination)
                 {
@@ -280,8 +310,8 @@ namespace RSBot.Map.Views
                     {
                         foreach (var entry in monsters)
                         {
-                            AddGridItem(entry.Record.GetRealName(), entry.Rarity.GetName(),
-                                entry.Record.Level, entry.Movement.Source);
+                            UpsertGridItem(entry.Record.GetRealName(), entry.Rarity.GetName(),
+                                entry.Record.Level, entry.Movement.Source, entry.UniqueId);
 
                             //Other style for mobs behind obstacles
                             if (entry.IsBehindObstacle)
@@ -304,7 +334,7 @@ namespace RSBot.Map.Views
                             // Avoid painting vehicles from main player
                             if (Game.Player.Vehicle?.UniqueId != entry.UniqueId)
                             {
-                                AddGridItem(entry.Name, "Pet", entry.Record.Level, entry.Movement.Source);
+                                UpsertGridItem(entry.Name, "Pet", entry.Record.Level, entry.Movement.Source, entry.UniqueId);
                                 DrawPointAt(graphics, entry.Movement.Source, 1);
                             }
                         }
@@ -320,7 +350,7 @@ namespace RSBot.Map.Views
                             if (!(Game.Player.Movement.Source.DistanceTo(member.Position) < 50))
                                 continue;
                             DrawPointAt(graphics, member.Position, 6);
-                            AddGridItem(member.Name, "Party Member", member.Level, member.Position);
+                            UpsertGridItem(member.Name, "Party Member", member.Level, member.Position, 0);
                         }
                     }
                 }
@@ -334,7 +364,7 @@ namespace RSBot.Map.Views
                             if (Game.Party != null && Game.Party.Members != null && Game.Party.GetMemberByName(entry.Name) != null)
                                 return;
 
-                            AddGridItem(entry.Name, "Player", 0, entry.Movement.Source);
+                            UpsertGridItem(entry.Name, "Player", 0, entry.Movement.Source, entry.UniqueId);
                             DrawPointAt(graphics, entry.Movement.Source, 3);
                         }
                     }
@@ -346,8 +376,8 @@ namespace RSBot.Map.Views
                     {
                         foreach (var entry in npcs)
                         {
-                            AddGridItem(entry.Record.GetRealName(), entry.UniqueId.ToString(),
-                                entry.Record.Level, entry.Movement.Source);
+                            UpsertGridItem(entry.Record.GetRealName(), entry.UniqueId.ToString(),
+                                entry.Record.Level, entry.Movement.Source, entry.UniqueId);
                             DrawPointAt(graphics, entry.Movement.Source, 2);
                         }
                     }
@@ -359,18 +389,43 @@ namespace RSBot.Map.Views
                     {
                         foreach (var entry in portals)
                         {
-                            AddGridItem(entry.Record.GetRealName(), "Teleport", 0, entry.Movement.Source);
+                            UpsertGridItem(entry.Record.GetRealName(), "Teleport", 0, entry.Movement.Source, entry.UniqueId);
                             DrawPointAt(graphics, entry.Movement.Source, 7);
                         }
                     }
                 }
+
+                lvMonster.EndUpdate();
             }
-            catch (Exception ex)
+        }
+
+        private void RemoveEntitiesFromGrid()
+        {
+            var itemsToRemove = new List<int>();
+
+            foreach (ListViewItem? item in lvMonster.Items)
             {
-                Log.Debug($"[Map] Render error: {ex.Message}");
+                if (item?.Tag == null)
+                    continue;
+
+                var uniqueId = (uint)item.Tag;
+                if (uniqueId == 0)
+                    continue;
+
+                if (!SpawnManager.TryGetEntity<SpawnedBionic>(e => e.UniqueId == uniqueId, out _))
+                    itemsToRemove.Add(item.Index);
             }
 
-            lvMonster.EndUpdate();
+            try
+            {
+                foreach (var itemIndex in itemsToRemove.Where(itemIndex => lvMonster.Items.Count >= itemIndex))
+                    lvMonster.Items.RemoveAt(itemIndex);
+            }
+            catch
+            {
+                //Weird threading bug
+            }
+            
         }
 
         private void DrawCollisions(Graphics gfx)
@@ -417,6 +472,7 @@ namespace RSBot.Map.Views
 
             return new Bitmap(SectorSize, SectorSize);
         }
+
         /// <summary>
         /// Get path from map layer
         /// </summary>
@@ -438,14 +494,19 @@ namespace RSBot.Map.Views
                     // QinShi Tomb
                     case 32770:
                         return "qt_a01_floor06_{0}x{1}.ddj";
+
                     case 32771:
                         return "qt_a01_floor05_{0}x{1}.ddj";
+
                     case 32772:
                         return "qt_a01_floor04_{0}x{1}.ddj";
+
                     case 32773:
                         return "qt_a01_floor03_{0}x{1}.ddj";
+
                     case 32774:
                         return "qt_a01_floor02_{0}x{1}.ddj";
+
                     case 32775:
                         return "qt_a01_floor01_{0}x{1}.ddj";
                     // Job Temple
@@ -455,6 +516,7 @@ namespace RSBot.Map.Views
                     case 32782:
                     case 32784:
                         return "rn_sd_egypt1_01_{0}x{1}.ddj";
+
                     case 32783:
                         return "rn_sd_egypt1_02_{0}x{1}.ddj";
                     // Fortress Dungeon
@@ -466,10 +528,13 @@ namespace RSBot.Map.Views
                     // Jupiter Temple Rooms
                     case 32787:
                         return "rn_jupiter_02_{0}x{1}.ddj";
+
                     case 32788:
                         return "rn_jupiter_03_{0}x{1}.ddj";
+
                     case 32789:
                         return "rn_jupiter_04_{0}x{1}.ddj";
+
                     case 32790:
                         return "rn_jupiter_01_{0}x{1}.ddj";
                     // Bahgdad Room
@@ -482,6 +547,7 @@ namespace RSBot.Map.Views
             // Default as world map
             return "{0}x{1}.ddj";
         }
+
         /// <summary>
         /// Redraw the map image
         /// </summary>
@@ -645,6 +711,25 @@ namespace RSBot.Map.Views
 
             if (checkEnableCollisions.Checked && Game.Player != null)
                 CollisionManager.Update(Game.Player.Position.RegionId);
+        }
+
+        private void lvMonster_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+#if DEBUG
+            if (lvMonster.SelectedItems.Count == 0)
+                return;
+
+            var uniqueId = (uint)lvMonster.SelectedItems[0].Tag;
+            if (uniqueId == 0)
+                return;
+
+            var spawnedBionic = SpawnManager.GetEntity<SpawnedBionic>(uniqueId);
+            if (spawnedBionic == null)
+                return;
+
+            var propWindow = new EntityProperties(spawnedBionic);
+            propWindow.Show();
+#endif
         }
     }
 }

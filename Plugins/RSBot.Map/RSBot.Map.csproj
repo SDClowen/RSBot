@@ -19,4 +19,10 @@
     <ProjectReference Include="..\..\SDUI\SDUI\SDUI.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Views\Dialog\EntityProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+
 </Project>
