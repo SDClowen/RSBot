@@ -130,11 +130,12 @@ namespace RSBot.Core.Components
             if (CurrentLineIndex != 0)
                 Log.Debug($"[Script] Found nearby walk position at line #{CurrentLineIndex}");
 
-            foreach (var scriptLine in Commands.Skip(CurrentLineIndex/* + 1*/))
+            foreach (var scriptLine in Commands.Skip(CurrentLineIndex))
             {
-                EventManager.FireEvent("OnChangeStatusText", "Running walk script");
+                if (!Running)
+                    break;
 
-                if (!Running) return;
+                EventManager.FireEvent("OnChangeStatusText", "Running walk script");
 
                 var arguments = scriptLine.Split(' ');
                 var commandName = arguments.Length == 0 ? scriptLine : arguments[0];

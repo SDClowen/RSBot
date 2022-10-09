@@ -32,6 +32,7 @@ namespace RSBot.Inventory
             Views.View.Instance = new Main();
 
             BuyItemSubscriber.SubscribeEvents();
+            InventoryUpdateSubscriber.SubscribeEvents();
         }
 
         /// <summary>

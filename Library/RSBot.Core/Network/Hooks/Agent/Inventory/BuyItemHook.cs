@@ -41,7 +41,8 @@ namespace RSBot.Core.Network.Hooks.Agent.Inventory
             byte[] destinationSlots = null;
             ushort amount = 0;
             byte itemAmount = 0;
-            if (Game.ClientType > GameClientType.Chinese)
+            if (Game.ClientType > GameClientType.Chinese &&
+                Game.ClientType != GameClientType.Rigid)
             {
                 amount = packet.ReadUShort();
                 itemAmount = packet.ReadByte();
@@ -103,6 +104,7 @@ namespace RSBot.Core.Network.Hooks.Agent.Inventory
                                 case GameClientType.Chinese:
                                 case GameClientType.Global:
                                 case GameClientType.Turkey:
+                                case GameClientType.Rigid:
                                     bindingCount = 4;
                                     break;
                                 case GameClientType.Korean:

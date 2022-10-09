@@ -11,7 +11,7 @@ namespace RSBot.Default.Bundle.Attack
         /// </summary>
         public void Invoke()
         {
-            if (Game.SelectedEntity == null || Game.Player.HasActiveVehicle)
+            if (Game.SelectedEntity == null || !Game.Player.CanAttack)
                 return;
 
             if (Game.SelectedEntity.IsBehindObstacle)
@@ -47,7 +47,8 @@ namespace RSBot.Default.Bundle.Attack
                 if (Game.Player.InAction)
                     return;
 
-                SkillManager.CastAutoAttack();
+                if (PlayerConfig.Get("RSBot.Skills.UseDefaultAttack", true))
+                    SkillManager.CastAutoAttack();
 
                 return;
             }

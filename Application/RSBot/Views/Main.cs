@@ -11,6 +11,7 @@ using SDUI.Helpers;
 using System;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Windows.Forms;
 using static SDUI.NativeMethods;
 
@@ -43,7 +44,7 @@ namespace RSBot.Views
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
-            SystemEvents.UserPreferenceChanging += new UserPreferenceChangingEventHandler(SystemEvents_UserPreferenceChanging);
+            SystemEvents.UserPreferenceChanged += SystemEvents_UserPreferenceChanged;
             RegisterEvents();
         }
 
@@ -56,8 +57,11 @@ namespace RSBot.Views
         /// </summary>
         /// <param name="sender">The sender</param>
         /// <param name="e">The event arags</param>
-        private void SystemEvents_UserPreferenceChanging(object sender, UserPreferenceChangingEventArgs e)
+        private void SystemEvents_UserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
         {
+            if (e?.Category != UserPreferenceCategory.Color)
+                return;
+
             var detectDarkLight = GlobalConfig.Get("RSBot.Theme.Auto", true);
             if (!detectDarkLight)
                 return;
@@ -551,7 +555,7 @@ namespace RSBot.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void menuItemThis_Click(object sender, EventArgs e)
         {
-            new About().ShowDialog();
+            new AboutDialog().ShowDialog();
         }
 
         /// <summary>
@@ -562,6 +566,17 @@ namespace RSBot.Views
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        /// <summary>
+        /// Handles the Click event of the networkConfigToolStripMenuItem control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void networkConfigToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using var configDialog = new ConfigDialog();
+            configDialog.ShowDialog();
         }
 
         /// <summary>
@@ -620,7 +635,9 @@ namespace RSBot.Views
             if (WindowsHelper.TenOrHigher || WindowsHelper.ElevenOrHigher)
             {
                 GlobalConfig.Set("RSBot.Theme.Auto", true);
-                SystemEvents_UserPreferenceChanging(null, null);
+                SystemEvents_UserPreferenceChanged(null, 
+                    new UserPreferenceChangedEventArgs(UserPreferenceCategory.Color));
+
                 return;
             }
 
@@ -692,6 +709,34 @@ namespace RSBot.Views
 
             //A little hack to tell all plugins to reload their UI
             EventManager.FireEvent("OnLoadCharacter");
+        }
+
+        /// <summary>
+        /// Handles the Click event of the buttonConfig control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void buttonConfig_Click(object sender, EventArgs e)
+        {
+            const string title = "IP Bind";
+
+            var currentBind = GlobalConfig.Get("RSBot.Network.BindIp", "0.0.0.0");
+
+            const string message = $"Use your custom interface ip for connect to game.\nEnter your interface Ip:\t(default: 0.0.0.0)";
+            
+            var dialog = new InputDialog(title, title, message, defaultValue: currentBind);
+            if (dialog.ShowDialog() != DialogResult.OK)
+                return;
+
+            if (!IPAddress.TryParse(dialog.Value.ToString(), out var ipAddress))
+            {
+                const string errorMessage = "The IP address is incorrect or cannot be verified.You can try like '0.0.0.0'.";
+                MessageBox.Show(errorMessage);
+
+                return;
+            }
+
+            GlobalConfig.Set("RSBot.Network.BindIp", ipAddress.ToString());
         }
 
         #endregion Form events

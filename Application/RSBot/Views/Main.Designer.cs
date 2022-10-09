@@ -37,6 +37,7 @@ namespace RSBot.Views
             this.lblIngameStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.cosController = new RSBot.Views.Controls.Cos.CosController();
             this.bottomPanel = new SDUI.Controls.Panel();
+            this.buttonConfig = new SDUI.Controls.Button();
             this.comboServer = new SDUI.Controls.ComboBox();
             this.comboDivision = new SDUI.Controls.ComboBox();
             this.btnSave = new SDUI.Controls.Button();
@@ -63,6 +64,7 @@ namespace RSBot.Views
             this.themeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.darkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.autoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.coloredToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.minimizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -71,7 +73,7 @@ namespace RSBot.Views
             this.separator = new SDUI.Controls.Separator();
             this.separator1 = new SDUI.Controls.Separator();
             this.topCharacter = new RSBot.Views.Controls.Character();
-            this.autoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.networkConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stripStatus.SuspendLayout();
             this.bottomPanel.SuspendLayout();
             this.pSidebar.SuspendLayout();
@@ -118,6 +120,7 @@ namespace RSBot.Views
             this.bottomPanel.BackColor = System.Drawing.Color.Transparent;
             this.bottomPanel.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
             this.bottomPanel.BorderColor = System.Drawing.Color.Transparent;
+            this.bottomPanel.Controls.Add(this.buttonConfig);
             this.bottomPanel.Controls.Add(this.comboServer);
             this.bottomPanel.Controls.Add(this.comboDivision);
             this.bottomPanel.Controls.Add(this.btnSave);
@@ -129,6 +132,20 @@ namespace RSBot.Views
             this.bottomPanel.ShadowDepth = 4F;
             this.bottomPanel.Size = new System.Drawing.Size(1030, 52);
             this.bottomPanel.TabIndex = 2;
+            // 
+            // buttonConfig
+            // 
+            this.buttonConfig.Color = System.Drawing.Color.Transparent;
+            this.buttonConfig.Font = new System.Drawing.Font("Webdings", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonConfig.Location = new System.Drawing.Point(249, 15);
+            this.buttonConfig.Name = "buttonConfig";
+            this.buttonConfig.Radius = 6;
+            this.buttonConfig.ShadowDepth = 4F;
+            this.buttonConfig.Size = new System.Drawing.Size(25, 23);
+            this.buttonConfig.TabIndex = 12;
+            this.buttonConfig.Text = "@";
+            this.buttonConfig.UseVisualStyleBackColor = true;
+            this.buttonConfig.Click += new System.EventHandler(this.buttonConfig_Click);
             // 
             // comboServer
             // 
@@ -253,6 +270,7 @@ namespace RSBot.Views
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuSelectProfile,
+            this.networkConfigToolStripMenuItem,
             this.menuItemExit});
             this.fileToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -263,7 +281,7 @@ namespace RSBot.Views
             // 
             this.menuSelectProfile.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.menuSelectProfile.Name = "menuSelectProfile";
-            this.menuSelectProfile.Size = new System.Drawing.Size(151, 22);
+            this.menuSelectProfile.Size = new System.Drawing.Size(180, 22);
             this.menuSelectProfile.Text = "Select Profile...";
             this.menuSelectProfile.Click += new System.EventHandler(this.menuSelectProfile_Click);
             // 
@@ -271,7 +289,7 @@ namespace RSBot.Views
             // 
             this.menuItemExit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.menuItemExit.Name = "menuItemExit";
-            this.menuItemExit.Size = new System.Drawing.Size(151, 22);
+            this.menuItemExit.Size = new System.Drawing.Size(180, 22);
             this.menuItemExit.Text = "Exit";
             this.menuItemExit.Click += new System.EventHandler(this.menuItemExit_Click);
             // 
@@ -302,9 +320,10 @@ namespace RSBot.Views
             // 
             // menuScriptRecorder
             // 
+            this.menuScriptRecorder.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.menuScriptRecorder.Name = "menuScriptRecorder";
-            this.menuScriptRecorder.Size = new System.Drawing.Size(142, 22);
-            this.menuScriptRecorder.Text = "File Recorder";
+            this.menuScriptRecorder.Size = new System.Drawing.Size(180, 22);
+            this.menuScriptRecorder.Text = "Script Recorder";
             this.menuScriptRecorder.Click += new System.EventHandler(this.menuScriptRecorder_Click);
             // 
             // menuPlugins
@@ -327,7 +346,7 @@ namespace RSBot.Views
             // 
             this.thisToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.thisToolStripMenuItem.Name = "thisToolStripMenuItem";
-            this.thisToolStripMenuItem.Size = new System.Drawing.Size(95, 22);
+            this.thisToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.thisToolStripMenuItem.Text = "This";
             this.thisToolStripMenuItem.Click += new System.EventHandler(this.menuItemThis_Click);
             // 
@@ -392,7 +411,7 @@ namespace RSBot.Views
             // 
             this.darkToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.darkToolStripMenuItem.Name = "darkToolStripMenuItem";
-            this.darkToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.darkToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.darkToolStripMenuItem.Text = "Dark";
             this.darkToolStripMenuItem.Click += new System.EventHandler(this.darkToolStripMenuItem_Click);
             // 
@@ -400,15 +419,23 @@ namespace RSBot.Views
             // 
             this.lightToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lightToolStripMenuItem.Name = "lightToolStripMenuItem";
-            this.lightToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.lightToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.lightToolStripMenuItem.Text = "Light";
             this.lightToolStripMenuItem.Click += new System.EventHandler(this.lightToolStripMenuItem_Click);
+            // 
+            // autoToolStripMenuItem
+            // 
+            this.autoToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.autoToolStripMenuItem.Name = "autoToolStripMenuItem";
+            this.autoToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.autoToolStripMenuItem.Text = "Auto";
+            this.autoToolStripMenuItem.Click += new System.EventHandler(this.autoToolStripMenuItem_Click);
             // 
             // coloredToolStripMenuItem
             // 
             this.coloredToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.coloredToolStripMenuItem.Name = "coloredToolStripMenuItem";
-            this.coloredToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.coloredToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.coloredToolStripMenuItem.Text = "Choose a color";
             this.coloredToolStripMenuItem.Click += new System.EventHandler(this.coloredToolStripMenuItem_Click);
             // 
@@ -483,13 +510,13 @@ namespace RSBot.Views
             this.topCharacter.Size = new System.Drawing.Size(780, 79);
             this.topCharacter.TabIndex = 7;
             // 
-            // autoToolStripMenuItem
+            // networkConfigToolStripMenuItem
             // 
-            this.autoToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.autoToolStripMenuItem.Name = "autoToolStripMenuItem";
-            this.autoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.autoToolStripMenuItem.Text = "Auto";
-            this.autoToolStripMenuItem.Click += new System.EventHandler(this.autoToolStripMenuItem_Click);
+            this.networkConfigToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.networkConfigToolStripMenuItem.Name = "networkConfigToolStripMenuItem";
+            this.networkConfigToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.networkConfigToolStripMenuItem.Text = "Proxy Config";
+            this.networkConfigToolStripMenuItem.Click += new System.EventHandler(this.networkConfigToolStripMenuItem_Click);
             // 
             // Main
             // 
@@ -572,6 +599,8 @@ namespace RSBot.Views
         private ToolStripMenuItem menuCurrentProfile;
         private ToolStripMenuItem botsToolStripMenuItem;
         private ToolStripMenuItem autoToolStripMenuItem;
+        private SDUI.Controls.Button buttonConfig;
+        private ToolStripMenuItem networkConfigToolStripMenuItem;
     }
 }
 

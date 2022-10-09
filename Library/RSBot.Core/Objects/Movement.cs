@@ -55,9 +55,9 @@ namespace RSBot.Core.Objects
         /// <returns></returns>
         public static Movement MotionFromPacket(Packet packet)
         {
-            var result = new Movement 
-            { 
-                HasDestination = packet.ReadBool() 
+            var result = new Movement
+            {
+                HasDestination = packet.ReadBool()
             };
 
             if (result.HasDestination)
@@ -66,7 +66,7 @@ namespace RSBot.Core.Objects
             }
             else
             {
-                result.HasDestination = packet.ReadByte() == 1; //0 = Spinning, 1 = Sky-/Key-walking
+                packet.ReadByte(); //0 = Spinning, 1 = Sky-/Key-walking
                 result.HasAngle = true;
                 result.Angle = packet.ReadShort();
             }
@@ -116,7 +116,7 @@ namespace RSBot.Core.Objects
             }
             else
             {
-                result.HasDestination = packet.ReadByte() == 1; //0 = Spinning, 1 = Sky-/Key-walking
+                packet.ReadByte(); //0 = Spinning, 1 = Sky-/Key-walking
                 result.HasAngle = true;
                 result.Angle = packet.ReadShort();
             }

@@ -87,29 +87,36 @@ namespace RSBot.Core
                 if (!Game.Ready)
                     continue;
 
-                var elapsed = TickCount - lastUpdate;
-
-                Game.Player.Update(elapsed);
-                Game.Player.Transport?.Update(elapsed);
-                Game.Player.JobTransport?.Update(elapsed);
-                Game.Player.AbilityPet?.Update(elapsed);
-                Game.Player.Growth?.Update(elapsed);
-                Game.Player.Fellow?.Update(elapsed);
-
-                SpawnManager.Update(elapsed);
-
-                // Collision stuffs
-                var currentRegionId = Game.Player.Movement.Source.RegionId;
-                if (CollisionManager.CenterRegionId != currentRegionId)
+                try
                 {
-                    Game.NearbyTeleporters = Game.ReferenceManager.GetTeleporters(currentRegionId);
-                    Log.Debug($"Found teleporters: {Game.NearbyTeleporters.Length}");
-                    CollisionManager.Update(currentRegionId);
+                    var elapsed = TickCount - lastUpdate;
+
+                    Game.Player.Update(elapsed);
+                    Game.Player.Transport?.Update(elapsed);
+                    Game.Player.JobTransport?.Update(elapsed);
+                    Game.Player.AbilityPet?.Update(elapsed);
+                    Game.Player.Growth?.Update(elapsed);
+                    Game.Player.Fellow?.Update(elapsed);
+
+                    SpawnManager.Update(elapsed);
+
+                    // Collision stuffs
+                    var currentRegionId = Game.Player.Movement.Source.RegionId;
+                    if (CollisionManager.CenterRegionId != currentRegionId)
+                    {
+                        Game.NearbyTeleporters = Game.ReferenceManager.GetTeleporters(currentRegionId);
+                        Log.Debug($"Found teleporters: {Game.NearbyTeleporters.Length}");
+                        CollisionManager.Update(currentRegionId);
+                    }
+
+                    EventManager.FireEvent("OnTick");
+
+                    lastUpdate = TickCount;
                 }
-
-                EventManager.FireEvent("OnTick");
-
-                lastUpdate = TickCount;
+                catch (Exception e)
+                {
+                    Log.Fatal(e);
+                }
             }
         }
 

@@ -76,6 +76,9 @@ namespace RSBot.Core.Network.Handler.Agent.Character
 
                 if (Game.ClientType == GameClientType.Turkey)
                     packet.ReadUInt();
+                
+                if (Game.ClientType == GameClientType.Rigid)
+                    packet.ReadByteArray(12);
 
                 var serverCap = packet.ReadByte();
                 Log.Notify($"The game server cap is {serverCap}!");
@@ -138,7 +141,8 @@ namespace RSBot.Core.Network.Handler.Agent.Character
             packet.ReadByte(); //PVP dress for the CTF event //0 = Red Side, 1 = Blue Side, 0xFF = None
 
             if (Game.ClientType > GameClientType.Chinese &&
-                Game.ClientType != GameClientType.Global)
+                Game.ClientType != GameClientType.Global &&
+                Game.ClientType != GameClientType.Rigid)
             {
                 packet.ReadByte();      // 0xFF
                 packet.ReadUShort();    // 0xFF
@@ -151,7 +155,7 @@ namespace RSBot.Core.Network.Handler.Agent.Character
             else
                 packet.ReadUInt();
 
-            if (Game.ClientType == GameClientType.Chinese)
+            if (Game.ClientType == GameClientType.Chinese || Game.ClientType == GameClientType.Global)
                 packet.ReadByte();
 
             character.JID = packet.ReadUInt();

@@ -2,8 +2,7 @@
 using RSBot.Core.Extensions;
 using RSBot.Core.Network.SecurityAPI;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 
@@ -115,7 +114,27 @@ namespace RSBot.Core.Network
 
                 try
                 {
-                    _socket.Connect(ip, port, 3000);
+                    var bindIp = GlobalConfig.Get("RSBot.Network.BindIp", "0.0.0.0");
+                    if (!string.IsNullOrWhiteSpace(bindIp) && bindIp != "0.0.0.0")
+                        _socket.Bind(new IPEndPoint(IPAddress.Parse(bindIp), port));
+
+                    if(ProxyConfig.TryGetProxy(ip, port, out var proxyConfig))
+                    {
+                        if (!_socket.ConnectProxy(proxyConfig).Result)
+                        {
+                            Log.Warn($"Proxy receiving has timeout!");
+                            Disconnect();
+                            return;
+                        }
+                    }
+                    else
+                        _socket.Connect(ip, port, 3000);
+                }
+                catch (AggregateException s)
+                {
+                    Log.Error(s.Message);
+                    Disconnect();
+                    return;
                 }
                 catch (SocketException)
                 {

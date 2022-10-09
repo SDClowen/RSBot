@@ -27,5 +27,6 @@ RSBot.Items.Main.TabControl.tabSellFilter="فلتر العنصر"
 RSBot.Items.Main.TabControl.tabPage1="إعدادات الاستلام"
 NoResultsFound="لم يتم العثور على أي نتائج. يرجى تفصيل بحثك والمحاولة مرة أخرى."
 InputDialogTitle="حدد العنصر"
-InputDialogContent="يرجى إدخال الكمية التى يجب ان يشتريها البوت \r\nللعنصر المحدد"
+InputDialogContent="يرجى إدخال الكمية التى يجب ان يشتريها البوت 
+ للعنصر المحدد"
 InputDialogItemName="{0} (Stack x{1})"

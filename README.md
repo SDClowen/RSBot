@@ -4,27 +4,27 @@ Hello reputable Silkroad Online community. This is a free and open source Silkro
 
 ## Supported clients:
 
-1. Thailand | Blackrogue 100
-2. Thailand | Blackrogue 110
-3. Vietnam | vSRO 188
-4. Vietnam | vSRO 193
-5. Vietnam | vSRO 274
-6. Taiwan  | TSRO 110
-7. Chinese | cSRO/-R
-8. Global  | iSRO (International Silkroad)
-9. Turkey  | TRSRO
-10. Korean | KSRO
-11. Japanese Old | JSRO_SL
+1. Japanese Old | JSRO_SL
+2. Thailand | Blackrogue 100
+3. Thailand | Blackrogue 110
+4. Vietnam | vSRO 188
+5. Vietnam | vSRO 193
+6. Vietnam | vSRO 274
+7. Taiwan  | TSRO 110
+8. Chinese | cSRO/-R
+9. Global  | iSRO (International Silkroad)
+10. Turkey  | TRSRO
+11. Korean | KSRO
+12. Rigid | iSRO (International Silkroad 2015)
 
 ## Planned support for:
 
 1. Chinese Old | MHTC
 2. Japanese-R
-3. Global-2015 (Rigid)
 
 ## Links for development and community
 [![GitHub Repository](https://img.shields.io/badge/github-sdclowen/rsbot-green.svg)](https://github.com/SDClowen/RSBot)
-[![Join the chat in Discord](https://img.shields.io/discord/454345032846016515.svg)](https://discord.gg/GwecXfcKTk)
+[![Join the chat in Discord](https://img.shields.io/discord/454345032846016515.svg)](https://discord.gg/rmd96aus9A)
 [![Facebook](https://img.shields.io/badge/facebook-page%20-blue)](https://www.facebook.com/rsbotofficial/)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSDClowen%2FRSBot.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FSDClowen%2FRSBot?ref=badge_shield)
 

@@ -177,7 +177,7 @@ namespace RSBot.Core.Objects.Cos
         /// Pickups the specified item unique identifier.
         /// </summary>
         /// <param name="itemUniqueId">The item unique identifier.</param>
-        public virtual void Pickup(uint itemUniqueId)
+        public virtual bool Pickup(uint itemUniqueId)
         {
             var packet = new Packet(0x70C5);
             packet.WriteUInt(UniqueId);
@@ -198,12 +198,14 @@ namespace RSBot.Core.Objects.Cos
 
             PacketManager.SendPacket(packet, PacketDestination.Server, callback);
             callback.AwaitResponse();
+
+            return callback.IsCompleted;
         }
 
         /// <summary>
         /// Moves this instance.
         /// </summary>
-        public void MoveTo(Position destination)
+        public void MoveTo(Position destination, bool sleep = true)
         {
             var packet = new Packet(0x70C5);
             packet.WriteUInt(UniqueId);
@@ -232,7 +234,8 @@ namespace RSBot.Core.Objects.Cos
             awaitCallback.AwaitResponse();
             var distance = Game.Player.Movement.Source.DistanceTo(destination);
             //Wait to finish the step
-            Thread.Sleep(Convert.ToInt32((distance / Game.Player.ActualSpeed) * 10000));
+            if(sleep)
+                Thread.Sleep(Convert.ToInt32((distance / Game.Player.ActualSpeed) * 10000));
         }
 
         /// <summary>
@@ -303,6 +306,18 @@ namespace RSBot.Core.Objects.Cos
 
         public virtual void Deserialize(Packet packet)
         {
+        }
+
+        public override bool Update(int delta)
+        {
+            base.Update(delta);
+
+            if (Bionic == null)
+                return false;
+
+            Movement = Bionic.Movement;
+
+            return true;
         }
     }
 }

@@ -30,6 +30,7 @@
         {
             this.label22 = new SDUI.Controls.Label();
             this.groupBackTown = new SDUI.Controls.GroupBox();
+            this.checkStopBotOnReturnToTown = new SDUI.Controls.CheckBox();
             this.label21 = new SDUI.Controls.Label();
             this.numDeadTimeout = new SDUI.Controls.NumUpDown();
             this.checkLevelUp = new SDUI.Controls.CheckBox();
@@ -123,6 +124,7 @@
             // groupBackTown
             // 
             this.groupBackTown.BackColor = System.Drawing.Color.Transparent;
+            this.groupBackTown.Controls.Add(this.checkStopBotOnReturnToTown);
             this.groupBackTown.Controls.Add(this.label21);
             this.groupBackTown.Controls.Add(this.numDeadTimeout);
             this.groupBackTown.Controls.Add(this.checkLevelUp);
@@ -136,11 +138,25 @@
             this.groupBackTown.Location = new System.Drawing.Point(500, 7);
             this.groupBackTown.Name = "groupBackTown";
             this.groupBackTown.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBackTown.Radius = 2;
-            this.groupBackTown.Size = new System.Drawing.Size(238, 228);
+            this.groupBackTown.Radius = 10;
+            this.groupBackTown.ShadowDepth = 4;
+            this.groupBackTown.Size = new System.Drawing.Size(238, 227);
             this.groupBackTown.TabIndex = 17;
             this.groupBackTown.TabStop = false;
             this.groupBackTown.Text = "Back to town";
+            // 
+            // checkStopBotOnReturnToTown
+            // 
+            this.checkStopBotOnReturnToTown.AutoSize = true;
+            this.checkStopBotOnReturnToTown.BackColor = System.Drawing.Color.Transparent;
+            this.checkStopBotOnReturnToTown.Location = new System.Drawing.Point(12, 57);
+            this.checkStopBotOnReturnToTown.Name = "checkStopBotOnReturnToTown";
+            this.checkStopBotOnReturnToTown.ShadowDepth = 1;
+            this.checkStopBotOnReturnToTown.Size = new System.Drawing.Size(171, 15);
+            this.checkStopBotOnReturnToTown.TabIndex = 11;
+            this.checkStopBotOnReturnToTown.Text = "Stop bot when back in town";
+            this.checkStopBotOnReturnToTown.UseVisualStyleBackColor = false;
+            this.checkStopBotOnReturnToTown.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // label21
             // 
@@ -178,96 +194,104 @@
             // 
             this.checkLevelUp.AutoSize = true;
             this.checkLevelUp.BackColor = System.Drawing.Color.Transparent;
-            this.checkLevelUp.Checked = false;
-            this.checkLevelUp.Location = new System.Drawing.Point(12, 200);
+            this.checkLevelUp.Location = new System.Drawing.Point(12, 204);
             this.checkLevelUp.Name = "checkLevelUp";
+            this.checkLevelUp.ShadowDepth = 1;
             this.checkLevelUp.Size = new System.Drawing.Size(67, 15);
             this.checkLevelUp.TabIndex = 8;
             this.checkLevelUp.Text = "Level up";
+            this.checkLevelUp.UseVisualStyleBackColor = false;
             this.checkLevelUp.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // checkFullPetInventory
             // 
             this.checkFullPetInventory.AutoSize = true;
             this.checkFullPetInventory.BackColor = System.Drawing.Color.Transparent;
-            this.checkFullPetInventory.Checked = false;
-            this.checkFullPetInventory.Location = new System.Drawing.Point(12, 108);
+            this.checkFullPetInventory.Location = new System.Drawing.Point(12, 120);
             this.checkFullPetInventory.Name = "checkFullPetInventory";
+            this.checkFullPetInventory.ShadowDepth = 1;
             this.checkFullPetInventory.Size = new System.Drawing.Size(115, 15);
             this.checkFullPetInventory.TabIndex = 7;
             this.checkFullPetInventory.Text = "Full pet inventory";
+            this.checkFullPetInventory.UseVisualStyleBackColor = false;
             this.checkFullPetInventory.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // checkNoMPPotions
             // 
             this.checkNoMPPotions.AutoSize = true;
             this.checkNoMPPotions.BackColor = System.Drawing.Color.Transparent;
-            this.checkNoMPPotions.Checked = false;
-            this.checkNoMPPotions.Location = new System.Drawing.Point(12, 154);
+            this.checkNoMPPotions.Location = new System.Drawing.Point(12, 162);
             this.checkNoMPPotions.Name = "checkNoMPPotions";
+            this.checkNoMPPotions.ShadowDepth = 1;
             this.checkNoMPPotions.Size = new System.Drawing.Size(123, 15);
             this.checkNoMPPotions.TabIndex = 6;
             this.checkNoMPPotions.Text = "No MP Potions left";
+            this.checkNoMPPotions.UseVisualStyleBackColor = false;
             this.checkNoMPPotions.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // checkNoHPPotions
             // 
             this.checkNoHPPotions.AutoSize = true;
             this.checkNoHPPotions.BackColor = System.Drawing.Color.Transparent;
-            this.checkNoHPPotions.Checked = false;
-            this.checkNoHPPotions.Location = new System.Drawing.Point(12, 131);
+            this.checkNoHPPotions.Location = new System.Drawing.Point(12, 141);
             this.checkNoHPPotions.Name = "checkNoHPPotions";
+            this.checkNoHPPotions.ShadowDepth = 1;
             this.checkNoHPPotions.Size = new System.Drawing.Size(121, 15);
             this.checkNoHPPotions.TabIndex = 5;
             this.checkNoHPPotions.Text = "No HP Potions left";
+            this.checkNoHPPotions.UseVisualStyleBackColor = false;
             this.checkNoHPPotions.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // checkDurability
             // 
             this.checkDurability.AutoSize = true;
             this.checkDurability.BackColor = System.Drawing.Color.Transparent;
-            this.checkDurability.Checked = false;
-            this.checkDurability.Location = new System.Drawing.Point(12, 177);
+            this.checkDurability.Location = new System.Drawing.Point(12, 183);
             this.checkDurability.Name = "checkDurability";
+            this.checkDurability.ShadowDepth = 1;
             this.checkDurability.Size = new System.Drawing.Size(156, 15);
             this.checkDurability.TabIndex = 4;
             this.checkDurability.Text = "Equipment durability low";
+            this.checkDurability.UseVisualStyleBackColor = false;
             this.checkDurability.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // checkDead
             // 
             this.checkDead.AutoSize = true;
             this.checkDead.BackColor = System.Drawing.Color.Transparent;
-            this.checkDead.Checked = false;
             this.checkDead.Location = new System.Drawing.Point(12, 36);
             this.checkDead.Name = "checkDead";
+            this.checkDead.ShadowDepth = 1;
             this.checkDead.Size = new System.Drawing.Size(124, 15);
             this.checkDead.TabIndex = 3;
             this.checkDead.Text = "Dead with delay of ";
+            this.checkDead.UseVisualStyleBackColor = false;
             this.checkDead.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // checkInventory
             // 
             this.checkInventory.AutoSize = true;
             this.checkInventory.BackColor = System.Drawing.Color.Transparent;
-            this.checkInventory.Checked = false;
-            this.checkInventory.Location = new System.Drawing.Point(12, 84);
+            this.checkInventory.Location = new System.Drawing.Point(12, 99);
             this.checkInventory.Name = "checkInventory";
+            this.checkInventory.ShadowDepth = 1;
             this.checkInventory.Size = new System.Drawing.Size(95, 15);
             this.checkInventory.TabIndex = 4;
             this.checkInventory.Text = "Full inventory";
+            this.checkInventory.UseVisualStyleBackColor = false;
             this.checkInventory.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // checkNoArrows
             // 
             this.checkNoArrows.AutoSize = true;
             this.checkNoArrows.BackColor = System.Drawing.Color.Transparent;
-            this.checkNoArrows.Checked = false;
-            this.checkNoArrows.Location = new System.Drawing.Point(12, 60);
+            this.checkNoArrows.Location = new System.Drawing.Point(12, 78);
             this.checkNoArrows.Name = "checkNoArrows";
+            this.checkNoArrows.ShadowDepth = 1;
             this.checkNoArrows.Size = new System.Drawing.Size(134, 15);
             this.checkNoArrows.TabIndex = 4;
             this.checkNoArrows.Text = "No arrows / bolts left";
+            this.checkNoArrows.UseVisualStyleBackColor = false;
             this.checkNoArrows.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // groupBadStatus
@@ -280,7 +304,8 @@
             this.groupBadStatus.Location = new System.Drawing.Point(15, 214);
             this.groupBadStatus.Name = "groupBadStatus";
             this.groupBadStatus.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBadStatus.Radius = 2;
+            this.groupBadStatus.Radius = 10;
+            this.groupBadStatus.ShadowDepth = 4;
             this.groupBadStatus.Size = new System.Drawing.Size(456, 80);
             this.groupBadStatus.TabIndex = 6;
             this.groupBadStatus.TabStop = false;
@@ -306,6 +331,8 @@
             this.comboSkillBadStatus.ItemHeight = 17;
             this.comboSkillBadStatus.Location = new System.Drawing.Point(318, 50);
             this.comboSkillBadStatus.Name = "comboSkillBadStatus";
+            this.comboSkillBadStatus.Radius = 5;
+            this.comboSkillBadStatus.ShadowDepth = 4F;
             this.comboSkillBadStatus.Size = new System.Drawing.Size(121, 23);
             this.comboSkillBadStatus.TabIndex = 26;
             this.comboSkillBadStatus.SelectedIndexChanged += new System.EventHandler(this.comboSkill_SelectedIndexChanged);
@@ -314,24 +341,26 @@
             // 
             this.checkUseBadStatusSkill.AutoSize = true;
             this.checkUseBadStatusSkill.BackColor = System.Drawing.Color.Transparent;
-            this.checkUseBadStatusSkill.Checked = false;
             this.checkUseBadStatusSkill.Location = new System.Drawing.Point(11, 58);
             this.checkUseBadStatusSkill.Name = "checkUseBadStatusSkill";
+            this.checkUseBadStatusSkill.ShadowDepth = 1;
             this.checkUseBadStatusSkill.Size = new System.Drawing.Size(66, 15);
             this.checkUseBadStatusSkill.TabIndex = 5;
             this.checkUseBadStatusSkill.Text = "Use Skill";
+            this.checkUseBadStatusSkill.UseVisualStyleBackColor = false;
             this.checkUseBadStatusSkill.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // checkUseUniversalPills
             // 
             this.checkUseUniversalPills.AutoSize = true;
             this.checkUseUniversalPills.BackColor = System.Drawing.Color.Transparent;
-            this.checkUseUniversalPills.Checked = false;
             this.checkUseUniversalPills.Location = new System.Drawing.Point(11, 35);
             this.checkUseUniversalPills.Name = "checkUseUniversalPills";
+            this.checkUseUniversalPills.ShadowDepth = 1;
             this.checkUseUniversalPills.Size = new System.Drawing.Size(125, 15);
             this.checkUseUniversalPills.TabIndex = 4;
             this.checkUseUniversalPills.Text = "Use Universal Pills *";
+            this.checkUseUniversalPills.UseVisualStyleBackColor = false;
             this.checkUseUniversalPills.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // groupHPMP
@@ -367,7 +396,8 @@
             this.groupHPMP.Location = new System.Drawing.Point(15, 7);
             this.groupHPMP.Name = "groupHPMP";
             this.groupHPMP.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupHPMP.Radius = 2;
+            this.groupHPMP.Radius = 10;
+            this.groupHPMP.ShadowDepth = 4;
             this.groupHPMP.Size = new System.Drawing.Size(456, 201);
             this.groupHPMP.TabIndex = 5;
             this.groupHPMP.TabStop = false;
@@ -393,6 +423,8 @@
             this.comboSkillPlayerMP.ItemHeight = 17;
             this.comboSkillPlayerMP.Location = new System.Drawing.Point(318, 167);
             this.comboSkillPlayerMP.Name = "comboSkillPlayerMP";
+            this.comboSkillPlayerMP.Radius = 5;
+            this.comboSkillPlayerMP.ShadowDepth = 4F;
             this.comboSkillPlayerMP.Size = new System.Drawing.Size(121, 23);
             this.comboSkillPlayerMP.TabIndex = 25;
             this.comboSkillPlayerMP.SelectedIndexChanged += new System.EventHandler(this.comboSkill_SelectedIndexChanged);
@@ -407,6 +439,8 @@
             this.comboSkillPlayerHP.ItemHeight = 17;
             this.comboSkillPlayerHP.Location = new System.Drawing.Point(318, 144);
             this.comboSkillPlayerHP.Name = "comboSkillPlayerHP";
+            this.comboSkillPlayerHP.Radius = 5;
+            this.comboSkillPlayerHP.ShadowDepth = 4F;
             this.comboSkillPlayerHP.Size = new System.Drawing.Size(121, 23);
             this.comboSkillPlayerHP.TabIndex = 7;
             this.comboSkillPlayerHP.SelectedIndexChanged += new System.EventHandler(this.comboSkill_SelectedIndexChanged);
@@ -667,72 +701,78 @@
             // 
             this.checkUseSkillHP.AutoSize = true;
             this.checkUseSkillHP.BackColor = System.Drawing.Color.Transparent;
-            this.checkUseSkillHP.Checked = false;
             this.checkUseSkillHP.Location = new System.Drawing.Point(11, 146);
             this.checkUseSkillHP.Name = "checkUseSkillHP";
+            this.checkUseSkillHP.ShadowDepth = 1;
             this.checkUseSkillHP.Size = new System.Drawing.Size(94, 15);
             this.checkUseSkillHP.TabIndex = 4;
             this.checkUseSkillHP.Text = "Use skill if HP";
+            this.checkUseSkillHP.UseVisualStyleBackColor = false;
             this.checkUseSkillHP.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // checkUseSkillMP
             // 
             this.checkUseSkillMP.AutoSize = true;
             this.checkUseSkillMP.BackColor = System.Drawing.Color.Transparent;
-            this.checkUseSkillMP.Checked = false;
             this.checkUseSkillMP.Location = new System.Drawing.Point(11, 169);
             this.checkUseSkillMP.Name = "checkUseSkillMP";
+            this.checkUseSkillMP.ShadowDepth = 1;
             this.checkUseSkillMP.Size = new System.Drawing.Size(96, 15);
             this.checkUseSkillMP.TabIndex = 5;
             this.checkUseSkillMP.Text = "Use skill if MP";
+            this.checkUseSkillMP.UseVisualStyleBackColor = false;
             this.checkUseSkillMP.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // checkUseHPPotionsPlayer
             // 
             this.checkUseHPPotionsPlayer.AutoSize = true;
             this.checkUseHPPotionsPlayer.BackColor = System.Drawing.Color.Transparent;
-            this.checkUseHPPotionsPlayer.Checked = false;
             this.checkUseHPPotionsPlayer.Location = new System.Drawing.Point(11, 36);
             this.checkUseHPPotionsPlayer.Name = "checkUseHPPotionsPlayer";
+            this.checkUseHPPotionsPlayer.ShadowDepth = 1;
             this.checkUseHPPotionsPlayer.Size = new System.Drawing.Size(141, 15);
             this.checkUseHPPotionsPlayer.TabIndex = 0;
             this.checkUseHPPotionsPlayer.Text = "Use HP potions if HP *";
+            this.checkUseHPPotionsPlayer.UseVisualStyleBackColor = false;
             this.checkUseHPPotionsPlayer.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // checkUseVigorMP
             // 
             this.checkUseVigorMP.AutoSize = true;
             this.checkUseVigorMP.BackColor = System.Drawing.Color.Transparent;
-            this.checkUseVigorMP.Checked = false;
             this.checkUseVigorMP.Location = new System.Drawing.Point(11, 118);
             this.checkUseVigorMP.Name = "checkUseVigorMP";
+            this.checkUseVigorMP.ShadowDepth = 1;
             this.checkUseVigorMP.Size = new System.Drawing.Size(147, 15);
             this.checkUseVigorMP.TabIndex = 3;
             this.checkUseVigorMP.Text = "Use Vigor Potions if MP";
+            this.checkUseVigorMP.UseVisualStyleBackColor = false;
             this.checkUseVigorMP.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // checkUseMPPotionsPlayer
             // 
             this.checkUseMPPotionsPlayer.AutoSize = true;
             this.checkUseMPPotionsPlayer.BackColor = System.Drawing.Color.Transparent;
-            this.checkUseMPPotionsPlayer.Checked = false;
             this.checkUseMPPotionsPlayer.Location = new System.Drawing.Point(11, 59);
             this.checkUseMPPotionsPlayer.Name = "checkUseMPPotionsPlayer";
+            this.checkUseMPPotionsPlayer.ShadowDepth = 1;
             this.checkUseMPPotionsPlayer.Size = new System.Drawing.Size(145, 15);
             this.checkUseMPPotionsPlayer.TabIndex = 1;
             this.checkUseMPPotionsPlayer.Text = "Use MP potions if MP *";
+            this.checkUseMPPotionsPlayer.UseVisualStyleBackColor = false;
             this.checkUseMPPotionsPlayer.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // checkUseVigorHP
             // 
             this.checkUseVigorHP.AutoSize = true;
             this.checkUseVigorHP.BackColor = System.Drawing.Color.Transparent;
-            this.checkUseVigorHP.Checked = false;
             this.checkUseVigorHP.Location = new System.Drawing.Point(11, 92);
             this.checkUseVigorHP.Name = "checkUseVigorHP";
+            this.checkUseVigorHP.ShadowDepth = 1;
             this.checkUseVigorHP.Size = new System.Drawing.Size(145, 15);
             this.checkUseVigorHP.TabIndex = 2;
             this.checkUseVigorHP.Text = "Use Vigor Potions if HP";
+            this.checkUseVigorHP.UseVisualStyleBackColor = false;
             this.checkUseVigorHP.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // groupPet
@@ -752,7 +792,8 @@
             this.groupPet.Location = new System.Drawing.Point(15, 300);
             this.groupPet.Name = "groupPet";
             this.groupPet.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupPet.Radius = 2;
+            this.groupPet.Radius = 10;
+            this.groupPet.ShadowDepth = 4;
             this.groupPet.Size = new System.Drawing.Size(456, 164);
             this.groupPet.TabIndex = 1;
             this.groupPet.TabStop = false;
@@ -762,36 +803,39 @@
             // 
             this.checkAutoSummonAttackPet.AutoSize = true;
             this.checkAutoSummonAttackPet.BackColor = System.Drawing.Color.Transparent;
-            this.checkAutoSummonAttackPet.Checked = false;
             this.checkAutoSummonAttackPet.Location = new System.Drawing.Point(11, 137);
             this.checkAutoSummonAttackPet.Name = "checkAutoSummonAttackPet";
+            this.checkAutoSummonAttackPet.ShadowDepth = 1;
             this.checkAutoSummonAttackPet.Size = new System.Drawing.Size(209, 15);
             this.checkAutoSummonAttackPet.TabIndex = 27;
             this.checkAutoSummonAttackPet.Text = "Auto summon growth && fellow pet";
+            this.checkAutoSummonAttackPet.UseVisualStyleBackColor = false;
             this.checkAutoSummonAttackPet.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // checkUseAbnormalStatePotion
             // 
             this.checkUseAbnormalStatePotion.AutoSize = true;
             this.checkUseAbnormalStatePotion.BackColor = System.Drawing.Color.Transparent;
-            this.checkUseAbnormalStatePotion.Checked = false;
             this.checkUseAbnormalStatePotion.Location = new System.Drawing.Point(11, 88);
             this.checkUseAbnormalStatePotion.Name = "checkUseAbnormalStatePotion";
+            this.checkUseAbnormalStatePotion.ShadowDepth = 1;
             this.checkUseAbnormalStatePotion.Size = new System.Drawing.Size(223, 15);
             this.checkUseAbnormalStatePotion.TabIndex = 26;
             this.checkUseAbnormalStatePotion.Text = "Use abnormal state recovery potions *";
+            this.checkUseAbnormalStatePotion.UseVisualStyleBackColor = false;
             this.checkUseAbnormalStatePotion.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // checkReviveAttackPet
             // 
             this.checkReviveAttackPet.AutoSize = true;
             this.checkReviveAttackPet.BackColor = System.Drawing.Color.Transparent;
-            this.checkReviveAttackPet.Checked = false;
             this.checkReviveAttackPet.Location = new System.Drawing.Point(11, 113);
             this.checkReviveAttackPet.Name = "checkReviveAttackPet";
+            this.checkReviveAttackPet.ShadowDepth = 1;
             this.checkReviveAttackPet.Size = new System.Drawing.Size(166, 15);
             this.checkReviveAttackPet.TabIndex = 25;
             this.checkReviveAttackPet.Text = "Revive growth && fellow pet";
+            this.checkReviveAttackPet.UseVisualStyleBackColor = false;
             this.checkReviveAttackPet.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // label13
@@ -882,24 +926,26 @@
             // 
             this.checkUsePetHP.AutoSize = true;
             this.checkUsePetHP.BackColor = System.Drawing.Color.Transparent;
-            this.checkUsePetHP.Checked = false;
             this.checkUsePetHP.Location = new System.Drawing.Point(11, 37);
             this.checkUsePetHP.Name = "checkUsePetHP";
+            this.checkUsePetHP.ShadowDepth = 1;
             this.checkUsePetHP.Size = new System.Drawing.Size(141, 15);
             this.checkUsePetHP.TabIndex = 13;
             this.checkUsePetHP.Text = "Use HP potions if HP *";
+            this.checkUsePetHP.UseVisualStyleBackColor = false;
             this.checkUsePetHP.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // checkUseHGP
             // 
             this.checkUseHGP.AutoSize = true;
             this.checkUseHGP.BackColor = System.Drawing.Color.Transparent;
-            this.checkUseHGP.Checked = false;
             this.checkUseHGP.Location = new System.Drawing.Point(11, 63);
             this.checkUseHGP.Name = "checkUseHGP";
+            this.checkUseHGP.ShadowDepth = 1;
             this.checkUseHGP.Size = new System.Drawing.Size(218, 15);
             this.checkUseHGP.TabIndex = 14;
             this.checkUseHGP.Text = "Use HGP && Saiety potions if hunger *";
+            this.checkUseHGP.UseVisualStyleBackColor = false;
             this.checkUseHGP.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // groupStatPoints
@@ -911,10 +957,11 @@
             this.groupStatPoints.Controls.Add(this.numIncInt);
             this.groupStatPoints.Controls.Add(this.checkIncStr);
             this.groupStatPoints.Controls.Add(this.checkIncInt);
-            this.groupStatPoints.Location = new System.Drawing.Point(500, 241);
+            this.groupStatPoints.Location = new System.Drawing.Point(500, 240);
             this.groupStatPoints.Name = "groupStatPoints";
             this.groupStatPoints.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupStatPoints.Radius = 2;
+            this.groupStatPoints.Radius = 10;
+            this.groupStatPoints.ShadowDepth = 4;
             this.groupStatPoints.Size = new System.Drawing.Size(238, 162);
             this.groupStatPoints.TabIndex = 18;
             this.groupStatPoints.TabStop = false;
@@ -925,7 +972,8 @@
             this.buttonRun.Color = System.Drawing.Color.Transparent;
             this.buttonRun.Location = new System.Drawing.Point(62, 133);
             this.buttonRun.Name = "buttonRun";
-            this.buttonRun.Radius = 4;
+            this.buttonRun.Radius = 6;
+            this.buttonRun.ShadowDepth = 4F;
             this.buttonRun.Size = new System.Drawing.Size(97, 23);
             this.buttonRun.TabIndex = 27;
             this.buttonRun.Text = "Run";
@@ -936,12 +984,13 @@
             // 
             this.checkIncBotStopped.AutoSize = true;
             this.checkIncBotStopped.BackColor = System.Drawing.Color.Transparent;
-            this.checkIncBotStopped.Checked = false;
             this.checkIncBotStopped.Location = new System.Drawing.Point(18, 106);
             this.checkIncBotStopped.Name = "checkIncBotStopped";
+            this.checkIncBotStopped.ShadowDepth = 1;
             this.checkIncBotStopped.Size = new System.Drawing.Size(153, 15);
             this.checkIncBotStopped.TabIndex = 24;
             this.checkIncBotStopped.Text = "Enabled if bot is stopped";
+            this.checkIncBotStopped.UseVisualStyleBackColor = false;
             this.checkIncBotStopped.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // numIncStr
@@ -982,24 +1031,26 @@
             // 
             this.checkIncStr.AutoSize = true;
             this.checkIncStr.BackColor = System.Drawing.Color.Transparent;
-            this.checkIncStr.Checked = false;
             this.checkIncStr.Location = new System.Drawing.Point(18, 75);
             this.checkIncStr.Name = "checkIncStr";
+            this.checkIncStr.ShadowDepth = 1;
             this.checkIncStr.Size = new System.Drawing.Size(88, 15);
             this.checkIncStr.TabIndex = 20;
             this.checkIncStr.Text = "Increase STR";
+            this.checkIncStr.UseVisualStyleBackColor = false;
             this.checkIncStr.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // checkIncInt
             // 
             this.checkIncInt.AutoSize = true;
             this.checkIncInt.BackColor = System.Drawing.Color.Transparent;
-            this.checkIncInt.Checked = false;
             this.checkIncInt.Location = new System.Drawing.Point(18, 46);
             this.checkIncInt.Name = "checkIncInt";
+            this.checkIncInt.ShadowDepth = 1;
             this.checkIncInt.Size = new System.Drawing.Size(87, 15);
             this.checkIncInt.TabIndex = 19;
             this.checkIncInt.Text = "Increase INT";
+            this.checkIncInt.UseVisualStyleBackColor = false;
             this.checkIncInt.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
             // 
             // Main
@@ -1110,5 +1161,6 @@
         private SDUI.Controls.CheckBox checkIncInt;
         private SDUI.Controls.CheckBox checkIncBotStopped;
         private SDUI.Controls.Button buttonRun;
+        private SDUI.Controls.CheckBox checkStopBotOnReturnToTown;
     }
 }

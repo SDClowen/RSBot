@@ -35,6 +35,9 @@ namespace RSBot.Protection.Components.Pet
                 return;
 
             var item = Game.Player.Inventory.GetItemAt(slot);
+            if (item == null)
+                return;
+
             var itemRecord = item.Record;
 
             if (!itemRecord.IsPet)

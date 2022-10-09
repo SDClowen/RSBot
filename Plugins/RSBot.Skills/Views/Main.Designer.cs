@@ -51,6 +51,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupWarlockMode = new SDUI.Controls.GroupBox();
+            this.checkUseDefaultAttack = new SDUI.Controls.CheckBox();
             this.checkWarlockMode = new SDUI.Controls.CheckBox();
             this.grpMasteryLearn = new SDUI.Controls.GroupBox();
             this.checkLearnMasteryBotStopped = new SDUI.Controls.CheckBox();
@@ -77,6 +78,7 @@
             this.skillContextMenuAddBuffSkill = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.useToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.useToPartyMemberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new SDUI.Controls.Panel();
             this.panel2 = new SDUI.Controls.Panel();
             this.checkHideLowerLevelSkills = new SDUI.Controls.CheckBox();
@@ -86,7 +88,6 @@
             this.listActiveBuffs = new SDUI.Controls.ListView();
             this.colActiveName = new System.Windows.Forms.ColumnHeader();
             this.colActiveLevel = new System.Windows.Forms.ColumnHeader();
-            this.useToPartyMemberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -117,7 +118,7 @@
             this.groupBox1.Location = new System.Drawing.Point(14, 5);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBox1.Radius = 2;
+            this.groupBox1.Radius = 10;
             this.groupBox1.ShadowDepth = 4;
             this.groupBox1.Size = new System.Drawing.Size(357, 205);
             this.groupBox1.TabIndex = 1;
@@ -202,7 +203,7 @@
             this.btnMoveAttackSkillDown.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnMoveAttackSkillDown.Location = new System.Drawing.Point(327, 85);
             this.btnMoveAttackSkillDown.Name = "btnMoveAttackSkillDown";
-            this.btnMoveAttackSkillDown.Radius = 2;
+            this.btnMoveAttackSkillDown.Radius = 6;
             this.btnMoveAttackSkillDown.ShadowDepth = 4F;
             this.btnMoveAttackSkillDown.Size = new System.Drawing.Size(24, 24);
             this.btnMoveAttackSkillDown.TabIndex = 1;
@@ -216,7 +217,7 @@
             this.btnMoveAttackSkillUp.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnMoveAttackSkillUp.Location = new System.Drawing.Point(327, 55);
             this.btnMoveAttackSkillUp.Name = "btnMoveAttackSkillUp";
-            this.btnMoveAttackSkillUp.Radius = 2;
+            this.btnMoveAttackSkillUp.Radius = 6;
             this.btnMoveAttackSkillUp.ShadowDepth = 4F;
             this.btnMoveAttackSkillUp.Size = new System.Drawing.Size(24, 24);
             this.btnMoveAttackSkillUp.TabIndex = 1;
@@ -230,7 +231,7 @@
             this.btnRemoveAttackSkill.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnRemoveAttackSkill.Location = new System.Drawing.Point(327, 25);
             this.btnRemoveAttackSkill.Name = "btnRemoveAttackSkill";
-            this.btnRemoveAttackSkill.Radius = 2;
+            this.btnRemoveAttackSkill.Radius = 6;
             this.btnRemoveAttackSkill.ShadowDepth = 4F;
             this.btnRemoveAttackSkill.Size = new System.Drawing.Size(24, 22);
             this.btnRemoveAttackSkill.TabIndex = 1;
@@ -250,7 +251,7 @@
             this.groupBox2.Location = new System.Drawing.Point(14, 216);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBox2.Radius = 2;
+            this.groupBox2.Radius = 10;
             this.groupBox2.ShadowDepth = 4;
             this.groupBox2.Size = new System.Drawing.Size(357, 198);
             this.groupBox2.TabIndex = 2;
@@ -286,7 +287,7 @@
             this.btnMoveBuffSkillDown.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnMoveBuffSkillDown.Location = new System.Drawing.Point(327, 87);
             this.btnMoveBuffSkillDown.Name = "btnMoveBuffSkillDown";
-            this.btnMoveBuffSkillDown.Radius = 2;
+            this.btnMoveBuffSkillDown.Radius = 6;
             this.btnMoveBuffSkillDown.ShadowDepth = 4F;
             this.btnMoveBuffSkillDown.Size = new System.Drawing.Size(24, 24);
             this.btnMoveBuffSkillDown.TabIndex = 8;
@@ -316,7 +317,7 @@
             this.btnMoveBuffSkillUp.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnMoveBuffSkillUp.Location = new System.Drawing.Point(327, 57);
             this.btnMoveBuffSkillUp.Name = "btnMoveBuffSkillUp";
-            this.btnMoveBuffSkillUp.Radius = 2;
+            this.btnMoveBuffSkillUp.Radius = 6;
             this.btnMoveBuffSkillUp.ShadowDepth = 4F;
             this.btnMoveBuffSkillUp.Size = new System.Drawing.Size(24, 24);
             this.btnMoveBuffSkillUp.TabIndex = 9;
@@ -340,7 +341,7 @@
             this.btnRemoveBuffSkill.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnRemoveBuffSkill.Location = new System.Drawing.Point(327, 27);
             this.btnRemoveBuffSkill.Name = "btnRemoveBuffSkill";
-            this.btnRemoveBuffSkill.Radius = 2;
+            this.btnRemoveBuffSkill.Radius = 6;
             this.btnRemoveBuffSkill.ShadowDepth = 4F;
             this.btnRemoveBuffSkill.Size = new System.Drawing.Size(24, 24);
             this.btnRemoveBuffSkill.TabIndex = 5;
@@ -380,32 +381,46 @@
             this.tabPage2.Controls.Add(this.grpMasteryLearn);
             this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Controls.Add(this.groupBox4);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(384, 438);
+            this.tabPage2.Size = new System.Drawing.Size(384, 439);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Advanced setup";
             // 
             // groupWarlockMode
             // 
             this.groupWarlockMode.BackColor = System.Drawing.Color.Transparent;
+            this.groupWarlockMode.Controls.Add(this.checkUseDefaultAttack);
             this.groupWarlockMode.Controls.Add(this.checkWarlockMode);
             this.groupWarlockMode.Location = new System.Drawing.Point(8, 350);
             this.groupWarlockMode.Name = "groupWarlockMode";
             this.groupWarlockMode.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupWarlockMode.Radius = 2;
+            this.groupWarlockMode.Radius = 10;
             this.groupWarlockMode.ShadowDepth = 4;
-            this.groupWarlockMode.Size = new System.Drawing.Size(367, 67);
+            this.groupWarlockMode.Size = new System.Drawing.Size(367, 86);
             this.groupWarlockMode.TabIndex = 14;
             this.groupWarlockMode.TabStop = false;
-            this.groupWarlockMode.Text = "Warlock mode";
+            this.groupWarlockMode.Text = "Advanced setup";
+            // 
+            // checkUseDefaultAttack
+            // 
+            this.checkUseDefaultAttack.AutoSize = true;
+            this.checkUseDefaultAttack.BackColor = System.Drawing.Color.Transparent;
+            this.checkUseDefaultAttack.Location = new System.Drawing.Point(15, 58);
+            this.checkUseDefaultAttack.Name = "checkUseDefaultAttack";
+            this.checkUseDefaultAttack.ShadowDepth = 1;
+            this.checkUseDefaultAttack.Size = new System.Drawing.Size(228, 15);
+            this.checkUseDefaultAttack.TabIndex = 1;
+            this.checkUseDefaultAttack.Text = "Use normal attack if no skill is available";
+            this.checkUseDefaultAttack.UseVisualStyleBackColor = false;
+            this.checkUseDefaultAttack.CheckedChanged += new System.EventHandler(this.checkUseDefaultAttack_CheckedChanged);
             // 
             // checkWarlockMode
             // 
             this.checkWarlockMode.AutoSize = true;
             this.checkWarlockMode.BackColor = System.Drawing.Color.Transparent;
-            this.checkWarlockMode.Location = new System.Drawing.Point(86, 39);
+            this.checkWarlockMode.Location = new System.Drawing.Point(15, 37);
             this.checkWarlockMode.Name = "checkWarlockMode";
             this.checkWarlockMode.ShadowDepth = 1;
             this.checkWarlockMode.Size = new System.Drawing.Size(162, 15);
@@ -425,7 +440,7 @@
             this.grpMasteryLearn.Location = new System.Drawing.Point(8, 229);
             this.grpMasteryLearn.Name = "grpMasteryLearn";
             this.grpMasteryLearn.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.grpMasteryLearn.Radius = 2;
+            this.grpMasteryLearn.Radius = 10;
             this.grpMasteryLearn.ShadowDepth = 4;
             this.grpMasteryLearn.Size = new System.Drawing.Size(367, 115);
             this.grpMasteryLearn.TabIndex = 13;
@@ -509,7 +524,7 @@
             this.groupBox3.Location = new System.Drawing.Point(8, 6);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBox3.Radius = 2;
+            this.groupBox3.Radius = 10;
             this.groupBox3.ShadowDepth = 4;
             this.groupBox3.Size = new System.Drawing.Size(367, 119);
             this.groupBox3.TabIndex = 11;
@@ -576,7 +591,7 @@
             this.groupBox4.Location = new System.Drawing.Point(8, 131);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBox4.Radius = 2;
+            this.groupBox4.Radius = 10;
             this.groupBox4.ShadowDepth = 4;
             this.groupBox4.Size = new System.Drawing.Size(367, 92);
             this.groupBox4.TabIndex = 12;
@@ -674,7 +689,7 @@
             this.useToolStripMenuItem,
             this.useToPartyMemberToolStripMenuItem});
             this.skillContextMenu.Name = "skillContextMenu";
-            this.skillContextMenu.Size = new System.Drawing.Size(186, 126);
+            this.skillContextMenu.Size = new System.Drawing.Size(186, 104);
             this.skillContextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.skillContextMenu_Opening);
             // 
             // skillContextMenuAddAttackSkill
@@ -711,6 +726,13 @@
             this.useToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.useToolStripMenuItem.Text = "Use";
             this.useToolStripMenuItem.Click += new System.EventHandler(this.useToolStripMenuItem_Click);
+            // 
+            // useToPartyMemberToolStripMenuItem
+            // 
+            this.useToPartyMemberToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.useToPartyMemberToolStripMenuItem.Name = "useToPartyMemberToolStripMenuItem";
+            this.useToPartyMemberToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.useToPartyMemberToolStripMenuItem.Text = "Use to party member";
             // 
             // panel1
             // 
@@ -824,13 +846,6 @@
             this.colActiveLevel.Text = "";
             this.colActiveLevel.Width = 69;
             // 
-            // useToPartyMemberToolStripMenuItem
-            // 
-            this.useToPartyMemberToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.useToPartyMemberToolStripMenuItem.Name = "useToPartyMemberToolStripMenuItem";
-            this.useToPartyMemberToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
-            this.useToPartyMemberToolStripMenuItem.Text = "Use to party member";
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -926,5 +941,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem useToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem useToPartyMemberToolStripMenuItem;
+        private SDUI.Controls.CheckBox checkUseDefaultAttack;
     }
 }

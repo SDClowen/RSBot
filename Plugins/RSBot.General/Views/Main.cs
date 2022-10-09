@@ -28,6 +28,9 @@ namespace RSBot.General.Views
 
             InitializeComponent();
             SubscribeEvents();
+
+            btnStartClient.SetUseAsync(true);
+            btnStartClientless.SetUseAsync(true);
         }
 
         /// <summary>

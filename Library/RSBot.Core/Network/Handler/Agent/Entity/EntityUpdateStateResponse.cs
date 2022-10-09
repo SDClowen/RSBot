@@ -50,6 +50,9 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
 
                     EventManager.FireEvent("OnUpdateEntityLifeState", uniqueId);
 
+                    if (uniqueId == Game.Player.UniqueId && entity.State.LifeState == LifeState.Dead)
+                        EventManager.FireEvent("OnPlayerDied");
+
                     break;
 
                 case 1:
