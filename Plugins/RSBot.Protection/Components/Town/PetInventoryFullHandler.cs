@@ -4,7 +4,7 @@ using RSBot.Core.Event;
 
 namespace RSBot.Protection.Components.Town
 {
-    public class PetInventoryFullHandler
+    public class PetInventoryFullHandler : AbstractTownHandler
     {
         /// <summary>
         /// Initializes this instance.
@@ -38,7 +38,7 @@ namespace RSBot.Protection.Components.Town
             if (!Game.Player.AbilityPet.Inventory.Full) 
                 return;
 
-            if (ScriptManager.Running) 
+            if (PlayerInTownScriptRegion())
                 return;
 
             Log.NotifyLang("ReturnToTownPetInventoryFull");

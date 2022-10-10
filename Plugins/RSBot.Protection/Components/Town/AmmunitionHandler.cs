@@ -3,7 +3,7 @@ using RSBot.Core.Event;
 
 namespace RSBot.Protection.Components.Town
 {
-    public class AmmunitionHandler
+    public class AmmunitionHandler : AbstractTownHandler
     {
         /// <summary>
         /// Initializes this instance.
@@ -32,7 +32,8 @@ namespace RSBot.Protection.Components.Town
         /// </summary>
         private static void OnUpdateAmmunition()
         {
-            if (Kernel.Bot.Running) CheckForAmmunition();
+            if (Kernel.Bot.Running)
+                CheckForAmmunition();
         }
 
         private static void CheckForAmmunition()
@@ -42,6 +43,9 @@ namespace RSBot.Protection.Components.Town
 
             var currentAmmunition = Game.Player.GetAmmunitionAmount(true);
             if (currentAmmunition == -1 || currentAmmunition > 10)
+                return;
+
+            if (PlayerInTownScriptRegion())
                 return;
 
             Log.WarnLang("ReturnToTownNoAmmo");

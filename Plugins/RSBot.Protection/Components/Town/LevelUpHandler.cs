@@ -3,7 +3,7 @@ using RSBot.Core.Event;
 
 namespace RSBot.Protection.Components.Town
 {
-    public class LevelUpHandler
+    public class LevelUpHandler : AbstractTownHandler
     {
         /// <summary>
         /// Initializes this instance.
@@ -30,6 +30,9 @@ namespace RSBot.Protection.Components.Town
                 return;
 
             if (!PlayerConfig.Get<bool>("RSBot.Protection.checkLevelUp"))
+                return;
+
+            if (PlayerInTownScriptRegion())
                 return;
 
             Log.NotifyLang("ReturnToTownLevelUpAchieved");

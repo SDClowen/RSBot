@@ -5,7 +5,7 @@ using System;
 
 namespace RSBot.Protection.Components.Town
 {
-    public class DurabilityLowHandler
+    public class DurabilityLowHandler : AbstractTownHandler
     {
         /// <summary>
         /// The last tick count
@@ -38,14 +38,14 @@ namespace RSBot.Protection.Components.Town
         {
             if (!Kernel.Bot.Running)
                 return;
-
-            if (ScriptManager.Running)
-                return;
-
+            
             if (!PlayerConfig.Get<bool>("RSBot.Protection.checkDurability"))
                 return;
 
             if (Kernel.TickCount - _lastTick < 10000)
+                return;
+
+            if (PlayerInTownScriptRegion())
                 return;
 
             _lastTick = Kernel.TickCount;

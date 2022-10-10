@@ -1,11 +1,11 @@
 ﻿using RSBot.Core;
+using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
-using System.Linq;
 
 namespace RSBot.Protection.Components.Town
 {
-    public class NoHealthPotionsHandler
+    public class NoHealthPotionsHandler : AbstractTownHandler
     {
         /// <summary>
         /// Initializes this instance.
@@ -35,12 +35,17 @@ namespace RSBot.Protection.Components.Town
         /// </summary>
         private static void OnUseItem(byte slot)
         {
-            if (Kernel.Bot.Running) CheckForHpPotions();
+            if (Kernel.Bot.Running) 
+                CheckForHpPotions();
         }
 
         private static void CheckForHpPotions()
         {
-            if (!PlayerConfig.Get<bool>("RSBot.Protection.checkNoHPPotions")) return;
+            if (!PlayerConfig.Get<bool>("RSBot.Protection.checkNoHPPotions")) 
+                return;
+            
+            if (PlayerInTownScriptRegion())
+                return;
 
             var typeIdFilter = new TypeIdFilter(3, 3, 1, 1);
             if (Game.Player.Inventory.GetSumAmount(typeIdFilter) > 0)

@@ -4,7 +4,7 @@ using RSBot.Core.Event;
 
 namespace RSBot.Protection.Components.Town
 {
-    public class InventoryFullHandler
+    public class InventoryFullHandler : AbstractTownHandler
     {
         /// <summary>
         /// Initializes this instance.
@@ -26,10 +26,17 @@ namespace RSBot.Protection.Components.Town
         /// </summary>
         private static void OnUpdateInventory()
         {
-            if (!Kernel.Bot.Running) return;
-            if (ScriptManager.Running) return;
-            if (!PlayerConfig.Get<bool>("RSBot.Protection.checkInventory")) return;
-            if (!Game.Player.Inventory.Full) return;
+            if (!Kernel.Bot.Running) 
+                return;
+
+            if (!PlayerConfig.Get<bool>("RSBot.Protection.checkInventory")) 
+                return;
+
+            if (!Game.Player.Inventory.Full)
+                return;
+
+            if (PlayerInTownScriptRegion()) 
+                return;
 
             Log.NotifyLang("ReturnToTownInventoryFull");
 
