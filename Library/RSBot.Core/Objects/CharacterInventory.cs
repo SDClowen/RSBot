@@ -152,7 +152,7 @@ namespace RSBot.Core.Objects
             {
                 iterations++;
 
-                var itemsToStackGroups = this.Where(i => i.Record.IsStackable && i.Record.MaxStack > i.Amount && !blacklistedItems.Contains(i.ItemId))
+                var itemsToStackGroups = this.Where(i => i.Slot > 12 && i.Record.IsStackable && i.Record.MaxStack > i.Amount && !blacklistedItems.Contains(i.ItemId))
                     .GroupBy(i => i.ItemId);
 
                 if (!itemsToStackGroups.Any())
