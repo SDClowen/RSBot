@@ -80,19 +80,20 @@ namespace RSBot.Default.Views
         /// </summary>
         private void LoadAvoidance()
         {
-            var avoid = PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Avoid")
-                .ToDictionary(p => "Avoid", p => p);
-            var prefer = PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Prefer")
-                .ToDictionary(p => "Prefer", p => p);
-            
-            foreach (var item in avoid.Union(prefer))
-            {
-                var listViewItem = lvAvoidance.Items.Cast<ListViewItem>()
-                    .FirstOrDefault(p => ((MonsterRarity)p.Tag & item.Value) == item.Value);
-                if (listViewItem == null)
-                    continue;
+            var prefer = PlayerConfig.GetEnums<MonsterRarity>( "RSBot.Avoidance.Prefer" ).ToLookup( p => "Prefer", p => p );
+            var avoid = PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Avoid").ToLookup( p => "Avoid", p => p );
 
-                listViewItem.Group = lvAvoidance.Groups[$"grp{item.Key}"];
+            foreach( var group in avoid.Union(prefer) )
+            {
+                foreach( var item in group ) 
+                {
+                    var listViewItem = lvAvoidance.Items.Cast<ListViewItem>()
+                        .FirstOrDefault(p => ((MonsterRarity)p.Tag & item) == item);
+                    if (listViewItem == null)
+                        continue;
+
+                    listViewItem.Group = lvAvoidance.Groups[ $"grp{group.Key}" ];
+                }
             }
         }
 
