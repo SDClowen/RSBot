@@ -35,7 +35,7 @@ namespace RSBot.Core.Network.Handler.Agent
             {
                 var hp = packet.ReadInt();
                 var maxHp = packet.ReadInt();
-                maxHp = maxHp != 0 && maxHp != 200 ? maxHp : hp;
+                maxHp = maxHp != 0 && maxHp != 200 ? maxHp : objChar.MaxHealth;
 
                 switch (objChar.TypeID4)
                 {
