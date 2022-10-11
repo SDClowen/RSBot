@@ -10,7 +10,6 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static SDUI.NativeMethods;
 
 namespace RSBot.Inventory.Views
 {
@@ -60,6 +59,7 @@ namespace RSBot.Inventory.Views
 
             UpdateInventoryList();
         }
+
         /// <summary>
         /// Calling when update inventory item
         /// </summary>
@@ -114,7 +114,7 @@ namespace RSBot.Inventory.Views
                         var itemsPlayer = Game.Player.Inventory.GetNormalPartItems();
                         foreach (var item in itemsPlayer)
                             AddItem(item);
-                        
+
                         lblFreeSlots.Text = Game.Player.Inventory.Count + "/" + Game.Player.Inventory.Capacity;
 
                         break;
@@ -267,7 +267,7 @@ namespace RSBot.Inventory.Views
 
             if (item.Record.IsEquip)
                 lvItem.SubItems.Add(item.Record.GetRarityName());
-            
+
             if (_selectedIndex == 0)
             {
                 var useItemsAtTrainingPlace =
@@ -558,7 +558,9 @@ namespace RSBot.Inventory.Views
             if (selectedItem == null)
                 return;
 
-            if (itemsToUse.Contains(selectedItem.Record.CodeName))
+            var useSelectedItem = itemsToUse.Contains(selectedItem.Record.CodeName);
+
+            if (useSelectedItem)
             {
                 lvItem.Font = new Font(lvItem.Font, FontStyle.Regular);
                 itemsToUse.Remove(selectedItem.Record.CodeName);
@@ -568,8 +570,8 @@ namespace RSBot.Inventory.Views
                 lvItem.Font = new Font(lvItem.Font, FontStyle.Bold);
                 itemsToUse.Add(selectedItem.Record.CodeName);
             }
-            useItemAtTrainingPlaceMenuItem.Checked = !useItemAtTrainingPlaceMenuItem.Checked;
 
+            useItemAtTrainingPlaceMenuItem.Checked = !useItemAtTrainingPlaceMenuItem.Checked;
             PlayerConfig.SetArray("RSBot.Inventory.ItemsAtTrainplace", itemsToUse);
         }
     }

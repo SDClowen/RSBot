@@ -26,6 +26,7 @@ internal class UseItemAtTrainplaceSubscriber
         if (!Kernel.Bot.Running || Kernel.Bot.CenterPosition.RegionId == 0)
             return;
 
+        //Only at training place
         if (Kernel.Bot.CenterPosition.DistanceToPlayer() > 100)
             return;
 
@@ -45,13 +46,13 @@ internal class UseItemAtTrainplaceSubscriber
 
             Log.Notify($"Use [{invItem.Record.GetRealName()}] at training place");
 
-            if (!invItem.Use())
-            {
-                //e.g. overlapping with another buff
-                Log.Warn($"Can not use item [{invItem.Record.GetRealName()}] at training place. Blacklisting it for 5 minutes before next try.");
+            if (invItem.Use()) 
+                continue;
 
-                _blacklistedItems.Add(invItem.Record.CodeName);
-            }
+            //e.g. overlapping with another buff
+            _blacklistedItems.Add(invItem.Record.CodeName);
+
+            Log.Warn($"Can not use item [{invItem.Record.GetRealName()}] at training place. Blacklisting it for 5 minutes before next try.");
         }
     }
 }

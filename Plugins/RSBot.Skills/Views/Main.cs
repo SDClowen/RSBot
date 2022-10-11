@@ -63,10 +63,11 @@ namespace RSBot.Skills.Views
             EventManager.SubscribeEvent("OnAddBuff", new Action<SkillInfo>(OnAddBuff));
             EventManager.SubscribeEvent("OnRemoveBuff", new Action<SkillInfo>(OnRemoveBuff));
             EventManager.SubscribeEvent("OnResurrectionRequest", OnResurrectionRequest);
-            EventManager.SubscribeEvent("OnExpSpUpdate", OnSpUpdated); 
+            EventManager.SubscribeEvent("OnExpSpUpdate", OnSpUpdated);
             EventManager.SubscribeEvent("OnAddItemPerk", new Action<uint, uint>(OnAddItemPerk));
             EventManager.SubscribeEvent("OnRemoveItemPerk", new Action<uint, ItemPerk>(OnRemoveItemPerk));
         }
+
         /// <summary>
         /// Called when [remove item perk].
         /// </summary>
@@ -431,7 +432,7 @@ namespace RSBot.Skills.Views
                         continue;
 
                     //if (!skill.IsAttack && skill.Record.Target_Required && !skill.Record.TargetGroup_Self)
-                        //continue;
+                    //continue;
 
                     var name = skill.Record.GetRealName();
 
@@ -557,7 +558,7 @@ namespace RSBot.Skills.Views
             if (buffIndex != -1)
             {
                 // remove skill
-                if(newSkill.Id == oldSkill.Id)
+                if (newSkill.Id == oldSkill.Id)
                     buffs.RemoveAt(buffIndex);
                 else
                     buffs[buffIndex] = newSkill.Id;
@@ -578,7 +579,7 @@ namespace RSBot.Skills.Views
             }
 
             var selectedImbue = PlayerConfig.Get<uint>("RSBot.Skills.Imbue");
-            if(selectedImbue == oldSkill.Id)
+            if (selectedImbue == oldSkill.Id)
             {
                 if (oldSkill.Id == newSkill.Id)
                     SkillManager.ImbueSkill = null;
@@ -982,10 +983,9 @@ namespace RSBot.Skills.Views
                         if (member == null)
                             return;
 
-
                         skillInfo.Cast(member.Player.UniqueId, buff: true);
                     }
-                    catch{}
+                    catch { }
                 });
             }
         }
@@ -995,22 +995,23 @@ namespace RSBot.Skills.Views
             PlayerConfig.Set("RSBot.Skills.UseDefaultAttack", checkUseDefaultAttack.Checked);
         }
 
-        private void checkUseSkillsInOrder_CheckedChanged( object sender, EventArgs e ) 
+        private void checkUseSkillsInOrder_CheckedChanged(object sender, EventArgs e)
         {
-            PlayerConfig.Set( "RSBot.Skills.UseSkillsInOrder", checkUseSkillsInOrder.Checked );
+            PlayerConfig.Set("RSBot.Skills.UseSkillsInOrder", checkUseSkillsInOrder.Checked);
         }
 
         private void listActiveBuffs_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            BuffProperties propertiesWindow = null;
-            if (listActiveBuffs.SelectedItems[0].Tag is SkillInfo skillInfo)
-                propertiesWindow = new BuffProperties(skillInfo);
-            else if (listActiveBuffs.SelectedItems[0].Tag is ItemPerk itemPerk)
-                propertiesWindow = new BuffProperties(itemPerk);
+#if DEBUG
+            var propertiesWindow = listActiveBuffs.SelectedItems[0].Tag switch
+            {
+                SkillInfo skillInfo => new BuffProperties(skillInfo),
+                ItemPerk itemPerk => new BuffProperties(itemPerk),
+                _ => null
+            };
 
-            if (propertiesWindow != null)
-                propertiesWindow.Show();
-
+            propertiesWindow?.Show();
+#endif
         }
     }
 }
