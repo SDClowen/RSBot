@@ -18,10 +18,10 @@ internal class UseItemAtTrainplaceSubscriber
     private static void OnTick()
     {
         //Retry blacklisted items after 5 minutes
-        if (TimeSpan.FromTicks(DateTime.Now.Ticks - _lastTick).Minutes >= 5)
+        if (TimeSpan.FromMilliseconds(Kernel.TickCount - _lastTick).Minutes >= 5)
             _blacklistedItems.Clear();
         
-        _lastTick = DateTime.Now.Ticks;
+        _lastTick = Kernel.TickCount;
 
         if (!Kernel.Bot.Running || Kernel.Bot.CenterPosition.RegionId == 0)
             return;
