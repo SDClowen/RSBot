@@ -123,6 +123,28 @@ namespace RSBot.Core.Objects
         public InventoryItemCosInfo Cos;
 
         /// <summary>
+        /// Gets a value indicating whether [item skill in use].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [item skill in use]; otherwise, <c>false</c>.
+        /// </value>
+        public bool ItemSkillInUse
+        {
+            get
+            {
+                var refSkill = GetRefSkill();
+                
+                if (refSkill == null && Record.Param1 <= 0)
+                    return false;
+
+                //TODO: This is wrong.. need to find out an example for 10% exp scroll
+                refSkill = Game.ReferenceManager.SkillData[(uint) Record.Param1];
+                
+                return Game.Player.State.ActiveBuffs.FirstOrDefault(b => b.Record.ID == refSkill.ID) != null;
+            }
+        }
+
+        /// <summary>
         /// Uses the item
         /// </summary>
         /// <returns></returns>
@@ -427,6 +449,14 @@ namespace RSBot.Core.Objects
                 return filter.EqualsRefItem(Record);
 
             return false;
+        }
+
+        public RefSkill? GetRefSkill()
+        {
+            if (string.IsNullOrEmpty(Record.Desc1))
+                return null;
+
+            return Game.ReferenceManager.GetRefSkill(Record.Desc1);
         }
 
         public InventoryItem Clone()

@@ -19,4 +19,8 @@
     <ProjectReference Include="..\..\SDUI\SDUI\SDUI.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Components\" />
+  </ItemGroup>
+
 </Project>

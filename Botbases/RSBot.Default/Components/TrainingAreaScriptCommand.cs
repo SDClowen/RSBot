@@ -2,6 +2,7 @@
 using RSBot.Core.Components.Scripting;
 using System.Collections.Generic;
 using RSBot.Core.Event;
+using RSBot.Core.Objects;
 
 namespace RSBot.Default.Components
 {
@@ -54,6 +55,9 @@ namespace RSBot.Default.Components
                 PlayerConfig.Set("RSBot.Area.X", xPos);
                 PlayerConfig.Set("RSBot.Area.Y", yPos);
                 PlayerConfig.Set("RSBot.Area.Radius", radius);
+
+                var gamePos = new Position(xPos, yPos);
+                Kernel.Bot.CenterPosition = gamePos;
 
                 EventManager.FireEvent("OnSetTrainingArea");
 

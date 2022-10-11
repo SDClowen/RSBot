@@ -3,6 +3,7 @@ using RSBot.Core.Event;
 using RSBot.Core.Plugins;
 using System.Threading;
 using System.Threading.Tasks;
+using RSBot.Core.Objects;
 
 namespace RSBot.Core
 {
@@ -28,6 +29,11 @@ namespace RSBot.Core
         /// Gets or sets to the <see cref="CancellationToken"/>
         /// </summary>
         public CancellationTokenSource TokenSource;
+
+        /// <summary>
+        /// The center position
+        /// </summary>
+        public Position CenterPosition;
 
         /// <summary>
         /// Sets the botbase.

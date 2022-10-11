@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using RSBot.Core.Client.ReferenceObjects;
+﻿using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Objects;
+using SDUI.Controls;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Windows.Forms;
-using SDUI.Controls;
 
 namespace RSBot.Skills.Views
 {
@@ -130,7 +129,6 @@ namespace RSBot.Skills.Views
 
         [Category("RefSkill")]
         public int ReqCommon_MasteryLevel2 { get; }
-
 
         [Category("RefSkill")]
         public WeaponType ReqCast_Weapon1 { get; }

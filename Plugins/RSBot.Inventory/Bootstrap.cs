@@ -33,6 +33,7 @@ namespace RSBot.Inventory
 
             BuyItemSubscriber.SubscribeEvents();
             InventoryUpdateSubscriber.SubscribeEvents();
+            UseItemAtTrainplaceSubscriber.SubscribeEvents();
         }
 
         /// <summary>

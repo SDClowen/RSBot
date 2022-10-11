@@ -395,6 +395,13 @@ namespace RSBot.Core.Client
             return null;
         }
 
+        public RefSkill? GetRefSkill(string codeName)
+        {
+            var skill = SkillData.FirstOrDefault(s => s.Value.Basic_Code == codeName);
+
+            return skill.Value;
+        }
+
         public RefSkillMastery GetRefSkillMastery(uint id)
         {
             if ((Game.ClientType == GameClientType.Chinese) &&

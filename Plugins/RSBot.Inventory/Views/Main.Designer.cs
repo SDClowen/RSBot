@@ -39,13 +39,10 @@
             this.dropToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.moveToPetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.moveToPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.conditionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.afterTrainingPlaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.beforeTrainingPlaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.repeatAfterFinishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.moveToLastDeathPositionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.moveToLastRecallPositionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectMapLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.useItemAtTrainingPlaceMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new SDUI.Controls.Panel();
             this.checkAutoSort = new SDUI.Controls.CheckBox();
             this.btnSort = new SDUI.Controls.Button();
@@ -134,10 +131,10 @@
             this.dropToolStripMenuItem,
             this.moveToPetToolStripMenuItem,
             this.moveToPlayerToolStripMenuItem,
-            this.conditionsToolStripMenuItem,
             this.moveToLastDeathPositionToolStripMenuItem,
             this.moveToLastRecallPositionToolStripMenuItem,
-            this.selectMapLocationToolStripMenuItem});
+            this.selectMapLocationToolStripMenuItem,
+            this.useItemAtTrainingPlaceMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
             this.contextMenuStrip.Size = new System.Drawing.Size(220, 180);
             this.contextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip_Opening);
@@ -174,41 +171,6 @@
             this.moveToPlayerToolStripMenuItem.Text = "Move to player";
             this.moveToPlayerToolStripMenuItem.Click += new System.EventHandler(this.moveToPlayerToolStripMenuItem_Click);
             // 
-            // conditionsToolStripMenuItem
-            // 
-            this.conditionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.afterTrainingPlaceToolStripMenuItem,
-            this.beforeTrainingPlaceToolStripMenuItem,
-            this.repeatAfterFinishToolStripMenuItem});
-            this.conditionsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.conditionsToolStripMenuItem.Name = "conditionsToolStripMenuItem";
-            this.conditionsToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
-            this.conditionsToolStripMenuItem.Text = "Conditions";
-            // 
-            // afterTrainingPlaceToolStripMenuItem
-            // 
-            this.afterTrainingPlaceToolStripMenuItem.Enabled = false;
-            this.afterTrainingPlaceToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.afterTrainingPlaceToolStripMenuItem.Name = "afterTrainingPlaceToolStripMenuItem";
-            this.afterTrainingPlaceToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.afterTrainingPlaceToolStripMenuItem.Text = "After Training Place";
-            // 
-            // beforeTrainingPlaceToolStripMenuItem
-            // 
-            this.beforeTrainingPlaceToolStripMenuItem.Enabled = false;
-            this.beforeTrainingPlaceToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.beforeTrainingPlaceToolStripMenuItem.Name = "beforeTrainingPlaceToolStripMenuItem";
-            this.beforeTrainingPlaceToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.beforeTrainingPlaceToolStripMenuItem.Text = "Before Training Place";
-            // 
-            // repeatAfterFinishToolStripMenuItem
-            // 
-            this.repeatAfterFinishToolStripMenuItem.Enabled = false;
-            this.repeatAfterFinishToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.repeatAfterFinishToolStripMenuItem.Name = "repeatAfterFinishToolStripMenuItem";
-            this.repeatAfterFinishToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.repeatAfterFinishToolStripMenuItem.Text = "Repeat after finish";
-            // 
             // moveToLastDeathPositionToolStripMenuItem
             // 
             this.moveToLastDeathPositionToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
@@ -231,6 +193,14 @@
             this.selectMapLocationToolStripMenuItem.Name = "selectMapLocationToolStripMenuItem";
             this.selectMapLocationToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
             this.selectMapLocationToolStripMenuItem.Text = "Select Map Location";
+            // 
+            // useItemAtTrainingPlaceMenuItem
+            // 
+            this.useItemAtTrainingPlaceMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.useItemAtTrainingPlaceMenuItem.Name = "useItemAtTrainingPlaceMenuItem";
+            this.useItemAtTrainingPlaceMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.useItemAtTrainingPlaceMenuItem.Text = "Use item at training place";
+            this.useItemAtTrainingPlaceMenuItem.Click += new System.EventHandler(this.useItemAtTrainingPlaceMenuItem_Click);
             // 
             // panel1
             // 
@@ -481,17 +451,14 @@
         private SDUI.Controls.ContextMenuStrip contextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem useToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dropToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem conditionsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem afterTrainingPlaceToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem beforeTrainingPlaceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem moveToLastDeathPositionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem moveToLastRecallPositionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem selectMapLocationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem repeatAfterFinishToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem moveToPetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem moveToPlayerToolStripMenuItem;
         private SDUI.Controls.Button buttonFellowPet;
         private SDUI.Controls.Button btnSort;
         private SDUI.Controls.CheckBox checkAutoSort;
+        private System.Windows.Forms.ToolStripMenuItem useItemAtTrainingPlaceMenuItem;
     }
 }
