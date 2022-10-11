@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new SDUI.Controls.GroupBox();
+            this.checkUseSkillsInOrder = new SDUI.Controls.CheckBox();
             this.checkBoxNoAttack = new SDUI.Controls.CheckBox();
             this.listAttackingSkills = new SDUI.Controls.ListView();
             this.columnName = new System.Windows.Forms.ColumnHeader();
@@ -88,7 +89,6 @@
             this.listActiveBuffs = new SDUI.Controls.ListView();
             this.colActiveName = new System.Windows.Forms.ColumnHeader();
             this.colActiveLevel = new System.Windows.Forms.ColumnHeader();
-            this.checkUseSkillsInOrder = new SDUI.Controls.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -126,6 +126,19 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Attacking skills";
+            // 
+            // checkUseSkillsInOrder
+            // 
+            this.checkUseSkillsInOrder.AutoSize = true;
+            this.checkUseSkillsInOrder.BackColor = System.Drawing.Color.Transparent;
+            this.checkUseSkillsInOrder.Location = new System.Drawing.Point(231, 192);
+            this.checkUseSkillsInOrder.Name = "checkUseSkillsInOrder";
+            this.checkUseSkillsInOrder.ShadowDepth = 1;
+            this.checkUseSkillsInOrder.Size = new System.Drawing.Size(86, 15);
+            this.checkUseSkillsInOrder.TabIndex = 10;
+            this.checkUseSkillsInOrder.Text = "Use in order";
+            this.checkUseSkillsInOrder.UseVisualStyleBackColor = false;
+            this.checkUseSkillsInOrder.CheckedChanged += new System.EventHandler(this.checkUseSkillsInOrder_CheckedChanged);
             // 
             // checkBoxNoAttack
             // 
@@ -813,10 +826,10 @@
             // 
             this.tabPage4.BackColor = System.Drawing.Color.White;
             this.tabPage4.Controls.Add(this.listActiveBuffs);
-            this.tabPage4.Location = new System.Drawing.Point(4, 25);
+            this.tabPage4.Location = new System.Drawing.Point(4, 24);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(354, 438);
+            this.tabPage4.Size = new System.Drawing.Size(354, 439);
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "Active buffs";
             // 
@@ -833,10 +846,11 @@
             this.listActiveBuffs.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listActiveBuffs.Location = new System.Drawing.Point(3, 3);
             this.listActiveBuffs.Name = "listActiveBuffs";
-            this.listActiveBuffs.Size = new System.Drawing.Size(348, 432);
+            this.listActiveBuffs.Size = new System.Drawing.Size(348, 433);
             this.listActiveBuffs.TabIndex = 6;
             this.listActiveBuffs.UseCompatibleStateImageBehavior = false;
             this.listActiveBuffs.View = System.Windows.Forms.View.Details;
+            this.listActiveBuffs.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listActiveBuffs_MouseDoubleClick);
             // 
             // colActiveName
             // 
@@ -847,19 +861,6 @@
             // 
             this.colActiveLevel.Text = "";
             this.colActiveLevel.Width = 69;
-            // 
-            // checkUseSkillsInOrder
-            // 
-            this.checkUseSkillsInOrder.AutoSize = true;
-            this.checkUseSkillsInOrder.BackColor = System.Drawing.Color.Transparent;
-            this.checkUseSkillsInOrder.Location = new System.Drawing.Point(231, 192);
-            this.checkUseSkillsInOrder.Name = "checkUseSkillsInOrder";
-            this.checkUseSkillsInOrder.ShadowDepth = 1;
-            this.checkUseSkillsInOrder.Size = new System.Drawing.Size(86, 15);
-            this.checkUseSkillsInOrder.TabIndex = 10;
-            this.checkUseSkillsInOrder.Text = "Use in order";
-            this.checkUseSkillsInOrder.UseVisualStyleBackColor = false;
-            this.checkUseSkillsInOrder.CheckedChanged += new System.EventHandler(this.checkUseSkillsInOrder_CheckedChanged);
             // 
             // Main
             // 

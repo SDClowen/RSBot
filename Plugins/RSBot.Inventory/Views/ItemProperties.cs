@@ -309,6 +309,11 @@ namespace RSBot.Inventory.Views
             Speed2 = item.Record.Speed2;
             AssocFileIcon = item.Record.AssocFileIcon;
             Icon = item.Record.GetIcon();
+            ItemSkillInUse = item.ItemSkillInUse;
+
+            if (item.Rental == null)
+                return;
+
             Type = item.Rental.Type;
             CanDelete = item.Rental.CanDelete;
             PeriodBeginTime = item.Rental.PeriodBeginTime;
@@ -316,7 +321,6 @@ namespace RSBot.Inventory.Views
             CanRecharge = item.Rental.CanRecharge;
             MeterRateTime = item.Rental.MeterRateTime;
             PackingTime = item.Rental.PackingTime;
-            ItemSkillInUse = item.ItemSkillInUse;
         }
     }
 }

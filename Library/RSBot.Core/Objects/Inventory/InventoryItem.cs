@@ -132,15 +132,17 @@ namespace RSBot.Core.Objects
         {
             get
             {
+                //ToDo: Refine this whole check to act 1:1 like the client. I think Action_Overlap is a bitmap and not an actual value to work with. 
                 var refSkill = GetRefSkill();
-                
-                if (refSkill == null && Record.Param1 <= 0)
-                    return false;
 
-                //TODO: This is wrong.. need to find out an example for 10% exp scroll
-                refSkill = Game.ReferenceManager.SkillData[(uint) Record.Param1];
-                
-                return Game.Player.State.ActiveBuffs.FirstOrDefault(b => b.Record.ID == refSkill.ID) != null;
+                if (refSkill != null)
+                    return Game.Player.State.ActiveBuffs.FirstOrDefault(b => b.Record.ID == refSkill.ID || b.Record.Action_Overlap == refSkill.Action_Overlap) != null;
+
+                var perk = Game.Player.State.ActiveItemPerks.Values.FirstOrDefault(p =>
+                    p.ItemId == Record.ID ||
+                    (Record.Param1 > 0 && p.Item.Param1 == Record.Param1));
+
+                return perk != null;
             }
         }
 

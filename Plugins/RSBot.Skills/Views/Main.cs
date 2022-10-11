@@ -928,7 +928,7 @@ namespace RSBot.Skills.Views
                 return;
 #endif
 
-            if (!(listSkills.SelectedItems[0].Tag is SkillInfo skillInfo))
+            if (listSkills.SelectedItems[0].Tag is not SkillInfo skillInfo)
                 return;
 
             var itemForm = new SkillProperties(skillInfo.Record);
@@ -940,7 +940,7 @@ namespace RSBot.Skills.Views
             if (listSkills.SelectedItems.Count <= 0)
                 return;
 
-            if (!(listSkills.SelectedItems[0].Tag is SkillInfo skillInfo))
+            if (listSkills.SelectedItems[0].Tag is not SkillInfo skillInfo)
                 return;
 
             if (skillInfo.IsAttack)
@@ -968,7 +968,7 @@ namespace RSBot.Skills.Views
                         if (listSkills.SelectedItems.Count <= 0)
                             return;
 
-                        if (!(listSkills.SelectedItems[0].Tag is SkillInfo skillInfo))
+                        if (listSkills.SelectedItems[0].Tag is not SkillInfo skillInfo)
                             return;
 
                         if (skillInfo.IsAttack)
@@ -998,6 +998,19 @@ namespace RSBot.Skills.Views
         private void checkUseSkillsInOrder_CheckedChanged( object sender, EventArgs e ) 
         {
             PlayerConfig.Set( "RSBot.Skills.UseSkillsInOrder", checkUseSkillsInOrder.Checked );
+        }
+
+        private void listActiveBuffs_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            BuffProperties propertiesWindow = null;
+            if (listActiveBuffs.SelectedItems[0].Tag is SkillInfo skillInfo)
+                propertiesWindow = new BuffProperties(skillInfo);
+            else if (listActiveBuffs.SelectedItems[0].Tag is ItemPerk itemPerk)
+                propertiesWindow = new BuffProperties(itemPerk);
+
+            if (propertiesWindow != null)
+                propertiesWindow.Show();
+
         }
     }
 }
