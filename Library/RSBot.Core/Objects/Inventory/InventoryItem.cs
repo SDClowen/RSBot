@@ -123,6 +123,30 @@ namespace RSBot.Core.Objects
         public InventoryItemCosInfo Cos;
 
         /// <summary>
+        /// Gets a value indicating whether [item skill in use].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [item skill in use]; otherwise, <c>false</c>.
+        /// </value>
+        public bool ItemSkillInUse
+        {
+            get
+            {
+                //ToDo: Refine this whole check to act 1:1 like the client. I think Action_Overlap is a bitmap and not an actual value to work with. 
+                var refSkill = GetRefSkill();
+
+                if (refSkill != null)
+                    return Game.Player.State.ActiveBuffs.FirstOrDefault(b => b.Record.ID == refSkill.ID || b.Record.Action_Overlap == refSkill.Action_Overlap) != null;
+
+                var perk = Game.Player.State.ActiveItemPerks.Values.FirstOrDefault(p =>
+                    p.ItemId == Record.ID ||
+                    (Record.Param1 > 0 && p.Item.Param1 == Record.Param1));
+
+                return perk != null;
+            }
+        }
+
+        /// <summary>
         /// Uses the item
         /// </summary>
         /// <returns></returns>
@@ -427,6 +451,14 @@ namespace RSBot.Core.Objects
                 return filter.EqualsRefItem(Record);
 
             return false;
+        }
+
+        public RefSkill? GetRefSkill()
+        {
+            if (string.IsNullOrEmpty(Record.Desc1))
+                return null;
+
+            return Game.ReferenceManager.GetRefSkill(Record.Desc1);
         }
 
         public InventoryItem Clone()

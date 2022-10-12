@@ -59,6 +59,7 @@ namespace RSBot.Inventory.Views
 
             UpdateInventoryList();
         }
+
         /// <summary>
         /// Calling when update inventory item
         /// </summary>
@@ -110,7 +111,6 @@ namespace RSBot.Inventory.Views
                 switch (_selectedIndex)
                 {
                     case 0:
-
                         var itemsPlayer = Game.Player.Inventory.GetNormalPartItems();
                         foreach (var item in itemsPlayer)
                             AddItem(item);
@@ -268,6 +268,15 @@ namespace RSBot.Inventory.Views
             if (item.Record.IsEquip)
                 lvItem.SubItems.Add(item.Record.GetRarityName());
 
+            if (_selectedIndex == 0)
+            {
+                var useItemsAtTrainingPlace =
+                    PlayerConfig.GetArray<string>("RSBot.Inventory.ItemsAtTrainplace");
+
+                if (useItemsAtTrainingPlace.Contains(item.Record.CodeName))
+                    lvItem.Font = new Font(lvItem.Font, FontStyle.Bold);
+            }
+
             lvItem.LoadItemImageAsync(item.Record);
         }
 
@@ -389,8 +398,7 @@ namespace RSBot.Inventory.Views
             }
 
             var listViewItem = listViewMain.SelectedItems[0];
-            var inventoryItem = listViewItem.Tag as InventoryItem;
-            if (inventoryItem == null)
+            if (listViewItem.Tag is not InventoryItem inventoryItem)
                 return;
 
             if (_selectedIndex != 0)
@@ -402,6 +410,19 @@ namespace RSBot.Inventory.Views
                 moveToPlayerToolStripMenuItem.Visible = _selectedIndex == 3;
                 selectMapLocationToolStripMenuItem.Visible = false;
                 return;
+            }
+
+            var canUse = (inventoryItem.Record.CanUse & ObjectUseType.Yes) != 0;
+            if (canUse)
+            {
+                var useItems = PlayerConfig.GetArray<string>("RSBot.Inventory.ItemsAtTrainplace");
+                useItemAtTrainingPlaceMenuItem.Checked = useItems.Contains(inventoryItem.Record.CodeName);
+                useItemAtTrainingPlaceMenuItem.Enabled = true;
+            }
+            else
+            {
+                useItemAtTrainingPlaceMenuItem.Checked = false;
+                useItemAtTrainingPlaceMenuItem.Enabled = false;
             }
 
             bool isReverseScroll = inventoryItem.Equals(new TypeIdFilter(3, 3, 3, 3));
@@ -524,6 +545,34 @@ namespace RSBot.Inventory.Views
         private void checkAutoSort_CheckedChanged(object sender, EventArgs e)
         {
             PlayerConfig.Set("RSBot.Inventory.AutoSortInventory", checkAutoSort.Checked);
+        }
+
+        private void useItemAtTrainingPlaceMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listViewMain.SelectedItems.Count == 0)
+                return;
+
+            var lvItem = listViewMain.SelectedItems[0];
+            var itemsToUse = PlayerConfig.GetArray<string>("RSBot.Inventory.ItemsAtTrainplace").ToList();
+            var selectedItem = (InventoryItem)lvItem.Tag;
+            if (selectedItem == null)
+                return;
+
+            var useSelectedItem = itemsToUse.Contains(selectedItem.Record.CodeName);
+
+            if (useSelectedItem)
+            {
+                lvItem.Font = new Font(lvItem.Font, FontStyle.Regular);
+                itemsToUse.Remove(selectedItem.Record.CodeName);
+            }
+            else
+            {
+                lvItem.Font = new Font(lvItem.Font, FontStyle.Bold);
+                itemsToUse.Add(selectedItem.Record.CodeName);
+            }
+
+            useItemAtTrainingPlaceMenuItem.Checked = !useItemAtTrainingPlaceMenuItem.Checked;
+            PlayerConfig.SetArray("RSBot.Inventory.ItemsAtTrainplace", itemsToUse);
         }
     }
 }

@@ -3,7 +3,6 @@ using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -52,6 +51,9 @@ namespace RSBot.Default.Views
             txtRadius.Text = radius.ToString();
             txtXCoord.Text = xPos.ToString();
             txtYCoord.Text = yPos.ToString();
+
+            var gamePos = new Position(xPos, yPos);
+            Kernel.Bot.CenterPosition = gamePos;
 
             EventManager.FireEvent("AppendScriptCommand", $"area {xPos} {yPos} {radius}");
         }
@@ -106,7 +108,7 @@ namespace RSBot.Default.Views
         {
             txtXCoord.Text = Game.Player.Position.X.ToString("0.0");
             txtYCoord.Text = Game.Player.Position.Y.ToString("0.0");
-
+            
             EventManager.FireEvent("OnSetTrainingArea");
         }
 

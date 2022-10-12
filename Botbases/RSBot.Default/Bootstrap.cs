@@ -100,6 +100,7 @@ namespace RSBot.Default
 
             Bundles.Reload();
             Container.Bot = new Botbase();
+            Kernel.Bot.CenterPosition = new Position(x, y);
 
             //Begin the loopback
             if (Container.Bot.Area.Position.DistanceTo(Game.Player.Movement.Source) > 80)
