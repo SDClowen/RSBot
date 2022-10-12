@@ -103,9 +103,32 @@ namespace RSBot.Party.Bundle.AutoParty
         /// <summary>
         /// Gets or sets a value indicating whether [leave if party master is not N].
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if [leave if party master is not N]; otherwise, <c>false</c>.
-        /// </value>
         public string LeaveIfMasterNotName { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether auto join by name.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [auto join by name]; otherwise, <c>false</c>.
+        /// </value>
+        public bool AutoJoinByName { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether auto join by title.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [auto join by title]; otherwise, <c>false</c>.
+        /// </value>
+        public bool AutoJoinByTitle { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether auto join by name content.
+        /// </summary>
+        public string AutoJoinByNameContent { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether auto join by title content.
+        /// </summary>
+        public string AutoJoinByTitleContent { get; set; }
     }
 }

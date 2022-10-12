@@ -106,7 +106,7 @@ namespace RSBot.Party.Bundle.PartyMatching
         /// Joins the specified identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        public bool Join(int id)
+        public bool Join(uint id)
         {
             var packet = new Packet(0x706D);
             packet.WriteUInt(id);

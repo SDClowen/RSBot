@@ -51,6 +51,7 @@
             this.checkCurrentAutoShareEXP = new SDUI.Controls.CheckBox();
             this.tpAutoParty = new System.Windows.Forms.TabPage();
             this.groupBox2 = new SDUI.Controls.GroupBox();
+            this.separator10 = new SDUI.Controls.Separator();
             this.labelCommandsInfo = new SDUI.Controls.Label();
             this.separator2 = new SDUI.Controls.Separator();
             this.separator1 = new SDUI.Controls.Separator();
@@ -95,6 +96,13 @@
             this.chPartyMatchMember = new System.Windows.Forms.ColumnHeader();
             this.chPartyMatchRange = new System.Windows.Forms.ColumnHeader();
             this.topPartyPanel = new SDUI.Controls.Panel();
+            this.buttonConfirmJoinConfig = new SDUI.Controls.Button();
+            this.textBoxJoinByTitle = new SDUI.Controls.TextBox();
+            this.textBoxJoinByName = new SDUI.Controls.TextBox();
+            this.checkBoxJoinByTitle = new SDUI.Controls.CheckBox();
+            this.checkBoxJoinByName = new SDUI.Controls.CheckBox();
+            this.separator11 = new SDUI.Controls.Separator();
+            this.buttonAutoJoinConfig = new SDUI.Controls.Button();
             this.btnPartyRefresh = new SDUI.Controls.Button();
             this.btnPartySearch = new SDUI.Controls.Button();
             this.nudPartySearchMax = new SDUI.Controls.NumUpDown();
@@ -288,6 +296,7 @@
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
             this.panel1.BorderColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.btnLeaveParty);
@@ -298,6 +307,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(6);
             this.panel1.Radius = 0;
+            this.panel1.ShadowDepth = 4F;
             this.panel1.Size = new System.Drawing.Size(740, 32);
             this.panel1.TabIndex = 8;
             // 
@@ -309,7 +319,8 @@
             this.btnLeaveParty.ForeColor = System.Drawing.Color.White;
             this.btnLeaveParty.Location = new System.Drawing.Point(637, 6);
             this.btnLeaveParty.Name = "btnLeaveParty";
-            this.btnLeaveParty.Radius = 2;
+            this.btnLeaveParty.Radius = 6;
+            this.btnLeaveParty.ShadowDepth = 4F;
             this.btnLeaveParty.Size = new System.Drawing.Size(97, 20);
             this.btnLeaveParty.TabIndex = 2;
             this.btnLeaveParty.Text = "Leave party";
@@ -347,7 +358,8 @@
             this.grpPartySettings.Location = new System.Drawing.Point(3, 3);
             this.grpPartySettings.Name = "grpPartySettings";
             this.grpPartySettings.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.grpPartySettings.Radius = 2;
+            this.grpPartySettings.Radius = 10;
+            this.grpPartySettings.ShadowDepth = 4;
             this.grpPartySettings.Size = new System.Drawing.Size(740, 80);
             this.grpPartySettings.TabIndex = 7;
             this.grpPartySettings.TabStop = false;
@@ -357,37 +369,40 @@
             // 
             this.checkCurrentAllowInvitations.AutoSize = true;
             this.checkCurrentAllowInvitations.BackColor = System.Drawing.Color.Transparent;
-            this.checkCurrentAllowInvitations.Checked = false;
             this.checkCurrentAllowInvitations.Enabled = false;
             this.checkCurrentAllowInvitations.Location = new System.Drawing.Point(143, 31);
             this.checkCurrentAllowInvitations.Name = "checkCurrentAllowInvitations";
+            this.checkCurrentAllowInvitations.ShadowDepth = 1;
             this.checkCurrentAllowInvitations.Size = new System.Drawing.Size(111, 15);
             this.checkCurrentAllowInvitations.TabIndex = 6;
             this.checkCurrentAllowInvitations.Text = "Allow invitations";
+            this.checkCurrentAllowInvitations.UseVisualStyleBackColor = false;
             // 
             // checkCurrentAutoShareItems
             // 
             this.checkCurrentAutoShareItems.AutoSize = true;
             this.checkCurrentAutoShareItems.BackColor = System.Drawing.Color.Transparent;
-            this.checkCurrentAutoShareItems.Checked = false;
             this.checkCurrentAutoShareItems.Enabled = false;
             this.checkCurrentAutoShareItems.Location = new System.Drawing.Point(13, 54);
             this.checkCurrentAutoShareItems.Name = "checkCurrentAutoShareItems";
+            this.checkCurrentAutoShareItems.ShadowDepth = 1;
             this.checkCurrentAutoShareItems.Size = new System.Drawing.Size(105, 15);
             this.checkCurrentAutoShareItems.TabIndex = 5;
             this.checkCurrentAutoShareItems.Text = "Item auto share";
+            this.checkCurrentAutoShareItems.UseVisualStyleBackColor = false;
             // 
             // checkCurrentAutoShareEXP
             // 
             this.checkCurrentAutoShareEXP.AutoSize = true;
             this.checkCurrentAutoShareEXP.BackColor = System.Drawing.Color.Transparent;
-            this.checkCurrentAutoShareEXP.Checked = false;
             this.checkCurrentAutoShareEXP.Enabled = false;
             this.checkCurrentAutoShareEXP.Location = new System.Drawing.Point(13, 31);
             this.checkCurrentAutoShareEXP.Name = "checkCurrentAutoShareEXP";
+            this.checkCurrentAutoShareEXP.ShadowDepth = 1;
             this.checkCurrentAutoShareEXP.Size = new System.Drawing.Size(103, 15);
             this.checkCurrentAutoShareEXP.TabIndex = 5;
             this.checkCurrentAutoShareEXP.Text = "EXP Auto share";
+            this.checkCurrentAutoShareEXP.UseVisualStyleBackColor = false;
             // 
             // tpAutoParty
             // 
@@ -397,16 +412,17 @@
             this.tpAutoParty.Controls.Add(this.panel2);
             this.tpAutoParty.Controls.Add(this.separator5);
             this.tpAutoParty.Controls.Add(this.grbAutoPartySettings);
-            this.tpAutoParty.Location = new System.Drawing.Point(4, 24);
+            this.tpAutoParty.Location = new System.Drawing.Point(4, 25);
             this.tpAutoParty.Name = "tpAutoParty";
             this.tpAutoParty.Padding = new System.Windows.Forms.Padding(3);
-            this.tpAutoParty.Size = new System.Drawing.Size(746, 439);
+            this.tpAutoParty.Size = new System.Drawing.Size(746, 438);
             this.tpAutoParty.TabIndex = 1;
             this.tpAutoParty.Text = "Auto Party";
             // 
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox2.Controls.Add(this.separator10);
             this.groupBox2.Controls.Add(this.labelCommandsInfo);
             this.groupBox2.Controls.Add(this.separator2);
             this.groupBox2.Controls.Add(this.separator1);
@@ -425,11 +441,21 @@
             this.groupBox2.Location = new System.Drawing.Point(234, 93);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBox2.Radius = 2;
-            this.groupBox2.Size = new System.Drawing.Size(509, 343);
+            this.groupBox2.Radius = 10;
+            this.groupBox2.ShadowDepth = 4;
+            this.groupBox2.Size = new System.Drawing.Size(509, 342);
             this.groupBox2.TabIndex = 11;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Auto party settings";
+            // 
+            // separator10
+            // 
+            this.separator10.IsVertical = true;
+            this.separator10.Location = new System.Drawing.Point(265, 31);
+            this.separator10.Name = "separator10";
+            this.separator10.Size = new System.Drawing.Size(10, 130);
+            this.separator10.TabIndex = 19;
+            this.separator10.Text = "separator10";
             // 
             // labelCommandsInfo
             // 
@@ -466,6 +492,7 @@
             this.textBoxLeaveIfMasterNotName.MaxLength = 32767;
             this.textBoxLeaveIfMasterNotName.MultiLine = false;
             this.textBoxLeaveIfMasterNotName.Name = "textBoxLeaveIfMasterNotName";
+            this.textBoxLeaveIfMasterNotName.Radius = 2;
             this.textBoxLeaveIfMasterNotName.Size = new System.Drawing.Size(85, 21);
             this.textBoxLeaveIfMasterNotName.TabIndex = 14;
             this.textBoxLeaveIfMasterNotName.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
@@ -475,67 +502,72 @@
             // 
             this.checkBoxListenCommandsOnlyList.AutoSize = true;
             this.checkBoxListenCommandsOnlyList.BackColor = System.Drawing.Color.Transparent;
-            this.checkBoxListenCommandsOnlyList.Checked = false;
             this.checkBoxListenCommandsOnlyList.Location = new System.Drawing.Point(20, 253);
             this.checkBoxListenCommandsOnlyList.Name = "checkBoxListenCommandsOnlyList";
+            this.checkBoxListenCommandsOnlyList.ShadowDepth = 1;
             this.checkBoxListenCommandsOnlyList.Size = new System.Drawing.Size(148, 15);
             this.checkBoxListenCommandsOnlyList.TabIndex = 13;
             this.checkBoxListenCommandsOnlyList.Text = "Listen commands in list";
+            this.checkBoxListenCommandsOnlyList.UseVisualStyleBackColor = false;
             this.checkBoxListenCommandsOnlyList.CheckedChanged += new System.EventHandler(this.checkAutoPartySetting_CheckedChanged);
             // 
             // checkBoxListenMasterCommands
             // 
             this.checkBoxListenMasterCommands.AutoSize = true;
             this.checkBoxListenMasterCommands.BackColor = System.Drawing.Color.Transparent;
-            this.checkBoxListenMasterCommands.Checked = false;
             this.checkBoxListenMasterCommands.Location = new System.Drawing.Point(20, 231);
             this.checkBoxListenMasterCommands.Name = "checkBoxListenMasterCommands";
+            this.checkBoxListenMasterCommands.ShadowDepth = 1;
             this.checkBoxListenMasterCommands.Size = new System.Drawing.Size(186, 15);
             this.checkBoxListenMasterCommands.TabIndex = 13;
             this.checkBoxListenMasterCommands.Text = "Listen party master commands";
+            this.checkBoxListenMasterCommands.UseVisualStyleBackColor = false;
             this.checkBoxListenMasterCommands.CheckedChanged += new System.EventHandler(this.checkAutoPartySetting_CheckedChanged);
             // 
             // checkBoxLeaveIfMasterNot
             // 
             this.checkBoxLeaveIfMasterNot.AutoSize = true;
             this.checkBoxLeaveIfMasterNot.BackColor = System.Drawing.Color.Transparent;
-            this.checkBoxLeaveIfMasterNot.Checked = false;
             this.checkBoxLeaveIfMasterNot.Location = new System.Drawing.Point(20, 190);
             this.checkBoxLeaveIfMasterNot.Name = "checkBoxLeaveIfMasterNot";
+            this.checkBoxLeaveIfMasterNot.ShadowDepth = 1;
             this.checkBoxLeaveIfMasterNot.Size = new System.Drawing.Size(129, 15);
             this.checkBoxLeaveIfMasterNot.TabIndex = 13;
             this.checkBoxLeaveIfMasterNot.Text = "Leave, if master not:";
+            this.checkBoxLeaveIfMasterNot.UseVisualStyleBackColor = false;
             this.checkBoxLeaveIfMasterNot.CheckedChanged += new System.EventHandler(this.checkAutoPartySetting_CheckedChanged);
             // 
             // checkAcceptIfBotStopped
             // 
             this.checkAcceptIfBotStopped.AutoSize = true;
             this.checkAcceptIfBotStopped.BackColor = System.Drawing.Color.Transparent;
-            this.checkAcceptIfBotStopped.Checked = false;
             this.checkAcceptIfBotStopped.Location = new System.Drawing.Point(20, 144);
             this.checkAcceptIfBotStopped.Name = "checkAcceptIfBotStopped";
+            this.checkAcceptIfBotStopped.ShadowDepth = 1;
             this.checkAcceptIfBotStopped.Size = new System.Drawing.Size(168, 15);
             this.checkAcceptIfBotStopped.TabIndex = 12;
             this.checkAcceptIfBotStopped.Text = "Accept if the bot is stopped";
+            this.checkAcceptIfBotStopped.UseVisualStyleBackColor = false;
             this.checkAcceptIfBotStopped.CheckedChanged += new System.EventHandler(this.checkAutoPartySetting_CheckedChanged);
             // 
             // checkAcceptAtTrainingPlace
             // 
             this.checkAcceptAtTrainingPlace.AutoSize = true;
             this.checkAcceptAtTrainingPlace.BackColor = System.Drawing.Color.Transparent;
-            this.checkAcceptAtTrainingPlace.Checked = false;
             this.checkAcceptAtTrainingPlace.Location = new System.Drawing.Point(20, 121);
             this.checkAcceptAtTrainingPlace.Name = "checkAcceptAtTrainingPlace";
+            this.checkAcceptAtTrainingPlace.ShadowDepth = 1;
             this.checkAcceptAtTrainingPlace.Size = new System.Drawing.Size(208, 15);
             this.checkAcceptAtTrainingPlace.TabIndex = 10;
             this.checkAcceptAtTrainingPlace.Text = "Accept/Invite only at training place";
+            this.checkAcceptAtTrainingPlace.UseVisualStyleBackColor = false;
             this.checkAcceptAtTrainingPlace.CheckedChanged += new System.EventHandler(this.checkAutoPartySetting_CheckedChanged);
             // 
             // label2
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label2.Location = new System.Drawing.Point(17, 312);
+            this.label2.Location = new System.Drawing.Point(17, 311);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(189, 18);
             this.label2.TabIndex = 11;
@@ -545,48 +577,52 @@
             // 
             this.checkInviteFromList.AutoSize = true;
             this.checkInviteFromList.BackColor = System.Drawing.Color.Transparent;
-            this.checkInviteFromList.Checked = false;
             this.checkInviteFromList.Location = new System.Drawing.Point(20, 98);
             this.checkInviteFromList.Name = "checkInviteFromList";
+            this.checkInviteFromList.ShadowDepth = 1;
             this.checkInviteFromList.Size = new System.Drawing.Size(218, 15);
             this.checkInviteFromList.TabIndex = 9;
             this.checkInviteFromList.Text = "Auto invite all players from player list";
+            this.checkInviteFromList.UseVisualStyleBackColor = false;
             this.checkInviteFromList.CheckedChanged += new System.EventHandler(this.checkAutoPartySetting_CheckedChanged);
             // 
             // checkInviteAll
             // 
             this.checkInviteAll.AutoSize = true;
             this.checkInviteAll.BackColor = System.Drawing.Color.Transparent;
-            this.checkInviteAll.Checked = false;
             this.checkInviteAll.Location = new System.Drawing.Point(20, 75);
             this.checkInviteAll.Name = "checkInviteAll";
+            this.checkInviteAll.ShadowDepth = 1;
             this.checkInviteAll.Size = new System.Drawing.Size(136, 15);
             this.checkInviteAll.TabIndex = 8;
             this.checkInviteAll.Text = "Auto invite all players";
+            this.checkInviteAll.UseVisualStyleBackColor = false;
             this.checkInviteAll.CheckedChanged += new System.EventHandler(this.checkAutoPartySetting_CheckedChanged);
             // 
             // checkAcceptFromList
             // 
             this.checkAcceptFromList.AutoSize = true;
             this.checkAcceptFromList.BackColor = System.Drawing.Color.Transparent;
-            this.checkAcceptFromList.Checked = false;
             this.checkAcceptFromList.Location = new System.Drawing.Point(20, 52);
             this.checkAcceptFromList.Name = "checkAcceptFromList";
+            this.checkAcceptFromList.ShadowDepth = 1;
             this.checkAcceptFromList.Size = new System.Drawing.Size(200, 15);
             this.checkAcceptFromList.TabIndex = 7;
             this.checkAcceptFromList.Text = "Accept invitations from player list";
+            this.checkAcceptFromList.UseVisualStyleBackColor = false;
             this.checkAcceptFromList.CheckedChanged += new System.EventHandler(this.checkAutoPartySetting_CheckedChanged);
             // 
             // checkAcceptAll
             // 
             this.checkAcceptAll.AutoSize = true;
             this.checkAcceptAll.BackColor = System.Drawing.Color.Transparent;
-            this.checkAcceptAll.Checked = false;
             this.checkAcceptAll.Location = new System.Drawing.Point(20, 29);
             this.checkAcceptAll.Name = "checkAcceptAll";
+            this.checkAcceptAll.ShadowDepth = 1;
             this.checkAcceptAll.Size = new System.Drawing.Size(138, 15);
             this.checkAcceptAll.TabIndex = 6;
             this.checkAcceptAll.Text = "Accept all invitations*";
+            this.checkAcceptAll.UseVisualStyleBackColor = false;
             this.checkAcceptAll.CheckedChanged += new System.EventHandler(this.checkAutoPartySetting_CheckedChanged);
             // 
             // separator6
@@ -595,7 +631,7 @@
             this.separator6.IsVertical = true;
             this.separator6.Location = new System.Drawing.Point(224, 93);
             this.separator6.Name = "separator6";
-            this.separator6.Size = new System.Drawing.Size(10, 343);
+            this.separator6.Size = new System.Drawing.Size(10, 342);
             this.separator6.TabIndex = 16;
             this.separator6.Text = "separator6";
             // 
@@ -607,7 +643,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(3, 93);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(221, 343);
+            this.panel2.Size = new System.Drawing.Size(221, 342);
             this.panel2.TabIndex = 14;
             // 
             // groupBox7
@@ -619,8 +655,9 @@
             this.groupBox7.Location = new System.Drawing.Point(0, 189);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
-            this.groupBox7.Radius = 2;
-            this.groupBox7.Size = new System.Drawing.Size(221, 154);
+            this.groupBox7.Radius = 10;
+            this.groupBox7.ShadowDepth = 4;
+            this.groupBox7.Size = new System.Drawing.Size(221, 153);
             this.groupBox7.TabIndex = 13;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Their commands will be listened to";
@@ -636,7 +673,7 @@
             this.listCommandPlayers.Location = new System.Drawing.Point(1, 24);
             this.listCommandPlayers.MultiSelect = false;
             this.listCommandPlayers.Name = "listCommandPlayers";
-            this.listCommandPlayers.Size = new System.Drawing.Size(219, 96);
+            this.listCommandPlayers.Size = new System.Drawing.Size(219, 95);
             this.listCommandPlayers.TabIndex = 18;
             this.listCommandPlayers.UseCompatibleStateImageBehavior = false;
             this.listCommandPlayers.View = System.Windows.Forms.View.Details;
@@ -647,14 +684,16 @@
             // 
             // panel4
             // 
+            this.panel4.BackColor = System.Drawing.Color.Transparent;
             this.panel4.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
             this.panel4.BorderColor = System.Drawing.Color.Transparent;
             this.panel4.Controls.Add(this.buttonCommandPlayerAdd);
             this.panel4.Controls.Add(this.buttonCommandPlayerRemove);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(1, 120);
+            this.panel4.Location = new System.Drawing.Point(1, 119);
             this.panel4.Name = "panel4";
             this.panel4.Radius = 1;
+            this.panel4.ShadowDepth = 4F;
             this.panel4.Size = new System.Drawing.Size(219, 33);
             this.panel4.TabIndex = 10;
             // 
@@ -663,7 +702,8 @@
             this.buttonCommandPlayerAdd.Color = System.Drawing.Color.Transparent;
             this.buttonCommandPlayerAdd.Location = new System.Drawing.Point(5, 5);
             this.buttonCommandPlayerAdd.Name = "buttonCommandPlayerAdd";
-            this.buttonCommandPlayerAdd.Radius = 2;
+            this.buttonCommandPlayerAdd.Radius = 6;
+            this.buttonCommandPlayerAdd.ShadowDepth = 4F;
             this.buttonCommandPlayerAdd.Size = new System.Drawing.Size(82, 23);
             this.buttonCommandPlayerAdd.TabIndex = 10;
             this.buttonCommandPlayerAdd.Text = "Add";
@@ -675,7 +715,8 @@
             this.buttonCommandPlayerRemove.Color = System.Drawing.Color.Transparent;
             this.buttonCommandPlayerRemove.Location = new System.Drawing.Point(137, 5);
             this.buttonCommandPlayerRemove.Name = "buttonCommandPlayerRemove";
-            this.buttonCommandPlayerRemove.Radius = 2;
+            this.buttonCommandPlayerRemove.Radius = 6;
+            this.buttonCommandPlayerRemove.ShadowDepth = 4F;
             this.buttonCommandPlayerRemove.Size = new System.Drawing.Size(78, 23);
             this.buttonCommandPlayerRemove.TabIndex = 10;
             this.buttonCommandPlayerRemove.Text = "Remove";
@@ -700,7 +741,8 @@
             this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
-            this.groupBox3.Radius = 2;
+            this.groupBox3.Radius = 10;
+            this.groupBox3.ShadowDepth = 4;
             this.groupBox3.Size = new System.Drawing.Size(221, 179);
             this.groupBox3.TabIndex = 12;
             this.groupBox3.TabStop = false;
@@ -728,6 +770,7 @@
             // 
             // panel3
             // 
+            this.panel3.BackColor = System.Drawing.Color.Transparent;
             this.panel3.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
             this.panel3.BorderColor = System.Drawing.Color.Transparent;
             this.panel3.Controls.Add(this.btnAddToAutoParty);
@@ -736,6 +779,7 @@
             this.panel3.Location = new System.Drawing.Point(1, 145);
             this.panel3.Name = "panel3";
             this.panel3.Radius = 0;
+            this.panel3.ShadowDepth = 4F;
             this.panel3.Size = new System.Drawing.Size(219, 33);
             this.panel3.TabIndex = 17;
             // 
@@ -744,7 +788,8 @@
             this.btnAddToAutoParty.Color = System.Drawing.Color.Transparent;
             this.btnAddToAutoParty.Location = new System.Drawing.Point(5, 4);
             this.btnAddToAutoParty.Name = "btnAddToAutoParty";
-            this.btnAddToAutoParty.Radius = 2;
+            this.btnAddToAutoParty.Radius = 6;
+            this.btnAddToAutoParty.ShadowDepth = 4F;
             this.btnAddToAutoParty.Size = new System.Drawing.Size(82, 23);
             this.btnAddToAutoParty.TabIndex = 10;
             this.btnAddToAutoParty.Text = "Add";
@@ -756,7 +801,8 @@
             this.btnRemoveFromAutoParty.Color = System.Drawing.Color.Transparent;
             this.btnRemoveFromAutoParty.Location = new System.Drawing.Point(138, 4);
             this.btnRemoveFromAutoParty.Name = "btnRemoveFromAutoParty";
-            this.btnRemoveFromAutoParty.Radius = 2;
+            this.btnRemoveFromAutoParty.Radius = 6;
+            this.btnRemoveFromAutoParty.ShadowDepth = 4F;
             this.btnRemoveFromAutoParty.Size = new System.Drawing.Size(78, 23);
             this.btnRemoveFromAutoParty.TabIndex = 10;
             this.btnRemoveFromAutoParty.Text = "Remove";
@@ -782,7 +828,8 @@
             this.grbAutoPartySettings.Location = new System.Drawing.Point(3, 3);
             this.grbAutoPartySettings.Name = "grbAutoPartySettings";
             this.grbAutoPartySettings.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.grbAutoPartySettings.Radius = 2;
+            this.grbAutoPartySettings.Radius = 10;
+            this.grbAutoPartySettings.ShadowDepth = 4;
             this.grbAutoPartySettings.Size = new System.Drawing.Size(740, 80);
             this.grbAutoPartySettings.TabIndex = 8;
             this.grbAutoPartySettings.TabStop = false;
@@ -793,23 +840,27 @@
             this.checkAutoAllowInvitations.AutoSize = true;
             this.checkAutoAllowInvitations.BackColor = System.Drawing.Color.Transparent;
             this.checkAutoAllowInvitations.Checked = true;
+            this.checkAutoAllowInvitations.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkAutoAllowInvitations.Location = new System.Drawing.Point(143, 31);
             this.checkAutoAllowInvitations.Name = "checkAutoAllowInvitations";
+            this.checkAutoAllowInvitations.ShadowDepth = 1;
             this.checkAutoAllowInvitations.Size = new System.Drawing.Size(111, 15);
             this.checkAutoAllowInvitations.TabIndex = 6;
             this.checkAutoAllowInvitations.Text = "Allow invitations";
+            this.checkAutoAllowInvitations.UseVisualStyleBackColor = false;
             this.checkAutoAllowInvitations.CheckedChanged += new System.EventHandler(this.checkSettings_CheckedChanged);
             // 
             // checkAutoItemAutoShare
             // 
             this.checkAutoItemAutoShare.AutoSize = true;
             this.checkAutoItemAutoShare.BackColor = System.Drawing.Color.Transparent;
-            this.checkAutoItemAutoShare.Checked = false;
             this.checkAutoItemAutoShare.Location = new System.Drawing.Point(13, 54);
             this.checkAutoItemAutoShare.Name = "checkAutoItemAutoShare";
+            this.checkAutoItemAutoShare.ShadowDepth = 1;
             this.checkAutoItemAutoShare.Size = new System.Drawing.Size(105, 15);
             this.checkAutoItemAutoShare.TabIndex = 5;
             this.checkAutoItemAutoShare.Text = "Item auto share";
+            this.checkAutoItemAutoShare.UseVisualStyleBackColor = false;
             this.checkAutoItemAutoShare.CheckedChanged += new System.EventHandler(this.checkSettings_CheckedChanged);
             // 
             // checkAutoExpAutoShare
@@ -817,11 +868,14 @@
             this.checkAutoExpAutoShare.AutoSize = true;
             this.checkAutoExpAutoShare.BackColor = System.Drawing.Color.Transparent;
             this.checkAutoExpAutoShare.Checked = true;
+            this.checkAutoExpAutoShare.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkAutoExpAutoShare.Location = new System.Drawing.Point(13, 31);
             this.checkAutoExpAutoShare.Name = "checkAutoExpAutoShare";
+            this.checkAutoExpAutoShare.ShadowDepth = 1;
             this.checkAutoExpAutoShare.Size = new System.Drawing.Size(103, 15);
             this.checkAutoExpAutoShare.TabIndex = 5;
             this.checkAutoExpAutoShare.Text = "EXP Auto share";
+            this.checkAutoExpAutoShare.UseVisualStyleBackColor = false;
             this.checkAutoExpAutoShare.CheckedChanged += new System.EventHandler(this.checkSettings_CheckedChanged);
             // 
             // tpPartyMatching
@@ -830,10 +884,10 @@
             this.tpPartyMatching.Controls.Add(this.lvPartyMatching);
             this.tpPartyMatching.Controls.Add(this.topPartyPanel);
             this.tpPartyMatching.Controls.Add(this.bottomPartyPanel);
-            this.tpPartyMatching.Location = new System.Drawing.Point(4, 25);
+            this.tpPartyMatching.Location = new System.Drawing.Point(4, 24);
             this.tpPartyMatching.Name = "tpPartyMatching";
             this.tpPartyMatching.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPartyMatching.Size = new System.Drawing.Size(746, 438);
+            this.tpPartyMatching.Size = new System.Drawing.Size(746, 439);
             this.tpPartyMatching.TabIndex = 2;
             this.tpPartyMatching.Text = "Party Matching";
             // 
@@ -852,11 +906,11 @@
             this.lvPartyMatching.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvPartyMatching.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lvPartyMatching.FullRowSelect = true;
-            this.lvPartyMatching.Location = new System.Drawing.Point(3, 51);
+            this.lvPartyMatching.Location = new System.Drawing.Point(3, 50);
             this.lvPartyMatching.MultiSelect = false;
             this.lvPartyMatching.Name = "lvPartyMatching";
             this.lvPartyMatching.ShowItemToolTips = true;
-            this.lvPartyMatching.Size = new System.Drawing.Size(740, 333);
+            this.lvPartyMatching.Size = new System.Drawing.Size(740, 335);
             this.lvPartyMatching.TabIndex = 15;
             this.lvPartyMatching.UseCompatibleStateImageBehavior = false;
             this.lvPartyMatching.View = System.Windows.Forms.View.Details;
@@ -898,8 +952,16 @@
             // 
             // topPartyPanel
             // 
+            this.topPartyPanel.BackColor = System.Drawing.Color.Transparent;
             this.topPartyPanel.Border = new System.Windows.Forms.Padding(0, 0, 0, 1);
             this.topPartyPanel.BorderColor = System.Drawing.Color.Transparent;
+            this.topPartyPanel.Controls.Add(this.buttonConfirmJoinConfig);
+            this.topPartyPanel.Controls.Add(this.textBoxJoinByTitle);
+            this.topPartyPanel.Controls.Add(this.textBoxJoinByName);
+            this.topPartyPanel.Controls.Add(this.checkBoxJoinByTitle);
+            this.topPartyPanel.Controls.Add(this.checkBoxJoinByName);
+            this.topPartyPanel.Controls.Add(this.separator11);
+            this.topPartyPanel.Controls.Add(this.buttonAutoJoinConfig);
             this.topPartyPanel.Controls.Add(this.btnPartyRefresh);
             this.topPartyPanel.Controls.Add(this.btnPartySearch);
             this.topPartyPanel.Controls.Add(this.nudPartySearchMax);
@@ -914,15 +976,102 @@
             this.topPartyPanel.Location = new System.Drawing.Point(3, 3);
             this.topPartyPanel.Name = "topPartyPanel";
             this.topPartyPanel.Radius = 0;
-            this.topPartyPanel.Size = new System.Drawing.Size(740, 48);
+            this.topPartyPanel.ShadowDepth = 4F;
+            this.topPartyPanel.Size = new System.Drawing.Size(740, 47);
             this.topPartyPanel.TabIndex = 16;
+            // 
+            // buttonConfirmJoinConfig
+            // 
+            this.buttonConfirmJoinConfig.Color = System.Drawing.Color.Green;
+            this.buttonConfirmJoinConfig.ForeColor = System.Drawing.Color.White;
+            this.buttonConfirmJoinConfig.Location = new System.Drawing.Point(276, 133);
+            this.buttonConfirmJoinConfig.Name = "buttonConfirmJoinConfig";
+            this.buttonConfirmJoinConfig.Radius = 6;
+            this.buttonConfirmJoinConfig.ShadowDepth = 4F;
+            this.buttonConfirmJoinConfig.Size = new System.Drawing.Size(61, 23);
+            this.buttonConfirmJoinConfig.TabIndex = 23;
+            this.buttonConfirmJoinConfig.Text = "Confirm";
+            this.buttonConfirmJoinConfig.UseVisualStyleBackColor = true;
+            this.buttonConfirmJoinConfig.Click += new System.EventHandler(this.buttonConfirmJoinConfig_Click);
+            // 
+            // textBoxJoinByTitle
+            // 
+            this.textBoxJoinByTitle.Location = new System.Drawing.Point(276, 112);
+            this.textBoxJoinByTitle.MaxLength = 32767;
+            this.textBoxJoinByTitle.MultiLine = false;
+            this.textBoxJoinByTitle.Name = "textBoxJoinByTitle";
+            this.textBoxJoinByTitle.Radius = 2;
+            this.textBoxJoinByTitle.Size = new System.Drawing.Size(202, 21);
+            this.textBoxJoinByTitle.TabIndex = 21;
+            this.textBoxJoinByTitle.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            this.textBoxJoinByTitle.UseSystemPasswordChar = false;
+            // 
+            // textBoxJoinByName
+            // 
+            this.textBoxJoinByName.Location = new System.Drawing.Point(276, 69);
+            this.textBoxJoinByName.MaxLength = 32767;
+            this.textBoxJoinByName.MultiLine = false;
+            this.textBoxJoinByName.Name = "textBoxJoinByName";
+            this.textBoxJoinByName.Radius = 2;
+            this.textBoxJoinByName.Size = new System.Drawing.Size(107, 21);
+            this.textBoxJoinByName.TabIndex = 22;
+            this.textBoxJoinByName.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            this.textBoxJoinByName.UseSystemPasswordChar = false;
+            // 
+            // checkBoxJoinByTitle
+            // 
+            this.checkBoxJoinByTitle.AutoSize = true;
+            this.checkBoxJoinByTitle.BackColor = System.Drawing.Color.Transparent;
+            this.checkBoxJoinByTitle.Location = new System.Drawing.Point(276, 96);
+            this.checkBoxJoinByTitle.Name = "checkBoxJoinByTitle";
+            this.checkBoxJoinByTitle.ShadowDepth = 1;
+            this.checkBoxJoinByTitle.Size = new System.Drawing.Size(111, 15);
+            this.checkBoxJoinByTitle.TabIndex = 19;
+            this.checkBoxJoinByTitle.Text = "Auto join by title";
+            this.checkBoxJoinByTitle.UseVisualStyleBackColor = false;
+            // 
+            // checkBoxJoinByName
+            // 
+            this.checkBoxJoinByName.AutoSize = true;
+            this.checkBoxJoinByName.BackColor = System.Drawing.Color.Transparent;
+            this.checkBoxJoinByName.Location = new System.Drawing.Point(276, 53);
+            this.checkBoxJoinByName.Name = "checkBoxJoinByName";
+            this.checkBoxJoinByName.ShadowDepth = 1;
+            this.checkBoxJoinByName.Size = new System.Drawing.Size(121, 15);
+            this.checkBoxJoinByName.TabIndex = 20;
+            this.checkBoxJoinByName.Text = "Auto join by name";
+            this.checkBoxJoinByName.UseVisualStyleBackColor = false;
+            // 
+            // separator11
+            // 
+            this.separator11.IsVertical = false;
+            this.separator11.Location = new System.Drawing.Point(15, 41);
+            this.separator11.Name = "separator11";
+            this.separator11.Size = new System.Drawing.Size(707, 10);
+            this.separator11.TabIndex = 14;
+            this.separator11.Text = "separator11";
+            // 
+            // buttonAutoJoinConfig
+            // 
+            this.buttonAutoJoinConfig.Color = System.Drawing.Color.Transparent;
+            this.buttonAutoJoinConfig.Font = new System.Drawing.Font("Webdings", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonAutoJoinConfig.Location = new System.Drawing.Point(697, 12);
+            this.buttonAutoJoinConfig.Name = "buttonAutoJoinConfig";
+            this.buttonAutoJoinConfig.Radius = 6;
+            this.buttonAutoJoinConfig.ShadowDepth = 4F;
+            this.buttonAutoJoinConfig.Size = new System.Drawing.Size(25, 23);
+            this.buttonAutoJoinConfig.TabIndex = 13;
+            this.buttonAutoJoinConfig.Text = "@";
+            this.buttonAutoJoinConfig.UseVisualStyleBackColor = true;
+            this.buttonAutoJoinConfig.Click += new System.EventHandler(this.buttonAutoJoinConfig_Click);
             // 
             // btnPartyRefresh
             // 
             this.btnPartyRefresh.Color = System.Drawing.Color.Transparent;
-            this.btnPartyRefresh.Location = new System.Drawing.Point(621, 12);
+            this.btnPartyRefresh.Location = new System.Drawing.Point(601, 13);
             this.btnPartyRefresh.Name = "btnPartyRefresh";
-            this.btnPartyRefresh.Radius = 2;
+            this.btnPartyRefresh.Radius = 6;
+            this.btnPartyRefresh.ShadowDepth = 4F;
             this.btnPartyRefresh.Size = new System.Drawing.Size(85, 21);
             this.btnPartyRefresh.TabIndex = 4;
             this.btnPartyRefresh.Text = "Refresh";
@@ -931,9 +1080,10 @@
             // btnPartySearch
             // 
             this.btnPartySearch.Color = System.Drawing.Color.Transparent;
-            this.btnPartySearch.Location = new System.Drawing.Point(515, 13);
+            this.btnPartySearch.Location = new System.Drawing.Point(501, 13);
             this.btnPartySearch.Name = "btnPartySearch";
-            this.btnPartySearch.Radius = 2;
+            this.btnPartySearch.Radius = 6;
+            this.btnPartySearch.ShadowDepth = 4F;
             this.btnPartySearch.Size = new System.Drawing.Size(87, 21);
             this.btnPartySearch.TabIndex = 4;
             this.btnPartySearch.Text = "Search";
@@ -1005,6 +1155,8 @@
             "Trade Union"});
             this.cbPartySearchPurpose.Location = new System.Drawing.Point(222, 13);
             this.cbPartySearchPurpose.Name = "cbPartySearchPurpose";
+            this.cbPartySearchPurpose.Radius = 5;
+            this.cbPartySearchPurpose.ShadowDepth = 4F;
             this.cbPartySearchPurpose.Size = new System.Drawing.Size(108, 23);
             this.cbPartySearchPurpose.TabIndex = 2;
             // 
@@ -1014,6 +1166,7 @@
             this.tbPartySearchName.MaxLength = 32767;
             this.tbPartySearchName.MultiLine = false;
             this.tbPartySearchName.Name = "tbPartySearchName";
+            this.tbPartySearchName.Radius = 2;
             this.tbPartySearchName.Size = new System.Drawing.Size(100, 21);
             this.tbPartySearchName.TabIndex = 1;
             this.tbPartySearchName.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
@@ -1075,9 +1228,10 @@
             this.bottomPartyPanel.Controls.Add(this.lbl_partyPageRange);
             this.bottomPartyPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.bottomPartyPanel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.bottomPartyPanel.Location = new System.Drawing.Point(3, 384);
+            this.bottomPartyPanel.Location = new System.Drawing.Point(3, 385);
             this.bottomPartyPanel.Name = "bottomPartyPanel";
             this.bottomPartyPanel.Radius = 0;
+            this.bottomPartyPanel.ShadowDepth = 4F;
             this.bottomPartyPanel.Size = new System.Drawing.Size(740, 51);
             this.bottomPartyPanel.TabIndex = 14;
             // 
@@ -1087,7 +1241,8 @@
             this.btnPartyMatchDeleteEntry.Enabled = false;
             this.btnPartyMatchDeleteEntry.Location = new System.Drawing.Point(635, 14);
             this.btnPartyMatchDeleteEntry.Name = "btnPartyMatchDeleteEntry";
-            this.btnPartyMatchDeleteEntry.Radius = 2;
+            this.btnPartyMatchDeleteEntry.Radius = 6;
+            this.btnPartyMatchDeleteEntry.ShadowDepth = 4F;
             this.btnPartyMatchDeleteEntry.Size = new System.Drawing.Size(87, 23);
             this.btnPartyMatchDeleteEntry.TabIndex = 16;
             this.btnPartyMatchDeleteEntry.Text = "Delete Entry";
@@ -1099,7 +1254,8 @@
             this.btnPartyMatchChangeEntry.Enabled = false;
             this.btnPartyMatchChangeEntry.Location = new System.Drawing.Point(542, 14);
             this.btnPartyMatchChangeEntry.Name = "btnPartyMatchChangeEntry";
-            this.btnPartyMatchChangeEntry.Radius = 2;
+            this.btnPartyMatchChangeEntry.Radius = 6;
+            this.btnPartyMatchChangeEntry.ShadowDepth = 4F;
             this.btnPartyMatchChangeEntry.Size = new System.Drawing.Size(87, 23);
             this.btnPartyMatchChangeEntry.TabIndex = 15;
             this.btnPartyMatchChangeEntry.Text = "Change Entry";
@@ -1110,7 +1266,8 @@
             this.btnPartyMatchForm.Color = System.Drawing.Color.Transparent;
             this.btnPartyMatchForm.Location = new System.Drawing.Point(445, 14);
             this.btnPartyMatchForm.Name = "btnPartyMatchForm";
-            this.btnPartyMatchForm.Radius = 2;
+            this.btnPartyMatchForm.Radius = 6;
+            this.btnPartyMatchForm.ShadowDepth = 4F;
             this.btnPartyMatchForm.Size = new System.Drawing.Size(90, 23);
             this.btnPartyMatchForm.TabIndex = 14;
             this.btnPartyMatchForm.Text = "Form Party";
@@ -1122,7 +1279,8 @@
             this.btnAutoMatchParty.Enabled = false;
             this.btnAutoMatchParty.Location = new System.Drawing.Point(180, 14);
             this.btnAutoMatchParty.Name = "btnAutoMatchParty";
-            this.btnAutoMatchParty.Radius = 2;
+            this.btnAutoMatchParty.Radius = 6;
+            this.btnAutoMatchParty.ShadowDepth = 4F;
             this.btnAutoMatchParty.Size = new System.Drawing.Size(96, 23);
             this.btnAutoMatchParty.TabIndex = 10;
             this.btnAutoMatchParty.Text = "Auto Match";
@@ -1133,7 +1291,8 @@
             this.btnWhisperPartyMaster.Enabled = false;
             this.btnWhisperPartyMaster.Location = new System.Drawing.Point(99, 14);
             this.btnWhisperPartyMaster.Name = "btnWhisperPartyMaster";
-            this.btnWhisperPartyMaster.Radius = 2;
+            this.btnWhisperPartyMaster.Radius = 6;
+            this.btnWhisperPartyMaster.ShadowDepth = 4F;
             this.btnWhisperPartyMaster.Size = new System.Drawing.Size(75, 23);
             this.btnWhisperPartyMaster.TabIndex = 9;
             this.btnWhisperPartyMaster.Text = "Whisper";
@@ -1143,7 +1302,8 @@
             this.btnJoinFormedParty.Color = System.Drawing.Color.Transparent;
             this.btnJoinFormedParty.Location = new System.Drawing.Point(18, 14);
             this.btnJoinFormedParty.Name = "btnJoinFormedParty";
-            this.btnJoinFormedParty.Radius = 2;
+            this.btnJoinFormedParty.Radius = 6;
+            this.btnJoinFormedParty.ShadowDepth = 4F;
             this.btnJoinFormedParty.Size = new System.Drawing.Size(75, 23);
             this.btnJoinFormedParty.TabIndex = 8;
             this.btnJoinFormedParty.Text = "Join Party";
@@ -1157,7 +1317,8 @@
             this.btnPrev.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnPrev.Location = new System.Drawing.Point(315, 14);
             this.btnPrev.Name = "btnPrev";
-            this.btnPrev.Radius = 2;
+            this.btnPrev.Radius = 6;
+            this.btnPrev.ShadowDepth = 4F;
             this.btnPrev.Size = new System.Drawing.Size(23, 23);
             this.btnPrev.TabIndex = 11;
             this.btnPrev.Text = "◀";
@@ -1171,7 +1332,8 @@
             this.btnNext.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnNext.Location = new System.Drawing.Point(387, 14);
             this.btnNext.Name = "btnNext";
-            this.btnNext.Radius = 2;
+            this.btnNext.Radius = 6;
+            this.btnNext.ShadowDepth = 4F;
             this.btnNext.Size = new System.Drawing.Size(23, 23);
             this.btnNext.TabIndex = 12;
             this.btnNext.Text = "▶";
@@ -1216,7 +1378,8 @@
             this.groupBox4.Location = new System.Drawing.Point(283, 191);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
-            this.groupBox4.Radius = 2;
+            this.groupBox4.Radius = 10;
+            this.groupBox4.ShadowDepth = 4;
             this.groupBox4.Size = new System.Drawing.Size(214, 241);
             this.groupBox4.TabIndex = 11;
             this.groupBox4.TabStop = false;
@@ -1229,7 +1392,8 @@
             this.btnAddBuffToMember.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnAddBuffToMember.Location = new System.Drawing.Point(4, 213);
             this.btnAddBuffToMember.Name = "btnAddBuffToMember";
-            this.btnAddBuffToMember.Radius = 2;
+            this.btnAddBuffToMember.Radius = 6;
+            this.btnAddBuffToMember.ShadowDepth = 4F;
             this.btnAddBuffToMember.Size = new System.Drawing.Size(75, 21);
             this.btnAddBuffToMember.TabIndex = 11;
             this.btnAddBuffToMember.Text = "Add Buff";
@@ -1243,7 +1407,8 @@
             this.buttonRemoveCharFromBuffing.ForeColor = System.Drawing.Color.White;
             this.buttonRemoveCharFromBuffing.Location = new System.Drawing.Point(184, 173);
             this.buttonRemoveCharFromBuffing.Name = "buttonRemoveCharFromBuffing";
-            this.buttonRemoveCharFromBuffing.Radius = 2;
+            this.buttonRemoveCharFromBuffing.Radius = 6;
+            this.buttonRemoveCharFromBuffing.ShadowDepth = 4F;
             this.buttonRemoveCharFromBuffing.Size = new System.Drawing.Size(23, 23);
             this.buttonRemoveCharFromBuffing.TabIndex = 12;
             this.buttonRemoveCharFromBuffing.Text = "r";
@@ -1256,7 +1421,8 @@
             this.btnRemoveBuffFromMember.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnRemoveBuffFromMember.Location = new System.Drawing.Point(121, 213);
             this.btnRemoveBuffFromMember.Name = "btnRemoveBuffFromMember";
-            this.btnRemoveBuffFromMember.Radius = 2;
+            this.btnRemoveBuffFromMember.Radius = 6;
+            this.btnRemoveBuffFromMember.ShadowDepth = 4F;
             this.btnRemoveBuffFromMember.Size = new System.Drawing.Size(86, 21);
             this.btnRemoveBuffFromMember.TabIndex = 12;
             this.btnRemoveBuffFromMember.Text = "Remove Buff";
@@ -1310,7 +1476,8 @@
             this.groupBox6.Location = new System.Drawing.Point(283, 6);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
-            this.groupBox6.Radius = 2;
+            this.groupBox6.Radius = 10;
+            this.groupBox6.ShadowDepth = 4;
             this.groupBox6.Size = new System.Drawing.Size(214, 175);
             this.groupBox6.TabIndex = 14;
             this.groupBox6.TabStop = false;
@@ -1323,7 +1490,8 @@
             this.buttonAddGroup.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonAddGroup.Location = new System.Drawing.Point(5, 147);
             this.buttonAddGroup.Name = "buttonAddGroup";
-            this.buttonAddGroup.Radius = 2;
+            this.buttonAddGroup.Radius = 6;
+            this.buttonAddGroup.ShadowDepth = 4F;
             this.buttonAddGroup.Size = new System.Drawing.Size(63, 21);
             this.buttonAddGroup.TabIndex = 0;
             this.buttonAddGroup.Text = "Create";
@@ -1336,7 +1504,8 @@
             this.buttonRemoveGroup.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonRemoveGroup.Location = new System.Drawing.Point(137, 147);
             this.buttonRemoveGroup.Name = "buttonRemoveGroup";
-            this.buttonRemoveGroup.Radius = 2;
+            this.buttonRemoveGroup.Radius = 6;
+            this.buttonRemoveGroup.ShadowDepth = 4F;
             this.buttonRemoveGroup.Size = new System.Drawing.Size(72, 21);
             this.buttonRemoveGroup.TabIndex = 0;
             this.buttonRemoveGroup.Text = "Remove";
@@ -1387,7 +1556,8 @@
             this.groupBox5.Location = new System.Drawing.Point(507, 6);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
-            this.groupBox5.Radius = 2;
+            this.groupBox5.Radius = 10;
+            this.groupBox5.ShadowDepth = 4;
             this.groupBox5.Size = new System.Drawing.Size(233, 426);
             this.groupBox5.TabIndex = 12;
             this.groupBox5.TabStop = false;
@@ -1432,7 +1602,8 @@
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
-            this.groupBox1.Radius = 2;
+            this.groupBox1.Radius = 10;
+            this.groupBox1.ShadowDepth = 4;
             this.groupBox1.Size = new System.Drawing.Size(267, 426);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
@@ -1467,6 +1638,7 @@
             // 
             // panel5
             // 
+            this.panel5.BackColor = System.Drawing.Color.Transparent;
             this.panel5.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
             this.panel5.BorderColor = System.Drawing.Color.Transparent;
             this.panel5.Controls.Add(this.checkHideLowerLevelSkills);
@@ -1475,6 +1647,7 @@
             this.panel5.Name = "panel5";
             this.panel5.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.panel5.Radius = 1;
+            this.panel5.ShadowDepth = 4F;
             this.panel5.Size = new System.Drawing.Size(265, 26);
             this.panel5.TabIndex = 11;
             // 
@@ -1482,13 +1655,14 @@
             // 
             this.checkHideLowerLevelSkills.AutoSize = true;
             this.checkHideLowerLevelSkills.BackColor = System.Drawing.Color.Transparent;
-            this.checkHideLowerLevelSkills.Checked = false;
             this.checkHideLowerLevelSkills.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkHideLowerLevelSkills.Location = new System.Drawing.Point(10, 0);
             this.checkHideLowerLevelSkills.Name = "checkHideLowerLevelSkills";
-            this.checkHideLowerLevelSkills.Size = new System.Drawing.Size(135, 15);
+            this.checkHideLowerLevelSkills.ShadowDepth = 1;
+            this.checkHideLowerLevelSkills.Size = new System.Drawing.Size(255, 26);
             this.checkHideLowerLevelSkills.TabIndex = 10;
             this.checkHideLowerLevelSkills.Text = "Hide lower level skills";
+            this.checkHideLowerLevelSkills.UseVisualStyleBackColor = false;
             this.checkHideLowerLevelSkills.Visible = false;
             this.checkHideLowerLevelSkills.CheckedChanged += new System.EventHandler(this.checkHideLowerLevelSkills_CheckedChanged);
             // 
@@ -1518,6 +1692,7 @@
             this.grbAutoPartySettings.PerformLayout();
             this.tpPartyMatching.ResumeLayout(false);
             this.topPartyPanel.ResumeLayout(false);
+            this.topPartyPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPartySearchMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPartySearchMin)).EndInit();
             this.bottomPartyPanel.ResumeLayout(false);
@@ -1646,5 +1821,13 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private SDUI.Controls.ListView listAutoParty;
         private System.Windows.Forms.ColumnHeader columnHeader2;
+        private SDUI.Controls.Separator separator10;
+        private SDUI.Controls.Button buttonAutoJoinConfig;
+        private SDUI.Controls.Separator separator11;
+        private SDUI.Controls.Button buttonConfirmJoinConfig;
+        private SDUI.Controls.TextBox textBoxJoinByTitle;
+        private SDUI.Controls.TextBox textBoxJoinByName;
+        private SDUI.Controls.CheckBox checkBoxJoinByTitle;
+        private SDUI.Controls.CheckBox checkBoxJoinByName;
     }
 }

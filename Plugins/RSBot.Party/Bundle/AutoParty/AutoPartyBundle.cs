@@ -4,7 +4,9 @@ using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Party;
 using RSBot.Core.Objects.Spawn;
+using RSBot.Party.Bundle.PartyMatching.Objects;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace RSBot.Party.Bundle.AutoParty
@@ -23,7 +25,7 @@ namespace RSBot.Party.Bundle.AutoParty
         /// The configuration.
         /// </value>
         public AutoPartyConfig Config { get; set; }
-        
+
         /// <summary>
         /// Initialize this instance
         /// </summary>
@@ -52,6 +54,10 @@ namespace RSBot.Party.Bundle.AutoParty
                 LeaveIfMasterNot = PlayerConfig.Get<bool>("RSBot.Party.LeaveIfMasterNot"),
                 LeaveIfMasterNotName = PlayerConfig.Get<string>("RSBot.Party.LeaveIfMasterNotName"),
                 CenterPosition = new Position(PlayerConfig.Get<float>("RSBot.Area.X"), PlayerConfig.Get<float>("RSBot.Area.Y")),
+                AutoJoinByName = PlayerConfig.Get<bool>("RSBot.Party.AutoJoin.ByName", false),
+                AutoJoinByTitle = PlayerConfig.Get<bool>("RSBot.Party.AutoJoin.ByTitle", false),
+                AutoJoinByNameContent = PlayerConfig.Get("RSBot.Party.AutoJoin.Name", string.Empty),
+                AutoJoinByTitleContent = PlayerConfig.Get("RSBot.Party.AutoJoin.Title", string.Empty)
             };
 
             if (!Game.Party.IsInParty)
@@ -63,9 +69,57 @@ namespace RSBot.Party.Bundle.AutoParty
             var elapsed = Kernel.TickCount - _lastTick;
             if (elapsed > 5000)
             {
+                CheckForAutoPartyJoin();
                 CheckForPlayers();
+
                 _lastTick = Kernel.TickCount;
             }
+        }
+
+        /// <summary>
+        /// Checks for auto party join by condition
+        /// </summary>
+        private void CheckForAutoPartyJoin()
+        {
+            if (Game.Party.IsInParty)
+                return;
+
+            if (!Config.AutoJoinByName && !Config.AutoJoinByTitle)
+                return;
+
+            var allParties = new List<PartyEntry>(16);
+
+            byte page = 0;
+            while (true)
+            {
+                var currentPage = Container.PartyMatching.RequestPartyList(page);
+                if (currentPage.Page == currentPage.PageCount - 1)
+                    break;
+
+                allParties.AddRange(currentPage.Parties);
+                page++;
+            }
+
+            if (Config.AutoJoinByName)
+            {
+                var partyEntry = allParties.Find(p => p.Leader == Config.AutoJoinByNameContent);
+                if (partyEntry == null)
+                    return;
+
+                if(Container.PartyMatching.Join(partyEntry.Id))
+                    return;
+            }
+
+            if (Config.AutoJoinByTitle)
+            {
+                var partyEntry = allParties.Find(p => p.Title.Equals(Config.AutoJoinByTitleContent, StringComparison.CurrentCultureIgnoreCase));
+                if (partyEntry == null)
+                    return;
+
+                Container.PartyMatching.Join(partyEntry.Id);
+            }
+
+            allParties = null;
         }
 
         /// <summary>
@@ -73,16 +127,16 @@ namespace RSBot.Party.Bundle.AutoParty
         /// </summary>
         public void CheckForPlayers()
         {
-            if (Game.Party.IsInParty && 
+            if (Game.Party.IsInParty &&
                 !Game.Party.IsLeader &&
-                Config.LeaveIfMasterNot && 
+                Config.LeaveIfMasterNot &&
                 !string.IsNullOrWhiteSpace(Config.LeaveIfMasterNotName))
             {
                 if (Config.LeaveIfMasterNotName != Game.Party.Leader.Name)
                     Game.Party.Leave();
             }
 
-            if (!Game.Party.CanInvite) 
+            if (!Game.Party.CanInvite)
                 return;
 
             var limit = 8;
@@ -93,7 +147,7 @@ namespace RSBot.Party.Bundle.AutoParty
                 return;
 
             if (Config.OnlyAtTrainingPlace &&
-                Game.Player.Movement.Source.DistanceTo(Config.CenterPosition) > 50) 
+                Game.Player.Movement.Source.DistanceTo(Config.CenterPosition) > 50)
                 return;
 
             if (!SpawnManager.TryGetEntities<SpawnedPlayer>(out var players))
@@ -101,12 +155,12 @@ namespace RSBot.Party.Bundle.AutoParty
 
             foreach (var player in players)
             {
-                if (Game.Party.IsInParty && Game.Party.GetMemberByName(player.Name) != null) 
+                if (Game.Party.IsInParty && Game.Party.GetMemberByName(player.Name) != null)
                     continue;
 
-                if(Config.InviteAll)
+                if (Config.InviteAll)
                 {
-                    Game.Party.Invite(player.UniqueId); 
+                    Game.Party.Invite(player.UniqueId);
                     continue;
                 }
 
