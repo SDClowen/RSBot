@@ -89,7 +89,8 @@ namespace RSBot.Party.Bundle.PartyMatching.Objects
 
             packet.ReadUInt(); // leaderUniqueId
 
-            if (Game.ClientType >= GameClientType.Global)
+            if (Game.ClientType >= GameClientType.Global && 
+                Game.ClientType != GameClientType.Rigid)
                 packet.ReadUInt(); // unknown
 
             result.Leader = packet.ReadString();
