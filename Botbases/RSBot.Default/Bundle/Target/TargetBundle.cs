@@ -61,10 +61,7 @@ namespace RSBot.Default.Bundle.Target
             if (monster == null)
                 return;
 
-            //Check if the monster is still inside our range
-            var distanceToCenter = monster.Movement.Source.DistanceTo(Container.Bot.Area.Position);
-
-            if (distanceToCenter > Container.Bot.Area.Radius)
+            if (!Container.Bot.Area.IsInSight(monster))
                 return;
 
             monster.TrySelect();
@@ -79,7 +76,7 @@ namespace RSBot.Default.Bundle.Target
             var warlockModeEnabled = PlayerConfig.Get<bool>("RSBot.Skills.WarlockMode");
             var ignorePillar = PlayerConfig.Get<bool>("RSBot.Ignores.DimensionPillar");
 
-            if (!SpawnManager.TryGetEntities<SpawnedMonster>(out var entities, m => 
+            if (!SpawnManager.TryGetEntities<SpawnedMonster>(m => 
                     m.State.LifeState == LifeState.Alive &&
                     !(warlockModeEnabled && m.State.HasTwoDots()) &&
                     m.IsBehindObstacle == false &&
@@ -89,7 +86,7 @@ namespace RSBot.Default.Bundle.Target
                     m.DistanceToPlayer <= 40 &&
                     !_blacklistTimers.Any(be => be.Key.Id == m.Id) &&
                     !(m.Record.IsDimensionPillar && ignorePillar) &&
-                    !m.Record.IsSummonFlower))
+                    !m.Record.IsSummonFlower, out var entities))
                 return default(SpawnedMonster);
 
             return entities.OrderBy(m => m.Movement.Source.DistanceTo(Container.Bot.Area.Position))

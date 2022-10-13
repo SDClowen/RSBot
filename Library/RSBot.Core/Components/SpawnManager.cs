@@ -117,7 +117,7 @@ namespace RSBot.Core.Components
         /// <param name="entities">The entities</param>
         /// <param name="predicate">The condition</param>
         /// <returns><c>true</c> if successfully found; otherwise <c>false</c></returns>
-        public static bool TryGetEntities<T>(out IEnumerable<T> entities, Func<T, bool> predicate)
+        public static bool TryGetEntities<T>(Func<T, bool> predicate, out IEnumerable<T> entities)
             where T : SpawnedEntity
         {
             lock (_lock)

@@ -82,17 +82,16 @@ namespace RSBot.Core.Components
         /// <param name="radius">The radius.</param>
         public static void RunPlayer(Position playerPosition, Position centerPosition, int radius = 50)
         {
-            // if the manager is busy,return
             if (RunningPlayerPickup)
                 return;
 
             RunningPlayerPickup = true;
             try
             {
-                if (!SpawnManager.TryGetEntities<SpawnedItem>(out var entities, (si) => Condition(si, centerPosition, radius)
-                    && (!UseAbilityPet || !Game.Player.HasActiveAbilityPet || !si.Record.IsGold || PickupFilter.Any(p => p.CodeName == si.Record.CodeName && p.PickOnlyChar))))
+                var flag = UseAbilityPet && Game.Player.HasActiveAbilityPet;
+                if (!SpawnManager.TryGetEntities<SpawnedItem>(i => Condition(i, centerPosition, radius, flag, flag), out var entities))
                 {
-                    StopPlayerPickup();
+                    RunningPlayerPickup = false;
                     return;
                 }
 
@@ -116,27 +115,26 @@ namespace RSBot.Core.Components
             }
             finally
             {
-                StopPlayerPickup();
+                RunningPlayerPickup = false;
             }
         }
 
         public static void RunAbilityPet(Position centerPosition, int radius = 50)
         {
-            if (RunningAbilityPetPickup || !UseAbilityPet || !Game.Player.HasActiveAbilityPet)
+            if (RunningAbilityPetPickup)
                 return;
 
             RunningAbilityPetPickup = true;
-            
+
             try
             {
-                if (!SpawnManager.TryGetEntities<SpawnedItem>(out var entities, (si) => Condition(si, centerPosition, radius)
-                    && (si.Record.IsGold || PickupFilter.Any(p => p.CodeName == si.Record.CodeName && !p.PickOnlyChar))))
+                if (!SpawnManager.TryGetEntities<SpawnedItem>(i => Condition(i, centerPosition, radius, true), out var entities))
                 {
-                    StopAbilityPetPickup();
+                    RunningAbilityPetPickup = false;
                     return;
                 }
 
-                foreach (var item in entities.OrderBy(item => item.Movement.Source.DistanceTo(centerPosition)/*.Take(5)*/))
+                foreach (var item in entities.OrderBy(item => item.Movement.Source.DistanceTo(Game.Player.AbilityPet.Position)))
                 {
                     if (!RunningAbilityPetPickup)
                         return;
@@ -150,11 +148,17 @@ namespace RSBot.Core.Components
             }
             finally
             {
-                StopAbilityPetPickup();
+                RunningAbilityPetPickup = false;
             }
         }
 
-        private static bool Condition(SpawnedItem e, Position centerPosition, int radius)
+        private static bool Condition(
+            SpawnedItem e,
+            Position centerPosition,
+            int radius,
+            bool applyPickOnlyChar = false,
+            bool pickOnlyChar = false
+        )
         {
             var playerJid = Game.Player.JID;
 
@@ -171,10 +175,16 @@ namespace RSBot.Core.Components
             if (!isInside)
                 return false;
 
-            if (PickupGold && e.Record.IsGold)
+            if (PickupGold && e.Record.IsGold && 
+                !(applyPickOnlyChar && pickOnlyChar))
                 return true;
 
-            if (PickupFilter.Any(p => p.CodeName == e.Record.CodeName))
+            if (applyPickOnlyChar)
+            {
+               if(PickupFilter.Any(p => p.CodeName == e.Record.CodeName && p.PickOnlyChar == pickOnlyChar))
+                    return true;
+            }
+            else if (PickupFilter.Any(p => p.CodeName == e.Record.CodeName))
                 return true;
 
             if (PickupRareItems && (byte)e.Rarity >= 2)
@@ -226,16 +236,9 @@ namespace RSBot.Core.Components
         /// <summary>
         /// Stops this instance.
         /// </summary>
-        public static void StopPlayerPickup()
+        public static void Stop()
         {
             RunningPlayerPickup = false;
-        }
-
-        /// <summary>
-        /// Stops this instance AbilityPet.
-        /// </summary>
-        public static void StopAbilityPetPickup()
-        {
             RunningAbilityPetPickup = false;
         }
     }
