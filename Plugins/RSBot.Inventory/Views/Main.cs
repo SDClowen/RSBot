@@ -329,10 +329,8 @@ namespace RSBot.Inventory.Views
             if (listViewMain.SelectedItems.Count <= 0)
                 return;
 
-#if !DEBUG
-            if(GlobalConfig.Get<bool>("RSBot.DebugEnvironment") == false)
+            if(!GlobalConfig.Get<bool>("RSBot.DebugEnvironment"))
                 return;
-#endif
 
             var itemForm = new ItemProperties(listViewMain.SelectedItems[0].Tag as InventoryItem);
             itemForm.Show();

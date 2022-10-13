@@ -19,6 +19,11 @@ namespace RSBot.Map.Views
     public partial class Main : UserControl
     {
         /// <summary>
+        /// Is active debug mode <c>true</c> otherwise <c>false</c>
+        /// </summary>
+        private bool _debug;
+
+        /// <summary>
         /// The grid size
         /// </summary>
         private const int GridSize = 3;
@@ -80,6 +85,8 @@ namespace RSBot.Map.Views
         {
             InitializeComponent();
 
+            _debug = GlobalConfig.Get<bool>("RSBot.DebugEnvironment");
+
             _cachedImages = _cachedImages ?? new Dictionary<string, Image>();
 
             EventManager.SubscribeEvent("OnEnterGame", OnEnterGame);
@@ -87,14 +94,13 @@ namespace RSBot.Map.Views
             bufferedGraphicsContext = BufferedGraphicsManager.Current;
             bufferedGraphicsContext.MaximumBuffer = new Size(mapCanvas.Width + 1, mapCanvas.Height + 1);
             bufferedGraphics = bufferedGraphicsContext.Allocate(mapCanvas.CreateGraphics(), mapCanvas.ClientRectangle);
-            
+
             // All
             comboViewType.SelectedIndex = 6;
             checkEnableCollisions.Checked = GlobalConfig.Get("RSBot.EnableCollisionDetection", true);
 
-#if !DEBUG
-            labelSectorInfo.Visible = false;
-#endif
+            if(!_debug)
+                labelSectorInfo.Visible = false;
         }
 
         #region Core Handlers
@@ -156,7 +162,7 @@ namespace RSBot.Map.Views
                 var x = GetMapX(position);
                 var y = GetMapY(position);
 
-                var img = (Image)_mapEntityImages[entityIndex].Clone();
+                using var img = (Image)_mapEntityImages[entityIndex].Clone();
 
                 if (entityIndex == 0)
                 {
@@ -237,8 +243,7 @@ namespace RSBot.Map.Views
 
             try
             {
-#if DEBUG
-                if (Game.Player.Movement.HasDestination)
+                if (_debug && Game.Player.Movement.HasDestination)
                 {
                     DrawCircleAt(graphics, Game.Player.Movement.Destination, Color.Red, 5);
                     DrawCircleAt(graphics, Game.Player.Movement.Destination, Color.Black, 3);
@@ -247,7 +252,7 @@ namespace RSBot.Map.Views
                     pen.DashStyle = DashStyle.Dash;
                     DrawLineAt(graphics, Game.Player.Movement.Source, Game.Player.Movement.Destination, pen);
                 }
-#endif
+
                 //Draw walk script
                 if (ScriptManager.Running)
                 {
@@ -518,17 +523,18 @@ namespace RSBot.Map.Views
                     for (var z = 0; z < GridSize; z++)
                     {
                         var sectorImgName = string.Format(layerPath, _currentXSec + x - 1, _currentYSec + z - 1);
-                        var bitmap = LoadSectorImage(sectorImgName);
+                       
+                        using var bitmap = LoadSectorImage(sectorImgName);
                         var pos = new Point(bitmap.Width * x, bitmap.Height * (GridSize - 1 - z));
 
                         gfx.DrawImage(bitmap, pos);
 
-#if DEBUG
-                        var pen = new Pen(Color.Black);
-                        pen.DashStyle = DashStyle.Dot;
-                        gfx.DrawRectangle(pen, new Rectangle(pos, new Size(SectorSize, SectorSize)));
-#endif
-                        bitmap.Dispose();
+                        if (_debug)
+                        {
+                            using var pen = new Pen(Color.Black);
+                            pen.DashStyle = DashStyle.Dot;
+                            gfx.DrawRectangle(pen, new Rectangle(pos, new Size(SectorSize, SectorSize)));
+                        }
                     }
                 }
             }
@@ -576,9 +582,8 @@ namespace RSBot.Map.Views
                 PopulateMapAndGrid(graphics);
                 DrawPointAt(graphics, Game.Player.Movement.Source, 0);
 
-#if DEBUG
-                DrawCollisions(graphics);
-#endif
+                if(_debug)
+                    DrawCollisions(graphics);
             }
         }
 
@@ -592,9 +597,8 @@ namespace RSBot.Map.Views
             lblX.Text = Game.Player.Movement.Source.X.ToString("0.0");
             lblY.Text = Game.Player.Movement.Source.Y.ToString("0.0");
 
-#if DEBUG
-            labelSectorInfo.Text = $"{Game.Player.Movement.Source.RegionId} ({Game.Player.Movement.Source.XSector}x{Game.Player.Movement.Source.YSector})";
-#endif
+            if(_debug)
+                labelSectorInfo.Text = $"{Game.Player.Movement.Source.RegionId} ({Game.Player.Movement.Source.XSector}x{Game.Player.Movement.Source.YSector})";
 
             bufferedGraphics.Graphics.Clear(Color.Black);
             RedrawMap();

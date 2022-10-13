@@ -924,10 +924,8 @@ namespace RSBot.Skills.Views
             if (listSkills.SelectedItems.Count <= 0)
                 return;
 
-#if !DEBUG
-            if(GlobalConfig.Get<bool>("RSBot.DebugEnvironment") == false)
+            if(!GlobalConfig.Get<bool>("RSBot.DebugEnvironment"))
                 return;
-#endif
 
             if (listSkills.SelectedItems[0].Tag is not SkillInfo skillInfo)
                 return;
@@ -1002,7 +1000,9 @@ namespace RSBot.Skills.Views
 
         private void listActiveBuffs_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-#if DEBUG
+            if (!GlobalConfig.Get<bool>("RSBot.DebugEnvironment"))
+                return;
+
             var propertiesWindow = listActiveBuffs.SelectedItems[0].Tag switch
             {
                 SkillInfo skillInfo => new BuffProperties(skillInfo),
@@ -1011,7 +1011,6 @@ namespace RSBot.Skills.Views
             };
 
             propertiesWindow?.Show();
-#endif
         }
     }
 }
