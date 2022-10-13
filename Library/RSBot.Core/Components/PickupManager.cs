@@ -119,7 +119,7 @@ namespace RSBot.Core.Components
             }
         }
 
-        public static void RunAbilityPet(Position centerPosition, int radius = 50)
+        public static async void RunAbilityPet(Position centerPosition, int radius = 50)
         {
             if (RunningAbilityPetPickup)
                 return;
@@ -140,6 +140,7 @@ namespace RSBot.Core.Components
                         return;
 
                     Game.Player.AbilityPet.Pickup(item.UniqueId);
+                    await Task.Yield();
                 }
             }
             catch (Exception e)
