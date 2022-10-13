@@ -694,6 +694,8 @@ namespace RSBot.Core.Objects
             }
             else
             {
+                packet.SeekWrite(1, System.IO.SeekOrigin.Begin);
+                packet.WriteUShort(Game.Player.Position.RegionId);
                 packet.WriteInt(destination.XOffset);
                 packet.WriteInt(destination.ZOffset);
                 packet.WriteInt(destination.YOffset);
