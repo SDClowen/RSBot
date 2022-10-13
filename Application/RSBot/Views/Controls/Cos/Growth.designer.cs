@@ -62,17 +62,18 @@
             this.progressEXP.Gradient = new System.Drawing.Color[] {
         System.Drawing.Color.DarkGreen,
         System.Drawing.Color.Lime};
-            this.progressEXP.HatchType = System.Drawing.Drawing2D.HatchStyle.Horizontal;
+            this.progressEXP.HatchType = System.Drawing.Drawing2D.HatchStyle.Percent10;
             this.progressEXP.Location = new System.Drawing.Point(48, 87);
             this.progressEXP.Maximum = ((long)(100));
+            this.progressEXP.MaxPercentShowValue = 99.99F;
             this.progressEXP.Name = "progressEXP";
             this.progressEXP.PercentIndices = 2;
-            this.progressEXP.Radius = 0;
+            this.progressEXP.Radius = 1;
             this.progressEXP.ShowAsPercent = true;
             this.progressEXP.ShowValue = true;
             this.progressEXP.Size = new System.Drawing.Size(180, 16);
             this.progressEXP.TabIndex = 12;
-            this.progressEXP.Text = "0%";
+            this.progressEXP.Text = "0.00%";
             this.progressEXP.Value = ((long)(0));
             // 
             // progressHGP
@@ -83,17 +84,18 @@
             this.progressHGP.Gradient = new System.Drawing.Color[] {
         System.Drawing.Color.Gold,
         System.Drawing.Color.Yellow};
-            this.progressHGP.HatchType = System.Drawing.Drawing2D.HatchStyle.Horizontal;
+            this.progressHGP.HatchType = System.Drawing.Drawing2D.HatchStyle.Percent10;
             this.progressHGP.Location = new System.Drawing.Point(48, 66);
             this.progressHGP.Maximum = ((long)(100));
+            this.progressHGP.MaxPercentShowValue = 100F;
             this.progressHGP.Name = "progressHGP";
             this.progressHGP.PercentIndices = 2;
-            this.progressHGP.Radius = 0;
+            this.progressHGP.Radius = 1;
             this.progressHGP.ShowAsPercent = true;
             this.progressHGP.ShowValue = true;
             this.progressHGP.Size = new System.Drawing.Size(180, 16);
             this.progressHGP.TabIndex = 11;
-            this.progressHGP.Text = "0%";
+            this.progressHGP.Text = "0.00%";
             this.progressHGP.Value = ((long)(0));
             // 
             // Growth

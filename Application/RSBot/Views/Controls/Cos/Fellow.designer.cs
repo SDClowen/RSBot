@@ -64,17 +64,18 @@
             this.progressEXP.Gradient = new System.Drawing.Color[] {
         System.Drawing.Color.DarkGreen,
         System.Drawing.Color.Lime};
-            this.progressEXP.HatchType = System.Drawing.Drawing2D.HatchStyle.Horizontal;
+            this.progressEXP.HatchType = System.Drawing.Drawing2D.HatchStyle.Percent10;
             this.progressEXP.Location = new System.Drawing.Point(48, 88);
             this.progressEXP.Maximum = ((long)(100));
+            this.progressEXP.MaxPercentShowValue = 99.99F;
             this.progressEXP.Name = "progressEXP";
             this.progressEXP.PercentIndices = 2;
-            this.progressEXP.Radius = 0;
+            this.progressEXP.Radius = 1;
             this.progressEXP.ShowAsPercent = true;
             this.progressEXP.ShowValue = true;
             this.progressEXP.Size = new System.Drawing.Size(180, 16);
             this.progressEXP.TabIndex = 19;
-            this.progressEXP.Text = "0%";
+            this.progressEXP.Text = "0.00%";
             this.progressEXP.Value = ((long)(0));
             // 
             // progressSatiety
@@ -85,12 +86,13 @@
             this.progressSatiety.Gradient = new System.Drawing.Color[] {
         System.Drawing.Color.Turquoise,
         System.Drawing.Color.DodgerBlue};
-            this.progressSatiety.HatchType = System.Drawing.Drawing2D.HatchStyle.Horizontal;
+            this.progressSatiety.HatchType = System.Drawing.Drawing2D.HatchStyle.Percent10;
             this.progressSatiety.Location = new System.Drawing.Point(48, 66);
             this.progressSatiety.Maximum = ((long)(100));
+            this.progressSatiety.MaxPercentShowValue = 100F;
             this.progressSatiety.Name = "progressSatiety";
             this.progressSatiety.PercentIndices = 2;
-            this.progressSatiety.Radius = 0;
+            this.progressSatiety.Radius = 1;
             this.progressSatiety.ShowAsPercent = false;
             this.progressSatiety.ShowValue = true;
             this.progressSatiety.Size = new System.Drawing.Size(180, 16);
@@ -106,12 +108,13 @@
             this.progressBarStoredSp.Gradient = new System.Drawing.Color[] {
         System.Drawing.Color.Navy,
         System.Drawing.Color.RoyalBlue};
-            this.progressBarStoredSp.HatchType = System.Drawing.Drawing2D.HatchStyle.Horizontal;
+            this.progressBarStoredSp.HatchType = System.Drawing.Drawing2D.HatchStyle.Percent10;
             this.progressBarStoredSp.Location = new System.Drawing.Point(48, 110);
             this.progressBarStoredSp.Maximum = ((long)(100));
+            this.progressBarStoredSp.MaxPercentShowValue = 100F;
             this.progressBarStoredSp.Name = "progressBarStoredSp";
             this.progressBarStoredSp.PercentIndices = 2;
-            this.progressBarStoredSp.Radius = 0;
+            this.progressBarStoredSp.Radius = 1;
             this.progressBarStoredSp.ShowAsPercent = false;
             this.progressBarStoredSp.ShowValue = true;
             this.progressBarStoredSp.Size = new System.Drawing.Size(180, 16);

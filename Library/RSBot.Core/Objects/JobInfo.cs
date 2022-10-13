@@ -50,7 +50,7 @@ namespace RSBot.Core.Objects
         /// <value>
         /// The job experience.
         /// </value>
-        public ulong Experience { get; set; }
+        public long Experience { get; set; }
 
         /// <summary>
         /// Gets or sets the job contribution.
@@ -95,7 +95,7 @@ namespace RSBot.Core.Objects
                 Rank = packet.ReadByte(),
                 Type = (JobType)packet.ReadByte(),
                 Level = packet.ReadByte(),
-                Experience = packet.ReadULong()
+                Experience = packet.ReadLong()
             };
         }
     }
