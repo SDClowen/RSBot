@@ -163,7 +163,7 @@ namespace RSBot.Core.Objects.Spawn
         /// <returns></returns>
         public List<SpawnedBionic> GetAttackers()
         {
-            return !SpawnManager.TryGetEntities<SpawnedBionic>(out var attackers, e => e.TargetId == UniqueId) ? null : attackers.ToList();
+            return !SpawnManager.TryGetEntities<SpawnedBionic>(e => e.TargetId == UniqueId, out var attackers) ? null : attackers.ToList();
         }
     }
 }
