@@ -92,7 +92,7 @@ namespace RSBot.Core.Components
         /// Is profile exists <c>true</c>; otherwise <c>false</c>
         /// </summary>
         /// <param name="profile">The profile</param>
-        public static bool IsExists(string profile)
+        public static bool ProfileExists(string profile)
         {
             return _profiles.Any(p => p.Equals(profile, StringComparison.InvariantCultureIgnoreCase));
         }

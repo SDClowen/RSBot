@@ -28,7 +28,6 @@ namespace RSBot.Party
         /// </summary>
         public void Initialize()
         {
-            Views.View.Instance = new Main();
             Views.View.PartyWindow = new AutoFormParty();
 
             PartySubscriber.SubscribeEvents();
@@ -39,7 +38,7 @@ namespace RSBot.Party
         /// </summary>
         public Control GetView()
         {
-            return Views.View.Instance;
+            return Views.View.Instance ?? (Views.View.Instance = new Main());
         }
 
         /// <summary>

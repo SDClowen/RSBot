@@ -169,6 +169,8 @@ namespace RSBot.Core.Client
         private void LoadReferenceListFileEnc<TKey, TReference>(string fileName, IDictionary<TKey, TReference> destination)
     where TReference : IReference<TKey>, new()
         {
+            Log.Debug($"Load file {fileName}");
+
             using (var stream = Game.MediaPk2.GetFile(fileName).GetStream())
                 LoadReferenceListFileEnc(stream, destination);
         }
@@ -194,6 +196,8 @@ namespace RSBot.Core.Client
         private void LoadReferenceFileEnc<TKey, TReference>(string fileName, IDictionary<TKey, TReference> destination)
             where TReference : IReference<TKey>, new()
         {
+            Log.Debug($"Load file {fileName}");
+
             using (var stream = Game.MediaPk2.GetFile(fileName).GetStream())
                 LoadReferenceFileEnc(stream, destination);
         }
@@ -201,6 +205,7 @@ namespace RSBot.Core.Client
         private void LoadReferenceFileEnc<TKey, TReference>(Stream stream, IDictionary<TKey, TReference> destination)
             where TReference : IReference<TKey>, new()
         {
+
             using (var decryptedStream = new MemoryStream())
             {
                 SkillCryptoHelper.DecryptStream(stream, decryptedStream, 0x8C1F);
@@ -213,6 +218,8 @@ namespace RSBot.Core.Client
         private void LoadReferenceListFile<TReference>(string fileName, IList<TReference> destination)
             where TReference : IReference, new()
         {
+            Log.Debug($"Load file {fileName}");
+
             using (var stream = Game.MediaPk2.GetFile(fileName).GetStream())
                 LoadReferenceListFile(stream, destination);
         }
@@ -220,6 +227,8 @@ namespace RSBot.Core.Client
         private void LoadReferenceListFile<TKey, TReference>(string fileName, IDictionary<TKey, TReference> destination)
             where TReference : IReference<TKey>, new()
         {
+            Log.Debug($"Load file {fileName}");
+
             using (var stream = Game.MediaPk2.GetFile(fileName).GetStream())
                 LoadReferenceListFile(stream, destination);
         }
@@ -227,6 +236,8 @@ namespace RSBot.Core.Client
         private void LoadReferenceFile<TReference>(string fileName, IList<TReference> destination)
             where TReference : IReference, new()
         {
+            Log.Debug($"Load file {fileName}");
+
             using (var stream = Game.MediaPk2.GetFile(fileName).GetStream())
                 LoadReferenceFile(stream, destination);
         }
@@ -234,6 +245,8 @@ namespace RSBot.Core.Client
         private void LoadReferenceFile<TKey, TReference>(string fileName, IDictionary<TKey, TReference> destination)
             where TReference : IReference<TKey>, new()
         {
+            Log.Debug($"Load file {fileName}");
+
             using (var stream = Game.MediaPk2.GetFile(fileName).GetStream())
                 LoadReferenceFile(stream, destination);
         }
