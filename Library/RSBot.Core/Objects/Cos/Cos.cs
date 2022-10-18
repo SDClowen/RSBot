@@ -181,20 +181,22 @@ namespace RSBot.Core.Objects.Cos
         {
             var packet = new Packet(0x70C5);
             packet.WriteUInt(UniqueId);
-            packet.WriteByte(0x08);
+            packet.WriteByte(CosCommand.Pickup);
             packet.WriteUInt(itemUniqueId);
 
             var callback = new AwaitCallback(response =>
             {
                 var result = response.ReadByte();
+
                 if (result == 0x01)
                 {
-                    response.ReadByte();
+                    response.ReadByte(); //command
+
                     return response.ReadUInt() == UniqueId ? AwaitCallbackResult.Success : AwaitCallbackResult.ConditionFailed;
                 }
 
                 return AwaitCallbackResult.Fail;
-            }, 0xB034);
+            }, 0xB0C5);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, callback);
             callback.AwaitResponse();
@@ -209,7 +211,7 @@ namespace RSBot.Core.Objects.Cos
         {
             var packet = new Packet(0x70C5);
             packet.WriteUInt(UniqueId);
-            packet.WriteByte(1); //Move
+            packet.WriteByte(CosCommand.Move); //Move
             packet.WriteByte(1); //To point
             packet.WriteUShort(destination.RegionId);
 
