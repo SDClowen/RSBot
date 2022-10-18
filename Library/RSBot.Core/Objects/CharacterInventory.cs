@@ -135,7 +135,7 @@ namespace RSBot.Core.Objects
 
         public void Sort()
         {
-            if (IsSorting)
+            if (IsSorting || Game.Player.InAction)
                 return;
 
             IsSorting = true;
