@@ -76,10 +76,10 @@ namespace RSBot.Core.Objects
             {
                 result.Source = new()
                 {
-                    RegionId = packet.ReadUShort()
+                    Region = packet.ReadUShort()
                 };
 
-                if (result.Source.IsInDungeon)
+                if (result.Source.Region.IsDungeon)
                 {
                     result.Source.XOffset = packet.ReadInt() / 10f;
                     result.Source.ZOffset = packet.ReadFloat();

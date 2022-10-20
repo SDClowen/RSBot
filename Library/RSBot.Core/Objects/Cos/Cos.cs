@@ -213,10 +213,10 @@ namespace RSBot.Core.Objects.Cos
             packet.WriteUInt(UniqueId);
             packet.WriteByte(CosCommand.Move); //Move
             packet.WriteByte(1); //To point
-            packet.WriteUShort(destination.RegionId);
+            packet.WriteUShort(destination.Region);
 
             //Normal world
-            if (!destination.IsInDungeon)
+            if (!destination.Region.IsDungeon)
             {
                 packet.WriteShort(destination.XOffset);
                 packet.WriteShort(destination.ZOffset);

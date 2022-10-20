@@ -208,8 +208,8 @@ namespace RSBot.Views
             stepString.Append($"move {destination.XOffset:0}");
             stepString.Append($" {destination.YOffset:0}");
             stepString.Append($" {destination.ZOffset:0}");
-            stepString.Append($" {destination.XSector}");
-            stepString.Append($" {destination.YSector}");
+            stepString.Append($" {destination.Region.X}");
+            stepString.Append($" {destination.Region.Y}");
             stepString.AppendLine();
 
             txtScript.AppendText(stepString.ToString());

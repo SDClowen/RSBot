@@ -48,7 +48,7 @@ namespace RSBot.Core.Client.ReferenceObjects
                 XOffset = GenPos_X,
                 ZOffset = GenPos_Z,
                 YOffset = GenPos_Y,
-                RegionId = GenRegionID
+                Region = GenRegionID
             };
         }
 

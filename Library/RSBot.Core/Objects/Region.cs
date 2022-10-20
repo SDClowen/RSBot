@@ -1,75 +1,74 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using RSBot.Core.Network;
+using System.Runtime.InteropServices;
 
 namespace RSBot.Core.Objects
 {
-    public class Region
+    [StructLayout(LayoutKind.Explicit)]
+    public struct Region
     {
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
-        public ushort Id { get; set; }
+        [FieldOffset(0)]
+        public ushort Id;
 
-        /// <summary>
-        /// Gets or sets the x sector.
-        /// </summary>
-        /// <value>
-        /// The x sector.
-        /// </value>
-        public byte XSector => BitConverter.GetBytes(Id)[0];
+        [FieldOffset(0)]
+        public byte X;
 
-        /// <summary>
-        /// Gets or sets the y secotr.
-        /// </summary>
-        /// <value>
-        /// The y secotr.
-        /// </value>
-        public byte YSector => BitConverter.GetBytes(Id)[1];
+        [FieldOffset(sizeof(byte))]
+        public byte Y;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Region" /> class.
-        /// </summary>
-        /// <param name="regionId">The region identifier.</param>
-        public Region(ushort regionId)
+        public bool IsDungeon => Y == 0x80;
+
+        public Region(ushort id)
+            : this()
         {
-            Id = regionId;
+            Id = id;
         }
 
-        /// <summary>
-        /// Froms the sectors.
-        /// </summary>
-        /// <param name="xSector">The x sector.</param>
-        /// <param name="ySector">The y sector.</param>
-        /// <returns></returns>
-        public static Region FromSectors(byte xSector, byte ySector)
+        public Region(byte x, byte y)
+            : this()
         {
-            var buffer = new[] { xSector, ySector };
-            return new Region(BitConverter.ToUInt16(buffer, 0));
+            X = x;
+            Y = y;
         }
 
-        /// <summary>
-        /// Gets the surroundings.
-        /// </summary>
-        /// <returns></returns>
-        public static List<Region> GetSurroundingRegions(byte xSector, byte ySector)
+        public static implicit operator ushort(Region wrapper)
         {
-            var result = new List<Region>
+            return wrapper.Id;
+        }
+
+        public static implicit operator Region(ushort value)
+        {
+            return new Region(value);
+        }
+
+        public Region[] GetSurroundingRegions()
+        {
+            return new Region[]
             {
-                FromSectors((byte) (xSector - 1), (byte) (ySector + 1)), //TL
-                FromSectors(xSector, (byte) (ySector + 1)), //TC
-                FromSectors((byte) (xSector + 1), (byte) (ySector + 1)), //TR
-                FromSectors((byte) (xSector - 1), ySector), //CL
-                FromSectors(xSector, ySector), //CC
-                FromSectors((byte) (xSector + 1), ySector), //CR
-                FromSectors((byte) (xSector - 1), (byte) (ySector - 1)), //BL
-                FromSectors(xSector, (byte) (ySector - 1)), //BC
-                FromSectors((byte) (xSector + 1), (byte) (ySector - 1)) //BR
+                new Region((byte) (X - 1), (byte) (Y + 1)), //TL
+                new Region(X, (byte) (Y + 1)), //TC
+                new Region((byte) (X + 1), (byte) (Y + 1)), //TR
+                new Region((byte) (X - 1), Y), //CL
+                new Region(X, Y), //CC
+                new Region((byte) (X + 1), Y), //CR
+                new Region((byte) (X - 1), (byte) (Y - 1)), //BL
+                new Region(X, (byte) (Y - 1)), //BC
+                new Region((byte) (X + 1), (byte) (Y - 1)) //BR
             };
+        }
 
-            return result;
+        /// <summary>
+        /// Write current magic option info to the packet class
+        /// </summary>
+        /// <param name="packet">The packet.</param>
+        internal void Serialize(Packet packet)
+        {
+            packet.WriteByte(X);
+            packet.WriteByte(Y);
+        }
+
+        public override string ToString()
+        {
+            return Id.ToString();
         }
     }
 }
