@@ -23,7 +23,7 @@ internal class UseItemAtTrainplaceSubscriber
         
         _lastTick = Kernel.TickCount;
 
-        if (!Kernel.Bot.Running || Kernel.Bot.CenterPosition.RegionId == 0)
+        if (!Kernel.Bot.Running || Kernel.Bot.CenterPosition.Region == 0)
             return;
 
         //Only at training place

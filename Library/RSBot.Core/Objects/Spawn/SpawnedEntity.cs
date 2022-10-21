@@ -78,7 +78,7 @@ namespace RSBot.Core.Objects.Spawn
         /// <value>
         ///   <c>true</c> if [in cave]; otherwise, <c>false</c>.
         /// </value>
-        public bool IsInDungeon => Movement.Source.IsInDungeon;
+        public bool IsInDungeon => Movement.Source.Region.IsDungeon;
 
         private long _lastCollisionTick;
         private bool _isBehindObstacle;

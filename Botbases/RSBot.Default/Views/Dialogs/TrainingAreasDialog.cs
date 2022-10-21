@@ -59,7 +59,7 @@ namespace RSBot.Default.Views.Dialogs
                 if (trainingArea == null)
                     continue;
 
-                var regionName = Game.ReferenceManager.GetTranslation(trainingArea.Position.RegionId.ToString());
+                var regionName = Game.ReferenceManager.GetTranslation(trainingArea.Position.Region.ToString());
 
                 var listViewItem = listView.Items.Add(new ListViewItem
                 {
@@ -105,7 +105,7 @@ namespace RSBot.Default.Views.Dialogs
                     Radius = (int)dialog.Radius.Value
                 };
 
-                var regionName = Game.ReferenceManager.GetTranslation(trainingArea.Position.RegionId.ToString());
+                var regionName = Game.ReferenceManager.GetTranslation(trainingArea.Position.Region.ToString());
 
                 var listViewItem = listView.Items.Add(new ListViewItem
                 {

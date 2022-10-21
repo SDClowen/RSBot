@@ -489,8 +489,7 @@ namespace RSBot.Core.Components
             packet.WriteByte(ActionType.Cast); //Use Skill
             packet.WriteUInt(skillId);
             packet.WriteByte(ActionTarget.Area);
-            packet.WriteByte(position.XSector);
-            packet.WriteByte(position.YSector);
+            position.Region.Serialize(packet);
             packet.WriteFloat(position.XOffset);
             packet.WriteFloat(position.ZOffset);
             packet.WriteFloat(position.YOffset);

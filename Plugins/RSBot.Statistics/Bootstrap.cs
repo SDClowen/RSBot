@@ -2,6 +2,7 @@
 using RSBot.Core.Plugins;
 using RSBot.Statistics.Stats;
 using System.Windows.Forms;
+using RSBot.Statistics.Views;
 
 namespace RSBot.Statistics
 {
@@ -29,7 +30,6 @@ namespace RSBot.Statistics
         public void Initialize()
         {
             CalculatorRegistry.Initialize();
-            Views.View.Instance = new Views.Main();
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace RSBot.Statistics
         /// <exception cref="System.NotImplementedException"></exception>
         public Control GetView()
         {
-            return Views.View.Instance;
+            return Views.View.Instance ?? (Views.View.Instance = new Main());
         }
 
         /// <summary>

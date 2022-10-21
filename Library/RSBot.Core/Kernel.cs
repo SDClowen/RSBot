@@ -1,7 +1,6 @@
 ﻿using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Network;
-using RSBot.Core.Objects;
 using RSBot.Core.Plugins;
 using System;
 using System.Linq;
@@ -39,7 +38,7 @@ namespace RSBot.Core
         /// <value>
         /// The proxy.
         /// </value>
-        public static Proxy Proxy { get; internal set; }
+        public static Proxy Proxy { get; set; }
 
         /// <summary>
         /// Gets or sets the bot.
@@ -101,7 +100,7 @@ namespace RSBot.Core
                     SpawnManager.Update(elapsed);
 
                     // Collision stuffs
-                    var currentRegionId = Game.Player.Movement.Source.RegionId;
+                    var currentRegionId = Game.Player.Movement.Source.Region;
                     if (CollisionManager.CenterRegionId != currentRegionId)
                     {
                         Game.NearbyTeleporters = Game.ReferenceManager.GetTeleporters(currentRegionId);

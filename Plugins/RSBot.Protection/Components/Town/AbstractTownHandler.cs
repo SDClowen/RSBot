@@ -21,7 +21,7 @@ public abstract class AbstractTownHandler
 
     public static bool PlayerInTownScriptRegion()
     {
-        var regionId = Game.Player.Position.RegionId;
+        var regionId = Game.Player.Position.Region;
 
         return TownSpawnRegionIds.Contains(regionId);
     }

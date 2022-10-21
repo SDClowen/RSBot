@@ -28,9 +28,10 @@ namespace RSBot.General
         /// </summary>
         public void Initialize()
         {
-            Views.View.Instance = new Main();
             Views.View.PendingWindow = new PendingWindow();
             Views.View.AccountsWindow = new Accounts();
+
+            Components.Accounts.Load();
         }
 
         /// <summary>
@@ -38,7 +39,7 @@ namespace RSBot.General
         /// </summary>
         public Control GetView()
         {
-            return Views.View.Instance;
+            return Views.View.Instance ?? (Views.View.Instance = new Main());
         }
 
         /// <summary>

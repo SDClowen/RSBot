@@ -28,7 +28,7 @@ namespace RSBot.Default.Views.Dialogs
         {
             var pos = Game.Player.Movement.Source;
             labelPos.Text = $"X: {pos.X:0.0}  Y:{pos.Y:0.0}";
-            labelArea.Text = Game.ReferenceManager.GetTranslation(pos.RegionId.ToString());
+            labelArea.Text = Game.ReferenceManager.GetTranslation(pos.Region.ToString());
         }
     }
 }

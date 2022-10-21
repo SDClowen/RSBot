@@ -35,8 +35,8 @@ namespace RSBot.General.Components
                 ClientlessManager.RequestServerList();
                 return;
             }
-
-            var selectedAccount = Accounts.SavedAccounts.Find(p => p.Username == GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername"));
+            
+            var selectedAccount = Accounts.SavedAccounts?.Find(p => p.Username == GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername"));
             if (selectedAccount == null)
             {
                 _busy = false;

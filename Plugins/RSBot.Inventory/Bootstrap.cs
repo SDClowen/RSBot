@@ -29,8 +29,6 @@ namespace RSBot.Inventory
         /// </summary>
         public void Initialize()
         {
-            Views.View.Instance = new Main();
-
             BuyItemSubscriber.SubscribeEvents();
             InventoryUpdateSubscriber.SubscribeEvents();
             UseItemAtTrainplaceSubscriber.SubscribeEvents();
@@ -41,7 +39,7 @@ namespace RSBot.Inventory
         /// </summary>
         public Control GetView()
         {
-            return Views.View.Instance;
+            return Views.View.Instance ?? (Views.View.Instance = new Main());
         }
 
         /// <summary>

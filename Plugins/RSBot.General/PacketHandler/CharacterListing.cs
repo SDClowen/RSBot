@@ -109,7 +109,7 @@ namespace RSBot.General.PacketHandler
             }
 
             var username = GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername");
-            var selectedAccount = Components.Accounts.SavedAccounts.Find(p => p.Username == username);
+            var selectedAccount = Components.Accounts.SavedAccounts?.Find(p => p.Username == username);
             if (selectedAccount == null)
                 return;
 

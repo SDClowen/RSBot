@@ -427,9 +427,9 @@ namespace RSBot.Map.Views
         /// </summary>
         private string GetLayerPath(Position p)
         {
-            if (p.IsInDungeon)
+            if (p.Region.IsDungeon)
             {
-                switch (p.RegionId)
+                switch (p.Region)
                 {
                     // Donwhang cave
                     case 32769:
@@ -496,13 +496,13 @@ namespace RSBot.Map.Views
             var p = Game.Player.Movement.Source;
 
             var layerPath = GetLayerPath(p);
-            if (p.XSector == _currentXSec && p.YSector == _currentYSec && _currentLayerPath == layerPath)
+            if (p.Region.X == _currentXSec && p.Region.Y == _currentYSec && _currentLayerPath == layerPath)
                 return;
 
-            _currentXSec = p.XSector;
-            _currentYSec = p.YSector;
+            _currentXSec = p.Region.X;
+            _currentYSec = p.Region.Y;
 
-            if (p.IsInDungeon)
+            if (p.Region.IsDungeon)
             {
                 _currentXSec = p.GetSectorFromOffset(p.XOffset);
                 _currentYSec = p.GetSectorFromOffset(p.YOffset);
@@ -592,13 +592,13 @@ namespace RSBot.Map.Views
             if (Game.Player == null)
                 return;
 
-            lblRegion.Text = Game.ReferenceManager.GetTranslation(Game.Player.Movement.Source.RegionId.ToString());
+            lblRegion.Text = Game.ReferenceManager.GetTranslation(Game.Player.Movement.Source.Region.ToString());
 
             lblX.Text = Game.Player.Movement.Source.X.ToString("0.0");
             lblY.Text = Game.Player.Movement.Source.Y.ToString("0.0");
 
             if(_debug)
-                labelSectorInfo.Text = $"{Game.Player.Movement.Source.RegionId} ({Game.Player.Movement.Source.XSector}x{Game.Player.Movement.Source.YSector})";
+                labelSectorInfo.Text = $"{Game.Player.Movement.Source.Region} ({Game.Player.Movement.Source.Region.X}x{Game.Player.Movement.Source.Region.Y})";
 
             bufferedGraphics.Graphics.Clear(Color.Black);
             RedrawMap();
@@ -648,7 +648,7 @@ namespace RSBot.Map.Views
             GlobalConfig.Set("RSBot.EnableCollisionDetection", checkEnableCollisions.Checked);
 
             if (checkEnableCollisions.Checked && Game.Player != null)
-                CollisionManager.Update(Game.Player.Position.RegionId);
+                CollisionManager.Update(Game.Player.Position.Region);
         }
     }
 }

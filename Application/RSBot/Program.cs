@@ -14,7 +14,7 @@ namespace RSBot
             if(args.Length == 1)
             {
                 var profile = args[0];
-                if (ProfileManager.IsExists(profile))
+                if (ProfileManager.ProfileExists(profile))
                 {
                     ProfileManager.SetSelectedProfile(profile);
                     ProfileManager.IsProfileLoadedByArgs = true;
