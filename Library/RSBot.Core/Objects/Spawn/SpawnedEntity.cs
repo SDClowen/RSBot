@@ -81,7 +81,6 @@ namespace RSBot.Core.Objects.Spawn
         public bool IsInDungeon => Movement.Source.Region.IsDungeon;
 
         private long _lastCollisionTick;
-        private bool _isBehindObstacle;
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is behind obstacle.
@@ -93,16 +92,14 @@ namespace RSBot.Core.Objects.Spawn
         {
             get
             {
-                if (_lastCollisionTick == 0)
-                    _isBehindObstacle = CollisionManager.HasCollisionBetween(Game.Player.Position, Position);
-
                 //It's enough to check for collision every 1 second
-                if (Kernel.TickCount - _lastCollisionTick >= TimeSpan.TicksPerSecond)
-                    _isBehindObstacle = CollisionManager.HasCollisionBetween(Game.Player.Position, Position);
+                if (Kernel.TickCount - _lastCollisionTick >= 1000)
+                {
+                    _lastCollisionTick = Kernel.TickCount;
+                    return CollisionManager.HasCollisionBetween(Game.Player.Position, Position);
+                }
 
-                _lastCollisionTick = Kernel.TickCount;
-
-                return _isBehindObstacle;
+                return false;
             }
         }
 
