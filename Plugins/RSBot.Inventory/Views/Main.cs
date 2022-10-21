@@ -55,7 +55,7 @@ namespace RSBot.Inventory.Views
 
         private void OnLoadCharacter()
         {
-            checkAutoSort.Checked = PlayerConfig.Get("RSBot.Inventory.AutoSortInventory", true);
+            checkAutoSort.Checked = PlayerConfig.Get("RSBot.Inventory.AutoSort", false);
 
             UpdateInventoryList();
         }
@@ -542,7 +542,7 @@ namespace RSBot.Inventory.Views
 
         private void checkAutoSort_CheckedChanged(object sender, EventArgs e)
         {
-            PlayerConfig.Set("RSBot.Inventory.AutoSortInventory", checkAutoSort.Checked);
+            PlayerConfig.Set("RSBot.Inventory.AutoSort", checkAutoSort.Checked);
         }
 
         private void useItemAtTrainingPlaceMenuItem_Click(object sender, EventArgs e)
