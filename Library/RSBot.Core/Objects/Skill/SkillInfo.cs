@@ -10,7 +10,7 @@ namespace RSBot.Core.Objects.Skill
         /// <summary>
         /// Gets or sets the identifier.
         /// </summary>
-        public uint Id { get; set; }
+        public uint Id;
 
         /// <summary>
         /// Gets or sets the enabled.
