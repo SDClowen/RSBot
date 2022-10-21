@@ -240,7 +240,7 @@ namespace RSBot.Core
 
             TranslateControls(values, view, assembly);
         }
-
+     
         private static void TranslateControls(LangDict values, Control view, string header)
         {
             foreach (Control control in view.Controls)

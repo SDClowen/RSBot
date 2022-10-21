@@ -53,7 +53,7 @@ namespace RSBot.Views.Dialog
                 return string.Empty;
             }
 
-            if (ProfileManager.IsExists(profile))
+            if (ProfileManager.ProfileExists(profile))
             {
                 MessageBox.Show($"The profile name '{profile}' already exists!", "Invalid name", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);

@@ -10,7 +10,7 @@ namespace RSBot.Log
         /// <summary>
         /// Created log component control
         /// </summary>
-        private Views.Main _control;
+        private Views.Main? _control;
 
         /// <summary>
         /// Gets or sets the information of the plugin.
@@ -33,7 +33,7 @@ namespace RSBot.Log
         /// </summary>
         public void Initialize()
         {
-            _control = new Views.Main();
+
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace RSBot.Log
         /// </summary>
         public Control GetView()
         {
-            return _control;
+            return _control ?? (_control = new Views.Main());
         }
 
         /// <summary>

@@ -75,8 +75,8 @@ namespace RSBot.Core
             if (remoteThread == IntPtr.Zero)
                 return false;
 
-            WaitForSingleObject(remoteThread, uint.MaxValue);
-            VirtualFreeEx(handle, dereercomp, pathLen, MEM_RELEASE);
+            var x = WaitForSingleObject(remoteThread, uint.MaxValue);
+            var y = VirtualFreeEx(handle, dereercomp, pathLen, MEM_RELEASE);
 
             CloseHandle(remoteThread);
             CloseHandle(handle);
@@ -169,17 +169,16 @@ namespace RSBot.Core
             var gatewayPort = Game.ReferenceManager.GatewayInfo.Port;
 
             var redirectIp = "127.0.0.1";
-            using (var writer = new BinaryWriter(new FileStream(Path.Combine(Path.GetTempPath(), tmpConfigFile), FileMode.Create)))
-            {
-                writer.Write(GlobalConfig.Get<bool>("RSBot.Loader.DebugMode"));
-                writer.WriteAscii(redirectIp);
-                writer.Write(Kernel.Proxy.Port);
-                writer.Write(division.GatewayServers.Count);
-                foreach (var gatewayServer in division.GatewayServers)
-                    writer.WriteAscii(gatewayServer);
+            using var writer = new BinaryWriter(new FileStream(Path.Combine(Path.GetTempPath(), tmpConfigFile), FileMode.OpenOrCreate));
 
-                writer.Write(gatewayPort);
-            }
+            writer.Write(GlobalConfig.Get<bool>("RSBot.Loader.DebugMode"));
+            writer.WriteAscii(redirectIp);
+            writer.Write(Kernel.Proxy.Port);
+            writer.Write(division.GatewayServers.Count);
+            foreach (var gatewayServer in division.GatewayServers)
+                writer.WriteAscii(gatewayServer);
+
+            writer.Write(gatewayPort);
         }
     }
 }

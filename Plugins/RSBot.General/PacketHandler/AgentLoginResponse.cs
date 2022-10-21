@@ -33,7 +33,8 @@ namespace RSBot.General.PacketHandler
 
             if (flag == 0x01)
             {
-                if (!Game.Clientless) return;
+                if (!Game.Clientless)
+                    return;
 
                 var response = new Packet(0x7007);
                 response.WriteByte(0x02); //List
@@ -64,6 +65,9 @@ namespace RSBot.General.PacketHandler
 
                 case 5:
                     Log.WarnLang("IpLimit");
+                    break;
+                default:
+                    Log.Warn($"Unknown agent server login error code: {code:X}");
                     break;
             }
         }
