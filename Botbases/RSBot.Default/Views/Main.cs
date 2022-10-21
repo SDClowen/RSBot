@@ -28,6 +28,7 @@ namespace RSBot.Default.Views
             lvAvoidance.Items[6].Tag = MonsterRarity.Unique | MonsterRarity.Unique2;
             lvAvoidance.Items[7].Tag = MonsterRarity.EliteStrong;
             lvAvoidance.Items[8].Tag = MonsterRarity.Elite;
+            lvAvoidance.Items[9].Tag = MonsterRarity.Event;
         }
 
         /// <summary>

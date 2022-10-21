@@ -40,6 +40,7 @@
             System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("Unique");
             System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("Strong");
             System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem("Elite");
+            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem("Event");
             this.groupBox2 = new SDUI.Controls.GroupBox();
             this.lvAvoidance = new SDUI.Controls.ListView();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
@@ -129,6 +130,8 @@
             listViewItem7.Group = listViewGroup3;
             listViewItem8.Group = listViewGroup3;
             listViewItem9.Group = listViewGroup3;
+            listViewItem10.Group = listViewGroup3;
+            listViewItem10.ToolTipText = "Event Mobs";
             this.lvAvoidance.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem1,
             listViewItem2,
@@ -138,7 +141,8 @@
             listViewItem6,
             listViewItem7,
             listViewItem8,
-            listViewItem9});
+            listViewItem9,
+            listViewItem10});
             this.lvAvoidance.Location = new System.Drawing.Point(2, 23);
             this.lvAvoidance.Name = "lvAvoidance";
             this.lvAvoidance.Size = new System.Drawing.Size(217, 188);

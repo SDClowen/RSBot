@@ -8,24 +8,17 @@ namespace RSBot.Core.Extensions
         {
             switch (rarity)
             {
-                case MonsterRarity.General: //regular
-                    return "General";
-
-                case MonsterRarity.Champion: //blue
-                    return "Champion";
-
+                case MonsterRarity.General:
+                case MonsterRarity.Champion:
                 case MonsterRarity.Unique:
+                case MonsterRarity.Giant:
+                case MonsterRarity.Titan:
+                case MonsterRarity.Elite:
+                case MonsterRarity.Event:
+                    return rarity.ToString();
+
                 case MonsterRarity.Unique2:
                     return "Unique";
-
-                case MonsterRarity.Giant:
-                    return "Giant";
-
-                case MonsterRarity.Titan:
-                    return "Titan";
-
-                case MonsterRarity.Elite:
-                    return "Elite";
 
                 case MonsterRarity.EliteStrong:
                     return "Elite (Strong)";

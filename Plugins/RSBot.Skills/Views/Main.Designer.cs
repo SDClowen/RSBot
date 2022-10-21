@@ -203,7 +203,8 @@
             "Giant (Party)",
             "Elite",
             "Strong",
-            "Unique"});
+            "Unique",
+            "Event"});
             this.comboMonsterType.Location = new System.Drawing.Point(54, 180);
             this.comboMonsterType.Name = "comboMonsterType";
             this.comboMonsterType.Radius = 5;
@@ -826,10 +827,10 @@
             // 
             this.tabPage4.BackColor = System.Drawing.Color.White;
             this.tabPage4.Controls.Add(this.listActiveBuffs);
-            this.tabPage4.Location = new System.Drawing.Point(4, 24);
+            this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(354, 439);
+            this.tabPage4.Size = new System.Drawing.Size(354, 438);
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "Active buffs";
             // 
@@ -846,7 +847,7 @@
             this.listActiveBuffs.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listActiveBuffs.Location = new System.Drawing.Point(3, 3);
             this.listActiveBuffs.Name = "listActiveBuffs";
-            this.listActiveBuffs.Size = new System.Drawing.Size(348, 433);
+            this.listActiveBuffs.Size = new System.Drawing.Size(348, 432);
             this.listActiveBuffs.TabIndex = 6;
             this.listActiveBuffs.UseCompatibleStateImageBehavior = false;
             this.listActiveBuffs.View = System.Windows.Forms.View.Details;
