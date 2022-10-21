@@ -98,35 +98,16 @@ namespace RSBot.Default.Bundle
         /// </summary>
         public static void Reload()
         {
-            Berzerk = Berzerk ?? new BerzerkBundle();
-            Berzerk.Refresh();
-
-            Avoidance = Avoidance ?? new AvoidanceBundle();
-            Avoidance.Refresh();
-
-            Movement = Movement ?? new MovementBundle();
-            Movement.Refresh();
-
-            Buff = Buff ?? new BuffBundle();
-            Buff.Refresh();
-
-            PartyBuff = PartyBuff ?? new PartyBuffingBundle();
-            PartyBuff.Refresh();
-
-            Target = Target ?? new TargetBundle();
-            Target.Refresh();
-
-            Attack = Attack ?? new AttackBundle();
-            Attack.Refresh();
-
-            Loot = Loot ?? new LootBundle();
-            Loot.Refresh();
-
-            Loop = Loop ?? new LoopBundle();
-            Loop.Refresh();
-
-            Resurrect = Resurrect ?? new ResurrectBundle();
-            Resurrect.Refresh();
+            (Berzerk ??= new BerzerkBundle()).Refresh();
+            (Avoidance ??= new AvoidanceBundle()).Refresh();
+            (Movement ??= new MovementBundle()).Refresh();
+            (Buff ??= new BuffBundle()).Refresh();
+            (PartyBuff ??= new PartyBuffingBundle()).Refresh();
+            (Target ??= new TargetBundle()).Refresh();
+            (Attack ??= new AttackBundle()).Refresh();
+            (Loot ??= new LootBundle()).Refresh();
+            (Loop ??= new LoopBundle()).Refresh();
+            (Resurrect ??= new ResurrectBundle()).Refresh();
         }
 
         public static void Stop()

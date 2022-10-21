@@ -1,6 +1,7 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
+using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
 using System.Collections.Generic;
@@ -10,25 +11,11 @@ namespace RSBot.Default.Bundle.Target
 {
     internal class TargetBundle : IBundle
     {
-        private class BlacklistTimer : System.Timers.Timer
-        {
-            public const int Timeout = 5_000;
-
-            public SpawnedBionic Target { get; }
-
-            public BlacklistTimer(SpawnedBionic target)
-            {
-                Target = target;
-                AutoReset = false;
-                Interval = Timeout;
-
-                Start();
-            }
-        }
+        private const int BLACKLIST_TIMEOUT = 5_000;
 
         #region Fields
 
-        private Dictionary<SpawnedBionic, BlacklistTimer>? _blacklistTimers;
+        private Dictionary<uint, int> _blacklist;
 
         #endregion Fields
 
@@ -53,6 +40,15 @@ namespace RSBot.Default.Bundle.Target
         /// </summary>
         public void Invoke()
         {
+            _blacklist.RemoveAll((uniqueId, tick) => 
+            {
+                var flag = Kernel.TickCount - tick > BLACKLIST_TIMEOUT;
+                if(flag)
+                    Log.Debug($"Removed mob [{uniqueId} from blacklist!");
+
+                return flag;
+             });
+
             var warlockModeEnabled = PlayerConfig.Get<bool>("RSBot.Skills.WarlockMode", false);
             if (Game.SelectedEntity != null && Game.SelectedEntity.State.LifeState == LifeState.Alive && !(warlockModeEnabled && Game.SelectedEntity.State.HasTwoDots()))
                 return;
@@ -80,11 +76,9 @@ namespace RSBot.Default.Bundle.Target
                     m.State.LifeState == LifeState.Alive &&
                     !(warlockModeEnabled && m.State.HasTwoDots()) &&
                     m.IsBehindObstacle == false &&
-                    _blacklistTimers != null &&
-                    !_blacklistTimers.ContainsKey(m) &&
+                    _blacklist?.ContainsKey(m.UniqueId) == false &&
                     Container.Bot.Area.IsInSight(m) &&
                     m.DistanceToPlayer <= 40 &&
-                    !_blacklistTimers.Any(be => be.Key.Id == m.Id) &&
                     !(m.Record.IsDimensionPillar && ignorePillar) &&
                     !m.Record.IsSummonFlower, out var entities))
                 return default(SpawnedMonster);
@@ -100,12 +94,12 @@ namespace RSBot.Default.Bundle.Target
         /// </summary>
         public void Refresh()
         {
-            _blacklistTimers = new Dictionary<SpawnedBionic, BlacklistTimer>(8);
+            _blacklist = new(8);
         }
 
         public void Stop()
         {
-            _blacklistTimers = null;
+            _blacklist = null;
         }
 
         #endregion Methods
@@ -117,35 +111,14 @@ namespace RSBot.Default.Bundle.Target
             if (Game.SelectedEntity == null)
                 return;
 
-            Bundles.Movement.LastEntityWasBehindObstacle = true;
-
-            if (_blacklistTimers == null)
-                return;
-
-            //Target already blacklisted?
-            if (_blacklistTimers.Count(e => e.Key.UniqueId == Game.SelectedEntity.UniqueId) != 0) return;
-
-            var timer = new BlacklistTimer(Game.SelectedEntity);
-            timer.Elapsed += BlacklistTimer_Elapsed;
-
-            _blacklistTimers.Add(Game.SelectedEntity, timer);
-
-            Log.Debug($"Add mob [{Game.SelectedEntity.UniqueId} to blacklist for {BlacklistTimer.Timeout}ms");
-
+            var selectedEntityUniqueId = Game.SelectedEntity.UniqueId;
             Game.SelectedEntity?.TryDeselect();
             Game.SelectedEntity = null;
-        }
 
-        private void BlacklistTimer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
-        {
-            if (_blacklistTimers == null)
-                return;
+            Bundles.Movement.LastEntityWasBehindObstacle = true;
 
-            if (sender is not BlacklistTimer timer) return;
-
-            _blacklistTimers.Remove(timer.Target);
-
-            Log.Debug($"Removed mob [{timer.Target.UniqueId} from blacklist");
+            if (_blacklist?.TryAdd(selectedEntityUniqueId, Kernel.TickCount) == true)
+                Log.Debug($"Add mob [{selectedEntityUniqueId} to blacklist for {BLACKLIST_TIMEOUT}ms");
         }
 
         #endregion Events
