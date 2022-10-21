@@ -201,6 +201,9 @@ namespace RSBot.Skills.Views
                         case 8:
                             SkillManager.Skills[MonsterRarity.Unique].Add(skillInfo);
                             continue;
+                        case 9:
+                            SkillManager.Skills[MonsterRarity.Event].Add(skillInfo);
+                            continue;
                         default:
                             SkillManager.Skills[MonsterRarity.General].Add(skillInfo);
                             continue;

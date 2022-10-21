@@ -16,6 +16,7 @@
         GiantParty = 20,
         TitanParty = 21,
         EliteParty = 22,
-        Unique2Party = 24
+        Unique2Party = 24,
+        Event = 0xFF
     }
 }

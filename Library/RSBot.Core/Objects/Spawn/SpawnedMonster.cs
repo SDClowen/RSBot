@@ -70,6 +70,9 @@ namespace RSBot.Core.Objects.Spawn
             base.Deserialize(packet);
 
             Rarity = (MonsterRarity)packet.ReadByte();
+            
+            if (Record.IsEventMob)
+                Rarity = MonsterRarity.Event;
 
             if (Game.ClientType >= GameClientType.Global)
                 packet.ReadUInt();
