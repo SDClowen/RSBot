@@ -5,39 +5,13 @@ namespace RSBot.Core.Objects
 {
     public struct Position
     {
-        private byte _XSector;
-        private byte _YSector;
         private float _XOffset;
         private float _YOffset;
 
         /// <summary>
-        /// Gets or set the region identifier.
+        /// Gets the regional id.
         /// </summary>
-        public ushort RegionId
-        {
-            get => (ushort)((_YSector << 8) | _XSector);
-            set
-            {
-                _YSector = (byte)(value >> 8);
-                _XSector = (byte)(value & 0xFF);
-            }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether this instance is in dungeon.
-        /// </summary>
-        /// <value><c>true</c> if this instance is in dungeon; otherwise, <c>false</c>.</value>
-        public bool IsInDungeon => RegionId > short.MaxValue;
-
-        /// <summary>
-        /// Gets the regional X sector.
-        /// </summary>
-        public byte XSector => _XSector;
-
-        /// <summary>
-        /// Gets the regional Y sector.
-        /// </summary>
-        public byte YSector => _YSector;
+        public Region Region;
 
         /// <summary>
         /// Gets or set the position X from map
@@ -49,19 +23,19 @@ namespace RSBot.Core.Objects
             {
                 _XOffset = value;
 
-                if (IsInDungeon)
+                if (Region.IsDungeon)
                     return;
 
                 while (_XOffset < 0)
                 {
                     _XOffset += 1920;
-                    _XSector -= 1;
+                    Region.X -= 1;
                 }
 
                 while (_XOffset > 1920)
                 {
                     _XOffset -= 1920;
-                    _XSector += 1;
+                    Region.X += 1;
                 }
             }
         }
@@ -75,19 +49,19 @@ namespace RSBot.Core.Objects
             {
                 _YOffset = value;
 
-                if (IsInDungeon)
+                if (Region.IsDungeon)
                     return;
 
                 while (_YOffset < 0)
                 {
                     _YOffset += 1920;
-                    _YSector -= 1;
+                    Region.Y -= 1;
                 }
 
                 while (_YOffset > 1920)
                 {
                     _YOffset -= 1920;
-                    _YSector += 1;
+                    Region.Y += 1;
                 }
             }
         }
@@ -118,7 +92,7 @@ namespace RSBot.Core.Objects
         /// <value>
         /// The x coordinate.
         /// </value>
-        public float X => IsInDungeon ? _XOffset / 10 : (_XSector - 135) * 192 + _XOffset / 10;
+        public float X => Region.IsDungeon ? _XOffset / 10 : (Region.X - 135) * 192 + _XOffset / 10;
 
         /// <summary>
         /// Gets the y coordinate.
@@ -126,17 +100,17 @@ namespace RSBot.Core.Objects
         /// <value>
         /// The y coordinate.
         /// </value>
-        public float Y => IsInDungeon ? _YOffset / 10 : (_YSector - 92) * 192 + _YOffset / 10;
+        public float Y => Region.IsDungeon ? _YOffset / 10 : (Region.Y - 92) * 192 + _YOffset / 10;
 
         /// <summary>
         /// Gets offset from x sector.
         /// </summary>
-        public float XSectorOffset => IsInDungeon ? (127 * 192 + _XOffset / 10) * 10 % 1920 : _XOffset;
+        public float XSectorOffset => Region.IsDungeon ? (127 * 192 + _XOffset / 10) * 10 % 1920 : _XOffset;
 
         /// <summary>
         /// Gets offset from y sector.
         /// </summary>
-        public float YSectorOffset => IsInDungeon ? (128 * 192 + _YOffset / 10) * 10 % 1920 : _YOffset;
+        public float YSectorOffset => Region.IsDungeon ? (128 * 192 + _YOffset / 10) * 10 % 1920 : _YOffset;
 
         /// <summary>
         /// Creates a position by using world map coordinates
@@ -145,10 +119,10 @@ namespace RSBot.Core.Objects
         public Position(float x, float y, ushort regionId = 0)
             : this()
         {
-            RegionId = regionId;
+            Region = regionId;
 
             // World map coordinates has been provided
-            if (!IsInDungeon)
+            if (!Region.IsDungeon)
             {
                 var xOffset = (int)(Math.Abs(x) % 192 * 10);
                 if (x < 0)
@@ -158,8 +132,8 @@ namespace RSBot.Core.Objects
                 if (y < 0)
                     yOffset = 1920 - yOffset;
 
-                _XSector = (byte)Math.Round((x - xOffset / 10f) / 192f + 135);
-                _YSector = (byte)Math.Round((y - yOffset / 10f) / 192f + 92);
+                Region.X = (byte)Math.Round((x - xOffset / 10f) / 192f + 135);
+                Region.Y = (byte)Math.Round((y - yOffset / 10f) / 192f + 92);
 
                 XOffset = xOffset;
                 YOffset = yOffset;
@@ -182,7 +156,7 @@ namespace RSBot.Core.Objects
         public Position(short xOffset, short yOffset, short zOffset, ushort regionId)
             : this()
         {
-            RegionId = regionId;
+            Region = regionId;
 
             XOffset = xOffset;
             YOffset = yOffset;
@@ -195,8 +169,8 @@ namespace RSBot.Core.Objects
         public Position(float xOffset, float yOffset, float zOffset, byte xSector, byte ySector)
             : this()
         {
-            _XSector = xSector;
-            _YSector = ySector;
+            Region.X = xSector;
+            Region.Y = ySector;
 
             XOffset = xOffset;
             YOffset = yOffset;
@@ -210,15 +184,6 @@ namespace RSBot.Core.Objects
         /// <returns></returns>
         public double DistanceTo(Position position)
         {
-            /*
-            // Distance cannot be calculated
-            if (IsInDungeon != position.IsInDungeon)
-                return double.MaxValue;
-            // Make sure they are in the same dungeon
-            if (IsInDungeon && RegionId != position.RegionId)
-                return double.MaxValue;
-            */
-            // Both are in the same region
             return Math.Sqrt(Math.Pow(X - position.X, 2) + Math.Pow(Y - position.Y, 2));
         }
 
@@ -231,7 +196,7 @@ namespace RSBot.Core.Objects
         {
             return new()
             {
-                RegionId = packet.ReadUShort(),
+                Region = packet.ReadUShort(),
                 XOffset = packet.ReadFloat(),
                 ZOffset = packet.ReadFloat(),
                 YOffset = packet.ReadFloat(),
@@ -248,7 +213,7 @@ namespace RSBot.Core.Objects
         {
             return new()
             {
-                RegionId = packet.ReadUShort(),
+                Region = packet.ReadUShort(),
                 XOffset = packet.ReadInt(),
                 ZOffset = packet.ReadInt(),
                 YOffset = packet.ReadInt()
@@ -264,10 +229,10 @@ namespace RSBot.Core.Objects
         {
             Position position = new()
             {
-                RegionId = packet.ReadUShort()
+                Region = packet.ReadUShort()
             };
 
-            if (!position.IsInDungeon)
+            if (!position.Region.IsDungeon)
             {
                 position.XOffset = packet.ReadShort();
                 position.ZOffset = packet.ReadShort();

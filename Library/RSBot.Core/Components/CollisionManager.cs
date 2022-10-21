@@ -148,7 +148,7 @@ public static class CollisionManager
         ActiveCollisionMeshes = new List<CalculatedCollisionMesh>(9);
 
         var centerRegion = new Region(centerRegionId);
-        var surroundedBy = Region.GetSurroundingRegions(centerRegion.XSector, centerRegion.YSector);
+        var surroundedBy = centerRegion.GetSurroundingRegions();
 
         foreach (var region in surroundedBy.Where(region => _loadedCollisions.ContainsKey(region.Id)))
         {

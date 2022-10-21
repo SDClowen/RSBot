@@ -684,18 +684,17 @@ namespace RSBot.Core.Objects
 
             var packet = new Packet(0x7021);
             packet.WriteByte(1);
-            packet.WriteUShort(destination.RegionId);
 
             if (!Game.Player.IsInDungeon)
             {
+                destination.Region.Serialize(packet);
                 packet.WriteShort(destination.XOffset);
                 packet.WriteShort(destination.ZOffset);
                 packet.WriteShort(destination.YOffset);
             }
             else
             {
-                packet.SeekWrite(1, System.IO.SeekOrigin.Begin);
-                packet.WriteUShort(Game.Player.Position.RegionId);
+                Game.Player.Position.Region.Serialize(packet);
                 packet.WriteInt(destination.XOffset);
                 packet.WriteInt(destination.ZOffset);
                 packet.WriteInt(destination.YOffset);

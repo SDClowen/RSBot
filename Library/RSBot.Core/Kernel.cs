@@ -100,7 +100,7 @@ namespace RSBot.Core
                     SpawnManager.Update(elapsed);
 
                     // Collision stuffs
-                    var currentRegionId = Game.Player.Movement.Source.RegionId;
+                    var currentRegionId = Game.Player.Movement.Source.Region;
                     if (CollisionManager.CenterRegionId != currentRegionId)
                     {
                         Game.NearbyTeleporters = Game.ReferenceManager.GetTeleporters(currentRegionId);
