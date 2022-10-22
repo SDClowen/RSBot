@@ -2,6 +2,7 @@
 {
     public enum GameClientType : byte
     {
+        Silkroad2006,
         Japanese_Old,
         Thailand,
         Vietnam,

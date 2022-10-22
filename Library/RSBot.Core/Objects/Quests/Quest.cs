@@ -19,7 +19,12 @@ namespace RSBot.Core.Objects.Quests
 
         public void ParseCompletedQuests(Packet packet)
         {
-            var count = packet.ReadUShort();
+            var count = 0;
+            if (Game.ClientType < GameClientType.Japanese_Old)
+                count = packet.ReadByte();
+            else
+                count = packet.ReadUShort();
+
             CompletedQuests = new uint[count];
 
             for (int i = 0; i < count; i++)
@@ -28,7 +33,13 @@ namespace RSBot.Core.Objects.Quests
 
         public void ParseActiveQuests(Packet packet)
         {
-            var count = packet.ReadByte();
+            var count = 0;
+
+            if (Game.ClientType < GameClientType.Japanese_Old)
+                count = packet.ReadByte();
+            else
+                count = packet.ReadUShort();
+
             ActiveQuests = new ActiveQuest[count];
 
             for (int i = 0; i < count; i++)

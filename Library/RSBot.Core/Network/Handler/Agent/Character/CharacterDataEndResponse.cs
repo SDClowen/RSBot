@@ -62,6 +62,23 @@ namespace RSBot.Core.Network.Handler.Agent.Character
             character.TotalPK = packet.ReadUShort();
             character.PKPenaltyPoint = packet.ReadUInt();
 
+            if (Game.ClientType == GameClientType.Silkroad2006)
+            {
+                packet.ReadUShort();    // ??
+                packet.ReadUShort();    // arrangeLevel
+                packet.ReadInt();       // arrangePoint 1
+                packet.ReadInt();       // arrangePoint 2
+
+                packet.ReadByte();      // trader level
+                packet.ReadInt();       // trader exp
+
+                packet.ReadByte();      // thief level
+                packet.ReadInt();       // thief exp
+
+                packet.ReadByte();      // hunter level
+                packet.ReadInt();       // hunter exp
+            }
+
             if (Game.ClientType >= GameClientType.Thailand)
                 character.BerzerkLevel = packet.ReadByte();
 
