@@ -1,4 +1,4 @@
-﻿namespace RSBot.Skills.Views;
+﻿namespace RSBot.Log.Views;
 
 internal class View
 {

@@ -1,57 +1,37 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Plugins;
-
 using System.Windows.Forms;
 
-namespace RSBot.Log
+namespace RSBot.Log;
+
+public class Bootstrap : IPlugin
 {
-    public class Bootstrap : IPlugin
+    /// <inheritdoc />
+    public string InternalName => "RSBot.Log";
+
+    /// <inheritdoc />
+    public string DisplayName => "Log";
+
+    /// <inheritdoc />
+    public bool DisplayAsTab => true;
+
+    /// <inheritdoc />
+    public int Index => 99;
+
+    /// <inheritdoc />
+    public bool RequireIngame => false;
+
+    /// <inheritdoc />
+    public void Initialize()
     {
-        /// <summary>
-        /// Created log component control
-        /// </summary>
-        private Views.Main? _control;
 
-        /// <summary>
-        /// Gets or sets the information of the plugin.
-        /// </summary>
-        /// <value>
-        /// The information.
-        /// </value>
-        public PluginInfo Information => new PluginInfo
-        {
-            DisplayAsTab = true,
-            DisplayName = "Log",
-            InternalName = "RSBot.Log",
-            LoadIndex = 0,
-            TabDisplayIndex = 100,
-            RequireIngame = false
-        };
-
-        /// <summary>
-        /// Initializes this instance.
-        /// </summary>
-        public void Initialize()
-        {
-
-        }
-
-        /// <summary>
-        /// Gets the view that will be displayed as tab page.
-        /// </summary>
-        public Control GetView()
-        {
-            return _control ?? (_control = new Views.Main());
-        }
-
-        /// <summary>
-        /// Translate the plugin
-        /// </summary>
-        /// <param name="language">The language</param>
-        public void Translate()
-        {
-            LanguageManager.Translate(GetView(), Kernel.Language);
-        }
     }
+
+    /// <inheritdoc />
+    public Control View => Views.View.Instance;
+
+    /// <inheritdoc />
+    public void Translate() =>
+        LanguageManager.Translate(View, Kernel.Language);
 }

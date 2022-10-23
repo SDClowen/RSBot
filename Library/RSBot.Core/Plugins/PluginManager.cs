@@ -46,11 +46,11 @@ namespace RSBot.Core.Plugins
                                           select extension)
                 {
                     Extensions.Add(extension.Key, extension.Value);
-                    Log.Debug($"Loaded plugin [{extension.Value.Information.InternalName}]");
+                    Log.Debug($"Loaded plugin [{extension.Value.InternalName}]");
                 }
 
                 //order by index, not alphabeticaly
-                Extensions = Extensions.OrderBy(entry => entry.Value.Information.LoadIndex)
+                Extensions = Extensions.OrderBy(entry => entry.Value.Index)
                     .ToDictionary(x => x.Key, x => x.Value);
 
                 EventManager.FireEvent("OnLoadPlugins");
@@ -80,7 +80,7 @@ namespace RSBot.Core.Plugins
                 var assemblyTypes = assembly.GetTypes();
 
                 foreach (var extension in (from type in assemblyTypes where type.IsPublic && !type.IsAbstract && type.GetInterface("IPlugin") != null select Activator.CreateInstance(type)).OfType<IPlugin>())
-                    result.Add(extension.Information.InternalName, extension);
+                    result.Add(extension.InternalName, extension);
 
                 if (result.Count == 0)
                     return result;

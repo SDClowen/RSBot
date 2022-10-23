@@ -2,54 +2,39 @@
 using RSBot.Core.Components;
 using RSBot.Core.Plugins;
 using RSBot.Inventory.Subscriber;
-using RSBot.Inventory.Views;
-
 using System.Windows.Forms;
 
-namespace RSBot.Inventory
+namespace RSBot.Inventory;
+
+public class Bootstrap : IPlugin
 {
-    public class Bootstrap : IPlugin
+    /// <inheritdoc />
+    public string InternalName => "RSBot.Inventory";
+
+    /// <inheritdoc />
+    public string DisplayName => "Inventory";
+
+    /// <inheritdoc />
+    public bool DisplayAsTab => true;
+
+    /// <inheritdoc />
+    public int Index => 4;
+
+    /// <inheritdoc />
+    public bool RequireIngame => true;
+
+    /// <inheritdoc />
+    public void Initialize()
     {
-        /// <summary>
-        /// Gets or sets the information of the plugin.
-        /// </summary>
-        /// <value>
-        /// The information.
-        /// </value>
-        public PluginInfo Information => new PluginInfo
-        {
-            DisplayAsTab = true,
-            DisplayName = "Inventory",
-            InternalName = "RSBot.Inventory",
-            LoadIndex = 6,
-            TabDisplayIndex = 6
-        };
-
-        /// <summary>
-        /// Initializes this instance.
-        /// </summary>
-        public void Initialize()
-        {
-            BuyItemSubscriber.SubscribeEvents();
-            InventoryUpdateSubscriber.SubscribeEvents();
-            UseItemAtTrainplaceSubscriber.SubscribeEvents();
-        }
-
-        /// <summary>
-        /// Gets the view that will be displayed as tab page.
-        /// </summary>
-        public Control GetView()
-        {
-            return Views.View.Instance ?? (Views.View.Instance = new Main());
-        }
-
-        /// <summary>
-        /// Translate the plugin
-        /// </summary>
-        /// <param name="language">The language</param>
-        public void Translate()
-        {
-            LanguageManager.Translate(GetView(), Kernel.Language);
-        }
+        BuyItemSubscriber.SubscribeEvents();
+        InventoryUpdateSubscriber.SubscribeEvents();
+        UseItemAtTrainplaceSubscriber.SubscribeEvents();
     }
+
+    /// <inheritdoc />
+    public Control View => Views.View.Instance;
+
+    /// <inheritdoc />
+    public void Translate() =>
+        LanguageManager.Translate(View, Kernel.Language);
 }

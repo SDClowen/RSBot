@@ -1,8 +1,20 @@
-﻿namespace RSBot.Party.Views
+﻿namespace RSBot.Party.Views;
+
+internal class View
 {
-    public class View
-    {
-        public static Main Instance { get; set; }
-        public static AutoFormParty PartyWindow { get; set; }
-    }
+    /// <summary>
+    /// Gets or sets the instance.
+    /// </summary>
+    /// <value>
+    /// The instance.
+    /// </value>
+    public static Main Instance { get; } = new();
+
+    /// <summary>
+    /// Gets or sets the party window.
+    /// </summary>
+    /// <value>
+    /// The party window.
+    /// </value>
+    public static AutoFormParty PartyWindow { get; } = new();
 }

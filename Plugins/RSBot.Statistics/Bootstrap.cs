@@ -1,55 +1,36 @@
 ﻿using RSBot.Core;
+using RSBot.Core.Components;
 using RSBot.Core.Plugins;
 using RSBot.Statistics.Stats;
 using System.Windows.Forms;
-using RSBot.Statistics.Views;
-using RSBot.Core.Components;
 
-namespace RSBot.Statistics
+namespace RSBot.Statistics;
+
+public class Bootstrap : IPlugin
 {
-    public class Bootstrap : IPlugin
-    {
-        /// <summary>
-        /// Gets or sets the information of the plugin.
-        /// </summary>
-        /// <value>
-        /// The information.
-        /// </value>
-        public PluginInfo Information => new PluginInfo
-        {
-            DisplayAsTab = true,
-            InternalName = "RSBot.Statistics",
-            DisplayName = "Statistics",
-            LoadIndex = 8,
-            TabDisplayIndex = 8
-        };
+    /// <inheritdoc />
+    public string InternalName => "RSBot.Statistics";
 
-        /// <summary>
-        /// Initializes this instance.
-        /// </summary>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public void Initialize()
-        {
-            CalculatorRegistry.Initialize();
-        }
+    /// <inheritdoc />
+    public string DisplayName => "Statistics";
 
-        /// <summary>
-        /// Gets the view that will be displayed as tab page.
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public Control GetView()
-        {
-            return Views.View.Instance ?? (Views.View.Instance = new Main());
-        }
+    /// <inheritdoc />
+    public bool DisplayAsTab => true;
 
-        /// <summary>
-        /// Translate the plugin
-        /// </summary>
-        /// <param name="language">The language</param>
-        public void Translate()
-        {
-            LanguageManager.Translate(GetView(), Kernel.Language);
-        }
-    }
+    /// <inheritdoc />
+    public int Index => 97;
+
+    /// <inheritdoc />
+    public bool RequireIngame => true;
+
+    /// <inheritdoc />
+    public void Initialize() 
+        => CalculatorRegistry.Initialize();
+
+    /// <inheritdoc />
+    public Control View => Views.View.Instance;
+
+    /// <inheritdoc />
+    public void Translate() =>
+        LanguageManager.Translate(View, Kernel.Language);
 }

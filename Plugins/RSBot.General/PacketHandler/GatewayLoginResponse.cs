@@ -74,9 +74,6 @@ namespace RSBot.General.PacketHandler
                     {
                         SynchronizationContext.SetSynchronizationContext(new WindowsFormsSynchronizationContext());
 
-                        if (Views.View.PendingWindow == null)
-                            Views.View.PendingWindow = new Views.PendingWindow();
-
                         Views.View.PendingWindow.Start(count, timestamp);
                         Views.View.PendingWindow.ShowDialog(Views.View.Instance.ParentForm);
                     });
