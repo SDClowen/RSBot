@@ -4,74 +4,58 @@ using RSBot.Core.Plugins;
 using RSBot.Protection.Components.Pet;
 using RSBot.Protection.Components.Player;
 using RSBot.Protection.Components.Town;
-using RSBot.Protection.Views;
 using System.Windows.Forms;
-using View = RSBot.Protection.Views.View;
 
-namespace RSBot.Protection
+namespace RSBot.Protection;
+
+public class Bootstrap : IPlugin
 {
-    public class Bootstrap : IPlugin
+    /// <inheritdoc />
+    public string InternalName => "RSBot.Protection";
+
+    /// <inheritdoc />
+    public string DisplayName => "Protection";
+
+    /// <inheritdoc />
+    public bool DisplayAsTab => true;
+
+    /// <inheritdoc />
+    public int Index => 2;
+
+    /// <inheritdoc />
+    public bool RequireIngame => true;
+
+    /// <inheritdoc />
+    public void Initialize()
     {
-        /// <summary>
-        /// Gets or sets the information of the plugin.
-        /// </summary>
-        /// <value>
-        /// The information.
-        /// </value>
-        public PluginInfo Information => new PluginInfo
-        {
-            DisplayAsTab = true,
-            DisplayName = "Protection",
-            InternalName = "RSBot.Protection",
-            LoadIndex = 3,
-            TabDisplayIndex = 3
-        };
+        //Player handlers
+        HealthManaRecoveryHandler.Initialize();
+        UniversalPillHandler.Initialize();
+        VigorRecoveryHandler.Initialize();
+        StatPointsHandler.Initialize();
 
-        /// <summary>
-        /// Initializes this instance.
-        /// </summary>
-        public void Initialize()
-        {
-            //Player handlers
-            HealthManaRecoveryHandler.Initialize();
-            UniversalPillHandler.Initialize();
-            VigorRecoveryHandler.Initialize();
-            StatPointsHandler.Initialize();
+        //Pet handlers
+        CosHealthRecoveryHandler.Initialize();
+        CosHGPRecoveryHandler.Initiliaze();
+        CosBadStatusHandler.Initialize();
+        CosReviveHandler.Initialize();
+        AutoSummonAttackPet.Initialize();
 
-            //Pet handlers
-            CosHealthRecoveryHandler.Initialize();
-            CosHGPRecoveryHandler.Initiliaze();
-            CosBadStatusHandler.Initialize();
-            CosReviveHandler.Initialize();
-            AutoSummonAttackPet.Initialize();
-
-            //Back town
-            DeadHandler.Initialize();
-            AmmunitionHandler.Initialize();
-            InventoryFullHandler.Initialize();
-            PetInventoryFullHandler.Initialize();
-            NoManaPotionsHandler.Initialize();
-            NoHealthPotionsHandler.Initialize();
-            LevelUpHandler.Initialize();
-            DurabilityLowHandler.Initialize();
-        }
-
-        /// <summary>
-        /// Gets the view that will be displayed as tab page.
-        /// </summary>
-        /// <returns></returns>
-        public Control GetView()
-        {
-            return View.Instance ?? (View.Instance = new Main());
-        }
-
-        /// <summary>
-        /// Translate the plugin
-        /// </summary>
-        /// <param name="language">The language</param>
-        public void Translate()
-        {
-            LanguageManager.Translate(GetView(), Kernel.Language);
-        }
+        //Back town
+        DeadHandler.Initialize();
+        AmmunitionHandler.Initialize();
+        InventoryFullHandler.Initialize();
+        PetInventoryFullHandler.Initialize();
+        NoManaPotionsHandler.Initialize();
+        NoHealthPotionsHandler.Initialize();
+        LevelUpHandler.Initialize();
+        DurabilityLowHandler.Initialize();
     }
+
+    /// <inheritdoc />
+    public Control View => Views.View.Instance;
+
+    /// <inheritdoc />
+    public void Translate() =>
+        LanguageManager.Translate(View, Kernel.Language);
 }

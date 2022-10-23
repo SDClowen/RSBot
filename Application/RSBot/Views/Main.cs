@@ -179,21 +179,21 @@ namespace RSBot.Views
                 plugin.Initialize();
 
             var extensions =
-                Kernel.PluginManager.Extensions.OrderBy(entry => entry.Value.Information.TabDisplayIndex)
+                Kernel.PluginManager.Extensions.OrderBy(entry => entry.Value.Index)
                     .ToDictionary(x => x.Key, x => x.Value);
 
-            foreach (var extension in extensions.Where(extension => extension.Value.Information.DisplayAsTab))
+            foreach (var extension in extensions.Where(extension => extension.Value.DisplayAsTab))
             {
                 extension.Value.Translate();
 
                 var tabPage = new TabPage
                 {
-                    Text = LanguageManager.GetLangBySpecificKey(extension.Value.Information.InternalName, "DisplayName", extension.Value.Information.DisplayName),
-                    Enabled = !extension.Value.Information.RequireIngame,
-                    Name = extension.Value.Information.InternalName
+                    Text = LanguageManager.GetLangBySpecificKey(extension.Value.InternalName, "DisplayName", extension.Value.DisplayName),
+                    Enabled = !extension.Value.RequireIngame,
+                    Name = extension.Value.InternalName
                 };
 
-                var control = extension.Value.GetView();
+                var control = extension.Value.View;
 
                 control.Dock = DockStyle.Fill;
 
@@ -220,12 +220,12 @@ namespace RSBot.Views
                 info.BringToFront();
             }
 
-            foreach (var extension in extensions.Where(extension => !extension.Value.Information.DisplayAsTab))
+            foreach (var extension in extensions.Where(extension => !extension.Value.DisplayAsTab))
             {
-                var menuItemText = LanguageManager.GetLangBySpecificKey(extension.Value.Information.InternalName, "DisplayName", extension.Value.Information.DisplayName);
+                var menuItemText = LanguageManager.GetLangBySpecificKey(extension.Value.InternalName, "DisplayName", extension.Value.DisplayName);
                 var menuItem = new ToolStripMenuItem(menuItemText)
                 {
-                    Enabled = !extension.Value.Information.RequireIngame
+                    Enabled = !extension.Value.RequireIngame
                 };
                 menuItem.Click += PluginMenuItem_Click;
                 menuItem.Tag = extension.Value;
@@ -294,15 +294,15 @@ namespace RSBot.Views
 
             var window = new CleanForm
             {
-                Text = plugin.Information.DisplayName,
-                Name = plugin.Information.InternalName,
+                Text = plugin.DisplayName,
+                Name = plugin.InternalName,
                 MaximizeBox = false,
                 FormBorderStyle = FormBorderStyle.FixedDialog,
                 Icon = Icon,
                 StartPosition = FormStartPosition.CenterScreen
             };
 
-            var content = plugin.GetView();
+            var content = plugin.View;
             plugin.Translate();
             content.Dock = DockStyle.Fill;
 

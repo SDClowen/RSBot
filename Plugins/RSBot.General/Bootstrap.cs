@@ -4,54 +4,39 @@ using RSBot.Core.Plugins;
 using RSBot.General.Views;
 using System.Windows.Forms;
 
-namespace RSBot.General
+namespace RSBot.General;
+
+public class Bootstrap : IPlugin
 {
-    public class Bootstrap : IPlugin
+    /// <inheritdoc />
+    public string InternalName => "RSBot.General";
+
+    /// <inheritdoc />
+    public string DisplayName => "General";
+
+    /// <inheritdoc />
+    public bool DisplayAsTab => true;
+
+    /// <inheritdoc />
+    public int Index => 0;
+
+    /// <inheritdoc />
+    public bool RequireIngame => false;
+
+    /// <inheritdoc />
+    public void Initialize()
     {
-        /// <summary>
-        /// Gets or sets the information of the plugin.
-        /// </summary>
-        /// <value>
-        /// The information.
-        /// </value>
-        public PluginInfo Information => new PluginInfo
-        {
-            DisplayAsTab = true,
-            DisplayName = "General",
-            InternalName = "RSBot.General",
-            LoadIndex = 1,
-            TabDisplayIndex = 0,
-            RequireIngame = false
-        };
+        Components.Accounts.Load();
+    }
 
-        /// <summary>
-        /// Initializes this instance.
-        /// </summary>
-        public void Initialize()
-        {
-            Views.View.PendingWindow = new PendingWindow();
-            Views.View.AccountsWindow = new Accounts();
+    /// <inheritdoc />
+    public Control View => Views.View.Instance;
 
-            Components.Accounts.Load();
-        }
-
-        /// <summary>
-        /// Gets the view that will be displayed as tab page.
-        /// </summary>
-        public Control GetView()
-        {
-            return Views.View.Instance ?? (Views.View.Instance = new Main());
-        }
-
-        /// <summary>
-        /// Translate the plugin
-        /// </summary>
-        /// <param name="language">The language</param>
-        public void Translate()
-        {
-            LanguageManager.Translate(GetView(), Kernel.Language);
-            LanguageManager.Translate(Views.View.PendingWindow, Kernel.Language);
-            LanguageManager.Translate(Views.View.AccountsWindow, Kernel.Language);
-        }
+    /// <inheritdoc />
+    public void Translate()
+    {
+        LanguageManager.Translate(View, Kernel.Language);
+        LanguageManager.Translate(Views.View.PendingWindow, Kernel.Language);
+        LanguageManager.Translate(Views.View.AccountsWindow, Kernel.Language);
     }
 }
