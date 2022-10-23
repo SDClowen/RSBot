@@ -46,7 +46,7 @@ namespace RSBot.Core.Plugins
                                           select extension)
                 {
                     Bots.Add(extension.Key, extension.Value);
-                    Log.Debug($"Loaded botbase [{extension.Value.Info.Name}]");
+                    Log.Debug($"Loaded botbase [{extension.Value.Name}]");
                 }
 
                 EventManager.FireEvent("OnLoadBotbases");
@@ -77,7 +77,7 @@ namespace RSBot.Core.Plugins
 
                 foreach (var extension in (from type in types where type.IsPublic && !type.IsAbstract && type.GetInterface("IBotbase") != null select Activator.CreateInstance(type)).OfType<IBotbase>())
                 {
-                    result.Add(extension.Info.Name, extension);
+                    result.Add(extension.Name, extension);
                 }
             }
             catch { /* ignore, it's an invalid botbase */ }

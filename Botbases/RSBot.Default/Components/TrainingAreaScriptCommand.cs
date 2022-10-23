@@ -56,9 +56,6 @@ namespace RSBot.Default.Components
                 PlayerConfig.Set("RSBot.Area.Y", yPos);
                 PlayerConfig.Set("RSBot.Area.Radius", radius);
 
-                var gamePos = new Position(xPos, yPos);
-                Kernel.Bot.CenterPosition = gamePos;
-
                 EventManager.FireEvent("OnSetTrainingArea");
 
                 return true;

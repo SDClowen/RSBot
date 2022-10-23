@@ -31,11 +31,6 @@ namespace RSBot.Core
         public CancellationTokenSource TokenSource;
 
         /// <summary>
-        /// The center position
-        /// </summary>
-        public Position CenterPosition;
-
-        /// <summary>
         /// Sets the botbase.
         /// </summary>
         /// <param name="botBase">The bot base.</param>
@@ -88,7 +83,7 @@ namespace RSBot.Core
                 TokenSource.Cancel();
 
             EventManager.FireEvent("OnStopBot");
-            Log.Notify($"Stopping bot {Botbase.Info.Name}");
+            Log.Notify($"Stopping bot {Botbase.Name}");
 
             Game.SelectedEntity = null;
             ScriptManager.Stop();
@@ -98,7 +93,7 @@ namespace RSBot.Core
 
             Running = false;
 
-            Log.Notify($"Stoped bot {Botbase.Info.Name}");
+            Log.Notify($"Stoped bot {Botbase.Name}");
         }
     }
 }

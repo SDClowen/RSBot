@@ -10,7 +10,7 @@
         /// <value>
         /// The view.
         /// </value>
-        public static Views.Main View { get; set; }
+        public static Views.Main View { get; } = new();
 
         /// <summary>
         /// Gets or sets the bot base

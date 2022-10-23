@@ -23,11 +23,11 @@ internal class UseItemAtTrainplaceSubscriber
         
         _lastTick = Kernel.TickCount;
 
-        if (!Kernel.Bot.Running || Kernel.Bot.CenterPosition.Region == 0)
+        if (!Kernel.Bot.Running || Kernel.Bot.Botbase.Area.Position.Region == 0)
             return;
 
         //Only at training place
-        if (Kernel.Bot.CenterPosition.DistanceToPlayer() > 100)
+        if (Kernel.Bot.Botbase.Area.Position.DistanceToPlayer() > 100)
             return;
 
         var itemsToUse = PlayerConfig.GetArray<string>("RSBot.Inventory.ItemsAtTrainplace");
