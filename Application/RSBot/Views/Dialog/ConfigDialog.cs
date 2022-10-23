@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System;
 using System.Text;
 using RSBot.Core.Extensions;
+using RSBot.Core.Components;
 
 namespace RSBot.Views
 {

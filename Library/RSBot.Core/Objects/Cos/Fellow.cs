@@ -1,4 +1,5 @@
 ﻿using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Components;
 using RSBot.Core.Network;
 using System;
 using System.Collections.Generic;

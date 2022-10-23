@@ -4,6 +4,7 @@ using RSBot.Skills.Views;
 
 using System.Windows.Forms;
 using RSBot.Skills.Subscriber;
+using RSBot.Core.Components;
 
 namespace RSBot.Skills;
 

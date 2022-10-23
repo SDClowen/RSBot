@@ -1,5 +1,6 @@
 ﻿using RSBot.Chat.Views;
 using RSBot.Core;
+using RSBot.Core.Components;
 using RSBot.Core.Plugins;
 
 using System.Windows.Forms;

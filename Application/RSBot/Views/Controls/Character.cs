@@ -3,6 +3,7 @@ using RSBot.Core;
 using RSBot.Core.Event;
 using System.Windows.Forms;
 using System.ComponentModel;
+using RSBot.Core.Components;
 
 namespace RSBot.Views.Controls
 {

@@ -4,6 +4,7 @@ using RSBot.Core;
 using RSBot.Core.Plugins;
 using RSBot.Map.Views;
 using System.Windows.Forms;
+using RSBot.Core.Components;
 
 namespace RSBot.Map
 {

@@ -1,4 +1,5 @@
 ﻿using RSBot.Core;
+using RSBot.Core.Components;
 using RSBot.Core.Plugins;
 using RSBot.Protection.Components.Pet;
 using RSBot.Protection.Components.Player;

@@ -3,6 +3,7 @@ using RSBot.Core.Plugins;
 using RSBot.Statistics.Stats;
 using System.Windows.Forms;
 using RSBot.Statistics.Views;
+using RSBot.Core.Components;
 
 namespace RSBot.Statistics
 {

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace RSBot.Core
+namespace RSBot.Core.Components
 {
     using LangDict = Dictionary<string, string>;
 

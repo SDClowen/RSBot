@@ -1,4 +1,5 @@
-﻿using RSBot.Core.Network;
+﻿using RSBot.Core.Components;
+using RSBot.Core.Network;
 
 namespace RSBot.Core.Objects.Cos
 {

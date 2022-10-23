@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using static RSBot.Core.Extensions.NativeExtensions;
 
-namespace RSBot.Core
+namespace RSBot.Core.Components
 {
     public class ClientManager
     {

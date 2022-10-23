@@ -1,4 +1,5 @@
 ﻿using RSBot.Core;
+using RSBot.Core.Components;
 using RSBot.General.Models;
 using SDUI.Controls;
 using System;

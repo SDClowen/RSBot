@@ -1,4 +1,5 @@
 ﻿using RSBot.Core;
+using RSBot.Core.Components;
 using RSBot.Core.Event;
 
 namespace RSBot.Statistics.Stats.Calculators.Static
