@@ -1,5 +1,5 @@
 ﻿using RSBot.Core;
-using RSBot.Default.Bot.Objects;
+using RSBot.Core.Objects;
 using SDUI.Controls;
 using System;
 using System.Linq;
@@ -29,7 +29,7 @@ namespace RSBot.Default.Views.Dialogs
             var selectedItem = listView.SelectedItems[0];
             PlayerConfig.Set("RSBot.Training.Index", selectedItem.Index);
 
-            var trainingArea = selectedItem.Tag as TrainingArea;
+            var trainingArea = selectedItem.Tag as Area;
             if (trainingArea == null)
             {
                 DialogResult = DialogResult.Retry;
@@ -55,7 +55,7 @@ namespace RSBot.Default.Views.Dialogs
                 if(split.Length <= 0)
                     continue;
 
-                var trainingArea = TrainingArea.FromSplit(split);
+                var trainingArea = Area.FromSplit(split);
                 if (trainingArea == null)
                     continue;
 
@@ -98,7 +98,7 @@ namespace RSBot.Default.Views.Dialogs
             {
                 var position = Game.Player.Movement.Source;
 
-                var trainingArea = new TrainingArea
+                var trainingArea = new Area
                 {
                     Name = dialog.TrainingName.Text,
                     Position = position,

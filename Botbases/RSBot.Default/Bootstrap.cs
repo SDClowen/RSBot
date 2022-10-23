@@ -2,10 +2,8 @@
 using RSBot.Core.Components;
 using RSBot.Core.Objects;
 using RSBot.Core.Plugins;
-using RSBot.Default.Bot;
 using RSBot.Default.Bundle;
 using RSBot.Default.Components;
-using RSBot.Default.Views;
 using System;
 using System.Windows.Forms;
 
@@ -13,18 +11,13 @@ namespace RSBot.Default
 {
     public class Bootstrap : IBotbase
     {
-        /// <summary>
-        /// Gets or sets the information.
-        /// </summary>
-        /// <value>
-        /// The information.
-        /// </value>
-        public BotbaseInfo Info => new()
-        {
-            Name = "RSBot.Default",
-            DisplayName = "Training",
-            TabText = "Training"
-        };
+        public string Name => "RSBot.Default";
+
+        public string DisplayName => "Training";
+
+        public string TabText => DisplayName;
+
+        public Area Area => Container.Bot.Area;
 
         /// <summary>
         /// Ticks this instance. It's the botbase main-loop
@@ -57,7 +50,7 @@ namespace RSBot.Default
             }
             catch (Exception ex)
             {
-                Log.Debug($"An exception was thrown in the bot loop: {ex} {Environment.NewLine}------------------------------------------------------");
+                Log.Fatal(ex);
             }
         }
 
@@ -65,10 +58,7 @@ namespace RSBot.Default
         /// Gets the view.
         /// </summary>
         /// <returns></returns>
-        public Control GetView()
-        {
-            return Container.View ?? (Container.View = new Main());
-        }
+        public Control View => Container.View;
 
         /// <summary>
         /// Initializes this instance.
@@ -76,7 +66,8 @@ namespace RSBot.Default
         /// <exception cref="System.NotImplementedException"></exception>
         public void Initialize()
         {
-            Container.Lock = new object();
+            Container.Lock = new();
+            Container.Bot = new();
             Subscriber.ConfigSubscriber.SubscribeEvents();
             Subscriber.TeleportSubscriber.SubscribeEvents();
 
@@ -99,12 +90,11 @@ namespace RSBot.Default
             }
 
             Bundles.Reload();
-            Container.Bot = new Botbase();
-            Kernel.Bot.CenterPosition = new Position(x, y);
+            Container.Bot.Reload();
 
             //Begin the loopback
-            if (Container.Bot.Area.Position.DistanceTo(Game.Player.Movement.Source) > 80)
-                Bundles.Loop.Start(); //Task.Run(() => { Bundles.Loop.Start(); });
+            if (Container.Bot.Area.Position.DistanceTo(Game.Player.Position) > 80)
+                Bundles.Loop.Start();
         }
 
         /// <summary>
@@ -127,7 +117,7 @@ namespace RSBot.Default
         /// <param name="language">The language</param>
         public void Translate()
         {
-            LanguageManager.Translate(GetView(), Kernel.Language);
+            LanguageManager.Translate(View, Kernel.Language);
         }
     }
 }

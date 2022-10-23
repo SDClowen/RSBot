@@ -118,7 +118,7 @@ namespace RSBot.Views
             if (Kernel.Bot.Running)
                 return;
 
-            var botbase = Kernel.BotbaseManager.Bots.FirstOrDefault(bot => bot.Value.Info.Name == name);
+            var botbase = Kernel.BotbaseManager.Bots.FirstOrDefault(bot => bot.Value.Name == name);
 
             if (botbase.Value == null)
             {
@@ -133,23 +133,23 @@ namespace RSBot.Views
             _ = tabMain.Handle; //Generate the handle for the tab control
 
             if (Kernel.Bot?.Botbase != null)
-                tabMain.TabPages.RemoveByKey(Kernel.Bot.Botbase.Info.Name);
+                tabMain.TabPages.RemoveByKey(Kernel.Bot.Botbase.Name);
 
             //Add the tab to the tabcontrol
-            var tabPage = new TabPage(LanguageManager.GetLangBySpecificKey(selectedBotbase.Info.Name, "TabText", selectedBotbase.Info.TabText))
+            var tabPage = new TabPage(LanguageManager.GetLangBySpecificKey(selectedBotbase.Name, "TabText", selectedBotbase.TabText))
             {
-                Name = selectedBotbase.Info.Name,
+                Name = selectedBotbase.Name,
                 Enabled = Game.Player != null
             };
 
             tabPage.BackColor = Color.FromArgb(200, BackColor);
             tabPage.ForeColor = ForeColor;
-            tabPage.Controls.Add(selectedBotbase.GetView());
+            tabPage.Controls.Add(selectedBotbase.View);
 
             tabMain.TabPages.Insert(1, tabPage);
 
             Kernel.Bot?.SetBotbase(selectedBotbase);
-            GlobalConfig.Set("RSBot.BotName", selectedBotbase.Info.Name);
+            GlobalConfig.Set("RSBot.BotName", selectedBotbase.Name);
 
             if (Game.Player == null)
             {
@@ -167,7 +167,7 @@ namespace RSBot.Views
             }
 
             foreach (ToolStripMenuItem item in botsToolStripMenuItem.DropDown.Items)
-                item.Checked = selectedBotbase.Info.Name == item.Name;
+                item.Checked = selectedBotbase.Name == item.Name;
         }
 
         /// <summary>
@@ -466,7 +466,7 @@ namespace RSBot.Views
             }
             else
             {
-                Log.NotifyLang("StopingBot", Kernel.Bot.Botbase.Info.DisplayName);
+                Log.NotifyLang("StopingBot", Kernel.Bot.Botbase.DisplayName);
 
                 Kernel.Bot.Stop();
                 BotWindow.SetStatusTextLang("Ready");
@@ -780,8 +780,8 @@ namespace RSBot.Views
             {
                 var item = new ToolStripMenuItem
                 {
-                    Name = bot.Value.Info.Name,
-                    Text = bot.Value.Info.DisplayName,
+                    Name = bot.Value.Name,
+                    Text = bot.Value.DisplayName,
                 };
                 item.Click += Item_Click;
                 botsToolStripMenuItem.DropDown.Items.Add(item);

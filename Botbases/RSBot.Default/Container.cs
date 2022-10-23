@@ -19,7 +19,7 @@ namespace RSBot.Default
         /// <value>
         /// The view.
         /// </value>
-        public static Main View { get; set; }
+        public static Main View { get; } = new();
 
         /// <summary>
         /// Gets or sets the lock.

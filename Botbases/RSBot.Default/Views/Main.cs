@@ -53,9 +53,6 @@ namespace RSBot.Default.Views
             txtXCoord.Text = xPos.ToString();
             txtYCoord.Text = yPos.ToString();
 
-            var gamePos = new Position(xPos, yPos);
-            Kernel.Bot.CenterPosition = gamePos;
-
             EventManager.FireEvent("AppendScriptCommand", $"area {xPos} {yPos} {radius}");
         }
 

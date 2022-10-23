@@ -1,7 +1,6 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Objects;
-using RSBot.Default.Bot.Objects;
 using RSBot.Default.Bundle;
 using System;
 using System.Threading;
@@ -16,7 +15,7 @@ namespace RSBot.Default.Bot
         /// <value>
         /// The area.
         /// </value>
-        public TrainingArea Area { get; private set; }
+        public Area Area { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Botbase" /> class.
@@ -31,7 +30,7 @@ namespace RSBot.Default.Bot
         /// </summary>
         public void Reload()
         {
-            Area = new TrainingArea
+            Area = new Area
             {
                 Position = new Position(
                     PlayerConfig.Get<float>("RSBot.Area.X"),
