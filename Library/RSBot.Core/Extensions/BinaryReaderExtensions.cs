@@ -1,7 +1,7 @@
-﻿using RSBot.Core.Network;
-using System.Drawing;
+﻿using System.Drawing;
 using System.IO;
 using System.Numerics;
+using System.Text;
 
 namespace RSBot.Core.Extensions
 {
@@ -16,7 +16,7 @@ namespace RSBot.Core.Extensions
         public static string ReadJoymaxString(this BinaryReader reader)
         {
             var stringLength = reader.ReadInt32();
-            return Packet.Encoding.GetString(reader.ReadBytes(stringLength));
+            return Encoding.UTF8.GetString(reader.ReadBytes(stringLength));
         }
 
         /// <summary>

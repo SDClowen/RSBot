@@ -2,6 +2,7 @@
 using RSBot.Core.Components;
 using RSBot.Views;
 using System;
+using System.Text;
 using System.Windows.Forms;
 
 namespace RSBot
@@ -21,6 +22,8 @@ namespace RSBot
                     Log.Debug($"Selected profile by args: {profile}");
                 }
             }
+
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

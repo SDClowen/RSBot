@@ -75,8 +75,8 @@ namespace RSBot.Core.Components
             if (remoteThread == IntPtr.Zero)
                 return false;
 
-            var x = WaitForSingleObject(remoteThread, uint.MaxValue);
-            var y = VirtualFreeEx(handle, dereercomp, pathLen, MEM_RELEASE);
+            WaitForSingleObject(remoteThread, uint.MaxValue);
+            VirtualFreeEx(handle, dereercomp, pathLen, MEM_RELEASE);
 
             CloseHandle(remoteThread);
             CloseHandle(handle);
@@ -138,9 +138,10 @@ namespace RSBot.Core.Components
             {
                 while (string.IsNullOrEmpty(_process.MainWindowTitle))
                 {
-                    System.Threading.Thread.Sleep(100);
+                    Thread.Sleep(100);
                     _process.Refresh();
                 }
+
                 ShowWindow(_process.MainWindowHandle, SW_HIDE);
             }
 

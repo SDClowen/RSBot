@@ -8,8 +8,10 @@ namespace RSBot.Core.Network
 {
     public class Packet
     {
-        public const int DEFAULT_CODEPAGE = 65001; //1254
-        public static readonly Encoding Encoding = Encoding.UTF8; // Encoding.GetEncoding(DEFAULT_CODEPAGE)
+        /// <summary>
+        /// UTF-8
+        /// </summary>
+        public const int DEFAULT_CODEPAGE = 65001;
 
         private PacketWriter _writer;
         private PacketReader _reader;
