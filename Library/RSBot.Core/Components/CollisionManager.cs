@@ -132,6 +132,9 @@ public static class CollisionManager
     /// <param name="centerRegionId">The center region identifier.</param>
     public static void Update(ushort centerRegionId)
     {
+        if (GlobalConfig.Get("RSBot.EnableCollisionDetection", true))
+            return;
+
         if (centerRegionId == CenterRegionId && HasActiveMeshes)
             return;
 

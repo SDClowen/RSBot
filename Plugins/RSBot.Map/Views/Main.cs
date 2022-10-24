@@ -422,6 +422,7 @@ namespace RSBot.Map.Views
 
             return new Bitmap(SectorSize, SectorSize);
         }
+
         /// <summary>
         /// Get path from map layer
         /// </summary>
@@ -487,6 +488,7 @@ namespace RSBot.Map.Views
             // Default as world map
             return "{0}x{1}.ddj";
         }
+
         /// <summary>
         /// Redraw the map image
         /// </summary>
@@ -572,10 +574,11 @@ namespace RSBot.Map.Views
                 graphics.PixelOffsetMode = PixelOffsetMode.HighSpeed;
                 graphics.CompositingQuality = CompositingQuality.HighSpeed;
 
-                var pointX = mapCanvas.Width / 2f - SectorSize - Game.Player.Movement.Source.XSectorOffset / 10f * _scale;
-                var pointY = mapCanvas.Height / 2f - SectorSize * 2f + Game.Player.Movement.Source.YSectorOffset / 10f * _scale;
-
-                var point = new PointF(pointX, pointY);
+                PointF point = new()
+                {
+                    X = mapCanvas.Width / 2f - SectorSize - Game.Player.Movement.Source.XSectorOffset / 10f * _scale,
+                    Y = mapCanvas.Height / 2f - SectorSize * 2f + Game.Player.Movement.Source.YSectorOffset / 10f * _scale
+                };
 
                 graphics.DrawImage(_currentSectorGraphic, point);
 
@@ -590,6 +593,9 @@ namespace RSBot.Map.Views
         private void trmInterval_Tick(object sender, EventArgs e)
         {
             if (Game.Player == null)
+                return;
+
+            if (!Visible)
                 return;
 
             lblRegion.Text = Game.ReferenceManager.GetTranslation(Game.Player.Movement.Source.Region.ToString());
@@ -620,6 +626,9 @@ namespace RSBot.Map.Views
             if (Kernel.Bot.Running)
                 return;
 
+            if (Game.SelectedEntity?.Record.Rarity == ObjectRarity.ClassD)
+                return;
+
             if (SpawnManager.TryGetEntity<SpawnedMonster>(p => p.Record.Rarity == ObjectRarity.ClassD, out var uniqueEntity))
                 uniqueEntity.TrySelect();
         }
@@ -646,9 +655,6 @@ namespace RSBot.Map.Views
         private void checkEnableCollisions_CheckedChanged(object sender, EventArgs e)
         {
             GlobalConfig.Set("RSBot.EnableCollisionDetection", checkEnableCollisions.Checked);
-
-            if (checkEnableCollisions.Checked && Game.Player != null)
-                CollisionManager.Update(Game.Player.Position.Region);
         }
     }
 }

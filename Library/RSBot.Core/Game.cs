@@ -155,8 +155,8 @@ namespace RSBot.Core
         public static void Initialize()
         {
             ClientType = GlobalConfig.GetEnum("RSBot.Game.ClientType", GameClientType.Vietnam);
-            ReferenceManager = new ReferenceManager();
-            Party = new Party();
+            ReferenceManager = new();
+            Party = new();
 
             SkillManager.Initialize();
             ShoppingManager.Initialize();
