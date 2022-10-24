@@ -68,12 +68,7 @@ namespace RSBot.Core.Components
         /// <summary>
         /// Basic skills
         /// </summary>
-        private static uint[] _baseSkills = new uint[]
-        {
-            70,40,2,8421,9354,
-            9355,11162,9944,8419,
-            8420,11526,10625
-        };
+        private static IEnumerable<uint> _baseSkills;
 
         /// <summary>
         /// Initializes this instance.
@@ -83,9 +78,15 @@ namespace RSBot.Core.Components
             Skills = Enum.GetValues(typeof(MonsterRarity)).Cast<MonsterRarity>().ToDictionary(v => v, v => new List<SkillInfo>());
             Buffs = new List<SkillInfo>();
 
+            EventManager.SubscribeEvent("OnLoadGameData", OnLoadGamedData);
             EventManager.SubscribeEvent("OnCastSkill", new Action<uint>(OnCastSkill));
 
             Log.Debug($"Initialized [SkillManager] for [{Skills.Count}] different mob rarities!");
+        }
+
+        private static void OnLoadGamedData()
+        {
+            _baseSkills = Game.ReferenceManager.GetBaseSkills();
         }
 
         /// <summary>
@@ -113,7 +114,7 @@ namespace RSBot.Core.Components
         /// Gets the next skill.
         /// </summary>
         /// <returns></returns>
-        public static SkillInfo? GetNextSkill()
+        public static SkillInfo GetNextSkill()
         {
             var entity = Game.SelectedEntity;
             if (entity == null)

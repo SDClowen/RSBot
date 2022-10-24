@@ -52,6 +52,7 @@ namespace RSBot.Default.Bundle.Attack
 
                 return;
             }
+
             if (Game.Player.InAction && SkillManager.IsLastCastedBasic)
                 SkillManager.CancelAction();
 

@@ -3,7 +3,6 @@ using RSBot.Core.Event;
 using RSBot.Core.Plugins;
 using System.Threading;
 using System.Threading.Tasks;
-using RSBot.Core.Objects;
 
 namespace RSBot.Core
 {
@@ -62,6 +61,7 @@ namespace RSBot.Core
                 while (!TokenSource.IsCancellationRequested)
                 {
                     Botbase.Tick();
+                    
                     await Task.Delay(100);
                 }
             },

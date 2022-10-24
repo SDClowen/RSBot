@@ -341,6 +341,16 @@ namespace RSBot.Core.Client
         }
 
         /// <summary>
+        /// Get char skill bases
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<uint> GetBaseSkills()
+        {
+            return SkillData.Where(p => p.Value.Basic_Code.EndsWith("_BASE_01") && p.Value.Basic_Group != "xxx")
+                .Select(p => p.Key);
+        }
+
+        /// <summary>
         /// Gets the tab.
         /// </summary>
         /// <param name="codeName">Name of the code.</param>
