@@ -1,6 +1,7 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Event;
 using RSBot.Core.Network;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace RSBot.General.PacketHandler
@@ -43,6 +44,7 @@ namespace RSBot.General.PacketHandler
             var charCount = packet.ReadByte();
 
             var lobbyCharacters = new string[charCount];
+            Dictionary<int, string> lobbyCharactersDict = new Dictionary<int, string>();
 
             for (var i = 0; i < charCount; i++)
             {
@@ -104,6 +106,7 @@ namespace RSBot.General.PacketHandler
 
                 if (!characterDeletionFlag)
                     lobbyCharacters[i] = name;
+                    lobbyCharactersDict.Add(level, name);
 
                 Log.NotifyLang("PlayerDetected", name, level);
             }
@@ -120,9 +123,20 @@ namespace RSBot.General.PacketHandler
 
             if (string.IsNullOrWhiteSpace(selectedAccount.SelectedCharacter))
             {
-                BotWindow.SetStatusTextLang("SelectYourCharacterManually");
-                return;
+                var firstCharachter = lobbyCharactersDict.First();
+                var maxLevelCharachter = lobbyCharactersDict.Max();
+
+                if (GlobalConfig.Get<bool>("RSBot.General.CharacterAutoSelectFirst"))
+                    Components.AutoLogin.EnterGame(firstCharachter.Value);
+
+                if (GlobalConfig.Get<bool>("RSBot.General.CharacterAutoSelectHigher"))
+                    Components.AutoLogin.EnterGame(maxLevelCharachter.Value);
+
+                else
+                    BotWindow.SetStatusTextLang("SelectYourCharacterManually");
+                    return;
             }
+
 
             if (lobbyCharacters.Contains(selectedAccount.SelectedCharacter))
                 Components.AutoLogin.EnterGame(selectedAccount.SelectedCharacter);

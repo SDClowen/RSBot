@@ -101,6 +101,15 @@ namespace RSBot.General.Views
             checkEnableLoginDelay.Checked = GlobalConfig.Get<bool>("RSBot.General.EnableLoginDelay");
             numLoginDelay.Value = GlobalConfig.Get("RSBot.General.LoginDelay", 10);
             checkHideClient.Checked = GlobalConfig.Get<bool>("RSBot.General.HideOnStartClient");
+            checkCharAutoSelect.Checked = GlobalConfig.Get<bool>("RSBot.General.CharacterAutoSelect");
+            radioAutoSelectFirst.Checked = GlobalConfig.Get<bool>("RSBot.General.CharacterAutoSelectFirst");
+            radioAutoSelectHigher.Checked = GlobalConfig.Get<bool>("RSBot.General.CharacterAutoSelectHigher");
+
+            if (GlobalConfig.Get<bool>("RSBot.General.CharacterAutoSelect"))
+            {
+                radioAutoSelectFirst.Enabled = true;
+                radioAutoSelectHigher.Enabled = true;
+            }
 
             comboBoxClientType.SelectedIndex = (int)Game.ClientType;
 
@@ -640,5 +649,48 @@ namespace RSBot.General.Views
         {
             GlobalConfig.Set("RSBot.General.HideOnStartClient", checkHideClient.Checked);
         }
+
+        /// <summary>
+        /// Handles the CheckedChanged event of the checkCharAutoSelect control.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void checkCharAutoSelect_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!GlobalConfig.Get<bool>("RSBot.General.CharacterAutoSelect"))
+            {
+                radioAutoSelectFirst.Enabled = true;
+                radioAutoSelectHigher.Enabled = true;
+            }
+            else
+            {
+                radioAutoSelectFirst.Enabled = false;
+                radioAutoSelectHigher.Enabled = false;
+            }
+
+
+            GlobalConfig.Set("RSBot.General.CharacterAutoSelect", checkCharAutoSelect.Checked);
+        }
+
+        /// <summary>
+        /// Handles the CheckedChanged event of the radioAutoSelectFirst control.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void radioAutoSelectFirst_CheckedChanged(object sender, EventArgs e)
+        {
+            GlobalConfig.Set("RSBot.General.CharacterAutoSelectFirst", radioAutoSelectFirst.Checked);
+        }
+
+        /// <summary>
+        /// Handles the CheckedChanged event of the radioAutoSelectHigher control.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void radioAutoSelectHigher_CheckedChanged(object sender, EventArgs e)
+        {
+            GlobalConfig.Set("RSBot.General.CharacterAutoSelectHigher", radioAutoSelectHigher.Checked);
+        }
+
     }
 }

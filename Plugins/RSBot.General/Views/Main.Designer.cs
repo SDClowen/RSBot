@@ -45,6 +45,9 @@
             this.groupBox1 = new SDUI.Controls.GroupBox();
             this.separator1 = new SDUI.Controls.Separator();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.radioAutoSelectHigher = new SDUI.Controls.Radio();
+            this.radioAutoSelectFirst = new SDUI.Controls.Radio();
+            this.checkCharAutoSelect = new SDUI.Controls.CheckBox();
             this.checkHideClient = new SDUI.Controls.CheckBox();
             this.lblLoginDelaySeconds = new SDUI.Controls.Label();
             this.numLoginDelay = new SDUI.Controls.NumUpDown();
@@ -290,6 +293,9 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.radioAutoSelectHigher);
+            this.panel3.Controls.Add(this.radioAutoSelectFirst);
+            this.panel3.Controls.Add(this.checkCharAutoSelect);
             this.panel3.Controls.Add(this.checkHideClient);
             this.panel3.Controls.Add(this.lblLoginDelaySeconds);
             this.panel3.Controls.Add(this.numLoginDelay);
@@ -301,6 +307,47 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(349, 98);
             this.panel3.TabIndex = 1;
+            // 
+            // radioAutoSelectHigher
+            // 
+            this.radioAutoSelectHigher.AutoSize = true;
+            this.radioAutoSelectHigher.Enabled = false;
+            this.radioAutoSelectHigher.Location = new System.Drawing.Point(82, 140);
+            this.radioAutoSelectHigher.Name = "radioAutoSelectHigher";
+            this.radioAutoSelectHigher.ShadowDepth = 0;
+            this.radioAutoSelectHigher.Size = new System.Drawing.Size(139, 15);
+            this.radioAutoSelectHigher.TabIndex = 38;
+            this.radioAutoSelectHigher.TabStop = true;
+            this.radioAutoSelectHigher.Text = "Auto Select (Higher)";
+            this.radioAutoSelectHigher.UseVisualStyleBackColor = true;
+            this.radioAutoSelectHigher.CheckedChanged += new System.EventHandler(this.radioAutoSelectHigher_CheckedChanged);
+            // 
+            // radioAutoSelectFirst
+            // 
+            this.radioAutoSelectFirst.AutoSize = true;
+            this.radioAutoSelectFirst.Enabled = false;
+            this.radioAutoSelectFirst.Location = new System.Drawing.Point(82, 119);
+            this.radioAutoSelectFirst.Name = "radioAutoSelectFirst";
+            this.radioAutoSelectFirst.ShadowDepth = 0;
+            this.radioAutoSelectFirst.Size = new System.Drawing.Size(125, 15);
+            this.radioAutoSelectFirst.TabIndex = 37;
+            this.radioAutoSelectFirst.TabStop = true;
+            this.radioAutoSelectFirst.Text = "Auto Select (First)";
+            this.radioAutoSelectFirst.UseVisualStyleBackColor = true;
+            this.radioAutoSelectFirst.CheckedChanged += new System.EventHandler(this.radioAutoSelectFirst_CheckedChanged);
+            // 
+            // checkCharAutoSelect
+            // 
+            this.checkCharAutoSelect.AutoSize = true;
+            this.checkCharAutoSelect.BackColor = System.Drawing.Color.Transparent;
+            this.checkCharAutoSelect.Location = new System.Drawing.Point(73, 98);
+            this.checkCharAutoSelect.Name = "checkCharAutoSelect";
+            this.checkCharAutoSelect.ShadowDepth = 1;
+            this.checkCharAutoSelect.Size = new System.Drawing.Size(137, 15);
+            this.checkCharAutoSelect.TabIndex = 36;
+            this.checkCharAutoSelect.Text = "Character Auto Select";
+            this.checkCharAutoSelect.UseVisualStyleBackColor = false;
+            this.checkCharAutoSelect.CheckedChanged += new System.EventHandler(this.checkCharAutoSelect_CheckedChanged);
             // 
             // checkHideClient
             // 
@@ -651,5 +698,8 @@
         private SDUI.Controls.NumUpDown numLoginDelay;
         private SDUI.Controls.CheckBox checkEnableLoginDelay;
         private SDUI.Controls.CheckBox checkHideClient;
+        private SDUI.Controls.Radio radioAutoSelectHigher;
+        private SDUI.Controls.Radio radioAutoSelectFirst;
+        private SDUI.Controls.CheckBox checkCharAutoSelect;
     }
 }
