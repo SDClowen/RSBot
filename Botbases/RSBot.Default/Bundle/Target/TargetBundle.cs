@@ -51,13 +51,13 @@ namespace RSBot.Default.Bundle.Target
             });
 
             var attacker = GetFromCurrentAttackers();
-      
             if (attacker != null && Game.SelectedEntity == null)
             {
 
                 Log.Debug("[TargetBundle] Emergency situation: Attacking the weaker mob first!");
 
-                attacker.TrySelect();
+                if (attacker.TrySelect())
+                    Bundles.Movement.LastEntityWasBehindObstacle = false;
 
                 return;
             }
@@ -66,7 +66,8 @@ namespace RSBot.Default.Bundle.Target
             {
                 Log.Debug("[TargetBundle] Emergency situation: Found a weaker mob to attack first, switching target!");
 
-                attacker.TrySelect();
+                if (attacker.TrySelect())
+                    Bundles.Movement.LastEntityWasBehindObstacle = false;
 
                 return;
             }
@@ -82,7 +83,8 @@ namespace RSBot.Default.Bundle.Target
             if (!Container.Bot.Area.IsInSight(monster))
                 return;
 
-            monster.TrySelect();
+            if (monster.TrySelect())
+                Bundles.Movement.LastEntityWasBehindObstacle = false;
         }
 
         private SpawnedMonster GetFromCurrentAttackers()
