@@ -337,6 +337,7 @@ namespace RSBot.Default.Views
             numBerzerkMonsterAmount.Value = PlayerConfig.Get("RSBot.Berzerk.MonsterAmountNumber", 3);
 
             checkBoxDimensionPillar.Checked = PlayerConfig.Get<bool>("RSBot.Ignores.DimensionPillar");
+            checkAttackWeakerFirst.Checked = PlayerConfig.Get<bool>("RSBot.Advanced.AttackWeakerMobsFirst");
 
             //Avoidance
             LoadAvoidance();
@@ -352,6 +353,16 @@ namespace RSBot.Default.Views
         private void checkBoxIgnorePillars_CheckedChanged(object sender, EventArgs e)
         {
             PlayerConfig.Set("RSBot.Ignores.DimensionPillar", checkBoxDimensionPillar.Checked);
+        }
+
+        private void checkAttackWeakerFirst_CheckedChanged(object sender, EventArgs e)
+        {
+            PlayerConfig.Set("RSBot.Advanced.AttackWeakerMobsFirst", checkAttackWeakerFirst.Checked);
+        }
+
+        private void linkAttackWeakerMobsHelp_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            MessageBox.Show("If the player is under attack by a monster that is set to be avoided the bot will counter attack weaker mobs that are currently attacking the player first before targeting the avoided monster again. The bot will only kill weaker monsters that are attacking the player and won't start to pull new mobs to the battle.", "Attack weaker mobs first", MessageBoxButtons.OK, MessageBoxIcon.Question);
         }
     }
 }

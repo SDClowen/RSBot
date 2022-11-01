@@ -1,6 +1,6 @@
 ﻿namespace RSBot.Core.Objects
 {
-    public enum MonsterRarity
+    public enum MonsterRarity : byte
     {
         General = 0,
         Champion = 1,
