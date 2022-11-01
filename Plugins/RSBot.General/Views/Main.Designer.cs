@@ -69,6 +69,13 @@
             this.btnAutoLoginSettings = new SDUI.Controls.Button();
             this.btnBrowseSilkroadPath = new SDUI.Controls.Button();
             this.txtSilkroadPath = new SDUI.Controls.TextBox();
+            this.groupBox5 = new SDUI.Controls.GroupBox();
+            this.checkEnableQuequeLogs = new SDUI.Controls.CheckBox();
+            this.label3 = new SDUI.Controls.Label();
+            this.numQuequeLeft = new SDUI.Controls.NumUpDown();
+            this.checkDontShowPendingOnStartClient = new SDUI.Controls.CheckBox();
+            this.checkEnableQuqueNotification = new SDUI.Controls.CheckBox();
+            this.btnShowPending = new SDUI.Controls.Button();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -77,6 +84,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numLoginDelay)).BeginInit();
             this.captchaPanel.SuspendLayout();
             this.autoLoginTopPanel.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numQuequeLeft)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -276,7 +285,7 @@
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupBox1.Radius = 10;
             this.groupBox1.ShadowDepth = 4;
-            this.groupBox1.Size = new System.Drawing.Size(355, 310);
+            this.groupBox1.Size = new System.Drawing.Size(355, 370);
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Automated login";
@@ -305,7 +314,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(3, 209);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(349, 98);
+            this.panel3.Size = new System.Drawing.Size(349, 158);
             this.panel3.TabIndex = 1;
             // 
             // radioAutoSelectHigher
@@ -624,10 +633,108 @@
             this.txtSilkroadPath.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
             this.txtSilkroadPath.UseSystemPasswordChar = false;
             // 
+            // groupBox5
+            // 
+            this.groupBox5.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox5.Controls.Add(this.checkEnableQuequeLogs);
+            this.groupBox5.Controls.Add(this.label3);
+            this.groupBox5.Controls.Add(this.numQuequeLeft);
+            this.groupBox5.Controls.Add(this.checkDontShowPendingOnStartClient);
+            this.groupBox5.Controls.Add(this.checkEnableQuqueNotification);
+            this.groupBox5.Controls.Add(this.btnShowPending);
+            this.groupBox5.Location = new System.Drawing.Point(389, 303);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.groupBox5.Radius = 10;
+            this.groupBox5.ShadowDepth = 4;
+            this.groupBox5.Size = new System.Drawing.Size(359, 130);
+            this.groupBox5.TabIndex = 24;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Pending";
+            // 
+            // checkEnableQuequeLogs
+            // 
+            this.checkEnableQuequeLogs.AutoSize = true;
+            this.checkEnableQuequeLogs.BackColor = System.Drawing.Color.Transparent;
+            this.checkEnableQuequeLogs.Location = new System.Drawing.Point(20, 50);
+            this.checkEnableQuequeLogs.Name = "checkEnableQuequeLogs";
+            this.checkEnableQuequeLogs.ShadowDepth = 1;
+            this.checkEnableQuequeLogs.Size = new System.Drawing.Size(173, 15);
+            this.checkEnableQuequeLogs.TabIndex = 42;
+            this.checkEnableQuequeLogs.Text = "Enable pending queque logs";
+            this.checkEnableQuequeLogs.UseVisualStyleBackColor = false;
+            this.checkEnableQuequeLogs.CheckedChanged += new System.EventHandler(this.checkEnableQuequeLogs_CheckedChanged);
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label3.Location = new System.Drawing.Point(270, 74);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(71, 18);
+            this.label3.TabIndex = 39;
+            this.label3.Text = "people left";
+            // 
+            // numQuequeLeft
+            // 
+            this.numQuequeLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
+            this.numQuequeLeft.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numQuequeLeft.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.numQuequeLeft.Location = new System.Drawing.Point(210, 69);
+            this.numQuequeLeft.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.numQuequeLeft.Name = "numQuequeLeft";
+            this.numQuequeLeft.Size = new System.Drawing.Size(54, 23);
+            this.numQuequeLeft.TabIndex = 39;
+            this.numQuequeLeft.ValueChanged += new System.EventHandler(this.numQuequeLeft_ValueChanged);
+            // 
+            // checkDontShowPendingOnStartClient
+            // 
+            this.checkDontShowPendingOnStartClient.AutoSize = true;
+            this.checkDontShowPendingOnStartClient.BackColor = System.Drawing.Color.Transparent;
+            this.checkDontShowPendingOnStartClient.Location = new System.Drawing.Point(20, 29);
+            this.checkDontShowPendingOnStartClient.Name = "checkDontShowPendingOnStartClient";
+            this.checkDontShowPendingOnStartClient.ShadowDepth = 1;
+            this.checkDontShowPendingOnStartClient.Size = new System.Drawing.Size(248, 15);
+            this.checkDontShowPendingOnStartClient.TabIndex = 41;
+            this.checkDontShowPendingOnStartClient.Text = "Dont show pending queque on start client ";
+            this.checkDontShowPendingOnStartClient.UseVisualStyleBackColor = false;
+            this.checkDontShowPendingOnStartClient.CheckedChanged += new System.EventHandler(this.checkDontShowPendingOnStartClient_CheckedChanged);
+            // 
+            // checkEnableQuqueNotification
+            // 
+            this.checkEnableQuqueNotification.AutoSize = true;
+            this.checkEnableQuqueNotification.BackColor = System.Drawing.Color.Transparent;
+            this.checkEnableQuqueNotification.Location = new System.Drawing.Point(20, 72);
+            this.checkEnableQuqueNotification.Name = "checkEnableQuqueNotification";
+            this.checkEnableQuqueNotification.ShadowDepth = 1;
+            this.checkEnableQuqueNotification.Size = new System.Drawing.Size(185, 15);
+            this.checkEnableQuqueNotification.TabIndex = 40;
+            this.checkEnableQuqueNotification.Text = "Enable queque notification on ";
+            this.checkEnableQuqueNotification.UseVisualStyleBackColor = false;
+            this.checkEnableQuqueNotification.CheckedChanged += new System.EventHandler(this.checkEnableQuqueNotification_CheckedChanged);
+            // 
+            // btnShowPending
+            // 
+            this.btnShowPending.Color = System.Drawing.Color.Transparent;
+            this.btnShowPending.Location = new System.Drawing.Point(20, 96);
+            this.btnShowPending.Name = "btnShowPending";
+            this.btnShowPending.Radius = 6;
+            this.btnShowPending.ShadowDepth = 4F;
+            this.btnShowPending.Size = new System.Drawing.Size(106, 23);
+            this.btnShowPending.TabIndex = 24;
+            this.btnShowPending.Text = "Show Pending";
+            this.btnShowPending.UseVisualStyleBackColor = true;
+            this.btnShowPending.Click += new System.EventHandler(this.btnShowPending_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.comboBoxClientType);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -639,7 +746,7 @@
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "Main";
-            this.Size = new System.Drawing.Size(765, 496);
+            this.Size = new System.Drawing.Size(765, 565);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -653,6 +760,9 @@
             this.captchaPanel.PerformLayout();
             this.autoLoginTopPanel.ResumeLayout(false);
             this.autoLoginTopPanel.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numQuequeLeft)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -701,5 +811,12 @@
         private SDUI.Controls.Radio radioAutoSelectHigher;
         private SDUI.Controls.Radio radioAutoSelectFirst;
         private SDUI.Controls.CheckBox checkCharAutoSelect;
+        private SDUI.Controls.GroupBox groupBox5;
+        private SDUI.Controls.Button btnShowPending;
+        private SDUI.Controls.CheckBox checkEnableQuqueNotification;
+        private SDUI.Controls.NumUpDown numQuequeLeft;
+        private SDUI.Controls.CheckBox checkDontShowPendingOnStartClient;
+        private SDUI.Controls.Label label3;
+        private SDUI.Controls.CheckBox checkEnableQuequeLogs;
     }
 }

@@ -18,7 +18,8 @@ namespace RSBot.General.Views
     internal partial class Main : UserControl
     {
         private bool _clientVisible;
-
+        private bool _pendingVisible;
+   
         /// <summary>
         /// Initializes a new instance of the <see cref="Main"/> class.
         /// </summary>
@@ -104,6 +105,10 @@ namespace RSBot.General.Views
             checkCharAutoSelect.Checked = GlobalConfig.Get<bool>("RSBot.General.CharacterAutoSelect");
             radioAutoSelectFirst.Checked = GlobalConfig.Get<bool>("RSBot.General.CharacterAutoSelectFirst");
             radioAutoSelectHigher.Checked = GlobalConfig.Get<bool>("RSBot.General.CharacterAutoSelectHigher");
+            checkDontShowPendingOnStartClient.Checked = GlobalConfig.Get<bool>("RSBot.General.PendingDontShowOnStartClient");
+            checkEnableQuequeLogs.Checked = GlobalConfig.Get<bool>("RSBot.General.PendingEnableQuequeLogs");
+            checkEnableQuqueNotification.Checked = GlobalConfig.Get<bool>("RSBot.General.EnableQuqueNotification");
+            numQuequeLeft.Value = GlobalConfig.Get("RSBot.General.QuequeLeft", 30);
 
             if (GlobalConfig.Get<bool>("RSBot.General.CharacterAutoSelect"))
             {
@@ -692,5 +697,68 @@ namespace RSBot.General.Views
             GlobalConfig.Set("RSBot.General.CharacterAutoSelectHigher", radioAutoSelectHigher.Checked);
         }
 
+        /// <summary>
+        /// Handles the CheckedChanged event of the checkDontShowPendingOnStartClient control.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void checkDontShowPendingOnStartClient_CheckedChanged(object sender, EventArgs e)
+        {
+            GlobalConfig.Set("RSBot.General.PendingDontShowOnStartClient", checkDontShowPendingOnStartClient.Checked);
+        }
+
+        /// <summary>
+        /// Handles the CheckedChanged event of the checkEnableQuequeLogs control.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void checkEnableQuequeLogs_CheckedChanged(object sender, EventArgs e)
+        {
+            GlobalConfig.Set("RSBot.General.PendingEnableQuequeLogs", checkEnableQuequeLogs.Checked);
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnShowPending control.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnShowPending_Click(object sender, EventArgs e)
+        {
+             if (!ClientManager.IsRunning)
+                 return;
+
+             if (!_pendingVisible)
+             {
+                 _pendingVisible = true;
+                 Views.View.PendingWindow.Show(Views.View.Instance.ParentForm);
+                 btnShowPending.Text = LanguageManager.GetLang("Hide") + " Pending";
+             }
+             else
+             {
+                 _pendingVisible = false;
+                 Views.View.PendingWindow.Hide();
+                 btnShowPending.Text = LanguageManager.GetLang("Show") + " Pending";
+             }
+        }
+
+        /// <summary>
+        /// Handles the CheckedChanged event of the checkEnableQuqueNotification control.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void checkEnableQuqueNotification_CheckedChanged(object sender, EventArgs e)
+        {
+            GlobalConfig.Set("RSBot.General.EnableQuqueNotification", checkEnableQuqueNotification.Checked);
+        }
+
+        /// <summary>
+        /// Handles the ValueChanged event of the numQuequeLeft control.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void numQuequeLeft_ValueChanged(object sender, EventArgs e)
+        {
+            GlobalConfig.Set("RSBot.General.QuequeLeft", numQuequeLeft.Value);
+        }
     }
 }

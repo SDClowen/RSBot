@@ -75,7 +75,8 @@ namespace RSBot.General.PacketHandler
                         SynchronizationContext.SetSynchronizationContext(new WindowsFormsSynchronizationContext());
 
                         Views.View.PendingWindow.Start(count, timestamp);
-                        Views.View.PendingWindow.ShowDialog(Views.View.Instance.ParentForm);
+                        if (!GlobalConfig.Get<bool>("RSBot.General.PendingDontShowOnStartClient"))
+                            Views.View.PendingWindow.ShowDialog(Views.View.Instance.ParentForm);
                     });
 
                     break;
