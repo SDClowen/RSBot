@@ -34,6 +34,20 @@ namespace RSBot.General.Views
 
             labelPending.Text = $"{begin} / {end}";
             PrintTime(labelAvgWaitingTime, timestamp);
+            LogPending(begin, end);
+
+            if (GlobalConfig.Get("RSBot.General.EnableQuqueNotification", false))
+            {
+                var queque = GlobalConfig.Get("RSBot.General.QuequeLeft", 30);
+                if (begin<=queque)
+                {
+                    this.notifyIcon.Visible = true;
+                    this.notifyIcon.BalloonTipTitle = "Pending queque";
+                    this.notifyIcon.BalloonTipText = $"{begin} / {end}";
+                    this.notifyIcon.ShowBalloonTip(3000);
+                }
+            }
+
         }
 
         internal void Start(int count, int timestamp)
@@ -44,6 +58,8 @@ namespace RSBot.General.Views
             labelServerName.Text = labelServerName.Text.Replace("{SERVER}", Serverlist.Joining?.Name);
 
             PrintTime(labelAvgWaitingTime, timestamp);
+            LogPending(count, count);
+
             timer.Enabled = true;
         }
 
@@ -71,6 +87,13 @@ namespace RSBot.General.Views
                 text.AppendFormat(translatedSeconds, timespan.Seconds);
 
             label.Text = text.ToString();
+
+        }
+        
+        private void LogPending(int count, int count2)
+        {
+            if (GlobalConfig.Get<bool>("RSBot.General.PendingEnableQuequeLogs"))
+                Log.NotifyLang("PendingQueque", count, count2);
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -82,5 +105,11 @@ namespace RSBot.General.Views
         {
             timer.Enabled = false;
         }
+
+        private void buttonHide_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
+
     }
 }

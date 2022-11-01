@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PendingWindow));
             this.labelServerName = new SDUI.Controls.Label();
             this.labelNumberOfPeopleWaiting = new SDUI.Controls.Label();
             this.label1 = new SDUI.Controls.Label();
@@ -38,6 +39,8 @@
             this.label5 = new SDUI.Controls.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.buttonCancel = new SDUI.Controls.Button();
+            this.buttonHide = new SDUI.Controls.Button();
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.SuspendLayout();
             // 
             // labelServerName
@@ -120,21 +123,45 @@
             // 
             this.buttonCancel.Color = System.Drawing.Color.Transparent;
             this.buttonCancel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonCancel.Location = new System.Drawing.Point(106, 205);
+            this.buttonCancel.Location = new System.Drawing.Point(152, 207);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Radius = 2;
+            this.buttonCancel.Radius = 6;
+            this.buttonCancel.ShadowDepth = 4F;
             this.buttonCancel.Size = new System.Drawing.Size(191, 23);
             this.buttonCancel.TabIndex = 1;
             this.buttonCancel.Text = "Cancel the waiting";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
+            // buttonHide
+            // 
+            this.buttonHide.Color = System.Drawing.Color.Transparent;
+            this.buttonHide.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonHide.Location = new System.Drawing.Point(70, 207);
+            this.buttonHide.Name = "buttonHide";
+            this.buttonHide.Radius = 6;
+            this.buttonHide.ShadowDepth = 4F;
+            this.buttonHide.Size = new System.Drawing.Size(72, 23);
+            this.buttonHide.TabIndex = 2;
+            this.buttonHide.Text = "Hide";
+            this.buttonHide.UseVisualStyleBackColor = true;
+            this.buttonHide.Click += new System.EventHandler(this.buttonHide_Click);
+            // 
+            // notifyIcon
+            // 
+            this.notifyIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.notifyIcon.BalloonTipText = "RSBot";
+            this.notifyIcon.BalloonTipTitle = "RSBot";
+            this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
+            this.notifyIcon.Text = "RSBot";
+            // 
             // PendingWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(385, 201);
+            this.ClientSize = new System.Drawing.Size(401, 240);
+            this.Controls.Add(this.buttonHide);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.labelMyWaitingTime);
@@ -144,7 +171,7 @@
             this.Controls.Add(this.labelNumberOfPeopleWaiting);
             this.Controls.Add(this.labelServerName);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(401, 240);
             this.MinimizeBox = false;
@@ -172,5 +199,7 @@
         private SDUI.Controls.Label label5;
         private SDUI.Controls.Button buttonCancel;
         private System.Windows.Forms.Timer timer;
+        private SDUI.Controls.Button buttonHide;
+        private System.Windows.Forms.NotifyIcon notifyIcon;
     }
 }

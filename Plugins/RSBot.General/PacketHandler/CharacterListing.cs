@@ -1,6 +1,7 @@
-﻿using RSBot.Core;
+using RSBot.Core;
 using RSBot.Core.Event;
 using RSBot.Core.Network;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace RSBot.General.PacketHandler
@@ -42,7 +43,7 @@ namespace RSBot.General.PacketHandler
 
             var charCount = packet.ReadByte();
 
-            var lobbyCharacters = new string[charCount];
+            var lobbyCharacters = new (byte level, string name)[charCount];
 
             for (var i = 0; i < charCount; i++)
             {
@@ -103,7 +104,7 @@ namespace RSBot.General.PacketHandler
                 }
 
                 if (!characterDeletionFlag)
-                    lobbyCharacters[i] = name;
+                    lobbyCharacters[i] = (level, name);
 
                 Log.NotifyLang("PlayerDetected", name, level);
             }
@@ -113,21 +114,31 @@ namespace RSBot.General.PacketHandler
             if (selectedAccount == null)
                 return;
 
-            selectedAccount.Characters = lobbyCharacters.ToList();
+            selectedAccount.Characters = lobbyCharacters.Select(p => p.name).ToList();
             Components.Accounts.Save();
 
             EventManager.FireEvent("OnCharacterListReceived");
 
             if (string.IsNullOrWhiteSpace(selectedAccount.SelectedCharacter))
             {
-                BotWindow.SetStatusTextLang("SelectYourCharacterManually");
+                var firstCharachter = lobbyCharacters.First();
+                var maxLevelCharachter = lobbyCharacters.MaxBy(p => p.level);
+
+                if (GlobalConfig.Get<bool>("RSBot.General.CharacterAutoSelectFirst"))
+                    Components.AutoLogin.EnterGame(firstCharachter.name);
+
+                if (GlobalConfig.Get<bool>("RSBot.General.CharacterAutoSelectHigher"))
+                    Components.AutoLogin.EnterGame(maxLevelCharachter.name);
+
+                else
+                    BotWindow.SetStatusTextLang("SelectYourCharacterManually");
                 return;
             }
 
-            if (lobbyCharacters.Contains(selectedAccount.SelectedCharacter))
+            if (lobbyCharacters.Any(p => p.name == selectedAccount.SelectedCharacter))
                 Components.AutoLogin.EnterGame(selectedAccount.SelectedCharacter);
             else
-                Components.AutoLogin.EnterGame(lobbyCharacters[0]);
+                Components.AutoLogin.EnterGame(lobbyCharacters[0].name);
         }
     }
 }
