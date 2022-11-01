@@ -4,6 +4,7 @@ using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
+using RSBot.Default.Bundle.Avoidance;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -40,14 +41,35 @@ namespace RSBot.Default.Bundle.Target
         /// </summary>
         public void Invoke()
         {
-            _blacklist.RemoveAll((uniqueId, tick) => 
+            _blacklist.RemoveAll((uniqueId, tick) =>
             {
                 var flag = Kernel.TickCount - tick > BLACKLIST_TIMEOUT;
-                if(flag)
+                if (flag)
                     Log.Debug($"Removed mob [{uniqueId} from blacklist!");
 
                 return flag;
-             });
+            });
+
+            var attacker = GetFromCurrentAttackers();
+      
+            if (attacker != null && Game.SelectedEntity == null)
+            {
+
+                Log.Debug("[TargetBundle] Emergency situation: Attacking the weaker mob first!");
+
+                attacker.TrySelect();
+
+                return;
+            }
+
+            if (attacker != null && SpawnManager.TryGetEntity<SpawnedMonster>(Game.SelectedEntity.UniqueId, out var selectedMonster) && (byte) attacker.Rarity < (byte) selectedMonster.Rarity)
+            {
+                Log.Debug("[TargetBundle] Emergency situation: Found a weaker mob to attack first, switching target!");
+
+                attacker.TrySelect();
+
+                return;
+            }
 
             var warlockModeEnabled = PlayerConfig.Get<bool>("RSBot.Skills.WarlockMode", false);
             if (Game.SelectedEntity != null && Game.SelectedEntity.State.LifeState == LifeState.Alive && !(warlockModeEnabled && Game.SelectedEntity.State.HasTwoDots()))
@@ -63,6 +85,25 @@ namespace RSBot.Default.Bundle.Target
             monster.TrySelect();
         }
 
+        private SpawnedMonster GetFromCurrentAttackers()
+        {
+            var attackWeakerFirst = PlayerConfig.Get<bool>("RSBot.Advanced.AttackWeakerMobsFirst");
+            if (!attackWeakerFirst || !IsEmergencySituation())
+                return null;
+
+            if (!SpawnManager.TryGetEntities<SpawnedMonster>(e => e.AttackingPlayer == true && e.State.LifeState == LifeState.Alive, out var entities))
+                return null;
+
+            return entities.OrderBy(e => e.Position.DistanceToPlayer())
+                           .OrderBy(e => e.Record.Level)
+                           .OrderBy(e => (byte)e.Rarity).FirstOrDefault();
+        }
+
+        private bool IsEmergencySituation()
+        {
+            return SpawnManager.Any<SpawnedMonster>(e => e.AttackingPlayer == true && e.State.LifeState == LifeState.Alive && Bundles.Avoidance.AvoidMonster(e.Rarity));
+        }
+
         /// <summary>
         /// Gets the nearest enemy.
         /// </summary>
@@ -72,7 +113,7 @@ namespace RSBot.Default.Bundle.Target
             var warlockModeEnabled = PlayerConfig.Get<bool>("RSBot.Skills.WarlockMode");
             var ignorePillar = PlayerConfig.Get<bool>("RSBot.Ignores.DimensionPillar");
 
-            if (!SpawnManager.TryGetEntities<SpawnedMonster>(m => 
+            if (!SpawnManager.TryGetEntities<SpawnedMonster>(m =>
                     m.State.LifeState == LifeState.Alive &&
                     !(warlockModeEnabled && m.State.HasTwoDots()) &&
                     m.IsBehindObstacle == false &&

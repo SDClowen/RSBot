@@ -77,6 +77,8 @@
             this.txtYCoord = new SDUI.Controls.TextBox();
             this.txtXCoord = new SDUI.Controls.TextBox();
             this.groupBoxIgnores = new SDUI.Controls.GroupBox();
+            this.linkAttackWeakerMobsHelp = new System.Windows.Forms.LinkLabel();
+            this.checkAttackWeakerFirst = new SDUI.Controls.CheckBox();
             this.checkBoxDimensionPillar = new SDUI.Controls.CheckBox();
             this.groupBox2.SuspendLayout();
             this.ctxAvoidance.SuspendLayout();
@@ -559,6 +561,8 @@
             // groupBoxIgnores
             // 
             this.groupBoxIgnores.BackColor = System.Drawing.Color.Transparent;
+            this.groupBoxIgnores.Controls.Add(this.linkAttackWeakerMobsHelp);
+            this.groupBoxIgnores.Controls.Add(this.checkAttackWeakerFirst);
             this.groupBoxIgnores.Controls.Add(this.checkBoxDimensionPillar);
             this.groupBoxIgnores.Location = new System.Drawing.Point(262, 275);
             this.groupBoxIgnores.Name = "groupBoxIgnores";
@@ -568,7 +572,31 @@
             this.groupBoxIgnores.Size = new System.Drawing.Size(478, 100);
             this.groupBoxIgnores.TabIndex = 6;
             this.groupBoxIgnores.TabStop = false;
-            this.groupBoxIgnores.Text = "Ignores";
+            this.groupBoxIgnores.Text = "Advanced";
+            // 
+            // linkAttackWeakerMobsHelp
+            // 
+            this.linkAttackWeakerMobsHelp.AutoSize = true;
+            this.linkAttackWeakerMobsHelp.Location = new System.Drawing.Point(271, 55);
+            this.linkAttackWeakerMobsHelp.Name = "linkAttackWeakerMobsHelp";
+            this.linkAttackWeakerMobsHelp.Size = new System.Drawing.Size(12, 15);
+            this.linkAttackWeakerMobsHelp.TabIndex = 7;
+            this.linkAttackWeakerMobsHelp.TabStop = true;
+            this.linkAttackWeakerMobsHelp.Text = "?";
+            this.linkAttackWeakerMobsHelp.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkAttackWeakerMobsHelp_LinkClicked);
+            // 
+            // checkAttackWeakerFirst
+            // 
+            this.checkAttackWeakerFirst.AutoSize = true;
+            this.checkAttackWeakerFirst.BackColor = System.Drawing.Color.Transparent;
+            this.checkAttackWeakerFirst.Location = new System.Drawing.Point(18, 57);
+            this.checkAttackWeakerFirst.Name = "checkAttackWeakerFirst";
+            this.checkAttackWeakerFirst.ShadowDepth = 1;
+            this.checkAttackWeakerFirst.Size = new System.Drawing.Size(253, 15);
+            this.checkAttackWeakerFirst.TabIndex = 1;
+            this.checkAttackWeakerFirst.Text = "If avoided: counter attack weaker mobs first";
+            this.checkAttackWeakerFirst.UseVisualStyleBackColor = false;
+            this.checkAttackWeakerFirst.CheckedChanged += new System.EventHandler(this.checkAttackWeakerFirst_CheckedChanged);
             // 
             // checkBoxDimensionPillar
             // 
@@ -577,9 +605,9 @@
             this.checkBoxDimensionPillar.Location = new System.Drawing.Point(18, 36);
             this.checkBoxDimensionPillar.Name = "checkBoxDimensionPillar";
             this.checkBoxDimensionPillar.ShadowDepth = 1;
-            this.checkBoxDimensionPillar.Size = new System.Drawing.Size(109, 15);
+            this.checkBoxDimensionPillar.Size = new System.Drawing.Size(146, 15);
             this.checkBoxDimensionPillar.TabIndex = 0;
-            this.checkBoxDimensionPillar.Text = "Dimension Pillar";
+            this.checkBoxDimensionPillar.Text = "Ignore Dimension Pillar";
             this.checkBoxDimensionPillar.UseVisualStyleBackColor = false;
             this.checkBoxDimensionPillar.CheckedChanged += new System.EventHandler(this.checkBoxIgnorePillars_CheckedChanged);
             // 
@@ -649,5 +677,7 @@
         private SDUI.Controls.Radio radioStand;
         private SDUI.Controls.GroupBox groupBoxIgnores;
         private SDUI.Controls.CheckBox checkBoxDimensionPillar;
+        private SDUI.Controls.CheckBox checkAttackWeakerFirst;
+        private System.Windows.Forms.LinkLabel linkAttackWeakerMobsHelp;
     }
 }
