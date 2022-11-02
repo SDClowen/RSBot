@@ -19,6 +19,16 @@ namespace RSBot.Party.Bundle.AutoParty
         private int _lastTick;
 
         /// <summary>
+        /// Last tick for checking party members
+        /// </summary>
+        private int _lastPartyListingCacheTick;
+
+        /// <summary>
+        /// Party entiries cache
+        /// </summary>
+        private List<PartyEntry> _partyEntriesCache;
+
+        /// <summary>
         /// Gets or sets the configuration.
         /// </summary>
         /// <value>
@@ -87,22 +97,30 @@ namespace RSBot.Party.Bundle.AutoParty
             if (!Config.AutoJoinByName && !Config.AutoJoinByTitle)
                 return;
 
-            var allParties = new List<PartyEntry>(16);
+            var elapsed = Kernel.TickCount - _lastPartyListingCacheTick;
 
-            byte page = 0;
-            while (true)
+            // every one minute
+            if (elapsed >= 60000)
             {
-                var currentPage = Container.PartyMatching.RequestPartyList(page);
-                if (currentPage.Page == currentPage.PageCount - 1)
-                    break;
+                _partyEntriesCache = new(64);
 
-                allParties.AddRange(currentPage.Parties);
-                page++;
+                byte page = 0;
+                while (true)
+                {
+                    var currentPage = Container.PartyMatching.RequestPartyList(page);
+                    if (currentPage.Page == currentPage.PageCount - 1)
+                        break;
+
+                    _partyEntriesCache.AddRange(currentPage.Parties);
+                    page++;
+                }
+
+                _lastPartyListingCacheTick = Kernel.TickCount;
             }
 
             if (Config.AutoJoinByName)
             {
-                var partyEntry = allParties.Find(p => p.Leader == Config.AutoJoinByNameContent);
+                var partyEntry = _partyEntriesCache.Find(p => p.Leader == Config.AutoJoinByNameContent);
                 if (partyEntry == null)
                     return;
 
@@ -112,14 +130,12 @@ namespace RSBot.Party.Bundle.AutoParty
 
             if (Config.AutoJoinByTitle)
             {
-                var partyEntry = allParties.Find(p => p.Title.Equals(Config.AutoJoinByTitleContent, StringComparison.CurrentCultureIgnoreCase));
+                var partyEntry = _partyEntriesCache.Find(p => p.Title.Equals(Config.AutoJoinByTitleContent, StringComparison.CurrentCultureIgnoreCase));
                 if (partyEntry == null)
                     return;
 
                 Container.PartyMatching.Join(partyEntry.Id);
             }
-
-            allParties = null;
         }
 
         /// <summary>
