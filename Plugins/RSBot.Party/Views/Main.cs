@@ -1050,7 +1050,7 @@ namespace RSBot.Party.Views
             buttonAutoJoinConfig.Color = ColorScheme.BackColor;
         }
 
-        private async void buttonConfirmJoinConfig_Click(object sender, EventArgs e)
+        private void buttonConfirmJoinConfig_Click(object sender, EventArgs e)
         {
             PlayerConfig.Set("RSBot.Party.AutoJoin.ByName", checkBoxJoinByName.Checked);
             PlayerConfig.Set("RSBot.Party.AutoJoin.ByTitle", checkBoxJoinByTitle.Checked);
@@ -1061,6 +1061,7 @@ namespace RSBot.Party.Views
             if (checkBoxJoinByTitle.Checked)
                 PlayerConfig.Set("RSBot.Party.AutoJoin.Title", textBoxJoinByTitle.Text);
 
+            Bundle.Container.Refresh();
 
             buttonAutoJoinConfig.Color = Color.Transparent;
             topPartyPanel.Height = 47;

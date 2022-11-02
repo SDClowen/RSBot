@@ -93,8 +93,6 @@ namespace RSBot.General.PacketHandler
                 Log.Debug($"Found server: {serverName} ({currentCapacity}/{maxCapacity})");
             }
 
-            BotWindow.SetStatusTextLang("WaitingUser");
-
             AutoLogin.Handle();
         }
     }

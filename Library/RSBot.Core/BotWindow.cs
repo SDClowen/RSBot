@@ -23,5 +23,14 @@ namespace RSBot.Core
         {
             EventManager.FireEvent("OnChangeStatusText", LanguageManager.GetLang(key));
         }
+
+        /// <summary>
+        /// Sets the status text.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        public static void SetStatusTextLang(string key, params object[] args)
+        {
+            EventManager.FireEvent("OnChangeStatusText", LanguageManager.GetLang(key, args));
+        }
     }
 }

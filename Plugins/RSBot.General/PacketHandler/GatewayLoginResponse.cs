@@ -34,6 +34,7 @@ namespace RSBot.General.PacketHandler
             if (packet.ReadByte() == 0x01)
             {
                 Log.NotifyLang("AuthGetewaySuccess");
+                AutoLogin.Pending = false;
                 Views.View.PendingWindow?.Hide();
 
                 return;
@@ -70,13 +71,13 @@ namespace RSBot.General.PacketHandler
                     var count = packet.ReadUShort();
                     var timestamp = packet.ReadInt();
 
-                    Task.Run(() =>
+                    Task.Factory.StartNew(() =>
                     {
                         SynchronizationContext.SetSynchronizationContext(new WindowsFormsSynchronizationContext());
 
                         Views.View.PendingWindow.Start(count, timestamp);
-                        if (!GlobalConfig.Get<bool>("RSBot.General.PendingDontShowOnStartClient"))
-                            Views.View.PendingWindow.ShowDialog(Views.View.Instance.ParentForm);
+                        if (!GlobalConfig.Get<bool>("RSBot.General.AutoHidePendingWindow"))
+                            Views.View.PendingWindow.ShowAtTop(Views.View.Instance);
                     });
 
                     break;

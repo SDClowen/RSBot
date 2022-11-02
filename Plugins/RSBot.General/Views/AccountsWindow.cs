@@ -9,12 +9,12 @@ using System.Windows.Forms;
 
 namespace RSBot.General.Views
 {
-    public partial class Accounts : CleanForm
+    public partial class AccountsWindow : CleanForm
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Accounts"/> class.
+        /// Initializes a new instance of the <see cref="AccountsWindow"/> class.
         /// </summary>
-        public Accounts()
+        public AccountsWindow()
         {
             InitializeComponent();
             comboBoxChannel.SelectedIndex = 0;

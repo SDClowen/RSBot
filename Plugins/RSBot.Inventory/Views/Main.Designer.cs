@@ -421,7 +421,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "Main";
             this.Size = new System.Drawing.Size(792, 458);
-            this.Load += new System.EventHandler(this.Main_Load);
+            this.VisibleChanged += new System.EventHandler(this.Main_VisibleChanged);
             this.contextMenuStrip.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

@@ -103,3 +103,4 @@ NoPatchRequired="Этот клиент обновлен, патч не треб�
 Xhours="{0} часы "
 Xminutes="{0} минуты "
 Xseconds="{0} секунды"
+PendingQueue="{0} is pending for server connection... People in stand by: {1} / {2}"
