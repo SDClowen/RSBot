@@ -21,6 +21,17 @@ namespace RSBot.Core
         }
 
         /// <summary>
+        /// Appends the given message to the log using the provided log level.
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <param name="message"></param>
+        public static void Append(LogLevel logLevel, string message)
+        {
+            EventManager.FireEvent("OnAddLog", message, logLevel);
+        }
+
+
+        /// <summary>
         /// Appends the specified message.
         /// </summary>
         /// <param name="obj">The message.</param>

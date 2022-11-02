@@ -153,11 +153,11 @@ namespace RSBot.Core.Components
                     continue; //No matching handler found for this command
                 }
 
-                if (handler.IsRunning)
+                if (handler.IsBusy)
                 {
                     LogScriptMessage("The script command is still busy.", CurrentLineIndex, LogLevel.Warning, commandName);
 
-                    continue; //Command is busy (possible threading issue)
+                    break;
                 }
 
                 EventManager.FireEvent("OnScriptStartExecuteCommand", handler, CurrentLineIndex);
@@ -165,14 +165,16 @@ namespace RSBot.Core.Components
                 EventManager.FireEvent("OnScriptFinishExecuteCommand", handler, executionResult, CurrentLineIndex);
 
                 if (executionResult == false)
+                {
                     LogScriptMessage("The execution of the script command failed.", CurrentLineIndex, LogLevel.Warning, commandName);
+
+                    break;
+                }
 
                 CurrentLineIndex++;
             }
 
-            Running = false;
-
-            EventManager.FireEvent("OnFinishScript");
+            Stop();
         }
 
         /// <summary>
@@ -181,6 +183,13 @@ namespace RSBot.Core.Components
         public static void Stop()
         {
             Running = false;
+            Commands = null;
+            File = null;
+
+            foreach (var handler in CommandHandlers)
+                handler.Stop();
+
+            EventManager.FireEvent("OnFinishScript");
         }
 
         /// <summary>
@@ -227,7 +236,7 @@ namespace RSBot.Core.Components
             if (command == null)
                 command = "<none>";
 
-            Log.AppendFormat(level, $"[Script] {message} (command={command}; line={line})");
+            Log.Append(level, $"[Script] {message} (command={command}; line={line})");
         }
 
         /// <summary>

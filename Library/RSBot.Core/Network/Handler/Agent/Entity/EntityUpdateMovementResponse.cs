@@ -1,7 +1,9 @@
 ﻿using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
+using RSBot.Core.Objects.Cos;
 using RSBot.Core.Objects.Spawn;
+using System.Linq;
 
 namespace RSBot.Core.Network.Handler.Agent.Entity
 {
@@ -50,6 +52,7 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                 // Movement through click
                 Game.Player.Move(movement.Destination);
                 EventManager.FireEvent("OnPlayerMove");
+
                 return;
             }
 

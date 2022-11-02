@@ -174,7 +174,7 @@ public static class CollisionManager
     /// <param name="centerRegionId">The center region identifier.</param>
     public static void Update(Region region)
     {
-        if (region == CenterRegion && HasActiveMeshes)
+        if (region == CenterRegion && HasActiveMeshes || region == 0)
             return;
         
         CenterRegion = region;
@@ -188,7 +188,7 @@ public static class CollisionManager
 
         IsUpdating = true;
         ActiveCollisionMeshes = new List<CalculatedCollisionMesh>(9);
-
+        
         var surroundedBy = CenterRegion.GetSurroundingRegions();
 
         LoadRegions(surroundedBy); 

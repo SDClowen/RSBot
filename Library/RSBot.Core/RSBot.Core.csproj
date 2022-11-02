@@ -17,4 +17,8 @@
     <ProjectReference Include="..\RSBot.Pk2\RSBot.Pk2.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Network\Hooks\Agent\Chat\" />
+  </ItemGroup>
+
 </Project>

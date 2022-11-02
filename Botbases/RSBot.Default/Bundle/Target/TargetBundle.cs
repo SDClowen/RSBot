@@ -41,7 +41,7 @@ namespace RSBot.Default.Bundle.Target
         /// </summary>
         public void Invoke()
         {
-            _blacklist.RemoveAll((uniqueId, tick) =>
+            _blacklist?.RemoveAll((uniqueId, tick) =>
             {
                 var flag = Kernel.TickCount - tick > BLACKLIST_TIMEOUT;
                 if (flag)

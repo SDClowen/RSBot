@@ -1,74 +1,84 @@
 ﻿using System.Collections.Generic;
 
-namespace RSBot.Core.Components.Scripting.Commands
+namespace RSBot.Core.Components.Scripting.Commands;
+
+internal class RepairScriptCommand : IScriptCommand
+
 {
-    internal class RepairScriptCommand : IScriptCommand
+    #region Properties
 
+    /// <summary>
+    /// Gets the name.
+    /// </summary>
+    /// <value>
+    /// The name.
+    /// </value>
+    public string Name => "repair";
+
+    /// <summary>
+    /// Gets a value indicating whether this instance is running.
+    /// </summary>
+    /// <value>
+    ///   <c>true</c> if this instance is running; otherwise, <c>false</c>.
+    /// </value>
+    public bool IsBusy { get; private set; }
+
+    /// <summary>
+    /// Gets the arguments.
+    /// </summary>
+    /// <value>
+    /// The arguments.
+    /// </value>
+    public Dictionary<string, string> Arguments => new Dictionary<string, string>
     {
-        #region Properties
+        {"Codename", "The code name of the NPC"}
+    };
 
-        /// <summary>
-        /// Gets the name.
-        /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
-        public string Name => "repair";
+    #endregion Properties
 
-        /// <summary>
-        /// Gets a value indicating whether this instance is running.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is running; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsRunning { get; private set; }
+    #region Methods
 
-        /// <summary>
-        /// Gets the arguments.
-        /// </summary>
-        /// <value>
-        /// The arguments.
-        /// </value>
-        public Dictionary<string, string> Arguments => new Dictionary<string, string>
+    /// <summary>
+    /// Executes this instance.
+    /// </summary>
+    /// <param name="arguments"></param>
+    /// <returns>
+    /// A value indicating if the command has been executed successfully.
+    /// </returns>
+    public bool Execute(string[] arguments = null)
+    {
+        if (arguments == null || arguments.Length != Arguments.Count)
         {
-            {"Codename", "The code name of the NPC"}
-        };
+            Log.Warn("[Script] Invalid repair command: NPC code name information missing.");
 
-        #endregion Properties
+            return false;
+        } 
 
-        #region Methods
-
-        /// <summary>
-        /// Executes this instance.
-        /// </summary>
-        /// <param name="arguments"></param>
-        /// <returns>
-        /// A value indicating if the command has been executed successfully.
-        /// </returns>
-        public bool Execute(string[] arguments = null)
+        if (!ScriptManager.Running)
         {
-            if (arguments == null || arguments.Length != Arguments.Count)
-            {
-                Log.Warn("[Script] Invalid repair command: NPC code name information missing.");
+            IsBusy = false;
 
-                return false;
-            }
-
-            try
-            {
-                IsRunning = true;
-
-                Log.Notify("[Script] Repairing items...");
-                ShoppingManager.RepairItems(arguments[0]);
-
-                return true;
-            }
-            finally
-            {
-                IsRunning = false;
-            }
+            return false;
         }
 
-        #endregion Methods
+        try
+        {
+            IsBusy = true;
+
+            Log.Notify("[Script] Repairing items...");
+            ShoppingManager.RepairItems(arguments[0]);
+
+            return true;
+        }
+        finally
+        {
+            IsBusy = false;
+        }
     }
+
+    public void Stop()
+    {
+        IsBusy = false;
+    }
+    #endregion Methods
 }

@@ -9,7 +9,7 @@ namespace RSBot.Core.Components.Scripting
 
         string Name { get; }
         
-        bool IsRunning { get; }
+        bool IsBusy { get; }
 
         Dictionary<string, string> Arguments { get; }
 
@@ -22,6 +22,11 @@ namespace RSBot.Core.Components.Scripting
         /// </summary>
         /// <returns>A value indicating if the command has been executed successfully.</returns>
         bool Execute(string[] arguments = null);
+
+        /// <summary>
+        /// Stops the execution of the command
+        /// </summary>
+        void Stop();
 
         #endregion Methods
     }

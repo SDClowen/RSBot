@@ -151,7 +151,22 @@ namespace RSBot.Core.Objects.Cos
             var packet = new Packet(0x70CB);
             packet.WriteByte(0);
             packet.WriteInt(UniqueId);
-            PacketManager.SendPacket(packet, PacketDestination.Server);
+
+            var awaitCallback = new AwaitCallback(response => 
+            {
+                var result = response.ReadByte();
+                if (result != 1)
+                    return AwaitCallbackResult.Fail;
+
+                var ownerUid = response.ReadUInt();
+                var isMounted = response.ReadBool();
+                var vehicleUniqueId = response.ReadUInt();
+
+                return AwaitCallbackResult.Success; 
+            }, 0xB0CB);
+            PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallback);
+            awaitCallback.AwaitResponse();
+          
 
             return true;
         }
