@@ -1,4 +1,5 @@
 ﻿using RSBot.Core.Network;
+using RSBot.General.Components;
 
 namespace RSBot.General.PacketHandler
 {
@@ -28,6 +29,7 @@ namespace RSBot.General.PacketHandler
         {
             if (packet.ReadByte() == 0x01)
             {
+                AutoLogin.Pending = false;
                 Views.View.PendingWindow?.Hide();
             }
         }

@@ -78,17 +78,28 @@ namespace RSBot.Core
 
         private static async Task ComponentUpdaterAsync()
         {
-            var lastUpdate = TickCount;
+            var lastTick = TickCount;
+            var lastClockTick = TickCount;
 
             while (!_updaterTokenSource.IsCancellationRequested)
             {
                 await Task.Delay(10);
+
+                if (TickCount - lastClockTick >= 1000)
+                {
+                    lastClockTick = TickCount;
+                    EventManager.FireEvent("OnClock");
+                }
+
                 if (!Game.Ready)
+                {
+                    lastTick = TickCount;
                     continue;
+                }
 
                 try
                 {
-                    var elapsed = TickCount - lastUpdate;
+                    var elapsed = TickCount - lastTick;
 
                     Game.Player.Update(elapsed);
                     Game.Player.Transport?.Update(elapsed);
@@ -103,7 +114,7 @@ namespace RSBot.Core
 
                     EventManager.FireEvent("OnTick");
 
-                    lastUpdate = TickCount;
+                    lastTick = TickCount;
                 }
                 catch (Exception e)
                 {

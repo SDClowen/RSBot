@@ -37,7 +37,6 @@
             this.labelAvgWaitingTime = new SDUI.Controls.Label();
             this.labelMyWaitingTime = new SDUI.Controls.Label();
             this.label5 = new SDUI.Controls.Label();
-            this.timer = new System.Windows.Forms.Timer(this.components);
             this.buttonCancel = new SDUI.Controls.Button();
             this.buttonHide = new SDUI.Controls.Button();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
@@ -89,19 +88,23 @@
             // 
             this.labelAvgWaitingTime.AutoSize = true;
             this.labelAvgWaitingTime.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelAvgWaitingTime.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.labelAvgWaitingTime.Location = new System.Drawing.Point(194, 112);
             this.labelAvgWaitingTime.Name = "labelAvgWaitingTime";
-            this.labelAvgWaitingTime.Size = new System.Drawing.Size(0, 17);
+            this.labelAvgWaitingTime.Size = new System.Drawing.Size(15, 17);
             this.labelAvgWaitingTime.TabIndex = 0;
+            this.labelAvgWaitingTime.Text = "0";
             // 
             // labelMyWaitingTime
             // 
             this.labelMyWaitingTime.AutoSize = true;
             this.labelMyWaitingTime.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelMyWaitingTime.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.labelMyWaitingTime.Location = new System.Drawing.Point(194, 147);
             this.labelMyWaitingTime.Name = "labelMyWaitingTime";
-            this.labelMyWaitingTime.Size = new System.Drawing.Size(0, 17);
+            this.labelMyWaitingTime.Size = new System.Drawing.Size(15, 17);
             this.labelMyWaitingTime.TabIndex = 0;
+            this.labelMyWaitingTime.Text = "0";
             // 
             // label5
             // 
@@ -113,11 +116,6 @@
             this.label5.Size = new System.Drawing.Size(103, 17);
             this.label5.TabIndex = 0;
             this.label5.Text = "My waiting time:";
-            // 
-            // timer
-            // 
-            this.timer.Interval = 1000;
-            this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // buttonCancel
             // 
@@ -182,7 +180,6 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PendingWindow_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -198,7 +195,6 @@
         private SDUI.Controls.Label labelMyWaitingTime;
         private SDUI.Controls.Label label5;
         private SDUI.Controls.Button buttonCancel;
-        private System.Windows.Forms.Timer timer;
         private SDUI.Controls.Button buttonHide;
         private System.Windows.Forms.NotifyIcon notifyIcon;
     }

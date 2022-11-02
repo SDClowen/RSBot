@@ -42,7 +42,10 @@
             resultPacket.WriteUInt(Kernel.Proxy.Token);
             resultPacket.WriteString("127.0.0.1");
             resultPacket.WriteUShort(Kernel.Proxy.Port);
-            
+
+            if (packet.ReaderRemain > 0)
+                resultPacket.WriteByteArray(packet.ReadByteArray(packet.ReaderRemain));
+            /*
             //unknown value
             if (Game.ClientType == GameClientType.Japanese_Old)
                 resultPacket.WriteInt(packet.ReadInt());
@@ -52,10 +55,10 @@
                 var unk1 = packet.ReadByte();
                 resultPacket.WriteByte(unk1);
 
-                if (unk1 == 2)
+                if (unk1 == 2 && packet.ReaderRemain > 0)
                     resultPacket.WriteString(packet.ReadString());
             }
-
+            */
             return resultPacket;
         }
     }
