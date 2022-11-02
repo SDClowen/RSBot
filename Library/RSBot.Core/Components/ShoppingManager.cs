@@ -270,19 +270,36 @@ namespace RSBot.Core.Components
 
             SelectNPC(npcCodeName);
 
-            var npc = SelectedEntity;
-            if (npc == null)
+            if (SelectedEntity == null)
             {
                 Log.Debug("Cannot repair items because there is no smith selected!");
                 return;
             }
 
             var packet = new Packet(0x703E);
-            packet.WriteUInt(npc.UniqueId);
+            packet.WriteUInt(SelectedEntity.UniqueId);
             packet.WriteByte(2); //repair all items
 
-            PacketManager.SendPacket(packet, PacketDestination.Server);
+            var awaitCallback = new AwaitCallback(response => 
+            {
+                var result = packet.ReadByte();
 
+                if (result == 2)
+                {
+                    var errorCode = response.ReadUShort();
+
+                    Log.Debug($"Repair of items at NPC {npcCodeName} failed [code={errorCode}]");
+
+                    return AwaitCallbackResult.Fail;
+                }
+
+                return AwaitCallbackResult.Success;
+        
+            }, 0xB03E);
+
+            PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallback);
+            awaitCallback.AwaitResponse();
+                
             CloseShop();
         }
 
@@ -345,7 +362,8 @@ namespace RSBot.Core.Components
         /// </summary>
         private static void OpenStorage(uint uniqueId)
         {
-            if (Game.Player.Storage != null) return;
+            if (Game.Player.Storage != null)
+                return;
 
             var packet = new Packet(0x703C);
             packet.WriteInt(uniqueId);
@@ -371,9 +389,13 @@ namespace RSBot.Core.Components
         /// <param name="npcCodeName">Name of the NPC code.</param>
         public static void SelectNPC(string npcCodeName)
         {
+            if (SelectedEntity != null && SelectedEntity.Record.CodeName == npcCodeName)
+                return;
+            
             if (!SpawnManager.TryGetEntity<SpawnedNpcNpc>(p => p.Record.CodeName == npcCodeName, out var entity))
             {
                 Log.Debug("Cannot access the NPC [" + npcCodeName + "] because it does not exist nearby.");
+
                 return;
             }
 

@@ -148,8 +148,22 @@ namespace RSBot.Core.Objects.Spawn
             var packet = new Packet(0x704B);
             packet.WriteUInt(UniqueId);
 
-            var awaitResult = new AwaitCallback(response => response.ReadByte() == 1 ?
-                AwaitCallbackResult.Success : AwaitCallbackResult.ConditionFailed, 0xB04B);
+            var awaitResult = new AwaitCallback(response => 
+            {
+                var successFlag = response.ReadByte();
+
+                if (successFlag == 2)
+                {
+                    var errorCode = response.ReadUShort();
+
+                    Log.Debug($"Error deselecting Entity {UniqueId} [Code={errorCode:X4}]");
+
+                    return AwaitCallbackResult.Fail;
+                }
+
+                return AwaitCallbackResult.Success;
+
+            }, 0xB04B);
 
             PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
             awaitResult.AwaitResponse();

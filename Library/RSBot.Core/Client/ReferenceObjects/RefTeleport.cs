@@ -43,13 +43,7 @@ namespace RSBot.Core.Client.ReferenceObjects
         /// <returns></returns>
         public Position GetPosition()
         {
-            return new()
-            {
-                XOffset = GenPos_X,
-                ZOffset = GenPos_Z,
-                YOffset = GenPos_Y,
-                Region = GenRegionID
-            };
+            return new(GenPos_X, GenPos_Y, GenPos_Z, GenRegionID);
         }
 
         public bool Load(ReferenceParser parser)

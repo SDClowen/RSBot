@@ -175,6 +175,7 @@ public static class CollisionManager
     public static void Update(Region region)
     {
         if (region == CenterRegion && HasActiveMeshes)
+        if (region == CenterRegion && HasActiveMeshes || region == 0)
             return;
         
         CenterRegion = region;

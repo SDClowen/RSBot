@@ -418,7 +418,7 @@ namespace RSBot.Core.Client
             return null;
         }
 
-        public RefSkill? GetRefSkill(string codeName)
+        public RefSkill GetRefSkill(string codeName)
         {
             var skill = SkillData.FirstOrDefault(s => s.Value.Basic_Code == codeName);
 
@@ -611,9 +611,9 @@ namespace RSBot.Core.Client
         /// </summary>
         /// <param name="regionId"></param>
         /// <returns></returns>
-        public RefTeleport[] GetTeleporters(ushort regionId)
+        public RefTeleport[] GetTeleporters(Region region)
         {
-            return TeleportData.Where(t => t.GenRegionID == regionId).ToArray();
+            return TeleportData.Where(t => t.GenRegionID == region).ToArray();
         }
 
         /// <summary>
@@ -621,9 +621,9 @@ namespace RSBot.Core.Client
         /// </summary>
         /// <param name="regionId">The region identifier.</param>
         /// <returns></returns>
-        public RefTeleport[] GetGroundTeleporters(ushort regionId)
+        public RefTeleport[] GetGroundTeleporters(Region region)
         {
-            return TeleportData.Where(t => t.GenRegionID == regionId && t.AssocRefObjId == 0).ToArray();
+            return TeleportData.Where(t => t.GenRegionID == region && t.AssocRefObjId == 0).ToArray();
         }
 
         /// <summary>

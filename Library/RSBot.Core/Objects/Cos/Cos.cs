@@ -151,7 +151,17 @@ namespace RSBot.Core.Objects.Cos
             var packet = new Packet(0x70CB);
             packet.WriteByte(0);
             packet.WriteInt(UniqueId);
-            PacketManager.SendPacket(packet, PacketDestination.Server);
+
+            var awaitCallback = new AwaitCallback(response => 
+            {
+                var result = response.ReadByte();
+           
+                return result == 1 ? AwaitCallbackResult.Success : AwaitCallbackResult.Fail; 
+            }, 0xB0CB);
+
+            PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallback);
+            awaitCallback.AwaitResponse();
+          
 
             return true;
         }
