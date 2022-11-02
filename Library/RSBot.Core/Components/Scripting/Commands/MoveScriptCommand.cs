@@ -69,8 +69,11 @@ internal class MoveScriptCommand : IScriptCommand
 
             //In some cases the move command fails for no reason, that's why we retry the move x times if it fails.
             //This bug is server side. Sometimes it simply sends back a failed packet because the player state doesn't allow to move.
-            while (!ExecuteMove(arguments) && IsBusy)
+            while (!ExecuteMove(arguments))
             {
+                if (!IsBusy)
+                    return false;
+                
                 if (stepRetryCounter++ >= retryAttempts)
                 {
                     Log.Warn("[Script] The move command failed due to an unknown reason! Please check the walk script.");
@@ -109,7 +112,6 @@ internal class MoveScriptCommand : IScriptCommand
             return false; //Invalid format
         }
    
-
         Position pos = new(xOffset, yOffset, zOffset, xSector, ySector);
 
         if (PlayerConfig.Get("RSBot.Walkback.UseMount", true))

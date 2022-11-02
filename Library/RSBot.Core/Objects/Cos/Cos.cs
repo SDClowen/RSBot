@@ -155,15 +155,10 @@ namespace RSBot.Core.Objects.Cos
             var awaitCallback = new AwaitCallback(response => 
             {
                 var result = response.ReadByte();
-                if (result != 1)
-                    return AwaitCallbackResult.Fail;
-
-                var ownerUid = response.ReadUInt();
-                var isMounted = response.ReadBool();
-                var vehicleUniqueId = response.ReadUInt();
-
-                return AwaitCallbackResult.Success; 
+           
+                return result == 1 ? AwaitCallbackResult.Success : AwaitCallbackResult.Fail; 
             }, 0xB0CB);
+
             PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallback);
             awaitCallback.AwaitResponse();
           
