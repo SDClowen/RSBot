@@ -94,10 +94,7 @@ namespace RSBot.Inventory.Views
         /// </summary>
         public void UpdateInventoryList()
         {
-            if (Parent == null)
-                return;
-
-            if (!Parent.Visible)
+            if (!Visible)
                 return;
 
             if (Game.Player == null)
@@ -281,27 +278,13 @@ namespace RSBot.Inventory.Views
         }
 
         /// <summary>
-        /// <inheritdoc/>
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void Main_Load(object sender, System.EventArgs e)
-        {
-            var tab = Parent as TabPage;
-            tab.VisibleChanged += Parent_VisibleChanged;
-        }
-
-        /// <summary>
         /// Handles the visible changed event of the parent.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void Parent_VisibleChanged(object sender, System.EventArgs e)
+        private void Main_VisibleChanged(object sender, System.EventArgs e)
         {
-            if (!Visible)
-                listViewMain.Items.Clear();
-            else
-                UpdateInventoryList();
+            UpdateInventoryList();
         }
 
         /// <summary>
@@ -329,7 +312,7 @@ namespace RSBot.Inventory.Views
             if (listViewMain.SelectedItems.Count <= 0)
                 return;
 
-            if(!GlobalConfig.Get<bool>("RSBot.DebugEnvironment"))
+            if (!GlobalConfig.Get<bool>("RSBot.DebugEnvironment"))
                 return;
 
             var itemForm = new ItemProperties(listViewMain.SelectedItems[0].Tag as InventoryItem);
