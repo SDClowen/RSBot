@@ -35,9 +35,9 @@ namespace RSBot.Party.Bundle
         /// </summary>
         public static void Refresh()
         {
-            AutoParty = AutoParty ?? new AutoPartyBundle();
-            PartyMatching = PartyMatching ?? new PartyMatchingBundle();
-            Commands = Commands ?? new CommandsBundle();
+            AutoParty ??= new AutoPartyBundle();
+            PartyMatching ??= new PartyMatchingBundle();
+            Commands ??= new CommandsBundle();
 
             AutoParty.Refresh();
             Commands.Refresh();
