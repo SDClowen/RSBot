@@ -26,7 +26,6 @@ namespace RSBot.Party.Bundle.Commands
         {
             if (StringComparer.InvariantCultureIgnoreCase.Equals(message, "traceme"))
             { 
-
                 if (Config.ListenFromList && Config.PlayerList.Contains(player.Name))
                     SendTraceRequest(player.UniqueId);
 
@@ -36,16 +35,12 @@ namespace RSBot.Party.Bundle.Commands
 
             if (StringComparer.InvariantCultureIgnoreCase.Equals(message, "sitdown"))
             {
-
                 if (Config.ListenFromList && Config.PlayerList.Contains(player.Name))
                     SendSitdownRequest();
 
                 if (Config.ListenOnlyMaster && Game.Party.IsInParty)
                     SendSitdownRequest();
             }
-
-            return;
-
         }
 
         /// <summary>
@@ -62,12 +57,10 @@ namespace RSBot.Party.Bundle.Commands
 
             PacketManager.SendPacket(packet, PacketDestination.Server);
         }
-
         
         /// <summary>
         /// Send trace request by speficied uniqueId
         /// </summary>
-        
         private void SendSitdownRequest()
         {
             var packet = new Packet(0x704F);
