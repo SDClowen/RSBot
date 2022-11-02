@@ -9,13 +9,13 @@ namespace RSBot.Core.Components.Collision.Calculated;
 /// </summary>
 public class CalculatedCollisionMesh
 {
-    public ushort RegionId;
+    public Region Region;
 
     public CalculatedCollisionLine[] Collisions;
 
     internal CalculatedCollisionMesh(RSCollisionMesh original)
     {
-        RegionId = original.RegionId;
+        Region = original.Region;
 
         var collisions = original.Collisions;
         Collisions = new CalculatedCollisionLine[collisions.Length];
@@ -29,8 +29,8 @@ public class CalculatedCollisionMesh
         {
             var line = collisions[iLine];
 
-            var posSource = new Position(line.Source.X, line.Source.Y, 0, RegionId);
-            var posDestination = new Position(line.Destination.X, line.Destination.Y, 0, RegionId);
+            var posSource = new Position(line.Source.X, line.Source.Y, 0, Region);
+            var posDestination = new Position(line.Destination.X, line.Destination.Y, 0, Region);
 
             Collisions[iLine] = new CalculatedCollisionLine(posSource, posDestination);
         }

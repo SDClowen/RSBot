@@ -81,6 +81,7 @@ namespace RSBot.Core.Objects.Spawn
         public bool IsInDungeon => Movement.Source.Region.IsDungeon;
 
         private long _lastCollisionTick;
+        private bool _lastCollisionResult;
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is behind obstacle.
@@ -96,10 +97,10 @@ namespace RSBot.Core.Objects.Spawn
                 if (Kernel.TickCount - _lastCollisionTick >= 1000)
                 {
                     _lastCollisionTick = Kernel.TickCount;
-                    return CollisionManager.HasCollisionBetween(Game.Player.Position, Position);
+                    _lastCollisionResult = CollisionManager.HasCollisionBetween(Game.Player.Position, Position);
                 }
 
-                return false;
+                return _lastCollisionResult;
             }
         }
 

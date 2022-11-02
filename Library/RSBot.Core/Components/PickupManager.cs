@@ -171,6 +171,9 @@ namespace RSBot.Core.Components
             if (e.HasOwner && e.OwnerJID != playerJid)
                 return false;
 
+            if (applyPickOnlyChar && e.IsBehindObstacle)
+                return false;
+
             // Check if Item is within the training area + tolerance
             const int tolerance = 15;
             var isInside = e.Movement.Source.DistanceTo(centerPosition) <= radius + tolerance;

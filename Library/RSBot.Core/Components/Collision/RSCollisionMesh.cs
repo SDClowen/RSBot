@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using RSBot.Core.Objects;
+using System.IO;
 
 namespace RSBot.Core.Components.Collision;
 
@@ -10,7 +11,7 @@ internal struct RSCollisionMesh
     /// <summary>
     /// The region identifier this navmesh is used for
     /// </summary>
-    public ushort RegionId;
+    public Region Region;
 
     /// <summary>
     /// Gets the collision lines
@@ -24,7 +25,7 @@ internal struct RSCollisionMesh
     /// <param name="reader">The reader.</param>
     public RSCollisionMesh(BinaryReader reader)
     {
-        RegionId = reader.ReadUInt16();
+        Region = reader.ReadUInt16();
         var collisionLineCount = reader.ReadInt32();
 
         Collisions = new RSCollisionLine[collisionLineCount];
@@ -42,7 +43,7 @@ internal struct RSCollisionMesh
                 Y = reader.ReadInt16()
             };
 
-            Collisions[i] = new RSCollisionLine(source, destination, RegionId);
+            Collisions[i] = new RSCollisionLine(source, destination, Region);
         }
     }
 }
