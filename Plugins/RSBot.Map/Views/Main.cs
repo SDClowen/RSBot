@@ -655,6 +655,9 @@ namespace RSBot.Map.Views
         private void checkEnableCollisions_CheckedChanged(object sender, EventArgs e)
         {
             GlobalConfig.Set("RSBot.EnableCollisionDetection", checkEnableCollisions.Checked);
+
+            if (Game.Player != null)
+                CollisionManager.Update(Game.Player.Position.Region.Id);
         }
     }
 }

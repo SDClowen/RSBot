@@ -13,7 +13,7 @@ namespace RSBot.Core.Components;
 public static class CollisionManager
 {
     private const string SupportedHeader = "RSNVM";
-    private const int SupportedVersion = 1100;
+    private const int SupportedVersion = 1200;
 
     /// <summary>
     /// Gets a value indicating whether this instance is initialized.
@@ -78,6 +78,8 @@ public static class CollisionManager
     /// </value>
     public static List<CalculatedCollisionMesh>? ActiveCollisionMeshes { get; private set; }
 
+    private static Dictionary<ushort, long> _lookupTable;
+
     private static Dictionary<ushort, RSCollisionMesh> _loadedCollisions;
 
     /// <summary>
@@ -86,7 +88,7 @@ public static class CollisionManager
     /// <param name="fileName">Path to the RS map.</param>
     public static void Initialize()
     {
-        LoadCollisions();
+        LoadLookupTable();
 
         IsInitialized = true;
     }
@@ -95,7 +97,7 @@ public static class CollisionManager
     /// Loads the collisions from the specified file path.
     /// </summary>
     /// <param name="path">The path.</param>
-    public static void LoadCollisions()
+    public static void LoadLookupTable()
     {
         var sw = Stopwatch.StartNew();
 
@@ -113,16 +115,58 @@ public static class CollisionManager
             return;
         }
 
-        while (fileStream.ReadBoolean())
-        {
-            var collisionMesh = new RSCollisionMesh(fileStream);
+        var lookupTableOffset = fileStream.ReadInt64();
+        fileStream.BaseStream.Seek(lookupTableOffset, SeekOrigin.Begin);
 
+        var entryCount = fileStream.ReadUInt16();
+        _lookupTable = new Dictionary<ushort, long>(entryCount);
+
+        for (var entryIndex = 0; entryIndex < entryCount; entryIndex++)
+        {
+            var regionId = fileStream.ReadUInt16();
+            var fileOffset = fileStream.ReadInt64();
+
+            _lookupTable.Add(regionId, fileOffset);
+        }
+
+        Log.Notify($"[Collision] Loaded lookup table for {_lookupTable.Count} collision regions in {sw.ElapsedMilliseconds}ms");
+
+        EventManager.FireEvent("OnLoadCollisionLookupTable");
+    }
+    
+    /// <summary>
+    /// Loads the specified regions collision information.
+    /// </summary>
+    /// <param name="regions"></param>
+    private static void LoadRegions(Region[] regions)
+    {
+        if (!Enabled)
+            return;
+
+        var sw = Stopwatch.StartNew();
+
+        using var fileStream = new BinaryReader(File.OpenRead(Path.Combine(Environment.CurrentDirectory, "Data", "Game", "map.rsc")));
+        
+        _loadedCollisions = new Dictionary<ushort, RSCollisionMesh>(regions.Length);
+
+        foreach (var region in regions)
+        {
+            if (!_lookupTable.ContainsKey(region.Id)) 
+            {
+                Log.Debug($"[Collision] Could not find entry in lookup table for region with id [{region.Id}]");
+
+                continue;
+            }
+
+            fileStream.BaseStream.Seek(_lookupTable[region.Id], SeekOrigin.Begin);
+            
+            var collisionMesh = new RSCollisionMesh(fileStream);
             _loadedCollisions.Add(collisionMesh.RegionId, collisionMesh);
         }
 
-        Log.Notify($"[Collision] Loaded {_loadedCollisions.Count} collision regions in {sw.ElapsedMilliseconds}ms");
+        Log.Debug($"[Collision] Loaded {_loadedCollisions.Count} collision regions in {sw.ElapsedMilliseconds}ms");
 
-        EventManager.FireEvent("OnLoadCollisions");
+        EventManager.FireEvent("OnLoadCollisionRegions");
     }
 
     /// <summary>
@@ -132,12 +176,9 @@ public static class CollisionManager
     /// <param name="centerRegionId">The center region identifier.</param>
     public static void Update(ushort centerRegionId)
     {
-        if (GlobalConfig.Get("RSBot.EnableCollisionDetection", true))
-            return;
-
         if (centerRegionId == CenterRegionId && HasActiveMeshes)
             return;
-
+        
         CenterRegionId = centerRegionId;
 
         if (!Enabled)
@@ -153,6 +194,8 @@ public static class CollisionManager
         var centerRegion = new Region(centerRegionId);
         var surroundedBy = centerRegion.GetSurroundingRegions();
 
+        LoadRegions(surroundedBy); 
+
         foreach (var region in surroundedBy.Where(region => _loadedCollisions.ContainsKey(region.Id)))
         {
             var mesh = _loadedCollisions[region.Id];
@@ -163,7 +206,6 @@ public static class CollisionManager
 
         IsUpdating = false;
 
-        Log.Debug($"[Collision] Loaded {ActiveCollisionMeshes.Count} regions!");
         EventManager.FireEvent("OnUpdateCollisions");
     }
 
