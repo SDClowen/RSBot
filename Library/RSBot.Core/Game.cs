@@ -96,11 +96,6 @@ namespace RSBot.Core
         public static bool Started { get; set; }
 
         /// <summary>
-        /// Gets or sets the nearby teleports.
-        /// </summary>
-        public static RefTeleport[] NearbyTeleporters { get; set; }
-
-        /// <summary>
         /// Gets a value indicating whether this <see cref="Game"/> is ready.
         /// </summary>
         /// <value>

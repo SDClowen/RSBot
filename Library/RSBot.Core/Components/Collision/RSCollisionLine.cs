@@ -1,4 +1,6 @@
-﻿namespace RSBot.Core.Components.Collision;
+﻿using RSBot.Core.Objects;
+
+namespace RSBot.Core.Components.Collision;
 
 internal struct RSCollisionLine
 {
@@ -15,12 +17,12 @@ internal struct RSCollisionLine
     /// <summary>
     /// The region identifier of this collision line
     /// </summary>
-    public ushort RegionId;
+    public Region Region;
 
-    public RSCollisionLine(RSCollisionPoint source, RSCollisionPoint destination, ushort regionId)
+    public RSCollisionLine(RSCollisionPoint source, RSCollisionPoint destination, Region region)
     {
         Source = source;
         Destination = destination;
-        RegionId = regionId;
+        Region = region;
     }
 }

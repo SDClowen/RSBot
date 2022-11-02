@@ -37,7 +37,7 @@ public static class CollisionManager
     /// <value>
     /// The center region identifier.
     /// </value>
-    public static ushort CenterRegionId { get; private set; }
+    public static Region CenterRegion { get; private set; }
 
     /// <summary>
     /// Gets a value indicating whether this instance has active collision meshes.
@@ -68,7 +68,7 @@ public static class CollisionManager
     /// <value>
     ///   <c>true</c> if enabled; otherwise, <c>false</c>.
     /// </value>
-    public static bool Enabled => GlobalConfig.Get("RSBot.EnableCollisionDetection", true);
+    public static bool Enabled => GlobalConfig.Get("RSBot.EnableCollisionDetection", true) && _lookupTable != null;
 
     /// <summary>
     /// Gets the active collision meshes.
@@ -76,11 +76,11 @@ public static class CollisionManager
     /// <value>
     /// The active collision meshes.
     /// </value>
-    public static List<CalculatedCollisionMesh>? ActiveCollisionMeshes { get; private set; }
+    public static List<CalculatedCollisionMesh> ActiveCollisionMeshes { get; private set; }
 
-    private static Dictionary<ushort, long> _lookupTable;
+    private static Dictionary<Region, long> _lookupTable;
 
-    private static Dictionary<ushort, RSCollisionMesh> _loadedCollisions;
+    private static Dictionary<Region, RSCollisionMesh> _loadedCollisions;
 
     /// <summary>
     /// Initializes the specified map data directory.
@@ -101,8 +101,6 @@ public static class CollisionManager
     {
         var sw = Stopwatch.StartNew();
 
-        _loadedCollisions = new Dictionary<ushort, RSCollisionMesh>(1024);
-
         using var fileStream = new BinaryReader(File.OpenRead(Path.Combine(Environment.CurrentDirectory, "Data", "Game", "map.rsc")));
 
         var header = fileStream.ReadString();
@@ -119,7 +117,7 @@ public static class CollisionManager
         fileStream.BaseStream.Seek(lookupTableOffset, SeekOrigin.Begin);
 
         var entryCount = fileStream.ReadUInt16();
-        _lookupTable = new Dictionary<ushort, long>(entryCount);
+        _lookupTable = new Dictionary<Region, long>(entryCount);
 
         for (var entryIndex = 0; entryIndex < entryCount; entryIndex++)
         {
@@ -147,21 +145,21 @@ public static class CollisionManager
 
         using var fileStream = new BinaryReader(File.OpenRead(Path.Combine(Environment.CurrentDirectory, "Data", "Game", "map.rsc")));
         
-        _loadedCollisions = new Dictionary<ushort, RSCollisionMesh>(regions.Length);
+        _loadedCollisions = new Dictionary<Region, RSCollisionMesh>(regions.Length);
 
         foreach (var region in regions)
         {
-            if (!_lookupTable.ContainsKey(region.Id)) 
+            if (!_lookupTable.ContainsKey(region)) 
             {
-                Log.Debug($"[Collision] Could not find entry in lookup table for region with id [{region.Id}]");
+                Log.Debug($"[Collision] Could not find entry in lookup table for region with id [{region}]");
 
                 continue;
             }
 
-            fileStream.BaseStream.Seek(_lookupTable[region.Id], SeekOrigin.Begin);
+            fileStream.BaseStream.Seek(_lookupTable[region], SeekOrigin.Begin);
             
             var collisionMesh = new RSCollisionMesh(fileStream);
-            _loadedCollisions.Add(collisionMesh.RegionId, collisionMesh);
+            _loadedCollisions.Add(collisionMesh.Region, collisionMesh);
         }
 
         Log.Debug($"[Collision] Loaded {_loadedCollisions.Count} collision regions in {sw.ElapsedMilliseconds}ms");
@@ -174,12 +172,12 @@ public static class CollisionManager
     /// If the center region equals the new one, no action will be executed.
     /// </summary>
     /// <param name="centerRegionId">The center region identifier.</param>
-    public static void Update(ushort centerRegionId)
+    public static void Update(Region region)
     {
-        if (centerRegionId == CenterRegionId && HasActiveMeshes)
+        if (region == CenterRegion && HasActiveMeshes)
             return;
         
-        CenterRegionId = centerRegionId;
+        CenterRegion = region;
 
         if (!Enabled)
         {
@@ -191,14 +189,13 @@ public static class CollisionManager
         IsUpdating = true;
         ActiveCollisionMeshes = new List<CalculatedCollisionMesh>(9);
 
-        var centerRegion = new Region(centerRegionId);
-        var surroundedBy = centerRegion.GetSurroundingRegions();
+        var surroundedBy = CenterRegion.GetSurroundingRegions();
 
         LoadRegions(surroundedBy); 
 
-        foreach (var region in surroundedBy.Where(region => _loadedCollisions.ContainsKey(region.Id)))
+        foreach (var surroundingRegion in surroundedBy.Where(region => _loadedCollisions.ContainsKey(region)))
         {
-            var mesh = _loadedCollisions[region.Id];
+            var mesh = _loadedCollisions[surroundingRegion];
             var calculatedMesh = new CalculatedCollisionMesh(mesh);
 
             ActiveCollisionMeshes.Add(calculatedMesh);
