@@ -103,3 +103,4 @@ NoPatchRequired="هذا العميل محدث ، لا حاجة إلى تصحيح
 Xhours="{0} ساعة "
 Xminutes="{0} دقائق "
 Xseconds="{0} ثوانى"
+PendingQueue="{0} is pending for server connection... People in stand by: {1} / {2}"

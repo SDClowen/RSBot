@@ -13,6 +13,11 @@ namespace RSBot.General.Components
     internal static class AutoLogin
     {
         /// <summary>
+        /// Is the auto login pending <c>true</c> otherwise; <c>false</c>
+        /// </summary>
+        public static bool Pending;
+
+        /// <summary>
         /// Is the auto login handling <c>true</c> otherwise; <c>false</c>
         /// </summary>
         private static bool _busy = false;
@@ -22,8 +27,13 @@ namespace RSBot.General.Components
         /// </summary>
         public static async void Handle()
         {
+            if (Pending)
+                return;
+
             if (_busy)
                 return;
+
+            BotWindow.SetStatusTextLang("WaitingUser");
 
             _busy = true;
 

@@ -115,30 +115,35 @@ namespace RSBot.General.PacketHandler
                 return;
 
             selectedAccount.Characters = lobbyCharacters.Select(p => p.name).ToList();
-            Components.Accounts.Save();
 
             EventManager.FireEvent("OnCharacterListReceived");
 
-            if (string.IsNullOrWhiteSpace(selectedAccount.SelectedCharacter))
+            if (string.IsNullOrWhiteSpace(selectedAccount.SelectedCharacter) || 
+                !lobbyCharacters.Any(p => p.name == selectedAccount.SelectedCharacter))
             {
-                var firstCharachter = lobbyCharacters.First();
-                var maxLevelCharachter = lobbyCharacters.MaxBy(p => p.level);
+                if(charCount == 0)
+                {
+                    Log.Warn("There are no characters on this account!");
+                    return;
+                }
 
                 if (GlobalConfig.Get<bool>("RSBot.General.CharacterAutoSelectFirst"))
-                    Components.AutoLogin.EnterGame(firstCharachter.name);
-
-                if (GlobalConfig.Get<bool>("RSBot.General.CharacterAutoSelectHigher"))
-                    Components.AutoLogin.EnterGame(maxLevelCharachter.name);
-
+                {
+                    selectedAccount.SelectedCharacter = lobbyCharacters.FirstOrDefault().name;
+                }
+                else if (GlobalConfig.Get<bool>("RSBot.General.CharacterAutoSelectHigher"))
+                {
+                    selectedAccount.SelectedCharacter = lobbyCharacters.MaxBy(p => p.level).name;
+                }
                 else
+                {
                     BotWindow.SetStatusTextLang("SelectYourCharacterManually");
-                return;
+                    return;
+                }
             }
 
-            if (lobbyCharacters.Any(p => p.name == selectedAccount.SelectedCharacter))
-                Components.AutoLogin.EnterGame(selectedAccount.SelectedCharacter);
-            else
-                Components.AutoLogin.EnterGame(lobbyCharacters[0].name);
+            Components.Accounts.Save();
+            Components.AutoLogin.EnterGame(selectedAccount.SelectedCharacter);
         }
     }
 }

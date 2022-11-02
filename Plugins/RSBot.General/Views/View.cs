@@ -24,5 +24,5 @@ internal class View
     /// <value>
     /// The instance.
     /// </value>
-    public static Accounts AccountsWindow { get; } = new();
+    public static AccountsWindow AccountsWindow { get; } = new();
 }

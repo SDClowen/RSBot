@@ -2,6 +2,7 @@
 using RSBot.Core.Client;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
+using RSBot.General.Components;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -18,8 +19,7 @@ namespace RSBot.General.Views
     internal partial class Main : UserControl
     {
         private bool _clientVisible;
-        private bool _pendingVisible;
-   
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Main"/> class.
         /// </summary>
@@ -55,7 +55,7 @@ namespace RSBot.General.Views
 
         private void OnProfileChanged()
         {
-            Components.Accounts.Load();
+            Accounts.Load();
             LoadAccounts();
         }
 
@@ -64,6 +64,7 @@ namespace RSBot.General.Views
         /// </summary>
         private void OnGatewayServerDisconnected()
         {
+            AutoLogin.Pending = false;
             View.PendingWindow?.Hide();
 
             if (!Kernel.Proxy.IsConnectedToAgentserver)
@@ -73,7 +74,7 @@ namespace RSBot.General.Views
                 btnStartClient.Enabled = true;
                 btnStartClientless.Enabled = true;
                 btnStartClientless.Text = LanguageManager.GetLang("Start") + " Clientless";
-
+                BotWindow.SetStatusText("Ready");
                 Kernel.Proxy.Shutdown();
             }
         }
@@ -86,7 +87,7 @@ namespace RSBot.General.Views
             comboBoxClientType.Items.AddRange(Enum.GetNames(typeof(GameClientType)));
             comboCharacter.SelectedIndex = 0;
 
-            Components.Accounts.Load();
+            Accounts.Load();
             LoadAccounts();
 
             //Load and display config
@@ -105,10 +106,10 @@ namespace RSBot.General.Views
             checkCharAutoSelect.Checked = GlobalConfig.Get<bool>("RSBot.General.CharacterAutoSelect");
             radioAutoSelectFirst.Checked = GlobalConfig.Get<bool>("RSBot.General.CharacterAutoSelectFirst");
             radioAutoSelectHigher.Checked = GlobalConfig.Get<bool>("RSBot.General.CharacterAutoSelectHigher");
-            checkDontShowPendingOnStartClient.Checked = GlobalConfig.Get<bool>("RSBot.General.PendingDontShowOnStartClient");
-            checkEnableQuequeLogs.Checked = GlobalConfig.Get<bool>("RSBot.General.PendingEnableQuequeLogs");
-            checkEnableQuqueNotification.Checked = GlobalConfig.Get<bool>("RSBot.General.EnableQuqueNotification");
-            numQuequeLeft.Value = GlobalConfig.Get("RSBot.General.QuequeLeft", 30);
+            checkAutoHidePendingWindow.Checked = GlobalConfig.Get<bool>("RSBot.General.AutoHidePendingWindow");
+            checkEnableQueueLogs.Checked = GlobalConfig.Get<bool>("RSBot.General.PendingEnableQueueLogs");
+            checkEnableQueueNotification.Checked = GlobalConfig.Get<bool>("RSBot.General.EnableQueueNotification");
+            numQueueLeft.Value = GlobalConfig.Get("RSBot.General.QueueLeft", 30);
 
             if (GlobalConfig.Get<bool>("RSBot.General.CharacterAutoSelect"))
             {
@@ -141,7 +142,7 @@ namespace RSBot.General.Views
             comboAccounts.Items.Add(LanguageManager.GetLang("NoSelected"));
 
             var autoLoginUserName = GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername");
-            foreach (var account in Components.Accounts.SavedAccounts)
+            foreach (var account in Accounts.SavedAccounts)
             {
                 var index = comboAccounts.Items.Add(account);
                 if (account.Username == autoLoginUserName)
@@ -448,6 +449,8 @@ namespace RSBot.General.Views
             if (comboAccounts.SelectedIndex == 0)
                 return;
 
+            checkCharAutoSelect.Enabled = comboCharacter.SelectedIndex == 0;
+
             var selectedAccount = comboAccounts.SelectedItem as Models.Account;
             if (selectedAccount == null)
                 return;
@@ -704,7 +707,7 @@ namespace RSBot.General.Views
         /// <param name="e"></param>
         private void checkDontShowPendingOnStartClient_CheckedChanged(object sender, EventArgs e)
         {
-            GlobalConfig.Set("RSBot.General.PendingDontShowOnStartClient", checkDontShowPendingOnStartClient.Checked);
+            GlobalConfig.Set("RSBot.General.AutoHidePendingWindow", checkAutoHidePendingWindow.Checked);
         }
 
         /// <summary>
@@ -712,9 +715,9 @@ namespace RSBot.General.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void checkEnableQuequeLogs_CheckedChanged(object sender, EventArgs e)
+        private void checkEnableQueueLogs_CheckedChanged(object sender, EventArgs e)
         {
-            GlobalConfig.Set("RSBot.General.PendingEnableQuequeLogs", checkEnableQuequeLogs.Checked);
+            GlobalConfig.Set("RSBot.General.PendingEnableQueueLogs", checkEnableQueueLogs.Checked);
         }
 
         /// <summary>
@@ -724,31 +727,23 @@ namespace RSBot.General.Views
         /// <param name="e"></param>
         private void btnShowPending_Click(object sender, EventArgs e)
         {
-             if (!ClientManager.IsRunning)
-                 return;
+            if (!AutoLogin.Pending)
+                return;
 
-             if (!_pendingVisible)
-             {
-                 _pendingVisible = true;
-                 Views.View.PendingWindow.Show(Views.View.Instance.ParentForm);
-                 btnShowPending.Text = LanguageManager.GetLang("Hide") + " Pending";
-             }
-             else
-             {
-                 _pendingVisible = false;
-                 Views.View.PendingWindow.Hide();
-                 btnShowPending.Text = LanguageManager.GetLang("Show") + " Pending";
-             }
+            if (View.PendingWindow?.Visible == false)
+                View.PendingWindow.ShowAtTop(View.Instance);
+            else
+                View.PendingWindow.Hide();
         }
 
         /// <summary>
-        /// Handles the CheckedChanged event of the checkEnableQuqueNotification control.
+        /// Handles the CheckedChanged event of the checkEnableQueueNotification control.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void checkEnableQuqueNotification_CheckedChanged(object sender, EventArgs e)
+        private void checkEnableQueueNotification_CheckedChanged(object sender, EventArgs e)
         {
-            GlobalConfig.Set("RSBot.General.EnableQuqueNotification", checkEnableQuqueNotification.Checked);
+            GlobalConfig.Set("RSBot.General.EnableQueueNotification", checkEnableQueueNotification.Checked);
         }
 
         /// <summary>
@@ -756,9 +751,9 @@ namespace RSBot.General.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void numQuequeLeft_ValueChanged(object sender, EventArgs e)
+        private void numQueueLeft_ValueChanged(object sender, EventArgs e)
         {
-            GlobalConfig.Set("RSBot.General.QuequeLeft", numQuequeLeft.Value);
+            GlobalConfig.Set("RSBot.General.QueueLeft", numQueueLeft.Value);
         }
     }
 }

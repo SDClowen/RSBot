@@ -1,6 +1,6 @@
 ﻿namespace RSBot.General.Views
 {
-    partial class Accounts
+    partial class AccountsWindow
     {
         /// <summary>
         /// Required designer variable.
