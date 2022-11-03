@@ -130,5 +130,10 @@ namespace RSBot.Party.Bundle.AutoParty
         /// Gets or sets a value indicating whether auto join by title content.
         /// </summary>
         public string AutoJoinByTitleContent { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether always follow the party master.
+        /// </summary>
+        public bool AlwaysFollowThePartyMaster { get; set; }
     }
 }

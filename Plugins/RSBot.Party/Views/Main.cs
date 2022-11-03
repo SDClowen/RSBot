@@ -284,6 +284,7 @@ namespace RSBot.Party.Views
             checkBoxLeaveIfMasterNot.Checked = Bundle.Container.AutoParty.Config.LeaveIfMasterNot;
             textBoxLeaveIfMasterNotName.Text = Bundle.Container.AutoParty.Config.LeaveIfMasterNotName;
             textBoxLeaveIfMasterNotName.Enabled = !checkBoxLeaveIfMasterNot.Checked;
+            checkBoxFollowMaster.Checked = PlayerConfig.Get("RSBot.Party.AlwaysFollowPartyMaster", false);
 
             var autoPartyList = PlayerConfig.GetArray<string>("RSBot.Party.AutoPartyList");
             foreach (var item in autoPartyList)
@@ -1039,7 +1040,7 @@ namespace RSBot.Party.Views
             SaveCommandPlayersList();
         }
 
-        private async void buttonAutoJoinConfig_Click(object sender, EventArgs e)
+        private void buttonAutoJoinConfig_Click(object sender, EventArgs e)
         {
             checkBoxJoinByName.Checked = PlayerConfig.Get("RSBot.Party.AutoJoin.ByName", false);
             checkBoxJoinByTitle.Checked = PlayerConfig.Get("RSBot.Party.AutoJoin.ByTitle", false);
@@ -1065,6 +1066,13 @@ namespace RSBot.Party.Views
 
             buttonAutoJoinConfig.Color = Color.Transparent;
             topPartyPanel.Height = 47;
+        }
+
+        private void checkBoxFollowMaster_CheckedChanged(object sender, EventArgs e)
+        {
+            PlayerConfig.Set("RSBot.Party.AlwaysFollowPartyMaster", checkBoxFollowMaster.Checked);
+
+            Bundle.Container.Refresh();
         }
     }
 }

@@ -39,6 +39,22 @@ namespace RSBot.Default.Bundle.Movement
             if (Game.Player.Movement.Moving)
                 return;
 
+            if(PlayerConfig.Get("RSBot.Party.AlwaysFollowPartyMaster", false) && 
+                Game.Party.IsInParty && 
+                !Game.Party.IsLeader)
+            {
+                if (Game.Player.InAction)
+                    return;
+
+                var player = Game.Party.Leader?.Player;
+                if(player != null && player.Position.DistanceToPlayer() >= 10)
+                {
+                    Game.Player.MoveTo(player.Position);
+                }
+
+                return;
+            }
+
             var distance = Game.Player.Movement.Source.DistanceTo(Container.Bot.Area.Position);
             var hasCollision = CollisionManager.HasCollisionBetween(Game.Player.Movement.Source, Container.Bot.Area.Position);
 

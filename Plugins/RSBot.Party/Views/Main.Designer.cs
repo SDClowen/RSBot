@@ -51,6 +51,7 @@
             this.checkCurrentAutoShareEXP = new SDUI.Controls.CheckBox();
             this.tpAutoParty = new System.Windows.Forms.TabPage();
             this.groupBox2 = new SDUI.Controls.GroupBox();
+            this.checkBoxFollowMaster = new SDUI.Controls.CheckBox();
             this.separator10 = new SDUI.Controls.Separator();
             this.labelCommandsInfo = new SDUI.Controls.Label();
             this.separator2 = new SDUI.Controls.Separator();
@@ -412,16 +413,17 @@
             this.tpAutoParty.Controls.Add(this.panel2);
             this.tpAutoParty.Controls.Add(this.separator5);
             this.tpAutoParty.Controls.Add(this.grbAutoPartySettings);
-            this.tpAutoParty.Location = new System.Drawing.Point(4, 25);
+            this.tpAutoParty.Location = new System.Drawing.Point(4, 24);
             this.tpAutoParty.Name = "tpAutoParty";
             this.tpAutoParty.Padding = new System.Windows.Forms.Padding(3);
-            this.tpAutoParty.Size = new System.Drawing.Size(746, 438);
+            this.tpAutoParty.Size = new System.Drawing.Size(746, 439);
             this.tpAutoParty.TabIndex = 1;
             this.tpAutoParty.Text = "Auto Party";
             // 
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox2.Controls.Add(this.checkBoxFollowMaster);
             this.groupBox2.Controls.Add(this.separator10);
             this.groupBox2.Controls.Add(this.labelCommandsInfo);
             this.groupBox2.Controls.Add(this.separator2);
@@ -443,10 +445,23 @@
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupBox2.Radius = 10;
             this.groupBox2.ShadowDepth = 4;
-            this.groupBox2.Size = new System.Drawing.Size(509, 342);
+            this.groupBox2.Size = new System.Drawing.Size(509, 343);
             this.groupBox2.TabIndex = 11;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Auto party settings";
+            // 
+            // checkBoxFollowMaster
+            // 
+            this.checkBoxFollowMaster.AutoSize = true;
+            this.checkBoxFollowMaster.BackColor = System.Drawing.Color.Transparent;
+            this.checkBoxFollowMaster.Location = new System.Drawing.Point(281, 31);
+            this.checkBoxFollowMaster.Name = "checkBoxFollowMaster";
+            this.checkBoxFollowMaster.ShadowDepth = 1;
+            this.checkBoxFollowMaster.Size = new System.Drawing.Size(185, 15);
+            this.checkBoxFollowMaster.TabIndex = 20;
+            this.checkBoxFollowMaster.Text = "Always follow the party master";
+            this.checkBoxFollowMaster.UseVisualStyleBackColor = false;
+            this.checkBoxFollowMaster.CheckedChanged += new System.EventHandler(this.checkBoxFollowMaster_CheckedChanged);
             // 
             // separator10
             // 
@@ -567,7 +582,7 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label2.Location = new System.Drawing.Point(17, 311);
+            this.label2.Location = new System.Drawing.Point(17, 312);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(189, 18);
             this.label2.TabIndex = 11;
@@ -631,7 +646,7 @@
             this.separator6.IsVertical = true;
             this.separator6.Location = new System.Drawing.Point(224, 93);
             this.separator6.Name = "separator6";
-            this.separator6.Size = new System.Drawing.Size(10, 342);
+            this.separator6.Size = new System.Drawing.Size(10, 343);
             this.separator6.TabIndex = 16;
             this.separator6.Text = "separator6";
             // 
@@ -643,7 +658,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(3, 93);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(221, 342);
+            this.panel2.Size = new System.Drawing.Size(221, 343);
             this.panel2.TabIndex = 14;
             // 
             // groupBox7
@@ -657,7 +672,7 @@
             this.groupBox7.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
             this.groupBox7.Radius = 10;
             this.groupBox7.ShadowDepth = 4;
-            this.groupBox7.Size = new System.Drawing.Size(221, 153);
+            this.groupBox7.Size = new System.Drawing.Size(221, 154);
             this.groupBox7.TabIndex = 13;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Their commands will be listened to";
@@ -673,7 +688,7 @@
             this.listCommandPlayers.Location = new System.Drawing.Point(1, 24);
             this.listCommandPlayers.MultiSelect = false;
             this.listCommandPlayers.Name = "listCommandPlayers";
-            this.listCommandPlayers.Size = new System.Drawing.Size(219, 95);
+            this.listCommandPlayers.Size = new System.Drawing.Size(219, 96);
             this.listCommandPlayers.TabIndex = 18;
             this.listCommandPlayers.UseCompatibleStateImageBehavior = false;
             this.listCommandPlayers.View = System.Windows.Forms.View.Details;
@@ -690,7 +705,7 @@
             this.panel4.Controls.Add(this.buttonCommandPlayerAdd);
             this.panel4.Controls.Add(this.buttonCommandPlayerRemove);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(1, 119);
+            this.panel4.Location = new System.Drawing.Point(1, 120);
             this.panel4.Name = "panel4";
             this.panel4.Radius = 1;
             this.panel4.ShadowDepth = 4F;
@@ -884,10 +899,10 @@
             this.tpPartyMatching.Controls.Add(this.lvPartyMatching);
             this.tpPartyMatching.Controls.Add(this.topPartyPanel);
             this.tpPartyMatching.Controls.Add(this.bottomPartyPanel);
-            this.tpPartyMatching.Location = new System.Drawing.Point(4, 24);
+            this.tpPartyMatching.Location = new System.Drawing.Point(4, 25);
             this.tpPartyMatching.Name = "tpPartyMatching";
             this.tpPartyMatching.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPartyMatching.Size = new System.Drawing.Size(746, 439);
+            this.tpPartyMatching.Size = new System.Drawing.Size(746, 438);
             this.tpPartyMatching.TabIndex = 2;
             this.tpPartyMatching.Text = "Party Matching";
             // 
@@ -910,7 +925,7 @@
             this.lvPartyMatching.MultiSelect = false;
             this.lvPartyMatching.Name = "lvPartyMatching";
             this.lvPartyMatching.ShowItemToolTips = true;
-            this.lvPartyMatching.Size = new System.Drawing.Size(740, 335);
+            this.lvPartyMatching.Size = new System.Drawing.Size(740, 334);
             this.lvPartyMatching.TabIndex = 15;
             this.lvPartyMatching.UseCompatibleStateImageBehavior = false;
             this.lvPartyMatching.View = System.Windows.Forms.View.Details;
@@ -1228,7 +1243,7 @@
             this.bottomPartyPanel.Controls.Add(this.lbl_partyPageRange);
             this.bottomPartyPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.bottomPartyPanel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.bottomPartyPanel.Location = new System.Drawing.Point(3, 385);
+            this.bottomPartyPanel.Location = new System.Drawing.Point(3, 384);
             this.bottomPartyPanel.Name = "bottomPartyPanel";
             this.bottomPartyPanel.Radius = 0;
             this.bottomPartyPanel.ShadowDepth = 4F;
@@ -1829,5 +1844,6 @@
         private SDUI.Controls.TextBox textBoxJoinByName;
         private SDUI.Controls.CheckBox checkBoxJoinByTitle;
         private SDUI.Controls.CheckBox checkBoxJoinByName;
+        private SDUI.Controls.CheckBox checkBoxFollowMaster;
     }
 }
