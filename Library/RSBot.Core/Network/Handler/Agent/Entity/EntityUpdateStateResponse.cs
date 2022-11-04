@@ -46,7 +46,7 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                     if (uniqueId == Game.SelectedEntity?.UniqueId || Game.Player.GetAttackers().Any(e => e.UniqueId == uniqueId) && entity.State.LifeState == LifeState.Dead)
                         EventManager.FireEvent("OnKillEnemy");
                
-                    if (uniqueId == Game.SelectedEntity?.UniqueId)
+                    if (uniqueId == Game.SelectedEntity?.UniqueId && entity.State.LifeState == LifeState.Dead)
                     {
                         EventManager.FireEvent("OnKillSelectedEnemy");
                         Game.SelectedEntity = null;
