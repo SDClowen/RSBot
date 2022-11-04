@@ -49,6 +49,11 @@ namespace RSBot.Core.Components
         /// The buffs.
         /// </value>
         public static List<SkillInfo> Buffs { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the teleport skill.
+        /// </summary>
+        public static SkillInfo TeleportSkill { get; set; }
 
         /// <summary>
         /// Gets the config to always use skills in order.
@@ -129,7 +134,7 @@ namespace RSBot.Core.Components
             }
 
             var distance = Game.Player.Movement.Source.DistanceTo(entity.Movement.Source);
-
+            
             var minDifference = int.MaxValue;
             //var weaponRange = 0;
             var closestSkill = default(SkillInfo);
@@ -444,6 +449,46 @@ namespace RSBot.Core.Components
         }
 
         /// <summary>
+        /// Casts a skill to the given target position
+        /// </summary>
+        /// <param name="skill"></param>
+        /// <param name="target"></param>
+        public static void CastSkillAt(SkillInfo skill, Position target)
+        {
+            if (target.Region == 0 || target.DistanceToPlayer() > 100)
+                return;
+
+            if (skill.Id == 0)
+                return;
+
+            if (!CheckSkillRequired(skill.Record))
+                return;
+
+            var packet = new Packet(0x7074);
+            packet.WriteByte(ActionCommandType.Execute); //Execute
+            packet.WriteByte(ActionType.Cast); //Use Skill
+            packet.WriteUInt(skill.Id);
+            packet.WriteByte(ActionTarget.Area);
+
+            packet.WriteUShort(target.Region);
+            packet.WriteFloat(target.XOffset);
+            packet.WriteFloat(target.YOffset);
+            packet.WriteFloat(target.ZOffset);
+
+            var callback = new AwaitCallback(response =>
+            {
+                return response.ReadByte() == 0x02 && response.ReadByte() == 0x00
+                    ? AwaitCallbackResult.Success : AwaitCallbackResult.ConditionFailed;
+            }, 0xB074);
+
+            PacketManager.SendPacket(packet, PacketDestination.Server, callback);
+
+            if (skill.Record.Basic_Activity != 1)
+                callback.AwaitResponse(1000);
+
+        }
+
+        /// <summary>
         /// Casts the skill. Does not check any weapon requirement.
         /// </summary>
         /// <param name="skill"></param>
@@ -483,7 +528,8 @@ namespace RSBot.Core.Components
         /// <param name="position">The position.</param>
         public static void CastSkillAt(uint skillId, Position position)
         {
-            if (!Game.Player.Skills.HasSkill(skillId)) return;
+            if (!Game.Player.Skills.HasSkill(skillId)) 
+                return;
 
             var packet = new Packet(0x7074);
             packet.WriteByte(ActionCommandType.Execute); //Execute

@@ -28,6 +28,17 @@ public partial class Main : UserControl
         }
     }
 
+    private class TeleportSkillComboBoxItem
+    {
+        public RefSkill Record;
+        public byte Level;
+
+        public override string ToString()
+        {
+            return Record.GetRealName() + $" lv.{Level}";
+        }
+    }
+
     private object _lock;
     private MasteryComboBoxItem _selectedMastery;
 
@@ -155,6 +166,7 @@ public partial class Main : UserControl
         checkWarlockMode.Checked = PlayerConfig.Get<bool>("RSBot.Skills.WarlockMode", false);
         checkUseDefaultAttack.Checked = PlayerConfig.Get("RSBot.Skills.UseDefaultAttack", true);
         checkUseSkillsInOrder.Checked = PlayerConfig.Get("RSBot.Skills.UseSkillsInOrder", false);
+        checkUseTeleportSkill.Checked = PlayerConfig.Get("RSBot.Skills.UseTeleportSkill", false);
     }
 
     /// <summary>
@@ -254,6 +266,29 @@ public partial class Main : UserControl
         comboLearnMastery.EndUpdate();
 
         comboLearnMastery.Update();
+    }
+
+    /// <summary>
+    /// Loads the available teleport skills into the combo box
+    /// </summary>
+    private void LoadTeleportSkills()
+    {
+        comboTeleportSkill.BeginUpdate();
+        comboTeleportSkill.Items.Clear();
+
+        var selectedTeleportSkill = PlayerConfig.Get<uint>("RSBot.Skills.TeleportSkill");
+        foreach (var skill in Game.Player.Skills.KnownSkills.Where(s => s.CanBeCasted && s.Record.Action_ActionDuration == 0 && s.Record.Params[2] == 500))
+        { 
+           var index = comboTeleportSkill.Items.Add(new TeleportSkillComboBoxItem() { Level = skill.Record.Basic_Level, Record = skill.Record });
+
+            if (selectedTeleportSkill == skill.Record.ID)
+            {
+                comboTeleportSkill.SelectedIndex = index;
+                SkillManager.TeleportSkill = skill;
+            }
+        }
+
+        comboLearnMastery.EndUpdate();
     }
 
     /// <summary>
@@ -593,6 +628,19 @@ public partial class Main : UserControl
             LoadImbues();
         }
 
+
+        var selectedTeleportSkill = PlayerConfig.Get<uint>("RSBot.Skills.TeleportSkill");
+        if (selectedTeleportSkill == oldSkill.Id)
+        {
+            if (oldSkill.Id == newSkill.Id)
+                SkillManager.TeleportSkill = null;
+            else
+                selectedTeleportSkill = newSkill.Id;
+
+            PlayerConfig.Set("RSBot.Skills.TeleportSkill", selectedTeleportSkill);
+            LoadTeleportSkills();
+        }
+
         LoadSkills();
 
         ApplyAttackSkills();
@@ -660,6 +708,7 @@ public partial class Main : UserControl
         LoadAttacks();
         LoadBuffs();
         LoadMasteries();
+        LoadTeleportSkills();
 
         ApplyAttackSkills();
         ApplyBuffSkills();
@@ -1014,5 +1063,20 @@ public partial class Main : UserControl
         };
 
         propertiesWindow?.Show();
+    }
+
+    private void checkUseTeleportSkill_CheckedChanged(object sender, EventArgs e)
+    {
+        PlayerConfig.Set("RSBot.Skills.UseTeleportSkill", checkUseTeleportSkill.Checked);
+    }
+
+    private void comboTeleportSkill_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (comboTeleportSkill.SelectedItem is not TeleportSkillComboBoxItem comboItem)
+            return;
+
+        PlayerConfig.Set("RSBot.Skills.TeleportSkill", comboItem.Record.ID);
+
+        SkillManager.TeleportSkill = Game.Player.Skills.GetSkillInfoById(comboItem.Record.ID);
     }
 }

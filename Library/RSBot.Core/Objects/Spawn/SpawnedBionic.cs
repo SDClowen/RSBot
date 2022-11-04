@@ -39,7 +39,7 @@ namespace RSBot.Core.Objects.Spawn
         /// The health.
         /// </value>
         public int Health { get; set; }
-
+        
         /// <summary>
         /// Gets or sets the bad effect.
         /// </summary>
