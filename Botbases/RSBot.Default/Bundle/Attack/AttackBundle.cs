@@ -35,6 +35,10 @@ namespace RSBot.Default.Bundle.Attack
             if (Game.Player.InAction && !SkillManager.IsLastCastedBasic)
                 return;
 
+            var useTeleportSkill = PlayerConfig.Get("RSBot.Skills.UseTeleportSkill", false);
+            if (useTeleportSkill && CastTeleportation())
+                return;
+
             var stopwatch = System.Diagnostics.Stopwatch.StartNew();
             var skill = SkillManager.GetNextSkill();
 
@@ -59,8 +63,41 @@ namespace RSBot.Default.Bundle.Attack
             var uniqueId = Game.SelectedEntity?.UniqueId;
             if (uniqueId == null)
                 return;
-
+            
             skill?.Cast(uniqueId.Value);
+        }
+
+        /// <summary>
+        /// Casts the teleportation skill if it's set up.
+        /// </summary>
+        /// <returns></returns>
+        private bool CastTeleportation()
+        {
+            if (SkillManager.TeleportSkill?.CanBeCasted != true || Game.SelectedEntity?.State.LifeState != Core.Objects.LifeState.Alive)
+                return false;
+
+            var distanceToMonster = Game.SelectedEntity?.DistanceToPlayer;
+            var availableDistance = SkillManager.TeleportSkill.Record.Params[3] / 10;
+
+            if (availableDistance <= 0)
+                Log.Warn("The selected teleportation skill does not have a distance. Is this really a teleport skill?");
+            else
+            {
+                var distanceAfterCasting = distanceToMonster - availableDistance;
+                if (distanceAfterCasting < 0)
+                    distanceAfterCasting *= -1;
+
+                if (distanceAfterCasting < distanceToMonster)
+                {
+                    SkillManager.TeleportSkill.CastAt(Game.SelectedEntity.Position);
+
+                    Log.Debug($"Used teleportation skill [{SkillManager.TeleportSkill.Record.GetRealName()}] (before: {distanceToMonster}m, after: {distanceAfterCasting}m, traveled: {availableDistance}m)");
+
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         /// <summary>

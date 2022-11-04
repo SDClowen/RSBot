@@ -52,6 +52,8 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupWarlockMode = new SDUI.Controls.GroupBox();
+            this.comboTeleportSkill = new SDUI.Controls.ComboBox();
+            this.checkUseTeleportSkill = new SDUI.Controls.CheckBox();
             this.checkUseDefaultAttack = new SDUI.Controls.CheckBox();
             this.checkWarlockMode = new SDUI.Controls.CheckBox();
             this.grpMasteryLearn = new SDUI.Controls.GroupBox();
@@ -397,33 +399,64 @@
             this.tabPage2.Controls.Add(this.grpMasteryLearn);
             this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Controls.Add(this.groupBox4);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(384, 438);
+            this.tabPage2.Size = new System.Drawing.Size(384, 439);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Advanced setup";
             // 
             // groupWarlockMode
             // 
             this.groupWarlockMode.BackColor = System.Drawing.Color.Transparent;
+            this.groupWarlockMode.Controls.Add(this.comboTeleportSkill);
+            this.groupWarlockMode.Controls.Add(this.checkUseTeleportSkill);
             this.groupWarlockMode.Controls.Add(this.checkUseDefaultAttack);
             this.groupWarlockMode.Controls.Add(this.checkWarlockMode);
-            this.groupWarlockMode.Location = new System.Drawing.Point(8, 350);
+            this.groupWarlockMode.Location = new System.Drawing.Point(8, 313);
             this.groupWarlockMode.Name = "groupWarlockMode";
             this.groupWarlockMode.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupWarlockMode.Radius = 10;
             this.groupWarlockMode.ShadowDepth = 4;
-            this.groupWarlockMode.Size = new System.Drawing.Size(367, 86);
+            this.groupWarlockMode.Size = new System.Drawing.Size(367, 123);
             this.groupWarlockMode.TabIndex = 14;
             this.groupWarlockMode.TabStop = false;
             this.groupWarlockMode.Text = "Advanced setup";
+            // 
+            // comboTeleportSkill
+            // 
+            this.comboTeleportSkill.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.comboTeleportSkill.DropDownHeight = 100;
+            this.comboTeleportSkill.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboTeleportSkill.FormattingEnabled = true;
+            this.comboTeleportSkill.IntegralHeight = false;
+            this.comboTeleportSkill.ItemHeight = 17;
+            this.comboTeleportSkill.Location = new System.Drawing.Point(133, 83);
+            this.comboTeleportSkill.Name = "comboTeleportSkill";
+            this.comboTeleportSkill.Radius = 5;
+            this.comboTeleportSkill.ShadowDepth = 4F;
+            this.comboTeleportSkill.Size = new System.Drawing.Size(208, 23);
+            this.comboTeleportSkill.TabIndex = 9;
+            this.comboTeleportSkill.SelectedIndexChanged += new System.EventHandler(this.comboTeleportSkill_SelectedIndexChanged);
+            // 
+            // checkUseTeleportSkill
+            // 
+            this.checkUseTeleportSkill.AutoSize = true;
+            this.checkUseTeleportSkill.BackColor = System.Drawing.Color.Transparent;
+            this.checkUseTeleportSkill.Location = new System.Drawing.Point(15, 87);
+            this.checkUseTeleportSkill.Name = "checkUseTeleportSkill";
+            this.checkUseTeleportSkill.ShadowDepth = 1;
+            this.checkUseTeleportSkill.Size = new System.Drawing.Size(112, 15);
+            this.checkUseTeleportSkill.TabIndex = 2;
+            this.checkUseTeleportSkill.Text = "Use teleport skill:";
+            this.checkUseTeleportSkill.UseVisualStyleBackColor = false;
+            this.checkUseTeleportSkill.CheckedChanged += new System.EventHandler(this.checkUseTeleportSkill_CheckedChanged);
             // 
             // checkUseDefaultAttack
             // 
             this.checkUseDefaultAttack.AutoSize = true;
             this.checkUseDefaultAttack.BackColor = System.Drawing.Color.Transparent;
-            this.checkUseDefaultAttack.Location = new System.Drawing.Point(15, 58);
+            this.checkUseDefaultAttack.Location = new System.Drawing.Point(15, 61);
             this.checkUseDefaultAttack.Name = "checkUseDefaultAttack";
             this.checkUseDefaultAttack.ShadowDepth = 1;
             this.checkUseDefaultAttack.Size = new System.Drawing.Size(228, 15);
@@ -453,12 +486,12 @@
             this.grpMasteryLearn.Controls.Add(this.numMasteryGap);
             this.grpMasteryLearn.Controls.Add(this.comboLearnMastery);
             this.grpMasteryLearn.Controls.Add(this.checkLearnMastery);
-            this.grpMasteryLearn.Location = new System.Drawing.Point(8, 229);
+            this.grpMasteryLearn.Location = new System.Drawing.Point(8, 218);
             this.grpMasteryLearn.Name = "grpMasteryLearn";
             this.grpMasteryLearn.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.grpMasteryLearn.Radius = 10;
             this.grpMasteryLearn.ShadowDepth = 4;
-            this.grpMasteryLearn.Size = new System.Drawing.Size(367, 115);
+            this.grpMasteryLearn.Size = new System.Drawing.Size(367, 89);
             this.grpMasteryLearn.TabIndex = 13;
             this.grpMasteryLearn.TabStop = false;
             this.grpMasteryLearn.Text = "Mastery update";
@@ -467,7 +500,7 @@
             // 
             this.checkLearnMasteryBotStopped.AutoSize = true;
             this.checkLearnMasteryBotStopped.BackColor = System.Drawing.Color.Transparent;
-            this.checkLearnMasteryBotStopped.Location = new System.Drawing.Point(15, 77);
+            this.checkLearnMasteryBotStopped.Location = new System.Drawing.Point(15, 61);
             this.checkLearnMasteryBotStopped.Name = "checkLearnMasteryBotStopped";
             this.checkLearnMasteryBotStopped.ShadowDepth = 1;
             this.checkLearnMasteryBotStopped.Size = new System.Drawing.Size(153, 15);
@@ -479,7 +512,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label4.Location = new System.Drawing.Point(252, 48);
+            this.label4.Location = new System.Drawing.Point(252, 32);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(28, 15);
             this.label4.TabIndex = 3;
@@ -490,7 +523,7 @@
             this.numMasteryGap.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
             this.numMasteryGap.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numMasteryGap.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.numMasteryGap.Location = new System.Drawing.Point(286, 45);
+            this.numMasteryGap.Location = new System.Drawing.Point(286, 29);
             this.numMasteryGap.Maximum = new decimal(new int[] {
             9,
             0,
@@ -509,7 +542,7 @@
             this.comboLearnMastery.FormattingEnabled = true;
             this.comboLearnMastery.IntegralHeight = false;
             this.comboLearnMastery.ItemHeight = 17;
-            this.comboLearnMastery.Location = new System.Drawing.Point(88, 45);
+            this.comboLearnMastery.Location = new System.Drawing.Point(88, 29);
             this.comboLearnMastery.Name = "comboLearnMastery";
             this.comboLearnMastery.Radius = 5;
             this.comboLearnMastery.ShadowDepth = 4F;
@@ -521,7 +554,7 @@
             // 
             this.checkLearnMastery.AutoSize = true;
             this.checkLearnMastery.BackColor = System.Drawing.Color.Transparent;
-            this.checkLearnMastery.Location = new System.Drawing.Point(15, 48);
+            this.checkLearnMastery.Location = new System.Drawing.Point(15, 32);
             this.checkLearnMastery.Name = "checkLearnMastery";
             this.checkLearnMastery.ShadowDepth = 1;
             this.checkLearnMastery.Size = new System.Drawing.Size(65, 15);
@@ -609,7 +642,7 @@
             this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.groupBox4.Radius = 10;
             this.groupBox4.ShadowDepth = 4;
-            this.groupBox4.Size = new System.Drawing.Size(367, 92);
+            this.groupBox4.Size = new System.Drawing.Size(367, 81);
             this.groupBox4.TabIndex = 12;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Advanced buff configuration";
@@ -618,7 +651,7 @@
             // 
             this.checkCastBuffsDuringWalkBack.AutoSize = true;
             this.checkCastBuffsDuringWalkBack.BackColor = System.Drawing.Color.Transparent;
-            this.checkCastBuffsDuringWalkBack.Location = new System.Drawing.Point(86, 61);
+            this.checkCastBuffsDuringWalkBack.Location = new System.Drawing.Point(15, 56);
             this.checkCastBuffsDuringWalkBack.Name = "checkCastBuffsDuringWalkBack";
             this.checkCastBuffsDuringWalkBack.ShadowDepth = 1;
             this.checkCastBuffsDuringWalkBack.Size = new System.Drawing.Size(164, 15);
@@ -631,7 +664,7 @@
             // 
             this.checkCastBuffsInTowns.AutoSize = true;
             this.checkCastBuffsInTowns.BackColor = System.Drawing.Color.Transparent;
-            this.checkCastBuffsInTowns.Location = new System.Drawing.Point(86, 34);
+            this.checkCastBuffsInTowns.Location = new System.Drawing.Point(15, 29);
             this.checkCastBuffsInTowns.Name = "checkCastBuffsInTowns";
             this.checkCastBuffsInTowns.ShadowDepth = 1;
             this.checkCastBuffsInTowns.Size = new System.Drawing.Size(124, 15);
@@ -960,5 +993,7 @@
         private System.Windows.Forms.ToolStripMenuItem useToPartyMemberToolStripMenuItem;
         private SDUI.Controls.CheckBox checkUseDefaultAttack;
         private SDUI.Controls.CheckBox checkUseSkillsInOrder;
+        private SDUI.Controls.ComboBox comboTeleportSkill;
+        private SDUI.Controls.CheckBox checkUseTeleportSkill;
     }
 }

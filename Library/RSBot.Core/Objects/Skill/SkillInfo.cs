@@ -231,6 +231,15 @@ namespace RSBot.Core.Objects.Skill
         }
 
         /// <summary>
+        /// Casts the skill at the target position.
+        /// </summary>
+        /// <param name="target"></param>
+        public void CastAt(Position target)
+        {
+            SkillManager.CastSkillAt(this, target);
+        }
+
+        /// <summary>
         /// Get skill info
         /// </summary>
         public override string ToString()

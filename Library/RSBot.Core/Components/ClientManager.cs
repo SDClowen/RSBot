@@ -85,7 +85,7 @@ namespace RSBot.Core.Components
             ResumeThread(pi.hProcess);
 
             var process = Process.GetProcessById((int)pi.dwProcessId);
-            if(process == null)
+            if(process == null || process.HasExited)
                 return false;
 
             process.EnableRaisingEvents = true;
