@@ -41,7 +41,7 @@ namespace RSBot.Statistics.Stats.Calculators.Static
         /// <inheritdoc />
         public void Initialize()
         {
-            EventManager.SubscribeEvent("OnKillSelectedEnemy", OnKillEnemy);
+            EventManager.SubscribeEvent("OnKillEnemy", OnKillEnemy);
         }
 
         private void OnKillEnemy()

@@ -73,7 +73,7 @@ namespace RSBot.Statistics.Stats.Calculators.Live
         {
             _values = new int[60];
 
-            EventManager.SubscribeEvent("OnKillSelectedEnemy", OnKillEnemy);
+            EventManager.SubscribeEvent("OnKillEnemy", OnKillEnemy);
         }
 
         private void OnKillEnemy()
