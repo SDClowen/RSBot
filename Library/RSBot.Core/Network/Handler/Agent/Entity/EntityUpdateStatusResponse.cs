@@ -297,14 +297,9 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                 var health = packet.ReadInt();
                 bionic.Health = health;
 
-                Log.Debug("HP updated: " + health);
-
-                if (health <= 0)
-                {
-                    EventManager.FireEvent("OnKillSelectedEnemy");
+                if (health <= 0 && Game.SelectedEntity?.UniqueId == bionic.UniqueId)
                     Game.SelectedEntity = null;
-                }
-
+     
                 if (Game.SelectedEntity?.UniqueId == bionic.UniqueId)
                     EventManager.FireEvent("OnUpdateSelectedEntityHP", bionic);
             }
