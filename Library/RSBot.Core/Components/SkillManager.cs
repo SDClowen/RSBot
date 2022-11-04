@@ -469,11 +469,20 @@ namespace RSBot.Core.Components
             packet.WriteByte(ActionType.Cast); //Use Skill
             packet.WriteUInt(skill.Id);
             packet.WriteByte(ActionTarget.Area);
-
             packet.WriteUShort(target.Region);
-            packet.WriteFloat(target.XOffset);
-            packet.WriteFloat(target.YOffset);
-            packet.WriteFloat(target.ZOffset);
+
+            if (target.Region.IsDungeon)
+            {
+                packet.WriteShort(target.XOffset);
+                packet.WriteShort(target.YOffset);
+                packet.WriteShort(target.ZOffset);
+            }
+            else
+            {
+                packet.WriteInt(target.XOffset);
+                packet.WriteInt(target.ZOffset);
+                packet.WriteInt(target.YOffset);
+            }
 
             var callback = new AwaitCallback(response =>
             {
