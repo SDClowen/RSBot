@@ -179,6 +179,8 @@ namespace RSBot.Views
             if (!Kernel.BotbaseManager.LoadAssemblies())
                 MessageBox.Show(@"Failed to load botbases. Process canceled!", @"Initialize Application - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+            CommandManager.Initialize();
+
             InitializeMap();
         }
 
