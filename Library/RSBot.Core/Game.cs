@@ -1,6 +1,7 @@
 ﻿using RSBot.Core.Client;
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Components;
+using RSBot.Core.Extensions;
 using RSBot.Core.Network;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Party;
@@ -157,6 +158,30 @@ namespace RSBot.Core
             ShoppingManager.Initialize();
             ClientlessManager.Initialize();
             ScriptManager.Initialize();
+        }
+
+        /// <summary>
+        /// Shows a notification in the game client using the notice chat type.
+        /// </summary>
+        /// <param name="message"></param>
+        public static void ShowNotification(string message)
+        {
+            if (!Ready)
+                return;
+
+            var chatPacket = new Packet(0x3026);
+
+            chatPacket.WriteByte(ChatType.Notice);
+
+            if (Game.ClientType > GameClientType.Vietnam)
+                chatPacket.WriteByte(0); // has linking
+
+            if (Game.ClientType >= GameClientType.Chinese)
+                chatPacket.WriteByte(0);
+
+            chatPacket.WriteConditonalString(message);
+
+            PacketManager.SendPacket(chatPacket, PacketDestination.Client);
         }
     }
 }

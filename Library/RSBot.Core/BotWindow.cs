@@ -32,5 +32,13 @@ namespace RSBot.Core
         {
             EventManager.FireEvent("OnChangeStatusText", LanguageManager.GetLang(key, args));
         }
+
+        /// <summary>
+        /// Brings the bot window to the front
+        /// </summary>
+        public static void Show()
+        {
+            EventManager.FireEvent("OnShowBotWindow");
+        }
     }
 }

@@ -85,7 +85,6 @@ public static class CollisionManager
     /// <summary>
     /// Initializes the specified map data directory.
     /// </summary>
-    /// <param name="fileName">Path to the RS map.</param>
     public static void Initialize()
     {
         LoadLookupTable();

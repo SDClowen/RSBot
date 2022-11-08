@@ -32,7 +32,7 @@ namespace RSBot.Views
         /// Bot player name [_cached]
         /// </summary>
         private string _playerName;
-
+        
         #endregion Members
 
         #region Constructor
@@ -56,7 +56,7 @@ namespace RSBot.Views
         /// Called when user preference changing
         /// </summary>
         /// <param name="sender">The sender</param>
-        /// <param name="e">The event arags</param>
+        /// <param name="e">The event args</param>
         private void SystemEvents_UserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
         {
             if (e?.Category != UserPreferenceCategory.Color)
@@ -100,6 +100,7 @@ namespace RSBot.Views
         private void RegisterEvents()
         {
             EventManager.SubscribeEvent("OnChangeStatusText", new Action<string>(OnChangeStatusText));
+            EventManager.SubscribeEvent("OnShowBotWindow", OnShowBotWindow);
             EventManager.SubscribeEvent("OnLoadPlugins", OnLoadPlugins);
             EventManager.SubscribeEvent("OnLoadDivisionInfo", new Action<DivisionInfo>(OnLoadDivisionInfo));
             EventManager.SubscribeEvent("OnLoadBotbases", OnLoadBotbases);
@@ -107,6 +108,23 @@ namespace RSBot.Views
             EventManager.SubscribeEvent("OnStartBot", OnStartBot);
             EventManager.SubscribeEvent("OnStopBot", OnStopBot);
             EventManager.SubscribeEvent("OnAgentServerDisconnected", OnAgentServerDisconnected);
+        }
+        
+
+        /// <summary>
+        /// Forces to show the bot window
+        /// </summary>
+        private void OnShowBotWindow()
+        {
+            if (WindowState == FormWindowState.Minimized)
+                WindowState = FormWindowState.Normal;
+
+            TopMost = true;
+            
+            BringToFront();
+            Activate();
+
+            TopMost = false;
         }
 
         /// <summary>
@@ -299,14 +317,15 @@ namespace RSBot.Views
                 MaximizeBox = false,
                 FormBorderStyle = FormBorderStyle.FixedDialog,
                 Icon = Icon,
-                StartPosition = FormStartPosition.CenterScreen
+                StartPosition = FormStartPosition.CenterParent
             };
 
             var content = plugin.View;
-            plugin.Translate();
             content.Dock = DockStyle.Fill;
 
-            window.Size = new Size(content.Size.Width + 15, content.Size.Height + 15);
+            plugin.Translate();
+
+            window.Size = new Size(content.Size.Width + 16, content.Size.Height + 32);
             window.Controls.Add(content);
             window.Show();
         }
