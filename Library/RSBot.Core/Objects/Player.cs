@@ -1055,10 +1055,5 @@ namespace RSBot.Core.Objects
 
             return abilitySkills.Any();
         }
-
-        public Position GetPosition()
-        {
-            return HasActiveVehicle ? Vehicle.Position : Position;
-        }
     }
 }
