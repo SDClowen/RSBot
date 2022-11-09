@@ -60,8 +60,10 @@ namespace RSBot.Core
 
                 while (!TokenSource.IsCancellationRequested)
                 {
+                    if (!Game.Ready)
+                        continue;
+
                     Botbase.Tick();
-                    
                     await Task.Delay(100);
                 }
             },

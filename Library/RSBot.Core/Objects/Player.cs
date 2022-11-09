@@ -293,7 +293,7 @@ namespace RSBot.Core.Objects
         /// The job information.
         /// </value>
         public JobInfo JobInformation { get; set; }
-
+        
         /// <summary>
         /// Gets or sets a value indicating whether [on transport].
         /// </summary>
@@ -507,7 +507,6 @@ namespace RSBot.Core.Objects
         /// The weapon.
         /// </value>
         public InventoryItem Weapon => Inventory.GetItemAt(6);
-
 
         /// <summary>
         /// Gets a value indicating whether this player is able to attack.
@@ -1055,6 +1054,11 @@ namespace RSBot.Core.Objects
             }
 
             return abilitySkills.Any();
+        }
+
+        public Position GetPosition()
+        {
+            return HasActiveVehicle ? Vehicle.Position : Position;
         }
     }
 }

@@ -43,7 +43,7 @@ namespace RSBot.Default
             if (Game.Player.State.ScrollState == ScrollState.NormalScroll ||
                 Game.Player.State.ScrollState == ScrollState.ThiefScroll)
                 return;
-
+            
             try
             {
                 Container.Bot.Tick();

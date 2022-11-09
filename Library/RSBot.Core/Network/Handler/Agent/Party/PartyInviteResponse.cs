@@ -2,9 +2,9 @@
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Party;
 
-namespace RSBot.Core.Network.Handler.Agent
+namespace RSBot.Core.Network.Handler.Agent.Party
 {
-    internal class GameInviteResponse : IPacketHandler
+    internal class PartyInviteResponse : IPacketHandler
     {
         /// <summary>
         /// Gets or sets the opcode.

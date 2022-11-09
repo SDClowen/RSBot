@@ -26,6 +26,9 @@
         {
             Game.Player?.StopMoving();
             Game.ChunkedPacket = new Packet(0);
+
+            if (Game.Clientless)
+                Game.Ready = false;
         }
     }
 }

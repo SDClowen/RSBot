@@ -2,7 +2,7 @@
 
 namespace RSBot.Core.Network.Handler.Agent
 {
-    internal class GameResetCompleteResponse : IPacketHandler
+    internal class GameResetRequest : IPacketHandler
     {
         /// <summary>
         /// Gets or sets the opcode.
@@ -10,7 +10,7 @@ namespace RSBot.Core.Network.Handler.Agent
         /// <value>
         /// The opcode.
         /// </value>
-        public ushort Opcode => 0x34B6;
+        public ushort Opcode => 0x34B5;
 
         /// <summary>
         /// Gets or sets the destination.
@@ -18,7 +18,7 @@ namespace RSBot.Core.Network.Handler.Agent
         /// <value>
         /// The destination.
         /// </value>
-        public PacketDestination Destination => PacketDestination.Server;
+        public PacketDestination Destination => PacketDestination.Client;
 
         /// <summary>
         /// Handles the packet.
@@ -26,10 +26,14 @@ namespace RSBot.Core.Network.Handler.Agent
         /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
+            Game.Ready = false;
+            Log.Debug("Game client is loading...");
+
             if (Game.Player.Teleportation == null) 
                 return;
 
             Game.Player.Teleportation.IsTeleporting = true;
+
             EventManager.FireEvent("OnTeleportStart");
         }
     }

@@ -173,6 +173,7 @@ namespace RSBot.Core.Network.Handler.Agent.Character
                 return;
 
             PacketManager.SendPacket(new Packet(0x3012), PacketDestination.Server);
+            Game.Ready = true;
         }
     }
 }
