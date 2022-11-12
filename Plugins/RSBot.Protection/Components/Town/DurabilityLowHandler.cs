@@ -1,7 +1,9 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
+using RSBot.Core.Objects;
 using System;
+using System.Linq;
 
 namespace RSBot.Protection.Components.Town
 {
@@ -61,6 +63,14 @@ namespace RSBot.Protection.Components.Town
                 
                 if (item.Durability > 6)
                     continue;
+
+                var itemsToUse = PlayerConfig.GetArray<string>("RSBot.Inventory.AutoUseAccordingToPurpose");
+                var inventoryItem = Game.Player.Inventory.GetItem(new TypeIdFilter(3, 3, 13, 7), p => itemsToUse.Contains(p.Record.CodeName));
+                if (inventoryItem != null)
+                {
+                    inventoryItem.Use();
+                    return;
+                }
 
                 if (Game.Player.UseReturnScroll())
                     Log.WarnLang("ReturnToTownDurLow", item.Record.GetRealName());
