@@ -46,6 +46,11 @@ namespace RSBot.Alchemy
             Log.AppendFormat(LogLevel.Debug, "[Alchemy] Stopped automated alchemy");
         }
 
+        public void Register()
+        {
+            Log.Debug("[Alchemy] Botbase registered to the kernel!");
+        }
+
         public void Tick()
         {
             if (!Globals.View.IsRefreshing && !AlchemyManager.IsFusing)

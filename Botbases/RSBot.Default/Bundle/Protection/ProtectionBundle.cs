@@ -1,5 +1,6 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Components;
+using RSBot.Core.Objects;
 
 namespace RSBot.Default.Bundle.Protection
 {
@@ -8,7 +9,7 @@ namespace RSBot.Default.Bundle.Protection
         public void Invoke()
         {
             if(HealthRecovery.Active && HealthRecovery.Value > HealthRecovery.Current)
-                //if ((Game.Player.BadEffect & BadEffect.Zombie) != BadEffect.Zombie) // is it need?
+                if ((Game.Player.BadEffect & BadEffect.Zombie) != BadEffect.Zombie) // is it need?
                     SkillManager.CastBuff(Game.Player.Skills.GetSkillInfoById(HealthRecovery.SkillId));
 
             if (ManaRecovery.Active && ManaRecovery.Value > ManaRecovery.Current)
