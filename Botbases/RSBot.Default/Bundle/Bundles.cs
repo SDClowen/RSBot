@@ -6,6 +6,7 @@ using RSBot.Default.Bundle.Loop;
 using RSBot.Default.Bundle.Loot;
 using RSBot.Default.Bundle.Movement;
 using RSBot.Default.Bundle.PartyBuffing;
+using RSBot.Default.Bundle.Protection;
 using RSBot.Default.Bundle.Resurrect;
 using RSBot.Default.Bundle.Target;
 
@@ -93,6 +94,8 @@ namespace RSBot.Default.Bundle
         /// </value>
         public static ResurrectBundle Resurrect { get; private set; }
 
+        public static ProtectionBundle Protection { get; private set; }
+
         /// <summary>
         /// Reloads this instance.
         /// </summary>
@@ -108,6 +111,7 @@ namespace RSBot.Default.Bundle
             (Loot ??= new LootBundle()).Refresh();
             (Loop ??= new LoopBundle()).Refresh();
             (Resurrect ??= new ResurrectBundle()).Refresh();
+            (Protection ??= new ProtectionBundle()).Refresh();
         }
 
         public static void Stop()
@@ -122,6 +126,7 @@ namespace RSBot.Default.Bundle
             Loot?.Stop();
             Loop?.Stop();
             Resurrect?.Stop();
+            Protection?.Stop();
         }
     }
 }

@@ -392,7 +392,7 @@ namespace RSBot.Core.Components
         /// Casts the buff skill.
         /// </summary>
         /// <param name="skillId">The skill identifier.</param>
-        public static void CastBuff(SkillInfo skill, uint target = 0)
+        public static void CastBuff(SkillInfo skill, uint target = 0, bool awaitBuffResponse = true)
         {
             if (skill.Id == 0)
                 return;
@@ -440,11 +440,12 @@ namespace RSBot.Core.Components
 
             PacketManager.SendPacket(packet, PacketDestination.Server, asyncCallback, callback);
 
-            asyncCallback.AwaitResponse(skill.Record.Action_CastingTime +
+            if (awaitBuffResponse)
+                asyncCallback.AwaitResponse(skill.Record.Action_CastingTime +
                                         skill.Record.Action_ActionDuration +
                                         skill.Record.Action_PreparingTime + 1500);
 
-            if (skill.Record.Basic_Activity != 1)
+            if (skill.Record.Basic_Activity != 1 && awaitBuffResponse)
                 callback.AwaitResponse();
         }
 

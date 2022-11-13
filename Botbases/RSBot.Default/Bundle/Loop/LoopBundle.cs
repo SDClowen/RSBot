@@ -75,6 +75,7 @@ namespace RSBot.Default.Bundle.Loop
         {
             Running = true;
 
+            Refresh();
             CheckForTownScript();
 
             Running = false;

@@ -46,6 +46,8 @@ namespace RSBot.Core.Plugins
                                           select extension)
                 {
                     Bots.Add(extension.Key, extension.Value);
+                    extension.Value.Register();
+
                     Log.Debug($"Loaded botbase [{extension.Value.Name}]");
                 }
 

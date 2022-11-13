@@ -66,6 +66,11 @@ namespace RSBot.Core.Plugins
         void Stop();
 
         /// <summary>
+        /// Called when the botbase was registered to the kernel.
+        /// </summary>
+        void Register();
+
+        /// <summary>
         /// Translate the botbase plugin
         /// </summary>
         void Translate();
