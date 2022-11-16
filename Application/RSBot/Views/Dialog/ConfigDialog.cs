@@ -39,7 +39,7 @@ namespace RSBot.Views
                 if (!byte.TryParse(values[5], out var version))
                     return;
 
-                comboBoxProxyVersion.SelectedIndex = 0;
+                comboBoxProxyVersion.SelectedIndex = version == 4 ? 0 : 1;
             }
             catch
             {
@@ -73,7 +73,7 @@ namespace RSBot.Views
             builder.AppendFormat("{0}|", numUpDownProxyPort.Value);
             builder.AppendFormat("{0}|", textBoxId.Text);
             builder.AppendFormat("{0}|", textBoxPw.Text);
-            builder.AppendFormat("{0}", 4);
+            builder.AppendFormat("{0}", comboBoxProxyVersion.SelectedIndex == 0 ? 4 : 5);
             GlobalConfig.Set("RSBot.Network.Proxy", builder.ToString());
         }
     }

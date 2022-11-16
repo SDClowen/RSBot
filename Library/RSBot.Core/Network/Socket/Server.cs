@@ -120,7 +120,7 @@ namespace RSBot.Core.Network
 
                     if(ProxyConfig.TryGetProxy(ip, port, out var proxyConfig))
                     {
-                        if (!_socket.ConnectProxy(proxyConfig).Result)
+                        if (!_socket.ConnectViaProxy(proxyConfig).Result)
                         {
                             Log.Warn($"Proxy receiving has timeout!");
                             Disconnect();
@@ -136,9 +136,16 @@ namespace RSBot.Core.Network
                     Disconnect();
                     return;
                 }
-                catch (SocketException)
+                catch (SocketProxyException s)
+                {
+                    Log.Error(s.Message);
+                    Disconnect();
+                    return;
+                }
+                catch (SocketException s)
                 {
                     Log.Error($"Could not establish a connection to {ip}:{port}.");
+                    Log.Error(s.Message);
                     Disconnect();
                     return;
                 }
