@@ -30,15 +30,21 @@ namespace RSBot.Views
 
         private bool _recording;
         private bool _running;
+        private int _ownerId;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ScriptRecorder"/> class.
         /// </summary>
-        public ScriptRecorder()
+        public ScriptRecorder(int ownerId = 0, bool startRecording = false)
         {
+            _ownerId = ownerId;
+
             InitializeComponent();
             SubscribeEvents();
             PopulateCommandList();
+            
+            if (startRecording)
+                StartRecording();
         }
 
         /// <summary>
@@ -310,25 +316,30 @@ namespace RSBot.Views
                 return;
 
             if (_recording)
-            {
-                btnStartStop.Text = LanguageManager.GetLang("Start");
-                labelStatus.Text = LanguageManager.GetLang("Idle");
-                btnStartStop.Color = Color.FromArgb(33, 150, 243);
-
-                _recording = false;
-                btnRun.Enabled = true;
-            }
+                StopRecording();
             else
-            {
-                btnStartStop.Text = LanguageManager.GetLang("Stop");
-                labelStatus.Text = LanguageManager.GetLang("Recording");
-                btnStartStop.Color = Color.DarkRed;
-                _recording = true;
-
-                btnRun.Enabled = false;
-            }
+                StartRecording();
         }
 
+        private void StartRecording()
+        {
+            btnStartStop.Text = LanguageManager.GetLang("Stop");
+            labelStatus.Text = LanguageManager.GetLang("Recording");
+            btnStartStop.Color = Color.DarkRed;
+            _recording = true;
+
+            btnRun.Enabled = false;
+        }
+
+        private void StopRecording()
+        {
+            btnStartStop.Text = LanguageManager.GetLang("Start");
+            labelStatus.Text = LanguageManager.GetLang("Idle");
+            btnStartStop.Color = Color.FromArgb(33, 150, 243);
+
+            _recording = false;
+            btnRun.Enabled = true;
+        }
         /// <summary>
         /// Handles the Click event of the btnClear control.
         /// </summary>
@@ -360,8 +371,12 @@ namespace RSBot.Views
                 InitialDirectory = ScriptManager.InitialDirectory
             };
 
-            if (diag.ShowDialog() == DialogResult.OK)
+            if (diag.ShowDialog() == DialogResult.OK) 
+            {
+                EventManager.FireEvent("OnSaveScript", _ownerId, diag.FileName);
+
                 System.IO.File.WriteAllText(diag.FileName, txtScript.Text);
+            }
         }
 
         /// <summary>

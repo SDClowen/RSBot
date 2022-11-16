@@ -43,6 +43,7 @@
             this.moveToLastRecallPositionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectMapLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.useItemAtTrainingPlaceMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.autoUseAccordingToPurposeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new SDUI.Controls.Panel();
             this.checkAutoSort = new SDUI.Controls.CheckBox();
             this.btnSort = new SDUI.Controls.Button();
@@ -134,16 +135,17 @@
             this.moveToLastDeathPositionToolStripMenuItem,
             this.moveToLastRecallPositionToolStripMenuItem,
             this.selectMapLocationToolStripMenuItem,
-            this.useItemAtTrainingPlaceMenuItem});
+            this.useItemAtTrainingPlaceMenuItem,
+            this.autoUseAccordingToPurposeToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(220, 180);
+            this.contextMenuStrip.Size = new System.Drawing.Size(238, 202);
             this.contextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip_Opening);
             // 
             // useToolStripMenuItem
             // 
             this.useToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.useToolStripMenuItem.Name = "useToolStripMenuItem";
-            this.useToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.useToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
             this.useToolStripMenuItem.Text = "Use";
             this.useToolStripMenuItem.Click += new System.EventHandler(this.buttonUseItem_Click);
             // 
@@ -151,7 +153,7 @@
             // 
             this.dropToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.dropToolStripMenuItem.Name = "dropToolStripMenuItem";
-            this.dropToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.dropToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
             this.dropToolStripMenuItem.Text = "Drop";
             this.dropToolStripMenuItem.Click += new System.EventHandler(this.dropToolStripMenuItem_Click);
             // 
@@ -159,7 +161,7 @@
             // 
             this.moveToPetToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.moveToPetToolStripMenuItem.Name = "moveToPetToolStripMenuItem";
-            this.moveToPetToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.moveToPetToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
             this.moveToPetToolStripMenuItem.Text = "Move to active pet";
             this.moveToPetToolStripMenuItem.Click += new System.EventHandler(this.moveToPetToolStripMenuItem_Click);
             // 
@@ -167,7 +169,7 @@
             // 
             this.moveToPlayerToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.moveToPlayerToolStripMenuItem.Name = "moveToPlayerToolStripMenuItem";
-            this.moveToPlayerToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.moveToPlayerToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
             this.moveToPlayerToolStripMenuItem.Text = "Move to player";
             this.moveToPlayerToolStripMenuItem.Click += new System.EventHandler(this.moveToPlayerToolStripMenuItem_Click);
             // 
@@ -175,7 +177,7 @@
             // 
             this.moveToLastDeathPositionToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.moveToLastDeathPositionToolStripMenuItem.Name = "moveToLastDeathPositionToolStripMenuItem";
-            this.moveToLastDeathPositionToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.moveToLastDeathPositionToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
             this.moveToLastDeathPositionToolStripMenuItem.Text = "Move to last death position";
             this.moveToLastDeathPositionToolStripMenuItem.Click += new System.EventHandler(this.moveToLastDeathPositionToolStripMenuItem_Click);
             // 
@@ -183,7 +185,7 @@
             // 
             this.moveToLastRecallPositionToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.moveToLastRecallPositionToolStripMenuItem.Name = "moveToLastRecallPositionToolStripMenuItem";
-            this.moveToLastRecallPositionToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.moveToLastRecallPositionToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
             this.moveToLastRecallPositionToolStripMenuItem.Text = "Move to Last recall position";
             this.moveToLastRecallPositionToolStripMenuItem.Click += new System.EventHandler(this.moveToLastRecallPositionToolStripMenuItem_Click);
             // 
@@ -191,16 +193,24 @@
             // 
             this.selectMapLocationToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.selectMapLocationToolStripMenuItem.Name = "selectMapLocationToolStripMenuItem";
-            this.selectMapLocationToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.selectMapLocationToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
             this.selectMapLocationToolStripMenuItem.Text = "Select Map Location";
             // 
             // useItemAtTrainingPlaceMenuItem
             // 
             this.useItemAtTrainingPlaceMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.useItemAtTrainingPlaceMenuItem.Name = "useItemAtTrainingPlaceMenuItem";
-            this.useItemAtTrainingPlaceMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.useItemAtTrainingPlaceMenuItem.Size = new System.Drawing.Size(237, 22);
             this.useItemAtTrainingPlaceMenuItem.Text = "Use item at training place";
             this.useItemAtTrainingPlaceMenuItem.Click += new System.EventHandler(this.useItemAtTrainingPlaceMenuItem_Click);
+            // 
+            // autoUseAccordingToPurposeToolStripMenuItem
+            // 
+            this.autoUseAccordingToPurposeToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.autoUseAccordingToPurposeToolStripMenuItem.Name = "autoUseAccordingToPurposeToolStripMenuItem";
+            this.autoUseAccordingToPurposeToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this.autoUseAccordingToPurposeToolStripMenuItem.Text = "Auto use according to purpose";
+            this.autoUseAccordingToPurposeToolStripMenuItem.Click += new System.EventHandler(this.autoUseAccordingToPurposeToolStripMenuItem_Click);
             // 
             // panel1
             // 
@@ -460,5 +470,6 @@
         private SDUI.Controls.Button btnSort;
         private SDUI.Controls.CheckBox checkAutoSort;
         private System.Windows.Forms.ToolStripMenuItem useItemAtTrainingPlaceMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem autoUseAccordingToPurposeToolStripMenuItem;
     }
 }

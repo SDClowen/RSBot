@@ -2,6 +2,7 @@
 using RSBot.Core.Event;
 using RSBot.Core.Network;
 using RSBot.Core.Objects;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RSBot.Protection.Components.Town
@@ -41,6 +42,14 @@ namespace RSBot.Protection.Components.Town
 
             if (Game.Player.State.LifeState != LifeState.Dead)
                 return;
+
+            var itemsToUse = PlayerConfig.GetArray<string>("RSBot.Inventory.AutoUseAccordingToPurpose");
+            var inventoryItem = Game.Player.Inventory.GetItem(new TypeIdFilter(3, 3, 13, 6), p => itemsToUse.Contains(p.Record.CodeName));
+            if (inventoryItem != null)
+            {
+                inventoryItem.Use();
+                return;
+            }
 
             var timeOut = PlayerConfig.Get("RSBot.Protection.numDeadTimeout", 30);
 

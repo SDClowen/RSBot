@@ -68,6 +68,11 @@ namespace RSBot.Default
         {
             Container.Lock = new();
             Container.Bot = new();
+
+            Bundles.Reload();
+            Container.Bot.Reload();
+
+            Subscriber.BundleSubscriber.SubscribeEvents();
             Subscriber.ConfigSubscriber.SubscribeEvents();
             Subscriber.TeleportSubscriber.SubscribeEvents();
 
@@ -93,7 +98,7 @@ namespace RSBot.Default
             Container.Bot.Reload();
 
             //Begin the loopback
-            if (Container.Bot.Area.Position.DistanceTo(Game.Player.Position) > 80)
+            if (Container.Bot.Area.Position.DistanceToPlayer() > 80)
                 Bundles.Loop.Start();
         }
 
@@ -109,6 +114,16 @@ namespace RSBot.Default
 
                 Bundles.Stop();
             }
+        }
+
+        /// <summary>
+        /// Always initialize the botbase so other botbases can make use of its otherwise internal features.
+        /// </summary>
+        public void Register()
+        {
+            Initialize();
+
+            Log.Debug("[Training] Botbase registered to the kernel!");
         }
 
         /// <summary>

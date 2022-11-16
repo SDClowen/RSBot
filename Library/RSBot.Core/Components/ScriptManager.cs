@@ -91,7 +91,7 @@ namespace RSBot.Core.Components
                 Log.Notify($"Cannot load file [{file}] (File does not exist)!");
                 return;
             }
-
+            
             File = file;
             Commands = System.IO.File.ReadAllLines(file);
 

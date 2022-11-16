@@ -50,6 +50,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnNoCustomBehavior = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox3 = new SDUI.Controls.GroupBox();
+            this.linkRecord = new System.Windows.Forms.LinkLabel();
             this.checkBoxUseReverse = new SDUI.Controls.CheckBox();
             this.checkUseSpeedDrug = new SDUI.Controls.CheckBox();
             this.checkCastBuffs = new SDUI.Controls.CheckBox();
@@ -196,6 +197,7 @@
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox3.Controls.Add(this.linkRecord);
             this.groupBox3.Controls.Add(this.checkBoxUseReverse);
             this.groupBox3.Controls.Add(this.checkUseSpeedDrug);
             this.groupBox3.Controls.Add(this.checkCastBuffs);
@@ -212,6 +214,17 @@
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Back to training";
+            // 
+            // linkRecord
+            // 
+            this.linkRecord.AutoSize = true;
+            this.linkRecord.Location = new System.Drawing.Point(348, 33);
+            this.linkRecord.Name = "linkRecord";
+            this.linkRecord.Size = new System.Drawing.Size(52, 15);
+            this.linkRecord.TabIndex = 7;
+            this.linkRecord.TabStop = true;
+            this.linkRecord.Text = "[Record]";
+            this.linkRecord.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkRecord_LinkClicked);
             // 
             // checkBoxUseReverse
             // 
@@ -268,7 +281,7 @@
             // btnBrowse
             // 
             this.btnBrowse.Color = System.Drawing.Color.Transparent;
-            this.btnBrowse.Location = new System.Drawing.Point(406, 46);
+            this.btnBrowse.Location = new System.Drawing.Point(406, 51);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Radius = 6;
             this.btnBrowse.ShadowDepth = 4F;
@@ -281,7 +294,7 @@
             // txtWalkscript
             // 
             this.txtWalkscript.BackColor = System.Drawing.Color.White;
-            this.txtWalkscript.Location = new System.Drawing.Point(21, 47);
+            this.txtWalkscript.Location = new System.Drawing.Point(21, 52);
             this.txtWalkscript.MaxLength = 32767;
             this.txtWalkscript.MultiLine = false;
             this.txtWalkscript.Name = "txtWalkscript";
@@ -295,7 +308,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label4.Location = new System.Drawing.Point(18, 28);
+            this.label4.Location = new System.Drawing.Point(18, 33);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(65, 15);
             this.label4.TabIndex = 3;
@@ -679,5 +692,6 @@
         private SDUI.Controls.CheckBox checkBoxDimensionPillar;
         private SDUI.Controls.CheckBox checkAttackWeakerFirst;
         private System.Windows.Forms.LinkLabel linkAttackWeakerMobsHelp;
+        private System.Windows.Forms.LinkLabel linkRecord;
     }
 }

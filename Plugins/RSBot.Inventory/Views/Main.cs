@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace RSBot.Inventory.Views
 {
@@ -399,11 +400,18 @@ namespace RSBot.Inventory.Views
                 var useItems = PlayerConfig.GetArray<string>("RSBot.Inventory.ItemsAtTrainplace");
                 useItemAtTrainingPlaceMenuItem.Checked = useItems.Contains(inventoryItem.Record.CodeName);
                 useItemAtTrainingPlaceMenuItem.Enabled = true;
+
+                var purposiveItems = PlayerConfig.GetArray<string>("RSBot.Inventory.AutoUseAccordingToPurpose");
+                autoUseAccordingToPurposeToolStripMenuItem.Checked = purposiveItems.Contains(inventoryItem.Record.CodeName);
+                autoUseAccordingToPurposeToolStripMenuItem.Enabled = true;
             }
             else
             {
                 useItemAtTrainingPlaceMenuItem.Checked = false;
                 useItemAtTrainingPlaceMenuItem.Enabled = false;
+
+                autoUseAccordingToPurposeToolStripMenuItem.Checked = false;
+                autoUseAccordingToPurposeToolStripMenuItem.Enabled = false;
             }
 
             bool isReverseScroll = inventoryItem.Equals(new TypeIdFilter(3, 3, 3, 3));
@@ -543,7 +551,7 @@ namespace RSBot.Inventory.Views
 
             if (useSelectedItem)
             {
-                lvItem.Font = new Font(lvItem.Font, FontStyle.Regular);
+                lvItem.Font = this.Font;
                 itemsToUse.Remove(selectedItem.Record.CodeName);
             }
             else
@@ -554,6 +562,35 @@ namespace RSBot.Inventory.Views
 
             useItemAtTrainingPlaceMenuItem.Checked = !useItemAtTrainingPlaceMenuItem.Checked;
             PlayerConfig.SetArray("RSBot.Inventory.ItemsAtTrainplace", itemsToUse);
+        }
+
+        private void autoUseAccordingToPurposeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listViewMain.SelectedItems.Count == 0)
+                return;
+
+            var lvItem = listViewMain.SelectedItems[0];
+
+            var itemsToUse = PlayerConfig.GetArray<string>("RSBot.Inventory.AutoUseAccordingToPurpose").ToList();
+            var selectedItem = (InventoryItem)lvItem.Tag;
+            if (selectedItem == null)
+                return;
+
+            var useSelectedItem = itemsToUse.Contains(selectedItem.Record.CodeName);
+
+            if (useSelectedItem)
+            {
+                lvItem.Font = this.Font;
+                itemsToUse.Remove(selectedItem.Record.CodeName);
+            }
+            else
+            {
+                lvItem.Font = new Font(lvItem.Font, FontStyle.Bold);
+                itemsToUse.Add(selectedItem.Record.CodeName);
+            }
+
+            useItemAtTrainingPlaceMenuItem.Checked = !useItemAtTrainingPlaceMenuItem.Checked;
+            PlayerConfig.SetArray("RSBot.Inventory.AutoUseAccordingToPurpose", itemsToUse);
         }
     }
 }

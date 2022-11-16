@@ -11,6 +11,8 @@ namespace RSBot.Default.Views
     [System.ComponentModel.ToolboxItem(false)]
     public partial class Main : UserControl
     {
+        private const int ScriptRecorderOwnerId = 2000;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Main"/> class.
         /// </summary>
@@ -38,6 +40,24 @@ namespace RSBot.Default.Views
         {
             EventManager.SubscribeEvent("OnLoadCharacter", OnLoadCharacter);
             EventManager.SubscribeEvent("OnSetTrainingArea", OnSetTrainingArea);
+            EventManager.SubscribeEvent("OnSaveScript", new Action<int, string>(OnSaveScript));
+        }
+
+        /// <summary>
+        /// Called when the script recorder saves a script.
+        /// </summary>
+        /// <param name="ownerId"></param>
+        /// <param name="path"></param>
+        private void OnSaveScript(int ownerId, string path)
+        {
+            if (IsDisposed || Disposing)
+                return;
+
+            if (ownerId != ScriptRecorderOwnerId)
+                return;
+
+            txtWalkscript.Text = path;
+            PlayerConfig.Set("RSBot.Walkback.File", txtWalkscript.Text);
         }
 
         /// <summary>
@@ -45,6 +65,9 @@ namespace RSBot.Default.Views
         /// </summary>
         private void OnSetTrainingArea()
         {
+            if (IsDisposed || Disposing)
+                return;
+
             var xPos = PlayerConfig.Get<float>("RSBot.Area.X");
             var yPos = PlayerConfig.Get<float>("RSBot.Area.Y");
             var radius = PlayerConfig.Get<int>("RSBot.Area.Radius");
@@ -158,7 +181,7 @@ namespace RSBot.Default.Views
         {
             var diag = new OpenFileDialog
             {
-                Filter = @"RSBot Bot script|*.rbs",
+                Filter = @"RSBot Bot script (*.rbs)|*.rbs",
                 Title = @"Browse for a walkback script"
             };
 
@@ -316,6 +339,9 @@ namespace RSBot.Default.Views
         /// </summary>
         private void OnLoadCharacter()
         {
+            if (IsDisposed || Disposing)
+                return;
+
             //Training Area
             txtXCoord.Text = PlayerConfig.Get("RSBot.Area.X", "0");
             txtYCoord.Text = PlayerConfig.Get("RSBot.Area.Y", "0");
@@ -363,6 +389,11 @@ namespace RSBot.Default.Views
         private void linkAttackWeakerMobsHelp_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             MessageBox.Show("If the player is under attack by a monster that is set to be avoided the bot will counter attack weaker mobs that are currently attacking the player first before targeting the avoided monster again. The bot will only kill weaker monsters that are attacking the player and won't start to pull new mobs to the battle.", "Attack weaker mobs first", MessageBoxButtons.OK, MessageBoxIcon.Question);
+        }
+
+        private void linkRecord_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            EventManager.FireEvent("OnShowScriptRecorder", ScriptRecorderOwnerId, true);
         }
     }
 }

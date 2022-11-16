@@ -75,15 +75,11 @@ public class Area
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public Position GetRandomPosition()
     {
-        var destination = Position;
+        var angle = _random.Next(360);
 
-        var angle = MathF.SinCos(2.0f * MathF.PI * _random.NextFloat());
+        var newPosX = Position.X + Radius * Math.Cos(angle);
+        var newPosY = Position.Y + Radius * Math.Sin(angle);
 
-        var radius = MathF.Sqrt(Radius / MathF.PI) * Radius;
-
-        destination.XOffset += _random.NextFloat(-radius, radius) * angle.Cos;
-        destination.YOffset += _random.NextFloat(-radius, radius) * angle.Sin;
-
-        return destination;
+        return new Position((float) newPosX, (float) newPosY);
     }
 }

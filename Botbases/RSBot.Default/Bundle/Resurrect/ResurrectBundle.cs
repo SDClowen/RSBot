@@ -1,7 +1,6 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Objects;
-using System;
 using System.Collections.Generic;
 using RSBot.Core.Event;
 
@@ -37,18 +36,16 @@ namespace RSBot.Default.Bundle.Resurrect
                 if (member.Player.Movement.Source.DistanceTo(Game.Player.Movement.Source) > 100)
                     continue;
 
+                if (member.Player.State.LifeState != LifeState.Dead) 
+                    continue;
+
+                if (!_lastResurrectedPlayers.ContainsKey(member.Name))
+                    _lastResurrectedPlayers.Add(member.Name, Kernel.TickCount);
+                else
+                    _lastResurrectedPlayers[member.Name] = Kernel.TickCount;
+
                 EventManager.FireEvent("OnChangeStatusText", $"Resurrecting player {member.Name}");
-                
-                if (member.Player.State.LifeState == LifeState.Dead)
-                {
-                    if (!_lastResurrectedPlayers.ContainsKey(member.Name))
-                        _lastResurrectedPlayers.Add(member.Name, Kernel.TickCount);
-                    else
-                        _lastResurrectedPlayers[member.Name] = Kernel.TickCount;
-
-                    SkillManager.ResurrectionSkill.Cast(member.Player.UniqueId, buff: true);
-                }
-
+                SkillManager.ResurrectionSkill?.Cast(member.Player.UniqueId, buff: true);
             }
         }
 

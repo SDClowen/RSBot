@@ -90,7 +90,13 @@ namespace RSBot.Alchemy.Views
                 ControlStyles.OptimizedDoubleBuffer,
                 true);
 
-            EventManager.SubscribeEvent("OnLoadCharacter", () => { Invoke(ReloadItemList); });
+            EventManager.SubscribeEvent("OnLoadCharacter", () =>
+            {
+                if (IsDisposed || Disposing)
+                    return;
+
+                Invoke(ReloadItemList);
+            });
 
             EventManager.SubscribeEvent("OnAlchemy", new Action<AlchemyType>(OnAlchemy));
 
@@ -106,9 +112,12 @@ namespace RSBot.Alchemy.Views
         #endregion Constructor
 
         #region Methods
-
+        
         private void OnAlchemy(AlchemyType type)
         {
+            if (IsDisposed || Disposing)
+                return;
+
             Invoke(ReloadItemList);
         }
 
