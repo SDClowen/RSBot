@@ -7,6 +7,7 @@ using SDUI.Helpers;
 using System;
 using System.Drawing;
 using System.IO;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace RSBot.Views
@@ -24,8 +25,7 @@ namespace RSBot.Views
             CheckForIllegalCrossThreadCalls = false;
             _mainForm = new Main();
 
-            var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-            labelVersion.Text = $"v{version.Major}.{version.Minor}{(version.Build != 0 ? "." + version.Build : "")}";
+            labelVersion.Text = Program.AssemblyVersion;
             referenceDataLoader.RunWorkerCompleted += ReferenceDataLoaderCompleted;
         }
 
