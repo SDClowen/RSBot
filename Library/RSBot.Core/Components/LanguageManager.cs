@@ -257,15 +257,17 @@ namespace RSBot.Core.Components
                         foreach (var subMenuItem in subItems)
                         {
                             if (values.TryGetValue($"{headerEx}.{subMenuItem.Name}", out translatedText))
-                                subMenuItem.Text = translatedText;
+                                if(!string.IsNullOrWhiteSpace(translatedText))
+                                    subMenuItem.Text = translatedText;
                         }
                     }
 
                     continue;
                 }
 
-                if (values.TryGetValue($"{headerEx}.{control.Name}", out translatedText))
-                    control.Text = translatedText;
+                if (values.TryGetValue($"{headerEx}.{control.Name}", out translatedText)) 
+                    if (!string.IsNullOrWhiteSpace(translatedText))
+                        control.Text = translatedText;
 
                 TranslateControls(values, control, headerEx);
             }

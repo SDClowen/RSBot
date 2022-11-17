@@ -159,11 +159,11 @@ namespace RSBot.Views
             var tabPage = new TabPage(LanguageManager.GetLangBySpecificKey(newBotbase.Value.Name, "TabText", newBotbase.Value.TabText))
             {
                 Name = newBotbase.Value.Name,
-                Enabled = Game.Ready
+                Enabled = Game.Ready,
+                BackColor = Color.FromArgb(200, BackColor),
+                ForeColor = ForeColor
             };
 
-            tabPage.BackColor = Color.FromArgb(200, BackColor);
-            tabPage.ForeColor = ForeColor;
             tabPage.Controls.Add(newBotbase.Value.View);
 
             tabMain.TabPages.Insert(1, tabPage);
@@ -439,7 +439,10 @@ namespace RSBot.Views
                 plugin.Value.Translate();
 
                 var tabpage = tabMain.TabPages[plugin.Key];
-                tabpage.Text = LanguageManager.GetLangBySpecificKey(plugin.Key, "DisplayName");
+                if (tabpage == null)
+                    continue;
+
+                tabpage.Text = LanguageManager.GetLangBySpecificKey(plugin.Key, "DisplayName", tabpage.Text);
             }
 
             foreach (var botbase in Kernel.BotbaseManager.Bots)
@@ -450,7 +453,7 @@ namespace RSBot.Views
                     continue;
 
                 var tabpage = tabMain.TabPages[botbase.Key];
-                tabpage.Text = LanguageManager.GetLangBySpecificKey(botbase.Key, "DisplayName");
+                tabpage.Text = LanguageManager.GetLangBySpecificKey(botbase.Key, "DisplayName", tabpage.Text);
             }
 
             LanguageManager.Translate(this, Kernel.Language);
