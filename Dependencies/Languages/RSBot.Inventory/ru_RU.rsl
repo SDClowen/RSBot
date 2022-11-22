@@ -1,7 +1,16 @@
 DisplayName="Инвентарь"
 RSBot.Inventory.Main.Panel.buttonUseItem="Использовать"
+RSBot.Inventory.Main.Panel.buttonInventory="Инвентарь"
+RSBot.Inventory.Main.Panel.buttonJobTransport="Проф.инвентарь"
+RSBot.Inventory.Main.Panel.buttonEquipment="Экипировка"
+RSBot.Inventory.Main.Panel.buttonAvatars="Аватар"
+RSBot.Inventory.Main.Panel.buttonStorage="Склад"
+RSBot.Inventory.Main.Panel.buttonGuildStorage="Гилд.склад"
+RSBot.Inventory.Main.Panel.buttonSpecialty="Особый"
+RSBot.Inventory.Main.Panel.buttonGrabpet="Пет.инвентарь"
+RSBot.Inventory.Main.Panel.buttonJobEquipment="Проф.Экипировка"
+RSBot.Inventory.Main.Panel.buttonInventory="Инвентарь"
 RSBot.Inventory.Main.Panel.label1="Инвентарь:"
-RSBot.Inventory.Main.Panel.label2="Бесплатные слоты:"
 RSBot.Inventory.UseItemDialog.label2="Товар по вашему собственному решению
   вы можете использовать. Откроется окно условия
 и оттуда вы можете установить условия, которые вы хотите"
@@ -9,3 +18,6 @@ RSBot.Inventory.UseItemDialog.label1="Если вы хотите использ�
  просто нажмите кнопку"
 RSBot.Inventory.UseItemDialog.buttonCancel="Использовать с условиями"
 RSBot.Inventory.UseItemDialog.buttonOk="Использовать напрямую"
+RSBot.Inventory.Main.UseItemDialog.useToolStripMenuItem="Использовать1"
+RSBot.Inventory.UseItemDialog.useItemAtTrainingPlaceMenuItem="Использовать1"
+
