@@ -1,7 +1,9 @@
-DisplayName="карта"
+DisplayName="Карта"
 RSBot.Map.Main.label3="Эта функция не работает, пока бот активен.
- Если вы хотите, чтобы бот автоматически атаковал во время активности,
+Если вы хотите, чтобы бот автоматически
+атаковал во время активности,
  установить избегание."
+RSBot.Map.Main.checkEnableCollisions="Включить обнаружение столкновений"
 RSBot.Map.Main.checkBoxAutoSelectUniques="Автоматически выбирать уникальные"
 RSBot.Map.Main.label4="Показывать:"
 RSBot.Map.Main.lblRegion="Не в игре"
