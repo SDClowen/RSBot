@@ -1,8 +1,10 @@
 ﻿using RSBot.Core.Event;
 using RSBot.Core.Extensions;
+using RSBot.Core.Objects;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -75,6 +77,54 @@ namespace RSBot.Core.Components
             if (remoteThread == IntPtr.Zero)
                 return false;
 
+            var process = Process.GetProcessById((int)pi.dwProcessId);
+            if (process == null || process.HasExited)
+                return false;
+
+            if (Game.ClientType == GameClientType.Turkey)
+            {
+                var moduleMemory = new byte[process.MainModule.ModuleMemorySize];
+                ReadProcessMemory(process.Handle, process.MainModule.BaseAddress, moduleMemory, process.MainModule.ModuleMemorySize, out _);
+
+                var patchNop = new byte[] { 0x90, 0x90 };
+                var patchJmp = new byte[] { 0xEB };
+
+                var address = FindPattern("6A 50 50 6A FF 68 34", moduleMemory);
+                if(address != IntPtr.Zero)
+                {
+                    address += 14;
+                    
+                    WriteProcessMemory(pi.hProcess, address, patchNop, 2, out _);
+                }
+
+                address = FindPattern("50 6A FF 68 28 42 DC 00 6A 00 6A 00", moduleMemory);
+                if (address != IntPtr.Zero)
+                {
+                    address += 0xC;
+
+                    WriteProcessMemory(pi.hProcess, address, patchNop, 2, out _);
+                }
+
+                address = FindPattern("50 E8 28 FA FF FF 85 C0", moduleMemory);
+                if (address != IntPtr.Zero)
+                {
+                    address += 8;
+
+                    WriteProcessMemory(pi.hProcess, address, patchJmp, 1, out _);
+                }
+
+                address = FindPattern("64 E8 5E F9 FF FF 83 C4 0C 85 C0", moduleMemory);
+                if (address != IntPtr.Zero)
+                {
+                    address += 0xB;
+
+                    WriteProcessMemory(pi.hProcess, address, patchJmp, 1, out _);
+                }
+
+                moduleMemory = null;
+                GC.Collect();
+            }
+
             WaitForSingleObject(remoteThread, uint.MaxValue);
             VirtualFreeEx(handle, dereercomp, pathLen, MEM_RELEASE);
 
@@ -83,10 +133,6 @@ namespace RSBot.Core.Components
 
             ResumeThread(pi.hThread);
             ResumeThread(pi.hProcess);
-
-            var process = Process.GetProcessById((int)pi.dwProcessId);
-            if(process == null || process.HasExited)
-                return false;
 
             process.EnableRaisingEvents = true;
             process.Exited += ClientProcess_Exited;
@@ -180,6 +226,31 @@ namespace RSBot.Core.Components
                 writer.WriteAscii(gatewayServer);
 
             writer.Write(gatewayPort);
+        }
+
+        private static IntPtr FindPattern(string stringPattern, byte[] buffer)
+        {
+            var pattern = stringPattern.Split(' ')
+                .Select(p => byte.Parse(p, System.Globalization.NumberStyles.AllowHexSpecifier))
+                .ToArray();
+
+            for (uint i = 0; i < buffer.Length - pattern.Length; i++)
+            {
+                var found = true;
+                for (uint j = 0; j < pattern.Length; j++)
+                {
+                    if (buffer[i + j] != pattern[j])
+                    {
+                        found = false;
+                        break;
+                    }
+                }
+
+                if (found)
+                    return (IntPtr)(0x400000 + i);
+            }
+
+            return IntPtr.Zero;
         }
     }
 }
