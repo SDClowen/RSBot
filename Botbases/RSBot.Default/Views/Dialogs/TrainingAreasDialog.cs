@@ -127,5 +127,19 @@ namespace RSBot.Default.Views.Dialogs
                 PlayerConfig.SetArray("RSBot.Training.Areas", areas);
             }
         }
+
+        private void removeSelectedAreaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listView.SelectedItems.Count <= 0)
+                return;
+
+            var selectedIndex = listView.SelectedIndices[0];
+            var areas = PlayerConfig.GetArray<string>("RSBot.Training.Areas").ToList();
+            areas.RemoveAt(selectedIndex);
+
+            listView.Items.RemoveAt(selectedIndex);
+
+            PlayerConfig.SetArray("RSBot.Training.Areas", areas.ToArray());
+        }
     }
 }
