@@ -77,7 +77,8 @@ namespace RSBot.Core.Objects.Item
                 case 1:
                     result.CanDelete = packet.ReadUShort();
                     
-                    if (Game.ClientType >= GameClientType.Chinese)
+                    if (Game.ClientType >= GameClientType.Chinese &&
+                        Game.ClientType != GameClientType.Rigid)
                     {
                         result.PeriodBeginTime = packet.ReadULong();
                         result.PeriodEndTime = packet.ReadULong();
@@ -105,7 +106,8 @@ namespace RSBot.Core.Objects.Item
                     result.CanDelete = packet.ReadUShort();
                     result.CanRecharge = packet.ReadUShort();
 
-                    if(Game.ClientType >= GameClientType.Chinese)
+                    if(Game.ClientType >= GameClientType.Chinese &&
+                        Game.ClientType != GameClientType.Rigid)
                     {
                         result.PeriodBeginTime = packet.ReadULong();
                         result.PeriodEndTime = packet.ReadULong();

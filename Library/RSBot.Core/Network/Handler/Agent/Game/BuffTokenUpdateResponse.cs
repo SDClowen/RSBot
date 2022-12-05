@@ -1,4 +1,5 @@
 ﻿using RSBot.Core.Components;
+using RSBot.Core.Event;
 using System.Timers;
 
 namespace RSBot.Core.Network.Handler.Agent
@@ -27,6 +28,12 @@ namespace RSBot.Core.Network.Handler.Agent
         /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
+            Game.Ready = true;
+            Game.Player.Teleportation = null;
+
+            Log.Debug("Game loaded!");
+            EventManager.FireEvent("OnTeleportComplete");
+
             var itemCount = packet.ReadByte();
             for (int i = 0; i < itemCount; i++)
             {
