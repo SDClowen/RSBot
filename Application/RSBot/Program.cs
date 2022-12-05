@@ -2,6 +2,7 @@
 using RSBot.Core.Components;
 using RSBot.Views;
 using System;
+using System.Globalization;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
@@ -32,6 +33,12 @@ namespace RSBot
                     Log.Debug($"Selected profile by args: {profile}");
                 }
             }
+
+            //CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+
+            // We need "." instead of "," while saving float numbers
+            // Also client data is "." based float digit numbers
+            CultureInfo.CurrentCulture = new CultureInfo("en-US");
 
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
