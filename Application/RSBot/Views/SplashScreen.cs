@@ -119,7 +119,7 @@ namespace RSBot.Views
         private void ReferenceDataLoaderCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
             _mainForm.Show();
-            _mainForm.RefreshTheme();
+            _mainForm.RefreshTheme(false);
 
             Hide();
         }

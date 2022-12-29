@@ -86,12 +86,14 @@ namespace RSBot.Views
         /// <summary>
         /// Refreshes the theme.
         /// </summary>
-        public void RefreshTheme()
+        public void RefreshTheme(bool save = true)
         {
             BackColor = ColorScheme.BackColor;
             stripStatus.BackColor = BackColor.IsDark() ? ColorScheme.BorderColor : Color.FromArgb(33, 150, 243);
             stripStatus.ForeColor = ColorScheme.ForeColor;
-            GlobalConfig.Save();
+
+            if(save)
+                GlobalConfig.Save();
         }
 
         /// <summary>
