@@ -37,6 +37,9 @@ namespace RSBot.Core.Extensions
             out PROCESS_INFORMATION lpProcessInformation
         );
 
+        [DllImport("kernel32.dll")]
+        public static extern IntPtr CreateMutex(IntPtr lpMutexAttributes, bool bInitialOwner, string lpName);
+
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern bool ReadProcessMemory(
             IntPtr hProcess,
@@ -88,7 +91,7 @@ namespace RSBot.Core.Extensions
 
         [DllImport("kernel32.dll")]
         public static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, uint flAllocationType, uint flProtect);
-        
+
         [DllImport("kernel32.dll")]
         public static extern bool VirtualFreeEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, uint dwFreeType);
 
@@ -96,8 +99,8 @@ namespace RSBot.Core.Extensions
         public static extern uint WaitForSingleObject(IntPtr hHandle, uint dwMilliseconds);
 
         [DllImport("kernel32.dll")]
-        public static extern IntPtr LoadLibrary(string lpFileName); 
-        
+        public static extern IntPtr LoadLibrary(string lpFileName);
+
         [DllImport("kernel32.dll")]
         public static extern IntPtr CreateSemaphore([In] IntPtr lpSemaphoreAttributes, [In] int lInitialCount, [In] int lMaximumCount, [In] IntPtr lpName);
 

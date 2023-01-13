@@ -15,7 +15,7 @@ namespace RSBot.Core.Plugins
         /// <value>
         /// The extension directory.
         /// </value>
-        public string DirectoryPath => Path.Combine(Environment.CurrentDirectory, "Data", "Bots");
+        public string DirectoryPath => Path.Combine(Kernel.BasePath, "Data", "Bots");
 
         /// <summary>
         /// Gets the extensions.
@@ -57,7 +57,7 @@ namespace RSBot.Core.Plugins
             }
             catch (Exception ex)
             {
-                File.WriteAllText(Environment.CurrentDirectory + "\\boot-error.log", $"The botbase manager encountered a problem: \n{ex.Message} at {ex.StackTrace}");
+                File.WriteAllText(Kernel.BasePath + "\\boot-error.log", $"The botbase manager encountered a problem: \n{ex.Message} at {ex.StackTrace}");
                 return false;
             }
         }

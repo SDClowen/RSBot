@@ -16,7 +16,7 @@ namespace RSBot.Core.Plugins
         /// <value>
         /// The extension directory.
         /// </value>
-        public string InitialDirectory => Path.Combine(Environment.CurrentDirectory, "Data", "Plugins");
+        public string InitialDirectory => Path.Combine(Kernel.BasePath, "Data", "Plugins");
 
         /// <summary>
         /// Gets the extensions.
@@ -59,7 +59,7 @@ namespace RSBot.Core.Plugins
             }
             catch (Exception ex)
             {
-                File.WriteAllText(Environment.CurrentDirectory + "\\boot-error.log", $"The plugin manager encountered a problem: \n{ex.Message} at {ex.StackTrace}");
+                File.WriteAllText(Kernel.BasePath + "\\boot-error.log", $"The plugin manager encountered a problem: \n{ex.Message} at {ex.StackTrace}");
                 return false;
             }
         }

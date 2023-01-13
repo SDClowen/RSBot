@@ -59,6 +59,11 @@ namespace RSBot.Core
         public static int TickCount => (Environment.TickCount & int.MaxValue);
 
         /// <summary>
+        /// Get environment base directory
+        /// </summary>
+        public static string BasePath => AppDomain.CurrentDomain.BaseDirectory;
+
+        /// <summary>
         /// Initializes this instance.
         /// </summary>
         public static void Initialize()

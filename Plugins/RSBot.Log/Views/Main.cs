@@ -46,7 +46,7 @@ namespace RSBot.Log.Views
             if (!checkEnabled.Checked) 
                 return;
 
-            var logFile = Path.Combine(Environment.CurrentDirectory, "User", "Logs", Game.Player == null ? "Environment" : Game.Player.Name, $"{DateTime.Now:dd-MM-yyyy}.txt");
+            var logFile = Path.Combine(Kernel.BasePath, "User", "Logs", Game.Player == null ? "Environment" : Game.Player.Name, $"{DateTime.Now:dd-MM-yyyy}.txt");
 
             if (level == LogLevel.Debug && !checkDebug.Checked) 
                 return;

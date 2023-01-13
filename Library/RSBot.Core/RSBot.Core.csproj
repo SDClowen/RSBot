@@ -11,6 +11,7 @@
 	  <PackageProjectUrl>https://github.com/SDClowen/RSBot</PackageProjectUrl>
 	  <PackageReadmeFile></PackageReadmeFile>
 	  <RepositoryUrl>https://github.com/SDClowen/RSBot</RepositoryUrl>
+	  <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>

@@ -7,7 +7,6 @@ using SDUI.Helpers;
 using System;
 using System.Drawing;
 using System.IO;
-using System.Reflection;
 using System.Windows.Forms;
 
 namespace RSBot.Views
@@ -23,7 +22,7 @@ namespace RSBot.Views
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
-            _mainForm = new Main();
+            _mainForm = new();
 
             labelVersion.Text = Program.AssemblyVersion;
             referenceDataLoader.RunWorkerCompleted += ReferenceDataLoaderCompleted;
@@ -189,7 +188,7 @@ namespace RSBot.Views
         private void InitializeMap()
         {
             //---- Load Map ----
-            var mapFile = Path.Combine(Environment.CurrentDirectory, "Data", "Game", "map.rsc");
+            var mapFile = Path.Combine(Kernel.BasePath, "Data", "Game", "map.rsc");
             
             if (!CollisionManager.Enabled)
             {

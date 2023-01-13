@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RSBot.Core;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -26,7 +27,7 @@ namespace RSBot.Views
         /// <summary>
         /// Update address
         /// </summary>
-        private string _updateUrl = "https://rsbot.dev/resouces/update";
+        private string _updateUrl = "https://rsbot.app/update";
 
         /// <summary>
         /// Get current version
@@ -45,7 +46,7 @@ namespace RSBot.Views
 
         private void _Client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
-            Process.Start(Environment.CurrentDirectory + "\\Replacer.exe");
+            Process.Start(Kernel.BasePath + "\\Replacer.exe");
             Environment.Exit(0);
         }
 
@@ -74,7 +75,7 @@ namespace RSBot.Views
                 cbChangeLog.Checked = false;
                 centerPanel.Visible = false;
                 lblInfo.Text = "Downloading updates ...";
-                var tempDirectory = Path.Combine(Environment.CurrentDirectory, "rsbot_download_temp");
+                var tempDirectory = Path.Combine(Kernel.BasePath, "rsbot_download_temp");
 
                 if (!Directory.Exists(tempDirectory))
                     Directory.CreateDirectory(tempDirectory).Attributes = FileAttributes.Directory | FileAttributes.Hidden;
