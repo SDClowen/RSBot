@@ -26,8 +26,8 @@ namespace RSBot.Default.Subscriber
             if (!Kernel.Bot.Running) 
                 return;
 
-            if (!ScriptManager.Running)
-                Task.Run(() => Bundles.Loop.Start());
+            if (Bundles.Loop.Running)
+                Bundles.Loop.Stop();
         }
 
         #endregion Event listeners

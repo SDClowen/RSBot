@@ -119,15 +119,14 @@ namespace RSBot.Core
             if (Kernel.Bot.Running)
                 Kernel.Bot.Stop();
 
-            if (Kernel.Proxy != null)
-                Kernel.Proxy.Shutdown();
+            Kernel.Proxy?.Shutdown();
 
             var divisionIndex = GlobalConfig.Get<int>("RSBot.DivisionIndex");
             var severIndex = GlobalConfig.Get<int>("RSBot.GatewayIndex");
 
             Port = NetworkUtilities.GetFreePort(1500, 2000, 1);
 
-            Kernel.Proxy = new Proxy();
+            Kernel.Proxy = new();
             Kernel.Proxy.Start(Port, ReferenceManager.DivisionInfo.Divisions[divisionIndex].GatewayServers[severIndex], ReferenceManager.GatewayInfo.Port);
 
             Started = true;

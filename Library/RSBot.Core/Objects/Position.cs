@@ -169,12 +169,12 @@ namespace RSBot.Core.Objects
         public Position(float xOffset, float yOffset, float zOffset, byte xSector, byte ySector)
             : this()
         {
-            Region.X = xSector;
-            Region.Y = ySector;
-
             XOffset = xOffset;
             YOffset = yOffset;
             ZOffset = zOffset;
+
+            Region.X = xSector;
+            Region.Y = ySector;
         }
 
         /// <summary>

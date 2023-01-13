@@ -4,6 +4,7 @@ using RSBot.Core.Components;
 
 namespace RSBot.CommandCenter.Views.Controls;
 
+[System.ComponentModel.ToolboxItem(false)]
 internal partial class EmoticonActionElement : UserControl
 {
     private record ActionComboBoxItem(string ActionName, string ActionDescription)

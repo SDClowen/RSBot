@@ -94,6 +94,12 @@ namespace RSBot.Default.Bundle
         /// </value>
         public static ResurrectBundle Resurrect { get; private set; }
 
+        /// <summary>
+        /// Gets the Protection.
+        /// </summary>
+        /// <value>
+        /// The Protection.
+        /// </value>
         public static ProtectionBundle Protection { get; private set; }
 
         /// <summary>

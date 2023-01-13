@@ -667,10 +667,7 @@ namespace RSBot.Core.Objects
             var distance = Game.Player.Movement.Source.DistanceTo(destination);
             if (distance > 150)
             {
-                Log.Warn($"Player.Move: Target position too far away! Target distance: {Math.Round(distance, 2)}");
-
-                // Stop the bot for now! NEED IDEA!
-                //Kernel.Bot.Stop();
+                Log.Debug($"Player.Move: Target position too far away! Target distance: {Math.Round(distance, 2)}");
 
                 return false;
             }

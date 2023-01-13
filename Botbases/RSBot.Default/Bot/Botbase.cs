@@ -1,5 +1,6 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Components;
+using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.Default.Bundle;
 using System;
@@ -22,6 +23,7 @@ namespace RSBot.Default.Bot
         /// </summary>
         public Botbase()
         {
+            EventManager.SubscribeEvent("OnSetTrainingArea", Reload);
             Reload();
         }
 

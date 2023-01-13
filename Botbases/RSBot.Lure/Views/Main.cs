@@ -9,6 +9,7 @@ using RSBot.Lure.Components;
 
 namespace RSBot.Lure.Views;
 
+[System.ComponentModel.ToolboxItem(false)]
 public partial class Main : UserControl
 {
     private const int ScriptRecorderOwnerId = 1000;
