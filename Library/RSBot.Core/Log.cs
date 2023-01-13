@@ -80,7 +80,7 @@ namespace RSBot.Core
         {
             Warn(obj.Message);
 
-            var filePath = Path.Combine(Environment.CurrentDirectory, "Data", "Logs", "Exceptions", $"{DateTime.Now:dd-MM-yyyy}.txt");
+            var filePath = Path.Combine(Kernel.BasePath, "Data", "Logs", "Exceptions", $"{DateTime.Now:dd-MM-yyyy}.txt");
             if (!Directory.Exists(filePath))
                 Directory.CreateDirectory(Path.GetDirectoryName(filePath));
 

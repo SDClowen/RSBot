@@ -19,7 +19,7 @@ namespace RSBot.Core
         /// </summary>
         public static void Load()
         {
-            var path = Path.Combine(Environment.CurrentDirectory, "User", ProfileManager.SelectedProfile + ".rs");
+            var path = Path.Combine(Kernel.BasePath, "User", ProfileManager.SelectedProfile + ".rs");
 
             _config = new Config(path);
 

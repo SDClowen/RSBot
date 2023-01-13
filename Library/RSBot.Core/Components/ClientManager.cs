@@ -36,7 +36,7 @@ namespace RSBot.Core.Components
                 GlobalConfig.Get<string>("RSBot.SilkroadExecutable")
             );
 
-            var buffer = Encoding.UTF8.GetBytes(Path.Combine(Environment.CurrentDirectory, "Client.Library.dll"));
+            var buffer = Encoding.UTF8.GetBytes(Path.Combine(Kernel.BasePath, "Client.Library.dll"));
             var pathLen = (uint)buffer.Length;
 
             var gatewayIndex = GlobalConfig.Get<byte>("RSBot.GatewayIndex");

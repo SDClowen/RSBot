@@ -10,9 +10,10 @@ namespace RSBot.Replacer
     {
         private static void Main()
         {
+            var startupPath = Application.StartupPath;
             try
             {
-                var tempDirectory = Path.Combine(Environment.CurrentDirectory, "rsbot_download_temp");
+                var tempDirectory = Path.Combine(startupPath, "rsbot_download_temp");
                 var zipFilePath = tempDirectory + "\\latest.zip";
 
                 if (Directory.Exists(tempDirectory) && File.Exists(zipFilePath))
@@ -20,10 +21,11 @@ namespace RSBot.Replacer
                     ZipFile.ExtractToDirectory(zipFilePath, tempDirectory);
 
                     File.Delete(zipFilePath);
-                    CopyDir(tempDirectory, Environment.CurrentDirectory);
+                    CopyDir(tempDirectory, startupPath);
                     Directory.Delete(tempDirectory, true);
                 }
-                Process.Start(Environment.CurrentDirectory + "\\RSBot.exe");
+
+                Process.Start(Path.Combine(startupPath, "RSBot.exe"));
             }
             catch (Exception ex)
             {

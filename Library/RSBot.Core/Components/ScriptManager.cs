@@ -14,7 +14,7 @@ namespace RSBot.Core.Components
         /// <summary>
         /// Gets the initial directory
         /// </summary>
-        public static string InitialDirectory => Path.Combine(Environment.CurrentDirectory, "Data", "Scripts");
+        public static string InitialDirectory => Path.Combine(Kernel.BasePath, "Data", "Scripts");
 
         /// <summary>
         /// Gets or sets the file.

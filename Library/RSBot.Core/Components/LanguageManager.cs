@@ -12,7 +12,7 @@ namespace RSBot.Core.Components
 
     public class LanguageManager
     {
-        private static string _path = Path.Combine(Environment.CurrentDirectory, "Data", "Languages");
+        private static string _path = Path.Combine(Kernel.BasePath, "Data", "Languages");
 
         /// <summary>
         /// Parsed language values
