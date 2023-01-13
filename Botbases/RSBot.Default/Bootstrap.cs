@@ -36,6 +36,10 @@ namespace RSBot.Default
             if (Game.Player.State.LifeState == LifeState.Dead)
                 return;
 
+            //Begin the loopback if needed
+            if (Container.Bot.Area.Position.DistanceToPlayer() > 80)
+                Bundles.Loop.Start();
+
             if (Bundles.Loop.Running)
                 return;
 
@@ -96,10 +100,6 @@ namespace RSBot.Default
 
             Bundles.Reload();
             Container.Bot.Reload();
-
-            //Begin the loopback
-            if (Container.Bot.Area.Position.DistanceToPlayer() > 80)
-                Bundles.Loop.Start();
         }
 
         /// <summary>

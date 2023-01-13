@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.ComponentModel;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace RSBot.Core.Network
@@ -170,6 +171,9 @@ namespace RSBot.Core.Network
                             _succeeded = true;
                             break;
                         case AwaitCallbackResult.ConditionFailed:
+                            _succeeded = false;
+                            _invoked = false;
+                            break;
                         case AwaitCallbackResult.Fail:
                             _succeeded = false;
                             break;

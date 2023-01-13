@@ -62,7 +62,7 @@ internal class MoveScriptCommand : IScriptCommand
             IsBusy = true;
 
             while (Game.Player.InAction)
-                Thread.Sleep(50);
+                Thread.Sleep(100);
 
             const int retryAttempts = 5;
             var stepRetryCounter = 0;
@@ -133,7 +133,7 @@ internal class MoveScriptCommand : IScriptCommand
             return false;
         }
 
-        Log.Debug($"[Script] Move to position X={pos.X}, Y={pos.Y}");
+        Log.Debug($"[Script] Move to position {pos.Region}({pos.Region.X},{pos.Region.Y}) X={pos.X}, Y={pos.Y}");
 
         return Game.Player.MoveTo(pos);
     }

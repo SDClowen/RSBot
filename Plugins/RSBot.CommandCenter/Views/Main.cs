@@ -7,6 +7,7 @@ using RSBot.Core.Components;
 
 namespace RSBot.CommandCenter.Views;
 
+[System.ComponentModel.ToolboxItem(false)]
 public partial class Main : UserControl
 {
     public Main()

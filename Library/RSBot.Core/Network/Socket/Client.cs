@@ -227,7 +227,8 @@ namespace RSBot.Core.Network
             catch (HandshakeSecurityException ex)
             {
                 Log.Error("[Fatal]: Could not handshake the client, restarting client process now...");
-                Game.Start();
+
+                Kernel.Proxy?.Shutdown();
             }
             finally
             {
