@@ -1,8 +1,10 @@
-﻿using RSBot.Core.Network;
+﻿using RSBot.Core;
+using RSBot.Core.Network;
+using RSBot.General.Components;
 
 namespace RSBot.General.PacketHandler
 {
-    internal class GatewayServerListRequestHookGlobal : IPacketHook
+    internal class AgentLoginRequestHookRigid : IPacketHook
     {
         /// <summary>
         /// Gets the opcode.
@@ -10,7 +12,7 @@ namespace RSBot.General.PacketHandler
         /// <value>
         /// The opcode.
         /// </value>
-        public ushort Opcode => 0xA10A;
+        public ushort Opcode => 0x6118;
 
         /// <summary>
         /// Gets the destination.
@@ -27,7 +29,7 @@ namespace RSBot.General.PacketHandler
         /// <returns></returns>
         public Packet ReplacePacket(Packet packet)
         {
-            return new GatewayServerListRequestHook().ReplacePacket(packet);
+            return new AgentLoginRequestHook().ReplacePacket(packet);
         }
     }
 }

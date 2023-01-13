@@ -53,7 +53,8 @@ namespace RSBot.General.PacketHandler
 
                 Log.NotifyLang("RSBot.General", "AuthAgentCertify");
 
-                var response = new Packet(0x6103, true);
+                ushort opcode = (ushort)(Game.ClientType == GameClientType.Rigid ? 0x6118 : 0x6103);
+                var response = new Packet(opcode, true);
                 response.WriteUInt(Kernel.Proxy.Token);
                 response.WriteString(selectedAccount.Username);
                 response.WriteString(selectedAccount.Password);
