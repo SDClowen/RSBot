@@ -67,8 +67,6 @@ internal class MoveScriptCommand : IScriptCommand
             const int retryAttempts = 5;
             var stepRetryCounter = 0;
 
-            //In some cases the move command fails for no reason, that's why we retry the move x times if it fails.
-            //This bug is server side. Sometimes it simply sends back a failed packet because the player state doesn't allow to move.
             while (!ExecuteMove(arguments))
             {
                 if (!IsBusy)
