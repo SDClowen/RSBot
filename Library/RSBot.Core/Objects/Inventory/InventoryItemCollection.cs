@@ -279,7 +279,7 @@ namespace RSBot.Core.Objects
                 else
                 {
                     if (item.Record.ReqLevel1 > nearestItem.Record.ReqLevel1 &&
-                        item.OptLevel > nearestItem.OptLevel &&
+                        item.OptLevel >= nearestItem.OptLevel &&
                         item.CanBeEquipped())
                         nearestItem = item;
                 }
