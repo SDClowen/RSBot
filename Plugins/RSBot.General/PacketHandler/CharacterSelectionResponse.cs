@@ -28,7 +28,7 @@ namespace RSBot.General.PacketHandler
         public void Invoke(Packet packet)
         {
             Log.NotifyLang("Welcome");
-            BotWindow.SetStatusTextLang("Ready");
+            Log.StatusLang("Ready");
         }
     }
 }

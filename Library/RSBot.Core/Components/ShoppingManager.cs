@@ -119,7 +119,7 @@ namespace RSBot.Core.Components
 
             SelectNPC(npcCodeName);
 
-            EventManager.FireEvent("OnChangeStatusText", "Selling items");
+            Log.Status("Selling items");
 
             //Prevent modification during the for-each loop
             var tempItemSellList =
@@ -176,7 +176,7 @@ namespace RSBot.Core.Components
                 if (refItem == null)
                     continue; //Should not happen
 
-                EventManager.FireEvent("OnChangeStatusText", "Buying items");
+                Log.Status("Buying items");
 
                 while (totalAmountToBuy > 0 && !Game.Player.Inventory.Full)
                 {
@@ -324,7 +324,7 @@ namespace RSBot.Core.Components
             if (Game.Player.Storage == null)
                 return;
 
-            EventManager.FireEvent("OnChangeStatusText", "Storing items");
+            Log.Status("Storing items");
             foreach (var item in tempInventory)
             {
                 StoreItem(item, npc);

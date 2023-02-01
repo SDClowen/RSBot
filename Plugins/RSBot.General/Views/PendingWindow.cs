@@ -52,8 +52,8 @@ namespace RSBot.General.Views
             var end = packet.ReadUShort();
             var timestamp = packet.ReadInt();
             var begin = packet.ReadUShort();
-
-            BotWindow.SetStatusTextLang("PendingQueue", Serverlist.Joining?.Name, begin, end);
+                
+            Log.StatusLang("PendingQueue", Serverlist.Joining?.Name, begin, end);
             labelPending.Text = $"{begin} / {end}";
             PrintTime(labelAvgWaitingTime, timestamp);
             LogPending(begin, end);
@@ -80,7 +80,7 @@ namespace RSBot.General.Views
             AutoLogin.Pending = true;
             _startedTick = Kernel.TickCount;
 
-            BotWindow.SetStatusTextLang("PendingQueue", Serverlist.Joining?.Name, count, count);
+            Log.StatusLang("PendingQueue", Serverlist.Joining?.Name, count, count);
 
             labelPending.Text = $"{count} / {count}";
             labelServerName.Text = labelServerName.Text.Replace("{SERVER}", Serverlist.Joining?.Name);

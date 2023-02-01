@@ -44,7 +44,7 @@ namespace RSBot.Default.Bundle.Attack
 
             Log.Debug($"Getnextskill: {stopwatch.ElapsedMilliseconds} Action:{Game.Player.InAction} Entity:{Game.SelectedEntity != null} LA:{SkillManager.IsLastCastedBasic} Skill:{skill}");
 
-            EventManager.FireEvent("OnChangeStatusText", "Attacking");
+            Log.Status("Attacking");
 
             if (skill == null)
             {

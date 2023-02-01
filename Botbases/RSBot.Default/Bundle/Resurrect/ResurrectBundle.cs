@@ -44,7 +44,7 @@ namespace RSBot.Default.Bundle.Resurrect
                 else
                     _lastResurrectedPlayers[member.Name] = Kernel.TickCount;
 
-                EventManager.FireEvent("OnChangeStatusText", $"Resurrecting player {member.Name}");
+                Log.Status($"Resurrecting player {member.Name}");
                 SkillManager.ResurrectionSkill?.Cast(member.Player.UniqueId, buff: true);
             }
         }

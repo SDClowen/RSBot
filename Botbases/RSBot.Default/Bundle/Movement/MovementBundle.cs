@@ -62,7 +62,7 @@ namespace RSBot.Default.Bundle.Movement
             //Go back if the player is out of the radius
             if ((distance > Container.Bot.Area.Radius || (Config.WalkToCenter && distance > 10)) && !hasCollision)
             {
-                EventManager.FireEvent("OnChangeStatusText", "Walking to center");
+                Log.Status("Walking to center");
                 Game.Player.MoveTo(Container.Bot.Area.Position);
 
                 return;
@@ -71,7 +71,7 @@ namespace RSBot.Default.Bundle.Movement
             if (Config.WalkToCenter)
                 return;
 
-            EventManager.FireEvent("OnChangeStatusText", "Walking around");
+            Log.Status("Walking around");
 
             //Find a not colliding position. Do it in a while loop to prevent the bot from processing it in the next cycle (tick).
             //This is how we can find our next position very fast instead of waiting for the next circle to come.

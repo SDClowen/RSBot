@@ -33,7 +33,7 @@ namespace RSBot.General.Components
             if (_busy)
                 return;
 
-            BotWindow.SetStatusTextLang("WaitingUser");
+            Log.StatusLang("WaitingUser");
 
             _busy = true;
 

@@ -1,5 +1,6 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Components.Command;
+using RSBot.Core.Event;
 
 namespace RSBot.CommandCenter.Components.Command;
 
@@ -14,7 +15,7 @@ internal class ShowBotCommandExecutor : ICommandExecutor
         if (!silent)
             Game.ShowNotification("[RSBot] Showing bot window");
 
-        BotWindow.Show();
+        EventManager.FireEvent("OnShowBotWindow");
 
         return true;
     }
