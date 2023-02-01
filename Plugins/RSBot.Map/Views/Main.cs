@@ -11,6 +11,9 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RSBot.Map.Views
@@ -32,6 +35,16 @@ namespace RSBot.Map.Views
         /// The Sector Image Size
         /// </summary>
         private const int SectorSize = 256;
+
+        /// <summary>
+        /// The Canvas Width
+        /// </summary>
+        private const int CanvasWidth = 256;
+
+        /// <summary>
+        /// The Canvas Height
+        /// </summary>
+        private const int CanvasHeight = 256;
 
         /// <summary>
         /// The cached Images
@@ -79,21 +92,27 @@ namespace RSBot.Map.Views
         private BufferedGraphics bufferedGraphics;
 
         /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        private Rectangle clipRect = new(35, 80, CanvasWidth, CanvasHeight);
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Main"/> class.
         /// </summary>
         public Main()
         {
             InitializeComponent();
 
+            SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer, true);
+            
             _debug = GlobalConfig.Get<bool>("RSBot.DebugEnvironment");
 
-            _cachedImages = _cachedImages ?? new Dictionary<string, Image>();
+            _cachedImages ??= new();
 
             EventManager.SubscribeEvent("OnEnterGame", OnEnterGame);
 
             bufferedGraphicsContext = BufferedGraphicsManager.Current;
-            bufferedGraphicsContext.MaximumBuffer = new Size(mapCanvas.Width + 1, mapCanvas.Height + 1);
-            bufferedGraphics = bufferedGraphicsContext.Allocate(mapCanvas.CreateGraphics(), mapCanvas.ClientRectangle);
+            bufferedGraphics = bufferedGraphicsContext.Allocate(CreateGraphics(), clipRect);
 
             // All
             comboViewType.SelectedIndex = 6;
@@ -101,6 +120,53 @@ namespace RSBot.Map.Views
 
             if(!_debug)
                 labelSectorInfo.Visible = false;
+
+            Application.Idle += new EventHandler(OnApplicationIdle);
+        }
+
+        //And the declarations for those two native methods members:        
+        [StructLayout(LayoutKind.Sequential)]
+        public struct Message
+        {
+            public IntPtr hWnd;
+            public uint msg;
+            public IntPtr wParam;
+            public IntPtr lParam;
+            public uint time;
+            public Point p;
+        }
+
+        [System.Security.SuppressUnmanagedCodeSecurity] // We won’t use this maliciously
+        [DllImport("User32.dll", CharSet = CharSet.Auto)]
+        public static extern bool PeekMessage(out Message msg, IntPtr hWnd, uint messageFilterMin, uint messageFilterMax, uint flags);
+        private bool AppStillIdle
+        {
+            get
+            {
+                Message msg;
+                return !PeekMessage(out msg, IntPtr.Zero, 0, 0, 0);
+            }
+        }
+        private async void OnApplicationIdle(object sender, EventArgs e)
+        {
+            while (AppStillIdle)
+            {
+
+                if (!Game.Ready || !this.Visible)
+                {
+                    await Task.Delay(1000);
+                    continue;
+                }
+                else
+                    await Task.Delay(1);
+
+                bufferedGraphics.Graphics.Clear(Color.Wheat);
+                bufferedGraphics.Graphics.SetClip(clipRect);
+                RedrawMap();
+                DrawObjects(bufferedGraphics.Graphics);
+                bufferedGraphics.Render();
+                bufferedGraphics.Graphics.ResetClip();
+            }
         }
 
         #region Core Handlers
@@ -576,8 +642,8 @@ namespace RSBot.Map.Views
 
                 PointF point = new()
                 {
-                    X = mapCanvas.Width / 2f - SectorSize - Game.Player.Movement.Source.XSectorOffset / 10f * _scale,
-                    Y = mapCanvas.Height / 2f - SectorSize * 2f + Game.Player.Movement.Source.YSectorOffset / 10f * _scale
+                    X = CanvasWidth / 2f - SectorSize - Game.Player.Movement.Source.XSectorOffset / 10f * _scale,
+                    Y = CanvasHeight / 2f - SectorSize * 2f + Game.Player.Movement.Source.YSectorOffset / 10f * _scale
                 };
 
                 graphics.DrawImage(_currentSectorGraphic, point);
@@ -605,11 +671,6 @@ namespace RSBot.Map.Views
 
             if(_debug)
                 labelSectorInfo.Text = $"{Game.Player.Movement.Source.Region} ({Game.Player.Movement.Source.Region.X}x{Game.Player.Movement.Source.Region.Y})";
-
-            bufferedGraphics.Graphics.Clear(Color.Black);
-            RedrawMap();
-            DrawObjects(bufferedGraphics.Graphics);
-            bufferedGraphics.Render();
         }
 
         private void checkBoxAutoSelectUniques_CheckedChanged(object sender, EventArgs e)
@@ -635,19 +696,19 @@ namespace RSBot.Map.Views
 
         private float GetMapX(Position gamePosition)
         {
-            return mapCanvas.Width / 2f + (gamePosition.X - Game.Player.Movement.Source.X) * _scale;
+            return CanvasWidth / 2f + (gamePosition.X - Game.Player.Movement.Source.X) * _scale;
         }
 
         private float GetMapY(Position gamePosition)
         {
-            return mapCanvas.Height / 2f + (gamePosition.Y - Game.Player.Movement.Source.Y) * _scale * -1.0f;
+            return CanvasHeight / 2f + (gamePosition.Y - Game.Player.Movement.Source.Y) * _scale * -1.0f;
         }
 
         private void mapCanvas_MouseClick(object sender, MouseEventArgs e)
         {
             var position = Game.Player.Movement.Source;
-            position.XOffset = (Game.Player.Movement.Source.XOffset + (((mapCanvas.Width / 2f - e.X) / SectorSize) * 192f * 10 * -1f));
-            position.YOffset = (Game.Player.Movement.Source.YOffset + (((mapCanvas.Height / 2f - e.Y) / SectorSize) * 192f * 10));
+            position.XOffset = (Game.Player.Movement.Source.XOffset + (((CanvasWidth / 2f - e.X) / SectorSize) * 192f * 10 * -1f));
+            position.YOffset = (Game.Player.Movement.Source.YOffset + (((CanvasHeight / 2f - e.Y) / SectorSize) * 192f * 10));
 
             Game.Player.MoveTo(position, false);
         }

@@ -36,7 +36,6 @@ namespace RSBot.Map.Views
             this.lblX = new SDUI.Controls.Label();
             this.lblY = new SDUI.Controls.Label();
             this.lblRegion = new SDUI.Controls.Label();
-            this.mapCanvas = new System.Windows.Forms.Panel();
             this.label4 = new SDUI.Controls.Label();
             this.comboViewType = new SDUI.Controls.ComboBox();
             this.trmInterval = new System.Windows.Forms.Timer(this.components);
@@ -106,16 +105,6 @@ namespace RSBot.Map.Views
             this.lblRegion.Size = new System.Drawing.Size(72, 13);
             this.lblRegion.TabIndex = 7;
             this.lblRegion.Text = "Not in game";
-            // 
-            // mapCanvas
-            // 
-            this.mapCanvas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.mapCanvas.Location = new System.Drawing.Point(35, 80);
-            this.mapCanvas.Name = "mapCanvas";
-            this.mapCanvas.Size = new System.Drawing.Size(256, 256);
-            this.mapCanvas.TabIndex = 0;
-            this.mapCanvas.TabStop = false;
-            this.mapCanvas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mapCanvas_MouseClick);
             // 
             // label4
             // 
@@ -262,7 +251,6 @@ namespace RSBot.Map.Views
             this.Controls.Add(this.lblX);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.mapCanvas);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "Main";
             this.Size = new System.Drawing.Size(750, 458);
@@ -273,7 +261,6 @@ namespace RSBot.Map.Views
 
         #endregion
 
-        private System.Windows.Forms.Panel mapCanvas;
         private SDUI.Controls.Label label1;
         private SDUI.Controls.Label label2;
         private SDUI.Controls.Label lblX;
