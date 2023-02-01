@@ -32,7 +32,7 @@ namespace RSBot.Core.Components
         {
             var silkroadDirectory = GlobalConfig.Get<string>("RSBot.SilkroadDirectory");
             var path = Path.Combine(
-                silkroadDirectory, 
+                silkroadDirectory,
                 GlobalConfig.Get<string>("RSBot.SilkroadExecutable")
             );
 
@@ -61,7 +61,7 @@ namespace RSBot.Core.Components
                 return false;
 
             var kernelHandle = GetModuleHandleA("kernel32.dll");
-            
+
             var loadLibAddr = GetProcAddress(kernelHandle, "LoadLibraryA");
             if (loadLibAddr == IntPtr.Zero)
                 return false;
@@ -89,37 +89,17 @@ namespace RSBot.Core.Components
                 var patchNop = new byte[] { 0x90, 0x90 };
                 var patchJmp = new byte[] { 0xEB };
 
-                var address = FindPattern("6A 50 50 6A FF 68 34", moduleMemory);
-                if(address != IntPtr.Zero)
+                var address = FindPattern("6A 00 6A 00 FF D6 6A 00 8D 85", moduleMemory);
+                if (address == IntPtr.Zero)
                 {
-                    address += 14;
-                    
-                    WriteProcessMemory(pi.hProcess, address, patchNop, 2, out _);
+                    Log.Error($"TRSRO XIGNCODE patching error! Maybe signatures are wrong?");
+                    return false;
                 }
 
-                address = FindPattern("50 6A FF 68 28 42 DC 00 6A 00 6A 00", moduleMemory);
-                if (address != IntPtr.Zero)
-                {
-                    address += 0xC;
-
-                    WriteProcessMemory(pi.hProcess, address, patchNop, 2, out _);
-                }
-
-                address = FindPattern("50 E8 28 FA FF FF 85 C0", moduleMemory);
-                if (address != IntPtr.Zero)
-                {
-                    address += 8;
-
-                    WriteProcessMemory(pi.hProcess, address, patchJmp, 1, out _);
-                }
-
-                address = FindPattern("64 E8 5E F9 FF FF 83 C4 0C 85 C0", moduleMemory);
-                if (address != IntPtr.Zero)
-                {
-                    address += 0xB;
-
-                    WriteProcessMemory(pi.hProcess, address, patchJmp, 1, out _);
-                }
+                WriteProcessMemory(pi.hProcess, address - 0x15, patchNop, 2, out _);
+                WriteProcessMemory(pi.hProcess, address + 0x04, patchNop, 2, out _);
+                WriteProcessMemory(pi.hProcess, address + 0x1D, patchJmp, 1, out _);
+                WriteProcessMemory(pi.hProcess, address + 0x9A, patchJmp, 1, out _);
 
                 moduleMemory = null;
                 GC.Collect();
