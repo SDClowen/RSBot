@@ -30,7 +30,7 @@ internal static class AttackBundle
             if (skill == null && !LureConfig.UseNormalAttack)
                 return;
 
-            EventManager.FireEvent("OnChangeStatusText", "Attacking");
+            Log.Status("Attacking");
             SkillManager.CancelAction();
 
             var uniqueId = Game.SelectedEntity?.UniqueId;

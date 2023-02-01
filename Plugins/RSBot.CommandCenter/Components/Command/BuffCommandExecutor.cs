@@ -21,7 +21,7 @@ internal class BuffCommandExecutor : ICommandExecutor
         if (buffs.Count == 0)
             return true;
 
-        EventManager.FireEvent("OnChangeStatusText", "Buffing");
+        Log.Status("Buffing");
 
         foreach (var buff in buffs)
         {

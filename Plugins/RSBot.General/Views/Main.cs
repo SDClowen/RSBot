@@ -74,7 +74,7 @@ namespace RSBot.General.Views
                 btnStartClient.Enabled = true;
                 btnStartClientless.Enabled = true;
                 btnStartClientless.Text = LanguageManager.GetLang("Start") + " Clientless";
-                BotWindow.SetStatusText("Ready");
+                Log.StatusLang("Ready");
                 Kernel.Proxy.Shutdown();
             }
         }
@@ -509,7 +509,7 @@ namespace RSBot.General.Views
                 btnClientHideShow.Enabled = false;
 
                 Game.Clientless = true;
-                BotWindow.SetStatusTextLang("StartingClientless");
+                Log.StatusLang("StartingClientless");
                 Game.Start();
 
                 btnStartClientless.Text = LanguageManager.GetLang("Disconnect");

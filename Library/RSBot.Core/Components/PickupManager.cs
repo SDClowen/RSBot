@@ -96,7 +96,7 @@ namespace RSBot.Core.Components
                     return;
                 }
 
-                EventManager.FireEvent("OnChangeStatusText", "Picking up");
+                Log.Status("Picking up");
                 foreach (var item in entities.OrderBy(item => item.Movement.Source.DistanceTo(playerPosition)/*.Take(5)*/))
                 {
                     if (!RunningPlayerPickup)

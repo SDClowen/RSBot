@@ -15,7 +15,7 @@ internal static class MovementBundle
         //Return to center?
         if (LureConfig.Area.Position.DistanceToPlayer() > 5 && LureConfig.StayAtCenterFor && !ScriptManager.Running)
         {
-            EventManager.FireEvent("OnChangeStatusText", "Walking back to center...");
+            Log.Status("Walking back to center...");
 
             Log.Debug("[Lure] Walking back to center");
 
@@ -46,7 +46,7 @@ internal static class MovementBundle
             if (ScriptManager.Running)
                 return;
 
-            EventManager.FireEvent("OnChangeStatusText", "Running lure script...");
+            Log.Status("Running lure script...");
             ScriptManager.Load(LureConfig.SelectedScriptPath);
             Task.Run(() => ScriptManager.RunScript(false));
         }
@@ -60,7 +60,7 @@ internal static class MovementBundle
                CollisionManager.HasCollisionBetween(Game.Player.Position, destination))
             destination = LureConfig.Area.GetRandomPosition();
 
-        EventManager.FireEvent("OnChangeStatusText", "Walking to random position...");
+        Log.Status("Walking to random position...");
         Log.Debug(
             $"[Lure] Moving to random position {destination} (distance={destination.DistanceToPlayer()}, min. distance={minDistance})");
         Game.Player.MoveTo(destination);

@@ -39,7 +39,7 @@ namespace RSBot.General.PacketHandler
             if (result != 1)
                 return;
 
-            BotWindow.SetStatusTextLang("WaitingUserForSelectCharacter");
+            Log.StatusLang("WaitingUserForSelectCharacter");
 
             var charCount = packet.ReadByte();
 
@@ -137,7 +137,7 @@ namespace RSBot.General.PacketHandler
                 }
                 else
                 {
-                    BotWindow.SetStatusTextLang("SelectYourCharacterManually");
+                    Log.StatusLang("SelectYourCharacterManually");
                     return;
                 }
             }

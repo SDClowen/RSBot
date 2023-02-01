@@ -493,14 +493,14 @@ namespace RSBot.Views
             {
                 Kernel.Bot.Start();
 
-                BotWindow.SetStatusTextLang("Running");
+                Log.StatusLang("Running");
             }
             else
             {
                 Log.NotifyLang("StopingBot", Kernel.Bot.Botbase.DisplayName);
 
                 Kernel.Bot.Stop();
-                BotWindow.SetStatusTextLang("Ready");
+                Log.StatusLang("Ready");
             }
         }
 

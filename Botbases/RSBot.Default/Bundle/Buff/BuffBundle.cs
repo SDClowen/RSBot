@@ -46,7 +46,7 @@ namespace RSBot.Default.Bundle.Buff
             if (buffs == null || buffs.Count == 0)
                 return;
 
-            EventManager.FireEvent("OnChangeStatusText", "Buffing");
+            Log.Status("Buffing");
 
             foreach (var buff in buffs)
             {

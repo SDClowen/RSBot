@@ -135,7 +135,7 @@ namespace RSBot.Core.Components
                 if (!Running)
                     break;
 
-                EventManager.FireEvent("OnChangeStatusText", "Running walk script");
+                Log.Status("Running walk script");
 
                 var arguments = scriptLine.Split(' ');
                 var commandName = arguments.Length == 0 ? scriptLine : arguments[0];
