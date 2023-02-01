@@ -34,7 +34,8 @@ namespace RSBot.Core.Objects
                 if (Game.ClientType > GameClientType.Thailand)
                     count = packet.ReadByte();
 
-                if (Game.ClientType == GameClientType.Global)
+                if (Game.ClientType == GameClientType.Global ||
+                    Game.ClientType == GameClientType.Turkey)
                     count = 7;
 
                 Options = packet.ReadByteArray(count);

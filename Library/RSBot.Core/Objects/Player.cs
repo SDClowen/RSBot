@@ -726,6 +726,9 @@ namespace RSBot.Core.Objects
                 if (State.LifeState == LifeState.Dead)
                     return false;
 
+                if (Game.SelectedEntity is SpawnedNpcNpc)
+                    return false;
+
                 var potionItem = Inventory.GetItem(filter);
                 if (potionItem == null)
                     return false;
@@ -746,6 +749,8 @@ namespace RSBot.Core.Objects
                     {
                         duration = 4050;
                     }
+                    else
+                        Log.Debug($"Unknown poion type: {record}");
                 }
                 var elapsed = Kernel.TickCount - tick;
                
@@ -755,9 +760,14 @@ namespace RSBot.Core.Objects
                 var result = potionItem.Use();
 
                 if (result)
+                {
                     tick = Kernel.TickCount;
 
-                Log.Debug($"Potion [{potionItem.Record.GetRealName()}] used");
+                    Log.Debug($"Potion [{potionItem.Record.GetRealName()}] used");
+                }
+                else
+                    Log.Debug($"[ERROR] Potion [{potionItem.Record.GetRealName()}] used Elapsed:{elapsed} Duration:{duration} Condition:{elapsed < duration}");
+
                 return result;
             }
         }
