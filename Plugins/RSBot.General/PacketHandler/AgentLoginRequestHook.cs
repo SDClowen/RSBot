@@ -1,4 +1,5 @@
 ﻿using RSBot.Core;
+using RSBot.Core.Cryptography;
 using RSBot.Core.Network;
 using RSBot.General.Components;
 
@@ -44,7 +45,12 @@ namespace RSBot.General.PacketHandler
             packet = new Packet(packet.Opcode, packet.Encrypted);
             packet.WriteUInt(Kernel.Proxy.Token);
             packet.WriteString(selectedAccount.Username);
-            packet.WriteString(selectedAccount.Password);
+
+            if(Game.ClientType >= GameClientType.Global && Game.ClientType != GameClientType.Rigid)
+                packet.WriteString(Sha256.ComputeHash(selectedAccount.Password));
+            else
+                packet.WriteString(selectedAccount.Password);
+
             packet.WriteByte(Game.ReferenceManager.DivisionInfo.Locale);
             packet.WriteByteArray(new byte[6]);
             packet.Lock();
