@@ -37,6 +37,15 @@ namespace RSBot.Protection.Components.Town
             if (uniqueId != Game.Player.UniqueId)
                 return;
 
+            if(Game.Player.Level < 10)
+            {
+                await Task.Delay(5000);
+                var upPacket = new Packet(0x3053);
+                upPacket.WriteByte(2);
+                PacketManager.SendPacket(upPacket, PacketDestination.Server);
+                return;
+            }
+
             if (!PlayerConfig.Get<bool>("RSBot.Protection.checkDead"))
                 return;
 
