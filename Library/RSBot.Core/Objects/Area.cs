@@ -77,9 +77,9 @@ public class Area
     {
         var angle = _random.Next(360);
 
-        var newPosX = Position.X + Radius * Math.Cos(angle);
-        var newPosY = Position.Y + Radius * Math.Sin(angle);
+        var newPosX = Position.X + (Radius / 2) * MathF.Cos(angle);
+        var newPosY = Position.Y + (Radius / 2) * MathF.Sin(angle);
 
-        return new Position((float) newPosX, (float) newPosY);
+        return new Position(newPosX, newPosY);
     }
 }
