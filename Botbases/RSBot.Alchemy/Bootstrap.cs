@@ -48,6 +48,8 @@ namespace RSBot.Alchemy
 
         public void Register()
         {
+            Initialize();
+
             Log.Debug("[Alchemy] Botbase registered to the kernel!");
         }
 

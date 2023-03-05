@@ -1,6 +1,6 @@
 # RSBot - An Open Source Silkroad Online Bot
 
-Hello reputable Silkroad Online community. This is a free and open source Silkroad Online bot which is being maintained and developed by the community. You can edit the code as you wish, you can send changes you've made to this repo to support the bot. The supported clients that are listed below are a result of prolonged work. If you encounter any errors, you can create a ticket in our [Discord](https://discord.gg/GwecXfcKTk) or create issues in github [here](https://github.com/SDClowen/RSBot/issues), to get updates you can follow the repo or join the discord server.
+Hello reputable Silkroad Online community. This is a free and open source Silkroad Online bot which is being maintained and developed by the community. You can edit the code as you wish, you can send changes you've made to this repo to support the bot. The supported clients that are listed below are a result of prolonged work. If you encounter any errors, you can create a ticket in our [Discord](https://discord.gg/MuY5ejEU3r) or create issues in github [here](https://github.com/SDClowen/RSBot/issues), to get updates you can follow the repo or join the discord server.
 
 ## Supported clients:
 

@@ -170,15 +170,7 @@ namespace RSBot.Core
                 return;
 
             var chatPacket = new Packet(0x3026);
-
             chatPacket.WriteByte(ChatType.Notice);
-
-            if (Game.ClientType > GameClientType.Vietnam)
-                chatPacket.WriteByte(0); // has linking
-
-            if (Game.ClientType >= GameClientType.Chinese)
-                chatPacket.WriteByte(0);
-
             chatPacket.WriteConditonalString(message);
 
             PacketManager.SendPacket(chatPacket, PacketDestination.Client);

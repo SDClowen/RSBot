@@ -29,6 +29,11 @@ namespace RSBot.Core.Network.Handler.Agent.Party
         /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
+            PartyUpdateResponseCommon(packet);
+        }
+
+        public static void PartyUpdateResponseCommon(Packet packet) 
+        {
             var type = (PartyUpdateType)packet.ReadByte();
 
             switch (type)
@@ -107,7 +112,7 @@ namespace RSBot.Core.Network.Handler.Agent.Party
                     break;
 
                 default:
-                    Log.Debug($"Unknow party type:{type}");
+                    Log.Debug($"Unknow party type:{type} opcode: {packet.Opcode}");
                     break;
             }
         }

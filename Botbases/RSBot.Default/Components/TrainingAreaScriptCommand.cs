@@ -2,6 +2,7 @@
 using RSBot.Core.Components.Scripting;
 using System.Collections.Generic;
 using RSBot.Core.Event;
+using RSBot.Core.Objects;
 
 namespace RSBot.Default.Components;
 
@@ -15,8 +16,10 @@ internal class TrainingAreaScriptCommand : IScriptCommand
 
     public Dictionary<string, string> Arguments => new Dictionary<string, string>
     {
-        {"PosX", "The X position"},
-        {"PosY", "The Y position"},
+        {"Region", "The Region"},
+        {"XOffset", "The X"},
+        {"YOffset", "The Y"},
+        {"ZOffset", "The Z"},
         {"Radius", "The radius"}
     };
 
@@ -46,13 +49,17 @@ internal class TrainingAreaScriptCommand : IScriptCommand
 
             Log.Notify("[Script] Setting training area");
 
-            if (!float.TryParse(arguments[0], out var xPos)
-                || !float.TryParse(arguments[1], out var yPos)
-                || !int.TryParse(arguments[2], out var radius))
+            if (!Region.TryParse(arguments[0], out var region)
+                || !float.TryParse(arguments[1], out var xPos)
+                || !float.TryParse(arguments[2], out var yPos)
+                || !float.TryParse(arguments[3], out var zPos)
+                || !int.TryParse(arguments[4], out var radius))
                 return false;
 
+            PlayerConfig.Set("RSBot.Area.Region", region);
             PlayerConfig.Set("RSBot.Area.X", xPos);
             PlayerConfig.Set("RSBot.Area.Y", yPos);
+            PlayerConfig.Set("RSBot.Area.Z", zPos);
             PlayerConfig.Set("RSBot.Area.Radius", radius);
 
             EventManager.FireEvent("OnSetTrainingArea");

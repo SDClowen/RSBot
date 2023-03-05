@@ -92,7 +92,7 @@ namespace RSBot.Core.Objects
         /// <value>
         /// The x coordinate.
         /// </value>
-        public float X => Region.IsDungeon ? _XOffset / 10 : (Region.X - 135) * 192 + _XOffset / 10;
+        public float X => _XOffset == 0 ? 0 : Region.IsDungeon ? _XOffset / 10 : (Region.X - 135) * 192 + _XOffset / 10;
 
         /// <summary>
         /// Gets the y coordinate.
@@ -100,7 +100,7 @@ namespace RSBot.Core.Objects
         /// <value>
         /// The y coordinate.
         /// </value>
-        public float Y => Region.IsDungeon ? _YOffset / 10 : (Region.Y - 92) * 192 + _YOffset / 10;
+        public float Y => _YOffset == 0 ? 0 : Region.IsDungeon ? _YOffset / 10 : (Region.Y - 92) * 192 + _YOffset / 10;
 
         /// <summary>
         /// Gets offset from x sector.
@@ -115,25 +115,25 @@ namespace RSBot.Core.Objects
         /// <summary>
         /// Creates a position by using world map coordinates
         /// </summary>
-        /// <param name="regionId">Region Id required for dungeon maps</param>
-        public Position(float x, float y, ushort regionId = 0)
+        /// <param name="region">Region required for dungeon maps</param>
+        public Position(float x, float y, Region region = default)
             : this()
         {
-            Region = regionId;
+            Region = region;
 
             // World map coordinates has been provided
             if (!Region.IsDungeon)
             {
-                var xOffset = (int)(Math.Abs(x) % 192 * 10);
+                var xOffset = MathF.Abs(x) % 192.0f * 10.0f;
                 if (x < 0)
-                    xOffset = 1920 - xOffset;
+                    xOffset = 1920.0f - xOffset;
 
-                var yOffset = (int)(Math.Abs(y) % 192 * 10);
+                var yOffset = MathF.Abs(y) % 192.0f * 10.0f;
                 if (y < 0)
-                    yOffset = 1920 - yOffset;
+                    yOffset = 1920.0f - yOffset;
 
-                Region.X = (byte)Math.Round((x - xOffset / 10f) / 192f + 135);
-                Region.Y = (byte)Math.Round((y - yOffset / 10f) / 192f + 92);
+                Region.X = (byte)MathF.Round((x - xOffset / 10.0f) / 192.0f + 135.0f);
+                Region.Y = (byte)MathF.Round((y - yOffset / 10.0f) / 192.0f + 92.0f);
 
                 XOffset = xOffset;
                 YOffset = yOffset;
@@ -149,14 +149,14 @@ namespace RSBot.Core.Objects
         /// <summary>
         /// Creates a position using sector offsets
         /// </summary>
+        /// <param name="region">The region identifier.</param>
         /// <param name="xOffset">The x offset.</param>
         /// <param name="yOffset">The y offset.</param>
         /// <param name="zOffset">The z offset.</param>
-        /// <param name="regionId">The region identifier.</param>
-        public Position(short xOffset, short yOffset, short zOffset, ushort regionId)
+        public Position(Region region, float xOffset, float yOffset, float zOffset)
             : this()
         {
-            Region = regionId;
+            Region = region;
 
             XOffset = xOffset;
             YOffset = yOffset;
@@ -166,7 +166,7 @@ namespace RSBot.Core.Objects
         /// <summary>
         /// Creates a position using map offsets
         /// </summary>
-        public Position(float xOffset, float yOffset, float zOffset, byte xSector, byte ySector)
+        public Position(byte xSector, byte ySector, float xOffset, float yOffset, float zOffset)
             : this()
         {
             XOffset = xOffset;
@@ -184,7 +184,10 @@ namespace RSBot.Core.Objects
         /// <returns></returns>
         public double DistanceTo(Position position)
         {
-            return Math.Sqrt(Math.Pow(X - position.X, 2) + Math.Pow(Y - position.Y, 2));
+            var pX = X - position.X;
+            var pY = Y - position.Y;
+
+            return Math.Sqrt((pX * pX) + (pY * pY));
         }
 
         /// <summary>

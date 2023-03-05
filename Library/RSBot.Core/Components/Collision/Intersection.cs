@@ -12,18 +12,18 @@ namespace RSBot.Core.Components.Collision
     {
         public static (Position collidedAt, CalculatedCollisionLine collidedWith)? FindIntersection(CalculatedCollisionLine lineA, CalculatedCollisionLine lineB, double tolerance = 1)
         {
-            double x1 = lineA.Source.X, y1 = lineA.Source.Y;
-            double x2 = lineA.Destination.X, y2 = lineA.Destination.Y;
+            float x1 = lineA.Source.X, y1 = lineA.Source.Y;
+            float x2 = lineA.Destination.X, y2 = lineA.Destination.Y;
 
-            double x3 = lineB.Source.X, y3 = lineB.Source.Y;
-            double x4 = lineB.Destination.X, y4 = lineB.Destination.Y;
+            float x3 = lineB.Source.X, y3 = lineB.Source.Y;
+            float x4 = lineB.Destination.X, y4 = lineB.Destination.Y;
 
-            double x, y;
+            float x, y;
 
             //lineA is vertical x1 = x2
             //slope will be infinity
             //so lets derive another solution
-            if (Math.Abs(x1 - x2) < tolerance)
+            if (MathF.Abs(x1 - x2) < tolerance)
             {
                 //compute slope of line 2 (m2) and c2
                 var m2 = (y4 - y3) / (x4 - x3);
@@ -39,7 +39,7 @@ namespace RSBot.Core.Components.Collision
             //lineB is vertical x3 = x4
             //slope will be infinity
             //so lets derive another solution
-            else if (Math.Abs(x3 - x4) < tolerance)
+            else if (MathF.Abs(x3 - x4) < tolerance)
             {
                 //compute slope of line 1 (m1) and c2
                 var m1 = (y2 - y1) / (x2 - x1);
@@ -84,7 +84,7 @@ namespace RSBot.Core.Components.Collision
             if (IsInsideLine(lineA, x, y) &&
                 IsInsideLine(lineB, x, y))
             {
-                return new(new Position((float)x, (float)y), lineB);
+                return new(new(x, y), lineB);
             }
             //return default null (no intersection)
             return null;
@@ -97,13 +97,13 @@ namespace RSBot.Core.Components.Collision
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        private static bool IsInsideLine(CalculatedCollisionLine line, double x, double y)
+        private static bool IsInsideLine(CalculatedCollisionLine line, float x, float y)
         {
-            var isInX = (x >= line.Source.X && x <= line.Destination.X
-                         || x >= line.Destination.X && x <= line.Source.X);
+            var isInX = x >= line.Source.X && x <= line.Destination.X
+                         || x >= line.Destination.X && x <= line.Source.X;
 
-            var isInY = (y >= line.Source.Y && y <= line.Destination.Y
-                         || y >= line.Destination.Y && y <= line.Source.Y);
+            var isInY = y >= line.Source.Y && y <= line.Destination.Y
+                         || y >= line.Destination.Y && y <= line.Source.Y;
 
             return isInX && isInY;
         }

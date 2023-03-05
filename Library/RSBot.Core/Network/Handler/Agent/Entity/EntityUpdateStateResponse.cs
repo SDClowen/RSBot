@@ -42,7 +42,7 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
                 case 0:
 
                     entity.State.LifeState = (LifeState)state;
-                    if (uniqueId == Game.SelectedEntity?.UniqueId || Game.Player.GetAttackers().Any(e => e.UniqueId == uniqueId) && entity.State.LifeState == LifeState.Dead)
+                    if (/*uniqueId == Game.SelectedEntity?.UniqueId || */Game.Player.GetAttackers().Any(e => e.UniqueId == uniqueId) && entity.State.LifeState == LifeState.Dead)
                         EventManager.FireEvent("OnKillEnemy");
                
                     if (uniqueId == Game.SelectedEntity?.UniqueId && entity.State.LifeState == LifeState.Dead)

@@ -84,7 +84,7 @@ public partial class Main : UserControl
     /// </summary>
     /// <param name="targetId">The target identifier.</param>
     /// <param name="removedPerk">The removed perk.</param>
-    private void OnRemoveItemPerk(uint targetId, ItemPerk? removedPerk)
+    private void OnRemoveItemPerk(uint targetId, ItemPerk removedPerk)
     {
         if (targetId != Game.Player.UniqueId || removedPerk == null)
             return;
@@ -162,6 +162,7 @@ public partial class Main : UserControl
         checkCastBuffsDuringWalkBack.Checked = PlayerConfig.Get<bool>("RSBot.Skills.CastBuffsDuringWalkBack");
         checkBoxNoAttack.Checked = PlayerConfig.Get<bool>("RSBot.Skills.NoAttack");
         checkLearnMastery.Checked = PlayerConfig.Get<bool>("RSBot.Skills.learnMastery");
+        checkLearnMasteryBotStopped.Checked = PlayerConfig.Get<bool>("RSBot.Skills.learnMasteryIfBotStoped");
         numMasteryGap.Value = PlayerConfig.Get<byte>("RSBot.Skills.masteryGap", 0);
         checkWarlockMode.Checked = PlayerConfig.Get<bool>("RSBot.Skills.WarlockMode", false);
         checkUseDefaultAttack.Checked = PlayerConfig.Get("RSBot.Skills.UseDefaultAttack", true);
@@ -278,8 +279,8 @@ public partial class Main : UserControl
 
         var selectedTeleportSkill = PlayerConfig.Get<uint>("RSBot.Skills.TeleportSkill");
         foreach (var skill in Game.Player.Skills.KnownSkills.Where(s => s.CanBeCasted && s.Record.Action_ActionDuration == 0 && s.Record.Params[2] == 500))
-        { 
-           var index = comboTeleportSkill.Items.Add(new TeleportSkillComboBoxItem() { Level = skill.Record.Basic_Level, Record = skill.Record });
+        {
+            var index = comboTeleportSkill.Items.Add(new TeleportSkillComboBoxItem() { Level = skill.Record.Basic_Level, Record = skill.Record });
 
             if (selectedTeleportSkill == skill.Record.ID)
             {
@@ -391,8 +392,7 @@ public partial class Main : UserControl
         lock (_lock)
         {
             comboResurrectionSkill.Items.Clear();
-
-            comboResurrectionSkill.SelectedIndex = comboResurrectionSkill.Items.Add("None");
+            comboResurrectionSkill.Items.Add("None");
 
             foreach (var skill in Game.Player.Skills.KnownSkills.Where(
                          s => s.Record != null && s.Record.TargetEtc_SelectDeadBody && !s.Record.TargetGroup_Enemy_M))
@@ -402,12 +402,12 @@ public partial class Main : UserControl
 
                 var index = comboResurrectionSkill.Items.Add(skill);
                 var resurrectionSkillId = PlayerConfig.Get<int>("RSBot.Skills.ResurrectionSkill");
-                if (resurrectionSkillId == 0)
-                    continue;
-
                 if (skill.Id == resurrectionSkillId)
                     comboResurrectionSkill.SelectedIndex = index;
             }
+
+            if (comboResurrectionSkill.SelectedIndex <= 0)
+                comboResurrectionSkill.SelectedIndex = 0;
         }
     }
 
@@ -946,7 +946,12 @@ public partial class Main : UserControl
         PlayerConfig.Set("RSBot.Skills.NoAttack", checkBoxNoAttack.Checked);
     }
 
-    private void checkLearnMastery_Click(object sender, EventArgs e)
+    private void checkLearnMasteryBotStopped_CheckedChanged(object sender, EventArgs e)
+    {
+        PlayerConfig.Set("RSBot.Skills.learnMasteryIfBotStoped", checkLearnMasteryBotStopped.Checked);
+    }
+
+    private void checkLearnMastery_CheckedChanged(object sender, EventArgs e)
     {
         PlayerConfig.Set("RSBot.Skills.learnMastery", checkLearnMastery.Checked);
     }
@@ -976,7 +981,7 @@ public partial class Main : UserControl
         if (listSkills.SelectedItems.Count <= 0)
             return;
 
-        if(!GlobalConfig.Get<bool>("RSBot.DebugEnvironment"))
+        if (!GlobalConfig.Get<bool>("RSBot.DebugEnvironment"))
             return;
 
         if (listSkills.SelectedItems[0].Tag is not SkillInfo skillInfo)

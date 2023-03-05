@@ -9,7 +9,7 @@ namespace RSBot.Core.Objects.Spawn
         /// <summary>
         /// Synchroniztion object.
         /// </summary>
-        protected object _lock { get; } = new object();
+        protected internal object _lock { get; } = new();
 
         /// <summary>
         /// Gets or sets the unique identifier.
@@ -111,7 +111,7 @@ namespace RSBot.Core.Objects.Spawn
         {
             get
             {
-                if(Movement.Type == MovementType.Walking)
+                if (Movement.Type == MovementType.Walking)
                 {
                     if (State.WalkSpeed == 0 && State.RunSpeed != 0)
                         return State.RunSpeed;

@@ -174,10 +174,8 @@ namespace RSBot.Core.Components
                 if (removedEntity == null)
                     return false;
 
-                if (Game.SelectedEntity != null && removedEntity.Equals(Game.SelectedEntity))
-                {
+                if (Game.SelectedEntity?.UniqueId == uniqueId)
                     Game.SelectedEntity = null;
-                }
 
                 removedEntity.Dispose();
                 return _entities.Remove(removedEntity);
@@ -220,13 +218,14 @@ namespace RSBot.Core.Components
                 }
 
                 var obj = Game.ReferenceManager.GetRefObjCommon(refObjId);
-
                 if (obj == null)
                 {
                     Log.Debug($"SpawnManager::Parse error while getting RefObjCommon by id {refObjId}");
 
                     return;
                 }
+
+                //Log.Debug($"Detected: {obj.GetRealName()}   {obj.CodeName}");
 
                 switch (obj.TypeID1)
                 {

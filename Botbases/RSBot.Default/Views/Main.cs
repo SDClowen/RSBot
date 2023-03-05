@@ -68,15 +68,13 @@ namespace RSBot.Default.Views
             if (IsDisposed || Disposing)
                 return;
 
-            var xPos = PlayerConfig.Get<float>("RSBot.Area.X");
-            var yPos = PlayerConfig.Get<float>("RSBot.Area.Y");
-            var radius = PlayerConfig.Get<int>("RSBot.Area.Radius");
+            var area = Kernel.Bot.Botbase.Area;
 
-            txtRadius.Text = radius.ToString();
-            txtXCoord.Text = xPos.ToString();
-            txtYCoord.Text = yPos.ToString();
+            txtXCoord.Text = area.Position.X.ToString("0.0");
+            txtYCoord.Text = area.Position.Y.ToString("0.0");
+            txtRadius.Text = area.Radius.ToString();
 
-            EventManager.FireEvent("AppendScriptCommand", $"area {xPos} {yPos} {radius}");
+            EventManager.FireEvent("AppendScriptCommand", area.GetScriptLine());
         }
 
         /// <summary>
@@ -127,9 +125,13 @@ namespace RSBot.Default.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnGetCurrent_Click(object sender, EventArgs e)
         {
-            txtXCoord.Text = Game.Player.Position.X.ToString("0.0");
-            txtYCoord.Text = Game.Player.Position.Y.ToString("0.0");
-            
+            var pos = Game.Player.Position;
+
+            PlayerConfig.Set("RSBot.Area.Region", pos.Region);
+            PlayerConfig.Set("RSBot.Area.X", pos.XOffset);
+            PlayerConfig.Set("RSBot.Area.Y", pos.YOffset);
+            PlayerConfig.Set("RSBot.Area.Z", pos.ZOffset);
+
             EventManager.FireEvent("OnSetTrainingArea");
         }
 
@@ -142,8 +144,6 @@ namespace RSBot.Default.Views
         {
             if (!float.TryParse(txtXCoord.Text, out var result))
                 return;
-
-            PlayerConfig.Set("RSBot.Area.X", result);
         }
 
         /// <summary>
@@ -155,8 +155,6 @@ namespace RSBot.Default.Views
         {
             if (!float.TryParse(txtYCoord.Text, out var result))
                 return;
-
-            PlayerConfig.Set("RSBot.Area.Y", result);
         }
 
         /// <summary>
@@ -342,10 +340,12 @@ namespace RSBot.Default.Views
             if (IsDisposed || Disposing)
                 return;
 
+            var area = Kernel.Bot.Botbase.Area;
             //Training Area
-            txtXCoord.Text = PlayerConfig.Get("RSBot.Area.X", "0");
-            txtYCoord.Text = PlayerConfig.Get("RSBot.Area.Y", "0");
-            txtRadius.Text = PlayerConfig.Get("RSBot.Area.Radius", "50");
+            txtXCoord.Text = area.Position.X.ToString("0.0");
+            txtYCoord.Text = area.Position.Y.ToString("0.0");
+            txtRadius.Text = area.Radius.ToString();
+
             radioCenter.Checked = PlayerConfig.Get("RSBot.Area.GoToCenter", true);
             radioWalkAround.Checked = PlayerConfig.Get<bool>("RSBot.Area.WalkAround");
 

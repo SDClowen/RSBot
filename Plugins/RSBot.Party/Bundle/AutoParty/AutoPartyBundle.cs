@@ -63,7 +63,7 @@ namespace RSBot.Party.Bundle.AutoParty
                 AcceptIfBotIsStopped = PlayerConfig.Get<bool>("RSBot.Party.AcceptIfBotStopped"),
                 LeaveIfMasterNot = PlayerConfig.Get<bool>("RSBot.Party.LeaveIfMasterNot"),
                 LeaveIfMasterNotName = PlayerConfig.Get<string>("RSBot.Party.LeaveIfMasterNotName"),
-                CenterPosition = new Position(PlayerConfig.Get<float>("RSBot.Area.X"), PlayerConfig.Get<float>("RSBot.Area.Y")),
+                CenterPosition = Kernel.Bot.Botbase.Area.Position,
                 AutoJoinByName = PlayerConfig.Get<bool>("RSBot.Party.AutoJoin.ByName", false),
                 AutoJoinByTitle = PlayerConfig.Get<bool>("RSBot.Party.AutoJoin.ByTitle", false),
                 AutoJoinByNameContent = PlayerConfig.Get("RSBot.Party.AutoJoin.Name", string.Empty),
@@ -109,10 +109,12 @@ namespace RSBot.Party.Bundle.AutoParty
                 while (true)
                 {
                     var currentPage = Container.PartyMatching.RequestPartyList(page);
+
+                    _partyEntriesCache.AddRange(currentPage.Parties);
+
                     if (currentPage.Page == currentPage.PageCount - 1)
                         break;
 
-                    _partyEntriesCache.AddRange(currentPage.Parties);
                     page++;
                 }
 
@@ -131,7 +133,7 @@ namespace RSBot.Party.Bundle.AutoParty
 
             if (Config.AutoJoinByTitle)
             {
-                var partyEntry = _partyEntriesCache.Find(p => p.Title.Equals(Config.AutoJoinByTitleContent, StringComparison.CurrentCultureIgnoreCase));
+                var partyEntry = _partyEntriesCache.Find(p => p.Title.Contains(Config.AutoJoinByTitleContent, StringComparison.CurrentCultureIgnoreCase));
                 if (partyEntry == null)
                     return;
 

@@ -95,7 +95,7 @@ namespace RSBot.Alchemy.Views
                 if (IsDisposed || Disposing)
                     return;
 
-                Invoke(ReloadItemList);
+                ReloadItemList();
             });
 
             EventManager.SubscribeEvent("OnAlchemy", new Action<AlchemyType>(OnAlchemy));
@@ -118,7 +118,7 @@ namespace RSBot.Alchemy.Views
             if (IsDisposed || Disposing)
                 return;
 
-            Invoke(ReloadItemList);
+            ReloadItemList();
         }
 
         /// <summary>

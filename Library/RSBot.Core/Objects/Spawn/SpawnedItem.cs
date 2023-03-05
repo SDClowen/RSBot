@@ -118,8 +118,11 @@ namespace RSBot.Core.Objects.Spawn
                 return (actionState is ActionState.Begin or ActionState.End)
                     ? AwaitCallbackResult.Success : AwaitCallbackResult.ConditionFailed;
             }, 0xB074);
+
+            Log.Status("Picking up...");
             PacketManager.SendPacket(packet, PacketDestination.Server, asyncResult);
             asyncResult.AwaitResponse(500);
+            Log.StatusLang("Ready");
 
             return asyncResult.IsCompleted;
         }

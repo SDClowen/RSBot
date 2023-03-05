@@ -24,7 +24,6 @@ namespace RSBot.Default.Bot
         public Botbase()
         {
             EventManager.SubscribeEvent("OnSetTrainingArea", Reload);
-            Reload();
         }
 
         /// <summary>
@@ -35,8 +34,10 @@ namespace RSBot.Default.Bot
             Area = new Area
             {
                 Position = new Position(
+                    PlayerConfig.Get<ushort>("RSBot.Area.Region"),
                     PlayerConfig.Get<float>("RSBot.Area.X"),
-                    PlayerConfig.Get<float>("RSBot.Area.Y")),
+                    PlayerConfig.Get<float>("RSBot.Area.Y"),
+                    PlayerConfig.Get<float>("RSBot.Area.Z")),
                 Radius = Math.Clamp(PlayerConfig.Get<int>("RSBot.Area.Radius", 50), 5, 100)
             };
         }
@@ -63,6 +64,9 @@ namespace RSBot.Default.Bot
             }
 
             var noAttack = PlayerConfig.Get("RSBot.Skills.NoAttack", false);
+
+            //Check for protection
+            Bundles.Protection.Invoke();
 
             //Cast buffs
             Bundles.Buff.Invoke();
