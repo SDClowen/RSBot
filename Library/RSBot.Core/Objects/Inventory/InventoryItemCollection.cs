@@ -12,6 +12,11 @@ namespace RSBot.Core.Objects
         /// The list of items.
         /// </summary>
         protected List<InventoryItem> _collection;
+        
+        /// <summary>
+        /// Gets the number of free slots in this inventory.
+        /// </summary>
+        public byte FreeSlots => (byte)(Capacity - Count);
 
         /// <summary>
         /// Gets or sets the size.
@@ -102,7 +107,7 @@ namespace RSBot.Core.Objects
         /// <param name="slot">The slot.</param>
         /// <returns>if found: the item at the slot; otherwise: null</returns>
         public InventoryItem GetItemAt(byte slot)
-            => GetItem(item => item.Slot == slot);
+            => GetItem(item => item?.Slot == slot);
 
         /// <summary>
         /// Determines whether [contains] the item.
@@ -438,7 +443,16 @@ namespace RSBot.Core.Objects
 
             var amount = packet.ReadByte();
             for (var i = 0; i < amount; i++)
-                _collection.Add(InventoryItem.FromPacket(packet));
+            {
+                var item = InventoryItem.FromPacket(packet);
+
+                if (item == null)
+                {
+
+                }
+                _collection.Add(item);
+
+            }
         }
     }
 }

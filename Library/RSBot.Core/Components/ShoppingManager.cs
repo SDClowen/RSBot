@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using RSBot.Core.Event;
+using RSBot.Core.Objects.Cos;
 using static RSBot.Core.Game;
 
 namespace RSBot.Core.Components
@@ -148,6 +149,7 @@ namespace RSBot.Core.Components
 
                 Finished = true;
                 Running = false;
+
                 return;
             }
 
@@ -241,19 +243,39 @@ namespace RSBot.Core.Components
         /// <param name="amount">The amount.</param>
         public static void PurchaseItem(int tab, int slot, ushort amount)
         {
-            var npc = SelectedEntity;
-            if (npc == null)
+            if (SelectedEntity == null)
             {
                 Log.Debug("Cannot buy items, because no shop is selected!");
                 return;
             }
 
             var packet = new Packet(0x7034);
-            packet.WriteByte(0x08); //Buy item flag
+            packet.WriteByte(InventoryOperation.SP_BUY_ITEM); //Buy item flag
             packet.WriteByte(tab);
             packet.WriteByte(slot);
             packet.WriteUShort(amount);
-            packet.WriteUInt(npc.UniqueId);
+            packet.WriteUInt(SelectedEntity.UniqueId);
+
+            var awaitResult = new AwaitCallback(null, 0xB034);
+            PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
+            awaitResult.AwaitResponse();
+        }
+
+        public static void PurchaseItem(Cos transport, int tab, int slot, ushort amount)
+        {
+            if (SelectedEntity == null)
+            {
+                Log.Debug("Cannot buy items, because no shop is selected!");
+                return;
+            }
+
+            var packet = new Packet(0x7034);
+            packet.WriteByte(InventoryOperation.SP_BUY_ITEM_COS); //Buy item flag
+            packet.WriteUInt(transport.UniqueId);
+            packet.WriteByte(tab);
+            packet.WriteByte(slot);
+            packet.WriteUShort(amount);
+            packet.WriteUInt(SelectedEntity.UniqueId);
 
             var awaitResult = new AwaitCallback(null, 0xB034);
             PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
@@ -351,7 +373,7 @@ namespace RSBot.Core.Components
         /// <summary>
         /// Closes the shop.
         /// </summary>
-        private static void CloseShop()
+        public static void CloseShop()
         {
             if (SelectedEntity != null && SelectedEntity.TryDeselect())
                 SelectedEntity = null;
@@ -459,6 +481,26 @@ namespace RSBot.Core.Components
         {
             PlayerConfig.SetArray("RSBot.Shopping.Sell", SellFilter);
             PlayerConfig.SetArray("RSBot.Shopping.Store", StoreFilter);
+        }
+
+        public static void ChooseTalkOption(string npcCodeName, TalkOption option)
+        {
+            if (!SpawnManager.TryGetEntity<SpawnedNpcNpc>(p => p.Record.CodeName == npcCodeName, out var entity))
+            {
+                Log.Debug("Cannot access the NPC [" + npcCodeName + "] because it does not exist nearby.");
+
+                return;
+            }
+            
+            SelectNPC(npcCodeName);
+
+            var packet = new Packet(0x7046);
+            packet.WriteUInt(entity.UniqueId);
+            packet.WriteByte(option);
+
+            var awaitResult = new AwaitCallback(null, 0xB046);
+            PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
+            awaitResult.AwaitResponse();
         }
 
         /// <summary>

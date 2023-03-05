@@ -29,6 +29,11 @@ namespace RSBot.Core.Network.Handler.Agent.Action
             if (packet.ReadByte() != 1) 
                 return;
 
+            if (Game.Player.State.DialogState is { IsInDialog: true } && Game.Player.State.DialogState.RequestedCloseNpcId != 0)
+            {
+                Game.Player.State.DialogState = null;
+            }
+            
             Game.SelectedEntity = null;
             EventManager.FireEvent("OnDeselectEntity");
         }

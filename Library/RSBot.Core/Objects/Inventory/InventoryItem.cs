@@ -401,7 +401,13 @@ namespace RSBot.Core.Objects
                         packet.ReadUInt();
                     }
                 }
+
+                if (record.IsTrading)
+                    //Owner name (Player name)
+                    packet.ReadString();
             }
+            
+
 
             return item;
         }

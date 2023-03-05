@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<Nullable>disable</Nullable>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<OutputPath>.\..\..\Build\Data\Bots</OutputPath>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<Description>An automatic trader botbase for RSBot</Description>
+		<Copyright>Copyright © 2022, RSBot Team</Copyright>
+		<PackageProjectUrl>https://github.com/SDClowen/RSBot</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/SDClowen/RSBot</RepositoryUrl>
+		<OutputType>Library</OutputType>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Library\RSBot.Core\RSBot.Core.csproj">
+			<Private></Private>
+		</ProjectReference>
+		<ProjectReference Include="..\..\SDUI\SDUI\SDUI.csproj">
+			<Private></Private>
+		</ProjectReference>
+	</ItemGroup>
+
+</Project>

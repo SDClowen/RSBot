@@ -1,6 +1,5 @@
 ﻿using RSBot.Core.Components;
 using RSBot.Core.Network;
-using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
 using System;
 using System.Threading;
@@ -96,7 +95,7 @@ namespace RSBot.Core.Objects.Cos
         /// The AbilityPet's Inventory.
         /// </value>
         public InventoryItemCollection Inventory { get; set; }
-
+        
         /// <summary>
         /// Gets or sets the bionic.
         /// </summary>

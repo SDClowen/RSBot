@@ -43,7 +43,7 @@
             this.lblType.Name = "lblType";
             this.lblType.Size = new System.Drawing.Size(250, 19);
             this.lblType.TabIndex = 18;
-            this.lblType.Text = "Champion";
+            this.lblType.Text = "<none>";
             this.lblType.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label1
@@ -59,7 +59,7 @@
             // lblEntityName
             // 
             this.lblEntityName.AutoSize = true;
-            this.lblEntityName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEntityName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblEntityName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblEntityName.Location = new System.Drawing.Point(49, 12);
             this.lblEntityName.Name = "lblEntityName";
@@ -75,17 +75,18 @@
             this.progressHP.Gradient = new System.Drawing.Color[] {
         System.Drawing.Color.Maroon,
         System.Drawing.Color.Red};
-            this.progressHP.HatchType = System.Drawing.Drawing2D.HatchStyle.Horizontal;
+            this.progressHP.HatchType = System.Drawing.Drawing2D.HatchStyle.Percent10;
             this.progressHP.Location = new System.Drawing.Point(52, 38);
             this.progressHP.Maximum = ((long)(100));
+            this.progressHP.MaxPercentShowValue = 100F;
             this.progressHP.Name = "progressHP";
             this.progressHP.PercentIndices = 2;
-            this.progressHP.Radius = 0;
+            this.progressHP.Radius = 1;
             this.progressHP.ShowAsPercent = true;
             this.progressHP.ShowValue = true;
             this.progressHP.Size = new System.Drawing.Size(180, 16);
             this.progressHP.TabIndex = 15;
-            this.progressHP.Text = "0%";
+            this.progressHP.Text = "0,00%";
             this.progressHP.Value = ((long)(0));
             // 
             // Entity
@@ -97,7 +98,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblEntityName);
             this.Controls.Add(this.progressHP);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.MinimumSize = new System.Drawing.Size(250, 76);
             this.Name = "Entity";
             this.Size = new System.Drawing.Size(250, 76);

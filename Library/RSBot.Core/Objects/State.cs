@@ -104,6 +104,11 @@ namespace RSBot.Core.Objects
         public ScrollState ScrollState { get; set; }
 
         /// <summary>
+        /// Gets or sets the dialog state.
+        /// </summary>
+        public DialogState DialogState { get; set; }
+
+        /// <summary>
         /// Creates a new state object by the given packet
         /// </summary>
         /// <param name="packet">The packet.</param>

@@ -113,7 +113,7 @@ namespace RSBot.Inventory.Views
                         foreach (var item in itemsPlayer)
                             AddItem(item);
 
-                        lblFreeSlots.Text = Game.Player.Inventory.Count + "/" + Game.Player.Inventory.Capacity;
+                        lblFreeSlots.Text = Game.Player.Inventory.FreeSlots + "/" + Game.Player.Inventory.Capacity;
 
                         break;
 
@@ -146,7 +146,7 @@ namespace RSBot.Inventory.Views
                         foreach (var item in Game.Player.AbilityPet.Inventory)
                             AddItem(item);
 
-                        lblFreeSlots.Text = Game.Player.AbilityPet.Inventory.Count + "/" +
+                        lblFreeSlots.Text = Game.Player.AbilityPet.Inventory.FreeSlots + "/" +
                                             Game.Player.AbilityPet.Inventory.Capacity;
 
                         break;
@@ -162,7 +162,7 @@ namespace RSBot.Inventory.Views
                         foreach (var item in Game.Player.Storage)
                             AddItem(item);
 
-                        lblFreeSlots.Text = Game.Player.Storage.Count + "/" + Game.Player.Storage.Capacity;
+                        lblFreeSlots.Text = Game.Player.Storage.FreeSlots + "/" + Game.Player.Storage.Capacity;
 
                         break;
 
@@ -177,7 +177,7 @@ namespace RSBot.Inventory.Views
                         foreach (var item in Game.Player.GuildStorage)
                             AddItem(item);
 
-                        lblFreeSlots.Text = Game.Player.GuildStorage.Count + "/" + Game.Player.GuildStorage.Capacity;
+                        lblFreeSlots.Text = Game.Player.GuildStorage.FreeSlots + "/" + Game.Player.GuildStorage.Capacity;
 
                         break;
 
@@ -192,7 +192,7 @@ namespace RSBot.Inventory.Views
                         foreach (var item in Game.Player.JobTransport.Inventory)
                             AddItem(item);
 
-                        lblFreeSlots.Text = Game.Player.JobTransport.Inventory.Count + "/" +
+                        lblFreeSlots.Text = Game.Player.JobTransport.Inventory.FreeSlots + "/" +
                                             Game.Player.JobTransport.Inventory.Capacity;
 
                         break;
@@ -208,7 +208,7 @@ namespace RSBot.Inventory.Views
                         foreach (var item in Game.Player.Job2SpecialtyBag)
                             AddItem(item);
 
-                        lblFreeSlots.Text = Game.Player.Job2SpecialtyBag.Count + "/" +
+                        lblFreeSlots.Text = Game.Player.Job2SpecialtyBag.FreeSlots + "/" +
                                             Game.Player.Job2SpecialtyBag.Capacity;
 
                         break;
@@ -224,7 +224,7 @@ namespace RSBot.Inventory.Views
                         foreach (var item in Game.Player.Job2)
                             AddItem(item);
 
-                        lblFreeSlots.Text = Game.Player.Job2.Count + "/" + Game.Player.Job2.Capacity;
+                        lblFreeSlots.Text = Game.Player.Job2.FreeSlots + "/" + Game.Player.Job2.Capacity;
 
                         break;
 
@@ -239,7 +239,7 @@ namespace RSBot.Inventory.Views
                         foreach (var item in Game.Player.Fellow.Inventory)
                             AddItem(item);
 
-                        lblFreeSlots.Text = Game.Player.Fellow.Inventory.Count + "/" +
+                        lblFreeSlots.Text = Game.Player.Fellow.Inventory.FreeSlots + "/" +
                                             Game.Player.Fellow.Inventory.Capacity;
 
                         break;
@@ -255,7 +255,10 @@ namespace RSBot.Inventory.Views
         /// <param name="item">The item.</param>
         private void AddItem(InventoryItem item)
         {
-            var name = item.Record.GetRealName();
+            if (item == null)
+                return;
+
+            var name = item.Record?.GetRealName() ?? "";
             if (item.OptLevel > 0)
                 name += " (+" + item.OptLevel + ")";
 

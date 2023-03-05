@@ -62,6 +62,8 @@ namespace RSBot.Core.Components
         /// The argument separator.
         /// </value>
         public static char ArgumentSeparator { get; set; } = ' ';
+        
+        public static bool IsPaused { get; private set; }
 
         public static void Initialize()
         {
@@ -106,6 +108,11 @@ namespace RSBot.Core.Components
         {
             Commands = commands;
             EventManager.FireEvent("OnLoadScript");
+        }
+
+        public static void Pause()
+        {
+
         }
 
         /// <summary>

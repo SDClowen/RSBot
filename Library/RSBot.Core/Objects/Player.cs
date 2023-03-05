@@ -9,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using RSBot.Core.Components;
+using RSBot.Core.Objects.Job;
 
 namespace RSBot.Core.Objects
 {
@@ -293,7 +295,7 @@ namespace RSBot.Core.Objects
         /// The job information.
         /// </value>
         public JobInfo JobInformation { get; set; }
-        
+
         /// <summary>
         /// Gets or sets a value indicating whether [on transport].
         /// </summary>
@@ -507,6 +509,11 @@ namespace RSBot.Core.Objects
         /// The weapon.
         /// </value>
         public InventoryItem Weapon => Inventory.GetItemAt(6);
+
+        /// <summary>
+        /// Gets information about the current trade job.
+        /// </summary>
+        public TradeInfo TradeInfo { get; internal set; } = null;
 
         /// <summary>
         /// Gets a value indicating whether this player is able to attack.

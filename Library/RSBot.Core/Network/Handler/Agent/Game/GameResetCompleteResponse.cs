@@ -33,6 +33,7 @@ namespace RSBot.Core.Network.Handler.Agent
                 return;
 
             Game.Player.Teleportation.IsTeleporting = true;
+            Game.Player.State.DialogState = null;
 
             EventManager.FireEvent("OnTeleportStart");
         }

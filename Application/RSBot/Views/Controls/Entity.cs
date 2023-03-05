@@ -6,6 +6,7 @@ using RSBot.Core.Objects.Spawn;
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+using RSBot.Core.Network;
 
 namespace RSBot.Views.Controls
 {
@@ -59,6 +60,9 @@ namespace RSBot.Views.Controls
             {
                 progressHP.Value = 100;
                 progressHP.Maximum = 100;
+
+                if (Game.Player.State.DialogState is { IsInDialog: true })
+                    lblType.Text = "<in conversation>";
             }
         }
 

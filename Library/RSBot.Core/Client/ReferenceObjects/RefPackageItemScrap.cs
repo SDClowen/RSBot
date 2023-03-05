@@ -64,6 +64,8 @@
 
         public string PrimaryKey => this.RefPackageItemCodeName;
 
+        public RefObjItem RefItem => Game.ReferenceManager.GetRefItem(RefItemCodeName);
+
         public bool Load(ReferenceParser parser)
         {
             //Skip disabled
