@@ -22,7 +22,7 @@ namespace RSBot.Core.Network.Handler.Agent.Alchemy
                 var socketItem = Game.Player.Inventory.GetItemAt(packet.ReadByte()); //Target item
 
                 if (item != null && socketItem != null)
-                    AlchemyManager.ActiveAlchemyItems = new List<InventoryItem>
+                    AlchemyManager.ActiveAlchemyItems = new()
                     {
                         item,
                         socketItem
@@ -33,7 +33,7 @@ namespace RSBot.Core.Network.Handler.Agent.Alchemy
 
             var slots = packet.ReadByteArray(packet.ReadByte());
 
-            AlchemyManager.ActiveAlchemyItems = new List<InventoryItem>(slots.Length);
+            AlchemyManager.ActiveAlchemyItems = new(slots.Length);
 
             foreach (var slot in slots)
             {
