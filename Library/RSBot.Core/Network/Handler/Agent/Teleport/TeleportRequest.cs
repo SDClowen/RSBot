@@ -32,7 +32,8 @@ namespace RSBot.Core.Network.Handler.Agent.Teleport
         {
             var teleporterUniqueId = packet.ReadUInt();
             var teleportType = (TeleportType)packet.ReadByte();
-            if (teleportType == TeleportType.Guide)
+            if (teleportType == TeleportType.Guide ||
+                teleportType == TeleportType.RUNTIME_PORTAL)
             {
                 var operation = packet.ReadByte();
                 return;

@@ -29,7 +29,7 @@ namespace RSBot.Core.Network.Handler.Agent.Action
             if (packet.ReadByte() != 1) 
                 return;
 
-            Game.SelectedEntity = null;
+            //Game.SelectedEntity = null;
             EventManager.FireEvent("OnDeselectEntity");
         }
     }
