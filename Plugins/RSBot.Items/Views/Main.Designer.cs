@@ -144,14 +144,14 @@ namespace RSBot.Items.Views
             txtSellSearch = new SDUI.Controls.TextBox();
             pictureBox1 = new PictureBox();
             tabPage1 = new TabPage();
-            groupBox2 = new SDUI.Controls.GroupBox();
+            groupBoxOptions = new SDUI.Controls.GroupBox();
             checkPickupGold = new SDUI.Controls.CheckBox();
             checkAllEquips = new SDUI.Controls.CheckBox();
             checkEverything = new SDUI.Controls.CheckBox();
             checkPickupRare = new SDUI.Controls.CheckBox();
             checkQuestItems = new SDUI.Controls.CheckBox();
             checkPickupBlue = new SDUI.Controls.CheckBox();
-            groupBox7 = new SDUI.Controls.GroupBox();
+            groupBoxGeneral = new SDUI.Controls.GroupBox();
             cbDontPickupWhileBotting = new SDUI.Controls.CheckBox();
             cbJustpickmyitems = new SDUI.Controls.CheckBox();
             checkDontPickupInBerzerk = new SDUI.Controls.CheckBox();
@@ -179,8 +179,8 @@ namespace RSBot.Items.Views
             panel3.SuspendLayout();
             ((ISupportInitialize)pictureBox1).BeginInit();
             tabPage1.SuspendLayout();
-            groupBox2.SuspendLayout();
-            groupBox7.SuspendLayout();
+            groupBoxOptions.SuspendLayout();
+            groupBoxGeneral.SuspendLayout();
             SuspendLayout();
             // 
             // contextShoppingList
@@ -526,9 +526,9 @@ namespace RSBot.Items.Views
             tabSellFilter.Controls.Add(filterPanel);
             tabSellFilter.Controls.Add(panel3);
             tabSellFilter.Controls.Add(pictureBox1);
-            tabSellFilter.Location = new Point(4, 24);
+            tabSellFilter.Location = new Point(4, 25);
             tabSellFilter.Name = "tabSellFilter";
-            tabSellFilter.Size = new Size(746, 445);
+            tabSellFilter.Size = new Size(746, 444);
             tabSellFilter.TabIndex = 1;
             tabSellFilter.Text = "Item filter";
             // 
@@ -543,7 +543,7 @@ namespace RSBot.Items.Views
             listFilter.FullRowSelect = true;
             listFilter.Location = new Point(265, 0);
             listFilter.Name = "listFilter";
-            listFilter.Size = new Size(481, 409);
+            listFilter.Size = new Size(481, 408);
             listFilter.SmallImageList = searchImageList;
             listFilter.TabIndex = 5;
             listFilter.UseCompatibleStateImageBehavior = false;
@@ -678,7 +678,7 @@ namespace RSBot.Items.Views
             filterPanel.Padding = new Padding(12);
             filterPanel.Radius = 0;
             filterPanel.ShadowDepth = 4F;
-            filterPanel.Size = new Size(265, 409);
+            filterPanel.Size = new Size(265, 408);
             filterPanel.TabIndex = 20;
             // 
             // groupOthers
@@ -1331,7 +1331,7 @@ namespace RSBot.Items.Views
             panel3.Controls.Add(btnReload);
             panel3.Controls.Add(txtSellSearch);
             panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(0, 409);
+            panel3.Location = new Point(0, 408);
             panel3.Margin = new Padding(0);
             panel3.Name = "panel3";
             panel3.Radius = 0;
@@ -1432,8 +1432,8 @@ namespace RSBot.Items.Views
             // tabPage1
             // 
             tabPage1.BackColor = Color.White;
-            tabPage1.Controls.Add(groupBox2);
-            tabPage1.Controls.Add(groupBox7);
+            tabPage1.Controls.Add(groupBoxOptions);
+            tabPage1.Controls.Add(groupBoxGeneral);
             tabPage1.Location = new Point(4, 24);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
@@ -1441,24 +1441,24 @@ namespace RSBot.Items.Views
             tabPage1.TabIndex = 2;
             tabPage1.Text = "Pickup settings";
             // 
-            // groupBox2
+            // groupBoxOptions
             // 
-            groupBox2.BackColor = Color.Transparent;
-            groupBox2.Controls.Add(checkPickupGold);
-            groupBox2.Controls.Add(checkAllEquips);
-            groupBox2.Controls.Add(checkEverything);
-            groupBox2.Controls.Add(checkPickupRare);
-            groupBox2.Controls.Add(checkQuestItems);
-            groupBox2.Controls.Add(checkPickupBlue);
-            groupBox2.Location = new Point(6, 117);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Padding = new Padding(3, 8, 3, 3);
-            groupBox2.Radius = 10;
-            groupBox2.ShadowDepth = 4;
-            groupBox2.Size = new Size(734, 100);
-            groupBox2.TabIndex = 6;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "General";
+            groupBoxOptions.BackColor = Color.Transparent;
+            groupBoxOptions.Controls.Add(checkPickupGold);
+            groupBoxOptions.Controls.Add(checkAllEquips);
+            groupBoxOptions.Controls.Add(checkEverything);
+            groupBoxOptions.Controls.Add(checkPickupRare);
+            groupBoxOptions.Controls.Add(checkQuestItems);
+            groupBoxOptions.Controls.Add(checkPickupBlue);
+            groupBoxOptions.Location = new Point(6, 117);
+            groupBoxOptions.Name = "groupBoxOptions";
+            groupBoxOptions.Padding = new Padding(3, 8, 3, 3);
+            groupBoxOptions.Radius = 10;
+            groupBoxOptions.ShadowDepth = 4;
+            groupBoxOptions.Size = new Size(734, 100);
+            groupBoxOptions.TabIndex = 6;
+            groupBoxOptions.TabStop = false;
+            groupBoxOptions.Text = "Options";
             // 
             // checkPickupGold
             // 
@@ -1538,22 +1538,22 @@ namespace RSBot.Items.Views
             checkPickupBlue.UseVisualStyleBackColor = false;
             checkPickupBlue.CheckedChanged += checkPickupBlue_CheckedChanged;
             // 
-            // groupBox7
+            // groupBoxGeneral
             // 
-            groupBox7.BackColor = Color.Transparent;
-            groupBox7.Controls.Add(cbDontPickupWhileBotting);
-            groupBox7.Controls.Add(cbJustpickmyitems);
-            groupBox7.Controls.Add(checkDontPickupInBerzerk);
-            groupBox7.Controls.Add(checkEnableAbilityPet);
-            groupBox7.Location = new Point(6, 6);
-            groupBox7.Name = "groupBox7";
-            groupBox7.Padding = new Padding(3, 10, 3, 3);
-            groupBox7.Radius = 10;
-            groupBox7.ShadowDepth = 4;
-            groupBox7.Size = new Size(734, 95);
-            groupBox7.TabIndex = 0;
-            groupBox7.TabStop = false;
-            groupBox7.Text = "Conditions";
+            groupBoxGeneral.BackColor = Color.Transparent;
+            groupBoxGeneral.Controls.Add(cbDontPickupWhileBotting);
+            groupBoxGeneral.Controls.Add(cbJustpickmyitems);
+            groupBoxGeneral.Controls.Add(checkDontPickupInBerzerk);
+            groupBoxGeneral.Controls.Add(checkEnableAbilityPet);
+            groupBoxGeneral.Location = new Point(6, 6);
+            groupBoxGeneral.Name = "groupBoxGeneral";
+            groupBoxGeneral.Padding = new Padding(3, 10, 3, 3);
+            groupBoxGeneral.Radius = 10;
+            groupBoxGeneral.ShadowDepth = 4;
+            groupBoxGeneral.Size = new Size(734, 95);
+            groupBoxGeneral.TabIndex = 0;
+            groupBoxGeneral.TabStop = false;
+            groupBoxGeneral.Text = "General";
             // 
             // cbDontPickupWhileBotting
             // 
@@ -1649,10 +1649,10 @@ namespace RSBot.Items.Views
             panel3.PerformLayout();
             ((ISupportInitialize)pictureBox1).EndInit();
             tabPage1.ResumeLayout(false);
-            groupBox2.ResumeLayout(false);
-            groupBox2.PerformLayout();
-            groupBox7.ResumeLayout(false);
-            groupBox7.PerformLayout();
+            groupBoxOptions.ResumeLayout(false);
+            groupBoxOptions.PerformLayout();
+            groupBoxGeneral.ResumeLayout(false);
+            groupBoxGeneral.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -1723,7 +1723,7 @@ namespace RSBot.Items.Views
         private System.Windows.Forms.ToolStripMenuItem btnDontPickup;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TabPage tabPage1;
-        private SDUI.Controls.GroupBox groupBox7;
+        private SDUI.Controls.GroupBox groupBoxGeneral;
         private SDUI.Controls.CheckBox checkPickupGold;
         private System.Windows.Forms.ColumnHeader colPickup;
         private SDUI.Controls.CheckBox checkPickupRare;
@@ -1773,6 +1773,6 @@ namespace RSBot.Items.Views
         private SDUI.Controls.CheckBox checkQuestItems;
         private SDUI.Controls.CheckBox checkAllEquips;
         private SDUI.Controls.CheckBox checkEverything;
-        private SDUI.Controls.GroupBox groupBox2;
+        private SDUI.Controls.GroupBox groupBoxOptions;
     }
 }
