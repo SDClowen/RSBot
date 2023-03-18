@@ -97,9 +97,9 @@ namespace RSBot.Map.Views
 
             // All
             comboViewType.SelectedIndex = 6;
-            checkEnableCollisions.Checked = GlobalConfig.Get("RSBot.EnableCollisionDetection", true);
+            checkEnableCollisions.Checked = CollisionManager.Enabled;
 
-            if(!_debug)
+            if (!_debug)
                 labelSectorInfo.Visible = false;
         }
 
@@ -171,7 +171,7 @@ namespace RSBot.Map.Views
                         y - img.Height / 2);
                 }
                 else
-                    gfx.DrawImage(img, x - img.Width, y - img.Height);
+                    gfx.DrawImage(img, x - img.Width / 2, y - img.Height / 2);
             }
             catch { }
         }
@@ -243,14 +243,15 @@ namespace RSBot.Map.Views
 
             try
             {
-                if (_debug && Game.Player.Movement.HasDestination)
+                if (Game.Player.Movement.HasDestination)
                 {
-                    DrawCircleAt(graphics, Game.Player.Movement.Destination, Color.Red, 5);
-                    DrawCircleAt(graphics, Game.Player.Movement.Destination, Color.Black, 3);
-
-                    using var pen = new Pen(Color.White, 1);
-                    pen.DashStyle = DashStyle.Dash;
+                    graphics.SmoothingMode = SmoothingMode.HighQuality;
+                    using var pen = new Pen(Color.BlanchedAlmond, 1);
+                    pen.DashStyle = DashStyle.Dot;
                     DrawLineAt(graphics, Game.Player.Movement.Source, Game.Player.Movement.Destination, pen);
+
+                    DrawCircleAt(graphics, Game.Player.Movement.Destination, Color.PaleGreen, 4);
+                    graphics.SmoothingMode = SmoothingMode.HighSpeed;
                 }
 
                 //Draw walk script
@@ -268,15 +269,11 @@ namespace RSBot.Map.Views
 
                 if (Kernel.Bot.Running)
                 {
-                    if (float.TryParse(PlayerConfig.Get("RSBot.Area.X", "0"), out var xCoord) &&
-                        float.TryParse(PlayerConfig.Get("RSBot.Area.Y", "0"), out var yCoord) &&
-                        int.TryParse(PlayerConfig.Get("RSBot.Area.Radius", "50"), out var radius))
-                    {
-                        var position = new Position(xCoord, yCoord);
+                    var position = Kernel.Bot.Botbase.Area.Position;
+                    var radius = Kernel.Bot.Botbase.Area.Radius;
 
-                        DrawCircleAt(graphics, position, Color.DarkRed.Alpha(100), radius * 2);
-                        DrawCircleAt(graphics, position, Color.LawnGreen.Alpha(50), radius);
-                    }
+                    DrawCircleAt(graphics, position, Color.DarkRed.Alpha(100), radius * 2);
+                    DrawCircleAt(graphics, position, Color.LawnGreen.Alpha(50), radius);
                 }
 
                 if (comboViewType.SelectedIndex == 0 || comboViewType.SelectedIndex == 6)
@@ -288,12 +285,15 @@ namespace RSBot.Map.Views
                             AddGridItem(entry.Record.GetRealName(), entry.Rarity.GetName(),
                                 entry.Record.Level, entry.Movement.Source);
 
+                            if (Game.SelectedEntity?.UniqueId == entry.UniqueId)
+                                DrawCircleAt(graphics, entry.Position, Color.Wheat.Alpha(100), 6);
+
                             //Other style for mobs behind obstacles
                             if (entry.IsBehindObstacle)
-                                DrawCircleAt(graphics, entry.Position, Color.DarkRed, 12);
+                                DrawCircleAt(graphics, entry.Position, Color.DarkRed.Alpha(100), 6);
 
                             if (entry.Rarity == MonsterRarity.Unique || entry.Rarity == MonsterRarity.Unique2)
-                                DrawPointAt(graphics, entry.Movement.Source, 5);
+                                DrawPointAt(graphics, entry.Position, 5);
                             else
                                 DrawPointAt(graphics, entry.Position, 4);
                         }
@@ -598,10 +598,10 @@ namespace RSBot.Map.Views
             if (!Visible)
                 return;
 
-            lblRegion.Text = Game.ReferenceManager.GetTranslation(Game.Player.Movement.Source.Region.ToString());
+            lblRegion.Text = Game.ReferenceManager.GetTranslation(Game.Player.Position.Region.ToString()) + (Game.Player.Position.Region.IsDungeon ? " (Dungeon)" : "");
 
-            lblX.Text = Game.Player.Movement.Source.X.ToString("0.0");
-            lblY.Text = Game.Player.Movement.Source.Y.ToString("0.0");
+            lblX.Text = Game.Player.Position.X.ToString("0.0");
+            lblY.Text = Game.Player.Position.Y.ToString("0.0");
 
             if(_debug)
                 labelSectorInfo.Text = $"{Game.Player.Movement.Source.Region} ({Game.Player.Movement.Source.Region.X}x{Game.Player.Movement.Source.Region.Y})";
@@ -629,7 +629,7 @@ namespace RSBot.Map.Views
             if (Game.SelectedEntity?.Record.Rarity == ObjectRarity.ClassD)
                 return;
 
-            if (SpawnManager.TryGetEntity<SpawnedMonster>(p => p.Record.Rarity == ObjectRarity.ClassD, out var uniqueEntity))
+            if (SpawnManager.TryGetEntity<SpawnedMonster>(p => p.Record.Rarity == ObjectRarity.ClassD || p.Record.Rarity == ObjectRarity.ClassI, out var uniqueEntity))
                 uniqueEntity.TrySelect();
         }
 
@@ -654,7 +654,7 @@ namespace RSBot.Map.Views
 
         private void checkEnableCollisions_CheckedChanged(object sender, EventArgs e)
         {
-            GlobalConfig.Set("RSBot.EnableCollisionDetection", checkEnableCollisions.Checked);
+            CollisionManager.Enabled = checkEnableCollisions.Checked;
         }
     }
 }
