@@ -10,13 +10,14 @@ namespace RSBot.Default.Subscriber
         /// </summary>
         public static void SubscribeEvents()
         {
-            EventManager.SubscribeEvent("OnSavePlayerConfig", OnSavePlayerSettings);
+            EventManager.SubscribeEvent("OnEnterGame", ReloadSettings);
+            EventManager.SubscribeEvent("OnSavePlayerConfig", ReloadSettings);
         }
 
         /// <summary>
         /// Configurations the subscriber on save player settings.
         /// </summary>
-        private static void OnSavePlayerSettings()
+        private static void ReloadSettings()
         {
             if (Container.Lock == null || Container.Bot == null)
                 return;

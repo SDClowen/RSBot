@@ -36,7 +36,7 @@ namespace RSBot.Core
         public void SetBotbase(IBotbase botBase)
         {
             Botbase = botBase;
-            Botbase.Initialize();
+            //Botbase.Initialize();
 
             EventManager.FireEvent("OnSetBotbase", botBase);
         }
