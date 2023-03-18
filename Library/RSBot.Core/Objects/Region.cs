@@ -15,7 +15,7 @@ namespace RSBot.Core.Objects
         [FieldOffset(sizeof(byte))]
         public byte Y;
 
-        public bool IsDungeon => Y == 0x80;
+        public bool IsDungeon => (Id & 0x8000) != 0;
 
         public Region(ushort id)
             : this()
@@ -57,13 +57,23 @@ namespace RSBot.Core.Objects
         }
 
         /// <summary>
-        /// Write current magic option info to the packet class
+        /// Write current value to the packet
         /// </summary>
         /// <param name="packet">The packet.</param>
         internal void Serialize(Packet packet)
         {
-            packet.WriteByte(X);
-            packet.WriteByte(Y);
+            packet.WriteUShort(Id);
+        }
+
+        public static bool TryParse(string value, out Region parsedValue)
+        {
+            parsedValue = 0;
+            if (!int.TryParse(value, out var parsed))
+                return false;
+
+            unchecked { parsedValue = (ushort)parsed; }
+
+            return true;
         }
 
         public override string ToString()

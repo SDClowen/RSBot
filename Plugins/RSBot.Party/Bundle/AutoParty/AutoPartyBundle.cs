@@ -63,7 +63,7 @@ namespace RSBot.Party.Bundle.AutoParty
                 AcceptIfBotIsStopped = PlayerConfig.Get<bool>("RSBot.Party.AcceptIfBotStopped"),
                 LeaveIfMasterNot = PlayerConfig.Get<bool>("RSBot.Party.LeaveIfMasterNot"),
                 LeaveIfMasterNotName = PlayerConfig.Get<string>("RSBot.Party.LeaveIfMasterNotName"),
-                CenterPosition = new Position(PlayerConfig.Get<float>("RSBot.Area.X"), PlayerConfig.Get<float>("RSBot.Area.Y")),
+                CenterPosition = Kernel.Bot.Botbase.Area.Position,
                 AutoJoinByName = PlayerConfig.Get<bool>("RSBot.Party.AutoJoin.ByName", false),
                 AutoJoinByTitle = PlayerConfig.Get<bool>("RSBot.Party.AutoJoin.ByTitle", false),
                 AutoJoinByNameContent = PlayerConfig.Get("RSBot.Party.AutoJoin.Name", string.Empty),

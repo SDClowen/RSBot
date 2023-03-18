@@ -110,7 +110,7 @@ internal class MoveScriptCommand : IScriptCommand
             return false; //Invalid format
         }
    
-        Position pos = new(xOffset, yOffset, zOffset, xSector, ySector);
+        Position pos = new(xSector, ySector, xOffset, yOffset, zOffset);
 
         if (PlayerConfig.Get("RSBot.Walkback.UseMount", true))
         {

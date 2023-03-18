@@ -1,4 +1,6 @@
-﻿namespace RSBot.Core.Client.ReferenceObjects
+﻿using RSBot.Core.Objects;
+
+namespace RSBot.Core.Client.ReferenceObjects
 {
     public class RefOptionalTeleport : IReference<int>
     {
@@ -32,17 +34,7 @@
         /// Offset: 4
         /// The RegionID
         /// </summary>
-        public short RegionID;
-
-        /// <summary>
-        /// Region XSec
-        /// </summary>
-        public byte XSec => (byte)(RegionID & 0xFF);
-
-        /// <summary>
-        /// Region YSec
-        /// </summary>
-        public byte YSec => (byte)(((RegionID) >> 8) & 0xFF);
+        public Region Region;
 
         /// <summary>
         /// Offset: 5
@@ -139,7 +131,8 @@
             parser.TryParse(1, out ID);
             //parser.TryParse(2, out ObjName128);
             //parser.TryParse(3, out ZoneName128);
-            parser.TryParse(4, out RegionID);
+            parser.TryParse(4, out Region);
+
             /*parser.TryParse(5, out Pos_X);
             parser.TryParse(6, out Pos_Z);
             parser.TryParse(7, out Pos_Y);

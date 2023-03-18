@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RSBot.Core.Objects;
+using System;
 using System.Globalization;
 
 namespace RSBot.Core.Client
@@ -127,6 +128,24 @@ namespace RSBot.Core.Client
         public bool TryParse(int index, out ushort result, ushort @default)
         {
             if (index < _length && ushort.TryParse(_data[index], out result))
+                return true;
+
+            result = @default;
+            return false;
+        }
+
+        public bool TryParse(int index, out Region result)
+        {
+            if (index < _length && Region.TryParse(_data[index], out result))
+                return true;
+
+            result = default(ushort);
+            return false;
+        }
+
+        public bool TryParse(int index, out Region result, Region @default)
+        {
+            if (index < _length && Region.TryParse(_data[index], out result))
                 return true;
 
             result = @default;

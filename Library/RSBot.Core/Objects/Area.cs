@@ -1,11 +1,10 @@
-﻿using RSBot.Core.Extensions;
-using RSBot.Core.Objects.Spawn;
+﻿using RSBot.Core.Objects.Spawn;
 using System;
 using System.Runtime.CompilerServices;
 
 namespace RSBot.Core.Objects;
 
-public class Area
+public struct Area
 {
     /// <summary>
     /// Gets or sets the name.
@@ -13,7 +12,7 @@ public class Area
     /// <value>
     /// The center name.
     /// </value>
-    public string Name { get; set; }
+    public string Name;
 
     /// <summary>
     /// Gets or sets the center position.
@@ -21,7 +20,7 @@ public class Area
     /// <value>
     /// The center position.
     /// </value>
-    public Position Position { get; set; }
+    public Position Position;
 
     /// <summary>
     /// Gets or sets the radius.
@@ -29,33 +28,55 @@ public class Area
     /// <value>
     /// The radius.
     /// </value>
-    public int Radius { get; set; }
+    public int Radius;
 
     /// <summary>
     /// The random
     /// </summary>
-    private Random _random = new(Environment.TickCount);
+    private static readonly Random _random = new(Environment.TickCount);
+
+    /// <summary>
+    /// Initialize the instance
+    /// </summary>
+    /// <param name="name">The area name</param>
+    /// <param name="pos">The circle pos</param>
+    /// <param name="radius">the circle radius</param>
+    public Area(string name, Position pos, int radius) 
+    {
+        Name = name;
+        Position = pos;
+        Radius = radius;
+    }
 
     /// <summary>
     /// Return training area from split
     /// </summary>
-    public static Area FromSplit(string[] split)
+    public static bool TryParse(string[] split, out Area area)
     {
-        if (!float.TryParse(split[1], out var posX))
-            return null;
-
-        if (!float.TryParse(split[2], out var posY))
-            return null;
-
-        if (!int.TryParse(split[3], out var radius))
-            return null;
-
-        return new Area
+        area = new Area
         {
-            Name = split[0],
-            Position = new Position(posX, posY),
-            Radius = Math.Clamp(radius, 5, 100)
+            Name = split[0]
         };
+
+        if (!Region.TryParse(split[1], out var regionId))
+            return false;
+
+        if (!float.TryParse(split[2], out var xOffset))
+            return false;
+
+        if (!float.TryParse(split[3], out var yOffset))
+            return false;
+
+        if (!float.TryParse(split[4], out var zOffset))
+            return false;
+
+        if (!int.TryParse(split[5], out var radius))
+            return false;
+
+        area.Position = new(regionId, xOffset, yOffset, zOffset);
+        area.Radius = Math.Clamp(radius, 5, 100);
+        
+        return true;
     }
 
     /// <summary>
@@ -80,6 +101,11 @@ public class Area
         var newPosX = Position.X + (Radius / 2) * MathF.Cos(angle);
         var newPosY = Position.Y + (Radius / 2) * MathF.Sin(angle);
 
-        return new Position(newPosX, newPosY);
+        return new Position(newPosX, newPosY, Position.Region);
+    }
+
+    public string GetScriptLine()
+    {
+        return $"area {Position.Region} {Position.XOffset} {Position.YOffset} {Position.ZOffset} {Radius}";
     }
 }

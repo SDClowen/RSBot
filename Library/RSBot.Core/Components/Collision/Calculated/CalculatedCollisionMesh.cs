@@ -29,8 +29,8 @@ public class CalculatedCollisionMesh
         {
             var line = collisions[iLine];
 
-            var posSource = new Position(line.Source.X, line.Source.Y, 0, Region);
-            var posDestination = new Position(line.Destination.X, line.Destination.Y, 0, Region);
+            var posSource = new Position(Region, line.Source.X, line.Source.Y, 0);
+            var posDestination = new Position(Region, line.Destination.X, line.Destination.Y, 0);
 
             Collisions[iLine] = new CalculatedCollisionLine(posSource, posDestination);
         }
