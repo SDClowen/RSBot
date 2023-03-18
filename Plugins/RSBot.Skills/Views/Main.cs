@@ -162,6 +162,7 @@ public partial class Main : UserControl
         checkCastBuffsDuringWalkBack.Checked = PlayerConfig.Get<bool>("RSBot.Skills.CastBuffsDuringWalkBack");
         checkBoxNoAttack.Checked = PlayerConfig.Get<bool>("RSBot.Skills.NoAttack");
         checkLearnMastery.Checked = PlayerConfig.Get<bool>("RSBot.Skills.learnMastery");
+        checkLearnMasteryBotStopped.Checked = PlayerConfig.Get<bool>("RSBot.Skills.learnMasteryIfBotStoped");
         numMasteryGap.Value = PlayerConfig.Get<byte>("RSBot.Skills.masteryGap", 0);
         checkWarlockMode.Checked = PlayerConfig.Get<bool>("RSBot.Skills.WarlockMode", false);
         checkUseDefaultAttack.Checked = PlayerConfig.Get("RSBot.Skills.UseDefaultAttack", true);
@@ -278,8 +279,8 @@ public partial class Main : UserControl
 
         var selectedTeleportSkill = PlayerConfig.Get<uint>("RSBot.Skills.TeleportSkill");
         foreach (var skill in Game.Player.Skills.KnownSkills.Where(s => s.CanBeCasted && s.Record.Action_ActionDuration == 0 && s.Record.Params[2] == 500))
-        { 
-           var index = comboTeleportSkill.Items.Add(new TeleportSkillComboBoxItem() { Level = skill.Record.Basic_Level, Record = skill.Record });
+        {
+            var index = comboTeleportSkill.Items.Add(new TeleportSkillComboBoxItem() { Level = skill.Record.Basic_Level, Record = skill.Record });
 
             if (selectedTeleportSkill == skill.Record.ID)
             {
@@ -946,7 +947,12 @@ public partial class Main : UserControl
         PlayerConfig.Set("RSBot.Skills.NoAttack", checkBoxNoAttack.Checked);
     }
 
-    private void checkLearnMastery_Click(object sender, EventArgs e)
+    private void checkLearnMasteryBotStopped_CheckedChanged(object sender, EventArgs e)
+    {
+        PlayerConfig.Set("RSBot.Skills.learnMasteryIfBotStoped", checkLearnMasteryBotStopped.Checked);
+    }
+
+    private void checkLearnMastery_CheckedChanged(object sender, EventArgs e)
     {
         PlayerConfig.Set("RSBot.Skills.learnMastery", checkLearnMastery.Checked);
     }
@@ -976,7 +982,7 @@ public partial class Main : UserControl
         if (listSkills.SelectedItems.Count <= 0)
             return;
 
-        if(!GlobalConfig.Get<bool>("RSBot.DebugEnvironment"))
+        if (!GlobalConfig.Get<bool>("RSBot.DebugEnvironment"))
             return;
 
         if (listSkills.SelectedItems[0].Tag is not SkillInfo skillInfo)
