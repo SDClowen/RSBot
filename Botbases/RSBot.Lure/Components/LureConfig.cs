@@ -118,21 +118,25 @@ internal static class LureConfig
     {
         get
         {
+            var region = PlayerConfig.Get<ushort>("RSBot.Lure.Area.Region", 0);
             var x = PlayerConfig.Get("RSBot.Lure.Area.X", 0f);
             var y = PlayerConfig.Get("RSBot.Lure.Area.Y", 0f);
+            var z = PlayerConfig.Get("RSBot.Lure.Area.Z", 0f);
             var r = PlayerConfig.Get("RSBot.Lure.Area.Radius", 50);
 
             return new Area
             {
                 Name = "Lure",
-                Position = new Position(x, y),
+                Position = new Position(region, x, y, z),
                 Radius = r
             };
         }
         set
         {
-            PlayerConfig.Set("RSBot.Lure.Area.X", value.Position.X);
-            PlayerConfig.Set("RSBot.Lure.Area.Y", value.Position.Y);
+            PlayerConfig.Set("RSBot.Lure.Area.Region", value.Position.Region);
+            PlayerConfig.Set("RSBot.Lure.Area.X", value.Position.XOffset);
+            PlayerConfig.Set("RSBot.Lure.Area.Y", value.Position.YOffset);
+            PlayerConfig.Set("RSBot.Lure.Area.Z", value.Position.ZOffset);
             PlayerConfig.Set("RSBot.Lure.Area.Radius", value.Radius);
         }
     }

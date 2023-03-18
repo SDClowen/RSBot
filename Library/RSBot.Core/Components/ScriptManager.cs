@@ -221,7 +221,7 @@ namespace RSBot.Core.Components
                )
                 return default; //Invalid format
 
-            return new(xOffset, yOffset, zOffset, xSector, ySector);
+            return new(xSector, ySector, xOffset, yOffset, zOffset);
         }
 
         /// <summary>

@@ -435,7 +435,7 @@ namespace RSBot.Inventory.Views
 
                     foreach (var item in Game.ReferenceManager.OptionalTeleports)
                     {
-                        var mapName = Game.ReferenceManager.GetTranslation(item.Value.RegionID.ToString());
+                        var mapName = Game.ReferenceManager.GetTranslation(item.Value.Region.ToString());
 
                         var menuItem = new ToolStripMenuItem { Text = mapName };
 
