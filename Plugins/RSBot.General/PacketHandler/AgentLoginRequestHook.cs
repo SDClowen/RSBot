@@ -46,7 +46,7 @@ namespace RSBot.General.PacketHandler
             packet.WriteUInt(Kernel.Proxy.Token);
             packet.WriteString(selectedAccount.Username);
 
-            if(Game.ClientType >= GameClientType.Global && Game.ClientType != GameClientType.Rigid)
+            if(Game.ClientType == GameClientType.Turkey)
                 packet.WriteString(Sha256.ComputeHash(selectedAccount.Password));
             else
                 packet.WriteString(selectedAccount.Password);
