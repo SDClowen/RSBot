@@ -161,16 +161,7 @@ namespace RSBot.Core.Components
             if (visible)
                 ShowWindow(_process.MainWindowHandle, SW_SHOW);
             else
-            {
-                while (string.IsNullOrEmpty(_process.MainWindowTitle))
-                {
-                    Thread.Sleep(100);
-                    _process.Refresh();
-                }
-
                 ShowWindow(_process.MainWindowHandle, SW_HIDE);
-            }
-
         }
 
         /// <summary>
@@ -180,7 +171,6 @@ namespace RSBot.Core.Components
         {
             Log.Warn("Client process exited!");
             EventManager.FireEvent("OnExitClient");
-            _process = null;
         }
 
         /// <summary>
