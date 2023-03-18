@@ -4,7 +4,6 @@ using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
-using RSBot.Default.Bundle.Avoidance;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -62,7 +61,7 @@ namespace RSBot.Default.Bundle.Target
                 return;
             }
 
-            if (attacker != null && SpawnManager.TryGetEntity<SpawnedMonster>(Game.SelectedEntity.UniqueId, out var selectedMonster) && (byte) attacker.Rarity < (byte) selectedMonster.Rarity)
+            if (attacker != null && SpawnManager.TryGetEntity<SpawnedMonster>(Game.SelectedEntity.UniqueId, out var selectedMonster) && (byte)attacker.Rarity < (byte)selectedMonster.Rarity)
             {
                 Log.Debug("[TargetBundle] Emergency situation: Found a weaker mob to attack first, switching target!");
 
@@ -73,7 +72,13 @@ namespace RSBot.Default.Bundle.Target
             }
 
             var warlockModeEnabled = PlayerConfig.Get<bool>("RSBot.Skills.WarlockMode", false);
-            if (Game.SelectedEntity != null && Game.SelectedEntity.State.LifeState == LifeState.Alive && !(warlockModeEnabled && Game.SelectedEntity.State.HasTwoDots()))
+            if (warlockModeEnabled && Game.SelectedEntity.State.HasTwoDots())
+                return;
+
+            if (Game.SelectedEntity != null && Game.SelectedEntity is not SpawnedMonster)
+                Game.SelectedEntity = null;
+
+            if (Game.SelectedEntity?.State.LifeState == LifeState.Alive)
                 return;
 
             var monster = GetNearestEnemy();
@@ -96,9 +101,10 @@ namespace RSBot.Default.Bundle.Target
             if (!SpawnManager.TryGetEntities<SpawnedMonster>(e => e.AttackingPlayer == true && e.State.LifeState == LifeState.Alive, out var entities))
                 return null;
 
-            return entities.OrderBy(e => e.Position.DistanceToPlayer())
-                           .OrderBy(e => e.Record.Level)
-                           .OrderBy(e => (byte)e.Rarity).FirstOrDefault();
+            return entities.OrderBy(e => (byte)e.Rarity)
+                        .OrderBy(e => e.Record.Level)
+                        .OrderByDescending(e => e.Position.DistanceToPlayer())
+                        .FirstOrDefault();
         }
 
         private bool IsEmergencySituation()
@@ -121,13 +127,14 @@ namespace RSBot.Default.Bundle.Target
                     m.IsBehindObstacle == false &&
                     _blacklist?.ContainsKey(m.UniqueId) == false &&
                     Container.Bot.Area.IsInSight(m) &&
-                    m.DistanceToPlayer <= 40 &&
+                    !m.Record.IsPandora &&
+                    //m.DistanceToPlayer <= 40 &&
                     !(m.Record.IsDimensionPillar && ignorePillar) &&
                     !m.Record.IsSummonFlower, out var entities))
-                return default(SpawnedMonster);
+                return default;
 
             return entities.OrderBy(m => m.Movement.Source.DistanceTo(Container.Bot.Area.Position))
-                .OrderByDescending(m => Bundles.Avoidance.PreferMonster(m.Rarity))
+                .OrderBy(m => Bundles.Avoidance.PreferMonster(m.Rarity))
                 .OrderByDescending(m => m.AttackingPlayer)
                 .FirstOrDefault();
         }

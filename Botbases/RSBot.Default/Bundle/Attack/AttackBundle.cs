@@ -1,11 +1,15 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Components;
-using RSBot.Core.Event;
 
 namespace RSBot.Default.Bundle.Attack
 {
     internal class AttackBundle : IBundle
     {
+        /// <summary>
+        /// The last tick count for checking func call
+        /// </summary>
+        private int _lastTick = Kernel.TickCount;
+
         /// <summary>
         /// Invokes this instance.
         /// </summary>
@@ -32,19 +36,26 @@ namespace RSBot.Default.Bundle.Attack
                 SkillManager.ImbueSkill.CanBeCasted)
                 SkillManager.ImbueSkill.Cast(buff: true);
 
-            if (Game.Player.InAction && !SkillManager.IsLastCastedBasic)
+            if (Kernel.TickCount - _lastTick < 500)
                 return;
+
+            _lastTick = Kernel.TickCount;
+
+            //if (Game.Player.InAction && !SkillManager.IsLastCastedBasic)
+              //  return;
 
             var useTeleportSkill = PlayerConfig.Get("RSBot.Skills.UseTeleportSkill", false);
             if (useTeleportSkill && CastTeleportation())
                 return;
 
-            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+            //var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+
             var skill = SkillManager.GetNextSkill();
 
-            Log.Debug($"Getnextskill: {stopwatch.ElapsedMilliseconds} Action:{Game.Player.InAction} Entity:{Game.SelectedEntity != null} LA:{SkillManager.IsLastCastedBasic} Skill:{skill}");
+            //Log.Debug($"Getnextskill: {stopwatch.ElapsedMilliseconds} Action:{Game.Player.InAction} Entity:{Game.SelectedEntity != null} LA:{SkillManager.IsLastCastedBasic} Skill:{skill}");
 
-            Log.Status("Attacking");
+            if(!Game.Player.InAction)
+                Log.Status("Attacking");
 
             if (skill == null)
             {
