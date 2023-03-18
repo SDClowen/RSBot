@@ -23,6 +23,7 @@
         public bool IsDimensionPillar => NameStrID == "SN_MOB_GOD_PILLAR";
         public bool IsSummonFlower => CodeName.StartsWith("STRUCTURE_SUMMON_FLOWER_");
         public bool IsEventMob => CodeName.StartsWith("MOB_EV");
+        public bool IsPandora => TypeID2 == 2 && TypeID3 == 1 && TypeID4 == 5;
 
         public override bool Load(ReferenceParser parser)
         {
