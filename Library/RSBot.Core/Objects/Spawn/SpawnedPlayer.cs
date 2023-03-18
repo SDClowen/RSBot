@@ -338,7 +338,7 @@ namespace RSBot.Core.Objects.Spawn
 
             PKFlag = packet.ReadByte(); //PKFlag
 
-            if (Game.ClientType > GameClientType.Chinese)
+            if (Game.ClientType > GameClientType.Chinese && Game.ClientType < GameClientType.Rigid)
                 packet.ReadByte(); // 0xFF what flag?
         }
     }
