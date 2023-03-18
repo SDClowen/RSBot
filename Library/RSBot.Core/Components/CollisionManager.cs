@@ -68,7 +68,11 @@ public static class CollisionManager
     /// <value>
     ///   <c>true</c> if enabled; otherwise, <c>false</c>.
     /// </value>
-    public static bool Enabled => GlobalConfig.Get("RSBot.EnableCollisionDetection", true) && _lookupTable != null;
+    public static bool Enabled
+    {
+        get => GlobalConfig.Get("RSBot.EnableCollisionDetection", true);
+        set => GlobalConfig.Set("RSBot.EnableCollisionDetection", value);
+    }
 
     /// <summary>
     /// Gets the active collision meshes.
@@ -116,7 +120,7 @@ public static class CollisionManager
         fileStream.BaseStream.Seek(lookupTableOffset, SeekOrigin.Begin);
 
         var entryCount = fileStream.ReadUInt16();
-        _lookupTable = new Dictionary<Region, long>(entryCount);
+        _lookupTable = new(entryCount);
 
         for (var entryIndex = 0; entryIndex < entryCount; entryIndex++)
         {
@@ -137,9 +141,6 @@ public static class CollisionManager
     /// <param name="regions"></param>
     private static void LoadRegions(Region[] regions)
     {
-        if (!Enabled)
-            return;
-
         var sw = Stopwatch.StartNew();
 
         using var fileStream = new BinaryReader(File.OpenRead(Path.Combine(Kernel.BasePath, "Data", "Game", "map.rsc")));
@@ -173,7 +174,9 @@ public static class CollisionManager
     /// <param name="centerRegionId">The center region identifier.</param>
     public static void Update(Region region)
     {
-        if (region == CenterRegion && HasActiveMeshes)
+        if (region.IsDungeon)
+            return;
+
         if (region == CenterRegion && HasActiveMeshes || region == 0)
             return;
         
@@ -185,6 +188,9 @@ public static class CollisionManager
 
             return;
         }
+
+        if (!IsInitialized)
+            Initialize();
 
         IsUpdating = true;
         ActiveCollisionMeshes = new List<CalculatedCollisionMesh>(9);
