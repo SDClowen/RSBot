@@ -58,6 +58,7 @@ namespace RSBot.Core.Network.Handler.Agent.Alchemy
             Game.Player.Inventory.Add(newItem);
 
             EventManager.FireEvent(isSuccess ? "OnAlchemySuccess" : "OnAlchemyFailed", oldItem, newItem, type);
+            EventManager.FireEvent("OnInventoryUpdate");
             AlchemyManager.ActiveAlchemyItems = null;
         }
     }
