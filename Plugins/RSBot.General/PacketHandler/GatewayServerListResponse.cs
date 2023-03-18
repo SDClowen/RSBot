@@ -24,6 +24,15 @@ namespace RSBot.General.PacketHandler
         /// </value>
         public PacketDestination Destination => PacketDestination.Client;
 
+        enum ServerStatusModern
+        {
+            Full,
+            Crowded,
+            Populate,
+            Easy,
+            Check
+        }
+
         /// <summary>
         /// Handles the packet.
         /// </summary>
@@ -45,25 +54,18 @@ namespace RSBot.General.PacketHandler
 
                 ushort currentCapacity = 0,
                        maxCapacity = 0;
-                bool status;
+
+                byte status;
 
                 if (Game.ClientType < GameClientType.Global)
                 {
                     currentCapacity = packet.ReadUShort();
                     maxCapacity = packet.ReadUShort();
-                    status = packet.ReadBool();
+                    status = packet.ReadByte();
                 }
                 else
-                /*
-                 for global:
-                    0 FULL
-                    1 Crowded
-                    2 Populate
-                    3 Easy
-                    4 Check
-                 */
                 {
-                    status = packet.ReadByte() != 4;
+                    status = packet.ReadByte();
                     packet.ReadByte();
                 }
 
@@ -84,13 +86,16 @@ namespace RSBot.General.PacketHandler
                     Name = serverName,
                     CurrentCapacity = currentCapacity,
                     MaxCapacity = maxCapacity,
-                    Status = status
+                    Status = Game.ClientType >= GameClientType.Global ? status != 4 : status == 1
                 });
 
                 if (Game.ClientType == GameClientType.Vietnam)
                     packet.ReadByte(); // FarmId
 
-                Log.Debug($"Found server: {serverName} ({currentCapacity}/{maxCapacity})");
+                if(Game.ClientType >= GameClientType.Global)
+                    Log.Debug($"Found server: {serverName} ({(ServerStatusModern)status})");
+                else
+                    Log.Debug($"Found server: {serverName} ({currentCapacity}/{maxCapacity})");
             }
 
             AutoLogin.Handle();

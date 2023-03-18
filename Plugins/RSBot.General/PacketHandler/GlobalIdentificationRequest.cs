@@ -1,4 +1,5 @@
 ﻿using RSBot.Core;
+using RSBot.Core.Cryptography;
 using RSBot.Core.Network;
 using RSBot.General.Components;
 using System;
@@ -29,7 +30,8 @@ namespace RSBot.General.PacketHandler
         /// <param name="packet">The packet.</param>
         public void Invoke(Packet packet)
         {
-            if (!Game.Clientless) return;
+            if (!Game.Clientless) 
+                return;
 
             var serviceName = packet.ReadString();
 
@@ -57,7 +59,12 @@ namespace RSBot.General.PacketHandler
                 var response = new Packet(opcode, true);
                 response.WriteUInt(Kernel.Proxy.Token);
                 response.WriteString(selectedAccount.Username);
-                response.WriteString(selectedAccount.Password);
+                
+                if(Game.ClientType == GameClientType.Turkey)
+                    response.WriteString(Sha256.ComputeHash(selectedAccount.Password));
+                else
+                    response.WriteString(selectedAccount.Password);
+
                 response.WriteByte(Game.ReferenceManager.DivisionInfo.Locale);
                 response.WriteByteArray(new byte[6]);
                 PacketManager.SendPacket(response, PacketDestination.Server);
