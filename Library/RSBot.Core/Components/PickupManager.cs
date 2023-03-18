@@ -60,6 +60,30 @@ namespace RSBot.Core.Components
         public static bool PickupBlueItems => PlayerConfig.Get<bool>("RSBot.Items.Pickup.Blue", true);
 
         /// <summary>
+        /// Gets or sets a value indicating whether [pickup quest items].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [pickup quest items]; otherwise, <c>false</c>.
+        /// </value>
+        public static bool PickupQuestItems => PlayerConfig.Get<bool>("RSBot.Items.Pickup.Quest", true);
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [pickup clean equips].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [pickup clean equips]; otherwise, <c>false</c>.
+        /// </value>
+        public static bool PickupAnyEquips => PlayerConfig.Get<bool>("RSBot.Items.Pickup.AnyEquips", true);
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [pickup everything].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [pickup everything]; otherwise, <c>false</c>.
+        /// </value>
+        public static bool PickupEverything => PlayerConfig.Get<bool>("RSBot.Items.Pickup.Everything", true);
+
+        /// <summary>
         /// Gets or sets a value indicating whether [use ability pet].
         /// </summary>
         /// <value>
@@ -96,7 +120,6 @@ namespace RSBot.Core.Components
                     return;
                 }
 
-                Log.Status("Picking up");
                 foreach (var item in entities.OrderBy(item => item.Movement.Source.DistanceTo(playerPosition)/*.Take(5)*/))
                 {
                     if (!RunningPlayerPickup)
@@ -184,18 +207,27 @@ namespace RSBot.Core.Components
                 !(applyPickOnlyChar && pickOnlyChar))
                 return true;
 
+            if (PickupRareItems && (byte)e.Rarity >= 2)
+                return true;
+
+            if (PickupBlueItems && (byte)e.Rarity >= 1)
+                return true;
+
+            if (PickupAnyEquips && e.Record.IsEquip)
+                return true;
+
+            if (PickupQuestItems && e.Record.IsQuest)
+                return true;
+
+            if (PickupEverything)
+                return true;
+
             if (applyPickOnlyChar)
             {
                if(PickupFilter.Any(p => p.CodeName == e.Record.CodeName && p.PickOnlyChar == pickOnlyChar))
                     return true;
             }
             else if (PickupFilter.Any(p => p.CodeName == e.Record.CodeName))
-                return true;
-
-            if (PickupRareItems && (byte)e.Rarity >= 2)
-                return true;
-
-            if (PickupBlueItems && (byte)e.Rarity >= 1)
                 return true;
 
             return false;
