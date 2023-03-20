@@ -322,8 +322,12 @@ namespace RSBot.Map.Views
                     {
                         foreach (var member in Game.Party.Members.ToArray())
                         {
-                            if (!(Game.Player.Movement.Source.DistanceTo(member.Position) < 50))
+                            if (Game.Player.Position.DistanceTo(member.Position) > 50)
                                 continue;
+
+                            if (member.Name == Game.Player.Name)
+                                continue;
+
                             DrawPointAt(graphics, member.Position, 6);
                             AddGridItem(member.Name, "Party Member", member.Level, member.Position);
                         }
@@ -382,12 +386,15 @@ namespace RSBot.Map.Views
         {
             if (CollisionManager.HasActiveMeshes && CollisionManager.Enabled)
             {
-                //Draw collisions
                 foreach (var collisionNavmesh in CollisionManager.ActiveCollisionMeshes)
                 {
-                    foreach (var collider in collisionNavmesh.Collisions.Where(c => c.Source.DistanceToPlayer() < 100 || c.Destination.DistanceToPlayer() < 100))
+                    var colliders = collisionNavmesh.Collisions
+                        .Where(c => c.Source.DistanceToPlayer() < 100 || c.Destination.DistanceToPlayer() < 100);
+
+                    foreach (var collider in colliders)
                         DrawLineAt(gfx, collider.Source, collider.Destination, Pens.Red);
                 }
+
                 if (!SpawnManager.TryGetEntities<SpawnedEntity>(out var entities))
                     return;
 
@@ -398,11 +405,8 @@ namespace RSBot.Map.Views
 
                     if (!collision.HasValue)
                         continue;
-                    var rayPen = new Pen(Color.DeepSkyBlue);
-                    rayPen.DashStyle = DashStyle.Dot;
-                    rayPen.EndCap = LineCap.Square;
 
-                    DrawLineAt(gfx, Game.Player.Position, collision.Value.CollidedAt, Pens.DeepSkyBlue);
+                    DrawLineAt(gfx, Game.Player.Position, collision.Value.CollidedAt, Pens.GreenYellow);
                     DrawLineAt(gfx, collision.Value.CollidedWith.Source, collision.Value.CollidedWith.Destination, Pens.Yellow);
                 }
             }

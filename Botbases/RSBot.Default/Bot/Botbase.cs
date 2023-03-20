@@ -65,6 +65,9 @@ namespace RSBot.Default.Bot
 
             var noAttack = PlayerConfig.Get("RSBot.Skills.NoAttack", false);
 
+            //Check for protection
+            Bundles.Protection.Invoke();
+
             //Cast buffs
             Bundles.Buff.Invoke();
 

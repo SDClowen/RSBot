@@ -1,4 +1,5 @@
 ﻿using RSBot.CommandCenter.Components;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Extensions;
 using RSBot.Core.Network;
@@ -18,9 +19,16 @@ internal class ChatRequestHook : IPacketHook
             return packet;
 
         var type = (ChatType)packet.ReadByte();
-        
         if (type == ChatType.Private)
             return packet;
+
+        packet.ReadByte(); // chatIndex
+
+        if (Game.ClientType > GameClientType.Vietnam)
+            packet.ReadByte(); // has linking
+
+        if (Game.ClientType >= GameClientType.Chinese)
+            packet.ReadByte();
 
         var message = packet.ReadConditonalString();
         if (!message.StartsWith("\\"))

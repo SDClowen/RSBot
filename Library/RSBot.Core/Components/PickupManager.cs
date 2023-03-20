@@ -128,6 +128,9 @@ namespace RSBot.Core.Components
                     while (Game.Player.InAction)
                         Thread.Sleep(50);
 
+                    if (item.Record.IsSpecialtyGoodBox && Game.Player.Job2SpecialtyBag.Full)
+                        continue;
+
                     //Make sure the player is at the item's location
                     //Game.Player.MoveTo(item.Movement.Source);
                     item.Pickup();
@@ -162,6 +165,9 @@ namespace RSBot.Core.Components
                 {
                     if (!RunningAbilityPetPickup)
                         return;
+
+                    if (item.Record.IsSpecialtyGoodBox && Game.Player.Job2SpecialtyBag.Full)
+                        continue;
 
                     Game.Player.AbilityPet.Pickup(item.UniqueId);
                     await Task.Yield();

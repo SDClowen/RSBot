@@ -109,10 +109,12 @@ namespace RSBot.Party.Bundle.AutoParty
                 while (true)
                 {
                     var currentPage = Container.PartyMatching.RequestPartyList(page);
+
+                    _partyEntriesCache.AddRange(currentPage.Parties);
+
                     if (currentPage.Page == currentPage.PageCount - 1)
                         break;
 
-                    _partyEntriesCache.AddRange(currentPage.Parties);
                     page++;
                 }
 
@@ -131,7 +133,7 @@ namespace RSBot.Party.Bundle.AutoParty
 
             if (Config.AutoJoinByTitle)
             {
-                var partyEntry = _partyEntriesCache.Find(p => p.Title.Equals(Config.AutoJoinByTitleContent, StringComparison.CurrentCultureIgnoreCase));
+                var partyEntry = _partyEntriesCache.Find(p => p.Title.Contains(Config.AutoJoinByTitleContent, StringComparison.CurrentCultureIgnoreCase));
                 if (partyEntry == null)
                     return;
 
