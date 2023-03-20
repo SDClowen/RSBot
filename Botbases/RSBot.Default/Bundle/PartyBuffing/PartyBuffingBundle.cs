@@ -79,7 +79,8 @@ namespace RSBot.Default.Bundle.PartyBuffing
                     if (skill == null || skill.HasCooldown)
                         continue;
 
-                    skill.Cast(member.Player.UniqueId, buff: true);
+                    if (member.Player != null)
+                        skill.Cast(member.Player.UniqueId, buff: true);
                 }
             }
         }
