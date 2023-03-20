@@ -84,7 +84,7 @@ public partial class Main : UserControl
     /// </summary>
     /// <param name="targetId">The target identifier.</param>
     /// <param name="removedPerk">The removed perk.</param>
-    private void OnRemoveItemPerk(uint targetId, ItemPerk? removedPerk)
+    private void OnRemoveItemPerk(uint targetId, ItemPerk removedPerk)
     {
         if (targetId != Game.Player.UniqueId || removedPerk == null)
             return;
@@ -392,8 +392,7 @@ public partial class Main : UserControl
         lock (_lock)
         {
             comboResurrectionSkill.Items.Clear();
-
-            comboResurrectionSkill.SelectedIndex = comboResurrectionSkill.Items.Add("None");
+            comboResurrectionSkill.Items.Add("None");
 
             foreach (var skill in Game.Player.Skills.KnownSkills.Where(
                          s => s.Record != null && s.Record.TargetEtc_SelectDeadBody && !s.Record.TargetGroup_Enemy_M))
@@ -403,12 +402,12 @@ public partial class Main : UserControl
 
                 var index = comboResurrectionSkill.Items.Add(skill);
                 var resurrectionSkillId = PlayerConfig.Get<int>("RSBot.Skills.ResurrectionSkill");
-                if (resurrectionSkillId == 0)
-                    continue;
-
                 if (skill.Id == resurrectionSkillId)
                     comboResurrectionSkill.SelectedIndex = index;
             }
+
+            if (comboResurrectionSkill.SelectedIndex <= 0)
+                comboResurrectionSkill.SelectedIndex = 0;
         }
     }
 

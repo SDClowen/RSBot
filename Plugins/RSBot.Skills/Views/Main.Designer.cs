@@ -385,10 +385,10 @@
             tabPage2.Controls.Add(grpMasteryLearn);
             tabPage2.Controls.Add(groupBox3);
             tabPage2.Controls.Add(groupBox4);
-            tabPage2.Location = new System.Drawing.Point(4, 24);
+            tabPage2.Location = new System.Drawing.Point(4, 25);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            tabPage2.Size = new System.Drawing.Size(384, 439);
+            tabPage2.Size = new System.Drawing.Size(384, 438);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Advanced setup";
             // 
@@ -416,12 +416,12 @@
             comboTeleportSkill.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             comboTeleportSkill.FormattingEnabled = true;
             comboTeleportSkill.IntegralHeight = false;
-            comboTeleportSkill.ItemHeight = 17;
+            comboTeleportSkill.ItemHeight = 16;
             comboTeleportSkill.Location = new System.Drawing.Point(133, 83);
             comboTeleportSkill.Name = "comboTeleportSkill";
             comboTeleportSkill.Radius = 5;
             comboTeleportSkill.ShadowDepth = 4F;
-            comboTeleportSkill.Size = new System.Drawing.Size(208, 23);
+            comboTeleportSkill.Size = new System.Drawing.Size(208, 22);
             comboTeleportSkill.TabIndex = 9;
             comboTeleportSkill.SelectedIndexChanged += comboTeleportSkill_SelectedIndexChanged;
             // 
@@ -835,10 +835,10 @@
             // 
             tabPage4.BackColor = System.Drawing.Color.White;
             tabPage4.Controls.Add(listActiveBuffs);
-            tabPage4.Location = new System.Drawing.Point(4, 25);
+            tabPage4.Location = new System.Drawing.Point(4, 24);
             tabPage4.Name = "tabPage4";
             tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            tabPage4.Size = new System.Drawing.Size(354, 438);
+            tabPage4.Size = new System.Drawing.Size(354, 439);
             tabPage4.TabIndex = 1;
             tabPage4.Text = "Active buffs";
             // 
@@ -853,7 +853,7 @@
             listActiveBuffs.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             listActiveBuffs.Location = new System.Drawing.Point(3, 3);
             listActiveBuffs.Name = "listActiveBuffs";
-            listActiveBuffs.Size = new System.Drawing.Size(348, 432);
+            listActiveBuffs.Size = new System.Drawing.Size(348, 433);
             listActiveBuffs.TabIndex = 6;
             listActiveBuffs.UseCompatibleStateImageBehavior = false;
             listActiveBuffs.View = System.Windows.Forms.View.Details;
