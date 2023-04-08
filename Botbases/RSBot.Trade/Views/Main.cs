@@ -5,12 +5,15 @@ using System.Windows.Forms;
 using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
+using RSBot.Core.Objects;
 using RSBot.Trade.Components;
 
 namespace RSBot.Trade.Views
 {
     public partial class Main : UserControl
     {
+        private bool _loadingConfig;
+
         public Main()
         {
             InitializeComponent();
@@ -21,6 +24,31 @@ namespace RSBot.Trade.Views
         {
             EventManager.SubscribeEvent("OnEnterGame", ReloadView);
             EventManager.SubscribeEvent("OnTalkToNpc", OnTalkToNpc);
+            EventManager.SubscribeEvent("OnJobScaleUpdate", OnUpdateJobInfo);
+            EventManager.SubscribeEvent("OnJobExperienceUpdate", OnUpdateJobInfo);
+            EventManager.SubscribeEvent("OnJobJoin", OnUpdateJobInfo);
+            EventManager.SubscribeEvent("OnJobLeave", OnUpdateJobInfo);
+            EventManager.SubscribeEvent("OnJobAliasUpdate", OnUpdateJobInfo);
+        }
+
+        private void OnUpdateJobInfo()
+        {
+            if (Game.Player.TradeInfo == null)
+                return;
+
+            if (Game.Player.JobInformation.Type == JobType.None)
+            {
+                lblJobExp.Text = "0";
+                lblJobLevel.Text = "0";
+                lblJobAlias.Text = "<none>";
+
+                return;
+            }
+
+            lblTradeScale.Text = new string('■', Game.Player.TradeInfo.Scale);
+            lblJobExp.Text = Game.Player.JobInformation.Experience.ToString();
+            lblJobAlias.Text = Game.Player.JobInformation.Name;
+            lblJobLevel.Text = Game.Player.JobInformation.Level.ToString();
         }
 
         private void OnTalkToNpc(uint uniqueId)
@@ -35,11 +63,12 @@ namespace RSBot.Trade.Views
         {
             PopulateRouteListComboBox();
 
+            _loadingConfig = true;
+
             checkAttackThiefNpc.Checked = TradeConfig.AttackThiefNpcs;
             checkAttackThiefPlayers.Checked = TradeConfig.AttackThiefPlayers;
             checkCastBuffsWhileFighting.Checked = TradeConfig.CastBuffsWhileFighting;
             checkCastBuffsWhileWalking.Checked = TradeConfig.CastBuffsWhileWalking;
-            checkRandomizeRoute.Checked = TradeConfig.RandomizeNextRoute;
             checkWaitForHunter.Checked = TradeConfig.WaitForHunter;
             checkCounterAttack.Checked = TradeConfig.CounterAttack;
             checkRunTownscript.Checked = TradeConfig.RunTownScript;
@@ -58,6 +87,8 @@ namespace RSBot.Trade.Views
 
             numAmountGoods.Value = TradeConfig.BuyGoodsQuantity;
             txtTracePlayerName.Text = TradeConfig.TracePlayerName;
+
+            _loadingConfig = false;
         }
 
         private void PopulateRouteListComboBox()
@@ -82,18 +113,23 @@ namespace RSBot.Trade.Views
         private void buttonDeleteList_Click(object sender, EventArgs e)
         {
             //Can not delete Default
-            if (comboRouteList.SelectedIndex == 0)
+            if (comboRouteList.SelectedIndex <= 0)
                 return;
 
-
             if (MessageBox.Show(
-                    $"Do you realy want to delete the route list {comboRouteList.SelectedItem}?") !=
+                    $"Do you realy want to delete the route list {comboRouteList.SelectedItem}?", "Delete list", MessageBoxButtons.YesNo) !=
                 DialogResult.Yes)
                 return;
 
             var selectedIndex = comboRouteList.SelectedIndex - 1; //- default
-            if (TradeConfig.RouteScriptList.Count > selectedIndex) 
-                TradeConfig.RouteScriptList.RemoveAt(selectedIndex);
+            var scripts = TradeConfig.RouteScriptList;
+            if (scripts.Count > selectedIndex) 
+                scripts.RemoveAt(selectedIndex);
+
+            TradeConfig.RouteScriptList = scripts;
+
+            PopulateRouteListComboBox();
+            RefreshRoutes();
         }
 
         private void buttonCreateList_Click(object sender, EventArgs e)
@@ -172,7 +208,7 @@ namespace RSBot.Trade.Views
         private void RefreshRoutes()
         {
             lvRouteList.Items.Clear();
-            var selectedRouteList = (string) comboRouteList.SelectedItem;
+            var selectedRouteList = (string) comboRouteList.SelectedItem ?? "";
 
             if (!TradeConfig.RouteScripts.ContainsKey(selectedRouteList))
                 return;
@@ -205,8 +241,10 @@ namespace RSBot.Trade.Views
 
         private void checkBoxSetting_CheckedChanged(object sender, EventArgs e)
         {
+            if (_loadingConfig)
+                return;
+
             TradeConfig.WaitForHunter = checkWaitForHunter.Checked;
-            TradeConfig.RandomizeNextRoute = checkRandomizeRoute.Checked;
             TradeConfig.RunTownScript = checkRunTownscript.Checked;
             TradeConfig.AttackThiefPlayers = checkAttackThiefPlayers.Checked;
             TradeConfig.AttackThiefNpcs = checkAttackThiefNpc.Checked;
@@ -242,6 +280,9 @@ namespace RSBot.Trade.Views
 
         private void radioSetting_CheckedChanged(object sender, EventArgs e)
         {
+            if (_loadingConfig)
+                return;
+
             TradeConfig.UseRouteScripts = radioUseRouteList.Checked;
             TradeConfig.TracePlayer = radioTracePlayer.Checked;
 
@@ -250,11 +291,17 @@ namespace RSBot.Trade.Views
 
         private void txtTracePlayerName_TextChanged(object sender, EventArgs e)
         {
+            if (_loadingConfig)
+                return;
+
             TradeConfig.TracePlayerName = txtTracePlayerName.Text;
         }
 
         private void numAmountGoods_ValueChanged(object sender, EventArgs e)
         {
+            if (_loadingConfig)
+                return;
+
             TradeConfig.BuyGoodsQuantity = Convert.ToInt32(numAmountGoods.Value);
         }
     }

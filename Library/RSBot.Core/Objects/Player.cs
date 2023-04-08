@@ -875,14 +875,14 @@ namespace RSBot.Core.Objects
         /// <returns></returns>
         public bool SummonVehicle()
         {
-            if (HasActiveVehicle || Game.Player.State.BattleState == BattleState.InBattle)
+            if (HasActiveVehicle || Game.Player.State.BattleState == BattleState.InBattle || Game.Player.JobTransport != null)
                 return false;
 
             var typeIdFilter = new TypeIdFilter(3, 3, 3, 2);
             var vehicleItem = Inventory.GetItem(item => typeIdFilter.EqualsRefItem(item.Record) && item.Record.ReqLevel1 <= Game.Player.Level);
             if (vehicleItem == null)
                 return false;
-
+            
             return vehicleItem.Use();
         }
 

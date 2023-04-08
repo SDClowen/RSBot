@@ -1,4 +1,6 @@
-﻿namespace RSBot.Core.Network.Handler.Agent.Job;
+﻿using RSBot.Core.Event;
+
+namespace RSBot.Core.Network.Handler.Agent.Job;
 
 internal class JobAliasUpdateResponse : IPacketHandler
 {
@@ -33,5 +35,7 @@ internal class JobAliasUpdateResponse : IPacketHandler
         Game.Player.JobInformation.Name = packet.ReadString();
 
         Log.Notify($"[Job] New job alias assigned: {Game.Player.JobInformation.Name}");
+
+        EventManager.FireEvent("OnJobAliasUpdate");
     }
 }

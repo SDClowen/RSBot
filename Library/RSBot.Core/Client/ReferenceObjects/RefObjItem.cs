@@ -118,7 +118,7 @@
         /// A value indicating if the item is of type trading(job trading items)
         /// </summary>
         public bool IsTrading => IsStackable && TypeID3 == 8;
-        
+
         /// <summary>
         /// A value indicating if the item is of type specialty good box
         /// </summary>

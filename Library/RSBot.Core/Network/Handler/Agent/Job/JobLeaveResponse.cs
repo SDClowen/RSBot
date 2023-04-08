@@ -1,4 +1,5 @@
-﻿using RSBot.Core.Objects;
+﻿using RSBot.Core.Event;
+using RSBot.Core.Objects;
 
 namespace RSBot.Core.Network.Handler.Agent.Job;
 
@@ -37,5 +38,7 @@ internal class JobLeaveResponse : IPacketHandler
         };
 
         Log.Notify("[Job] Left previous job guild.");
+
+        EventManager.FireEvent("OnJobLeave");
     }
 }

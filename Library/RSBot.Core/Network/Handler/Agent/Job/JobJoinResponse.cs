@@ -1,4 +1,5 @@
-﻿using RSBot.Core.Objects;
+﻿using RSBot.Core.Event;
+using RSBot.Core.Objects;
 
 namespace RSBot.Core.Network.Handler.Agent.Job;
 
@@ -39,5 +40,7 @@ internal class JobJoinResponse : IPacketHandler
         };
 
         Log.Notify($"[Job] Joined job guild {Game.Player.JobInformation.Type}.");
+
+        EventManager.FireEvent("OnJobJoin");
     }
 }

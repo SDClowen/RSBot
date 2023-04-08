@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using RSBot.Core;
-using RSBot.Core.Client;
-using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Components;
 using RSBot.Core.Components.Scripting;
 using RSBot.Core.Objects;
@@ -44,6 +41,8 @@ namespace RSBot.Trade.Components.Scripting
                 return false;
             }
 
+            if (!TradeConfig.SellGoods && !TradeConfig.BuyGoods)
+                return false; 
 
             try
             {
@@ -65,6 +64,7 @@ namespace RSBot.Trade.Components.Scripting
                 BuyGoods();
                 
                 ShoppingManager.CloseShop();
+
                 return true;
             }
             finally
@@ -119,8 +119,14 @@ namespace RSBot.Trade.Components.Scripting
             }
             
             var bought = 0;
+            var maxSteps = Game.Player.JobTransport.Inventory.Capacity;
+
             while (!Game.Player.JobTransport.Inventory.Full)
             {
+                //Avoid endless loop
+                if (--maxSteps == 0) 
+                    break;
+
                 var buyNextQty = packageItem.RefItem.MaxStack;
 
                 if (TradeConfig.BuyGoodsQuantity > 0 && bought + buyNextQty > TradeConfig.BuyGoodsQuantity)
@@ -131,6 +137,8 @@ namespace RSBot.Trade.Components.Scripting
                 ShoppingManager.PurchaseItem(Game.Player.JobTransport, tabIndex, item.SlotIndex, (ushort) buyNextQty);
 
                 bought += buyNextQty;
+
+                Thread.Sleep(100);
             }
         }
         

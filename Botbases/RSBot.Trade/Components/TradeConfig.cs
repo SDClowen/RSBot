@@ -30,13 +30,7 @@ internal static class TradeConfig
         get => PlayerConfig.Get("RSBot.Trade.SelectedRouteListIndex", 0);
         set => PlayerConfig.Set("RSBot.Trade.SelectedRouteListIndex", value);
     }
-
-    public static bool RandomizeNextRoute
-    {
-        get => PlayerConfig.Get("RSBot.Trade.RandomizeNextRoute", false);
-        set => PlayerConfig.Set("RSBot.Trade.RandomizeNextRoute", value);
-    }
-
+    
     public static bool RunTownScript
     {
         get => PlayerConfig.Get("RSBot.Trade.RunTownScript", false);

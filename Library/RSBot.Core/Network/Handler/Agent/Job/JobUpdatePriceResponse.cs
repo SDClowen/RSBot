@@ -29,11 +29,6 @@ internal class JobUpdatePriceResponse : IPacketHandler
     /// <param name="packet">The packet.</param>
     public void Invoke(Packet packet)
     {
-        if (Game.Player.JobInformation?.Type != JobType.Trade)
-        {
-            return;
-        }
-
         var itemCount = packet.ReadByte();
 
         Game.Player.TradeInfo.Prices = new Dictionary<uint, uint>(itemCount);

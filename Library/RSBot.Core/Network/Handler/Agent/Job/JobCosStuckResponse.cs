@@ -3,7 +3,7 @@ using RSBot.Core.Objects.Job;
 
 namespace RSBot.Core.Network.Handler.Agent.Job;
 
-internal class JobCosDistanceResponse : IPacketHandler
+internal class JobCosStuckResponse : IPacketHandler
 {
     /// <summary>
     /// Gets or sets the opcode.

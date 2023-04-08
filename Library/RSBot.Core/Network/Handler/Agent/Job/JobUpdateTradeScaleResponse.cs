@@ -35,6 +35,6 @@ internal class JobUpdateTradeScaleResponse : IPacketHandler
 
         Log.Notify($"[Job] Difficulty set to level {Game.Player.TradeInfo.Scale}");
 
-        EventManager.FireEvent("OnUpdateJobScale");
+        EventManager.FireEvent("OnJobScaleUpdate");
     }
 }

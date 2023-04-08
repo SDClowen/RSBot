@@ -49,7 +49,6 @@
             this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
             this.panel1 = new SDUI.Controls.Panel();
-            this.checkRandomizeRoute = new SDUI.Controls.CheckBox();
             this.checkWaitForHunter = new SDUI.Controls.CheckBox();
             this.checkRunTownscript = new SDUI.Controls.CheckBox();
             this.tabPageSettings = new System.Windows.Forms.TabPage();
@@ -69,16 +68,19 @@
             this.checkAttackThiefNpc = new SDUI.Controls.CheckBox();
             this.checkAttackThiefPlayers = new SDUI.Controls.CheckBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.label1 = new SDUI.Controls.Label();
-            this.label2 = new SDUI.Controls.Label();
-            this.label3 = new SDUI.Controls.Label();
-            this.label4 = new SDUI.Controls.Label();
-            this.label5 = new SDUI.Controls.Label();
-            this.label6 = new SDUI.Controls.Label();
-            this.separator3 = new SDUI.Controls.Separator();
-            this.label7 = new SDUI.Controls.Label();
-            this.label8 = new SDUI.Controls.Label();
+            this.lblJobExp = new SDUI.Controls.Label();
+            this.lblJobLevel = new SDUI.Controls.Label();
+            this.lblJobAlias = new SDUI.Controls.Label();
             this.label9 = new SDUI.Controls.Label();
+            this.label8 = new SDUI.Controls.Label();
+            this.label7 = new SDUI.Controls.Label();
+            this.separator3 = new SDUI.Controls.Separator();
+            this.label6 = new SDUI.Controls.Label();
+            this.label5 = new SDUI.Controls.Label();
+            this.label4 = new SDUI.Controls.Label();
+            this.lblTradeScale = new SDUI.Controls.Label();
+            this.label2 = new SDUI.Controls.Label();
+            this.label1 = new SDUI.Controls.Label();
             this.contextMenuRouteList.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageRoute.SuspendLayout();
@@ -321,7 +323,6 @@
             this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Border = new System.Windows.Forms.Padding(0, 0, 0, 0);
             this.panel1.BorderColor = System.Drawing.Color.Transparent;
-            this.panel1.Controls.Add(this.checkRandomizeRoute);
             this.panel1.Controls.Add(this.checkWaitForHunter);
             this.panel1.Controls.Add(this.checkRunTownscript);
             this.panel1.Location = new System.Drawing.Point(7, 285);
@@ -331,25 +332,11 @@
             this.panel1.Size = new System.Drawing.Size(766, 42);
             this.panel1.TabIndex = 29;
             // 
-            // checkRandomizeRoute
-            // 
-            this.checkRandomizeRoute.AutoSize = true;
-            this.checkRandomizeRoute.BackColor = System.Drawing.Color.Transparent;
-            this.checkRandomizeRoute.Location = new System.Drawing.Point(8, 16);
-            this.checkRandomizeRoute.Margin = new System.Windows.Forms.Padding(2);
-            this.checkRandomizeRoute.Name = "checkRandomizeRoute";
-            this.checkRandomizeRoute.ShadowDepth = 1;
-            this.checkRandomizeRoute.Size = new System.Drawing.Size(139, 15);
-            this.checkRandomizeRoute.TabIndex = 26;
-            this.checkRandomizeRoute.Text = "Randomize next route";
-            this.checkRandomizeRoute.UseVisualStyleBackColor = false;
-            this.checkRandomizeRoute.CheckedChanged += new System.EventHandler(this.checkBoxSetting_CheckedChanged);
-            // 
             // checkWaitForHunter
             // 
             this.checkWaitForHunter.AutoSize = true;
             this.checkWaitForHunter.BackColor = System.Drawing.Color.Transparent;
-            this.checkWaitForHunter.Location = new System.Drawing.Point(433, 16);
+            this.checkWaitForHunter.Location = new System.Drawing.Point(263, 15);
             this.checkWaitForHunter.Margin = new System.Windows.Forms.Padding(2);
             this.checkWaitForHunter.Name = "checkWaitForHunter";
             this.checkWaitForHunter.ShadowDepth = 1;
@@ -363,7 +350,7 @@
             // 
             this.checkRunTownscript.AutoSize = true;
             this.checkRunTownscript.BackColor = System.Drawing.Color.Transparent;
-            this.checkRunTownscript.Location = new System.Drawing.Point(187, 16);
+            this.checkRunTownscript.Location = new System.Drawing.Point(17, 15);
             this.checkRunTownscript.Margin = new System.Windows.Forms.Padding(2);
             this.checkRunTownscript.Name = "checkRunTownscript";
             this.checkRunTownscript.ShadowDepth = 1;
@@ -591,6 +578,9 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.White;
+            this.tabPage1.Controls.Add(this.lblJobExp);
+            this.tabPage1.Controls.Add(this.lblJobLevel);
+            this.tabPage1.Controls.Add(this.lblJobAlias);
             this.tabPage1.Controls.Add(this.label9);
             this.tabPage1.Controls.Add(this.label8);
             this.tabPage1.Controls.Add(this.label7);
@@ -598,7 +588,7 @@
             this.tabPage1.Controls.Add(this.label6);
             this.tabPage1.Controls.Add(this.label5);
             this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.label3);
+            this.tabPage1.Controls.Add(this.lblTradeScale);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
@@ -608,84 +598,45 @@
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Trade overview";
             // 
-            // label1
+            // lblJobExp
             // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label1.Location = new System.Drawing.Point(35, 71);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(103, 15);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Trades completed:";
+            this.lblJobExp.AutoSize = true;
+            this.lblJobExp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblJobExp.Location = new System.Drawing.Point(144, 245);
+            this.lblJobExp.Name = "lblJobExp";
+            this.lblJobExp.Size = new System.Drawing.Size(13, 15);
+            this.lblJobExp.TabIndex = 11;
+            this.lblJobExp.Text = "0";
             // 
-            // label2
+            // lblJobLevel
             // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label2.Location = new System.Drawing.Point(50, 37);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(88, 15);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Trade difficulty:";
+            this.lblJobLevel.AutoSize = true;
+            this.lblJobLevel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblJobLevel.Location = new System.Drawing.Point(144, 209);
+            this.lblJobLevel.Name = "lblJobLevel";
+            this.lblJobLevel.Size = new System.Drawing.Size(13, 15);
+            this.lblJobLevel.TabIndex = 10;
+            this.lblJobLevel.Text = "0";
             // 
-            // label3
+            // lblJobAlias
             // 
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label3.Location = new System.Drawing.Point(144, 37);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(57, 15);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "■■■■■";
+            this.lblJobAlias.AutoSize = true;
+            this.lblJobAlias.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblJobAlias.Location = new System.Drawing.Point(144, 172);
+            this.lblJobAlias.Name = "lblJobAlias";
+            this.lblJobAlias.Size = new System.Drawing.Size(50, 15);
+            this.lblJobAlias.TabIndex = 9;
+            this.lblJobAlias.Text = "<none>";
             // 
-            // label4
+            // label9
             // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label4.Location = new System.Drawing.Point(144, 71);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(13, 15);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "0";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label5.Location = new System.Drawing.Point(57, 104);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(81, 15);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Current value:";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label6.Location = new System.Drawing.Point(144, 104);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(13, 15);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "0";
-            // 
-            // separator3
-            // 
-            this.separator3.IsVertical = false;
-            this.separator3.Location = new System.Drawing.Point(35, 149);
-            this.separator3.Name = "separator3";
-            this.separator3.Size = new System.Drawing.Size(365, 10);
-            this.separator3.TabIndex = 6;
-            this.separator3.Text = "separator3";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label7.Location = new System.Drawing.Point(101, 209);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(37, 15);
-            this.label7.TabIndex = 7;
-            this.label7.Text = "Level:";
+            this.label9.AutoSize = true;
+            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label9.Location = new System.Drawing.Point(108, 245);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(30, 15);
+            this.label9.TabIndex = 8;
+            this.label9.Text = "EXP:";
             // 
             // label8
             // 
@@ -697,15 +648,84 @@
             this.label8.TabIndex = 7;
             this.label8.Text = "Job alias:";
             // 
-            // label9
+            // label7
             // 
-            this.label9.AutoSize = true;
-            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label9.Location = new System.Drawing.Point(108, 245);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(30, 15);
-            this.label9.TabIndex = 8;
-            this.label9.Text = "EXP:";
+            this.label7.AutoSize = true;
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label7.Location = new System.Drawing.Point(101, 209);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(37, 15);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "Level:";
+            // 
+            // separator3
+            // 
+            this.separator3.IsVertical = false;
+            this.separator3.Location = new System.Drawing.Point(35, 149);
+            this.separator3.Name = "separator3";
+            this.separator3.Size = new System.Drawing.Size(365, 10);
+            this.separator3.TabIndex = 6;
+            this.separator3.Text = "separator3";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label6.Location = new System.Drawing.Point(144, 104);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(13, 15);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "0";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label5.Location = new System.Drawing.Point(57, 104);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(81, 15);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "Current value:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label4.Location = new System.Drawing.Point(144, 71);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(13, 15);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "0";
+            // 
+            // lblTradeScale
+            // 
+            this.lblTradeScale.AutoSize = true;
+            this.lblTradeScale.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblTradeScale.Location = new System.Drawing.Point(144, 37);
+            this.lblTradeScale.Name = "lblTradeScale";
+            this.lblTradeScale.Size = new System.Drawing.Size(57, 15);
+            this.lblTradeScale.TabIndex = 2;
+            this.lblTradeScale.Text = "■■■■■";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label2.Location = new System.Drawing.Point(50, 37);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(88, 15);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Trade difficulty:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label1.Location = new System.Drawing.Point(35, 71);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(103, 15);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Trades completed:";
             // 
             // Main
             // 
@@ -763,7 +783,6 @@
         private SDUI.Controls.CheckBox checkAttackThiefPlayers;
         private System.Windows.Forms.ToolStripMenuItem menuRecordScript;
         private System.Windows.Forms.ToolStripMenuItem menuChooseScript;
-        private SDUI.Controls.CheckBox checkRandomizeRoute;
         private SDUI.Controls.CheckBox checkWaitForHunter;
         private SDUI.Controls.CheckBox checkRunTownscript;
         private System.Windows.Forms.ColumnHeader columnHeader4;
@@ -780,12 +799,15 @@
         private SDUI.Controls.Label label6;
         private SDUI.Controls.Label label5;
         private SDUI.Controls.Label label4;
-        private SDUI.Controls.Label label3;
+        private SDUI.Controls.Label lblTradeScale;
         private SDUI.Controls.Label label2;
         private SDUI.Controls.Label label1;
         private SDUI.Controls.Separator separator3;
         private SDUI.Controls.Label label9;
         private SDUI.Controls.Label label8;
         private SDUI.Controls.Label label7;
+        private SDUI.Controls.Label lblJobExp;
+        private SDUI.Controls.Label lblJobLevel;
+        private SDUI.Controls.Label lblJobAlias;
     }
 }

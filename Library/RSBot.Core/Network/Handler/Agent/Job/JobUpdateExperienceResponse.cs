@@ -31,6 +31,6 @@ internal class JobUpdateExperienceResponse : IPacketHandler
         Game.Player.JobInformation.Level = packet.ReadByte();
         Game.Player.JobInformation.Experience = packet.ReadUInt();
 
-        EventManager.FireEvent("OnUpdateJobExperience");
+        EventManager.FireEvent("OnJobExperienceUpdate");
     }
 }

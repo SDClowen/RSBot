@@ -1,10 +1,12 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.Core;
 using RSBot.Core.Plugins;
 using System.Windows.Forms;
+using RSBot.Trade.Bundle;
 using RSBot.Trade.Components.Scripting;
 
 namespace RSBot.Trade
@@ -16,6 +18,8 @@ namespace RSBot.Trade
         public string DisplayName => "Trade";
 
         public string TabText => DisplayName;
+
+        public static bool IsActive => Kernel.Bot?.Botbase.Name == "RSBot.Trade" && Kernel.Bot.Running;
 
         public Area Area => new()
         {
@@ -29,7 +33,7 @@ namespace RSBot.Trade
         /// </summary>
         public void Tick()
         {
-  
+            Task.Run(Bundles.Tick);
         }
 
         /// <summary>
@@ -46,6 +50,7 @@ namespace RSBot.Trade
             Log.Debug("[Trade] Botbase initialized!");
 
             ScriptManager.CommandHandlers.Add(new BuyGoodsScriptCommand());
+            Bundles.Initialize();
         }
 
         /// <summary>
@@ -71,8 +76,8 @@ namespace RSBot.Trade
 
                 return;
             }
-            
 
+            Task.Run(Bundles.Start);
         }
 
         /// <summary>
@@ -80,6 +85,7 @@ namespace RSBot.Trade
         /// </summary>
         public void Stop()
         {
+            Bundles.Stop();
         }
 
         public void Register()

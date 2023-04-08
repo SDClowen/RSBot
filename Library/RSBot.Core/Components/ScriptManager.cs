@@ -112,7 +112,9 @@ namespace RSBot.Core.Components
 
         public static void Pause()
         {
+            IsPaused = true;
 
+            EventManager.FireEvent("OnPauseScript");
         }
 
         /// <summary>
@@ -128,18 +130,15 @@ namespace RSBot.Core.Components
             }
 
             Running = true;
-
-            if (useNearbyWaypoint)
-                CurrentLineIndex = FindNearestMoveCommandLine();
-            else
-                CurrentLineIndex = 0;
+            IsPaused = false;
+            CurrentLineIndex = useNearbyWaypoint ? FindNearestMoveCommandLine() : 0;
 
             if (CurrentLineIndex != 0)
                 Log.Debug($"[Script] Found nearby walk position at line #{CurrentLineIndex}");
 
             foreach (var scriptLine in Commands.Skip(CurrentLineIndex))
             {
-                if (!Running)
+                if (!Running || IsPaused)
                     break;
 
                 Log.Status("Running walk script");
@@ -181,7 +180,8 @@ namespace RSBot.Core.Components
                 CurrentLineIndex++;
             }
 
-            Stop();
+            if (!IsPaused)
+                Stop();
         }
 
         /// <summary>
