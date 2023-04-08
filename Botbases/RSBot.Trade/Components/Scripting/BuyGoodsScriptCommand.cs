@@ -5,6 +5,7 @@ using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Components.Scripting;
 using RSBot.Core.Objects;
+using RSBot.Trade.Components.Statistics;
 
 namespace RSBot.Trade.Components.Scripting
 {
@@ -42,7 +43,7 @@ namespace RSBot.Trade.Components.Scripting
             }
 
             if (!TradeConfig.SellGoods && !TradeConfig.BuyGoods)
-                return false; 
+                return true; 
 
             try
             {
@@ -50,7 +51,7 @@ namespace RSBot.Trade.Components.Scripting
                 var codeName = arguments[0];
                 
                 ShoppingManager.ChooseTalkOption(codeName, TalkOption.Trade);
-
+                
                 if (Game.SelectedEntity == null)
                 {
                     Log.Warn("[Script] Can not buy items: Not in dialog with an NPC.");
@@ -58,9 +59,15 @@ namespace RSBot.Trade.Components.Scripting
                     return false;
                 }
 
-                Log.Notify("[Script] Purchasing items...");
+                Log.Notify($"[Script] Selling goods to  {Game.SelectedEntity.Record.GetRealName()}...");
 
+                
+                //ToDo: Find out why the game is crashing
                 SellGoods();
+
+                Log.Notify($"[Script] Purchasing goods from  {Game.SelectedEntity.Record.GetRealName()}...");
+
+                //ToDo: Find out why the game is crashing
                 BuyGoods();
                 
                 ShoppingManager.CloseShop();
@@ -76,7 +83,38 @@ namespace RSBot.Trade.Components.Scripting
 
         private void SellGoods()
         {
-            return;
+            if (!TradeConfig.SellGoods || Game.Player.JobTransport == null)
+                return;
+
+            var items = Game.Player.JobTransport.Inventory.ToArray();
+            if (items.Length == 0)
+                return;
+
+            var shopGroup = Game.ReferenceManager.GetRefShopGroup(Game.SelectedEntity?.Record.CodeName);
+            if (shopGroup == null)
+            {
+                Log.Warn("[Script] Can not buy items: Can not find the shop info.");
+
+                return;
+            }
+
+            var shopGoods = Game.ReferenceManager.GetRefShopGoods(shopGroup);
+            var tradeRevenue = 0ul;
+            foreach (var item in items)
+            {
+                var canSellToNpc = shopGoods.FirstOrDefault(i => Game.ReferenceManager.GetRefPackageItem(i.RefPackageItemCodeName).RefItem.ID == item.ItemId) == null;
+
+                if (!canSellToNpc)
+                    continue;
+
+                var goldBefore = Game.Player.Gold;
+                ShoppingManager.SellItem(item, Game.Player.JobTransport.Bionic);
+                var goldAfter = Game.Player.Gold;
+                tradeRevenue += goldAfter - goldBefore;
+            }
+
+            TradeStatistics.Revenue += tradeRevenue;
+            TradeStatistics.TradesCompleted++;
         }
 
         private void BuyGoods()
@@ -128,6 +166,8 @@ namespace RSBot.Trade.Components.Scripting
                     break;
 
                 var buyNextQty = packageItem.RefItem.MaxStack;
+                if (buyNextQty == 0)
+                    break;
 
                 if (TradeConfig.BuyGoodsQuantity > 0 && bought + buyNextQty > TradeConfig.BuyGoodsQuantity)
                     buyNextQty = TradeConfig.BuyGoodsQuantity - bought;

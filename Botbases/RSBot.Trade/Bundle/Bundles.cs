@@ -1,4 +1,6 @@
-﻿namespace RSBot.Trade.Bundle
+﻿using RSBot.Core.Event;
+
+namespace RSBot.Trade.Bundle
 {
     internal static class Bundles
     {

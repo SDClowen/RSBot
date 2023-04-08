@@ -120,7 +120,7 @@ namespace RSBot.Core.Components
         /// <summary>
         /// Runs this instance.
         /// </summary>
-        public static void RunScript(bool useNearbyWaypoint = true)
+        public static void RunScript(bool useNearbyWaypoint = true, bool ignoreBotRunning = false)
         {
             if (Commands == null || Commands.Length == 0)
             {
@@ -136,9 +136,12 @@ namespace RSBot.Core.Components
             if (CurrentLineIndex != 0)
                 Log.Debug($"[Script] Found nearby walk position at line #{CurrentLineIndex}");
 
-            foreach (var scriptLine in Commands.Skip(CurrentLineIndex))
+            if (Commands.Length < CurrentLineIndex)
+                return;
+
+            foreach (var scriptLine in Commands?.Skip(CurrentLineIndex))
             {
-                if (!Running || IsPaused)
+                if (!Running || IsPaused || (!Kernel.Bot.Running && !ignoreBotRunning))
                     break;
 
                 Log.Status("Running walk script");
@@ -178,6 +181,9 @@ namespace RSBot.Core.Components
                 }
 
                 CurrentLineIndex++;
+
+                if (CurrentLineIndex == Commands.Length)
+                    break;
             }
 
             if (!IsPaused)

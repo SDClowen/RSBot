@@ -19,6 +19,12 @@ internal static class TradeConfig
         set => PlayerConfig.Set("RSBot.Trade.TracePlayer", value);
     }
 
+    public static string LockedRouteFile
+    {
+        get => PlayerConfig.Get("RSBot.Trade.LockedRouteFile", "");
+        set => PlayerConfig.Set("RSBot.Trade.LockedRouteFile", value);
+    }
+
     public static bool UseRouteScripts
     {
         get => PlayerConfig.Get("RSBot.Trade.UseRouteScripts", true);
@@ -51,19 +57,14 @@ internal static class TradeConfig
 
     public static bool AttackThiefNpcs
     {
-        get => PlayerConfig.Get("RSBot.Trade.AttackThiefNpc", false);
-        set => PlayerConfig.Set("RSBot.Trade.AttackThiefNpc", value);
+        get => PlayerConfig.Get("RSBot.Trade.AttackThiefNpcs", false);
+        set => PlayerConfig.Set("RSBot.Trade.AttackThiefNpcs", value);
     }
 
-    public static bool CastBuffsWhileWalking
+    public static bool CastBuffs
     {
-        get => PlayerConfig.Get("RSBot.Trade.CastBuffsWhileWalking", false);
-        set => PlayerConfig.Set("RSBot.Trade.CastBuffsWhileWalking", value);
-    }
-    public static bool CastBuffsWhileFighting
-    {
-        get => PlayerConfig.Get("RSBot.Trade.CastBuffsWhileFighting", false);
-        set => PlayerConfig.Set("RSBot.Trade.CastBuffsWhileFighting", value);
+        get => PlayerConfig.Get("RSBot.Trade.CastBuffs", false);
+        set => PlayerConfig.Set("RSBot.Trade.CastBuffs", value);
     }
 
     public static bool CounterAttack
@@ -80,13 +81,13 @@ internal static class TradeConfig
 
     public static bool BuyGoods
     {
-        get => PlayerConfig.Get("RSBot.Trade.BuyGoods", false);
+        get => PlayerConfig.Get("RSBot.Trade.BuyGoods", true);
         set => PlayerConfig.Set("RSBot.Trade.BuyGoods", value);
     }
 
     public static bool SellGoods
     {
-        get => PlayerConfig.Get("RSBot.Trade.SellGoods", false);
+        get => PlayerConfig.Get("RSBot.Trade.SellGoods", true);
         set => PlayerConfig.Set("RSBot.Trade.SellGoods", value);
     }
 
@@ -95,7 +96,6 @@ internal static class TradeConfig
         get => PlayerConfig.Get("RSBot.Trade.BuyGoodsQuantity", 0);
         set => PlayerConfig.Set("RSBot.Trade.BuyGoodsQuantity", value);
     }
-
 
     public static List<string> RouteScriptList
     {

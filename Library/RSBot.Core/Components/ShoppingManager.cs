@@ -124,21 +124,22 @@ namespace RSBot.Core.Components
 
             //Prevent modification during the for-each loop
             var tempItemSellList =
-                 Game.Player.Inventory.GetNormalPartItems(item => SellFilter.Any(p => p == item.Record.CodeName));
+                Game.Player.Inventory.GetNormalPartItems(item => SellFilter.Any(p => p == item.Record.CodeName));
 
             foreach (var item in tempItemSellList)
                 SellItem(item);
 
             if (Game.Player.HasActiveAbilityPet && SellPetItems)
             {
-                tempItemSellList = Game.Player.AbilityPet.Inventory.GetItems(item => SellFilter.Any(p => p == item.Record.CodeName));
+                tempItemSellList =
+                    Game.Player.AbilityPet.Inventory.GetItems(item => SellFilter.Any(p => p == item.Record.CodeName));
 
                 foreach (var item in tempItemSellList)
                 {
                     var playerSlot = Game.Player.AbilityPet.MoveItemToPlayer(item.Slot);
                     if (playerSlot != 0xFF)
                         SellItem(Game.Player.Inventory.GetItemAt((byte)playerSlot));
-                } 
+                }
             }
 
             var shopGroup = ReferenceManager.GetRefShopGroup(npcCodeName);
@@ -160,7 +161,8 @@ namespace RSBot.Core.Components
                 if (!Running)
                     return;
 
-                var actualItem = shopGoods.FirstOrDefault(x => x.RefPackageItemCodeName == item.Key.RefPackageItemCodeName);
+                var actualItem =
+                    shopGoods.FirstOrDefault(x => x.RefPackageItemCodeName == item.Key.RefPackageItemCodeName);
 
                 if (actualItem == null)
                     continue;
@@ -194,13 +196,15 @@ namespace RSBot.Core.Components
                 //merge stacks
                 if (refItem.MaxStack > 1)
                 {
-                    IList<InventoryItem> getItems() 
-                        => Game.Player.Inventory.GetItems(i => i.Record.CodeName == refPackageItem.RefItemCodeName && i.Amount < refItem.MaxStack); 
+                    IList<InventoryItem> getItems()
+                        => Game.Player.Inventory.GetItems(i =>
+                            i.Record.CodeName == refPackageItem.RefItemCodeName && i.Amount < refItem.MaxStack);
 
                     var nonFullStacks = getItems();
                     while (nonFullStacks.Count >= 2)
                     {
-                        Game.Player.Inventory.MoveItem(nonFullStacks[1].Slot, nonFullStacks[0].Slot, (ushort)Math.Min(refItem.MaxStack - nonFullStacks[0].Amount, nonFullStacks[1].Amount));
+                        Game.Player.Inventory.MoveItem(nonFullStacks[1].Slot, nonFullStacks[0].Slot,
+                            (ushort)Math.Min(refItem.MaxStack - nonFullStacks[0].Amount, nonFullStacks[1].Amount));
                         nonFullStacks = getItems();
                         Thread.Sleep(100);
                     }
@@ -217,13 +221,18 @@ namespace RSBot.Core.Components
         /// Sells the item.
         /// </summary>
         /// <param name="item">The item.</param>
-        public static void SellItem(InventoryItem item)
+        /// <param name="cos"></param>
+        public static void SellItem(InventoryItem item, SpawnedBionic cos = null)
         {
             if (SelectedEntity == null)
                 return;
 
             var packet = new Packet(0x7034);
-            packet.WriteByte(0x09);
+            packet.WriteByte(cos == null ? InventoryOperation.SP_SELL_ITEM : InventoryOperation.SP_SELL_ITEM_COS);
+            
+            if (cos != null)
+                packet.WriteUInt(cos.UniqueId);
+
             packet.WriteByte(item.Slot);
             packet.WriteUShort(item.Amount);
             packet.WriteUInt(SelectedEntity.UniqueId);
@@ -232,7 +241,7 @@ namespace RSBot.Core.Components
             PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
             awaitResult.AwaitResponse();
 
-            Log.Debug("[Shopping manager] - Sold item (player): " + item.Record.GetRealName());
+            Log.Debug("[Shopping manager] - Sold item: " + item.Record.GetRealName());
         }
 
         /// <summary>
@@ -416,7 +425,7 @@ namespace RSBot.Core.Components
             
             if (!SpawnManager.TryGetEntity<SpawnedNpcNpc>(p => p.Record.CodeName == npcCodeName, out var entity))
             {
-                Log.Debug("Cannot access the NPC [" + npcCodeName + "] because it does not exist nearby.");
+                Log.Warn("Cannot access the NPC [" + npcCodeName + "] because it does not exist nearby.");
 
                 return;
             }
@@ -482,6 +491,12 @@ namespace RSBot.Core.Components
             PlayerConfig.SetArray("RSBot.Shopping.Sell", SellFilter);
             PlayerConfig.SetArray("RSBot.Shopping.Store", StoreFilter);
         }
+
+        /// <summary>
+        /// Selects the given NPC and chooses the specified dialog option.
+        /// </summary>
+        /// <param name="npcCodeName"></param>
+        /// <param name="option"></param>
 
         public static void ChooseTalkOption(string npcCodeName, TalkOption option)
         {

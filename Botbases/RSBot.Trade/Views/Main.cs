@@ -1,12 +1,15 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
+using RSBot.Trade.Bundle;
 using RSBot.Trade.Components;
+using RSBot.Trade.Components.Statistics;
 
 namespace RSBot.Trade.Views
 {
@@ -59,6 +62,11 @@ namespace RSBot.Trade.Views
             EventManager.FireEvent("AppendScriptCommand", $"buy-goods {Game.Player.State.DialogState.Npc.Record.CodeName}");
         }
 
+        public void RefreshStatistics()
+        {
+            lblRevenue.Text = TradeStatistics.Revenue.ToString("C") + " Gold";
+            lblNumTradesCompleted.Text = TradeStatistics.TradesCompleted.ToString();
+        }
         private void ReloadView()
         {
             PopulateRouteListComboBox();
@@ -67,16 +75,16 @@ namespace RSBot.Trade.Views
 
             checkAttackThiefNpc.Checked = TradeConfig.AttackThiefNpcs;
             checkAttackThiefPlayers.Checked = TradeConfig.AttackThiefPlayers;
-            checkCastBuffsWhileFighting.Checked = TradeConfig.CastBuffsWhileFighting;
-            checkCastBuffsWhileWalking.Checked = TradeConfig.CastBuffsWhileWalking;
+            checkCastBuffs.Checked = TradeConfig.CastBuffs;
             checkWaitForHunter.Checked = TradeConfig.WaitForHunter;
             checkCounterAttack.Checked = TradeConfig.CounterAttack;
             checkRunTownscript.Checked = TradeConfig.RunTownScript;
             checkBuyGoods.Checked = TradeConfig.BuyGoods;
             checkSellGoods.Checked = TradeConfig.SellGoods;
+            checkProtectTransport.Checked = TradeConfig.ProtectTransport;
 
             //Make sure that the user didn't modify the config so both could equal true
-            if (TradeConfig.UseRouteScripts && TradeConfig.TracePlayer) 
+            if (TradeConfig.UseRouteScripts && TradeConfig.TracePlayer)
                 TradeConfig.TracePlayer = false;
 
             if (!TradeConfig.UseRouteScripts && !TradeConfig.TracePlayer)
@@ -123,7 +131,7 @@ namespace RSBot.Trade.Views
 
             var selectedIndex = comboRouteList.SelectedIndex - 1; //- default
             var scripts = TradeConfig.RouteScriptList;
-            if (scripts.Count > selectedIndex) 
+            if (scripts.Count > selectedIndex)
                 scripts.RemoveAt(selectedIndex);
 
             TradeConfig.RouteScriptList = scripts;
@@ -138,9 +146,9 @@ namespace RSBot.Trade.Views
             if (dialog.ShowDialog() != DialogResult.OK)
                 return;
 
-            var userInput = (string) dialog.Value;
+            var userInput = (string)dialog.Value;
 
-            if(userInput.Contains(';'))
+            if (userInput.Contains(';'))
             {
 
                 MessageBox.Show("The character ';' is invalid in route list names", "Invalid character",
@@ -198,7 +206,7 @@ namespace RSBot.Trade.Views
                 return;
 
             var routes = TradeConfig.RouteScripts;
-            routes[(string) comboRouteList.SelectedItem].Add(openFileDiag.FileName);
+            routes[(string)comboRouteList.SelectedItem].Add(openFileDiag.FileName);
 
             TradeConfig.RouteScripts = routes;
 
@@ -208,7 +216,7 @@ namespace RSBot.Trade.Views
         private void RefreshRoutes()
         {
             lvRouteList.Items.Clear();
-            var selectedRouteList = (string) comboRouteList.SelectedItem ?? "";
+            var selectedRouteList = (string)comboRouteList.SelectedItem ?? "";
 
             if (!TradeConfig.RouteScripts.ContainsKey(selectedRouteList))
                 return;
@@ -230,7 +238,7 @@ namespace RSBot.Trade.Views
                 var originRegionName = Game.ReferenceManager.GetTranslation(origin.Region.ToString());
                 var destinationRegionName = Game.ReferenceManager.GetTranslation(destination.Region.ToString());
 
-                var lvItem = new ListViewItem(Path.GetFileNameWithoutExtension(fileName));
+                var lvItem = new ListViewItem(Path.GetFileNameWithoutExtension(fileName)) { Tag = fileName };
                 lvItem.SubItems.Add(originRegionName);
                 lvItem.SubItems.Add(destinationRegionName);
                 lvItem.SubItems.Add(walkScript.Count.ToString());
@@ -248,8 +256,7 @@ namespace RSBot.Trade.Views
             TradeConfig.RunTownScript = checkRunTownscript.Checked;
             TradeConfig.AttackThiefPlayers = checkAttackThiefPlayers.Checked;
             TradeConfig.AttackThiefNpcs = checkAttackThiefNpc.Checked;
-            TradeConfig.CastBuffsWhileWalking = checkCastBuffsWhileWalking.Checked;
-            TradeConfig.CastBuffsWhileFighting = checkCastBuffsWhileFighting.Checked;
+            TradeConfig.CastBuffs = checkCastBuffs.Checked;
             TradeConfig.CounterAttack = checkCounterAttack.Checked;
             TradeConfig.ProtectTransport = checkProtectTransport.Checked;
             TradeConfig.BuyGoods = checkBuyGoods.Checked;
@@ -258,7 +265,7 @@ namespace RSBot.Trade.Views
 
         private void menuRemoveScript_Click(object sender, EventArgs e)
         {
-            if (lvRouteList.SelectedItems.Count == 0) 
+            if (lvRouteList.SelectedItems.Count == 0)
                 return;
 
             var selectedRouteList = (string)comboRouteList.SelectedItem;
@@ -303,6 +310,27 @@ namespace RSBot.Trade.Views
                 return;
 
             TradeConfig.BuyGoodsQuantity = Convert.ToInt32(numAmountGoods.Value);
+        }
+
+        private void executeHereToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var selectedItem = lvRouteList.SelectedItems[0];
+            if (selectedItem == null)
+                return;
+
+            var fileName = (string)selectedItem.Tag;
+
+            if (Kernel.Bot.Running
+                && MessageBox.Show("Cancel current route and restart from selected file?",
+                    "Reset to selected route", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK)
+                return;
+
+            Bundles.RouteBundle.CurrentRouteFile = fileName;
+            ScriptManager.Load(fileName);
+
+            if (!Kernel.Bot.Running)
+                Kernel.Bot.Start();
+
         }
     }
 }

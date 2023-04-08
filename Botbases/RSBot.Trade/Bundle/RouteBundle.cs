@@ -5,6 +5,9 @@ using RSBot.Core.Event;
 using RSBot.Trade.Components;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
+using SDUI.Controls;
 
 namespace RSBot.Trade.Bundle
 {
@@ -15,6 +18,7 @@ namespace RSBot.Trade.Bundle
     {
         public string CurrentRouteFile { get; set; } = null;
 
+        public bool TownscriptRunning { get; set; } = false;
 
         private object _lock;
 
@@ -60,14 +64,14 @@ namespace RSBot.Trade.Bundle
         public void Start()
         {
             _lock = new object();
+
             CheckForTownScript();
         }
         
 
         public void Tick()
         {
-            if (_lock == null)
-                _lock = new object();
+            _lock ??= new object();
 
             lock (_lock)
             {
@@ -88,22 +92,51 @@ namespace RSBot.Trade.Bundle
                 if (ScriptManager.Running && !ScriptManager.IsPaused)
                     return;
 
-                if (CurrentRouteFile == null && !ScriptManager.Running)
+                if (CurrentRouteFile == null && !ScriptManager.Running && TradeBotbase.IsActive)
                 {
                     var nextRouteFile = GetNextRouteFile();
-
+                    
                     if (nextRouteFile == null)
                     {
-                        Log.Error("[Trade] No route found!");
+                        var inputDialog = new InputDialog("Select route", "Select route",
+                            "Select the route to start from at the current location.", InputDialog.InputType.Combobox)
+                            {
+                                TopLevel = true,
+                                //TopMost = true,
+                                StartPosition = FormStartPosition.CenterScreen,
+                                ShowInTaskbar = true
 
-                        Kernel.Bot.Stop();
+                            };
 
-                        return;
+                        if (TradeConfig.RouteScriptList.Count < TradeConfig.SelectedRouteListIndex)
+                            return;
+
+                        var selectedRouteList = TradeConfig.RouteScriptList[TradeConfig.SelectedRouteListIndex];
+                        if (selectedRouteList == null || !TradeConfig.RouteScripts.ContainsKey(selectedRouteList))
+                            return;
+
+                        foreach (var fileName in TradeConfig.RouteScripts[selectedRouteList]
+                                     .Select(Path.GetFileNameWithoutExtension))
+                        {
+                            inputDialog.Selector.Items.Add(fileName);
+                        }
+
+                        if (inputDialog.ShowDialog(Application.OpenForms[0]) != DialogResult.OK)
+                        {
+                            Log.Error("[Trade] No route found!");
+
+                            Kernel.Bot.Stop();
+
+                            return;
+                        }
+
+                        nextRouteFile = TradeConfig.RouteScripts[selectedRouteList].FirstOrDefault(s =>
+                            Path.GetFileNameWithoutExtension(s) == inputDialog.Selector.SelectedItem.ToString());
                     }
 
                     CurrentRouteFile = nextRouteFile;
 
-                    Game.ShowNotification($"[Trade] Picked route {Path.GetFileNameWithoutExtension(nextRouteFile)}");
+                    Game.ShowNotification($"[RSBot] Picked trade route {Path.GetFileNameWithoutExtension(nextRouteFile)}");
 
                     ScriptManager.Load(nextRouteFile);
                     ScriptManager.RunScript(false);

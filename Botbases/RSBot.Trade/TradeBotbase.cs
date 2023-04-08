@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using RSBot.Core.Components;
-using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.Core;
 using RSBot.Core.Plugins;
@@ -23,7 +22,7 @@ namespace RSBot.Trade
 
         public Area Area => new()
         {
-            Name = "Player",
+            Name = "Trade",
             Position = Game.Player.Position,
             Radius = 50
         };
@@ -34,6 +33,8 @@ namespace RSBot.Trade
         public void Tick()
         {
             Task.Run(Bundles.Tick);
+
+            Views.View.Main.RefreshStatistics();
         }
 
         /// <summary>
@@ -77,7 +78,7 @@ namespace RSBot.Trade
                 return;
             }
 
-            Task.Run(Bundles.Start);
+            Bundles.Start();
         }
 
         /// <summary>

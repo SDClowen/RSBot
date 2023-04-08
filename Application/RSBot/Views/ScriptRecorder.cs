@@ -416,7 +416,7 @@ namespace RSBot.Views
                     return;
 
                 ScriptManager.Load(txtScript.Text.Split('\n'));
-                Task.Run(() => ScriptManager.RunScript(false));
+                Task.Run(() => ScriptManager.RunScript(false, true));
 
                 labelStatus.Text = LanguageManager.GetLang("Running");
                 btnRun.Text = "X";
