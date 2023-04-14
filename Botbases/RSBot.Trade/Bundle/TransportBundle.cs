@@ -7,187 +7,180 @@ using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
 using RSBot.Trade.Components;
 
-namespace RSBot.Trade.Bundle
+namespace RSBot.Trade.Bundle;
+
+internal class TransportBundle
 {
-    internal class TransportBundle
+    /// <summary>
+    ///     A value indicating if the bot is waiting for transport.
+    /// </summary>
+    public bool WaitingForTransport { get; private set; }
+
+    /// <summary>
+    ///     A value indicating if the transport is stuck.
+    /// </summary>
+    public bool TransportStuck { get; private set; }
+
+
+    /// <summary>
+    ///     A value indicating if the bundle is currently busy and should block further command execution.
+    /// </summary>
+    public bool Busy => WaitingForTransport || TransportStuck;
+
+    /// <summary>
+    ///     Initializes the bot base
+    /// </summary>
+    public void Initialize()
     {
-        public bool WaitingForTransport { get; private set; }
+        SubscribeEvents();
+    }
 
-        public bool TransportStuck { get; private set; }
+    /// <summary>
+    ///     Starts the bundle.
+    /// </summary>
+    public void Start()
+    {
+        WaitingForTransport = false;
+        TransportStuck = false;
+    }
 
-        public bool WaitingForHunter { get; private set; }
+    /// <summary>
+    ///     Subscribes the events.
+    /// </summary>
+    private void SubscribeEvents()
+    {
+        EventManager.SubscribeEvent("OnJobCosStuck", new Action<byte>(OnJobCosStuck));
+    }
 
-        public bool BlockProgression => WaitingForTransport || TransportStuck || WaitingForHunter;
+    /// <summary>
+    ///     Triggered when the server sends the cos stuck packet.
+    /// </summary>
+    /// <param name="reason"></param>
+    private void OnJobCosStuck(byte reason)
+    {
+        if (TransportStuck)
+            return;
 
-        public void Initialize()
+        //ToDO: Better unstack mechanic for trade transports.
+        Log.Warn("[Trade] Your transport is stuck! Go back to your transport and try to unstuck it.");
+        Game.ShowNotification("[RSBot] Your transport is stuck! Go back to your transport and try to unstuck it.");
+
+        //TransportStuck = true;
+    }
+
+    public void Tick()
+    {
+        //Summon new transport?
+        if (Game.Player.JobTransport == null)
         {
-            SubscribeEvents();
-        }
-
-        public void Start()
-        {
-            CheckVehicleDistance();
-            CheckHunterNearby();
-            CheckVehicleUnderAttack();
-        }
-
-        private void SubscribeEvents()
-        {
-            EventManager.SubscribeEvent("OnJobCosStuck", new Action<byte>(OnJobCosStuck));
-        }
-
-        private void OnJobCosStuck(byte reason)
-        {
-            if (TransportStuck)
+            if (Game.Player.State.BattleState == BattleState.InBattle || Game.Player.InAction)
                 return;
 
-            //ToDO: Better unstack mechanic for trade transports.
-            Log.Warn("[Trade] Your transport is stuck! Go back to your transport and try to unstuck it.");
-            Game.ShowNotification("[RSBot] Your transport is stuck! Go back to your transport and try to unstuck it.");
-            TransportStuck = true;
-        }
+            var jobTransportItem = Game.Player.Inventory
+                .GetNormalPartItems(i => i.Record.CodeName.Contains("COS_T_") && i.Record.Tid == 4588)
+                .FirstOrDefault();
 
-        public void Tick()
-        {
-            //Summon new transport?
-            if (Game.Player.JobTransport == null)
+            if (jobTransportItem != null)
             {
-                if (Game.Player.GetAttackers().Count > 0)
-                    return;
-
-                var jobTransportItem = Game.Player.Inventory.GetNormalPartItems(i => i.Record.CodeName.Contains("COS_T_") && i.Record.Tid == 4588)
-                    .FirstOrDefault();
-
-                if (jobTransportItem != null)
-                {
-                    Log.Notify($"[Trade] Summoning transport [{jobTransportItem.Record.GetRealName()}]");
-                    jobTransportItem.Use();
-
-                    return;
-                }
-
-                Log.Warn("[Trade] Can not summon transport: No transport scroll in player inventory.");
-
-                Kernel.Bot.Stop();
+                Log.Notify($"[Trade] Summoning transport [{jobTransportItem.Record.GetRealName()}]");
+                jobTransportItem.Use();
 
                 return;
             }
-            
-            //Wait for the transport?
-            if (!CheckVehicleDistance() || !CheckHunterNearby() || !CheckVehicleUnderAttack())
-                return;
 
-            if (TradeConfig.MountTransport && !Game.Player.HasActiveVehicle && Game.Player.GetAttackers().Count == 0)
-            {
-                if (Game.Player.JobTransport.IsBehindObstacle ||
-                    Game.Player.JobTransport.Position.DistanceToPlayer() > 5)
-                {
+            Log.Warn("[Trade] Can not summon transport: No transport scroll in player inventory.");
 
-                    Game.Player.MoveTo(Game.Player.JobTransport.Position);
-                    WaitingForTransport = true;
+            Kernel.Bot.Stop();
 
-                    return;
-                }
-
-                Log.Notify("[Trade] Mounting transport");
-
-                Game.Player.JobTransport.Mount();
-            } else if (!TradeConfig.MountTransport && Game.Player.HasActiveVehicle &&
-                       Game.Player.Vehicle.UniqueId == Game.Player.JobTransport.UniqueId)
-                Game.Player.JobTransport.Dismount();
+            return;
         }
 
-        /// <summary>
-        /// Returns a value indicating if a hunter is nearby.
-        /// </summary>
-        /// <returns></returns>
-        private bool CheckHunterNearby()
+        //Wait for certain things?
+        if (!CheckDistanceToTransport() || !CheckTransportIsUnderAttack())
+            return;
+
+        if (TradeConfig.MountTransport && !Game.Player.HasActiveVehicle &&
+            Game.Player.State.BattleState == BattleState.InPeace && !Game.Player.InAction)
         {
-            var hunterNearby =  !TradeConfig.WaitForHunter || SpawnManager.TryGetEntity<SpawnedPlayer>(
-                p => p.WearsJobSuite && p.Job == JobType.Hunter,
-                out var _);
+            Log.Notify("[Trade] Mounting transport");
 
-            WaitingForHunter = !hunterNearby;
+            WaitingForTransport = true;
 
-            return hunterNearby;
+            Game.Player.MoveTo(Game.Player.JobTransport.Position);
+            Game.Player.JobTransport?.Mount();
+        }
+        else if (!TradeConfig.MountTransport && Game.Player.HasActiveVehicle &&
+                 Game.Player.Vehicle.UniqueId == Game.Player.JobTransport.UniqueId)
+        {
+            Game.Player.JobTransport?.Dismount();
+        }
+    }
+
+
+    /// <summary>
+    ///     Checks the vehicle distance to the player.
+    /// </summary>
+    /// s
+    private bool CheckDistanceToTransport()
+    {
+        if (Game.Player.JobTransport == null)
+        {
+            WaitingForTransport = true;
+
+            Log.Debug("[Trade] Waiting for job transport to spawn.");
+
+            return false;
         }
 
-        /// <summary>
-        /// Checks the vehicle distance to the player.
-        /// </summary>s
-        private bool CheckVehicleDistance()
+        //Player is mounted 
+        if (Game.Player.HasActiveVehicle && Game.Player.Vehicle.UniqueId == Game.Player.JobTransport.UniqueId)
         {
-            if (Game.Player.JobTransport == null)
-            {
-                WaitingForTransport = true;
-
-                Log.Debug("[Trade] Waiting for job transport to spawn.");
-
-                return false;
-            }
-
-            //Player is mounted 
-            if (Game.Player.HasActiveVehicle && Game.Player.Vehicle.UniqueId == Game.Player.JobTransport.UniqueId)
-            {
-                WaitingForTransport = false;
-                TransportStuck = false;
-
-                return true;
-            }
-
-            TransportStuck = Game.Player.JobTransport.IsBehindObstacle;
-            
-            var dest = Game.Player.Movement.HasDestination
-                ? Game.Player.Movement.Destination
-                : Game.Player.Movement.Source;
-
-            if (TransportStuck && !Game.Player.Movement.HasDestination)
-            {
-                Game.Player.MoveTo(Game.Player.JobTransport.Position);
-                
-                return false;
-            }
-
-            if (Game.Player.Position.DistanceTo(Game.Player.JobTransport.Position) > TradeConfig.MaxTransportDistance 
-                && Game.Player.JobTransport.Movement.HasDestination //only if transport is currently moving
-                && !Game.Player.JobTransport.IsBehindObstacle)
-            {
-                Log.Debug("[Trade] Waiting for job transport to come closer to player.");
-                
-                WaitingForTransport = true;
-
-                return false;
-            }
-
-            TransportStuck = CollisionManager.HasCollisionBetween(dest, Game.Player.JobTransport.Position);
             WaitingForTransport = false;
+            TransportStuck = false;
 
             return true;
         }
 
-        /// <summary>
-        /// Checks if the vehicle is under attack
-        /// </summary>
-        public bool CheckVehicleUnderAttack()
+        var currentDistance = Game.Player.Position.DistanceTo(Game.Player.JobTransport.Position);
+        if (currentDistance > TradeConfig.MaxTransportDistance && Game.Player.JobTransport.Movement.HasDestination)
         {
-            if (!TradeConfig.ProtectTransport)
-                return true;
+            Log.Status($"Waiting for transport ({currentDistance:F1}m)");
 
-            if (Game.Player.JobTransport == null)
-                return true;
+            WaitingForTransport = true;
 
-            if(!SpawnManager.TryGetEntity<SpawnedBionic>(Game.Player.JobTransport.UniqueId, out var bionic))
-               return true;
- 
-            return bionic.GetAttackers().Count == 0;
+            return false;
         }
 
-        /// <summary>
-        /// Stops this instance.
-        /// </summary>
-        public void Stop()
-        {
-            WaitingForTransport = false;
-        }
+        //ToDo: Check if job transport is stuck. Since the collision files are wrong at certain locations like Hotan
+        //It can not be done until the collision has been fixed.
+        WaitingForTransport = false;
+
+        return true;
+    }
+
+    /// <summary>
+    ///     Checks if the vehicle is under attack
+    /// </summary>
+    public bool CheckTransportIsUnderAttack()
+    {
+        if (!TradeConfig.ProtectTransport)
+            return true;
+
+        if (Game.Player.JobTransport == null)
+            return true;
+
+        if (!SpawnManager.TryGetEntity<SpawnedBionic>(Game.Player.JobTransport.UniqueId, out var bionic))
+            return true;
+
+        return bionic.GetAttackers().Count == 0;
+    }
+
+    /// <summary>
+    ///     Stops this instance.
+    /// </summary>
+    public void Stop()
+    {
+        WaitingForTransport = false;
+        TransportStuck = false;
     }
 }

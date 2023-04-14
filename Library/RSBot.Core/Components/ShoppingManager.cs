@@ -393,6 +393,8 @@ namespace RSBot.Core.Components
         /// </summary>
         public static void CloseShop()
         {
+            Running = false;
+
             if (SelectedEntity != null && SelectedEntity.TryDeselect())
                 SelectedEntity = null;
         }

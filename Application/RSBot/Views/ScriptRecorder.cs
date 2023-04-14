@@ -70,7 +70,7 @@ namespace RSBot.Views
             EventManager.SubscribeEvent("OnNpcRepairRequest", new Action<uint, byte, byte>(OnNpcRepairRequest));
             EventManager.SubscribeEvent("OnStorageOpenRequest", new Action<uint>(StorageOpenRequest));
             EventManager.SubscribeEvent("OnTalkRequest", new Action<uint, TalkOption>(OnTalkRequest));
-            EventManager.SubscribeEvent("OnFinishScript", OnFinishScript);
+            EventManager.SubscribeEvent("OnFinishScript", new Action<bool>(OnFinishScript));
             EventManager.SubscribeEvent("OnCastSkill", new Action<uint>(OnCastSkill));
 
             EventManager.SubscribeEvent("OnBuyItemRequest", new Action<byte, byte, ushort, uint>(OnBuyItemRequest));
@@ -122,7 +122,7 @@ namespace RSBot.Views
 
         #region Events
 
-        private void OnFinishScript()
+        private void OnFinishScript(bool error = false)
         {
             if (_running)
             {

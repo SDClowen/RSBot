@@ -1,8 +1,10 @@
-﻿using RSBot.Core;
+﻿using System;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using System.Linq;
+using RSBot.Core.Objects.Item;
 
 namespace RSBot.Default.Bundle.Buff
 {
@@ -15,54 +17,62 @@ namespace RSBot.Default.Bundle.Buff
         /// </summary>
         public void Invoke()
         {
-            _invoked = true;
-
-            /*
-             * #377
-             * I think the bug now fixed but As a precaution, I find it appropriate to keep this solution here.
-             * If the last fix is working, I will remove this code block from here in v2.4
-             * Temporary fixer:
-             * Issue: Sometimes the buffs dont removing with token from the active buffs list
-             *      Problems: 
-             *          ActionBuffRemoveResponse:0xb072 does not calling
-             *          There have another opcode for remove buff with token
-             */
-            foreach (var buff in SkillManager.Buffs.Union(new[] { SkillManager.ImbueSkill, SkillManager.ResurrectionSkill }))
-            {
-                if (buff == null)
-                    continue;
-
-                var isActive = Game.Player.State.HasActiveBuff(buff, out var info);
-                if (isActive && buff.Isbugged && info.Isbugged)
-                {
-                    //#377 bug detected!
-                    Log.Notify($"[#377] The buff [{buff.Token}-{buff.Record?.GetRealName()}] expired");
-
-                    EventManager.FireEvent("OnRemoveBuff", buff);
-
-                    var playerSkill = Game.Player.Skills.GetSkillInfoById(buff.Id);
-                    playerSkill?.Reset();
-                    Game.Player.State.TryRemoveActiveBuff(info.Token, out _);
-                }
-            }
-
-            var buffs = SkillManager.Buffs.FindAll(p => !Game.Player.State.HasActiveBuff(p, out _) && p.CanBeCasted);
-            if (buffs == null || buffs.Count == 0)
+            if (_invoked)
                 return;
 
-            Log.Status("Buffing");
-
-            foreach (var buff in buffs)
+            try
             {
-                if (Game.Player.State.LifeState != LifeState.Alive || Game.Player.HasActiveVehicle)
-                    break;
+                _invoked = true;
 
-                Log.Debug($"Trying to cast buff: {buff} {buff.Record.Basic_Code}");
+                /*
+                 * #377
+                 * I think the bug now fixed but As a precaution, I find it appropriate to keep this solution here.
+                 * If the last fix is working, I will remove this code block from here in v2.4
+                 * Temporary fixer:
+                 * Issue: Sometimes the buffs dont removing with token from the active buffs list
+                 *      Problems: 
+                 *          ActionBuffRemoveResponse:0xb072 does not calling
+                 *          There have another opcode for remove buff with token
+                 */
+                foreach (var buff in SkillManager.Buffs.Union(new[] { SkillManager.ImbueSkill, SkillManager.ResurrectionSkill }))
+                {
+                    if (buff == null)
+                        continue;
 
-                buff.Cast(buff: true);
+                    var isActive = Game.Player.State.HasActiveBuff(buff, out var info);
+                    if (isActive && buff.Isbugged && info.Isbugged)
+                    {
+                        //#377 bug detected!
+                        Log.Notify($"[#377] The buff [{buff.Token}-{buff.Record?.GetRealName()}] expired");
+
+                        EventManager.FireEvent("OnRemoveBuff", buff);
+
+                        var playerSkill = Game.Player.Skills.GetSkillInfoById(buff.Id);
+                        playerSkill?.Reset();
+                        Game.Player.State.TryRemoveActiveBuff(info.Token, out _);
+                    }
+                }
+
+                var buffs = SkillManager.Buffs.FindAll(p => !Game.Player.State.HasActiveBuff(p, out _) && p.CanBeCasted);
+                if (buffs == null || buffs.Count == 0)
+                    return;
+
+                Log.Status("Buffing");
+
+                foreach (var buff in buffs)
+                {
+                    if (Game.Player.State.LifeState != LifeState.Alive || Game.Player.HasActiveVehicle)
+                        break;
+
+                    Log.Debug($"Trying to cast buff: {buff} {buff.Record.Basic_Code}");
+
+                    buff.Cast(buff: true);
+                }
             }
-
-            _invoked = false;
+            finally
+            {
+                _invoked = false;
+            }
         }
 
         /// <summary>

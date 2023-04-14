@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using RSBot.Core;
 
@@ -35,7 +36,7 @@ internal static class TradeConfig
         get => PlayerConfig.Get("RSBot.Trade.SelectedRouteListIndex", 0);
         set => PlayerConfig.Set("RSBot.Trade.SelectedRouteListIndex", value);
     }
-    
+
     public static bool RunTownScript
     {
         get => PlayerConfig.Get("RSBot.Trade.RunTownScript", false);
@@ -51,7 +52,7 @@ internal static class TradeConfig
     public static bool AttackThiefPlayers
     {
         get => PlayerConfig.Get("RSBot.Trade.AttackThiefPlayers", false);
-        set => PlayerConfig.Set("RSBot.Trade.AttackThiefPlayer", value);
+        set => PlayerConfig.Set("RSBot.Trade.AttackThiefPlayers", value);
     }
 
     public static bool AttackThiefNpcs
@@ -108,7 +109,7 @@ internal static class TradeConfig
         {
             var result = PlayerConfig.GetArray<string>("RSBot.Trade.RouteScriptList", ';').ToList();
 
-            if (!result.Contains("Default")) 
+            if (!result.Contains("Default"))
                 result.Add("Default");
 
             return result;
@@ -125,7 +126,8 @@ internal static class TradeConfig
 
             foreach (var scriptList in RouteScriptList)
             {
-                var scripts = PlayerConfig.GetArray<string>($"RSBot.Trade.RouteScriptList.{scriptList}").ToList() ?? new List<string>();
+                var scripts = PlayerConfig.GetArray<string>($"RSBot.Trade.RouteScriptList.{scriptList}").Where(File.Exists).ToList() ??
+                              new List<string>();
 
                 result.Add(scriptList, scripts);
             }

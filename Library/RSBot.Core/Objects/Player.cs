@@ -879,7 +879,7 @@ namespace RSBot.Core.Objects
                 return false;
 
             var typeIdFilter = new TypeIdFilter(3, 3, 3, 2);
-            var vehicleItem = Inventory.GetItem(item => typeIdFilter.EqualsRefItem(item.Record) && item.Record.ReqLevel1 <= Game.Player.Level);
+            var vehicleItem = Inventory.GetItem(item => typeIdFilter.EqualsRefItem(item.Record) && item.Record.ReqLevel1 <= Game.Player.Level && !item.Record.CodeName.Contains("COS_T"));
             if (vehicleItem == null)
                 return false;
             

@@ -9,7 +9,7 @@ namespace RSBot.Default.Bundle.Attack
         /// The last tick count for checking func call
         /// </summary>
         private int _lastTick = Kernel.TickCount;
-
+        
         /// <summary>
         /// Invokes this instance.
         /// </summary>

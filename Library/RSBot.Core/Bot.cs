@@ -50,7 +50,7 @@ namespace RSBot.Core
                 return;
 
             TokenSource = new CancellationTokenSource();
-
+        
             Task.Factory.StartNew(async (e) => 
             {
                 Running = true;
@@ -75,6 +75,10 @@ namespace RSBot.Core
         /// </summary>
         public void Stop()
         {
+            ScriptManager.Stop();
+            ShoppingManager.Stop();
+            PickupManager.Stop();
+
             if (Botbase == null)
                 return;
 
@@ -88,14 +92,11 @@ namespace RSBot.Core
             Log.Notify($"Stopping bot {Botbase.Name}");
 
             Game.SelectedEntity = null;
-            ScriptManager.Stop();
-            ShoppingManager.Stop();
-            PickupManager.Stop();
             Botbase.Stop();
-
             Running = false;
 
             Log.Notify($"Stoped bot {Botbase.Name}");
+            Log.Status("Bot stopped");
         }
     }
 }

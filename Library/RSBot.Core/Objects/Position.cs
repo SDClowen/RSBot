@@ -262,7 +262,7 @@ namespace RSBot.Core.Objects
         /// </summary>
         public double DistanceToPlayer()
         {
-            return DistanceTo(Game.Player.Movement.Source);
+            return DistanceTo(Game.Player.Position);
         }
 
         /// <summary>
