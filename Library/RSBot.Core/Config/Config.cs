@@ -70,10 +70,17 @@ namespace RSBot.Core
             if (!_isLoaded)
                 return (T)Convert.ChangeType(false, typeof(T));
 
-            if (!_config.ContainsKey(key))
+            if (!_config.ContainsKey(key)) {
                 Set(key, defaultValue);
 
-            return (T)Convert.ChangeType(_config[key], typeof(T));
+                return defaultValue;
+            }
+
+            var value = _config[key];
+            if (string.IsNullOrEmpty(value))
+                return defaultValue;
+
+            return (T)Convert.ChangeType(value, typeof(T));
         }
 
         /// <summary>
@@ -173,8 +180,8 @@ namespace RSBot.Core
             if (!_isLoaded)
                 return new T[] { };
 
-            var data = Get<string>(key).Split(new[] { delimiter }, options);
-            if (data.Length == 0)
+            var data = Get<string>(key)?.Split(new[] { delimiter }, options);
+            if (data == null || data.Length == 0)
                 return new T[] { };
 
             return data?.Select(p => (T)Convert.ChangeType(p, typeof(T))).ToArray();
@@ -191,8 +198,8 @@ namespace RSBot.Core
             if (!_isLoaded)
                 return new TEnum[] { };
 
-            var data = Get<string>(key).Split(new[] { delimiter }, StringSplitOptions.RemoveEmptyEntries);
-            if (data.Length == 0)
+            var data = Get<string>(key)?.Split(new[] { delimiter }, StringSplitOptions.RemoveEmptyEntries);
+            if (data == null || data.Length == 0)
                 return new TEnum[] { };
 
             return data?.Select(p => Enum.Parse<TEnum>(p)).ToArray();

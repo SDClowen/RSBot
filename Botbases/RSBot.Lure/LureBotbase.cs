@@ -82,14 +82,6 @@ public class LureBotbase : IBotbase
     public Control View => Views.View.Main;
 
     /// <summary>
-    ///     Initializes this instance.
-    /// </summary>
-    /// <exception cref="System.NotImplementedException"></exception>
-    public void Initialize()
-    {
-    }
-
-    /// <summary>
     ///     Starts this instance.
     /// </summary>
     public void Start()

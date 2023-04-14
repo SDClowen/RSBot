@@ -23,21 +23,7 @@ namespace RSBot.Core.Objects.Spawn
         ///   <c>true</c> if [attacking player]; otherwise, <c>false</c>.
         /// </value>
         public bool AttackingPlayer { get; private set; }
-
-        public bool IsAttackable
-        {
-            get
-            {
-                if (DistanceToPlayer > 150)
-                    return false;
-
-                if (IsBehindObstacle)
-                    return false;
-                
-                return true;
-            }
-        }
-
+        
         /// <summary>
         /// Gets or sets a value indicating whether this instance has health.
         /// </summary>

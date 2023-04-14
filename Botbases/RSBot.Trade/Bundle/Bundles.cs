@@ -1,4 +1,7 @@
-﻿using RSBot.Core.Event;
+﻿using System;
+using Microsoft.VisualBasic.Logging;
+using RSBot.Core.Event;
+using Log = RSBot.Core.Log;
 
 namespace RSBot.Trade.Bundle
 {
@@ -10,16 +13,23 @@ namespace RSBot.Trade.Bundle
 
         public static void Tick()
         {
-            TransportBundle.Tick();
-            RouteBundle.Tick();
-            AttackBundle.Tick();
+            try
+            {
+                TransportBundle.Tick();
+                AttackBundle.Tick();
+                RouteBundle.Tick();
+            }
+            catch (Exception e)
+            {
+                Log.Warn($"[Trade] Error while bot loop: {e.Message}\n{e.StackTrace}");
+            }
         }
 
         public static void Stop()
         {
             TransportBundle.Stop();
-            RouteBundle.Stop();
             AttackBundle.Stop();
+            RouteBundle.Stop();
         }
 
         public static void Initialize()
@@ -32,8 +42,8 @@ namespace RSBot.Trade.Bundle
         public static void Start()
         {
             TransportBundle.Start();
+            AttackBundle.Start(); 
             RouteBundle.Start();
-            AttackBundle.Start();
         }
     }
 }

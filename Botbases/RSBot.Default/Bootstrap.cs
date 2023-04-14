@@ -65,24 +65,6 @@ namespace RSBot.Default
         public Control View => Container.View;
 
         /// <summary>
-        /// Initializes this instance.
-        /// </summary>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public void Initialize()
-        {
-            Container.Lock = new();
-            Container.Bot = new();
-
-            Bundles.Reload();
-
-            Subscriber.BundleSubscriber.SubscribeEvents();
-            Subscriber.ConfigSubscriber.SubscribeEvents();
-            Subscriber.TeleportSubscriber.SubscribeEvents();
-
-            ScriptManager.CommandHandlers.Add(new TrainingAreaScriptCommand());
-        }
-
-        /// <summary>
         /// Starts this instance.
         /// </summary>
         public void Start()
@@ -119,8 +101,16 @@ namespace RSBot.Default
         /// </summary>
         public void Register()
         {
-            Initialize();
+            Container.Lock = new();
+            Container.Bot = new();
 
+            Bundles.Reload();
+
+            Subscriber.BundleSubscriber.SubscribeEvents();
+            Subscriber.ConfigSubscriber.SubscribeEvents();
+            Subscriber.TeleportSubscriber.SubscribeEvents();
+
+            ScriptManager.CommandHandlers.Add(new TrainingAreaScriptCommand());
             Log.Debug("[Training] Botbase registered to the kernel!");
         }
 

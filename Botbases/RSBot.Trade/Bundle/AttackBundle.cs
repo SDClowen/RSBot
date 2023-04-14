@@ -1,5 +1,4 @@
-﻿using System.IO.Compression;
-using System.Linq;
+﻿using System.Linq;
 using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
@@ -13,109 +12,94 @@ namespace RSBot.Trade.Bundle
     {
         public bool IsAttacking { get; private set; }
 
+        public bool BlockProgression => IsAttacking;
+
         public void Initialize()
         {
+            IsAttacking = false;
         }
 
         public void Start()
         {
-
+            
         }
         
         public void Tick()
         {
-            if(TradeConfig.CastBuffs)
-                EventManager.FireEvent("Bundle.Buff.Invoke");
-
-            var target = Game.SelectedEntity;
-
-            if (target == null)
+            if (!TradeBotbase.IsActive || Game.Player.HasActiveVehicle || Bundles.RouteBundle.TownscriptRunning)
             {
                 IsAttacking = false;
-                SelectNextTarget();
 
                 return;
             }
             
             IsAttacking = true;
-            EventManager.FireEvent("Bundle.Attack.Invoke");
 
-            EventManager.FireEvent("Bundle.Loot.Invoke");
+            if (TradeConfig.CastBuffs)
+                EventManager.FireEvent("Bundle.Buff.Invoke");
+            
+            var target = Game.SelectedEntity;
+            if (target is { IsMob: true } or { AttackingPlayer: true})
+            {
+                EventManager.FireEvent("Bundle.Attack.Invoke");
+
+                return;
+            }
+
+            if (target == null)
+                IsAttacking = SelectNextTarget();
         }
 
-        private void SelectNextTarget()
+        private bool SelectNextTarget()
         {
             var target = Game.SelectedEntity;
 
-            if (target is { IsAttackable: true })
-                return;
+            if (target != null && (target.IsMob || target is SpawnedPlayer {WearsJobSuite: true, Job: JobType.Thief} && TradeConfig.AttackThiefPlayers))
+                return true;
 
-            //Protect transport?
+            //Priority 1: Protect transport?
             if (TradeConfig.ProtectTransport 
                 && Game.Player.JobTransport != null)
             {
-                var bionic = SpawnManager.GetEntity<SpawnedBionic>(Game.Player.JobTransport.UniqueId);
-                if (bionic != null)
+                if (SpawnManager.TryGetEntity<SpawnedBionic>(Game.Player.JobTransport.UniqueId, out var bionic))
                 {
-                    var attackers = bionic.GetAttackers();
+                    var attacker = bionic.GetAttackers().FirstOrDefault();
 
-                    var newTarget = attackers
-                        .FirstOrDefault(m => m.IsAttackable);
-
-                    if (newTarget != null)
-                    {
-                        newTarget.TrySelect();
-
-                        return;
-                    }
+                    if (attacker != null)
+                        return attacker.TrySelect();
                 }
             }
 
-            //Fight back
+            //Priority 2: Fight back
             if (TradeConfig.CounterAttack)
             {
-                var newTarget = Game.Player.GetAttackers().FirstOrDefault(m => m.IsAttackable);
+                var attacker = Game.Player.GetAttackers().FirstOrDefault();
 
-                if (newTarget != null)
-                {
-                    newTarget.TrySelect();
-
-                    return;
-                }
+                if (attacker != null)
+                    return attacker.TrySelect();
             }
  
-            //Thief NPCs
+            //Priority 3: Thief NPCs
             if (TradeConfig.AttackThiefNpcs)
             {
-                SpawnManager.TryGetEntities<SpawnedMonster>(m => m.Record.TypeID3 == 1 && m.Record.TypeID4 == 2,
-                    out var thieves);
+                if (!SpawnManager.TryGetEntity<SpawnedMonster>(m => m.IsMob && m.Record.TypeID4 == 2,
+                        out var thiefMob))
+                    return false;
 
-                if (thieves != null && thieves.Any())
-                {
-                    thieves.FirstOrDefault().TrySelect();
-
-                    return;
-                }
-
+                return thiefMob.TrySelect();
             }
 
-
-            //Thief players
+            //Priority 4: Thief players
             if (TradeConfig.AttackThiefPlayers)
             {
-                var nearbyPlayer =
-                    SpawnManager.GetEntity<SpawnedPlayer>(p => p.WearsJobSuite && p.Job == JobType.Thief);
+                if (!SpawnManager.TryGetEntity<SpawnedPlayer>(p => p.WearsJobSuite && p.Job == JobType.Thief,
+                        out var nearbyThiefPlayer))
+                    return false;
 
-                if (nearbyPlayer != null)
-                {
-                    nearbyPlayer.TrySelect();
-                 
-                    return;
-                }
-
+                return nearbyThiefPlayer.TrySelect();
             }
 
-            
+            return false;
         }
 
         public void Stop()

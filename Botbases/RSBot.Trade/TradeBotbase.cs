@@ -5,8 +5,10 @@ using RSBot.Core.Objects;
 using RSBot.Core;
 using RSBot.Core.Plugins;
 using System.Windows.Forms;
+using RSBot.Core.Network;
 using RSBot.Trade.Bundle;
 using RSBot.Trade.Components.Scripting;
+using RSBot.Trade.Network.Hooks;
 
 namespace RSBot.Trade
 {
@@ -20,18 +22,16 @@ namespace RSBot.Trade
 
         public static bool IsActive => Kernel.Bot?.Botbase.Name == "RSBot.Trade" && Kernel.Bot.Running;
 
-        public Area Area => new()
-        {
-            Name = "Trade",
-            Position = Game.Player.Position,
-            Radius = 50
-        };
+        public Area Area => new();
 
         /// <summary>
         ///     Ticks this instance. It's the botbase main-loop
         /// </summary>
         public void Tick()
         {
+            if (!Game.Ready || Game.Player == null || ShoppingManager.Running) 
+                return;
+
             Task.Run(Bundles.Tick);
 
             Views.View.Main.RefreshStatistics();
@@ -42,17 +42,6 @@ namespace RSBot.Trade
         /// </summary>
         /// <returns></returns>
         public Control View => Views.View.Main;
-
-        /// <summary>
-        ///     Initializes this instance.
-        /// </summary>
-        public void Initialize()
-        {
-            Log.Debug("[Trade] Botbase initialized!");
-
-            ScriptManager.CommandHandlers.Add(new BuyGoodsScriptCommand());
-            Bundles.Initialize();
-        }
 
         /// <summary>
         ///     Starts this instance.
@@ -78,6 +67,8 @@ namespace RSBot.Trade
                 return;
             }
 
+
+
             Bundles.Start();
         }
 
@@ -89,9 +80,15 @@ namespace RSBot.Trade
             Bundles.Stop();
         }
 
+        /// <summary>
+        /// Triggered after the botbase was registered to the kernel.
+        /// </summary>
+
         public void Register()
         {
             Log.Debug("[Trade] Botbase registered to the kernel!");
+
+            ScriptManager.CommandHandlers.Add(new BuyGoodsScriptCommand());
         }
 
         /// <summary>

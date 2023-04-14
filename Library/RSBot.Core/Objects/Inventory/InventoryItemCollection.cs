@@ -248,11 +248,7 @@ namespace RSBot.Core.Objects
         /// <returns>if found: the SumAmount; otherwise: 0</returns>
         public int GetSumAmount(string recordCodeName)
         {
-            var sum = 0;
-            foreach (var item in GetItems(recordCodeName))
-                sum += item.Amount;
-
-            return sum;
+            return GetItems(recordCodeName).Aggregate(0, (current, item) => current + item.Amount);
         }
 
         /// <summary>

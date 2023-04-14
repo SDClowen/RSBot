@@ -64,7 +64,7 @@ namespace RSBot.Trade.Views
 
         public void RefreshStatistics()
         {
-            lblRevenue.Text = TradeStatistics.Revenue.ToString("C") + " Gold";
+            lblRevenue.Text = TradeStatistics.Revenue + @" Gold";
             lblNumTradesCompleted.Text = TradeStatistics.TradesCompleted.ToString();
         }
         private void ReloadView()
@@ -82,6 +82,7 @@ namespace RSBot.Trade.Views
             checkBuyGoods.Checked = TradeConfig.BuyGoods;
             checkSellGoods.Checked = TradeConfig.SellGoods;
             checkProtectTransport.Checked = TradeConfig.ProtectTransport;
+            checkMountTransport.Checked = TradeConfig.MountTransport;
 
             //Make sure that the user didn't modify the config so both could equal true
             if (TradeConfig.UseRouteScripts && TradeConfig.TracePlayer)
@@ -94,6 +95,7 @@ namespace RSBot.Trade.Views
             radioUseRouteList.Checked = TradeConfig.UseRouteScripts;
 
             numAmountGoods.Value = TradeConfig.BuyGoodsQuantity;
+            numMaxDistance.Value = TradeConfig.MaxTransportDistance;
             txtTracePlayerName.Text = TradeConfig.TracePlayerName;
 
             _loadingConfig = false;
@@ -261,6 +263,7 @@ namespace RSBot.Trade.Views
             TradeConfig.ProtectTransport = checkProtectTransport.Checked;
             TradeConfig.BuyGoods = checkBuyGoods.Checked;
             TradeConfig.SellGoods = checkSellGoods.Checked;
+            TradeConfig.MountTransport = checkMountTransport.Checked;
         }
 
         private void menuRemoveScript_Click(object sender, EventArgs e)
@@ -304,12 +307,13 @@ namespace RSBot.Trade.Views
             TradeConfig.TracePlayerName = txtTracePlayerName.Text;
         }
 
-        private void numAmountGoods_ValueChanged(object sender, EventArgs e)
+        private void numSetting_ValueChanged(object sender, EventArgs e)
         {
             if (_loadingConfig)
                 return;
 
             TradeConfig.BuyGoodsQuantity = Convert.ToInt32(numAmountGoods.Value);
+            TradeConfig.MaxTransportDistance = Convert.ToInt32(numMaxDistance.Value);
         }
 
         private void executeHereToolStripMenuItem_Click(object sender, EventArgs e)

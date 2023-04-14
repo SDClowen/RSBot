@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using RSBot.Core;
-using RSBot.Core.Objects;
 
 namespace RSBot.Trade.Components;
 
@@ -19,10 +18,10 @@ internal static class TradeConfig
         set => PlayerConfig.Set("RSBot.Trade.TracePlayer", value);
     }
 
-    public static string LockedRouteFile
+    public static bool MountTransport
     {
-        get => PlayerConfig.Get("RSBot.Trade.LockedRouteFile", "");
-        set => PlayerConfig.Set("RSBot.Trade.LockedRouteFile", value);
+        get => PlayerConfig.Get("RSBot.Trade.MountTransport", false);
+        set => PlayerConfig.Set("RSBot.Trade.MountTransport", value);
     }
 
     public static bool UseRouteScripts
@@ -95,6 +94,12 @@ internal static class TradeConfig
     {
         get => PlayerConfig.Get("RSBot.Trade.BuyGoodsQuantity", 0);
         set => PlayerConfig.Set("RSBot.Trade.BuyGoodsQuantity", value);
+    }
+
+    public static int MaxTransportDistance
+    {
+        get => PlayerConfig.Get("RSBot.Trade.MaxTransportDistance", 15);
+        set => PlayerConfig.Set("RSBot.Trade.MaxTransportDistance", value == 0 ? 1 : value);
     }
 
     public static List<string> RouteScriptList

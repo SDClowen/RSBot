@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading;
 using RSBot.Core.Event;
 using RSBot.Core.Objects.Cos;
+using RSBot.Core.Objects.Inventory;
 using static RSBot.Core.Game;
 
 namespace RSBot.Core.Components
@@ -270,6 +271,13 @@ namespace RSBot.Core.Components
             awaitResult.AwaitResponse();
         }
 
+        /// <summary>
+        /// Purchases the item to the given transport
+        /// </summary>
+        /// <param name="transport"></param>
+        /// <param name="tab"></param>
+        /// <param name="slot"></param>
+        /// <param name="amount"></param>
         public static void PurchaseItem(Cos transport, int tab, int slot, ushort amount)
         {
             if (SelectedEntity == null)
@@ -280,7 +288,8 @@ namespace RSBot.Core.Components
 
             var packet = new Packet(0x7034);
             packet.WriteByte(InventoryOperation.SP_BUY_ITEM_COS); //Buy item flag
-            packet.WriteUInt(transport.UniqueId);
+            packet.WriteUInt(0); //Always 0 but should actually be the transport's unique id as it would make more sense
+            //packet.WriteUInt(transport.UniqueId); //may be 0?
             packet.WriteByte(tab);
             packet.WriteByte(slot);
             packet.WriteUShort(amount);
@@ -508,14 +517,20 @@ namespace RSBot.Core.Components
             }
             
             SelectNPC(npcCodeName);
+            //CloseShop();
 
             var packet = new Packet(0x7046);
             packet.WriteUInt(entity.UniqueId);
             packet.WriteByte(option);
 
-            var awaitResult = new AwaitCallback(null, 0xB046);
+            var awaitResult = new AwaitCallback(response =>
+            {
+                return response.ReadByte() == 0x01 && response.ReadByte() == (byte)option
+                    ? AwaitCallbackResult.Success
+                    : AwaitCallbackResult.ConditionFailed;
+            }, 0xB046);
             PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
-            awaitResult.AwaitResponse();
+            awaitResult.AwaitResponse(1000);
         }
 
         /// <summary>

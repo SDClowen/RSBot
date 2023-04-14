@@ -2,7 +2,7 @@
 
 namespace RSBot.Core.Network.Hooks.Agent.Action
 {
-    internal class ActionSelectRequestHook : IPacketHook
+    internal class ActionTalkResponseHook : IPacketHook
     {
         /// <summary>
         /// Gets the opcode.
@@ -10,7 +10,7 @@ namespace RSBot.Core.Network.Hooks.Agent.Action
         /// <value>
         /// The opcode.
         /// </value>
-        public ushort Opcode => 0x7045;
+        public ushort Opcode => 0xB046;
 
         /// <summary>
         /// Gets the destination.
@@ -18,7 +18,7 @@ namespace RSBot.Core.Network.Hooks.Agent.Action
         /// <value>
         /// The destination.
         /// </value>
-        public PacketDestination Destination => PacketDestination.Server;
+        public PacketDestination Destination => PacketDestination.Client;
 
         /// <summary>
         /// Replaces the packet and returns a new packet.

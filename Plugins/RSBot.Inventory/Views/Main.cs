@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using RSBot.Core.Objects.Inventory;
 
 namespace RSBot.Inventory.Views
 {

@@ -8,11 +8,15 @@ namespace RSBot.Default.Bundle.Buff
 {
     internal class BuffBundle : IBundle
     {
+        private bool _invoked;
+
         /// <summary>
         /// Invokes this instance.
         /// </summary>
         public void Invoke()
         {
+            _invoked = true;
+
             /*
              * #377
              * I think the bug now fixed but As a precaution, I find it appropriate to keep this solution here.
@@ -57,6 +61,8 @@ namespace RSBot.Default.Bundle.Buff
 
                 buff.Cast(buff: true);
             }
+
+            _invoked = false;
         }
 
         /// <summary>
@@ -64,12 +70,12 @@ namespace RSBot.Default.Bundle.Buff
         /// </summary>
         public void Refresh()
         {
-            //Nothing to do
+            _invoked = false;
         }
 
         public void Stop()
         {
-            //Nothing to do
+            _invoked = false;
         }
     }
 }

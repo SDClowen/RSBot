@@ -17,7 +17,7 @@ namespace RSBot.Trade.Components.Scripting
 
         public bool IsBusy { get; private set; }
 
-        public Dictionary<string, string> Arguments => new Dictionary<string, string>
+        public Dictionary<string, string> Arguments => new()
         {
             {"Codename", "The code name of the NPC"}
         };
@@ -49,7 +49,8 @@ namespace RSBot.Trade.Components.Scripting
             {
                 IsBusy = true;
                 var codeName = arguments[0];
-                
+
+                ShoppingManager.Running = true;
                 ShoppingManager.ChooseTalkOption(codeName, TalkOption.Trade);
                 
                 if (Game.SelectedEntity == null)
@@ -60,17 +61,17 @@ namespace RSBot.Trade.Components.Scripting
                 }
 
                 Log.Notify($"[Script] Selling goods to  {Game.SelectedEntity.Record.GetRealName()}...");
-
                 
-                //ToDo: Find out why the game is crashing
+
                 SellGoods();
 
                 Log.Notify($"[Script] Purchasing goods from  {Game.SelectedEntity.Record.GetRealName()}...");
-
-                //ToDo: Find out why the game is crashing
+                
                 BuyGoods();
                 
                 ShoppingManager.CloseShop();
+
+                ShoppingManager.Running = false;
 
                 return true;
             }
@@ -78,7 +79,6 @@ namespace RSBot.Trade.Components.Scripting
             {
                 IsBusy = false;
             }
-            
         }
 
         private void SellGoods()
@@ -158,8 +158,9 @@ namespace RSBot.Trade.Components.Scripting
             
             var bought = 0;
             var maxSteps = Game.Player.JobTransport.Inventory.Capacity;
-
-            while (!Game.Player.JobTransport.Inventory.Full)
+            var existingItemsCount = Game.Player.JobTransport.Inventory.GetSumAmount(packageItem.RefItemCodeName);
+            while (!Game.Player.JobTransport.Inventory.Full 
+                   && existingItemsCount < TradeConfig.BuyGoodsQuantity)
             {
                 //Avoid endless loop
                 if (--maxSteps == 0) 
@@ -173,12 +174,10 @@ namespace RSBot.Trade.Components.Scripting
                     buyNextQty = TradeConfig.BuyGoodsQuantity - bought;
                 
                 //ToDO: After testing remove this line!
-                buyNextQty = 1;
                 ShoppingManager.PurchaseItem(Game.Player.JobTransport, tabIndex, item.SlotIndex, (ushort) buyNextQty);
 
                 bought += buyNextQty;
-
-                Thread.Sleep(100);
+                existingItemsCount = Game.Player.JobTransport.Inventory.GetSumAmount(packageItem.RefItemCodeName);
             }
         }
         

@@ -26,7 +26,7 @@ internal class ActionDeselectRequest : IPacketHandler
     {
         var entityId = packet.ReadUInt();
 
-        if (Game.Player.State.DialogState is { IsInDialog: true } && Game.Player.State.DialogState.Npc.UniqueId == entityId)
+        if (Game.Player.State.DialogState is { IsInDialog: true } && Game.Player.State.DialogState.Npc != null && Game.Player.State.DialogState.Npc.UniqueId == entityId)
             Game.Player.State.DialogState.RequestedCloseNpcId = entityId;
     }
 }

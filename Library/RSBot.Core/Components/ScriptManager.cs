@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms.VisualStyles;
 
 namespace RSBot.Core.Components
@@ -63,7 +64,7 @@ namespace RSBot.Core.Components
         /// </value>
         public static char ArgumentSeparator { get; set; } = ' ';
         
-        public static bool IsPaused { get; private set; }
+        public static bool Paused { get; private set; }
 
         public static void Initialize()
         {
@@ -93,7 +94,8 @@ namespace RSBot.Core.Components
                 Log.Notify($"Cannot load file [{file}] (File does not exist)!");
                 return;
             }
-            
+
+            Running = false;
             File = file;
             Commands = System.IO.File.ReadAllLines(file);
 
@@ -110,10 +112,13 @@ namespace RSBot.Core.Components
             EventManager.FireEvent("OnLoadScript");
         }
 
+        /// <summary>
+        /// Pauses the command execution.
+        /// </summary>
         public static void Pause()
         {
-            IsPaused = true;
-
+            Paused = true;
+       
             EventManager.FireEvent("OnPauseScript");
         }
 
@@ -130,18 +135,18 @@ namespace RSBot.Core.Components
             }
 
             Running = true;
-            IsPaused = false;
+            Paused = false;
             CurrentLineIndex = useNearbyWaypoint ? FindNearestMoveCommandLine() : 0;
 
             if (CurrentLineIndex != 0)
                 Log.Debug($"[Script] Found nearby walk position at line #{CurrentLineIndex}");
 
-            if (Commands.Length < CurrentLineIndex)
+            if (Commands == null || Commands.Length == 0 || Commands.Length < CurrentLineIndex)
                 return;
 
             foreach (var scriptLine in Commands?.Skip(CurrentLineIndex))
             {
-                if (!Running || IsPaused || (!Kernel.Bot.Running && !ignoreBotRunning))
+                if (!Running || Paused || (!Kernel.Bot.Running && !ignoreBotRunning))
                     break;
 
                 Log.Status("Running walk script");
@@ -162,8 +167,9 @@ namespace RSBot.Core.Components
                     continue; //No matching handler found for this command
                 }
 
-                if (handler.IsBusy)
+                if (handler.IsBusy && Running && !Paused)
                 {
+                    Pause();
                     LogScriptMessage("The script command is still busy.", CurrentLineIndex, LogLevel.Warning, commandName);
 
                     break;
@@ -177,16 +183,16 @@ namespace RSBot.Core.Components
                 {
                     LogScriptMessage("The execution of the script command failed.", CurrentLineIndex, LogLevel.Warning, commandName);
 
-                    break;
+                    continue;
                 }
 
                 CurrentLineIndex++;
 
-                if (CurrentLineIndex == Commands.Length)
+                if (CurrentLineIndex > Commands?.Length - 1)
                     break;
             }
 
-            if (!IsPaused)
+            if (!Paused)
                 Stop();
         }
 

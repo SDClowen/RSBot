@@ -4,7 +4,7 @@ namespace RSBot.Core.Network.Handler.Agent.Action
 {
     internal class ActionDeselectResponse : IPacketHandler
     {
-        /// <summary>
+        /// <summary>B
         /// Gets or sets the opcode.
         /// </summary>
         /// <value>
