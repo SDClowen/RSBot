@@ -141,18 +141,30 @@ internal class TransportBundle
             return true;
         }
 
-        var currentDistance = Game.Player.Position.DistanceTo(Game.Player.JobTransport.Position);
-        if (currentDistance > TradeConfig.MaxTransportDistance && Game.Player.JobTransport.Movement.HasDestination)
+        var currentDistance =Game.Player.JobTransport.Position.DistanceToPlayer();
+        if (currentDistance > TradeConfig.MaxTransportDistance)
         {
-            Log.Status($"Waiting for transport ({currentDistance:F1}m)");
-
             WaitingForTransport = true;
+
+            //In some rare cases, the position of the transport is wrong (e.g. Knock-Back skills)
+            // That makes the bot thinking that the cos is actually very far away. To re-run the distance calculation
+            // we can move the player to the location were it thinks the COS is located. That way the distance is then re-calculated 
+            // and the script can continue.
+            if (!Game.Player.JobTransport.Movement.HasDestination)
+            {
+                Log.Debug("[Trade] Lost track of the transport! Now trying to move to last known location.");
+                Game.Player.MoveTo(Game.Player.JobTransport.Position);
+
+                return false;
+            }
+
+            Log.Status($"Waiting for transport ({currentDistance:F1}m)");
 
             return false;
         }
-
-        //ToDo: Check if job transport is stuck. Since the collision files are wrong at certain locations like Hotan
-        //It can not be done until the collision has been fixed.
+        
+        //ToDo: Check if job transport is stuck. Because the collision files are wrong at certain locations like Hotan
+        //it can not be done until the collision has been fixed.
         WaitingForTransport = false;
 
         return true;
