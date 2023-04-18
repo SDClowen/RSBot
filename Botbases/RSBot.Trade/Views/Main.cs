@@ -54,7 +54,7 @@ public partial class Main : UserControl
 
     private void OnTalkToNpc(uint uniqueId)
     {
-        if (Game.Player.State.DialogState is not { IsInDialog: true })
+        if (Game.Player.State.DialogState is not { IsInDialog: true, TalkOption: TalkOption.Trade })
             return;
 
         EventManager.FireEvent("AppendScriptCommand", $"buy-goods {Game.Player.State.DialogState.Npc.Record.CodeName}");
