@@ -299,9 +299,8 @@ namespace RSBot.Core.Network.Handler.Agent.Entity
 
                 if (health <= 0 && Game.SelectedEntity?.UniqueId == bionic.UniqueId)
                     Game.SelectedEntity = null;
-     
-                if (Game.SelectedEntity?.UniqueId == bionic.UniqueId)
-                    EventManager.FireEvent("OnUpdateSelectedEntityHP", bionic);
+
+                EventManager.FireEvent("OnUpdateEntityHp", bionic);
             }
 
             if ((updateFlag & EntityUpdateStatusFlag.MP) == EntityUpdateStatusFlag.MP)

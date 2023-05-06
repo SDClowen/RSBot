@@ -1,6 +1,9 @@
 ﻿using RSBot.Core.Components;
+using RSBot.Core.Event;
 using RSBot.Core.Network;
 using RSBot.Core.Objects.Spawn;
+using System;
+using System.Diagnostics;
 
 namespace RSBot.Core.Objects
 {
@@ -78,13 +81,6 @@ namespace RSBot.Core.Objects
         /// </value>
         public bool PlayerIsTarget => Game.Player.UniqueId == TargetId;
 
-        /*
-        /// <summary>
-        /// The action damage
-        /// </summary>
-        public Dictionary<uint,int> Damages { get; set; }
-        */
-
         /// <summary>
         /// Deserialize the packet. 0xB070
         /// </summary>
@@ -118,7 +114,8 @@ namespace RSBot.Core.Objects
             else if (Game.ClientType == GameClientType.Rigid)
             {
                 action.Flag = (ActionStateFlag)packet.ReadByte();
-                packet.ReadByte();
+                var flag = packet.ReadByte();
+                Debug.WriteLine("Flag:" + flag);
             }
             else
                 action.Flag = (ActionStateFlag)packet.ReadByte();
@@ -128,6 +125,9 @@ namespace RSBot.Core.Objects
 
             action.Flag = (ActionStateFlag)packet.ReadByte();*/
             action.SerializeDetail(packet);
+
+            if(action.TargetId != 0)
+                EventManager.FireEvent("OnEntityHit", action.Id, action.ExecutorId, action.TargetId, 0, false);
 
             return action;
         }
@@ -139,10 +139,10 @@ namespace RSBot.Core.Objects
         /// <returns>Deserialized <see cref="Action"/></returns>
         public static Action DeserializeEnd(Packet packet)
         {
-            packet.ReadUInt(); //ActionId
-            packet.ReadUInt(); //originalTargetId
-
             var action = new Action();
+            action.Id = packet.ReadUInt(); //ActionId
+            action.TargetId = packet.ReadUInt(); //originalTargetId
+
             action.Flag = (ActionStateFlag)packet.ReadByte();
             action.SerializeDetail(packet);
 
@@ -178,13 +178,24 @@ namespace RSBot.Core.Objects
                         if (state != ActionHitStateFlag.Block)
                         {
                             var critStatus = packet.ReadByte(); // 0x01: normal 0x02 critical
-                            var damage = packet.ReadInt();
 
-                            packet.ReadUShort();
-                            packet.ReadByte();
+                            var damage = BitConverter.ToInt32(new byte[] { 
+                                packet.ReadByte(), 
+                                packet.ReadByte(), 
+                                packet.ReadByte(), 
+                                0
+                            }, 0);
 
-                            /*Damages = Damages ?? new Dictionary<uint, int>();
-                            Damages.Add(uniqueId, damage);*/
+                            //if(entity.Health < damage)
+                            //damage = entity.Health;
+
+                            var unknownState = packet.ReadInt();
+                            Debug.WriteLine("UnknownState:" + unknownState);
+
+                            //packet.ReadUShort();
+                            //packet.ReadByte();
+
+                            EventManager.FireEvent("OnEntityHit", Id, ExecutorId, uniqueId, damage, critStatus == 0x02);
                         }
 
                         // dont worry it will return true for knockdown states

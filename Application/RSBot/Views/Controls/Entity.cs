@@ -26,7 +26,7 @@ namespace RSBot.Views.Controls
         {
             EventManager.SubscribeEvent("OnSelectEntity", new Action<SpawnedBionic>(OnSelectEntity));
             EventManager.SubscribeEvent("OnDeselectEntity", OnDeselectEntity);
-            EventManager.SubscribeEvent("OnUpdateSelectedEntityHP", new Action<SpawnedBionic>(OnUpdateSelectedEntityHP));
+            EventManager.SubscribeEvent("OnUpdateEntityHp", new Action<SpawnedBionic>(OnUpdateEntityHp));
             EventManager.SubscribeEvent("OnKillSelectedEnemy", OnKillSelectedEnemy);
             EventManager.SubscribeEvent("OnAgentServerDisconnected", OnAgentServerDisconnected);
             EventManager.SubscribeEvent("OnInitialized", OnInitialized);
@@ -65,8 +65,11 @@ namespace RSBot.Views.Controls
         /// <summary>
         /// Core_s the on update selected entity hp.
         /// </summary>
-        private void OnUpdateSelectedEntityHP(SpawnedBionic entity)
+        private void OnUpdateEntityHp(SpawnedBionic entity)
         {
+            if (Game.SelectedEntity?.UniqueId != entity.UniqueId)
+                return;
+
             if (!entity.HasHealth)
             {
                 progressHP.Value = 100;
