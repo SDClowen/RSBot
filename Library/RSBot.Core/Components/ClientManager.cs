@@ -114,6 +114,9 @@ namespace RSBot.Core.Components
             ResumeThread(pi.hThread);
             ResumeThread(pi.hProcess);
 
+            if (process.HasExited)
+                return await Task.FromResult(false);
+
             process.EnableRaisingEvents = true;
             process.Exited += ClientProcess_Exited;
             _process = process;

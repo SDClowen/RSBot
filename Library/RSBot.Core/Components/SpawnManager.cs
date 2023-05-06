@@ -12,12 +12,12 @@ namespace RSBot.Core.Components
         /// <summary>
         /// The locking object
         /// </summary>
-        private static object _lock { get; } = new object();
+        private static object _lock = new();
 
         /// <summary>
         /// The game spawned entities on the area
         /// </summary>
-        private static List<SpawnedEntity> _entities { get; set; } = new List<SpawnedEntity>(255);
+        private static List<SpawnedEntity> _entities = new(255);
 
         /// <summary>
         /// Get entity by unique id with specified generic type.
