@@ -4,6 +4,7 @@ using RSBot.Core.Objects.Item;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using RSBot.Core.Objects.Inventory;
 
 namespace RSBot.Core.Objects
 {
@@ -401,7 +402,13 @@ namespace RSBot.Core.Objects
                         packet.ReadUInt();
                     }
                 }
+
+                if (record.IsTrading)
+                    //Owner name (Player name)
+                    packet.ReadString();
             }
+            
+
 
             return item;
         }

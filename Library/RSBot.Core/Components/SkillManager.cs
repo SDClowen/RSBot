@@ -156,6 +156,9 @@ namespace RSBot.Core.Components
                     if (_lastIndex > Skills[rarity].Count - 1)
                         _lastIndex = 0;
 
+                    if (!Skills.ContainsKey(rarity) || Skills[rarity].Count < _lastIndex)
+                        continue;
+
                     var selectedSkill = Skills[rarity][_lastIndex];
                     if (!selectedSkill.CanBeCasted)
                         continue;

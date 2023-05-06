@@ -36,6 +36,11 @@ namespace RSBot.Core.Objects.Spawn
         public State State { get; } = new();
 
         /// <summary>
+        /// Returns a value indicating if the entity is a mob.
+        /// </summary>
+        public bool IsMob => Record is { TypeID2: 2, TypeID3: 1 };
+
+        /// <summary>
         /// Gets the record.
         /// </summary>
         /// <value>

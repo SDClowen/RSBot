@@ -8,6 +8,7 @@ using RSBot.Core.Objects.Party;
 using RSBot.Core.Objects.Spawn;
 using System;
 using System.IO;
+using RSBot.Core.Objects.Job;
 
 namespace RSBot.Core
 {

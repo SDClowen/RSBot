@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms.VisualStyles;
 
 namespace RSBot.Core.Components
@@ -62,6 +64,8 @@ namespace RSBot.Core.Components
         /// The argument separator.
         /// </value>
         public static char ArgumentSeparator { get; set; } = ' ';
+        
+        public static bool Paused { get; private set; }
 
         public static void Initialize()
         {
@@ -91,7 +95,8 @@ namespace RSBot.Core.Components
                 Log.Notify($"Cannot load file [{file}] (File does not exist)!");
                 return;
             }
-            
+
+            Running = false;
             File = file;
             Commands = System.IO.File.ReadAllLines(file);
 
@@ -109,9 +114,19 @@ namespace RSBot.Core.Components
         }
 
         /// <summary>
+        /// Pauses the command execution.
+        /// </summary>
+        public static void Pause()
+        {
+            Paused = true;
+       
+            EventManager.FireEvent("OnPauseScript");
+        }
+
+        /// <summary>
         /// Runs this instance.
         /// </summary>
-        public static void RunScript(bool useNearbyWaypoint = true)
+        public static void RunScript(bool useNearbyWaypoint = true, bool ignoreBotRunning = false)
         {
             if (Commands == null || Commands.Length == 0)
             {
@@ -120,21 +135,29 @@ namespace RSBot.Core.Components
                 return;
             }
 
-            Running = true;
+            if (Running && !Paused)
+                return;
 
-            if (useNearbyWaypoint)
-                CurrentLineIndex = FindNearestMoveCommandLine();
-            else
-                CurrentLineIndex = 0;
+            Running = true;
+            Paused = false;
+            CurrentLineIndex = useNearbyWaypoint ? FindNearestMoveCommandLine() : 0;
 
             if (CurrentLineIndex != 0)
                 Log.Debug($"[Script] Found nearby walk position at line #{CurrentLineIndex}");
 
-            foreach (var scriptLine in Commands.Skip(CurrentLineIndex))
-            {
-                if (!Running)
-                    break;
+            if (Commands == null || Commands.Length == 0 || Commands.Length < CurrentLineIndex)
+                return;
 
+            var error = false;
+            foreach (var scriptLine in Commands?.Skip(CurrentLineIndex))
+            {
+                if (!Running || Paused || (!Kernel.Bot.Running && !ignoreBotRunning))
+                {
+                    error = true;
+
+                    break;
+                }
+                Log.Debug($"[Script] Executing line #{CurrentLineIndex}");
                 Log.Status("Running walk script");
 
                 var arguments = scriptLine.Split(' ');
@@ -153,9 +176,10 @@ namespace RSBot.Core.Components
                     continue; //No matching handler found for this command
                 }
 
-                if (handler.IsBusy)
+                if (handler.IsBusy && Running && !Paused)
                 {
-                    LogScriptMessage("The script command is still busy.", CurrentLineIndex, LogLevel.Warning, commandName);
+                    error = true;
+                    LogScriptMessage("The script command is still busy, stopping script execution.", CurrentLineIndex, LogLevel.Debug, commandName);
 
                     break;
                 }
@@ -168,19 +192,23 @@ namespace RSBot.Core.Components
                 {
                     LogScriptMessage("The execution of the script command failed.", CurrentLineIndex, LogLevel.Warning, commandName);
 
-                    break;
+                    continue;
                 }
 
                 CurrentLineIndex++;
+
+                if (CurrentLineIndex > Commands?.Length - 1)
+                    break;
             }
 
-            Stop();
+            if (!Paused)
+                Stop(error);
         }
 
         /// <summary>
         /// Stops this instance.
         /// </summary>
-        public static void Stop()
+        public static void Stop(bool error = false)
         {
             Running = false;
             Commands = null;
@@ -189,7 +217,7 @@ namespace RSBot.Core.Components
             foreach (var handler in CommandHandlers)
                 handler.Stop();
 
-            EventManager.FireEvent("OnFinishScript");
+            EventManager.FireEvent("OnFinishScript", error);
         }
 
         /// <summary>

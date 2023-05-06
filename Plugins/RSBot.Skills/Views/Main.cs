@@ -559,7 +559,7 @@ public partial class Main : UserControl
                     itemBuffInfo.Id == removingBuff.Id &&
                     itemBuffInfo.Token == removingBuff.Token)
                 {
-                    listItem.Remove();
+                    listItem?.Remove();
                     return;
                 }
             }

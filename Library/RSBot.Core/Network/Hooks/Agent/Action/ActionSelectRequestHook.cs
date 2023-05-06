@@ -1,4 +1,6 @@
-﻿namespace RSBot.Core.Network.Hooks.Agent.Action
+﻿using RSBot.Core.Components;
+
+namespace RSBot.Core.Network.Hooks.Agent.Action
 {
     internal class ActionSelectRequestHook : IPacketHook
     {
@@ -25,7 +27,7 @@
         /// <returns></returns>
         public Packet ReplacePacket(Packet packet)
         {
-            if (Kernel.Bot.Running)
+            if (Kernel.Bot.Running || ShoppingManager.Running)
                 return null;
 
             return packet;

@@ -51,11 +51,6 @@ namespace RSBot.Core.Plugins
         Control View { get; }
 
         /// <summary>
-        /// Initializes this instance.
-        /// </summary>
-        void Initialize();
-
-        /// <summary>
         /// Starts this instance.
         /// </summary>
         void Start();

@@ -27,7 +27,7 @@ namespace RSBot.Core.Components
         public static T GetEntity<T>(uint uniqueId)
             where T : SpawnedEntity
         {
-            return (T)_entities.Find(p => p.UniqueId == uniqueId);
+            return (T)_entities.Find(p => p != null && p.UniqueId == uniqueId);
         }
 
         /// <summary>

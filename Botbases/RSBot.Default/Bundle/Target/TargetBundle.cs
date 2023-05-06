@@ -98,7 +98,7 @@ namespace RSBot.Default.Bundle.Target
             if (!attackWeakerFirst || !IsEmergencySituation())
                 return null;
 
-            if (!SpawnManager.TryGetEntities<SpawnedMonster>(e => e.AttackingPlayer == true && e.State.LifeState == LifeState.Alive, out var entities))
+            if (!SpawnManager.TryGetEntities<SpawnedMonster>(e => e.AttackingPlayer && e.State.LifeState == LifeState.Alive, out var entities))
                 return null;
 
             return entities.OrderBy(e => (byte)e.Rarity)

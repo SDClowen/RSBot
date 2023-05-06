@@ -16,7 +16,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\Library\RSBot.Core\RSBot.Core.csproj">
-		  <Private></Private>
+		  <Private>False</Private>
 		</ProjectReference>
 		<ProjectReference Include="..\..\SDUI\SDUI\SDUI.csproj">
 		  <Private></Private>

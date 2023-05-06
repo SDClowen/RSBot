@@ -57,6 +57,9 @@ internal class MoveScriptCommand : IScriptCommand
             return false;
         }
 
+        if (IsBusy)
+            return false;
+
         try
         {
             IsBusy = true;

@@ -1,5 +1,7 @@
-﻿using RSBot.Core.Event;
+﻿using RSBot.Core.Components;
+using RSBot.Core.Event;
 using RSBot.Core.Objects;
+using RSBot.Core.Objects.Spawn;
 
 namespace RSBot.Core.Network.Handler.Agent.Action
 {
@@ -35,6 +37,11 @@ namespace RSBot.Core.Network.Handler.Agent.Action
         {
             var entityId = packet.ReadUInt();
             var option = (TalkOption)packet.ReadByte();
+
+            Game.Player.State.DialogState = new DialogState
+            {
+                RequestedNpcId = entityId,
+            };
 
             EventManager.FireEvent("OnTalkRequest", entityId, option);
         }

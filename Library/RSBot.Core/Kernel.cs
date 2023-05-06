@@ -156,9 +156,9 @@ namespace RSBot.Core
                 .SelectMany(s => s.GetTypes())
                 .Where(p => type.IsAssignableFrom(p) && !p.IsInterface).ToArray();
 
-            foreach (var handler in types)
+            foreach (var hook in types)
             {
-                var instance = (IPacketHook)Activator.CreateInstance(handler);
+                var instance = (IPacketHook)Activator.CreateInstance(hook);
 
                 PacketManager.RegisterHook(instance);
             }
