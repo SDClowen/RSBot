@@ -328,7 +328,7 @@ namespace RSBot.Items.Views
             // 
             checkShowEquipment.AutoSize = true;
             checkShowEquipment.BackColor = Color.Transparent;
-            checkShowEquipment.Location = new Point(211, 21);
+            checkShowEquipment.Location = new Point(212, 21);
             checkShowEquipment.Name = "checkShowEquipment";
             checkShowEquipment.ShadowDepth = 1;
             checkShowEquipment.Size = new Size(113, 15);
@@ -526,9 +526,9 @@ namespace RSBot.Items.Views
             tabSellFilter.Controls.Add(filterPanel);
             tabSellFilter.Controls.Add(panel3);
             tabSellFilter.Controls.Add(pictureBox1);
-            tabSellFilter.Location = new Point(4, 25);
+            tabSellFilter.Location = new Point(4, 24);
             tabSellFilter.Name = "tabSellFilter";
-            tabSellFilter.Size = new Size(746, 444);
+            tabSellFilter.Size = new Size(746, 445);
             tabSellFilter.TabIndex = 1;
             tabSellFilter.Text = "Item filter";
             // 
@@ -543,7 +543,7 @@ namespace RSBot.Items.Views
             listFilter.FullRowSelect = true;
             listFilter.Location = new Point(265, 0);
             listFilter.Name = "listFilter";
-            listFilter.Size = new Size(481, 408);
+            listFilter.Size = new Size(481, 409);
             listFilter.SmallImageList = searchImageList;
             listFilter.TabIndex = 5;
             listFilter.UseCompatibleStateImageBehavior = false;
@@ -678,7 +678,7 @@ namespace RSBot.Items.Views
             filterPanel.Padding = new Padding(12);
             filterPanel.Radius = 0;
             filterPanel.ShadowDepth = 4F;
-            filterPanel.Size = new Size(265, 408);
+            filterPanel.Size = new Size(265, 409);
             filterPanel.TabIndex = 20;
             // 
             // groupOthers
@@ -1331,7 +1331,7 @@ namespace RSBot.Items.Views
             panel3.Controls.Add(btnReload);
             panel3.Controls.Add(txtSellSearch);
             panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(0, 408);
+            panel3.Location = new Point(0, 409);
             panel3.Margin = new Padding(0);
             panel3.Name = "panel3";
             panel3.Radius = 0;
@@ -1434,10 +1434,10 @@ namespace RSBot.Items.Views
             tabPage1.BackColor = Color.White;
             tabPage1.Controls.Add(groupBoxOptions);
             tabPage1.Controls.Add(groupBoxGeneral);
-            tabPage1.Location = new Point(4, 24);
+            tabPage1.Location = new Point(4, 25);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(746, 445);
+            tabPage1.Size = new Size(746, 444);
             tabPage1.TabIndex = 2;
             tabPage1.Text = "Pickup settings";
             // 

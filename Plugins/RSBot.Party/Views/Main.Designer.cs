@@ -28,1698 +28,1643 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabMain = new SDUI.Controls.TabControl();
-            this.tabCurrentParty = new System.Windows.Forms.TabPage();
-            this.listParty = new SDUI.Controls.ListView();
-            this.colMemberName = new System.Windows.Forms.ColumnHeader();
-            this.colLevel = new System.Windows.Forms.ColumnHeader();
-            this.colGuild = new System.Windows.Forms.ColumnHeader();
-            this.colMasteries = new System.Windows.Forms.ColumnHeader();
-            this.colLocation = new System.Windows.Forms.ColumnHeader();
-            this.contextParty = new SDUI.Controls.ContextMenuStrip();
-            this.menuBanish = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuLeave = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemAddToBuffing = new System.Windows.Forms.ToolStripMenuItem();
-            this.separator3 = new SDUI.Controls.Separator();
-            this.panel1 = new SDUI.Controls.Panel();
-            this.btnLeaveParty = new SDUI.Controls.Button();
-            this.label1 = new SDUI.Controls.Label();
-            this.lblLeader = new SDUI.Controls.Label();
-            this.grpPartySettings = new SDUI.Controls.GroupBox();
-            this.checkCurrentAllowInvitations = new SDUI.Controls.CheckBox();
-            this.checkCurrentAutoShareItems = new SDUI.Controls.CheckBox();
-            this.checkCurrentAutoShareEXP = new SDUI.Controls.CheckBox();
-            this.tpAutoParty = new System.Windows.Forms.TabPage();
-            this.groupBox2 = new SDUI.Controls.GroupBox();
-            this.checkBoxFollowMaster = new SDUI.Controls.CheckBox();
-            this.separator10 = new SDUI.Controls.Separator();
-            this.labelCommandsInfo = new SDUI.Controls.Label();
-            this.separator2 = new SDUI.Controls.Separator();
-            this.separator1 = new SDUI.Controls.Separator();
-            this.textBoxLeaveIfMasterNotName = new SDUI.Controls.TextBox();
-            this.checkBoxListenCommandsOnlyList = new SDUI.Controls.CheckBox();
-            this.checkBoxListenMasterCommands = new SDUI.Controls.CheckBox();
-            this.checkBoxLeaveIfMasterNot = new SDUI.Controls.CheckBox();
-            this.checkAcceptIfBotStopped = new SDUI.Controls.CheckBox();
-            this.checkAcceptAtTrainingPlace = new SDUI.Controls.CheckBox();
-            this.label2 = new SDUI.Controls.Label();
-            this.checkInviteFromList = new SDUI.Controls.CheckBox();
-            this.checkInviteAll = new SDUI.Controls.CheckBox();
-            this.checkAcceptFromList = new SDUI.Controls.CheckBox();
-            this.checkAcceptAll = new SDUI.Controls.CheckBox();
-            this.separator6 = new SDUI.Controls.Separator();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.groupBox7 = new SDUI.Controls.GroupBox();
-            this.listCommandPlayers = new SDUI.Controls.ListView();
-            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
-            this.panel4 = new SDUI.Controls.Panel();
-            this.buttonCommandPlayerAdd = new SDUI.Controls.Button();
-            this.buttonCommandPlayerRemove = new SDUI.Controls.Button();
-            this.separator4 = new SDUI.Controls.Separator();
-            this.groupBox3 = new SDUI.Controls.GroupBox();
-            this.listAutoParty = new SDUI.Controls.ListView();
-            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
-            this.panel3 = new SDUI.Controls.Panel();
-            this.btnAddToAutoParty = new SDUI.Controls.Button();
-            this.btnRemoveFromAutoParty = new SDUI.Controls.Button();
-            this.separator5 = new SDUI.Controls.Separator();
-            this.grbAutoPartySettings = new SDUI.Controls.GroupBox();
-            this.checkAutoAllowInvitations = new SDUI.Controls.CheckBox();
-            this.checkAutoItemAutoShare = new SDUI.Controls.CheckBox();
-            this.checkAutoExpAutoShare = new SDUI.Controls.CheckBox();
-            this.tpPartyMatching = new System.Windows.Forms.TabPage();
-            this.lvPartyMatching = new SDUI.Controls.ListView();
-            this.chPartyMatchNo = new System.Windows.Forms.ColumnHeader();
-            this.chPartyMatchRace = new System.Windows.Forms.ColumnHeader();
-            this.chPartyMatchName = new System.Windows.Forms.ColumnHeader();
-            this.chPartyMatchTitle = new System.Windows.Forms.ColumnHeader();
-            this.chPartyMatchPurporse = new System.Windows.Forms.ColumnHeader();
-            this.chPartyMatchMember = new System.Windows.Forms.ColumnHeader();
-            this.chPartyMatchRange = new System.Windows.Forms.ColumnHeader();
-            this.topPartyPanel = new SDUI.Controls.Panel();
-            this.buttonConfirmJoinConfig = new SDUI.Controls.Button();
-            this.textBoxJoinByTitle = new SDUI.Controls.TextBox();
-            this.textBoxJoinByName = new SDUI.Controls.TextBox();
-            this.checkBoxJoinByTitle = new SDUI.Controls.CheckBox();
-            this.checkBoxJoinByName = new SDUI.Controls.CheckBox();
-            this.separator11 = new SDUI.Controls.Separator();
-            this.buttonAutoJoinConfig = new SDUI.Controls.Button();
-            this.btnPartyRefresh = new SDUI.Controls.Button();
-            this.btnPartySearch = new SDUI.Controls.Button();
-            this.nudPartySearchMax = new SDUI.Controls.NumUpDown();
-            this.nudPartySearchMin = new SDUI.Controls.NumUpDown();
-            this.cbPartySearchPurpose = new SDUI.Controls.ComboBox();
-            this.tbPartySearchName = new SDUI.Controls.TextBox();
-            this.label6 = new SDUI.Controls.Label();
-            this.label5 = new SDUI.Controls.Label();
-            this.label4 = new SDUI.Controls.Label();
-            this.label3 = new SDUI.Controls.Label();
-            this.bottomPartyPanel = new SDUI.Controls.Panel();
-            this.btnPartyMatchDeleteEntry = new SDUI.Controls.Button();
-            this.btnPartyMatchChangeEntry = new SDUI.Controls.Button();
-            this.btnPartyMatchForm = new SDUI.Controls.Button();
-            this.btnAutoMatchParty = new SDUI.Controls.Button();
-            this.btnWhisperPartyMaster = new SDUI.Controls.Button();
-            this.btnJoinFormedParty = new SDUI.Controls.Button();
-            this.btnPrev = new SDUI.Controls.Button();
-            this.btnNext = new SDUI.Controls.Button();
-            this.lbl_partyPageRange = new SDUI.Controls.Label();
-            this.tpPartyBuffing = new System.Windows.Forms.TabPage();
-            this.groupBox4 = new SDUI.Controls.GroupBox();
-            this.btnAddBuffToMember = new SDUI.Controls.Button();
-            this.buttonRemoveCharFromBuffing = new SDUI.Controls.Button();
-            this.btnRemoveBuffFromMember = new SDUI.Controls.Button();
-            this.listViewPartyMembers = new SDUI.Controls.ListView();
-            this.chPlayerName = new System.Windows.Forms.ColumnHeader();
-            this.chPlayerLevel = new System.Windows.Forms.ColumnHeader();
-            this.separator9 = new SDUI.Controls.Separator();
-            this.groupBox6 = new SDUI.Controls.GroupBox();
-            this.buttonAddGroup = new SDUI.Controls.Button();
-            this.buttonRemoveGroup = new SDUI.Controls.Button();
-            this.listViewGroups = new SDUI.Controls.ListView();
-            this.columnHeaderGroupName = new System.Windows.Forms.ColumnHeader();
-            this.columnHeaderMembersCount = new System.Windows.Forms.ColumnHeader();
-            this.separator8 = new SDUI.Controls.Separator();
-            this.groupBox5 = new SDUI.Controls.GroupBox();
-            this.selectedMemberBuffs = new SDUI.Controls.ListView();
-            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            this.separator7 = new SDUI.Controls.Separator();
-            this.groupBox1 = new SDUI.Controls.GroupBox();
-            this.listPartyBuffSkills = new SDUI.Controls.ListView();
-            this.columnName = new System.Windows.Forms.ColumnHeader();
-            this.columnLimit = new System.Windows.Forms.ColumnHeader();
-            this.panel5 = new SDUI.Controls.Panel();
-            this.checkHideLowerLevelSkills = new SDUI.Controls.CheckBox();
-            this.tabMain.SuspendLayout();
-            this.tabCurrentParty.SuspendLayout();
-            this.contextParty.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.grpPartySettings.SuspendLayout();
-            this.tpAutoParty.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.groupBox7.SuspendLayout();
-            this.panel4.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.grbAutoPartySettings.SuspendLayout();
-            this.tpPartyMatching.SuspendLayout();
-            this.topPartyPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudPartySearchMax)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudPartySearchMin)).BeginInit();
-            this.bottomPartyPanel.SuspendLayout();
-            this.tpPartyBuffing.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.panel5.SuspendLayout();
-            this.SuspendLayout();
+            tabMain = new SDUI.Controls.TabControl();
+            tabCurrentParty = new System.Windows.Forms.TabPage();
+            listParty = new SDUI.Controls.ListView();
+            colMemberName = new System.Windows.Forms.ColumnHeader();
+            colLevel = new System.Windows.Forms.ColumnHeader();
+            colGuild = new System.Windows.Forms.ColumnHeader();
+            colMasteries = new System.Windows.Forms.ColumnHeader();
+            colLocation = new System.Windows.Forms.ColumnHeader();
+            contextParty = new SDUI.Controls.ContextMenuStrip();
+            menuBanish = new System.Windows.Forms.ToolStripMenuItem();
+            menuLeave = new System.Windows.Forms.ToolStripMenuItem();
+            menuItemAddToBuffing = new System.Windows.Forms.ToolStripMenuItem();
+            separator3 = new SDUI.Controls.Separator();
+            panel1 = new SDUI.Controls.Panel();
+            btnLeaveParty = new SDUI.Controls.Button();
+            label1 = new SDUI.Controls.Label();
+            lblLeader = new SDUI.Controls.Label();
+            grpPartySettings = new SDUI.Controls.GroupBox();
+            checkCurrentAllowInvitations = new SDUI.Controls.CheckBox();
+            checkCurrentAutoShareItems = new SDUI.Controls.CheckBox();
+            checkCurrentAutoShareEXP = new SDUI.Controls.CheckBox();
+            tpAutoParty = new System.Windows.Forms.TabPage();
+            groupBox2 = new SDUI.Controls.GroupBox();
+            checkBoxFollowMaster = new SDUI.Controls.CheckBox();
+            separator10 = new SDUI.Controls.Separator();
+            labelCommandsInfo = new SDUI.Controls.Label();
+            separator2 = new SDUI.Controls.Separator();
+            separator1 = new SDUI.Controls.Separator();
+            textBoxLeaveIfMasterNotName = new SDUI.Controls.TextBox();
+            checkBoxListenCommandsOnlyList = new SDUI.Controls.CheckBox();
+            checkBoxListenMasterCommands = new SDUI.Controls.CheckBox();
+            checkBoxLeaveIfMasterNot = new SDUI.Controls.CheckBox();
+            checkAcceptIfBotStopped = new SDUI.Controls.CheckBox();
+            checkAcceptAtTrainingPlace = new SDUI.Controls.CheckBox();
+            label2 = new SDUI.Controls.Label();
+            checkInviteFromList = new SDUI.Controls.CheckBox();
+            checkInviteAll = new SDUI.Controls.CheckBox();
+            checkAcceptFromList = new SDUI.Controls.CheckBox();
+            checkAcceptAll = new SDUI.Controls.CheckBox();
+            separator6 = new SDUI.Controls.Separator();
+            panel2 = new System.Windows.Forms.Panel();
+            groupBox7 = new SDUI.Controls.GroupBox();
+            listCommandPlayers = new SDUI.Controls.ListView();
+            columnHeader3 = new System.Windows.Forms.ColumnHeader();
+            panel4 = new SDUI.Controls.Panel();
+            buttonCommandPlayerAdd = new SDUI.Controls.Button();
+            buttonCommandPlayerRemove = new SDUI.Controls.Button();
+            separator4 = new SDUI.Controls.Separator();
+            groupBox3 = new SDUI.Controls.GroupBox();
+            listAutoParty = new SDUI.Controls.ListView();
+            columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            panel3 = new SDUI.Controls.Panel();
+            btnAddToAutoParty = new SDUI.Controls.Button();
+            btnRemoveFromAutoParty = new SDUI.Controls.Button();
+            separator5 = new SDUI.Controls.Separator();
+            grbAutoPartySettings = new SDUI.Controls.GroupBox();
+            checkAutoAllowInvitations = new SDUI.Controls.CheckBox();
+            checkAutoItemAutoShare = new SDUI.Controls.CheckBox();
+            checkAutoExpAutoShare = new SDUI.Controls.CheckBox();
+            tpPartyMatching = new System.Windows.Forms.TabPage();
+            lvPartyMatching = new SDUI.Controls.ListView();
+            chPartyMatchNo = new System.Windows.Forms.ColumnHeader();
+            chPartyMatchRace = new System.Windows.Forms.ColumnHeader();
+            chPartyMatchName = new System.Windows.Forms.ColumnHeader();
+            chPartyMatchTitle = new System.Windows.Forms.ColumnHeader();
+            chPartyMatchPurporse = new System.Windows.Forms.ColumnHeader();
+            chPartyMatchMember = new System.Windows.Forms.ColumnHeader();
+            chPartyMatchRange = new System.Windows.Forms.ColumnHeader();
+            topPartyPanel = new SDUI.Controls.Panel();
+            buttonConfirmJoinConfig = new SDUI.Controls.Button();
+            textBoxJoinByTitle = new SDUI.Controls.TextBox();
+            textBoxJoinByName = new SDUI.Controls.TextBox();
+            checkBoxJoinByTitle = new SDUI.Controls.CheckBox();
+            checkBoxJoinByName = new SDUI.Controls.CheckBox();
+            separator11 = new SDUI.Controls.Separator();
+            buttonAutoJoinConfig = new SDUI.Controls.Button();
+            btnPartyRefresh = new SDUI.Controls.Button();
+            btnPartySearch = new SDUI.Controls.Button();
+            nudPartySearchMax = new SDUI.Controls.NumUpDown();
+            nudPartySearchMin = new SDUI.Controls.NumUpDown();
+            cbPartySearchPurpose = new SDUI.Controls.ComboBox();
+            tbPartySearchName = new SDUI.Controls.TextBox();
+            label6 = new SDUI.Controls.Label();
+            label5 = new SDUI.Controls.Label();
+            label4 = new SDUI.Controls.Label();
+            label3 = new SDUI.Controls.Label();
+            bottomPartyPanel = new SDUI.Controls.Panel();
+            btnPartyMatchDeleteEntry = new SDUI.Controls.Button();
+            btnPartyMatchChangeEntry = new SDUI.Controls.Button();
+            btnPartyMatchForm = new SDUI.Controls.Button();
+            btnAutoMatchParty = new SDUI.Controls.Button();
+            btnWhisperPartyMaster = new SDUI.Controls.Button();
+            btnJoinFormedParty = new SDUI.Controls.Button();
+            btnPrev = new SDUI.Controls.Button();
+            btnNext = new SDUI.Controls.Button();
+            lbl_partyPageRange = new SDUI.Controls.Label();
+            tpPartyBuffing = new System.Windows.Forms.TabPage();
+            groupBox4 = new SDUI.Controls.GroupBox();
+            btnAddBuffToMember = new SDUI.Controls.Button();
+            buttonRemoveCharFromBuffing = new SDUI.Controls.Button();
+            btnRemoveBuffFromMember = new SDUI.Controls.Button();
+            listViewPartyMembers = new SDUI.Controls.ListView();
+            chPlayerName = new System.Windows.Forms.ColumnHeader();
+            chPlayerLevel = new System.Windows.Forms.ColumnHeader();
+            separator9 = new SDUI.Controls.Separator();
+            groupBox6 = new SDUI.Controls.GroupBox();
+            buttonAddGroup = new SDUI.Controls.Button();
+            buttonRemoveGroup = new SDUI.Controls.Button();
+            listViewGroups = new SDUI.Controls.ListView();
+            columnHeaderGroupName = new System.Windows.Forms.ColumnHeader();
+            columnHeaderMembersCount = new System.Windows.Forms.ColumnHeader();
+            separator8 = new SDUI.Controls.Separator();
+            groupBox5 = new SDUI.Controls.GroupBox();
+            selectedMemberBuffs = new SDUI.Controls.ListView();
+            columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            separator7 = new SDUI.Controls.Separator();
+            groupBox1 = new SDUI.Controls.GroupBox();
+            listPartyBuffSkills = new SDUI.Controls.ListView();
+            columnName = new System.Windows.Forms.ColumnHeader();
+            columnLimit = new System.Windows.Forms.ColumnHeader();
+            panel5 = new SDUI.Controls.Panel();
+            checkHideLowerLevelSkills = new SDUI.Controls.CheckBox();
+            tabMain.SuspendLayout();
+            tabCurrentParty.SuspendLayout();
+            contextParty.SuspendLayout();
+            panel1.SuspendLayout();
+            grpPartySettings.SuspendLayout();
+            tpAutoParty.SuspendLayout();
+            groupBox2.SuspendLayout();
+            panel2.SuspendLayout();
+            groupBox7.SuspendLayout();
+            panel4.SuspendLayout();
+            groupBox3.SuspendLayout();
+            panel3.SuspendLayout();
+            grbAutoPartySettings.SuspendLayout();
+            tpPartyMatching.SuspendLayout();
+            topPartyPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudPartySearchMax).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudPartySearchMin).BeginInit();
+            bottomPartyPanel.SuspendLayout();
+            tpPartyBuffing.SuspendLayout();
+            groupBox4.SuspendLayout();
+            groupBox6.SuspendLayout();
+            groupBox5.SuspendLayout();
+            groupBox1.SuspendLayout();
+            panel5.SuspendLayout();
+            SuspendLayout();
             // 
             // tabMain
             // 
-            this.tabMain.Border = new System.Windows.Forms.Padding(1);
-            this.tabMain.Controls.Add(this.tabCurrentParty);
-            this.tabMain.Controls.Add(this.tpAutoParty);
-            this.tabMain.Controls.Add(this.tpPartyMatching);
-            this.tabMain.Controls.Add(this.tpPartyBuffing);
-            this.tabMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabMain.HideTabArea = false;
-            this.tabMain.Location = new System.Drawing.Point(0, 0);
-            this.tabMain.Name = "tabMain";
-            this.tabMain.SelectedIndex = 0;
-            this.tabMain.Size = new System.Drawing.Size(754, 467);
-            this.tabMain.TabIndex = 0;
-            this.tabMain.SelectedIndexChanged += new System.EventHandler(this.tabMain_SelectedIndexChanged);
+            tabMain.Border = new System.Windows.Forms.Padding(1);
+            tabMain.Controls.Add(tabCurrentParty);
+            tabMain.Controls.Add(tpAutoParty);
+            tabMain.Controls.Add(tpPartyMatching);
+            tabMain.Controls.Add(tpPartyBuffing);
+            tabMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            tabMain.HideTabArea = false;
+            tabMain.Location = new System.Drawing.Point(0, 0);
+            tabMain.Name = "tabMain";
+            tabMain.SelectedIndex = 0;
+            tabMain.Size = new System.Drawing.Size(754, 467);
+            tabMain.TabIndex = 0;
+            tabMain.SelectedIndexChanged += tabMain_SelectedIndexChanged;
             // 
             // tabCurrentParty
             // 
-            this.tabCurrentParty.BackColor = System.Drawing.Color.White;
-            this.tabCurrentParty.Controls.Add(this.listParty);
-            this.tabCurrentParty.Controls.Add(this.separator3);
-            this.tabCurrentParty.Controls.Add(this.panel1);
-            this.tabCurrentParty.Controls.Add(this.grpPartySettings);
-            this.tabCurrentParty.Location = new System.Drawing.Point(4, 24);
-            this.tabCurrentParty.Name = "tabCurrentParty";
-            this.tabCurrentParty.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCurrentParty.Size = new System.Drawing.Size(746, 439);
-            this.tabCurrentParty.TabIndex = 0;
-            this.tabCurrentParty.Text = "Party";
+            tabCurrentParty.BackColor = System.Drawing.Color.White;
+            tabCurrentParty.Controls.Add(listParty);
+            tabCurrentParty.Controls.Add(separator3);
+            tabCurrentParty.Controls.Add(panel1);
+            tabCurrentParty.Controls.Add(grpPartySettings);
+            tabCurrentParty.Location = new System.Drawing.Point(4, 24);
+            tabCurrentParty.Name = "tabCurrentParty";
+            tabCurrentParty.Padding = new System.Windows.Forms.Padding(3);
+            tabCurrentParty.Size = new System.Drawing.Size(746, 439);
+            tabCurrentParty.TabIndex = 0;
+            tabCurrentParty.Text = "Party";
             // 
             // listParty
             // 
-            this.listParty.BackColor = System.Drawing.Color.White;
-            this.listParty.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listParty.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colMemberName,
-            this.colLevel,
-            this.colGuild,
-            this.colMasteries,
-            this.colLocation});
-            this.listParty.ContextMenuStrip = this.contextParty;
-            this.listParty.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listParty.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.listParty.FullRowSelect = true;
-            this.listParty.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listParty.Location = new System.Drawing.Point(3, 93);
-            this.listParty.MultiSelect = false;
-            this.listParty.Name = "listParty";
-            this.listParty.Size = new System.Drawing.Size(740, 311);
-            this.listParty.TabIndex = 0;
-            this.listParty.UseCompatibleStateImageBehavior = false;
-            this.listParty.View = System.Windows.Forms.View.Details;
+            listParty.BackColor = System.Drawing.Color.White;
+            listParty.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            listParty.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { colMemberName, colLevel, colGuild, colMasteries, colLocation });
+            listParty.ContextMenuStrip = contextParty;
+            listParty.Dock = System.Windows.Forms.DockStyle.Fill;
+            listParty.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            listParty.FullRowSelect = true;
+            listParty.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            listParty.Location = new System.Drawing.Point(3, 93);
+            listParty.MultiSelect = false;
+            listParty.Name = "listParty";
+            listParty.Size = new System.Drawing.Size(740, 311);
+            listParty.TabIndex = 0;
+            listParty.UseCompatibleStateImageBehavior = false;
+            listParty.View = System.Windows.Forms.View.Details;
             // 
             // colMemberName
             // 
-            this.colMemberName.Text = "Name";
-            this.colMemberName.Width = 158;
+            colMemberName.Text = "Name";
+            colMemberName.Width = 158;
             // 
             // colLevel
             // 
-            this.colLevel.Text = "Level";
-            this.colLevel.Width = 47;
+            colLevel.Text = "Level";
+            colLevel.Width = 47;
             // 
             // colGuild
             // 
-            this.colGuild.Text = "Guild";
-            this.colGuild.Width = 145;
+            colGuild.Text = "Guild";
+            colGuild.Width = 145;
             // 
             // colMasteries
             // 
-            this.colMasteries.Text = "Masteries";
-            this.colMasteries.Width = 208;
+            colMasteries.Text = "Masteries";
+            colMasteries.Width = 208;
             // 
             // colLocation
             // 
-            this.colLocation.Text = "Location";
+            colLocation.Text = "Location";
             // 
             // contextParty
             // 
-            this.contextParty.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuBanish,
-            this.menuLeave,
-            this.menuItemAddToBuffing});
-            this.contextParty.Name = "contextParty";
-            this.contextParty.Size = new System.Drawing.Size(153, 70);
+            contextParty.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { menuBanish, menuLeave, menuItemAddToBuffing });
+            contextParty.Name = "contextParty";
+            contextParty.Size = new System.Drawing.Size(153, 70);
             // 
             // menuBanish
             // 
-            this.menuBanish.Enabled = false;
-            this.menuBanish.Name = "menuBanish";
-            this.menuBanish.Size = new System.Drawing.Size(152, 22);
-            this.menuBanish.Text = "Banish";
-            this.menuBanish.Click += new System.EventHandler(this.menuBanish_Click);
+            menuBanish.Enabled = false;
+            menuBanish.Name = "menuBanish";
+            menuBanish.Size = new System.Drawing.Size(152, 22);
+            menuBanish.Text = "Banish";
+            menuBanish.Click += menuBanish_Click;
             // 
             // menuLeave
             // 
-            this.menuLeave.Enabled = false;
-            this.menuLeave.Name = "menuLeave";
-            this.menuLeave.Size = new System.Drawing.Size(152, 22);
-            this.menuLeave.Text = "Leave";
-            this.menuLeave.Click += new System.EventHandler(this.btnLeaveParty_Click);
+            menuLeave.Enabled = false;
+            menuLeave.Name = "menuLeave";
+            menuLeave.Size = new System.Drawing.Size(152, 22);
+            menuLeave.Text = "Leave";
+            menuLeave.Click += btnLeaveParty_Click;
             // 
             // menuItemAddToBuffing
             // 
-            this.menuItemAddToBuffing.Name = "menuItemAddToBuffing";
-            this.menuItemAddToBuffing.Size = new System.Drawing.Size(152, 22);
-            this.menuItemAddToBuffing.Text = "Add to buffing";
-            this.menuItemAddToBuffing.Click += new System.EventHandler(this.menuItemAddToBuffing_Click);
+            menuItemAddToBuffing.Name = "menuItemAddToBuffing";
+            menuItemAddToBuffing.Size = new System.Drawing.Size(152, 22);
+            menuItemAddToBuffing.Text = "Add to buffing";
+            menuItemAddToBuffing.Click += menuItemAddToBuffing_Click;
             // 
             // separator3
             // 
-            this.separator3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.separator3.IsVertical = false;
-            this.separator3.Location = new System.Drawing.Point(3, 83);
-            this.separator3.Name = "separator3";
-            this.separator3.Size = new System.Drawing.Size(740, 10);
-            this.separator3.TabIndex = 9;
-            this.separator3.Text = "separator3";
+            separator3.Dock = System.Windows.Forms.DockStyle.Top;
+            separator3.IsVertical = false;
+            separator3.Location = new System.Drawing.Point(3, 83);
+            separator3.Name = "separator3";
+            separator3.Size = new System.Drawing.Size(740, 10);
+            separator3.TabIndex = 9;
+            separator3.Text = "separator3";
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
-            this.panel1.BorderColor = System.Drawing.Color.Transparent;
-            this.panel1.Controls.Add(this.btnLeaveParty);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.lblLeader);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(3, 404);
-            this.panel1.Name = "panel1";
-            this.panel1.Padding = new System.Windows.Forms.Padding(6);
-            this.panel1.Radius = 0;
-            this.panel1.ShadowDepth = 4F;
-            this.panel1.Size = new System.Drawing.Size(740, 32);
-            this.panel1.TabIndex = 8;
+            panel1.BackColor = System.Drawing.Color.Transparent;
+            panel1.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
+            panel1.BorderColor = System.Drawing.Color.Transparent;
+            panel1.Controls.Add(btnLeaveParty);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(lblLeader);
+            panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            panel1.Location = new System.Drawing.Point(3, 404);
+            panel1.Name = "panel1";
+            panel1.Padding = new System.Windows.Forms.Padding(6);
+            panel1.Radius = 0;
+            panel1.ShadowDepth = 4F;
+            panel1.Size = new System.Drawing.Size(740, 32);
+            panel1.TabIndex = 8;
             // 
             // btnLeaveParty
             // 
-            this.btnLeaveParty.Color = System.Drawing.Color.IndianRed;
-            this.btnLeaveParty.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnLeaveParty.Enabled = false;
-            this.btnLeaveParty.ForeColor = System.Drawing.Color.White;
-            this.btnLeaveParty.Location = new System.Drawing.Point(637, 6);
-            this.btnLeaveParty.Name = "btnLeaveParty";
-            this.btnLeaveParty.Radius = 6;
-            this.btnLeaveParty.ShadowDepth = 4F;
-            this.btnLeaveParty.Size = new System.Drawing.Size(97, 20);
-            this.btnLeaveParty.TabIndex = 2;
-            this.btnLeaveParty.Text = "Leave party";
-            this.btnLeaveParty.Click += new System.EventHandler(this.btnLeaveParty_Click);
+            btnLeaveParty.Color = System.Drawing.Color.IndianRed;
+            btnLeaveParty.Dock = System.Windows.Forms.DockStyle.Right;
+            btnLeaveParty.Enabled = false;
+            btnLeaveParty.ForeColor = System.Drawing.Color.White;
+            btnLeaveParty.Location = new System.Drawing.Point(637, 6);
+            btnLeaveParty.Name = "btnLeaveParty";
+            btnLeaveParty.Radius = 6;
+            btnLeaveParty.ShadowDepth = 4F;
+            btnLeaveParty.Size = new System.Drawing.Size(97, 20);
+            btnLeaveParty.TabIndex = 2;
+            btnLeaveParty.Text = "Leave party";
+            btnLeaveParty.Click += btnLeaveParty_Click;
             // 
             // label1
             // 
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label1.Location = new System.Drawing.Point(3, 8);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(61, 15);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Leader:";
+            label1.BackColor = System.Drawing.Color.Transparent;
+            label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label1.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label1.Location = new System.Drawing.Point(3, 8);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(61, 15);
+            label1.TabIndex = 1;
+            label1.Text = "Leader:";
             // 
             // lblLeader
             // 
-            this.lblLeader.BackColor = System.Drawing.Color.Transparent;
-            this.lblLeader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblLeader.Location = new System.Drawing.Point(70, 9);
-            this.lblLeader.Name = "lblLeader";
-            this.lblLeader.Size = new System.Drawing.Size(143, 14);
-            this.lblLeader.TabIndex = 1;
-            this.lblLeader.Text = "<Not in a party>";
+            lblLeader.BackColor = System.Drawing.Color.Transparent;
+            lblLeader.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            lblLeader.Location = new System.Drawing.Point(70, 9);
+            lblLeader.Name = "lblLeader";
+            lblLeader.Size = new System.Drawing.Size(143, 14);
+            lblLeader.TabIndex = 1;
+            lblLeader.Text = "<Not in a party>";
             // 
             // grpPartySettings
             // 
-            this.grpPartySettings.BackColor = System.Drawing.Color.Transparent;
-            this.grpPartySettings.Controls.Add(this.checkCurrentAllowInvitations);
-            this.grpPartySettings.Controls.Add(this.checkCurrentAutoShareItems);
-            this.grpPartySettings.Controls.Add(this.checkCurrentAutoShareEXP);
-            this.grpPartySettings.Dock = System.Windows.Forms.DockStyle.Top;
-            this.grpPartySettings.Enabled = false;
-            this.grpPartySettings.Location = new System.Drawing.Point(3, 3);
-            this.grpPartySettings.Name = "grpPartySettings";
-            this.grpPartySettings.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.grpPartySettings.Radius = 10;
-            this.grpPartySettings.ShadowDepth = 4;
-            this.grpPartySettings.Size = new System.Drawing.Size(740, 80);
-            this.grpPartySettings.TabIndex = 7;
-            this.grpPartySettings.TabStop = false;
-            this.grpPartySettings.Text = "Party settings";
+            grpPartySettings.BackColor = System.Drawing.Color.Transparent;
+            grpPartySettings.Controls.Add(checkCurrentAllowInvitations);
+            grpPartySettings.Controls.Add(checkCurrentAutoShareItems);
+            grpPartySettings.Controls.Add(checkCurrentAutoShareEXP);
+            grpPartySettings.Dock = System.Windows.Forms.DockStyle.Top;
+            grpPartySettings.Enabled = false;
+            grpPartySettings.Location = new System.Drawing.Point(3, 3);
+            grpPartySettings.Name = "grpPartySettings";
+            grpPartySettings.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            grpPartySettings.Radius = 10;
+            grpPartySettings.ShadowDepth = 4;
+            grpPartySettings.Size = new System.Drawing.Size(740, 80);
+            grpPartySettings.TabIndex = 7;
+            grpPartySettings.TabStop = false;
+            grpPartySettings.Text = "Party settings";
             // 
             // checkCurrentAllowInvitations
             // 
-            this.checkCurrentAllowInvitations.AutoSize = true;
-            this.checkCurrentAllowInvitations.BackColor = System.Drawing.Color.Transparent;
-            this.checkCurrentAllowInvitations.Enabled = false;
-            this.checkCurrentAllowInvitations.Location = new System.Drawing.Point(143, 31);
-            this.checkCurrentAllowInvitations.Name = "checkCurrentAllowInvitations";
-            this.checkCurrentAllowInvitations.ShadowDepth = 1;
-            this.checkCurrentAllowInvitations.Size = new System.Drawing.Size(111, 15);
-            this.checkCurrentAllowInvitations.TabIndex = 6;
-            this.checkCurrentAllowInvitations.Text = "Allow invitations";
-            this.checkCurrentAllowInvitations.UseVisualStyleBackColor = false;
+            checkCurrentAllowInvitations.AutoSize = true;
+            checkCurrentAllowInvitations.BackColor = System.Drawing.Color.Transparent;
+            checkCurrentAllowInvitations.Enabled = false;
+            checkCurrentAllowInvitations.Location = new System.Drawing.Point(143, 31);
+            checkCurrentAllowInvitations.Name = "checkCurrentAllowInvitations";
+            checkCurrentAllowInvitations.ShadowDepth = 1;
+            checkCurrentAllowInvitations.Size = new System.Drawing.Size(111, 15);
+            checkCurrentAllowInvitations.TabIndex = 6;
+            checkCurrentAllowInvitations.Text = "Allow invitations";
+            checkCurrentAllowInvitations.UseVisualStyleBackColor = false;
             // 
             // checkCurrentAutoShareItems
             // 
-            this.checkCurrentAutoShareItems.AutoSize = true;
-            this.checkCurrentAutoShareItems.BackColor = System.Drawing.Color.Transparent;
-            this.checkCurrentAutoShareItems.Enabled = false;
-            this.checkCurrentAutoShareItems.Location = new System.Drawing.Point(13, 54);
-            this.checkCurrentAutoShareItems.Name = "checkCurrentAutoShareItems";
-            this.checkCurrentAutoShareItems.ShadowDepth = 1;
-            this.checkCurrentAutoShareItems.Size = new System.Drawing.Size(105, 15);
-            this.checkCurrentAutoShareItems.TabIndex = 5;
-            this.checkCurrentAutoShareItems.Text = "Item auto share";
-            this.checkCurrentAutoShareItems.UseVisualStyleBackColor = false;
+            checkCurrentAutoShareItems.AutoSize = true;
+            checkCurrentAutoShareItems.BackColor = System.Drawing.Color.Transparent;
+            checkCurrentAutoShareItems.Enabled = false;
+            checkCurrentAutoShareItems.Location = new System.Drawing.Point(13, 54);
+            checkCurrentAutoShareItems.Name = "checkCurrentAutoShareItems";
+            checkCurrentAutoShareItems.ShadowDepth = 1;
+            checkCurrentAutoShareItems.Size = new System.Drawing.Size(105, 15);
+            checkCurrentAutoShareItems.TabIndex = 5;
+            checkCurrentAutoShareItems.Text = "Item auto share";
+            checkCurrentAutoShareItems.UseVisualStyleBackColor = false;
             // 
             // checkCurrentAutoShareEXP
             // 
-            this.checkCurrentAutoShareEXP.AutoSize = true;
-            this.checkCurrentAutoShareEXP.BackColor = System.Drawing.Color.Transparent;
-            this.checkCurrentAutoShareEXP.Enabled = false;
-            this.checkCurrentAutoShareEXP.Location = new System.Drawing.Point(13, 31);
-            this.checkCurrentAutoShareEXP.Name = "checkCurrentAutoShareEXP";
-            this.checkCurrentAutoShareEXP.ShadowDepth = 1;
-            this.checkCurrentAutoShareEXP.Size = new System.Drawing.Size(103, 15);
-            this.checkCurrentAutoShareEXP.TabIndex = 5;
-            this.checkCurrentAutoShareEXP.Text = "EXP Auto share";
-            this.checkCurrentAutoShareEXP.UseVisualStyleBackColor = false;
+            checkCurrentAutoShareEXP.AutoSize = true;
+            checkCurrentAutoShareEXP.BackColor = System.Drawing.Color.Transparent;
+            checkCurrentAutoShareEXP.Enabled = false;
+            checkCurrentAutoShareEXP.Location = new System.Drawing.Point(13, 31);
+            checkCurrentAutoShareEXP.Name = "checkCurrentAutoShareEXP";
+            checkCurrentAutoShareEXP.ShadowDepth = 1;
+            checkCurrentAutoShareEXP.Size = new System.Drawing.Size(103, 15);
+            checkCurrentAutoShareEXP.TabIndex = 5;
+            checkCurrentAutoShareEXP.Text = "EXP Auto share";
+            checkCurrentAutoShareEXP.UseVisualStyleBackColor = false;
             // 
             // tpAutoParty
             // 
-            this.tpAutoParty.BackColor = System.Drawing.Color.White;
-            this.tpAutoParty.Controls.Add(this.groupBox2);
-            this.tpAutoParty.Controls.Add(this.separator6);
-            this.tpAutoParty.Controls.Add(this.panel2);
-            this.tpAutoParty.Controls.Add(this.separator5);
-            this.tpAutoParty.Controls.Add(this.grbAutoPartySettings);
-            this.tpAutoParty.Location = new System.Drawing.Point(4, 24);
-            this.tpAutoParty.Name = "tpAutoParty";
-            this.tpAutoParty.Padding = new System.Windows.Forms.Padding(3);
-            this.tpAutoParty.Size = new System.Drawing.Size(746, 439);
-            this.tpAutoParty.TabIndex = 1;
-            this.tpAutoParty.Text = "Auto Party";
+            tpAutoParty.BackColor = System.Drawing.Color.White;
+            tpAutoParty.Controls.Add(groupBox2);
+            tpAutoParty.Controls.Add(separator6);
+            tpAutoParty.Controls.Add(panel2);
+            tpAutoParty.Controls.Add(separator5);
+            tpAutoParty.Controls.Add(grbAutoPartySettings);
+            tpAutoParty.Location = new System.Drawing.Point(4, 24);
+            tpAutoParty.Name = "tpAutoParty";
+            tpAutoParty.Padding = new System.Windows.Forms.Padding(3);
+            tpAutoParty.Size = new System.Drawing.Size(746, 439);
+            tpAutoParty.TabIndex = 1;
+            tpAutoParty.Text = "Auto Party";
             // 
             // groupBox2
             // 
-            this.groupBox2.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox2.Controls.Add(this.checkBoxFollowMaster);
-            this.groupBox2.Controls.Add(this.separator10);
-            this.groupBox2.Controls.Add(this.labelCommandsInfo);
-            this.groupBox2.Controls.Add(this.separator2);
-            this.groupBox2.Controls.Add(this.separator1);
-            this.groupBox2.Controls.Add(this.textBoxLeaveIfMasterNotName);
-            this.groupBox2.Controls.Add(this.checkBoxListenCommandsOnlyList);
-            this.groupBox2.Controls.Add(this.checkBoxListenMasterCommands);
-            this.groupBox2.Controls.Add(this.checkBoxLeaveIfMasterNot);
-            this.groupBox2.Controls.Add(this.checkAcceptIfBotStopped);
-            this.groupBox2.Controls.Add(this.checkAcceptAtTrainingPlace);
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.checkInviteFromList);
-            this.groupBox2.Controls.Add(this.checkInviteAll);
-            this.groupBox2.Controls.Add(this.checkAcceptFromList);
-            this.groupBox2.Controls.Add(this.checkAcceptAll);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(234, 93);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBox2.Radius = 10;
-            this.groupBox2.ShadowDepth = 4;
-            this.groupBox2.Size = new System.Drawing.Size(509, 343);
-            this.groupBox2.TabIndex = 11;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Auto party settings";
+            groupBox2.BackColor = System.Drawing.Color.Transparent;
+            groupBox2.Controls.Add(checkBoxFollowMaster);
+            groupBox2.Controls.Add(separator10);
+            groupBox2.Controls.Add(labelCommandsInfo);
+            groupBox2.Controls.Add(separator2);
+            groupBox2.Controls.Add(separator1);
+            groupBox2.Controls.Add(textBoxLeaveIfMasterNotName);
+            groupBox2.Controls.Add(checkBoxListenCommandsOnlyList);
+            groupBox2.Controls.Add(checkBoxListenMasterCommands);
+            groupBox2.Controls.Add(checkBoxLeaveIfMasterNot);
+            groupBox2.Controls.Add(checkAcceptIfBotStopped);
+            groupBox2.Controls.Add(checkAcceptAtTrainingPlace);
+            groupBox2.Controls.Add(label2);
+            groupBox2.Controls.Add(checkInviteFromList);
+            groupBox2.Controls.Add(checkInviteAll);
+            groupBox2.Controls.Add(checkAcceptFromList);
+            groupBox2.Controls.Add(checkAcceptAll);
+            groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            groupBox2.Location = new System.Drawing.Point(234, 93);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            groupBox2.Radius = 10;
+            groupBox2.ShadowDepth = 4;
+            groupBox2.Size = new System.Drawing.Size(509, 343);
+            groupBox2.TabIndex = 11;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Auto party settings";
             // 
             // checkBoxFollowMaster
             // 
-            this.checkBoxFollowMaster.AutoSize = true;
-            this.checkBoxFollowMaster.BackColor = System.Drawing.Color.Transparent;
-            this.checkBoxFollowMaster.Location = new System.Drawing.Point(281, 31);
-            this.checkBoxFollowMaster.Name = "checkBoxFollowMaster";
-            this.checkBoxFollowMaster.ShadowDepth = 1;
-            this.checkBoxFollowMaster.Size = new System.Drawing.Size(185, 15);
-            this.checkBoxFollowMaster.TabIndex = 20;
-            this.checkBoxFollowMaster.Text = "Always follow the party master";
-            this.checkBoxFollowMaster.UseVisualStyleBackColor = false;
-            this.checkBoxFollowMaster.CheckedChanged += new System.EventHandler(this.checkBoxFollowMaster_CheckedChanged);
+            checkBoxFollowMaster.AutoSize = true;
+            checkBoxFollowMaster.BackColor = System.Drawing.Color.Transparent;
+            checkBoxFollowMaster.Location = new System.Drawing.Point(281, 31);
+            checkBoxFollowMaster.Name = "checkBoxFollowMaster";
+            checkBoxFollowMaster.ShadowDepth = 1;
+            checkBoxFollowMaster.Size = new System.Drawing.Size(185, 15);
+            checkBoxFollowMaster.TabIndex = 20;
+            checkBoxFollowMaster.Text = "Always follow the party master";
+            checkBoxFollowMaster.UseVisualStyleBackColor = false;
+            checkBoxFollowMaster.CheckedChanged += checkBoxFollowMaster_CheckedChanged;
             // 
             // separator10
             // 
-            this.separator10.IsVertical = true;
-            this.separator10.Location = new System.Drawing.Point(265, 31);
-            this.separator10.Name = "separator10";
-            this.separator10.Size = new System.Drawing.Size(10, 130);
-            this.separator10.TabIndex = 19;
-            this.separator10.Text = "separator10";
+            separator10.IsVertical = true;
+            separator10.Location = new System.Drawing.Point(265, 31);
+            separator10.Name = "separator10";
+            separator10.Size = new System.Drawing.Size(10, 130);
+            separator10.TabIndex = 19;
+            separator10.Text = "separator10";
             // 
             // labelCommandsInfo
             // 
-            this.labelCommandsInfo.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelCommandsInfo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelCommandsInfo.Location = new System.Drawing.Point(212, 253);
-            this.labelCommandsInfo.Name = "labelCommandsInfo";
-            this.labelCommandsInfo.Size = new System.Drawing.Size(285, 77);
-            this.labelCommandsInfo.TabIndex = 16;
-            this.labelCommandsInfo.Text = "Commands only using in the game chat window! \r\n\r\ntraceme: Send follow me request " +
-    "to players \r\nsitdown: Send sitdown request to players";
+            labelCommandsInfo.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelCommandsInfo.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            labelCommandsInfo.Location = new System.Drawing.Point(212, 253);
+            labelCommandsInfo.Name = "labelCommandsInfo";
+            labelCommandsInfo.Size = new System.Drawing.Size(285, 77);
+            labelCommandsInfo.TabIndex = 16;
+            labelCommandsInfo.Text = "Commands only using in the game chat window! \r\n\r\ntraceme: Send follow me request to players \r\nsitdown: Send sitdown request to players";
             // 
             // separator2
             // 
-            this.separator2.IsVertical = false;
-            this.separator2.Location = new System.Drawing.Point(20, 214);
-            this.separator2.Name = "separator2";
-            this.separator2.Size = new System.Drawing.Size(464, 11);
-            this.separator2.TabIndex = 15;
-            this.separator2.Text = "separator1";
+            separator2.IsVertical = false;
+            separator2.Location = new System.Drawing.Point(20, 214);
+            separator2.Name = "separator2";
+            separator2.Size = new System.Drawing.Size(464, 11);
+            separator2.TabIndex = 15;
+            separator2.Text = "separator1";
             // 
             // separator1
             // 
-            this.separator1.IsVertical = false;
-            this.separator1.Location = new System.Drawing.Point(20, 167);
-            this.separator1.Name = "separator1";
-            this.separator1.Size = new System.Drawing.Size(464, 11);
-            this.separator1.TabIndex = 15;
-            this.separator1.Text = "separator1";
+            separator1.IsVertical = false;
+            separator1.Location = new System.Drawing.Point(20, 167);
+            separator1.Name = "separator1";
+            separator1.Size = new System.Drawing.Size(464, 11);
+            separator1.TabIndex = 15;
+            separator1.Text = "separator1";
             // 
             // textBoxLeaveIfMasterNotName
             // 
-            this.textBoxLeaveIfMasterNotName.Location = new System.Drawing.Point(175, 188);
-            this.textBoxLeaveIfMasterNotName.MaxLength = 32767;
-            this.textBoxLeaveIfMasterNotName.MultiLine = false;
-            this.textBoxLeaveIfMasterNotName.Name = "textBoxLeaveIfMasterNotName";
-            this.textBoxLeaveIfMasterNotName.Radius = 2;
-            this.textBoxLeaveIfMasterNotName.Size = new System.Drawing.Size(85, 21);
-            this.textBoxLeaveIfMasterNotName.TabIndex = 14;
-            this.textBoxLeaveIfMasterNotName.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
-            this.textBoxLeaveIfMasterNotName.UseSystemPasswordChar = false;
+            textBoxLeaveIfMasterNotName.Location = new System.Drawing.Point(175, 188);
+            textBoxLeaveIfMasterNotName.MaxLength = 32767;
+            textBoxLeaveIfMasterNotName.MultiLine = false;
+            textBoxLeaveIfMasterNotName.Name = "textBoxLeaveIfMasterNotName";
+            textBoxLeaveIfMasterNotName.Radius = 2;
+            textBoxLeaveIfMasterNotName.Size = new System.Drawing.Size(85, 21);
+            textBoxLeaveIfMasterNotName.TabIndex = 14;
+            textBoxLeaveIfMasterNotName.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            textBoxLeaveIfMasterNotName.UseSystemPasswordChar = false;
             // 
             // checkBoxListenCommandsOnlyList
             // 
-            this.checkBoxListenCommandsOnlyList.AutoSize = true;
-            this.checkBoxListenCommandsOnlyList.BackColor = System.Drawing.Color.Transparent;
-            this.checkBoxListenCommandsOnlyList.Location = new System.Drawing.Point(20, 253);
-            this.checkBoxListenCommandsOnlyList.Name = "checkBoxListenCommandsOnlyList";
-            this.checkBoxListenCommandsOnlyList.ShadowDepth = 1;
-            this.checkBoxListenCommandsOnlyList.Size = new System.Drawing.Size(148, 15);
-            this.checkBoxListenCommandsOnlyList.TabIndex = 13;
-            this.checkBoxListenCommandsOnlyList.Text = "Listen commands in list";
-            this.checkBoxListenCommandsOnlyList.UseVisualStyleBackColor = false;
-            this.checkBoxListenCommandsOnlyList.CheckedChanged += new System.EventHandler(this.checkAutoPartySetting_CheckedChanged);
+            checkBoxListenCommandsOnlyList.AutoSize = true;
+            checkBoxListenCommandsOnlyList.BackColor = System.Drawing.Color.Transparent;
+            checkBoxListenCommandsOnlyList.Location = new System.Drawing.Point(20, 253);
+            checkBoxListenCommandsOnlyList.Name = "checkBoxListenCommandsOnlyList";
+            checkBoxListenCommandsOnlyList.ShadowDepth = 1;
+            checkBoxListenCommandsOnlyList.Size = new System.Drawing.Size(148, 15);
+            checkBoxListenCommandsOnlyList.TabIndex = 13;
+            checkBoxListenCommandsOnlyList.Text = "Listen commands in list";
+            checkBoxListenCommandsOnlyList.UseVisualStyleBackColor = false;
+            checkBoxListenCommandsOnlyList.CheckedChanged += checkAutoPartySetting_CheckedChanged;
             // 
             // checkBoxListenMasterCommands
             // 
-            this.checkBoxListenMasterCommands.AutoSize = true;
-            this.checkBoxListenMasterCommands.BackColor = System.Drawing.Color.Transparent;
-            this.checkBoxListenMasterCommands.Location = new System.Drawing.Point(20, 231);
-            this.checkBoxListenMasterCommands.Name = "checkBoxListenMasterCommands";
-            this.checkBoxListenMasterCommands.ShadowDepth = 1;
-            this.checkBoxListenMasterCommands.Size = new System.Drawing.Size(186, 15);
-            this.checkBoxListenMasterCommands.TabIndex = 13;
-            this.checkBoxListenMasterCommands.Text = "Listen party master commands";
-            this.checkBoxListenMasterCommands.UseVisualStyleBackColor = false;
-            this.checkBoxListenMasterCommands.CheckedChanged += new System.EventHandler(this.checkAutoPartySetting_CheckedChanged);
+            checkBoxListenMasterCommands.AutoSize = true;
+            checkBoxListenMasterCommands.BackColor = System.Drawing.Color.Transparent;
+            checkBoxListenMasterCommands.Location = new System.Drawing.Point(20, 231);
+            checkBoxListenMasterCommands.Name = "checkBoxListenMasterCommands";
+            checkBoxListenMasterCommands.ShadowDepth = 1;
+            checkBoxListenMasterCommands.Size = new System.Drawing.Size(186, 15);
+            checkBoxListenMasterCommands.TabIndex = 13;
+            checkBoxListenMasterCommands.Text = "Listen party master commands";
+            checkBoxListenMasterCommands.UseVisualStyleBackColor = false;
+            checkBoxListenMasterCommands.CheckedChanged += checkAutoPartySetting_CheckedChanged;
             // 
             // checkBoxLeaveIfMasterNot
             // 
-            this.checkBoxLeaveIfMasterNot.AutoSize = true;
-            this.checkBoxLeaveIfMasterNot.BackColor = System.Drawing.Color.Transparent;
-            this.checkBoxLeaveIfMasterNot.Location = new System.Drawing.Point(20, 190);
-            this.checkBoxLeaveIfMasterNot.Name = "checkBoxLeaveIfMasterNot";
-            this.checkBoxLeaveIfMasterNot.ShadowDepth = 1;
-            this.checkBoxLeaveIfMasterNot.Size = new System.Drawing.Size(129, 15);
-            this.checkBoxLeaveIfMasterNot.TabIndex = 13;
-            this.checkBoxLeaveIfMasterNot.Text = "Leave, if master not:";
-            this.checkBoxLeaveIfMasterNot.UseVisualStyleBackColor = false;
-            this.checkBoxLeaveIfMasterNot.CheckedChanged += new System.EventHandler(this.checkAutoPartySetting_CheckedChanged);
+            checkBoxLeaveIfMasterNot.AutoSize = true;
+            checkBoxLeaveIfMasterNot.BackColor = System.Drawing.Color.Transparent;
+            checkBoxLeaveIfMasterNot.Location = new System.Drawing.Point(20, 190);
+            checkBoxLeaveIfMasterNot.Name = "checkBoxLeaveIfMasterNot";
+            checkBoxLeaveIfMasterNot.ShadowDepth = 1;
+            checkBoxLeaveIfMasterNot.Size = new System.Drawing.Size(129, 15);
+            checkBoxLeaveIfMasterNot.TabIndex = 13;
+            checkBoxLeaveIfMasterNot.Text = "Leave, if master not:";
+            checkBoxLeaveIfMasterNot.UseVisualStyleBackColor = false;
+            checkBoxLeaveIfMasterNot.CheckedChanged += checkAutoPartySetting_CheckedChanged;
             // 
             // checkAcceptIfBotStopped
             // 
-            this.checkAcceptIfBotStopped.AutoSize = true;
-            this.checkAcceptIfBotStopped.BackColor = System.Drawing.Color.Transparent;
-            this.checkAcceptIfBotStopped.Location = new System.Drawing.Point(20, 144);
-            this.checkAcceptIfBotStopped.Name = "checkAcceptIfBotStopped";
-            this.checkAcceptIfBotStopped.ShadowDepth = 1;
-            this.checkAcceptIfBotStopped.Size = new System.Drawing.Size(168, 15);
-            this.checkAcceptIfBotStopped.TabIndex = 12;
-            this.checkAcceptIfBotStopped.Text = "Accept if the bot is stopped";
-            this.checkAcceptIfBotStopped.UseVisualStyleBackColor = false;
-            this.checkAcceptIfBotStopped.CheckedChanged += new System.EventHandler(this.checkAutoPartySetting_CheckedChanged);
+            checkAcceptIfBotStopped.AutoSize = true;
+            checkAcceptIfBotStopped.BackColor = System.Drawing.Color.Transparent;
+            checkAcceptIfBotStopped.Location = new System.Drawing.Point(20, 144);
+            checkAcceptIfBotStopped.Name = "checkAcceptIfBotStopped";
+            checkAcceptIfBotStopped.ShadowDepth = 1;
+            checkAcceptIfBotStopped.Size = new System.Drawing.Size(168, 15);
+            checkAcceptIfBotStopped.TabIndex = 12;
+            checkAcceptIfBotStopped.Text = "Accept if the bot is stopped";
+            checkAcceptIfBotStopped.UseVisualStyleBackColor = false;
+            checkAcceptIfBotStopped.CheckedChanged += checkAutoPartySetting_CheckedChanged;
             // 
             // checkAcceptAtTrainingPlace
             // 
-            this.checkAcceptAtTrainingPlace.AutoSize = true;
-            this.checkAcceptAtTrainingPlace.BackColor = System.Drawing.Color.Transparent;
-            this.checkAcceptAtTrainingPlace.Location = new System.Drawing.Point(20, 121);
-            this.checkAcceptAtTrainingPlace.Name = "checkAcceptAtTrainingPlace";
-            this.checkAcceptAtTrainingPlace.ShadowDepth = 1;
-            this.checkAcceptAtTrainingPlace.Size = new System.Drawing.Size(208, 15);
-            this.checkAcceptAtTrainingPlace.TabIndex = 10;
-            this.checkAcceptAtTrainingPlace.Text = "Accept/Invite only at training place";
-            this.checkAcceptAtTrainingPlace.UseVisualStyleBackColor = false;
-            this.checkAcceptAtTrainingPlace.CheckedChanged += new System.EventHandler(this.checkAutoPartySetting_CheckedChanged);
+            checkAcceptAtTrainingPlace.AutoSize = true;
+            checkAcceptAtTrainingPlace.BackColor = System.Drawing.Color.Transparent;
+            checkAcceptAtTrainingPlace.Location = new System.Drawing.Point(20, 121);
+            checkAcceptAtTrainingPlace.Name = "checkAcceptAtTrainingPlace";
+            checkAcceptAtTrainingPlace.ShadowDepth = 1;
+            checkAcceptAtTrainingPlace.Size = new System.Drawing.Size(208, 15);
+            checkAcceptAtTrainingPlace.TabIndex = 10;
+            checkAcceptAtTrainingPlace.Text = "Accept/Invite only at training place";
+            checkAcceptAtTrainingPlace.UseVisualStyleBackColor = false;
+            checkAcceptAtTrainingPlace.CheckedChanged += checkAutoPartySetting_CheckedChanged;
             // 
             // label2
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label2.Location = new System.Drawing.Point(17, 312);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(189, 18);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "* If party settings filter matches";
+            label2.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label2.Location = new System.Drawing.Point(17, 312);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(189, 18);
+            label2.TabIndex = 11;
+            label2.Text = "* If party settings filter matches";
             // 
             // checkInviteFromList
             // 
-            this.checkInviteFromList.AutoSize = true;
-            this.checkInviteFromList.BackColor = System.Drawing.Color.Transparent;
-            this.checkInviteFromList.Location = new System.Drawing.Point(20, 98);
-            this.checkInviteFromList.Name = "checkInviteFromList";
-            this.checkInviteFromList.ShadowDepth = 1;
-            this.checkInviteFromList.Size = new System.Drawing.Size(218, 15);
-            this.checkInviteFromList.TabIndex = 9;
-            this.checkInviteFromList.Text = "Auto invite all players from player list";
-            this.checkInviteFromList.UseVisualStyleBackColor = false;
-            this.checkInviteFromList.CheckedChanged += new System.EventHandler(this.checkAutoPartySetting_CheckedChanged);
+            checkInviteFromList.AutoSize = true;
+            checkInviteFromList.BackColor = System.Drawing.Color.Transparent;
+            checkInviteFromList.Location = new System.Drawing.Point(20, 98);
+            checkInviteFromList.Name = "checkInviteFromList";
+            checkInviteFromList.ShadowDepth = 1;
+            checkInviteFromList.Size = new System.Drawing.Size(218, 15);
+            checkInviteFromList.TabIndex = 9;
+            checkInviteFromList.Text = "Auto invite all players from player list";
+            checkInviteFromList.UseVisualStyleBackColor = false;
+            checkInviteFromList.CheckedChanged += checkAutoPartySetting_CheckedChanged;
             // 
             // checkInviteAll
             // 
-            this.checkInviteAll.AutoSize = true;
-            this.checkInviteAll.BackColor = System.Drawing.Color.Transparent;
-            this.checkInviteAll.Location = new System.Drawing.Point(20, 75);
-            this.checkInviteAll.Name = "checkInviteAll";
-            this.checkInviteAll.ShadowDepth = 1;
-            this.checkInviteAll.Size = new System.Drawing.Size(136, 15);
-            this.checkInviteAll.TabIndex = 8;
-            this.checkInviteAll.Text = "Auto invite all players";
-            this.checkInviteAll.UseVisualStyleBackColor = false;
-            this.checkInviteAll.CheckedChanged += new System.EventHandler(this.checkAutoPartySetting_CheckedChanged);
+            checkInviteAll.AutoSize = true;
+            checkInviteAll.BackColor = System.Drawing.Color.Transparent;
+            checkInviteAll.Location = new System.Drawing.Point(20, 75);
+            checkInviteAll.Name = "checkInviteAll";
+            checkInviteAll.ShadowDepth = 1;
+            checkInviteAll.Size = new System.Drawing.Size(136, 15);
+            checkInviteAll.TabIndex = 8;
+            checkInviteAll.Text = "Auto invite all players";
+            checkInviteAll.UseVisualStyleBackColor = false;
+            checkInviteAll.CheckedChanged += checkAutoPartySetting_CheckedChanged;
             // 
             // checkAcceptFromList
             // 
-            this.checkAcceptFromList.AutoSize = true;
-            this.checkAcceptFromList.BackColor = System.Drawing.Color.Transparent;
-            this.checkAcceptFromList.Location = new System.Drawing.Point(20, 52);
-            this.checkAcceptFromList.Name = "checkAcceptFromList";
-            this.checkAcceptFromList.ShadowDepth = 1;
-            this.checkAcceptFromList.Size = new System.Drawing.Size(200, 15);
-            this.checkAcceptFromList.TabIndex = 7;
-            this.checkAcceptFromList.Text = "Accept invitations from player list";
-            this.checkAcceptFromList.UseVisualStyleBackColor = false;
-            this.checkAcceptFromList.CheckedChanged += new System.EventHandler(this.checkAutoPartySetting_CheckedChanged);
+            checkAcceptFromList.AutoSize = true;
+            checkAcceptFromList.BackColor = System.Drawing.Color.Transparent;
+            checkAcceptFromList.Location = new System.Drawing.Point(20, 52);
+            checkAcceptFromList.Name = "checkAcceptFromList";
+            checkAcceptFromList.ShadowDepth = 1;
+            checkAcceptFromList.Size = new System.Drawing.Size(200, 15);
+            checkAcceptFromList.TabIndex = 7;
+            checkAcceptFromList.Text = "Accept invitations from player list";
+            checkAcceptFromList.UseVisualStyleBackColor = false;
+            checkAcceptFromList.CheckedChanged += checkAutoPartySetting_CheckedChanged;
             // 
             // checkAcceptAll
             // 
-            this.checkAcceptAll.AutoSize = true;
-            this.checkAcceptAll.BackColor = System.Drawing.Color.Transparent;
-            this.checkAcceptAll.Location = new System.Drawing.Point(20, 29);
-            this.checkAcceptAll.Name = "checkAcceptAll";
-            this.checkAcceptAll.ShadowDepth = 1;
-            this.checkAcceptAll.Size = new System.Drawing.Size(138, 15);
-            this.checkAcceptAll.TabIndex = 6;
-            this.checkAcceptAll.Text = "Accept all invitations*";
-            this.checkAcceptAll.UseVisualStyleBackColor = false;
-            this.checkAcceptAll.CheckedChanged += new System.EventHandler(this.checkAutoPartySetting_CheckedChanged);
+            checkAcceptAll.AutoSize = true;
+            checkAcceptAll.BackColor = System.Drawing.Color.Transparent;
+            checkAcceptAll.Location = new System.Drawing.Point(20, 29);
+            checkAcceptAll.Name = "checkAcceptAll";
+            checkAcceptAll.ShadowDepth = 1;
+            checkAcceptAll.Size = new System.Drawing.Size(138, 15);
+            checkAcceptAll.TabIndex = 6;
+            checkAcceptAll.Text = "Accept all invitations*";
+            checkAcceptAll.UseVisualStyleBackColor = false;
+            checkAcceptAll.CheckedChanged += checkAutoPartySetting_CheckedChanged;
             // 
             // separator6
             // 
-            this.separator6.Dock = System.Windows.Forms.DockStyle.Left;
-            this.separator6.IsVertical = true;
-            this.separator6.Location = new System.Drawing.Point(224, 93);
-            this.separator6.Name = "separator6";
-            this.separator6.Size = new System.Drawing.Size(10, 343);
-            this.separator6.TabIndex = 16;
-            this.separator6.Text = "separator6";
+            separator6.Dock = System.Windows.Forms.DockStyle.Left;
+            separator6.IsVertical = true;
+            separator6.Location = new System.Drawing.Point(224, 93);
+            separator6.Name = "separator6";
+            separator6.Size = new System.Drawing.Size(10, 343);
+            separator6.TabIndex = 16;
+            separator6.Text = "separator6";
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.groupBox7);
-            this.panel2.Controls.Add(this.separator4);
-            this.panel2.Controls.Add(this.groupBox3);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel2.Location = new System.Drawing.Point(3, 93);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(221, 343);
-            this.panel2.TabIndex = 14;
+            panel2.Controls.Add(groupBox7);
+            panel2.Controls.Add(separator4);
+            panel2.Controls.Add(groupBox3);
+            panel2.Dock = System.Windows.Forms.DockStyle.Left;
+            panel2.Location = new System.Drawing.Point(3, 93);
+            panel2.Name = "panel2";
+            panel2.Size = new System.Drawing.Size(221, 343);
+            panel2.TabIndex = 14;
             // 
             // groupBox7
             // 
-            this.groupBox7.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox7.Controls.Add(this.listCommandPlayers);
-            this.groupBox7.Controls.Add(this.panel4);
-            this.groupBox7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox7.Location = new System.Drawing.Point(0, 189);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
-            this.groupBox7.Radius = 10;
-            this.groupBox7.ShadowDepth = 4;
-            this.groupBox7.Size = new System.Drawing.Size(221, 154);
-            this.groupBox7.TabIndex = 13;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Their commands will be listened to";
+            groupBox7.BackColor = System.Drawing.Color.Transparent;
+            groupBox7.Controls.Add(listCommandPlayers);
+            groupBox7.Controls.Add(panel4);
+            groupBox7.Dock = System.Windows.Forms.DockStyle.Fill;
+            groupBox7.Location = new System.Drawing.Point(0, 189);
+            groupBox7.Name = "groupBox7";
+            groupBox7.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
+            groupBox7.Radius = 10;
+            groupBox7.ShadowDepth = 4;
+            groupBox7.Size = new System.Drawing.Size(221, 154);
+            groupBox7.TabIndex = 13;
+            groupBox7.TabStop = false;
+            groupBox7.Text = "Their commands will be listened to";
             // 
             // listCommandPlayers
             // 
-            this.listCommandPlayers.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listCommandPlayers.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader3});
-            this.listCommandPlayers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listCommandPlayers.FullRowSelect = true;
-            this.listCommandPlayers.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listCommandPlayers.Location = new System.Drawing.Point(1, 24);
-            this.listCommandPlayers.MultiSelect = false;
-            this.listCommandPlayers.Name = "listCommandPlayers";
-            this.listCommandPlayers.Size = new System.Drawing.Size(219, 96);
-            this.listCommandPlayers.TabIndex = 18;
-            this.listCommandPlayers.UseCompatibleStateImageBehavior = false;
-            this.listCommandPlayers.View = System.Windows.Forms.View.Details;
+            listCommandPlayers.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            listCommandPlayers.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader3 });
+            listCommandPlayers.Dock = System.Windows.Forms.DockStyle.Fill;
+            listCommandPlayers.FullRowSelect = true;
+            listCommandPlayers.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            listCommandPlayers.Location = new System.Drawing.Point(1, 24);
+            listCommandPlayers.MultiSelect = false;
+            listCommandPlayers.Name = "listCommandPlayers";
+            listCommandPlayers.Size = new System.Drawing.Size(219, 96);
+            listCommandPlayers.TabIndex = 18;
+            listCommandPlayers.UseCompatibleStateImageBehavior = false;
+            listCommandPlayers.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader3
             // 
-            this.columnHeader3.Width = 206;
+            columnHeader3.Width = 206;
             // 
             // panel4
             // 
-            this.panel4.BackColor = System.Drawing.Color.Transparent;
-            this.panel4.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
-            this.panel4.BorderColor = System.Drawing.Color.Transparent;
-            this.panel4.Controls.Add(this.buttonCommandPlayerAdd);
-            this.panel4.Controls.Add(this.buttonCommandPlayerRemove);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(1, 120);
-            this.panel4.Name = "panel4";
-            this.panel4.Radius = 1;
-            this.panel4.ShadowDepth = 4F;
-            this.panel4.Size = new System.Drawing.Size(219, 33);
-            this.panel4.TabIndex = 10;
+            panel4.BackColor = System.Drawing.Color.Transparent;
+            panel4.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
+            panel4.BorderColor = System.Drawing.Color.Transparent;
+            panel4.Controls.Add(buttonCommandPlayerAdd);
+            panel4.Controls.Add(buttonCommandPlayerRemove);
+            panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            panel4.Location = new System.Drawing.Point(1, 120);
+            panel4.Name = "panel4";
+            panel4.Radius = 1;
+            panel4.ShadowDepth = 4F;
+            panel4.Size = new System.Drawing.Size(219, 33);
+            panel4.TabIndex = 10;
             // 
             // buttonCommandPlayerAdd
             // 
-            this.buttonCommandPlayerAdd.Color = System.Drawing.Color.Transparent;
-            this.buttonCommandPlayerAdd.Location = new System.Drawing.Point(5, 5);
-            this.buttonCommandPlayerAdd.Name = "buttonCommandPlayerAdd";
-            this.buttonCommandPlayerAdd.Radius = 6;
-            this.buttonCommandPlayerAdd.ShadowDepth = 4F;
-            this.buttonCommandPlayerAdd.Size = new System.Drawing.Size(82, 23);
-            this.buttonCommandPlayerAdd.TabIndex = 10;
-            this.buttonCommandPlayerAdd.Text = "Add";
-            this.buttonCommandPlayerAdd.Click += new System.EventHandler(this.buttonCommandPlayerAdd_Click);
+            buttonCommandPlayerAdd.Color = System.Drawing.Color.Transparent;
+            buttonCommandPlayerAdd.Location = new System.Drawing.Point(5, 5);
+            buttonCommandPlayerAdd.Name = "buttonCommandPlayerAdd";
+            buttonCommandPlayerAdd.Radius = 6;
+            buttonCommandPlayerAdd.ShadowDepth = 4F;
+            buttonCommandPlayerAdd.Size = new System.Drawing.Size(82, 23);
+            buttonCommandPlayerAdd.TabIndex = 10;
+            buttonCommandPlayerAdd.Text = "Add";
+            buttonCommandPlayerAdd.Click += buttonCommandPlayerAdd_Click;
             // 
             // buttonCommandPlayerRemove
             // 
-            this.buttonCommandPlayerRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCommandPlayerRemove.Color = System.Drawing.Color.Transparent;
-            this.buttonCommandPlayerRemove.Location = new System.Drawing.Point(137, 5);
-            this.buttonCommandPlayerRemove.Name = "buttonCommandPlayerRemove";
-            this.buttonCommandPlayerRemove.Radius = 6;
-            this.buttonCommandPlayerRemove.ShadowDepth = 4F;
-            this.buttonCommandPlayerRemove.Size = new System.Drawing.Size(78, 23);
-            this.buttonCommandPlayerRemove.TabIndex = 10;
-            this.buttonCommandPlayerRemove.Text = "Remove";
-            this.buttonCommandPlayerRemove.Click += new System.EventHandler(this.buttonCommandPlayerRemove_Click);
+            buttonCommandPlayerRemove.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            buttonCommandPlayerRemove.Color = System.Drawing.Color.Transparent;
+            buttonCommandPlayerRemove.Location = new System.Drawing.Point(137, 5);
+            buttonCommandPlayerRemove.Name = "buttonCommandPlayerRemove";
+            buttonCommandPlayerRemove.Radius = 6;
+            buttonCommandPlayerRemove.ShadowDepth = 4F;
+            buttonCommandPlayerRemove.Size = new System.Drawing.Size(78, 23);
+            buttonCommandPlayerRemove.TabIndex = 10;
+            buttonCommandPlayerRemove.Text = "Remove";
+            buttonCommandPlayerRemove.Click += buttonCommandPlayerRemove_Click;
             // 
             // separator4
             // 
-            this.separator4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.separator4.IsVertical = false;
-            this.separator4.Location = new System.Drawing.Point(0, 179);
-            this.separator4.Name = "separator4";
-            this.separator4.Size = new System.Drawing.Size(221, 10);
-            this.separator4.TabIndex = 13;
-            this.separator4.Text = "separator4";
+            separator4.Dock = System.Windows.Forms.DockStyle.Top;
+            separator4.IsVertical = false;
+            separator4.Location = new System.Drawing.Point(0, 179);
+            separator4.Name = "separator4";
+            separator4.Size = new System.Drawing.Size(221, 10);
+            separator4.TabIndex = 13;
+            separator4.Text = "separator4";
             // 
             // groupBox3
             // 
-            this.groupBox3.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox3.Controls.Add(this.listAutoParty);
-            this.groupBox3.Controls.Add(this.panel3);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox3.Location = new System.Drawing.Point(0, 0);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
-            this.groupBox3.Radius = 10;
-            this.groupBox3.ShadowDepth = 4;
-            this.groupBox3.Size = new System.Drawing.Size(221, 179);
-            this.groupBox3.TabIndex = 12;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Auto party players";
+            groupBox3.BackColor = System.Drawing.Color.Transparent;
+            groupBox3.Controls.Add(listAutoParty);
+            groupBox3.Controls.Add(panel3);
+            groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
+            groupBox3.Location = new System.Drawing.Point(0, 0);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
+            groupBox3.Radius = 10;
+            groupBox3.ShadowDepth = 4;
+            groupBox3.Size = new System.Drawing.Size(221, 179);
+            groupBox3.TabIndex = 12;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Auto party players";
             // 
             // listAutoParty
             // 
-            this.listAutoParty.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listAutoParty.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader2});
-            this.listAutoParty.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listAutoParty.FullRowSelect = true;
-            this.listAutoParty.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listAutoParty.Location = new System.Drawing.Point(1, 24);
-            this.listAutoParty.MultiSelect = false;
-            this.listAutoParty.Name = "listAutoParty";
-            this.listAutoParty.Size = new System.Drawing.Size(219, 121);
-            this.listAutoParty.TabIndex = 17;
-            this.listAutoParty.UseCompatibleStateImageBehavior = false;
-            this.listAutoParty.View = System.Windows.Forms.View.Details;
+            listAutoParty.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            listAutoParty.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader2 });
+            listAutoParty.Dock = System.Windows.Forms.DockStyle.Fill;
+            listAutoParty.FullRowSelect = true;
+            listAutoParty.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            listAutoParty.Location = new System.Drawing.Point(1, 24);
+            listAutoParty.MultiSelect = false;
+            listAutoParty.Name = "listAutoParty";
+            listAutoParty.Size = new System.Drawing.Size(219, 121);
+            listAutoParty.TabIndex = 17;
+            listAutoParty.UseCompatibleStateImageBehavior = false;
+            listAutoParty.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Width = 206;
+            columnHeader2.Width = 206;
             // 
             // panel3
             // 
-            this.panel3.BackColor = System.Drawing.Color.Transparent;
-            this.panel3.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
-            this.panel3.BorderColor = System.Drawing.Color.Transparent;
-            this.panel3.Controls.Add(this.btnAddToAutoParty);
-            this.panel3.Controls.Add(this.btnRemoveFromAutoParty);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(1, 145);
-            this.panel3.Name = "panel3";
-            this.panel3.Radius = 0;
-            this.panel3.ShadowDepth = 4F;
-            this.panel3.Size = new System.Drawing.Size(219, 33);
-            this.panel3.TabIndex = 17;
+            panel3.BackColor = System.Drawing.Color.Transparent;
+            panel3.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
+            panel3.BorderColor = System.Drawing.Color.Transparent;
+            panel3.Controls.Add(btnAddToAutoParty);
+            panel3.Controls.Add(btnRemoveFromAutoParty);
+            panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            panel3.Location = new System.Drawing.Point(1, 145);
+            panel3.Name = "panel3";
+            panel3.Radius = 0;
+            panel3.ShadowDepth = 4F;
+            panel3.Size = new System.Drawing.Size(219, 33);
+            panel3.TabIndex = 17;
             // 
             // btnAddToAutoParty
             // 
-            this.btnAddToAutoParty.Color = System.Drawing.Color.Transparent;
-            this.btnAddToAutoParty.Location = new System.Drawing.Point(5, 4);
-            this.btnAddToAutoParty.Name = "btnAddToAutoParty";
-            this.btnAddToAutoParty.Radius = 6;
-            this.btnAddToAutoParty.ShadowDepth = 4F;
-            this.btnAddToAutoParty.Size = new System.Drawing.Size(82, 23);
-            this.btnAddToAutoParty.TabIndex = 10;
-            this.btnAddToAutoParty.Text = "Add";
-            this.btnAddToAutoParty.Click += new System.EventHandler(this.btnAddToAutoParty_Click);
+            btnAddToAutoParty.Color = System.Drawing.Color.Transparent;
+            btnAddToAutoParty.Location = new System.Drawing.Point(5, 4);
+            btnAddToAutoParty.Name = "btnAddToAutoParty";
+            btnAddToAutoParty.Radius = 6;
+            btnAddToAutoParty.ShadowDepth = 4F;
+            btnAddToAutoParty.Size = new System.Drawing.Size(82, 23);
+            btnAddToAutoParty.TabIndex = 10;
+            btnAddToAutoParty.Text = "Add";
+            btnAddToAutoParty.Click += btnAddToAutoParty_Click;
             // 
             // btnRemoveFromAutoParty
             // 
-            this.btnRemoveFromAutoParty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemoveFromAutoParty.Color = System.Drawing.Color.Transparent;
-            this.btnRemoveFromAutoParty.Location = new System.Drawing.Point(138, 4);
-            this.btnRemoveFromAutoParty.Name = "btnRemoveFromAutoParty";
-            this.btnRemoveFromAutoParty.Radius = 6;
-            this.btnRemoveFromAutoParty.ShadowDepth = 4F;
-            this.btnRemoveFromAutoParty.Size = new System.Drawing.Size(78, 23);
-            this.btnRemoveFromAutoParty.TabIndex = 10;
-            this.btnRemoveFromAutoParty.Text = "Remove";
-            this.btnRemoveFromAutoParty.Click += new System.EventHandler(this.btnRemoveFromAutoParty_Click);
+            btnRemoveFromAutoParty.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnRemoveFromAutoParty.Color = System.Drawing.Color.Transparent;
+            btnRemoveFromAutoParty.Location = new System.Drawing.Point(138, 4);
+            btnRemoveFromAutoParty.Name = "btnRemoveFromAutoParty";
+            btnRemoveFromAutoParty.Radius = 6;
+            btnRemoveFromAutoParty.ShadowDepth = 4F;
+            btnRemoveFromAutoParty.Size = new System.Drawing.Size(78, 23);
+            btnRemoveFromAutoParty.TabIndex = 10;
+            btnRemoveFromAutoParty.Text = "Remove";
+            btnRemoveFromAutoParty.Click += btnRemoveFromAutoParty_Click;
             // 
             // separator5
             // 
-            this.separator5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.separator5.IsVertical = false;
-            this.separator5.Location = new System.Drawing.Point(3, 83);
-            this.separator5.Name = "separator5";
-            this.separator5.Size = new System.Drawing.Size(740, 10);
-            this.separator5.TabIndex = 15;
-            this.separator5.Text = "separator5";
+            separator5.Dock = System.Windows.Forms.DockStyle.Top;
+            separator5.IsVertical = false;
+            separator5.Location = new System.Drawing.Point(3, 83);
+            separator5.Name = "separator5";
+            separator5.Size = new System.Drawing.Size(740, 10);
+            separator5.TabIndex = 15;
+            separator5.Text = "separator5";
             // 
             // grbAutoPartySettings
             // 
-            this.grbAutoPartySettings.BackColor = System.Drawing.Color.Transparent;
-            this.grbAutoPartySettings.Controls.Add(this.checkAutoAllowInvitations);
-            this.grbAutoPartySettings.Controls.Add(this.checkAutoItemAutoShare);
-            this.grbAutoPartySettings.Controls.Add(this.checkAutoExpAutoShare);
-            this.grbAutoPartySettings.Dock = System.Windows.Forms.DockStyle.Top;
-            this.grbAutoPartySettings.Location = new System.Drawing.Point(3, 3);
-            this.grbAutoPartySettings.Name = "grbAutoPartySettings";
-            this.grbAutoPartySettings.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.grbAutoPartySettings.Radius = 10;
-            this.grbAutoPartySettings.ShadowDepth = 4;
-            this.grbAutoPartySettings.Size = new System.Drawing.Size(740, 80);
-            this.grbAutoPartySettings.TabIndex = 8;
-            this.grbAutoPartySettings.TabStop = false;
-            this.grbAutoPartySettings.Text = "Party settings";
+            grbAutoPartySettings.BackColor = System.Drawing.Color.Transparent;
+            grbAutoPartySettings.Controls.Add(checkAutoAllowInvitations);
+            grbAutoPartySettings.Controls.Add(checkAutoItemAutoShare);
+            grbAutoPartySettings.Controls.Add(checkAutoExpAutoShare);
+            grbAutoPartySettings.Dock = System.Windows.Forms.DockStyle.Top;
+            grbAutoPartySettings.Location = new System.Drawing.Point(3, 3);
+            grbAutoPartySettings.Name = "grbAutoPartySettings";
+            grbAutoPartySettings.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            grbAutoPartySettings.Radius = 10;
+            grbAutoPartySettings.ShadowDepth = 4;
+            grbAutoPartySettings.Size = new System.Drawing.Size(740, 80);
+            grbAutoPartySettings.TabIndex = 8;
+            grbAutoPartySettings.TabStop = false;
+            grbAutoPartySettings.Text = "Party settings";
             // 
             // checkAutoAllowInvitations
             // 
-            this.checkAutoAllowInvitations.AutoSize = true;
-            this.checkAutoAllowInvitations.BackColor = System.Drawing.Color.Transparent;
-            this.checkAutoAllowInvitations.Checked = true;
-            this.checkAutoAllowInvitations.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkAutoAllowInvitations.Location = new System.Drawing.Point(143, 31);
-            this.checkAutoAllowInvitations.Name = "checkAutoAllowInvitations";
-            this.checkAutoAllowInvitations.ShadowDepth = 1;
-            this.checkAutoAllowInvitations.Size = new System.Drawing.Size(111, 15);
-            this.checkAutoAllowInvitations.TabIndex = 6;
-            this.checkAutoAllowInvitations.Text = "Allow invitations";
-            this.checkAutoAllowInvitations.UseVisualStyleBackColor = false;
-            this.checkAutoAllowInvitations.CheckedChanged += new System.EventHandler(this.checkSettings_CheckedChanged);
+            checkAutoAllowInvitations.AutoSize = true;
+            checkAutoAllowInvitations.BackColor = System.Drawing.Color.Transparent;
+            checkAutoAllowInvitations.Checked = true;
+            checkAutoAllowInvitations.CheckState = System.Windows.Forms.CheckState.Checked;
+            checkAutoAllowInvitations.Location = new System.Drawing.Point(143, 31);
+            checkAutoAllowInvitations.Name = "checkAutoAllowInvitations";
+            checkAutoAllowInvitations.ShadowDepth = 1;
+            checkAutoAllowInvitations.Size = new System.Drawing.Size(111, 15);
+            checkAutoAllowInvitations.TabIndex = 6;
+            checkAutoAllowInvitations.Text = "Allow invitations";
+            checkAutoAllowInvitations.UseVisualStyleBackColor = false;
+            checkAutoAllowInvitations.CheckedChanged += checkSettings_CheckedChanged;
             // 
             // checkAutoItemAutoShare
             // 
-            this.checkAutoItemAutoShare.AutoSize = true;
-            this.checkAutoItemAutoShare.BackColor = System.Drawing.Color.Transparent;
-            this.checkAutoItemAutoShare.Location = new System.Drawing.Point(13, 54);
-            this.checkAutoItemAutoShare.Name = "checkAutoItemAutoShare";
-            this.checkAutoItemAutoShare.ShadowDepth = 1;
-            this.checkAutoItemAutoShare.Size = new System.Drawing.Size(105, 15);
-            this.checkAutoItemAutoShare.TabIndex = 5;
-            this.checkAutoItemAutoShare.Text = "Item auto share";
-            this.checkAutoItemAutoShare.UseVisualStyleBackColor = false;
-            this.checkAutoItemAutoShare.CheckedChanged += new System.EventHandler(this.checkSettings_CheckedChanged);
+            checkAutoItemAutoShare.AutoSize = true;
+            checkAutoItemAutoShare.BackColor = System.Drawing.Color.Transparent;
+            checkAutoItemAutoShare.Location = new System.Drawing.Point(13, 54);
+            checkAutoItemAutoShare.Name = "checkAutoItemAutoShare";
+            checkAutoItemAutoShare.ShadowDepth = 1;
+            checkAutoItemAutoShare.Size = new System.Drawing.Size(105, 15);
+            checkAutoItemAutoShare.TabIndex = 5;
+            checkAutoItemAutoShare.Text = "Item auto share";
+            checkAutoItemAutoShare.UseVisualStyleBackColor = false;
+            checkAutoItemAutoShare.CheckedChanged += checkSettings_CheckedChanged;
             // 
             // checkAutoExpAutoShare
             // 
-            this.checkAutoExpAutoShare.AutoSize = true;
-            this.checkAutoExpAutoShare.BackColor = System.Drawing.Color.Transparent;
-            this.checkAutoExpAutoShare.Checked = true;
-            this.checkAutoExpAutoShare.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkAutoExpAutoShare.Location = new System.Drawing.Point(13, 31);
-            this.checkAutoExpAutoShare.Name = "checkAutoExpAutoShare";
-            this.checkAutoExpAutoShare.ShadowDepth = 1;
-            this.checkAutoExpAutoShare.Size = new System.Drawing.Size(103, 15);
-            this.checkAutoExpAutoShare.TabIndex = 5;
-            this.checkAutoExpAutoShare.Text = "EXP Auto share";
-            this.checkAutoExpAutoShare.UseVisualStyleBackColor = false;
-            this.checkAutoExpAutoShare.CheckedChanged += new System.EventHandler(this.checkSettings_CheckedChanged);
+            checkAutoExpAutoShare.AutoSize = true;
+            checkAutoExpAutoShare.BackColor = System.Drawing.Color.Transparent;
+            checkAutoExpAutoShare.Checked = true;
+            checkAutoExpAutoShare.CheckState = System.Windows.Forms.CheckState.Checked;
+            checkAutoExpAutoShare.Location = new System.Drawing.Point(13, 31);
+            checkAutoExpAutoShare.Name = "checkAutoExpAutoShare";
+            checkAutoExpAutoShare.ShadowDepth = 1;
+            checkAutoExpAutoShare.Size = new System.Drawing.Size(103, 15);
+            checkAutoExpAutoShare.TabIndex = 5;
+            checkAutoExpAutoShare.Text = "EXP Auto share";
+            checkAutoExpAutoShare.UseVisualStyleBackColor = false;
+            checkAutoExpAutoShare.CheckedChanged += checkSettings_CheckedChanged;
             // 
             // tpPartyMatching
             // 
-            this.tpPartyMatching.BackColor = System.Drawing.Color.White;
-            this.tpPartyMatching.Controls.Add(this.lvPartyMatching);
-            this.tpPartyMatching.Controls.Add(this.topPartyPanel);
-            this.tpPartyMatching.Controls.Add(this.bottomPartyPanel);
-            this.tpPartyMatching.Location = new System.Drawing.Point(4, 25);
-            this.tpPartyMatching.Name = "tpPartyMatching";
-            this.tpPartyMatching.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPartyMatching.Size = new System.Drawing.Size(746, 438);
-            this.tpPartyMatching.TabIndex = 2;
-            this.tpPartyMatching.Text = "Party Matching";
+            tpPartyMatching.BackColor = System.Drawing.Color.White;
+            tpPartyMatching.Controls.Add(lvPartyMatching);
+            tpPartyMatching.Controls.Add(topPartyPanel);
+            tpPartyMatching.Controls.Add(bottomPartyPanel);
+            tpPartyMatching.Location = new System.Drawing.Point(4, 24);
+            tpPartyMatching.Name = "tpPartyMatching";
+            tpPartyMatching.Padding = new System.Windows.Forms.Padding(3);
+            tpPartyMatching.Size = new System.Drawing.Size(746, 439);
+            tpPartyMatching.TabIndex = 2;
+            tpPartyMatching.Text = "Party Matching";
             // 
             // lvPartyMatching
             // 
-            this.lvPartyMatching.BackColor = System.Drawing.Color.White;
-            this.lvPartyMatching.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lvPartyMatching.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.chPartyMatchNo,
-            this.chPartyMatchRace,
-            this.chPartyMatchName,
-            this.chPartyMatchTitle,
-            this.chPartyMatchPurporse,
-            this.chPartyMatchMember,
-            this.chPartyMatchRange});
-            this.lvPartyMatching.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvPartyMatching.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lvPartyMatching.FullRowSelect = true;
-            this.lvPartyMatching.Location = new System.Drawing.Point(3, 50);
-            this.lvPartyMatching.MultiSelect = false;
-            this.lvPartyMatching.Name = "lvPartyMatching";
-            this.lvPartyMatching.ShowItemToolTips = true;
-            this.lvPartyMatching.Size = new System.Drawing.Size(740, 334);
-            this.lvPartyMatching.TabIndex = 15;
-            this.lvPartyMatching.UseCompatibleStateImageBehavior = false;
-            this.lvPartyMatching.View = System.Windows.Forms.View.Details;
+            lvPartyMatching.BackColor = System.Drawing.Color.White;
+            lvPartyMatching.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            lvPartyMatching.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chPartyMatchNo, chPartyMatchRace, chPartyMatchName, chPartyMatchTitle, chPartyMatchPurporse, chPartyMatchMember, chPartyMatchRange });
+            lvPartyMatching.Dock = System.Windows.Forms.DockStyle.Fill;
+            lvPartyMatching.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            lvPartyMatching.FullRowSelect = true;
+            lvPartyMatching.Location = new System.Drawing.Point(3, 50);
+            lvPartyMatching.MultiSelect = false;
+            lvPartyMatching.Name = "lvPartyMatching";
+            lvPartyMatching.ShowItemToolTips = true;
+            lvPartyMatching.Size = new System.Drawing.Size(740, 335);
+            lvPartyMatching.TabIndex = 15;
+            lvPartyMatching.UseCompatibleStateImageBehavior = false;
+            lvPartyMatching.View = System.Windows.Forms.View.Details;
             // 
             // chPartyMatchNo
             // 
-            this.chPartyMatchNo.Text = "No";
-            this.chPartyMatchNo.Width = 47;
+            chPartyMatchNo.Text = "No";
+            chPartyMatchNo.Width = 47;
             // 
             // chPartyMatchRace
             // 
-            this.chPartyMatchRace.Text = "Race";
-            this.chPartyMatchRace.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.chPartyMatchRace.Width = 64;
+            chPartyMatchRace.Text = "Race";
+            chPartyMatchRace.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            chPartyMatchRace.Width = 64;
             // 
             // chPartyMatchName
             // 
-            this.chPartyMatchName.Text = "Name";
-            this.chPartyMatchName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.chPartyMatchName.Width = 100;
+            chPartyMatchName.Text = "Name";
+            chPartyMatchName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            chPartyMatchName.Width = 100;
             // 
             // chPartyMatchTitle
             // 
-            this.chPartyMatchTitle.Text = "Title";
-            this.chPartyMatchTitle.Width = 321;
+            chPartyMatchTitle.Text = "Title";
+            chPartyMatchTitle.Width = 321;
             // 
             // chPartyMatchPurporse
             // 
-            this.chPartyMatchPurporse.Text = "Purpose";
+            chPartyMatchPurporse.Text = "Purpose";
             // 
             // chPartyMatchMember
             // 
-            this.chPartyMatchMember.Text = "Member";
+            chPartyMatchMember.Text = "Member";
             // 
             // chPartyMatchRange
             // 
-            this.chPartyMatchRange.Text = "Range";
-            this.chPartyMatchRange.Width = 56;
+            chPartyMatchRange.Text = "Range";
+            chPartyMatchRange.Width = 56;
             // 
             // topPartyPanel
             // 
-            this.topPartyPanel.BackColor = System.Drawing.Color.Transparent;
-            this.topPartyPanel.Border = new System.Windows.Forms.Padding(0, 0, 0, 1);
-            this.topPartyPanel.BorderColor = System.Drawing.Color.Transparent;
-            this.topPartyPanel.Controls.Add(this.buttonConfirmJoinConfig);
-            this.topPartyPanel.Controls.Add(this.textBoxJoinByTitle);
-            this.topPartyPanel.Controls.Add(this.textBoxJoinByName);
-            this.topPartyPanel.Controls.Add(this.checkBoxJoinByTitle);
-            this.topPartyPanel.Controls.Add(this.checkBoxJoinByName);
-            this.topPartyPanel.Controls.Add(this.separator11);
-            this.topPartyPanel.Controls.Add(this.buttonAutoJoinConfig);
-            this.topPartyPanel.Controls.Add(this.btnPartyRefresh);
-            this.topPartyPanel.Controls.Add(this.btnPartySearch);
-            this.topPartyPanel.Controls.Add(this.nudPartySearchMax);
-            this.topPartyPanel.Controls.Add(this.nudPartySearchMin);
-            this.topPartyPanel.Controls.Add(this.cbPartySearchPurpose);
-            this.topPartyPanel.Controls.Add(this.tbPartySearchName);
-            this.topPartyPanel.Controls.Add(this.label6);
-            this.topPartyPanel.Controls.Add(this.label5);
-            this.topPartyPanel.Controls.Add(this.label4);
-            this.topPartyPanel.Controls.Add(this.label3);
-            this.topPartyPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.topPartyPanel.Location = new System.Drawing.Point(3, 3);
-            this.topPartyPanel.Name = "topPartyPanel";
-            this.topPartyPanel.Radius = 0;
-            this.topPartyPanel.ShadowDepth = 4F;
-            this.topPartyPanel.Size = new System.Drawing.Size(740, 47);
-            this.topPartyPanel.TabIndex = 16;
+            topPartyPanel.BackColor = System.Drawing.Color.Transparent;
+            topPartyPanel.Border = new System.Windows.Forms.Padding(0, 0, 0, 1);
+            topPartyPanel.BorderColor = System.Drawing.Color.Transparent;
+            topPartyPanel.Controls.Add(buttonConfirmJoinConfig);
+            topPartyPanel.Controls.Add(textBoxJoinByTitle);
+            topPartyPanel.Controls.Add(textBoxJoinByName);
+            topPartyPanel.Controls.Add(checkBoxJoinByTitle);
+            topPartyPanel.Controls.Add(checkBoxJoinByName);
+            topPartyPanel.Controls.Add(separator11);
+            topPartyPanel.Controls.Add(buttonAutoJoinConfig);
+            topPartyPanel.Controls.Add(btnPartyRefresh);
+            topPartyPanel.Controls.Add(btnPartySearch);
+            topPartyPanel.Controls.Add(nudPartySearchMax);
+            topPartyPanel.Controls.Add(nudPartySearchMin);
+            topPartyPanel.Controls.Add(cbPartySearchPurpose);
+            topPartyPanel.Controls.Add(tbPartySearchName);
+            topPartyPanel.Controls.Add(label6);
+            topPartyPanel.Controls.Add(label5);
+            topPartyPanel.Controls.Add(label4);
+            topPartyPanel.Controls.Add(label3);
+            topPartyPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            topPartyPanel.Location = new System.Drawing.Point(3, 3);
+            topPartyPanel.Name = "topPartyPanel";
+            topPartyPanel.Radius = 0;
+            topPartyPanel.ShadowDepth = 4F;
+            topPartyPanel.Size = new System.Drawing.Size(740, 47);
+            topPartyPanel.TabIndex = 16;
             // 
             // buttonConfirmJoinConfig
             // 
-            this.buttonConfirmJoinConfig.Color = System.Drawing.Color.Green;
-            this.buttonConfirmJoinConfig.ForeColor = System.Drawing.Color.White;
-            this.buttonConfirmJoinConfig.Location = new System.Drawing.Point(276, 133);
-            this.buttonConfirmJoinConfig.Name = "buttonConfirmJoinConfig";
-            this.buttonConfirmJoinConfig.Radius = 6;
-            this.buttonConfirmJoinConfig.ShadowDepth = 4F;
-            this.buttonConfirmJoinConfig.Size = new System.Drawing.Size(61, 23);
-            this.buttonConfirmJoinConfig.TabIndex = 23;
-            this.buttonConfirmJoinConfig.Text = "Confirm";
-            this.buttonConfirmJoinConfig.UseVisualStyleBackColor = true;
-            this.buttonConfirmJoinConfig.Click += new System.EventHandler(this.buttonConfirmJoinConfig_Click);
+            buttonConfirmJoinConfig.Color = System.Drawing.Color.Green;
+            buttonConfirmJoinConfig.ForeColor = System.Drawing.Color.White;
+            buttonConfirmJoinConfig.Location = new System.Drawing.Point(276, 133);
+            buttonConfirmJoinConfig.Name = "buttonConfirmJoinConfig";
+            buttonConfirmJoinConfig.Radius = 6;
+            buttonConfirmJoinConfig.ShadowDepth = 4F;
+            buttonConfirmJoinConfig.Size = new System.Drawing.Size(61, 23);
+            buttonConfirmJoinConfig.TabIndex = 23;
+            buttonConfirmJoinConfig.Text = "Confirm";
+            buttonConfirmJoinConfig.UseVisualStyleBackColor = true;
+            buttonConfirmJoinConfig.Click += buttonConfirmJoinConfig_Click;
             // 
             // textBoxJoinByTitle
             // 
-            this.textBoxJoinByTitle.Location = new System.Drawing.Point(276, 112);
-            this.textBoxJoinByTitle.MaxLength = 32767;
-            this.textBoxJoinByTitle.MultiLine = false;
-            this.textBoxJoinByTitle.Name = "textBoxJoinByTitle";
-            this.textBoxJoinByTitle.Radius = 2;
-            this.textBoxJoinByTitle.Size = new System.Drawing.Size(202, 21);
-            this.textBoxJoinByTitle.TabIndex = 21;
-            this.textBoxJoinByTitle.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
-            this.textBoxJoinByTitle.UseSystemPasswordChar = false;
+            textBoxJoinByTitle.Location = new System.Drawing.Point(276, 112);
+            textBoxJoinByTitle.MaxLength = 32767;
+            textBoxJoinByTitle.MultiLine = false;
+            textBoxJoinByTitle.Name = "textBoxJoinByTitle";
+            textBoxJoinByTitle.Radius = 2;
+            textBoxJoinByTitle.Size = new System.Drawing.Size(202, 21);
+            textBoxJoinByTitle.TabIndex = 21;
+            textBoxJoinByTitle.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            textBoxJoinByTitle.UseSystemPasswordChar = false;
             // 
             // textBoxJoinByName
             // 
-            this.textBoxJoinByName.Location = new System.Drawing.Point(276, 69);
-            this.textBoxJoinByName.MaxLength = 32767;
-            this.textBoxJoinByName.MultiLine = false;
-            this.textBoxJoinByName.Name = "textBoxJoinByName";
-            this.textBoxJoinByName.Radius = 2;
-            this.textBoxJoinByName.Size = new System.Drawing.Size(107, 21);
-            this.textBoxJoinByName.TabIndex = 22;
-            this.textBoxJoinByName.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
-            this.textBoxJoinByName.UseSystemPasswordChar = false;
+            textBoxJoinByName.Location = new System.Drawing.Point(276, 69);
+            textBoxJoinByName.MaxLength = 32767;
+            textBoxJoinByName.MultiLine = false;
+            textBoxJoinByName.Name = "textBoxJoinByName";
+            textBoxJoinByName.Radius = 2;
+            textBoxJoinByName.Size = new System.Drawing.Size(107, 21);
+            textBoxJoinByName.TabIndex = 22;
+            textBoxJoinByName.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            textBoxJoinByName.UseSystemPasswordChar = false;
             // 
             // checkBoxJoinByTitle
             // 
-            this.checkBoxJoinByTitle.AutoSize = true;
-            this.checkBoxJoinByTitle.BackColor = System.Drawing.Color.Transparent;
-            this.checkBoxJoinByTitle.Location = new System.Drawing.Point(276, 96);
-            this.checkBoxJoinByTitle.Name = "checkBoxJoinByTitle";
-            this.checkBoxJoinByTitle.ShadowDepth = 1;
-            this.checkBoxJoinByTitle.Size = new System.Drawing.Size(111, 15);
-            this.checkBoxJoinByTitle.TabIndex = 19;
-            this.checkBoxJoinByTitle.Text = "Auto join by title";
-            this.checkBoxJoinByTitle.UseVisualStyleBackColor = false;
+            checkBoxJoinByTitle.AutoSize = true;
+            checkBoxJoinByTitle.BackColor = System.Drawing.Color.Transparent;
+            checkBoxJoinByTitle.Location = new System.Drawing.Point(276, 96);
+            checkBoxJoinByTitle.Name = "checkBoxJoinByTitle";
+            checkBoxJoinByTitle.ShadowDepth = 1;
+            checkBoxJoinByTitle.Size = new System.Drawing.Size(111, 15);
+            checkBoxJoinByTitle.TabIndex = 19;
+            checkBoxJoinByTitle.Text = "Auto join by title";
+            checkBoxJoinByTitle.UseVisualStyleBackColor = false;
             // 
             // checkBoxJoinByName
             // 
-            this.checkBoxJoinByName.AutoSize = true;
-            this.checkBoxJoinByName.BackColor = System.Drawing.Color.Transparent;
-            this.checkBoxJoinByName.Location = new System.Drawing.Point(276, 53);
-            this.checkBoxJoinByName.Name = "checkBoxJoinByName";
-            this.checkBoxJoinByName.ShadowDepth = 1;
-            this.checkBoxJoinByName.Size = new System.Drawing.Size(121, 15);
-            this.checkBoxJoinByName.TabIndex = 20;
-            this.checkBoxJoinByName.Text = "Auto join by name";
-            this.checkBoxJoinByName.UseVisualStyleBackColor = false;
+            checkBoxJoinByName.AutoSize = true;
+            checkBoxJoinByName.BackColor = System.Drawing.Color.Transparent;
+            checkBoxJoinByName.Location = new System.Drawing.Point(276, 53);
+            checkBoxJoinByName.Name = "checkBoxJoinByName";
+            checkBoxJoinByName.ShadowDepth = 1;
+            checkBoxJoinByName.Size = new System.Drawing.Size(121, 15);
+            checkBoxJoinByName.TabIndex = 20;
+            checkBoxJoinByName.Text = "Auto join by name";
+            checkBoxJoinByName.UseVisualStyleBackColor = false;
             // 
             // separator11
             // 
-            this.separator11.IsVertical = false;
-            this.separator11.Location = new System.Drawing.Point(15, 41);
-            this.separator11.Name = "separator11";
-            this.separator11.Size = new System.Drawing.Size(707, 10);
-            this.separator11.TabIndex = 14;
-            this.separator11.Text = "separator11";
+            separator11.IsVertical = false;
+            separator11.Location = new System.Drawing.Point(15, 41);
+            separator11.Name = "separator11";
+            separator11.Size = new System.Drawing.Size(707, 10);
+            separator11.TabIndex = 14;
+            separator11.Text = "separator11";
             // 
             // buttonAutoJoinConfig
             // 
-            this.buttonAutoJoinConfig.Color = System.Drawing.Color.Transparent;
-            this.buttonAutoJoinConfig.Font = new System.Drawing.Font("Webdings", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonAutoJoinConfig.Location = new System.Drawing.Point(697, 12);
-            this.buttonAutoJoinConfig.Name = "buttonAutoJoinConfig";
-            this.buttonAutoJoinConfig.Radius = 6;
-            this.buttonAutoJoinConfig.ShadowDepth = 4F;
-            this.buttonAutoJoinConfig.Size = new System.Drawing.Size(25, 23);
-            this.buttonAutoJoinConfig.TabIndex = 13;
-            this.buttonAutoJoinConfig.Text = "@";
-            this.buttonAutoJoinConfig.UseVisualStyleBackColor = true;
-            this.buttonAutoJoinConfig.Click += new System.EventHandler(this.buttonAutoJoinConfig_Click);
+            buttonAutoJoinConfig.Color = System.Drawing.Color.Transparent;
+            buttonAutoJoinConfig.Font = new System.Drawing.Font("Webdings", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            buttonAutoJoinConfig.Location = new System.Drawing.Point(697, 12);
+            buttonAutoJoinConfig.Name = "buttonAutoJoinConfig";
+            buttonAutoJoinConfig.Radius = 6;
+            buttonAutoJoinConfig.ShadowDepth = 4F;
+            buttonAutoJoinConfig.Size = new System.Drawing.Size(25, 23);
+            buttonAutoJoinConfig.TabIndex = 13;
+            buttonAutoJoinConfig.Text = "@";
+            buttonAutoJoinConfig.UseVisualStyleBackColor = true;
+            buttonAutoJoinConfig.Click += buttonAutoJoinConfig_Click;
             // 
             // btnPartyRefresh
             // 
-            this.btnPartyRefresh.Color = System.Drawing.Color.Transparent;
-            this.btnPartyRefresh.Location = new System.Drawing.Point(601, 13);
-            this.btnPartyRefresh.Name = "btnPartyRefresh";
-            this.btnPartyRefresh.Radius = 6;
-            this.btnPartyRefresh.ShadowDepth = 4F;
-            this.btnPartyRefresh.Size = new System.Drawing.Size(85, 21);
-            this.btnPartyRefresh.TabIndex = 4;
-            this.btnPartyRefresh.Text = "Refresh";
-            this.btnPartyRefresh.Click += new System.EventHandler(this.btnPartyRefresh_Click);
+            btnPartyRefresh.Color = System.Drawing.Color.Transparent;
+            btnPartyRefresh.Location = new System.Drawing.Point(601, 13);
+            btnPartyRefresh.Name = "btnPartyRefresh";
+            btnPartyRefresh.Radius = 6;
+            btnPartyRefresh.ShadowDepth = 4F;
+            btnPartyRefresh.Size = new System.Drawing.Size(85, 21);
+            btnPartyRefresh.TabIndex = 4;
+            btnPartyRefresh.Text = "Refresh";
+            btnPartyRefresh.Click += btnPartyRefresh_Click;
             // 
             // btnPartySearch
             // 
-            this.btnPartySearch.Color = System.Drawing.Color.Transparent;
-            this.btnPartySearch.Location = new System.Drawing.Point(501, 13);
-            this.btnPartySearch.Name = "btnPartySearch";
-            this.btnPartySearch.Radius = 6;
-            this.btnPartySearch.ShadowDepth = 4F;
-            this.btnPartySearch.Size = new System.Drawing.Size(87, 21);
-            this.btnPartySearch.TabIndex = 4;
-            this.btnPartySearch.Text = "Search";
-            this.btnPartySearch.Click += new System.EventHandler(this.btnPartySearch_Click);
+            btnPartySearch.Color = System.Drawing.Color.Transparent;
+            btnPartySearch.Location = new System.Drawing.Point(501, 13);
+            btnPartySearch.Name = "btnPartySearch";
+            btnPartySearch.Radius = 6;
+            btnPartySearch.ShadowDepth = 4F;
+            btnPartySearch.Size = new System.Drawing.Size(87, 21);
+            btnPartySearch.TabIndex = 4;
+            btnPartySearch.Text = "Search";
+            btnPartySearch.Click += btnPartySearch_Click;
             // 
             // nudPartySearchMax
             // 
-            this.nudPartySearchMax.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
-            this.nudPartySearchMax.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.nudPartySearchMax.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.nudPartySearchMax.Location = new System.Drawing.Point(437, 13);
-            this.nudPartySearchMax.Maximum = new decimal(new int[] {
-            140,
-            0,
-            0,
-            0});
-            this.nudPartySearchMax.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudPartySearchMax.Name = "nudPartySearchMax";
-            this.nudPartySearchMax.Size = new System.Drawing.Size(41, 23);
-            this.nudPartySearchMax.TabIndex = 3;
-            this.nudPartySearchMax.Value = new decimal(new int[] {
-            140,
-            0,
-            0,
-            0});
+            nudPartySearchMax.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            nudPartySearchMax.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            nudPartySearchMax.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            nudPartySearchMax.Location = new System.Drawing.Point(437, 13);
+            nudPartySearchMax.Maximum = new decimal(new int[] { 140, 0, 0, 0 });
+            nudPartySearchMax.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            nudPartySearchMax.Name = "nudPartySearchMax";
+            nudPartySearchMax.Size = new System.Drawing.Size(41, 23);
+            nudPartySearchMax.TabIndex = 3;
+            nudPartySearchMax.Value = new decimal(new int[] { 140, 0, 0, 0 });
             // 
             // nudPartySearchMin
             // 
-            this.nudPartySearchMin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
-            this.nudPartySearchMin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.nudPartySearchMin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.nudPartySearchMin.Location = new System.Drawing.Point(376, 13);
-            this.nudPartySearchMin.Maximum = new decimal(new int[] {
-            140,
-            0,
-            0,
-            0});
-            this.nudPartySearchMin.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudPartySearchMin.Name = "nudPartySearchMin";
-            this.nudPartySearchMin.Size = new System.Drawing.Size(41, 23);
-            this.nudPartySearchMin.TabIndex = 3;
-            this.nudPartySearchMin.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            nudPartySearchMin.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            nudPartySearchMin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            nudPartySearchMin.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            nudPartySearchMin.Location = new System.Drawing.Point(376, 13);
+            nudPartySearchMin.Maximum = new decimal(new int[] { 140, 0, 0, 0 });
+            nudPartySearchMin.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            nudPartySearchMin.Name = "nudPartySearchMin";
+            nudPartySearchMin.Size = new System.Drawing.Size(41, 23);
+            nudPartySearchMin.TabIndex = 3;
+            nudPartySearchMin.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // cbPartySearchPurpose
             // 
-            this.cbPartySearchPurpose.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cbPartySearchPurpose.DropDownHeight = 100;
-            this.cbPartySearchPurpose.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbPartySearchPurpose.FormattingEnabled = true;
-            this.cbPartySearchPurpose.IntegralHeight = false;
-            this.cbPartySearchPurpose.ItemHeight = 17;
-            this.cbPartySearchPurpose.Items.AddRange(new object[] {
-            "All",
-            "Hunting",
-            "Quest",
-            "Thief Union",
-            "Trade Union"});
-            this.cbPartySearchPurpose.Location = new System.Drawing.Point(222, 13);
-            this.cbPartySearchPurpose.Name = "cbPartySearchPurpose";
-            this.cbPartySearchPurpose.Radius = 5;
-            this.cbPartySearchPurpose.ShadowDepth = 4F;
-            this.cbPartySearchPurpose.Size = new System.Drawing.Size(108, 23);
-            this.cbPartySearchPurpose.TabIndex = 2;
+            cbPartySearchPurpose.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            cbPartySearchPurpose.DropDownHeight = 100;
+            cbPartySearchPurpose.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cbPartySearchPurpose.FormattingEnabled = true;
+            cbPartySearchPurpose.IntegralHeight = false;
+            cbPartySearchPurpose.ItemHeight = 17;
+            cbPartySearchPurpose.Items.AddRange(new object[] { "All", "Hunting", "Quest", "Thief Union", "Trade Union" });
+            cbPartySearchPurpose.Location = new System.Drawing.Point(222, 13);
+            cbPartySearchPurpose.Name = "cbPartySearchPurpose";
+            cbPartySearchPurpose.Radius = 5;
+            cbPartySearchPurpose.ShadowDepth = 4F;
+            cbPartySearchPurpose.Size = new System.Drawing.Size(108, 23);
+            cbPartySearchPurpose.TabIndex = 2;
             // 
             // tbPartySearchName
             // 
-            this.tbPartySearchName.Location = new System.Drawing.Point(60, 13);
-            this.tbPartySearchName.MaxLength = 32767;
-            this.tbPartySearchName.MultiLine = false;
-            this.tbPartySearchName.Name = "tbPartySearchName";
-            this.tbPartySearchName.Radius = 2;
-            this.tbPartySearchName.Size = new System.Drawing.Size(100, 21);
-            this.tbPartySearchName.TabIndex = 1;
-            this.tbPartySearchName.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
-            this.tbPartySearchName.UseSystemPasswordChar = false;
+            tbPartySearchName.Location = new System.Drawing.Point(60, 13);
+            tbPartySearchName.MaxLength = 32767;
+            tbPartySearchName.MultiLine = false;
+            tbPartySearchName.Name = "tbPartySearchName";
+            tbPartySearchName.Radius = 2;
+            tbPartySearchName.Size = new System.Drawing.Size(100, 21);
+            tbPartySearchName.TabIndex = 1;
+            tbPartySearchName.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            tbPartySearchName.UseSystemPasswordChar = false;
             // 
             // label6
             // 
-            this.label6.BackColor = System.Drawing.Color.Transparent;
-            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label6.Location = new System.Drawing.Point(419, 16);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(22, 18);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "~";
+            label6.BackColor = System.Drawing.Color.Transparent;
+            label6.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label6.Location = new System.Drawing.Point(419, 16);
+            label6.Name = "label6";
+            label6.Size = new System.Drawing.Size(22, 18);
+            label6.TabIndex = 0;
+            label6.Text = "~";
             // 
             // label5
             // 
-            this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label5.Location = new System.Drawing.Point(336, 16);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(34, 18);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Level";
+            label5.BackColor = System.Drawing.Color.Transparent;
+            label5.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label5.Location = new System.Drawing.Point(336, 16);
+            label5.Name = "label5";
+            label5.Size = new System.Drawing.Size(34, 18);
+            label5.TabIndex = 0;
+            label5.Text = "Level";
             // 
             // label4
             // 
-            this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label4.Location = new System.Drawing.Point(166, 16);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(50, 13);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Purpose";
+            label4.BackColor = System.Drawing.Color.Transparent;
+            label4.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label4.Location = new System.Drawing.Point(166, 16);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(50, 13);
+            label4.TabIndex = 0;
+            label4.Text = "Purpose";
             // 
             // label3
             // 
-            this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label3.Location = new System.Drawing.Point(15, 16);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(39, 13);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Name";
+            label3.BackColor = System.Drawing.Color.Transparent;
+            label3.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label3.Location = new System.Drawing.Point(15, 16);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(39, 13);
+            label3.TabIndex = 0;
+            label3.Text = "Name";
             // 
             // bottomPartyPanel
             // 
-            this.bottomPartyPanel.BackColor = System.Drawing.Color.Transparent;
-            this.bottomPartyPanel.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
-            this.bottomPartyPanel.BorderColor = System.Drawing.Color.Transparent;
-            this.bottomPartyPanel.Controls.Add(this.btnPartyMatchDeleteEntry);
-            this.bottomPartyPanel.Controls.Add(this.btnPartyMatchChangeEntry);
-            this.bottomPartyPanel.Controls.Add(this.btnPartyMatchForm);
-            this.bottomPartyPanel.Controls.Add(this.btnAutoMatchParty);
-            this.bottomPartyPanel.Controls.Add(this.btnWhisperPartyMaster);
-            this.bottomPartyPanel.Controls.Add(this.btnJoinFormedParty);
-            this.bottomPartyPanel.Controls.Add(this.btnPrev);
-            this.bottomPartyPanel.Controls.Add(this.btnNext);
-            this.bottomPartyPanel.Controls.Add(this.lbl_partyPageRange);
-            this.bottomPartyPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottomPartyPanel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.bottomPartyPanel.Location = new System.Drawing.Point(3, 384);
-            this.bottomPartyPanel.Name = "bottomPartyPanel";
-            this.bottomPartyPanel.Radius = 0;
-            this.bottomPartyPanel.ShadowDepth = 4F;
-            this.bottomPartyPanel.Size = new System.Drawing.Size(740, 51);
-            this.bottomPartyPanel.TabIndex = 14;
+            bottomPartyPanel.BackColor = System.Drawing.Color.Transparent;
+            bottomPartyPanel.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
+            bottomPartyPanel.BorderColor = System.Drawing.Color.Transparent;
+            bottomPartyPanel.Controls.Add(btnPartyMatchDeleteEntry);
+            bottomPartyPanel.Controls.Add(btnPartyMatchChangeEntry);
+            bottomPartyPanel.Controls.Add(btnPartyMatchForm);
+            bottomPartyPanel.Controls.Add(btnAutoMatchParty);
+            bottomPartyPanel.Controls.Add(btnWhisperPartyMaster);
+            bottomPartyPanel.Controls.Add(btnJoinFormedParty);
+            bottomPartyPanel.Controls.Add(btnPrev);
+            bottomPartyPanel.Controls.Add(btnNext);
+            bottomPartyPanel.Controls.Add(lbl_partyPageRange);
+            bottomPartyPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            bottomPartyPanel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            bottomPartyPanel.Location = new System.Drawing.Point(3, 385);
+            bottomPartyPanel.Name = "bottomPartyPanel";
+            bottomPartyPanel.Radius = 0;
+            bottomPartyPanel.ShadowDepth = 4F;
+            bottomPartyPanel.Size = new System.Drawing.Size(740, 51);
+            bottomPartyPanel.TabIndex = 14;
             // 
             // btnPartyMatchDeleteEntry
             // 
-            this.btnPartyMatchDeleteEntry.Color = System.Drawing.Color.Transparent;
-            this.btnPartyMatchDeleteEntry.Enabled = false;
-            this.btnPartyMatchDeleteEntry.Location = new System.Drawing.Point(635, 14);
-            this.btnPartyMatchDeleteEntry.Name = "btnPartyMatchDeleteEntry";
-            this.btnPartyMatchDeleteEntry.Radius = 6;
-            this.btnPartyMatchDeleteEntry.ShadowDepth = 4F;
-            this.btnPartyMatchDeleteEntry.Size = new System.Drawing.Size(87, 23);
-            this.btnPartyMatchDeleteEntry.TabIndex = 16;
-            this.btnPartyMatchDeleteEntry.Text = "Delete Entry";
-            this.btnPartyMatchDeleteEntry.Click += new System.EventHandler(this.btnPartyMatchDeleteEntry_Click);
+            btnPartyMatchDeleteEntry.Color = System.Drawing.Color.Transparent;
+            btnPartyMatchDeleteEntry.Enabled = false;
+            btnPartyMatchDeleteEntry.Location = new System.Drawing.Point(635, 14);
+            btnPartyMatchDeleteEntry.Name = "btnPartyMatchDeleteEntry";
+            btnPartyMatchDeleteEntry.Radius = 6;
+            btnPartyMatchDeleteEntry.ShadowDepth = 4F;
+            btnPartyMatchDeleteEntry.Size = new System.Drawing.Size(87, 23);
+            btnPartyMatchDeleteEntry.TabIndex = 16;
+            btnPartyMatchDeleteEntry.Text = "Delete Entry";
+            btnPartyMatchDeleteEntry.Click += btnPartyMatchDeleteEntry_Click;
             // 
             // btnPartyMatchChangeEntry
             // 
-            this.btnPartyMatchChangeEntry.Color = System.Drawing.Color.Transparent;
-            this.btnPartyMatchChangeEntry.Enabled = false;
-            this.btnPartyMatchChangeEntry.Location = new System.Drawing.Point(542, 14);
-            this.btnPartyMatchChangeEntry.Name = "btnPartyMatchChangeEntry";
-            this.btnPartyMatchChangeEntry.Radius = 6;
-            this.btnPartyMatchChangeEntry.ShadowDepth = 4F;
-            this.btnPartyMatchChangeEntry.Size = new System.Drawing.Size(87, 23);
-            this.btnPartyMatchChangeEntry.TabIndex = 15;
-            this.btnPartyMatchChangeEntry.Text = "Change Entry";
-            this.btnPartyMatchChangeEntry.Click += new System.EventHandler(this.btnPartyMatchForm_Click);
+            btnPartyMatchChangeEntry.Color = System.Drawing.Color.Transparent;
+            btnPartyMatchChangeEntry.Enabled = false;
+            btnPartyMatchChangeEntry.Location = new System.Drawing.Point(542, 14);
+            btnPartyMatchChangeEntry.Name = "btnPartyMatchChangeEntry";
+            btnPartyMatchChangeEntry.Radius = 6;
+            btnPartyMatchChangeEntry.ShadowDepth = 4F;
+            btnPartyMatchChangeEntry.Size = new System.Drawing.Size(87, 23);
+            btnPartyMatchChangeEntry.TabIndex = 15;
+            btnPartyMatchChangeEntry.Text = "Change Entry";
+            btnPartyMatchChangeEntry.Click += btnPartyMatchForm_Click;
             // 
             // btnPartyMatchForm
             // 
-            this.btnPartyMatchForm.Color = System.Drawing.Color.Transparent;
-            this.btnPartyMatchForm.Location = new System.Drawing.Point(445, 14);
-            this.btnPartyMatchForm.Name = "btnPartyMatchForm";
-            this.btnPartyMatchForm.Radius = 6;
-            this.btnPartyMatchForm.ShadowDepth = 4F;
-            this.btnPartyMatchForm.Size = new System.Drawing.Size(90, 23);
-            this.btnPartyMatchForm.TabIndex = 14;
-            this.btnPartyMatchForm.Text = "Form Party";
-            this.btnPartyMatchForm.Click += new System.EventHandler(this.btnPartyMatchForm_Click);
+            btnPartyMatchForm.Color = System.Drawing.Color.Transparent;
+            btnPartyMatchForm.Location = new System.Drawing.Point(445, 14);
+            btnPartyMatchForm.Name = "btnPartyMatchForm";
+            btnPartyMatchForm.Radius = 6;
+            btnPartyMatchForm.ShadowDepth = 4F;
+            btnPartyMatchForm.Size = new System.Drawing.Size(90, 23);
+            btnPartyMatchForm.TabIndex = 14;
+            btnPartyMatchForm.Text = "Form Party";
+            btnPartyMatchForm.Click += btnPartyMatchForm_Click;
             // 
             // btnAutoMatchParty
             // 
-            this.btnAutoMatchParty.Color = System.Drawing.Color.Transparent;
-            this.btnAutoMatchParty.Enabled = false;
-            this.btnAutoMatchParty.Location = new System.Drawing.Point(180, 14);
-            this.btnAutoMatchParty.Name = "btnAutoMatchParty";
-            this.btnAutoMatchParty.Radius = 6;
-            this.btnAutoMatchParty.ShadowDepth = 4F;
-            this.btnAutoMatchParty.Size = new System.Drawing.Size(96, 23);
-            this.btnAutoMatchParty.TabIndex = 10;
-            this.btnAutoMatchParty.Text = "Auto Match";
+            btnAutoMatchParty.Color = System.Drawing.Color.Transparent;
+            btnAutoMatchParty.Enabled = false;
+            btnAutoMatchParty.Location = new System.Drawing.Point(180, 14);
+            btnAutoMatchParty.Name = "btnAutoMatchParty";
+            btnAutoMatchParty.Radius = 6;
+            btnAutoMatchParty.ShadowDepth = 4F;
+            btnAutoMatchParty.Size = new System.Drawing.Size(96, 23);
+            btnAutoMatchParty.TabIndex = 10;
+            btnAutoMatchParty.Text = "Auto Match";
             // 
             // btnWhisperPartyMaster
             // 
-            this.btnWhisperPartyMaster.Color = System.Drawing.Color.Transparent;
-            this.btnWhisperPartyMaster.Enabled = false;
-            this.btnWhisperPartyMaster.Location = new System.Drawing.Point(99, 14);
-            this.btnWhisperPartyMaster.Name = "btnWhisperPartyMaster";
-            this.btnWhisperPartyMaster.Radius = 6;
-            this.btnWhisperPartyMaster.ShadowDepth = 4F;
-            this.btnWhisperPartyMaster.Size = new System.Drawing.Size(75, 23);
-            this.btnWhisperPartyMaster.TabIndex = 9;
-            this.btnWhisperPartyMaster.Text = "Whisper";
+            btnWhisperPartyMaster.Color = System.Drawing.Color.Transparent;
+            btnWhisperPartyMaster.Enabled = false;
+            btnWhisperPartyMaster.Location = new System.Drawing.Point(99, 14);
+            btnWhisperPartyMaster.Name = "btnWhisperPartyMaster";
+            btnWhisperPartyMaster.Radius = 6;
+            btnWhisperPartyMaster.ShadowDepth = 4F;
+            btnWhisperPartyMaster.Size = new System.Drawing.Size(75, 23);
+            btnWhisperPartyMaster.TabIndex = 9;
+            btnWhisperPartyMaster.Text = "Whisper";
             // 
             // btnJoinFormedParty
             // 
-            this.btnJoinFormedParty.Color = System.Drawing.Color.Transparent;
-            this.btnJoinFormedParty.Location = new System.Drawing.Point(18, 14);
-            this.btnJoinFormedParty.Name = "btnJoinFormedParty";
-            this.btnJoinFormedParty.Radius = 6;
-            this.btnJoinFormedParty.ShadowDepth = 4F;
-            this.btnJoinFormedParty.Size = new System.Drawing.Size(75, 23);
-            this.btnJoinFormedParty.TabIndex = 8;
-            this.btnJoinFormedParty.Text = "Join Party";
-            this.btnJoinFormedParty.Click += new System.EventHandler(this.btnJoinFormedParty_Click);
+            btnJoinFormedParty.Color = System.Drawing.Color.Transparent;
+            btnJoinFormedParty.Location = new System.Drawing.Point(18, 14);
+            btnJoinFormedParty.Name = "btnJoinFormedParty";
+            btnJoinFormedParty.Radius = 6;
+            btnJoinFormedParty.ShadowDepth = 4F;
+            btnJoinFormedParty.Size = new System.Drawing.Size(75, 23);
+            btnJoinFormedParty.TabIndex = 8;
+            btnJoinFormedParty.Text = "Join Party";
+            btnJoinFormedParty.Click += btnJoinFormedParty_Click;
             // 
             // btnPrev
             // 
-            this.btnPrev.Color = System.Drawing.Color.Transparent;
-            this.btnPrev.Enabled = false;
-            this.btnPrev.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnPrev.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnPrev.Location = new System.Drawing.Point(315, 14);
-            this.btnPrev.Name = "btnPrev";
-            this.btnPrev.Radius = 6;
-            this.btnPrev.ShadowDepth = 4F;
-            this.btnPrev.Size = new System.Drawing.Size(23, 23);
-            this.btnPrev.TabIndex = 11;
-            this.btnPrev.Text = "◀";
-            this.btnPrev.Click += new System.EventHandler(this.PageNatigateBtn_Click);
+            btnPrev.Color = System.Drawing.Color.Transparent;
+            btnPrev.Enabled = false;
+            btnPrev.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            btnPrev.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            btnPrev.Location = new System.Drawing.Point(315, 14);
+            btnPrev.Name = "btnPrev";
+            btnPrev.Radius = 6;
+            btnPrev.ShadowDepth = 4F;
+            btnPrev.Size = new System.Drawing.Size(23, 23);
+            btnPrev.TabIndex = 11;
+            btnPrev.Text = "◀";
+            btnPrev.Click += PageNatigateBtn_Click;
             // 
             // btnNext
             // 
-            this.btnNext.Color = System.Drawing.Color.Transparent;
-            this.btnNext.Enabled = false;
-            this.btnNext.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnNext.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnNext.Location = new System.Drawing.Point(387, 14);
-            this.btnNext.Name = "btnNext";
-            this.btnNext.Radius = 6;
-            this.btnNext.ShadowDepth = 4F;
-            this.btnNext.Size = new System.Drawing.Size(23, 23);
-            this.btnNext.TabIndex = 12;
-            this.btnNext.Text = "▶";
-            this.btnNext.Click += new System.EventHandler(this.PageNatigateBtn_Click);
+            btnNext.Color = System.Drawing.Color.Transparent;
+            btnNext.Enabled = false;
+            btnNext.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            btnNext.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            btnNext.Location = new System.Drawing.Point(387, 14);
+            btnNext.Name = "btnNext";
+            btnNext.Radius = 6;
+            btnNext.ShadowDepth = 4F;
+            btnNext.Size = new System.Drawing.Size(23, 23);
+            btnNext.TabIndex = 12;
+            btnNext.Text = "▶";
+            btnNext.Click += PageNatigateBtn_Click;
             // 
             // lbl_partyPageRange
             // 
-            this.lbl_partyPageRange.BackColor = System.Drawing.Color.Transparent;
-            this.lbl_partyPageRange.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbl_partyPageRange.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lbl_partyPageRange.Location = new System.Drawing.Point(344, 15);
-            this.lbl_partyPageRange.Name = "lbl_partyPageRange";
-            this.lbl_partyPageRange.Size = new System.Drawing.Size(39, 19);
-            this.lbl_partyPageRange.TabIndex = 13;
-            this.lbl_partyPageRange.Text = "0 / 0";
+            lbl_partyPageRange.BackColor = System.Drawing.Color.Transparent;
+            lbl_partyPageRange.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            lbl_partyPageRange.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            lbl_partyPageRange.Location = new System.Drawing.Point(344, 15);
+            lbl_partyPageRange.Name = "lbl_partyPageRange";
+            lbl_partyPageRange.Size = new System.Drawing.Size(39, 19);
+            lbl_partyPageRange.TabIndex = 13;
+            lbl_partyPageRange.Text = "0 / 0";
             // 
             // tpPartyBuffing
             // 
-            this.tpPartyBuffing.BackColor = System.Drawing.Color.White;
-            this.tpPartyBuffing.Controls.Add(this.groupBox4);
-            this.tpPartyBuffing.Controls.Add(this.separator9);
-            this.tpPartyBuffing.Controls.Add(this.groupBox6);
-            this.tpPartyBuffing.Controls.Add(this.separator8);
-            this.tpPartyBuffing.Controls.Add(this.groupBox5);
-            this.tpPartyBuffing.Controls.Add(this.separator7);
-            this.tpPartyBuffing.Controls.Add(this.groupBox1);
-            this.tpPartyBuffing.Location = new System.Drawing.Point(4, 25);
-            this.tpPartyBuffing.Name = "tpPartyBuffing";
-            this.tpPartyBuffing.Padding = new System.Windows.Forms.Padding(6);
-            this.tpPartyBuffing.Size = new System.Drawing.Size(746, 438);
-            this.tpPartyBuffing.TabIndex = 3;
-            this.tpPartyBuffing.Text = "Buffing";
+            tpPartyBuffing.BackColor = System.Drawing.Color.White;
+            tpPartyBuffing.Controls.Add(groupBox4);
+            tpPartyBuffing.Controls.Add(separator9);
+            tpPartyBuffing.Controls.Add(groupBox6);
+            tpPartyBuffing.Controls.Add(separator8);
+            tpPartyBuffing.Controls.Add(groupBox5);
+            tpPartyBuffing.Controls.Add(separator7);
+            tpPartyBuffing.Controls.Add(groupBox1);
+            tpPartyBuffing.Location = new System.Drawing.Point(4, 24);
+            tpPartyBuffing.Name = "tpPartyBuffing";
+            tpPartyBuffing.Padding = new System.Windows.Forms.Padding(6);
+            tpPartyBuffing.Size = new System.Drawing.Size(746, 439);
+            tpPartyBuffing.TabIndex = 3;
+            tpPartyBuffing.Text = "Buffing";
             // 
             // groupBox4
             // 
-            this.groupBox4.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox4.Controls.Add(this.btnAddBuffToMember);
-            this.groupBox4.Controls.Add(this.buttonRemoveCharFromBuffing);
-            this.groupBox4.Controls.Add(this.btnRemoveBuffFromMember);
-            this.groupBox4.Controls.Add(this.listViewPartyMembers);
-            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.Location = new System.Drawing.Point(283, 191);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
-            this.groupBox4.Radius = 10;
-            this.groupBox4.ShadowDepth = 4;
-            this.groupBox4.Size = new System.Drawing.Size(214, 241);
-            this.groupBox4.TabIndex = 11;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Party Members";
+            groupBox4.BackColor = System.Drawing.Color.Transparent;
+            groupBox4.Controls.Add(btnAddBuffToMember);
+            groupBox4.Controls.Add(buttonRemoveCharFromBuffing);
+            groupBox4.Controls.Add(btnRemoveBuffFromMember);
+            groupBox4.Controls.Add(listViewPartyMembers);
+            groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            groupBox4.Location = new System.Drawing.Point(283, 191);
+            groupBox4.Name = "groupBox4";
+            groupBox4.Padding = new System.Windows.Forms.Padding(2, 8, 2, 2);
+            groupBox4.Radius = 10;
+            groupBox4.ShadowDepth = 4;
+            groupBox4.Size = new System.Drawing.Size(214, 242);
+            groupBox4.TabIndex = 11;
+            groupBox4.TabStop = false;
+            groupBox4.Text = "Party Members";
             // 
             // btnAddBuffToMember
             // 
-            this.btnAddBuffToMember.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAddBuffToMember.Color = System.Drawing.Color.Transparent;
-            this.btnAddBuffToMember.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnAddBuffToMember.Location = new System.Drawing.Point(4, 213);
-            this.btnAddBuffToMember.Name = "btnAddBuffToMember";
-            this.btnAddBuffToMember.Radius = 6;
-            this.btnAddBuffToMember.ShadowDepth = 4F;
-            this.btnAddBuffToMember.Size = new System.Drawing.Size(75, 21);
-            this.btnAddBuffToMember.TabIndex = 11;
-            this.btnAddBuffToMember.Text = "Add Buff";
-            this.btnAddBuffToMember.Click += new System.EventHandler(this.btnAddBuffToMember_Click);
+            btnAddBuffToMember.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btnAddBuffToMember.Color = System.Drawing.Color.Transparent;
+            btnAddBuffToMember.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            btnAddBuffToMember.Location = new System.Drawing.Point(5, 213);
+            btnAddBuffToMember.Name = "btnAddBuffToMember";
+            btnAddBuffToMember.Radius = 6;
+            btnAddBuffToMember.ShadowDepth = 4F;
+            btnAddBuffToMember.Size = new System.Drawing.Size(75, 21);
+            btnAddBuffToMember.TabIndex = 11;
+            btnAddBuffToMember.Text = "Add Buff";
+            btnAddBuffToMember.Click += btnAddBuffToMember_Click;
             // 
             // buttonRemoveCharFromBuffing
             // 
-            this.buttonRemoveCharFromBuffing.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRemoveCharFromBuffing.Color = System.Drawing.Color.IndianRed;
-            this.buttonRemoveCharFromBuffing.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonRemoveCharFromBuffing.ForeColor = System.Drawing.Color.White;
-            this.buttonRemoveCharFromBuffing.Location = new System.Drawing.Point(184, 173);
-            this.buttonRemoveCharFromBuffing.Name = "buttonRemoveCharFromBuffing";
-            this.buttonRemoveCharFromBuffing.Radius = 6;
-            this.buttonRemoveCharFromBuffing.ShadowDepth = 4F;
-            this.buttonRemoveCharFromBuffing.Size = new System.Drawing.Size(23, 23);
-            this.buttonRemoveCharFromBuffing.TabIndex = 12;
-            this.buttonRemoveCharFromBuffing.Text = "r";
-            this.buttonRemoveCharFromBuffing.Click += new System.EventHandler(this.buttonRemoveCharFromBuffing_Click);
+            buttonRemoveCharFromBuffing.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            buttonRemoveCharFromBuffing.Color = System.Drawing.Color.IndianRed;
+            buttonRemoveCharFromBuffing.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            buttonRemoveCharFromBuffing.ForeColor = System.Drawing.Color.White;
+            buttonRemoveCharFromBuffing.Location = new System.Drawing.Point(183, 173);
+            buttonRemoveCharFromBuffing.Name = "buttonRemoveCharFromBuffing";
+            buttonRemoveCharFromBuffing.Radius = 6;
+            buttonRemoveCharFromBuffing.ShadowDepth = 4F;
+            buttonRemoveCharFromBuffing.Size = new System.Drawing.Size(23, 23);
+            buttonRemoveCharFromBuffing.TabIndex = 12;
+            buttonRemoveCharFromBuffing.Text = "r";
+            buttonRemoveCharFromBuffing.Click += buttonRemoveCharFromBuffing_Click;
             // 
             // btnRemoveBuffFromMember
             // 
-            this.btnRemoveBuffFromMember.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemoveBuffFromMember.Color = System.Drawing.Color.Transparent;
-            this.btnRemoveBuffFromMember.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnRemoveBuffFromMember.Location = new System.Drawing.Point(121, 213);
-            this.btnRemoveBuffFromMember.Name = "btnRemoveBuffFromMember";
-            this.btnRemoveBuffFromMember.Radius = 6;
-            this.btnRemoveBuffFromMember.ShadowDepth = 4F;
-            this.btnRemoveBuffFromMember.Size = new System.Drawing.Size(86, 21);
-            this.btnRemoveBuffFromMember.TabIndex = 12;
-            this.btnRemoveBuffFromMember.Text = "Remove Buff";
-            this.btnRemoveBuffFromMember.Click += new System.EventHandler(this.btnRemoveBuffFromMember_Click);
+            btnRemoveBuffFromMember.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnRemoveBuffFromMember.Color = System.Drawing.Color.Transparent;
+            btnRemoveBuffFromMember.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            btnRemoveBuffFromMember.Location = new System.Drawing.Point(120, 213);
+            btnRemoveBuffFromMember.Name = "btnRemoveBuffFromMember";
+            btnRemoveBuffFromMember.Radius = 6;
+            btnRemoveBuffFromMember.ShadowDepth = 4F;
+            btnRemoveBuffFromMember.Size = new System.Drawing.Size(86, 21);
+            btnRemoveBuffFromMember.TabIndex = 12;
+            btnRemoveBuffFromMember.Text = "Remove Buff";
+            btnRemoveBuffFromMember.Click += btnRemoveBuffFromMember_Click;
             // 
             // listViewPartyMembers
             // 
-            this.listViewPartyMembers.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listViewPartyMembers.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.chPlayerName,
-            this.chPlayerLevel});
-            this.listViewPartyMembers.Dock = System.Windows.Forms.DockStyle.Top;
-            this.listViewPartyMembers.FullRowSelect = true;
-            this.listViewPartyMembers.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listViewPartyMembers.Location = new System.Drawing.Point(1, 24);
-            this.listViewPartyMembers.MultiSelect = false;
-            this.listViewPartyMembers.Name = "listViewPartyMembers";
-            this.listViewPartyMembers.Size = new System.Drawing.Size(212, 181);
-            this.listViewPartyMembers.TabIndex = 10;
-            this.listViewPartyMembers.UseCompatibleStateImageBehavior = false;
-            this.listViewPartyMembers.View = System.Windows.Forms.View.Details;
-            this.listViewPartyMembers.SelectedIndexChanged += new System.EventHandler(this.listViewPartyMembers_SelectedIndexChanged);
+            listViewPartyMembers.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            listViewPartyMembers.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { chPlayerName, chPlayerLevel });
+            listViewPartyMembers.Dock = System.Windows.Forms.DockStyle.Top;
+            listViewPartyMembers.FullRowSelect = true;
+            listViewPartyMembers.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            listViewPartyMembers.Location = new System.Drawing.Point(2, 24);
+            listViewPartyMembers.MultiSelect = false;
+            listViewPartyMembers.Name = "listViewPartyMembers";
+            listViewPartyMembers.Size = new System.Drawing.Size(210, 181);
+            listViewPartyMembers.TabIndex = 10;
+            listViewPartyMembers.UseCompatibleStateImageBehavior = false;
+            listViewPartyMembers.View = System.Windows.Forms.View.Details;
+            listViewPartyMembers.SelectedIndexChanged += listViewPartyMembers_SelectedIndexChanged;
             // 
             // chPlayerName
             // 
-            this.chPlayerName.Text = "Name";
-            this.chPlayerName.Width = 140;
+            chPlayerName.Text = "Name";
+            chPlayerName.Width = 140;
             // 
             // chPlayerLevel
             // 
-            this.chPlayerLevel.Text = "Level";
-            this.chPlayerLevel.Width = 50;
+            chPlayerLevel.Text = "Level";
+            chPlayerLevel.Width = 50;
             // 
             // separator9
             // 
-            this.separator9.Dock = System.Windows.Forms.DockStyle.Top;
-            this.separator9.IsVertical = false;
-            this.separator9.Location = new System.Drawing.Point(283, 181);
-            this.separator9.Name = "separator9";
-            this.separator9.Size = new System.Drawing.Size(214, 10);
-            this.separator9.TabIndex = 17;
-            this.separator9.Text = "separator9";
+            separator9.Dock = System.Windows.Forms.DockStyle.Top;
+            separator9.IsVertical = false;
+            separator9.Location = new System.Drawing.Point(283, 181);
+            separator9.Name = "separator9";
+            separator9.Size = new System.Drawing.Size(214, 10);
+            separator9.TabIndex = 17;
+            separator9.Text = "separator9";
             // 
             // groupBox6
             // 
-            this.groupBox6.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox6.Controls.Add(this.buttonAddGroup);
-            this.groupBox6.Controls.Add(this.buttonRemoveGroup);
-            this.groupBox6.Controls.Add(this.listViewGroups);
-            this.groupBox6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox6.Location = new System.Drawing.Point(283, 6);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
-            this.groupBox6.Radius = 10;
-            this.groupBox6.ShadowDepth = 4;
-            this.groupBox6.Size = new System.Drawing.Size(214, 175);
-            this.groupBox6.TabIndex = 14;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Groups";
+            groupBox6.BackColor = System.Drawing.Color.Transparent;
+            groupBox6.Controls.Add(buttonAddGroup);
+            groupBox6.Controls.Add(buttonRemoveGroup);
+            groupBox6.Controls.Add(listViewGroups);
+            groupBox6.Dock = System.Windows.Forms.DockStyle.Top;
+            groupBox6.Location = new System.Drawing.Point(283, 6);
+            groupBox6.Name = "groupBox6";
+            groupBox6.Padding = new System.Windows.Forms.Padding(2, 8, 2, 2);
+            groupBox6.Radius = 10;
+            groupBox6.ShadowDepth = 4;
+            groupBox6.Size = new System.Drawing.Size(214, 175);
+            groupBox6.TabIndex = 14;
+            groupBox6.TabStop = false;
+            groupBox6.Text = "Groups";
             // 
             // buttonAddGroup
             // 
-            this.buttonAddGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonAddGroup.Color = System.Drawing.Color.Transparent;
-            this.buttonAddGroup.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonAddGroup.Location = new System.Drawing.Point(5, 147);
-            this.buttonAddGroup.Name = "buttonAddGroup";
-            this.buttonAddGroup.Radius = 6;
-            this.buttonAddGroup.ShadowDepth = 4F;
-            this.buttonAddGroup.Size = new System.Drawing.Size(63, 21);
-            this.buttonAddGroup.TabIndex = 0;
-            this.buttonAddGroup.Text = "Create";
-            this.buttonAddGroup.Click += new System.EventHandler(this.buttonAddGroup_Click);
+            buttonAddGroup.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            buttonAddGroup.Color = System.Drawing.Color.Transparent;
+            buttonAddGroup.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            buttonAddGroup.Location = new System.Drawing.Point(6, 146);
+            buttonAddGroup.Name = "buttonAddGroup";
+            buttonAddGroup.Radius = 6;
+            buttonAddGroup.ShadowDepth = 4F;
+            buttonAddGroup.Size = new System.Drawing.Size(63, 21);
+            buttonAddGroup.TabIndex = 0;
+            buttonAddGroup.Text = "Create";
+            buttonAddGroup.Click += buttonAddGroup_Click;
             // 
             // buttonRemoveGroup
             // 
-            this.buttonRemoveGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRemoveGroup.Color = System.Drawing.Color.Transparent;
-            this.buttonRemoveGroup.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonRemoveGroup.Location = new System.Drawing.Point(137, 147);
-            this.buttonRemoveGroup.Name = "buttonRemoveGroup";
-            this.buttonRemoveGroup.Radius = 6;
-            this.buttonRemoveGroup.ShadowDepth = 4F;
-            this.buttonRemoveGroup.Size = new System.Drawing.Size(72, 21);
-            this.buttonRemoveGroup.TabIndex = 0;
-            this.buttonRemoveGroup.Text = "Remove";
-            this.buttonRemoveGroup.Click += new System.EventHandler(this.buttonRemoveGroup_Click);
+            buttonRemoveGroup.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            buttonRemoveGroup.Color = System.Drawing.Color.Transparent;
+            buttonRemoveGroup.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            buttonRemoveGroup.Location = new System.Drawing.Point(136, 146);
+            buttonRemoveGroup.Name = "buttonRemoveGroup";
+            buttonRemoveGroup.Radius = 6;
+            buttonRemoveGroup.ShadowDepth = 4F;
+            buttonRemoveGroup.Size = new System.Drawing.Size(72, 21);
+            buttonRemoveGroup.TabIndex = 0;
+            buttonRemoveGroup.Text = "Remove";
+            buttonRemoveGroup.Click += buttonRemoveGroup_Click;
             // 
             // listViewGroups
             // 
-            this.listViewGroups.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listViewGroups.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeaderGroupName,
-            this.columnHeaderMembersCount});
-            this.listViewGroups.Dock = System.Windows.Forms.DockStyle.Top;
-            this.listViewGroups.FullRowSelect = true;
-            this.listViewGroups.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listViewGroups.Location = new System.Drawing.Point(1, 24);
-            this.listViewGroups.MultiSelect = false;
-            this.listViewGroups.Name = "listViewGroups";
-            this.listViewGroups.Size = new System.Drawing.Size(212, 118);
-            this.listViewGroups.TabIndex = 1;
-            this.listViewGroups.UseCompatibleStateImageBehavior = false;
-            this.listViewGroups.View = System.Windows.Forms.View.Details;
-            this.listViewGroups.SelectedIndexChanged += new System.EventHandler(this.listViewGroups_SelectedIndexChanged);
+            listViewGroups.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            listViewGroups.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeaderGroupName, columnHeaderMembersCount });
+            listViewGroups.Dock = System.Windows.Forms.DockStyle.Top;
+            listViewGroups.FullRowSelect = true;
+            listViewGroups.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            listViewGroups.Location = new System.Drawing.Point(2, 24);
+            listViewGroups.MultiSelect = false;
+            listViewGroups.Name = "listViewGroups";
+            listViewGroups.Size = new System.Drawing.Size(210, 118);
+            listViewGroups.TabIndex = 1;
+            listViewGroups.UseCompatibleStateImageBehavior = false;
+            listViewGroups.View = System.Windows.Forms.View.Details;
+            listViewGroups.SelectedIndexChanged += listViewGroups_SelectedIndexChanged;
             // 
             // columnHeaderGroupName
             // 
-            this.columnHeaderGroupName.Text = "Group Name";
-            this.columnHeaderGroupName.Width = 135;
+            columnHeaderGroupName.Text = "Group Name";
+            columnHeaderGroupName.Width = 135;
             // 
             // columnHeaderMembersCount
             // 
-            this.columnHeaderMembersCount.Text = "Members";
+            columnHeaderMembersCount.Text = "Members";
             // 
             // separator8
             // 
-            this.separator8.Dock = System.Windows.Forms.DockStyle.Right;
-            this.separator8.IsVertical = true;
-            this.separator8.Location = new System.Drawing.Point(497, 6);
-            this.separator8.Name = "separator8";
-            this.separator8.Size = new System.Drawing.Size(10, 426);
-            this.separator8.TabIndex = 16;
-            this.separator8.Text = "separator8";
+            separator8.Dock = System.Windows.Forms.DockStyle.Right;
+            separator8.IsVertical = true;
+            separator8.Location = new System.Drawing.Point(497, 6);
+            separator8.Name = "separator8";
+            separator8.Size = new System.Drawing.Size(10, 427);
+            separator8.TabIndex = 16;
+            separator8.Text = "separator8";
             // 
             // groupBox5
             // 
-            this.groupBox5.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox5.Controls.Add(this.selectedMemberBuffs);
-            this.groupBox5.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupBox5.Location = new System.Drawing.Point(507, 6);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
-            this.groupBox5.Radius = 10;
-            this.groupBox5.ShadowDepth = 4;
-            this.groupBox5.Size = new System.Drawing.Size(233, 426);
-            this.groupBox5.TabIndex = 12;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Member Buffs";
+            groupBox5.BackColor = System.Drawing.Color.Transparent;
+            groupBox5.Controls.Add(selectedMemberBuffs);
+            groupBox5.Dock = System.Windows.Forms.DockStyle.Right;
+            groupBox5.Location = new System.Drawing.Point(507, 6);
+            groupBox5.Name = "groupBox5";
+            groupBox5.Padding = new System.Windows.Forms.Padding(2, 8, 2, 2);
+            groupBox5.Radius = 10;
+            groupBox5.ShadowDepth = 4;
+            groupBox5.Size = new System.Drawing.Size(233, 427);
+            groupBox5.TabIndex = 12;
+            groupBox5.TabStop = false;
+            groupBox5.Text = "Member Buffs";
             // 
             // selectedMemberBuffs
             // 
-            this.selectedMemberBuffs.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.selectedMemberBuffs.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1});
-            this.selectedMemberBuffs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.selectedMemberBuffs.FullRowSelect = true;
-            this.selectedMemberBuffs.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.selectedMemberBuffs.Location = new System.Drawing.Point(1, 24);
-            this.selectedMemberBuffs.Name = "selectedMemberBuffs";
-            this.selectedMemberBuffs.Size = new System.Drawing.Size(231, 401);
-            this.selectedMemberBuffs.TabIndex = 9;
-            this.selectedMemberBuffs.UseCompatibleStateImageBehavior = false;
-            this.selectedMemberBuffs.View = System.Windows.Forms.View.Details;
+            selectedMemberBuffs.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            selectedMemberBuffs.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader1 });
+            selectedMemberBuffs.Dock = System.Windows.Forms.DockStyle.Fill;
+            selectedMemberBuffs.FullRowSelect = true;
+            selectedMemberBuffs.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            selectedMemberBuffs.Location = new System.Drawing.Point(2, 24);
+            selectedMemberBuffs.Name = "selectedMemberBuffs";
+            selectedMemberBuffs.Size = new System.Drawing.Size(229, 401);
+            selectedMemberBuffs.TabIndex = 9;
+            selectedMemberBuffs.UseCompatibleStateImageBehavior = false;
+            selectedMemberBuffs.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "Name";
-            this.columnHeader1.Width = 220;
+            columnHeader1.Text = "Name";
+            columnHeader1.Width = 220;
             // 
             // separator7
             // 
-            this.separator7.Dock = System.Windows.Forms.DockStyle.Left;
-            this.separator7.IsVertical = true;
-            this.separator7.Location = new System.Drawing.Point(273, 6);
-            this.separator7.Name = "separator7";
-            this.separator7.Size = new System.Drawing.Size(10, 426);
-            this.separator7.TabIndex = 15;
-            this.separator7.Text = "separator7";
+            separator7.Dock = System.Windows.Forms.DockStyle.Left;
+            separator7.IsVertical = true;
+            separator7.Location = new System.Drawing.Point(273, 6);
+            separator7.Name = "separator7";
+            separator7.Size = new System.Drawing.Size(10, 427);
+            separator7.TabIndex = 15;
+            separator7.Text = "separator7";
             // 
             // groupBox1
             // 
-            this.groupBox1.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox1.Controls.Add(this.listPartyBuffSkills);
-            this.groupBox1.Controls.Add(this.panel5);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupBox1.Location = new System.Drawing.Point(6, 6);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(1, 8, 1, 1);
-            this.groupBox1.Radius = 10;
-            this.groupBox1.ShadowDepth = 4;
-            this.groupBox1.Size = new System.Drawing.Size(267, 426);
-            this.groupBox1.TabIndex = 10;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Buffs";
+            groupBox1.BackColor = System.Drawing.Color.Transparent;
+            groupBox1.Controls.Add(listPartyBuffSkills);
+            groupBox1.Controls.Add(panel5);
+            groupBox1.Dock = System.Windows.Forms.DockStyle.Left;
+            groupBox1.Location = new System.Drawing.Point(6, 6);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Padding = new System.Windows.Forms.Padding(2, 8, 2, 2);
+            groupBox1.Radius = 10;
+            groupBox1.ShadowDepth = 4;
+            groupBox1.Size = new System.Drawing.Size(267, 427);
+            groupBox1.TabIndex = 10;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Buffs";
             // 
             // listPartyBuffSkills
             // 
-            this.listPartyBuffSkills.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listPartyBuffSkills.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnName,
-            this.columnLimit});
-            this.listPartyBuffSkills.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listPartyBuffSkills.FullRowSelect = true;
-            this.listPartyBuffSkills.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listPartyBuffSkills.Location = new System.Drawing.Point(1, 24);
-            this.listPartyBuffSkills.Name = "listPartyBuffSkills";
-            this.listPartyBuffSkills.Size = new System.Drawing.Size(265, 375);
-            this.listPartyBuffSkills.TabIndex = 9;
-            this.listPartyBuffSkills.UseCompatibleStateImageBehavior = false;
-            this.listPartyBuffSkills.View = System.Windows.Forms.View.Details;
+            listPartyBuffSkills.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            listPartyBuffSkills.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnName, columnLimit });
+            listPartyBuffSkills.Dock = System.Windows.Forms.DockStyle.Fill;
+            listPartyBuffSkills.FullRowSelect = true;
+            listPartyBuffSkills.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            listPartyBuffSkills.Location = new System.Drawing.Point(2, 24);
+            listPartyBuffSkills.Name = "listPartyBuffSkills";
+            listPartyBuffSkills.Size = new System.Drawing.Size(263, 375);
+            listPartyBuffSkills.TabIndex = 9;
+            listPartyBuffSkills.UseCompatibleStateImageBehavior = false;
+            listPartyBuffSkills.View = System.Windows.Forms.View.Details;
             // 
             // columnName
             // 
-            this.columnName.Text = "Name";
-            this.columnName.Width = 160;
+            columnName.Text = "Name";
+            columnName.Width = 160;
             // 
             // columnLimit
             // 
-            this.columnLimit.Text = "Limit";
-            this.columnLimit.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnLimit.Width = 80;
+            columnLimit.Text = "Limit";
+            columnLimit.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            columnLimit.Width = 80;
             // 
             // panel5
             // 
-            this.panel5.BackColor = System.Drawing.Color.Transparent;
-            this.panel5.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
-            this.panel5.BorderColor = System.Drawing.Color.Transparent;
-            this.panel5.Controls.Add(this.checkHideLowerLevelSkills);
-            this.panel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel5.Location = new System.Drawing.Point(1, 399);
-            this.panel5.Name = "panel5";
-            this.panel5.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.panel5.Radius = 1;
-            this.panel5.ShadowDepth = 4F;
-            this.panel5.Size = new System.Drawing.Size(265, 26);
-            this.panel5.TabIndex = 11;
+            panel5.BackColor = System.Drawing.Color.Transparent;
+            panel5.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
+            panel5.BorderColor = System.Drawing.Color.Transparent;
+            panel5.Controls.Add(checkHideLowerLevelSkills);
+            panel5.Dock = System.Windows.Forms.DockStyle.Bottom;
+            panel5.Location = new System.Drawing.Point(2, 399);
+            panel5.Name = "panel5";
+            panel5.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            panel5.Radius = 1;
+            panel5.ShadowDepth = 4F;
+            panel5.Size = new System.Drawing.Size(263, 26);
+            panel5.TabIndex = 11;
             // 
             // checkHideLowerLevelSkills
             // 
-            this.checkHideLowerLevelSkills.AutoSize = true;
-            this.checkHideLowerLevelSkills.BackColor = System.Drawing.Color.Transparent;
-            this.checkHideLowerLevelSkills.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkHideLowerLevelSkills.Location = new System.Drawing.Point(10, 0);
-            this.checkHideLowerLevelSkills.Name = "checkHideLowerLevelSkills";
-            this.checkHideLowerLevelSkills.ShadowDepth = 1;
-            this.checkHideLowerLevelSkills.Size = new System.Drawing.Size(255, 26);
-            this.checkHideLowerLevelSkills.TabIndex = 10;
-            this.checkHideLowerLevelSkills.Text = "Hide lower level skills";
-            this.checkHideLowerLevelSkills.UseVisualStyleBackColor = false;
-            this.checkHideLowerLevelSkills.Visible = false;
-            this.checkHideLowerLevelSkills.CheckedChanged += new System.EventHandler(this.checkHideLowerLevelSkills_CheckedChanged);
+            checkHideLowerLevelSkills.AutoSize = true;
+            checkHideLowerLevelSkills.BackColor = System.Drawing.Color.Transparent;
+            checkHideLowerLevelSkills.Dock = System.Windows.Forms.DockStyle.Fill;
+            checkHideLowerLevelSkills.Location = new System.Drawing.Point(10, 0);
+            checkHideLowerLevelSkills.Name = "checkHideLowerLevelSkills";
+            checkHideLowerLevelSkills.ShadowDepth = 1;
+            checkHideLowerLevelSkills.Size = new System.Drawing.Size(253, 26);
+            checkHideLowerLevelSkills.TabIndex = 10;
+            checkHideLowerLevelSkills.Text = "Hide lower level skills";
+            checkHideLowerLevelSkills.UseVisualStyleBackColor = false;
+            checkHideLowerLevelSkills.Visible = false;
+            checkHideLowerLevelSkills.CheckedChanged += checkHideLowerLevelSkills_CheckedChanged;
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.Controls.Add(this.tabMain);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Name = "Main";
-            this.Size = new System.Drawing.Size(754, 467);
-            this.tabMain.ResumeLayout(false);
-            this.tabCurrentParty.ResumeLayout(false);
-            this.contextParty.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.grpPartySettings.ResumeLayout(false);
-            this.grpPartySettings.PerformLayout();
-            this.tpAutoParty.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.groupBox7.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            this.grbAutoPartySettings.ResumeLayout(false);
-            this.grbAutoPartySettings.PerformLayout();
-            this.tpPartyMatching.ResumeLayout(false);
-            this.topPartyPanel.ResumeLayout(false);
-            this.topPartyPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudPartySearchMax)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudPartySearchMin)).EndInit();
-            this.bottomPartyPanel.ResumeLayout(false);
-            this.tpPartyBuffing.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            Controls.Add(tabMain);
+            Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            Name = "Main";
+            Size = new System.Drawing.Size(754, 467);
+            tabMain.ResumeLayout(false);
+            tabCurrentParty.ResumeLayout(false);
+            contextParty.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            grpPartySettings.ResumeLayout(false);
+            grpPartySettings.PerformLayout();
+            tpAutoParty.ResumeLayout(false);
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
+            panel2.ResumeLayout(false);
+            groupBox7.ResumeLayout(false);
+            panel4.ResumeLayout(false);
+            groupBox3.ResumeLayout(false);
+            panel3.ResumeLayout(false);
+            grbAutoPartySettings.ResumeLayout(false);
+            grbAutoPartySettings.PerformLayout();
+            tpPartyMatching.ResumeLayout(false);
+            topPartyPanel.ResumeLayout(false);
+            topPartyPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudPartySearchMax).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudPartySearchMin).EndInit();
+            bottomPartyPanel.ResumeLayout(false);
+            tpPartyBuffing.ResumeLayout(false);
+            groupBox4.ResumeLayout(false);
+            groupBox6.ResumeLayout(false);
+            groupBox5.ResumeLayout(false);
+            groupBox1.ResumeLayout(false);
+            panel5.ResumeLayout(false);
+            panel5.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion

@@ -529,7 +529,7 @@ namespace RSBot.Map.Views
                     for (var z = 0; z < GridSize; z++)
                     {
                         var sectorImgName = string.Format(layerPath, _currentXSec + x - 1, _currentYSec + z - 1);
-                       
+
                         using var bitmap = LoadSectorImage(sectorImgName);
                         var pos = new Point(bitmap.Width * x, bitmap.Height * (GridSize - 1 - z));
 
@@ -589,7 +589,7 @@ namespace RSBot.Map.Views
                 PopulateMapAndGrid(graphics);
                 DrawPointAt(graphics, Game.Player.Movement.Source, 0);
 
-                if(_debug)
+                if (_debug)
                     DrawCollisions(graphics);
             }
         }
@@ -607,7 +607,7 @@ namespace RSBot.Map.Views
             lblX.Text = Game.Player.Position.X.ToString("0.0");
             lblY.Text = Game.Player.Position.Y.ToString("0.0");
 
-            if(_debug)
+            if (_debug)
                 labelSectorInfo.Text = $"{Game.Player.Movement.Source.Region} ({Game.Player.Movement.Source.Region.X}x{Game.Player.Movement.Source.Region.Y})";
 
             bufferedGraphics.Graphics.Clear(Color.Black);

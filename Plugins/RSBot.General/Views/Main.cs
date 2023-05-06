@@ -301,7 +301,7 @@ namespace RSBot.General.Views
 
             // If user disconnected with manual from clientless, we dont need open the client automatically again.
             //if (!Kernel.Proxy.ClientConnected)
-                //return;
+            //return;
 
             ClientManager.Kill();
 

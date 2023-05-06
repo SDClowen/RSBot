@@ -146,7 +146,7 @@
             // 
             checkBoxNoAttack.AutoSize = true;
             checkBoxNoAttack.BackColor = System.Drawing.Color.Transparent;
-            checkBoxNoAttack.Location = new System.Drawing.Point(231, 177);
+            checkBoxNoAttack.Location = new System.Drawing.Point(231, 176);
             checkBoxNoAttack.Name = "checkBoxNoAttack";
             checkBoxNoAttack.ShadowDepth = 1;
             checkBoxNoAttack.Size = new System.Drawing.Size(76, 15);
@@ -835,10 +835,10 @@
             // 
             tabPage4.BackColor = System.Drawing.Color.White;
             tabPage4.Controls.Add(listActiveBuffs);
-            tabPage4.Location = new System.Drawing.Point(4, 24);
+            tabPage4.Location = new System.Drawing.Point(4, 25);
             tabPage4.Name = "tabPage4";
             tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            tabPage4.Size = new System.Drawing.Size(354, 439);
+            tabPage4.Size = new System.Drawing.Size(354, 438);
             tabPage4.TabIndex = 1;
             tabPage4.Text = "Active buffs";
             // 
@@ -853,7 +853,7 @@
             listActiveBuffs.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             listActiveBuffs.Location = new System.Drawing.Point(3, 3);
             listActiveBuffs.Name = "listActiveBuffs";
-            listActiveBuffs.Size = new System.Drawing.Size(348, 433);
+            listActiveBuffs.Size = new System.Drawing.Size(348, 432);
             listActiveBuffs.TabIndex = 6;
             listActiveBuffs.UseCompatibleStateImageBehavior = false;
             listActiveBuffs.View = System.Windows.Forms.View.Details;

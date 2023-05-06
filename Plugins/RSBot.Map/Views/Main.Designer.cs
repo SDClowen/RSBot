@@ -30,245 +30,231 @@ namespace RSBot.Map.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.label1 = new SDUI.Controls.Label();
-            this.label2 = new SDUI.Controls.Label();
-            this.lblX = new SDUI.Controls.Label();
-            this.lblY = new SDUI.Controls.Label();
-            this.lblRegion = new SDUI.Controls.Label();
-            this.mapCanvas = new System.Windows.Forms.Panel();
-            this.label4 = new SDUI.Controls.Label();
-            this.comboViewType = new SDUI.Controls.ComboBox();
-            this.trmInterval = new System.Windows.Forms.Timer(this.components);
-            this.labelSectorInfo = new SDUI.Controls.Label();
-            this.lvMonster = new SDUI.Controls.ListView();
-            this.colName = new System.Windows.Forms.ColumnHeader();
-            this.colType = new System.Windows.Forms.ColumnHeader();
-            this.colLevel = new System.Windows.Forms.ColumnHeader();
-            this.colPosition = new System.Windows.Forms.ColumnHeader();
-            this.checkBoxAutoSelectUniques = new SDUI.Controls.CheckBox();
-            this.label3 = new SDUI.Controls.Label();
-            this.timerUniqueChecker = new System.Windows.Forms.Timer(this.components);
-            this.checkEnableCollisions = new SDUI.Controls.CheckBox();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            label1 = new SDUI.Controls.Label();
+            label2 = new SDUI.Controls.Label();
+            lblX = new SDUI.Controls.Label();
+            lblY = new SDUI.Controls.Label();
+            lblRegion = new SDUI.Controls.Label();
+            mapCanvas = new System.Windows.Forms.Panel();
+            label4 = new SDUI.Controls.Label();
+            comboViewType = new SDUI.Controls.ComboBox();
+            trmInterval = new System.Windows.Forms.Timer(components);
+            labelSectorInfo = new SDUI.Controls.Label();
+            lvMonster = new SDUI.Controls.ListView();
+            colName = new System.Windows.Forms.ColumnHeader();
+            colType = new System.Windows.Forms.ColumnHeader();
+            colLevel = new System.Windows.Forms.ColumnHeader();
+            colPosition = new System.Windows.Forms.ColumnHeader();
+            checkBoxAutoSelectUniques = new SDUI.Controls.CheckBox();
+            label3 = new SDUI.Controls.Label();
+            timerUniqueChecker = new System.Windows.Forms.Timer(components);
+            checkEnableCollisions = new SDUI.Controls.CheckBox();
+            SuspendLayout();
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label1.Location = new System.Drawing.Point(32, 339);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(17, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "X:";
+            label1.AutoSize = true;
+            label1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label1.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label1.Location = new System.Drawing.Point(18, 339);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(17, 13);
+            label1.TabIndex = 1;
+            label1.Text = "X:";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label2.Location = new System.Drawing.Point(134, 339);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(17, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Y:";
+            label2.AutoSize = true;
+            label2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label2.Location = new System.Drawing.Point(120, 339);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(17, 13);
+            label2.TabIndex = 2;
+            label2.Text = "Y:";
             // 
             // lblX
             // 
-            this.lblX.AutoSize = true;
-            this.lblX.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblX.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblX.Location = new System.Drawing.Point(55, 339);
-            this.lblX.Name = "lblX";
-            this.lblX.Size = new System.Drawing.Size(13, 13);
-            this.lblX.TabIndex = 4;
-            this.lblX.Text = "0";
+            lblX.AutoSize = true;
+            lblX.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            lblX.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            lblX.Location = new System.Drawing.Point(41, 339);
+            lblX.Name = "lblX";
+            lblX.Size = new System.Drawing.Size(13, 13);
+            lblX.TabIndex = 4;
+            lblX.Text = "0";
             // 
             // lblY
             // 
-            this.lblY.AutoSize = true;
-            this.lblY.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblY.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblY.Location = new System.Drawing.Point(157, 339);
-            this.lblY.Name = "lblY";
-            this.lblY.Size = new System.Drawing.Size(13, 13);
-            this.lblY.TabIndex = 5;
-            this.lblY.Text = "0";
+            lblY.AutoSize = true;
+            lblY.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            lblY.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            lblY.Location = new System.Drawing.Point(143, 339);
+            lblY.Name = "lblY";
+            lblY.Size = new System.Drawing.Size(13, 13);
+            lblY.TabIndex = 5;
+            lblY.Text = "0";
             // 
             // lblRegion
             // 
-            this.lblRegion.AutoSize = true;
-            this.lblRegion.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblRegion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblRegion.Location = new System.Drawing.Point(33, 61);
-            this.lblRegion.Name = "lblRegion";
-            this.lblRegion.Size = new System.Drawing.Size(72, 13);
-            this.lblRegion.TabIndex = 7;
-            this.lblRegion.Text = "Not in game";
+            lblRegion.AutoSize = true;
+            lblRegion.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            lblRegion.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            lblRegion.Location = new System.Drawing.Point(18, 26);
+            lblRegion.Name = "lblRegion";
+            lblRegion.Size = new System.Drawing.Size(72, 13);
+            lblRegion.TabIndex = 7;
+            lblRegion.Text = "Not in game";
             // 
             // mapCanvas
             // 
-            this.mapCanvas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.mapCanvas.Location = new System.Drawing.Point(35, 80);
-            this.mapCanvas.Name = "mapCanvas";
-            this.mapCanvas.Size = new System.Drawing.Size(256, 256);
-            this.mapCanvas.TabIndex = 0;
-            this.mapCanvas.TabStop = false;
-            this.mapCanvas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mapCanvas_MouseClick);
+            mapCanvas.BackColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            mapCanvas.Location = new System.Drawing.Point(18, 46);
+            mapCanvas.Name = "mapCanvas";
+            mapCanvas.Size = new System.Drawing.Size(300, 290);
+            mapCanvas.TabIndex = 0;
+            mapCanvas.MouseClick += mapCanvas_MouseClick;
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label4.Location = new System.Drawing.Point(347, 20);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(39, 13);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "Show:";
+            label4.AutoSize = true;
+            label4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label4.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label4.Location = new System.Drawing.Point(347, 20);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(39, 13);
+            label4.TabIndex = 9;
+            label4.Text = "Show:";
             // 
             // comboViewType
             // 
-            this.comboViewType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.comboViewType.DropDownHeight = 100;
-            this.comboViewType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboViewType.IntegralHeight = false;
-            this.comboViewType.ItemHeight = 17;
-            this.comboViewType.Items.AddRange(new object[] {
-            "Monsters",
-            "Players",
-            "Party",
-            "NPCs",
-            "COS",
-            "Portals",
-            "All"});
-            this.comboViewType.Location = new System.Drawing.Point(392, 17);
-            this.comboViewType.Name = "comboViewType";
-            this.comboViewType.Radius = 5;
-            this.comboViewType.ShadowDepth = 4F;
-            this.comboViewType.Size = new System.Drawing.Size(180, 23);
-            this.comboViewType.TabIndex = 10;
+            comboViewType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            comboViewType.DropDownHeight = 100;
+            comboViewType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            comboViewType.IntegralHeight = false;
+            comboViewType.ItemHeight = 17;
+            comboViewType.Items.AddRange(new object[] { "Monsters", "Players", "Party", "NPCs", "COS", "Portals", "All" });
+            comboViewType.Location = new System.Drawing.Point(392, 17);
+            comboViewType.Name = "comboViewType";
+            comboViewType.Radius = 5;
+            comboViewType.ShadowDepth = 4F;
+            comboViewType.Size = new System.Drawing.Size(180, 23);
+            comboViewType.TabIndex = 10;
             // 
             // trmInterval
             // 
-            this.trmInterval.Enabled = true;
-            this.trmInterval.Interval = 50;
-            this.trmInterval.Tick += new System.EventHandler(this.trmInterval_Tick);
+            trmInterval.Enabled = true;
+            trmInterval.Interval = 50;
+            trmInterval.Tick += trmInterval_Tick;
             // 
             // labelSectorInfo
             // 
-            this.labelSectorInfo.AutoSize = true;
-            this.labelSectorInfo.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelSectorInfo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelSectorInfo.Location = new System.Drawing.Point(240, 60);
-            this.labelSectorInfo.Name = "labelSectorInfo";
-            this.labelSectorInfo.Size = new System.Drawing.Size(48, 13);
-            this.labelSectorInfo.TabIndex = 14;
-            this.labelSectorInfo.Text = "000x000";
+            labelSectorInfo.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelSectorInfo.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            labelSectorInfo.Location = new System.Drawing.Point(189, 22);
+            labelSectorInfo.Name = "labelSectorInfo";
+            labelSectorInfo.Size = new System.Drawing.Size(128, 17);
+            labelSectorInfo.TabIndex = 14;
+            labelSectorInfo.Text = "000x000";
+            labelSectorInfo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lvMonster
             // 
-            this.lvMonster.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colName,
-            this.colType,
-            this.colLevel,
-            this.colPosition});
-            this.lvMonster.FullRowSelect = true;
-            this.lvMonster.Location = new System.Drawing.Point(347, 46);
-            this.lvMonster.Name = "lvMonster";
-            this.lvMonster.Size = new System.Drawing.Size(388, 394);
-            this.lvMonster.TabIndex = 8;
-            this.lvMonster.UseCompatibleStateImageBehavior = false;
-            this.lvMonster.View = System.Windows.Forms.View.Details;
+            lvMonster.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { colName, colType, colLevel, colPosition });
+            lvMonster.FullRowSelect = true;
+            lvMonster.Location = new System.Drawing.Point(347, 46);
+            lvMonster.Name = "lvMonster";
+            lvMonster.Size = new System.Drawing.Size(388, 394);
+            lvMonster.TabIndex = 8;
+            lvMonster.UseCompatibleStateImageBehavior = false;
+            lvMonster.View = System.Windows.Forms.View.Details;
             // 
             // colName
             // 
-            this.colName.Text = "Name";
-            this.colName.Width = 146;
+            colName.Text = "Name";
+            colName.Width = 146;
             // 
             // colType
             // 
-            this.colType.Text = "Type";
-            this.colType.Width = 64;
+            colType.Text = "Type";
+            colType.Width = 64;
             // 
             // colLevel
             // 
-            this.colLevel.Text = "Level";
-            this.colLevel.Width = 42;
+            colLevel.Text = "Level";
+            colLevel.Width = 42;
             // 
             // colPosition
             // 
-            this.colPosition.Text = "Position";
-            this.colPosition.Width = 125;
+            colPosition.Text = "Position";
+            colPosition.Width = 125;
             // 
             // checkBoxAutoSelectUniques
             // 
-            this.checkBoxAutoSelectUniques.AutoSize = true;
-            this.checkBoxAutoSelectUniques.BackColor = System.Drawing.Color.Transparent;
-            this.checkBoxAutoSelectUniques.Location = new System.Drawing.Point(35, 385);
-            this.checkBoxAutoSelectUniques.Name = "checkBoxAutoSelectUniques";
-            this.checkBoxAutoSelectUniques.ShadowDepth = 1;
-            this.checkBoxAutoSelectUniques.Size = new System.Drawing.Size(175, 15);
-            this.checkBoxAutoSelectUniques.TabIndex = 17;
-            this.checkBoxAutoSelectUniques.Text = "Automatically select uniques";
-            this.checkBoxAutoSelectUniques.UseVisualStyleBackColor = false;
-            this.checkBoxAutoSelectUniques.CheckedChanged += new System.EventHandler(this.checkBoxAutoSelectUniques_CheckedChanged);
+            checkBoxAutoSelectUniques.AutoSize = true;
+            checkBoxAutoSelectUniques.BackColor = System.Drawing.Color.Transparent;
+            checkBoxAutoSelectUniques.Location = new System.Drawing.Point(35, 386);
+            checkBoxAutoSelectUniques.Name = "checkBoxAutoSelectUniques";
+            checkBoxAutoSelectUniques.ShadowDepth = 1;
+            checkBoxAutoSelectUniques.Size = new System.Drawing.Size(175, 15);
+            checkBoxAutoSelectUniques.TabIndex = 17;
+            checkBoxAutoSelectUniques.Text = "Automatically select uniques";
+            checkBoxAutoSelectUniques.UseVisualStyleBackColor = false;
+            checkBoxAutoSelectUniques.CheckedChanged += checkBoxAutoSelectUniques_CheckedChanged;
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label3.Location = new System.Drawing.Point(33, 410);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(245, 39);
-            this.label3.TabIndex = 18;
-            this.label3.Text = "This function does not work while the bot is active.\r\n If you want the bot to aut" +
-    "o attack while active,\r\n set Avoidance.";
+            label3.AutoSize = true;
+            label3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            label3.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label3.Location = new System.Drawing.Point(33, 410);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(245, 39);
+            label3.TabIndex = 18;
+            label3.Text = "This function does not work while the bot is active.\r\n If you want the bot to auto attack while active,\r\n set Avoidance.";
             // 
             // timerUniqueChecker
             // 
-            this.timerUniqueChecker.Enabled = true;
-            this.timerUniqueChecker.Interval = 2500;
-            this.timerUniqueChecker.Tick += new System.EventHandler(this.timerUniqueChecker_Tick);
+            timerUniqueChecker.Enabled = true;
+            timerUniqueChecker.Interval = 2500;
+            timerUniqueChecker.Tick += timerUniqueChecker_Tick;
             // 
             // checkEnableCollisions
             // 
-            this.checkEnableCollisions.AutoSize = true;
-            this.checkEnableCollisions.BackColor = System.Drawing.Color.Transparent;
-            this.checkEnableCollisions.Location = new System.Drawing.Point(35, 364);
-            this.checkEnableCollisions.Name = "checkEnableCollisions";
-            this.checkEnableCollisions.ShadowDepth = 1;
-            this.checkEnableCollisions.Size = new System.Drawing.Size(158, 15);
-            this.checkEnableCollisions.TabIndex = 19;
-            this.checkEnableCollisions.Text = "Enable collision detection";
-            this.checkEnableCollisions.UseVisualStyleBackColor = false;
-            this.checkEnableCollisions.CheckedChanged += new System.EventHandler(this.checkEnableCollisions_CheckedChanged);
+            checkEnableCollisions.AutoSize = true;
+            checkEnableCollisions.BackColor = System.Drawing.Color.Transparent;
+            checkEnableCollisions.Location = new System.Drawing.Point(35, 364);
+            checkEnableCollisions.Name = "checkEnableCollisions";
+            checkEnableCollisions.ShadowDepth = 1;
+            checkEnableCollisions.Size = new System.Drawing.Size(158, 15);
+            checkEnableCollisions.TabIndex = 19;
+            checkEnableCollisions.Text = "Enable collision detection";
+            checkEnableCollisions.UseVisualStyleBackColor = false;
+            checkEnableCollisions.CheckedChanged += checkEnableCollisions_CheckedChanged;
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.Controls.Add(this.checkEnableCollisions);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.checkBoxAutoSelectUniques);
-            this.Controls.Add(this.labelSectorInfo);
-            this.Controls.Add(this.comboViewType);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.lvMonster);
-            this.Controls.Add(this.lblRegion);
-            this.Controls.Add(this.lblY);
-            this.Controls.Add(this.lblX);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.mapCanvas);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Name = "Main";
-            this.Size = new System.Drawing.Size(750, 458);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            Controls.Add(checkEnableCollisions);
+            Controls.Add(label3);
+            Controls.Add(checkBoxAutoSelectUniques);
+            Controls.Add(labelSectorInfo);
+            Controls.Add(comboViewType);
+            Controls.Add(label4);
+            Controls.Add(lvMonster);
+            Controls.Add(lblRegion);
+            Controls.Add(lblY);
+            Controls.Add(lblX);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            Controls.Add(mapCanvas);
+            Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            Name = "Main";
+            Size = new System.Drawing.Size(750, 458);
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

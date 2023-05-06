@@ -28,118 +28,141 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.checkEnabled = new SDUI.Controls.CheckBox();
-            this.btnReset = new SDUI.Controls.Button();
-            this.panel1 = new SDUI.Controls.Panel();
-            this.checkNormal = new SDUI.Controls.CheckBox();
-            this.checkError = new SDUI.Controls.CheckBox();
-            this.checkWarning = new SDUI.Controls.CheckBox();
-            this.checkDebug = new SDUI.Controls.CheckBox();
-            this.txtLog = new System.Windows.Forms.RichTextBox();
-            this.panel1.SuspendLayout();
-            this.SuspendLayout();
+            checkEnabled = new SDUI.Controls.CheckBox();
+            btnReset = new SDUI.Controls.Button();
+            panel1 = new SDUI.Controls.Panel();
+            checkNormal = new SDUI.Controls.CheckBox();
+            checkError = new SDUI.Controls.CheckBox();
+            checkWarning = new SDUI.Controls.CheckBox();
+            checkDebug = new SDUI.Controls.CheckBox();
+            txtLog = new System.Windows.Forms.RichTextBox();
+            panel1.SuspendLayout();
+            SuspendLayout();
             // 
             // checkEnabled
             // 
-            this.checkEnabled.BackColor = System.Drawing.Color.Transparent;
-            this.checkEnabled.Checked = false;
-            this.checkEnabled.Location = new System.Drawing.Point(14, 17);
-            this.checkEnabled.Name = "checkEnabled";
-            this.checkEnabled.Size = new System.Drawing.Size(65, 17);
-            this.checkEnabled.TabIndex = 1;
-            this.checkEnabled.Text = "Enabled";
-            this.checkEnabled.CheckedChanged += new System.EventHandler(this.checkEnabled_CheckedChanged);
+            checkEnabled.AutoSize = true;
+            checkEnabled.BackColor = System.Drawing.Color.Transparent;
+            checkEnabled.Location = new System.Drawing.Point(14, 17);
+            checkEnabled.Name = "checkEnabled";
+            checkEnabled.ShadowDepth = 1;
+            checkEnabled.Size = new System.Drawing.Size(65, 15);
+            checkEnabled.TabIndex = 1;
+            checkEnabled.Text = "Enabled";
+            checkEnabled.UseVisualStyleBackColor = false;
+            checkEnabled.CheckedChanged += checkEnabled_CheckedChanged;
             // 
             // btnReset
             // 
-            this.btnReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnReset.Color = System.Drawing.Color.Transparent;
-            this.btnReset.Location = new System.Drawing.Point(624, 13);
-            this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(75, 23);
-            this.btnReset.TabIndex = 0;
-            this.btnReset.Text = "Clear";
-            this.btnReset.UseVisualStyleBackColor = true;
-            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            btnReset.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnReset.Color = System.Drawing.Color.Transparent;
+            btnReset.Location = new System.Drawing.Point(624, 13);
+            btnReset.Name = "btnReset";
+            btnReset.Radius = 6;
+            btnReset.ShadowDepth = 4F;
+            btnReset.Size = new System.Drawing.Size(75, 23);
+            btnReset.TabIndex = 0;
+            btnReset.Text = "Clear";
+            btnReset.UseVisualStyleBackColor = true;
+            btnReset.Click += btnReset_Click;
             // 
             // panel1
             // 
-            this.panel1.Border = new System.Windows.Forms.Padding(0, 0, 0, 1);
-            this.panel1.Controls.Add(this.checkNormal);
-            this.panel1.Controls.Add(this.checkError);
-            this.panel1.Controls.Add(this.checkWarning);
-            this.panel1.Controls.Add(this.checkDebug);
-            this.panel1.Controls.Add(this.btnReset);
-            this.panel1.Controls.Add(this.checkEnabled);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Radius = 0;
-            this.panel1.Size = new System.Drawing.Size(719, 52);
-            this.panel1.TabIndex = 2;
+            panel1.BackColor = System.Drawing.Color.Transparent;
+            panel1.Border = new System.Windows.Forms.Padding(0, 0, 0, 1);
+            panel1.BorderColor = System.Drawing.Color.Transparent;
+            panel1.Controls.Add(checkNormal);
+            panel1.Controls.Add(checkError);
+            panel1.Controls.Add(checkWarning);
+            panel1.Controls.Add(checkDebug);
+            panel1.Controls.Add(btnReset);
+            panel1.Controls.Add(checkEnabled);
+            panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            panel1.Location = new System.Drawing.Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Radius = 0;
+            panel1.ShadowDepth = 4F;
+            panel1.Size = new System.Drawing.Size(719, 52);
+            panel1.TabIndex = 2;
             // 
             // checkNormal
             // 
-            this.checkNormal.BackColor = System.Drawing.Color.Transparent;
-            this.checkNormal.Checked = true;
-            this.checkNormal.Location = new System.Drawing.Point(100, 17);
-            this.checkNormal.Name = "checkNormal";
-            this.checkNormal.Size = new System.Drawing.Size(59, 17);
-            this.checkNormal.TabIndex = 6;
-            this.checkNormal.Text = "Normal";
+            checkNormal.AutoSize = true;
+            checkNormal.BackColor = System.Drawing.Color.Transparent;
+            checkNormal.Checked = true;
+            checkNormal.CheckState = System.Windows.Forms.CheckState.Checked;
+            checkNormal.Location = new System.Drawing.Point(100, 17);
+            checkNormal.Name = "checkNormal";
+            checkNormal.ShadowDepth = 1;
+            checkNormal.Size = new System.Drawing.Size(63, 15);
+            checkNormal.TabIndex = 6;
+            checkNormal.Text = "Normal";
+            checkNormal.UseVisualStyleBackColor = false;
             // 
             // checkError
             // 
-            this.checkError.BackColor = System.Drawing.Color.Transparent;
-            this.checkError.Checked = true;
-            this.checkError.Location = new System.Drawing.Point(332, 17);
-            this.checkError.Name = "checkError";
-            this.checkError.Size = new System.Drawing.Size(48, 17);
-            this.checkError.TabIndex = 3;
-            this.checkError.Text = "Error";
+            checkError.AutoSize = true;
+            checkError.BackColor = System.Drawing.Color.Transparent;
+            checkError.Checked = true;
+            checkError.CheckState = System.Windows.Forms.CheckState.Checked;
+            checkError.Location = new System.Drawing.Point(332, 17);
+            checkError.Name = "checkError";
+            checkError.ShadowDepth = 1;
+            checkError.Size = new System.Drawing.Size(48, 15);
+            checkError.TabIndex = 3;
+            checkError.Text = "Error";
+            checkError.UseVisualStyleBackColor = false;
             // 
             // checkWarning
             // 
-            this.checkWarning.BackColor = System.Drawing.Color.Transparent;
-            this.checkWarning.Checked = true;
-            this.checkWarning.Location = new System.Drawing.Point(249, 17);
-            this.checkWarning.Name = "checkWarning";
-            this.checkWarning.Size = new System.Drawing.Size(66, 17);
-            this.checkWarning.TabIndex = 4;
-            this.checkWarning.Text = "Warning";
+            checkWarning.AutoSize = true;
+            checkWarning.BackColor = System.Drawing.Color.Transparent;
+            checkWarning.Checked = true;
+            checkWarning.CheckState = System.Windows.Forms.CheckState.Checked;
+            checkWarning.Location = new System.Drawing.Point(249, 17);
+            checkWarning.Name = "checkWarning";
+            checkWarning.ShadowDepth = 1;
+            checkWarning.Size = new System.Drawing.Size(68, 15);
+            checkWarning.TabIndex = 4;
+            checkWarning.Text = "Warning";
+            checkWarning.UseVisualStyleBackColor = false;
             // 
             // checkDebug
             // 
-            this.checkDebug.BackColor = System.Drawing.Color.Transparent;
-            this.checkDebug.Checked = true;
-            this.checkDebug.Location = new System.Drawing.Point(175, 17);
-            this.checkDebug.Name = "checkDebug";
-            this.checkDebug.Size = new System.Drawing.Size(58, 17);
-            this.checkDebug.TabIndex = 5;
-            this.checkDebug.Text = "Debug";
+            checkDebug.AutoSize = true;
+            checkDebug.BackColor = System.Drawing.Color.Transparent;
+            checkDebug.Checked = true;
+            checkDebug.CheckState = System.Windows.Forms.CheckState.Checked;
+            checkDebug.Location = new System.Drawing.Point(175, 17);
+            checkDebug.Name = "checkDebug";
+            checkDebug.ShadowDepth = 1;
+            checkDebug.Size = new System.Drawing.Size(58, 15);
+            checkDebug.TabIndex = 5;
+            checkDebug.Text = "Debug";
+            checkDebug.UseVisualStyleBackColor = false;
             // 
             // txtLog
             // 
-            this.txtLog.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtLog.Location = new System.Drawing.Point(0, 52);
-            this.txtLog.Name = "txtLog";
-            this.txtLog.Size = new System.Drawing.Size(719, 407);
-            this.txtLog.TabIndex = 3;
-            this.txtLog.Text = "";
+            txtLog.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            txtLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            txtLog.Location = new System.Drawing.Point(0, 52);
+            txtLog.Name = "txtLog";
+            txtLog.Size = new System.Drawing.Size(719, 407);
+            txtLog.TabIndex = 3;
+            txtLog.Text = "";
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.Controls.Add(this.txtLog);
-            this.Controls.Add(this.panel1);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Name = "Main";
-            this.Size = new System.Drawing.Size(719, 459);
-            this.panel1.ResumeLayout(false);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            Controls.Add(txtLog);
+            Controls.Add(panel1);
+            Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            Name = "Main";
+            Size = new System.Drawing.Size(719, 459);
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion

@@ -27,7 +27,7 @@ namespace RSBot.Log.Views
 
             EventManager.SubscribeEvent("OnAddLog", new Action<string, LogLevel>(AppendLog));
 
-            if(!_debug)
+            if (!_debug)
             {
                 checkDebug.Checked = false;
                 checkError.Visible = false;
@@ -41,20 +41,20 @@ namespace RSBot.Log.Views
         /// Appends the log.
         /// </summary>
         /// <param name="message">The message.</param>
-        public void AppendLog(string message, LogLevel level  = LogLevel.Notify)
+        public void AppendLog(string message, LogLevel level = LogLevel.Notify)
         {
-            if (!checkEnabled.Checked) 
+            if (!checkEnabled.Checked)
                 return;
 
             var logFile = Path.Combine(Kernel.BasePath, "User", "Logs", Game.Player == null ? "Environment" : Game.Player.Name, $"{DateTime.Now:dd-MM-yyyy}.txt");
 
-            if (level == LogLevel.Debug && !checkDebug.Checked) 
+            if (level == LogLevel.Debug && !checkDebug.Checked)
                 return;
 
-            if (level == LogLevel.Error && !checkError.Checked) 
+            if (level == LogLevel.Error && !checkError.Checked)
                 return;
 
-            if (level == LogLevel.Notify && !checkNormal.Checked) 
+            if (level == LogLevel.Notify && !checkNormal.Checked)
                 return;
 
             if (level == LogLevel.Warning && !checkWarning.Checked)

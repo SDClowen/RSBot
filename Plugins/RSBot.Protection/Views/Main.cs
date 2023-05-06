@@ -261,7 +261,7 @@ namespace RSBot.Protection.Views
 
         private void OnIncreaseStat()
         {
-            if (Game.Player.StatPoints < numIncInt.Value + numIncStr.Value) 
+            if (Game.Player.StatPoints < numIncInt.Value + numIncStr.Value)
             {
                 buttonRun.Text = "Run";
 
@@ -297,8 +297,8 @@ namespace RSBot.Protection.Views
 
             if (availableSteps == 0) return;
 
-            Task.Run(() => StatPointsHandler.IncreaseStatPoints((int) availableSteps));
-            
+            Task.Run(() => StatPointsHandler.IncreaseStatPoints((int)availableSteps));
+
             _statIncreaseRunning = true;
 
             buttonRun.Text = "Cancel";

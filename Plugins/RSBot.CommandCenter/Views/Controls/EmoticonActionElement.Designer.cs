@@ -28,68 +28,67 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.picIcon = new System.Windows.Forms.PictureBox();
-            this.comboAction = new SDUI.Controls.ComboBox();
-            this.lblName = new SDUI.Controls.Label();
-            this.separator1 = new SDUI.Controls.Separator();
-            ((System.ComponentModel.ISupportInitialize)(this.picIcon)).BeginInit();
-            this.SuspendLayout();
+            picIcon = new System.Windows.Forms.PictureBox();
+            comboAction = new SDUI.Controls.ComboBox();
+            lblName = new SDUI.Controls.Label();
+            separator1 = new SDUI.Controls.Separator();
+            ((System.ComponentModel.ISupportInitialize)picIcon).BeginInit();
+            SuspendLayout();
             // 
             // picIcon
             // 
-            this.picIcon.Location = new System.Drawing.Point(11, 9);
-            this.picIcon.Name = "picIcon";
-            this.picIcon.Size = new System.Drawing.Size(32, 32);
-            this.picIcon.TabIndex = 0;
-            this.picIcon.TabStop = false;
+            picIcon.Location = new System.Drawing.Point(11, 9);
+            picIcon.Name = "picIcon";
+            picIcon.Size = new System.Drawing.Size(32, 32);
+            picIcon.TabIndex = 0;
+            picIcon.TabStop = false;
             // 
             // comboAction
             // 
-            this.comboAction.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.comboAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboAction.FormattingEnabled = true;
-            this.comboAction.Location = new System.Drawing.Point(58, 19);
-            this.comboAction.Name = "comboAction";
-            this.comboAction.Radius = 5;
-            this.comboAction.ShadowDepth = 4F;
-            this.comboAction.Size = new System.Drawing.Size(188, 24);
-            this.comboAction.TabIndex = 1;
-            this.comboAction.SelectedIndexChanged += new System.EventHandler(this.comboAction_SelectedIndexChanged);
+            comboAction.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            comboAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            comboAction.FormattingEnabled = true;
+            comboAction.Location = new System.Drawing.Point(58, 19);
+            comboAction.Name = "comboAction";
+            comboAction.Radius = 5;
+            comboAction.ShadowDepth = 4F;
+            comboAction.Size = new System.Drawing.Size(188, 24);
+            comboAction.TabIndex = 1;
+            comboAction.SelectedIndexChanged += comboAction_SelectedIndexChanged;
             // 
             // lblName
             // 
-            this.lblName.AutoSize = true;
-            this.lblName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblName.Location = new System.Drawing.Point(58, 3);
-            this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(53, 15);
-            this.lblName.TabIndex = 2;
-            this.lblName.Text = "<name>";
+            lblName.AutoSize = true;
+            lblName.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            lblName.Location = new System.Drawing.Point(58, 3);
+            lblName.Name = "lblName";
+            lblName.Size = new System.Drawing.Size(53, 15);
+            lblName.TabIndex = 2;
+            lblName.Text = "<name>";
             // 
             // separator1
             // 
-            this.separator1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.separator1.IsVertical = false;
-            this.separator1.Location = new System.Drawing.Point(0, 43);
-            this.separator1.Name = "separator1";
-            this.separator1.Size = new System.Drawing.Size(277, 10);
-            this.separator1.TabIndex = 3;
-            this.separator1.Text = "separator1";
+            separator1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            separator1.IsVertical = false;
+            separator1.Location = new System.Drawing.Point(0, 43);
+            separator1.Name = "separator1";
+            separator1.Size = new System.Drawing.Size(277, 10);
+            separator1.TabIndex = 3;
+            separator1.Text = "separator1";
             // 
-            // ActionEmoticonElement
+            // EmoticonActionElement
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.separator1);
-            this.Controls.Add(this.lblName);
-            this.Controls.Add(this.comboAction);
-            this.Controls.Add(this.picIcon);
-            this.Name = "ActionEmoticonElement";
-            this.Size = new System.Drawing.Size(277, 53);
-            ((System.ComponentModel.ISupportInitialize)(this.picIcon)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(separator1);
+            Controls.Add(lblName);
+            Controls.Add(comboAction);
+            Controls.Add(picIcon);
+            Name = "EmoticonActionElement";
+            Size = new System.Drawing.Size(277, 53);
+            ((System.ComponentModel.ISupportInitialize)picIcon).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

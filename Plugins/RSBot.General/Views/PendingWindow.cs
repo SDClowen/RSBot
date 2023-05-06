@@ -52,7 +52,7 @@ namespace RSBot.General.Views
             var end = packet.ReadUShort();
             var timestamp = packet.ReadInt();
             var begin = packet.ReadUShort();
-                
+
             Log.StatusLang("PendingQueue", Serverlist.Joining?.Name, begin, end);
             labelPending.Text = $"{begin} / {end}";
             PrintTime(labelAvgWaitingTime, timestamp);
@@ -61,7 +61,7 @@ namespace RSBot.General.Views
             if (GlobalConfig.Get("RSBot.General.EnableQuqueNotification", false))
             {
                 var queue = GlobalConfig.Get("RSBot.General.QueueLeft", 30);
-                if (begin<=queue && _queueNotifyIndex == 0)
+                if (begin <= queue && _queueNotifyIndex == 0)
                 {
                     this.notifyIcon.Visible = true;
                     this.notifyIcon.BalloonTipTitle = "Pending Queue Notification";
@@ -69,7 +69,7 @@ namespace RSBot.General.Views
                     this.notifyIcon.ShowBalloonTip(2000);
                 }
 
-                if(++_queueNotifyIndex > 3)
+                if (++_queueNotifyIndex > 3)
                     _queueNotifyIndex = 0;
             }
 
@@ -93,7 +93,7 @@ namespace RSBot.General.Views
         {
             if (!AutoLogin.Pending || !Visible)
                 return;
-            
+
             PrintTime(labelMyWaitingTime, Kernel.TickCount - _startedTick);
         }
 
@@ -101,26 +101,26 @@ namespace RSBot.General.Views
         {
             //label.RunInUIThread(() =>
             //{
-                var text = new StringBuilder();
+            var text = new StringBuilder();
 
-                var translatedHours = LanguageManager.GetLang("Xhours");
-                var translatedMinutes = LanguageManager.GetLang("Xminutes");
-                var translatedSeconds = LanguageManager.GetLang("Xseconds");
+            var translatedHours = LanguageManager.GetLang("Xhours");
+            var translatedMinutes = LanguageManager.GetLang("Xminutes");
+            var translatedSeconds = LanguageManager.GetLang("Xseconds");
 
-                var timespan = TimeSpan.FromMilliseconds(millisecond);
-                if (timespan.Hours > 0)
-                    text.AppendFormat(translatedHours + " ", timespan.Hours);
+            var timespan = TimeSpan.FromMilliseconds(millisecond);
+            if (timespan.Hours > 0)
+                text.AppendFormat(translatedHours + " ", timespan.Hours);
 
-                if (timespan.Minutes > 0)
-                    text.AppendFormat(translatedMinutes + " ", timespan.Minutes);
+            if (timespan.Minutes > 0)
+                text.AppendFormat(translatedMinutes + " ", timespan.Minutes);
 
-                if (timespan.Seconds > 0)
-                    text.AppendFormat(translatedSeconds, timespan.Seconds);
+            if (timespan.Seconds > 0)
+                text.AppendFormat(translatedSeconds, timespan.Seconds);
 
-                label.Text = text.ToString();
+            label.Text = text.ToString();
             //});
         }
-        
+
         private void LogPending(int count, int count2)
         {
             if (GlobalConfig.Get<bool>("RSBot.General.PendingEnableQueueLogs"))

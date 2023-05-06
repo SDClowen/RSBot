@@ -28,1068 +28,987 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label22 = new SDUI.Controls.Label();
-            this.groupBackTown = new SDUI.Controls.GroupBox();
-            this.checkStopBotOnReturnToTown = new SDUI.Controls.CheckBox();
-            this.label21 = new SDUI.Controls.Label();
-            this.numDeadTimeout = new SDUI.Controls.NumUpDown();
-            this.checkLevelUp = new SDUI.Controls.CheckBox();
-            this.checkFullPetInventory = new SDUI.Controls.CheckBox();
-            this.checkNoMPPotions = new SDUI.Controls.CheckBox();
-            this.checkNoHPPotions = new SDUI.Controls.CheckBox();
-            this.checkDurability = new SDUI.Controls.CheckBox();
-            this.checkDead = new SDUI.Controls.CheckBox();
-            this.checkInventory = new SDUI.Controls.CheckBox();
-            this.checkNoArrows = new SDUI.Controls.CheckBox();
-            this.groupBadStatus = new SDUI.Controls.GroupBox();
-            this.label18 = new SDUI.Controls.Label();
-            this.comboSkillBadStatus = new SDUI.Controls.ComboBox();
-            this.checkUseBadStatusSkill = new SDUI.Controls.CheckBox();
-            this.checkUseUniversalPills = new SDUI.Controls.CheckBox();
-            this.groupHPMP = new SDUI.Controls.GroupBox();
-            this.label17 = new SDUI.Controls.Label();
-            this.comboSkillPlayerMP = new SDUI.Controls.ComboBox();
-            this.comboSkillPlayerHP = new SDUI.Controls.ComboBox();
-            this.label11 = new SDUI.Controls.Label();
-            this.numPlayerSkillMPMin = new SDUI.Controls.NumUpDown();
-            this.label12 = new SDUI.Controls.Label();
-            this.label9 = new SDUI.Controls.Label();
-            this.numPlayerSkillHPMin = new SDUI.Controls.NumUpDown();
-            this.label10 = new SDUI.Controls.Label();
-            this.label7 = new SDUI.Controls.Label();
-            this.numPlayerMPVigorPotionMin = new SDUI.Controls.NumUpDown();
-            this.label8 = new SDUI.Controls.Label();
-            this.label5 = new SDUI.Controls.Label();
-            this.numPlayerHPVigorPotionMin = new SDUI.Controls.NumUpDown();
-            this.label6 = new SDUI.Controls.Label();
-            this.label3 = new SDUI.Controls.Label();
-            this.numPlayerMPPotionMin = new SDUI.Controls.NumUpDown();
-            this.label4 = new SDUI.Controls.Label();
-            this.label2 = new SDUI.Controls.Label();
-            this.numPlayerHPPotionMin = new SDUI.Controls.NumUpDown();
-            this.label1 = new SDUI.Controls.Label();
-            this.checkUseSkillHP = new SDUI.Controls.CheckBox();
-            this.checkUseSkillMP = new SDUI.Controls.CheckBox();
-            this.checkUseHPPotionsPlayer = new SDUI.Controls.CheckBox();
-            this.checkUseVigorMP = new SDUI.Controls.CheckBox();
-            this.checkUseMPPotionsPlayer = new SDUI.Controls.CheckBox();
-            this.checkUseVigorHP = new SDUI.Controls.CheckBox();
-            this.groupPet = new SDUI.Controls.GroupBox();
-            this.checkAutoSummonAttackPet = new SDUI.Controls.CheckBox();
-            this.checkUseAbnormalStatePotion = new SDUI.Controls.CheckBox();
-            this.checkReviveAttackPet = new SDUI.Controls.CheckBox();
-            this.label13 = new SDUI.Controls.Label();
-            this.numPetMinHGP = new SDUI.Controls.NumUpDown();
-            this.label14 = new SDUI.Controls.Label();
-            this.label15 = new SDUI.Controls.Label();
-            this.numPetMinHP = new SDUI.Controls.NumUpDown();
-            this.label16 = new SDUI.Controls.Label();
-            this.checkUsePetHP = new SDUI.Controls.CheckBox();
-            this.checkUseHGP = new SDUI.Controls.CheckBox();
-            this.groupStatPoints = new SDUI.Controls.GroupBox();
-            this.buttonRun = new SDUI.Controls.Button();
-            this.checkIncBotStopped = new SDUI.Controls.CheckBox();
-            this.numIncStr = new SDUI.Controls.NumUpDown();
-            this.numIncInt = new SDUI.Controls.NumUpDown();
-            this.checkIncStr = new SDUI.Controls.CheckBox();
-            this.checkIncInt = new SDUI.Controls.CheckBox();
-            this.groupBackTown.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numDeadTimeout)).BeginInit();
-            this.groupBadStatus.SuspendLayout();
-            this.groupHPMP.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numPlayerSkillMPMin)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numPlayerSkillHPMin)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numPlayerMPVigorPotionMin)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numPlayerHPVigorPotionMin)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numPlayerMPPotionMin)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numPlayerHPPotionMin)).BeginInit();
-            this.groupPet.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numPetMinHGP)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numPetMinHP)).BeginInit();
-            this.groupStatPoints.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numIncStr)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numIncInt)).BeginInit();
-            this.SuspendLayout();
+            label22 = new SDUI.Controls.Label();
+            groupBackTown = new SDUI.Controls.GroupBox();
+            checkStopBotOnReturnToTown = new SDUI.Controls.CheckBox();
+            label21 = new SDUI.Controls.Label();
+            numDeadTimeout = new SDUI.Controls.NumUpDown();
+            checkLevelUp = new SDUI.Controls.CheckBox();
+            checkFullPetInventory = new SDUI.Controls.CheckBox();
+            checkNoMPPotions = new SDUI.Controls.CheckBox();
+            checkNoHPPotions = new SDUI.Controls.CheckBox();
+            checkDurability = new SDUI.Controls.CheckBox();
+            checkDead = new SDUI.Controls.CheckBox();
+            checkInventory = new SDUI.Controls.CheckBox();
+            checkNoArrows = new SDUI.Controls.CheckBox();
+            groupBadStatus = new SDUI.Controls.GroupBox();
+            label18 = new SDUI.Controls.Label();
+            comboSkillBadStatus = new SDUI.Controls.ComboBox();
+            checkUseBadStatusSkill = new SDUI.Controls.CheckBox();
+            checkUseUniversalPills = new SDUI.Controls.CheckBox();
+            groupHPMP = new SDUI.Controls.GroupBox();
+            label17 = new SDUI.Controls.Label();
+            comboSkillPlayerMP = new SDUI.Controls.ComboBox();
+            comboSkillPlayerHP = new SDUI.Controls.ComboBox();
+            label11 = new SDUI.Controls.Label();
+            numPlayerSkillMPMin = new SDUI.Controls.NumUpDown();
+            label12 = new SDUI.Controls.Label();
+            label9 = new SDUI.Controls.Label();
+            numPlayerSkillHPMin = new SDUI.Controls.NumUpDown();
+            label10 = new SDUI.Controls.Label();
+            label7 = new SDUI.Controls.Label();
+            numPlayerMPVigorPotionMin = new SDUI.Controls.NumUpDown();
+            label8 = new SDUI.Controls.Label();
+            label5 = new SDUI.Controls.Label();
+            numPlayerHPVigorPotionMin = new SDUI.Controls.NumUpDown();
+            label6 = new SDUI.Controls.Label();
+            label3 = new SDUI.Controls.Label();
+            numPlayerMPPotionMin = new SDUI.Controls.NumUpDown();
+            label4 = new SDUI.Controls.Label();
+            label2 = new SDUI.Controls.Label();
+            numPlayerHPPotionMin = new SDUI.Controls.NumUpDown();
+            label1 = new SDUI.Controls.Label();
+            checkUseSkillHP = new SDUI.Controls.CheckBox();
+            checkUseSkillMP = new SDUI.Controls.CheckBox();
+            checkUseHPPotionsPlayer = new SDUI.Controls.CheckBox();
+            checkUseVigorMP = new SDUI.Controls.CheckBox();
+            checkUseMPPotionsPlayer = new SDUI.Controls.CheckBox();
+            checkUseVigorHP = new SDUI.Controls.CheckBox();
+            groupPet = new SDUI.Controls.GroupBox();
+            checkAutoSummonAttackPet = new SDUI.Controls.CheckBox();
+            checkUseAbnormalStatePotion = new SDUI.Controls.CheckBox();
+            checkReviveAttackPet = new SDUI.Controls.CheckBox();
+            label13 = new SDUI.Controls.Label();
+            numPetMinHGP = new SDUI.Controls.NumUpDown();
+            label14 = new SDUI.Controls.Label();
+            label15 = new SDUI.Controls.Label();
+            numPetMinHP = new SDUI.Controls.NumUpDown();
+            label16 = new SDUI.Controls.Label();
+            checkUsePetHP = new SDUI.Controls.CheckBox();
+            checkUseHGP = new SDUI.Controls.CheckBox();
+            groupStatPoints = new SDUI.Controls.GroupBox();
+            buttonRun = new SDUI.Controls.Button();
+            checkIncBotStopped = new SDUI.Controls.CheckBox();
+            numIncStr = new SDUI.Controls.NumUpDown();
+            numIncInt = new SDUI.Controls.NumUpDown();
+            checkIncStr = new SDUI.Controls.CheckBox();
+            checkIncInt = new SDUI.Controls.CheckBox();
+            groupBackTown.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numDeadTimeout).BeginInit();
+            groupBadStatus.SuspendLayout();
+            groupHPMP.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numPlayerSkillMPMin).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numPlayerSkillHPMin).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numPlayerMPVigorPotionMin).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numPlayerHPVigorPotionMin).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numPlayerMPPotionMin).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numPlayerHPPotionMin).BeginInit();
+            groupPet.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numPetMinHGP).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numPetMinHP).BeginInit();
+            groupStatPoints.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numIncStr).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numIncInt).BeginInit();
+            SuspendLayout();
             // 
             // label22
             // 
-            this.label22.AutoSize = true;
-            this.label22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label22.Location = new System.Drawing.Point(500, 449);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(254, 15);
-            this.label22.TabIndex = 16;
-            this.label22.Text = "* Will also be executed, if the bot is not started.";
+            label22.AutoSize = true;
+            label22.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label22.Location = new System.Drawing.Point(500, 449);
+            label22.Name = "label22";
+            label22.Size = new System.Drawing.Size(254, 15);
+            label22.TabIndex = 16;
+            label22.Text = "* Will also be executed, if the bot is not started.";
             // 
             // groupBackTown
             // 
-            this.groupBackTown.BackColor = System.Drawing.Color.Transparent;
-            this.groupBackTown.Controls.Add(this.checkStopBotOnReturnToTown);
-            this.groupBackTown.Controls.Add(this.label21);
-            this.groupBackTown.Controls.Add(this.numDeadTimeout);
-            this.groupBackTown.Controls.Add(this.checkLevelUp);
-            this.groupBackTown.Controls.Add(this.checkFullPetInventory);
-            this.groupBackTown.Controls.Add(this.checkNoMPPotions);
-            this.groupBackTown.Controls.Add(this.checkNoHPPotions);
-            this.groupBackTown.Controls.Add(this.checkDurability);
-            this.groupBackTown.Controls.Add(this.checkDead);
-            this.groupBackTown.Controls.Add(this.checkInventory);
-            this.groupBackTown.Controls.Add(this.checkNoArrows);
-            this.groupBackTown.Location = new System.Drawing.Point(500, 7);
-            this.groupBackTown.Name = "groupBackTown";
-            this.groupBackTown.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBackTown.Radius = 10;
-            this.groupBackTown.ShadowDepth = 4;
-            this.groupBackTown.Size = new System.Drawing.Size(238, 227);
-            this.groupBackTown.TabIndex = 17;
-            this.groupBackTown.TabStop = false;
-            this.groupBackTown.Text = "Back to town";
+            groupBackTown.BackColor = System.Drawing.Color.Transparent;
+            groupBackTown.Controls.Add(checkStopBotOnReturnToTown);
+            groupBackTown.Controls.Add(label21);
+            groupBackTown.Controls.Add(numDeadTimeout);
+            groupBackTown.Controls.Add(checkLevelUp);
+            groupBackTown.Controls.Add(checkFullPetInventory);
+            groupBackTown.Controls.Add(checkNoMPPotions);
+            groupBackTown.Controls.Add(checkNoHPPotions);
+            groupBackTown.Controls.Add(checkDurability);
+            groupBackTown.Controls.Add(checkDead);
+            groupBackTown.Controls.Add(checkInventory);
+            groupBackTown.Controls.Add(checkNoArrows);
+            groupBackTown.Location = new System.Drawing.Point(500, 7);
+            groupBackTown.Name = "groupBackTown";
+            groupBackTown.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            groupBackTown.Radius = 10;
+            groupBackTown.ShadowDepth = 4;
+            groupBackTown.Size = new System.Drawing.Size(238, 227);
+            groupBackTown.TabIndex = 17;
+            groupBackTown.TabStop = false;
+            groupBackTown.Text = "Back to town";
             // 
             // checkStopBotOnReturnToTown
             // 
-            this.checkStopBotOnReturnToTown.AutoSize = true;
-            this.checkStopBotOnReturnToTown.BackColor = System.Drawing.Color.Transparent;
-            this.checkStopBotOnReturnToTown.Location = new System.Drawing.Point(12, 57);
-            this.checkStopBotOnReturnToTown.Name = "checkStopBotOnReturnToTown";
-            this.checkStopBotOnReturnToTown.ShadowDepth = 1;
-            this.checkStopBotOnReturnToTown.Size = new System.Drawing.Size(171, 15);
-            this.checkStopBotOnReturnToTown.TabIndex = 11;
-            this.checkStopBotOnReturnToTown.Text = "Stop bot when back in town";
-            this.checkStopBotOnReturnToTown.UseVisualStyleBackColor = false;
-            this.checkStopBotOnReturnToTown.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            checkStopBotOnReturnToTown.AutoSize = true;
+            checkStopBotOnReturnToTown.BackColor = System.Drawing.Color.Transparent;
+            checkStopBotOnReturnToTown.Location = new System.Drawing.Point(12, 57);
+            checkStopBotOnReturnToTown.Name = "checkStopBotOnReturnToTown";
+            checkStopBotOnReturnToTown.ShadowDepth = 1;
+            checkStopBotOnReturnToTown.Size = new System.Drawing.Size(171, 15);
+            checkStopBotOnReturnToTown.TabIndex = 11;
+            checkStopBotOnReturnToTown.Text = "Stop bot when back in town";
+            checkStopBotOnReturnToTown.UseVisualStyleBackColor = false;
+            checkStopBotOnReturnToTown.CheckedChanged += settings_CheckedChanged;
             // 
             // label21
             // 
-            this.label21.AutoSize = true;
-            this.label21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label21.Location = new System.Drawing.Point(206, 35);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(27, 15);
-            this.label21.TabIndex = 10;
-            this.label21.Text = "sec.";
+            label21.AutoSize = true;
+            label21.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label21.Location = new System.Drawing.Point(206, 35);
+            label21.Name = "label21";
+            label21.Size = new System.Drawing.Size(27, 15);
+            label21.TabIndex = 10;
+            label21.Text = "sec.";
             // 
             // numDeadTimeout
             // 
-            this.numDeadTimeout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
-            this.numDeadTimeout.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numDeadTimeout.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.numDeadTimeout.InterceptArrowKeys = false;
-            this.numDeadTimeout.Location = new System.Drawing.Point(153, 32);
-            this.numDeadTimeout.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numDeadTimeout.Name = "numDeadTimeout";
-            this.numDeadTimeout.Size = new System.Drawing.Size(47, 23);
-            this.numDeadTimeout.TabIndex = 9;
-            this.numDeadTimeout.Value = new decimal(new int[] {
-            30,
-            0,
-            0,
-            0});
-            this.numDeadTimeout.ValueChanged += new System.EventHandler(this.numSettings_ValueChanged);
+            numDeadTimeout.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numDeadTimeout.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numDeadTimeout.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            numDeadTimeout.InterceptArrowKeys = false;
+            numDeadTimeout.Location = new System.Drawing.Point(153, 32);
+            numDeadTimeout.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numDeadTimeout.Name = "numDeadTimeout";
+            numDeadTimeout.Size = new System.Drawing.Size(47, 23);
+            numDeadTimeout.TabIndex = 9;
+            numDeadTimeout.Value = new decimal(new int[] { 30, 0, 0, 0 });
+            numDeadTimeout.ValueChanged += numSettings_ValueChanged;
             // 
             // checkLevelUp
             // 
-            this.checkLevelUp.AutoSize = true;
-            this.checkLevelUp.BackColor = System.Drawing.Color.Transparent;
-            this.checkLevelUp.Location = new System.Drawing.Point(12, 204);
-            this.checkLevelUp.Name = "checkLevelUp";
-            this.checkLevelUp.ShadowDepth = 1;
-            this.checkLevelUp.Size = new System.Drawing.Size(67, 15);
-            this.checkLevelUp.TabIndex = 8;
-            this.checkLevelUp.Text = "Level up";
-            this.checkLevelUp.UseVisualStyleBackColor = false;
-            this.checkLevelUp.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            checkLevelUp.AutoSize = true;
+            checkLevelUp.BackColor = System.Drawing.Color.Transparent;
+            checkLevelUp.Location = new System.Drawing.Point(12, 204);
+            checkLevelUp.Name = "checkLevelUp";
+            checkLevelUp.ShadowDepth = 1;
+            checkLevelUp.Size = new System.Drawing.Size(67, 15);
+            checkLevelUp.TabIndex = 8;
+            checkLevelUp.Text = "Level up";
+            checkLevelUp.UseVisualStyleBackColor = false;
+            checkLevelUp.CheckedChanged += settings_CheckedChanged;
             // 
             // checkFullPetInventory
             // 
-            this.checkFullPetInventory.AutoSize = true;
-            this.checkFullPetInventory.BackColor = System.Drawing.Color.Transparent;
-            this.checkFullPetInventory.Location = new System.Drawing.Point(12, 120);
-            this.checkFullPetInventory.Name = "checkFullPetInventory";
-            this.checkFullPetInventory.ShadowDepth = 1;
-            this.checkFullPetInventory.Size = new System.Drawing.Size(115, 15);
-            this.checkFullPetInventory.TabIndex = 7;
-            this.checkFullPetInventory.Text = "Full pet inventory";
-            this.checkFullPetInventory.UseVisualStyleBackColor = false;
-            this.checkFullPetInventory.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            checkFullPetInventory.AutoSize = true;
+            checkFullPetInventory.BackColor = System.Drawing.Color.Transparent;
+            checkFullPetInventory.Location = new System.Drawing.Point(12, 120);
+            checkFullPetInventory.Name = "checkFullPetInventory";
+            checkFullPetInventory.ShadowDepth = 1;
+            checkFullPetInventory.Size = new System.Drawing.Size(115, 15);
+            checkFullPetInventory.TabIndex = 7;
+            checkFullPetInventory.Text = "Full pet inventory";
+            checkFullPetInventory.UseVisualStyleBackColor = false;
+            checkFullPetInventory.CheckedChanged += settings_CheckedChanged;
             // 
             // checkNoMPPotions
             // 
-            this.checkNoMPPotions.AutoSize = true;
-            this.checkNoMPPotions.BackColor = System.Drawing.Color.Transparent;
-            this.checkNoMPPotions.Location = new System.Drawing.Point(12, 162);
-            this.checkNoMPPotions.Name = "checkNoMPPotions";
-            this.checkNoMPPotions.ShadowDepth = 1;
-            this.checkNoMPPotions.Size = new System.Drawing.Size(123, 15);
-            this.checkNoMPPotions.TabIndex = 6;
-            this.checkNoMPPotions.Text = "No MP Potions left";
-            this.checkNoMPPotions.UseVisualStyleBackColor = false;
-            this.checkNoMPPotions.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            checkNoMPPotions.AutoSize = true;
+            checkNoMPPotions.BackColor = System.Drawing.Color.Transparent;
+            checkNoMPPotions.Location = new System.Drawing.Point(12, 162);
+            checkNoMPPotions.Name = "checkNoMPPotions";
+            checkNoMPPotions.ShadowDepth = 1;
+            checkNoMPPotions.Size = new System.Drawing.Size(123, 15);
+            checkNoMPPotions.TabIndex = 6;
+            checkNoMPPotions.Text = "No MP Potions left";
+            checkNoMPPotions.UseVisualStyleBackColor = false;
+            checkNoMPPotions.CheckedChanged += settings_CheckedChanged;
             // 
             // checkNoHPPotions
             // 
-            this.checkNoHPPotions.AutoSize = true;
-            this.checkNoHPPotions.BackColor = System.Drawing.Color.Transparent;
-            this.checkNoHPPotions.Location = new System.Drawing.Point(12, 141);
-            this.checkNoHPPotions.Name = "checkNoHPPotions";
-            this.checkNoHPPotions.ShadowDepth = 1;
-            this.checkNoHPPotions.Size = new System.Drawing.Size(121, 15);
-            this.checkNoHPPotions.TabIndex = 5;
-            this.checkNoHPPotions.Text = "No HP Potions left";
-            this.checkNoHPPotions.UseVisualStyleBackColor = false;
-            this.checkNoHPPotions.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            checkNoHPPotions.AutoSize = true;
+            checkNoHPPotions.BackColor = System.Drawing.Color.Transparent;
+            checkNoHPPotions.Location = new System.Drawing.Point(12, 141);
+            checkNoHPPotions.Name = "checkNoHPPotions";
+            checkNoHPPotions.ShadowDepth = 1;
+            checkNoHPPotions.Size = new System.Drawing.Size(121, 15);
+            checkNoHPPotions.TabIndex = 5;
+            checkNoHPPotions.Text = "No HP Potions left";
+            checkNoHPPotions.UseVisualStyleBackColor = false;
+            checkNoHPPotions.CheckedChanged += settings_CheckedChanged;
             // 
             // checkDurability
             // 
-            this.checkDurability.AutoSize = true;
-            this.checkDurability.BackColor = System.Drawing.Color.Transparent;
-            this.checkDurability.Location = new System.Drawing.Point(12, 183);
-            this.checkDurability.Name = "checkDurability";
-            this.checkDurability.ShadowDepth = 1;
-            this.checkDurability.Size = new System.Drawing.Size(156, 15);
-            this.checkDurability.TabIndex = 4;
-            this.checkDurability.Text = "Equipment durability low";
-            this.checkDurability.UseVisualStyleBackColor = false;
-            this.checkDurability.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            checkDurability.AutoSize = true;
+            checkDurability.BackColor = System.Drawing.Color.Transparent;
+            checkDurability.Location = new System.Drawing.Point(12, 183);
+            checkDurability.Name = "checkDurability";
+            checkDurability.ShadowDepth = 1;
+            checkDurability.Size = new System.Drawing.Size(156, 15);
+            checkDurability.TabIndex = 4;
+            checkDurability.Text = "Equipment durability low";
+            checkDurability.UseVisualStyleBackColor = false;
+            checkDurability.CheckedChanged += settings_CheckedChanged;
             // 
             // checkDead
             // 
-            this.checkDead.AutoSize = true;
-            this.checkDead.BackColor = System.Drawing.Color.Transparent;
-            this.checkDead.Location = new System.Drawing.Point(12, 36);
-            this.checkDead.Name = "checkDead";
-            this.checkDead.ShadowDepth = 1;
-            this.checkDead.Size = new System.Drawing.Size(124, 15);
-            this.checkDead.TabIndex = 3;
-            this.checkDead.Text = "Dead with delay of ";
-            this.checkDead.UseVisualStyleBackColor = false;
-            this.checkDead.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            checkDead.AutoSize = true;
+            checkDead.BackColor = System.Drawing.Color.Transparent;
+            checkDead.Location = new System.Drawing.Point(12, 36);
+            checkDead.Name = "checkDead";
+            checkDead.ShadowDepth = 1;
+            checkDead.Size = new System.Drawing.Size(124, 15);
+            checkDead.TabIndex = 3;
+            checkDead.Text = "Dead with delay of ";
+            checkDead.UseVisualStyleBackColor = false;
+            checkDead.CheckedChanged += settings_CheckedChanged;
             // 
             // checkInventory
             // 
-            this.checkInventory.AutoSize = true;
-            this.checkInventory.BackColor = System.Drawing.Color.Transparent;
-            this.checkInventory.Location = new System.Drawing.Point(12, 99);
-            this.checkInventory.Name = "checkInventory";
-            this.checkInventory.ShadowDepth = 1;
-            this.checkInventory.Size = new System.Drawing.Size(95, 15);
-            this.checkInventory.TabIndex = 4;
-            this.checkInventory.Text = "Full inventory";
-            this.checkInventory.UseVisualStyleBackColor = false;
-            this.checkInventory.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            checkInventory.AutoSize = true;
+            checkInventory.BackColor = System.Drawing.Color.Transparent;
+            checkInventory.Location = new System.Drawing.Point(12, 99);
+            checkInventory.Name = "checkInventory";
+            checkInventory.ShadowDepth = 1;
+            checkInventory.Size = new System.Drawing.Size(95, 15);
+            checkInventory.TabIndex = 4;
+            checkInventory.Text = "Full inventory";
+            checkInventory.UseVisualStyleBackColor = false;
+            checkInventory.CheckedChanged += settings_CheckedChanged;
             // 
             // checkNoArrows
             // 
-            this.checkNoArrows.AutoSize = true;
-            this.checkNoArrows.BackColor = System.Drawing.Color.Transparent;
-            this.checkNoArrows.Location = new System.Drawing.Point(12, 78);
-            this.checkNoArrows.Name = "checkNoArrows";
-            this.checkNoArrows.ShadowDepth = 1;
-            this.checkNoArrows.Size = new System.Drawing.Size(134, 15);
-            this.checkNoArrows.TabIndex = 4;
-            this.checkNoArrows.Text = "No arrows / bolts left";
-            this.checkNoArrows.UseVisualStyleBackColor = false;
-            this.checkNoArrows.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            checkNoArrows.AutoSize = true;
+            checkNoArrows.BackColor = System.Drawing.Color.Transparent;
+            checkNoArrows.Location = new System.Drawing.Point(12, 78);
+            checkNoArrows.Name = "checkNoArrows";
+            checkNoArrows.ShadowDepth = 1;
+            checkNoArrows.Size = new System.Drawing.Size(134, 15);
+            checkNoArrows.TabIndex = 4;
+            checkNoArrows.Text = "No arrows / bolts left";
+            checkNoArrows.UseVisualStyleBackColor = false;
+            checkNoArrows.CheckedChanged += settings_CheckedChanged;
             // 
             // groupBadStatus
             // 
-            this.groupBadStatus.BackColor = System.Drawing.Color.Transparent;
-            this.groupBadStatus.Controls.Add(this.label18);
-            this.groupBadStatus.Controls.Add(this.comboSkillBadStatus);
-            this.groupBadStatus.Controls.Add(this.checkUseBadStatusSkill);
-            this.groupBadStatus.Controls.Add(this.checkUseUniversalPills);
-            this.groupBadStatus.Location = new System.Drawing.Point(15, 214);
-            this.groupBadStatus.Name = "groupBadStatus";
-            this.groupBadStatus.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBadStatus.Radius = 10;
-            this.groupBadStatus.ShadowDepth = 4;
-            this.groupBadStatus.Size = new System.Drawing.Size(456, 80);
-            this.groupBadStatus.TabIndex = 6;
-            this.groupBadStatus.TabStop = false;
-            this.groupBadStatus.Text = "Bad status";
+            groupBadStatus.BackColor = System.Drawing.Color.Transparent;
+            groupBadStatus.Controls.Add(label18);
+            groupBadStatus.Controls.Add(comboSkillBadStatus);
+            groupBadStatus.Controls.Add(checkUseBadStatusSkill);
+            groupBadStatus.Controls.Add(checkUseUniversalPills);
+            groupBadStatus.Location = new System.Drawing.Point(15, 214);
+            groupBadStatus.Name = "groupBadStatus";
+            groupBadStatus.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            groupBadStatus.Radius = 10;
+            groupBadStatus.ShadowDepth = 4;
+            groupBadStatus.Size = new System.Drawing.Size(456, 80);
+            groupBadStatus.TabIndex = 6;
+            groupBadStatus.TabStop = false;
+            groupBadStatus.Text = "Bad status";
             // 
             // label18
             // 
-            this.label18.AutoSize = true;
-            this.label18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label18.Location = new System.Drawing.Point(315, 33);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(31, 15);
-            this.label18.TabIndex = 27;
-            this.label18.Text = "Skill:";
+            label18.AutoSize = true;
+            label18.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label18.Location = new System.Drawing.Point(315, 33);
+            label18.Name = "label18";
+            label18.Size = new System.Drawing.Size(31, 15);
+            label18.TabIndex = 27;
+            label18.Text = "Skill:";
             // 
             // comboSkillBadStatus
             // 
-            this.comboSkillBadStatus.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.comboSkillBadStatus.DropDownHeight = 100;
-            this.comboSkillBadStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboSkillBadStatus.FormattingEnabled = true;
-            this.comboSkillBadStatus.IntegralHeight = false;
-            this.comboSkillBadStatus.ItemHeight = 17;
-            this.comboSkillBadStatus.Location = new System.Drawing.Point(318, 50);
-            this.comboSkillBadStatus.Name = "comboSkillBadStatus";
-            this.comboSkillBadStatus.Radius = 5;
-            this.comboSkillBadStatus.ShadowDepth = 4F;
-            this.comboSkillBadStatus.Size = new System.Drawing.Size(121, 23);
-            this.comboSkillBadStatus.TabIndex = 26;
-            this.comboSkillBadStatus.SelectedIndexChanged += new System.EventHandler(this.comboSkill_SelectedIndexChanged);
+            comboSkillBadStatus.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            comboSkillBadStatus.DropDownHeight = 100;
+            comboSkillBadStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            comboSkillBadStatus.FormattingEnabled = true;
+            comboSkillBadStatus.IntegralHeight = false;
+            comboSkillBadStatus.ItemHeight = 17;
+            comboSkillBadStatus.Location = new System.Drawing.Point(318, 50);
+            comboSkillBadStatus.Name = "comboSkillBadStatus";
+            comboSkillBadStatus.Radius = 5;
+            comboSkillBadStatus.ShadowDepth = 4F;
+            comboSkillBadStatus.Size = new System.Drawing.Size(121, 23);
+            comboSkillBadStatus.TabIndex = 26;
+            comboSkillBadStatus.SelectedIndexChanged += comboSkill_SelectedIndexChanged;
             // 
             // checkUseBadStatusSkill
             // 
-            this.checkUseBadStatusSkill.AutoSize = true;
-            this.checkUseBadStatusSkill.BackColor = System.Drawing.Color.Transparent;
-            this.checkUseBadStatusSkill.Location = new System.Drawing.Point(11, 58);
-            this.checkUseBadStatusSkill.Name = "checkUseBadStatusSkill";
-            this.checkUseBadStatusSkill.ShadowDepth = 1;
-            this.checkUseBadStatusSkill.Size = new System.Drawing.Size(66, 15);
-            this.checkUseBadStatusSkill.TabIndex = 5;
-            this.checkUseBadStatusSkill.Text = "Use Skill";
-            this.checkUseBadStatusSkill.UseVisualStyleBackColor = false;
-            this.checkUseBadStatusSkill.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            checkUseBadStatusSkill.AutoSize = true;
+            checkUseBadStatusSkill.BackColor = System.Drawing.Color.Transparent;
+            checkUseBadStatusSkill.Location = new System.Drawing.Point(11, 58);
+            checkUseBadStatusSkill.Name = "checkUseBadStatusSkill";
+            checkUseBadStatusSkill.ShadowDepth = 1;
+            checkUseBadStatusSkill.Size = new System.Drawing.Size(66, 15);
+            checkUseBadStatusSkill.TabIndex = 5;
+            checkUseBadStatusSkill.Text = "Use Skill";
+            checkUseBadStatusSkill.UseVisualStyleBackColor = false;
+            checkUseBadStatusSkill.CheckedChanged += settings_CheckedChanged;
             // 
             // checkUseUniversalPills
             // 
-            this.checkUseUniversalPills.AutoSize = true;
-            this.checkUseUniversalPills.BackColor = System.Drawing.Color.Transparent;
-            this.checkUseUniversalPills.Location = new System.Drawing.Point(11, 35);
-            this.checkUseUniversalPills.Name = "checkUseUniversalPills";
-            this.checkUseUniversalPills.ShadowDepth = 1;
-            this.checkUseUniversalPills.Size = new System.Drawing.Size(125, 15);
-            this.checkUseUniversalPills.TabIndex = 4;
-            this.checkUseUniversalPills.Text = "Use Universal Pills *";
-            this.checkUseUniversalPills.UseVisualStyleBackColor = false;
-            this.checkUseUniversalPills.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            checkUseUniversalPills.AutoSize = true;
+            checkUseUniversalPills.BackColor = System.Drawing.Color.Transparent;
+            checkUseUniversalPills.Location = new System.Drawing.Point(11, 35);
+            checkUseUniversalPills.Name = "checkUseUniversalPills";
+            checkUseUniversalPills.ShadowDepth = 1;
+            checkUseUniversalPills.Size = new System.Drawing.Size(125, 15);
+            checkUseUniversalPills.TabIndex = 4;
+            checkUseUniversalPills.Text = "Use Universal Pills *";
+            checkUseUniversalPills.UseVisualStyleBackColor = false;
+            checkUseUniversalPills.CheckedChanged += settings_CheckedChanged;
             // 
             // groupHPMP
             // 
-            this.groupHPMP.BackColor = System.Drawing.Color.Transparent;
-            this.groupHPMP.Controls.Add(this.label17);
-            this.groupHPMP.Controls.Add(this.comboSkillPlayerMP);
-            this.groupHPMP.Controls.Add(this.comboSkillPlayerHP);
-            this.groupHPMP.Controls.Add(this.label11);
-            this.groupHPMP.Controls.Add(this.numPlayerSkillMPMin);
-            this.groupHPMP.Controls.Add(this.label12);
-            this.groupHPMP.Controls.Add(this.label9);
-            this.groupHPMP.Controls.Add(this.numPlayerSkillHPMin);
-            this.groupHPMP.Controls.Add(this.label10);
-            this.groupHPMP.Controls.Add(this.label7);
-            this.groupHPMP.Controls.Add(this.numPlayerMPVigorPotionMin);
-            this.groupHPMP.Controls.Add(this.label8);
-            this.groupHPMP.Controls.Add(this.label5);
-            this.groupHPMP.Controls.Add(this.numPlayerHPVigorPotionMin);
-            this.groupHPMP.Controls.Add(this.label6);
-            this.groupHPMP.Controls.Add(this.label3);
-            this.groupHPMP.Controls.Add(this.numPlayerMPPotionMin);
-            this.groupHPMP.Controls.Add(this.label4);
-            this.groupHPMP.Controls.Add(this.label2);
-            this.groupHPMP.Controls.Add(this.numPlayerHPPotionMin);
-            this.groupHPMP.Controls.Add(this.label1);
-            this.groupHPMP.Controls.Add(this.checkUseSkillHP);
-            this.groupHPMP.Controls.Add(this.checkUseSkillMP);
-            this.groupHPMP.Controls.Add(this.checkUseHPPotionsPlayer);
-            this.groupHPMP.Controls.Add(this.checkUseVigorMP);
-            this.groupHPMP.Controls.Add(this.checkUseMPPotionsPlayer);
-            this.groupHPMP.Controls.Add(this.checkUseVigorHP);
-            this.groupHPMP.Location = new System.Drawing.Point(15, 7);
-            this.groupHPMP.Name = "groupHPMP";
-            this.groupHPMP.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupHPMP.Radius = 10;
-            this.groupHPMP.ShadowDepth = 4;
-            this.groupHPMP.Size = new System.Drawing.Size(456, 201);
-            this.groupHPMP.TabIndex = 5;
-            this.groupHPMP.TabStop = false;
-            this.groupHPMP.Text = "Health / Mana recovery";
+            groupHPMP.BackColor = System.Drawing.Color.Transparent;
+            groupHPMP.Controls.Add(label17);
+            groupHPMP.Controls.Add(comboSkillPlayerMP);
+            groupHPMP.Controls.Add(comboSkillPlayerHP);
+            groupHPMP.Controls.Add(label11);
+            groupHPMP.Controls.Add(numPlayerSkillMPMin);
+            groupHPMP.Controls.Add(label12);
+            groupHPMP.Controls.Add(label9);
+            groupHPMP.Controls.Add(numPlayerSkillHPMin);
+            groupHPMP.Controls.Add(label10);
+            groupHPMP.Controls.Add(label7);
+            groupHPMP.Controls.Add(numPlayerMPVigorPotionMin);
+            groupHPMP.Controls.Add(label8);
+            groupHPMP.Controls.Add(label5);
+            groupHPMP.Controls.Add(numPlayerHPVigorPotionMin);
+            groupHPMP.Controls.Add(label6);
+            groupHPMP.Controls.Add(label3);
+            groupHPMP.Controls.Add(numPlayerMPPotionMin);
+            groupHPMP.Controls.Add(label4);
+            groupHPMP.Controls.Add(label2);
+            groupHPMP.Controls.Add(numPlayerHPPotionMin);
+            groupHPMP.Controls.Add(label1);
+            groupHPMP.Controls.Add(checkUseSkillHP);
+            groupHPMP.Controls.Add(checkUseSkillMP);
+            groupHPMP.Controls.Add(checkUseHPPotionsPlayer);
+            groupHPMP.Controls.Add(checkUseVigorMP);
+            groupHPMP.Controls.Add(checkUseMPPotionsPlayer);
+            groupHPMP.Controls.Add(checkUseVigorHP);
+            groupHPMP.Location = new System.Drawing.Point(15, 7);
+            groupHPMP.Name = "groupHPMP";
+            groupHPMP.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            groupHPMP.Radius = 10;
+            groupHPMP.ShadowDepth = 4;
+            groupHPMP.Size = new System.Drawing.Size(456, 201);
+            groupHPMP.TabIndex = 5;
+            groupHPMP.TabStop = false;
+            groupHPMP.Text = "Health / Mana recovery";
             // 
             // label17
             // 
-            this.label17.AutoSize = true;
-            this.label17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label17.Location = new System.Drawing.Point(315, 128);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(31, 15);
-            this.label17.TabIndex = 26;
-            this.label17.Text = "Skill:";
+            label17.AutoSize = true;
+            label17.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label17.Location = new System.Drawing.Point(315, 128);
+            label17.Name = "label17";
+            label17.Size = new System.Drawing.Size(31, 15);
+            label17.TabIndex = 26;
+            label17.Text = "Skill:";
             // 
             // comboSkillPlayerMP
             // 
-            this.comboSkillPlayerMP.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.comboSkillPlayerMP.DropDownHeight = 100;
-            this.comboSkillPlayerMP.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboSkillPlayerMP.FormattingEnabled = true;
-            this.comboSkillPlayerMP.IntegralHeight = false;
-            this.comboSkillPlayerMP.ItemHeight = 17;
-            this.comboSkillPlayerMP.Location = new System.Drawing.Point(318, 167);
-            this.comboSkillPlayerMP.Name = "comboSkillPlayerMP";
-            this.comboSkillPlayerMP.Radius = 5;
-            this.comboSkillPlayerMP.ShadowDepth = 4F;
-            this.comboSkillPlayerMP.Size = new System.Drawing.Size(121, 23);
-            this.comboSkillPlayerMP.TabIndex = 25;
-            this.comboSkillPlayerMP.SelectedIndexChanged += new System.EventHandler(this.comboSkill_SelectedIndexChanged);
+            comboSkillPlayerMP.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            comboSkillPlayerMP.DropDownHeight = 100;
+            comboSkillPlayerMP.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            comboSkillPlayerMP.FormattingEnabled = true;
+            comboSkillPlayerMP.IntegralHeight = false;
+            comboSkillPlayerMP.ItemHeight = 17;
+            comboSkillPlayerMP.Location = new System.Drawing.Point(318, 170);
+            comboSkillPlayerMP.Name = "comboSkillPlayerMP";
+            comboSkillPlayerMP.Radius = 5;
+            comboSkillPlayerMP.ShadowDepth = 4F;
+            comboSkillPlayerMP.Size = new System.Drawing.Size(121, 23);
+            comboSkillPlayerMP.TabIndex = 25;
+            comboSkillPlayerMP.SelectedIndexChanged += comboSkill_SelectedIndexChanged;
             // 
             // comboSkillPlayerHP
             // 
-            this.comboSkillPlayerHP.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.comboSkillPlayerHP.DropDownHeight = 100;
-            this.comboSkillPlayerHP.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboSkillPlayerHP.FormattingEnabled = true;
-            this.comboSkillPlayerHP.IntegralHeight = false;
-            this.comboSkillPlayerHP.ItemHeight = 17;
-            this.comboSkillPlayerHP.Location = new System.Drawing.Point(318, 144);
-            this.comboSkillPlayerHP.Name = "comboSkillPlayerHP";
-            this.comboSkillPlayerHP.Radius = 5;
-            this.comboSkillPlayerHP.ShadowDepth = 4F;
-            this.comboSkillPlayerHP.Size = new System.Drawing.Size(121, 23);
-            this.comboSkillPlayerHP.TabIndex = 7;
-            this.comboSkillPlayerHP.SelectedIndexChanged += new System.EventHandler(this.comboSkill_SelectedIndexChanged);
+            comboSkillPlayerHP.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            comboSkillPlayerHP.DropDownHeight = 100;
+            comboSkillPlayerHP.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            comboSkillPlayerHP.FormattingEnabled = true;
+            comboSkillPlayerHP.IntegralHeight = false;
+            comboSkillPlayerHP.ItemHeight = 17;
+            comboSkillPlayerHP.Location = new System.Drawing.Point(318, 144);
+            comboSkillPlayerHP.Name = "comboSkillPlayerHP";
+            comboSkillPlayerHP.Radius = 5;
+            comboSkillPlayerHP.ShadowDepth = 4F;
+            comboSkillPlayerHP.Size = new System.Drawing.Size(121, 23);
+            comboSkillPlayerHP.TabIndex = 7;
+            comboSkillPlayerHP.SelectedIndexChanged += comboSkill_SelectedIndexChanged;
             // 
             // label11
             // 
-            this.label11.AutoSize = true;
-            this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label11.Location = new System.Drawing.Point(273, 173);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(17, 15);
-            this.label11.TabIndex = 24;
-            this.label11.Text = "%";
+            label11.AutoSize = true;
+            label11.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label11.Location = new System.Drawing.Point(273, 176);
+            label11.Name = "label11";
+            label11.Size = new System.Drawing.Size(17, 15);
+            label11.TabIndex = 24;
+            label11.Text = "%";
             // 
             // numPlayerSkillMPMin
             // 
-            this.numPlayerSkillMPMin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
-            this.numPlayerSkillMPMin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numPlayerSkillMPMin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.numPlayerSkillMPMin.InterceptArrowKeys = false;
-            this.numPlayerSkillMPMin.Location = new System.Drawing.Point(220, 168);
-            this.numPlayerSkillMPMin.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numPlayerSkillMPMin.Name = "numPlayerSkillMPMin";
-            this.numPlayerSkillMPMin.Size = new System.Drawing.Size(47, 23);
-            this.numPlayerSkillMPMin.TabIndex = 23;
-            this.numPlayerSkillMPMin.Value = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.numPlayerSkillMPMin.ValueChanged += new System.EventHandler(this.numSettings_ValueChanged);
+            numPlayerSkillMPMin.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numPlayerSkillMPMin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numPlayerSkillMPMin.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            numPlayerSkillMPMin.InterceptArrowKeys = false;
+            numPlayerSkillMPMin.Location = new System.Drawing.Point(220, 171);
+            numPlayerSkillMPMin.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numPlayerSkillMPMin.Name = "numPlayerSkillMPMin";
+            numPlayerSkillMPMin.Size = new System.Drawing.Size(47, 23);
+            numPlayerSkillMPMin.TabIndex = 23;
+            numPlayerSkillMPMin.Value = new decimal(new int[] { 50, 0, 0, 0 });
+            numPlayerSkillMPMin.ValueChanged += numSettings_ValueChanged;
             // 
             // label12
             // 
-            this.label12.AutoSize = true;
-            this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label12.Location = new System.Drawing.Point(201, 170);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(15, 15);
-            this.label12.TabIndex = 22;
-            this.label12.Text = "<";
+            label12.AutoSize = true;
+            label12.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label12.Location = new System.Drawing.Point(201, 173);
+            label12.Name = "label12";
+            label12.Size = new System.Drawing.Size(15, 15);
+            label12.TabIndex = 22;
+            label12.Text = "<";
             // 
             // label9
             // 
-            this.label9.AutoSize = true;
-            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label9.Location = new System.Drawing.Point(273, 150);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(17, 15);
-            this.label9.TabIndex = 21;
-            this.label9.Text = "%";
+            label9.AutoSize = true;
+            label9.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label9.Location = new System.Drawing.Point(273, 150);
+            label9.Name = "label9";
+            label9.Size = new System.Drawing.Size(17, 15);
+            label9.TabIndex = 21;
+            label9.Text = "%";
             // 
             // numPlayerSkillHPMin
             // 
-            this.numPlayerSkillHPMin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
-            this.numPlayerSkillHPMin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numPlayerSkillHPMin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.numPlayerSkillHPMin.InterceptArrowKeys = false;
-            this.numPlayerSkillHPMin.Location = new System.Drawing.Point(220, 145);
-            this.numPlayerSkillHPMin.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numPlayerSkillHPMin.Name = "numPlayerSkillHPMin";
-            this.numPlayerSkillHPMin.Size = new System.Drawing.Size(47, 23);
-            this.numPlayerSkillHPMin.TabIndex = 20;
-            this.numPlayerSkillHPMin.Value = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.numPlayerSkillHPMin.ValueChanged += new System.EventHandler(this.numSettings_ValueChanged);
+            numPlayerSkillHPMin.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numPlayerSkillHPMin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numPlayerSkillHPMin.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            numPlayerSkillHPMin.InterceptArrowKeys = false;
+            numPlayerSkillHPMin.Location = new System.Drawing.Point(220, 145);
+            numPlayerSkillHPMin.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numPlayerSkillHPMin.Name = "numPlayerSkillHPMin";
+            numPlayerSkillHPMin.Size = new System.Drawing.Size(47, 23);
+            numPlayerSkillHPMin.TabIndex = 20;
+            numPlayerSkillHPMin.Value = new decimal(new int[] { 50, 0, 0, 0 });
+            numPlayerSkillHPMin.ValueChanged += numSettings_ValueChanged;
             // 
             // label10
             // 
-            this.label10.AutoSize = true;
-            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label10.Location = new System.Drawing.Point(201, 147);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(15, 15);
-            this.label10.TabIndex = 19;
-            this.label10.Text = "<";
+            label10.AutoSize = true;
+            label10.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label10.Location = new System.Drawing.Point(201, 147);
+            label10.Name = "label10";
+            label10.Size = new System.Drawing.Size(15, 15);
+            label10.TabIndex = 19;
+            label10.Text = "<";
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label7.Location = new System.Drawing.Point(273, 122);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(17, 15);
-            this.label7.TabIndex = 18;
-            this.label7.Text = "%";
+            label7.AutoSize = true;
+            label7.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label7.Location = new System.Drawing.Point(273, 122);
+            label7.Name = "label7";
+            label7.Size = new System.Drawing.Size(17, 15);
+            label7.TabIndex = 18;
+            label7.Text = "%";
             // 
             // numPlayerMPVigorPotionMin
             // 
-            this.numPlayerMPVigorPotionMin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
-            this.numPlayerMPVigorPotionMin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numPlayerMPVigorPotionMin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.numPlayerMPVigorPotionMin.InterceptArrowKeys = false;
-            this.numPlayerMPVigorPotionMin.Location = new System.Drawing.Point(220, 117);
-            this.numPlayerMPVigorPotionMin.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numPlayerMPVigorPotionMin.Name = "numPlayerMPVigorPotionMin";
-            this.numPlayerMPVigorPotionMin.Size = new System.Drawing.Size(47, 23);
-            this.numPlayerMPVigorPotionMin.TabIndex = 17;
-            this.numPlayerMPVigorPotionMin.Value = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.numPlayerMPVigorPotionMin.ValueChanged += new System.EventHandler(this.numSettings_ValueChanged);
+            numPlayerMPVigorPotionMin.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numPlayerMPVigorPotionMin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numPlayerMPVigorPotionMin.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            numPlayerMPVigorPotionMin.InterceptArrowKeys = false;
+            numPlayerMPVigorPotionMin.Location = new System.Drawing.Point(220, 117);
+            numPlayerMPVigorPotionMin.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numPlayerMPVigorPotionMin.Name = "numPlayerMPVigorPotionMin";
+            numPlayerMPVigorPotionMin.Size = new System.Drawing.Size(47, 23);
+            numPlayerMPVigorPotionMin.TabIndex = 17;
+            numPlayerMPVigorPotionMin.Value = new decimal(new int[] { 50, 0, 0, 0 });
+            numPlayerMPVigorPotionMin.ValueChanged += numSettings_ValueChanged;
             // 
             // label8
             // 
-            this.label8.AutoSize = true;
-            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label8.Location = new System.Drawing.Point(199, 121);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(15, 15);
-            this.label8.TabIndex = 16;
-            this.label8.Text = "<";
+            label8.AutoSize = true;
+            label8.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label8.Location = new System.Drawing.Point(199, 121);
+            label8.Name = "label8";
+            label8.Size = new System.Drawing.Size(15, 15);
+            label8.TabIndex = 16;
+            label8.Text = "<";
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label5.Location = new System.Drawing.Point(273, 96);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(17, 15);
-            this.label5.TabIndex = 15;
-            this.label5.Text = "%";
+            label5.AutoSize = true;
+            label5.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label5.Location = new System.Drawing.Point(273, 96);
+            label5.Name = "label5";
+            label5.Size = new System.Drawing.Size(17, 15);
+            label5.TabIndex = 15;
+            label5.Text = "%";
             // 
             // numPlayerHPVigorPotionMin
             // 
-            this.numPlayerHPVigorPotionMin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
-            this.numPlayerHPVigorPotionMin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numPlayerHPVigorPotionMin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.numPlayerHPVigorPotionMin.InterceptArrowKeys = false;
-            this.numPlayerHPVigorPotionMin.Location = new System.Drawing.Point(220, 91);
-            this.numPlayerHPVigorPotionMin.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numPlayerHPVigorPotionMin.Name = "numPlayerHPVigorPotionMin";
-            this.numPlayerHPVigorPotionMin.Size = new System.Drawing.Size(47, 23);
-            this.numPlayerHPVigorPotionMin.TabIndex = 14;
-            this.numPlayerHPVigorPotionMin.Value = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.numPlayerHPVigorPotionMin.ValueChanged += new System.EventHandler(this.numSettings_ValueChanged);
+            numPlayerHPVigorPotionMin.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numPlayerHPVigorPotionMin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numPlayerHPVigorPotionMin.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            numPlayerHPVigorPotionMin.InterceptArrowKeys = false;
+            numPlayerHPVigorPotionMin.Location = new System.Drawing.Point(220, 91);
+            numPlayerHPVigorPotionMin.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numPlayerHPVigorPotionMin.Name = "numPlayerHPVigorPotionMin";
+            numPlayerHPVigorPotionMin.Size = new System.Drawing.Size(47, 23);
+            numPlayerHPVigorPotionMin.TabIndex = 14;
+            numPlayerHPVigorPotionMin.Value = new decimal(new int[] { 50, 0, 0, 0 });
+            numPlayerHPVigorPotionMin.ValueChanged += numSettings_ValueChanged;
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label6.Location = new System.Drawing.Point(201, 93);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(15, 15);
-            this.label6.TabIndex = 13;
-            this.label6.Text = "<";
+            label6.AutoSize = true;
+            label6.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label6.Location = new System.Drawing.Point(201, 93);
+            label6.Name = "label6";
+            label6.Size = new System.Drawing.Size(15, 15);
+            label6.TabIndex = 13;
+            label6.Text = "<";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label3.Location = new System.Drawing.Point(273, 62);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(17, 15);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "%";
+            label3.AutoSize = true;
+            label3.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label3.Location = new System.Drawing.Point(273, 65);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(17, 15);
+            label3.TabIndex = 12;
+            label3.Text = "%";
             // 
             // numPlayerMPPotionMin
             // 
-            this.numPlayerMPPotionMin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
-            this.numPlayerMPPotionMin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numPlayerMPPotionMin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.numPlayerMPPotionMin.InterceptArrowKeys = false;
-            this.numPlayerMPPotionMin.Location = new System.Drawing.Point(220, 58);
-            this.numPlayerMPPotionMin.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numPlayerMPPotionMin.Name = "numPlayerMPPotionMin";
-            this.numPlayerMPPotionMin.Size = new System.Drawing.Size(47, 23);
-            this.numPlayerMPPotionMin.TabIndex = 11;
-            this.numPlayerMPPotionMin.Value = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.numPlayerMPPotionMin.ValueChanged += new System.EventHandler(this.numSettings_ValueChanged);
+            numPlayerMPPotionMin.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numPlayerMPPotionMin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numPlayerMPPotionMin.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            numPlayerMPPotionMin.InterceptArrowKeys = false;
+            numPlayerMPPotionMin.Location = new System.Drawing.Point(220, 61);
+            numPlayerMPPotionMin.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numPlayerMPPotionMin.Name = "numPlayerMPPotionMin";
+            numPlayerMPPotionMin.Size = new System.Drawing.Size(47, 23);
+            numPlayerMPPotionMin.TabIndex = 11;
+            numPlayerMPPotionMin.Value = new decimal(new int[] { 50, 0, 0, 0 });
+            numPlayerMPPotionMin.ValueChanged += numSettings_ValueChanged;
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label4.Location = new System.Drawing.Point(201, 60);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(15, 15);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "<";
+            label4.AutoSize = true;
+            label4.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label4.Location = new System.Drawing.Point(201, 63);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(15, 15);
+            label4.TabIndex = 10;
+            label4.Text = "<";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label2.Location = new System.Drawing.Point(273, 39);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(17, 15);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "%";
+            label2.AutoSize = true;
+            label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label2.Location = new System.Drawing.Point(273, 39);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(17, 15);
+            label2.TabIndex = 9;
+            label2.Text = "%";
             // 
             // numPlayerHPPotionMin
             // 
-            this.numPlayerHPPotionMin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
-            this.numPlayerHPPotionMin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numPlayerHPPotionMin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.numPlayerHPPotionMin.InterceptArrowKeys = false;
-            this.numPlayerHPPotionMin.Location = new System.Drawing.Point(220, 34);
-            this.numPlayerHPPotionMin.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numPlayerHPPotionMin.Name = "numPlayerHPPotionMin";
-            this.numPlayerHPPotionMin.Size = new System.Drawing.Size(47, 23);
-            this.numPlayerHPPotionMin.TabIndex = 8;
-            this.numPlayerHPPotionMin.Value = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.numPlayerHPPotionMin.ValueChanged += new System.EventHandler(this.numSettings_ValueChanged);
+            numPlayerHPPotionMin.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numPlayerHPPotionMin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numPlayerHPPotionMin.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            numPlayerHPPotionMin.InterceptArrowKeys = false;
+            numPlayerHPPotionMin.Location = new System.Drawing.Point(220, 34);
+            numPlayerHPPotionMin.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numPlayerHPPotionMin.Name = "numPlayerHPPotionMin";
+            numPlayerHPPotionMin.Size = new System.Drawing.Size(47, 23);
+            numPlayerHPPotionMin.TabIndex = 8;
+            numPlayerHPPotionMin.Value = new decimal(new int[] { 50, 0, 0, 0 });
+            numPlayerHPPotionMin.ValueChanged += numSettings_ValueChanged;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label1.Location = new System.Drawing.Point(201, 36);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(15, 15);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "<";
+            label1.AutoSize = true;
+            label1.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label1.Location = new System.Drawing.Point(201, 36);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(15, 15);
+            label1.TabIndex = 7;
+            label1.Text = "<";
             // 
             // checkUseSkillHP
             // 
-            this.checkUseSkillHP.AutoSize = true;
-            this.checkUseSkillHP.BackColor = System.Drawing.Color.Transparent;
-            this.checkUseSkillHP.Location = new System.Drawing.Point(11, 146);
-            this.checkUseSkillHP.Name = "checkUseSkillHP";
-            this.checkUseSkillHP.ShadowDepth = 1;
-            this.checkUseSkillHP.Size = new System.Drawing.Size(94, 15);
-            this.checkUseSkillHP.TabIndex = 4;
-            this.checkUseSkillHP.Text = "Use skill if HP";
-            this.checkUseSkillHP.UseVisualStyleBackColor = false;
-            this.checkUseSkillHP.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            checkUseSkillHP.AutoSize = true;
+            checkUseSkillHP.BackColor = System.Drawing.Color.Transparent;
+            checkUseSkillHP.Location = new System.Drawing.Point(11, 146);
+            checkUseSkillHP.Name = "checkUseSkillHP";
+            checkUseSkillHP.ShadowDepth = 1;
+            checkUseSkillHP.Size = new System.Drawing.Size(94, 15);
+            checkUseSkillHP.TabIndex = 4;
+            checkUseSkillHP.Text = "Use skill if HP";
+            checkUseSkillHP.UseVisualStyleBackColor = false;
+            checkUseSkillHP.CheckedChanged += settings_CheckedChanged;
             // 
             // checkUseSkillMP
             // 
-            this.checkUseSkillMP.AutoSize = true;
-            this.checkUseSkillMP.BackColor = System.Drawing.Color.Transparent;
-            this.checkUseSkillMP.Location = new System.Drawing.Point(11, 169);
-            this.checkUseSkillMP.Name = "checkUseSkillMP";
-            this.checkUseSkillMP.ShadowDepth = 1;
-            this.checkUseSkillMP.Size = new System.Drawing.Size(96, 15);
-            this.checkUseSkillMP.TabIndex = 5;
-            this.checkUseSkillMP.Text = "Use skill if MP";
-            this.checkUseSkillMP.UseVisualStyleBackColor = false;
-            this.checkUseSkillMP.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            checkUseSkillMP.AutoSize = true;
+            checkUseSkillMP.BackColor = System.Drawing.Color.Transparent;
+            checkUseSkillMP.Location = new System.Drawing.Point(11, 172);
+            checkUseSkillMP.Name = "checkUseSkillMP";
+            checkUseSkillMP.ShadowDepth = 1;
+            checkUseSkillMP.Size = new System.Drawing.Size(96, 15);
+            checkUseSkillMP.TabIndex = 5;
+            checkUseSkillMP.Text = "Use skill if MP";
+            checkUseSkillMP.UseVisualStyleBackColor = false;
+            checkUseSkillMP.CheckedChanged += settings_CheckedChanged;
             // 
             // checkUseHPPotionsPlayer
             // 
-            this.checkUseHPPotionsPlayer.AutoSize = true;
-            this.checkUseHPPotionsPlayer.BackColor = System.Drawing.Color.Transparent;
-            this.checkUseHPPotionsPlayer.Location = new System.Drawing.Point(11, 36);
-            this.checkUseHPPotionsPlayer.Name = "checkUseHPPotionsPlayer";
-            this.checkUseHPPotionsPlayer.ShadowDepth = 1;
-            this.checkUseHPPotionsPlayer.Size = new System.Drawing.Size(141, 15);
-            this.checkUseHPPotionsPlayer.TabIndex = 0;
-            this.checkUseHPPotionsPlayer.Text = "Use HP potions if HP *";
-            this.checkUseHPPotionsPlayer.UseVisualStyleBackColor = false;
-            this.checkUseHPPotionsPlayer.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            checkUseHPPotionsPlayer.AutoSize = true;
+            checkUseHPPotionsPlayer.BackColor = System.Drawing.Color.Transparent;
+            checkUseHPPotionsPlayer.Location = new System.Drawing.Point(11, 36);
+            checkUseHPPotionsPlayer.Name = "checkUseHPPotionsPlayer";
+            checkUseHPPotionsPlayer.ShadowDepth = 1;
+            checkUseHPPotionsPlayer.Size = new System.Drawing.Size(141, 15);
+            checkUseHPPotionsPlayer.TabIndex = 0;
+            checkUseHPPotionsPlayer.Text = "Use HP potions if HP *";
+            checkUseHPPotionsPlayer.UseVisualStyleBackColor = false;
+            checkUseHPPotionsPlayer.CheckedChanged += settings_CheckedChanged;
             // 
             // checkUseVigorMP
             // 
-            this.checkUseVigorMP.AutoSize = true;
-            this.checkUseVigorMP.BackColor = System.Drawing.Color.Transparent;
-            this.checkUseVigorMP.Location = new System.Drawing.Point(11, 118);
-            this.checkUseVigorMP.Name = "checkUseVigorMP";
-            this.checkUseVigorMP.ShadowDepth = 1;
-            this.checkUseVigorMP.Size = new System.Drawing.Size(147, 15);
-            this.checkUseVigorMP.TabIndex = 3;
-            this.checkUseVigorMP.Text = "Use Vigor Potions if MP";
-            this.checkUseVigorMP.UseVisualStyleBackColor = false;
-            this.checkUseVigorMP.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            checkUseVigorMP.AutoSize = true;
+            checkUseVigorMP.BackColor = System.Drawing.Color.Transparent;
+            checkUseVigorMP.Location = new System.Drawing.Point(11, 118);
+            checkUseVigorMP.Name = "checkUseVigorMP";
+            checkUseVigorMP.ShadowDepth = 1;
+            checkUseVigorMP.Size = new System.Drawing.Size(147, 15);
+            checkUseVigorMP.TabIndex = 3;
+            checkUseVigorMP.Text = "Use Vigor Potions if MP";
+            checkUseVigorMP.UseVisualStyleBackColor = false;
+            checkUseVigorMP.CheckedChanged += settings_CheckedChanged;
             // 
             // checkUseMPPotionsPlayer
             // 
-            this.checkUseMPPotionsPlayer.AutoSize = true;
-            this.checkUseMPPotionsPlayer.BackColor = System.Drawing.Color.Transparent;
-            this.checkUseMPPotionsPlayer.Location = new System.Drawing.Point(11, 59);
-            this.checkUseMPPotionsPlayer.Name = "checkUseMPPotionsPlayer";
-            this.checkUseMPPotionsPlayer.ShadowDepth = 1;
-            this.checkUseMPPotionsPlayer.Size = new System.Drawing.Size(145, 15);
-            this.checkUseMPPotionsPlayer.TabIndex = 1;
-            this.checkUseMPPotionsPlayer.Text = "Use MP potions if MP *";
-            this.checkUseMPPotionsPlayer.UseVisualStyleBackColor = false;
-            this.checkUseMPPotionsPlayer.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            checkUseMPPotionsPlayer.AutoSize = true;
+            checkUseMPPotionsPlayer.BackColor = System.Drawing.Color.Transparent;
+            checkUseMPPotionsPlayer.Location = new System.Drawing.Point(11, 62);
+            checkUseMPPotionsPlayer.Name = "checkUseMPPotionsPlayer";
+            checkUseMPPotionsPlayer.ShadowDepth = 1;
+            checkUseMPPotionsPlayer.Size = new System.Drawing.Size(145, 15);
+            checkUseMPPotionsPlayer.TabIndex = 1;
+            checkUseMPPotionsPlayer.Text = "Use MP potions if MP *";
+            checkUseMPPotionsPlayer.UseVisualStyleBackColor = false;
+            checkUseMPPotionsPlayer.CheckedChanged += settings_CheckedChanged;
             // 
             // checkUseVigorHP
             // 
-            this.checkUseVigorHP.AutoSize = true;
-            this.checkUseVigorHP.BackColor = System.Drawing.Color.Transparent;
-            this.checkUseVigorHP.Location = new System.Drawing.Point(11, 92);
-            this.checkUseVigorHP.Name = "checkUseVigorHP";
-            this.checkUseVigorHP.ShadowDepth = 1;
-            this.checkUseVigorHP.Size = new System.Drawing.Size(145, 15);
-            this.checkUseVigorHP.TabIndex = 2;
-            this.checkUseVigorHP.Text = "Use Vigor Potions if HP";
-            this.checkUseVigorHP.UseVisualStyleBackColor = false;
-            this.checkUseVigorHP.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            checkUseVigorHP.AutoSize = true;
+            checkUseVigorHP.BackColor = System.Drawing.Color.Transparent;
+            checkUseVigorHP.Location = new System.Drawing.Point(11, 92);
+            checkUseVigorHP.Name = "checkUseVigorHP";
+            checkUseVigorHP.ShadowDepth = 1;
+            checkUseVigorHP.Size = new System.Drawing.Size(145, 15);
+            checkUseVigorHP.TabIndex = 2;
+            checkUseVigorHP.Text = "Use Vigor Potions if HP";
+            checkUseVigorHP.UseVisualStyleBackColor = false;
+            checkUseVigorHP.CheckedChanged += settings_CheckedChanged;
             // 
             // groupPet
             // 
-            this.groupPet.BackColor = System.Drawing.Color.Transparent;
-            this.groupPet.Controls.Add(this.checkAutoSummonAttackPet);
-            this.groupPet.Controls.Add(this.checkUseAbnormalStatePotion);
-            this.groupPet.Controls.Add(this.checkReviveAttackPet);
-            this.groupPet.Controls.Add(this.label13);
-            this.groupPet.Controls.Add(this.numPetMinHGP);
-            this.groupPet.Controls.Add(this.label14);
-            this.groupPet.Controls.Add(this.label15);
-            this.groupPet.Controls.Add(this.numPetMinHP);
-            this.groupPet.Controls.Add(this.label16);
-            this.groupPet.Controls.Add(this.checkUsePetHP);
-            this.groupPet.Controls.Add(this.checkUseHGP);
-            this.groupPet.Location = new System.Drawing.Point(15, 300);
-            this.groupPet.Name = "groupPet";
-            this.groupPet.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupPet.Radius = 10;
-            this.groupPet.ShadowDepth = 4;
-            this.groupPet.Size = new System.Drawing.Size(456, 164);
-            this.groupPet.TabIndex = 1;
-            this.groupPet.TabStop = false;
-            this.groupPet.Text = "Recovery - Pet";
+            groupPet.BackColor = System.Drawing.Color.Transparent;
+            groupPet.Controls.Add(checkAutoSummonAttackPet);
+            groupPet.Controls.Add(checkUseAbnormalStatePotion);
+            groupPet.Controls.Add(checkReviveAttackPet);
+            groupPet.Controls.Add(label13);
+            groupPet.Controls.Add(numPetMinHGP);
+            groupPet.Controls.Add(label14);
+            groupPet.Controls.Add(label15);
+            groupPet.Controls.Add(numPetMinHP);
+            groupPet.Controls.Add(label16);
+            groupPet.Controls.Add(checkUsePetHP);
+            groupPet.Controls.Add(checkUseHGP);
+            groupPet.Location = new System.Drawing.Point(15, 300);
+            groupPet.Name = "groupPet";
+            groupPet.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            groupPet.Radius = 10;
+            groupPet.ShadowDepth = 4;
+            groupPet.Size = new System.Drawing.Size(456, 164);
+            groupPet.TabIndex = 1;
+            groupPet.TabStop = false;
+            groupPet.Text = "Recovery - Pet";
             // 
             // checkAutoSummonAttackPet
             // 
-            this.checkAutoSummonAttackPet.AutoSize = true;
-            this.checkAutoSummonAttackPet.BackColor = System.Drawing.Color.Transparent;
-            this.checkAutoSummonAttackPet.Location = new System.Drawing.Point(11, 137);
-            this.checkAutoSummonAttackPet.Name = "checkAutoSummonAttackPet";
-            this.checkAutoSummonAttackPet.ShadowDepth = 1;
-            this.checkAutoSummonAttackPet.Size = new System.Drawing.Size(209, 15);
-            this.checkAutoSummonAttackPet.TabIndex = 27;
-            this.checkAutoSummonAttackPet.Text = "Auto summon growth && fellow pet";
-            this.checkAutoSummonAttackPet.UseVisualStyleBackColor = false;
-            this.checkAutoSummonAttackPet.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            checkAutoSummonAttackPet.AutoSize = true;
+            checkAutoSummonAttackPet.BackColor = System.Drawing.Color.Transparent;
+            checkAutoSummonAttackPet.Location = new System.Drawing.Point(11, 137);
+            checkAutoSummonAttackPet.Name = "checkAutoSummonAttackPet";
+            checkAutoSummonAttackPet.ShadowDepth = 1;
+            checkAutoSummonAttackPet.Size = new System.Drawing.Size(209, 15);
+            checkAutoSummonAttackPet.TabIndex = 27;
+            checkAutoSummonAttackPet.Text = "Auto summon growth && fellow pet";
+            checkAutoSummonAttackPet.UseVisualStyleBackColor = false;
+            checkAutoSummonAttackPet.CheckedChanged += settings_CheckedChanged;
             // 
             // checkUseAbnormalStatePotion
             // 
-            this.checkUseAbnormalStatePotion.AutoSize = true;
-            this.checkUseAbnormalStatePotion.BackColor = System.Drawing.Color.Transparent;
-            this.checkUseAbnormalStatePotion.Location = new System.Drawing.Point(11, 88);
-            this.checkUseAbnormalStatePotion.Name = "checkUseAbnormalStatePotion";
-            this.checkUseAbnormalStatePotion.ShadowDepth = 1;
-            this.checkUseAbnormalStatePotion.Size = new System.Drawing.Size(223, 15);
-            this.checkUseAbnormalStatePotion.TabIndex = 26;
-            this.checkUseAbnormalStatePotion.Text = "Use abnormal state recovery potions *";
-            this.checkUseAbnormalStatePotion.UseVisualStyleBackColor = false;
-            this.checkUseAbnormalStatePotion.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            checkUseAbnormalStatePotion.AutoSize = true;
+            checkUseAbnormalStatePotion.BackColor = System.Drawing.Color.Transparent;
+            checkUseAbnormalStatePotion.Location = new System.Drawing.Point(11, 88);
+            checkUseAbnormalStatePotion.Name = "checkUseAbnormalStatePotion";
+            checkUseAbnormalStatePotion.ShadowDepth = 1;
+            checkUseAbnormalStatePotion.Size = new System.Drawing.Size(223, 15);
+            checkUseAbnormalStatePotion.TabIndex = 26;
+            checkUseAbnormalStatePotion.Text = "Use abnormal state recovery potions *";
+            checkUseAbnormalStatePotion.UseVisualStyleBackColor = false;
+            checkUseAbnormalStatePotion.CheckedChanged += settings_CheckedChanged;
             // 
             // checkReviveAttackPet
             // 
-            this.checkReviveAttackPet.AutoSize = true;
-            this.checkReviveAttackPet.BackColor = System.Drawing.Color.Transparent;
-            this.checkReviveAttackPet.Location = new System.Drawing.Point(11, 113);
-            this.checkReviveAttackPet.Name = "checkReviveAttackPet";
-            this.checkReviveAttackPet.ShadowDepth = 1;
-            this.checkReviveAttackPet.Size = new System.Drawing.Size(166, 15);
-            this.checkReviveAttackPet.TabIndex = 25;
-            this.checkReviveAttackPet.Text = "Revive growth && fellow pet";
-            this.checkReviveAttackPet.UseVisualStyleBackColor = false;
-            this.checkReviveAttackPet.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            checkReviveAttackPet.AutoSize = true;
+            checkReviveAttackPet.BackColor = System.Drawing.Color.Transparent;
+            checkReviveAttackPet.Location = new System.Drawing.Point(11, 113);
+            checkReviveAttackPet.Name = "checkReviveAttackPet";
+            checkReviveAttackPet.ShadowDepth = 1;
+            checkReviveAttackPet.Size = new System.Drawing.Size(166, 15);
+            checkReviveAttackPet.TabIndex = 25;
+            checkReviveAttackPet.Text = "Revive growth && fellow pet";
+            checkReviveAttackPet.UseVisualStyleBackColor = false;
+            checkReviveAttackPet.CheckedChanged += settings_CheckedChanged;
             // 
             // label13
             // 
-            this.label13.AutoSize = true;
-            this.label13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label13.Location = new System.Drawing.Point(302, 65);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(17, 15);
-            this.label13.TabIndex = 20;
-            this.label13.Text = "%";
+            label13.AutoSize = true;
+            label13.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label13.Location = new System.Drawing.Point(302, 65);
+            label13.Name = "label13";
+            label13.Size = new System.Drawing.Size(17, 15);
+            label13.TabIndex = 20;
+            label13.Text = "%";
             // 
             // numPetMinHGP
             // 
-            this.numPetMinHGP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
-            this.numPetMinHGP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numPetMinHGP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.numPetMinHGP.InterceptArrowKeys = false;
-            this.numPetMinHGP.Location = new System.Drawing.Point(249, 62);
-            this.numPetMinHGP.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numPetMinHGP.Name = "numPetMinHGP";
-            this.numPetMinHGP.Size = new System.Drawing.Size(47, 23);
-            this.numPetMinHGP.TabIndex = 19;
-            this.numPetMinHGP.Value = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.numPetMinHGP.ValueChanged += new System.EventHandler(this.numSettings_ValueChanged);
+            numPetMinHGP.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numPetMinHGP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numPetMinHGP.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            numPetMinHGP.InterceptArrowKeys = false;
+            numPetMinHGP.Location = new System.Drawing.Point(249, 62);
+            numPetMinHGP.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numPetMinHGP.Name = "numPetMinHGP";
+            numPetMinHGP.Size = new System.Drawing.Size(47, 23);
+            numPetMinHGP.TabIndex = 19;
+            numPetMinHGP.Value = new decimal(new int[] { 50, 0, 0, 0 });
+            numPetMinHGP.ValueChanged += numSettings_ValueChanged;
             // 
             // label14
             // 
-            this.label14.AutoSize = true;
-            this.label14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label14.Location = new System.Drawing.Point(230, 64);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(15, 15);
-            this.label14.TabIndex = 18;
-            this.label14.Text = "<";
+            label14.AutoSize = true;
+            label14.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label14.Location = new System.Drawing.Point(230, 64);
+            label14.Name = "label14";
+            label14.Size = new System.Drawing.Size(15, 15);
+            label14.TabIndex = 18;
+            label14.Text = "<";
             // 
             // label15
             // 
-            this.label15.AutoSize = true;
-            this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label15.Location = new System.Drawing.Point(302, 38);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(17, 15);
-            this.label15.TabIndex = 17;
-            this.label15.Text = "%";
+            label15.AutoSize = true;
+            label15.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label15.Location = new System.Drawing.Point(302, 38);
+            label15.Name = "label15";
+            label15.Size = new System.Drawing.Size(17, 15);
+            label15.TabIndex = 17;
+            label15.Text = "%";
             // 
             // numPetMinHP
             // 
-            this.numPetMinHP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
-            this.numPetMinHP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numPetMinHP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.numPetMinHP.InterceptArrowKeys = false;
-            this.numPetMinHP.Location = new System.Drawing.Point(249, 35);
-            this.numPetMinHP.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numPetMinHP.Name = "numPetMinHP";
-            this.numPetMinHP.Size = new System.Drawing.Size(47, 23);
-            this.numPetMinHP.TabIndex = 16;
-            this.numPetMinHP.Value = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.numPetMinHP.ValueChanged += new System.EventHandler(this.numSettings_ValueChanged);
+            numPetMinHP.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numPetMinHP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numPetMinHP.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            numPetMinHP.InterceptArrowKeys = false;
+            numPetMinHP.Location = new System.Drawing.Point(249, 35);
+            numPetMinHP.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numPetMinHP.Name = "numPetMinHP";
+            numPetMinHP.Size = new System.Drawing.Size(47, 23);
+            numPetMinHP.TabIndex = 16;
+            numPetMinHP.Value = new decimal(new int[] { 50, 0, 0, 0 });
+            numPetMinHP.ValueChanged += numSettings_ValueChanged;
             // 
             // label16
             // 
-            this.label16.AutoSize = true;
-            this.label16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label16.Location = new System.Drawing.Point(230, 37);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(15, 15);
-            this.label16.TabIndex = 15;
-            this.label16.Text = "<";
+            label16.AutoSize = true;
+            label16.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label16.Location = new System.Drawing.Point(230, 37);
+            label16.Name = "label16";
+            label16.Size = new System.Drawing.Size(15, 15);
+            label16.TabIndex = 15;
+            label16.Text = "<";
             // 
             // checkUsePetHP
             // 
-            this.checkUsePetHP.AutoSize = true;
-            this.checkUsePetHP.BackColor = System.Drawing.Color.Transparent;
-            this.checkUsePetHP.Location = new System.Drawing.Point(11, 37);
-            this.checkUsePetHP.Name = "checkUsePetHP";
-            this.checkUsePetHP.ShadowDepth = 1;
-            this.checkUsePetHP.Size = new System.Drawing.Size(141, 15);
-            this.checkUsePetHP.TabIndex = 13;
-            this.checkUsePetHP.Text = "Use HP potions if HP *";
-            this.checkUsePetHP.UseVisualStyleBackColor = false;
-            this.checkUsePetHP.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            checkUsePetHP.AutoSize = true;
+            checkUsePetHP.BackColor = System.Drawing.Color.Transparent;
+            checkUsePetHP.Location = new System.Drawing.Point(11, 37);
+            checkUsePetHP.Name = "checkUsePetHP";
+            checkUsePetHP.ShadowDepth = 1;
+            checkUsePetHP.Size = new System.Drawing.Size(141, 15);
+            checkUsePetHP.TabIndex = 13;
+            checkUsePetHP.Text = "Use HP potions if HP *";
+            checkUsePetHP.UseVisualStyleBackColor = false;
+            checkUsePetHP.CheckedChanged += settings_CheckedChanged;
             // 
             // checkUseHGP
             // 
-            this.checkUseHGP.AutoSize = true;
-            this.checkUseHGP.BackColor = System.Drawing.Color.Transparent;
-            this.checkUseHGP.Location = new System.Drawing.Point(11, 63);
-            this.checkUseHGP.Name = "checkUseHGP";
-            this.checkUseHGP.ShadowDepth = 1;
-            this.checkUseHGP.Size = new System.Drawing.Size(218, 15);
-            this.checkUseHGP.TabIndex = 14;
-            this.checkUseHGP.Text = "Use HGP && Saiety potions if hunger *";
-            this.checkUseHGP.UseVisualStyleBackColor = false;
-            this.checkUseHGP.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            checkUseHGP.AutoSize = true;
+            checkUseHGP.BackColor = System.Drawing.Color.Transparent;
+            checkUseHGP.Location = new System.Drawing.Point(11, 63);
+            checkUseHGP.Name = "checkUseHGP";
+            checkUseHGP.ShadowDepth = 1;
+            checkUseHGP.Size = new System.Drawing.Size(218, 15);
+            checkUseHGP.TabIndex = 14;
+            checkUseHGP.Text = "Use HGP && Saiety potions if hunger *";
+            checkUseHGP.UseVisualStyleBackColor = false;
+            checkUseHGP.CheckedChanged += settings_CheckedChanged;
             // 
             // groupStatPoints
             // 
-            this.groupStatPoints.BackColor = System.Drawing.Color.Transparent;
-            this.groupStatPoints.Controls.Add(this.buttonRun);
-            this.groupStatPoints.Controls.Add(this.checkIncBotStopped);
-            this.groupStatPoints.Controls.Add(this.numIncStr);
-            this.groupStatPoints.Controls.Add(this.numIncInt);
-            this.groupStatPoints.Controls.Add(this.checkIncStr);
-            this.groupStatPoints.Controls.Add(this.checkIncInt);
-            this.groupStatPoints.Location = new System.Drawing.Point(500, 240);
-            this.groupStatPoints.Name = "groupStatPoints";
-            this.groupStatPoints.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupStatPoints.Radius = 10;
-            this.groupStatPoints.ShadowDepth = 4;
-            this.groupStatPoints.Size = new System.Drawing.Size(238, 162);
-            this.groupStatPoints.TabIndex = 18;
-            this.groupStatPoints.TabStop = false;
-            this.groupStatPoints.Text = "Stat points";
+            groupStatPoints.BackColor = System.Drawing.Color.Transparent;
+            groupStatPoints.Controls.Add(buttonRun);
+            groupStatPoints.Controls.Add(checkIncBotStopped);
+            groupStatPoints.Controls.Add(numIncStr);
+            groupStatPoints.Controls.Add(numIncInt);
+            groupStatPoints.Controls.Add(checkIncStr);
+            groupStatPoints.Controls.Add(checkIncInt);
+            groupStatPoints.Location = new System.Drawing.Point(500, 240);
+            groupStatPoints.Name = "groupStatPoints";
+            groupStatPoints.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            groupStatPoints.Radius = 10;
+            groupStatPoints.ShadowDepth = 4;
+            groupStatPoints.Size = new System.Drawing.Size(238, 162);
+            groupStatPoints.TabIndex = 18;
+            groupStatPoints.TabStop = false;
+            groupStatPoints.Text = "Stat points";
             // 
             // buttonRun
             // 
-            this.buttonRun.Color = System.Drawing.Color.Transparent;
-            this.buttonRun.Location = new System.Drawing.Point(62, 133);
-            this.buttonRun.Name = "buttonRun";
-            this.buttonRun.Radius = 6;
-            this.buttonRun.ShadowDepth = 4F;
-            this.buttonRun.Size = new System.Drawing.Size(97, 23);
-            this.buttonRun.TabIndex = 27;
-            this.buttonRun.Text = "Run";
-            this.buttonRun.UseVisualStyleBackColor = true;
-            this.buttonRun.Click += new System.EventHandler(this.buttonRun_Click);
+            buttonRun.Color = System.Drawing.Color.Transparent;
+            buttonRun.Location = new System.Drawing.Point(62, 133);
+            buttonRun.Name = "buttonRun";
+            buttonRun.Radius = 6;
+            buttonRun.ShadowDepth = 4F;
+            buttonRun.Size = new System.Drawing.Size(97, 23);
+            buttonRun.TabIndex = 27;
+            buttonRun.Text = "Run";
+            buttonRun.UseVisualStyleBackColor = true;
+            buttonRun.Click += buttonRun_Click;
             // 
             // checkIncBotStopped
             // 
-            this.checkIncBotStopped.AutoSize = true;
-            this.checkIncBotStopped.BackColor = System.Drawing.Color.Transparent;
-            this.checkIncBotStopped.Location = new System.Drawing.Point(18, 106);
-            this.checkIncBotStopped.Name = "checkIncBotStopped";
-            this.checkIncBotStopped.ShadowDepth = 1;
-            this.checkIncBotStopped.Size = new System.Drawing.Size(153, 15);
-            this.checkIncBotStopped.TabIndex = 24;
-            this.checkIncBotStopped.Text = "Enabled if bot is stopped";
-            this.checkIncBotStopped.UseVisualStyleBackColor = false;
-            this.checkIncBotStopped.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            checkIncBotStopped.AutoSize = true;
+            checkIncBotStopped.BackColor = System.Drawing.Color.Transparent;
+            checkIncBotStopped.Location = new System.Drawing.Point(18, 106);
+            checkIncBotStopped.Name = "checkIncBotStopped";
+            checkIncBotStopped.ShadowDepth = 1;
+            checkIncBotStopped.Size = new System.Drawing.Size(153, 15);
+            checkIncBotStopped.TabIndex = 24;
+            checkIncBotStopped.Text = "Enabled if bot is stopped";
+            checkIncBotStopped.UseVisualStyleBackColor = false;
+            checkIncBotStopped.CheckedChanged += settings_CheckedChanged;
             // 
             // numIncStr
             // 
-            this.numIncStr.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
-            this.numIncStr.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numIncStr.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.numIncStr.InterceptArrowKeys = false;
-            this.numIncStr.Location = new System.Drawing.Point(121, 71);
-            this.numIncStr.Maximum = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-            this.numIncStr.Name = "numIncStr";
-            this.numIncStr.Size = new System.Drawing.Size(47, 23);
-            this.numIncStr.TabIndex = 22;
-            this.numIncStr.ValueChanged += new System.EventHandler(this.numIncStr_ValueChanged);
+            numIncStr.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numIncStr.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numIncStr.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            numIncStr.InterceptArrowKeys = false;
+            numIncStr.Location = new System.Drawing.Point(121, 71);
+            numIncStr.Maximum = new decimal(new int[] { 3, 0, 0, 0 });
+            numIncStr.Name = "numIncStr";
+            numIncStr.Size = new System.Drawing.Size(47, 23);
+            numIncStr.TabIndex = 22;
+            numIncStr.ValueChanged += numIncStr_ValueChanged;
             // 
             // numIncInt
             // 
-            this.numIncInt.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
-            this.numIncInt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numIncInt.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.numIncInt.InterceptArrowKeys = false;
-            this.numIncInt.Location = new System.Drawing.Point(121, 44);
-            this.numIncInt.Maximum = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-            this.numIncInt.Name = "numIncInt";
-            this.numIncInt.Size = new System.Drawing.Size(47, 23);
-            this.numIncInt.TabIndex = 21;
-            this.numIncInt.ValueChanged += new System.EventHandler(this.numIncInt_ValueChanged);
+            numIncInt.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numIncInt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            numIncInt.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            numIncInt.InterceptArrowKeys = false;
+            numIncInt.Location = new System.Drawing.Point(121, 44);
+            numIncInt.Maximum = new decimal(new int[] { 3, 0, 0, 0 });
+            numIncInt.Name = "numIncInt";
+            numIncInt.Size = new System.Drawing.Size(47, 23);
+            numIncInt.TabIndex = 21;
+            numIncInt.ValueChanged += numIncInt_ValueChanged;
             // 
             // checkIncStr
             // 
-            this.checkIncStr.AutoSize = true;
-            this.checkIncStr.BackColor = System.Drawing.Color.Transparent;
-            this.checkIncStr.Location = new System.Drawing.Point(18, 75);
-            this.checkIncStr.Name = "checkIncStr";
-            this.checkIncStr.ShadowDepth = 1;
-            this.checkIncStr.Size = new System.Drawing.Size(88, 15);
-            this.checkIncStr.TabIndex = 20;
-            this.checkIncStr.Text = "Increase STR";
-            this.checkIncStr.UseVisualStyleBackColor = false;
-            this.checkIncStr.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            checkIncStr.AutoSize = true;
+            checkIncStr.BackColor = System.Drawing.Color.Transparent;
+            checkIncStr.Location = new System.Drawing.Point(18, 75);
+            checkIncStr.Name = "checkIncStr";
+            checkIncStr.ShadowDepth = 1;
+            checkIncStr.Size = new System.Drawing.Size(88, 15);
+            checkIncStr.TabIndex = 20;
+            checkIncStr.Text = "Increase STR";
+            checkIncStr.UseVisualStyleBackColor = false;
+            checkIncStr.CheckedChanged += settings_CheckedChanged;
             // 
             // checkIncInt
             // 
-            this.checkIncInt.AutoSize = true;
-            this.checkIncInt.BackColor = System.Drawing.Color.Transparent;
-            this.checkIncInt.Location = new System.Drawing.Point(18, 46);
-            this.checkIncInt.Name = "checkIncInt";
-            this.checkIncInt.ShadowDepth = 1;
-            this.checkIncInt.Size = new System.Drawing.Size(87, 15);
-            this.checkIncInt.TabIndex = 19;
-            this.checkIncInt.Text = "Increase INT";
-            this.checkIncInt.UseVisualStyleBackColor = false;
-            this.checkIncInt.CheckedChanged += new System.EventHandler(this.settings_CheckedChanged);
+            checkIncInt.AutoSize = true;
+            checkIncInt.BackColor = System.Drawing.Color.Transparent;
+            checkIncInt.Location = new System.Drawing.Point(18, 46);
+            checkIncInt.Name = "checkIncInt";
+            checkIncInt.ShadowDepth = 1;
+            checkIncInt.Size = new System.Drawing.Size(87, 15);
+            checkIncInt.TabIndex = 19;
+            checkIncInt.Text = "Increase INT";
+            checkIncInt.UseVisualStyleBackColor = false;
+            checkIncInt.CheckedChanged += settings_CheckedChanged;
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.Controls.Add(this.groupStatPoints);
-            this.Controls.Add(this.groupBackTown);
-            this.Controls.Add(this.label22);
-            this.Controls.Add(this.groupBadStatus);
-            this.Controls.Add(this.groupHPMP);
-            this.Controls.Add(this.groupPet);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Name = "Main";
-            this.Size = new System.Drawing.Size(776, 479);
-            this.groupBackTown.ResumeLayout(false);
-            this.groupBackTown.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numDeadTimeout)).EndInit();
-            this.groupBadStatus.ResumeLayout(false);
-            this.groupBadStatus.PerformLayout();
-            this.groupHPMP.ResumeLayout(false);
-            this.groupHPMP.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numPlayerSkillMPMin)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numPlayerSkillHPMin)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numPlayerMPVigorPotionMin)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numPlayerHPVigorPotionMin)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numPlayerMPPotionMin)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numPlayerHPPotionMin)).EndInit();
-            this.groupPet.ResumeLayout(false);
-            this.groupPet.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numPetMinHGP)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numPetMinHP)).EndInit();
-            this.groupStatPoints.ResumeLayout(false);
-            this.groupStatPoints.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numIncStr)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numIncInt)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            Controls.Add(groupStatPoints);
+            Controls.Add(groupBackTown);
+            Controls.Add(label22);
+            Controls.Add(groupBadStatus);
+            Controls.Add(groupHPMP);
+            Controls.Add(groupPet);
+            Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            Name = "Main";
+            Size = new System.Drawing.Size(776, 479);
+            groupBackTown.ResumeLayout(false);
+            groupBackTown.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numDeadTimeout).EndInit();
+            groupBadStatus.ResumeLayout(false);
+            groupBadStatus.PerformLayout();
+            groupHPMP.ResumeLayout(false);
+            groupHPMP.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numPlayerSkillMPMin).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numPlayerSkillHPMin).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numPlayerMPVigorPotionMin).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numPlayerHPVigorPotionMin).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numPlayerMPPotionMin).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numPlayerHPPotionMin).EndInit();
+            groupPet.ResumeLayout(false);
+            groupPet.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numPetMinHGP).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numPetMinHP).EndInit();
+            groupStatPoints.ResumeLayout(false);
+            groupStatPoints.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numIncStr).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numIncInt).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
