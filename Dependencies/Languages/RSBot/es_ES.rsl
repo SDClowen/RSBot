@@ -48,6 +48,6 @@ OpenFileDialogTitle="Please select your silkroad executable in order to continue
 ClientTypeInputDialogTitle="¡Selecciona tu tipo de cliente!"
 ClientTypeInputDialogContent="¡Seleccione el tipo de juego para que RSBot funcione correctamente!"
 SelectSroDirWarn="Please select a proper Silkroad directory!"
-ClientTypeNotSelected="It's set to 'Vietname' for now because you haven't selected any game type."
+ClientTypeNotSelected="Está configurado en 'Vietnam' por ahora porque no ha seleccionado ningún tipo de juego."
 ConfigureTrainingAreaBeforeStartBot="Please configure the training area before start the bot!"
 PleaseEnterGame="¡Por favor ingrese al juego!"
