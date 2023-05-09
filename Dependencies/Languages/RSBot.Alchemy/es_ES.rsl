@@ -1,5 +1,5 @@
-DisplayName="Alchemy"
-TabText="Alchemy"
+DisplayName="Alquimia"
+TabText="Alquimia"
 RSBot.Alchemy.Main.Panel.Panel.EnhanceSettingsView.checkStopLuckyPowder="Stop if 0 lucky powder"
 RSBot.Alchemy.Main.Panel.Panel.EnhanceSettingsView.checkUseSteadyStones="Use steady stones"
 RSBot.Alchemy.Main.Panel.Panel.EnhanceSettingsView.checkUseAstralStones="Use astral stones"
