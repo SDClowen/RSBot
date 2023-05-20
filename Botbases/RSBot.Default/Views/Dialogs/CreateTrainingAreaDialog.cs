@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace RSBot.Default.Views.Dialogs
 {
-    public partial class CreateTrainingAreaDialog : CleanForm
+    public partial class CreateTrainingAreaDialog : UIWindowBase
     {
         public CreateTrainingAreaDialog()
         {

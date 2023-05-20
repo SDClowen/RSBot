@@ -7,7 +7,7 @@ using RSBot.Core.Components;
 
 namespace RSBot.Views
 {
-    public partial class ConfigDialog : SDUI.Controls.CleanForm
+    public partial class ConfigDialog : SDUI.Controls.UIWindowBase
     {
         public ConfigDialog()
         {
@@ -55,7 +55,7 @@ namespace RSBot.Views
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            if(string.IsNullOrWhiteSpace(textBoxProxyIp.Text))
+            if (string.IsNullOrWhiteSpace(textBoxProxyIp.Text))
             {
                 DialogResult = DialogResult.Retry;
                 return;

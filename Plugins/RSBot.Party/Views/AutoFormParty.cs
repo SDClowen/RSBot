@@ -4,11 +4,10 @@ using RSBot.Core.Objects.Party;
 using SDUI.Controls;
 using System;
 using System.Linq;
-using System.Windows.Forms;
 
 namespace RSBot.Party.Views
 {
-    public partial class AutoFormParty : CleanForm
+    public partial class AutoFormParty : UIWindowBase
     {
         public AutoFormParty()
         {

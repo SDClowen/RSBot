@@ -55,7 +55,6 @@ namespace RSBot.Alchemy.Views.Settings
             this.lblLuckyPowderCount = new SDUI.Controls.Label();
             this.checkStopLuckyPowder = new SDUI.Controls.CheckBox();
             this.lblCurrentOptLevel = new SDUI.Controls.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxEnhancement)).BeginInit();
             this.SuspendLayout();
             // 
             // lblMaxOptLevel
@@ -71,7 +70,6 @@ namespace RSBot.Alchemy.Views.Settings
             // numMaxEnhancement
             // 
             this.numMaxEnhancement.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
-            this.numMaxEnhancement.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numMaxEnhancement.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.numMaxEnhancement.Location = new System.Drawing.Point(140, 32);
             this.numMaxEnhancement.Maximum = new decimal(new int[] {
@@ -111,7 +109,6 @@ namespace RSBot.Alchemy.Views.Settings
             this.checkUseLuckyStones.BackColor = System.Drawing.Color.Transparent;
             this.checkUseLuckyStones.Location = new System.Drawing.Point(141, 130);
             this.checkUseLuckyStones.Name = "checkUseLuckyStones";
-            this.checkUseLuckyStones.ShadowDepth = 1;
             this.checkUseLuckyStones.Size = new System.Drawing.Size(110, 15);
             this.checkUseLuckyStones.TabIndex = 3;
             this.checkUseLuckyStones.Text = "Use lucky stones";
@@ -124,7 +121,6 @@ namespace RSBot.Alchemy.Views.Settings
             this.checkUseImmortalStones.BackColor = System.Drawing.Color.Transparent;
             this.checkUseImmortalStones.Location = new System.Drawing.Point(141, 153);
             this.checkUseImmortalStones.Name = "checkUseImmortalStones";
-            this.checkUseImmortalStones.ShadowDepth = 1;
             this.checkUseImmortalStones.Size = new System.Drawing.Size(131, 15);
             this.checkUseImmortalStones.TabIndex = 4;
             this.checkUseImmortalStones.Text = "Use immortal stones";
@@ -177,7 +173,6 @@ namespace RSBot.Alchemy.Views.Settings
             this.checkUseAstralStones.BackColor = System.Drawing.Color.Transparent;
             this.checkUseAstralStones.Location = new System.Drawing.Point(141, 176);
             this.checkUseAstralStones.Name = "checkUseAstralStones";
-            this.checkUseAstralStones.ShadowDepth = 1;
             this.checkUseAstralStones.Size = new System.Drawing.Size(110, 15);
             this.checkUseAstralStones.TabIndex = 8;
             this.checkUseAstralStones.Text = "Use astral stones";
@@ -220,7 +215,6 @@ namespace RSBot.Alchemy.Views.Settings
             this.checkUseSteadyStones.BackColor = System.Drawing.Color.Transparent;
             this.checkUseSteadyStones.Location = new System.Drawing.Point(141, 199);
             this.checkUseSteadyStones.Name = "checkUseSteadyStones";
-            this.checkUseSteadyStones.ShadowDepth = 1;
             this.checkUseSteadyStones.Size = new System.Drawing.Size(116, 15);
             this.checkUseSteadyStones.TabIndex = 8;
             this.checkUseSteadyStones.Text = "Use steady stones";
@@ -255,7 +249,6 @@ namespace RSBot.Alchemy.Views.Settings
             this.checkStopLuckyPowder.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkStopLuckyPowder.Location = new System.Drawing.Point(141, 107);
             this.checkStopLuckyPowder.Name = "checkStopLuckyPowder";
-            this.checkStopLuckyPowder.ShadowDepth = 1;
             this.checkStopLuckyPowder.Size = new System.Drawing.Size(140, 15);
             this.checkStopLuckyPowder.TabIndex = 10;
             this.checkStopLuckyPowder.Text = "Stop if 0 lucky powder";
@@ -299,7 +292,6 @@ namespace RSBot.Alchemy.Views.Settings
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "EnhanceSettingsView";
             this.Size = new System.Drawing.Size(438, 306);
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxEnhancement)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

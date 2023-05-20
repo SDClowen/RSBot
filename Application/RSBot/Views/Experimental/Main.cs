@@ -9,16 +9,15 @@ using SDUI;
 using SDUI.Controls;
 using SDUI.Helpers;
 using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Windows.Forms;
 using static SDUI.NativeMethods;
 
-namespace RSBot.Views
+namespace RSBot.Views.Experimental
 {
-    public partial class Main : UIWindowBase
+    public partial class Main : UIWindow
     {
         public static readonly Color LightThemeColor = Color.FromArgb(255, 255, 255);
         public static readonly Color DarkThemeColor = Color.FromArgb(16, 16, 16);
@@ -154,22 +153,14 @@ namespace RSBot.Views
                 return;
             }
 
-            _ = tabMain.Handle; //Generate the handle for the tab control
-
             newBotbase.Value.Translate();
 
-            //Add the tab to the tabcontrol
-            var tabPage = new TabPage(LanguageManager.GetLangBySpecificKey(newBotbase.Value.Name, "TabText", newBotbase.Value.TabText))
-            {
-                Name = newBotbase.Value.Name,
-                Enabled = Game.Ready,
-                BackColor = Color.FromArgb(200, BackColor),
-                ForeColor = ForeColor
-            };
-
-            tabPage.Controls.Add(newBotbase.Value.View);
-
-            tabMain.TabPages.Insert(1, tabPage);
+            var control = newBotbase.Value.View;
+            control.Name = newBotbase.Value.Name;
+            control.Text = LanguageManager.GetLangBySpecificKey(newBotbase.Value.Name, "TabText", newBotbase.Value.TabText);
+            control.Enabled = Game.Ready;
+            windowPageControl.Controls.Add(control);
+            windowPageControl.Controls.SetChildIndex(control, 1);
 
             Kernel.Bot?.SetBotbase(newBotbase.Value);
             GlobalConfig.Set("RSBot.BotName", newBotbase.Value.Name);
@@ -180,8 +171,8 @@ namespace RSBot.Views
             foreach (ToolStripMenuItem item in botsToolStripMenuItem.DropDown.Items)
                 item.Checked = newBotbase.Value.Name == item.Name;
 
-            if (oldBotbaseName != null && tabMain.TabPages.ContainsKey(oldBotbaseName))
-                tabMain.TabPages[oldBotbaseName].Dispose();
+            if (!string.IsNullOrWhiteSpace(oldBotbaseName) && windowPageControl.Controls.ContainsKey(oldBotbaseName))
+                windowPageControl.Controls.RemoveByKey(oldBotbaseName);
         }
 
         /// <summary>
@@ -200,25 +191,13 @@ namespace RSBot.Views
             {
                 extension.Value.Translate();
 
-                var tabPage = new TabPage
-                {
-                    Text = LanguageManager.GetLangBySpecificKey(extension.Value.InternalName, "DisplayName", extension.Value.DisplayName),
-                    Enabled = !extension.Value.RequireIngame,
-                    Name = extension.Value.InternalName
-                };
-
                 var control = extension.Value.View;
-
+                control.Name = extension.Value.InternalName;
+                control.Text = LanguageManager.GetLangBySpecificKey(extension.Value.InternalName, "DisplayName", extension.Value.DisplayName);
+                control.Enabled = !extension.Value.RequireIngame;
                 control.Dock = DockStyle.Fill;
 
-                tabPage.BackColor = Color.FromArgb(200, BackColor);
-                tabPage.ForeColor = ForeColor;
-
-                tabPage.Controls.Add(control);
-                tabMain.TabPages.Add(tabPage);
-
-                if (tabPage.Enabled)
-                    continue;
+                windowPageControl.Controls.Add(control);
             }
 
             foreach (var extension in extensions.Where(extension => !extension.Value.DisplayAsTab))
@@ -293,15 +272,14 @@ namespace RSBot.Views
             var menuItem = (ToolStripMenuItem)sender;
             var plugin = (IPlugin)menuItem.Tag;
 
-            var window = new UIWindow
+            var window = new UIWindowBase
             {
                 Text = plugin.DisplayName,
                 Name = plugin.InternalName,
                 MaximizeBox = false,
                 FormBorderStyle = FormBorderStyle.FixedDialog,
                 Icon = Icon,
-                StartPosition = FormStartPosition.CenterParent,
-                ShowTitle = true
+                StartPosition = FormStartPosition.CenterParent
             };
 
             var content = plugin.View;
@@ -389,7 +367,7 @@ namespace RSBot.Views
 
             ConfigureSidebar();
             BackColor = ColorScheme.BackColor;
-            menuCurrentProfile.Text = ProfileManager.SelectedProfile;
+            menuCurrentProfile.Text = "Profile: " + ProfileManager.SelectedProfile;
 
             EventManager.FireEvent("OnInitialized");
         }
@@ -415,7 +393,7 @@ namespace RSBot.Views
             {
                 plugin.Value.Translate();
 
-                var tabpage = tabMain.TabPages[plugin.Key];
+                var tabpage = windowPageControl.Controls[plugin.Key];
                 if (tabpage == null)
                     continue;
 
@@ -426,10 +404,10 @@ namespace RSBot.Views
             {
                 botbase.Value.Translate();
 
-                if (!tabMain.TabPages.ContainsKey(botbase.Key))
+                if (!windowPageControl.Controls.ContainsKey(botbase.Key))
                     continue;
 
-                var tabpage = tabMain.TabPages[botbase.Key];
+                var tabpage = windowPageControl.Controls[botbase.Key];
                 tabpage.Text = LanguageManager.GetLangBySpecificKey(botbase.Key, "DisplayName", tabpage.Text);
             }
 
@@ -565,16 +543,6 @@ namespace RSBot.Views
         }
 
         /// <summary>
-        /// Handles the Click event of the closeToolStripMenuItem control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        /// <summary>
         /// Handles the Click event of the networkConfigToolStripMenuItem control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -583,16 +551,6 @@ namespace RSBot.Views
         {
             using var configDialog = new ConfigDialog();
             configDialog.ShowDialog();
-        }
-
-        /// <summary>
-        /// Handles the Click event of the minimizeToolStripMenuItem control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void minimizeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            WindowState = FormWindowState.Minimized;
         }
 
         /// <summary>
@@ -705,7 +663,7 @@ namespace RSBot.Views
             GlobalConfig.Load();
 
             EventManager.FireEvent("OnProfileChanged");
-            menuCurrentProfile.Text = dialog.SelectedProfile;
+            menuCurrentProfile.Text = "Profile:" + dialog.SelectedProfile;
 
             if (Game.Player == null)
                 return;
@@ -813,13 +771,13 @@ namespace RSBot.Views
         /// </summary>
         private void OnAgentServerDisconnected()
         {
-            foreach (TabPage tabPage in tabMain.TabPages)
+            foreach (Control control in windowPageControl.Controls)
             {
-                if (!tabPage.Controls.ContainsKey("overlay"))
+                if (!control.Controls.ContainsKey("overlay"))
                     continue;
 
-                tabPage.Enabled = false;
-                tabPage.Controls["overlay"].Show();
+                control.Enabled = false;
+                control.Controls["overlay"].Show();
             }
 
             var disconnectedText = LanguageManager.GetLang("Disconnected");
@@ -870,11 +828,11 @@ namespace RSBot.Views
         /// </summary>
         private void OnLoadCharacter()
         {
-            foreach (TabPage tabPage in tabMain.TabPages)
+            foreach (Control control in windowPageControl.Controls)
             {
-                tabPage.Enabled = true;
+                control.Enabled = true;
 
-                tabPage.Controls["overlay"]?.Hide();
+                control.Controls["overlay"]?.Hide();
             }
 
             foreach (ToolStripItem item in menuPlugins.DropDownItems)
@@ -892,12 +850,5 @@ namespace RSBot.Views
         }
 
         #endregion Core events
-
-        private void donateButton_Click(object sender, EventArgs e)
-        {
-            Process.Start(new ProcessStartInfo { FileName = "https://buymeacoffee.com/sdclowen", UseShellExecute = true });
-            Process.Start(new ProcessStartInfo { FileName = "https://github.com/sponsors/SDClowen", UseShellExecute = true });
-            Process.Start(new ProcessStartInfo { FileName = "https://www.patreon.com/sdclowen", UseShellExecute = true });
-        }
     }
 }

@@ -8,12 +8,12 @@
 		<OutputPath>.\..\..\Build</OutputPath>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<Description>A open source bot for Silkroad Online</Description>
-		<Copyright>Copyright © 2022, RSBot Team</Copyright>
+		<Copyright>Copyright © 2023, RSBot Team</Copyright>
 		<PackageProjectUrl>https://github.com/SDClowen/RSBot</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/SDClowen/RSBot</RepositoryUrl>
 		<OutputType>WinExe</OutputType>
 		<ApplicationIcon>Assets\shark.ico</ApplicationIcon>
-		<AssemblyVersion>2.9</AssemblyVersion>
+		<AssemblyVersion>3.0.0</AssemblyVersion>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 		<PlatformTarget>x86</PlatformTarget>
 		<UseWPF>False</UseWPF>
@@ -24,6 +24,16 @@
 		  <Private>True</Private>
 		</ProjectReference>
 		<ProjectReference Include="..\..\SDUI\SDUI\SDUI.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Views\Experimental\Main.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Resources\" />
 	</ItemGroup>
 	
 </Project>

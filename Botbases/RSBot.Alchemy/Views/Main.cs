@@ -112,7 +112,7 @@ namespace RSBot.Alchemy.Views
         #endregion Constructor
 
         #region Methods
-        
+
         private void OnAlchemy(AlchemyType type)
         {
             if (IsDisposed || Disposing)

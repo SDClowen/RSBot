@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace RSBot.Default.Views.Dialogs
 {
-    public partial class TrainingAreasDialog : CleanForm
+    public partial class TrainingAreasDialog : UIWindowBase
     {
         private const string DIALOG_AREA_NAME = "Enter area name";
         private const string DIALOG_AREA_DESC = "Example: For my custom party at jangan";

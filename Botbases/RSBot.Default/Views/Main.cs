@@ -101,19 +101,19 @@ namespace RSBot.Default.Views
         /// </summary>
         private void LoadAvoidance()
         {
-            var prefer = PlayerConfig.GetEnums<MonsterRarity>( "RSBot.Avoidance.Prefer" ).ToLookup( p => "Prefer", p => p );
-            var avoid = PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Avoid").ToLookup( p => "Avoid", p => p );
+            var prefer = PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Prefer").ToLookup(p => "Prefer", p => p);
+            var avoid = PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Avoid").ToLookup(p => "Avoid", p => p);
 
-            foreach( var group in avoid.Union(prefer) )
+            foreach (var group in avoid.Union(prefer))
             {
-                foreach( var item in group ) 
+                foreach (var item in group)
                 {
                     var listViewItem = lvAvoidance.Items.Cast<ListViewItem>()
                         .FirstOrDefault(p => ((MonsterRarity)p.Tag & item) == item);
                     if (listViewItem == null)
                         continue;
 
-                    listViewItem.Group = lvAvoidance.Groups[ $"grp{group.Key}" ];
+                    listViewItem.Group = lvAvoidance.Groups[$"grp{group.Key}"];
                 }
             }
         }
@@ -256,7 +256,7 @@ namespace RSBot.Default.Views
         /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
         private void btnAvoid_Click(object sender, EventArgs e)
         {
-            if (lvAvoidance.SelectedItems.Count <= 0) 
+            if (lvAvoidance.SelectedItems.Count <= 0)
                 return;
 
             foreach (ListViewItem item in lvAvoidance.SelectedItems)

@@ -9,7 +9,7 @@ using System.Drawing;
 
 namespace RSBot.Inventory.Views
 {
-    public partial class ItemProperties : CleanForm
+    public partial class ItemProperties : UIWindowBase
     {
         #region Properties
 

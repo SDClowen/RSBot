@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace RSBot.General.Views
 {
-    public partial class AccountsWindow : CleanForm
+    public partial class AccountsWindow : UIWindowBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountsWindow"/> class.

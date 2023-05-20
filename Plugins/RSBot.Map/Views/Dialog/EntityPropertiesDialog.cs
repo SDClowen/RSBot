@@ -1,11 +1,10 @@
-﻿
-using System.Windows.Forms;
-using RSBot.Core.Objects.Spawn;
+﻿using RSBot.Core.Objects.Spawn;
+using SDUI.Controls;
 
 namespace RSBot.Map.Views.Dialog;
 
 
-public partial class EntityDetailsDialog : Form
+public partial class EntityDetailsDialog : UIWindowBase
 {
     public EntityDetailsDialog(SpawnedEntity entity)
     {

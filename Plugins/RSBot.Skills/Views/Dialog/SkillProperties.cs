@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace RSBot.Skills.Views;
 
-public partial class SkillProperties : CleanForm
+public partial class SkillProperties : UIWindowBase
 {
     #region Properties
 

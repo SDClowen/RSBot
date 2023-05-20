@@ -174,8 +174,6 @@ namespace RSBot.Items.Views
             groupAccessories.SuspendLayout();
             groupClothes.SuspendLayout();
             groupGender.SuspendLayout();
-            ((ISupportInitialize)numDegreeFrom).BeginInit();
-            ((ISupportInitialize)numDegreeTo).BeginInit();
             panel3.SuspendLayout();
             ((ISupportInitialize)pictureBox1).BeginInit();
             tabPage1.SuspendLayout();
@@ -228,12 +226,11 @@ namespace RSBot.Items.Views
             // 
             // tabMain
             // 
-            tabMain.Border = new Padding(0, 1, 0, 0);
             tabMain.Controls.Add(tabBuyFilter);
             tabMain.Controls.Add(tabSellFilter);
             tabMain.Controls.Add(tabPage1);
             tabMain.Dock = DockStyle.Fill;
-            tabMain.HideTabArea = false;
+            tabMain.ItemSize = new Size(80, 24);
             tabMain.Location = new Point(0, 0);
             tabMain.Name = "tabMain";
             tabMain.SelectedIndex = 0;
@@ -246,10 +243,10 @@ namespace RSBot.Items.Views
             tabBuyFilter.Controls.Add(splitContainer);
             tabBuyFilter.Controls.Add(separator5);
             tabBuyFilter.Controls.Add(groupBox1);
-            tabBuyFilter.Location = new Point(4, 24);
+            tabBuyFilter.Location = new Point(4, 28);
             tabBuyFilter.Name = "tabBuyFilter";
             tabBuyFilter.Padding = new Padding(8);
-            tabBuyFilter.Size = new Size(746, 445);
+            tabBuyFilter.Size = new Size(746, 441);
             tabBuyFilter.TabIndex = 0;
             tabBuyFilter.Text = "Shopping";
             // 
@@ -268,7 +265,7 @@ namespace RSBot.Items.Views
             // 
             splitContainer.Panel2.Controls.Add(listShoppingList);
             splitContainer.Panel2.Controls.Add(panel2);
-            splitContainer.Size = new Size(730, 359);
+            splitContainer.Size = new Size(730, 355);
             splitContainer.SplitterDistance = 336;
             splitContainer.SplitterWidth = 1;
             splitContainer.TabIndex = 6;
@@ -285,7 +282,7 @@ namespace RSBot.Items.Views
             listAvailableProducts.HeaderStyle = ColumnHeaderStyle.Nonclickable;
             listAvailableProducts.Location = new Point(0, 57);
             listAvailableProducts.Name = "listAvailableProducts";
-            listAvailableProducts.Size = new Size(336, 302);
+            listAvailableProducts.Size = new Size(336, 298);
             listAvailableProducts.TabIndex = 4;
             listAvailableProducts.UseCompatibleStateImageBehavior = false;
             listAvailableProducts.View = System.Windows.Forms.View.Details;
@@ -315,9 +312,11 @@ namespace RSBot.Items.Views
             // 
             // label6
             // 
+            label6.ApplyGradient = false;
             label6.AutoSize = true;
             label6.BackColor = Color.Transparent;
             label6.ForeColor = Color.FromArgb(0, 0, 0);
+            label6.Gradient = (new Color[] { Color.Gray, Color.Black });
             label6.Location = new Point(5, 32);
             label6.Name = "label6";
             label6.Size = new Size(45, 15);
@@ -328,10 +327,13 @@ namespace RSBot.Items.Views
             // 
             checkShowEquipment.AutoSize = true;
             checkShowEquipment.BackColor = Color.Transparent;
+            checkShowEquipment.Depth = 0;
             checkShowEquipment.Location = new Point(212, 21);
+            checkShowEquipment.Margin = new Padding(0);
+            checkShowEquipment.MouseLocation = new Point(-1, -1);
             checkShowEquipment.Name = "checkShowEquipment";
-            checkShowEquipment.ShadowDepth = 1;
-            checkShowEquipment.Size = new Size(113, 15);
+            checkShowEquipment.Ripple = true;
+            checkShowEquipment.Size = new Size(122, 30);
             checkShowEquipment.TabIndex = 9;
             checkShowEquipment.Text = "Show equipment";
             checkShowEquipment.UseVisualStyleBackColor = false;
@@ -343,6 +345,7 @@ namespace RSBot.Items.Views
             txtShopSearch.MaxLength = 32767;
             txtShopSearch.MultiLine = false;
             txtShopSearch.Name = "txtShopSearch";
+            txtShopSearch.PassFocusShow = false;
             txtShopSearch.Radius = 2;
             txtShopSearch.Size = new Size(144, 21);
             txtShopSearch.TabIndex = 8;
@@ -369,10 +372,12 @@ namespace RSBot.Items.Views
             // 
             // label1
             // 
+            label1.ApplyGradient = false;
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label1.ForeColor = Color.FromArgb(0, 0, 0);
+            label1.Gradient = (new Color[] { Color.Gray, Color.Black });
             label1.Location = new Point(12, 7);
             label1.Name = "label1";
             label1.Size = new Size(41, 15);
@@ -402,7 +407,7 @@ namespace RSBot.Items.Views
             listShoppingList.HeaderStyle = ColumnHeaderStyle.Nonclickable;
             listShoppingList.Location = new Point(0, 57);
             listShoppingList.Name = "listShoppingList";
-            listShoppingList.Size = new Size(393, 302);
+            listShoppingList.Size = new Size(393, 298);
             listShoppingList.TabIndex = 3;
             listShoppingList.UseCompatibleStateImageBehavior = false;
             listShoppingList.View = System.Windows.Forms.View.Details;
@@ -435,7 +440,7 @@ namespace RSBot.Items.Views
             // 
             separator5.Dock = DockStyle.Bottom;
             separator5.IsVertical = false;
-            separator5.Location = new Point(8, 367);
+            separator5.Location = new Point(8, 363);
             separator5.Name = "separator5";
             separator5.Size = new Size(730, 10);
             separator5.TabIndex = 9;
@@ -449,7 +454,7 @@ namespace RSBot.Items.Views
             groupBox1.Controls.Add(checkRepairGear);
             groupBox1.Controls.Add(checkEnable);
             groupBox1.Dock = DockStyle.Bottom;
-            groupBox1.Location = new Point(8, 377);
+            groupBox1.Location = new Point(8, 373);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new Padding(3, 10, 3, 3);
             groupBox1.Radius = 10;
@@ -465,10 +470,13 @@ namespace RSBot.Items.Views
             checkSellItemsFromPet.BackColor = Color.Transparent;
             checkSellItemsFromPet.Checked = true;
             checkSellItemsFromPet.CheckState = CheckState.Checked;
+            checkSellItemsFromPet.Depth = 0;
             checkSellItemsFromPet.Location = new Point(425, 33);
+            checkSellItemsFromPet.Margin = new Padding(0);
+            checkSellItemsFromPet.MouseLocation = new Point(-1, -1);
             checkSellItemsFromPet.Name = "checkSellItemsFromPet";
-            checkSellItemsFromPet.ShadowDepth = 1;
-            checkSellItemsFromPet.Size = new Size(122, 15);
+            checkSellItemsFromPet.Ripple = true;
+            checkSellItemsFromPet.Size = new Size(132, 30);
             checkSellItemsFromPet.TabIndex = 3;
             checkSellItemsFromPet.Text = "Sell items from pet";
             checkSellItemsFromPet.UseVisualStyleBackColor = false;
@@ -480,10 +488,13 @@ namespace RSBot.Items.Views
             checkStoreItemsFromPet.BackColor = Color.Transparent;
             checkStoreItemsFromPet.Checked = true;
             checkStoreItemsFromPet.CheckState = CheckState.Checked;
+            checkStoreItemsFromPet.Depth = 0;
             checkStoreItemsFromPet.Location = new Point(567, 33);
+            checkStoreItemsFromPet.Margin = new Padding(0);
+            checkStoreItemsFromPet.MouseLocation = new Point(-1, -1);
             checkStoreItemsFromPet.Name = "checkStoreItemsFromPet";
-            checkStoreItemsFromPet.ShadowDepth = 1;
-            checkStoreItemsFromPet.Size = new Size(131, 15);
+            checkStoreItemsFromPet.Ripple = true;
+            checkStoreItemsFromPet.Size = new Size(142, 30);
             checkStoreItemsFromPet.TabIndex = 4;
             checkStoreItemsFromPet.Text = "Store items from pet";
             checkStoreItemsFromPet.UseVisualStyleBackColor = false;
@@ -495,10 +506,13 @@ namespace RSBot.Items.Views
             checkRepairGear.BackColor = Color.Transparent;
             checkRepairGear.Checked = true;
             checkRepairGear.CheckState = CheckState.Checked;
+            checkRepairGear.Depth = 0;
             checkRepairGear.Location = new Point(231, 33);
+            checkRepairGear.Margin = new Padding(0);
+            checkRepairGear.MouseLocation = new Point(-1, -1);
             checkRepairGear.Name = "checkRepairGear";
-            checkRepairGear.ShadowDepth = 1;
-            checkRepairGear.Size = new Size(168, 15);
+            checkRepairGear.Ripple = true;
+            checkRepairGear.Size = new Size(179, 30);
             checkRepairGear.TabIndex = 1;
             checkRepairGear.Text = "Automaticaly repair all gear";
             checkRepairGear.UseVisualStyleBackColor = false;
@@ -510,10 +524,13 @@ namespace RSBot.Items.Views
             checkEnable.BackColor = Color.Transparent;
             checkEnable.Checked = true;
             checkEnable.CheckState = CheckState.Checked;
+            checkEnable.Depth = 0;
             checkEnable.Location = new Point(13, 33);
+            checkEnable.Margin = new Padding(0);
+            checkEnable.MouseLocation = new Point(-1, -1);
             checkEnable.Name = "checkEnable";
-            checkEnable.ShadowDepth = 1;
-            checkEnable.Size = new Size(190, 15);
+            checkEnable.Ripple = true;
+            checkEnable.Size = new Size(200, 30);
             checkEnable.TabIndex = 0;
             checkEnable.Text = "Automaticaly run when in town";
             checkEnable.UseVisualStyleBackColor = false;
@@ -526,9 +543,9 @@ namespace RSBot.Items.Views
             tabSellFilter.Controls.Add(filterPanel);
             tabSellFilter.Controls.Add(panel3);
             tabSellFilter.Controls.Add(pictureBox1);
-            tabSellFilter.Location = new Point(4, 24);
+            tabSellFilter.Location = new Point(4, 28);
             tabSellFilter.Name = "tabSellFilter";
-            tabSellFilter.Size = new Size(746, 445);
+            tabSellFilter.Size = new Size(746, 441);
             tabSellFilter.TabIndex = 1;
             tabSellFilter.Text = "Item filter";
             // 
@@ -543,7 +560,7 @@ namespace RSBot.Items.Views
             listFilter.FullRowSelect = true;
             listFilter.Location = new Point(265, 0);
             listFilter.Name = "listFilter";
-            listFilter.Size = new Size(481, 409);
+            listFilter.Size = new Size(481, 405);
             listFilter.SmallImageList = searchImageList;
             listFilter.TabIndex = 5;
             listFilter.UseCompatibleStateImageBehavior = false;
@@ -678,7 +695,7 @@ namespace RSBot.Items.Views
             filterPanel.Padding = new Padding(12);
             filterPanel.Radius = 0;
             filterPanel.ShadowDepth = 4F;
-            filterPanel.Size = new Size(265, 409);
+            filterPanel.Size = new Size(265, 405);
             filterPanel.TabIndex = 20;
             // 
             // groupOthers
@@ -690,12 +707,12 @@ namespace RSBot.Items.Views
             groupOthers.Controls.Add(checkCoin);
             groupOthers.Controls.Add(checkOther);
             groupOthers.Dock = DockStyle.Top;
-            groupOthers.Location = new Point(12, 590);
+            groupOthers.Location = new Point(12, 591);
             groupOthers.Name = "groupOthers";
             groupOthers.Padding = new Padding(3, 10, 3, 3);
             groupOthers.Radius = 10;
             groupOthers.ShadowDepth = 4;
-            groupOthers.Size = new Size(224, 106);
+            groupOthers.Size = new Size(224, 111);
             groupOthers.TabIndex = 42;
             groupOthers.TabStop = false;
             groupOthers.Text = "Others";
@@ -704,10 +721,13 @@ namespace RSBot.Items.Views
             // 
             checkAlchemy.AutoSize = true;
             checkAlchemy.BackColor = Color.Transparent;
-            checkAlchemy.Location = new Point(99, 56);
+            checkAlchemy.Depth = 0;
+            checkAlchemy.Location = new Point(97, 53);
+            checkAlchemy.Margin = new Padding(0);
+            checkAlchemy.MouseLocation = new Point(-1, -1);
             checkAlchemy.Name = "checkAlchemy";
-            checkAlchemy.ShadowDepth = 1;
-            checkAlchemy.Size = new Size(70, 15);
+            checkAlchemy.Ripple = true;
+            checkAlchemy.Size = new Size(76, 30);
             checkAlchemy.TabIndex = 19;
             checkAlchemy.Text = "Alchemy";
             checkAlchemy.UseVisualStyleBackColor = false;
@@ -716,10 +736,13 @@ namespace RSBot.Items.Views
             // 
             checkQuest.AutoSize = true;
             checkQuest.BackColor = Color.Transparent;
-            checkQuest.Location = new Point(11, 33);
+            checkQuest.Depth = 0;
+            checkQuest.Location = new Point(9, 29);
+            checkQuest.Margin = new Padding(0);
+            checkQuest.MouseLocation = new Point(-1, -1);
             checkQuest.Name = "checkQuest";
-            checkQuest.ShadowDepth = 1;
-            checkQuest.Size = new Size(54, 15);
+            checkQuest.Ripple = true;
+            checkQuest.Size = new Size(62, 30);
             checkQuest.TabIndex = 19;
             checkQuest.Text = "Quest";
             checkQuest.UseVisualStyleBackColor = false;
@@ -728,10 +751,13 @@ namespace RSBot.Items.Views
             // 
             checkAmmo.AutoSize = true;
             checkAmmo.BackColor = Color.Transparent;
-            checkAmmo.Location = new Point(11, 56);
+            checkAmmo.Depth = 0;
+            checkAmmo.Location = new Point(9, 53);
+            checkAmmo.Margin = new Padding(0);
+            checkAmmo.MouseLocation = new Point(-1, -1);
             checkAmmo.Name = "checkAmmo";
-            checkAmmo.ShadowDepth = 1;
-            checkAmmo.Size = new Size(60, 15);
+            checkAmmo.Ripple = true;
+            checkAmmo.Size = new Size(66, 30);
             checkAmmo.TabIndex = 19;
             checkAmmo.Text = "Ammo";
             checkAmmo.UseVisualStyleBackColor = false;
@@ -740,10 +766,13 @@ namespace RSBot.Items.Views
             // 
             checkCoin.AutoSize = true;
             checkCoin.BackColor = Color.Transparent;
-            checkCoin.Location = new Point(99, 33);
+            checkCoin.Depth = 0;
+            checkCoin.Location = new Point(97, 29);
+            checkCoin.Margin = new Padding(0);
+            checkCoin.MouseLocation = new Point(-1, -1);
             checkCoin.Name = "checkCoin";
-            checkCoin.ShadowDepth = 1;
-            checkCoin.Size = new Size(48, 15);
+            checkCoin.Ripple = true;
+            checkCoin.Size = new Size(54, 30);
             checkCoin.TabIndex = 19;
             checkCoin.Text = "Coin";
             checkCoin.UseVisualStyleBackColor = false;
@@ -752,10 +781,13 @@ namespace RSBot.Items.Views
             // 
             checkOther.AutoSize = true;
             checkOther.BackColor = Color.Transparent;
-            checkOther.Location = new Point(11, 79);
+            checkOther.Depth = 0;
+            checkOther.Location = new Point(9, 78);
+            checkOther.Margin = new Padding(0);
+            checkOther.MouseLocation = new Point(-1, -1);
             checkOther.Name = "checkOther";
-            checkOther.ShadowDepth = 1;
-            checkOther.Size = new Size(53, 15);
+            checkOther.Ripple = true;
+            checkOther.Size = new Size(61, 30);
             checkOther.TabIndex = 19;
             checkOther.Text = "Other";
             checkOther.UseVisualStyleBackColor = false;
@@ -764,7 +796,7 @@ namespace RSBot.Items.Views
             // 
             separator1.Dock = DockStyle.Top;
             separator1.IsVertical = false;
-            separator1.Location = new Point(12, 580);
+            separator1.Location = new Point(12, 581);
             separator1.Name = "separator1";
             separator1.Size = new Size(224, 10);
             separator1.TabIndex = 5;
@@ -789,7 +821,7 @@ namespace RSBot.Items.Views
             groupWeapons.Controls.Add(checkSword);
             groupWeapons.Controls.Add(checkBlade);
             groupWeapons.Dock = DockStyle.Top;
-            groupWeapons.Location = new Point(12, 373);
+            groupWeapons.Location = new Point(12, 374);
             groupWeapons.Margin = new Padding(6);
             groupWeapons.Name = "groupWeapons";
             groupWeapons.Padding = new Padding(3, 10, 3, 3);
@@ -804,10 +836,13 @@ namespace RSBot.Items.Views
             // 
             checkAxe.AutoSize = true;
             checkAxe.BackColor = Color.Transparent;
+            checkAxe.Depth = 0;
             checkAxe.Location = new Point(99, 180);
+            checkAxe.Margin = new Padding(0);
+            checkAxe.MouseLocation = new Point(-1, -1);
             checkAxe.Name = "checkAxe";
-            checkAxe.ShadowDepth = 1;
-            checkAxe.Size = new Size(43, 15);
+            checkAxe.Ripple = true;
+            checkAxe.Size = new Size(50, 30);
             checkAxe.TabIndex = 10;
             checkAxe.Text = "Axe";
             checkAxe.UseVisualStyleBackColor = false;
@@ -816,10 +851,13 @@ namespace RSBot.Items.Views
             // 
             checkHarp.AutoSize = true;
             checkHarp.BackColor = Color.Transparent;
-            checkHarp.Location = new Point(11, 180);
+            checkHarp.Depth = 0;
+            checkHarp.Location = new Point(7, 180);
+            checkHarp.Margin = new Padding(0);
+            checkHarp.MouseLocation = new Point(-1, -1);
             checkHarp.Name = "checkHarp";
-            checkHarp.ShadowDepth = 1;
-            checkHarp.Size = new Size(49, 15);
+            checkHarp.Ripple = true;
+            checkHarp.Size = new Size(56, 30);
             checkHarp.TabIndex = 10;
             checkHarp.Text = "Harp";
             checkHarp.UseVisualStyleBackColor = false;
@@ -828,10 +866,13 @@ namespace RSBot.Items.Views
             // 
             checkDagger.AutoSize = true;
             checkDagger.BackColor = Color.Transparent;
+            checkDagger.Depth = 0;
             checkDagger.Location = new Point(99, 155);
+            checkDagger.Margin = new Padding(0);
+            checkDagger.MouseLocation = new Point(-1, -1);
             checkDagger.Name = "checkDagger";
-            checkDagger.ShadowDepth = 1;
-            checkDagger.Size = new Size(61, 15);
+            checkDagger.Ripple = true;
+            checkDagger.Size = new Size(70, 30);
             checkDagger.TabIndex = 9;
             checkDagger.Text = "Dagger";
             checkDagger.UseVisualStyleBackColor = false;
@@ -840,10 +881,13 @@ namespace RSBot.Items.Views
             // 
             checkXBow.AutoSize = true;
             checkXBow.BackColor = Color.Transparent;
-            checkXBow.Location = new Point(11, 155);
+            checkXBow.Depth = 0;
+            checkXBow.Location = new Point(7, 155);
+            checkXBow.Margin = new Padding(0);
+            checkXBow.MouseLocation = new Point(-1, -1);
             checkXBow.Name = "checkXBow";
-            checkXBow.ShadowDepth = 1;
-            checkXBow.Size = new Size(58, 15);
+            checkXBow.Ripple = true;
+            checkXBow.Size = new Size(65, 30);
             checkXBow.TabIndex = 9;
             checkXBow.Text = "X-Bow";
             checkXBow.UseVisualStyleBackColor = false;
@@ -852,10 +896,13 @@ namespace RSBot.Items.Views
             // 
             checkWRod.AutoSize = true;
             checkWRod.BackColor = Color.Transparent;
+            checkWRod.Depth = 0;
             checkWRod.Location = new Point(99, 130);
+            checkWRod.Margin = new Padding(0);
+            checkWRod.MouseLocation = new Point(-1, -1);
             checkWRod.Name = "checkWRod";
-            checkWRod.ShadowDepth = 1;
-            checkWRod.Size = new Size(60, 15);
+            checkWRod.Ripple = true;
+            checkWRod.Size = new Size(68, 30);
             checkWRod.TabIndex = 8;
             checkWRod.Text = "W-Rod";
             checkWRod.UseVisualStyleBackColor = false;
@@ -864,10 +911,13 @@ namespace RSBot.Items.Views
             // 
             checkShield.AutoSize = true;
             checkShield.BackColor = Color.Transparent;
+            checkShield.Depth = 0;
             checkShield.Location = new Point(161, 180);
+            checkShield.Margin = new Padding(0);
+            checkShield.MouseLocation = new Point(-1, -1);
             checkShield.Name = "checkShield";
-            checkShield.ShadowDepth = 1;
-            checkShield.Size = new Size(55, 15);
+            checkShield.Ripple = true;
+            checkShield.Size = new Size(63, 30);
             checkShield.TabIndex = 5;
             checkShield.Text = "Shield";
             checkShield.UseVisualStyleBackColor = false;
@@ -876,10 +926,13 @@ namespace RSBot.Items.Views
             // 
             checkCRod.AutoSize = true;
             checkCRod.BackColor = Color.Transparent;
-            checkCRod.Location = new Point(11, 130);
+            checkCRod.Depth = 0;
+            checkCRod.Location = new Point(7, 130);
+            checkCRod.Margin = new Padding(0);
+            checkCRod.MouseLocation = new Point(-1, -1);
             checkCRod.Name = "checkCRod";
-            checkCRod.ShadowDepth = 1;
-            checkCRod.Size = new Size(57, 15);
+            checkCRod.Ripple = true;
+            checkCRod.Size = new Size(64, 30);
             checkCRod.TabIndex = 7;
             checkCRod.Text = "C-Rod";
             checkCRod.UseVisualStyleBackColor = false;
@@ -888,10 +941,13 @@ namespace RSBot.Items.Views
             // 
             check2HSword.AutoSize = true;
             check2HSword.BackColor = Color.Transparent;
+            check2HSword.Depth = 0;
             check2HSword.Location = new Point(99, 105);
+            check2HSword.Margin = new Padding(0);
+            check2HSword.MouseLocation = new Point(-1, -1);
             check2HSword.Name = "check2HSword";
-            check2HSword.ShadowDepth = 1;
-            check2HSword.Size = new Size(74, 15);
+            check2HSword.Ripple = true;
+            check2HSword.Size = new Size(83, 30);
             check2HSword.TabIndex = 6;
             check2HSword.Text = "2H Sword";
             check2HSword.UseVisualStyleBackColor = false;
@@ -900,10 +956,13 @@ namespace RSBot.Items.Views
             // 
             check1HSword.AutoSize = true;
             check1HSword.BackColor = Color.Transparent;
-            check1HSword.Location = new Point(11, 105);
+            check1HSword.Depth = 0;
+            check1HSword.Location = new Point(7, 105);
+            check1HSword.Margin = new Padding(0);
+            check1HSword.MouseLocation = new Point(-1, -1);
             check1HSword.Name = "check1HSword";
-            check1HSword.ShadowDepth = 1;
-            check1HSword.Size = new Size(74, 15);
+            check1HSword.Ripple = true;
+            check1HSword.Size = new Size(83, 30);
             check1HSword.TabIndex = 5;
             check1HSword.Text = "1H Sword";
             check1HSword.UseVisualStyleBackColor = false;
@@ -912,10 +971,13 @@ namespace RSBot.Items.Views
             // 
             checkStaff.AutoSize = true;
             checkStaff.BackColor = Color.Transparent;
+            checkStaff.Depth = 0;
             checkStaff.Location = new Point(99, 80);
+            checkStaff.Margin = new Padding(0);
+            checkStaff.MouseLocation = new Point(-1, -1);
             checkStaff.Name = "checkStaff";
-            checkStaff.ShadowDepth = 1;
-            checkStaff.Size = new Size(47, 15);
+            checkStaff.Ripple = true;
+            checkStaff.Size = new Size(54, 30);
             checkStaff.TabIndex = 5;
             checkStaff.Text = "Staff";
             checkStaff.UseVisualStyleBackColor = false;
@@ -924,10 +986,13 @@ namespace RSBot.Items.Views
             // 
             checkBow.AutoSize = true;
             checkBow.BackColor = Color.Transparent;
-            checkBow.Location = new Point(11, 80);
+            checkBow.Depth = 0;
+            checkBow.Location = new Point(7, 80);
+            checkBow.Margin = new Padding(0);
+            checkBow.MouseLocation = new Point(-1, -1);
             checkBow.Name = "checkBow";
-            checkBow.ShadowDepth = 1;
-            checkBow.Size = new Size(46, 15);
+            checkBow.Ripple = true;
+            checkBow.Size = new Size(53, 30);
             checkBow.TabIndex = 4;
             checkBow.Text = "Bow";
             checkBow.UseVisualStyleBackColor = false;
@@ -936,10 +1001,13 @@ namespace RSBot.Items.Views
             // 
             checkSpear.AutoSize = true;
             checkSpear.BackColor = Color.Transparent;
+            checkSpear.Depth = 0;
             checkSpear.Location = new Point(99, 55);
+            checkSpear.Margin = new Padding(0);
+            checkSpear.MouseLocation = new Point(-1, -1);
             checkSpear.Name = "checkSpear";
-            checkSpear.ShadowDepth = 1;
-            checkSpear.Size = new Size(52, 15);
+            checkSpear.Ripple = true;
+            checkSpear.Size = new Size(60, 30);
             checkSpear.TabIndex = 3;
             checkSpear.Text = "Spear";
             checkSpear.UseVisualStyleBackColor = false;
@@ -948,10 +1016,13 @@ namespace RSBot.Items.Views
             // 
             checkGlave.AutoSize = true;
             checkGlave.BackColor = Color.Transparent;
-            checkGlave.Location = new Point(11, 55);
+            checkGlave.Depth = 0;
+            checkGlave.Location = new Point(7, 55);
+            checkGlave.Margin = new Padding(0);
+            checkGlave.MouseLocation = new Point(-1, -1);
             checkGlave.Name = "checkGlave";
-            checkGlave.ShadowDepth = 1;
-            checkGlave.Size = new Size(52, 15);
+            checkGlave.Ripple = true;
+            checkGlave.Size = new Size(60, 30);
             checkGlave.TabIndex = 2;
             checkGlave.Text = "Glave";
             checkGlave.UseVisualStyleBackColor = false;
@@ -960,10 +1031,13 @@ namespace RSBot.Items.Views
             // 
             checkSword.AutoSize = true;
             checkSword.BackColor = Color.Transparent;
+            checkSword.Depth = 0;
             checkSword.Location = new Point(99, 30);
+            checkSword.Margin = new Padding(0);
+            checkSword.MouseLocation = new Point(-1, -1);
             checkSword.Name = "checkSword";
-            checkSword.ShadowDepth = 1;
-            checkSword.Size = new Size(56, 15);
+            checkSword.Ripple = true;
+            checkSword.Size = new Size(64, 30);
             checkSword.TabIndex = 1;
             checkSword.Text = "Sword";
             checkSword.UseVisualStyleBackColor = false;
@@ -972,10 +1046,13 @@ namespace RSBot.Items.Views
             // 
             checkBlade.AutoSize = true;
             checkBlade.BackColor = Color.Transparent;
-            checkBlade.Location = new Point(11, 30);
+            checkBlade.Depth = 0;
+            checkBlade.Location = new Point(7, 30);
+            checkBlade.Margin = new Padding(0);
+            checkBlade.MouseLocation = new Point(-1, -1);
             checkBlade.Name = "checkBlade";
-            checkBlade.ShadowDepth = 1;
-            checkBlade.Size = new Size(52, 15);
+            checkBlade.Ripple = true;
+            checkBlade.Size = new Size(60, 30);
             checkBlade.TabIndex = 0;
             checkBlade.Text = "Blade";
             checkBlade.UseVisualStyleBackColor = false;
@@ -984,7 +1061,7 @@ namespace RSBot.Items.Views
             // 
             separator2.Dock = DockStyle.Top;
             separator2.IsVertical = false;
-            separator2.Location = new Point(12, 363);
+            separator2.Location = new Point(12, 364);
             separator2.Name = "separator2";
             separator2.Size = new Size(224, 10);
             separator2.TabIndex = 45;
@@ -997,7 +1074,7 @@ namespace RSBot.Items.Views
             groupAccessories.Controls.Add(checkEarring);
             groupAccessories.Controls.Add(checkRing);
             groupAccessories.Dock = DockStyle.Top;
-            groupAccessories.Location = new Point(12, 305);
+            groupAccessories.Location = new Point(12, 306);
             groupAccessories.Name = "groupAccessories";
             groupAccessories.Padding = new Padding(3, 10, 3, 3);
             groupAccessories.Radius = 10;
@@ -1011,10 +1088,13 @@ namespace RSBot.Items.Views
             // 
             checkNecklace.AutoSize = true;
             checkNecklace.BackColor = Color.Transparent;
-            checkNecklace.Location = new Point(71, 30);
+            checkNecklace.Depth = 0;
+            checkNecklace.Location = new Point(65, 26);
+            checkNecklace.Margin = new Padding(0);
+            checkNecklace.MouseLocation = new Point(-1, -1);
             checkNecklace.Name = "checkNecklace";
-            checkNecklace.ShadowDepth = 1;
-            checkNecklace.Size = new Size(71, 15);
+            checkNecklace.Ripple = true;
+            checkNecklace.Size = new Size(79, 30);
             checkNecklace.TabIndex = 4;
             checkNecklace.Text = "Necklace";
             checkNecklace.UseVisualStyleBackColor = false;
@@ -1023,10 +1103,13 @@ namespace RSBot.Items.Views
             // 
             checkEarring.AutoSize = true;
             checkEarring.BackColor = Color.Transparent;
-            checkEarring.Location = new Point(157, 30);
+            checkEarring.Depth = 0;
+            checkEarring.Location = new Point(151, 26);
+            checkEarring.Margin = new Padding(0);
+            checkEarring.MouseLocation = new Point(-1, -1);
             checkEarring.Name = "checkEarring";
-            checkEarring.ShadowDepth = 1;
-            checkEarring.Size = new Size(60, 15);
+            checkEarring.Ripple = true;
+            checkEarring.Size = new Size(68, 30);
             checkEarring.TabIndex = 3;
             checkEarring.Text = "Earring";
             checkEarring.UseVisualStyleBackColor = false;
@@ -1035,10 +1118,13 @@ namespace RSBot.Items.Views
             // 
             checkRing.AutoSize = true;
             checkRing.BackColor = Color.Transparent;
-            checkRing.Location = new Point(11, 30);
+            checkRing.Depth = 0;
+            checkRing.Location = new Point(5, 26);
+            checkRing.Margin = new Padding(0);
+            checkRing.MouseLocation = new Point(-1, -1);
             checkRing.Name = "checkRing";
-            checkRing.ShadowDepth = 1;
-            checkRing.Size = new Size(47, 15);
+            checkRing.Ripple = true;
+            checkRing.Size = new Size(54, 30);
             checkRing.TabIndex = 2;
             checkRing.Text = "Ring";
             checkRing.UseVisualStyleBackColor = false;
@@ -1047,7 +1133,7 @@ namespace RSBot.Items.Views
             // 
             separator3.Dock = DockStyle.Top;
             separator3.IsVertical = false;
-            separator3.Location = new Point(12, 295);
+            separator3.Location = new Point(12, 296);
             separator3.Name = "separator3";
             separator3.Size = new Size(224, 10);
             separator3.TabIndex = 46;
@@ -1066,7 +1152,7 @@ namespace RSBot.Items.Views
             groupClothes.Controls.Add(checkShoulder);
             groupClothes.Controls.Add(checkHead);
             groupClothes.Dock = DockStyle.Top;
-            groupClothes.Location = new Point(12, 160);
+            groupClothes.Location = new Point(12, 161);
             groupClothes.Name = "groupClothes";
             groupClothes.Padding = new Padding(3, 10, 3, 3);
             groupClothes.Radius = 10;
@@ -1080,10 +1166,13 @@ namespace RSBot.Items.Views
             // 
             checkHand.AutoSize = true;
             checkHand.BackColor = Color.Transparent;
-            checkHand.Location = new Point(99, 108);
+            checkHand.Depth = 0;
+            checkHand.Location = new Point(93, 106);
+            checkHand.Margin = new Padding(0);
+            checkHand.MouseLocation = new Point(-1, -1);
             checkHand.Name = "checkHand";
-            checkHand.ShadowDepth = 1;
-            checkHand.Size = new Size(52, 15);
+            checkHand.Ripple = true;
+            checkHand.Size = new Size(59, 30);
             checkHand.TabIndex = 8;
             checkHand.Text = "Hand";
             checkHand.UseVisualStyleBackColor = false;
@@ -1092,10 +1181,13 @@ namespace RSBot.Items.Views
             // 
             checkLegs.AutoSize = true;
             checkLegs.BackColor = Color.Transparent;
-            checkLegs.Location = new Point(11, 108);
+            checkLegs.Depth = 0;
+            checkLegs.Location = new Point(5, 106);
+            checkLegs.Margin = new Padding(0);
+            checkLegs.MouseLocation = new Point(-1, -1);
             checkLegs.Name = "checkLegs";
-            checkLegs.ShadowDepth = 1;
-            checkLegs.Size = new Size(42, 15);
+            checkLegs.Ripple = true;
+            checkLegs.Size = new Size(49, 30);
             checkLegs.TabIndex = 7;
             checkLegs.Text = "Leg";
             checkLegs.UseVisualStyleBackColor = false;
@@ -1104,10 +1196,13 @@ namespace RSBot.Items.Views
             // 
             checkHeavy.AutoSize = true;
             checkHeavy.BackColor = Color.Transparent;
-            checkHeavy.Location = new Point(164, 30);
+            checkHeavy.Depth = 0;
+            checkHeavy.Location = new Point(158, 28);
+            checkHeavy.Margin = new Padding(0);
+            checkHeavy.MouseLocation = new Point(-1, -1);
             checkHeavy.Name = "checkHeavy";
-            checkHeavy.ShadowDepth = 1;
-            checkHeavy.Size = new Size(56, 15);
+            checkHeavy.Ripple = true;
+            checkHeavy.Size = new Size(63, 30);
             checkHeavy.TabIndex = 6;
             checkHeavy.Text = "Heavy";
             checkHeavy.UseVisualStyleBackColor = false;
@@ -1116,10 +1211,13 @@ namespace RSBot.Items.Views
             // 
             checkLight.AutoSize = true;
             checkLight.BackColor = Color.Transparent;
-            checkLight.Location = new Point(99, 30);
+            checkLight.Depth = 0;
+            checkLight.Location = new Point(93, 28);
+            checkLight.Margin = new Padding(0);
+            checkLight.MouseLocation = new Point(-1, -1);
             checkLight.Name = "checkLight";
-            checkLight.ShadowDepth = 1;
-            checkLight.Size = new Size(50, 15);
+            checkLight.Ripple = true;
+            checkLight.Size = new Size(57, 30);
             checkLight.TabIndex = 6;
             checkLight.Text = "Light";
             checkLight.UseVisualStyleBackColor = false;
@@ -1128,10 +1226,13 @@ namespace RSBot.Items.Views
             // 
             checkClothes.AutoSize = true;
             checkClothes.BackColor = Color.Transparent;
-            checkClothes.Location = new Point(11, 30);
+            checkClothes.Depth = 0;
+            checkClothes.Location = new Point(5, 28);
+            checkClothes.Margin = new Padding(0);
+            checkClothes.MouseLocation = new Point(-1, -1);
             checkClothes.Name = "checkClothes";
-            checkClothes.ShadowDepth = 1;
-            checkClothes.Size = new Size(63, 15);
+            checkClothes.Ripple = true;
+            checkClothes.Size = new Size(70, 30);
             checkClothes.TabIndex = 6;
             checkClothes.Text = "Clothes";
             checkClothes.UseVisualStyleBackColor = false;
@@ -1140,10 +1241,13 @@ namespace RSBot.Items.Views
             // 
             checkBoot.AutoSize = true;
             checkBoot.BackColor = Color.Transparent;
-            checkBoot.Location = new Point(99, 83);
+            checkBoot.Depth = 0;
+            checkBoot.Location = new Point(93, 81);
+            checkBoot.Margin = new Padding(0);
+            checkBoot.MouseLocation = new Point(-1, -1);
             checkBoot.Name = "checkBoot";
-            checkBoot.ShadowDepth = 1;
-            checkBoot.Size = new Size(48, 15);
+            checkBoot.Ripple = true;
+            checkBoot.Size = new Size(55, 30);
             checkBoot.TabIndex = 4;
             checkBoot.Text = "Boot";
             checkBoot.UseVisualStyleBackColor = false;
@@ -1152,10 +1256,13 @@ namespace RSBot.Items.Views
             // 
             checkChest.AutoSize = true;
             checkChest.BackColor = Color.Transparent;
-            checkChest.Location = new Point(11, 83);
+            checkChest.Depth = 0;
+            checkChest.Location = new Point(5, 81);
+            checkChest.Margin = new Padding(0);
+            checkChest.MouseLocation = new Point(-1, -1);
             checkChest.Name = "checkChest";
-            checkChest.ShadowDepth = 1;
-            checkChest.Size = new Size(53, 15);
+            checkChest.Ripple = true;
+            checkChest.Size = new Size(60, 30);
             checkChest.TabIndex = 4;
             checkChest.Text = "Chest";
             checkChest.UseVisualStyleBackColor = false;
@@ -1164,10 +1271,13 @@ namespace RSBot.Items.Views
             // 
             checkShoulder.AutoSize = true;
             checkShoulder.BackColor = Color.Transparent;
-            checkShoulder.Location = new Point(99, 58);
+            checkShoulder.Depth = 0;
+            checkShoulder.Location = new Point(93, 56);
+            checkShoulder.Margin = new Padding(0);
+            checkShoulder.MouseLocation = new Point(-1, -1);
             checkShoulder.Name = "checkShoulder";
-            checkShoulder.ShadowDepth = 1;
-            checkShoulder.Size = new Size(70, 15);
+            checkShoulder.Ripple = true;
+            checkShoulder.Size = new Size(78, 30);
             checkShoulder.TabIndex = 4;
             checkShoulder.Text = "Shoulder";
             checkShoulder.UseVisualStyleBackColor = false;
@@ -1176,10 +1286,13 @@ namespace RSBot.Items.Views
             // 
             checkHead.AutoSize = true;
             checkHead.BackColor = Color.Transparent;
-            checkHead.Location = new Point(11, 58);
+            checkHead.Depth = 0;
+            checkHead.Location = new Point(5, 56);
+            checkHead.Margin = new Padding(0);
+            checkHead.MouseLocation = new Point(-1, -1);
             checkHead.Name = "checkHead";
-            checkHead.ShadowDepth = 1;
-            checkHead.Size = new Size(51, 15);
+            checkHead.Ripple = true;
+            checkHead.Size = new Size(58, 30);
             checkHead.TabIndex = 4;
             checkHead.Text = "Head";
             checkHead.UseVisualStyleBackColor = false;
@@ -1188,7 +1301,7 @@ namespace RSBot.Items.Views
             // 
             separator4.Dock = DockStyle.Top;
             separator4.IsVertical = false;
-            separator4.Location = new Point(12, 150);
+            separator4.Location = new Point(12, 151);
             separator4.Name = "separator4";
             separator4.Size = new Size(224, 10);
             separator4.TabIndex = 47;
@@ -1213,7 +1326,7 @@ namespace RSBot.Items.Views
             groupGender.Padding = new Padding(3, 10, 3, 3);
             groupGender.Radius = 10;
             groupGender.ShadowDepth = 4;
-            groupGender.Size = new Size(224, 138);
+            groupGender.Size = new Size(224, 139);
             groupGender.TabIndex = 44;
             groupGender.TabStop = false;
             groupGender.Text = "Gender and Degree";
@@ -1222,10 +1335,13 @@ namespace RSBot.Items.Views
             // 
             checkEuropean.AutoSize = true;
             checkEuropean.BackColor = Color.Transparent;
+            checkEuropean.Depth = 0;
             checkEuropean.Location = new Point(99, 53);
+            checkEuropean.Margin = new Padding(0);
+            checkEuropean.MouseLocation = new Point(-1, -1);
             checkEuropean.Name = "checkEuropean";
-            checkEuropean.ShadowDepth = 1;
-            checkEuropean.Size = new Size(73, 15);
+            checkEuropean.Ripple = true;
+            checkEuropean.Size = new Size(81, 30);
             checkEuropean.TabIndex = 9;
             checkEuropean.Text = "European";
             checkEuropean.UseVisualStyleBackColor = false;
@@ -1234,10 +1350,13 @@ namespace RSBot.Items.Views
             // 
             checkChinese.AutoSize = true;
             checkChinese.BackColor = Color.Transparent;
+            checkChinese.Depth = 0;
             checkChinese.Location = new Point(16, 53);
+            checkChinese.Margin = new Padding(0);
+            checkChinese.MouseLocation = new Point(-1, -1);
             checkChinese.Name = "checkChinese";
-            checkChinese.ShadowDepth = 1;
-            checkChinese.Size = new Size(65, 15);
+            checkChinese.Ripple = true;
+            checkChinese.Size = new Size(72, 30);
             checkChinese.TabIndex = 9;
             checkChinese.Text = "Chinese";
             checkChinese.UseVisualStyleBackColor = false;
@@ -1246,10 +1365,13 @@ namespace RSBot.Items.Views
             // 
             checkFemale.AutoSize = true;
             checkFemale.BackColor = Color.Transparent;
+            checkFemale.Depth = 0;
             checkFemale.Location = new Point(99, 30);
+            checkFemale.Margin = new Padding(0);
+            checkFemale.MouseLocation = new Point(-1, -1);
             checkFemale.Name = "checkFemale";
-            checkFemale.ShadowDepth = 1;
-            checkFemale.Size = new Size(61, 15);
+            checkFemale.Ripple = true;
+            checkFemale.Size = new Size(68, 30);
             checkFemale.TabIndex = 9;
             checkFemale.Text = "Female";
             checkFemale.UseVisualStyleBackColor = false;
@@ -1258,10 +1380,13 @@ namespace RSBot.Items.Views
             // 
             checkBoxRareItems.AutoSize = true;
             checkBoxRareItems.BackColor = Color.Transparent;
+            checkBoxRareItems.Depth = 0;
             checkBoxRareItems.Location = new Point(16, 76);
+            checkBoxRareItems.Margin = new Padding(0);
+            checkBoxRareItems.MouseLocation = new Point(-1, -1);
             checkBoxRareItems.Name = "checkBoxRareItems";
-            checkBoxRareItems.ShadowDepth = 1;
-            checkBoxRareItems.Size = new Size(76, 15);
+            checkBoxRareItems.Ripple = true;
+            checkBoxRareItems.Size = new Size(84, 30);
             checkBoxRareItems.TabIndex = 40;
             checkBoxRareItems.Text = "Rare (Sox)";
             checkBoxRareItems.UseVisualStyleBackColor = false;
@@ -1270,19 +1395,24 @@ namespace RSBot.Items.Views
             // 
             checkMale.AutoSize = true;
             checkMale.BackColor = Color.Transparent;
+            checkMale.Depth = 0;
             checkMale.Location = new Point(16, 30);
+            checkMale.Margin = new Padding(0);
+            checkMale.MouseLocation = new Point(-1, -1);
             checkMale.Name = "checkMale";
-            checkMale.ShadowDepth = 1;
-            checkMale.Size = new Size(49, 15);
+            checkMale.Ripple = true;
+            checkMale.Size = new Size(56, 30);
             checkMale.TabIndex = 9;
             checkMale.Text = "Male";
             checkMale.UseVisualStyleBackColor = false;
             // 
             // label3
             // 
+            label3.ApplyGradient = false;
             label3.AutoSize = true;
             label3.ForeColor = Color.FromArgb(0, 0, 0);
-            label3.Location = new Point(16, 104);
+            label3.Gradient = (new Color[] { Color.Gray, Color.Black });
+            label3.Location = new Point(10, 113);
             label3.Name = "label3";
             label3.Size = new Size(47, 15);
             label3.TabIndex = 31;
@@ -1291,29 +1421,39 @@ namespace RSBot.Items.Views
             // numDegreeFrom
             // 
             numDegreeFrom.BackColor = Color.FromArgb(238, 238, 238);
-            numDegreeFrom.BorderStyle = BorderStyle.FixedSingle;
+            numDegreeFrom.Font = new Font("Segoe UI", 9.25F, FontStyle.Regular, GraphicsUnit.Point);
             numDegreeFrom.ForeColor = Color.FromArgb(0, 0, 0);
-            numDegreeFrom.Location = new Point(72, 101);
+            numDegreeFrom.Location = new Point(58, 109);
+            numDegreeFrom.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
+            numDegreeFrom.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
+            numDegreeFrom.MinimumSize = new Size(80, 25);
             numDegreeFrom.Name = "numDegreeFrom";
-            numDegreeFrom.Size = new Size(39, 23);
+            numDegreeFrom.Size = new Size(80, 25);
             numDegreeFrom.TabIndex = 32;
+            numDegreeFrom.Value = new decimal(new int[] { 0, 0, 0, 0 });
             // 
             // numDegreeTo
             // 
             numDegreeTo.BackColor = Color.FromArgb(238, 238, 238);
-            numDegreeTo.BorderStyle = BorderStyle.FixedSingle;
+            numDegreeTo.Font = new Font("Segoe UI", 9.25F, FontStyle.Regular, GraphicsUnit.Point);
             numDegreeTo.ForeColor = Color.FromArgb(0, 0, 0);
-            numDegreeTo.Location = new Point(140, 101);
+            numDegreeTo.Location = new Point(140, 109);
+            numDegreeTo.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
+            numDegreeTo.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
+            numDegreeTo.MinimumSize = new Size(80, 25);
             numDegreeTo.Name = "numDegreeTo";
-            numDegreeTo.Size = new Size(39, 23);
+            numDegreeTo.Size = new Size(80, 25);
             numDegreeTo.TabIndex = 34;
+            numDegreeTo.Value = new decimal(new int[] { 0, 0, 0, 0 });
             // 
             // label4
             // 
+            label4.ApplyGradient = false;
             label4.AutoSize = true;
             label4.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label4.ForeColor = Color.FromArgb(0, 0, 0);
-            label4.Location = new Point(116, 101);
+            label4.Gradient = (new Color[] { Color.Gray, Color.Black });
+            label4.Location = new Point(116, 109);
             label4.Name = "label4";
             label4.Size = new Size(18, 19);
             label4.TabIndex = 33;
@@ -1331,7 +1471,7 @@ namespace RSBot.Items.Views
             panel3.Controls.Add(btnReload);
             panel3.Controls.Add(txtSellSearch);
             panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(0, 409);
+            panel3.Location = new Point(0, 405);
             panel3.Margin = new Padding(0);
             panel3.Name = "panel3";
             panel3.Radius = 0;
@@ -1355,8 +1495,10 @@ namespace RSBot.Items.Views
             // 
             // labelResult
             // 
+            labelResult.ApplyGradient = false;
             labelResult.AutoSize = true;
             labelResult.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            labelResult.Gradient = (new Color[] { Color.Gray, Color.Black });
             labelResult.Location = new Point(280, 11);
             labelResult.Name = "labelResult";
             labelResult.Size = new Size(0, 15);
@@ -1412,6 +1554,7 @@ namespace RSBot.Items.Views
             txtSellSearch.MaxLength = 32767;
             txtSellSearch.MultiLine = false;
             txtSellSearch.Name = "txtSellSearch";
+            txtSellSearch.PassFocusShow = false;
             txtSellSearch.Radius = 2;
             txtSellSearch.Size = new Size(221, 21);
             txtSellSearch.TabIndex = 20;
@@ -1434,10 +1577,10 @@ namespace RSBot.Items.Views
             tabPage1.BackColor = Color.White;
             tabPage1.Controls.Add(groupBoxOptions);
             tabPage1.Controls.Add(groupBoxGeneral);
-            tabPage1.Location = new Point(4, 25);
+            tabPage1.Location = new Point(4, 28);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(746, 444);
+            tabPage1.Size = new Size(746, 441);
             tabPage1.TabIndex = 2;
             tabPage1.Text = "Pickup settings";
             // 
@@ -1464,10 +1607,13 @@ namespace RSBot.Items.Views
             // 
             checkPickupGold.AutoSize = true;
             checkPickupGold.BackColor = Color.Transparent;
-            checkPickupGold.Location = new Point(15, 41);
+            checkPickupGold.Depth = 0;
+            checkPickupGold.Location = new Point(15, 32);
+            checkPickupGold.Margin = new Padding(0);
+            checkPickupGold.MouseLocation = new Point(-1, -1);
             checkPickupGold.Name = "checkPickupGold";
-            checkPickupGold.ShadowDepth = 1;
-            checkPickupGold.Size = new Size(86, 15);
+            checkPickupGold.Ripple = true;
+            checkPickupGold.Size = new Size(94, 30);
             checkPickupGold.TabIndex = 0;
             checkPickupGold.Text = "Pickup gold";
             checkPickupGold.UseVisualStyleBackColor = false;
@@ -1477,10 +1623,13 @@ namespace RSBot.Items.Views
             // 
             checkAllEquips.AutoSize = true;
             checkAllEquips.BackColor = Color.Transparent;
-            checkAllEquips.Location = new Point(272, 65);
+            checkAllEquips.Depth = 0;
+            checkAllEquips.Location = new Point(272, 61);
+            checkAllEquips.Margin = new Padding(0);
+            checkAllEquips.MouseLocation = new Point(-1, -1);
             checkAllEquips.Name = "checkAllEquips";
-            checkAllEquips.ShadowDepth = 1;
-            checkAllEquips.Size = new Size(139, 15);
+            checkAllEquips.Ripple = true;
+            checkAllEquips.Size = new Size(148, 30);
             checkAllEquips.TabIndex = 5;
             checkAllEquips.Text = "Pickup all equip items";
             checkAllEquips.UseVisualStyleBackColor = false;
@@ -1490,10 +1639,13 @@ namespace RSBot.Items.Views
             // 
             checkEverything.AutoSize = true;
             checkEverything.BackColor = Color.Transparent;
-            checkEverything.Location = new Point(506, 65);
+            checkEverything.Depth = 0;
+            checkEverything.Location = new Point(506, 61);
+            checkEverything.Margin = new Padding(0);
+            checkEverything.MouseLocation = new Point(-1, -1);
             checkEverything.Name = "checkEverything";
-            checkEverything.ShadowDepth = 1;
-            checkEverything.Size = new Size(118, 15);
+            checkEverything.Ripple = true;
+            checkEverything.Size = new Size(126, 30);
             checkEverything.TabIndex = 4;
             checkEverything.Text = "Pickup everything";
             checkEverything.UseVisualStyleBackColor = false;
@@ -1503,10 +1655,13 @@ namespace RSBot.Items.Views
             // 
             checkPickupRare.AutoSize = true;
             checkPickupRare.BackColor = Color.Transparent;
-            checkPickupRare.Location = new Point(15, 65);
+            checkPickupRare.Depth = 0;
+            checkPickupRare.Location = new Point(15, 61);
+            checkPickupRare.Margin = new Padding(0);
+            checkPickupRare.MouseLocation = new Point(-1, -1);
             checkPickupRare.Name = "checkPickupRare";
-            checkPickupRare.ShadowDepth = 1;
-            checkPickupRare.Size = new Size(154, 15);
+            checkPickupRare.Ripple = true;
+            checkPickupRare.Size = new Size(164, 30);
             checkPickupRare.TabIndex = 1;
             checkPickupRare.Text = "Always pickup rare items";
             checkPickupRare.UseVisualStyleBackColor = false;
@@ -1516,10 +1671,13 @@ namespace RSBot.Items.Views
             // 
             checkQuestItems.AutoSize = true;
             checkQuestItems.BackColor = Color.Transparent;
-            checkQuestItems.Location = new Point(506, 41);
+            checkQuestItems.Depth = 0;
+            checkQuestItems.Location = new Point(506, 32);
+            checkQuestItems.Margin = new Padding(0);
+            checkQuestItems.MouseLocation = new Point(-1, -1);
             checkQuestItems.Name = "checkQuestItems";
-            checkQuestItems.ShadowDepth = 1;
-            checkQuestItems.Size = new Size(123, 15);
+            checkQuestItems.Ripple = true;
+            checkQuestItems.Size = new Size(132, 30);
             checkQuestItems.TabIndex = 4;
             checkQuestItems.Text = "Pickup quest items";
             checkQuestItems.UseVisualStyleBackColor = false;
@@ -1529,10 +1687,13 @@ namespace RSBot.Items.Views
             // 
             checkPickupBlue.AutoSize = true;
             checkPickupBlue.BackColor = Color.Transparent;
-            checkPickupBlue.Location = new Point(272, 41);
+            checkPickupBlue.Depth = 0;
+            checkPickupBlue.Location = new Point(272, 32);
+            checkPickupBlue.Margin = new Padding(0);
+            checkPickupBlue.MouseLocation = new Point(-1, -1);
             checkPickupBlue.Name = "checkPickupBlue";
-            checkPickupBlue.ShadowDepth = 1;
-            checkPickupBlue.Size = new Size(157, 15);
+            checkPickupBlue.Ripple = true;
+            checkPickupBlue.Size = new Size(167, 30);
             checkPickupBlue.TabIndex = 1;
             checkPickupBlue.Text = "Always pickup blue items";
             checkPickupBlue.UseVisualStyleBackColor = false;
@@ -1560,10 +1721,13 @@ namespace RSBot.Items.Views
             cbDontPickupWhileBotting.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             cbDontPickupWhileBotting.AutoSize = true;
             cbDontPickupWhileBotting.BackColor = Color.Transparent;
-            cbDontPickupWhileBotting.Location = new Point(506, 38);
+            cbDontPickupWhileBotting.Depth = 0;
+            cbDontPickupWhileBotting.Location = new Point(281, 56);
+            cbDontPickupWhileBotting.Margin = new Padding(0);
+            cbDontPickupWhileBotting.MouseLocation = new Point(-1, -1);
             cbDontPickupWhileBotting.Name = "cbDontPickupWhileBotting";
-            cbDontPickupWhileBotting.ShadowDepth = 1;
-            cbDontPickupWhileBotting.Size = new Size(196, 15);
+            cbDontPickupWhileBotting.Ripple = true;
+            cbDontPickupWhileBotting.Size = new Size(207, 30);
             cbDontPickupWhileBotting.TabIndex = 3;
             cbDontPickupWhileBotting.Text = "Don't pickup items while botting";
             cbDontPickupWhileBotting.UseVisualStyleBackColor = false;
@@ -1573,10 +1737,13 @@ namespace RSBot.Items.Views
             // 
             cbJustpickmyitems.AutoSize = true;
             cbJustpickmyitems.BackColor = Color.Transparent;
-            cbJustpickmyitems.Location = new Point(272, 38);
+            cbJustpickmyitems.Depth = 0;
+            cbJustpickmyitems.Location = new Point(281, 26);
+            cbJustpickmyitems.Margin = new Padding(0);
+            cbJustpickmyitems.MouseLocation = new Point(-1, -1);
             cbJustpickmyitems.Name = "cbJustpickmyitems";
-            cbJustpickmyitems.ShadowDepth = 1;
-            cbJustpickmyitems.Size = new Size(120, 15);
+            cbJustpickmyitems.Ripple = true;
+            cbJustpickmyitems.Size = new Size(129, 30);
             cbJustpickmyitems.TabIndex = 1;
             cbJustpickmyitems.Text = "Just pick my items";
             cbJustpickmyitems.UseVisualStyleBackColor = false;
@@ -1587,10 +1754,13 @@ namespace RSBot.Items.Views
             checkDontPickupInBerzerk.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             checkDontPickupInBerzerk.AutoSize = true;
             checkDontPickupInBerzerk.BackColor = Color.Transparent;
-            checkDontPickupInBerzerk.Location = new Point(15, 64);
+            checkDontPickupInBerzerk.Depth = 0;
+            checkDontPickupInBerzerk.Location = new Point(15, 56);
+            checkDontPickupInBerzerk.Margin = new Padding(0);
+            checkDontPickupInBerzerk.MouseLocation = new Point(-1, -1);
             checkDontPickupInBerzerk.Name = "checkDontPickupInBerzerk";
-            checkDontPickupInBerzerk.ShadowDepth = 1;
-            checkDontPickupInBerzerk.Size = new Size(211, 15);
+            checkDontPickupInBerzerk.Ripple = true;
+            checkDontPickupInBerzerk.Size = new Size(224, 30);
             checkDontPickupInBerzerk.TabIndex = 2;
             checkDontPickupInBerzerk.Text = "Don't pickup items in berzerk mode";
             checkDontPickupInBerzerk.UseVisualStyleBackColor = false;
@@ -1600,10 +1770,13 @@ namespace RSBot.Items.Views
             // 
             checkEnableAbilityPet.AutoSize = true;
             checkEnableAbilityPet.BackColor = Color.Transparent;
-            checkEnableAbilityPet.Location = new Point(15, 38);
+            checkEnableAbilityPet.Depth = 0;
+            checkEnableAbilityPet.Location = new Point(15, 26);
+            checkEnableAbilityPet.Margin = new Padding(0);
+            checkEnableAbilityPet.MouseLocation = new Point(-1, -1);
             checkEnableAbilityPet.Name = "checkEnableAbilityPet";
-            checkEnableAbilityPet.ShadowDepth = 1;
-            checkEnableAbilityPet.Size = new Size(185, 15);
+            checkEnableAbilityPet.Ripple = true;
+            checkEnableAbilityPet.Size = new Size(195, 30);
             checkEnableAbilityPet.TabIndex = 1;
             checkEnableAbilityPet.Text = "Use ability pet to pickup items ";
             checkEnableAbilityPet.UseVisualStyleBackColor = false;
@@ -1643,8 +1816,6 @@ namespace RSBot.Items.Views
             groupClothes.PerformLayout();
             groupGender.ResumeLayout(false);
             groupGender.PerformLayout();
-            ((ISupportInitialize)numDegreeFrom).EndInit();
-            ((ISupportInitialize)numDegreeTo).EndInit();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             ((ISupportInitialize)pictureBox1).EndInit();

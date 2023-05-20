@@ -52,8 +52,6 @@
             cb_AutoAccept = new SDUI.Controls.CheckBox();
             gbObjective.SuspendLayout();
             groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)max_level).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)min_level).BeginInit();
             groupBox3.SuspendLayout();
             groupBox4.SuspendLayout();
             groupBox5.SuspendLayout();
@@ -105,11 +103,11 @@
             // 
             // rbtn_Thief
             // 
-            rbtn_Thief.AutoSize = true;
             rbtn_Thief.Enabled = false;
             rbtn_Thief.Location = new System.Drawing.Point(238, 31);
+            rbtn_Thief.Margin = new System.Windows.Forms.Padding(0);
             rbtn_Thief.Name = "rbtn_Thief";
-            rbtn_Thief.ShadowDepth = 0;
+            rbtn_Thief.Ripple = true;
             rbtn_Thief.Size = new System.Drawing.Size(93, 15);
             rbtn_Thief.TabIndex = 0;
             rbtn_Thief.TabStop = true;
@@ -119,11 +117,11 @@
             // 
             // rbtn_Trade
             // 
-            rbtn_Trade.AutoSize = true;
             rbtn_Trade.Enabled = false;
             rbtn_Trade.Location = new System.Drawing.Point(149, 31);
+            rbtn_Trade.Margin = new System.Windows.Forms.Padding(0);
             rbtn_Trade.Name = "rbtn_Trade";
-            rbtn_Trade.ShadowDepth = 0;
+            rbtn_Trade.Ripple = true;
             rbtn_Trade.Size = new System.Drawing.Size(95, 15);
             rbtn_Trade.TabIndex = 0;
             rbtn_Trade.TabStop = true;
@@ -133,10 +131,10 @@
             // 
             // rbtn_Quest
             // 
-            rbtn_Quest.AutoSize = true;
             rbtn_Quest.Location = new System.Drawing.Point(87, 31);
+            rbtn_Quest.Margin = new System.Windows.Forms.Padding(0);
             rbtn_Quest.Name = "rbtn_Quest";
-            rbtn_Quest.ShadowDepth = 0;
+            rbtn_Quest.Ripple = true;
             rbtn_Quest.Size = new System.Drawing.Size(63, 15);
             rbtn_Quest.TabIndex = 0;
             rbtn_Quest.TabStop = true;
@@ -146,10 +144,10 @@
             // 
             // rbtn_Hunting
             // 
-            rbtn_Hunting.AutoSize = true;
             rbtn_Hunting.Location = new System.Drawing.Point(12, 31);
+            rbtn_Hunting.Margin = new System.Windows.Forms.Padding(0);
             rbtn_Hunting.Name = "rbtn_Hunting";
-            rbtn_Hunting.ShadowDepth = 0;
+            rbtn_Hunting.Ripple = true;
             rbtn_Hunting.Size = new System.Drawing.Size(76, 15);
             rbtn_Hunting.TabIndex = 0;
             rbtn_Hunting.TabStop = true;
@@ -176,8 +174,10 @@
             // 
             // label2
             // 
+            label2.ApplyGradient = false;
             label2.AutoSize = true;
             label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label2.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
             label2.Location = new System.Drawing.Point(172, 35);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(33, 15);
@@ -186,8 +186,10 @@
             // 
             // label1
             // 
+            label1.ApplyGradient = false;
             label1.AutoSize = true;
             label1.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label1.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
             label1.Location = new System.Drawing.Point(26, 35);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(31, 15);
@@ -197,26 +199,28 @@
             // max_level
             // 
             max_level.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
-            max_level.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            max_level.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             max_level.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             max_level.Location = new System.Drawing.Point(209, 32);
             max_level.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
             max_level.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            max_level.MinimumSize = new System.Drawing.Size(80, 25);
             max_level.Name = "max_level";
-            max_level.Size = new System.Drawing.Size(96, 23);
+            max_level.Size = new System.Drawing.Size(96, 25);
             max_level.TabIndex = 0;
             max_level.Value = new decimal(new int[] { 140, 0, 0, 0 });
             // 
             // min_level
             // 
             min_level.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
-            min_level.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            min_level.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             min_level.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             min_level.Location = new System.Drawing.Point(63, 32);
             min_level.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
             min_level.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            min_level.MinimumSize = new System.Drawing.Size(80, 25);
             min_level.Name = "min_level";
-            min_level.Size = new System.Drawing.Size(96, 23);
+            min_level.Size = new System.Drawing.Size(96, 25);
             min_level.TabIndex = 0;
             min_level.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
@@ -239,8 +243,10 @@
             // 
             // label_partytype2
             // 
+            label_partytype2.ApplyGradient = false;
             label_partytype2.AutoSize = true;
             label_partytype2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label_partytype2.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
             label_partytype2.Location = new System.Drawing.Point(206, 32);
             label_partytype2.Name = "label_partytype2";
             label_partytype2.Size = new System.Drawing.Size(92, 15);
@@ -249,9 +255,11 @@
             // 
             // label5
             // 
+            label5.ApplyGradient = false;
             label5.AutoSize = true;
             label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             label5.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label5.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
             label5.Location = new System.Drawing.Point(181, 27);
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(19, 21);
@@ -260,8 +268,10 @@
             // 
             // label_partytype
             // 
+            label_partytype.ApplyGradient = false;
             label_partytype.AutoSize = true;
             label_partytype.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label_partytype.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
             label_partytype.Location = new System.Drawing.Point(63, 32);
             label_partytype.Name = "label_partytype";
             label_partytype.Size = new System.Drawing.Size(87, 15);
@@ -270,9 +280,11 @@
             // 
             // label3
             // 
+            label3.ApplyGradient = false;
             label3.AutoSize = true;
             label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             label3.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label3.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
             label3.Location = new System.Drawing.Point(40, 27);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(19, 21);
@@ -299,6 +311,7 @@
             tb_Title.MaxLength = 32767;
             tb_Title.MultiLine = false;
             tb_Title.Name = "tb_Title";
+            tb_Title.PassFocusShow = false;
             tb_Title.Radius = 2;
             tb_Title.Size = new System.Drawing.Size(312, 21);
             tb_Title.TabIndex = 0;
@@ -322,11 +335,13 @@
             // 
             // cb_AutoReform
             // 
-            cb_AutoReform.AutoSize = true;
             cb_AutoReform.BackColor = System.Drawing.Color.Transparent;
+            cb_AutoReform.Depth = 0;
             cb_AutoReform.Location = new System.Drawing.Point(12, 32);
+            cb_AutoReform.Margin = new System.Windows.Forms.Padding(0);
+            cb_AutoReform.MouseLocation = new System.Drawing.Point(-1, -1);
             cb_AutoReform.Name = "cb_AutoReform";
-            cb_AutoReform.ShadowDepth = 1;
+            cb_AutoReform.Ripple = true;
             cb_AutoReform.Size = new System.Drawing.Size(91, 15);
             cb_AutoReform.TabIndex = 0;
             cb_AutoReform.Text = "Auto Reform";
@@ -335,11 +350,13 @@
             // 
             // cb_AutoAccept
             // 
-            cb_AutoAccept.AutoSize = true;
             cb_AutoAccept.BackColor = System.Drawing.Color.Transparent;
+            cb_AutoAccept.Depth = 0;
             cb_AutoAccept.Location = new System.Drawing.Point(232, 32);
+            cb_AutoAccept.Margin = new System.Windows.Forms.Padding(0);
+            cb_AutoAccept.MouseLocation = new System.Drawing.Point(-1, -1);
             cb_AutoAccept.Name = "cb_AutoAccept";
-            cb_AutoAccept.ShadowDepth = 1;
+            cb_AutoAccept.Ripple = true;
             cb_AutoAccept.Size = new System.Drawing.Size(89, 15);
             cb_AutoAccept.TabIndex = 0;
             cb_AutoAccept.Text = "Auto Accept";
@@ -372,16 +389,12 @@
             Text = "Party Matching";
             Load += AutoFormParty_Load;
             gbObjective.ResumeLayout(false);
-            gbObjective.PerformLayout();
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)max_level).EndInit();
-            ((System.ComponentModel.ISupportInitialize)min_level).EndInit();
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
             groupBox4.ResumeLayout(false);
             groupBox5.ResumeLayout(false);
-            groupBox5.PerformLayout();
             ResumeLayout(false);
         }
 

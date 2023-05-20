@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace RSBot.Views
 {
-    partial class AboutDialog : CleanForm
+    partial class AboutDialog : UIWindowBase
     {
         public AboutDialog()
         {
