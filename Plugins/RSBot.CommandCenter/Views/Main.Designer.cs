@@ -49,10 +49,13 @@
             // 
             checkEnable.AutoSize = true;
             checkEnable.BackColor = System.Drawing.Color.Transparent;
-            checkEnable.Location = new System.Drawing.Point(132, 374);
+            checkEnable.Depth = 0;
+            checkEnable.Location = new System.Drawing.Point(132, 368);
+            checkEnable.Margin = new System.Windows.Forms.Padding(0);
+            checkEnable.MouseLocation = new System.Drawing.Point(-1, -1);
             checkEnable.Name = "checkEnable";
-            checkEnable.ShadowDepth = 1;
-            checkEnable.Size = new System.Drawing.Size(152, 15);
+            checkEnable.Ripple = true;
+            checkEnable.Size = new System.Drawing.Size(161, 30);
             checkEnable.TabIndex = 0;
             checkEnable.Text = "Enable command center";
             checkEnable.UseVisualStyleBackColor = false;
@@ -61,7 +64,7 @@
             // btnResetToDefaults
             // 
             btnResetToDefaults.Color = System.Drawing.Color.Transparent;
-            btnResetToDefaults.Location = new System.Drawing.Point(8, 369);
+            btnResetToDefaults.Location = new System.Drawing.Point(8, 371);
             btnResetToDefaults.Name = "btnResetToDefaults";
             btnResetToDefaults.Radius = 6;
             btnResetToDefaults.ShadowDepth = 4F;
@@ -73,11 +76,10 @@
             // 
             // tabControl1
             // 
-            tabControl1.Border = new System.Windows.Forms.Padding(1);
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Controls.Add(tabPage3);
-            tabControl1.HideTabArea = false;
+            tabControl1.ItemSize = new System.Drawing.Size(80, 24);
             tabControl1.Location = new System.Drawing.Point(8, 4);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -88,10 +90,10 @@
             // 
             tabPage1.BackColor = System.Drawing.Color.White;
             tabPage1.Controls.Add(panelActions);
-            tabPage1.Location = new System.Drawing.Point(4, 25);
+            tabPage1.Location = new System.Drawing.Point(4, 28);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            tabPage1.Size = new System.Drawing.Size(377, 330);
+            tabPage1.Size = new System.Drawing.Size(377, 327);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Emote commands";
             // 
@@ -107,7 +109,7 @@
             panelActions.Name = "panelActions";
             panelActions.Radius = 10;
             panelActions.ShadowDepth = 4F;
-            panelActions.Size = new System.Drawing.Size(371, 324);
+            panelActions.Size = new System.Drawing.Size(371, 321);
             panelActions.TabIndex = 1;
             // 
             // tabPage2
@@ -115,10 +117,10 @@
             tabPage2.BackColor = System.Drawing.Color.White;
             tabPage2.Controls.Add(lblChatCommandDescriptions);
             tabPage2.Controls.Add(label1);
-            tabPage2.Location = new System.Drawing.Point(4, 25);
+            tabPage2.Location = new System.Drawing.Point(4, 28);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            tabPage2.Size = new System.Drawing.Size(377, 330);
+            tabPage2.Size = new System.Drawing.Size(377, 327);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Chat commands";
             // 
@@ -134,9 +136,11 @@
             // 
             // label1
             // 
+            label1.ApplyGradient = false;
             label1.AutoSize = true;
             label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             label1.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label1.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
             label1.Location = new System.Drawing.Point(16, 15);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(281, 15);
@@ -147,17 +151,19 @@
             // 
             tabPage3.BackColor = System.Drawing.Color.White;
             tabPage3.Controls.Add(label2);
-            tabPage3.Location = new System.Drawing.Point(4, 25);
+            tabPage3.Location = new System.Drawing.Point(4, 28);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            tabPage3.Size = new System.Drawing.Size(377, 330);
+            tabPage3.Size = new System.Drawing.Size(377, 327);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Notifications";
             // 
             // label2
             // 
+            label2.ApplyGradient = false;
             label2.AutoSize = true;
             label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label2.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
             label2.Location = new System.Drawing.Point(134, 157);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(93, 15);
@@ -168,7 +174,7 @@
             // 
             btnSave.Color = System.Drawing.Color.FromArgb(56, 155, 90);
             btnSave.ForeColor = System.Drawing.Color.White;
-            btnSave.Location = new System.Drawing.Point(311, 369);
+            btnSave.Location = new System.Drawing.Point(311, 371);
             btnSave.Name = "btnSave";
             btnSave.Radius = 6;
             btnSave.ShadowDepth = 4F;

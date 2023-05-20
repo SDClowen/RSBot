@@ -13,7 +13,7 @@ using static SDUI.NativeMethods;
 
 namespace RSBot.General.Views
 {
-    public partial class PendingWindow : CleanForm
+    public partial class PendingWindow : UIWindowBase
     {
         /// <summary>
         /// The Started tick

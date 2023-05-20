@@ -58,6 +58,7 @@
             buttonJobTransport = new SDUI.Controls.Button();
             buttonStorage = new SDUI.Controls.Button();
             buttonJobEquipment = new SDUI.Controls.Button();
+            shapeProgressBar1 = new SDUI.Controls.ShapeProgressBar();
             contextMenuStrip.SuspendLayout();
             panel1.SuspendLayout();
             topPanel.SuspendLayout();
@@ -66,11 +67,13 @@
             // label2
             // 
             label2.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            label2.ApplyGradient = false;
             label2.AutoSize = true;
             label2.BackColor = System.Drawing.Color.Transparent;
             label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label2.Location = new System.Drawing.Point(6, 6);
+            label2.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label2.Location = new System.Drawing.Point(124, 10);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(65, 15);
             label2.TabIndex = 3;
@@ -79,10 +82,12 @@
             // lblFreeSlots
             // 
             lblFreeSlots.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            lblFreeSlots.ApplyGradient = false;
             lblFreeSlots.AutoSize = true;
             lblFreeSlots.BackColor = System.Drawing.Color.Transparent;
             lblFreeSlots.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            lblFreeSlots.Location = new System.Drawing.Point(86, 7);
+            lblFreeSlots.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            lblFreeSlots.Location = new System.Drawing.Point(47, 10);
             lblFreeSlots.Name = "lblFreeSlots";
             lblFreeSlots.Size = new System.Drawing.Size(13, 15);
             lblFreeSlots.TabIndex = 4;
@@ -90,16 +95,18 @@
             // 
             // listViewMain
             // 
+            listViewMain.BackColor = System.Drawing.Color.White;
             listViewMain.BorderStyle = System.Windows.Forms.BorderStyle.None;
             listViewMain.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { colName, colAmount, colGenderRace });
             listViewMain.ContextMenuStrip = contextMenuStrip;
             listViewMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            listViewMain.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             listViewMain.FullRowSelect = true;
             listViewMain.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             listViewMain.Location = new System.Drawing.Point(0, 38);
             listViewMain.MultiSelect = false;
             listViewMain.Name = "listViewMain";
-            listViewMain.Size = new System.Drawing.Size(792, 393);
+            listViewMain.Size = new System.Drawing.Size(792, 375);
             listViewMain.TabIndex = 2;
             listViewMain.UseCompatibleStateImageBehavior = false;
             listViewMain.View = System.Windows.Forms.View.Details;
@@ -203,26 +210,29 @@
             panel1.BackColor = System.Drawing.Color.Transparent;
             panel1.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
             panel1.BorderColor = System.Drawing.Color.Transparent;
+            panel1.Controls.Add(shapeProgressBar1);
             panel1.Controls.Add(checkAutoSort);
             panel1.Controls.Add(btnSort);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(lblFreeSlots);
             panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            panel1.Location = new System.Drawing.Point(0, 431);
+            panel1.Location = new System.Drawing.Point(0, 413);
             panel1.Name = "panel1";
             panel1.Padding = new System.Windows.Forms.Padding(3);
             panel1.Radius = 0;
             panel1.ShadowDepth = 4F;
-            panel1.Size = new System.Drawing.Size(792, 27);
+            panel1.Size = new System.Drawing.Size(792, 45);
             panel1.TabIndex = 6;
             // 
             // checkAutoSort
             // 
-            checkAutoSort.AutoSize = true;
             checkAutoSort.BackColor = System.Drawing.Color.Transparent;
+            checkAutoSort.Depth = 0;
             checkAutoSort.Location = new System.Drawing.Point(636, 7);
+            checkAutoSort.Margin = new System.Windows.Forms.Padding(0);
+            checkAutoSort.MouseLocation = new System.Drawing.Point(-1, -1);
             checkAutoSort.Name = "checkAutoSort";
-            checkAutoSort.ShadowDepth = 1;
+            checkAutoSort.Ripple = true;
             checkAutoSort.Size = new System.Drawing.Size(72, 15);
             checkAutoSort.TabIndex = 6;
             checkAutoSort.Text = "Auto sort";
@@ -407,6 +417,22 @@
             buttonJobEquipment.UseVisualStyleBackColor = true;
             buttonJobEquipment.Click += ButtonSwitcher;
             // 
+            // shapeProgressBar1
+            // 
+            shapeProgressBar1.BackColor = System.Drawing.Color.Transparent;
+            shapeProgressBar1.DrawHatch = false;
+            shapeProgressBar1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            shapeProgressBar1.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.FromArgb(224, 224, 224), System.Drawing.Color.Teal });
+            shapeProgressBar1.HatchType = System.Drawing.Drawing2D.HatchStyle.Horizontal;
+            shapeProgressBar1.Location = new System.Drawing.Point(9, 7);
+            shapeProgressBar1.Maximum = 100L;
+            shapeProgressBar1.Name = "shapeProgressBar1";
+            shapeProgressBar1.Size = new System.Drawing.Size(32, 32);
+            shapeProgressBar1.TabIndex = 7;
+            shapeProgressBar1.Text = "pbInventoryStatus";
+            shapeProgressBar1.Value = 50L;
+            shapeProgressBar1.Weight = 4F;
+            // 
             // Main
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -456,5 +482,6 @@
         private SDUI.Controls.CheckBox checkAutoSort;
         private System.Windows.Forms.ToolStripMenuItem useItemAtTrainingPlaceMenuItem;
         private System.Windows.Forms.ToolStripMenuItem autoUseAccordingToPurposeToolStripMenuItem;
+        private SDUI.Controls.ShapeProgressBar shapeProgressBar1;
     }
 }

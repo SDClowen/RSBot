@@ -11,7 +11,7 @@ using TextBox = SDUI.Controls.TextBox;
 
 namespace RSBot.Views.Dialog
 {
-    public partial class CommandDialog : CleanForm
+    public partial class CommandDialog : UIWindowBase
     {
         #region Properties
 

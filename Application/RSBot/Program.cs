@@ -44,7 +44,7 @@ namespace RSBot
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.SetHighDpiMode(HighDpiMode.DpiUnawareGdiScaled);
+            Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
             Application.Run(new SplashScreen());
         }
     }

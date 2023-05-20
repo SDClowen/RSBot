@@ -7,11 +7,12 @@ using SDUI.Helpers;
 using System;
 using System.Drawing;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RSBot.Views
 {
-    public partial class SplashScreen : CleanForm
+    public partial class SplashScreen : UIWindow
     {
         private readonly Main _mainForm;
 
@@ -189,12 +190,12 @@ namespace RSBot.Views
         {
             //---- Load Map ----
             var mapFile = Path.Combine(Kernel.BasePath, "Data", "Game", "map.rsc");
-            
+
             if (!CollisionManager.Enabled)
             {
                 Log.Warn("[Collision] Collision detection has been deactivated by the user!");
             }
-            
+
             if (!File.Exists(mapFile))
             {
                 Log.Error($"[Collisions] Directory {mapFile} not found!");

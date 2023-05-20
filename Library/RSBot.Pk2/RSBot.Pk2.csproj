@@ -7,7 +7,7 @@
     <ImplicitUsings>disable</ImplicitUsings>
 	  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	  <Description>Acts as RSBot Pk2 Library- includes all neccessary logic for reading pk2 files</Description>
-	  <Copyright>Copyright © 2022, RSBot Team</Copyright>
+	  <Copyright>Copyright © 2023, RSBot Team</Copyright>
 	  <PackageProjectUrl>https://github.com/SDClowen/RSBot</PackageProjectUrl>
 	  <RepositoryUrl>https://github.com/SDClowen/RSBot</RepositoryUrl>
   </PropertyGroup>

@@ -4,13 +4,10 @@ using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects.Spawn;
 using System;
-using System.ComponentModel;
 using System.Windows.Forms;
-using RSBot.Core.Network;
 
 namespace RSBot.Views.Controls
 {
-    [ToolboxItem(false)]
     public partial class Entity : UserControl
     {
         public Entity()

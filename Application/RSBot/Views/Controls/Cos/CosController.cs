@@ -20,6 +20,7 @@ namespace RSBot.Views.Controls.Cos
 
         public CosController()
         {
+            SetStyle(ControlStyles.Opaque, true);
             InitializeComponent();
 
             CheckForIllegalCrossThreadCalls = false;

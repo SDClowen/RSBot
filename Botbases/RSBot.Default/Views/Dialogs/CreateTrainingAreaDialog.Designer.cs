@@ -100,7 +100,6 @@
             // Radius
             // 
             this.Radius.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
-            this.Radius.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Radius.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.Radius.Location = new System.Drawing.Point(8, 78);
             this.Radius.Minimum = new decimal(new int[] {

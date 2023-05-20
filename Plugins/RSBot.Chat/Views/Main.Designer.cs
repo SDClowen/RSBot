@@ -76,7 +76,6 @@
             // 
             // tabMain
             // 
-            tabMain.Border = new System.Windows.Forms.Padding(1);
             tabMain.Controls.Add(tabAll);
             tabMain.Controls.Add(tabPrivate);
             tabMain.Controls.Add(tabParty);
@@ -87,7 +86,7 @@
             tabMain.Controls.Add(tabStall);
             tabMain.Controls.Add(tabUnique);
             tabMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            tabMain.HideTabArea = false;
+            tabMain.ItemSize = new System.Drawing.Size(80, 24);
             tabMain.Location = new System.Drawing.Point(0, 0);
             tabMain.Name = "tabMain";
             tabMain.SelectedIndex = 0;
@@ -100,10 +99,10 @@
             tabAll.Controls.Add(txtAll);
             tabAll.Controls.Add(separator6);
             tabAll.Controls.Add(txtSendAll);
-            tabAll.Location = new System.Drawing.Point(4, 24);
+            tabAll.Location = new System.Drawing.Point(4, 28);
             tabAll.Name = "tabAll";
             tabAll.Padding = new System.Windows.Forms.Padding(3);
-            tabAll.Size = new System.Drawing.Size(746, 449);
+            tabAll.Size = new System.Drawing.Size(746, 445);
             tabAll.TabIndex = 0;
             tabAll.Text = "All";
             // 
@@ -114,7 +113,7 @@
             txtAll.Location = new System.Drawing.Point(3, 3);
             txtAll.Name = "txtAll";
             txtAll.ReadOnly = true;
-            txtAll.Size = new System.Drawing.Size(740, 412);
+            txtAll.Size = new System.Drawing.Size(740, 408);
             txtAll.TabIndex = 2;
             txtAll.Text = "";
             // 
@@ -122,7 +121,7 @@
             // 
             separator6.Dock = System.Windows.Forms.DockStyle.Bottom;
             separator6.IsVertical = false;
-            separator6.Location = new System.Drawing.Point(3, 415);
+            separator6.Location = new System.Drawing.Point(3, 411);
             separator6.Name = "separator6";
             separator6.Size = new System.Drawing.Size(740, 10);
             separator6.TabIndex = 4;
@@ -131,10 +130,11 @@
             // txtSendAll
             // 
             txtSendAll.Dock = System.Windows.Forms.DockStyle.Bottom;
-            txtSendAll.Location = new System.Drawing.Point(3, 425);
+            txtSendAll.Location = new System.Drawing.Point(3, 421);
             txtSendAll.MaxLength = 32767;
             txtSendAll.MultiLine = false;
             txtSendAll.Name = "txtSendAll";
+            txtSendAll.PassFocusShow = false;
             txtSendAll.Radius = 2;
             txtSendAll.Size = new System.Drawing.Size(740, 21);
             txtSendAll.TabIndex = 3;
@@ -149,10 +149,10 @@
             tabPrivate.Controls.Add(txtPrivate);
             tabPrivate.Controls.Add(separator5);
             tabPrivate.Controls.Add(panel1);
-            tabPrivate.Location = new System.Drawing.Point(4, 24);
+            tabPrivate.Location = new System.Drawing.Point(4, 25);
             tabPrivate.Name = "tabPrivate";
             tabPrivate.Padding = new System.Windows.Forms.Padding(3);
-            tabPrivate.Size = new System.Drawing.Size(746, 449);
+            tabPrivate.Size = new System.Drawing.Size(746, 448);
             tabPrivate.TabIndex = 1;
             tabPrivate.Text = "Private";
             // 
@@ -162,7 +162,7 @@
             txtPrivate.Dock = System.Windows.Forms.DockStyle.Fill;
             txtPrivate.Location = new System.Drawing.Point(3, 3);
             txtPrivate.Name = "txtPrivate";
-            txtPrivate.Size = new System.Drawing.Size(740, 403);
+            txtPrivate.Size = new System.Drawing.Size(740, 402);
             txtPrivate.TabIndex = 7;
             txtPrivate.Text = "";
             // 
@@ -170,7 +170,7 @@
             // 
             separator5.Dock = System.Windows.Forms.DockStyle.Bottom;
             separator5.IsVertical = false;
-            separator5.Location = new System.Drawing.Point(3, 406);
+            separator5.Location = new System.Drawing.Point(3, 405);
             separator5.Name = "separator5";
             separator5.Size = new System.Drawing.Size(740, 10);
             separator5.TabIndex = 6;
@@ -182,7 +182,7 @@
             panel1.Controls.Add(textBoxPrivateMsg);
             panel1.Controls.Add(txtRecievePrivate);
             panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            panel1.Location = new System.Drawing.Point(3, 416);
+            panel1.Location = new System.Drawing.Point(3, 415);
             panel1.Name = "panel1";
             panel1.Size = new System.Drawing.Size(740, 30);
             panel1.TabIndex = 8;
@@ -193,6 +193,7 @@
             textBoxPrivateMsg.MaxLength = 32767;
             textBoxPrivateMsg.MultiLine = false;
             textBoxPrivateMsg.Name = "textBoxPrivateMsg";
+            textBoxPrivateMsg.PassFocusShow = false;
             textBoxPrivateMsg.Radius = 2;
             textBoxPrivateMsg.Size = new System.Drawing.Size(573, 21);
             textBoxPrivateMsg.TabIndex = 4;
@@ -207,6 +208,7 @@
             txtRecievePrivate.MaxLength = 32767;
             txtRecievePrivate.MultiLine = false;
             txtRecievePrivate.Name = "txtRecievePrivate";
+            txtRecievePrivate.PassFocusShow = false;
             txtRecievePrivate.Radius = 2;
             txtRecievePrivate.Size = new System.Drawing.Size(155, 21);
             txtRecievePrivate.TabIndex = 4;
@@ -219,10 +221,10 @@
             tabParty.Controls.Add(txtParty);
             tabParty.Controls.Add(separator4);
             tabParty.Controls.Add(txtSendParty);
-            tabParty.Location = new System.Drawing.Point(4, 24);
+            tabParty.Location = new System.Drawing.Point(4, 28);
             tabParty.Name = "tabParty";
             tabParty.Padding = new System.Windows.Forms.Padding(3);
-            tabParty.Size = new System.Drawing.Size(746, 449);
+            tabParty.Size = new System.Drawing.Size(746, 445);
             tabParty.TabIndex = 2;
             tabParty.Text = "Party";
             // 
@@ -233,7 +235,7 @@
             txtParty.Location = new System.Drawing.Point(3, 3);
             txtParty.Name = "txtParty";
             txtParty.ReadOnly = true;
-            txtParty.Size = new System.Drawing.Size(740, 412);
+            txtParty.Size = new System.Drawing.Size(740, 408);
             txtParty.TabIndex = 2;
             txtParty.Text = "";
             // 
@@ -241,7 +243,7 @@
             // 
             separator4.Dock = System.Windows.Forms.DockStyle.Bottom;
             separator4.IsVertical = false;
-            separator4.Location = new System.Drawing.Point(3, 415);
+            separator4.Location = new System.Drawing.Point(3, 411);
             separator4.Name = "separator4";
             separator4.Size = new System.Drawing.Size(740, 10);
             separator4.TabIndex = 4;
@@ -250,10 +252,11 @@
             // txtSendParty
             // 
             txtSendParty.Dock = System.Windows.Forms.DockStyle.Bottom;
-            txtSendParty.Location = new System.Drawing.Point(3, 425);
+            txtSendParty.Location = new System.Drawing.Point(3, 421);
             txtSendParty.MaxLength = 32767;
             txtSendParty.MultiLine = false;
             txtSendParty.Name = "txtSendParty";
+            txtSendParty.PassFocusShow = false;
             txtSendParty.Radius = 2;
             txtSendParty.Size = new System.Drawing.Size(740, 21);
             txtSendParty.TabIndex = 3;
@@ -268,10 +271,10 @@
             tabGuild.Controls.Add(txtGuild);
             tabGuild.Controls.Add(separator3);
             tabGuild.Controls.Add(txtSendGuild);
-            tabGuild.Location = new System.Drawing.Point(4, 24);
+            tabGuild.Location = new System.Drawing.Point(4, 28);
             tabGuild.Name = "tabGuild";
             tabGuild.Padding = new System.Windows.Forms.Padding(3);
-            tabGuild.Size = new System.Drawing.Size(746, 449);
+            tabGuild.Size = new System.Drawing.Size(746, 445);
             tabGuild.TabIndex = 3;
             tabGuild.Text = "Guild";
             // 
@@ -282,7 +285,7 @@
             txtGuild.Location = new System.Drawing.Point(3, 3);
             txtGuild.Name = "txtGuild";
             txtGuild.ReadOnly = true;
-            txtGuild.Size = new System.Drawing.Size(740, 412);
+            txtGuild.Size = new System.Drawing.Size(740, 408);
             txtGuild.TabIndex = 2;
             txtGuild.Text = "";
             // 
@@ -290,7 +293,7 @@
             // 
             separator3.Dock = System.Windows.Forms.DockStyle.Bottom;
             separator3.IsVertical = false;
-            separator3.Location = new System.Drawing.Point(3, 415);
+            separator3.Location = new System.Drawing.Point(3, 411);
             separator3.Name = "separator3";
             separator3.Size = new System.Drawing.Size(740, 10);
             separator3.TabIndex = 4;
@@ -299,10 +302,11 @@
             // txtSendGuild
             // 
             txtSendGuild.Dock = System.Windows.Forms.DockStyle.Bottom;
-            txtSendGuild.Location = new System.Drawing.Point(3, 425);
+            txtSendGuild.Location = new System.Drawing.Point(3, 421);
             txtSendGuild.MaxLength = 32767;
             txtSendGuild.MultiLine = false;
             txtSendGuild.Name = "txtSendGuild";
+            txtSendGuild.PassFocusShow = false;
             txtSendGuild.Radius = 2;
             txtSendGuild.Size = new System.Drawing.Size(740, 21);
             txtSendGuild.TabIndex = 3;
@@ -317,10 +321,10 @@
             tabUnion.Controls.Add(txtUnion);
             tabUnion.Controls.Add(separator2);
             tabUnion.Controls.Add(txtSendUnion);
-            tabUnion.Location = new System.Drawing.Point(4, 24);
+            tabUnion.Location = new System.Drawing.Point(4, 25);
             tabUnion.Name = "tabUnion";
             tabUnion.Padding = new System.Windows.Forms.Padding(3);
-            tabUnion.Size = new System.Drawing.Size(746, 449);
+            tabUnion.Size = new System.Drawing.Size(746, 448);
             tabUnion.TabIndex = 6;
             tabUnion.Text = "Union";
             // 
@@ -331,7 +335,7 @@
             txtUnion.Location = new System.Drawing.Point(3, 3);
             txtUnion.Name = "txtUnion";
             txtUnion.ReadOnly = true;
-            txtUnion.Size = new System.Drawing.Size(740, 412);
+            txtUnion.Size = new System.Drawing.Size(740, 411);
             txtUnion.TabIndex = 4;
             txtUnion.Text = "";
             // 
@@ -339,7 +343,7 @@
             // 
             separator2.Dock = System.Windows.Forms.DockStyle.Bottom;
             separator2.IsVertical = false;
-            separator2.Location = new System.Drawing.Point(3, 415);
+            separator2.Location = new System.Drawing.Point(3, 414);
             separator2.Name = "separator2";
             separator2.Size = new System.Drawing.Size(740, 10);
             separator2.TabIndex = 6;
@@ -348,10 +352,11 @@
             // txtSendUnion
             // 
             txtSendUnion.Dock = System.Windows.Forms.DockStyle.Bottom;
-            txtSendUnion.Location = new System.Drawing.Point(3, 425);
+            txtSendUnion.Location = new System.Drawing.Point(3, 424);
             txtSendUnion.MaxLength = 32767;
             txtSendUnion.MultiLine = false;
             txtSendUnion.Name = "txtSendUnion";
+            txtSendUnion.PassFocusShow = false;
             txtSendUnion.Radius = 2;
             txtSendUnion.Size = new System.Drawing.Size(740, 21);
             txtSendUnion.TabIndex = 5;
@@ -366,10 +371,10 @@
             tabAcademy.Controls.Add(txtAcademy);
             tabAcademy.Controls.Add(separator1);
             tabAcademy.Controls.Add(txtSendAcademy);
-            tabAcademy.Location = new System.Drawing.Point(4, 25);
+            tabAcademy.Location = new System.Drawing.Point(4, 28);
             tabAcademy.Name = "tabAcademy";
             tabAcademy.Padding = new System.Windows.Forms.Padding(3);
-            tabAcademy.Size = new System.Drawing.Size(746, 448);
+            tabAcademy.Size = new System.Drawing.Size(746, 445);
             tabAcademy.TabIndex = 4;
             tabAcademy.Text = "Academy";
             // 
@@ -380,7 +385,7 @@
             txtAcademy.Location = new System.Drawing.Point(3, 3);
             txtAcademy.Name = "txtAcademy";
             txtAcademy.ReadOnly = true;
-            txtAcademy.Size = new System.Drawing.Size(740, 411);
+            txtAcademy.Size = new System.Drawing.Size(740, 408);
             txtAcademy.TabIndex = 2;
             txtAcademy.Text = "";
             // 
@@ -388,7 +393,7 @@
             // 
             separator1.Dock = System.Windows.Forms.DockStyle.Bottom;
             separator1.IsVertical = false;
-            separator1.Location = new System.Drawing.Point(3, 414);
+            separator1.Location = new System.Drawing.Point(3, 411);
             separator1.Name = "separator1";
             separator1.Size = new System.Drawing.Size(740, 10);
             separator1.TabIndex = 4;
@@ -397,10 +402,11 @@
             // txtSendAcademy
             // 
             txtSendAcademy.Dock = System.Windows.Forms.DockStyle.Bottom;
-            txtSendAcademy.Location = new System.Drawing.Point(3, 424);
+            txtSendAcademy.Location = new System.Drawing.Point(3, 421);
             txtSendAcademy.MaxLength = 32767;
             txtSendAcademy.MultiLine = false;
             txtSendAcademy.Name = "txtSendAcademy";
+            txtSendAcademy.PassFocusShow = false;
             txtSendAcademy.Radius = 2;
             txtSendAcademy.Size = new System.Drawing.Size(740, 21);
             txtSendAcademy.TabIndex = 3;
@@ -413,10 +419,10 @@
             // 
             tabGlobal.BackColor = System.Drawing.Color.White;
             tabGlobal.Controls.Add(txtGlobal);
-            tabGlobal.Location = new System.Drawing.Point(4, 25);
+            tabGlobal.Location = new System.Drawing.Point(4, 28);
             tabGlobal.Name = "tabGlobal";
             tabGlobal.Padding = new System.Windows.Forms.Padding(3);
-            tabGlobal.Size = new System.Drawing.Size(746, 448);
+            tabGlobal.Size = new System.Drawing.Size(746, 445);
             tabGlobal.TabIndex = 5;
             tabGlobal.Text = "Global / Notice";
             // 
@@ -427,7 +433,7 @@
             txtGlobal.Location = new System.Drawing.Point(3, 3);
             txtGlobal.Name = "txtGlobal";
             txtGlobal.ReadOnly = true;
-            txtGlobal.Size = new System.Drawing.Size(740, 442);
+            txtGlobal.Size = new System.Drawing.Size(740, 439);
             txtGlobal.TabIndex = 2;
             txtGlobal.Text = "";
             // 
@@ -435,10 +441,10 @@
             // 
             tabStall.BackColor = System.Drawing.Color.White;
             tabStall.Controls.Add(txtStall);
-            tabStall.Location = new System.Drawing.Point(4, 24);
+            tabStall.Location = new System.Drawing.Point(4, 28);
             tabStall.Name = "tabStall";
             tabStall.Padding = new System.Windows.Forms.Padding(3);
-            tabStall.Size = new System.Drawing.Size(746, 449);
+            tabStall.Size = new System.Drawing.Size(746, 445);
             tabStall.TabIndex = 5;
             tabStall.Text = "Stall";
             // 
@@ -449,7 +455,7 @@
             txtStall.Location = new System.Drawing.Point(3, 3);
             txtStall.Name = "txtStall";
             txtStall.ReadOnly = true;
-            txtStall.Size = new System.Drawing.Size(740, 443);
+            txtStall.Size = new System.Drawing.Size(740, 439);
             txtStall.TabIndex = 2;
             txtStall.Text = "";
             // 
@@ -457,10 +463,10 @@
             // 
             tabUnique.BackColor = System.Drawing.Color.White;
             tabUnique.Controls.Add(UniqueText);
-            tabUnique.Location = new System.Drawing.Point(4, 24);
+            tabUnique.Location = new System.Drawing.Point(4, 28);
             tabUnique.Name = "tabUnique";
             tabUnique.Padding = new System.Windows.Forms.Padding(3);
-            tabUnique.Size = new System.Drawing.Size(746, 449);
+            tabUnique.Size = new System.Drawing.Size(746, 445);
             tabUnique.TabIndex = 7;
             tabUnique.Text = "Unique";
             // 
@@ -471,7 +477,7 @@
             UniqueText.Location = new System.Drawing.Point(3, 3);
             UniqueText.Name = "UniqueText";
             UniqueText.ReadOnly = true;
-            UniqueText.Size = new System.Drawing.Size(740, 443);
+            UniqueText.Size = new System.Drawing.Size(740, 439);
             UniqueText.TabIndex = 3;
             UniqueText.Text = "";
             // 

@@ -56,6 +56,7 @@
             textBoxSecondaryPassword.MaxLength = 32767;
             textBoxSecondaryPassword.MultiLine = false;
             textBoxSecondaryPassword.Name = "textBoxSecondaryPassword";
+            textBoxSecondaryPassword.PassFocusShow = false;
             textBoxSecondaryPassword.Radius = 2;
             textBoxSecondaryPassword.Size = new System.Drawing.Size(119, 21);
             textBoxSecondaryPassword.TabIndex = 2;
@@ -105,8 +106,10 @@
             // 
             // label2
             // 
+            label2.ApplyGradient = false;
             label2.AutoSize = true;
             label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label2.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
             label2.Location = new System.Drawing.Point(194, 12);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(63, 15);
@@ -119,6 +122,7 @@
             txtUsername.MaxLength = 32767;
             txtUsername.MultiLine = false;
             txtUsername.Name = "txtUsername";
+            txtUsername.PassFocusShow = false;
             txtUsername.Radius = 2;
             txtUsername.Size = new System.Drawing.Size(197, 21);
             txtUsername.TabIndex = 0;
@@ -127,8 +131,10 @@
             // 
             // label3
             // 
+            label3.ApplyGradient = false;
             label3.AutoSize = true;
             label3.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label3.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
             label3.Location = new System.Drawing.Point(194, 60);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(60, 15);
@@ -141,6 +147,7 @@
             txtPassword.MaxLength = 32767;
             txtPassword.MultiLine = false;
             txtPassword.Name = "txtPassword";
+            txtPassword.PassFocusShow = false;
             txtPassword.Radius = 2;
             txtPassword.Size = new System.Drawing.Size(197, 21);
             txtPassword.TabIndex = 1;
@@ -149,8 +156,10 @@
             // 
             // label5
             // 
+            label5.ApplyGradient = false;
             label5.AutoSize = true;
             label5.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label5.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
             label5.Location = new System.Drawing.Point(192, 109);
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(163, 15);
@@ -159,8 +168,10 @@
             // 
             // label4
             // 
+            label4.ApplyGradient = false;
             label4.AutoSize = true;
             label4.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label4.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
             label4.Location = new System.Drawing.Point(192, 161);
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(75, 15);
@@ -173,6 +184,7 @@
             txtServername.MaxLength = 32767;
             txtServername.MultiLine = false;
             txtServername.Name = "txtServername";
+            txtServername.PassFocusShow = false;
             txtServername.Radius = 2;
             txtServername.Size = new System.Drawing.Size(199, 21);
             txtServername.TabIndex = 3;
@@ -239,7 +251,9 @@
             // 
             // label1
             // 
+            label1.ApplyGradient = false;
             label1.AutoSize = true;
+            label1.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
             label1.Location = new System.Drawing.Point(0, 0);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(0, 15);

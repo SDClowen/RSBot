@@ -5,7 +5,7 @@ using System;
 
 namespace RSBot.Views
 {
-    public partial class ExitDialog : CleanForm
+    public partial class ExitDialog : UIWindowBase
     {
         public ExitDialog()
         {

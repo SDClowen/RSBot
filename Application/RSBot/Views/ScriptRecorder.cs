@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 namespace RSBot.Views
 {
-    public partial class ScriptRecorder : CleanForm
+    public partial class ScriptRecorder : UIWindow
     {
         private class CommandComboBoxItem
         {
@@ -42,7 +42,7 @@ namespace RSBot.Views
             InitializeComponent();
             SubscribeEvents();
             PopulateCommandList();
-            
+
             if (startRecording)
                 StartRecording();
         }
@@ -371,7 +371,7 @@ namespace RSBot.Views
                 InitialDirectory = ScriptManager.InitialDirectory
             };
 
-            if (diag.ShowDialog() == DialogResult.OK) 
+            if (diag.ShowDialog() == DialogResult.OK)
             {
                 EventManager.FireEvent("OnSaveScript", _ownerId, diag.FileName);
 

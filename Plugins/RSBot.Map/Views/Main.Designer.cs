@@ -196,7 +196,6 @@ namespace RSBot.Map.Views
             checkBoxAutoSelectUniques.BackColor = System.Drawing.Color.Transparent;
             checkBoxAutoSelectUniques.Location = new System.Drawing.Point(35, 386);
             checkBoxAutoSelectUniques.Name = "checkBoxAutoSelectUniques";
-            checkBoxAutoSelectUniques.ShadowDepth = 1;
             checkBoxAutoSelectUniques.Size = new System.Drawing.Size(175, 15);
             checkBoxAutoSelectUniques.TabIndex = 17;
             checkBoxAutoSelectUniques.Text = "Automatically select uniques";
@@ -226,7 +225,6 @@ namespace RSBot.Map.Views
             checkEnableCollisions.BackColor = System.Drawing.Color.Transparent;
             checkEnableCollisions.Location = new System.Drawing.Point(35, 364);
             checkEnableCollisions.Name = "checkEnableCollisions";
-            checkEnableCollisions.ShadowDepth = 1;
             checkEnableCollisions.Size = new System.Drawing.Size(158, 15);
             checkEnableCollisions.TabIndex = 19;
             checkEnableCollisions.Text = "Enable collision detection";

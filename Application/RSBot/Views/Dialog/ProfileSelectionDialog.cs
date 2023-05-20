@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace RSBot.Views.Dialog
 {
-    public partial class ProfileSelectionDialog : CleanForm
+    public partial class ProfileSelectionDialog : UIWindowBase
     {
         /// <summary>
         /// Gets the selected profile.
@@ -30,9 +30,9 @@ namespace RSBot.Views.Dialog
         private void LoadProfiles()
         {
             comboProfiles.Items.Clear();
-            if(!ProfileManager.Any())
+            if (!ProfileManager.Any())
                 ProfileManager.Add("Default");
-            
+
             comboProfiles.Items.AddRange(ProfileManager.Profiles);
             comboProfiles.SelectedItem = ProfileManager.SelectedProfile;
         }

@@ -40,335 +40,345 @@ namespace RSBot.Alchemy.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupItem = new SDUI.Controls.GroupBox();
-            this.lblOptLevel = new SDUI.Controls.Label();
-            this.tabControlItemInfo = new SDUI.Controls.TabControl();
-            this.tabMagicOptions = new System.Windows.Forms.TabPage();
-            this.listMagicOptions = new System.Windows.Forms.ListBox();
-            this.tabPageAttributes = new System.Windows.Forms.TabPage();
-            this.listAttributes = new System.Windows.Forms.ListBox();
-            this.comboItem = new SDUI.Controls.ComboBox();
-            this.lblOptLevelText = new SDUI.Controls.Label();
-            this.lblItemSelection = new SDUI.Controls.Label();
-            this.lblDegree = new SDUI.Controls.Label();
-            this.lblDegreeText = new SDUI.Controls.Label();
-            this.linkRefreshItemList = new SDUI.Controls.Label();
-            this.lvLog = new SDUI.Controls.ListView();
-            this.colItem = new System.Windows.Forms.ColumnHeader();
-            this.colResult = new System.Windows.Forms.ColumnHeader();
-            this.panelSettingsGroup = new SDUI.Controls.Panel();
-            this.panelSettings = new SDUI.Controls.Panel();
-            this.panel2 = new SDUI.Controls.Panel();
-            this.radioAttributes = new SDUI.Controls.Radio();
-            this.radioMagicOptions = new SDUI.Controls.Radio();
-            this.radioEnhance = new SDUI.Controls.Radio();
-            this.groupItem.SuspendLayout();
-            this.tabControlItemInfo.SuspendLayout();
-            this.tabMagicOptions.SuspendLayout();
-            this.tabPageAttributes.SuspendLayout();
-            this.panelSettingsGroup.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.SuspendLayout();
+            groupItem = new GroupBox();
+            lblOptLevel = new Label();
+            tabControlItemInfo = new TabControl();
+            tabMagicOptions = new TabPage();
+            listMagicOptions = new ListBox();
+            tabPageAttributes = new TabPage();
+            listAttributes = new ListBox();
+            comboItem = new ComboBox();
+            lblOptLevelText = new Label();
+            lblItemSelection = new Label();
+            lblDegree = new Label();
+            lblDegreeText = new Label();
+            linkRefreshItemList = new Label();
+            lvLog = new ListView();
+            colItem = new ColumnHeader();
+            colResult = new ColumnHeader();
+            panelSettingsGroup = new Panel();
+            panelSettings = new Panel();
+            panel2 = new Panel();
+            radioAttributes = new RadioButton();
+            radioMagicOptions = new RadioButton();
+            radioEnhance = new RadioButton();
+            groupItem.SuspendLayout();
+            tabControlItemInfo.SuspendLayout();
+            tabMagicOptions.SuspendLayout();
+            tabPageAttributes.SuspendLayout();
+            panelSettingsGroup.SuspendLayout();
+            panel2.SuspendLayout();
+            SuspendLayout();
             // 
             // groupItem
             // 
-            this.groupItem.BackColor = System.Drawing.Color.Transparent;
-            this.groupItem.Controls.Add(this.lblOptLevel);
-            this.groupItem.Controls.Add(this.tabControlItemInfo);
-            this.groupItem.Controls.Add(this.comboItem);
-            this.groupItem.Controls.Add(this.lblOptLevelText);
-            this.groupItem.Controls.Add(this.lblItemSelection);
-            this.groupItem.Controls.Add(this.lblDegree);
-            this.groupItem.Controls.Add(this.lblDegreeText);
-            this.groupItem.Controls.Add(this.linkRefreshItemList);
-            this.groupItem.Location = new System.Drawing.Point(16, 14);
-            this.groupItem.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupItem.Name = "groupItem";
-            this.groupItem.Padding = new System.Windows.Forms.Padding(4, 12, 4, 3);
-            this.groupItem.Radius = 2;
-            this.groupItem.ShadowDepth = 4;
-            this.groupItem.Size = new System.Drawing.Size(322, 331);
-            this.groupItem.TabIndex = 0;
-            this.groupItem.TabStop = false;
-            this.groupItem.Text = "Item";
+            groupItem.BackColor = Color.Transparent;
+            groupItem.Controls.Add(lblOptLevel);
+            groupItem.Controls.Add(tabControlItemInfo);
+            groupItem.Controls.Add(comboItem);
+            groupItem.Controls.Add(lblOptLevelText);
+            groupItem.Controls.Add(lblItemSelection);
+            groupItem.Controls.Add(lblDegree);
+            groupItem.Controls.Add(lblDegreeText);
+            groupItem.Controls.Add(linkRefreshItemList);
+            groupItem.Location = new Point(16, 14);
+            groupItem.Margin = new Padding(4, 3, 4, 3);
+            groupItem.Name = "groupItem";
+            groupItem.Padding = new Padding(4, 12, 4, 3);
+            groupItem.Radius = 10;
+            groupItem.ShadowDepth = 4;
+            groupItem.Size = new Size(322, 331);
+            groupItem.TabIndex = 0;
+            groupItem.TabStop = false;
+            groupItem.Text = "Item";
             // 
             // lblOptLevel
             // 
-            this.lblOptLevel.AutoSize = true;
-            this.lblOptLevel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblOptLevel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblOptLevel.Location = new System.Drawing.Point(118, 102);
-            this.lblOptLevel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblOptLevel.Name = "lblOptLevel";
-            this.lblOptLevel.Size = new System.Drawing.Size(108, 13);
-            this.lblOptLevel.TabIndex = 1;
-            this.lblOptLevel.Text = "<no item selected>";
+            lblOptLevel.ApplyGradient = false;
+            lblOptLevel.AutoSize = true;
+            lblOptLevel.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblOptLevel.ForeColor = Color.FromArgb(0, 0, 0);
+            lblOptLevel.Gradient = (new Color[] { Color.Gray, Color.Black });
+            lblOptLevel.Location = new Point(118, 102);
+            lblOptLevel.Margin = new Padding(4, 0, 4, 0);
+            lblOptLevel.Name = "lblOptLevel";
+            lblOptLevel.Size = new Size(108, 13);
+            lblOptLevel.TabIndex = 1;
+            lblOptLevel.Text = "<no item selected>";
             // 
             // tabControlItemInfo
             // 
-            this.tabControlItemInfo.Border = new System.Windows.Forms.Padding(1);
-            this.tabControlItemInfo.Controls.Add(this.tabMagicOptions);
-            this.tabControlItemInfo.Controls.Add(this.tabPageAttributes);
-            this.tabControlItemInfo.HideTabArea = false;
-            this.tabControlItemInfo.Location = new System.Drawing.Point(9, 146);
-            this.tabControlItemInfo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tabControlItemInfo.Name = "tabControlItemInfo";
-            this.tabControlItemInfo.SelectedIndex = 0;
-            this.tabControlItemInfo.Size = new System.Drawing.Size(304, 179);
-            this.tabControlItemInfo.TabIndex = 5;
+            tabControlItemInfo.Controls.Add(tabMagicOptions);
+            tabControlItemInfo.Controls.Add(tabPageAttributes);
+            tabControlItemInfo.ItemSize = new Size(80, 24);
+            tabControlItemInfo.Location = new Point(9, 146);
+            tabControlItemInfo.Margin = new Padding(4, 3, 4, 3);
+            tabControlItemInfo.Name = "tabControlItemInfo";
+            tabControlItemInfo.SelectedIndex = 0;
+            tabControlItemInfo.Size = new Size(304, 179);
+            tabControlItemInfo.TabIndex = 5;
             // 
             // tabMagicOptions
             // 
-            this.tabMagicOptions.BackColor = System.Drawing.Color.White;
-            this.tabMagicOptions.Controls.Add(this.listMagicOptions);
-            this.tabMagicOptions.Location = new System.Drawing.Point(4, 24);
-            this.tabMagicOptions.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tabMagicOptions.Name = "tabMagicOptions";
-            this.tabMagicOptions.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tabMagicOptions.Size = new System.Drawing.Size(296, 151);
-            this.tabMagicOptions.TabIndex = 0;
-            this.tabMagicOptions.Text = "Blues";
+            tabMagicOptions.BackColor = Color.White;
+            tabMagicOptions.Controls.Add(listMagicOptions);
+            tabMagicOptions.Location = new Point(4, 28);
+            tabMagicOptions.Margin = new Padding(4, 3, 4, 3);
+            tabMagicOptions.Name = "tabMagicOptions";
+            tabMagicOptions.Padding = new Padding(4, 3, 4, 3);
+            tabMagicOptions.Size = new Size(296, 147);
+            tabMagicOptions.TabIndex = 0;
+            tabMagicOptions.Text = "Blues";
             // 
             // listMagicOptions
             // 
-            this.listMagicOptions.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listMagicOptions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listMagicOptions.ItemHeight = 15;
-            this.listMagicOptions.Location = new System.Drawing.Point(4, 3);
-            this.listMagicOptions.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.listMagicOptions.Name = "listMagicOptions";
-            this.listMagicOptions.Size = new System.Drawing.Size(288, 145);
-            this.listMagicOptions.TabIndex = 2;
+            listMagicOptions.BorderStyle = BorderStyle.None;
+            listMagicOptions.Dock = DockStyle.Fill;
+            listMagicOptions.ItemHeight = 15;
+            listMagicOptions.Location = new Point(4, 3);
+            listMagicOptions.Margin = new Padding(4, 3, 4, 3);
+            listMagicOptions.Name = "listMagicOptions";
+            listMagicOptions.Size = new Size(288, 141);
+            listMagicOptions.TabIndex = 2;
             // 
             // tabPageAttributes
             // 
-            this.tabPageAttributes.BackColor = System.Drawing.Color.White;
-            this.tabPageAttributes.Controls.Add(this.listAttributes);
-            this.tabPageAttributes.Location = new System.Drawing.Point(4, 25);
-            this.tabPageAttributes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tabPageAttributes.Name = "tabPageAttributes";
-            this.tabPageAttributes.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tabPageAttributes.Size = new System.Drawing.Size(296, 150);
-            this.tabPageAttributes.TabIndex = 1;
-            this.tabPageAttributes.Text = "Stats";
+            tabPageAttributes.BackColor = Color.White;
+            tabPageAttributes.Controls.Add(listAttributes);
+            tabPageAttributes.Location = new Point(4, 28);
+            tabPageAttributes.Margin = new Padding(4, 3, 4, 3);
+            tabPageAttributes.Name = "tabPageAttributes";
+            tabPageAttributes.Padding = new Padding(4, 3, 4, 3);
+            tabPageAttributes.Size = new Size(296, 147);
+            tabPageAttributes.TabIndex = 1;
+            tabPageAttributes.Text = "Stats";
             // 
             // listAttributes
             // 
-            this.listAttributes.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listAttributes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listAttributes.ItemHeight = 15;
-            this.listAttributes.Location = new System.Drawing.Point(4, 3);
-            this.listAttributes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.listAttributes.Name = "listAttributes";
-            this.listAttributes.Size = new System.Drawing.Size(288, 144);
-            this.listAttributes.TabIndex = 3;
+            listAttributes.BorderStyle = BorderStyle.None;
+            listAttributes.Dock = DockStyle.Fill;
+            listAttributes.ItemHeight = 15;
+            listAttributes.Location = new Point(4, 3);
+            listAttributes.Margin = new Padding(4, 3, 4, 3);
+            listAttributes.Name = "listAttributes";
+            listAttributes.Size = new Size(288, 141);
+            listAttributes.TabIndex = 3;
             // 
             // comboItem
             // 
-            this.comboItem.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.comboItem.DropDownHeight = 100;
-            this.comboItem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboItem.FormattingEnabled = true;
-            this.comboItem.IntegralHeight = false;
-            this.comboItem.ItemHeight = 17;
-            this.comboItem.Location = new System.Drawing.Point(21, 47);
-            this.comboItem.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.comboItem.Name = "comboItem";
-            this.comboItem.Radius = 5;
-            this.comboItem.ShadowDepth = 4F;
-            this.comboItem.Size = new System.Drawing.Size(255, 23);
-            this.comboItem.TabIndex = 4;
-            this.comboItem.SelectedIndexChanged += new System.EventHandler(this.comboItem_SelectedIndexChanged);
+            comboItem.DrawMode = DrawMode.OwnerDrawFixed;
+            comboItem.DropDownHeight = 100;
+            comboItem.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboItem.FormattingEnabled = true;
+            comboItem.IntegralHeight = false;
+            comboItem.ItemHeight = 17;
+            comboItem.Location = new Point(21, 47);
+            comboItem.Margin = new Padding(4, 3, 4, 3);
+            comboItem.Name = "comboItem";
+            comboItem.Radius = 5;
+            comboItem.ShadowDepth = 4F;
+            comboItem.Size = new Size(255, 23);
+            comboItem.TabIndex = 4;
+            comboItem.SelectedIndexChanged += comboItem_SelectedIndexChanged;
             // 
             // lblOptLevelText
             // 
-            this.lblOptLevelText.AutoSize = true;
-            this.lblOptLevelText.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblOptLevelText.Location = new System.Drawing.Point(18, 102);
-            this.lblOptLevelText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblOptLevelText.Name = "lblOptLevelText";
-            this.lblOptLevelText.Size = new System.Drawing.Size(83, 15);
-            this.lblOptLevelText.TabIndex = 0;
-            this.lblOptLevelText.Text = "&Enhancement:";
+            lblOptLevelText.ApplyGradient = false;
+            lblOptLevelText.AutoSize = true;
+            lblOptLevelText.ForeColor = Color.FromArgb(0, 0, 0);
+            lblOptLevelText.Gradient = (new Color[] { Color.Gray, Color.Black });
+            lblOptLevelText.Location = new Point(18, 102);
+            lblOptLevelText.Margin = new Padding(4, 0, 4, 0);
+            lblOptLevelText.Name = "lblOptLevelText";
+            lblOptLevelText.Size = new Size(83, 15);
+            lblOptLevelText.TabIndex = 0;
+            lblOptLevelText.Text = "&Enhancement:";
             // 
             // lblItemSelection
             // 
-            this.lblItemSelection.AutoSize = true;
-            this.lblItemSelection.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblItemSelection.Location = new System.Drawing.Point(18, 29);
-            this.lblItemSelection.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblItemSelection.Name = "lblItemSelection";
-            this.lblItemSelection.Size = new System.Drawing.Size(34, 15);
-            this.lblItemSelection.TabIndex = 3;
-            this.lblItemSelection.Text = "Item:";
+            lblItemSelection.ApplyGradient = false;
+            lblItemSelection.AutoSize = true;
+            lblItemSelection.ForeColor = Color.FromArgb(0, 0, 0);
+            lblItemSelection.Gradient = (new Color[] { Color.Gray, Color.Black });
+            lblItemSelection.Location = new Point(18, 29);
+            lblItemSelection.Margin = new Padding(4, 0, 4, 0);
+            lblItemSelection.Name = "lblItemSelection";
+            lblItemSelection.Size = new Size(34, 15);
+            lblItemSelection.TabIndex = 3;
+            lblItemSelection.Text = "Item:";
             // 
             // lblDegree
             // 
-            this.lblDegree.AutoSize = true;
-            this.lblDegree.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblDegree.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblDegree.Location = new System.Drawing.Point(118, 75);
-            this.lblDegree.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblDegree.Name = "lblDegree";
-            this.lblDegree.Size = new System.Drawing.Size(108, 13);
-            this.lblDegree.TabIndex = 1;
-            this.lblDegree.Text = "<no item selected>";
+            lblDegree.ApplyGradient = false;
+            lblDegree.AutoSize = true;
+            lblDegree.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblDegree.ForeColor = Color.FromArgb(0, 0, 0);
+            lblDegree.Gradient = (new Color[] { Color.Gray, Color.Black });
+            lblDegree.Location = new Point(118, 75);
+            lblDegree.Margin = new Padding(4, 0, 4, 0);
+            lblDegree.Name = "lblDegree";
+            lblDegree.Size = new Size(108, 13);
+            lblDegree.TabIndex = 1;
+            lblDegree.Text = "<no item selected>";
             // 
             // lblDegreeText
             // 
-            this.lblDegreeText.AutoSize = true;
-            this.lblDegreeText.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblDegreeText.Location = new System.Drawing.Point(18, 75);
-            this.lblDegreeText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblDegreeText.Name = "lblDegreeText";
-            this.lblDegreeText.Size = new System.Drawing.Size(47, 15);
-            this.lblDegreeText.TabIndex = 0;
-            this.lblDegreeText.Text = "&Degree:";
+            lblDegreeText.ApplyGradient = false;
+            lblDegreeText.AutoSize = true;
+            lblDegreeText.ForeColor = Color.FromArgb(0, 0, 0);
+            lblDegreeText.Gradient = (new Color[] { Color.Gray, Color.Black });
+            lblDegreeText.Location = new Point(18, 75);
+            lblDegreeText.Margin = new Padding(4, 0, 4, 0);
+            lblDegreeText.Name = "lblDegreeText";
+            lblDegreeText.Size = new Size(47, 15);
+            lblDegreeText.TabIndex = 0;
+            lblDegreeText.Text = "&Degree:";
             // 
             // linkRefreshItemList
             // 
-            this.linkRefreshItemList.AutoSize = true;
-            this.linkRefreshItemList.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.linkRefreshItemList.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.linkRefreshItemList.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.linkRefreshItemList.Location = new System.Drawing.Point(272, 39);
-            this.linkRefreshItemList.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.linkRefreshItemList.Name = "linkRefreshItemList";
-            this.linkRefreshItemList.Size = new System.Drawing.Size(34, 30);
-            this.linkRefreshItemList.TabIndex = 5;
-            this.linkRefreshItemList.Text = "🗘";
-            this.linkRefreshItemList.Click += new System.EventHandler(this.linkRefreshItemList_Click);
+            linkRefreshItemList.ApplyGradient = false;
+            linkRefreshItemList.AutoSize = true;
+            linkRefreshItemList.Cursor = Cursors.Hand;
+            linkRefreshItemList.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            linkRefreshItemList.ForeColor = Color.FromArgb(0, 0, 0);
+            linkRefreshItemList.Gradient = (new Color[] { Color.Gray, Color.Black });
+            linkRefreshItemList.Location = new Point(272, 39);
+            linkRefreshItemList.Margin = new Padding(4, 0, 4, 0);
+            linkRefreshItemList.Name = "linkRefreshItemList";
+            linkRefreshItemList.Size = new Size(34, 30);
+            linkRefreshItemList.TabIndex = 5;
+            linkRefreshItemList.Text = "🗘";
+            linkRefreshItemList.Click += linkRefreshItemList_Click;
             // 
             // lvLog
             // 
-            this.lvLog.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colItem,
-            this.colResult});
-            this.lvLog.FullRowSelect = true;
-            this.lvLog.Location = new System.Drawing.Point(16, 351);
-            this.lvLog.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.lvLog.Name = "lvLog";
-            this.lvLog.Size = new System.Drawing.Size(759, 137);
-            this.lvLog.TabIndex = 1;
-            this.lvLog.UseCompatibleStateImageBehavior = false;
-            this.lvLog.View = System.Windows.Forms.View.Details;
+            lvLog.BackColor = Color.White;
+            lvLog.Columns.AddRange(new ColumnHeader[] { colItem, colResult });
+            lvLog.ForeColor = Color.FromArgb(0, 0, 0);
+            lvLog.FullRowSelect = true;
+            lvLog.Location = new Point(16, 351);
+            lvLog.Margin = new Padding(4, 3, 4, 3);
+            lvLog.Name = "lvLog";
+            lvLog.Size = new Size(759, 137);
+            lvLog.TabIndex = 1;
+            lvLog.UseCompatibleStateImageBehavior = false;
+            lvLog.View = View.Details;
             // 
             // colItem
             // 
-            this.colItem.Text = "Item";
-            this.colItem.Width = 228;
+            colItem.Text = "Item";
+            colItem.Width = 228;
             // 
             // colResult
             // 
-            this.colResult.Text = "Message";
-            this.colResult.Width = 500;
+            colResult.Text = "Message";
+            colResult.Width = 500;
             // 
             // panelSettingsGroup
             // 
-            this.panelSettingsGroup.BackColor = System.Drawing.Color.Transparent;
-            this.panelSettingsGroup.Border = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            this.panelSettingsGroup.BorderColor = System.Drawing.Color.Transparent;
-            this.panelSettingsGroup.Controls.Add(this.panelSettings);
-            this.panelSettingsGroup.Controls.Add(this.panel2);
-            this.panelSettingsGroup.Location = new System.Drawing.Point(351, 14);
-            this.panelSettingsGroup.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.panelSettingsGroup.Name = "panelSettingsGroup";
-            this.panelSettingsGroup.Radius = 1;
-            this.panelSettingsGroup.ShadowDepth = 4F;
-            this.panelSettingsGroup.Size = new System.Drawing.Size(424, 331);
-            this.panelSettingsGroup.TabIndex = 7;
+            panelSettingsGroup.BackColor = Color.Transparent;
+            panelSettingsGroup.Border = new Padding(0, 0, 0, 0);
+            panelSettingsGroup.BorderColor = Color.Transparent;
+            panelSettingsGroup.Controls.Add(panelSettings);
+            panelSettingsGroup.Controls.Add(panel2);
+            panelSettingsGroup.Location = new Point(351, 14);
+            panelSettingsGroup.Margin = new Padding(4, 3, 4, 3);
+            panelSettingsGroup.Name = "panelSettingsGroup";
+            panelSettingsGroup.Radius = 1;
+            panelSettingsGroup.ShadowDepth = 4F;
+            panelSettingsGroup.Size = new Size(424, 331);
+            panelSettingsGroup.TabIndex = 7;
             // 
             // panelSettings
             // 
-            this.panelSettings.BackColor = System.Drawing.Color.Transparent;
-            this.panelSettings.Border = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            this.panelSettings.BorderColor = System.Drawing.Color.Transparent;
-            this.panelSettings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelSettings.Location = new System.Drawing.Point(0, 38);
-            this.panelSettings.Margin = new System.Windows.Forms.Padding(0);
-            this.panelSettings.Name = "panelSettings";
-            this.panelSettings.Radius = 0;
-            this.panelSettings.ShadowDepth = 4F;
-            this.panelSettings.Size = new System.Drawing.Size(424, 293);
-            this.panelSettings.TabIndex = 1;
+            panelSettings.BackColor = Color.Transparent;
+            panelSettings.Border = new Padding(0, 0, 0, 0);
+            panelSettings.BorderColor = Color.Transparent;
+            panelSettings.Dock = DockStyle.Fill;
+            panelSettings.Location = new Point(0, 38);
+            panelSettings.Margin = new Padding(0);
+            panelSettings.Name = "panelSettings";
+            panelSettings.Radius = 0;
+            panelSettings.ShadowDepth = 4F;
+            panelSettings.Size = new Size(424, 293);
+            panelSettings.TabIndex = 1;
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.Color.Transparent;
-            this.panel2.Border = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            this.panel2.BorderColor = System.Drawing.Color.Transparent;
-            this.panel2.Controls.Add(this.radioAttributes);
-            this.panel2.Controls.Add(this.radioMagicOptions);
-            this.panel2.Controls.Add(this.radioEnhance);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Radius = 1;
-            this.panel2.ShadowDepth = 4F;
-            this.panel2.Size = new System.Drawing.Size(424, 38);
-            this.panel2.TabIndex = 0;
+            panel2.BackColor = Color.Transparent;
+            panel2.Border = new Padding(0, 0, 0, 0);
+            panel2.BorderColor = Color.Transparent;
+            panel2.Controls.Add(radioAttributes);
+            panel2.Controls.Add(radioMagicOptions);
+            panel2.Controls.Add(radioEnhance);
+            panel2.Dock = DockStyle.Top;
+            panel2.Location = new Point(0, 0);
+            panel2.Margin = new Padding(4, 3, 4, 3);
+            panel2.Name = "panel2";
+            panel2.Radius = 1;
+            panel2.ShadowDepth = 4F;
+            panel2.Size = new Size(424, 38);
+            panel2.TabIndex = 0;
             // 
             // radioAttributes
             // 
-            this.radioAttributes.AutoSize = true;
-            this.radioAttributes.Location = new System.Drawing.Point(237, 13);
-            this.radioAttributes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.radioAttributes.Name = "radioAttributes";
-            this.radioAttributes.ShadowDepth = 0;
-            this.radioAttributes.Size = new System.Drawing.Size(57, 15);
-            this.radioAttributes.TabIndex = 2;
-            this.radioAttributes.Text = "Stats";
-            this.radioAttributes.CheckedChanged += new System.EventHandler(this.radioEngine_CheckedChanged);
+            radioAttributes.AutoSize = true;
+            radioAttributes.Location = new Point(235, 8);
+            radioAttributes.Margin = new Padding(0);
+            radioAttributes.Name = "radioAttributes";
+            radioAttributes.Ripple = true;
+            radioAttributes.Size = new Size(57, 30);
+            radioAttributes.TabIndex = 2;
+            radioAttributes.Text = "Stats";
+            radioAttributes.CheckedChanged += radioEngine_CheckedChanged;
             // 
             // radioMagicOptions
             // 
-            this.radioMagicOptions.AutoSize = true;
-            this.radioMagicOptions.Location = new System.Drawing.Point(137, 13);
-            this.radioMagicOptions.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.radioMagicOptions.Name = "radioMagicOptions";
-            this.radioMagicOptions.ShadowDepth = 0;
-            this.radioMagicOptions.Size = new System.Drawing.Size(60, 15);
-            this.radioMagicOptions.TabIndex = 1;
-            this.radioMagicOptions.Text = "Blues";
-            this.radioMagicOptions.CheckedChanged += new System.EventHandler(this.radioEngine_CheckedChanged);
+            radioMagicOptions.AutoSize = true;
+            radioMagicOptions.Location = new Point(135, 8);
+            radioMagicOptions.Margin = new Padding(0);
+            radioMagicOptions.Name = "radioMagicOptions";
+            radioMagicOptions.Ripple = true;
+            radioMagicOptions.Size = new Size(59, 30);
+            radioMagicOptions.TabIndex = 1;
+            radioMagicOptions.Text = "Blues";
+            radioMagicOptions.CheckedChanged += radioEngine_CheckedChanged;
             // 
             // radioEnhance
             // 
-            this.radioEnhance.AutoSize = true;
-            this.radioEnhance.Checked = true;
-            this.radioEnhance.Location = new System.Drawing.Point(12, 13);
-            this.radioEnhance.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.radioEnhance.Name = "radioEnhance";
-            this.radioEnhance.ShadowDepth = 0;
-            this.radioEnhance.Size = new System.Drawing.Size(96, 15);
-            this.radioEnhance.TabIndex = 0;
-            this.radioEnhance.TabStop = true;
-            this.radioEnhance.Text = "Enhance (+)";
-            this.radioEnhance.CheckedChanged += new System.EventHandler(this.radioEngine_CheckedChanged);
+            radioEnhance.AutoSize = true;
+            radioEnhance.Checked = true;
+            radioEnhance.Location = new Point(10, 8);
+            radioEnhance.Margin = new Padding(0);
+            radioEnhance.Name = "radioEnhance";
+            radioEnhance.Ripple = true;
+            radioEnhance.Size = new Size(96, 30);
+            radioEnhance.TabIndex = 0;
+            radioEnhance.TabStop = true;
+            radioEnhance.Text = "Enhance (+)";
+            radioEnhance.CheckedChanged += radioEngine_CheckedChanged;
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.panelSettingsGroup);
-            this.Controls.Add(this.lvLog);
-            this.Controls.Add(this.groupItem);
-            this.DoubleBuffered = true;
-            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.Name = "Main";
-            this.Size = new System.Drawing.Size(791, 503);
-            this.groupItem.ResumeLayout(false);
-            this.groupItem.PerformLayout();
-            this.tabControlItemInfo.ResumeLayout(false);
-            this.tabMagicOptions.ResumeLayout(false);
-            this.tabPageAttributes.ResumeLayout(false);
-            this.panelSettingsGroup.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(panelSettingsGroup);
+            Controls.Add(lvLog);
+            Controls.Add(groupItem);
+            DoubleBuffered = true;
+            Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            Margin = new Padding(4, 3, 4, 3);
+            Name = "Main";
+            Size = new Size(791, 503);
+            groupItem.ResumeLayout(false);
+            groupItem.PerformLayout();
+            tabControlItemInfo.ResumeLayout(false);
+            tabMagicOptions.ResumeLayout(false);
+            tabPageAttributes.ResumeLayout(false);
+            panelSettingsGroup.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion
