@@ -183,13 +183,17 @@ namespace RSBot.General.Views
         /// <summary>
         /// Starts the client process.
         /// </summary>
-        private async void StartClientProcess()
+        private async Task StartClientProcess()
         {
+            btnStartClient.Enabled = false;
             Game.Start();
 
-            var startedResult = await ClientManager.Start().ConfigureAwait(false);
-            if (!startedResult)
-                Log.WarnLang("ClientStartingError");
+            await Task.Run(async () =>
+            {
+                var startedResult = await ClientManager.Start();
+                if (!startedResult)
+                    Log.WarnLang("ClientStartingError");
+            });
         }
 
         /// <summary>
@@ -291,7 +295,7 @@ namespace RSBot.General.Views
         /// <summary>
         /// Called when [agent server disconnected].
         /// </summary>
-        private void OnAgentServerDisconnected()
+        private async void OnAgentServerDisconnected()
         {
             Kernel.Bot.Stop();
 
@@ -312,7 +316,7 @@ namespace RSBot.General.Views
 
                 Thread.Sleep(2000);
 
-                StartClientProcess();
+                await StartClientProcess().ConfigureAwait(false);
                 return;
             }
 
@@ -495,46 +499,48 @@ namespace RSBot.General.Views
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void btnStartClientless_Click(object sender, EventArgs e)
+        private async void btnStartClientless_Click(object sender, EventArgs e)
         {
-            if (!Game.Clientless)
+            await Task.Run(() =>
             {
-                if (!checkEnableAutoLogin.Checked || comboAccounts.SelectedIndex <= 0)
+                if (!Game.Clientless)
                 {
-                    var msgBoxTitle = LanguageManager.GetLang("StartClientlessMsgBoxTitle");
-                    var msgBoxContent = LanguageManager.GetLang("StartClientlessMsgBoxContent");
+                    if (!checkEnableAutoLogin.Checked || comboAccounts.SelectedIndex <= 0)
+                    {
+                        var msgBoxTitle = LanguageManager.GetLang("StartClientlessMsgBoxTitle");
+                        var msgBoxContent = LanguageManager.GetLang("StartClientlessMsgBoxContent");
 
-                    MessageBox.Show(msgBoxContent, msgBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show(msgBoxContent, msgBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
-                    return;
+                        return;
+                    }
+
+                    btnStartClient.Enabled = false;
+                    btnClientHideShow.Enabled = false;
+
+                    Game.Clientless = true;
+                    Log.StatusLang("StartingClientless");
+                    btnStartClientless.Text = LanguageManager.GetLang("Disconnect");
+                    Game.Start();
                 }
+                else
+                {
+                    var msgBoxTitle = LanguageManager.GetLang("MsgBoxDisconnectDialogTitle");
+                    var msgBoxContent = LanguageManager.GetLang("MsgBoxDisconnectDialogContent");
 
-                btnStartClient.Enabled = false;
-                btnClientHideShow.Enabled = false;
+                    var result = MessageBox.Show(msgBoxContent, msgBoxTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (result == DialogResult.No)
+                        return;
 
-                Game.Clientless = true;
-                Log.StatusLang("StartingClientless");
-                Game.Start();
+                    Game.Clientless = false;
 
-                btnStartClientless.Text = LanguageManager.GetLang("Disconnect");
-            }
-            else
-            {
-                var msgBoxTitle = LanguageManager.GetLang("MsgBoxDisconnectDialogTitle");
-                var msgBoxContent = LanguageManager.GetLang("MsgBoxDisconnectDialogContent");
+                    btnStartClient.Enabled = true;
+                    btnStartClientless.Enabled = true;
+                    btnStartClientless.Text = LanguageManager.GetLang("Start") + " Clientless";
 
-                var result = MessageBox.Show(msgBoxContent, msgBoxTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (result == DialogResult.No)
-                    return;
-
-                Game.Clientless = false;
-
-                btnStartClient.Enabled = true;
-                btnStartClientless.Enabled = true;
-                btnStartClientless.Text = LanguageManager.GetLang("Start") + " Clientless";
-
-                Kernel.Proxy.Shutdown();
-            }
+                    Kernel.Proxy.Shutdown();
+                }
+            });
         }
 
         /// <summary>

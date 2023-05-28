@@ -164,7 +164,9 @@ namespace RSBot.Views
                 Name = newBotbase.Value.Name,
                 Enabled = Game.Ready,
                 BackColor = Color.FromArgb(200, BackColor),
-                ForeColor = ForeColor
+                ForeColor = ForeColor,
+                Padding = new Padding(0),
+                Margin = new Padding(0),
             };
 
             tabPage.Controls.Add(newBotbase.Value.View);
@@ -204,7 +206,9 @@ namespace RSBot.Views
                 {
                     Text = LanguageManager.GetLangBySpecificKey(extension.Value.InternalName, "DisplayName", extension.Value.DisplayName),
                     Enabled = !extension.Value.RequireIngame,
-                    Name = extension.Value.InternalName
+                    Name = extension.Value.InternalName,
+                    Padding = new Padding(0),
+                    Margin = new Padding(0),
                 };
 
                 var control = extension.Value.View;
