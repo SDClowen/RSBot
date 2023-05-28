@@ -85,59 +85,54 @@ namespace RSBot.Core.Extensions
 
             var portBuffer = new byte[2]
             {
-                Convert.ToByte(config.ProxyPort / 256),
-                Convert.ToByte(config.ProxyPort % 256)
-            }; 
-            
-            var proxyIpBuffer = Encoding.ASCII.GetBytes(config.ProxyIp);
-            var userNameBuffer = Encoding.ASCII.GetBytes(config.UserName);
-            var passwordBuffer = Encoding.ASCII.GetBytes(config.Password);
+                Convert.ToByte(config.Port / 256),
+                Convert.ToByte(config.Port % 256)
+            };
 
-            var targetAddress = Dns.GetHostAddresses(config.Ip)[0];
+            byte addressType = GetAddressType(config.Ip);
+            byte[] addressBytes = GetHostAddressBytes(addressType, config.Ip);
 
             if (config.Version == 5)
             {
-                await socket.SendAsync(new byte[4] { 5, 2, 0, 2 }, SocketFlags.None);
+                await socket.SendAsync(new byte[3] { 5, 1, (byte)(string.IsNullOrEmpty(config.UserName) && string.IsNullOrEmpty(config.Password) ? 0 : 2) }, SocketFlags.None);
 
                 var response = new byte[2];
-                var receiveSize = await socket.ReceiveAsync(response, SocketFlags.None);
-                if (receiveSize != 2)
-                    throw new SocketProxyException($"Failed to select an authentication method, the server sent {receiveSize} bytes.");
-
-                if (response[1] == 0xff)
+                await socket.ReceiveAsync(response, SocketFlags.None);
+                var acceptedAuthMethod = response[1];
+                if (acceptedAuthMethod == 0xff)
                 {
                     socket.Close();
                     throw new SocketProxyException("The proxy destination does not accept the supported proxy client authentication methods.");
                 }
 
-                if (response[1] == 0x02 && string.IsNullOrWhiteSpace(config.UserName))
+                if (acceptedAuthMethod == 0x02 && string.IsNullOrWhiteSpace(config.UserName))
                 {
                     socket.Close();
                     throw new SocketProxyException("The proxy destination requires a username and password for authentication.");
                 }
 
-                var authBuffer = new byte[userNameBuffer.Length + passwordBuffer.Length + 3];
-                authBuffer[0] = 1;
-                authBuffer[1] = (byte)userNameBuffer.Length;
-                userNameBuffer.CopyTo(authBuffer, 2);
-                authBuffer[2 + userNameBuffer.Length] = (byte)passwordBuffer.Length;
-                passwordBuffer.CopyTo(authBuffer, 3 + userNameBuffer.Length);
-                await socket.SendAsync(authBuffer, SocketFlags.None);
-
-                response = new byte[2];
-
-                receiveSize = await socket.ReceiveAsync(response, SocketFlags.None);
-                if (receiveSize != 2)
-                    throw new SocketProxyException($"Failed to perform authentication, the server sent {receiveSize} bytes.");
-
-                if (response[1] != 0)
+                if (acceptedAuthMethod == 2)
                 {
-                    socket.Close();
-                    throw new SocketProxyException("Proxy authentication failed.");
-                }
+                    var authBuffer = new byte[config.UserName.Length + config.Password.Length + 3];
+                    authBuffer[0] = 1;
+                    authBuffer[1] = (byte)config.UserName.Length;
+                    Array.Copy(Encoding.ASCII.GetBytes(config.UserName), 0, authBuffer, 2, config.UserName.Length);
+                    authBuffer[2 + config.UserName.Length] = (byte)config.Password.Length;
 
-                byte addressType = GetAddressType(config.ProxyIp);
-                byte[] hostBuffer = GetHostAddressBytes(addressType, config.ProxyIp);
+                    Array.Copy(Encoding.ASCII.GetBytes(config.Password), 0, authBuffer, config.UserName.Length + 3, config.Password.Length);
+
+                    await socket.SendAsync(authBuffer, SocketFlags.None);
+
+                    response = new byte[2];
+
+                    await socket.ReceiveAsync(response, SocketFlags.None);
+
+                    if (response[1] != 0)
+                    {
+                        socket.Close();
+                        throw new SocketProxyException("Proxy authentication failed.");
+                    }
+                }
 
                 // +----+-----+-------+------+----------+----------+
                 // |VER | CMD |  RSV  | ATYP | DST.ADDR | DST.PORT |
@@ -145,21 +140,21 @@ namespace RSBot.Core.Extensions
                 // | 1  |  1  | X'00' |  1   | Variable |    2     |
                 // +----+-----+-------+------+----------+----------+
                 
-                var buffer = new byte[6 + hostBuffer.Length];
+                var buffer = new byte[4 + addressBytes.Length + 2];
                 buffer[0] = 5;
                 buffer[1] = 1;
                 buffer[2] = 0;
                 buffer[3] = addressType;
-                hostBuffer.CopyTo(buffer, 4);
-                portBuffer.CopyTo(buffer, 4 + hostBuffer.Length);
+                addressBytes.CopyTo(buffer, 4);
+                portBuffer.CopyTo(buffer, 4 + addressBytes.Length);
                 await socket.SendAsync(buffer, SocketFlags.None);
 
-                response = new byte[0xFF];
+                response = new byte[10];
                 await socket.ReceiveAsync(response, SocketFlags.None);
 
                 if (response[1] != 0)
                 {
-                    HandleProxyCommandError(response, config.ProxyIp, config.ProxyPort);
+                    HandleProxyCommandError(response, config.Ip, config.Port);
                     return false;
                 }
 
@@ -170,26 +165,22 @@ namespace RSBot.Core.Extensions
             // | VN | CD | DSTPORT |      DSTIP        | USERID       |NULL|
             // +----+----+----+----+----+----+----+----+----+----+....+----+
             //    1    1      2              4           variable       1
-            var request = new byte[9 + config.UserName.Length];
+
+            var userIdBytes = Encoding.ASCII.GetBytes(config.UserName);
+
+            var request = new byte[9 + userIdBytes.Length];
             request[0] = 4;
             request[1] = 1;
             portBuffer.CopyTo(request, 2);
-            targetAddress.GetAddressBytes().CopyTo(request, 4);
-            userNameBuffer.CopyTo(request, 8);
-            request[8 + config.UserName.Length] = 0x00;
+            addressBytes.CopyTo(request, 4);
+            userIdBytes.CopyTo(request, 8);
+            request[8 + userIdBytes.Length] = 0x00;
 
             await socket.SendAsync(request, SocketFlags.None);
-
-            var receiveBuffer = new byte[8];
-            var result = socket.BeginReceive(receiveBuffer, 0, 8, SocketFlags.None, null, null);
-            if (result.AsyncWaitHandle.WaitOne(config.TimeOut, true))
-            {
-                var received = socket.EndReceive(result);
-                if (received == 8 && receiveBuffer[0] == 0x5A)
-                    return true;
-            }
-
-            return false;
+            
+            var responseBuffer = new byte[8];
+            await socket.ReceiveAsync(responseBuffer, SocketFlags.None);
+            return responseBuffer[1] == 0x5A;
         }
 
         private static void HandleProxyCommandError(byte[] response, string destinationHost, int destinationPort)
@@ -238,7 +229,8 @@ namespace RSBot.Core.Extensions
             {
                 case 1:
                 case 4:
-                    return IPAddress.Parse(host).GetAddressBytes();
+                    var hostAddress = Dns.GetHostAddresses(host);
+                    return hostAddress.First().GetAddressBytes();
                 case 3:
                     var bytes = new byte[host.Length + 1];
                     bytes[0] = Convert.ToByte(host.Length);

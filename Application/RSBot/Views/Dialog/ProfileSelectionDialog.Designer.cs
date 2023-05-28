@@ -58,7 +58,8 @@
             label1.ApplyGradient = false;
             label1.AutoSize = true;
             label1.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label1.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label1.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
+            label1.GradientAnimation = false;
             label1.Location = new System.Drawing.Point(19, 15);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(87, 15);
@@ -73,11 +74,11 @@
             panel1.Controls.Add(btnCancel);
             panel1.Controls.Add(btnOK);
             panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            panel1.Location = new System.Drawing.Point(0, 71);
+            panel1.Location = new System.Drawing.Point(0, 77);
             panel1.Name = "panel1";
             panel1.Radius = 0;
             panel1.ShadowDepth = 0F;
-            panel1.Size = new System.Drawing.Size(369, 39);
+            panel1.Size = new System.Drawing.Size(385, 39);
             panel1.TabIndex = 3;
             // 
             // btnCancel
@@ -155,7 +156,7 @@
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(369, 110);
+            ClientSize = new System.Drawing.Size(385, 116);
             Controls.Add(buttonDeleteProfile);
             Controls.Add(buttonCreateProfile);
             Controls.Add(checkSaveSelection);
@@ -166,6 +167,7 @@
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MinimizeBox = false;
+            MinimumSize = new System.Drawing.Size(385, 116);
             Name = "ProfileSelectionDialog";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "RSBot - Profile";
