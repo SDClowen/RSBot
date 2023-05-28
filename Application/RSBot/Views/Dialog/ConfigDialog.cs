@@ -32,7 +32,7 @@ namespace RSBot.Views
                 if (!int.TryParse(values[2], out var proxyPort))
                     return;
 
-                numUpDownProxyPort.Value = proxyPort;
+                textBoxPort.Text = proxyPort.ToString();
                 textBoxId.Text = values[3];
                 textBoxPw.Text = values[4];
 
@@ -61,7 +61,7 @@ namespace RSBot.Views
                 return;
             }
 
-            if (numUpDownProxyPort.Value == 0)
+            if (textBoxPort.Text == "0")
             {
                 DialogResult = DialogResult.Retry;
                 return;
@@ -70,7 +70,7 @@ namespace RSBot.Views
             StringBuilder builder = new();
             builder.AppendFormat("{0}|", checkBoxOnOf.Checked);
             builder.AppendFormat("{0}|", textBoxProxyIp.Text);
-            builder.AppendFormat("{0}|", numUpDownProxyPort.Value);
+            builder.AppendFormat("{0}|", textBoxPort.Text);
             builder.AppendFormat("{0}|", textBoxId.Text);
             builder.AppendFormat("{0}|", textBoxPw.Text);
             builder.AppendFormat("{0}", comboBoxProxyVersion.SelectedIndex == 0 ? 4 : 5);
