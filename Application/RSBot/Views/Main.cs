@@ -18,7 +18,7 @@ using static SDUI.NativeMethods;
 
 namespace RSBot.Views
 {
-    public partial class Main : UIWindowBase
+    public partial class Main : UIWindow
     {
         public static readonly Color LightThemeColor = Color.FromArgb(255, 255, 255);
         public static readonly Color DarkThemeColor = Color.FromArgb(16, 16, 16);

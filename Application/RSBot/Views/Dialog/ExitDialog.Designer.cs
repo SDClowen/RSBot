@@ -111,7 +111,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.shark;
+            pictureBox1.Image = Properties.Resources.app;
             pictureBox1.Location = new System.Drawing.Point(15, 5);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new System.Drawing.Size(128, 128);

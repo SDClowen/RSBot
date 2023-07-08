@@ -41,12 +41,12 @@
             // pictureBox1
             // 
             pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            pictureBox1.Image = Properties.Resources.shark;
+            pictureBox1.Image = Properties.Resources.app;
             pictureBox1.Location = new System.Drawing.Point(200, 0);
             pictureBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new System.Drawing.Size(136, 128);
-            pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            pictureBox1.Size = new System.Drawing.Size(128, 128);
+            pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 

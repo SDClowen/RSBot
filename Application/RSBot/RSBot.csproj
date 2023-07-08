@@ -12,12 +12,16 @@
 		<PackageProjectUrl>https://github.com/SDClowen/RSBot</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/SDClowen/RSBot</RepositoryUrl>
 		<OutputType>WinExe</OutputType>
-		<ApplicationIcon>Assets\shark.ico</ApplicationIcon>
+		<ApplicationIcon>app.ico</ApplicationIcon>
 		<AssemblyVersion>3.0.0</AssemblyVersion>
-		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<ApplicationHighDpiMode></ApplicationHighDpiMode>
 		<PlatformTarget>x86</PlatformTarget>
 		<UseWPF>False</UseWPF>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <Content Include="app.ico" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\Library\RSBot.Core\RSBot.Core.csproj">
@@ -25,15 +29,4 @@
 		</ProjectReference>
 		<ProjectReference Include="..\..\SDUI\SDUI\SDUI.csproj" />
 	</ItemGroup>
-
-	<ItemGroup>
-	  <Compile Update="Views\Experimental\Main.cs">
-	    <SubType>Form</SubType>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Resources\" />
-	</ItemGroup>
-	
 </Project>

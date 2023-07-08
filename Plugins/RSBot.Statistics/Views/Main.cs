@@ -68,7 +68,7 @@ namespace RSBot.Statistics.Views
             var calculators = CalculatorRegistry.Calculators;
             calculators.Reverse();
 
-            this.Invoke(new Action(() =>
+            this.Invoke(new(() =>
             {
                 foreach (var calculator in calculators)
                 {
@@ -77,8 +77,6 @@ namespace RSBot.Statistics.Views
                         Dock = DockStyle.Top,
                         Text = calculator.Label,
                         Name = calculator.Name,
-                        Size = new Size(75, 25),
-                        AutoSize = false
                     };
 
                     checkBox.CheckedChanged += Filter_CheckedChanged;

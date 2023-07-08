@@ -63,39 +63,9 @@ namespace RSBot.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap loading {
+        internal static System.Drawing.Bitmap app {
             get {
-                object obj = ResourceManager.GetObject("loading", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap loading_icon {
-            get {
-                object obj = ResourceManager.GetObject("loading_icon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap logo {
-            get {
-                object obj = ResourceManager.GetObject("logo", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap shark {
-            get {
-                object obj = ResourceManager.GetObject("shark", resourceCulture);
+                object obj = ResourceManager.GetObject("app", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

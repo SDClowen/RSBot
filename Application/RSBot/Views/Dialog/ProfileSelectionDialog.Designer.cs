@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProfileSelectionDialog));
             comboProfiles = new SDUI.Controls.ComboBox();
             label1 = new SDUI.Controls.Label();
             panel1 = new SDUI.Controls.Panel();
@@ -164,7 +163,7 @@
             Controls.Add(label1);
             Controls.Add(comboProfiles);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            ShowIcon = false;
             MaximizeBox = false;
             MinimizeBox = false;
             MinimumSize = new System.Drawing.Size(385, 116);

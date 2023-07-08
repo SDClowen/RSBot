@@ -103,7 +103,6 @@
             // 
             // Icon
             // 
-            this.Icon.BackgroundImage = global::RSBot.Properties.Resources.shark;
             this.Icon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.Icon.Controls.Add(this.Level);
             this.Icon.Dock = System.Windows.Forms.DockStyle.Top;

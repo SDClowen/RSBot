@@ -10,7 +10,7 @@ namespace RSBot.Views
         {
             InitializeComponent();
             labelName.Text = Program.AssemblyTitle;
-            labelDescription.Text = Program.AssemblyDescription; 
+            labelDescription.Text = Program.AssemblyDescription;
             labelVersion.Text = Program.AssemblyVersion;
         }
 
