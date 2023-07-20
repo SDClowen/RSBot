@@ -36,7 +36,7 @@ namespace RSBot.Views.Controls
 
         private void OnLevelUp(byte oldLevel)
         {
-            lblLevel.Text = Game.Player.Level.ToString();
+            lblLevel.Text = $"lv.{Game.Player.Level}";
         }
 
         private void OnInitialized()

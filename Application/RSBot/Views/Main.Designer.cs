@@ -501,7 +501,6 @@ namespace RSBot.Views
             // 
             // Main
             // 
-            AllowShowTitle = false;
             AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = System.Drawing.Color.FromArgb(249, 249, 249);

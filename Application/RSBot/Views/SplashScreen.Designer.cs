@@ -61,7 +61,8 @@
             logoLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
             logoLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 105F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             logoLabel.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            logoLabel.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.DodgerBlue, System.Drawing.Color.SlateBlue });
+            logoLabel.Gradient = new System.Drawing.Color[] { System.Drawing.Color.DodgerBlue, System.Drawing.Color.SlateBlue };
+            logoLabel.GradientAnimation = false;
             logoLabel.Location = new System.Drawing.Point(1, 128);
             logoLabel.Name = "logoLabel";
             logoLabel.Size = new System.Drawing.Size(547, 201);
@@ -77,7 +78,8 @@
             labelVersion.Enabled = false;
             labelVersion.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             labelVersion.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            labelVersion.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.DodgerBlue, System.Drawing.Color.DeepSkyBlue });
+            labelVersion.Gradient = new System.Drawing.Color[] { System.Drawing.Color.DodgerBlue, System.Drawing.Color.DeepSkyBlue };
+            labelVersion.GradientAnimation = false;
             labelVersion.Location = new System.Drawing.Point(486, 0);
             labelVersion.Name = "labelVersion";
             labelVersion.Size = new System.Drawing.Size(59, 24);
@@ -94,7 +96,8 @@
             label2.Enabled = false;
             label2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label2.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.RosyBrown, System.Drawing.Color.FromArgb(74, 74, 74) });
+            label2.Gradient = new System.Drawing.Color[] { System.Drawing.Color.RosyBrown, System.Drawing.Color.FromArgb(74, 74, 74) };
+            label2.GradientAnimation = false;
             label2.Location = new System.Drawing.Point(144, 282);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(271, 17);
@@ -110,7 +113,8 @@
             label3.Enabled = false;
             label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             label3.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label3.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label3.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
+            label3.GradientAnimation = false;
             label3.Location = new System.Drawing.Point(161, 314);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(254, 15);
@@ -119,7 +123,6 @@
             // 
             // SplashScreen
             // 
-            AllowShowTitle = false;
             AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;

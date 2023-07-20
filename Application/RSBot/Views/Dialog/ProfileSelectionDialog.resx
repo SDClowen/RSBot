@@ -117,24 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="richTextBox.Text" xml:space="preserve">
-    <value>Open source repo: 
-	https://www.github.com/SDClowen/RSBot
-Discord: 
-	https://discord.gg/MuY5ejEU3r
-Downloads(folder): 
-	https://mega.nz/folder/cl8ATTSD#YiGraacXF_EcldGLONI0-Q
-Facebook: 
-	https://facebook.com/rsbotofficial/
-Releases: 
-	https://github.com/SDClowen/RSBot/releases
-
-Donation: 
-	Patreon:
-	https://www.patreon.com/sdclowen
-	Buymeacoffee
-	https://www.buymeacoffee.com/sdclowen
-	Github
-	https://github.com/sponsors/SDClowen</value>
-  </data>
 </root>

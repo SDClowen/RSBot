@@ -31,12 +31,10 @@
             pictureBox1 = new System.Windows.Forms.PictureBox();
             buttonOk = new SDUI.Controls.Button();
             richTextBox = new System.Windows.Forms.RichTextBox();
-            bottomPanel = new SDUI.Controls.Panel();
             labelName = new SDUI.Controls.Label();
             labelDescription = new SDUI.Controls.Label();
             labelVersion = new SDUI.Controls.Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            bottomPanel.SuspendLayout();
             SuspendLayout();
             // 
             // pictureBox1
@@ -51,12 +49,15 @@
             // 
             // buttonOk
             // 
-            buttonOk.Color = System.Drawing.Color.Transparent;
-            buttonOk.Location = new System.Drawing.Point(243, 8);
+            buttonOk.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            buttonOk.Color = System.Drawing.Color.DodgerBlue;
+            buttonOk.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            buttonOk.ForeColor = System.Drawing.Color.White;
+            buttonOk.Location = new System.Drawing.Point(12, 356);
             buttonOk.Name = "buttonOk";
-            buttonOk.Radius = 2;
+            buttonOk.Radius = 6;
             buttonOk.ShadowDepth = 4F;
-            buttonOk.Size = new System.Drawing.Size(75, 23);
+            buttonOk.Size = new System.Drawing.Size(110, 32);
             buttonOk.TabIndex = 0;
             buttonOk.Text = "OK";
             buttonOk.UseVisualStyleBackColor = true;
@@ -67,25 +68,11 @@
             richTextBox.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             richTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             richTextBox.ForeColor = System.Drawing.Color.Olive;
-            richTextBox.Location = new System.Drawing.Point(147, 57);
+            richTextBox.Location = new System.Drawing.Point(160, 57);
             richTextBox.Name = "richTextBox";
-            richTextBox.Size = new System.Drawing.Size(402, 158);
+            richTextBox.Size = new System.Drawing.Size(401, 281);
             richTextBox.TabIndex = 2;
             richTextBox.Text = resources.GetString("richTextBox.Text");
-            // 
-            // bottomPanel
-            // 
-            bottomPanel.BackColor = System.Drawing.Color.Transparent;
-            bottomPanel.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
-            bottomPanel.BorderColor = System.Drawing.Color.Transparent;
-            bottomPanel.Controls.Add(buttonOk);
-            bottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            bottomPanel.Location = new System.Drawing.Point(0, 295);
-            bottomPanel.Name = "bottomPanel";
-            bottomPanel.Radius = 0;
-            bottomPanel.ShadowDepth = 4F;
-            bottomPanel.Size = new System.Drawing.Size(573, 38);
-            bottomPanel.TabIndex = 3;
             // 
             // labelName
             // 
@@ -95,7 +82,7 @@
             labelName.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             labelName.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
             labelName.GradientAnimation = false;
-            labelName.Location = new System.Drawing.Point(147, 8);
+            labelName.Location = new System.Drawing.Point(160, 8);
             labelName.Name = "labelName";
             labelName.Size = new System.Drawing.Size(61, 25);
             labelName.TabIndex = 4;
@@ -109,7 +96,7 @@
             labelDescription.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             labelDescription.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
             labelDescription.GradientAnimation = false;
-            labelDescription.Location = new System.Drawing.Point(149, 33);
+            labelDescription.Location = new System.Drawing.Point(162, 33);
             labelDescription.Name = "labelDescription";
             labelDescription.Size = new System.Drawing.Size(211, 17);
             labelDescription.TabIndex = 4;
@@ -123,7 +110,7 @@
             labelVersion.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             labelVersion.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
             labelVersion.GradientAnimation = false;
-            labelVersion.Location = new System.Drawing.Point(214, 12);
+            labelVersion.Location = new System.Drawing.Point(227, 12);
             labelVersion.Name = "labelVersion";
             labelVersion.Size = new System.Drawing.Size(46, 19);
             labelVersion.TabIndex = 4;
@@ -134,24 +121,25 @@
             AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             BackColor = System.Drawing.Color.White;
-            ClientSize = new System.Drawing.Size(573, 333);
+            ClientSize = new System.Drawing.Size(604, 400);
+            Controls.Add(buttonOk);
             Controls.Add(labelDescription);
             Controls.Add(labelVersion);
             Controls.Add(labelName);
-            Controls.Add(bottomPanel);
             Controls.Add(richTextBox);
             Controls.Add(pictureBox1);
             Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             ForeColor = System.Drawing.Color.Black;
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             MaximizeBox = false;
+            MaximumSize = new System.Drawing.Size(604, 400);
             MinimizeBox = false;
             Name = "AboutDialog";
             ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            Text = "♣";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            bottomPanel.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -161,7 +149,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private SDUI.Controls.Button buttonOk;
         private System.Windows.Forms.RichTextBox richTextBox;
-        private SDUI.Controls.Panel bottomPanel;
         private SDUI.Controls.Label labelName;
         private SDUI.Controls.Label labelDescription;
         private SDUI.Controls.Label labelVersion;
