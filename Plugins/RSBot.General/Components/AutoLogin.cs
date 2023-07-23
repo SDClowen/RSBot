@@ -1,6 +1,7 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
+using RSBot.Core.Extensions;
 using RSBot.Core.Network;
 using RSBot.Core.Network.SecurityAPI;
 using RSBot.General.Models;
@@ -140,7 +141,8 @@ namespace RSBot.General.Components
             loginPacket.WriteString(account.Username);
             loginPacket.WriteString(account.Password);
 
-            if (Game.ClientType == GameClientType.Turkey)
+            if (Game.ClientType == GameClientType.Turkey || 
+                Game.ClientType == GameClientType.VTC_Game)
                 loginPacket.WriteByteArray(new byte[6]); // mac
 
             loginPacket.WriteUShort(server.Id);

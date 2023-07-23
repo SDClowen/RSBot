@@ -74,12 +74,16 @@ namespace RSBot.Core.Network.Handler.Agent.Character
                 packet.ReadUInt();
                 packet.ReadByte();
 
-                if (Game.ClientType == GameClientType.Turkey)
+                if (Game.ClientType == GameClientType.Turkey ||
+                    Game.ClientType == GameClientType.VTC_Game)
                     packet.ReadUInt();
                 
                 if (Game.ClientType == GameClientType.Rigid)
                     packet.ReadByteArray(12);
 
+                if (Game.ClientType == GameClientType.VTC_Game)
+                    packet.ReadByte(); // ??
+                
                 var serverCap = packet.ReadByte();
                 Log.Notify($"The game server cap is {serverCap}!");
 

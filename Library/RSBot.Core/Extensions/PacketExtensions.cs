@@ -18,6 +18,7 @@ namespace RSBot.Core.Extensions
                 case GameClientType.Turkey:
                 case GameClientType.Korean:
                 case GameClientType.Rigid:
+                case GameClientType.VTC_Game:
                     return packet.ReadUnicode();
                     
                 default:

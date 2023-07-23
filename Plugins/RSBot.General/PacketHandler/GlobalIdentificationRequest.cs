@@ -60,7 +60,8 @@ namespace RSBot.General.PacketHandler
                 response.WriteUInt(Kernel.Proxy.Token);
                 response.WriteString(selectedAccount.Username);
                 
-                if(Game.ClientType == GameClientType.Turkey)
+                if(Game.ClientType == GameClientType.Turkey || 
+                   Game.ClientType == GameClientType.VTC_Game)
                     response.WriteString(Sha256.ComputeHash(selectedAccount.Password));
                 else
                     response.WriteString(selectedAccount.Password);
