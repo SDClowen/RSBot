@@ -33,7 +33,8 @@ namespace RSBot.General.PacketHandler
             packet.ReadString();//password
 
             if (packet.Opcode == 0x610A && 
-                Game.ClientType == GameClientType.Turkey)
+                Game.ClientType == GameClientType.Turkey ||
+                Game.ClientType == GameClientType.VTC_Game)
                 packet.ReadByteArray(6);
 
             var shardId = packet.ReadUShort();

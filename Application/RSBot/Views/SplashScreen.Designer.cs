@@ -98,7 +98,7 @@
             label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label2.Gradient = new System.Drawing.Color[] { System.Drawing.Color.RosyBrown, System.Drawing.Color.FromArgb(74, 74, 74) };
             label2.GradientAnimation = false;
-            label2.Location = new System.Drawing.Point(144, 282);
+            label2.Location = new System.Drawing.Point(140, 282);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(271, 17);
             label2.TabIndex = 5;
@@ -115,7 +115,7 @@
             label3.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label3.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
             label3.GradientAnimation = false;
-            label3.Location = new System.Drawing.Point(161, 314);
+            label3.Location = new System.Drawing.Point(144, 314);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(254, 15);
             label3.TabIndex = 5;

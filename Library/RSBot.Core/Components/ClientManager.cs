@@ -81,25 +81,43 @@ namespace RSBot.Core.Components
             if (process == null || process.HasExited)
                 return false;
 
-            if (Game.ClientType == GameClientType.Turkey)
+            var isVtcGame = Game.ClientType == GameClientType.VTC_Game;
+            if (Game.ClientType == GameClientType.Turkey || 
+                isVtcGame)
             {
                 var moduleMemory = new byte[process.MainModule.ModuleMemorySize];
                 ReadProcessMemory(process.Handle, process.MainModule.BaseAddress, moduleMemory, process.MainModule.ModuleMemorySize, out _);
 
-                var patchNop = new byte[] { 0x90, 0x90 };
+                var pattern = !isVtcGame ?
+                        "6A 00 6A 00 FF D6 6A 00 8D 85" :
+                        "6A 00 68 D8 15 26 01 68 E4";
+
+                var patchNop = new byte[] { 0x90, 0x90 }; 
+                var patchNop2 = new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90 };
                 var patchJmp = new byte[] { 0xEB };
 
-                var address = FindPattern("6A 00 6A 00 FF D6 6A 00 8D 85", moduleMemory);
+                var address = FindPattern(pattern, moduleMemory);
                 if (address == IntPtr.Zero)
                 {
-                    Log.Error($"TRSRO XIGNCODE patching error! Maybe signatures are wrong?");
+                    Log.Error($"XIGNCODE patching error! Maybe signatures are wrong?");
                     return false;
                 }
 
-                WriteProcessMemory(pi.hProcess, address - 0x15, patchNop, 2, out _);
-                WriteProcessMemory(pi.hProcess, address + 0x04, patchNop, 2, out _);
-                WriteProcessMemory(pi.hProcess, address + 0x1D, patchJmp, 1, out _);
-                WriteProcessMemory(pi.hProcess, address + 0x9A, patchJmp, 1, out _);
+                if(!isVtcGame)
+                {
+                    WriteProcessMemory(pi.hProcess, address - 0x15, patchNop, 2, out _);
+                    WriteProcessMemory(pi.hProcess, address + 0x04, patchNop, 2, out _);
+                    WriteProcessMemory(pi.hProcess, address + 0x1D, patchJmp, 1, out _);
+                    WriteProcessMemory(pi.hProcess, address + 0x9A, patchJmp, 1, out _);
+                }
+                else
+                {
+                    WriteProcessMemory(pi.hProcess, address - 0x6A, patchJmp, 1, out _);
+                    WriteProcessMemory(pi.hProcess, address + 0xC, patchNop2, 5, out _);
+                    WriteProcessMemory(pi.hProcess, address + 0x13, patchJmp, 1, out _);
+                    WriteProcessMemory(pi.hProcess, address + 0x90, patchJmp, 1, out _);
+                }
+
 
                 moduleMemory = null;
                 GC.Collect();

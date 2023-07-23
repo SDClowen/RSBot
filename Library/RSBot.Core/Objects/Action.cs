@@ -106,7 +106,8 @@ namespace RSBot.Core.Objects
 
             action.TargetId = packet.ReadUInt();
             if (Game.ClientType == GameClientType.Turkey ||
-                Game.ClientType == GameClientType.Global)
+                Game.ClientType == GameClientType.Global ||
+                Game.ClientType == GameClientType.VTC_Game)
             {
                 packet.ReadByte();
                 action.Flag = (ActionStateFlag)packet.ReadByte();
@@ -126,7 +127,7 @@ namespace RSBot.Core.Objects
             action.Flag = (ActionStateFlag)packet.ReadByte();*/
             action.SerializeDetail(packet);
 
-            if(action.TargetId != 0)
+            if (action.TargetId != 0)
                 EventManager.FireEvent("OnEntityHit", action.Id, action.ExecutorId, action.TargetId, 0, false);
 
             return action;
@@ -179,10 +180,10 @@ namespace RSBot.Core.Objects
                         {
                             var critStatus = packet.ReadByte(); // 0x01: normal 0x02 critical
 
-                            var damage = BitConverter.ToInt32(new byte[] { 
-                                packet.ReadByte(), 
-                                packet.ReadByte(), 
-                                packet.ReadByte(), 
+                            var damage = BitConverter.ToInt32(new byte[] {
+                                packet.ReadByte(),
+                                packet.ReadByte(),
+                                packet.ReadByte(),
                                 0
                             }, 0);
 

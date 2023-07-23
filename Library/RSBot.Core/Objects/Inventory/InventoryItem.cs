@@ -321,6 +321,7 @@ namespace RSBot.Core.Objects
                         case GameClientType.Rigid:
                             bindingCount = 4;
                             break;
+                        case GameClientType.VTC_Game:
                         case GameClientType.Korean:
                             bindingCount = 3;
                             break;
