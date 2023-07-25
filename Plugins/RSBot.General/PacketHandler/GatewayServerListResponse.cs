@@ -92,7 +92,8 @@ namespace RSBot.General.PacketHandler
                     Name = serverName,
                     CurrentCapacity = currentCapacity,
                     MaxCapacity = maxCapacity,
-                    Status = Game.ClientType >= GameClientType.Global ? status != 4 : status == 1
+                    Status = Game.ClientType >= GameClientType.Global ? status != 4 : status == 1,
+                    State = Game.ClientType >= GameClientType.Global ? $"{(ServerStatusModern)status}" : $"{currentCapacity}/{maxCapacity}"
                 });
 
                 if (Game.ClientType == GameClientType.Vietnam)
