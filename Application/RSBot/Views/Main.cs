@@ -536,6 +536,22 @@ namespace RSBot.Views
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void menuItemExit_Click(object sender, EventArgs e)
         {
+            if (Kernel.Proxy == null || !Kernel.Proxy.ClientConnected || !GlobalConfig.Get<bool>("RSBot.showExitDialog", true))
+            {
+                GlobalConfig.Save();
+                PlayerConfig.Save();
+
+                Environment.Exit(0);
+            }
+
+            var exitDialog = new ExitDialog();
+            if (exitDialog.ShowDialog(this) != DialogResult.Yes)                           
+                return;
+
+            GlobalConfig.Save();
+            PlayerConfig.Save();
+            ClientManager.Kill();
+
             Environment.Exit(0);
         }
 
