@@ -50,7 +50,7 @@ namespace RSBot.Protection.Views
             foreach (var checkbox in groupHPMP.Controls.OfType<SDUI.Controls.CheckBox>())
                 checkbox.Checked = PlayerConfig.Get<bool>(key + checkbox.Name);
 
-            foreach (var num in groupHPMP.Controls.OfType<NumericUpDown>())
+            foreach (var num in groupHPMP.Controls.OfType<SDUI.Controls.NumUpDown>())
                 num.Value = PlayerConfig.Get<int>(key + num.Name, 50);
 
             foreach (var checkbox in groupBadStatus.Controls.OfType<SDUI.Controls.CheckBox>())
@@ -59,19 +59,19 @@ namespace RSBot.Protection.Views
             foreach (var checkbox in groupPet.Controls.OfType<SDUI.Controls.CheckBox>())
                 checkbox.Checked = PlayerConfig.Get<bool>(key + checkbox.Name);
 
-            foreach (var num in groupPet.Controls.OfType<NumericUpDown>())
+            foreach (var num in groupPet.Controls.OfType<SDUI.Controls.NumUpDown>())
                 num.Value = PlayerConfig.Get<int>(key + num.Name, 50);
 
             foreach (var checkbox in groupBackTown.Controls.OfType<SDUI.Controls.CheckBox>())
                 checkbox.Checked = PlayerConfig.Get<bool>(key + checkbox.Name);
 
-            foreach (var num in groupBackTown.Controls.OfType<NumericUpDown>())
+            foreach (var num in groupBackTown.Controls.OfType<SDUI.Controls.NumUpDown>())
                 num.Value = PlayerConfig.Get<int>(key + num.Name, 50);
 
             foreach (var checkbox in groupStatPoints.Controls.OfType<SDUI.Controls.CheckBox>())
                 checkbox.Checked = PlayerConfig.Get<bool>(key + checkbox.Name);
 
-            foreach (var num in groupStatPoints.Controls.OfType<NumericUpDown>())
+            foreach (var num in groupStatPoints.Controls.OfType<SDUI.Controls.NumUpDown>())
                 num.Value = PlayerConfig.Get<int>(key + num.Name, 0);
         }
 
@@ -84,7 +84,7 @@ namespace RSBot.Protection.Views
             foreach (var checkbox in groupHPMP.Controls.OfType<SDUI.Controls.CheckBox>())
                 PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
 
-            foreach (var num in groupHPMP.Controls.OfType<NumericUpDown>())
+            foreach (var num in groupHPMP.Controls.OfType<SDUI.Controls.NumUpDown>())
                 PlayerConfig.Set(key + num.Name, num.Value);
 
             foreach (var checkbox in groupBadStatus.Controls.OfType<SDUI.Controls.CheckBox>())
@@ -93,19 +93,19 @@ namespace RSBot.Protection.Views
             foreach (var checkbox in groupPet.Controls.OfType<SDUI.Controls.CheckBox>())
                 PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
 
-            foreach (var num in groupPet.Controls.OfType<NumericUpDown>())
+            foreach (var num in groupPet.Controls.OfType<SDUI.Controls.NumUpDown>())
                 PlayerConfig.Set(key + num.Name, num.Value);
 
             foreach (var checkbox in groupBackTown.Controls.OfType<SDUI.Controls.CheckBox>())
                 PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
 
-            foreach (var num in groupBackTown.Controls.OfType<NumericUpDown>())
+            foreach (var num in groupBackTown.Controls.OfType<SDUI.Controls.NumUpDown>())
                 PlayerConfig.Set(key + num.Name, num.Value);
 
             foreach (var checkbox in groupStatPoints.Controls.OfType<SDUI.Controls.CheckBox>())
                 PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
 
-            foreach (var num in groupStatPoints.Controls.OfType<NumericUpDown>())
+            foreach (var num in groupStatPoints.Controls.OfType<SDUI.Controls.NumUpDown>())
                 PlayerConfig.Set(key + num.Name, num.Value);
 
             SkillInfo skill = null;
