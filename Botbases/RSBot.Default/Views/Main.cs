@@ -1,6 +1,7 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
+using RSBot.Core.Objects.Skill;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,10 @@ namespace RSBot.Default.Views
     public partial class Main : UserControl
     {
         private const int ScriptRecorderOwnerId = 2000;
+
+        #region Fields
+        private bool _settingsLoaded;
+        #endregion Fields
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Main"/> class.
@@ -42,6 +47,77 @@ namespace RSBot.Default.Views
             EventManager.SubscribeEvent("OnSetTrainingArea", OnSetTrainingArea);
             EventManager.SubscribeEvent("OnSaveScript", new Action<int, string>(OnSaveScript));
         }
+
+        /// <summary>
+        /// Loads the settings.
+        /// </summary>
+        private void LoadSettings()
+        {
+            const string key = "RSBot.Training.";
+
+            foreach (var checkbox in groupBoxAdvanced.Controls.OfType<SDUI.Controls.CheckBox>())
+                checkbox.Checked = PlayerConfig.Get<bool>(key + checkbox.Name);
+
+            foreach (var checkbox in groupBoxBerserk.Controls.OfType<SDUI.Controls.CheckBox>())
+                checkbox.Checked = PlayerConfig.Get<bool>(key + checkbox.Name);
+
+            foreach (var num in groupBoxBerserk.Controls.OfType<SDUI.Controls.NumUpDown>())
+                num.Value = PlayerConfig.Get<int>(key + num.Name, 3);
+
+            foreach (var checkbox in groupBoxWalkback.Controls.OfType<SDUI.Controls.CheckBox>())
+                checkbox.Checked = PlayerConfig.Get<bool>(key + checkbox.Name);
+
+            radioCenter.Checked = PlayerConfig.Get<bool>(key + radioCenter.Name, true);
+            radioWalkAround.Checked = PlayerConfig.Get<bool>(key + radioWalkAround.Name);
+
+            LoadAvoidance();
+        }
+
+        /// <summary>
+        /// Saves the settings.
+        /// </summary>
+        private void ApplySettings()
+        {
+            const string key = "RSBot.Training.";
+
+            foreach (var checkbox in groupBoxAdvanced.Controls.OfType<SDUI.Controls.CheckBox>())
+                PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
+
+            foreach (var checkbox in groupBoxBerserk.Controls.OfType<SDUI.Controls.CheckBox>())
+                PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
+
+            foreach (var num in groupBoxBerserk.Controls.OfType<SDUI.Controls.NumUpDown>())
+                PlayerConfig.Set(key + num.Name, num.Value);
+
+            foreach (var checkbox in groupBoxWalkback.Controls.OfType<SDUI.Controls.CheckBox>())
+                PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
+
+            PlayerConfig.Set(key + radioCenter.Name, radioCenter.Checked);
+            PlayerConfig.Set(key + radioWalkAround.Name, radioWalkAround.Checked);
+        }
+
+        /// <summary>
+        /// Handles the CheckedChanged event of the settings control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void settings_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_settingsLoaded)
+                ApplySettings();
+        }
+
+        /// <summary>
+        /// Handles the ValueChanged event of the numSettings control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void numSettings_ValueChanged(object sender, EventArgs e)
+        {
+            if (_settingsLoaded)
+                ApplySettings();
+        }
+
 
         /// <summary>
         /// Called when the script recorder saves a script.
@@ -190,66 +266,6 @@ namespace RSBot.Default.Views
         }
 
         /// <summary>
-        /// Handles the CheckedChanged event of the radioCenter control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void radioCenter_CheckedChanged(object sender, EventArgs e)
-        {
-            PlayerConfig.Set("RSBot.Area.GoToCenter", radioCenter.Checked);
-        }
-
-        /// <summary>
-        /// Handles the CheckedChanged event of the radioWalkAround control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void radioWalkAround_CheckedChanged(object sender, EventArgs e)
-        {
-            PlayerConfig.Set("RSBot.Area.WalkAround", radioWalkAround.Checked);
-        }
-
-        /// <summary>
-        /// Handles the CheckedChanged event of the checkUseMount control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void checkUseMount_CheckedChanged(object sender, EventArgs e)
-        {
-            PlayerConfig.Set("RSBot.Walkback.UseMount", checkUseMount.Checked);
-        }
-
-        /// <summary>
-        /// Handles the CheckedChanged event of the checkBoxUseReverse control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void checkBoxUseReverse_CheckedChanged(object sender, EventArgs e)
-        {
-            PlayerConfig.Set("RSBot.Walkback.UseReverse", checkBoxUseReverse.Checked);
-        }
-
-        /// <summary>
-        /// Handles the CheckedChanged event of the checkCastBuffs control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void checkCastBuffs_CheckedChanged(object sender, EventArgs e)
-        {
-            PlayerConfig.Set("RSBot.Walkback.CastBuffs", checkCastBuffs.Checked);
-        }
-
-        /// <summary>
-        /// Handles the CheckedChanged event of the checkUseSpeedDrug control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void checkUseSpeedDrug_CheckedChanged(object sender, EventArgs e)
-        {
-            PlayerConfig.Set("RSBot.Walkback.UseSpeedDrug", checkUseSpeedDrug.Checked);
-        }
-
-        /// <summary>
         /// Handles the Click event of the btnAvoid control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -294,46 +310,6 @@ namespace RSBot.Default.Views
         }
 
         /// <summary>
-        /// Handles the CheckedChanged event of the checkBerzerkWhenFull control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void checkBerzerkWhenFull_CheckedChanged(object sender, EventArgs e)
-        {
-            PlayerConfig.Set("RSBot.Berzerk.WhenFull", checkBerzerkWhenFull.Checked);
-        }
-
-        /// <summary>
-        /// Handles the CheckedChanged event of the checkBerzerkMonsterAmount control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void checkBerzerkMonsterAmount_CheckedChanged(object sender, EventArgs e)
-        {
-            PlayerConfig.Set("RSBot.Berzerk.MonsterAmount", checkBerzerkMonsterAmount.Checked);
-        }
-
-        /// <summary>
-        /// Handles the CheckedChanged event of the checkBerzerkAvoidance control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void checkBerzerkAvoidance_CheckedChanged(object sender, EventArgs e)
-        {
-            PlayerConfig.Set("RSBot.Berzerk.MonsterAvoidance", checkBerzerkAvoidance.Checked);
-        }
-
-        /// <summary>
-        /// Handles the ValueChanged event of the numBerzerkMonsterAmount control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void numBerzerkMonsterAmount_ValueChanged(object sender, EventArgs e)
-        {
-            PlayerConfig.Set("RSBot.Berzerk.MonsterAmountNumber", numBerzerkMonsterAmount.Value);
-        }
-
-        /// <summary>
         /// </summary>
         private void OnLoadCharacter()
         {
@@ -345,28 +321,8 @@ namespace RSBot.Default.Views
             txtXCoord.Text = area.Position.X.ToString("0.0");
             txtYCoord.Text = area.Position.Y.ToString("0.0");
             txtRadius.Text = area.Radius.ToString();
-
-            radioCenter.Checked = PlayerConfig.Get("RSBot.Area.GoToCenter", true);
-            radioWalkAround.Checked = PlayerConfig.Get<bool>("RSBot.Area.WalkAround");
-
             //Walkback
             txtWalkscript.Text = PlayerConfig.Get<string>("RSBot.Walkback.File");
-            checkUseMount.Checked = PlayerConfig.Get<bool>("RSBot.Walkback.UseMount");
-            checkCastBuffs.Checked = PlayerConfig.Get("RSBot.Walkback.CastBuffs", true);
-            checkUseSpeedDrug.Checked = PlayerConfig.Get<bool>("RSBot.Walkback.UseSpeedDrug");
-            checkBoxUseReverse.Checked = PlayerConfig.Get<bool>("RSBot.Walkback.UseReverse");
-
-            //BerzerkBundle
-            checkBerzerkWhenFull.Checked = PlayerConfig.Get<bool>("RSBot.Berzerk.WhenFull");
-            checkBerzerkAvoidance.Checked = PlayerConfig.Get<bool>("RSBot.Berzerk.MonsterAvoidance");
-            checkBerzerkMonsterAmount.Checked = PlayerConfig.Get<bool>("RSBot.Berzerk.MonsterAmount");
-            numBerzerkMonsterAmount.Value = PlayerConfig.Get("RSBot.Berzerk.MonsterAmountNumber", 3);
-
-            checkBoxDimensionPillar.Checked = PlayerConfig.Get<bool>("RSBot.Ignores.DimensionPillar");
-            checkAttackWeakerFirst.Checked = PlayerConfig.Get<bool>("RSBot.Advanced.AttackWeakerMobsFirst");
-
-            //Avoidance
-            LoadAvoidance();
         }
 
         private void buttonSelectTrainingArea_Click(object sender, EventArgs e)
@@ -374,16 +330,6 @@ namespace RSBot.Default.Views
             var trainingArea = new Dialogs.TrainingAreasDialog();
             if (trainingArea.ShowDialog(this) == DialogResult.OK)
                 EventManager.FireEvent("OnSetTrainingArea");
-        }
-
-        private void checkBoxIgnorePillars_CheckedChanged(object sender, EventArgs e)
-        {
-            PlayerConfig.Set("RSBot.Ignores.DimensionPillar", checkBoxDimensionPillar.Checked);
-        }
-
-        private void checkAttackWeakerFirst_CheckedChanged(object sender, EventArgs e)
-        {
-            PlayerConfig.Set("RSBot.Advanced.AttackWeakerMobsFirst", checkAttackWeakerFirst.Checked);
         }
 
         private void linkAttackWeakerMobsHelp_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -394,6 +340,13 @@ namespace RSBot.Default.Views
         private void linkRecord_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             EventManager.FireEvent("OnShowScriptRecorder", ScriptRecorderOwnerId, true);
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+            _settingsLoaded = false;
+            LoadSettings();
+            _settingsLoaded = true;
         }
     }
 }
