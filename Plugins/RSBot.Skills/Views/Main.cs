@@ -39,8 +39,11 @@ public partial class Main : UserControl
         }
     }
 
+    #region Fields
     private object _lock;
     private MasteryComboBoxItem _selectedMastery;
+    private bool _settingsLoaded;
+    #endregion Fields
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Main"/> class.
@@ -63,7 +66,6 @@ public partial class Main : UserControl
     /// </summary>
     private void SubscribeEvents()
     {
-        EventManager.SubscribeEvent("OnEnterGame", OnEnterGame);
         EventManager.SubscribeEvent("OnLoadCharacter", OnLoadCharacter);
 
         EventManager.SubscribeEvent("OnSkillLearned", new Action<SkillInfo>(OnSkillLearned));
@@ -149,25 +151,83 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// The first event that will be fired after the player enters the game
+    /// Loads the settings.
     /// </summary>
-    private void OnEnterGame()
+    private void LoadSettings()
     {
-        checkShowAttacks.Checked = PlayerConfig.Get<bool>("RSBot.Skills.ShowAttacks", true);
-        checkShowBuffs.Checked = PlayerConfig.Get<bool>("RSBot.Skills.ShowBuffs", true);
-        checkHideLowerLevelSkills.Checked = PlayerConfig.Get<bool>("RSBot.Skills.HideLowerLevelSkills");
-        checkAcceptResurrection.Checked = PlayerConfig.Get<bool>("RSBot.Skills.AcceptResurrection");
-        checkResurrectParty.Checked = PlayerConfig.Get<bool>("RSBot.Skills.ResurrectPartyMembers");
-        checkCastBuffsInTowns.Checked = PlayerConfig.Get<bool>("RSBot.Skills.CastBuffsInTowns");
-        checkCastBuffsDuringWalkBack.Checked = PlayerConfig.Get<bool>("RSBot.Skills.CastBuffsDuringWalkBack");
-        checkBoxNoAttack.Checked = PlayerConfig.Get<bool>("RSBot.Skills.NoAttack");
-        checkLearnMastery.Checked = PlayerConfig.Get<bool>("RSBot.Skills.learnMastery");
-        checkLearnMasteryBotStopped.Checked = PlayerConfig.Get<bool>("RSBot.Skills.learnMasteryIfBotStoped");
-        numMasteryGap.Value = PlayerConfig.Get<byte>("RSBot.Skills.masteryGap", 0);
-        checkWarlockMode.Checked = PlayerConfig.Get<bool>("RSBot.Skills.WarlockMode", false);
-        checkUseDefaultAttack.Checked = PlayerConfig.Get("RSBot.Skills.UseDefaultAttack", true);
-        checkUseSkillsInOrder.Checked = PlayerConfig.Get("RSBot.Skills.UseSkillsInOrder", false);
-        checkUseTeleportSkill.Checked = PlayerConfig.Get("RSBot.Skills.UseTeleportSkill", false);
+        const string key = "RSBot.Skills.";
+
+        foreach (var checkbox in panelPlayerSkills.Controls.OfType<SDUI.Controls.CheckBox>())
+            checkbox.Checked = PlayerConfig.Get<bool>(key + checkbox.Name);
+
+        foreach (var checkbox in groupBoxAttackingSkills.Controls.OfType<SDUI.Controls.CheckBox>())
+            checkbox.Checked = PlayerConfig.Get<bool>(key + checkbox.Name);
+
+        foreach (var checkbox in groupBoxAutomatedResurrection.Controls.OfType<SDUI.Controls.CheckBox>())
+            checkbox.Checked = PlayerConfig.Get<bool>(key + checkbox.Name);
+
+        foreach (var checkbox in groupBoxAdvancedBuff.Controls.OfType<SDUI.Controls.CheckBox>())
+            checkbox.Checked = PlayerConfig.Get<bool>(key + checkbox.Name);
+
+        foreach (var checkbox in grpMasteryUpdate.Controls.OfType<SDUI.Controls.CheckBox>())
+            checkbox.Checked = PlayerConfig.Get<bool>(key + checkbox.Name);
+
+        foreach (var num in grpMasteryUpdate.Controls.OfType<SDUI.Controls.NumUpDown>())
+            num.Value = PlayerConfig.Get<int>(key + num.Name, 0);
+
+        foreach (var checkbox in groupAdvancedSetup.Controls.OfType<SDUI.Controls.CheckBox>())
+            checkbox.Checked = PlayerConfig.Get<bool>(key + checkbox.Name);
+
+    }
+
+    /// <summary>
+    /// Saves the settings.
+    /// </summary>
+    private void ApplySettings()
+    {
+        const string key = "RSBot.Skills.";
+        foreach (var checkbox in panelPlayerSkills.Controls.OfType<SDUI.Controls.CheckBox>())
+            PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
+
+        foreach (var checkbox in groupBoxAttackingSkills.Controls.OfType<SDUI.Controls.CheckBox>())
+            PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
+
+        foreach (var checkbox in groupBoxAutomatedResurrection.Controls.OfType<SDUI.Controls.CheckBox>())
+            PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
+
+        foreach (var checkbox in groupBoxAdvancedBuff.Controls.OfType<SDUI.Controls.CheckBox>())
+            PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
+
+        foreach (var checkbox in grpMasteryUpdate.Controls.OfType<SDUI.Controls.CheckBox>())
+            PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
+
+        foreach (var num in grpMasteryUpdate.Controls.OfType<SDUI.Controls.NumUpDown>())
+            PlayerConfig.Set(key + num.Name, num.Value);
+
+        foreach (var checkbox in groupAdvancedSetup.Controls.OfType<SDUI.Controls.CheckBox>())
+            PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
+    }
+
+    /// <summary>
+    /// Handles the CheckedChanged event of the settings control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    private void settings_CheckedChanged(object sender, EventArgs e)
+    {
+        if (_settingsLoaded)
+            ApplySettings();
+    }
+
+    /// <summary>
+    /// Handles the ValueChanged event of the numSettings control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    private void numSettings_ValueChanged(object sender, EventArgs e)
+    {
+        if (_settingsLoaded)
+            ApplySettings();
     }
 
     /// <summary>
@@ -721,7 +781,8 @@ public partial class Main : UserControl
     /// </summary>
     private void OnResurrectionRequest()
     {
-        if (Game.AcceptanceRequest != null && PlayerConfig.Get<bool>("RSBot.Skills.AcceptResurrection"))
+        const string key = "RSBot.Skills.";
+        if (Game.AcceptanceRequest != null && PlayerConfig.Get<bool>(key + checkAcceptResurrection.Name))
             Game.AcceptanceRequest.Accept();
     }
 
@@ -796,46 +857,6 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the checkAcceptResurrection control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    private void checkAcceptResurrection_CheckedChanged(object sender, EventArgs e)
-    {
-        PlayerConfig.Set("RSBot.Skills.AcceptResurrection", checkAcceptResurrection.Checked);
-    }
-
-    /// <summary>
-    /// Handles the CheckedChanged event of the checkCastBuffsInTowns control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    private void checkCastBuffsInTowns_CheckedChanged(object sender, EventArgs e)
-    {
-        PlayerConfig.Set("RSBot.Skills.CastBuffsInTowns", checkCastBuffsInTowns.Checked);
-    }
-
-    /// <summary>
-    /// Handles the CheckedChanged event of the checkCastBuffsWhenWalkBack control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    private void checkCastBuffsWhenWalkBack_CheckedChanged(object sender, EventArgs e)
-    {
-        PlayerConfig.Set("RSBot.Skills.CastBuffsDuringWalkBack", checkCastBuffsDuringWalkBack.Checked);
-    }
-
-    /// <summary>
-    /// Handles the CheckedChanged event of the checkResurrectParty control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    private void checkResurrectParty_CheckedChanged(object sender, EventArgs e)
-    {
-        PlayerConfig.Set("RSBot.Skills.ResurrectPartyMembers", checkResurrectParty.Checked);
-    }
-
-    /// <summary>
     /// Handles the SelectedIndexChanged event of the comboImue control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
@@ -890,9 +911,8 @@ public partial class Main : UserControl
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     private void Filter_CheckedChanged(object sender, EventArgs e)
     {
-        PlayerConfig.Set("RSBot.Skills.ShowBuffs", checkShowBuffs.Checked);
-        PlayerConfig.Set("RSBot.Skills.ShowAttacks", checkShowAttacks.Checked);
-        PlayerConfig.Set("RSBot.Skills.HideLowerLevelSkills", checkHideLowerLevelSkills.Checked);
+        if (_settingsLoaded)
+            ApplySettings();
 
         LoadSkills();
     }
@@ -941,26 +961,6 @@ public partial class Main : UserControl
         SaveBuffs();
     }
 
-    private void checkBoxNoAttack_CheckedChanged(object sender, EventArgs e)
-    {
-        PlayerConfig.Set("RSBot.Skills.NoAttack", checkBoxNoAttack.Checked);
-    }
-
-    private void checkLearnMasteryBotStopped_CheckedChanged(object sender, EventArgs e)
-    {
-        PlayerConfig.Set("RSBot.Skills.learnMasteryIfBotStoped", checkLearnMasteryBotStopped.Checked);
-    }
-
-    private void checkLearnMastery_CheckedChanged(object sender, EventArgs e)
-    {
-        PlayerConfig.Set("RSBot.Skills.learnMastery", checkLearnMastery.Checked);
-    }
-
-    private void numMasteryGap_ValueChanged(object sender, EventArgs e)
-    {
-        PlayerConfig.Set("RSBot.Skills.masteryGap", numMasteryGap.Value);
-    }
-
     private void comboLearnMastery_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (comboLearnMastery.SelectedIndex < 0) return;
@@ -969,11 +969,6 @@ public partial class Main : UserControl
         _selectedMastery = selectedItem;
 
         PlayerConfig.Set("RSBot.Skills.selectedMastery", selectedItem.Record.NameCode);
-    }
-
-    private void checkWarlockMode_CheckedChanged(object sender, EventArgs e)
-    {
-        PlayerConfig.Set("RSBot.Skills.WarlockMode", checkWarlockMode.Checked);
     }
 
     private void listSkills_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -1045,16 +1040,6 @@ public partial class Main : UserControl
         }
     }
 
-    private void checkUseDefaultAttack_CheckedChanged(object sender, EventArgs e)
-    {
-        PlayerConfig.Set("RSBot.Skills.UseDefaultAttack", checkUseDefaultAttack.Checked);
-    }
-
-    private void checkUseSkillsInOrder_CheckedChanged(object sender, EventArgs e)
-    {
-        PlayerConfig.Set("RSBot.Skills.UseSkillsInOrder", checkUseSkillsInOrder.Checked);
-    }
-
     private void listActiveBuffs_MouseDoubleClick(object sender, MouseEventArgs e)
     {
         if (!GlobalConfig.Get<bool>("RSBot.DebugEnvironment"))
@@ -1070,11 +1055,6 @@ public partial class Main : UserControl
         propertiesWindow?.Show();
     }
 
-    private void checkUseTeleportSkill_CheckedChanged(object sender, EventArgs e)
-    {
-        PlayerConfig.Set("RSBot.Skills.UseTeleportSkill", checkUseTeleportSkill.Checked);
-    }
-
     private void comboTeleportSkill_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (comboTeleportSkill.SelectedItem is not TeleportSkillComboBoxItem comboItem)
@@ -1083,5 +1063,12 @@ public partial class Main : UserControl
         PlayerConfig.Set("RSBot.Skills.TeleportSkill", comboItem.Record.ID);
 
         SkillManager.TeleportSkill = Game.Player.Skills.GetSkillInfoById(comboItem.Record.ID);
+    }
+
+    private void Main_Load(object sender, EventArgs e)
+    {
+        _settingsLoaded = false;
+        LoadSettings();
+        _settingsLoaded = true;
     }
 }
