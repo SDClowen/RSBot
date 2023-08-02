@@ -47,6 +47,7 @@
             checkUseBadStatusSkill = new SDUI.Controls.CheckBox();
             checkUseUniversalPills = new SDUI.Controls.CheckBox();
             groupHPMP = new SDUI.Controls.GroupBox();
+            label17 = new SDUI.Controls.Label();
             comboSkillPlayerMP = new SDUI.Controls.ComboBox();
             comboSkillPlayerHP = new SDUI.Controls.ComboBox();
             label11 = new SDUI.Controls.Label();
@@ -92,7 +93,6 @@
             numIncInt = new SDUI.Controls.NumUpDown();
             checkIncStr = new SDUI.Controls.CheckBox();
             checkIncInt = new SDUI.Controls.CheckBox();
-            label17 = new SDUI.Controls.Label();
             groupBackTown.SuspendLayout();
             groupBadStatus.SuspendLayout();
             groupHPMP.SuspendLayout();
@@ -106,6 +106,7 @@
             label22.AutoSize = true;
             label22.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label22.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label22.GradientAnimation = false;
             label22.Location = new System.Drawing.Point(500, 449);
             label22.Name = "label22";
             label22.Size = new System.Drawing.Size(254, 15);
@@ -158,6 +159,7 @@
             label21.AutoSize = true;
             label21.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label21.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label21.GradientAnimation = false;
             label21.Location = new System.Drawing.Point(235, 41);
             label21.Name = "label21";
             label21.Size = new System.Drawing.Size(17, 15);
@@ -166,7 +168,7 @@
             // 
             // numDeadTimeout
             // 
-            numDeadTimeout.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numDeadTimeout.BackColor = System.Drawing.Color.Transparent;
             numDeadTimeout.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             numDeadTimeout.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numDeadTimeout.Location = new System.Drawing.Point(153, 37);
@@ -330,6 +332,7 @@
             label18.AutoSize = true;
             label18.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label18.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label18.GradientAnimation = false;
             label18.Location = new System.Drawing.Point(316, 42);
             label18.Name = "label18";
             label18.Size = new System.Drawing.Size(31, 15);
@@ -424,6 +427,19 @@
             groupHPMP.TabStop = false;
             groupHPMP.Text = "Health / Mana recovery";
             // 
+            // label17
+            // 
+            label17.ApplyGradient = false;
+            label17.AutoSize = true;
+            label17.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label17.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label17.GradientAnimation = false;
+            label17.Location = new System.Drawing.Point(332, 134);
+            label17.Name = "label17";
+            label17.Size = new System.Drawing.Size(31, 15);
+            label17.TabIndex = 26;
+            label17.Text = "Skill:";
+            // 
             // comboSkillPlayerMP
             // 
             comboSkillPlayerMP.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
@@ -462,6 +478,7 @@
             label11.AutoSize = true;
             label11.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label11.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label11.GradientAnimation = false;
             label11.Location = new System.Drawing.Point(301, 183);
             label11.Name = "label11";
             label11.Size = new System.Drawing.Size(17, 15);
@@ -470,7 +487,7 @@
             // 
             // numPlayerSkillMPMin
             // 
-            numPlayerSkillMPMin.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numPlayerSkillMPMin.BackColor = System.Drawing.Color.Transparent;
             numPlayerSkillMPMin.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             numPlayerSkillMPMin.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numPlayerSkillMPMin.Location = new System.Drawing.Point(220, 179);
@@ -489,6 +506,7 @@
             label12.AutoSize = true;
             label12.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label12.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label12.GradientAnimation = false;
             label12.Location = new System.Drawing.Point(201, 182);
             label12.Name = "label12";
             label12.Size = new System.Drawing.Size(15, 15);
@@ -501,6 +519,7 @@
             label9.AutoSize = true;
             label9.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label9.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label9.GradientAnimation = false;
             label9.Location = new System.Drawing.Point(302, 156);
             label9.Name = "label9";
             label9.Size = new System.Drawing.Size(17, 15);
@@ -509,7 +528,7 @@
             // 
             // numPlayerSkillHPMin
             // 
-            numPlayerSkillHPMin.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numPlayerSkillHPMin.BackColor = System.Drawing.Color.Transparent;
             numPlayerSkillHPMin.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             numPlayerSkillHPMin.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numPlayerSkillHPMin.Location = new System.Drawing.Point(220, 152);
@@ -528,6 +547,7 @@
             label10.AutoSize = true;
             label10.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label10.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label10.GradientAnimation = false;
             label10.Location = new System.Drawing.Point(201, 155);
             label10.Name = "label10";
             label10.Size = new System.Drawing.Size(15, 15);
@@ -540,6 +560,7 @@
             label7.AutoSize = true;
             label7.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label7.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label7.GradientAnimation = false;
             label7.Location = new System.Drawing.Point(302, 123);
             label7.Name = "label7";
             label7.Size = new System.Drawing.Size(17, 15);
@@ -548,7 +569,7 @@
             // 
             // numPlayerMPVigorPotionMin
             // 
-            numPlayerMPVigorPotionMin.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numPlayerMPVigorPotionMin.BackColor = System.Drawing.Color.Transparent;
             numPlayerMPVigorPotionMin.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             numPlayerMPVigorPotionMin.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numPlayerMPVigorPotionMin.Location = new System.Drawing.Point(220, 118);
@@ -567,6 +588,7 @@
             label8.AutoSize = true;
             label8.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label8.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label8.GradientAnimation = false;
             label8.Location = new System.Drawing.Point(201, 122);
             label8.Name = "label8";
             label8.Size = new System.Drawing.Size(15, 15);
@@ -579,6 +601,7 @@
             label5.AutoSize = true;
             label5.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label5.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label5.GradientAnimation = false;
             label5.Location = new System.Drawing.Point(302, 96);
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(17, 15);
@@ -587,7 +610,7 @@
             // 
             // numPlayerHPVigorPotionMin
             // 
-            numPlayerHPVigorPotionMin.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numPlayerHPVigorPotionMin.BackColor = System.Drawing.Color.Transparent;
             numPlayerHPVigorPotionMin.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             numPlayerHPVigorPotionMin.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numPlayerHPVigorPotionMin.Location = new System.Drawing.Point(220, 91);
@@ -606,6 +629,7 @@
             label6.AutoSize = true;
             label6.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label6.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label6.GradientAnimation = false;
             label6.Location = new System.Drawing.Point(201, 95);
             label6.Name = "label6";
             label6.Size = new System.Drawing.Size(15, 15);
@@ -618,6 +642,7 @@
             label3.AutoSize = true;
             label3.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label3.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label3.GradientAnimation = false;
             label3.Location = new System.Drawing.Point(306, 64);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(17, 15);
@@ -626,7 +651,7 @@
             // 
             // numPlayerMPPotionMin
             // 
-            numPlayerMPPotionMin.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numPlayerMPPotionMin.BackColor = System.Drawing.Color.Transparent;
             numPlayerMPPotionMin.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             numPlayerMPPotionMin.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numPlayerMPPotionMin.Location = new System.Drawing.Point(220, 60);
@@ -645,6 +670,7 @@
             label4.AutoSize = true;
             label4.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label4.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label4.GradientAnimation = false;
             label4.Location = new System.Drawing.Point(201, 64);
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(15, 15);
@@ -657,6 +683,7 @@
             label2.AutoSize = true;
             label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label2.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label2.GradientAnimation = false;
             label2.Location = new System.Drawing.Point(306, 37);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(17, 15);
@@ -665,7 +692,7 @@
             // 
             // numPlayerHPPotionMin
             // 
-            numPlayerHPPotionMin.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numPlayerHPPotionMin.BackColor = System.Drawing.Color.Transparent;
             numPlayerHPPotionMin.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             numPlayerHPPotionMin.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numPlayerHPPotionMin.Location = new System.Drawing.Point(220, 33);
@@ -684,6 +711,7 @@
             label1.AutoSize = true;
             label1.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label1.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label1.GradientAnimation = false;
             label1.Location = new System.Drawing.Point(201, 37);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(15, 15);
@@ -864,6 +892,7 @@
             label13.AutoSize = true;
             label13.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label13.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label13.GradientAnimation = false;
             label13.Location = new System.Drawing.Point(353, 64);
             label13.Name = "label13";
             label13.Size = new System.Drawing.Size(17, 15);
@@ -872,7 +901,7 @@
             // 
             // numPetMinHGP
             // 
-            numPetMinHGP.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numPetMinHGP.BackColor = System.Drawing.Color.Transparent;
             numPetMinHGP.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             numPetMinHGP.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numPetMinHGP.Location = new System.Drawing.Point(267, 59);
@@ -891,6 +920,7 @@
             label14.AutoSize = true;
             label14.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label14.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label14.GradientAnimation = false;
             label14.Location = new System.Drawing.Point(246, 64);
             label14.Name = "label14";
             label14.Size = new System.Drawing.Size(15, 15);
@@ -903,6 +933,7 @@
             label15.AutoSize = true;
             label15.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label15.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label15.GradientAnimation = false;
             label15.Location = new System.Drawing.Point(353, 36);
             label15.Name = "label15";
             label15.Size = new System.Drawing.Size(17, 15);
@@ -911,7 +942,7 @@
             // 
             // numPetMinHP
             // 
-            numPetMinHP.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numPetMinHP.BackColor = System.Drawing.Color.Transparent;
             numPetMinHP.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             numPetMinHP.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numPetMinHP.Location = new System.Drawing.Point(267, 31);
@@ -930,6 +961,7 @@
             label16.AutoSize = true;
             label16.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label16.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label16.GradientAnimation = false;
             label16.Location = new System.Drawing.Point(246, 37);
             label16.Name = "label16";
             label16.Size = new System.Drawing.Size(15, 15);
@@ -1018,7 +1050,7 @@
             // 
             // numIncStr
             // 
-            numIncStr.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numIncStr.BackColor = System.Drawing.Color.Transparent;
             numIncStr.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             numIncStr.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numIncStr.Location = new System.Drawing.Point(133, 76);
@@ -1033,7 +1065,7 @@
             // 
             // numIncInt
             // 
-            numIncInt.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numIncInt.BackColor = System.Drawing.Color.Transparent;
             numIncInt.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             numIncInt.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numIncInt.Location = new System.Drawing.Point(133, 45);
@@ -1078,18 +1110,6 @@
             checkIncInt.UseVisualStyleBackColor = false;
             checkIncInt.CheckedChanged += settings_CheckedChanged;
             // 
-            // label17
-            // 
-            label17.ApplyGradient = false;
-            label17.AutoSize = true;
-            label17.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label17.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-            label17.Location = new System.Drawing.Point(332, 134);
-            label17.Name = "label17";
-            label17.Size = new System.Drawing.Size(31, 15);
-            label17.TabIndex = 26;
-            label17.Text = "Skill:";
-            // 
             // Main
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -1103,6 +1123,7 @@
             Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             Name = "Main";
             Size = new System.Drawing.Size(776, 497);
+            Load += Main_Load;
             groupBackTown.ResumeLayout(false);
             groupBackTown.PerformLayout();
             groupBadStatus.ResumeLayout(false);
