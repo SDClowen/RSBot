@@ -57,10 +57,10 @@ namespace RSBot.Default.Bundle.Berzerk
         {
             Config = new BerzerkConfig
             {
-                WhenFull = PlayerConfig.Get<bool>("RSBot.Berzerk.WhenFull"),
-                BeeingAttackedByAwareMonster = PlayerConfig.Get<bool>("RSBot.Berzerk.MonsterAvoidance"),
-                SurroundedByMonsters = PlayerConfig.Get<bool>("RSBot.Berzerk.MonsterAmount"),
-                SurroundingMonsterAmount = PlayerConfig.Get<byte>("RSBot.Berzerk.MonsterAmountNumber", 5)
+                WhenFull = PlayerConfig.Get<bool>("RSBot.Training.checkBerzerkWhenFull"),
+                BeeingAttackedByAwareMonster = PlayerConfig.Get<bool>("RSBot.Training.checkBerzerkAvoidance"),
+                SurroundedByMonsters = PlayerConfig.Get<bool>("RSBot.Training.checkBerzerkMonsterAmount"),
+                SurroundingMonsterAmount = PlayerConfig.Get<byte>("RSBot.Training.numBerzerkMonsterAmount", 5)
             };
         }
 

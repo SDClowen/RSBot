@@ -115,7 +115,7 @@ internal class MoveScriptCommand : IScriptCommand
    
         Position pos = new(xSector, ySector, xOffset, yOffset, zOffset);
 
-        if (PlayerConfig.Get("RSBot.Walkback.UseMount", true))
+        if (PlayerConfig.Get("RSBot.Training.checkUseMount", true))
         {
             if (!Game.Player.HasActiveVehicle && !Game.Player.IsInDungeon && !Game.Player.InAction)
                 Game.Player.SummonVehicle();
