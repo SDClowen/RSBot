@@ -94,7 +94,7 @@ namespace RSBot.Default.Bundle.Target
 
         private SpawnedMonster GetFromCurrentAttackers()
         {
-            var attackWeakerFirst = PlayerConfig.Get<bool>("RSBot.Advanced.AttackWeakerMobsFirst");
+            var attackWeakerFirst = PlayerConfig.Get<bool>("RSBot.Training.checkAttackWeakerFirst");
             if (!attackWeakerFirst || !IsEmergencySituation())
                 return null;
 
@@ -119,7 +119,7 @@ namespace RSBot.Default.Bundle.Target
         private SpawnedMonster GetNearestEnemy()
         {
             var warlockModeEnabled = PlayerConfig.Get<bool>("RSBot.Skills.WarlockMode");
-            var ignorePillar = PlayerConfig.Get<bool>("RSBot.Ignores.DimensionPillar");
+            var ignorePillar = PlayerConfig.Get<bool>("RSBot.Training.checkBoxDimensionPillar");
 
             if (!SpawnManager.TryGetEntities<SpawnedMonster>(m =>
                     m.State.LifeState == LifeState.Alive &&
