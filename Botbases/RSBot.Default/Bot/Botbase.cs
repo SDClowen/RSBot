@@ -63,7 +63,7 @@ namespace RSBot.Default.Bot
                 item?.Use();
             }
 
-            var noAttack = PlayerConfig.Get("RSBot.Skills.NoAttack", false);
+            var noAttack = PlayerConfig.Get("RSBot.Skills.checkBoxNoAttack", false);
 
             //Check for protection
             Bundles.Protection.Invoke();

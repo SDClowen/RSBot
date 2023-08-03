@@ -20,7 +20,7 @@ namespace RSBot.Default.Bundle.Resurrect
                 Game.Player.HasActiveVehicle)
                 return;
 
-            if (!PlayerConfig.Get<bool>("RSBot.Skills.ResurrectPartyMembers"))
+            if (!PlayerConfig.Get<bool>("RSBot.Skills.checkResurrectParty"))
                 return;
 
             foreach (var member in Game.Party.Members)

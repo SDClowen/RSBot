@@ -71,7 +71,7 @@ namespace RSBot.Default.Bundle.Target
                 return;
             }
 
-            var warlockModeEnabled = PlayerConfig.Get<bool>("RSBot.Skills.WarlockMode", false);
+            var warlockModeEnabled = PlayerConfig.Get<bool>("RSBot.Skills.checkWarlockMode", false);
             if (warlockModeEnabled && Game.SelectedEntity.State.HasTwoDots())
                 return;
 
@@ -118,7 +118,7 @@ namespace RSBot.Default.Bundle.Target
         /// <returns></returns>
         private SpawnedMonster GetNearestEnemy()
         {
-            var warlockModeEnabled = PlayerConfig.Get<bool>("RSBot.Skills.WarlockMode");
+            var warlockModeEnabled = PlayerConfig.Get<bool>("RSBot.Skills.checkWarlockMode");
             var ignorePillar = PlayerConfig.Get<bool>("RSBot.Training.checkBoxDimensionPillar");
 
             if (!SpawnManager.TryGetEntities<SpawnedMonster>(m =>
