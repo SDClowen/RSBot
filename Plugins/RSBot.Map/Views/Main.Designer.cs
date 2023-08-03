@@ -54,9 +54,12 @@ namespace RSBot.Map.Views
             // 
             // label1
             // 
+            label1.ApplyGradient = false;
             label1.AutoSize = true;
             label1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             label1.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label1.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label1.GradientAnimation = false;
             label1.Location = new System.Drawing.Point(18, 339);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(17, 13);
@@ -65,9 +68,12 @@ namespace RSBot.Map.Views
             // 
             // label2
             // 
+            label2.ApplyGradient = false;
             label2.AutoSize = true;
             label2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label2.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label2.GradientAnimation = false;
             label2.Location = new System.Drawing.Point(120, 339);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(17, 13);
@@ -76,9 +82,12 @@ namespace RSBot.Map.Views
             // 
             // lblX
             // 
+            lblX.ApplyGradient = false;
             lblX.AutoSize = true;
             lblX.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             lblX.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            lblX.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            lblX.GradientAnimation = false;
             lblX.Location = new System.Drawing.Point(41, 339);
             lblX.Name = "lblX";
             lblX.Size = new System.Drawing.Size(13, 13);
@@ -87,9 +96,12 @@ namespace RSBot.Map.Views
             // 
             // lblY
             // 
+            lblY.ApplyGradient = false;
             lblY.AutoSize = true;
             lblY.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             lblY.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            lblY.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            lblY.GradientAnimation = false;
             lblY.Location = new System.Drawing.Point(143, 339);
             lblY.Name = "lblY";
             lblY.Size = new System.Drawing.Size(13, 13);
@@ -98,9 +110,12 @@ namespace RSBot.Map.Views
             // 
             // lblRegion
             // 
+            lblRegion.ApplyGradient = false;
             lblRegion.AutoSize = true;
             lblRegion.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             lblRegion.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            lblRegion.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            lblRegion.GradientAnimation = false;
             lblRegion.Location = new System.Drawing.Point(18, 26);
             lblRegion.Name = "lblRegion";
             lblRegion.Size = new System.Drawing.Size(72, 13);
@@ -118,9 +133,12 @@ namespace RSBot.Map.Views
             // 
             // label4
             // 
+            label4.ApplyGradient = false;
             label4.AutoSize = true;
             label4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             label4.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label4.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label4.GradientAnimation = false;
             label4.Location = new System.Drawing.Point(347, 20);
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(39, 13);
@@ -150,8 +168,11 @@ namespace RSBot.Map.Views
             // 
             // labelSectorInfo
             // 
+            labelSectorInfo.ApplyGradient = false;
             labelSectorInfo.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             labelSectorInfo.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            labelSectorInfo.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            labelSectorInfo.GradientAnimation = false;
             labelSectorInfo.Location = new System.Drawing.Point(189, 22);
             labelSectorInfo.Name = "labelSectorInfo";
             labelSectorInfo.Size = new System.Drawing.Size(128, 17);
@@ -161,7 +182,9 @@ namespace RSBot.Map.Views
             // 
             // lvMonster
             // 
+            lvMonster.BackColor = System.Drawing.Color.White;
             lvMonster.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { colName, colType, colLevel, colPosition });
+            lvMonster.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             lvMonster.FullRowSelect = true;
             lvMonster.Location = new System.Drawing.Point(347, 46);
             lvMonster.Name = "lvMonster";
@@ -194,9 +217,13 @@ namespace RSBot.Map.Views
             // 
             checkBoxAutoSelectUniques.AutoSize = true;
             checkBoxAutoSelectUniques.BackColor = System.Drawing.Color.Transparent;
+            checkBoxAutoSelectUniques.Depth = 0;
             checkBoxAutoSelectUniques.Location = new System.Drawing.Point(35, 386);
+            checkBoxAutoSelectUniques.Margin = new System.Windows.Forms.Padding(0);
+            checkBoxAutoSelectUniques.MouseLocation = new System.Drawing.Point(-1, -1);
             checkBoxAutoSelectUniques.Name = "checkBoxAutoSelectUniques";
-            checkBoxAutoSelectUniques.Size = new System.Drawing.Size(175, 15);
+            checkBoxAutoSelectUniques.Ripple = true;
+            checkBoxAutoSelectUniques.Size = new System.Drawing.Size(185, 30);
             checkBoxAutoSelectUniques.TabIndex = 17;
             checkBoxAutoSelectUniques.Text = "Automatically select uniques";
             checkBoxAutoSelectUniques.UseVisualStyleBackColor = false;
@@ -204,9 +231,12 @@ namespace RSBot.Map.Views
             // 
             // label3
             // 
+            label3.ApplyGradient = false;
             label3.AutoSize = true;
             label3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             label3.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label3.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label3.GradientAnimation = false;
             label3.Location = new System.Drawing.Point(33, 410);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(245, 39);
@@ -223,9 +253,13 @@ namespace RSBot.Map.Views
             // 
             checkEnableCollisions.AutoSize = true;
             checkEnableCollisions.BackColor = System.Drawing.Color.Transparent;
+            checkEnableCollisions.Depth = 0;
             checkEnableCollisions.Location = new System.Drawing.Point(35, 364);
+            checkEnableCollisions.Margin = new System.Windows.Forms.Padding(0);
+            checkEnableCollisions.MouseLocation = new System.Drawing.Point(-1, -1);
             checkEnableCollisions.Name = "checkEnableCollisions";
-            checkEnableCollisions.Size = new System.Drawing.Size(158, 15);
+            checkEnableCollisions.Ripple = true;
+            checkEnableCollisions.Size = new System.Drawing.Size(168, 30);
             checkEnableCollisions.TabIndex = 19;
             checkEnableCollisions.Text = "Enable collision detection";
             checkEnableCollisions.UseVisualStyleBackColor = false;
@@ -251,6 +285,7 @@ namespace RSBot.Map.Views
             Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             Name = "Main";
             Size = new System.Drawing.Size(750, 458);
+            Load += Main_Load;
             ResumeLayout(false);
             PerformLayout();
         }
