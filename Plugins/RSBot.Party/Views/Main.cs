@@ -63,7 +63,6 @@ namespace RSBot.Party.Views
         /// </summary>
         private void SubscribeEvents()
         {
-            EventManager.SubscribeEvent("OnEnterGame", OnEnterGame);
             EventManager.SubscribeEvent("OnLoadCharacter", OnLoadCharacter);
             EventManager.SubscribeEvent("OnCreatePartyEntry", OnCreatePartyEntry);
             EventManager.SubscribeEvent("OnChangePartyEntry", OnChangePartyEntry);
@@ -264,9 +263,9 @@ namespace RSBot.Party.Views
         }
 
         /// <summary>
-        /// The first event that will be fired after the player enters the game
+        /// Loads the settings.
         /// </summary>
-        private void OnEnterGame()
+        private void LoadSettings()
         {
             _applySettings = false;
 
@@ -285,6 +284,10 @@ namespace RSBot.Party.Views
             textBoxLeaveIfMasterNotName.Text = Bundle.Container.AutoParty.Config.LeaveIfMasterNotName;
             textBoxLeaveIfMasterNotName.Enabled = !checkBoxLeaveIfMasterNot.Checked;
             checkBoxFollowMaster.Checked = PlayerConfig.Get("RSBot.Party.AlwaysFollowPartyMaster", false);
+
+            checkAcceptIfBotStopped.Checked = Bundle.Container.AutoParty.Config.AcceptIfBotIsStopped;
+            checkBoxListenMasterCommands.Checked = Bundle.Container.Commands.Config.ListenOnlyMaster;
+            checkBoxListenCommandsOnlyList.Checked = Bundle.Container.Commands.Config.ListenFromList;
 
             var autoPartyList = PlayerConfig.GetArray<string>("RSBot.Party.AutoPartyList");
             foreach (var item in autoPartyList)
@@ -1073,6 +1076,16 @@ namespace RSBot.Party.Views
             PlayerConfig.Set("RSBot.Party.AlwaysFollowPartyMaster", checkBoxFollowMaster.Checked);
 
             Bundle.Container.Refresh();
+        }
+
+        /// <summary>
+        /// Occurs before Main form is displayed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Main_Load(object sender, EventArgs e)
+        {
+            LoadSettings();
         }
     }
 }
