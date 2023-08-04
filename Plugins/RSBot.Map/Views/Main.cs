@@ -121,9 +121,6 @@ namespace RSBot.Map.Views
                     Game.MediaPk2.GetFile("com_diamond.ddj").ToImage()
                 };
             }
-
-            checkBoxAutoSelectUniques.Checked = PlayerConfig.Get("RSBot.Map.AutoSelectUnique", false);
-            timerUniqueChecker.Enabled = checkBoxAutoSelectUniques.Checked;
         }
 
         #endregion Core Handlers
@@ -659,6 +656,17 @@ namespace RSBot.Map.Views
         private void checkEnableCollisions_CheckedChanged(object sender, EventArgs e)
         {
             CollisionManager.Enabled = checkEnableCollisions.Checked;
+        }
+
+        /// <summary>
+        /// Occurs before Main form is displayed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Main_Load(object sender, EventArgs e)
+        {
+            checkBoxAutoSelectUniques.Checked = PlayerConfig.Get("RSBot.Map.AutoSelectUnique", false);
+            timerUniqueChecker.Enabled = checkBoxAutoSelectUniques.Checked;
         }
     }
 }
