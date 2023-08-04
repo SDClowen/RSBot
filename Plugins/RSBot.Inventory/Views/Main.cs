@@ -57,8 +57,6 @@ namespace RSBot.Inventory.Views
 
         private void OnLoadCharacter()
         {
-            checkAutoSort.Checked = PlayerConfig.Get("RSBot.Inventory.AutoSort", false);
-
             UpdateInventoryList();
         }
 
@@ -595,6 +593,16 @@ namespace RSBot.Inventory.Views
 
             useItemAtTrainingPlaceMenuItem.Checked = !useItemAtTrainingPlaceMenuItem.Checked;
             PlayerConfig.SetArray("RSBot.Inventory.AutoUseAccordingToPurpose", itemsToUse);
+        }
+
+        /// <summary>
+        /// Occurs before Main form is displayed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Main_Load(object sender, EventArgs e)
+        {
+            checkAutoSort.Checked = PlayerConfig.Get("RSBot.Inventory.AutoSort", false);
         }
     }
 }

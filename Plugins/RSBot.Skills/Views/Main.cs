@@ -1065,6 +1065,11 @@ public partial class Main : UserControl
         SkillManager.TeleportSkill = Game.Player.Skills.GetSkillInfoById(comboItem.Record.ID);
     }
 
+    /// <summary>
+    /// Occurs before Main form is displayed.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void Main_Load(object sender, EventArgs e)
     {
         _settingsLoaded = false;
