@@ -195,6 +195,11 @@ namespace RSBot.Statistics.Views
             }
         }
 
+        /// <summary>
+        /// Occurs before Main form is displayed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Main_Load(object sender, EventArgs e)
         {
             //Don't reset after teleportation or something equal
