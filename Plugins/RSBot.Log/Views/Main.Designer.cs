@@ -43,6 +43,8 @@
             // 
             checkEnabled.AutoSize = true;
             checkEnabled.BackColor = System.Drawing.Color.Transparent;
+            checkEnabled.Checked = true;
+            checkEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
             checkEnabled.Depth = 0;
             checkEnabled.Location = new System.Drawing.Point(14, 8);
             checkEnabled.Margin = new System.Windows.Forms.Padding(0);

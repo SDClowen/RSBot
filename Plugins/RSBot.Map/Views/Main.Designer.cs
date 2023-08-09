@@ -58,7 +58,7 @@ namespace RSBot.Map.Views
             label1.AutoSize = true;
             label1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             label1.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label1.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label1.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
             label1.GradientAnimation = false;
             label1.Location = new System.Drawing.Point(18, 339);
             label1.Name = "label1";
@@ -72,7 +72,7 @@ namespace RSBot.Map.Views
             label2.AutoSize = true;
             label2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label2.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label2.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
             label2.GradientAnimation = false;
             label2.Location = new System.Drawing.Point(120, 339);
             label2.Name = "label2";
@@ -86,7 +86,7 @@ namespace RSBot.Map.Views
             lblX.AutoSize = true;
             lblX.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             lblX.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            lblX.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            lblX.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
             lblX.GradientAnimation = false;
             lblX.Location = new System.Drawing.Point(41, 339);
             lblX.Name = "lblX";
@@ -100,7 +100,7 @@ namespace RSBot.Map.Views
             lblY.AutoSize = true;
             lblY.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             lblY.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            lblY.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            lblY.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
             lblY.GradientAnimation = false;
             lblY.Location = new System.Drawing.Point(143, 339);
             lblY.Name = "lblY";
@@ -114,7 +114,7 @@ namespace RSBot.Map.Views
             lblRegion.AutoSize = true;
             lblRegion.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             lblRegion.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            lblRegion.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            lblRegion.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
             lblRegion.GradientAnimation = false;
             lblRegion.Location = new System.Drawing.Point(18, 26);
             lblRegion.Name = "lblRegion";
@@ -137,7 +137,7 @@ namespace RSBot.Map.Views
             label4.AutoSize = true;
             label4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             label4.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label4.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label4.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
             label4.GradientAnimation = false;
             label4.Location = new System.Drawing.Point(347, 20);
             label4.Name = "label4";
@@ -171,7 +171,7 @@ namespace RSBot.Map.Views
             labelSectorInfo.ApplyGradient = false;
             labelSectorInfo.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             labelSectorInfo.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            labelSectorInfo.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            labelSectorInfo.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
             labelSectorInfo.GradientAnimation = false;
             labelSectorInfo.Location = new System.Drawing.Point(189, 22);
             labelSectorInfo.Name = "labelSectorInfo";
@@ -235,7 +235,7 @@ namespace RSBot.Map.Views
             label3.AutoSize = true;
             label3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             label3.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label3.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label3.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
             label3.GradientAnimation = false;
             label3.Location = new System.Drawing.Point(33, 410);
             label3.Name = "label3";
@@ -253,6 +253,8 @@ namespace RSBot.Map.Views
             // 
             checkEnableCollisions.AutoSize = true;
             checkEnableCollisions.BackColor = System.Drawing.Color.Transparent;
+            checkEnableCollisions.Checked = true;
+            checkEnableCollisions.CheckState = System.Windows.Forms.CheckState.Checked;
             checkEnableCollisions.Depth = 0;
             checkEnableCollisions.Location = new System.Drawing.Point(35, 364);
             checkEnableCollisions.Margin = new System.Windows.Forms.Padding(0);

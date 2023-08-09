@@ -186,7 +186,7 @@
             label2.ApplyGradient = false;
             label2.AutoSize = true;
             label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label2.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label2.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
             label2.GradientAnimation = false;
             label2.Location = new System.Drawing.Point(9, 183);
             label2.Name = "label2";
@@ -344,7 +344,7 @@
             label1.ApplyGradient = false;
             label1.AutoSize = true;
             label1.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label1.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label1.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
             label1.GradientAnimation = false;
             label1.Location = new System.Drawing.Point(9, 174);
             label1.Name = "label1";
@@ -458,6 +458,8 @@
             // 
             checkUseDefaultAttack.AutoSize = true;
             checkUseDefaultAttack.BackColor = System.Drawing.Color.Transparent;
+            checkUseDefaultAttack.Checked = true;
+            checkUseDefaultAttack.CheckState = System.Windows.Forms.CheckState.Checked;
             checkUseDefaultAttack.Depth = 0;
             checkUseDefaultAttack.Location = new System.Drawing.Point(15, 58);
             checkUseDefaultAttack.Margin = new System.Windows.Forms.Padding(0);
@@ -525,7 +527,7 @@
             label4.ApplyGradient = false;
             label4.AutoSize = true;
             label4.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label4.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label4.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
             label4.GradientAnimation = false;
             label4.Location = new System.Drawing.Point(243, 36);
             label4.Name = "label4";
@@ -617,6 +619,8 @@
             // 
             checkAcceptResurrection.AutoSize = true;
             checkAcceptResurrection.BackColor = System.Drawing.Color.Transparent;
+            checkAcceptResurrection.Checked = true;
+            checkAcceptResurrection.CheckState = System.Windows.Forms.CheckState.Checked;
             checkAcceptResurrection.Depth = 0;
             checkAcceptResurrection.Location = new System.Drawing.Point(86, 84);
             checkAcceptResurrection.Margin = new System.Windows.Forms.Padding(0);
@@ -634,7 +638,7 @@
             label3.ApplyGradient = false;
             label3.AutoSize = true;
             label3.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label3.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label3.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
             label3.GradientAnimation = false;
             label3.Location = new System.Drawing.Point(26, 35);
             label3.Name = "label3";
@@ -677,6 +681,8 @@
             // 
             checkCastBuffsDuringWalkBack.AutoSize = true;
             checkCastBuffsDuringWalkBack.BackColor = System.Drawing.Color.Transparent;
+            checkCastBuffsDuringWalkBack.Checked = true;
+            checkCastBuffsDuringWalkBack.CheckState = System.Windows.Forms.CheckState.Checked;
             checkCastBuffsDuringWalkBack.Depth = 0;
             checkCastBuffsDuringWalkBack.Location = new System.Drawing.Point(15, 48);
             checkCastBuffsDuringWalkBack.Margin = new System.Windows.Forms.Padding(0);

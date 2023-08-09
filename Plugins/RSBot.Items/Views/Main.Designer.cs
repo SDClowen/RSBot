@@ -10,7 +10,7 @@ namespace RSBot.Items.Views
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -317,7 +317,7 @@ namespace RSBot.Items.Views
             label6.AutoSize = true;
             label6.BackColor = Color.Transparent;
             label6.ForeColor = Color.FromArgb(0, 0, 0);
-            label6.Gradient = (new Color[] { Color.Gray, Color.Black });
+            label6.Gradient = new Color[] { Color.Gray, Color.Black };
             label6.GradientAnimation = false;
             label6.Location = new Point(5, 32);
             label6.Name = "label6";
@@ -379,7 +379,7 @@ namespace RSBot.Items.Views
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label1.ForeColor = Color.FromArgb(0, 0, 0);
-            label1.Gradient = (new Color[] { Color.Gray, Color.Black });
+            label1.Gradient = new Color[] { Color.Gray, Color.Black };
             label1.GradientAnimation = false;
             label1.Location = new Point(12, 7);
             label1.Name = "label1";
@@ -1414,7 +1414,7 @@ namespace RSBot.Items.Views
             label3.ApplyGradient = false;
             label3.AutoSize = true;
             label3.ForeColor = Color.FromArgb(0, 0, 0);
-            label3.Gradient = (new Color[] { Color.Gray, Color.Black });
+            label3.Gradient = new Color[] { Color.Gray, Color.Black };
             label3.GradientAnimation = false;
             label3.Location = new Point(10, 113);
             label3.Name = "label3";
@@ -1456,7 +1456,7 @@ namespace RSBot.Items.Views
             label4.AutoSize = true;
             label4.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label4.ForeColor = Color.FromArgb(0, 0, 0);
-            label4.Gradient = (new Color[] { Color.Gray, Color.Black });
+            label4.Gradient = new Color[] { Color.Gray, Color.Black };
             label4.GradientAnimation = false;
             label4.Location = new Point(116, 109);
             label4.Name = "label4";
@@ -1503,7 +1503,7 @@ namespace RSBot.Items.Views
             labelResult.ApplyGradient = false;
             labelResult.AutoSize = true;
             labelResult.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            labelResult.Gradient = (new Color[] { Color.Gray, Color.Black });
+            labelResult.Gradient = new Color[] { Color.Gray, Color.Black };
             labelResult.GradientAnimation = false;
             labelResult.Location = new Point(280, 11);
             labelResult.Name = "labelResult";
@@ -1613,6 +1613,8 @@ namespace RSBot.Items.Views
             // 
             checkPickupGold.AutoSize = true;
             checkPickupGold.BackColor = Color.Transparent;
+            checkPickupGold.Checked = true;
+            checkPickupGold.CheckState = CheckState.Checked;
             checkPickupGold.Depth = 0;
             checkPickupGold.Location = new Point(15, 32);
             checkPickupGold.Margin = new Padding(0);
@@ -1661,6 +1663,8 @@ namespace RSBot.Items.Views
             // 
             checkPickupRare.AutoSize = true;
             checkPickupRare.BackColor = Color.Transparent;
+            checkPickupRare.Checked = true;
+            checkPickupRare.CheckState = CheckState.Checked;
             checkPickupRare.Depth = 0;
             checkPickupRare.Location = new Point(15, 61);
             checkPickupRare.Margin = new Padding(0);
@@ -1776,6 +1780,8 @@ namespace RSBot.Items.Views
             // 
             checkEnableAbilityPet.AutoSize = true;
             checkEnableAbilityPet.BackColor = Color.Transparent;
+            checkEnableAbilityPet.Checked = true;
+            checkEnableAbilityPet.CheckState = CheckState.Checked;
             checkEnableAbilityPet.Depth = 0;
             checkEnableAbilityPet.Location = new Point(15, 26);
             checkEnableAbilityPet.Margin = new Padding(0);
@@ -1836,27 +1842,27 @@ namespace RSBot.Items.Views
 
         #endregion
         private SDUI.Controls.ContextMenuStrip contextAvailableProducts;
-        private System.Windows.Forms.ToolStripMenuItem menuAddToShoppingList;
+        private ToolStripMenuItem menuAddToShoppingList;
         private SDUI.Controls.ContextMenuStrip contextShoppingList;
-        private System.Windows.Forms.ToolStripMenuItem menuChangeAmount;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem menuRemoveItem;
+        private ToolStripMenuItem menuChangeAmount;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripMenuItem menuRemoveItem;
         private SDUI.Controls.TabControl tabMain;
-        private System.Windows.Forms.TabPage tabSellFilter;
+        private TabPage tabSellFilter;
         private SDUI.Controls.ListView listFilter;
-        private System.Windows.Forms.ColumnHeader colItemName;
-        private System.Windows.Forms.ColumnHeader colItemLevel;
-        private System.Windows.Forms.ColumnHeader colSell;
-        private System.Windows.Forms.ColumnHeader collStore;
+        private ColumnHeader colItemName;
+        private ColumnHeader colItemLevel;
+        private ColumnHeader colSell;
+        private ColumnHeader collStore;
         private SDUI.Controls.TextBox txtSellSearch;
-        private System.Windows.Forms.ColumnHeader colGender;
+        private ColumnHeader colGender;
         private SDUI.Controls.ContextMenuStrip contextList;
-        private System.Windows.Forms.ToolStripMenuItem btnAddToSell;
-        private System.Windows.Forms.ToolStripMenuItem btnAddToStore;
+        private ToolStripMenuItem btnAddToSell;
+        private ToolStripMenuItem btnAddToStore;
         private SDUI.Controls.Button btnSearch;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem btnDontSell;
-        private System.Windows.Forms.ToolStripMenuItem btnDontStore;
+        private ToolStripSeparator toolStripSeparator2;
+        private ToolStripMenuItem btnDontSell;
+        private ToolStripMenuItem btnDontStore;
         private SDUI.Controls.Panel filterPanel;
         private SDUI.Controls.GroupBox groupOthers;
         private SDUI.Controls.CheckBox checkAlchemy;
@@ -1897,13 +1903,13 @@ namespace RSBot.Items.Views
         private SDUI.Controls.CheckBox checkAxe;
         private SDUI.Controls.CheckBox checkLegs;
         private SDUI.Controls.CheckBox checkHand;
-        private System.Windows.Forms.ToolStripMenuItem btnPickup;
-        private System.Windows.Forms.ToolStripMenuItem btnDontPickup;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TabPage tabPage1;
+        private ToolStripMenuItem btnPickup;
+        private ToolStripMenuItem btnDontPickup;
+        private PictureBox pictureBox1;
+        private TabPage tabPage1;
         private SDUI.Controls.GroupBox groupBoxGeneral;
         private SDUI.Controls.CheckBox checkPickupGold;
-        private System.Windows.Forms.ColumnHeader colPickup;
+        private ColumnHeader colPickup;
         private SDUI.Controls.CheckBox checkPickupRare;
         private SDUI.Controls.CheckBox checkEnableAbilityPet;
         private SDUI.Controls.Button btnResetFilter;
@@ -1914,7 +1920,7 @@ namespace RSBot.Items.Views
         private SDUI.Controls.Label labelResult;
         private SDUI.Controls.Panel panel7;
         private SDUI.Controls.CheckBox checkBoxRareItems;
-        private System.Windows.Forms.ImageList searchImageList;
+        private ImageList searchImageList;
         private SDUI.Controls.CheckBox checkEuropean;
         private SDUI.Controls.CheckBox checkChinese;
         private SDUI.Controls.CheckBox checkFemale;
@@ -1922,14 +1928,14 @@ namespace RSBot.Items.Views
         private SDUI.Controls.CheckBox checkQuest;
         private SDUI.Controls.CheckBox checkCoin;
         private SDUI.Controls.CheckBox checkAmmo;
-        private System.Windows.Forms.TabPage tabBuyFilter;
+        private TabPage tabBuyFilter;
         private SDUI.Controls.GroupBox groupBox1;
         private SDUI.Controls.CheckBox checkSellItemsFromPet;
         private SDUI.Controls.CheckBox checkRepairGear;
         private SDUI.Controls.CheckBox checkEnable;
-        private System.Windows.Forms.SplitContainer splitContainer;
+        private SplitContainer splitContainer;
         private SDUI.Controls.ListView listAvailableProducts;
-        private System.Windows.Forms.ColumnHeader colAvailableName;
+        private ColumnHeader colAvailableName;
         private SDUI.Controls.Panel panel1;
         private SDUI.Controls.Label label6;
         private SDUI.Controls.CheckBox checkShowEquipment;
@@ -1937,8 +1943,8 @@ namespace RSBot.Items.Views
         private SDUI.Controls.ComboBox comboStore;
         private SDUI.Controls.Label label1;
         private SDUI.Controls.ListView listShoppingList;
-        private System.Windows.Forms.ColumnHeader colName;
-        private System.Windows.Forms.ColumnHeader colAmount;
+        private ColumnHeader colName;
+        private ColumnHeader colAmount;
         private SDUI.Controls.Panel panel2;
         private SDUI.Controls.Separator separator3;
         private SDUI.Controls.Separator separator4;
@@ -1947,7 +1953,7 @@ namespace RSBot.Items.Views
         private SDUI.Controls.Separator separator5;
         private SDUI.Controls.CheckBox checkStoreItemsFromPet;
         private SDUI.Controls.CheckBox checkPickupBlue;
-        private System.Windows.Forms.ToolStripMenuItem btnPickOnlyCharacter;
+        private ToolStripMenuItem btnPickOnlyCharacter;
         private SDUI.Controls.CheckBox checkQuestItems;
         private SDUI.Controls.CheckBox checkAllEquips;
         private SDUI.Controls.CheckBox checkEverything;
