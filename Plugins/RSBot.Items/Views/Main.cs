@@ -40,7 +40,6 @@ namespace RSBot.Items.Views
         private void SubscribeEvents()
         {
             EventManager.SubscribeEvent("OnLoadGameData", OnLoadGameData);
-            EventManager.SubscribeEvent("OnEnterGame", OnEnterGame);
         }
 
         /// <summary>
@@ -547,9 +546,9 @@ namespace RSBot.Items.Views
         }
 
         /// <summary>
-        /// Fired when the player enters the game
+        /// Loads the settings.
         /// </summary>
-        private void OnEnterGame()
+        private void LoadSettings()
         {
             checkEnable.Checked = PlayerConfig.Get("RSBot.Shopping.Enabled", true);
             checkRepairGear.Checked = PlayerConfig.Get("RSBot.Shopping.RepairGear", true);
@@ -1015,6 +1014,16 @@ namespace RSBot.Items.Views
             btnAddToStore.Checked = ShoppingManager.StoreFilter.Contains(codeName);
             btnPickup.Checked = PickupManager.PickupFilter.Any(p => p.CodeName == codeName && !p.PickOnlyChar);
             btnPickOnlyCharacter.Checked = PickupManager.PickupFilter.Any(p => p.CodeName == codeName && p.PickOnlyChar);
+        }
+
+        /// <summary>
+        /// Occurs before Main form is displayed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Main_Load(object sender, EventArgs e)
+        {
+            LoadSettings();
         }
     }
 }

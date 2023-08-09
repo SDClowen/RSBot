@@ -61,10 +61,10 @@ namespace RSBot.Default.Bundle.Loop
             Config = new LoopConfig
             {
                 WalkScript = PlayerConfig.Get<string>("RSBot.Walkback.File"),
-                UseSpeedDrug = PlayerConfig.Get<bool>("RSBot.Walkback.UseSpeedDrug"),
-                UseVehicle = PlayerConfig.Get<bool>("RSBot.Walkback.UseMount", true),
-                CastBuffs = PlayerConfig.Get<bool>("RSBot.Walkback.CastBuffs", true),
-                UseReverse = PlayerConfig.Get<bool>("RSBot.Walkback.UseReverse", false)
+                UseSpeedDrug = PlayerConfig.Get<bool>("RSBot.Training.checkUseSpeedDrug"),
+                UseVehicle = PlayerConfig.Get<bool>("RSBot.Training.checkUseMount", true),
+                CastBuffs = PlayerConfig.Get<bool>("RSBot.Training.checkCastBuffs", true),
+                UseReverse = PlayerConfig.Get<bool>("RSBot.Training.checkBoxUseReverse", false)
             };
         }
 

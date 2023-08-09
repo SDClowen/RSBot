@@ -545,7 +545,7 @@ namespace RSBot.Views
             }
 
             var exitDialog = new ExitDialog();
-            if (exitDialog.ShowDialog(this) != DialogResult.Yes)                           
+            if (exitDialog.ShowDialog(this) != DialogResult.Yes)
                 return;
 
             GlobalConfig.Save();
@@ -918,6 +918,20 @@ namespace RSBot.Views
             Process.Start(new ProcessStartInfo { FileName = "https://buymeacoffee.com/sdclowen", UseShellExecute = true });
             Process.Start(new ProcessStartInfo { FileName = "https://github.com/sponsors/SDClowen", UseShellExecute = true });
             Process.Start(new ProcessStartInfo { FileName = "https://www.patreon.com/sdclowen", UseShellExecute = true });
+        }
+
+        /// <summary>
+        /// Occurs before a tab is selected, enabling a handler to cancel the tab change.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tabMain_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            var selectedTab = (sender as System.Windows.Forms.TabControl).SelectedTab;
+            if (!selectedTab.Enabled)
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

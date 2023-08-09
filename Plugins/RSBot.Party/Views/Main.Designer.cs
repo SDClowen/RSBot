@@ -184,6 +184,7 @@
             tabMain.ItemSize = new System.Drawing.Size(80, 24);
             tabMain.Location = new System.Drawing.Point(0, 0);
             tabMain.Name = "tabMain";
+            tabMain.Radius = new System.Windows.Forms.Padding(4);
             tabMain.SelectedIndex = 0;
             tabMain.Size = new System.Drawing.Size(754, 467);
             tabMain.TabIndex = 0;
@@ -323,6 +324,7 @@
             label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             label1.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label1.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label1.GradientAnimation = false;
             label1.Location = new System.Drawing.Point(3, 8);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(61, 15);
@@ -335,6 +337,7 @@
             lblLeader.BackColor = System.Drawing.Color.Transparent;
             lblLeader.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             lblLeader.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            lblLeader.GradientAnimation = false;
             lblLeader.Location = new System.Drawing.Point(70, 9);
             lblLeader.Name = "lblLeader";
             lblLeader.Size = new System.Drawing.Size(143, 14);
@@ -480,6 +483,7 @@
             labelCommandsInfo.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             labelCommandsInfo.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             labelCommandsInfo.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            labelCommandsInfo.GradientAnimation = false;
             labelCommandsInfo.Location = new System.Drawing.Point(212, 253);
             labelCommandsInfo.Name = "labelCommandsInfo";
             labelCommandsInfo.Size = new System.Drawing.Size(285, 77);
@@ -603,6 +607,7 @@
             label2.ApplyGradient = false;
             label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label2.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label2.GradientAnimation = false;
             label2.Location = new System.Drawing.Point(17, 308);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(189, 18);
@@ -1151,7 +1156,7 @@
             // 
             // nudPartySearchMax
             // 
-            nudPartySearchMax.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            nudPartySearchMax.BackColor = System.Drawing.Color.Transparent;
             nudPartySearchMax.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             nudPartySearchMax.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             nudPartySearchMax.Location = new System.Drawing.Point(442, 11);
@@ -1165,7 +1170,7 @@
             // 
             // nudPartySearchMin
             // 
-            nudPartySearchMin.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            nudPartySearchMin.BackColor = System.Drawing.Color.Transparent;
             nudPartySearchMin.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             nudPartySearchMin.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             nudPartySearchMin.Location = new System.Drawing.Point(359, 11);
@@ -1212,6 +1217,7 @@
             label6.BackColor = System.Drawing.Color.Transparent;
             label6.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label6.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label6.GradientAnimation = false;
             label6.Location = new System.Drawing.Point(419, 16);
             label6.Name = "label6";
             label6.Size = new System.Drawing.Size(22, 18);
@@ -1224,6 +1230,7 @@
             label5.BackColor = System.Drawing.Color.Transparent;
             label5.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label5.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label5.GradientAnimation = false;
             label5.Location = new System.Drawing.Point(322, 15);
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(34, 18);
@@ -1236,6 +1243,7 @@
             label4.BackColor = System.Drawing.Color.Transparent;
             label4.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label4.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label4.GradientAnimation = false;
             label4.Location = new System.Drawing.Point(156, 15);
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(50, 13);
@@ -1248,6 +1256,7 @@
             label3.BackColor = System.Drawing.Color.Transparent;
             label3.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label3.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label3.GradientAnimation = false;
             label3.Location = new System.Drawing.Point(9, 14);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(39, 13);
@@ -1388,6 +1397,7 @@
             lbl_partyPageRange.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             lbl_partyPageRange.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             lbl_partyPageRange.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            lbl_partyPageRange.GradientAnimation = false;
             lbl_partyPageRange.Location = new System.Drawing.Point(344, 15);
             lbl_partyPageRange.Name = "lbl_partyPageRange";
             lbl_partyPageRange.Size = new System.Drawing.Size(39, 19);
@@ -1722,6 +1732,7 @@
             Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             Name = "Main";
             Size = new System.Drawing.Size(754, 467);
+            Load += Main_Load;
             tabMain.ResumeLayout(false);
             tabCurrentParty.ResumeLayout(false);
             contextParty.ResumeLayout(false);

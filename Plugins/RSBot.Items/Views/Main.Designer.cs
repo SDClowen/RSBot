@@ -34,11 +34,11 @@ namespace RSBot.Items.Views
         private void InitializeComponent()
         {
             components = new Container();
-            ListViewGroup listViewGroup6 = new ListViewGroup("Potion trader", HorizontalAlignment.Left);
-            ListViewGroup listViewGroup7 = new ListViewGroup("Stable keeper", HorizontalAlignment.Left);
-            ListViewGroup listViewGroup8 = new ListViewGroup("Protector trader", HorizontalAlignment.Left);
-            ListViewGroup listViewGroup9 = new ListViewGroup("Weapon trader", HorizontalAlignment.Left);
-            ListViewGroup listViewGroup10 = new ListViewGroup("Accessory trader", HorizontalAlignment.Left);
+            ListViewGroup listViewGroup1 = new ListViewGroup("Potion trader", HorizontalAlignment.Left);
+            ListViewGroup listViewGroup2 = new ListViewGroup("Stable keeper", HorizontalAlignment.Left);
+            ListViewGroup listViewGroup3 = new ListViewGroup("Protector trader", HorizontalAlignment.Left);
+            ListViewGroup listViewGroup4 = new ListViewGroup("Weapon trader", HorizontalAlignment.Left);
+            ListViewGroup listViewGroup5 = new ListViewGroup("Accessory trader", HorizontalAlignment.Left);
             contextShoppingList = new SDUI.Controls.ContextMenuStrip();
             menuChangeAmount = new ToolStripMenuItem();
             toolStripSeparator1 = new ToolStripSeparator();
@@ -233,6 +233,7 @@ namespace RSBot.Items.Views
             tabMain.ItemSize = new Size(80, 24);
             tabMain.Location = new Point(0, 0);
             tabMain.Name = "tabMain";
+            tabMain.Radius = new Padding(4);
             tabMain.SelectedIndex = 0;
             tabMain.Size = new Size(754, 473);
             tabMain.TabIndex = 7;
@@ -317,6 +318,7 @@ namespace RSBot.Items.Views
             label6.BackColor = Color.Transparent;
             label6.ForeColor = Color.FromArgb(0, 0, 0);
             label6.Gradient = (new Color[] { Color.Gray, Color.Black });
+            label6.GradientAnimation = false;
             label6.Location = new Point(5, 32);
             label6.Name = "label6";
             label6.Size = new Size(45, 15);
@@ -378,6 +380,7 @@ namespace RSBot.Items.Views
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label1.ForeColor = Color.FromArgb(0, 0, 0);
             label1.Gradient = (new Color[] { Color.Gray, Color.Black });
+            label1.GradientAnimation = false;
             label1.Location = new Point(12, 7);
             label1.Name = "label1";
             label1.Size = new Size(41, 15);
@@ -393,17 +396,17 @@ namespace RSBot.Items.Views
             listShoppingList.Dock = DockStyle.Fill;
             listShoppingList.ForeColor = Color.FromArgb(0, 0, 0);
             listShoppingList.FullRowSelect = true;
-            listViewGroup6.Header = "Potion trader";
-            listViewGroup6.Name = "groupPotion";
-            listViewGroup7.Header = "Stable keeper";
-            listViewGroup7.Name = "groupStable";
-            listViewGroup8.Header = "Protector trader";
-            listViewGroup8.Name = "groupProtector";
-            listViewGroup9.Header = "Weapon trader";
-            listViewGroup9.Name = "groupWeapon";
-            listViewGroup10.Header = "Accessory trader";
-            listViewGroup10.Name = "groupAccessory";
-            listShoppingList.Groups.AddRange(new ListViewGroup[] { listViewGroup6, listViewGroup7, listViewGroup8, listViewGroup9, listViewGroup10 });
+            listViewGroup1.Header = "Potion trader";
+            listViewGroup1.Name = "groupPotion";
+            listViewGroup2.Header = "Stable keeper";
+            listViewGroup2.Name = "groupStable";
+            listViewGroup3.Header = "Protector trader";
+            listViewGroup3.Name = "groupProtector";
+            listViewGroup4.Header = "Weapon trader";
+            listViewGroup4.Name = "groupWeapon";
+            listViewGroup5.Header = "Accessory trader";
+            listViewGroup5.Name = "groupAccessory";
+            listShoppingList.Groups.AddRange(new ListViewGroup[] { listViewGroup1, listViewGroup2, listViewGroup3, listViewGroup4, listViewGroup5 });
             listShoppingList.HeaderStyle = ColumnHeaderStyle.Nonclickable;
             listShoppingList.Location = new Point(0, 57);
             listShoppingList.Name = "listShoppingList";
@@ -1412,6 +1415,7 @@ namespace RSBot.Items.Views
             label3.AutoSize = true;
             label3.ForeColor = Color.FromArgb(0, 0, 0);
             label3.Gradient = (new Color[] { Color.Gray, Color.Black });
+            label3.GradientAnimation = false;
             label3.Location = new Point(10, 113);
             label3.Name = "label3";
             label3.Size = new Size(47, 15);
@@ -1420,7 +1424,7 @@ namespace RSBot.Items.Views
             // 
             // numDegreeFrom
             // 
-            numDegreeFrom.BackColor = Color.FromArgb(238, 238, 238);
+            numDegreeFrom.BackColor = Color.Transparent;
             numDegreeFrom.Font = new Font("Segoe UI", 9.25F, FontStyle.Regular, GraphicsUnit.Point);
             numDegreeFrom.ForeColor = Color.FromArgb(0, 0, 0);
             numDegreeFrom.Location = new Point(58, 109);
@@ -1434,7 +1438,7 @@ namespace RSBot.Items.Views
             // 
             // numDegreeTo
             // 
-            numDegreeTo.BackColor = Color.FromArgb(238, 238, 238);
+            numDegreeTo.BackColor = Color.Transparent;
             numDegreeTo.Font = new Font("Segoe UI", 9.25F, FontStyle.Regular, GraphicsUnit.Point);
             numDegreeTo.ForeColor = Color.FromArgb(0, 0, 0);
             numDegreeTo.Location = new Point(140, 109);
@@ -1453,6 +1457,7 @@ namespace RSBot.Items.Views
             label4.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label4.ForeColor = Color.FromArgb(0, 0, 0);
             label4.Gradient = (new Color[] { Color.Gray, Color.Black });
+            label4.GradientAnimation = false;
             label4.Location = new Point(116, 109);
             label4.Name = "label4";
             label4.Size = new Size(18, 19);
@@ -1499,6 +1504,7 @@ namespace RSBot.Items.Views
             labelResult.AutoSize = true;
             labelResult.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
             labelResult.Gradient = (new Color[] { Color.Gray, Color.Black });
+            labelResult.GradientAnimation = false;
             labelResult.Location = new Point(280, 11);
             labelResult.Name = "labelResult";
             labelResult.Size = new Size(0, 15);
@@ -1791,6 +1797,7 @@ namespace RSBot.Items.Views
             Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             Name = "Main";
             Size = new Size(754, 473);
+            Load += Main_Load;
             contextShoppingList.ResumeLayout(false);
             contextAvailableProducts.ResumeLayout(false);
             tabMain.ResumeLayout(false);

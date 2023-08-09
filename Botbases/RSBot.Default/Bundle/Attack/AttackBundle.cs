@@ -44,7 +44,7 @@ namespace RSBot.Default.Bundle.Attack
             //if (Game.Player.InAction && !SkillManager.IsLastCastedBasic)
               //  return;
 
-            var useTeleportSkill = PlayerConfig.Get("RSBot.Skills.UseTeleportSkill", false);
+            var useTeleportSkill = PlayerConfig.Get("RSBot.Skills.checkUseTeleportSkill", false);
             if (useTeleportSkill && CastTeleportation())
                 return;
 
@@ -62,7 +62,7 @@ namespace RSBot.Default.Bundle.Attack
                 if (Game.Player.InAction)
                     return;
 
-                if (PlayerConfig.Get("RSBot.Skills.UseDefaultAttack", true))
+                if (PlayerConfig.Get("RSBot.Skills.checkUseDefaultAttack", true))
                     SkillManager.CastAutoAttack();
 
                 return;

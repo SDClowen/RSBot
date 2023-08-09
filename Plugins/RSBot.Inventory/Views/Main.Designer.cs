@@ -45,6 +45,7 @@
             useItemAtTrainingPlaceMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             autoUseAccordingToPurposeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             panel1 = new SDUI.Controls.Panel();
+            shapeProgressBar1 = new SDUI.Controls.ShapeProgressBar();
             checkAutoSort = new SDUI.Controls.CheckBox();
             btnSort = new SDUI.Controls.Button();
             buttonInventory = new SDUI.Controls.Button();
@@ -58,7 +59,6 @@
             buttonJobTransport = new SDUI.Controls.Button();
             buttonStorage = new SDUI.Controls.Button();
             buttonJobEquipment = new SDUI.Controls.Button();
-            shapeProgressBar1 = new SDUI.Controls.ShapeProgressBar();
             contextMenuStrip.SuspendLayout();
             panel1.SuspendLayout();
             topPanel.SuspendLayout();
@@ -73,6 +73,7 @@
             label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label2.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label2.GradientAnimation = false;
             label2.Location = new System.Drawing.Point(124, 10);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(65, 15);
@@ -87,6 +88,7 @@
             lblFreeSlots.BackColor = System.Drawing.Color.Transparent;
             lblFreeSlots.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             lblFreeSlots.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            lblFreeSlots.GradientAnimation = false;
             lblFreeSlots.Location = new System.Drawing.Point(47, 10);
             lblFreeSlots.Name = "lblFreeSlots";
             lblFreeSlots.Size = new System.Drawing.Size(13, 15);
@@ -223,6 +225,22 @@
             panel1.ShadowDepth = 4F;
             panel1.Size = new System.Drawing.Size(792, 45);
             panel1.TabIndex = 6;
+            // 
+            // shapeProgressBar1
+            // 
+            shapeProgressBar1.BackColor = System.Drawing.Color.Transparent;
+            shapeProgressBar1.DrawHatch = false;
+            shapeProgressBar1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            shapeProgressBar1.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.FromArgb(224, 224, 224), System.Drawing.Color.Teal });
+            shapeProgressBar1.HatchType = System.Drawing.Drawing2D.HatchStyle.Horizontal;
+            shapeProgressBar1.Location = new System.Drawing.Point(9, 7);
+            shapeProgressBar1.Maximum = 100L;
+            shapeProgressBar1.Name = "shapeProgressBar1";
+            shapeProgressBar1.Size = new System.Drawing.Size(32, 32);
+            shapeProgressBar1.TabIndex = 7;
+            shapeProgressBar1.Text = "pbInventoryStatus";
+            shapeProgressBar1.Value = 50L;
+            shapeProgressBar1.Weight = 4F;
             // 
             // checkAutoSort
             // 
@@ -417,22 +435,6 @@
             buttonJobEquipment.UseVisualStyleBackColor = true;
             buttonJobEquipment.Click += ButtonSwitcher;
             // 
-            // shapeProgressBar1
-            // 
-            shapeProgressBar1.BackColor = System.Drawing.Color.Transparent;
-            shapeProgressBar1.DrawHatch = false;
-            shapeProgressBar1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            shapeProgressBar1.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.FromArgb(224, 224, 224), System.Drawing.Color.Teal });
-            shapeProgressBar1.HatchType = System.Drawing.Drawing2D.HatchStyle.Horizontal;
-            shapeProgressBar1.Location = new System.Drawing.Point(9, 7);
-            shapeProgressBar1.Maximum = 100L;
-            shapeProgressBar1.Name = "shapeProgressBar1";
-            shapeProgressBar1.Size = new System.Drawing.Size(32, 32);
-            shapeProgressBar1.TabIndex = 7;
-            shapeProgressBar1.Text = "pbInventoryStatus";
-            shapeProgressBar1.Value = 50L;
-            shapeProgressBar1.Weight = 4F;
-            // 
             // Main
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -443,6 +445,7 @@
             Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             Name = "Main";
             Size = new System.Drawing.Size(792, 458);
+            Load += Main_Load;
             VisibleChanged += Main_VisibleChanged;
             contextMenuStrip.ResumeLayout(false);
             panel1.ResumeLayout(false);

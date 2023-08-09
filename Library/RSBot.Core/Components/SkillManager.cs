@@ -58,7 +58,7 @@ namespace RSBot.Core.Components
         /// <summary>
         /// Gets the config to always use skills in order.
         /// </summary>
-        public static bool UseSkillsInOrder => PlayerConfig.Get( "RSBot.Skills.UseSkillsInOrder", false );
+        public static bool UseSkillsInOrder => PlayerConfig.Get("RSBot.Skills.checkUseSkillsInOrder", false );
 
         /// <summary>
         /// The last casted skill id

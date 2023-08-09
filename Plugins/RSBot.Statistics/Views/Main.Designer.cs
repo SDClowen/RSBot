@@ -115,9 +115,11 @@
             // 
             // lvStatistics
             // 
+            lvStatistics.BackColor = System.Drawing.Color.White;
             lvStatistics.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader1, columnHeader2 });
             lvStatistics.ContextMenuStrip = contextMenuStrip;
             lvStatistics.Dock = System.Windows.Forms.DockStyle.Fill;
+            lvStatistics.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             lvStatistics.FullRowSelect = true;
             listViewGroup1.Header = "Player";
             listViewGroup1.Name = "grpPlayer";
@@ -200,6 +202,7 @@
             Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             Name = "Main";
             Size = new System.Drawing.Size(762, 506);
+            Load += Main_Load;
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();

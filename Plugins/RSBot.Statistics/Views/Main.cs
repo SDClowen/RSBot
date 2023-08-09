@@ -24,15 +24,6 @@ namespace RSBot.Statistics.Views
         public Main()
         {
             InitializeComponent();
-            SubscribeEvents();
-        }
-
-        /// <summary>
-        /// Subscribes the core events.
-        /// </summary>
-        private void SubscribeEvents()
-        {
-            EventManager.SubscribeEvent("OnLoadCharacter", OnLoadCharacter);
         }
 
         /// <summary>
@@ -205,9 +196,11 @@ namespace RSBot.Statistics.Views
         }
 
         /// <summary>
-        /// Called when [enter game].
+        /// Occurs before Main form is displayed.
         /// </summary>
-        private void OnLoadCharacter()
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Main_Load(object sender, EventArgs e)
         {
             //Don't reset after teleportation or something equal
             if (!_initialReset)
