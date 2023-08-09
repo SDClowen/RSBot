@@ -52,7 +52,6 @@
             checkRunTownscript = new SDUI.Controls.CheckBox();
             tabPageSettings = new System.Windows.Forms.TabPage();
             checkAttackThiefPlayers = new SDUI.Controls.CheckBox();
-            checkCastBuffs = new SDUI.Controls.CheckBox();
             groupBox1 = new SDUI.Controls.GroupBox();
             checkSellGoods = new SDUI.Controls.CheckBox();
             lblNumGoodsDesc = new SDUI.Controls.Label();
@@ -64,6 +63,7 @@
             checkAttackThiefNpc = new SDUI.Controls.CheckBox();
             groupBox2 = new SDUI.Controls.GroupBox();
             separator2 = new SDUI.Controls.Separator();
+            checkCastBuffs = new SDUI.Controls.CheckBox();
             checkWaitForHunter = new SDUI.Controls.CheckBox();
             label3 = new SDUI.Controls.Label();
             separator4 = new SDUI.Controls.Separator();
@@ -137,6 +137,7 @@
             lblHint.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             lblHint.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             lblHint.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            lblHint.GradientAnimation = false;
             lblHint.Location = new System.Drawing.Point(7, 400);
             lblHint.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             lblHint.Name = "lblHint";
@@ -153,6 +154,7 @@
             tabControl1.Location = new System.Drawing.Point(2, 2);
             tabControl1.Margin = new System.Windows.Forms.Padding(2);
             tabControl1.Name = "tabControl1";
+            tabControl1.Radius = new System.Windows.Forms.Padding(4);
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new System.Drawing.Size(787, 388);
             tabControl1.TabIndex = 8;
@@ -173,7 +175,7 @@
             tabPageRoute.Margin = new System.Windows.Forms.Padding(2);
             tabPageRoute.Name = "tabPageRoute";
             tabPageRoute.Padding = new System.Windows.Forms.Padding(2);
-            tabPageRoute.Size = new System.Drawing.Size(779, 338);
+            tabPageRoute.Size = new System.Drawing.Size(779, 356);
             tabPageRoute.TabIndex = 0;
             tabPageRoute.Text = "Route";
             // 
@@ -197,7 +199,7 @@
             radioUseRouteList.AutoSize = true;
             radioUseRouteList.Checked = true;
             radioUseRouteList.Location = new System.Drawing.Point(9, 46);
-            radioUseRouteList.Margin = new System.Windows.Forms.Padding(2);
+            radioUseRouteList.Margin = new System.Windows.Forms.Padding(0);
             radioUseRouteList.Name = "radioUseRouteList";
             radioUseRouteList.Ripple = true;
             radioUseRouteList.Size = new System.Drawing.Size(102, 30);
@@ -211,7 +213,7 @@
             // 
             radioTracePlayer.AutoSize = true;
             radioTracePlayer.Location = new System.Drawing.Point(9, 14);
-            radioTracePlayer.Margin = new System.Windows.Forms.Padding(2);
+            radioTracePlayer.Margin = new System.Windows.Forms.Padding(0);
             radioTracePlayer.Name = "radioTracePlayer";
             radioTracePlayer.Ripple = true;
             radioTracePlayer.Size = new System.Drawing.Size(96, 30);
@@ -335,7 +337,7 @@
             checkRunTownscript.BackColor = System.Drawing.Color.Transparent;
             checkRunTownscript.Depth = 0;
             checkRunTownscript.Location = new System.Drawing.Point(2, 9);
-            checkRunTownscript.Margin = new System.Windows.Forms.Padding(2);
+            checkRunTownscript.Margin = new System.Windows.Forms.Padding(0);
             checkRunTownscript.MouseLocation = new System.Drawing.Point(-1, -1);
             checkRunTownscript.Name = "checkRunTownscript";
             checkRunTownscript.Ripple = true;
@@ -368,7 +370,7 @@
             checkAttackThiefPlayers.BackColor = System.Drawing.Color.Transparent;
             checkAttackThiefPlayers.Depth = 0;
             checkAttackThiefPlayers.Location = new System.Drawing.Point(41, 45);
-            checkAttackThiefPlayers.Margin = new System.Windows.Forms.Padding(2);
+            checkAttackThiefPlayers.Margin = new System.Windows.Forms.Padding(0);
             checkAttackThiefPlayers.MouseLocation = new System.Drawing.Point(-1, -1);
             checkAttackThiefPlayers.Name = "checkAttackThiefPlayers";
             checkAttackThiefPlayers.Ripple = true;
@@ -377,23 +379,6 @@
             checkAttackThiefPlayers.Text = "Attack thief players";
             checkAttackThiefPlayers.UseVisualStyleBackColor = false;
             checkAttackThiefPlayers.CheckedChanged += checkBoxSetting_CheckedChanged;
-            // 
-            // checkCastBuffs
-            // 
-            checkCastBuffs.AutoSize = true;
-            checkCastBuffs.BackColor = System.Drawing.Color.Transparent;
-            checkCastBuffs.Depth = 0;
-            checkCastBuffs.Location = new System.Drawing.Point(30, 148);
-            checkCastBuffs.Margin = new System.Windows.Forms.Padding(2);
-            checkCastBuffs.MouseLocation = new System.Drawing.Point(-1, -1);
-            checkCastBuffs.Name = "checkCastBuffs";
-            checkCastBuffs.Ripple = true;
-            checkCastBuffs.Size = new System.Drawing.Size(83, 30);
-            checkCastBuffs.TabIndex = 4;
-            checkCastBuffs.Text = "Cast buffs";
-            checkCastBuffs.UseCompatibleTextRendering = true;
-            checkCastBuffs.UseVisualStyleBackColor = false;
-            checkCastBuffs.CheckedChanged += checkBoxSetting_CheckedChanged;
             // 
             // groupBox1
             // 
@@ -436,6 +421,7 @@
             lblNumGoodsDesc.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             lblNumGoodsDesc.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             lblNumGoodsDesc.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            lblNumGoodsDesc.GradientAnimation = false;
             lblNumGoodsDesc.Location = new System.Drawing.Point(84, 95);
             lblNumGoodsDesc.Name = "lblNumGoodsDesc";
             lblNumGoodsDesc.Size = new System.Drawing.Size(96, 13);
@@ -460,7 +446,7 @@
             // 
             // numAmountGoods
             // 
-            numAmountGoods.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numAmountGoods.BackColor = System.Drawing.Color.Transparent;
             numAmountGoods.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             numAmountGoods.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numAmountGoods.Location = new System.Drawing.Point(85, 68);
@@ -479,6 +465,7 @@
             lblGoods.AutoSize = true;
             lblGoods.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             lblGoods.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            lblGoods.GradientAnimation = false;
             lblGoods.Location = new System.Drawing.Point(186, 70);
             lblGoods.Name = "lblGoods";
             lblGoods.Size = new System.Drawing.Size(90, 15);
@@ -491,7 +478,7 @@
             checkProtectTransport.BackColor = System.Drawing.Color.Transparent;
             checkProtectTransport.Depth = 0;
             checkProtectTransport.Location = new System.Drawing.Point(41, 124);
-            checkProtectTransport.Margin = new System.Windows.Forms.Padding(2);
+            checkProtectTransport.Margin = new System.Windows.Forms.Padding(0);
             checkProtectTransport.MouseLocation = new System.Drawing.Point(-1, -1);
             checkProtectTransport.Name = "checkProtectTransport";
             checkProtectTransport.Ripple = true;
@@ -507,7 +494,7 @@
             checkCounterAttack.BackColor = System.Drawing.Color.Transparent;
             checkCounterAttack.Depth = 0;
             checkCounterAttack.Location = new System.Drawing.Point(41, 96);
-            checkCounterAttack.Margin = new System.Windows.Forms.Padding(2);
+            checkCounterAttack.Margin = new System.Windows.Forms.Padding(0);
             checkCounterAttack.MouseLocation = new System.Drawing.Point(-1, -1);
             checkCounterAttack.Name = "checkCounterAttack";
             checkCounterAttack.Ripple = true;
@@ -523,7 +510,7 @@
             checkAttackThiefNpc.BackColor = System.Drawing.Color.Transparent;
             checkAttackThiefNpc.Depth = 0;
             checkAttackThiefNpc.Location = new System.Drawing.Point(41, 71);
-            checkAttackThiefNpc.Margin = new System.Windows.Forms.Padding(2);
+            checkAttackThiefNpc.Margin = new System.Windows.Forms.Padding(0);
             checkAttackThiefNpc.MouseLocation = new System.Drawing.Point(-1, -1);
             checkAttackThiefNpc.Name = "checkAttackThiefNpc";
             checkAttackThiefNpc.Ripple = true;
@@ -566,13 +553,30 @@
             separator2.TabIndex = 31;
             separator2.Text = "separator2";
             // 
+            // checkCastBuffs
+            // 
+            checkCastBuffs.AutoSize = true;
+            checkCastBuffs.BackColor = System.Drawing.Color.Transparent;
+            checkCastBuffs.Depth = 0;
+            checkCastBuffs.Location = new System.Drawing.Point(30, 148);
+            checkCastBuffs.Margin = new System.Windows.Forms.Padding(0);
+            checkCastBuffs.MouseLocation = new System.Drawing.Point(-1, -1);
+            checkCastBuffs.Name = "checkCastBuffs";
+            checkCastBuffs.Ripple = true;
+            checkCastBuffs.Size = new System.Drawing.Size(83, 30);
+            checkCastBuffs.TabIndex = 4;
+            checkCastBuffs.Text = "Cast buffs";
+            checkCastBuffs.UseCompatibleTextRendering = true;
+            checkCastBuffs.UseVisualStyleBackColor = false;
+            checkCastBuffs.CheckedChanged += checkBoxSetting_CheckedChanged;
+            // 
             // checkWaitForHunter
             // 
             checkWaitForHunter.AutoSize = true;
             checkWaitForHunter.BackColor = System.Drawing.Color.Transparent;
             checkWaitForHunter.Depth = 0;
             checkWaitForHunter.Location = new System.Drawing.Point(28, 281);
-            checkWaitForHunter.Margin = new System.Windows.Forms.Padding(2);
+            checkWaitForHunter.Margin = new System.Windows.Forms.Padding(0);
             checkWaitForHunter.MouseLocation = new System.Drawing.Point(-1, -1);
             checkWaitForHunter.Name = "checkWaitForHunter";
             checkWaitForHunter.Ripple = true;
@@ -588,6 +592,7 @@
             label3.AutoSize = true;
             label3.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label3.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label3.GradientAnimation = false;
             label3.Location = new System.Drawing.Point(116, 235);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(43, 15);
@@ -610,6 +615,7 @@
             label1.AutoSize = true;
             label1.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label1.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label1.GradientAnimation = false;
             label1.Location = new System.Drawing.Point(28, 219);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(83, 15);
@@ -618,7 +624,7 @@
             // 
             // numMaxDistance
             // 
-            numMaxDistance.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numMaxDistance.BackColor = System.Drawing.Color.Transparent;
             numMaxDistance.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             numMaxDistance.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numMaxDistance.Location = new System.Drawing.Point(30, 237);
@@ -637,7 +643,7 @@
             checkMountTransport.BackColor = System.Drawing.Color.Transparent;
             checkMountTransport.Depth = 0;
             checkMountTransport.Location = new System.Drawing.Point(28, 186);
-            checkMountTransport.Margin = new System.Windows.Forms.Padding(2);
+            checkMountTransport.Margin = new System.Windows.Forms.Padding(0);
             checkMountTransport.MouseLocation = new System.Drawing.Point(-1, -1);
             checkMountTransport.Name = "checkMountTransport";
             checkMountTransport.Ripple = true;
@@ -669,10 +675,10 @@
             tabPage1.Controls.Add(separator3);
             tabPage1.Controls.Add(lblTradeScale);
             tabPage1.Controls.Add(label2);
-            tabPage1.Location = new System.Drawing.Point(4, 25);
+            tabPage1.Location = new System.Drawing.Point(4, 28);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            tabPage1.Size = new System.Drawing.Size(779, 341);
+            tabPage1.Size = new System.Drawing.Size(779, 356);
             tabPage1.TabIndex = 2;
             tabPage1.Text = "Job overview";
             // 
@@ -682,6 +688,7 @@
             lblJobExp.AutoSize = true;
             lblJobExp.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             lblJobExp.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            lblJobExp.GradientAnimation = false;
             lblJobExp.Location = new System.Drawing.Point(129, 163);
             lblJobExp.Name = "lblJobExp";
             lblJobExp.Size = new System.Drawing.Size(13, 15);
@@ -694,6 +701,7 @@
             lblJobLevel.AutoSize = true;
             lblJobLevel.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             lblJobLevel.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            lblJobLevel.GradientAnimation = false;
             lblJobLevel.Location = new System.Drawing.Point(129, 127);
             lblJobLevel.Name = "lblJobLevel";
             lblJobLevel.Size = new System.Drawing.Size(13, 15);
@@ -706,6 +714,7 @@
             lblJobAlias.AutoSize = true;
             lblJobAlias.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             lblJobAlias.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            lblJobAlias.GradientAnimation = false;
             lblJobAlias.Location = new System.Drawing.Point(129, 90);
             lblJobAlias.Name = "lblJobAlias";
             lblJobAlias.Size = new System.Drawing.Size(50, 15);
@@ -718,6 +727,7 @@
             label9.AutoSize = true;
             label9.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label9.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label9.GradientAnimation = false;
             label9.Location = new System.Drawing.Point(93, 163);
             label9.Name = "label9";
             label9.Size = new System.Drawing.Size(30, 15);
@@ -730,6 +740,7 @@
             label8.AutoSize = true;
             label8.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label8.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label8.GradientAnimation = false;
             label8.Location = new System.Drawing.Point(69, 90);
             label8.Name = "label8";
             label8.Size = new System.Drawing.Size(54, 15);
@@ -742,6 +753,7 @@
             label7.AutoSize = true;
             label7.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label7.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label7.GradientAnimation = false;
             label7.Location = new System.Drawing.Point(86, 127);
             label7.Name = "label7";
             label7.Size = new System.Drawing.Size(37, 15);
@@ -763,6 +775,7 @@
             lblTradeScale.AutoSize = true;
             lblTradeScale.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             lblTradeScale.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            lblTradeScale.GradientAnimation = false;
             lblTradeScale.Location = new System.Drawing.Point(144, 37);
             lblTradeScale.Name = "lblTradeScale";
             lblTradeScale.Size = new System.Drawing.Size(57, 15);
@@ -775,6 +788,7 @@
             label2.AutoSize = true;
             label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label2.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label2.GradientAnimation = false;
             label2.Location = new System.Drawing.Point(50, 37);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(88, 15);
@@ -790,6 +804,7 @@
             Margin = new System.Windows.Forms.Padding(2);
             Name = "Main";
             Size = new System.Drawing.Size(790, 442);
+            Load += Main_Load;
             contextMenuRouteList.ResumeLayout(false);
             tabControl1.ResumeLayout(false);
             tabPageRoute.ResumeLayout(false);
