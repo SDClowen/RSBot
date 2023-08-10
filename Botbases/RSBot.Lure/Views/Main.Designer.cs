@@ -104,6 +104,7 @@
             label5.AutoSize = true;
             label5.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label5.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label5.GradientAnimation = false;
             label5.Location = new System.Drawing.Point(18, 31);
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(100, 15);
@@ -164,6 +165,7 @@
             label7.AutoSize = true;
             label7.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label7.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label7.GradientAnimation = false;
             label7.Location = new System.Drawing.Point(255, 374);
             label7.Name = "label7";
             label7.Size = new System.Drawing.Size(58, 15);
@@ -172,7 +174,7 @@
             // 
             // numStayAtCenterSeconds
             // 
-            numStayAtCenterSeconds.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numStayAtCenterSeconds.BackColor = System.Drawing.Color.Transparent;
             numStayAtCenterSeconds.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             numStayAtCenterSeconds.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numStayAtCenterSeconds.Location = new System.Drawing.Point(169, 368);
@@ -305,6 +307,7 @@
             lblX.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             lblX.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             lblX.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            lblX.GradientAnimation = false;
             lblX.Location = new System.Drawing.Point(135, 15);
             lblX.Name = "lblX";
             lblX.Size = new System.Drawing.Size(14, 15);
@@ -318,6 +321,7 @@
             lblY.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             lblY.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             lblY.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            lblY.GradientAnimation = false;
             lblY.Location = new System.Drawing.Point(135, 34);
             lblY.Name = "lblY";
             lblY.Size = new System.Drawing.Size(14, 15);
@@ -326,7 +330,7 @@
             // 
             // numRadius
             // 
-            numRadius.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numRadius.BackColor = System.Drawing.Color.Transparent;
             numRadius.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             numRadius.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numRadius.Location = new System.Drawing.Point(135, 53);
@@ -345,6 +349,7 @@
             label1.AutoSize = true;
             label1.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label1.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label1.GradientAnimation = false;
             label1.Location = new System.Drawing.Point(112, 15);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(17, 15);
@@ -357,6 +362,7 @@
             label3.AutoSize = true;
             label3.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label3.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label3.GradientAnimation = false;
             label3.Location = new System.Drawing.Point(84, 59);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(45, 15);
@@ -369,6 +375,7 @@
             label2.AutoSize = true;
             label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label2.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label2.GradientAnimation = false;
             label2.Location = new System.Drawing.Point(112, 34);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(17, 15);
@@ -441,6 +448,7 @@
             label4.AutoSize = true;
             label4.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label4.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label4.GradientAnimation = false;
             label4.Location = new System.Drawing.Point(26, 315);
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(304, 15);
@@ -499,7 +507,7 @@
             // 
             // numPartyMember
             // 
-            numPartyMember.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numPartyMember.BackColor = System.Drawing.Color.Transparent;
             numPartyMember.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             numPartyMember.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numPartyMember.Location = new System.Drawing.Point(225, 193);
@@ -534,6 +542,7 @@
             label6.AutoSize = true;
             label6.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label6.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label6.GradientAnimation = false;
             label6.Location = new System.Drawing.Point(191, 253);
             label6.Name = "label6";
             label6.Size = new System.Drawing.Size(23, 15);
@@ -556,7 +565,7 @@
             // 
             // numMonsterType
             // 
-            numMonsterType.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numMonsterType.BackColor = System.Drawing.Color.Transparent;
             numMonsterType.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             numMonsterType.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numMonsterType.Location = new System.Drawing.Point(225, 246);
@@ -587,7 +596,7 @@
             // 
             // numPartyMemberDead
             // 
-            numPartyMemberDead.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numPartyMemberDead.BackColor = System.Drawing.Color.Transparent;
             numPartyMemberDead.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             numPartyMemberDead.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numPartyMemberDead.Location = new System.Drawing.Point(225, 161);
@@ -624,6 +633,7 @@
             Controls.Add(groupBox1);
             Name = "Main";
             Size = new System.Drawing.Size(824, 515);
+            Load += Main_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             panel1.ResumeLayout(false);
