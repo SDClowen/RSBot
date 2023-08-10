@@ -24,7 +24,6 @@ public partial class Main : UserControl
 
     private void SubscribeEvents()
     {
-        EventManager.SubscribeEvent("OnLoadCharacter", OnLoadCharacter);
         EventManager.SubscribeEvent("OnSaveScript", new Action<int, string>(OnSaveScript));
     }
 
@@ -194,5 +193,15 @@ public partial class Main : UserControl
             9 => MonsterRarity.Event,
             _ => LureConfig.SelectedMonsterType
         };
+    }
+
+    /// <summary>
+    /// Occurs before Main form is displayed.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void Main_Load(object sender, EventArgs e)
+    {
+        OnLoadCharacter();
     }
 }
