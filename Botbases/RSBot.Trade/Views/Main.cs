@@ -23,7 +23,6 @@ public partial class Main : UserControl
 
     private void SubscribeEvents()
     {
-        EventManager.SubscribeEvent("OnLoadCharacter", ReloadView);
         EventManager.SubscribeEvent("OnTalkToNpc", OnTalkToNpc);
         EventManager.SubscribeEvent("OnJobScaleUpdate", OnUpdateJobInfo);
         EventManager.SubscribeEvent("OnJobExperienceUpdate", OnUpdateJobInfo);
@@ -337,5 +336,15 @@ public partial class Main : UserControl
     private void menuRecordScript_Click(object sender, EventArgs e)
     {
         ShowScriptRecorder();
+    }
+
+    /// <summary>
+    /// Occurs before Main form is displayed.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void Main_Load(object sender, EventArgs e)
+    {
+        ReloadView();
     }
 }
