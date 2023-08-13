@@ -474,7 +474,7 @@ namespace RSBot.Items.Views
             checkSellItemsFromPet.Checked = true;
             checkSellItemsFromPet.CheckState = CheckState.Checked;
             checkSellItemsFromPet.Depth = 0;
-            checkSellItemsFromPet.Location = new Point(425, 33);
+            checkSellItemsFromPet.Location = new Point(425, 27);
             checkSellItemsFromPet.Margin = new Padding(0);
             checkSellItemsFromPet.MouseLocation = new Point(-1, -1);
             checkSellItemsFromPet.Name = "checkSellItemsFromPet";
@@ -492,7 +492,7 @@ namespace RSBot.Items.Views
             checkStoreItemsFromPet.Checked = true;
             checkStoreItemsFromPet.CheckState = CheckState.Checked;
             checkStoreItemsFromPet.Depth = 0;
-            checkStoreItemsFromPet.Location = new Point(567, 33);
+            checkStoreItemsFromPet.Location = new Point(567, 27);
             checkStoreItemsFromPet.Margin = new Padding(0);
             checkStoreItemsFromPet.MouseLocation = new Point(-1, -1);
             checkStoreItemsFromPet.Name = "checkStoreItemsFromPet";
@@ -510,7 +510,7 @@ namespace RSBot.Items.Views
             checkRepairGear.Checked = true;
             checkRepairGear.CheckState = CheckState.Checked;
             checkRepairGear.Depth = 0;
-            checkRepairGear.Location = new Point(231, 33);
+            checkRepairGear.Location = new Point(231, 27);
             checkRepairGear.Margin = new Padding(0);
             checkRepairGear.MouseLocation = new Point(-1, -1);
             checkRepairGear.Name = "checkRepairGear";
@@ -528,7 +528,7 @@ namespace RSBot.Items.Views
             checkEnable.Checked = true;
             checkEnable.CheckState = CheckState.Checked;
             checkEnable.Depth = 0;
-            checkEnable.Location = new Point(13, 33);
+            checkEnable.Location = new Point(13, 27);
             checkEnable.Margin = new Padding(0);
             checkEnable.MouseLocation = new Point(-1, -1);
             checkEnable.Name = "checkEnable";
@@ -710,7 +710,7 @@ namespace RSBot.Items.Views
             groupOthers.Controls.Add(checkCoin);
             groupOthers.Controls.Add(checkOther);
             groupOthers.Dock = DockStyle.Top;
-            groupOthers.Location = new Point(12, 591);
+            groupOthers.Location = new Point(12, 611);
             groupOthers.Name = "groupOthers";
             groupOthers.Padding = new Padding(3, 10, 3, 3);
             groupOthers.Radius = 10;
@@ -799,7 +799,7 @@ namespace RSBot.Items.Views
             // 
             separator1.Dock = DockStyle.Top;
             separator1.IsVertical = false;
-            separator1.Location = new Point(12, 581);
+            separator1.Location = new Point(12, 601);
             separator1.Name = "separator1";
             separator1.Size = new Size(224, 10);
             separator1.TabIndex = 5;
@@ -824,13 +824,13 @@ namespace RSBot.Items.Views
             groupWeapons.Controls.Add(checkSword);
             groupWeapons.Controls.Add(checkBlade);
             groupWeapons.Dock = DockStyle.Top;
-            groupWeapons.Location = new Point(12, 374);
+            groupWeapons.Location = new Point(12, 384);
             groupWeapons.Margin = new Padding(6);
             groupWeapons.Name = "groupWeapons";
             groupWeapons.Padding = new Padding(3, 10, 3, 3);
             groupWeapons.Radius = 10;
             groupWeapons.ShadowDepth = 4;
-            groupWeapons.Size = new Size(224, 207);
+            groupWeapons.Size = new Size(224, 217);
             groupWeapons.TabIndex = 40;
             groupWeapons.TabStop = false;
             groupWeapons.Text = "Weapons";
@@ -1064,7 +1064,7 @@ namespace RSBot.Items.Views
             // 
             separator2.Dock = DockStyle.Top;
             separator2.IsVertical = false;
-            separator2.Location = new Point(12, 364);
+            separator2.Location = new Point(12, 374);
             separator2.Name = "separator2";
             separator2.Size = new Size(224, 10);
             separator2.TabIndex = 45;
@@ -1077,7 +1077,7 @@ namespace RSBot.Items.Views
             groupAccessories.Controls.Add(checkEarring);
             groupAccessories.Controls.Add(checkRing);
             groupAccessories.Dock = DockStyle.Top;
-            groupAccessories.Location = new Point(12, 306);
+            groupAccessories.Location = new Point(12, 316);
             groupAccessories.Name = "groupAccessories";
             groupAccessories.Padding = new Padding(3, 10, 3, 3);
             groupAccessories.Radius = 10;
@@ -1136,7 +1136,7 @@ namespace RSBot.Items.Views
             // 
             separator3.Dock = DockStyle.Top;
             separator3.IsVertical = false;
-            separator3.Location = new Point(12, 296);
+            separator3.Location = new Point(12, 306);
             separator3.Name = "separator3";
             separator3.Size = new Size(224, 10);
             separator3.TabIndex = 46;
@@ -1160,7 +1160,7 @@ namespace RSBot.Items.Views
             groupClothes.Padding = new Padding(3, 10, 3, 3);
             groupClothes.Radius = 10;
             groupClothes.ShadowDepth = 4;
-            groupClothes.Size = new Size(224, 135);
+            groupClothes.Size = new Size(224, 145);
             groupClothes.TabIndex = 41;
             groupClothes.TabStop = false;
             groupClothes.Text = "Clothes";

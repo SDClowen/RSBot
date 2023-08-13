@@ -4,14 +4,13 @@ using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Network;
 using RSBot.Core.Objects;
+using RSBot.Core.Objects.Inventory;
 using SDUI;
 using System;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
-using RSBot.Core.Objects.Inventory;
 
 namespace RSBot.Inventory.Views
 {
@@ -113,15 +112,20 @@ namespace RSBot.Inventory.Views
                             AddItem(item);
 
                         lblFreeSlots.Text = Game.Player.Inventory.FreeSlots + "/" + Game.Player.Inventory.Capacity;
-
+                        pbInventoryStatus.Value = Game.Player.Inventory.FreeSlots;
+                        pbInventoryStatus.Maximum = Game.Player.Inventory.Capacity;
                         break;
 
                     case 1:
 
-                        foreach (var item in Game.Player.Inventory.GetEquippedPartItems())
+                        var items = Game.Player.Inventory.GetEquippedPartItems();
+                        foreach (var item in items)
                             AddItem(item);
 
-                        lblFreeSlots.Text = "0";
+                        lblFreeSlots.Text = items.Count + " / 13";
+
+                        pbInventoryStatus.Value = items.Count;
+                        pbInventoryStatus.Maximum = 13;
 
                         break;
 
@@ -131,6 +135,9 @@ namespace RSBot.Inventory.Views
                             AddItem(item);
 
                         lblFreeSlots.Text = "0";
+
+                        pbInventoryStatus.Value = Game.Player.Avatars.FreeSlots;
+                        pbInventoryStatus.Maximum = Game.Player.Avatars.Capacity;
 
                         break;
 
@@ -148,6 +155,9 @@ namespace RSBot.Inventory.Views
                         lblFreeSlots.Text = Game.Player.AbilityPet.Inventory.FreeSlots + "/" +
                                             Game.Player.AbilityPet.Inventory.Capacity;
 
+                        pbInventoryStatus.Value = Game.Player.AbilityPet.Inventory.FreeSlots;
+                        pbInventoryStatus.Maximum = Game.Player.AbilityPet.Inventory.Capacity;
+
                         break;
 
                     case 4:
@@ -163,6 +173,9 @@ namespace RSBot.Inventory.Views
 
                         lblFreeSlots.Text = Game.Player.Storage.FreeSlots + "/" + Game.Player.Storage.Capacity;
 
+                        pbInventoryStatus.Value = Game.Player.Storage.FreeSlots;
+                        pbInventoryStatus.Maximum = Game.Player.Storage.Capacity;
+
                         break;
 
                     case 5:
@@ -177,6 +190,9 @@ namespace RSBot.Inventory.Views
                             AddItem(item);
 
                         lblFreeSlots.Text = Game.Player.GuildStorage.FreeSlots + "/" + Game.Player.GuildStorage.Capacity;
+
+                        pbInventoryStatus.Value = Game.Player.GuildStorage.FreeSlots;
+                        pbInventoryStatus.Maximum = Game.Player.GuildStorage.Capacity;
 
                         break;
 
@@ -194,6 +210,9 @@ namespace RSBot.Inventory.Views
                         lblFreeSlots.Text = Game.Player.JobTransport.Inventory.FreeSlots + "/" +
                                             Game.Player.JobTransport.Inventory.Capacity;
 
+                        pbInventoryStatus.Value = Game.Player.JobTransport.Inventory.FreeSlots;
+                        pbInventoryStatus.Maximum = Game.Player.JobTransport.Inventory.Capacity;
+
                         break;
 
                     case 7:
@@ -210,6 +229,9 @@ namespace RSBot.Inventory.Views
                         lblFreeSlots.Text = Game.Player.Job2SpecialtyBag.FreeSlots + "/" +
                                             Game.Player.Job2SpecialtyBag.Capacity;
 
+                        pbInventoryStatus.Value = Game.Player.Job2SpecialtyBag.FreeSlots;
+                        pbInventoryStatus.Maximum = Game.Player.Job2SpecialtyBag.Capacity;
+
                         break;
 
                     case 8:
@@ -224,6 +246,9 @@ namespace RSBot.Inventory.Views
                             AddItem(item);
 
                         lblFreeSlots.Text = Game.Player.Job2.FreeSlots + "/" + Game.Player.Job2.Capacity;
+
+                        pbInventoryStatus.Value = Game.Player.Job2.FreeSlots;
+                        pbInventoryStatus.Maximum = Game.Player.Job2.Capacity;
 
                         break;
 
@@ -240,6 +265,9 @@ namespace RSBot.Inventory.Views
 
                         lblFreeSlots.Text = Game.Player.Fellow.Inventory.FreeSlots + "/" +
                                             Game.Player.Fellow.Inventory.Capacity;
+
+                        pbInventoryStatus.Value = Game.Player.Fellow.Inventory.FreeSlots;
+                        pbInventoryStatus.Maximum = Game.Player.Fellow.Inventory.Capacity;
 
                         break;
                 }

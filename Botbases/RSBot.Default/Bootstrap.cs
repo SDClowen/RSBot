@@ -104,7 +104,7 @@ namespace RSBot.Default
             Container.Lock = new();
             Container.Bot = new();
 
-            Bundles.Reload();
+            //Bundles.Reload();
 
             Subscriber.BundleSubscriber.SubscribeEvents();
             Subscriber.ConfigSubscriber.SubscribeEvents();

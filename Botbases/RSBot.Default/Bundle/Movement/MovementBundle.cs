@@ -97,8 +97,8 @@ namespace RSBot.Default.Bundle.Movement
         {
             Config = new MovementConfig
             {
-                WalkAround = PlayerConfig.Get<bool>("RSBot.Training.radioWalkAround"),
-                WalkToCenter = PlayerConfig.Get<bool>("RSBot.Training.radioCenter", true)
+                WalkAround = PlayerConfig.Get("RSBot.Training.radioWalkAround", true),
+                WalkToCenter = PlayerConfig.Get<bool>("RSBot.Training.radioCenter")
             };
         }
 
