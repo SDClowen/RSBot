@@ -56,19 +56,19 @@ namespace RSBot.Default.Views
             const string key = "RSBot.Training.";
 
             foreach (var checkbox in groupBoxAdvanced.Controls.OfType<SDUI.Controls.CheckBox>())
-                checkbox.Checked = PlayerConfig.Get<bool>(key + checkbox.Name);
+                checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
             foreach (var checkbox in groupBoxBerserk.Controls.OfType<SDUI.Controls.CheckBox>())
-                checkbox.Checked = PlayerConfig.Get<bool>(key + checkbox.Name);
+                checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
             foreach (var num in groupBoxBerserk.Controls.OfType<SDUI.Controls.NumUpDown>())
-                num.Value = PlayerConfig.Get<int>(key + num.Name, 3);
+                num.Value = PlayerConfig.Get(key + num.Name, num.Value);
 
             foreach (var checkbox in groupBoxWalkback.Controls.OfType<SDUI.Controls.CheckBox>())
-                checkbox.Checked = PlayerConfig.Get<bool>(key + checkbox.Name);
+                checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
-            radioCenter.Checked = PlayerConfig.Get<bool>(key + radioCenter.Name, true);
-            radioWalkAround.Checked = PlayerConfig.Get<bool>(key + radioWalkAround.Name);
+            radioCenter.Checked = PlayerConfig.Get(key + radioCenter.Name, false);
+            radioWalkAround.Checked = PlayerConfig.Get(key + radioWalkAround.Name, true);
 
             LoadAvoidance();
         }

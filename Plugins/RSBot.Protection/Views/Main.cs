@@ -48,31 +48,31 @@ namespace RSBot.Protection.Views
             const string key = "RSBot.Protection.";
 
             foreach (var checkbox in groupHPMP.Controls.OfType<SDUI.Controls.CheckBox>())
-                checkbox.Checked = PlayerConfig.Get<bool>(key + checkbox.Name);
+                checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
             foreach (var num in groupHPMP.Controls.OfType<SDUI.Controls.NumUpDown>())
-                num.Value = PlayerConfig.Get<int>(key + num.Name, 50);
+                num.Value = PlayerConfig.Get(key + num.Name, num.Value);
 
             foreach (var checkbox in groupBadStatus.Controls.OfType<SDUI.Controls.CheckBox>())
-                checkbox.Checked = PlayerConfig.Get<bool>(key + checkbox.Name);
+                checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
             foreach (var checkbox in groupPet.Controls.OfType<SDUI.Controls.CheckBox>())
-                checkbox.Checked = PlayerConfig.Get<bool>(key + checkbox.Name);
+                checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
             foreach (var num in groupPet.Controls.OfType<SDUI.Controls.NumUpDown>())
-                num.Value = PlayerConfig.Get<int>(key + num.Name, 50);
+                num.Value = PlayerConfig.Get(key + num.Name, num.Value);
 
             foreach (var checkbox in groupBackTown.Controls.OfType<SDUI.Controls.CheckBox>())
-                checkbox.Checked = PlayerConfig.Get<bool>(key + checkbox.Name);
+                checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
             foreach (var num in groupBackTown.Controls.OfType<SDUI.Controls.NumUpDown>())
-                num.Value = PlayerConfig.Get<int>(key + num.Name, 50);
+                num.Value = PlayerConfig.Get(key + num.Name, num.Value);
 
             foreach (var checkbox in groupStatPoints.Controls.OfType<SDUI.Controls.CheckBox>())
-                checkbox.Checked = PlayerConfig.Get<bool>(key + checkbox.Name);
+                checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
             foreach (var num in groupStatPoints.Controls.OfType<SDUI.Controls.NumUpDown>())
-                num.Value = PlayerConfig.Get<int>(key + num.Name, 0);
+                num.Value = PlayerConfig.Get(key + num.Name, num.Value);
         }
 
         /// <summary>

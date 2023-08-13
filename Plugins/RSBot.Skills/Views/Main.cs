@@ -158,25 +158,25 @@ public partial class Main : UserControl
         const string key = "RSBot.Skills.";
 
         foreach (var checkbox in panelPlayerSkills.Controls.OfType<SDUI.Controls.CheckBox>())
-            checkbox.Checked = PlayerConfig.Get<bool>(key + checkbox.Name);
+            checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
         foreach (var checkbox in groupBoxAttackingSkills.Controls.OfType<SDUI.Controls.CheckBox>())
-            checkbox.Checked = PlayerConfig.Get<bool>(key + checkbox.Name);
+            checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
         foreach (var checkbox in groupBoxAutomatedResurrection.Controls.OfType<SDUI.Controls.CheckBox>())
-            checkbox.Checked = PlayerConfig.Get<bool>(key + checkbox.Name);
+            checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
         foreach (var checkbox in groupBoxAdvancedBuff.Controls.OfType<SDUI.Controls.CheckBox>())
-            checkbox.Checked = PlayerConfig.Get<bool>(key + checkbox.Name);
+            checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
         foreach (var checkbox in grpMasteryUpdate.Controls.OfType<SDUI.Controls.CheckBox>())
-            checkbox.Checked = PlayerConfig.Get<bool>(key + checkbox.Name);
+            checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
         foreach (var num in grpMasteryUpdate.Controls.OfType<SDUI.Controls.NumUpDown>())
-            num.Value = PlayerConfig.Get<int>(key + num.Name, 0);
+            num.Value = PlayerConfig.Get(key + num.Name, num.Value);
 
         foreach (var checkbox in groupAdvancedSetup.Controls.OfType<SDUI.Controls.CheckBox>())
-            checkbox.Checked = PlayerConfig.Get<bool>(key + checkbox.Name);
+            checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
     }
 
