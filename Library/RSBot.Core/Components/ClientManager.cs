@@ -103,21 +103,10 @@ namespace RSBot.Core.Components
                     return false;
                 }
 
-               /* if(!isVtcGame)
-                {
-                    WriteProcessMemory(pi.hProcess, address - 0x12, patchNop, 2, out _);
-                    WriteProcessMemory(pi.hProcess, address + 0xC, patchNop, 2, out _);
-                    WriteProcessMemory(pi.hProcess, address + 0x1D, patchJmp, 1, out _);
-                    WriteProcessMemory(pi.hProcess, address + 0x9A, patchJmp, 1, out _);
-                }
-                else*/
-                {
-                    WriteProcessMemory(pi.hProcess, address - 0x6A, patchJmp, 1, out _);
-                    WriteProcessMemory(pi.hProcess, address + 0xC, patchNop2, 5, out _);
-                    WriteProcessMemory(pi.hProcess, address + 0x13, patchJmp, 1, out _);
-                    WriteProcessMemory(pi.hProcess, address + 0x90, patchJmp, 1, out _);
-                }
-
+                WriteProcessMemory(pi.hProcess, address - 0x6A, patchJmp, 1, out _);
+                WriteProcessMemory(pi.hProcess, address + 0xC, patchNop2, 5, out _);
+                WriteProcessMemory(pi.hProcess, address + 0x13, patchJmp, 1, out _);
+                WriteProcessMemory(pi.hProcess, address + 0x90, patchJmp, 1, out _);
 
                 moduleMemory = null;
                 GC.Collect();
