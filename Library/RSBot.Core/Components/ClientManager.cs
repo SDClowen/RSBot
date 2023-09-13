@@ -89,7 +89,7 @@ namespace RSBot.Core.Components
                 ReadProcessMemory(process.Handle, process.MainModule.BaseAddress, moduleMemory, process.MainModule.ModuleMemorySize, out _);
 
                 var pattern = !isVtcGame ?
-                        "6A 00 6A 00 FF D6 6A 00 8D 85" :
+                        "6A 00 68 58 5C 29 01 68 64 5C 29 01" :
                         "6A 00 68 D8 15 26 01 68 E4";
 
                 var patchNop = new byte[] { 0x90, 0x90 }; 
@@ -103,14 +103,14 @@ namespace RSBot.Core.Components
                     return false;
                 }
 
-                if(!isVtcGame)
+               /* if(!isVtcGame)
                 {
-                    WriteProcessMemory(pi.hProcess, address - 0x15, patchNop, 2, out _);
-                    WriteProcessMemory(pi.hProcess, address + 0x04, patchNop, 2, out _);
+                    WriteProcessMemory(pi.hProcess, address - 0x12, patchNop, 2, out _);
+                    WriteProcessMemory(pi.hProcess, address + 0xC, patchNop, 2, out _);
                     WriteProcessMemory(pi.hProcess, address + 0x1D, patchJmp, 1, out _);
                     WriteProcessMemory(pi.hProcess, address + 0x9A, patchJmp, 1, out _);
                 }
-                else
+                else*/
                 {
                     WriteProcessMemory(pi.hProcess, address - 0x6A, patchJmp, 1, out _);
                     WriteProcessMemory(pi.hProcess, address + 0xC, patchNop2, 5, out _);
