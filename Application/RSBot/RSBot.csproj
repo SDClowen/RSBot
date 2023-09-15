@@ -8,12 +8,12 @@
 		<OutputPath>.\..\..\Build</OutputPath>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<Description>A open source bot for Silkroad Online</Description>
-		<Copyright>Copyright © 2023, RSBot Team</Copyright>
+		<Copyright>Copyright © 2024, RSBot Team</Copyright>
 		<PackageProjectUrl>https://github.com/SDClowen/RSBot</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/SDClowen/RSBot</RepositoryUrl>
 		<OutputType>WinExe</OutputType>
 		<ApplicationIcon>app.ico</ApplicationIcon>
-		<AssemblyVersion>2.9.2</AssemblyVersion>
+		<AssemblyVersion>2.9.3</AssemblyVersion>
 		<ApplicationHighDpiMode></ApplicationHighDpiMode>
 		<PlatformTarget>x86</PlatformTarget>
 		<UseWPF>False</UseWPF>
