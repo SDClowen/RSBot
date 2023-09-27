@@ -90,7 +90,7 @@ namespace RSBot.Core.Components
 
                 var pattern = !isVtcGame ?
                         "6A 00 68 58 5C 29 01 68 64 5C 29 01" :
-                        "6A 00 68 D8 15 26 01 68 E4";
+                        "6A 00 68 D8 25 26 01 68 E4 25 26 01";
 
                 var patchNop = new byte[] { 0x90, 0x90 }; 
                 var patchNop2 = new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90 };
