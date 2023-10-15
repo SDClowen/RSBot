@@ -1,8 +1,7 @@
-﻿namespace RSBot.Core.Objects
+﻿namespace RSBot.Core.Objects;
+
+public enum MovementType
 {
-    public enum MovementType
-    {
-        Walking = 0,
-        Running = 1
-    }
+    Walking = 0,
+    Running = 1
 }

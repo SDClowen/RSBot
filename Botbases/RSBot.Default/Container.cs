@@ -2,43 +2,42 @@
 using RSBot.Default.Bot;
 using RSBot.Default.Views;
 
-namespace RSBot.Default
+namespace RSBot.Default;
+
+internal static class Container
 {
-    internal static class Container
+    private static Main _mainView;
+
+    /// <summary>
+    /// Gets or sets the bot.
+    /// </summary>
+    /// <value>
+    /// The bot.
+    /// </value>
+    public static Botbase Bot { get; set; }
+
+    /// <summary>
+    /// Gets or sets the view.
+    /// </summary>
+    /// <value>
+    /// The view.
+    /// </value>
+    public static Main View
     {
-        private static Main _mainView;
-
-        /// <summary>
-        /// Gets or sets the bot.
-        /// </summary>
-        /// <value>
-        /// The bot.
-        /// </value>
-        public static Botbase Bot { get; set; }
-
-        /// <summary>
-        /// Gets or sets the view.
-        /// </summary>
-        /// <value>
-        /// The view.
-        /// </value>
-        public static Main View
+        get
         {
-            get
-            {
-                if (_mainView == null || _mainView.Disposing || _mainView.IsDisposed)
-                    _mainView = new Main();
+            if (_mainView == null || _mainView.Disposing || _mainView.IsDisposed)
+                _mainView = new Main();
 
-                return _mainView;
-            }
+            return _mainView;
         }
-
-        /// <summary>
-        /// Gets or sets the lock.
-        /// </summary>
-        /// <value>
-        /// The lock.
-        /// </value>
-        public static object Lock { get; set; }
     }
+
+    /// <summary>
+    /// Gets or sets the lock.
+    /// </summary>
+    /// <value>
+    /// The lock.
+    /// </value>
+    public static object Lock { get; set; }
 }

@@ -1,139 +1,138 @@
 ﻿using System.Collections.Generic;
 
-namespace RSBot.Core
+namespace RSBot.Core;
+
+using Event;
+using RSBot.Core.Components;
+using System;
+using System.IO;
+
+public static class PlayerConfig
 {
-    using Event;
-    using RSBot.Core.Components;
-    using System;
-    using System.IO;
+    /// <summary>
+    /// The config directory
+    /// </summary>
+    private static string _configDirectory => Path.Combine(Kernel.BasePath, "User", ProfileManager.SelectedProfile);
 
-    public static class PlayerConfig
+    /// <summary>
+    /// The config
+    /// </summary>
+    private static Config _config;
+
+    /// <summary>
+    /// Load config from file
+    /// </summary>
+    /// <param name="file">The config file path</param>
+    public static void Load(string charName)
     {
-        /// <summary>
-        /// The config directory
-        /// </summary>
-        private static string _configDirectory => Path.Combine(Kernel.BasePath, "User", ProfileManager.SelectedProfile);
+        _config = new Config(Path.Combine(_configDirectory, charName + ".rs"));
 
-        /// <summary>
-        /// The config
-        /// </summary>
-        private static Config _config;
+        Log.Notify("[Player] settings have been loaded!");
+    }
 
-        /// <summary>
-        /// Load config from file
-        /// </summary>
-        /// <param name="file">The config file path</param>
-        public static void Load(string charName)
-        {
-            _config = new Config(Path.Combine(_configDirectory, charName + ".rs"));
+    /// <summary>
+    /// Existses the specified key.
+    /// </summary>
+    /// <param name="key">The key.</param>
+    /// <returns></returns>
+    public static bool Exists(string key)
+    {
+        if (_config == null)
+            return false;
 
-            Log.Notify("[Player] settings have been loaded!");
-        }
+        return _config.Exists(key);
+    }
 
-        /// <summary>
-        /// Existses the specified key.
-        /// </summary>
-        /// <param name="key">The key.</param>
-        /// <returns></returns>
-        public static bool Exists(string key)
-        {
-            if (_config == null)
-                return false;
+    /// <summary>
+    /// Gets the specified key.
+    /// </summary>
+    /// <param name="key">The key.</param>
+    /// <param name="defaultValue">The default value.</param>
+    public static T Get<T>(string key, T defaultValue = default(T))
+    {
+        if (_config == null)
+            return defaultValue;
 
-            return _config.Exists(key);
-        }
+        return _config.Get(key, defaultValue);
+    }
 
-        /// <summary>
-        /// Gets the specified key.
-        /// </summary>
-        /// <param name="key">The key.</param>
-        /// <param name="defaultValue">The default value.</param>
-        public static T Get<T>(string key, T defaultValue = default(T))
-        {
-            if (_config == null)
-                return defaultValue;
+    /// <summary>
+    /// Gets the enum value with specified key.
+    /// </summary>
+    /// <param name="key">The key.</param>
+    /// <param name="defaultValue">The default value.</param>
+    public static TEnum GetEnum<TEnum>(string key, TEnum defaultValue = default(TEnum))
+        where TEnum : struct
+    {
+        if (_config == null)
+            return defaultValue;
 
-            return _config.Get(key, defaultValue);
-        }
+        return _config.GetEnum(key, defaultValue);
+    }
 
-        /// <summary>
-        /// Gets the enum value with specified key.
-        /// </summary>
-        /// <param name="key">The key.</param>
-        /// <param name="defaultValue">The default value.</param>
-        public static TEnum GetEnum<TEnum>(string key, TEnum defaultValue = default(TEnum))
-            where TEnum : struct
-        {
-            if (_config == null)
-                return defaultValue;
+    /// <summary>
+    /// Sets the specified key inside the config.
+    /// </summary>
+    /// <param name="key">The key.</param>
+    /// <param name="value">The value.</param>
+    public static void Set<T>(string key, T value)
+    {
+        if (_config != null)
+            _config.Set(key, value);
+    }
 
-            return _config.GetEnum(key, defaultValue);
-        }
+    /// <summary>
+    /// Gets the array.
+    /// </summary>
+    /// <param name="key">The key.</param>
+    /// <param name="delimiter">The delimiter.</param>
+    /// <returns></returns>
+    public static T[] GetArray<T>(string key, char delimiter = ',')
+    {
+        if (_config == null)
+            return new T[] { };
 
-        /// <summary>
-        /// Sets the specified key inside the config.
-        /// </summary>
-        /// <param name="key">The key.</param>
-        /// <param name="value">The value.</param>
-        public static void Set<T>(string key, T value)
-        {
-            if (_config != null)
-                _config.Set(key, value);
-        }
+        return _config.GetArray<T>(key, delimiter);
+    }
 
-        /// <summary>
-        /// Gets the array.
-        /// </summary>
-        /// <param name="key">The key.</param>
-        /// <param name="delimiter">The delimiter.</param>
-        /// <returns></returns>
-        public static T[] GetArray<T>(string key, char delimiter = ',')
-        {
-            if (_config == null)
-                return new T[] { };
+    /// <summary>
+    /// Gets the enum value with specified key.
+    /// </summary>
+    /// <param name="key">The key.</param>
+    /// <param name="defaultValue">The default value.</param>
+    public static TEnum[] GetEnums<TEnum>(string key, char delimiter = ',')
+        where TEnum : struct
+    {
+        if (_config == null)
+            return new TEnum[] { };
 
-            return _config.GetArray<T>(key, delimiter);
-        }
+        return _config.GetEnums<TEnum>(key, delimiter);
+    }
 
-        /// <summary>
-        /// Gets the enum value with specified key.
-        /// </summary>
-        /// <param name="key">The key.</param>
-        /// <param name="defaultValue">The default value.</param>
-        public static TEnum[] GetEnums<TEnum>(string key, char delimiter = ',')
-            where TEnum : struct
-        {
-            if (_config == null)
-                return new TEnum[] { };
+    /// <summary>
+    /// Sets the array.
+    /// </summary>
+    /// <param name="key">The key.</param>
+    /// <param name="values">The values.</param>
+    /// <param name="delimiter">The delimiter.</param>
+    public static void SetArray<T>(string key, IEnumerable<T> values, string delimiter = ",")
+    {
+        if (_config != null)
+            _config.SetArray(key, values, delimiter);
+    }
 
-            return _config.GetEnums<TEnum>(key, delimiter);
-        }
+    /// <summary>
+    /// Saves the specified file.
+    /// </summary>
+    /// <param name="file">The file.</param>
+    public static void Save()
+    {
+        if (_config == null)
+            return;
 
-        /// <summary>
-        /// Sets the array.
-        /// </summary>
-        /// <param name="key">The key.</param>
-        /// <param name="values">The values.</param>
-        /// <param name="delimiter">The delimiter.</param>
-        public static void SetArray<T>(string key, IEnumerable<T> values, string delimiter = ",")
-        {
-            if (_config != null)
-                _config.SetArray(key, values, delimiter);
-        }
+        _config.Save();
 
-        /// <summary>
-        /// Saves the specified file.
-        /// </summary>
-        /// <param name="file">The file.</param>
-        public static void Save()
-        {
-            if (_config == null)
-                return;
-
-            _config.Save();
-
-            Log.Notify("[Player] have been saved!");
-            EventManager.FireEvent("OnSavePlayerConfig");
-        }
+        Log.Notify("[Player] have been saved!");
+        EventManager.FireEvent("OnSavePlayerConfig");
     }
 }

@@ -1,6 +1,5 @@
-﻿namespace RSBot.Core.Objects.Cos
+﻿namespace RSBot.Core.Objects.Cos;
+
+public class JobTransport : Cos
 {
-    public class JobTransport : Cos
-    {
-    }
 }

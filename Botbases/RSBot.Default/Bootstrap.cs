@@ -7,120 +7,119 @@ using RSBot.Default.Components;
 using System;
 using System.Windows.Forms;
 
-namespace RSBot.Default
+namespace RSBot.Default;
+
+public class Bootstrap : IBotbase
 {
-    public class Bootstrap : IBotbase
+    public string Name => "RSBot.Default";
+
+    public string DisplayName => "Training";
+
+    public string TabText => DisplayName;
+
+    public Area Area => Container.Bot.Area;
+
+    /// <summary>
+    /// Ticks this instance. It's the botbase main-loop
+    /// </summary>
+    public void Tick()
     {
-        public string Name => "RSBot.Default";
+        if (!Kernel.Bot.Running)
+            return;
 
-        public string DisplayName => "Training";
+        if (Game.Player.Exchanging)
+            return;
 
-        public string TabText => DisplayName;
+        if (Game.Player.Untouchable)
+            return;
 
-        public Area Area => Container.Bot.Area;
+        if (Game.Player.State.LifeState == LifeState.Dead)
+            return;
 
-        /// <summary>
-        /// Ticks this instance. It's the botbase main-loop
-        /// </summary>
-        public void Tick()
-        {
-            if (!Kernel.Bot.Running)
-                return;
+        //Begin the loopback if needed
+        if (Container.Bot.Area.Position.DistanceToPlayer() > 80)
+            Bundles.Loop.Start();
 
-            if (Game.Player.Exchanging)
-                return;
+        if (Bundles.Loop.Running)
+            return;
 
-            if (Game.Player.Untouchable)
-                return;
-
-            if (Game.Player.State.LifeState == LifeState.Dead)
-                return;
-
-            //Begin the loopback if needed
-            if (Container.Bot.Area.Position.DistanceToPlayer() > 80)
-                Bundles.Loop.Start();
-
-            if (Bundles.Loop.Running)
-                return;
-
-            //Nothing if in scroll state!
-            if (Game.Player.State.ScrollState == ScrollState.NormalScroll ||
-                Game.Player.State.ScrollState == ScrollState.ThiefScroll)
-                return;
+        //Nothing if in scroll state!
+        if (Game.Player.State.ScrollState == ScrollState.NormalScroll ||
+            Game.Player.State.ScrollState == ScrollState.ThiefScroll)
+            return;
             
-            try
-            {
-                Container.Bot.Tick();
-            }
-            catch (Exception ex)
-            {
-                Log.Fatal(ex);
-            }
-        }
-
-        /// <summary>
-        /// Gets the view.
-        /// </summary>
-        /// <returns></returns>
-        public Control View => Container.View;
-
-        /// <summary>
-        /// Starts this instance.
-        /// </summary>
-        public void Start()
+        try
         {
-            if (Kernel.Bot.Botbase.Area.Position.X == 0)
-            {
-                Log.WarnLang("ConfigureTrainingAreaBeforeStartBot");
-                Kernel.Bot.Stop();
-
-                return;
-            }
-
-            //Already reloading when config saved via ConfigSubscriber
-            //Bundles.Reload();
-            //Container.Bot.Reload();
+            Container.Bot.Tick();
         }
-
-        /// <summary>
-        /// Stops this instance.
-        /// </summary>
-        public void Stop()
+        catch (Exception ex)
         {
-            lock (Container.Lock)
-            {
-                if (Game.Player.InAction)
-                    SkillManager.CancelAction();
-
-                Bundles.Stop();
-            }
+            Log.Fatal(ex);
         }
+    }
 
-        /// <summary>
-        /// Always initialize the botbase so other botbases can make use of its otherwise internal features.
-        /// </summary>
-        public void Register()
+    /// <summary>
+    /// Gets the view.
+    /// </summary>
+    /// <returns></returns>
+    public Control View => Container.View;
+
+    /// <summary>
+    /// Starts this instance.
+    /// </summary>
+    public void Start()
+    {
+        if (Kernel.Bot.Botbase.Area.Position.X == 0)
         {
-            Container.Lock = new();
-            Container.Bot = new();
+            Log.WarnLang("ConfigureTrainingAreaBeforeStartBot");
+            Kernel.Bot.Stop();
 
-            //Bundles.Reload();
-
-            Subscriber.BundleSubscriber.SubscribeEvents();
-            Subscriber.ConfigSubscriber.SubscribeEvents();
-            Subscriber.TeleportSubscriber.SubscribeEvents();
-
-            ScriptManager.CommandHandlers.Add(new TrainingAreaScriptCommand());
-            Log.Debug("[Training] Botbase registered to the kernel!");
+            return;
         }
 
-        /// <summary>
-        /// Translate the botbase plugin
-        /// </summary>
-        /// <param name="language">The language</param>
-        public void Translate()
+        //Already reloading when config saved via ConfigSubscriber
+        //Bundles.Reload();
+        //Container.Bot.Reload();
+    }
+
+    /// <summary>
+    /// Stops this instance.
+    /// </summary>
+    public void Stop()
+    {
+        lock (Container.Lock)
         {
-            LanguageManager.Translate(View, Kernel.Language);
+            if (Game.Player.InAction)
+                SkillManager.CancelAction();
+
+            Bundles.Stop();
         }
+    }
+
+    /// <summary>
+    /// Always initialize the botbase so other botbases can make use of its otherwise internal features.
+    /// </summary>
+    public void Register()
+    {
+        Container.Lock = new();
+        Container.Bot = new();
+
+        //Bundles.Reload();
+
+        Subscriber.BundleSubscriber.SubscribeEvents();
+        Subscriber.ConfigSubscriber.SubscribeEvents();
+        Subscriber.TeleportSubscriber.SubscribeEvents();
+
+        ScriptManager.CommandHandlers.Add(new TrainingAreaScriptCommand());
+        Log.Debug("[Training] Botbase registered to the kernel!");
+    }
+
+    /// <summary>
+    /// Translate the botbase plugin
+    /// </summary>
+    /// <param name="language">The language</param>
+    public void Translate()
+    {
+        LanguageManager.Translate(View, Kernel.Language);
     }
 }

@@ -1,9 +1,8 @@
-﻿namespace RSBot.Core.Objects
+﻿namespace RSBot.Core.Objects;
+
+public enum ActionTarget
 {
-    public enum ActionTarget
-    {
-        None = 0,
-        Entity = 1,
-        Area = 2
-    }
+    None = 0,
+    Entity = 1,
+    Area = 2
 }

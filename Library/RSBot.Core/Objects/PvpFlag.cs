@@ -1,12 +1,11 @@
-﻿namespace RSBot.Core.Objects
+﻿namespace RSBot.Core.Objects;
+
+public enum PvpFlag
 {
-    public enum PvpFlag
-    {
-        None = 0,
-        Red = 1,
-        Gray = 2,
-        Blue = 3,
-        White = 4,
-        Gold = 5
-    }
+    None = 0,
+    Red = 1,
+    Gray = 2,
+    Blue = 3,
+    White = 4,
+    Gold = 5
 }

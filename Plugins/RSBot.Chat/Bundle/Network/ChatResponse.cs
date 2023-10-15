@@ -6,73 +6,72 @@ using RSBot.Core.Network;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
 
-namespace RSBot.Chat.Network
+namespace RSBot.Chat.Network;
+
+internal class ChatResponse : IPacketHandler
 {
-    internal class ChatResponse : IPacketHandler
+    /// <summary>
+    /// Gets or sets the opcode.
+    /// </summary>
+    /// <value>
+    /// The opcode.
+    /// </value>
+    public ushort Opcode => 0x3026;
+
+    /// <summary>
+    /// Gets or sets the destination.
+    /// </summary>
+    /// <value>
+    /// The destination.
+    /// </value>
+    public PacketDestination Destination => PacketDestination.Client;
+
+    /// <summary>
+    /// Handles the packet.
+    /// </summary>
+    /// <param name="packet">The packet.</param>
+    public void Invoke(Packet packet)
     {
-        /// <summary>
-        /// Gets or sets the opcode.
-        /// </summary>
-        /// <value>
-        /// The opcode.
-        /// </value>
-        public ushort Opcode => 0x3026;
+        var type = (ChatType)packet.ReadByte();
 
-        /// <summary>
-        /// Gets or sets the destination.
-        /// </summary>
-        /// <value>
-        /// The destination.
-        /// </value>
-        public PacketDestination Destination => PacketDestination.Client;
+        var message = string.Empty;
 
-        /// <summary>
-        /// Handles the packet.
-        /// </summary>
-        /// <param name="packet">The packet.</param>
-        public void Invoke(Packet packet)
+        switch (type)
         {
-            var type = (ChatType)packet.ReadByte();
+            case ChatType.All:
+            case ChatType.AllGM:
+                var senderId = packet.ReadUInt();
+                message = packet.ReadConditonalString();
 
-            var message = string.Empty;
+                if (senderId != Game.Player.UniqueId)
+                {
+                    if (!SpawnManager.TryGetEntity<SpawnedPlayer>(senderId, out var player))
+                        return;
 
-            switch (type)
-            {
-                case ChatType.All:
-                case ChatType.AllGM:
-                    var senderId = packet.ReadUInt();
-                    message = packet.ReadConditonalString();
+                    View.Instance.AppendMessage(message, player.Name, ChatType.All);
+                }
+                else
+                    View.Instance.AppendMessage(message, Game.Player.Name, ChatType.All);
 
-                    if (senderId != Game.Player.UniqueId)
-                    {
-                        if (!SpawnManager.TryGetEntity<SpawnedPlayer>(senderId, out var player))
-                            return;
+                break;
 
-                        View.Instance.AppendMessage(message, player.Name, ChatType.All);
-                    }
-                    else
-                        View.Instance.AppendMessage(message, Game.Player.Name, ChatType.All);
+            case ChatType.Notice:
 
-                    break;
+                message = packet.ReadConditonalString();
 
-                case ChatType.Notice:
+                View.Instance.AppendMessage(message, "Notice", type);
+                break;
 
-                    message = packet.ReadConditonalString();
+            case ChatType.Npc:
+                //TODO: get npc by guid
+                break;
 
-                    View.Instance.AppendMessage(message, "Notice", type);
-                    break;
+            default:
+                var sender = packet.ReadString();
+                message = packet.ReadConditonalString();
 
-                case ChatType.Npc:
-                    //TODO: get npc by guid
-                    break;
-
-                default:
-                    var sender = packet.ReadString();
-                    message = packet.ReadConditonalString();
-
-                    View.Instance.AppendMessage(message, sender, type);
-                    break;
-            }
+                View.Instance.AppendMessage(message, sender, type);
+                break;
         }
     }
 }

@@ -1,9 +1,8 @@
-﻿namespace RSBot.Core.Client.ReferenceObjects
+﻿namespace RSBot.Core.Client.ReferenceObjects;
+
+public enum ObjectGender : byte
 {
-    public enum ObjectGender : byte
-    {
-        Female = 0,
-        Male = 1,
-        Neutral = 2
-    }
+    Female = 0,
+    Male = 1,
+    Neutral = 2
 }

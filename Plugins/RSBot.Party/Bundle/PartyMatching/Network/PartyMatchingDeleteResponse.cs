@@ -1,37 +1,36 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Network;
 
-namespace RSBot.Party.Bundle.PartyMatching.Network
+namespace RSBot.Party.Bundle.PartyMatching.Network;
+
+public class PartyMatchingDeleteResponse : IPacketHandler
 {
-    public class PartyMatchingDeleteResponse : IPacketHandler
+    /// <summary>
+    /// Gets or sets the destination.
+    /// </summary>
+    /// <value>The destination.</value>
+    public PacketDestination Destination => PacketDestination.Client;
+
+    /// <summary>
+    /// Gets or sets the opcode.
+    /// </summary>
+    /// <value>The opcode.</value>
+    public ushort Opcode => 0xB06B;
+
+    /// <summary>
+    /// Handles the packet.
+    /// </summary>
+    /// <param name="packet">The packet.</param>
+    public void Invoke(Packet packet)
     {
-        /// <summary>
-        /// Gets or sets the destination.
-        /// </summary>
-        /// <value>The destination.</value>
-        public PacketDestination Destination => PacketDestination.Client;
+        if (packet.ReadByte() != 0x01) 
+            return;
 
-        /// <summary>
-        /// Gets or sets the opcode.
-        /// </summary>
-        /// <value>The opcode.</value>
-        public ushort Opcode => 0xB06B;
+        Log.NotifyLang("PartyEntryRemoved");
 
-        /// <summary>
-        /// Handles the packet.
-        /// </summary>
-        /// <param name="packet">The packet.</param>
-        public void Invoke(Packet packet)
-        {
-            if (packet.ReadByte() != 0x01) 
-                return;
+        if (Container.PartyMatching != null)
+            Container.PartyMatching.HasMatchingEntry = false;
 
-            Log.NotifyLang("PartyEntryRemoved");
-
-            if (Container.PartyMatching != null)
-                Container.PartyMatching.HasMatchingEntry = false;
-
-            Core.Event.EventManager.FireEvent("OnDeletePartyEntry");
-        }
+        Core.Event.EventManager.FireEvent("OnDeletePartyEntry");
     }
 }

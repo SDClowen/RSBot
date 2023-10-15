@@ -1,10 +1,9 @@
-﻿namespace RSBot.Statistics.Stats
+﻿namespace RSBot.Statistics.Stats;
+
+internal enum StatisticsGroup
 {
-    internal enum StatisticsGroup
-    {
-        Player,
-        Loot,
-        Enemy,
-        Bot
-    }
+    Player,
+    Loot,
+    Enemy,
+    Bot
 }

@@ -1,21 +1,20 @@
 ﻿using RSBot.Core.Event;
 
-namespace RSBot.Core.Network.Handler.Agent.Exchange
+namespace RSBot.Core.Network.Handler.Agent.Exchange;
+
+internal class ExchangeUpdateItemsResponse : IPacketHandler
 {
-    internal class ExchangeUpdateItemsResponse : IPacketHandler
+    /// <inheritdoc />
+    public ushort Opcode => 0x308C;
+
+    /// <inheritdoc />
+    public PacketDestination Destination => PacketDestination.Client;
+
+    /// <inheritdoc />
+    public void Invoke(Packet packet)
     {
-        /// <inheritdoc />
-        public ushort Opcode => 0x308C;
+        Game.Player.Exchange?.UpdateItems(packet);
 
-        /// <inheritdoc />
-        public PacketDestination Destination => PacketDestination.Client;
-
-        /// <inheritdoc />
-        public void Invoke(Packet packet)
-        {
-            Game.Player.Exchange?.UpdateItems(packet);
-
-            EventManager.FireEvent("OnUpdateExchangeItems");
-        }
+        EventManager.FireEvent("OnUpdateExchangeItems");
     }
 }

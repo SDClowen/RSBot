@@ -1,41 +1,40 @@
 ﻿using RSBot.Core.Event;
 
-namespace RSBot.Core.Network.Handler.Agent
+namespace RSBot.Core.Network.Handler.Agent;
+
+internal class GameResetRequest : IPacketHandler
 {
-    internal class GameResetRequest : IPacketHandler
+    /// <summary>
+    /// Gets or sets the opcode.
+    /// </summary>
+    /// <value>
+    /// The opcode.
+    /// </value>
+    public ushort Opcode => 0x34B5;
+
+    /// <summary>
+    /// Gets or sets the destination.
+    /// </summary>
+    /// <value>
+    /// The destination.
+    /// </value>
+    public PacketDestination Destination => PacketDestination.Client;
+
+    /// <summary>
+    /// Handles the packet.
+    /// </summary>
+    /// <param name="packet">The packet.</param>
+    public void Invoke(Packet packet)
     {
-        /// <summary>
-        /// Gets or sets the opcode.
-        /// </summary>
-        /// <value>
-        /// The opcode.
-        /// </value>
-        public ushort Opcode => 0x34B5;
+        Game.Ready = false;
+        Log.Debug("Game client is loading...");
 
-        /// <summary>
-        /// Gets or sets the destination.
-        /// </summary>
-        /// <value>
-        /// The destination.
-        /// </value>
-        public PacketDestination Destination => PacketDestination.Client;
+        if (Game.Player.Teleportation == null) 
+            return;
 
-        /// <summary>
-        /// Handles the packet.
-        /// </summary>
-        /// <param name="packet">The packet.</param>
-        public void Invoke(Packet packet)
-        {
-            Game.Ready = false;
-            Log.Debug("Game client is loading...");
+        Game.Player.Teleportation.IsTeleporting = true;
+        Game.Player.State.DialogState = null;
 
-            if (Game.Player.Teleportation == null) 
-                return;
-
-            Game.Player.Teleportation.IsTeleporting = true;
-            Game.Player.State.DialogState = null;
-
-            EventManager.FireEvent("OnTeleportStart");
-        }
+        EventManager.FireEvent("OnTeleportStart");
     }
 }

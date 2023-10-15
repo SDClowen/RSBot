@@ -4,198 +4,197 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace RSBot.Alchemy.Views.Settings
+namespace RSBot.Alchemy.Views.Settings;
+
+[System.ComponentModel.ToolboxItem(false)]
+public partial class AttributeInfoPanel : UserControl
 {
-    [System.ComponentModel.ToolboxItem(false)]
-    public partial class AttributeInfoPanel : UserControl
+    public delegate void OnChangedEventHandler(bool @checked, int maxValue);
+
+    public event OnChangedEventHandler OnChange;
+
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets a value indicating whether this <see cref="AttributeInfoPanel"/> is checked.
+    /// </summary>
+    /// <value>
+    ///   <c>true</c> if checked; otherwise, <c>false</c>.
+    /// </value>
+    public bool Checked
     {
-        public delegate void OnChangedEventHandler(bool @checked, int maxValue);
+        get => checkSelected.Checked;
 
-        public event OnChangedEventHandler OnChange;
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="AttributeInfoPanel"/> is checked.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if checked; otherwise, <c>false</c>.
-        /// </value>
-        public bool Checked
+        set
         {
-            get => checkSelected.Checked;
+            checkSelected.Checked = GetMaxValue() > _currentAttribute.GetPercentage(_currentAttributeSlot) && value;
+        }
+    }
 
-            set
-            {
-                checkSelected.Checked = GetMaxValue() > _currentAttribute.GetPercentage(_currentAttributeSlot) && value;
-            }
+    /// <summary>
+    /// Gets the maximum value this attribute should have.
+    /// </summary>
+    /// <value>
+    /// The maximum value.
+    /// </value>
+    public int MaxValue => GetMaxValue();
+
+    /// <summary>
+    /// Gets or sets the attribute group.
+    /// </summary>
+    /// <value>
+    /// The attribute group.
+    /// </value>
+    public ItemAttributeGroup AttributeGroup { get; set; }
+
+    /// <summary>
+    /// Gets the stones assigned to this attribute.
+    /// </summary>
+    /// <value>
+    /// The stones.
+    /// </value>
+    public IEnumerable<InventoryItem>? Stones { get; init; }
+
+    #endregion Properties
+
+    /// <summary>
+    /// Gets the current attribute.
+    /// </summary>
+    /// <value>
+    /// The current attribute.
+    /// </value>
+    private ItemAttributesInfo _currentAttribute;
+
+    /// <summary>
+    /// The current attribute slot
+    /// </summary>
+    private byte _currentAttributeSlot;
+
+    /// Initializes a new instance of the <see cref="AttributeInfoPanel"/> class.
+    /// </summary>
+    /// <param name="group">The group.</param>
+    /// <param name="stones">The stones.</param>
+    /// <param name="item">The item.</param>
+    public AttributeInfoPanel(ItemAttributeGroup group, IEnumerable<InventoryItem>? stones, InventoryItem item,
+        int maxValue = 22)
+    {
+        CheckForIllegalCrossThreadCalls = false;
+
+        InitializeComponent();
+
+        AttributeGroup = group;
+        Stones = stones;
+        _currentAttribute = item.Attributes;
+        _currentAttributeSlot = ItemAttributesInfo.GetAttributeSlotForItem(group, item.Record);
+
+        SetMaxValue(maxValue);
+
+        var totalAmount = stones == null || !stones.Any() ? 0 : stones.Sum(i => i.Amount);
+
+        if (totalAmount == 0)
+        {
+            lblItemAmount.Text = "x0";
+
+            comboMaxValue.Enabled = false;
+            lblItemAmount.Enabled = false;
+            checkSelected.Enabled = false;
+        }
+        else
+            lblItemAmount.Text = $"x{totalAmount}";
+
+        var attributeSlot = ItemAttributesInfo.GetAttributeSlotForItem(group, item.Record);
+        checkSelected.Text = $"{group.GetTranslation()} +{item.Attributes.GetPercentage(attributeSlot)}%";
+        checkSelected.CheckedChanged += CheckSelected_CheckedChanged;
+        comboMaxValue.SelectedIndexChanged += ComboMaxValue_SelectedIndexChanged;
+
+        if (Stones.Any())
+            tipStone.SetToolTip(checkSelected, $"{Stones.First().Record.GetRealName()}x{totalAmount}");
+
+        if (GetMaxValue() <= _currentAttribute.GetPercentage(_currentAttributeSlot))
+            lblFinished.Show();
+        else
+            lblFinished.Hide();
+    }
+
+    private void ComboMaxValue_SelectedIndexChanged(object? sender, System.EventArgs e)
+    {
+        if (comboMaxValue.SelectedItem == null)
+            return;
+
+        if (GetMaxValue() <= _currentAttribute.GetPercentage(_currentAttributeSlot))
+        {
+            checkSelected.Checked = false;
+            lblFinished.Show();
+        }
+        else
+        {
+            checkSelected.Checked = true;
+            lblFinished.Hide();
         }
 
-        /// <summary>
-        /// Gets the maximum value this attribute should have.
-        /// </summary>
-        /// <value>
-        /// The maximum value.
-        /// </value>
-        public int MaxValue => GetMaxValue();
+        OnChange?.Invoke(checkSelected.Checked, GetMaxValue());
+    }
 
-        /// <summary>
-        /// Gets or sets the attribute group.
-        /// </summary>
-        /// <value>
-        /// The attribute group.
-        /// </value>
-        public ItemAttributeGroup AttributeGroup { get; set; }
+    #region Events
 
-        /// <summary>
-        /// Gets the stones assigned to this attribute.
-        /// </summary>
-        /// <value>
-        /// The stones.
-        /// </value>
-        public IEnumerable<InventoryItem>? Stones { get; init; }
+    private void CheckSelected_CheckedChanged(object? sender, System.EventArgs e)
+    {
+        OnChange?.Invoke(checkSelected.Checked, GetMaxValue());
+    }
 
-        #endregion Properties
+    #endregion Events
 
-        /// <summary>
-        /// Gets the current attribute.
-        /// </summary>
-        /// <value>
-        /// The current attribute.
-        /// </value>
-        private ItemAttributesInfo _currentAttribute;
+    #region Methods
 
-        /// <summary>
-        /// The current attribute slot
-        /// </summary>
-        private byte _currentAttributeSlot;
-
-        /// Initializes a new instance of the <see cref="AttributeInfoPanel"/> class.
-        /// </summary>
-        /// <param name="group">The group.</param>
-        /// <param name="stones">The stones.</param>
-        /// <param name="item">The item.</param>
-        public AttributeInfoPanel(ItemAttributeGroup group, IEnumerable<InventoryItem>? stones, InventoryItem item,
-            int maxValue = 22)
+    /// <summary>
+    /// Gets the maximum value selected by the user.
+    /// </summary>
+    /// <returns></returns>
+    private int GetMaxValue()
+    {
+        return comboMaxValue.SelectedIndex switch
         {
-            CheckForIllegalCrossThreadCalls = false;
+            0 => 22,
+            1 => 41,
+            2 => 61,
+            3 => 80,
+            4 => 100,
+            _ => 22
+        };
+    }
 
-            InitializeComponent();
-
-            AttributeGroup = group;
-            Stones = stones;
-            _currentAttribute = item.Attributes;
-            _currentAttributeSlot = ItemAttributesInfo.GetAttributeSlotForItem(group, item.Record);
-
-            SetMaxValue(maxValue);
-
-            var totalAmount = stones == null || !stones.Any() ? 0 : stones.Sum(i => i.Amount);
-
-            if (totalAmount == 0)
-            {
-                lblItemAmount.Text = "x0";
-
-                comboMaxValue.Enabled = false;
-                lblItemAmount.Enabled = false;
-                checkSelected.Enabled = false;
-            }
-            else
-                lblItemAmount.Text = $"x{totalAmount}";
-
-            var attributeSlot = ItemAttributesInfo.GetAttributeSlotForItem(group, item.Record);
-            checkSelected.Text = $"{group.GetTranslation()} +{item.Attributes.GetPercentage(attributeSlot)}%";
-            checkSelected.CheckedChanged += CheckSelected_CheckedChanged;
-            comboMaxValue.SelectedIndexChanged += ComboMaxValue_SelectedIndexChanged;
-
-            if (Stones.Any())
-                tipStone.SetToolTip(checkSelected, $"{Stones.First().Record.GetRealName()}x{totalAmount}");
-
-            if (GetMaxValue() <= _currentAttribute.GetPercentage(_currentAttributeSlot))
-                lblFinished.Show();
-            else
-                lblFinished.Hide();
-        }
-
-        private void ComboMaxValue_SelectedIndexChanged(object? sender, System.EventArgs e)
+    private void SetMaxValue(int maxValue)
+    {
+        switch (maxValue)
         {
-            if (comboMaxValue.SelectedItem == null)
+            case <= 22:
+                comboMaxValue.SelectedIndex = 0;
+
                 return;
 
-            if (GetMaxValue() <= _currentAttribute.GetPercentage(_currentAttributeSlot))
-            {
-                checkSelected.Checked = false;
-                lblFinished.Show();
-            }
-            else
-            {
-                checkSelected.Checked = true;
-                lblFinished.Hide();
-            }
+            case <= 41:
+                comboMaxValue.SelectedIndex = 1;
 
-            OnChange?.Invoke(checkSelected.Checked, GetMaxValue());
+                return;
+
+            case <= 61:
+                comboMaxValue.SelectedIndex = 2;
+
+                return;
+
+            case <= 80:
+                comboMaxValue.SelectedIndex = 3;
+
+                return;
+
+            default:
+                comboMaxValue.SelectedIndex = 0;
+                break;
         }
 
-        #region Events
-
-        private void CheckSelected_CheckedChanged(object? sender, System.EventArgs e)
-        {
-            OnChange?.Invoke(checkSelected.Checked, GetMaxValue());
-        }
-
-        #endregion Events
-
-        #region Methods
-
-        /// <summary>
-        /// Gets the maximum value selected by the user.
-        /// </summary>
-        /// <returns></returns>
-        private int GetMaxValue()
-        {
-            return comboMaxValue.SelectedIndex switch
-            {
-                0 => 22,
-                1 => 41,
-                2 => 61,
-                3 => 80,
-                4 => 100,
-                _ => 22
-            };
-        }
-
-        private void SetMaxValue(int maxValue)
-        {
-            switch (maxValue)
-            {
-                case <= 22:
-                    comboMaxValue.SelectedIndex = 0;
-
-                    return;
-
-                case <= 41:
-                    comboMaxValue.SelectedIndex = 1;
-
-                    return;
-
-                case <= 61:
-                    comboMaxValue.SelectedIndex = 2;
-
-                    return;
-
-                case <= 80:
-                    comboMaxValue.SelectedIndex = 3;
-
-                    return;
-
-                default:
-                    comboMaxValue.SelectedIndex = 0;
-                    break;
-            }
-
-            if (GetMaxValue() <= _currentAttribute.GetPercentage(_currentAttributeSlot))
-                checkSelected.Checked = false;
-        }
-
-        #endregion Methods
+        if (GetMaxValue() <= _currentAttribute.GetPercentage(_currentAttributeSlot))
+            checkSelected.Checked = false;
     }
+
+    #endregion Methods
 }

@@ -7,45 +7,44 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 
-namespace RSBot
-{
-    internal static class Program
-    { 
-        public static string AssemblyTitle =
-            Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyProductAttribute>()?.Product;
+namespace RSBot;
 
-        public static string AssemblyVersion =
-            $"v{Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version}";
+internal static class Program
+{ 
+    public static string AssemblyTitle =
+        Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyProductAttribute>()?.Product;
 
-        public static string AssemblyDescription =
-            Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyDescriptionAttribute>()?.Description;
+    public static string AssemblyVersion =
+        $"v{Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version}";
 
-        [STAThread]
-        private static void Main(string[] args)
+    public static string AssemblyDescription =
+        Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyDescriptionAttribute>()?.Description;
+
+    [STAThread]
+    private static void Main(string[] args)
+    {
+        if(args.Length == 1)
         {
-            if(args.Length == 1)
+            var profile = args[0];
+            if (ProfileManager.ProfileExists(profile))
             {
-                var profile = args[0];
-                if (ProfileManager.ProfileExists(profile))
-                {
-                    ProfileManager.SetSelectedProfile(profile);
-                    ProfileManager.IsProfileLoadedByArgs = true;
-                    Log.Debug($"Selected profile by args: {profile}");
-                }
+                ProfileManager.SetSelectedProfile(profile);
+                ProfileManager.IsProfileLoadedByArgs = true;
+                Log.Debug($"Selected profile by args: {profile}");
             }
-
-            //CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
-
-            // We need "." instead of "," while saving float numbers
-            // Also client data is "." based float digit numbers
-            CultureInfo.CurrentCulture = new CultureInfo("en-US");
-
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
-            Application.Run(new SplashScreen());
         }
+
+        //CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+
+        // We need "." instead of "," while saving float numbers
+        // Also client data is "." based float digit numbers
+        CultureInfo.CurrentCulture = new CultureInfo("en-US");
+
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+        Application.EnableVisualStyles();
+        Application.SetCompatibleTextRenderingDefault(false);
+        Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
+        Application.Run(new SplashScreen());
     }
 }

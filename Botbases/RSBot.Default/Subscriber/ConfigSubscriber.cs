@@ -1,35 +1,34 @@
 ﻿using RSBot.Default.Bundle;
 using RSBot.Core.Event;
 
-namespace RSBot.Default.Subscriber
+namespace RSBot.Default.Subscriber;
+
+internal class ConfigSubscriber
 {
-    internal class ConfigSubscriber
+    /// <summary>
+    /// Subscribes the events.
+    /// </summary>
+    public static void SubscribeEvents()
     {
-        /// <summary>
-        /// Subscribes the events.
-        /// </summary>
-        public static void SubscribeEvents()
+        EventManager.SubscribeEvent("OnEnterGame", ReloadSettings);
+        EventManager.SubscribeEvent("OnSavePlayerConfig", ReloadSettings);
+    }
+
+    /// <summary>
+    /// Configurations the subscriber on save player settings.
+    /// </summary>
+    private static void ReloadSettings()
+    {
+        if (Container.Lock == null || Container.Bot == null)
+            return;
+
+        lock (Container.Lock)
         {
-            EventManager.SubscribeEvent("OnEnterGame", ReloadSettings);
-            EventManager.SubscribeEvent("OnSavePlayerConfig", ReloadSettings);
-        }
+            //Reload the botbase config
+            Container.Bot.Reload();
 
-        /// <summary>
-        /// Configurations the subscriber on save player settings.
-        /// </summary>
-        private static void ReloadSettings()
-        {
-            if (Container.Lock == null || Container.Bot == null)
-                return;
-
-            lock (Container.Lock)
-            {
-                //Reload the botbase config
-                Container.Bot.Reload();
-
-                //Reload all bundles to apply the new configuration
-                Bundles.Reload();
-            }
+            //Reload all bundles to apply the new configuration
+            Bundles.Reload();
         }
     }
 }

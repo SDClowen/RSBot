@@ -1,27 +1,26 @@
 ﻿using System.Collections.Generic;
 
-namespace RSBot.Core.Client.ReferenceObjects
+namespace RSBot.Core.Client.ReferenceObjects;
+
+public class Division
 {
-    public class Division
-    {
-        #region Fields
+    #region Fields
 
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
-        public string Name;
+    /// <summary>
+    /// Gets or sets the name.
+    /// </summary>
+    /// <value>
+    /// The name.
+    /// </value>
+    public string Name;
 
-        /// <summary>
-        /// Gets or sets the login servers.
-        /// </summary>
-        /// <value>
-        /// The login servers.
-        /// </value>
-        public List<string> GatewayServers;
+    /// <summary>
+    /// Gets or sets the login servers.
+    /// </summary>
+    /// <value>
+    /// The login servers.
+    /// </value>
+    public List<string> GatewayServers;
 
-        #endregion Fields
-    }
+    #endregion Fields
 }

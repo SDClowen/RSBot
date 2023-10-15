@@ -1,8 +1,7 @@
-﻿namespace RSBot.Core.Objects
+﻿namespace RSBot.Core.Objects;
+
+public enum BattleState
 {
-    public enum BattleState
-    {
-        InPeace = 0,
-        InBattle = 1,
-    }
+    InPeace = 0,
+    InBattle = 1,
 }

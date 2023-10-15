@@ -1,39 +1,38 @@
-﻿namespace RSBot.Core.Client.ReferenceObjects
+﻿namespace RSBot.Core.Client.ReferenceObjects;
+
+public class RefLevel : IReference<byte>
 {
-    public class RefLevel : IReference<byte>
+    #region Fields
+
+    public byte Level;
+    public long Exp_C;
+    public int Exp_M;
+    /*public int Cost_M;
+    public int Cost_ST;
+    public int GUST_Mob_Exp;
+    public int JobExp_Trader;
+    public int JobExp_Robber;
+    public int JobExp_Hunter;*/
+    public long Exp_C_Pet2;
+    public int StoredSp_Pet2;
+    #endregion Fields
+
+    public byte PrimaryKey => Level;
+
+    public bool Load(ReferenceParser parser)
     {
-        #region Fields
+        if (!parser.TryParse(0, out Level))
+            return false;
 
-        public byte Level;
-        public long Exp_C;
-        public int Exp_M;
-        /*public int Cost_M;
-        public int Cost_ST;
-        public int GUST_Mob_Exp;
-        public int JobExp_Trader;
-        public int JobExp_Robber;
-        public int JobExp_Hunter;*/
-        public long Exp_C_Pet2;
-        public int StoredSp_Pet2;
-        #endregion Fields
+        parser.TryParse(1, out Exp_C);
+        parser.TryParse(2, out Exp_M);
 
-        public byte PrimaryKey => Level;
-
-        public bool Load(ReferenceParser parser)
+        if (Game.ClientType >= GameClientType.Chinese)
         {
-            if (!parser.TryParse(0, out Level))
-                return false;
-
-            parser.TryParse(1, out Exp_C);
-            parser.TryParse(2, out Exp_M);
-
-            if (Game.ClientType >= GameClientType.Chinese)
-            {
-                parser.TryParse(9, out Exp_C_Pet2);
-                parser.TryParse(10, out StoredSp_Pet2);
-            }
-
-            return true;
+            parser.TryParse(9, out Exp_C_Pet2);
+            parser.TryParse(10, out StoredSp_Pet2);
         }
+
+        return true;
     }
 }

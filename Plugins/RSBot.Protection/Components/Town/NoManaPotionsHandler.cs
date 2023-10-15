@@ -4,58 +4,57 @@ using RSBot.Core.Objects;
 using System.Linq;
 using RSBot.Core.Components;
 
-namespace RSBot.Protection.Components.Town
+namespace RSBot.Protection.Components.Town;
+
+public class NoManaPotionsHandler : AbstractTownHandler
 {
-    public class NoManaPotionsHandler : AbstractTownHandler
+    /// <summary>
+    /// Initializes this instance.
+    /// </summary>
+    public static void Initialize()
     {
-        /// <summary>
-        /// Initializes this instance.
-        /// </summary>
-        public static void Initialize()
-        {
-            SubscribeEvents();
-        }
+        SubscribeEvents();
+    }
 
-        /// <summary>
-        /// Subscribes the events.
-        /// </summary>
-        private static void SubscribeEvents()
-        {
-            EventManager.SubscribeEvent("OnUseItem", new System.Action<byte>(OnUseItem));
-            EventManager.SubscribeEvent("OnStartBot", OnStartBot);
-        }
+    /// <summary>
+    /// Subscribes the events.
+    /// </summary>
+    private static void SubscribeEvents()
+    {
+        EventManager.SubscribeEvent("OnUseItem", new System.Action<byte>(OnUseItem));
+        EventManager.SubscribeEvent("OnStartBot", OnStartBot);
+    }
 
-        private static void OnStartBot()
-        {
-            //Check if we need to return to town right after the bot started.
+    private static void OnStartBot()
+    {
+        //Check if we need to return to town right after the bot started.
+        CheckForMpPotions();
+    }
+
+    /// <summary>
+    /// Cores the on use item.
+    /// </summary>
+    private static void OnUseItem(byte slot)
+    {
+        if (Kernel.Bot.Running) 
             CheckForMpPotions();
-        }
-
-        /// <summary>
-        /// Cores the on use item.
-        /// </summary>
-        private static void OnUseItem(byte slot)
-        {
-            if (Kernel.Bot.Running) 
-                CheckForMpPotions();
  
-        }
+    }
 
-        private static void CheckForMpPotions()
-        {
-            if (!PlayerConfig.Get<bool>("RSBot.Protection.checkNoMPPotions"))
-                return;
+    private static void CheckForMpPotions()
+    {
+        if (!PlayerConfig.Get<bool>("RSBot.Protection.checkNoMPPotions"))
+            return;
             
-            if (PlayerInTownScriptRegion())
-                return;
+        if (PlayerInTownScriptRegion())
+            return;
 
-            var typeIdFilter = new TypeIdFilter(3, 3, 1, 2);
-            if (Game.Player.Inventory.GetSumAmount(typeIdFilter) > 0)
-                return;
+        var typeIdFilter = new TypeIdFilter(3, 3, 1, 2);
+        if (Game.Player.Inventory.GetSumAmount(typeIdFilter) > 0)
+            return;
 
-            Game.Player.UseReturnScroll();
+        Game.Player.UseReturnScroll();
 
-            Log.WarnLang("ReturnToTownNoMana");
-        }
+        Log.WarnLang("ReturnToTownNoMana");
     }
 }

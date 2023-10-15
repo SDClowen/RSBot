@@ -1,50 +1,49 @@
-﻿namespace RSBot.Core.Client.ReferenceObjects
+﻿namespace RSBot.Core.Client.ReferenceObjects;
+
+public class RefQuest : IReference<uint>
 {
-    public class RefQuest : IReference<uint>
+    #region Fields
+
+    public byte Service;
+    public uint ID;
+    public string CodeName;
+    public byte Level;
+    public string DescName;
+    public string NameString;
+    public string PayString;
+    public string ContentsString;
+    public string PayContents;
+    public string NoticeNPC;
+    public string NoticeCondition;
+
+    #endregion Fields
+
+    public uint PrimaryKey => ID;
+
+    public bool Load(ReferenceParser parser)
     {
-        #region Fields
+        //Skip disabled
+        if (!parser.TryParse(0, out Service) || Service == 0)
+            return false;
 
-        public byte Service;
-        public uint ID;
-        public string CodeName;
-        public byte Level;
-        public string DescName;
-        public string NameString;
-        public string PayString;
-        public string ContentsString;
-        public string PayContents;
-        public string NoticeNPC;
-        public string NoticeCondition;
+        //Skip invalid ID (PK)
+        if (!parser.TryParse(1, out ID))
+            return false;
 
-        #endregion Fields
+        //Skip invalid CodeName
+        if (!parser.TryParse(2, out CodeName))
+            return false;
 
-        public uint PrimaryKey => ID;
+        parser.TryParse(3, out Level);
+        parser.TryParse(4, out DescName);
+        parser.TryParse(5, out NameString);
+        parser.TryParse(6, out PayString);
+        parser.TryParse(7, out ContentsString);
+        parser.TryParse(8, out PayContents);
+        parser.TryParse(9, out NoticeNPC);
+        parser.TryParse(10, out NoticeCondition);
 
-        public bool Load(ReferenceParser parser)
-        {
-            //Skip disabled
-            if (!parser.TryParse(0, out Service) || Service == 0)
-                return false;
-
-            //Skip invalid ID (PK)
-            if (!parser.TryParse(1, out ID))
-                return false;
-
-            //Skip invalid CodeName
-            if (!parser.TryParse(2, out CodeName))
-                return false;
-
-            parser.TryParse(3, out Level);
-            parser.TryParse(4, out DescName);
-            parser.TryParse(5, out NameString);
-            parser.TryParse(6, out PayString);
-            parser.TryParse(7, out ContentsString);
-            parser.TryParse(8, out PayContents);
-            parser.TryParse(9, out NoticeNPC);
-            parser.TryParse(10, out NoticeCondition);
-
-            return true;
-        }
+        return true;
     }
 }
 

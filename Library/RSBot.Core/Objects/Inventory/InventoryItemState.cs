@@ -1,10 +1,9 @@
-﻿namespace RSBot.Core.Objects
+﻿namespace RSBot.Core.Objects;
+
+public enum InventoryItemState
 {
-    public enum InventoryItemState
-    {
-        Inactive = 1,
-        Summoned = 2,
-        Active = 3,
-        Dead = 4
-    }
+    Inactive = 1,
+    Summoned = 2,
+    Active = 3,
+    Dead = 4
 }

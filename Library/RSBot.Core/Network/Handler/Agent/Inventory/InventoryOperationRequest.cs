@@ -2,88 +2,87 @@
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Inventory;
 
-namespace RSBot.Core.Network.Handler.Agent.Inventory
+namespace RSBot.Core.Network.Handler.Agent.Inventory;
+
+internal class InventoryOperationRequest : IPacketHandler
 {
-    internal class InventoryOperationRequest : IPacketHandler
+    /// <summary>
+    /// Gets or sets the opcode.
+    /// </summary>
+    /// <value>
+    /// The opcode.
+    /// </value>
+    public ushort Opcode => 0xB034;
+
+    /// <summary>
+    /// Gets or sets the destination.
+    /// </summary>
+    /// <value>
+    /// The destination.
+    /// </value>
+    public PacketDestination Destination => PacketDestination.Client;
+
+    /// <summary>
+    /// Handles the packet.
+    /// </summary>
+    /// <param name="packet">The packet.</param>
+    public void Invoke(Packet packet)
     {
-        /// <summary>
-        /// Gets or sets the opcode.
-        /// </summary>
-        /// <value>
-        /// The opcode.
-        /// </value>
-        public ushort Opcode => 0xB034;
+        if (packet.ReadByte() != 1)
+            return;
 
-        /// <summary>
-        /// Gets or sets the destination.
-        /// </summary>
-        /// <value>
-        /// The destination.
-        /// </value>
-        public PacketDestination Destination => PacketDestination.Client;
-
-        /// <summary>
-        /// Handles the packet.
-        /// </summary>
-        /// <param name="packet">The packet.</param>
-        public void Invoke(Packet packet)
+        var operation = (InventoryOperation)packet.ReadByte();
+        switch (operation)
         {
-            if (packet.ReadByte() != 1)
-                return;
+            case InventoryOperation.SP_BUY_ITEM:
 
-            var operation = (InventoryOperation)packet.ReadByte();
-            switch (operation)
-            {
-                case InventoryOperation.SP_BUY_ITEM:
+                var tab = packet.ReadByte();
+                var slot = packet.ReadByte();
+                var quantity = packet.ReadUShort();
+                var npcUniqueId = packet.ReadUInt();
 
-                    var tab = packet.ReadByte();
-                    var slot = packet.ReadByte();
-                    var quantity = packet.ReadUShort();
-                    var npcUniqueId = packet.ReadUInt();
+                EventManager.FireEvent("OnBuyItemRequest", tab, slot, quantity, npcUniqueId);
 
-                    EventManager.FireEvent("OnBuyItemRequest", tab, slot, quantity, npcUniqueId);
+                break;
 
-                    break;
+            case InventoryOperation.SP_SELL_ITEM:
 
-                case InventoryOperation.SP_SELL_ITEM:
+                slot = packet.ReadByte();
+                quantity = packet.ReadUShort();
+                npcUniqueId = packet.ReadUInt();
 
-                    slot = packet.ReadByte();
-                    quantity = packet.ReadUShort();
-                    npcUniqueId = packet.ReadUInt();
+                EventManager.FireEvent("OnSellItemRequest", slot, quantity, npcUniqueId);
 
-                    EventManager.FireEvent("OnSellItemRequest", slot, quantity, npcUniqueId);
+                break;
 
-                    break;
+            case InventoryOperation.SP_BUY_ITEM_COS:
 
-                case InventoryOperation.SP_BUY_ITEM_COS:
+                var cosUniqueId = packet.ReadUInt();
+                if (Game.Player.Transport?.UniqueId != cosUniqueId)
+                    return;
 
-                    var cosUniqueId = packet.ReadUInt();
-                    if (Game.Player.Transport?.UniqueId != cosUniqueId)
-                        return;
+                tab = packet.ReadByte();
+                slot = packet.ReadByte();
+                quantity = packet.ReadUShort();
+                npcUniqueId = packet.ReadUInt();
 
-                    tab = packet.ReadByte();
-                    slot = packet.ReadByte();
-                    quantity = packet.ReadUShort();
-                    npcUniqueId = packet.ReadUInt();
+                EventManager.FireEvent("OnBuyItemToCosRequest", tab, slot, quantity, npcUniqueId);
 
-                    EventManager.FireEvent("OnBuyItemToCosRequest", tab, slot, quantity, npcUniqueId);
+                break;
 
-                    break;
+            case InventoryOperation.SP_SELL_ITEM_COS:
 
-                case InventoryOperation.SP_SELL_ITEM_COS:
+                cosUniqueId = packet.ReadUInt();
+                if (Game.Player.Transport?.UniqueId != cosUniqueId)
+                    return;
 
-                    cosUniqueId = packet.ReadUInt();
-                    if (Game.Player.Transport?.UniqueId != cosUniqueId)
-                        return;
+                slot = packet.ReadByte();
+                quantity = packet.ReadUShort();
+                npcUniqueId = packet.ReadUInt();
 
-                    slot = packet.ReadByte();
-                    quantity = packet.ReadUShort();
-                    npcUniqueId = packet.ReadUInt();
+                EventManager.FireEvent("OnSellItemFromCosRequest", slot, quantity, npcUniqueId);
 
-                    EventManager.FireEvent("OnSellItemFromCosRequest", slot, quantity, npcUniqueId);
-
-                    break;
-            }
+                break;
         }
     }
 }

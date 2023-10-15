@@ -1,23 +1,22 @@
 ﻿using RSBot.Core.Event;
 
-namespace RSBot.Core.Network.Handler.Agent.Exchange
+namespace RSBot.Core.Network.Handler.Agent.Exchange;
+
+internal class ExchangeCanceledResponse : IPacketHandler
 {
-    internal class ExchangeCanceledResponse : IPacketHandler
+    /// <inheritdoc />
+    public ushort Opcode => 0x3088;
+
+    /// <inheritdoc />
+    public PacketDestination Destination => PacketDestination.Client;
+
+    /// <inheritdoc />
+    public void Invoke(Packet packet)
     {
-        /// <inheritdoc />
-        public ushort Opcode => 0x3088;
+        Game.Player.Exchange = null;
 
-        /// <inheritdoc />
-        public PacketDestination Destination => PacketDestination.Client;
+        Log.Notify("Exchange has been canceled.");
 
-        /// <inheritdoc />
-        public void Invoke(Packet packet)
-        {
-            Game.Player.Exchange = null;
-
-            Log.Notify("Exchange has been canceled.");
-
-            EventManager.FireEvent("OnCancelExchange");
-        }
+        EventManager.FireEvent("OnCancelExchange");
     }
 }

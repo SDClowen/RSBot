@@ -3,40 +3,39 @@ using RSBot.Core.Extensions;
 using RSBot.Core.Network;
 using RSBot.Core.Objects.Party;
 
-namespace RSBot.Party.Bundle.PartyMatching.Network
+namespace RSBot.Party.Bundle.PartyMatching.Network;
+
+internal class PartyMatchingChangeResponse : IPacketHandler
 {
-    internal class PartyMatchingChangeResponse : IPacketHandler
+    /// <summary>
+    /// Gets or sets the opcode.
+    /// </summary>
+    /// <value>The opcode.</value>
+    public ushort Opcode => 0xB06A;
+
+    /// <summary>
+    /// Gets or sets the destination.
+    /// </summary>
+    /// <value>The destination.</value>
+    public PacketDestination Destination => PacketDestination.Client;
+
+    /// <summary>
+    /// Handles the packet.
+    /// </summary>
+    /// <param name="packet">The packet.</param>
+    public void Invoke(Packet packet)
     {
-        /// <summary>
-        /// Gets or sets the opcode.
-        /// </summary>
-        /// <value>The opcode.</value>
-        public ushort Opcode => 0xB06A;
+        if (packet.ReadByte() != 0x01) return;
 
-        /// <summary>
-        /// Gets or sets the destination.
-        /// </summary>
-        /// <value>The destination.</value>
-        public PacketDestination Destination => PacketDestination.Client;
+        Container.PartyMatching.Id = packet.ReadUInt();
+        packet.ReadUInt();
 
-        /// <summary>
-        /// Handles the packet.
-        /// </summary>
-        /// <param name="packet">The packet.</param>
-        public void Invoke(Packet packet)
-        {
-            if (packet.ReadByte() != 0x01) return;
+        Game.Party.Settings = PartySettings.FromType(packet.ReadByte());
+        Container.PartyMatching.Config.Purpose = (PartyPurpose)packet.ReadByte();
+        Container.PartyMatching.Config.LevelFrom = packet.ReadByte();
+        Container.PartyMatching.Config.LevelTo = packet.ReadByte();
+        Container.PartyMatching.Config.Title = packet.ReadConditonalString();
 
-            Container.PartyMatching.Id = packet.ReadUInt();
-            packet.ReadUInt();
-
-            Game.Party.Settings = PartySettings.FromType(packet.ReadByte());
-            Container.PartyMatching.Config.Purpose = (PartyPurpose)packet.ReadByte();
-            Container.PartyMatching.Config.LevelFrom = packet.ReadByte();
-            Container.PartyMatching.Config.LevelTo = packet.ReadByte();
-            Container.PartyMatching.Config.Title = packet.ReadConditonalString();
-
-            Core.Event.EventManager.FireEvent("OnChangePartyEntry");
-        }
+        Core.Event.EventManager.FireEvent("OnChangePartyEntry");
     }
 }

@@ -5,63 +5,62 @@ using RSBot.Core.Objects;
 using RSBot.Core.Plugins;
 using System.Windows.Forms;
 
-namespace RSBot.Alchemy
+namespace RSBot.Alchemy;
+
+public class Bootstrap : IBotbase
 {
-    public class Bootstrap : IBotbase
+    private static string _name = "RSBot.Alchemy";
+
+    public string Name => _name;
+
+    public string DisplayName => "Alchemy";
+
+    public string TabText => DisplayName;
+
+    public Area Area => new();
+
+    public static bool IsActive => Kernel.Bot.Running && Kernel.Bot.Botbase.Name == _name;
+
+    public Control View => Globals.View;
+
+    public void Initialize()
     {
-        private static string _name = "RSBot.Alchemy";
+        AlchemyEventsSubscriber.Subscribe();
+        Globals.Botbase = new();
 
-        public string Name => _name;
+        Log.AppendFormat(LogLevel.Notify, "[Alchemy] Initialized botbase");
+    }
 
-        public string DisplayName => "Alchemy";
+    public void Start()
+    {
+        Globals.Botbase?.Start();
 
-        public string TabText => DisplayName;
+        Log.AppendFormat(LogLevel.Debug, "[Alchemy] Starting automated alchemy...");
+    }
 
-        public Area Area => new();
+    public void Stop()
+    {
+        if (Globals.Botbase != null)
+            Globals.Botbase.Stop();
 
-        public static bool IsActive => Kernel.Bot.Running && Kernel.Bot.Botbase.Name == _name;
+        Log.AppendFormat(LogLevel.Debug, "[Alchemy] Stopped automated alchemy");
+    }
 
-        public Control View => Globals.View;
+    public void Register()
+    {
+        Initialize();
 
-        public void Initialize()
-        {
-            AlchemyEventsSubscriber.Subscribe();
-            Globals.Botbase = new();
+        Log.Debug("[Alchemy] Botbase registered to the kernel!");
+    }
 
-            Log.AppendFormat(LogLevel.Notify, "[Alchemy] Initialized botbase");
-        }
+    public void Tick()
+    {
+        if (!Globals.View.IsRefreshing && !AlchemyManager.IsFusing)
+            Globals.Botbase.Tick();
+    }
 
-        public void Start()
-        {
-            Globals.Botbase?.Start();
-
-            Log.AppendFormat(LogLevel.Debug, "[Alchemy] Starting automated alchemy...");
-        }
-
-        public void Stop()
-        {
-            if (Globals.Botbase != null)
-                Globals.Botbase.Stop();
-
-            Log.AppendFormat(LogLevel.Debug, "[Alchemy] Stopped automated alchemy");
-        }
-
-        public void Register()
-        {
-            Initialize();
-
-            Log.Debug("[Alchemy] Botbase registered to the kernel!");
-        }
-
-        public void Tick()
-        {
-            if (!Globals.View.IsRefreshing && !AlchemyManager.IsFusing)
-                Globals.Botbase.Tick();
-        }
-
-        public void Translate()
-        {
-            LanguageManager.Translate(View, Kernel.Language);
-        }
+    public void Translate()
+    {
+        LanguageManager.Translate(View, Kernel.Language);
     }
 }

@@ -2,36 +2,35 @@
 using RSBot.Core.Network;
 using System;
 
-namespace RSBot.General.PacketHandler
+namespace RSBot.General.PacketHandler;
+
+public class GlobalSecondaryPasswordResponse : IPacketHandler
 {
-    public class GlobalSecondaryPasswordResponse : IPacketHandler
+    public ushort Opcode => 0xA117;
+
+    public PacketDestination Destination => PacketDestination.Client;
+
+    public void Invoke(Packet packet)
     {
-        public ushort Opcode => 0xA117;
+        var type = packet.ReadByte();
+        if (type != 4)
+            return;
 
-        public PacketDestination Destination => PacketDestination.Client;
-
-        public void Invoke(Packet packet)
+        var result = packet.ReadByte();
+        if(result == 1)
         {
-            var type = packet.ReadByte();
-            if (type != 4)
-                return;
+            Log.NotifyLang("SecondaryPwSuccess");
+            return;
+        }
 
-            var result = packet.ReadByte();
-            if(result == 1)
-            {
-                Log.NotifyLang("SecondaryPwSuccess");
-                return;
-            }
-
-            var errorCode = packet.ReadByte();
-            switch (errorCode)
-            {
-                case 1:
-                    Log.NotifyLang("SecondaryPwWrong");
-                    break;
-                default:
-                    break;
-            }
+        var errorCode = packet.ReadByte();
+        switch (errorCode)
+        {
+            case 1:
+                Log.NotifyLang("SecondaryPwWrong");
+                break;
+            default:
+                break;
         }
     }
 }

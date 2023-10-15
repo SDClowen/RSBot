@@ -3,80 +3,79 @@ using RSBot.Core.Components;
 using RSBot.Core.Network;
 using System.Windows.Forms;
 
-namespace RSBot.General.PacketHandler
+namespace RSBot.General.PacketHandler;
+
+public class GatewayPatchResponse : IPacketHandler
 {
-    public class GatewayPatchResponse : IPacketHandler
+    /// <summary>
+    /// Gets or sets the opcode.
+    /// </summary>
+    /// <value>
+    /// The opcode.
+    /// </value>
+    public ushort Opcode => 0xA100;
+
+    /// <summary>
+    /// Gets or sets the destination.
+    /// </summary>
+    /// <value>
+    /// The destination.
+    /// </value>
+    public PacketDestination Destination => PacketDestination.Client;
+
+    /// <summary>
+    /// Handles the packet.
+    /// </summary>
+    /// <param name="packet">The packet.</param>
+    public void Invoke(Packet packet)
     {
-        /// <summary>
-        /// Gets or sets the opcode.
-        /// </summary>
-        /// <value>
-        /// The opcode.
-        /// </value>
-        public ushort Opcode => 0xA100;
-
-        /// <summary>
-        /// Gets or sets the destination.
-        /// </summary>
-        /// <value>
-        /// The destination.
-        /// </value>
-        public PacketDestination Destination => PacketDestination.Client;
-
-        /// <summary>
-        /// Handles the packet.
-        /// </summary>
-        /// <param name="packet">The packet.</param>
-        public void Invoke(Packet packet)
+        if (packet.ReadByte() == 0x01)
         {
-            if (packet.ReadByte() == 0x01)
-            {
-                Log.NotifyLang("NoPatchRequired");
+            Log.NotifyLang("NoPatchRequired");
 
-                if(Game.Clientless)
-                    ClientlessManager.RequestServerList();
+            if(Game.Clientless)
+                ClientlessManager.RequestServerList();
+        }
+        else
+        {
+            var flag = packet.ReadByte(); //Error code;
+
+            if (flag == 2)
+            {
+                packet.ReadString(); //DLServer IP
+                packet.ReadUShort(); //DLServer Port
+                var version = packet.ReadInt();
+                Log.WarnLang("ClientUpdateWarn", Game.ReferenceManager.VersionInfo.Version, version);
             }
-            else
+
+            var title = string.Empty;
+            var message = string.Empty;
+
+            switch (flag)
             {
-                var flag = packet.ReadByte(); //Error code;
+                case 2:
 
-                if (flag == 2)
-                {
-                    packet.ReadString(); //DLServer IP
-                    packet.ReadUShort(); //DLServer Port
-                    var version = packet.ReadInt();
-                    Log.WarnLang("ClientUpdateWarn", Game.ReferenceManager.VersionInfo.Version, version);
-                }
+                    title = LanguageManager.GetLang("PatchMsgBoxTitle2");
+                    message = LanguageManager.GetLang("PatchMsgBoxContent2");
+                    MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                var title = string.Empty;
-                var message = string.Empty;
+                    break;
 
-                switch (flag)
-                {
-                    case 2:
+                case 1:
 
-                        title = LanguageManager.GetLang("PatchMsgBoxTitle2");
-                        message = LanguageManager.GetLang("PatchMsgBoxContent2");
-                        MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    title = LanguageManager.GetLang("PatchMsgBoxTitle1");
+                    message = LanguageManager.GetLang("PatchMsgBoxContent1");
 
-                        break;
+                    MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
 
-                    case 1:
+                default:
 
-                        title = LanguageManager.GetLang("PatchMsgBoxTitle1");
-                        message = LanguageManager.GetLang("PatchMsgBoxContent1");
+                    title = LanguageManager.GetLang("PatchMsgBoxTitle");
+                    message = LanguageManager.GetLang("PatchMsgBoxContent");
 
-                        MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
-
-                    default:
-
-                        title = LanguageManager.GetLang("PatchMsgBoxTitle");
-                        message = LanguageManager.GetLang("PatchMsgBoxContent");
-
-                        MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
-                }
+                    MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
             }
         }
     }

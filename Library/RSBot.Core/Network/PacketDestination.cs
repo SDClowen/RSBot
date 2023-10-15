@@ -1,8 +1,7 @@
-﻿namespace RSBot.Core.Network
+﻿namespace RSBot.Core.Network;
+
+public enum PacketDestination
 {
-    public enum PacketDestination
-    {
-        Server = 1,
-        Client = 2
-    }
+    Server = 1,
+    Client = 2
 }

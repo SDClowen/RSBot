@@ -3,118 +3,117 @@ using RSBot.Core.Objects;
 using RSBot.Core.Objects.Party;
 using System.Linq;
 
-namespace RSBot.Core.Network.Handler.Agent.Party
+namespace RSBot.Core.Network.Handler.Agent.Party;
+
+internal class PartyUpdateResponse : IPacketHandler
 {
-    internal class PartyUpdateResponse : IPacketHandler
+    /// <summary>
+    /// Gets or sets the opcode.
+    /// </summary>
+    /// <value>
+    /// The opcode.
+    /// </value>
+    public ushort Opcode => 0x3864;
+
+    /// <summary>
+    /// Gets or sets the destination.
+    /// </summary>
+    /// <value>
+    /// The destination.
+    /// </value>
+    public PacketDestination Destination => PacketDestination.Client;
+
+    /// <summary>
+    /// Handles the packet.
+    /// </summary>
+    /// <param name="packet">The packet.</param>
+    public void Invoke(Packet packet)
     {
-        /// <summary>
-        /// Gets or sets the opcode.
-        /// </summary>
-        /// <value>
-        /// The opcode.
-        /// </value>
-        public ushort Opcode => 0x3864;
+        PartyUpdateResponseCommon(packet);
+    }
 
-        /// <summary>
-        /// Gets or sets the destination.
-        /// </summary>
-        /// <value>
-        /// The destination.
-        /// </value>
-        public PacketDestination Destination => PacketDestination.Client;
+    public static void PartyUpdateResponseCommon(Packet packet) 
+    {
+        var type = (PartyUpdateType)packet.ReadByte();
 
-        /// <summary>
-        /// Handles the packet.
-        /// </summary>
-        /// <param name="packet">The packet.</param>
-        public void Invoke(Packet packet)
+        switch (type)
         {
-            PartyUpdateResponseCommon(packet);
-        }
+            case PartyUpdateType.Dismissed:
+                Game.Party.Clear();
+                EventManager.FireEvent("OnPartyDismiss");
+                break;
 
-        public static void PartyUpdateResponseCommon(Packet packet) 
-        {
-            var type = (PartyUpdateType)packet.ReadByte();
+            case PartyUpdateType.Joined:
+                var memberJoined = PartyMember.FromPacket(packet);
+                Game.Party.Members?.Add(memberJoined);
+                EventManager.FireEvent("OnPartyMemberJoin", memberJoined);
+                break;
 
-            switch (type)
-            {
-                case PartyUpdateType.Dismissed:
-                    Game.Party.Clear();
+            case PartyUpdateType.Leave:
+                var memberLeft = Game.Party.GetMemberById(packet.ReadUInt());
+                Game.Party.Members.Remove(memberLeft);
+                /*
+                    0x03 => ????
+                 */
+                if (packet.ReadByte() == 0x04)
+                    EventManager.FireEvent("OnPartyMemberBanned", memberLeft);
+                else if (memberLeft.Name == Game.Player.Name)
+                {
                     EventManager.FireEvent("OnPartyDismiss");
-                    break;
+                    Game.Party.Clear();
+                }
+                else
+                    EventManager.FireEvent("OnPartyMemberLeave", memberLeft);
 
-                case PartyUpdateType.Joined:
-                    var memberJoined = PartyMember.FromPacket(packet);
-                    Game.Party.Members?.Add(memberJoined);
-                    EventManager.FireEvent("OnPartyMemberJoin", memberJoined);
-                    break;
+                break;
 
-                case PartyUpdateType.Leave:
-                    var memberLeft = Game.Party.GetMemberById(packet.ReadUInt());
-                    Game.Party.Members.Remove(memberLeft);
-                    /*
-                        0x03 => ????
-                     */
-                    if (packet.ReadByte() == 0x04)
-                        EventManager.FireEvent("OnPartyMemberBanned", memberLeft);
-                    else if (memberLeft.Name == Game.Player.Name)
-                    {
-                        EventManager.FireEvent("OnPartyDismiss");
-                        Game.Party.Clear();
-                    }
-                    else
-                        EventManager.FireEvent("OnPartyMemberLeave", memberLeft);
+            case PartyUpdateType.Member:
+                var memberId = packet.ReadUInt();
+                var member = Game.Party.GetMemberById(memberId);
+                var memberUpdateType = (PartyMemberUpdateType)packet.ReadByte();
 
-                    break;
+                switch (memberUpdateType)
+                {
+                    case PartyMemberUpdateType.NameRefObjID:
+                        member.Name = packet.ReadString();
+                        member.ObjectId = packet.ReadUInt();
+                        break;
 
-                case PartyUpdateType.Member:
-                    var memberId = packet.ReadUInt();
-                    var member = Game.Party.GetMemberById(memberId);
-                    var memberUpdateType = (PartyMemberUpdateType)packet.ReadByte();
+                    case PartyMemberUpdateType.HPMP:
+                        member.HealthMana = packet.ReadByte(); //0-A|0-A -> 0%-100%|0%-100%
+                        break;
 
-                    switch (memberUpdateType)
-                    {
-                        case PartyMemberUpdateType.NameRefObjID:
-                            member.Name = packet.ReadString();
-                            member.ObjectId = packet.ReadUInt();
-                            break;
+                    case PartyMemberUpdateType.Mastery:
+                        member.MasteryId1 = packet.ReadUInt();
+                        member.MasteryId2 = packet.ReadUInt();
+                        break;
 
-                        case PartyMemberUpdateType.HPMP:
-                            member.HealthMana = packet.ReadByte(); //0-A|0-A -> 0%-100%|0%-100%
-                            break;
+                    case PartyMemberUpdateType.Level:
+                        member.Level = packet.ReadByte();
+                        break;
 
-                        case PartyMemberUpdateType.Mastery:
-                            member.MasteryId1 = packet.ReadUInt();
-                            member.MasteryId2 = packet.ReadUInt();
-                            break;
+                    case PartyMemberUpdateType.Position:
 
-                        case PartyMemberUpdateType.Level:
-                            member.Level = packet.ReadByte();
-                            break;
+                        member.Position = Position.FromPacketConditional(packet);
 
-                        case PartyMemberUpdateType.Position:
+                        break;
 
-                            member.Position = Position.FromPacketConditional(packet);
+                    case PartyMemberUpdateType.Guild:
+                        member.Guild = packet.ReadString();
+                        break;
+                }
 
-                            break;
+                EventManager.FireEvent("OnPartyMemberUpdate", member);
+                break;
 
-                        case PartyMemberUpdateType.Guild:
-                            member.Guild = packet.ReadString();
-                            break;
-                    }
+            case PartyUpdateType.Leader:
+                Game.Party.Leader = Game.Party.GetMemberById(packet.ReadUInt());
+                EventManager.FireEvent("OnPartyLeaderChange");
+                break;
 
-                    EventManager.FireEvent("OnPartyMemberUpdate", member);
-                    break;
-
-                case PartyUpdateType.Leader:
-                    Game.Party.Leader = Game.Party.GetMemberById(packet.ReadUInt());
-                    EventManager.FireEvent("OnPartyLeaderChange");
-                    break;
-
-                default:
-                    Log.Debug($"Unknow party type:{type} opcode: {packet.Opcode}");
-                    break;
-            }
+            default:
+                Log.Debug($"Unknow party type:{type} opcode: {packet.Opcode}");
+                break;
         }
     }
 }
