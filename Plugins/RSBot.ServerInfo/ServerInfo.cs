@@ -11,7 +11,7 @@ public class ServerInfo : IPlugin
     public string InternalName => "RSBot.ServerInfo";
 
     /// <inheritdoc />
-    public string DisplayName => "Server Informations";
+    public string DisplayName => "Server Information";
 
     /// <inheritdoc />
     public bool DisplayAsTab => false;
@@ -25,7 +25,7 @@ public class ServerInfo : IPlugin
     /// <inheritdoc />
     public void Initialize()
     {
-        Log.Notify("[Server Informations] Plugin initialized!");
+        Log.Notify("[Server Information] Plugin initialized!");
     }
 
     /// <inheritdoc />

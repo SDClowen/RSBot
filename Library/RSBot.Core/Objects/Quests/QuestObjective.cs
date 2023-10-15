@@ -3,8 +3,8 @@
     public struct QuestObjective
     {
         public byte Id;
-        public byte State;
-        public string CharacterName;
+        public bool InProgress;
+        public string NameStrId;
         public uint[] Tasks;
     }
 }

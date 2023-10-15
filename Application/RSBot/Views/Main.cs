@@ -9,6 +9,7 @@ using SDUI;
 using SDUI.Controls;
 using SDUI.Helpers;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
@@ -34,6 +35,8 @@ namespace RSBot.Views
         /// </summary>
         private string _playerName;
 
+
+        private Dictionary<string, UIWindow> _pluginWindows = new(8);
         #endregion Members
 
         #region Constructor
@@ -112,6 +115,12 @@ namespace RSBot.Views
             EventManager.SubscribeEvent("OnStopBot", OnStopBot);
             EventManager.SubscribeEvent("OnAgentServerDisconnected", OnAgentServerDisconnected);
             EventManager.SubscribeEvent("OnShowScriptRecorder", new Action<int, bool>(OnShowScriptRecorder));
+            EventManager.SubscribeEvent("OnAddSidebarElement", new Action<Control>(OnAddSidebarElement));
+        }
+
+        private void OnAddSidebarElement(Control obj)
+        {
+            pSidebarCustom.Controls.Add(obj);
         }
 
         private void OnShowScriptRecorder(int ownerId, bool startRecording)
@@ -297,25 +306,34 @@ namespace RSBot.Views
             var menuItem = (ToolStripMenuItem)sender;
             var plugin = (IPlugin)menuItem.Tag;
 
-            var window = new UIWindow
+            if (!_pluginWindows.TryGetValue(plugin.InternalName, out var pluginWindow) || pluginWindow.IsDisposed)
             {
-                Text = plugin.DisplayName,
-                Name = plugin.InternalName,
-                MaximizeBox = false,
-                FormBorderStyle = FormBorderStyle.FixedDialog,
-                Icon = Icon,
-                StartPosition = FormStartPosition.CenterParent,
-                ShowTitle = true
-            };
+                pluginWindow = new UIWindow
+                {
+                    Text = plugin.DisplayName,
+                    Name = plugin.InternalName,
+                    MaximizeBox = false,
+                    FormBorderStyle = FormBorderStyle.FixedDialog,
+                    Icon = Icon,
+                    StartPosition = FormStartPosition.CenterParent,
+                    ShowTitle = true
+                };
 
-            var content = plugin.View;
-            content.Dock = DockStyle.Fill;
+                var content = plugin.View;
+                content.Dock = DockStyle.Fill;
 
-            plugin.Translate();
+                plugin.Translate();
 
-            window.Size = new Size(content.Size.Width + 16, content.Size.Height + 32);
-            window.Controls.Add(content);
-            window.Show();
+                pluginWindow.Size = new Size(content.Size.Width + 16, content.Size.Height + 32);
+                pluginWindow.Controls.Add(content);
+
+                _pluginWindows[plugin.InternalName] = pluginWindow;
+            }
+
+            if (!pluginWindow.Visible)
+                pluginWindow.Show();
+
+            pluginWindow.BringToFront();
         }
 
         /// <summary>

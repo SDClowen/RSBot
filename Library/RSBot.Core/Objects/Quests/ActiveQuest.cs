@@ -1,18 +1,21 @@
-﻿namespace RSBot.Core.Objects.Quests
+﻿using RSBot.Core.Client.ReferenceObjects;
+
+namespace RSBot.Core.Objects.Quests
 {
     public struct ActiveQuest
     {
-        public int QuestId;
+        public uint Id;
         public int AchievementAmount;
         public int RequiredShareParty;
 
         public byte Unknown1;
         public byte Unknown2;
 
-        public byte Type;
+        public QuestType Type;
         public int RemainingTime;
-        public byte State;
+        public QuestStatus Status;
         public QuestObjective[] Objectives;
         public uint[] Npcs;
+        public RefQuest Quest => Game.ReferenceManager.GetRefQuest(Id);
     }
 }
