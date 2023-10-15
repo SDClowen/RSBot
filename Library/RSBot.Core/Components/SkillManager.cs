@@ -1,86 +1,87 @@
-﻿using RSBot.Core.Client.ReferenceObjects;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Event;
 using RSBot.Core.Network;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Skill;
 using RSBot.Core.Objects.Spawn;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 
 namespace RSBot.Core.Components;
 
 public static class SkillManager
 {
     /// <summary>
-    /// Get the skill using index
+    ///     Get the skill using index
     /// </summary>
-    private static int _lastIndex = 0;
+    private static int _lastIndex;
 
     /// <summary>
-    /// Gets or sets the skills organized by their mob priority.
-    /// </summary>
-    /// <value>
-    /// The skills.
-    /// </value>
-    public static Dictionary<MonsterRarity, List<SkillInfo>> Skills { get; set; }
-
-    /// <summary>
-    /// Gets or sets the resurrection skill.
-    /// </summary>
-    /// <value>
-    /// The resurrection skill.
-    /// </value>
-    public static SkillInfo ResurrectionSkill { get; set; }
-
-    /// <summary>
-    /// Gets or sets the imbue skill.
-    /// </summary>
-    /// <value>
-    /// The imbue skill.
-    /// </value>
-    public static SkillInfo ImbueSkill { get; set; }
-
-    /// <summary>
-    /// Gets or sets the buffs.
-    /// </summary>
-    /// <value>
-    /// The buffs.
-    /// </value>
-    public static List<SkillInfo> Buffs { get; set; }
-        
-    /// <summary>
-    /// Gets or sets the teleport skill.
-    /// </summary>
-    public static SkillInfo TeleportSkill { get; set; }
-
-    /// <summary>
-    /// Gets the config to always use skills in order.
-    /// </summary>
-    public static bool UseSkillsInOrder => PlayerConfig.Get("RSBot.Skills.checkUseSkillsInOrder", false );
-
-    /// <summary>
-    /// The last casted skill id
+    ///     The last casted skill id
     /// </summary>
     public static uint LastCastedSkillId;
 
     /// <summary>
-    /// Is the last action basic skill (Auto attack) <c>true</c>; otherwise <c>false</c>
-    /// </summary>
-    public static bool IsLastCastedBasic => _baseSkills.Contains(LastCastedSkillId);
-
-    /// <summary>
-    /// Basic skills
+    ///     Basic skills
     /// </summary>
     private static IEnumerable<uint> _baseSkills;
 
     /// <summary>
-    /// Initializes this instance.
+    ///     Gets or sets the skills organized by their mob priority.
+    /// </summary>
+    /// <value>
+    ///     The skills.
+    /// </value>
+    public static Dictionary<MonsterRarity, List<SkillInfo>> Skills { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the resurrection skill.
+    /// </summary>
+    /// <value>
+    ///     The resurrection skill.
+    /// </value>
+    public static SkillInfo ResurrectionSkill { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the imbue skill.
+    /// </summary>
+    /// <value>
+    ///     The imbue skill.
+    /// </value>
+    public static SkillInfo ImbueSkill { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the buffs.
+    /// </summary>
+    /// <value>
+    ///     The buffs.
+    /// </value>
+    public static List<SkillInfo> Buffs { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the teleport skill.
+    /// </summary>
+    public static SkillInfo TeleportSkill { get; set; }
+
+    /// <summary>
+    ///     Gets the config to always use skills in order.
+    /// </summary>
+    public static bool UseSkillsInOrder => PlayerConfig.Get("RSBot.Skills.checkUseSkillsInOrder", false);
+
+    /// <summary>
+    ///     Is the last action basic skill (Auto attack) <c>true</c>; otherwise <c>false</c>
+    /// </summary>
+    public static bool IsLastCastedBasic => _baseSkills.Contains(LastCastedSkillId);
+
+    /// <summary>
+    ///     Initializes this instance.
     /// </summary>
     internal static void Initialize()
     {
-        Skills = Enum.GetValues(typeof(MonsterRarity)).Cast<MonsterRarity>().ToDictionary(v => v, v => new List<SkillInfo>());
+        Skills = Enum.GetValues(typeof(MonsterRarity)).Cast<MonsterRarity>()
+            .ToDictionary(v => v, v => new List<SkillInfo>());
         Buffs = new List<SkillInfo>();
 
         EventManager.SubscribeEvent("OnLoadGameData", OnLoadGamedData);
@@ -95,7 +96,7 @@ public static class SkillManager
     }
 
     /// <summary>
-    /// Call after casted skill
+    ///     Call after casted skill
     /// </summary>
     /// <param name="skillId">The casted skill id</param>
     private static void OnCastSkill(uint skillId)
@@ -104,7 +105,7 @@ public static class SkillManager
     }
 
     /// <summary>
-    /// Sets the skills.
+    ///     Sets the skills.
     /// </summary>
     /// <param name="monsterRarity">The monster rarity.</param>
     /// <param name="skills">The skills.</param>
@@ -116,7 +117,7 @@ public static class SkillManager
     }
 
     /// <summary>
-    /// Gets the next skill.
+    ///     Gets the next skill.
     /// </summary>
     /// <returns></returns>
     public static SkillInfo GetNextSkill()
@@ -128,13 +129,11 @@ public static class SkillManager
         var rarity = MonsterRarity.General;
 
         if (entity is SpawnedMonster monster)
-        {
             if (Skills[monster.Rarity].Count > 0)
                 rarity = monster.Rarity;
-        }
 
         var distance = Game.Player.Movement.Source.DistanceTo(entity.Movement.Source);
-            
+
         var minDifference = int.MaxValue;
         //var weaponRange = 0;
         var closestSkill = default(SkillInfo);
@@ -144,7 +143,7 @@ public static class SkillManager
             // try to get attack skill for only knockdown states
             closestSkill = Skills[rarity].Find(p => p.Record.Params.Contains(25697));
         }
-        else if ( UseSkillsInOrder || distance < 10)
+        else if (UseSkillsInOrder || distance < 10)
         {
             var counter = -1;
             var skillCount = Skills[rarity].Count;
@@ -176,13 +175,13 @@ public static class SkillManager
                 weaponRange = weapon.Record.Range / 10;
             */
 
-            for (int i = 0; i < Skills[rarity].Count; i++)
+            for (var i = 0; i < Skills[rarity].Count; i++)
             {
                 var s = Skills[rarity][i];
                 if (!s.CanBeCasted)
                     continue;
 
-                var difference = Math.Abs((s.Record.Action_Range / 10) - distance/* + weaponRange*/);
+                var difference = Math.Abs(s.Record.Action_Range / 10 - distance /* + weaponRange*/);
                 if (minDifference > difference)
                 {
                     minDifference = (short)difference;
@@ -196,7 +195,7 @@ public static class SkillManager
     }
 
     /// <summary>
-    /// Check required of the using skill
+    ///     Check required of the using skill
     /// </summary>
     /// <param name="skill">The using skill</param>
     public static bool CheckSkillRequired(RefSkill skill)
@@ -212,7 +211,7 @@ public static class SkillManager
         {
             var list = new List<TypeIdFilter>(8);
 
-            for (int i = 0; i < skill.Params.Count; i++)
+            for (var i = 0; i < skill.Params.Count; i++)
             {
                 var param = skill.Params[i];
                 if (param != 1919250793)
@@ -226,7 +225,8 @@ public static class SkillManager
             if (list.Count == 0)
                 return true;
 
-            filter = list.FirstOrDefault(p => p.TypeID3 == currentWeapon?.Record.TypeID3 && p.TypeID4 == currentWeapon?.Record.TypeID4);
+            filter = list.FirstOrDefault(p =>
+                p.TypeID3 == currentWeapon?.Record.TypeID3 && p.TypeID4 == currentWeapon?.Record.TypeID4);
             if (filter != null)
                 return true;
 
@@ -289,7 +289,8 @@ public static class SkillManager
 
         packet.WriteUInt(targetId);
 
-        Log.Debug($"Skill Attacking to: {targetId} State: {entity.State.LifeState} Health: {entity.Health} HasHealth: {entity.HasHealth} Dst: {System.Math.Round(entity.DistanceToPlayer, 1)}");
+        Log.Debug(
+            $"Skill Attacking to: {targetId} State: {entity.State.LifeState} Health: {entity.Health} HasHealth: {entity.HasHealth} Dst: {Math.Round(entity.DistanceToPlayer, 1)}");
 
         PacketManager.SendPacket(packet, PacketDestination.Server);
 
@@ -297,7 +298,7 @@ public static class SkillManager
     }
 
     /// <summary>
-    /// Cast player skill
+    ///     Cast player skill
     /// </summary>
     /// <param name="skillId">The skill identifier.</param>
     /// <param name="targetId">The target unique identifier.</param>
@@ -332,7 +333,7 @@ public static class SkillManager
             if (distance < tel3meter)
                 movingSleep = distance / tel3speed;
             else
-                movingSleep = ((distance - tel3meter) / speed) + (tel3meter / tel3speed);
+                movingSleep = (distance - tel3meter) / speed + tel3meter / tel3speed;
         }
         else
         {
@@ -346,7 +347,7 @@ public static class SkillManager
         else
             movingSleep *= 10000.0;
 
-        var duration = (int)movingSleep;/* +
+        var duration = (int)movingSleep; /* +
                      skill.Record.Action_CastingTime; +
                      skill.Record.Action_ActionDuration +
                      skill.Record.Action_PreparingTime;*/
@@ -359,7 +360,8 @@ public static class SkillManager
         packet.WriteUInt(targetId);
 
         var callback = new AwaitCallback(response => response.ReadByte() == 0x02 && response.ReadByte() == 0x00
-            ? AwaitCallbackResult.Success : AwaitCallbackResult.ConditionFailed, 0xB074);
+            ? AwaitCallbackResult.Success
+            : AwaitCallbackResult.ConditionFailed, 0xB074);
 
         var altSkill = skill.Record;
         while (altSkill != null)
@@ -377,7 +379,8 @@ public static class SkillManager
         if (duration < 100)
             duration = 1000;
 
-        Log.Debug($"Skill Attacking to: {targetId} State: {entity.State.LifeState} Health: {entity.Health} HasHealth: {entity.HasHealth} Dst: {System.Math.Round(entity.DistanceToPlayer, 1)}");
+        Log.Debug(
+            $"Skill Attacking to: {targetId} State: {entity.State.LifeState} Health: {entity.Health} HasHealth: {entity.HasHealth} Dst: {Math.Round(entity.DistanceToPlayer, 1)}");
 
         PacketManager.SendPacket(packet, PacketDestination.Server, callback);
         Thread.Sleep(duration);
@@ -392,7 +395,7 @@ public static class SkillManager
     }
 
     /// <summary>
-    /// Casts the buff skill.
+    ///     Casts the buff skill.
     /// </summary>
     /// <param name="skillId">The skill identifier.</param>
     public static void CastBuff(SkillInfo skill, uint target = 0, bool awaitBuffResponse = true)
@@ -421,7 +424,9 @@ public static class SkillManager
             packet.WriteUInt(target == 0 ? Game.Player.UniqueId : target);
         }
         else
+        {
             packet.WriteByte(ActionTarget.None);
+        }
 
         var asyncCallback = new AwaitCallback(response =>
         {
@@ -438,7 +443,8 @@ public static class SkillManager
         var callback = new AwaitCallback(response =>
         {
             return response.ReadByte() == 0x02 && response.ReadByte() == 0x00
-                ? AwaitCallbackResult.Success : AwaitCallbackResult.ConditionFailed;
+                ? AwaitCallbackResult.Success
+                : AwaitCallbackResult.ConditionFailed;
         }, 0xB074);
 
         PacketManager.SendPacket(packet, PacketDestination.Server, asyncCallback, callback);
@@ -453,7 +459,7 @@ public static class SkillManager
     }
 
     /// <summary>
-    /// Casts a skill to the given target position
+    ///     Casts a skill to the given target position
     /// </summary>
     /// <param name="skill"></param>
     /// <param name="target"></param>
@@ -491,18 +497,18 @@ public static class SkillManager
         var callback = new AwaitCallback(response =>
         {
             return response.ReadByte() == 0x02 && response.ReadByte() == 0x00
-                ? AwaitCallbackResult.Success : AwaitCallbackResult.ConditionFailed;
+                ? AwaitCallbackResult.Success
+                : AwaitCallbackResult.ConditionFailed;
         }, 0xB074);
 
         PacketManager.SendPacket(packet, PacketDestination.Server, callback);
 
         if (skill.Record.Basic_Activity != 1)
             callback.AwaitResponse(1000);
-
     }
 
     /// <summary>
-    /// Casts the skill. Does not check any weapon requirement.
+    ///     Casts the skill. Does not check any weapon requirement.
     /// </summary>
     /// <param name="skill"></param>
     /// <param name="targetId"></param>
@@ -527,7 +533,8 @@ public static class SkillManager
 
         packet.WriteUInt(entity.UniqueId);
 
-        Log.Debug($"Normal Attacking to: {entity.UniqueId} State: {entity.State.LifeState} Health: {entity.Health} HasHealth: {entity.HasHealth} Dst: {System.Math.Round(entity.DistanceToPlayer, 1)}");
+        Log.Debug(
+            $"Normal Attacking to: {entity.UniqueId} State: {entity.State.LifeState} Health: {entity.Health} HasHealth: {entity.HasHealth} Dst: {Math.Round(entity.DistanceToPlayer, 1)}");
 
         PacketManager.SendPacket(packet, PacketDestination.Server);
 
@@ -535,13 +542,13 @@ public static class SkillManager
     }
 
     /// <summary>
-    /// Casts the skill at.
+    ///     Casts the skill at.
     /// </summary>
     /// <param name="skillId">The skill identifier.</param>
     /// <param name="position">The position.</param>
     public static void CastSkillAt(uint skillId, Position position)
     {
-        if (!Game.Player.Skills.HasSkill(skillId)) 
+        if (!Game.Player.Skills.HasSkill(skillId))
             return;
 
         var packet = new Packet(0x7074);
@@ -558,12 +565,12 @@ public static class SkillManager
     }
 
     /// <summary>
-    /// Cancels the buff.
+    ///     Cancels the buff.
     /// </summary>
     /// <param name="skillId">The skill identifier.</param>
     public static void CancelBuff(uint skillId)
     {
-        if (!Game.Player.Skills.HasSkill(skillId)) 
+        if (!Game.Player.Skills.HasSkill(skillId))
             return;
 
         var packet = new Packet(0x7074);
@@ -576,7 +583,7 @@ public static class SkillManager
     }
 
     /// <summary>
-    /// Cancels the action.
+    ///     Cancels the action.
     /// </summary>
     /// <returns></returns>
     public static bool CancelAction()
@@ -587,7 +594,8 @@ public static class SkillManager
         var callback = new AwaitCallback(response =>
         {
             return response.ReadByte() == 0x02 && response.ReadByte() == 0x00
-                ? AwaitCallbackResult.Success : AwaitCallbackResult.ConditionFailed;
+                ? AwaitCallbackResult.Success
+                : AwaitCallbackResult.ConditionFailed;
         }, 0xB074);
 
         PacketManager.SendPacket(packet, PacketDestination.Server, callback);

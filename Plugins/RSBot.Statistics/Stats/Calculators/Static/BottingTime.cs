@@ -1,5 +1,5 @@
-﻿using RSBot.Core;
-using System;
+﻿using System;
+using RSBot.Core;
 
 namespace RSBot.Statistics.Stats.Calculators.Static;
 
@@ -40,7 +40,7 @@ internal class BottingTime : IStatisticCalculator
 
         if (Kernel.Bot.Running)
             _totalTicks += _currentTick - _lastTick;
-            
+
         _lastTick = _currentTick;
 
         var span = new TimeSpan(_totalTicks);

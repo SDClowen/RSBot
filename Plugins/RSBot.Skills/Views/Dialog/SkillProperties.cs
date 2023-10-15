@@ -1,20 +1,14 @@
-﻿using RSBot.Core.Client.ReferenceObjects;
-using RSBot.Core.Objects;
-using SDUI.Controls;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Objects;
+using SDUI.Controls;
 
 namespace RSBot.Skills.Views;
 
 public partial class SkillProperties : UIWindowBase
 {
-    #region Properties
-
-    public RefSkill Skill { get; }
-
-    #endregion Properties
-
     #region Constructor
 
     public SkillProperties(RefSkill skill)
@@ -42,112 +36,16 @@ public partial class SkillProperties : UIWindowBase
     }
 
     #endregion Constructor
+
+    #region Properties
+
+    public RefSkill Skill { get; }
+
+    #endregion Properties
 }
 
 internal class SkillDebugInformation
 {
-    [Category("RefSkill")]
-    public uint ID { get; }
-
-    [Category("RefSkill")]
-    public byte Service { get; }
-
-    [Category("RefSkill")]
-    public int GroupID { get; }
-
-    [Category("RefSkill")]
-    public string Basic_Code { get; }
-
-    [Category("RefSkill")]
-    public string Basic_Name { get; }
-
-    [Category("RefSkill")]
-    public string Basic_Group { get; }
-
-    [Category("RefSkill")]
-    public byte Basic_Level { get; }
-
-    [Category("RefSkill")]
-    public byte Basic_Activity { get; }
-
-    [Category("RefSkill")]
-    public uint Basic_ChainCode { get; }
-
-    [Category("RefSkill")]
-    public int Action_PrepairingTime { get; }
-
-    [Category("RefSkill")]
-    public int Action_CastingTime { get; }
-
-    [Category("RefSkill")]
-    public int Action_ActionDuration { get; }
-
-    [Category("RefSkill")]
-    public int Action_ReuseDelay { get; }
-
-    [Category("RefSkill")]
-    public int Action_Overlap { get; }
-
-    [Category("RefSkill")]
-    public int Action_AutoAttackType { get; }
-
-    [Category("RefSkill")]
-    public short Action_Range { get; }
-
-    [Category("RefSkill")]
-    public bool Target_Required { get; }
-
-    [Category("RefSkill")]
-    public bool TargetType_Animal { get; }
-
-    [Category("RefSkill")]
-    public bool TargetGroup_Self { get; }
-
-    [Category("RefSkill")]
-    public bool TargetGroup_Ally { get; }
-
-    [Category("RefSkill")]
-    public bool TargetGroup_Party { get; }
-
-    [Category("RefSkill")]
-    public bool TargetGroup_Enemy_M { get; }
-
-    [Category("RefSkill")]
-    public bool TargetGroup_Enemy_P { get; }
-
-    [Category("RefSkill")]
-    public bool TargetEtc_SelectDeadBody { get; }
-
-    [Category("RefSkill")]
-    public int ReqCommon_Mastery1 { get; }
-
-    [Category("RefSkill")]
-    public int ReqCommon_Mastery2 { get; }
-
-    [Category("RefSkill")]
-    public int ReqCommon_MasteryLevel1 { get; }
-
-    [Category("RefSkill")]
-    public int ReqCommon_MasteryLevel2 { get; }
-
-    [Category("RefSkill")]
-    public WeaponType ReqCast_Weapon1 { get; }
-
-    [Category("RefSkill")]
-    public WeaponType ReqCast_Weapon2 { get; }
-
-    [Category("RefSkill")]
-    public short Consume_MP { get; }
-
-    [Category("RefSkill")]
-    public string UI_IconFile { get; }
-
-    [Category("RefSkill")]
-    public string UI_SkillName { get; }
-
-    [Category("RefSkill")]
-    public List<int> Params { get; }
-
     public SkillDebugInformation(RefSkill skill)
     {
         Service = skill.Service;
@@ -185,4 +83,72 @@ internal class SkillDebugInformation
         UI_SkillName = skill.UI_SkillName;
         Params = skill.Params;
     }
+
+    [Category("RefSkill")] public uint ID { get; }
+
+    [Category("RefSkill")] public byte Service { get; }
+
+    [Category("RefSkill")] public int GroupID { get; }
+
+    [Category("RefSkill")] public string Basic_Code { get; }
+
+    [Category("RefSkill")] public string Basic_Name { get; }
+
+    [Category("RefSkill")] public string Basic_Group { get; }
+
+    [Category("RefSkill")] public byte Basic_Level { get; }
+
+    [Category("RefSkill")] public byte Basic_Activity { get; }
+
+    [Category("RefSkill")] public uint Basic_ChainCode { get; }
+
+    [Category("RefSkill")] public int Action_PrepairingTime { get; }
+
+    [Category("RefSkill")] public int Action_CastingTime { get; }
+
+    [Category("RefSkill")] public int Action_ActionDuration { get; }
+
+    [Category("RefSkill")] public int Action_ReuseDelay { get; }
+
+    [Category("RefSkill")] public int Action_Overlap { get; }
+
+    [Category("RefSkill")] public int Action_AutoAttackType { get; }
+
+    [Category("RefSkill")] public short Action_Range { get; }
+
+    [Category("RefSkill")] public bool Target_Required { get; }
+
+    [Category("RefSkill")] public bool TargetType_Animal { get; }
+
+    [Category("RefSkill")] public bool TargetGroup_Self { get; }
+
+    [Category("RefSkill")] public bool TargetGroup_Ally { get; }
+
+    [Category("RefSkill")] public bool TargetGroup_Party { get; }
+
+    [Category("RefSkill")] public bool TargetGroup_Enemy_M { get; }
+
+    [Category("RefSkill")] public bool TargetGroup_Enemy_P { get; }
+
+    [Category("RefSkill")] public bool TargetEtc_SelectDeadBody { get; }
+
+    [Category("RefSkill")] public int ReqCommon_Mastery1 { get; }
+
+    [Category("RefSkill")] public int ReqCommon_Mastery2 { get; }
+
+    [Category("RefSkill")] public int ReqCommon_MasteryLevel1 { get; }
+
+    [Category("RefSkill")] public int ReqCommon_MasteryLevel2 { get; }
+
+    [Category("RefSkill")] public WeaponType ReqCast_Weapon1 { get; }
+
+    [Category("RefSkill")] public WeaponType ReqCast_Weapon2 { get; }
+
+    [Category("RefSkill")] public short Consume_MP { get; }
+
+    [Category("RefSkill")] public string UI_IconFile { get; }
+
+    [Category("RefSkill")] public string UI_SkillName { get; }
+
+    [Category("RefSkill")] public List<int> Params { get; }
 }

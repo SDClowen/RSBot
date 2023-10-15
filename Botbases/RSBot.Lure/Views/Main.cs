@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
@@ -9,7 +10,7 @@ using RSBot.Lure.Components;
 
 namespace RSBot.Lure.Views;
 
-[System.ComponentModel.ToolboxItem(false)]
+[ToolboxItem(false)]
 public partial class Main : UserControl
 {
     private const int ScriptRecorderOwnerId = 1000;
@@ -145,7 +146,7 @@ public partial class Main : UserControl
     private void btnBrowse_Click(object sender, EventArgs e)
     {
         var fileBrowser = new OpenFileDialog
-        { Title = "RSBot - Choose lure script", Filter = "RSBot script (*.rbs)|*.rbs", Multiselect = false };
+            { Title = "RSBot - Choose lure script", Filter = "RSBot script (*.rbs)|*.rbs", Multiselect = false };
 
         if (fileBrowser.ShowDialog() != DialogResult.OK)
             return;
@@ -168,7 +169,7 @@ public partial class Main : UserControl
     private void btnBrowseWalkscript_Click(object sender, EventArgs e)
     {
         var fileBrowser = new OpenFileDialog
-        { Title = "RSBot - Choose walkback script", Filter = "RSBot script (*.rbs)|*.rbs", Multiselect = false };
+            { Title = "RSBot - Choose walkback script", Filter = "RSBot script (*.rbs)|*.rbs", Multiselect = false };
 
         if (fileBrowser.ShowDialog() != DialogResult.OK)
             return;
@@ -196,7 +197,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Occurs before Main form is displayed.
+    ///     Occurs before Main form is displayed.
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>

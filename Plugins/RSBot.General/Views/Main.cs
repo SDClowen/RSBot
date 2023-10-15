@@ -1,9 +1,5 @@
-﻿using RSBot.Core;
-using RSBot.Core.Client;
-using RSBot.Core.Components;
-using RSBot.Core.Event;
-using RSBot.General.Components;
-using System;
+﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
@@ -12,16 +8,22 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using RSBot.Core;
+using RSBot.Core.Client;
+using RSBot.Core.Components;
+using RSBot.Core.Event;
+using RSBot.General.Components;
+using RSBot.General.Models;
 
 namespace RSBot.General.Views;
 
-[System.ComponentModel.ToolboxItem(false)]
+[ToolboxItem(false)]
 internal partial class Main : UserControl
 {
     private bool _clientVisible;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Main"/> class.
+    ///     Initializes a new instance of the <see cref="Main" /> class.
     /// </summary>
     public Main()
     {
@@ -35,7 +37,7 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     private void SubscribeEvents()
     {
@@ -50,7 +52,6 @@ internal partial class Main : UserControl
         EventManager.SubscribeEvent("OnCharacterListReceived", OnCharacterListReceived);
         EventManager.SubscribeEvent("OnInitialized", OnInitialized);
         EventManager.SubscribeEvent("OnProfileChanged", OnProfileChanged);
-
     }
 
     private void OnProfileChanged()
@@ -60,7 +61,7 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Called when gateway server disconnected.
+    ///     Called when gateway server disconnected.
     /// </summary>
     private void OnGatewayServerDisconnected()
     {
@@ -80,7 +81,7 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Called when main window loaded.
+    ///     Called when main window loaded.
     /// </summary>
     private void OnInitialized()
     {
@@ -92,7 +93,8 @@ internal partial class Main : UserControl
 
         //Load and display config
 
-        txtSilkroadPath.Text = Path.Combine(GlobalConfig.Get<string>("RSBot.SilkroadDirectory"), GlobalConfig.Get<string>("RSBot.SilkroadExecutable"));
+        txtSilkroadPath.Text = Path.Combine(GlobalConfig.Get<string>("RSBot.SilkroadDirectory"),
+            GlobalConfig.Get<string>("RSBot.SilkroadExecutable"));
         checkEnableStaticCaptcha.Checked = GlobalConfig.Get<bool>("RSBot.General.EnableStaticCaptcha");
         checkEnableAutoLogin.Checked = GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin");
         checkStartBot.Checked = GlobalConfig.Get<bool>("RSBot.General.StartBot");
@@ -126,7 +128,7 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Called when account character list updated
+    ///     Called when account character list updated
     /// </summary>
     private void OnCharacterListReceived()
     {
@@ -134,7 +136,7 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Loads the accounts.
+    ///     Loads the accounts.
     /// </summary>
     private void LoadAccounts()
     {
@@ -154,14 +156,14 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Fill the combobox on the form
+    ///     Fill the combobox on the form
     /// </summary>
     private void LoadCharacters()
     {
         comboCharacter.Items.Clear();
         comboCharacter.Items.Add(LanguageManager.GetLang("NoSelected"));
 
-        var selectedAccount = comboAccounts.SelectedItem as Models.Account;
+        var selectedAccount = comboAccounts.SelectedItem as Account;
         if (selectedAccount?.Characters == null)
         {
             comboCharacter.SelectedIndex = 0;
@@ -181,7 +183,7 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Starts the client process.
+    ///     Starts the client process.
     /// </summary>
     private async Task StartClientProcess()
     {
@@ -197,7 +199,7 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Called when [start client].
+    ///     Called when [start client].
     /// </summary>
     private void OnStartClient()
     {
@@ -211,7 +213,7 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Called when [exit client].
+    ///     Called when [exit client].
     /// </summary>
     private void OnExitClient()
     {
@@ -247,7 +249,7 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Called when [enter game].
+    ///     Called when [enter game].
     /// </summary>
     private async void OnEnterGame()
     {
@@ -275,7 +277,7 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// The on load version information.
+    ///     The on load version information.
     /// </summary>
     /// <param name="info">The information.</param>
     private void OnLoadVersionInfo(VersionInfo info)
@@ -284,7 +286,7 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Called when [agent server connected].
+    ///     Called when [agent server connected].
     /// </summary>
     private void OnAgentServerConnected()
     {
@@ -293,7 +295,7 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Called when [agent server disconnected].
+    ///     Called when [agent server disconnected].
     /// </summary>
     private async void OnAgentServerDisconnected()
     {
@@ -326,7 +328,7 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Called when [client connected].
+    ///     Called when [client connected].
     /// </summary>
     private void OnClientConnected()
     {
@@ -334,10 +336,10 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the Click event of the btnBrowseSilkroadPath control.
+    ///     Handles the Click event of the btnBrowseSilkroadPath control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void btnBrowseSilkroadPath_Click(object sender, EventArgs e)
     {
         using (var dialog = new OpenFileDialog())
@@ -372,30 +374,30 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the checkStartBot control.
+    ///     Handles the CheckedChanged event of the checkStartBot control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void checkAutoStartBot_CheckedChanged(object sender, EventArgs e)
     {
         GlobalConfig.Set("RSBot.General.StartBot", checkStartBot.Checked);
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the checkUseReturnScroll control.
+    ///     Handles the CheckedChanged event of the checkUseReturnScroll control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void checkUseReturnScroll_CheckedChanged(object sender, EventArgs e)
     {
         GlobalConfig.Set("RSBot.General.UseReturnScroll", checkUseReturnScroll.Checked);
     }
 
     /// <summary>
-    /// Handles the Click event of the btnAutoLoginSettings control.
+    ///     Handles the Click event of the btnAutoLoginSettings control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void btnAutoLoginSettings_Click(object sender, EventArgs e)
     {
         if (View.AccountsWindow.ShowDialog() == DialogResult.OK)
@@ -403,24 +405,23 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the checkEnableAutoLogin control.
+    ///     Handles the CheckedChanged event of the checkEnableAutoLogin control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void checkEnableAutoLogin_CheckedChanged(object sender, EventArgs e)
     {
         GlobalConfig.Set("RSBot.General.EnableAutomatedLogin", checkEnableAutoLogin.Checked.ToString());
     }
 
     /// <summary>
-    /// Handles the SelectedIndexChanged event of the comboAccounts control.
+    ///     Handles the SelectedIndexChanged event of the comboAccounts control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void comboAccounts_SelectedIndexChanged(object sender, EventArgs e)
     {
-        var selectedAccount = comboAccounts.SelectedIndex == 0 ?
-            string.Empty : comboAccounts.SelectedItem.ToString();
+        var selectedAccount = comboAccounts.SelectedIndex == 0 ? string.Empty : comboAccounts.SelectedItem.ToString();
 
         GlobalConfig.Set("RSBot.General.AutoLoginAccountUsername", selectedAccount);
 
@@ -428,30 +429,30 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the TextChanged event of the txtStaticCaptcha control.
+    ///     Handles the TextChanged event of the txtStaticCaptcha control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void txtStaticCaptcha_TextChanged(object sender, EventArgs e)
     {
         GlobalConfig.Set("RSBot.General.StaticCaptcha", txtStaticCaptcha.Text);
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the checkEnableStaticCaptcha control.
+    ///     Handles the CheckedChanged event of the checkEnableStaticCaptcha control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void checkEnableStaticCaptcha_CheckedChanged(object sender, EventArgs e)
     {
         GlobalConfig.Set("RSBot.General.EnableStaticCaptcha", checkEnableStaticCaptcha.Checked.ToString());
     }
 
     /// <summary>
-    /// Handles the SelectedIndexChanged event of the comboCharacter control.
+    ///     Handles the SelectedIndexChanged event of the comboCharacter control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void comboCharacter_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (comboAccounts.SelectedIndex == 0)
@@ -459,21 +460,21 @@ internal partial class Main : UserControl
 
         checkCharAutoSelect.Enabled = comboCharacter.SelectedIndex == 0;
 
-        var selectedAccount = comboAccounts.SelectedItem as Models.Account;
+        var selectedAccount = comboAccounts.SelectedItem as Account;
         if (selectedAccount == null)
             return;
 
-        selectedAccount.SelectedCharacter = comboCharacter.SelectedIndex == 0 ?
-            string.Empty : comboCharacter.SelectedItem.ToString();
+        selectedAccount.SelectedCharacter =
+            comboCharacter.SelectedIndex == 0 ? string.Empty : comboCharacter.SelectedItem.ToString();
 
-        Components.Accounts.Save();
+        Accounts.Save();
     }
 
     /// <summary>
-    /// Handles the Click event of the btnGoClientless control.
+    ///     Handles the Click event of the btnGoClientless control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void btnGoClientless_Click(object sender, EventArgs e)
     {
         if (Game.Clientless)
@@ -482,7 +483,8 @@ internal partial class Main : UserControl
         var msgBoxTitle = LanguageManager.GetLang("GoClientlessMsgBoxTitle");
         var msgBoxContent = LanguageManager.GetLang("GoClientlessMsgBoxContent");
 
-        if (MessageBox.Show(msgBoxContent, msgBoxTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
+        if (MessageBox.Show(msgBoxContent, msgBoxTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) !=
+            DialogResult.Yes) return;
 
         ClientlessManager.GoClientless();
         ClientManager.Kill();
@@ -495,10 +497,10 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the Click event of the btnStartClientless control.
+    ///     Handles the Click event of the btnStartClientless control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private async void btnStartClientless_Click(object sender, EventArgs e)
     {
         await Task.Run(() =>
@@ -528,7 +530,8 @@ internal partial class Main : UserControl
                 var msgBoxTitle = LanguageManager.GetLang("MsgBoxDisconnectDialogTitle");
                 var msgBoxContent = LanguageManager.GetLang("MsgBoxDisconnectDialogContent");
 
-                var result = MessageBox.Show(msgBoxContent, msgBoxTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                var result = MessageBox.Show(msgBoxContent, msgBoxTitle, MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning);
                 if (result == DialogResult.No)
                     return;
 
@@ -544,10 +547,10 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the Click event of the btnStartClient control.
+    ///     Handles the Click event of the btnStartClient control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void btnStartClient_Click(object sender, EventArgs e)
     {
         if (!Game.Clientless && Kernel.Proxy != null && Kernel.Proxy.IsConnectedToAgentserver)
@@ -569,17 +572,17 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the checkStayConnected control.
+    ///     Handles the CheckedChanged event of the checkStayConnected control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void checkStayConnected_CheckedChanged(object sender, EventArgs e)
     {
         GlobalConfig.Set("RSBot.General.StayConnected", checkStayConnected.Checked);
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the checkBoxBotTrayMinimized control
+    ///     Handles the CheckedChanged event of the checkBoxBotTrayMinimized control
     /// </summary>
     private void checkBoxBotTrayMinimized_CheckedChanged(object sender, EventArgs e)
     {
@@ -606,10 +609,10 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the SelectedIndexChanged event of the comboBoxClientType control.
+    ///     Handles the SelectedIndexChanged event of the comboBoxClientType control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void comboBoxClientType_SelectedIndexChanged(object sender, EventArgs e)
     {
         // Created from Activator.CreateInstance easy fix ^^
@@ -635,13 +638,13 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the checkEnableLoginDelay control.
+    ///     Handles the CheckedChanged event of the checkEnableLoginDelay control.
     /// </summary>
     /// <param name="sender">
-    /// The source of the event.
+    ///     The source of the event.
     /// </param>
     /// <param name="e">
-    /// The <see cref="EventArgs" /> instance containing the event data.
+    ///     The <see cref="EventArgs" /> instance containing the event data.
     /// </param>
     private void checkEnableLoginDelay_CheckedChanged(object sender, EventArgs e)
     {
@@ -649,17 +652,17 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the ValueChanged event of the numLoginDelay control.
+    ///     Handles the ValueChanged event of the numLoginDelay control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void numLoginDelay_ValueChanged(object sender, EventArgs e)
     {
         GlobalConfig.Set("RSBot.General.LoginDelay", numLoginDelay.Value);
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the checkHideClient control.
+    ///     Handles the CheckedChanged event of the checkHideClient control.
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
@@ -669,7 +672,7 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the checkCharAutoSelect control.
+    ///     Handles the CheckedChanged event of the checkCharAutoSelect control.
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
@@ -691,7 +694,7 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the radioAutoSelectFirst control.
+    ///     Handles the CheckedChanged event of the radioAutoSelectFirst control.
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
@@ -701,7 +704,7 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the radioAutoSelectHigher control.
+    ///     Handles the CheckedChanged event of the radioAutoSelectHigher control.
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
@@ -711,7 +714,7 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the checkDontShowPendingOnStartClient control.
+    ///     Handles the CheckedChanged event of the checkDontShowPendingOnStartClient control.
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
@@ -721,7 +724,7 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the checkEnableQuequeLogs control.
+    ///     Handles the CheckedChanged event of the checkEnableQuequeLogs control.
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
@@ -731,7 +734,7 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the Click event of the btnShowPending control.
+    ///     Handles the Click event of the btnShowPending control.
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
@@ -747,7 +750,7 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the checkEnableQueueNotification control.
+    ///     Handles the CheckedChanged event of the checkEnableQueueNotification control.
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
@@ -757,7 +760,7 @@ internal partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the ValueChanged event of the numQuequeLeft control.
+    ///     Handles the ValueChanged event of the numQuequeLeft control.
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>

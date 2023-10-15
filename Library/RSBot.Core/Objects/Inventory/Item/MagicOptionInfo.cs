@@ -6,31 +6,31 @@ namespace RSBot.Core.Objects.Item;
 public class MagicOptionInfo
 {
     /// <summary>
-    /// Gets or sets the identifier.
+    ///     Gets or sets the identifier.
     /// </summary>
     /// <value>
-    /// The identifier.
+    ///     The identifier.
     /// </value>
     public uint Id { get; set; }
 
     /// <summary>
-    /// Gets or sets the value.
+    ///     Gets or sets the value.
     /// </summary>
     /// <value>
-    /// The value.
+    ///     The value.
     /// </value>
     public uint Value { get; set; }
 
     /// <summary>
-    /// Gets the record.
+    ///     Gets the record.
     /// </summary>
     /// <value>
-    /// The record.
+    ///     The record.
     /// </value>
     public RefMagicOpt Record => Game.ReferenceManager.GetMagicOption(Id);
 
     /// <summary>
-    /// Creates a new MagicOptionInfo object from the given packet
+    ///     Creates a new MagicOptionInfo object from the given packet
     /// </summary>
     /// <param name="packet">The packet.</param>
     /// <returns></returns>

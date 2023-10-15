@@ -1,42 +1,44 @@
-﻿using RSBot.Core.Client.ReferenceObjects;
-using RSBot.Core.Network;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Network;
 
 namespace RSBot.Core.Objects.Spawn;
 
 public sealed class SpawnedPortal : SpawnedBionic
 {
     /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="objId">The ref obj id</param>
-    public SpawnedPortal(uint objId) 
-        : base(objId) { }
-
-    /// <summary>
-    /// Gets or sets the name of the owner.
-    /// </summary>
-    /// <value>
-    /// The name of the owner.
-    /// </value>
-    public string OwnerName;
-
-    /// <summary>
-    /// Gets or sets the owner unique identifier.
-    /// </summary>
-    /// <value>
-    /// The owner unique identifier.
-    /// </value>
-    public uint OwnerUniqueId;
-
-    /// <summary>
-    /// Gets the cached teleport links
+    ///     Gets the cached teleport links
     /// </summary>
     public List<RefTeleportLink> Links;
 
     /// <summary>
-    /// Froms the packet.
+    ///     Gets or sets the name of the owner.
+    /// </summary>
+    /// <value>
+    ///     The name of the owner.
+    /// </value>
+    public string OwnerName;
+
+    /// <summary>
+    ///     Gets or sets the owner unique identifier.
+    /// </summary>
+    /// <value>
+    ///     The owner unique identifier.
+    /// </value>
+    public uint OwnerUniqueId;
+
+    /// <summary>
+    ///     <inheritdoc />
+    /// </summary>
+    /// <param name="objId">The ref obj id</param>
+    public SpawnedPortal(uint objId)
+        : base(objId)
+    {
+    }
+
+    /// <summary>
+    ///     Froms the packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     /// <param name="characterId">The character identifier.</param>
@@ -49,7 +51,8 @@ public sealed class SpawnedPortal : SpawnedBionic
 
         var teleportObj = Game.ReferenceManager.GetRefObjChar(result.Id);
         if (teleportObj != null)
-            result.Links = Game.ReferenceManager.TeleportData.FirstOrDefault(t => t.AssocRefObjId == teleportObj.ID)?.GetLinks();
+            result.Links = Game.ReferenceManager.TeleportData.FirstOrDefault(t => t.AssocRefObjId == teleportObj.ID)
+                ?.GetLinks();
 
         if (Game.ClientType < GameClientType.Vietnam)
             return result;

@@ -1,4 +1,10 @@
-﻿using RSBot.Core;
+﻿using System;
+using System.Drawing;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Components.Scripting;
 using RSBot.Core.Event;
@@ -6,34 +12,18 @@ using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
 using RSBot.Views.Dialog;
 using SDUI.Controls;
-using System;
-using System.Drawing;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace RSBot.Views;
 
 public partial class ScriptRecorder : UIWindow
 {
-    private class CommandComboBoxItem
-    {
-        public IScriptCommand Command { get; }
-
-        public CommandComboBoxItem(IScriptCommand command)
-        {
-            Command = command;
-        }
-
-        public override string ToString() => Command.Name;
-    }
+    private readonly int _ownerId;
 
     private bool _recording;
     private bool _running;
-    private int _ownerId;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ScriptRecorder"/> class.
+    ///     Initializes a new instance of the <see cref="ScriptRecorder" /> class.
     /// </summary>
     public ScriptRecorder(int ownerId = 0, bool startRecording = false)
     {
@@ -48,7 +38,7 @@ public partial class ScriptRecorder : UIWindow
     }
 
     /// <summary>
-    /// Populates the command list.
+    ///     Populates the command list.
     /// </summary>
     private void PopulateCommandList()
     {
@@ -57,7 +47,7 @@ public partial class ScriptRecorder : UIWindow
     }
 
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     private void SubscribeEvents()
     {
@@ -66,7 +56,8 @@ public partial class ScriptRecorder : UIWindow
         EventManager.SubscribeEvent("OnRequestTeleport", new Action<uint, string>(OnRequestTeleport));
         EventManager.SubscribeEvent("OnTerminateVehicle", OnTerminateVehicle);
         EventManager.SubscribeEvent("OnTeleportComplete", OnTeleportComplete);
-        EventManager.SubscribeEvent("OnScriptStartExecuteCommand", new Action<IScriptCommand, int>(OnScriptStartExecuteCommand));
+        EventManager.SubscribeEvent("OnScriptStartExecuteCommand",
+            new Action<IScriptCommand, int>(OnScriptStartExecuteCommand));
         EventManager.SubscribeEvent("OnNpcRepairRequest", new Action<uint, byte, byte>(OnNpcRepairRequest));
         EventManager.SubscribeEvent("OnStorageOpenRequest", new Action<uint>(StorageOpenRequest));
         EventManager.SubscribeEvent("OnTalkRequest", new Action<uint, TalkOption>(OnTalkRequest));
@@ -91,7 +82,7 @@ public partial class ScriptRecorder : UIWindow
     }
 
     /// <summary>
-    /// Appends the script command fired from a plugin.
+    ///     Appends the script command fired from a plugin.
     /// </summary>
     /// <param name="command">The command.</param>
     private void AppendScriptCommand(string command)
@@ -103,7 +94,7 @@ public partial class ScriptRecorder : UIWindow
     }
 
     /// <summary>
-    /// Highlights the line at the specified index.
+    ///     Highlights the line at the specified index.
     /// </summary>
     /// <param name="index">The index.</param>
     /// <param name="color">The color.</param>
@@ -114,10 +105,25 @@ public partial class ScriptRecorder : UIWindow
         var lines = txtScript.Lines;
         if (index < 0 || index >= lines.Length)
             return;
-        var start = txtScript.GetFirstCharIndexFromLine(index);  // Get the 1st char index of the appended text
+        var start = txtScript.GetFirstCharIndexFromLine(index); // Get the 1st char index of the appended text
         var length = lines[index].Length;
-        txtScript.Select(start, length);                 // Select from there to the end
+        txtScript.Select(start, length); // Select from there to the end
         txtScript.SelectionBackColor = color;
+    }
+
+    private class CommandComboBoxItem
+    {
+        public CommandComboBoxItem(IScriptCommand command)
+        {
+            Command = command;
+        }
+
+        public IScriptCommand Command { get; }
+
+        public override string ToString()
+        {
+            return Command.Name;
+        }
     }
 
     #region Events
@@ -193,7 +199,7 @@ public partial class ScriptRecorder : UIWindow
     }
 
     /// <summary>
-    /// Fired when the player moves
+    ///     Fired when the player moves
     /// </summary>
     private void OnPlayerMove()
     {
@@ -209,7 +215,9 @@ public partial class ScriptRecorder : UIWindow
 
         var destination = entity.Movement.Destination;
 
-        StringBuilder stepString = new(); //you prefer it like this? so its not problem var stepString = new StringBuilder() same for me so np :D kk
+        StringBuilder
+            stepString =
+                new(); //you prefer it like this? so its not problem var stepString = new StringBuilder() same for me so np :D kk
         stepString.Append($"move {destination.XOffset:0}");
         stepString.Append($" {destination.YOffset:0}");
         stepString.Append($" {destination.ZOffset:0}");
@@ -221,7 +229,7 @@ public partial class ScriptRecorder : UIWindow
     }
 
     /// <summary>
-    /// Fired when the client requests to teleport
+    ///     Fired when the client requests to teleport
     /// </summary>
     /// <param name="destination">The destination.</param>
     /// <param name="npcCodeName">Name of the NPC code.</param>
@@ -234,7 +242,7 @@ public partial class ScriptRecorder : UIWindow
     }
 
     /// <summary>
-    /// Fired when the vehicle was terminated
+    ///     Fired when the vehicle was terminated
     /// </summary>
     private void OnTerminateVehicle()
     {
@@ -245,7 +253,7 @@ public partial class ScriptRecorder : UIWindow
     }
 
     /// <summary>
-    /// On buy item for job transport
+    ///     On buy item for job transport
     /// </summary>
     /// <param name="tab">The tab</param>
     /// <param name="index">The item index</param>
@@ -255,11 +263,10 @@ public partial class ScriptRecorder : UIWindow
     {
         if (!SpawnManager.TryGetEntity<SpawnedBionic>(npcUniqueId, out var entity))
             return;
-
     }
 
     /// <summary>
-    /// On sell item from job transport
+    ///     On sell item from job transport
     /// </summary>
     /// <param name="slot">The inventory item slot</param>
     /// <param name="quantity">The item quantity</param>
@@ -268,11 +275,10 @@ public partial class ScriptRecorder : UIWindow
     {
         if (!SpawnManager.TryGetEntity<SpawnedBionic>(npcUniqueId, out var entity))
             return;
-
     }
 
     /// <summary>
-    /// On buy item for job transport
+    ///     On buy item for job transport
     /// </summary>
     /// <param name="tab">The tab</param>
     /// <param name="index">The item index</param>
@@ -282,11 +288,10 @@ public partial class ScriptRecorder : UIWindow
     {
         if (!SpawnManager.TryGetEntity<SpawnedBionic>(npcUniqueId, out var entity))
             return;
-
     }
 
     /// <summary>
-    /// On sell item from job transport
+    ///     On sell item from job transport
     /// </summary>
     /// <param name="slot">The inventory item slot</param>
     /// <param name="quantity">The item quantity</param>
@@ -295,7 +300,6 @@ public partial class ScriptRecorder : UIWindow
     {
         if (!SpawnManager.TryGetEntity<SpawnedBionic>(npcUniqueId, out var entity))
             return;
-
     }
 
     private void OnTeleportComplete()
@@ -306,11 +310,11 @@ public partial class ScriptRecorder : UIWindow
     }
 
     /// <summary>
-    /// Handles the Click event of the btnStart control.
+    ///     Handles the Click event of the btnStart control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void btnStart_Click(object sender, System.EventArgs e)
+    /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
+    private void btnStart_Click(object sender, EventArgs e)
     {
         if (ScriptManager.Running)
             return;
@@ -340,12 +344,13 @@ public partial class ScriptRecorder : UIWindow
         _recording = false;
         btnRun.Enabled = true;
     }
+
     /// <summary>
-    /// Handles the Click event of the btnClear control.
+    ///     Handles the Click event of the btnClear control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void btnClear_Click(object sender, System.EventArgs e)
+    /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
+    private void btnClear_Click(object sender, EventArgs e)
     {
         if (MessageBox.Show(@"Do you really want to clear the script?", @"Are you sure?",
                 MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) != DialogResult.Yes)
@@ -355,11 +360,11 @@ public partial class ScriptRecorder : UIWindow
     }
 
     /// <summary>
-    /// Handles the Click event of the btnSave control.
+    ///     Handles the Click event of the btnSave control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void btnSave_Click(object sender, System.EventArgs e)
+    /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
+    private void btnSave_Click(object sender, EventArgs e)
     {
         if (string.IsNullOrWhiteSpace(txtScript.Text))
             return;
@@ -375,15 +380,15 @@ public partial class ScriptRecorder : UIWindow
         {
             EventManager.FireEvent("OnSaveScript", _ownerId, diag.FileName);
 
-            System.IO.File.WriteAllText(diag.FileName, txtScript.Text);
+            File.WriteAllText(diag.FileName, txtScript.Text);
         }
     }
 
     /// <summary>
-    /// Handles the FormClosed event of the ScriptRecorder control.
+    ///     Handles the FormClosed event of the ScriptRecorder control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="FormClosedEventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="FormClosedEventArgs" /> instance containing the event data.</param>
     private void ScriptRecorder_FormClosed(object sender, FormClosedEventArgs e)
     {
         _recording = false;
@@ -391,11 +396,11 @@ public partial class ScriptRecorder : UIWindow
     }
 
     /// <summary>
-    /// Handles the Click event of the btnRun control.
+    ///     Handles the Click event of the btnRun control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void btnRunNow_Click(object sender, System.EventArgs e)
+    /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
+    private void btnRunNow_Click(object sender, EventArgs e)
     {
         if (_recording || string.IsNullOrWhiteSpace(txtScript.Text))
             return;

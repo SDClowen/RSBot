@@ -5,8 +5,9 @@ namespace RSBot.Core.Network;
 
 internal class NetworkUtilities
 {
-    /// <summary>Get Free Port
-    /// Returns the first free port between a range
+    /// <summary>
+    ///     Get Free Port
+    ///     Returns the first free port between a range
     /// </summary>
     /// <param name="start">Start index</param>
     /// <param name="end">End index</param>
@@ -17,7 +18,7 @@ internal class NetworkUtilities
         var properties = IPGlobalProperties.GetIPGlobalProperties();
         var tcpEndPoints = properties.GetActiveTcpListeners();
 
-        var usedPorts = tcpEndPoints.Select(p => p.Port).ToList<int>();
+        var usedPorts = tcpEndPoints.Select(p => p.Port).ToList();
         ushort result = 0;
 
         for (var port = start; port < end; port += step)
@@ -26,6 +27,7 @@ internal class NetworkUtilities
             result = port;
             break;
         }
+
         return result;
     }
 }

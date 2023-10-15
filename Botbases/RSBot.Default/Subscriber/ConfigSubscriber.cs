@@ -1,12 +1,12 @@
-﻿using RSBot.Default.Bundle;
-using RSBot.Core.Event;
+﻿using RSBot.Core.Event;
+using RSBot.Default.Bundle;
 
 namespace RSBot.Default.Subscriber;
 
 internal class ConfigSubscriber
 {
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     public static void SubscribeEvents()
     {
@@ -15,7 +15,7 @@ internal class ConfigSubscriber
     }
 
     /// <summary>
-    /// Configurations the subscriber on save player settings.
+    ///     Configurations the subscriber on save player settings.
     /// </summary>
     private static void ReloadSettings()
     {

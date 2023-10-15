@@ -1,30 +1,30 @@
-﻿using RSBot.Core;
+﻿using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
-using RSBot.Core.Extensions;
 using RSBot.Core.Network;
 using RSBot.Core.Network.SecurityAPI;
 using RSBot.General.Models;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Server = RSBot.General.Models.Server;
 
 namespace RSBot.General.Components;
 
 internal static class AutoLogin
 {
     /// <summary>
-    /// Is the auto login pending <c>true</c> otherwise; <c>false</c>
+    ///     Is the auto login pending <c>true</c> otherwise; <c>false</c>
     /// </summary>
     public static bool Pending;
 
     /// <summary>
-    /// Is the auto login handling <c>true</c> otherwise; <c>false</c>
+    ///     Is the auto login handling <c>true</c> otherwise; <c>false</c>
     /// </summary>
-    private static bool _busy = false;
+    private static bool _busy;
 
     /// <summary>
-    /// Does the automatic login.
+    ///     Does the automatic login.
     /// </summary>
     public static async void Handle()
     {
@@ -46,8 +46,9 @@ internal static class AutoLogin
             ClientlessManager.RequestServerList();
             return;
         }
-            
-        var selectedAccount = Accounts.SavedAccounts?.Find(p => p.Username == GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername"));
+
+        var selectedAccount = Accounts.SavedAccounts?.Find(p =>
+            p.Username == GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername"));
         if (selectedAccount == null)
         {
             _busy = false;
@@ -91,7 +92,7 @@ internal static class AutoLogin
     }
 
     /// <summary>
-    /// Sends the secondary password if have.
+    ///     Sends the secondary password if have.
     /// </summary>
     internal static void SendSecondaryPassword()
     {
@@ -108,7 +109,7 @@ internal static class AutoLogin
 
         Blowfish blowfish = new();
         byte[] key = { 0x0F, 0x07, 0x3D, 0x20, 0x56, 0x62, 0xC9, 0xEB };
-            
+
         if (Game.ClientType == GameClientType.Rigid)
             key = key.Reverse().ToArray();
 
@@ -124,11 +125,11 @@ internal static class AutoLogin
     }
 
     /// <summary>
-    /// Sends the login request.
+    ///     Sends the login request.
     /// </summary>
     /// <param name="account">The account.</param>
     /// <param name="server">The server.</param>
-    private static void SendLoginRequest(Account account, Models.Server server)
+    private static void SendLoginRequest(Account account, Server server)
     {
         Log.NotifyLang("LoginCredentials", server.Name);
 
@@ -141,7 +142,7 @@ internal static class AutoLogin
         loginPacket.WriteString(account.Username);
         loginPacket.WriteString(account.Password);
 
-        if (Game.ClientType == GameClientType.Turkey || 
+        if (Game.ClientType == GameClientType.Turkey ||
             Game.ClientType == GameClientType.VTC_Game)
             loginPacket.WriteByteArray(new byte[6]); // mac
 
@@ -159,11 +160,12 @@ internal static class AutoLogin
     }
 
     /// <summary>
-    /// Sends the static captcha.
+    ///     Sends the static captcha.
     /// </summary>
     public static void SendStaticCaptcha()
     {
-        if (!GlobalConfig.Get<bool>("RSBot.General.EnableStaticCaptcha") || !GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin")) return;
+        if (!GlobalConfig.Get<bool>("RSBot.General.EnableStaticCaptcha") ||
+            !GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin")) return;
 
         var captcha = GlobalConfig.Get<string>("RSBot.General.StaticCaptcha");
 
@@ -176,7 +178,7 @@ internal static class AutoLogin
     }
 
     /// <summary>
-    /// Enters the game.
+    ///     Enters the game.
     /// </summary>
     /// <param name="character">The character.</param>
     public static void EnterGame(string character)

@@ -1,29 +1,29 @@
-﻿using RSBot.Core.Components;
+﻿using System.Timers;
+using RSBot.Core.Components;
 using RSBot.Core.Event;
-using System.Timers;
 
 namespace RSBot.Core.Network.Handler.Agent;
 
 internal class BuffTokenUpdateResponse : IPacketHandler
 {
     /// <summary>
-    /// Gets or sets the opcode.
+    ///     Gets or sets the opcode.
     /// </summary>
     /// <value>
-    /// The opcode.
+    ///     The opcode.
     /// </value>
     public ushort Opcode => 0x3077;
 
     /// <summary>
-    /// Gets or sets the destination.
+    ///     Gets or sets the destination.
     /// </summary>
     /// <value>
-    /// The destination.
+    ///     The destination.
     /// </value>
     public PacketDestination Destination => PacketDestination.Client;
 
     /// <summary>
-    /// Handles the packet.
+    ///     Handles the packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     public void Invoke(Packet packet)
@@ -35,14 +35,14 @@ internal class BuffTokenUpdateResponse : IPacketHandler
         EventManager.FireEvent("OnTeleportComplete");
 
         var itemCount = packet.ReadByte();
-        for (int i = 0; i < itemCount; i++)
+        for (var i = 0; i < itemCount; i++)
         {
             var itemId = packet.ReadUInt();
             var milliseconds = packet.ReadInt();
         }
 
         var skillCount = packet.ReadByte();
-        for (int i = 0; i < skillCount; i++)
+        for (var i = 0; i < skillCount; i++)
         {
             var skillId = packet.ReadUInt();
             var milliseconds = packet.ReadInt();
@@ -55,10 +55,10 @@ internal class BuffTokenUpdateResponse : IPacketHandler
     }
 
     /// <summary>
-    /// Handles the Elapsed event of the UntouchableTimer control.
+    ///     Handles the Elapsed event of the UntouchableTimer control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="ElapsedEventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="ElapsedEventArgs" /> instance containing the event data.</param>
     private void UntouchableTimer_Elapsed(object sender, ElapsedEventArgs e)
     {
         Log.Debug("The player is no longer untouchable");

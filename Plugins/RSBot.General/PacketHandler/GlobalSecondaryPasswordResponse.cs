@@ -1,6 +1,5 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Network;
-using System;
 
 namespace RSBot.General.PacketHandler;
 
@@ -17,7 +16,7 @@ public class GlobalSecondaryPasswordResponse : IPacketHandler
             return;
 
         var result = packet.ReadByte();
-        if(result == 1)
+        if (result == 1)
         {
             Log.NotifyLang("SecondaryPwSuccess");
             return;
@@ -28,8 +27,6 @@ public class GlobalSecondaryPasswordResponse : IPacketHandler
         {
             case 1:
                 Log.NotifyLang("SecondaryPwWrong");
-                break;
-            default:
                 break;
         }
     }

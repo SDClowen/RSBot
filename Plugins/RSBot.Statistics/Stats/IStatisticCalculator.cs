@@ -5,58 +5,58 @@ namespace RSBot.Statistics.Stats;
 internal interface IStatisticCalculator
 {
     /// <summary>
-    /// Gets the name.
+    ///     Gets the name.
     /// </summary>
     /// <value>
-    /// The name.
+    ///     The name.
     /// </value>
     string Name { get; }
 
     /// <summary>
-    /// Gets the label.
+    ///     Gets the label.
     /// </summary>
     /// <value>
-    /// The label.
+    ///     The label.
     /// </value>
     string Label { get; }
 
     /// <summary>
-    /// Gets the group.
+    ///     Gets the group.
     /// </summary>
     /// <value>
-    /// The group.
+    ///     The group.
     /// </value>
     StatisticsGroup Group { get; }
 
     /// <summary>
-    /// Gets the value format.
+    ///     Gets the value format.
     /// </summary>
     /// <value>
-    /// The value format.
+    ///     The value format.
     /// </value>
     string ValueFormat { get; }
 
     /// <summary>
-    /// Gets the type of the update.
+    ///     Gets the type of the update.
     /// </summary>
     /// <value>
-    /// The type of the update.
+    ///     The type of the update.
     /// </value>
     UpdateType UpdateType { get; }
 
     /// <summary>
-    /// Collects the value of the calculator.
+    ///     Collects the value of the calculator.
     /// </summary>
     /// <returns></returns>
     object GetValue();
 
     /// <summary>
-    /// Resets this calculator.
+    ///     Resets this calculator.
     /// </summary>
     void Reset();
 
     /// <summary>
-    /// Initializes this instance.
+    ///     Initializes this instance.
     /// </summary>
     void Initialize();
 }

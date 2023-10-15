@@ -1,36 +1,36 @@
-﻿using RSBot.Core.Event;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using RSBot.Core.Event;
 
 namespace RSBot.Core.Plugins;
 
 public class BotbaseManager
 {
     /// <summary>
-    /// Gets the extension directory.
+    ///     Gets the extension directory.
     /// </summary>
     /// <value>
-    /// The extension directory.
+    ///     The extension directory.
     /// </value>
     public string DirectoryPath => Path.Combine(Kernel.BasePath, "Data", "Bots");
 
     /// <summary>
-    /// Gets the extensions.
+    ///     Gets the extensions.
     /// </summary>
     /// <value>
-    /// The extensions.
+    ///     The extensions.
     /// </value>
     public Dictionary<string, IBotbase> Bots { get; private set; }
 
     /// <summary>
-    /// Loads the assemblies.
+    ///     Loads the assemblies.
     /// </summary>
     public bool LoadAssemblies()
     {
-        if (Bots != null) 
+        if (Bots != null)
             return false;
 
         try
@@ -57,13 +57,14 @@ public class BotbaseManager
         }
         catch (Exception ex)
         {
-            File.WriteAllText(Kernel.BasePath + "\\boot-error.log", $"The botbase manager encountered a problem: \n{ex.Message} at {ex.StackTrace}");
+            File.WriteAllText(Kernel.BasePath + "\\boot-error.log",
+                $"The botbase manager encountered a problem: \n{ex.Message} at {ex.StackTrace}");
             return false;
         }
     }
 
     /// <summary>
-    /// Gets the extensions from assembly.
+    ///     Gets the extensions from assembly.
     /// </summary>
     /// <param name="file">The file.</param>
     /// <returns></returns>
@@ -77,12 +78,15 @@ public class BotbaseManager
         {
             var types = assembly.GetTypes();
 
-            foreach (var extension in (from type in types where type.IsPublic && !type.IsAbstract && type.GetInterface("IBotbase") != null select Activator.CreateInstance(type)).OfType<IBotbase>())
-            {
-                result.Add(extension.Name, extension);
-            }
+            foreach (var extension in (from type in types
+                         where type.IsPublic && !type.IsAbstract && type.GetInterface("IBotbase") != null
+                         select Activator.CreateInstance(type))
+                     .OfType<IBotbase>()) result.Add(extension.Name, extension);
         }
-        catch { /* ignore, it's an invalid botbase */ }
+        catch
+        {
+            /* ignore, it's an invalid botbase */
+        }
 
         return result;
     }

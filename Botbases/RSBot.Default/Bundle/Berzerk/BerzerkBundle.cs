@@ -7,20 +7,20 @@ namespace RSBot.Default.Bundle.Berzerk;
 internal class BerzerkBundle : IBundle
 {
     /// <summary>
-    /// Gets or sets the configuration.
+    ///     Gets or sets the configuration.
     /// </summary>
     /// <value>
-    /// The configuration.
+    ///     The configuration.
     /// </value>
     public BerzerkConfig Config { get; set; }
 
     /// <summary>
-    /// Invokes this instance.
+    ///     Invokes this instance.
     /// </summary>
     /// <exception cref="System.NotImplementedException"></exception>
     public void Invoke()
     {
-        if (!Game.Player.CanEnterBerzerk || Game.Player.HasActiveVehicle) 
+        if (!Game.Player.CanEnterBerzerk || Game.Player.HasActiveVehicle)
             return;
 
         if (Config.WhenFull)
@@ -39,19 +39,19 @@ internal class BerzerkBundle : IBundle
             }
         }
 
-        if (!Config.BeeingAttackedByAwareMonster) 
+        if (!Config.BeeingAttackedByAwareMonster)
             return;
 
         var entity = Game.SelectedEntity as SpawnedMonster;
         if (entity == null)
             return;
 
-        if(Bundles.Avoidance.AvoidMonster(entity.Rarity))
+        if (Bundles.Avoidance.AvoidMonster(entity.Rarity))
             Game.Player.EnterBerzerkMode();
     }
 
     /// <summary>
-    /// Refreshes this instance.
+    ///     Refreshes this instance.
     /// </summary>
     public void Refresh()
     {

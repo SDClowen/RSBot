@@ -11,23 +11,23 @@ namespace RSBot.Chat.Network;
 internal class ChatResponse : IPacketHandler
 {
     /// <summary>
-    /// Gets or sets the opcode.
+    ///     Gets or sets the opcode.
     /// </summary>
     /// <value>
-    /// The opcode.
+    ///     The opcode.
     /// </value>
     public ushort Opcode => 0x3026;
 
     /// <summary>
-    /// Gets or sets the destination.
+    ///     Gets or sets the destination.
     /// </summary>
     /// <value>
-    /// The destination.
+    ///     The destination.
     /// </value>
     public PacketDestination Destination => PacketDestination.Client;
 
     /// <summary>
-    /// Handles the packet.
+    ///     Handles the packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     public void Invoke(Packet packet)
@@ -51,7 +51,9 @@ internal class ChatResponse : IPacketHandler
                     View.Instance.AppendMessage(message, player.Name, ChatType.All);
                 }
                 else
+                {
                     View.Instance.AppendMessage(message, Game.Player.Name, ChatType.All);
+                }
 
                 break;
 

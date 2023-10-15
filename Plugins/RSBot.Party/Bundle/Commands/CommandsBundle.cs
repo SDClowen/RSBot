@@ -1,31 +1,28 @@
-﻿using RSBot.Core;
+﻿using System;
+using System.Linq;
+using RSBot.Core;
 using RSBot.Core.Network;
 using RSBot.Core.Objects.Spawn;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RSBot.Party.Bundle.Commands;
 
 internal class CommandsBundle
 {
     /// <summary>
-    /// Gets or sets the configuration.
+    ///     Gets or sets the configuration.
     /// </summary>
     /// <value>
-    /// The configuration.
+    ///     The configuration.
     /// </value>
     public CommandsConfig Config { get; set; }
 
     /// <summary>
-    /// Handle the bundle
+    ///     Handle the bundle
     /// </summary>
     public void Handle(SpawnedPlayer player, string message)
     {
         if (StringComparer.InvariantCultureIgnoreCase.Equals(message, "traceme"))
-        { 
+        {
             if (Config.ListenFromList && Config.PlayerList.Contains(player.Name))
                 SendTraceRequest(player.UniqueId);
 
@@ -44,7 +41,7 @@ internal class CommandsBundle
     }
 
     /// <summary>
-    /// Send trace request by speficied uniqueId
+    ///     Send trace request by speficied uniqueId
     /// </summary>
     /// <param name="uniqueId">The unique id</param>
     private void SendTraceRequest(uint uniqueId)
@@ -57,9 +54,9 @@ internal class CommandsBundle
 
         PacketManager.SendPacket(packet, PacketDestination.Server);
     }
-        
+
     /// <summary>
-    /// Send trace request by speficied uniqueId
+    ///     Send trace request by speficied uniqueId
     /// </summary>
     private void SendSitdownRequest()
     {
@@ -69,17 +66,17 @@ internal class CommandsBundle
 
         PacketManager.SendPacket(packet, PacketDestination.Server);
     }
-        
+
     /// <summary>
-    /// Refreshes this instance.
+    ///     Refreshes this instance.
     /// </summary>
     public void Refresh()
     {
-        Config = new CommandsConfig()
+        Config = new CommandsConfig
         {
             PlayerList = PlayerConfig.GetArray<string>("RSBot.Party.Commands.PlayersList"),
             ListenFromList = PlayerConfig.Get<bool>("RSBot.Party.Commands.ListenOnlyList"),
-            ListenOnlyMaster = PlayerConfig.Get<bool>("RSBot.Party.Commands.ListenFromMaster"),
+            ListenOnlyMaster = PlayerConfig.Get<bool>("RSBot.Party.Commands.ListenFromMaster")
         };
     }
 }

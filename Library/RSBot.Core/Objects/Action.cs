@@ -1,91 +1,92 @@
-﻿using RSBot.Core.Components;
+﻿using System;
+using System.Diagnostics;
+using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Network;
 using RSBot.Core.Objects.Spawn;
-using System;
-using System.Diagnostics;
 
 namespace RSBot.Core.Objects;
 
 public class Action
 {
     /// <summary>
-    /// Gets or sets the action identifier.
+    ///     Gets or sets the action identifier.
     /// </summary>
     /// <value>
-    /// The action identifier.
+    ///     The action identifier.
     /// </value>
     public byte Code { get; set; }
 
     /// <summary>
-    /// Gets or sets the skill identifier.
+    ///     Gets or sets the skill identifier.
     /// </summary>
-    /// w<value>
-    /// The skill identifier.
+    /// w
+    /// <value>
+    ///     The skill identifier.
     /// </value>
     public uint SkillId { get; set; }
 
     /// <summary>
-    /// Gets or sets the executor identifier.
+    ///     Gets or sets the executor identifier.
     /// </summary>
     /// <value>
-    /// The executor identifier.
+    ///     The executor identifier.
     /// </value>
     public uint ExecutorId { get; set; }
 
     /// <summary>
-    /// Gets or sets the identifier.
+    ///     Gets or sets the identifier.
     /// </summary>
     /// <value>
-    /// The identifier.
+    ///     The identifier.
     /// </value>
     public uint Id { get; set; }
 
     /// <summary>
-    /// Gets or sets the target identifier.
+    ///     Gets or sets the target identifier.
     /// </summary>
     /// <value>
-    /// The target identifier.
+    ///     The target identifier.
     /// </value>
     public uint TargetId { get; set; }
 
     /// <summary>
-    /// Gets or sets the target identifier.
+    ///     Gets or sets the target identifier.
     /// </summary>
     /// <value>
-    /// The target identifier.
+    ///     The target identifier.
     /// </value>
     public uint UnknownId { get; set; }
 
     /// <summary>
-    /// Gets or sets the flag.
+    ///     Gets or sets the flag.
     /// </summary>
     /// <value>
-    /// The flag.
+    ///     The flag.
     /// </value>
     public ActionStateFlag Flag { get; set; }
 
     /// <summary>
-    /// Gets a value indicating whether [player is executor].
+    ///     Gets a value indicating whether [player is executor].
     /// </summary>
     /// <value>
-    ///   <c>true</c> if [player is executor]; otherwise, <c>false</c>.
+    ///     <c>true</c> if [player is executor]; otherwise, <c>false</c>.
     /// </value>
     public bool PlayerIsExecutor => Game.Player.UniqueId == ExecutorId;
 
     /// <summary>
-    /// Gets a value indicating whether [player is target].
+    ///     Gets a value indicating whether [player is target].
     /// </summary>
     /// <value>
-    ///   <c>true</c> if [player is target]; otherwise, <c>false</c>.
+    ///     <c>true</c> if [player is target]; otherwise, <c>false</c>.
     /// </value>
     public bool PlayerIsTarget => Game.Player.UniqueId == TargetId;
 
     /// <summary>
-    /// Deserialize the packet. 0xB070
+    ///     Deserialize the packet. 0xB070
     /// </summary>
     /// <param name="packet">The packet.</param>
-    /// <returns>Deserialized <see cref="Action"/></returns>
+    /// <returns>Deserialized <see cref="Action" /></returns>
     public static Action DeserializeBegin(Packet packet)
     {
         var actionCode = packet.ReadByte();
@@ -98,7 +99,7 @@ public class Action
             Code = actionCode,
             SkillId = packet.ReadUInt(),
             ExecutorId = packet.ReadUInt(),
-            Id = packet.ReadUInt(),
+            Id = packet.ReadUInt()
         };
 
         if (Game.ClientType >= GameClientType.Global)
@@ -119,7 +120,9 @@ public class Action
             Debug.WriteLine("Flag:" + flag);
         }
         else
+        {
             action.Flag = (ActionStateFlag)packet.ReadByte();
+        }
 
         /*if (Game.ClientType >= GameClientType.Global)
             packet.ReadByte();
@@ -134,10 +137,10 @@ public class Action
     }
 
     /// <summary>
-    /// Deserialize the packet. 0xB071
+    ///     Deserialize the packet. 0xB071
     /// </summary>
     /// <param name="packet">The packet.</param>
-    /// <returns>Deserialized <see cref="Action"/></returns>
+    /// <returns>Deserialized <see cref="Action" /></returns>
     public static Action DeserializeEnd(Packet packet)
     {
         var action = new Action();
@@ -157,13 +160,13 @@ public class Action
             var hitCount = packet.ReadByte();
             var affectedObjectCount = packet.ReadByte();
 
-            for (int i = 0; i < affectedObjectCount; i++)
+            for (var i = 0; i < affectedObjectCount; i++)
             {
                 var uniqueId = packet.ReadUInt();
                 if (!SpawnManager.TryGetEntity<SpawnedBionic>(uniqueId, out var entity))
                     continue;
 
-                for (int j = 0; j < hitCount; j++)
+                for (var j = 0; j < hitCount; j++)
                 {
                     var state = (ActionHitStateFlag)packet.ReadByte();
                     if (state == ActionHitStateFlag.Abort)
@@ -180,7 +183,8 @@ public class Action
                     {
                         var critStatus = packet.ReadByte(); // 0x01: normal 0x02 critical
 
-                        var damage = BitConverter.ToInt32(new byte[] {
+                        var damage = BitConverter.ToInt32(new byte[]
+                        {
                             packet.ReadByte(),
                             packet.ReadByte(),
                             packet.ReadByte(),
@@ -230,7 +234,7 @@ public class Action
     }
 
     /// <summary>
-    /// Gets the executor.
+    ///     Gets the executor.
     /// </summary>
     public bool TryGetExecutor<T>(out T entity) where T : SpawnedBionic
     {
@@ -238,7 +242,7 @@ public class Action
     }
 
     /// <summary>
-    /// Gets the target.
+    ///     Gets the target.
     /// </summary>
     /// <returns></returns>
     public bool TryGetTarget<T>(out T entity) where T : SpawnedBionic

@@ -1,33 +1,33 @@
-﻿using RSBot.Core.Event;
-using RSBot.Core.Network;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using RSBot.Core.Event;
+using RSBot.Core.Network;
 
 namespace RSBot.Core.Plugins;
 
 public class PluginManager
 {
     /// <summary>
-    /// Gets the extension directory.
+    ///     Gets the extension directory.
     /// </summary>
     /// <value>
-    /// The extension directory.
+    ///     The extension directory.
     /// </value>
     public string InitialDirectory => Path.Combine(Kernel.BasePath, "Data", "Plugins");
 
     /// <summary>
-    /// Gets the extensions.
+    ///     Gets the extensions.
     /// </summary>
     /// <value>
-    /// The extensions.
+    ///     The extensions.
     /// </value>
     public Dictionary<string, IPlugin> Extensions { get; private set; }
 
     /// <summary>
-    /// Loads the assemblies.
+    ///     Loads the assemblies.
     /// </summary>
     public bool LoadAssemblies()
     {
@@ -59,13 +59,14 @@ public class PluginManager
         }
         catch (Exception ex)
         {
-            File.WriteAllText(Kernel.BasePath + "\\boot-error.log", $"The plugin manager encountered a problem: \n{ex.Message} at {ex.StackTrace}");
+            File.WriteAllText(Kernel.BasePath + "\\boot-error.log",
+                $"The plugin manager encountered a problem: \n{ex.Message} at {ex.StackTrace}");
             return false;
         }
     }
 
     /// <summary>
-    /// Gets the extensions from assembly.
+    ///     Gets the extensions from assembly.
     /// </summary>
     /// <param name="file">The file.</param>
     /// <returns></returns>
@@ -79,7 +80,9 @@ public class PluginManager
         {
             var assemblyTypes = assembly.GetTypes();
 
-            foreach (var extension in (from type in assemblyTypes where type.IsPublic && !type.IsAbstract && type.GetInterface("IPlugin") != null select Activator.CreateInstance(type)).OfType<IPlugin>())
+            foreach (var extension in (from type in assemblyTypes
+                         where type.IsPublic && !type.IsAbstract && type.GetInterface("IPlugin") != null
+                         select Activator.CreateInstance(type)).OfType<IPlugin>())
                 result.Add(extension.InternalName, extension);
 
             if (result.Count == 0)
@@ -100,7 +103,10 @@ public class PluginManager
             foreach (var hook in types)
                 PacketManager.RegisterHook((IPacketHook)Activator.CreateInstance(hook));
         }
-        catch { /* ignore, it's an invalid extension */ }
+        catch
+        {
+            /* ignore, it's an invalid extension */
+        }
 
         return result;
     }

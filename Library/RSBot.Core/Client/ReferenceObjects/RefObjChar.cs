@@ -2,24 +2,6 @@
 
 public class RefObjChar : RefObjCommon
 {
-    #region Fields
-
-    public byte Level;
-    public ObjectGender CharGender;
-    public int MaxHealth;
-    public int MaxMP;
-    public byte InventorySize;
-    public byte CanStore_TID1;
-    public byte CanStore_TID2;
-    public byte CanStore_TID3;
-    public byte CanStore_TID4;
-    public byte CanBeVehicle;
-    public byte CanControl;
-    public byte DamagePortion;
-    public short MaxPassenger;
-
-    #endregion Fields
-
     public bool IsDimensionPillar => NameStrID == "SN_MOB_GOD_PILLAR";
     public bool IsSummonFlower => CodeName.StartsWith("STRUCTURE_SUMMON_FLOWER_");
     public bool IsEventMob => CodeName.StartsWith("MOB_EV");
@@ -48,4 +30,22 @@ public class RefObjChar : RefObjCommon
 
         return true;
     }
+
+    #region Fields
+
+    public byte Level;
+    public ObjectGender CharGender;
+    public int MaxHealth;
+    public int MaxMP;
+    public byte InventorySize;
+    public byte CanStore_TID1;
+    public byte CanStore_TID2;
+    public byte CanStore_TID3;
+    public byte CanStore_TID4;
+    public byte CanBeVehicle;
+    public byte CanControl;
+    public byte DamagePortion;
+    public short MaxPassenger;
+
+    #endregion Fields
 }

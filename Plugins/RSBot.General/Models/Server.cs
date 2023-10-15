@@ -3,50 +3,50 @@
 public class Server
 {
     /// <summary>
-    /// Gets or sets the identifier.
+    ///     Gets or sets the identifier.
     /// </summary>
     /// <value>
-    /// The identifier.
+    ///     The identifier.
     /// </value>
     public ushort Id { get; set; }
 
     /// <summary>
-    /// Gets or sets the name.
+    ///     Gets or sets the name.
     /// </summary>
     /// <value>
-    /// The name.
+    ///     The name.
     /// </value>
     public string Name { get; set; }
 
     /// <summary>
-    /// Gets or sets the current capacity.
+    ///     Gets or sets the current capacity.
     /// </summary>
     /// <value>
-    /// The current capacity.
+    ///     The current capacity.
     /// </value>
     public ushort CurrentCapacity { get; set; }
 
     /// <summary>
-    /// Gets or sets the maximum capacity.
+    ///     Gets or sets the maximum capacity.
     /// </summary>
     /// <value>
-    /// The maximum capacity.
+    ///     The maximum capacity.
     /// </value>
     public ushort MaxCapacity { get; set; }
 
     /// <summary>
-    /// Gets or sets the status.
+    ///     Gets or sets the status.
     /// </summary>
     /// <value>
-    /// The status.
+    ///     The status.
     /// </value>
     public bool Status { get; set; }
-        
+
     /// <summary>
-    /// Gets or sets the server capacity state.
+    ///     Gets or sets the server capacity state.
     /// </summary>
     /// <value>
-    /// The status.
+    ///     The status.
     /// </value>
     public string State { get; set; }
 }

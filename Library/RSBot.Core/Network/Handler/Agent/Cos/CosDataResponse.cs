@@ -1,4 +1,5 @@
 ﻿using RSBot.Core.Event;
+using RSBot.Core.Objects;
 using RSBot.Core.Objects.Cos;
 
 namespace RSBot.Core.Network.Handler.Agent;
@@ -6,23 +7,23 @@ namespace RSBot.Core.Network.Handler.Agent;
 internal class CosDataResponse : IPacketHandler
 {
     /// <summary>
-    /// Gets or sets the opcode.
+    ///     Gets or sets the opcode.
     /// </summary>
     /// <value>
-    /// The opcode.
+    ///     The opcode.
     /// </value>
     public ushort Opcode => 0x30C8;
 
     /// <summary>
-    /// Gets or sets the destination.
+    ///     Gets or sets the destination.
     /// </summary>
     /// <value>
-    /// The destination.
+    ///     The destination.
     /// </value>
     public PacketDestination Destination => PacketDestination.Client;
 
     /// <summary>
-    /// Handles the packet.
+    ///     Handles the packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     public void Invoke(Packet packet)
@@ -46,7 +47,7 @@ internal class CosDataResponse : IPacketHandler
                         Id = objectId,
                         UniqueId = uniqueId,
                         Health = hp,
-                        MaxHealth = maxHp,
+                        MaxHealth = maxHp
                     };
 
                     Game.Player.StopMoving();
@@ -64,7 +65,7 @@ internal class CosDataResponse : IPacketHandler
                         UniqueId = uniqueId,
                         Health = hp,
                         MaxHealth = maxHp,
-                        Inventory = new Objects.InventoryItemCollection(packet),
+                        Inventory = new InventoryItemCollection(packet),
                         OwnerUniqueId = packet.ReadUInt()
                     };
 
@@ -82,7 +83,7 @@ internal class CosDataResponse : IPacketHandler
                         Id = objectId,
                         UniqueId = uniqueId,
                         Health = hp,
-                        MaxHealth = maxHp,
+                        MaxHealth = maxHp
                     };
                     Game.Player.Growth.Deserialize(packet);
 
@@ -97,7 +98,7 @@ internal class CosDataResponse : IPacketHandler
                         Id = objectId,
                         UniqueId = uniqueId,
                         Health = hp,
-                        MaxHealth = maxHp,
+                        MaxHealth = maxHp
                     };
 
                     Game.Player.AbilityPet.Deserialize(packet);
@@ -112,7 +113,7 @@ internal class CosDataResponse : IPacketHandler
                         Id = objectId,
                         UniqueId = uniqueId,
                         Health = hp,
-                        MaxHealth = maxHp,
+                        MaxHealth = maxHp
                     };
 
                     Game.Player.Fellow.Deserialize(packet);

@@ -6,31 +6,31 @@ namespace RSBot.Core.Objects.Skill;
 public class MasteryInfo
 {
     /// <summary>
-    /// Gets or sets the level.
+    ///     Gets or sets the level.
     /// </summary>
     /// <value>
-    /// The level.
+    ///     The level.
     /// </value>
     public byte Level { get; set; }
 
     /// <summary>
-    /// Gets or sets the identifier.
+    ///     Gets or sets the identifier.
     /// </summary>
     /// <value>
-    /// The identifier.
+    ///     The identifier.
     /// </value>
     public uint Id { get; set; }
 
     /// <summary>
-    /// Gets the record.
+    ///     Gets the record.
     /// </summary>
     /// <value>
-    /// The record.
+    ///     The record.
     /// </value>
     public RefSkillMastery Record => Game.ReferenceManager.GetRefSkillMastery(Id);
 
     /// <summary>
-    /// Froms the packet.
+    ///     Froms the packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     /// <returns></returns>

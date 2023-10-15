@@ -5,63 +5,19 @@ using System.Text;
 namespace RSBot.Pk2.IO.Stream;
 
 /// <summary>
-/// This class handles all the stream data. It can read and write data from/to it and
-/// safe it back to a file
+///     This class handles all the stream data. It can read and write data from/to it and
+///     safe it back to a file
 /// </summary>
 internal class StreamWorker : IDisposable
 {
     /// <summary>
-    /// Gets the reader.
+    ///     Represents the lock so the data cannot be damaged while using multiple threads
     /// </summary>
-    /// <value>
-    /// The reader.
-    /// </value>
-    public Reader Reader { get; private set; }
+    private readonly object _lock = new();
 
     /// <summary>
-    /// Gets or sets the writer.
-    /// </summary>
-    /// <value>
-    /// The writer.
-    /// </value>
-    public Writer Writer { get; private set; }
-
-    /// <summary>
-    /// Represents the buffer data
-    /// </summary>
-    public byte[] Buffer { get; private set; }
-
-    /// <summary>
-    /// Gets the operation.
-    /// </summary>
-    /// <value>
-    /// The operation.
-    /// </value>
-    public StreamOperation Operation { get; }
-
-    /// <summary>
-    /// Gets a value indicating whether this instance is disposed.
-    /// </summary>
-    /// <value>
-    /// <c>true</c> if this instance is disposed; otherwise, <c>false</c>.
-    /// </value>
-    public bool IsDisposed { get; private set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether this instance is disposing.
-    /// </summary>
-    /// <value>
-    /// <c>true</c> if this instance is disposing; otherwise, <c>false</c>.
-    /// </value>
-    public bool IsDisposing { get; set; }
-
-    /// <summary>
-    /// Represents the lock so the data cannot be damaged while using multiple threads
-    /// </summary>
-    private readonly object _lock = new object();
-
-    /// <summary>Constructor
-    /// Initializes the StreamController with a default buffer
+    ///     Constructor
+    ///     Initializes the StreamController with a default buffer
     /// </summary>
     /// <param name="buffer">Data</param>
     /// <param name="operation">Type</param>
@@ -87,6 +43,85 @@ internal class StreamWorker : IDisposable
         }
     }
 
+    /// <summary>
+    ///     Gets the reader.
+    /// </summary>
+    /// <value>
+    ///     The reader.
+    /// </value>
+    public Reader Reader { get; private set; }
+
+    /// <summary>
+    ///     Gets or sets the writer.
+    /// </summary>
+    /// <value>
+    ///     The writer.
+    /// </value>
+    public Writer Writer { get; private set; }
+
+    /// <summary>
+    ///     Represents the buffer data
+    /// </summary>
+    public byte[] Buffer { get; private set; }
+
+    /// <summary>
+    ///     Gets the operation.
+    /// </summary>
+    /// <value>
+    ///     The operation.
+    /// </value>
+    public StreamOperation Operation { get; }
+
+    /// <summary>
+    ///     Gets a value indicating whether this instance is disposed.
+    /// </summary>
+    /// <value>
+    ///     <c>true</c> if this instance is disposed; otherwise, <c>false</c>.
+    /// </value>
+    public bool IsDisposed { get; private set; }
+
+    /// <summary>
+    ///     Gets or sets a value indicating whether this instance is disposing.
+    /// </summary>
+    /// <value>
+    ///     <c>true</c> if this instance is disposing; otherwise, <c>false</c>.
+    /// </value>
+    public bool IsDisposing { get; set; }
+
+    /// <summary>
+    ///     Dispose
+    ///     Lets the current object dispose
+    ///     Exceptions:
+    ///     ObjectDisposedException
+    /// </summary>
+    public void Dispose()
+    {
+        if (IsDisposed || IsDisposing)
+            throw new ObjectDisposedException("StreamController");
+
+        lock (_lock)
+        {
+            IsDisposing = true;
+
+            if (Reader != null)
+            {
+                Reader.Close();
+                Reader = null;
+            }
+
+            if (Writer != null)
+            {
+                Writer.Close();
+                Writer = null;
+            }
+
+            Buffer = null;
+
+            IsDisposing = false;
+            IsDisposed = true;
+        }
+    }
+
     #region Destructor
 
     ~StreamWorker()
@@ -96,19 +131,32 @@ internal class StreamWorker : IDisposable
 
     #endregion Destructor
 
+    /// <summary>
+    ///     Get Writer Bytes
+    ///     Returns the current buffer of the writer
+    /// </summary>
+    /// <returns></returns>
+    public byte[] GetWriterBytes()
+    {
+        return Writer.GetBuffer();
+    }
+
     #region Read
 
     /// <summary>
-    /// Reads the next byte from the stream
+    ///     Reads the next byte from the stream
     /// </summary>
     /// <returns>Next byte</returns>
     public byte ReadByte()
     {
-        lock (_lock) { return Reader.ReadByte(); }
+        lock (_lock)
+        {
+            return Reader.ReadByte();
+        }
     }
 
     /// <summary>
-    /// Reads the byte array.
+    ///     Reads the byte array.
     /// </summary>
     /// <param name="count">The count.</param>
     /// <returns></returns>
@@ -126,88 +174,115 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Reads the next sbyte from the stream
+    ///     Reads the next sbyte from the stream
     /// </summary>
     /// <returns>Next sbyte</returns>
     public sbyte ReadSByte()
     {
-        lock (_lock) { return Reader.ReadSByte(); }
+        lock (_lock)
+        {
+            return Reader.ReadSByte();
+        }
     }
 
     /// <summary>
-    /// Reads the next ushort from the stream
+    ///     Reads the next ushort from the stream
     /// </summary>
     /// <returns>Next ushort</returns>
     public ushort ReadUShort()
     {
-        lock (_lock) { return Reader.ReadUInt16(); }
+        lock (_lock)
+        {
+            return Reader.ReadUInt16();
+        }
     }
 
     /// <summary>
-    /// Reads the next short from the stream
+    ///     Reads the next short from the stream
     /// </summary>
     /// <returns>Next short</returns>
     public short ReadShort()
     {
-        lock (_lock) { return Reader.ReadInt16(); }
+        lock (_lock)
+        {
+            return Reader.ReadInt16();
+        }
     }
 
     /// <summary>
-    /// Reads the next uinteger from the stream
+    ///     Reads the next uinteger from the stream
     /// </summary>
     /// <returns>Next uinteger</returns>
     public uint ReadUInt()
     {
-        lock (_lock) { return Reader.ReadUInt32(); }
+        lock (_lock)
+        {
+            return Reader.ReadUInt32();
+        }
     }
 
     /// <summary>
-    /// Reads the next integer from the stream
+    ///     Reads the next integer from the stream
     /// </summary>
     /// <returns>Next integer</returns>
     public int ReadInt()
     {
-        lock (_lock) { return Reader.ReadInt32(); }
+        lock (_lock)
+        {
+            return Reader.ReadInt32();
+        }
     }
 
     /// <summary>
-    /// Reads the next ulong from the stream
+    ///     Reads the next ulong from the stream
     /// </summary>
     /// <returns>Next ulong</returns>
     public ulong ReadULong()
     {
-        lock (_lock) { return Reader.ReadUInt64(); }
+        lock (_lock)
+        {
+            return Reader.ReadUInt64();
+        }
     }
 
     /// <summary>
-    /// Reads the next long from the stream
+    ///     Reads the next long from the stream
     /// </summary>
     /// <returns>Next long</returns>
     public long ReadLong()
     {
-        lock (_lock) { return Reader.ReadInt64(); }
+        lock (_lock)
+        {
+            return Reader.ReadInt64();
+        }
     }
 
     /// <summary>
-    /// Reads the next float from the stream
+    ///     Reads the next float from the stream
     /// </summary>
     /// <returns>Next float</returns>
     public float ReadFloat()
     {
-        lock (_lock) { return Reader.ReadSingle(); }
+        lock (_lock)
+        {
+            return Reader.ReadSingle();
+        }
     }
 
     /// <summary>
-    /// Reads the next double from the stream
+    ///     Reads the next double from the stream
     /// </summary>
     /// <returns>Next double</returns>
     public double ReadDouble()
     {
-        lock (_lock) { return Reader.ReadDouble(); }
+        lock (_lock)
+        {
+            return Reader.ReadDouble();
+        }
     }
 
     /// <summary>
-    /// Reads the next string from the stream by a specific codepage
+    ///     Reads the next string from the stream by a specific codepage
     /// </summary>
     /// <returns>Next string</returns>
     public string ReadString(int length, int codepage = 65001)
@@ -220,16 +295,19 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Reads a boolean from the current buffer
+    ///     Reads a boolean from the current buffer
     /// </summary>
     /// <returns>Next boolean</returns>
     public bool ReadBool()
     {
-        lock (_lock) { return Reader.ReadBoolean(); }
+        lock (_lock)
+        {
+            return Reader.ReadBoolean();
+        }
     }
 
     /// <summary>
-    /// Reads a boolean array from the buffer by using a count
+    ///     Reads a boolean array from the buffer by using a count
     /// </summary>
     /// <param name="count">count of booleans in the array</param>
     /// <returns>Next boolean array</returns>
@@ -247,7 +325,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Reads a float array from the buffer by using a count
+    ///     Reads a float array from the buffer by using a count
     /// </summary>
     /// <param name="count">count of floats in the array</param>
     /// <returns>Next float array</returns>
@@ -265,7 +343,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Reads a integer array from the buffer by using a count
+    ///     Reads a integer array from the buffer by using a count
     /// </summary>
     /// <param name="count">count of integer in the array</param>
     /// <returns>Next integer array</returns>
@@ -283,7 +361,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Reads a long array from the buffer by using a count
+    ///     Reads a long array from the buffer by using a count
     /// </summary>
     /// <param name="count">count of longs in the array</param>
     /// <returns>Next long array</returns>
@@ -301,7 +379,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Reads a sbyte array from the buffer by using a count
+    ///     Reads a sbyte array from the buffer by using a count
     /// </summary>
     /// <param name="count">count of sbytes in the array</param>
     /// <returns>Next sbyte array</returns>
@@ -319,7 +397,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Reads a sbyte array from the buffer by using a count
+    ///     Reads a sbyte array from the buffer by using a count
     /// </summary>
     /// <param name="count">count of shorts in the array</param>
     /// <returns>Next short array</returns>
@@ -337,7 +415,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Reads a uinteger array from the buffer by using a count
+    ///     Reads a uinteger array from the buffer by using a count
     /// </summary>
     /// <param name="count">count of uintegers in the array</param>
     /// <returns>Next uinteger array</returns>
@@ -355,7 +433,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Reads a ulong array from the buffer by using a count
+    ///     Reads a ulong array from the buffer by using a count
     /// </summary>
     /// <param name="count">count of ulongs in the array</param>
     /// <returns>Next ulong array</returns>
@@ -373,7 +451,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Reads a unicode array from the buffer by using a count
+    ///     Reads a unicode array from the buffer by using a count
     /// </summary>
     /// <param name="count">count of unicodes in the array</param>
     /// <returns>Next unicode array</returns>
@@ -388,12 +466,13 @@ internal class StreamWorker : IDisposable
                 var bytes = Reader.ReadBytes(num2 * 2);
                 strArray[i] = Encoding.Unicode.GetString(bytes);
             }
+
             return strArray;
         }
     }
 
     /// <summary>
-    /// Reads a ushort array from the buffer by using a count
+    ///     Reads a ushort array from the buffer by using a count
     /// </summary>
     /// <param name="count">count of ushorts in the array</param>
     /// <returns>Next ushort array</returns>
@@ -409,23 +488,28 @@ internal class StreamWorker : IDisposable
         }
     }
 
-    /// <summary>Seek Read
-    /// Sets the position in the current reader stream
+    /// <summary>
+    ///     Seek Read
+    ///     Sets the position in the current reader stream
     /// </summary>
     /// <param name="offset">Startpoint</param>
     /// <param name="origin"></param>
     /// <returns>Seek</returns>
     public long SeekRead(long offset, SeekOrigin origin)
     {
-        lock (_lock) { return Reader.BaseStream.Seek(offset, origin); }
+        lock (_lock)
+        {
+            return Reader.BaseStream.Seek(offset, origin);
+        }
     }
 
     #endregion Read
 
     #region Write
 
-    /// <summary>AppendData
-    /// Appends a  of data to the writer
+    /// <summary>
+    ///     AppendData
+    ///     Appends a  of data to the writer
     /// </summary>
     /// <param name="data">Block of data</param>
     public void Append(byte[] data)
@@ -434,7 +518,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Extends the writer to a new size.
+    ///     Extends the writer to a new size.
     /// </summary>
     /// <param name="finalSize">The final size.</param>
     public void ExtendTo(int finalSize)
@@ -447,7 +531,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Appends a block of data to the writer
+    ///     Appends a block of data to the writer
     /// </summary>
     /// <param name="stream">StreamController to append</param>
     public void Append(StreamWorker stream)
@@ -456,7 +540,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Sets the current position within the stream
+    ///     Sets the current position within the stream
     /// </summary>
     /// <param name="position"></param>
     public void SeekWrite(long position)
@@ -465,7 +549,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the string.
+    ///     Writes the string.
     /// </summary>
     /// <param name="value">The value.</param>
     public void WriteString(object value)
@@ -474,7 +558,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the string.
+    ///     Writes the string.
     /// </summary>
     /// <param name="value">The value.</param>
     public void WriteString(string value)
@@ -483,7 +567,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the ASCII.
+    ///     Writes the ASCII.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <param name="codepage">The codepage.</param>
@@ -499,7 +583,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the ASCII.
+    ///     Writes the ASCII.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <param name="codepage">The codepage.</param>
@@ -515,7 +599,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the ASCII array.
+    ///     Writes the ASCII array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteAsciiArray(object[] values)
@@ -524,7 +608,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the ASCII array.
+    ///     Writes the ASCII array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteAsciiArray(string[] values)
@@ -533,7 +617,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the ASCII array.
+    ///     Writes the ASCII array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="codepage">The codepage.</param>
@@ -543,7 +627,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the ASCII array.
+    ///     Writes the ASCII array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="codepage">The codepage.</param>
@@ -553,7 +637,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the ASCII array.
+    ///     Writes the ASCII array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -564,7 +648,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the ASCII array.
+    ///     Writes the ASCII array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -575,7 +659,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the ASCII array.
+    ///     Writes the ASCII array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -585,13 +669,13 @@ internal class StreamWorker : IDisposable
     {
         lock (_lock)
         {
-            for (var i = index; i < (index + count); i++)
+            for (var i = index; i < index + count; i++)
                 WriteAscii(values[i].ToString(), codepage);
         }
     }
 
     /// <summary>
-    /// Writes the ASCII array.
+    ///     Writes the ASCII array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -601,13 +685,13 @@ internal class StreamWorker : IDisposable
     {
         lock (_lock)
         {
-            for (var i = index; i < (index + count); i++)
+            for (var i = index; i < index + count; i++)
                 WriteAscii(values[i], codepage);
         }
     }
 
     /// <summary>
-    /// Writes the bool.
+    ///     Writes the bool.
     /// </summary>
     /// <param name="value">if set to <c>true</c> [value].</param>
     public void WriteBool(bool value)
@@ -619,7 +703,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the bool.
+    ///     Writes the bool.
     /// </summary>
     /// <param name="value">The value.</param>
     public void WriteBool(object value)
@@ -631,7 +715,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the bool array.
+    ///     Writes the bool array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteBoolArray(bool[] values)
@@ -640,7 +724,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the bool array.
+    ///     Writes the bool array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteBoolArray(object[] values)
@@ -649,7 +733,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the bool array.
+    ///     Writes the bool array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -658,13 +742,13 @@ internal class StreamWorker : IDisposable
     {
         lock (_lock)
         {
-            for (var i = index; i < (index + count); i++)
+            for (var i = index; i < index + count; i++)
                 Writer.Write(values[i]);
         }
     }
 
     /// <summary>
-    /// Writes the bool array.
+    ///     Writes the bool array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -673,13 +757,13 @@ internal class StreamWorker : IDisposable
     {
         lock (_lock)
         {
-            for (var i = index; i < (index + count); i++)
+            for (var i = index; i < index + count; i++)
                 WriteBool(values[i]);
         }
     }
 
     /// <summary>
-    /// Writes the byte.
+    ///     Writes the byte.
     /// </summary>
     /// <param name="value">The value.</param>
     public void WriteByte(byte value)
@@ -691,7 +775,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the byte.
+    ///     Writes the byte.
     /// </summary>
     /// <param name="value">The value.</param>
     public void WriteByte(object value)
@@ -703,7 +787,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the byte array.
+    ///     Writes the byte array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteByteArray(byte[] values)
@@ -715,7 +799,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the byte array.
+    ///     Writes the byte array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteByteArray(object[] values)
@@ -727,7 +811,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the byte array.
+    ///     Writes the byte array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -736,13 +820,13 @@ internal class StreamWorker : IDisposable
     {
         lock (_lock)
         {
-            for (var i = index; i < (index + count); i++)
+            for (var i = index; i < index + count; i++)
                 Writer.Write(values[i]);
         }
     }
 
     /// <summary>
-    /// Writes the byte array.
+    ///     Writes the byte array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -751,13 +835,13 @@ internal class StreamWorker : IDisposable
     {
         lock (_lock)
         {
-            for (var i = index; i < (index + count); i++)
+            for (var i = index; i < index + count; i++)
                 WriteByte(values[i]);
         }
     }
 
     /// <summary>
-    /// Writes the double.
+    ///     Writes the double.
     /// </summary>
     /// <param name="value">The value.</param>
     public void WriteDouble(double value)
@@ -769,7 +853,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the double.
+    ///     Writes the double.
     /// </summary>
     /// <param name="value">The value.</param>
     public void WriteDouble(object value)
@@ -781,7 +865,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the double array.
+    ///     Writes the double array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteDoubleArray(double[] values)
@@ -790,7 +874,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the double array.
+    ///     Writes the double array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteDoubleArray(object[] values)
@@ -799,7 +883,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the double array.
+    ///     Writes the double array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -808,13 +892,13 @@ internal class StreamWorker : IDisposable
     {
         lock (_lock)
         {
-            for (var i = index; i < (index + count); i++)
+            for (var i = index; i < index + count; i++)
                 Writer.Write(values[i]);
         }
     }
 
     /// <summary>
-    /// Writes the double array.
+    ///     Writes the double array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -823,13 +907,13 @@ internal class StreamWorker : IDisposable
     {
         lock (_lock)
         {
-            for (var i = index; i < (index + count); i++)
+            for (var i = index; i < index + count; i++)
                 WriteDouble(values[i]);
         }
     }
 
     /// <summary>
-    /// Writes the float.
+    ///     Writes the float.
     /// </summary>
     /// <param name="value">The value.</param>
     public void WriteFloat(object value)
@@ -841,7 +925,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the float.
+    ///     Writes the float.
     /// </summary>
     /// <param name="value">The value.</param>
     public void WriteFloat(float value)
@@ -853,7 +937,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the float array.
+    ///     Writes the float array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteFloatArray(object[] values)
@@ -862,7 +946,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the float array.
+    ///     Writes the float array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteFloatArray(float[] values)
@@ -871,7 +955,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the float array.
+    ///     Writes the float array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -880,13 +964,13 @@ internal class StreamWorker : IDisposable
     {
         lock (_lock)
         {
-            for (var i = index; i < (index + count); i++)
+            for (var i = index; i < index + count; i++)
                 WriteFloat(values[i]);
         }
     }
 
     /// <summary>
-    /// Writes the float array.
+    ///     Writes the float array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -895,13 +979,13 @@ internal class StreamWorker : IDisposable
     {
         lock (_lock)
         {
-            for (var i = index; i < (index + count); i++)
+            for (var i = index; i < index + count; i++)
                 Writer.Write(values[i]);
         }
     }
 
     /// <summary>
-    /// Writes the integer.
+    ///     Writes the integer.
     /// </summary>
     /// <param name="value">The value.</param>
     public void WriteInt(int value)
@@ -913,19 +997,19 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the int.
+    ///     Writes the int.
     /// </summary>
     /// <param name="value">The value.</param>
     public void WriteInt(object value)
     {
         lock (_lock)
         {
-            Writer.Write((int)(((ulong)Convert.ToInt64(value)) & 0xffffffffL));
+            Writer.Write((int)((ulong)Convert.ToInt64(value) & 0xffffffffL));
         }
     }
 
     /// <summary>
-    /// Writes the int array.
+    ///     Writes the int array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteIntArray(int[] values)
@@ -934,7 +1018,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the int array.
+    ///     Writes the int array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteIntArray(object[] values)
@@ -946,13 +1030,13 @@ internal class StreamWorker : IDisposable
     {
         lock (_lock)
         {
-            for (var i = index; i < (index + count); i++)
+            for (var i = index; i < index + count; i++)
                 Writer.Write(values[i]);
         }
     }
 
     /// <summary>
-    /// Writes the int array.
+    ///     Writes the int array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -961,13 +1045,13 @@ internal class StreamWorker : IDisposable
     {
         lock (_lock)
         {
-            for (var i = index; i < (index + count); i++)
+            for (var i = index; i < index + count; i++)
                 WriteInt(values[i]);
         }
     }
 
     /// <summary>
-    /// Writes the long.
+    ///     Writes the long.
     /// </summary>
     /// <param name="value">The value.</param>
     public void WriteLong(long value)
@@ -979,7 +1063,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the long.
+    ///     Writes the long.
     /// </summary>
     /// <param name="value">The value.</param>
     public void WriteLong(object value)
@@ -991,7 +1075,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the long array.
+    ///     Writes the long array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteLongArray(long[] values)
@@ -1000,7 +1084,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the long array.
+    ///     Writes the long array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteLongArray(object[] values)
@@ -1009,7 +1093,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the long array.
+    ///     Writes the long array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1018,13 +1102,13 @@ internal class StreamWorker : IDisposable
     {
         lock (_lock)
         {
-            for (var i = index; i < (index + count); i++)
+            for (var i = index; i < index + count; i++)
                 Writer.Write(values[i]);
         }
     }
 
     /// <summary>
-    /// Writes the long array.
+    ///     Writes the long array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1033,13 +1117,13 @@ internal class StreamWorker : IDisposable
     {
         lock (_lock)
         {
-            for (var i = index; i < (index + count); i++)
+            for (var i = index; i < index + count; i++)
                 WriteLong(values[i]);
         }
     }
 
     /// <summary>
-    /// Writes the s byte.
+    ///     Writes the s byte.
     /// </summary>
     /// <param name="value">The value.</param>
     public void WriteSByte(object value)
@@ -1051,7 +1135,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the s byte.
+    ///     Writes the s byte.
     /// </summary>
     /// <param name="value">The value.</param>
     public void WriteSByte(sbyte value)
@@ -1063,7 +1147,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the s byte array.
+    ///     Writes the s byte array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteSByteArray(object[] values)
@@ -1072,7 +1156,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the s byte array.
+    ///     Writes the s byte array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1081,13 +1165,13 @@ internal class StreamWorker : IDisposable
     {
         lock (_lock)
         {
-            for (var i = index; i < (index + count); i++)
+            for (var i = index; i < index + count; i++)
                 WriteSByte(values[i]);
         }
     }
 
     /// <summary>
-    /// Writes the short.
+    ///     Writes the short.
     /// </summary>
     /// <param name="value">The value.</param>
     public void WriteShort(short value)
@@ -1099,7 +1183,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the short.
+    ///     Writes the short.
     /// </summary>
     /// <param name="value">The value.</param>
     public void WriteShort(object value)
@@ -1111,7 +1195,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the short array.
+    ///     Writes the short array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteShortArray(short[] values)
@@ -1120,7 +1204,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the short array.
+    ///     Writes the short array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteShortArray(object[] values)
@@ -1129,7 +1213,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the short array.
+    ///     Writes the short array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1138,13 +1222,13 @@ internal class StreamWorker : IDisposable
     {
         lock (_lock)
         {
-            for (var i = index; i < (index + count); i++)
+            for (var i = index; i < index + count; i++)
                 Writer.Write(values[i]);
         }
     }
 
     /// <summary>
-    /// Writes the short array.
+    ///     Writes the short array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1153,13 +1237,13 @@ internal class StreamWorker : IDisposable
     {
         lock (_lock)
         {
-            for (var i = index; i < (index + count); i++)
+            for (var i = index; i < index + count; i++)
                 WriteShort(values[i]);
         }
     }
 
     /// <summary>
-    /// Writes the u int.
+    ///     Writes the u int.
     /// </summary>
     /// <param name="value">The value.</param>
     public void WriteUInt(object value)
@@ -1171,7 +1255,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the u int.
+    ///     Writes the u int.
     /// </summary>
     /// <param name="value">The value.</param>
     public void WriteUInt(uint value)
@@ -1183,7 +1267,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the u int array.
+    ///     Writes the u int array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteUIntArray(object[] values)
@@ -1192,7 +1276,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the u int array.
+    ///     Writes the u int array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteUIntArray(uint[] values)
@@ -1201,7 +1285,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the u int array.
+    ///     Writes the u int array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1210,13 +1294,13 @@ internal class StreamWorker : IDisposable
     {
         lock (_lock)
         {
-            for (var i = index; i < (index + count); i++)
+            for (var i = index; i < index + count; i++)
                 WriteUInt(values[i]);
         }
     }
 
     /// <summary>
-    /// Writes the u int array.
+    ///     Writes the u int array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1225,13 +1309,13 @@ internal class StreamWorker : IDisposable
     {
         lock (_lock)
         {
-            for (var i = index; i < (index + count); i++)
+            for (var i = index; i < index + count; i++)
                 Writer.Write(values[i]);
         }
     }
 
     /// <summary>
-    /// Writes the u long.
+    ///     Writes the u long.
     /// </summary>
     /// <param name="value">The value.</param>
     public void WriteULong(object value)
@@ -1243,7 +1327,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the u long.
+    ///     Writes the u long.
     /// </summary>
     /// <param name="value">The value.</param>
     public void WriteULong(ulong value)
@@ -1255,7 +1339,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the u long array.
+    ///     Writes the u long array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteULongArray(object[] values)
@@ -1264,7 +1348,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the u long array.
+    ///     Writes the u long array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteULongArray(ulong[] values)
@@ -1273,7 +1357,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the u long array.
+    ///     Writes the u long array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1282,13 +1366,13 @@ internal class StreamWorker : IDisposable
     {
         lock (_lock)
         {
-            for (var i = index; i < (index + count); i++)
+            for (var i = index; i < index + count; i++)
                 WriteULong(values[i]);
         }
     }
 
     /// <summary>
-    /// Writes the u long array.
+    ///     Writes the u long array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1297,13 +1381,13 @@ internal class StreamWorker : IDisposable
     {
         lock (_lock)
         {
-            for (var i = index; i < (index + count); i++)
+            for (var i = index; i < index + count; i++)
                 Writer.Write(values[i]);
         }
     }
 
     /// <summary>
-    /// Writes the unicode.
+    ///     Writes the unicode.
     /// </summary>
     /// <param name="value">The value.</param>
     public void WriteUnicode(object value)
@@ -1316,7 +1400,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the unicode.
+    ///     Writes the unicode.
     /// </summary>
     /// <param name="value">The value.</param>
     public void WriteUnicode(string value)
@@ -1329,7 +1413,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the unicode array.
+    ///     Writes the unicode array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteUnicodeArray(object[] values)
@@ -1338,7 +1422,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the unicode array.
+    ///     Writes the unicode array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteUnicodeArray(string[] values)
@@ -1347,7 +1431,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the unicode array.
+    ///     Writes the unicode array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1356,13 +1440,13 @@ internal class StreamWorker : IDisposable
     {
         lock (_lock)
         {
-            for (var i = index; i < (index + count); i++)
+            for (var i = index; i < index + count; i++)
                 WriteUnicode(values[i].ToString());
         }
     }
 
     /// <summary>
-    /// Writes the unicode array.
+    ///     Writes the unicode array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1371,25 +1455,25 @@ internal class StreamWorker : IDisposable
     {
         lock (_lock)
         {
-            for (var i = index; i < (index + count); i++)
+            for (var i = index; i < index + count; i++)
                 WriteUnicode(values[i]);
         }
     }
 
     /// <summary>
-    /// Writes the u short.
+    ///     Writes the u short.
     /// </summary>
     /// <param name="value">The value.</param>
     public void WriteUShort(object value)
     {
         lock (_lock)
         {
-            Writer.Write((ushort)(Convert.ToUInt64(value) & (0xffffL)));
+            Writer.Write((ushort)(Convert.ToUInt64(value) & 0xffffL));
         }
     }
 
     /// <summary>
-    /// Writes the u short.
+    ///     Writes the u short.
     /// </summary>
     /// <param name="value">The value.</param>
     public void WriteUShort(ushort value)
@@ -1401,7 +1485,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the u short array.
+    ///     Writes the u short array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteUShortArray(object[] values)
@@ -1410,7 +1494,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the u short array.
+    ///     Writes the u short array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteUShortArray(ushort[] values)
@@ -1419,7 +1503,7 @@ internal class StreamWorker : IDisposable
     }
 
     /// <summary>
-    /// Writes the u short array.
+    ///     Writes the u short array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1428,13 +1512,13 @@ internal class StreamWorker : IDisposable
     {
         lock (_lock)
         {
-            for (var i = index; i < (index + count); i++)
+            for (var i = index; i < index + count; i++)
                 WriteUShort(values[i]);
         }
     }
 
     /// <summary>
-    /// Writes the u short array.
+    ///     Writes the u short array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1443,52 +1527,9 @@ internal class StreamWorker : IDisposable
     {
         lock (_lock)
         {
-            for (var i = index; i < (index + count); i++)
-            {
-                Writer.Write(values[i]);
-            }
+            for (var i = index; i < index + count; i++) Writer.Write(values[i]);
         }
     }
 
     #endregion Write
-
-    /// <summary>Get Writer Bytes
-    /// Returns the current buffer of the writer
-    /// </summary>
-    /// <returns></returns>
-    public byte[] GetWriterBytes()
-    {
-        return Writer.GetBuffer();
-    }
-
-    /// <summary>Dispose
-    /// Lets the current object dispose
-    ///
-    /// Exceptions:
-    ///  ObjectDisposedException
-    /// </summary>
-    public void Dispose()
-    {
-        if (IsDisposed || IsDisposing)
-            throw new ObjectDisposedException("StreamController");
-
-        lock (_lock)
-        {
-            IsDisposing = true;
-
-            if (Reader != null)
-            {
-                Reader.Close(); Reader = null;
-            }
-
-            if (Writer != null)
-            {
-                Writer.Close(); Writer = null;
-            }
-            Buffer = null;
-
-            IsDisposing = false;
-            IsDisposed = true;
-        }
-    }
 }

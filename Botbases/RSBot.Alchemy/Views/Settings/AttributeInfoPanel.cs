@@ -1,76 +1,34 @@
-﻿using RSBot.Core.Extensions;
-using RSBot.Core.Objects;
+﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
+using RSBot.Core.Extensions;
+using RSBot.Core.Objects;
 
 namespace RSBot.Alchemy.Views.Settings;
 
-[System.ComponentModel.ToolboxItem(false)]
+[ToolboxItem(false)]
 public partial class AttributeInfoPanel : UserControl
 {
     public delegate void OnChangedEventHandler(bool @checked, int maxValue);
 
-    public event OnChangedEventHandler OnChange;
-
-    #region Properties
-
     /// <summary>
-    /// Gets or sets a value indicating whether this <see cref="AttributeInfoPanel"/> is checked.
+    ///     Gets the current attribute.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if checked; otherwise, <c>false</c>.
-    /// </value>
-    public bool Checked
-    {
-        get => checkSelected.Checked;
-
-        set
-        {
-            checkSelected.Checked = GetMaxValue() > _currentAttribute.GetPercentage(_currentAttributeSlot) && value;
-        }
-    }
-
-    /// <summary>
-    /// Gets the maximum value this attribute should have.
-    /// </summary>
-    /// <value>
-    /// The maximum value.
-    /// </value>
-    public int MaxValue => GetMaxValue();
-
-    /// <summary>
-    /// Gets or sets the attribute group.
-    /// </summary>
-    /// <value>
-    /// The attribute group.
-    /// </value>
-    public ItemAttributeGroup AttributeGroup { get; set; }
-
-    /// <summary>
-    /// Gets the stones assigned to this attribute.
-    /// </summary>
-    /// <value>
-    /// The stones.
-    /// </value>
-    public IEnumerable<InventoryItem>? Stones { get; init; }
-
-    #endregion Properties
-
-    /// <summary>
-    /// Gets the current attribute.
-    /// </summary>
-    /// <value>
-    /// The current attribute.
+    ///     The current attribute.
     /// </value>
     private ItemAttributesInfo _currentAttribute;
 
     /// <summary>
-    /// The current attribute slot
+    ///     The current attribute slot
     /// </summary>
-    private byte _currentAttributeSlot;
+    private readonly byte _currentAttributeSlot;
 
-    /// Initializes a new instance of the <see cref="AttributeInfoPanel"/> class.
+    /// Initializes a new instance of the
+    /// <see cref="AttributeInfoPanel" />
+    /// class.
     /// </summary>
     /// <param name="group">The group.</param>
     /// <param name="stones">The stones.</param>
@@ -100,7 +58,9 @@ public partial class AttributeInfoPanel : UserControl
             checkSelected.Enabled = false;
         }
         else
+        {
             lblItemAmount.Text = $"x{totalAmount}";
+        }
 
         var attributeSlot = ItemAttributesInfo.GetAttributeSlotForItem(group, item.Record);
         checkSelected.Text = $"{group.GetTranslation()} +{item.Attributes.GetPercentage(attributeSlot)}%";
@@ -116,7 +76,9 @@ public partial class AttributeInfoPanel : UserControl
             lblFinished.Hide();
     }
 
-    private void ComboMaxValue_SelectedIndexChanged(object? sender, System.EventArgs e)
+    public event OnChangedEventHandler OnChange;
+
+    private void ComboMaxValue_SelectedIndexChanged(object? sender, EventArgs e)
     {
         if (comboMaxValue.SelectedItem == null)
             return;
@@ -137,17 +99,58 @@ public partial class AttributeInfoPanel : UserControl
 
     #region Events
 
-    private void CheckSelected_CheckedChanged(object? sender, System.EventArgs e)
+    private void CheckSelected_CheckedChanged(object? sender, EventArgs e)
     {
         OnChange?.Invoke(checkSelected.Checked, GetMaxValue());
     }
 
     #endregion Events
 
+    #region Properties
+
+    /// <summary>
+    ///     Gets or sets a value indicating whether this <see cref="AttributeInfoPanel" /> is checked.
+    /// </summary>
+    /// <value>
+    ///     <c>true</c> if checked; otherwise, <c>false</c>.
+    /// </value>
+    public bool Checked
+    {
+        get => checkSelected.Checked;
+
+        set => checkSelected.Checked = GetMaxValue() > _currentAttribute.GetPercentage(_currentAttributeSlot) && value;
+    }
+
+    /// <summary>
+    ///     Gets the maximum value this attribute should have.
+    /// </summary>
+    /// <value>
+    ///     The maximum value.
+    /// </value>
+    public int MaxValue => GetMaxValue();
+
+    /// <summary>
+    ///     Gets or sets the attribute group.
+    /// </summary>
+    /// <value>
+    ///     The attribute group.
+    /// </value>
+    public ItemAttributeGroup AttributeGroup { get; set; }
+
+    /// <summary>
+    ///     Gets the stones assigned to this attribute.
+    /// </summary>
+    /// <value>
+    ///     The stones.
+    /// </value>
+    public IEnumerable<InventoryItem>? Stones { get; init; }
+
+    #endregion Properties
+
     #region Methods
 
     /// <summary>
-    /// Gets the maximum value selected by the user.
+    ///     Gets the maximum value selected by the user.
     /// </summary>
     /// <returns></returns>
     private int GetMaxValue()

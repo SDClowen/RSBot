@@ -1,70 +1,67 @@
-﻿using RSBot.Core.Components.Scripting;
-using RSBot.Core.Event;
-using RSBot.Core.Objects;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms.VisualStyles;
+using RSBot.Core.Components.Scripting;
+using RSBot.Core.Event;
+using RSBot.Core.Objects;
 
 namespace RSBot.Core.Components;
 
 public class ScriptManager
 {
     /// <summary>
-    /// Gets the initial directory
+    ///     Gets the initial directory
     /// </summary>
     public static string InitialDirectory => Path.Combine(Kernel.BasePath, "Data", "Scripts");
 
     /// <summary>
-    /// Gets or sets the file.
+    ///     Gets or sets the file.
     /// </summary>
     /// <value>
-    /// The file.
+    ///     The file.
     /// </value>
     public static string File { get; set; }
 
     /// <summary>
-    /// Gets or sets the commands.
+    ///     Gets or sets the commands.
     /// </summary>
     /// <value>
-    /// The commands.
+    ///     The commands.
     /// </value>
     public static string[] Commands { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether this <see cref="ScriptManager"/> is running.
+    ///     Gets or sets a value indicating whether this <see cref="ScriptManager" /> is running.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if running; otherwise, <c>false</c>.
+    ///     <c>true</c> if running; otherwise, <c>false</c>.
     /// </value>
     public static bool Running { get; set; }
 
     /// <summary>
-    /// Gets the command handlers.
+    ///     Gets the command handlers.
     /// </summary>
     /// <value>The command handlers.</value>
     public static List<IScriptCommand> CommandHandlers { get; private set; }
 
     /// <summary>
-    /// Gets the index of the current line.
+    ///     Gets the index of the current line.
     /// </summary>
     /// <value>
-    /// The index of the current line.
+    ///     The index of the current line.
     /// </value>
     public static int CurrentLineIndex { get; private set; }
 
     /// <summary>
-    /// Gets or sets the argument separator.
-    /// Modify this value in case of custom script syntax support
+    ///     Gets or sets the argument separator.
+    ///     Modify this value in case of custom script syntax support
     /// </summary>
     /// <value>
-    /// The argument separator.
+    ///     The argument separator.
     /// </value>
     public static char ArgumentSeparator { get; set; } = ' ';
-        
+
     public static bool Paused { get; private set; }
 
     public static void Initialize()
@@ -85,7 +82,7 @@ public class ScriptManager
     }
 
     /// <summary>
-    /// Loads the specified file.
+    ///     Loads the specified file.
     /// </summary>
     /// <param name="file">The file.</param>
     public static void Load(string file)
@@ -104,7 +101,7 @@ public class ScriptManager
     }
 
     /// <summary>
-    /// Loads the specified commands.
+    ///     Loads the specified commands.
     /// </summary>
     /// <param name="commands">The commands.</param>
     public static void Load(string[] commands)
@@ -114,17 +111,17 @@ public class ScriptManager
     }
 
     /// <summary>
-    /// Pauses the command execution.
+    ///     Pauses the command execution.
     /// </summary>
     public static void Pause()
     {
         Paused = true;
-       
+
         EventManager.FireEvent("OnPauseScript");
     }
 
     /// <summary>
-    /// Runs this instance.
+    ///     Runs this instance.
     /// </summary>
     public static void RunScript(bool useNearbyWaypoint = true, bool ignoreBotRunning = false)
     {
@@ -157,6 +154,7 @@ public class ScriptManager
 
                 break;
             }
+
             Log.Debug($"[Script] Executing line #{CurrentLineIndex}");
             Log.Status("Running walk script");
 
@@ -179,7 +177,8 @@ public class ScriptManager
             if (handler.IsBusy && Running && !Paused)
             {
                 error = true;
-                LogScriptMessage("The script command is still busy, stopping script execution.", CurrentLineIndex, LogLevel.Debug, commandName);
+                LogScriptMessage("The script command is still busy, stopping script execution.", CurrentLineIndex,
+                    LogLevel.Debug, commandName);
 
                 break;
             }
@@ -190,7 +189,8 @@ public class ScriptManager
 
             if (executionResult == false)
             {
-                LogScriptMessage("The execution of the script command failed.", CurrentLineIndex, LogLevel.Warning, commandName);
+                LogScriptMessage("The execution of the script command failed.", CurrentLineIndex, LogLevel.Warning,
+                    commandName);
 
                 continue;
             }
@@ -206,7 +206,7 @@ public class ScriptManager
     }
 
     /// <summary>
-    /// Stops this instance.
+    ///     Stops this instance.
     /// </summary>
     public static void Stop(bool error = false)
     {
@@ -221,21 +221,22 @@ public class ScriptManager
     }
 
     /// <summary>
-    /// A convenience function that returns all positions in the walk script.
-    ///
-    /// Warning: This method is not extendable at the moment, that means that there can not be
-    /// a custom implementation of the "move" command. The move command currently always needs to have the arguments XOffset, YOffset, ZOffset, XSector, YSector.
+    ///     A convenience function that returns all positions in the walk script.
+    ///     Warning: This method is not extendable at the moment, that means that there can not be
+    ///     a custom implementation of the "move" command. The move command currently always needs to have the arguments
+    ///     XOffset, YOffset, ZOffset, XSector, YSector.
     /// </summary>
     /// <returns></returns>
     public static List<Position> GetWalkScript()
     {
         var walkCommands = Commands.Where(c => c.Trim().StartsWith("move"));
 
-        return walkCommands.Select(command => command.Split(ArgumentSeparator).Skip(1).ToArray()).Select(ParsePosition).ToList();
+        return walkCommands.Select(command => command.Split(ArgumentSeparator).Skip(1).ToArray()).Select(ParsePosition)
+            .ToList();
     }
 
     /// <summary>
-    /// Parses the position from the given arguments.
+    ///     Parses the position from the given arguments.
     /// </summary>
     /// <param name="args">The arguments.</param>
     /// <returns></returns>
@@ -249,17 +250,18 @@ public class ScriptManager
            )
             return default; //Invalid format
 
-        return new(xSector, ySector, xOffset, yOffset, zOffset);
+        return new Position(xSector, ySector, xOffset, yOffset, zOffset);
     }
 
     /// <summary>
-    /// Logs the script message.
+    ///     Logs the script message.
     /// </summary>
     /// <param name="message">The message.</param>
     /// <param name="line">The line.</param>
     /// <param name="level">The level.</param>
     /// <param name="command">The command.</param>
-    private static void LogScriptMessage(string message, int line, LogLevel level = LogLevel.Notify, string command = null)
+    private static void LogScriptMessage(string message, int line, LogLevel level = LogLevel.Notify,
+        string command = null)
     {
         if (command == null)
             command = "<none>";
@@ -268,7 +270,7 @@ public class ScriptManager
     }
 
     /// <summary>
-    /// Finds the nearest walk command line.
+    ///     Finds the nearest walk command line.
     /// </summary>
     /// <returns></returns>
     private static int FindNearestMoveCommandLine()

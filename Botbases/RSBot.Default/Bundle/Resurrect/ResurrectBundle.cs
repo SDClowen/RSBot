@@ -1,17 +1,16 @@
-﻿using RSBot.Core;
+﻿using System.Collections.Generic;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Objects;
-using System.Collections.Generic;
-using RSBot.Core.Event;
 
 namespace RSBot.Default.Bundle.Resurrect;
 
 internal class ResurrectBundle : IBundle
 {
     /// <summary>
-    /// The Last resurrect party members
+    ///     The Last resurrect party members
     /// </summary>
-    public Dictionary<string, int> _lastResurrectedPlayers = new Dictionary<string, int>();
+    public Dictionary<string, int> _lastResurrectedPlayers = new();
 
     public void Invoke()
     {
@@ -36,7 +35,7 @@ internal class ResurrectBundle : IBundle
             if (member.Player.Movement.Source.DistanceTo(Game.Player.Movement.Source) > 100)
                 continue;
 
-            if (member.Player.State.LifeState != LifeState.Dead) 
+            if (member.Player.State.LifeState != LifeState.Dead)
                 continue;
 
             if (!_lastResurrectedPlayers.ContainsKey(member.Name))
@@ -45,12 +44,12 @@ internal class ResurrectBundle : IBundle
                 _lastResurrectedPlayers[member.Name] = Kernel.TickCount;
 
             Log.Status($"Resurrecting player {member.Name}");
-            SkillManager.ResurrectionSkill?.Cast(member.Player.UniqueId, buff: true);
+            SkillManager.ResurrectionSkill?.Cast(member.Player.UniqueId, true);
         }
     }
 
     /// <summary>
-    /// Refreshes this instance.
+    ///     Refreshes this instance.
     /// </summary>
     public void Refresh()
     {

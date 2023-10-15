@@ -1,11 +1,12 @@
-﻿using RSBot.Core;
-using System.Linq;
+﻿using System.Linq;
+using RSBot.Core;
 
 namespace RSBot.Protection.Components.Town;
 
 public abstract class AbstractTownHandler
 {
-    private static ushort[] TownSpawnRegionIds = {
+    private static readonly ushort[] TownSpawnRegionIds =
+    {
         22106,
         22617,
         22618,

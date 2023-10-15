@@ -20,7 +20,7 @@ public static class StreamReaderExtensions
 
         while (true)
         {
-            int c = reader.Read();
+            var c = reader.Read();
             if (c == -1)
                 break;
 

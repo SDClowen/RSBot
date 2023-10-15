@@ -1,30 +1,30 @@
-﻿using RSBot.Core.Components;
+﻿using System.Linq;
+using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
-using System.Linq;
 
 namespace RSBot.Core.Network.Handler.Agent.Entity;
 
 internal class EntityUpdateStateResponse : IPacketHandler
 {
     /// <summary>
-    /// Gets or sets the opcode.
+    ///     Gets or sets the opcode.
     /// </summary>
     /// <value>
-    /// The opcode.
+    ///     The opcode.
     /// </value>
     public ushort Opcode => 0x30BF;
 
     /// <summary>
-    /// Gets or sets the destination.
+    ///     Gets or sets the destination.
     /// </summary>
     /// <value>
-    /// The destination.
+    ///     The destination.
     /// </value>
     public PacketDestination Destination => PacketDestination.Client;
 
     /// <summary>
-    /// Handles the packet.
+    ///     Handles the packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     public void Invoke(Packet packet)
@@ -42,9 +42,11 @@ internal class EntityUpdateStateResponse : IPacketHandler
             case 0:
 
                 entity.State.LifeState = (LifeState)state;
-                if (/*uniqueId == Game.SelectedEntity?.UniqueId || */Game.Player.GetAttackers().Any(e => e.UniqueId == uniqueId) && entity.State.LifeState == LifeState.Dead)
+                if ( /*uniqueId == Game.SelectedEntity?.UniqueId || */
+                    Game.Player.GetAttackers().Any(e => e.UniqueId == uniqueId) &&
+                    entity.State.LifeState == LifeState.Dead)
                     EventManager.FireEvent("OnKillEnemy");
-               
+
                 if (uniqueId == Game.SelectedEntity?.UniqueId && entity.State.LifeState == LifeState.Dead)
                 {
                     EventManager.FireEvent("OnKillSelectedEnemy");
@@ -109,10 +111,8 @@ internal class EntityUpdateStateResponse : IPacketHandler
                 entity.State.ScrollState = scrollState;
 
                 if (uniqueId == Game.Player.UniqueId)
-                {
                     if (scrollState == ScrollState.Cancel && Kernel.Bot.Running)
                         Kernel.Bot.Stop();
-                }
 
                 EventManager.FireEvent("OnUpdateEntityScrollState", uniqueId);
 

@@ -4,6 +4,10 @@ public class RefText : IReference<string>
 {
     private const int LANG_OFFSET = 2;
     private const int LANG_COUNT = 14;
+    public string Data;
+    public string NameStrId;
+
+    private byte Service;
 
     //private readonly string[] _data = new string[LANG_COUNT];
 
@@ -12,10 +16,6 @@ public class RefText : IReference<string>
     public string PrimaryKey => NameStrId;
 
     #endregion IRefrerence
-
-    private byte Service;
-    public string NameStrId;
-    public string Data;
 
     // languageFlag
     // 0 - Korean
@@ -61,7 +61,7 @@ public class RefText : IReference<string>
         parser.TryParse(languageTab, out Data);
 
         while (IsEmptyString(Data) && languageTab <= maxTabs)
-        { 
+        {
             parser.TryParse(languageTab, out Data);
 
             languageTab++;

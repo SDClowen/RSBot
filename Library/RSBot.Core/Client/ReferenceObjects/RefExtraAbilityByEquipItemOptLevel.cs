@@ -17,7 +17,7 @@ public class RefExtraAbilityByEquipItemOptLevel : IReference
         parser.TryParse(2, out OptLevel);
 
         Skills = new uint[SKILL_COUNT];
-        for (int i = 0; i < SKILL_COUNT; i++)
+        for (var i = 0; i < SKILL_COUNT; i++)
         {
             if (!parser.TryParse(20 + i, out uint skillId))
                 return false;

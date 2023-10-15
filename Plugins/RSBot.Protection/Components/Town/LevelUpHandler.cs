@@ -6,7 +6,7 @@ namespace RSBot.Protection.Components.Town;
 public class LevelUpHandler : AbstractTownHandler
 {
     /// <summary>
-    /// Initializes this instance.
+    ///     Initializes this instance.
     /// </summary>
     public static void Initialize()
     {
@@ -14,7 +14,7 @@ public class LevelUpHandler : AbstractTownHandler
     }
 
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     private static void SubscribeEvents()
     {
@@ -22,7 +22,7 @@ public class LevelUpHandler : AbstractTownHandler
     }
 
     /// <summary>
-    /// Cores the on player level up.
+    ///     Cores the on player level up.
     /// </summary>
     private static void OnPlayerLevelUp()
     {

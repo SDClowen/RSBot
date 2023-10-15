@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using RSBot.Core.Network;
 
 namespace RSBot.Core.Client.ReferenceObjects;
 
@@ -73,7 +71,7 @@ public class RefMagicOpt : IReference
                 Console.WriteLine(name); //atha
 
          */
-            
+
         for (var i = 8; i < 11; i++)
         {
             parser.TryParse(i, out uint paramVal);
@@ -92,7 +90,7 @@ public class RefMagicOpt : IReference
     }
 
     /// <summary>
-    /// Returns the maximum possible value for this magic attribute
+    ///     Returns the maximum possible value for this magic attribute
     /// </summary>
     /// <returns>The maximum value</returns>
     public ushort GetMaxValue()
@@ -103,7 +101,7 @@ public class RefMagicOpt : IReference
     }
 
     /// <summary>
-    /// Returns all available values this magic attribute can possibly have
+    ///     Returns all available values this magic attribute can possibly have
     /// </summary>
     /// <param name="value"></param>
     /// <returns>The from and to value</returns>

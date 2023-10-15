@@ -1,8 +1,7 @@
-﻿using RSBot.Core;
+﻿using System;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
-using System;
 
 namespace RSBot.Statistics.Stats.Calculators.Static;
 
@@ -46,7 +45,7 @@ internal class Loot : IStatisticCalculator
     }
 
     /// <summary>
-    /// Called when [pickup item].
+    ///     Called when [pickup item].
     /// </summary>
     /// <param name="item">The item.</param>
     private void OnPickupItem(InventoryItem item)

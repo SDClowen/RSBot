@@ -1,7 +1,7 @@
-﻿using RSBot.Core;
+﻿using System.ComponentModel;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
-using System.ComponentModel;
 
 namespace RSBot.Views.Controls.Cos;
 
@@ -9,7 +9,7 @@ namespace RSBot.Views.Controls.Cos;
 public partial class Fellow : CosControlBase
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="Fellow"/> class.
+    ///     Initializes a new instance of the <see cref="Fellow" /> class.
     /// </summary>
     public Fellow()
     {
@@ -20,7 +20,7 @@ public partial class Fellow : CosControlBase
     }
 
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     private void SubscribeEvents()
     {
@@ -32,7 +32,7 @@ public partial class Fellow : CosControlBase
     }
 
     /// <summary>
-    /// Handels the name change event of the pet
+    ///     Handels the name change event of the pet
     /// </summary>
     private void OnFellowNameChange()
     {
@@ -43,7 +43,7 @@ public partial class Fellow : CosControlBase
     }
 
     /// <summary>
-    /// Handels the pet level up event
+    ///     Handels the pet level up event
     /// </summary>
     private void OnFellowLevelUp()
     {
@@ -63,7 +63,7 @@ public partial class Fellow : CosControlBase
     }
 
     /// <summary>
-    /// Handles the update pet hp or mp
+    ///     Handles the update pet hp or mp
     /// </summary>
     private void OnFellowHealthUpdate()
     {
@@ -78,7 +78,7 @@ public partial class Fellow : CosControlBase
     }
 
     /// <summary>
-    /// Handles the pet experience update event
+    ///     Handles the pet experience update event
     /// </summary>
     private void OnFellowExperienceUpdate()
     {
@@ -90,7 +90,7 @@ public partial class Fellow : CosControlBase
     }
 
     /// <summary>
-    /// Handels the hunger update event
+    ///     Handels the hunger update event
     /// </summary>
     private void OnFellowSatietyUpdate()
     {

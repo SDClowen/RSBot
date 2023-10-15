@@ -1,6 +1,6 @@
 ﻿namespace RSBot.Core.Client.ReferenceObjects;
 
-public enum ObjectReqLevelType : int
+public enum ObjectReqLevelType
 {
     None = -1,
     Character = 1, //캐릭터
@@ -14,9 +14,9 @@ public enum ObjectReqLevelType : int
 
     //European clothing limitation
     MasteryWarrior = 513, //워리어201
-    MasteryRogue = 515,  //로그203
-    MasteryWizard = 514,  //위저드202
+    MasteryRogue = 515, //로그203
+    MasteryWizard = 514, //위저드202
     MasteryWarlock = 516, //워락204
-    MasteryBard = 517,  //바드205
-    MasteryCleric = 518, //클레릭206
+    MasteryBard = 517, //바드205
+    MasteryCleric = 518 //클레릭206
 }

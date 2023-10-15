@@ -1,16 +1,15 @@
-﻿using RSBot.Core.Components;
-using RSBot.Core.Event;
-
-using System;
+﻿using System;
 using System.IO;
+using RSBot.Core.Components;
+using RSBot.Core.Event;
 
 namespace RSBot.Core;
 
 public class Log
 {
     /// <summary>
-    /// Replaces the format item in a specified string with the string
-    /// representation of a corresponding object in a specified array
+    ///     Replaces the format item in a specified string with the string
+    ///     representation of a corresponding object in a specified array
     /// </summary>
     /// <param name="logLevel">The message level</param>
     /// <param name="format">The format</param>
@@ -21,7 +20,7 @@ public class Log
     }
 
     /// <summary>
-    /// Appends the given message to the log using the provided log level.
+    ///     Appends the given message to the log using the provided log level.
     /// </summary>
     /// <param name="logLevel"></param>
     /// <param name="message"></param>
@@ -32,62 +31,83 @@ public class Log
 
 
     /// <summary>
-    /// Appends the specified message.
+    ///     Appends the specified message.
     /// </summary>
     /// <param name="obj">The message.</param>
     /// <param name="level">The level.</param>
-    public static void Notify(object obj) => EventManager.FireEvent("OnAddLog", obj.ToString(), LogLevel.Notify);
+    public static void Notify(object obj)
+    {
+        EventManager.FireEvent("OnAddLog", obj.ToString(), LogLevel.Notify);
+    }
 
     /// <summary>
-    /// Appends the specified language key.
+    ///     Appends the specified language key.
     /// </summary>
     /// <param name="obj">The message.</param>
     /// <param name="level">The level.</param>
-    public static void NotifyLang(string key, params object[] args) 
-        => EventManager.FireEvent("OnAddLog", LanguageManager.GetLang(key, args), LogLevel.Notify);
+    public static void NotifyLang(string key, params object[] args)
+    {
+        EventManager.FireEvent("OnAddLog", LanguageManager.GetLang(key, args), LogLevel.Notify);
+    }
 
     /// <summary>
-    /// Append specified debug message
+    ///     Append specified debug message
     /// </summary>
     /// <param name="obj">The message</param>
-    public static void Debug(object obj) => EventManager.FireEvent("OnAddLog", obj.ToString(), LogLevel.Debug);
+    public static void Debug(object obj)
+    {
+        EventManager.FireEvent("OnAddLog", obj.ToString(), LogLevel.Debug);
+    }
 
     /// <summary>
-    /// Append specified Warning message
+    ///     Append specified Warning message
     /// </summary>
     /// <param name="obj">The message</param>
-    public static void Warn(object obj) => EventManager.FireEvent("OnAddLog", obj.ToString(), LogLevel.Warning);
+    public static void Warn(object obj)
+    {
+        EventManager.FireEvent("OnAddLog", obj.ToString(), LogLevel.Warning);
+    }
 
     /// <summary>
-    /// Appends the specified language key.
+    ///     Appends the specified language key.
     /// </summary>
     /// <param name="obj">The message.</param>
     /// <param name="level">The level.</param>
-    public static void WarnLang(string key, params object[] args) 
-        => EventManager.FireEvent("OnAddLog", LanguageManager.GetLang(key, args), LogLevel.Warning);
+    public static void WarnLang(string key, params object[] args)
+    {
+        EventManager.FireEvent("OnAddLog", LanguageManager.GetLang(key, args), LogLevel.Warning);
+    }
 
     /// <summary>
-    /// Append specified Error message
+    ///     Append specified Error message
     /// </summary>
     /// <param name="obj">The message</param>
-    public static void Error(object obj) => EventManager.FireEvent("OnAddLog", obj.ToString(), LogLevel.Error);
+    public static void Error(object obj)
+    {
+        EventManager.FireEvent("OnAddLog", obj.ToString(), LogLevel.Error);
+    }
 
     /// <summary>
-    /// Change status message on ui
+    ///     Change status message on ui
     /// </summary>
     /// <param name="obj">The message</param>
-    public static void Status(object obj) => EventManager.FireEvent("OnChangeStatusText", obj.ToString());
+    public static void Status(object obj)
+    {
+        EventManager.FireEvent("OnChangeStatusText", obj.ToString());
+    }
 
     /// <summary>
-    /// Change status message on ui by language key.
+    ///     Change status message on ui by language key.
     /// </summary>
     /// <param name="obj">The message.</param>
     /// <param name="level">The level.</param>
     public static void StatusLang(string key, params object[] args)
-        => EventManager.FireEvent("OnChangeStatusText", LanguageManager.GetLang(key, args));
+    {
+        EventManager.FireEvent("OnChangeStatusText", LanguageManager.GetLang(key, args));
+    }
 
     /// <summary>
-    /// Append specified fatal message
+    ///     Append specified fatal message
     /// </summary>
     /// <param name="obj">The message</param>
     public static void Fatal(Exception obj)
@@ -99,6 +119,8 @@ public class Log
             Directory.CreateDirectory(Path.GetDirectoryName(filePath));
 
         using (var stream = File.AppendText(filePath))
+        {
             stream.WriteLine(obj.ToString());
+        }
     }
 }

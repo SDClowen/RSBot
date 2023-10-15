@@ -7,22 +7,22 @@ namespace RSBot.Core.Objects.Party;
 public class BuffingPartyMember
 {
     /// <summary>
-    /// The buffing player name
-    /// </summary>
-    public string Name;
-
-    /// <summary>
-    /// The buffing player group
-    /// </summary>
-    public string Group;
-
-    /// <summary>
-    /// The player buffs
+    ///     The player buffs
     /// </summary>
     public List<uint> Buffs;
 
     /// <summary>
-    /// Create instance of the <seealso cref="BuffingPartyMember"/> and deserialize settings obj
+    ///     The buffing player group
+    /// </summary>
+    public string Group;
+
+    /// <summary>
+    ///     The buffing player name
+    /// </summary>
+    public string Name;
+
+    /// <summary>
+    ///     Create instance of the <seealso cref="BuffingPartyMember" /> and deserialize settings obj
     /// </summary>
     /// <param name="obj"></param>
     public BuffingPartyMember(string obj)
@@ -40,16 +40,16 @@ public class BuffingPartyMember
     }
 
     /// <summary>
-    /// Create instance of the <seealso cref="BuffingPartyMember"/>
+    ///     Create instance of the <seealso cref="BuffingPartyMember" />
     /// </summary>
     /// <param name="obj"></param>
-    public BuffingPartyMember() 
-    { 
-        Buffs = new List<uint>(); 
+    public BuffingPartyMember()
+    {
+        Buffs = new List<uint>();
     }
 
     /// <summary>
-    /// Serialize the struct
+    ///     Serialize the struct
     /// </summary>
     public string Serialize()
     {

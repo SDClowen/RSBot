@@ -1,12 +1,13 @@
-﻿using RSBot.Core;
+﻿using System;
+using System.ComponentModel;
+using System.Windows.Forms;
+using RSBot.Core;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
-using System;
-using System.Windows.Forms;
 
 namespace RSBot.Chat.Views;
 
-[System.ComponentModel.ToolboxItem(false)]
+[ToolboxItem(false)]
 public partial class Main : UserControl
 {
     public Main()
@@ -18,7 +19,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     private void SubscribeEvents()
     {
@@ -26,7 +27,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Sends the chat message.
+    ///     Sends the chat message.
     /// </summary>
     /// <param name="sender">The sender.</param>
     private void SendChatMessage(Control sender)
@@ -41,7 +42,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Appends the message.
+    ///     Appends the message.
     /// </summary>
     /// <param name="message">The message.</param>
     /// <param name="sender">The sender.</param>
@@ -99,7 +100,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// The first event that will be fired after the player enters the game
+    ///     The first event that will be fired after the player enters the game
     /// </summary>
     private void OnEnterGame()
     {
@@ -107,10 +108,10 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Messages the preview key down.
+    ///     Messages the preview key down.
     /// </summary>
     /// <param name="sender">The sender.</param>
-    /// <param name="e">The <see cref="PreviewKeyDownEventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="PreviewKeyDownEventArgs" /> instance containing the event data.</param>
     private void MessagePreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
     {
         if (e.KeyCode != Keys.Enter) return;

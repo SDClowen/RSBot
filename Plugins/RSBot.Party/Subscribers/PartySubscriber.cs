@@ -1,14 +1,14 @@
-﻿using RSBot.Core;
+﻿using System.Linq;
+using RSBot.Core;
 using RSBot.Core.Event;
 using RSBot.Party.Bundle;
-using System.Linq;
 
 namespace RSBot.Party.Subscribers;
 
 internal class PartySubscriber
 {
     /// <summary>
-    /// Gets the subscribed events.
+    ///     Gets the subscribed events.
     /// </summary>
     /// <returns></returns>
     public static void SubscribeEvents()
@@ -17,7 +17,7 @@ internal class PartySubscriber
     }
 
     /// <summary>
-    /// Checks the request.
+    ///     Checks the request.
     /// </summary>
     /// <returns></returns>
     private static bool CheckRequest()
@@ -39,7 +39,7 @@ internal class PartySubscriber
     }
 
     /// <summary>
-    /// Will be fired when the player is being invited to a party
+    ///     Will be fired when the player is being invited to a party
     /// </summary>
     private static void OnPartyRequest()
     {

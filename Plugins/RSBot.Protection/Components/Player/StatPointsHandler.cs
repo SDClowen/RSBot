@@ -1,8 +1,8 @@
-﻿using RSBot.Core;
-using RSBot.Core.Event;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using RSBot.Core;
+using RSBot.Core.Event;
 using RSBot.Core.Network;
 
 namespace RSBot.Protection.Components.Player;
@@ -12,7 +12,7 @@ public class StatPointsHandler
     public static bool CancellationRequested;
 
     /// <summary>
-    /// Initializes this instance.
+    ///     Initializes this instance.
     /// </summary>
     public static void Initialize()
     {
@@ -20,7 +20,7 @@ public class StatPointsHandler
     }
 
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     private static void SubscribeEvents()
     {
@@ -28,7 +28,7 @@ public class StatPointsHandler
     }
 
     /// <summary>
-    /// Cores the on player level up.
+    ///     Cores the on player level up.
     /// </summary>
     private static void OnPlayerLevelUp(byte oldLevel)
     {
@@ -46,14 +46,13 @@ public class StatPointsHandler
         var incStr = PlayerConfig.Get<bool>("RSBot.Protection.checkIncStr");
         var incInt = PlayerConfig.Get<bool>("RSBot.Protection.checkIncInt");
 
-        var numStr = PlayerConfig.Get<int>("RSBot.Protection.numIncStr", 0);
-        var numInt = PlayerConfig.Get<int>("RSBot.Protection.numIncInt", 0);
+        var numStr = PlayerConfig.Get("RSBot.Protection.numIncStr", 0);
+        var numInt = PlayerConfig.Get("RSBot.Protection.numIncInt", 0);
 
         for (var iLevelUp = 0; iLevelUp < stepCount; iLevelUp++)
         {
             if (CancellationRequested) return;
             if (incStr && numStr > 0)
-            {
                 for (var i = 0; i < numStr; i++)
                 {
                     if (CancellationRequested) return;
@@ -65,10 +64,8 @@ public class StatPointsHandler
                     //Make sure the user has time to cancel, otherwise it's just too fast (but would still work due to the callback await)
                     Thread.Sleep(500);
                 }
-            }
 
             if (incInt && numInt > 0)
-            {
                 for (var i = 0; i < numInt; i++)
                 {
                     if (CancellationRequested) return;
@@ -79,12 +76,11 @@ public class StatPointsHandler
 
                     Thread.Sleep(500);
                 }
-            }
         }
     }
 
     /// <summary>
-    /// Sends the STR increase packet to the server
+    ///     Sends the STR increase packet to the server
     /// </summary>
     private static void IncreaseStr()
     {
@@ -104,7 +100,7 @@ public class StatPointsHandler
     }
 
     /// <summary>
-    /// Sends the STR increase packet to the server
+    ///     Sends the STR increase packet to the server
     /// </summary>
     private static void IncreaseInt()
     {

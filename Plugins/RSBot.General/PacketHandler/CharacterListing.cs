@@ -1,31 +1,31 @@
+using System.Linq;
 using RSBot.Core;
 using RSBot.Core.Event;
 using RSBot.Core.Network;
-using System.Collections.Generic;
-using System.Linq;
+using RSBot.General.Components;
 
 namespace RSBot.General.PacketHandler;
 
 internal class CharacterListing : IPacketHandler
 {
     /// <summary>
-    /// Gets or sets the opcode.
+    ///     Gets or sets the opcode.
     /// </summary>
     /// <value>
-    /// The opcode.
+    ///     The opcode.
     /// </value>
     public ushort Opcode => 0xB007;
 
     /// <summary>
-    /// Gets or sets the destination.
+    ///     Gets or sets the destination.
     /// </summary>
     /// <value>
-    /// The destination.
+    ///     The destination.
     /// </value>
     public PacketDestination Destination => PacketDestination.Client;
 
     /// <summary>
-    /// Handles the packet.
+    ///     Handles the packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     public void Invoke(Packet packet)
@@ -110,7 +110,7 @@ internal class CharacterListing : IPacketHandler
         }
 
         var username = GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername");
-        var selectedAccount = Components.Accounts.SavedAccounts?.Find(p => p.Username == username);
+        var selectedAccount = Accounts.SavedAccounts?.Find(p => p.Username == username);
         if (selectedAccount == null)
             return;
 
@@ -118,10 +118,10 @@ internal class CharacterListing : IPacketHandler
 
         EventManager.FireEvent("OnCharacterListReceived");
 
-        if (string.IsNullOrWhiteSpace(selectedAccount.SelectedCharacter) || 
+        if (string.IsNullOrWhiteSpace(selectedAccount.SelectedCharacter) ||
             !lobbyCharacters.Any(p => p.name == selectedAccount.SelectedCharacter))
         {
-            if(charCount == 0)
+            if (charCount == 0)
             {
                 Log.Warn("There are no characters on this account!");
                 return;
@@ -142,7 +142,7 @@ internal class CharacterListing : IPacketHandler
             }
         }
 
-        Components.Accounts.Save();
-        Components.AutoLogin.EnterGame(selectedAccount.SelectedCharacter);
+        Accounts.Save();
+        AutoLogin.EnterGame(selectedAccount.SelectedCharacter);
     }
 }

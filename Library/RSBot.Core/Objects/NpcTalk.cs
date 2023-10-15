@@ -5,23 +5,23 @@ namespace RSBot.Core.Objects;
 public class NpcTalk
 {
     /// <summary>
-    /// Gets or sets the talk flag.
+    ///     Gets or sets the talk flag.
     /// </summary>
     /// <value>
-    /// The talk flag.
+    ///     The talk flag.
     /// </value>
     public byte Flag { get; set; }
 
     /// <summary>
-    /// Gets or sets the talk options.
+    ///     Gets or sets the talk options.
     /// </summary>
     /// <value>
-    /// The talk options.
+    ///     The talk options.
     /// </value>
     public byte[] Options { get; set; }
 
     /// <summary>
-    /// Deserialize from the packet
+    ///     Deserialize from the packet
     /// </summary>
     /// <param name="packet">The packet</param>
     public void Deserialize(Packet packet)
@@ -43,10 +43,8 @@ public class NpcTalk
         }
 
         // pandora box, after spawned mobs
-        if(Flag == 6)
-        {
+        if (Flag == 6)
             if (packet.ReadByte() == 1) // maybe
                 packet.ReadUInt();
-        }
     }
 }

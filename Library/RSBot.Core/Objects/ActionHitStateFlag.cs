@@ -9,5 +9,5 @@ public enum ActionHitStateFlag : byte
     Abort = 8,
     Dead = 128,
     KnockDownDead = KnockDown | Dead,
-    KnockBackDead = KnockBack | Dead,
+    KnockBackDead = KnockBack | Dead
 }

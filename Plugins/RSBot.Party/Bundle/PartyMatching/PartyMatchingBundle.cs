@@ -2,31 +2,30 @@
 using RSBot.Core.Extensions;
 using RSBot.Core.Network;
 using RSBot.Party.Bundle.PartyMatching.Objects;
-using System.Threading.Tasks;
 
 namespace RSBot.Party.Bundle.PartyMatching;
 
 internal class PartyMatchingBundle
 {
     /// <summary>
-    /// Party matching Id
-    /// </summary>
-    public uint Id;
-
-    /// <summary>
-    /// Gets or sets a value indicating whether this instance has matching entry.
-    /// </summary>
-    /// <value><c>true</c> if this instance has matching entry; otherwise, <c>false</c>.</value>
-    public bool HasMatchingEntry;
-
-    /// <summary>
-    /// Gets or sets the configuration.
+    ///     Gets or sets the configuration.
     /// </summary>
     /// <value>The configuration.</value>
     public MatchingConfig Config;
 
     /// <summary>
-    /// Creates the specified settings.
+    ///     Gets or sets a value indicating whether this instance has matching entry.
+    /// </summary>
+    /// <value><c>true</c> if this instance has matching entry; otherwise, <c>false</c>.</value>
+    public bool HasMatchingEntry;
+
+    /// <summary>
+    ///     Party matching Id
+    /// </summary>
+    public uint Id;
+
+    /// <summary>
+    ///     Creates the specified settings.
     /// </summary>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public bool Change()
@@ -49,7 +48,9 @@ internal class PartyMatchingBundle
         packet.WriteByte(Config.LevelTo);
         packet.WriteConditonalString(Config.Title);
 
-        var callback = new AwaitCallback(response => response.ReadByte() == 1 ? AwaitCallbackResult.Success : AwaitCallbackResult.Fail, 0xB06A);
+        var callback =
+            new AwaitCallback(
+                response => response.ReadByte() == 1 ? AwaitCallbackResult.Success : AwaitCallbackResult.Fail, 0xB06A);
 
         PacketManager.SendPacket(packet, PacketDestination.Server, callback);
         callback.AwaitResponse(2000);
@@ -58,7 +59,7 @@ internal class PartyMatchingBundle
     }
 
     /// <summary>
-    /// Creates the specified settings.
+    ///     Creates the specified settings.
     /// </summary>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public bool Create()
@@ -81,7 +82,9 @@ internal class PartyMatchingBundle
         packet.WriteByte(Config.LevelTo);
         packet.WriteConditonalString(Config.Title);
 
-        var callback = new AwaitCallback(response => response.ReadByte() == 1 ? AwaitCallbackResult.Success : AwaitCallbackResult.Fail, 0xB069);
+        var callback =
+            new AwaitCallback(
+                response => response.ReadByte() == 1 ? AwaitCallbackResult.Success : AwaitCallbackResult.Fail, 0xB069);
 
         PacketManager.SendPacket(packet, PacketDestination.Server, callback);
         callback.AwaitResponse(2000);
@@ -103,7 +106,7 @@ internal class PartyMatchingBundle
     }
 
     /// <summary>
-    /// Joins the specified identifier.
+    ///     Joins the specified identifier.
     /// </summary>
     /// <param name="id">The identifier.</param>
     public bool Join(uint id)
@@ -115,7 +118,7 @@ internal class PartyMatchingBundle
         var callback = new AwaitCallback(response =>
         {
             var result = response.ReadByte();
-            if(result == 1)
+            if (result == 1)
             {
                 // 0 => canceled
                 // 1 => accepted
@@ -123,7 +126,7 @@ internal class PartyMatchingBundle
                 joiningResult = response.ReadByte();
                 return AwaitCallbackResult.Success;
             }
-                
+
             return AwaitCallbackResult.Fail;
         }, 0xB06D);
 
@@ -134,7 +137,7 @@ internal class PartyMatchingBundle
     }
 
     /// <summary>
-    /// Requests the party list.
+    ///     Requests the party list.
     /// </summary>
     /// <param name="page">The page.</param>
     /// <returns></returns>

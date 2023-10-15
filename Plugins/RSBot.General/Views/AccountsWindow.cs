@@ -1,18 +1,18 @@
-﻿using RSBot.Core;
-using RSBot.Core.Components;
-using RSBot.General.Models;
-using SDUI.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using RSBot.Core.Components;
+using RSBot.General.Components;
+using RSBot.General.Models;
+using SDUI.Controls;
 
 namespace RSBot.General.Views;
 
 public partial class AccountsWindow : UIWindowBase
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="AccountsWindow"/> class.
+    ///     Initializes a new instance of the <see cref="AccountsWindow" /> class.
     /// </summary>
     public AccountsWindow()
     {
@@ -22,7 +22,7 @@ public partial class AccountsWindow : UIWindowBase
     }
 
     /// <summary>
-    /// Clear the textboxes
+    ///     Clear the textboxes
     /// </summary>
     private void ClearTextboxes()
     {
@@ -35,27 +35,27 @@ public partial class AccountsWindow : UIWindowBase
     }
 
     /// <summary>
-    /// Handles the load event of the form control.
+    ///     Handles the load event of the form control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void Accounts_Load(object sender, EventArgs e)
     {
         ClearTextboxes();
         listAccounts.BeginUpdate();
 
         listAccounts.Items.Clear();
-        foreach (var account in Components.Accounts.SavedAccounts)
+        foreach (var account in Accounts.SavedAccounts)
             listAccounts.Items.Add(account);
 
         listAccounts.EndUpdate();
     }
 
     /// <summary>
-    /// Handles the Click event of the btnSave control.
+    ///     Handles the Click event of the btnSave control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void btnSave_Click(object sender, EventArgs e)
     {
         if (listAccounts.SelectedIndex == -1)
@@ -82,10 +82,10 @@ public partial class AccountsWindow : UIWindowBase
     }
 
     /// <summary>
-    /// Handles the SelectedIndexChanged event of the listAccounts control.
+    ///     Handles the SelectedIndexChanged event of the listAccounts control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void listAccounts_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (listAccounts.SelectedIndex == -1)
@@ -109,20 +109,20 @@ public partial class AccountsWindow : UIWindowBase
     }
 
     /// <summary>
-    /// Handles the Click event of the btnOK control.
+    ///     Handles the Click event of the btnOK control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void btnOK_Click(object sender, EventArgs e)
     {
-        Components.Accounts.Save();
+        Accounts.Save();
     }
 
     /// <summary>
-    /// Handles the Click event of the linkLabelPwShowHide control.
+    ///     Handles the Click event of the linkLabelPwShowHide control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void linkLabelPwShowHide_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
         if (txtPassword.UseSystemPasswordChar)
@@ -138,10 +138,10 @@ public partial class AccountsWindow : UIWindowBase
     }
 
     /// <summary>
-    /// Handles the Click event of the linkLabelSecondaryPassword control.
+    ///     Handles the Click event of the linkLabelSecondaryPassword control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void linkLabelSecondaryPassword_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
         if (textBoxSecondaryPassword.UseSystemPasswordChar)
@@ -157,10 +157,10 @@ public partial class AccountsWindow : UIWindowBase
     }
 
     /// <summary>
-    /// Handles the Click event of the btnAdd control.
+    ///     Handles the Click event of the btnAdd control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void btnAdd_Click(object sender, EventArgs e)
     {
         if (string.IsNullOrWhiteSpace(txtUsername.Text))
@@ -169,7 +169,7 @@ public partial class AccountsWindow : UIWindowBase
         if (string.IsNullOrWhiteSpace(txtPassword.Text))
             return;
 
-        if (Components.Accounts.SavedAccounts.Any(p => p.Username == txtUsername.Text))
+        if (Accounts.SavedAccounts.Any(p => p.Username == txtUsername.Text))
         {
             var title = LanguageManager.GetLang("MsgBoxAlreadyRegisteredTitle");
             var content = LanguageManager.GetLang("MsgBoxAlreadyRegisteredContent");
@@ -189,16 +189,16 @@ public partial class AccountsWindow : UIWindowBase
             Characters = new List<string>(4)
         };
 
-        Components.Accounts.SavedAccounts.Add(account);
+        Accounts.SavedAccounts.Add(account);
 
         listAccounts.SelectedIndex = listAccounts.Items.Add(account);
     }
 
     /// <summary>
-    /// Handles the Click event of the buttonRemove control.
+    ///     Handles the Click event of the buttonRemove control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void buttonRemove_Click(object sender, EventArgs e)
     {
         if (listAccounts.SelectedIndex == -1)
@@ -208,7 +208,7 @@ public partial class AccountsWindow : UIWindowBase
         if (selectedAccount == null)
             return;
 
-        var isSuccess = Components.Accounts.SavedAccounts.Remove(selectedAccount);
+        var isSuccess = Accounts.SavedAccounts.Remove(selectedAccount);
         if (isSuccess)
             listAccounts.Items.Remove(selectedAccount);
     }

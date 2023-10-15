@@ -6,23 +6,23 @@ namespace RSBot.Core.Network.Hooks.Agent.Inventory;
 internal class BuyItemHook : IPacketHook
 {
     /// <summary>
-    /// Gets the opcode.
+    ///     Gets the opcode.
     /// </summary>
     /// <value>
-    /// The opcode.
+    ///     The opcode.
     /// </value>
     public ushort Opcode => 0xB034;
 
     /// <summary>
-    /// Gets the destination.
+    ///     Gets the destination.
     /// </summary>
     /// <value>
-    /// The destination.
+    ///     The destination.
     /// </value>
     public PacketDestination Destination => PacketDestination.Client;
 
     /// <summary>
-    /// Replaces the packet and returns a new packet.
+    ///     Replaces the packet and returns a new packet.
     /// </summary>
     /// <param name="packet"></param>
     /// <returns></returns>
@@ -31,7 +31,7 @@ internal class BuyItemHook : IPacketHook
         if (packet.ReadByte() != 0x01 || !ShoppingManager.Running)
             return packet;
 
-        var type = (InventoryOperation) packet.ReadByte();
+        var type = (InventoryOperation)packet.ReadByte();
         if (type == InventoryOperation.SP_SELL_ITEM_COS)
         {
             var tempCosId = packet.ReadUInt(); //COS unique ID
@@ -41,15 +41,15 @@ internal class BuyItemHook : IPacketHook
             response.WriteByte(InventoryOperation.SP_DROP_ITEM_COS);
             response.WriteUInt(tempCosId);
             response.WriteByte(srcSlot);
-                
+
             return response;
         }
-            
+
         var cosId = 0u;
         if (type == InventoryOperation.SP_BUY_ITEM_COS)
             cosId = packet.ReadUInt();
 
-        if (type != InventoryOperation.SP_BUY_ITEM && type !=  InventoryOperation.SP_BUY_ITEM_COS)
+        if (type != InventoryOperation.SP_BUY_ITEM && type != InventoryOperation.SP_BUY_ITEM_COS)
             return packet;
 
         var tab = packet.ReadByte();
@@ -85,10 +85,10 @@ internal class BuyItemHook : IPacketHook
             return packet;
         }
 
-        if(itemAmount <= 0)
+        if (itemAmount <= 0)
             itemAmount = 1;
 
-        for (int i = 0; i < itemAmount; i++)
+        for (var i = 0; i < itemAmount; i++)
         {
             var destination = destinationSlots[i];
 
@@ -96,7 +96,9 @@ internal class BuyItemHook : IPacketHook
             response.WriteByte(0x01); //Success
 
             if (cosId == 0)
+            {
                 response.WriteByte(InventoryOperation.SP_PICK_ITEM);
+            }
             else
             {
                 if (Game.Player.JobTransport == null || cosId != Game.Player.JobTransport.UniqueId)
@@ -105,8 +107,9 @@ internal class BuyItemHook : IPacketHook
                 response.WriteByte(InventoryOperation.SP_PICK_ITEM_COS);
                 response.WriteUInt(cosId);
             }
+
             response.WriteByte(destination);
-                
+
             if (Game.ClientType > GameClientType.Thailand)
                 response.WriteInt(0);
 
@@ -140,7 +143,7 @@ internal class BuyItemHook : IPacketHook
                                 break;
                         }
 
-                        for (int j = 1; j <= bindingCount; j++)
+                        for (var j = 1; j <= bindingCount; j++)
                             response.WriteShort(j);
                     }
 
@@ -166,6 +169,7 @@ internal class BuyItemHook : IPacketHook
                                 packet.WriteInt(amount);
                             break;
                     }
+
                     break;
 
                 default: //ITEM_ETC
@@ -179,7 +183,7 @@ internal class BuyItemHook : IPacketHook
                     break;
             }
 
-            if (cosId != 0) 
+            if (cosId != 0)
                 response.WriteString(Game.Player.Name); //OwnerName
             if (itemAmount > 1)
                 PacketManager.SendPacket(response, Destination);

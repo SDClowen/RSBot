@@ -1,15 +1,14 @@
-﻿using RSBot.Core;
+﻿using System;
+using RSBot.Core;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
-using System.Linq;
-using RSBot.Core.Components;
 
 namespace RSBot.Protection.Components.Town;
 
 public class NoManaPotionsHandler : AbstractTownHandler
 {
     /// <summary>
-    /// Initializes this instance.
+    ///     Initializes this instance.
     /// </summary>
     public static void Initialize()
     {
@@ -17,11 +16,11 @@ public class NoManaPotionsHandler : AbstractTownHandler
     }
 
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     private static void SubscribeEvents()
     {
-        EventManager.SubscribeEvent("OnUseItem", new System.Action<byte>(OnUseItem));
+        EventManager.SubscribeEvent("OnUseItem", new Action<byte>(OnUseItem));
         EventManager.SubscribeEvent("OnStartBot", OnStartBot);
     }
 
@@ -32,20 +31,19 @@ public class NoManaPotionsHandler : AbstractTownHandler
     }
 
     /// <summary>
-    /// Cores the on use item.
+    ///     Cores the on use item.
     /// </summary>
     private static void OnUseItem(byte slot)
     {
-        if (Kernel.Bot.Running) 
+        if (Kernel.Bot.Running)
             CheckForMpPotions();
- 
     }
 
     private static void CheckForMpPotions()
     {
         if (!PlayerConfig.Get<bool>("RSBot.Protection.checkNoMPPotions"))
             return;
-            
+
         if (PlayerInTownScriptRegion())
             return;
 

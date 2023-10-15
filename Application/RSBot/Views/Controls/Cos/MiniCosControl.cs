@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -7,8 +8,14 @@ namespace RSBot.Views.Controls;
 [ToolboxItem(false)]
 public partial class MiniCosControl : UserControl
 {
-    private bool _selected = false;
-    public bool Selected 
+    private bool _selected;
+
+    public MiniCosControl()
+    {
+        InitializeComponent();
+    }
+
+    public bool Selected
     {
         get => _selected;
         set
@@ -18,13 +25,8 @@ public partial class MiniCosControl : UserControl
         }
     }
 
-    public MiniCosControl()
+    private void OnClick_Redirector(object sender, EventArgs e)
     {
-        InitializeComponent();
-    }
-
-    private void OnClick_Redirector(object sender, System.EventArgs e)
-    {
-        this.OnClick(e);
+        OnClick(e);
     }
 }

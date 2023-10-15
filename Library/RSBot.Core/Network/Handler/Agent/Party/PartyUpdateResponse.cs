@@ -1,30 +1,29 @@
 ﻿using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Party;
-using System.Linq;
 
 namespace RSBot.Core.Network.Handler.Agent.Party;
 
 internal class PartyUpdateResponse : IPacketHandler
 {
     /// <summary>
-    /// Gets or sets the opcode.
+    ///     Gets or sets the opcode.
     /// </summary>
     /// <value>
-    /// The opcode.
+    ///     The opcode.
     /// </value>
     public ushort Opcode => 0x3864;
 
     /// <summary>
-    /// Gets or sets the destination.
+    ///     Gets or sets the destination.
     /// </summary>
     /// <value>
-    /// The destination.
+    ///     The destination.
     /// </value>
     public PacketDestination Destination => PacketDestination.Client;
 
     /// <summary>
-    /// Handles the packet.
+    ///     Handles the packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     public void Invoke(Packet packet)
@@ -32,7 +31,7 @@ internal class PartyUpdateResponse : IPacketHandler
         PartyUpdateResponseCommon(packet);
     }
 
-    public static void PartyUpdateResponseCommon(Packet packet) 
+    public static void PartyUpdateResponseCommon(Packet packet)
     {
         var type = (PartyUpdateType)packet.ReadByte();
 
@@ -56,14 +55,18 @@ internal class PartyUpdateResponse : IPacketHandler
                     0x03 => ????
                  */
                 if (packet.ReadByte() == 0x04)
+                {
                     EventManager.FireEvent("OnPartyMemberBanned", memberLeft);
+                }
                 else if (memberLeft.Name == Game.Player.Name)
                 {
                     EventManager.FireEvent("OnPartyDismiss");
                     Game.Party.Clear();
                 }
                 else
+                {
                     EventManager.FireEvent("OnPartyMemberLeave", memberLeft);
+                }
 
                 break;
 

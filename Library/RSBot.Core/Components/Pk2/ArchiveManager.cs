@@ -1,20 +1,11 @@
 ﻿using RSBot.Pk2;
-using System;
 
 namespace RSBot.Core.Components.Pk2;
 
 public class ArchiveManager
 {
     /// <summary>
-    /// Gets or sets the Media.pk2 reader.
-    /// </summary>
-    /// <value>
-    /// The PK2 reader.
-    /// </value>
-    public PK2Archive Archive { get; set; }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ArchiveManager" /> class.
+    ///     Initializes a new instance of the <see cref="ArchiveManager" /> class.
     /// </summary>
     /// <param name="archive">The media PK2.</param>
     public ArchiveManager(PK2Archive archive)
@@ -23,7 +14,15 @@ public class ArchiveManager
     }
 
     /// <summary>
-    /// Gets the file.
+    ///     Gets or sets the Media.pk2 reader.
+    /// </summary>
+    /// <value>
+    ///     The PK2 reader.
+    /// </value>
+    public PK2Archive Archive { get; set; }
+
+    /// <summary>
+    ///     Gets the file.
     /// </summary>
     /// <param name="filename">The filename.</param>
     public ArchiveFile GetFile(string filename, bool absolutePath = false)
@@ -32,7 +31,7 @@ public class ArchiveManager
     }
 
     /// <summary>
-    /// Files the exists.
+    ///     Files the exists.
     /// </summary>
     /// <param name="filename">The filename.</param>
     /// <returns></returns>
@@ -42,7 +41,7 @@ public class ArchiveManager
     }
 
     /// <summary>
-    /// Loads the state.
+    ///     Loads the state.
     /// </summary>
     /// <param name="pk2">The PK2.</param>
     /// <returns></returns>

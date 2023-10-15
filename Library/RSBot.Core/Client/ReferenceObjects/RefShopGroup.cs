@@ -6,57 +6,46 @@ namespace RSBot.Core.Client.ReferenceObjects;
 public class RefShopGroup : IReference<string>
 {
     /// <summary>
-    /// Gets or sets the service.
+    ///     Gets or sets the name of the code.
     /// </summary>
     /// <value>
-    /// The service.
-    /// </value>
-    public byte Service;
-
-    /// <summary>
-    /// Gets or sets the country.
-    /// </summary>
-    /// <value>
-    /// The country.
-    /// </value>
-    public int Country;
-
-    /// <summary>
-    /// Gets or sets the identifier.
-    /// </summary>
-    /// <value>
-    /// The identifier.
-    /// </value>
-    public int Id;
-
-    /// <summary>
-    /// Gets or sets the name of the code.
-    /// </summary>
-    /// <value>
-    /// The name of the code.
+    ///     The name of the code.
     /// </value>
     public string CodeName;
 
     /// <summary>
-    /// Gets or sets the name of the reference NPC code.
+    ///     Gets or sets the country.
     /// </summary>
     /// <value>
-    /// The name of the reference NPC code.
+    ///     The country.
+    /// </value>
+    public int Country;
+
+    /// <summary>
+    ///     Gets or sets the identifier.
+    /// </summary>
+    /// <value>
+    ///     The identifier.
+    /// </value>
+    public int Id;
+
+    /// <summary>
+    ///     Gets or sets the name of the reference NPC code.
+    /// </summary>
+    /// <value>
+    ///     The name of the reference NPC code.
     /// </value>
     public string RefNpcCodeName;
 
-    public string PrimaryKey => CodeName;
-
     /// <summary>
-    /// Gets the shops.
+    ///     Gets or sets the service.
     /// </summary>
-    /// <returns></returns>
-    public List<RefShop> GetShops()
-    {
-        var mappedShops = Game.ReferenceManager.ShopGroupMapping.Where(m => m.Group == CodeName);
+    /// <value>
+    ///     The service.
+    /// </value>
+    public byte Service;
 
-        return mappedShops.Select(mapping => Game.ReferenceManager.Shops.FirstOrDefault(s => s.Value.CodeName == mapping.Shop).Value).ToList();
-    }
+    public string PrimaryKey => CodeName;
 
     public bool Load(ReferenceParser parser)
     {
@@ -70,6 +59,18 @@ public class RefShopGroup : IReference<string>
         parser.TryParse(4, out RefNpcCodeName);
 
         return true;
+    }
+
+    /// <summary>
+    ///     Gets the shops.
+    /// </summary>
+    /// <returns></returns>
+    public List<RefShop> GetShops()
+    {
+        var mappedShops = Game.ReferenceManager.ShopGroupMapping.Where(m => m.Group == CodeName);
+
+        return mappedShops.Select(mapping =>
+            Game.ReferenceManager.Shops.FirstOrDefault(s => s.Value.CodeName == mapping.Shop).Value).ToList();
     }
 }
 

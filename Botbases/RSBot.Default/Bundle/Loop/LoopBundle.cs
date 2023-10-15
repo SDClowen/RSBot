@@ -1,40 +1,39 @@
-﻿using RSBot.Core;
+﻿using System.IO;
+using System.Threading;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Objects;
-using System.IO;
-using System.Threading;
-using RSBot.Core.Event;
 
 namespace RSBot.Default.Bundle.Loop;
 
 internal class LoopBundle : IBundle
 {
     /// <summary>
-    /// Gets the configuration.
+    ///     Gets the configuration.
     /// </summary>
     /// <value>
-    /// The configuration.
+    ///     The configuration.
     /// </value>
     public LoopConfig Config { get; private set; }
 
     /// <summary>
-    /// Gets a value indicating whether this <see cref="LoopBundle"/> is running.
+    ///     Gets a value indicating whether this <see cref="LoopBundle" /> is running.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if running; otherwise, <c>false</c>.
+    ///     <c>true</c> if running; otherwise, <c>false</c>.
     /// </value>
     public bool Running { get; private set; }
 
     /// <summary>
-    /// Gets a value indicating whether [townscript running].
+    ///     Gets a value indicating whether [townscript running].
     /// </summary>
     /// <value>
-    ///   <c>true</c> if [townscript running]; otherwise, <c>false</c>.
+    ///     <c>true</c> if [townscript running]; otherwise, <c>false</c>.
     /// </value>
     public bool TownscriptRunning { get; private set; }
 
     /// <summary>
-    /// Invokes this instance.
+    ///     Invokes this instance.
     /// </summary>
     public void Invoke()
     {
@@ -54,7 +53,7 @@ internal class LoopBundle : IBundle
     }
 
     /// <summary>
-    /// Refreshes this instance.
+    ///     Refreshes this instance.
     /// </summary>
     public void Refresh()
     {
@@ -62,23 +61,10 @@ internal class LoopBundle : IBundle
         {
             WalkScript = PlayerConfig.Get<string>("RSBot.Walkback.File"),
             UseSpeedDrug = PlayerConfig.Get<bool>("RSBot.Training.checkUseSpeedDrug"),
-            UseVehicle = PlayerConfig.Get<bool>("RSBot.Training.checkUseMount", true),
-            CastBuffs = PlayerConfig.Get<bool>("RSBot.Training.checkCastBuffs", true),
-            UseReverse = PlayerConfig.Get<bool>("RSBot.Training.checkBoxUseReverse", false)
+            UseVehicle = PlayerConfig.Get("RSBot.Training.checkUseMount", true),
+            CastBuffs = PlayerConfig.Get("RSBot.Training.checkCastBuffs", true),
+            UseReverse = PlayerConfig.Get("RSBot.Training.checkBoxUseReverse", false)
         };
-    }
-
-    /// <summary>
-    /// Starts this instance.
-    /// </summary>
-    public void Start()
-    {
-        Running = true;
-
-        Refresh();
-        CheckForTownScript();
-
-        Running = false;
     }
 
     public void Stop()
@@ -93,14 +79,28 @@ internal class LoopBundle : IBundle
     }
 
     /// <summary>
-    /// Checks for town script.
+    ///     Starts this instance.
+    /// </summary>
+    public void Start()
+    {
+        Running = true;
+
+        Refresh();
+        CheckForTownScript();
+
+        Running = false;
+    }
+
+    /// <summary>
+    ///     Checks for town script.
     /// </summary>
     public void CheckForTownScript()
     {
-        if (ScriptManager.Running) 
+        if (ScriptManager.Running)
             return;
 
-        var filename = Path.Combine(ScriptManager.InitialDirectory, "Towns", Game.Player.Movement.Source.Region + ".rbs");
+        var filename = Path.Combine(ScriptManager.InitialDirectory, "Towns",
+            Game.Player.Movement.Source.Region + ".rbs");
 
         //The player is in town, therefore, we need to run the town script first.
         if (!File.Exists(filename))
@@ -109,7 +109,7 @@ internal class LoopBundle : IBundle
             return;
         }
 
-        if( PlayerConfig.Get<bool>( "RSBot.Protection.checkStopBotOnReturnToTown" ) ) 
+        if (PlayerConfig.Get<bool>("RSBot.Protection.checkStopBotOnReturnToTown"))
         {
             Kernel.Bot.Stop();
             return;
@@ -127,7 +127,6 @@ internal class LoopBundle : IBundle
             var filter = new TypeIdFilter(3, 3, 3, 3);
             var item = Game.Player.Inventory.GetItem(filter);
             if (item != null)
-            {
                 /*
                     2 => go to last recall point
                     3 => go to last died position
@@ -137,13 +136,11 @@ internal class LoopBundle : IBundle
                         85: Cannot find the place where you selected as recall point.
                         86: Cannot find the place where you died.
                  */
-
                 if (item.UseTo(3))
                 {
                     TownscriptRunning = false;
                     return;
                 }
-            }
         }
 
         TownscriptRunning = false;
@@ -154,7 +151,7 @@ internal class LoopBundle : IBundle
     }
 
     /// <summary>
-    /// Checks for walkback script.
+    ///     Checks for walkback script.
     /// </summary>
     public void CheckForWalkbackScript(bool startFromTown = false)
     {
@@ -166,7 +163,7 @@ internal class LoopBundle : IBundle
 
         Invoke();
         Log.NotifyLang("LoadingWalkScript", Config.WalkScript);
-            
+
         ScriptManager.Load(Config.WalkScript);
         ScriptManager.RunScript(!startFromTown);
     }

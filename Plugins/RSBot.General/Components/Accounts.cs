@@ -1,37 +1,38 @@
-﻿using RSBot.Core;
-using RSBot.Core.Components;
-using RSBot.Core.Network.SecurityAPI;
-using RSBot.General.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.Json;
+using RSBot.Core;
+using RSBot.Core.Components;
+using RSBot.Core.Network.SecurityAPI;
+using RSBot.General.Models;
 
 namespace RSBot.General.Components;
 
 internal class Accounts
 {
     /// <summary>
-    /// Gets or sets the saved accounts.
+    ///     Gets or sets the saved accounts.
     /// </summary>
     /// <value>
-    /// The saved accounts.
+    ///     The saved accounts.
     /// </value>
     public static List<Account> SavedAccounts { get; set; }
 
     /// <summary>
-    /// Gets or sets the joined account.
+    ///     Gets or sets the joined account.
     /// </summary>
     public static Account Joined { get; set; }
 
     /// <summary>
-    /// Get the data file path
+    ///     Get the data file path
     /// </summary>
-    private static string _filePath => Path.Combine(Kernel.BasePath, "User", ProfileManager.SelectedProfile, "autologin.data");
+    private static string _filePath =>
+        Path.Combine(Kernel.BasePath, "User", ProfileManager.SelectedProfile, "autologin.data");
 
     /// <summary>
-    /// Check the saving directory
+    ///     Check the saving directory
     /// </summary>
     /// <returns></returns>
     private static void EnsureDirectoryExists()
@@ -42,7 +43,7 @@ internal class Accounts
     }
 
     /// <summary>
-    /// Loads this instance.
+    ///     Loads this instance.
     /// </summary>
     public static void Load()
     {
@@ -75,7 +76,7 @@ internal class Accounts
     }
 
     /// <summary>
-    /// Saves this instance.
+    ///     Saves this instance.
     /// </summary>
     public static void Save()
     {

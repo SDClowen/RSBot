@@ -1,8 +1,8 @@
-﻿using RSBot.Core.Extensions;
-using RSBot.Core.Objects;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using RSBot.Core.Extensions;
+using RSBot.Core.Objects;
 
 namespace RSBot.Core.Client.ReferenceObjects;
 
@@ -12,6 +12,48 @@ public class RefSkill : IReference<uint>
 
     private const int EFFECT_TRANSFER = 1701213281; //efta
     private const int DURATION = 1685418593; //dura
+
+    /// <summary>
+    ///     Gets the ingame name of the spell
+    /// </summary>
+    /// <returns></returns>
+    public string GetRealName()
+    {
+        return Game.ReferenceManager.GetTranslation(UI_SkillName);
+    }
+
+    /// <summary>
+    ///     Gets the icon.
+    /// </summary>
+    /// <returns></returns>
+    public Image GetIcon()
+    {
+        Image bitmap = null;
+
+        try
+        {
+            var file = Game.MediaPk2.GetFile(Path.Combine("icon", UI_IconFile), true);
+            if (file.IsValid)
+                bitmap = file.ToImage();
+            else
+                bitmap = Game.MediaPk2.GetFile("icon\\icon_default.ddj").ToImage();
+        }
+        catch
+        {
+        }
+        finally
+        {
+            if (bitmap == null)
+                bitmap = new Bitmap(24, 24);
+        }
+
+        return bitmap;
+    }
+
+    public override string ToString()
+    {
+        return $"{GetRealName()} lv.{Basic_Level}";
+    }
 
     #region Fields
 
@@ -26,6 +68,7 @@ public class RefSkill : IReference<uint>
     public byte Basic_Activity;
 
     public uint Basic_ChainCode;
+
     //public int Basic_RecycleCost;
     public int Action_PreparingTime;
     public int Action_CastingTime;
@@ -37,24 +80,31 @@ public class RefSkill : IReference<uint>
     //public int Action_FlyingSpeed;
     //public byte Action_Interruptable;
     public int Action_Overlap;
+
     public int Action_AutoAttackType;
+
     //public int Action_InTown;
     public short Action_Range;
     public bool Target_Required;
+
     public bool TargetType_Animal;
+
     //public bool TargetType_Land;
     //public bool TargetType_Building;
     public bool TargetGroup_Self;
     public bool TargetGroup_Ally;
     public bool TargetGroup_Party;
     public bool TargetGroup_Enemy_M;
+
     public bool TargetGroup_Enemy_P;
+
     //public bool TargetGroup_Neutral;
     //public bool TargetGroup_DontCare;
     public bool TargetEtc_SelectDeadBody;
     public int ReqCommon_Mastery1;
     public int ReqCommon_Mastery2;
     public byte ReqCommon_MasteryLevel1;
+
     public byte ReqCommon_MasteryLevel2;
     //public short ReqCommon_Str;
     //public short ReqCommon_Int;
@@ -92,7 +142,7 @@ public class RefSkill : IReference<uint>
     //public string UI_SkillStudy_Desc;
     //public short AI_AttackChance;
     //public byte AI_SkillType;
-    public List<int> Params = new List<int>(50);
+    public List<int> Params = new(50);
 
     #endregion Fields
 
@@ -189,53 +239,13 @@ public class RefSkill : IReference<uint>
         //AI_SkillType = byte.Parse(data[67]);
 
         for (var i = 0; i < PARAM_COUNT; i++)
-        {
             if (parser.TryParse(68 + i, out int paramValue))
                 Params.Add(paramValue);
-        }
 
         return true;
     }
 
     #endregion IReference
-
-    /// <summary>
-    /// Gets the ingame name of the spell
-    /// </summary>
-    /// <returns></returns>
-    public string GetRealName() 
-        => Game.ReferenceManager.GetTranslation(UI_SkillName);
-
-    /// <summary>
-    /// Gets the icon.
-    /// </summary>
-    /// <returns></returns>
-    public Image GetIcon()
-    {
-        Image bitmap = null;
-
-        try
-        {
-            var file = Game.MediaPk2.GetFile(Path.Combine("icon", this.UI_IconFile), true);
-            if (file.IsValid)
-                bitmap = file.ToImage();
-            else
-                bitmap = Game.MediaPk2.GetFile("icon\\icon_default.ddj").ToImage();
-        }
-        catch{ }
-        finally
-        {
-            if (bitmap == null)
-                bitmap = new Bitmap(24, 24);
-        }
-
-        return bitmap;
-    }
-
-    public override string ToString()
-    {
-        return $"{GetRealName()} lv.{Basic_Level}";
-    }
 }
 
 //Params:

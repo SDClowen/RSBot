@@ -1,6 +1,7 @@
-﻿using RSBot.Core;
-using SDUI.Controls;
+﻿using System;
 using System.Windows.Forms;
+using RSBot.Core;
+using SDUI.Controls;
 
 namespace RSBot.Default.Views.Dialogs;
 
@@ -11,19 +12,19 @@ public partial class CreateTrainingAreaDialog : UIWindowBase
         InitializeComponent();
     }
 
-    private void buttonAccept_Click(object sender, System.EventArgs e)
+    private void buttonAccept_Click(object sender, EventArgs e)
     {
-        if(string.IsNullOrWhiteSpace(TrainingName.Text))
+        if (string.IsNullOrWhiteSpace(TrainingName.Text))
             DialogResult = DialogResult.Retry;
     }
 
-    private void CreateTrainingAreaDialog_FormClosing(object sender, System.Windows.Forms.FormClosingEventArgs e)
+    private void CreateTrainingAreaDialog_FormClosing(object sender, FormClosingEventArgs e)
     {
         if (DialogResult == DialogResult.Retry)
             e.Cancel = true;
     }
 
-    private void CreateTrainingAreaDialog_Load(object sender, System.EventArgs e)
+    private void CreateTrainingAreaDialog_Load(object sender, EventArgs e)
     {
         var pos = Game.Player.Movement.Source;
         labelPos.Text = $"X: {pos.X:0.0}  Y:{pos.Y:0.0}";

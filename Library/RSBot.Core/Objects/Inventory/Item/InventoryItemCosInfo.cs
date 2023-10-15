@@ -3,18 +3,19 @@
 public struct InventoryItemCosInfo
 {
     /// <summary>
-    /// Model Id
+    ///     Model Id
     /// </summary>
     public uint Id;
 
     /// <summary>
-    /// The name
+    ///     The name
     /// </summary>
     public string Name;
 
     private byte _level;
+
     /// <summary>
-    /// The level (Do not use lower then chinese clients!)
+    ///     The level (Do not use lower then chinese clients!)
     /// </summary>
     public byte Level
     {
@@ -33,7 +34,7 @@ public struct InventoryItemCosInfo
     }
 
     /// <summary>
-    /// The rental
+    ///     The rental
     /// </summary>
     public RentInfo Rental;
 }

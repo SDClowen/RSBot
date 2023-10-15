@@ -1,8 +1,8 @@
-﻿using RSBot.Core.Client.ReferenceObjects;
+﻿using System.Collections.Generic;
+using System.IO;
+using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Event;
 using RSBot.Core.Extensions;
-using System.Collections.Generic;
-using System.IO;
 
 namespace RSBot.Core.Client;
 
@@ -11,30 +11,30 @@ public class DivisionInfo
     #region Constants
 
     /// <summary>
-    /// The file name
+    ///     The file name
     /// </summary>
     internal const string FileName = "DIVISIONINFO.TXT";
 
     #endregion Constants
 
     /// <summary>
-    /// Gets the divisions.
+    ///     Gets the divisions.
     /// </summary>
     /// <value>
-    /// The divisions.
+    ///     The divisions.
     /// </value>
     public List<Division> Divisions { get; set; }
 
     /// <summary>
-    /// Gets the locale.
+    ///     Gets the locale.
     /// </summary>
     /// <value>
-    /// The locale.
+    ///     The locale.
     /// </value>
     public byte Locale { get; set; }
 
     /// <summary>
-    /// Loads this instance.
+    ///     Loads this instance.
     /// </summary>
     /// <returns></returns>
     internal static DivisionInfo Load()

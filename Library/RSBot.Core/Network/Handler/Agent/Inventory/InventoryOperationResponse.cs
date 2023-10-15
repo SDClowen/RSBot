@@ -1,33 +1,33 @@
-﻿using RSBot.Core.Components;
+﻿using System.Collections.Generic;
+using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Cos;
 using RSBot.Core.Objects.Inventory;
 using RSBot.Core.Objects.Item;
-using System.Collections.Generic;
 
 namespace RSBot.Core.Network.Handler.Agent.Inventory;
 
 internal class InventoryOperationResponse : IPacketHandler
 {
     /// <summary>
-    /// Gets or sets the opcode.
+    ///     Gets or sets the opcode.
     /// </summary>
     /// <value>
-    /// The opcode.
+    ///     The opcode.
     /// </value>
     public ushort Opcode => 0xB034;
 
     /// <summary>
-    /// Gets or sets the destination.
+    ///     Gets or sets the destination.
     /// </summary>
     /// <value>
-    /// The destination.
+    ///     The destination.
     /// </value>
     public PacketDestination Destination => PacketDestination.Client;
 
     /// <summary>
-    /// Handles the packet.
+    ///     Handles the packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     public void Invoke(Packet packet)
@@ -230,7 +230,8 @@ internal class InventoryOperationResponse : IPacketHandler
                 break;
 
             default:
-                Log.Error($"If you see this message i, please open an issue by explaining your last inventory operation! InventoryOperationType: {type}");
+                Log.Error(
+                    $"If you see this message i, please open an issue by explaining your last inventory operation! InventoryOperationType: {type}");
                 break;
         }
 
@@ -238,7 +239,7 @@ internal class InventoryOperationResponse : IPacketHandler
     }
 
     /// <summary>
-    /// Parses the floor to inventory.
+    ///     Parses the floor to inventory.
     /// </summary>
     /// <param name="packet">The packet.</param>
     private static void ParseFloorToSpecialtyBag(Packet packet)
@@ -249,7 +250,7 @@ internal class InventoryOperationResponse : IPacketHandler
     }
 
     /// <summary>
-    /// Parses the floor to inventory.
+    ///     Parses the floor to inventory.
     /// </summary>
     /// <param name="packet">The packet.</param>
     private static void ParseFloorToInventory(Packet packet, InventoryItemCollection inventory)
@@ -260,7 +261,7 @@ internal class InventoryOperationResponse : IPacketHandler
         {
             var goldAmount = packet.ReadUInt();
             Game.Player.Gold += goldAmount;
-             
+
             EventManager.FireEvent("OnPickupGold", goldAmount);
 
             Log.Notify($"Picked up [{goldAmount}] gold");
@@ -282,7 +283,8 @@ internal class InventoryOperationResponse : IPacketHandler
         {
             inventory.Add(item);
 
-            Log.Debug($"[Floor->Inventory] Add item {item.Record.GetRealName()} (slot={destinationSlot}, amount={item.Amount}");
+            Log.Debug(
+                $"[Floor->Inventory] Add item {item.Record.GetRealName()} (slot={destinationSlot}, amount={item.Amount}");
         }
 
         Log.Notify($"Picked up item [{item.Record.GetRealName(true)}]");
@@ -291,7 +293,7 @@ internal class InventoryOperationResponse : IPacketHandler
     }
 
     /// <summary>
-    /// Parses the NPC to inventory.
+    ///     Parses the NPC to inventory.
     /// </summary>
     /// <param name="packet">The packet.</param>
     private static void ParseNpcToInventory(Packet packet, InventoryItemCollection inventory, uint entityUniqueId)
@@ -303,7 +305,7 @@ internal class InventoryOperationResponse : IPacketHandler
         var tabIndex = packet.ReadByte();
         var tabSlot = packet.ReadByte();
 
-        if (Game.ClientType > GameClientType.Chinese && 
+        if (Game.ClientType > GameClientType.Chinese &&
             Game.ClientType != GameClientType.Rigid)
         {
             amount = packet.ReadUShort();
@@ -367,7 +369,7 @@ internal class InventoryOperationResponse : IPacketHandler
     }
 
     /// <summary>
-    /// Parses the NPC to inventory.
+    ///     Parses the NPC to inventory.
     /// </summary>
     /// <param name="packet">The packet.</param>
     private static void ParseTokenNpcToInventory(Packet packet)
@@ -384,7 +386,7 @@ internal class InventoryOperationResponse : IPacketHandler
     }
 
     /// <summary>
-    /// Parses the inventory to NPC.
+    ///     Parses the inventory to NPC.
     /// </summary>
     /// <param name="packet">The packet.</param>
     private static void ParseInventoryToNpc(Packet packet, InventoryItemCollection inventory)
@@ -412,20 +414,22 @@ internal class InventoryOperationResponse : IPacketHandler
         {
             inventory.RemoveAt(sourceSlot);
 
-            Log.Debug($"[Inventory->NPC] Remove item {itemAtSlot.Record.GetRealName()} (slot={sourceSlot}, amount={amount})");
+            Log.Debug(
+                $"[Inventory->NPC] Remove item {itemAtSlot.Record.GetRealName()} (slot={sourceSlot}, amount={amount})");
         }
         else
         {
             inventory.UpdateItemAmount(sourceSlot, (ushort)(itemAtSlot.Amount - amount));
 
-            Log.Debug($"[Inventory->NPC] Update item {itemAtSlot.Record.GetRealName()} (slot={sourceSlot}, amount={amount})");
+            Log.Debug(
+                $"[Inventory->NPC] Update item {itemAtSlot.Record.GetRealName()} (slot={sourceSlot}, amount={amount})");
         }
 
         Log.Notify($"Sold item [{itemAtSlot.Record.GetRealName()}] x {amount}");
     }
 
     /// <summary>
-    /// Parses the gold to floor.
+    ///     Parses the gold to floor.
     /// </summary>
     /// <param name="packet">The packet.</param>
     private static void ParseGoldToFloor(Packet packet)
@@ -434,7 +438,7 @@ internal class InventoryOperationResponse : IPacketHandler
     }
 
     /// <summary>
-    /// Parses the gold to storage.
+    ///     Parses the gold to storage.
     /// </summary>
     /// <param name="packet">The packet.</param>
     private static void ParseGoldToStorage(Packet packet, Storage storage)
@@ -449,7 +453,7 @@ internal class InventoryOperationResponse : IPacketHandler
     }
 
     /// <summary>
-    /// Parses the storage to gold.
+    ///     Parses the storage to gold.
     /// </summary>
     /// <param name="packet">The packet.</param>
     private static void ParseStorageToGold(Packet packet, Storage storage)
@@ -464,7 +468,7 @@ internal class InventoryOperationResponse : IPacketHandler
     }
 
     /// <summary>
-    /// Parses the add item by server.
+    ///     Parses the add item by server.
     /// </summary>
     /// <param name="packet">The packet.</param>
     private static void ParseAddItemByServer(Packet packet)
@@ -476,7 +480,7 @@ internal class InventoryOperationResponse : IPacketHandler
     }
 
     /// <summary>
-    /// Parses the delete item by server.
+    ///     Parses the delete item by server.
     /// </summary>
     /// <param name="packet">The packet.</param>
     private static void ParseDeleteItemByServer(Packet packet)
@@ -488,7 +492,7 @@ internal class InventoryOperationResponse : IPacketHandler
     }
 
     /// <summary>
-    /// Parses the delete item by server.
+    ///     Parses the delete item by server.
     /// </summary>
     /// <param name="packet">The packet.</param>
     private static void ParseDeleteCosItemByServer(Packet packet)
@@ -514,7 +518,7 @@ internal class InventoryOperationResponse : IPacketHandler
     }
 
     /// <summary>
-    /// Parses the pet to pet.
+    ///     Parses the pet to pet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     private static void ParseCosInventoryMoving(Packet packet)
@@ -536,7 +540,7 @@ internal class InventoryOperationResponse : IPacketHandler
     }
 
     /// <summary>
-    /// Parses the floor to pet.
+    ///     Parses the floor to pet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     private static void ParseFloorToCos(Packet packet)
@@ -557,7 +561,7 @@ internal class InventoryOperationResponse : IPacketHandler
     }
 
     /// <summary>
-    /// Parses the pet to floor.
+    ///     Parses the pet to floor.
     /// </summary>
     /// <param name="packet">The packet.</param>
     private static void ParseCosToFloor(Packet packet)
@@ -580,7 +584,7 @@ internal class InventoryOperationResponse : IPacketHandler
     }
 
     /// <summary>
-    /// Parses the NPC to pet.
+    ///     Parses the NPC to pet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     private static void ParseNpcToCos(Packet packet)
@@ -601,7 +605,7 @@ internal class InventoryOperationResponse : IPacketHandler
     }
 
     /// <summary>
-    /// Parses the pet to NPC.
+    ///     Parses the pet to NPC.
     /// </summary>
     /// <param name="packet">The packet.</param>
     private static void ParseCosToNpc(Packet packet)
@@ -622,7 +626,7 @@ internal class InventoryOperationResponse : IPacketHandler
     }
 
     /// <summary>
-    /// Parses the mall to player.
+    ///     Parses the mall to player.
     /// </summary>
     /// <param name="packet">The packet.</param>
     private static void ParseMallToPlayer(Packet packet)
@@ -633,7 +637,8 @@ internal class InventoryOperationResponse : IPacketHandler
         var slotIndex = packet.ReadByte();
         var itemCount = packet.ReadByte();
 
-        var refShopGoodObj = Game.ReferenceManager.GetRefPackageItemById(refShopGroupId, groupIndex, tabIndex, slotIndex);
+        var refShopGoodObj =
+            Game.ReferenceManager.GetRefPackageItemById(refShopGroupId, groupIndex, tabIndex, slotIndex);
         var itemInfo = Game.ReferenceManager.GetRefItem(refShopGoodObj.RefItemCodeName);
 
         if (refShopGoodObj != null && itemInfo != null)
@@ -670,7 +675,7 @@ internal class InventoryOperationResponse : IPacketHandler
     }
 
     /// <summary>
-    /// Parses the pet to inventory.
+    ///     Parses the pet to inventory.
     /// </summary>
     /// <param name="packet">The packet.</param>
     private static void ParseCosToInventory(Packet packet)
@@ -686,7 +691,7 @@ internal class InventoryOperationResponse : IPacketHandler
     }
 
     /// <summary>
-    /// Parses the inventory to pet.
+    ///     Parses the inventory to pet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     private static void ParseInventoryToCos(Packet packet)
@@ -701,7 +706,7 @@ internal class InventoryOperationResponse : IPacketHandler
     }
 
     /// <summary>
-    /// Parses the other to inventory.
+    ///     Parses the other to inventory.
     /// </summary>
     /// <param name="packet">The packet.</param>
     private static void ParseOtherToInventory(Packet packet)
@@ -710,7 +715,9 @@ internal class InventoryOperationResponse : IPacketHandler
 
         var destinationSlot = packet.ReadByte();
         if (destinationSlot == 0xFE)
+        {
             Game.Player.Gold += packet.ReadUInt();
+        }
         else
         {
             var item = InventoryItem.FromPacket(packet, destinationSlot);
@@ -726,7 +733,7 @@ internal class InventoryOperationResponse : IPacketHandler
     }
 
     /// <summary>
-    /// Parses the buyback to inventory.
+    ///     Parses the buyback to inventory.
     /// </summary>
     /// <param name="packet">The packet.</param>
     private static void ParseBuybackToInventory(Packet packet)

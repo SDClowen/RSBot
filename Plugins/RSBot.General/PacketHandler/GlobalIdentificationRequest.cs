@@ -2,35 +2,34 @@
 using RSBot.Core.Cryptography;
 using RSBot.Core.Network;
 using RSBot.General.Components;
-using System;
 
 namespace RSBot.General.PacketHandler;
 
 internal class GlobalIdentificationRequest : IPacketHandler
 {
     /// <summary>
-    /// Gets or sets the opcode.
+    ///     Gets or sets the opcode.
     /// </summary>
     /// <value>
-    /// The opcode.
+    ///     The opcode.
     /// </value>
     public ushort Opcode => 0x2001;
 
     /// <summary>
-    /// Gets or sets the destination.
+    ///     Gets or sets the destination.
     /// </summary>
     /// <value>
-    /// The destination.
+    ///     The destination.
     /// </value>
     public PacketDestination Destination => PacketDestination.Client;
 
     /// <summary>
-    /// Handles the packet.
+    ///     Handles the packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     public void Invoke(Packet packet)
     {
-        if (!Game.Clientless) 
+        if (!Game.Clientless)
             return;
 
         var serviceName = packet.ReadString();
@@ -46,7 +45,8 @@ internal class GlobalIdentificationRequest : IPacketHandler
         }
         else if (serviceName == "AgentServer")
         {
-            var selectedAccount = Accounts.SavedAccounts.Find(p => p.Username == GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername"));
+            var selectedAccount = Accounts.SavedAccounts.Find(p =>
+                p.Username == GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername"));
             if (selectedAccount == null)
             {
                 Log.WarnLang("RSBot.General", "AgentServerConnectingError");
@@ -55,13 +55,13 @@ internal class GlobalIdentificationRequest : IPacketHandler
 
             Log.NotifyLang("RSBot.General", "AuthAgentCertify");
 
-            ushort opcode = (ushort)(Game.ClientType == GameClientType.Rigid ? 0x6118 : 0x6103);
+            var opcode = (ushort)(Game.ClientType == GameClientType.Rigid ? 0x6118 : 0x6103);
             var response = new Packet(opcode, true);
             response.WriteUInt(Kernel.Proxy.Token);
             response.WriteString(selectedAccount.Username);
-                
-            if(Game.ClientType == GameClientType.Turkey || 
-               Game.ClientType == GameClientType.VTC_Game)
+
+            if (Game.ClientType == GameClientType.Turkey ||
+                Game.ClientType == GameClientType.VTC_Game)
                 response.WriteString(Sha256.ComputeHash(selectedAccount.Password));
             else
                 response.WriteString(selectedAccount.Password);

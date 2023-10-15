@@ -1,14 +1,13 @@
-﻿using RSBot.Core.Client.ReferenceObjects;
-using RSBot.Core.Network;
-using RSBot.Core.Objects;
-using RSBot.Core.Objects.Spawn;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using RSBot.Core.Event;
+using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Network;
+using RSBot.Core.Objects;
 using RSBot.Core.Objects.Cos;
 using RSBot.Core.Objects.Inventory;
+using RSBot.Core.Objects.Spawn;
 using static RSBot.Core.Game;
 
 namespace RSBot.Core.Components;
@@ -16,100 +15,100 @@ namespace RSBot.Core.Components;
 public static class ShoppingManager
 {
     /// <summary>
-    /// Gets or sets the shopping list.
+    ///     Gets or sets the shopping list.
     /// </summary>
     /// <value>
-    /// The shopping list.
+    ///     The shopping list.
     /// </value>
     public static Dictionary<RefShopGood, int> ShoppingList { get; set; }
 
     /// <summary>
-    /// Gets a value indicating whether this <see cref="ShoppingManager"/> is finished.
+    ///     Gets a value indicating whether this <see cref="ShoppingManager" /> is finished.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if finished; otherwise, <c>false</c>.
+    ///     <c>true</c> if finished; otherwise, <c>false</c>.
     /// </value>
     public static bool Finished { get; private set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether this <see cref="ShoppingManager"/> is enabled.
+    ///     Gets or sets a value indicating whether this <see cref="ShoppingManager" /> is enabled.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if enabled; otherwise, <c>false</c>.
+    ///     <c>true</c> if enabled; otherwise, <c>false</c>.
     /// </value>
     public static bool Enabled { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether [repair gear].
+    ///     Gets or sets a value indicating whether [repair gear].
     /// </summary>
     /// <value>
-    ///   <c>true</c> if [repair gear]; otherwise, <c>false</c>.
+    ///     <c>true</c> if [repair gear]; otherwise, <c>false</c>.
     /// </value>
     public static bool RepairGear { get; set; }
 
     /// <summary>
-    /// Gets or sets the sell filter.
+    ///     Gets or sets the sell filter.
     /// </summary>
     /// <value>
-    /// The armor sell filter.
+    ///     The armor sell filter.
     /// </value>
     public static List<string> SellFilter { get; set; }
 
     /// <summary>
-    /// Gets or sets the store filter.
+    ///     Gets or sets the store filter.
     /// </summary>
     /// <value>
-    /// The store filter.
+    ///     The store filter.
     /// </value>
     public static List<string> StoreFilter { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether this <see cref="ShoppingManager"/> is running.
+    ///     Gets or sets a value indicating whether this <see cref="ShoppingManager" /> is running.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if running; otherwise, <c>false</c>.
+    ///     <c>true</c> if running; otherwise, <c>false</c>.
     /// </value>
     public static bool Running { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether [sell pet items].
+    ///     Gets or sets a value indicating whether [sell pet items].
     /// </summary>
     /// <value>
-    ///   <c>true</c> if [sell pet items]; otherwise, <c>false</c>.
+    ///     <c>true</c> if [sell pet items]; otherwise, <c>false</c>.
     /// </value>
     public static bool SellPetItems { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether [store pet items].
+    ///     Gets or sets a value indicating whether [store pet items].
     /// </summary>
     /// <value>
-    ///   <c>true</c> if [store pet items]; otherwise, <c>false</c>.
+    ///     <c>true</c> if [store pet items]; otherwise, <c>false</c>.
     /// </value>
     public static bool StorePetItems { get; set; }
 
     /// <summary>
-    /// Gets or sets the buyback list.
+    ///     Gets or sets the buyback list.
     /// </summary>
     /// <value>
-    /// The buyback list.
+    ///     The buyback list.
     /// </value>
     internal static Dictionary<byte, InventoryItem> BuybackList { get; set; }
 
     /// <summary>
-    /// Initializes this instance.
+    ///     Initializes this instance.
     /// </summary>
     internal static void Initialize()
     {
-        ShoppingList = new();
-        StoreFilter = new();
-        SellFilter = new();
-        BuybackList = new();
+        ShoppingList = new Dictionary<RefShopGood, int>();
+        StoreFilter = new List<string>();
+        SellFilter = new List<string>();
+        BuybackList = new Dictionary<byte, InventoryItem>();
 
         Log.Debug("Initialized [ShoppingManager]!");
     }
 
     /// <summary>
-    /// Runs this instance.
+    ///     Runs this instance.
     /// </summary>
     public static void Run(string npcCodeName)
     {
@@ -139,7 +138,7 @@ public static class ShoppingManager
             {
                 var playerSlot = Game.Player.AbilityPet.MoveItemToPlayer(item.Slot);
                 if (playerSlot != 0xFF)
-                    SellItem(Game.Player.Inventory.GetItemAt((byte)playerSlot));
+                    SellItem(Game.Player.Inventory.GetItemAt(playerSlot));
             }
         }
 
@@ -198,8 +197,10 @@ public static class ShoppingManager
             if (refItem.MaxStack > 1)
             {
                 IList<InventoryItem> getItems()
-                    => Game.Player.Inventory.GetItems(i =>
+                {
+                    return Game.Player.Inventory.GetItems(i =>
                         i.Record.CodeName == refPackageItem.RefItemCodeName && i.Amount < refItem.MaxStack);
+                }
 
                 var nonFullStacks = getItems();
                 while (nonFullStacks.Count >= 2)
@@ -219,7 +220,7 @@ public static class ShoppingManager
     }
 
     /// <summary>
-    /// Sells the item.
+    ///     Sells the item.
     /// </summary>
     /// <param name="item">The item.</param>
     /// <param name="cos"></param>
@@ -230,7 +231,7 @@ public static class ShoppingManager
 
         var packet = new Packet(0x7034);
         packet.WriteByte(cos == null ? InventoryOperation.SP_SELL_ITEM : InventoryOperation.SP_SELL_ITEM_COS);
-            
+
         if (cos != null)
             packet.WriteUInt(cos.UniqueId);
 
@@ -246,7 +247,7 @@ public static class ShoppingManager
     }
 
     /// <summary>
-    /// Purchases the item.
+    ///     Purchases the item.
     /// </summary>
     /// <param name="tab">The tab.</param>
     /// <param name="slot">The slot.</param>
@@ -272,7 +273,7 @@ public static class ShoppingManager
     }
 
     /// <summary>
-    /// Purchases the item to the given transport
+    ///     Purchases the item to the given transport
     /// </summary>
     /// <param name="transport"></param>
     /// <param name="tab"></param>
@@ -301,7 +302,7 @@ public static class ShoppingManager
     }
 
     /// <summary>
-    /// Repairs the items.
+    ///     Repairs the items.
     /// </summary>
     public static void RepairItems(string npcCodeName)
     {
@@ -320,7 +321,7 @@ public static class ShoppingManager
         packet.WriteUInt(SelectedEntity.UniqueId);
         packet.WriteByte(2); //repair all items
 
-        var awaitCallback = new AwaitCallback(response => 
+        var awaitCallback = new AwaitCallback(response =>
         {
             var result = packet.ReadByte();
 
@@ -334,22 +335,22 @@ public static class ShoppingManager
             }
 
             return AwaitCallbackResult.Success;
-        
         }, 0xB03E);
 
         PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallback);
         awaitCallback.AwaitResponse();
-                
+
         CloseShop();
     }
 
     /// <summary>
-    /// Stores the items.
+    ///     Stores the items.
     /// </summary>
     /// <param name="npcCodeName">Name of the NPC code.</param>
     public static void StoreItems(string npcCodeName)
     {
-        var tempInventory = Game.Player.Inventory.GetItems(item => item.Slot > 13 && StoreFilter.Any(p => p == item.Record.CodeName));
+        var tempInventory =
+            Game.Player.Inventory.GetItems(item => item.Slot > 13 && StoreFilter.Any(p => p == item.Record.CodeName));
 
         SelectNPC(npcCodeName);
         var npc = SelectedEntity;
@@ -365,21 +366,19 @@ public static class ShoppingManager
             return;
 
         Log.Status("Storing items");
-        foreach (var item in tempInventory)
-        {
-            StoreItem(item, npc);
-        }
+        foreach (var item in tempInventory) StoreItem(item, npc);
 
         if (Game.Player.HasActiveAbilityPet && StorePetItems)
         {
-            var petItemStoreList = Game.Player.AbilityPet.Inventory.GetItems(item => StoreFilter.Any(p => p == item.Record.CodeName));
+            var petItemStoreList =
+                Game.Player.AbilityPet.Inventory.GetItems(item => StoreFilter.Any(p => p == item.Record.CodeName));
 
             foreach (var item in petItemStoreList)
             {
                 var playerSlot = Game.Player.AbilityPet.MoveItemToPlayer(item.Slot);
                 if (playerSlot != 0xFF)
                 {
-                    var movedItem = Game.Player.Inventory.GetItemAt((byte)playerSlot);
+                    var movedItem = Game.Player.Inventory.GetItemAt(playerSlot);
                     StoreItem(movedItem, npc);
                 }
             }
@@ -389,7 +388,7 @@ public static class ShoppingManager
     }
 
     /// <summary>
-    /// Closes the shop.
+    ///     Closes the shop.
     /// </summary>
     public static void CloseShop()
     {
@@ -400,7 +399,7 @@ public static class ShoppingManager
     }
 
     /// <summary>
-    /// Opens the storage.
+    ///     Opens the storage.
     /// </summary>
     private static void OpenStorage(uint uniqueId)
     {
@@ -426,14 +425,14 @@ public static class ShoppingManager
     }
 
     /// <summary>
-    /// Opens the shop.
+    ///     Opens the shop.
     /// </summary>
     /// <param name="npcCodeName">Name of the NPC code.</param>
     public static void SelectNPC(string npcCodeName)
     {
         if (SelectedEntity != null && SelectedEntity.Record.CodeName == npcCodeName)
             return;
-            
+
         if (!SpawnManager.TryGetEntity<SpawnedNpcNpc>(p => p.Record.CodeName == npcCodeName, out var entity))
         {
             Log.Warn("Cannot access the NPC [" + npcCodeName + "] because it does not exist nearby.");
@@ -445,7 +444,7 @@ public static class ShoppingManager
     }
 
     /// <summary>
-    /// Stores an item.
+    ///     Stores an item.
     /// </summary>
     /// <param name="item">Item to put in storage.</param>
     private static void StoreItem(InventoryItem item, SpawnedBionic npc)
@@ -485,7 +484,7 @@ public static class ShoppingManager
         awaitResult.AwaitResponse();
     }
 
-    public static void LoadFilters() 
+    public static void LoadFilters()
     {
         var configSell = PlayerConfig.GetArray<string>("RSBot.Shopping.Sell");
         var configStore = PlayerConfig.GetArray<string>("RSBot.Shopping.Store");
@@ -504,11 +503,10 @@ public static class ShoppingManager
     }
 
     /// <summary>
-    /// Selects the given NPC and chooses the specified dialog option.
+    ///     Selects the given NPC and chooses the specified dialog option.
     /// </summary>
     /// <param name="npcCodeName"></param>
     /// <param name="option"></param>
-
     public static void ChooseTalkOption(string npcCodeName, TalkOption option)
     {
         if (!SpawnManager.TryGetEntity<SpawnedNpcNpc>(p => p.Record.CodeName == npcCodeName, out var entity))
@@ -517,7 +515,7 @@ public static class ShoppingManager
 
             return;
         }
-            
+
         SelectNPC(npcCodeName);
         //CloseShop();
 
@@ -536,7 +534,7 @@ public static class ShoppingManager
     }
 
     /// <summary>
-    /// Stops this instance.
+    ///     Stops this instance.
     /// </summary>
     public static void Stop()
     {

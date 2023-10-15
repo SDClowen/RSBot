@@ -1,11 +1,13 @@
-﻿using RSBot.Core;
+﻿using System;
+using System.Windows.Forms;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Objects;
 using RSBot.Core.Plugins;
+using RSBot.Default.Bot;
 using RSBot.Default.Bundle;
 using RSBot.Default.Components;
-using System;
-using System.Windows.Forms;
+using RSBot.Default.Subscriber;
 
 namespace RSBot.Default;
 
@@ -20,7 +22,7 @@ public class Bootstrap : IBotbase
     public Area Area => Container.Bot.Area;
 
     /// <summary>
-    /// Ticks this instance. It's the botbase main-loop
+    ///     Ticks this instance. It's the botbase main-loop
     /// </summary>
     public void Tick()
     {
@@ -47,7 +49,7 @@ public class Bootstrap : IBotbase
         if (Game.Player.State.ScrollState == ScrollState.NormalScroll ||
             Game.Player.State.ScrollState == ScrollState.ThiefScroll)
             return;
-            
+
         try
         {
             Container.Bot.Tick();
@@ -59,13 +61,13 @@ public class Bootstrap : IBotbase
     }
 
     /// <summary>
-    /// Gets the view.
+    ///     Gets the view.
     /// </summary>
     /// <returns></returns>
     public Control View => Container.View;
 
     /// <summary>
-    /// Starts this instance.
+    ///     Starts this instance.
     /// </summary>
     public void Start()
     {
@@ -73,8 +75,6 @@ public class Bootstrap : IBotbase
         {
             Log.WarnLang("ConfigureTrainingAreaBeforeStartBot");
             Kernel.Bot.Stop();
-
-            return;
         }
 
         //Already reloading when config saved via ConfigSubscriber
@@ -83,7 +83,7 @@ public class Bootstrap : IBotbase
     }
 
     /// <summary>
-    /// Stops this instance.
+    ///     Stops this instance.
     /// </summary>
     public void Stop()
     {
@@ -97,25 +97,25 @@ public class Bootstrap : IBotbase
     }
 
     /// <summary>
-    /// Always initialize the botbase so other botbases can make use of its otherwise internal features.
+    ///     Always initialize the botbase so other botbases can make use of its otherwise internal features.
     /// </summary>
     public void Register()
     {
-        Container.Lock = new();
-        Container.Bot = new();
+        Container.Lock = new object();
+        Container.Bot = new Botbase();
 
         //Bundles.Reload();
 
-        Subscriber.BundleSubscriber.SubscribeEvents();
-        Subscriber.ConfigSubscriber.SubscribeEvents();
-        Subscriber.TeleportSubscriber.SubscribeEvents();
+        BundleSubscriber.SubscribeEvents();
+        ConfigSubscriber.SubscribeEvents();
+        TeleportSubscriber.SubscribeEvents();
 
         ScriptManager.CommandHandlers.Add(new TrainingAreaScriptCommand());
         Log.Debug("[Training] Botbase registered to the kernel!");
     }
 
     /// <summary>
-    /// Translate the botbase plugin
+    ///     Translate the botbase plugin
     /// </summary>
     /// <param name="language">The language</param>
     public void Translate()

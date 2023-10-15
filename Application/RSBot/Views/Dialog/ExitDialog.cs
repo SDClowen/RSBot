@@ -1,7 +1,7 @@
-﻿using RSBot.Core;
+﻿using System;
+using RSBot.Core;
 using RSBot.Core.Components;
 using SDUI.Controls;
-using System;
 
 namespace RSBot.Views;
 

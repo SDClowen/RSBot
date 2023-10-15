@@ -1,41 +1,45 @@
-﻿using RSBot.Core;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
 using SDUI.Controls;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using CheckBox = SDUI.Controls.CheckBox;
+using GroupBox = SDUI.Controls.GroupBox;
+using ListViewExtensions = RSBot.Core.Extensions.ListViewExtensions;
 
 namespace RSBot.Items.Views;
 
-[System.ComponentModel.ToolboxItem(false)]
+[ToolboxItem(false)]
 public partial class Main : UserControl
 {
-    private List<RefShopGroup> _potionTrader;
-    private List<RefShopGroup> _weaponTrader;
-    private List<RefShopGroup> _protectorTrader;
     private List<RefShopGroup> _accessoryTrader;
+    private List<RefShopGroup> _potionTrader;
+    private List<RefShopGroup> _protectorTrader;
     private List<RefShopGroup> _stableKeeper;
+    private List<RefShopGroup> _weaponTrader;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Main"/> class.
+    ///     Initializes a new instance of the <see cref="Main" /> class.
     /// </summary>
     public Main()
     {
         InitializeComponent();
         SubscribeEvents();
 
-        listShoppingList.SmallImageList = Core.Extensions.ListViewExtensions.StaticItemsImageList;
-        listAvailableProducts.SmallImageList = Core.Extensions.ListViewExtensions.StaticItemsImageList;
+        listShoppingList.SmallImageList = ListViewExtensions.StaticItemsImageList;
+        listAvailableProducts.SmallImageList = ListViewExtensions.StaticItemsImageList;
     }
 
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     private void SubscribeEvents()
     {
@@ -43,7 +47,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Loads the npcs
+    ///     Loads the npcs
     /// </summary>
     private void LoadGroups()
     {
@@ -73,7 +77,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Populates the product list.
+    ///     Populates the product list.
     /// </summary>
     private void PopulateProductList(int index, string filter = "")
     {
@@ -118,7 +122,9 @@ public partial class Main : UserControl
 
             foreach (var good in goods)
             {
-                var tabName = Game.ReferenceManager.GetTranslation(Game.ReferenceManager.GetTab(good.RefTabCodeName).StrID128_Tab);
+                var tabName =
+                    Game.ReferenceManager.GetTranslation(Game.ReferenceManager.GetTab(good.RefTabCodeName)
+                        .StrID128_Tab);
 
                 var lvGroup = new ListViewGroup(tabName) { Name = tabName };
                 if (!listAvailableProducts.Groups.Contains(lvGroup))
@@ -139,7 +145,8 @@ public partial class Main : UserControl
                 if (refPackageItem.RefItemCodeName.Contains("_MALL_")) continue;
                 if (filter != "" && !realItemName.Contains(filter)) continue;
 
-                var listItem = new ListViewItem(realItemName) { Tag = good, Name = item.CodeName, Group = listAvailableProducts.Groups[tabName] };
+                var listItem = new ListViewItem(realItemName)
+                    { Tag = good, Name = item.CodeName, Group = listAvailableProducts.Groups[tabName] };
                 listItem.LoadItemImageAsync(good);
 
                 if (!listAvailableProducts.Items.ContainsKey(item.CodeName))
@@ -151,7 +158,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Loads the search result item image.
+    ///     Loads the search result item image.
     /// </summary>
     private async void LoadSearchResultItemImagesAsync()
     {
@@ -173,7 +180,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Saves the shopping list.
+    ///     Saves the shopping list.
     /// </summary>
     private void SaveShoppingList()
     {
@@ -203,7 +210,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Loads the shopping list.
+    ///     Loads the shopping list.
     /// </summary>
     private void LoadShoppingList()
     {
@@ -242,7 +249,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Queries the sell items.
+    ///     Queries the sell items.
     /// </summary>
     private async Task QuerySellItemsAsync()
     {
@@ -332,32 +339,30 @@ public partial class Main : UserControl
                 clothTypes[2, 1] = 3;
         }
 
-        for (int x = 0; x < 3; x++)
+        for (var x = 0; x < 3; x++)
+        for (var z = 0; z < 2; z++)
         {
-            for (int z = 0; z < 2; z++)
-            {
-                var cloth = clothTypes[x, z];
-                if (cloth == 0)
-                    continue;
+            var cloth = clothTypes[x, z];
+            if (cloth == 0)
+                continue;
 
-                if (checkHead.Checked)
-                    filters.Add(new TypeIdFilter(3, 1, cloth, 1));
+            if (checkHead.Checked)
+                filters.Add(new TypeIdFilter(3, 1, cloth, 1));
 
-                if (checkShoulder.Checked)
-                    filters.Add(new TypeIdFilter(3, 1, cloth, 2));
+            if (checkShoulder.Checked)
+                filters.Add(new TypeIdFilter(3, 1, cloth, 2));
 
-                if (checkChest.Checked)
-                    filters.Add(new TypeIdFilter(3, 1, cloth, 3));
+            if (checkChest.Checked)
+                filters.Add(new TypeIdFilter(3, 1, cloth, 3));
 
-                if (checkLegs.Checked)
-                    filters.Add(new TypeIdFilter(3, 1, cloth, 4));
+            if (checkLegs.Checked)
+                filters.Add(new TypeIdFilter(3, 1, cloth, 4));
 
-                if (checkHand.Checked)
-                    filters.Add(new TypeIdFilter(3, 1, cloth, 5));
+            if (checkHand.Checked)
+                filters.Add(new TypeIdFilter(3, 1, cloth, 5));
 
-                if (checkBoot.Checked)
-                    filters.Add(new TypeIdFilter(3, 1, cloth, 6));
-            }
+            if (checkBoot.Checked)
+                filters.Add(new TypeIdFilter(3, 1, cloth, 6));
         }
 
         #region Accessory
@@ -434,13 +439,11 @@ public partial class Main : UserControl
             filters.Add(new TypeIdFilter(3, 3, 5, 1));
 
         if (checkOther.Checked)
-        {
             filters.Add(new TypeIdFilter
             {
                 CompareByTypeID2 = true,
                 TypeID2 = 3
             });
-        }
 
         if (filters.Count == 0)
             filters.Add(new TypeIdFilter { CompareByTypeID1 = true, TypeID1 = 3 });
@@ -448,13 +451,20 @@ public partial class Main : UserControl
         var gender = ObjectGender.Neutral;
 
         if (checkMale.Checked && checkFemale.Checked)
-        { /* nothing do anything, already neutral */ }
+        {
+            /* nothing do anything, already neutral */
+        }
         else if (checkMale.Checked)
+        {
             gender = ObjectGender.Male;
+        }
         else if (checkFemale.Checked)
+        {
             gender = ObjectGender.Female;
+        }
 
-        var items = Game.ReferenceManager.GetFilteredItems(filters, Convert.ToByte(numDegreeFrom.Value), Convert.ToByte(numDegreeTo.Value), gender, checkBoxRareItems.Checked, txtSellSearch.Text);
+        var items = Game.ReferenceManager.GetFilteredItems(filters, Convert.ToByte(numDegreeFrom.Value),
+            Convert.ToByte(numDegreeTo.Value), gender, checkBoxRareItems.Checked, txtSellSearch.Text);
         if (items.Count == 0)
         {
             listFilter.Visible = true;
@@ -467,7 +477,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Populates the sell list.
+    ///     Populates the sell list.
     /// </summary>
     /// <param name="items">The items.</param>
     private async Task PopulateSellListAsync(List<RefObjItem> items)
@@ -487,7 +497,7 @@ public partial class Main : UserControl
         }
 
         var listViewItems = new ListViewItem[items.Count];
-        for (int i = 0; i < items.Count; i++)
+        for (var i = 0; i < items.Count; i++)
         {
             var item = items[i];
 
@@ -500,7 +510,7 @@ public partial class Main : UserControl
                     $"{item.ReqLevel1} (Dg.{item.Degree})",
                     ((ObjectGender)item.ReqGender).ToString(),
                     getSubItemString(item),
-                    ShoppingManager.SellFilter.Contains(item.CodeName)  ? "√" : "•",
+                    ShoppingManager.SellFilter.Contains(item.CodeName) ? "√" : "•",
                     ShoppingManager.StoreFilter.Contains(item.CodeName) ? "√" : "•"
                 }
             };
@@ -519,7 +529,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Gets the chinese gear filters.
+    ///     Gets the chinese gear filters.
     /// </summary>
     /// <returns></returns>
     private List<TypeIdFilter> GetAlchemyFilters()
@@ -536,7 +546,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Fired when the core finished to load the game data
+    ///     Fired when the core finished to load the game data
     /// </summary>
     private void OnLoadGameData()
     {
@@ -546,7 +556,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Loads the settings.
+    ///     Loads the settings.
     /// </summary>
     private void LoadSettings()
     {
@@ -577,13 +587,49 @@ public partial class Main : UserControl
         PickupManager.LoadFilter();
     }
 
+    private async void txtSellSearch_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.KeyCode == Keys.Enter)
+            await QuerySellItemsAsync();
+    }
+
+    private void contextList_Opening(object sender, CancelEventArgs e)
+    {
+        if (listFilter.SelectedItems.Count != 1)
+        {
+            btnAddToSell.Checked = false;
+            btnAddToStore.Checked = false;
+            btnPickup.Checked = false;
+            btnPickOnlyCharacter.Checked = false;
+            return;
+        }
+
+        var item = listFilter.SelectedItems[0];
+        var codeName = (string)item.Tag;
+
+        btnAddToSell.Checked = ShoppingManager.SellFilter.Contains(codeName);
+        btnAddToStore.Checked = ShoppingManager.StoreFilter.Contains(codeName);
+        btnPickup.Checked = PickupManager.PickupFilter.Any(p => p.CodeName == codeName && !p.PickOnlyChar);
+        btnPickOnlyCharacter.Checked = PickupManager.PickupFilter.Any(p => p.CodeName == codeName && p.PickOnlyChar);
+    }
+
+    /// <summary>
+    ///     Occurs before Main form is displayed.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void Main_Load(object sender, EventArgs e)
+    {
+        LoadSettings();
+    }
+
     #region Shopping manager
 
     /// <summary>
-    /// Handles the CheckedChanged event of the checkSellItemsFromPet control.
+    ///     Handles the CheckedChanged event of the checkSellItemsFromPet control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void checkSellItemsFromPet_CheckedChanged(object sender, EventArgs e)
     {
         PlayerConfig.Set("RSBot.Shopping.SellPetItems", checkSellItemsFromPet.Checked);
@@ -591,10 +637,10 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the checkStoreItemsFromPet control.
+    ///     Handles the CheckedChanged event of the checkStoreItemsFromPet control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void checkStoreItemsFromPet_CheckedChanged(object sender, EventArgs e)
     {
         PlayerConfig.Set("RSBot.Shopping.StorePetItems", checkSellItemsFromPet.Checked);
@@ -602,21 +648,21 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the SelectedIndexChanged event of the comboStore control.
+    ///     Handles the SelectedIndexChanged event of the comboStore control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void comboStore_SelectedIndexChanged(object sender, System.EventArgs e)
+    /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
+    private void comboStore_SelectedIndexChanged(object sender, EventArgs e)
     {
         PopulateProductList(comboStore.SelectedIndex);
     }
 
     /// <summary>
-    /// Handles the Click event of the menuAddToShoppingList control.
+    ///     Handles the Click event of the menuAddToShoppingList control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void menuAddToShoppingList_Click(object sender, System.EventArgs e)
+    /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
+    private void menuAddToShoppingList_Click(object sender, EventArgs e)
     {
         foreach (ListViewItem listItem in listAvailableProducts.SelectedItems)
         {
@@ -649,11 +695,11 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the Click event of the menuRemoveItem control.
+    ///     Handles the Click event of the menuRemoveItem control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void menuRemoveItem_Click(object sender, System.EventArgs e)
+    /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
+    private void menuRemoveItem_Click(object sender, EventArgs e)
     {
         foreach (ListViewItem item in listShoppingList.SelectedItems)
             listShoppingList.Items.Remove(item);
@@ -662,11 +708,11 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the Click event of the menuChangeAmount control.
+    ///     Handles the Click event of the menuChangeAmount control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
-    private void menuChangeAmount_Click(object sender, System.EventArgs e)
+    private void menuChangeAmount_Click(object sender, EventArgs e)
     {
         foreach (ListViewItem item in listShoppingList.SelectedItems)
         {
@@ -687,10 +733,10 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the checkEnable control.
+    ///     Handles the CheckedChanged event of the checkEnable control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void checkEnable_CheckedChanged(object sender, EventArgs e)
     {
         ShoppingManager.Enabled = checkEnable.Checked;
@@ -698,10 +744,10 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the checkRepairGear control.
+    ///     Handles the CheckedChanged event of the checkRepairGear control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void checkRepairGear_CheckedChanged(object sender, EventArgs e)
     {
         ShoppingManager.RepairGear = checkRepairGear.Checked;
@@ -709,10 +755,10 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the TextChanged event of the txtShopSearch control.
+    ///     Handles the TextChanged event of the txtShopSearch control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void txtShopSearch_TextChanged(object sender, EventArgs e)
     {
         PopulateProductList(comboStore.SelectedIndex, txtShopSearch.Text);
@@ -723,20 +769,20 @@ public partial class Main : UserControl
     #region SellFilter
 
     /// <summary>
-    /// Handles the Click event of the btnReload control.
+    ///     Handles the Click event of the btnReload control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private async void btnApply_Click(object sender, EventArgs e)
     {
         await QuerySellItemsAsync();
     }
 
     /// <summary>
-    /// Handles the Click event of the btnAddToSell control.
+    ///     Handles the Click event of the btnAddToSell control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void btnAddToSell_Click(object sender, EventArgs e)
     {
         foreach (ListViewItem item in listFilter.SelectedItems)
@@ -751,10 +797,10 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the Click event of the btnPickup control.
+    ///     Handles the Click event of the btnPickup control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void btnPickup_Click(object sender, EventArgs e)
     {
         foreach (ListViewItem item in listFilter.SelectedItems)
@@ -767,10 +813,10 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the Click event of the btnPickOnlyCharacter control.
+    ///     Handles the Click event of the btnPickOnlyCharacter control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void btnPickOnlyCharacter_Click(object sender, EventArgs e)
     {
         foreach (ListViewItem item in listFilter.SelectedItems)
@@ -782,10 +828,10 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the Click event of the btnAddToStore control.
+    ///     Handles the Click event of the btnAddToStore control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void btnAddToStore_Click(object sender, EventArgs e)
     {
         foreach (ListViewItem item in listFilter.SelectedItems)
@@ -800,10 +846,10 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the Click event of the btnDontSell control.
+    ///     Handles the Click event of the btnDontSell control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void btnDontSell_Click(object sender, EventArgs e)
     {
         foreach (ListViewItem item in listFilter.SelectedItems)
@@ -816,10 +862,10 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the Click event of the btnDontStore control.
+    ///     Handles the Click event of the btnDontStore control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void btnDontStore_Click(object sender, EventArgs e)
     {
         foreach (ListViewItem item in listFilter.SelectedItems)
@@ -832,10 +878,10 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the Click event of the btnDontPickup control.
+    ///     Handles the Click event of the btnDontPickup control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void btnDontPickup_Click(object sender, EventArgs e)
     {
         foreach (ListViewItem item in listFilter.SelectedItems)
@@ -848,14 +894,14 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the Click event of the btnResetFilter control.
+    ///     Handles the Click event of the btnResetFilter control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void btnResetFilter_Click(object sender, EventArgs e)
     {
-        foreach (var group in filterPanel.Controls.OfType<SDUI.Controls.GroupBox>())
-        foreach (var checkBox in group.Controls.OfType<SDUI.Controls.CheckBox>())
+        foreach (var group in filterPanel.Controls.OfType<GroupBox>())
+        foreach (var checkBox in group.Controls.OfType<CheckBox>())
             checkBox.Checked = false;
 
         listFilter.Items.Clear();
@@ -869,160 +915,124 @@ public partial class Main : UserControl
     #region Pickup
 
     /// <summary>
-    /// Handles the CheckedChanged event of the checkPickupGold control.
+    ///     Handles the CheckedChanged event of the checkPickupGold control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void checkPickupGold_CheckedChanged(object sender, EventArgs e)
     {
         PlayerConfig.Set("RSBot.Items.Pickup.Gold", checkPickupGold.Checked);
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the checkPickupRare control.
+    ///     Handles the CheckedChanged event of the checkPickupRare control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void checkPickupRare_CheckedChanged(object sender, EventArgs e)
     {
         PlayerConfig.Set("RSBot.Items.Pickup.Rare", checkPickupRare.Checked);
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the checkPickupBlue control.
+    ///     Handles the CheckedChanged event of the checkPickupBlue control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void checkPickupBlue_CheckedChanged(object sender, EventArgs e)
     {
         PlayerConfig.Set("RSBot.Items.Pickup.Blue", checkPickupBlue.Checked);
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the checkEnableAbilityPet control.
+    ///     Handles the CheckedChanged event of the checkEnableAbilityPet control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void checkEnableAbilityPet_CheckedChanged(object sender, EventArgs e)
     {
         PlayerConfig.Set("RSBot.Items.Pickup.EnableAbilityPet", checkEnableAbilityPet.Checked);
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the checkShowEquipment control.
+    ///     Handles the CheckedChanged event of the checkShowEquipment control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void checkShowEquipment_CheckedChanged(object sender, EventArgs e)
     {
         PopulateProductList(comboStore.SelectedIndex, txtShopSearch.Text);
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the checkDontPickupInBerzerk control.
+    ///     Handles the CheckedChanged event of the checkDontPickupInBerzerk control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void checkDontPickupInBerzerk_CheckedChanged(object sender, EventArgs e)
     {
         PlayerConfig.Set("RSBot.Items.Pickup.DontPickupInBerzerk", checkDontPickupInBerzerk.Checked);
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the cbJustpickmyitems control.
+    ///     Handles the CheckedChanged event of the cbJustpickmyitems control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void cbJustpickmyitems_CheckedChanged(object sender, EventArgs e)
     {
         PlayerConfig.Set("RSBot.Items.Pickup.JustPickMyItems", cbJustpickmyitems.Checked);
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the cbDontPickupWhileAttacking control.
+    ///     Handles the CheckedChanged event of the cbDontPickupWhileAttacking control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void cbDontPickupWhileAttacking_CheckedChanged(object sender, EventArgs e)
     {
         PlayerConfig.Set("RSBot.Items.Pickup.DontPickupWhileAttacking", cbDontPickupWhileBotting.Checked);
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the cbDontPickupWhileBotting control.
+    ///     Handles the CheckedChanged event of the cbDontPickupWhileBotting control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void cbDontPickupWhileBotting_CheckedChanged(object sender, EventArgs e)
     {
         PlayerConfig.Set("RSBot.Items.Pickup.DontPickupWhileBotting", cbDontPickupWhileBotting.Checked);
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the checkQuestItems control.
+    ///     Handles the CheckedChanged event of the checkQuestItems control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void checkQuestItems_CheckedChanged(object sender, EventArgs e)
     {
         PlayerConfig.Set("RSBot.Items.Pickup.Quest", checkQuestItems.Checked);
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the checkAllEquips control.
+    ///     Handles the CheckedChanged event of the checkAllEquips control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void checkAllEquips_CheckedChanged(object sender, EventArgs e)
     {
         PlayerConfig.Set("RSBot.Items.Pickup.AnyEquips", checkAllEquips.Checked);
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the checkEverything control.
+    ///     Handles the CheckedChanged event of the checkEverything control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void checkEverything_CheckedChanged(object sender, EventArgs e)
     {
         PlayerConfig.Set("RSBot.Items.Pickup.Everything", checkEverything.Checked);
     }
 
     #endregion Pickup
-
-    private async void txtSellSearch_KeyDown(object sender, KeyEventArgs e)
-    {
-        if (e.KeyCode == Keys.Enter)
-            await QuerySellItemsAsync();
-    }
-
-    private void contextList_Opening(object sender, System.ComponentModel.CancelEventArgs e)
-    {
-        if (listFilter.SelectedItems.Count != 1)
-        {
-            btnAddToSell.Checked = false;
-            btnAddToStore.Checked = false;
-            btnPickup.Checked = false;
-            btnPickOnlyCharacter.Checked = false;
-            return;
-        }
-
-        var item = listFilter.SelectedItems[0];
-        var codeName = (string)item.Tag;
-
-        btnAddToSell.Checked = ShoppingManager.SellFilter.Contains(codeName);
-        btnAddToStore.Checked = ShoppingManager.StoreFilter.Contains(codeName);
-        btnPickup.Checked = PickupManager.PickupFilter.Any(p => p.CodeName == codeName && !p.PickOnlyChar);
-        btnPickOnlyCharacter.Checked = PickupManager.PickupFilter.Any(p => p.CodeName == codeName && p.PickOnlyChar);
-    }
-
-    /// <summary>
-    /// Occurs before Main form is displayed.
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void Main_Load(object sender, EventArgs e)
-    {
-        LoadSettings();
-    }
 }

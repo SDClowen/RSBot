@@ -9,5 +9,5 @@ public enum AlchemyType : byte
     AttributeStone = 5,
     AdvancedElixirOrSocketCreate = 8,
     SocketInsert = 9,
-    SocketRemove = 10,
+    SocketRemove = 10
 }

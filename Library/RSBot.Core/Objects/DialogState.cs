@@ -5,16 +5,15 @@ namespace RSBot.Core.Objects;
 
 public class DialogState
 {
-    public bool IsInDialog => _dialogNpcId != 0;
+    private uint _dialogNpcId;
+    internal uint RequestedCloseNpcId = 0;
 
     internal uint RequestedNpcId = 0;
-    internal uint RequestedCloseNpcId = 0;
+    public bool IsInDialog => _dialogNpcId != 0;
     public TalkOption TalkOption { get; set; }
 
     //Special trader shops with Bargain goods has started.
     public bool IsSpecialityTime { get; set; }
-
-    private uint _dialogNpcId;
 
     public SpawnedNpc Npc
     {

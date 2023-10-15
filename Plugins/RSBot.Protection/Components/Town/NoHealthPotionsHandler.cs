@@ -1,5 +1,5 @@
-﻿using RSBot.Core;
-using RSBot.Core.Components;
+﻿using System;
+using RSBot.Core;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 
@@ -8,7 +8,7 @@ namespace RSBot.Protection.Components.Town;
 public class NoHealthPotionsHandler : AbstractTownHandler
 {
     /// <summary>
-    /// Initializes this instance.
+    ///     Initializes this instance.
     /// </summary>
     public static void Initialize()
     {
@@ -16,11 +16,11 @@ public class NoHealthPotionsHandler : AbstractTownHandler
     }
 
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     private static void SubscribeEvents()
     {
-        EventManager.SubscribeEvent("OnUseItem", new System.Action<byte>(OnUseItem));
+        EventManager.SubscribeEvent("OnUseItem", new Action<byte>(OnUseItem));
         EventManager.SubscribeEvent("OnStartBot", OnStartBot);
     }
 
@@ -31,19 +31,19 @@ public class NoHealthPotionsHandler : AbstractTownHandler
     }
 
     /// <summary>
-    /// Cores the on use item.
+    ///     Cores the on use item.
     /// </summary>
     private static void OnUseItem(byte slot)
     {
-        if (Kernel.Bot.Running) 
+        if (Kernel.Bot.Running)
             CheckForHpPotions();
     }
 
     private static void CheckForHpPotions()
     {
-        if (!PlayerConfig.Get<bool>("RSBot.Protection.checkNoHPPotions")) 
+        if (!PlayerConfig.Get<bool>("RSBot.Protection.checkNoHPPotions"))
             return;
-            
+
         if (PlayerInTownScriptRegion())
             return;
 

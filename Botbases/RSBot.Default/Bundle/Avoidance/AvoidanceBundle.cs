@@ -6,30 +6,30 @@ namespace RSBot.Default.Bundle.Avoidance;
 internal class AvoidanceBundle : IBundle
 {
     /// <summary>
-    /// Gets the avoidance list.
+    ///     Gets the avoidance list.
     /// </summary>
     /// <value>
-    /// The avoidance list.
+    ///     The avoidance list.
     /// </value>
     public MonsterRarity[] AvoidanceList { get; private set; }
 
     /// <summary>
-    /// Gets the preferance list.
+    ///     Gets the preferance list.
     /// </summary>
     /// <value>
-    /// The preferance list.
+    ///     The preferance list.
     /// </value>
     public MonsterRarity[] PreferanceList { get; private set; }
 
     /// <summary>
-    /// Invokes this instance.
+    ///     Invokes this instance.
     /// </summary>
     public void Invoke()
     {
     }
 
     /// <summary>
-    /// Refreshes this instance.
+    ///     Refreshes this instance.
     /// </summary>
     public void Refresh()
     {
@@ -37,8 +37,13 @@ internal class AvoidanceBundle : IBundle
         PreferanceList = PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Prefer");
     }
 
+    public void Stop()
+    {
+        //Nothing to do
+    }
+
     /// <summary>
-    /// Avoids the monster.
+    ///     Avoids the monster.
     /// </summary>
     /// <param name="rarity">The rarity.</param>
     /// <returns></returns>
@@ -48,7 +53,7 @@ internal class AvoidanceBundle : IBundle
     }
 
     /// <summary>
-    /// Prefers the monster.
+    ///     Prefers the monster.
     /// </summary>
     /// <param name="rarity">The rarity.</param>
     /// <returns></returns>
@@ -58,7 +63,7 @@ internal class AvoidanceBundle : IBundle
     }
 
     /// <summary>
-    /// Checks for rarity blacklist.
+    ///     Checks for rarity blacklist.
     /// </summary>
     /// <param name="avoidanceList">The avoidance list.</param>
     /// <param name="rarity">The rarity.</param>
@@ -70,10 +75,5 @@ internal class AvoidanceBundle : IBundle
                 return true;
 
         return false;
-    }
-
-    public void Stop()
-    {
-        //Nothing to do
     }
 }

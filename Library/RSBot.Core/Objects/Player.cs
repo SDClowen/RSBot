@@ -1,525 +1,574 @@
-﻿using RSBot.Core.Client.ReferenceObjects;
-using RSBot.Core.Event;
-using RSBot.Core.Network;
-using RSBot.Core.Objects.Inventory;
-using RSBot.Core.Objects.Quests;
-using RSBot.Core.Objects.Skill;
-using RSBot.Core.Objects.Spawn;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using RSBot.Core.Components;
+using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Event;
+using RSBot.Core.Network;
+using RSBot.Core.Objects.Cos;
+using RSBot.Core.Objects.Exchange;
+using RSBot.Core.Objects.Inventory;
 using RSBot.Core.Objects.Job;
+using RSBot.Core.Objects.Quests;
+using RSBot.Core.Objects.Skill;
+using RSBot.Core.Objects.Spawn;
 
 namespace RSBot.Core.Objects;
 
 public class Player : SpawnedBionic
 {
     /// <summary>
-    /// Gets or sets the scale.
+    ///     Gets or sets the last hp potion item duration
+    /// </summary>
+    private int _lastHPDuration;
+
+    /// <summary>
+    ///     Gets or sets the last hp potion item tick count
+    /// </summary>
+    public int _lastHpPotionTick;
+
+    /// <summary>
+    ///     Gets or sets the last mp potion item duration
+    /// </summary>
+    private int _lastMPDuration;
+
+    /// <summary>
+    ///     Gets or sets the last mp potion item tick count
+    /// </summary>
+    private int _lastMpPotionTick;
+
+    /// <summary>
+    ///     Gets or sets the last purification pill potion item tick count
+    /// </summary>
+    private int _lastPurificationPillTick;
+
+    /// <summary>
+    ///     Gets or sets the last universal pill potion item tick count
+    /// </summary>
+    private int _lastUniversalPillTick;
+
+    /// <summary>
+    ///     Gets or sets the last vigor potion item duration
+    /// </summary>
+    private int _lastVigorDuration;
+
+    /// <summary>
+    ///     Gets or sets the last vigor potion item tick count
+    /// </summary>
+    private int _lastVigorPotionTick;
+
+    /// <summary>
+    ///     <inheritdoc />
+    /// </summary>
+    /// <param name="objId"></param>
+    public Player(uint objId) : base(objId)
+    {
+    }
+
+    /// <summary>
+    ///     Gets or sets the scale.
     /// </summary>
     /// <value>
-    /// The scale.
+    ///     The scale.
     /// </value>
     public byte Scale { get; set; }
 
     /// <summary>
-    /// Gets or sets the level.
+    ///     Gets or sets the level.
     /// </summary>
     /// <value>
-    /// The level.
+    ///     The level.
     /// </value>
     public byte Level { get; set; }
 
     /// <summary>
-    /// Gets or sets the maximum level.
+    ///     Gets or sets the maximum level.
     /// </summary>
     /// <value>
-    /// The maximum level.
+    ///     The maximum level.
     /// </value>
     public byte MaxLevel { get; set; }
 
     /// <summary>
-    /// Gets or sets the experience offset.
+    ///     Gets or sets the experience offset.
     /// </summary>
     /// <value>
-    /// The experience offset.
+    ///     The experience offset.
     /// </value>
     public long Experience { get; set; }
 
     /// <summary>
-    /// Gets or sets the skill experience.
+    ///     Gets or sets the skill experience.
     /// </summary>
     /// <value>
-    /// The skill experience.
+    ///     The skill experience.
     /// </value>
     public uint SkillExperience { get; set; }
 
     /// <summary>
-    /// Gets or sets the gold.
+    ///     Gets or sets the gold.
     /// </summary>
     /// <value>
-    /// The gold.
+    ///     The gold.
     /// </value>
     public ulong Gold { get; set; }
 
     /// <summary>
-    /// Gets or sets the skill points.
+    ///     Gets or sets the skill points.
     /// </summary>
     /// <value>
-    /// The skill points.
+    ///     The skill points.
     /// </value>
     public uint SkillPoints { get; set; }
 
     /// <summary>
-    /// Gets or sets the stat points.
+    ///     Gets or sets the stat points.
     /// </summary>
     /// <value>
-    /// The stat points.
+    ///     The stat points.
     /// </value>
     public ushort StatPoints { get; set; }
 
     /// <summary>
-    /// Gets or sets the berzerk points.
+    ///     Gets or sets the berzerk points.
     /// </summary>
     /// <value>
-    /// The berzerk points.
+    ///     The berzerk points.
     /// </value>
     public byte BerzerkPoints { get; set; }
 
     /// <summary>
-    /// Gets a value indicating whether this instance can use berzerk.
+    ///     Gets a value indicating whether this instance can use berzerk.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if this instance can use berzerk; otherwise, <c>false</c>.
+    ///     <c>true</c> if this instance can use berzerk; otherwise, <c>false</c>.
     /// </value>
     public bool CanEnterBerzerk => BerzerkPoints == 5 && State.BodyState != BodyState.Hwan;
 
     /// <summary>
-    /// Gets or sets the experience.
+    ///     Gets or sets the experience.
     /// </summary>
     /// <value>
-    /// The experience.
+    ///     The experience.
     /// </value>
     public uint ExperienceChunk { get; set; }
 
     /// <summary>
-    /// Gets or sets the mana.
+    ///     Gets or sets the mana.
     /// </summary>
     /// <value>
-    /// The mana.
+    ///     The mana.
     /// </value>
     public int Mana { get; set; }
 
     /// <summary>
-    /// Gets or sets the automatic inverst experience.
+    ///     Gets or sets the automatic inverst experience.
     /// </summary>
     /// <value>
-    /// The automatic inverst experience.
+    ///     The automatic inverst experience.
     /// </value>
     public AutoInverstType AutoInverstExperience { get; set; }
 
     /// <summary>
-    /// Gets or sets the daily pk.
+    ///     Gets or sets the daily pk.
     /// </summary>
     /// <value>
-    /// The daily pk.
+    ///     The daily pk.
     /// </value>
     public byte DailyPK { get; set; }
 
     /// <summary>
-    /// Gets or sets the total pk.
+    ///     Gets or sets the total pk.
     /// </summary>
     /// <value>
-    /// The total pk.
+    ///     The total pk.
     /// </value>
     public ushort TotalPK { get; set; }
 
     /// <summary>
-    /// Gets or sets the pk penalty point.
+    ///     Gets or sets the pk penalty point.
     /// </summary>
     /// <value>
-    /// The pk penalty point.
+    ///     The pk penalty point.
     /// </value>
     public uint PKPenaltyPoint { get; set; }
 
     /// <summary>
-    /// Gets or sets the berzerk level.
+    ///     Gets or sets the berzerk level.
     /// </summary>
     /// <value>
-    /// The berzerk level.
+    ///     The berzerk level.
     /// </value>
     public byte BerzerkLevel { get; set; }
 
     /// <summary>
-    /// Gets or sets the PVP flag.
+    ///     Gets or sets the PVP flag.
     /// </summary>
     /// <value>
-    /// The PVP flag.
+    ///     The PVP flag.
     /// </value>
     public PvpFlag PvpFlag { get; set; }
 
     /// <summary>
-    /// Gets or sets the skills.
+    ///     Gets or sets the skills.
     /// </summary>
     /// <value>
-    /// The skills.
+    ///     The skills.
     /// </value>
     public Skills Skills { get; set; }
 
     /// <summary>
-    /// Gets or sets the skills.
+    ///     Gets or sets the skills.
     /// </summary>
     /// <value>
-    /// The skills.
+    ///     The skills.
     /// </value>
     public Quest Quest { get; set; }
 
     /// <summary>
-    /// Gets or sets the name.
+    ///     Gets or sets the name.
     /// </summary>
     /// <value>
-    /// The name.
+    ///     The name.
     /// </value>
     public string Name { get; set; }
 
     /// <summary>
-    /// Gets or sets the in combat.
+    ///     Gets or sets the in combat.
     /// </summary>
     /// <value>
-    /// The in combat.
+    ///     The in combat.
     /// </value>
     public bool InCombat { get; set; }
 
     /// <summary>
-    /// Gets or sets the physical attack minimum.
+    ///     Gets or sets the physical attack minimum.
     /// </summary>
     /// <value>
-    /// The physical attack minimum.
+    ///     The physical attack minimum.
     /// </value>
     public uint PhysicalAttackMin { get; set; }
 
     /// <summary>
-    /// Gets or sets the physical attack maximum.
+    ///     Gets or sets the physical attack maximum.
     /// </summary>
     /// <value>
-    /// The physical attack maximum.
+    ///     The physical attack maximum.
     /// </value>
     public uint PhysicalAttackMax { get; set; }
 
     /// <summary>
-    /// Gets or sets the magical attack minimum.
+    ///     Gets or sets the magical attack minimum.
     /// </summary>
     /// <value>
-    /// The magical attack minimum.
+    ///     The magical attack minimum.
     /// </value>
     public uint MagicalAttackMin { get; set; }
 
     /// <summary>
-    /// Gets or sets the magical attack maximum.
+    ///     Gets or sets the magical attack maximum.
     /// </summary>
     /// <value>
-    /// The magical attack maximum.
+    ///     The magical attack maximum.
     /// </value>
     public uint MagicalAttackMax { get; set; }
 
     /// <summary>
-    /// Gets or sets the physical defence.
+    ///     Gets or sets the physical defence.
     /// </summary>
     /// <value>
-    /// The physical defence.
+    ///     The physical defence.
     /// </value>
     public ushort PhysicalDefence { get; set; }
 
     /// <summary>
-    /// Gets or sets the magical defence.
+    ///     Gets or sets the magical defence.
     /// </summary>
     /// <value>
-    /// The magical defence.
+    ///     The magical defence.
     /// </value>
     public ushort MagicalDefence { get; set; }
 
     /// <summary>
-    /// Gets or sets the hit rate.
+    ///     Gets or sets the hit rate.
     /// </summary>
     /// <value>
-    /// The hit rate.
+    ///     The hit rate.
     /// </value>
     public ushort HitRate { get; set; }
 
     /// <summary>
-    /// Gets or sets the parry rate.
+    ///     Gets or sets the parry rate.
     /// </summary>
     /// <value>
-    /// The parry rate.
+    ///     The parry rate.
     /// </value>
     public ushort ParryRate { get; set; }
 
     /// <summary>
-    /// Gets or sets the maximum health.
+    ///     Gets or sets the maximum health.
     /// </summary>
     /// <value>
-    /// The maximum health.
+    ///     The maximum health.
     /// </value>
     public int MaximumHealth { get; set; }
 
     /// <summary>
-    /// Gets or sets the maximum mana.
+    ///     Gets or sets the maximum mana.
     /// </summary>
     /// <value>
-    /// The maximum mana.
+    ///     The maximum mana.
     /// </value>
     public int MaximumMana { get; set; }
 
     /// <summary>
-    /// Gets or sets the strength.
+    ///     Gets or sets the strength.
     /// </summary>
     /// <value>
-    /// The strength.
+    ///     The strength.
     /// </value>
     public ushort Strength { get; set; }
 
     /// <summary>
-    /// Gets or sets the intelligence.
+    ///     Gets or sets the intelligence.
     /// </summary>
     /// <value>
-    /// The intelligence.
+    ///     The intelligence.
     /// </value>
     public ushort Intelligence { get; set; }
 
     /// <summary>
-    /// Gets or sets the job information.
+    ///     Gets or sets the job information.
     /// </summary>
     /// <value>
-    /// The job information.
+    ///     The job information.
     /// </value>
     public JobInfo JobInformation { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether [on transport].
+    ///     Gets or sets a value indicating whether [on transport].
     /// </summary>
     /// <value>
-    ///   <c>true</c> if [on transport]; otherwise, <c>false</c>.
+    ///     <c>true</c> if [on transport]; otherwise, <c>false</c>.
     /// </value>
     public bool OnTransport { get; set; }
 
     /// <summary>
-    /// Gets or sets the transport unique identifier.
+    ///     Gets or sets the transport unique identifier.
     /// </summary>
     /// <value>
-    /// The transport unique identifier.
+    ///     The transport unique identifier.
     /// </value>
     public uint TransportUniqueId { get; set; }
 
     /// <summary>
-    /// Gets or sets the account identifier.
+    ///     Gets or sets the account identifier.
     /// </summary>
     /// <value>
-    /// The account identifier.
+    ///     The account identifier.
     /// </value>
     public uint JID { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether this instance is gm.
+    ///     Gets or sets a value indicating whether this instance is gm.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if this instance is gm; otherwise, <c>false</c>.
+    ///     <c>true</c> if this instance is gm; otherwise, <c>false</c>.
     /// </value>
     public bool IsGameMaster { get; set; }
 
     /// <summary>
-    /// Gets a value indicating whether this instance has active attack pet.
+    ///     Gets a value indicating whether this instance has active attack pet.
     /// </summary>
     /// <value>
-    /// <c>true</c> if this instance has active attack pet; otherwise, <c>false</c>.
+    ///     <c>true</c> if this instance has active attack pet; otherwise, <c>false</c>.
     /// </value>
     public bool HasActiveAttackPet => Growth != null;
 
     /// <summary>
-    /// Gets a value indicating whether this instance has active fellow pet.
+    ///     Gets a value indicating whether this instance has active fellow pet.
     /// </summary>
     /// <value>
-    /// <c>true</c> if this instance has active fellow pet; otherwise, <c>false</c>.
+    ///     <c>true</c> if this instance has active fellow pet; otherwise, <c>false</c>.
     /// </value>
     public bool HasActiveFellowPet => Fellow != null;
 
     /// <summary>
-    /// Gets a value indicating whether this instance has active ability pet.
+    ///     Gets a value indicating whether this instance has active ability pet.
     /// </summary>
     /// <value>
-    /// <c>true</c> if this instance has active ability pet; otherwise, <c>false</c>.
+    ///     <c>true</c> if this instance has active ability pet; otherwise, <c>false</c>.
     /// </value>
     public bool HasActiveAbilityPet => AbilityPet != null;
 
     /// <summary>
-    /// Gets a value indicating whether this instance has active vehicle.
+    ///     Gets a value indicating whether this instance has active vehicle.
     /// </summary>
     /// <value>
-    /// <c>true</c> if this instance has active vehicle; otherwise, <c>false</c>.
+    ///     <c>true</c> if this instance has active vehicle; otherwise, <c>false</c>.
     /// </value>
     public bool HasActiveVehicle => Vehicle != null;
 
     /// <summary>
-    /// Gets or sets the attack pet.
+    ///     Gets or sets the attack pet.
     /// </summary>
     /// <value>
-    /// The attack pet.
+    ///     The attack pet.
     /// </value>
-    public Cos.Growth Growth { get; set; }
+    public Growth Growth { get; set; }
 
     /// <summary>
-    /// Gets or sets the attack pet.
+    ///     Gets or sets the attack pet.
     /// </summary>
     /// <value>
-    /// The attack pet.
+    ///     The attack pet.
     /// </value>
-    public Cos.Fellow Fellow { get; set; }
+    public Fellow Fellow { get; set; }
 
     /// <summary>
-    /// Gets or sets the vehicle.
+    ///     Gets or sets the vehicle.
     /// </summary>
     /// <value>
-    /// The vehicle.
+    ///     The vehicle.
     /// </value>
-    public Cos.Transport Transport { get; set; }
+    public Transport Transport { get; set; }
 
     /// <summary>
-    /// Gets or sets the vehicle.
+    ///     Gets or sets the vehicle.
     /// </summary>
     /// <value>
-    /// The vehicle.
+    ///     The vehicle.
     /// </value>
-    public Cos.JobTransport JobTransport { get; set; }
+    public JobTransport JobTransport { get; set; }
 
     /// <summary>
-    /// Gets or sets the ability pet.
+    ///     Gets or sets the ability pet.
     /// </summary>
     /// <value>
-    /// The ability pet.
+    ///     The ability pet.
     /// </value>
-    public Cos.Ability AbilityPet { get; set; }
+    public Ability AbilityPet { get; set; }
 
     /// <summary>
-    /// Gets or sets the mounted pet.
+    ///     Gets or sets the mounted pet.
     /// </summary>
     /// <value>
-    /// The mounted pet.
+    ///     The mounted pet.
     /// </value>
     public Cos.Cos Vehicle { get; set; }
 
     /// <summary>
-    /// Gets or sets the teleportation.
+    ///     Gets or sets the teleportation.
     /// </summary>
     /// <value>
-    /// The teleportation.
+    ///     The teleportation.
     /// </value>
     public Teleportation Teleportation { get; set; }
 
     /// <summary>
-    /// Gets or sets the Character's Inventory.
+    ///     Gets or sets the Character's Inventory.
     /// </summary>
     /// <value>
-    /// The Character's Inventory.
+    ///     The Character's Inventory.
     /// </value>
     public CharacterInventory Inventory { get; set; }
 
     /// <summary>
-    /// Gets or sets the Avatar Inventory.
+    ///     Gets or sets the Avatar Inventory.
     /// </summary>
     /// <value>
-    /// The Avatar Inventory.
+    ///     The Avatar Inventory.
     /// </value>
     public InventoryItemCollection Avatars { get; set; }
 
     /// <summary>
-    /// Gets or sets the Job2 Inventory.
+    ///     Gets or sets the Job2 Inventory.
     /// </summary>
     /// <value>
-    /// The Job2 Inventory.
+    ///     The Job2 Inventory.
     /// </value>
     public InventoryItemCollection Job2 { get; set; }
 
     /// <summary>
-    /// Gets or sets the Specialty Good Box Inventory.
+    ///     Gets or sets the Specialty Good Box Inventory.
     /// </summary>
     /// <value>
-    /// The Job2 Specialty Good Box Inventory.
+    ///     The Job2 Specialty Good Box Inventory.
     /// </value>
     public InventoryItemCollection Job2SpecialtyBag { get; set; }
 
     /// <summary>
-    /// Gets or sets the Storage.
+    ///     Gets or sets the Storage.
     /// </summary>
     /// <value>
-    /// The Storage.
+    ///     The Storage.
     /// </value>
     public Storage Storage { get; set; }
 
     /// <summary>
-    /// Gets or sets the GuildStorage.
+    ///     Gets or sets the GuildStorage.
     /// </summary>
     /// <value>
-    /// The GuildStorage.
+    ///     The GuildStorage.
     /// </value>
     public Storage GuildStorage { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether [in action].
+    ///     Gets or sets a value indicating whether [in action].
     /// </summary>
     /// <value>
-    ///   <c>true</c> if [in action]; otherwise, <c>false</c>.
+    ///     <c>true</c> if [in action]; otherwise, <c>false</c>.
     /// </value>
     public bool InAction { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether this <see cref="Player"/> is untouchable.
-    /// Will be set automatically after telportation.
+    ///     Gets or sets a value indicating whether this <see cref="Player" /> is untouchable.
+    ///     Will be set automatically after telportation.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if untouchable; otherwise, <c>false</c>.
+    ///     <c>true</c> if untouchable; otherwise, <c>false</c>.
     /// </value>
     public bool Untouchable { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether this <see cref="Player"/> is exchanging.
+    ///     Gets or sets a value indicating whether this <see cref="Player" /> is exchanging.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if exchanging; otherwise, <c>false</c>.
+    ///     <c>true</c> if exchanging; otherwise, <c>false</c>.
     /// </value>
     public bool Exchanging => Exchange != null;
 
     /// <summary>
-    /// The exchange
+    ///     The exchange
     /// </summary>
-    public Exchange.ExchangeInstance Exchange { get; internal set; }
+    public ExchangeInstance Exchange { get; internal set; }
 
     /// <summary>
-    /// Gets a value indicating whether this <see cref="Player"/> is berzerking.
+    ///     Gets a value indicating whether this <see cref="Player" /> is berzerking.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if berzerking; otherwise, <c>false</c>.
+    ///     <c>true</c> if berzerking; otherwise, <c>false</c>.
     /// </value>
     public bool Berzerking => State.BodyState == BodyState.Hwan || State.BodyState == BodyState.Berzerk;
 
     /// <summary>
-    /// Gets the weapon.
+    ///     Gets the weapon.
     /// </summary>
     /// <value>
-    /// The weapon.
+    ///     The weapon.
     /// </value>
     public InventoryItem Weapon => Inventory.GetItemAt(6);
 
     /// <summary>
-    /// Gets information about the current trade job.
+    ///     Gets information about the current trade job.
     /// </summary>
     public TradeInfo TradeInfo { get; internal set; } = null;
 
     /// <summary>
-    /// Gets a value indicating whether this player is able to attack.
+    ///     Gets a value indicating whether this player is able to attack.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if this instance can attack; otherwise, <c>false</c>.
+    ///     <c>true</c> if this instance can attack; otherwise, <c>false</c>.
     /// </value>
     public bool CanAttack
     {
@@ -562,67 +611,21 @@ public class Player : SpawnedBionic
     }
 
     /// <summary>
-    /// Gets or sets the last hp potion item tick count
-    /// </summary>
-    public int _lastHpPotionTick;
-
-    /// <summary>
-    /// Gets or sets the last mp potion item tick count
-    /// </summary>
-    private int _lastMpPotionTick;
-
-    /// <summary>
-    /// Gets or sets the last vigor potion item tick count
-    /// </summary>
-    private int _lastVigorPotionTick;
-
-    /// <summary>
-    /// Gets or sets the last universal pill potion item tick count
-    /// </summary>
-    private int _lastUniversalPillTick;
-
-    /// <summary>
-    /// Gets or sets the last purification pill potion item tick count
-    /// </summary>
-    private int _lastPurificationPillTick;
-
-    /// <summary>
-    /// Gets or sets the last hp potion item duration
-    /// </summary>
-    private int _lastHPDuration = 0;
-
-    /// <summary>
-    /// Gets or sets the last mp potion item duration
-    /// </summary>
-    private int _lastMPDuration = 0;
-
-    /// <summary>
-    /// Gets or sets the last vigor potion item duration
-    /// </summary>
-    private int _lastVigorDuration = 0;
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="objId"></param>
-    public Player(uint objId) : base(objId) { }
-
-    /// <summary>
-    /// The update method
+    ///     The update method
     /// </summary>
     /// <param name="delta">Time between previous and current run</param>
     public override bool Update(int delta)
     {
         base.Update(delta);
 
-        if(HasActiveVehicle)
+        if (HasActiveVehicle)
             Movement = Vehicle.Movement;
 
         return true;
     }
 
     /// <summary>
-    /// Gets the ammunition amount.
+    ///     Gets the ammunition amount.
     /// </summary>
     /// <returns></returns>
     public int GetAmmunitionAmount(bool fullInventory = false)
@@ -640,7 +643,7 @@ public class Player : SpawnedBionic
                 TypeID1 = 3,
                 TypeID2 = 3,
                 TypeID3 = 4,
-                TypeID4 = (byte) GetCurrentAmmunitionType()
+                TypeID4 = (byte)GetCurrentAmmunitionType()
             };
 
             return Inventory.GetSumAmount(typeIdFilter);
@@ -650,7 +653,7 @@ public class Player : SpawnedBionic
     }
 
     /// <summary>
-    /// Gets the type of the current ammunition.
+    ///     Gets the type of the current ammunition.
     /// </summary>
     /// <returns></returns>
     public AmmunitionType GetCurrentAmmunitionType()
@@ -664,7 +667,7 @@ public class Player : SpawnedBionic
     }
 
     /// <summary>
-    /// Moves the specified destination.
+    ///     Moves the specified destination.
     /// </summary>
     /// <param name="destination">The destination.</param>
     /// <param name="sleep">if set to <c>true</c> [sleep].</param>
@@ -714,7 +717,7 @@ public class Player : SpawnedBionic
 
         if (awaitCallback.IsCompleted)
         {
-            if (!sleep) 
+            if (!sleep)
                 return true;
 
             //Wait to finish the step
@@ -757,10 +760,13 @@ public class Player : SpawnedBionic
                     duration = 4050;
                 }
                 else
+                {
                     Log.Debug($"Unknown poion type: {record}");
+                }
             }
+
             var elapsed = Kernel.TickCount - tick;
-               
+
             if (elapsed < duration)
                 return false;
 
@@ -773,14 +779,17 @@ public class Player : SpawnedBionic
                 Log.Debug($"Potion [{potionItem.Record.GetRealName()}] used");
             }
             else
-                Log.Debug($"[ERROR] Potion [{potionItem.Record.GetRealName()}] used Elapsed:{elapsed} Duration:{duration} Condition:{elapsed < duration}");
+            {
+                Log.Debug(
+                    $"[ERROR] Potion [{potionItem.Record.GetRealName()}] used Elapsed:{elapsed} Duration:{duration} Condition:{elapsed < duration}");
+            }
 
             return result;
         }
     }
 
     /// <summary>
-    /// Uses the health potion.
+    ///     Uses the health potion.
     /// </summary>
     public bool UseHealthPotion()
     {
@@ -788,7 +797,7 @@ public class Player : SpawnedBionic
     }
 
     /// <summary>
-    /// Uses the health potion.
+    ///     Uses the health potion.
     /// </summary>
     public bool UseManaPotion()
     {
@@ -796,7 +805,7 @@ public class Player : SpawnedBionic
     }
 
     /// <summary>
-    /// Uses the vigor potion.
+    ///     Uses the vigor potion.
     /// </summary>
     /// <returns></returns>
     public bool UseVigorPotion()
@@ -805,7 +814,7 @@ public class Player : SpawnedBionic
     }
 
     /// <summary>
-    /// Uses the universal pill.
+    ///     Uses the universal pill.
     /// </summary>
     /// <returns></returns>
     public bool UseUniversalPill()
@@ -829,7 +838,7 @@ public class Player : SpawnedBionic
     }
 
     /// <summary>
-    /// Uses the purification pill.
+    ///     Uses the purification pill.
     /// </summary>
     /// <returns></returns>
     public bool UsePurificationPill()
@@ -853,7 +862,7 @@ public class Player : SpawnedBionic
     }
 
     /// <summary>
-    /// Summons the ability pet.
+    ///     Summons the ability pet.
     /// </summary>
     /// <returns></returns>
     public bool SummonAbilityPet()
@@ -870,24 +879,27 @@ public class Player : SpawnedBionic
     }
 
     /// <summary>
-    /// Summons the vehicle.
+    ///     Summons the vehicle.
     /// </summary>
     /// <returns></returns>
     public bool SummonVehicle()
     {
-        if (HasActiveVehicle || Game.Player.State.BattleState == BattleState.InBattle || Game.Player.JobTransport != null)
+        if (HasActiveVehicle || Game.Player.State.BattleState == BattleState.InBattle ||
+            Game.Player.JobTransport != null)
             return false;
 
         var typeIdFilter = new TypeIdFilter(3, 3, 3, 2);
-        var vehicleItem = Inventory.GetItem(item => typeIdFilter.EqualsRefItem(item.Record) && item.Record.ReqLevel1 <= Game.Player.Level && !item.Record.CodeName.Contains("COS_T"));
+        var vehicleItem = Inventory.GetItem(item =>
+            typeIdFilter.EqualsRefItem(item.Record) && item.Record.ReqLevel1 <= Game.Player.Level &&
+            !item.Record.CodeName.Contains("COS_T"));
         if (vehicleItem == null)
             return false;
-            
+
         return vehicleItem.Use();
     }
 
     /// <summary>
-    /// Uses the return scroll.
+    ///     Uses the return scroll.
     /// </summary>
     /// <returns></returns>
     public bool UseReturnScroll()
@@ -896,7 +908,8 @@ public class Player : SpawnedBionic
             return false;
 
         var typeIdFilter = new TypeIdFilter(3, 3, 3, 1);
-        var slotItem = Inventory.GetItem(item => typeIdFilter.EqualsRefItem(item.Record) && item.Record.ReqLevel1 <= Game.Player.Level);
+        var slotItem = Inventory.GetItem(item =>
+            typeIdFilter.EqualsRefItem(item.Record) && item.Record.ReqLevel1 <= Game.Player.Level);
         if (slotItem == null)
             return false;
 
@@ -904,7 +917,7 @@ public class Player : SpawnedBionic
     }
 
     /// <summary>
-    /// Equips the ammunition.
+    ///     Equips the ammunition.
     /// </summary>
     public void EquipAmmunition()
     {
@@ -943,7 +956,7 @@ public class Player : SpawnedBionic
     }
 
     /// <summary>
-    /// Revives the growth pet.
+    ///     Revives the growth pet.
     /// </summary>
     /// <returns></returns>
     public bool ReviveGrowth()
@@ -961,7 +974,7 @@ public class Player : SpawnedBionic
     }
 
     /// <summary>
-    /// Revives the fellow pet.
+    ///     Revives the fellow pet.
     /// </summary>
     /// <returns></returns>
     public bool ReviveFellow()
@@ -984,7 +997,7 @@ public class Player : SpawnedBionic
     }
 
     /// <summary>
-    /// Summons the attack pet.
+    ///     Summons the attack pet.
     /// </summary>
     /// <returns></returns>
     public bool SummonGrowth()
@@ -1005,7 +1018,7 @@ public class Player : SpawnedBionic
     }
 
     /// <summary>
-    /// Summons the fellow pet.
+    ///     Summons the fellow pet.
     /// </summary>
     /// <returns></returns>
     public bool SummonFellow()
@@ -1026,7 +1039,7 @@ public class Player : SpawnedBionic
     }
 
     /// <summary>
-    /// Enters the berzerk mode.
+    ///     Enters the berzerk mode.
     /// </summary>
     public void EnterBerzerkMode()
     {
@@ -1042,7 +1055,7 @@ public class Player : SpawnedBionic
     }
 
     /// <summary>
-    /// Get ability skills
+    ///     Get ability skills
     /// </summary>
     /// <param name="abilitySkills">The ability skills</param>
     public bool TryGetAbilitySkills(out List<SkillInfo> abilitySkills)
@@ -1055,7 +1068,7 @@ public class Player : SpawnedBionic
             if (item.HasAbility(out var abilityItem))
                 abilitySkills.AddRange(abilityItem.GetLinks().Select(skillId => new SkillInfo(skillId, true)));
 
-            if(Game.ClientType >= GameClientType.Chinese)
+            if (Game.ClientType >= GameClientType.Chinese)
             {
                 if (!item.HasExtraAbility(out var extraAbilityItems))
                     continue;
@@ -1064,7 +1077,7 @@ public class Player : SpawnedBionic
                     .SelectMany(p => p.Skills)
                     .Where(p => p != 0)
                     .Select(skillId => new SkillInfo(skillId, true)));
-            }    
+            }
         }
 
         return abilitySkills.Any();

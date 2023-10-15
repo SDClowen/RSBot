@@ -8,30 +8,30 @@ namespace RSBot.Core.Objects;
 public class AcceptanceRequest
 {
     /// <summary>
-    /// The settings [note:just need for party request]
-    /// </summary>
-    public PartySettings Settings;
-
-    /// <summary>
-    /// Gets or sets the Acceptance Request type.
-    /// </summary>
-    public InviteRequestType Type;
-
-    /// <summary>
-    /// Gets or sets the player unique identifier.
+    ///     Gets or sets the player unique identifier.
     /// </summary>
     public uint PlayerUniqueId;
 
     /// <summary>
-    /// Gets the player.
+    ///     The settings [note:just need for party request]
+    /// </summary>
+    public PartySettings Settings;
+
+    /// <summary>
+    ///     Gets or sets the Acceptance Request type.
+    /// </summary>
+    public InviteRequestType Type;
+
+    /// <summary>
+    ///     Gets the player.
     /// </summary>
     /// <value>
-    /// The player.
+    ///     The player.
     /// </value>
     public SpawnedPlayer Player => SpawnManager.GetEntity<SpawnedPlayer>(PlayerUniqueId);
 
     /// <summary>
-    /// Accepts this party request
+    ///     Accepts this party request
     /// </summary>
     public void Accept()
     {
@@ -43,7 +43,7 @@ public class AcceptanceRequest
     }
 
     /// <summary>
-    /// Refuses this party request.
+    ///     Refuses this party request.
     /// </summary>
     public void Refuse()
     {
@@ -68,10 +68,10 @@ public class AcceptanceRequest
     }
 
     /// <summary>
-    /// Creates a new Acceptance from a packet
+    ///     Creates a new Acceptance from a packet
     /// </summary>
     /// <param name="packet">The packet.</param>
-    /// <returns>Created <seealso cref="AcceptanceRequest"/></returns>
+    /// <returns>Created <seealso cref="AcceptanceRequest" /></returns>
     public static AcceptanceRequest FromPacket(Packet packet)
     {
         return new AcceptanceRequest

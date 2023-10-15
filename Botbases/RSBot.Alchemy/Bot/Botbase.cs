@@ -8,51 +8,6 @@ namespace RSBot.Alchemy.Bot;
 
 internal class Botbase
 {
-    #region Properties
-
-    /// <summary>
-    /// The selected botbase engine
-    /// </summary>
-    public AlchemyEngine AlchemyEngine { get; set; }
-
-    /// <summary>
-    /// The enhancement manager used to increase item OptLevel
-    /// </summary>
-    public IAlchemyBundle EnhanceBundle { get; private set; }
-
-    /// <summary>
-    /// Gets or sets the attribute granter.
-    /// </summary>
-    /// <value>
-    /// The attribute granter.
-    /// </value>
-    public IAlchemyBundle AttributeBundle { get; set; }
-
-    /// <summary>
-    /// The magic option manager used to fuse magic stones
-    /// </summary>
-    public IAlchemyBundle MagicBundle { get; set; }
-
-    /// <summary>
-    /// The configuration for the Enhancer
-    /// </summary>
-    public EnhanceBundleConfig EnhanceBundleConfig { get; set; }
-
-    /// <summary>
-    /// The configuration for the magic option granter
-    /// </summary>
-    public MagicBundleConfig MagicBundleConfig { get; set; }
-
-    /// <summary>
-    /// Gets or sets the attributes configuration.
-    /// </summary>
-    /// <value>
-    /// The attributes configuration.
-    /// </value>
-    public AttributeBundleConfig AttributeBundleConfig { get; set; }
-
-    #endregion Properties
-
     #region Constructor
 
     public Botbase()
@@ -64,10 +19,55 @@ internal class Botbase
 
     #endregion Constructor
 
+    #region Properties
+
+    /// <summary>
+    ///     The selected botbase engine
+    /// </summary>
+    public AlchemyEngine AlchemyEngine { get; set; }
+
+    /// <summary>
+    ///     The enhancement manager used to increase item OptLevel
+    /// </summary>
+    public IAlchemyBundle EnhanceBundle { get; }
+
+    /// <summary>
+    ///     Gets or sets the attribute granter.
+    /// </summary>
+    /// <value>
+    ///     The attribute granter.
+    /// </value>
+    public IAlchemyBundle AttributeBundle { get; set; }
+
+    /// <summary>
+    ///     The magic option manager used to fuse magic stones
+    /// </summary>
+    public IAlchemyBundle MagicBundle { get; set; }
+
+    /// <summary>
+    ///     The configuration for the Enhancer
+    /// </summary>
+    public EnhanceBundleConfig EnhanceBundleConfig { get; set; }
+
+    /// <summary>
+    ///     The configuration for the magic option granter
+    /// </summary>
+    public MagicBundleConfig MagicBundleConfig { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the attributes configuration.
+    /// </summary>
+    /// <value>
+    ///     The attributes configuration.
+    /// </value>
+    public AttributeBundleConfig AttributeBundleConfig { get; set; }
+
+    #endregion Properties
+
     #region Methods
 
     /// <summary>
-    /// Starts the botbase
+    ///     Starts the botbase
     /// </summary>
     public void Start()
     {
@@ -115,7 +115,7 @@ internal class Botbase
     }
 
     /// <summary>
-    /// Stops the botbase and all managers
+    ///     Stops the botbase and all managers
     /// </summary>
     public void Stop()
     {
@@ -130,7 +130,7 @@ internal class Botbase
     }
 
     /// <summary>
-    /// Sends the run command to the current manager
+    ///     Sends the run command to the current manager
     /// </summary>
     public void Tick()
     {

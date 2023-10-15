@@ -7,31 +7,31 @@ namespace RSBot.Core.Objects.Spawn;
 public class SpawnedPlayerStall
 {
     /// <summary>
-    /// Gets or sets the name.
+    ///     Gets or sets the name.
     /// </summary>
     /// <value>
-    /// The name.
+    ///     The name.
     /// </value>
     public string Name { get; set; }
 
     /// <summary>
-    /// Gets or sets the decoration identifier.
+    ///     Gets or sets the decoration identifier.
     /// </summary>
     /// <value>
-    /// The decoration identifier.
+    ///     The decoration identifier.
     /// </value>
     public uint DecorationId { get; set; }
 
     /// <summary>
-    /// Gets the decoration.
+    ///     Gets the decoration.
     /// </summary>
     /// <value>
-    /// The decoration.
+    ///     The decoration.
     /// </value>
     public RefObjItem Decoration => Game.ReferenceManager.GetRefItem(DecorationId);
 
     /// <summary>
-    /// Froms the packet.
+    ///     Froms the packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     /// <returns></returns>
@@ -40,7 +40,7 @@ public class SpawnedPlayerStall
         return new SpawnedPlayerStall
         {
             Name = packet.ReadConditonalString(),
-            DecorationId = packet.ReadUInt(),
+            DecorationId = packet.ReadUInt()
         };
     }
 }

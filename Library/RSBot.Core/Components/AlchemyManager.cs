@@ -1,50 +1,49 @@
-﻿using RSBot.Core.Client.ReferenceObjects;
+﻿using System.Collections.Generic;
+using System.Timers;
+using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Network;
 using RSBot.Core.Network.Handler.Agent.Alchemy;
 using RSBot.Core.Objects;
-using System.Collections.Generic;
-using System.Timers;
 
 namespace RSBot.Core.Components;
 
 /// <summary>
-/// @ToDo: Currently completely unsupported operations are:
-///             * Socket alchemy
-///             * Dismantle/Disjoint
-///             * Manufacture
-///
+///     @ToDo: Currently completely unsupported operations are:
+///     * Socket alchemy
+///     * Dismantle/Disjoint
+///     * Manufacture
 /// </summary>
 public class AlchemyManager
 {
-    #region Properties
-
-    /// <summary>
-    /// Gets or sets a list of inventory items currently used in an alchemy operation.
-    ///
-    /// Attention! This object is only set during alchemy operations and will be set to NULL if any ACK response has been received!
-    /// </summary>
-    public static List<InventoryItem>? ActiveAlchemyItems { get; internal set; }
-
-    /// <summary>
-    /// Gets a value indicating whether this instance is fusing.
-    /// </summary>
-    /// <value>
-    ///   <c>true</c> if this instance is fusing; otherwise, <c>false</c>.
-    /// </value>
-    public static bool IsFusing { get; internal set; }
-
-    #endregion Properties
-
     #region Members
 
     private static Timer _fusingTimer;
 
     #endregion Members
 
+    #region Properties
+
+    /// <summary>
+    ///     Gets or sets a list of inventory items currently used in an alchemy operation.
+    ///     Attention! This object is only set during alchemy operations and will be set to NULL if any ACK response has been
+    ///     received!
+    /// </summary>
+    public static List<InventoryItem>? ActiveAlchemyItems { get; internal set; }
+
+    /// <summary>
+    ///     Gets a value indicating whether this instance is fusing.
+    /// </summary>
+    /// <value>
+    ///     <c>true</c> if this instance is fusing; otherwise, <c>false</c>.
+    /// </value>
+    public static bool IsFusing { get; internal set; }
+
+    #endregion Properties
+
     #region Methods
 
     /// <summary>
-    /// Cancels the pending alchemy operation.
+    ///     Cancels the pending alchemy operation.
     /// </summary>
     public static void CancelPending()
     {
@@ -56,7 +55,7 @@ public class AlchemyManager
     }
 
     /// <summary>
-    /// Fuses the elixir with the specified item using the given lucky powder ingredient.
+    ///     Fuses the elixir with the specified item using the given lucky powder ingredient.
     /// </summary>
     /// <param name="item">The item.</param>
     /// <param name="elixir">The elixir.</param>
@@ -67,9 +66,9 @@ public class AlchemyManager
         var elixirInInventory = Game.Player.Inventory.GetItemAt(elixir.Slot);
         var powderInInventory = Game.Player.Inventory.GetItemAt(powder.Slot);
 
-        if ( itemInInventory?.ItemId != item.ItemId ||
-             elixirInInventory?.ItemId != elixir.ItemId ||
-             (powderInInventory != null && powderInInventory.ItemId != powder.ItemId))
+        if (itemInInventory?.ItemId != item.ItemId ||
+            elixirInInventory?.ItemId != elixir.ItemId ||
+            (powderInInventory != null && powderInInventory.ItemId != powder.ItemId))
         {
             Log.Warn("[Alchemy] Requested to fuse an item that does not match the current item at the specified slot.");
 
@@ -100,7 +99,7 @@ public class AlchemyManager
     }
 
     /// <summary>
-    /// Fuses the magic stone with the specified item.
+    ///     Fuses the magic stone with the specified item.
     /// </summary>
     /// <param name="item">The item.</param>
     /// <param name="magicStone">The elixir.</param>
@@ -112,12 +111,14 @@ public class AlchemyManager
         if (itemInInventory?.ItemId != item.ItemId ||
             stoneInInventory?.ItemId != magicStone.ItemId)
         {
-            Log.Debug("[Alchemy] Requested to fuse an item that does not match the current item at the specified slot.");
+            Log.Debug(
+                "[Alchemy] Requested to fuse an item that does not match the current item at the specified slot.");
 
             return false;
         }
 
-        Log.Notify($"[Alchemy] Fusing magic stone {magicStone.Record.GetRealName()} to item {item.Record.GetRealName()}");
+        Log.Notify(
+            $"[Alchemy] Fusing magic stone {magicStone.Record.GetRealName()} to item {item.Record.GetRealName()}");
 
         var packet = new Packet(0x7151);
 
@@ -138,7 +139,7 @@ public class AlchemyManager
     }
 
     /// <summary>
-    /// Fuses the attribute stone with the specified item.
+    ///     Fuses the attribute stone with the specified item.
     /// </summary>
     /// <param name="item">The item.</param>
     /// <param name="attributeStone">The attribute stone.</param>
@@ -151,11 +152,12 @@ public class AlchemyManager
             stoneInInventory?.ItemId != attributeStone.ItemId)
         {
             Log.Warn("[Alchemy] Requested to fuse an item that does not match the current item at the specified slot.");
-                
+
             return false;
         }
 
-        Log.Notify($"[Alchemy] Fusing attribute stone {attributeStone.Record.GetRealName()} to item {item.Record.GetRealName()}");
+        Log.Notify(
+            $"[Alchemy] Fusing attribute stone {attributeStone.Record.GetRealName()} to item {item.Record.GetRealName()}");
 
         var packet = new Packet(0x7151);
 
@@ -175,7 +177,7 @@ public class AlchemyManager
     }
 
     /// <summary>
-    /// Starts the alchemy timer.
+    ///     Starts the alchemy timer.
     /// </summary>
     internal static void StartTimer()
     {
@@ -193,7 +195,7 @@ public class AlchemyManager
     }
 
     /// <summary>
-    /// Stops the alchemy timer.
+    ///     Stops the alchemy timer.
     /// </summary>
     internal static void StopTimer()
     {
@@ -204,10 +206,10 @@ public class AlchemyManager
     }
 
     /// <summary>
-    /// Triggered when the alchemy timer elapses. Stops the timer.
+    ///     Triggered when the alchemy timer elapses. Stops the timer.
     /// </summary>
     /// <param name="sender">The sender.</param>
-    /// <param name="e">The <see cref="ElapsedEventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="ElapsedEventArgs" /> instance containing the event data.</param>
     private static void FusingActionFusingTimerElapsed(object? sender, ElapsedEventArgs e)
     {
         StopTimer();

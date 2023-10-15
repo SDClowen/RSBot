@@ -9,22 +9,17 @@ namespace RSBot.Core;
 public class Config
 {
     /// <summary>
-    /// The object that stores the configuration
+    ///     The object that stores the configuration
     /// </summary>
-    private ConcurrentDictionary<string, string> _config;
+    private readonly ConcurrentDictionary<string, string> _config;
 
     /// <summary>
-    /// Gets the path.
+    ///     Gets the path.
     /// </summary>
-    private string _path;
+    private readonly string _path;
 
     /// <summary>
-    /// gets is loaded
-    /// </summary>
-    private bool _isLoaded => _config != null;
-
-    /// <summary>
-    /// Loads the specified file.
+    ///     Loads the specified file.
     /// </summary>
     /// <param name="file">The file.</param>
     public Config(string file)
@@ -48,7 +43,12 @@ public class Config
     }
 
     /// <summary>
-    /// Existses the specified key.
+    ///     gets is loaded
+    /// </summary>
+    private bool _isLoaded => _config != null;
+
+    /// <summary>
+    ///     Existses the specified key.
     /// </summary>
     /// <param name="key">The key.</param>
     /// <returns></returns>
@@ -61,16 +61,17 @@ public class Config
     }
 
     /// <summary>
-    /// Gets the specified key.
+    ///     Gets the specified key.
     /// </summary>
     /// <param name="key">The key.</param>
     /// <param name="defaultValue">The default value.</param>
-    public T Get<T>(string key, T defaultValue = default(T))
+    public T Get<T>(string key, T defaultValue = default)
     {
         if (!_isLoaded)
             return (T)Convert.ChangeType(false, typeof(T));
 
-        if (!_config.ContainsKey(key)) {
+        if (!_config.ContainsKey(key))
+        {
             Set(key, defaultValue);
 
             return defaultValue;
@@ -84,7 +85,7 @@ public class Config
     }
 
     /// <summary>
-    /// Gets the specified key.
+    ///     Gets the specified key.
     /// </summary>
     /// <param name="key">The key.</param>
     /// <param name="defaultValue">The default value.</param>
@@ -92,7 +93,7 @@ public class Config
         where TEnum : struct
     {
         if (!_isLoaded)
-            return default(TEnum);
+            return default;
 
         if (!_config.TryGetValue(key, out var value))
         {
@@ -102,13 +103,13 @@ public class Config
 
         TEnum result;
         if (!Enum.TryParse(value, out result))
-            return default(TEnum);
+            return default;
 
         return result;
     }
 
     /// <summary>
-    /// Sets the specified key inside the config.
+    ///     Sets the specified key inside the config.
     /// </summary>
     /// <param name="key">The key.</param>
     /// <param name="value">The value.</param>
@@ -119,7 +120,7 @@ public class Config
     }
 
     /// <summary>
-    /// Check directories
+    ///     Check directories
     /// </summary>
     private void CheckPath()
     {
@@ -132,7 +133,7 @@ public class Config
     }
 
     /// <summary>
-    /// Saves the specified file.
+    ///     Saves the specified file.
     /// </summary>
     /// <param name="file">The file.</param>
     public void Save()
@@ -155,7 +156,7 @@ public class Config
     }
 
     /// <summary>
-    /// Sets the array.
+    ///     Sets the array.
     /// </summary>
     /// <param name="key">The key.</param>
     /// <param name="values">The values.</param>
@@ -169,12 +170,12 @@ public class Config
     }
 
     /// <summary>
-    /// Gets the array.
+    ///     Gets the array.
     /// </summary>
     /// <param name="key">The key.</param>
     /// <param name="delimiter">The delimiter.</param>
     /// <returns></returns>
-    public T[] GetArray<T>(string key, char delimiter = ',', 
+    public T[] GetArray<T>(string key, char delimiter = ',',
         StringSplitOptions options = StringSplitOptions.RemoveEmptyEntries)
     {
         if (!_isLoaded)
@@ -188,7 +189,7 @@ public class Config
     }
 
     /// <summary>
-    /// Get array the specified key.
+    ///     Get array the specified key.
     /// </summary>
     /// <param name="key">The key.</param>
     /// <param name="defaultValue">The default value.</param>

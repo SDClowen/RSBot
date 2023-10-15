@@ -6,7 +6,7 @@ namespace RSBot.Statistics.Stats.Calculators.Static;
 internal class SkillPoints : IStatisticCalculator
 {
     /// <summary>
-    /// The initial value
+    ///     The initial value
     /// </summary>
     private long _initialValue;
 
@@ -30,8 +30,8 @@ internal class SkillPoints : IStatisticCalculator
     {
         if (!Game.Ready)
             return 0;
-            
-        return ((long)Game.Player.SkillPoints) - _initialValue;
+
+        return Game.Player.SkillPoints - _initialValue;
     }
 
     /// <inheritdoc />

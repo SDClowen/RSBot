@@ -3,17 +3,17 @@
 internal interface IBundle
 {
     /// <summary>
-    /// Invokes this instance.
+    ///     Invokes this instance.
     /// </summary>
     void Invoke();
 
     /// <summary>
-    /// Refreshes this instance.
+    ///     Refreshes this instance.
     /// </summary>
     void Refresh();
 
     /// <summary>
-    /// Stops this instance.
+    ///     Stops this instance.
     /// </summary>
     void Stop();
 }

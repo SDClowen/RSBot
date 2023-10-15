@@ -1,49 +1,27 @@
-﻿using RSBot.Pk2.IO;
+﻿using System.Linq;
+using RSBot.Pk2.IO;
 using RSBot.Pk2.IO.Stream;
 using RSBot.Pk2.Security;
-using System.Linq;
 
 namespace RSBot.Pk2.Types;
 
 public class PK2Block
 {
-    /// <summary>
-    /// Gets or sets the entries.
-    /// </summary>
-    /// <value>
-    /// The entries.
-    /// </value>
-    public PK2Entry[] Entries { get; set; }
-
-    /// <summary>
-    /// Gets or sets the block offset.
-    /// </summary>
-    /// <value>
-    /// The block offset.
-    /// </value>
-    public ulong Offset { get; set; }
-
-    /// <summary>
-    /// Gets a value indicating whether this instance has blocks.
-    /// </summary>
-    /// <value>
-    /// <c>true</c> if this instance has blocks; otherwise, <c>false</c>.
-    /// </value>
-    public bool HasBlocks => Entries[19].NextChain > 0;
-
     #region Fields
 
-    private FileAdapter _fileAdapter;
+    private readonly FileAdapter _fileAdapter;
 
     #endregion Fields
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PK2Block"/> class.
+    ///     Initializes a new instance of the <see cref="PK2Block" /> class.
     /// </summary>
-    public PK2Block() { }
+    public PK2Block()
+    {
+    }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PK2Block" /> class.
+    ///     Initializes a new instance of the <see cref="PK2Block" /> class.
     /// </summary>
     /// <param name="fileAdapter">The file adapter.</param>
     /// <param name="buffer">The buffer.</param>
@@ -69,7 +47,31 @@ public class PK2Block
     }
 
     /// <summary>
-    /// Gets a collection of all blocks that belong to this block.
+    ///     Gets or sets the entries.
+    /// </summary>
+    /// <value>
+    ///     The entries.
+    /// </value>
+    public PK2Entry[] Entries { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the block offset.
+    /// </summary>
+    /// <value>
+    ///     The block offset.
+    /// </value>
+    public ulong Offset { get; set; }
+
+    /// <summary>
+    ///     Gets a value indicating whether this instance has blocks.
+    /// </summary>
+    /// <value>
+    ///     <c>true</c> if this instance has blocks; otherwise, <c>false</c>.
+    /// </value>
+    public bool HasBlocks => Entries[19].NextChain > 0;
+
+    /// <summary>
+    ///     Gets a collection of all blocks that belong to this block.
     /// </summary>
     /// <returns></returns>
     public PK2BlockCollection GetCollection()
@@ -90,7 +92,7 @@ public class PK2Block
     }
 
     /// <summary>
-    /// Gets the first empty entry that can be used to write new data to it.
+    ///     Gets the first empty entry that can be used to write new data to it.
     /// </summary>
     /// <returns></returns>
     internal PK2Entry GetFirstEmptyEntry()
@@ -101,7 +103,7 @@ public class PK2Block
     }
 
     /// <summary>
-    /// A helper method that returns the last block of this chain
+    ///     A helper method that returns the last block of this chain
     /// </summary>
     /// <returns></returns>
     public PK2Block GetLastBlock()
@@ -110,7 +112,7 @@ public class PK2Block
     }
 
     /// <summary>
-    /// Gets the next block.
+    ///     Gets the next block.
     /// </summary>
     /// <returns></returns>
     /// <exception cref="PK2NotLoadedException"></exception>
@@ -119,11 +121,14 @@ public class PK2Block
         if (_fileAdapter == null)
             throw new PK2NotLoadedException();
 
-        return HasBlocks ? new PK2Block(_fileAdapter, _fileAdapter.ReadData((long)Entries[19].NextChain, 2560), Entries[19].NextChain) : this;
+        return HasBlocks
+            ? new PK2Block(_fileAdapter, _fileAdapter.ReadData((long)Entries[19].NextChain, 2560),
+                Entries[19].NextChain)
+            : this;
     }
 
     /// <summary>
-    /// To the byte array.
+    ///     To the byte array.
     /// </summary>
     /// <returns></returns>
     public byte[] ToByteArray()
@@ -131,16 +136,14 @@ public class PK2Block
         var buffer = new byte[2560];
         using (var stream = new StreamWorker(buffer, StreamOperation.Write))
         {
-            for (var i = 0; i < 20; i++)
-            {
-                stream.WriteByteArray(Entries[i].ToByteArray());
-            }
+            for (var i = 0; i < 20; i++) stream.WriteByteArray(Entries[i].ToByteArray());
         }
+
         return buffer;
     }
 
     /// <summary>
-    /// Saves the block back to the PK2 archive.
+    ///     Saves the block back to the PK2 archive.
     /// </summary>
     /// <exception cref="PK2NotLoadedException"></exception>
     public void Save()

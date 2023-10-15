@@ -3,23 +3,23 @@
 internal class GatewayLoginResponseHook : IPacketHook
 {
     /// <summary>
-    /// Gets the opcode.
+    ///     Gets the opcode.
     /// </summary>
     /// <value>
-    /// The opcode.
+    ///     The opcode.
     /// </value>
     public ushort Opcode => 0xA102;
 
     /// <summary>
-    /// Gets the destination.
+    ///     Gets the destination.
     /// </summary>
     /// <value>
-    /// The destination.
+    ///     The destination.
     /// </value>
     public PacketDestination Destination => PacketDestination.Client;
 
     /// <summary>
-    /// Replaces the packet and returns a new packet.
+    ///     Replaces the packet and returns a new packet.
     /// </summary>
     /// <param name="packet"></param>
     /// <returns></returns>
@@ -35,7 +35,9 @@ internal class GatewayLoginResponseHook : IPacketHook
                 return null;
         }
         else
+        {
             return packet;
+        }
 
         var resultPacket = new Packet(packet.Opcode, packet.Encrypted, packet.Massive);
         resultPacket.WriteByte(result);

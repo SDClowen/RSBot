@@ -6,26 +6,6 @@ namespace RSBot.Core.Network.Handler.Agent;
 
 internal class UpdateMountStateResponse : IPacketHandler
 {
-    #region Properties
-
-    /// <summary>
-    /// Gets or sets the opcode.
-    /// </summary>
-    /// <value>
-    /// The opcode.
-    /// </value>
-    public ushort Opcode => 0xB0CB;
-
-    /// <summary>
-    /// Gets or sets the destination.
-    /// </summary>
-    /// <value>
-    /// The destination.
-    /// </value>
-    public PacketDestination Destination => PacketDestination.Client;
-
-    #endregion Properties
-
     #region Methods
 
     public void Invoke(Packet packet)
@@ -66,10 +46,10 @@ internal class UpdateMountStateResponse : IPacketHandler
         }
 
         //Assertion: only player's are supported to have active vehicles. Think it's the same in the client.
-        if(!SpawnManager.TryGetEntity<SpawnedPlayer>(ownerUniqueId, out var owner))
+        if (!SpawnManager.TryGetEntity<SpawnedPlayer>(ownerUniqueId, out var owner))
             return;
-            
-        if(!SpawnManager.TryGetEntity<SpawnedCos>(cosUniqueId, out var cos))
+
+        if (!SpawnManager.TryGetEntity<SpawnedCos>(cosUniqueId, out var cos))
             return;
 
         owner.OnTransport = isMounted;
@@ -79,4 +59,24 @@ internal class UpdateMountStateResponse : IPacketHandler
     }
 
     #endregion Methods
+
+    #region Properties
+
+    /// <summary>
+    ///     Gets or sets the opcode.
+    /// </summary>
+    /// <value>
+    ///     The opcode.
+    /// </value>
+    public ushort Opcode => 0xB0CB;
+
+    /// <summary>
+    ///     Gets or sets the destination.
+    /// </summary>
+    /// <value>
+    ///     The destination.
+    /// </value>
+    public PacketDestination Destination => PacketDestination.Client;
+
+    #endregion Properties
 }

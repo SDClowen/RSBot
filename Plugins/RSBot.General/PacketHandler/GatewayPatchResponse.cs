@@ -1,30 +1,30 @@
-﻿using RSBot.Core;
+﻿using System.Windows.Forms;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Network;
-using System.Windows.Forms;
 
 namespace RSBot.General.PacketHandler;
 
 public class GatewayPatchResponse : IPacketHandler
 {
     /// <summary>
-    /// Gets or sets the opcode.
+    ///     Gets or sets the opcode.
     /// </summary>
     /// <value>
-    /// The opcode.
+    ///     The opcode.
     /// </value>
     public ushort Opcode => 0xA100;
 
     /// <summary>
-    /// Gets or sets the destination.
+    ///     Gets or sets the destination.
     /// </summary>
     /// <value>
-    /// The destination.
+    ///     The destination.
     /// </value>
     public PacketDestination Destination => PacketDestination.Client;
 
     /// <summary>
-    /// Handles the packet.
+    ///     Handles the packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     public void Invoke(Packet packet)
@@ -33,7 +33,7 @@ public class GatewayPatchResponse : IPacketHandler
         {
             Log.NotifyLang("NoPatchRequired");
 
-            if(Game.Clientless)
+            if (Game.Clientless)
                 ClientlessManager.RequestServerList();
         }
         else

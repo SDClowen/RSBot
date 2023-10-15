@@ -1,15 +1,15 @@
 ﻿using System;
-using RSBot.Core;
-using RSBot.Core.Event;
 using System.Windows.Forms;
+using RSBot.Core;
 using RSBot.Core.Components;
+using RSBot.Core.Event;
 
 namespace RSBot.Views.Controls;
 
 public partial class Character : UserControl
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="Character"/> class.
+    ///     Initializes a new instance of the <see cref="Character" /> class.
     /// </summary>
     public Character()
     {
@@ -19,7 +19,7 @@ public partial class Character : UserControl
     }
 
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     private void SubscribeEvents()
     {
@@ -55,7 +55,7 @@ public partial class Character : UserControl
     }
 
     /// <summary>
-    /// On Hp/MP update
+    ///     On Hp/MP update
     /// </summary>
     private void OnLoadCharacterStats()
     {
@@ -75,7 +75,7 @@ public partial class Character : UserControl
     }
 
     /// <summary>
-    /// On Exp update
+    ///     On Exp update
     /// </summary>
     /// <exception cref="System.NotImplementedException"></exception>
     private void OnExpUpdate()
@@ -85,7 +85,7 @@ public partial class Character : UserControl
     }
 
     /// <summary>
-    /// s the on load character.
+    ///     s the on load character.
     /// </summary>
     private void OnLoadCharacter()
     {
@@ -99,7 +99,7 @@ public partial class Character : UserControl
     }
 
     /// <summary>
-    /// Reset UI after character disconnect
+    ///     Reset UI after character disconnect
     /// </summary>
     private void OnAgentServerDisconnected()
     {

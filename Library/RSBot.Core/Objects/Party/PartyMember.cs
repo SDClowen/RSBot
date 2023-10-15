@@ -8,86 +8,86 @@ namespace RSBot.Core.Objects.Party;
 public class PartyMember
 {
     /// <summary>
-    /// Gets or sets the unique identifier.
-    /// </summary>
-    public uint MemberId;
-
-    /// <summary>
-    /// Get the party member spawned info
-    /// </summary>
-    public SpawnedPlayer Player => SpawnManager.GetEntity<SpawnedPlayer>(p => p.Name == Name);
-
-    /// <summary>
-    /// Gets or sets the name.
+    ///     Gets or sets the guild.
     /// </summary>
     /// <value>
-    /// The name.
-    /// </value>
-    public string Name;
-
-    /// <summary>
-    /// Gets or sets the object identifier.
-    /// </summary>
-    public uint ObjectId;
-
-    /// <summary>
-    /// Gets the record.
-    /// </summary>
-    /// <value>
-    /// The record.
-    /// </value>
-    public RefObjChar Record => Game.ReferenceManager.GetRefObjChar(ObjectId);
-
-    /// <summary>
-    /// Gets or sets the level.
-    /// </summary>
-    public byte Level;
-
-    /// <summary>
-    /// Gets or sets the position.
-    /// </summary>
-    /// <value>
-    /// The position.
-    /// </value>
-    public Position Position;
-
-    /// <summary>
-    /// Gets or sets the guild.
-    /// </summary>
-    /// <value>
-    /// The guild.
+    ///     The guild.
     /// </value>
     public string Guild;
 
     /// <summary>
-    /// Gets or sets the mastery id1.
-    /// </summary>
-    /// <value>
-    /// The mastery id1.
-    /// </value>
-    public uint MasteryId1;
-
-    /// <summary>
-    /// Gets or sets the mastery id2.
-    /// </summary>
-    /// <value>
-    /// The mastery id2.
-    /// </value>
-    public uint MasteryId2;
-
-    /// <summary>
-    /// Gets or sets the health mana.
+    ///     Gets or sets the health mana.
     /// </summary>
     /// var hpmp = HealthMana.ToString("X2");
     /// int hpPer= Convert.ToByte(hpmp[0].ToString(), 16) * 10;
     /// int mpPer= Convert.ToByte(hpmp[1].ToString(), 16) * 10;
     /// <value>
-    /// The health mana.
+    ///     The health mana.
     /// </value>
     public byte HealthMana;
 
     /// <summary>
-    /// Froms the packet.
+    ///     Gets or sets the level.
+    /// </summary>
+    public byte Level;
+
+    /// <summary>
+    ///     Gets or sets the mastery id1.
+    /// </summary>
+    /// <value>
+    ///     The mastery id1.
+    /// </value>
+    public uint MasteryId1;
+
+    /// <summary>
+    ///     Gets or sets the mastery id2.
+    /// </summary>
+    /// <value>
+    ///     The mastery id2.
+    /// </value>
+    public uint MasteryId2;
+
+    /// <summary>
+    ///     Gets or sets the unique identifier.
+    /// </summary>
+    public uint MemberId;
+
+    /// <summary>
+    ///     Gets or sets the name.
+    /// </summary>
+    /// <value>
+    ///     The name.
+    /// </value>
+    public string Name;
+
+    /// <summary>
+    ///     Gets or sets the object identifier.
+    /// </summary>
+    public uint ObjectId;
+
+    /// <summary>
+    ///     Gets or sets the position.
+    /// </summary>
+    /// <value>
+    ///     The position.
+    /// </value>
+    public Position Position;
+
+    /// <summary>
+    ///     Get the party member spawned info
+    /// </summary>
+    public SpawnedPlayer Player => SpawnManager.GetEntity<SpawnedPlayer>(p => p.Name == Name);
+
+    /// <summary>
+    ///     Gets the record.
+    /// </summary>
+    /// <value>
+    ///     The record.
+    /// </value>
+    public RefObjChar Record => Game.ReferenceManager.GetRefObjChar(ObjectId);
+
+    /// <summary>
+    ///     Froms the packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     /// <returns></returns>
@@ -108,12 +108,12 @@ public class PartyMember
 
         result.MasteryId1 = packet.ReadUInt();
         result.MasteryId2 = packet.ReadUInt();
-            
+
         return result;
     }
 
     /// <summary>
-    /// Bans this player from the party.
+    ///     Bans this player from the party.
     /// </summary>
     public void Banish()
     {

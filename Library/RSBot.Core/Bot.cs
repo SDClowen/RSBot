@@ -1,36 +1,36 @@
-﻿using RSBot.Core.Components;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Plugins;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace RSBot.Core;
 
 public class Bot
 {
     /// <summary>
-    /// Gets the base.
+    ///     Gets or sets a value indicating whether this <see cref="Bot" /> is running.
     /// </summary>
     /// <value>
-    /// The base.
-    /// </value>
-    public IBotbase Botbase { get; private set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether this <see cref="Bot"/> is running.
-    /// </summary>
-    /// <value>
-    ///   <c>true</c> if running; otherwise, <c>false</c>.
+    ///     <c>true</c> if running; otherwise, <c>false</c>.
     /// </value>
     public volatile bool Running;
 
     /// <summary>
-    /// Gets or sets to the <see cref="CancellationToken"/>
+    ///     Gets or sets to the <see cref="CancellationToken" />
     /// </summary>
     public CancellationTokenSource TokenSource;
 
     /// <summary>
-    /// Sets the botbase.
+    ///     Gets the base.
+    /// </summary>
+    /// <value>
+    ///     The base.
+    /// </value>
+    public IBotbase Botbase { get; private set; }
+
+    /// <summary>
+    ///     Sets the botbase.
     /// </summary>
     /// <param name="botBase">The bot base.</param>
     public void SetBotbase(IBotbase botBase)
@@ -42,16 +42,16 @@ public class Bot
     }
 
     /// <summary>
-    /// Starts this instance.
+    ///     Starts this instance.
     /// </summary>
     public void Start()
     {
-        if (Running || Botbase == null) 
+        if (Running || Botbase == null)
             return;
 
         TokenSource = new CancellationTokenSource();
-        
-        Task.Factory.StartNew(async (e) => 
+
+        Task.Factory.StartNew(async e =>
             {
                 Running = true;
 
@@ -71,7 +71,7 @@ public class Bot
     }
 
     /// <summary>
-    /// Stops this instance.
+    ///     Stops this instance.
     /// </summary>
     public void Stop()
     {

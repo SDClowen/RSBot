@@ -8,8 +8,8 @@ namespace RSBot.Core.Extensions;
 public static class BinaryReaderExtensions
 {
     /// <summary>
-    /// Reads the joymax string.
-    /// korean codepage: 949
+    ///     Reads the joymax string.
+    ///     korean codepage: 949
     /// </summary>
     /// <param name="reader">The reader.</param>
     /// <returns></returns>
@@ -20,7 +20,7 @@ public static class BinaryReaderExtensions
     }
 
     /// <summary>
-    /// Reads the vector3.
+    ///     Reads the vector3.
     /// </summary>
     /// <param name="reader">The reader.</param>
     /// <returns></returns>
@@ -30,7 +30,7 @@ public static class BinaryReaderExtensions
     }
 
     /// <summary>
-    /// Reads the vector3.
+    ///     Reads the vector3.
     /// </summary>
     /// <param name="reader">The reader.</param>
     /// <returns></returns>
@@ -40,7 +40,7 @@ public static class BinaryReaderExtensions
     }
 
     /// <summary>
-    /// Reads the rectangle f.
+    ///     Reads the rectangle f.
     /// </summary>
     /// <param name="reader">The reader.</param>
     /// <returns></returns>

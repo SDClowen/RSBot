@@ -5,15 +5,17 @@ namespace RSBot.Statistics.Stats.Calculators.Static;
 
 internal class Deaths : IStatisticCalculator
 {
+    private int _deathsCounter;
     public string Name => "Deaths";
     public string Label => "Deaths";
     public StatisticsGroup Group => StatisticsGroup.Player;
     public string ValueFormat => "{0}";
     public UpdateType UpdateType => UpdateType.Static;
 
-    private int _deathsCounter;
-
-    public object GetValue() => _deathsCounter;
+    public object GetValue()
+    {
+        return _deathsCounter;
+    }
 
     public void Reset()
     {

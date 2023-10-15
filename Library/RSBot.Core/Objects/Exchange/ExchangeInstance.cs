@@ -1,7 +1,7 @@
-﻿using RSBot.Core.Components;
+﻿using System.Collections.Generic;
+using RSBot.Core.Components;
 using RSBot.Core.Network;
 using RSBot.Core.Objects.Spawn;
-using System.Collections.Generic;
 
 namespace RSBot.Core.Objects.Exchange;
 
@@ -14,31 +14,7 @@ public class ExchangeInstance
     #endregion Fields
 
     /// <summary>
-    /// Gets the receiving items.
-    /// </summary>
-    /// <value>
-    /// The receiving items.
-    /// </value>
-    public List<ExchangeItem> ReceivingItems { get; private set; }
-
-    /// <summary>
-    /// Gets the sending items.
-    /// </summary>
-    /// <value>
-    /// The sending items.
-    /// </value>
-    public List<ExchangeItem> SendingItems { get; private set; }
-
-    /// <summary>
-    /// Gets the exchange player.
-    /// </summary>
-    /// <value>
-    /// The exchange player.
-    /// </value>
-    public SpawnedPlayer ExchangePlayer => SpawnManager.GetEntity<SpawnedPlayer>(_exchangePlayerUniqueId);
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ExchangeInstance"/> class.
+    ///     Initializes a new instance of the <see cref="ExchangeInstance" /> class.
     /// </summary>
     /// <param name="exchangePlayerUniqueId">The exchange player unique identifier.</param>
     public ExchangeInstance(uint exchangePlayerUniqueId)
@@ -47,7 +23,31 @@ public class ExchangeInstance
     }
 
     /// <summary>
-    /// Updates the items.
+    ///     Gets the receiving items.
+    /// </summary>
+    /// <value>
+    ///     The receiving items.
+    /// </value>
+    public List<ExchangeItem> ReceivingItems { get; private set; }
+
+    /// <summary>
+    ///     Gets the sending items.
+    /// </summary>
+    /// <value>
+    ///     The sending items.
+    /// </value>
+    public List<ExchangeItem> SendingItems { get; private set; }
+
+    /// <summary>
+    ///     Gets the exchange player.
+    /// </summary>
+    /// <value>
+    ///     The exchange player.
+    /// </value>
+    public SpawnedPlayer ExchangePlayer => SpawnManager.GetEntity<SpawnedPlayer>(_exchangePlayerUniqueId);
+
+    /// <summary>
+    ///     Updates the items.
     /// </summary>
     /// <param name="packet">The packet.</param>
     public void UpdateItems(Packet packet)
@@ -79,7 +79,7 @@ public class ExchangeInstance
     }
 
     /// <summary>
-    /// Completes the exchange request. It updates the inventory item by the temporary stored information.
+    ///     Completes the exchange request. It updates the inventory item by the temporary stored information.
     /// </summary>
     public void Complete()
     {

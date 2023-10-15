@@ -1,14 +1,14 @@
-﻿using RSBot.Core;
+﻿using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Views.Dialog;
 using SDUI;
 using SDUI.Controls;
 using SDUI.Helpers;
-using System;
-using System.Drawing;
-using System.IO;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace RSBot.Views;
 
@@ -17,23 +17,23 @@ public partial class SplashScreen : UIWindow
     private readonly Main _mainForm;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SplashScreen"/> class.
+    ///     Initializes a new instance of the <see cref="SplashScreen" /> class.
     /// </summary>
     public SplashScreen()
     {
         InitializeComponent();
         CheckForIllegalCrossThreadCalls = false;
-        _mainForm = new();
+        _mainForm = new Main();
 
         labelVersion.Text = Program.AssemblyVersion;
         referenceDataLoader.RunWorkerCompleted += ReferenceDataLoaderCompleted;
     }
 
     /// <summary>
-    /// Handles the Load event of the SplashScreen control.
+    ///     Handles the Load event of the SplashScreen control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void SplashScreen_Load(object sender, EventArgs e)
     {
         if (!LoadProfileConfig())
@@ -53,11 +53,14 @@ public partial class SplashScreen : UIWindow
                 ColorScheme.BackColor = Main.LightThemeColor;
         }
         else
+        {
             ColorScheme.BackColor = Color.FromArgb(GlobalConfig.Get("SDUI.Color", Color.White.ToArgb()));
+        }
 
         LanguageManager.Translate(_mainForm, Kernel.Language);
 
-        if (!GlobalConfig.Exists("RSBot.SilkroadDirectory") || !File.Exists(GlobalConfig.Get<string>("RSBot.SilkroadDirectory") + "\\media.pk2"))
+        if (!GlobalConfig.Exists("RSBot.SilkroadDirectory") ||
+            !File.Exists(GlobalConfig.Get<string>("RSBot.SilkroadDirectory") + "\\media.pk2"))
         {
             var dialog = new OpenFileDialog
             {
@@ -89,9 +92,7 @@ public partial class SplashScreen : UIWindow
                 if (clientTypeDialog.ShowDialog() == DialogResult.OK)
                 {
                     if (Enum.TryParse<GameClientType>(clientTypeDialog.Value.ToString(), out var clientType))
-                    {
                         GlobalConfig.Set("RSBot.Game.ClientType", clientType);
-                    }
                 }
                 else
                 {
@@ -112,11 +113,14 @@ public partial class SplashScreen : UIWindow
     }
 
     /// <summary>
-    /// Handles the RunWorkerCompleted event of the Initializer control.
+    ///     Handles the RunWorkerCompleted event of the Initializer control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.ComponentModel.RunWorkerCompletedEventArgs"/> instance containing the event data.</param>
-    private void ReferenceDataLoaderCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+    /// <param name="e">
+    ///     The <see cref="System.ComponentModel.RunWorkerCompletedEventArgs" /> instance containing the event
+    ///     data.
+    /// </param>
+    private void ReferenceDataLoaderCompleted(object sender, RunWorkerCompletedEventArgs e)
     {
         _mainForm.Show();
         _mainForm.RefreshTheme(false);
@@ -125,7 +129,7 @@ public partial class SplashScreen : UIWindow
     }
 
     /// <summary>
-    /// Loads the profile configuration.
+    ///     Loads the profile configuration.
     /// </summary>
     private bool LoadProfileConfig()
     {
@@ -159,7 +163,7 @@ public partial class SplashScreen : UIWindow
     }
 
     /// <summary>
-    /// Initializes the bot.
+    ///     Initializes the bot.
     /// </summary>
     private void InitializeBot()
     {
@@ -170,13 +174,15 @@ public partial class SplashScreen : UIWindow
         //---- Load Plugins ----
         if (!Kernel.PluginManager.LoadAssemblies())
         {
-            MessageBox.Show(@"Failed to load plugins. Process canceled!", @"Initialize Application - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(@"Failed to load plugins. Process canceled!", @"Initialize Application - Error",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
         }
 
         //---- Load Botbases ----
         if (!Kernel.BotbaseManager.LoadAssemblies())
-            MessageBox.Show(@"Failed to load botbases. Process canceled!", @"Initialize Application - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(@"Failed to load botbases. Process canceled!", @"Initialize Application - Error",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
 
         CommandManager.Initialize();
 
@@ -184,17 +190,14 @@ public partial class SplashScreen : UIWindow
     }
 
     /// <summary>
-    /// Initializes the map.
+    ///     Initializes the map.
     /// </summary>
     private void InitializeMap()
     {
         //---- Load Map ----
         var mapFile = Path.Combine(Kernel.BasePath, "Data", "Game", "map.rsc");
 
-        if (!CollisionManager.Enabled)
-        {
-            Log.Warn("[Collision] Collision detection has been deactivated by the user!");
-        }
+        if (!CollisionManager.Enabled) Log.Warn("[Collision] Collision detection has been deactivated by the user!");
 
         if (!File.Exists(mapFile))
         {
@@ -207,18 +210,19 @@ public partial class SplashScreen : UIWindow
     }
 
     /// <summary>
-    /// Handles the DoWork event of the referenceDataLoader control.
+    ///     Handles the DoWork event of the referenceDataLoader control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.ComponentModel.DoWorkEventArgs"/> instance containing the event data.</param>
-    private void referenceDataLoader_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+    /// <param name="e">The <see cref="System.ComponentModel.DoWorkEventArgs" /> instance containing the event data.</param>
+    private void referenceDataLoader_DoWork(object sender, DoWorkEventArgs e)
     {
         if (!Game.InitializeArchiveFiles())
         {
-            MessageBox.Show(@"Failed to load game data. Boot process canceled!", @"Initialize Application - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(@"Failed to load game data. Boot process canceled!", @"Initialize Application - Error",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
         }
 
-        Game.ReferenceManager.Load(GlobalConfig.Get<int>("RSBot.TranslationIndex", 9));
+        Game.ReferenceManager.Load(GlobalConfig.Get("RSBot.TranslationIndex", 9));
     }
 }

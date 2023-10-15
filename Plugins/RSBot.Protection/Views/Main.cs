@@ -1,25 +1,20 @@
-﻿using RSBot.Core;
-using RSBot.Core.Event;
-using RSBot.Core.Objects.Skill;
-using System;
+﻿using System;
+using System.ComponentModel;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using RSBot.Core;
+using RSBot.Core.Event;
+using RSBot.Core.Objects.Skill;
 using RSBot.Protection.Components.Player;
+using SDUI.Controls;
+using CheckBox = SDUI.Controls.CheckBox;
 
 namespace RSBot.Protection.Views;
 
-[System.ComponentModel.ToolboxItem(false)]
+[ToolboxItem(false)]
 public partial class Main : UserControl
 {
-    #region Fields
-
-    private bool _settingsLoaded;
-    private bool _skillSettingsLoaded;
-    private bool _statIncreaseRunning;
-    #endregion Fields
-
     public Main()
     {
         InitializeComponent();
@@ -27,7 +22,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     private void SubscribeEvents()
     {
@@ -41,71 +36,71 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Loads the settings.
+    ///     Loads the settings.
     /// </summary>
     private void LoadSettings()
     {
         const string key = "RSBot.Protection.";
 
-        foreach (var checkbox in groupHPMP.Controls.OfType<SDUI.Controls.CheckBox>())
+        foreach (var checkbox in groupHPMP.Controls.OfType<CheckBox>())
             checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var num in groupHPMP.Controls.OfType<SDUI.Controls.NumUpDown>())
+        foreach (var num in groupHPMP.Controls.OfType<NumUpDown>())
             num.Value = PlayerConfig.Get(key + num.Name, num.Value);
 
-        foreach (var checkbox in groupBadStatus.Controls.OfType<SDUI.Controls.CheckBox>())
+        foreach (var checkbox in groupBadStatus.Controls.OfType<CheckBox>())
             checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var checkbox in groupPet.Controls.OfType<SDUI.Controls.CheckBox>())
+        foreach (var checkbox in groupPet.Controls.OfType<CheckBox>())
             checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var num in groupPet.Controls.OfType<SDUI.Controls.NumUpDown>())
+        foreach (var num in groupPet.Controls.OfType<NumUpDown>())
             num.Value = PlayerConfig.Get(key + num.Name, num.Value);
 
-        foreach (var checkbox in groupBackTown.Controls.OfType<SDUI.Controls.CheckBox>())
+        foreach (var checkbox in groupBackTown.Controls.OfType<CheckBox>())
             checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var num in groupBackTown.Controls.OfType<SDUI.Controls.NumUpDown>())
+        foreach (var num in groupBackTown.Controls.OfType<NumUpDown>())
             num.Value = PlayerConfig.Get(key + num.Name, num.Value);
 
-        foreach (var checkbox in groupStatPoints.Controls.OfType<SDUI.Controls.CheckBox>())
+        foreach (var checkbox in groupStatPoints.Controls.OfType<CheckBox>())
             checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var num in groupStatPoints.Controls.OfType<SDUI.Controls.NumUpDown>())
+        foreach (var num in groupStatPoints.Controls.OfType<NumUpDown>())
             num.Value = PlayerConfig.Get(key + num.Name, num.Value);
     }
 
     /// <summary>
-    /// Saves the settings.
+    ///     Saves the settings.
     /// </summary>
     private void ApplySettings()
     {
         const string key = "RSBot.Protection.";
-        foreach (var checkbox in groupHPMP.Controls.OfType<SDUI.Controls.CheckBox>())
+        foreach (var checkbox in groupHPMP.Controls.OfType<CheckBox>())
             PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var num in groupHPMP.Controls.OfType<SDUI.Controls.NumUpDown>())
+        foreach (var num in groupHPMP.Controls.OfType<NumUpDown>())
             PlayerConfig.Set(key + num.Name, num.Value);
 
-        foreach (var checkbox in groupBadStatus.Controls.OfType<SDUI.Controls.CheckBox>())
+        foreach (var checkbox in groupBadStatus.Controls.OfType<CheckBox>())
             PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var checkbox in groupPet.Controls.OfType<SDUI.Controls.CheckBox>())
+        foreach (var checkbox in groupPet.Controls.OfType<CheckBox>())
             PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var num in groupPet.Controls.OfType<SDUI.Controls.NumUpDown>())
+        foreach (var num in groupPet.Controls.OfType<NumUpDown>())
             PlayerConfig.Set(key + num.Name, num.Value);
 
-        foreach (var checkbox in groupBackTown.Controls.OfType<SDUI.Controls.CheckBox>())
+        foreach (var checkbox in groupBackTown.Controls.OfType<CheckBox>())
             PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var num in groupBackTown.Controls.OfType<SDUI.Controls.NumUpDown>())
+        foreach (var num in groupBackTown.Controls.OfType<NumUpDown>())
             PlayerConfig.Set(key + num.Name, num.Value);
 
-        foreach (var checkbox in groupStatPoints.Controls.OfType<SDUI.Controls.CheckBox>())
+        foreach (var checkbox in groupStatPoints.Controls.OfType<CheckBox>())
             PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var num in groupStatPoints.Controls.OfType<SDUI.Controls.NumUpDown>())
+        foreach (var num in groupStatPoints.Controls.OfType<NumUpDown>())
             PlayerConfig.Set(key + num.Name, num.Value);
 
         SkillInfo skill = null;
@@ -123,7 +118,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Refreshes the skills.
+    ///     Refreshes the skills.
     /// </summary>
     private void RefreshSkills()
     {
@@ -167,10 +162,10 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the settings control.
+    ///     Handles the CheckedChanged event of the settings control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void settings_CheckedChanged(object sender, EventArgs e)
     {
         if (_settingsLoaded)
@@ -178,10 +173,10 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the ValueChanged event of the numSettings control.
+    ///     Handles the ValueChanged event of the numSettings control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void numSettings_ValueChanged(object sender, EventArgs e)
     {
         if (_settingsLoaded)
@@ -189,10 +184,10 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the SelectedIndexChanged event of the comboSkill control.
+    ///     Handles the SelectedIndexChanged event of the comboSkill control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void comboSkill_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (_skillSettingsLoaded)
@@ -200,7 +195,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Call after skill learned
+    ///     Call after skill learned
     /// </summary>
     /// <param name="skill">The learned skill.</param>
     private void OnSkillLearned(SkillInfo skill)
@@ -209,7 +204,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Call after skill learned
+    ///     Call after skill learned
     /// </summary>
     /// <param name="skill">The learned skill.</param>
     private void OnSkillUpgraded(SkillInfo oldSkill, SkillInfo newSkill)
@@ -225,7 +220,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Re-calculates the max points of the Str numeric
+    ///     Re-calculates the max points of the Str numeric
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
@@ -237,7 +232,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Re-calculates the max points of the Int numeric
+    ///     Re-calculates the max points of the Int numeric
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
@@ -294,7 +289,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Occurs before Main form is displayed.
+    ///     Occurs before Main form is displayed.
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
@@ -304,4 +299,12 @@ public partial class Main : UserControl
         LoadSettings();
         _settingsLoaded = true;
     }
+
+    #region Fields
+
+    private bool _settingsLoaded;
+    private bool _skillSettingsLoaded;
+    private bool _statIncreaseRunning;
+
+    #endregion Fields
 }

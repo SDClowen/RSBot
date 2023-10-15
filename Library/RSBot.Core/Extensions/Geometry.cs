@@ -1,7 +1,7 @@
-﻿using RSBot.Core.Objects;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Numerics;
+using RSBot.Core.Objects;
 
 namespace RSBot.Core.Extensions;
 
@@ -52,10 +52,7 @@ public static class Geometry
 
     public static bool Close(float a, float b, float eps)
     {
-        if (Math.Abs(eps) < float.Epsilon)
-        {
-            eps = (float)1e-9;
-        }
+        if (Math.Abs(eps) < float.Epsilon) eps = (float)1e-9;
         return Math.Abs(a - b) <= eps;
     }
 
@@ -63,36 +60,21 @@ public static class Geometry
     {
         if (Close(v1.X, 0, 0))
         {
-            if (v1.Y > 0)
-            {
-                return 90;
-            }
+            if (v1.Y > 0) return 90;
             return v1.Y < 0 ? 270 : 0;
         }
 
-        var theta = RadianToDegree(Math.Atan((v1.Y) / v1.X));
-        if (v1.X < 0)
-        {
-            theta = theta + 180;
-        }
-        if (theta < 0)
-        {
-            theta = theta + 360;
-        }
+        var theta = RadianToDegree(Math.Atan(v1.Y / v1.X));
+        if (v1.X < 0) theta = theta + 180;
+        if (theta < 0) theta = theta + 360;
         return theta;
     }
 
     public static float AngleBetween(this Vector2 p1, Vector2 p2)
     {
         var theta = p1.Polar() - p2.Polar();
-        if (theta < 0)
-        {
-            theta = theta + 360;
-        }
-        if (theta > 180)
-        {
-            theta = 360 - theta;
-        }
+        if (theta < 0) theta = theta + 360;
+        if (theta > 180) theta = 360 - theta;
         return theta;
     }
 
@@ -124,7 +106,7 @@ public static class Geometry
     }
 
     /// <summary>
-    /// Rounds up.
+    ///     Rounds up.
     /// </summary>
     /// <param name="point">The point.</param>
     /// <param name="n">The n.</param>
@@ -138,7 +120,7 @@ public static class Geometry
     }
 
     /// <summary>
-    /// To the point.
+    ///     To the point.
     /// </summary>
     /// <param name="vector">The vector.</param>
     /// <returns></returns>
@@ -152,7 +134,7 @@ public static class Geometry
     }
 
     /// <summary>
-    /// Gets the point at.
+    ///     Gets the point at.
     /// </summary>
     /// <param name="a">a.</param>
     /// <param name="b">The b.</param>
@@ -166,7 +148,7 @@ public static class Geometry
     }
 
     /// <summary>
-    /// To the vector2.
+    ///     To the vector2.
     /// </summary>
     /// <param name="position">The position.</param>
     /// <returns></returns>

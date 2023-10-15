@@ -1,5 +1,5 @@
-﻿using RSBot.Core.Event;
-using System;
+﻿using System;
+using RSBot.Core.Event;
 
 namespace RSBot.Core.Client;
 
@@ -14,7 +14,7 @@ public class GatewayInfo
     public ushort Port { get; set; }
 
     /// <summary>
-    /// Loads this instance.
+    ///     Loads this instance.
     /// </summary>
     /// <returns></returns>
     internal static GatewayInfo Load()

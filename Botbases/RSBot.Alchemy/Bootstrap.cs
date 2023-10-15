@@ -1,15 +1,18 @@
-﻿using RSBot.Alchemy.Subscriber;
+﻿using System.Windows.Forms;
+using RSBot.Alchemy.Bot;
+using RSBot.Alchemy.Subscriber;
 using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Objects;
 using RSBot.Core.Plugins;
-using System.Windows.Forms;
 
 namespace RSBot.Alchemy;
 
 public class Bootstrap : IBotbase
 {
-    private static string _name = "RSBot.Alchemy";
+    private static readonly string _name = "RSBot.Alchemy";
+
+    public static bool IsActive => Kernel.Bot.Running && Kernel.Bot.Botbase.Name == _name;
 
     public string Name => _name;
 
@@ -19,17 +22,7 @@ public class Bootstrap : IBotbase
 
     public Area Area => new();
 
-    public static bool IsActive => Kernel.Bot.Running && Kernel.Bot.Botbase.Name == _name;
-
     public Control View => Globals.View;
-
-    public void Initialize()
-    {
-        AlchemyEventsSubscriber.Subscribe();
-        Globals.Botbase = new();
-
-        Log.AppendFormat(LogLevel.Notify, "[Alchemy] Initialized botbase");
-    }
 
     public void Start()
     {
@@ -62,5 +55,13 @@ public class Bootstrap : IBotbase
     public void Translate()
     {
         LanguageManager.Translate(View, Kernel.Language);
+    }
+
+    public void Initialize()
+    {
+        AlchemyEventsSubscriber.Subscribe();
+        Globals.Botbase = new Botbase();
+
+        Log.AppendFormat(LogLevel.Notify, "[Alchemy] Initialized botbase");
     }
 }

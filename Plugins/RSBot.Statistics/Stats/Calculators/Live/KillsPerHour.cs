@@ -1,31 +1,31 @@
-﻿using RSBot.Core;
+﻿using System.Linq;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
-using System.Linq;
 
 namespace RSBot.Statistics.Stats.Calculators.Live;
 
 internal class KillsPerHour : IStatisticCalculator
 {
     /// <summary>
-    /// The initial value
-    /// </summary>
-    private int _lastTickValue;
-
-    /// <summary>
-    /// The values
-    /// </summary>
-    private int[] _values;
-
-    /// <summary>
-    /// The current tick index
+    ///     The current tick index
     /// </summary>
     private int _currentTickIndex = -1;
 
     /// <summary>
-    /// The kill count
+    ///     The kill count
     /// </summary>
     private int _killCount;
+
+    /// <summary>
+    ///     The initial value
+    /// </summary>
+    private int _lastTickValue;
+
+    /// <summary>
+    ///     The values
+    /// </summary>
+    private int[] _values;
 
     /// <inheritdoc />
     public string Name => "KillsPerHour";
@@ -55,7 +55,7 @@ internal class KillsPerHour : IStatisticCalculator
         _lastTickValue = _killCount;
 
         var sum = _values.Sum(val => val);
-        var result = (double)sum / (double)_values.Length * 3600;
+        var result = sum / (double)_values.Length * 3600;
 
         return result;
     }

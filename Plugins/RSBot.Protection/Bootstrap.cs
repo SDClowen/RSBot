@@ -1,10 +1,10 @@
-﻿using RSBot.Core;
+﻿using System.Windows.Forms;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Plugins;
 using RSBot.Protection.Components.Pet;
 using RSBot.Protection.Components.Player;
 using RSBot.Protection.Components.Town;
-using System.Windows.Forms;
 
 namespace RSBot.Protection;
 
@@ -56,6 +56,8 @@ public class Bootstrap : IPlugin
     public Control View => Views.View.Instance;
 
     /// <inheritdoc />
-    public void Translate() =>
+    public void Translate()
+    {
         LanguageManager.Translate(View, Kernel.Language);
+    }
 }

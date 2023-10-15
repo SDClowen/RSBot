@@ -10,7 +10,7 @@ internal class Chat
     internal static bool IgnoreChatResponsePacket;
 
     /// <summary>
-    /// Sends the chat packet.
+    ///     Sends the chat packet.
     /// </summary>
     /// <param name="type">The type.</param>
     /// <param name="message">The message.</param>

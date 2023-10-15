@@ -5,18 +5,27 @@ namespace RSBot.Core.Objects.Spawn;
 public sealed class SpawnedMonster : SpawnedNpc
 {
     /// <summary>
-    /// Gets or sets the rarity.
+    ///     <inheritdoc />
+    /// </summary>
+    /// <param name="objId">The ref obj id</param>
+    public SpawnedMonster(uint objId) :
+        base(objId)
+    {
+    }
+
+    /// <summary>
+    ///     Gets or sets the rarity.
     /// </summary>
     /// <value>
-    /// The rarity.
+    ///     The rarity.
     /// </value>
     public MonsterRarity Rarity { get; set; }
 
     /// <summary>
-    /// Gets the maximum health.
+    ///     Gets the maximum health.
     /// </summary>
     /// <value>
-    /// The maximum health.
+    ///     The maximum health.
     /// </value>
     public int MaxHealth
     {
@@ -53,14 +62,7 @@ public sealed class SpawnedMonster : SpawnedNpc
     }
 
     /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="objId">The ref obj id</param>
-    public SpawnedMonster(uint objId) :
-        base(objId) { }
-
-    /// <summary>
-    /// Deserialize from packet
+    ///     Deserialize from packet
     /// </summary>
     /// <param name="packet">The packet</param>
     internal override void Deserialize(Packet packet)
@@ -70,7 +72,7 @@ public sealed class SpawnedMonster : SpawnedNpc
         base.Deserialize(packet);
 
         Rarity = (MonsterRarity)packet.ReadByte();
-            
+
         if (Record.IsEventMob)
             Rarity = MonsterRarity.Event;
 

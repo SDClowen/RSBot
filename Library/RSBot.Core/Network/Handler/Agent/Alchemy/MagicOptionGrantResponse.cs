@@ -1,5 +1,4 @@
-﻿using RSBot.Core.Components;
-using RSBot.Core.Event;
+﻿using RSBot.Core.Event;
 
 namespace RSBot.Core.Network.Handler.Agent.Alchemy;
 

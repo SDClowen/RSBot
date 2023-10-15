@@ -1,6 +1,6 @@
-﻿using RSBot.Core;
+﻿using System.ComponentModel;
+using RSBot.Core;
 using RSBot.Core.Event;
-using System.ComponentModel;
 
 namespace RSBot.Views.Controls.Cos;
 
@@ -8,7 +8,7 @@ namespace RSBot.Views.Controls.Cos;
 public partial class Transport : CosControlBase
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="Transport"/> class.
+    ///     Initializes a new instance of the <see cref="Transport" /> class.
     /// </summary>
     public Transport()
     {
@@ -43,7 +43,7 @@ public partial class Transport : CosControlBase
     }
 
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     private void SubscribeEvents()
     {
@@ -51,7 +51,7 @@ public partial class Transport : CosControlBase
     }
 
     /// <summary>
-    /// Handles the update pet hp or mp
+    ///     Handles the update pet hp or mp
     /// </summary>
     private void OnUpdateTransportHealth()
     {

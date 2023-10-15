@@ -1,6 +1,6 @@
-﻿using RSBot.Core;
+﻿using System.Collections.Generic;
+using RSBot.Core;
 using RSBot.Core.Components.Scripting;
-using System.Collections.Generic;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 
@@ -14,13 +14,13 @@ internal class TrainingAreaScriptCommand : IScriptCommand
 
     public bool IsBusy { get; private set; }
 
-    public Dictionary<string, string> Arguments => new Dictionary<string, string>
+    public Dictionary<string, string> Arguments => new()
     {
-        {"Region", "The Region"},
-        {"XOffset", "The X"},
-        {"YOffset", "The Y"},
-        {"ZOffset", "The Z"},
-        {"Radius", "The radius"}
+        { "Region", "The Region" },
+        { "XOffset", "The X" },
+        { "YOffset", "The Y" },
+        { "ZOffset", "The Z" },
+        { "Radius", "The radius" }
     };
 
     #endregion Properties
@@ -28,11 +28,11 @@ internal class TrainingAreaScriptCommand : IScriptCommand
     #region Methods
 
     /// <summary>
-    /// Executes this instance.
+    ///     Executes this instance.
     /// </summary>
     /// <param name="arguments"></param>
     /// <returns>
-    /// A value indicating if the command has been executed successfully.
+    ///     A value indicating if the command has been executed successfully.
     /// </returns>
     public bool Execute(string[] arguments = null)
     {
@@ -76,5 +76,6 @@ internal class TrainingAreaScriptCommand : IScriptCommand
     {
         IsBusy = false;
     }
+
     #endregion Methods
 }

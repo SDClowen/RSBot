@@ -1,13 +1,13 @@
-﻿using RSBot.Core;
-using System.Windows.Forms;
-using System;
+﻿using System;
 using System.Text;
-using RSBot.Core.Extensions;
+using System.Windows.Forms;
+using RSBot.Core;
 using RSBot.Core.Components;
+using SDUI.Controls;
 
 namespace RSBot.Views;
 
-public partial class ConfigDialog : SDUI.Controls.UIWindowBase
+public partial class ConfigDialog : UIWindowBase
 {
     public ConfigDialog()
     {
@@ -43,7 +43,6 @@ public partial class ConfigDialog : SDUI.Controls.UIWindowBase
         }
         catch
         {
-
         }
     }
 

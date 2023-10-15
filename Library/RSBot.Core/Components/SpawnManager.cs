@@ -1,26 +1,26 @@
-﻿using RSBot.Core.Event;
-using RSBot.Core.Network;
-using RSBot.Core.Objects.Spawn;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using RSBot.Core.Event;
+using RSBot.Core.Network;
+using RSBot.Core.Objects.Spawn;
 
 namespace RSBot.Core.Components;
 
 public static class SpawnManager
 {
     /// <summary>
-    /// The locking object
+    ///     The locking object
     /// </summary>
-    private static object _lock = new();
+    private static readonly object _lock = new();
 
     /// <summary>
-    /// The game spawned entities on the area
+    ///     The game spawned entities on the area
     /// </summary>
     private static List<SpawnedEntity> _entities = new(255);
 
     /// <summary>
-    /// Get entity by unique id with specified generic type.
+    ///     Get entity by unique id with specified generic type.
     /// </summary>
     /// <param name="uniqueId">The unique identifier.</param>
     /// <returns></returns>
@@ -31,7 +31,7 @@ public static class SpawnManager
     }
 
     /// <summary>
-    /// Get entity by unique id with specified generic type.
+    ///     Get entity by unique id with specified generic type.
     /// </summary>
     /// <param name="uniqueId">The unique identifier.</param>
     /// <returns><c>true</c> is succesfully found; otherwise <c>false</c></returns>
@@ -42,7 +42,7 @@ public static class SpawnManager
     }
 
     /// <summary>
-    /// Try get an entity by the specified unique identifier.
+    ///     Try get an entity by the specified unique identifier.
     /// </summary>
     /// <param name="uniqueId">The searching uniqueId of the entity</param>
     /// <param name="removedEntity">Returning founded entity</param>
@@ -55,7 +55,7 @@ public static class SpawnManager
     }
 
     /// <summary>
-    /// Try get an entity by the specified unique identifier.
+    ///     Try get an entity by the specified unique identifier.
     /// </summary>
     /// <param name="uniqueId">The searching uniqueId of the entity</param>
     /// <param name="removedEntity">Returning founded entity</param>
@@ -81,7 +81,7 @@ public static class SpawnManager
     }
 
     /// <summary>
-    /// Try get entity by unique id with specified generic type.
+    ///     Try get entity by unique id with specified generic type.
     /// </summary>
     /// <param name="uniqueId">The unique identifier.</param>
     /// <returns><c>true</c> is succesfully found; otherwise <c>false</c></returns>
@@ -93,7 +93,7 @@ public static class SpawnManager
     }
 
     /// <summary>
-    /// Try get entities by conditions with specified generic type.
+    ///     Try get entities by conditions with specified generic type.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="entities">The entities</param>
@@ -111,7 +111,7 @@ public static class SpawnManager
     }
 
     /// <summary>
-    /// Try get entities by conditions with specified generic type.
+    ///     Try get entities by conditions with specified generic type.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="entities">The entities</param>
@@ -129,7 +129,7 @@ public static class SpawnManager
     }
 
     /// <summary>
-    /// Try get entities by conditions with specified generic type.
+    ///     Try get entities by conditions with specified generic type.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="entities">The entities</param>
@@ -145,7 +145,7 @@ public static class SpawnManager
     }
 
     /// <summary>
-    /// Try get entities by conditions with specified generic type.
+    ///     Try get entities by conditions with specified generic type.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="entities">The entities</param>
@@ -161,7 +161,7 @@ public static class SpawnManager
     }
 
     /// <summary>
-    /// Try remove an entity by the specified unique identifier.
+    ///     Try remove an entity by the specified unique identifier.
     /// </summary>
     /// <param name="uniqueId">The removing uniqueId of the entity</param>
     /// <param name="removedEntity">Returning removed entity object</param>
@@ -184,7 +184,7 @@ public static class SpawnManager
 
 
     /// <summary>
-    /// Clears this instance.
+    ///     Clears this instance.
     /// </summary>
     public static int Clear<T>()
     {
@@ -195,7 +195,7 @@ public static class SpawnManager
     }
 
     /// <summary>
-    /// Parse the incoming spawn packet
+    ///     Parse the incoming spawn packet
     /// </summary>
     /// <param name="packet">The packet</param>
     public static void Parse(Packet packet, bool isGroup = false)
@@ -309,7 +309,9 @@ public static class SpawnManager
             if (!isGroup)
             {
                 if (obj.TypeID1 == 1 || obj.TypeID1 == 4)
+                {
                     packet.ReadByte(); //1 = Normal, 3 = Spawning, 4 = Running
+                }
                 else if (obj.TypeID1 == 3)
                 {
                     packet.ReadByte(); //DropSource
@@ -320,7 +322,7 @@ public static class SpawnManager
     }
 
     /// <summary>
-    /// Update the instance
+    ///     Update the instance
     /// </summary>
     public static void Update(int delta)
     {
@@ -332,7 +334,7 @@ public static class SpawnManager
     }
 
     /// <summary>
-    /// Clear this instance.
+    ///     Clear this instance.
     /// </summary>
     public static void Clear()
     {

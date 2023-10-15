@@ -7,7 +7,7 @@ namespace RSBot.Protection.Components.Player;
 public class UniversalPillHandler
 {
     /// <summary>
-    /// Initialize the <see cref="UniversalPillHandler"/>
+    ///     Initialize the <see cref="UniversalPillHandler" />
     /// </summary>
     public static void Initialize()
     {
@@ -15,7 +15,7 @@ public class UniversalPillHandler
     }
 
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     private static void SubscribeEvents()
     {
@@ -23,11 +23,11 @@ public class UniversalPillHandler
     }
 
     /// <summary>
-    /// Cores the on player bad effect.
+    ///     Cores the on player bad effect.
     /// </summary>
     private static void OnPlayerBadEffect()
     {
-        var useUniversalPill = PlayerConfig.Get<bool>("RSBot.Protection.checkUseUniversalPills", true);
+        var useUniversalPill = PlayerConfig.Get("RSBot.Protection.checkUseUniversalPills", true);
         if (!useUniversalPill)
             return;
 

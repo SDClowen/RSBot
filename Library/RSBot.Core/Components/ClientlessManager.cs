@@ -1,13 +1,13 @@
-﻿using RSBot.Core.Event;
+﻿using System.Threading.Tasks;
+using RSBot.Core.Event;
 using RSBot.Core.Network;
-using System.Threading.Tasks;
 
 namespace RSBot.Core.Components;
 
 public class ClientlessManager
 {
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     internal static void Initialize()
     {
@@ -16,7 +16,7 @@ public class ClientlessManager
     }
 
     /// <summary>
-    /// Kills the client.
+    ///     Kills the client.
     /// </summary>
     public static void GoClientless()
     {
@@ -29,7 +29,7 @@ public class ClientlessManager
     }
 
     /// <summary>
-    /// Requests the server list.
+    ///     Requests the server list.
     /// </summary>
     public static void RequestServerList()
     {
@@ -40,7 +40,7 @@ public class ClientlessManager
     }
 
     /// <summary>
-    /// Called when [agent server disconnected].
+    ///     Called when [agent server disconnected].
     /// </summary>
     private static async void OnAgentServerDisconnected()
     {
@@ -54,7 +54,7 @@ public class ClientlessManager
     }
 
     /// <summary>
-    /// Called when [agent server connected].
+    ///     Called when [agent server connected].
     /// </summary>
     private static void OnAgentServerConnected()
     {
@@ -65,9 +65,9 @@ public class ClientlessManager
     }
 
     /// <summary>
-    /// Pings the server.
+    ///     Pings the server.
     /// </summary>
-    private async static void KeepAlivePacketWorker()
+    private static async void KeepAlivePacketWorker()
     {
         while (Kernel.Proxy.IsConnectedToAgentserver)
         {

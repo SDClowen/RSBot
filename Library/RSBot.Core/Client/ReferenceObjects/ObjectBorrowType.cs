@@ -17,7 +17,7 @@ public enum ObjectBorrowType : byte
     Storage = 128,
     GuildStorage = 64,
     PetInventory = 32,
-    Exchange = (Bit4 & Bit3 & Bit2 & Bit1 & Bit0),
+    Exchange = Bit4 & Bit3 & Bit2 & Bit1 & Bit0,
     Bit4 = 16,
     Bit3 = 8,
     Bit2 = 4,

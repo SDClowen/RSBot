@@ -1,5 +1,4 @@
-﻿using RSBot.Core;
-using RSBot.Core.Network;
+﻿using RSBot.Core.Network;
 using RSBot.General.Components;
 
 namespace RSBot.General.PacketHandler;

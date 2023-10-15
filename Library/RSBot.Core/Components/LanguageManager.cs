@@ -12,30 +12,29 @@ using LangDict = Dictionary<string, string>;
 
 public class LanguageManager
 {
-    private static string _path = Path.Combine(Kernel.BasePath, "Data", "Languages");
+    private static readonly string _path = Path.Combine(Kernel.BasePath, "Data", "Languages");
 
     /// <summary>
-    /// Parsed language values
+    ///     Parsed language values
     /// </summary>
-    private static Dictionary<string, LangDict> _values = new Dictionary<string, LangDict>();
+    private static readonly Dictionary<string, LangDict> _values = new();
 
     /// <summary>
-    /// Get all menu items
+    ///     Get all menu items
     /// </summary>
     /// <param name="menuItem">The toolstrip menu item</param>
     /// <returns></returns>
     private static List<ToolStripMenuItem> GetAllMenuItems(ToolStripMenuItem menuItem)
     {
-        var collection = new List<ToolStripMenuItem>() { menuItem };
+        var collection = new List<ToolStripMenuItem> { menuItem };
         foreach (ToolStripMenuItem item in menuItem.DropDownItems)
             collection.AddRange(GetAllMenuItems(item));
 
         return collection;
-
     }
 
     /// <summary>
-    /// Parse the language file
+    ///     Parse the language file
     /// </summary>
     /// <param name="file">The language file</param>
     /// <returns>Parsed language strings</returns>
@@ -76,7 +75,7 @@ public class LanguageManager
                 if (skipDoubleQuotes)
                     continue;
 
-                value = builder.ToString();/*.Trim()*/
+                value = builder.ToString(); /*.Trim()*/
                 builder.Clear();
 
                 languages[key] = value;
@@ -98,7 +97,7 @@ public class LanguageManager
     }
 
     /// <summary>
-    /// Compare between controls ang languages strings if there have any missing complete and write to language file
+    ///     Compare between controls ang languages strings if there have any missing complete and write to language file
     /// </summary>
     /// <param name="file">The language file path</param>
     /// <param name="controls">The controls</param>
@@ -113,7 +112,7 @@ public class LanguageManager
             if (control is ToolStrip toolStrip)
             {
                 var menuItems = new List<ToolStripItem>();
-                foreach (ToolStripMenuItem menuItem in toolStrip.Items.OfType<ToolStripMenuItem>())
+                foreach (var menuItem in toolStrip.Items.OfType<ToolStripMenuItem>())
                     menuItems.AddRange(GetAllMenuItems(menuItem));
 
                 foreach (var item in menuItems)
@@ -163,7 +162,7 @@ public class LanguageManager
     }
 
     /// <summary>
-    /// Get language value
+    ///     Get language value
     /// </summary>
     /// <param name="key">The key</param>
     public static string GetLang(string key)
@@ -171,7 +170,7 @@ public class LanguageManager
         var trace = new StackTrace();
 
         var parent = string.Empty;
-        for (int i = 0; i < trace.FrameCount; i++)
+        for (var i = 0; i < trace.FrameCount; i++)
         {
             parent = Path.GetFileNameWithoutExtension(trace.GetFrame(i).GetMethod().Module.Name);
             if (parent != "RSBot.Core")
@@ -180,12 +179,12 @@ public class LanguageManager
 
         if (_values.ContainsKey(parent) && _values[parent].ContainsKey(key))
             return _values[parent][key];
-            
+
         return string.Empty;
     }
 
     /// <summary>
-    /// Get language value
+    ///     Get language value
     /// </summary>
     /// <param name="key">The key</param>
     public static string GetLang(string key, params object[] args)
@@ -194,7 +193,7 @@ public class LanguageManager
     }
 
     /// <summary>
-    /// Get language value
+    ///     Get language value
     /// </summary>
     /// <param name="key">The key</param>
     /// <param name="default">The default value that will be returned if the translation could not be found</param>
@@ -207,7 +206,7 @@ public class LanguageManager
     }
 
     /// <summary>
-    /// Translate the control
+    ///     Translate the control
     /// </summary>
     /// <param name="view">The control view</param>
     /// <param name="file">The language file path</param>
@@ -240,7 +239,7 @@ public class LanguageManager
 
         TranslateControls(values, view, assembly);
     }
-     
+
     private static void TranslateControls(LangDict values, Control view, string header)
     {
         foreach (Control control in view.Controls)
@@ -255,17 +254,15 @@ public class LanguageManager
                 {
                     var subItems = GetAllMenuItems(toolStripItem);
                     foreach (var subMenuItem in subItems)
-                    {
                         if (values.TryGetValue($"{headerEx}.{subMenuItem.Name}", out translatedText))
-                            if(!string.IsNullOrWhiteSpace(translatedText))
+                            if (!string.IsNullOrWhiteSpace(translatedText))
                                 subMenuItem.Text = translatedText;
-                    }
                 }
 
                 continue;
             }
 
-            if (values.TryGetValue($"{headerEx}.{control.Name}", out translatedText)) 
+            if (values.TryGetValue($"{headerEx}.{control.Name}", out translatedText))
                 if (!string.IsNullOrWhiteSpace(translatedText))
                     control.Text = translatedText;
 

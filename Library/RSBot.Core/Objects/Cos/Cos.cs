@@ -1,112 +1,112 @@
-﻿using RSBot.Core.Components;
-using RSBot.Core.Network;
-using RSBot.Core.Objects.Spawn;
-using System;
+﻿using System;
 using System.Threading;
+using RSBot.Core.Components;
+using RSBot.Core.Network;
 using RSBot.Core.Objects.Inventory;
+using RSBot.Core.Objects.Spawn;
 
 namespace RSBot.Core.Objects.Cos;
 
 public class Cos : SpawnedEntity
 {
     /// <summary>
-    /// Gets or sets the owner unique identifier.
+    ///     Gets or sets the owner unique identifier.
     /// </summary>
     /// <value>
-    /// The owner unique identifier.
+    ///     The owner unique identifier.
     /// </value>
     public uint OwnerUniqueId { get; set; }
 
     /// <summary>
-    /// Gets or sets the name.
+    ///     Gets or sets the name.
     /// </summary>
     /// <value>
-    /// The name.
+    ///     The name.
     /// </value>
     public string Name { get; set; }
 
     /// <summary>
-    /// Gets or sets the level.
+    ///     Gets or sets the level.
     /// </summary>
     /// <value>
-    /// The level.
+    ///     The level.
     /// </value>
     public byte Level { get; set; } = 1;
 
     /// <summary>
-    /// Gets or sets the health.
+    ///     Gets or sets the health.
     /// </summary>
     /// <value>
-    /// The health.
+    ///     The health.
     /// </value>
     public int Health { get; set; }
 
     /// <summary>
-    /// Gets or sets the maximum health.
+    ///     Gets or sets the maximum health.
     /// </summary>
     /// <value>
-    /// The maximum health.
+    ///     The maximum health.
     /// </value>
     public int MaxHealth { get; set; }
 
     /// <summary>
-    /// Gets or sets the settings.
+    ///     Gets or sets the settings.
     /// </summary>
     /// <value>
-    /// The settings.
+    ///     The settings.
     /// </value>
     public int Settings { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether this instance has health.
+    ///     Gets or sets a value indicating whether this instance has health.
     /// </summary>
     /// <value>
-    /// <c>true</c> if this instance has health; otherwise, <c>false</c>.
+    ///     <c>true</c> if this instance has health; otherwise, <c>false</c>.
     /// </value>
     public bool HasHealth => Health > 0;
 
     /// <summary>
-    /// Gets or sets the experience.
+    ///     Gets or sets the experience.
     /// </summary>
     /// <value>
-    /// The experience.
+    ///     The experience.
     /// </value>
     public long Experience { get; set; }
 
     /// <summary>
-    /// Gets the maximum experience.
+    ///     Gets the maximum experience.
     /// </summary>
     /// <value>
-    /// The maximum experience.
+    ///     The maximum experience.
     /// </value>
     public virtual long MaxExperience => Game.ReferenceManager.GetRefLevel(Level).Exp_C;
 
     /// <summary>
-    /// Gets or sets the bad effect.
+    ///     Gets or sets the bad effect.
     /// </summary>
     /// <value>
-    /// The bad effect.
+    ///     The bad effect.
     /// </value>
     public BadEffect BadEffect { get; set; }
 
     /// <summary>
-    /// Gets or sets the AbilityPet's Inventory.
+    ///     Gets or sets the AbilityPet's Inventory.
     /// </summary>
     /// <value>
-    /// The AbilityPet's Inventory.
+    ///     The AbilityPet's Inventory.
     /// </value>
     public InventoryItemCollection Inventory { get; set; }
-        
+
     /// <summary>
-    /// Gets or sets the bionic.
+    ///     Gets or sets the bionic.
     /// </summary>
     /// <value>
-    /// The bionic.
+    ///     The bionic.
     /// </value>
     public SpawnedBionic Bionic => SpawnManager.GetEntity<SpawnedBionic>(UniqueId);
 
     /// <summary>
-    /// Uses the health potion.
+    ///     Uses the health potion.
     /// </summary>
     /// <returns></returns>
     public virtual bool UseHealthPotion()
@@ -121,7 +121,7 @@ public class Cos : SpawnedEntity
     }
 
     /// <summary>
-    /// Uses the bad status potion.
+    ///     Uses the bad status potion.
     /// </summary>
     /// <returns></returns>
     public virtual bool UseBadStatusPotion()
@@ -152,16 +152,16 @@ public class Cos : SpawnedEntity
         packet.WriteByte(0);
         packet.WriteInt(UniqueId);
 
-        var awaitCallback = new AwaitCallback(response => 
+        var awaitCallback = new AwaitCallback(response =>
         {
             var result = response.ReadByte();
-           
-            return result == 1 ? AwaitCallbackResult.Success : AwaitCallbackResult.Fail; 
+
+            return result == 1 ? AwaitCallbackResult.Success : AwaitCallbackResult.Fail;
         }, 0xB0CB);
 
         PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallback);
         awaitCallback.AwaitResponse();
-          
+
 
         return true;
     }
@@ -174,7 +174,8 @@ public class Cos : SpawnedEntity
         var awaitCallback = new AwaitCallback(response =>
         {
             return response.ReadByte() == 1
-                ? AwaitCallbackResult.Success : AwaitCallbackResult.ConditionFailed;
+                ? AwaitCallbackResult.Success
+                : AwaitCallbackResult.ConditionFailed;
         }, 0xB0C6);
 
         PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallback);
@@ -184,7 +185,7 @@ public class Cos : SpawnedEntity
     }
 
     /// <summary>
-    /// Pickups the specified item unique identifier.
+    ///     Pickups the specified item unique identifier.
     /// </summary>
     /// <param name="itemUniqueId">The item unique identifier.</param>
     public virtual bool Pickup(uint itemUniqueId)
@@ -202,7 +203,9 @@ public class Cos : SpawnedEntity
             {
                 response.ReadByte(); //command
 
-                return response.ReadUInt() == UniqueId ? AwaitCallbackResult.Success : AwaitCallbackResult.ConditionFailed;
+                return response.ReadUInt() == UniqueId
+                    ? AwaitCallbackResult.Success
+                    : AwaitCallbackResult.ConditionFailed;
             }
 
             return AwaitCallbackResult.Fail;
@@ -215,7 +218,7 @@ public class Cos : SpawnedEntity
     }
 
     /// <summary>
-    /// Moves this instance.
+    ///     Moves this instance.
     /// </summary>
     public void MoveTo(Position destination, bool sleep = true)
     {
@@ -240,18 +243,19 @@ public class Cos : SpawnedEntity
         }
 
         var awaitCallback = new AwaitCallback(response => response.ReadUInt() == UniqueId
-            ? AwaitCallbackResult.Success : AwaitCallbackResult.ConditionFailed, 0xB021);
+            ? AwaitCallbackResult.Success
+            : AwaitCallbackResult.ConditionFailed, 0xB021);
 
         PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallback);
         awaitCallback.AwaitResponse();
         var distance = Game.Player.Movement.Source.DistanceTo(destination);
         //Wait to finish the step
-        if(sleep)
-            Thread.Sleep(Convert.ToInt32((distance / Game.Player.ActualSpeed) * 10000));
+        if (sleep)
+            Thread.Sleep(Convert.ToInt32(distance / Game.Player.ActualSpeed * 10000));
     }
 
     /// <summary>
-    /// Purchases the item.
+    ///     Purchases the item.
     /// </summary>
     /// <param name="tab">The tab.</param>
     /// <param name="slot">The slot.</param>
@@ -273,7 +277,7 @@ public class Cos : SpawnedEntity
         packet.WriteUShort(amount);
         packet.WriteUInt(npc.UniqueId);
 
-        var awaitResult = new AwaitCallback(packet => 
+        var awaitResult = new AwaitCallback(packet =>
                 packet.ReadByte() == 1 ? AwaitCallbackResult.Success : AwaitCallbackResult.Fail
             , 0xB034);
         PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
@@ -284,7 +288,7 @@ public class Cos : SpawnedEntity
     }
 
     /// <summary>
-    /// Sells the item from pet.
+    ///     Sells the item from pet.
     /// </summary>
     /// <param name="item">The item.</param>
     public bool SellItemToNpc(byte slot)
@@ -304,10 +308,10 @@ public class Cos : SpawnedEntity
         packet.WriteUShort(item.Amount);
         packet.WriteUInt(entity.UniqueId);
 
-        var awaitResult = new AwaitCallback((packet) =>
-        {
-            return packet.ReadByte() == 1 ? AwaitCallbackResult.Success : AwaitCallbackResult.Fail;
-        }, 0xB034);
+        var awaitResult =
+            new AwaitCallback(
+                packet => { return packet.ReadByte() == 1 ? AwaitCallbackResult.Success : AwaitCallbackResult.Fail; },
+                0xB034);
         PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
         awaitResult.AwaitResponse();
 

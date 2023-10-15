@@ -1,7 +1,7 @@
 ﻿namespace RSBot.Core;
 
 /// <summary>
-/// Enumeration of the loglevel used in Log
+///     Enumeration of the loglevel used in Log
 /// </summary>
 public enum LogLevel
 {

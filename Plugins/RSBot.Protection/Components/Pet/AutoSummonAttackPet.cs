@@ -1,4 +1,5 @@
-﻿using RSBot.Core;
+﻿using System;
+using RSBot.Core;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 
@@ -7,7 +8,7 @@ namespace RSBot.Protection.Components.Pet;
 public class AutoSummonAttackPet
 {
     /// <summary>
-    /// Initializes this instance.
+    ///     Initializes this instance.
     /// </summary>
     public static void Initialize()
     {
@@ -15,11 +16,11 @@ public class AutoSummonAttackPet
     }
 
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     private static void SubscribeEvents()
     {
-        EventManager.SubscribeEvent("OnUpdateEntityBattleState", new System.Action<uint>(OnEntityBattleStateChanged));
+        EventManager.SubscribeEvent("OnUpdateEntityBattleState", new Action<uint>(OnEntityBattleStateChanged));
         EventManager.SubscribeEvent("OnStartBot", OnStartBot);
     }
 

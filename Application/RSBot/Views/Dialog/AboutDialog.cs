@@ -1,10 +1,9 @@
-﻿using SDUI.Controls;
-using System;
-using System.Reflection;
+﻿using System;
+using SDUI.Controls;
 
 namespace RSBot.Views;
 
-partial class AboutDialog : UIWindowBase
+internal partial class AboutDialog : UIWindowBase
 {
     public AboutDialog()
     {

@@ -1,7 +1,6 @@
-﻿using RSBot.Core;
+﻿using System.ComponentModel;
+using RSBot.Core;
 using RSBot.Core.Event;
-using System;
-using System.ComponentModel;
 
 namespace RSBot.Views.Controls.Cos;
 
@@ -19,7 +18,7 @@ public partial class Ability : CosControlBase
     }
 
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     private void SubscribeEvents()
     {

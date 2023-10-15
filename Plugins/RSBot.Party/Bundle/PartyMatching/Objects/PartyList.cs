@@ -1,44 +1,44 @@
-﻿using RSBot.Core.Network;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using RSBot.Core.Network;
 
 namespace RSBot.Party.Bundle.PartyMatching.Objects;
 
 internal class PartyList
 {
     /// <summary>
-    /// Gets or sets the page count.
+    ///     Gets or sets the page count.
     /// </summary>
     /// <value>
-    /// The page count.
+    ///     The page count.
     /// </value>
     public byte PageCount { get; set; }
 
     /// <summary>
-    /// Gets or sets the page.
+    ///     Gets or sets the page.
     /// </summary>
     /// <value>
-    /// The page.
+    ///     The page.
     /// </value>
     public byte Page { get; set; }
 
     /// <summary>
-    /// Gets or sets the party count.
+    ///     Gets or sets the party count.
     /// </summary>
     /// <value>
-    /// The party count.
+    ///     The party count.
     /// </value>
     public byte PartyCount { get; set; }
 
     /// <summary>
-    /// Gets or sets the parties.
+    ///     Gets or sets the parties.
     /// </summary>
     /// <value>
-    /// The parties.
+    ///     The parties.
     /// </value>
     public List<PartyEntry> Parties { get; set; }
 
     /// <summary>
-    /// Froms the packet.
+    ///     Froms the packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     /// <returns></returns>

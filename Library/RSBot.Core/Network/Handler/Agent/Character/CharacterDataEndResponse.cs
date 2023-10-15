@@ -8,23 +8,23 @@ namespace RSBot.Core.Network.Handler.Agent.Character;
 internal class CharacterDataEndResponse : IPacketHandler
 {
     /// <summary>
-    /// Gets or sets the opcode.
+    ///     Gets or sets the opcode.
     /// </summary>
     /// <value>
-    /// The opcode.
+    ///     The opcode.
     /// </value>
     public ushort Opcode => 0x34A6;
 
     /// <summary>
-    /// Gets or sets the destination.
+    ///     Gets or sets the destination.
     /// </summary>
     /// <value>
-    /// The destination.
+    ///     The destination.
     /// </value>
     public PacketDestination Destination => PacketDestination.Client;
 
     /// <summary>
-    /// Handles the packet.
+    ///     Handles the packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     public void Invoke(Packet packet)
@@ -77,13 +77,13 @@ internal class CharacterDataEndResponse : IPacketHandler
             if (Game.ClientType == GameClientType.Turkey ||
                 Game.ClientType == GameClientType.VTC_Game)
                 packet.ReadUInt();
-                
+
             if (Game.ClientType == GameClientType.Rigid)
                 packet.ReadByteArray(12);
 
             if (Game.ClientType == GameClientType.VTC_Game)
                 packet.ReadByte(); // ??
-                
+
             var serverCap = packet.ReadByte();
             Log.Notify($"The game server cap is {serverCap}!");
 
@@ -148,9 +148,9 @@ internal class CharacterDataEndResponse : IPacketHandler
             Game.ClientType != GameClientType.Global &&
             Game.ClientType != GameClientType.Rigid)
         {
-            packet.ReadByte();      // 0xFF
-            packet.ReadUShort();    // 0xFF
-            packet.ReadUShort();    // 0xFF
+            packet.ReadByte(); // 0xFF
+            packet.ReadUShort(); // 0xFF
+            packet.ReadUShort(); // 0xFF
         }
 
         //GuideFlag

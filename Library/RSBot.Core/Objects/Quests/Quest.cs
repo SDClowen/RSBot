@@ -4,8 +4,8 @@ namespace RSBot.Core.Objects.Quests;
 
 public class Quest
 {
-    public uint[] CompletedQuests;
     public ActiveQuest[] ActiveQuests;
+    public uint[] CompletedQuests;
 
     public static Quest FromPacket(Packet packet)
     {
@@ -22,7 +22,7 @@ public class Quest
         var count = packet.ReadUShort();
         CompletedQuests = new uint[count];
 
-        for (int i = 0; i < count; i++)
+        for (var i = 0; i < count; i++)
             CompletedQuests[i] = packet.ReadUInt();
     }
 
@@ -31,7 +31,7 @@ public class Quest
         var count = packet.ReadByte();
         ActiveQuests = new ActiveQuest[count];
 
-        for (int i = 0; i < count; i++)
+        for (var i = 0; i < count; i++)
         {
             var activeQuest = new ActiveQuest();
             activeQuest.QuestId = packet.ReadInt();
@@ -64,7 +64,7 @@ public class Quest
             {
                 var objectiveAmount = packet.ReadByte();
                 activeQuest.Objectives = new QuestObjective[objectiveAmount];
-                for (int j = 0; j < objectiveAmount; j++)
+                for (var j = 0; j < objectiveAmount; j++)
                 {
                     QuestObjective objective;
                     objective.Id = packet.ReadByte();

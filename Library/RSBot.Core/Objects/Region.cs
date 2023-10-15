@@ -1,19 +1,16 @@
-﻿using RSBot.Core.Network;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
+using RSBot.Core.Network;
 
 namespace RSBot.Core.Objects;
 
 [StructLayout(LayoutKind.Explicit)]
 public struct Region
 {
-    [FieldOffset(0)]
-    public ushort Id;
+    [FieldOffset(0)] public ushort Id;
 
-    [FieldOffset(0)]
-    public byte X;
+    [FieldOffset(0)] public byte X;
 
-    [FieldOffset(sizeof(byte))]
-    public byte Y;
+    [FieldOffset(sizeof(byte))] public byte Y;
 
     public bool IsDungeon => (Id & 0x8000) != 0;
 
@@ -44,20 +41,20 @@ public struct Region
     {
         return new Region[]
         {
-            new Region((byte) (X - 1), (byte) (Y + 1)), //TL
-            new Region(X, (byte) (Y + 1)), //TC
-            new Region((byte) (X + 1), (byte) (Y + 1)), //TR
-            new Region((byte) (X - 1), Y), //CL
-            new Region(X, Y), //CC
-            new Region((byte) (X + 1), Y), //CR
-            new Region((byte) (X - 1), (byte) (Y - 1)), //BL
-            new Region(X, (byte) (Y - 1)), //BC
-            new Region((byte) (X + 1), (byte) (Y - 1)) //BR
+            new((byte)(X - 1), (byte)(Y + 1)), //TL
+            new(X, (byte)(Y + 1)), //TC
+            new((byte)(X + 1), (byte)(Y + 1)), //TR
+            new((byte)(X - 1), Y), //CL
+            new(X, Y), //CC
+            new((byte)(X + 1), Y), //CR
+            new((byte)(X - 1), (byte)(Y - 1)), //BL
+            new(X, (byte)(Y - 1)), //BC
+            new((byte)(X + 1), (byte)(Y - 1)) //BR
         };
     }
 
     /// <summary>
-    /// Write current value to the packet
+    ///     Write current value to the packet
     /// </summary>
     /// <param name="packet">The packet.</param>
     internal void Serialize(Packet packet)
@@ -71,7 +68,10 @@ public struct Region
         if (!int.TryParse(value, out var parsed))
             return false;
 
-        unchecked { parsedValue = (ushort)parsed; }
+        unchecked
+        {
+            parsedValue = (ushort)parsed;
+        }
 
         return true;
     }

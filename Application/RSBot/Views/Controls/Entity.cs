@@ -1,10 +1,10 @@
-﻿using RSBot.Core;
+﻿using System;
+using System.Windows.Forms;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects.Spawn;
-using System;
-using System.Windows.Forms;
 
 namespace RSBot.Views.Controls;
 
@@ -18,7 +18,7 @@ public partial class Entity : UserControl
     }
 
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     private void SubscribeEvents()
     {
@@ -36,7 +36,7 @@ public partial class Entity : UserControl
     }
 
     /// <summary>
-    /// Fired when an entity was selected
+    ///     Fired when an entity was selected
     /// </summary>
     private void OnSelectEntity(SpawnedBionic entity)
     {
@@ -64,7 +64,7 @@ public partial class Entity : UserControl
     }
 
     /// <summary>
-    /// Core_s the on update selected entity hp.
+    ///     Core_s the on update selected entity hp.
     /// </summary>
     private void OnUpdateEntityHp(SpawnedBionic entity)
     {
@@ -86,7 +86,7 @@ public partial class Entity : UserControl
     }
 
     /// <summary>
-    /// Fired when an entity was deselected
+    ///     Fired when an entity was deselected
     /// </summary>
     private void OnDeselectEntity()
     {
@@ -94,7 +94,7 @@ public partial class Entity : UserControl
     }
 
     /// <summary>
-    /// Fired when the selected entity was killed
+    ///     Fired when the selected entity was killed
     /// </summary>
     private void OnKillSelectedEnemy()
     {
@@ -102,7 +102,7 @@ public partial class Entity : UserControl
     }
 
     /// <summary>
-    /// Reset UI after character disconnect
+    ///     Reset UI after character disconnect
     /// </summary>
     private void OnAgentServerDisconnected()
     {
@@ -110,7 +110,7 @@ public partial class Entity : UserControl
     }
 
     /// <summary>
-    /// Clear the control
+    ///     Clear the control
     /// </summary>
     private void Clear()
     {

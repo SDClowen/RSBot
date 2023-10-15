@@ -2,7 +2,7 @@
 
 namespace RSBot.Core.Network.SecurityAPI;
 
-internal class PacketReader : System.IO.BinaryReader
+internal class PacketReader : BinaryReader
 {
     private byte[] m_input;
 

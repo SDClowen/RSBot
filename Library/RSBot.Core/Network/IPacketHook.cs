@@ -3,23 +3,23 @@
 public interface IPacketHook
 {
     /// <summary>
-    /// Gets the opcode.
+    ///     Gets the opcode.
     /// </summary>
     /// <value>
-    /// The opcode.
+    ///     The opcode.
     /// </value>
     ushort Opcode { get; }
 
     /// <summary>
-    /// Gets the destination.
+    ///     Gets the destination.
     /// </summary>
     /// <value>
-    /// The destination.
+    ///     The destination.
     /// </value>
     PacketDestination Destination { get; }
 
     /// <summary>
-    /// Replaces the packet and returns a new packet.
+    ///     Replaces the packet and returns a new packet.
     /// </summary>
     /// <returns></returns>
     Packet ReplacePacket(Packet packet);

@@ -1,27 +1,26 @@
-﻿using RSBot.Core;
-using RSBot.Core.Components;
-using RSBot.Core.Event;
-using RSBot.Core.Objects.Party;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using RSBot.Core;
+using RSBot.Core.Event;
+using RSBot.Core.Objects.Party;
 
 namespace RSBot.Default.Bundle.PartyBuffing;
 
 internal class PartyBuffingBundle : IBundle
 {
     /// <summary>
-    /// The buffing party members
-    /// </summary>
-    private List<BuffingPartyMember> BuffingPartyMembers;
-
-    /// <summary>
-    /// <c>true</c> if refreshing this bundle; otherwise <c>false</c>
+    ///     <c>true</c> if refreshing this bundle; otherwise <c>false</c>
     /// </summary>
     private bool _refreshing;
 
     /// <summary>
-    /// Initialize the instance of <seealso cref="PartyBuffingBundle"/>
+    ///     The buffing party members
+    /// </summary>
+    private List<BuffingPartyMember> BuffingPartyMembers;
+
+    /// <summary>
+    ///     Initialize the instance of <seealso cref="PartyBuffingBundle" />
     /// </summary>
     public PartyBuffingBundle()
     {
@@ -29,15 +28,7 @@ internal class PartyBuffingBundle : IBundle
     }
 
     /// <summary>
-    /// Update the <see cref="BuffingPartyMembers"/> list when settings changed from another plugins
-    /// </summary>
-    private void OnPartyBuffSettingsChanged()
-    {
-        Refresh();
-    }
-
-    /// <summary>
-    /// Invoke the bundle
+    ///     Invoke the bundle
     /// </summary>
     public void Invoke()
     {
@@ -45,7 +36,7 @@ internal class PartyBuffingBundle : IBundle
             return;
 
         if (Game.Party == null ||
-            Game.Party.Members == null || 
+            Game.Party.Members == null ||
             Game.Player.HasActiveVehicle)
             return;
 
@@ -71,7 +62,9 @@ internal class PartyBuffingBundle : IBundle
 
             var neededBuffs = buffingMember.Buffs
                 .Where(skillId => !activeBuffs.Any(p => p.Id == skillId ||
-                                                        (Game.ReferenceManager.SkillData.TryGetValue(skillId, out var refSkill) && refSkill.Action_Overlap == p.Record.Action_Overlap)));
+                                                        (Game.ReferenceManager.SkillData.TryGetValue(skillId,
+                                                             out var refSkill) &&
+                                                         refSkill.Action_Overlap == p.Record.Action_Overlap)));
 
             foreach (var castingBuffId in neededBuffs)
             {
@@ -80,13 +73,13 @@ internal class PartyBuffingBundle : IBundle
                     continue;
 
                 if (member.Player != null)
-                    skill.Cast(member.Player.UniqueId, buff: true);
+                    skill.Cast(member.Player.UniqueId, true);
             }
         }
     }
 
     /// <summary>
-    /// Refresh the bundle
+    ///     Refresh the bundle
     /// </summary>
     public void Refresh()
     {
@@ -95,7 +88,7 @@ internal class PartyBuffingBundle : IBundle
         // Don't need to use clear, because gc will handle the unnecessary objects
         BuffingPartyMembers = new List<BuffingPartyMember>();
 
-        var settings = PlayerConfig.Get<string>("RSBot.Party.Buffing", string.Empty);
+        var settings = PlayerConfig.Get("RSBot.Party.Buffing", string.Empty);
         var collection = settings.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
 
         foreach (var item in collection)
@@ -107,5 +100,13 @@ internal class PartyBuffingBundle : IBundle
     public void Stop()
     {
         //Nothing to do here
+    }
+
+    /// <summary>
+    ///     Update the <see cref="BuffingPartyMembers" /> list when settings changed from another plugins
+    /// </summary>
+    private void OnPartyBuffSettingsChanged()
+    {
+        Refresh();
     }
 }

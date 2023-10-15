@@ -6,17 +6,17 @@ namespace RSBot.Core.Network.Handler.Agent.StorageBox;
 public class StorageBoxTakeItemResponse : IPacketHandler
 {
     /// <summary>
-    /// <inheritdoc/>
+    ///     <inheritdoc />
     /// </summary>
     public ushort Opcode => 0xB558;
 
     /// <summary>
-    /// <inheritdoc/>
+    ///     <inheritdoc />
     /// </summary>
     public PacketDestination Destination => PacketDestination.Client;
 
     /// <summary>
-    /// <inheritdoc/>
+    ///     <inheritdoc />
     /// </summary>
     /// <param name="packet"></param>
     public void Invoke(Packet packet)
@@ -26,7 +26,7 @@ public class StorageBoxTakeItemResponse : IPacketHandler
             return;
 
         var count = packet.ReadInt();
-        for (int i = 0; i < count; i++)
+        for (var i = 0; i < count; i++)
         {
             var item = InventoryItem.FromPacket(packet);
             if (item == null)

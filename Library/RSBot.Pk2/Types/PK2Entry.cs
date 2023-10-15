@@ -1,126 +1,22 @@
-﻿using RSBot.Pk2.IO;
-using RSBot.Pk2.IO.Stream;
-using RSBot.Pk2.Security;
-using System;
+﻿using System;
 using System.IO;
 using System.Threading;
+using RSBot.Pk2.IO;
+using RSBot.Pk2.IO.Stream;
+using RSBot.Pk2.Security;
 
 namespace RSBot.Pk2.Types;
 
 public class PK2Entry
 {
-    /// <summary>
-    /// Gets the directory.
-    /// </summary>
-    /// <value>
-    /// The directory.
-    /// </value>
-    public PK2Entry Parent { get; internal set; }
-
-    /// <summary>
-    /// Gets or sets the type.
-    /// </summary>
-    /// <value>
-    /// The type.
-    /// </value>
-    public PK2EntryType Type { get; set; }
-
-    /// <summary>
-    /// Gets or sets the name.
-    /// </summary>
-    /// <value>
-    /// The name.
-    /// </value>
-    public string Name { get; set; }
-
-    /// <summary>
-    /// Gets or sets the path.
-    /// </summary>
-    /// <value>
-    /// The path.
-    /// </value>
-    public string Path => Parent == null ? Name == null ? string.Empty : Name : System.IO.Path.Combine(Parent.Path, Name);
-
-    /// <summary>
-    /// Gets or sets the access time.
-    /// </summary>
-    /// <value>
-    /// The access time.
-    /// </value>
-    public DateTime AccessTime { get; set; }
-
-    /// <summary>
-    /// Gets or sets the create time.
-    /// </summary>
-    /// <value>
-    /// The create time.
-    /// </value>
-    public DateTime CreateTime { get; set; }
-
-    /// <summary>
-    /// Gets or sets the modify time.
-    /// </summary>
-    /// <value>
-    /// The modify time.
-    /// </value>
-    public DateTime ModifyTime { get; set; }
-
-    /// <summary>
-    /// Gets or sets the position.
-    /// </summary>
-    /// <value>
-    /// The position.
-    /// </value>
-    public ulong Position { get; set; }
-
-    /// <summary>
-    /// Gets or sets the size.
-    /// </summary>
-    /// <value>
-    /// The size.
-    /// </value>
-    public uint Size { get; set; }
-
-    /// <summary>
-    /// Gets or sets the next chain.
-    /// </summary>
-    /// <value>
-    /// The next chain.
-    /// </value>
-    public ulong NextChain { get; set; }
-
-    /// <summary>
-    /// Gets the index.
-    /// </summary>
-    /// <value>
-    /// The index.
-    /// </value>
-    public byte Index { get; set; }
-
-    /// <summary>
-    /// Gets or sets the block.
-    /// </summary>
-    /// <value>
-    /// The block.
-    /// </value>
-    public PK2Block Block { get; set; }
-
-    /// <summary>
-    /// Gets or sets the offset.
-    /// </summary>
-    /// <value>
-    /// The offset.
-    /// </value>
-    public ulong Offset => Block.Offset + ((ulong)Index * 128);
-
     #region Fields
 
-    private FileAdapter _fileAdapter;
+    private readonly FileAdapter _fileAdapter;
 
     #endregion Fields
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PK2Entry"/> class.
+    ///     Initializes a new instance of the <see cref="PK2Entry" /> class.
     /// </summary>
     public PK2Entry(FileAdapter fileAdapter)
     {
@@ -134,7 +30,7 @@ public class PK2Entry
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PK2Entry" /> class.
+    ///     Initializes a new instance of the <see cref="PK2Entry" /> class.
     /// </summary>
     /// <param name="fileAdatper"></param>
     /// <param name="buffer">The buffer.</param>
@@ -170,7 +66,112 @@ public class PK2Entry
     }
 
     /// <summary>
-    /// Returns this instance of PK2Entry as byte[] which can be used to be written back to the PK2 archive
+    ///     Gets the directory.
+    /// </summary>
+    /// <value>
+    ///     The directory.
+    /// </value>
+    public PK2Entry Parent { get; internal set; }
+
+    /// <summary>
+    ///     Gets or sets the type.
+    /// </summary>
+    /// <value>
+    ///     The type.
+    /// </value>
+    public PK2EntryType Type { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the name.
+    /// </summary>
+    /// <value>
+    ///     The name.
+    /// </value>
+    public string Name { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the path.
+    /// </summary>
+    /// <value>
+    ///     The path.
+    /// </value>
+    public string Path =>
+        Parent == null ? Name == null ? string.Empty : Name : System.IO.Path.Combine(Parent.Path, Name);
+
+    /// <summary>
+    ///     Gets or sets the access time.
+    /// </summary>
+    /// <value>
+    ///     The access time.
+    /// </value>
+    public DateTime AccessTime { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the create time.
+    /// </summary>
+    /// <value>
+    ///     The create time.
+    /// </value>
+    public DateTime CreateTime { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the modify time.
+    /// </summary>
+    /// <value>
+    ///     The modify time.
+    /// </value>
+    public DateTime ModifyTime { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the position.
+    /// </summary>
+    /// <value>
+    ///     The position.
+    /// </value>
+    public ulong Position { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the size.
+    /// </summary>
+    /// <value>
+    ///     The size.
+    /// </value>
+    public uint Size { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the next chain.
+    /// </summary>
+    /// <value>
+    ///     The next chain.
+    /// </value>
+    public ulong NextChain { get; set; }
+
+    /// <summary>
+    ///     Gets the index.
+    /// </summary>
+    /// <value>
+    ///     The index.
+    /// </value>
+    public byte Index { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the block.
+    /// </summary>
+    /// <value>
+    ///     The block.
+    /// </value>
+    public PK2Block Block { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the offset.
+    /// </summary>
+    /// <value>
+    ///     The offset.
+    /// </value>
+    public ulong Offset => Block.Offset + (ulong)Index * 128;
+
+    /// <summary>
+    ///     Returns this instance of PK2Entry as byte[] which can be used to be written back to the PK2 archive
     /// </summary>
     /// <returns></returns>
     public byte[] ToByteArray()
@@ -198,7 +199,7 @@ public class PK2Entry
     }
 
     /// <summary>
-    /// Saves the entry back to the PK2.
+    ///     Saves the entry back to the PK2.
     /// </summary>
     /// <exception cref="PK2NotLoadedException"></exception>
     public void Save()
@@ -210,7 +211,7 @@ public class PK2Entry
     }
 
     /// <summary>
-    /// Renames the specified new name.
+    ///     Renames the specified new name.
     /// </summary>
     /// <param name="newName">The new name.</param>
     public void Rename(string newName)
@@ -220,7 +221,7 @@ public class PK2Entry
     }
 
     /// <summary>
-    /// Deletes this instance.
+    ///     Deletes this instance.
     /// </summary>
     public void Delete()
     {
@@ -229,7 +230,7 @@ public class PK2Entry
     }
 
     /// <summary>
-    /// Extracts the file to the specified destination
+    ///     Extracts the file to the specified destination
     /// </summary>
     /// <param name="destination">The destination.</param>
     /// <exception cref="PK2NotLoadedException"></exception>
@@ -253,24 +254,28 @@ public class PK2Entry
     }
 
     /// <summary>
-    /// Gets the data.
+    ///     Gets the data.
     /// </summary>
     /// <returns></returns>
     /// <exception cref="PK2NotLoadedException"></exception>
-    /// <exception cref="System.InvalidOperationException">It's impossible to read data from a directory or from a deleted file.</exception>
+    /// <exception cref="System.InvalidOperationException">
+    ///     It's impossible to read data from a directory or from a deleted
+    ///     file.
+    /// </exception>
     public byte[] GetData()
     {
         if (_fileAdapter == null)
             throw new PK2NotLoadedException();
 
         if (Type != PK2EntryType.File)
-            throw new InvalidOperationException("It's impossible to read data from a directory or from a deleted file."); //TODO: find something better
+            throw new InvalidOperationException(
+                "It's impossible to read data from a directory or from a deleted file."); //TODO: find something better
 
         return _fileAdapter.ReadData((long)Position, (int)Size);
     }
 
     /// <summary>
-    /// Gets the child block if the entry is a directory.
+    ///     Gets the child block if the entry is a directory.
     /// </summary>
     /// <returns></returns>
     public PK2Block GetChildBlock()

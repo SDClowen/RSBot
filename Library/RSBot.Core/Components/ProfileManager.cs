@@ -1,48 +1,50 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RSBot.Core.Components;
 
 public class ProfileManager
 {
     /// <summary>
-    /// The profile config
+    ///     The profile config
     /// </summary>
-    private static Config _config;
+    private static readonly Config _config;
 
     /// <summary>
-    /// Get active profiles
+    ///     Get active profiles
     /// </summary>
-    private static ObservableCollection<string> _profiles;
+    private static readonly ObservableCollection<string> _profiles;
 
     /// <summary>
-    /// Get active profiles
+    ///     Initialize static ctor
+    /// </summary>
+    static ProfileManager()
+    {
+        _config = new Config(GetProfileConfigFileName());
+        _profiles = new ObservableCollection<string>(_config.GetArray<string>("RSBot.Profiles", '|'));
+        _profiles.CollectionChanged += Profiles_CollectionChanged;
+    }
+
+    /// <summary>
+    ///     Get active profiles
     /// </summary>
     public static string[] Profiles => _profiles.ToArray();
 
     /// <summary>
-    /// If the selected profile loaded via program args <c>true</c>; otherwise <c>false</c>.
+    ///     If the selected profile loaded via program args <c>true</c>; otherwise <c>false</c>.
     /// </summary>
     public static bool IsProfileLoadedByArgs { get; set; }
 
     /// <summary>
-    /// The selected profile
+    ///     The selected profile
     /// </summary>
     public static string SelectedProfile => _config.Get("RSBot.SelectedProfile", "Default");
 
     /// <summary>
-    /// There have any value in the collection <c>true</c>; otherwise <c>false</c>
-    /// </summary>
-    public static bool Any()
-        => _profiles.Any();
-
-    /// <summary>
-    /// Show the profile dialog <c>true</c>; otherwise <c>false</c>
+    ///     Show the profile dialog <c>true</c>; otherwise <c>false</c>
     /// </summary>
     public static bool ShowProfileDialog
     {
@@ -55,26 +57,24 @@ public class ProfileManager
     }
 
     /// <summary>
-    /// Initialize static ctor
+    ///     There have any value in the collection <c>true</c>; otherwise <c>false</c>
     /// </summary>
-    static ProfileManager()
+    public static bool Any()
     {
-        _config = new(GetProfileConfigFileName());
-        _profiles = new(_config.GetArray<string>("RSBot.Profiles", '|'));
-        _profiles.CollectionChanged += Profiles_CollectionChanged;
+        return _profiles.Any();
     }
 
     /// <summary>
-    /// Called after Profiles are changed
+    ///     Called after Profiles are changed
     /// </summary>
-    private static void Profiles_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    private static void Profiles_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
         _config.SetArray("RSBot.Profiles", _profiles, "|");
         _config.Save();
     }
 
     /// <summary>
-    /// Set selected profile
+    ///     Set selected profile
     /// </summary>
     /// <param name="profile">The profile</param>
     public static bool SetSelectedProfile(string profile)
@@ -89,7 +89,7 @@ public class ProfileManager
     }
 
     /// <summary>
-    /// Is profile exists <c>true</c>; otherwise <c>false</c>
+    ///     Is profile exists <c>true</c>; otherwise <c>false</c>
     /// </summary>
     /// <param name="profile">The profile</param>
     public static bool ProfileExists(string profile)
@@ -98,19 +98,19 @@ public class ProfileManager
     }
 
     /// <summary>
-    /// Create new profile
+    ///     Create new profile
     /// </summary>
     /// <param name="profile">The profile</param>
     /// <param name="useAsBase">Use as base <c>true</c>; otherwise <c>false</c></param>
     /// <returns>Is created <c>true</c>; otherwise <c>false</c></returns>
     public static bool Add(string profile, bool useAsBase = false)
     {
-        if(profile == SelectedProfile)
+        if (profile == SelectedProfile)
             return true;
 
         _profiles.Add(profile);
 
-        if(useAsBase)
+        if (useAsBase)
             CopyOldProfileData(profile);
 
         var newProfileDirectory = GetProfileDirectory(profile);
@@ -123,7 +123,7 @@ public class ProfileManager
     }
 
     /// <summary>
-    /// Remove the profile
+    ///     Remove the profile
     /// </summary>
     /// <param name="profile">The profile</param>
     /// <returns>Is removed <c>true</c>; otherwise <c>false</c></returns>
@@ -133,7 +133,7 @@ public class ProfileManager
     }
 
     /// <summary>
-    /// Copies the old profile data to the new profile.
+    ///     Copies the old profile data to the new profile.
     /// </summary>
     /// <param name="profile">Name of the profile.</param>
     private static void CopyOldProfileData(string profile)
@@ -158,7 +158,7 @@ public class ProfileManager
     }
 
     /// <summary>
-    /// Get profile config file name
+    ///     Get profile config file name
     /// </summary>
     /// <returns></returns>
     public static string GetProfileConfigFileName()

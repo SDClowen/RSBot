@@ -5,28 +5,8 @@ namespace RSBot.Core.Network.Handler.Agent.Action;
 
 internal class ActionItemPerkRemoveResponse : IPacketHandler
 {
-    #region Properites
-
     /// <summary>
-    /// Gets or sets the opcode.
-    /// </summary>
-    /// <value>
-    /// The opcode.
-    /// </value>
-    public ushort Opcode => 0x3261;
-
-    /// <summary>
-    /// Gets or sets the destination.
-    /// </summary>
-    /// <value>
-    /// The destination.
-    /// </value>
-    public PacketDestination Destination => PacketDestination.Client;
-
-    #endregion Properites
-
-    /// <summary>
-    /// Invokes the specified packet.
+    ///     Invokes the specified packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     public void Invoke(Packet packet)
@@ -43,4 +23,24 @@ internal class ActionItemPerkRemoveResponse : IPacketHandler
 
         EventManager.FireEvent("OnRemoveItemPerk", targetId, perk);
     }
+
+    #region Properites
+
+    /// <summary>
+    ///     Gets or sets the opcode.
+    /// </summary>
+    /// <value>
+    ///     The opcode.
+    /// </value>
+    public ushort Opcode => 0x3261;
+
+    /// <summary>
+    ///     Gets or sets the destination.
+    /// </summary>
+    /// <value>
+    ///     The destination.
+    /// </value>
+    public PacketDestination Destination => PacketDestination.Client;
+
+    #endregion Properites
 }

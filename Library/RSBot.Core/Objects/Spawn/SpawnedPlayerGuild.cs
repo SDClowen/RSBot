@@ -5,55 +5,55 @@ namespace RSBot.Core.Objects.Spawn;
 public class SpawnedPlayerGuild
 {
     /// <summary>
-    /// Gets or sets the name.
+    ///     Gets or sets the name.
     /// </summary>
     /// <value>
-    /// The name.
+    ///     The name.
     /// </value>
     public string Name { get; set; }
 
     /// <summary>
-    /// Gets or sets the identifier.
+    ///     Gets or sets the identifier.
     /// </summary>
     /// <value>
-    /// The identifier.
+    ///     The identifier.
     /// </value>
     public uint Id { get; set; }
 
     /// <summary>
-    /// Gets or sets the member.
+    ///     Gets or sets the member.
     /// </summary>
     /// <value>
-    /// The member.
+    ///     The member.
     /// </value>
     public SpawnedPlayerGuildMember Member { get; set; }
 
     /// <summary>
-    /// Gets or sets the union.
+    ///     Gets or sets the union.
     /// </summary>
     /// <value>
-    /// The union.
+    ///     The union.
     /// </value>
     public SpawnedPlayerUnion Union { get; set; }
 
     /// <summary>
-    /// Gets or sets the last crest rev.
+    ///     Gets or sets the last crest rev.
     /// </summary>
     /// <value>
-    /// The last crest rev.
+    ///     The last crest rev.
     /// </value>
     public uint LastCrestRev { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether this instance is friendly.
+    ///     Gets or sets a value indicating whether this instance is friendly.
     /// </summary>
     /// <value>
-    /// <c>true</c> if this instance is friendly; otherwise, <c>false</c>.
+    ///     <c>true</c> if this instance is friendly; otherwise, <c>false</c>.
     /// </value>
     public bool IsFriendly { get; set; }
 
     /// <summary>
-    /// Froms the packet.
+    ///     Froms the packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     /// <returns></returns>

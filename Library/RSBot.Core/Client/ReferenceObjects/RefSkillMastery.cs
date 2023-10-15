@@ -2,6 +2,8 @@
 
 public class RefSkillMastery : IReference<uint>
 {
+    public string Name => Game.ReferenceManager.GetTranslation(NameCode);
+
     #region Fields
 
     public uint ID;
@@ -24,8 +26,6 @@ public class RefSkillMastery : IReference<uint>
 
     #endregion Fields
 
-    public string Name => Game.ReferenceManager.GetTranslation(this.NameCode);
-
     #region IReference
 
     public uint PrimaryKey => ID;
@@ -34,7 +34,7 @@ public class RefSkillMastery : IReference<uint>
     {
         parser.TryParse(0, out ID);
         //parser.TryParseString(1, out Name);
-        if(Game.ClientType >= GameClientType.Chinese)
+        if (Game.ClientType >= GameClientType.Chinese)
             parser.TryParse(3, out NameCode);
         else
             parser.TryParse(2, out NameCode);

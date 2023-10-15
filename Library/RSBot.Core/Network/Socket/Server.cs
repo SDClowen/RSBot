@@ -1,101 +1,102 @@
-﻿using RSBot.Core.Event;
-using RSBot.Core.Extensions;
-using RSBot.Core.Network.SecurityAPI;
-using System;
+﻿using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using RSBot.Core.Event;
+using RSBot.Core.Extensions;
+using RSBot.Core.Network.SecurityAPI;
 
 namespace RSBot.Core.Network;
 
 public class Server
 {
     public delegate void OnConnectedEventHandler();
-    public event OnConnectedEventHandler OnConnected;
 
     public delegate void OnDisconnectedEventHandler();
-    public event OnDisconnectedEventHandler OnDisconnected;
 
     public delegate void OnPacketReceivedEventHandler(Packet packet);
-    public event OnPacketReceivedEventHandler OnPacketReceived;
 
     public delegate void PacketSentEventHandler(Packet packet);
-    public event PacketSentEventHandler OnPacketSent;
 
     /// <summary>
-    /// Gets or sets the socket.
+    ///     Gets or sets the packet dispatcher thread.
     /// </summary>
     /// <value>
-    /// The socket.
-    /// </value>
-    private Socket _socket;
-
-    /// <summary>
-    /// Gets or sets a value indicating whether this instance is connected.
-    /// </summary>
-    /// <value>
-    /// <c>true</c> if this socket is connected; otherwise, <c>false</c>.
-    /// </value>
-    public bool IsConnected => _socket != null && _socket.Connected;
-
-    /// <summary>
-    /// Gets or sets a value indicating whether this instance is closing.
-    /// </summary>
-    /// <value>
-    /// <c>true</c> if this instance is closing; otherwise, <c>false</c>.
-    /// </value>
-    public bool IsClosing { get; set; }
-
-    /// <summary>
-    /// Gets or sets the ip.
-    /// </summary>
-    /// <value>
-    /// The ip.
-    /// </value>
-    public string IP { get; set; }
-
-    /// <summary>
-    /// Gets or sets the port.
-    /// </summary>
-    /// <value>
-    /// The port.
-    /// </value>
-    public ushort Port { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether [enable packet processor].
-    /// </summary>
-    /// <value>
-    /// <c>true</c> if [enable packet processor]; otherwise, <c>false</c>.
-    /// </value>
-    public bool EnablePacketDispatcher { get; set; }
-
-    /// <summary>
-    /// Gets or sets the security protocol.
-    /// </summary>
-    /// <value>
-    /// The protocol.
-    /// </value>
-    private SecurityProtocol _protocol;
-
-    /// <summary>
-    /// Gets or sets the packet dispatcher thread.
-    /// </summary>
-    /// <value>
-    /// The dispatcher thread.
+    ///     The dispatcher thread.
     /// </value>
     private Thread _netMessageDispatcherThread;
 
     /// <summary>
-    /// Get the allocated buffer.
+    ///     Gets or sets the security protocol.
     /// </summary>
     /// <value>
-    /// The allocated buffer.
+    ///     The protocol.
+    /// </value>
+    private SecurityProtocol _protocol;
+
+    /// <summary>
+    ///     Gets or sets the socket.
+    /// </summary>
+    /// <value>
+    ///     The socket.
+    /// </value>
+    private Socket _socket;
+
+    /// <summary>
+    ///     Gets or sets a value indicating whether this instance is connected.
+    /// </summary>
+    /// <value>
+    ///     <c>true</c> if this socket is connected; otherwise, <c>false</c>.
+    /// </value>
+    public bool IsConnected => _socket != null && _socket.Connected;
+
+    /// <summary>
+    ///     Gets or sets a value indicating whether this instance is closing.
+    /// </summary>
+    /// <value>
+    ///     <c>true</c> if this instance is closing; otherwise, <c>false</c>.
+    /// </value>
+    public bool IsClosing { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the ip.
+    /// </summary>
+    /// <value>
+    ///     The ip.
+    /// </value>
+    public string IP { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the port.
+    /// </summary>
+    /// <value>
+    ///     The port.
+    /// </value>
+    public ushort Port { get; set; }
+
+    /// <summary>
+    ///     Gets or sets a value indicating whether [enable packet processor].
+    /// </summary>
+    /// <value>
+    ///     <c>true</c> if [enable packet processor]; otherwise, <c>false</c>.
+    /// </value>
+    public bool EnablePacketDispatcher { get; set; }
+
+    /// <summary>
+    ///     Get the allocated buffer.
+    /// </summary>
+    /// <value>
+    ///     The allocated buffer.
     /// </value>
     private byte[] _buffer { get; } = new byte[4096];
 
+    public event OnConnectedEventHandler OnConnected;
+    public event OnDisconnectedEventHandler OnDisconnected;
+    public event OnPacketReceivedEventHandler OnPacketReceived;
+    public event PacketSentEventHandler OnPacketSent;
+
     /// <summary>
-    /// Connects the specified ip.
+    ///     Connects the specified ip.
     /// </summary>
     /// <param name="ip">The ip.</param>
     /// <param name="port">The port.</param>
@@ -118,17 +119,19 @@ public class Server
                 if (!string.IsNullOrWhiteSpace(bindIp) && bindIp != "0.0.0.0")
                     _socket.Bind(new IPEndPoint(IPAddress.Parse(bindIp), port));
 
-                if(ProxyConfig.TryGetProxy(ip, port, out var proxyConfig))
+                if (ProxyConfig.TryGetProxy(ip, port, out var proxyConfig))
                 {
                     if (!_socket.ConnectViaProxy(proxyConfig).Result)
                     {
-                        Log.Warn($"Proxy receiving has timeout!");
+                        Log.Warn("Proxy receiving has timeout!");
                         Disconnect();
                         return;
                     }
                 }
                 else
+                {
                     _socket.Connect(ip, port, 3000);
+                }
             }
             catch (AggregateException s)
             {
@@ -175,7 +178,7 @@ public class Server
     }
 
     /// <summary>
-    /// Processes the packets threaded.
+    ///     Processes the packets threaded.
     /// </summary>
     private void ProcessPacketsThreaded()
     {
@@ -201,7 +204,7 @@ public class Server
     }
 
     /// <summary>
-    /// Processes the packets.
+    ///     Processes the packets.
     /// </summary>
     private void ProcessQueuedPackets()
     {
@@ -212,7 +215,6 @@ public class Server
 
             var receiveds = _protocol.TransferIncoming();
             if (receiveds != null)
-            {
                 foreach (var packet in receiveds)
                 {
                     if (packet.Opcode == 0x5000 || packet.Opcode == 0x9000)
@@ -220,7 +222,6 @@ public class Server
 
                     OnPacketReceived?.Invoke(packet);
                 }
-            }
 
             foreach (var buffer in _protocol.TransferOutgoing())
             {
@@ -236,7 +237,7 @@ public class Server
     }
 
     /// <summary>
-    /// Waits for data.
+    ///     Waits for data.
     /// </summary>
     /// <param name="result">The result.</param>
     private void OnBeginReceiveCallback(IAsyncResult ar)
@@ -244,7 +245,7 @@ public class Server
         if (IsClosing || !EnablePacketDispatcher)
             return;
 
-        int receivedSize = 0;
+        var receivedSize = 0;
 
         try
         {
@@ -259,10 +260,9 @@ public class Server
         }
         catch (SocketException se)
         {
-            if (se.SocketErrorCode == SocketError.ConnectionReset) //Client OnDisconnected > Mostly occurs during GW->AS switch
-            {
+            if (se.SocketErrorCode ==
+                SocketError.ConnectionReset) //Client OnDisconnected > Mostly occurs during GW->AS switch
                 OnDisconnected?.Invoke();
-            }
         }
         catch (HandshakeSecurityException)
         {
@@ -284,7 +284,7 @@ public class Server
     }
 
     /// <summary>
-    /// Sends the specified packet.
+    ///     Sends the specified packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     public void Send(Packet packet)
@@ -294,7 +294,7 @@ public class Server
     }
 
     /// <summary>
-    /// Disconnects this instance.
+    ///     Disconnects this instance.
     /// </summary>
     public void Disconnect()
     {

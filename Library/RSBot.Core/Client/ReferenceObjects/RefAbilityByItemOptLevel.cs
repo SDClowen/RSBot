@@ -26,7 +26,7 @@ public class RefAbilityByItemOptLevel : IReference<int>
     }
 
     /// <summary>
-    /// Gets the links.
+    ///     Gets the links.
     /// </summary>
     /// <returns></returns>
     public IEnumerable<uint> GetLinks()

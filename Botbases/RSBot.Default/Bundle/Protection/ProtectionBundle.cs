@@ -8,7 +8,7 @@ internal class ProtectionBundle : IBundle
 {
     public void Invoke()
     {
-        if(HealthRecovery.Active && HealthRecovery.Value > HealthRecovery.Current)
+        if (HealthRecovery.Active && HealthRecovery.Value > HealthRecovery.Current)
             if ((Game.Player.BadEffect & BadEffect.Zombie) != BadEffect.Zombie) // is it need?
                 SkillManager.CastBuff(Game.Player.Skills.GetSkillInfoById(HealthRecovery.SkillId));
 
@@ -20,10 +20,9 @@ internal class ProtectionBundle : IBundle
         {
             if (BadStateRecovery.IsUniversall)
                 SkillManager.CastBuff(Game.Player.Skills.GetSkillInfoById(BadStateRecovery.SkillIdForUniversall));
-                
+
             if (BadStateRecovery.IsPurification)
                 SkillManager.CastBuff(Game.Player.Skills.GetSkillInfoById(BadStateRecovery.SkillIdForPurification));
-                
         }
     }
 

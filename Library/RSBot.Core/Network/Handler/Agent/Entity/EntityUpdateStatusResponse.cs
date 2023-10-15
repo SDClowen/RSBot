@@ -1,31 +1,31 @@
-﻿using RSBot.Core.Components;
+﻿using System;
+using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
-using System;
 
 namespace RSBot.Core.Network.Handler.Agent.Entity;
 
 internal class EntityUpdateStatusResponse : IPacketHandler
 {
     /// <summary>
-    /// Gets or sets the opcode.
+    ///     Gets or sets the opcode.
     /// </summary>
     /// <value>
-    /// The opcode.
+    ///     The opcode.
     /// </value>
     public ushort Opcode => 0x3057;
 
     /// <summary>
-    /// Gets or sets the destination.
+    ///     Gets or sets the destination.
     /// </summary>
     /// <value>
-    /// The destination.
+    ///     The destination.
     /// </value>
     public PacketDestination Destination => PacketDestination.Client;
 
     /// <summary>
-    /// Handles the packet.
+    ///     Handles the packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     public void Invoke(Packet packet)
@@ -132,7 +132,6 @@ internal class EntityUpdateStatusResponse : IPacketHandler
 
                 if ((effectEnded & effectValue) == effectValue)
                     Log.Warn($"Your pet's bad status {effectValue} has ended.");
-
             }
 
             Game.Player.Growth.BadEffect = effectCurrent;
@@ -148,9 +147,7 @@ internal class EntityUpdateStatusResponse : IPacketHandler
     private static void UpdateFellowStatus(Packet packet, EntityUpdateStatusFlag updateFlag)
     {
         if ((updateFlag & EntityUpdateStatusFlag.HP) == EntityUpdateStatusFlag.HP)
-        {
             Game.Player.Fellow.Health = packet.ReadInt();
-        }
 
         if ((updateFlag & EntityUpdateStatusFlag.MP) == EntityUpdateStatusFlag.MP)
             packet.ReadUInt();
@@ -158,7 +155,7 @@ internal class EntityUpdateStatusResponse : IPacketHandler
         if ((updateFlag & EntityUpdateStatusFlag.HPMP) != EntityUpdateStatusFlag.HPMP)
             EventManager.FireEvent("OnFellowHealthUpdate");
 
-        if(updateFlag == EntityUpdateStatusFlag.Fellow)
+        if (updateFlag == EntityUpdateStatusFlag.Fellow)
         {
             Game.Player.Fellow.Satiety = packet.ReadInt();
             EventManager.FireEvent("OnFellowSatietyUpdate");
@@ -187,7 +184,6 @@ internal class EntityUpdateStatusResponse : IPacketHandler
 
                 if ((effectEnded & effectValue) == effectValue)
                     Log.Warn($"Your fellow pet's bad status {effectValue} has ended.");
-
             }
 
             Game.Player.Fellow.BadEffect = effectCurrent;
@@ -308,7 +304,6 @@ internal class EntityUpdateStatusResponse : IPacketHandler
 
         if ((updateFlag & EntityUpdateStatusFlag.BadEffect) == EntityUpdateStatusFlag.BadEffect)
         {
-
         }
     }
 }

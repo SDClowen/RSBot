@@ -1,85 +1,86 @@
-﻿using RSBot.Core;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.Linq;
+using System.Windows.Forms;
+using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace RSBot.Map.Views;
 
-[System.ComponentModel.ToolboxItem(false)]
+[ToolboxItem(false)]
 public partial class Main : UserControl
 {
     /// <summary>
-    /// Is active debug mode <c>true</c> otherwise <c>false</c>
-    /// </summary>
-    private bool _debug;
-
-    /// <summary>
-    /// The grid size
+    ///     The grid size
     /// </summary>
     private const int GridSize = 3;
 
     /// <summary>
-    /// The Sector Image Size
+    ///     The Sector Image Size
     /// </summary>
     private const int SectorSize = 256;
 
     /// <summary>
-    /// The cached Images
+    ///     The cached Images
     /// </summary>
-    private Dictionary<string, Image> _cachedImages;
+    private readonly Dictionary<string, Image> _cachedImages;
 
     /// <summary>
-    /// The current sector graphic
-    /// </summary>
-    private Image _currentSectorGraphic;
-
-    /// <summary>
-    /// The X Sector identifier
-    /// </summary>
-    private byte _currentXSec;
-
-    /// <summary>
-    /// The Y Sector identifier
-    /// </summary>
-    private byte _currentYSec;
-
-    /// <summary>
-    /// The current layer path
+    ///     The current layer path
     /// </summary>
     private string _currentLayerPath;
 
     /// <summary>
-    /// The map points
+    ///     The current sector graphic
+    /// </summary>
+    private Image _currentSectorGraphic;
+
+    /// <summary>
+    ///     The X Sector identifier
+    /// </summary>
+    private byte _currentXSec;
+
+    /// <summary>
+    ///     The Y Sector identifier
+    /// </summary>
+    private byte _currentYSec;
+
+    /// <summary>
+    ///     Is active debug mode <c>true</c> otherwise <c>false</c>
+    /// </summary>
+    private readonly bool _debug;
+
+    /// <summary>
+    ///     The map points
     /// </summary>
     private Image[] _mapEntityImages;
 
     /// <summary>
-    /// The Zoom identifier
+    ///     The Zoom identifier
     /// </summary>
-    private float _scale = SectorSize / 192.0f;
+    private readonly float _scale = SectorSize / 192.0f;
 
     /// <summary>
-    /// <inheritdoc/>
+    ///     <inheritdoc />
     /// </summary>
-    private BufferedGraphicsContext bufferedGraphicsContext;
+    private readonly BufferedGraphics bufferedGraphics;
 
     /// <summary>
-    /// <inheritdoc/>
+    ///     <inheritdoc />
     /// </summary>
-    private BufferedGraphics bufferedGraphics;
+    private readonly BufferedGraphicsContext bufferedGraphicsContext;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Main"/> class.
+    ///     Initializes a new instance of the <see cref="Main" /> class.
     /// </summary>
     public Main()
     {
@@ -109,8 +110,8 @@ public partial class Main : UserControl
     {
         _cachedImages.Clear();
         if (_mapEntityImages == null)
-        {
-            _mapEntityImages = new[] {
+            _mapEntityImages = new[]
+            {
                 Game.MediaPk2.GetFile("mm_sign_character.ddj").ToImage(),
                 Game.MediaPk2.GetFile("mm_sign_animal.ddj").ToImage(),
                 Game.MediaPk2.GetFile("mm_sign_npc.ddj").ToImage(),
@@ -120,13 +121,12 @@ public partial class Main : UserControl
                 Game.MediaPk2.GetFile("mm_sign_party.ddj").ToImage(),
                 Game.MediaPk2.GetFile("com_diamond.ddj").ToImage()
             };
-        }
     }
 
     #endregion Core Handlers
 
     /// <summary>
-    /// Adds the grid item.
+    ///     Adds the grid item.
     /// </summary>
     /// <param name="name">The name.</param>
     /// <param name="type">The type.</param>
@@ -145,7 +145,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Draws the point at.
+    ///     Draws the point at.
     /// </summary>
     private void DrawPointAt(Graphics gfx, Position position, int entityIndex)
     {
@@ -155,22 +155,21 @@ public partial class Main : UserControl
 
         try
         {
-
             var x = GetMapX(position);
             var y = GetMapY(position);
 
             using var img = (Image)_mapEntityImages[entityIndex].Clone();
 
             if (entityIndex == 0)
-            {
                 gfx.DrawImage(RotateImage(img, Geometry.RadianToDegree(Game.Player.Movement.Angle)),
                     x - img.Width / 2,
                     y - img.Height / 2);
-            }
             else
                 gfx.DrawImage(img, x - img.Width / 2, y - img.Height / 2);
         }
-        catch { }
+        catch
+        {
+        }
     }
 
     private void DrawRectangleAt(Graphics gfx, Position position, Brush brush, Size size, string label = "")
@@ -189,7 +188,9 @@ public partial class Main : UserControl
 
             gfx.FillRectangle(brush, new RectangleF(new PointF(x, y), size));
         }
-        catch { }
+        catch
+        {
+        }
     }
 
     private void DrawLineAt(Graphics gfx, Position source, Position destination, Pen color)
@@ -227,11 +228,13 @@ public partial class Main : UserControl
             gfx.FillEllipse(brush, new RectangleF(point, new SizeF(diameterF, diameterF)));
             gfx.DrawEllipse(new Pen(color), new RectangleF(point, new SizeF(diameterF, diameterF)));
         }
-        catch { }
+        catch
+        {
+        }
     }
 
     /// <summary>
-    /// Fills the grid.
+    ///     Fills the grid.
     /// </summary>
     private void PopulateMapAndGrid(Graphics graphics)
     {
@@ -274,9 +277,7 @@ public partial class Main : UserControl
             }
 
             if (comboViewType.SelectedIndex == 0 || comboViewType.SelectedIndex == 6)
-            {
                 if (SpawnManager.TryGetEntities<SpawnedMonster>(out var monsters))
-                {
                     foreach (var entry in monsters)
                     {
                         AddGridItem(entry.Record.GetRealName(), entry.Rarity.GetName(),
@@ -294,29 +295,19 @@ public partial class Main : UserControl
                         else
                             DrawPointAt(graphics, entry.Position, 4);
                     }
-                }
-            }
 
             if (comboViewType.SelectedIndex == 4 || comboViewType.SelectedIndex == 6)
-            {
                 if (SpawnManager.TryGetEntities<SpawnedCos>(out var coses))
-                {
                     foreach (var entry in coses)
-                    {
                         // Avoid painting vehicles from main player
                         if (Game.Player.Vehicle?.UniqueId != entry.UniqueId)
                         {
                             AddGridItem(entry.Name, "Pet", entry.Record.Level, entry.Movement.Source);
                             DrawPointAt(graphics, entry.Movement.Source, 1);
                         }
-                    }
-                }
-            }
 
             if (comboViewType.SelectedIndex == 2 || comboViewType.SelectedIndex == 6)
-            {
                 if (Game.Party != null && Game.Party.Members != null)
-                {
                     foreach (var member in Game.Party.Members.ToArray())
                     {
                         if (Game.Player.Position.DistanceTo(member.Position) > 50)
@@ -328,48 +319,35 @@ public partial class Main : UserControl
                         DrawPointAt(graphics, member.Position, 6);
                         AddGridItem(member.Name, "Party Member", member.Level, member.Position);
                     }
-                }
-            }
 
             if (comboViewType.SelectedIndex == 1 || comboViewType.SelectedIndex == 6)
-            {
                 if (SpawnManager.TryGetEntities<SpawnedPlayer>(out var players))
-                {
                     foreach (var entry in players)
                     {
-                        if (Game.Party != null && Game.Party.Members != null && Game.Party.GetMemberByName(entry.Name) != null)
+                        if (Game.Party != null && Game.Party.Members != null &&
+                            Game.Party.GetMemberByName(entry.Name) != null)
                             return;
 
                         AddGridItem(entry.Name, "Player", 0, entry.Movement.Source);
                         DrawPointAt(graphics, entry.Movement.Source, 3);
                     }
-                }
-            }
 
             if (comboViewType.SelectedIndex == 3 || comboViewType.SelectedIndex == 6)
-            {
                 if (SpawnManager.TryGetEntities<SpawnedNpcNpc>(out var npcs))
-                {
                     foreach (var entry in npcs)
                     {
                         AddGridItem(entry.Record.GetRealName(), entry.UniqueId.ToString(),
                             entry.Record.Level, entry.Movement.Source);
                         DrawPointAt(graphics, entry.Movement.Source, 2);
                     }
-                }
-            }
 
             if (comboViewType.SelectedIndex == 5 || comboViewType.SelectedIndex == 6)
-            {
                 if (SpawnManager.TryGetEntities<SpawnedPortal>(out var portals))
-                {
                     foreach (var entry in portals)
                     {
                         AddGridItem(entry.Record.GetRealName(), "Teleport", 0, entry.Movement.Source);
                         DrawPointAt(graphics, entry.Movement.Source, 7);
                     }
-                }
-            }
         }
         catch (Exception ex)
         {
@@ -404,7 +382,8 @@ public partial class Main : UserControl
                     continue;
 
                 DrawLineAt(gfx, Game.Player.Position, collision.Value.CollidedAt, Pens.GreenYellow);
-                DrawLineAt(gfx, collision.Value.CollidedWith.Source, collision.Value.CollidedWith.Destination, Pens.Yellow);
+                DrawLineAt(gfx, collision.Value.CollidedWith.Source, collision.Value.CollidedWith.Destination,
+                    Pens.Yellow);
             }
         }
     }
@@ -425,12 +404,11 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Get path from map layer
+    ///     Get path from map layer
     /// </summary>
     private string GetLayerPath(Position p)
     {
         if (p.Region.IsDungeon)
-        {
             switch (p.Region)
             {
                 // Donwhang cave
@@ -485,13 +463,13 @@ public partial class Main : UserControl
                 // 32791 - GM's Room
                 // 32792 - Fortress Prison
             }
-        }
+
         // Default as world map
         return "{0}x{1}.ddj";
     }
 
     /// <summary>
-    /// Redraw the map image
+    ///     Redraw the map image
     /// </summary>
     private void RedrawMap()
     {
@@ -522,22 +500,20 @@ public partial class Main : UserControl
         {
             gfx.InterpolationMode = InterpolationMode.Bicubic;
             for (var x = 0; x < GridSize; x++)
+            for (var z = 0; z < GridSize; z++)
             {
-                for (var z = 0; z < GridSize; z++)
+                var sectorImgName = string.Format(layerPath, _currentXSec + x - 1, _currentYSec + z - 1);
+
+                using var bitmap = LoadSectorImage(sectorImgName);
+                var pos = new Point(bitmap.Width * x, bitmap.Height * (GridSize - 1 - z));
+
+                gfx.DrawImage(bitmap, pos);
+
+                if (_debug)
                 {
-                    var sectorImgName = string.Format(layerPath, _currentXSec + x - 1, _currentYSec + z - 1);
-
-                    using var bitmap = LoadSectorImage(sectorImgName);
-                    var pos = new Point(bitmap.Width * x, bitmap.Height * (GridSize - 1 - z));
-
-                    gfx.DrawImage(bitmap, pos);
-
-                    if (_debug)
-                    {
-                        using var pen = new Pen(Color.Black);
-                        pen.DashStyle = DashStyle.Dot;
-                        gfx.DrawRectangle(pen, new Rectangle(pos, new Size(SectorSize, SectorSize)));
-                    }
+                    using var pen = new Pen(Color.Black);
+                    pen.DashStyle = DashStyle.Dot;
+                    gfx.DrawRectangle(pen, new Rectangle(pos, new Size(SectorSize, SectorSize)));
                 }
             }
         }
@@ -599,13 +575,15 @@ public partial class Main : UserControl
         if (!Visible)
             return;
 
-        lblRegion.Text = Game.ReferenceManager.GetTranslation(Game.Player.Position.Region.ToString()) + (Game.Player.Position.Region.IsDungeon ? " (Dungeon)" : "");
+        lblRegion.Text = Game.ReferenceManager.GetTranslation(Game.Player.Position.Region.ToString()) +
+                         (Game.Player.Position.Region.IsDungeon ? " (Dungeon)" : "");
 
         lblX.Text = Game.Player.Position.X.ToString("0.0");
         lblY.Text = Game.Player.Position.Y.ToString("0.0");
 
         if (_debug)
-            labelSectorInfo.Text = $"{Game.Player.Movement.Source.Region} ({Game.Player.Movement.Source.Region.X}x{Game.Player.Movement.Source.Region.Y})";
+            labelSectorInfo.Text =
+                $"{Game.Player.Movement.Source.Region} ({Game.Player.Movement.Source.Region.X}x{Game.Player.Movement.Source.Region.Y})";
 
         bufferedGraphics.Graphics.Clear(Color.Black);
         RedrawMap();
@@ -630,7 +608,9 @@ public partial class Main : UserControl
         if (Game.SelectedEntity?.Record.Rarity == ObjectRarity.ClassD)
             return;
 
-        if (SpawnManager.TryGetEntity<SpawnedMonster>(p => p.Record.Rarity == ObjectRarity.ClassD || p.Record.Rarity == ObjectRarity.ClassI, out var uniqueEntity))
+        if (SpawnManager.TryGetEntity<SpawnedMonster>(
+                p => p.Record.Rarity == ObjectRarity.ClassD || p.Record.Rarity == ObjectRarity.ClassI,
+                out var uniqueEntity))
             uniqueEntity.TrySelect();
     }
 
@@ -647,8 +627,9 @@ public partial class Main : UserControl
     private void mapCanvas_MouseClick(object sender, MouseEventArgs e)
     {
         var position = Game.Player.Movement.Source;
-        position.XOffset = (Game.Player.Movement.Source.XOffset + (((mapCanvas.Width / 2f - e.X) / SectorSize) * 192f * 10 * -1f));
-        position.YOffset = (Game.Player.Movement.Source.YOffset + (((mapCanvas.Height / 2f - e.Y) / SectorSize) * 192f * 10));
+        position.XOffset = Game.Player.Movement.Source.XOffset +
+                           (mapCanvas.Width / 2f - e.X) / SectorSize * 192f * 10 * -1f;
+        position.YOffset = Game.Player.Movement.Source.YOffset + (mapCanvas.Height / 2f - e.Y) / SectorSize * 192f * 10;
 
         Game.Player.MoveTo(position, false);
     }
@@ -659,7 +640,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Occurs before Main form is displayed.
+    ///     Occurs before Main form is displayed.
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>

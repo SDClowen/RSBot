@@ -4,15 +4,6 @@ namespace RSBot.Core.Client.ReferenceObjects;
 
 public class RefMagicOptAssign : IReference
 {
-    #region Fields
-
-    public byte Race;
-    public byte TypeId3;
-    public byte TypeId4;
-    public List<string> AvailableMagicOptions;
-
-    #endregion Fields
-
     #region Methods
 
     public bool Load(ReferenceParser parser)
@@ -25,10 +16,8 @@ public class RefMagicOptAssign : IReference
 
         AvailableMagicOptions = new List<string>(80);
         for (var i = 4; i < parser.GetColumnCount(); i++)
-        {
             if (parser.TryParse(i, out string option))
                 AvailableMagicOptions.Add(option);
-        }
 
         AvailableMagicOptions.RemoveAll(m => string.IsNullOrEmpty(m) || m == "xxx");
 
@@ -36,4 +25,13 @@ public class RefMagicOptAssign : IReference
     }
 
     #endregion Methods
+
+    #region Fields
+
+    public byte Race;
+    public byte TypeId3;
+    public byte TypeId4;
+    public List<string> AvailableMagicOptions;
+
+    #endregion Fields
 }

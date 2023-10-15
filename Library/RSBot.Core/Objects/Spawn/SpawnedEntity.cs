@@ -1,98 +1,99 @@
-﻿using RSBot.Core.Client.ReferenceObjects;
+﻿using System;
+using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Components;
-using System;
 
 namespace RSBot.Core.Objects.Spawn;
 
 public class SpawnedEntity
 {
-    /// <summary>
-    /// Synchroniztion object.
-    /// </summary>
-    protected internal object _lock { get; } = new();
+    private bool _lastCollisionResult;
+
+    private long _lastCollisionTick;
 
     /// <summary>
-    /// Gets or sets the unique identifier.
-    /// </summary>
-    /// <value>
-    /// The unique identifier.
-    /// </value>
-    public uint UniqueId { get; set; }
-
-    /// <summary>
-    /// Gets or sets the model identifier.
-    /// </summary>
-    /// <value>
-    /// The model identifier.
-    /// </value>
-    public uint Id { get; set; }
-
-    /// <summary>
-    /// Gets or sets the state.
-    /// </summary>
-    /// <value>
-    /// The state.
-    /// </value>
-    public State State { get; } = new();
-
-    /// <summary>
-    /// Returns a value indicating if the entity is a mob.
-    /// </summary>
-    public bool IsMob => Record is { TypeID2: 2, TypeID3: 1 };
-
-    /// <summary>
-    /// Gets the record.
-    /// </summary>
-    /// <value>
-    /// The record.
-    /// </value>
-    public RefObjChar Record => Game.ReferenceManager.GetRefObjChar(Id);
-
-    /// <summary>
-    /// Gets the race.
-    /// </summary>
-    /// <value>
-    /// The race.
-    /// </value>
-    public ObjectCountry Race => Record?.Country ?? ObjectCountry.Unassigned;
-
-    /// <summary>
-    /// Gets the gender.
-    /// </summary>
-    /// <value>
-    /// The gender.
-    /// </value>
-    public ObjectGender Gender => Record?.CharGender ?? ObjectGender.Neutral;
-
-    /// <summary>
-    /// The Movement
+    ///     The Movement
     /// </summary>
     public Movement Movement;
 
     /// <summary>
-    /// Gets the position.
+    ///     Synchroniztion object.
+    /// </summary>
+    protected internal object _lock { get; } = new();
+
+    /// <summary>
+    ///     Gets or sets the unique identifier.
     /// </summary>
     /// <value>
-    /// The position.
+    ///     The unique identifier.
+    /// </value>
+    public uint UniqueId { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the model identifier.
+    /// </summary>
+    /// <value>
+    ///     The model identifier.
+    /// </value>
+    public uint Id { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the state.
+    /// </summary>
+    /// <value>
+    ///     The state.
+    /// </value>
+    public State State { get; } = new();
+
+    /// <summary>
+    ///     Returns a value indicating if the entity is a mob.
+    /// </summary>
+    public bool IsMob => Record is { TypeID2: 2, TypeID3: 1 };
+
+    /// <summary>
+    ///     Gets the record.
+    /// </summary>
+    /// <value>
+    ///     The record.
+    /// </value>
+    public RefObjChar Record => Game.ReferenceManager.GetRefObjChar(Id);
+
+    /// <summary>
+    ///     Gets the race.
+    /// </summary>
+    /// <value>
+    ///     The race.
+    /// </value>
+    public ObjectCountry Race => Record?.Country ?? ObjectCountry.Unassigned;
+
+    /// <summary>
+    ///     Gets the gender.
+    /// </summary>
+    /// <value>
+    ///     The gender.
+    /// </value>
+    public ObjectGender Gender => Record?.CharGender ?? ObjectGender.Neutral;
+
+    /// <summary>
+    ///     Gets the position.
+    /// </summary>
+    /// <value>
+    ///     The position.
     /// </value>
     public Position Position => Movement.Source;
 
     /// <summary>
-    /// Gets a value indicating whether [in cave].
+    ///     Gets a value indicating whether [in cave].
     /// </summary>
     /// <value>
-    ///   <c>true</c> if [in cave]; otherwise, <c>false</c>.
+    ///     <c>true</c> if [in cave]; otherwise, <c>false</c>.
     /// </value>
     public bool IsInDungeon => Movement.Source.Region.IsDungeon;
 
-    private long _lastCollisionTick;
-    private bool _lastCollisionResult;
-
     /// <summary>
-    /// Gets or sets a value indicating whether this instance is behind obstacle.
+    ///     Gets or sets a value indicating whether this instance is behind obstacle.
     /// </summary>
     /// <value>
-    /// <c>true</c> if this instance is behind obstacle; otherwise, <c>false</c>.
+    ///     <c>true</c> if this instance is behind obstacle; otherwise, <c>false</c>.
     /// </value>
     public bool IsBehindObstacle
     {
@@ -110,7 +111,7 @@ public class SpawnedEntity
     }
 
     /// <summary>
-    /// Entity current speed
+    ///     Entity current speed
     /// </summary>
     public float ActualSpeed
     {
@@ -207,7 +208,7 @@ public class SpawnedEntity
 
     private void CalculateMovingConditional()
     {
-        var position = this.Movement.Source;
+        var position = Movement.Source;
         var diffX = Movement.Destination.X - position.X;
         var diffY = Movement.Destination.Y - position.Y;
         var distance = Movement.Destination.DistanceTo(position);
@@ -249,7 +250,7 @@ public class SpawnedEntity
             return;
         }
 
-        float remaning = -1f;
+        var remaning = -1f;
 
         var finish = false;
         var totalChange = ActualSpeed / 1000.0f * delta;
@@ -269,7 +270,7 @@ public class SpawnedEntity
     }
 
     /// <summary>
-    /// Update the instance
+    ///     Update the instance
     /// </summary>
     /// <returns></returns>
     public virtual bool Update(int delta)
@@ -280,7 +281,7 @@ public class SpawnedEntity
     }
 
     /// <summary>
-    /// Dispose the instance
+    ///     Dispose the instance
     /// </summary>
     public virtual bool Dispose()
     {

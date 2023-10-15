@@ -1,4 +1,6 @@
-﻿using RSBot.Alchemy.Client.ReferenceObjects;
+﻿using System;
+using System.Linq;
+using RSBot.Alchemy.Client.ReferenceObjects;
 using RSBot.Alchemy.Extension;
 using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
@@ -6,13 +8,17 @@ using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Item;
-using System;
-using System.Linq;
 
 namespace RSBot.Alchemy.Bundle.Magic;
 
 internal class MagicBundle : IAlchemyBundle
 {
+    #region Member
+
+    private bool _shouldRun = true;
+
+    #endregion Member
+
     #region Constructor
 
     public MagicBundle()
@@ -22,28 +28,24 @@ internal class MagicBundle : IAlchemyBundle
 
     #endregion Constructor
 
-    #region Member
-
-    private bool _shouldRun = true;
-
-    #endregion Member
-
     #region Methods
 
     /// <summary>
-    /// Subscribes the events
+    ///     Subscribes the events
     /// </summary>
     private void SubscribeEvents()
     {
-        EventManager.SubscribeEvent("OnAlchemySuccess", new Action<InventoryItem, InventoryItem, AlchemyType>(OnStoneAlchemySuccess));
-        EventManager.SubscribeEvent("OnAlchemyFailed", new Action<InventoryItem, InventoryItem, AlchemyType>(OnStoneAlchemyFailed));
+        EventManager.SubscribeEvent("OnAlchemySuccess",
+            new Action<InventoryItem, InventoryItem, AlchemyType>(OnStoneAlchemySuccess));
+        EventManager.SubscribeEvent("OnAlchemyFailed",
+            new Action<InventoryItem, InventoryItem, AlchemyType>(OnStoneAlchemyFailed));
         EventManager.SubscribeEvent("OnAlchemyError", new Action<ushort, AlchemyType>(OnStoneAlchemyError));
         EventManager.SubscribeEvent("OnAlchemy", new Action<AlchemyType>(OnStoneAlchemy));
         EventManager.SubscribeEvent("OnFuseRequest", new Action<AlchemyAction, AlchemyType>(OnFuseRequest));
     }
 
     /// <summary>
-    /// Stops this manager
+    ///     Stops this manager
     /// </summary>
     public void Stop()
     {
@@ -53,7 +55,7 @@ internal class MagicBundle : IAlchemyBundle
     }
 
     /// <summary>
-    /// Starts this manager
+    ///     Starts this manager
     /// </summary>
     public void Start()
     {
@@ -61,7 +63,7 @@ internal class MagicBundle : IAlchemyBundle
     }
 
     /// <summary>
-    /// Returns the translation name for an error code
+    ///     Returns the translation name for an error code
     /// </summary>
     /// <param name="errorCode"></param>
     /// <returns></returns>
@@ -96,7 +98,7 @@ internal class MagicBundle : IAlchemyBundle
     }
 
     /// <summary>
-    /// Runs a tick of this manager
+    ///     Runs a tick of this manager
     /// </summary>
     /// <param name="engineConfig">The configuration for this manager</param>
     public void Run<T>(T engineConfig)
@@ -112,7 +114,8 @@ internal class MagicBundle : IAlchemyBundle
             return;
         }
 
-        if (config == null || _shouldRun is false || config.Item == null || config.MagicStones == null || config.MagicStones?.Count == 0)
+        if (config == null || _shouldRun is false || config.Item == null || config.MagicStones == null ||
+            config.MagicStones?.Count == 0)
             return;
 
         //Loops over every stone that should be fused
@@ -161,7 +164,9 @@ internal class MagicBundle : IAlchemyBundle
                 _shouldRun = false;
             }
             else
+            {
                 Log.Notify("[Alchemy] Maximum option level reached!");
+            }
         }
 
         if (_shouldRun)
@@ -177,7 +182,7 @@ internal class MagicBundle : IAlchemyBundle
     #region Events
 
     /// <summary>
-    /// Will be triggered if any fuse request was sent to the server
+    ///     Will be triggered if any fuse request was sent to the server
     /// </summary>
     /// <param name="action"></param>
     /// <param name="type"></param>
@@ -190,7 +195,7 @@ internal class MagicBundle : IAlchemyBundle
     }
 
     /// <summary>
-    /// Will be triggered if any stone alchemy action response was sent from the server
+    ///     Will be triggered if any stone alchemy action response was sent from the server
     /// </summary>
     private void OnStoneAlchemy(AlchemyType type)
     {
@@ -201,7 +206,7 @@ internal class MagicBundle : IAlchemyBundle
     }
 
     /// <summary>
-    /// Will be triggered if a stone alchemy operation was successful
+    ///     Will be triggered if a stone alchemy operation was successful
     /// </summary>
     /// <param name="newItem">The new item after the successful action</param>
     private void OnStoneAlchemySuccess(InventoryItem oldItem, InventoryItem newItem, AlchemyType type)
@@ -244,8 +249,11 @@ internal class MagicBundle : IAlchemyBundle
         var record = Game.ReferenceManager.GetMagicOption(changedOption.Id);
 
         var message = !isNew
-            ? Game.ReferenceManager.GetTranslation("UIIT_MSG_ALCHEMY_CHANGE_CATTR").JoymaxFormat(newItem.Record.GetRealName(), record.GetGroupTranslation(), $"{oldItem.MagicOptions.FirstOrDefault(m => m.Id == changedOption.Id).Value} -> {changedOption.Value}")
-            : Game.ReferenceManager.GetTranslation("UIIT_MSG_ALCHEMY_APPEND_ATTR").JoymaxFormat(record.GetGroupTranslation(), newItem.Record.GetRealName());
+            ? Game.ReferenceManager.GetTranslation("UIIT_MSG_ALCHEMY_CHANGE_CATTR").JoymaxFormat(
+                newItem.Record.GetRealName(), record.GetGroupTranslation(),
+                $"{oldItem.MagicOptions.FirstOrDefault(m => m.Id == changedOption.Id).Value} -> {changedOption.Value}")
+            : Game.ReferenceManager.GetTranslation("UIIT_MSG_ALCHEMY_APPEND_ATTR")
+                .JoymaxFormat(record.GetGroupTranslation(), newItem.Record.GetRealName());
 
         Globals.View.AddLog(newItem.Record.GetRealName(), message);
 
@@ -253,7 +261,7 @@ internal class MagicBundle : IAlchemyBundle
     }
 
     /// <summary>
-    /// Will be triggered if a stone alchemy action failed
+    ///     Will be triggered if a stone alchemy action failed
     /// </summary>
     /// <param name="newItem">The new item after the operation failed</param>
     private void OnStoneAlchemyFailed(InventoryItem oldItem, InventoryItem newItem, AlchemyType type)
@@ -261,13 +269,14 @@ internal class MagicBundle : IAlchemyBundle
         if (type != AlchemyType.MagicStone || !Bootstrap.IsActive)
             return;
 
-        Globals.View.AddLog(newItem.Record.GetRealName(), Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL"));
+        Globals.View.AddLog(newItem.Record.GetRealName(),
+            Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL"));
 
         _shouldRun = true;
     }
 
     /// <summary>
-    /// Will be triggered if an stone alchemy error
+    ///     Will be triggered if an stone alchemy error
     /// </summary>
     /// <param name="errorCode">The error code</param>
     private void OnStoneAlchemyError(ushort errorCode, AlchemyType type)
@@ -277,7 +286,10 @@ internal class MagicBundle : IAlchemyBundle
 
         var translationName = GetErrorTranslationName(errorCode);
 
-        Globals.View.AddLog(AlchemyManager.ActiveAlchemyItems?.Count > 0 ? AlchemyManager.ActiveAlchemyItems.First().Record.GetRealName() : "", Game.ReferenceManager.GetTranslation(translationName));
+        Globals.View.AddLog(
+            AlchemyManager.ActiveAlchemyItems?.Count > 0
+                ? AlchemyManager.ActiveAlchemyItems.First().Record.GetRealName()
+                : "", Game.ReferenceManager.GetTranslation(translationName));
 
         _shouldRun = true;
     }

@@ -6,7 +6,7 @@ namespace RSBot.Protection.Components.Town;
 public class AmmunitionHandler : AbstractTownHandler
 {
     /// <summary>
-    /// Initializes this instance.
+    ///     Initializes this instance.
     /// </summary>
     public static void Initialize()
     {
@@ -14,7 +14,7 @@ public class AmmunitionHandler : AbstractTownHandler
     }
 
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     private static void SubscribeEvents()
     {
@@ -28,7 +28,7 @@ public class AmmunitionHandler : AbstractTownHandler
     }
 
     /// <summary>
-    /// Cores the on update ammunition.
+    ///     Cores the on update ammunition.
     /// </summary>
     private static void OnUpdateAmmunition()
     {

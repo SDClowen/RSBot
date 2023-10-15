@@ -1,117 +1,115 @@
-﻿using RSBot.Core.Client;
-using RSBot.Core.Client.ReferenceObjects;
+﻿using System.IO;
+using RSBot.Core.Client;
 using RSBot.Core.Components;
+using RSBot.Core.Components.Pk2;
 using RSBot.Core.Extensions;
 using RSBot.Core.Network;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Party;
 using RSBot.Core.Objects.Spawn;
-using System;
-using System.IO;
-using RSBot.Core.Objects.Job;
 
 namespace RSBot.Core;
 
 public class Game
 {
     /// <summary>
-    /// Gets or sets the port.
-    /// </summary>
-    /// <value>
-    /// The port.
-    /// </value>
-    public static ushort Port { get; private set; }
-
-    /// <summary>
-    /// Gets or sets the Media.pk2 reader.
-    /// </summary>
-    /// <value>
-    /// The PK2 reader.
-    /// </value>
-    public static Components.Pk2.ArchiveManager MediaPk2 { get; set; }
-
-    /// <summary>
-    /// Gets or sets the reference manager
-    /// </summary>
-    /// <value>
-    /// The reference manager
-    /// </value>
-    public static ReferenceManager ReferenceManager { get; set; }
-
-    /// <summary>
-    /// Gets the character.
-    /// </summary>
-    /// <value>
-    /// The character.
-    /// </value>
-    public static Player Player { get; internal set; }
-
-    /// <summary>
-    /// Gets or sets the selected entity.
-    /// </summary>
-    /// <value>
-    /// The selected entity.
-    /// </value>
-    public static SpawnedBionic? SelectedEntity { get; set; }
-
-    /// <summary>
-    /// Gets or sets the spawn information.
-    /// </summary>
-    /// <value>
-    /// The spawn information.
-    /// </value>
-    internal static SpawnPacketInfo SpawnInfo { get; set; }
-
-    /// <summary>
-    /// Gets or sets the chunked packet.
-    /// </summary>
-    /// <value>
-    /// The chunked packet.
-    /// </value>
-    internal static Packet ChunkedPacket { get; set; }
-
-    /// <summary>
-    /// Gets or sets the party.
-    /// </summary>
-    /// <value>
-    /// The party.
-    /// </value>
-    public static Party Party { get; internal set; }
-
-    /// <summary>
-    /// The acceptance request
+    ///     The acceptance request
     /// </summary>
     public static AcceptanceRequest AcceptanceRequest;
 
     /// <summary>
-    /// Gets a value indicating whether this <see cref="Game"/> is clientless.
+    ///     Gets or sets the port.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if clientless; otherwise, <c>false</c>.
+    ///     The port.
+    /// </value>
+    public static ushort Port { get; private set; }
+
+    /// <summary>
+    ///     Gets or sets the Media.pk2 reader.
+    /// </summary>
+    /// <value>
+    ///     The PK2 reader.
+    /// </value>
+    public static ArchiveManager MediaPk2 { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the reference manager
+    /// </summary>
+    /// <value>
+    ///     The reference manager
+    /// </value>
+    public static ReferenceManager ReferenceManager { get; set; }
+
+    /// <summary>
+    ///     Gets the character.
+    /// </summary>
+    /// <value>
+    ///     The character.
+    /// </value>
+    public static Player Player { get; internal set; }
+
+    /// <summary>
+    ///     Gets or sets the selected entity.
+    /// </summary>
+    /// <value>
+    ///     The selected entity.
+    /// </value>
+    public static SpawnedBionic? SelectedEntity { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the spawn information.
+    /// </summary>
+    /// <value>
+    ///     The spawn information.
+    /// </value>
+    internal static SpawnPacketInfo SpawnInfo { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the chunked packet.
+    /// </summary>
+    /// <value>
+    ///     The chunked packet.
+    /// </value>
+    internal static Packet ChunkedPacket { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the party.
+    /// </summary>
+    /// <value>
+    ///     The party.
+    /// </value>
+    public static Party Party { get; internal set; }
+
+    /// <summary>
+    ///     Gets a value indicating whether this <see cref="Game" /> is clientless.
+    /// </summary>
+    /// <value>
+    ///     <c>true</c> if clientless; otherwise, <c>false</c>.
     /// </value>
     public static bool Clientless { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether this <see cref="Game"/> is started.
+    ///     Gets or sets a value indicating whether this <see cref="Game" /> is started.
     /// </summary>
     /// <value><c>true</c> if started; otherwise, <c>false</c>.</value>
     public static bool Started { get; set; }
 
     /// <summary>
-    /// Gets a value indicating whether this <see cref="Game"/> is ready.
+    ///     Gets a value indicating whether this <see cref="Game" /> is ready.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if ready; otherwise, <c>false</c>.
+    ///     <c>true</c> if ready; otherwise, <c>false</c>.
     /// </value>
     public static bool Ready { get; internal set; }
 
     /// <summary>
-    /// The game client type
+    ///     The game client type
     /// </summary>
     public static GameClientType ClientType { get; set; }
 
     /// <summary>
-    /// Starts the game.
+    ///     Starts the game.
     /// </summary>
     public static void Start()
     {
@@ -127,32 +125,33 @@ public class Game
 
         Port = NetworkUtilities.GetFreePort(1500, 2000, 1);
 
-        Kernel.Proxy = new();
-        Kernel.Proxy.Start(Port, ReferenceManager.DivisionInfo.Divisions[divisionIndex].GatewayServers[severIndex], ReferenceManager.GatewayInfo.Port);
+        Kernel.Proxy = new Proxy();
+        Kernel.Proxy.Start(Port, ReferenceManager.DivisionInfo.Divisions[divisionIndex].GatewayServers[severIndex],
+            ReferenceManager.GatewayInfo.Port);
 
         Started = true;
     }
 
     /// <summary>
-    /// Initialize game archive files
+    ///     Initialize game archive files
     /// </summary>
     /// <returns></returns>
     public static bool InitializeArchiveFiles()
     {
         var directory = GlobalConfig.Get<string>("RSBot.SilkroadDirectory");
-        MediaPk2 = Components.Pk2.ArchiveManager.Initialize(Path.Combine(directory, "media.pk2"));
+        MediaPk2 = ArchiveManager.Initialize(Path.Combine(directory, "media.pk2"));
 
         return MediaPk2 != null;
     }
 
     /// <summary>
-    /// Initializes this instance.
+    ///     Initializes this instance.
     /// </summary>
     public static void Initialize()
     {
         ClientType = GlobalConfig.GetEnum("RSBot.Game.ClientType", GameClientType.Vietnam);
-        ReferenceManager = new();
-        Party = new();
+        ReferenceManager = new ReferenceManager();
+        Party = new Party();
 
         SkillManager.Initialize();
         ShoppingManager.Initialize();
@@ -161,7 +160,7 @@ public class Game
     }
 
     /// <summary>
-    /// Shows a notification in the game client using the notice chat type.
+    ///     Shows a notification in the game client using the notice chat type.
     /// </summary>
     /// <param name="message"></param>
     public static void ShowNotification(string message)

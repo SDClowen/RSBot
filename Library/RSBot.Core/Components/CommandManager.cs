@@ -10,7 +10,7 @@ public static class CommandManager
     private static List<ICommandExecutor> _commands;
 
     /// <summary>
-    /// Initializes the command manager.
+    ///     Initializes the command manager.
     /// </summary>
     public static void Initialize()
     {
@@ -32,7 +32,7 @@ public static class CommandManager
     }
 
     /// <summary>
-    /// Executes the given command
+    ///     Executes the given command
     /// </summary>
     /// <param name="command"></param>
     /// <param name="silent"></param>
@@ -48,9 +48,9 @@ public static class CommandManager
 
         return executor != null && executor.Execute(silent);
     }
-    
+
     /// <summary>
-    /// Gets a command executor instance by a command name
+    ///     Gets a command executor instance by a command name
     /// </summary>
     /// <param name="commandName"></param>
     /// <returns></returns>
@@ -60,10 +60,9 @@ public static class CommandManager
     }
 
     /// <summary>
-    /// Returns a list of all available command descriptions.
-    ///
-    /// Key = Command name
-    /// Value = Command description
+    ///     Returns a list of all available command descriptions.
+    ///     Key = Command name
+    ///     Value = Command description
     /// </summary>
     /// <returns></returns>
     public static Dictionary<string, string> GetCommandDescriptions()

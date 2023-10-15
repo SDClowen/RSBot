@@ -6,7 +6,7 @@ namespace RSBot.Core.Objects.Cos;
 public class Ability : Cos
 {
     /// <summary>
-    /// Deserialize the packet.
+    ///     Deserialize the packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     public override void Deserialize(Packet packet)
@@ -32,7 +32,7 @@ public class Ability : Cos
     }
 
     /// <summary>
-    /// Moves the item to player.
+    ///     Moves the item to player.
     /// </summary>
     /// <param name="slot">The slot.</param>
     public byte MoveItemToPlayer(byte slot)

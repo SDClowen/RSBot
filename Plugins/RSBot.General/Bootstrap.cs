@@ -1,8 +1,8 @@
-﻿using RSBot.Core;
+﻿using System.Windows.Forms;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Plugins;
-using RSBot.General.Views;
-using System.Windows.Forms;
+using RSBot.General.Components;
 
 namespace RSBot.General;
 
@@ -26,7 +26,7 @@ public class Bootstrap : IPlugin
     /// <inheritdoc />
     public void Initialize()
     {
-        Components.Accounts.Load();
+        Accounts.Load();
     }
 
     /// <inheritdoc />

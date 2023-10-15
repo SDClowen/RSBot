@@ -8,7 +8,7 @@ namespace RSBot.Protection.Components.Pet;
 public static class CosHealthRecoveryHandler
 {
     /// <summary>
-    /// Initializes this instance.
+    ///     Initializes this instance.
     /// </summary>
     public static void Initialize()
     {
@@ -19,7 +19,7 @@ public static class CosHealthRecoveryHandler
     }
 
     /// <summary>
-    /// Cores the on pet health update.
+    ///     Cores the on pet health update.
     /// </summary>
     private static void OnCosHealthUpdate(Cos cos)
     {
@@ -27,7 +27,7 @@ public static class CosHealthRecoveryHandler
         if (!useHPPotions)
             return;
 
-        var minHp = PlayerConfig.Get<int>("RSBot.Protection.numPetMinHP", 50);
+        var minHp = PlayerConfig.Get("RSBot.Protection.numPetMinHP", 50);
 
         if (cos == null)
             return;
@@ -41,7 +41,7 @@ public static class CosHealthRecoveryHandler
     }
 
     /// <summary>
-    /// Cores the on pet health update.
+    ///     Cores the on pet health update.
     /// </summary>
     private static void OnGrowthHealthUpdate()
     {
@@ -49,7 +49,7 @@ public static class CosHealthRecoveryHandler
     }
 
     /// <summary>
-    /// Cores the on pet health update.
+    ///     Cores the on pet health update.
     /// </summary>
     private static void OnFellowHealthUpdate()
     {
@@ -57,7 +57,7 @@ public static class CosHealthRecoveryHandler
     }
 
     /// <summary>
-    /// Cores the on pet health update.
+    ///     Cores the on pet health update.
     /// </summary>
     private static void OnUpdateTransportHealth()
     {
@@ -65,7 +65,7 @@ public static class CosHealthRecoveryHandler
     }
 
     /// <summary>
-    /// Cores the on pet health update.
+    ///     Cores the on pet health update.
     /// </summary>
     private static void OnUpdateJobTransportHealth()
     {

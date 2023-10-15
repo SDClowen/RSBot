@@ -7,7 +7,7 @@ namespace RSBot.Protection.Components.Player;
 internal class VigorRecoveryHandler
 {
     /// <summary>
-    /// Initialize the <see cref="VigorRecoveryHandler"/>
+    ///     Initialize the <see cref="VigorRecoveryHandler" />
     /// </summary>
     public static void Initialize()
     {
@@ -15,7 +15,7 @@ internal class VigorRecoveryHandler
     }
 
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     private static void SubscribeEvents()
     {
@@ -23,7 +23,7 @@ internal class VigorRecoveryHandler
     }
 
     /// <summary>
-    /// Cores the on player HPMP update.
+    ///     Cores the on player HPMP update.
     /// </summary>
     /// <exception cref="System.NotImplementedException"></exception>
     private static void OnUpdateHPMP()
@@ -42,7 +42,7 @@ internal class VigorRecoveryHandler
         }
 
         var useHealthPotion = PlayerConfig.Get<bool>("RSBot.Protection.checkUseVigorHP");
-        if (!useHealthPotion) 
+        if (!useHealthPotion)
             return;
 
         var minHealth = PlayerConfig.Get("RSBot.Protection.numPlayerHPVigorPotionMin", 50);

@@ -7,18 +7,18 @@ public class Division
     #region Fields
 
     /// <summary>
-    /// Gets or sets the name.
+    ///     Gets or sets the name.
     /// </summary>
     /// <value>
-    /// The name.
+    ///     The name.
     /// </value>
     public string Name;
 
     /// <summary>
-    /// Gets or sets the login servers.
+    ///     Gets or sets the login servers.
     /// </summary>
     /// <value>
-    /// The login servers.
+    ///     The login servers.
     /// </value>
     public List<string> GatewayServers;
 

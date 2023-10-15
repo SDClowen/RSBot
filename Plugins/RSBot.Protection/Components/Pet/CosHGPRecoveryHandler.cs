@@ -6,7 +6,7 @@ namespace RSBot.Protection.Components.Pet;
 public class CosHGPRecoveryHandler
 {
     /// <summary>
-    /// Initiliazes this instance.
+    ///     Initiliazes this instance.
     /// </summary>
     public static void Initiliaze()
     {
@@ -14,7 +14,7 @@ public class CosHGPRecoveryHandler
     }
 
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     private static void SubscribeEvents()
     {
@@ -23,7 +23,7 @@ public class CosHGPRecoveryHandler
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///     <inheritdoc />
     /// </summary>
     private static void OnGrowthHungerUpdate()
     {
@@ -34,7 +34,7 @@ public class CosHGPRecoveryHandler
         if (!use)
             return;
 
-        var min = PlayerConfig.Get<int>("RSBot.Protection.numPetMinHGP", 50);
+        var min = PlayerConfig.Get("RSBot.Protection.numPetMinHGP", 50);
 
         var percent = 100.0 * Game.Player.Growth.CurrentHungerPoints / Game.Player.Growth.MaxHungerPoints;
         if (percent < min)
@@ -42,7 +42,7 @@ public class CosHGPRecoveryHandler
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///     <inheritdoc />
     /// </summary>
     private static void OnFellowSatietyUpdate()
     {
@@ -53,7 +53,7 @@ public class CosHGPRecoveryHandler
         if (!use)
             return;
 
-        var min = PlayerConfig.Get<int>("RSBot.Protection.numPetMinHGP", 50);
+        var min = PlayerConfig.Get("RSBot.Protection.numPetMinHGP", 50);
 
         var percent = 100.0 * Game.Player.Fellow.Satiety / 36000;
         if (percent < min)

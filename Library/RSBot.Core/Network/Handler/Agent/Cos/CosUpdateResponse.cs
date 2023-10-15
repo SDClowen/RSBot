@@ -5,23 +5,23 @@ namespace RSBot.Core.Network.Handler.Agent;
 internal class CosUpdateResponse : IPacketHandler
 {
     /// <summary>
-    /// Gets or sets the opcode.
+    ///     Gets or sets the opcode.
     /// </summary>
     /// <value>
-    /// The opcode.
+    ///     The opcode.
     /// </value>
     public ushort Opcode => 0x30C9;
 
     /// <summary>
-    /// Gets or sets the destination.
+    ///     Gets or sets the destination.
     /// </summary>
     /// <value>
-    /// The destination.
+    ///     The destination.
     /// </value>
     public PacketDestination Destination => PacketDestination.Client;
 
     /// <summary>
-    /// Handles the packet.
+    ///     Handles the packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     public void Invoke(Packet packet)
@@ -61,7 +61,8 @@ internal class CosUpdateResponse : IPacketHandler
                     {
                         Game.Player.Growth.Level = iLevel;
                         EventManager.FireEvent("OnGrowthLevelUp");
-                        Log.Notify($"Congratulations, your pet [{Game.Player.Growth.Name}] level has increased to [{Game.Player.Growth.Level}]");
+                        Log.Notify(
+                            $"Congratulations, your pet [{Game.Player.Growth.Name}] level has increased to [{Game.Player.Growth.Level}]");
                     }
 
                     EventManager.FireEvent("OnGrowthExperienceUpdate");
@@ -78,10 +79,10 @@ internal class CosUpdateResponse : IPacketHandler
                     break;
 
                 case 7:
-                        
+
                     Game.Player.Growth.Id = packet.ReadUInt();
                     var record = Game.Player.Growth.Record;
-                    if(record != null)
+                    if (record != null)
                         Game.Player.Growth.Health = Game.Player.Growth.MaxHealth = record.MaxHealth;
 
                     break;
@@ -126,7 +127,8 @@ internal class CosUpdateResponse : IPacketHandler
                         Game.Player.Fellow.Level = iLevel;
                         Game.Player.Fellow.MaxHealth = Game.Player.Fellow.Health;
                         EventManager.FireEvent("OnFellowLevelUp");
-                        Log.Notify($"Congratulations, your fellow pet [{Game.Player.Fellow.Name}] level has increased to [{Game.Player.Fellow.Level}]");
+                        Log.Notify(
+                            $"Congratulations, your fellow pet [{Game.Player.Fellow.Name}] level has increased to [{Game.Player.Fellow.Level}]");
                     }
 
                     EventManager.FireEvent("OnFellowExperienceUpdate");

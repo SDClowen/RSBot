@@ -3,23 +3,23 @@
 internal class CosActionRequestHook : IPacketHook
 {
     /// <summary>
-    /// Gets the opcode.
+    ///     Gets the opcode.
     /// </summary>
     /// <value>
-    /// The opcode.
+    ///     The opcode.
     /// </value>
     public ushort Opcode => 0x705C;
 
     /// <summary>
-    /// Gets the destination.
+    ///     Gets the destination.
     /// </summary>
     /// <value>
-    /// The destination.
+    ///     The destination.
     /// </value>
     public PacketDestination Destination => PacketDestination.Server;
 
     /// <summary>
-    /// Replaces the packet and returns a new packet.
+    ///     Replaces the packet and returns a new packet.
     /// </summary>
     /// <param name="packet"></param>
     /// <returns></returns>

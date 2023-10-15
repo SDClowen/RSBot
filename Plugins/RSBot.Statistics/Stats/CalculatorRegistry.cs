@@ -1,22 +1,22 @@
-﻿using RSBot.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using RSBot.Core;
 
 namespace RSBot.Statistics.Stats;
 
 internal static class CalculatorRegistry
 {
     /// <summary>
-    /// Gets the statistics.
+    ///     Gets the statistics.
     /// </summary>
     /// <value>
-    /// The statistics.
+    ///     The statistics.
     /// </value>
     public static List<IStatisticCalculator> Calculators { get; private set; }
 
     /// <summary>
-    /// Initializes this instance.
+    ///     Initializes this instance.
     /// </summary>
     public static void Initialize()
     {
@@ -25,7 +25,7 @@ internal static class CalculatorRegistry
     }
 
     /// <summary>
-    /// Loads the calculators.
+    ///     Loads the calculators.
     /// </summary>
     private static void LoadCalculators()
     {

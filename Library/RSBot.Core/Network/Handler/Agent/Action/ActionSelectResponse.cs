@@ -7,28 +7,28 @@ namespace RSBot.Core.Network.Handler.Agent.Action;
 internal class ActionSelectResponse : IPacketHandler
 {
     /// <summary>
-    /// Gets or sets the opcode.
+    ///     Gets or sets the opcode.
     /// </summary>
     /// <value>
-    /// The opcode.
+    ///     The opcode.
     /// </value>
     public ushort Opcode => 0xB045;
 
     /// <summary>
-    /// Gets or sets the destination.
+    ///     Gets or sets the destination.
     /// </summary>
     /// <value>
-    /// The destination.
+    ///     The destination.
     /// </value>
     public PacketDestination Destination => PacketDestination.Client;
 
     /// <summary>
-    /// Handles the packet.
+    ///     Handles the packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     public void Invoke(Packet packet)
     {
-        if (packet.ReadByte() != 0x01) 
+        if (packet.ReadByte() != 0x01)
             return;
 
         var uniqueId = packet.ReadUInt();
@@ -45,7 +45,7 @@ internal class ActionSelectResponse : IPacketHandler
             var hasHealth = packet.ReadBool();
             if (hasHealth)
                 entity.Health = packet.ReadInt();
-                
+
             /*if (Game.ClientType >= GameClientType.Global)
                 packet.ReadUInt(); // ??*/
 

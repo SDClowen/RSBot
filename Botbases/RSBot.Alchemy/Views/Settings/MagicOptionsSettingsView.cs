@@ -1,4 +1,11 @@
-﻿using RSBot.Alchemy.Bundle.Magic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
+using RSBot.Alchemy.Bot;
+using RSBot.Alchemy.Bundle.Magic;
 using RSBot.Alchemy.Client.ReferenceObjects;
 using RSBot.Alchemy.Helper;
 using RSBot.Core;
@@ -6,24 +13,12 @@ using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Item;
-using System;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace RSBot.Alchemy.Views.Settings;
 
-[System.ComponentModel.ToolboxItem(false)]
+[ToolboxItem(false)]
 public partial class MagicOptionsSettingsView : UserControl
 {
-    private class MagicStoneListViewItemTag
-    {
-        public InventoryItem? Item { get; set; }
-        public RefMagicOpt? MagicOption { get; set; }
-
-        public MagicOptionInfo? MagicOptionInfo { get; set; }
-    }
-
     #region Members
 
     private bool _reloadConfig;
@@ -33,7 +28,7 @@ public partial class MagicOptionsSettingsView : UserControl
     #region Constructor
 
     /// <summary>
-    /// Subscribes several events
+    ///     Subscribes several events
     /// </summary>
     public MagicOptionsSettingsView()
     {
@@ -46,10 +41,18 @@ public partial class MagicOptionsSettingsView : UserControl
 
     #endregion Constructor
 
+    private class MagicStoneListViewItemTag
+    {
+        public InventoryItem? Item { get; set; }
+        public RefMagicOpt? MagicOption { get; set; }
+
+        public MagicOptionInfo? MagicOptionInfo { get; set; }
+    }
+
     #region Events
 
     /// <summary>
-    /// Subscribes to the ItemChanged event
+    ///     Subscribes to the ItemChanged event
     /// </summary>
     private void SubscribeMainFormEvents()
     {
@@ -60,13 +63,13 @@ public partial class MagicOptionsSettingsView : UserControl
         }
     }
 
-    private void View_EngineChanged(InventoryItem item, Bot.AlchemyEngine alchemyEngine)
+    private void View_EngineChanged(InventoryItem item, AlchemyEngine alchemyEngine)
     {
         PopulateListView();
     }
 
     /// <summary>
-    /// Will be triggered when the selected item changed
+    ///     Will be triggered when the selected item changed
     /// </summary>
     /// <param name="item"></param>
     private void View_ItemChanged(InventoryItem item)
@@ -75,7 +78,7 @@ public partial class MagicOptionsSettingsView : UserControl
     }
 
     /// <summary>
-    /// Will be triggered when a list view item was selected
+    ///     Will be triggered when a list view item was selected
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
@@ -83,7 +86,8 @@ public partial class MagicOptionsSettingsView : UserControl
     {
         var tag = e.Item.Tag as MagicStoneListViewItemTag;
 
-        if (tag.MagicOptionInfo != null && tag?.MagicOptionInfo?.Value >= tag?.MagicOptionInfo?.Record?.GetMaxValue() || tag.Item == null)
+        if ((tag.MagicOptionInfo != null &&
+             tag?.MagicOptionInfo?.Value >= tag?.MagicOptionInfo?.Record?.GetMaxValue()) || tag.Item == null)
         {
             e.Item.Checked = false;
 
@@ -98,7 +102,7 @@ public partial class MagicOptionsSettingsView : UserControl
     #region Methods
 
     /// <summary>
-    /// Populate the list view of available magic options for the selected item
+    ///     Populate the list view of available magic options for the selected item
     /// </summary>
     public void PopulateListView()
     {
@@ -148,7 +152,9 @@ public partial class MagicOptionsSettingsView : UserControl
                                 { Id = actualMagicOption.Id, Value = magicOption.Value };
                         }
                         else
+                        {
                             currentMagicOptionInfo = magicOption;
+                        }
 
                         break;
                     }
@@ -204,16 +210,16 @@ public partial class MagicOptionsSettingsView : UserControl
     }
 
     /// <summary>
-    /// Reloads the configuration with the new selection of magic options
+    ///     Reloads the configuration with the new selection of magic options
     /// </summary>
     private void ReloadConfig()
     {
         if (!_reloadConfig) return;
 
-        Globals.Botbase.MagicBundleConfig = new MagicBundleConfig()
+        Globals.Botbase.MagicBundleConfig = new MagicBundleConfig
         {
             Item = Globals.View.SelectedItem,
-            MagicStones = new System.Collections.Generic.Dictionary<InventoryItem, RefMagicOpt>()
+            MagicStones = new Dictionary<InventoryItem, RefMagicOpt>()
         };
 
         try

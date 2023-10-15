@@ -1,26 +1,26 @@
-﻿using RSBot.Core;
-using RSBot.Core.Components;
-using System;
+﻿using System;
 using System.Linq;
+using RSBot.Core;
+using RSBot.Core.Components;
 
 namespace RSBot.Statistics.Stats.Calculators.Live;
 
 internal class SkillPointsPerHour : IStatisticCalculator
 {
     /// <summary>
-    /// The initial value
+    ///     The current tick index
+    /// </summary>
+    private int _currentTickIndex = -1;
+
+    /// <summary>
+    ///     The initial value
     /// </summary>
     private int _lastTickValue;
 
     /// <summary>
-    /// The values
+    ///     The values
     /// </summary>
     private int[] _values;
-
-    /// <summary>
-    /// The current tick index
-    /// </summary>
-    private int _currentTickIndex = -1;
 
     /// <inheritdoc />
     public string Name => "SPPerHour";

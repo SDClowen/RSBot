@@ -1,4 +1,5 @@
-﻿using RSBot.Core;
+﻿using System;
+using RSBot.Core;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 
@@ -7,7 +8,7 @@ namespace RSBot.Protection.Components.Pet;
 public class CosReviveHandler
 {
     /// <summary>
-    /// Initializes this instance.
+    ///     Initializes this instance.
     /// </summary>
     public static void Initialize()
     {
@@ -15,11 +16,11 @@ public class CosReviveHandler
     }
 
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     private static void SubscribeEvents()
     {
-        EventManager.SubscribeEvent("OnUpdateInventoryItem", new System.Action<byte>(OnItemUpdate));
+        EventManager.SubscribeEvent("OnUpdateInventoryItem", new Action<byte>(OnItemUpdate));
         EventManager.SubscribeEvent("OnStartBot", OnStartBot);
     }
 
@@ -48,7 +49,7 @@ public class CosReviveHandler
 
         if (itemRecord.IsGrowthPet)
             Game.Player.ReviveGrowth();
-           
+
         if (item.Record.IsFellowPet)
             Game.Player.ReviveFellow();
     }

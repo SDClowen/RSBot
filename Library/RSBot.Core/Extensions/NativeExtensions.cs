@@ -24,7 +24,7 @@ public static class NativeExtensions
     public static extern int SetWindowText(IntPtr hWnd, string text);
 
     [DllImport("kernel32.dll")]
-    public static extern bool CreateProcess/*A*/(
+    public static extern bool CreateProcess /*A*/(
         string lpApplicationName,
         string lpCommandLine,
         IntPtr lpProcessAttributes,
@@ -90,7 +90,8 @@ public static class NativeExtensions
     public static extern uint SuspendThread(IntPtr hThread);
 
     [DllImport("kernel32.dll")]
-    public static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, uint flAllocationType, uint flProtect);
+    public static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, uint flAllocationType,
+        uint flProtect);
 
     [DllImport("kernel32.dll")]
     public static extern bool VirtualFreeEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, uint dwFreeType);
@@ -102,21 +103,23 @@ public static class NativeExtensions
     public static extern IntPtr LoadLibrary(string lpFileName);
 
     [DllImport("kernel32.dll")]
-    public static extern IntPtr CreateSemaphore([In] IntPtr lpSemaphoreAttributes, [In] int lInitialCount, [In] int lMaximumCount, [In] IntPtr lpName);
+    public static extern IntPtr CreateSemaphore([In] IntPtr lpSemaphoreAttributes, [In] int lInitialCount,
+        [In] int lMaximumCount, [In] IntPtr lpName);
 
     [DllImport("kernel32.dll")]
-    public static extern bool VirtualProtectEx(IntPtr hProcess, IntPtr lpAddress, UIntPtr dwSize, uint flNewProtect, out uint lpflOldProtect);
+    public static extern bool VirtualProtectEx(IntPtr hProcess, IntPtr lpAddress, UIntPtr dwSize, uint flNewProtect,
+        out uint lpflOldProtect);
 
     [DllImport("kernel32.dll", SetLastError = true)]
     public static extern IntPtr LoadLibraryEx(string lpFileName, IntPtr hReservedNull, uint dwFlags);
 
     public static IntPtr GetAPIAddress(string lpFileName, string procName)
     {
-        IntPtr moduleHandle = LoadLibraryEx(lpFileName, IntPtr.Zero, 0);
+        var moduleHandle = LoadLibraryEx(lpFileName, IntPtr.Zero, 0);
         if (moduleHandle == IntPtr.Zero)
             throw new Win32Exception(Marshal.GetLastWin32Error());
 
-        IntPtr procHandle = GetProcAddress(moduleHandle, procName);
+        var procHandle = GetProcAddress(moduleHandle, procName);
         if (moduleHandle == IntPtr.Zero)
             throw new Win32Exception(Marshal.GetLastWin32Error());
 

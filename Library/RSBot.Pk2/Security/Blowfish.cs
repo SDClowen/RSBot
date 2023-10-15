@@ -4,16 +4,16 @@ namespace RSBot.Pk2.Security;
 
 internal class Blowfish
 {
-    private static uint[] bf_P =
+    private static readonly uint[] bf_P =
     {
         0x243f6a88, 0x85a308d3, 0x13198a2e, 0x03707344,
         0xa4093822, 0x299f31d0, 0x082efa98, 0xec4e6c89,
         0x452821e6, 0x38d01377, 0xbe5466cf, 0x34e90c6c,
         0xc0ac29b7, 0xc97c50dd, 0x3f84d5b5, 0xb5470917,
-        0x9216d5d9, 0x8979fb1b,
+        0x9216d5d9, 0x8979fb1b
     };
 
-    private static uint[,] bf_S =
+    private static readonly uint[,] bf_S =
     {
         {
             0xd1310ba6, 0x98dfb5ac, 0x2ffd72db, 0xd01adfb7, 0xb8e1afed, 0x6a267e96, 0xba7c9045, 0xf12c7f99,
@@ -156,8 +156,8 @@ internal class Blowfish
         }
     };
 
-    private uint[] PArray;
-    private uint[,] SBoxes;
+    private readonly uint[] PArray;
+    private readonly uint[,] SBoxes;
 
     public Blowfish()
     {
@@ -167,12 +167,9 @@ internal class Blowfish
 
     private uint S(uint x, int i)
     {
-        if (i < 0 || i > 3)
-        {
-            throw (new Exception(String.Format("[Blowfish::S] Invalid i index of [{0}].", i)));
-        }
+        if (i < 0 || i > 3) throw new Exception(string.Format("[Blowfish::S] Invalid i index of [{0}].", i));
 
-        x >>= (24 - (8 * i));
+        x >>= 24 - 8 * i;
         x &= 0xFF;
 
         return SBoxes[i, x];
@@ -180,28 +177,36 @@ internal class Blowfish
 
     private uint bf_F(uint x)
     {
-        return (((S(x, 0) + S(x, 1)) ^ S(x, 2)) + S(x, 3));
+        return ((S(x, 0) + S(x, 1)) ^ S(x, 2)) + S(x, 3);
     }
 
     private void ROUND(ref uint a, uint b, int n)
     {
-        a ^= (bf_F(b) ^ PArray[n]);
+        a ^= bf_F(b) ^ PArray[n];
     }
 
     private void Blowfish_encipher(ref uint xl, ref uint xr)
     {
-        uint Xl = xl;
-        uint Xr = xr;
+        var Xl = xl;
+        var Xr = xr;
 
         Xl ^= PArray[0];
-        ROUND(ref Xr, Xl, 1); ROUND(ref Xl, Xr, 2);
-        ROUND(ref Xr, Xl, 3); ROUND(ref Xl, Xr, 4);
-        ROUND(ref Xr, Xl, 5); ROUND(ref Xl, Xr, 6);
-        ROUND(ref Xr, Xl, 7); ROUND(ref Xl, Xr, 8);
-        ROUND(ref Xr, Xl, 9); ROUND(ref Xl, Xr, 10);
-        ROUND(ref Xr, Xl, 11); ROUND(ref Xl, Xr, 12);
-        ROUND(ref Xr, Xl, 13); ROUND(ref Xl, Xr, 14);
-        ROUND(ref Xr, Xl, 15); ROUND(ref Xl, Xr, 16);
+        ROUND(ref Xr, Xl, 1);
+        ROUND(ref Xl, Xr, 2);
+        ROUND(ref Xr, Xl, 3);
+        ROUND(ref Xl, Xr, 4);
+        ROUND(ref Xr, Xl, 5);
+        ROUND(ref Xl, Xr, 6);
+        ROUND(ref Xr, Xl, 7);
+        ROUND(ref Xl, Xr, 8);
+        ROUND(ref Xr, Xl, 9);
+        ROUND(ref Xl, Xr, 10);
+        ROUND(ref Xr, Xl, 11);
+        ROUND(ref Xl, Xr, 12);
+        ROUND(ref Xr, Xl, 13);
+        ROUND(ref Xl, Xr, 14);
+        ROUND(ref Xr, Xl, 15);
+        ROUND(ref Xl, Xr, 16);
         Xr ^= PArray[17];
 
         xr = Xl;
@@ -210,18 +215,26 @@ internal class Blowfish
 
     private void Blowfish_decipher(ref uint xl, ref uint xr)
     {
-        uint Xl = xl;
-        uint Xr = xr;
+        var Xl = xl;
+        var Xr = xr;
 
         Xl ^= PArray[17];
-        ROUND(ref Xr, Xl, 16); ROUND(ref Xl, Xr, 15);
-        ROUND(ref Xr, Xl, 14); ROUND(ref Xl, Xr, 13);
-        ROUND(ref Xr, Xl, 12); ROUND(ref Xl, Xr, 11);
-        ROUND(ref Xr, Xl, 10); ROUND(ref Xl, Xr, 9);
-        ROUND(ref Xr, Xl, 8); ROUND(ref Xl, Xr, 7);
-        ROUND(ref Xr, Xl, 6); ROUND(ref Xl, Xr, 5);
-        ROUND(ref Xr, Xl, 4); ROUND(ref Xl, Xr, 3);
-        ROUND(ref Xr, Xl, 2); ROUND(ref Xl, Xr, 1);
+        ROUND(ref Xr, Xl, 16);
+        ROUND(ref Xl, Xr, 15);
+        ROUND(ref Xr, Xl, 14);
+        ROUND(ref Xl, Xr, 13);
+        ROUND(ref Xr, Xl, 12);
+        ROUND(ref Xl, Xr, 11);
+        ROUND(ref Xr, Xl, 10);
+        ROUND(ref Xl, Xr, 9);
+        ROUND(ref Xr, Xl, 8);
+        ROUND(ref Xl, Xr, 7);
+        ROUND(ref Xr, Xl, 6);
+        ROUND(ref Xl, Xr, 5);
+        ROUND(ref Xr, Xl, 4);
+        ROUND(ref Xl, Xr, 3);
+        ROUND(ref Xr, Xl, 2);
+        ROUND(ref Xl, Xr, 1);
         Xr ^= PArray[0];
 
         xl = Xr;
@@ -240,20 +253,13 @@ internal class Blowfish
         uint i, j;
         uint data, datal, datar;
 
-        for (i = 0; i < 18; ++i)
-        {
-            PArray[i] = bf_P[i];
-        }
+        for (i = 0; i < 18; ++i) PArray[i] = bf_P[i];
 
         for (i = 0; i < 4; ++i)
-        {
-            for (j = 0; j < 256; ++j)
-            {
-                SBoxes[i, j] = bf_S[i, j];
-            }
-        }
+        for (j = 0; j < 256; ++j)
+            SBoxes[i, j] = bf_S[i, j];
 
-        byte[] temp = new byte[4];
+        var temp = new byte[4];
         j = 0;
         for (i = 0; i < 16 + 2; ++i)
         {
@@ -277,13 +283,11 @@ internal class Blowfish
         }
 
         for (i = 0; i < 4; ++i)
+        for (j = 0; j < 256; j += 2)
         {
-            for (j = 0; j < 256; j += 2)
-            {
-                Blowfish_encipher(ref datal, ref datar);
-                SBoxes[i, j] = datal;
-                SBoxes[i, j + 1] = datar;
-            }
+            Blowfish_encipher(ref datal, ref datar);
+            SBoxes[i, j] = datal;
+            SBoxes[i, j + 1] = datar;
         }
     }
 
@@ -292,7 +296,7 @@ internal class Blowfish
     // is about to be encoded or decoded.
     public int GetOutputLength(int length)
     {
-        return (length % 8) == 0 ? length : length + (8 - (length % 8));
+        return length % 8 == 0 ? length : length + (8 - length % 8);
     }
 
     // Encodes a stream of data and returns a new array of the encoded data.
@@ -306,23 +310,17 @@ internal class Blowfish
     // Returns null if length is 0.
     public byte[] Encode(byte[] stream, int offset, int length)
     {
-        if (length == 0)
-        {
-            return null;
-        }
+        if (length == 0) return null;
 
-        byte[] workspace = new byte[GetOutputLength(length)];
+        var workspace = new byte[GetOutputLength(length)];
 
         Buffer.BlockCopy(stream, offset, workspace, 0, length);
-        for (int x = length; x < workspace.Length; ++x)
-        {
-            workspace[x] = 0;
-        }
+        for (var x = length; x < workspace.Length; ++x) workspace[x] = 0;
 
-        for (int x = 0; x < workspace.Length; x += 8)
+        for (var x = 0; x < workspace.Length; x += 8)
         {
-            uint l = BitConverter.ToUInt32(workspace, x + 0);
-            uint r = BitConverter.ToUInt32(workspace, x + 4);
+            var l = BitConverter.ToUInt32(workspace, x + 0);
+            var r = BitConverter.ToUInt32(workspace, x + 4);
             Blowfish_encipher(ref l, ref r);
             Buffer.BlockCopy(BitConverter.GetBytes(l), 0, workspace, x + 0, 4);
             Buffer.BlockCopy(BitConverter.GetBytes(r), 0, workspace, x + 4, 4);
@@ -342,18 +340,15 @@ internal class Blowfish
     // Returns null if length is not % 8.
     public byte[] Decode(byte[] stream, int offset, int length)
     {
-        if (length % 8 != 0 || length == 0)
-        {
-            return null;
-        }
+        if (length % 8 != 0 || length == 0) return null;
 
-        byte[] workspace = new byte[length];
+        var workspace = new byte[length];
         Buffer.BlockCopy(stream, offset, workspace, 0, length);
 
-        for (int x = 0; x < workspace.Length; x += 8)
+        for (var x = 0; x < workspace.Length; x += 8)
         {
-            uint l = BitConverter.ToUInt32(workspace, x + 0);
-            uint r = BitConverter.ToUInt32(workspace, x + 4);
+            var l = BitConverter.ToUInt32(workspace, x + 0);
+            var r = BitConverter.ToUInt32(workspace, x + 4);
             Blowfish_decipher(ref l, ref r);
             Buffer.BlockCopy(BitConverter.GetBytes(l), 0, workspace, x + 0, 4);
             Buffer.BlockCopy(BitConverter.GetBytes(r), 0, workspace, x + 4, 4);

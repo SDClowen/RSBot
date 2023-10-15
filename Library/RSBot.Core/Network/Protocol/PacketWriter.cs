@@ -4,12 +4,12 @@ namespace RSBot.Core.Network.SecurityAPI;
 
 internal class PacketWriter : BinaryWriter
 {
-    private MemoryStream m_ms;
+    private readonly MemoryStream m_ms;
 
     public PacketWriter()
     {
         m_ms = new MemoryStream();
-        this.OutStream = m_ms;
+        OutStream = m_ms;
     }
 
     public byte[] GetBytes()

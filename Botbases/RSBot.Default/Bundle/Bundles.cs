@@ -15,95 +15,95 @@ namespace RSBot.Default.Bundle;
 internal static class Bundles
 {
     /// <summary>
-    /// Gets the berzerk.
+    ///     Gets the berzerk.
     /// </summary>
     /// <value>
-    /// The berzerk.
+    ///     The berzerk.
     /// </value>
     public static BerzerkBundle Berzerk { get; } = new();
 
     /// <summary>
-    /// Gets the avoidance.
+    ///     Gets the avoidance.
     /// </summary>
     /// <value>
-    /// The avoidance.
+    ///     The avoidance.
     /// </value>
     public static AvoidanceBundle Avoidance { get; } = new();
 
     /// <summary>
-    /// Gets the movement.
+    ///     Gets the movement.
     /// </summary>
     /// <value>
-    /// The movement.
+    ///     The movement.
     /// </value>
     public static MovementBundle Movement { get; } = new();
 
     /// <summary>
-    /// Gets the buff.
+    ///     Gets the buff.
     /// </summary>
     /// <value>
-    /// The buff.
+    ///     The buff.
     /// </value>
     public static BuffBundle Buff { get; } = new();
 
     /// <summary>
-    /// Gets the party buff.
+    ///     Gets the party buff.
     /// </summary>
     /// <value>
-    /// The party buff.
+    ///     The party buff.
     /// </value>
     public static PartyBuffingBundle PartyBuff { get; } = new();
 
     /// <summary>
-    /// Gets the target.
+    ///     Gets the target.
     /// </summary>
     /// <value>
-    /// The target.
+    ///     The target.
     /// </value>
     public static TargetBundle Target { get; } = new();
 
     /// <summary>
-    /// Gets the attack.
+    ///     Gets the attack.
     /// </summary>
     /// <value>
-    /// The attack.
+    ///     The attack.
     /// </value>
     public static AttackBundle Attack { get; } = new();
 
     /// <summary>
-    /// Gets the loot.
+    ///     Gets the loot.
     /// </summary>
     /// <value>
-    /// The loot.
+    ///     The loot.
     /// </value>
     public static LootBundle Loot { get; } = new();
 
     /// <summary>
-    /// Gets the loop.
+    ///     Gets the loop.
     /// </summary>
     /// <value>
-    /// The loop.
+    ///     The loop.
     /// </value>
     public static LoopBundle Loop { get; } = new();
 
     /// <summary>
-    /// Gets the Resurrect.
+    ///     Gets the Resurrect.
     /// </summary>
     /// <value>
-    /// The Resurrect.
+    ///     The Resurrect.
     /// </value>
     public static ResurrectBundle Resurrect { get; } = new();
 
     /// <summary>
-    /// Gets the Protection.
+    ///     Gets the Protection.
     /// </summary>
     /// <value>
-    /// The Protection.
+    ///     The Protection.
     /// </value>
     public static ProtectionBundle Protection { get; } = new();
 
     /// <summary>
-    /// Reloads this instance.
+    ///     Reloads this instance.
     /// </summary>
     public static void Reload()
     {

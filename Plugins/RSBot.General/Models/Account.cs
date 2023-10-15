@@ -5,63 +5,63 @@ namespace RSBot.General.Models;
 internal class Account
 {
     /// <summary>
-    /// Gets or sets the username.
+    ///     Gets or sets the username.
     /// </summary>
     /// <value>
-    /// The username.
+    ///     The username.
     /// </value>
     public string Username { get; set; }
 
     /// <summary>
-    /// Gets or sets the password.
+    ///     Gets or sets the password.
     /// </summary>
     /// <value>
-    /// The password.
+    ///     The password.
     /// </value>
     public string Password { get; set; }
 
     /// <summary>
-    /// Gets or sets the password.
+    ///     Gets or sets the password.
     /// </summary>
     /// <value>
-    /// The password.
+    ///     The password.
     /// </value>
     public string SecondaryPassword { get; set; }
 
     /// <summary>
-    /// Gets or sets the channel.
+    ///     Gets or sets the channel.
     /// </summary>
     /// <value>
-    /// The channel.
+    ///     The channel.
     /// </value>
     public byte Channel { get; set; } = 1;
 
     /// <summary>
-    /// Gets or sets the servername.
+    ///     Gets or sets the servername.
     /// </summary>
     /// <value>
-    /// The servername.
+    ///     The servername.
     /// </value>
     public string Servername { get; set; }
 
     /// <summary>
-    /// Gets or sets the selected character.
+    ///     Gets or sets the selected character.
     /// </summary>
     /// <value>
-    /// The selected character.
+    ///     The selected character.
     /// </value>
     public string SelectedCharacter { get; set; }
 
     /// <summary>
-    /// Gets or sets the characters.
+    ///     Gets or sets the characters.
     /// </summary>
     /// <value>
-    /// The characters.
+    ///     The characters.
     /// </value>
     public List<string> Characters { get; set; }
 
     /// <summary>
-    /// Return the username instead of the type name
+    ///     Return the username instead of the type name
     /// </summary>
     /// <returns></returns>
     public override string ToString()

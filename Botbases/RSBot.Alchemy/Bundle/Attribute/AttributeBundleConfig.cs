@@ -1,5 +1,5 @@
-﻿using RSBot.Core.Objects;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using RSBot.Core.Objects;
 
 namespace RSBot.Alchemy.Bundle.Attribute;
 
@@ -8,26 +8,26 @@ internal class AttributeBundleConfig
     internal class AttributeBundleConfigItem
     {
         /// <summary>
-        /// Gets the maximum value.
+        ///     Gets the maximum value.
         /// </summary>
         /// <value>
-        /// The maximum value.
+        ///     The maximum value.
         /// </value>
         public int MaxValue { get; init; }
 
         /// <summary>
-        /// Gets the stone.
+        ///     Gets the stone.
         /// </summary>
         /// <value>
-        /// The stone.
+        ///     The stone.
         /// </value>
         public InventoryItem Stone { get; init; }
 
         /// <summary>
-        /// Gets the group.
+        ///     Gets the group.
         /// </summary>
         /// <value>
-        /// The group.
+        ///     The group.
         /// </value>
         public ItemAttributeGroup Group { get; init; }
     }
@@ -35,18 +35,18 @@ internal class AttributeBundleConfig
     #region Properties
 
     /// <summary>
-    /// Gets the item that should be fused into.
+    ///     Gets the item that should be fused into.
     /// </summary>
     /// <value>
-    /// The item.
+    ///     The item.
     /// </value>
     public InventoryItem Item { get; init; }
 
     /// <summary>
-    /// Gets or sets the attributes.
+    ///     Gets or sets the attributes.
     /// </summary>
     /// <value>
-    /// The attributes.
+    ///     The attributes.
     /// </value>
     public IEnumerable<AttributeBundleConfigItem> Attributes { get; set; }
 

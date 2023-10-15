@@ -2,42 +2,6 @@
 
 public class RefMappingShopGroup : IReference
 {
-    #region Fields
-
-    /// <summary>
-    /// Gets or sets the service.
-    /// </summary>
-    /// <value>
-    /// The service.
-    /// </value>
-    public byte Service;
-
-    /// <summary>
-    /// Gets or sets the country.
-    /// </summary>
-    /// <value>
-    /// The country.
-    /// </value>
-    public int Country;
-
-    /// <summary>
-    /// Gets or sets the group.
-    /// </summary>
-    /// <value>
-    /// The group.
-    /// </value>
-    public string Group;
-
-    /// <summary>
-    /// Gets or sets the shop.
-    /// </summary>
-    /// <value>
-    /// The shop.
-    /// </value>
-    public string Shop;
-
-    #endregion Fields
-
     public bool Load(ReferenceParser parser)
     {
         //Skip disabled
@@ -50,4 +14,40 @@ public class RefMappingShopGroup : IReference
 
         return true;
     }
+
+    #region Fields
+
+    /// <summary>
+    ///     Gets or sets the service.
+    /// </summary>
+    /// <value>
+    ///     The service.
+    /// </value>
+    public byte Service;
+
+    /// <summary>
+    ///     Gets or sets the country.
+    /// </summary>
+    /// <value>
+    ///     The country.
+    /// </value>
+    public int Country;
+
+    /// <summary>
+    ///     Gets or sets the group.
+    /// </summary>
+    /// <value>
+    ///     The group.
+    /// </value>
+    public string Group;
+
+    /// <summary>
+    ///     Gets or sets the shop.
+    /// </summary>
+    /// <value>
+    ///     The shop.
+    /// </value>
+    public string Shop;
+
+    #endregion Fields
 }

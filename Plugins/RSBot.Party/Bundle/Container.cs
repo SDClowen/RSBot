@@ -7,37 +7,37 @@ namespace RSBot.Party.Bundle;
 internal static class Container
 {
     /// <summary>
-    /// Gets or sets the automatic party.
+    ///     Gets or sets the automatic party.
     /// </summary>
     /// <value>
-    /// The automatic party.
+    ///     The automatic party.
     /// </value>
     public static AutoPartyBundle AutoParty { get; set; }
 
     /// <summary>
-    /// Gets or sets the party matching.
+    ///     Gets or sets the party matching.
     /// </summary>
     /// <value>
-    /// The party matching.
+    ///     The party matching.
     /// </value>
     public static PartyMatchingBundle PartyMatching { get; set; }
 
     /// <summary>
-    /// Gets or sets the party matching.
+    ///     Gets or sets the party matching.
     /// </summary>
     /// <value>
-    /// The party matching.
+    ///     The party matching.
     /// </value>
     public static CommandsBundle Commands { get; set; }
 
     /// <summary>
-    /// Refreshes this instance.
+    ///     Refreshes this instance.
     /// </summary>
     public static void Refresh()
     {
-        AutoParty ??= new();
-        PartyMatching ??= new();
-        Commands ??= new();
+        AutoParty ??= new AutoPartyBundle();
+        PartyMatching ??= new PartyMatchingBundle();
+        Commands ??= new CommandsBundle();
 
         AutoParty.Refresh();
         Commands.Refresh();

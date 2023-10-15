@@ -6,12 +6,11 @@ using RSBot.Core.Extensions;
 namespace RSBot.Core.Objects;
 
 /// <summary>
-/// This enumeration defines the different attributes an item may have.
-/// Even though items may share attributes of the same group, it's not guaranteed, that
-/// the attribute does have the exact same name. You can check the actual group names in constants defined in.
-/// <see cref="ItemAttributesInfo"/>
-///
-/// Use the static method of AttributeInfo to identify the actual name of attributes by its group.
+///     This enumeration defines the different attributes an item may have.
+///     Even though items may share attributes of the same group, it's not guaranteed, that
+///     the attribute does have the exact same name. You can check the actual group names in constants defined in.
+///     <see cref="ItemAttributesInfo" />
+///     Use the static method of AttributeInfo to identify the actual name of attributes by its group.
 /// </summary>
 public enum ItemAttributeGroup
 {
@@ -110,27 +109,36 @@ public struct ItemAttributesInfo : IEquatable<ItemAttributesInfo>
         get
         {
             var offset = slot * SlotSize;
-            var mask = (1ul << SlotSize) - 1ul << offset;
+            var mask = ((1ul << SlotSize) - 1ul) << offset;
 
             return (byte)((Variance & mask) >> offset);
         }
         set
         {
             var offset = slot * SlotSize;
-            var mask = (1ul << SlotSize) - 1ul << offset;
+            var mask = ((1ul << SlotSize) - 1ul) << offset;
 
             Variance = (Variance & ~mask) | ((ulong)(value << offset) & mask);
         }
     }
 
-    public override bool Equals(object obj) => obj is ItemAttributesInfo variance && Equals(variance);
+    public override bool Equals(object obj)
+    {
+        return obj is ItemAttributesInfo variance && Equals(variance);
+    }
 
-    public bool Equals(ItemAttributesInfo other) => Variance == other.Variance;
+    public bool Equals(ItemAttributesInfo other)
+    {
+        return Variance == other.Variance;
+    }
 
-    public override int GetHashCode() => Variance.GetHashCode();
+    public override int GetHashCode()
+    {
+        return Variance.GetHashCode();
+    }
 
     /// <summary>
-    /// Compares the slots and return those which are different.
+    ///     Compares the slots and return those which are different.
     /// </summary>
     /// <param name="info">The information.</param>
     /// <returns></returns>
@@ -139,23 +147,31 @@ public struct ItemAttributesInfo : IEquatable<ItemAttributesInfo>
         var result = new List<byte>(6);
 
         for (byte i = 0; i < 6; i++)
-        {
             if (info[i] != this[i])
-            {
                 result.Add(i);
-            }
-        }
 
         return result;
     }
 
-    public static explicit operator ItemAttributesInfo(ulong value) => new(value);
+    public static explicit operator ItemAttributesInfo(ulong value)
+    {
+        return new ItemAttributesInfo(value);
+    }
 
-    public static implicit operator ulong(ItemAttributesInfo variance) => variance.Variance;
+    public static implicit operator ulong(ItemAttributesInfo variance)
+    {
+        return variance.Variance;
+    }
 
-    public static bool operator ==(ItemAttributesInfo left, ItemAttributesInfo right) => left.Equals(right);
+    public static bool operator ==(ItemAttributesInfo left, ItemAttributesInfo right)
+    {
+        return left.Equals(right);
+    }
 
-    public static bool operator !=(ItemAttributesInfo left, ItemAttributesInfo right) => !(left == right);
+    public static bool operator !=(ItemAttributesInfo left, ItemAttributesInfo right)
+    {
+        return !(left == right);
+    }
 
     public byte GetPercentage(byte slot)
     {
@@ -170,40 +186,35 @@ public struct ItemAttributesInfo : IEquatable<ItemAttributesInfo>
     public static IEnumerable<ItemAttributeGroup>? GetAvailableAttributeGroupsForItem(RefObjItem item)
     {
         if (item.IsArmor)
-        {
             return new[]
             {
-                ItemAttributeGroup.Durability, ItemAttributeGroup.PhysicalSpecialize, ItemAttributeGroup.MagicalSpecialize,
+                ItemAttributeGroup.Durability, ItemAttributeGroup.PhysicalSpecialize,
+                ItemAttributeGroup.MagicalSpecialize,
                 ItemAttributeGroup.PhysicalDefense, ItemAttributeGroup.MagicalDefense, ItemAttributeGroup.EvasionRatio
             };
-        }
 
         if (item.IsWeapon)
-        {
             return new[]
             {
-                ItemAttributeGroup.Durability, ItemAttributeGroup.PhysicalSpecialize, ItemAttributeGroup.MagicalSpecialize,
+                ItemAttributeGroup.Durability, ItemAttributeGroup.PhysicalSpecialize,
+                ItemAttributeGroup.MagicalSpecialize,
                 ItemAttributeGroup.HitRatio, ItemAttributeGroup.PhysicalDamage, ItemAttributeGroup.MagicalDamage,
                 ItemAttributeGroup.Critical
             };
-        }
 
         if (item.IsShield)
-        {
             return new[]
             {
-                ItemAttributeGroup.Durability, ItemAttributeGroup.PhysicalSpecialize, ItemAttributeGroup.MagicalSpecialize,
+                ItemAttributeGroup.Durability, ItemAttributeGroup.PhysicalSpecialize,
+                ItemAttributeGroup.MagicalSpecialize,
                 ItemAttributeGroup.BlockRatio, ItemAttributeGroup.PhysicalDefense, ItemAttributeGroup.MagicalDefense
             };
-        }
 
         if (item.IsAccessory)
-        {
             return new[]
             {
                 ItemAttributeGroup.PhysicalAbsorbRatio, ItemAttributeGroup.MagicalAbsorbRatio
             };
-        }
 
         return null;
     }
@@ -260,7 +271,6 @@ public struct ItemAttributesInfo : IEquatable<ItemAttributesInfo>
             return ItemAttributeGroup.MagicalAbsorbRatio;
 
         throw new Exception($"Unknown attribute type requested! [slot={slot}]");
-
     }
 
     public static string? GetActualAttributeGroupNameForItem(RefObjItem item, ItemAttributeGroup group)

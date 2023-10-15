@@ -1,5 +1,5 @@
-﻿using RSBot.Core.Network;
-using System;
+﻿using System;
+using RSBot.Core.Network;
 
 namespace RSBot.Core.Objects;
 
@@ -9,12 +9,12 @@ public struct Position
     private float _YOffset;
 
     /// <summary>
-    /// Gets the regional id.
+    ///     Gets the regional id.
     /// </summary>
     public Region Region;
 
     /// <summary>
-    /// Gets or set the position X from map
+    ///     Gets or set the position X from map
     /// </summary>
     public float XOffset
     {
@@ -39,8 +39,9 @@ public struct Position
             }
         }
     }
+
     /// <summary>
-    /// Gets or set the position Y from map.
+    ///     Gets or set the position Y from map.
     /// </summary>
     public float YOffset
     {
@@ -67,53 +68,53 @@ public struct Position
     }
 
     /// <summary>
-    /// Gets or set the position Z from map.
+    ///     Gets or set the position Z from map.
     /// </summary>
     public float ZOffset { get; set; }
 
     /// <summary>
-    /// Gets or sets the angle.
+    ///     Gets or sets the angle.
     /// </summary>
     public short Angle { get; set; }
 
     /// <summary>
-    /// Gets or sets the world id.
+    ///     Gets or sets the world id.
     /// </summary>
     public short WorldId { get; set; }
 
     /// <summary>
-    /// Gets or sets the layer id.
+    ///     Gets or sets the layer id.
     /// </summary>
     public short LayerId { get; set; }
 
     /// <summary>
-    /// Gets the x coordinate.
+    ///     Gets the x coordinate.
     /// </summary>
     /// <value>
-    /// The x coordinate.
+    ///     The x coordinate.
     /// </value>
     public float X => _XOffset == 0 ? 0 : Region.IsDungeon ? _XOffset / 10 : (Region.X - 135) * 192 + _XOffset / 10;
 
     /// <summary>
-    /// Gets the y coordinate.
+    ///     Gets the y coordinate.
     /// </summary>
     /// <value>
-    /// The y coordinate.
+    ///     The y coordinate.
     /// </value>
     public float Y => _YOffset == 0 ? 0 : Region.IsDungeon ? _YOffset / 10 : (Region.Y - 92) * 192 + _YOffset / 10;
 
     /// <summary>
-    /// Gets offset from x sector.
+    ///     Gets offset from x sector.
     /// </summary>
     public float XSectorOffset => Region.IsDungeon ? (127 * 192 + _XOffset / 10) * 10 % 1920 : _XOffset;
 
     /// <summary>
-    /// Gets offset from y sector.
+    ///     Gets offset from y sector.
     /// </summary>
     public float YSectorOffset => Region.IsDungeon ? (128 * 192 + _YOffset / 10) * 10 % 1920 : _YOffset;
 
     /// <summary>
-    /// Creates a position by using world map coordinates
+    ///     Creates a position by using world map coordinates
     /// </summary>
     /// <param name="region">Region required for dungeon maps</param>
     public Position(float x, float y, Region region = default)
@@ -147,7 +148,7 @@ public struct Position
     }
 
     /// <summary>
-    /// Creates a position using sector offsets
+    ///     Creates a position using sector offsets
     /// </summary>
     /// <param name="region">The region identifier.</param>
     /// <param name="xOffset">The x offset.</param>
@@ -164,7 +165,7 @@ public struct Position
     }
 
     /// <summary>
-    /// Creates a position using map offsets
+    ///     Creates a position using map offsets
     /// </summary>
     public Position(byte xSector, byte ySector, float xOffset, float yOffset, float zOffset)
         : this()
@@ -178,7 +179,7 @@ public struct Position
     }
 
     /// <summary>
-    /// Calculates the distance to the destination
+    ///     Calculates the distance to the destination
     /// </summary>
     /// <param name="position">The position.</param>
     /// <returns></returns>
@@ -187,17 +188,17 @@ public struct Position
         var pX = X - position.X;
         var pY = Y - position.Y;
 
-        return Math.Sqrt((pX * pX) + (pY * pY));
+        return Math.Sqrt(pX * pX + pY * pY);
     }
 
     /// <summary>
-    /// Reads all requierd data from the packet and returns a new Postion object.
+    ///     Reads all requierd data from the packet and returns a new Postion object.
     /// </summary>
     /// <param name="packet">The packet.</param>
     /// <returns></returns>
     public static Position FromPacket(Packet packet)
     {
-        return new()
+        return new Position
         {
             Region = packet.ReadUShort(),
             XOffset = packet.ReadFloat(),
@@ -208,13 +209,13 @@ public struct Position
     }
 
     /// <summary>
-    /// Reads all requierd data from the packet and returns a new Postion object.
+    ///     Reads all requierd data from the packet and returns a new Postion object.
     /// </summary>
     /// <param name="packet">The packet.</param>
     /// <returns></returns>
     public static Position FromPacketInt(Packet packet)
     {
-        return new()
+        return new Position
         {
             Region = packet.ReadUShort(),
             XOffset = packet.ReadInt(),
@@ -224,7 +225,7 @@ public struct Position
     }
 
     /// <summary>
-    /// Reads all requierd data from the packet and returns a new Postion object.
+    ///     Reads all requierd data from the packet and returns a new Postion object.
     /// </summary>
     /// <param name="packet">The packet.</param>
     /// <returns></returns>
@@ -258,7 +259,7 @@ public struct Position
     }
 
     /// <summary>
-    /// Calculates the distance to the current player
+    ///     Calculates the distance to the current player
     /// </summary>
     public double DistanceToPlayer()
     {
@@ -266,18 +267,20 @@ public struct Position
     }
 
     /// <summary>
-    /// Get sector by offset
+    ///     Get sector by offset
     /// </summary>
     /// <param name="offset">The offset</param>
     /// <returns>The generated sector</returns>
     public byte GetSectorFromOffset(float offset)
-        => (byte)(((128.0 * 192.0 + (128 * 192 + offset / 10)) / 192.0) - 128);
+    {
+        return (byte)((128.0 * 192.0 + (128 * 192 + offset / 10)) / 192.0 - 128);
+    }
 
     /// <summary>
-    /// Returns a <see cref="System.String" /> that represents this instance.
+    ///     Returns a <see cref="System.String" /> that represents this instance.
     /// </summary>
     /// <returns>
-    /// A <see cref="System.String" /> that represents this instance.
+    ///     A <see cref="System.String" /> that represents this instance.
     /// </returns>
     public override string ToString()
     {

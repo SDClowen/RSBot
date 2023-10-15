@@ -6,7 +6,7 @@ namespace RSBot.Pk2.Types;
 public class PK2BlockCollection : List<PK2Block>
 {
     /// <summary>
-    /// Gets the entries.
+    ///     Gets the entries.
     /// </summary>
     /// <returns></returns>
     public IEnumerable<PK2Entry> GetEntries()

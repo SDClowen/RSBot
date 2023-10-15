@@ -1,8 +1,8 @@
-﻿using RSBot.Core.Event;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
+using RSBot.Core.Event;
 using CosAbility = RSBot.Core.Objects.Cos.Ability;
 using CosBase = RSBot.Core.Objects.Cos.Cos;
 using CosFellow = RSBot.Core.Objects.Cos.Fellow;
@@ -16,7 +16,7 @@ namespace RSBot.Views.Controls.Cos;
 public partial class CosController : UserControl
 {
     private readonly Dictionary<string, CosControlBase> _cachedControls;
-    private int _selectedIndex = 0;
+    private int _selectedIndex;
 
     public CosController()
     {
@@ -31,7 +31,7 @@ public partial class CosController : UserControl
     }
 
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     private void SubscribeEvents()
     {
@@ -105,7 +105,7 @@ public partial class CosController : UserControl
         }
     }
 
-    private bool TryGetCachedControl<T>(out CosControlBase control) 
+    private bool TryGetCachedControl<T>(out CosControlBase control)
         where T : CosControlBase, new()
     {
         control = null;
@@ -121,7 +121,8 @@ public partial class CosController : UserControl
 
         return control != null;
     }
-    private void TryAddControlToPanel<T>() 
+
+    private void TryAddControlToPanel<T>()
         where T : CosControlBase, new()
     {
         if (!TryGetCachedControl<T>(out var control))
@@ -156,7 +157,7 @@ public partial class CosController : UserControl
             control.Reset();
 
             // Reindex all controls
-            for (int i = 0; i < panel.Controls.Count; i++)
+            for (var i = 0; i < panel.Controls.Count; i++)
                 ((CosControlBase)panel.Controls[i]).MiniCosControl.TabIndex = i;
 
             _selectedIndex = panel.Controls.Count - 1;
@@ -172,17 +173,17 @@ public partial class CosController : UserControl
     private void ReOrder()
     {
         Visible = panel.Controls.Count > 0;
-        if(!Visible)
+        if (!Visible)
         {
             _selectedIndex = 0;
             return;
         }
 
-        int startIndex = 0;
+        var startIndex = 0;
         if (_selectedIndex > 3)
             startIndex = _selectedIndex - 4;
 
-        for (int i = startIndex; i < panel.Controls.Count; i++)
+        for (var i = startIndex; i < panel.Controls.Count; i++)
         {
             var control = panel.Controls[i] as CosControlBase;
             control.Visible = control.MiniCosControl.TabIndex == _selectedIndex;
@@ -192,7 +193,7 @@ public partial class CosController : UserControl
             {
                 AutoSize = false;
 
-                this.Height = topPanel.Height + control.Height + 20;
+                Height = topPanel.Height + control.Height + 20;
             }
         }
     }
@@ -222,7 +223,7 @@ public partial class CosController : UserControl
         if (_selectedIndex == index)
             return;
 
-        _selectedIndex = index; 
+        _selectedIndex = index;
         ReOrder();
     }
 }

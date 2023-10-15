@@ -1,121 +1,27 @@
-﻿using RSBot.Core.Extensions;
-using RSBot.Core.Network.SecurityAPI;
-using System;
+﻿using System;
 using System.IO;
 using System.Text;
+using RSBot.Core.Extensions;
+using RSBot.Core.Network.SecurityAPI;
 
 namespace RSBot.Core.Network;
 
 public class Packet
 {
     /// <summary>
-    /// UTF-8
+    ///     UTF-8
     /// </summary>
     public const int DEFAULT_CODEPAGE = 65001;
 
-    private PacketWriter _writer;
+    private readonly object _lock;
     private PacketReader _reader;
 
     private byte[] _readerBytes;
-    private readonly object _lock;
+
+    private PacketWriter _writer;
 
     /// <summary>
-    /// Gets the opcode.
-    /// </summary>
-    /// <value>
-    /// The opcode.
-    /// </value>
-    public ushort Opcode { get; set; }
-
-    /// <summary>
-    /// Gets a value indicating whether this <see cref="Packet"/> is encrypted.
-    /// </summary>
-    /// <value>
-    ///   <c>true</c> if encrypted; otherwise, <c>false</c>.
-    /// </value>
-    public bool Encrypted { get; private set; }
-
-    /// <summary>
-    /// Gets a value indicating whether this <see cref="Packet"/> is massive.
-    /// </summary>
-    /// <value>
-    ///   <c>true</c> if massive; otherwise, <c>false</c>.
-    /// </value>
-    public bool Massive { get; private set; }
-
-    /// <summary>
-    /// Gets a value indicating whether this <see cref="Packet"/> is locked.
-    /// </summary>
-    /// <value>
-    ///   <c>true</c> if locked; otherwise, <c>false</c>.
-    /// </value>
-    public bool Locked { get; private set; }
-
-    /// <summary>
-    /// Gets the reader position.
-    /// </summary>
-    /// <value>
-    /// The reader position.
-    /// </value>
-    /// <exception cref="PacketException">Cannot read position from an unlocked Packet.</exception>
-    public int ReaderPosition
-    {
-        get
-        {
-            lock (_lock)
-            {
-                if (!Locked)
-                    throw new PacketException(this, "Cannot read position from an unlocked Packet.");
-
-                return (int)(_reader.BaseStream.Length - _reader.BaseStream.Position);
-            }
-        }
-    }
-
-    /// <summary>
-    /// Gets the reader lenght.
-    /// </summary>
-    /// <value>
-    /// The reader lenght.
-    /// </value>
-    /// <exception cref="PacketException">Cannot read lenght from an unlocked Packet.</exception>
-    public int ReaderLength
-    {
-        get
-        {
-            lock (_lock)
-            {
-                if (!Locked)
-                    throw new PacketException(this, "Cannot read lenght from an unlocked Packet.");
-
-                return (int)(_reader.BaseStream.Length);
-            }
-        }
-    }
-
-    /// <summary>
-    /// Gets the reader remain.
-    /// </summary>
-    /// <value>
-    /// The reader remain.
-    /// </value>
-    /// <exception cref="PacketException">Cannot read remain from an unlocked Packet.</exception>
-    public int ReaderRemain
-    {
-        get
-        {
-            lock (_lock)
-            {
-                if (!Locked)
-                    throw new PacketException(this, "Cannot read remain from an unlocked Packet.");
-
-                return (int)(_reader.BaseStream.Length - _reader.BaseStream.Position);
-            }
-        }
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Packet"/> class.
+    ///     Initializes a new instance of the <see cref="Packet" /> class.
     /// </summary>
     /// <param name="rhs">The RHS.</param>
     public Packet(Packet rhs)
@@ -146,7 +52,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Packet"/> class.
+    ///     Initializes a new instance of the <see cref="Packet" /> class.
     /// </summary>
     /// <param name="opcode">The opcode.</param>
     public Packet(ushort opcode)
@@ -162,7 +68,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Packet"/> class.
+    ///     Initializes a new instance of the <see cref="Packet" /> class.
     /// </summary>
     /// <param name="opcode">The opcode.</param>
     /// <param name="encrypted">if set to <c>true</c> [encrypted].</param>
@@ -179,7 +85,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Packet"/> class.
+    ///     Initializes a new instance of the <see cref="Packet" /> class.
     /// </summary>
     /// <param name="opcode">The opcode.</param>
     /// <param name="encrypted">if set to <c>true</c> [encrypted].</param>
@@ -201,7 +107,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Packet"/> class.
+    ///     Initializes a new instance of the <see cref="Packet" /> class.
     /// </summary>
     /// <param name="opcode">The opcode.</param>
     /// <param name="encrypted">if set to <c>true</c> [encrypted].</param>
@@ -225,7 +131,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Packet"/> class.
+    ///     Initializes a new instance of the <see cref="Packet" /> class.
     /// </summary>
     /// <param name="opcode">The opcode.</param>
     /// <param name="encrypted">if set to <c>true</c> [encrypted].</param>
@@ -251,7 +157,102 @@ public class Packet
     }
 
     /// <summary>
-    /// Locks the writer and stores everything into the reader.
+    ///     Gets the opcode.
+    /// </summary>
+    /// <value>
+    ///     The opcode.
+    /// </value>
+    public ushort Opcode { get; set; }
+
+    /// <summary>
+    ///     Gets a value indicating whether this <see cref="Packet" /> is encrypted.
+    /// </summary>
+    /// <value>
+    ///     <c>true</c> if encrypted; otherwise, <c>false</c>.
+    /// </value>
+    public bool Encrypted { get; }
+
+    /// <summary>
+    ///     Gets a value indicating whether this <see cref="Packet" /> is massive.
+    /// </summary>
+    /// <value>
+    ///     <c>true</c> if massive; otherwise, <c>false</c>.
+    /// </value>
+    public bool Massive { get; }
+
+    /// <summary>
+    ///     Gets a value indicating whether this <see cref="Packet" /> is locked.
+    /// </summary>
+    /// <value>
+    ///     <c>true</c> if locked; otherwise, <c>false</c>.
+    /// </value>
+    public bool Locked { get; private set; }
+
+    /// <summary>
+    ///     Gets the reader position.
+    /// </summary>
+    /// <value>
+    ///     The reader position.
+    /// </value>
+    /// <exception cref="PacketException">Cannot read position from an unlocked Packet.</exception>
+    public int ReaderPosition
+    {
+        get
+        {
+            lock (_lock)
+            {
+                if (!Locked)
+                    throw new PacketException(this, "Cannot read position from an unlocked Packet.");
+
+                return (int)(_reader.BaseStream.Length - _reader.BaseStream.Position);
+            }
+        }
+    }
+
+    /// <summary>
+    ///     Gets the reader lenght.
+    /// </summary>
+    /// <value>
+    ///     The reader lenght.
+    /// </value>
+    /// <exception cref="PacketException">Cannot read lenght from an unlocked Packet.</exception>
+    public int ReaderLength
+    {
+        get
+        {
+            lock (_lock)
+            {
+                if (!Locked)
+                    throw new PacketException(this, "Cannot read lenght from an unlocked Packet.");
+
+                return (int)_reader.BaseStream.Length;
+            }
+        }
+    }
+
+    /// <summary>
+    ///     Gets the reader remain.
+    /// </summary>
+    /// <value>
+    ///     The reader remain.
+    /// </value>
+    /// <exception cref="PacketException">Cannot read remain from an unlocked Packet.</exception>
+    public int ReaderRemain
+    {
+        get
+        {
+            lock (_lock)
+            {
+                if (!Locked)
+                    throw new PacketException(this, "Cannot read remain from an unlocked Packet.");
+
+                return (int)(_reader.BaseStream.Length - _reader.BaseStream.Position);
+            }
+        }
+    }
+
+    /// <summary>
+    ///     Locks the writer and stores everything into the reader.
     /// </summary>
     public void Lock()
     {
@@ -269,7 +270,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Opens a the writer and loads the reader bytes into the writer
+    ///     Opens a the writer and loads the reader bytes into the writer
     /// </summary>
     public void Unlock()
     {
@@ -288,20 +289,22 @@ public class Packet
     }
 
     /// <summary>
-    /// Gets the bytes.
+    ///     Gets the bytes.
     /// </summary>
     /// <returns></returns>
     public byte[] GetBytes()
     {
         lock (_lock)
+        {
             return Locked ? _readerBytes : _writer.GetBytes();
+        }
     }
 
     /// <summary>
-    /// Returns a <see cref="System.String" /> that represents this instance.
+    ///     Returns a <see cref="System.String" /> that represents this instance.
     /// </summary>
     /// <returns>
-    /// A <see cref="System.String" /> that represents this instance.
+    ///     A <see cref="System.String" /> that represents this instance.
     /// </returns>
     public override string ToString()
     {
@@ -318,7 +321,7 @@ public class Packet
     #region Reader
 
     /// <summary>
-    /// Seeks the read.
+    ///     Seeks the read.
     /// </summary>
     /// <param name="offset">The offset.</param>
     /// <param name="orgin">The orgin.</param>
@@ -338,7 +341,7 @@ public class Packet
     #region Read
 
     /// <summary>
-    /// Reads the bool.
+    ///     Reads the bool.
     /// </summary>
     /// <returns></returns>
     /// <exception cref="PacketException">Cannot Read from an unlocked Packet.</exception>
@@ -354,7 +357,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Reads the byte.
+    ///     Reads the byte.
     /// </summary>
     /// <returns></returns>
     /// <exception cref="PacketException">Cannot Read from an unlocked Packet.</exception>
@@ -370,7 +373,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Reads the s byte.
+    ///     Reads the s byte.
     /// </summary>
     /// <returns></returns>
     /// <exception cref="PacketException">Cannot Read from an unlocked Packet.</exception>
@@ -386,7 +389,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Reads the ushort.
+    ///     Reads the ushort.
     /// </summary>
     /// <returns></returns>
     /// <exception cref="PacketException">Cannot Read from an unlocked Packet.</exception>
@@ -402,7 +405,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Reads the short.
+    ///     Reads the short.
     /// </summary>
     /// <returns></returns>
     /// <exception cref="PacketException">Cannot Read from an unlocked Packet.</exception>
@@ -418,7 +421,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Reads the uint.
+    ///     Reads the uint.
     /// </summary>
     /// <returns></returns>
     /// <exception cref="PacketException">Cannot Read from an unlocked Packet.</exception>
@@ -434,7 +437,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Reads the int.
+    ///     Reads the int.
     /// </summary>
     /// <returns></returns>
     /// <exception cref="PacketException">Cannot Read from an unlocked Packet.</exception>
@@ -450,7 +453,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Reads the ulong.
+    ///     Reads the ulong.
     /// </summary>
     /// <returns></returns>
     /// <exception cref="PacketException">Cannot Read from an unlocked Packet.</exception>
@@ -466,7 +469,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Reads the long.
+    ///     Reads the long.
     /// </summary>
     /// <returns></returns>
     /// <exception cref="PacketException">Cannot Read from an unlocked Packet.</exception>
@@ -482,7 +485,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Reads the float.
+    ///     Reads the float.
     /// </summary>
     /// <returns></returns>
     /// <exception cref="PacketException">Cannot Read from an unlocked Packet.</exception>
@@ -498,7 +501,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Reads the double.
+    ///     Reads the double.
     /// </summary>
     /// <returns></returns>
     /// <exception cref="PacketException">Cannot Read from an unlocked Packet.</exception>
@@ -514,7 +517,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Reads the ASCII.
+    ///     Reads the ASCII.
     /// </summary>
     /// <param name="codepage">The codepage.</param>
     /// <returns></returns>
@@ -534,7 +537,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Reads the unicode.
+    ///     Reads the unicode.
     /// </summary>
     /// <returns></returns>
     /// <exception cref="PacketException">Cannot Read from an unlocked Packet.</exception>
@@ -557,7 +560,7 @@ public class Packet
     #region ReadArray
 
     /// <summary>
-    /// Reads the bool array.
+    ///     Reads the bool array.
     /// </summary>
     /// <param name="count">The count.</param>
     /// <returns></returns>
@@ -578,7 +581,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Reads the byte array.
+    ///     Reads the byte array.
     /// </summary>
     /// <param name="count">The count.</param>
     /// <returns></returns>
@@ -599,7 +602,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Reads the s byte array.
+    ///     Reads the s byte array.
     /// </summary>
     /// <param name="count">The count.</param>
     /// <returns></returns>
@@ -620,7 +623,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Reads the u short array.
+    ///     Reads the u short array.
     /// </summary>
     /// <param name="count">The count.</param>
     /// <returns></returns>
@@ -641,7 +644,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Reads the short array.
+    ///     Reads the short array.
     /// </summary>
     /// <param name="count">The count.</param>
     /// <returns></returns>
@@ -662,7 +665,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Reads the u int array.
+    ///     Reads the u int array.
     /// </summary>
     /// <param name="count">The count.</param>
     /// <returns></returns>
@@ -683,7 +686,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Reads the int array.
+    ///     Reads the int array.
     /// </summary>
     /// <param name="count">The count.</param>
     /// <returns></returns>
@@ -704,7 +707,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Reads the u long array.
+    ///     Reads the u long array.
     /// </summary>
     /// <param name="count">The count.</param>
     /// <returns></returns>
@@ -725,7 +728,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Reads the long array.
+    ///     Reads the long array.
     /// </summary>
     /// <param name="count">The count.</param>
     /// <returns></returns>
@@ -746,7 +749,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Reads the float array.
+    ///     Reads the float array.
     /// </summary>
     /// <param name="count">The count.</param>
     /// <returns></returns>
@@ -767,7 +770,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Reads the double array.
+    ///     Reads the double array.
     /// </summary>
     /// <param name="count">The count.</param>
     /// <returns></returns>
@@ -779,7 +782,7 @@ public class Packet
             if (!Locked)
                 throw new PacketException(this, "Cannot Read from an unlocked Packet.");
 
-            var values = new Double[count];
+            var values = new double[count];
             for (var x = 0; x < count; ++x)
                 values[x] = _reader.ReadDouble();
 
@@ -788,7 +791,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Reads the ASCII array.
+    ///     Reads the ASCII array.
     /// </summary>
     /// <param name="count">The count.</param>
     /// <param name="codepage">The codepage.</param>
@@ -810,7 +813,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Reads the unicode array.
+    ///     Reads the unicode array.
     /// </summary>
     /// <param name="count">The count.</param>
     /// <returns></returns>
@@ -837,7 +840,7 @@ public class Packet
     #region Writer
 
     /// <summary>
-    /// Seeks the write.
+    ///     Seeks the write.
     /// </summary>
     /// <param name="offset">The offset.</param>
     /// <param name="orgin">The orgin.</param>
@@ -857,7 +860,7 @@ public class Packet
     #region Write
 
     /// <summary>
-    /// Writes the bool.
+    ///     Writes the bool.
     /// </summary>
     /// <param name="value">if set to <c>true</c> [value].</param>
     /// <exception cref="PacketException">Cannot Write to a locked Packet.</exception>
@@ -873,7 +876,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the byte.
+    ///     Writes the byte.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <exception cref="PacketException">Cannot Write to a locked Packet.</exception>
@@ -889,7 +892,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the s byte.
+    ///     Writes the s byte.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <exception cref="PacketException">Cannot Write to a locked Packet.</exception>
@@ -905,7 +908,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the u short.
+    ///     Writes the u short.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <exception cref="PacketException">Cannot Write to a locked Packet.</exception>
@@ -921,7 +924,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the short.
+    ///     Writes the short.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <exception cref="PacketException">Cannot Write to a locked Packet.</exception>
@@ -937,7 +940,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the u int.
+    ///     Writes the u int.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <exception cref="PacketException">Cannot Write to a locked Packet.</exception>
@@ -953,7 +956,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the int.
+    ///     Writes the int.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <exception cref="PacketException">Cannot Write to a locked Packet.</exception>
@@ -969,7 +972,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the u long.
+    ///     Writes the u long.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <exception cref="PacketException">Cannot Write to a locked Packet.</exception>
@@ -985,7 +988,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the long.
+    ///     Writes the long.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <exception cref="PacketException">Cannot Write to a locked Packet.</exception>
@@ -1001,7 +1004,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the float.
+    ///     Writes the float.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <exception cref="PacketException">Cannot Write to a locked Packet.</exception>
@@ -1017,7 +1020,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the double.
+    ///     Writes the double.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <exception cref="PacketException">Cannot Write to a locked Packet.</exception>
@@ -1033,7 +1036,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the ASCII.
+    ///     Writes the ASCII.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <param name="codePage">The Codepage.</param>
@@ -1051,7 +1054,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the ASCII.
+    ///     Writes the ASCII.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <param name="codePage">The Codepage.</param>
@@ -1069,7 +1072,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the unicode.
+    ///     Writes the unicode.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <exception cref="PacketException">Cannot Write to a locked Packet.</exception>
@@ -1092,7 +1095,7 @@ public class Packet
     #region WriteObject
 
     /// <summary>
-    /// Writes the bool.
+    ///     Writes the bool.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <exception cref="PacketException">Cannot Write to a locked Packet.</exception>
@@ -1108,7 +1111,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the byte.
+    ///     Writes the byte.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <exception cref="PacketException">Cannot Write to a locked Packet.</exception>
@@ -1124,7 +1127,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the s byte.
+    ///     Writes the s byte.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <exception cref="PacketException">Cannot Write to a locked Packet.</exception>
@@ -1140,7 +1143,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the u short.
+    ///     Writes the u short.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <exception cref="PacketException">Cannot Write to a locked Packet.</exception>
@@ -1156,7 +1159,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the short.
+    ///     Writes the short.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <exception cref="PacketException">Cannot Write to a locked Packet.</exception>
@@ -1172,7 +1175,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the uint.
+    ///     Writes the uint.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <exception cref="PacketException">Cannot Write to a locked Packet.</exception>
@@ -1188,7 +1191,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the int.
+    ///     Writes the int.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <exception cref="PacketException">Cannot Write to a locked Packet.</exception>
@@ -1204,7 +1207,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the u long.
+    ///     Writes the u long.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <exception cref="PacketException">Cannot Write to a locked Packet.</exception>
@@ -1220,7 +1223,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the long.
+    ///     Writes the long.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <exception cref="PacketException">Cannot Write to a locked Packet.</exception>
@@ -1236,7 +1239,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the float.
+    ///     Writes the float.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <exception cref="PacketException">Cannot Write to a locked Packet.</exception>
@@ -1252,7 +1255,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the double.
+    ///     Writes the double.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <exception cref="PacketException">Cannot Write to a locked Packet.</exception>
@@ -1268,7 +1271,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the ASCII.
+    ///     Writes the ASCII.
     /// </summary>
     /// <param name="value">The value.</param>
     public void WriteString(object value)
@@ -1277,7 +1280,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the unicode.
+    ///     Writes the unicode.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <exception cref="PacketException">Cannot Write to a locked Packet.</exception>
@@ -1300,7 +1303,7 @@ public class Packet
     #region WriteArray
 
     /// <summary>
-    /// Writes the bool array.
+    ///     Writes the bool array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteBoolArray(bool[] values)
@@ -1309,7 +1312,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the bool array.
+    ///     Writes the bool array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1328,7 +1331,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the byte array.
+    ///     Writes the byte array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <exception cref="PacketException">Cannot Write to a locked Packet.</exception>
@@ -1341,7 +1344,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the byte array.
+    ///     Writes the byte array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1360,7 +1363,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the u short array.
+    ///     Writes the u short array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteUShortArray(ushort[] values)
@@ -1369,7 +1372,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the u short array.
+    ///     Writes the u short array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1388,7 +1391,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the short array.
+    ///     Writes the short array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteShortArray(short[] values)
@@ -1397,7 +1400,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the short array.
+    ///     Writes the short array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1416,7 +1419,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the u int array.
+    ///     Writes the u int array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteUIntArray(uint[] values)
@@ -1425,7 +1428,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the u int array.
+    ///     Writes the u int array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1444,7 +1447,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the int array.
+    ///     Writes the int array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteIntArray(int[] values)
@@ -1453,7 +1456,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the int array.
+    ///     Writes the int array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1472,7 +1475,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the u long array.
+    ///     Writes the u long array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteULongArray(ulong[] values)
@@ -1481,7 +1484,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the u long array.
+    ///     Writes the u long array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1500,7 +1503,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the long array.
+    ///     Writes the long array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteLongArray(long[] values)
@@ -1509,7 +1512,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the long array.
+    ///     Writes the long array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1528,7 +1531,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the float array.
+    ///     Writes the float array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteFloatArray(float[] values)
@@ -1537,7 +1540,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the float array.
+    ///     Writes the float array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1556,7 +1559,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the double array.
+    ///     Writes the double array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteDoubleArray(double[] values)
@@ -1565,7 +1568,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the double array.
+    ///     Writes the double array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1584,7 +1587,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the ASCII array.
+    ///     Writes the ASCII array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="codepage">The codepage.</param>
@@ -1594,7 +1597,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the ASCII array.
+    ///     Writes the ASCII array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1614,7 +1617,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the unicode array.
+    ///     Writes the unicode array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteUnicodeArray(string[] values)
@@ -1623,7 +1626,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the unicode array.
+    ///     Writes the unicode array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1646,7 +1649,7 @@ public class Packet
     #region WriteObjectArray
 
     /// <summary>
-    /// Writes the bool array.
+    ///     Writes the bool array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteBoolArray(object[] values)
@@ -1655,7 +1658,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the bool array.
+    ///     Writes the bool array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1674,7 +1677,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the byte array.
+    ///     Writes the byte array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteByteArray(object[] values)
@@ -1683,7 +1686,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the byte array.
+    ///     Writes the byte array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1702,7 +1705,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the sbyte array.
+    ///     Writes the sbyte array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteSByteArray(object[] values)
@@ -1711,7 +1714,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the s byte array.
+    ///     Writes the s byte array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1730,7 +1733,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the u short array.
+    ///     Writes the u short array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteUShortArray(object[] values)
@@ -1739,7 +1742,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the u short array.
+    ///     Writes the u short array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1758,7 +1761,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the short array.
+    ///     Writes the short array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteShortArray(object[] values)
@@ -1767,7 +1770,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the short array.
+    ///     Writes the short array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1786,7 +1789,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the u int array.
+    ///     Writes the u int array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteUIntArray(object[] values)
@@ -1795,7 +1798,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the uint array.
+    ///     Writes the uint array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1814,7 +1817,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the int array.
+    ///     Writes the int array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteIntArray(object[] values)
@@ -1823,7 +1826,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the int array.
+    ///     Writes the int array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1842,7 +1845,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the ulong array.
+    ///     Writes the ulong array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteULongArray(object[] values)
@@ -1851,7 +1854,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the u long array.
+    ///     Writes the u long array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1870,7 +1873,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the long array.
+    ///     Writes the long array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteLongArray(object[] values)
@@ -1879,7 +1882,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the long array.
+    ///     Writes the long array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1898,7 +1901,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the float array.
+    ///     Writes the float array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteFloatArray(object[] values)
@@ -1907,7 +1910,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the float array.
+    ///     Writes the float array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1926,7 +1929,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the double array.
+    ///     Writes the double array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteDoubleArray(object[] values)
@@ -1935,7 +1938,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the double array.
+    ///     Writes the double array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1954,7 +1957,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the ASCII array.
+    ///     Writes the ASCII array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="codepage">The codepage.</param>
@@ -1964,7 +1967,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the ASCII array.
+    ///     Writes the ASCII array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>
@@ -1984,7 +1987,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the unicode array.
+    ///     Writes the unicode array.
     /// </summary>
     /// <param name="values">The values.</param>
     public void WriteUnicodeArray(object[] values)
@@ -1993,7 +1996,7 @@ public class Packet
     }
 
     /// <summary>
-    /// Writes the unicode array.
+    ///     Writes the unicode array.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="index">The index.</param>

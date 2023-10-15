@@ -7,13 +7,11 @@ public class ItemPerk
 {
     #region Properties
 
-    [Required]
-    public uint ItemId { get; init; }
+    [Required] public uint ItemId { get; init; }
 
-    [Required]
-    public uint Token { get; init; }
+    [Required] public uint Token { get; init; }
 
-        
+
     public uint Value { get; set; }
 
     public uint RemainingTime { get; set; }
@@ -21,5 +19,4 @@ public class ItemPerk
     public RefObjItem? Item => Game.ReferenceManager.GetRefItem(ItemId);
 
     #endregion Properties
-
 }

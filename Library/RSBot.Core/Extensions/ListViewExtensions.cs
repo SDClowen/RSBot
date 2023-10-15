@@ -1,31 +1,26 @@
-﻿using RSBot.Core.Client.ReferenceObjects;
-using RSBot.Core.Objects.Skill;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Objects;
+using RSBot.Core.Objects.Skill;
 
 namespace RSBot.Core.Extensions;
 
 public static class ListViewExtensions
 {
     /// <summary>
-    /// The cached image list for skills
+    ///     The cached image list for skills
     /// </summary>
     public static ImageList StaticImageList;
 
     /// <summary>
-    /// The cached image list for items
+    ///     The cached image list for items
     /// </summary>
     public static ImageList StaticItemsImageList;
 
     /// <summary>
-    /// The sync object
-    /// </summary>
-    private static object _lock { get; } = new object();
-
-    /// <summary>
-    /// <inheritdoc/>
+    ///     <inheritdoc />
     /// </summary>
     static ListViewExtensions()
     {
@@ -43,7 +38,12 @@ public static class ListViewExtensions
     }
 
     /// <summary>
-    /// Load the skill image into the ImageList of the <seealso cref="ListViewItem"/>
+    ///     The sync object
+    /// </summary>
+    private static object _lock { get; } = new();
+
+    /// <summary>
+    ///     Load the skill image into the ImageList of the <seealso cref="ListViewItem" />
     /// </summary>
     public static Task LoadSkillImage(this ListViewItem listViewItem)
     {
@@ -74,14 +74,13 @@ public static class ListViewExtensions
             {
                 Log.Debug("Error while loading skill image");
             }
-   
         }
 
         return Task.CompletedTask;
     }
 
     /// <summary>
-    /// Load the item image into the ListViewItem
+    ///     Load the item image into the ListViewItem
     /// </summary>
     public static Task LoadItemImage(this ListViewItem listViewItem, RefObjItem item)
     {
@@ -99,7 +98,7 @@ public static class ListViewExtensions
     }
 
     /// <summary>
-    /// Load the skill image into the ImageList of the <seealso cref="ListViewItem"/> with async
+    ///     Load the skill image into the ImageList of the <seealso cref="ListViewItem" /> with async
     /// </summary>
     public static async void LoadSkillImageAsync(this ListViewItem item)
     {
@@ -107,7 +106,7 @@ public static class ListViewExtensions
     }
 
     /// <summary>
-    /// Load the skill image into the ImageList of the <seealso cref="ListViewItem"/> with async
+    ///     Load the skill image into the ImageList of the <seealso cref="ListViewItem" /> with async
     /// </summary>
     public static async void LoadItemImageAsync(this ListViewItem listViewItem, RefObjItem item)
     {
@@ -115,7 +114,7 @@ public static class ListViewExtensions
     }
 
     /// <summary>
-    /// Load the skill image into the ImageList of the <seealso cref="ListViewItem"/> with async
+    ///     Load the skill image into the ImageList of the <seealso cref="ListViewItem" /> with async
     /// </summary>
     public static async void LoadItemImageAsync(this ListViewItem listViewItem, RefShopGood good)
     {
@@ -132,7 +131,7 @@ public static class ListViewExtensions
     }
 
     /// <summary>
-    /// Loads the skill images into the ImageList of the <seealso cref="ListView"/> control.
+    ///     Loads the skill images into the ImageList of the <seealso cref="ListView" /> control.
     /// </summary>
     public static async void LoadSkillImagesAsync(this ListView listView)
     {

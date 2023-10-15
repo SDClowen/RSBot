@@ -1,4 +1,10 @@
-﻿using RSBot.Core;
+﻿using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Event;
 using RSBot.Core.Extensions;
@@ -6,29 +12,26 @@ using RSBot.Core.Network;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Inventory;
 using SDUI;
-using System;
-using System.Drawing;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using Button = SDUI.Controls.Button;
+using ListViewExtensions = RSBot.Core.Extensions.ListViewExtensions;
 
 namespace RSBot.Inventory.Views;
 
-[System.ComponentModel.ToolboxItem(false)]
+[ToolboxItem(false)]
 public partial class Main : UserControl
 {
     /// <summary>
-    /// <inheritdoc/>
+    ///     <inheritdoc />
     /// </summary>
-    private object _lock;
+    private readonly object _lock;
 
     /// <summary>
-    /// <inheritdoc/>
+    ///     <inheritdoc />
     /// </summary>
-    private int _selectedIndex = 0;
+    private int _selectedIndex;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Main"/> class.
+    ///     Initializes a new instance of the <see cref="Main" /> class.
     /// </summary>
     public Main()
     {
@@ -36,7 +39,7 @@ public partial class Main : UserControl
         InitializeComponent();
         SubscribeEvents();
 
-        listViewMain.SmallImageList = Core.Extensions.ListViewExtensions.StaticItemsImageList;
+        listViewMain.SmallImageList = ListViewExtensions.StaticItemsImageList;
 
         var backColor = ColorScheme.BorderColor.Determine().Alpha(85);
         buttonInventory.ForeColor = backColor.Determine();
@@ -44,7 +47,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     private void SubscribeEvents()
     {
@@ -60,7 +63,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Calling when update inventory item
+    ///     Calling when update inventory item
     /// </summary>
     /// <param name="slot"></param>
     private void OnUpdateInventoryItem(byte slot)
@@ -89,7 +92,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Updates the inventory list.
+    ///     Updates the inventory list.
     /// </summary>
     public void UpdateInventoryList()
     {
@@ -277,7 +280,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Adds the item.
+    ///     Adds the item.
     /// </summary>
     /// <param name="item">The item.</param>
     private void AddItem(InventoryItem item)
@@ -309,21 +312,21 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the visible changed event of the parent.
+    ///     Handles the visible changed event of the parent.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void Main_VisibleChanged(object sender, System.EventArgs e)
+    /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
+    private void Main_VisibleChanged(object sender, EventArgs e)
     {
         UpdateInventoryList();
     }
 
     /// <summary>
-    /// Handles the Click event of the btnReload control.
+    ///     Handles the Click event of the btnReload control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void buttonUseItem_Click(object sender, System.EventArgs e)
+    /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
+    private void buttonUseItem_Click(object sender, EventArgs e)
     {
         if (listViewMain.SelectedIndices.Count != 1)
             return;
@@ -334,10 +337,10 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the mouse double click event of the listviewmain control.
+    ///     Handles the mouse double click event of the listviewmain control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
     private void listViewMain_MouseDoubleClick(object sender, MouseEventArgs e)
     {
         if (listViewMain.SelectedItems.Count <= 0)
@@ -351,13 +354,13 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the selected index changed event of the button's control.
+    ///     Handles the selected index changed event of the button's control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
     private void ButtonSwitcher(object sender, EventArgs e)
     {
-        var button = sender as SDUI.Controls.Button;
+        var button = sender as Button;
         if (_selectedIndex == button.TabIndex)
             return;
 
@@ -367,7 +370,7 @@ public partial class Main : UserControl
         btnSort.Visible = _selectedIndex == 0;
         checkAutoSort.Visible = _selectedIndex == 0;
 
-        foreach (var control in topPanel.Controls.OfType<SDUI.Controls.Button>())
+        foreach (var control in topPanel.Controls.OfType<Button>())
         {
             if (control.TabIndex > 9)
                 continue;
@@ -401,7 +404,7 @@ public partial class Main : UserControl
         inventoryItem?.Drop(cos, Game.Player.AbilityPet.UniqueId);
     }
 
-    private void contextMenuStrip_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+    private void contextMenuStrip_Opening(object sender, CancelEventArgs e)
     {
         if (listViewMain.SelectedIndices.Count != 1)
         {
@@ -444,7 +447,7 @@ public partial class Main : UserControl
             autoUseAccordingToPurposeToolStripMenuItem.Enabled = false;
         }
 
-        bool isReverseScroll = inventoryItem.Equals(new TypeIdFilter(3, 3, 3, 3));
+        var isReverseScroll = inventoryItem.Equals(new TypeIdFilter(3, 3, 3, 3));
         useToolStripMenuItem.Visible = !isReverseScroll;
         useToolStripMenuItem.Enabled = inventoryItem.Record.CanUse != ObjectUseType.No;
         moveToLastDeathPositionToolStripMenuItem.Visible = isReverseScroll;
@@ -469,10 +472,7 @@ public partial class Main : UserControl
 
                     var menuItem = new ToolStripMenuItem { Text = mapName };
 
-                    menuItem.Click += (itemSender, itemEvent) =>
-                    {
-                        inventoryItem.UseTo(7, item.Value.ID);
-                    };
+                    menuItem.Click += (itemSender, itemEvent) => { inventoryItem.UseTo(7, item.Value.ID); };
 
                     selectMapLocationToolStripMenuItem.DropDownItems.Add(menuItem);
                 }
@@ -581,7 +581,7 @@ public partial class Main : UserControl
 
         if (useSelectedItem)
         {
-            lvItem.Font = this.Font;
+            lvItem.Font = Font;
             itemsToUse.Remove(selectedItem.Record.CodeName);
         }
         else
@@ -610,7 +610,7 @@ public partial class Main : UserControl
 
         if (useSelectedItem)
         {
-            lvItem.Font = this.Font;
+            lvItem.Font = Font;
             itemsToUse.Remove(selectedItem.Record.CodeName);
         }
         else
@@ -624,7 +624,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Occurs before Main form is displayed.
+    ///     Occurs before Main form is displayed.
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>

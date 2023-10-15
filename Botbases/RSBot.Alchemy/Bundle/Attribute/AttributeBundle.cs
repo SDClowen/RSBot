@@ -1,11 +1,11 @@
-﻿using RSBot.Core;
+﻿using System;
+using System.Linq;
+using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
-using System;
-using System.Linq;
 
 namespace RSBot.Alchemy.Bundle.Attribute;
 
@@ -30,15 +30,17 @@ internal class AttributeBundle : IAlchemyBundle
 
     public void SubscribeEvents()
     {
-        EventManager.SubscribeEvent("OnAlchemySuccess", new Action<InventoryItem, InventoryItem, AlchemyType>(OnStoneAlchemySuccess));
-        EventManager.SubscribeEvent("OnAlchemyFailed", new Action<InventoryItem, InventoryItem, AlchemyType>(OnStoneAlchemyFailed));
+        EventManager.SubscribeEvent("OnAlchemySuccess",
+            new Action<InventoryItem, InventoryItem, AlchemyType>(OnStoneAlchemySuccess));
+        EventManager.SubscribeEvent("OnAlchemyFailed",
+            new Action<InventoryItem, InventoryItem, AlchemyType>(OnStoneAlchemyFailed));
         EventManager.SubscribeEvent("OnAlchemyError", new Action<ushort, AlchemyType>(OnStoneAlchemyError));
         EventManager.SubscribeEvent("OnAlchemy", new Action<AlchemyType>(OnStoneAlchemy));
         EventManager.SubscribeEvent("OnFuseRequest", new Action<AlchemyAction, AlchemyType>(OnFuseRequest));
     }
 
     /// <summary>
-    /// Runs the attribute granter using the specified configuration.
+    ///     Runs the attribute granter using the specified configuration.
     /// </summary>
     /// <param name="engineConfig">The configuration.</param>
     public void Run<T>(T engineConfig)
@@ -85,7 +87,7 @@ internal class AttributeBundle : IAlchemyBundle
     }
 
     /// <summary>
-    /// Stops this instance.
+    ///     Stops this instance.
     /// </summary>
     public void Stop()
     {
@@ -93,7 +95,7 @@ internal class AttributeBundle : IAlchemyBundle
     }
 
     /// <summary>
-    /// Starts this instance.
+    ///     Starts this instance.
     /// </summary>
     public void Start()
     {
@@ -105,7 +107,7 @@ internal class AttributeBundle : IAlchemyBundle
     #region Events
 
     /// <summary>
-    /// Will be triggered if any fuse request was sent to the server
+    ///     Will be triggered if any fuse request was sent to the server
     /// </summary>
     /// <param name="action"></param>
     /// <param name="type"></param>
@@ -118,7 +120,7 @@ internal class AttributeBundle : IAlchemyBundle
     }
 
     /// <summary>
-    /// Will be triggered if any stone alchemy action response was sent from the server
+    ///     Will be triggered if any stone alchemy action response was sent from the server
     /// </summary>
     private void OnStoneAlchemy(AlchemyType type)
     {
@@ -129,7 +131,7 @@ internal class AttributeBundle : IAlchemyBundle
     }
 
     /// <summary>
-    /// Will be triggered if a stone alchemy operation was successful
+    ///     Will be triggered if a stone alchemy operation was successful
     /// </summary>
     /// <param name="oldItem"></param>
     /// <param name="newItem">The new item after the successful action</param>
@@ -146,14 +148,15 @@ internal class AttributeBundle : IAlchemyBundle
             var attributeGroup = ItemAttributesInfo.GetAttributeGroupBySlot(newItem.Record, slot);
             var attributeValue = newItem.Attributes.GetPercentage(slot);
 
-            Globals.View.AddLog(newItem.Record.GetRealName(), $"The attribute [{attributeGroup.GetTranslation()}] changed to [+{attributeValue}%]");
+            Globals.View.AddLog(newItem.Record.GetRealName(),
+                $"The attribute [{attributeGroup.GetTranslation()}] changed to [+{attributeValue}%]");
         }
 
         _shouldRun = true;
     }
 
     /// <summary>
-    /// Will be triggered if a stone alchemy action failed
+    ///     Will be triggered if a stone alchemy action failed
     /// </summary>
     /// <param name="oldItem"></param>
     /// <param name="newItem">The new item after the operation failed</param>
@@ -163,13 +166,14 @@ internal class AttributeBundle : IAlchemyBundle
         if (type != AlchemyType.AttributeStone || !Bootstrap.IsActive)
             return;
 
-        Globals.View.AddLog(newItem.Record.GetRealName(), Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL"));
+        Globals.View.AddLog(newItem.Record.GetRealName(),
+            Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL"));
 
         _shouldRun = true;
     }
 
     /// <summary>
-    /// Will be triggered if an stone alchemy error
+    ///     Will be triggered if an stone alchemy error
     /// </summary>
     /// <param name="errorCode">The error code</param>
     /// <param name="type"></param>
@@ -180,7 +184,8 @@ internal class AttributeBundle : IAlchemyBundle
 
         _shouldRun = true;
 
-        Globals.View.AddLog(Globals.Botbase.AttributeBundleConfig?.Item?.Record?.GetRealName(), Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL"));
+        Globals.View.AddLog(Globals.Botbase.AttributeBundleConfig?.Item?.Record?.GetRealName(),
+            Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL"));
     }
 
     #endregion Events

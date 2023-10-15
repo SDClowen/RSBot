@@ -8,7 +8,7 @@ internal static class RefMagicOptExtension
     #region Methods
 
     /// <summary>
-    /// Returns the translation of the group
+    ///     Returns the translation of the group
     /// </summary>
     /// <returns></returns>
     public static string GetGroupTranslation(this RefMagicOpt magicOption)
@@ -41,11 +41,12 @@ internal static class RefMagicOptExtension
                 translationGroup = "PARAM_IGNORE_BLOCKING";
                 break;
         }
+
         return Game.ReferenceManager.GetTranslation(translationGroup);
     }
 
     /// <summary>
-    /// Returns the translation used when the fusion succeeded
+    ///     Returns the translation used when the fusion succeeded
     /// </summary>
     /// <param name="value">The value used in the formatted string</param>
     /// <returns>The translated string</returns>
@@ -98,7 +99,8 @@ internal static class RefMagicOptExtension
                 return $"Lucky({value}Time/times)";
 
             case "MATTR_SOLID":
-                return $"Steady({value}Time/times)"; ;
+                return $"Steady({value}Time/times)";
+                ;
             case "MATTR_ASTRAL":
                 return $"Astral({value}Time/times)";
 

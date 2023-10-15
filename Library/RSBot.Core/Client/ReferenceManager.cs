@@ -1,15 +1,15 @@
-﻿using RSBot.Core.Client.ReferenceObjects;
-using RSBot.Core.Cryptography;
-using RSBot.Core.Event;
-using RSBot.Core.Extensions;
-using RSBot.Core.Objects;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Cryptography;
+using RSBot.Core.Event;
+using RSBot.Core.Extensions;
+using RSBot.Core.Objects;
 
 namespace RSBot.Core.Client;
 
@@ -42,12 +42,12 @@ public class ReferenceManager
     public VersionInfo VersionInfo { get; private set; }
 
     /// <summary>
-    /// Gets the list of magic options
+    ///     Gets the list of magic options
     /// </summary>
     public List<RefMagicOpt> MagicOptions { get; } = new(1024);
 
     /// <summary>
-    /// Gets the list of all magic option assignments
+    ///     Gets the list of all magic option assignments
     /// </summary>
     public List<RefMagicOptAssign> MagicOptionAssignments { get; } = new(128);
 
@@ -83,7 +83,7 @@ public class ReferenceManager
             () => LoadReferenceFile("refoptionalteleport.txt", OptionalTeleports)
         );
 
-        if(Game.ClientType > GameClientType.Japanese_Old)
+        if (Game.ClientType > GameClientType.Japanese_Old)
         {
             LoadReferenceFile("refabilitybyitemoptleveldata.txt", AbilityItemByOptLevel);
             LoadReferenceFile("refskillbyitemoptleveldata.txt", SkillByItemOptLevels);
@@ -172,7 +172,9 @@ public class ReferenceManager
         Log.Debug($"Load file {fileName}");
 
         using (var stream = Game.MediaPk2.GetFile(fileName).GetStream())
+        {
             LoadReferenceListFileEnc(stream, destination);
+        }
     }
 
     private void LoadReferenceListFileEnc<TKey, TReference>(Stream stream, IDictionary<TKey, TReference> destination)
@@ -199,13 +201,14 @@ public class ReferenceManager
         Log.Debug($"Load file {fileName}");
 
         using (var stream = Game.MediaPk2.GetFile(fileName).GetStream())
+        {
             LoadReferenceFileEnc(stream, destination);
+        }
     }
 
     private void LoadReferenceFileEnc<TKey, TReference>(Stream stream, IDictionary<TKey, TReference> destination)
         where TReference : IReference<TKey>, new()
     {
-
         using (var decryptedStream = new MemoryStream())
         {
             SkillCryptoHelper.DecryptStream(stream, decryptedStream, 0x8C1F);
@@ -221,7 +224,9 @@ public class ReferenceManager
         Log.Debug($"Load file {fileName}");
 
         using (var stream = Game.MediaPk2.GetFile(fileName).GetStream())
+        {
             LoadReferenceListFile(stream, destination);
+        }
     }
 
     private void LoadReferenceListFile<TKey, TReference>(string fileName, IDictionary<TKey, TReference> destination)
@@ -230,7 +235,9 @@ public class ReferenceManager
         Log.Debug($"Load file {fileName}");
 
         using (var stream = Game.MediaPk2.GetFile(fileName).GetStream())
+        {
             LoadReferenceListFile(stream, destination);
+        }
     }
 
     private void LoadReferenceFile<TReference>(string fileName, IList<TReference> destination)
@@ -239,7 +246,9 @@ public class ReferenceManager
         Log.Debug($"Load file {fileName}");
 
         using (var stream = Game.MediaPk2.GetFile(fileName).GetStream())
+        {
             LoadReferenceFile(stream, destination);
+        }
     }
 
     private void LoadReferenceFile<TKey, TReference>(string fileName, IDictionary<TKey, TReference> destination)
@@ -248,10 +257,13 @@ public class ReferenceManager
         Log.Debug($"Load file {fileName}");
 
         using (var stream = Game.MediaPk2.GetFile(fileName).GetStream())
+        {
             LoadReferenceFile(stream, destination);
+        }
     }
 
-    private void LoadReferenceListFile<TReference>(Stream stream, IList<TReference> destination) where TReference : IReference, new()
+    private void LoadReferenceListFile<TReference>(Stream stream, IList<TReference> destination)
+        where TReference : IReference, new()
     {
         using (var reader = new StreamReader(stream))
         {
@@ -268,7 +280,8 @@ public class ReferenceManager
         }
     }
 
-    private void LoadReferenceListFile<TKey, TReference>(Stream stream, IDictionary<TKey, TReference> destination) where TReference : IReference<TKey>, new()
+    private void LoadReferenceListFile<TKey, TReference>(Stream stream, IDictionary<TKey, TReference> destination)
+        where TReference : IReference<TKey>, new()
     {
         using (var reader = new StreamReader(stream))
         {
@@ -286,7 +299,8 @@ public class ReferenceManager
         }
     }
 
-    private void LoadReferenceFile<TReference>(Stream stream, IList<TReference> destination) where TReference : IReference, new()
+    private void LoadReferenceFile<TReference>(Stream stream, IList<TReference> destination)
+        where TReference : IReference, new()
     {
         using (var reader = new StreamReader(stream))
         {
@@ -341,7 +355,7 @@ public class ReferenceManager
     }
 
     /// <summary>
-    /// Get char skill bases
+    ///     Get char skill bases
     /// </summary>
     /// <returns></returns>
     public IEnumerable<uint> GetBaseSkills()
@@ -351,7 +365,7 @@ public class ReferenceManager
     }
 
     /// <summary>
-    /// Gets the tab.
+    ///     Gets the tab.
     /// </summary>
     /// <param name="codeName">Name of the code.</param>
     /// <returns></returns>
@@ -362,7 +376,7 @@ public class ReferenceManager
 
     public string GetTranslation(string name)
     {
-        if (TextData.TryGetValue(name, out RefText refText))
+        if (TextData.TryGetValue(name, out var refText))
             return refText.Data;
 
         return name;
@@ -370,10 +384,10 @@ public class ReferenceManager
 
     public RefObjCommon GetRefObjCommon(uint refObjID)
     {
-        if (CharacterData.TryGetValue(refObjID, out RefObjChar refChar))
+        if (CharacterData.TryGetValue(refObjID, out var refChar))
             return refChar;
 
-        if (ItemData.TryGetValue(refObjID, out RefObjItem refItem))
+        if (ItemData.TryGetValue(refObjID, out var refItem))
             return refItem;
 
         return null;
@@ -381,7 +395,7 @@ public class ReferenceManager
 
     public RefObjChar GetRefObjChar(uint id)
     {
-        if (CharacterData.TryGetValue(id, out RefObjChar data))
+        if (CharacterData.TryGetValue(id, out var data))
             return data;
 
         return null;
@@ -394,7 +408,7 @@ public class ReferenceManager
 
     public RefObjItem GetRefItem(uint id)
     {
-        if (ItemData.TryGetValue(id, out RefObjItem data))
+        if (ItemData.TryGetValue(id, out var data))
             return data;
 
         return null;
@@ -412,7 +426,7 @@ public class ReferenceManager
 
     public RefSkill GetRefSkill(uint id)
     {
-        if (SkillData.TryGetValue(id, out RefSkill data))
+        if (SkillData.TryGetValue(id, out var data))
             return data;
 
         return null;
@@ -427,11 +441,11 @@ public class ReferenceManager
 
     public RefSkillMastery GetRefSkillMastery(uint id)
     {
-        if ((Game.ClientType == GameClientType.Chinese) &&
+        if (Game.ClientType == GameClientType.Chinese &&
             id >= 273 && id <= 275)
             id = 277; // csro shit
 
-        if (SkillMasteryData.TryGetValue(id, out RefSkillMastery data))
+        if (SkillMasteryData.TryGetValue(id, out var data))
             return data;
 
         return null;
@@ -439,7 +453,7 @@ public class ReferenceManager
 
     public RefQuest GetRefQuest(uint id)
     {
-        if (QuestData.TryGetValue(id, out RefQuest data))
+        if (QuestData.TryGetValue(id, out var data))
             return data;
 
         return null;
@@ -447,7 +461,7 @@ public class ReferenceManager
 
     public RefLevel GetRefLevel(byte level)
     {
-        if (LevelData.TryGetValue(level, out RefLevel data))
+        if (LevelData.TryGetValue(level, out var data))
             return data;
 
         return null;
@@ -473,12 +487,14 @@ public class ReferenceManager
 
     public RefPackageItemScrap GetRefPackageItemById(ushort id, byte group, byte tab, byte slot)
     {
-        return PackageItemScrap[GetRefShopGroupById(id).GetShops()[group].GetTabs()[tab].GetGoods().FirstOrDefault(s => s.SlotIndex == slot).RefPackageItemCodeName];
+        return PackageItemScrap[
+            GetRefShopGroupById(id).GetShops()[group].GetTabs()[tab].GetGoods().FirstOrDefault(s => s.SlotIndex == slot)
+                .RefPackageItemCodeName];
     }
 
     public RefPackageItemScrap GetRefPackageItem(string codeName)
     {
-        if (PackageItemScrap.TryGetValue(codeName, out RefPackageItemScrap data))
+        if (PackageItemScrap.TryGetValue(codeName, out var data))
             return data;
 
         return null;
@@ -515,7 +531,13 @@ public class ReferenceManager
 
     public List<RefShopGood> GetRefShopGoods(RefShopGroup group)
     {
-        return (from shop in @group.GetShops() where shop != null from tab in shop.GetTabs() where tab != null from good in tab.GetGoods() where good != null select good).ToList();
+        return (from shop in @group.GetShops()
+            where shop != null
+            from tab in shop.GetTabs()
+            where tab != null
+            from good in tab.GetGoods()
+            where good != null
+            select good).ToList();
     }
 
     public byte GetRefShopGoodTabIndex(string npcCodeName, RefShopGood good)
@@ -539,11 +561,12 @@ public class ReferenceManager
                     return i;
             }
         }
+
         return 0xFF;
     }
 
     /// <summary>
-    /// Gets the filtered items.
+    ///     Gets the filtered items.
     /// </summary>
     /// <param name="filters">The filters.</param>
     /// <param name="degreeFrom">The degree from.</param>
@@ -607,7 +630,7 @@ public class ReferenceManager
     }
 
     /// <summary>
-    /// Gets the teleporters in the specific sector
+    ///     Gets the teleporters in the specific sector
     /// </summary>
     /// <param name="regionId"></param>
     /// <returns></returns>
@@ -617,7 +640,7 @@ public class ReferenceManager
     }
 
     /// <summary>
-    /// Gets the ground teleporters.
+    ///     Gets the ground teleporters.
     /// </summary>
     /// <param name="regionId">The region identifier.</param>
     /// <returns></returns>
@@ -627,7 +650,7 @@ public class ReferenceManager
     }
 
     /// <summary>
-    /// Gets a magic option by its id
+    ///     Gets a magic option by its id
     /// </summary>
     /// <param name="id">The id of the magic option</param>
     /// <returns></returns>
@@ -637,7 +660,7 @@ public class ReferenceManager
     }
 
     /// <summary>
-    /// Gets the first magic option of the specified group
+    ///     Gets the first magic option of the specified group
     /// </summary>
     /// <param name="group">The group</param>
     /// <returns></returns>
@@ -647,7 +670,7 @@ public class ReferenceManager
     }
 
     /// <summary>
-    /// Gets a magic option by its group and degree
+    ///     Gets a magic option by its group and degree
     /// </summary>
     /// <param name="group">The group</param>
     /// <param name="degree">The degree</param>
@@ -658,18 +681,19 @@ public class ReferenceManager
     }
 
     /// <summary>
-    /// Gets a list of magic options for the specified type ids
+    ///     Gets a list of magic options for the specified type ids
     /// </summary>
     /// <param name="typeId3">The TID3</param>
     /// <param name="typeId4">The TID4</param>
     /// <returns></returns>
     public List<RefMagicOpt> GetAssignments(byte typeId3, byte typeId4)
     {
-        return MagicOptionAssignments.FirstOrDefault(a => a.TypeId3 == typeId3 && a.TypeId4 == typeId4)?.AvailableMagicOptions.Select(GetMagicOption).ToList();
+        return MagicOptionAssignments.FirstOrDefault(a => a.TypeId3 == typeId3 && a.TypeId4 == typeId4)
+            ?.AvailableMagicOptions.Select(GetMagicOption).ToList();
     }
 
     /// <summary>
-    /// Gets a ability item for the specified <paramref name="itemId"/> and <paramref name="optLevel"/>
+    ///     Gets a ability item for the specified <paramref name="itemId" /> and <paramref name="optLevel" />
     /// </summary>
     /// <param name="itemId">Item Id</param>
     /// <param name="optLevel">Opt Level</param>
@@ -680,7 +704,7 @@ public class ReferenceManager
     }
 
     /// <summary>
-    /// Gets a ability item for the specified <paramref name="itemId"/> and <paramref name="optLevel"/>
+    ///     Gets a ability item for the specified <paramref name="itemId" /> and <paramref name="optLevel" />
     /// </summary>
     /// <param name="itemId">Item Id</param>
     /// <param name="optLevel">Opt Level</param>

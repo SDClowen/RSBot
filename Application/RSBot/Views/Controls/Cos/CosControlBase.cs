@@ -1,19 +1,20 @@
 ﻿using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using Label = SDUI.Controls.Label;
+using ProgressBar = SDUI.Controls.ProgressBar;
 
 namespace RSBot.Views.Controls;
 
 [ToolboxItem(false)]
-public partial class CosControlBase : UserControl
+public class CosControlBase : UserControl
 {
-
-    private SDUI.Controls.Label label1;
-    protected SDUI.Controls.Label lblPetName;
+    private Label label1;
+    protected Label labelLevel;
+    protected Label lblPetName;
     private Panel panel1;
-    protected SDUI.Controls.Label labelLevel;
-    protected SDUI.Controls.ProgressBar progressHP;
-
-    public MiniCosControl MiniCosControl { get; private set; }
+    protected ProgressBar progressHP;
 
     public CosControlBase()
     {
@@ -23,9 +24,10 @@ public partial class CosControlBase : UserControl
         InitializeComponent();
     }
 
+    public MiniCosControl MiniCosControl { get; }
+
     public virtual void Initialize()
     {
-
     }
 
     public virtual void Reset()
@@ -39,11 +41,11 @@ public partial class CosControlBase : UserControl
 
     private void InitializeComponent()
     {
-        label1 = new SDUI.Controls.Label();
-        lblPetName = new SDUI.Controls.Label();
-        progressHP = new SDUI.Controls.ProgressBar();
+        label1 = new Label();
+        lblPetName = new Label();
+        progressHP = new ProgressBar();
         panel1 = new Panel();
-        labelLevel = new SDUI.Controls.Label();
+        labelLevel = new Label();
         panel1.SuspendLayout();
         SuspendLayout();
         // 
@@ -51,11 +53,11 @@ public partial class CosControlBase : UserControl
         // 
         label1.ApplyGradient = false;
         label1.AutoSize = true;
-        label1.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-        label1.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-        label1.Location = new System.Drawing.Point(14, 44);
+        label1.ForeColor = Color.FromArgb(0, 0, 0);
+        label1.Gradient = new[] { Color.Gray, Color.Black };
+        label1.Location = new Point(14, 44);
         label1.Name = "label1";
-        label1.Size = new System.Drawing.Size(26, 15);
+        label1.Size = new Size(26, 15);
         label1.TabIndex = 20;
         label1.Text = "HP:";
         // 
@@ -64,23 +66,23 @@ public partial class CosControlBase : UserControl
         lblPetName.ApplyGradient = false;
         lblPetName.AutoSize = true;
         lblPetName.Dock = DockStyle.Left;
-        lblPetName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-        lblPetName.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-        lblPetName.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-        lblPetName.Location = new System.Drawing.Point(0, 0);
+        lblPetName.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+        lblPetName.ForeColor = Color.FromArgb(0, 0, 0);
+        lblPetName.Gradient = new[] { Color.Gray, Color.Black };
+        lblPetName.Location = new Point(0, 0);
         lblPetName.Name = "lblPetName";
-        lblPetName.Size = new System.Drawing.Size(81, 15);
+        lblPetName.Size = new Size(81, 15);
         lblPetName.TabIndex = 19;
         lblPetName.Text = "No pet found";
         // 
         // progressHP
         // 
-        progressHP.BackColor = System.Drawing.Color.Transparent;
+        progressHP.BackColor = Color.Transparent;
         progressHP.DrawHatch = false;
-        progressHP.ForeColor = System.Drawing.Color.Firebrick;
-        progressHP.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Maroon, System.Drawing.Color.Red });
-        progressHP.HatchType = System.Drawing.Drawing2D.HatchStyle.Percent10;
-        progressHP.Location = new System.Drawing.Point(48, 45);
+        progressHP.ForeColor = Color.Firebrick;
+        progressHP.Gradient = new[] { Color.Maroon, Color.Red };
+        progressHP.HatchType = HatchStyle.Percent10;
+        progressHP.Location = new Point(48, 45);
         progressHP.Maximum = 100L;
         progressHP.MaxPercentShowValue = 100F;
         progressHP.Name = "progressHP";
@@ -88,7 +90,7 @@ public partial class CosControlBase : UserControl
         progressHP.Radius = 1;
         progressHP.ShowAsPercent = false;
         progressHP.ShowValue = true;
-        progressHP.Size = new System.Drawing.Size(180, 16);
+        progressHP.Size = new Size(180, 16);
         progressHP.TabIndex = 18;
         progressHP.Text = "0 / 100";
         progressHP.Value = 0L;
@@ -97,9 +99,9 @@ public partial class CosControlBase : UserControl
         // 
         panel1.Controls.Add(labelLevel);
         panel1.Controls.Add(lblPetName);
-        panel1.Location = new System.Drawing.Point(48, 18);
+        panel1.Location = new Point(48, 18);
         panel1.Name = "panel1";
-        panel1.Size = new System.Drawing.Size(180, 21);
+        panel1.Size = new Size(180, 21);
         panel1.TabIndex = 21;
         // 
         // labelLevel
@@ -107,12 +109,12 @@ public partial class CosControlBase : UserControl
         labelLevel.ApplyGradient = false;
         labelLevel.AutoSize = true;
         labelLevel.Dock = DockStyle.Left;
-        labelLevel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-        labelLevel.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-        labelLevel.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-        labelLevel.Location = new System.Drawing.Point(81, 0);
+        labelLevel.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+        labelLevel.ForeColor = Color.FromArgb(0, 0, 0);
+        labelLevel.Gradient = new[] { Color.Gray, Color.Black };
+        labelLevel.Location = new Point(81, 0);
         labelLevel.Name = "labelLevel";
-        labelLevel.Size = new System.Drawing.Size(0, 15);
+        labelLevel.Size = new Size(0, 15);
         labelLevel.TabIndex = 20;
         // 
         // CosControlBase
@@ -120,9 +122,9 @@ public partial class CosControlBase : UserControl
         Controls.Add(panel1);
         Controls.Add(label1);
         Controls.Add(progressHP);
-        Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+        Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
         Name = "CosControlBase";
-        Size = new System.Drawing.Size(243, 79);
+        Size = new Size(243, 79);
         panel1.ResumeLayout(false);
         panel1.PerformLayout();
         ResumeLayout(false);

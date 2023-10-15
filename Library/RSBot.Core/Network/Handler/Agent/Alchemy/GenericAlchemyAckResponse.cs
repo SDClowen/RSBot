@@ -51,7 +51,7 @@ internal static class GenericAlchemyAckResponse
                 return;
             }
         }
-            
+
         var newItem = InventoryItem.FromPacket(packet, slot);
 
         Game.Player.Inventory.RemoveAt(slot);

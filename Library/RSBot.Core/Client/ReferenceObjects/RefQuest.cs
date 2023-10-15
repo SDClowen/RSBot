@@ -2,22 +2,6 @@
 
 public class RefQuest : IReference<uint>
 {
-    #region Fields
-
-    public byte Service;
-    public uint ID;
-    public string CodeName;
-    public byte Level;
-    public string DescName;
-    public string NameString;
-    public string PayString;
-    public string ContentsString;
-    public string PayContents;
-    public string NoticeNPC;
-    public string NoticeCondition;
-
-    #endregion Fields
-
     public uint PrimaryKey => ID;
 
     public bool Load(ReferenceParser parser)
@@ -45,6 +29,22 @@ public class RefQuest : IReference<uint>
 
         return true;
     }
+
+    #region Fields
+
+    public byte Service;
+    public uint ID;
+    public string CodeName;
+    public byte Level;
+    public string DescName;
+    public string NameString;
+    public string PayString;
+    public string ContentsString;
+    public string PayContents;
+    public string NoticeNPC;
+    public string NoticeCondition;
+
+    #endregion Fields
 }
 
 //Service               1

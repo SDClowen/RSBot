@@ -1,33 +1,33 @@
-﻿using RSBot.Core;
+﻿using System;
+using System.Linq;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
-using System;
-using System.Linq;
 
 namespace RSBot.Statistics.Stats.Calculators.Live;
 
 internal class LootPerHour : IStatisticCalculator
 {
     /// <summary>
-    /// The initial value
-    /// </summary>
-    private int _lastTickValue;
-
-    /// <summary>
-    /// The values
-    /// </summary>
-    private int[] _values;
-
-    /// <summary>
-    /// The current tick index
+    ///     The current tick index
     /// </summary>
     private int _currentTickIndex = -1;
 
     /// <summary>
-    /// The kill count
+    ///     The initial value
+    /// </summary>
+    private int _lastTickValue;
+
+    /// <summary>
+    ///     The kill count
     /// </summary>
     private int _pickedItemCount;
+
+    /// <summary>
+    ///     The values
+    /// </summary>
+    private int[] _values;
 
     /// <inheritdoc />
     public string Name => "ItemsPerHour";
@@ -57,7 +57,7 @@ internal class LootPerHour : IStatisticCalculator
         _lastTickValue = _pickedItemCount;
 
         var sum = _values.Sum(val => val);
-        var result = (double)sum / (double)_values.Length * 3600;
+        var result = sum / (double)_values.Length * 3600;
 
         return result;
     }

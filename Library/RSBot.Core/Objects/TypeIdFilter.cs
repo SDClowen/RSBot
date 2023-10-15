@@ -1,24 +1,12 @@
-﻿using RSBot.Core.Client.ReferenceObjects;
-using System;
+﻿using System;
+using RSBot.Core.Client.ReferenceObjects;
 
 namespace RSBot.Core.Objects;
 
 public class TypeIdFilter
 {
-    public byte TypeID1 { get; set; }
-    public byte TypeID2 { get; set; }
-    public byte TypeID3 { get; set; }
-    public byte TypeID4 { get; set; }
-
-    public bool CompareByTypeID1 { get; set; }
-    public bool CompareByTypeID2 { get; set; }
-    public bool CompareByTypeID3 { get; set; }
-    public bool CompareByTypeID4 { get; set; }
-
-    Predicate<RefObjCommon> _condition { get; set; }
-
     /// <summary>
-    /// Initializes a new instance of the <see cref="TypeIdFilter"/> class.
+    ///     Initializes a new instance of the <see cref="TypeIdFilter" /> class.
     /// </summary>
     /// <param name="t1">The t1.</param>
     /// <param name="t2">The t2.</param>
@@ -33,7 +21,7 @@ public class TypeIdFilter
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="TypeIdFilter" /> class.
+    ///     Initializes a new instance of the <see cref="TypeIdFilter" /> class.
     /// </summary>
     public TypeIdFilter(Predicate<RefObjCommon> condition)
     {
@@ -41,14 +29,26 @@ public class TypeIdFilter
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="TypeIdFilter" /> class.
+    ///     Initializes a new instance of the <see cref="TypeIdFilter" /> class.
     /// </summary>
     public TypeIdFilter()
     {
     }
 
+    public byte TypeID1 { get; set; }
+    public byte TypeID2 { get; set; }
+    public byte TypeID3 { get; set; }
+    public byte TypeID4 { get; set; }
+
+    public bool CompareByTypeID1 { get; set; }
+    public bool CompareByTypeID2 { get; set; }
+    public bool CompareByTypeID3 { get; set; }
+    public bool CompareByTypeID4 { get; set; }
+
+    private Predicate<RefObjCommon> _condition { get; }
+
     /// <summary>
-    /// Equalses the reference item.
+    ///     Equalses the reference item.
     /// </summary>
     /// <param name="item">The item.</param>
     /// <returns></returns>

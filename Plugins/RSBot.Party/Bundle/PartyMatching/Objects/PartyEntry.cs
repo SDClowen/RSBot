@@ -9,74 +9,74 @@ namespace RSBot.Party.Bundle.PartyMatching.Objects;
 internal class PartyEntry
 {
     /// <summary>
-    /// Gets or sets the identifier.
+    ///     Gets or sets the identifier.
     /// </summary>
     /// <value>
-    /// The identifier.
+    ///     The identifier.
     /// </value>
     public uint Id { get; set; }
 
     /// <summary>
-    /// Gets or sets the leader.
+    ///     Gets or sets the leader.
     /// </summary>
     /// <value>
-    /// The leader.
+    ///     The leader.
     /// </value>
     public string Leader { get; set; }
 
     /// <summary>
-    /// Gets or sets the maximum level.
+    ///     Gets or sets the maximum level.
     /// </summary>
     /// <value>
-    /// The maximum level.
+    ///     The maximum level.
     /// </value>
     public byte MaxLevel { get; set; }
 
     /// <summary>
-    /// Gets or sets the member count.
+    ///     Gets or sets the member count.
     /// </summary>
     /// <value>
-    /// The member count.
+    ///     The member count.
     /// </value>
     public byte MemberCount { get; set; }
 
     /// <summary>
-    /// Gets or sets the minimum level.
+    ///     Gets or sets the minimum level.
     /// </summary>
     /// <value>
-    /// The minimum level.
+    ///     The minimum level.
     /// </value>
     public byte MinLevel { get; set; }
 
     /// <summary>
-    /// Gets or sets the purpose.
+    ///     Gets or sets the purpose.
     /// </summary>
     /// <value>
-    /// The purpose.
+    ///     The purpose.
     /// </value>
     public PartyPurpose Purpose { get; set; }
 
     /// <summary>
-    /// Gets or sets the race.
+    ///     Gets or sets the race.
     /// </summary>
     /// <value>
-    /// The race.
+    ///     The race.
     /// </value>
     public ObjectCountry Race { get; set; }
 
     /// <summary>
-    /// Gets or sets the settings.
+    ///     Gets or sets the settings.
     /// </summary>
     /// <value>
-    /// The settings.
+    ///     The settings.
     /// </value>
     public PartySettings Settings { get; set; }
 
     /// <summary>
-    /// Gets or sets the title.
+    ///     Gets or sets the title.
     /// </summary>
     /// <value>
-    /// The title.
+    ///     The title.
     /// </value>
     public string Title { get; set; }
 
@@ -89,7 +89,7 @@ internal class PartyEntry
 
         packet.ReadUInt(); // leaderUniqueId
 
-        if (Game.ClientType >= GameClientType.Global && 
+        if (Game.ClientType >= GameClientType.Global &&
             Game.ClientType != GameClientType.Rigid)
             packet.ReadUInt(); // unknown
 

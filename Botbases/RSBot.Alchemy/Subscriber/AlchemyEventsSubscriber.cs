@@ -1,10 +1,10 @@
-﻿using RSBot.Core;
+﻿using System;
+using System.Linq;
+using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
-using System;
-using System.Linq;
 
 namespace RSBot.Alchemy.Subscriber;
 
@@ -26,7 +26,8 @@ internal class AlchemyEventsSubscriber
         Globals.Botbase.MagicBundleConfig = null;
 
         Globals.View.SelectedItem = null;
-        Globals.View.AddLog(oldItem.Record.GetRealName(), Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_BREAKDOWN"));
+        Globals.View.AddLog(oldItem.Record.GetRealName(),
+            Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_BREAKDOWN"));
         Log.Warn("[Alchemy] The item has been destroyed, stopping now...");
 
         Kernel.Bot?.Stop();
@@ -46,7 +47,7 @@ internal class AlchemyEventsSubscriber
     }
 
     /// <summary>
-    /// Will be triggered if any fuse request (either elixir or magic stone..) was sent to the server. Adds a log message.
+    ///     Will be triggered if any fuse request (either elixir or magic stone..) was sent to the server. Adds a log message.
     /// </summary>
     /// <param name="action">The alchemy action</param>
     /// <param name="type">The type of alchemy</param>
@@ -65,11 +66,13 @@ internal class AlchemyEventsSubscriber
                 break;
 
             case AlchemyType.MagicStone:
-                Globals.View.AddLog(item?.Record.GetRealName(), $"Fusing magic stone [{ingredient.Record.GetRealName()}]");
+                Globals.View.AddLog(item?.Record.GetRealName(),
+                    $"Fusing magic stone [{ingredient.Record.GetRealName()}]");
                 break;
 
             case AlchemyType.AttributeStone:
-                Globals.View.AddLog(item?.Record.GetRealName(), $"Fusing attribute stone [{ingredient.Record.GetRealName()}]");
+                Globals.View.AddLog(item?.Record.GetRealName(),
+                    $"Fusing attribute stone [{ingredient.Record.GetRealName()}]");
                 break;
 
             default:

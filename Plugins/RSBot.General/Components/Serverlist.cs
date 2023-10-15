@@ -1,16 +1,16 @@
-﻿using RSBot.General.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using RSBot.General.Models;
 
 namespace RSBot.General.Components;
 
 public static class Serverlist
 {
     /// <summary>
-    /// Gets or sets the servers.
+    ///     Gets or sets the servers.
     /// </summary>
     /// <value>
-    /// The servers.
+    ///     The servers.
     /// </value>
     public static List<Server> Servers { get; set; }
 
@@ -18,12 +18,12 @@ public static class Serverlist
     /// Gets or sets the joining server.
     /// </summary>
     /// <value>
-    /// The server.
+    ///     The server.
     /// </value>
     public static Server Joining { get; set; }
 
     /// <summary>
-    /// Gets the server by its name
+    ///     Gets the server by its name
     /// </summary>
     /// <param name="name">The name.</param>
     /// <returns></returns>
@@ -33,7 +33,7 @@ public static class Serverlist
     }
 
     /// <summary>
-    /// Set joining the server by shard id
+    ///     Set joining the server by shard id
     /// </summary>
     /// <param name="shardId">The shard id</param>
     internal static void SetJoining(ushort shardId)

@@ -2,23 +2,23 @@
 
 public class RefObjItem : RefObjCommon
 {
-    public int MaxStack;
-    public byte ReqGender;
-    public int ReqStr;
-    public int ReqInt;
-    public byte ItemClass;
-    public byte Quivered; //Consumes ammo
-    public byte SpeedClass;
-    public byte TwoHanded;
-    public short Range;
-    public int Param1;
-    public int Param2;
-    public int Param3;
-    public int Param4;
     public string Desc1;
     public string Desc2;
     public string Desc3;
     public string Desc4;
+    public byte ItemClass;
+    public int MaxStack;
+    public int Param1;
+    public int Param2;
+    public int Param3;
+    public int Param4;
+    public byte Quivered; //Consumes ammo
+    public short Range;
+    public byte ReqGender;
+    public int ReqInt;
+    public int ReqStr;
+    public byte SpeedClass;
+    public byte TwoHanded;
 
     //public float Dur_L;
     //public float Dur_U;
@@ -77,207 +77,207 @@ public class RefObjItem : RefObjCommon
     //public float CHR_U;
 
     /// <summary>
-    /// A value indicating if the item is of type gold
+    ///     A value indicating if the item is of type gold
     /// </summary>
     public bool IsGold => IsStackable && TypeID3 == 5 && TypeID4 == 0;
 
     /// <summary>
-    /// A value indicating if the item is of type wearable
+    ///     A value indicating if the item is of type wearable
     /// </summary>
     public bool IsEquip => TypeID2 == 1;
 
     /// <summary>
-    /// Gets a value indicating whether this instance is an avatar or a devil spirit.
+    ///     Gets a value indicating whether this instance is an avatar or a devil spirit.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if this instance is avatar; otherwise, <c>false</c>.
+    ///     <c>true</c> if this instance is avatar; otherwise, <c>false</c>.
     /// </value>
     public bool IsAvatar => IsEquip && TypeID3 is 13 or 14;
-        
+
     /// <summary>
-    /// A value indicating if the item is of type wearable for job2 (job2 part items)
+    ///     A value indicating if the item is of type wearable for job2 (job2 part items)
     /// </summary>
     public bool IsJobEquip => TypeID2 == 4;
 
     /// <summary>
-    /// A value indicating if the item is of type weareable for fellow pet
+    ///     A value indicating if the item is of type weareable for fellow pet
     /// </summary>
     public bool IsFellowEquip => TypeID2 == 5;
 
     /// <summary>
-    /// A value indicating if the item is of type wearable for job
+    ///     A value indicating if the item is of type wearable for job
     /// </summary>
     public bool IsJobOutfit => IsEquip && TypeID3 == 7 && TypeID4 is not 4 or 5;
 
     /// <summary>
-    /// A value indicating if the item is of type stackable
+    ///     A value indicating if the item is of type stackable
     /// </summary>
     public bool IsStackable => TypeID2 == 3;
 
     /// <summary>
-    /// A value indicating if the item is of type trading(job trading items)
+    ///     A value indicating if the item is of type trading(job trading items)
     /// </summary>
     public bool IsTrading => IsStackable && TypeID3 == 8;
 
     /// <summary>
-    /// A value indicating if the item is of type specialty good box
+    ///     A value indicating if the item is of type specialty good box
     /// </summary>
     public bool IsSpecialtyGoodBox => IsTrading && TypeID4 == 3;
 
     /// <summary>
-    /// A value indicating if the item is of type trans quest
+    ///     A value indicating if the item is of type trans quest
     /// </summary>
     public bool IsQuest => IsStackable && TypeID3 == 9;
 
     /// <summary>
-    /// A value indicating if the item is of type ammunition
+    ///     A value indicating if the item is of type ammunition
     /// </summary>
     public bool IsAmmunition => IsStackable && TypeID3 == 4;
 
     /// <summary>
-    /// A value indicating if the item is of type cos
+    ///     A value indicating if the item is of type cos
     /// </summary>
     public bool IsPet => TypeID2 == 2 && TypeID3 == 1;
 
     /// <summary>
-    /// A value indicating if the item is of type cos
+    ///     A value indicating if the item is of type cos
     /// </summary>
     public bool IsGrowthPet => IsPet && TypeID4 == 1;
 
     /// <summary>
-    /// A value indicating if the item is of type cos
+    ///     A value indicating if the item is of type cos
     /// </summary>
     public bool IsGrabPet => IsPet && TypeID4 == 2;
 
     /// <summary>
-    /// A value indicating if the item is of type cos
+    ///     A value indicating if the item is of type cos
     /// </summary>
     public bool IsFellowPet => IsPet && TypeID4 == 3;
 
     /// <summary>
-    /// A value indicating if the item is of type trans monster
+    ///     A value indicating if the item is of type trans monster
     /// </summary>
     public bool IsTransmonster => TypeID2 == 2 && TypeID3 == 2;
 
     /// <summary>
-    /// A value indicating if the item is of type ammunition
+    ///     A value indicating if the item is of type ammunition
     /// </summary>
     public bool IsMagicCube => TypeID2 == 2 && TypeID3 == 3;
 
     /// <summary>
-    /// A value indicating if the item is of type skill item
+    ///     A value indicating if the item is of type skill item
     /// </summary>
     public bool IsSkill => IsStackable && TypeID3 == 13 && TypeID4 == 1;
 
     /// <summary>
-    /// A value indicating if the item is of type potion
+    ///     A value indicating if the item is of type potion
     /// </summary>
     public bool IsPotion => IsStackable && TypeID3 == 1;
 
     /// <summary>
-    /// A value indicating if the item is of type hp potion
+    ///     A value indicating if the item is of type hp potion
     /// </summary>
     public bool IsHpPotion => IsPotion && TypeID4 == 1;
 
     /// <summary>
-    /// A value indicating if the item is of type mp potion
+    ///     A value indicating if the item is of type mp potion
     /// </summary>
     public bool IsMpPotion => IsPotion && TypeID4 == 2;
 
     /// <summary>
-    /// A value indicating if the item is of type all potion(vigor)
+    ///     A value indicating if the item is of type all potion(vigor)
     /// </summary>
     public bool IsAllPotion => IsPotion && TypeID4 == 3;
 
     /// <summary>
-    /// A value indicating if the item is of type Universal Pill
+    ///     A value indicating if the item is of type Universal Pill
     /// </summary>
     public bool IsUniversalPill => IsStackable && TypeID3 == 2 && TypeID4 == 6;
 
     /// <summary>
-    /// A value indicating if the item is of type Purification Pill
+    ///     A value indicating if the item is of type Purification Pill
     /// </summary>
     public bool IsPurificationPill => IsStackable && TypeID3 == 2 && TypeID4 == 1;
 
     /// <summary>
-    /// A value indicating if the item is of type abnormal potion
+    ///     A value indicating if the item is of type abnormal potion
     /// </summary>
     public bool IsAbnormalPotion => IsStackable && TypeID3 == 2 && TypeID4 == 9;
 
     /// <summary>
-    /// A value indicating if the item is of type cos hp potion
+    ///     A value indicating if the item is of type cos hp potion
     /// </summary>
     public bool IsCosHpPotion => IsPotion && TypeID4 == 4 && Param2 == 0;
 
     /// <summary>
-    /// A value indicating if the item is of type cos hp potion
+    ///     A value indicating if the item is of type cos hp potion
     /// </summary>
     public bool IsFellowHpPotion => IsPotion && TypeID4 == 4 && Param2 != 0;
 
     /// <summary>
-    /// A value indicating if the item is of type cos revival
+    ///     A value indicating if the item is of type cos revival
     /// </summary>
     public bool IsCosRevivalPotion => IsPotion && TypeID4 == 6;
 
     /// <summary>
-    /// A value indicating if the item is of type hwan potion
+    ///     A value indicating if the item is of type hwan potion
     /// </summary>
     public bool IsHwanPotion => IsPotion && TypeID4 == 8;
 
     /// <summary>
-    /// A value indicating if the item is of type hgp potion
+    ///     A value indicating if the item is of type hgp potion
     /// </summary>
     public bool IsHgpPotion => IsPotion && TypeID4 == 9 && Param1 == 10;
 
     /// <summary>
-    /// A value indicating if the item is of type pet2 satiety potion
+    ///     A value indicating if the item is of type pet2 satiety potion
     /// </summary>
     public bool IsPet2SatietyPotion => IsPotion && TypeID4 == 9 && Param1 > 10;
 
     /// <summary>
-    /// A value indicating if the item is of type repair kit
+    ///     A value indicating if the item is of type repair kit
     /// </summary>
     public bool IsRepairKit => IsPotion && TypeID4 == 10;
 
     /// <summary>
-    /// Gets a value indicating whether this instance is armor.
+    ///     Gets a value indicating whether this instance is armor.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if this instance is armor; otherwise, <c>false</c>.
+    ///     <c>true</c> if this instance is armor; otherwise, <c>false</c>.
     /// </value>
-    public bool IsArmor => IsEquip && TypeID3 == 1 || TypeID3 is 2 or 3 or 9 or 10 or 11;
+    public bool IsArmor => (IsEquip && TypeID3 == 1) || TypeID3 is 2 or 3 or 9 or 10 or 11;
 
     /// <summary>
-    /// Gets a value indicating whether this instance is a shield.
+    ///     Gets a value indicating whether this instance is a shield.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if this instance is shield; otherwise, <c>false</c>.
+    ///     <c>true</c> if this instance is shield; otherwise, <c>false</c>.
     /// </value>
     public bool IsShield => IsEquip && TypeID3 == 4;
 
     /// <summary>
-    /// Gets a value indicating whether this instance is an accessory.
+    ///     Gets a value indicating whether this instance is an accessory.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if this instance is accessory; otherwise, <c>false</c>.
+    ///     <c>true</c> if this instance is accessory; otherwise, <c>false</c>.
     /// </value>
-    public bool IsAccessory => IsEquip && TypeID3 == 5 || TypeID3 == 12;
+    public bool IsAccessory => (IsEquip && TypeID3 == 5) || TypeID3 == 12;
 
     /// <summary>
-    /// Gets a value indicating whether this instance is a weapon.
+    ///     Gets a value indicating whether this instance is a weapon.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if this instance is weapon; otherwise, <c>false</c>.
+    ///     <c>true</c> if this instance is weapon; otherwise, <c>false</c>.
     /// </value>
     public bool IsWeapon => IsEquip && TypeID3 == 6;
 
     /// <summary>
-    /// Gets the degree of the item
+    ///     Gets the degree of the item
     /// </summary>
     public int Degree => (ItemClass - 1) / 3 + 1;
 
     /// <summary>
-    /// Gets the degree offset.
+    ///     Gets the degree offset.
     /// </summary>
     public int DegreeOffset => ItemClass - 3 * ((ItemClass - 1) / 3) - 1; //sro_client.sub_8BA6E0
 
@@ -339,7 +339,7 @@ public class RefObjItem : RefObjCommon
         //parser.TryParse(83, out PDStr_U);
         //parser.TryParse(84, out MDInt_L);
         //parser.TryParse(85, out MDInt_U);
-            
+
         //parser.TryParse(95, out PAttackMin_L);
         //parser.TryParse(96, out PAttackMin_U);
         //parser.TryParse(97, out PAttackMax_L);
@@ -386,7 +386,7 @@ public class RefObjItem : RefObjCommon
     }
 
     /// <summary>
-    /// Get item sox name
+    ///     Get item sox name
     /// </summary>
     /// <returns></returns>
     public string GetRarityName()
@@ -396,9 +396,8 @@ public class RefObjItem : RefObjCommon
 
         string param = null;
         if (ItemClass < 31 || ItemClass > 34)
-        {
             //Seal of Star, Seal of Moon, Seal of Sun
-            switch (this.DegreeOffset)
+            switch (DegreeOffset)
             {
                 case 0:
                     param = Game.ReferenceManager.GetTranslation("PARAM_RARE_FIRST");
@@ -412,12 +411,9 @@ public class RefObjItem : RefObjCommon
                     param = Game.ReferenceManager.GetTranslation("PARAM_RARE_THIRD");
                     break;
             }
-        }
         else
-        {
             //Seal of Nova
             param = Game.ReferenceManager.GetTranslation("PARAM_RARE_FIRST2");
-        }
 
         return param;
     }

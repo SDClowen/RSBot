@@ -5,8 +5,8 @@ namespace RSBot.Core.Extensions;
 public static class PacketExtensions
 {
     /// <summary>
-    /// It is a function for text reading differences between different client types.
-    /// Not used in similar places such as character name reading
+    ///     It is a function for text reading differences between different client types.
+    ///     Not used in similar places such as character name reading
     /// </summary>
     /// <param name="packet">The packet</param>
     public static string ReadConditonalString(this Packet packet)
@@ -20,15 +20,15 @@ public static class PacketExtensions
             case GameClientType.Rigid:
             case GameClientType.VTC_Game:
                 return packet.ReadUnicode();
-                    
+
             default:
                 return packet.ReadString();
         }
     }
 
     /// <summary>
-    /// It is a function for text reading differences between different client types.
-    /// Note: Not used in similar places such as character name writing
+    ///     It is a function for text reading differences between different client types.
+    ///     Note: Not used in similar places such as character name writing
     /// </summary>
     /// <param name="packet">The packet</param>
     public static void WriteConditonalString(this Packet packet, string str)

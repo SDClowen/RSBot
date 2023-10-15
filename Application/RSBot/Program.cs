@@ -1,16 +1,16 @@
-﻿using RSBot.Core;
-using RSBot.Core.Components;
-using RSBot.Views;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
+using RSBot.Core;
+using RSBot.Core.Components;
+using RSBot.Views;
 
 namespace RSBot;
 
 internal static class Program
-{ 
+{
     public static string AssemblyTitle =
         Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyProductAttribute>()?.Product;
 
@@ -23,7 +23,7 @@ internal static class Program
     [STAThread]
     private static void Main(string[] args)
     {
-        if(args.Length == 1)
+        if (args.Length == 1)
         {
             var profile = args[0];
             if (ProfileManager.ProfileExists(profile))

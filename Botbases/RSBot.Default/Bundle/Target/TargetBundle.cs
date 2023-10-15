@@ -1,11 +1,11 @@
-﻿using RSBot.Core;
+﻿using System.Collections.Generic;
+using System.Linq;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace RSBot.Default.Bundle.Target;
 
@@ -28,6 +28,25 @@ internal class TargetBundle : IBundle
 
     #endregion Constructor
 
+    #region Events
+
+    private void OnTargetBehindObstacle()
+    {
+        if (Game.SelectedEntity == null)
+            return;
+
+        var selectedEntityUniqueId = Game.SelectedEntity.UniqueId;
+        Game.SelectedEntity?.TryDeselect();
+        Game.SelectedEntity = null;
+
+        Bundles.Movement.LastEntityWasBehindObstacle = true;
+
+        if (_blacklist?.TryAdd(selectedEntityUniqueId, Kernel.TickCount) == true)
+            Log.Debug($"Add mob [{selectedEntityUniqueId} to blacklist for {BLACKLIST_TIMEOUT}ms");
+    }
+
+    #endregion Events
+
     #region Methods
 
     private void SubscribeEvents()
@@ -36,7 +55,7 @@ internal class TargetBundle : IBundle
     }
 
     /// <summary>
-    /// Invokes this instance.
+    ///     Invokes this instance.
     /// </summary>
     public void Invoke()
     {
@@ -52,7 +71,6 @@ internal class TargetBundle : IBundle
         var attacker = GetFromCurrentAttackers();
         if (attacker != null && Game.SelectedEntity == null)
         {
-
             Log.Debug("[TargetBundle] Emergency situation: Attacking the weaker mob first!");
 
             if (attacker.TrySelect())
@@ -61,7 +79,9 @@ internal class TargetBundle : IBundle
             return;
         }
 
-        if (attacker != null && SpawnManager.TryGetEntity<SpawnedMonster>(Game.SelectedEntity.UniqueId, out var selectedMonster) && (byte)attacker.Rarity < (byte)selectedMonster.Rarity)
+        if (attacker != null &&
+            SpawnManager.TryGetEntity<SpawnedMonster>(Game.SelectedEntity.UniqueId, out var selectedMonster) &&
+            (byte)attacker.Rarity < (byte)selectedMonster.Rarity)
         {
             Log.Debug("[TargetBundle] Emergency situation: Found a weaker mob to attack first, switching target!");
 
@@ -71,7 +91,7 @@ internal class TargetBundle : IBundle
             return;
         }
 
-        var warlockModeEnabled = PlayerConfig.Get<bool>("RSBot.Skills.checkWarlockMode", false);
+        var warlockModeEnabled = PlayerConfig.Get("RSBot.Skills.checkWarlockMode", false);
         if (warlockModeEnabled && Game.SelectedEntity.State.HasTwoDots())
             return;
 
@@ -98,7 +118,8 @@ internal class TargetBundle : IBundle
         if (!attackWeakerFirst || !IsEmergencySituation())
             return null;
 
-        if (!SpawnManager.TryGetEntities<SpawnedMonster>(e => e.AttackingPlayer && e.State.LifeState == LifeState.Alive, out var entities))
+        if (!SpawnManager.TryGetEntities<SpawnedMonster>(e => e.AttackingPlayer && e.State.LifeState == LifeState.Alive,
+                out var entities))
             return null;
 
         return entities.OrderBy(e => (byte)e.Rarity)
@@ -109,11 +130,12 @@ internal class TargetBundle : IBundle
 
     private bool IsEmergencySituation()
     {
-        return SpawnManager.Any<SpawnedMonster>(e => e.AttackingPlayer == true && e.State.LifeState == LifeState.Alive && Bundles.Avoidance.AvoidMonster(e.Rarity));
+        return SpawnManager.Any<SpawnedMonster>(e =>
+            e.AttackingPlayer && e.State.LifeState == LifeState.Alive && Bundles.Avoidance.AvoidMonster(e.Rarity));
     }
 
     /// <summary>
-    /// Gets the nearest enemy.
+    ///     Gets the nearest enemy.
     /// </summary>
     /// <returns></returns>
     private SpawnedMonster GetNearestEnemy()
@@ -140,11 +162,11 @@ internal class TargetBundle : IBundle
     }
 
     /// <summary>
-    /// Refreshes this instance.
+    ///     Refreshes this instance.
     /// </summary>
     public void Refresh()
     {
-        _blacklist = new(8);
+        _blacklist = new Dictionary<uint, int>(8);
     }
 
     public void Stop()
@@ -153,23 +175,4 @@ internal class TargetBundle : IBundle
     }
 
     #endregion Methods
-
-    #region Events
-
-    private void OnTargetBehindObstacle()
-    {
-        if (Game.SelectedEntity == null)
-            return;
-
-        var selectedEntityUniqueId = Game.SelectedEntity.UniqueId;
-        Game.SelectedEntity?.TryDeselect();
-        Game.SelectedEntity = null;
-
-        Bundles.Movement.LastEntityWasBehindObstacle = true;
-
-        if (_blacklist?.TryAdd(selectedEntityUniqueId, Kernel.TickCount) == true)
-            Log.Debug($"Add mob [{selectedEntityUniqueId} to blacklist for {BLACKLIST_TIMEOUT}ms");
-    }
-
-    #endregion Events
 }

@@ -1,13 +1,13 @@
-﻿using RSBot.Core.Event;
-using RSBot.Core.Extensions;
-using RSBot.Core.Objects;
-using System;
+﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using RSBot.Core.Event;
+using RSBot.Core.Extensions;
 using static RSBot.Core.Extensions.NativeExtensions;
 
 namespace RSBot.Core.Components;
@@ -15,17 +15,17 @@ namespace RSBot.Core.Components;
 public class ClientManager
 {
     /// <summary>
-    /// The client process
+    ///     The client process
     /// </summary>
     private static Process _process;
 
     /// <summary>
-    /// Get, has client exited <c>true</c> otherwise; <c>false</c>
+    ///     Get, has client exited <c>true</c> otherwise; <c>false</c>
     /// </summary>
     public static bool IsRunning => _process != null && !_process.HasExited;
 
     /// <summary>
-    /// Start the game client
+    ///     Start the game client
     /// </summary>
     /// <returns>Has successfully started <c>true</c>; otherwise <c>false</c></returns>
     public static async Task<bool> Start()
@@ -41,14 +41,15 @@ public class ClientManager
 
         var gatewayIndex = GlobalConfig.Get<byte>("RSBot.GatewayIndex");
         var divisionIndex = GlobalConfig.Get<byte>("RSBot.DivisionIndex");
-        byte contentId = Game.ReferenceManager.DivisionInfo.Locale;
+        var contentId = Game.ReferenceManager.DivisionInfo.Locale;
 
         var args = $"/{contentId} {divisionIndex} {gatewayIndex} 0";
 
         var si = new STARTUPINFO();
 
         var full = $"\"{path}\" {args}";
-        bool result = CreateProcess(null, full, IntPtr.Zero, IntPtr.Zero, false, CREATE_SUSPENDED, IntPtr.Zero, silkroadDirectory, ref si, out var pi);
+        var result = CreateProcess(null, full, IntPtr.Zero, IntPtr.Zero, false, CREATE_SUSPENDED, IntPtr.Zero,
+            silkroadDirectory, ref si, out var pi);
         if (!result)
             return false;
 
@@ -82,24 +83,23 @@ public class ClientManager
             return false;
 
         var isVtcGame = Game.ClientType == GameClientType.VTC_Game;
-        if (Game.ClientType == GameClientType.Turkey || 
+        if (Game.ClientType == GameClientType.Turkey ||
             isVtcGame)
         {
             var moduleMemory = new byte[process.MainModule.ModuleMemorySize];
-            ReadProcessMemory(process.Handle, process.MainModule.BaseAddress, moduleMemory, process.MainModule.ModuleMemorySize, out _);
+            ReadProcessMemory(process.Handle, process.MainModule.BaseAddress, moduleMemory,
+                process.MainModule.ModuleMemorySize, out _);
 
-            var pattern = !isVtcGame ?
-                "6A 00 68 58 5C 29 01 68 64 5C 29 01" :
-                "6A 00 68 D8 25 26 01 68 E4 25 26 01";
+            var pattern = !isVtcGame ? "6A 00 68 58 5C 29 01 68 64 5C 29 01" : "6A 00 68 D8 25 26 01 68 E4 25 26 01";
 
-            var patchNop = new byte[] { 0x90, 0x90 }; 
+            var patchNop = new byte[] { 0x90, 0x90 };
             var patchNop2 = new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90 };
             var patchJmp = new byte[] { 0xEB };
 
             var address = FindPattern(pattern, moduleMemory);
             if (address == IntPtr.Zero)
             {
-                Log.Error($"XIGNCODE patching error! Maybe signatures are wrong?");
+                Log.Error("XIGNCODE patching error! Maybe signatures are wrong?");
                 return false;
             }
 
@@ -134,7 +134,7 @@ public class ClientManager
     }
 
     /// <summary>
-    /// Kill the game client process
+    ///     Kill the game client process
     /// </summary>
     public static void Kill()
     {
@@ -151,7 +151,7 @@ public class ClientManager
     }
 
     /// <summary>
-    /// Change client process title
+    ///     Change client process title
     /// </summary>
     /// <param name="title">The new title</param>
     public static void SetTitle(string title)
@@ -163,7 +163,7 @@ public class ClientManager
     }
 
     /// <summary>
-    /// Change client visible
+    ///     Change client visible
     /// </summary>
     /// <param name="visible">The visible</param>
     public static void SetVisible(bool visible)
@@ -175,7 +175,7 @@ public class ClientManager
     }
 
     /// <summary>
-    /// Observes the process.
+    ///     Observes the process.
     /// </summary>
     private static void ClientProcess_Exited(object sender, EventArgs e)
     {
@@ -184,7 +184,7 @@ public class ClientManager
     }
 
     /// <summary>
-    /// Prepare the config file for loader
+    ///     Prepare the config file for loader
     /// </summary>
     /// <param name="processId"></param>
     /// <param name="divisionIndex"></param>
@@ -196,7 +196,8 @@ public class ClientManager
         var gatewayPort = Game.ReferenceManager.GatewayInfo.Port;
 
         var redirectIp = "127.0.0.1";
-        using var writer = new BinaryWriter(new FileStream(Path.Combine(Path.GetTempPath(), tmpConfigFile), FileMode.OpenOrCreate));
+        using var writer =
+            new BinaryWriter(new FileStream(Path.Combine(Path.GetTempPath(), tmpConfigFile), FileMode.OpenOrCreate));
 
         writer.Write(GlobalConfig.Get<bool>("RSBot.Loader.DebugMode"));
         writer.WriteAscii(redirectIp);
@@ -211,20 +212,18 @@ public class ClientManager
     private static IntPtr FindPattern(string stringPattern, byte[] buffer)
     {
         var pattern = stringPattern.Split(' ')
-            .Select(p => byte.Parse(p, System.Globalization.NumberStyles.AllowHexSpecifier))
+            .Select(p => byte.Parse(p, NumberStyles.AllowHexSpecifier))
             .ToArray();
 
         for (uint i = 0; i < buffer.Length - pattern.Length; i++)
         {
             var found = true;
             for (uint j = 0; j < pattern.Length; j++)
-            {
                 if (buffer[i + j] != pattern[j])
                 {
                     found = false;
                     break;
                 }
-            }
 
             if (found)
                 return (IntPtr)(0x400000 + i);

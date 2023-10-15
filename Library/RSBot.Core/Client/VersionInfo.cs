@@ -1,7 +1,7 @@
-﻿using RSBot.Core.Event;
-using RSBot.Core.Network.SecurityAPI;
-using System.IO;
+﻿using System.IO;
 using System.Text;
+using RSBot.Core.Event;
+using RSBot.Core.Network.SecurityAPI;
 
 namespace RSBot.Core.Client;
 
@@ -10,22 +10,22 @@ public class VersionInfo
     #region Constants
 
     /// <summary>
-    /// The filename
+    ///     The filename
     /// </summary>
     internal const string Filename = @"SV.T";
 
     #endregion Constants
 
     /// <summary>
-    /// Gets the version.
+    ///     Gets the version.
     /// </summary>
     /// <value>
-    /// The version.
+    ///     The version.
     /// </value>
     public int Version { get; set; }
 
     /// <summary>
-    /// Loads this instance.
+    ///     Loads this instance.
     /// </summary>
     /// <returns></returns>
     internal static VersionInfo Load()

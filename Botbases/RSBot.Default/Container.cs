@@ -1,5 +1,4 @@
-﻿using Accessibility;
-using RSBot.Default.Bot;
+﻿using RSBot.Default.Bot;
 using RSBot.Default.Views;
 
 namespace RSBot.Default;
@@ -9,18 +8,18 @@ internal static class Container
     private static Main _mainView;
 
     /// <summary>
-    /// Gets or sets the bot.
+    ///     Gets or sets the bot.
     /// </summary>
     /// <value>
-    /// The bot.
+    ///     The bot.
     /// </value>
     public static Botbase Bot { get; set; }
 
     /// <summary>
-    /// Gets or sets the view.
+    ///     Gets or sets the view.
     /// </summary>
     /// <value>
-    /// The view.
+    ///     The view.
     /// </value>
     public static Main View
     {
@@ -34,10 +33,10 @@ internal static class Container
     }
 
     /// <summary>
-    /// Gets or sets the lock.
+    ///     Gets or sets the lock.
     /// </summary>
     /// <value>
-    /// The lock.
+    ///     The lock.
     /// </value>
     public static object Lock { get; set; }
 }

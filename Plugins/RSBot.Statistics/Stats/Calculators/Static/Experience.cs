@@ -1,26 +1,26 @@
-﻿using RSBot.Core;
+﻿using System;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
-using System;
 
 namespace RSBot.Statistics.Stats.Calculators.Static;
 
 internal class Experience : IStatisticCalculator
 {
     /// <summary>
-    /// The initial value
-    /// </summary>
-    private double _initialValue;
-
-    /// <summary>
-    /// The initial level
+    ///     The initial level
     /// </summary>
     private byte _initialLevel;
 
     /// <summary>
-    /// The initial offset
+    ///     The initial offset
     /// </summary>
     private double _initialOffset;
+
+    /// <summary>
+    ///     The initial value
+    /// </summary>
+    private double _initialValue;
 
     /// <inheritdoc />
     public string Name => "EXPGained";
@@ -46,27 +46,26 @@ internal class Experience : IStatisticCalculator
         var levelDifference = Game.Player.Level - _initialLevel;
 
         double gainedExpPercent = 0;
-        double offset = _initialOffset;
-        if( levelDifference >= 1 ) 
-        {
-            for( var i = levelDifference; i > 0; i-- ) 
+        var offset = _initialOffset;
+        if (levelDifference >= 1)
+            for (var i = levelDifference; i > 0; i--)
             {
                 gainedExpPercent += 100 - offset;
                 offset = 0;
             }
-        }
 
-        gainedExpPercent += ( ( ( double )Game.Player.Experience / ( double )Game.ReferenceManager.GetRefLevel( Game.Player.Level ).Exp_C ) * 100 ) - offset;
+        gainedExpPercent +=
+            Game.Player.Experience / (double)Game.ReferenceManager.GetRefLevel(Game.Player.Level).Exp_C * 100 - offset;
 
-        return Math.Round( gainedExpPercent, 2);
+        return Math.Round(gainedExpPercent, 2);
     }
 
     /// <inheritdoc />
     public void Reset()
     {
         //EXP Percent
-        _initialValue = ((double)Game.Player.Experience /
-                         (double)Game.ReferenceManager.GetRefLevel(Game.Player.Level).Exp_C) * 100;
+        _initialValue = Game.Player.Experience /
+            (double)Game.ReferenceManager.GetRefLevel(Game.Player.Level).Exp_C * 100;
 
         _initialOffset = _initialValue;
 
@@ -82,7 +81,7 @@ internal class Experience : IStatisticCalculator
     private void OnLevelUp()
     {
         //EXP Percent
-        _initialValue = ((double)Game.Player.Experience /
-                         (double)Game.ReferenceManager.GetRefLevel(Game.Player.Level).Exp_C) * 100;
+        _initialValue = Game.Player.Experience /
+            (double)Game.ReferenceManager.GetRefLevel(Game.Player.Level).Exp_C * 100;
     }
 }

@@ -1,5 +1,4 @@
-﻿using RSBot.Core;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -8,11 +7,22 @@ using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using RSBot.Core;
 
 namespace RSBot.Views;
 
 public partial class Updater : Form
 {
+    /// <summary>
+    ///     Update address
+    /// </summary>
+    private readonly string _updateUrl = "https://rsbot.app/update";
+
+    /// <summary>
+    ///     Get or sets the web client
+    /// </summary>
+    private WebClient _webClient;
+
     public Updater()
     {
         InitializeComponent();
@@ -20,26 +30,17 @@ public partial class Updater : Form
     }
 
     /// <summary>
-    /// Get or sets the web client
-    /// </summary>
-    private WebClient _webClient;
-
-    /// <summary>
-    /// Update address
-    /// </summary>
-    private string _updateUrl = "https://rsbot.app/update";
-
-    /// <summary>
-    /// Get current version
+    ///     Get current version
     /// </summary>
     private Version _currentVersion => Assembly.GetExecutingAssembly().GetName().Version;
 
     private void Append(string text, Color color, FontStyle fontStyle = FontStyle.Regular, float emSize = 0)
     {
         rtbUpdateInfo.SuspendLayout();
-        rtbUpdateInfo.Select(rtbUpdateInfo.TextLength, text.ToString().Length);
+        rtbUpdateInfo.Select(rtbUpdateInfo.TextLength, text.Length);
         rtbUpdateInfo.SelectionColor = color;
-        rtbUpdateInfo.SelectionFont = new Font(Font.FontFamily, emSize == 0 ? rtbUpdateInfo.Font.Size : emSize, fontStyle);
+        rtbUpdateInfo.SelectionFont =
+            new Font(Font.FontFamily, emSize == 0 ? rtbUpdateInfo.Font.Size : emSize, fontStyle);
         rtbUpdateInfo.Write(text);
         rtbUpdateInfo.ResumeLayout();
     }
@@ -50,7 +51,7 @@ public partial class Updater : Form
         Environment.Exit(0);
     }
 
-    private void _Client_DownloadProgressChanged(object sender, System.Net.DownloadProgressChangedEventArgs e)
+    private void _Client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
     {
         try
         {
@@ -96,16 +97,16 @@ public partial class Updater : Form
         await Task.Run(() =>
         {
             if (cbChangeLog.Checked)
-                for (int i = Height; i <= 451; i += 4)
+                for (var i = Height; i <= 451; i += 4)
                     Height += 4;
             else
-                for (int i = Height; i >= 78; i -= 4)
+                for (var i = Height; i >= 78; i -= 4)
                     Height -= 4;
         });
     }
 
     /// <summary>
-    /// Check for Updates
+    ///     Check for Updates
     /// </summary>
     /// <returns><c>true</c> if there is otherwise, <c>false</c>.</returns>
     public async Task<bool> Check()
@@ -114,7 +115,9 @@ public partial class Updater : Form
         try
         {
             _webClient = new WebClient();
-            var updateInfo = (await _webClient.DownloadStringTaskAsync(_updateUrl + "/latest.txt")).Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            var updateInfo =
+                (await _webClient.DownloadStringTaskAsync(_updateUrl + "/latest.txt")).Split(
+                    new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
 
             var version = new Version(updateInfo[0]);
 
@@ -125,7 +128,7 @@ public partial class Updater : Form
                 Append("Build " + version, Color.FromArgb(99, 33, 99), FontStyle.Regular, 13);
                 Append(date, Color.DarkGray, FontStyle.Italic, 9);
 
-                for (int i = 2; i < updateInfo.Length; i++)
+                for (var i = 2; i < updateInfo.Length; i++)
                     Append(updateInfo[i], Color.DarkSlateGray);
 
                 rtbUpdateInfo.SelectionStart = 0;
@@ -137,6 +140,7 @@ public partial class Updater : Form
         {
             MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
         return false;
     }
 }

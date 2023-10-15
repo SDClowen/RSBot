@@ -5,63 +5,63 @@ namespace RSBot.Core.Objects.Item;
 public class RentInfo
 {
     /// <summary>
-    /// Gets or sets the type.
+    ///     Gets or sets the type.
     /// </summary>
     /// <value>
-    /// The type.
+    ///     The type.
     /// </value>
     public uint Type { get; set; }
 
     /// <summary>
-    /// Gets or sets the can delete.
+    ///     Gets or sets the can delete.
     /// </summary>
     /// <value>
-    /// The can delete.
+    ///     The can delete.
     /// </value>
     public ushort CanDelete { get; set; }
 
     /// <summary>
-    /// Gets or sets the period begin time.
+    ///     Gets or sets the period begin time.
     /// </summary>
     /// <value>
-    /// The period begin time.
+    ///     The period begin time.
     /// </value>
     public ulong PeriodBeginTime { get; set; }
 
     /// <summary>
-    /// Gets or sets the period end time.
+    ///     Gets or sets the period end time.
     /// </summary>
     /// <value>
-    /// The period end time.
+    ///     The period end time.
     /// </value>
     public ulong PeriodEndTime { get; set; }
 
     /// <summary>
-    /// Gets or sets the can recharge.
+    ///     Gets or sets the can recharge.
     /// </summary>
     /// <value>
-    /// The can recharge.
+    ///     The can recharge.
     /// </value>
     public ushort CanRecharge { get; set; }
 
     /// <summary>
-    /// Gets or sets the meter rate time.
+    ///     Gets or sets the meter rate time.
     /// </summary>
     /// <value>
-    /// The meter rate time.
+    ///     The meter rate time.
     /// </value>
     public ulong MeterRateTime { get; set; }
 
     /// <summary>
-    /// Gets or sets the packing time.
+    ///     Gets or sets the packing time.
     /// </summary>
     /// <value>
-    /// The packing time.
+    ///     The packing time.
     /// </value>
     public ulong PackingTime { get; set; }
 
     /// <summary>
-    /// Creates a new RentInfo object from the given packet
+    ///     Creates a new RentInfo object from the given packet
     /// </summary>
     /// <param name="packet">The packet.</param>
     /// <returns></returns>
@@ -76,7 +76,7 @@ public class RentInfo
         {
             case 1:
                 result.CanDelete = packet.ReadUShort();
-                    
+
                 if (Game.ClientType >= GameClientType.Chinese &&
                     Game.ClientType != GameClientType.Rigid)
                 {
@@ -106,8 +106,8 @@ public class RentInfo
                 result.CanDelete = packet.ReadUShort();
                 result.CanRecharge = packet.ReadUShort();
 
-                if(Game.ClientType >= GameClientType.Chinese &&
-                   Game.ClientType != GameClientType.Rigid)
+                if (Game.ClientType >= GameClientType.Chinese &&
+                    Game.ClientType != GameClientType.Rigid)
                 {
                     result.PeriodBeginTime = packet.ReadULong();
                     result.PeriodEndTime = packet.ReadULong();

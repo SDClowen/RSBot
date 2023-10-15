@@ -6,10 +6,10 @@ namespace RSBot.Party.Bundle.PartyMatching.Objects;
 internal struct MatchingConfig
 {
     /// <summary>
-    /// Gets or sets a value indicating whether [experience automatic share].
+    ///     Gets or sets a value indicating whether [experience automatic share].
     /// </summary>
     /// <value>
-    ///   <c>true</c> if [experience automatic share]; otherwise, <c>false</c>.
+    ///     <c>true</c> if [experience automatic share]; otherwise, <c>false</c>.
     /// </value>
     public bool ExperienceAutoShare
     {
@@ -18,10 +18,10 @@ internal struct MatchingConfig
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether [item automatic share].
+    ///     Gets or sets a value indicating whether [item automatic share].
     /// </summary>
     /// <value>
-    ///   <c>true</c> if [item automatic share]; otherwise, <c>false</c>.
+    ///     <c>true</c> if [item automatic share]; otherwise, <c>false</c>.
     /// </value>
     public bool ItemAutoShare
     {
@@ -30,10 +30,10 @@ internal struct MatchingConfig
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether [allow invitations].
+    ///     Gets or sets a value indicating whether [allow invitations].
     /// </summary>
     /// <value>
-    ///   <c>true</c> if [allow invitations]; otherwise, <c>false</c>.
+    ///     <c>true</c> if [allow invitations]; otherwise, <c>false</c>.
     /// </value>
     public bool AllowInvitations
     {
@@ -42,47 +42,47 @@ internal struct MatchingConfig
     }
 
     /// <summary>
-    /// Gets or sets the purpose.
+    ///     Gets or sets the purpose.
     /// </summary>
     /// <value>The purpose.</value>
     public PartyPurpose Purpose
     {
         get => (PartyPurpose)PlayerConfig.Get<byte>("RSBot.Party.Matching.Purpose");
-        set => PlayerConfig.Set("RSBot.Party.Matching.Purpose", ((byte)value));
+        set => PlayerConfig.Set("RSBot.Party.Matching.Purpose", (byte)value);
     }
 
     /// <summary>
-    /// Gets or sets the title.
+    ///     Gets or sets the title.
     /// </summary>
     /// <value>The title.</value>
     public string Title
     {
-        get => PlayerConfig.Get<string>("RSBot.Party.Matching.Title", "For opening hunting on the silkroad!");
+        get => PlayerConfig.Get("RSBot.Party.Matching.Title", "For opening hunting on the silkroad!");
         set => PlayerConfig.Set("RSBot.Party.Matching.Title", value);
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether [automatic reform].
+    ///     Gets or sets a value indicating whether [automatic reform].
     /// </summary>
     /// <value><c>true</c> if [automatic reform]; otherwise, <c>false</c>.</value>
     public bool AutoReform
     {
-        get => PlayerConfig.Get<bool>("RSBot.Party.Matching.AutoReform", false);
+        get => PlayerConfig.Get("RSBot.Party.Matching.AutoReform", false);
         set => PlayerConfig.Set("RSBot.Party.Matching.AutoReform", value);
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether [automatic accept from matching invite].
+    ///     Gets or sets a value indicating whether [automatic accept from matching invite].
     /// </summary>
     /// <value><c>true</c> if [automatic accept  from matching invite]; otherwise, <c>false</c>.</value>
     public bool AutoAccept
     {
-        get => PlayerConfig.Get<bool>("RSBot.Party.Matching.AutoAccept", true);
+        get => PlayerConfig.Get("RSBot.Party.Matching.AutoAccept", true);
         set => PlayerConfig.Set("RSBot.Party.Matching.AutoAccept", value);
     }
 
     /// <summary>
-    /// Gets or sets the level from.
+    ///     Gets or sets the level from.
     /// </summary>
     /// <value>The level from.</value>
     public byte LevelFrom
@@ -92,7 +92,7 @@ internal struct MatchingConfig
     }
 
     /// <summary>
-    /// Gets or sets the level to.
+    ///     Gets or sets the level to.
     /// </summary>
     /// <value>The level to.</value>
     public byte LevelTo

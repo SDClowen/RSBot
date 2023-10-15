@@ -5,36 +5,36 @@ namespace RSBot.Core.Objects.Item;
 public class BindingOption
 {
     /// <summary>
-    /// Gets or sets the type.
+    ///     Gets or sets the type.
     /// </summary>
     public BindingOptionType Type { get; set; }
 
     /// <summary>
-    /// Gets or sets the slot.
+    ///     Gets or sets the slot.
     /// </summary>
     /// <value>
-    /// The slot.
+    ///     The slot.
     /// </value>
     public byte Slot { get; set; }
 
     /// <summary>
-    /// Gets or sets the identifier.
+    ///     Gets or sets the identifier.
     /// </summary>
     /// <value>
-    /// The identifier.
+    ///     The identifier.
     /// </value>
     public uint Id { get; set; }
 
     /// <summary>
-    /// Gets or sets the value.
+    ///     Gets or sets the value.
     /// </summary>
     /// <value>
-    /// The value.
+    ///     The value.
     /// </value>
     public uint Value { get; set; }
 
     /// <summary>
-    /// Creates a new BindingOption object from the given packet and type
+    ///     Creates a new BindingOption object from the given packet and type
     /// </summary>
     /// <param name="packet">The packet.</param>
     /// <param name="type">The type.</param>

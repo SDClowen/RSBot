@@ -48,12 +48,13 @@ public enum BadEffect : uint
 public struct BadEffectAll
 {
     /// <summary>
-    /// Bad effects curable by universal pills.
+    ///     Bad effects curable by universal pills.
     /// </summary>
-    public static BadEffect UniversallPillEffects = BadEffect.Frozen | BadEffect.Frostbitten | BadEffect.Shocked | BadEffect.Burnt | BadEffect.Poisoned | BadEffect.Zombie;
+    public static BadEffect UniversallPillEffects = BadEffect.Frozen | BadEffect.Frostbitten | BadEffect.Shocked |
+                                                    BadEffect.Burnt | BadEffect.Poisoned | BadEffect.Zombie;
 
     /// <summary>
-    /// Bad effects curable by purification pills.
+    ///     Bad effects curable by purification pills.
     /// </summary>
     public static BadEffect PurificationPillEffects =
         BadEffect.Sleep | BadEffect.Bind | BadEffect.Dull | BadEffect.Fear |

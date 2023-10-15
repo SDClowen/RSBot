@@ -1,4 +1,8 @@
-﻿using RSBot.Alchemy.Bot;
+﻿using System;
+using System.ComponentModel;
+using System.Linq;
+using System.Windows.Forms;
+using RSBot.Alchemy.Bot;
 using RSBot.Alchemy.Client.ReferenceObjects;
 using RSBot.Alchemy.Views.Settings;
 using RSBot.Core;
@@ -6,78 +10,16 @@ using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
-using System;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace RSBot.Alchemy.Views;
 
-[System.ComponentModel.ToolboxItem(false)]
+[ToolboxItem(false)]
 public partial class Main : UserControl
 {
-    internal class InventoryItemComboboxItem
-    {
-        /// <summary>
-        /// The inventory item linked to this combobox item
-        /// </summary>
-        public InventoryItem InventoryItem { get; set; }
-
-        /// <param name="inventoryItem">The inventory item linked to this combobox item</param>
-        public InventoryItemComboboxItem(InventoryItem inventoryItem)
-        {
-            InventoryItem = inventoryItem;
-        }
-
-        public override string ToString() => $"[{InventoryItem?.Slot}] {InventoryItem?.Record?.GetRealName()} (+{InventoryItem?.OptLevel})";
-    }
-
-    #region Properties
-
-    public bool IsRefreshing { get; private set; }
-
-    #endregion Properties
-
-    #region Delegates
-
-    /// <param name="item">The item that has been selected</param>
-    internal delegate void SelectedItemChanged(InventoryItem item);
-
-    /// <summary>
-    /// Will be triggered if the inventory item changes
-    /// </summary>
-    internal event SelectedItemChanged ItemChanged;
-
-    /// <summary>
-    /// Will be triggered when the user selects a different engine
-    /// </summary>
-    /// <param name="item">The item.</param>
-    /// <param name="alchemyEngine">The alchemy engine.</param>
-    internal delegate void SelectedEngineChanged(InventoryItem item, AlchemyEngine alchemyEngine);
-
-    /// <summary>
-    /// Will be triggered when the user selects a different engine
-    /// </summary>
-    internal event SelectedEngineChanged EngineChanged;
-
-    #endregion Delegates
-
-    /// <summary>
-    /// The selected inventory item
-    /// </summary>
-    public InventoryItem SelectedItem { get; set; }
-
-    #region Members
-
-    private readonly EnhanceSettingsView _enhanceSettingsView;
-    private readonly MagicOptionsSettingsView _magicOptionsSettingsView;
-    private readonly AttributesSettingsView _attributeSettingsView;
-
-    #endregion Members
-
     #region Constructor
 
     /// <summary>
-    /// Subscribes to several events and adds the user controls to the settings panel
+    ///     Subscribes to several events and adds the user controls to the settings panel
     /// </summary>
     public Main()
     {
@@ -111,6 +53,68 @@ public partial class Main : UserControl
 
     #endregion Constructor
 
+    #region Properties
+
+    public bool IsRefreshing { get; private set; }
+
+    #endregion Properties
+
+    /// <summary>
+    ///     The selected inventory item
+    /// </summary>
+    public InventoryItem SelectedItem { get; set; }
+
+    internal class InventoryItemComboboxItem
+    {
+        /// <param name="inventoryItem">The inventory item linked to this combobox item</param>
+        public InventoryItemComboboxItem(InventoryItem inventoryItem)
+        {
+            InventoryItem = inventoryItem;
+        }
+
+        /// <summary>
+        ///     The inventory item linked to this combobox item
+        /// </summary>
+        public InventoryItem InventoryItem { get; set; }
+
+        public override string ToString()
+        {
+            return $"[{InventoryItem?.Slot}] {InventoryItem?.Record?.GetRealName()} (+{InventoryItem?.OptLevel})";
+        }
+    }
+
+    #region Delegates
+
+    /// <param name="item">The item that has been selected</param>
+    internal delegate void SelectedItemChanged(InventoryItem item);
+
+    /// <summary>
+    ///     Will be triggered if the inventory item changes
+    /// </summary>
+    internal event SelectedItemChanged ItemChanged;
+
+    /// <summary>
+    ///     Will be triggered when the user selects a different engine
+    /// </summary>
+    /// <param name="item">The item.</param>
+    /// <param name="alchemyEngine">The alchemy engine.</param>
+    internal delegate void SelectedEngineChanged(InventoryItem item, AlchemyEngine alchemyEngine);
+
+    /// <summary>
+    ///     Will be triggered when the user selects a different engine
+    /// </summary>
+    internal event SelectedEngineChanged EngineChanged;
+
+    #endregion Delegates
+
+    #region Members
+
+    private readonly EnhanceSettingsView _enhanceSettingsView;
+    private readonly MagicOptionsSettingsView _magicOptionsSettingsView;
+    private readonly AttributesSettingsView _attributeSettingsView;
+
+    #endregion Members
+
     #region Methods
 
     private void OnAlchemy(AlchemyType type)
@@ -122,7 +126,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Reloads the list of inventory items that can be used for alchemy actions.
+    ///     Reloads the list of inventory items that can be used for alchemy actions.
     /// </summary>
     private void ReloadItemList()
     {
@@ -130,7 +134,8 @@ public partial class Main : UserControl
 
         comboItem.Items.Clear();
 
-        var items = Game.Player.Inventory.Where(i => i.Record.IsEquip && !i.Record.IsAvatar && !i.Record.IsJobOutfit).ToList();
+        var items = Game.Player.Inventory.Where(i => i.Record.IsEquip && !i.Record.IsAvatar && !i.Record.IsJobOutfit)
+            .ToList();
 
         try
         {
@@ -159,7 +164,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Populates the attributes list.
+    ///     Populates the attributes list.
     /// </summary>
     /// <param name="item">The item.</param>
     private void PopulateAttributes(InventoryItem item)
@@ -183,7 +188,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Populates the list of magic options of the selected item
+    ///     Populates the list of magic options of the selected item
     /// </summary>
     /// <param name="item">The selected item</param>
     private void PopulateMagicOptions(InventoryItem item)
@@ -202,7 +207,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Adds a new log message to the alchemy log listview
+    ///     Adds a new log message to the alchemy log listview
     /// </summary>
     /// <param name="itemName"></param>
     /// <param name="message"></param>
@@ -225,7 +230,7 @@ public partial class Main : UserControl
     #region Events
 
     /// <summary>
-    /// Will be triggered when the user clicks the refresh link
+    ///     Will be triggered when the user clicks the refresh link
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
@@ -235,7 +240,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Will be triggered when the user selects a new item or if an item was destroyed
+    ///     Will be triggered when the user selects a new item or if an item was destroyed
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
@@ -260,7 +265,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Will be triggered when the user click on the radio button to change the settings view
+    ///     Will be triggered when the user click on the radio button to change the settings view
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
@@ -277,7 +282,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Reloads the engine settings depending on the selected engine
+    ///     Reloads the engine settings depending on the selected engine
     /// </summary>
     /// <param name="alchemyEngine">The engine to load the settings for</param>
     private void LoadEngineSettings(AlchemyEngine alchemyEngine)

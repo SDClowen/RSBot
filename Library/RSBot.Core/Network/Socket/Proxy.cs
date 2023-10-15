@@ -1,77 +1,69 @@
-﻿using RSBot.Core.Event;
-using System;
+﻿using System;
+using System.IO;
+using RSBot.Core.Event;
 
 namespace RSBot.Core.Network;
 
 public class Proxy
 {
     /// <summary>
-    /// Gets a value indicating whether [client connected].
+    ///     Gets a value indicating whether [client connected].
     /// </summary>
     /// <value>
-    ///   <c>true</c> if [client connected]; otherwise, <c>false</c>.
+    ///     <c>true</c> if [client connected]; otherwise, <c>false</c>.
     /// </value>
     public bool ClientConnected { get; private set; }
 
     /// <summary>
-    /// Gets the port.
+    ///     Gets the port.
     /// </summary>
     /// <value>
-    /// The port.
+    ///     The port.
     /// </value>
     public ushort Port { get; private set; }
 
     /// <summary>
-    /// Gets the client.
+    ///     Gets the client.
     /// </summary>
     /// <value>
-    /// The client.
+    ///     The client.
     /// </value>
     public Client Client { get; private set; }
 
     /// <summary>
-    /// Gets the server.
+    ///     Gets the server.
     /// </summary>
     /// <value>
-    /// The server.
+    ///     The server.
     /// </value>
     public Server Server { get; private set; }
 
     /// <summary>
-    /// Gets a value indicating whether [connected to gatewayserver].
+    ///     Gets a value indicating whether [connected to gatewayserver].
     /// </summary>
     /// <value>
-    /// <c>true</c> if [connected to gatewayserver]; otherwise, <c>false</c>.
+    ///     <c>true</c> if [connected to gatewayserver]; otherwise, <c>false</c>.
     /// </value>
     public bool IsConnectedToGatewayserver { get; private set; }
 
     /// <summary>
-    /// Gets a value indicating whether [connected to agentserver].
+    ///     Gets a value indicating whether [connected to agentserver].
     /// </summary>
     /// <value>
-    /// <c>true</c> if [connected to agentserver]; otherwise, <c>false</c>.
+    ///     <c>true</c> if [connected to agentserver]; otherwise, <c>false</c>.
     /// </value>
     public bool IsConnectedToAgentserver { get; private set; }
 
     /// <summary>
-    /// Gets the session.
+    ///     Gets the session.
     /// </summary>
     /// <value>
-    /// The session.
+    ///     The session.
     /// </value>
     public uint Token { get; internal set; }
 
-    #region Fields
-
-    private string _agentIp;
-    private ushort _agentPort;
-    private string _gatewayIp;
-    private ushort _gatewayPort;
-
-    #endregion Fields
-
     /// <summary>
-    /// Starts the specified client port.
+    ///     Starts the specified client port.
     /// </summary>
     /// <param name="clientPort">The client port.</param>
     /// <param name="gatewayIp">The gateway ip.</param>
@@ -89,7 +81,7 @@ public class Proxy
     }
 
     /// <summary>
-    /// Shutdowns this instance.
+    ///     Shutdowns this instance.
     /// </summary>
     public void Shutdown()
     {
@@ -106,7 +98,7 @@ public class Proxy
     }
 
     /// <summary>
-    /// Connects to gatewayserver.
+    ///     Connects to gatewayserver.
     /// </summary>
     private void ConnectToGatewayserver()
     {
@@ -121,7 +113,7 @@ public class Proxy
     }
 
     /// <summary>
-    /// Connects to agentserver.
+    ///     Connects to agentserver.
     /// </summary>
     private void ConnectToAgentserver()
     {
@@ -135,7 +127,7 @@ public class Proxy
     }
 
     /// <summary>
-    /// Initializes the new server instance.
+    ///     Initializes the new server instance.
     /// </summary>
     private void CreateNewServerInstance()
     {
@@ -152,7 +144,7 @@ public class Proxy
     }
 
     /// <summary>
-    /// Creates the new client instance.
+    ///     Creates the new client instance.
     /// </summary>
     /// <param name="clientPort">The client port.</param>
     private void CreateNewClientInstance(ushort clientPort)
@@ -165,7 +157,7 @@ public class Proxy
     }
 
     /// <summary>
-    /// Handle received packet
+    ///     Handle received packet
     /// </summary>
     /// <param name="packet">The packet</param>
     private void HandleReceivedPacket(Packet packet, PacketDestination destination)
@@ -181,12 +173,11 @@ public class Proxy
         finally
         {
             if (packet != null)
-            {
                 try
                 {
                     PacketManager.SendPacket(packet, destination);
 
-                    packet.SeekRead(0, System.IO.SeekOrigin.Begin);
+                    packet.SeekRead(0, SeekOrigin.Begin);
 
                     PacketManager.CallHandler(packet, destination);
                     PacketManager.CallCallback(packet);
@@ -195,16 +186,24 @@ public class Proxy
                 {
                     Log.Fatal(e);
                 }
-            }
         }
     }
+
+    #region Fields
+
+    private string _agentIp;
+    private ushort _agentPort;
+    private string _gatewayIp;
+    private ushort _gatewayPort;
+
+    #endregion Fields
 
     #region Event Listeners
 
     #region Client
 
     /// <summary>
-    /// Fired when the client connected.
+    ///     Fired when the client connected.
     /// </summary>
     private void Client_OnConnected()
     {
@@ -219,7 +218,7 @@ public class Proxy
     }
 
     /// <summary>
-    /// Fired when the client disconnected.
+    ///     Fired when the client disconnected.
     /// </summary>
     private void Client_OnDisconnected()
     {
@@ -227,7 +226,7 @@ public class Proxy
     }
 
     /// <summary>
-    /// Fired when a client packet was received
+    ///     Fired when a client packet was received
     /// </summary>
     /// <param name="packet">The packet.</param>
     private void Client_OnPacketReceived(Packet packet)
@@ -244,7 +243,7 @@ public class Proxy
     #region Server
 
     /// <summary>
-    /// Fired when a server packet was received
+    ///     Fired when a server packet was received
     /// </summary>
     /// <param name="packet">The packet.</param>
     private void Server_OnPacketReceived(Packet packet)
@@ -255,7 +254,7 @@ public class Proxy
     }
 
     /// <summary>
-    /// Sets the agentserver address.
+    ///     Sets the agentserver address.
     /// </summary>
     /// <param name="ip">The ip.</param>
     /// <param name="port">The port.</param>
@@ -268,7 +267,7 @@ public class Proxy
     }
 
     /// <summary>
-    /// Fired when the server disconnected
+    ///     Fired when the server disconnected
     /// </summary>
     private void Server_OnDisconnected()
     {
@@ -285,7 +284,7 @@ public class Proxy
         }
         else if (IsConnectedToGatewayserver)
         {
-            Log.Debug($"Disconnected from login server!");
+            Log.Debug("Disconnected from login server!");
 
             IsConnectedToGatewayserver = false;
 
@@ -294,7 +293,7 @@ public class Proxy
     }
 
     /// <summary>
-    /// Fired when the server conntected
+    ///     Fired when the server conntected
     /// </summary>
     private void Server_OnConnected()
     {

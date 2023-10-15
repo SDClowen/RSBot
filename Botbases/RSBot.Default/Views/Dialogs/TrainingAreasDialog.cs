@@ -1,9 +1,9 @@
-﻿using RSBot.Core;
-using RSBot.Core.Objects;
-using SDUI.Controls;
-using System;
+﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using RSBot.Core;
+using RSBot.Core.Objects;
+using SDUI.Controls;
 
 namespace RSBot.Default.Views.Dialogs;
 
@@ -53,7 +53,7 @@ public partial class TrainingAreasDialog : UIWindowBase
         foreach (var area in areas)
         {
             var split = area.Split("|", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-            if(split.Length <= 0)
+            if (split.Length <= 0)
                 continue;
 
             if (!Area.TryParse(split, out var trainingArea))
@@ -74,7 +74,7 @@ public partial class TrainingAreasDialog : UIWindowBase
                 trainingArea.Position.X.ToString("0.0"),
                 trainingArea.Position.Y.ToString("0.0"),
                 trainingArea.Radius.ToString(),
-                listViewItem.Index ==  selectedIndex ? "Yes" : "No"
+                listViewItem.Index == selectedIndex ? "Yes" : "No"
             });
 
             if (listViewItem.Index == selectedIndex)
@@ -94,7 +94,7 @@ public partial class TrainingAreasDialog : UIWindowBase
     {
         var dialog = new CreateTrainingAreaDialog();
 
-        if(dialog.ShowDialog() == DialogResult.OK)
+        if (dialog.ShowDialog() == DialogResult.OK)
         {
             var position = Game.Player.Position;
 
@@ -123,7 +123,8 @@ public partial class TrainingAreasDialog : UIWindowBase
             });
 
             var areas = PlayerConfig.GetArray<string>("RSBot.Training.Areas").ToList();
-            areas.Add($"{trainingArea.Name}|{trainingArea.Position.Region:0.0}|{trainingArea.Position.XOffset:0.0}|{trainingArea.Position.YOffset:0.0}|{trainingArea.Position.ZOffset:0.0}|{trainingArea.Radius}");
+            areas.Add(
+                $"{trainingArea.Name}|{trainingArea.Position.Region:0.0}|{trainingArea.Position.XOffset:0.0}|{trainingArea.Position.YOffset:0.0}|{trainingArea.Position.ZOffset:0.0}|{trainingArea.Radius}");
             PlayerConfig.SetArray("RSBot.Training.Areas", areas);
         }
     }

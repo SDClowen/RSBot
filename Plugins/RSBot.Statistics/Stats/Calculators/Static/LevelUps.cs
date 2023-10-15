@@ -6,7 +6,7 @@ namespace RSBot.Statistics.Stats.Calculators.Static;
 internal class LevelUps : IStatisticCalculator
 {
     /// <summary>
-    /// The initial value
+    ///     The initial value
     /// </summary>
     private uint _initialValue;
 
@@ -31,7 +31,7 @@ internal class LevelUps : IStatisticCalculator
         if (!Game.Ready)
             return 0;
 
-        return (double)Game.Player.Level - (double)_initialValue;
+        return Game.Player.Level - (double)_initialValue;
     }
 
     /// <inheritdoc />

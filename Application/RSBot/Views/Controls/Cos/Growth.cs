@@ -1,7 +1,7 @@
-﻿using RSBot.Core;
+﻿using System.ComponentModel;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
-using System.ComponentModel;
 
 namespace RSBot.Views.Controls.Cos;
 
@@ -9,7 +9,7 @@ namespace RSBot.Views.Controls.Cos;
 public partial class Growth : CosControlBase
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="Growth"/> class.
+    ///     Initializes a new instance of the <see cref="Growth" /> class.
     /// </summary>
     public Growth()
     {
@@ -19,7 +19,7 @@ public partial class Growth : CosControlBase
     }
 
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     private void SubscribeEvents()
     {
@@ -31,22 +31,22 @@ public partial class Growth : CosControlBase
     }
 
     /// <summary>
-    /// Handels the name change event of the pet
+    ///     Handels the name change event of the pet
     /// </summary>
     private void OnGrowthNameChange()
     {
-        if (Game.Player.Growth == null) 
+        if (Game.Player.Growth == null)
             return;
 
         lblPetName.Text = Game.Player.Growth.Name;
     }
 
     /// <summary>
-    /// Handels the pet level up event
+    ///     Handels the pet level up event
     /// </summary>
     private void OnGrowthLevelUp()
     {
-        if (Game.Player.Growth == null) 
+        if (Game.Player.Growth == null)
             return;
 
         labelLevel.Text = "lv." + Game.Player.Growth.Level;
@@ -59,11 +59,11 @@ public partial class Growth : CosControlBase
     }
 
     /// <summary>
-    /// Handles the update pet hp or mp
+    ///     Handles the update pet hp or mp
     /// </summary>
     private void OnGrowthHealthUpdate()
     {
-        if (Game.Player.Growth == null) 
+        if (Game.Player.Growth == null)
             return;
 
         progressHP.Value = Game.Player.Growth.Health;
@@ -74,11 +74,11 @@ public partial class Growth : CosControlBase
     }
 
     /// <summary>
-    /// Handles the pet experience update event
+    ///     Handles the pet experience update event
     /// </summary>
     private void OnGrowthExperienceUpdate()
     {
-        if (Game.Player.Growth == null) 
+        if (Game.Player.Growth == null)
             return;
 
         progressEXP.Value = Game.Player.Growth.Experience;
@@ -86,7 +86,7 @@ public partial class Growth : CosControlBase
     }
 
     /// <summary>
-    /// Handels the hunger update event
+    ///     Handels the hunger update event
     /// </summary>
     private void OnGrowthHungerUpdate()
     {

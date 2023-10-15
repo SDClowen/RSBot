@@ -1,29 +1,28 @@
-﻿using RSBot.Core;
+﻿using System;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Network;
 using RSBot.General.Components;
 using SDUI.Controls;
-using System;
-using System.Diagnostics.Metrics;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-using static SDUI.NativeMethods;
+using Label = SDUI.Controls.Label;
 
 namespace RSBot.General.Views;
 
 public partial class PendingWindow : UIWindowBase
 {
     /// <summary>
-    /// The Started tick
-    /// </summary>
-    private int _startedTick;
-
-    /// <summary>
-    /// The Queue Notify Index
+    ///     The Queue Notify Index
     /// </summary>
     private int _queueNotifyIndex;
+
+    /// <summary>
+    ///     The Started tick
+    /// </summary>
+    private int _startedTick;
 
     public PendingWindow()
     {
@@ -40,8 +39,8 @@ public partial class PendingWindow : UIWindowBase
 
         var point = new Point(form.Left + form.Width / 2 - Width / 2, form.Top); //  + form.Height / 2 - Height / 2
 
-        this.Location = point;
-        this.Show(owner);
+        Location = point;
+        Show(owner);
     }
 
     internal void Update(Packet packet)
@@ -63,16 +62,15 @@ public partial class PendingWindow : UIWindowBase
             var queue = GlobalConfig.Get("RSBot.General.QueueLeft", 30);
             if (begin <= queue && _queueNotifyIndex == 0)
             {
-                this.notifyIcon.Visible = true;
-                this.notifyIcon.BalloonTipTitle = "Pending Queue Notification";
-                this.notifyIcon.BalloonTipText = $"{begin} / {end}";
-                this.notifyIcon.ShowBalloonTip(2000);
+                notifyIcon.Visible = true;
+                notifyIcon.BalloonTipTitle = "Pending Queue Notification";
+                notifyIcon.BalloonTipText = $"{begin} / {end}";
+                notifyIcon.ShowBalloonTip(2000);
             }
 
             if (++_queueNotifyIndex > 3)
                 _queueNotifyIndex = 0;
         }
-
     }
 
     internal void Start(int count, int timestamp)
@@ -97,7 +95,7 @@ public partial class PendingWindow : UIWindowBase
         PrintTime(labelMyWaitingTime, Kernel.TickCount - _startedTick);
     }
 
-    private void PrintTime(SDUI.Controls.Label label, int millisecond)
+    private void PrintTime(Label label, int millisecond)
     {
         //label.RunInUIThread(() =>
         //{
@@ -134,6 +132,6 @@ public partial class PendingWindow : UIWindowBase
 
     private void buttonHide_Click(object sender, EventArgs e)
     {
-        this.Hide();
+        Hide();
     }
 }

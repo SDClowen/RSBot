@@ -6,20 +6,20 @@ namespace RSBot.Core.Objects.Spawn;
 public class SpawnedSpellArea : SpawnedEntity
 {
     /// <summary>
-    /// Gets or sets the skill identifier.
+    ///     Gets or sets the skill identifier.
     /// </summary>
     public uint SkillId;
 
     /// <summary>
-    /// Gets or sets the record.
+    ///     Gets or sets the record.
     /// </summary>
     /// <value>
-    /// The record.
+    ///     The record.
     /// </value>
     public new RefSkill Record => Game.ReferenceManager.GetRefSkill(SkillId);
 
     /// <summary>
-    /// Froms the packet.
+    ///     Froms the packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     /// <returns></returns>
@@ -36,7 +36,7 @@ public class SpawnedSpellArea : SpawnedEntity
             SkillId = packet.ReadUInt(),
             UniqueId = packet.ReadUInt()
         };
-            
+
         spellArea.Movement.Source = Position.FromPacket(packet);
 
         return spellArea;

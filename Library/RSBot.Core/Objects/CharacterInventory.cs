@@ -1,94 +1,102 @@
-﻿using RSBot.Core.Network;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using RSBot.Core.Network;
 
 namespace RSBot.Core.Objects;
 
 /// <summary>
-/// The Character's Invetory with EquippedPart and NormalPart.
+///     The Character's Invetory with EquippedPart and NormalPart.
 /// </summary>
 public class CharacterInventory : InventoryItemCollection
 {
     /// <summary>
-    /// The constructor.
-    /// </summary>
-    /// <param name="size">The size.</param>
-    public CharacterInventory(Packet packet)
-        : base(packet) { }
-
-    /// <summary>
-    /// Minimum slot of NormalPart.
+    ///     Minimum slot of NormalPart.
     /// </summary>
     public const byte NORMAL_PART_MIN_SLOT = 13;
 
     /// <summary>
-    /// Gets the size of NormalPart.
+    ///     The constructor.
+    /// </summary>
+    /// <param name="size">The size.</param>
+    public CharacterInventory(Packet packet)
+        : base(packet)
+    {
+    }
+
+    /// <summary>
+    ///     Gets the size of NormalPart.
     /// </summary>
     public byte NormalPartSize => (byte)(Capacity - NORMAL_PART_MIN_SLOT);
 
     /// <summary>
-    /// Gets a value indicating whether the NormalPart is full.
+    ///     Gets a value indicating whether the NormalPart is full.
     /// </summary>
     /// <value>
-    /// <c>true</c> if the NormalPart is full; otherwise, <c>false</c>.
+    ///     <c>true</c> if the NormalPart is full; otherwise, <c>false</c>.
     /// </value>
     public override bool Full => GetNormalPartItems().Count >= NormalPartSize;
 
     /// <summary>
-    /// Gets the first free slot number inside NormalPart.
+    ///     Gets a value indicating whether this instance is sorting.
+    /// </summary>
+    /// <value>
+    ///     <c>true</c> if this instance is sorting; otherwise, <c>false</c>.
+    /// </value>
+    public bool IsSorting { get; private set; }
+
+    /// <summary>
+    ///     Gets the first free slot number inside NormalPart.
     /// </summary>
     /// <returns>if found: the first free slot number; otherwise: 0</returns>
     public override byte GetFreeSlot()
     {
-        for (byte slot = NORMAL_PART_MIN_SLOT; slot < Capacity; slot++)
-        {
+        for (var slot = NORMAL_PART_MIN_SLOT; slot < Capacity; slot++)
             if (GetItemAt(slot) == null)
                 return slot;
-        }
 
         return 0;
     }
 
     /// <summary>
-    /// Gets items of EquippedPart, ordered by slot.
+    ///     Gets items of EquippedPart, ordered by slot.
     /// </summary>
     /// <returns>If found: list of item(s), ordered by slot; otherwise empty list</returns>
     public ICollection<InventoryItem> GetEquippedPartItems()
-        => GetItems(item => item.Slot < NORMAL_PART_MIN_SLOT);
+    {
+        return GetItems(item => item.Slot < NORMAL_PART_MIN_SLOT);
+    }
 
     /// <summary>
-    /// Gets items of NormalPart, ordered by slot.
+    ///     Gets items of NormalPart, ordered by slot.
     /// </summary>
     /// <returns>If found: list of item(s), ordered by slot; otherwise empty list</returns>
     public ICollection<InventoryItem> GetNormalPartItems()
-        => GetItems(item => item.Slot >= NORMAL_PART_MIN_SLOT);
+    {
+        return GetItems(item => item.Slot >= NORMAL_PART_MIN_SLOT);
+    }
 
     /// <summary>
-    /// Gets items of NormalPart, ordered by slot.
+    ///     Gets items of NormalPart, ordered by slot.
     /// </summary>
     /// <returns>If found: list of item(s), ordered by slot; otherwise empty list</returns>
     public ICollection<InventoryItem> GetNormalPartItems(Predicate<InventoryItem> predicate)
-        => GetItems(item => item.Slot >= NORMAL_PART_MIN_SLOT && predicate(item));
+    {
+        return GetItems(item => item.Slot >= NORMAL_PART_MIN_SLOT && predicate(item));
+    }
 
     /// <summary>
-    /// Gets items of NormalPart by ItemId, ordered by slot.
+    ///     Gets items of NormalPart by ItemId, ordered by slot.
     /// </summary>
     /// <param name="itemId">The identifier of item.</param>
     /// <returns>If found: list of item(s), ordered by slot; otherwise empty list</returns>
     public ICollection<InventoryItem> GetNormalPartItems(uint itemId)
-        => GetItems(item => item.Slot >= NORMAL_PART_MIN_SLOT && item.ItemId == itemId);
+    {
+        return GetItems(item => item.Slot >= NORMAL_PART_MIN_SLOT && item.ItemId == itemId);
+    }
 
     /// <summary>
-    /// Gets a value indicating whether this instance is sorting.
-    /// </summary>
-    /// <value>
-    ///   <c>true</c> if this instance is sorting; otherwise, <c>false</c>.
-    /// </value>
-    public bool IsSorting { get; private set; }
-
-    /// <summary>
-    /// Moves the item inside Character's Inventory.
+    ///     Moves the item inside Character's Inventory.
     /// </summary>
     /// <param name="sourceSlot">The source slot.</param>
     /// <param name="destinationSlot">The destination slot.</param>
@@ -152,7 +160,9 @@ public class CharacterInventory : InventoryItemCollection
         {
             iterations++;
 
-            var itemsToStackGroups = this.Where(i => i.Slot > 12 && i.Record.IsStackable && i.Record.MaxStack > i.Amount && !blacklistedItems.Contains(i.ItemId))
+            var itemsToStackGroups = this.Where(i =>
+                    i.Slot > 12 && i.Record.IsStackable && i.Record.MaxStack > i.Amount &&
+                    !blacklistedItems.Contains(i.ItemId))
                 .GroupBy(i => i.ItemId);
 
             if (!itemsToStackGroups.Any())
@@ -168,11 +178,11 @@ public class CharacterInventory : InventoryItemCollection
             var source = itemsToStack.FirstOrDefault();
             if (source == null)
                 continue;
-                
+
             var destination = itemsToStack.FirstOrDefault(i => i.Record.ID == source.ItemId && i.Slot != source.Slot);
             if (destination == null)
                 continue;
-                
+
             var amount = destination.Record.MaxStack - destination.Amount;
             var actualAmount = source.Amount > amount ? amount : source.Amount;
 

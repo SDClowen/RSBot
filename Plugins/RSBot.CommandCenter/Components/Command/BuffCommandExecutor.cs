@@ -1,7 +1,6 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Components.Command;
-using RSBot.Core.Event;
 using RSBot.Core.Objects;
 
 namespace RSBot.CommandCenter.Components.Command;
@@ -25,7 +24,8 @@ internal class BuffCommandExecutor : ICommandExecutor
 
         foreach (var buff in buffs)
         {
-            if (Game.Player.State.LifeState != LifeState.Alive || Game.Player.HasActiveVehicle || Game.Player.Untouchable)
+            if (Game.Player.State.LifeState != LifeState.Alive || Game.Player.HasActiveVehicle ||
+                Game.Player.Untouchable)
                 break;
 
             Log.Debug($"[ActionMapper] Casting buff {buff} ({buff.Record.Basic_Code})");

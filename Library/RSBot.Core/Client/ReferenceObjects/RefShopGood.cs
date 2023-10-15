@@ -2,50 +2,6 @@
 
 public class RefShopGood : IReference
 {
-    #region Fields
-
-    /// <summary>
-    /// Gets or sets the service.
-    /// </summary>
-    /// <value>
-    /// The service.
-    /// </value>
-    public byte Service;
-
-    /// <summary>
-    /// Gets or sets the country.
-    /// </summary>
-    /// <value>
-    /// The country.
-    /// </value>
-    public int Country;
-
-    /// <summary>
-    /// Gets or sets the name of the reference tab code.
-    /// </summary>
-    /// <value>
-    /// The name of the reference tab code.
-    /// </value>
-    public string RefTabCodeName;
-
-    /// <summary>
-    /// Gets or sets the name of the reference package item code.
-    /// </summary>
-    /// <value>
-    /// The name of the reference package item code.
-    /// </value>
-    public string RefPackageItemCodeName;
-
-    /// <summary>
-    /// Gets or sets the index of the slot.
-    /// </summary>
-    /// <value>
-    /// The index of the slot.
-    /// </value>
-    public byte SlotIndex;
-
-    #endregion Fields
-
     public bool Load(ReferenceParser parser)
     {
         //Skip disabled
@@ -59,4 +15,48 @@ public class RefShopGood : IReference
 
         return true;
     }
+
+    #region Fields
+
+    /// <summary>
+    ///     Gets or sets the service.
+    /// </summary>
+    /// <value>
+    ///     The service.
+    /// </value>
+    public byte Service;
+
+    /// <summary>
+    ///     Gets or sets the country.
+    /// </summary>
+    /// <value>
+    ///     The country.
+    /// </value>
+    public int Country;
+
+    /// <summary>
+    ///     Gets or sets the name of the reference tab code.
+    /// </summary>
+    /// <value>
+    ///     The name of the reference tab code.
+    /// </value>
+    public string RefTabCodeName;
+
+    /// <summary>
+    ///     Gets or sets the name of the reference package item code.
+    /// </summary>
+    /// <value>
+    ///     The name of the reference package item code.
+    /// </value>
+    public string RefPackageItemCodeName;
+
+    /// <summary>
+    ///     Gets or sets the index of the slot.
+    /// </summary>
+    /// <value>
+    ///     The index of the slot.
+    /// </value>
+    public byte SlotIndex;
+
+    #endregion Fields
 }

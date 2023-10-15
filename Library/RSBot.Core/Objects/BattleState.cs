@@ -3,5 +3,5 @@
 public enum BattleState
 {
     InPeace = 0,
-    InBattle = 1,
+    InBattle = 1
 }

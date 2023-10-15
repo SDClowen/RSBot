@@ -1,26 +1,24 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using RSBot.Core.Components;
+using RSBot.Core.Event;
 
 namespace RSBot.Core;
-
-using Event;
-using RSBot.Core.Components;
-using System;
-using System.IO;
 
 public static class PlayerConfig
 {
     /// <summary>
-    /// The config directory
-    /// </summary>
-    private static string _configDirectory => Path.Combine(Kernel.BasePath, "User", ProfileManager.SelectedProfile);
-
-    /// <summary>
-    /// The config
+    ///     The config
     /// </summary>
     private static Config _config;
 
     /// <summary>
-    /// Load config from file
+    ///     The config directory
+    /// </summary>
+    private static string _configDirectory => Path.Combine(Kernel.BasePath, "User", ProfileManager.SelectedProfile);
+
+    /// <summary>
+    ///     Load config from file
     /// </summary>
     /// <param name="file">The config file path</param>
     public static void Load(string charName)
@@ -31,7 +29,7 @@ public static class PlayerConfig
     }
 
     /// <summary>
-    /// Existses the specified key.
+    ///     Existses the specified key.
     /// </summary>
     /// <param name="key">The key.</param>
     /// <returns></returns>
@@ -44,11 +42,11 @@ public static class PlayerConfig
     }
 
     /// <summary>
-    /// Gets the specified key.
+    ///     Gets the specified key.
     /// </summary>
     /// <param name="key">The key.</param>
     /// <param name="defaultValue">The default value.</param>
-    public static T Get<T>(string key, T defaultValue = default(T))
+    public static T Get<T>(string key, T defaultValue = default)
     {
         if (_config == null)
             return defaultValue;
@@ -57,11 +55,11 @@ public static class PlayerConfig
     }
 
     /// <summary>
-    /// Gets the enum value with specified key.
+    ///     Gets the enum value with specified key.
     /// </summary>
     /// <param name="key">The key.</param>
     /// <param name="defaultValue">The default value.</param>
-    public static TEnum GetEnum<TEnum>(string key, TEnum defaultValue = default(TEnum))
+    public static TEnum GetEnum<TEnum>(string key, TEnum defaultValue = default)
         where TEnum : struct
     {
         if (_config == null)
@@ -71,7 +69,7 @@ public static class PlayerConfig
     }
 
     /// <summary>
-    /// Sets the specified key inside the config.
+    ///     Sets the specified key inside the config.
     /// </summary>
     /// <param name="key">The key.</param>
     /// <param name="value">The value.</param>
@@ -82,7 +80,7 @@ public static class PlayerConfig
     }
 
     /// <summary>
-    /// Gets the array.
+    ///     Gets the array.
     /// </summary>
     /// <param name="key">The key.</param>
     /// <param name="delimiter">The delimiter.</param>
@@ -96,7 +94,7 @@ public static class PlayerConfig
     }
 
     /// <summary>
-    /// Gets the enum value with specified key.
+    ///     Gets the enum value with specified key.
     /// </summary>
     /// <param name="key">The key.</param>
     /// <param name="defaultValue">The default value.</param>
@@ -110,7 +108,7 @@ public static class PlayerConfig
     }
 
     /// <summary>
-    /// Sets the array.
+    ///     Sets the array.
     /// </summary>
     /// <param name="key">The key.</param>
     /// <param name="values">The values.</param>
@@ -122,7 +120,7 @@ public static class PlayerConfig
     }
 
     /// <summary>
-    /// Saves the specified file.
+    ///     Saves the specified file.
     /// </summary>
     /// <param name="file">The file.</param>
     public static void Save()

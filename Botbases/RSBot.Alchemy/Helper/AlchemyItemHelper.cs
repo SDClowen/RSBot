@@ -1,8 +1,8 @@
-﻿using RSBot.Core;
+﻿using System.Collections.Generic;
+using System.Linq;
+using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Objects;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace RSBot.Alchemy.Helper;
 
@@ -33,17 +33,18 @@ internal class AlchemyItemHelper
     #region Methods
 
     /// <summary>
-    /// Gets the lucky powders.
+    ///     Gets the lucky powders.
     /// </summary>
     /// <param name="targetItem">The target item.</param>
     /// <returns></returns>
     public static IEnumerable<InventoryItem> GetLuckyPowders(InventoryItem targetItem)
     {
-        return Game.Player.Inventory.GetItems(new TypeIdFilter(3, 3, 10, 2)).Where(i => i.Record.ItemClass == targetItem.Record.Degree);
+        return Game.Player.Inventory.GetItems(new TypeIdFilter(3, 3, 10, 2))
+            .Where(i => i.Record.ItemClass == targetItem.Record.Degree);
     }
 
     /// <summary>
-    /// Gets the lucky stone.
+    ///     Gets the lucky stone.
     /// </summary>
     /// <param name="targetItem">The target item.</param>
     /// <returns></returns>
@@ -53,7 +54,7 @@ internal class AlchemyItemHelper
     }
 
     /// <summary>
-    /// Gets the astral stone.
+    ///     Gets the astral stone.
     /// </summary>
     /// <param name="targetItem">The target item.</param>
     /// <returns></returns>
@@ -63,7 +64,7 @@ internal class AlchemyItemHelper
     }
 
     /// <summary>
-    /// Gets the immortal stone.
+    ///     Gets the immortal stone.
     /// </summary>
     /// <param name="targetItem">The target item.</param>
     /// <returns></returns>
@@ -73,7 +74,7 @@ internal class AlchemyItemHelper
     }
 
     /// <summary>
-    /// Gets the steady stone.
+    ///     Gets the steady stone.
     /// </summary>
     /// <param name="targetItem">The target item.</param>
     /// <returns></returns>
@@ -83,18 +84,19 @@ internal class AlchemyItemHelper
     }
 
     /// <summary>
-    /// Gets the stones by group.
+    ///     Gets the stones by group.
     /// </summary>
     /// <param name="targetItem">The target item.</param>
     /// <param name="name">The name.</param>
     /// <returns></returns>
     public static IEnumerable<InventoryItem> GetStonesByGroup(InventoryItem targetItem, string name)
     {
-        return Game.Player.Inventory.Where(i => i.Record.Desc1 == name && i.Record.ItemClass == targetItem.Record.Degree);
+        return Game.Player.Inventory.Where(
+            i => i.Record.Desc1 == name && i.Record.ItemClass == targetItem.Record.Degree);
     }
 
     /// <summary>
-    /// Gets the stones by group.
+    ///     Gets the stones by group.
     /// </summary>
     /// <param name="level">The level.</param>
     /// <param name="name">The name.</param>
@@ -105,12 +107,12 @@ internal class AlchemyItemHelper
     }
 
     /// <summary>
-    /// Determines whether [has magic option] [the specified inventory item].
+    ///     Determines whether [has magic option] [the specified inventory item].
     /// </summary>
     /// <param name="inventoryItem">The inventory item.</param>
     /// <param name="materialGroup">The material group.</param>
     /// <returns>
-    ///   <c>true</c> if [has magic option] [the specified inventory item]; otherwise, <c>false</c>.
+    ///     <c>true</c> if [has magic option] [the specified inventory item]; otherwise, <c>false</c>.
     /// </returns>
     public static bool HasMagicOption(InventoryItem inventoryItem, string materialGroup)
     {
@@ -129,7 +131,7 @@ internal class AlchemyItemHelper
     }
 
     /// <summary>
-    /// Gets the elixir items.
+    ///     Gets the elixir items.
     /// </summary>
     /// <param name="elixirType">Type of the elixir.</param>
     /// <returns></returns>
@@ -154,7 +156,7 @@ internal class AlchemyItemHelper
     }
 
     /// <summary>
-    /// Gets the attribute stones.
+    ///     Gets the attribute stones.
     /// </summary>
     /// <param name="targetItem">The target item.</param>
     /// <param name="group">The group.</param>
@@ -164,7 +166,8 @@ internal class AlchemyItemHelper
         var typeIdFilter = new TypeIdFilter(3, 3, 11, 2);
 
         var actualGroupName = ItemAttributesInfo.GetActualAttributeGroupNameForItem(targetItem.Record, group);
-        var attributeStones = Game.Player.Inventory.GetItems(typeIdFilter).Where(i => i.Record.Desc1 == actualGroupName);
+        var attributeStones =
+            Game.Player.Inventory.GetItems(typeIdFilter).Where(i => i.Record.Desc1 == actualGroupName);
 
         return attributeStones;
     }

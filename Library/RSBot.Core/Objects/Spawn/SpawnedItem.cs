@@ -6,63 +6,63 @@ namespace RSBot.Core.Objects.Spawn;
 public class SpawnedItem : SpawnedEntity
 {
     /// <summary>
-    /// Gets or sets the opt level.
+    ///     Gets or sets the amount.
     /// </summary>
     /// <value>
-    /// The opt level.
-    /// </value>
-    public byte OptLevel;
-
-    /// <summary>
-    /// Gets or sets the name of the owner.
-    /// </summary>
-    /// <value>
-    /// The name of the owner.
-    /// </value>
-    public string OwnerName;
-
-    /// <summary>
-    /// Gets or sets the amount.
-    /// </summary>
-    /// <value>
-    /// The amount.
+    ///     The amount.
     /// </value>
     public uint Amount;
 
     /// <summary>
-    /// Gets or sets a value indicating whether this instance has owner.
+    ///     Gets or sets a value indicating whether this instance has owner.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if this instance has owner; otherwise, <c>false</c>.
+    ///     <c>true</c> if this instance has owner; otherwise, <c>false</c>.
     /// </value>
     public bool HasOwner;
 
     /// <summary>
-    /// Gets or sets the owner identifier.
+    ///     Gets or sets the opt level.
     /// </summary>
     /// <value>
-    /// The owner identifier.
+    ///     The opt level.
+    /// </value>
+    public byte OptLevel;
+
+    /// <summary>
+    ///     Gets or sets the owner identifier.
+    /// </summary>
+    /// <value>
+    ///     The owner identifier.
     /// </value>
     public uint OwnerJID;
 
     /// <summary>
-    /// Gets or sets the rarity.
+    ///     Gets or sets the name of the owner.
     /// </summary>
     /// <value>
-    /// The rarity.
+    ///     The name of the owner.
+    /// </value>
+    public string OwnerName;
+
+    /// <summary>
+    ///     Gets or sets the rarity.
+    /// </summary>
+    /// <value>
+    ///     The rarity.
     /// </value>
     public ObjectRarity Rarity;
 
     /// <summary>
-    /// Gets the record.
+    ///     Gets the record.
     /// </summary>
     /// <value>
-    /// The record.
+    ///     The record.
     /// </value>
     public new RefObjItem Record => Game.ReferenceManager.GetRefItem(Id);
 
     /// <summary>
-    /// Froms the packet.
+    ///     Froms the packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     /// <param name="itemId">The item identifier.</param>
@@ -91,9 +91,10 @@ public class SpawnedItem : SpawnedEntity
     }
 
     /// <summary>
-    /// Pickups the specified item unique identifier.
+    ///     Pickups the specified item unique identifier.
     /// </summary>
-    /// <param name="itemUniqueId">The item unique identifier.</param>F
+    /// <param name="itemUniqueId">The item unique identifier.</param>
+    /// F
     public bool Pickup()
     {
         if (IsBehindObstacle)
@@ -115,8 +116,9 @@ public class SpawnedItem : SpawnedEntity
 
             Log.Debug($"Picked up item response: State={actionState} Repeat={repeatAction}");
 
-            return (actionState is ActionState.Begin or ActionState.End)
-                ? AwaitCallbackResult.Success : AwaitCallbackResult.ConditionFailed;
+            return actionState is ActionState.Begin or ActionState.End
+                ? AwaitCallbackResult.Success
+                : AwaitCallbackResult.ConditionFailed;
         }, 0xB074);
 
         Log.Status("Picking up...");

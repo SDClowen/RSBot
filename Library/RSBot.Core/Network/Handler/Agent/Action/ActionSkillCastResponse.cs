@@ -7,23 +7,23 @@ namespace RSBot.Core.Network.Handler.Agent.Action;
 internal class ActionSkillCastResponse : IPacketHandler
 {
     /// <summary>
-    /// Gets or sets the destination.
+    ///     Gets or sets the destination.
     /// </summary>
     /// <value>
-    /// The destination.
+    ///     The destination.
     /// </value>
     public PacketDestination Destination => PacketDestination.Client;
 
     /// <summary>
-    /// Gets or sets the opcode.
+    ///     Gets or sets the opcode.
     /// </summary>
     /// <value>
-    /// The opcode.
+    ///     The opcode.
     /// </value>
     public ushort Opcode => 0xB070;
 
     /// <summary>
-    /// Invokes the specified packet.
+    ///     Invokes the specified packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     public void Invoke(Packet packet)

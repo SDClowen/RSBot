@@ -1,69 +1,71 @@
-﻿using RSBot.Core.Network;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using RSBot.Core.Network;
 
 namespace RSBot.Core.Objects.Party;
 
 public class Party
 {
     /// <summary>
-    /// Gets a value indicating whether other party members can invite or not.
+    ///     Gets a value indicating whether other party members can invite or not.
     /// </summary>
     /// <value>
-    ///   <c>true</c> Indicating whether other party members can invite; otherwise, <c>false</c>.
+    ///     <c>true</c> Indicating whether other party members can invite; otherwise, <c>false</c>.
     /// </value>
     public bool CanInvite => Settings.AllowInvitation || IsLeader || !IsInParty;
 
     /// <summary>
-    /// Gets a value indicating whether this instance has pending request.
+    ///     Gets a value indicating whether this instance has pending request.
     /// </summary>
     /// <value>
-    /// <c>true</c> if this instance has pending request; otherwise, <c>false</c>.
+    ///     <c>true</c> if this instance has pending request; otherwise, <c>false</c>.
     /// </value>
-    public bool HasPendingRequest => Game.AcceptanceRequest?.Type == InviteRequestType.Party1 || Game.AcceptanceRequest?.Type == InviteRequestType.Party2 && Game.AcceptanceRequest.Player != null;
+    public bool HasPendingRequest => Game.AcceptanceRequest?.Type == InviteRequestType.Party1 ||
+                                     (Game.AcceptanceRequest?.Type == InviteRequestType.Party2 &&
+                                      Game.AcceptanceRequest.Player != null);
 
     /// <summary>
-    /// Gets a value indicating whether the current player is the party leader or not.
+    ///     Gets a value indicating whether the current player is the party leader or not.
     /// </summary>
     /// <value>
-    /// <c>true</c> if this instance is in party; otherwise, <c>false</c>.
+    ///     <c>true</c> if this instance is in party; otherwise, <c>false</c>.
     /// </value>
     public bool IsInParty => Members != null && Members.Count > 0;
 
     /// <summary>
-    /// Gets a value indicating whether this instance is leader.
+    ///     Gets a value indicating whether this instance is leader.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if this instance is leader; otherwise, <c>false</c>.
+    ///     <c>true</c> if this instance is leader; otherwise, <c>false</c>.
     /// </value>
     public bool IsLeader => Leader?.Name == Game.Player.Name;
 
     /// <summary>
-    /// Gets or sets the leader.
+    ///     Gets or sets the leader.
     /// </summary>
     /// <value>
-    /// The leader.
+    ///     The leader.
     /// </value>
     public PartyMember Leader { get; set; }
 
     /// <summary>
-    /// Gets or sets the members.
+    ///     Gets or sets the members.
     /// </summary>
     /// <value>
-    /// The members.
+    ///     The members.
     /// </value>
     public List<PartyMember> Members { get; set; }
 
     /// <summary>
-    /// Gets or sets the settings.
+    ///     Gets or sets the settings.
     /// </summary>
     /// <value>
-    /// The settings.
+    ///     The settings.
     /// </value>
     public PartySettings Settings { get; set; }
 
     /// <summary>
-    /// Gets the member by identifier.
+    ///     Gets the member by identifier.
     /// </summary>
     /// <param name="memberId">The member identifier.</param>
     /// <returns></returns>
@@ -73,7 +75,7 @@ public class Party
     }
 
     /// <summary>
-    /// Gets the name of the member by.
+    ///     Gets the name of the member by.
     /// </summary>
     /// <param name="playerName">Name of the player.</param>
     /// <returns></returns>
@@ -83,7 +85,7 @@ public class Party
     }
 
     /// <summary>
-    /// Invites the specified player unique identifier.
+    ///     Invites the specified player unique identifier.
     /// </summary>
     /// <param name="playerUniqueId">The player unique identifier.</param>
     public void Invite(uint playerUniqueId)
@@ -106,7 +108,7 @@ public class Party
     }
 
     /// <summary>
-    /// Leaves the current party.
+    ///     Leaves the current party.
     /// </summary>
     public void Leave()
     {
@@ -114,7 +116,7 @@ public class Party
     }
 
     /// <summary>
-    /// Clears this instance.
+    ///     Clears this instance.
     /// </summary>
     internal void Clear()
     {

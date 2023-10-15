@@ -5,15 +5,7 @@ namespace RSBot.Pk2.IO;
 public class FileAdapter
 {
     /// <summary>
-    /// Gets or sets the path.
-    /// </summary>
-    /// <value>
-    /// The path.
-    /// </value>
-    public string Path { get; set; }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="FileAdapter" /> class.
+    ///     Initializes a new instance of the <see cref="FileAdapter" /> class.
     /// </summary>
     /// <param name="path">The path.</param>
     /// <exception cref="System.IO.FileNotFoundException"></exception>
@@ -26,7 +18,15 @@ public class FileAdapter
     }
 
     /// <summary>
-    /// Reads the bytes.
+    ///     Gets or sets the path.
+    /// </summary>
+    /// <value>
+    ///     The path.
+    /// </value>
+    public string Path { get; set; }
+
+    /// <summary>
+    ///     Reads the bytes.
     /// </summary>
     /// <returns></returns>
     public byte[] ReadData(long offset, int count)
@@ -43,7 +43,7 @@ public class FileAdapter
     }
 
     /// <summary>
-    /// Writes the bytes at.
+    ///     Writes the bytes at.
     /// </summary>
     /// <param name="data">The data.</param>
     /// <param name="offset">The offset.</param>
@@ -57,7 +57,7 @@ public class FileAdapter
     }
 
     /// <summary>
-    /// Appends the specified data to the end of the file.
+    ///     Appends the specified data to the end of the file.
     /// </summary>
     /// <param name="data">The data.</param>
     /// <returns>The position of where the data has been written to</returns>

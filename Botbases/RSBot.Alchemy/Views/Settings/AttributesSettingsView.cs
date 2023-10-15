@@ -1,19 +1,31 @@
-﻿using RSBot.Alchemy.Bot;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Windows.Forms;
+using RSBot.Alchemy.Bot;
 using RSBot.Alchemy.Bundle.Attribute;
 using RSBot.Alchemy.Helper;
 using RSBot.Core;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace RSBot.Alchemy.Views.Settings;
 
-[System.ComponentModel.ToolboxItem(false)]
+[ToolboxItem(false)]
 public partial class AttributesSettingsView : UserControl
 {
+    private List<AttributeInfoPanel> _attributePanels;
+
+    public AttributesSettingsView()
+    {
+        InitializeComponent();
+
+        CheckForIllegalCrossThreadCalls = false;
+
+        EventManager.SubscribeEvent("OnEnterGame", SubscribeMainFormEvents);
+    }
+
     internal AttributeBundleConfig BundleConfig
     {
         get
@@ -28,7 +40,11 @@ public partial class AttributesSettingsView : UserControl
                     continue;
 
                 if (attributePanel.Stones != null && attributePanel.Stones.Any())
-                    attributes.Add(new() { Group = attributePanel.AttributeGroup, MaxValue = attributePanel.MaxValue, Stone = attributePanel.Stones.First() });
+                    attributes.Add(new AttributeBundleConfig.AttributeBundleConfigItem
+                    {
+                        Group = attributePanel.AttributeGroup, MaxValue = attributePanel.MaxValue,
+                        Stone = attributePanel.Stones.First()
+                    });
             }
 
             result.Attributes = attributes;
@@ -37,21 +53,10 @@ public partial class AttributesSettingsView : UserControl
         }
     }
 
-    private List<AttributeInfoPanel> _attributePanels;
-
     private InventoryItem? SelectedItem { get; set; }
 
-    public AttributesSettingsView()
-    {
-        InitializeComponent();
-
-        CheckForIllegalCrossThreadCalls = false;
-
-        EventManager.SubscribeEvent("OnEnterGame", SubscribeMainFormEvents);
-    }
-
     /// <summary>
-    /// Subscribes to the ItemChanged event
+    ///     Subscribes to the ItemChanged event
     /// </summary>
     private void SubscribeMainFormEvents()
     {
@@ -76,7 +81,8 @@ public partial class AttributesSettingsView : UserControl
 
             if (availableItemAttributes == null)
             {
-                Log.Error($"[Alchemy] Could not identify the selected item's attribute information. [ItemId = {selectedItem.ItemId}]");
+                Log.Error(
+                    $"[Alchemy] Could not identify the selected item's attribute information. [ItemId = {selectedItem.ItemId}]");
 
                 return;
             }
@@ -88,9 +94,11 @@ public partial class AttributesSettingsView : UserControl
             {
                 var matchingStones = AlchemyItemHelper.GetAttributeStones(selectedItem, attributeGroup);
 
-                var config = Globals.Botbase.AttributeBundleConfig.Attributes.FirstOrDefault(x => x.Group == attributeGroup);
+                var config =
+                    Globals.Botbase.AttributeBundleConfig.Attributes.FirstOrDefault(x => x.Group == attributeGroup);
 
-                var panel = new AttributeInfoPanel(attributeGroup, matchingStones, selectedItem, config == null ? 0 : config.MaxValue) { Dock = DockStyle.Top };
+                var panel = new AttributeInfoPanel(attributeGroup, matchingStones, selectedItem,
+                    config == null ? 0 : config.MaxValue) { Dock = DockStyle.Top };
                 _attributePanels.Add(panel);
 
                 if (config == null || !matchingStones.Any())
@@ -128,7 +136,7 @@ public partial class AttributesSettingsView : UserControl
     }
 
     /// <summary>
-    /// Will be triggered when the selected item changed
+    ///     Will be triggered when the selected item changed
     /// </summary>
     /// <param name="item"></param>
     private void View_ItemChanged(InventoryItem item)

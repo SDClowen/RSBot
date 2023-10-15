@@ -1,21 +1,20 @@
-﻿using RSBot.Core;
-using RSBot.Core.Components;
+﻿using System;
+using System.Linq;
+using RSBot.Core;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
-using System;
-using System.Linq;
 
 namespace RSBot.Protection.Components.Town;
 
 public class DurabilityLowHandler : AbstractTownHandler
 {
     /// <summary>
-    /// The last tick count
+    ///     The last tick count
     /// </summary>
     private static long _lastTick = Kernel.TickCount;
 
     /// <summary>
-    /// Initializes this instance.
+    ///     Initializes this instance.
     /// </summary>
     public static void Initialize()
     {
@@ -23,16 +22,16 @@ public class DurabilityLowHandler : AbstractTownHandler
     }
 
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     private static void SubscribeEvents()
     {
-        EventManager.SubscribeEvent("OnUpdateItemDurability", new System.Action<byte, uint>(OnUpdateItemDurability));
+        EventManager.SubscribeEvent("OnUpdateItemDurability", new Action<byte, uint>(OnUpdateItemDurability));
         EventManager.SubscribeEvent("OnTick", OnTick);
     }
 
     /// <summary>
-    /// Check the equiped items durabilities
+    ///     Check the equiped items durabilities
     /// </summary>
     /// <param name="slot">The slot.</param>
     /// <param name="durability">The durability.</param>
@@ -40,7 +39,7 @@ public class DurabilityLowHandler : AbstractTownHandler
     {
         if (!Kernel.Bot.Running)
             return;
-            
+
         if (!PlayerConfig.Get<bool>("RSBot.Protection.checkDurability"))
             return;
 
@@ -60,12 +59,13 @@ public class DurabilityLowHandler : AbstractTownHandler
 
             if (!item.Record.IsEquip)
                 continue;
-                
+
             if (item.Durability > 6)
                 continue;
 
             var itemsToUse = PlayerConfig.GetArray<string>("RSBot.Inventory.AutoUseAccordingToPurpose");
-            var inventoryItem = Game.Player.Inventory.GetItem(new TypeIdFilter(3, 3, 13, 7), p => itemsToUse.Contains(p.Record.CodeName));
+            var inventoryItem = Game.Player.Inventory.GetItem(new TypeIdFilter(3, 3, 13, 7),
+                p => itemsToUse.Contains(p.Record.CodeName));
             if (inventoryItem != null)
             {
                 inventoryItem.Use();
@@ -74,13 +74,13 @@ public class DurabilityLowHandler : AbstractTownHandler
 
             if (Game.Player.UseReturnScroll())
                 Log.WarnLang("ReturnToTownDurLow", item.Record.GetRealName());
-                
+
             break;
         }
     }
 
     /// <summary>
-    /// Cores the on update item.
+    ///     Cores the on update item.
     /// </summary>
     /// <param name="slot">The slot.</param>
     /// <param name="durability">The durability.</param>

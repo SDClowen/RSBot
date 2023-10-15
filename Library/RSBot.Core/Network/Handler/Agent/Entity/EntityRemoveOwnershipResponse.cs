@@ -6,28 +6,8 @@ namespace RSBot.Core.Network.Handler.Agent.Entity;
 
 internal class EntityRemoveOwnershipResponse : IPacketHandler
 {
-    #region Properites
-
     /// <summary>
-    /// Gets or sets the opcode.
-    /// </summary>
-    /// <value>
-    /// The opcode.
-    /// </value>
-    public ushort Opcode => 0x304D;
-
-    /// <summary>
-    /// Gets or sets the destination.
-    /// </summary>
-    /// <value>
-    /// The destination.
-    /// </value>
-    public PacketDestination Destination => PacketDestination.Client;
-
-    #endregion Properites
-
-    /// <summary>
-    /// Invokes the specified packet.
+    ///     Invokes the specified packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     public void Invoke(Packet packet)
@@ -41,4 +21,24 @@ internal class EntityRemoveOwnershipResponse : IPacketHandler
 
         EventManager.FireEvent("OnRemoveItemOwnership", itemUniqueId);
     }
+
+    #region Properites
+
+    /// <summary>
+    ///     Gets or sets the opcode.
+    /// </summary>
+    /// <value>
+    ///     The opcode.
+    /// </value>
+    public ushort Opcode => 0x304D;
+
+    /// <summary>
+    ///     Gets or sets the destination.
+    /// </summary>
+    /// <value>
+    ///     The destination.
+    /// </value>
+    public PacketDestination Destination => PacketDestination.Client;
+
+    #endregion Properites
 }

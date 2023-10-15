@@ -1,45 +1,11 @@
-﻿namespace RSBot.Core.Objects.Party;
+﻿using System.Text;
+
+namespace RSBot.Core.Objects.Party;
 
 public class PartySettings
 {
     /// <summary>
-    /// Gets or sets a value indicating whether [allow invitation].
-    /// </summary>
-    /// <value>
-    ///   <c>true</c> if [allow invitation]; otherwise, <c>false</c>.
-    /// </value>
-    public bool AllowInvitation { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether [experience automatic share].
-    /// </summary>
-    /// <value>
-    /// <c>true</c> if [experience automatic share]; otherwise, <c>false</c>.
-    /// </value>
-    public bool ExperienceAutoShare { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether [item automatic share].
-    /// </summary>
-    /// <value>
-    ///   <c>true</c> if [item automatic share]; otherwise, <c>false</c>.
-    /// </value>
-    public bool ItemAutoShare { get; set; }
-
-    /// <summary>
-    /// Get max member count
-    /// </summary>
-    public int MaxMember
-    {
-        get
-        {
-            var partyType = GetPartyType();
-            return partyType == 4 || partyType == 0 ? 4 : 8;
-        }
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="PartySettings"/> class.
+    ///     Initializes a new instance of the <see cref="PartySettings" /> class.
     /// </summary>
     /// <param name="experienceAutoShare">if set to <c>true</c> [experience automatic share].</param>
     /// <param name="itemsAutoShare">if set to <c>true</c> [items automatic share].</param>
@@ -52,12 +18,50 @@ public class PartySettings
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PartySettings"/> class.
+    ///     Initializes a new instance of the <see cref="PartySettings" /> class.
     /// </summary>
-    public PartySettings() { }
+    public PartySettings()
+    {
+    }
 
     /// <summary>
-    /// Creates a new party setting from a specific type
+    ///     Gets or sets a value indicating whether [allow invitation].
+    /// </summary>
+    /// <value>
+    ///     <c>true</c> if [allow invitation]; otherwise, <c>false</c>.
+    /// </value>
+    public bool AllowInvitation { get; set; }
+
+    /// <summary>
+    ///     Gets or sets a value indicating whether [experience automatic share].
+    /// </summary>
+    /// <value>
+    ///     <c>true</c> if [experience automatic share]; otherwise, <c>false</c>.
+    /// </value>
+    public bool ExperienceAutoShare { get; set; }
+
+    /// <summary>
+    ///     Gets or sets a value indicating whether [item automatic share].
+    /// </summary>
+    /// <value>
+    ///     <c>true</c> if [item automatic share]; otherwise, <c>false</c>.
+    /// </value>
+    public bool ItemAutoShare { get; set; }
+
+    /// <summary>
+    ///     Get max member count
+    /// </summary>
+    public int MaxMember
+    {
+        get
+        {
+            var partyType = GetPartyType();
+            return partyType == 4 || partyType == 0 ? 4 : 8;
+        }
+    }
+
+    /// <summary>
+    ///     Creates a new party setting from a specific type
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns></returns>
@@ -120,7 +124,7 @@ public class PartySettings
     }
 
     /// <summary>
-    /// Gets the type of the party.
+    ///     Gets the type of the party.
     /// </summary>
     /// <returns></returns>
     public byte GetPartyType()
@@ -147,7 +151,7 @@ public class PartySettings
 
     public override string ToString()
     {
-        var str = new System.Text.StringBuilder();
+        var str = new StringBuilder();
         if (ExperienceAutoShare)
             str.AppendLine("Exp Auto Share");
         else

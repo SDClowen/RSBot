@@ -1,39 +1,39 @@
-﻿using RSBot.Core;
+﻿using System.Threading;
+using RSBot.Core;
 using RSBot.Core.Components;
-using RSBot.Core.Event;
 using RSBot.Core.Objects.Spawn;
-using System.Threading;
 
 namespace RSBot.Default.Bundle.Movement;
 
 internal class MovementBundle : IBundle
 {
     /// <summary>
-    /// Gets or sets the configuration.
+    ///     Gets or sets the configuration.
     /// </summary>
     /// <value>
-    /// The configuration.
+    ///     The configuration.
     /// </value>
     public MovementConfig Config { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether [last entity was behind obstacle].
-    /// Used to move around even though the player is being attacked.
+    ///     Gets or sets a value indicating whether [last entity was behind obstacle].
+    ///     Used to move around even though the player is being attacked.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if [last entity was behind obstacle]; otherwise, <c>false</c>.
+    ///     <c>true</c> if [last entity was behind obstacle]; otherwise, <c>false</c>.
     /// </value>
     public bool LastEntityWasBehindObstacle { get; set; }
 
     /// <summary>
-    /// Invokes this instance.
+    ///     Invokes this instance.
     /// </summary>
     public void Invoke()
     {
         if (Game.SelectedEntity != null && !LastEntityWasBehindObstacle)
             return;
 
-        var playerUnderAttack = SpawnManager.Any<SpawnedMonster>(m => m.AttackingPlayer && Container.Bot.Area.IsInSight(m));
+        var playerUnderAttack =
+            SpawnManager.Any<SpawnedMonster>(m => m.AttackingPlayer && Container.Bot.Area.IsInSight(m));
         if (playerUnderAttack && !LastEntityWasBehindObstacle)
             return;
 
@@ -48,10 +48,7 @@ internal class MovementBundle : IBundle
                 return;
 
             var player = Game.Party.Leader?.Player;
-            if (player != null && player.Position.DistanceToPlayer() >= 10)
-            {
-                Game.Player.MoveTo(player.Position);
-            }
+            if (player != null && player.Position.DistanceToPlayer() >= 10) Game.Player.MoveTo(player.Position);
 
             return;
         }
@@ -78,7 +75,8 @@ internal class MovementBundle : IBundle
         var destination = Container.Bot.Area.GetRandomPosition();
 
         var attempt = 0;
-        while (CollisionManager.HasCollisionBetween(Game.Player.Position, destination) && distance < Container.Bot.Area.Radius)
+        while (CollisionManager.HasCollisionBetween(Game.Player.Position, destination) &&
+               distance < Container.Bot.Area.Radius)
         {
             destination = Container.Bot.Area.GetRandomPosition();
             if (attempt++ > 3)
@@ -91,7 +89,7 @@ internal class MovementBundle : IBundle
     }
 
     /// <summary>
-    /// Refreshes this instance.
+    ///     Refreshes this instance.
     /// </summary>
     public void Refresh()
     {

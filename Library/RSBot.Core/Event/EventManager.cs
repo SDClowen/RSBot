@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace RSBot.Core.Event;
 
 public class EventManager
 {
-    private static readonly List<(string name, Delegate handler)> _listeners = new List<(string, Delegate)>();
+    private static readonly List<(string name, Delegate handler)> _listeners = new();
 
     /// <summary>
-    /// Registers the event.
+    ///     Registers the event.
     /// </summary>
     /// <param name="name">The name.</param>
     /// <param name="handler">The handler.</param>
@@ -23,7 +23,7 @@ public class EventManager
     }
 
     /// <summary>
-    /// Registers the event.
+    ///     Registers the event.
     /// </summary>
     /// <param name="name">The name.</param>
     /// <param name="handler">The handler.</param>
@@ -35,7 +35,7 @@ public class EventManager
     }
 
     /// <summary>
-    /// Fires the event.
+    ///     Fires the event.
     /// </summary>
     /// <param name="name">The name.</param>
     /// <param name="parameters">The parameters.</param>
@@ -43,7 +43,8 @@ public class EventManager
     {
         try
         {
-            var targets = (from o in _listeners where o.name == name && o.handler.Method.GetParameters().Length == parameters.Length
+            var targets = (from o in _listeners
+                where o.name == name && o.handler.Method.GetParameters().Length == parameters.Length
                 select o.handler).ToArray();
 
             foreach (var target in targets)

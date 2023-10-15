@@ -7,9 +7,9 @@ namespace RSBot.Statistics.Stats.Calculators.Static;
 internal class Kills : IStatisticCalculator
 {
     /// <summary>
-    /// The initial value
+    ///     The initial value
     /// </summary>
-    private int _lastTickValue = 0;
+    private int _lastTickValue;
 
     /// <inheritdoc />
     public string Name => "Kills";

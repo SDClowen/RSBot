@@ -1,24 +1,26 @@
-﻿using RSBot.Pk2.IO;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
+using RSBot.Pk2.IO;
 
 namespace RSBot.Pk2.Types;
 
 public class PK2File : PK2Entry
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="PK2File" /> class.
+    ///     Initializes a new instance of the <see cref="PK2File" /> class.
     /// </summary>
     /// <param name="fileAdapter"></param>
-    public PK2File(FileAdapter fileAdapter) : base(fileAdapter) { }
+    public PK2File(FileAdapter fileAdapter) : base(fileAdapter)
+    {
+    }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PK2File" /> class.
+    ///     Initializes a new instance of the <see cref="PK2File" /> class.
     /// </summary>
     /// <param name="fileAdapter">The file adapter.</param>
     /// <param name="entry">The entry.</param>
     /// <param name="parent">The parent.</param>
-    public PK2File(FileAdapter fileAdapter, PK2Entry entry, PK2Entry parent) 
+    public PK2File(FileAdapter fileAdapter, PK2Entry entry, PK2Entry parent)
         : base(fileAdapter)
     {
         Parent = parent;
@@ -37,7 +39,7 @@ public class PK2File : PK2Entry
     }
 
     /// <summary>
-    /// Reads all text of this file.
+    ///     Reads all text of this file.
     /// </summary>
     /// <returns></returns>
     public string ReadAllText()
@@ -57,15 +59,12 @@ public class PK2File : PK2Entry
         using (var reader = new StreamReader(GetStream()))
         {
             string line;
-            while ((line = reader.ReadLine()) != null)
-            {
-                yield return line;
-            }
+            while ((line = reader.ReadLine()) != null) yield return line;
         }
     }
 
     /// <summary>
-    /// Gets the stream of this file.
+    ///     Gets the stream of this file.
     /// </summary>
     /// <returns></returns>
     public Stream GetStream()

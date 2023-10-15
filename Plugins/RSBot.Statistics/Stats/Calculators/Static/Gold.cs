@@ -6,7 +6,7 @@ namespace RSBot.Statistics.Stats.Calculators.Static;
 internal class Gold : IStatisticCalculator
 {
     /// <summary>
-    /// The initial value
+    ///     The initial value
     /// </summary>
     private ulong _initialValue;
 
@@ -31,7 +31,7 @@ internal class Gold : IStatisticCalculator
         if (!Game.Ready)
             return 0;
 
-        return (double)Game.Player.Gold - (double)_initialValue;
+        return Game.Player.Gold - (double)_initialValue;
     }
 
     /// <inheritdoc />

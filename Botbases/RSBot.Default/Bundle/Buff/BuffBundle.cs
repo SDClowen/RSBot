@@ -1,10 +1,8 @@
-﻿using System;
+﻿using System.Linq;
 using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
-using System.Linq;
-using RSBot.Core.Objects.Item;
 
 namespace RSBot.Default.Bundle.Buff;
 
@@ -13,7 +11,7 @@ internal class BuffBundle : IBundle
     private bool _invoked;
 
     /// <summary>
-    /// Invokes this instance.
+    ///     Invokes this instance.
     /// </summary>
     public void Invoke()
     {
@@ -34,7 +32,8 @@ internal class BuffBundle : IBundle
              *          ActionBuffRemoveResponse:0xb072 does not calling
              *          There have another opcode for remove buff with token
              */
-            foreach (var buff in SkillManager.Buffs.Union(new[] { SkillManager.ImbueSkill, SkillManager.ResurrectionSkill }))
+            foreach (var buff in SkillManager.Buffs.Union(new[]
+                         { SkillManager.ImbueSkill, SkillManager.ResurrectionSkill }))
             {
                 if (buff == null)
                     continue;
@@ -76,7 +75,7 @@ internal class BuffBundle : IBundle
     }
 
     /// <summary>
-    /// Refreshes this instance.
+    ///     Refreshes this instance.
     /// </summary>
     public void Refresh()
     {

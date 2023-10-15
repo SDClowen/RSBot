@@ -1,6 +1,6 @@
-﻿using RSBot.Core;
+﻿using System.ComponentModel;
+using RSBot.Core;
 using RSBot.Core.Event;
-using System.ComponentModel;
 
 namespace RSBot.Views.Controls.Cos;
 
@@ -39,7 +39,7 @@ public partial class JobTransport : CosControlBase
     }
 
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     private void SubscribeEvents()
     {
@@ -47,7 +47,7 @@ public partial class JobTransport : CosControlBase
     }
 
     /// <summary>
-    /// Handles the update pet hp or mp
+    ///     Handles the update pet hp or mp
     /// </summary>
     private void OnUpdateJobTransportHealth()
     {

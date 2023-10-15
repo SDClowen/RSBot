@@ -5,7 +5,7 @@ namespace RSBot.Core.Objects.Cos;
 public class Transport : Cos
 {
     /// <summary>
-    /// Dismounts this instance.
+    ///     Dismounts this instance.
     /// </summary>
     public override bool Dismount()
     {

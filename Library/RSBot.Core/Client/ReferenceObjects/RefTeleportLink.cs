@@ -2,32 +2,6 @@
 
 public class RefTeleportLink : IReference
 {
-    #region Fields
-
-    public byte Service;
-    public int OwnerTeleport;
-    public int TargetTeleport;
-    public int Fee;
-    public byte RestrictBindMethod;
-    public byte CheckResult;
-    public int Restrict1;
-    public int Data1_1;
-    public int Data1_2;
-    public int Restrict2;
-    public int Data2_1;
-    public int Data2_2;
-    public int Restrict3;
-    public int Data3_1;
-    public int Data3_2;
-    public int Restrict4;
-    public int Data4_1;
-    public int Data4_2;
-    public int Restrict5;
-    public int Data5_1;
-    public int Data5_2;
-
-    #endregion Fields
-
     public RefTeleport Owner => Game.ReferenceManager.TeleportData.Find(t => t.ID == OwnerTeleport);
     public RefTeleport Target => Game.ReferenceManager.TeleportData.Find(t => t.ID == TargetTeleport);
 
@@ -69,6 +43,32 @@ public class RefTeleportLink : IReference
     }
 
     #endregion IReference
+
+    #region Fields
+
+    public byte Service;
+    public int OwnerTeleport;
+    public int TargetTeleport;
+    public int Fee;
+    public byte RestrictBindMethod;
+    public byte CheckResult;
+    public int Restrict1;
+    public int Data1_1;
+    public int Data1_2;
+    public int Restrict2;
+    public int Data2_1;
+    public int Data2_2;
+    public int Restrict3;
+    public int Data3_1;
+    public int Data3_2;
+    public int Restrict4;
+    public int Data4_1;
+    public int Data4_2;
+    public int Restrict5;
+    public int Data5_1;
+    public int Data5_2;
+
+    #endregion Fields
 }
 
 //Service int

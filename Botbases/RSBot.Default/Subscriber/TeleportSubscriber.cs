@@ -1,15 +1,13 @@
-﻿using RSBot.Default.Bundle;
-using RSBot.Core;
-using RSBot.Core.Components;
+﻿using RSBot.Core;
 using RSBot.Core.Event;
-using System.Threading.Tasks;
+using RSBot.Default.Bundle;
 
 namespace RSBot.Default.Subscriber;
 
 internal class TeleportSubscriber
 {
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     public static void SubscribeEvents()
     {
@@ -19,11 +17,11 @@ internal class TeleportSubscriber
     #region Event listeners
 
     /// <summary>
-    /// Will be triggered when an ingame teleportation was complete
+    ///     Will be triggered when an ingame teleportation was complete
     /// </summary>
     private static void OnTeleportComplete()
     {
-        if (!Kernel.Bot.Running) 
+        if (!Kernel.Bot.Running)
             return;
 
         if (Bundles.Loop.Running)

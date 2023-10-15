@@ -1,8 +1,8 @@
-﻿using RSBot.Core.Client.ReferenceObjects;
+﻿using System.Collections.Generic;
+using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
-using System.Collections.Generic;
-using RSBot.Core.Components;
 
 namespace RSBot.Core.Network.Handler.Agent.Alchemy;
 
@@ -11,8 +11,8 @@ internal static class GenericAlchemyRequestHandler
     public static void Invoke(Packet packet)
     {
         var action = (AlchemyAction)packet.ReadByte();
-            
-        if (action != AlchemyAction.Fuse) 
+
+        if (action != AlchemyAction.Fuse)
             return;
 
         var type = (AlchemyType)packet.ReadByte();
@@ -22,7 +22,7 @@ internal static class GenericAlchemyRequestHandler
             var socketItem = Game.Player.Inventory.GetItemAt(packet.ReadByte()); //Target item
 
             if (item != null && socketItem != null)
-                AlchemyManager.ActiveAlchemyItems = new()
+                AlchemyManager.ActiveAlchemyItems = new List<InventoryItem>
                 {
                     item,
                     socketItem
@@ -33,7 +33,7 @@ internal static class GenericAlchemyRequestHandler
 
         var slots = packet.ReadByteArray(packet.ReadByte());
 
-        AlchemyManager.ActiveAlchemyItems = new(slots.Length);
+        AlchemyManager.ActiveAlchemyItems = new List<InventoryItem>(slots.Length);
 
         foreach (var slot in slots)
         {

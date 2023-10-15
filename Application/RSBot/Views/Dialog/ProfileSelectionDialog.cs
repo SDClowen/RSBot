@@ -1,22 +1,13 @@
-﻿using RSBot.Core;
-using RSBot.Core.Components;
-using SDUI.Controls;
-using System;
+﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using RSBot.Core.Components;
+using SDUI.Controls;
 
 namespace RSBot.Views.Dialog;
 
 public partial class ProfileSelectionDialog : UIWindowBase
 {
-    /// <summary>
-    /// Gets the selected profile.
-    /// </summary>
-    /// <value>
-    /// The selected profile.
-    /// </value>
-    public string SelectedProfile { get; private set; }
-
     public ProfileSelectionDialog()
     {
         InitializeComponent();
@@ -24,6 +15,14 @@ public partial class ProfileSelectionDialog : UIWindowBase
         LoadProfiles();
         checkSaveSelection.Checked = !ProfileManager.ShowProfileDialog;
     }
+
+    /// <summary>
+    ///     Gets the selected profile.
+    /// </summary>
+    /// <value>
+    ///     The selected profile.
+    /// </value>
+    public string SelectedProfile { get; private set; }
 
     #region Methods
 

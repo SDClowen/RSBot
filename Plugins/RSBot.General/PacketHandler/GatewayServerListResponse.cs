@@ -1,7 +1,7 @@
-﻿using RSBot.Core;
+﻿using System.Collections.Generic;
+using RSBot.Core;
 using RSBot.Core.Network;
 using RSBot.General.Components;
-using System.Collections.Generic;
 using Server = RSBot.General.Models.Server;
 
 namespace RSBot.General.PacketHandler;
@@ -9,37 +9,28 @@ namespace RSBot.General.PacketHandler;
 internal class GatewayServerListResponse : IPacketHandler
 {
     /// <summary>
-    /// Gets or sets the opcode.
+    ///     Gets or sets the opcode.
     /// </summary>
     /// <value>
-    /// The opcode.
+    ///     The opcode.
     /// </value>
     public ushort Opcode => 0xA101;
 
     /// <summary>
-    /// Gets or sets the destination.
+    ///     Gets or sets the destination.
     /// </summary>
     /// <value>
-    /// The destination.
+    ///     The destination.
     /// </value>
     public PacketDestination Destination => PacketDestination.Client;
 
-    enum ServerStatusModern
-    {
-        Full,
-        Crowded,
-        Populate,
-        Easy,
-        Check
-    }
-
     /// <summary>
-    /// Handles the packet.
+    ///     Handles the packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     public void Invoke(Packet packet)
     {
-        Serverlist.Servers = new();
+        Serverlist.Servers = new List<Server>();
 
         while (packet.ReadByte() != 0)
         {
@@ -81,10 +72,8 @@ internal class GatewayServerListResponse : IPacketHandler
             }
 
             if (Game.ClientType == GameClientType.VTC_Game)
-            {
                 if (serverName.EndsWith("Thien_Kim"))
                     serverName = serverName.Remove(0, 3);
-            }
 
             Serverlist.Servers.Add(new Server
             {
@@ -93,18 +82,29 @@ internal class GatewayServerListResponse : IPacketHandler
                 CurrentCapacity = currentCapacity,
                 MaxCapacity = maxCapacity,
                 Status = Game.ClientType >= GameClientType.Global ? status != 4 : status == 1,
-                State = Game.ClientType >= GameClientType.Global ? $"{(ServerStatusModern)status}" : $"{currentCapacity}/{maxCapacity}"
+                State = Game.ClientType >= GameClientType.Global
+                    ? $"{(ServerStatusModern)status}"
+                    : $"{currentCapacity}/{maxCapacity}"
             });
 
             if (Game.ClientType == GameClientType.Vietnam)
                 packet.ReadByte(); // FarmId
 
-            if(Game.ClientType >= GameClientType.Global)
+            if (Game.ClientType >= GameClientType.Global)
                 Log.Debug($"Found server: {serverName} ({(ServerStatusModern)status})");
             else
                 Log.Debug($"Found server: {serverName} ({currentCapacity}/{maxCapacity})");
         }
 
         AutoLogin.Handle();
+    }
+
+    private enum ServerStatusModern
+    {
+        Full,
+        Crowded,
+        Populate,
+        Easy,
+        Check
     }
 }

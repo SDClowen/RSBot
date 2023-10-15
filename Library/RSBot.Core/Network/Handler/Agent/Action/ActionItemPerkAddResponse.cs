@@ -1,34 +1,13 @@
 ﻿using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
-using RSBot.Core.Objects.Spawn;
 
 namespace RSBot.Core.Network.Handler.Agent.Action;
 
 internal class ActionItemPerkAddResponse : IPacketHandler
 {
-    #region Properites
-
     /// <summary>
-    /// Gets or sets the opcode.
-    /// </summary>
-    /// <value>
-    /// The opcode.
-    /// </value>
-    public ushort Opcode => 0x325F;
-
-    /// <summary>
-    /// Gets or sets the destination.
-    /// </summary>
-    /// <value>
-    /// The destination.
-    /// </value>
-    public PacketDestination Destination => PacketDestination.Client;
-
-    #endregion Properites
-
-    /// <summary>
-    /// Invokes the specified packet.
+    ///     Invokes the specified packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     public void Invoke(Packet packet)
@@ -38,7 +17,7 @@ internal class ActionItemPerkAddResponse : IPacketHandler
         var token = packet.ReadUInt();
         var value = packet.ReadUInt();
         var remainingTime = packet.ReadUInt();
-           
+
         if (!SpawnManager.TryGetEntityIncludingMe(targetId, out var target))
             return;
 
@@ -62,4 +41,24 @@ internal class ActionItemPerkAddResponse : IPacketHandler
             EventManager.FireEvent("OnAddItemPerk", targetId, token);
         }
     }
+
+    #region Properites
+
+    /// <summary>
+    ///     Gets or sets the opcode.
+    /// </summary>
+    /// <value>
+    ///     The opcode.
+    /// </value>
+    public ushort Opcode => 0x325F;
+
+    /// <summary>
+    ///     Gets or sets the destination.
+    /// </summary>
+    /// <value>
+    ///     The destination.
+    /// </value>
+    public PacketDestination Destination => PacketDestination.Client;
+
+    #endregion Properites
 }

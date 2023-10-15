@@ -1,32 +1,33 @@
-﻿using RSBot.Core;
-using RSBot.Core.Network;
-using RSBot.General.Components;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using RSBot.Core;
+using RSBot.Core.Network;
+using RSBot.General.Components;
+using View = RSBot.General.Views.View;
 
 namespace RSBot.General.PacketHandler;
 
 internal class GatewayLoginResponse : IPacketHandler
 {
     /// <summary>
-    /// Gets or sets the opcode.
+    ///     Gets or sets the opcode.
     /// </summary>
     /// <value>
-    /// The opcode.
+    ///     The opcode.
     /// </value>
     public ushort Opcode => 0xA102;
 
     /// <summary>
-    /// Gets or sets the destination.
+    ///     Gets or sets the destination.
     /// </summary>
     /// <value>
-    /// The destination.
+    ///     The destination.
     /// </value>
     public PacketDestination Destination => PacketDestination.Client;
 
     /// <summary>
-    /// Handles the packet.
+    ///     Handles the packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     public void Invoke(Packet packet)
@@ -35,7 +36,7 @@ internal class GatewayLoginResponse : IPacketHandler
         {
             Log.NotifyLang("AuthGetewaySuccess");
             AutoLogin.Pending = false;
-            Views.View.PendingWindow?.Hide();
+            View.PendingWindow?.Hide();
 
             return;
         }
@@ -75,9 +76,9 @@ internal class GatewayLoginResponse : IPacketHandler
                 {
                     SynchronizationContext.SetSynchronizationContext(new WindowsFormsSynchronizationContext());
 
-                    Views.View.PendingWindow.Start(count, timestamp);
+                    View.PendingWindow.Start(count, timestamp);
                     if (!GlobalConfig.Get<bool>("RSBot.General.AutoHidePendingWindow"))
-                        Views.View.PendingWindow.ShowAtTop(Views.View.Instance);
+                        View.PendingWindow.ShowAtTop(View.Instance);
                 });
 
                 break;

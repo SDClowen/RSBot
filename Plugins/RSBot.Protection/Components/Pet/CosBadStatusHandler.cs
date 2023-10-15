@@ -7,7 +7,7 @@ namespace RSBot.Protection.Components.Pet;
 internal class CosBadStatusHandler
 {
     /// <summary>
-    /// Initializes this instance.
+    ///     Initializes this instance.
     /// </summary>
     public static void Initialize()
     {
@@ -15,7 +15,7 @@ internal class CosBadStatusHandler
     }
 
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     private static void SubscribeEvents()
     {
@@ -23,7 +23,7 @@ internal class CosBadStatusHandler
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///     <inheritdoc />
     /// </summary>
     private static void OnTick()
     {

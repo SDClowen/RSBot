@@ -3,27 +3,9 @@
 internal class TransferBuffer
 {
     private byte[] m_buffer;
+    private readonly object m_lock;
     private int m_offset;
     private int m_size;
-    private object m_lock;
-
-    public byte[] Buffer
-    {
-        get { return m_buffer; }
-        set { lock (m_lock) { m_buffer = value; } }
-    }
-
-    public int Offset
-    {
-        get { return m_offset; }
-        set { lock (m_lock) { m_offset = value; } }
-    }
-
-    public int Size
-    {
-        get { return m_size; }
-        set { lock (m_lock) { m_size = value; } }
-    }
 
     public TransferBuffer(TransferBuffer rhs)
     {
@@ -72,8 +54,45 @@ internal class TransferBuffer
             m_buffer = new byte[buffer.Length];
             System.Buffer.BlockCopy(buffer, 0, m_buffer, 0, buffer.Length);
         }
+
         m_offset = offset;
         m_size = size;
         m_lock = new object();
+    }
+
+    public byte[] Buffer
+    {
+        get => m_buffer;
+        set
+        {
+            lock (m_lock)
+            {
+                m_buffer = value;
+            }
+        }
+    }
+
+    public int Offset
+    {
+        get => m_offset;
+        set
+        {
+            lock (m_lock)
+            {
+                m_offset = value;
+            }
+        }
+    }
+
+    public int Size
+    {
+        get => m_size;
+        set
+        {
+            lock (m_lock)
+            {
+                m_size = value;
+            }
+        }
     }
 }

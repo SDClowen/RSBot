@@ -1,4 +1,8 @@
-﻿using RSBot.Alchemy.Bot;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
+using RSBot.Alchemy.Bot;
 using RSBot.Alchemy.Extension;
 using RSBot.Alchemy.Helper;
 using RSBot.Core;
@@ -6,23 +10,11 @@ using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace RSBot.Alchemy.Bundle.Enhance;
 
 internal class EnhanceBundle : IAlchemyBundle
 {
-    #region Members
-
-    private bool _shouldRun;
-
-    private IEnumerable<InventoryItem> _luckyPowders;
-
-    #endregion Members
-
     private EnhanceBundleConfig _config;
 
     private bool _isStoneFusing;
@@ -30,7 +22,7 @@ internal class EnhanceBundle : IAlchemyBundle
     #region Constructor
 
     /// <summary>
-    /// Subscribes events
+    ///     Subscribes events
     /// </summary>
     public EnhanceBundle()
     {
@@ -40,6 +32,14 @@ internal class EnhanceBundle : IAlchemyBundle
     }
 
     #endregion Constructor
+
+    #region Members
+
+    private bool _shouldRun;
+
+    private IEnumerable<InventoryItem> _luckyPowders;
+
+    #endregion Members
 
     #region Methods
 
@@ -52,7 +52,7 @@ internal class EnhanceBundle : IAlchemyBundle
     }
 
     /// <summary>
-    /// Starts this manager
+    ///     Starts this manager
     /// </summary>
     public void Start()
     {
@@ -60,7 +60,7 @@ internal class EnhanceBundle : IAlchemyBundle
     }
 
     /// <summary>
-    /// Subscribes all required events
+    ///     Subscribes all required events
     /// </summary>
     private void SubscribeEvents()
     {
@@ -75,7 +75,7 @@ internal class EnhanceBundle : IAlchemyBundle
     }
 
     /// <summary>
-    /// Runs a new tick of this manager
+    ///     Runs a new tick of this manager
     /// </summary>
     /// <param name="engineConfig"></param>
     public void Run<T>(T engineConfig)
@@ -132,7 +132,8 @@ internal class EnhanceBundle : IAlchemyBundle
         {
             Log.Warn($"[Alchemy] Item is already +{config.Item.OptLevel}");
 
-            Globals.View.AddLog(config.Item.Record.GetRealName(), $"The item's option level is {config.Item.OptLevel}/{config.MaxOptLevel}");
+            Globals.View.AddLog(config.Item.Record.GetRealName(),
+                $"The item's option level is {config.Item.OptLevel}/{config.MaxOptLevel}");
             Kernel.Bot.Stop();
 
             return;
@@ -236,7 +237,7 @@ internal class EnhanceBundle : IAlchemyBundle
     }
 
     /// <summary>
-    /// Sends the fuse packet to the server
+    ///     Sends the fuse packet to the server
     /// </summary>
     private void SendFusePacket()
     {
@@ -254,7 +255,7 @@ internal class EnhanceBundle : IAlchemyBundle
     #region Events
 
     /// <summary>
-    /// Will be triggered if any elixir alchemy operation was completed
+    ///     Will be triggered if any elixir alchemy operation was completed
     /// </summary>
     private void OnElixirAlchemy()
     {
@@ -262,10 +263,9 @@ internal class EnhanceBundle : IAlchemyBundle
     }
 
     /// <summary>
-    /// Will be triggered if any elixir alchemy operation was successful
+    ///     Will be triggered if any elixir alchemy operation was successful
     /// </summary>
     /// <param name="newItem"></param>
-
     private void OnElixirAlchemySuccess(InventoryItem oldItem, InventoryItem newItem, AlchemyType type)
     {
         if (Globals.Botbase.AlchemyEngine != AlchemyEngine.Enhance)
@@ -294,7 +294,7 @@ internal class EnhanceBundle : IAlchemyBundle
     }
 
     /// <summary>
-    /// Will be triggered if the selected item was destroyed. Logs a message and stops the bot
+    ///     Will be triggered if the selected item was destroyed. Logs a message and stops the bot
     /// </summary>
     /// <param name="oldItem">The the item that has been destroyed</param>
     /// <param name="type">The type of alchemy that was triggered</param>
@@ -304,7 +304,7 @@ internal class EnhanceBundle : IAlchemyBundle
     }
 
     /// <summary>
-    /// Will be triggered if any elixir alchemy operation has failed. Logs a message and resets the current item
+    ///     Will be triggered if any elixir alchemy operation has failed. Logs a message and resets the current item
     /// </summary>
     /// <param name="newItem">The new item after the action has failed</param>
     /// <param name="type">The type of alchemy that was triggered</param>
@@ -344,7 +344,7 @@ internal class EnhanceBundle : IAlchemyBundle
     }
 
     /// <summary>
-    /// Called when [fuse request].
+    ///     Called when [fuse request].
     /// </summary>
     /// <param name="action">The action.</param>
     /// <param name="type">The type.</param>

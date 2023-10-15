@@ -1,5 +1,4 @@
 ﻿using RSBot.Core;
-using RSBot.Core.Components;
 using RSBot.Core.Event;
 
 namespace RSBot.Protection.Components.Town;
@@ -7,7 +6,7 @@ namespace RSBot.Protection.Components.Town;
 public class PetInventoryFullHandler : AbstractTownHandler
 {
     /// <summary>
-    /// Initializes this instance.
+    ///     Initializes this instance.
     /// </summary>
     public static void Initialize()
     {
@@ -15,7 +14,7 @@ public class PetInventoryFullHandler : AbstractTownHandler
     }
 
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     private static void SubscribeEvents()
     {
@@ -26,16 +25,16 @@ public class PetInventoryFullHandler : AbstractTownHandler
     /// </summary>
     private static void OnUpdateInventory()
     {
-        if (!Kernel.Bot.Running) 
+        if (!Kernel.Bot.Running)
             return;
 
-        if (!PlayerConfig.Get<bool>("RSBot.Protection.checkFullPetInventory")) 
+        if (!PlayerConfig.Get<bool>("RSBot.Protection.checkFullPetInventory"))
             return;
 
-        if (Game.Player.AbilityPet == null) 
+        if (Game.Player.AbilityPet == null)
             return;
 
-        if (!Game.Player.AbilityPet.Inventory.Full) 
+        if (!Game.Player.AbilityPet.Inventory.Full)
             return;
 
         if (PlayerInTownScriptRegion())

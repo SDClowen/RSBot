@@ -1,33 +1,20 @@
-﻿using RSBot.Pk2.Types;
-using System.IO;
+﻿using System.IO;
+using RSBot.Pk2.Types;
 
 namespace RSBot.Core.Components.Pk2;
 
 public class ArchiveFile
 {
     /// <summary>
-    /// Gets or sets the path.
+    ///     Gets or sets the pk2 file.
     /// </summary>
     /// <value>
-    /// The path.
+    ///     The pk2 file.
     /// </value>
-    public string Path { get; set; }
+    private readonly PK2File _file;
 
     /// <summary>
-    /// Gets or sets the pk2 file.
-    /// </summary>
-    /// <value>
-    /// The pk2 file.
-    /// </value>
-    private PK2File _file;
-
-    /// <summary>
-    /// If file null <c>false</c> otherwise <c>true</c>
-    /// </summary>
-    public bool IsValid => _file != null;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ArchiveFile"/> class.
+    ///     Initializes a new instance of the <see cref="ArchiveFile" /> class.
     /// </summary>
     /// <param name="path">The path.</param>
     /// <param name="isPk2File">if set to <c>true</c> [is PK2 file].</param>
@@ -38,7 +25,20 @@ public class ArchiveFile
     }
 
     /// <summary>
-    /// Gets the data.
+    ///     Gets or sets the path.
+    /// </summary>
+    /// <value>
+    ///     The path.
+    /// </value>
+    public string Path { get; set; }
+
+    /// <summary>
+    ///     If file null <c>false</c> otherwise <c>true</c>
+    /// </summary>
+    public bool IsValid => _file != null;
+
+    /// <summary>
+    ///     Gets the data.
     /// </summary>
     public byte[] GetData()
     {
@@ -46,7 +46,7 @@ public class ArchiveFile
     }
 
     /// <summary>
-    /// Read all text.
+    ///     Read all text.
     /// </summary>
     /// <returns></returns>
     public string ReadAllText()
@@ -55,7 +55,7 @@ public class ArchiveFile
     }
 
     /// <summary>
-    /// Gets the stream.
+    ///     Gets the stream.
     /// </summary>
     /// <returns></returns>
     public Stream GetStream()

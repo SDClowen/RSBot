@@ -7,24 +7,24 @@ public struct ExchangeItem
     #region Fields
 
     /// <summary>
-    /// The source slot
+    ///     The source slot
     /// </summary>
     public byte SourceSlot;
 
     /// <summary>
-    /// The exchange slot
+    ///     The exchange slot
     /// </summary>
     public byte ExchangeSlot;
 
     /// <summary>
-    /// The item
+    ///     The item
     /// </summary>
     public InventoryItem Item;
 
     #endregion Fields
 
     /// <summary>
-    /// Returns an exchange item from the provided packet
+    ///     Returns an exchange item from the provided packet
     /// </summary>
     /// <param name="packet">The packet.</param>
     /// <param name="hasSource">if set to <c>true</c> [has source].</param>

@@ -1,54 +1,62 @@
-﻿using RSBot.Core.Client.ReferenceObjects;
-using RSBot.Core.Network;
-using RSBot.Core.Objects.Item;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Network;
 using RSBot.Core.Objects.Inventory;
+using RSBot.Core.Objects.Item;
 
 namespace RSBot.Core.Objects;
 
 public class InventoryItem
 {
+    private byte _optLevel;
+
     /// <summary>
-    /// Gets or sets the item identifier.
+    ///     Gets or sets the state.
     /// </summary>
     /// <value>
-    /// The item identifier.
+    ///     The state.
+    /// </value>
+    public InventoryItemCosInfo Cos;
+
+    /// <summary>
+    ///     Gets or sets the item identifier.
+    /// </summary>
+    /// <value>
+    ///     The item identifier.
     /// </value>
     public uint ItemId { get; set; }
 
     /// <summary>
-    /// Gets or sets the slot.
+    ///     Gets or sets the slot.
     /// </summary>
     /// <value>
-    /// The slot.
+    ///     The slot.
     /// </value>
     public byte Slot { get; set; }
 
     /// <summary>
-    /// Gets or sets the rental.
+    ///     Gets or sets the rental.
     /// </summary>
     /// <value>
-    /// The rental.
+    ///     The rental.
     /// </value>
     public RentInfo Rental { get; set; }
 
     /// <summary>
-    /// Gets or sets the record.
+    ///     Gets or sets the record.
     /// </summary>
     /// <value>
-    /// The record.
+    ///     The record.
     /// </value>
     public RefObjItem Record => Game.ReferenceManager.GetRefItem(ItemId);
-        
-    private byte _optLevel;
 
     /// <summary>
-    /// Gets or sets the opt level.
+    ///     Gets or sets the opt level.
     /// </summary>
     /// <value>
-    /// The opt level.
+    ///     The opt level.
     /// </value>
     public byte OptLevel
     {
@@ -57,77 +65,70 @@ public class InventoryItem
             if (BindingOptions == null)
                 return _optLevel;
 
-            var advancedElixirOptLevel = BindingOptions.Where(b => b.Type == BindingOptionType.AdvancedElixir).Sum(b => b.Value != null ? b.Value : 0);
+            var advancedElixirOptLevel = BindingOptions.Where(b => b.Type == BindingOptionType.AdvancedElixir)
+                .Sum(b => b.Value != null ? b.Value : 0);
 
             if (_optLevel + advancedElixirOptLevel > byte.MaxValue)
                 return byte.MaxValue;
 
-            return (byte) (_optLevel + advancedElixirOptLevel);
+            return (byte)(_optLevel + advancedElixirOptLevel);
         }
         set => _optLevel = value;
     }
 
     /// <summary>
-    /// Gets or sets the variance.
+    ///     Gets or sets the variance.
     /// </summary>
     /// <value>
-    /// The variance.
+    ///     The variance.
     /// </value>
     public ItemAttributesInfo Attributes { get; set; }
 
     /// <summary>
-    /// Gets or sets the data.
+    ///     Gets or sets the data.
     /// </summary>
     /// <value>
-    /// The data.
+    ///     The data.
     /// </value>
     public uint Durability { get; set; }
 
     /// <summary>
-    /// Gets or sets the magic options.
+    ///     Gets or sets the magic options.
     /// </summary>
     /// <value>
-    /// The magic options.
+    ///     The magic options.
     /// </value>
     public List<MagicOptionInfo> MagicOptions { get; set; }
 
     /// <summary>
-    /// Gets or sets the options.
+    ///     Gets or sets the options.
     /// </summary>
     /// <value>
-    /// The options.
+    ///     The options.
     /// </value>
     public List<BindingOption> BindingOptions { get; set; }
 
     /// <summary>
-    /// Gets or sets the amount.
+    ///     Gets or sets the amount.
     /// </summary>
     /// <value>
-    /// The amount.
+    ///     The amount.
     /// </value>
     public ushort Amount { get; set; }
 
     /// <summary>
-    /// Gets or sets the state.
+    ///     Gets or sets the state.
     /// </summary>
     /// <value>
-    /// The state.
+    ///     The state.
     /// </value>
     public InventoryItemState State { get; set; }
 
     /// <summary>
-    /// Gets or sets the state.
+    ///     Gets a value indicating whether [item skill in use].
     /// </summary>
     /// <value>
-    /// The state.
-    /// </value>
-    public InventoryItemCosInfo Cos;
-
-    /// <summary>
-    /// Gets a value indicating whether [item skill in use].
-    /// </summary>
-    /// <value>
-    ///   <c>true</c> if [item skill in use]; otherwise, <c>false</c>.
+    ///     <c>true</c> if [item skill in use]; otherwise, <c>false</c>.
     /// </value>
     public bool ItemSkillInUse
     {
@@ -137,7 +138,8 @@ public class InventoryItem
             var refSkill = GetRefSkill();
 
             if (refSkill != null)
-                return Game.Player.State.ActiveBuffs.FirstOrDefault(b => b.Record.ID == refSkill.ID || b.Record.Action_Overlap == refSkill.Action_Overlap) != null;
+                return Game.Player.State.ActiveBuffs.FirstOrDefault(b =>
+                    b.Record.ID == refSkill.ID || b.Record.Action_Overlap == refSkill.Action_Overlap) != null;
 
             var perk = Game.Player.State.ActiveItemPerks.Values.FirstOrDefault(p =>
                 p.ItemId == Record.ID ||
@@ -148,7 +150,7 @@ public class InventoryItem
     }
 
     /// <summary>
-    /// Uses the item
+    ///     Uses the item
     /// </summary>
     /// <returns></returns>
     public bool Use()
@@ -162,18 +164,20 @@ public class InventoryItem
             packet.WriteInt(Record.Tid);
         else
             packet.WriteUShort(Record.Tid);
-            
-        var asyncCallback = new AwaitCallback(response => response.ReadByte() == 0x01 ?
-            AwaitCallbackResult.Success : AwaitCallbackResult.Fail, 0xB04C);
+
+        var asyncCallback =
+            new AwaitCallback(
+                response => response.ReadByte() == 0x01 ? AwaitCallbackResult.Success : AwaitCallbackResult.Fail,
+                0xB04C);
 
         PacketManager.SendPacket(packet, PacketDestination.Server, asyncCallback);
         asyncCallback.AwaitResponse(500);
-            
+
         return asyncCallback.IsCompleted;
     }
 
     /// <summary>
-    /// Use the item for destination item
+    ///     Use the item for destination item
     /// </summary>
     /// <param name="destinationSlot">The destination item slot</param>
     public bool UseTo(byte destinationSlot, int mapId = -1)
@@ -191,8 +195,10 @@ public class InventoryItem
         if (mapId > -1)
             packet.WriteInt(mapId);
 
-        var asyncCallback = new AwaitCallback(response => response.ReadByte() == 0x01 ?
-            AwaitCallbackResult.Success : AwaitCallbackResult.Fail, 0xB04C);
+        var asyncCallback =
+            new AwaitCallback(
+                response => response.ReadByte() == 0x01 ? AwaitCallbackResult.Success : AwaitCallbackResult.Fail,
+                0xB04C);
 
         PacketManager.SendPacket(packet, PacketDestination.Server, asyncCallback);
         asyncCallback.AwaitResponse(500);
@@ -201,7 +207,7 @@ public class InventoryItem
     }
 
     /// <summary>
-    /// Use the item for destination item
+    ///     Use the item for destination item
     /// </summary>
     /// <param name="destinationSlot">The destination item slot</param>
     public void UseFor(uint uniqueId)
@@ -220,12 +226,12 @@ public class InventoryItem
     }
 
     /// <summary>
-    /// Equip the item
+    ///     Equip the item
     /// </summary>
     /// <param name="slot">The slot</param>
     public bool Equip(byte slot)
     {
-        int attempt = 0;
+        var attempt = 0;
         while (!Game.Player.Inventory.MoveItem(Slot, slot) &&
                Kernel.Bot.Running &&
                Game.Player.State.ScrollState == ScrollState.Cancel)
@@ -240,7 +246,7 @@ public class InventoryItem
     }
 
     /// <summary>
-    /// Drop the item
+    ///     Drop the item
     /// </summary>
     public bool Drop(bool cos = false, uint cosUniqueId = 0)
     {
@@ -248,13 +254,15 @@ public class InventoryItem
             return false;
 
         var packet = new Packet(0x7034);
-        if(cos)
+        if (cos)
         {
             packet.WriteByte(InventoryOperation.SP_DROP_ITEM_COS);
             packet.WriteUInt(cosUniqueId);
         }
         else
+        {
             packet.WriteByte(InventoryOperation.SP_DROP_ITEM);
+        }
 
         packet.WriteByte(Slot);
         PacketManager.SendPacket(packet, PacketDestination.Server);
@@ -263,7 +271,7 @@ public class InventoryItem
     }
 
     /// <summary>
-    /// Parse from incoming packet
+    ///     Parse from incoming packet
     /// </summary>
     /// <param name="packet">The packet</param>
     /// <param name="destinationSlot">The destination slot</param>
@@ -279,10 +287,7 @@ public class InventoryItem
             Slot = destinationSlot
         };
 
-        if (destinationSlot == 0xFE)
-        {
-            item.Slot = packet.ReadByte();
-        }
+        if (destinationSlot == 0xFE) item.Slot = packet.ReadByte();
 
         if (Game.ClientType > GameClientType.Thailand)
             item.Rental = RentInfo.FromPacket(packet);
@@ -352,7 +357,7 @@ public class InventoryItem
                     item.Cos.Level = packet.ReadByte(); // cos level
 
                 var buffCount = packet.ReadByte();
-                for (int i = 0; i < buffCount; i++)
+                for (var i = 0; i < buffCount; i++)
                 {
                     var buffType = packet.ReadByte();
                     if (buffType == 0 || buffType == 20 || buffType == 6)
@@ -408,14 +413,13 @@ public class InventoryItem
                 //Owner name (Player name)
                 packet.ReadString();
         }
-            
 
 
         return item;
     }
 
     /// <summary>
-    /// Gets the filter.
+    ///     Gets the filter.
     /// </summary>
     /// <returns></returns>
     public TypeIdFilter GetFilter()
@@ -455,7 +459,7 @@ public class InventoryItem
 
     public override bool Equals(object obj)
     {
-        if(obj is TypeIdFilter filter)
+        if (obj is TypeIdFilter filter)
             return filter.EqualsRefItem(Record);
 
         return false;

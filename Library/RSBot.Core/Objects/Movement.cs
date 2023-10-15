@@ -1,47 +1,47 @@
-﻿using RSBot.Core.Network;
-using System;
+﻿using System;
+using RSBot.Core.Network;
 
 namespace RSBot.Core.Objects;
 
 public struct Movement
 {
     /// <summary>
-    /// Gets or sets the type.
+    ///     Gets or sets the type.
     /// </summary>
     public MovementType Type;
 
     /// <summary>
-    /// Gets or sets the type.
+    ///     Gets or sets the type.
     /// </summary>
     public bool Moving;
 
     /// <summary>
-    /// Gets or sets the has destination.
+    ///     Gets or sets the has destination.
     /// </summary>
     public bool HasDestination;
 
     /// <summary>
-    /// Gets or sets the destination.
+    ///     Gets or sets the destination.
     /// </summary>
     public Position Destination;
 
     /// <summary>
-    /// Gets or sets the has source.
+    ///     Gets or sets the has source.
     /// </summary>
     public bool HasSource;
 
     /// <summary>
-    /// Gets or sets the source.
+    ///     Gets or sets the source.
     /// </summary>
     public Position Source;
 
     /// <summary>
-    /// Gets or sets the has angle.
+    ///     Gets or sets the has angle.
     /// </summary>
     public bool HasAngle;
 
     /// <summary>
-    /// Gets or sets the angle.
+    ///     Gets or sets the angle.
     /// </summary>
     public float Angle;
 
@@ -49,7 +49,7 @@ public struct Movement
     internal TimeSpan RemainingTime;
 
     /// <summary>
-    /// Motion from packet.
+    ///     Motion from packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     /// <returns></returns>
@@ -74,7 +74,7 @@ public struct Movement
         result.HasSource = packet.ReadBool();
         if (result.HasSource)
         {
-            result.Source = new()
+            result.Source = new Position
             {
                 Region = packet.ReadUShort()
             };
@@ -97,7 +97,7 @@ public struct Movement
     }
 
     /// <summary>
-    /// Froms the packet.
+    ///     Froms the packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     /// <returns></returns>

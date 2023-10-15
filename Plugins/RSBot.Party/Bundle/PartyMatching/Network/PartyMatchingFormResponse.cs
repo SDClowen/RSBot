@@ -1,4 +1,5 @@
 ﻿using RSBot.Core;
+using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Network;
 using RSBot.Core.Objects.Party;
@@ -8,20 +9,20 @@ namespace RSBot.Party.Bundle.PartyMatching.Network;
 internal class PartyMatchingFormResponse : IPacketHandler
 {
     /// <summary>
-    /// Gets or sets the opcode.
+    ///     Gets or sets the opcode.
     /// </summary>
     /// <value>The opcode.</value>
     public ushort Opcode => 0xB069;
 
     /// <summary>
-    /// Gets or sets the destination.
+    ///     Gets or sets the destination.
     /// </summary>
     /// <value>The destination.</value>
     /// <exception cref="System.NotImplementedException"></exception>
     public PacketDestination Destination => PacketDestination.Client;
 
     /// <summary>
-    /// Handles the packet.
+    ///     Handles the packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     public void Invoke(Packet packet)
@@ -40,6 +41,6 @@ internal class PartyMatchingFormResponse : IPacketHandler
         Container.PartyMatching.Config.LevelTo = packet.ReadByte();
         Container.PartyMatching.Config.Title = packet.ReadConditonalString();
 
-        Core.Event.EventManager.FireEvent("OnCreatePartyEntry");
+        EventManager.FireEvent("OnCreatePartyEntry");
     }
 }

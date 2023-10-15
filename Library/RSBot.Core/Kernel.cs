@@ -1,70 +1,70 @@
-﻿using RSBot.Core.Components;
-using RSBot.Core.Event;
-using RSBot.Core.Network;
-using RSBot.Core.Plugins;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using RSBot.Core.Components;
+using RSBot.Core.Event;
+using RSBot.Core.Network;
+using RSBot.Core.Plugins;
 
 namespace RSBot.Core;
 
 public static class Kernel
 {
     /// <summary>
-    /// The updater token source
+    ///     The updater token source
     /// </summary>
     private static CancellationTokenSource _updaterTokenSource;
 
     /// <summary>
-    /// Gets or sets the botbase manager.
+    ///     Gets or sets the botbase manager.
     /// </summary>
     /// <value>
-    /// The botbase manager.
+    ///     The botbase manager.
     /// </value>
     public static BotbaseManager BotbaseManager { get; private set; }
 
     /// <summary>
-    /// Gets the plugin manager.
+    ///     Gets the plugin manager.
     /// </summary>
     /// <value>
-    /// The plugin manager.
+    ///     The plugin manager.
     /// </value>
     public static PluginManager PluginManager { get; private set; }
 
     /// <summary>
-    /// Gets the proxy.
+    ///     Gets the proxy.
     /// </summary>
     /// <value>
-    /// The proxy.
+    ///     The proxy.
     /// </value>
     public static Proxy Proxy { get; set; }
 
     /// <summary>
-    /// Gets or sets the bot.
+    ///     Gets or sets the bot.
     /// </summary>
     /// <value>
-    /// The bot.
+    ///     The bot.
     /// </value>
     public static Bot Bot { get; set; }
 
     /// <summary>
-    /// The application language
+    ///     The application language
     /// </summary>
     public static string Language { get; set; }
 
     /// <summary>
-    /// Get environment fixed tick count
+    ///     Get environment fixed tick count
     /// </summary>
-    public static int TickCount => (Environment.TickCount & int.MaxValue);
+    public static int TickCount => Environment.TickCount & int.MaxValue;
 
     /// <summary>
-    /// Get environment base directory
+    ///     Get environment base directory
     /// </summary>
     public static string BasePath => AppDomain.CurrentDomain.BaseDirectory;
 
     /// <summary>
-    /// Initializes this instance.
+    ///     Initializes this instance.
     /// </summary>
     public static void Initialize()
     {
@@ -78,7 +78,8 @@ public static class Kernel
 
         _updaterTokenSource = new CancellationTokenSource();
 
-        Task.Factory.StartNew(ComponentUpdaterAsync, _updaterTokenSource.Token, TaskCreationOptions.LongRunning, TaskScheduler.Current);
+        Task.Factory.StartNew(ComponentUpdaterAsync, _updaterTokenSource.Token, TaskCreationOptions.LongRunning,
+            TaskScheduler.Current);
     }
 
     private static async Task ComponentUpdaterAsync()
@@ -114,7 +115,7 @@ public static class Kernel
                 Game.Player.Fellow?.Update(elapsed);
 
                 SpawnManager.Update(elapsed);
-                    
+
                 CollisionManager.Update(Game.Player.Position.Region);
 
                 EventManager.FireEvent("OnTick");
@@ -129,7 +130,7 @@ public static class Kernel
     }
 
     /// <summary>
-    /// Registers the network handler.
+    ///     Registers the network handler.
     /// </summary>
     private static void RegisterNetworkHandlers()
     {
@@ -147,7 +148,7 @@ public static class Kernel
     }
 
     /// <summary>
-    /// Registers the network hooks.
+    ///     Registers the network hooks.
     /// </summary>
     private static void RegisterNetworkHooks()
     {

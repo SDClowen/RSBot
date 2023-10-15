@@ -34,5 +34,5 @@ public enum TalkOption : byte
     Consigment = 35,
     SummonPartyMember = 39,
     TeleportExitFortressDungeon = 40,
-    TeleportExitDungeon = 41,
+    TeleportExitDungeon = 41
 }

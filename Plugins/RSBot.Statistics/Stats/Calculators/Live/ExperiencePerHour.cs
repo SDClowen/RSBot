@@ -1,26 +1,26 @@
-﻿using RSBot.Core;
-using RSBot.Core.Components;
-using System;
+﻿using System;
 using System.Linq;
+using RSBot.Core;
+using RSBot.Core.Components;
 
 namespace RSBot.Statistics.Stats.Calculators.Live;
 
 internal class ExperiencePerHour : IStatisticCalculator
 {
     /// <summary>
-    /// The initial value
+    ///     The current tick index
+    /// </summary>
+    private int _currentTickIndex = -1;
+
+    /// <summary>
+    ///     The initial value
     /// </summary>
     private double _lastTickValue;
 
     /// <summary>
-    /// The values
+    ///     The values
     /// </summary>
     private double[] _values;
-
-    /// <summary>
-    /// The current tick index
-    /// </summary>
-    private int _currentTickIndex = -1;
 
     /// <inheritdoc />
     public string Name => "EXPPerHour";
@@ -43,8 +43,8 @@ internal class ExperiencePerHour : IStatisticCalculator
         if (!Game.Ready)
             return 0;
 
-        var currentPercent = ((double)Game.Player.Experience /
-                              (double)Game.ReferenceManager.GetRefLevel(Game.Player.Level).Exp_C) * 100;
+        var currentPercent = Game.Player.Experience /
+            (double)Game.ReferenceManager.GetRefLevel(Game.Player.Level).Exp_C * 100;
 
         if (++_currentTickIndex >= _values.Length)
             _currentTickIndex = 0;
@@ -58,8 +58,8 @@ internal class ExperiencePerHour : IStatisticCalculator
     /// <inheritdoc />
     public void Reset()
     {
-        _lastTickValue = ((double)Game.Player.Experience /
-                          (double)Game.ReferenceManager.GetRefLevel(Game.Player.Level).Exp_C) * 100;
+        _lastTickValue = Game.Player.Experience /
+            (double)Game.ReferenceManager.GetRefLevel(Game.Player.Level).Exp_C * 100;
 
         _values = new double[60];
     }

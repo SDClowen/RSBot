@@ -1,9 +1,9 @@
-﻿using RSBot.Core;
+﻿using System;
+using System.Linq;
+using RSBot.Core;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Party;
 using SDUI.Controls;
-using System;
-using System.Linq;
 
 namespace RSBot.Party.Views;
 
@@ -18,11 +18,13 @@ public partial class AutoFormParty : UIWindowBase
     {
         cb_AutoReform.Checked = Bundle.Container.PartyMatching.Config.AutoReform;
         cb_AutoAccept.Checked = Bundle.Container.PartyMatching.Config.AutoAccept;
-        gbObjective.Controls.OfType<Radio>().FirstOrDefault(p => p.Name == "rbtn_" + Bundle.Container.PartyMatching.Config.Purpose).Checked = true;
+        gbObjective.Controls.OfType<Radio>()
+            .FirstOrDefault(p => p.Name == "rbtn_" + Bundle.Container.PartyMatching.Config.Purpose).Checked = true;
 
         if (Game.Player.Inventory.GetItemAt(8) != null)
         {
-            rbtn_Trade.Enabled = Game.Player.JobInformation.Type == JobType.Trade || Game.Player.JobInformation.Type == JobType.Hunter;
+            rbtn_Trade.Enabled = Game.Player.JobInformation.Type == JobType.Trade ||
+                                 Game.Player.JobInformation.Type == JobType.Hunter;
             rbtn_Trade.Checked = rbtn_Trade.Enabled;
 
             rbtn_Thief.Enabled = Game.Player.JobInformation.Type == JobType.Thief;
@@ -32,9 +34,12 @@ public partial class AutoFormParty : UIWindowBase
             rbtn_Quest.Enabled = false;
         }
         else if ((byte)Bundle.Container.PartyMatching.Config.Purpose > 1)
+        {
             rbtn_Hunting.Checked = true;
+        }
 
-        var settingStr = Game.Party.Settings.ToString().Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+        var settingStr = Game.Party.Settings.ToString()
+            .Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
         label_partytype.Text = settingStr[0];
         label_partytype2.Text = settingStr[1];
 
@@ -82,7 +87,7 @@ public partial class AutoFormParty : UIWindowBase
         }
         else
         {
-            tb_Title.Text = Game.ReferenceManager.GetTranslation("UIIT_MSG_PARTYMATCH_RECORD_DEFAULT" + rbtn?.Tag.ToString());
+            tb_Title.Text = Game.ReferenceManager.GetTranslation("UIIT_MSG_PARTYMATCH_RECORD_DEFAULT" + rbtn?.Tag);
 
             if (!string.IsNullOrWhiteSpace(tb_Title.Text))
                 Bundle.Container.PartyMatching.Config.Title = tb_Title.Text;

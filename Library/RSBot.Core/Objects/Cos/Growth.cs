@@ -1,43 +1,42 @@
 ﻿using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Network;
-using System;
 
 namespace RSBot.Core.Objects.Cos;
 
 public class Growth : Cos
 {
     /// <summary>
-    /// Gets or sets the current hunger points.
-    /// </summary>
-    /// <value>
-    /// The current hunger points.
-    /// </value>
-    public ushort CurrentHungerPoints { get; set; }
-
-    /// <summary>
-    /// Gets the maximum hunger points.
-    /// </summary>
-    /// <value>
-    /// The maximum hunger points.
-    /// </value>
-    public ushort MaxHungerPoints => 10000;
-
-    /// <summary>
-    /// Gets or sets a value indicating whether this cos is offensive
-    /// </summary>
-    /// <value>
-    /// <c>true</c> if this cos is offensive; otherwise, <c>false</c>.
-    /// </value>
-    public bool IsOffensive => (Settings & 1) == 1;
-
-    /// <summary>
-    /// Hunger last tick
+    ///     Hunger last tick
     /// </summary>
     private int _lastHungerTick;
 
     /// <summary>
-    /// Deserialize the packet.
+    ///     Gets or sets the current hunger points.
+    /// </summary>
+    /// <value>
+    ///     The current hunger points.
+    /// </value>
+    public ushort CurrentHungerPoints { get; set; }
+
+    /// <summary>
+    ///     Gets the maximum hunger points.
+    /// </summary>
+    /// <value>
+    ///     The maximum hunger points.
+    /// </value>
+    public ushort MaxHungerPoints => 10000;
+
+    /// <summary>
+    ///     Gets or sets a value indicating whether this cos is offensive
+    /// </summary>
+    /// <value>
+    ///     <c>true</c> if this cos is offensive; otherwise, <c>false</c>.
+    /// </value>
+    public bool IsOffensive => (Settings & 1) == 1;
+
+    /// <summary>
+    ///     Deserialize the packet.
     /// </summary>
     /// <param name="packet">The packet.</param>
     /// <returns></returns>
@@ -58,7 +57,7 @@ public class Growth : Cos
     }
 
     /// <summary>
-    /// Uses the hunger potion.
+    ///     Uses the hunger potion.
     /// </summary>
     /// <returns></returns>
     public bool UseHungerPotion()
@@ -82,7 +81,7 @@ public class Growth : Cos
     }
 
     /// <summary>
-    /// Update the entity
+    ///     Update the entity
     /// </summary>
     public override bool Update(int delta)
     {

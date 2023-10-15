@@ -1,47 +1,47 @@
-﻿using RSBot.Core.Objects.Spawn;
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
+using RSBot.Core.Objects.Spawn;
 
 namespace RSBot.Core.Objects;
 
 public struct Area
 {
     /// <summary>
-    /// Gets or sets the name.
+    ///     Gets or sets the name.
     /// </summary>
     /// <value>
-    /// The center name.
+    ///     The center name.
     /// </value>
     public string Name;
 
     /// <summary>
-    /// Gets or sets the center position.
+    ///     Gets or sets the center position.
     /// </summary>
     /// <value>
-    /// The center position.
+    ///     The center position.
     /// </value>
     public Position Position;
 
     /// <summary>
-    /// Gets or sets the radius.
+    ///     Gets or sets the radius.
     /// </summary>
     /// <value>
-    /// The radius.
+    ///     The radius.
     /// </value>
     public int Radius;
 
     /// <summary>
-    /// The random
+    ///     The random
     /// </summary>
     private static readonly Random _random = new(Environment.TickCount);
 
     /// <summary>
-    /// Initialize the instance
+    ///     Initialize the instance
     /// </summary>
     /// <param name="name">The area name</param>
     /// <param name="pos">The circle pos</param>
     /// <param name="radius">the circle radius</param>
-    public Area(string name, Position pos, int radius) 
+    public Area(string name, Position pos, int radius)
     {
         Name = name;
         Position = pos;
@@ -49,7 +49,7 @@ public struct Area
     }
 
     /// <summary>
-    /// Return training area from split
+    ///     Return training area from split
     /// </summary>
     public static bool TryParse(string[] split, out Area area)
     {
@@ -73,17 +73,17 @@ public struct Area
         if (!int.TryParse(split[5], out var radius))
             return false;
 
-        area.Position = new(regionId, xOffset, yOffset, zOffset);
+        area.Position = new Position(regionId, xOffset, yOffset, zOffset);
         area.Radius = Math.Clamp(radius, 5, 100);
-        
+
         return true;
     }
 
     /// <summary>
-    /// Is destination position in sight
+    ///     Is destination position in sight
     /// </summary>
     /// <param name="position">The position.</param>
-    /// <returns>If is in sight: <seealso cref="true"/> otherwise <seealso cref="false"/></returns>
+    /// <returns>If is in sight: <seealso cref="true" /> otherwise <seealso cref="false" /></returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public bool IsInSight(SpawnedEntity entity)
     {
@@ -91,15 +91,15 @@ public struct Area
     }
 
     /// <summary>
-    /// Get random position on this area
+    ///     Get random position on this area
     /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public Position GetRandomPosition()
     {
         var angle = _random.Next(360);
 
-        var newPosX = Position.X + (Radius / 2) * MathF.Cos(angle);
-        var newPosY = Position.Y + (Radius / 2) * MathF.Sin(angle);
+        var newPosX = Position.X + Radius / 2 * MathF.Cos(angle);
+        var newPosY = Position.Y + Radius / 2 * MathF.Sin(angle);
 
         return new Position(newPosX, newPosY, Position.Region);
     }

@@ -3,36 +3,14 @@
 public class PK2Config
 {
     /// <summary>
-    /// Gets or sets the mode.
+    ///     Initializes a new instance of the <see cref="PK2Config" /> class.
     /// </summary>
-    /// <value>
-    /// The mode.
-    /// </value>
-    public PK2Mode Mode { get; set; }
+    public PK2Config()
+    {
+    }
 
     /// <summary>
-    /// Gets or sets the key.
-    /// </summary>
-    /// <value>
-    /// The key.
-    /// </value>
-    public string Key { get; set; }
-
-    /// <summary>
-    /// Gets or sets the base key.
-    /// </summary>
-    /// <value>
-    /// The base key.
-    /// </value>
-    public byte[] BaseKey { get; set; }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="PK2Config"/> class.
-    /// </summary>
-    public PK2Config() { }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="PK2Config" /> class.
+    ///     Initializes a new instance of the <see cref="PK2Config" /> class.
     /// </summary>
     /// <param name="mode">The mode.</param>
     /// <param name="key">The key.</param>
@@ -45,7 +23,7 @@ public class PK2Config
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PK2Config" /> class.
+    ///     Initializes a new instance of the <see cref="PK2Config" /> class.
     /// </summary>
     /// <param name="mode">The mode.</param>
     /// <param name="key">The key.</param>
@@ -57,7 +35,7 @@ public class PK2Config
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PK2Config" /> class.
+    ///     Initializes a new instance of the <see cref="PK2Config" /> class.
     /// </summary>
     /// <param name="mode">The mode.</param>
     public PK2Config(PK2Mode mode)
@@ -68,11 +46,36 @@ public class PK2Config
     }
 
     /// <summary>
-    /// Gets the default configuration.
+    ///     Gets or sets the mode.
+    /// </summary>
+    /// <value>
+    ///     The mode.
+    /// </value>
+    public PK2Mode Mode { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the key.
+    /// </summary>
+    /// <value>
+    ///     The key.
+    /// </value>
+    public string Key { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the base key.
+    /// </summary>
+    /// <value>
+    ///     The base key.
+    /// </value>
+    public byte[] BaseKey { get; set; }
+
+    /// <summary>
+    ///     Gets the default configuration.
     /// </summary>
     /// <returns></returns>
     public static PK2Config GetDefault()
     {
-        return new PK2Config(PK2Mode.Index, "169841", new byte[] { 0x03, 0xF8, 0xE4, 0x44, 0x88, 0x99, 0x3F, 0x64, 0xFE, 0x35 });
+        return new PK2Config(PK2Mode.Index, "169841",
+            new byte[] { 0x03, 0xF8, 0xE4, 0x44, 0x88, 0x99, 0x3F, 0x64, 0xFE, 0x35 });
     }
 }

@@ -7,7 +7,7 @@ namespace RSBot.Protection.Components.Player;
 public class HealthManaRecoveryHandler
 {
     /// <summary>
-    /// Initialize the <see cref="HealthRecoveryHandler"/>
+    ///     Initialize the <see cref="HealthRecoveryHandler" />
     /// </summary>
     public static void Initialize()
     {
@@ -15,7 +15,7 @@ public class HealthManaRecoveryHandler
     }
 
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     private static void SubscribeEvents()
     {
@@ -23,13 +23,13 @@ public class HealthManaRecoveryHandler
     }
 
     /// <summary>
-    /// Cores the on player HP update.
+    ///     Cores the on player HP update.
     /// </summary>
     /// <exception cref="System.NotImplementedException"></exception>
     private static void OnUpdateHP()
     {
         var autoHealth = PlayerConfig.Get<bool>("RSBot.Protection.checkUseHPPotionsPlayer");
-        if (!autoHealth) 
+        if (!autoHealth)
             return;
 
         if ((Game.Player.BadEffect & BadEffect.Zombie) == BadEffect.Zombie)
@@ -43,7 +43,7 @@ public class HealthManaRecoveryHandler
     }
 
     /// <summary>
-    /// Cores the on player MP update.
+    ///     Cores the on player MP update.
     /// </summary>
     /// <exception cref="System.NotImplementedException"></exception>
     private static void OnUpdateMP()
@@ -53,14 +53,14 @@ public class HealthManaRecoveryHandler
             return;
 
         var minMana = PlayerConfig.Get("RSBot.Protection.numPlayerMPPotionMin", 50);
-            
+
         var manaPercent = 100.0 * Game.Player.Mana / Game.Player.MaximumMana;
         if (manaPercent <= minMana)
             Game.Player.UseManaPotion();
     }
 
     /// <summary>
-    /// On tick
+    ///     On tick
     /// </summary>
     private static void OnTick()
     {

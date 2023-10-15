@@ -1,13 +1,13 @@
-﻿using RSBot.Core;
+﻿using System;
+using RSBot.Core;
 using RSBot.Core.Event;
-using System;
 
 namespace RSBot.Inventory.Subscriber;
 
 internal class BuyItemSubscriber
 {
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     public static void SubscribeEvents()
     {
@@ -22,7 +22,7 @@ internal class BuyItemSubscriber
         var itemAtSlot = Game.Player.Inventory.GetItemAt(slot);
 
         //Only stackable items
-        if (itemAtSlot?.Record.MaxStack == 1 || itemAtSlot?.Record.MaxStack == 0) 
+        if (itemAtSlot?.Record.MaxStack == 1 || itemAtSlot?.Record.MaxStack == 0)
             return;
 
         var itemsOfSameKind = Game.Player.Inventory.GetNormalPartItems(itemAtSlot.ItemId);
@@ -34,7 +34,8 @@ internal class BuyItemSubscriber
 
             if (item.Record.MaxStack - item.Amount >= itemAtSlot.Amount)
             {
-                Log.Debug($"Merging item {itemAtSlot.Record.GetRealName()} ({itemAtSlot.Amount}) with {item.Record.GetRealName()} ({item.Amount})");
+                Log.Debug(
+                    $"Merging item {itemAtSlot.Record.GetRealName()} ({itemAtSlot.Amount}) with {item.Record.GetRealName()} ({item.Amount})");
                 Game.Player.Inventory.MoveItem(slot, item.Slot, item.Amount);
                 break;
             }

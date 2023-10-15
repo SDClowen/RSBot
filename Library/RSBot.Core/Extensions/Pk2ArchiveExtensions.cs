@@ -1,17 +1,18 @@
-﻿using RSBot.Core.Client;
-using System;
+﻿using System;
 using System.Drawing;
+using RSBot.Core.Client;
+using RSBot.Core.Components.Pk2;
 
 namespace RSBot.Core.Extensions;
 
 public static class Pk2Extensions
 {
     /// <summary>
-    /// Gets the stream from a DDJ file in the Pk2 archive and converts the DDS Format to System.Image.
+    ///     Gets the stream from a DDJ file in the Pk2 archive and converts the DDS Format to System.Image.
     /// </summary>
     /// <param name="file">The archive.</param>
     /// <returns></returns>
-    public static Image ToImage(this Components.Pk2.ArchiveFile file)
+    public static Image ToImage(this ArchiveFile file)
     {
         var ddjBuffer = file.GetData();
 

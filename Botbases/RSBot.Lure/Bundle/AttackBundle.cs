@@ -1,6 +1,5 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Components;
-using RSBot.Core.Event;
 using RSBot.Lure.Components;
 
 namespace RSBot.Lure.Bundle;

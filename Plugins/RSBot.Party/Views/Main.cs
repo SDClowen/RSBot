@@ -1,4 +1,12 @@
-﻿using RSBot.Core;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Extensions;
@@ -6,49 +14,38 @@ using RSBot.Core.Objects.Party;
 using RSBot.Core.Objects.Skill;
 using SDUI;
 using SDUI.Controls;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using Button = SDUI.Controls.Button;
+using ListViewExtensions = RSBot.Core.Extensions.ListViewExtensions;
 
 namespace RSBot.Party.Views;
 
-[System.ComponentModel.ToolboxItem(false)]
+[ToolboxItem(false)]
 public partial class Main : UserControl
 {
     /// <summary>
-    /// <inheritdoc/>
+    ///     <inheritdoc />
     /// </summary>
     private bool _applySettings = true;
 
     /// <summary>
-    /// The buffing party member list
+    ///     The buffing party member list
     /// </summary>
     private List<BuffingPartyMember> _buffings;
 
     /// <summary>
-    /// The selected buffing group
+    ///     The selected buffing group
     /// </summary>
     private ListViewItem _selectedBuffingGroup;
 
     /// <summary>
-    /// Translated No Guild Text
-    /// </summary>
-    private string _noGuildText => LanguageManager.GetLang("NoGuild");
-    private string _none => LanguageManager.GetLang("none");
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Main"/> class.
+    ///     Initializes a new instance of the <see cref="Main" /> class.
     /// </summary>
     public Main()
     {
         InitializeComponent();
 
-        selectedMemberBuffs.SmallImageList = Core.Extensions.ListViewExtensions.StaticImageList;
-        listPartyBuffSkills.SmallImageList = Core.Extensions.ListViewExtensions.StaticImageList;
+        selectedMemberBuffs.SmallImageList = ListViewExtensions.StaticImageList;
+        listPartyBuffSkills.SmallImageList = ListViewExtensions.StaticImageList;
 
         _selectedBuffingGroup = new ListViewItem();
         _buffings = new List<BuffingPartyMember>();
@@ -59,7 +56,14 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Subscribes the events.
+    ///     Translated No Guild Text
+    /// </summary>
+    private string _noGuildText => LanguageManager.GetLang("NoGuild");
+
+    private string _none => LanguageManager.GetLang("none");
+
+    /// <summary>
+    ///     Subscribes the events.
     /// </summary>
     private void SubscribeEvents()
     {
@@ -76,7 +80,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Add new party member
+    ///     Add new party member
     /// </summary>
     /// <param name="member"></param>
     public void AddNewPartyMember(PartyMember member)
@@ -106,7 +110,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Load the buffing groups
+    ///     Load the buffing groups
     /// </summary>
     /// <returns>The groups</returns>
     private string[] LoadBuffingGroups()
@@ -115,7 +119,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Save the buffing groups
+    ///     Save the buffing groups
     /// </summary>
     private void SaveBuffingGroups()
     {
@@ -124,7 +128,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Get party buffing members from the config
+    ///     Get party buffing members from the config
     /// </summary>
     /// <returns>Configured buffed party members</returns>
     private void LoadBuffingMembers()
@@ -141,7 +145,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Saves the buffing party members
+    ///     Saves the buffing party members
     /// </summary>
     /// <param name="members"></param>
     private void SaveBuffingPartyMembers()
@@ -157,27 +161,29 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Saves the automatic party player list.
+    ///     Saves the automatic party player list.
     /// </summary>
     private void SaveAutoPartyPlayerList()
     {
-        PlayerConfig.SetArray("RSBot.Party.AutoPartyList", listAutoParty.Items.OfType<ListViewItem>().Select(p => p.Text).ToArray());
+        PlayerConfig.SetArray("RSBot.Party.AutoPartyList",
+            listAutoParty.Items.OfType<ListViewItem>().Select(p => p.Text).ToArray());
 
         Bundle.Container.Refresh();
     }
 
     /// <summary>
-    /// Saves the automatic party player list.
+    ///     Saves the automatic party player list.
     /// </summary>
     private void SaveCommandPlayersList()
     {
-        PlayerConfig.SetArray("RSBot.Party.Commands.PlayersList", listCommandPlayers.Items.OfType<ListViewItem>().Select(p => p.Text).ToArray());
+        PlayerConfig.SetArray("RSBot.Party.Commands.PlayersList",
+            listCommandPlayers.Items.OfType<ListViewItem>().Select(p => p.Text).ToArray());
 
         Bundle.Container.Refresh();
     }
 
     /// <summary>
-    /// Refresh the buffing group members
+    ///     Refresh the buffing group members
     /// </summary>
     private void RefreshGroupMembers()
     {
@@ -190,21 +196,19 @@ public partial class Main : UserControl
             itemGroup.SubItems[1].Text = members.Count.ToString();
 
             if (itemGroup.Text == _selectedBuffingGroup.Text)
-            {
                 foreach (var member in members)
                 {
                     var item = listViewPartyMembers.Items.Add(member.Name, member.Name, 0);
                     if (item.Index == 0)
                         item.Selected = true;
                 }
-            }
         }
 
         LoadPartyBuffSkills();
     }
 
     /// <summary>
-    /// Requests the party list.
+    ///     Requests the party list.
     /// </summary>
     private void RequestPartyList(byte page = 0)
     {
@@ -241,7 +245,7 @@ public partial class Main : UserControl
                 listItem.ToolTipText = party.Settings.ToString();
                 if (party.Leader == Game.Player.Name ||
                     party.Leader == Game.Player.JobInformation.Name ||
-                    (Game.Party?.Leader?.Name == party.Leader))
+                    Game.Party?.Leader?.Name == party.Leader)
                 {
                     listItem.Font = new Font(Font, FontStyle.Bold);
 
@@ -252,6 +256,7 @@ public partial class Main : UserControl
 
                     continue;
                 }
+
                 listViewItems.Add(listItem);
             }
 
@@ -263,7 +268,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Loads the settings.
+    ///     Loads the settings.
     /// </summary>
     private void LoadSettings()
     {
@@ -301,7 +306,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// This event will fire as soon as character loaded
+    ///     This event will fire as soon as character loaded
     /// </summary>
     private void OnLoadCharacter()
     {
@@ -339,10 +344,10 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Load party related buffs
+    ///     Load party related buffs
     /// </summary>
     /// <summary>
-    /// Loads the skills.
+    ///     Loads the skills.
     /// </summary>
     private void LoadPartyBuffSkills()
     {
@@ -355,7 +360,8 @@ public partial class Main : UserControl
 
         foreach (var mastery in Game.Player.Skills.Masteries)
         {
-            var group = new ListViewGroup(Game.ReferenceManager.GetTranslation(mastery.Record.NameCode) + " (lv. " + mastery.Level + ")");
+            var group = new ListViewGroup(Game.ReferenceManager.GetTranslation(mastery.Record.NameCode) + " (lv. " +
+                                          mastery.Level + ")");
             group.Tag = mastery.Id;
             listPartyBuffSkills.Groups.Add(group);
         }
@@ -392,8 +398,9 @@ public partial class Main : UserControl
 
             subItem.Font = new Font("Segoe UI", 9f, FontStyle.Bold);
 
-            foreach (var @group in listPartyBuffSkills.Groups.Cast<ListViewGroup>().Where(@group => Convert.ToInt32(@group.Tag) == skill.Record.ReqCommon_Mastery1))
-                item.Group = @group;
+            foreach (var group in listPartyBuffSkills.Groups.Cast<ListViewGroup>()
+                         .Where(group => Convert.ToInt32(group.Tag) == skill.Record.ReqCommon_Mastery1))
+                item.Group = group;
 
             listPartyBuffSkills.Items.Add(item);
 
@@ -404,7 +411,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Displays the party members.
+    ///     Displays the party members.
     /// </summary>
     public void OnPartyData()
     {
@@ -420,7 +427,8 @@ public partial class Main : UserControl
                 return;
             }
 
-            foreach (var member in Game.Party.Members.FindAll(p => p.Name != Game.Player.Name || p.Name != Game.Player.JobInformation.Name))
+            foreach (var member in Game.Party.Members.FindAll(p =>
+                         p.Name != Game.Player.Name || p.Name != Game.Player.JobInformation.Name))
                 AddNewPartyMember(member);
 
             menuBanish.Enabled = Game.Party.IsLeader;
@@ -442,6 +450,7 @@ public partial class Main : UserControl
         catch
         {
         }
+
         listParty.EndUpdate();
     }
 
@@ -516,7 +525,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Called when [party member update].
+    ///     Called when [party member update].
     /// </summary>
     /// <param name="member">The member.</param>
     private void OnPartyMemberUpdate(PartyMember member)
@@ -532,7 +541,6 @@ public partial class Main : UserControl
         {
             lvItem.SubItems[2].Text = _noGuildText;
             lvItem.SubItems[2].ForeColor = Color.DarkGray;
-
         }
         else
         {
@@ -555,7 +563,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Clear party
+    ///     Clear party
     /// </summary>
     public void OnPartyDismiss()
     {
@@ -569,21 +577,21 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the Click event of the btnLeaveParty control.
+    ///     Handles the Click event of the btnLeaveParty control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void btnLeaveParty_Click(object sender, System.EventArgs e)
+    /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
+    private void btnLeaveParty_Click(object sender, EventArgs e)
     {
         Game.Party.Leave();
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the checkSettings control.
+    ///     Handles the CheckedChanged event of the checkSettings control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void checkSettings_CheckedChanged(object sender, System.EventArgs e)
+    /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
+    private void checkSettings_CheckedChanged(object sender, EventArgs e)
     {
         if (!_applySettings)
             return;
@@ -596,22 +604,22 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the Click event of the menuBanish control.
+    ///     Handles the Click event of the menuBanish control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void menuBanish_Click(object sender, System.EventArgs e)
+    /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
+    private void menuBanish_Click(object sender, EventArgs e)
     {
         if (listParty.SelectedItems.Count == 1 && Game.Party.IsLeader)
             Game.Party.GetMemberByName(listParty.SelectedItems[0].Text)?.Banish();
     }
 
     /// <summary>
-    /// Handles the Click event of the btnAddToAutoParty control.
+    ///     Handles the Click event of the btnAddToAutoParty control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void btnAddToAutoParty_Click(object sender, System.EventArgs e)
+    /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
+    private void btnAddToAutoParty_Click(object sender, EventArgs e)
     {
         var dialog = new InputDialog(
             "Input",
@@ -626,11 +634,11 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the Click event of the btnRemoveFromAutoParty control.
+    ///     Handles the Click event of the btnRemoveFromAutoParty control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void btnRemoveFromAutoParty_Click(object sender, System.EventArgs e)
+    /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
+    private void btnRemoveFromAutoParty_Click(object sender, EventArgs e)
     {
         if (listAutoParty.SelectedIndices.Count == 0)
             return;
@@ -641,11 +649,11 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the checkAutoPartySetting control.
+    ///     Handles the CheckedChanged event of the checkAutoPartySetting control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void checkAutoPartySetting_CheckedChanged(object sender, System.EventArgs e)
+    /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
+    private void checkAutoPartySetting_CheckedChanged(object sender, EventArgs e)
     {
         if (!_applySettings)
             return;
@@ -668,11 +676,11 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the Click event of the ctxJoinParty control.
+    ///     Handles the Click event of the ctxJoinParty control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void btnJoinFormedParty_Click(object sender, System.EventArgs e)
+    /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
+    private void btnJoinFormedParty_Click(object sender, EventArgs e)
     {
         if (lvPartyMatching.SelectedItems.Count != 1)
             return;
@@ -696,10 +704,10 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the SelectedIndexChanged event of the tpPartyMatching page.
+    ///     Handles the SelectedIndexChanged event of the tpPartyMatching page.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
     private void tabMain_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (tabMain.SelectedTab == tpPartyMatching)
@@ -707,19 +715,18 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the Click event of the btnPartyMatchForm control.
+    ///     Handles the Click event of the btnPartyMatchForm control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void btnPartyMatchForm_Click(object sender, EventArgs e)
     {
-        var senderName = (sender as SDUI.Controls.Button).Name;
+        var senderName = (sender as Button).Name;
 
         View.PartyWindow.Text =
-            senderName == nameof(btnPartyMatchForm) ?
-                LanguageManager.GetLang("FormingParty")
-                :
-                LanguageManager.GetLang("ChangeEntry");
+            senderName == nameof(btnPartyMatchForm)
+                ? LanguageManager.GetLang("FormingParty")
+                : LanguageManager.GetLang("ChangeEntry");
 
         if (View.PartyWindow.ShowDialog() == DialogResult.OK)
         {
@@ -732,7 +739,7 @@ public partial class Main : UserControl
 
     private void PageNatigateBtn_Click(object sender, EventArgs e)
     {
-        var btn = sender as SDUI.Controls.Button;
+        var btn = sender as Button;
         btn.Enabled = false;
 
         RequestPartyList(Convert.ToByte(btn.Tag));
@@ -759,10 +766,9 @@ public partial class Main : UserControl
             lvItems.RemoveAll(p => p.SubItems[4].Text != selectedPurpose);
 
         if (!string.IsNullOrWhiteSpace(tbPartySearchName.Text))
-        {
             //No case sensitivity
-            lvItems.RemoveAll(p => !p.SubItems[2].Text.ToLowerInvariant().Contains(tbPartySearchName.Text.ToLowerInvariant()));
-        }
+            lvItems.RemoveAll(p =>
+                !p.SubItems[2].Text.ToLowerInvariant().Contains(tbPartySearchName.Text.ToLowerInvariant()));
 
         if (nudPartySearchMin.Value > 1 || nudPartySearchMax.Value < 140)
         {
@@ -1079,7 +1085,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Occurs before Main form is displayed.
+    ///     Occurs before Main form is displayed.
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>

@@ -6,7 +6,7 @@ namespace RSBot.Core.Extensions;
 public static class AttributesInfoExtension
 {
     /// <summary>
-    /// Gets the translation that is being displayed in game for the specified attribute.
+    ///     Gets the translation that is being displayed in game for the specified attribute.
     /// </summary>
     /// <param name="group">The group to be translated.</param>
     /// <returns></returns>
@@ -16,7 +16,7 @@ public static class AttributesInfoExtension
     }
 
     /// <summary>
-    /// Gets the name of the attribute translation.
+    ///     Gets the name of the attribute translation.
     /// </summary>
     /// <param name="group">The group.</param>
     /// <returns></returns>

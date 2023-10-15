@@ -1,6 +1,6 @@
-﻿using RSBot.Core.Objects;
-using System;
+﻿using System;
 using System.Globalization;
+using RSBot.Core.Objects;
 
 namespace RSBot.Core.Client;
 
@@ -15,7 +15,7 @@ public sealed class ReferenceParser
         _length = _data.Length;
     }
 
-    public int GetColumnCount ()
+    public int GetColumnCount()
     {
         return _data.Length;
     }
@@ -26,7 +26,7 @@ public sealed class ReferenceParser
         if (index < _length && Enum.TryParse(_data[index], out result))
             return true;
 
-        result = default(TEnum);
+        result = default;
         return false;
     }
 
@@ -38,7 +38,7 @@ public sealed class ReferenceParser
             return true;
         }
 
-        result = default(string);
+        result = default;
         return false;
     }
 
@@ -65,7 +65,7 @@ public sealed class ReferenceParser
         {
             result = value == 1;
             return true;
-        }    
+        }
 
         return false;
     }
@@ -85,7 +85,7 @@ public sealed class ReferenceParser
         if (index < _length && byte.TryParse(_data[index], out result))
             return true;
 
-        result = default(byte);
+        result = default;
         return false;
     }
 
@@ -103,7 +103,7 @@ public sealed class ReferenceParser
         if (index < _length && short.TryParse(_data[index], out result))
             return true;
 
-        result = default(short);
+        result = default;
         return false;
     }
 
@@ -121,7 +121,7 @@ public sealed class ReferenceParser
         if (index < _length && ushort.TryParse(_data[index], out result))
             return true;
 
-        result = default(ushort);
+        result = default;
         return false;
     }
 
@@ -157,7 +157,7 @@ public sealed class ReferenceParser
         if (index < _length && int.TryParse(_data[index], out result))
             return true;
 
-        result = default(int);
+        result = default;
         return false;
     }
 
@@ -175,7 +175,7 @@ public sealed class ReferenceParser
         if (index < _length && uint.TryParse(_data[index], out result))
             return true;
 
-        result = default(uint);
+        result = default;
         return false;
     }
 
@@ -193,7 +193,7 @@ public sealed class ReferenceParser
         if (index < _length && long.TryParse(_data[index], out result))
             return true;
 
-        result = default(long);
+        result = default;
         return false;
     }
 
@@ -211,7 +211,7 @@ public sealed class ReferenceParser
         if (index < _length && ulong.TryParse(_data[index], out result))
             return true;
 
-        result = default(ulong);
+        result = default;
         return false;
     }
 
@@ -226,10 +226,10 @@ public sealed class ReferenceParser
 
     public bool TryParse(int index, out float result)
     {
-        if (index < _length  && float.TryParse(_data[index], NumberStyles.Any, CultureInfo.InvariantCulture, out result))
+        if (index < _length && float.TryParse(_data[index], NumberStyles.Any, CultureInfo.InvariantCulture, out result))
             return true;
 
-        result = default(float);
+        result = default;
         return false;
     }
 
