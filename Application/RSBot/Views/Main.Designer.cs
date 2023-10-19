@@ -44,6 +44,7 @@ namespace RSBot.Views
             btnSave = new SDUI.Controls.Button();
             btnStartStop = new SDUI.Controls.Button();
             pSidebar = new SDUI.Controls.Panel();
+            pSidebarCustom = new SDUI.Controls.Panel();
             entity1 = new Entity();
             botbase1ToolStripMenuItem1 = new ToolStripMenuItem();
             botbase1ToolStripMenuItem = new ToolStripMenuItem();
@@ -233,6 +234,7 @@ namespace RSBot.Views
             pSidebar.BackColor = System.Drawing.Color.Transparent;
             pSidebar.Border = new Padding(1, 0, 0, 1);
             pSidebar.BorderColor = System.Drawing.Color.Transparent;
+            pSidebar.Controls.Add(pSidebarCustom);
             pSidebar.Controls.Add(entity1);
             pSidebar.Controls.Add(cosController);
             pSidebar.Dock = DockStyle.Right;
@@ -243,6 +245,21 @@ namespace RSBot.Views
             pSidebar.Size = new System.Drawing.Size(250, 639);
             pSidebar.TabIndex = 6;
             // 
+            // pSidebarCustom
+            // 
+            pSidebarCustom.BackColor = System.Drawing.Color.Transparent;
+            pSidebarCustom.Border = new Padding(0, 0, 0, 0);
+            pSidebarCustom.BorderColor = System.Drawing.Color.Transparent;
+            pSidebarCustom.Dock = DockStyle.Fill;
+            pSidebarCustom.Location = new System.Drawing.Point(0, 163);
+            pSidebarCustom.Margin = new Padding(3, 30, 3, 3);
+            pSidebarCustom.Name = "pSidebarCustom";
+            pSidebarCustom.Padding = new Padding(0, 16, 0, 0);
+            pSidebarCustom.Radius = 0;
+            pSidebarCustom.ShadowDepth = 4F;
+            pSidebarCustom.Size = new System.Drawing.Size(250, 476);
+            pSidebarCustom.TabIndex = 10;
+            // 
             // entity1
             // 
             entity1.BackColor = System.Drawing.Color.Transparent;
@@ -252,7 +269,7 @@ namespace RSBot.Views
             entity1.Margin = new Padding(4);
             entity1.MinimumSize = new System.Drawing.Size(250, 76);
             entity1.Name = "entity1";
-            entity1.Size = new System.Drawing.Size(250, 76);
+            entity1.Size = new System.Drawing.Size(250, 93);
             entity1.TabIndex = 2;
             // 
             // botbase1ToolStripMenuItem1
@@ -615,6 +632,7 @@ namespace RSBot.Views
         private ToolStripMenuItem donateButton;
         private ToolStripMenuItem mainMenuList;
         private ToolStripMenuItem toolStripMenuItemTitle;
+        private SDUI.Controls.Panel pSidebarCustom;
     }
 }
 
