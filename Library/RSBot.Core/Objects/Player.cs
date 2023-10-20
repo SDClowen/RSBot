@@ -174,7 +174,7 @@ namespace RSBot.Core.Objects
         /// <value>
         /// The skills.
         /// </value>
-        public Quest Quest { get; set; }
+        public QuestLog QuestLog { get; set; }
 
         /// <summary>
         /// Gets or sets the name.
@@ -525,7 +525,7 @@ namespace RSBot.Core.Objects
         {
             get
             {
-                //State
+                //Status
                 if (State.LifeState == LifeState.Dead)
                     return false;
 

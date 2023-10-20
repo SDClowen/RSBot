@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<Nullable>disable</Nullable>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<OutputPath>.\..\..\Build\Data\Plugins</OutputPath>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<Description>A open source bot for Silkroad Online</Description>
+		<Copyright>Copyright © 2023, RSBot Team</Copyright>
+		<PackageProjectUrl>https://github.com/SDClowen/RSBot</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/SDClowen/RSBot</RepositoryUrl>
+		<OutputType>Library</OutputType>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Library\RSBot.Core\RSBot.Core.csproj" />
+		<ProjectReference Include="..\..\SDUI\SDUI\SDUI.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Views\Main.cs">
+	    <SubType>UserControl</SubType>
+	  </Compile>
+	</ItemGroup>
+
+</Project>

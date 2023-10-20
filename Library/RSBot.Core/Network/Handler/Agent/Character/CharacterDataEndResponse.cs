@@ -107,7 +107,7 @@ namespace RSBot.Core.Network.Handler.Agent.Character
             }
 
             character.Skills = Skills.FromPacket(packet);
-            character.Quest = Quest.FromPacket(packet);
+            character.QuestLog = QuestLog.FromPacket(packet);
 
             packet.ReadByte(); // Unknown
 

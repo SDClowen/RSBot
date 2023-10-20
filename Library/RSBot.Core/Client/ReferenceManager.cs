@@ -37,6 +37,8 @@ namespace RSBot.Core.Client
         public List<RefTeleport> TeleportData { get; } = new(256);
         public List<RefTeleportLink> TeleportLinks { get; } = new(256);
         public Dictionary<int, RefOptionalTeleport> OptionalTeleports { get; } = new(32);
+        public Dictionary<uint, RefQuestReward> QuestRewards { get; } = new(1024);
+        public List<RefQuestRewardItem> QuestRewardItems { get; } = new(1024);
         public GatewayInfo GatewayInfo { get; private set; }
         public DivisionInfo DivisionInfo { get; private set; }
         public VersionInfo VersionInfo { get; private set; }
@@ -80,8 +82,15 @@ namespace RSBot.Core.Client
                 () => LoadScrapOfPackageItemData("RefScrapOfPackageItem.txt"),
                 () => LoadReferenceFile("magicoption.txt", MagicOptions),
                 () => LoadReferenceFile("magicoptionassign.txt", MagicOptionAssignments),
-                () => LoadReferenceFile("refoptionalteleport.txt", OptionalTeleports)
+                () => LoadReferenceFile("refoptionalteleport.txt", OptionalTeleports),
+                () => LoadReferenceFile("refquestrewarditems.txt", QuestRewardItems),
+                () => LoadReferenceFile("refqusetreward.txt", QuestRewards)
             );
+
+            if (Game.ClientType > GameClientType.Chinese)
+                LoadConditionalData("QuestData.txt", QuestData);
+            else
+                LoadReferenceFile("questdata.txt", QuestData);
 
             if(Game.ClientType > GameClientType.Japanese_Old)
             {
@@ -657,6 +666,7 @@ namespace RSBot.Core.Client
             return MagicOptions?.FirstOrDefault(m => m.Group == group && m.Level == degree);
         }
 
+
         /// <summary>
         /// Gets a list of magic options for the specified type ids
         /// </summary>
@@ -688,6 +698,28 @@ namespace RSBot.Core.Client
         public IEnumerable<RefExtraAbilityByEquipItemOptLevel> GetExtraAbilityItems(uint itemId, byte optLevel)
         {
             return ExtraAbilityByEquipItemOptLevel.Where(p => p.ItemId == itemId && p.OptLevel == optLevel);
+        }
+
+        /// <summary>
+        /// Gets a list of reward items for the specified quest.
+        /// </summary>
+        /// <param name="questId"></param>
+        /// <returns></returns>
+        public IEnumerable<RefQuestRewardItem> GetQuestRewardItems(uint questId)
+        {
+            return QuestRewardItems.Where(r => r.QuestId == questId);
+        }
+
+        /// <summary>
+        /// Returns the reward for the specified quest
+        /// </summary>
+        /// <param name="questId"></param>
+        /// <returns></returns>
+        public RefQuestReward GetQuestReward(uint questId)
+        {
+            QuestRewards.TryGetValue(questId, out var result);
+
+            return result;
         }
     }
 }

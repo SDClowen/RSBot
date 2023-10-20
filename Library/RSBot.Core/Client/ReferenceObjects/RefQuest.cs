@@ -1,7 +1,16 @@
-﻿namespace RSBot.Core.Client.ReferenceObjects
+﻿using System.Collections.Generic;
+
+namespace RSBot.Core.Client.ReferenceObjects
 {
     public class RefQuest : IReference<uint>
     {
+        #region Properties
+
+        public RefQuestReward Reward => Game.ReferenceManager.GetQuestReward(ID);
+        public IEnumerable<RefQuestRewardItem> RewardItems => Game.ReferenceManager.GetQuestRewardItems(ID);
+
+        #endregion
+
         #region Fields
 
         public byte Service;
@@ -45,6 +54,8 @@
 
             return true;
         }
+
+        public string GetTranslatedName() => Game.ReferenceManager.GetTranslation(NameString);
     }
 }
 

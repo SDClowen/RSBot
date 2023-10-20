@@ -72,7 +72,7 @@ namespace RSBot.Core.Client
                             Name = reader.ReadJoymaxString(),
                             GatewayServers = new List<string>()
                         };
-                        reader.ReadByte(); //Null terminator for CharacterName
+                        reader.ReadByte(); //Null terminator for NameStrID
 
                         var gatewayCount = reader.ReadByte();
 
