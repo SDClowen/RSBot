@@ -50,10 +50,13 @@ internal class PackResolver
             if (subFolderEntry == null)
                 return Array.Empty<PackBlock>();
 
-            lastBlocks = _packReader.ReadBlocksAt(subFolderEntry.DataPosition);
             currentPath = PathUtil.Append(currentPath, subFolderName);
 
-            _blocksInMemory.TryAdd(currentPath, lastBlocks);
+            if (!_blocksInMemory.TryGetValue(currentPath, out lastBlocks))
+                lastBlocks = _packReader.ReadBlocksAt(subFolderEntry.DataPosition);
+
+            if (!_blocksInMemory.ContainsKey(currentPath))
+                _blocksInMemory.TryAdd(currentPath, lastBlocks);
         }
 
         return lastBlocks;
