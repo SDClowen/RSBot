@@ -113,14 +113,14 @@ public abstract class RefObjCommon : IReference<uint>
     public Image GetIcon()
     {
         Image bitmap = null;
-
         try
         {
-            var file = Game.MediaPk2.GetFile(Path.Combine("icon", AssocFileIcon), true);
-            if (file.IsValid)
-                bitmap = file.ToImage();
-            else
-                bitmap = Game.MediaPk2.GetFile("icon\\icon_default.ddj", true).ToImage();
+            var path = Path.Combine("icon", AssocFileIcon);
+
+            if (!Game.MediaPk2.TryGetFile(path, out var file))
+                file = Game.MediaPk2.GetFile("icon\\icon_default.ddj");
+
+            bitmap = file.ToImage();
         }
         catch
         {

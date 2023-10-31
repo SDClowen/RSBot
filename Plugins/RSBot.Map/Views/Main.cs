@@ -112,14 +112,14 @@ public partial class Main : UserControl
         if (_mapEntityImages == null)
             _mapEntityImages = new[]
             {
-                Game.MediaPk2.GetFile("mm_sign_character.ddj").ToImage(),
-                Game.MediaPk2.GetFile("mm_sign_animal.ddj").ToImage(),
-                Game.MediaPk2.GetFile("mm_sign_npc.ddj").ToImage(),
-                Game.MediaPk2.GetFile("mm_sign_otherplayer.ddj").ToImage(),
-                Game.MediaPk2.GetFile("mm_sign_monster.ddj").ToImage(),
-                Game.MediaPk2.GetFile("mm_sign_unique.ddj").ToImage(),
-                Game.MediaPk2.GetFile("mm_sign_party.ddj").ToImage(),
-                Game.MediaPk2.GetFile("com_diamond.ddj").ToImage()
+                Game.MediaPk2.GetFile("interface\\minimap\\mm_sign_character.ddj").ToImage(),
+                Game.MediaPk2.GetFile("interface\\minimap\\mm_sign_animal.ddj").ToImage(),
+                Game.MediaPk2.GetFile("interface\\minimap\\mm_sign_npc.ddj").ToImage(),
+                Game.MediaPk2.GetFile("interface\\minimap\\mm_sign_otherplayer.ddj").ToImage(),
+                Game.MediaPk2.GetFile("interface\\minimap\\mm_sign_monster.ddj").ToImage(),
+                Game.MediaPk2.GetFile("interface\\minimap\\mm_sign_unique.ddj").ToImage(),
+                Game.MediaPk2.GetFile("interface\\minimap\\mm_sign_party.ddj").ToImage(),
+                Game.MediaPk2.GetFile("interface\\minimap\\mm_sign_unique.ddj").ToImage()
             };
     }
 
@@ -220,7 +220,6 @@ public partial class Main : UserControl
             var y = GetMapY(position);
 
             using var brush = new SolidBrush(color);
-
 
             var diameterF = diameter * _scale;
             var point = new PointF(x - diameterF / 2, y - diameterF / 2);
@@ -393,10 +392,11 @@ public partial class Main : UserControl
         if (_cachedImages.ContainsKey(sectorImgName))
             return (Image)_cachedImages[sectorImgName].Clone();
 
-        if (Game.MediaPk2.FileExists(sectorImgName))
+        if (Game.MediaPk2.TryGetFileIgnoreCase(sectorImgName, out var file))
         {
-            var img = Game.MediaPk2.GetFile(sectorImgName).ToImage();
+            var img = file.ToImage();
             _cachedImages.Add(sectorImgName, img);
+
             return (Image)img.Clone();
         }
 
@@ -414,58 +414,58 @@ public partial class Main : UserControl
                 // Donwhang cave
                 case 32769:
                     if (p.ZOffset > 345)
-                        return "dh_a01_floor04_{0}x{1}.ddj";
+                        return "minimap_d\\donwhang\\dh_a01_floor04_{0}x{1}.ddj";
                     if (p.ZOffset > 230)
-                        return "dh_a01_floor03_{0}x{1}.ddj";
+                        return "minimap_d\\donwhang\\dh_a01_floor03_{0}x{1}.ddj";
                     if (p.ZOffset > 115)
-                        return "dh_a01_floor02_{0}x{1}.ddj";
-                    return "dh_a01_floor01_{0}x{1}.ddj";
+                        return "minimap_d\\donwhang\\dh_a01_floor02_{0}x{1}.ddj";
+                    return "minimap_d\\donwhang\\dh_a01_floor01_{0}x{1}.ddj";
                 // QinShi Tomb
                 case 32770:
-                    return "qt_a01_floor06_{0}x{1}.ddj";
+                    return "minimap_d\\jinsi\\qt_a01_floor06_{0}x{1}.ddj";
                 case 32771:
-                    return "qt_a01_floor05_{0}x{1}.ddj";
+                    return "minimap_d\\jinsi\\qt_a01_floor05_{0}x{1}.ddj";
                 case 32772:
-                    return "qt_a01_floor04_{0}x{1}.ddj";
+                    return "minimap_d\\jinsi\\qt_a01_floor04_{0}x{1}.ddj";
                 case 32773:
-                    return "qt_a01_floor03_{0}x{1}.ddj";
+                    return "minimap_d\\jinsi\\qt_a01_floor03_{0}x{1}.ddj";
                 case 32774:
-                    return "qt_a01_floor02_{0}x{1}.ddj";
+                    return "minimap_d\\jinsi\\qt_a01_floor02_{0}x{1}.ddj";
                 case 32775:
-                    return "qt_a01_floor01_{0}x{1}.ddj";
+                    return "minimap_d\\jinsi\\qt_a01_floor01_{0}x{1}.ddj";
                 // Job Temple
                 case 32779:
                 case 32780:
                 case 32781:
                 case 32782:
                 case 32784:
-                    return "rn_sd_egypt1_01_{0}x{1}.ddj";
+                    return "minimap_d\\egypt\\rn_sd_egypt1_01_{0}x{1}.ddj";
                 case 32783:
-                    return "rn_sd_egypt1_02_{0}x{1}.ddj";
+                    return "minimap_d\\egypt\\rn_sd_egypt1_02_{0}x{1}.ddj";
                 // Fortress Dungeon
                 case 32785:
-                    return "fort_dungeon01_{0}x{1}.ddj";
+                    return "minimap_d\\fort_dungeon\\fort_dungeon01_{0}x{1}.ddj";
                 // Mt. Flame
                 case 32786:
-                    return "flame_dungeon01_{0}x{1}.ddj";
+                    return "minimap_d\\flame_dungeon\\flame_dungeon01_{0}x{1}.ddj";
                 // Jupiter Temple Rooms
                 case 32787:
-                    return "rn_jupiter_02_{0}x{1}.ddj";
+                    return "minimap_d\\jupiter\\rn_jupiter_02_{0}x{1}.ddj";
                 case 32788:
-                    return "rn_jupiter_03_{0}x{1}.ddj";
+                    return "minimap_d\\jupiter\\rn_jupiter_03_{0}x{1}.ddj";
                 case 32789:
-                    return "rn_jupiter_04_{0}x{1}.ddj";
+                    return "minimap_d\\jupiter\\rn_jupiter_04_{0}x{1}.ddj";
                 case 32790:
-                    return "rn_jupiter_01_{0}x{1}.ddj";
+                    return "minimap_d\\jupiter\\rn_jupiter_01_{0}x{1}.ddj";
                 // Bahgdad Room
                 case 32793:
-                    return "RN_ARABIA_FIELD_02_BOSS_{0}x{1}.ddj";
+                    return "minimap_d\\Arabia\\RN_ARABIA_FIELD_02_BOSS_{0}x{1}.ddj";
                 // 32791 - GM's Room
                 // 32792 - Fortress Prison
             }
 
         // Default as world map
-        return "{0}x{1}.ddj";
+        return "minimap\\{0}x{1}.ddj";
     }
 
     /// <summary>

@@ -1,12 +1,13 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using RSBot.Core.Client;
 using RSBot.Core.Components;
-using RSBot.Core.Components.Pk2;
 using RSBot.Core.Extensions;
 using RSBot.Core.Network;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Party;
 using RSBot.Core.Objects.Spawn;
+using RSBot.FileSystem;
 
 namespace RSBot.Core;
 
@@ -31,7 +32,7 @@ public class Game
     /// <value>
     ///     The PK2 reader.
     /// </value>
-    public static ArchiveManager MediaPk2 { get; set; }
+    public static IFileSystem MediaPk2 { get; set; }
 
     /// <summary>
     ///     Gets or sets the reference manager
@@ -139,9 +140,19 @@ public class Game
     public static bool InitializeArchiveFiles()
     {
         var directory = GlobalConfig.Get<string>("RSBot.SilkroadDirectory");
-        MediaPk2 = ArchiveManager.Initialize(Path.Combine(directory, "media.pk2"));
 
-        return MediaPk2 != null;
+        try
+        {
+            MediaPk2 = new PackFileSystem(Path.Combine(directory, "media.pk2"), "169841");
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex);
+
+            return false;
+        }
     }
 
     /// <summary>

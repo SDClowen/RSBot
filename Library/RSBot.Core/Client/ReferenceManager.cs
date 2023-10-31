@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -10,11 +11,14 @@ using RSBot.Core.Cryptography;
 using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
+using RSBot.FileSystem;
 
 namespace RSBot.Core.Client;
 
 public class ReferenceManager
 {
+    private const string ServerDep = "server_dep\\silkroad\\textdata";
+
     public int LanguageTab { get; set; }
 
     public Dictionary<string, RefText> TextData { get; } = new(50000);
@@ -57,85 +61,82 @@ public class ReferenceManager
     {
         LanguageTab = languageTab; //until language wizard is reworked?
 
+        var sw = Stopwatch.StartNew();
         DivisionInfo = DivisionInfo.Load();
         GatewayInfo = GatewayInfo.Load();
         VersionInfo = VersionInfo.Load();
 
-        Parallel.Invoke
-        (
-            () => LoadTextData(),
-            () => LoadConditionalData("CharacterData.txt", CharacterData),
-            () => LoadConditionalData("ItemData.txt", ItemData),
-            () => LoadSkillData(),
-            () => LoadReferenceFile("TeleportBuilding.txt", CharacterData),
-            () => LoadReferenceFile("SkillMasteryData.txt", SkillMasteryData),
-            () => LoadReferenceFile("LevelData.txt", LevelData),
-            () => LoadReferenceFile("QuestData.txt", QuestData),
-            () => LoadReferenceFile("TeleportData.txt", TeleportData),
-            () => LoadReferenceFile("TeleportLink.txt", TeleportLinks),
-            () => LoadReferenceFile("RefShop.txt", Shops),
-            () => LoadReferenceFile("RefShopTab.txt", ShopTabs),
-            () => LoadRefShopGoods("RefShopGoods.txt"),
-            () => LoadReferenceFile("RefShopGroup.txt", ShopGroups),
-            () => LoadReferenceFile("RefMappingShopGroup.txt", ShopGroupMapping),
-            () => LoadReferenceFile("RefMappingShopWithTab.txt", ShopTabMapping),
-            () => LoadScrapOfPackageItemData("RefScrapOfPackageItem.txt"),
-            () => LoadReferenceFile("magicoption.txt", MagicOptions),
-            () => LoadReferenceFile("magicoptionassign.txt", MagicOptionAssignments),
-            () => LoadReferenceFile("refoptionalteleport.txt", OptionalTeleports),
-            () => LoadReferenceFile("refquestrewarditems.txt", QuestRewardItems),
-            () => LoadReferenceFile("refqusetreward.txt", QuestRewards)
-        );
+        LoadTextData();
+        LoadConditionalData($"{ServerDep}\\CharacterData.txt", CharacterData);
+        LoadConditionalData($"{ServerDep}\\ItemData.txt", ItemData);
+        LoadSkillData();
+        LoadReferenceFile($"{ServerDep}\\TeleportBuilding.txt", CharacterData);
+        LoadReferenceFile($"{ServerDep}\\SkillMasteryData.txt", SkillMasteryData);
+        LoadReferenceFile($"{ServerDep}\\LevelData.txt", LevelData);
+        LoadReferenceFile($"{ServerDep}\\QuestData.txt", QuestData);
+        LoadReferenceFile($"{ServerDep}\\TeleportData.txt", TeleportData);
+        LoadReferenceFile($"{ServerDep}\\TeleportLink.txt", TeleportLinks);
+        LoadReferenceFile($"{ServerDep}\\RefShop.txt", Shops);
+        LoadReferenceFile($"{ServerDep}\\RefShopTab.txt", ShopTabs);
+        LoadRefShopGoods($"{ServerDep}\\RefShopGoods.txt");
+        LoadReferenceFile($"{ServerDep}\\RefShopGroup.txt", ShopGroups);
+        LoadReferenceFile($"{ServerDep}\\RefMappingShopGroup.txt", ShopGroupMapping);
+        LoadReferenceFile($"{ServerDep}\\RefMappingShopWithTab.txt", ShopTabMapping);
+        LoadScrapOfPackageItemData($"{ServerDep}\\RefScrapOfPackageItem.txt");
+        LoadReferenceFile($"{ServerDep}\\magicoption.txt", MagicOptions);
+        LoadReferenceFile($"{ServerDep}\\magicoptionassign.txt", MagicOptionAssignments);
+        LoadReferenceFile($"{ServerDep}\\refoptionalteleport.txt", OptionalTeleports);
+        LoadReferenceFile($"{ServerDep}\\refquestrewarditems.txt", QuestRewardItems);
+        LoadReferenceFile($"{ServerDep}\\refqusetreward.txt", QuestRewards);
 
         if (Game.ClientType > GameClientType.Chinese)
-            LoadConditionalData("QuestData.txt", QuestData);
+            LoadConditionalData($"{ServerDep}\\QuestData.txt", QuestData);
         else
-            LoadReferenceFile("questdata.txt", QuestData);
+            LoadReferenceFile($"{ServerDep}\\questdata.txt", QuestData);
 
         if (Game.ClientType > GameClientType.Japanese_Old)
         {
-            LoadReferenceFile("refabilitybyitemoptleveldata.txt", AbilityItemByOptLevel);
-            LoadReferenceFile("refskillbyitemoptleveldata.txt", SkillByItemOptLevels);
+            LoadReferenceFile($"{ServerDep}\\refabilitybyitemoptleveldata.txt", AbilityItemByOptLevel);
+            LoadReferenceFile($"{ServerDep}\\refskillbyitemoptleveldata.txt", SkillByItemOptLevels);
         }
 
         if (Game.ClientType >= GameClientType.Chinese)
-            LoadReferenceFile("refextraabilitybyequipitemoptlevel.txt", ExtraAbilityByEquipItemOptLevel);
+            LoadReferenceFile($"{ServerDep}\\refextraabilitybyequipitemoptlevel.txt", ExtraAbilityByEquipItemOptLevel);
 
-        GC.Collect();
+        Log.Notify($"Loaded all game data in {sw.ElapsedMilliseconds}ms!");
         EventManager.FireEvent("OnLoadGameData");
     }
 
     private void LoadTextData()
     {
         if (Game.ClientType >= GameClientType.Global)
-            LoadReferenceListFile("TextUISystem.txt", TextData);
+            LoadReferenceListFile($"{ServerDep}\\TextUISystem.txt", TextData);
         else
-            LoadReferenceFile("TextUISystem.txt", TextData);
+            LoadReferenceFile($"{ServerDep}\\TextUISystem.txt", TextData);
 
         if (Game.ClientType >= GameClientType.Global)
-            LoadReferenceListFile("TextZoneName.txt", TextData);
+            LoadReferenceListFile($"{ServerDep}\\TextZoneName.txt", TextData);
         else
-            LoadReferenceFile("TextZoneName.txt", TextData);
-
+            LoadReferenceFile($"{ServerDep}\\TextZoneName.txt", TextData);
         if (Game.ClientType >= GameClientType.Global)
         {
-            LoadReferenceListFile("TextQuest_OtherString.txt", TextData);
-            LoadReferenceListFile("TextData_Object.txt", TextData);
-            LoadReferenceListFile("TextData_Equip&Skill.txt", TextData);
-            LoadReferenceListFile("TextQuest_Speech&Name.txt", TextData);
-            LoadReferenceListFile("TextQuest_QuestString.txt", TextData);
+            LoadReferenceListFile($"{ServerDep}\\TextQuest_OtherString.txt", TextData);
+            LoadReferenceListFile($"{ServerDep}\\TextData_Object.txt", TextData);
+            LoadReferenceListFile($"{ServerDep}\\TextData_Equip&Skill.txt", TextData);
+            LoadReferenceListFile($"{ServerDep}\\TextQuest_Speech&Name.txt", TextData);
+            LoadReferenceListFile($"{ServerDep}\\TextQuest_QuestString.txt", TextData);
         }
         else
         {
             if (Game.ClientType >= GameClientType.Thailand)
             {
-                LoadReferenceListFile("TextDataName.txt", TextData);
-                LoadReferenceListFile("TextQuest.txt", TextData);
+                LoadReferenceListFile($"{ServerDep}\\TextDataName.txt", TextData);
+                LoadReferenceListFile($"{ServerDep}\\TextQuest.txt", TextData);
                 return;
             }
 
-            LoadReferenceFile("TextDataName.txt", TextData);
-            LoadReferenceFile("TextQuest.txt", TextData);
+            LoadReferenceFile($"{ServerDep}\\TextDataName.txt", TextData);
+            LoadReferenceFile($"{ServerDep}\\TextQuest.txt", TextData);
         }
     }
 
@@ -168,22 +169,19 @@ public class ReferenceManager
     {
         if (Game.ClientType == GameClientType.Vietnam ||
             Game.ClientType == GameClientType.Vietnam274)
-            LoadReferenceListFileEnc("SkillDataEnc.txt", SkillData);
+            LoadReferenceListFileEnc($"{ServerDep}\\SkillDataEnc.txt", SkillData);
         else if (Game.ClientType < GameClientType.Thailand)
-            LoadReferenceFile("SkillData.txt", SkillData);
+            LoadReferenceFile($"{ServerDep}\\SkillData.txt", SkillData);
         else
-            LoadReferenceListFile("SkillData.txt", SkillData);
+            LoadReferenceListFile($"{ServerDep}\\SkillData.txt", SkillData);
     }
 
     private void LoadReferenceListFileEnc<TKey, TReference>(string fileName, IDictionary<TKey, TReference> destination)
         where TReference : IReference<TKey>, new()
     {
         Log.Debug($"Load file {fileName}");
-
-        using (var stream = Game.MediaPk2.GetFile(fileName).GetStream())
-        {
-            LoadReferenceListFileEnc(stream, destination);
-        }
+        if (Game.MediaPk2.TryGetFileIgnoreCase(fileName, out var file))
+            LoadReferenceListFileEnc(file.OpenRead().GetStream(), destination);
     }
 
     private void LoadReferenceListFileEnc<TKey, TReference>(Stream stream, IDictionary<TKey, TReference> destination)
@@ -199,7 +197,7 @@ public class ReferenceManager
                 if (string.IsNullOrEmpty(line) || line.StartsWith("//"))
                     continue;
 
-                LoadReferenceFileEnc(line, destination);
+                LoadReferenceFileEnc($"{ServerDep}\\{line}", destination);
             }
         }
     }
@@ -209,10 +207,8 @@ public class ReferenceManager
     {
         Log.Debug($"Load file {fileName}");
 
-        using (var stream = Game.MediaPk2.GetFile(fileName).GetStream())
-        {
-            LoadReferenceFileEnc(stream, destination);
-        }
+        if (Game.MediaPk2.TryGetFileIgnoreCase(fileName, out var file))
+            LoadReferenceFileEnc(file.OpenRead().GetStream(), destination);
     }
 
     private void LoadReferenceFileEnc<TKey, TReference>(Stream stream, IDictionary<TKey, TReference> destination)
@@ -232,10 +228,9 @@ public class ReferenceManager
     {
         Log.Debug($"Load file {fileName}");
 
-        using (var stream = Game.MediaPk2.GetFile(fileName).GetStream())
-        {
-            LoadReferenceListFile(stream, destination);
-        }
+        if (Game.MediaPk2.TryGetFileIgnoreCase(fileName, out var file))
+            LoadReferenceListFile(file.OpenRead().GetStream(), destination);
+        
     }
 
     private void LoadReferenceListFile<TKey, TReference>(string fileName, IDictionary<TKey, TReference> destination)
@@ -243,10 +238,8 @@ public class ReferenceManager
     {
         Log.Debug($"Load file {fileName}");
 
-        using (var stream = Game.MediaPk2.GetFile(fileName).GetStream())
-        {
-            LoadReferenceListFile(stream, destination);
-        }
+        if (Game.MediaPk2.TryGetFileIgnoreCase(fileName, out var file))
+            LoadReferenceListFile(file.OpenRead().GetStream(), destination);
     }
 
     private void LoadReferenceFile<TReference>(string fileName, IList<TReference> destination)
@@ -254,10 +247,8 @@ public class ReferenceManager
     {
         Log.Debug($"Load file {fileName}");
 
-        using (var stream = Game.MediaPk2.GetFile(fileName).GetStream())
-        {
-            LoadReferenceFile(stream, destination);
-        }
+        if (Game.MediaPk2.TryGetFileIgnoreCase(fileName, out var file))
+            LoadReferenceFile(file.OpenRead().GetStream(), destination);
     }
 
     private void LoadReferenceFile<TKey, TReference>(string fileName, IDictionary<TKey, TReference> destination)
@@ -265,10 +256,8 @@ public class ReferenceManager
     {
         Log.Debug($"Load file {fileName}");
 
-        using (var stream = Game.MediaPk2.GetFile(fileName).GetStream())
-        {
-            LoadReferenceFile(stream, destination);
-        }
+        if (Game.MediaPk2.TryGetFileIgnoreCase(fileName, out var file))
+            LoadReferenceFile(file.OpenRead().GetStream(), destination);
     }
 
     private void LoadReferenceListFile<TReference>(Stream stream, IList<TReference> destination)
@@ -284,7 +273,7 @@ public class ReferenceManager
                 if (string.IsNullOrEmpty(line) || line.StartsWith("//"))
                     continue;
 
-                LoadReferenceFile(line, destination);
+                LoadReferenceFile($"{ServerDep}\\{line}", destination);
             }
         }
     }
@@ -303,7 +292,7 @@ public class ReferenceManager
                 if (string.IsNullOrEmpty(line) || line.StartsWith("//"))
                     continue;
 
-                LoadReferenceFile(line, destination);
+                LoadReferenceFile($"{ServerDep}\\{line}", destination);
             }
         }
     }
