@@ -1,11 +1,10 @@
-﻿namespace RSBot.Alchemy.Bundle
+﻿namespace RSBot.Alchemy.Bundle;
+
+internal interface IAlchemyBundle
 {
-    internal interface IAlchemyBundle
-    {
-        void Start();
+    void Start();
 
-        void Stop();
+    void Stop();
 
-        void Run<T>(T config);
-    }
+    void Run<T>(T config);
 }

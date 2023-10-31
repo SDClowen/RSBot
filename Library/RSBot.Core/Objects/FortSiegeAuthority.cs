@@ -1,13 +1,12 @@
-﻿namespace RSBot.Core.Objects
+﻿namespace RSBot.Core.Objects;
+
+public enum FortSiegeAuthority
 {
-    public enum FortSiegeAuthority
-    {
-        None = 0,
-        Commander = 1,
-        DeputyCommander = 2,
-        FortressWarAdministrator = 4,
-        ProductionAdministrator = 8,
-        TrainingAdministrator = 16,
-        MilitaryEngineer = 32
-    }
+    None = 0,
+    Commander = 1,
+    DeputyCommander = 2,
+    FortressWarAdministrator = 4,
+    ProductionAdministrator = 8,
+    TrainingAdministrator = 16,
+    MilitaryEngineer = 32
 }

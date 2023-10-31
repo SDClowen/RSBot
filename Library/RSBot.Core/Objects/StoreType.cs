@@ -1,11 +1,10 @@
-﻿namespace RSBot.Core.Objects
+﻿namespace RSBot.Core.Objects;
+
+public enum StoreType
 {
-    public enum StoreType
-    {
-        PotionTrader,
-        WeaponTrader,
-        ProtectorTrader,
-        CosTrader,
-        AccessoryTrader
-    }
+    PotionTrader,
+    WeaponTrader,
+    ProtectorTrader,
+    CosTrader,
+    AccessoryTrader
 }

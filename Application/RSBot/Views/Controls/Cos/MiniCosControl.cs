@@ -1,31 +1,32 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace RSBot.Views.Controls
+namespace RSBot.Views.Controls;
+
+[ToolboxItem(false)]
+public partial class MiniCosControl : UserControl
 {
-    [ToolboxItem(false)]
-    public partial class MiniCosControl : UserControl
+    private bool _selected;
+
+    public MiniCosControl()
     {
-        private bool _selected = false;
-        public bool Selected 
-        {
-            get => _selected;
-            set
-            {
-                _selected = value;
-                panel.BorderColor = value ? Color.Yellow : Color.Transparent;
-            }
-        }
+        InitializeComponent();
+    }
 
-        public MiniCosControl()
+    public bool Selected
+    {
+        get => _selected;
+        set
         {
-            InitializeComponent();
+            _selected = value;
+            panel.BorderColor = value ? Color.Yellow : Color.Transparent;
         }
+    }
 
-        private void OnClick_Redirector(object sender, System.EventArgs e)
-        {
-            this.OnClick(e);
-        }
+    private void OnClick_Redirector(object sender, EventArgs e)
+    {
+        OnClick(e);
     }
 }

@@ -1,249 +1,252 @@
-﻿using RSBot.Core.Components;
+﻿using System;
+using System.Diagnostics;
+using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Network;
 using RSBot.Core.Objects.Spawn;
-using System;
-using System.Diagnostics;
 
-namespace RSBot.Core.Objects
+namespace RSBot.Core.Objects;
+
+public class Action
 {
-    public class Action
+    /// <summary>
+    ///     Gets or sets the action identifier.
+    /// </summary>
+    /// <value>
+    ///     The action identifier.
+    /// </value>
+    public byte Code { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the skill identifier.
+    /// </summary>
+    /// w
+    /// <value>
+    ///     The skill identifier.
+    /// </value>
+    public uint SkillId { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the executor identifier.
+    /// </summary>
+    /// <value>
+    ///     The executor identifier.
+    /// </value>
+    public uint ExecutorId { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the identifier.
+    /// </summary>
+    /// <value>
+    ///     The identifier.
+    /// </value>
+    public uint Id { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the target identifier.
+    /// </summary>
+    /// <value>
+    ///     The target identifier.
+    /// </value>
+    public uint TargetId { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the target identifier.
+    /// </summary>
+    /// <value>
+    ///     The target identifier.
+    /// </value>
+    public uint UnknownId { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the flag.
+    /// </summary>
+    /// <value>
+    ///     The flag.
+    /// </value>
+    public ActionStateFlag Flag { get; set; }
+
+    /// <summary>
+    ///     Gets a value indicating whether [player is executor].
+    /// </summary>
+    /// <value>
+    ///     <c>true</c> if [player is executor]; otherwise, <c>false</c>.
+    /// </value>
+    public bool PlayerIsExecutor => Game.Player.UniqueId == ExecutorId;
+
+    /// <summary>
+    ///     Gets a value indicating whether [player is target].
+    /// </summary>
+    /// <value>
+    ///     <c>true</c> if [player is target]; otherwise, <c>false</c>.
+    /// </value>
+    public bool PlayerIsTarget => Game.Player.UniqueId == TargetId;
+
+    /// <summary>
+    ///     Deserialize the packet. 0xB070
+    /// </summary>
+    /// <param name="packet">The packet.</param>
+    /// <returns>Deserialized <see cref="Action" /></returns>
+    public static Action DeserializeBegin(Packet packet)
     {
-        /// <summary>
-        /// Gets or sets the action identifier.
-        /// </summary>
-        /// <value>
-        /// The action identifier.
-        /// </value>
-        public byte Code { get; set; }
+        var actionCode = packet.ReadByte();
 
-        /// <summary>
-        /// Gets or sets the skill identifier.
-        /// </summary>
-        /// w<value>
-        /// The skill identifier.
-        /// </value>
-        public uint SkillId { get; set; }
+        if (Game.ClientType > GameClientType.Thailand)
+            packet.ReadByte(); // always 0x30
 
-        /// <summary>
-        /// Gets or sets the executor identifier.
-        /// </summary>
-        /// <value>
-        /// The executor identifier.
-        /// </value>
-        public uint ExecutorId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
-        public uint Id { get; set; }
-
-        /// <summary>
-        /// Gets or sets the target identifier.
-        /// </summary>
-        /// <value>
-        /// The target identifier.
-        /// </value>
-        public uint TargetId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the target identifier.
-        /// </summary>
-        /// <value>
-        /// The target identifier.
-        /// </value>
-        public uint UnknownId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the flag.
-        /// </summary>
-        /// <value>
-        /// The flag.
-        /// </value>
-        public ActionStateFlag Flag { get; set; }
-
-        /// <summary>
-        /// Gets a value indicating whether [player is executor].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [player is executor]; otherwise, <c>false</c>.
-        /// </value>
-        public bool PlayerIsExecutor => Game.Player.UniqueId == ExecutorId;
-
-        /// <summary>
-        /// Gets a value indicating whether [player is target].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [player is target]; otherwise, <c>false</c>.
-        /// </value>
-        public bool PlayerIsTarget => Game.Player.UniqueId == TargetId;
-
-        /// <summary>
-        /// Deserialize the packet. 0xB070
-        /// </summary>
-        /// <param name="packet">The packet.</param>
-        /// <returns>Deserialized <see cref="Action"/></returns>
-        public static Action DeserializeBegin(Packet packet)
+        var action = new Action
         {
-            var actionCode = packet.ReadByte();
+            Code = actionCode,
+            SkillId = packet.ReadUInt(),
+            ExecutorId = packet.ReadUInt(),
+            Id = packet.ReadUInt()
+        };
 
-            if (Game.ClientType > GameClientType.Thailand)
-                packet.ReadByte(); // always 0x30
+        if (Game.ClientType >= GameClientType.Global)
+            action.UnknownId = packet.ReadUInt();
 
-            var action = new Action
-            {
-                Code = actionCode,
-                SkillId = packet.ReadUInt(),
-                ExecutorId = packet.ReadUInt(),
-                Id = packet.ReadUInt(),
-            };
-
-            if (Game.ClientType >= GameClientType.Global)
-                action.UnknownId = packet.ReadUInt();
-
-            action.TargetId = packet.ReadUInt();
-            if (Game.ClientType == GameClientType.Turkey ||
-                Game.ClientType == GameClientType.Global ||
-                Game.ClientType == GameClientType.VTC_Game)
-            {
-                packet.ReadByte();
-                action.Flag = (ActionStateFlag)packet.ReadByte();
-            }
-            else if (Game.ClientType == GameClientType.Rigid)
-            {
-                action.Flag = (ActionStateFlag)packet.ReadByte();
-                var flag = packet.ReadByte();
-                Debug.WriteLine("Flag:" + flag);
-            }
-            else
-                action.Flag = (ActionStateFlag)packet.ReadByte();
-
-            /*if (Game.ClientType >= GameClientType.Global)
-                packet.ReadByte();
-
-            action.Flag = (ActionStateFlag)packet.ReadByte();*/
-            action.SerializeDetail(packet);
-
-            if (action.TargetId != 0)
-                EventManager.FireEvent("OnEntityHit", action.Id, action.ExecutorId, action.TargetId, 0, false);
-
-            return action;
-        }
-
-        /// <summary>
-        /// Deserialize the packet. 0xB071
-        /// </summary>
-        /// <param name="packet">The packet.</param>
-        /// <returns>Deserialized <see cref="Action"/></returns>
-        public static Action DeserializeEnd(Packet packet)
+        action.TargetId = packet.ReadUInt();
+        if (Game.ClientType == GameClientType.Turkey ||
+            Game.ClientType == GameClientType.Global ||
+            Game.ClientType == GameClientType.VTC_Game)
         {
-            var action = new Action();
-            action.Id = packet.ReadUInt(); //ActionId
-            action.TargetId = packet.ReadUInt(); //originalTargetId
-
+            packet.ReadByte();
             action.Flag = (ActionStateFlag)packet.ReadByte();
-            action.SerializeDetail(packet);
-
-            return action;
+        }
+        else if (Game.ClientType == GameClientType.Rigid)
+        {
+            action.Flag = (ActionStateFlag)packet.ReadByte();
+            var flag = packet.ReadByte();
+            Debug.WriteLine("Flag:" + flag);
+        }
+        else
+        {
+            action.Flag = (ActionStateFlag)packet.ReadByte();
         }
 
-        public void SerializeDetail(Packet packet)
+        /*if (Game.ClientType >= GameClientType.Global)
+            packet.ReadByte();
+
+        action.Flag = (ActionStateFlag)packet.ReadByte();*/
+        action.SerializeDetail(packet);
+
+        if (action.TargetId != 0)
+            EventManager.FireEvent("OnEntityHit", action.Id, action.ExecutorId, action.TargetId, 0, false);
+
+        return action;
+    }
+
+    /// <summary>
+    ///     Deserialize the packet. 0xB071
+    /// </summary>
+    /// <param name="packet">The packet.</param>
+    /// <returns>Deserialized <see cref="Action" /></returns>
+    public static Action DeserializeEnd(Packet packet)
+    {
+        var action = new Action();
+        action.Id = packet.ReadUInt(); //ActionId
+        action.TargetId = packet.ReadUInt(); //originalTargetId
+
+        action.Flag = (ActionStateFlag)packet.ReadByte();
+        action.SerializeDetail(packet);
+
+        return action;
+    }
+
+    public void SerializeDetail(Packet packet)
+    {
+        if (Flag.HasFlag(ActionStateFlag.Attack))
         {
-            if (Flag.HasFlag(ActionStateFlag.Attack))
+            var hitCount = packet.ReadByte();
+            var affectedObjectCount = packet.ReadByte();
+
+            for (var i = 0; i < affectedObjectCount; i++)
             {
-                var hitCount = packet.ReadByte();
-                var affectedObjectCount = packet.ReadByte();
+                var uniqueId = packet.ReadUInt();
+                if (!SpawnManager.TryGetEntity<SpawnedBionic>(uniqueId, out var entity))
+                    continue;
 
-                for (int i = 0; i < affectedObjectCount; i++)
+                for (var j = 0; j < hitCount; j++)
                 {
-                    var uniqueId = packet.ReadUInt();
-                    if (!SpawnManager.TryGetEntity<SpawnedBionic>(uniqueId, out var entity))
-                        continue;
+                    var state = (ActionHitStateFlag)packet.ReadByte();
+                    if (state == ActionHitStateFlag.Abort)
+                        break;
 
-                    for (int j = 0; j < hitCount; j++)
+                    if (entity != null)
                     {
-                        var state = (ActionHitStateFlag)packet.ReadByte();
-                        if (state == ActionHitStateFlag.Abort)
-                            break;
+                        entity.State.HitState = state;
+                        if (state.HasFlag(ActionHitStateFlag.Dead))
+                            entity.State.LifeState = LifeState.Dead;
+                    }
 
-                        if (entity != null)
+                    if (state != ActionHitStateFlag.Block)
+                    {
+                        var critStatus = packet.ReadByte(); // 0x01: normal 0x02 critical
+
+                        var damage = BitConverter.ToInt32(new byte[]
                         {
-                            entity.State.HitState = state;
-                            if (state.HasFlag(ActionHitStateFlag.Dead))
-                                entity.State.LifeState = LifeState.Dead;
-                        }
+                            packet.ReadByte(),
+                            packet.ReadByte(),
+                            packet.ReadByte(),
+                            0
+                        }, 0);
 
-                        if (state != ActionHitStateFlag.Block)
-                        {
-                            var critStatus = packet.ReadByte(); // 0x01: normal 0x02 critical
+                        //if(entity.Health < damage)
+                        //damage = entity.Health;
 
-                            var damage = BitConverter.ToInt32(new byte[] {
-                                packet.ReadByte(),
-                                packet.ReadByte(),
-                                packet.ReadByte(),
-                                0
-                            }, 0);
+                        var unknownState = packet.ReadInt();
+                        Debug.WriteLine("UnknownState:" + unknownState);
 
-                            //if(entity.Health < damage)
-                            //damage = entity.Health;
+                        //packet.ReadUShort();
+                        //packet.ReadByte();
 
-                            var unknownState = packet.ReadInt();
-                            Debug.WriteLine("UnknownState:" + unknownState);
+                        EventManager.FireEvent("OnEntityHit", Id, ExecutorId, uniqueId, damage, critStatus == 0x02);
+                    }
 
-                            //packet.ReadUShort();
-                            //packet.ReadByte();
+                    // dont worry it will return true for knockdown states
+                    if (state.HasFlag(ActionHitStateFlag.KnockBack))
+                    {
+                        var position = Position.FromPacketInt(packet);
+                        if (entity == null)
+                            continue;
 
-                            EventManager.FireEvent("OnEntityHit", Id, ExecutorId, uniqueId, damage, critStatus == 0x02);
-                        }
-
-                        // dont worry it will return true for knockdown states
-                        if (state.HasFlag(ActionHitStateFlag.KnockBack))
-                        {
-                            var position = Position.FromPacketInt(packet);
-                            if (entity == null)
-                                continue;
-
-                            entity.SetSource(position);
-                        }
+                        entity.SetSource(position);
                     }
                 }
             }
+        }
 
-            if (Flag.HasFlag(ActionStateFlag.Teleport))
+        if (Flag.HasFlag(ActionStateFlag.Teleport))
+        {
+            var position = Position.FromPacketInt(packet);
+            if (PlayerIsExecutor)
             {
-                var position = Position.FromPacketInt(packet);
-                if (PlayerIsExecutor)
-                {
-                    Game.Player.SetSource(position);
-                }
-                else
-                {
-                    if (!TryGetExecutor<SpawnedBionic>(out var executor))
-                        return;
+                Game.Player.SetSource(position);
+            }
+            else
+            {
+                if (!TryGetExecutor<SpawnedBionic>(out var executor))
+                    return;
 
-                    executor.SetSource(position);
-                }
+                executor.SetSource(position);
             }
         }
+    }
 
-        /// <summary>
-        /// Gets the executor.
-        /// </summary>
-        public bool TryGetExecutor<T>(out T entity) where T : SpawnedBionic
-        {
-            return SpawnManager.TryGetEntity(ExecutorId, out entity);
-        }
+    /// <summary>
+    ///     Gets the executor.
+    /// </summary>
+    public bool TryGetExecutor<T>(out T entity) where T : SpawnedBionic
+    {
+        return SpawnManager.TryGetEntity(ExecutorId, out entity);
+    }
 
-        /// <summary>
-        /// Gets the target.
-        /// </summary>
-        /// <returns></returns>
-        public bool TryGetTarget<T>(out T entity) where T : SpawnedBionic
-        {
-            return SpawnManager.TryGetEntity(TargetId, out entity);
-        }
+    /// <summary>
+    ///     Gets the target.
+    /// </summary>
+    /// <returns></returns>
+    public bool TryGetTarget<T>(out T entity) where T : SpawnedBionic
+    {
+        return SpawnManager.TryGetEntity(TargetId, out entity);
     }
 }

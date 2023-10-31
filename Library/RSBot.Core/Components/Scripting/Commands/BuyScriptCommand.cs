@@ -11,9 +11,9 @@ internal class BuyScriptCommand : IScriptCommand
 
     public bool IsBusy { get; private set; }
 
-    public Dictionary<string, string> Arguments => new Dictionary<string, string>
+    public Dictionary<string, string> Arguments => new()
     {
-        {"Codename", "The code name of the NPC"}
+        { "Codename", "The code name of the NPC" }
     };
 
     #endregion Properties

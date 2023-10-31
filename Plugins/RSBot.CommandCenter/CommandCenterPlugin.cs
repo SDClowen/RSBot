@@ -32,6 +32,8 @@ public class CommandCenterPlugin : IPlugin
     public Control View => Views.View.Main;
 
     /// <inheritdoc />
-    public void Translate() =>
+    public void Translate()
+    {
         LanguageManager.Translate(View, Kernel.Language);
+    }
 }

@@ -1,3 +1,8 @@
+using System;
+using System.ComponentModel;
+using System.Linq;
+using System.Threading;
+using System.Windows.Forms;
 using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Components;
@@ -6,63 +11,33 @@ using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Skill;
 using RSBot.Skills.Components;
-using System;
-using System.Linq;
-using System.Threading;
-using System.Windows.Forms;
+using SDUI.Controls;
+using CheckBox = SDUI.Controls.CheckBox;
+using ListViewExtensions = RSBot.Core.Extensions.ListViewExtensions;
 
 namespace RSBot.Skills.Views;
 
-[System.ComponentModel.ToolboxItem(false)]
+[ToolboxItem(false)]
 public partial class Main : UserControl
 {
-    private class MasteryComboBoxItem
-    {
-        public RefSkillMastery Record;
-
-        public byte Level;
-
-        public override string ToString()
-        {
-            return Record.Name + $" lv.{Level}";
-        }
-    }
-
-    private class TeleportSkillComboBoxItem
-    {
-        public RefSkill Record;
-        public byte Level;
-
-        public override string ToString()
-        {
-            return Record.GetRealName() + $" lv.{Level}";
-        }
-    }
-
-    #region Fields
-    private object _lock;
-    private MasteryComboBoxItem _selectedMastery;
-    private bool _settingsLoaded;
-    #endregion Fields
-
     /// <summary>
-    /// Initializes a new instance of the <see cref="Main"/> class.
+    ///     Initializes a new instance of the <see cref="Main" /> class.
     /// </summary>
     public Main()
     {
         InitializeComponent();
         SubscribeEvents();
 
-        listAttackingSkills.SmallImageList = Core.Extensions.ListViewExtensions.StaticImageList;
-        listBuffs.SmallImageList = Core.Extensions.ListViewExtensions.StaticImageList;
-        listSkills.SmallImageList = Core.Extensions.ListViewExtensions.StaticImageList;
-        listActiveBuffs.SmallImageList = Core.Extensions.ListViewExtensions.StaticImageList;
+        listAttackingSkills.SmallImageList = ListViewExtensions.StaticImageList;
+        listBuffs.SmallImageList = ListViewExtensions.StaticImageList;
+        listSkills.SmallImageList = ListViewExtensions.StaticImageList;
+        listActiveBuffs.SmallImageList = ListViewExtensions.StaticImageList;
 
         _lock = new object();
     }
 
     /// <summary>
-    /// Subscribes the events.
+    ///     Subscribes the events.
     /// </summary>
     private void SubscribeEvents()
     {
@@ -82,7 +57,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Called when [remove item perk].
+    ///     Called when [remove item perk].
     /// </summary>
     /// <param name="targetId">The target identifier.</param>
     /// <param name="removedPerk">The removed perk.</param>
@@ -103,7 +78,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Called when [add item perk].
+    ///     Called when [add item perk].
     /// </summary>
     /// <param name="targetId">The target identifier.</param>
     /// <param name="token">The token.</param>
@@ -125,7 +100,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Will be triggered if EXP/SP were gained. Increases the selected mastery level (if available)
+    ///     Will be triggered if EXP/SP were gained. Increases the selected mastery level (if available)
     /// </summary>
     private void OnSpUpdated()
     {
@@ -139,7 +114,8 @@ public partial class Main : UserControl
 
             if (nextMasteryLevel.Exp_M > Game.Player.SkillPoints)
             {
-                Log.Debug($"Auto. upping mastery cancelled due to insufficient skill points. Required: {nextMasteryLevel.Exp_M}");
+                Log.Debug(
+                    $"Auto. upping mastery cancelled due to insufficient skill points. Required: {nextMasteryLevel.Exp_M}");
 
                 break;
             }
@@ -151,68 +127,67 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Loads the settings.
+    ///     Loads the settings.
     /// </summary>
     private void LoadSettings()
     {
         const string key = "RSBot.Skills.";
 
-        foreach (var checkbox in panelPlayerSkills.Controls.OfType<SDUI.Controls.CheckBox>())
+        foreach (var checkbox in panelPlayerSkills.Controls.OfType<CheckBox>())
             checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var checkbox in groupBoxAttackingSkills.Controls.OfType<SDUI.Controls.CheckBox>())
+        foreach (var checkbox in groupBoxAttackingSkills.Controls.OfType<CheckBox>())
             checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var checkbox in groupBoxAutomatedResurrection.Controls.OfType<SDUI.Controls.CheckBox>())
+        foreach (var checkbox in groupBoxAutomatedResurrection.Controls.OfType<CheckBox>())
             checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var checkbox in groupBoxAdvancedBuff.Controls.OfType<SDUI.Controls.CheckBox>())
+        foreach (var checkbox in groupBoxAdvancedBuff.Controls.OfType<CheckBox>())
             checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var checkbox in grpMasteryUpdate.Controls.OfType<SDUI.Controls.CheckBox>())
+        foreach (var checkbox in grpMasteryUpdate.Controls.OfType<CheckBox>())
             checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var num in grpMasteryUpdate.Controls.OfType<SDUI.Controls.NumUpDown>())
+        foreach (var num in grpMasteryUpdate.Controls.OfType<NumUpDown>())
             num.Value = PlayerConfig.Get(key + num.Name, num.Value);
 
-        foreach (var checkbox in groupAdvancedSetup.Controls.OfType<SDUI.Controls.CheckBox>())
+        foreach (var checkbox in groupAdvancedSetup.Controls.OfType<CheckBox>())
             checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
-
     }
 
     /// <summary>
-    /// Saves the settings.
+    ///     Saves the settings.
     /// </summary>
     private void ApplySettings()
     {
         const string key = "RSBot.Skills.";
-        foreach (var checkbox in panelPlayerSkills.Controls.OfType<SDUI.Controls.CheckBox>())
+        foreach (var checkbox in panelPlayerSkills.Controls.OfType<CheckBox>())
             PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var checkbox in groupBoxAttackingSkills.Controls.OfType<SDUI.Controls.CheckBox>())
+        foreach (var checkbox in groupBoxAttackingSkills.Controls.OfType<CheckBox>())
             PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var checkbox in groupBoxAutomatedResurrection.Controls.OfType<SDUI.Controls.CheckBox>())
+        foreach (var checkbox in groupBoxAutomatedResurrection.Controls.OfType<CheckBox>())
             PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var checkbox in groupBoxAdvancedBuff.Controls.OfType<SDUI.Controls.CheckBox>())
+        foreach (var checkbox in groupBoxAdvancedBuff.Controls.OfType<CheckBox>())
             PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var checkbox in grpMasteryUpdate.Controls.OfType<SDUI.Controls.CheckBox>())
+        foreach (var checkbox in grpMasteryUpdate.Controls.OfType<CheckBox>())
             PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var num in grpMasteryUpdate.Controls.OfType<SDUI.Controls.NumUpDown>())
+        foreach (var num in grpMasteryUpdate.Controls.OfType<NumUpDown>())
             PlayerConfig.Set(key + num.Name, num.Value);
 
-        foreach (var checkbox in groupAdvancedSetup.Controls.OfType<SDUI.Controls.CheckBox>())
+        foreach (var checkbox in groupAdvancedSetup.Controls.OfType<CheckBox>())
             PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the settings control.
+    ///     Handles the CheckedChanged event of the settings control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void settings_CheckedChanged(object sender, EventArgs e)
     {
         if (_settingsLoaded)
@@ -220,10 +195,10 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the ValueChanged event of the numSettings control.
+    ///     Handles the ValueChanged event of the numSettings control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void numSettings_ValueChanged(object sender, EventArgs e)
     {
         if (_settingsLoaded)
@@ -231,7 +206,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Applies the attack skills.
+    ///     Applies the attack skills.
     /// </summary>
     private void ApplyAttackSkills()
     {
@@ -286,7 +261,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Applies the buff skills.
+    ///     Applies the buff skills.
     /// </summary>
     private void ApplyBuffSkills()
     {
@@ -309,7 +284,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Loads the masteries.
+    ///     Loads the masteries.
     /// </summary>
     private void LoadMasteries()
     {
@@ -330,7 +305,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Loads the available teleport skills into the combo box
+    ///     Loads the available teleport skills into the combo box
     /// </summary>
     private void LoadTeleportSkills()
     {
@@ -338,9 +313,11 @@ public partial class Main : UserControl
         comboTeleportSkill.Items.Clear();
 
         var selectedTeleportSkill = PlayerConfig.Get<uint>("RSBot.Skills.TeleportSkill");
-        foreach (var skill in Game.Player.Skills.KnownSkills.Where(s => s.CanBeCasted && s.Record.Action_ActionDuration == 0 && s.Record.Params[2] == 500))
+        foreach (var skill in Game.Player.Skills.KnownSkills.Where(s =>
+                     s.CanBeCasted && s.Record.Action_ActionDuration == 0 && s.Record.Params[2] == 500))
         {
-            var index = comboTeleportSkill.Items.Add(new TeleportSkillComboBoxItem() { Level = skill.Record.Basic_Level, Record = skill.Record });
+            var index = comboTeleportSkill.Items.Add(new TeleportSkillComboBoxItem
+                { Level = skill.Record.Basic_Level, Record = skill.Record });
 
             if (selectedTeleportSkill == skill.Record.ID)
             {
@@ -353,7 +330,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Loads the attacks.
+    ///     Loads the attacks.
     /// </summary>
     /// <param name="index">The index.</param>
     private void LoadAttacks(int index = 0)
@@ -381,7 +358,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Loads the buffs.
+    ///     Loads the buffs.
     /// </summary>
     private void LoadBuffs()
     {
@@ -415,7 +392,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Loads the imbues.
+    ///     Loads the imbues.
     /// </summary>
     private void LoadImbues()
     {
@@ -445,7 +422,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Loads the resurrection skills.
+    ///     Loads the resurrection skills.
     /// </summary>
     private void LoadResurrectionSkills()
     {
@@ -472,7 +449,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Loads the skills.
+    ///     Loads the skills.
     /// </summary>
     private void LoadSkills()
     {
@@ -513,12 +490,14 @@ public partial class Main : UserControl
 
             foreach (var mastery in player.Skills.Masteries)
             {
-                var group = new ListViewGroup(Game.ReferenceManager.GetTranslation(mastery.Record.NameCode) + " (lv. " + mastery.Level + ")");
+                var group = new ListViewGroup(Game.ReferenceManager.GetTranslation(mastery.Record.NameCode) + " (lv. " +
+                                              mastery.Level + ")");
                 group.Tag = mastery.Id;
                 listSkills.Groups.Add(group);
             }
 
-            foreach (var skill in player.Skills.KnownSkills.Where(s => s.Enabled && s.Record.ReqCommon_Mastery1 != 1000))
+            foreach (var skill in
+                     player.Skills.KnownSkills.Where(s => s.Enabled && s.Record.ReqCommon_Mastery1 != 1000))
             {
                 if (skill.IsPassive)
                     continue;
@@ -537,8 +516,9 @@ public partial class Main : UserControl
                 var item = new ListViewItem(name) { Tag = skill };
                 item.SubItems.Add("lv. " + skill.Record.Basic_Level);
 
-                foreach (var @group in listSkills.Groups.Cast<ListViewGroup>().Where(@group => Convert.ToInt32(@group.Tag) == skill.Record.ReqCommon_Mastery1))
-                    item.Group = @group;
+                foreach (var group in listSkills.Groups.Cast<ListViewGroup>().Where(group =>
+                             Convert.ToInt32(group.Tag) == skill.Record.ReqCommon_Mastery1))
+                    item.Group = group;
 
                 if (skill.IsAttack && checkShowAttacks.Checked)
                     listSkills.Items.Add(item);
@@ -553,7 +533,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Saves the attacks.
+    ///     Saves the attacks.
     /// </summary>
     private void SaveAttacks()
     {
@@ -565,7 +545,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Saves the buffs.
+    ///     Saves the buffs.
     /// </summary>
     private void SaveBuffs()
     {
@@ -577,9 +557,9 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Run the event after added the buff from the character
+    ///     Run the event after added the buff from the character
     /// </summary>
-    /// <param name="buffInfo">The added <see cref="BuffInfo"/></param>
+    /// <param name="buffInfo">The added <see cref="BuffInfo" /></param>
     private void OnAddBuff(SkillInfo buffInfo)
     {
         try
@@ -601,14 +581,14 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Run the event after removed the buff from the character
+    ///     Run the event after removed the buff from the character
     /// </summary>
-    /// <param name="buffInfo">The removed <see cref="BuffInfo"/></param>
+    /// <param name="buffInfo">The removed <see cref="BuffInfo" /></param>
     private void OnRemoveBuff(SkillInfo removingBuff)
     {
         try
         {
-            for (int i = 0; i < listActiveBuffs.Items.Count; i++)
+            for (var i = 0; i < listActiveBuffs.Items.Count; i++)
             {
                 var listItem = listActiveBuffs.Items[i];
                 if (listItem == null)
@@ -630,13 +610,13 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Check the skills upgraded or withdrawn
+    ///     Check the skills upgraded or withdrawn
     /// </summary>
     /// <param name="oldSkill">The old skill</param>
     /// <param name="newSkill">The new skill</param>
     private void CheckSkillWithdrawnOrUpgraded(SkillInfo oldSkill, SkillInfo newSkill)
     {
-        for (int i = 0; i < comboMonsterType.Items.Count; i++)
+        for (var i = 0; i < comboMonsterType.Items.Count; i++)
         {
             var skills = PlayerConfig.GetArray<uint>($"RSBot.Skills.Attacks_{i}").ToList();
             var index = skills.IndexOf(oldSkill.Id);
@@ -713,7 +693,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Call after skill learned
+    ///     Call after skill learned
     /// </summary>
     /// <param name="learnedSkill"></param>
     private void OnSkillLearned(SkillInfo learnedSkill)
@@ -723,7 +703,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Call after learned skill upgraded
+    ///     Call after learned skill upgraded
     /// </summary>
     /// <param name="skill">The old skill.</param>
     /// <param name="newSkill">The new skill.</param>
@@ -735,7 +715,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Core_s the on withdraw skill.
+    ///     Core_s the on withdraw skill.
     /// </summary>
     /// <param name="oldSkill">The old skill.</param>
     /// <param name="newSkill">The new skill.</param>
@@ -747,7 +727,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Core_s the on learn skill mastery.
+    ///     Core_s the on learn skill mastery.
     /// </summary>
     /// <param name="info">The information.</param>
     private void OnLearnSkillMastery(MasteryInfo info)
@@ -759,7 +739,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Main_s the on load character.
+    ///     Main_s the on load character.
     /// </summary>
     private void OnLoadCharacter()
     {
@@ -777,7 +757,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Core_s the on resurrection request
+    ///     Core_s the on resurrection request
     /// </summary>
     private void OnResurrectionRequest()
     {
@@ -787,10 +767,10 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the Click event of the btnMoveAttackSkillDown control.
+    ///     Handles the Click event of the btnMoveAttackSkillDown control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void btnMoveAttackSkillDown_Click(object sender, EventArgs e)
     {
         listAttackingSkills.MoveSelectedItems(MoveDirection.Down);
@@ -798,10 +778,10 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the Click event of the btnMoveAttackSkillUp control.
+    ///     Handles the Click event of the btnMoveAttackSkillUp control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void btnMoveAttackSkillUp_Click(object sender, EventArgs e)
     {
         listAttackingSkills.MoveSelectedItems(MoveDirection.Up);
@@ -809,10 +789,10 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the Click event of the btnMoveBuffSkillDown control.
+    ///     Handles the Click event of the btnMoveBuffSkillDown control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void btnMoveBuffSkillDown_Click(object sender, EventArgs e)
     {
         listBuffs.MoveSelectedItems(MoveDirection.Down);
@@ -820,10 +800,10 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the Click event of the btnMoveBuffSkillUp control.
+    ///     Handles the Click event of the btnMoveBuffSkillUp control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void btnMoveBuffSkillUp_Click(object sender, EventArgs e)
     {
         listBuffs.MoveSelectedItems(MoveDirection.Up);
@@ -831,10 +811,10 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the Click event of the btnRemoveAttackSkill control.
+    ///     Handles the Click event of the btnRemoveAttackSkill control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void btnRemoveAttackSkill_Click(object sender, EventArgs e)
     {
         foreach (ListViewItem item in listAttackingSkills.SelectedItems)
@@ -844,10 +824,10 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the Click event of the btnRemoveBuffSkill control.
+    ///     Handles the Click event of the btnRemoveBuffSkill control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void btnRemoveBuffSkill_Click(object sender, EventArgs e)
     {
         foreach (ListViewItem item in listBuffs.SelectedItems)
@@ -857,10 +837,10 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the SelectedIndexChanged event of the comboImue control.
+    ///     Handles the SelectedIndexChanged event of the comboImue control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void comboImbue_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (comboImbue.SelectedIndex < 0)
@@ -876,20 +856,20 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the SelectedIndexChanged event of the comboMonsterType control.
+    ///     Handles the SelectedIndexChanged event of the comboMonsterType control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void comboMonsterType_SelectedIndexChanged(object sender, EventArgs e)
     {
         LoadAttacks(comboMonsterType.SelectedIndex);
     }
 
     /// <summary>
-    /// Handles the SelectedIndexChanged event of the comboResurrectionSkill control.
+    ///     Handles the SelectedIndexChanged event of the comboResurrectionSkill control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void comboResurrectionSkill_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (comboResurrectionSkill.SelectedIndex < 0)
@@ -905,10 +885,10 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the CheckedChanged event of the filters control.
+    ///     Handles the CheckedChanged event of the filters control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void Filter_CheckedChanged(object sender, EventArgs e)
     {
         if (_settingsLoaded)
@@ -918,10 +898,10 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the Click event of the menuAddAttack control.
+    ///     Handles the Click event of the menuAddAttack control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void menuAddAttack_Click(object sender, EventArgs e)
     {
         foreach (ListViewItem item in listSkills.SelectedItems)
@@ -929,7 +909,8 @@ public partial class Main : UserControl
             var selectedRefSkill = item.Tag as SkillInfo;
 
             if (listAttackingSkills.Items.Cast<ListViewItem>()
-                .Any(p => ((SkillInfo)p.Tag).Record.Action_Overlap != 0 && ((SkillInfo)p.Tag).Record.Action_Overlap == selectedRefSkill.Record.Action_Overlap))
+                .Any(p => ((SkillInfo)p.Tag).Record.Action_Overlap != 0 && ((SkillInfo)p.Tag).Record.Action_Overlap ==
+                    selectedRefSkill.Record.Action_Overlap))
                 continue;
 
             //if (selectedRefSkill != null && selectedRefSkill.IsAttack)
@@ -941,17 +922,18 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Handles the Click event of the menuAddBuff control.
+    ///     Handles the Click event of the menuAddBuff control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void menuAddBuff_Click(object sender, EventArgs e)
     {
         foreach (ListViewItem item in listSkills.SelectedItems)
         {
             var selectedRefSkill = item.Tag as SkillInfo;
             if (listBuffs.Items.Cast<ListViewItem>()
-                .Any(p => ((SkillInfo)p.Tag).Record.Action_Overlap != 0 && ((SkillInfo)p.Tag).Record.Action_Overlap == selectedRefSkill.Record.Action_Overlap))
+                .Any(p => ((SkillInfo)p.Tag).Record.Action_Overlap != 0 && ((SkillInfo)p.Tag).Record.Action_Overlap ==
+                    selectedRefSkill.Record.Action_Overlap))
                 continue;
 
             if (selectedRefSkill != null && !selectedRefSkill.IsAttack && !selectedRefSkill.Record.TargetGroup_Enemy_M)
@@ -1000,7 +982,7 @@ public partial class Main : UserControl
         skillInfo.Cast(buff: true);
     }
 
-    private void skillContextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+    private void skillContextMenu_Opening(object sender, CancelEventArgs e)
     {
         useToPartyMemberToolStripMenuItem.DropDownItems.Clear();
 
@@ -1033,9 +1015,11 @@ public partial class Main : UserControl
                     if (member == null)
                         return;
 
-                    skillInfo.Cast(member.Player.UniqueId, buff: true);
+                    skillInfo.Cast(member.Player.UniqueId, true);
                 }
-                catch { }
+                catch
+                {
+                }
             });
         }
     }
@@ -1066,7 +1050,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    /// Occurs before Main form is displayed.
+    ///     Occurs before Main form is displayed.
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
@@ -1076,4 +1060,34 @@ public partial class Main : UserControl
         LoadSettings();
         _settingsLoaded = true;
     }
+
+    private class MasteryComboBoxItem
+    {
+        public byte Level;
+        public RefSkillMastery Record;
+
+        public override string ToString()
+        {
+            return Record.Name + $" lv.{Level}";
+        }
+    }
+
+    private class TeleportSkillComboBoxItem
+    {
+        public byte Level;
+        public RefSkill Record;
+
+        public override string ToString()
+        {
+            return Record.GetRealName() + $" lv.{Level}";
+        }
+    }
+
+    #region Fields
+
+    private readonly object _lock;
+    private MasteryComboBoxItem _selectedMastery;
+    private bool _settingsLoaded;
+
+    #endregion Fields
 }

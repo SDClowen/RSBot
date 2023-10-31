@@ -31,11 +31,12 @@ namespace RSBot.Replacer
             {
                 MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
             Environment.Exit(0);
         }
 
         /// <summary>
-        /// Copy directory to destination directory
+        ///     Copy directory to destination directory
         /// </summary>
         /// <param name="sourceFolder">The source folder</param>
         /// <param name="destFolder">The Destination folder</param>

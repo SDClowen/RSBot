@@ -1,7 +1,7 @@
 ﻿namespace RSBot.Core.Components.Collision;
 
 /// <summary>
-/// Represents a point within an RSCollisionMesh
+///     Represents a point within an RSCollisionMesh
 /// </summary>
 internal struct RSCollisionPoint
 {

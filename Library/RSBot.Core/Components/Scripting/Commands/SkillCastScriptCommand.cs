@@ -4,19 +4,6 @@ namespace RSBot.Core.Components.Scripting.Commands;
 
 internal class SkillCastScriptCommand : IScriptCommand
 {
-    #region Properties
-
-    public string Name => "cast";
-
-    public bool IsBusy { get; private set; }
-
-    public Dictionary<string, string> Arguments => new Dictionary<string, string>
-    {
-        {"SkillId", "The Id of the skill to be cast"}
-    };
-
-    #endregion Properties
-
     public bool Execute(string[] arguments = null)
     {
         if (arguments == null || arguments.Length != Arguments.Count)
@@ -57,4 +44,17 @@ internal class SkillCastScriptCommand : IScriptCommand
     {
         IsBusy = false;
     }
+
+    #region Properties
+
+    public string Name => "cast";
+
+    public bool IsBusy { get; private set; }
+
+    public Dictionary<string, string> Arguments => new()
+    {
+        { "SkillId", "The Id of the skill to be cast" }
+    };
+
+    #endregion Properties
 }

@@ -1,28 +1,27 @@
 ﻿using RSBot.Core.Event;
 using RSBot.Core.Objects.Exchange;
 
-namespace RSBot.Core.Network.Handler.Agent.Exchange
+namespace RSBot.Core.Network.Handler.Agent.Exchange;
+
+internal class ExchangeStartResponse : IPacketHandler
 {
-    internal class ExchangeStartResponse : IPacketHandler
+    /// <inheritdoc />
+    public ushort Opcode => 0xB081;
+
+    /// <inheritdoc />
+    public PacketDestination Destination => PacketDestination.Client;
+
+    /// <inheritdoc />
+    public void Invoke(Packet packet)
     {
-        /// <inheritdoc />
-        public ushort Opcode => 0xB081;
+        if (packet.ReadByte() != 1)
+            return;
 
-        /// <inheritdoc />
-        public PacketDestination Destination => PacketDestination.Client;
+        var playerUniqueId = packet.ReadUInt();
+        Game.Player.Exchange = new ExchangeInstance(playerUniqueId);
 
-        /// <inheritdoc />
-        public void Invoke(Packet packet)
-        {
-            if (packet.ReadByte() != 1)
-                return;
+        Log.Notify($"Started exchanging with the player {Game.Player.Exchange.ExchangePlayer.Name}");
 
-            var playerUniqueId = packet.ReadUInt();
-            Game.Player.Exchange = new ExchangeInstance(playerUniqueId);
-
-            Log.Notify($"Started exchanging with the player {Game.Player.Exchange.ExchangePlayer.Name}");
-
-            EventManager.FireEvent("OnStartExchange");
-        }
+        EventManager.FireEvent("OnStartExchange");
     }
 }

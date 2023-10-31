@@ -1,17 +1,16 @@
-﻿using RSBot.Core.Objects;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using RSBot.Core.Objects;
 
 namespace RSBot.Core.Components.Collision.Calculated;
 
 /// <summary>
-/// Represents the calculated version of the collision mesh.
-/// Calculated means, that it positions are mapped to the in game world.
+///     Represents the calculated version of the collision mesh.
+///     Calculated means, that it positions are mapped to the in game world.
 /// </summary>
 public class CalculatedCollisionMesh
 {
-    public Region Region;
-
     public CalculatedCollisionLine[] Collisions;
+    public Region Region;
 
     internal CalculatedCollisionMesh(RSCollisionMesh original)
     {

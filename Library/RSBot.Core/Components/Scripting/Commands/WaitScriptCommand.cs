@@ -11,21 +11,21 @@ internal class WaitScriptCommand : IScriptCommand
 
     public bool IsBusy { get; private set; }
 
-    public Dictionary<string, string> Arguments => new Dictionary<string, string>
-        {
-            {"Time", "The time to wait in seconds"}
-        };
+    public Dictionary<string, string> Arguments => new()
+    {
+        { "Time", "The time to wait in seconds" }
+    };
 
     #endregion Properties
 
     #region Methods
 
     /// <summary>
-    /// Executes this instance.
+    ///     Executes this instance.
     /// </summary>
     /// <param name="arguments"></param>
     /// <returns>
-    /// A value indicating if the command has been executed successfully.
+    ///     A value indicating if the command has been executed successfully.
     /// </returns>
     public bool Execute(string[] arguments = null)
     {
@@ -59,5 +59,6 @@ internal class WaitScriptCommand : IScriptCommand
     {
         IsBusy = false;
     }
+
     #endregion Methods
 }

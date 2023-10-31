@@ -35,7 +35,7 @@ internal class ChatRequestHook : IPacketHook
             return packet;
 
         var commandName = message.Split('\\')[1];
-        
+
         CommandManager.Execute(commandName);
 
         return null;

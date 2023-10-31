@@ -1,26 +1,26 @@
-﻿using RSBot.Core.Objects;
-using System.IO;
+﻿using System.IO;
+using RSBot.Core.Objects;
 
 namespace RSBot.Core.Components.Collision;
 
 /// <summary>
-/// Represents the structure of a RSBot collision mesh.
+///     Represents the structure of a RSBot collision mesh.
 /// </summary>
 internal struct RSCollisionMesh
 {
     /// <summary>
-    /// The region identifier this navmesh is used for
+    ///     The region identifier this navmesh is used for
     /// </summary>
     public Region Region;
 
     /// <summary>
-    /// Gets the collision lines
+    ///     Gets the collision lines
     /// </summary>
     public RSCollisionLine[] Collisions;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RSCollisionMesh"/> struct.
-    /// Takes the binary reader and parses a new instance.
+    ///     Initializes a new instance of the <see cref="RSCollisionMesh" /> struct.
+    ///     Takes the binary reader and parses a new instance.
     /// </summary>
     /// <param name="reader">The reader.</param>
     public RSCollisionMesh(BinaryReader reader)

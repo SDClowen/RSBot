@@ -46,7 +46,7 @@ internal enum EmoticonType : byte
     Joy = 3,
     No = 4,
     Yes = 5,
-    Smile = 6,
+    Smile = 6
 }
 
 internal record EmoticonItem(string Name, string Label, string Icon, EmoticonType Type)

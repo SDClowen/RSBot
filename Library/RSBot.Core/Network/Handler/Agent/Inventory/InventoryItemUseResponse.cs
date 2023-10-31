@@ -1,41 +1,39 @@
-﻿using System;
-using RSBot.Core.Event;
+﻿using RSBot.Core.Event;
 
-namespace RSBot.Core.Network.Handler.Agent.Inventory
+namespace RSBot.Core.Network.Handler.Agent.Inventory;
+
+internal class InventoryItemUseResponse : IPacketHandler
 {
-    internal class InventoryItemUseResponse : IPacketHandler
+    /// <summary>
+    ///     Gets or sets the opcode.
+    /// </summary>
+    /// <value>
+    ///     The opcode.
+    /// </value>
+    public ushort Opcode => 0xB04C;
+
+    /// <summary>
+    ///     Gets or sets the destination.
+    /// </summary>
+    /// <value>
+    ///     The destination.
+    /// </value>
+    public PacketDestination Destination => PacketDestination.Client;
+
+    /// <summary>
+    ///     Handles the packet.
+    /// </summary>
+    /// <param name="packet">The packet.</param>
+    public void Invoke(Packet packet)
     {
-        /// <summary>
-        /// Gets or sets the opcode.
-        /// </summary>
-        /// <value>
-        /// The opcode.
-        /// </value>
-        public ushort Opcode => 0xB04C;
+        if (packet.ReadByte() != 0x01)
+            return;
 
-        /// <summary>
-        /// Gets or sets the destination.
-        /// </summary>
-        /// <value>
-        /// The destination.
-        /// </value>
-        public PacketDestination Destination => PacketDestination.Client;
+        var sourceSlot = packet.ReadByte();
+        var newAmount = packet.ReadUShort();
 
-        /// <summary>
-        /// Handles the packet.
-        /// </summary>
-        /// <param name="packet">The packet.</param>
-        public void Invoke(Packet packet)
-        {
-            if (packet.ReadByte() != 0x01)
-                return;
+        Game.Player.Inventory.UpdateItemAmount(sourceSlot, newAmount);
 
-            var sourceSlot = packet.ReadByte();
-            var newAmount = packet.ReadUShort();
-
-            Game.Player.Inventory.UpdateItemAmount(sourceSlot, newAmount);
-            
-            EventManager.FireEvent("OnUseItem", sourceSlot);
-        }
+        EventManager.FireEvent("OnUseItem", sourceSlot);
     }
 }

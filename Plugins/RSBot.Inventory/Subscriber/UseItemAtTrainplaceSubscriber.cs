@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using RSBot.Core.Event;
 using RSBot.Core;
+using RSBot.Core.Event;
 
 namespace RSBot.Inventory.Subscriber;
 
 internal class UseItemAtTrainplaceSubscriber
 {
-    private static List<string> _blacklistedItems = new();
+    private static readonly List<string> _blacklistedItems = new();
     private static long _lastTick;
 
     public static void SubscribeEvents()
@@ -20,7 +20,7 @@ internal class UseItemAtTrainplaceSubscriber
         //Retry blacklisted items after 5 minutes
         if (TimeSpan.FromMilliseconds(Kernel.TickCount - _lastTick).Minutes >= 5)
             _blacklistedItems.Clear();
-        
+
         _lastTick = Kernel.TickCount;
 
         if (!Kernel.Bot.Running || Kernel.Bot.Botbase.Area.Position.Region == 0)
@@ -46,13 +46,14 @@ internal class UseItemAtTrainplaceSubscriber
 
             Log.Notify($"Use [{invItem.Record.GetRealName()}] at training place");
 
-            if (invItem.Use()) 
+            if (invItem.Use())
                 continue;
 
             //e.g. overlapping with another buff
             _blacklistedItems.Add(invItem.Record.CodeName);
 
-            Log.Warn($"Can not use item [{invItem.Record.GetRealName()}] at training place. Blacklisting it for 5 minutes before next try.");
+            Log.Warn(
+                $"Can not use item [{invItem.Record.GetRealName()}] at training place. Blacklisting it for 5 minutes before next try.");
         }
     }
 }

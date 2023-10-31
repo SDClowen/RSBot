@@ -6,5 +6,5 @@ public enum TransportStuckReason : byte
     TransportDistance = 1,
 
     //UIIT_MSG_QUEST_ERR_TOO_FAR_FROM_MONSTER
-    CapturedDistance = 2,
+    CapturedDistance = 2
 }

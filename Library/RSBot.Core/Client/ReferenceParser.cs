@@ -1,245 +1,244 @@
-﻿using RSBot.Core.Objects;
-using System;
+﻿using System;
 using System.Globalization;
+using RSBot.Core.Objects;
 
-namespace RSBot.Core.Client
+namespace RSBot.Core.Client;
+
+public sealed class ReferenceParser
 {
-    public sealed class ReferenceParser
+    private readonly string[] _data;
+    private readonly int _length;
+
+    public ReferenceParser(string line)
     {
-        private readonly string[] _data;
-        private readonly int _length;
+        _data = line.Split('\t');
+        _length = _data.Length;
+    }
 
-        public ReferenceParser(string line)
+    public int GetColumnCount()
+    {
+        return _data.Length;
+    }
+
+    public bool TryParse<TEnum>(int index, out TEnum result)
+        where TEnum : struct
+    {
+        if (index < _length && Enum.TryParse(_data[index], out result))
+            return true;
+
+        result = default;
+        return false;
+    }
+
+    public bool TryParse(int index, out string result)
+    {
+        if (index < _length)
         {
-            _data = line.Split('\t');
-            _length = _data.Length;
+            result = _data[index];
+            return true;
         }
 
-        public int GetColumnCount ()
+        result = default;
+        return false;
+    }
+
+    public bool TryParse(int index, out string result, string @default)
+    {
+        if (index < _length)
         {
-            return _data.Length;
+            result = _data[index];
+            return true;
         }
 
-        public bool TryParse<TEnum>(int index, out TEnum result)
-            where TEnum : struct
-        {
-            if (index < _length && Enum.TryParse(_data[index], out result))
-                return true;
+        result = @default;
+        return false;
+    }
 
-            result = default(TEnum);
+    public bool TryParse(int index, out bool result)
+    {
+        result = false;
+
+        if (index >= _length)
             return false;
-        }
 
-        public bool TryParse(int index, out string result)
+        if (byte.TryParse(_data[index], out var value))
         {
-            if (index < _length)
-            {
-                result = _data[index];
-                return true;
-            }
-
-            result = default(string);
-            return false;
+            result = value == 1;
+            return true;
         }
 
-        public bool TryParse(int index, out string result, string @default)
-        {
-            if (index < _length)
-            {
-                result = _data[index];
-                return true;
-            }
+        return false;
+    }
 
-            result = @default;
-            return false;
-        }
+    public bool TryParse(int index, out bool result, bool @default)
+    {
+        if (TryParse(index, out result))
+            return true;
 
-        public bool TryParse(int index, out bool result)
-        {
-            result = false;
+        result = @default;
 
-            if (index >= _length)
-                return false;
+        return false;
+    }
 
-            if (byte.TryParse(_data[index], out var value))
-            {
-                result = value == 1;
-                return true;
-            }    
+    public bool TryParse(int index, out byte result)
+    {
+        if (index < _length && byte.TryParse(_data[index], out result))
+            return true;
 
-            return false;
-        }
+        result = default;
+        return false;
+    }
 
-        public bool TryParse(int index, out bool result, bool @default)
-        {
-            if (TryParse(index, out result))
-                return true;
+    public bool TryParse(int index, out byte result, byte @default)
+    {
+        if (index < _length && byte.TryParse(_data[index], out result))
+            return true;
 
-            result = @default;
+        result = @default;
+        return false;
+    }
 
-            return false;
-        }
+    public bool TryParse(int index, out short result)
+    {
+        if (index < _length && short.TryParse(_data[index], out result))
+            return true;
 
-        public bool TryParse(int index, out byte result)
-        {
-            if (index < _length && byte.TryParse(_data[index], out result))
-                return true;
+        result = default;
+        return false;
+    }
 
-            result = default(byte);
-            return false;
-        }
+    public bool TryParse(int index, out short result, short @default)
+    {
+        if (index < _length && short.TryParse(_data[index], out result))
+            return true;
 
-        public bool TryParse(int index, out byte result, byte @default)
-        {
-            if (index < _length && byte.TryParse(_data[index], out result))
-                return true;
+        result = @default;
+        return false;
+    }
 
-            result = @default;
-            return false;
-        }
+    public bool TryParse(int index, out ushort result)
+    {
+        if (index < _length && ushort.TryParse(_data[index], out result))
+            return true;
 
-        public bool TryParse(int index, out short result)
-        {
-            if (index < _length && short.TryParse(_data[index], out result))
-                return true;
+        result = default;
+        return false;
+    }
 
-            result = default(short);
-            return false;
-        }
+    public bool TryParse(int index, out ushort result, ushort @default)
+    {
+        if (index < _length && ushort.TryParse(_data[index], out result))
+            return true;
 
-        public bool TryParse(int index, out short result, short @default)
-        {
-            if (index < _length && short.TryParse(_data[index], out result))
-                return true;
+        result = @default;
+        return false;
+    }
 
-            result = @default;
-            return false;
-        }
+    public bool TryParse(int index, out Region result)
+    {
+        if (index < _length && Region.TryParse(_data[index], out result))
+            return true;
 
-        public bool TryParse(int index, out ushort result)
-        {
-            if (index < _length && ushort.TryParse(_data[index], out result))
-                return true;
+        result = default(ushort);
+        return false;
+    }
 
-            result = default(ushort);
-            return false;
-        }
+    public bool TryParse(int index, out Region result, Region @default)
+    {
+        if (index < _length && Region.TryParse(_data[index], out result))
+            return true;
 
-        public bool TryParse(int index, out ushort result, ushort @default)
-        {
-            if (index < _length && ushort.TryParse(_data[index], out result))
-                return true;
+        result = @default;
+        return false;
+    }
 
-            result = @default;
-            return false;
-        }
+    public bool TryParse(int index, out int result)
+    {
+        if (index < _length && int.TryParse(_data[index], out result))
+            return true;
 
-        public bool TryParse(int index, out Region result)
-        {
-            if (index < _length && Region.TryParse(_data[index], out result))
-                return true;
+        result = default;
+        return false;
+    }
 
-            result = default(ushort);
-            return false;
-        }
+    public bool TryParse(int index, out int result, int @default)
+    {
+        if (index < _length && int.TryParse(_data[index], out result))
+            return true;
 
-        public bool TryParse(int index, out Region result, Region @default)
-        {
-            if (index < _length && Region.TryParse(_data[index], out result))
-                return true;
+        result = @default;
+        return false;
+    }
 
-            result = @default;
-            return false;
-        }
+    public bool TryParse(int index, out uint result)
+    {
+        if (index < _length && uint.TryParse(_data[index], out result))
+            return true;
 
-        public bool TryParse(int index, out int result)
-        {
-            if (index < _length && int.TryParse(_data[index], out result))
-                return true;
+        result = default;
+        return false;
+    }
 
-            result = default(int);
-            return false;
-        }
+    public bool TryParse(int index, out uint result, uint @default)
+    {
+        if (index < _length && uint.TryParse(_data[index], out result))
+            return true;
 
-        public bool TryParse(int index, out int result, int @default)
-        {
-            if (index < _length && int.TryParse(_data[index], out result))
-                return true;
+        result = @default;
+        return false;
+    }
 
-            result = @default;
-            return false;
-        }
+    public bool TryParse(int index, out long result)
+    {
+        if (index < _length && long.TryParse(_data[index], out result))
+            return true;
 
-        public bool TryParse(int index, out uint result)
-        {
-            if (index < _length && uint.TryParse(_data[index], out result))
-                return true;
+        result = default;
+        return false;
+    }
 
-            result = default(uint);
-            return false;
-        }
+    public bool TryParse(int index, out long result, long @default)
+    {
+        if (index < _length && long.TryParse(_data[index], out result))
+            return true;
 
-        public bool TryParse(int index, out uint result, uint @default)
-        {
-            if (index < _length && uint.TryParse(_data[index], out result))
-                return true;
+        result = @default;
+        return false;
+    }
 
-            result = @default;
-            return false;
-        }
+    public bool TryParse(int index, out ulong result)
+    {
+        if (index < _length && ulong.TryParse(_data[index], out result))
+            return true;
 
-        public bool TryParse(int index, out long result)
-        {
-            if (index < _length && long.TryParse(_data[index], out result))
-                return true;
+        result = default;
+        return false;
+    }
 
-            result = default(long);
-            return false;
-        }
+    public bool TryParse(int index, out ulong result, ulong @default)
+    {
+        if (index < _length && ulong.TryParse(_data[index], out result))
+            return true;
 
-        public bool TryParse(int index, out long result, long @default)
-        {
-            if (index < _length && long.TryParse(_data[index], out result))
-                return true;
+        result = @default;
+        return false;
+    }
 
-            result = @default;
-            return false;
-        }
+    public bool TryParse(int index, out float result)
+    {
+        if (index < _length && float.TryParse(_data[index], NumberStyles.Any, CultureInfo.InvariantCulture, out result))
+            return true;
 
-        public bool TryParse(int index, out ulong result)
-        {
-            if (index < _length && ulong.TryParse(_data[index], out result))
-                return true;
+        result = default;
+        return false;
+    }
 
-            result = default(ulong);
-            return false;
-        }
+    public bool TryParse(int index, out float result, float @default)
+    {
+        if (index < _length && float.TryParse(_data[index], out result))
+            return true;
 
-        public bool TryParse(int index, out ulong result, ulong @default)
-        {
-            if (index < _length && ulong.TryParse(_data[index], out result))
-                return true;
-
-            result = @default;
-            return false;
-        }
-
-        public bool TryParse(int index, out float result)
-        {
-            if (index < _length  && float.TryParse(_data[index], NumberStyles.Any, CultureInfo.InvariantCulture, out result))
-                return true;
-
-            result = default(float);
-            return false;
-        }
-
-        public bool TryParse(int index, out float result, float @default)
-        {
-            if (index < _length && float.TryParse(_data[index], out result))
-                return true;
-
-            result = @default;
-            return false;
-        }
+        result = @default;
+        return false;
     }
 }

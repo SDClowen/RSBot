@@ -1,9 +1,8 @@
-﻿namespace RSBot.Core.Objects
+﻿namespace RSBot.Core.Objects;
+
+public enum ScrollState
 {
-    public enum ScrollState
-    {
-        Cancel = 0,
-        NormalScroll = 1,
-        ThiefScroll = 2, //able to move
-    }
+    Cancel = 0,
+    NormalScroll = 1,
+    ThiefScroll = 2 //able to move
 }

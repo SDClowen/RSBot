@@ -2,71 +2,70 @@
 using RSBot.Core.Components;
 using RSBot.Core.Objects.Spawn;
 
-namespace RSBot.Default.Bundle.Berzerk
+namespace RSBot.Default.Bundle.Berzerk;
+
+internal class BerzerkBundle : IBundle
 {
-    internal class BerzerkBundle : IBundle
+    /// <summary>
+    ///     Gets or sets the configuration.
+    /// </summary>
+    /// <value>
+    ///     The configuration.
+    /// </value>
+    public BerzerkConfig Config { get; set; }
+
+    /// <summary>
+    ///     Invokes this instance.
+    /// </summary>
+    /// <exception cref="System.NotImplementedException"></exception>
+    public void Invoke()
     {
-        /// <summary>
-        /// Gets or sets the configuration.
-        /// </summary>
-        /// <value>
-        /// The configuration.
-        /// </value>
-        public BerzerkConfig Config { get; set; }
+        if (!Game.Player.CanEnterBerzerk || Game.Player.HasActiveVehicle)
+            return;
 
-        /// <summary>
-        /// Invokes this instance.
-        /// </summary>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public void Invoke()
+        if (Config.WhenFull)
         {
-            if (!Game.Player.CanEnterBerzerk || Game.Player.HasActiveVehicle) 
-                return;
+            Game.Player.EnterBerzerkMode();
+            return;
+        }
 
-            if (Config.WhenFull)
+        if (Config.SurroundedByMonsters)
+        {
+            var mobAmount = SpawnManager.Count<SpawnedMonster>(m => m.AttackingPlayer && m.DistanceToPlayer < 20);
+            if (mobAmount >= Config.SurroundingMonsterAmount)
             {
                 Game.Player.EnterBerzerkMode();
                 return;
             }
-
-            if (Config.SurroundedByMonsters)
-            {
-                var mobAmount = SpawnManager.Count<SpawnedMonster>(m => m.AttackingPlayer && m.DistanceToPlayer < 20);
-                if (mobAmount >= Config.SurroundingMonsterAmount)
-                {
-                    Game.Player.EnterBerzerkMode();
-                    return;
-                }
-            }
-
-            if (!Config.BeeingAttackedByAwareMonster) 
-                return;
-
-            var entity = Game.SelectedEntity as SpawnedMonster;
-            if (entity == null)
-                return;
-
-            if(Bundles.Avoidance.AvoidMonster(entity.Rarity))
-                Game.Player.EnterBerzerkMode();
         }
 
-        /// <summary>
-        /// Refreshes this instance.
-        /// </summary>
-        public void Refresh()
+        if (!Config.BeeingAttackedByAwareMonster)
+            return;
+
+        var entity = Game.SelectedEntity as SpawnedMonster;
+        if (entity == null)
+            return;
+
+        if (Bundles.Avoidance.AvoidMonster(entity.Rarity))
+            Game.Player.EnterBerzerkMode();
+    }
+
+    /// <summary>
+    ///     Refreshes this instance.
+    /// </summary>
+    public void Refresh()
+    {
+        Config = new BerzerkConfig
         {
-            Config = new BerzerkConfig
-            {
-                WhenFull = PlayerConfig.Get<bool>("RSBot.Training.checkBerzerkWhenFull"),
-                BeeingAttackedByAwareMonster = PlayerConfig.Get<bool>("RSBot.Training.checkBerzerkAvoidance"),
-                SurroundedByMonsters = PlayerConfig.Get<bool>("RSBot.Training.checkBerzerkMonsterAmount"),
-                SurroundingMonsterAmount = PlayerConfig.Get<byte>("RSBot.Training.numBerzerkMonsterAmount", 5)
-            };
-        }
+            WhenFull = PlayerConfig.Get<bool>("RSBot.Training.checkBerzerkWhenFull"),
+            BeeingAttackedByAwareMonster = PlayerConfig.Get<bool>("RSBot.Training.checkBerzerkAvoidance"),
+            SurroundedByMonsters = PlayerConfig.Get<bool>("RSBot.Training.checkBerzerkMonsterAmount"),
+            SurroundingMonsterAmount = PlayerConfig.Get<byte>("RSBot.Training.numBerzerkMonsterAmount", 5)
+        };
+    }
 
-        public void Stop()
-        {
-            //Nothing to do
-        }
+    public void Stop()
+    {
+        //Nothing to do
     }
 }
