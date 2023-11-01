@@ -2,7 +2,7 @@ using RSBot.FileSystem.IO;
 
 namespace RSBot.FileSystem;
 
-public interface IFileSystem
+public interface IFileSystem : IDisposable
 {
     #region Properties
 
@@ -47,6 +47,8 @@ public interface IFileSystem
 
     public IFileReader OpenRead(string path);
 
+    public IFileReader OpenRead(object entry);
+
     public IEnumerable<byte> ReadAllBytes(string path)
     {
         return OpenRead(path).ReadAllBytes();
@@ -70,6 +72,8 @@ public interface IFileSystem
     public bool TryGetFile(string path, out IFile? file);
 
     public bool TryGetFolder(string path, out IFolder? folder);
+
+    public IEnumerable<IFile> GetFileList(string parent, params string[] fileNames);
 
     #endregion
 }

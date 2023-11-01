@@ -51,7 +51,7 @@ public class DivisionInfo
             return result;
         }
 
-        if (!Game.MediaPk2.TryGetFileIgnoreCase(FileName, out var file))
+        if (!Game.MediaPk2.TryGetFile(FileName, out var file))
         {
             Log.Error($"{FileName} could not be found!");
 

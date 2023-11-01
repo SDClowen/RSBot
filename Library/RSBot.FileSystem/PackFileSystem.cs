@@ -200,6 +200,25 @@ public class PackFileSystem : IFileSystem, IDisposable
     }
 
     /// <inheritdoc />
+    public IEnumerable<IFile> GetFileList(string parent, params string[] fileNames)
+    {
+        var entries =  _archive.GetEntryListByNames(parent, fileNames).ToArray();
+
+        var result = new List<IFile>();
+
+        for (var iFile = 0; iFile < entries.Length; iFile++)
+        {
+            var file = entries[iFile];
+
+            var path = PathUtil.Append(parent, file.Name);
+
+            result.Add(new PackFile.PackFile(path, file, this));
+        }
+
+        return result;
+    }
+
+    /// <inheritdoc />
     public IFileReader OpenRead(string path)
     {
         AssertFileExists(path);
@@ -211,6 +230,23 @@ public class PackFileSystem : IFileSystem, IDisposable
         var bsRead = new BsReader(_fileStream);
         bsRead.BaseStream.Position = entry.DataPosition;
         var buffer = bsRead.ReadBytes(entry.Size);
+
+        return new PackFileReader(new MemoryStream(buffer));
+    }
+
+
+    /// <inheritdoc />
+    public IFileReader OpenRead(object entry)
+    {
+        if (entry == null)
+            throw new ArgumentNullException();
+
+        if (entry is not PackEntry packEntry)
+            throw new ArgumentException("Entry should be of type PackEntry");
+
+        var bsRead = new BsReader(_fileStream);
+        bsRead.BaseStream.Position = packEntry.DataPosition;
+        var buffer = bsRead.ReadBytes(packEntry.Size);
 
         return new PackFileReader(new MemoryStream(buffer));
     }

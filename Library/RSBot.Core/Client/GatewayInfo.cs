@@ -27,7 +27,7 @@ public class GatewayInfo
             return result;
         }
 
-        if (!Game.MediaPk2.TryGetFileIgnoreCase(Filename, out var file))
+        if (!Game.MediaPk2.TryGetFile(Filename, out var file))
         {
             Log.Error("Could not load the GATEPORT.txt file, because the file was not found.");
             return result;

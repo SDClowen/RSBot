@@ -70,11 +70,6 @@ internal class PackArchive
         return _packResolver.ResolveBlock(path);
     }
 
-    /// <summary>
-    /// </summary>
-    /// <param name="path"></param>
-    /// <param name="entry"></param>
-    /// <returns></returns>
     public bool TryGetEntry(string path, out PackEntry? entry)
     {
         try
@@ -83,7 +78,7 @@ internal class PackArchive
 
             return true;
         }
-        catch (Exception e)
+        catch
         {
             entry = null;
 
@@ -99,7 +94,7 @@ internal class PackArchive
 
             return true;
         }
-        catch (Exception e)
+        catch
         {
             block = null;
 
@@ -121,6 +116,11 @@ internal class PackArchive
         var block = _packResolver.ResolveBlock(path);
 
         return block == null ? Array.Empty<PackEntry>() : block.GetEntries();
+    }
+
+    public IEnumerable<PackEntry> GetEntryListByNames(string parent, params string[] fileNames)
+    {
+        return _packResolver.ResolveFileList(parent, fileNames);
     }
 
     /// <summary>

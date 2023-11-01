@@ -392,7 +392,7 @@ public partial class Main : UserControl
         if (_cachedImages.ContainsKey(sectorImgName))
             return (Image)_cachedImages[sectorImgName].Clone();
 
-        if (Game.MediaPk2.TryGetFileIgnoreCase(sectorImgName, out var file))
+        if (Game.MediaPk2.TryGetFile(sectorImgName, out var file))
         {
             var img = file.ToImage();
             _cachedImages.Add(sectorImgName, img);

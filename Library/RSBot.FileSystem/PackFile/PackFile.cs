@@ -11,7 +11,6 @@ public class PackFile : IFile
     {
         Path = path;
         FileSystem = fileSystem;
-
         Entry = entry;
     }
 
@@ -27,12 +26,10 @@ public class PackFile : IFile
 
     public IFolder Parent => FileSystem.GetFolder(System.IO.Path.GetDirectoryName(Path) ?? "");
 
-
     public IFileReader OpenRead()
     {
-        return FileSystem.OpenRead(Path);
+        return FileSystem.OpenRead(Entry);
     }
-
 
     public override string ToString()
     {

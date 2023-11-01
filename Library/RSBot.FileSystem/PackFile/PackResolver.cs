@@ -1,3 +1,5 @@
+using System.Diagnostics;
+using System.IO;
 using RSBot.FileSystem.PackFile.Struct;
 
 namespace RSBot.FileSystem.PackFile;
@@ -8,7 +10,6 @@ internal class PackResolver
     private readonly char _pathSeparator;
 
     private readonly Dictionary<string, IEnumerable<PackBlock>> _blocksInMemory;
-    private readonly Dictionary<string, PackEntry> _filesInMemory;
 
     public PackResolver(PackReader packReader, char pathSeparator = '\\')
     {
@@ -22,8 +23,6 @@ internal class PackResolver
         {
             [""] = Root
         };
-
-        _filesInMemory = new Dictionary<string, PackEntry>(128);
     }
 
     public IEnumerable<PackBlock> Root { get; }
@@ -36,54 +35,51 @@ internal class PackResolver
             return block;
 
         var paths = ExplodePath(path);
-
-        var lastBlocks = _blocksInMemory[""];
+        var blocks = _blocksInMemory[""];
         var currentPath = string.Empty;
 
         foreach (var subFolderName in paths)
         {
             //Search in all blocks for the subfolder
-            var subFolderEntry = lastBlocks.GetEntries()
-                .FirstOrDefault(e => e.Name == subFolderName && e.Type == PackEntryType.Folder);
+            var subFolderEntry = blocks.GetEntries().FirstOrDefault(e => e.Name == subFolderName && e.Type == PackEntryType.Folder);
 
             //Path not found
             if (subFolderEntry == null)
                 return Array.Empty<PackBlock>();
 
             currentPath = PathUtil.Append(currentPath, subFolderName);
+            if (_blocksInMemory.TryGetValue(currentPath, out blocks)) 
+                continue;
 
-            if (!_blocksInMemory.TryGetValue(currentPath, out lastBlocks))
-                lastBlocks = _packReader.ReadBlocksAt(subFolderEntry.DataPosition);
+            blocks = _packReader.ReadBlocksAt(subFolderEntry.DataPosition);
 
-            if (!_blocksInMemory.ContainsKey(currentPath))
-                _blocksInMemory.TryAdd(currentPath, lastBlocks);
+            _blocksInMemory.TryAdd(currentPath, blocks);
         }
 
-        return lastBlocks;
+        return blocks;
     }
 
     public PackEntry? ResolveFile(string path)
     {
         path = PathUtil.Prepare(path);
 
-        if (_filesInMemory.TryGetValue(path, out var file))
-            return file;
-
-        var folder = PathUtil.GetFolderName(path);
-
+        var parentFolderPath = PathUtil.GetFolderName(path);
         var fileName = PathUtil.GetFileName(path);
-        var resolvedFolderBlock = ResolveBlock(folder);
+        var resolvedFolderBlock = ResolveBlock(parentFolderPath);
+        var entry = resolvedFolderBlock.GetEntries().FirstOrDefault(e => e.Type == PackEntryType.File && e.Name.IndexOf(fileName, StringComparison.OrdinalIgnoreCase) == 0);
 
-        var entries = resolvedFolderBlock.GetEntries();
-        var entry =
-            entries.FirstOrDefault(e => e.Type == PackEntryType.File && e.Name == fileName);
-
-        if (entry == null)
+        if (entry == null) {
             return null;
-
-        _filesInMemory.Add(path, entry);
+        }
 
         return entry;
+    }
+
+    public IEnumerable<PackEntry> ResolveFileList(string parentFolder, params string[] fileNamesToFilter)
+    {
+        var parentEntries = ResolveBlock(parentFolder).GetEntries();
+
+        return parentEntries.Where(e => fileNamesToFilter.Any(f => f.IndexOf(e.Name, StringComparison.OrdinalIgnoreCase) == 0) && e.Type == PackEntryType.File);
     }
 
     private string[] ExplodePath(string path)

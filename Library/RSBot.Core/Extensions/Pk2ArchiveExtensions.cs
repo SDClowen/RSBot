@@ -27,38 +27,4 @@ public static class Pk2Extensions
             return new Bitmap(16, 16);
         }
     }
-
-    /// <summary>
-    ///     Gets the given file ignoring the file name's case.
-    ///     This may reduce performance but adds additional compatibility to dirty PK2 files.
-    /// </summary>
-    /// <param name="fileSystem"></param>
-    /// <param name="path"></param>
-    /// <param name="file"></param>
-    /// <returns></returns>
-    public static bool TryGetFileIgnoreCase(this IFileSystem fileSystem, string path, out IFile file)
-    {
-        //Original
-        if (fileSystem.TryGetFile(path, out file))
-            return true;
-
-        //ToLower
-        var fileName = PathUtil.GetFileName(path).ToLower();
-        var folderName = PathUtil.GetFolderName(path);
-        var newPath = PathUtil.Append(folderName, fileName);
-
-        if (fileSystem.TryGetFile(newPath, out file))
-            return true;
-
-        //ToUpper
-        newPath = PathUtil.Append(folderName, fileName.ToUpper());
-        if (fileSystem.TryGetFile(newPath, out file))
-            return true;
-        
-        //No file found
-        Log.Warn($"File not found: {newPath}");
-
-        return false;
-
-    }
 }

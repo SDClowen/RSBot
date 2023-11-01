@@ -38,7 +38,7 @@ public class VersionInfo
             return result;
         }
 
-        if (!Game.MediaPk2.TryGetFileIgnoreCase(Filename, out var file))
+        if (!Game.MediaPk2.TryGetFile(Filename, out var file))
         {
             Log.Error("Could not load the SV.T file, because the file could not be found.");
             return result;
