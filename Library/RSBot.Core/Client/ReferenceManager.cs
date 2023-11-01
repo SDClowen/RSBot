@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -72,7 +71,6 @@ public class ReferenceManager
         LoadReferenceFile($"{ServerDep}\\TeleportBuilding.txt", CharacterData);
         LoadReferenceFile($"{ServerDep}\\SkillMasteryData.txt", SkillMasteryData);
         LoadReferenceFile($"{ServerDep}\\LevelData.txt", LevelData);
-        LoadReferenceFile($"{ServerDep}\\QuestData.txt", QuestData);
         LoadReferenceFile($"{ServerDep}\\TeleportData.txt", TeleportData);
         LoadReferenceFile($"{ServerDep}\\TeleportLink.txt", TeleportLinks);
         LoadReferenceFile($"{ServerDep}\\RefShop.txt", Shops);
@@ -103,16 +101,17 @@ public class ReferenceManager
         if (Game.ClientType >= GameClientType.Chinese)
             LoadReferenceFile($"{ServerDep}\\refextraabilitybyequipitemoptlevel.txt", ExtraAbilityByEquipItemOptLevel);
 
-        Log.Notify($"Loaded all game data in {sw.ElapsedMilliseconds}ms!");
+        sw.Stop();
 
         Log.Debug(GetDebugInfo());
+        Log.Notify($"Loaded all game data in {sw.ElapsedMilliseconds}ms!");
 
         EventManager.FireEvent("OnLoadGameData");
     }
 
     private string GetDebugInfo()
     {
-        var builder = new StringBuilder("\n=== Reference count information === \n");
+        var builder = new StringBuilder("\n=== Reference information === \n");
         
         builder.AppendFormat("TextData: {0}\n", TextData.Count);
         builder.AppendFormat("CharacterData: {0}\n", CharacterData.Count);

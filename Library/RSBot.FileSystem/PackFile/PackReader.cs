@@ -3,7 +3,7 @@ using System.Text;
 using RSBot.FileSystem.IO;
 using RSBot.FileSystem.PackFile.Cryptography;
 using RSBot.FileSystem.PackFile.Struct;
-using Serilog;
+
 
 namespace RSBot.FileSystem.PackFile;
 
@@ -37,7 +37,7 @@ internal class PackReader
         }
 
         sw.Stop();
-        Log.Debug($"Reading pack file took {sw.ElapsedMilliseconds}ms");
+        Debug.WriteLine($"Reading pack file took {sw.ElapsedMilliseconds}ms");
 
         _resolver = new PackResolver(this, pathSeparator);
 

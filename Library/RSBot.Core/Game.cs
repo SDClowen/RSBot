@@ -140,10 +140,11 @@ public class Game
     public static bool InitializeArchiveFiles()
     {
         var directory = GlobalConfig.Get<string>("RSBot.SilkroadDirectory");
+        var pk2Key = GlobalConfig.Get<string>("RSBot.Pk2Key", "169841");
 
         try
         {
-            MediaPk2 = new PackFileSystem(Path.Combine(directory, "media.pk2"), "169841");
+            MediaPk2 = new PackFileSystem(Path.Combine(directory, "media.pk2"), pk2Key);
 
             return true;
         }

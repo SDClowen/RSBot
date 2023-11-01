@@ -114,10 +114,10 @@ public class LocalFileSystem : IFileSystem
 
     public IFileReader OpenRead(object entry)
     {
-        if (entry is not string path)
-            throw new ArgumentException("Entry should be of type string.");
+        if (entry is not LocalFolder folder)
+            throw new ArgumentException("Entry should be of type LocalFolder.");
 
-        return OpenRead(path);
+        return OpenRead(folder.Path);
     }
 
     /// <inheritdoc />s

@@ -47,7 +47,7 @@ public interface IFileSystem : IDisposable
 
     public IFileReader OpenRead(string path);
 
-    public IFileReader OpenRead(object entry);
+    internal IFileReader OpenRead(object entry);
 
     public IEnumerable<byte> ReadAllBytes(string path)
     {
