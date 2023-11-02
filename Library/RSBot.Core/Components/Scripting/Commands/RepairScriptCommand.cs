@@ -8,30 +8,30 @@ internal class RepairScriptCommand : IScriptCommand
     #region Properties
 
     /// <summary>
-    /// Gets the name.
+    ///     Gets the name.
     /// </summary>
     /// <value>
-    /// The name.
+    ///     The name.
     /// </value>
     public string Name => "repair";
 
     /// <summary>
-    /// Gets a value indicating whether this instance is running.
+    ///     Gets a value indicating whether this instance is running.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if this instance is running; otherwise, <c>false</c>.
+    ///     <c>true</c> if this instance is running; otherwise, <c>false</c>.
     /// </value>
     public bool IsBusy { get; private set; }
 
     /// <summary>
-    /// Gets the arguments.
+    ///     Gets the arguments.
     /// </summary>
     /// <value>
-    /// The arguments.
+    ///     The arguments.
     /// </value>
-    public Dictionary<string, string> Arguments => new Dictionary<string, string>
+    public Dictionary<string, string> Arguments => new()
     {
-        {"Codename", "The code name of the NPC"}
+        { "Codename", "The code name of the NPC" }
     };
 
     #endregion Properties
@@ -39,11 +39,11 @@ internal class RepairScriptCommand : IScriptCommand
     #region Methods
 
     /// <summary>
-    /// Executes this instance.
+    ///     Executes this instance.
     /// </summary>
     /// <param name="arguments"></param>
     /// <returns>
-    /// A value indicating if the command has been executed successfully.
+    ///     A value indicating if the command has been executed successfully.
     /// </returns>
     public bool Execute(string[] arguments = null)
     {
@@ -52,7 +52,7 @@ internal class RepairScriptCommand : IScriptCommand
             Log.Warn("[Script] Invalid repair command: NPC code name information missing.");
 
             return false;
-        } 
+        }
 
         if (!ScriptManager.Running)
         {
@@ -80,5 +80,6 @@ internal class RepairScriptCommand : IScriptCommand
     {
         IsBusy = false;
     }
+
     #endregion Methods
 }

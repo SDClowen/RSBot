@@ -15,7 +15,7 @@ internal class PluginConfig
         {
             var actionName = PlayerConfig.Get($"RSBot.CommandCenter.MappedEmotes.{emoticon.Name}",
                 Emoticons.GetEmoticonDefaultCommand(emoticon.Name));
-            
+
             result.Add(emoticon.Name, actionName);
         }
 

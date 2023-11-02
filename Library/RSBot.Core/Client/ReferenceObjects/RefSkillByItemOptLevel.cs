@@ -1,16 +1,15 @@
-﻿namespace RSBot.Core.Client.ReferenceObjects
+﻿namespace RSBot.Core.Client.ReferenceObjects;
+
+public class RefSkillByItemOptLevel : IReference
 {
-    public class RefSkillByItemOptLevel : IReference
+    public int Link;
+    public uint SkillId;
+
+    public bool Load(ReferenceParser parser)
     {
-        public int Link;
-        public uint SkillId;
+        parser.TryParse(0, out Link);
+        parser.TryParse(1, out SkillId);
 
-        public bool Load(ReferenceParser parser)
-        {
-            parser.TryParse(0, out Link);
-            parser.TryParse(1, out SkillId);
-
-            return true;
-        }
+        return true;
     }
 }

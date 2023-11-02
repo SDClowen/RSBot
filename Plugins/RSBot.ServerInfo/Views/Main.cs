@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Windows.Forms;
-using RSBot.Core.Event;
 using RSBot.General.Components;
 
 namespace RSBot.ServerInfo.Views;
@@ -24,7 +23,7 @@ public partial class Main : UserControl
 
         foreach (var server in Serverlist.Servers)
         {
-            ListViewItem toInsert = new ListViewItem(new[]
+            var toInsert = new ListViewItem(new[]
             {
                 server.Name,
                 server.State

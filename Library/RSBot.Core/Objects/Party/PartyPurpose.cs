@@ -1,10 +1,9 @@
-﻿namespace RSBot.Core.Objects.Party
+﻿namespace RSBot.Core.Objects.Party;
+
+public enum PartyPurpose : byte
 {
-    public enum PartyPurpose : byte
-    {
-        Hunting,
-        Quest,
-        Trade,
-        Thief
-    }
+    Hunting,
+    Quest,
+    Trade,
+    Thief
 }

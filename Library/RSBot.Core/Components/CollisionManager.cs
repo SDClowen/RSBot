@@ -1,12 +1,11 @@
-﻿using RSBot.Core.Components.Collision;
-using RSBot.Core.Components.Collision.Calculated;
-using RSBot.Core.Event;
-using RSBot.Core.Objects;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using RSBot.Core.Components.Collision;
+using RSBot.Core.Components.Collision.Calculated;
+using RSBot.Core.Event;
+using RSBot.Core.Objects;
 
 namespace RSBot.Core.Components;
 
@@ -15,35 +14,39 @@ public static class CollisionManager
     private const string SupportedHeader = "RSNVM";
     private const int SupportedVersion = 1200;
 
+    private static Dictionary<Region, long> _lookupTable;
+
+    private static Dictionary<Region, RSCollisionMesh> _loadedCollisions;
+
     /// <summary>
-    /// Gets a value indicating whether this instance is initialized.
+    ///     Gets a value indicating whether this instance is initialized.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if this instance is initialized; otherwise, <c>false</c>.
+    ///     <c>true</c> if this instance is initialized; otherwise, <c>false</c>.
     /// </value>
     public static bool IsInitialized { get; private set; }
 
     /// <summary>
-    /// Gets a value indicating whether this instance is updating.
+    ///     Gets a value indicating whether this instance is updating.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if this instance is updating; otherwise, <c>false</c>.
+    ///     <c>true</c> if this instance is updating; otherwise, <c>false</c>.
     /// </value>
     public static bool IsUpdating { get; private set; }
 
     /// <summary>
-    /// Gets the center region identifier.
+    ///     Gets the center region identifier.
     /// </summary>
     /// <value>
-    /// The center region identifier.
+    ///     The center region identifier.
     /// </value>
     public static Region CenterRegion { get; private set; }
 
     /// <summary>
-    /// Gets a value indicating whether this instance has active collision meshes.
+    ///     Gets a value indicating whether this instance has active collision meshes.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if this instance has active meshes; otherwise, <c>false</c>.
+    ///     <c>true</c> if this instance has active meshes; otherwise, <c>false</c>.
     /// </value>
     public static bool HasActiveMeshes
     {
@@ -63,10 +66,10 @@ public static class CollisionManager
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether this <see cref="CollisionManager"/> is enabled.
+    ///     Gets or sets a value indicating whether this <see cref="CollisionManager" /> is enabled.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if enabled; otherwise, <c>false</c>.
+    ///     <c>true</c> if enabled; otherwise, <c>false</c>.
     /// </value>
     public static bool Enabled
     {
@@ -75,19 +78,15 @@ public static class CollisionManager
     }
 
     /// <summary>
-    /// Gets the active collision meshes.
+    ///     Gets the active collision meshes.
     /// </summary>
     /// <value>
-    /// The active collision meshes.
+    ///     The active collision meshes.
     /// </value>
     public static List<CalculatedCollisionMesh> ActiveCollisionMeshes { get; private set; }
 
-    private static Dictionary<Region, long> _lookupTable;
-
-    private static Dictionary<Region, RSCollisionMesh> _loadedCollisions;
-
     /// <summary>
-    /// Initializes the specified map data directory.
+    ///     Initializes the specified map data directory.
     /// </summary>
     public static void Initialize()
     {
@@ -97,14 +96,15 @@ public static class CollisionManager
     }
 
     /// <summary>
-    /// Loads the collisions from the specified file path.
+    ///     Loads the collisions from the specified file path.
     /// </summary>
     /// <param name="path">The path.</param>
     public static void LoadLookupTable()
     {
         var sw = Stopwatch.StartNew();
 
-        using var fileStream = new BinaryReader(File.OpenRead(Path.Combine(Kernel.BasePath, "Data", "Game", "map.rsc")));
+        using var fileStream =
+            new BinaryReader(File.OpenRead(Path.Combine(Kernel.BasePath, "Data", "Game", "map.rsc")));
 
         var header = fileStream.ReadString();
         var version = fileStream.ReadInt32();
@@ -120,7 +120,7 @@ public static class CollisionManager
         fileStream.BaseStream.Seek(lookupTableOffset, SeekOrigin.Begin);
 
         var entryCount = fileStream.ReadUInt16();
-        _lookupTable = new(entryCount);
+        _lookupTable = new Dictionary<Region, long>(entryCount);
 
         for (var entryIndex = 0; entryIndex < entryCount; entryIndex++)
         {
@@ -130,26 +130,28 @@ public static class CollisionManager
             _lookupTable.Add(regionId, fileOffset);
         }
 
-        Log.Notify($"[Collision] Loaded lookup table for {_lookupTable.Count} collision regions in {sw.ElapsedMilliseconds}ms");
+        Log.Notify(
+            $"[Collision] Loaded lookup table for {_lookupTable.Count} collision regions in {sw.ElapsedMilliseconds}ms");
 
         EventManager.FireEvent("OnLoadCollisionLookupTable");
     }
-    
+
     /// <summary>
-    /// Loads the specified regions collision information.
+    ///     Loads the specified regions collision information.
     /// </summary>
     /// <param name="regions"></param>
     private static void LoadRegions(Region[] regions)
     {
         var sw = Stopwatch.StartNew();
 
-        using var fileStream = new BinaryReader(File.OpenRead(Path.Combine(Kernel.BasePath, "Data", "Game", "map.rsc")));
-        
+        using var fileStream =
+            new BinaryReader(File.OpenRead(Path.Combine(Kernel.BasePath, "Data", "Game", "map.rsc")));
+
         _loadedCollisions = new Dictionary<Region, RSCollisionMesh>(regions.Length);
 
         foreach (var region in regions)
         {
-            if (!_lookupTable.ContainsKey(region)) 
+            if (!_lookupTable.ContainsKey(region))
             {
                 Log.Debug($"[Collision] Could not find entry in lookup table for region with id [{region}]");
 
@@ -157,7 +159,7 @@ public static class CollisionManager
             }
 
             fileStream.BaseStream.Seek(_lookupTable[region], SeekOrigin.Begin);
-            
+
             var collisionMesh = new RSCollisionMesh(fileStream);
             _loadedCollisions.Add(collisionMesh.Region, collisionMesh);
         }
@@ -168,8 +170,8 @@ public static class CollisionManager
     }
 
     /// <summary>
-    /// Updates the collision that are currently stored as active.
-    /// If the center region equals the new one, no action will be executed.
+    ///     Updates the collision that are currently stored as active.
+    ///     If the center region equals the new one, no action will be executed.
     /// </summary>
     /// <param name="centerRegionId">The center region identifier.</param>
     public static void Update(Region region)
@@ -177,9 +179,9 @@ public static class CollisionManager
         if (region.IsDungeon)
             return;
 
-        if (region == CenterRegion && HasActiveMeshes || region == 0)
+        if ((region == CenterRegion && HasActiveMeshes) || region == 0)
             return;
-        
+
         CenterRegion = region;
 
         if (!Enabled)
@@ -197,7 +199,7 @@ public static class CollisionManager
 
         var surroundedBy = CenterRegion.GetSurroundingRegions();
 
-        LoadRegions(surroundedBy); 
+        LoadRegions(surroundedBy);
 
         foreach (var surroundingRegion in surroundedBy.Where(region => _loadedCollisions.ContainsKey(region)))
         {
@@ -213,12 +215,12 @@ public static class CollisionManager
     }
 
     /// <summary>
-    /// Determines whether [has collision between] [the specified source].
+    ///     Determines whether [has collision between] [the specified source].
     /// </summary>
     /// <param name="source">The source.</param>
     /// <param name="destination">The destination.</param>
     /// <returns>
-    ///   <c>true</c> if [has collision between] [the specified source]; otherwise, <c>false</c>.
+    ///     <c>true</c> if [has collision between] [the specified source]; otherwise, <c>false</c>.
     /// </returns>
     public static bool HasCollisionBetween(Position source, Position destination)
     {
@@ -229,7 +231,7 @@ public static class CollisionManager
     }
 
     /// <summary>
-    /// Gets the collision between the source and destination.
+    ///     Gets the collision between the source and destination.
     /// </summary>
     /// <param name="source">The source.</param>
     /// <param name="destination">The destination.</param>

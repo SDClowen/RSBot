@@ -1,72 +1,73 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace RSBot.Core.Client.ReferenceObjects
+namespace RSBot.Core.Client.ReferenceObjects;
+
+public class RefShop : IReference<string>
 {
-    public class RefShop : IReference<string>
+    public string PrimaryKey => CodeName;
+
+    public bool Load(ReferenceParser parser)
     {
-        #region Fields
+        //Skip disabled
+        if (!parser.TryParse(0, out Service) || Service == 0)
+            return false;
 
-        /// <summary>
-        /// Gets or sets the service.
-        /// </summary>
-        /// <value>
-        /// The service.
-        /// </value>
-        public byte Service;
+        parser.TryParse(1, out Country);
+        parser.TryParse(2, out Id);
+        parser.TryParse(3, out CodeName);
 
-        /// <summary>
-        /// Gets or sets the country.
-        /// </summary>
-        /// <value>
-        /// The country.
-        /// </value>
-        public int Country;
-
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
-        public int Id;
-
-        /// <summary>
-        /// Gets or sets the name of the code.
-        /// </summary>
-        /// <value>
-        /// The name of the code.
-        /// </value>
-        public string CodeName;
-
-        #endregion Fields
-
-        public string PrimaryKey => CodeName;
-
-        /// <summary>
-        /// Gets the tabs.
-        /// </summary>
-        /// <returns></returns>
-        public List<RefShopTab> GetTabs()
-        {
-            var mapping = Game.ReferenceManager.ShopTabMapping.Where(m => m.Shop == CodeName);
-
-            return (from map in mapping from tab in Game.ReferenceManager.ShopTabs.Where(s => s.Value.RefTabGroupCodeName == map.Tab) select tab.Value).ToList();
-        }
-
-        public bool Load(ReferenceParser parser)
-        {
-            //Skip disabled
-            if (!parser.TryParse(0, out Service) || Service == 0)
-                return false;
-
-            parser.TryParse(1, out Country);
-            parser.TryParse(2, out Id);
-            parser.TryParse(3, out CodeName);
-
-            return true;
-        }
+        return true;
     }
+
+    /// <summary>
+    ///     Gets the tabs.
+    /// </summary>
+    /// <returns></returns>
+    public List<RefShopTab> GetTabs()
+    {
+        var mapping = Game.ReferenceManager.ShopTabMapping.Where(m => m.Shop == CodeName);
+
+        return (from map in mapping
+            from tab in Game.ReferenceManager.ShopTabs.Where(s => s.Value.RefTabGroupCodeName == map.Tab)
+            select tab.Value).ToList();
+    }
+
+    #region Fields
+
+    /// <summary>
+    ///     Gets or sets the service.
+    /// </summary>
+    /// <value>
+    ///     The service.
+    /// </value>
+    public byte Service;
+
+    /// <summary>
+    ///     Gets or sets the country.
+    /// </summary>
+    /// <value>
+    ///     The country.
+    /// </value>
+    public int Country;
+
+    /// <summary>
+    ///     Gets or sets the identifier.
+    /// </summary>
+    /// <value>
+    ///     The identifier.
+    /// </value>
+    public int Id;
+
+    /// <summary>
+    ///     Gets or sets the name of the code.
+    /// </summary>
+    /// <value>
+    ///     The name of the code.
+    /// </value>
+    public string CodeName;
+
+    #endregion Fields
 }
 
 //Service tinyint

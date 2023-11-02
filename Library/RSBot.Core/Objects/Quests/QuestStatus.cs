@@ -1,5 +1,4 @@
-﻿
-namespace RSBot.Core.Objects.Quests;
+﻿namespace RSBot.Core.Objects.Quests;
 
 //1 = Initialized
 //2 = Complete, but not supplied

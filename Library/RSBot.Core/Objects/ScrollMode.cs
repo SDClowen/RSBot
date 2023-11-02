@@ -1,9 +1,8 @@
-﻿namespace RSBot.Core.Objects
+﻿namespace RSBot.Core.Objects;
+
+public enum ScrollMode
 {
-    public enum ScrollMode
-    {
-        None = 0,
-        ReturnScroll = 1,
-        BanditReturnScroll = 2
-    }
+    None = 0,
+    ReturnScroll = 1,
+    BanditReturnScroll = 2
 }

@@ -1,25 +1,16 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.ComponentModel;
+using System.Windows.Forms;
+using RSBot.CommandCenter.Components;
 using RSBot.Core;
 using RSBot.Core.Components;
 
 namespace RSBot.CommandCenter.Views.Controls;
 
-[System.ComponentModel.ToolboxItem(false)]
+[ToolboxItem(false)]
 internal partial class EmoticonActionElement : UserControl
 {
-    private record ActionComboBoxItem(string ActionName, string ActionDescription)
-    {
-        public override string ToString()
-        {
-            return ActionDescription;
-        }
-    }
-
-    public Components.EmoticonItem Emoticon { get; }
-
-    public string SelectedActionName { get; private set; }
-
-    public EmoticonActionElement(Components.EmoticonItem item, string selectedActionName = null)
+    public EmoticonActionElement(EmoticonItem item, string selectedActionName = null)
     {
         InitializeComponent();
 
@@ -30,6 +21,10 @@ internal partial class EmoticonActionElement : UserControl
 
         PopulateActions();
     }
+
+    public EmoticonItem Emoticon { get; }
+
+    public string SelectedActionName { get; private set; }
 
     private void PopulateActions()
     {
@@ -47,7 +42,7 @@ internal partial class EmoticonActionElement : UserControl
         comboAction.EndUpdate();
     }
 
-    private void comboAction_SelectedIndexChanged(object sender, System.EventArgs e)
+    private void comboAction_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (comboAction.SelectedItem is not ActionComboBoxItem actionItem)
             return;
@@ -55,5 +50,13 @@ internal partial class EmoticonActionElement : UserControl
         SelectedActionName = actionItem.ActionName;
 
         PlayerConfig.Set($"RSBot.CommandCenter.MappedEmotes.{Emoticon.Name}", actionItem.ActionName);
+    }
+
+    private record ActionComboBoxItem(string ActionName, string ActionDescription)
+    {
+        public override string ToString()
+        {
+            return ActionDescription;
+        }
     }
 }

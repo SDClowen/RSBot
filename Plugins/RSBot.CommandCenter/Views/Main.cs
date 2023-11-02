@@ -1,13 +1,15 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 using RSBot.CommandCenter.Components;
 using RSBot.CommandCenter.Views.Controls;
 using RSBot.Core;
 using RSBot.Core.Components;
+using SDUI;
 
 namespace RSBot.CommandCenter.Views;
 
-[System.ComponentModel.ToolboxItem(false)]
+[ToolboxItem(false)]
 public partial class Main : UserControl
 {
     public Main()
@@ -23,8 +25,8 @@ public partial class Main : UserControl
         panelActions.Hide();
         panelActions.Controls.Clear();
 
-        lblChatCommandDescriptions.BackColor = SDUI.ColorScheme.BackColor;
-        lblChatCommandDescriptions.ForeColor = SDUI.ColorScheme.ForeColor;
+        lblChatCommandDescriptions.BackColor = ColorScheme.BackColor;
+        lblChatCommandDescriptions.ForeColor = ColorScheme.ForeColor;
 
         PopulateEmoticonActions();
         PopulateChatCommandPage();
@@ -51,23 +53,26 @@ public partial class Main : UserControl
             if (commandDescription.Key == "none")
                 continue;
 
-            lblChatCommandDescriptions.Text += $"\\{commandDescription.Key}\t{commandDescription.Value}{Environment.NewLine}";
+            lblChatCommandDescriptions.Text +=
+                $"\\{commandDescription.Key}\t{commandDescription.Value}{Environment.NewLine}";
         }
     }
 
-    private void btnResetToDefaults_Click(object sender, System.EventArgs e)
+    private void btnResetToDefaults_Click(object sender, EventArgs e)
     {
-        if (MessageBox.Show(@"Do you really want to reset all settings to default?", @"Reset", MessageBoxButtons.OKCancel,
+        if (MessageBox.Show(@"Do you really want to reset all settings to default?", @"Reset",
+                MessageBoxButtons.OKCancel,
                 MessageBoxIcon.Warning) != DialogResult.OK)
             return;
 
         foreach (var emoticon in Emoticons.Items)
-            PlayerConfig.Set($"RSBot.CommandCenter.MappedEmotes.{emoticon.Name}", Emoticons.GetEmoticonDefaultCommand(emoticon.Name));
+            PlayerConfig.Set($"RSBot.CommandCenter.MappedEmotes.{emoticon.Name}",
+                Emoticons.GetEmoticonDefaultCommand(emoticon.Name));
 
         RefreshView();
     }
 
-    private void checkEnable_CheckedChanged(object sender, System.EventArgs e)
+    private void checkEnable_CheckedChanged(object sender, EventArgs e)
     {
         PlayerConfig.Set("RSBot.CommandCenter.Enabled", checkEnable.Checked);
     }
@@ -77,4 +82,3 @@ public partial class Main : UserControl
         PlayerConfig.Save();
     }
 }
-

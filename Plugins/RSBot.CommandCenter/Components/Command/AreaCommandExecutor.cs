@@ -13,7 +13,8 @@ internal class AreaCommandExecutor : ICommandExecutor
     public bool Execute(bool silent)
     {
         if (!silent)
-            Game.ShowNotification($"[RSBot] Setting training area to X={Game.Player.Position.X:0.00} Y={Game.Player.Position.Y:0.00} R=50");
+            Game.ShowNotification(
+                $"[RSBot] Setting training area to X={Game.Player.Position.X:0.00} Y={Game.Player.Position.Y:0.00} R=50");
 
         PlayerConfig.Set("RSBot.Area.Region", Game.Player.Position.Region);
         PlayerConfig.Set("RSBot.Area.X", Game.Player.Position.XOffset.ToString("0.0"));

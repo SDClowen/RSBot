@@ -1,127 +1,126 @@
-﻿using RSBot.Core.Components;
+﻿using System.Linq;
+using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
-using System.Linq;
 
-namespace RSBot.Core.Network.Handler.Agent.Entity
+namespace RSBot.Core.Network.Handler.Agent.Entity;
+
+internal class EntityUpdateStateResponse : IPacketHandler
 {
-    internal class EntityUpdateStateResponse : IPacketHandler
+    /// <summary>
+    ///     Gets or sets the opcode.
+    /// </summary>
+    /// <value>
+    ///     The opcode.
+    /// </value>
+    public ushort Opcode => 0x30BF;
+
+    /// <summary>
+    ///     Gets or sets the destination.
+    /// </summary>
+    /// <value>
+    ///     The destination.
+    /// </value>
+    public PacketDestination Destination => PacketDestination.Client;
+
+    /// <summary>
+    ///     Handles the packet.
+    /// </summary>
+    /// <param name="packet">The packet.</param>
+    public void Invoke(Packet packet)
     {
-        /// <summary>
-        /// Gets or sets the opcode.
-        /// </summary>
-        /// <value>
-        /// The opcode.
-        /// </value>
-        public ushort Opcode => 0x30BF;
+        var uniqueId = packet.ReadUInt();
 
-        /// <summary>
-        /// Gets or sets the destination.
-        /// </summary>
-        /// <value>
-        /// The destination.
-        /// </value>
-        public PacketDestination Destination => PacketDestination.Client;
+        var type = packet.ReadByte();
+        var state = packet.ReadByte();
 
-        /// <summary>
-        /// Handles the packet.
-        /// </summary>
-        /// <param name="packet">The packet.</param>
-        public void Invoke(Packet packet)
+        if (!SpawnManager.TryGetEntityIncludingMe(uniqueId, out var entity))
+            return;
+
+        switch (type)
         {
-            var uniqueId = packet.ReadUInt();
+            case 0:
 
-            var type = packet.ReadByte();
-            var state = packet.ReadByte();
+                entity.State.LifeState = (LifeState)state;
+                if ( /*uniqueId == Game.SelectedEntity?.UniqueId || */
+                    Game.Player.GetAttackers().Any(e => e.UniqueId == uniqueId) &&
+                    entity.State.LifeState == LifeState.Dead)
+                    EventManager.FireEvent("OnKillEnemy");
 
-            if (!SpawnManager.TryGetEntityIncludingMe(uniqueId, out var entity))
-                return;
+                if (uniqueId == Game.SelectedEntity?.UniqueId && entity.State.LifeState == LifeState.Dead)
+                {
+                    EventManager.FireEvent("OnKillSelectedEnemy");
+                    Game.SelectedEntity = null;
+                }
 
-            switch (type)
-            {
-                case 0:
+                EventManager.FireEvent("OnUpdateEntityLifeState", uniqueId);
 
-                    entity.State.LifeState = (LifeState)state;
-                    if (/*uniqueId == Game.SelectedEntity?.UniqueId || */Game.Player.GetAttackers().Any(e => e.UniqueId == uniqueId) && entity.State.LifeState == LifeState.Dead)
-                        EventManager.FireEvent("OnKillEnemy");
-               
-                    if (uniqueId == Game.SelectedEntity?.UniqueId && entity.State.LifeState == LifeState.Dead)
-                    {
-                        EventManager.FireEvent("OnKillSelectedEnemy");
-                        Game.SelectedEntity = null;
-                    }
+                if (uniqueId == Game.Player.UniqueId && entity.State.LifeState == LifeState.Dead)
+                    EventManager.FireEvent("OnPlayerDied");
 
-                    EventManager.FireEvent("OnUpdateEntityLifeState", uniqueId);
+                break;
 
-                    if (uniqueId == Game.Player.UniqueId && entity.State.LifeState == LifeState.Dead)
-                        EventManager.FireEvent("OnPlayerDied");
+            case 1:
 
-                    break;
+                var motionState = (MotionState)state;
+                entity.State.MotionState = motionState;
 
-                case 1:
+                switch (motionState)
+                {
+                    case MotionState.Walking:
 
-                    var motionState = (MotionState)state;
-                    entity.State.MotionState = motionState;
+                        entity.Movement.Type = MovementType.Walking;
 
-                    switch (motionState)
-                    {
-                        case MotionState.Walking:
+                        break;
+                    case MotionState.Running:
 
-                            entity.Movement.Type = MovementType.Walking;
+                        entity.Movement.Type = MovementType.Running;
 
-                            break;
-                        case MotionState.Running:
+                        break;
+                }
 
-                            entity.Movement.Type = MovementType.Running;
+                EventManager.FireEvent("OnUpdateEntityMotionState", uniqueId);
 
-                            break;
-                    }
+                break;
 
-                    EventManager.FireEvent("OnUpdateEntityMotionState", uniqueId);
+            case 4:
 
-                    break;
+                entity.State.BodyState = (BodyState)state;
 
-                case 4:
+                EventManager.FireEvent("OnUpdateEntityBodyState", uniqueId);
+                break;
 
-                    entity.State.BodyState = (BodyState)state;
+            case 7:
 
-                    EventManager.FireEvent("OnUpdateEntityBodyState", uniqueId);
-                    break;
+                entity.State.PvpState = (PvpState)state;
+                EventManager.FireEvent("OnUpdateEntityPvpState", uniqueId);
 
-                case 7:
+                break;
 
-                    entity.State.PvpState = (PvpState)state;
-                    EventManager.FireEvent("OnUpdateEntityPvpState", uniqueId);
+            case 8:
 
-                    break;
+                entity.State.BattleState = (BattleState)state;
 
-                case 8:
+                EventManager.FireEvent("OnUpdateEntityBattleState", uniqueId);
 
-                    entity.State.BattleState = (BattleState)state;
+                break;
 
-                    EventManager.FireEvent("OnUpdateEntityBattleState", uniqueId);
+            case 11:
 
-                    break;
+                var scrollState = (ScrollState)state;
+                entity.State.ScrollState = scrollState;
 
-                case 11:
+                if (uniqueId == Game.Player.UniqueId)
+                    if (scrollState == ScrollState.Cancel && Kernel.Bot.Running)
+                        Kernel.Bot.Stop();
 
-                    var scrollState = (ScrollState)state;
-                    entity.State.ScrollState = scrollState;
+                EventManager.FireEvent("OnUpdateEntityScrollState", uniqueId);
 
-                    if (uniqueId == Game.Player.UniqueId)
-                    {
-                        if (scrollState == ScrollState.Cancel && Kernel.Bot.Running)
-                            Kernel.Bot.Stop();
-                    }
+                break;
 
-                    EventManager.FireEvent("OnUpdateEntityScrollState", uniqueId);
-
-                    break;
-
-                default:
-                    Log.Error("EntityUpdate: Unknown update type " + type);
-                    break;
-            }
+            default:
+                Log.Error("EntityUpdate: Unknown update type " + type);
+                break;
         }
     }
 }

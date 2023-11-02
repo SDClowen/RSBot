@@ -1,48 +1,48 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Network;
+using RSBot.General.Components;
 
-namespace RSBot.General.PacketHandler
+namespace RSBot.General.PacketHandler;
+
+internal class GatewayLoginRequest : IPacketHandler
 {
-    internal class GatewayLoginRequest : IPacketHandler
+    /// <summary>
+    ///     Gets the opcode.
+    /// </summary>
+    /// <value>
+    ///     The opcode.
+    /// </value>
+    public ushort Opcode => 0x6102;
+
+    /// <summary>
+    ///     Gets the destination.
+    /// </summary>
+    /// <value>
+    ///     The destination.
+    /// </value>
+    public PacketDestination Destination => PacketDestination.Server;
+
+    /// <summary>
+    ///     Replaces the packet and returns a new packet.
+    /// </summary>
+    /// <param name="packet"></param>
+    /// <returns></returns>
+    public void Invoke(Packet packet)
     {
-        /// <summary>
-        /// Gets the opcode.
-        /// </summary>
-        /// <value>
-        /// The opcode.
-        /// </value>
-        public ushort Opcode => 0x6102;
+        packet.ReadByte(); // locale
+        packet.ReadString(); //username
+        packet.ReadString(); //password
 
-        /// <summary>
-        /// Gets the destination.
-        /// </summary>
-        /// <value>
-        /// The destination.
-        /// </value>
-        public PacketDestination Destination => PacketDestination.Server;
+        if ((packet.Opcode == 0x610A &&
+             Game.ClientType == GameClientType.Turkey) ||
+            Game.ClientType == GameClientType.VTC_Game)
+            packet.ReadByteArray(6);
 
-        /// <summary>
-        /// Replaces the packet and returns a new packet.
-        /// </summary>
-        /// <param name="packet"></param>
-        /// <returns></returns>
-        public void Invoke(Packet packet)
-        {
-            packet.ReadByte(); // locale
-            packet.ReadString();//username
-            packet.ReadString();//password
+        var shardId = packet.ReadUShort();
 
-            if (packet.Opcode == 0x610A && 
-                Game.ClientType == GameClientType.Turkey ||
-                Game.ClientType == GameClientType.VTC_Game)
-                packet.ReadByteArray(6);
+        if (Game.ClientType >= GameClientType.Global)
+            packet.ReadByte(); // channel
 
-            var shardId = packet.ReadUShort();
-
-            if (Game.ClientType >= GameClientType.Global)
-                packet.ReadByte(); // channel
-
-            Components.Serverlist.SetJoining(shardId);
-        }
+        Serverlist.SetJoining(shardId);
     }
 }

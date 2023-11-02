@@ -1,8 +1,8 @@
-﻿using RSBot.Core;
+﻿using System.Linq;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
-using System.Linq;
 
 namespace RSBot.Skills.Subscriber;
 

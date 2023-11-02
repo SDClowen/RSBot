@@ -1,22 +1,20 @@
-﻿using SDUI.Controls;
-using System;
-using System.Reflection;
+﻿using System;
+using SDUI.Controls;
 
-namespace RSBot.Views
+namespace RSBot.Views;
+
+internal partial class AboutDialog : UIWindowBase
 {
-    partial class AboutDialog : UIWindowBase
+    public AboutDialog()
     {
-        public AboutDialog()
-        {
-            InitializeComponent();
-            labelName.Text = Program.AssemblyTitle;
-            labelDescription.Text = Program.AssemblyDescription;
-            labelVersion.Text = Program.AssemblyVersion;
-        }
+        InitializeComponent();
+        labelName.Text = Program.AssemblyTitle;
+        labelDescription.Text = Program.AssemblyDescription;
+        labelVersion.Text = Program.AssemblyVersion;
+    }
 
-        private void buttonOk_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+    private void buttonOk_Click(object sender, EventArgs e)
+    {
+        Close();
     }
 }

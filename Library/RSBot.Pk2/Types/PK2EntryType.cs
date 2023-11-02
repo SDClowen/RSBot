@@ -1,9 +1,8 @@
-﻿namespace RSBot.Pk2.Types
+﻿namespace RSBot.Pk2.Types;
+
+public enum PK2EntryType
 {
-    public enum PK2EntryType
-    {
-        Empty = 0,
-        Directory = 1,
-        File = 2
-    }
+    Empty = 0,
+    Directory = 1,
+    File = 2
 }

@@ -141,7 +141,7 @@ internal class TransportBundle
             return true;
         }
 
-        var currentDistance =Game.Player.JobTransport.Position.DistanceToPlayer();
+        var currentDistance = Game.Player.JobTransport.Position.DistanceToPlayer();
         if (currentDistance > TradeConfig.MaxTransportDistance)
         {
             WaitingForTransport = true;
@@ -162,7 +162,7 @@ internal class TransportBundle
 
             return false;
         }
-        
+
         //ToDo: Check if job transport is stuck. Because the collision files are wrong at certain locations like Hotan
         //it can not be done until the collision has been fixed.
         WaitingForTransport = false;

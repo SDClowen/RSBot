@@ -3,7 +3,6 @@ using SDUI.Controls;
 
 namespace RSBot.Map.Views.Dialog;
 
-
 public partial class EntityDetailsDialog : UIWindowBase
 {
     public EntityDetailsDialog(SpawnedEntity entity)
@@ -11,11 +10,9 @@ public partial class EntityDetailsDialog : UIWindowBase
         InitializeComponent();
 
         propEntity.SelectedObject = entity;
-
     }
 }
 
 public class EntityDebugInformation : SpawnedEntity
 {
-
 }
