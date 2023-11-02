@@ -22,7 +22,7 @@ internal class RouteBundle
     private bool _blockedByRouteDialog;
     private bool _checkForTownScript;
     private bool _lastScriptIsTownScript;
-    
+
     /// <summary>
     ///     The current route file. This could ether be a trade route or a town script.
     /// </summary>
@@ -68,9 +68,9 @@ internal class RouteBundle
         if (error)
             return;
 
-        if (!TradeBotbase.IsActive || !Game.Ready) 
+        if (!TradeBotbase.IsActive || !Game.Ready)
             return;
-        
+
         TownscriptRunning = false;
         CurrentRouteFile = null;
 
@@ -78,10 +78,10 @@ internal class RouteBundle
         if (!_lastScriptIsTownScript)
         {
             _checkForTownScript = true;
-            
+
             return;
         }
-        
+
         _checkForTownScript = false;
         _lastScriptIsTownScript = false;
     }
@@ -214,7 +214,7 @@ internal class RouteBundle
             _blockedByRouteDialog = false;
 
             Game.ShowNotification($"[RSBot] Picked trade route {Path.GetFileNameWithoutExtension(CurrentRouteFile)}");
-            
+
             ScriptManager.Load(CurrentRouteFile);
             Task.Run(() => ScriptManager.RunScript(restartNearby));
 
@@ -373,7 +373,7 @@ internal class RouteBundle
 
         return null;
     }
-    
+
     /// <summary>
     ///     Stops the bundle
     /// </summary>

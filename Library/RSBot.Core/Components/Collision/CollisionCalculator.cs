@@ -1,14 +1,14 @@
-﻿using RSBot.Core.Components.Collision.Calculated;
-using RSBot.Core.Objects;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using RSBot.Core.Components.Collision.Calculated;
+using RSBot.Core.Objects;
 
 namespace RSBot.Core.Components.Collision;
 
 internal class CollisionCalculator
 {
     /// <summary>
-    /// Gets the calculated collision between the two positions.
+    ///     Gets the calculated collision between the two positions.
     /// </summary>
     /// <param name="source">The source.</param>
     /// <param name="destination">The destination.</param>
@@ -20,22 +20,21 @@ internal class CollisionCalculator
         var sourceLine = new CalculatedCollisionLine(source, destination);
 
         foreach (var mesh in meshes)
+        foreach (var line in mesh.Collisions
+                     .Where(x => x.Source.DistanceToPlayer() <= destination.DistanceToPlayer() ||
+                                 x.Destination.DistanceToPlayer() <= destination.DistanceToPlayer())
+                     .OrderBy(x => x.Source.DistanceToPlayer()))
         {
-            foreach (var line in mesh.Collisions.Where(x => x.Source.DistanceToPlayer() <= destination.DistanceToPlayer() || x.Destination.DistanceToPlayer() <= destination.DistanceToPlayer()).OrderBy(x => x.Source.DistanceToPlayer()))
-            {
-                var collision = Intersection.FindIntersection(sourceLine, line, 0.05);
+            var collision = Intersection.FindIntersection(sourceLine, line, 0.05);
 
-                if (collision.HasValue)
+            if (collision.HasValue)
+                return new CollisionResult
                 {
-                    return new CollisionResult
-                    {
-                        CollidedAt = collision.Value.collidedAt,
-                        CollidedWith = collision.Value.collidedWith,
-                        Source = source,
-                        Destination = destination
-                    };
-                }
-            }
+                    CollidedAt = collision.Value.collidedAt,
+                    CollidedWith = collision.Value.collidedWith,
+                    Source = source,
+                    Destination = destination
+                };
         }
 
         return null;

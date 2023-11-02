@@ -8,26 +8,26 @@ internal class DismountScriptCommand : IScriptCommand
     #region Properties
 
     /// <summary>
-    /// Gets the name.
+    ///     Gets the name.
     /// </summary>
     /// <value>
-    /// The name.
+    ///     The name.
     /// </value>
     public string Name => "dismount";
 
     /// <summary>
-    /// Gets a value indicating whether this instance is running.
+    ///     Gets a value indicating whether this instance is running.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if this instance is running; otherwise, <c>false</c>.
+    ///     <c>true</c> if this instance is running; otherwise, <c>false</c>.
     /// </value>
     public bool IsBusy { get; private set; }
 
     /// <summary>
-    /// Gets the arguments.
+    ///     Gets the arguments.
     /// </summary>
     /// <value>
-    /// The arguments.
+    ///     The arguments.
     /// </value>
     public Dictionary<string, string> Arguments => null;
 
@@ -36,11 +36,11 @@ internal class DismountScriptCommand : IScriptCommand
     #region Methods
 
     /// <summary>
-    /// Executes this instance.
+    ///     Executes this instance.
     /// </summary>
     /// <param name="arguments"></param>
     /// <returns>
-    /// A value indicating if the command has been executed successfully.
+    ///     A value indicating if the command has been executed successfully.
     /// </returns>
     public bool Execute(string[] arguments = null)
     {
@@ -49,7 +49,7 @@ internal class DismountScriptCommand : IScriptCommand
             IsBusy = true;
 
             Log.Notify("[Script] Dismounting vehicle...");
-            if (!Game.Player.HasActiveVehicle) 
+            if (!Game.Player.HasActiveVehicle)
                 return true;
 
             Game.Player.Vehicle.Dismount();
@@ -62,6 +62,7 @@ internal class DismountScriptCommand : IScriptCommand
             IsBusy = false;
         }
     }
+
     public void Stop()
     {
         IsBusy = false;

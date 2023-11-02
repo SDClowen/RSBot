@@ -1,8 +1,8 @@
-﻿using RSBot.Core;
+﻿using System.Windows.Forms;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Plugins;
 using RSBot.Skills.Subscriber;
-using System.Windows.Forms;
 
 namespace RSBot.Skills;
 
@@ -24,13 +24,17 @@ public class Bootstrap : IPlugin
     public bool RequireIngame => true;
 
     /// <inheritdoc />
-    public void Initialize() =>
+    public void Initialize()
+    {
         LoadCharacterSubscriber.SubscribeEvents();
+    }
 
     /// <inheritdoc />
     public Control View => Views.View.Instance;
 
     /// <inheritdoc />
-    public void Translate() =>
+    public void Translate()
+    {
         LanguageManager.Translate(View, Kernel.Language);
+    }
 }

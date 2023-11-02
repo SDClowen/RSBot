@@ -1,8 +1,7 @@
-﻿namespace RSBot.Core.Objects
+﻿namespace RSBot.Core.Objects;
+
+public enum ExchangeUpdateType : byte
 {
-    public enum ExchangeUpdateType : byte
-    {
-        Item = 1,
-        Gold = 2,
-    }
+    Item = 1,
+    Gold = 2
 }

@@ -1,21 +1,20 @@
 ﻿using System;
 
-namespace RSBot.Core.Network.SecurityAPI
-{
-    public class HandshakeSecurityException : Exception
-    {
-        /// <summary>
-        /// Gets the exception message
-        /// </summary>
-        public override string Message { get; }
+namespace RSBot.Core.Network.SecurityAPI;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="HandshakeSecurityException"/> class.
-        /// </summary>
-        /// <param name="message">Die Meldung, in der der Fehler beschrieben wird.</param>
-        public HandshakeSecurityException(string message)
-        {
-            Message = message;
-        }
+public class HandshakeSecurityException : Exception
+{
+    /// <summary>
+    ///     Initializes a new instance of the <see cref="HandshakeSecurityException" /> class.
+    /// </summary>
+    /// <param name="message">Die Meldung, in der der Fehler beschrieben wird.</param>
+    public HandshakeSecurityException(string message)
+    {
+        Message = message;
     }
+
+    /// <summary>
+    ///     Gets the exception message
+    /// </summary>
+    public override string Message { get; }
 }

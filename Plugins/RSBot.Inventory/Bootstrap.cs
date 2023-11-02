@@ -1,8 +1,8 @@
-﻿using RSBot.Core;
+﻿using System.Windows.Forms;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Plugins;
 using RSBot.Inventory.Subscriber;
-using System.Windows.Forms;
 
 namespace RSBot.Inventory;
 
@@ -35,6 +35,8 @@ public class Bootstrap : IPlugin
     public Control View => Views.View.Instance;
 
     /// <inheritdoc />
-    public void Translate() =>
+    public void Translate()
+    {
         LanguageManager.Translate(View, Kernel.Language);
+    }
 }

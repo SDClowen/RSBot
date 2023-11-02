@@ -1,126 +1,125 @@
-﻿using RSBot.Core;
+﻿using System;
+using System.Windows.Forms;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Objects;
 using RSBot.Core.Plugins;
+using RSBot.Default.Bot;
 using RSBot.Default.Bundle;
 using RSBot.Default.Components;
-using System;
-using System.Windows.Forms;
+using RSBot.Default.Subscriber;
 
-namespace RSBot.Default
+namespace RSBot.Default;
+
+public class Bootstrap : IBotbase
 {
-    public class Bootstrap : IBotbase
+    public string Name => "RSBot.Default";
+
+    public string DisplayName => "Training";
+
+    public string TabText => DisplayName;
+
+    public Area Area => Container.Bot.Area;
+
+    /// <summary>
+    ///     Ticks this instance. It's the botbase main-loop
+    /// </summary>
+    public void Tick()
     {
-        public string Name => "RSBot.Default";
+        if (!Kernel.Bot.Running)
+            return;
 
-        public string DisplayName => "Training";
+        if (Game.Player.Exchanging)
+            return;
 
-        public string TabText => DisplayName;
+        if (Game.Player.Untouchable)
+            return;
 
-        public Area Area => Container.Bot.Area;
+        if (Game.Player.State.LifeState == LifeState.Dead)
+            return;
 
-        /// <summary>
-        /// Ticks this instance. It's the botbase main-loop
-        /// </summary>
-        public void Tick()
+        //Begin the loopback if needed
+        if (Container.Bot.Area.Position.DistanceToPlayer() > 80)
+            Bundles.Loop.Start();
+
+        if (Bundles.Loop.Running)
+            return;
+
+        //Nothing if in scroll state!
+        if (Game.Player.State.ScrollState == ScrollState.NormalScroll ||
+            Game.Player.State.ScrollState == ScrollState.ThiefScroll)
+            return;
+
+        try
         {
-            if (!Kernel.Bot.Running)
-                return;
+            Container.Bot.Tick();
+        }
+        catch (Exception ex)
+        {
+            Log.Fatal(ex);
+        }
+    }
 
-            if (Game.Player.Exchanging)
-                return;
+    /// <summary>
+    ///     Gets the view.
+    /// </summary>
+    /// <returns></returns>
+    public Control View => Container.View;
 
-            if (Game.Player.Untouchable)
-                return;
-
-            if (Game.Player.State.LifeState == LifeState.Dead)
-                return;
-
-            //Begin the loopback if needed
-            if (Container.Bot.Area.Position.DistanceToPlayer() > 80)
-                Bundles.Loop.Start();
-
-            if (Bundles.Loop.Running)
-                return;
-
-            //Nothing if in scroll state!
-            if (Game.Player.State.ScrollState == ScrollState.NormalScroll ||
-                Game.Player.State.ScrollState == ScrollState.ThiefScroll)
-                return;
-            
-            try
-            {
-                Container.Bot.Tick();
-            }
-            catch (Exception ex)
-            {
-                Log.Fatal(ex);
-            }
+    /// <summary>
+    ///     Starts this instance.
+    /// </summary>
+    public void Start()
+    {
+        if (Kernel.Bot.Botbase.Area.Position.X == 0)
+        {
+            Log.WarnLang("ConfigureTrainingAreaBeforeStartBot");
+            Kernel.Bot.Stop();
         }
 
-        /// <summary>
-        /// Gets the view.
-        /// </summary>
-        /// <returns></returns>
-        public Control View => Container.View;
+        //Already reloading when config saved via ConfigSubscriber
+        //Bundles.Reload();
+        //Container.Bot.Reload();
+    }
 
-        /// <summary>
-        /// Starts this instance.
-        /// </summary>
-        public void Start()
+    /// <summary>
+    ///     Stops this instance.
+    /// </summary>
+    public void Stop()
+    {
+        lock (Container.Lock)
         {
-            if (Kernel.Bot.Botbase.Area.Position.X == 0)
-            {
-                Log.WarnLang("ConfigureTrainingAreaBeforeStartBot");
-                Kernel.Bot.Stop();
+            if (Game.Player.InAction)
+                SkillManager.CancelAction();
 
-                return;
-            }
-
-            //Already reloading when config saved via ConfigSubscriber
-            //Bundles.Reload();
-            //Container.Bot.Reload();
+            Bundles.Stop();
         }
+    }
 
-        /// <summary>
-        /// Stops this instance.
-        /// </summary>
-        public void Stop()
-        {
-            lock (Container.Lock)
-            {
-                if (Game.Player.InAction)
-                    SkillManager.CancelAction();
+    /// <summary>
+    ///     Always initialize the botbase so other botbases can make use of its otherwise internal features.
+    /// </summary>
+    public void Register()
+    {
+        Container.Lock = new object();
+        Container.Bot = new Botbase();
 
-                Bundles.Stop();
-            }
-        }
+        //Bundles.Reload();
 
-        /// <summary>
-        /// Always initialize the botbase so other botbases can make use of its otherwise internal features.
-        /// </summary>
-        public void Register()
-        {
-            Container.Lock = new();
-            Container.Bot = new();
+        BundleSubscriber.SubscribeEvents();
+        ConfigSubscriber.SubscribeEvents();
+        TeleportSubscriber.SubscribeEvents();
 
-            //Bundles.Reload();
+        ScriptManager.CommandHandlers.Add(new TrainingAreaScriptCommand());
+        Log.Debug("[Training] Botbase registered to the kernel!");
+    }
 
-            Subscriber.BundleSubscriber.SubscribeEvents();
-            Subscriber.ConfigSubscriber.SubscribeEvents();
-            Subscriber.TeleportSubscriber.SubscribeEvents();
-
-            ScriptManager.CommandHandlers.Add(new TrainingAreaScriptCommand());
-            Log.Debug("[Training] Botbase registered to the kernel!");
-        }
-
-        /// <summary>
-        /// Translate the botbase plugin
-        /// </summary>
-        /// <param name="language">The language</param>
-        public void Translate()
-        {
-            LanguageManager.Translate(View, Kernel.Language);
-        }
+    /// <summary>
+    ///     Translate the botbase plugin
+    /// </summary>
+    /// <param name="language">The language</param>
+    public void Translate()
+    {
+        LanguageManager.Translate(View, Kernel.Language);
     }
 }

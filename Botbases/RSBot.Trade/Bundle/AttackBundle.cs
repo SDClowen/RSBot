@@ -116,23 +116,19 @@ internal class AttackBundle
 
         //Priority 4: Thief players
         if (TradeConfig.AttackThiefPlayers)
-        {
             if (SpawnManager.TryGetEntity<SpawnedPlayer>(
                     p => p.WearsJobSuite && p.Job == JobType.Thief && !p.IsBehindObstacle &&
                          p.State.LifeState == LifeState.Alive,
                     out var nearbyThiefPlayer))
                 return nearbyThiefPlayer.TrySelect();
-        }
 
         //Priority 3: Thief NPCs
         if (TradeConfig.AttackThiefNpcs)
-        {
             if (SpawnManager.TryGetEntity<SpawnedMonster>(
                     m => m.IsMob && m.Record.TypeID4 == 2 && !m.IsBehindObstacle &&
                          m.State.LifeState == LifeState.Alive,
                     out var thiefMob))
                 return thiefMob.TrySelect();
-        }
 
         return false;
     }

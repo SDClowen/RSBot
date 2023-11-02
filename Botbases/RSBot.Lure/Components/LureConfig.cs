@@ -118,7 +118,7 @@ internal static class LureConfig
     {
         get
         {
-            var region = PlayerConfig.Get<ushort>("RSBot.Lure.Area.Region", 0);
+            var region = PlayerConfig.Get<ushort>("RSBot.Lure.Area.Region");
             var x = PlayerConfig.Get("RSBot.Lure.Area.X", 0f);
             var y = PlayerConfig.Get("RSBot.Lure.Area.Y", 0f);
             var z = PlayerConfig.Get("RSBot.Lure.Area.Z", 0f);

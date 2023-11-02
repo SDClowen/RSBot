@@ -1,8 +1,7 @@
-﻿namespace RSBot.Core.Objects
+﻿namespace RSBot.Core.Objects;
+
+public enum LifeState
 {
-    public enum LifeState
-    {
-        Alive = 0x01,
-        Dead = 0x02
-    }
+    Alive = 0x01,
+    Dead = 0x02
 }

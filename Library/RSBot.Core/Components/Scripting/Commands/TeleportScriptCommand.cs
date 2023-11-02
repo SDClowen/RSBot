@@ -11,10 +11,11 @@ internal class TeleportScriptCommand : IScriptCommand
     public string Name => "teleport";
 
     public bool IsBusy { get; private set; }
-    public Dictionary<string, string> Arguments => new Dictionary<string, string>
+
+    public Dictionary<string, string> Arguments => new()
     {
-        {"Codename", "The code name of the NPC"},
-        {"Destination", "The id of the destination"}
+        { "Codename", "The code name of the NPC" },
+        { "Destination", "The id of the destination" }
     };
 
     #endregion Properties
@@ -22,11 +23,11 @@ internal class TeleportScriptCommand : IScriptCommand
     #region Methods
 
     /// <summary>
-    /// Executes this instance.
+    ///     Executes this instance.
     /// </summary>
     /// <param name="arguments"></param>
     /// <returns>
-    /// A value indicating if the command has been executed successfully.
+    ///     A value indicating if the command has been executed successfully.
     /// </returns>
     public bool Execute(string[] arguments = null)
     {
@@ -51,7 +52,7 @@ internal class TeleportScriptCommand : IScriptCommand
     }
 
     /// <summary>
-    /// Executes the teleport.
+    ///     Executes the teleport.
     /// </summary>
     /// <param name="arguments">The arguments.</param>
     private static bool ExecuteTeleport(IReadOnlyList<string> arguments)
@@ -89,5 +90,6 @@ internal class TeleportScriptCommand : IScriptCommand
     {
         IsBusy = false;
     }
+
     #endregion Methods
 }

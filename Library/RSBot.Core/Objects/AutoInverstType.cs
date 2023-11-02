@@ -1,12 +1,11 @@
 ﻿using System;
 
-namespace RSBot.Core.Objects
+namespace RSBot.Core.Objects;
+
+[Flags]
+public enum AutoInverstType : byte
 {
-    [Flags]
-    public enum AutoInverstType : byte
-    {
-        None = 0,
-        Beginner = 1,
-        Helpful = 2
-    }
+    None = 0,
+    Beginner = 1,
+    Helpful = 2
 }

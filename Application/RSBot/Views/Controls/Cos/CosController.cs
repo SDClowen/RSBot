@@ -1,8 +1,8 @@
-﻿using RSBot.Core.Event;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
+using RSBot.Core.Event;
 using CosAbility = RSBot.Core.Objects.Cos.Ability;
 using CosBase = RSBot.Core.Objects.Cos.Cos;
 using CosFellow = RSBot.Core.Objects.Cos.Fellow;
@@ -10,220 +10,220 @@ using CosGrowth = RSBot.Core.Objects.Cos.Growth;
 using CosJobTransport = RSBot.Core.Objects.Cos.JobTransport;
 using CosTransport = RSBot.Core.Objects.Cos.Transport;
 
-namespace RSBot.Views.Controls.Cos
+namespace RSBot.Views.Controls.Cos;
+
+[ToolboxItem(false)]
+public partial class CosController : UserControl
 {
-    [ToolboxItem(false)]
-    public partial class CosController : UserControl
+    private readonly Dictionary<string, CosControlBase> _cachedControls;
+    private int _selectedIndex;
+
+    public CosController()
     {
-        private readonly Dictionary<string, CosControlBase> _cachedControls;
-        private int _selectedIndex = 0;
+        SetStyle(ControlStyles.Opaque, true);
+        InitializeComponent();
 
-        public CosController()
+        CheckForIllegalCrossThreadCalls = false;
+        Visible = false;
+
+        _cachedControls = new Dictionary<string, CosControlBase>();
+        SubscribeEvents();
+    }
+
+    /// <summary>
+    ///     Subscribes the events.
+    /// </summary>
+    private void SubscribeEvents()
+    {
+        EventManager.SubscribeEvent("OnSummonCos", new Action<CosBase>(OnSummonCos));
+        EventManager.SubscribeEvent("OnTerminateCos", new Action<CosBase>(OnTerminateCos));
+        EventManager.SubscribeEvent("OnAgentServerDisconnected", OnAgentServerDisconnected);
+    }
+
+    private void OnAgentServerDisconnected()
+    {
+        panel.Controls.Clear();
+        panelTopCenter.Controls.Clear();
+        _cachedControls.Clear();
+        _selectedIndex = 0;
+        Visible = false;
+    }
+
+    private void OnSummonCos(CosBase obj)
+    {
+        switch (obj)
         {
-            SetStyle(ControlStyles.Opaque, true);
-            InitializeComponent();
+            case CosGrowth _:
+                TryAddControlToPanel<Growth>();
+                break;
 
-            CheckForIllegalCrossThreadCalls = false;
-            Visible = false;
+            case CosAbility _:
+                TryAddControlToPanel<Ability>();
+                break;
 
-            _cachedControls = new Dictionary<string, CosControlBase>();
-            SubscribeEvents();
+            case CosFellow _:
+                TryAddControlToPanel<Fellow>();
+                break;
+
+            case CosTransport _:
+                TryAddControlToPanel<Transport>();
+                break;
+
+            case CosJobTransport _:
+                TryAddControlToPanel<JobTransport>();
+                break;
+            default:
+                return;
+        }
+    }
+
+    private void OnTerminateCos(CosBase obj)
+    {
+        switch (obj)
+        {
+            case CosGrowth _:
+                TryRemoveControlFromPanel<Growth>();
+                break;
+
+            case CosAbility _:
+                TryRemoveControlFromPanel<Ability>();
+                break;
+
+            case CosFellow _:
+                TryRemoveControlFromPanel<Fellow>();
+                break;
+
+            case CosTransport _:
+                TryRemoveControlFromPanel<Transport>();
+                break;
+
+            case CosJobTransport _:
+                TryRemoveControlFromPanel<JobTransport>();
+                break;
+            default:
+                return;
+        }
+    }
+
+    private bool TryGetCachedControl<T>(out CosControlBase control)
+        where T : CosControlBase, new()
+    {
+        control = null;
+        var name = typeof(T).Name;
+
+        if (!_cachedControls.TryGetValue(name, out control))
+        {
+            control = new T();
+            control.Dock = DockStyle.Fill;
+            control.MiniCosControl.Click += MiniCosControl_Click;
+            _cachedControls.Add(name, control);
         }
 
-        /// <summary>
-        /// Subscribes the events.
-        /// </summary>
-        private void SubscribeEvents()
-        {
-            EventManager.SubscribeEvent("OnSummonCos", new Action<CosBase>(OnSummonCos));
-            EventManager.SubscribeEvent("OnTerminateCos", new Action<CosBase>(OnTerminateCos));
-            EventManager.SubscribeEvent("OnAgentServerDisconnected", OnAgentServerDisconnected);
-        }
+        return control != null;
+    }
 
-        private void OnAgentServerDisconnected()
+    private void TryAddControlToPanel<T>()
+        where T : CosControlBase, new()
+    {
+        if (!TryGetCachedControl<T>(out var control))
+            return;
+
+        var action = new Action(() =>
         {
-            panel.Controls.Clear();
-            panelTopCenter.Controls.Clear();
-            _cachedControls.Clear();
+            panel.Controls.Add(control);
+            panelTopCenter.Controls.Add(control.MiniCosControl);
+            control.MiniCosControl.TabIndex = panel.Controls.Count - 1;
+            control.Initialize();
+
+            ReOrder();
+        });
+
+        if (panel.InvokeRequired)
+            panel.Invoke(action);
+        else
+            action();
+    }
+
+    private void TryRemoveControlFromPanel<T>()
+        where T : CosControlBase, new()
+    {
+        if (!TryGetCachedControl<T>(out var control))
+            return;
+
+        var action = new Action(() =>
+        {
+            panel.Controls.Remove(control);
+            panelTopCenter.Controls.Remove(control.MiniCosControl);
+            control.Reset();
+
+            // Reindex all controls
+            for (var i = 0; i < panel.Controls.Count; i++)
+                ((CosControlBase)panel.Controls[i]).MiniCosControl.TabIndex = i;
+
+            _selectedIndex = panel.Controls.Count - 1;
+            ReOrder();
+        });
+
+        if (InvokeRequired)
+            panel.Invoke(action);
+        else
+            action();
+    }
+
+    private void ReOrder()
+    {
+        Visible = panel.Controls.Count > 0;
+        if (!Visible)
+        {
             _selectedIndex = 0;
-            Visible = false;
+            return;
         }
 
-        private void OnSummonCos(CosBase obj)
+        var startIndex = 0;
+        if (_selectedIndex > 3)
+            startIndex = _selectedIndex - 4;
+
+        for (var i = startIndex; i < panel.Controls.Count; i++)
         {
-            switch (obj)
+            var control = panel.Controls[i] as CosControlBase;
+            control.Visible = control.MiniCosControl.TabIndex == _selectedIndex;
+            control.MiniCosControl.Selected = control.Visible;
+
+            if (control.Visible)
             {
-                case CosGrowth _:
-                    TryAddControlToPanel<Growth>();
-                    break;
+                AutoSize = false;
 
-                case CosAbility _:
-                    TryAddControlToPanel<Ability>();
-                    break;
-
-                case CosFellow _:
-                    TryAddControlToPanel<Fellow>();
-                    break;
-
-                case CosTransport _:
-                    TryAddControlToPanel<Transport>();
-                    break;
-
-                case CosJobTransport _:
-                    TryAddControlToPanel<JobTransport>();
-                    break;
-                default:
-                    return;
+                Height = topPanel.Height + control.Height + 20;
             }
         }
+    }
 
-        private void OnTerminateCos(CosBase obj)
-        {
-            switch (obj)
-            {
-                case CosGrowth _:
-                    TryRemoveControlFromPanel<Growth>();
-                    break;
+    private void buttonNext_Click(object sender, EventArgs e)
+    {
+        if (_selectedIndex >= panel.Controls.Count - 1)
+            return;
 
-                case CosAbility _:
-                    TryRemoveControlFromPanel<Ability>();
-                    break;
+        _selectedIndex++;
 
-                case CosFellow _:
-                    TryRemoveControlFromPanel<Fellow>();
-                    break;
+        ReOrder();
+    }
 
-                case CosTransport _:
-                    TryRemoveControlFromPanel<Transport>();
-                    break;
+    private void buttonPrev_Click(object sender, EventArgs e)
+    {
+        if (_selectedIndex <= 0)
+            return;
 
-                case CosJobTransport _:
-                    TryRemoveControlFromPanel<JobTransport>();
-                    break;
-                default:
-                    return;
-            }
-        }
+        _selectedIndex--;
+        ReOrder();
+    }
 
-        private bool TryGetCachedControl<T>(out CosControlBase control) 
-            where T : CosControlBase, new()
-        {
-            control = null;
-            var name = typeof(T).Name;
+    private void MiniCosControl_Click(object sender, EventArgs e)
+    {
+        var index = (sender as MiniCosControl).TabIndex;
+        if (_selectedIndex == index)
+            return;
 
-            if (!_cachedControls.TryGetValue(name, out control))
-            {
-                control = new T();
-                control.Dock = DockStyle.Fill;
-                control.MiniCosControl.Click += MiniCosControl_Click;
-                _cachedControls.Add(name, control);
-            }
-
-            return control != null;
-        }
-        private void TryAddControlToPanel<T>() 
-            where T : CosControlBase, new()
-        {
-            if (!TryGetCachedControl<T>(out var control))
-                return;
-
-            var action = new Action(() =>
-            {
-                panel.Controls.Add(control);
-                panelTopCenter.Controls.Add(control.MiniCosControl);
-                control.MiniCosControl.TabIndex = panel.Controls.Count - 1;
-                control.Initialize();
-
-                ReOrder();
-            });
-
-            if (panel.InvokeRequired)
-                panel.Invoke(action);
-            else
-                action();
-        }
-
-        private void TryRemoveControlFromPanel<T>()
-            where T : CosControlBase, new()
-        {
-            if (!TryGetCachedControl<T>(out var control))
-                return;
-
-            var action = new Action(() =>
-            {
-                panel.Controls.Remove(control);
-                panelTopCenter.Controls.Remove(control.MiniCosControl);
-                control.Reset();
-
-                // Reindex all controls
-                for (int i = 0; i < panel.Controls.Count; i++)
-                    ((CosControlBase)panel.Controls[i]).MiniCosControl.TabIndex = i;
-
-                _selectedIndex = panel.Controls.Count - 1;
-                ReOrder();
-            });
-
-            if (InvokeRequired)
-                panel.Invoke(action);
-            else
-                action();
-        }
-
-        private void ReOrder()
-        {
-            Visible = panel.Controls.Count > 0;
-            if(!Visible)
-            {
-                _selectedIndex = 0;
-                return;
-            }
-
-            int startIndex = 0;
-            if (_selectedIndex > 3)
-                startIndex = _selectedIndex - 4;
-
-            for (int i = startIndex; i < panel.Controls.Count; i++)
-            {
-                var control = panel.Controls[i] as CosControlBase;
-                control.Visible = control.MiniCosControl.TabIndex == _selectedIndex;
-                control.MiniCosControl.Selected = control.Visible;
-
-                if (control.Visible)
-                {
-                    AutoSize = false;
-
-                    this.Height = topPanel.Height + control.Height + 20;
-                }
-            }
-        }
-
-        private void buttonNext_Click(object sender, EventArgs e)
-        {
-            if (_selectedIndex >= panel.Controls.Count - 1)
-                return;
-
-            _selectedIndex++;
-
-            ReOrder();
-        }
-
-        private void buttonPrev_Click(object sender, EventArgs e)
-        {
-            if (_selectedIndex <= 0)
-                return;
-
-            _selectedIndex--;
-            ReOrder();
-        }
-
-        private void MiniCosControl_Click(object sender, EventArgs e)
-        {
-            var index = (sender as MiniCosControl).TabIndex;
-            if (_selectedIndex == index)
-                return;
-
-            _selectedIndex = index; 
-            ReOrder();
-        }
+        _selectedIndex = index;
+        ReOrder();
     }
 }

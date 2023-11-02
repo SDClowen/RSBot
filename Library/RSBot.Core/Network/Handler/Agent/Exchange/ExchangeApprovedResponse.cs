@@ -1,24 +1,23 @@
 ﻿using RSBot.Core.Event;
 
-namespace RSBot.Core.Network.Handler.Agent.Exchange
+namespace RSBot.Core.Network.Handler.Agent.Exchange;
+
+internal class ExchangeApprovedResponse : IPacketHandler
 {
-    internal class ExchangeApprovedResponse : IPacketHandler
+    /// <inheritdoc />
+    public ushort Opcode => 0x3087;
+
+    /// <inheritdoc />
+    public PacketDestination Destination => PacketDestination.Client;
+
+    /// <inheritdoc />
+    public void Invoke(Packet packet)
     {
-        /// <inheritdoc />
-        public ushort Opcode => 0x3087;
+        Game.Player.Exchange.Complete();
+        Game.Player.Exchange = null;
 
-        /// <inheritdoc />
-        public PacketDestination Destination => PacketDestination.Client;
+        Log.Notify("Exchange completed.");
 
-        /// <inheritdoc />
-        public void Invoke(Packet packet)
-        {
-            Game.Player.Exchange.Complete();
-            Game.Player.Exchange = null;
-
-            Log.Notify("Exchange completed.");
-
-            EventManager.FireEvent("OnApproveExchange");
-        }
+        EventManager.FireEvent("OnApproveExchange");
     }
 }
