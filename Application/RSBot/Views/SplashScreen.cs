@@ -122,8 +122,9 @@ public partial class SplashScreen : UIWindow
     /// </param>
     private void ReferenceDataLoaderCompleted(object sender, RunWorkerCompletedEventArgs e)
     {
-        _mainForm.Show();
+        _mainForm.Show(this);
         _mainForm.RefreshTheme(false);
+        _mainForm.BringToFront();
 
         Hide();
     }
