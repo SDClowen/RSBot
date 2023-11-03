@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -43,55 +44,112 @@ public class ReferenceManager
     public GatewayInfo GatewayInfo { get; private set; }
     public DivisionInfo DivisionInfo { get; private set; }
     public VersionInfo VersionInfo { get; private set; }
-
-    /// <summary>
-    ///     Gets the list of magic options
-    /// </summary>
     public List<RefMagicOpt> MagicOptions { get; } = new(1024);
-
-    /// <summary>
-    ///     Gets the list of all magic option assignments
-    /// </summary>
     public List<RefMagicOptAssign> MagicOptionAssignments { get; } = new(128);
 
-    public void Load(int languageTab)
+    public void Load(int languageTab, BackgroundWorker worker)
     {
         LanguageTab = languageTab; //until language wizard is reworked?
 
         var sw = Stopwatch.StartNew();
+
+        worker.ReportProgress(0, "Client info");
+        LoadClientInfo();
+
+        worker.ReportProgress(10, "Texts");
+        LoadTextData();
+
+        worker.ReportProgress(20, "Characters");
+        LoadCharacterData();
+
+        worker.ReportProgress(30, "Items");
+        LoadItemData();
+
+        worker.ReportProgress(40, "Skills");
+        LoadSkillData();
+
+        worker.ReportProgress(50, "Quests");
+        LoadQuestData();
+
+        worker.ReportProgress(60, "Shops");
+        LoadShopData();
+
+        worker.ReportProgress(70, "Teleporters");
+        LoadTeleportData();
+
+        worker.ReportProgress(80, "Alchemy");
+        LoadAlchemyData();
+
+        worker.ReportProgress(90, "Misc");
+        LoadOptLevelData();
+        LoadLevelData();
+
+        sw.Stop();
+
+        Log.Debug(GetDebugInfo());
+        Log.Notify($"Loaded all game data in {sw.ElapsedMilliseconds}ms!");
+
+        worker.ReportProgress(100, "Done");
+        EventManager.FireEvent("OnLoadGameData");
+    }
+
+    private void LoadClientInfo()
+    {
         DivisionInfo = DivisionInfo.Load();
         GatewayInfo = GatewayInfo.Load();
         VersionInfo = VersionInfo.Load();
+    }
 
-        LoadTextData();
-        LoadConditionalData($"{ServerDep}\\CharacterData.txt", CharacterData);
-        LoadConditionalData($"{ServerDep}\\ItemData.txt", ItemData);
-        LoadSkillData();
-
-        LoadReferenceFile($"{ServerDep}\\TeleportBuilding.txt", CharacterData);
-        LoadReferenceFile($"{ServerDep}\\SkillMasteryData.txt", SkillMasteryData);
+    private void LoadLevelData()
+    {
         LoadReferenceFile($"{ServerDep}\\LevelData.txt", LevelData);
-        LoadReferenceFile($"{ServerDep}\\TeleportData.txt", TeleportData);
-        LoadReferenceFile($"{ServerDep}\\TeleportLink.txt", TeleportLinks);
+    }
+
+    private void LoadShopData()
+    {
         LoadReferenceFile($"{ServerDep}\\RefShop.txt", Shops);
         LoadReferenceFile($"{ServerDep}\\RefShopTab.txt", ShopTabs);
-        LoadReferenceFile($"{ServerDep}\\magicoption.txt", MagicOptions);
-        LoadReferenceFile($"{ServerDep}\\magicoptionassign.txt", MagicOptionAssignments);
-        LoadReferenceFile($"{ServerDep}\\refoptionalteleport.txt", OptionalTeleports);
-        LoadReferenceFile($"{ServerDep}\\refquestrewarditems.txt", QuestRewardItems);
-        LoadReferenceFile($"{ServerDep}\\refqusetreward.txt", QuestRewards);
         LoadReferenceFile($"{ServerDep}\\RefShopGroup.txt", ShopGroups);
         LoadReferenceFile($"{ServerDep}\\RefMappingShopGroup.txt", ShopGroupMapping);
         LoadReferenceFile($"{ServerDep}\\RefMappingShopWithTab.txt", ShopTabMapping);
 
-        LoadRefShopGoods($"{ServerDep}\\RefShopGoods.txt");
-        LoadScrapOfPackageItemData($"{ServerDep}\\RefScrapOfPackageItem.txt");
+        if (Game.ClientType > GameClientType.Chinese)
+            LoadReferenceListFile($"{ServerDep}\\RefScrapOfPackageItem.txt", PackageItemScrap);
+        else
+            LoadReferenceFile($"{ServerDep}\\RefScrapOfPackageItem.txt", PackageItemScrap);
 
         if (Game.ClientType > GameClientType.Chinese)
-            LoadConditionalData($"{ServerDep}\\QuestData.txt", QuestData);
+            LoadReferenceListFile($"{ServerDep}\\RefShopGoods.txt", ShopGoods);
         else
-            LoadReferenceFile($"{ServerDep}\\questdata.txt", QuestData);
+            LoadReferenceFile($"{ServerDep}\\RefShopGoods.txt", ShopGoods);
 
+    }
+
+    private void LoadAlchemyData()
+    {
+        LoadReferenceFile($"{ServerDep}\\magicoption.txt", MagicOptions);
+        LoadReferenceFile($"{ServerDep}\\magicoptionassign.txt", MagicOptionAssignments);
+
+    }
+
+    private void LoadTeleportData()
+    {
+        LoadReferenceFile($"{ServerDep}\\TeleportBuilding.txt", CharacterData);
+        LoadReferenceFile($"{ServerDep}\\TeleportData.txt", TeleportData);
+        LoadReferenceFile($"{ServerDep}\\TeleportLink.txt", TeleportLinks);
+        LoadReferenceFile($"{ServerDep}\\refoptionalteleport.txt", OptionalTeleports);
+    }
+
+    private void LoadItemData()
+    {
+        if (Game.ClientType < GameClientType.Thailand)
+            LoadReferenceFile($"{ServerDep}\\ItemData.txt", ItemData);
+        else
+            LoadReferenceListFile($"{ServerDep}\\ItemData.txt", ItemData);
+    }
+
+    private void LoadOptLevelData()
+    {
         if (Game.ClientType > GameClientType.Japanese_Old)
         {
             LoadReferenceFile($"{ServerDep}\\refabilitybyitemoptleveldata.txt", AbilityItemByOptLevel);
@@ -100,42 +158,18 @@ public class ReferenceManager
 
         if (Game.ClientType >= GameClientType.Chinese)
             LoadReferenceFile($"{ServerDep}\\refextraabilitybyequipitemoptlevel.txt", ExtraAbilityByEquipItemOptLevel);
-
-        sw.Stop();
-
-        Log.Debug(GetDebugInfo());
-        Log.Notify($"Loaded all game data in {sw.ElapsedMilliseconds}ms!");
-
-        EventManager.FireEvent("OnLoadGameData");
     }
 
-    private string GetDebugInfo()
+    private void LoadQuestData()
     {
-        var builder = new StringBuilder("\n=== Reference information === \n");
-        
-        builder.AppendFormat("TextData: {0}\n", TextData.Count);
-        builder.AppendFormat("CharacterData: {0}\n", CharacterData.Count);
-        builder.AppendFormat("ItemData: {0}\n", ItemData.Count);
-        builder.AppendFormat("SkillData: {0}\n", SkillData.Count);
-        builder.AppendFormat("QuestData: {0}\n", QuestData.Count);
-        builder.AppendFormat("QuestRewards: {0}\n", QuestRewards.Count);
-        builder.AppendFormat("QuestRewardItems: {0}\n", QuestRewardItems.Count);
-        builder.AppendFormat("TeleportData: {0}\n", TeleportData.Count);
-        builder.AppendFormat("TeleportLinks: {0}\n", TeleportLinks.Count);
-        builder.AppendFormat("OptionalTeleports: {0}\n", OptionalTeleports.Count);
-        builder.AppendFormat("MagicOptions: {0}\n", MagicOptions.Count);
-        builder.AppendFormat("MagicOptionAssignments: {0}\n", MagicOptionAssignments.Count);
-        builder.AppendFormat("Shops: {0}\n", Shops.Count);
-        builder.AppendFormat("ShopGroups: {0}\n", ShopGroups.Count);
-        builder.AppendFormat("ShopGoods: {0}\n", ShopGoods.Count);
-        builder.AppendFormat("ShopGroupMapping: {0}\n", ShopGroupMapping.Count);
-        builder.AppendFormat("ShopTabs: {0}\n", ShopTabs.Count);
-        builder.AppendFormat("ShopTabMapping: {0}\n", ShopTabMapping.Count);
-        builder.AppendFormat("AbilityItemByOptLevel: {0}\n", AbilityItemByOptLevel.Count);
-        builder.AppendFormat("SkillByItemOptLevels: {0}\n", SkillByItemOptLevels.Count);
-        builder.AppendFormat("ExtraAbilityByEquipItemOptLevel: {0}", ExtraAbilityByEquipItemOptLevel.Count);
+        LoadReferenceFile($"{ServerDep}\\refquestrewarditems.txt", QuestRewardItems);
+        LoadReferenceFile($"{ServerDep}\\refqusetreward.txt", QuestRewards);
 
-        return builder.ToString();
+        if (Game.ClientType > GameClientType.Chinese)
+            LoadConditionalData($"{ServerDep}\\QuestData.txt", QuestData);
+        else
+            LoadReferenceFile($"{ServerDep}\\questdata.txt", QuestData);
+
     }
 
     private void LoadTextData()
@@ -171,20 +205,12 @@ public class ReferenceManager
         }
     }
 
-    private void LoadRefShopGoods(string file)
+    private void LoadCharacterData()
     {
-        if (Game.ClientType > GameClientType.Chinese)
-            LoadReferenceListFile(file, ShopGoods);
+        if (Game.ClientType < GameClientType.Thailand)
+            LoadReferenceFile($"{ServerDep}\\CharacterData.txt", CharacterData);
         else
-            LoadReferenceFile(file, ShopGoods);
-    }
-
-    private void LoadScrapOfPackageItemData(string file)
-    {
-        if (Game.ClientType > GameClientType.Chinese)
-            LoadReferenceListFile(file, PackageItemScrap);
-        else
-            LoadReferenceFile(file, PackageItemScrap);
+            LoadReferenceListFile($"{ServerDep}\\CharacterData.txt", CharacterData);
     }
 
     private void LoadConditionalData<TKey, TReference>(string file, IDictionary<TKey, TReference> collection)
@@ -205,6 +231,8 @@ public class ReferenceManager
             LoadReferenceFile($"{ServerDep}\\SkillData.txt", SkillData);
         else
             LoadReferenceListFile($"{ServerDep}\\SkillData.txt", SkillData);
+
+        LoadReferenceFile($"{ServerDep}\\SkillMasteryData.txt", SkillMasteryData);
     }
 
     private void LoadReferenceListFileEnc<TKey, TReference>(string fileName, IDictionary<TKey, TReference> destination)
@@ -379,21 +407,12 @@ public class ReferenceManager
         }
     }
 
-    /// <summary>
-    ///     Get char skill bases
-    /// </summary>
-    /// <returns></returns>
     public IEnumerable<uint> GetBaseSkills()
     {
         return SkillData.Where(p => p.Value.Basic_Code.EndsWith("_BASE_01") && p.Value.Basic_Group != "xxx")
             .Select(p => p.Key);
     }
 
-    /// <summary>
-    ///     Gets the tab.
-    /// </summary>
-    /// <param name="codeName">Name of the code.</param>
-    /// <returns></returns>
     public RefShopTab GetTab(string codeName)
     {
         return ShopTabs[codeName];
@@ -760,5 +779,36 @@ public class ReferenceManager
         QuestRewards.TryGetValue(questId, out var result);
 
         return result;
+    }
+
+    private string GetDebugInfo()
+    {
+        var builder = new StringBuilder("\n=== Reference information === \n");
+
+        builder.AppendFormat("TextData: {0}\n", TextData.Count);
+        builder.AppendFormat("CharacterData: {0}\n", CharacterData.Count);
+        builder.AppendFormat("ItemData: {0}\n", ItemData.Count);
+        builder.AppendFormat("SkillData: {0}\n", SkillData.Count);
+        builder.AppendFormat("SkillMasteryData: {0}\n", SkillMasteryData.Count);
+        builder.AppendFormat("QuestData: {0}\n", QuestData.Count);
+        builder.AppendFormat("QuestRewards: {0}\n", QuestRewards.Count);
+        builder.AppendFormat("QuestRewardItems: {0}\n", QuestRewardItems.Count);
+        builder.AppendFormat("TeleportData: {0}\n", TeleportData.Count);
+        builder.AppendFormat("TeleportLinks: {0}\n", TeleportLinks.Count);
+        builder.AppendFormat("OptionalTeleports: {0}\n", OptionalTeleports.Count);
+        builder.AppendFormat("MagicOptions: {0}\n", MagicOptions.Count);
+        builder.AppendFormat("MagicOptionAssignments: {0}\n", MagicOptionAssignments.Count);
+        builder.AppendFormat("Shops: {0}\n", Shops.Count);
+        builder.AppendFormat("ShopGroups: {0}\n", ShopGroups.Count);
+        builder.AppendFormat("ShopGoods: {0}\n", ShopGoods.Count);
+        builder.AppendFormat("ShopGroupMapping: {0}\n", ShopGroupMapping.Count);
+        builder.AppendFormat("ShopTabs: {0}\n", ShopTabs.Count);
+        builder.AppendFormat("ShopTabMapping: {0}\n", ShopTabMapping.Count);
+        builder.AppendFormat("PackageItemScrap: {0}\n", PackageItemScrap.Count);
+        builder.AppendFormat("AbilityItemByOptLevel: {0}\n", AbilityItemByOptLevel.Count);
+        builder.AppendFormat("SkillByItemOptLevels: {0}\n", SkillByItemOptLevels.Count);
+        builder.AppendFormat("ExtraAbilityByEquipItemOptLevel: {0}", ExtraAbilityByEquipItemOptLevel.Count);
+
+        return builder.ToString();
     }
 }

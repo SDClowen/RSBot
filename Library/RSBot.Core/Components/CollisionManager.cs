@@ -151,8 +151,7 @@ public static class CollisionManager
         using var fileStream =
             new BinaryReader(File.OpenRead(Path.Combine(Kernel.BasePath, "Data", "Game", "map.rsc")));
 
-        if (_loadedCollisions == null)
-            _loadedCollisions = new CollisionEntry[regions.Length];
+        _loadedCollisions ??= new CollisionEntry[regions.Length];
 
         for (var regionIndex = 0; regionIndex < regions.Length; regionIndex++)
         {

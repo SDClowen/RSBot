@@ -224,6 +224,12 @@ public partial class SplashScreen : UIWindow
             return;
         }
 
-        Game.ReferenceManager.Load(GlobalConfig.Get("RSBot.TranslationIndex", 9));
+        Game.ReferenceManager.Load(GlobalConfig.Get("RSBot.TranslationIndex", 9), referenceDataLoader);
+    }
+
+    private void referenceDataLoader_ProgressChanged(object sender, ProgressChangedEventArgs e)
+    {
+        lblLoading.Text = $"Loading: {e.UserState}";
+        progressLoading.Value = e.ProgressPercentage;
     }
 }

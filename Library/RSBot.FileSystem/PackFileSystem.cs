@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Text;
 using RSBot.FileSystem.IO;
 using RSBot.FileSystem.PackFile;
@@ -7,7 +8,7 @@ using RSBot.FileSystem.PackFile.Struct;
 
 namespace RSBot.FileSystem;
 
-public class PackFileSystem : IFileSystem, IDisposable
+public class PackFileSystem : IFileSystem
 {
     private void AssertFileExists(string path)
     {
@@ -243,6 +244,8 @@ public class PackFileSystem : IFileSystem, IDisposable
 
         if (entry is not PackEntry packEntry)
             throw new ArgumentException("Entry should be of type PackEntry");
+        
+        Debug.WriteLine($"Reading file '{packEntry.Name}' (Offset: 0x{packEntry.DataPosition:X}, Size: {packEntry.Size}B)");
 
         var bsRead = new BsReader(_fileStream);
         bsRead.BaseStream.Position = packEntry.DataPosition;

@@ -115,7 +115,7 @@ public abstract class RefObjCommon : IReference<uint>
         Image bitmap = null;
         try
         {
-            var path = Path.Combine("icon", AssocFileIcon);
+            var path = $"icon\\{AssocFileIcon}";
 
             if (!Game.MediaPk2.TryGetFile(path, out var file))
                 file = Game.MediaPk2.GetFile("icon\\icon_default.ddj");

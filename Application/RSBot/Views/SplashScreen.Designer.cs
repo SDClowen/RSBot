@@ -35,6 +35,8 @@
             labelVersion = new SDUI.Controls.Label();
             label2 = new SDUI.Controls.Label();
             label3 = new SDUI.Controls.Label();
+            lblLoading = new SDUI.Controls.Label();
+            progressLoading = new SDUI.Controls.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -42,33 +44,34 @@
             // 
             pictureBox1.BackColor = System.Drawing.Color.Transparent;
             pictureBox1.Image = Properties.Resources.app;
-            pictureBox1.Location = new System.Drawing.Point(200, 0);
+            pictureBox1.Location = new System.Drawing.Point(226, 0);
             pictureBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new System.Drawing.Size(128, 128);
+            pictureBox1.Size = new System.Drawing.Size(96, 96);
             pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
             // referenceDataLoader
             // 
+            referenceDataLoader.WorkerReportsProgress = true;
             referenceDataLoader.DoWork += referenceDataLoader_DoWork;
+            referenceDataLoader.ProgressChanged += referenceDataLoader_ProgressChanged;
             // 
             // logoLabel
             // 
             logoLabel.ApplyGradient = true;
             logoLabel.BackColor = System.Drawing.Color.Transparent;
-            logoLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            logoLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 105F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            logoLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 59F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             logoLabel.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             logoLabel.Gradient = new System.Drawing.Color[] { System.Drawing.Color.DodgerBlue, System.Drawing.Color.SlateBlue };
             logoLabel.GradientAnimation = false;
-            logoLabel.Location = new System.Drawing.Point(1, 128);
+            logoLabel.Location = new System.Drawing.Point(2, 96);
             logoLabel.Name = "logoLabel";
-            logoLabel.Size = new System.Drawing.Size(547, 201);
+            logoLabel.Size = new System.Drawing.Size(547, 79);
             logoLabel.TabIndex = 3;
             logoLabel.Text = "RSBOT";
-            logoLabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            logoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelVersion
             // 
@@ -98,7 +101,7 @@
             label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label2.Gradient = new System.Drawing.Color[] { System.Drawing.Color.RosyBrown, System.Drawing.Color.FromArgb(74, 74, 74) };
             label2.GradientAnimation = false;
-            label2.Location = new System.Drawing.Point(140, 282);
+            label2.Location = new System.Drawing.Point(140, 183);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(271, 17);
             label2.TabIndex = 5;
@@ -115,18 +118,55 @@
             label3.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label3.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
             label3.GradientAnimation = false;
-            label3.Location = new System.Drawing.Point(144, 314);
+            label3.Location = new System.Drawing.Point(144, 201);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(254, 15);
             label3.TabIndex = 5;
             label3.Text = "Created with contributions from the community";
+            // 
+            // lblLoading
+            // 
+            lblLoading.ApplyGradient = false;
+            lblLoading.BackColor = System.Drawing.Color.Transparent;
+            lblLoading.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            lblLoading.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            lblLoading.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
+            lblLoading.GradientAnimation = false;
+            lblLoading.Location = new System.Drawing.Point(19, 234);
+            lblLoading.Name = "lblLoading";
+            lblLoading.Size = new System.Drawing.Size(513, 21);
+            lblLoading.TabIndex = 6;
+            lblLoading.Text = "Loading";
+            lblLoading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // progressLoading
+            // 
+            progressLoading.BackColor = System.Drawing.Color.Transparent;
+            progressLoading.Dock = System.Windows.Forms.DockStyle.Bottom;
+            progressLoading.DrawHatch = false;
+            progressLoading.Gradient = new System.Drawing.Color[] { System.Drawing.Color.DodgerBlue, System.Drawing.Color.SlateBlue };
+            progressLoading.HatchType = System.Drawing.Drawing2D.HatchStyle.Percent10;
+            progressLoading.Location = new System.Drawing.Point(1, 261);
+            progressLoading.Maximum = 100L;
+            progressLoading.MaxPercentShowValue = 100F;
+            progressLoading.Name = "progressLoading";
+            progressLoading.PercentIndices = 0;
+            progressLoading.Radius = 4;
+            progressLoading.ShowAsPercent = false;
+            progressLoading.ShowValue = false;
+            progressLoading.Size = new System.Drawing.Size(547, 18);
+            progressLoading.TabIndex = 7;
+            progressLoading.Text = "0 / 100";
+            progressLoading.Value = 0L;
             // 
             // SplashScreen
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            ClientSize = new System.Drawing.Size(549, 330);
+            ClientSize = new System.Drawing.Size(549, 280);
+            Controls.Add(progressLoading);
+            Controls.Add(lblLoading);
             Controls.Add(pictureBox1);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -140,9 +180,9 @@
             Location = new System.Drawing.Point(0, 0);
             Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             MaximizeBox = false;
-            MaximumSize = new System.Drawing.Size(549, 330);
+            MaximumSize = new System.Drawing.Size(549, 280);
             MinimizeBox = false;
-            MinimumSize = new System.Drawing.Size(549, 330);
+            MinimumSize = new System.Drawing.Size(549, 280);
             Movable = false;
             Name = "SplashScreen";
             Padding = new System.Windows.Forms.Padding(1, 0, 1, 1);
@@ -165,5 +205,7 @@
         private SDUI.Controls.Label labelVersion;
         private SDUI.Controls.Label label2;
         private SDUI.Controls.Label label3;
+        private SDUI.Controls.Label lblLoading;
+        private SDUI.Controls.ProgressBar progressLoading;
     }
 }
