@@ -11,12 +11,14 @@ namespace RSBot.Core.Components;
 
 public static class CollisionManager
 {
+    private record LookupEntry(Region Region, long DataPosition);
+    private record CollisionEntry(Region Region, RSCollisionMesh CollisionMesh);
+
     private const string SupportedHeader = "RSNVM";
     private const int SupportedVersion = 1200;
 
-    private static Dictionary<Region, long> _lookupTable;
-
-    private static Dictionary<Region, RSCollisionMesh> _loadedCollisions;
+    private static LookupEntry[] _lookupTable;
+    private static CollisionEntry[] _loadedCollisions;
 
     /// <summary>
     ///     Gets a value indicating whether this instance is initialized.
@@ -120,18 +122,20 @@ public static class CollisionManager
         fileStream.BaseStream.Seek(lookupTableOffset, SeekOrigin.Begin);
 
         var entryCount = fileStream.ReadUInt16();
-        _lookupTable = new Dictionary<Region, long>(entryCount);
+        _lookupTable = new LookupEntry[entryCount];
 
         for (var entryIndex = 0; entryIndex < entryCount; entryIndex++)
         {
             var regionId = fileStream.ReadUInt16();
             var fileOffset = fileStream.ReadInt64();
 
-            _lookupTable.Add(regionId, fileOffset);
+            _lookupTable[entryIndex] = new LookupEntry(regionId, fileOffset);
         }
 
+        sw.Stop();
+
         Log.Notify(
-            $"[Collision] Loaded lookup table for {_lookupTable.Count} collision regions in {sw.ElapsedMilliseconds}ms");
+            $"[Collision] Loaded lookup table for {_lookupTable.Length} collision regions in {sw.ElapsedMilliseconds}ms");
 
         EventManager.FireEvent("OnLoadCollisionLookupTable");
     }
@@ -147,24 +151,27 @@ public static class CollisionManager
         using var fileStream =
             new BinaryReader(File.OpenRead(Path.Combine(Kernel.BasePath, "Data", "Game", "map.rsc")));
 
-        _loadedCollisions = new Dictionary<Region, RSCollisionMesh>(regions.Length);
+        _loadedCollisions ??= new CollisionEntry[regions.Length];
 
-        foreach (var region in regions)
+        for (var regionIndex = 0; regionIndex < regions.Length; regionIndex++)
         {
-            if (!_lookupTable.ContainsKey(region))
+            var region = regions[regionIndex];
+            var entry = _lookupTable.FirstOrDefault(e => e.Region == region);
+
+            if (entry == null)
             {
                 Log.Debug($"[Collision] Could not find entry in lookup table for region with id [{region}]");
 
                 continue;
             }
 
-            fileStream.BaseStream.Seek(_lookupTable[region], SeekOrigin.Begin);
-
+            fileStream.BaseStream.Seek(entry.DataPosition, SeekOrigin.Begin);
             var collisionMesh = new RSCollisionMesh(fileStream);
-            _loadedCollisions.Add(collisionMesh.Region, collisionMesh);
+            _loadedCollisions[regionIndex] = new CollisionEntry(region, collisionMesh);
         }
 
-        Log.Debug($"[Collision] Loaded {_loadedCollisions.Count} collision regions in {sw.ElapsedMilliseconds}ms");
+        sw.Stop();
+        Log.Debug($"[Collision] Loaded {_loadedCollisions.Length} collision regions in {sw.ElapsedMilliseconds}ms");
 
         EventManager.FireEvent("OnLoadCollisionRegions");
     }
@@ -201,10 +208,13 @@ public static class CollisionManager
 
         LoadRegions(surroundedBy);
 
-        foreach (var surroundingRegion in surroundedBy.Where(region => _loadedCollisions.ContainsKey(region)))
+        foreach (var surroundingRegion in surroundedBy)
         {
-            var mesh = _loadedCollisions[surroundingRegion];
-            var calculatedMesh = new CalculatedCollisionMesh(mesh);
+            var mesh = _loadedCollisions.FirstOrDefault(c => c.Region == surroundingRegion);
+            if (mesh == null)
+                continue;
+
+            var calculatedMesh = new CalculatedCollisionMesh(mesh.CollisionMesh);
 
             ActiveCollisionMeshes.Add(calculatedMesh);
         }

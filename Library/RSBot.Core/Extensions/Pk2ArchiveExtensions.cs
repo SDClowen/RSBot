@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using RSBot.Core.Client;
-using RSBot.Core.Components.Pk2;
+using RSBot.FileSystem;
 
 namespace RSBot.Core.Extensions;
 
@@ -12,9 +12,9 @@ public static class Pk2Extensions
     /// </summary>
     /// <param name="file">The archive.</param>
     /// <returns></returns>
-    public static Image ToImage(this ArchiveFile file)
+    public static Image ToImage(this IFile file)
     {
-        var ddjBuffer = file.GetData();
+        var ddjBuffer = file.OpenRead().ReadAllBytes();
 
         try
         {

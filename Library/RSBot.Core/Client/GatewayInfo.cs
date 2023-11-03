@@ -1,5 +1,6 @@
 ﻿using System;
 using RSBot.Core.Event;
+using RSBot.Core.Extensions;
 
 namespace RSBot.Core.Client;
 
@@ -26,9 +27,22 @@ public class GatewayInfo
             return result;
         }
 
-        result.Port = Convert.ToUInt16(Game.MediaPk2.GetFile(Filename).ReadAllText().Trim());
+        if (!Game.MediaPk2.TryGetFile(Filename, out var file))
+        {
+            Log.Error("Could not load the GATEPORT.txt file, because the file was not found.");
+            return result;
+        }
+
+        if (!ushort.TryParse(file.ReadAllText(), out var port))
+        {
+            Log.Error("Could not load the GATEPORT.txt file, because the data doesn't contain port information");
+            return result;
+        }
+        
+        result.Port = port;
 
         EventManager.FireEvent("OnLoadGateport", result);
+        
         return result;
     }
 }

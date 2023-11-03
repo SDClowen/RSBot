@@ -551,8 +551,6 @@ public partial class Main : UserControl
     private void OnLoadGameData()
     {
         LoadGroups();
-
-        comboStore.SelectedIndex = 0;
     }
 
     /// <summary>
