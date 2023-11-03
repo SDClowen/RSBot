@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RSBot.Pk2\RSBot.Pk2.csproj" />
+    <ProjectReference Include="..\RSBot.FileSystem\RSBot.FileSystem.csproj" />
   </ItemGroup>
 
 </Project>

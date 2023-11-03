@@ -14,6 +14,7 @@ internal class PartySubscriber
     public static void SubscribeEvents()
     {
         EventManager.SubscribeEvent("OnPartyRequest", OnPartyRequest);
+        EventManager.SubscribeEvent("OnLoadCharacter", Container.Refresh);
     }
 
     /// <summary>
