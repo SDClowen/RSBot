@@ -26,6 +26,7 @@ internal class BerzerkBundle : IBundle
         if (Config.WhenFull)
         {
             Game.Player.EnterBerzerkMode();
+
             return;
         }
 
@@ -42,8 +43,7 @@ internal class BerzerkBundle : IBundle
         if (!Config.BeeingAttackedByAwareMonster)
             return;
 
-        var entity = Game.SelectedEntity as SpawnedMonster;
-        if (entity == null)
+        if (Game.SelectedEntity is not SpawnedMonster entity)
             return;
 
         if (Bundles.Avoidance.AvoidMonster(entity.Rarity))
