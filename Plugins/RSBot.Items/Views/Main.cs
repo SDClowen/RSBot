@@ -44,6 +44,7 @@ public partial class Main : UserControl
     private void SubscribeEvents()
     {
         EventManager.SubscribeEvent("OnLoadGameData", OnLoadGameData);
+        EventManager.SubscribeEvent("OnLoadCharacter", LoadSettings);
     }
 
     /// <summary>
@@ -609,16 +610,6 @@ public partial class Main : UserControl
         btnAddToStore.Checked = ShoppingManager.StoreFilter.Contains(codeName);
         btnPickup.Checked = PickupManager.PickupFilter.Any(p => p.CodeName == codeName && !p.PickOnlyChar);
         btnPickOnlyCharacter.Checked = PickupManager.PickupFilter.Any(p => p.CodeName == codeName && p.PickOnlyChar);
-    }
-
-    /// <summary>
-    ///     Occurs before Main form is displayed.
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void Main_Load(object sender, EventArgs e)
-    {
-        LoadSettings();
     }
 
     #region Shopping manager
