@@ -1,11 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
+﻿using System.Diagnostics;
 using NavMeshApi;
-using RSBot.Core.Components.Collision;
-using RSBot.Core.Components.Collision.Calculated;
-using RSBot.Core.Components.Collision.NavMesh;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 
