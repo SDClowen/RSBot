@@ -1,4 +1,5 @@
-﻿using RSBot.Core;
+﻿using System.Linq;
+using RSBot.Core;
 using RSBot.Core.Objects;
 
 namespace RSBot.Default.Bundle.Avoidance;
@@ -11,7 +12,7 @@ internal class AvoidanceBundle : IBundle
     /// <value>
     ///     The avoidance list.
     /// </value>
-    public MonsterRarity[] AvoidanceList { get; private set; }
+    public MonsterRarity[] AvoidanceList => PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Avoid");
 
     /// <summary>
     ///     Gets the preferance list.
@@ -19,7 +20,7 @@ internal class AvoidanceBundle : IBundle
     /// <value>
     ///     The preferance list.
     /// </value>
-    public MonsterRarity[] PreferanceList { get; private set; }
+    public MonsterRarity[] PreferanceList => PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Prefer");
 
     /// <summary>
     ///     Invokes this instance.
@@ -33,8 +34,7 @@ internal class AvoidanceBundle : IBundle
     /// </summary>
     public void Refresh()
     {
-        AvoidanceList = PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Avoid");
-        PreferanceList = PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Prefer");
+
     }
 
     public void Stop()
@@ -47,33 +47,12 @@ internal class AvoidanceBundle : IBundle
     /// </summary>
     /// <param name="rarity">The rarity.</param>
     /// <returns></returns>
-    public bool AvoidMonster(MonsterRarity rarity)
-    {
-        return CheckForRarity(AvoidanceList, rarity);
-    }
+    public bool AvoidMonster(MonsterRarity rarity) => AvoidanceList.Contains(rarity);
 
     /// <summary>
     ///     Prefers the monster.
     /// </summary>
     /// <param name="rarity">The rarity.</param>
     /// <returns></returns>
-    public bool PreferMonster(MonsterRarity rarity)
-    {
-        return CheckForRarity(PreferanceList, rarity);
-    }
-
-    /// <summary>
-    ///     Checks for rarity blacklist.
-    /// </summary>
-    /// <param name="avoidanceList">The avoidance list.</param>
-    /// <param name="rarity">The rarity.</param>
-    /// <returns></returns>
-    public bool CheckForRarity(MonsterRarity[] avoidanceList, MonsterRarity rarity)
-    {
-        foreach (var item in avoidanceList)
-            if ((item & rarity) == rarity)
-                return true;
-
-        return false;
-    }
+    public bool PreferMonster(MonsterRarity rarity) => PreferanceList.Contains(rarity);
 }

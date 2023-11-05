@@ -10,13 +10,13 @@ internal static class Emoticons
 {
     public static List<EmoticonItem> Items => new()
     {
-        new EmoticonItem("emoticon.hi", "Hi", "emot_act_greeting.ddj", EmoticonType.Hi),
-        new EmoticonItem("emoticon.smile", "Smile", "emot_act_laugh.ddj", EmoticonType.Smile),
-        new EmoticonItem("emoticon.greeting", "Greeting", "emot_act_pokun.ddj", EmoticonType.Greeting),
-        new EmoticonItem("emoticon.yes", "Yes", "emot_act_yes.ddj", EmoticonType.Yes),
-        new EmoticonItem("emoticon.rush", "Rush", "emot_act_rush.ddj", EmoticonType.Rush),
-        new EmoticonItem("emoticon.joy", "Joy", "emot_act_joy.ddj", EmoticonType.Joy),
-        new EmoticonItem("emoticon.no", "No", "emot_act_no.ddj", EmoticonType.No)
+        new EmoticonItem("emoticon.hi", "Hi", "icon\\action\\emot_act_greeting.ddj", EmoticonType.Hi),
+        new EmoticonItem("emoticon.smile", "Smile", "icon\\action\\emot_act_laugh.ddj", EmoticonType.Smile),
+        new EmoticonItem("emoticon.greeting", "Greeting", "icon\\action\\emot_act_pokun.ddj", EmoticonType.Greeting),
+        new EmoticonItem("emoticon.yes", "Yes", "icon\\action\\emot_act_yes.ddj", EmoticonType.Yes),
+        new EmoticonItem("emoticon.rush", "Rush", "icon\\action\\emot_act_rush.ddj", EmoticonType.Rush),
+        new EmoticonItem("emoticon.joy", "Joy", "icon\\action\\emot_act_joy.ddj", EmoticonType.Joy),
+        new EmoticonItem("emoticon.no", "No", "icon\\action\\emot_act_no.ddj", EmoticonType.No)
     };
 
     public static string GetEmoticonDefaultCommand(string emoticonName)
@@ -53,7 +53,10 @@ internal record EmoticonItem(string Name, string Label, string Icon, EmoticonTyp
 {
     public Image GetIconImage()
     {
-        return Game.MediaPk2.FileExists(Icon) ? Game.MediaPk2.GetFile(Icon).ToImage() : new Bitmap(32, 32);
+        if (!Game.MediaPk2.TryGetFile(Icon, out var iconFile))
+            return new Bitmap(32, 32);
+
+        return iconFile.ToImage();
     }
 
     public override string ToString()

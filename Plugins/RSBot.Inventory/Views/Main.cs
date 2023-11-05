@@ -72,23 +72,26 @@ public partial class Main : UserControl
         if (!listViewMain.Items.ContainsKey(key))
             return;
 
-        var inventoryItem = Game.Player.Inventory.GetItemAt(slot);
-        if (inventoryItem == null)
-            return;
+        lock (_lock)
+        {
+            var inventoryItem = Game.Player.Inventory.GetItemAt(slot);
+            if (inventoryItem == null)
+                return;
 
-        var listViewItem = listViewMain.Items[key];
+            var listViewItem = listViewMain.Items[key];
 
-        var name = inventoryItem.Record.GetRealName();
-        if (inventoryItem.OptLevel > 0)
-            name += " (+" + inventoryItem.OptLevel + ")";
+            var name = inventoryItem.Record.GetRealName();
+            if (inventoryItem.OptLevel > 0)
+                name += " (+" + inventoryItem.OptLevel + ")";
 
-        listViewItem.SubItems[0].Text = name;
-        listViewItem.SubItems[1].Text = inventoryItem.Amount.ToString();
+            listViewItem.SubItems[0].Text = name;
+            listViewItem.SubItems[1].Text = inventoryItem.Amount.ToString();
 
-        if (inventoryItem.Record.IsEquip)
-            listViewItem.SubItems[2].Text = inventoryItem.Record.GetRarityName();
+            if (inventoryItem.Record.IsEquip)
+                listViewItem.SubItems[2].Text = inventoryItem.Record.GetRarityName();
 
-        listViewItem.LoadItemImageAsync(inventoryItem.Record);
+            listViewItem.LoadItemImageAsync(inventoryItem.Record);
+        }
     }
 
     /// <summary>

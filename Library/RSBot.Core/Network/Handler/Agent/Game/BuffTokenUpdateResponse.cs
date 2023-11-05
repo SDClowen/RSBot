@@ -53,15 +53,4 @@ internal class BuffTokenUpdateResponse : IPacketHandler
             skillInfo?.SetCoolDown(milliseconds);
         }
     }
-
-    /// <summary>
-    ///     Handles the Elapsed event of the UntouchableTimer control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="ElapsedEventArgs" /> instance containing the event data.</param>
-    private void UntouchableTimer_Elapsed(object sender, ElapsedEventArgs e)
-    {
-        Log.Debug("The player is no longer untouchable");
-        Game.Player.Untouchable = false;
-    }
 }

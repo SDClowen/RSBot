@@ -483,7 +483,7 @@ namespace RSBot.Items.Views
             checkSellItemsFromPet.TabIndex = 3;
             checkSellItemsFromPet.Text = "Sell items from pet";
             checkSellItemsFromPet.UseVisualStyleBackColor = false;
-            checkSellItemsFromPet.CheckedChanged += checkSellItemsFromPet_CheckedChanged;
+            checkSellItemsFromPet.CheckedChanged += checkShoppingSetting_CheckedChanged;
             // 
             // checkStoreItemsFromPet
             // 
@@ -501,7 +501,7 @@ namespace RSBot.Items.Views
             checkStoreItemsFromPet.TabIndex = 4;
             checkStoreItemsFromPet.Text = "Store items from pet";
             checkStoreItemsFromPet.UseVisualStyleBackColor = false;
-            checkStoreItemsFromPet.CheckedChanged += checkStoreItemsFromPet_CheckedChanged;
+            checkStoreItemsFromPet.CheckedChanged += checkShoppingSetting_CheckedChanged;
             // 
             // checkRepairGear
             // 
@@ -519,7 +519,7 @@ namespace RSBot.Items.Views
             checkRepairGear.TabIndex = 1;
             checkRepairGear.Text = "Automaticaly repair all gear";
             checkRepairGear.UseVisualStyleBackColor = false;
-            checkRepairGear.CheckedChanged += checkRepairGear_CheckedChanged;
+            checkRepairGear.CheckedChanged += checkShoppingSetting_CheckedChanged;
             // 
             // checkEnable
             // 
@@ -537,7 +537,7 @@ namespace RSBot.Items.Views
             checkEnable.TabIndex = 0;
             checkEnable.Text = "Automaticaly run when in town";
             checkEnable.UseVisualStyleBackColor = false;
-            checkEnable.CheckedChanged += checkEnable_CheckedChanged;
+            checkEnable.CheckedChanged += checkShoppingSetting_CheckedChanged;
             // 
             // tabSellFilter
             // 
@@ -1605,7 +1605,7 @@ namespace RSBot.Items.Views
             groupBoxOptions.Radius = 10;
             groupBoxOptions.ShadowDepth = 4;
             groupBoxOptions.Size = new Size(734, 100);
-            groupBoxOptions.TabIndex = 6;
+            groupBoxOptions.TabIndex = 0;
             groupBoxOptions.TabStop = false;
             groupBoxOptions.Text = "Options";
             // 
@@ -1625,7 +1625,7 @@ namespace RSBot.Items.Views
             checkPickupGold.TabIndex = 0;
             checkPickupGold.Text = "Pickup gold";
             checkPickupGold.UseVisualStyleBackColor = false;
-            checkPickupGold.CheckedChanged += checkPickupGold_CheckedChanged;
+            checkPickupGold.CheckedChanged += checkPickupSettings_CheckedChanged;
             // 
             // checkAllEquips
             // 
@@ -1638,10 +1638,10 @@ namespace RSBot.Items.Views
             checkAllEquips.Name = "checkAllEquips";
             checkAllEquips.Ripple = true;
             checkAllEquips.Size = new Size(148, 30);
-            checkAllEquips.TabIndex = 5;
+            checkAllEquips.TabIndex = 4;
             checkAllEquips.Text = "Pickup all equip items";
             checkAllEquips.UseVisualStyleBackColor = false;
-            checkAllEquips.CheckedChanged += checkAllEquips_CheckedChanged;
+            checkAllEquips.CheckedChanged += checkPickupSettings_CheckedChanged;
             // 
             // checkEverything
             // 
@@ -1654,10 +1654,10 @@ namespace RSBot.Items.Views
             checkEverything.Name = "checkEverything";
             checkEverything.Ripple = true;
             checkEverything.Size = new Size(126, 30);
-            checkEverything.TabIndex = 4;
+            checkEverything.TabIndex = 5;
             checkEverything.Text = "Pickup everything";
             checkEverything.UseVisualStyleBackColor = false;
-            checkEverything.CheckedChanged += checkEverything_CheckedChanged;
+            checkEverything.CheckedChanged += checkPickupSettings_CheckedChanged;
             // 
             // checkPickupRare
             // 
@@ -1672,10 +1672,10 @@ namespace RSBot.Items.Views
             checkPickupRare.Name = "checkPickupRare";
             checkPickupRare.Ripple = true;
             checkPickupRare.Size = new Size(164, 30);
-            checkPickupRare.TabIndex = 1;
+            checkPickupRare.TabIndex = 3;
             checkPickupRare.Text = "Always pickup rare items";
             checkPickupRare.UseVisualStyleBackColor = false;
-            checkPickupRare.CheckedChanged += checkPickupRare_CheckedChanged;
+            checkPickupRare.CheckedChanged += checkPickupSettings_CheckedChanged;
             // 
             // checkQuestItems
             // 
@@ -1688,10 +1688,10 @@ namespace RSBot.Items.Views
             checkQuestItems.Name = "checkQuestItems";
             checkQuestItems.Ripple = true;
             checkQuestItems.Size = new Size(132, 30);
-            checkQuestItems.TabIndex = 4;
+            checkQuestItems.TabIndex = 2;
             checkQuestItems.Text = "Pickup quest items";
             checkQuestItems.UseVisualStyleBackColor = false;
-            checkQuestItems.CheckedChanged += checkQuestItems_CheckedChanged;
+            checkQuestItems.CheckedChanged += checkPickupSettings_CheckedChanged;
             // 
             // checkPickupBlue
             // 
@@ -1707,7 +1707,7 @@ namespace RSBot.Items.Views
             checkPickupBlue.TabIndex = 1;
             checkPickupBlue.Text = "Always pickup blue items";
             checkPickupBlue.UseVisualStyleBackColor = false;
-            checkPickupBlue.CheckedChanged += checkPickupBlue_CheckedChanged;
+            checkPickupBlue.CheckedChanged += checkPickupSettings_CheckedChanged;
             // 
             // groupBoxGeneral
             // 
@@ -1741,7 +1741,7 @@ namespace RSBot.Items.Views
             cbDontPickupWhileBotting.TabIndex = 3;
             cbDontPickupWhileBotting.Text = "Don't pickup items while botting";
             cbDontPickupWhileBotting.UseVisualStyleBackColor = false;
-            cbDontPickupWhileBotting.CheckedChanged += cbDontPickupWhileBotting_CheckedChanged;
+            cbDontPickupWhileBotting.CheckedChanged += checkPickupSettings_CheckedChanged;
             // 
             // cbJustpickmyitems
             // 
@@ -1757,7 +1757,7 @@ namespace RSBot.Items.Views
             cbJustpickmyitems.TabIndex = 1;
             cbJustpickmyitems.Text = "Just pick my items";
             cbJustpickmyitems.UseVisualStyleBackColor = false;
-            cbJustpickmyitems.CheckedChanged += cbJustpickmyitems_CheckedChanged;
+            cbJustpickmyitems.CheckedChanged += checkPickupSettings_CheckedChanged;
             // 
             // checkDontPickupInBerzerk
             // 
@@ -1774,7 +1774,7 @@ namespace RSBot.Items.Views
             checkDontPickupInBerzerk.TabIndex = 2;
             checkDontPickupInBerzerk.Text = "Don't pickup items in berzerk mode";
             checkDontPickupInBerzerk.UseVisualStyleBackColor = false;
-            checkDontPickupInBerzerk.CheckedChanged += checkDontPickupInBerzerk_CheckedChanged;
+            checkDontPickupInBerzerk.CheckedChanged += checkPickupSettings_CheckedChanged;
             // 
             // checkEnableAbilityPet
             // 
@@ -1789,10 +1789,10 @@ namespace RSBot.Items.Views
             checkEnableAbilityPet.Name = "checkEnableAbilityPet";
             checkEnableAbilityPet.Ripple = true;
             checkEnableAbilityPet.Size = new Size(195, 30);
-            checkEnableAbilityPet.TabIndex = 1;
+            checkEnableAbilityPet.TabIndex = 0;
             checkEnableAbilityPet.Text = "Use ability pet to pickup items ";
             checkEnableAbilityPet.UseVisualStyleBackColor = false;
-            checkEnableAbilityPet.CheckedChanged += checkEnableAbilityPet_CheckedChanged;
+            checkEnableAbilityPet.CheckedChanged += checkPickupSettings_CheckedChanged;
             // 
             // Main
             // 
@@ -1803,7 +1803,6 @@ namespace RSBot.Items.Views
             Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             Name = "Main";
             Size = new Size(754, 473);
-            Load += Main_Load;
             contextShoppingList.ResumeLayout(false);
             contextAvailableProducts.ResumeLayout(false);
             tabMain.ResumeLayout(false);
