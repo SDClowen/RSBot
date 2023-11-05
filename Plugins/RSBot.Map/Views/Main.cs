@@ -358,33 +358,33 @@ public partial class Main : UserControl
 
     private void DrawCollisions(Graphics gfx)
     {
-        if (CollisionManager.HasActiveMeshes && CollisionManager.Enabled)
-        {
-            foreach (var collisionNavmesh in CollisionManager.ActiveCollisionMeshes)
-            {
-                var colliders = collisionNavmesh.Collisions
-                    .Where(c => c.Source.DistanceToPlayer() < 100 || c.Destination.DistanceToPlayer() < 100);
+        //if (CollisionManager.HasActiveMeshes && CollisionManager.Enabled)
+        //{
+        //    foreach (var collisionNavmesh in CollisionManager.ActiveCollisionMeshes)
+        //    {
+        //        var colliders = collisionNavmesh.Collisions
+        //            .Where(c => c.Source.DistanceToPlayer() < 100 || c.Destination.DistanceToPlayer() < 100);
 
-                foreach (var collider in colliders)
-                    DrawLineAt(gfx, collider.Source, collider.Destination, Pens.Red);
-            }
+        //        foreach (var collider in colliders)
+        //            DrawLineAt(gfx, collider.Source, collider.Destination, Pens.Red);
+        //    }
 
-            if (!SpawnManager.TryGetEntities<SpawnedEntity>(out var entities))
-                return;
+        //    if (!SpawnManager.TryGetEntities<SpawnedEntity>(out var entities))
+        //        return;
 
-            foreach (var entity in entities.Where(e => e.IsBehindObstacle))
-            {
-                var collision =
-                    CollisionManager.GetCollisionBetween(Game.Player.Position, entity.Position);
+        //    foreach (var entity in entities.Where(e => e.IsBehindObstacle))
+        //    {
+        //        var collision =
+        //            CollisionManager.GetCollisionBetween(Game.Player.Position, entity.Position);
 
-                if (!collision.HasValue)
-                    continue;
+        //        if (!collision.HasValue)
+        //            continue;
 
-                DrawLineAt(gfx, Game.Player.Position, collision.Value.CollidedAt, Pens.GreenYellow);
-                DrawLineAt(gfx, collision.Value.CollidedWith.Source, collision.Value.CollidedWith.Destination,
-                    Pens.Yellow);
-            }
-        }
+        //        DrawLineAt(gfx, Game.Player.Position, collision.Value.CollidedAt, Pens.GreenYellow);
+        //        DrawLineAt(gfx, collision.Value.CollidedWith.Source, collision.Value.CollidedWith.Destination,
+        //            Pens.Yellow);
+        //    }
+        //}
     }
 
     private Image LoadSectorImage(string sectorImgName)

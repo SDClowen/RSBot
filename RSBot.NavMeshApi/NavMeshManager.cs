@@ -334,7 +334,7 @@ public static class NavMeshManager
 
         if (!_terrainCache.TryGetValue(region, out terrain))
         {
-            terrain = LoadNavMeshTerrain($"NavMesh/nv_{(ushort)region:X4}.nvm", region);
+            terrain = LoadNavMeshTerrain($"navmesh\\nv_{(ushort)region:X4}.nvm", region);
             _regionCache[region] = terrain;
             _terrainCache[region] = terrain;
         }
