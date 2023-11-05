@@ -1,4 +1,5 @@
-﻿using NavMeshApi.Mathematics;
+﻿using System.Diagnostics;
+using NavMeshApi.Mathematics;
 
 namespace NavMeshApi;
 
@@ -28,7 +29,7 @@ public class RegionManager
 
             this.MapWidth = reader.ReadInt16();
             this.MapLength = reader.ReadInt16();
-            Console.WriteLine($"RegionManager: Map project resolution {this.MapWidth}x{this.MapLength}");
+            Debug.WriteLine($"RegionManager: Map project resolution {this.MapWidth}x{this.MapLength}");
 
             this.Short2 = reader.ReadInt16();
             this.Short3 = reader.ReadInt16();

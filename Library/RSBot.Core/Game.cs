@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using NavMeshApi;
 using RSBot.Core.Client;
 using RSBot.Core.Components;
 using RSBot.Core.Extensions;
@@ -33,6 +34,23 @@ public class Game
     ///     The PK2 reader.
     /// </value>
     public static IFileSystem MediaPk2 { get; set; }
+
+    /// <summary>
+    ///     Gets or sets the Data.pk2 reader.
+    /// </summary>
+    /// <value>
+    ///     The PK2 reader.
+    /// </value>
+    public static IFileSystem DataPk2 { get; set; }
+
+
+    /// <summary>
+    ///     Gets or sets the Map.pk2 reader.
+    /// </summary>
+    /// <value>
+    ///     The PK2 reader.
+    /// </value>
+    public static IFileSystem MapPk2 { get; set; }
 
     /// <summary>
     ///     Gets or sets the reference manager
@@ -145,7 +163,11 @@ public class Game
         try
         {
             MediaPk2 = new PackFileSystem(Path.Combine(directory, "media.pk2"), pk2Key);
+            DataPk2 = new PackFileSystem(Path.Combine(directory, "data.pk2"), pk2Key);
+            MapPk2 = new PackFileSystem(Path.Combine(directory, "map.pk2"), pk2Key);
 
+
+            NavMeshManager.Initialize(DataPk2, MapPk2); 
             return true;
         }
         catch (Exception ex)

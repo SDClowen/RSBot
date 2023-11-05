@@ -5,6 +5,8 @@ using NavMeshApi.Terrain;
 
 using System.Diagnostics;
 using System.Numerics;
+using Microsoft.VisualBasic;
+using RSBot.FileSystem;
 
 namespace NavMeshApi;
 
@@ -12,7 +14,8 @@ public static class NavMeshManager
 {
     private const int NORMAL_CACHE_SIZE = 256;
 
-    private static string _path;
+    private static IFileSystem _dataFileSystem;
+    private static IFileSystem _mapFileSystem;
 
     public static ObjectIndex ObjectIndex { get; } = new ObjectIndex();
     public static RegionManager RegionManager { get; } = new RegionManager();
@@ -25,15 +28,14 @@ public static class NavMeshManager
     private static readonly Dictionary<int, NavMeshObj> _objectCache = new Dictionary<int, NavMeshObj>();
     private static readonly Dictionary<Region, NavMeshDungeon> _dungeonCache = new Dictionary<Region, NavMeshDungeon>();
 
-    public static void Initialize(string path)
+    public static void Initialize(IFileSystem _dataFileSystem, IFileSystem _mapFileSystem)
     {
-        _path = path;
+        NavMeshManager._dataFileSystem = _dataFileSystem;
+        NavMeshManager._mapFileSystem = _mapFileSystem;
 
-        LoadMapInfo("NavMesh/MapInfo.mfo");
-        LoadObjectIndex("NavMesh/Object.ifo");
-        LoadObjectExtensions("NavMesh/ObjExt.ifo"); // DunBlock extensions
-                                                    //LoadTextureIndex("NavMesh/Tile2D.ifo");
-        LoadDungeonInfo("Dungeon/DungeonInfo.txt");
+        LoadMapInfo("mapinfo.mfo");
+        LoadObjectIndex("object.ifo");
+        LoadDungeonInfo("dungeon\\dungeoninfo.txt");
         //LoadObjectString("NavMesh/ObjectString.ifo"); // EventZone data
 
         //_terrainCache.EnsureCapacity(RegionManager.ActiveRegions);
@@ -45,6 +47,10 @@ public static class NavMeshManager
             NormalCache[i].Y = -MathF.Sin(i * TwoPiOverANGLE_CACHE_SIZE);
             NormalCache[i].X = MathF.Cos(i * TwoPiOverANGLE_CACHE_SIZE);
         }
+
+        Debug.WriteLine("Initialized NavMeshManager!");
+        Debug.WriteLine($"Mapinfo.mfo: {RegionManager.ActiveRegions} active regions");
+        Debug.WriteLine($"Object.ifo: {ObjectIndex.Count()} objects");
     }
 
     public static bool Raycast(NavMeshTransform src, NavMeshTransform dst, NavMeshRaycastType type)
@@ -124,20 +130,20 @@ public static class NavMeshManager
 
     private static void LoadMapInfo(string fileName)
     {
-        using (var stream = File.OpenRead(Path.Combine(_path, fileName)))
-            RegionManager.Load(stream);
+        using var stream = _mapFileSystem.OpenRead(fileName).GetStream();
+        RegionManager.Load(stream);
     }
 
     private static void LoadDungeonInfo(string fileName)
     {
-        using (var stream = File.OpenRead(Path.Combine(_path, fileName)))
-            DungeonInfo.Load(stream);
+        using var stream = _dataFileSystem.OpenRead(fileName).GetStream();
+        DungeonInfo.Load(stream);
     }
 
     private static void LoadObjectIndex(string fileName)
     {
-        using (var stream = File.OpenRead(Path.Combine(_path, fileName)))
-            ObjectIndex.Load(stream);
+        using var stream = _mapFileSystem.OpenRead(fileName).GetStream();
+        ObjectIndex.Load(stream);
 
         //foreach (var obj in ObjectIndex)
         //{
@@ -154,10 +160,6 @@ public static class NavMeshManager
         //}
     }
 
-    private static void LoadObjectExtensions(string fileName)
-    {
-    }
-
     public static NavMeshObj LoadNavMeshObj(string fileName)
     {
         switch (fileName[fileName.Length - 1])
@@ -172,12 +174,11 @@ public static class NavMeshManager
     public static NavMeshTerrain LoadNavMeshTerrain(string fileName, Region region)
     {
         var terrain = new NavMeshTerrain(region);
-        var path = Path.Combine(_path, fileName);
-        if (!File.Exists(path))
+        if (!_dataFileSystem.TryGetFile(fileName, out var file))
             return null;
 
-        using (var stream = File.OpenRead(path))
-            terrain.Load(stream);
+        using var stream = file.OpenRead().GetStream();
+        terrain.Load(stream);
 
         return terrain;
     }
@@ -185,12 +186,12 @@ public static class NavMeshManager
     public static NavMeshDungeon LoadNavMeshDungeon(string fileName, Region region)
     {
         var dungeon = new NavMeshDungeon(region);
-        var path = Path.Combine(_path, fileName);
-        if (!File.Exists(path))
+
+        if (!_dataFileSystem.TryGetFile(fileName, out var file))
             return null;
 
-        using (var stream = File.OpenRead(path))
-            dungeon.Load(stream);
+        using var stream = file.OpenRead().GetStream();
+        dungeon.Load(stream);
 
         return dungeon;
     }
@@ -198,12 +199,12 @@ public static class NavMeshManager
     public static NavMeshObj LoadNavMeshObjFromPrimMesh(string fileName)
     {
         var obj = new NavMeshObj();
-        var path = Path.Combine(_path, fileName);
-        if (!File.Exists(path))
+        if (!_dataFileSystem.TryGetFile(fileName, out var file))
             return null;
 
-        using (var stream = File.OpenRead(path))
-            obj.Load(stream);
+        using var stream = file.OpenRead().GetStream();
+
+        obj.Load(stream);
 
         //foreach (var edge in obj.GlobalEdges)
         //    edge.Link();
@@ -216,11 +217,11 @@ public static class NavMeshManager
 
     public static NavMeshObj LoadNavMeshObjFromResource(string fileName)
     {
-        var path = Path.Combine(_path, fileName);
-        if (!File.Exists(path))
+        if (!_dataFileSystem.TryGetFile(fileName, out var file))
             return null;
 
-        using (var stream = File.OpenRead(path))
+        using var stream = file.OpenRead().GetStream();
+
         using (var reader = new NavMeshReader(stream))
         {
             var signature = reader.ReadString(12);
@@ -259,11 +260,10 @@ public static class NavMeshManager
 
     public static NavMeshObj LoadNavMeshObjFromCompound(string fileName)
     {
-        string path = Path.Combine(_path, fileName);
-        if (!File.Exists(path))
+        if (!_dataFileSystem.TryGetFile(fileName, out var file))
             return null;
 
-        using (var stream = File.OpenRead(path))
+        using var stream = file.OpenRead().GetStream();
         using (var reader = new NavMeshReader(stream))
         {
             var signature = reader.ReadString(12);
