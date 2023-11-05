@@ -684,6 +684,8 @@ public partial class Main : UserControl
         }
 
         LoadSkills();
+        ApplyAttackSkills();
+        ApplyBuffSkills();
 
         PlayerConfig.Save();
     }
