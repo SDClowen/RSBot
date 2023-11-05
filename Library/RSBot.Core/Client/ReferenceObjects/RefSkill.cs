@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
+using System.Linq;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
 
@@ -144,6 +144,8 @@ public class RefSkill : IReference<uint>
     //public byte AI_SkillType;
     public List<int> Params = new(50);
 
+    public PrimarySkillParam Type => (PrimarySkillParam) Params[0];
+
     #endregion Fields
 
     #region IReference
@@ -237,7 +239,6 @@ public class RefSkill : IReference<uint>
 
         //AI_AttackChance = short.Parse(data[66]);
         //AI_SkillType = byte.Parse(data[67]);
-
         for (var i = 0; i < PARAM_COUNT; i++)
             if (parser.TryParse(68 + i, out int paramValue))
                 Params.Add(paramValue);

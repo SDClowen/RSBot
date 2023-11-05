@@ -528,7 +528,7 @@ public class Player : SpawnedBionic
     /// <value>
     ///     <c>true</c> if untouchable; otherwise, <c>false</c>.
     /// </value>
-    public bool Untouchable { get; set; }
+    public bool Untouchable => State.BodyState == BodyState.Untouchable;
 
     /// <summary>
     ///     Gets or sets a value indicating whether this <see cref="Player" /> is exchanging.

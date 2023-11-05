@@ -25,12 +25,15 @@ public partial class Main : UserControl
     private List<RefShopGroup> _protectorTrader;
     private List<RefShopGroup> _stableKeeper;
     private List<RefShopGroup> _weaponTrader;
+    private bool _loadingSettings;
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="Main" /> class.
     /// </summary>
     public Main()
     {
+        CheckForIllegalCrossThreadCalls = false;
+
         InitializeComponent();
         SubscribeEvents();
 
@@ -44,7 +47,7 @@ public partial class Main : UserControl
     private void SubscribeEvents()
     {
         EventManager.SubscribeEvent("OnLoadGameData", OnLoadGameData);
-        EventManager.SubscribeEvent("OnLoadCharacter", LoadSettings);
+        EventManager.SubscribeEvent("OnEnterGame", LoadSettings);
     }
 
     /// <summary>
@@ -147,7 +150,7 @@ public partial class Main : UserControl
                 if (filter != "" && !realItemName.Contains(filter)) continue;
 
                 var listItem = new ListViewItem(realItemName)
-                    { Tag = good, Name = item.CodeName, Group = listAvailableProducts.Groups[tabName] };
+                { Tag = good, Name = item.CodeName, Group = listAvailableProducts.Groups[tabName] };
                 listItem.LoadItemImageAsync(good);
 
                 if (!listAvailableProducts.Items.ContainsKey(item.CodeName))
@@ -341,30 +344,30 @@ public partial class Main : UserControl
         }
 
         for (var x = 0; x < 3; x++)
-        for (var z = 0; z < 2; z++)
-        {
-            var cloth = clothTypes[x, z];
-            if (cloth == 0)
-                continue;
+            for (var z = 0; z < 2; z++)
+            {
+                var cloth = clothTypes[x, z];
+                if (cloth == 0)
+                    continue;
 
-            if (checkHead.Checked)
-                filters.Add(new TypeIdFilter(3, 1, cloth, 1));
+                if (checkHead.Checked)
+                    filters.Add(new TypeIdFilter(3, 1, cloth, 1));
 
-            if (checkShoulder.Checked)
-                filters.Add(new TypeIdFilter(3, 1, cloth, 2));
+                if (checkShoulder.Checked)
+                    filters.Add(new TypeIdFilter(3, 1, cloth, 2));
 
-            if (checkChest.Checked)
-                filters.Add(new TypeIdFilter(3, 1, cloth, 3));
+                if (checkChest.Checked)
+                    filters.Add(new TypeIdFilter(3, 1, cloth, 3));
 
-            if (checkLegs.Checked)
-                filters.Add(new TypeIdFilter(3, 1, cloth, 4));
+                if (checkLegs.Checked)
+                    filters.Add(new TypeIdFilter(3, 1, cloth, 4));
 
-            if (checkHand.Checked)
-                filters.Add(new TypeIdFilter(3, 1, cloth, 5));
+                if (checkHand.Checked)
+                    filters.Add(new TypeIdFilter(3, 1, cloth, 5));
 
-            if (checkBoot.Checked)
-                filters.Add(new TypeIdFilter(3, 1, cloth, 6));
-        }
+                if (checkBoot.Checked)
+                    filters.Add(new TypeIdFilter(3, 1, cloth, 6));
+            }
 
         #region Accessory
 
@@ -559,31 +562,38 @@ public partial class Main : UserControl
     /// </summary>
     private void LoadSettings()
     {
-        checkEnable.Checked = PlayerConfig.Get("RSBot.Shopping.Enabled", true);
-        checkRepairGear.Checked = PlayerConfig.Get("RSBot.Shopping.RepairGear", true);
-        checkSellItemsFromPet.Checked = PlayerConfig.Get("RSBot.Shopping.SellPetItems", true);
-        checkPickupGold.Checked = PlayerConfig.Get("RSBot.Items.Pickup.Gold", true);
-        checkPickupRare.Checked = PlayerConfig.Get("RSBot.Items.Pickup.Rare", true);
-        checkPickupBlue.Checked = PlayerConfig.Get("RSBot.Items.Pickup.Blue", true);
-        checkEnableAbilityPet.Checked = PlayerConfig.Get("RSBot.Items.Pickup.EnableAbilityPet", true);
-        checkStoreItemsFromPet.Checked = PlayerConfig.Get("RSBot.Shopping.StorePetItems", true);
-        checkDontPickupInBerzerk.Checked = PlayerConfig.Get("RSBot.Items.Pickup.DontPickupInBerzerk", true);
-        cbJustpickmyitems.Checked = PlayerConfig.Get("RSBot.Items.Pickup.JustPickMyItems", false);
-        cbDontPickupWhileBotting.Checked = PlayerConfig.Get<bool>("RSBot.Items.Pickup.DontPickupWhileBotting");
+        _loadingSettings = true;
 
-        checkQuestItems.Checked = PlayerConfig.Get<bool>("RSBot.Items.Pickup.Quest");
-        checkAllEquips.Checked = PlayerConfig.Get<bool>("RSBot.Items.Pickup.AnyEquips");
-        checkEverything.Checked = PlayerConfig.Get<bool>("RSBot.Items.Pickup.Everything");
+        Invoke(() =>
+        {
+            checkEnable.Checked = PlayerConfig.Get("RSBot.Shopping.Enabled", true);
+            checkRepairGear.Checked = PlayerConfig.Get("RSBot.Shopping.RepairGear", true);
+            checkSellItemsFromPet.Checked = PlayerConfig.Get("RSBot.Shopping.SellPetItems", true);
+            checkPickupGold.Checked = PlayerConfig.Get("RSBot.Items.Pickup.Gold", true);
+            checkPickupRare.Checked = PlayerConfig.Get("RSBot.Items.Pickup.Rare", true);
+            checkPickupBlue.Checked = PlayerConfig.Get("RSBot.Items.Pickup.Blue", true);
+            checkEnableAbilityPet.Checked = PlayerConfig.Get("RSBot.Items.Pickup.EnableAbilityPet", true);
+            checkStoreItemsFromPet.Checked = PlayerConfig.Get("RSBot.Shopping.StorePetItems", true);
+            checkDontPickupInBerzerk.Checked = PlayerConfig.Get("RSBot.Items.Pickup.DontPickupInBerzerk", true);
+            cbJustpickmyitems.Checked = PlayerConfig.Get("RSBot.Items.Pickup.JustPickMyItems", false);
+            cbDontPickupWhileBotting.Checked = PlayerConfig.Get<bool>("RSBot.Items.Pickup.DontPickupWhileBotting");
 
-        ShoppingManager.Enabled = checkEnable.Checked;
-        ShoppingManager.RepairGear = checkRepairGear.Checked;
-        ShoppingManager.SellPetItems = checkSellItemsFromPet.Checked;
-        ShoppingManager.StorePetItems = checkStoreItemsFromPet.Checked;
+            checkQuestItems.Checked = PlayerConfig.Get<bool>("RSBot.Items.Pickup.Quest", true);
+            checkAllEquips.Checked = PlayerConfig.Get<bool>("RSBot.Items.Pickup.AnyEquips");
+            checkEverything.Checked = PlayerConfig.Get<bool>("RSBot.Items.Pickup.Everything");
 
-        LoadShoppingList();
+            ShoppingManager.Enabled = checkEnable.Checked;
+            ShoppingManager.RepairGear = checkRepairGear.Checked;
+            ShoppingManager.SellPetItems = checkSellItemsFromPet.Checked;
+            ShoppingManager.StorePetItems = checkStoreItemsFromPet.Checked;
 
-        ShoppingManager.LoadFilters();
-        PickupManager.LoadFilter();
+            LoadShoppingList();
+
+            ShoppingManager.LoadFilters();
+            PickupManager.LoadFilter();
+        });
+
+        _loadingSettings = false;
     }
 
     private async void txtSellSearch_KeyDown(object sender, KeyEventArgs e)
@@ -613,28 +623,6 @@ public partial class Main : UserControl
     }
 
     #region Shopping manager
-
-    /// <summary>
-    ///     Handles the CheckedChanged event of the checkSellItemsFromPet control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    private void checkSellItemsFromPet_CheckedChanged(object sender, EventArgs e)
-    {
-        PlayerConfig.Set("RSBot.Shopping.SellPetItems", checkSellItemsFromPet.Checked);
-        ShoppingManager.SellPetItems = checkSellItemsFromPet.Checked;
-    }
-
-    /// <summary>
-    ///     Handles the CheckedChanged event of the checkStoreItemsFromPet control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    private void checkStoreItemsFromPet_CheckedChanged(object sender, EventArgs e)
-    {
-        PlayerConfig.Set("RSBot.Shopping.StorePetItems", checkSellItemsFromPet.Checked);
-        ShoppingManager.StorePetItems = checkStoreItemsFromPet.Checked;
-    }
 
     /// <summary>
     ///     Handles the SelectedIndexChanged event of the comboStore control.
@@ -721,26 +709,23 @@ public partial class Main : UserControl
         SaveShoppingList();
     }
 
-    /// <summary>
-    ///     Handles the CheckedChanged event of the checkEnable control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    private void checkEnable_CheckedChanged(object sender, EventArgs e)
-    {
-        ShoppingManager.Enabled = checkEnable.Checked;
-        PlayerConfig.Set("RSBot.Shopping.Enabled", checkEnable.Checked);
-    }
 
-    /// <summary>
-    ///     Handles the CheckedChanged event of the checkRepairGear control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    private void checkRepairGear_CheckedChanged(object sender, EventArgs e)
+    private void checkShoppingSetting_CheckedChanged(object sender, EventArgs e)
     {
+        if (_loadingSettings)
+            return;
+
         ShoppingManager.RepairGear = checkRepairGear.Checked;
         PlayerConfig.Set("RSBot.Shopping.RepairGear", checkRepairGear.Checked);
+
+        ShoppingManager.Enabled = checkEnable.Checked;
+        PlayerConfig.Set("RSBot.Shopping.Enabled", checkEnable.Checked);
+
+        PlayerConfig.Set("RSBot.Shopping.StorePetItems", checkSellItemsFromPet.Checked);
+        ShoppingManager.StorePetItems = checkStoreItemsFromPet.Checked;
+
+        PlayerConfig.Set("RSBot.Shopping.SellPetItems", checkSellItemsFromPet.Checked);
+        ShoppingManager.SellPetItems = checkSellItemsFromPet.Checked;
     }
 
     /// <summary>
@@ -890,8 +875,8 @@ public partial class Main : UserControl
     private void btnResetFilter_Click(object sender, EventArgs e)
     {
         foreach (var group in filterPanel.Controls.OfType<GroupBox>())
-        foreach (var checkBox in group.Controls.OfType<CheckBox>())
-            checkBox.Checked = false;
+            foreach (var checkBox in group.Controls.OfType<CheckBox>())
+                checkBox.Checked = false;
 
         listFilter.Items.Clear();
         numDegreeFrom.Value = 0;
@@ -904,46 +889,6 @@ public partial class Main : UserControl
     #region Pickup
 
     /// <summary>
-    ///     Handles the CheckedChanged event of the checkPickupGold control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    private void checkPickupGold_CheckedChanged(object sender, EventArgs e)
-    {
-        PlayerConfig.Set("RSBot.Items.Pickup.Gold", checkPickupGold.Checked);
-    }
-
-    /// <summary>
-    ///     Handles the CheckedChanged event of the checkPickupRare control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    private void checkPickupRare_CheckedChanged(object sender, EventArgs e)
-    {
-        PlayerConfig.Set("RSBot.Items.Pickup.Rare", checkPickupRare.Checked);
-    }
-
-    /// <summary>
-    ///     Handles the CheckedChanged event of the checkPickupBlue control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    private void checkPickupBlue_CheckedChanged(object sender, EventArgs e)
-    {
-        PlayerConfig.Set("RSBot.Items.Pickup.Blue", checkPickupBlue.Checked);
-    }
-
-    /// <summary>
-    ///     Handles the CheckedChanged event of the checkEnableAbilityPet control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    private void checkEnableAbilityPet_CheckedChanged(object sender, EventArgs e)
-    {
-        PlayerConfig.Set("RSBot.Items.Pickup.EnableAbilityPet", checkEnableAbilityPet.Checked);
-    }
-
-    /// <summary>
     ///     Handles the CheckedChanged event of the checkShowEquipment control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
@@ -953,75 +898,22 @@ public partial class Main : UserControl
         PopulateProductList(comboStore.SelectedIndex, txtShopSearch.Text);
     }
 
-    /// <summary>
-    ///     Handles the CheckedChanged event of the checkDontPickupInBerzerk control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    private void checkDontPickupInBerzerk_CheckedChanged(object sender, EventArgs e)
+    private void checkPickupSettings_CheckedChanged(object sender, EventArgs e)
     {
-        PlayerConfig.Set("RSBot.Items.Pickup.DontPickupInBerzerk", checkDontPickupInBerzerk.Checked);
-    }
+        if (_loadingSettings)
+            return;
 
-    /// <summary>
-    ///     Handles the CheckedChanged event of the cbJustpickmyitems control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    private void cbJustpickmyitems_CheckedChanged(object sender, EventArgs e)
-    {
-        PlayerConfig.Set("RSBot.Items.Pickup.JustPickMyItems", cbJustpickmyitems.Checked);
-    }
-
-    /// <summary>
-    ///     Handles the CheckedChanged event of the cbDontPickupWhileAttacking control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    private void cbDontPickupWhileAttacking_CheckedChanged(object sender, EventArgs e)
-    {
-        PlayerConfig.Set("RSBot.Items.Pickup.DontPickupWhileAttacking", cbDontPickupWhileBotting.Checked);
-    }
-
-    /// <summary>
-    ///     Handles the CheckedChanged event of the cbDontPickupWhileBotting control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    private void cbDontPickupWhileBotting_CheckedChanged(object sender, EventArgs e)
-    {
-        PlayerConfig.Set("RSBot.Items.Pickup.DontPickupWhileBotting", cbDontPickupWhileBotting.Checked);
-    }
-
-    /// <summary>
-    ///     Handles the CheckedChanged event of the checkQuestItems control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    private void checkQuestItems_CheckedChanged(object sender, EventArgs e)
-    {
-        PlayerConfig.Set("RSBot.Items.Pickup.Quest", checkQuestItems.Checked);
-    }
-
-    /// <summary>
-    ///     Handles the CheckedChanged event of the checkAllEquips control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    private void checkAllEquips_CheckedChanged(object sender, EventArgs e)
-    {
-        PlayerConfig.Set("RSBot.Items.Pickup.AnyEquips", checkAllEquips.Checked);
-    }
-
-    /// <summary>
-    ///     Handles the CheckedChanged event of the checkEverything control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    private void checkEverything_CheckedChanged(object sender, EventArgs e)
-    {
         PlayerConfig.Set("RSBot.Items.Pickup.Everything", checkEverything.Checked);
+        PlayerConfig.Set("RSBot.Items.Pickup.AnyEquips", checkAllEquips.Checked);
+        PlayerConfig.Set("RSBot.Items.Pickup.Quest", checkQuestItems.Checked);
+        PlayerConfig.Set("RSBot.Items.Pickup.DontPickupWhileAttacking", cbDontPickupWhileBotting.Checked);
+        PlayerConfig.Set("RSBot.Items.Pickup.DontPickupWhileBotting", cbDontPickupWhileBotting.Checked);
+        PlayerConfig.Set("RSBot.Items.Pickup.JustPickMyItems", cbJustpickmyitems.Checked);
+        PlayerConfig.Set("RSBot.Items.Pickup.DontPickupInBerzerk", checkDontPickupInBerzerk.Checked);
+        PlayerConfig.Set("RSBot.Items.Pickup.EnableAbilityPet", checkEnableAbilityPet.Checked);
+        PlayerConfig.Set("RSBot.Items.Pickup.Blue", checkPickupBlue.Checked);
+        PlayerConfig.Set("RSBot.Items.Pickup.Rare", checkPickupRare.Checked);
+        PlayerConfig.Set("RSBot.Items.Pickup.Gold", checkPickupGold.Checked);
     }
-
     #endregion Pickup
 }
