@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace NavMeshApi;
+namespace RSBot.NavMeshApi;
 
 public class NavMeshVertex
 {

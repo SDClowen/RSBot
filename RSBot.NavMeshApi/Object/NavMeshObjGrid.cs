@@ -1,11 +1,9 @@
-﻿using NavMeshApi.Helper;
-
-using NavMeshApi.Mathematics;
-
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Numerics;
+using RSBot.NavMeshApi.Helper;
+using RSBot.NavMeshApi.Mathematics;
 
-namespace NavMeshApi.Object;
+namespace RSBot.NavMeshApi.Object;
 
 public class NavMeshObjGrid
 {

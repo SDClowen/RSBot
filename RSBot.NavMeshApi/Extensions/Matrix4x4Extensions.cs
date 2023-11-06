@@ -1,8 +1,7 @@
-﻿using NavMeshApi.Mathematics;
+﻿using System.Numerics;
+using RSBot.NavMeshApi.Mathematics;
 
-using System.Numerics;
-
-namespace NavMeshApi.Extensions;
+namespace RSBot.NavMeshApi.Extensions;
 
 public static class Matrix4x4Extensions
 {

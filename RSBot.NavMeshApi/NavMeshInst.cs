@@ -1,11 +1,10 @@
-﻿using NavMeshApi.Cells;
-using NavMeshApi.Edges;
-using NavMeshApi.Mathematics;
-using NavMeshApi.Object;
+﻿using System.Numerics;
+using RSBot.NavMeshApi.Cells;
+using RSBot.NavMeshApi.Edges;
+using RSBot.NavMeshApi.Mathematics;
+using RSBot.NavMeshApi.Object;
 
-using System.Numerics;
-
-namespace NavMeshApi;
+namespace RSBot.NavMeshApi;
 
 public abstract class NavMeshInst
 {

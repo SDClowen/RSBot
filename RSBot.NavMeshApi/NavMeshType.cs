@@ -1,4 +1,4 @@
-﻿namespace NavMeshApi;
+﻿namespace RSBot.NavMeshApi;
 
 public enum NavMeshType : byte
 {

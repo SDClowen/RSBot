@@ -1,4 +1,4 @@
-﻿namespace NavMeshApi.Dungeon;
+﻿namespace RSBot.NavMeshApi.Dungeon;
 
 [Serializable]
 public enum DungeonID : byte

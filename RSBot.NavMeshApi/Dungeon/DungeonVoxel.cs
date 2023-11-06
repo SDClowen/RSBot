@@ -1,8 +1,7 @@
-﻿using NavMeshApi.Mathematics;
+﻿using System.Numerics;
+using RSBot.NavMeshApi.Mathematics;
 
-using System.Numerics;
-
-namespace NavMeshApi.Dungeon;
+namespace RSBot.NavMeshApi.Dungeon;
 
 public class DungeonVoxel
 {

@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace NavMeshApi.Extensions;
+namespace RSBot.NavMeshApi.Extensions;
 
 public static class VectorExtensions
 {

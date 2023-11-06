@@ -1,9 +1,8 @@
-﻿using NavMeshApi.Extensions;
-using NavMeshApi.Helper;
+﻿using System.Numerics;
+using RSBot.NavMeshApi.Extensions;
+using RSBot.NavMeshApi.Helper;
 
-using System.Numerics;
-
-namespace NavMeshApi.Mathematics;
+namespace RSBot.NavMeshApi.Mathematics;
 
 public readonly struct LineF
 {

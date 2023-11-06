@@ -1,11 +1,10 @@
-﻿using NavMeshApi.Edges;
-using NavMeshApi.Mathematics;
-using NavMeshApi.Terrain;
-
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Numerics;
+using RSBot.NavMeshApi.Edges;
+using RSBot.NavMeshApi.Mathematics;
+using RSBot.NavMeshApi.Terrain;
 
-namespace NavMeshApi.Cells;
+namespace RSBot.NavMeshApi.Cells;
 
 [DebuggerDisplay("NavMeshCellQuad: {Index}")]
 public class NavMeshCellQuad : NavMeshCell

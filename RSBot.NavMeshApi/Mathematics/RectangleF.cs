@@ -1,8 +1,7 @@
-﻿using NavMeshApi.Extensions;
+﻿using System.Numerics;
+using RSBot.NavMeshApi.Extensions;
 
-using System.Numerics;
-
-namespace NavMeshApi.Mathematics;
+namespace RSBot.NavMeshApi.Mathematics;
 
 public struct RectangleF
 {

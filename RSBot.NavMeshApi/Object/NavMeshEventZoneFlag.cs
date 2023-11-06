@@ -1,4 +1,4 @@
-﻿namespace NavMeshApi.Object;
+﻿namespace RSBot.NavMeshApi.Object;
 
 [Flags]
 public enum NavMeshEventZoneFlag

@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace NavMeshApi.Dungeon;
+namespace RSBot.NavMeshApi.Dungeon;
 
 public class DungeonVoxelGrid
 {

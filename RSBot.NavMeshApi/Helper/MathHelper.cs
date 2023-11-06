@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-namespace NavMeshApi.Helper;
+namespace RSBot.NavMeshApi.Helper;
 
 internal static class MathHelper
 {

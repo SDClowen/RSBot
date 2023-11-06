@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Numerics;
 
-namespace NavMeshApi.Mathematics;
+namespace RSBot.NavMeshApi.Mathematics;
 
 [DebuggerDisplay("{_value} [{this.X}x{this.Z}]")]
 public struct Region : IEquatable<Region>
@@ -106,6 +106,8 @@ public struct Region : IEquatable<Region>
     #endregion Constructors
 
     #region Methods
+
+    public ushort GetId() => _value;
 
     public override string ToString() => $"{_value} [{this.X}x{this.Z}]";
 

@@ -1,4 +1,4 @@
-﻿namespace NavMeshApi.Edges;
+﻿namespace RSBot.NavMeshApi.Edges;
 
 public enum NavMeshCellSide : sbyte
 {

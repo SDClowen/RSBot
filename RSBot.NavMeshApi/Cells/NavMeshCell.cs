@@ -1,9 +1,8 @@
-﻿using NavMeshApi.Edges;
-
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Numerics;
+using RSBot.NavMeshApi.Edges;
 
-namespace NavMeshApi.Cells;
+namespace RSBot.NavMeshApi.Cells;
 
 [DebuggerDisplay("NavMeshCell: {Index}")]
 public abstract class NavMeshCell

@@ -1,13 +1,11 @@
-﻿using NavMeshApi.Cells;
-using NavMeshApi.Edges;
-using NavMeshApi.Extensions;
-
-using NavMeshApi.Mathematics;
-
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Numerics;
+using RSBot.NavMeshApi.Cells;
+using RSBot.NavMeshApi.Edges;
+using RSBot.NavMeshApi.Extensions;
+using RSBot.NavMeshApi.Mathematics;
 
-namespace NavMeshApi.Dungeon;
+namespace RSBot.NavMeshApi.Dungeon;
 
 public class NavMeshDungeon : NavMesh
 {

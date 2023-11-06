@@ -1,6 +1,6 @@
-﻿using NavMeshApi.Cells;
+﻿using RSBot.NavMeshApi.Cells;
 
-namespace NavMeshApi.Edges;
+namespace RSBot.NavMeshApi.Edges;
 
 public class NavMeshLinkEdge
 {

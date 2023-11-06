@@ -1,10 +1,9 @@
-﻿using NavMeshApi.Cells;
-using NavMeshApi.Mathematics;
-using NavMeshApi.Object;
+﻿using System.Numerics;
+using RSBot.NavMeshApi.Cells;
+using RSBot.NavMeshApi.Mathematics;
+using RSBot.NavMeshApi.Object;
 
-using System.Numerics;
-
-namespace NavMeshApi.Edges;
+namespace RSBot.NavMeshApi.Edges;
 
 [System.Diagnostics.DebuggerDisplay("{Index} = {Flag} ({SrcCellIndex} [{SrcDirection}] -> {DstCellIndex} [{DstDirection}])")]
 public abstract class NavMeshEdge

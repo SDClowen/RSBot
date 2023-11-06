@@ -1,10 +1,9 @@
-﻿using NavMeshApi.Cells;
-using NavMeshApi.Edges;
-using NavMeshApi.Mathematics;
+﻿using System.Numerics;
+using RSBot.NavMeshApi.Cells;
+using RSBot.NavMeshApi.Edges;
+using RSBot.NavMeshApi.Mathematics;
 
-using System.Numerics;
-
-namespace NavMeshApi;
+namespace RSBot.NavMeshApi;
 
 public class NavMeshRaycastHit
 {

@@ -1,10 +1,9 @@
-﻿using NavMeshApi.Mathematics;
-
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Numerics;
 using System.Text;
+using RSBot.NavMeshApi.Mathematics;
 
-namespace NavMeshApi;
+namespace RSBot.NavMeshApi;
 
 public class NavMeshReader : BinaryReader
 {

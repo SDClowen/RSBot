@@ -1,10 +1,9 @@
-﻿using NavMeshApi.Edges;
-using NavMeshApi.Object;
-
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Numerics;
+using RSBot.NavMeshApi.Edges;
+using RSBot.NavMeshApi.Object;
 
-namespace NavMeshApi.Terrain;
+namespace RSBot.NavMeshApi.Terrain;
 
 public class NavMeshInstObj : NavMeshInst
 {

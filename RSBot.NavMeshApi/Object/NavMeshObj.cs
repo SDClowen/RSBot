@@ -1,13 +1,12 @@
-﻿using NavMeshApi.Cells;
-using NavMeshApi.Edges;
-using NavMeshApi.Extensions;
-using NavMeshApi.Mathematics;
-using NavMeshApi.Terrain;
-
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Numerics;
+using RSBot.NavMeshApi.Cells;
+using RSBot.NavMeshApi.Edges;
+using RSBot.NavMeshApi.Extensions;
+using RSBot.NavMeshApi.Mathematics;
+using RSBot.NavMeshApi.Terrain;
 
-namespace NavMeshApi.Object;
+namespace RSBot.NavMeshApi.Object;
 
 public class NavMeshObj : NavMesh
 {

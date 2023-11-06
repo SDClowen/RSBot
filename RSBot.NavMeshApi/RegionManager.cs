@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
-using NavMeshApi.Mathematics;
+using RSBot.NavMeshApi.Mathematics;
 
-namespace NavMeshApi;
+namespace RSBot.NavMeshApi;
 
 public class RegionManager
 {

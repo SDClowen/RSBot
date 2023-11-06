@@ -1,8 +1,7 @@
-﻿using NavMeshApi.Mathematics;
+﻿using System.Text.RegularExpressions;
+using RSBot.NavMeshApi.Mathematics;
 
-using System.Text.RegularExpressions;
-
-namespace NavMeshApi.Dungeon;
+namespace RSBot.NavMeshApi.Dungeon;
 
 public class DungeonInfo
 {

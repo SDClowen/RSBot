@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace NavMeshApi.Helper;
+namespace RSBot.NavMeshApi.Helper;
 
 public static class NavMeshHelper
 {

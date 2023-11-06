@@ -1,4 +1,4 @@
-﻿namespace NavMeshApi.Edges;
+﻿namespace RSBot.NavMeshApi.Edges;
 
 [Flags]
 public enum NavMeshEdgeFlag

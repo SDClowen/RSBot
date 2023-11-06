@@ -1,6 +1,6 @@
-﻿using NavMeshApi.Mathematics;
+﻿using RSBot.NavMeshApi.Mathematics;
 
-namespace NavMeshApi.Dungeon;
+namespace RSBot.NavMeshApi.Dungeon;
 
 public class DungeonColObj
 {

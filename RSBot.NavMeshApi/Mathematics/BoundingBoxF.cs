@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace NavMeshApi.Mathematics;
+namespace RSBot.NavMeshApi.Mathematics;
 
 public readonly struct BoundingBoxF
 {

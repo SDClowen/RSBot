@@ -1,8 +1,7 @@
-﻿using NavMeshApi.Helper;
+﻿using System.Numerics;
+using RSBot.NavMeshApi.Helper;
 
-using System.Numerics;
-
-namespace NavMeshApi.Mathematics;
+namespace RSBot.NavMeshApi.Mathematics;
 
 public struct RegionPosition
 {

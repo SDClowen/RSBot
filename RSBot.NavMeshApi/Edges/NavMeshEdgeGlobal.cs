@@ -1,6 +1,6 @@
-﻿using NavMeshApi.Terrain;
+﻿using RSBot.NavMeshApi.Terrain;
 
-namespace NavMeshApi.Edges;
+namespace RSBot.NavMeshApi.Edges;
 
 public class NavMeshEdgeGlobal : NavMeshEdge
 {

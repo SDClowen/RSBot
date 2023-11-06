@@ -1,14 +1,12 @@
-﻿using NavMeshApi.Dungeon;
-using NavMeshApi.Mathematics;
-using NavMeshApi.Object;
-using NavMeshApi.Terrain;
-
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Numerics;
-using Microsoft.VisualBasic;
 using RSBot.FileSystem;
+using RSBot.NavMeshApi.Dungeon;
+using RSBot.NavMeshApi.Mathematics;
+using RSBot.NavMeshApi.Object;
+using RSBot.NavMeshApi.Terrain;
 
-namespace NavMeshApi;
+namespace RSBot.NavMeshApi;
 
 public static class NavMeshManager
 {

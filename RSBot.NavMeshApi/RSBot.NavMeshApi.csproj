@@ -10,4 +10,8 @@
     <ProjectReference Include="..\Library\RSBot.FileSystem\RSBot.FileSystem.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Geometry\" />
+  </ItemGroup>
+
 </Project>

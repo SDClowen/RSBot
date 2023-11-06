@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace NavMeshApi;
+namespace RSBot.NavMeshApi;
 
 public class ObjectIndex : IEnumerable<ObjectIndexEntry>
 {

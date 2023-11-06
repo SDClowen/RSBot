@@ -1,4 +1,4 @@
-﻿namespace NavMeshApi.Terrain;
+﻿namespace RSBot.NavMeshApi.Terrain;
 
 [Flags]
 public enum NavMeshPlaneType : byte

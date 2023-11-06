@@ -1,7 +1,7 @@
 ﻿
 using System.Diagnostics;
 
-namespace NavMeshApi.Edges;
+namespace RSBot.NavMeshApi.Edges;
 
 public class NavMeshEdgeInternal : NavMeshEdge
 {

@@ -1,4 +1,4 @@
-﻿namespace NavMeshApi;
+﻿namespace RSBot.NavMeshApi;
 
 [Flags]
 public enum CardinalDirection

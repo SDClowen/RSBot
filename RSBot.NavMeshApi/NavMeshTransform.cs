@@ -1,11 +1,9 @@
-﻿using NavMeshApi.Cells;
-using NavMeshApi.Helper;
+﻿using System.Numerics;
+using RSBot.NavMeshApi.Cells;
+using RSBot.NavMeshApi.Helper;
+using RSBot.NavMeshApi.Mathematics;
 
-using NavMeshApi.Mathematics;
-
-using System.Numerics;
-
-namespace NavMeshApi;
+namespace RSBot.NavMeshApi;
 
 public class NavMeshTransform
 {
