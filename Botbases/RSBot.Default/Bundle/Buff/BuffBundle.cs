@@ -18,6 +18,9 @@ internal class BuffBundle : IBundle
         if (_invoked)
             return;
 
+        if (Game.Player.Untouchable || Game.Player.InAction)
+            return;
+
         try
         {
             _invoked = true;

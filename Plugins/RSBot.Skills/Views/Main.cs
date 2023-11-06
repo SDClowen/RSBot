@@ -459,8 +459,13 @@ public partial class Main : UserControl
             if (player == null)
                 return;
 
-            LoadImbues();
+            LoadTeleportSkills();
             LoadResurrectionSkills();
+            LoadTeleportSkills();
+            LoadImbues();
+            LoadBuffs();
+            LoadMasteries();
+            LoadAttacks(comboMonsterType.SelectedIndex);
 
             listSkills.BeginUpdate();
             listSkills.Items.Clear();
@@ -653,7 +658,6 @@ public partial class Main : UserControl
                 resurrectionSkill = newSkill.Id;
 
             PlayerConfig.Set("RSBot.Skills.ResurrectionSkill", resurrectionSkill);
-            LoadResurrectionSkills();
         }
 
         var selectedImbue = PlayerConfig.Get<uint>("RSBot.Skills.Imbue");
@@ -665,7 +669,6 @@ public partial class Main : UserControl
                 selectedImbue = newSkill.Id;
 
             PlayerConfig.Set("RSBot.Skills.Imbue", selectedImbue);
-            LoadImbues();
         }
 
 
@@ -678,16 +681,11 @@ public partial class Main : UserControl
                 selectedTeleportSkill = newSkill.Id;
 
             PlayerConfig.Set("RSBot.Skills.TeleportSkill", selectedTeleportSkill);
-            LoadTeleportSkills();
         }
 
         LoadSkills();
-
         ApplyAttackSkills();
         ApplyBuffSkills();
-
-        LoadAttacks();
-        LoadBuffs();
 
         PlayerConfig.Save();
     }
@@ -734,7 +732,6 @@ public partial class Main : UserControl
     {
         Log.NotifyLang("MasteryUpgraded", info.Record.Name);
 
-        LoadMasteries();
         LoadSkills();
     }
 
@@ -744,11 +741,8 @@ public partial class Main : UserControl
     private void OnLoadCharacter()
     {
         comboMonsterType.SelectedIndex = 0;
+
         LoadSkills();
-        LoadAttacks();
-        LoadBuffs();
-        LoadMasteries();
-        LoadTeleportSkills();
 
         ApplyAttackSkills();
         ApplyBuffSkills();
