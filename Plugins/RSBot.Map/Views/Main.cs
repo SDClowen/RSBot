@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
+using System.Numerics;
 using System.Windows.Forms;
 using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
@@ -13,6 +14,8 @@ using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
+using RSBot.NavMeshApi.Edges;
+using RSBot.NavMeshApi.Terrain;
 
 namespace RSBot.Map.Views;
 
@@ -358,33 +361,68 @@ public partial class Main : UserControl
 
     private void DrawCollisions(Graphics gfx)
     {
-        //if (CollisionManager.HasActiveMeshes && CollisionManager.Enabled)
-        //{
-        //    foreach (var collisionNavmesh in CollisionManager.ActiveCollisionMeshes)
-        //    {
-        //        var colliders = collisionNavmesh.Collisions
-        //            .Where(c => c.Source.DistanceToPlayer() < 100 || c.Destination.DistanceToPlayer() < 100);
+        foreach (var navMesh in CollisionManager.GetActiveMeshes().Where(x => x != null))
+        {
+            var regionId = navMesh.Region.GetId();
 
-        //        foreach (var collider in colliders)
-        //            DrawLineAt(gfx, collider.Source, collider.Destination, Pens.Red);
-        //    }
+            if (navMesh is NavMeshTerrain navMeshTerrain)
+            {
+                //For some reason weird long lines appear. TODo: Need to figure out why
+                var blockedInternalEdges = navMeshTerrain.InternalEdges.Where(iE => iE.IsBlocked);
+                DrawMesh(gfx, blockedInternalEdges, regionId, Pens.Blue);
 
-        //    if (!SpawnManager.TryGetEntities<SpawnedEntity>(out var entities))
-        //        return;
+                //Is this even working?^^
+                var blockedCells = navMeshTerrain.Cells.Where(cE => cE.IsBlocked);
+                foreach (var blockedCell in blockedCells.Select(bC => bC.Edges.Where(bE => bE.IsBlocked)))
+                {
+                    DrawMesh(gfx, blockedCell, regionId, Pens.Aquamarine);
+                }
 
-        //    foreach (var entity in entities.Where(e => e.IsBehindObstacle))
-        //    {
-        //        var collision =
-        //            CollisionManager.GetCollisionBetween(Game.Player.Position, entity.Position);
+                var blockedGlobalEdges = navMeshTerrain.GlobalEdges.Where(gE => gE.IsBlocked);
+                DrawMesh(gfx, blockedGlobalEdges, regionId, Pens.BlueViolet);
+                foreach (var objInstance in navMeshTerrain.Instances)
+                {
+                    var transformedPositions = new Vector3[objInstance.NavMeshObj.Vertices.Length];
+                    for (var iVertex = 0; iVertex < objInstance.NavMeshObj.Vertices.Length; iVertex++)
+                    {
+                        var transformed =  Vector3.Transform(objInstance.NavMeshObj.Vertices[iVertex].Position, objInstance.LocalToWorld);
 
-        //        if (!collision.HasValue)
-        //            continue;
+                        transformedPositions[iVertex] = transformed;
+                    }
 
-        //        DrawLineAt(gfx, Game.Player.Position, collision.Value.CollidedAt, Pens.GreenYellow);
-        //        DrawLineAt(gfx, collision.Value.CollidedWith.Source, collision.Value.CollidedWith.Destination,
-        //            Pens.Yellow);
-        //    }
-        //}
+                    //ToDO: IsEntrance check isn't working as expected. Needs further investigation
+                    foreach (var outlineEdge in objInstance.NavMeshObj.GlobalEdges)
+                    {
+                        if (outlineEdge.IsEntrance)
+                            continue;
+
+                        var posA = transformedPositions[outlineEdge.Vertex0.Index];
+                        var posB = transformedPositions[outlineEdge.Vertex1.Index];
+
+                        var positionA = new Position(regionId, posA.X, posA.Z, posA.Y);
+                        var positionB = new Position(regionId, posB.X, posB.Z, posB.Y);
+
+                        DrawLineAt(gfx, positionA, positionB, Pens.Red);
+                    }
+                }
+            }
+        }
+    }
+
+    private void DrawMesh(Graphics gfx, IEnumerable<NavMeshEdge> edges, ushort regionId, Pen color)
+    {
+        foreach (var blockedEdge in edges)
+        {
+            var line = blockedEdge.Line;
+
+            var posA = new Position(regionId, line.Min.X, line.Min.Z,
+                line.Min.Y);
+
+            var posB = new Position(regionId, line.Max.X, line.Max.Z,
+                line.Max.Y);
+
+            DrawLineAt(gfx, posA, posB, color);
+        }
     }
 
     private Image LoadSectorImage(string sectorImgName)

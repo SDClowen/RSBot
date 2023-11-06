@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
-using NavMeshApi;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
+using RSBot.NavMeshApi;
 
 namespace RSBot.Core.Components;
 
@@ -90,4 +90,6 @@ public static class CollisionManager
         //ToDo: New collision calculation between source and destination
         return false;
     }
+
+    public static NavMesh[] GetActiveMeshes() => _loadedNavMeshes;
 }

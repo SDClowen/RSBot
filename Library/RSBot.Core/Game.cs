@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using NavMeshApi;
 using RSBot.Core.Client;
 using RSBot.Core.Components;
 using RSBot.Core.Extensions;
@@ -9,6 +8,7 @@ using RSBot.Core.Objects;
 using RSBot.Core.Objects.Party;
 using RSBot.Core.Objects.Spawn;
 using RSBot.FileSystem;
+using RSBot.NavMeshApi;
 
 namespace RSBot.Core;
 
