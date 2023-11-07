@@ -600,9 +600,7 @@ public partial class Main : UserControl
 
             PopulateMapAndGrid(graphics);
             DrawPointAt(graphics, Game.Player.Movement.Source, 0);
-
-            if (_debug)
-                DrawCollisions(graphics);
+            DrawCollisions(graphics);
         }
     }
 

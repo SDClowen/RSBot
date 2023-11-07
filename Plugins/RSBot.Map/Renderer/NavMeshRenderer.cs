@@ -36,11 +36,11 @@ internal class NavMeshRenderer
             DrawNavMeshTerrain(terrain, terrainConfig);
 
             foreach (var navMeshObjInst in terrain.Instances)
-                DrawNavMeshInstObj(terrain.Region.GetId(), navMeshObjInst, objConfig);
+                DrawNavMeshInstObj(terrain.Region, navMeshObjInst, objConfig);
         }
     }
 
-    private void DrawNavMeshInstObj(ushort regionId, NavMeshInst instObj, NavMeshObjRenderConfig config)
+    private void DrawNavMeshInstObj(NavMeshApi.Mathematics.Region region, NavMeshInst instObj, NavMeshObjRenderConfig config)
     {
         var transformedPositions = new Vector3[instObj.NavMeshObj.Vertices.Length];
         for (var iVertex = 0; iVertex < instObj.NavMeshObj.Vertices.Length; iVertex++)
@@ -54,14 +54,14 @@ internal class NavMeshRenderer
         {
             foreach (var globalEdge in instObj.NavMeshObj.GlobalEdges)
             {
-                if (globalEdge.IsBlocked)
+                if (!globalEdge.IsBlocked)
                     continue;
 
                 var posA = transformedPositions[globalEdge.Vertex0.Index];
                 var posB = transformedPositions[globalEdge.Vertex1.Index];
 
-                var positionA = GetWorldPosition(regionId, posA);
-                var positionB = GetWorldPosition(regionId, posB);
+                var positionA = GetWorldPosition(region, posA);
+                var positionB = GetWorldPosition(region, posB);
 
                 DrawLine(positionA, positionB, config.Color);
             }
@@ -77,8 +77,8 @@ internal class NavMeshRenderer
                 var posA = transformedPositions[internalEdge.Vertex0.Index];
                 var posB = transformedPositions[internalEdge.Vertex1.Index];
 
-                var positionA = GetWorldPosition(regionId, posA);
-                var positionB = GetWorldPosition(regionId, posB);
+                var positionA = GetWorldPosition(region, posA);
+                var positionB = GetWorldPosition(region, posB);
                 
                 DrawLine(positionA, positionB, config.Color);
             }
@@ -87,14 +87,13 @@ internal class NavMeshRenderer
 
     private void DrawNavMeshTerrain(NavMeshTerrain terrain, NavMeshTerrainRenderConfig config)
     {
-        var regionId = terrain.Region.GetId();
 
         if (config.DrawInternalEdges)
         {
             foreach (var internalEdge in terrain.InternalEdges)
             {
                 if (internalEdge.IsBlocked)
-                    DrawEdge(regionId, internalEdge, config.Color);
+                    DrawEdge(terrain.Region, internalEdge, config.Color);
 
             }
         }
@@ -104,7 +103,7 @@ internal class NavMeshRenderer
             foreach (var globalEdge in terrain.GlobalEdges)
             {
                 if (globalEdge.IsBlocked)
-                    DrawEdge(regionId, globalEdge, config.Color);
+                    DrawEdge(terrain.Region, globalEdge, config.Color);
             }
         }
 
@@ -115,16 +114,16 @@ internal class NavMeshRenderer
                 foreach (var cellEdge in cell.Edges)
                 {
                     if (cellEdge.IsBlocked)
-                        DrawEdge(regionId, cellEdge, config.Color);
+                        DrawEdge(terrain.Region, cellEdge, config.Color);
                 }
             }
         }
     }
 
-    private void DrawEdge(ushort regionId, NavMeshEdge edge, Pen color)
+    private void DrawEdge(NavMeshApi.Mathematics.Region region, NavMeshEdge edge, Pen color)
     {
-        var posA = GetWorldPosition(regionId, edge.Line.Min);
-        var posB = GetWorldPosition(regionId, edge.Line.Max);
+        var posA = GetWorldPosition(region, edge.Line.Min);
+        var posB = GetWorldPosition(region, edge.Line.Max);
 
         DrawLine(posA, posB, color);
     }
@@ -145,11 +144,10 @@ internal class NavMeshRenderer
         _graphics.DrawLine(color, srcX, srcY, destinationX, destinationY);
     }
 
-    private Position GetWorldPosition(ushort regionId, Vector3 localPosition)
+    private Position GetWorldPosition(NavMeshApi.Mathematics.Region region, Vector3 localPosition)
     {
-        return new Position(regionId, localPosition.X, localPosition.Z, localPosition.Y);
+        return new Position(region.X, region.Z, localPosition.X, localPosition.Z, localPosition.Y);
     }
-
 
     private float GetMapX(Position gamePosition)
     {
