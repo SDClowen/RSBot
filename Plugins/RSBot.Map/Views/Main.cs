@@ -14,6 +14,7 @@ using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
+using RSBot.Map.Renderer;
 using RSBot.NavMeshApi.Edges;
 using RSBot.NavMeshApi.Terrain;
 
@@ -361,51 +362,51 @@ public partial class Main : UserControl
 
     private void DrawCollisions(Graphics gfx)
     {
+        if (!checkEnableCollisions.Checked)
+            return;
+
         foreach (var navMesh in CollisionManager.GetActiveMeshes().Where(x => x != null))
         {
-            var regionId = navMesh.Region.GetId();
+            var renderer = new NavMeshRenderer(gfx, mapCanvas.Width, mapCanvas.Height);
+            renderer.Render(navMesh);
 
-            if (navMesh is NavMeshTerrain navMeshTerrain)
-            {
-                //For some reason weird long lines appear. TODo: Need to figure out why
-                var blockedInternalEdges = navMeshTerrain.InternalEdges.Where(iE => iE.IsBlocked);
-                DrawMesh(gfx, blockedInternalEdges, regionId, Pens.Blue);
+            //var regionId = navMesh.Region.GetId();
 
-                //Is this even working?^^
-                var blockedCells = navMeshTerrain.Cells.Where(cE => cE.IsBlocked);
-                foreach (var blockedCell in blockedCells.Select(bC => bC.Edges.Where(bE => bE.IsBlocked)))
-                {
-                    DrawMesh(gfx, blockedCell, regionId, Pens.Aquamarine);
-                }
+            //if (navMesh is NavMeshTerrain navMeshTerrain)
+            //{
+            //    //For some reason weird long lines appear. TODo: Need to figure out why
+            //    var blockedInternalEdges = navMeshTerrain.InternalEdges.Where(iE => iE.IsBlocked);
+            //    DrawMesh(gfx, blockedInternalEdges, regionId, Pens.Blue);
 
-                var blockedGlobalEdges = navMeshTerrain.GlobalEdges.Where(gE => gE.IsBlocked);
-                DrawMesh(gfx, blockedGlobalEdges, regionId, Pens.BlueViolet);
-                foreach (var objInstance in navMeshTerrain.Instances)
-                {
-                    var transformedPositions = new Vector3[objInstance.NavMeshObj.Vertices.Length];
-                    for (var iVertex = 0; iVertex < objInstance.NavMeshObj.Vertices.Length; iVertex++)
-                    {
-                        var transformed =  Vector3.Transform(objInstance.NavMeshObj.Vertices[iVertex].Position, objInstance.LocalToWorld);
 
-                        transformedPositions[iVertex] = transformed;
-                    }
+            //    var blockedGlobalEdges = navMeshTerrain.GlobalEdges.Where(gE => gE.IsBlocked);
+            //    DrawMesh(gfx, blockedGlobalEdges, regionId, Pens.BlueViolet);
+            //    foreach (var objInstance in navMeshTerrain.Instances)
+            //    {
+            //        var transformedPositions = new Vector3[objInstance.NavMeshObj.Vertices.Length];
+            //        for (var iVertex = 0; iVertex < objInstance.NavMeshObj.Vertices.Length; iVertex++)
+            //        {
+            //            var transformed =  Vector3.Transform(objInstance.NavMeshObj.Vertices[iVertex].Position, objInstance.LocalToWorld);
 
-                    //ToDO: IsEntrance check isn't working as expected. Needs further investigation
-                    foreach (var outlineEdge in objInstance.NavMeshObj.GlobalEdges)
-                    {
-                        if (outlineEdge.IsEntrance)
-                            continue;
+            //            transformedPositions[iVertex] = transformed;
+            //        }
 
-                        var posA = transformedPositions[outlineEdge.Vertex0.Index];
-                        var posB = transformedPositions[outlineEdge.Vertex1.Index];
+            //        //ToDO: IsEntrance check isn't working as expected. Needs further investigation
+            //        foreach (var outlineEdge in objInstance.NavMeshObj.GlobalEdges)
+            //        {
+            //            if (outlineEdge.IsEntrance)
+            //                continue;
 
-                        var positionA = new Position(regionId, posA.X, posA.Z, posA.Y);
-                        var positionB = new Position(regionId, posB.X, posB.Z, posB.Y);
+            //            var posA = transformedPositions[outlineEdge.Vertex0.Index];
+            //            var posB = transformedPositions[outlineEdge.Vertex1.Index];
 
-                        DrawLineAt(gfx, positionA, positionB, Pens.Red);
-                    }
-                }
-            }
+            //            var positionA = new Position(regionId, posA.X, posA.Z, posA.Y);
+            //            var positionB = new Position(regionId, posB.X, posB.Z, posB.Y);
+
+            //            DrawLineAt(gfx, positionA, positionB, Pens.Red);
+            //        }
+            //    }
+            //}
         }
     }
 
