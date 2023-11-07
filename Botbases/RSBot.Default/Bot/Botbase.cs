@@ -47,6 +47,9 @@ internal class Botbase
     /// </summary>
     public void Tick()
     {
+        if (!Kernel.Bot.Running)
+            return;
+
         if (Game.Player.HasActiveVehicle)
         {
             Game.Player.Vehicle.Dismount();
