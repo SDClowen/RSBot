@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics;
+using System.Linq;
+using System.Numerics;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.NavMeshApi;
@@ -87,8 +89,31 @@ public static class CollisionManager
     /// </returns>
     public static bool HasCollisionBetween(Position source, Position destination)
     {
-        //ToDo: New collision calculation between source and destination
-        return false;
+        if (source.DistanceTo(destination) > 150)
+            return false;
+
+        var navMeshSrc = _loadedNavMeshes.FirstOrDefault(nm => nm != null && nm.Region == source.Region.Id);
+        if (navMeshSrc == null)
+            return false;
+
+        var navMeshDest = _loadedNavMeshes.FirstOrDefault(nm => nm != null &&  nm.Region == destination.Region.Id);
+        if (navMeshDest == null)
+            return false;
+
+        var srcOffset = new Vector3(source.XOffset, source.ZOffset, source.YOffset);
+        var destOffset = new Vector3(destination.XOffset, destination.ZOffset, destination.YOffset);
+
+        var navMeshTransformerSrc = new NavMeshTransform(source.Region.Id, srcOffset);
+        if (!NavMeshManager.ResolveCellAndHeight(navMeshTransformerSrc))
+            return false;
+
+        var navMeshTransformerDest = new NavMeshTransform(destination.Region.Id, destOffset);
+        if (!NavMeshManager.ResolveCellAndHeight(navMeshTransformerDest))
+            return false;
+
+        var hasCollision = !NavMeshManager.Raycast(navMeshTransformerSrc, navMeshTransformerDest, NavMeshRaycastType.Attack);
+
+        return hasCollision;
     }
 
     public static NavMesh[] GetActiveMeshes() => _loadedNavMeshes;

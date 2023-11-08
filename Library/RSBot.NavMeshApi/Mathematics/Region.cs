@@ -107,8 +107,6 @@ public struct Region : IEquatable<Region>
 
     #region Methods
 
-    public ushort GetId() => _value;
-
     public override string ToString() => $"{_value} [{this.X}x{this.Z}]";
 
     public override bool Equals(object obj)

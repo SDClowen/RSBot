@@ -5,7 +5,6 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
-using System.Numerics;
 using System.Windows.Forms;
 using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
@@ -16,7 +15,6 @@ using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
 using RSBot.Map.Renderer;
 using RSBot.NavMeshApi.Edges;
-using RSBot.NavMeshApi.Terrain;
 
 namespace RSBot.Map.Views;
 
@@ -290,9 +288,10 @@ public partial class Main : UserControl
                             DrawCircleAt(graphics, entry.Position, Color.Wheat.Alpha(100), 6);
 
                         //Other style for mobs behind obstacles
-                        if (entry.IsBehindObstacle)
+                        if (entry.IsBehindObstacle) {
                             DrawCircleAt(graphics, entry.Position, Color.DarkRed.Alpha(100), 6);
-
+                            DrawLineAt(graphics, Game.Player.Movement.Source, entry.Position, Pens.DarkRed);
+                        }
                         if (entry.Rarity == MonsterRarity.Unique || entry.Rarity == MonsterRarity.Unique2)
                             DrawPointAt(graphics, entry.Position, 5);
                         else
@@ -362,51 +361,13 @@ public partial class Main : UserControl
 
     private void DrawCollisions(Graphics gfx)
     {
-        if (!checkEnableCollisions.Checked)
+        if (!checkEnableCollisions.Checked || !_debug)
             return;
 
         foreach (var navMesh in CollisionManager.GetActiveMeshes().Where(x => x != null))
         {
             var renderer = new NavMeshRenderer(gfx, mapCanvas.Width, mapCanvas.Height);
             renderer.Render(navMesh);
-
-            //var regionId = navMesh.Region.GetId();
-
-            //if (navMesh is NavMeshTerrain navMeshTerrain)
-            //{
-            //    //For some reason weird long lines appear. TODo: Need to figure out why
-            //    var blockedInternalEdges = navMeshTerrain.InternalEdges.Where(iE => iE.IsBlocked);
-            //    DrawMesh(gfx, blockedInternalEdges, regionId, Pens.Blue);
-
-
-            //    var blockedGlobalEdges = navMeshTerrain.GlobalEdges.Where(gE => gE.IsBlocked);
-            //    DrawMesh(gfx, blockedGlobalEdges, regionId, Pens.BlueViolet);
-            //    foreach (var objInstance in navMeshTerrain.Instances)
-            //    {
-            //        var transformedPositions = new Vector3[objInstance.NavMeshObj.Vertices.Length];
-            //        for (var iVertex = 0; iVertex < objInstance.NavMeshObj.Vertices.Length; iVertex++)
-            //        {
-            //            var transformed =  Vector3.Transform(objInstance.NavMeshObj.Vertices[iVertex].Position, objInstance.LocalToWorld);
-
-            //            transformedPositions[iVertex] = transformed;
-            //        }
-
-            //        //ToDO: IsEntrance check isn't working as expected. Needs further investigation
-            //        foreach (var outlineEdge in objInstance.NavMeshObj.GlobalEdges)
-            //        {
-            //            if (outlineEdge.IsEntrance)
-            //                continue;
-
-            //            var posA = transformedPositions[outlineEdge.Vertex0.Index];
-            //            var posB = transformedPositions[outlineEdge.Vertex1.Index];
-
-            //            var positionA = new Position(regionId, posA.X, posA.Z, posA.Y);
-            //            var positionB = new Position(regionId, posB.X, posB.Z, posB.Y);
-
-            //            DrawLineAt(gfx, positionA, positionB, Pens.Red);
-            //        }
-            //    }
-            //}
         }
     }
 
@@ -499,8 +460,8 @@ public partial class Main : UserControl
                 // Bahgdad Room
                 case 32793:
                     return "minimap_d\\Arabia\\RN_ARABIA_FIELD_02_BOSS_{0}x{1}.ddj";
-                // 32791 - GM's Room
-                // 32792 - Fortress Prison
+                    // 32791 - GM's Room
+                    // 32792 - Fortress Prison
             }
 
         // Default as world map
@@ -539,22 +500,22 @@ public partial class Main : UserControl
         {
             gfx.InterpolationMode = InterpolationMode.Bicubic;
             for (var x = 0; x < GridSize; x++)
-            for (var z = 0; z < GridSize; z++)
-            {
-                var sectorImgName = string.Format(layerPath, _currentXSec + x - 1, _currentYSec + z - 1);
-
-                using var bitmap = LoadSectorImage(sectorImgName);
-                var pos = new Point(bitmap.Width * x, bitmap.Height * (GridSize - 1 - z));
-
-                gfx.DrawImage(bitmap, pos);
-
-                if (_debug)
+                for (var z = 0; z < GridSize; z++)
                 {
-                    using var pen = new Pen(Color.Black);
-                    pen.DashStyle = DashStyle.Dot;
-                    gfx.DrawRectangle(pen, new Rectangle(pos, new Size(SectorSize, SectorSize)));
+                    var sectorImgName = string.Format(layerPath, _currentXSec + x - 1, _currentYSec + z - 1);
+
+                    using var bitmap = LoadSectorImage(sectorImgName);
+                    var pos = new Point(bitmap.Width * x, bitmap.Height * (GridSize - 1 - z));
+
+                    gfx.DrawImage(bitmap, pos);
+
+                    if (_debug)
+                    {
+                        using var pen = new Pen(Color.Black);
+                        pen.DashStyle = DashStyle.Dot;
+                        gfx.DrawRectangle(pen, new Rectangle(pos, new Size(SectorSize, SectorSize)));
+                    }
                 }
-            }
         }
     }
 

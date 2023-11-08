@@ -18,7 +18,7 @@ internal static class MathHelper
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static float Clamp(this float value, float min, float max)
     {
-        Debug.Assert(max > min, $"min({min:0.000}) exceeded max({max:0.000}) value");
+        //Debug.Assert(max > min, $"min({min:0.000}) exceeded max({max:0.000}) value");
         return value < min ? min : value > max ? max : value;
     }
 

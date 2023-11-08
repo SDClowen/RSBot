@@ -11,7 +11,7 @@ namespace RSBot.Map.Renderer;
 internal class NavMeshRenderer
 {
     private record NavMeshObjRenderConfig(bool DrawInternalEdges, bool DrawGlobalEdges, Pen Color);
-    private record NavMeshTerrainRenderConfig(bool DrawInternalEdges, bool DrawGlobalEdges, bool DrawCells, Pen Color);
+    private record NavMeshTerrainRenderConfig(bool DrawInternalEdges, bool DrawGlobalEdges, Pen Color);
 
     private const float Scale = 256 / 192.0f;
 
@@ -28,16 +28,15 @@ internal class NavMeshRenderer
 
     public void Render(NavMesh navMesh)
     {
-        var terrainConfig = new NavMeshTerrainRenderConfig(true, true, true, Pens.Blue);
+        var terrainConfig = new NavMeshTerrainRenderConfig(true, true, Pens.DarkRed);
         var objConfig = new NavMeshObjRenderConfig(true, true, Pens.Red);
 
-        if (navMesh is NavMeshTerrain terrain)
-        {
-            DrawNavMeshTerrain(terrain, terrainConfig);
+        if (navMesh is not NavMeshTerrain terrain) 
+            return;
 
-            foreach (var navMeshObjInst in terrain.Instances)
-                DrawNavMeshInstObj(terrain.Region, navMeshObjInst, objConfig);
-        }
+        DrawNavMeshTerrain(terrain, terrainConfig);
+        foreach (var navMeshObjInst in terrain.Instances)
+            DrawNavMeshInstObj(terrain.Region, navMeshObjInst, objConfig);
     }
 
     private void DrawNavMeshInstObj(NavMeshApi.Mathematics.Region region, NavMeshInst instObj, NavMeshObjRenderConfig config)
@@ -106,18 +105,6 @@ internal class NavMeshRenderer
                     DrawEdge(terrain.Region, globalEdge, config.Color);
             }
         }
-
-        if (config.DrawCells)
-        {
-            foreach (var cell in terrain.Cells)
-            {
-                foreach (var cellEdge in cell.Edges)
-                {
-                    if (cellEdge.IsBlocked)
-                        DrawEdge(terrain.Region, cellEdge, config.Color);
-                }
-            }
-        }
     }
 
     private void DrawEdge(NavMeshApi.Mathematics.Region region, NavMeshEdge edge, Pen color)
@@ -131,15 +118,27 @@ internal class NavMeshRenderer
     private void DrawLine(Position source, Position destination, Pen color)
     {
         //Skip too far away?
-        //var distanceToPositionA = source.DistanceToPlayer();
-        //var distanceToPositionB = destination.DistanceToPlayer();
-        //if (distanceToPositionA > 150 || distanceToPositionB > 150)
-        //    return;
+        var distanceToPositionA = source.DistanceToPlayer();
+        var distanceToPositionB = destination.DistanceToPlayer();
+        if (distanceToPositionA > 150 || distanceToPositionB > 150)
+            return;
+
+        if (source.DistanceTo(destination) > 150)
+            return;
 
         var srcX = GetMapX(source);
         var srcY = GetMapY(source);
         var destinationX = GetMapX(destination);
         var destinationY = GetMapY(destination);
+
+        if (srcX == 0 && srcY == 0 && destinationY == 0 && destinationX == 0)
+            return;
+
+        if (srcX < 0 || srcX > _canvasWidth || srcY > _canvasHeight || srcY < 0)
+            return;
+
+        if (destinationX < 0 || destinationX > _canvasWidth || destinationY > _canvasHeight || destinationY < 0)
+            return;
 
         _graphics.DrawLine(color, srcX, srcY, destinationX, destinationY);
     }
