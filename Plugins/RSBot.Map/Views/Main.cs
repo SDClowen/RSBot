@@ -14,7 +14,6 @@ using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
 using RSBot.Map.Renderer;
-using RSBot.NavMeshApi.Edges;
 
 namespace RSBot.Map.Views;
 
@@ -368,22 +367,6 @@ public partial class Main : UserControl
         {
             var renderer = new NavMeshRenderer(gfx, mapCanvas.Width, mapCanvas.Height);
             renderer.Render(navMesh);
-        }
-    }
-
-    private void DrawMesh(Graphics gfx, IEnumerable<NavMeshEdge> edges, ushort regionId, Pen color)
-    {
-        foreach (var blockedEdge in edges)
-        {
-            var line = blockedEdge.Line;
-
-            var posA = new Position(regionId, line.Min.X, line.Min.Z,
-                line.Min.Y);
-
-            var posB = new Position(regionId, line.Max.X, line.Max.Z,
-                line.Max.Y);
-
-            DrawLineAt(gfx, posA, posB, color);
         }
     }
 
