@@ -1,6 +1,7 @@
-﻿using RSBot.NavMeshApi.Mathematics;
+﻿using System.Drawing;
+using RSBot.NavMeshApi.Mathematics;
 
-namespace RSBot.NavMeshVisualizer;
+namespace RSBot.Map.Renderer;
 
 public static class GraphicsExtensions
 {

@@ -116,8 +116,6 @@ public static class Kernel
 
                 SpawnManager.Update(elapsed);
 
-                CollisionManager.Update(Game.Player.Position.Region);
-
                 EventManager.FireEvent("OnTick");
 
                 lastTick = TickCount;

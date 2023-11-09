@@ -76,6 +76,11 @@ public static class NavMeshManager
                 dst.Region = src.Region;
             }
 
+            if (src.NavMesh == null)
+            {
+                hit = null;
+                return true;
+            }
             var result = src.NavMesh.Raycast(src, dst, type, out hit);
             Debug.WriteLine($"{src.NavMesh} = {result} [{hit}]");
             switch (result)
