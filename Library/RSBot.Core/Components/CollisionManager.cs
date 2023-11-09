@@ -1,9 +1,11 @@
 ﻿using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.InteropServices.ComTypes;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.NavMeshApi;
+using RSBot.NavMeshApi.Dungeon;
 
 namespace RSBot.Core.Components;
 
@@ -55,23 +57,22 @@ public static class CollisionManager
             return;
 
         IsUpdating = true;
-        
         CenterRegion = region;
+        
+        NavMeshManager.InvalidateCaches();
 
         var surrounding = CenterRegion.GetSurroundingRegions();
         for (var iRegion = 0; iRegion < 9; iRegion++)
         {
-            var navSw = Stopwatch.StartNew();
+            if (surrounding.Length <= iRegion)
+                break;
+
             var actualRegion = surrounding[iRegion];
 
-            if (!NavMeshManager.TryGetNavMesh(actualRegion.Id, out _loadedNavMeshes[iRegion]))
-            {
-                Log.Warn($"Could not load NavMesh for region 0x{actualRegion.Id:x4}");
-                return;
-            }
-
-            navSw.Stop();
-            Log.Debug($"Loaded navmesh in {navSw.ElapsedMilliseconds}ms (Ticks: {navSw.ElapsedTicks})");
+            if (NavMeshManager.TryGetNavMesh(actualRegion.Id, out _loadedNavMeshes[iRegion]))
+                continue;
+            
+            Log.Warn($"Could not load NavMesh for region {actualRegion.Id:X4}");
         }
 
         IsUpdating = false;
@@ -89,6 +90,9 @@ public static class CollisionManager
     /// </returns>
     public static bool HasCollisionBetween(Position source, Position destination)
     {
+        if (!Enabled) 
+            return false;
+        
         if (source.DistanceTo(destination) > 150)
             return false;
 

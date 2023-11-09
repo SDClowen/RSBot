@@ -13,7 +13,7 @@ internal class PackReader
     private BsReader _reader;
     private PackResolver _resolver;
 
-    public PackArchive Read(Stream fileStream, Blowfish? blowfish = null, char pathSeparator = '\\')
+    public PackArchive Read(Stream fileStream, Blowfish? blowfish = null, char pathSeparator = '\\', bool caseSensitive = false)
     {
         var sw = Stopwatch.StartNew();
 
@@ -39,7 +39,7 @@ internal class PackReader
         sw.Stop();
         Debug.WriteLine($"Reading pack file took {sw.ElapsedMilliseconds}ms");
 
-        _resolver = new PackResolver(this, pathSeparator);
+        _resolver = new PackResolver(this, pathSeparator, caseSensitive);
 
         return new PackArchive(header, blowfish, _resolver, pathSeparator);
     }
