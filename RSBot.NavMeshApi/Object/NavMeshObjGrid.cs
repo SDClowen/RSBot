@@ -1,5 +1,5 @@
-﻿using NavMeshApi.Helper;
-
+﻿using NavMeshApi.Extensions;
+using NavMeshApi.Helper;
 using NavMeshApi.Mathematics;
 
 using System.Diagnostics;
@@ -82,11 +82,73 @@ public class NavMeshObjGrid
         }
     }
 
-    internal (int X, int Y) GetTileOffset(Vector2 p)
+    public void Raytrace(LineF line, Action<NavMeshObjGridTile> callback)
     {
-        var tileOffset = (p - this.Origin) / NavMeshObjGridTile.Size;
-        tileOffset.X = tileOffset.X.Clamp(0, this.Width - 1);
-        tileOffset.Y = tileOffset.Y.Clamp(0, this.Height - 1);
-        return ((int)tileOffset.X, (int)tileOffset.Y);
+        var v0 = (line.Min.ToVector2() - this.Origin) / NavMeshObjGridTile.Size;
+        var v1 = (line.Max.ToVector2() - this.Origin) / NavMeshObjGridTile.Size;
+        this.Raytrace(v0, v1, (tileX, tileY) =>
+         {
+             var tile = this[tileX, tileY];
+             if (tile != null)
+                 callback(tile);
+         });
+    }
+
+    private void Raytrace(Vector2 v0, Vector2 v1, Action<int, int> callback)
+    {
+        var dx = MathF.Abs(v1.X - v0.X);
+        var dy = MathF.Abs(v1.Y - v0.Y);
+
+        if (dx == 0 && dy == 0)
+            return; // v0 is equal to v1
+
+        int srcTileX = MathHelper.FloorToInt(v0.X);
+        int srcTileY = MathHelper.FloorToInt(v0.Y);
+
+        int n = 1;
+        int stepX = MathF.Sign(v1.X - v0.X);
+        int stepY = MathF.Sign(v1.Y - v0.Y);
+
+        float error;
+        if (v1.X > v0.X)
+        {
+            n += MathHelper.FloorToInt(v1.X) - srcTileX;
+            error = (MathF.Floor(v0.X) + 1 - v0.X) * dy;
+        }
+        else
+        {
+            n += srcTileX - MathHelper.FloorToInt(v1.X);
+            error = (v0.X - MathF.Floor(v0.X)) * dy;
+        }
+
+        if (v1.Y > v0.Y)
+        {
+            n += MathHelper.FloorToInt(v1.Y) - srcTileY;
+            error -= (MathF.Floor(v0.Y) + 1 - v0.Y) * dx;
+        }
+        else
+        {
+            n += srcTileY - MathHelper.FloorToInt(v1.Y);
+            error -= (v0.Y - MathF.Floor(v0.Y)) * dx;
+        }
+
+        while (n > 0)
+        {
+            //this.DrawAt(tileX, tileY);
+            callback(srcTileX, srcTileY);
+
+            if (error > 0)
+            {
+                srcTileY += stepY;
+                error -= dx;
+            }
+            else
+            {
+                srcTileX += stepX;
+                error += dy;
+            }
+
+            --n;
+        }
     }
 }

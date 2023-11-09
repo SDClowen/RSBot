@@ -1,0 +1,24 @@
+﻿using NavMeshApi.Mathematics;
+
+using RectangleF = NavMeshApi.Mathematics.RectangleF;
+
+namespace RSBot.NavMeshVisualizer;
+
+public static class GraphicsExtensions
+{
+    public static void DrawLine(this Graphics g, Pen pen, LineF line) => g.DrawLine(pen, line.Min.X, line.Min.Z, line.Max.X, line.Max.Z);
+
+    public static void FillTriangleF(this Graphics g, Brush brush, TriangleF triangle) => g.FillPolygon(brush, new PointF[]
+        {
+             new PointF(triangle.P1.X , triangle.P1.Z),
+             new PointF(triangle.P2.X , triangle.P2.Z),
+             new PointF(triangle.P3.X , triangle.P3.Z),
+        });
+    public static void FillRectangleF(this Graphics g, Brush brush, RectangleF rectangle) => g.FillPolygon(brush, new PointF[]
+    {
+        new PointF(rectangle.TopLeft.X, 1920.0f - rectangle.TopLeft.Y),
+        new PointF(rectangle.TopRight.X, 1920.0f - rectangle.TopRight.Y),
+        new PointF(rectangle.BottomRight.X, 1920.0f - rectangle.BottomRight.Y),
+        new PointF(rectangle.BottomLeft.X, 1920.0f - rectangle.BottomLeft.Y),
+    });
+}

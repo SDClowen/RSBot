@@ -217,7 +217,7 @@ public class NavMeshTerrain : NavMesh
         var zBlock = integerZ / (int)(NavMeshPlane.Length / NavMeshTile.Length);
         var surface = this.GetPlane(xBlock, zBlock);
         if ((surface.Type & NavMeshPlaneType.Ice) != 0)
-            vPos.Y = MathF.Max(vPos.Y, surface.Height); // only applied if heigher than ground
+            vPos.Y = MathF.Max(vPos.Y, surface.Height); // only applied if higher than ground
 
         return true;
     }
@@ -352,52 +352,27 @@ public class NavMeshTerrain : NavMesh
             if (!obj.Grid.Rectangle.Intersects(localLine))
                 continue;
 
-            var srcTile = obj.Grid.GetTileOffset(localLine.Min.ToVector2());
-            var dstTile = obj.Grid.GetTileOffset(localLine.Max.ToVector2());
-
-            // swap if direction is negative
-            var x = srcTile.X;
-            if (srcTile.X > dstTile.X)
+            obj.Grid.Raytrace(localLine, (tile) =>
             {
-                srcTile.X = dstTile.X;
-                dstTile.X = x;
-            }
-
-            // swap if direction is negative
-            var y = srcTile.Y;
-            if (srcTile.Y > dstTile.Y)
-            {
-                srcTile.Y = dstTile.Y;
-                dstTile.Y = y;
-            }
-
-            for (y = srcTile.Y; y <= dstTile.Y; y++)
-            {
-                for (x = srcTile.X; x <= dstTile.X; x++)
+                foreach (var edge in tile.GlobalEdges)
                 {
-                    var tile = obj.Grid[x, y];
+                    // bridges are not considered blocked from outside.
+                    if (edge.IsRailing)
+                        continue;
 
-                    foreach (var edge in tile.GlobalEdges)
+                    if (!edge.Intersects(localLine, out Vector3 point))
+                        continue;
+
+                    var distanceSqrt = (localLine.Min - point).LengthSquared();
+                    if (hitEdge == null || hitDistanceSqrt > distanceSqrt)
                     {
-                        // bridges are not considered blocked from outside.
-                        if (edge.IsRailing)
-                            continue;
-
-                        if (edge.Intersects(localLine, out Vector3 point))
-                        {
-                            var delta = localLine.Min - point;
-                            var deltaDistance = delta.LengthSquared();
-                            if (hitEdge == null || hitDistanceSqrt > deltaDistance)
-                            {
-                                hitInstance = instance;
-                                hitEdge = edge;
-                                hitPoint = point;
-                                hitDistanceSqrt = deltaDistance;
-                            }
-                        }
+                        hitInstance = instance;
+                        hitEdge = edge;
+                        hitPoint = point;
+                        hitDistanceSqrt = distanceSqrt;
                     }
                 }
-            }
+            });
         }
 
         // Did we hit anything?

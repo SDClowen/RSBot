@@ -23,16 +23,25 @@ public class NavMeshTransform
         Offset = offset;
     }
 
-    public NavMeshTransform(Vector3 positionn)
+    public NavMeshTransform(NavMeshTransform transform)
     {
-        var regionX = (byte)(positionn.X / Region.Width);
-        var regionZ = (byte)(positionn.Z / Region.Length);
-
-        Region = new Region(regionX, regionZ);
-        Offset = positionn - Region.Position;
+        Region = transform.Region;
+        Offset = transform.Offset;
+        //this.NavMesh = transform.NavMesh;
+        this.Cell = transform.Cell;
+        this.Instance = transform.Instance;
     }
 
-    public override string ToString() => $"{Offset} {Region}";
+    public NavMeshTransform(Vector3 worldPosition)
+    {
+        var regionX = (byte)(worldPosition.X / Region.Width);
+        var regionZ = (byte)(worldPosition.Z / Region.Length);
+
+        Region = new Region(regionX, regionZ);
+        Offset = worldPosition - Region.Position;
+    }
+
+    public override string ToString() => $"{Offset} {Region}; Cell: {this.Cell}; Instance: {this.Instance}";
 
     public void Break()
     {

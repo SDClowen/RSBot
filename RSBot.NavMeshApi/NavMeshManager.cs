@@ -1,9 +1,9 @@
 ﻿using NavMeshApi.Dungeon;
-using NavMeshApi.Mathematics;
 using NavMeshApi.Object;
 using NavMeshApi.Terrain;
 
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 
 namespace NavMeshApi;
@@ -47,10 +47,14 @@ public static class NavMeshManager
         }
     }
 
-    public static bool Raycast(NavMeshTransform src, NavMeshTransform dst, NavMeshRaycastType type)
+    public static bool Raycast(NavMeshTransform src, NavMeshTransform dst, NavMeshRaycastType type, [NotNullWhen(true)] out NavMeshRaycastHit? hit)
     {
         if (src.Region == dst.Region && src.Offset == dst.Offset)
+        {
+            hit = null;
             return false;
+        }
+
 
         int raycastCount = 0;
         while (true)
@@ -68,7 +72,7 @@ public static class NavMeshManager
                 dst.Region = src.Region;
             }
 
-            var result = src.NavMesh.Raycast(src, dst, type, out NavMeshRaycastHit hit);
+            var result = src.NavMesh.Raycast(src, dst, type, out hit);
             Debug.WriteLine($"{src.NavMesh} = {result} [{hit}]");
             switch (result)
             {
@@ -81,6 +85,8 @@ public static class NavMeshManager
             }
         }
     }
+
+    public static bool Raycast(NavMeshTransform src, NavMeshTransform dst, NavMeshRaycastType type) => Raycast(src, dst, type, out _);
 
     public static bool ResolveCellAndHeight(NavMeshTransform transform)
     {
@@ -377,4 +383,6 @@ public static class NavMeshManager
 
         return dungeon != null;
     }
+
+
 }

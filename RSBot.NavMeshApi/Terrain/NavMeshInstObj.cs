@@ -26,7 +26,7 @@ public class NavMeshInstObj : NavMeshInst
 
         this.LocalPosition = reader.ReadVector3();
         reader.ReadInt16(); //Type: -1 = Static, 0 = SkinedNavMesh?
-        var yaw = reader.ReadFloat();
+        this.Yaw = reader.ReadFloat();
         this.ID = reader.ReadUInt16();
 
         reader.ReadUInt16(); //short0
@@ -35,7 +35,7 @@ public class NavMeshInstObj : NavMeshInst
         this.Region = reader.ReadUInt16();
         this.WorldUID = ((ushort)this.Region << 16) | this.ID;
 
-        this.LocalToWorld = Matrix4x4.CreateRotationY(-yaw) * Matrix4x4.CreateTranslation(this.LocalPosition);
+        this.LocalToWorld = Matrix4x4.CreateRotationY(-this.Yaw) * Matrix4x4.CreateTranslation(this.LocalPosition);
         var result = Matrix4x4.Invert(this.LocalToWorld, out var worldToLocal);
         Debug.Assert(result, "Failed to invert LocalToWorld matrix");
 

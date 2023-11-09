@@ -14,13 +14,12 @@ public abstract class NavMeshInst
 
     public int ID { get; set; }
     public Vector3 LocalPosition { get; set; }
-    public Quaternion LocalRotation { get; internal set; }
-    public Vector3 LocalScale { get; internal set; }
     public Matrix4x4 LocalToWorld { get; set; }
     public Matrix4x4 WorldToLocal { get; set; }
 
     public Dictionary<int, NavMeshLinkEdge> LinkEdges { get; } = new Dictionary<int, NavMeshLinkEdge>();
     public Region Region { get; set; }
+    public float Yaw { get; set; }
 
     public bool TryGetNavMeshCell(ref Vector3 position, out NavMeshCell cell)
     {
@@ -37,7 +36,7 @@ public abstract class NavMeshInst
 
     public NavMeshEdgeGlobal GetGlobalEdgeByID(short edgeID) => this.NavMeshObj?.GlobalEdges[edgeID];
 
-    public override string ToString() => $"INS:{this.ID}";
+    public override string ToString() => $"INS:{this.ID} ({this.NavMeshObj?.Name})";
 
     public bool TryGetLinkEdge(int edgeID, out NavMeshLinkEdge linkEdge) => this.LinkEdges.TryGetValue(edgeID, out linkEdge);
 }

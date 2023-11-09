@@ -28,4 +28,6 @@ internal static class MathHelper
         Debug.Assert(max > min, $"min({min}) exceeded max({max}) value");
         return value < min ? min : value > max ? max : value;
     }
+
+    public static int FloorToInt(float x) => (int)MathF.Floor(x);
 }
