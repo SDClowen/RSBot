@@ -1,6 +1,7 @@
-﻿using RSBot.NavMeshApi.Edges;
+﻿using System.Drawing;
+using RSBot.NavMeshApi.Edges;
 
-namespace RSBot.NavMeshVisualizer;
+namespace RSBot.Map.Renderer;
 
 public static class NavMeshExtenions
 {

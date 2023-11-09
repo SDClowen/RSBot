@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using System.Linq;
 using System.Windows.Forms;
 using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
@@ -80,12 +79,15 @@ public partial class Main : UserControl
     /// </summary>
     private readonly BufferedGraphicsContext bufferedGraphicsContext;
 
+    private readonly NavMeshRenderer _navMeshRenderer;
     /// <summary>
     ///     Initializes a new instance of the <see cref="Main" /> class.
     /// </summary>
     public Main()
     {
         InitializeComponent();
+        if (DesignMode)
+            return;
 
         _debug = GlobalConfig.Get<bool>("RSBot.DebugEnvironment");
 
@@ -101,8 +103,18 @@ public partial class Main : UserControl
         comboViewType.SelectedIndex = 6;
         checkEnableCollisions.Checked = CollisionManager.Enabled;
 
-        if (!_debug)
-            labelSectorInfo.Visible = false;
+        if (_debug)
+        {
+            _navMeshRenderer = new NavMeshRenderer()
+            {
+                Dock = DockStyle.Fill,
+            };
+
+            panelNavMeshRendererCanvas.Controls.Add(_navMeshRenderer);
+            tabNavMeshViewer.Visible = true;
+        }
+
+        labelSectorInfo.Visible = _debug;
     }
 
     #region Core Handlers
@@ -286,11 +298,6 @@ public partial class Main : UserControl
                         if (Game.SelectedEntity?.UniqueId == entry.UniqueId)
                             DrawCircleAt(graphics, entry.Position, Color.Wheat.Alpha(100), 6);
 
-                        //Other style for mobs behind obstacles
-                        if (entry.IsBehindObstacle) {
-                            DrawCircleAt(graphics, entry.Position, Color.DarkRed.Alpha(100), 6);
-                            DrawLineAt(graphics, Game.Player.Movement.Source, entry.Position, Pens.DarkRed);
-                        }
                         if (entry.Rarity == MonsterRarity.Unique || entry.Rarity == MonsterRarity.Unique2)
                             DrawPointAt(graphics, entry.Position, 5);
                         else
@@ -356,18 +363,6 @@ public partial class Main : UserControl
         }
 
         lvMonster.EndUpdate();
-    }
-
-    private void DrawCollisions(Graphics gfx)
-    {
-        if (!checkEnableCollisions.Checked || !_debug)
-            return;
-
-        foreach (var navMesh in CollisionManager.GetActiveMeshes().Where(x => x != null))
-        {
-            var renderer = new NavMeshRenderer(gfx, mapCanvas.Width, mapCanvas.Height);
-            renderer.Render(navMesh);
-        }
     }
 
     private Image LoadSectorImage(string sectorImgName)
@@ -544,7 +539,6 @@ public partial class Main : UserControl
 
             PopulateMapAndGrid(graphics);
             DrawPointAt(graphics, Game.Player.Movement.Source, 0);
-            DrawCollisions(graphics);
         }
     }
 
@@ -569,6 +563,8 @@ public partial class Main : UserControl
         bufferedGraphics.Graphics.Clear(Color.Black);
         RedrawMap();
         DrawObjects(bufferedGraphics.Graphics);
+
+        _navMeshRenderer?.Update(Game.Player.Position);
         bufferedGraphics.Render();
     }
 
@@ -618,7 +614,6 @@ public partial class Main : UserControl
     private void checkEnableCollisions_CheckedChanged(object sender, EventArgs e)
     {
         CollisionManager.Enabled = checkEnableCollisions.Checked;
-        CollisionManager.Update(Game.Player.Position.Region);
     }
 
     /// <summary>

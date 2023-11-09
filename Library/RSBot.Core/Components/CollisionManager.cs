@@ -1,32 +1,11 @@
-﻿using System.Diagnostics;
-using System.Linq;
-using System.Numerics;
-using System.Runtime.InteropServices.ComTypes;
-using RSBot.Core.Event;
+﻿using System.Numerics;
 using RSBot.Core.Objects;
 using RSBot.NavMeshApi;
-using RSBot.NavMeshApi.Dungeon;
 
 namespace RSBot.Core.Components;
 
 public static class CollisionManager
 {
-
-    /// <summary>
-    ///     Gets a value indicating whether this instance is updating.
-    /// </summary>
-    /// <value>
-    ///     <c>true</c> if this instance is updating; otherwise, <c>false</c>.
-    /// </value>
-    public static bool IsUpdating { get; private set; }
-
-    /// <summary>
-    ///     Gets the center region identifier.
-    /// </summary>
-    /// <value>
-    ///     The center region identifier.
-    /// </value>
-    public static Region CenterRegion { get; private set; }
 
 
     /// <summary>
@@ -39,45 +18,6 @@ public static class CollisionManager
     {
         get => GlobalConfig.Get("RSBot.EnableCollisionDetection", true);
         set => GlobalConfig.Set("RSBot.EnableCollisionDetection", value);
-    }
-
-    private static NavMesh[] _loadedNavMeshes = new NavMesh[9];
-
-    /// <summary>
-    ///     Updates the collision that are currently stored as active.
-    ///     If the center region equals the new one, no action will be executed.
-    /// </summary>
-    /// <param name="centerRegionId">The center region identifier.</param>
-    public static void Update(Region region)
-    {
-        if (!Enabled)
-            return;
-
-        if (region == CenterRegion)
-            return;
-
-        IsUpdating = true;
-        CenterRegion = region;
-        
-        NavMeshManager.InvalidateCaches();
-
-        var surrounding = CenterRegion.GetSurroundingRegions();
-        for (var iRegion = 0; iRegion < 9; iRegion++)
-        {
-            if (surrounding.Length <= iRegion)
-                break;
-
-            var actualRegion = surrounding[iRegion];
-
-            if (NavMeshManager.TryGetNavMesh(actualRegion.Id, out _loadedNavMeshes[iRegion]))
-                continue;
-            
-            Log.Warn($"Could not load NavMesh for region {actualRegion.Id:X4}");
-        }
-
-        IsUpdating = false;
-
-        EventManager.FireEvent("OnUpdateCollisions");
     }
 
     /// <summary>
@@ -96,14 +36,6 @@ public static class CollisionManager
         if (source.DistanceTo(destination) > 150)
             return false;
 
-        var navMeshSrc = _loadedNavMeshes.FirstOrDefault(nm => nm != null && nm.Region == source.Region.Id);
-        if (navMeshSrc == null)
-            return false;
-
-        var navMeshDest = _loadedNavMeshes.FirstOrDefault(nm => nm != null &&  nm.Region == destination.Region.Id);
-        if (navMeshDest == null)
-            return false;
-
         var srcOffset = new Vector3(source.XOffset, source.ZOffset, source.YOffset);
         var destOffset = new Vector3(destination.XOffset, destination.ZOffset, destination.YOffset);
 
@@ -119,6 +51,4 @@ public static class CollisionManager
 
         return hasCollision;
     }
-
-    public static NavMesh[] GetActiveMeshes() => _loadedNavMeshes;
 }

@@ -1,6 +1,7 @@
-﻿using System.Numerics;
+﻿using System.Drawing;
+using System.Numerics;
 
-namespace RSBot.NavMeshVisualizer;
+namespace RSBot.Map.Renderer;
 
 public static class VectorExtensions
 {

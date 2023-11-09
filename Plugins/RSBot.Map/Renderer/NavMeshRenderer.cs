@@ -1,173 +1,409 @@
-﻿using RSBot.Core;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Numerics;
+using System.Windows.Forms;
 using RSBot.Core.Objects;
 using RSBot.NavMeshApi;
-using RSBot.NavMeshApi.Dungeon;
-using RSBot.NavMeshApi.Edges;
+using RSBot.NavMeshApi.Mathematics;
+using RSBot.NavMeshApi.Object;
 using RSBot.NavMeshApi.Terrain;
-
-using System.Drawing;
-using System.Numerics;
 
 namespace RSBot.Map.Renderer;
 
-internal class NavMeshRenderer
+public partial class NavMeshRenderer : UserControl
 {
-    private record NavMeshObjRenderConfig(bool DrawInternalEdges, bool DrawGlobalEdges, Pen Color);
-    private record NavMeshTerrainRenderConfig(bool DrawInternalEdges, bool DrawGlobalEdges, Pen Color);
+    private bool _isDragging;
+    private Point _dragPosition;
 
-    private const float Scale = 256 / 192.0f;
+    private NavMeshTransform _transform;
+    private NavMeshTransform _mouseTransform;
+    private NavMeshRaycastHit? _hit = null;
 
-    private readonly Graphics _graphics;
-    private readonly int _canvasWidth;
-    private readonly int _canvasHeight;
+    private readonly Font _font;
+    private readonly Font _smallFont;
 
-    public NavMeshRenderer(Graphics graphics, int canvasWidth, int canvasHeight)
+    private float _zoom = 1.0f;
+
+    private bool _drawRegionId = true;
+    private bool _drawRegionBorder = true;
+    private bool _drawTerrainGlobalEdges = true;
+    private bool _drawTerrainInternalEdges = true;
+    private bool _drawObjectGlobalEdges = true;
+    private bool _drawObjectInternalEdges = true;
+    private bool _drawObjectGround = true;
+
+    private bool _drawTerrainCellID = false;
+    private bool _drawTerrainGlobalEdgeID = false;
+    private bool _drawTerrainInternalEdgeID = false;
+    private bool _drawObjectCellID = false;
+    private bool _drawObjectGlobalEdgeID = false;
+    private bool _drawObjectInternalEdgeID = false;
+
+    private bool _raycastVisualizer = false;
+
+    private Position _lastPosition = default;
+    public NavMeshRenderer()
     {
-        _graphics = graphics;
-        _canvasWidth = canvasWidth;
-        _canvasHeight = canvasHeight;
-    }
+        this.InitializeComponent();
 
-    public void Render(NavMesh navMesh)
-    {
-        var terrainConfig = new NavMeshTerrainRenderConfig(true, true, Pens.Red);
-        var objConfig = new NavMeshObjRenderConfig(true, true, Pens.Red);
-
-        if (navMesh is NavMeshTerrain terrain)
-        {
-            this.DrawNavMeshTerrain(terrain, terrainConfig);
-            foreach (var navMeshObjInst in terrain.Instances)
-                this.DrawNavMeshInstObj(terrain.Region, navMeshObjInst, objConfig);
-        }
-        else if (navMesh is NavMeshDungeon dungeon)
-            this.DrawNavMeshDungeon(dungeon);
-
-    }
-
-    private void DrawNavMeshDungeon(NavMeshDungeon dungeon)
-    {
-        //ToDO Further dungeon investigations!
-    }
-
-    private void DrawNavMeshInstObj(NavMeshApi.Mathematics.RID region, NavMeshInst instObj, NavMeshObjRenderConfig config)
-    {
-        var transformedPositions = new Vector3[instObj.NavMeshObj.Vertices.Length];
-        for (var iVertex = 0; iVertex < instObj.NavMeshObj.Vertices.Length; iVertex++)
-        {
-            var transformed = Vector3.Transform(instObj.NavMeshObj.Vertices[iVertex].Position, instObj.LocalToWorld);
-
-            transformedPositions[iVertex] = transformed;
-        }
-
-        if (config.DrawGlobalEdges)
-        {
-            foreach (var globalEdge in instObj.NavMeshObj.GlobalEdges)
-            {
-                if (!globalEdge.IsBlocked)
-                    continue;
-
-                var posA = transformedPositions[globalEdge.Vertex0.Index];
-                var posB = transformedPositions[globalEdge.Vertex1.Index];
-
-                var positionA = this.GetWorldPosition(region, posA);
-                var positionB = this.GetWorldPosition(region, posB);
-
-                this.DrawLine(positionA, positionB, config.Color);
-            }
-        }
-
-        if (config.DrawInternalEdges)
-        {
-            foreach (var internalEdge in instObj.NavMeshObj.InternalEdges)
-            {
-                if (!internalEdge.IsBlocked)
-                    continue;
-
-                var posA = transformedPositions[internalEdge.Vertex0.Index];
-                var posB = transformedPositions[internalEdge.Vertex1.Index];
-
-                var positionA = this.GetWorldPosition(region, posA);
-                var positionB = this.GetWorldPosition(region, posB);
-
-                this.DrawLine(positionA, positionB, config.Color);
-            }
-        }
-    }
-
-    private void DrawNavMeshTerrain(NavMeshTerrain terrain, NavMeshTerrainRenderConfig config)
-    {
-
-        if (config.DrawInternalEdges)
-        {
-            foreach (var internalEdge in terrain.InternalEdges)
-            {
-                if (internalEdge.IsBlocked)
-                    this.DrawEdge(terrain.Region, internalEdge, config.Color);
-
-            }
-        }
-
-        if (config.DrawGlobalEdges)
-        {
-            foreach (var globalEdge in terrain.GlobalEdges)
-            {
-                if (globalEdge.IsBlocked)
-                    this.DrawEdge(terrain.Region, globalEdge, config.Color);
-            }
-        }
-    }
-
-    private void DrawEdge(NavMeshApi.Mathematics.RID region, NavMeshEdge edge, Pen color)
-    {
-        var posA = this.GetWorldPosition(region, edge.Line.Min);
-        var posB = this.GetWorldPosition(region, edge.Line.Max);
-
-        this.DrawLine(posA, posB, color);
-    }
-
-    private void DrawLine(Position source, Position destination, Pen color)
-    {
-        //Skip too far away?
-        var distanceToPositionA = source.DistanceToPlayer();
-        var distanceToPositionB = destination.DistanceToPlayer();
-        if (distanceToPositionA > 150 || distanceToPositionB > 150)
+        if (this.DesignMode)
             return;
 
-        if (source.DistanceTo(destination) > 150)
+        _font = new Font("Arial", 6f);
+        _smallFont = new Font("Arial", 4f);
+    }
+
+    public void Update(Position position)
+    {
+        var distance = position.DistanceTo(_lastPosition);
+        if (distance < 1.0)
             return;
 
-        var srcX = this.GetMapX(source);
-        var srcY = this.GetMapY(source);
-        var destinationX = this.GetMapX(destination);
-        var destinationY = this.GetMapY(destination);
+        _transform = new NavMeshTransform(position.Region.Id, new Vector3(position.XOffset, position.ZOffset, position.YOffset));
+        _mouseTransform = new NavMeshTransform(Vector3.Zero);
+        _lastPosition = position;
 
-        //Leaves viewscope?
-        if (srcX > _canvasWidth) srcX = _canvasWidth;
-        if (srcY > _canvasHeight) srcY = _canvasHeight;
-        if (srcX < 0) srcX = 0;
-        if (srcY < 0) srcY = 0;
-        if (destinationX > _canvasWidth) destinationX = _canvasWidth;
-        if (destinationY > _canvasHeight) destinationY = _canvasHeight;
-        if (destinationY < 0) destinationY = 0;
-        if (destinationX < 0) destinationX = 0;
-
-        _graphics.DrawLine(color, srcX, srcY, destinationX, destinationY);
+        Refresh();
     }
 
-    private Position GetWorldPosition(NavMeshApi.Mathematics.RID region, Vector3 localPosition)
+    protected override void OnPaint(PaintEventArgs e)
     {
-        return new Position(region.X, region.Z, localPosition.X, localPosition.Z, localPosition.Y);
+        if (_lastPosition.Region.Id == 0)
+            return;
+
+        BackColor = SDUI.ColorScheme.BackColor;
+
+        base.OnPaint(e);
+
+        var g = e.Graphics;
+
+        var matrix = new Matrix();
+
+        matrix.Scale(this.Width / 1920.0f * _zoom, this.Height / 1920.0f * _zoom);
+        matrix.Translate(960.0f - _transform.Offset.X, 960 - _transform.Offset.Z);
+        g.MultiplyTransform(matrix);
+
+        var set = new HashSet<int>();
+
+        for (int rz = _transform.Region.Z - 1; rz < _transform.Region.Z + 2; rz++)
+        {
+            for (int rx = _transform.Region.X - 1; rx < _transform.Region.X + 2; rx++)
+            {
+                var rid = new RID((byte)rx, (byte)rz);
+                if (!NavMeshManager.TryGetNavMeshTerrain(rid, out var terrain))
+                    continue;
+
+                foreach (var edge in terrain.GlobalEdges)
+                    edge.Link();
+
+                this.DrawTerrain(set, g, terrain);
+            }
+        }
+
+        var localMouseOffset = RID.Transform(_mouseTransform.Offset, _transform.Region, _mouseTransform.Region);
+
+        if (_raycastVisualizer)
+        {
+            g.DrawLine(Pens.White, _transform.Offset.X, _transform.Offset.Z, localMouseOffset.X, localMouseOffset.Z);
+            if (_hit != null)
+            {
+                var localHitOffset = RID.Transform(_hit.Position, _transform.Region, _hit.Region);
+                g.DrawLine(Pens.Red, _transform.Offset.X, _transform.Offset.Z, localHitOffset.X, localHitOffset.Z);
+            }
+        }
+
+        matrix.Invert();
+        g.MultiplyTransform(matrix);
+
+        var textBrush = new SolidBrush(SDUI.ColorScheme.ForeColor);
+
+        g.DrawString($"Player: {_transform}", _font, textBrush, 0, 0);
+        g.DrawString($"Cursor: {_mouseTransform}", _font, textBrush, 0, 12);
+        if (_hit != null)
+            g.DrawString($"Hit: {_mouseTransform}", _font, Brushes.Red, 0, 24);
+
     }
 
-    private float GetMapX(Position gamePosition)
+    private void DrawTerrain(HashSet<int> set, Graphics g, NavMeshTerrain terrain)
     {
-        //Player is center
-        return _canvasWidth / 2f + (gamePosition.X - Game.Player.Movement.Source.X) * Scale;
+        var dx = (terrain.Region.X - _transform.Region.X) * RID.Width;
+        var dz = (terrain.Region.Z - _transform.Region.Z) * RID.Length;
+
+        var matrix = new Matrix();
+        matrix.Translate(dx, dz);
+
+        g.MultiplyTransform(matrix);
+
+        if (_drawRegionBorder)
+            g.DrawRectangle(Pens.Magenta, 0, 0, 1920 - 1, 1920 - 1);
+
+        if (_drawTerrainCellID)
+        {
+            foreach (var cell in terrain.Cells)
+                g.DrawString($"{cell}", _smallFont, Brushes.Black, cell.RectangleF.Center.ToPointF());
+        }
+
+        if (_drawTerrainGlobalEdges)
+        {
+            foreach (var edge in terrain.GlobalEdges)
+            {
+                var pen = edge.Flag.ToPen();
+                g.DrawLine(pen, edge.Line);
+
+                if (_drawTerrainGlobalEdgeID)
+                    g.DrawString($"{edge}", _smallFont, Brushes.Black, edge.Line.Center.ToPointF());
+            }
+        }
+
+        if (_drawTerrainInternalEdges)
+        {
+            foreach (var edge in terrain.InternalEdges)
+            {
+                var pen = edge.Flag.ToPen();
+                g.DrawLine(pen, edge.Line);
+
+                if (_drawTerrainInternalEdgeID)
+                    g.DrawString($"{edge}", _smallFont, Brushes.Black, edge.Line.Center.ToPointF());
+            }
+        }
+
+        foreach (var obj in terrain.Instances)
+        {
+            if (set.Contains(obj.WorldUID))
+                continue;
+
+            var objMatrix = new Matrix();
+            objMatrix.RotateAt(obj.Yaw * (180.0f / MathF.PI), obj.LocalPosition.ToPointF());
+            objMatrix.Translate(obj.LocalPosition.X, obj.LocalPosition.Z);
+
+            g.MultiplyTransform(objMatrix);
+
+            this.DrawNavMeshObj(g, obj.WorldUID, obj.NavMeshObj);
+
+            objMatrix.Invert();
+            g.MultiplyTransform(objMatrix);
+
+            set.Add(obj.WorldUID);
+        }
+
+        if (_drawRegionId)
+            g.DrawString($"{terrain.Region}", _font, Brushes.Black, 0, 0);
+
+        matrix.Invert();
+        g.MultiplyTransform(matrix);
     }
 
-    private float GetMapY(Position gamePosition)
+    private void DrawNavMeshObj(Graphics g, int id, NavMeshObj obj)
     {
-        //Player is center
-        return _canvasHeight / 2f + (gamePosition.Y - Game.Player.Movement.Source.Y) * Scale * -1.0f;
+        if (_drawObjectGround)
+        {
+            var brush = new SolidBrush(id.ToColor());
+            foreach (var cell in obj.Cells)
+            {
+                g.FillTriangleF(brush, cell.Triangle);
+
+                if (_drawObjectCellID)
+                    g.DrawString($"{cell}", _smallFont, Brushes.Black, cell.Triangle.Center.ToPointF());
+            }
+        }
+
+        if (_drawObjectGlobalEdges)
+        {
+            foreach (var edge in obj.GlobalEdges)
+            {
+                g.DrawLine(edge.Flag.ToPen(), edge.Line);
+
+                if (_drawObjectGlobalEdgeID)
+                    g.DrawString($"{edge}", _smallFont, Brushes.Black, edge.Line.Center.ToPointF());
+            }
+
+        }
+
+        if (_drawObjectInternalEdges)
+        {
+            foreach (var edge in obj.InternalEdges)
+            {
+                g.DrawLine(edge.Flag.ToPen(), edge.Line);
+
+                if (_drawObjectInternalEdgeID)
+                    g.DrawString($"{edge}", _smallFont, Brushes.Black, edge.Line.Center.ToPointF());
+            }
+        }
+    }
+
+    protected override void OnMouseWheel(MouseEventArgs e)
+    {
+        base.OnMouseWheel(e);
+
+        if (_raycastVisualizer)
+            return;
+
+        _zoom += e.Delta * 0.001f;
+
+        if (_zoom < 0.5)
+            _zoom = 0.5f;
+
+        if (_zoom > 1.5)
+            _zoom = 2;
+
+        this.Invalidate();
+    }
+
+    protected override void OnMouseMove(MouseEventArgs e)
+    {
+        base.OnMouseMove(e);
+
+        if (_isDragging)
+        {
+            var dx = _dragPosition.X - e.X;
+            var dy = _dragPosition.Y - e.Y;
+            _dragPosition = e.Location;
+
+            _transform.Offset += new Vector3(dx * (RID.Width / this.Width), 0, dy * (RID.Length / this.Height));
+            _transform.Normalize();
+            _hit = null;
+        }
+
+        _mouseTransform.Region = _transform.Region;
+        _mouseTransform.Offset = new Vector3(_transform.Offset.X - 960.0f + (e.X * (RID.Width / this.Width)), 0.0f, _transform.Offset.Z - 960.0f + (e.Y * (RID.Length / this.Height)));
+        _mouseTransform.Normalize();
+
+        NavMeshManager.ResolveCellAndHeight(_transform);
+        NavMeshManager.ResolveCellAndHeight(_mouseTransform);
+
+        this.Invalidate();
+    }
+    protected override void OnMouseDown(MouseEventArgs e)
+    {
+        base.OnMouseDown(e);
+
+        if (e.Button == MouseButtons.Left && _raycastVisualizer)
+        {
+            try
+            {
+                this.Raycast();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        if (e.Button == MouseButtons.Right)
+            contextRenderSettings.Show(this, e.Location);
+
+        if (e.Button == MouseButtons.Middle)
+        {
+            _dragPosition = e.Location;
+            _isDragging = true;
+        }
+    }
+    protected override void OnMouseUp(MouseEventArgs e)
+    {
+        base.OnMouseUp(e);
+
+        if (e.Button == MouseButtons.Middle)
+            _isDragging = false;
+    }
+
+    private void Raycast()
+    {
+        _hit = null;
+        var source = new NavMeshTransform(_transform);
+        var destination = new NavMeshTransform(_mouseTransform);
+
+        if (!NavMeshManager.Raycast(source, destination, NavMeshRaycastType.Move, out NavMeshRaycastHit? hit) && hit != null)
+        {
+            _hit = hit;
+            return;
+        }
+    }
+
+    private void regionIDToolStripMenuItem_CheckedChange(object sender, EventArgs e)
+    {
+        _drawRegionId = regionIDToolStripMenuItem.Checked;
+        this.Invalidate();
+    }
+
+    private void regionBorderToolStripMenuItem_CheckedChange(object sender, EventArgs e)
+    {
+        _drawRegionBorder = regionBorderToolStripMenuItem.Checked;
+        this.Invalidate();
+    }
+
+    private void globalEdgesToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+    {
+        _drawTerrainGlobalEdges = terrainGlobalEdgesToolStripMenuItem.Checked;
+        this.Invalidate();
+    }
+
+    private void internalEdgesToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+    {
+        _drawTerrainInternalEdges = terrainInternalEdgesToolStripMenuItem.Checked;
+        this.Invalidate();
+    }
+
+    private void globalEdgesToolStripMenuItem1_CheckedChanged(object sender, EventArgs e)
+    {
+        _drawObjectGlobalEdges = objectGlobalEdgesToolStripMenuItem1.Checked;
+        this.Invalidate();
+    }
+
+    private void internalEdgesToolStripMenuItem1_CheckedChanged(object sender, EventArgs e)
+    {
+        _drawObjectInternalEdges = objectInternalEdgesToolStripMenuItem1.Checked;
+        this.Invalidate();
+    }
+
+    private void groundToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+    {
+        _drawObjectGround = objectGroundToolStripMenuItem.Checked;
+        this.Invalidate();
+    }
+
+    private void terrainCellIDToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        _drawTerrainCellID = terrainCellIDToolStripMenuItem.Checked;
+        this.Invalidate();
+    }
+
+    private void terrainGlobalEdgeIDToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        _drawTerrainGlobalEdgeID = terrainGlobalEdgeIDToolStripMenuItem.Checked;
+        this.Invalidate();
+    }
+
+    private void terrainInternalEdgeIDToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        _drawTerrainInternalEdgeID = terrainInternalEdgeIDToolStripMenuItem.Checked;
+        this.Invalidate();
+    }
+
+    private void objectCellIDToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        _drawObjectCellID = objectCellIDToolStripMenuItem.Checked;
+        this.Invalidate();
+    }
+
+    private void objectGlobalEdgeIDToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        _drawObjectGlobalEdgeID = objectGlobalEdgeIDToolStripMenuItem.Checked;
+        this.Invalidate();
+    }
+
+    private void objectInternalEdgeIDToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        _drawObjectInternalEdgeID = objectInternalEdgeIDToolStripMenuItem.Checked;
+        this.Invalidate();
+    }
+
+    private void raycastMenuItem_CheckedChanged(object sender, EventArgs e)
+    {
+        _raycastVisualizer = raycastMenuItem.Checked;
+        _zoom = 1;
+
+        this.Invalidate();
     }
 }
