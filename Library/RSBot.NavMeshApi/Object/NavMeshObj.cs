@@ -1,10 +1,11 @@
-﻿using System.Diagnostics;
-using System.Numerics;
-using RSBot.NavMeshApi.Cells;
+﻿using RSBot.NavMeshApi.Cells;
 using RSBot.NavMeshApi.Edges;
 using RSBot.NavMeshApi.Extensions;
 using RSBot.NavMeshApi.Mathematics;
 using RSBot.NavMeshApi.Terrain;
+
+using System.Diagnostics;
+using System.Numerics;
 
 namespace RSBot.NavMeshApi.Object;
 
@@ -14,7 +15,7 @@ public class NavMeshObj : NavMesh
 
     public string Name { get; private set; }
     public NavMeshStructOption StructOption { get; set; }
-    public override Region Region => Region.Empty;
+    public override RID Region => RID.Empty;
 
     public List<NavMeshCellTri> Cells { get; } = new List<NavMeshCellTri>();
 
@@ -309,6 +310,8 @@ public class NavMeshObj : NavMesh
                     continue;
 
                 // Found a suitable edge for intersection testing
+                Debug.WriteLine($"NavMeshObj: Intersected with {edge}");
+
                 intersectionEdge = edge;
                 intersectionPoint = point;
                 break;
@@ -333,8 +336,8 @@ public class NavMeshObj : NavMesh
                     Cell = curCell,
                     Instance = instance,
                     Edge = intersectionEdge,
-                    Position = intersectionPoint,
-                    Region = instance.Region,
+                    Position = instance.LocalToWorld.MultiplyPoint(intersectionPoint),
+                    Region = instance.Parent.Region,
                 };
                 return NavMeshRaycastResult.Collision;
             }
@@ -342,8 +345,12 @@ public class NavMeshObj : NavMesh
             // If remoteCell is NULL we've hit an outline edge
             if (remoteCell == null)
             {
+                Debug.WriteLine("NavMeshObj: remoteCell was NULL, now trying to transition");
+
                 if (instance.TryGetLinkEdge(intersectionEdge.Index, out NavMeshLinkEdge linkEdge))
                 {
+                    Debug.WriteLine($"NavMeshObj: trying to transiton via LinkEdge {linkEdge}");
+
                     var linkedInst = linkEdge.LinkedInst;
                     var linkedCell = linkEdge.LinkedCell;
 
@@ -390,6 +397,8 @@ public class NavMeshObj : NavMesh
                     return NavMeshRaycastResult.Transition;
                 }
 
+                Debug.WriteLine($"NavMeshObj: trying to transtion to terrain");
+
                 var outsidePoint = intersectionPoint; // vIntersection
                 intersectionEdge.OffsetByEdgeNormal(curCell, ref outsidePoint);
 
@@ -404,8 +413,8 @@ public class NavMeshObj : NavMesh
                         Cell = curCell,
                         Instance = instance,
                         Edge = intersectionEdge,
-                        Region = instance.Region,
-                        Position = intersectionPoint,
+                        Region = instance.Parent.Region,
+                        Position = instance.LocalToWorld.MultiplyPoint(intersectionPoint),
                     };
                     return NavMeshRaycastResult.Collision;
                 }

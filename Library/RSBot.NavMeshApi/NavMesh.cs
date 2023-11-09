@@ -7,7 +7,7 @@ namespace RSBot.NavMeshApi;
 public abstract class NavMesh
 {
     public abstract NavMeshType Type { get; }
-    public abstract Region Region { get; }
+    public abstract RID Region { get; }
 
     public virtual NavMeshCell GetNavMeshCell(int index) => throw new NotImplementedException();
 

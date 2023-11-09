@@ -1,7 +1,8 @@
-﻿using System.Diagnostics;
-using System.Numerics;
-using RSBot.NavMeshApi.Edges;
+﻿using RSBot.NavMeshApi.Edges;
 using RSBot.NavMeshApi.Object;
+
+using System.Diagnostics;
+using System.Numerics;
 
 namespace RSBot.NavMeshApi.Terrain;
 
@@ -23,7 +24,20 @@ public class NavMeshInstObj : NavMeshInst
             Debug.WriteLine($"Couldn't find {nameof(Object.NavMeshObj)}#{index} for {nameof(NavMeshApi.NavMeshInst)}");
         this.NavMeshObj = obj;
 
-        this.LocalPosition = reader.ReadVector3();
+        var localPosition = reader.ReadVector3();
+        //while (localPosition.X >= RID.Width)
+        //    localPosition.X -= RID.Width;
+
+        //while (localPosition.X < 0.0f)
+        //    localPosition.X += RID.Width;
+
+        //while (localPosition.Z >= RID.Length)
+        //    localPosition.Z -= RID.Length;
+
+        //while (localPosition.Z < 0.0f)
+        //    localPosition.Z += RID.Length;
+        this.LocalPosition = localPosition;
+
         reader.ReadInt16(); //Type: -1 = Static, 0 = SkinedNavMesh?
         this.Yaw = reader.ReadFloat();
         this.ID = reader.ReadUInt16();
@@ -34,7 +48,7 @@ public class NavMeshInstObj : NavMeshInst
         this.Region = reader.ReadUInt16();
         this.WorldUID = ((ushort)this.Region << 16) | this.ID;
 
-        this.LocalToWorld = Matrix4x4.CreateRotationY(-this.Yaw) * Matrix4x4.CreateTranslation(this.LocalPosition);
+        this.LocalToWorld = Matrix4x4.CreateRotationY(-this.Yaw) * Matrix4x4.CreateTranslation(localPosition);
         var result = Matrix4x4.Invert(this.LocalToWorld, out var worldToLocal);
         Debug.Assert(result, "Failed to invert LocalToWorld matrix");
 

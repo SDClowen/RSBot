@@ -7,7 +7,7 @@ namespace RSBot.NavMeshApi;
 
 public class NavMeshRaycastHit
 {
-    public Region Region { get; set; }
+    public RID Region { get; set; }
     public Vector3 Position { get; set; }
     public Vector3 World => this.Region.Position + this.Position;
     public NavMeshEdge Edge { get; set; }

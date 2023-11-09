@@ -1,11 +1,12 @@
-﻿using System.Text.RegularExpressions;
-using RSBot.NavMeshApi.Mathematics;
+﻿using RSBot.NavMeshApi.Mathematics;
+
+using System.Text.RegularExpressions;
 
 namespace RSBot.NavMeshApi.Dungeon;
 
 public class DungeonInfo
 {
-    private readonly Dictionary<Region, string> _dungeons = new Dictionary<Region, string>();
+    private readonly Dictionary<RID, string> _dungeons = new Dictionary<RID, string>();
 
     public void Load(Stream stream)
     {
@@ -35,12 +36,12 @@ public class DungeonInfo
                 if (service == 0)
                     continue;
 
-                _dungeons.Add(new Region(dungeonId) { IsDungeon = true }, dungeonPath);
+                _dungeons.Add(new RID(dungeonId) { IsDungeon = true }, dungeonPath);
             }
         }
     }
 
-    public string this[Region region]
+    public string this[RID region]
     {
         get
         {

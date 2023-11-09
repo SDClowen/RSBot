@@ -1,5 +1,6 @@
-﻿using System.Diagnostics;
-using RSBot.NavMeshApi.Mathematics;
+﻿using RSBot.NavMeshApi.Mathematics;
+
+using System.Diagnostics;
 
 namespace RSBot.NavMeshApi;
 
@@ -49,7 +50,7 @@ public class RegionManager
         }
     }
 
-    public bool IsEnabled(Region region)
+    public bool IsEnabled(RID region)
     {
         if (region.IsDungeon)
             return false;
@@ -60,5 +61,5 @@ public class RegionManager
         return (_mapRegions[(ushort)region >> 3] & (byte)(128 >> (ushort)region % 8)) != 0;
     }
 
-    public bool IsEnabled(byte x, byte z) => this.IsEnabled(new Region(x, z));
+    public bool IsEnabled(byte x, byte z) => this.IsEnabled(new RID(x, z));
 }

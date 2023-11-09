@@ -1,10 +1,16 @@
-﻿using System.Numerics;
-using RSBot.NavMeshApi.Mathematics;
+﻿using RSBot.NavMeshApi.Mathematics;
+
+using System.Numerics;
 
 namespace RSBot.NavMeshApi.Extensions;
 
 public static class Matrix4x4Extensions
 {
+    public static Vector3 MultiplyPoint(this Matrix4x4 matrix, Vector3 point)
+    {
+        return Vector3.Transform(point, matrix);
+    }
+
     public static LineF MultiplyLine(this Matrix4x4 matrix, LineF line)
     {
         var min = Vector3.Transform(line.Min, matrix);

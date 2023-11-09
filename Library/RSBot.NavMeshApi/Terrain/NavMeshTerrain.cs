@@ -1,10 +1,11 @@
-﻿using System.Diagnostics;
-using System.Numerics;
-using System.Runtime.CompilerServices;
-using RSBot.NavMeshApi.Cells;
+﻿using RSBot.NavMeshApi.Cells;
 using RSBot.NavMeshApi.Edges;
 using RSBot.NavMeshApi.Extensions;
 using RSBot.NavMeshApi.Mathematics;
+
+using System.Diagnostics;
+using System.Numerics;
+using System.Runtime.CompilerServices;
 
 namespace RSBot.NavMeshApi.Terrain;
 
@@ -27,7 +28,7 @@ public class NavMeshTerrain : NavMesh
     public const float Width = TILES_X * NavMeshTile.Width;
     public const float Length = TILES_Z * NavMeshTile.Length;
 
-    private Region _region;
+    private RID _region;
 
     public List<NavMeshInstObj> Instances { get; set; } = new List<NavMeshInstObj>();
     public List<NavMeshCellQuad> Cells { get; set; } = new List<NavMeshCellQuad>();
@@ -35,13 +36,13 @@ public class NavMeshTerrain : NavMesh
     public List<NavMeshEdgeGlobal> GlobalEdges { get; set; } = new List<NavMeshEdgeGlobal>();
     public List<NavMeshEdgeInternal> InternalEdges { get; set; } = new List<NavMeshEdgeInternal>();
 
-    public override Region Region => _region;
+    public override RID Region => _region;
 
     private readonly NavMeshTile[] _tileMap = new NavMeshTile[TILES_TOTAL];
     private readonly float[] _heightMap = new float[VERTICES_TOTAL];
     private readonly NavMeshPlane[] _planeMap = new NavMeshPlane[BLOCKS_TOTAL];
 
-    public NavMeshTerrain(Region region)
+    public NavMeshTerrain(RID region)
     {
         _region = region;
     }
@@ -334,10 +335,10 @@ public class NavMeshTerrain : NavMesh
         return NavMeshHitResult.None;
     }
 
-    private NavMeshHitResult GetInstanceIntersection(in LineF line, NavMeshCellQuad curCell, out NavMeshRaycastHit hit)
+    private NavMeshHitResult GetInstanceIntersection(in LineF line, NavMeshCellQuad curCell, out NavMeshRaycastHit? hit)
     {
-        NavMeshEdge hitEdge = null;
-        NavMeshInst hitInstance = null;
+        NavMeshEdge? hitEdge = null;
+        NavMeshInst? hitInstance = null;
         Vector3 hitPoint = Vector3.Zero;
         float hitDistanceSqrt = float.PositiveInfinity;
 
@@ -374,19 +375,17 @@ public class NavMeshTerrain : NavMesh
         }
 
         // Did we hit anything?
-        if (hitEdge == null)
+        if (hitEdge == null || hitInstance == null)
         {
             hit = null;
             return NavMeshHitResult.None;
         }
 
         // transform the hitPoint into world space
-        hitPoint = Vector3.Transform(hitPoint, hitInstance.LocalToWorld);
-
         hit = new NavMeshRaycastHit
         {
             Region = this.Region,
-            Position = hitPoint,
+            Position = hitInstance.LocalToWorld.MultiplyPoint(hitPoint),
             Edge = hitEdge,
             Cell = curCell,
             Instance = hitInstance,

@@ -1,13 +1,14 @@
-﻿using System.Numerics;
-using RSBot.NavMeshApi.Cells;
+﻿using RSBot.NavMeshApi.Cells;
 using RSBot.NavMeshApi.Helper;
 using RSBot.NavMeshApi.Mathematics;
+
+using System.Numerics;
 
 namespace RSBot.NavMeshApi;
 
 public class NavMeshTransform
 {
-    public Region Region;
+    public RID Region;
     public Vector3 Offset;
     public Vector3 Position => Region.Position + Offset;
 
@@ -15,7 +16,7 @@ public class NavMeshTransform
     public NavMeshCell Cell { get; set; }
     public NavMeshInst Instance { get; set; }
 
-    public NavMeshTransform(Region region, Vector3 offset)
+    public NavMeshTransform(RID region, Vector3 offset)
     {
         Region = region;
         Offset = offset;
@@ -32,10 +33,10 @@ public class NavMeshTransform
 
     public NavMeshTransform(Vector3 worldPosition)
     {
-        var regionX = (byte)(worldPosition.X / Region.Width);
-        var regionZ = (byte)(worldPosition.Z / Region.Length);
+        var regionX = (byte)(worldPosition.X / RID.Width);
+        var regionZ = (byte)(worldPosition.Z / RID.Length);
 
-        Region = new Region(regionX, regionZ);
+        Region = new RID(regionX, regionZ);
         Offset = worldPosition - Region.Position;
     }
 
@@ -47,15 +48,15 @@ public class NavMeshTransform
 
         const float breakThreshold = 0.01f;
 
-        if (Offset.X.IsApproximately(Region.Width))
+        if (Offset.X.IsApproximately(RID.Width))
             Offset.X = breakThreshold;
         else if (Offset.X.IsApproximately(0.0f))
-            Offset.X = Region.Width - breakThreshold;
+            Offset.X = RID.Width - breakThreshold;
 
-        if (Offset.Z.IsApproximately(Region.Length))
+        if (Offset.Z.IsApproximately(RID.Length))
             Offset.Z = breakThreshold;
         else if (Offset.Z.IsApproximately(0.0f))
-            Offset.Z = Region.Length - breakThreshold;
+            Offset.Z = RID.Length - breakThreshold;
     }
 
     public void Normalize()
@@ -63,28 +64,28 @@ public class NavMeshTransform
         if (Region.IsDungeon)
             return;
 
-        while (Offset.X >= Region.Width)
+        while (Offset.X >= RID.Width)
         {
             Region.X++;
-            Offset.X -= Region.Width;
+            Offset.X -= RID.Width;
         }
 
         while (Offset.X < 0.0f)
         {
             Region.X--;
-            Offset.X += Region.Width;
+            Offset.X += RID.Width;
         }
 
-        while (Offset.Z >= Region.Length)
+        while (Offset.Z >= RID.Length)
         {
             Region.Z++;
-            Offset.Z -= Region.Length;
+            Offset.Z -= RID.Length;
         }
 
         while (Offset.Z < 0.0f)
         {
             Region.Z--;
-            Offset.Z += Region.Length;
+            Offset.Z += RID.Length;
         }
     }
 
@@ -93,28 +94,28 @@ public class NavMeshTransform
         if (Region.IsDungeon)
             return;
 
-        if (Offset.X >= Region.Width)
+        if (Offset.X >= RID.Width)
         {
             Region.X++;
-            Offset.X -= Region.Width;
+            Offset.X -= RID.Width;
         }
 
         if (Offset.X < 0.0f)
         {
             Region.X--;
-            Offset.X += Region.Width;
+            Offset.X += RID.Width;
         }
 
-        if (Offset.Z >= Region.Length)
+        if (Offset.Z >= RID.Length)
         {
             Region.Z++;
-            Offset.Z -= Region.Length;
+            Offset.Z -= RID.Length;
         }
 
         if (Offset.Z < 0.0f)
         {
             Region.Z--;
-            Offset.Z += Region.Length;
+            Offset.Z += RID.Length;
         }
     }
 
@@ -125,29 +126,29 @@ public class NavMeshTransform
             return;
 
         // move x back into region space
-        if (Offset.X >= Region.Width)
+        if (Offset.X >= RID.Width)
         {
-            Region.X += (byte)(Offset.X / Region.Width);
-            Offset.X %= Region.Width;
+            Region.X += (byte)(Offset.X / RID.Width);
+            Offset.X %= RID.Width;
         }
 
         if (Offset.X < 0.0f)
         {
-            Region.X += (byte)(Offset.X / Region.Width);
-            Offset.X %= Region.Width;
+            Region.X += (byte)(Offset.X / RID.Width);
+            Offset.X %= RID.Width;
         }
 
         // move z back into region space
-        if (Offset.Z >= Region.Length)
+        if (Offset.Z >= RID.Length)
         {
-            Region.Z += (byte)(Offset.Z / Region.Length);
-            Offset.Z %= Region.Length;
+            Region.Z += (byte)(Offset.Z / RID.Length);
+            Offset.Z %= RID.Length;
         }
 
         if (Offset.Z < 0.0f)
         {
-            Region.Z += (byte)(Offset.Z / Region.Length);
-            Offset.Z %= Region.Length;
+            Region.Z += (byte)(Offset.Z / RID.Length);
+            Offset.Z %= RID.Length;
         }
     }
 }

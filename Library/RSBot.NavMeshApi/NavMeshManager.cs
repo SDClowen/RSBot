@@ -22,10 +22,10 @@ public static class NavMeshManager
 
     public static Vector2[] NormalCache = new Vector2[NORMAL_CACHE_SIZE];
 
-    private static readonly Dictionary<Region, NavMesh> _regionCache = new Dictionary<Region, NavMesh>();
-    private static readonly Dictionary<Region, NavMeshTerrain> _terrainCache = new Dictionary<Region, NavMeshTerrain>();
+    private static readonly Dictionary<RID, NavMesh> _regionCache = new Dictionary<RID, NavMesh>();
+    private static readonly Dictionary<RID, NavMeshTerrain> _terrainCache = new Dictionary<RID, NavMeshTerrain>();
     private static readonly Dictionary<int, NavMeshObj> _objectCache = new Dictionary<int, NavMeshObj>();
-    private static readonly Dictionary<Region, NavMeshDungeon> _dungeonCache = new Dictionary<Region, NavMeshDungeon>();
+    private static readonly Dictionary<RID, NavMeshDungeon> _dungeonCache = new Dictionary<RID, NavMeshDungeon>();
 
     public static void Initialize(IFileSystem dataFileSystem)
     {
@@ -70,8 +70,8 @@ public static class NavMeshManager
             // Move destination into the same region space as source.
             if (dst.Region != src.Region)
             {
-                var localX = ((dst.Region.X - src.Region.X) * Region.Width) + dst.Offset.X;
-                var localZ = ((dst.Region.Z - src.Region.Z) * Region.Length) + dst.Offset.Z;
+                var localX = ((dst.Region.X - src.Region.X) * RID.Width) + dst.Offset.X;
+                var localZ = ((dst.Region.Z - src.Region.Z) * RID.Length) + dst.Offset.Z;
                 dst.Offset = new Vector3(localX, dst.Offset.Y, localZ);
                 dst.Region = src.Region;
             }
@@ -183,7 +183,7 @@ public static class NavMeshManager
         }
     }
 
-    public static NavMeshTerrain LoadNavMeshTerrain(string fileName, Region region)
+    public static NavMeshTerrain LoadNavMeshTerrain(string fileName, RID region)
     {
         var terrain = new NavMeshTerrain(region);
         if (!_dataFileSystem.TryGetFile(fileName, out var file))
@@ -195,7 +195,7 @@ public static class NavMeshManager
         return terrain;
     }
 
-    public static NavMeshDungeon LoadNavMeshDungeon(string fileName, Region region)
+    public static NavMeshDungeon LoadNavMeshDungeon(string fileName, RID region)
     {
         var dungeon = new NavMeshDungeon(region);
 
@@ -307,7 +307,7 @@ public static class NavMeshManager
 
     #endregion Loading
 
-    public static bool TryGetNavMesh(Region region, out NavMesh mesh)
+    public static bool TryGetNavMesh(RID region, out NavMesh mesh)
     {
         if (_regionCache.TryGetValue(region, out mesh))
             return true;
@@ -336,7 +336,7 @@ public static class NavMeshManager
         }
     }
 
-    public static bool TryGetNavMeshTerrain(Region region, out NavMeshTerrain terrain)
+    public static bool TryGetNavMeshTerrain(RID region, out NavMeshTerrain terrain)
     {
         if (!RegionManager.IsEnabled(region))
         {
@@ -368,7 +368,7 @@ public static class NavMeshManager
         return obj != null;
     }
 
-    public static bool TryGetNavMeshDungeon(Region region, out NavMeshDungeon dungeon)
+    public static bool TryGetNavMeshDungeon(RID region, out NavMeshDungeon dungeon)
     {
         if (!region.IsDungeon)
         {

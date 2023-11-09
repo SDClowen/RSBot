@@ -1,8 +1,9 @@
-﻿using System.Numerics;
-using RSBot.NavMeshApi.Cells;
+﻿using RSBot.NavMeshApi.Cells;
 using RSBot.NavMeshApi.Edges;
 using RSBot.NavMeshApi.Mathematics;
 using RSBot.NavMeshApi.Object;
+
+using System.Numerics;
 
 namespace RSBot.NavMeshApi;
 
@@ -17,7 +18,7 @@ public abstract class NavMeshInst
     public Matrix4x4 WorldToLocal { get; set; }
 
     public Dictionary<int, NavMeshLinkEdge> LinkEdges { get; } = new Dictionary<int, NavMeshLinkEdge>();
-    public Region Region { get; set; }
+    public RID Region { get; set; }
     public float Yaw { get; set; }
 
     public bool TryGetNavMeshCell(ref Vector3 position, out NavMeshCell cell)

@@ -4,15 +4,15 @@ using System.Numerics;
 namespace RSBot.NavMeshApi.Mathematics;
 
 [DebuggerDisplay("{_value} [{this.X}x{this.Z}]")]
-public struct Region : IEquatable<Region>
+public struct RID : IEquatable<RID>
 {
     public const float Width = 1920f;
     public const float Length = 1920f;
 
     public const int CenterX = 135;
     public const int CenterZ = 92;
-    public static readonly Region Center = new Region(CenterX, CenterZ);
-    public static readonly Region Empty = new Region(0);
+    public static readonly RID Center = new RID(CenterX, CenterZ);
+    public static readonly RID Empty = new RID(0);
 
     #region Reasons to use C++
 
@@ -84,17 +84,17 @@ public struct Region : IEquatable<Region>
 
     #region Constructors
 
-    public Region(short id)
+    public RID(short id)
     {
         _value = unchecked(((ushort)id));
     }
 
-    public Region(ushort id)
+    public RID(ushort id)
     {
         _value = id;
     }
 
-    public Region(byte x, byte z)
+    public RID(byte x, byte z)
     {
         _value = 0;
 
@@ -107,40 +107,52 @@ public struct Region : IEquatable<Region>
 
     #region Methods
 
+    public static Vector3 Transform(Vector3 value, RID sourceRegion, RID targetRegion)
+    {
+        if (sourceRegion != targetRegion)
+        {
+            var localX = value.X + ((targetRegion.X - sourceRegion.X) * Width);
+            var localZ = value.Z + ((targetRegion.Z - sourceRegion.Z) * Length);
+
+            value = new Vector3(localX, 0, localZ);
+        }
+        return value;
+    }
+
     public override string ToString() => $"{_value} [{this.X}x{this.Z}]";
 
     public override bool Equals(object obj)
     {
-        if (obj is Region region)
+        if (obj is RID region)
             return this.Equals(region);
 
         return false;
     }
 
-    public bool Equals(Region other) => _value == other._value;
+    public bool Equals(RID other) => _value == other._value;
 
     public override int GetHashCode() => _value.GetHashCode();
 
     #endregion Methods
 
-    public static Region Create(byte x, byte z)
+    public static RID Create(byte x, byte z)
     {
-        return new Region(x, z);
+        return new RID(x, z);
     }
 
     #region Operators
 
-    public static implicit operator short(Region region) => unchecked((short)region._value);
+    public static implicit operator short(RID region) => unchecked((short)region._value);
 
-    public static implicit operator Region(short value) => new Region(value);
+    public static implicit operator RID(short value) => new RID(value);
 
-    public static implicit operator ushort(Region region) => region._value;
+    public static implicit operator ushort(RID region) => region._value;
 
-    public static implicit operator Region(ushort value) => new Region(value);
+    public static implicit operator RID(ushort value) => new RID(value);
 
-    public static bool operator ==(Region left, Region right) => left.Equals(right);
+    public static bool operator ==(RID left, RID right) => left.Equals(right);
 
-    public static bool operator !=(Region left, Region right) => !(left == right);
+    public static bool operator !=(RID left, RID right) => !(left == right);
 
     #endregion Operators
 }

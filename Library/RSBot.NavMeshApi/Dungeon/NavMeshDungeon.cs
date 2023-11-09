@@ -1,15 +1,16 @@
-﻿using System.Diagnostics;
-using System.Numerics;
-using RSBot.NavMeshApi.Cells;
+﻿using RSBot.NavMeshApi.Cells;
 using RSBot.NavMeshApi.Edges;
 using RSBot.NavMeshApi.Extensions;
 using RSBot.NavMeshApi.Mathematics;
+
+using System.Diagnostics;
+using System.Numerics;
 
 namespace RSBot.NavMeshApi.Dungeon;
 
 public class NavMeshDungeon : NavMesh
 {
-    private Region _region;
+    private RID _region;
 
     public BoundingBoxF BoundingBox { get; set; }
 
@@ -20,9 +21,9 @@ public class NavMeshDungeon : NavMesh
     public DungeonVoxelGrid VoxelGrid { get; set; }
 
     public override NavMeshType Type => NavMeshType.Dungeon;
-    public override Region Region => _region;
+    public override RID Region => _region;
 
-    public NavMeshDungeon(Region region)
+    public NavMeshDungeon(RID region)
     {
         _region = region;
     }

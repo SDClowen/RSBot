@@ -1,11 +1,12 @@
-﻿using System.Drawing;
-using System.Numerics;
-using RSBot.Core;
+﻿using RSBot.Core;
 using RSBot.Core.Objects;
 using RSBot.NavMeshApi;
 using RSBot.NavMeshApi.Dungeon;
 using RSBot.NavMeshApi.Edges;
 using RSBot.NavMeshApi.Terrain;
+
+using System.Drawing;
+using System.Numerics;
 
 namespace RSBot.Map.Renderer;
 
@@ -34,12 +35,12 @@ internal class NavMeshRenderer
 
         if (navMesh is NavMeshTerrain terrain)
         {
-            DrawNavMeshTerrain(terrain, terrainConfig);
+            this.DrawNavMeshTerrain(terrain, terrainConfig);
             foreach (var navMeshObjInst in terrain.Instances)
-                DrawNavMeshInstObj(terrain.Region, navMeshObjInst, objConfig);
+                this.DrawNavMeshInstObj(terrain.Region, navMeshObjInst, objConfig);
         }
         else if (navMesh is NavMeshDungeon dungeon)
-            DrawNavMeshDungeon(dungeon);
+            this.DrawNavMeshDungeon(dungeon);
 
     }
 
@@ -48,7 +49,7 @@ internal class NavMeshRenderer
         //ToDO Further dungeon investigations!
     }
 
-    private void DrawNavMeshInstObj(NavMeshApi.Mathematics.Region region, NavMeshInst instObj, NavMeshObjRenderConfig config)
+    private void DrawNavMeshInstObj(NavMeshApi.Mathematics.RID region, NavMeshInst instObj, NavMeshObjRenderConfig config)
     {
         var transformedPositions = new Vector3[instObj.NavMeshObj.Vertices.Length];
         for (var iVertex = 0; iVertex < instObj.NavMeshObj.Vertices.Length; iVertex++)
@@ -68,10 +69,10 @@ internal class NavMeshRenderer
                 var posA = transformedPositions[globalEdge.Vertex0.Index];
                 var posB = transformedPositions[globalEdge.Vertex1.Index];
 
-                var positionA = GetWorldPosition(region, posA);
-                var positionB = GetWorldPosition(region, posB);
+                var positionA = this.GetWorldPosition(region, posA);
+                var positionB = this.GetWorldPosition(region, posB);
 
-                DrawLine(positionA, positionB, config.Color);
+                this.DrawLine(positionA, positionB, config.Color);
             }
         }
 
@@ -85,10 +86,10 @@ internal class NavMeshRenderer
                 var posA = transformedPositions[internalEdge.Vertex0.Index];
                 var posB = transformedPositions[internalEdge.Vertex1.Index];
 
-                var positionA = GetWorldPosition(region, posA);
-                var positionB = GetWorldPosition(region, posB);
-                
-                DrawLine(positionA, positionB, config.Color);
+                var positionA = this.GetWorldPosition(region, posA);
+                var positionB = this.GetWorldPosition(region, posB);
+
+                this.DrawLine(positionA, positionB, config.Color);
             }
         }
     }
@@ -101,7 +102,7 @@ internal class NavMeshRenderer
             foreach (var internalEdge in terrain.InternalEdges)
             {
                 if (internalEdge.IsBlocked)
-                    DrawEdge(terrain.Region, internalEdge, config.Color);
+                    this.DrawEdge(terrain.Region, internalEdge, config.Color);
 
             }
         }
@@ -111,17 +112,17 @@ internal class NavMeshRenderer
             foreach (var globalEdge in terrain.GlobalEdges)
             {
                 if (globalEdge.IsBlocked)
-                    DrawEdge(terrain.Region, globalEdge, config.Color);
+                    this.DrawEdge(terrain.Region, globalEdge, config.Color);
             }
         }
     }
 
-    private void DrawEdge(NavMeshApi.Mathematics.Region region, NavMeshEdge edge, Pen color)
+    private void DrawEdge(NavMeshApi.Mathematics.RID region, NavMeshEdge edge, Pen color)
     {
-        var posA = GetWorldPosition(region, edge.Line.Min);
-        var posB = GetWorldPosition(region, edge.Line.Max);
+        var posA = this.GetWorldPosition(region, edge.Line.Min);
+        var posB = this.GetWorldPosition(region, edge.Line.Max);
 
-        DrawLine(posA, posB, color);
+        this.DrawLine(posA, posB, color);
     }
 
     private void DrawLine(Position source, Position destination, Pen color)
@@ -135,10 +136,10 @@ internal class NavMeshRenderer
         if (source.DistanceTo(destination) > 150)
             return;
 
-        var srcX = GetMapX(source);
-        var srcY = GetMapY(source);
-        var destinationX = GetMapX(destination);
-        var destinationY = GetMapY(destination);
+        var srcX = this.GetMapX(source);
+        var srcY = this.GetMapY(source);
+        var destinationX = this.GetMapX(destination);
+        var destinationY = this.GetMapY(destination);
 
         //Leaves viewscope?
         if (srcX > _canvasWidth) srcX = _canvasWidth;
@@ -148,12 +149,12 @@ internal class NavMeshRenderer
         if (destinationX > _canvasWidth) destinationX = _canvasWidth;
         if (destinationY > _canvasHeight) destinationY = _canvasHeight;
         if (destinationY < 0) destinationY = 0;
-        if (destinationX  < 0) destinationX = 0;
+        if (destinationX < 0) destinationX = 0;
 
         _graphics.DrawLine(color, srcX, srcY, destinationX, destinationY);
     }
 
-    private Position GetWorldPosition(NavMeshApi.Mathematics.Region region, Vector3 localPosition)
+    private Position GetWorldPosition(NavMeshApi.Mathematics.RID region, Vector3 localPosition)
     {
         return new Position(region.X, region.Z, localPosition.X, localPosition.Z, localPosition.Y);
     }

@@ -1,7 +1,8 @@
-﻿using System.Diagnostics;
+﻿using RSBot.NavMeshApi.Mathematics;
+
+using System.Diagnostics;
 using System.Numerics;
 using System.Text;
-using RSBot.NavMeshApi.Mathematics;
 
 namespace RSBot.NavMeshApi;
 
@@ -50,7 +51,7 @@ public class NavMeshReader : BinaryReader
 
     public float ReadFloat() => this.ReadSingle();
 
-    public Region ReadRegion() => new Region(this.ReadUInt16());
+    public RID ReadRegion() => new RID(this.ReadUInt16());
 
     public Vector2 ReadVector2() => new Vector2(this.ReadFloat(), this.ReadFloat());
 

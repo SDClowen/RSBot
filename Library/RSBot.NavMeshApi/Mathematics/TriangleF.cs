@@ -1,5 +1,6 @@
-﻿using System.Numerics;
-using RSBot.NavMeshApi.Extensions;
+﻿using RSBot.NavMeshApi.Extensions;
+
+using System.Numerics;
 
 namespace RSBot.NavMeshApi.Mathematics;
 
@@ -86,18 +87,6 @@ public struct TriangleF
             delta = Vector2.Normalize(delta);
             delta *= TOLERANCE;
         }
-        vPos.X += delta.X;
-        vPos.Z += delta.Y;
-    }
-
-    public void MoveTowardsCenter2(ref Vector3 vPos, float CELL_DISPLACE_MULTIPLER)
-    {
-        var delta = this.Center.ToVector2() - vPos.ToVector2();
-        //if (delta.sqrMagnitude > CELL_DISPLACE_MULTIPLER)
-        //{
-        delta = Vector2.Normalize(delta);
-        delta *= CELL_DISPLACE_MULTIPLER;
-        //}
         vPos.X += delta.X;
         vPos.Z += delta.Y;
     }
