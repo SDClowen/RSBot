@@ -618,6 +618,7 @@ public partial class Main : UserControl
     private void checkEnableCollisions_CheckedChanged(object sender, EventArgs e)
     {
         CollisionManager.Enabled = checkEnableCollisions.Checked;
+        CollisionManager.Update(Game.Player.Position.Region);
     }
 
     /// <summary>

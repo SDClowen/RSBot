@@ -164,6 +164,14 @@ public static class NavMeshManager
         //}
     }
 
+    public static void InvalidateCaches()
+    {
+        _objectCache.Clear();
+        _regionCache.Clear();
+        _dungeonCache.Clear();
+        _terrainCache.Clear();
+    }
+
     public static NavMeshObj LoadNavMeshObj(string fileName)
     {
         switch (fileName[fileName.Length - 1])
