@@ -105,7 +105,7 @@ public partial class NavMeshRenderer : UserControl
         g.DrawString($"Player: {_transform}", DefaultFont, Brushes.Black, 0, 0);
         g.DrawString($"Cursor: {_mouseTransform}", DefaultFont, Brushes.Black, 0, 12);
         if (_hit != null)
-            g.DrawString($"Hit: {_mouseTransform}", DefaultFont, Brushes.Black, 0, 24);
+            g.DrawString($"Hit: {_hit}", DefaultFont, Brushes.Black, 0, 24);
 
     }
 
