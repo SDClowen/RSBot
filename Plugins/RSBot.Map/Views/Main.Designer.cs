@@ -60,7 +60,7 @@ namespace RSBot.Map.Views
             label1.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label1.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
             label1.GradientAnimation = false;
-            label1.Location = new System.Drawing.Point(18, 339);
+            label1.Location = new System.Drawing.Point(18, 350);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(17, 13);
             label1.TabIndex = 1;
@@ -74,7 +74,7 @@ namespace RSBot.Map.Views
             label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label2.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
             label2.GradientAnimation = false;
-            label2.Location = new System.Drawing.Point(120, 339);
+            label2.Location = new System.Drawing.Point(120, 350);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(17, 13);
             label2.TabIndex = 2;
@@ -88,7 +88,7 @@ namespace RSBot.Map.Views
             lblX.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             lblX.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
             lblX.GradientAnimation = false;
-            lblX.Location = new System.Drawing.Point(41, 339);
+            lblX.Location = new System.Drawing.Point(41, 350);
             lblX.Name = "lblX";
             lblX.Size = new System.Drawing.Size(13, 13);
             lblX.TabIndex = 4;
@@ -102,7 +102,7 @@ namespace RSBot.Map.Views
             lblY.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             lblY.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
             lblY.GradientAnimation = false;
-            lblY.Location = new System.Drawing.Point(143, 339);
+            lblY.Location = new System.Drawing.Point(143, 350);
             lblY.Name = "lblY";
             lblY.Size = new System.Drawing.Size(13, 13);
             lblY.TabIndex = 5;
@@ -127,7 +127,7 @@ namespace RSBot.Map.Views
             mapCanvas.BackColor = System.Drawing.Color.FromArgb(64, 64, 64);
             mapCanvas.Location = new System.Drawing.Point(18, 46);
             mapCanvas.Name = "mapCanvas";
-            mapCanvas.Size = new System.Drawing.Size(300, 290);
+            mapCanvas.Size = new System.Drawing.Size(300, 300);
             mapCanvas.TabIndex = 0;
             mapCanvas.MouseClick += mapCanvas_MouseClick;
             // 

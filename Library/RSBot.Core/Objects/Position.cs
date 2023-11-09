@@ -26,17 +26,17 @@ public struct Position
             if (Region.IsDungeon)
                 return;
 
-            while (_XOffset < 0)
-            {
-                _XOffset += 1920;
-                Region.X -= 1;
-            }
+            //while (_XOffset < 0)
+            //{
+            //    _XOffset += 1920;
+            //    Region.X -= 1;
+            //}
 
-            while (_XOffset > 1920)
-            {
-                _XOffset -= 1920;
-                Region.X += 1;
-            }
+            //while (_XOffset > 1920)
+            //{
+            //    _XOffset -= 1920;
+            //    Region.X += 1;
+            //}
         }
     }
 
@@ -50,20 +50,20 @@ public struct Position
         {
             _YOffset = value;
 
-            if (Region.IsDungeon)
-                return;
+            //if (Region.IsDungeon)
+            //    return;
 
-            while (_YOffset < 0)
-            {
-                _YOffset += 1920;
-                Region.Y -= 1;
-            }
+            //while (_YOffset < 0)
+            //{
+            //    _YOffset += 1920;
+            //    Region.Y -= 1;
+            //}
 
-            while (_YOffset > 1920)
-            {
-                _YOffset -= 1920;
-                Region.Y += 1;
-            }
+            //while (_YOffset > 1920)
+            //{
+            //    _YOffset -= 1920;
+            //    Region.Y += 1;
+            //}
         }
     }
 

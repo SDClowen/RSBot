@@ -13,6 +13,7 @@ using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
+using RSBot.Map.Renderer;
 
 namespace RSBot.Map.Views;
 
@@ -286,9 +287,10 @@ public partial class Main : UserControl
                             DrawCircleAt(graphics, entry.Position, Color.Wheat.Alpha(100), 6);
 
                         //Other style for mobs behind obstacles
-                        if (entry.IsBehindObstacle)
+                        if (entry.IsBehindObstacle) {
                             DrawCircleAt(graphics, entry.Position, Color.DarkRed.Alpha(100), 6);
-
+                            DrawLineAt(graphics, Game.Player.Movement.Source, entry.Position, Pens.DarkRed);
+                        }
                         if (entry.Rarity == MonsterRarity.Unique || entry.Rarity == MonsterRarity.Unique2)
                             DrawPointAt(graphics, entry.Position, 5);
                         else
@@ -358,32 +360,13 @@ public partial class Main : UserControl
 
     private void DrawCollisions(Graphics gfx)
     {
-        if (CollisionManager.HasActiveMeshes && CollisionManager.Enabled)
+        if (!checkEnableCollisions.Checked || !_debug)
+            return;
+
+        foreach (var navMesh in CollisionManager.GetActiveMeshes().Where(x => x != null))
         {
-            foreach (var collisionNavmesh in CollisionManager.ActiveCollisionMeshes)
-            {
-                var colliders = collisionNavmesh.Collisions
-                    .Where(c => c.Source.DistanceToPlayer() < 100 || c.Destination.DistanceToPlayer() < 100);
-
-                foreach (var collider in colliders)
-                    DrawLineAt(gfx, collider.Source, collider.Destination, Pens.Red);
-            }
-
-            if (!SpawnManager.TryGetEntities<SpawnedEntity>(out var entities))
-                return;
-
-            foreach (var entity in entities.Where(e => e.IsBehindObstacle))
-            {
-                var collision =
-                    CollisionManager.GetCollisionBetween(Game.Player.Position, entity.Position);
-
-                if (!collision.HasValue)
-                    continue;
-
-                DrawLineAt(gfx, Game.Player.Position, collision.Value.CollidedAt, Pens.GreenYellow);
-                DrawLineAt(gfx, collision.Value.CollidedWith.Source, collision.Value.CollidedWith.Destination,
-                    Pens.Yellow);
-            }
+            var renderer = new NavMeshRenderer(gfx, mapCanvas.Width, mapCanvas.Height);
+            renderer.Render(navMesh);
         }
     }
 
@@ -460,8 +443,8 @@ public partial class Main : UserControl
                 // Bahgdad Room
                 case 32793:
                     return "minimap_d\\Arabia\\RN_ARABIA_FIELD_02_BOSS_{0}x{1}.ddj";
-                // 32791 - GM's Room
-                // 32792 - Fortress Prison
+                    // 32791 - GM's Room
+                    // 32792 - Fortress Prison
             }
 
         // Default as world map
@@ -500,22 +483,22 @@ public partial class Main : UserControl
         {
             gfx.InterpolationMode = InterpolationMode.Bicubic;
             for (var x = 0; x < GridSize; x++)
-            for (var z = 0; z < GridSize; z++)
-            {
-                var sectorImgName = string.Format(layerPath, _currentXSec + x - 1, _currentYSec + z - 1);
-
-                using var bitmap = LoadSectorImage(sectorImgName);
-                var pos = new Point(bitmap.Width * x, bitmap.Height * (GridSize - 1 - z));
-
-                gfx.DrawImage(bitmap, pos);
-
-                if (_debug)
+                for (var z = 0; z < GridSize; z++)
                 {
-                    using var pen = new Pen(Color.Black);
-                    pen.DashStyle = DashStyle.Dot;
-                    gfx.DrawRectangle(pen, new Rectangle(pos, new Size(SectorSize, SectorSize)));
+                    var sectorImgName = string.Format(layerPath, _currentXSec + x - 1, _currentYSec + z - 1);
+
+                    using var bitmap = LoadSectorImage(sectorImgName);
+                    var pos = new Point(bitmap.Width * x, bitmap.Height * (GridSize - 1 - z));
+
+                    gfx.DrawImage(bitmap, pos);
+
+                    if (_debug)
+                    {
+                        using var pen = new Pen(Color.Black);
+                        pen.DashStyle = DashStyle.Dot;
+                        gfx.DrawRectangle(pen, new Rectangle(pos, new Size(SectorSize, SectorSize)));
+                    }
                 }
-            }
         }
     }
 
@@ -561,9 +544,7 @@ public partial class Main : UserControl
 
             PopulateMapAndGrid(graphics);
             DrawPointAt(graphics, Game.Player.Movement.Source, 0);
-
-            if (_debug)
-                DrawCollisions(graphics);
+            DrawCollisions(graphics);
         }
     }
 

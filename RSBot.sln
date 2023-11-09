@@ -37,7 +37,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSBot.Default", "Botbases\R
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSBot", "Application\RSBot\RSBot.csproj", "{259A396E-2479-493E-A360-6CAD48E3CB5E}"
 	ProjectSection(ProjectDependencies) = postProject
-		{2512902C-3EF4-4395-9925-258F49A5813B} = {2512902C-3EF4-4395-9925-258F49A5813B}
+		{977F3DA7-3963-414B-B474-63BA941CF726} = {977F3DA7-3963-414B-B474-63BA941CF726}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.Replacer", "Application\RSBot.Replacer\RSBot.Replacer.csproj", "{EBA7F066-8BD6-488D-A65A-B9FFFF2667C4}"
@@ -60,7 +60,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSBot.Quest", "Plugins\RSBo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSBot.FileSystem", "Library\RSBot.FileSystem\RSBot.FileSystem.csproj", "{43159571-287D-42E1-B262-A39DE07D6763}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.NavMeshApi", "RSBot.NavMeshApi\RSBot.NavMeshApi.csproj", "{9DED38E3-6DF5-4D37-AEE3-A7B0F759B34E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSBot.NavMeshApi", "Library\RSBot.NavMeshApi\RSBot.NavMeshApi.csproj", "{9DED38E3-6DF5-4D37-AEE3-A7B0F759B34E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
