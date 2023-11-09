@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RSBot.FileSystem\RSBot.FileSystem.csproj" />
+    <ProjectReference Include="..\RSBot.NavMeshApi\RSBot.NavMeshApi.csproj" />
   </ItemGroup>
 
 </Project>

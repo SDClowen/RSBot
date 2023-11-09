@@ -191,8 +191,6 @@ public class State
     ///     Checks two active DoTs.
     /// </summary>
     /// <returns></returns>
-    public bool HasTwoDots()
-    {
-        return ActiveBuffs.Where(b => b.IsDot).Count() >= 2;
-    }
+    public bool HasTwoDots() => ActiveBuffs.Count(b => b.IsDot) >= 2;
+    
 }

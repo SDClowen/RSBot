@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.SymbolStore;
 using System.Linq;
 using RSBot.Core;
 using RSBot.Core.Components;
@@ -144,14 +145,14 @@ internal class TargetBundle : IBundle
         var ignorePillar = PlayerConfig.Get<bool>("RSBot.Training.checkBoxDimensionPillar");
 
         if (!SpawnManager.TryGetEntities<SpawnedMonster>(m =>
-                m.State.LifeState == LifeState.Alive &&
-                !(warlockModeEnabled && m.State.HasTwoDots()) &&
-                m.IsBehindObstacle == false &&
-                _blacklist?.ContainsKey(m.UniqueId) == false &&
-                Container.Bot.Area.IsInSight(m) &&
-                !m.Record.IsPandora &&
-                //m.DistanceToPlayer <= 40 &&
-                !(m.Record.IsDimensionPillar && ignorePillar) &&
+                m.State.LifeState == LifeState.Alive && //Only alive
+                !(warlockModeEnabled && m.State.HasTwoDots()) && //Has two Dots?
+                m.IsBehindObstacle == false && //Is not behind obstacle
+                (_blacklist == null || !_blacklist.ContainsKey(m.UniqueId)) && //Is not blacklisted
+                (m.AttackingPlayer || !Bundles.Avoidance.AvoidMonster(m.Rarity)) && //Is attacking player or shouldn't be avoided
+                Container.Bot.Area.IsInSight(m) && //Is in training area
+                !m.Record.IsPandora && //Isn't pandora box
+                !(m.Record.IsDimensionPillar && ignorePillar) && //Isn't dimension pillar
                 !m.Record.IsSummonFlower, out var entities))
             return default;
 
