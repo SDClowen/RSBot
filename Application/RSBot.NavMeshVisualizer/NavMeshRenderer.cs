@@ -1,8 +1,9 @@
-﻿using NavMeshApi;
-using NavMeshApi.Mathematics;
-using NavMeshApi.Object;
-using NavMeshApi.Terrain;
+﻿using RSBot.FileSystem;
+using RSBot.NavMeshApi;
+using RSBot.NavMeshApi.Object;
+using RSBot.NavMeshApi.Terrain;
 
+using System.Diagnostics;
 using System.Drawing.Drawing2D;
 using System.Numerics;
 
@@ -40,7 +41,16 @@ public partial class NavMeshRenderer : UserControl
     {
         this.InitializeComponent();
 
-        NavMeshManager.Initialize("D:\\Games\\Silkroad_TestIn\\Data");
+        if (this.DesignMode)
+            return;
+
+        var data = new PackFileSystem(Path.Combine("D:\\Games\\Silkroad_TestIn", "Data.pk2"), "169841");
+
+        var item = data.GetFile("\\navmesh\\mapinfo.mfo");
+        Debug.WriteLine(item.Path);
+
+        NavMeshManager.Initialize(data);
+
         _transform = new NavMeshTransform(new NavMeshApi.Mathematics.Region(25000), new Vector3(960, 0, 960));
         _mouseTransform = new NavMeshTransform(Vector3.Zero);
 

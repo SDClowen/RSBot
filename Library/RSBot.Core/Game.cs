@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using RSBot.Core.Client;
+﻿using RSBot.Core.Client;
 using RSBot.Core.Components;
 using RSBot.Core.Extensions;
 using RSBot.Core.Network;
@@ -9,6 +7,9 @@ using RSBot.Core.Objects.Party;
 using RSBot.Core.Objects.Spawn;
 using RSBot.FileSystem;
 using RSBot.NavMeshApi;
+
+using System;
+using System.IO;
 
 namespace RSBot.Core;
 
@@ -166,8 +167,7 @@ public class Game
             DataPk2 = new PackFileSystem(Path.Combine(directory, "data.pk2"), pk2Key);
             MapPk2 = new PackFileSystem(Path.Combine(directory, "map.pk2"), pk2Key);
 
-
-            NavMeshManager.Initialize(DataPk2, MapPk2); 
+            NavMeshManager.Initialize(DataPk2);
             return true;
         }
         catch (Exception ex)

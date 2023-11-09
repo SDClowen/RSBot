@@ -1,16 +1,12 @@
-﻿using NavMeshApi.Dungeon;
-using NavMeshApi.Mathematics;
-using NavMeshApi.Object;
-using NavMeshApi.Terrain;
-
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Numerics;
-using RSBot.FileSystem;
+﻿using RSBot.FileSystem;
 using RSBot.NavMeshApi.Dungeon;
 using RSBot.NavMeshApi.Mathematics;
 using RSBot.NavMeshApi.Object;
 using RSBot.NavMeshApi.Terrain;
+
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
+using System.Numerics;
 
 namespace RSBot.NavMeshApi;
 
@@ -19,7 +15,6 @@ public static class NavMeshManager
     private const int NORMAL_CACHE_SIZE = 256;
 
     private static IFileSystem _dataFileSystem;
-    private static IFileSystem _mapFileSystem;
 
     public static ObjectIndex ObjectIndex { get; } = new ObjectIndex();
     public static RegionManager RegionManager { get; } = new RegionManager();
@@ -32,14 +27,13 @@ public static class NavMeshManager
     private static readonly Dictionary<int, NavMeshObj> _objectCache = new Dictionary<int, NavMeshObj>();
     private static readonly Dictionary<Region, NavMeshDungeon> _dungeonCache = new Dictionary<Region, NavMeshDungeon>();
 
-    public static void Initialize(IFileSystem _dataFileSystem, IFileSystem _mapFileSystem)
+    public static void Initialize(IFileSystem dataFileSystem)
     {
-        NavMeshManager._dataFileSystem = _dataFileSystem;
-        NavMeshManager._mapFileSystem = _mapFileSystem;
+        _dataFileSystem = dataFileSystem;
 
-        LoadMapInfo("mapinfo.mfo");
-        LoadObjectIndex("object.ifo");
-        LoadDungeonInfo("dungeon\\dungeoninfo.txt");
+        LoadMapInfo("NavMesh\\MapInfo.mfo");
+        LoadObjectIndex("NavMesh\\Object.ifo");
+        LoadDungeonInfo("Dungeon\\DungeonInfo.txt");
         //LoadObjectString("NavMesh/ObjectString.ifo"); // EventZone data
 
         //_terrainCache.EnsureCapacity(RegionManager.ActiveRegions);
@@ -140,7 +134,7 @@ public static class NavMeshManager
 
     private static void LoadMapInfo(string fileName)
     {
-        using var stream = _mapFileSystem.OpenRead(fileName).GetStream();
+        using var stream = _dataFileSystem.OpenRead(fileName).GetStream();
         RegionManager.Load(stream);
     }
 
@@ -152,7 +146,7 @@ public static class NavMeshManager
 
     private static void LoadObjectIndex(string fileName)
     {
-        using var stream = _mapFileSystem.OpenRead(fileName).GetStream();
+        using var stream = _dataFileSystem.OpenRead(fileName).GetStream();
         ObjectIndex.Load(stream);
 
         //foreach (var obj in ObjectIndex)

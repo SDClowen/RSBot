@@ -1,10 +1,11 @@
-using System.Diagnostics;
-using System.Text;
 using RSBot.FileSystem.IO;
 using RSBot.FileSystem.PackFile;
 using RSBot.FileSystem.PackFile.Cryptography;
 using RSBot.FileSystem.PackFile.IO;
 using RSBot.FileSystem.PackFile.Struct;
+
+using System.Diagnostics;
+using System.Text;
 
 namespace RSBot.FileSystem;
 
@@ -12,13 +13,13 @@ public class PackFileSystem : IFileSystem
 {
     private void AssertFileExists(string path)
     {
-        if (!FileExists(path))
+        if (!this.FileExists(path))
             throw new FileNotFoundException($"The file {path} does not exist.");
     }
 
     private void AssertFolderExists(string path)
     {
-        if (path != Root.Path && !FolderExists(path))
+        if (path != this.Root.Path && !this.FolderExists(path))
             throw new DirectoryNotFoundException($"The folder {path} does not exist.");
     }
 
@@ -53,20 +54,20 @@ public class PackFileSystem : IFileSystem
 
     public PackFileSystem(string path)
     {
-        BasePath = path;
+        this.BasePath = path;
 
         var packFileReader = new PackReader();
 
         _fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
 
-        _archive = packFileReader.Read(_fileStream, null, PathSeparator);
+        _archive = packFileReader.Read(_fileStream, null, this.PathSeparator);
 
-        PathUtil.PathSeparator = PathSeparator;
+        PathUtil.PathSeparator = this.PathSeparator;
     }
 
     public PackFileSystem(string path, string password, byte[] salt)
     {
-        BasePath = path;
+        this.BasePath = path;
 
         _fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
 
@@ -75,9 +76,9 @@ public class PackFileSystem : IFileSystem
         var key = BlowfishUtil.GenerateFinalBlowfishKey(password, salt);
         var blowfish = new Blowfish(key);
 
-        _archive = packFileReader.Read(_fileStream, blowfish, PathSeparator);
+        _archive = packFileReader.Read(_fileStream, blowfish, this.PathSeparator);
 
-        PathUtil.PathSeparator = PathSeparator;
+        PathUtil.PathSeparator = this.PathSeparator;
     }
 
     public PackFileSystem(string path, string password) : this(path, password,
@@ -104,7 +105,7 @@ public class PackFileSystem : IFileSystem
     /// <inheritdoc />
     public bool FolderExists(string path)
     {
-        if (string.IsNullOrEmpty(path) || path == Root.Path)
+        if (string.IsNullOrEmpty(path) || path == this.Root.Path)
             return true;
 
         if (!_archive.TryGetBlock(path, out _))
@@ -116,7 +117,7 @@ public class PackFileSystem : IFileSystem
     /// <inheritdoc />
     public IFile GetFile(string path)
     {
-        AssertFileExists(path);
+        this.AssertFileExists(path);
 
         var entry = _archive.GetEntry(path);
 
@@ -126,7 +127,7 @@ public class PackFileSystem : IFileSystem
     /// <inheritdoc />
     public IFolder GetFolder(string path)
     {
-        AssertFolderExists(path);
+        this.AssertFolderExists(path);
 
         var folderEntry = _archive.GetEntry(path)!;
 
@@ -136,20 +137,20 @@ public class PackFileSystem : IFileSystem
     /// <inheritdoc />
     public IEnumerable<IFile> GetFiles(string folderPath)
     {
-        AssertFolderExists(folderPath);
+        this.AssertFolderExists(folderPath);
 
         if (!_archive.TryGetBlock(folderPath, out var block))
             return Array.Empty<IFile>();
 
         var entries = block!.GetEntries().Where(e => e.Type == PackEntryType.File).ToArray();
 
-        var result = new Span<IFile>();
+        var result = new List<IFile>();
 
         for (var iFile = 0; iFile < entries.Length; iFile++)
         {
             var file = entries[iFile];
 
-            result[iFile] = new PackFile.PackFile(folderPath + file.Name, file, this);
+            result.Add(new PackFile.PackFile($"{folderPath}{file.Name}", file, this));
         }
 
         return result.ToArray();
@@ -158,20 +159,20 @@ public class PackFileSystem : IFileSystem
     /// <inheritdoc />
     public IFolder[] GetFolders(string folderPath)
     {
-        AssertFolderExists(folderPath);
+        this.AssertFolderExists(folderPath);
 
         if (!_archive.TryGetBlock(folderPath, out var block)) return Array.Empty<IFolder>();
 
         var entries = block!.GetEntries().Where(e => e.Type == PackEntryType.Folder).ToArray();
 
-        var result = new Span<IFolder>();
+        var result = new List<IFolder>();
 
         for (var iFolder = 0; iFolder < entries.Length; iFolder++)
         {
             var folder = entries[iFolder];
             var currentFolderPath = PathUtil.Append(folderPath, folder.Name);
 
-            result[iFolder] = new PackFolder(currentFolderPath, folder, this);
+            result.Add(new PackFolder(currentFolderPath, folder, this));
         }
 
         return result.ToArray();
@@ -180,7 +181,7 @@ public class PackFileSystem : IFileSystem
     /// <inheritdoc />
     public string[] GetChildren(string folderPath)
     {
-        AssertFolderExists(folderPath);
+        this.AssertFolderExists(folderPath);
 
         if (!_archive.TryGetBlock(folderPath, out var block))
             return Array.Empty<string>();
@@ -203,7 +204,7 @@ public class PackFileSystem : IFileSystem
     /// <inheritdoc />
     public IEnumerable<IFile> GetFileList(string parent, params string[] fileNames)
     {
-        var entries =  _archive.GetEntryListByNames(parent, fileNames).ToArray();
+        var entries = _archive.GetEntryListByNames(parent, fileNames).ToArray();
 
         var result = new List<IFile>();
 
@@ -222,7 +223,7 @@ public class PackFileSystem : IFileSystem
     /// <inheritdoc />
     public IFileReader OpenRead(string path)
     {
-        AssertFileExists(path);
+        this.AssertFileExists(path);
 
         var entry = _archive.GetEntry(path);
         if (entry is not { Type: PackEntryType.File })
@@ -244,7 +245,7 @@ public class PackFileSystem : IFileSystem
 
         if (entry is not PackEntry packEntry)
             throw new ArgumentException("Entry should be of type PackEntry");
-        
+
         Debug.WriteLine($"Reading file '{packEntry.Name}' (Offset: 0x{packEntry.DataPosition:X}, Size: {packEntry.Size}B)");
 
         var bsRead = new BsReader(_fileStream);
@@ -259,7 +260,7 @@ public class PackFileSystem : IFileSystem
     {
         try
         {
-            file = GetFile(path);
+            file = this.GetFile(path);
 
             return true;
         }
@@ -276,7 +277,7 @@ public class PackFileSystem : IFileSystem
     {
         try
         {
-            folder = GetFolder(path);
+            folder = this.GetFolder(path);
 
             return true;
         }

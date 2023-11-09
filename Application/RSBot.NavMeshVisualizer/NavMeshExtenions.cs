@@ -1,4 +1,4 @@
-﻿using NavMeshApi.Edges;
+﻿using RSBot.NavMeshApi.Edges;
 
 namespace RSBot.NavMeshVisualizer;
 

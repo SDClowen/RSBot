@@ -2,14 +2,15 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RSBot.NavMeshApi\RSBot.NavMeshApi.csproj" />
+    <ProjectReference Include="..\..\Library\RSBot.FileSystem\RSBot.FileSystem.csproj" />
+    <ProjectReference Include="..\..\Library\RSBot.NavMeshApi\RSBot.NavMeshApi.csproj" />
   </ItemGroup>
 
 </Project>

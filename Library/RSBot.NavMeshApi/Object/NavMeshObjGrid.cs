@@ -1,11 +1,9 @@
-﻿using NavMeshApi.Helper;
-
-using NavMeshApi.Mathematics;
+﻿using RSBot.NavMeshApi.Extensions;
+using RSBot.NavMeshApi.Helper;
+using RSBot.NavMeshApi.Mathematics;
 
 using System.Diagnostics;
 using System.Numerics;
-using RSBot.NavMeshApi.Helper;
-using RSBot.NavMeshApi.Mathematics;
 
 namespace RSBot.NavMeshApi.Object;
 
