@@ -3,6 +3,7 @@ using System.Numerics;
 using RSBot.Core;
 using RSBot.Core.Objects;
 using RSBot.NavMeshApi;
+using RSBot.NavMeshApi.Dungeon;
 using RSBot.NavMeshApi.Edges;
 using RSBot.NavMeshApi.Terrain;
 
@@ -28,15 +29,23 @@ internal class NavMeshRenderer
 
     public void Render(NavMesh navMesh)
     {
-        var terrainConfig = new NavMeshTerrainRenderConfig(true, true, Pens.DarkRed);
+        var terrainConfig = new NavMeshTerrainRenderConfig(true, true, Pens.Red);
         var objConfig = new NavMeshObjRenderConfig(true, true, Pens.Red);
 
-        if (navMesh is not NavMeshTerrain terrain) 
-            return;
+        if (navMesh is NavMeshTerrain terrain)
+        {
+            DrawNavMeshTerrain(terrain, terrainConfig);
+            foreach (var navMeshObjInst in terrain.Instances)
+                DrawNavMeshInstObj(terrain.Region, navMeshObjInst, objConfig);
+        }
+        else if (navMesh is NavMeshDungeon dungeon)
+            DrawNavMeshDungeon(dungeon);
 
-        DrawNavMeshTerrain(terrain, terrainConfig);
-        foreach (var navMeshObjInst in terrain.Instances)
-            DrawNavMeshInstObj(terrain.Region, navMeshObjInst, objConfig);
+    }
+
+    private void DrawNavMeshDungeon(NavMeshDungeon dungeon)
+    {
+        //ToDO Further dungeon investigations!
     }
 
     private void DrawNavMeshInstObj(NavMeshApi.Mathematics.Region region, NavMeshInst instObj, NavMeshObjRenderConfig config)
@@ -131,14 +140,15 @@ internal class NavMeshRenderer
         var destinationX = GetMapX(destination);
         var destinationY = GetMapY(destination);
 
-        if (srcX == 0 && srcY == 0 && destinationY == 0 && destinationX == 0)
-            return;
-
-        if (srcX < 0 || srcX > _canvasWidth || srcY > _canvasHeight || srcY < 0)
-            return;
-
-        if (destinationX < 0 || destinationX > _canvasWidth || destinationY > _canvasHeight || destinationY < 0)
-            return;
+        //Leaves viewscope?
+        if (srcX > _canvasWidth) srcX = _canvasWidth;
+        if (srcY > _canvasHeight) srcY = _canvasHeight;
+        if (srcX < 0) srcX = 0;
+        if (srcY < 0) srcY = 0;
+        if (destinationX > _canvasWidth) destinationX = _canvasWidth;
+        if (destinationY > _canvasHeight) destinationY = _canvasHeight;
+        if (destinationY < 0) destinationY = 0;
+        if (destinationX  < 0) destinationX = 0;
 
         _graphics.DrawLine(color, srcX, srcY, destinationX, destinationY);
     }
