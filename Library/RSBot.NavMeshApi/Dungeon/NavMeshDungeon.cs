@@ -23,6 +23,12 @@ public class NavMeshDungeon : NavMesh
     public override NavMeshType Type => NavMeshType.Dungeon;
     public override RID Region => _region;
 
+    private readonly Dictionary<int, string> _roomStringIDs = new Dictionary<int, string>();
+    private readonly Dictionary<int, string> _floorStringIDs = new Dictionary<int, string>();
+
+    public IReadOnlyDictionary<int, string> RoomStringIDs => _roomStringIDs;
+    public IReadOnlyDictionary<int, string> FloorStringIDs => _floorStringIDs;
+
     public NavMeshDungeon(RID region)
     {
         _region = region;
@@ -71,15 +77,18 @@ public class NavMeshDungeon : NavMesh
             var iBlockCount = reader.ReadInt32();
             Debug.Assert(_blockList.Count == iBlockCount);
 
-            //for (int i = 0; i < iBlockCount; i++)
-            //{
-            //    var linkBlockCount = reader.ReadInt32();
-            //    for (int ii = 0; ii < linkBlockCount; ii++)
-            //    {
-            //        var block = _blockList[reader.ReadInt32()];
-            //        // TODO: Add InternalEdge to Block
-            //    }
-            //}
+            if (header.LabelOffset != 0)
+            {
+                stream.Seek(header.LabelOffset, SeekOrigin.Begin);
+
+                var roomCount = reader.ReadInt32();
+                for (int i = 0; i < roomCount; i++)
+                    _roomStringIDs[i] = reader.ReadString();
+
+                var floorCount = reader.ReadInt32();
+                for (int i = 0; i < floorCount; i++)
+                    _floorStringIDs[i] = reader.ReadString();
+            }
         }
     }
 
@@ -166,12 +175,12 @@ public class NavMeshDungeon : NavMesh
         {
             ID = index,
             Region = this.Region,
-            Parent = null,
+            Parent = this,
             NavMeshObj = NavMeshManager.LoadNavMeshObj(path),
             LocalPosition = position,
+            Yaw = yaw,
             LocalToWorld = localToWorld,
             WorldToLocal = worldToLocal,
-
             BoundingBox = boundingBox,
         };
 
@@ -186,7 +195,8 @@ public class NavMeshDungeon : NavMesh
             stream.Seek(28, SeekOrigin.Current);
 
         stream.Seek(reader.ReadInt32(), SeekOrigin.Current); //SeekOverString
-        stream.Seek(8, SeekOrigin.Current);
+        block.RoomIndex = reader.ReadInt32();
+        block.FloorIndex = reader.ReadInt32();
 
         var connectedBlockCount = reader.ReadInt32();
         for (int i = 0; i < connectedBlockCount; i++)
@@ -304,18 +314,16 @@ public class NavMeshDungeon : NavMesh
         return true;
     }
 
-    public override NavMeshRaycastResult Raycast(NavMeshTransform src, NavMeshTransform dst, NavMeshRaycastType type, out NavMeshRaycastHit hit)
+    private static bool TryGetCollisionObjectIntersection(NavMeshInstBlock block, LineF line, out Vector3 hit)
     {
-        var block = (NavMeshInstBlock)src.Instance;
+        var min = line.Min.ToVector2();
+        var max = line.Max.ToVector2();
 
-        var line = new LineF(src.Offset, dst.Offset);
-
-        // TODO: Make this part of the NavMeshInstBlock Raycast logic as we're never really placed inside the Dungeon
-        var distanceSrcToDst = Vector2.Distance(src.Offset.ToVector2(), dst.Offset.ToVector2());
+        var distanceSrcToDst = Vector2.Distance(min, max);
         foreach (var obj in block.ObjectList)
         {
-            var distanceSrcToObj = Vector2.Distance(src.Offset.ToVector2(), obj.Circle.Position);
-            var distanceDstToObj = Vector2.Distance(dst.Offset.ToVector2(), obj.Circle.Position);
+            var distanceSrcToObj = Vector2.Distance(min, obj.Circle.Position);
+            var distanceDstToObj = Vector2.Distance(max, obj.Circle.Position);
             var closestToObj = MathF.Max(distanceSrcToObj, distanceDstToObj);
 
             if (distanceSrcToDst + obj.Circle.Radius >= closestToObj)
@@ -324,11 +332,46 @@ public class NavMeshDungeon : NavMesh
                 if (!obj.Circle.Intersects(line, out Vector2 intersectionPoint))
                     break;
 
-                hit = null;
-                return NavMeshRaycastResult.Collision;
+                hit = intersectionPoint.ToVector3();
+                return true;
             }
         }
-        hit = null;
-        return NavMeshRaycastResult.Reached;
+
+        hit = Vector3.Zero;
+        return false;
+    }
+
+    public override NavMeshRaycastResult Raycast(NavMeshTransform src, NavMeshTransform dst, NavMeshRaycastType type, out NavMeshRaycastHit hit)
+    {
+        var line = new LineF(src.Offset, dst.Offset);
+
+        var block = (NavMeshInstBlock)src.Instance;
+        var blockCell = src.Cell;
+        var blockResult = src.Instance.NavMeshObj.Raycast(src, dst, type, out hit);
+        Debug.WriteLine($"Block hit = {blockResult} [{hit}]");
+
+        // Check if we hit an object
+        if (!TryGetCollisionObjectIntersection(block, line, out var objectHit))
+            return blockResult; // no object hit, we're good to leave here.
+
+        // We also hit an object, figure out if it's closer than transition, collison or destination.
+        Debug.WriteLine("Object & Block hit");
+        var blockHit = blockResult == NavMeshRaycastResult.Reached ? line.Max : hit.Position;
+        var distanceToBlockHit = (blockHit - line.Min).LengthSquared();
+        var distanceToObjectHitSqrt = (objectHit - line.Min).LengthSquared();
+        if (distanceToObjectHitSqrt > distanceToBlockHit)
+            return blockResult; // we're good to leave here.
+
+        // Object was closer. Report hit
+        Debug.WriteLine("Object was closer");
+        hit = new NavMeshRaycastHit()
+        {
+            Edge = null,
+            Cell = blockCell,
+            Instance = block,
+            Region = this.Region,
+            Position = objectHit,
+        };
+        return NavMeshRaycastResult.Collision;
     }
 }

@@ -4,6 +4,9 @@ namespace RSBot.NavMeshApi.Dungeon;
 
 public class NavMeshInstBlock : NavMeshInst
 {
+    public int FloorIndex { get; set; }
+    public int RoomIndex { get; set; }
+
     public BoundingBoxF BoundingBox { get; set; }
 
     public List<DungeonColObj> ObjectList { get; set; } = new List<DungeonColObj>();
@@ -22,5 +25,4 @@ public class NavMeshInstBlock : NavMeshInst
     /// Used for caching
     /// </summary>
     public List<int> NeighborBlocks { get; } = new List<int>();
-
 }

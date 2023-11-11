@@ -395,6 +395,9 @@ public class NavMeshTerrain : NavMesh
 
     public override NavMeshRaycastResult Raycast(NavMeshTransform src, NavMeshTransform dst, NavMeshRaycastType rayType, out NavMeshRaycastHit hit)
     {
+        if (src.Instance != null)
+            return src.Instance.NavMeshObj.Raycast(src, dst, rayType, out hit);
+
         var line = new LineF(src.Offset, dst.Offset);
 
         NavMeshCellQuad curCell = src.Cell as NavMeshCellQuad;
