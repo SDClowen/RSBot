@@ -54,10 +54,6 @@ public partial class Main : UserControl
     /// </summary>
     private byte _currentYSec;
 
-    /// <summary>
-    ///     Is active debug mode <c>true</c> otherwise <c>false</c>
-    /// </summary>
-    private readonly bool _debug;
 
     /// <summary>
     ///     The map points
@@ -89,8 +85,6 @@ public partial class Main : UserControl
         if (DesignMode)
             return;
 
-        _debug = GlobalConfig.Get<bool>("RSBot.DebugEnvironment");
-
         _cachedImages = _cachedImages ?? new Dictionary<string, Image>();
 
         EventManager.SubscribeEvent("OnEnterGame", OnEnterGame);
@@ -101,9 +95,10 @@ public partial class Main : UserControl
 
         // All
         comboViewType.SelectedIndex = 6;
-        checkEnableCollisions.Checked = CollisionManager.Enabled;
+        checkEnableCollisions.Checked = Kernel.EnableNavMesh;
+        tabNavMeshViewer.Visible = Kernel.Debug;
 
-        if (_debug)
+        if (Kernel.Debug)
         {
             _navMeshRenderer = new NavMeshRenderer()
             {
@@ -111,10 +106,8 @@ public partial class Main : UserControl
             };
 
             panelNavMeshRendererCanvas.Controls.Add(_navMeshRenderer);
-            tabNavMeshViewer.Visible = true;
+            labelSectorInfo.Visible = true;
         }
-
-        labelSectorInfo.Visible = _debug;
     }
 
     #region Core Handlers
@@ -472,28 +465,34 @@ public partial class Main : UserControl
         if (_cachedImages.Count >= 25)
             _cachedImages.Clear();
 
-        _currentSectorGraphic = new Bitmap(SectorSize * 3, SectorSize * 3, PixelFormat.Format32bppArgb);
-
-        using (var gfx = Graphics.FromImage(_currentSectorGraphic))
+        try
         {
+            _currentSectorGraphic = new Bitmap(SectorSize * 3, SectorSize * 3, PixelFormat.Format32bppArgb);
+
+            using var gfx = Graphics.FromImage(_currentSectorGraphic);
             gfx.InterpolationMode = InterpolationMode.Bicubic;
+
             for (var x = 0; x < GridSize; x++)
-                for (var z = 0; z < GridSize; z++)
+            for (var z = 0; z < GridSize; z++)
+            {
+                var sectorImgName = string.Format(layerPath, _currentXSec + x - 1, _currentYSec + z - 1);
+
+                using var bitmap = LoadSectorImage(sectorImgName);
+                var pos = new Point(bitmap.Width * x, bitmap.Height * (GridSize - 1 - z));
+
+                gfx.DrawImage(bitmap, pos);
+
+                if (Kernel.Debug)
                 {
-                    var sectorImgName = string.Format(layerPath, _currentXSec + x - 1, _currentYSec + z - 1);
-
-                    using var bitmap = LoadSectorImage(sectorImgName);
-                    var pos = new Point(bitmap.Width * x, bitmap.Height * (GridSize - 1 - z));
-
-                    gfx.DrawImage(bitmap, pos);
-
-                    if (_debug)
-                    {
-                        using var pen = new Pen(Color.Black);
-                        pen.DashStyle = DashStyle.Dot;
-                        gfx.DrawRectangle(pen, new Rectangle(pos, new Size(SectorSize, SectorSize)));
-                    }
+                    using var pen = new Pen(Color.Black);
+                    pen.DashStyle = DashStyle.Dot;
+                    gfx.DrawRectangle(pen, new Rectangle(pos, new Size(SectorSize, SectorSize)));
                 }
+            }
+        }
+        catch (Exception e)
+        {
+            Log.Warn($"Error in minimap: {e.Message}");
         }
     }
 
@@ -556,7 +555,7 @@ public partial class Main : UserControl
         lblX.Text = Game.Player.Position.X.ToString("0.0");
         lblY.Text = Game.Player.Position.Y.ToString("0.0");
 
-        if (_debug)
+        if (Kernel.Debug)
             labelSectorInfo.Text =
                 $"{Game.Player.Movement.Source.Region} ({Game.Player.Movement.Source.Region.X}x{Game.Player.Movement.Source.Region.Y})";
 
@@ -613,7 +612,7 @@ public partial class Main : UserControl
 
     private void checkEnableCollisions_CheckedChanged(object sender, EventArgs e)
     {
-        CollisionManager.Enabled = checkEnableCollisions.Checked;
+        Kernel.EnableNavMesh = checkEnableCollisions.Checked;
     }
 
     /// <summary>

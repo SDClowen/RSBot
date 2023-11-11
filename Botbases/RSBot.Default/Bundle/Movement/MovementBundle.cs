@@ -54,7 +54,7 @@ internal class MovementBundle : IBundle
         }
 
         var distance = Game.Player.Position.DistanceTo(Container.Bot.Area.Position);
-        var hasCollision = CollisionManager.HasCollisionBetween(Game.Player.Position, Container.Bot.Area.Position);
+        var hasCollision = Game.Player.Position.HasCollisionBetween(Container.Bot.Area.Position);
 
         //Go back if the player is out of the radius
         if ((distance > Container.Bot.Area.Radius || (Config.WalkToCenter && distance > 3)) && !hasCollision)
@@ -75,7 +75,7 @@ internal class MovementBundle : IBundle
         var destination = Container.Bot.Area.GetRandomPosition();
 
         var attempt = 0;
-        while (CollisionManager.HasCollisionBetween(Game.Player.Position, destination) &&
+        while (Game.Player.Position.HasCollisionBetween(destination) &&
                distance < Container.Bot.Area.Radius)
         {
             destination = Container.Bot.Area.GetRandomPosition();

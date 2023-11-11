@@ -10,10 +10,6 @@ namespace RSBot.Log.Views;
 [ToolboxItem(false)]
 public partial class Main : UserControl
 {
-    /// <summary>
-    ///     Is active debug logs <seealso cref="true" /> otherwise <seealso cref="false" />
-    /// </summary>
-    private readonly bool _debug;
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="Main" /> class.
@@ -24,11 +20,10 @@ public partial class Main : UserControl
         InitializeComponent();
         LoadConfig();
 
-        _debug = GlobalConfig.Get<bool>("RSBot.DebugEnvironment");
 
         EventManager.SubscribeEvent("OnAddLog", new Action<string, LogLevel>(AppendLog));
 
-        if (!_debug)
+        if (!Kernel.Debug)
         {
             checkDebug.Checked = false;
             checkError.Visible = false;
@@ -62,7 +57,7 @@ public partial class Main : UserControl
         if (level == LogLevel.Warning && !checkWarning.Checked)
             return;
 
-        txtLog.Write($"<{level}> \t{message}", true, _debug, logFile);
+        txtLog.Write($"<{level}> \t{message}", true, Kernel.Debug, logFile);
     }
 
     /// <summary>
