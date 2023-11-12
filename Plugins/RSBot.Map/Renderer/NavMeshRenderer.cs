@@ -1,17 +1,17 @@
-﻿using System;
+﻿using RSBot.Core.Extensions;
+using RSBot.NavMeshApi;
+using RSBot.NavMeshApi.Dungeon;
+using RSBot.NavMeshApi.Mathematics;
+using RSBot.NavMeshApi.Object;
+using RSBot.NavMeshApi.Terrain;
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Numerics;
 using System.Windows.Forms;
-using RSBot.Core;
-using RSBot.Core.Extensions;
-using RSBot.NavMeshApi;
-using RSBot.NavMeshApi.Dungeon;
-using RSBot.NavMeshApi.Mathematics;
-using RSBot.NavMeshApi.Object;
-using RSBot.NavMeshApi.Terrain;
 
 namespace RSBot.Map.Renderer;
 
@@ -53,8 +53,8 @@ public partial class NavMeshRenderer : UserControl
         if (this.DesignMode)
             return;
 
-        _font = new Font("Arial", 6f);
-        _smallFont = new Font("Arial", 4f);
+        _font = new Font("Arial", 64f);
+        _smallFont = new Font("Arial", 32f);
         _transform = new NavMeshTransform(Vector3.Zero);
         _mouseTransform = new NavMeshTransform(Vector3.Zero);
     }
@@ -66,18 +66,21 @@ public partial class NavMeshRenderer : UserControl
 
         _transform = transform;
         _mouseTransform = new NavMeshTransform(Vector3.Zero);
-        
+
         this.Invalidate();
+    }
+
+    protected override void OnPaintBackground(PaintEventArgs e)
+    {
+        e.Graphics.Clear(SDUI.ColorScheme.BackColor);
     }
 
     protected override void OnPaint(PaintEventArgs e)
     {
+        base.OnPaint(e);
+
         if (_transform?.Region == 0u)
             return;
-
-        BackColor = SDUI.ColorScheme.BackColor;
-
-        base.OnPaint(e);
 
         var g = e.Graphics;
 
@@ -130,10 +133,10 @@ public partial class NavMeshRenderer : UserControl
 
         var textBrush = new SolidBrush(SDUI.ColorScheme.ForeColor);
 
-        g.DrawString($"Player: {_transform}", _font, textBrush, 0, 0);
-        g.DrawString($"Cursor: {_mouseTransform}", _font, textBrush, 0, 12);
+        g.DrawString($"Player: {_transform}", DefaultFont, textBrush, 0, 0);
+        g.DrawString($"Cursor: {_mouseTransform}", DefaultFont, textBrush, 0, 12);
         if (_hit != null)
-            g.DrawString($"Hit: {_mouseTransform}", _font, Brushes.Red, 0, 24);
+            g.DrawString($"Hit: {_hit}", DefaultFont, Brushes.Red, 0, 24);
     }
 
     private void DrawNavMeshDungeon(HashSet<int> set, Graphics g, NavMeshDungeon dungeon)
@@ -177,7 +180,7 @@ public partial class NavMeshRenderer : UserControl
         if (_drawTerrainCellID)
         {
             foreach (var cell in terrain.Cells)
-                g.DrawString($"{cell}", _smallFont, Brushes.Black, cell.RectangleF.Center.ToPointF());
+                g.DrawString($"{cell}", _smallFont, Brushes.White, cell.RectangleF.Center.ToPointF());
         }
 
         if (_drawTerrainGlobalEdges)
@@ -188,7 +191,7 @@ public partial class NavMeshRenderer : UserControl
                 g.DrawLine(pen, edge.Line);
 
                 if (_drawTerrainGlobalEdgeID)
-                    g.DrawString($"{edge}", _smallFont, Brushes.Black, edge.Line.Center.ToPointF());
+                    g.DrawString($"{edge}", _smallFont, Brushes.White, edge.Line.Center.ToPointF());
             }
         }
 
@@ -200,7 +203,7 @@ public partial class NavMeshRenderer : UserControl
                 g.DrawLine(pen, edge.Line);
 
                 if (_drawTerrainInternalEdgeID)
-                    g.DrawString($"{edge}", _smallFont, Brushes.Black, edge.Line.Center.ToPointF());
+                    g.DrawString($"{edge}", _smallFont, Brushes.White, edge.Line.Center.ToPointF());
             }
         }
 
@@ -224,7 +227,7 @@ public partial class NavMeshRenderer : UserControl
         }
 
         if (_drawRegionId)
-            g.DrawString($"{terrain.Region}", _font, Brushes.Black, 0, 0);
+            g.DrawString($"{terrain.Region}", _font, Brushes.White, 0, 0);
 
         matrix.Invert();
         g.MultiplyTransform(matrix);
@@ -240,7 +243,14 @@ public partial class NavMeshRenderer : UserControl
                 g.FillTriangleF(brush, cell.Triangle);
 
                 if (_drawObjectCellID)
-                    g.DrawString($"{cell}", _smallFont, Brushes.Black, cell.Triangle.Center.ToPointF());
+                {
+                    string label;
+                    if (cell.EventZone == NavMeshEventZone.Empty)
+                        label = $"{cell}";
+                    else
+                        label = $"{cell} [{obj.Events[cell.EventZone.Index]}, {cell.EventZone.Flag}]";
+                    g.DrawString(label, _smallFont, Brushes.White, cell.Triangle.Center.ToPointF());
+                }
             }
         }
 
@@ -251,7 +261,15 @@ public partial class NavMeshRenderer : UserControl
                 g.DrawLine(edge.Flag.ToPen(), edge.Line);
 
                 if (_drawObjectGlobalEdgeID)
-                    g.DrawString($"{edge}", _smallFont, Brushes.Black, edge.Line.Center.ToPointF());
+                {
+                    string label;
+                    if (edge.EventZone == NavMeshEventZone.Empty)
+                        label = $"{edge}";
+                    else
+                        label = $"{edge} [{obj.Events[edge.EventZone.Index]}, {edge.EventZone.Flag}]";
+                    g.DrawString(label, _smallFont, Brushes.White, edge.Line.Center.ToPointF());
+                }
+
             }
 
         }
@@ -263,7 +281,14 @@ public partial class NavMeshRenderer : UserControl
                 g.DrawLine(edge.Flag.ToPen(), edge.Line);
 
                 if (_drawObjectInternalEdgeID)
-                    g.DrawString($"{edge}", _smallFont, Brushes.Black, edge.Line.Center.ToPointF());
+                {
+                    string label;
+                    if (edge.EventZone == NavMeshEventZone.Empty)
+                        label = $"{edge}";
+                    else
+                        label = $"{edge} [{obj.Events[edge.EventZone.Index]}, {edge.EventZone.Flag}]";
+                    g.DrawString(label, _smallFont, Brushes.White, edge.Line.Center.ToPointF());
+                }
             }
         }
     }

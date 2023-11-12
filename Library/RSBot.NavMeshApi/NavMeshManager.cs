@@ -3,6 +3,7 @@ using RSBot.NavMeshApi.Dungeon;
 using RSBot.NavMeshApi.Mathematics;
 using RSBot.NavMeshApi.Object;
 using RSBot.NavMeshApi.Terrain;
+
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
@@ -18,6 +19,8 @@ public static class NavMeshManager
     public static ObjectIndex ObjectIndex { get; } = new ObjectIndex();
     public static RegionManager RegionManager { get; } = new RegionManager();
     public static DungeonInfo DungeonInfo { get; } = new DungeonInfo();
+
+    public static NavMeshEventZoneHandler? EventZoneHandler { get; set; }
 
     public static Vector2[] NormalCache = new Vector2[NORMAL_CACHE_SIZE];
 

@@ -2,6 +2,7 @@
 using RSBot.NavMeshApi.Edges;
 using RSBot.NavMeshApi.Extensions;
 using RSBot.NavMeshApi.Mathematics;
+using RSBot.NavMeshApi.Object;
 
 using System.Diagnostics;
 using System.Numerics;
@@ -455,9 +456,38 @@ public class NavMeshTerrain : NavMesh
                     return NavMeshRaycastResult.Collision;
                 }
 
+                // Check if we hit an edge with an EventZone
+                if ((objectHit.Edge.EventZone.Flag & NavMeshEventZoneFlag.All) != 0)
+                {
+                    var eventZoneInvoker = objectHit.Instance;
+                    var eventZone = objectHit.Edge.EventZone;
+                    if (!(NavMeshManager.EventZoneHandler?.Invoke(eventZoneInvoker, eventZone) ?? false))
+                    {
+                        Debug.WriteLine($"EventZone ({eventZoneInvoker.NavMeshObj.Events[eventZone.Index]}, {eventZone.Flag}) returned collision.");
+                        hit = objectHit;
+                        hit.Region = _region;
+                        return NavMeshRaycastResult.Collision;
+                    }
+                }
+
+                // Check if remoteCell has an EventZone
+                var remoteCell = (NavMeshCellTri)objectHit.Edge.GetRemoteCell(curCell);
+                if ((remoteCell.EventZone.Flag & NavMeshEventZoneFlag.All) != 0)
+                {
+                    var eventZoneInvoker = objectHit.Instance;
+                    var eventZone = remoteCell.EventZone;
+                    if (!(NavMeshManager.EventZoneHandler?.Invoke(eventZoneInvoker, eventZone) ?? false))
+                    {
+                        Debug.WriteLine($"EventZone ({eventZoneInvoker.NavMeshObj.Events[eventZone.Index]}, {eventZone.Flag}) returned collision.");
+                        hit = objectHit;
+                        hit.Region = _region;
+                        return NavMeshRaycastResult.Collision;
+                    }
+                }
+
                 // Transition into object if possible.
                 src.Instance = objectHit.Instance;
-                src.Cell = objectHit.Edge.GetRemoteCell(curCell);
+                src.Cell = remoteCell;
 
                 var offset = objectHit.Position;
 

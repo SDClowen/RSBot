@@ -261,6 +261,8 @@ public class NavMeshObj : NavMesh
         }
 
         vPos.Y = y;
+        //if (result is not null && ((result.EventZone.Flag & NavMeshEventZoneFlag.All) != 0))
+        //    NavMeshManager.EventZoneHandler?.Invoke(null, result.EventZone, result, null);
         return result;
     }
 
@@ -341,6 +343,42 @@ public class NavMeshObj : NavMesh
                 };
                 return NavMeshRaycastResult.Collision;
             }
+
+            // Check if we hit an edge with an EventZone
+            var eventZone = intersectionEdge.EventZone;
+            if ((eventZone.Flag & NavMeshEventZoneFlag.All) != 0 && (!(NavMeshManager.EventZoneHandler?.Invoke(instance, eventZone) ?? false)))
+            {
+                Debug.WriteLine($"EventZone ({instance.NavMeshObj.Events[eventZone.Index]}, {eventZone.Flag}) returned collision.");
+                hit = new NavMeshRaycastHit
+                {
+                    Cell = curCell,
+                    Instance = instance,
+                    Edge = intersectionEdge,
+                    Position = instance.LocalToWorld.MultiplyPoint(intersectionPoint),
+                    Region = instance.Parent.Region,
+                };
+                return NavMeshRaycastResult.Collision;
+            }
+
+            if (remoteCell is not null)
+            {
+                // Check if remoteCell has an EventZone
+                eventZone = remoteCell.EventZone;
+                if ((eventZone.Flag & NavMeshEventZoneFlag.All) != 0 && (!(NavMeshManager.EventZoneHandler?.Invoke(instance, eventZone) ?? false)))
+                {
+                    Debug.WriteLine($"EventZone ({instance.NavMeshObj.Events[eventZone.Index]}, {eventZone.Flag}) returned collision.");
+                    hit = new NavMeshRaycastHit
+                    {
+                        Cell = curCell,
+                        Instance = instance,
+                        Edge = intersectionEdge,
+                        Position = instance.LocalToWorld.MultiplyPoint(intersectionPoint),
+                        Region = instance.Parent.Region,
+                    };
+                    return NavMeshRaycastResult.Collision;
+                }
+            }
+
 
             // If remoteCell is NULL we've hit an outline edge
             if (remoteCell == null)
