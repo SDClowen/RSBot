@@ -66,17 +66,10 @@ public static class Kernel
     /// <summary>
     /// Returns a value indicating if the NavMeshApi should be used or not.
     /// </summary>
-    public static bool EnableNavMesh
+    public static bool EnableCollisionDetection
     {
-        get
-        {
-            #if DEBUG
-            return true;
-            #endif
-            GlobalConfig.Get("RSBot.NavMesh.Enabled", true);
-        }
-        set =>
-            GlobalConfig.Set("RSBot.NavMesh.Enabled", value);
+        get => GlobalConfig.Get("RSBot.EnableCollisionDetection", true);
+        set => GlobalConfig.Set("RSBot.EnableCollisionDetection", value);
     }
 
     /// <summary>

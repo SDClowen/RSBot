@@ -41,35 +41,6 @@ public struct Position
     public short LayerId { get; set; }
 
     /// <summary>
-    ///     Gets or sets the floor index (in case of dungeons)
-    /// </summary>
-    public uint FloorIndex
-    {
-        get
-        {
-            if (!this.TryGetNavMeshTransform(out var transform))
-                return 0;
-
-            return transform?.Instance is not NavMeshInstBlock block ? 0u : block.FloorIndex;
-        }
-    }
-
-    /// <summary>
-    ///     Gets or sets the room index (in case of dungeons)
-    /// </summary>
-    public uint RoomIndex
-    {
-        get
-        {
-            if (!this.TryGetNavMeshTransform(out var transform))
-                return 0;
-
-            return transform.Instance is not NavMeshInstBlock block ? 0u : block.RoomIndex;
-        }
-    }
-
-
-    /// <summary>
     ///     Gets the x coordinate.
     /// </summary>
     /// <value>
@@ -278,11 +249,11 @@ public struct Position
 
     public bool HasCollisionBetween(Position destination, NavMeshRaycastType type = NavMeshRaycastType.Attack)
     {
-        if (!Kernel.EnableNavMesh)
+        if (!Kernel.EnableCollisionDetection)
             return false;
 
         if (!TryGetNavMeshTransform(out var srcTransform)
-            || !TryGetNavMeshTransform(out var destTransform))
+            || !destination.TryGetNavMeshTransform(out var destTransform))
             return false;
 
         return !NavMeshManager.Raycast(srcTransform, destTransform, type);

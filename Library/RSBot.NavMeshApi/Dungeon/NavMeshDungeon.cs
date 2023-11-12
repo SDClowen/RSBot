@@ -180,8 +180,8 @@ public class NavMeshDungeon : NavMesh
             stream.Seek(28, SeekOrigin.Current);
 
         stream.Seek(reader.ReadInt32(), SeekOrigin.Current); //SeekOverString
-        var roomIndex = reader.ReadUInt32();
-        var floorIndex = reader.ReadUInt32();
+        var roomIndex = reader.ReadInt32();
+        var floorIndex = reader.ReadInt32();
 
         var block = new NavMeshInstBlock
         {

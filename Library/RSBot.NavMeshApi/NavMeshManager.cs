@@ -3,7 +3,6 @@ using RSBot.NavMeshApi.Dungeon;
 using RSBot.NavMeshApi.Mathematics;
 using RSBot.NavMeshApi.Object;
 using RSBot.NavMeshApi.Terrain;
-
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
@@ -58,7 +57,6 @@ public static class NavMeshManager
             hit = null;
             return false;
         }
-
 
         int raycastCount = 0;
         while (true)
@@ -390,6 +388,4 @@ public static class NavMeshManager
 
         return dungeon != null;
     }
-
-
 }

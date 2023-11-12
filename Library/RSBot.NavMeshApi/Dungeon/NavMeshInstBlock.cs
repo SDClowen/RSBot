@@ -26,10 +26,10 @@ public class NavMeshInstBlock : NavMeshInst
     /// <summary>
     /// The floor index of this block.
     /// </summary>
-    public uint FloorIndex { get; set; }
+    public int FloorIndex { get; set; }
 
     /// <summary>
     /// The room index of this block.
     /// </summary>
-    public uint RoomIndex { get; set; }
+    public int RoomIndex { get; set; }
 }
