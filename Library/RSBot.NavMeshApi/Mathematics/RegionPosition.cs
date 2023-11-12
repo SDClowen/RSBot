@@ -76,4 +76,6 @@ public struct RegionPosition
             _localPosition.Z %= RID.Length;
         }
     }
+
+    public override string ToString() => $"RID: {Region:X4}, X: {_localPosition.X}, Y: {_localPosition.Y}, Z: {_localPosition.Z}";
 }

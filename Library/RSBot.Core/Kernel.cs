@@ -64,6 +64,29 @@ public static class Kernel
     public static string BasePath => AppDomain.CurrentDomain.BaseDirectory;
 
     /// <summary>
+    /// Returns a value indicating if the NavMeshApi should be used or not.
+    /// </summary>
+    public static bool EnableCollisionDetection
+    {
+        get => GlobalConfig.Get("RSBot.EnableCollisionDetection", true);
+        set => GlobalConfig.Set("RSBot.EnableCollisionDetection", value);
+    }
+
+    /// <summary>
+    /// Returns a value indicating if this is a debug environment.
+    /// </summary>
+    public static bool Debug
+    {
+        get {
+            #if DEBUG
+            return true;
+            #endif
+            GlobalConfig.Get("RSBot.DebugEnvironment", false);
+        }
+        set => GlobalConfig.Set("RSBot.DebugEnvironments", value);
+    }
+
+    /// <summary>
     ///     Initializes this instance.
     /// </summary>
     public static void Initialize()

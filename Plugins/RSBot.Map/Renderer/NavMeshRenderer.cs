@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Linq;
 using System.Numerics;
 using System.Windows.Forms;
-using RSBot.Core.Objects;
+using RSBot.Core;
+using RSBot.Core.Extensions;
 using RSBot.NavMeshApi;
+using RSBot.NavMeshApi.Dungeon;
 using RSBot.NavMeshApi.Mathematics;
 using RSBot.NavMeshApi.Object;
 using RSBot.NavMeshApi.Terrain;
@@ -43,7 +46,6 @@ public partial class NavMeshRenderer : UserControl
 
     private bool _raycastVisualizer = false;
 
-    private Position _lastPosition = default;
     public NavMeshRenderer()
     {
         this.InitializeComponent();
@@ -53,24 +55,24 @@ public partial class NavMeshRenderer : UserControl
 
         _font = new Font("Arial", 6f);
         _smallFont = new Font("Arial", 4f);
+        _transform = new NavMeshTransform(Vector3.Zero);
+        _mouseTransform = new NavMeshTransform(Vector3.Zero);
     }
 
-    public void Update(Position position)
+    public void Update(NavMeshTransform transform)
     {
-        var distance = position.DistanceTo(_lastPosition);
-        if (distance < 1.0)
+        if (_transform != null && transform.Position.Distance(_transform.Position) < 1)
             return;
 
-        _transform = new NavMeshTransform(position.Region.Id, new Vector3(position.XOffset, position.ZOffset, position.YOffset));
+        _transform = transform;
         _mouseTransform = new NavMeshTransform(Vector3.Zero);
-        _lastPosition = position;
-
-        Refresh();
+        
+        this.Invalidate();
     }
 
     protected override void OnPaint(PaintEventArgs e)
     {
-        if (_lastPosition.Region.Id == 0)
+        if (_transform?.Region == 0u)
             return;
 
         BackColor = SDUI.ColorScheme.BackColor;
@@ -87,23 +89,32 @@ public partial class NavMeshRenderer : UserControl
 
         var set = new HashSet<int>();
 
-        for (int rz = _transform.Region.Z - 1; rz < _transform.Region.Z + 2; rz++)
+        if (_transform.Region.IsDungeon)
         {
-            for (int rx = _transform.Region.X - 1; rx < _transform.Region.X + 2; rx++)
+            if (!NavMeshManager.TryGetNavMeshDungeon(_transform.Region, out var dungeon))
+                return;
+
+            this.DrawNavMeshDungeon(set, g, dungeon);
+        }
+        else
+        {
+            for (int rz = _transform.Region.Z - 1; rz < _transform.Region.Z + 2; rz++)
             {
-                var rid = new RID((byte)rx, (byte)rz);
-                if (!NavMeshManager.TryGetNavMeshTerrain(rid, out var terrain))
-                    continue;
+                for (int rx = _transform.Region.X - 1; rx < _transform.Region.X + 2; rx++)
+                {
+                    var rid = new RID((byte)rx, (byte)rz);
+                    if (!NavMeshManager.TryGetNavMeshTerrain(rid, out var terrain))
+                        continue;
 
-                foreach (var edge in terrain.GlobalEdges)
-                    edge.Link();
+                    foreach (var edge in terrain.GlobalEdges)
+                        edge.Link();
 
-                this.DrawTerrain(set, g, terrain);
+                    this.DrawTerrain(set, g, terrain);
+                }
             }
         }
 
         var localMouseOffset = RID.Transform(_mouseTransform.Offset, _transform.Region, _mouseTransform.Region);
-
         if (_raycastVisualizer)
         {
             g.DrawLine(Pens.White, _transform.Offset.X, _transform.Offset.Z, localMouseOffset.X, localMouseOffset.Z);
@@ -123,7 +134,31 @@ public partial class NavMeshRenderer : UserControl
         g.DrawString($"Cursor: {_mouseTransform}", _font, textBrush, 0, 12);
         if (_hit != null)
             g.DrawString($"Hit: {_mouseTransform}", _font, Brushes.Red, 0, 24);
+    }
 
+    private void DrawNavMeshDungeon(HashSet<int> set, Graphics g, NavMeshDungeon dungeon)
+    {
+        if (_transform.Instance is not NavMeshInstBlock currentBlock)
+            return;
+
+        foreach (var block in dungeon.Blocks.Where(b => b.FloorIndex == currentBlock.FloorIndex))
+        {
+            var blockMatrix = new Matrix();
+            blockMatrix.RotateAt(block.Yaw * (180.0f / MathF.PI), block.LocalPosition.ToPointF());
+            blockMatrix.Translate(block.LocalPosition.X, block.LocalPosition.Z);
+
+            g.MultiplyTransform(blockMatrix);
+
+            this.DrawNavMeshObj(g, block.ID, block.NavMeshObj);
+
+            blockMatrix.Invert();
+            g.MultiplyTransform(blockMatrix);
+
+            set.Add(block.ID);
+
+            foreach (var obj in block.ObjectList)
+                g.DrawCircle(Pens.Red, obj.Circle);
+        }
     }
 
     private void DrawTerrain(HashSet<int> set, Graphics g, NavMeshTerrain terrain)
@@ -275,6 +310,7 @@ public partial class NavMeshRenderer : UserControl
 
         this.Invalidate();
     }
+
     protected override void OnMouseDown(MouseEventArgs e)
     {
         base.OnMouseDown(e);

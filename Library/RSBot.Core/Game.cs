@@ -157,7 +157,6 @@ public class Game
             MediaPk2 = new PackFileSystem(Path.Combine(directory, "media.pk2"), pk2Key);
             DataPk2 = new PackFileSystem(Path.Combine(directory, "data.pk2"), pk2Key);
 
-            NavMeshManager.Initialize(DataPk2);
             return true;
         }
         catch (Exception ex)

@@ -63,7 +63,7 @@ public class NavMeshDungeon : NavMesh
             var dunBlockCount = reader.ReadInt32();
             //_blockMap.Capacity = dunBlockCount;
             for (int i = 0; i < dunBlockCount; i++)
-                this.ReadDunBlock(i, stream, reader);
+                this.ReadDunBlock(i, stream, reader, this);
 
             foreach (var block in _blockMap.Values)
                 this.LinkBlock(block);
@@ -154,7 +154,7 @@ public class NavMeshDungeon : NavMesh
         }
     }
 
-    private void ReadDunBlock(int index, Stream stream, NavMeshReader reader)
+    private void ReadDunBlock(int index, Stream stream, NavMeshReader reader, NavMeshDungeon parent)
     {
         var path = reader.ReadString();
         var name = reader.ReadString();
@@ -170,22 +170,7 @@ public class NavMeshDungeon : NavMesh
         var result = Matrix4x4.Invert(localToWorld, out var worldToLocal);
         Debug.Assert(result, "Failed to invert localToWorld matrix");
 
-
-        var block = new NavMeshInstBlock
-        {
-            ID = index,
-            Region = this.Region,
-            Parent = this,
-            NavMeshObj = NavMeshManager.LoadNavMeshObj(path),
-            LocalPosition = position,
-            Yaw = yaw,
-            LocalToWorld = localToWorld,
-            WorldToLocal = worldToLocal,
-            BoundingBox = boundingBox,
-        };
-
         stream.Seek(20, SeekOrigin.Current);
-
         var blockHasHeightFog = reader.ReadBoolean();
         if (blockHasHeightFog)
             stream.Seek(16, SeekOrigin.Current);
@@ -195,8 +180,23 @@ public class NavMeshDungeon : NavMesh
             stream.Seek(28, SeekOrigin.Current);
 
         stream.Seek(reader.ReadInt32(), SeekOrigin.Current); //SeekOverString
-        block.RoomIndex = reader.ReadInt32();
-        block.FloorIndex = reader.ReadInt32();
+        var roomIndex = reader.ReadInt32();
+        var floorIndex = reader.ReadInt32();
+
+        var block = new NavMeshInstBlock
+        {
+            ID = index,
+            Region = this.Region,
+            Parent = parent,
+            NavMeshObj = NavMeshManager.LoadNavMeshObj(path),
+            LocalPosition = position,
+            LocalToWorld = localToWorld,
+            WorldToLocal = worldToLocal,
+            BoundingBox = boundingBox,
+            Yaw = yaw,
+            RoomIndex = roomIndex,
+            FloorIndex = floorIndex,
+        };
 
         var connectedBlockCount = reader.ReadInt32();
         for (int i = 0; i < connectedBlockCount; i++)

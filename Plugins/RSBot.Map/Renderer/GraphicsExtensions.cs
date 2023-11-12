@@ -11,8 +11,8 @@ public static class GraphicsExtensions
 
     public static void DrawCircle(this Graphics g, Pen pen, CircleF circle)
         => g.DrawEllipse(pen,
-            circle.Position.X - (circle.Radius / 2),
-            circle.Position.Y - (circle.Radius / 2),
+            circle.Position.X - circle.Radius,
+            circle.Position.Y - circle.Radius,
             circle.Radius * 2,
             circle.Radius * 2);
 

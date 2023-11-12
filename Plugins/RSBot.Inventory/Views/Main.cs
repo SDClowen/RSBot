@@ -349,7 +349,7 @@ public partial class Main : UserControl
         if (listViewMain.SelectedItems.Count <= 0)
             return;
 
-        if (!GlobalConfig.Get<bool>("RSBot.DebugEnvironment"))
+        if (!Kernel.Debug)
             return;
 
         var itemForm = new ItemProperties(listViewMain.SelectedItems[0].Tag as InventoryItem);

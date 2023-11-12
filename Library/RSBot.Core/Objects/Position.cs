@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Numerics;
 using RSBot.Core.Network;
+using RSBot.NavMeshApi;
+using RSBot.NavMeshApi.Dungeon;
 
 namespace RSBot.Core.Objects;
 
@@ -35,9 +38,6 @@ public struct Position
     /// </summary>
     public short WorldId { get; set; }
 
-    /// <summary>
-    ///     Gets or sets the layer id.
-    /// </summary>
     public short LayerId { get; set; }
 
     /// <summary>
@@ -238,5 +238,24 @@ public struct Position
     public override string ToString()
     {
         return $"X:{X:0.0} Y:{Y:0.0}";
+    }
+
+    public bool TryGetNavMeshTransform(out NavMeshTransform transform)
+    {
+        transform = new NavMeshTransform(Region.Id, new Vector3(XOffset, ZOffset, YOffset));
+
+        return NavMeshManager.ResolveCellAndHeight(transform);
+    }
+
+    public bool HasCollisionBetween(Position destination, NavMeshRaycastType type = NavMeshRaycastType.Attack)
+    {
+        if (!Kernel.EnableCollisionDetection)
+            return false;
+
+        if (!TryGetNavMeshTransform(out var srcTransform)
+            || !destination.TryGetNavMeshTransform(out var destTransform))
+            return false;
+
+        return !NavMeshManager.Raycast(srcTransform, destTransform, type);
     }
 }

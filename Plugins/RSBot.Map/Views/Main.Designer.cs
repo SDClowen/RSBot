@@ -52,8 +52,9 @@ namespace RSBot.Map.Views
             tabControl1 = new SDUI.Controls.TabControl();
             tabMinimap = new System.Windows.Forms.TabPage();
             tabNavMeshViewer = new System.Windows.Forms.TabPage();
-            panelNavMeshRendererCanvas = new System.Windows.Forms.Panel();
+            btnNvmResetToPlayer = new SDUI.Controls.Button();
             labelSectorInfo = new SDUI.Controls.Label();
+            panelNavMeshRendererCanvas = new System.Windows.Forms.Panel();
             tabControl1.SuspendLayout();
             tabMinimap.SuspendLayout();
             tabNavMeshViewer.SuspendLayout();
@@ -291,6 +292,7 @@ namespace RSBot.Map.Views
             // tabNavMeshViewer
             // 
             tabNavMeshViewer.BackColor = System.Drawing.Color.White;
+            tabNavMeshViewer.Controls.Add(btnNvmResetToPlayer);
             tabNavMeshViewer.Controls.Add(labelSectorInfo);
             tabNavMeshViewer.Controls.Add(panelNavMeshRendererCanvas);
             tabNavMeshViewer.Location = new System.Drawing.Point(4, 28);
@@ -300,13 +302,18 @@ namespace RSBot.Map.Views
             tabNavMeshViewer.TabIndex = 1;
             tabNavMeshViewer.Text = "NavMesh viewer";
             // 
-            // panelNavMeshRendererCanvas
+            // btnNvmResetToPlayer
             // 
-            panelNavMeshRendererCanvas.BackColor = System.Drawing.Color.FromArgb(64, 64, 64);
-            panelNavMeshRendererCanvas.Location = new System.Drawing.Point(0, 0);
-            panelNavMeshRendererCanvas.Name = "panelNavMeshRendererCanvas";
-            panelNavMeshRendererCanvas.Size = new System.Drawing.Size(350, 350);
-            panelNavMeshRendererCanvas.TabIndex = 1;
+            btnNvmResetToPlayer.Color = System.Drawing.Color.Transparent;
+            btnNvmResetToPlayer.Location = new System.Drawing.Point(114, 354);
+            btnNvmResetToPlayer.Name = "btnNvmResetToPlayer";
+            btnNvmResetToPlayer.Radius = 6;
+            btnNvmResetToPlayer.ShadowDepth = 4F;
+            btnNvmResetToPlayer.Size = new System.Drawing.Size(122, 23);
+            btnNvmResetToPlayer.TabIndex = 16;
+            btnNvmResetToPlayer.Text = "Reset to player";
+            btnNvmResetToPlayer.UseVisualStyleBackColor = true;
+            btnNvmResetToPlayer.Click += btnNvmResetToPlayer_Click;
             // 
             // labelSectorInfo
             // 
@@ -321,6 +328,15 @@ namespace RSBot.Map.Views
             labelSectorInfo.TabIndex = 15;
             labelSectorInfo.Text = "000x000";
             labelSectorInfo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // panelNavMeshRendererCanvas
+            // 
+            panelNavMeshRendererCanvas.BackColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            panelNavMeshRendererCanvas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            panelNavMeshRendererCanvas.Location = new System.Drawing.Point(0, 0);
+            panelNavMeshRendererCanvas.Name = "panelNavMeshRendererCanvas";
+            panelNavMeshRendererCanvas.Size = new System.Drawing.Size(350, 350);
+            panelNavMeshRendererCanvas.TabIndex = 1;
             // 
             // Main
             // 
@@ -370,5 +386,6 @@ namespace RSBot.Map.Views
         private System.Windows.Forms.TabPage tabNavMeshViewer;
         private System.Windows.Forms.Panel panelNavMeshRendererCanvas;
         private SDUI.Controls.Label labelSectorInfo;
+        private SDUI.Controls.Button btnNvmResetToPlayer;
     }
 }
