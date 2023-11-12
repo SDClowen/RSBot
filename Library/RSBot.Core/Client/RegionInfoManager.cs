@@ -62,13 +62,11 @@ public class RegionInfoManager
         if (ModernRegionInfo.Count > 0 && ModernRegionInfo.TryGetValue(region, out var modernRegionInfo))
             return modernRegionInfo.RegionType;
 
-        return GetLegacyRegionInfo(region)?.RegionType;
+        return GetLegacyRegionInfo(region)?.DungeonName;
     }
 
-    private static LegacyRegionInfo GetLegacyRegionInfo(Region region)
+    private static LegacyRegionInfoGroup GetLegacyRegionInfo(Region region)
     {
-        var legacyRegionInfo = LegacyRegionInfo.FirstOrDefault(ri => ri.Regions.ContainsKey(region));
-
-        return legacyRegionInfo?.GetRegionInfo(region);
+        return LegacyRegionInfo.FirstOrDefault(ri => ri.Regions.ContainsKey(region));
     }
 }

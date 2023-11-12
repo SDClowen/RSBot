@@ -134,16 +134,6 @@ public partial class NavMeshRenderer : UserControl
         g.DrawString($"Cursor: {_mouseTransform}", _font, textBrush, 0, 12);
         if (_hit != null)
             g.DrawString($"Hit: {_mouseTransform}", _font, Brushes.Red, 0, 24);
-
-        Testing(g);
-    }
-
-    private void Testing(Graphics g)
-    {
-        if (Game.Player.Position.TryGetNavMeshTransform(out var playerTransform))
-            return;
-
-        g.DrawCircle(Pens.Aqua, new CircleF(new Vector2(playerTransform.Offset.X, playerTransform.Offset.Z), 300));
     }
 
     private void DrawNavMeshDungeon(HashSet<int> set, Graphics g, NavMeshDungeon dungeon)
