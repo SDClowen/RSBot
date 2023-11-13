@@ -39,6 +39,10 @@ public struct Region
 
     public Region[] GetSurroundingRegions()
     {
+        if (this.IsDungeon)
+        {
+            return new[] {this};
+        }
         return new Region[]
         {
             new((byte)(X - 1), (byte)(Y + 1)), //TL

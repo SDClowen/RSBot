@@ -954,7 +954,7 @@ public partial class Main : UIWindow
         if (Game.Clientless)
             Text += " [Clientless]";
 
-        if (GlobalConfig.Get("RSBot.DebugEnvironment", false))
+        if (Kernel.Debug)
             Text += $@" [JID = {Game.Player.JID}]";
     }
 

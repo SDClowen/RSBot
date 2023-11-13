@@ -186,28 +186,6 @@ public partial class SplashScreen : UIWindow
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
 
         CommandManager.Initialize();
-
-        InitializeMap();
-    }
-
-    /// <summary>
-    ///     Initializes the map.
-    /// </summary>
-    private void InitializeMap()
-    {
-        //---- Load Map ----
-        var mapFile = Path.Combine(Kernel.BasePath, "Data", "Game", "map.rsc");
-
-        if (!CollisionManager.Enabled) Log.Warn("[Collision] Collision detection has been deactivated by the user!");
-
-        if (!File.Exists(mapFile))
-        {
-            Log.Error($"[Collisions] Directory {mapFile} not found!");
-
-            return;
-        }
-
-        CollisionManager.Initialize();
     }
 
     /// <summary>

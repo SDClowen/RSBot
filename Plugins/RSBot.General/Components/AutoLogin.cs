@@ -7,6 +7,11 @@ using RSBot.Core.Event;
 using RSBot.Core.Network;
 using RSBot.Core.Network.SecurityAPI;
 using RSBot.General.Models;
+
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 using Server = RSBot.General.Models.Server;
 
 namespace RSBot.General.Components;
@@ -168,6 +173,7 @@ internal static class AutoLogin
             !GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin")) return;
 
         var captcha = GlobalConfig.Get<string>("RSBot.General.StaticCaptcha");
+        captcha ??= string.Empty;
 
         Log.NotifyLang("EnteringCaptcha", captcha);
 

@@ -294,7 +294,7 @@ public class ScriptManager
             var curPos = ParsePosition(args);
             var distance = curPos.DistanceToPlayer();
 
-            if (distance < 100 && !CollisionManager.HasCollisionBetween(playerPos, curPos))
+            if (distance < 100 && !playerPos.HasCollisionBetween(curPos))
                 moveCommands.Add(line, curPos);
         }
 

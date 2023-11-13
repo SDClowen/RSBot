@@ -1,5 +1,3 @@
-using System.Diagnostics;
-using System.IO;
 using RSBot.FileSystem.PackFile.Struct;
 
 namespace RSBot.FileSystem.PackFile;
@@ -8,13 +6,15 @@ internal class PackResolver
 {
     private readonly PackReader _packReader;
     private readonly char _pathSeparator;
+    private readonly bool _caseSensitive;
 
     private readonly Dictionary<string, IEnumerable<PackBlock>> _blocksInMemory;
 
-    public PackResolver(PackReader packReader, char pathSeparator = '\\')
+    public PackResolver(PackReader packReader, char pathSeparator = '\\', bool caseSensitive = false)
     {
         _packReader = packReader;
         _pathSeparator = pathSeparator;
+        _caseSensitive = caseSensitive;
 
         Root = packReader.ReadBlocksAt(256);
 
@@ -41,7 +41,9 @@ internal class PackResolver
         foreach (var subFolderName in paths)
         {
             //Search in all blocks for the subfolder
-            var subFolderEntry = blocks.GetEntries().FirstOrDefault(e => e.Name == subFolderName && e.Type == PackEntryType.Folder);
+            var subFolderEntry = _caseSensitive 
+                ? blocks.GetEntries().FirstOrDefault(e => e.Name == subFolderName && e.Type == PackEntryType.Folder) 
+                : blocks.GetEntries().FirstOrDefault(e => e.Name.IndexOf(subFolderName, StringComparison.OrdinalIgnoreCase) == 0 && e.Type == PackEntryType.Folder);
 
             //Path not found
             if (subFolderEntry == null)
@@ -66,13 +68,12 @@ internal class PackResolver
         var parentFolderPath = PathUtil.GetFolderName(path);
         var fileName = PathUtil.GetFileName(path);
         var resolvedFolderBlock = ResolveBlock(parentFolderPath);
-        var entry = resolvedFolderBlock.GetEntries().FirstOrDefault(e => e.Type == PackEntryType.File && e.Name.IndexOf(fileName, StringComparison.OrdinalIgnoreCase) == 0);
 
-        if (entry == null) {
-            return null;
-        }
+        var entry = _caseSensitive 
+            ? resolvedFolderBlock.GetEntries().FirstOrDefault(e => e.Type == PackEntryType.File && e.Name == fileName)
+            : resolvedFolderBlock.GetEntries().FirstOrDefault(e => e.Type == PackEntryType.File && e.Name.IndexOf(fileName, StringComparison.OrdinalIgnoreCase) == 0);
 
-        return entry;
+        return entry ?? null;
     }
 
     public IEnumerable<PackEntry> ResolveFileList(string parentFolder, params string[] fileNamesToFilter)
