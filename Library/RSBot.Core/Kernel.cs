@@ -81,7 +81,7 @@ public static class Kernel
             #if DEBUG
             return true;
             #endif
-            GlobalConfig.Get("RSBot.DebugEnvironment", false);
+            return GlobalConfig.Get("RSBot.DebugEnvironment", false);
         }
         set => GlobalConfig.Set("RSBot.DebugEnvironments", value);
     }
