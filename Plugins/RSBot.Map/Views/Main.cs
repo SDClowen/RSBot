@@ -385,6 +385,9 @@ public partial class Main : UserControl
         // Set layer path & sectors
         var p = Game.Player.Movement.Source;
 
+        if (p.Region.X == _currentXSec && p.Region.Y == _currentYSec)
+            return;
+
         _currentXSec = p.Region.X;
         _currentYSec = p.Region.Y;
 
@@ -393,9 +396,6 @@ public partial class Main : UserControl
             _currentXSec = p.GetSectorFromOffset(p.XOffset);
             _currentYSec = p.GetSectorFromOffset(p.YOffset);
         }
-
-        if (p.Region.X == _currentXSec && p.Region.Y == _currentYSec)
-            return;
 
         if (_cachedImages.Count >= 25)
             _cachedImages.Clear();
