@@ -4,8 +4,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using System.Globalization;
-using System.Linq;
 using System.Windows.Forms;
 using RSBot.Core;
 using RSBot.Core.Client;
@@ -14,11 +12,9 @@ using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
-using RSBot.Core.Objects.Cos;
 using RSBot.Core.Objects.Spawn;
 using RSBot.Map.Renderer;
 using RSBot.NavMeshApi.Dungeon;
-using RSBot.NavMeshApi.Object;
 using Region = RSBot.Core.Objects.Region;
 
 namespace RSBot.Map.Views;
@@ -384,18 +380,21 @@ public partial class Main : UserControl
     {
         // Set layer path & sectors
         var p = Game.Player.Movement.Source;
-
-        _currentXSec = p.Region.X;
-        _currentYSec = p.Region.Y;
+        
+        var tempX = p.Region.X;
+        var tempY = p.Region.Y;
 
         if (p.Region.IsDungeon)
         {
-            _currentXSec = p.GetSectorFromOffset(p.XOffset);
-            _currentYSec = p.GetSectorFromOffset(p.YOffset);
+            tempX = p.GetSectorFromOffset(p.XOffset);
+            tempY = p.GetSectorFromOffset(p.YOffset);
         }
 
-        if (p.Region.X == _currentXSec && p.Region.Y == _currentYSec)
+        if (tempX == _currentXSec && tempY == _currentYSec)
             return;
+
+        _currentXSec = tempX;
+        _currentYSec = tempY;
 
         if (_cachedImages.Count >= 25)
             _cachedImages.Clear();
@@ -409,7 +408,7 @@ public partial class Main : UserControl
 
             var floorName = string.Empty;
             var dungeonName =string.Empty;
-            if (p.Region.IsDungeon && Kernel.EnableCollisionDetection)
+            if (p.Region.IsDungeon)
             {
                 if (!p.TryGetNavMeshTransform(out var pTransform))
                     return;
