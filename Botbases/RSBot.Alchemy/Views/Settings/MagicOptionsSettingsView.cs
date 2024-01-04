@@ -13,11 +13,12 @@ using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Item;
+using SDUI.Controls;
 
 namespace RSBot.Alchemy.Views.Settings;
 
 [ToolboxItem(false)]
-public partial class MagicOptionsSettingsView : UserControl
+public partial class MagicOptionsSettingsView : DoubleBufferedControl
 {
     #region Members
 

@@ -13,7 +13,7 @@ using CheckBox = SDUI.Controls.CheckBox;
 namespace RSBot.Default.Views;
 
 [ToolboxItem(false)]
-public partial class Main : UserControl
+public partial class Main : DoubleBufferedControl
 {
     private const int ScriptRecorderOwnerId = 2000;
 

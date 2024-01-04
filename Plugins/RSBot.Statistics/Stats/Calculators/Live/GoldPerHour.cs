@@ -55,6 +55,9 @@ internal class GoldPerHour : IStatisticCalculator
     /// <inheritdoc />
     public void Reset()
     {
+        if (!Game.Ready)
+            return;
+
         _lastTickValue = Convert.ToInt64(Game.Player.Gold);
         _values = new long[60];
     }

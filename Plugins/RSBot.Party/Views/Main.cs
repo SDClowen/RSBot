@@ -20,7 +20,7 @@ using ListViewExtensions = RSBot.Core.Extensions.ListViewExtensions;
 namespace RSBot.Party.Views;
 
 [ToolboxItem(false)]
-public partial class Main : UserControl
+public partial class Main : DoubleBufferedControl
 {
     /// <summary>
     ///     <inheritdoc />

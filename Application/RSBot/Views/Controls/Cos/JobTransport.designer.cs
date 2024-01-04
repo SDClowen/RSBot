@@ -28,19 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
+            SuspendLayout();
             // 
             // JobTransport
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.MaximumSize = new System.Drawing.Size(242, 70);
-            this.MinimumSize = new System.Drawing.Size(242, 70);
-            this.Name = "JobTransport";
-            this.Size = new System.Drawing.Size(242, 70);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            MaximumSize = new System.Drawing.Size(242, 70);
+            MinimumSize = new System.Drawing.Size(242, 70);
+            Name = "JobTransport";
+            Size = new System.Drawing.Size(242, 70);
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

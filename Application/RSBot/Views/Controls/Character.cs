@@ -3,10 +3,11 @@ using System.Windows.Forms;
 using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
+using SDUI.Controls;
 
 namespace RSBot.Views.Controls;
 
-public partial class Character : UserControl
+public partial class Character : DoubleBufferedControl
 {
     /// <summary>
     ///     Initializes a new instance of the <see cref="Character" /> class.

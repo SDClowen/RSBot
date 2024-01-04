@@ -11,7 +11,7 @@ using SDUI.Controls;
 
 namespace RSBot.Trade.Views;
 
-public partial class Main : UserControl
+public partial class Main : DoubleBufferedControl
 {
     private bool _loadingConfig;
 

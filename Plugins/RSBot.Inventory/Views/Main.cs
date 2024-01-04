@@ -12,13 +12,14 @@ using RSBot.Core.Network;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Inventory;
 using SDUI;
+using SDUI.Controls;
 using Button = SDUI.Controls.Button;
 using ListViewExtensions = RSBot.Core.Extensions.ListViewExtensions;
 
 namespace RSBot.Inventory.Views;
 
 [ToolboxItem(false)]
-public partial class Main : UserControl
+public partial class Main : DoubleBufferedControl
 {
     /// <summary>
     ///     <inheritdoc />

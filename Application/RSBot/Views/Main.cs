@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Net;
-using System.Windows.Forms;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using RSBot.Core;
 using RSBot.Core.Client;
 using RSBot.Core.Components;
@@ -15,8 +8,13 @@ using RSBot.Views.Dialog;
 using SDUI;
 using SDUI.Controls;
 using SDUI.Helpers;
-using static SDUI.NativeMethods;
-using TabControl = System.Windows.Forms.TabControl;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
+using System.Net;
+using System.Windows.Forms;
 
 namespace RSBot.Views;
 
@@ -24,6 +22,16 @@ public partial class Main : UIWindow
 {
     public static readonly Color LightThemeColor = Color.FromArgb(255, 255, 255);
     public static readonly Color DarkThemeColor = Color.FromArgb(16, 16, 16);
+
+    #region Members
+
+    /// <summary>
+    ///     Bot player name [_cached]
+    /// </summary>
+    private string _playerName;
+    private readonly Dictionary<string, UIWindow> _pluginWindows = new(8);
+
+    #endregion Members
 
     #region Constructor
 
@@ -46,6 +54,8 @@ public partial class Main : UIWindow
 
     #endregion
 
+    #region Methods
+
     private void donateButton_Click(object sender, EventArgs e)
     {
         Process.Start(new ProcessStartInfo { FileName = "https://buymeacoffee.com/sdclowen", UseShellExecute = true });
@@ -55,44 +65,20 @@ public partial class Main : UIWindow
     }
 
     /// <summary>
-    ///     Occurs before a tab is selected, enabling a handler to cancel the tab change.
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void tabMain_Selecting(object sender, TabControlCancelEventArgs e)
-    {
-        var selectedTab = (sender as TabControl).SelectedTab;
-        if (!selectedTab.Enabled) e.Cancel = true;
-    }
-
-    #region Members
-
-    /// <summary>
-    ///     Bot player name [_cached]
-    /// </summary>
-    private string _playerName;
-
-
-    private readonly Dictionary<string, UIWindow> _pluginWindows = new(8);
-
-    #endregion Members
-
-    #region Methods
-
-    /// <summary>
     ///     Called when user preference changing
     /// </summary>
     /// <param name="sender">The sender</param>
     /// <param name="e">The event args</param>
     private void SystemEvents_UserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
     {
-        if (e?.Category != UserPreferenceCategory.Color)
+        if (BackColor.IsDark() == WindowsHelper.IsDark())
             return;
 
         var detectDarkLight = GlobalConfig.Get("RSBot.Theme.Auto", true);
         if (!detectDarkLight)
             return;
 
+        DwmMargin = WindowsHelper.IsDark() ? -1 : 1;
         if (WindowsHelper.IsDark())
             SetThemeColor(DarkThemeColor);
         else
@@ -186,26 +172,14 @@ public partial class Main : UIWindow
             return;
         }
 
-        _ = tabMain.Handle; //Generate the handle for the tab control
-
         newBotbase.Value.Translate();
 
-        //Add the tab to the tabcontrol
-        var tabPage =
-            new TabPage(
-                LanguageManager.GetLangBySpecificKey(newBotbase.Value.Name, "TabText", newBotbase.Value.TabText))
-            {
-                Name = newBotbase.Value.Name,
-                Enabled = Game.Ready,
-                BackColor = Color.FromArgb(200, BackColor),
-                ForeColor = ForeColor,
-                Padding = new Padding(0),
-                Margin = new Padding(0)
-            };
-
-        tabPage.Controls.Add(newBotbase.Value.View);
-
-        tabMain.TabPages.Insert(1, tabPage);
+        var control = newBotbase.Value.View;
+        control.Name = newBotbase.Value.Name;
+        control.Text = LanguageManager.GetLangBySpecificKey(newBotbase.Value.Name, "TabText", newBotbase.Value.TabText);
+        control.Enabled = Game.Ready;
+        windowPageControl.Controls.Add(control);
+        windowPageControl.Controls.SetChildIndex(control, 1);
 
         Kernel.Bot?.SetBotbase(newBotbase.Value);
         GlobalConfig.Set("RSBot.BotName", newBotbase.Value.Name);
@@ -216,8 +190,8 @@ public partial class Main : UIWindow
         foreach (ToolStripMenuItem item in botsToolStripMenuItem.DropDown.Items)
             item.Checked = newBotbase.Value.Name == item.Name;
 
-        if (oldBotbaseName != null && tabMain.TabPages.ContainsKey(oldBotbaseName))
-            tabMain.TabPages[oldBotbaseName].Dispose();
+        if (!string.IsNullOrWhiteSpace(oldBotbaseName) && windowPageControl.Controls.ContainsKey(oldBotbaseName))
+            windowPageControl.Controls.RemoveByKey(oldBotbaseName);
     }
 
     /// <summary>
@@ -236,28 +210,14 @@ public partial class Main : UIWindow
         {
             extension.Value.Translate();
 
-            var tabPage = new TabPage
-            {
-                Text = LanguageManager.GetLangBySpecificKey(extension.Value.InternalName, "DisplayName",
-                    extension.Value.DisplayName),
-                Enabled = !extension.Value.RequireIngame,
-                Name = extension.Value.InternalName,
-                Padding = new Padding(0),
-                Margin = new Padding(0)
-            };
-
             var control = extension.Value.View;
-
+            control.Name = extension.Value.InternalName;
+            control.Text = LanguageManager.GetLangBySpecificKey(extension.Value.InternalName, "DisplayName",
+                extension.Value.DisplayName);
+            control.Enabled = !extension.Value.RequireIngame;
             control.Dock = DockStyle.Fill;
 
-            tabPage.BackColor = Color.FromArgb(200, BackColor);
-            tabPage.ForeColor = ForeColor;
-
-            tabPage.Controls.Add(control);
-            tabMain.TabPages.Add(tabPage);
-
-            if (tabPage.Enabled)
-                continue;
+            windowPageControl.Controls.Add(control);
         }
 
         foreach (var extension in extensions.Where(extension => !extension.Value.DisplayAsTab))
@@ -360,7 +320,6 @@ public partial class Main : UIWindow
         if (!pluginWindow.Visible)
             pluginWindow.Show();
 
-        pluginWindow.BringToFront();
     }
 
     /// <summary>
@@ -438,7 +397,7 @@ public partial class Main : UIWindow
 
         ConfigureSidebar();
         BackColor = ColorScheme.BackColor;
-        menuCurrentProfile.Text = ProfileManager.SelectedProfile;
+        menuCurrentProfile.Text = "Profile: " + ProfileManager.SelectedProfile;
 
         EventManager.FireEvent("OnInitialized");
     }
@@ -464,7 +423,7 @@ public partial class Main : UIWindow
         {
             plugin.Value.Translate();
 
-            var tabpage = tabMain.TabPages[plugin.Key];
+            var tabpage = windowPageControl.Controls[plugin.Key];
             if (tabpage == null)
                 continue;
 
@@ -475,10 +434,10 @@ public partial class Main : UIWindow
         {
             botbase.Value.Translate();
 
-            if (!tabMain.TabPages.ContainsKey(botbase.Key))
+            if (!windowPageControl.Controls.ContainsKey(botbase.Key))
                 continue;
 
-            var tabpage = tabMain.TabPages[botbase.Key];
+            var tabpage = windowPageControl.Controls[botbase.Key];
             tabpage.Text = LanguageManager.GetLangBySpecificKey(botbase.Key, "DisplayName", tabpage.Text);
         }
 
@@ -630,16 +589,6 @@ public partial class Main : UIWindow
     }
 
     /// <summary>
-    ///     Handles the Click event of the closeToolStripMenuItem control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    private void closeToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-        Close();
-    }
-
-    /// <summary>
     ///     Handles the Click event of the networkConfigToolStripMenuItem control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
@@ -651,30 +600,6 @@ public partial class Main : UIWindow
     }
 
     /// <summary>
-    ///     Handles the Click event of the minimizeToolStripMenuItem control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    private void minimizeToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-        WindowState = FormWindowState.Minimized;
-    }
-
-    /// <summary>
-    ///     Handles the MouseDown event of the menuStrip control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="MouseEventArgs" /> instance containing the event data.</param>
-    private void menuStrip_MouseDown(object sender, MouseEventArgs e)
-    {
-        if (e.Button == MouseButtons.Left)
-        {
-            ReleaseCapture();
-            SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
-        }
-    }
-
-    /// <summary>
     ///     Handles the Click event of the darkToolStripMenuItem control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
@@ -682,6 +607,7 @@ public partial class Main : UIWindow
     private void darkToolStripMenuItem_Click(object sender, EventArgs e)
     {
         GlobalConfig.Set("RSBot.Theme.Auto", false);
+        DwmMargin = -1;
         SetThemeColor(DarkThemeColor);
     }
 
@@ -693,6 +619,7 @@ public partial class Main : UIWindow
     private void lightToolStripMenuItem_Click(object sender, EventArgs e)
     {
         GlobalConfig.Set("RSBot.Theme.Auto", false);
+        DwmMargin = 1;
         SetThemeColor(LightThemeColor);
     }
 
@@ -735,6 +662,7 @@ public partial class Main : UIWindow
         if (colorDialog.ShowDialog() == DialogResult.OK)
         {
             GlobalConfig.SetArray("SDUI.CustomColors", colorDialog.CustomColors);
+            DwmMargin = colorDialog.Color.IsDark() ? -1 : 1;
             SetThemeColor(colorDialog.Color);
         }
     }
@@ -879,13 +807,13 @@ public partial class Main : UIWindow
     /// </summary>
     private void OnAgentServerDisconnected()
     {
-        foreach (TabPage tabPage in tabMain.TabPages)
+        foreach (Control control in windowPageControl.Controls)
         {
-            if (!tabPage.Controls.ContainsKey("overlay"))
+            if (!control.Controls.ContainsKey("overlay"))
                 continue;
 
-            tabPage.Enabled = false;
-            tabPage.Controls["overlay"].Show();
+            control.Enabled = false;
+            control.Controls["overlay"].Show();
         }
 
         var disconnectedText = LanguageManager.GetLang("Disconnected");
@@ -937,11 +865,11 @@ public partial class Main : UIWindow
     /// </summary>
     private void OnLoadCharacter()
     {
-        foreach (TabPage tabPage in tabMain.TabPages)
+        foreach (Control control in windowPageControl.Controls)
         {
-            tabPage.Enabled = true;
+            control.Enabled = true;
 
-            tabPage.Controls["overlay"]?.Hide();
+            control.Controls["overlay"]?.Hide();
         }
 
         foreach (ToolStripItem item in menuPlugins.DropDownItems)

@@ -40,7 +40,12 @@
             lblType.BackColor = System.Drawing.Color.Transparent;
             lblType.Dock = System.Windows.Forms.DockStyle.Bottom;
             lblType.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            lblType.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            lblType.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            lblType.GradientAnimation = false;
             lblType.Location = new System.Drawing.Point(0, 64);
             lblType.Name = "lblType";
             lblType.Size = new System.Drawing.Size(250, 19);
@@ -53,7 +58,12 @@
             label1.ApplyGradient = false;
             label1.AutoSize = true;
             label1.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label1.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label1.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label1.GradientAnimation = false;
             label1.Location = new System.Drawing.Point(20, 40);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(26, 15);
@@ -65,7 +75,12 @@
             lblEntityName.ApplyGradient = false;
             lblEntityName.AutoSize = true;
             lblEntityName.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            lblEntityName.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            lblEntityName.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            lblEntityName.GradientAnimation = false;
             lblEntityName.Location = new System.Drawing.Point(49, 12);
             lblEntityName.Name = "lblEntityName";
             lblEntityName.Size = new System.Drawing.Size(102, 15);
@@ -77,7 +92,11 @@
             progressHP.BackColor = System.Drawing.Color.Transparent;
             progressHP.DrawHatch = false;
             progressHP.ForeColor = System.Drawing.Color.Firebrick;
-            progressHP.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Maroon, System.Drawing.Color.Red });
+            progressHP.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Maroon,
+    System.Drawing.Color.Red
+    };
             progressHP.HatchType = System.Drawing.Drawing2D.HatchStyle.Percent10;
             progressHP.Location = new System.Drawing.Point(52, 38);
             progressHP.Maximum = 100L;
@@ -89,14 +108,13 @@
             progressHP.ShowValue = true;
             progressHP.Size = new System.Drawing.Size(180, 20);
             progressHP.TabIndex = 15;
-            progressHP.Text = "0,00%";
+            progressHP.Text = "0.00%";
             progressHP.Value = 0L;
             // 
             // Entity
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            BackColor = System.Drawing.SystemColors.Control;
             Controls.Add(lblType);
             Controls.Add(label1);
             Controls.Add(lblEntityName);

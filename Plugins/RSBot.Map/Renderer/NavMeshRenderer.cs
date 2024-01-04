@@ -4,7 +4,7 @@ using RSBot.NavMeshApi.Dungeon;
 using RSBot.NavMeshApi.Mathematics;
 using RSBot.NavMeshApi.Object;
 using RSBot.NavMeshApi.Terrain;
-
+using SDUI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -15,7 +15,7 @@ using System.Windows.Forms;
 
 namespace RSBot.Map.Renderer;
 
-public partial class NavMeshRenderer : UserControl
+public partial class NavMeshRenderer : DoubleBufferedControl
 {
     private bool _isDragging;
     private Point _dragPosition;

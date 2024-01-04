@@ -6,12 +6,13 @@ using System.Windows.Forms;
 using RSBot.Core;
 using RSBot.Statistics.Stats;
 using RSBot.Statistics.Stats.Calculators;
+using SDUI.Controls;
 using CheckBox = SDUI.Controls.CheckBox;
 
 namespace RSBot.Statistics.Views;
 
 [ToolboxItem(false)]
-public partial class Main : UserControl
+public partial class Main : DoubleBufferedControl
 {
     /// <summary>
     ///     The initial reset

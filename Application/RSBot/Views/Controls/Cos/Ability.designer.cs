@@ -28,19 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
+            SuspendLayout();
             // 
             // Ability
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.MaximumSize = new System.Drawing.Size(242, 70);
-            this.MinimumSize = new System.Drawing.Size(242, 70);
-            this.Name = "Ability";
-            this.Size = new System.Drawing.Size(242, 70);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            MaximumSize = new System.Drawing.Size(242, 70);
+            MinimumSize = new System.Drawing.Size(242, 70);
+            Name = "Ability";
+            Size = new System.Drawing.Size(242, 70);
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

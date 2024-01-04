@@ -4,11 +4,12 @@ using System.Windows.Forms;
 using RSBot.CommandCenter.Components;
 using RSBot.Core;
 using RSBot.Core.Components;
+using SDUI.Controls;
 
 namespace RSBot.CommandCenter.Views.Controls;
 
 [ToolboxItem(false)]
-internal partial class EmoticonActionElement : UserControl
+internal partial class EmoticonActionElement : DoubleBufferedControl
 {
     public EmoticonActionElement(EmoticonItem item, string selectedActionName = null)
     {

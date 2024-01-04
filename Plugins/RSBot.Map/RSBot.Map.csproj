@@ -20,9 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Renderer\NavMeshRenderer.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Update="Renderer\NavMeshRenderer.cs" />
   </ItemGroup>
 
 </Project>

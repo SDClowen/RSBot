@@ -18,7 +18,7 @@ using ListViewExtensions = RSBot.Core.Extensions.ListViewExtensions;
 namespace RSBot.Skills.Views;
 
 [ToolboxItem(false)]
-public partial class Main : UserControl
+public partial class Main : DoubleBufferedControl
 {
     /// <summary>
     ///     Initializes a new instance of the <see cref="Main" /> class.

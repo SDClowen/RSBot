@@ -5,10 +5,11 @@ using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects.Spawn;
+using SDUI.Controls;
 
 namespace RSBot.Views.Controls;
 
-public partial class Entity : UserControl
+public partial class Entity : DoubleBufferedControl
 {
     public Entity()
     {

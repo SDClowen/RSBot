@@ -7,11 +7,12 @@ using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.Lure.Components;
+using SDUI.Controls;
 
 namespace RSBot.Lure.Views;
 
 [ToolboxItem(false)]
-public partial class Main : UserControl
+public partial class Main : DoubleBufferedControl
 {
     private const int ScriptRecorderOwnerId = 1000;
 

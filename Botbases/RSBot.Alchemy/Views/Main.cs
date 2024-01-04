@@ -10,11 +10,12 @@ using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
+using SDUI.Controls;
 
 namespace RSBot.Alchemy.Views;
 
 [ToolboxItem(false)]
-public partial class Main : UserControl
+public partial class Main : DoubleBufferedControl
 {
     #region Constructor
 

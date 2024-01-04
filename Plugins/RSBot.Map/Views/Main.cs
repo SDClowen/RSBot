@@ -15,12 +15,13 @@ using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
 using RSBot.Map.Renderer;
 using RSBot.NavMeshApi.Dungeon;
+using SDUI.Controls;
 using Region = RSBot.Core.Objects.Region;
 
 namespace RSBot.Map.Views;
 
 [ToolboxItem(false)]
-public partial class Main : UserControl
+public partial class Main : DoubleBufferedControl
 {
     /// <summary>
     ///     The grid size
