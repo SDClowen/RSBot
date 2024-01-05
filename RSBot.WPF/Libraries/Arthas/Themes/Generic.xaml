@@ -1,0 +1,32 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/RSBot.GUI;component/Controls/MetroWindow.xaml" />
+        <ResourceDictionary Source="/RSBot.GUI;component/Controls/MetroButton.xaml" />
+        <ResourceDictionary Source="/RSBot.GUI;component/Controls/MetroTextButton.xaml" />
+        <ResourceDictionary Source="/RSBot.GUI;component/Controls/MetroFocusButton.xaml" />
+        <ResourceDictionary Source="/RSBot.GUI;component/Controls/MetroTextBox.xaml" />
+        <ResourceDictionary Source="/RSBot.GUI;component/Controls/MetroTabControl.xaml" />
+        <ResourceDictionary Source="/RSBot.GUI;component/Controls/MetroTextBlock.xaml" />
+        <ResourceDictionary Source="/RSBot.GUI;component/Controls/MetroTabItem.xaml" />
+        <ResourceDictionary Source="/RSBot.GUI;component/Controls/MetroSwitch.xaml" />
+        <ResourceDictionary Source="/RSBot.GUI;component/Controls/MetroGroupBox.xaml" />
+        <ResourceDictionary Source="/RSBot.GUI;component/Controls/MetroWaterfallFlow.xaml" />
+        <ResourceDictionary Source="/RSBot.GUI;component/Controls/MetroMenuTabItem.xaml" />
+        <ResourceDictionary Source="/RSBot.GUI;component/Controls/MetroMenuTabControl.xaml" />
+        <ResourceDictionary Source="/RSBot.GUI;component/Controls/MetroTitleMenu.xaml" />
+        <ResourceDictionary Source="/RSBot.GUI;component/Controls/MetroTitleMenuItem.xaml" />
+        <ResourceDictionary Source="/RSBot.GUI;component/Controls/MetroMenuItem.xaml" />
+        <ResourceDictionary Source="/RSBot.GUI;component/Controls/MetroMenuSeparator.xaml" />
+        <ResourceDictionary Source="/RSBot.GUI;component/Controls/MetroContextMenu.xaml" />
+        <ResourceDictionary Source="/RSBot.GUI;component/Controls/MetroScrollViewer.xaml" />
+        <ResourceDictionary Source="/RSBot.GUI;component/Controls/MetroComboBox.xaml" />
+        <ResourceDictionary Source="/RSBot.GUI;component/Controls/MetroComboBoxItem.xaml" />
+        <ResourceDictionary Source="/RSBot.GUI;component/Controls/MetroVisualElement.xaml" />
+        <ResourceDictionary Source="/RSBot.GUI;component/Controls/MetroProgressBar.xaml" />
+        <ResourceDictionary Source="/RSBot.GUI;component/Controls/MetroRichTextBox.xaml" />
+        <ResourceDictionary Source="/RSBot.GUI;component/Controls/MetroImage.xaml" />
+        <ResourceDictionary Source="/RSBot.GUI;component/Controls/MetroExpander.xaml" />
+        <ResourceDictionary Source="/RSBot.GUI;component/Controls/MetroCanvasGrid.xaml" />
+        <ResourceDictionary Source="/RSBot.GUI;component/Controls/MetroPath.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

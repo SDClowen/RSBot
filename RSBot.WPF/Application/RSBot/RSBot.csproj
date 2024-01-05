@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+    <PropertyGroup>
+        <TargetFrameworks>net7.0-windows</TargetFrameworks>
+        <LangVersion>latest</LangVersion>
+        <UseWPF>true</UseWPF>
+        <OutputType>WinExe</OutputType>
+    </PropertyGroup>
+    <ItemGroup>
+        <Resource Include="Resources\**" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Plugins\RSBot.Log\RSBot.Log.csproj" />
+      <ProjectReference Include="..\..\Libraries\Arthas\RSBot.GUI.csproj" />
+    </ItemGroup>
+</Project>
