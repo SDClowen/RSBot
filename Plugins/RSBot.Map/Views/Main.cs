@@ -84,7 +84,7 @@ public partial class Main : DoubleBufferedControl
         if (DesignMode)
             return;
 
-        _cachedImages = _cachedImages ?? new Dictionary<string, Image>();
+        _cachedImages ??= new();
 
         EventManager.SubscribeEvent("OnEnterGame", OnEnterGame);
 

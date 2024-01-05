@@ -78,7 +78,6 @@ public partial class Main : UIWindow
         if (!detectDarkLight)
             return;
 
-        DwmMargin = WindowsHelper.IsDark() ? -1 : 1;
         if (WindowsHelper.IsDark())
             SetThemeColor(DarkThemeColor);
         else
@@ -607,7 +606,6 @@ public partial class Main : UIWindow
     private void darkToolStripMenuItem_Click(object sender, EventArgs e)
     {
         GlobalConfig.Set("RSBot.Theme.Auto", false);
-        DwmMargin = -1;
         SetThemeColor(DarkThemeColor);
     }
 
@@ -619,7 +617,6 @@ public partial class Main : UIWindow
     private void lightToolStripMenuItem_Click(object sender, EventArgs e)
     {
         GlobalConfig.Set("RSBot.Theme.Auto", false);
-        DwmMargin = 1;
         SetThemeColor(LightThemeColor);
     }
 
@@ -662,7 +659,6 @@ public partial class Main : UIWindow
         if (colorDialog.ShowDialog() == DialogResult.OK)
         {
             GlobalConfig.SetArray("SDUI.CustomColors", colorDialog.CustomColors);
-            DwmMargin = colorDialog.Color.IsDark() ? -1 : 1;
             SetThemeColor(colorDialog.Color);
         }
     }

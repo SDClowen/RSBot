@@ -251,6 +251,7 @@
             Controls.Add(txtScript);
             Controls.Add(panel2);
             Controls.Add(panel1);
+            DwmMargin = -1;
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Location = new System.Drawing.Point(0, 0);
             MaximizeBox = false;
