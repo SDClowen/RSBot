@@ -44,8 +44,8 @@ namespace RSBot.Views
             btnSave = new SDUI.Controls.Button();
             btnStartStop = new SDUI.Controls.Button();
             pSidebar = new SDUI.Controls.Panel();
-            entity1 = new Entity();
             pSidebarCustom = new Panel();
+            entity1 = new Entity();
             botbase1ToolStripMenuItem1 = new ToolStripMenuItem();
             botbase1ToolStripMenuItem = new ToolStripMenuItem();
             notifyIcon = new NotifyIcon(components);
@@ -236,15 +236,6 @@ namespace RSBot.Views
             pSidebar.Size = new System.Drawing.Size(250, 595);
             pSidebar.TabIndex = 6;
             // 
-            // entity1
-            // 
-            entity1.Dock = DockStyle.Top;
-            entity1.Location = new System.Drawing.Point(0, 70);
-            entity1.MinimumSize = new System.Drawing.Size(250, 76);
-            entity1.Name = "entity1";
-            entity1.Size = new System.Drawing.Size(250, 83);
-            entity1.TabIndex = 10;
-            // 
             // pSidebarCustom
             // 
             pSidebarCustom.Dock = DockStyle.Fill;
@@ -254,6 +245,15 @@ namespace RSBot.Views
             pSidebarCustom.Padding = new Padding(0, 16, 0, 0);
             pSidebarCustom.Size = new System.Drawing.Size(250, 442);
             pSidebarCustom.TabIndex = 14;
+            // 
+            // entity1
+            // 
+            entity1.Dock = DockStyle.Top;
+            entity1.Location = new System.Drawing.Point(0, 70);
+            entity1.MinimumSize = new System.Drawing.Size(250, 76);
+            entity1.Name = "entity1";
+            entity1.Size = new System.Drawing.Size(250, 83);
+            entity1.TabIndex = 10;
             // 
             // botbase1ToolStripMenuItem1
             // 
@@ -461,7 +461,7 @@ namespace RSBot.Views
             ExtendBox = true;
             ExtendMenu = menuStrip;
             ForeColor = System.Drawing.Color.Black;
-            FormBorderStyle = FormBorderStyle.None;
+            FullDrawHatch = true;
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Location = new System.Drawing.Point(0, 0);
             Name = "Main";
