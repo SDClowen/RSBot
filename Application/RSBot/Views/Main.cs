@@ -239,24 +239,7 @@ public partial class Main : UIWindow
     /// </summary>
     private void ConfigureSidebar()
     {
-        var size = Size;
-        if (menuSidebar.Checked)
-        {
-            size.Width = 1048;
-            pSidebar.Visible = true;
-        }
-        else
-        {
-            size.Width = 800;
-            pSidebar.Visible = false;
-        }
-
-        size.Height = 724;
-        Size = size;
-        Width = size.Width;
-        Height = size.Height;
-        MinimumSize = size;
-        MaximumSize = size;
+        pSidebar.Visible = menuSidebar.Checked;
     }
 
     /// <summary>
@@ -565,7 +548,7 @@ public partial class Main : UIWindow
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void Main_Resize(object sender, EventArgs e)
     {
-        if (WindowState == FormWindowState.Normal)
+        if (WindowState != FormWindowState.Minimized)
             return;
 
         if (!GlobalConfig.Get<bool>("RSBot.General.TrayWhenMinimize"))

@@ -44,7 +44,7 @@ public partial class Main : DoubleBufferedControl
 
     private void OnLoadCharacter()
     {
-        if (IsDisposed || Disposing)
+        if (IsDisposed || Disposing || !Game.Ready)
             return;
 
         checkUseHowlingShout.Enabled = Game.Player.Race == ObjectCountry.Europe;

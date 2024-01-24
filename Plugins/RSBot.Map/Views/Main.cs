@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
-using System.Windows.Forms;
-using RSBot.Core;
+﻿using RSBot.Core;
 using RSBot.Core.Client;
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Components;
@@ -16,6 +9,13 @@ using RSBot.Core.Objects.Spawn;
 using RSBot.Map.Renderer;
 using RSBot.NavMeshApi.Dungeon;
 using SDUI.Controls;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.Windows.Forms;
 using Region = RSBot.Core.Objects.Region;
 
 namespace RSBot.Map.Views;
@@ -67,7 +67,7 @@ public partial class Main : DoubleBufferedControl
     /// <summary>
     ///     <inheritdoc />
     /// </summary>
-    private readonly BufferedGraphics bufferedGraphics;
+    private BufferedGraphics bufferedGraphics;
 
     /// <summary>
     ///     <inheritdoc />
@@ -75,6 +75,12 @@ public partial class Main : DoubleBufferedControl
     private readonly BufferedGraphicsContext bufferedGraphicsContext;
 
     private readonly NavMeshRenderer _navMeshRenderer;
+
+    /// <summary>
+    /// The region name
+    /// </summary>
+    private string _regionName;
+
     /// <summary>
     ///     Initializes a new instance of the <see cref="Main" /> class.
     /// </summary>
@@ -379,9 +385,16 @@ public partial class Main : DoubleBufferedControl
     /// </summary>
     private void RedrawMap()
     {
+        if (bufferedGraphicsContext.MaximumBuffer.Width != mapCanvas.Width + 1)
+        {
+            bufferedGraphicsContext.MaximumBuffer = mapCanvas.Size;
+
+            bufferedGraphics = bufferedGraphicsContext.Allocate(mapCanvas.CreateGraphics(), mapCanvas.ClientRectangle);
+        }
+
         // Set layer path & sectors
         var p = Game.Player.Movement.Source;
-        
+
         var tempX = p.Region.X;
         var tempY = p.Region.Y;
 
@@ -408,7 +421,7 @@ public partial class Main : DoubleBufferedControl
             gfx.InterpolationMode = InterpolationMode.Bicubic;
 
             var floorName = string.Empty;
-            var dungeonName =string.Empty;
+            var dungeonName = string.Empty;
             if (p.Region.IsDungeon)
             {
                 if (!p.TryGetNavMeshTransform(out var pTransform))
@@ -424,16 +437,18 @@ public partial class Main : DoubleBufferedControl
                 var roomName = dungeon.RoomStringIDs[dungeonBlock.RoomIndex];
                 var roomNameTranslated = Game.ReferenceManager.GetTranslation(roomName);
 
-                lblRegion.Text = roomNameTranslated;
+                _regionName = roomNameTranslated;
                 dungeonName = RegionInfoManager.GetDungeonName(p.Region);
-            } 
+            }
+            else
+                _regionName = Game.ReferenceManager.GetTranslation(Game.Player.Position.Region.ToString());
 
             for (byte x = 0; x < GridSize; x++)
             {
                 for (byte z = 0; z < GridSize; z++)
                 {
-                    var xSector = (byte) (_currentXSec + x -1);
-                    var ySector = (byte) (_currentYSec + z -1);
+                    var xSector = (byte)(_currentXSec + x - 1);
+                    var ySector = (byte)(_currentYSec + z - 1);
 
                     var sectorImgName = GetMinimapFileName(new Region(xSector, ySector), dungeonName, floorName);
                     using var bitmap = LoadSectorImage(sectorImgName);
@@ -446,7 +461,7 @@ public partial class Main : DoubleBufferedControl
                         using var pen = new Pen(Color.Black);
                         pen.DashStyle = DashStyle.Dot;
                         gfx.DrawRectangle(pen, new Rectangle(pos, new Size(SectorSize, SectorSize)));
-                    
+
                     }
                 }
             }
@@ -458,7 +473,8 @@ public partial class Main : DoubleBufferedControl
     }
     private string GetMinimapFileName(Region region, string dungeonName, string floorName)
     {
-        if (!string.IsNullOrWhiteSpace(dungeonName) && !string.IsNullOrWhiteSpace(floorName)) {
+        if (!string.IsNullOrWhiteSpace(dungeonName) && !string.IsNullOrWhiteSpace(floorName))
+        {
             return $"minimap_d\\{dungeonName}\\{floorName}_{region.X}x{region.Y}.ddj";
         }
 
@@ -518,12 +534,6 @@ public partial class Main : DoubleBufferedControl
         if (!Visible)
             return;
 
-        lblRegion.Text = Game.ReferenceManager.GetTranslation(Game.Player.Position.Region.ToString()) +
-                         (Game.Player.Position.Region.IsDungeon ? " (Dungeon)" : "");
-
-        lblX.Text = Game.Player.Position.X.ToString("0.0");
-        lblY.Text = Game.Player.Position.Y.ToString("0.0");
-
         if (Kernel.Debug)
             labelSectorInfo.Text =
                 $"{Game.Player.Movement.Source.Region} ({Game.Player.Movement.Source.Region.X}x{Game.Player.Movement.Source.Region.Y})";
@@ -532,7 +542,20 @@ public partial class Main : DoubleBufferedControl
         RedrawMap();
         DrawObjects(bufferedGraphics.Graphics);
 
-        bufferedGraphics.Render();
+        using var font = new Font(Font, FontStyle.Bold);
+
+        var text = Game.Player.Position.ToString();
+        var measuredText = bufferedGraphics.Graphics.MeasureString(text, font);
+
+        var x = mapCanvas.Width - measuredText.Width;
+
+        bufferedGraphics.Graphics.DrawString(_regionName, font, Brushes.Black, 12, 7);
+        bufferedGraphics.Graphics.DrawString(_regionName, font, Brushes.White, 10, 5);
+
+        bufferedGraphics.Graphics.DrawString(text, font, Brushes.Black, x - 8, 21 - measuredText.Height / 2);
+        bufferedGraphics.Graphics.DrawString(text, font, Brushes.White, x - 10, 20 - measuredText.Height / 2);
+
+        mapCanvas.Invalidate();
     }
 
     private void checkBoxAutoSelectUniques_CheckedChanged(object sender, EventArgs e)
@@ -598,5 +621,10 @@ public partial class Main : DoubleBufferedControl
     {
         if (Game.Player.Position.TryGetNavMeshTransform(out var playerTransform))
             _navMeshRenderer?.Update(playerTransform);
+    }
+
+    private void tabMinimap_Paint(object sender, PaintEventArgs e)
+    {
+        bufferedGraphics.Render();
     }
 }

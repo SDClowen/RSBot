@@ -83,6 +83,7 @@
             // 
             labelVersion.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             labelVersion.ApplyGradient = false;
+            labelVersion.AutoSize = true;
             labelVersion.BackColor = System.Drawing.Color.Transparent;
             labelVersion.Enabled = false;
             labelVersion.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -93,9 +94,9 @@
     System.Drawing.Color.DeepSkyBlue
     };
             labelVersion.GradientAnimation = false;
-            labelVersion.Location = new System.Drawing.Point(424, 130);
+            labelVersion.Location = new System.Drawing.Point(440, 130);
             labelVersion.Name = "labelVersion";
-            labelVersion.Size = new System.Drawing.Size(59, 24);
+            labelVersion.Size = new System.Drawing.Size(63, 28);
             labelVersion.TabIndex = 4;
             labelVersion.Text = "v1.0.0";
             labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -114,9 +115,9 @@
     System.Drawing.Color.FromArgb(74, 74, 74)
     };
             label2.GradientAnimation = false;
-            label2.Location = new System.Drawing.Point(0, 227);
+            label2.Location = new System.Drawing.Point(0, 201);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(533, 17);
+            label2.Size = new System.Drawing.Size(533, 32);
             label2.TabIndex = 5;
             label2.Text = "Free powerful bot for Silkroad Online servers";
             label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -135,9 +136,9 @@
     System.Drawing.Color.Black
     };
             label3.GradientAnimation = false;
-            label3.Location = new System.Drawing.Point(0, 244);
+            label3.Location = new System.Drawing.Point(0, 233);
             label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(533, 15);
+            label3.Size = new System.Drawing.Size(533, 26);
             label3.TabIndex = 5;
             label3.Text = "Created with contributions from the community";
             label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -188,7 +189,7 @@
             // 
             // SplashScreen
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             BorderColor = System.Drawing.Color.DodgerBlue;
@@ -213,7 +214,7 @@
             MinimizeBox = false;
             Movable = false;
             Name = "SplashScreen";
-            Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
+            Padding = new System.Windows.Forms.Padding(0);
             ShowTitle = false;
             SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -222,6 +223,7 @@
             Load += SplashScreen_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

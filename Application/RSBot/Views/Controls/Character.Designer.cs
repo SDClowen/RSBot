@@ -59,7 +59,7 @@
     System.Drawing.Color.Black
     };
             label3.GradientAnimation = false;
-            label3.Location = new System.Drawing.Point(586, 16);
+            label3.Location = new System.Drawing.Point(535, 26);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(39, 17);
             label3.TabIndex = 4;
@@ -78,7 +78,7 @@
     System.Drawing.Color.Black
     };
             label4.GradientAnimation = false;
-            label4.Location = new System.Drawing.Point(598, 38);
+            label4.Location = new System.Drawing.Point(547, 48);
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(26, 17);
             label4.TabIndex = 5;
@@ -95,7 +95,7 @@
     System.Drawing.Color.Black
     };
             lblLevel.GradientAnimation = false;
-            lblLevel.Location = new System.Drawing.Point(371, 4);
+            lblLevel.Location = new System.Drawing.Point(347, 4);
             lblLevel.Name = "lblLevel";
             lblLevel.Size = new System.Drawing.Size(65, 15);
             lblLevel.TabIndex = 6;
@@ -114,7 +114,7 @@
     System.Drawing.Color.Black
     };
             lblGold.GradientAnimation = false;
-            lblGold.Location = new System.Drawing.Point(628, 16);
+            lblGold.Location = new System.Drawing.Point(577, 29);
             lblGold.Name = "lblGold";
             lblGold.Size = new System.Drawing.Size(13, 15);
             lblGold.TabIndex = 7;
@@ -132,7 +132,7 @@
     System.Drawing.Color.Black
     };
             lblSP.GradientAnimation = false;
-            lblSP.Location = new System.Drawing.Point(628, 38);
+            lblSP.Location = new System.Drawing.Point(577, 50);
             lblSP.Name = "lblSP";
             lblSP.Size = new System.Drawing.Size(13, 15);
             lblSP.TabIndex = 8;
@@ -169,7 +169,7 @@
     System.Drawing.Color.Black
     };
             lblStr.GradientAnimation = false;
-            lblStr.Location = new System.Drawing.Point(519, 16);
+            lblStr.Location = new System.Drawing.Point(468, 29);
             lblStr.Name = "lblStr";
             lblStr.Size = new System.Drawing.Size(13, 15);
             lblStr.TabIndex = 11;
@@ -188,7 +188,7 @@
     System.Drawing.Color.Black
     };
             label9.GradientAnimation = false;
-            label9.Location = new System.Drawing.Point(481, 16);
+            label9.Location = new System.Drawing.Point(430, 26);
             label9.Name = "label9";
             label9.Size = new System.Drawing.Size(33, 17);
             label9.TabIndex = 10;
@@ -206,7 +206,7 @@
     System.Drawing.Color.Black
     };
             lblInt.GradientAnimation = false;
-            lblInt.Location = new System.Drawing.Point(519, 38);
+            lblInt.Location = new System.Drawing.Point(468, 50);
             lblInt.Name = "lblInt";
             lblInt.Size = new System.Drawing.Size(13, 15);
             lblInt.TabIndex = 13;
@@ -225,7 +225,7 @@
     System.Drawing.Color.Black
     };
             label11.GradientAnimation = false;
-            label11.Location = new System.Drawing.Point(483, 38);
+            label11.Location = new System.Drawing.Point(432, 48);
             label11.Name = "label11";
             label11.Size = new System.Drawing.Size(32, 17);
             label11.TabIndex = 12;
@@ -250,7 +250,7 @@
             progressEXP.Radius = 6;
             progressEXP.ShowAsPercent = true;
             progressEXP.ShowValue = true;
-            progressEXP.Size = new System.Drawing.Size(426, 20);
+            progressEXP.Size = new System.Drawing.Size(402, 20);
             progressEXP.TabIndex = 2;
             progressEXP.Text = "0.00%";
             progressEXP.Value = 0L;
@@ -265,7 +265,7 @@
     System.Drawing.Color.RoyalBlue
     };
             progressMP.HatchType = System.Drawing.Drawing2D.HatchStyle.Percent10;
-            progressMP.Location = new System.Drawing.Point(226, 26);
+            progressMP.Location = new System.Drawing.Point(214, 26);
             progressMP.Maximum = 1L;
             progressMP.MaxPercentShowValue = 100F;
             progressMP.Name = "progressMP";
@@ -273,7 +273,7 @@
             progressMP.Radius = 6;
             progressMP.ShowAsPercent = false;
             progressMP.ShowValue = true;
-            progressMP.Size = new System.Drawing.Size(210, 20);
+            progressMP.Size = new System.Drawing.Size(198, 20);
             progressMP.TabIndex = 1;
             progressMP.Text = "0 / 1";
             progressMP.Value = 0L;
@@ -297,7 +297,7 @@
             progressHP.Radius = 6;
             progressHP.ShowAsPercent = false;
             progressHP.ShowValue = true;
-            progressHP.Size = new System.Drawing.Size(210, 20);
+            progressHP.Size = new System.Drawing.Size(198, 20);
             progressHP.TabIndex = 0;
             progressHP.Text = "0 / 1";
             progressHP.Value = 0L;
@@ -308,7 +308,7 @@
             separator1.IsVertical = false;
             separator1.Location = new System.Drawing.Point(0, 73);
             separator1.Name = "separator1";
-            separator1.Size = new System.Drawing.Size(784, 2);
+            separator1.Size = new System.Drawing.Size(695, 2);
             separator1.TabIndex = 14;
             separator1.Visible = false;
             // 
@@ -331,7 +331,7 @@
             Controls.Add(progressMP);
             Controls.Add(progressHP);
             Name = "Character";
-            Size = new System.Drawing.Size(784, 75);
+            Size = new System.Drawing.Size(695, 75);
             ResumeLayout(false);
             PerformLayout();
         }

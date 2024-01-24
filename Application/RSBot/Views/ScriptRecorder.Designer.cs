@@ -122,7 +122,7 @@
             // btnRun
             // 
             btnRun.Color = System.Drawing.Color.Transparent;
-            btnRun.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnRun.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             btnRun.ForeColor = System.Drawing.Color.Green;
             btnRun.Location = new System.Drawing.Point(174, 15);
             btnRun.Name = "btnRun";
@@ -130,7 +130,7 @@
             btnRun.ShadowDepth = 4F;
             btnRun.Size = new System.Drawing.Size(30, 27);
             btnRun.TabIndex = 3;
-            btnRun.Text = "▶";
+            btnRun.Text = "►";
             btnRun.TextAlign = System.Drawing.ContentAlignment.TopRight;
             btnRun.UseVisualStyleBackColor = true;
             btnRun.Click += btnRunNow_Click;
@@ -248,10 +248,10 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             BackColor = System.Drawing.Color.FromArgb(251, 251, 251);
             ClientSize = new System.Drawing.Size(493, 561);
+            ControlBox = false;
             Controls.Add(txtScript);
             Controls.Add(panel2);
             Controls.Add(panel1);
-            DwmMargin = -1;
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Location = new System.Drawing.Point(0, 0);
             MaximizeBox = false;
