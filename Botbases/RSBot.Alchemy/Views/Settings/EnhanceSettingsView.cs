@@ -8,11 +8,12 @@ using RSBot.Alchemy.Bundle.Enhance;
 using RSBot.Alchemy.Helper;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
+using SDUI.Controls;
 
 namespace RSBot.Alchemy.Views.Settings;
 
 [ToolboxItem(false)]
-public partial class EnhanceSettingsView : UserControl
+public partial class EnhanceSettingsView : DoubleBufferedControl
 {
     #region Member
 

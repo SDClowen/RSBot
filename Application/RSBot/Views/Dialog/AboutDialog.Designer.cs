@@ -53,7 +53,7 @@
             buttonOk.Color = System.Drawing.Color.DodgerBlue;
             buttonOk.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             buttonOk.ForeColor = System.Drawing.Color.White;
-            buttonOk.Location = new System.Drawing.Point(12, 356);
+            buttonOk.Location = new System.Drawing.Point(12, 317);
             buttonOk.Name = "buttonOk";
             buttonOk.Radius = 6;
             buttonOk.ShadowDepth = 4F;
@@ -80,7 +80,11 @@
             labelName.AutoSize = true;
             labelName.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             labelName.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            labelName.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
+            labelName.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
             labelName.GradientAnimation = false;
             labelName.Location = new System.Drawing.Point(160, 8);
             labelName.Name = "labelName";
@@ -94,7 +98,11 @@
             labelDescription.AutoSize = true;
             labelDescription.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             labelDescription.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            labelDescription.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
+            labelDescription.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
             labelDescription.GradientAnimation = false;
             labelDescription.Location = new System.Drawing.Point(162, 33);
             labelDescription.Name = "labelDescription";
@@ -108,7 +116,11 @@
             labelVersion.AutoSize = true;
             labelVersion.Font = new System.Drawing.Font("Segoe UI", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             labelVersion.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            labelVersion.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
+            labelVersion.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
             labelVersion.GradientAnimation = false;
             labelVersion.Location = new System.Drawing.Point(227, 12);
             labelVersion.Name = "labelVersion";
@@ -121,7 +133,7 @@
             AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             BackColor = System.Drawing.Color.White;
-            ClientSize = new System.Drawing.Size(604, 400);
+            ClientSize = new System.Drawing.Size(588, 361);
             Controls.Add(buttonOk);
             Controls.Add(labelDescription);
             Controls.Add(labelVersion);

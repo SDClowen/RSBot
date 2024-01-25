@@ -22,7 +22,11 @@ public partial class SplashScreen : UIWindow
     public SplashScreen()
     {
         InitializeComponent();
+
+        ColorScheme.BackColor = Main.DarkThemeColor;
+        BackColor = Main.DarkThemeColor;
         CheckForIllegalCrossThreadCalls = false;
+
         _mainForm = new Main();
 
         labelVersion.Text = Program.AssemblyVersion;
@@ -43,19 +47,6 @@ public partial class SplashScreen : UIWindow
         }
 
         Kernel.Language = GlobalConfig.Get("RSBot.Language", "en_US");
-
-        var detectDarkLight = GlobalConfig.Get("RSBot.Theme.Auto", true);
-        if (detectDarkLight)
-        {
-            if (WindowsHelper.IsDark())
-                ColorScheme.BackColor = Main.DarkThemeColor;
-            else
-                ColorScheme.BackColor = Main.LightThemeColor;
-        }
-        else
-        {
-            ColorScheme.BackColor = Color.FromArgb(GlobalConfig.Get("SDUI.Color", Color.White.ToArgb()));
-        }
 
         LanguageManager.Translate(_mainForm, Kernel.Language);
 
@@ -122,8 +113,21 @@ public partial class SplashScreen : UIWindow
     /// </param>
     private void ReferenceDataLoaderCompleted(object sender, RunWorkerCompletedEventArgs e)
     {
+        var detectDarkLight = GlobalConfig.Get("RSBot.Theme.Auto", true);
+        if (detectDarkLight)
+        {
+            if (WindowsHelper.IsDark())
+                ColorScheme.BackColor = Main.DarkThemeColor;
+            else
+                ColorScheme.BackColor = Main.LightThemeColor;
+        }
+        else
+        {
+            ColorScheme.BackColor = Color.FromArgb(GlobalConfig.Get("SDUI.Color", Color.White.ToArgb()));
+        }
+
         _mainForm.Show(this);
-        _mainForm.RefreshTheme(false);
+        _mainForm.RefreshTheme();
         _mainForm.BringToFront();
 
         Hide();
@@ -186,28 +190,6 @@ public partial class SplashScreen : UIWindow
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
 
         CommandManager.Initialize();
-
-        InitializeMap();
-    }
-
-    /// <summary>
-    ///     Initializes the map.
-    /// </summary>
-    private void InitializeMap()
-    {
-        //---- Load Map ----
-        var mapFile = Path.Combine(Kernel.BasePath, "Data", "Game", "map.rsc");
-
-        if (!CollisionManager.Enabled) Log.Warn("[Collision] Collision detection has been deactivated by the user!");
-
-        if (!File.Exists(mapFile))
-        {
-            Log.Error($"[Collisions] Directory {mapFile} not found!");
-
-            return;
-        }
-
-        CollisionManager.Initialize();
     }
 
     /// <summary>

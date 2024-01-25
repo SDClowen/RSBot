@@ -4,11 +4,12 @@ using System.Windows.Forms;
 using RSBot.Core;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
+using SDUI.Controls;
 
 namespace RSBot.Chat.Views;
 
 [ToolboxItem(false)]
-public partial class Main : UserControl
+public partial class Main : DoubleBufferedControl
 {
     public Main()
     {

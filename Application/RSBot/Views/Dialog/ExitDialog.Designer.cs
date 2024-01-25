@@ -43,7 +43,12 @@
             labelInfo.ApplyGradient = false;
             labelInfo.AutoSize = true;
             labelInfo.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            labelInfo.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            labelInfo.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            labelInfo.GradientAnimation = false;
             labelInfo.Location = new System.Drawing.Point(160, 26);
             labelInfo.Name = "labelInfo";
             labelInfo.Size = new System.Drawing.Size(265, 45);
@@ -52,18 +57,16 @@
             // 
             // panel1
             // 
-            panel1.BackColor = System.Drawing.Color.Transparent;
             panel1.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
             panel1.BorderColor = System.Drawing.Color.Transparent;
             panel1.Controls.Add(btnNo);
             panel1.Controls.Add(btnYes);
-            panel1.Controls.Add(checkDontAskAgain);
             panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            panel1.Location = new System.Drawing.Point(0, 87);
+            panel1.Location = new System.Drawing.Point(0, 129);
             panel1.Name = "panel1";
             panel1.Radius = 0;
             panel1.ShadowDepth = 0F;
-            panel1.Size = new System.Drawing.Size(440, 49);
+            panel1.Size = new System.Drawing.Size(441, 49);
             panel1.TabIndex = 1;
             // 
             // btnNo
@@ -96,9 +99,8 @@
             // checkDontAskAgain
             // 
             checkDontAskAgain.AutoSize = true;
-            checkDontAskAgain.BackColor = System.Drawing.Color.Transparent;
             checkDontAskAgain.Depth = 0;
-            checkDontAskAgain.Location = new System.Drawing.Point(12, 17);
+            checkDontAskAgain.Location = new System.Drawing.Point(9, 139);
             checkDontAskAgain.Margin = new System.Windows.Forms.Padding(0);
             checkDontAskAgain.MouseLocation = new System.Drawing.Point(-1, -1);
             checkDontAskAgain.Name = "checkDontAskAgain";
@@ -114,7 +116,7 @@
             pictureBox1.Image = Properties.Resources.app;
             pictureBox1.Location = new System.Drawing.Point(15, 5);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new System.Drawing.Size(128, 128);
+            pictureBox1.Size = new System.Drawing.Size(111, 110);
             pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 2;
             pictureBox1.TabStop = false;
@@ -124,26 +126,21 @@
             AcceptButton = btnYes;
             AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            BackColor = System.Drawing.Color.White;
             CancelButton = btnNo;
-            ClientSize = new System.Drawing.Size(440, 136);
+            ClientSize = new System.Drawing.Size(441, 178);
             Controls.Add(labelInfo);
-            Controls.Add(panel1);
+            Controls.Add(checkDontAskAgain);
             Controls.Add(pictureBox1);
-            Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            Controls.Add(panel1);
             ForeColor = System.Drawing.Color.Black;
-            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             MaximizeBox = false;
-            MaximumSize = new System.Drawing.Size(456, 175);
             MinimizeBox = false;
-            MinimumSize = new System.Drawing.Size(456, 175);
             Name = "ExitDialog";
             ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             Load += ExitDialog_Load;
             panel1.ResumeLayout(false);
-            panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();

@@ -63,6 +63,9 @@ internal class Experience : IStatisticCalculator
     /// <inheritdoc />
     public void Reset()
     {
+        if (!Game.Ready)
+            return;
+
         //EXP Percent
         _initialValue = Game.Player.Experience /
             (double)Game.ReferenceManager.GetRefLevel(Game.Player.Level).Exp_C * 100;

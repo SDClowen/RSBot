@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SDUI.Controls;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -6,7 +7,7 @@ using System.Windows.Forms;
 namespace RSBot.Views.Controls;
 
 [ToolboxItem(false)]
-public partial class MiniCosControl : UserControl
+public partial class MiniCosControl : DoubleBufferedControl
 {
     private bool _selected;
 

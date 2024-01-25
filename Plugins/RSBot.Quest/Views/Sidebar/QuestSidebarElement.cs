@@ -3,10 +3,11 @@ using System.Linq;
 using System.Windows.Forms;
 using RSBot.Core;
 using RSBot.Core.Event;
+using SDUI.Controls;
 
 namespace RSBot.Quest.Views.Sidebar;
 
-public partial class QuestSidebarElement : UserControl
+public partial class QuestSidebarElement : DoubleBufferedControl
 {
     private List<uint> TrackedQuests = new(4);
 

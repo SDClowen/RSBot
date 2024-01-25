@@ -18,7 +18,7 @@ using ListViewExtensions = RSBot.Core.Extensions.ListViewExtensions;
 namespace RSBot.Skills.Views;
 
 [ToolboxItem(false)]
-public partial class Main : UserControl
+public partial class Main : DoubleBufferedControl
 {
     /// <summary>
     ///     Initializes a new instance of the <see cref="Main" /> class.
@@ -952,7 +952,7 @@ public partial class Main : UserControl
         if (listSkills.SelectedItems.Count <= 0)
             return;
 
-        if (!GlobalConfig.Get<bool>("RSBot.DebugEnvironment"))
+        if (!Kernel.Debug)
             return;
 
         if (listSkills.SelectedItems[0].Tag is not SkillInfo skillInfo)
@@ -1020,7 +1020,7 @@ public partial class Main : UserControl
 
     private void listActiveBuffs_MouseDoubleClick(object sender, MouseEventArgs e)
     {
-        if (!GlobalConfig.Get<bool>("RSBot.DebugEnvironment"))
+        if (!Kernel.Debug)
             return;
 
         var propertiesWindow = listActiveBuffs.SelectedItems[0].Tag switch

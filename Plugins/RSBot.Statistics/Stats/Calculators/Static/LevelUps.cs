@@ -37,6 +37,9 @@ internal class LevelUps : IStatisticCalculator
     /// <inheritdoc />
     public void Reset()
     {
+        if (!Game.Ready)
+            return;
+
         _initialValue = Game.Player.Level;
     }
 

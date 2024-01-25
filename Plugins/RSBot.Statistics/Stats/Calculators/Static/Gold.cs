@@ -37,6 +37,9 @@ internal class Gold : IStatisticCalculator
     /// <inheritdoc />
     public void Reset()
     {
+        if (!Game.Ready)
+            return;
+
         _initialValue = Game.Player.Gold;
     }
 

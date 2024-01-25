@@ -10,6 +10,7 @@ using RSBot.Core.Cryptography;
 using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
+using RSBot.NavMeshApi;
 
 namespace RSBot.Core.Client;
 
@@ -47,6 +48,7 @@ public class ReferenceManager
     public List<RefMagicOpt> MagicOptions { get; } = new(1024);
     public List<RefMagicOptAssign> MagicOptionAssignments { get; } = new(128);
 
+    
     public void Load(int languageTab, BackgroundWorker worker)
     {
         LanguageTab = languageTab; //until language wizard is reworked?
@@ -55,6 +57,9 @@ public class ReferenceManager
 
         worker.ReportProgress(0, "Client info");
         LoadClientInfo();
+
+        worker.ReportProgress(5, "Map info");
+        LoadMapInfo();
 
         worker.ReportProgress(10, "Texts");
         LoadTextData();
@@ -93,11 +98,18 @@ public class ReferenceManager
         EventManager.FireEvent("OnLoadGameData");
     }
 
+
     private void LoadClientInfo()
     {
         DivisionInfo = DivisionInfo.Load();
         GatewayInfo = GatewayInfo.Load();
         VersionInfo = VersionInfo.Load();
+    }
+
+    private void LoadMapInfo()
+    {
+        RegionInfoManager.Load();
+        NavMeshManager.Initialize(Game.DataPk2);
     }
 
     private void LoadLevelData()
@@ -807,7 +819,7 @@ public class ReferenceManager
         builder.AppendFormat("PackageItemScrap: {0}\n", PackageItemScrap.Count);
         builder.AppendFormat("AbilityItemByOptLevel: {0}\n", AbilityItemByOptLevel.Count);
         builder.AppendFormat("SkillByItemOptLevels: {0}\n", SkillByItemOptLevels.Count);
-        builder.AppendFormat("ExtraAbilityByEquipItemOptLevel: {0}", ExtraAbilityByEquipItemOptLevel.Count);
+        builder.AppendFormat("ExtraAbilityByEquipItemOptLevel: {0}\n", ExtraAbilityByEquipItemOptLevel.Count);
 
         return builder.ToString();
     }

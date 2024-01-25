@@ -42,7 +42,6 @@
             // checkEnabled
             // 
             checkEnabled.AutoSize = true;
-            checkEnabled.BackColor = System.Drawing.Color.Transparent;
             checkEnabled.Checked = true;
             checkEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
             checkEnabled.Depth = 0;
@@ -54,7 +53,7 @@
             checkEnabled.Size = new System.Drawing.Size(73, 30);
             checkEnabled.TabIndex = 1;
             checkEnabled.Text = "Enabled";
-            checkEnabled.UseVisualStyleBackColor = false;
+            checkEnabled.UseVisualStyleBackColor = true;
             checkEnabled.CheckedChanged += checkEnabled_CheckedChanged;
             // 
             // btnReset
@@ -73,7 +72,6 @@
             // 
             // panel1
             // 
-            panel1.BackColor = System.Drawing.Color.Transparent;
             panel1.Border = new System.Windows.Forms.Padding(0, 0, 0, 1);
             panel1.BorderColor = System.Drawing.Color.Transparent;
             panel1.Controls.Add(checkNormal);
@@ -86,14 +84,13 @@
             panel1.Location = new System.Drawing.Point(0, 0);
             panel1.Name = "panel1";
             panel1.Radius = 0;
-            panel1.ShadowDepth = 4F;
+            panel1.ShadowDepth = 0F;
             panel1.Size = new System.Drawing.Size(719, 46);
             panel1.TabIndex = 2;
             // 
             // checkNormal
             // 
             checkNormal.AutoSize = true;
-            checkNormal.BackColor = System.Drawing.Color.Transparent;
             checkNormal.Checked = true;
             checkNormal.CheckState = System.Windows.Forms.CheckState.Checked;
             checkNormal.Depth = 0;
@@ -110,7 +107,6 @@
             // checkError
             // 
             checkError.AutoSize = true;
-            checkError.BackColor = System.Drawing.Color.Transparent;
             checkError.Checked = true;
             checkError.CheckState = System.Windows.Forms.CheckState.Checked;
             checkError.Depth = 0;
@@ -127,7 +123,6 @@
             // checkWarning
             // 
             checkWarning.AutoSize = true;
-            checkWarning.BackColor = System.Drawing.Color.Transparent;
             checkWarning.Checked = true;
             checkWarning.CheckState = System.Windows.Forms.CheckState.Checked;
             checkWarning.Depth = 0;
@@ -144,7 +139,6 @@
             // checkDebug
             // 
             checkDebug.AutoSize = true;
-            checkDebug.BackColor = System.Drawing.Color.Transparent;
             checkDebug.Checked = true;
             checkDebug.CheckState = System.Windows.Forms.CheckState.Checked;
             checkDebug.Depth = 0;
@@ -170,11 +164,8 @@
             // 
             // Main
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             Controls.Add(txtLog);
             Controls.Add(panel1);
-            Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             Name = "Main";
             Size = new System.Drawing.Size(719, 459);
             panel1.ResumeLayout(false);

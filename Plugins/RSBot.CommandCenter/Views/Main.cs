@@ -6,11 +6,12 @@ using RSBot.CommandCenter.Views.Controls;
 using RSBot.Core;
 using RSBot.Core.Components;
 using SDUI;
+using SDUI.Controls;
 
 namespace RSBot.CommandCenter.Views;
 
 [ToolboxItem(false)]
-public partial class Main : UserControl
+public partial class Main : DoubleBufferedControl
 {
     public Main()
     {

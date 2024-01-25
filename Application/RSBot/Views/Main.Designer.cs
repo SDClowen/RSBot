@@ -44,7 +44,7 @@ namespace RSBot.Views
             btnSave = new SDUI.Controls.Button();
             btnStartStop = new SDUI.Controls.Button();
             pSidebar = new SDUI.Controls.Panel();
-            pSidebarCustom = new SDUI.Controls.Panel();
+            pSidebarCustom = new Panel();
             entity1 = new Entity();
             botbase1ToolStripMenuItem1 = new ToolStripMenuItem();
             botbase1ToolStripMenuItem = new ToolStripMenuItem();
@@ -60,11 +60,7 @@ namespace RSBot.Views
             menuPlugins = new ToolStripMenuItem();
             aboutToolStripMenuItem = new ToolStripMenuItem();
             thisToolStripMenuItem = new ToolStripMenuItem();
-            menuStrip = new SDUI.Controls.MenuStrip();
-            toolStripMenuItem1 = new ToolStripMenuItem();
-            closeToolStripMenuItem = new ToolStripMenuItem();
-            minimizeToolStripMenuItem = new ToolStripMenuItem();
-            mainMenuList = new ToolStripMenuItem();
+            menuStrip = new SDUI.Controls.ContextMenuStrip();
             botsToolStripMenuItem = new ToolStripMenuItem();
             languageToolStripMenuItem = new ToolStripMenuItem();
             themeToolStripMenuItem = new ToolStripMenuItem();
@@ -72,11 +68,8 @@ namespace RSBot.Views
             lightToolStripMenuItem = new ToolStripMenuItem();
             autoToolStripMenuItem = new ToolStripMenuItem();
             coloredToolStripMenuItem = new ToolStripMenuItem();
-            donateButton = new ToolStripMenuItem();
-            toolStripMenuItemTitle = new ToolStripMenuItem();
-            tabMain = new SDUI.Controls.TabControl();
-            separator = new SDUI.Controls.Separator();
             topCharacter = new Character();
+            windowPageControl = new SDUI.Controls.WindowPageControl();
             stripStatus.SuspendLayout();
             bottomPanel.SuspendLayout();
             pSidebar.SuspendLayout();
@@ -90,9 +83,9 @@ namespace RSBot.Views
             stripStatus.ImageScalingSize = new System.Drawing.Size(17, 17);
             stripStatus.Items.AddRange(new ToolStripItem[] { lblIngameStatus, menuCurrentProfile });
             stripStatus.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            stripStatus.Location = new System.Drawing.Point(1, 717);
+            stripStatus.Location = new System.Drawing.Point(0, 587);
             stripStatus.Name = "stripStatus";
-            stripStatus.Size = new System.Drawing.Size(988, 22);
+            stripStatus.Size = new System.Drawing.Size(1001, 22);
             stripStatus.SizingGrip = false;
             stripStatus.TabIndex = 0;
             stripStatus.Tag = "private";
@@ -118,8 +111,8 @@ namespace RSBot.Views
             // 
             cosController.AutoSize = true;
             cosController.Dock = DockStyle.Top;
-            cosController.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             cosController.Location = new System.Drawing.Point(0, 0);
+            cosController.Margin = new Padding(4);
             cosController.Name = "cosController";
             cosController.Padding = new Padding(3);
             cosController.Size = new System.Drawing.Size(250, 70);
@@ -137,18 +130,18 @@ namespace RSBot.Views
             bottomPanel.Controls.Add(btnSave);
             bottomPanel.Controls.Add(btnStartStop);
             bottomPanel.Dock = DockStyle.Bottom;
-            bottomPanel.Location = new System.Drawing.Point(1, 672);
+            bottomPanel.Location = new System.Drawing.Point(0, 535);
             bottomPanel.Name = "bottomPanel";
             bottomPanel.Radius = 0;
-            bottomPanel.ShadowDepth = 4F;
-            bottomPanel.Size = new System.Drawing.Size(988, 45);
+            bottomPanel.ShadowDepth = 8F;
+            bottomPanel.Size = new System.Drawing.Size(1001, 52);
             bottomPanel.TabIndex = 2;
             // 
             // buttonConfig
             // 
             buttonConfig.Color = System.Drawing.Color.Transparent;
             buttonConfig.Font = new System.Drawing.Font("Webdings", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            buttonConfig.Location = new System.Drawing.Point(249, 12);
+            buttonConfig.Location = new System.Drawing.Point(249, 15);
             buttonConfig.Name = "buttonConfig";
             buttonConfig.Radius = 6;
             buttonConfig.ShadowDepth = 4F;
@@ -166,7 +159,7 @@ namespace RSBot.Views
             comboServer.FormattingEnabled = true;
             comboServer.IntegralHeight = false;
             comboServer.ItemHeight = 17;
-            comboServer.Location = new System.Drawing.Point(111, 12);
+            comboServer.Location = new System.Drawing.Point(111, 15);
             comboServer.Name = "comboServer";
             comboServer.Radius = 5;
             comboServer.ShadowDepth = 4F;
@@ -182,7 +175,7 @@ namespace RSBot.Views
             comboDivision.FormattingEnabled = true;
             comboDivision.IntegralHeight = false;
             comboDivision.ItemHeight = 17;
-            comboDivision.Location = new System.Drawing.Point(14, 12);
+            comboDivision.Location = new System.Drawing.Point(14, 15);
             comboDivision.Name = "comboDivision";
             comboDivision.Radius = 5;
             comboDivision.ShadowDepth = 4F;
@@ -193,15 +186,14 @@ namespace RSBot.Views
             // btnSave
             // 
             btnSave.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnSave.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnSave.Color = System.Drawing.Color.FromArgb(56, 155, 90);
             btnSave.Font = new System.Drawing.Font("Segoe UI Semibold", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             btnSave.ForeColor = System.Drawing.Color.White;
-            btnSave.Location = new System.Drawing.Point(780, 9);
+            btnSave.Location = new System.Drawing.Point(779, 12);
             btnSave.Name = "btnSave";
             btnSave.Radius = 6;
             btnSave.ShadowDepth = 4F;
-            btnSave.Size = new System.Drawing.Size(95, 27);
+            btnSave.Size = new System.Drawing.Size(100, 27);
             btnSave.TabIndex = 1;
             btnSave.TabStop = false;
             btnSave.Tag = "private";
@@ -213,15 +205,15 @@ namespace RSBot.Views
             // 
             btnStartStop.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnStartStop.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            btnStartStop.BackColor = System.Drawing.Color.Transparent;
+            btnStartStop.BackColor = System.Drawing.Color.DodgerBlue;
             btnStartStop.Color = System.Drawing.Color.FromArgb(33, 150, 243);
             btnStartStop.Font = new System.Drawing.Font("Segoe UI Semibold", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             btnStartStop.ForeColor = System.Drawing.Color.White;
-            btnStartStop.Location = new System.Drawing.Point(881, 9);
+            btnStartStop.Location = new System.Drawing.Point(885, 12);
             btnStartStop.Name = "btnStartStop";
             btnStartStop.Radius = 6;
             btnStartStop.ShadowDepth = 4F;
-            btnStartStop.Size = new System.Drawing.Size(95, 27);
+            btnStartStop.Size = new System.Drawing.Size(100, 27);
             btnStartStop.TabIndex = 0;
             btnStartStop.TabStop = false;
             btnStartStop.Tag = "private";
@@ -232,45 +224,38 @@ namespace RSBot.Views
             // pSidebar
             // 
             pSidebar.BackColor = System.Drawing.Color.Transparent;
-            pSidebar.Border = new Padding(1, 0, 0, 1);
+            pSidebar.Border = new Padding(1, 0, 0, 0);
             pSidebar.BorderColor = System.Drawing.Color.Transparent;
             pSidebar.Controls.Add(pSidebarCustom);
             pSidebar.Controls.Add(entity1);
             pSidebar.Controls.Add(cosController);
             pSidebar.Dock = DockStyle.Right;
-            pSidebar.Location = new System.Drawing.Point(739, 33);
+            pSidebar.Location = new System.Drawing.Point(751, 32);
             pSidebar.Name = "pSidebar";
             pSidebar.Radius = 0;
             pSidebar.ShadowDepth = 0F;
-            pSidebar.Size = new System.Drawing.Size(250, 639);
+            pSidebar.Size = new System.Drawing.Size(250, 503);
             pSidebar.TabIndex = 6;
             // 
             // pSidebarCustom
             // 
-            pSidebarCustom.BackColor = System.Drawing.Color.Transparent;
-            pSidebarCustom.Border = new Padding(0, 0, 0, 0);
-            pSidebarCustom.BorderColor = System.Drawing.Color.Transparent;
             pSidebarCustom.Dock = DockStyle.Fill;
-            pSidebarCustom.Location = new System.Drawing.Point(0, 163);
+            pSidebarCustom.Location = new System.Drawing.Point(0, 153);
             pSidebarCustom.Margin = new Padding(3, 30, 3, 3);
             pSidebarCustom.Name = "pSidebarCustom";
             pSidebarCustom.Padding = new Padding(0, 16, 0, 0);
-            pSidebarCustom.Radius = 0;
-            pSidebarCustom.ShadowDepth = 4F;
-            pSidebarCustom.Size = new System.Drawing.Size(250, 476);
-            pSidebarCustom.TabIndex = 10;
+            pSidebarCustom.Size = new System.Drawing.Size(250, 350);
+            pSidebarCustom.TabIndex = 14;
             // 
             // entity1
             // 
-            entity1.BackColor = System.Drawing.Color.Transparent;
             entity1.Dock = DockStyle.Top;
-            entity1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             entity1.Location = new System.Drawing.Point(0, 70);
             entity1.Margin = new Padding(4);
             entity1.MinimumSize = new System.Drawing.Size(250, 76);
             entity1.Name = "entity1";
-            entity1.Size = new System.Drawing.Size(250, 93);
-            entity1.TabIndex = 2;
+            entity1.Size = new System.Drawing.Size(250, 83);
+            entity1.TabIndex = 10;
             // 
             // botbase1ToolStripMenuItem1
             // 
@@ -297,10 +282,9 @@ namespace RSBot.Views
             // fileToolStripMenuItem
             // 
             fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { menuSelectProfile, networkConfigToolStripMenuItem, menuItemExit });
-            fileToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             fileToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            fileToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            fileToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             fileToolStripMenuItem.Text = "File";
             // 
             // menuSelectProfile
@@ -330,15 +314,13 @@ namespace RSBot.Views
             // viewToolStripMenuItem
             // 
             viewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { menuSidebar });
-            viewToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             viewToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            viewToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            viewToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             viewToolStripMenuItem.Text = "View";
             // 
             // menuSidebar
             // 
-            menuSidebar.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             menuSidebar.Name = "menuSidebar";
             menuSidebar.Size = new System.Drawing.Size(121, 22);
             menuSidebar.Text = "Sidebar";
@@ -347,10 +329,9 @@ namespace RSBot.Views
             // toolsToolStripMenuItem
             // 
             toolsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { menuScriptRecorder });
-            toolsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             toolsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            toolsToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            toolsToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             toolsToolStripMenuItem.Text = "Tools";
             // 
             // menuScriptRecorder
@@ -363,19 +344,17 @@ namespace RSBot.Views
             // 
             // menuPlugins
             // 
-            menuPlugins.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             menuPlugins.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             menuPlugins.Name = "menuPlugins";
-            menuPlugins.Size = new System.Drawing.Size(134, 22);
+            menuPlugins.Size = new System.Drawing.Size(133, 22);
             menuPlugins.Text = "Plugins";
             // 
             // aboutToolStripMenuItem
             // 
             aboutToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { thisToolStripMenuItem });
-            aboutToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             aboutToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            aboutToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            aboutToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             aboutToolStripMenuItem.Text = "About";
             // 
             // thisToolStripMenuItem
@@ -389,77 +368,32 @@ namespace RSBot.Views
             // menuStrip
             // 
             menuStrip.BackColor = System.Drawing.Color.FromArgb(0, 0, 0, 0);
-            menuStrip.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
-            menuStrip.Items.AddRange(new ToolStripItem[] { toolStripMenuItem1, closeToolStripMenuItem, minimizeToolStripMenuItem, mainMenuList, donateButton, toolStripMenuItemTitle });
-            menuStrip.Location = new System.Drawing.Point(1, 0);
+            menuStrip.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            menuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
+            menuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, viewToolStripMenuItem, toolsToolStripMenuItem, menuPlugins, botsToolStripMenuItem, languageToolStripMenuItem, themeToolStripMenuItem, aboutToolStripMenuItem });
             menuStrip.Name = "menuStrip";
-            menuStrip.Padding = new Padding(6, 4, 6, 4);
-            menuStrip.Size = new System.Drawing.Size(988, 32);
-            menuStrip.TabIndex = 10;
-            menuStrip.MouseDown += menuStrip_MouseDown;
-            // 
-            // toolStripMenuItem1
-            // 
-            toolStripMenuItem1.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            toolStripMenuItem1.Image = Properties.Resources.app;
-            toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new System.Drawing.Size(32, 24);
-            // 
-            // closeToolStripMenuItem
-            // 
-            closeToolStripMenuItem.Alignment = ToolStripItemAlignment.Right;
-            closeToolStripMenuItem.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            closeToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            closeToolStripMenuItem.Size = new System.Drawing.Size(33, 24);
-            closeToolStripMenuItem.Tag = "";
-            closeToolStripMenuItem.Text = "r";
-            closeToolStripMenuItem.Click += closeToolStripMenuItem_Click;
-            // 
-            // minimizeToolStripMenuItem
-            // 
-            minimizeToolStripMenuItem.Alignment = ToolStripItemAlignment.Right;
-            minimizeToolStripMenuItem.Font = new System.Drawing.Font("Webdings", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            minimizeToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            minimizeToolStripMenuItem.Name = "minimizeToolStripMenuItem";
-            minimizeToolStripMenuItem.Size = new System.Drawing.Size(33, 24);
-            minimizeToolStripMenuItem.Text = "0";
-            minimizeToolStripMenuItem.Click += minimizeToolStripMenuItem_Click;
-            // 
-            // mainMenuList
-            // 
-            mainMenuList.Alignment = ToolStripItemAlignment.Right;
-            mainMenuList.DropDownItems.AddRange(new ToolStripItem[] { fileToolStripMenuItem, viewToolStripMenuItem, toolsToolStripMenuItem, menuPlugins, botsToolStripMenuItem, languageToolStripMenuItem, themeToolStripMenuItem, aboutToolStripMenuItem });
-            mainMenuList.Font = new System.Drawing.Font("Webdings", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            mainMenuList.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            mainMenuList.Name = "mainMenuList";
-            mainMenuList.Size = new System.Drawing.Size(37, 24);
-            mainMenuList.Text = "6";
+            menuStrip.Size = new System.Drawing.Size(134, 180);
             // 
             // botsToolStripMenuItem
             // 
-            botsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             botsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             botsToolStripMenuItem.Name = "botsToolStripMenuItem";
-            botsToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            botsToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             botsToolStripMenuItem.Text = "Bots";
             // 
             // languageToolStripMenuItem
             // 
-            languageToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             languageToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             languageToolStripMenuItem.Name = "languageToolStripMenuItem";
-            languageToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            languageToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             languageToolStripMenuItem.Text = "Language";
             // 
             // themeToolStripMenuItem
             // 
             themeToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { darkToolStripMenuItem, lightToolStripMenuItem, autoToolStripMenuItem, coloredToolStripMenuItem });
-            themeToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             themeToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             themeToolStripMenuItem.Name = "themeToolStripMenuItem";
-            themeToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            themeToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             themeToolStripMenuItem.Text = "Theme";
             // 
             // darkToolStripMenuItem
@@ -494,86 +428,49 @@ namespace RSBot.Views
             coloredToolStripMenuItem.Text = "Choose a color";
             coloredToolStripMenuItem.Click += coloredToolStripMenuItem_Click;
             // 
-            // donateButton
-            // 
-            donateButton.Alignment = ToolStripItemAlignment.Right;
-            donateButton.BackColor = System.Drawing.Color.Goldenrod;
-            donateButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            donateButton.ForeColor = System.Drawing.Color.White;
-            donateButton.Name = "donateButton";
-            donateButton.Size = new System.Drawing.Size(64, 24);
-            donateButton.Tag = "private";
-            donateButton.Text = "Donate";
-            donateButton.Click += donateButton_Click;
-            // 
-            // toolStripMenuItemTitle
-            // 
-            toolStripMenuItemTitle.Enabled = false;
-            toolStripMenuItemTitle.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            toolStripMenuItemTitle.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            toolStripMenuItemTitle.Name = "toolStripMenuItemTitle";
-            toolStripMenuItemTitle.Size = new System.Drawing.Size(56, 24);
-            toolStripMenuItemTitle.Text = "RSBot";
-            // 
-            // tabMain
-            // 
-            tabMain.Dock = DockStyle.Fill;
-            tabMain.DrawMode = TabDrawMode.OwnerDrawFixed;
-            tabMain.ItemSize = new System.Drawing.Size(80, 24);
-            tabMain.Location = new System.Drawing.Point(1, 112);
-            tabMain.Name = "tabMain";
-            tabMain.Radius = new Padding(4, 4, 0, 0);
-            tabMain.SelectedIndex = 0;
-            tabMain.Size = new System.Drawing.Size(738, 560);
-            tabMain.TabIndex = 3;
-            tabMain.Selecting += tabMain_Selecting;
-            // 
-            // separator
-            // 
-            separator.Dock = DockStyle.Top;
-            separator.IsVertical = false;
-            separator.Location = new System.Drawing.Point(1, 32);
-            separator.Name = "separator";
-            separator.Size = new System.Drawing.Size(988, 1);
-            separator.TabIndex = 11;
-            // 
             // topCharacter
             // 
             topCharacter.BackColor = System.Drawing.Color.Transparent;
             topCharacter.Dock = DockStyle.Top;
             topCharacter.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            topCharacter.Location = new System.Drawing.Point(1, 33);
+            topCharacter.Location = new System.Drawing.Point(0, 32);
             topCharacter.Margin = new Padding(4);
             topCharacter.Name = "topCharacter";
-            topCharacter.Size = new System.Drawing.Size(738, 79);
+            topCharacter.Size = new System.Drawing.Size(751, 74);
             topCharacter.TabIndex = 7;
+            // 
+            // windowPageControl
+            // 
+            windowPageControl.AutoScroll = true;
+            windowPageControl.Dock = DockStyle.Fill;
+            windowPageControl.Location = new System.Drawing.Point(0, 106);
+            windowPageControl.Name = "windowPageControl";
+            windowPageControl.SelectedIndex = -1;
+            windowPageControl.Size = new System.Drawing.Size(751, 429);
+            windowPageControl.TabIndex = 13;
             // 
             // Main
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            BackColor = System.Drawing.Color.FromArgb(249, 249, 249);
-            ClientSize = new System.Drawing.Size(990, 740);
-            Controls.Add(tabMain);
+            BackColor = System.Drawing.Color.FromArgb(0, 0, 0, 0);
+            ClientSize = new System.Drawing.Size(1001, 609);
+            Controls.Add(windowPageControl);
             Controls.Add(topCharacter);
             Controls.Add(pSidebar);
             Controls.Add(bottomPanel);
-            Controls.Add(separator);
-            Controls.Add(menuStrip);
             Controls.Add(stripStatus);
-            Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            ForeColor = System.Drawing.Color.Black;
+            DwmMargin = 0;
+            ExtendBox = true;
+            ExtendMenu = menuStrip;
+            Hatch = System.Drawing.Drawing2D.HatchStyle.Percent20;
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Location = new System.Drawing.Point(0, 0);
-            MainMenuStrip = menuStrip;
-            MaximizeBox = false;
-            MaximumSize = new System.Drawing.Size(990, 740);
-            MinimumSize = new System.Drawing.Size(990, 740);
             Name = "Main";
-            Padding = new Padding(1, 0, 1, 1);
-            ShowTitle = false;
             StartPosition = FormStartPosition.CenterScreen;
+            Tag = "";
             Text = "RSBot";
+            WindowPageControl = windowPageControl;
             FormClosing += Main_FormClosing;
             Load += Main_Load;
             Resize += Main_Resize;
@@ -583,56 +480,48 @@ namespace RSBot.Views
             pSidebar.ResumeLayout(false);
             pSidebar.PerformLayout();
             menuStrip.ResumeLayout(false);
-            menuStrip.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-        private StatusStrip stripStatus;
+        private System.Windows.Forms.StatusStrip stripStatus;
         private SDUI.Controls.Panel bottomPanel;
         private SDUI.Controls.Panel pSidebar;
-        private ToolStripStatusLabel lblIngameStatus;
+        private System.Windows.Forms.ToolStripStatusLabel lblIngameStatus;
         private SDUI.Controls.Button btnStartStop;
         private SDUI.Controls.Button btnSave;
         private Controls.Character topCharacter;
         private Controls.Cos.CosController cosController;
-        private Entity entity1;
         private SDUI.Controls.ComboBox comboServer;
         private SDUI.Controls.ComboBox comboDivision;
-        private ToolStripMenuItem botbase1ToolStripMenuItem1;
-        private ToolStripMenuItem botbase1ToolStripMenuItem;
-        private NotifyIcon notifyIcon;
-        private ToolStripMenuItem fileToolStripMenuItem;
-        private ToolStripMenuItem menuItemExit;
-        private ToolStripMenuItem viewToolStripMenuItem;
-        private ToolStripMenuItem menuSidebar;
-        private ToolStripMenuItem toolsToolStripMenuItem;
-        private ToolStripMenuItem menuScriptRecorder;
-        private ToolStripMenuItem menuPlugins;
-        private ToolStripMenuItem aboutToolStripMenuItem;
-        private ToolStripMenuItem thisToolStripMenuItem;
-        private SDUI.Controls.MenuStrip menuStrip;
-        private SDUI.Controls.TabControl tabMain;
-        private ToolStripMenuItem closeToolStripMenuItem;
-        private ToolStripMenuItem minimizeToolStripMenuItem;
-        private ToolStripMenuItem toolStripMenuItem1;
-        private ToolStripMenuItem themeToolStripMenuItem;
-        private ToolStripMenuItem darkToolStripMenuItem;
-        private ToolStripMenuItem lightToolStripMenuItem;
-        private ToolStripMenuItem coloredToolStripMenuItem;
-        private ToolStripMenuItem languageToolStripMenuItem;
-        private SDUI.Controls.Separator separator;
+        private System.Windows.Forms.ToolStripMenuItem botbase1ToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem botbase1ToolStripMenuItem;
+        private System.Windows.Forms.NotifyIcon notifyIcon;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuItemExit;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuSidebar;
+        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuScriptRecorder;
+        private System.Windows.Forms.ToolStripMenuItem menuPlugins;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem thisToolStripMenuItem;
+        private SDUI.Controls.ContextMenuStrip menuStrip;
+        private System.Windows.Forms.ToolStripMenuItem themeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem darkToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem lightToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem coloredToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem languageToolStripMenuItem;
         private ToolStripMenuItem menuSelectProfile;
-        private ToolStripMenuItem menuCurrentProfile;
         private ToolStripMenuItem botsToolStripMenuItem;
         private ToolStripMenuItem autoToolStripMenuItem;
         private SDUI.Controls.Button buttonConfig;
         private ToolStripMenuItem networkConfigToolStripMenuItem;
-        private ToolStripMenuItem donateButton;
-        private ToolStripMenuItem mainMenuList;
-        private ToolStripMenuItem toolStripMenuItemTitle;
-        private SDUI.Controls.Panel pSidebarCustom;
+        private ToolStripMenuItem menuCurrentProfile;
+        private SDUI.Controls.WindowPageControl windowPageControl;
+        private Entity entity1;
+        private Panel pSidebarCustom;
     }
 }
 

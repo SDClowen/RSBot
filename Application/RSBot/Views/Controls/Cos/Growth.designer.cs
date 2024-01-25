@@ -28,94 +28,111 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label2 = new SDUI.Controls.Label();
-            this.label3 = new SDUI.Controls.Label();
-            this.progressEXP = new SDUI.Controls.ProgressBar();
-            this.progressHGP = new SDUI.Controls.ProgressBar();
-            this.SuspendLayout();
+            label2 = new SDUI.Controls.Label();
+            label3 = new SDUI.Controls.Label();
+            progressEXP = new SDUI.Controls.ProgressBar();
+            progressHGP = new SDUI.Controls.ProgressBar();
+            SuspendLayout();
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label2.Location = new System.Drawing.Point(6, 65);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(34, 15);
-            this.label2.TabIndex = 15;
-            this.label2.Text = "HGP:";
+            label2.ApplyGradient = false;
+            label2.AutoSize = true;
+            label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label2.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label2.GradientAnimation = false;
+            label2.Location = new System.Drawing.Point(6, 65);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(34, 15);
+            label2.TabIndex = 15;
+            label2.Text = "HGP:";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label3.Location = new System.Drawing.Point(9, 86);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(30, 15);
-            this.label3.TabIndex = 16;
-            this.label3.Text = "EXP:";
+            label3.ApplyGradient = false;
+            label3.AutoSize = true;
+            label3.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label3.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label3.GradientAnimation = false;
+            label3.Location = new System.Drawing.Point(9, 86);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(30, 15);
+            label3.TabIndex = 16;
+            label3.Text = "EXP:";
             // 
             // progressEXP
             // 
-            this.progressEXP.BackColor = System.Drawing.Color.Transparent;
-            this.progressEXP.DrawHatch = false;
-            this.progressEXP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.progressEXP.Gradient = new System.Drawing.Color[] {
-        System.Drawing.Color.DarkGreen,
-        System.Drawing.Color.Lime};
-            this.progressEXP.HatchType = System.Drawing.Drawing2D.HatchStyle.Percent10;
-            this.progressEXP.Location = new System.Drawing.Point(48, 87);
-            this.progressEXP.Maximum = ((long)(100));
-            this.progressEXP.MaxPercentShowValue = 99.99F;
-            this.progressEXP.Name = "progressEXP";
-            this.progressEXP.PercentIndices = 2;
-            this.progressEXP.Radius = 1;
-            this.progressEXP.ShowAsPercent = true;
-            this.progressEXP.ShowValue = true;
-            this.progressEXP.Size = new System.Drawing.Size(180, 16);
-            this.progressEXP.TabIndex = 12;
-            this.progressEXP.Text = "0.00%";
-            this.progressEXP.Value = ((long)(0));
+            progressEXP.BackColor = System.Drawing.Color.Transparent;
+            progressEXP.DrawHatch = false;
+            progressEXP.ForeColor = System.Drawing.Color.FromArgb(0, 192, 0);
+            progressEXP.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.DarkGreen,
+    System.Drawing.Color.Lime
+    };
+            progressEXP.HatchType = System.Drawing.Drawing2D.HatchStyle.Percent10;
+            progressEXP.Location = new System.Drawing.Point(48, 87);
+            progressEXP.Maximum = 100L;
+            progressEXP.MaxPercentShowValue = 99.99F;
+            progressEXP.Name = "progressEXP";
+            progressEXP.PercentIndices = 2;
+            progressEXP.Radius = 1;
+            progressEXP.ShowAsPercent = true;
+            progressEXP.ShowValue = true;
+            progressEXP.Size = new System.Drawing.Size(180, 16);
+            progressEXP.TabIndex = 12;
+            progressEXP.Text = "0.00%";
+            progressEXP.Value = 0L;
             // 
             // progressHGP
             // 
-            this.progressHGP.BackColor = System.Drawing.Color.Transparent;
-            this.progressHGP.DrawHatch = false;
-            this.progressHGP.ForeColor = System.Drawing.Color.Yellow;
-            this.progressHGP.Gradient = new System.Drawing.Color[] {
-        System.Drawing.Color.Gold,
-        System.Drawing.Color.Yellow};
-            this.progressHGP.HatchType = System.Drawing.Drawing2D.HatchStyle.Percent10;
-            this.progressHGP.Location = new System.Drawing.Point(48, 66);
-            this.progressHGP.Maximum = ((long)(100));
-            this.progressHGP.MaxPercentShowValue = 100F;
-            this.progressHGP.Name = "progressHGP";
-            this.progressHGP.PercentIndices = 2;
-            this.progressHGP.Radius = 1;
-            this.progressHGP.ShowAsPercent = true;
-            this.progressHGP.ShowValue = true;
-            this.progressHGP.Size = new System.Drawing.Size(180, 16);
-            this.progressHGP.TabIndex = 11;
-            this.progressHGP.Text = "0.00%";
-            this.progressHGP.Value = ((long)(0));
+            progressHGP.BackColor = System.Drawing.Color.Transparent;
+            progressHGP.DrawHatch = false;
+            progressHGP.ForeColor = System.Drawing.Color.Yellow;
+            progressHGP.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gold,
+    System.Drawing.Color.Yellow
+    };
+            progressHGP.HatchType = System.Drawing.Drawing2D.HatchStyle.Percent10;
+            progressHGP.Location = new System.Drawing.Point(48, 66);
+            progressHGP.Maximum = 100L;
+            progressHGP.MaxPercentShowValue = 100F;
+            progressHGP.Name = "progressHGP";
+            progressHGP.PercentIndices = 2;
+            progressHGP.Radius = 1;
+            progressHGP.ShowAsPercent = true;
+            progressHGP.ShowValue = true;
+            progressHGP.Size = new System.Drawing.Size(180, 16);
+            progressHGP.TabIndex = 11;
+            progressHGP.Text = "0.00%";
+            progressHGP.Value = 0L;
             // 
             // Growth
             // 
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.progressEXP);
-            this.Controls.Add(this.progressHGP);
-            this.MaximumSize = new System.Drawing.Size(242, 110);
-            this.MinimumSize = new System.Drawing.Size(242, 110);
-            this.Name = "Growth";
-            this.Size = new System.Drawing.Size(242, 110);
-            this.Controls.SetChildIndex(this.progressHGP, 0);
-            this.Controls.SetChildIndex(this.progressEXP, 0);
-            this.Controls.SetChildIndex(this.label2, 0);
-            this.Controls.SetChildIndex(this.label3, 0);
-            this.Controls.SetChildIndex(this.progressHP, 0);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            Controls.Add(label3);
+            Controls.Add(label2);
+            Controls.Add(progressEXP);
+            Controls.Add(progressHGP);
+            MaximumSize = new System.Drawing.Size(242, 110);
+            MinimumSize = new System.Drawing.Size(242, 110);
+            Name = "Growth";
+            Size = new System.Drawing.Size(242, 110);
+            Controls.SetChildIndex(progressHGP, 0);
+            Controls.SetChildIndex(progressEXP, 0);
+            Controls.SetChildIndex(label2, 0);
+            Controls.SetChildIndex(label3, 0);
+            Controls.SetChildIndex(progressHP, 0);
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Numerics;
 using RSBot.Core.Network;
+using RSBot.NavMeshApi;
+using RSBot.NavMeshApi.Dungeon;
 
 namespace RSBot.Core.Objects;
 
 public struct Position
 {
-    private float _XOffset;
-    private float _YOffset;
 
     /// <summary>
     ///     Gets the regional id.
@@ -16,57 +17,12 @@ public struct Position
     /// <summary>
     ///     Gets or set the position X from map
     /// </summary>
-    public float XOffset
-    {
-        get => _XOffset;
-        set
-        {
-            _XOffset = value;
-
-            if (Region.IsDungeon)
-                return;
-
-            while (_XOffset < 0)
-            {
-                _XOffset += 1920;
-                Region.X -= 1;
-            }
-
-            while (_XOffset > 1920)
-            {
-                _XOffset -= 1920;
-                Region.X += 1;
-            }
-        }
-    }
+    public float XOffset { get; set; }
 
     /// <summary>
     ///     Gets or set the position Y from map.
     /// </summary>
-    public float YOffset
-    {
-        get => _YOffset;
-        set
-        {
-            _YOffset = value;
-
-            if (Region.IsDungeon)
-                return;
-
-            while (_YOffset < 0)
-            {
-                _YOffset += 1920;
-                Region.Y -= 1;
-            }
-
-            while (_YOffset > 1920)
-            {
-                _YOffset -= 1920;
-                Region.Y += 1;
-            }
-        }
-    }
-
+    public float YOffset { get; set; }
     /// <summary>
     ///     Gets or set the position Z from map.
     /// </summary>
@@ -82,9 +38,6 @@ public struct Position
     /// </summary>
     public short WorldId { get; set; }
 
-    /// <summary>
-    ///     Gets or sets the layer id.
-    /// </summary>
     public short LayerId { get; set; }
 
     /// <summary>
@@ -93,7 +46,7 @@ public struct Position
     /// <value>
     ///     The x coordinate.
     /// </value>
-    public float X => _XOffset == 0 ? 0 : Region.IsDungeon ? _XOffset / 10 : (Region.X - 135) * 192 + _XOffset / 10;
+    public float X => XOffset == 0 ? 0 : Region.IsDungeon ? XOffset / 10 : (Region.X - 135) * 192 + XOffset / 10;
 
     /// <summary>
     ///     Gets the y coordinate.
@@ -101,17 +54,17 @@ public struct Position
     /// <value>
     ///     The y coordinate.
     /// </value>
-    public float Y => _YOffset == 0 ? 0 : Region.IsDungeon ? _YOffset / 10 : (Region.Y - 92) * 192 + _YOffset / 10;
+    public float Y => YOffset == 0 ? 0 : Region.IsDungeon ? YOffset / 10 : (Region.Y - 92) * 192 + YOffset / 10;
 
     /// <summary>
     ///     Gets offset from x sector.
     /// </summary>
-    public float XSectorOffset => Region.IsDungeon ? (127 * 192 + _XOffset / 10) * 10 % 1920 : _XOffset;
+    public float XSectorOffset => Region.IsDungeon ? (127 * 192 + XOffset / 10) * 10 % 1920 : XOffset;
 
     /// <summary>
     ///     Gets offset from y sector.
     /// </summary>
-    public float YSectorOffset => Region.IsDungeon ? (128 * 192 + _YOffset / 10) * 10 % 1920 : _YOffset;
+    public float YSectorOffset => Region.IsDungeon ? (128 * 192 + YOffset / 10) * 10 % 1920 : YOffset;
 
     /// <summary>
     ///     Creates a position by using world map coordinates
@@ -285,5 +238,24 @@ public struct Position
     public override string ToString()
     {
         return $"X:{X:0.0} Y:{Y:0.0}";
+    }
+
+    public bool TryGetNavMeshTransform(out NavMeshTransform transform)
+    {
+        transform = new NavMeshTransform(Region.Id, new Vector3(XOffset, ZOffset, YOffset));
+
+        return NavMeshManager.ResolveCellAndHeight(transform);
+    }
+
+    public bool HasCollisionBetween(Position destination, NavMeshRaycastType type = NavMeshRaycastType.Attack)
+    {
+        if (!Kernel.EnableCollisionDetection)
+            return false;
+
+        if (!TryGetNavMeshTransform(out var srcTransform)
+            || !destination.TryGetNavMeshTransform(out var destTransform))
+            return false;
+
+        return !NavMeshManager.Raycast(srcTransform, destTransform, type);
     }
 }

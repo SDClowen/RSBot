@@ -28,134 +28,160 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label3 = new SDUI.Controls.Label();
-            this.label2 = new SDUI.Controls.Label();
-            this.progressEXP = new SDUI.Controls.ProgressBar();
-            this.progressSatiety = new SDUI.Controls.ProgressBar();
-            this.progressBarStoredSp = new SDUI.Controls.ProgressBar();
-            this.label4 = new SDUI.Controls.Label();
-            this.SuspendLayout();
+            label3 = new SDUI.Controls.Label();
+            label2 = new SDUI.Controls.Label();
+            progressEXP = new SDUI.Controls.ProgressBar();
+            progressSatiety = new SDUI.Controls.ProgressBar();
+            progressBarStoredSp = new SDUI.Controls.ProgressBar();
+            label4 = new SDUI.Controls.Label();
+            SuspendLayout();
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label3.Location = new System.Drawing.Point(10, 88);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(30, 15);
-            this.label3.TabIndex = 23;
-            this.label3.Text = "EXP:";
+            label3.ApplyGradient = false;
+            label3.AutoSize = true;
+            label3.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label3.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label3.GradientAnimation = false;
+            label3.Location = new System.Drawing.Point(10, 88);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(30, 15);
+            label3.TabIndex = 23;
+            label3.Text = "EXP:";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label2.Location = new System.Drawing.Point(-1, 66);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(41, 15);
-            this.label2.TabIndex = 22;
-            this.label2.Text = "Satie..:";
+            label2.ApplyGradient = false;
+            label2.AutoSize = true;
+            label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label2.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label2.GradientAnimation = false;
+            label2.Location = new System.Drawing.Point(-1, 66);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(41, 15);
+            label2.TabIndex = 22;
+            label2.Text = "Satie..:";
             // 
             // progressEXP
             // 
-            this.progressEXP.BackColor = System.Drawing.Color.Transparent;
-            this.progressEXP.DrawHatch = false;
-            this.progressEXP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.progressEXP.Gradient = new System.Drawing.Color[] {
-        System.Drawing.Color.DarkGreen,
-        System.Drawing.Color.Lime};
-            this.progressEXP.HatchType = System.Drawing.Drawing2D.HatchStyle.Percent10;
-            this.progressEXP.Location = new System.Drawing.Point(48, 88);
-            this.progressEXP.Maximum = ((long)(100));
-            this.progressEXP.MaxPercentShowValue = 99.99F;
-            this.progressEXP.Name = "progressEXP";
-            this.progressEXP.PercentIndices = 2;
-            this.progressEXP.Radius = 1;
-            this.progressEXP.ShowAsPercent = true;
-            this.progressEXP.ShowValue = true;
-            this.progressEXP.Size = new System.Drawing.Size(180, 16);
-            this.progressEXP.TabIndex = 19;
-            this.progressEXP.Text = "0.00%";
-            this.progressEXP.Value = ((long)(0));
+            progressEXP.BackColor = System.Drawing.Color.Transparent;
+            progressEXP.DrawHatch = false;
+            progressEXP.ForeColor = System.Drawing.Color.FromArgb(0, 192, 0);
+            progressEXP.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.DarkGreen,
+    System.Drawing.Color.Lime
+    };
+            progressEXP.HatchType = System.Drawing.Drawing2D.HatchStyle.Percent10;
+            progressEXP.Location = new System.Drawing.Point(48, 88);
+            progressEXP.Maximum = 100L;
+            progressEXP.MaxPercentShowValue = 99.99F;
+            progressEXP.Name = "progressEXP";
+            progressEXP.PercentIndices = 2;
+            progressEXP.Radius = 1;
+            progressEXP.ShowAsPercent = true;
+            progressEXP.ShowValue = true;
+            progressEXP.Size = new System.Drawing.Size(180, 16);
+            progressEXP.TabIndex = 19;
+            progressEXP.Text = "0.00%";
+            progressEXP.Value = 0L;
             // 
             // progressSatiety
             // 
-            this.progressSatiety.BackColor = System.Drawing.Color.Transparent;
-            this.progressSatiety.DrawHatch = false;
-            this.progressSatiety.ForeColor = System.Drawing.Color.Yellow;
-            this.progressSatiety.Gradient = new System.Drawing.Color[] {
-        System.Drawing.Color.Turquoise,
-        System.Drawing.Color.DodgerBlue};
-            this.progressSatiety.HatchType = System.Drawing.Drawing2D.HatchStyle.Percent10;
-            this.progressSatiety.Location = new System.Drawing.Point(48, 66);
-            this.progressSatiety.Maximum = ((long)(100));
-            this.progressSatiety.MaxPercentShowValue = 100F;
-            this.progressSatiety.Name = "progressSatiety";
-            this.progressSatiety.PercentIndices = 2;
-            this.progressSatiety.Radius = 1;
-            this.progressSatiety.ShowAsPercent = false;
-            this.progressSatiety.ShowValue = true;
-            this.progressSatiety.Size = new System.Drawing.Size(180, 16);
-            this.progressSatiety.TabIndex = 18;
-            this.progressSatiety.Text = "0 / 100";
-            this.progressSatiety.Value = ((long)(0));
+            progressSatiety.BackColor = System.Drawing.Color.Transparent;
+            progressSatiety.DrawHatch = false;
+            progressSatiety.ForeColor = System.Drawing.Color.Yellow;
+            progressSatiety.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Turquoise,
+    System.Drawing.Color.DodgerBlue
+    };
+            progressSatiety.HatchType = System.Drawing.Drawing2D.HatchStyle.Percent10;
+            progressSatiety.Location = new System.Drawing.Point(48, 66);
+            progressSatiety.Maximum = 100L;
+            progressSatiety.MaxPercentShowValue = 100F;
+            progressSatiety.Name = "progressSatiety";
+            progressSatiety.PercentIndices = 2;
+            progressSatiety.Radius = 1;
+            progressSatiety.ShowAsPercent = false;
+            progressSatiety.ShowValue = true;
+            progressSatiety.Size = new System.Drawing.Size(180, 16);
+            progressSatiety.TabIndex = 18;
+            progressSatiety.Text = "0 / 100";
+            progressSatiety.Value = 0L;
             // 
             // progressBarStoredSp
             // 
-            this.progressBarStoredSp.BackColor = System.Drawing.Color.Transparent;
-            this.progressBarStoredSp.DrawHatch = false;
-            this.progressBarStoredSp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.progressBarStoredSp.Gradient = new System.Drawing.Color[] {
-        System.Drawing.Color.Navy,
-        System.Drawing.Color.RoyalBlue};
-            this.progressBarStoredSp.HatchType = System.Drawing.Drawing2D.HatchStyle.Percent10;
-            this.progressBarStoredSp.Location = new System.Drawing.Point(48, 110);
-            this.progressBarStoredSp.Maximum = ((long)(100));
-            this.progressBarStoredSp.MaxPercentShowValue = 100F;
-            this.progressBarStoredSp.Name = "progressBarStoredSp";
-            this.progressBarStoredSp.PercentIndices = 2;
-            this.progressBarStoredSp.Radius = 1;
-            this.progressBarStoredSp.ShowAsPercent = false;
-            this.progressBarStoredSp.ShowValue = true;
-            this.progressBarStoredSp.Size = new System.Drawing.Size(180, 16);
-            this.progressBarStoredSp.TabIndex = 19;
-            this.progressBarStoredSp.Text = "0 / 100";
-            this.progressBarStoredSp.Value = ((long)(0));
+            progressBarStoredSp.BackColor = System.Drawing.Color.Transparent;
+            progressBarStoredSp.DrawHatch = false;
+            progressBarStoredSp.ForeColor = System.Drawing.Color.FromArgb(0, 192, 0);
+            progressBarStoredSp.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Navy,
+    System.Drawing.Color.RoyalBlue
+    };
+            progressBarStoredSp.HatchType = System.Drawing.Drawing2D.HatchStyle.Percent10;
+            progressBarStoredSp.Location = new System.Drawing.Point(48, 110);
+            progressBarStoredSp.Maximum = 100L;
+            progressBarStoredSp.MaxPercentShowValue = 100F;
+            progressBarStoredSp.Name = "progressBarStoredSp";
+            progressBarStoredSp.PercentIndices = 2;
+            progressBarStoredSp.Radius = 1;
+            progressBarStoredSp.ShowAsPercent = false;
+            progressBarStoredSp.ShowValue = true;
+            progressBarStoredSp.Size = new System.Drawing.Size(180, 16);
+            progressBarStoredSp.TabIndex = 19;
+            progressBarStoredSp.Text = "0 / 100";
+            progressBarStoredSp.Value = 0L;
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label4.Location = new System.Drawing.Point(17, 110);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(23, 15);
-            this.label4.TabIndex = 23;
-            this.label4.Text = "Sp:";
+            label4.ApplyGradient = false;
+            label4.AutoSize = true;
+            label4.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label4.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label4.GradientAnimation = false;
+            label4.Location = new System.Drawing.Point(17, 110);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(23, 15);
+            label4.TabIndex = 23;
+            label4.Text = "Sp:";
             // 
             // Fellow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.progressBarStoredSp);
-            this.Controls.Add(this.progressEXP);
-            this.Controls.Add(this.progressSatiety);
-            this.MaximumSize = new System.Drawing.Size(242, 135);
-            this.MinimumSize = new System.Drawing.Size(242, 135);
-            this.Name = "Fellow";
-            this.Size = new System.Drawing.Size(242, 135);
-            this.Controls.SetChildIndex(this.progressSatiety, 0);
-            this.Controls.SetChildIndex(this.progressEXP, 0);
-            this.Controls.SetChildIndex(this.progressBarStoredSp, 0);
-            this.Controls.SetChildIndex(this.label2, 0);
-            this.Controls.SetChildIndex(this.label3, 0);
-            this.Controls.SetChildIndex(this.label4, 0);
-            this.Controls.SetChildIndex(this.progressHP, 0);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            Controls.Add(label4);
+            Controls.Add(label3);
+            Controls.Add(label2);
+            Controls.Add(progressBarStoredSp);
+            Controls.Add(progressEXP);
+            Controls.Add(progressSatiety);
+            MaximumSize = new System.Drawing.Size(242, 135);
+            MinimumSize = new System.Drawing.Size(242, 135);
+            Name = "Fellow";
+            Size = new System.Drawing.Size(242, 135);
+            Controls.SetChildIndex(progressSatiety, 0);
+            Controls.SetChildIndex(progressEXP, 0);
+            Controls.SetChildIndex(progressBarStoredSp, 0);
+            Controls.SetChildIndex(label2, 0);
+            Controls.SetChildIndex(label3, 0);
+            Controls.SetChildIndex(label4, 0);
+            Controls.SetChildIndex(progressHP, 0);
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

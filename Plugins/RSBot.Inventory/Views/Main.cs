@@ -12,13 +12,14 @@ using RSBot.Core.Network;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Inventory;
 using SDUI;
+using SDUI.Controls;
 using Button = SDUI.Controls.Button;
 using ListViewExtensions = RSBot.Core.Extensions.ListViewExtensions;
 
 namespace RSBot.Inventory.Views;
 
 [ToolboxItem(false)]
-public partial class Main : UserControl
+public partial class Main : DoubleBufferedControl
 {
     /// <summary>
     ///     <inheritdoc />
@@ -349,7 +350,7 @@ public partial class Main : UserControl
         if (listViewMain.SelectedItems.Count <= 0)
             return;
 
-        if (!GlobalConfig.Get<bool>("RSBot.DebugEnvironment"))
+        if (!Kernel.Debug)
             return;
 
         var itemForm = new ItemProperties(listViewMain.SelectedItems[0].Tag as InventoryItem);

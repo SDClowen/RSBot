@@ -14,11 +14,12 @@ using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.General.Components;
 using RSBot.General.Models;
+using SDUI.Controls;
 
 namespace RSBot.General.Views;
 
 [ToolboxItem(false)]
-internal partial class Main : UserControl
+internal partial class Main : DoubleBufferedControl
 {
     private bool _clientVisible;
 

@@ -1,23 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
-using System.Linq;
-using System.Windows.Forms;
-using RSBot.Core;
+﻿using RSBot.Core;
+using RSBot.Core.Client;
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
+using RSBot.Map.Renderer;
+using RSBot.NavMeshApi.Dungeon;
+using SDUI.Controls;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.Windows.Forms;
+using Region = RSBot.Core.Objects.Region;
 
 namespace RSBot.Map.Views;
 
 [ToolboxItem(false)]
-public partial class Main : UserControl
+public partial class Main : DoubleBufferedControl
 {
     /// <summary>
     ///     The grid size
@@ -35,11 +39,6 @@ public partial class Main : UserControl
     private readonly Dictionary<string, Image> _cachedImages;
 
     /// <summary>
-    ///     The current layer path
-    /// </summary>
-    private string _currentLayerPath;
-
-    /// <summary>
     ///     The current sector graphic
     /// </summary>
     private Image _currentSectorGraphic;
@@ -54,10 +53,6 @@ public partial class Main : UserControl
     /// </summary>
     private byte _currentYSec;
 
-    /// <summary>
-    ///     Is active debug mode <c>true</c> otherwise <c>false</c>
-    /// </summary>
-    private readonly bool _debug;
 
     /// <summary>
     ///     The map points
@@ -72,12 +67,19 @@ public partial class Main : UserControl
     /// <summary>
     ///     <inheritdoc />
     /// </summary>
-    private readonly BufferedGraphics bufferedGraphics;
+    private BufferedGraphics bufferedGraphics;
 
     /// <summary>
     ///     <inheritdoc />
     /// </summary>
     private readonly BufferedGraphicsContext bufferedGraphicsContext;
+
+    private readonly NavMeshRenderer _navMeshRenderer;
+
+    /// <summary>
+    /// The region name
+    /// </summary>
+    private string _regionName;
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="Main" /> class.
@@ -85,10 +87,10 @@ public partial class Main : UserControl
     public Main()
     {
         InitializeComponent();
+        if (DesignMode)
+            return;
 
-        _debug = GlobalConfig.Get<bool>("RSBot.DebugEnvironment");
-
-        _cachedImages = _cachedImages ?? new Dictionary<string, Image>();
+        _cachedImages ??= new();
 
         EventManager.SubscribeEvent("OnEnterGame", OnEnterGame);
 
@@ -98,10 +100,19 @@ public partial class Main : UserControl
 
         // All
         comboViewType.SelectedIndex = 6;
-        checkEnableCollisions.Checked = CollisionManager.Enabled;
+        checkEnableCollisions.Checked = Kernel.EnableCollisionDetection;
+        tabNavMeshViewer.Visible = Kernel.Debug;
 
-        if (!_debug)
-            labelSectorInfo.Visible = false;
+        if (Kernel.Debug)
+        {
+            _navMeshRenderer = new NavMeshRenderer()
+            {
+                Dock = DockStyle.Fill,
+            };
+
+            panelNavMeshRendererCanvas.Controls.Add(_navMeshRenderer);
+            labelSectorInfo.Visible = true;
+        }
     }
 
     #region Core Handlers
@@ -285,10 +296,6 @@ public partial class Main : UserControl
                         if (Game.SelectedEntity?.UniqueId == entry.UniqueId)
                             DrawCircleAt(graphics, entry.Position, Color.Wheat.Alpha(100), 6);
 
-                        //Other style for mobs behind obstacles
-                        if (entry.IsBehindObstacle)
-                            DrawCircleAt(graphics, entry.Position, Color.DarkRed.Alpha(100), 6);
-
                         if (entry.Rarity == MonsterRarity.Unique || entry.Rarity == MonsterRarity.Unique2)
                             DrawPointAt(graphics, entry.Position, 5);
                         else
@@ -356,43 +363,12 @@ public partial class Main : UserControl
         lvMonster.EndUpdate();
     }
 
-    private void DrawCollisions(Graphics gfx)
-    {
-        if (CollisionManager.HasActiveMeshes && CollisionManager.Enabled)
-        {
-            foreach (var collisionNavmesh in CollisionManager.ActiveCollisionMeshes)
-            {
-                var colliders = collisionNavmesh.Collisions
-                    .Where(c => c.Source.DistanceToPlayer() < 100 || c.Destination.DistanceToPlayer() < 100);
-
-                foreach (var collider in colliders)
-                    DrawLineAt(gfx, collider.Source, collider.Destination, Pens.Red);
-            }
-
-            if (!SpawnManager.TryGetEntities<SpawnedEntity>(out var entities))
-                return;
-
-            foreach (var entity in entities.Where(e => e.IsBehindObstacle))
-            {
-                var collision =
-                    CollisionManager.GetCollisionBetween(Game.Player.Position, entity.Position);
-
-                if (!collision.HasValue)
-                    continue;
-
-                DrawLineAt(gfx, Game.Player.Position, collision.Value.CollidedAt, Pens.GreenYellow);
-                DrawLineAt(gfx, collision.Value.CollidedWith.Source, collision.Value.CollidedWith.Destination,
-                    Pens.Yellow);
-            }
-        }
-    }
-
     private Image LoadSectorImage(string sectorImgName)
     {
         if (_cachedImages.ContainsKey(sectorImgName))
             return (Image)_cachedImages[sectorImgName].Clone();
 
-        if (Game.MediaPk2.TryGetFile(sectorImgName, out var file))
+        if (Game.MediaPk2.FileExists(sectorImgName) && Game.MediaPk2.TryGetFile(sectorImgName, out var file))
         {
             var img = file.ToImage();
             _cachedImages.Add(sectorImgName, img);
@@ -403,120 +379,106 @@ public partial class Main : UserControl
         return new Bitmap(SectorSize, SectorSize);
     }
 
-    /// <summary>
-    ///     Get path from map layer
-    /// </summary>
-    private string GetLayerPath(Position p)
-    {
-        if (p.Region.IsDungeon)
-            switch (p.Region)
-            {
-                // Donwhang cave
-                case 32769:
-                    if (p.ZOffset > 345)
-                        return "minimap_d\\donwhang\\dh_a01_floor04_{0}x{1}.ddj";
-                    if (p.ZOffset > 230)
-                        return "minimap_d\\donwhang\\dh_a01_floor03_{0}x{1}.ddj";
-                    if (p.ZOffset > 115)
-                        return "minimap_d\\donwhang\\dh_a01_floor02_{0}x{1}.ddj";
-                    return "minimap_d\\donwhang\\dh_a01_floor01_{0}x{1}.ddj";
-                // QinShi Tomb
-                case 32770:
-                    return "minimap_d\\jinsi\\qt_a01_floor06_{0}x{1}.ddj";
-                case 32771:
-                    return "minimap_d\\jinsi\\qt_a01_floor05_{0}x{1}.ddj";
-                case 32772:
-                    return "minimap_d\\jinsi\\qt_a01_floor04_{0}x{1}.ddj";
-                case 32773:
-                    return "minimap_d\\jinsi\\qt_a01_floor03_{0}x{1}.ddj";
-                case 32774:
-                    return "minimap_d\\jinsi\\qt_a01_floor02_{0}x{1}.ddj";
-                case 32775:
-                    return "minimap_d\\jinsi\\qt_a01_floor01_{0}x{1}.ddj";
-                // Job Temple
-                case 32779:
-                case 32780:
-                case 32781:
-                case 32782:
-                case 32784:
-                    return "minimap_d\\egypt\\rn_sd_egypt1_01_{0}x{1}.ddj";
-                case 32783:
-                    return "minimap_d\\egypt\\rn_sd_egypt1_02_{0}x{1}.ddj";
-                // Fortress Dungeon
-                case 32785:
-                    return "minimap_d\\fort_dungeon\\fort_dungeon01_{0}x{1}.ddj";
-                // Mt. Flame
-                case 32786:
-                    return "minimap_d\\flame_dungeon\\flame_dungeon01_{0}x{1}.ddj";
-                // Jupiter Temple Rooms
-                case 32787:
-                    return "minimap_d\\jupiter\\rn_jupiter_02_{0}x{1}.ddj";
-                case 32788:
-                    return "minimap_d\\jupiter\\rn_jupiter_03_{0}x{1}.ddj";
-                case 32789:
-                    return "minimap_d\\jupiter\\rn_jupiter_04_{0}x{1}.ddj";
-                case 32790:
-                    return "minimap_d\\jupiter\\rn_jupiter_01_{0}x{1}.ddj";
-                // Bahgdad Room
-                case 32793:
-                    return "minimap_d\\Arabia\\RN_ARABIA_FIELD_02_BOSS_{0}x{1}.ddj";
-                // 32791 - GM's Room
-                // 32792 - Fortress Prison
-            }
-
-        // Default as world map
-        return "minimap\\{0}x{1}.ddj";
-    }
 
     /// <summary>
     ///     Redraw the map image
     /// </summary>
     private void RedrawMap()
     {
+        if (bufferedGraphicsContext.MaximumBuffer.Width != mapCanvas.Width + 1)
+        {
+            bufferedGraphicsContext.MaximumBuffer = mapCanvas.Size;
+
+            bufferedGraphics = bufferedGraphicsContext.Allocate(mapCanvas.CreateGraphics(), mapCanvas.ClientRectangle);
+        }
+
         // Set layer path & sectors
         var p = Game.Player.Movement.Source;
 
-        var layerPath = GetLayerPath(p);
-        if (p.Region.X == _currentXSec && p.Region.Y == _currentYSec && _currentLayerPath == layerPath)
-            return;
-
-        _currentXSec = p.Region.X;
-        _currentYSec = p.Region.Y;
+        var tempX = p.Region.X;
+        var tempY = p.Region.Y;
 
         if (p.Region.IsDungeon)
         {
-            _currentXSec = p.GetSectorFromOffset(p.XOffset);
-            _currentYSec = p.GetSectorFromOffset(p.YOffset);
+            tempX = p.GetSectorFromOffset(p.XOffset);
+            tempY = p.GetSectorFromOffset(p.YOffset);
         }
 
-        _currentLayerPath = layerPath;
+        if (tempX == _currentXSec && tempY == _currentYSec)
+            return;
+
+        _currentXSec = tempX;
+        _currentYSec = tempY;
 
         if (_cachedImages.Count >= 25)
             _cachedImages.Clear();
 
-        _currentSectorGraphic = new Bitmap(SectorSize * 3, SectorSize * 3, PixelFormat.Format32bppArgb);
-
-        using (var gfx = Graphics.FromImage(_currentSectorGraphic))
+        try
         {
+            _currentSectorGraphic = new Bitmap(SectorSize * 3, SectorSize * 3, PixelFormat.Format32bppArgb);
+
+            using var gfx = Graphics.FromImage(_currentSectorGraphic);
             gfx.InterpolationMode = InterpolationMode.Bicubic;
-            for (var x = 0; x < GridSize; x++)
-            for (var z = 0; z < GridSize; z++)
+
+            var floorName = string.Empty;
+            var dungeonName = string.Empty;
+            if (p.Region.IsDungeon)
             {
-                var sectorImgName = string.Format(layerPath, _currentXSec + x - 1, _currentYSec + z - 1);
+                if (!p.TryGetNavMeshTransform(out var pTransform))
+                    return;
 
-                using var bitmap = LoadSectorImage(sectorImgName);
-                var pos = new Point(bitmap.Width * x, bitmap.Height * (GridSize - 1 - z));
+                if (pTransform.Instance is not NavMeshInstBlock dungeonBlock)
+                    return;
 
-                gfx.DrawImage(bitmap, pos);
+                if (dungeonBlock.Parent is not NavMeshDungeon dungeon)
+                    return;
 
-                if (_debug)
+                floorName = dungeon.FloorStringIDs[dungeonBlock.FloorIndex]; //e.g "DH_A01_FLOOR01"
+                var roomName = dungeon.RoomStringIDs[dungeonBlock.RoomIndex];
+                var roomNameTranslated = Game.ReferenceManager.GetTranslation(roomName);
+
+                _regionName = roomNameTranslated;
+                dungeonName = RegionInfoManager.GetDungeonName(p.Region);
+            }
+            else
+                _regionName = Game.ReferenceManager.GetTranslation(Game.Player.Position.Region.ToString());
+
+            for (byte x = 0; x < GridSize; x++)
+            {
+                for (byte z = 0; z < GridSize; z++)
                 {
-                    using var pen = new Pen(Color.Black);
-                    pen.DashStyle = DashStyle.Dot;
-                    gfx.DrawRectangle(pen, new Rectangle(pos, new Size(SectorSize, SectorSize)));
+                    var xSector = (byte)(_currentXSec + x - 1);
+                    var ySector = (byte)(_currentYSec + z - 1);
+
+                    var sectorImgName = GetMinimapFileName(new Region(xSector, ySector), dungeonName, floorName);
+                    using var bitmap = LoadSectorImage(sectorImgName);
+                    var pos = new Point(bitmap.Width * x, bitmap.Height * (GridSize - 1 - z));
+
+                    gfx.DrawImage(bitmap, pos);
+
+                    if (Kernel.Debug)
+                    {
+                        using var pen = new Pen(Color.Black);
+                        pen.DashStyle = DashStyle.Dot;
+                        gfx.DrawRectangle(pen, new Rectangle(pos, new Size(SectorSize, SectorSize)));
+
+                    }
                 }
             }
         }
+        catch (Exception e)
+        {
+            Log.Warn($"Error in minimap: {e.Message}");
+        }
+    }
+    private string GetMinimapFileName(Region region, string dungeonName, string floorName)
+    {
+        if (!string.IsNullOrWhiteSpace(dungeonName) && !string.IsNullOrWhiteSpace(floorName))
+        {
+            return $"minimap_d\\{dungeonName}\\{floorName}_{region.X}x{region.Y}.ddj";
+        }
+
+        return $"minimap\\{region.X}x{region.Y}.ddj";
     }
 
     private Bitmap RotateImage(Image image, float angle)
@@ -561,9 +523,6 @@ public partial class Main : UserControl
 
             PopulateMapAndGrid(graphics);
             DrawPointAt(graphics, Game.Player.Movement.Source, 0);
-
-            if (_debug)
-                DrawCollisions(graphics);
         }
     }
 
@@ -575,20 +534,28 @@ public partial class Main : UserControl
         if (!Visible)
             return;
 
-        lblRegion.Text = Game.ReferenceManager.GetTranslation(Game.Player.Position.Region.ToString()) +
-                         (Game.Player.Position.Region.IsDungeon ? " (Dungeon)" : "");
-
-        lblX.Text = Game.Player.Position.X.ToString("0.0");
-        lblY.Text = Game.Player.Position.Y.ToString("0.0");
-
-        if (_debug)
+        if (Kernel.Debug)
             labelSectorInfo.Text =
                 $"{Game.Player.Movement.Source.Region} ({Game.Player.Movement.Source.Region.X}x{Game.Player.Movement.Source.Region.Y})";
 
         bufferedGraphics.Graphics.Clear(Color.Black);
         RedrawMap();
         DrawObjects(bufferedGraphics.Graphics);
-        bufferedGraphics.Render();
+
+        using var font = new Font(Font, FontStyle.Bold);
+
+        var text = Game.Player.Position.ToString();
+        var measuredText = bufferedGraphics.Graphics.MeasureString(text, font);
+
+        var x = mapCanvas.Width - measuredText.Width;
+
+        bufferedGraphics.Graphics.DrawString(_regionName, font, Brushes.Black, 12, 7);
+        bufferedGraphics.Graphics.DrawString(_regionName, font, Brushes.White, 10, 5);
+
+        bufferedGraphics.Graphics.DrawString(text, font, Brushes.Black, x - 8, 21 - measuredText.Height / 2);
+        bufferedGraphics.Graphics.DrawString(text, font, Brushes.White, x - 10, 20 - measuredText.Height / 2);
+
+        mapCanvas.Invalidate();
     }
 
     private void checkBoxAutoSelectUniques_CheckedChanged(object sender, EventArgs e)
@@ -636,7 +603,7 @@ public partial class Main : UserControl
 
     private void checkEnableCollisions_CheckedChanged(object sender, EventArgs e)
     {
-        CollisionManager.Enabled = checkEnableCollisions.Checked;
+        Kernel.EnableCollisionDetection = checkEnableCollisions.Checked;
     }
 
     /// <summary>
@@ -648,5 +615,16 @@ public partial class Main : UserControl
     {
         checkBoxAutoSelectUniques.Checked = PlayerConfig.Get("RSBot.Map.AutoSelectUnique", false);
         timerUniqueChecker.Enabled = checkBoxAutoSelectUniques.Checked;
+    }
+
+    private void btnNvmResetToPlayer_Click(object sender, EventArgs e)
+    {
+        if (Game.Player.Position.TryGetNavMeshTransform(out var playerTransform))
+            _navMeshRenderer?.Update(playerTransform);
+    }
+
+    private void tabMinimap_Paint(object sender, PaintEventArgs e)
+    {
+        bufferedGraphics.Render();
     }
 }

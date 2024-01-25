@@ -107,7 +107,12 @@
             labelStatus.AutoSize = true;
             labelStatus.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             labelStatus.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            labelStatus.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            labelStatus.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            labelStatus.GradientAnimation = false;
             labelStatus.Location = new System.Drawing.Point(288, 19);
             labelStatus.Name = "labelStatus";
             labelStatus.Size = new System.Drawing.Size(47, 17);
@@ -117,7 +122,7 @@
             // btnRun
             // 
             btnRun.Color = System.Drawing.Color.Transparent;
-            btnRun.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnRun.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             btnRun.ForeColor = System.Drawing.Color.Green;
             btnRun.Location = new System.Drawing.Point(174, 15);
             btnRun.Name = "btnRun";
@@ -125,7 +130,7 @@
             btnRun.ShadowDepth = 4F;
             btnRun.Size = new System.Drawing.Size(30, 27);
             btnRun.TabIndex = 3;
-            btnRun.Text = "▶";
+            btnRun.Text = "►";
             btnRun.TextAlign = System.Drawing.ContentAlignment.TopRight;
             btnRun.UseVisualStyleBackColor = true;
             btnRun.Click += btnRunNow_Click;
@@ -178,7 +183,12 @@
             label1.ApplyGradient = false;
             label1.AutoSize = true;
             label1.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label1.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label1.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label1.GradientAnimation = false;
             label1.Location = new System.Drawing.Point(20, 40);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(351, 30);
@@ -220,7 +230,12 @@
             lblCommand.ApplyGradient = false;
             lblCommand.AutoSize = true;
             lblCommand.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            lblCommand.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            lblCommand.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            lblCommand.GradientAnimation = false;
             lblCommand.Location = new System.Drawing.Point(20, 12);
             lblCommand.Name = "lblCommand";
             lblCommand.Size = new System.Drawing.Size(67, 15);
@@ -233,10 +248,10 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             BackColor = System.Drawing.Color.FromArgb(251, 251, 251);
             ClientSize = new System.Drawing.Size(493, 561);
+            ControlBox = false;
             Controls.Add(txtScript);
             Controls.Add(panel2);
             Controls.Add(panel1);
-            Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Location = new System.Drawing.Point(0, 0);
             MaximizeBox = false;
@@ -244,7 +259,6 @@
             Padding = new System.Windows.Forms.Padding(1, 32, 1, 1);
             ShowInTaskbar = false;
             Text = "RSBot - File recorder";
-            TitleFont = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             FormClosed += ScriptRecorder_FormClosed;
             Load += ScriptRecorder_Load;
             panel1.ResumeLayout(false);

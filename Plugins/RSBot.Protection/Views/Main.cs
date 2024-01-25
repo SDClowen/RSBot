@@ -13,7 +13,7 @@ using CheckBox = SDUI.Controls.CheckBox;
 namespace RSBot.Protection.Views;
 
 [ToolboxItem(false)]
-public partial class Main : UserControl
+public partial class Main : DoubleBufferedControl
 {
     public Main()
     {

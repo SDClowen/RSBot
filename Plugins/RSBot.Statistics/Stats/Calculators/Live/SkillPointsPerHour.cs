@@ -55,6 +55,9 @@ internal class SkillPointsPerHour : IStatisticCalculator
     /// <inheritdoc />
     public void Reset()
     {
+        if (!Game.Ready)
+            return;
+
         _lastTickValue = Convert.ToInt32(Game.Player.SkillPoints);
         _values = new int[60];
     }

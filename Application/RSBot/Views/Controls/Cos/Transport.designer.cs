@@ -28,18 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
+            SuspendLayout();
             // 
             // Transport
             // 
-            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.MaximumSize = new System.Drawing.Size(242, 70);
-            this.MinimumSize = new System.Drawing.Size(242, 70);
-            this.Name = "Transport";
-            this.Size = new System.Drawing.Size(242, 70);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            MaximumSize = new System.Drawing.Size(242, 70);
+            MinimumSize = new System.Drawing.Size(242, 70);
+            Name = "Transport";
+            Size = new System.Drawing.Size(242, 70);
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

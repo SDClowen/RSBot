@@ -55,11 +55,11 @@
             panel1.Controls.Add(btnCancel);
             panel1.Controls.Add(btnConfirm);
             panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            panel1.Location = new System.Drawing.Point(0, 297);
+            panel1.Location = new System.Drawing.Point(0, 314);
             panel1.Name = "panel1";
             panel1.Radius = 0;
             panel1.ShadowDepth = 4F;
-            panel1.Size = new System.Drawing.Size(328, 49);
+            panel1.Size = new System.Drawing.Size(327, 49);
             panel1.TabIndex = 1;
             // 
             // btnCancel
@@ -67,7 +67,7 @@
             btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnCancel.Color = System.Drawing.Color.Transparent;
             btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            btnCancel.Location = new System.Drawing.Point(237, 14);
+            btnCancel.Location = new System.Drawing.Point(236, 14);
             btnCancel.Name = "btnCancel";
             btnCancel.Radius = 6;
             btnCancel.ShadowDepth = 4F;
@@ -109,7 +109,11 @@
             label1.ApplyGradient = false;
             label1.AutoSize = true;
             label1.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label1.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
+            label1.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
             label1.GradientAnimation = false;
             label1.Location = new System.Drawing.Point(12, 54);
             label1.Name = "label1";
@@ -122,7 +126,11 @@
             label2.ApplyGradient = false;
             label2.AutoSize = true;
             label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label2.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
+            label2.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
             label2.GradientAnimation = false;
             label2.Location = new System.Drawing.Point(240, 54);
             label2.Name = "label2";
@@ -135,7 +143,11 @@
             label3.ApplyGradient = false;
             label3.AutoSize = true;
             label3.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label3.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
+            label3.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
             label3.GradientAnimation = false;
             label3.Location = new System.Drawing.Point(14, 247);
             label3.Name = "label3";
@@ -174,7 +186,11 @@
             label4.ApplyGradient = false;
             label4.AutoSize = true;
             label4.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label4.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
+            label4.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
             label4.GradientAnimation = false;
             label4.Location = new System.Drawing.Point(14, 110);
             label4.Name = "label4";
@@ -215,7 +231,11 @@
             label6.ApplyGradient = false;
             label6.AutoSize = true;
             label6.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label6.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
+            label6.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
             label6.GradientAnimation = false;
             label6.Location = new System.Drawing.Point(14, 181);
             label6.Name = "label6";
@@ -229,7 +249,11 @@
             label7.AutoSize = true;
             label7.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             label7.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label7.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
+            label7.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
             label7.GradientAnimation = false;
             label7.Location = new System.Drawing.Point(14, 127);
             label7.Name = "label7";
@@ -243,7 +267,11 @@
             label8.AutoSize = true;
             label8.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             label8.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label8.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
+            label8.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
             label8.GradientAnimation = false;
             label8.Location = new System.Drawing.Point(16, 197);
             label8.Name = "label8";
@@ -272,7 +300,7 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             BackColor = System.Drawing.Color.White;
             CancelButton = btnCancel;
-            ClientSize = new System.Drawing.Size(328, 346);
+            ClientSize = new System.Drawing.Size(327, 363);
             Controls.Add(textBoxPort);
             Controls.Add(checkBoxOnOf);
             Controls.Add(comboBoxProxyVersion);
@@ -287,11 +315,9 @@
             Controls.Add(textBoxId);
             Controls.Add(textBoxProxyIp);
             Controls.Add(panel1);
-            Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            DwmMargin = -1;
             ForeColor = System.Drawing.Color.Black;
-            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             MaximizeBox = false;
-            MaximumSize = new System.Drawing.Size(328, 346);
             MinimizeBox = false;
             Name = "ConfigDialog";
             ShowIcon = false;
