@@ -63,24 +63,24 @@ internal class PartyBuffingBundle : IBundle
             // Loop through the buffs defined for the buffing member
             foreach (var buff in buffingMember.Buffs)
             {
-                // Check if the buff is not in active buffs or if it's bugged
-                if (!activeBuffs.Any(p => p.Id == buff ||
-                                          (Game.ReferenceManager.SkillData.TryGetValue(buff,
-                                               out var refSkill) &&
-                                           refSkill.Action_Overlap == p.Record.Action_Overlap)) ||
-                    (Game.Player.Skills.GetSkillInfoById(buff)?.Isbugged == true))
+                // Retrieve skill information based on skill ID
+                var skill = Game.Player.Skills.GetSkillInfoById(buff);
+
+                var isActive = member.Player.State.HasActiveBuff(Game.Player.Skills.GetSkillInfoById(buff), out var info);
+                if (isActive && skill.Isbugged && info.Isbugged)
                 {
-                    // Retrieve skill information based on skill ID
-                    var skill = Game.Player.Skills.GetSkillInfoById(buff);
+                    Log.Notify($"[#377] The buff on {member.Name} [{skill.Token}-{skill.Record?.GetRealName()}] expired");
 
-                    // Skip if skill is null or has cooldown
-                    if (skill == null || skill.HasCooldown)
-                        continue;
-
-                    // Cast the skill on the current party member
-                    if (member.Player != null)
-                        skill.Cast(member.Player.UniqueId, true);
+                    skill?.Reset();
                 }
+
+                // Skip if skill is null or has cooldown
+                if (skill == null || skill.HasCooldown)
+                    continue;
+
+                // Cast the skill on the current party member
+                if (member.Player != null)
+                    skill.Cast(member.Player.UniqueId, true);
             }
         }
     }
