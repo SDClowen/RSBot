@@ -67,12 +67,16 @@ internal class PartyBuffingBundle : IBundle
                 var skill = Game.Player.Skills.GetSkillInfoById(buff);
 
                 var isActive = member.Player.State.HasActiveBuff(Game.Player.Skills.GetSkillInfoById(buff), out var info);
-                if (isActive && skill.Isbugged && info.Isbugged)
+                if (skill.Isbugged && info.Isbugged)
                 {
                     Log.Notify($"[#377] The buff on {member.Name} [{skill.Token}-{skill.Record?.GetRealName()}] expired");
 
                     skill?.Reset();
+                    continue;
                 }
+
+                if (isActive)
+                    continue;
 
                 // Skip if skill is null or has cooldown
                 if (skill == null || skill.HasCooldown)
