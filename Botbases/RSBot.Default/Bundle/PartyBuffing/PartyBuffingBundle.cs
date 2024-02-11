@@ -70,7 +70,7 @@ internal class PartyBuffingBundle : IBundle
                 var isActive = member.Player.State.HasActiveBuff(skill, out var info);
                 if (skill.Isbugged && info.Isbugged)
                 {
-                    Log.Notify($"[#377] The buff on {member.Name} [{skill.Token}-{skill.Record?.GetRealName()}] expired");
+                    Log.Notify($"The buff on {member.Name} [{skill.Token}-{skill.Record?.GetRealName()}] expired");
 
                     skill?.Reset();
                     continue;
