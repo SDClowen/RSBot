@@ -37,9 +37,11 @@
             colMasteries = new System.Windows.Forms.ColumnHeader();
             colLocation = new System.Windows.Forms.ColumnHeader();
             contextParty = new SDUI.Controls.ContextMenuStrip();
+            contextPartyBuffs = new SDUI.Controls.ContextMenuStrip();
             menuBanish = new System.Windows.Forms.ToolStripMenuItem();
             menuLeave = new System.Windows.Forms.ToolStripMenuItem();
             menuItemAddToBuffing = new System.Windows.Forms.ToolStripMenuItem();
+            menuItemRefreshBuffs = new System.Windows.Forms.ToolStripMenuItem();
             separator3 = new SDUI.Controls.Separator();
             panel1 = new SDUI.Controls.Panel();
             btnLeaveParty = new SDUI.Controls.Button();
@@ -153,6 +155,7 @@
             tabMain.SuspendLayout();
             tabCurrentParty.SuspendLayout();
             contextParty.SuspendLayout();
+            contextPartyBuffs.SuspendLayout();
             panel1.SuspendLayout();
             grpPartySettings.SuspendLayout();
             tpAutoParty.SuspendLayout();
@@ -1669,6 +1672,7 @@
             listPartyBuffSkills.BackColor = System.Drawing.Color.White;
             listPartyBuffSkills.BorderStyle = System.Windows.Forms.BorderStyle.None;
             listPartyBuffSkills.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnName, columnLimit });
+            listPartyBuffSkills.ContextMenuStrip = contextPartyBuffs;
             listPartyBuffSkills.Dock = System.Windows.Forms.DockStyle.Fill;
             listPartyBuffSkills.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             listPartyBuffSkills.FullRowSelect = true;
@@ -1724,6 +1728,20 @@
             checkHideLowerLevelSkills.Visible = false;
             checkHideLowerLevelSkills.CheckedChanged += checkHideLowerLevelSkills_CheckedChanged;
             // 
+            // contextPartyBuffs
+            // 
+            contextPartyBuffs.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { menuItemRefreshBuffs });
+            contextPartyBuffs.Name = "contextPartyBuffs";
+            contextPartyBuffs.Size = new System.Drawing.Size(153, 70);
+            // 
+            // menuItemRefreshBuffs
+            // 
+            menuItemRefreshBuffs.Enabled = true;
+            menuItemRefreshBuffs.Name = "menuItemRefreshBuffs";
+            menuItemRefreshBuffs.Size = new System.Drawing.Size(152, 22);
+            menuItemRefreshBuffs.Text = "Refresh Buffs";
+            menuItemRefreshBuffs.Click += menuItemRefreshBuffs_Click;
+            // 
             // Main
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -1736,6 +1754,7 @@
             tabMain.ResumeLayout(false);
             tabCurrentParty.ResumeLayout(false);
             contextParty.ResumeLayout(false);
+            contextPartyBuffs.ResumeLayout(false);
             panel1.ResumeLayout(false);
             grpPartySettings.ResumeLayout(false);
             tpAutoParty.ResumeLayout(false);
@@ -1777,8 +1796,10 @@
         private SDUI.Controls.CheckBox checkCurrentAllowInvitations;
         private SDUI.Controls.GroupBox grpPartySettings;
         private SDUI.Controls.ContextMenuStrip contextParty;
+        private SDUI.Controls.ContextMenuStrip contextPartyBuffs;
         private System.Windows.Forms.ToolStripMenuItem menuBanish;
         private System.Windows.Forms.ToolStripMenuItem menuLeave;
+        private System.Windows.Forms.ToolStripMenuItem menuItemRefreshBuffs;
         private System.Windows.Forms.TabPage tpAutoParty;
         private System.Windows.Forms.TabPage tpPartyMatching;
         private SDUI.Controls.GroupBox grbAutoPartySettings;
