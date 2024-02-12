@@ -66,6 +66,9 @@ internal class BuffBundle : IBundle
                 if (Game.Player.State.LifeState != LifeState.Alive || Game.Player.HasActiveVehicle)
                     break;
 
+                if (buff.Enabled && !buff.HasCooldown)
+                    break;
+
                 Log.Debug($"Trying to cast buff: {buff} {buff.Record.Basic_Code}");
 
                 buff.Cast(buff: true);
