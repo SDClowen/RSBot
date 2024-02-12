@@ -56,7 +56,7 @@ internal class PartyBuffingBundle : IBundle
             if (buffingMember.Buffs.Count == 0)
                 continue;
 
-            Log.Status("Buffing party");
+            Log.Status($"Buffing party member {member.Name}");
 
             var activeBuffs = member.Player.State.ActiveBuffs;
 
@@ -66,7 +66,6 @@ internal class PartyBuffingBundle : IBundle
 
                 if (skill == null || skill.HasCooldown)
                     continue;
-
                 var isActive = member.Player.State.HasActiveBuff(skill, out var info);
                 if (skill.Isbugged && info.Isbugged)
                 {
