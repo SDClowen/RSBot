@@ -56,6 +56,12 @@ internal class PartyBuffingBundle : IBundle
             if (buffingMember.Buffs.Count == 0)
                 continue;
 
+            //if party member is dead, dont try to buff
+            var memberHPMP = member.HealthMana.ToString("X2");
+            int hpPer = Convert.ToByte(memberHPMP[0].ToString(), 16) * 10;
+            if (hpPer == 0)
+                continue;
+
             Log.Status($"Buffing party member {member.Name}");
 
             var activeBuffs = member.Player.State.ActiveBuffs;
