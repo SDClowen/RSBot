@@ -62,7 +62,7 @@ internal class PartyBuffingBundle : IBundle
             if (hpPer == 0)
                 continue;
 
-            Log.Status($"Buffing party member {member.Name}");
+            Log.Status($"Buffing party");
 
             var activeBuffs = member.Player.State.ActiveBuffs;
 
@@ -85,7 +85,10 @@ internal class PartyBuffingBundle : IBundle
                     continue;
 
                 if (member.Player != null)
+                {
+                    Log.Status($"Buffing {skill.Record?.GetRealName()} party member {member.Name}");
                     skill.Cast(member.Player.UniqueId, true);
+                }
             }
         }
     }
