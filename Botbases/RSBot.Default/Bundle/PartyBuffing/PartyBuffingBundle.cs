@@ -62,7 +62,7 @@ internal class PartyBuffingBundle : IBundle
             if (hpPer == 0)
                 continue;
 
-            Log.Status($"Buffing party member {member.Name}");
+            Log.Status($"Buffing party");
 
             var activeBuffs = member.Player.State.ActiveBuffs;
 
