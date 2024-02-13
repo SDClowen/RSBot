@@ -56,25 +56,32 @@ internal class PartyBuffingBundle : IBundle
             if (buffingMember.Buffs.Count == 0)
                 continue;
 
+            //if party member is dead, dont try to buff
             var memberHPMP = member.HealthMana.ToString("X2");
             int hpPer = Convert.ToByte(memberHPMP[0].ToString(), 16) * 10;
             if (hpPer == 0)
                 continue;
 
-            Log.Status("Buffing party");
+            Log.Status($"Buffing party member {member.Name}");
 
             var activeBuffs = member.Player.State.ActiveBuffs;
 
-            var neededBuffs = buffingMember.Buffs
-                .Where(skillId => !activeBuffs.Any(p => p.Id == skillId ||
-                                                        (Game.ReferenceManager.SkillData.TryGetValue(skillId,
-                                                             out var refSkill) &&
-                                                         refSkill.Action_Overlap == p.Record.Action_Overlap)));
-
-            foreach (var castingBuffId in neededBuffs)
+            foreach (var buff in buffingMember.Buffs)
             {
-                var skill = Game.Player.Skills.GetSkillInfoById(castingBuffId);
+                var skill = Game.Player.Skills.GetSkillInfoById(buff);
+
                 if (skill == null || skill.HasCooldown)
+                    continue;
+                var isActive = member.Player.State.HasActiveBuff(skill, out var info);
+                if (skill.Isbugged && info.Isbugged)
+                {
+                    Log.Notify($"The buff on {member.Name} [{skill.Token}-{skill.Record?.GetRealName()}] expired");
+
+                    skill?.Reset();
+                    continue;
+                }
+
+                if (isActive)
                     continue;
 
                 if (member.Player != null)
