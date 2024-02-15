@@ -103,20 +103,18 @@ public class ClientManager
                 return false;
             }
 
+            WriteProcessMemory(pi.hProcess, address - 0x6A, patchJmp, 1, out _);
+            WriteProcessMemory(pi.hProcess, address + 0x13, patchJmp, 1, out _);
+
             if (isTRGame)
             {
                 WriteProcessMemory(pi.hProcess, address - 0xE7, patchJmp, 1, out _);
-                WriteProcessMemory(pi.hProcess, address - 0x6A, patchJmp, 1, out _);
                 WriteProcessMemory(pi.hProcess, address - 0x71, patchNop2, 5, out _);
-                WriteProcessMemory(pi.hProcess, address + 0x13, patchJmp, 1, out _);
                 WriteProcessMemory(pi.hProcess, address + 0xB2, patchJmp, 1, out _);
             }
-
-            if (isVtcGame)
+            else
             {
-                WriteProcessMemory(pi.hProcess, address - 0x6A, patchJmp, 1, out _);
                 WriteProcessMemory(pi.hProcess, address + 0xC, patchNop2, 5, out _);
-                WriteProcessMemory(pi.hProcess, address + 0x13, patchJmp, 1, out _);
                 WriteProcessMemory(pi.hProcess, address + 0x90, patchJmp, 1, out _);
             }
 

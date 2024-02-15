@@ -593,6 +593,8 @@ public partial class Main : DoubleBufferedControl
 
     private void mapCanvas_MouseClick(object sender, MouseEventArgs e)
     {
+        if(!Game.Ready) return;
+
         var position = Game.Player.Movement.Source;
         position.XOffset = Game.Player.Movement.Source.XOffset +
                            (mapCanvas.Width / 2f - e.X) / SectorSize * 192f * 10 * -1f;
