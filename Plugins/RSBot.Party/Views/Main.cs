@@ -351,6 +351,8 @@ public partial class Main : DoubleBufferedControl
     /// </summary>
     private void LoadPartyBuffSkills()
     {
+        Log.Notify("Refreshing party buff skills");
+
         if (Game.Player == null)
             return;
 
@@ -950,6 +952,11 @@ public partial class Main : DoubleBufferedControl
 
             MessageBox.Show(LanguageManager.GetLang("SuccessAddedBuffing"));
         }
+    }
+
+    private void menuItemRefreshBuffs_Click(object sender, EventArgs e)
+    {
+        LoadPartyBuffSkills();
     }
 
     private void buttonAddGroup_Click(object sender, EventArgs e)
