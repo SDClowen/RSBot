@@ -90,7 +90,7 @@ public class ClientManager
             ReadProcessMemory(process.Handle, process.MainModule.BaseAddress, moduleMemory,
                 process.MainModule.ModuleMemorySize, out _);
 
-            var pattern = !isVtcGame ? "6A 00 68 F0 CA 6C 00 6A 64" : "6A 00 68 A0 D6 28 01 68 AC D6 28 01";
+            var pattern = !isVtcGame ? "6A 00 68 50 2D 2D 01 68 5C 2D 2D 01" : "6A 00 68 A0 D6 28 01 68 AC D6 28 01";
 
             var patchNop = new byte[] { 0x90, 0x90 };
             var patchNop2 = new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90 };
@@ -108,9 +108,10 @@ public class ClientManager
 
             if (isTRGame)
             {
-                WriteProcessMemory(pi.hProcess, address - 0xE7, patchJmp, 1, out _);
-                WriteProcessMemory(pi.hProcess, address - 0x71, patchNop2, 5, out _);
-                WriteProcessMemory(pi.hProcess, address + 0xB2, patchJmp, 1, out _);
+                WriteProcessMemory(pi.hProcess, address - 0x6A, patchJmp, 1, out _);
+                WriteProcessMemory(pi.hProcess, address + 0x0C, patchNop2, 5, out _);
+                WriteProcessMemory(pi.hProcess, address + 0x13, patchJmp, 1, out _);
+                WriteProcessMemory(pi.hProcess, address + 0x95, patchJmp, 1, out _);
             }
             else
             {
