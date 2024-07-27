@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -90,33 +91,30 @@ public class ClientManager
             ReadProcessMemory(process.Handle, process.MainModule.BaseAddress, moduleMemory,
                 process.MainModule.ModuleMemorySize, out _);
 
-            var pattern = !isVtcGame ? "6A 00 68 50 2D 2D 01 68 5C 2D 2D 01" : "6A 00 68 A0 D6 28 01 68 AC D6 28 01";
-
-            var patchNop = new byte[] { 0x90, 0x90 };
-            var patchNop2 = new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90 };
-            var patchJmp = new byte[] { 0xEB };
-
-            var address = FindPattern(pattern, moduleMemory);
-            if (address == IntPtr.Zero)
+            if (isVtcGame)
             {
-                Log.Error("XIGNCODE patching error! Maybe signatures are wrong?");
-                return false;
-            }
+                var pattern = "6A 00 68 A0 D6 28 01 68 AC D6 28 01";
+                var patchNop = new byte[] { 0x90, 0x90 };
+                var patchNop2 = new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90 };
+                var patchJmp = new byte[] { 0xEB };
+                var address = FindPattern(pattern, moduleMemory);
+                if (address == IntPtr.Zero)
+                {
+                    Log.Error("XIGNCODE patching error! Maybe signatures are wrong?");
+                    return false;
+                }
 
-            WriteProcessMemory(pi.hProcess, address - 0x6A, patchJmp, 1, out _);
-            WriteProcessMemory(pi.hProcess, address + 0x13, patchJmp, 1, out _);
-
-            if (isTRGame)
-            {
                 WriteProcessMemory(pi.hProcess, address - 0x6A, patchJmp, 1, out _);
-                WriteProcessMemory(pi.hProcess, address + 0x0C, patchNop2, 5, out _);
                 WriteProcessMemory(pi.hProcess, address + 0x13, patchJmp, 1, out _);
-                WriteProcessMemory(pi.hProcess, address + 0x95, patchJmp, 1, out _);
-            }
-            else
-            {
                 WriteProcessMemory(pi.hProcess, address + 0xC, patchNop2, 5, out _);
                 WriteProcessMemory(pi.hProcess, address + 0x90, patchJmp, 1, out _);
+            }
+            if (isTRGame)
+            {
+                if (!PatchTRSROAddresses(pi.hProcess))
+                {
+                    Log.Error("XIGNCODE patching error! Maybe signatures are wrong?");
+                }
             }
 
             moduleMemory = null;
@@ -142,6 +140,30 @@ public class ClientManager
         EventManager.FireEvent("OnStartClient");
 
         return await Task.FromResult(true);
+    }
+
+    /// <summary>
+    ///     Patch TRSRO specific addresses with JMP instructions
+    /// </summary>
+    private static bool PatchTRSROAddresses(IntPtr processHandle)
+    {
+        // Addresses to patch
+        IntPtr address1 = new IntPtr(0x006D0964);
+        IntPtr address2 = new IntPtr(0x006D0BFA);
+
+        // Patch data for address1 to JMP 0x006D0B34
+        byte[] patchData1 = { 0xE9, 0xCB, 0x01, 0x00, 0x00 }; // JMP instruction with relative offset
+
+        // Patch data for address2 to JMP 0x006D0C17
+        byte[] patchData2 = { 0xE9, 0x18, 0x00, 0x00, 0x00 }; // JMP instruction with relative offset
+
+        if (!WriteProcessMemory(processHandle, address1, patchData1, (uint)patchData1.Length, out _))
+            return false;
+
+        if (!WriteProcessMemory(processHandle, address2, patchData2, (uint)patchData2.Length, out _))
+            return false;
+
+        return true;
     }
 
     /// <summary>
