@@ -90,7 +90,7 @@ public class ClientManager
             ReadProcessMemory(process.Handle, process.MainModule.BaseAddress, moduleMemory,
                 process.MainModule.ModuleMemorySize, out _);
 
-            var pattern = !isVtcGame ? "6A 00 68 50 2D 2D 01 68 5C 2D 2D 01" : "6A 00 68 A0 D6 28 01 68 AC D6 28 01";
+            var pattern = !isVtcGame ? "6A 00 68 60 B7 2D 01 68 74 B7 2D 01" : "6A 00 68 A0 D6 28 01 68 AC D6 28 01";
 
             var patchNop = new byte[] { 0x90, 0x90 };
             var patchNop2 = new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90 };
@@ -103,21 +103,10 @@ public class ClientManager
                 return false;
             }
 
-            WriteProcessMemory(pi.hProcess, address - 0x6A, patchJmp, 1, out _);
+            WriteProcessMemory(pi.hProcess, address - (isTRGame ? 0x6F : 0x6A), patchJmp, 1, out _);
             WriteProcessMemory(pi.hProcess, address + 0x13, patchJmp, 1, out _);
-
-            if (isTRGame)
-            {
-                WriteProcessMemory(pi.hProcess, address - 0x6A, patchJmp, 1, out _);
-                WriteProcessMemory(pi.hProcess, address + 0x0C, patchNop2, 5, out _);
-                WriteProcessMemory(pi.hProcess, address + 0x13, patchJmp, 1, out _);
-                WriteProcessMemory(pi.hProcess, address + 0x95, patchJmp, 1, out _);
-            }
-            else
-            {
-                WriteProcessMemory(pi.hProcess, address + 0xC, patchNop2, 5, out _);
-                WriteProcessMemory(pi.hProcess, address + 0x90, patchJmp, 1, out _);
-            }
+            WriteProcessMemory(pi.hProcess, address + 0xC, patchNop2, 5, out _);
+            WriteProcessMemory(pi.hProcess, address + (isTRGame ? 0x95 : 0x90), patchJmp, 1, out _);
 
             moduleMemory = null;
             GC.Collect();
