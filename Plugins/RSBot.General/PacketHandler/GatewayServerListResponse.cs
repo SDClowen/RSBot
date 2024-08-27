@@ -41,7 +41,9 @@ internal class GatewayServerListResponse : IPacketHandler
         while (packet.ReadByte() == 1)
         {
             var id = packet.ReadUShort();
-            var serverName = packet.ReadString();
+            var serverName = Game.ClientType == GameClientType.Turkey
+                                 ? packet.ReadUnicode()
+                                 : packet.ReadString();
 
             ushort currentCapacity = 0,
                 maxCapacity = 0;

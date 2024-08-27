@@ -13,7 +13,7 @@
 		<RepositoryUrl>https://github.com/SDClowen/RSBot</RepositoryUrl>
 		<OutputType>WinExe</OutputType>
 		<ApplicationIcon>app.ico</ApplicationIcon>
-		<AssemblyVersion>2.9.6</AssemblyVersion>
+		<AssemblyVersion>2.9.7</AssemblyVersion>
 		<ApplicationHighDpiMode>true</ApplicationHighDpiMode>
 		<PlatformTarget>x86</PlatformTarget>
 		<UseWPF>False</UseWPF>
