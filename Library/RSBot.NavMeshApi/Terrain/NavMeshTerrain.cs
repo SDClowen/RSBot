@@ -407,8 +407,8 @@ public class NavMeshTerrain : NavMesh
         int raycastCount = 0;
         while (true)
         {
-            if (raycastCount++ > 100)
-                throw new Exception("raycastCount (terrain) above 100");
+            //if (raycastCount++ > 100)
+                //throw new Exception("raycastCount (terrain) above 100");
 
             var result = NavMeshHitResult.None;
 

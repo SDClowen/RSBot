@@ -91,7 +91,12 @@
             label1.ApplyGradient = false;
             label1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             label1.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label1.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label1.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label1.GradientAnimation = false;
             label1.Location = new System.Drawing.Point(16, 11);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(140, 15);
@@ -103,7 +108,12 @@
             lblVersion.ApplyGradient = false;
             lblVersion.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             lblVersion.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            lblVersion.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            lblVersion.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            lblVersion.GradientAnimation = false;
             lblVersion.Location = new System.Drawing.Point(707, 11);
             lblVersion.Name = "lblVersion";
             lblVersion.Size = new System.Drawing.Size(40, 15);
@@ -147,7 +157,12 @@
             label8.Enabled = false;
             label8.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             label8.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label8.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label8.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label8.GradientAnimation = false;
             label8.Location = new System.Drawing.Point(6, 60);
             label8.Name = "label8";
             label8.Size = new System.Drawing.Size(347, 35);
@@ -164,7 +179,7 @@
             checkBoxBotTrayMinimized.MouseLocation = new System.Drawing.Point(-1, -1);
             checkBoxBotTrayMinimized.Name = "checkBoxBotTrayMinimized";
             checkBoxBotTrayMinimized.Ripple = true;
-            checkBoxBotTrayMinimized.Size = new System.Drawing.Size(255, 30);
+            checkBoxBotTrayMinimized.Size = new System.Drawing.Size(306, 30);
             checkBoxBotTrayMinimized.TabIndex = 0;
             checkBoxBotTrayMinimized.Text = "Move bot to system tray when minimized";
             checkBoxBotTrayMinimized.UseVisualStyleBackColor = false;
@@ -191,7 +206,12 @@
             label2.Enabled = false;
             label2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label2.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label2.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label2.GradientAnimation = false;
             label2.Location = new System.Drawing.Point(6, 59);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(347, 37);
@@ -208,7 +228,7 @@
             checkStayConnected.MouseLocation = new System.Drawing.Point(-1, -1);
             checkStayConnected.Name = "checkStayConnected";
             checkStayConnected.Ripple = true;
-            checkStayConnected.Size = new System.Drawing.Size(260, 30);
+            checkStayConnected.Size = new System.Drawing.Size(313, 30);
             checkStayConnected.TabIndex = 17;
             checkStayConnected.Text = "Stay connected if client exits unexpectedly";
             checkStayConnected.UseVisualStyleBackColor = false;
@@ -307,11 +327,10 @@
             // 
             separator1.Dock = System.Windows.Forms.DockStyle.Top;
             separator1.IsVertical = false;
-            separator1.Location = new System.Drawing.Point(3, 203);
+            separator1.Location = new System.Drawing.Point(3, 207);
             separator1.Name = "separator1";
             separator1.Size = new System.Drawing.Size(349, 2);
             separator1.TabIndex = 19;
-            separator1.Text = "separator1";
             // 
             // panel3
             // 
@@ -325,9 +344,9 @@
             panel3.Controls.Add(checkStartBot);
             panel3.Controls.Add(checkUseReturnScroll);
             panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            panel3.Location = new System.Drawing.Point(3, 203);
+            panel3.Location = new System.Drawing.Point(3, 207);
             panel3.Name = "panel3";
-            panel3.Size = new System.Drawing.Size(349, 111);
+            panel3.Size = new System.Drawing.Size(349, 107);
             panel3.TabIndex = 1;
             // 
             // radioAutoSelectHigher
@@ -339,7 +358,7 @@
             radioAutoSelectHigher.Margin = new System.Windows.Forms.Padding(0);
             radioAutoSelectHigher.Name = "radioAutoSelectHigher";
             radioAutoSelectHigher.Ripple = true;
-            radioAutoSelectHigher.Size = new System.Drawing.Size(140, 30);
+            radioAutoSelectHigher.Size = new System.Drawing.Size(169, 30);
             radioAutoSelectHigher.TabIndex = 38;
             radioAutoSelectHigher.Text = "Auto Select (Higher)";
             radioAutoSelectHigher.UseVisualStyleBackColor = true;
@@ -355,7 +374,7 @@
             radioAutoSelectFirst.Margin = new System.Windows.Forms.Padding(0);
             radioAutoSelectFirst.Name = "radioAutoSelectFirst";
             radioAutoSelectFirst.Ripple = true;
-            radioAutoSelectFirst.Size = new System.Drawing.Size(126, 30);
+            radioAutoSelectFirst.Size = new System.Drawing.Size(151, 30);
             radioAutoSelectFirst.TabIndex = 37;
             radioAutoSelectFirst.TabStop = true;
             radioAutoSelectFirst.Text = "Auto Select (First)";
@@ -373,7 +392,7 @@
             checkCharAutoSelect.MouseLocation = new System.Drawing.Point(-1, -1);
             checkCharAutoSelect.Name = "checkCharAutoSelect";
             checkCharAutoSelect.Ripple = true;
-            checkCharAutoSelect.Size = new System.Drawing.Size(120, 30);
+            checkCharAutoSelect.Size = new System.Drawing.Size(145, 30);
             checkCharAutoSelect.TabIndex = 36;
             checkCharAutoSelect.Text = "Auto Char Select";
             checkCharAutoSelect.UseVisualStyleBackColor = false;
@@ -389,7 +408,7 @@
             checkHideClient.MouseLocation = new System.Drawing.Point(-1, -1);
             checkHideClient.Name = "checkHideClient";
             checkHideClient.Ripple = true;
-            checkHideClient.Size = new System.Drawing.Size(119, 30);
+            checkHideClient.Size = new System.Drawing.Size(145, 30);
             checkHideClient.TabIndex = 31;
             checkHideClient.Text = "Auto Hide Client";
             checkHideClient.UseVisualStyleBackColor = false;
@@ -401,16 +420,21 @@
             lblLoginDelaySeconds.AutoSize = true;
             lblLoginDelaySeconds.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             lblLoginDelaySeconds.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            lblLoginDelaySeconds.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            lblLoginDelaySeconds.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            lblLoginDelaySeconds.GradientAnimation = false;
             lblLoginDelaySeconds.Location = new System.Drawing.Point(284, 16);
             lblLoginDelaySeconds.Name = "lblLoginDelaySeconds";
-            lblLoginDelaySeconds.Size = new System.Drawing.Size(49, 13);
+            lblLoginDelaySeconds.Size = new System.Drawing.Size(58, 19);
             lblLoginDelaySeconds.TabIndex = 22;
             lblLoginDelaySeconds.Text = "seconds";
             // 
             // numLoginDelay
             // 
-            numLoginDelay.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numLoginDelay.BackColor = System.Drawing.Color.Transparent;
             numLoginDelay.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             numLoginDelay.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numLoginDelay.Location = new System.Drawing.Point(198, 11);
@@ -433,7 +457,7 @@
             checkEnableLoginDelay.MouseLocation = new System.Drawing.Point(-1, -1);
             checkEnableLoginDelay.Name = "checkEnableLoginDelay";
             checkEnableLoginDelay.Ripple = true;
-            checkEnableLoginDelay.Size = new System.Drawing.Size(129, 30);
+            checkEnableLoginDelay.Size = new System.Drawing.Size(158, 30);
             checkEnableLoginDelay.TabIndex = 25;
             checkEnableLoginDelay.Text = "Enable login delay";
             checkEnableLoginDelay.UseVisualStyleBackColor = false;
@@ -449,7 +473,7 @@
             checkStartBot.MouseLocation = new System.Drawing.Point(-1, -1);
             checkStartBot.Name = "checkStartBot";
             checkStartBot.Ripple = true;
-            checkStartBot.Size = new System.Drawing.Size(106, 30);
+            checkStartBot.Size = new System.Drawing.Size(127, 30);
             checkStartBot.TabIndex = 24;
             checkStartBot.Text = "Auto start bot";
             checkStartBot.UseVisualStyleBackColor = false;
@@ -465,7 +489,7 @@
             checkUseReturnScroll.MouseLocation = new System.Drawing.Point(-1, -1);
             checkUseReturnScroll.Name = "checkUseReturnScroll";
             checkUseReturnScroll.Ripple = true;
-            checkUseReturnScroll.Size = new System.Drawing.Size(118, 30);
+            checkUseReturnScroll.Size = new System.Drawing.Size(141, 30);
             checkUseReturnScroll.TabIndex = 16;
             checkUseReturnScroll.Text = "Use return scroll";
             checkUseReturnScroll.UseVisualStyleBackColor = false;
@@ -479,7 +503,7 @@
             captchaPanel.Controls.Add(txtStaticCaptcha);
             captchaPanel.Controls.Add(checkEnableStaticCaptcha);
             captchaPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            captchaPanel.Location = new System.Drawing.Point(3, 120);
+            captchaPanel.Location = new System.Drawing.Point(3, 124);
             captchaPanel.Name = "captchaPanel";
             captchaPanel.Size = new System.Drawing.Size(349, 83);
             captchaPanel.TabIndex = 0;
@@ -493,7 +517,6 @@
             separator2.Name = "separator2";
             separator2.Size = new System.Drawing.Size(349, 2);
             separator2.TabIndex = 29;
-            separator2.Text = "separator2";
             // 
             // label6
             // 
@@ -502,10 +525,15 @@
             label6.Enabled = false;
             label6.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             label6.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label6.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label6.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label6.GradientAnimation = false;
             label6.Location = new System.Drawing.Point(63, 60);
             label6.Name = "label6";
-            label6.Size = new System.Drawing.Size(260, 13);
+            label6.Size = new System.Drawing.Size(309, 19);
             label6.TabIndex = 21;
             label6.Text = "Please use this only if the captcha never changes.";
             // 
@@ -513,7 +541,12 @@
             // 
             label5.ApplyGradient = false;
             label5.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label5.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label5.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label5.GradientAnimation = false;
             label5.Location = new System.Drawing.Point(9, 14);
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(58, 18);
@@ -528,7 +561,7 @@
             txtStaticCaptcha.Name = "txtStaticCaptcha";
             txtStaticCaptcha.PassFocusShow = false;
             txtStaticCaptcha.Radius = 2;
-            txtStaticCaptcha.Size = new System.Drawing.Size(268, 21);
+            txtStaticCaptcha.Size = new System.Drawing.Size(268, 25);
             txtStaticCaptcha.TabIndex = 3;
             txtStaticCaptcha.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
             txtStaticCaptcha.UseSystemPasswordChar = false;
@@ -544,7 +577,7 @@
             checkEnableStaticCaptcha.MouseLocation = new System.Drawing.Point(-1, -1);
             checkEnableStaticCaptcha.Name = "checkEnableStaticCaptcha";
             checkEnableStaticCaptcha.Ripple = true;
-            checkEnableStaticCaptcha.Size = new System.Drawing.Size(175, 30);
+            checkEnableStaticCaptcha.Size = new System.Drawing.Size(213, 30);
             checkEnableStaticCaptcha.TabIndex = 4;
             checkEnableStaticCaptcha.Text = "Enable static captcha solve";
             checkEnableStaticCaptcha.UseVisualStyleBackColor = false;
@@ -560,7 +593,7 @@
             autoLoginTopPanel.Controls.Add(comboCharacter);
             autoLoginTopPanel.Controls.Add(btnAutoLoginSettings);
             autoLoginTopPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            autoLoginTopPanel.Location = new System.Drawing.Point(3, 26);
+            autoLoginTopPanel.Location = new System.Drawing.Point(3, 30);
             autoLoginTopPanel.Name = "autoLoginTopPanel";
             autoLoginTopPanel.Size = new System.Drawing.Size(349, 94);
             autoLoginTopPanel.TabIndex = 28;
@@ -585,7 +618,12 @@
             // 
             label7.ApplyGradient = false;
             label7.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label7.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label7.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label7.GradientAnimation = false;
             label7.Location = new System.Drawing.Point(20, 37);
             label7.Name = "label7";
             label7.Size = new System.Drawing.Size(47, 16);
@@ -596,7 +634,12 @@
             // 
             label4.ApplyGradient = false;
             label4.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label4.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label4.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label4.GradientAnimation = false;
             label4.Location = new System.Drawing.Point(9, 13);
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(66, 13);
@@ -613,7 +656,7 @@
             checkEnableAutoLogin.MouseLocation = new System.Drawing.Point(-1, -1);
             checkEnableAutoLogin.Name = "checkEnableAutoLogin";
             checkEnableAutoLogin.Ripple = true;
-            checkEnableAutoLogin.Size = new System.Drawing.Size(160, 30);
+            checkEnableAutoLogin.Size = new System.Drawing.Size(193, 30);
             checkEnableAutoLogin.TabIndex = 1;
             checkEnableAutoLogin.Text = "Enable automated login";
             checkEnableAutoLogin.UseVisualStyleBackColor = false;
@@ -670,7 +713,7 @@
             txtSilkroadPath.Name = "txtSilkroadPath";
             txtSilkroadPath.PassFocusShow = false;
             txtSilkroadPath.Radius = 2;
-            txtSilkroadPath.Size = new System.Drawing.Size(570, 21);
+            txtSilkroadPath.Size = new System.Drawing.Size(570, 25);
             txtSilkroadPath.TabIndex = 1;
             txtSilkroadPath.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
             txtSilkroadPath.UseSystemPasswordChar = false;
@@ -704,7 +747,7 @@
             checkEnableQueueLogs.MouseLocation = new System.Drawing.Point(-1, -1);
             checkEnableQueueLogs.Name = "checkEnableQueueLogs";
             checkEnableQueueLogs.Ripple = true;
-            checkEnableQueueLogs.Size = new System.Drawing.Size(178, 30);
+            checkEnableQueueLogs.Size = new System.Drawing.Size(214, 30);
             checkEnableQueueLogs.TabIndex = 42;
             checkEnableQueueLogs.Text = "Enable pending queue logs";
             checkEnableQueueLogs.UseVisualStyleBackColor = false;
@@ -715,7 +758,12 @@
             label3.ApplyGradient = false;
             label3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             label3.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label3.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label3.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label3.GradientAnimation = false;
             label3.Location = new System.Drawing.Point(292, 81);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(71, 18);
@@ -724,7 +772,7 @@
             // 
             // numQueueLeft
             // 
-            numQueueLeft.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            numQueueLeft.BackColor = System.Drawing.Color.Transparent;
             numQueueLeft.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             numQueueLeft.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numQueueLeft.Location = new System.Drawing.Point(206, 76);
@@ -747,7 +795,7 @@
             checkAutoHidePendingWindow.MouseLocation = new System.Drawing.Point(-1, -1);
             checkAutoHidePendingWindow.Name = "checkAutoHidePendingWindow";
             checkAutoHidePendingWindow.Ripple = true;
-            checkAutoHidePendingWindow.Size = new System.Drawing.Size(198, 30);
+            checkAutoHidePendingWindow.Size = new System.Drawing.Size(238, 30);
             checkAutoHidePendingWindow.TabIndex = 41;
             checkAutoHidePendingWindow.Text = "Auto hide the pending window";
             checkAutoHidePendingWindow.UseVisualStyleBackColor = false;
@@ -763,7 +811,7 @@
             checkEnableQueueNotification.MouseLocation = new System.Drawing.Point(-1, -1);
             checkEnableQueueNotification.Name = "checkEnableQueueNotification";
             checkEnableQueueNotification.Ripple = true;
-            checkEnableQueueNotification.Size = new System.Drawing.Size(186, 30);
+            checkEnableQueueNotification.Size = new System.Drawing.Size(228, 30);
             checkEnableQueueNotification.TabIndex = 40;
             checkEnableQueueNotification.Text = "Enable queue notification on ";
             checkEnableQueueNotification.UseVisualStyleBackColor = false;
@@ -784,8 +832,8 @@
             // 
             // Main
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             Controls.Add(groupBox5);
             Controls.Add(comboBoxClientType);
             Controls.Add(groupBox4);

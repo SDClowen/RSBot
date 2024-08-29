@@ -82,43 +82,32 @@ public class ClientManager
         if (process == null || process.HasExited)
             return false;
 
-        var isVtcGame = Game.ClientType == GameClientType.VTC_Game;
-        var isTRGame = Game.ClientType == GameClientType.Turkey;
-        if (isVtcGame || isTRGame)
+        if (Game.ClientType == GameClientType.VTC_Game ||
+            Game.ClientType == GameClientType.Turkey)
         {
             var moduleMemory = new byte[process.MainModule.ModuleMemorySize];
             ReadProcessMemory(process.Handle, process.MainModule.BaseAddress, moduleMemory,
                 process.MainModule.ModuleMemorySize, out _);
 
-            var pattern = !isVtcGame ? "6A 00 68 60 B7 2D 01 68 74 B7 2D 01" : "6A 00 68 D8 80 2A 01 68 EC 80 2A 01";
-
             var patchNop = new byte[] { 0x90, 0x90 };
             var patchNop2 = new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90 };
             var patchJmp = new byte[] { 0xEB };
 
-            var address = FindPattern(pattern, moduleMemory);
+            var address = FindPattern(
+                Game.ClientType == GameClientType.Turkey ?
+                "6A 00 68 60 B7 2D 01 68 74 B7 2D 01" :
+                "6A 00 68 D8 80 2A 01 68 EC 80 2A 01", 
+                moduleMemory);
             if (address == IntPtr.Zero)
             {
                 Log.Error("XIGNCODE patching error! Maybe signatures are wrong?");
                 return false;
             }
-            if (isVtcGame)
-            {
-                //WriteProcessMemory(pi.hProcess, address - 0x76, patchJmp, 1, out _);
-                WriteProcessMemory(pi.hProcess, address + 0xC, patchNop2, 5, out _);
-                WriteProcessMemory(pi.hProcess, address + 0x13, patchJmp, 1, out _);
-                WriteProcessMemory(pi.hProcess, address + 0x95, patchJmp, 1, out _);
-                WriteProcessMemory(pi.hProcess, address + 0x1D4, patchJmp, 1, out _);
-                WriteProcessMemory(pi.hProcess, address + 0x227, patchJmp, 1, out _);
-                WriteProcessMemory(pi.hProcess, address + 0x7FD566, patchJmp, 1, out _);
-            }
-            else
-            {
-                WriteProcessMemory(pi.hProcess, address - (isTRGame ? 0x6F : 0x6A), patchJmp, 1, out _);
-                WriteProcessMemory(pi.hProcess, address + 0x13, patchJmp, 1, out _);
-                WriteProcessMemory(pi.hProcess, address + 0xC, patchNop2, 5, out _);
-                WriteProcessMemory(pi.hProcess, address + (isTRGame ? 0x95 : 0x90), patchJmp, 1, out _);
-            }
+
+            WriteProcessMemory(pi.hProcess, address - 0x6F, patchJmp, 1, out _);
+            WriteProcessMemory(pi.hProcess, address + 0x13, patchJmp, 1, out _);
+            WriteProcessMemory(pi.hProcess, address + 0xC, patchNop2, 5, out _);
+            WriteProcessMemory(pi.hProcess, address + 0x95, patchJmp, 1, out _);
 
             moduleMemory = null;
             GC.Collect();
@@ -239,7 +228,7 @@ public class ClientManager
 
             if (found)
                 return (IntPtr)(0x400000 + i);
-            }
+        }
 
         return IntPtr.Zero;
     }

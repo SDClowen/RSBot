@@ -8,7 +8,7 @@
 	<OutputPath>.\..\..\Build\Data\Bots</OutputPath>
 	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	<Description>A open source bot for Silkroad Online</Description>
-	<Copyright>Copyright © 2023, RSBot Team</Copyright>
+	<Copyright>Copyright ©  2018 - 2024, RSBot Team</Copyright>
 	<PackageProjectUrl>https://github.com/SDClowen/RSBot</PackageProjectUrl>
 	<RepositoryUrl>https://github.com/SDClowen/RSBot</RepositoryUrl>
 	<OutputType>Library</OutputType>
