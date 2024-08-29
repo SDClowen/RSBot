@@ -195,7 +195,10 @@ internal partial class Main : DoubleBufferedControl
         {
             var startedResult = await ClientManager.Start();
             if (!startedResult)
+            {
+                OnExitClient();
                 Log.WarnLang("ClientStartingError");
+            }
         });
     }
 
