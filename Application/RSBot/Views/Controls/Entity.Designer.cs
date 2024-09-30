@@ -83,7 +83,8 @@
             lblEntityName.GradientAnimation = false;
             lblEntityName.Location = new System.Drawing.Point(49, 12);
             lblEntityName.Name = "lblEntityName";
-            lblEntityName.Size = new System.Drawing.Size(102, 15);
+            lblEntityName.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            lblEntityName.Size = new System.Drawing.Size(108, 15);
             lblEntityName.TabIndex = 16;
             lblEntityName.Text = "No entity selected";
             // 
@@ -108,7 +109,7 @@
             progressHP.ShowValue = true;
             progressHP.Size = new System.Drawing.Size(180, 20);
             progressHP.TabIndex = 15;
-            progressHP.Text = "0.00%";
+            progressHP.Text = "0,00%";
             progressHP.Value = 0L;
             // 
             // Entity

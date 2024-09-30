@@ -1,8 +1,9 @@
-﻿using System;
+﻿using RSBot.Core.Components;
+using SDUI;
+using SDUI.Controls;
+using System;
 using System.IO;
 using System.Windows.Forms;
-using RSBot.Core.Components;
-using SDUI.Controls;
 
 namespace RSBot.Views.Dialog;
 
@@ -14,6 +15,7 @@ public partial class ProfileSelectionDialog : UIWindowBase
 
         LoadProfiles();
         checkSaveSelection.Checked = !ProfileManager.ShowProfileDialog;
+        BackColor = ColorScheme.BackColor;
     }
 
     /// <summary>

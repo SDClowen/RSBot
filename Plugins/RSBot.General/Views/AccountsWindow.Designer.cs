@@ -109,7 +109,12 @@
             label2.ApplyGradient = false;
             label2.AutoSize = true;
             label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label2.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label2.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label2.GradientAnimation = false;
             label2.Location = new System.Drawing.Point(194, 12);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(63, 15);
@@ -134,7 +139,12 @@
             label3.ApplyGradient = false;
             label3.AutoSize = true;
             label3.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label3.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label3.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label3.GradientAnimation = false;
             label3.Location = new System.Drawing.Point(194, 60);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(60, 15);
@@ -159,7 +169,12 @@
             label5.ApplyGradient = false;
             label5.AutoSize = true;
             label5.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label5.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label5.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label5.GradientAnimation = false;
             label5.Location = new System.Drawing.Point(192, 109);
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(163, 15);
@@ -171,7 +186,12 @@
             label4.ApplyGradient = false;
             label4.AutoSize = true;
             label4.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label4.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label4.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label4.GradientAnimation = false;
             label4.Location = new System.Drawing.Point(192, 161);
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(75, 15);
@@ -253,7 +273,12 @@
             // 
             label1.ApplyGradient = false;
             label1.AutoSize = true;
-            label1.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label1.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label1.GradientAnimation = false;
             label1.Location = new System.Drawing.Point(0, 0);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(0, 15);
@@ -297,7 +322,7 @@
             panel1.Controls.Add(btnOK);
             panel1.Controls.Add(label1);
             panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            panel1.Location = new System.Drawing.Point(0, 238);
+            panel1.Location = new System.Drawing.Point(0, 242);
             panel1.Name = "panel1";
             panel1.Radius = 0;
             panel1.ShadowDepth = 4F;
@@ -310,6 +335,7 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             BackColor = System.Drawing.Color.White;
             ClientSize = new System.Drawing.Size(408, 283);
+            ControlBox = false;
             Controls.Add(listAccounts);
             Controls.Add(linkLabelSecondaryPassword);
             Controls.Add(linkLabelPwShowHide);
@@ -328,8 +354,6 @@
             Controls.Add(textBoxSecondaryPassword);
             Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            MaximizeBox = false;
-            MinimizeBox = false;
             MinimumSize = new System.Drawing.Size(410, 293);
             Name = "AccountsWindow";
             ShowIcon = false;

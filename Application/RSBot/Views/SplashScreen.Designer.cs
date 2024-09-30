@@ -94,9 +94,9 @@
     System.Drawing.Color.DeepSkyBlue
     };
             labelVersion.GradientAnimation = false;
-            labelVersion.Location = new System.Drawing.Point(440, 130);
+            labelVersion.Location = new System.Drawing.Point(121, 170);
             labelVersion.Name = "labelVersion";
-            labelVersion.Size = new System.Drawing.Size(63, 28);
+            labelVersion.Size = new System.Drawing.Size(51, 21);
             labelVersion.TabIndex = 4;
             labelVersion.Text = "v1.0.0";
             labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -115,7 +115,7 @@
     System.Drawing.Color.FromArgb(74, 74, 74)
     };
             label2.GradientAnimation = false;
-            label2.Location = new System.Drawing.Point(0, 201);
+            label2.Location = new System.Drawing.Point(0, 214);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(533, 32);
             label2.TabIndex = 5;
@@ -136,7 +136,7 @@
     System.Drawing.Color.Black
     };
             label3.GradientAnimation = false;
-            label3.Location = new System.Drawing.Point(0, 233);
+            label3.Location = new System.Drawing.Point(0, 246);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(533, 26);
             label3.TabIndex = 5;
@@ -174,7 +174,7 @@
     System.Drawing.Color.SlateBlue
     };
             progressLoading.HatchType = System.Drawing.Drawing2D.HatchStyle.Percent10;
-            progressLoading.Location = new System.Drawing.Point(0, 259);
+            progressLoading.Location = new System.Drawing.Point(0, 272);
             progressLoading.Maximum = 100L;
             progressLoading.MaxPercentShowValue = 100F;
             progressLoading.Name = "progressLoading";
@@ -189,11 +189,13 @@
             // 
             // SplashScreen
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            BackColor = System.Drawing.SystemColors.Control;
             BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            BorderColor = System.Drawing.Color.DodgerBlue;
-            ClientSize = new System.Drawing.Size(533, 277);
+            BorderColor = System.Drawing.Color.Empty;
+            ClientSize = new System.Drawing.Size(533, 290);
+            ControlBox = false;
             Controls.Add(label2);
             Controls.Add(label3);
             Controls.Add(progressLoading);
@@ -203,15 +205,11 @@
             Controls.Add(pictureBox);
             Cursor = System.Windows.Forms.Cursors.AppStarting;
             DrawTitleBorder = false;
-            DwmMargin = -1;
             Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            FullDrawHatch = true;
-            Hatch = System.Drawing.Drawing2D.HatchStyle.Percent20;
+            Hatch = System.Drawing.Drawing2D.HatchStyle.Percent30;
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Location = new System.Drawing.Point(0, 0);
             Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            MaximizeBox = false;
-            MinimizeBox = false;
             Movable = false;
             Name = "SplashScreen";
             Padding = new System.Windows.Forms.Padding(0);

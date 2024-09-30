@@ -44,6 +44,8 @@ public partial class Main : UIWindow
         CheckForIllegalCrossThreadCalls = false;
         SystemEvents.UserPreferenceChanged += SystemEvents_UserPreferenceChanged;
         RegisterEvents();
+
+        Text = "RSBot";
     }
 
     #endregion Constructor

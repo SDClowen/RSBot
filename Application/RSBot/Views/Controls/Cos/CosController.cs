@@ -13,7 +13,7 @@ using CosTransport = RSBot.Core.Objects.Cos.Transport;
 
 namespace RSBot.Views.Controls.Cos;
 
-[ToolboxItem(false)]
+[ToolboxItem(true)]
 public partial class CosController : DoubleBufferedControl
 {
     private readonly Dictionary<string, CosControlBase> _cachedControls;
@@ -21,7 +21,7 @@ public partial class CosController : DoubleBufferedControl
 
     public CosController()
     {
-        SetStyle(ControlStyles.Opaque, true);
+        SetStyle(ControlStyles.AllPaintingInWmPaint, true);
         InitializeComponent();
 
         CheckForIllegalCrossThreadCalls = false;

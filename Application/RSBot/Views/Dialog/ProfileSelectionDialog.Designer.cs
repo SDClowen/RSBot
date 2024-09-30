@@ -53,6 +53,7 @@
             // 
             label1.ApplyGradient = false;
             label1.AutoSize = true;
+            label1.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             label1.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label1.Gradient = new System.Drawing.Color[]
     {
@@ -60,9 +61,9 @@
     System.Drawing.Color.Black
     };
             label1.GradientAnimation = false;
-            label1.Location = new System.Drawing.Point(19, 22);
+            label1.Location = new System.Drawing.Point(20, 21);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(87, 15);
+            label1.Size = new System.Drawing.Size(99, 17);
             label1.TabIndex = 2;
             label1.Text = "Select a profile:";
             // 
@@ -86,12 +87,13 @@
             checkSaveSelection.AutoSize = true;
             checkSaveSelection.BackColor = System.Drawing.Color.Transparent;
             checkSaveSelection.Depth = 0;
-            checkSaveSelection.Location = new System.Drawing.Point(122, 42);
+            checkSaveSelection.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            checkSaveSelection.Location = new System.Drawing.Point(125, 45);
             checkSaveSelection.Margin = new System.Windows.Forms.Padding(0);
             checkSaveSelection.MouseLocation = new System.Drawing.Point(-1, -1);
             checkSaveSelection.Name = "checkSaveSelection";
             checkSaveSelection.Ripple = true;
-            checkSaveSelection.Size = new System.Drawing.Size(106, 30);
+            checkSaveSelection.Size = new System.Drawing.Size(119, 30);
             checkSaveSelection.TabIndex = 6;
             checkSaveSelection.Text = "Save selection";
             checkSaveSelection.UseVisualStyleBackColor = false;
@@ -100,31 +102,30 @@
             // buttonCreateProfile
             // 
             buttonCreateProfile.Color = System.Drawing.Color.Green;
-            buttonCreateProfile.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            buttonCreateProfile.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             buttonCreateProfile.ForeColor = System.Drawing.Color.White;
-            buttonCreateProfile.Location = new System.Drawing.Point(319, 12);
+            buttonCreateProfile.Location = new System.Drawing.Point(316, 14);
             buttonCreateProfile.Name = "buttonCreateProfile";
             buttonCreateProfile.Radius = 6;
             buttonCreateProfile.ShadowDepth = 4F;
-            buttonCreateProfile.Size = new System.Drawing.Size(35, 36);
+            buttonCreateProfile.Size = new System.Drawing.Size(32, 32);
             buttonCreateProfile.TabIndex = 8;
-            buttonCreateProfile.Text = "+";
+            buttonCreateProfile.Text = "";
             buttonCreateProfile.UseVisualStyleBackColor = true;
             buttonCreateProfile.Click += buttonCreateProfile_Click;
             // 
             // buttonDeleteProfile
             // 
             buttonDeleteProfile.Color = System.Drawing.Color.IndianRed;
-            buttonDeleteProfile.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            buttonDeleteProfile.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             buttonDeleteProfile.ForeColor = System.Drawing.Color.White;
-            buttonDeleteProfile.Location = new System.Drawing.Point(354, 12);
+            buttonDeleteProfile.Location = new System.Drawing.Point(350, 14);
             buttonDeleteProfile.Name = "buttonDeleteProfile";
             buttonDeleteProfile.Radius = 6;
             buttonDeleteProfile.ShadowDepth = 4F;
-            buttonDeleteProfile.Size = new System.Drawing.Size(36, 36);
+            buttonDeleteProfile.Size = new System.Drawing.Size(32, 32);
             buttonDeleteProfile.TabIndex = 8;
-            buttonDeleteProfile.Text = "x";
-            buttonDeleteProfile.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            buttonDeleteProfile.Text = "✕";
             buttonDeleteProfile.UseVisualStyleBackColor = true;
             buttonDeleteProfile.Click += buttonDeleteProfile_Click;
             // 
@@ -132,20 +133,19 @@
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            ClientSize = new System.Drawing.Size(394, 127);
+            ClientSize = new System.Drawing.Size(389, 129);
+            ControlBox = false;
             Controls.Add(btnOK);
             Controls.Add(buttonDeleteProfile);
             Controls.Add(buttonCreateProfile);
             Controls.Add(checkSaveSelection);
             Controls.Add(label1);
             Controls.Add(comboProfiles);
-            FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            MaximizeBox = false;
-            MinimizeBox = false;
             Name = "ProfileSelectionDialog";
+            Padding = new System.Windows.Forms.Padding(1);
             ShowIcon = false;
+            SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            Text = "RSBot - Profile";
             ResumeLayout(false);
             PerformLayout();
         }
