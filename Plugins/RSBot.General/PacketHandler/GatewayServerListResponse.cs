@@ -41,7 +41,8 @@ internal class GatewayServerListResponse : IPacketHandler
         while (packet.ReadByte() == 1)
         {
             var id = packet.ReadUShort();
-            var serverName = Game.ClientType == GameClientType.Turkey
+            var serverName = Game.ClientType == GameClientType.Turkey ||
+                            Game.ClientType == GameClientType.Global
                                  ? packet.ReadUnicode()
                                  : packet.ReadString();
 
@@ -64,18 +65,15 @@ internal class GatewayServerListResponse : IPacketHandler
 
             // fix server names
             if (Game.ClientType == GameClientType.Global)
-            {
                 serverName = serverName.Remove(0, 1);
-                if (serverName.StartsWith("Palmyra"))
-                    serverName = serverName.Remove(7, 3);
-
-                if (serverName.EndsWith("Xian"))
-                    serverName = serverName.Remove(0, 3);
-            }
 
             if (Game.ClientType == GameClientType.VTC_Game)
                 if (serverName.EndsWith("Thien_Kim"))
                     serverName = serverName.Remove(0, 3);
+
+            var state = Game.ClientType >= GameClientType.Global
+                    ? $"{(ServerStatusModern)status}"
+                    : $"{currentCapacity}/{maxCapacity}";
 
             Serverlist.Servers.Add(new Server
             {
@@ -84,18 +82,13 @@ internal class GatewayServerListResponse : IPacketHandler
                 CurrentCapacity = currentCapacity,
                 MaxCapacity = maxCapacity,
                 Status = Game.ClientType >= GameClientType.Global ? status != 4 : status == 1,
-                State = Game.ClientType >= GameClientType.Global
-                    ? $"{(ServerStatusModern)status}"
-                    : $"{currentCapacity}/{maxCapacity}"
+                State = state
             });
 
             if (Game.ClientType == GameClientType.Vietnam)
                 packet.ReadByte(); // FarmId
 
-            if (Game.ClientType >= GameClientType.Global)
-                Log.Debug($"Found server: {serverName} ({(ServerStatusModern)status})");
-            else
-                Log.Debug($"Found server: {serverName} ({currentCapacity}/{maxCapacity})");
+            Log.Notify($"Found server: {serverName} ({state})");
         }
 
         AutoLogin.Handle();
