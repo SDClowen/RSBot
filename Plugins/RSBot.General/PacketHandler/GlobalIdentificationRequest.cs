@@ -61,7 +61,8 @@ internal class GlobalIdentificationRequest : IPacketHandler
             response.WriteString(selectedAccount.Username);
 
             if (Game.ClientType == GameClientType.Turkey ||
-                Game.ClientType == GameClientType.VTC_Game)
+                Game.ClientType == GameClientType.VTC_Game ||
+                Game.ClientType == GameClientType.Global)
                 response.WriteString(Sha256.ComputeHash(selectedAccount.Password));
             else
                 response.WriteString(selectedAccount.Password);
