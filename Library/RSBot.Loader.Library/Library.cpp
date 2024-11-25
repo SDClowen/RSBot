@@ -44,7 +44,7 @@ std::vector<std::string> TokenizeString(const std::string& str, const std::strin
 	return tokens;
 }
 
-extern "C" HANDLE(WINAPI * Real_CreateMutexA)(LPSECURITY_ATTRIBUTES lpMutexAttributes, BOOL bInitialOwner, LPCSTR lpName) = CreateMutexA;
+extern "C" HANDLE(WINAPI* Real_CreateMutexA)(LPSECURITY_ATTRIBUTES lpMutexAttributes, BOOL bInitialOwner, LPCSTR lpName) = CreateMutexA;
 HANDLE WINAPI User_CreateMutexA(LPSECURITY_ATTRIBUTES lpMutexAttributes, BOOL bInitialOwner, LPCSTR lpName)
 {
 	if (lpName && strcmp(lpName, "Silkroad Client") == 0)
@@ -56,7 +56,7 @@ HANDLE WINAPI User_CreateMutexA(LPSECURITY_ATTRIBUTES lpMutexAttributes, BOOL bI
 	return Real_CreateMutexA(lpMutexAttributes, bInitialOwner, lpName);
 }
 
-extern "C" int (WINAPI * Real_bind)(SOCKET s, const struct sockaddr* name, int namelen) = bind;
+extern "C" int (WINAPI* Real_bind)(SOCKET s, const struct sockaddr* name, int namelen) = bind;
 int WINAPI User_bind(SOCKET s, const struct sockaddr* name, int namelen)
 {
 	if (name && namelen == 16)
@@ -70,7 +70,7 @@ int WINAPI User_bind(SOCKET s, const struct sockaddr* name, int namelen)
 	return Real_bind(s, name, namelen);
 }
 
-extern "C" HANDLE(WINAPI * Real_CreateSemaphoreA)(LPSECURITY_ATTRIBUTES lpSemaphoreAttributes, LONG lInitialCount, LONG lMaximumCount, LPCSTR lpName) = CreateSemaphoreA;
+extern "C" HANDLE(WINAPI* Real_CreateSemaphoreA)(LPSECURITY_ATTRIBUTES lpSemaphoreAttributes, LONG lInitialCount, LONG lMaximumCount, LPCSTR lpName) = CreateSemaphoreA;
 HANDLE WINAPI User_CreateSemaphoreA(LPSECURITY_ATTRIBUTES lpSemaphoreAttributes, LONG lInitialCount, LONG lMaximumCount, LPCSTR lpName)
 {
 	if (lpName && strcmp(lpName, "Global\\Silkroad Client") == 0)
@@ -83,21 +83,7 @@ HANDLE WINAPI User_CreateSemaphoreA(LPSECURITY_ATTRIBUTES lpSemaphoreAttributes,
 	return Real_CreateSemaphoreA(lpSemaphoreAttributes, lInitialCount, lMaximumCount, lpName);
 }
 
-extern "C" HANDLE(WINAPI* Real_CreateSemaphoreW)(LPSECURITY_ATTRIBUTES lpSemaphoreAttributes, LONG lInitialCount, LONG lMaximumCount, LPCWSTR lpName) = CreateSemaphoreW;
-HANDLE WINAPI User_CreateSemaphoreW(LPSECURITY_ATTRIBUTES lpSemaphoreAttributes, LONG lInitialCount, LONG lMaximumCount, LPCWSTR lpName)
-{
-	if (lpName && wcscmp(lpName, L"Global\\Silkroad Client") == 0)
-	{
-		wchar_t newName[128] = { 0 };
-		
-		_snwprintf_s(newName, sizeof(newName), sizeof(newName) / sizeof(newName[0]) - 1, L"Global\\Silkroad Client_%lld", 0xFFFFFFFF & __rdtsc());
-		return Real_CreateSemaphoreW(lpSemaphoreAttributes, lInitialCount, lMaximumCount, newName);
-	}
-
-	return Real_CreateSemaphoreW(lpSemaphoreAttributes, lInitialCount, lMaximumCount, lpName);
-}
-
-extern "C" DWORD(WINAPI * Real_GetAdaptersInfo)(PIP_ADAPTER_INFO pAdapterInfo, PULONG pOutBufLen) = GetAdaptersInfo;
+extern "C" DWORD(WINAPI* Real_GetAdaptersInfo)(PIP_ADAPTER_INFO pAdapterInfo, PULONG pOutBufLen) = GetAdaptersInfo;
 DWORD WINAPI User_GetAdaptersInfo(PIP_ADAPTER_INFO pAdapterInfo, PULONG pOutBufLen)
 {
 	DWORD dwResult = Real_GetAdaptersInfo(pAdapterInfo, pOutBufLen);
@@ -120,7 +106,7 @@ DWORD WINAPI User_GetAdaptersInfo(PIP_ADAPTER_INFO pAdapterInfo, PULONG pOutBufL
 	return dwResult;
 }
 
-extern "C" int (WINAPI * Real_connect)(SOCKET, const struct sockaddr*, int) = connect;
+extern "C" int (WINAPI* Real_connect)(SOCKET, const struct sockaddr*, int) = connect;
 int WINAPI Detour_connect(SOCKET s, const struct sockaddr* name, int len)
 {
 	auto* editing = reinterpret_cast<sockaddr_in*>(const_cast<sockaddr*>(name));
@@ -129,7 +115,7 @@ int WINAPI Detour_connect(SOCKET s, const struct sockaddr* name, int len)
 
 	for (auto& gatewayAddress : g_RealGatewayAddresses)
 	{
-		struct in_addr maddr = {0};
+		struct in_addr maddr = { 0 };
 		maddr.s_addr = *(u_long*)gethostbyname(gatewayAddress.c_str())->h_addr_list[0];
 		if (strcmp(inet_ntoa(editing->sin_addr), inet_ntoa(maddr)) == 0 && htons(editing->sin_port) == g_RealGatewayPort)
 		{
@@ -156,15 +142,14 @@ void Install()
 	DetourRestoreAfterWith();
 	DetourTransactionBegin();
 	DetourUpdateThread(GetCurrentThread());
-	
+
 	//Multiclient
 	DetourAttach(&(PVOID&)Real_CreateMutexA, User_CreateMutexA);
 	DetourAttach(&(PVOID&)Real_bind, User_bind);
 	DetourAttach(&(PVOID&)Real_GetAdaptersInfo, User_GetAdaptersInfo);
 	DetourAttach(&(PVOID&)Real_CreateSemaphoreA, User_CreateSemaphoreA);
-	DetourAttach(&(PVOID&)Real_CreateSemaphoreW, User_CreateSemaphoreW);
 	DetourAttach(&(PVOID&)Real_connect, Detour_connect);
-		
+
 	DetourTransactionCommit();
 	WSACleanup();
 }
@@ -180,7 +165,6 @@ void Uninstall()
 	DetourDetach(&(PVOID&)Real_bind, User_bind);
 	DetourDetach(&(PVOID&)Real_GetAdaptersInfo, User_GetAdaptersInfo);
 	DetourDetach(&(PVOID&)Real_CreateSemaphoreA, User_CreateSemaphoreA);
-	DetourDetach(&(PVOID&)Real_CreateSemaphoreW, User_CreateSemaphoreW);
 
 	DetourTransactionCommit();
 }

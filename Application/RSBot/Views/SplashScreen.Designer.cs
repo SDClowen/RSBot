@@ -217,7 +217,7 @@
             SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Tag = "";
-            TopMost = true;
+            TopMost = false;
             Load += SplashScreen_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox).EndInit();
             ResumeLayout(false);
