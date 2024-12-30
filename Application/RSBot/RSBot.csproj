@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0-windows</TargetFramework>
+		<TargetFramework>net8.0-windows</TargetFramework>
 		<Nullable>disable</Nullable>
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImplicitUsings>disable</ImplicitUsings>
@@ -14,8 +14,6 @@
 		<OutputType>WinExe</OutputType>
 		<ApplicationIcon>app.ico</ApplicationIcon>
 		<AssemblyVersion>2.9.9</AssemblyVersion>
-		<ApplicationHighDpiMode>PerMonitor, PerMonitorV2</ApplicationHighDpiMode>
-		<ForceDesignerDPIUnaware>true</ForceDesignerDPIUnaware>
 		<PlatformTarget>x86</PlatformTarget>
 		<UseWPF>False</UseWPF>
 	</PropertyGroup>
