@@ -340,21 +340,21 @@
             checkBerzerkWhenFull.UseVisualStyleBackColor = false;
             checkBerzerkWhenFull.CheckedChanged += settings_CheckedChanged;
             // 
-            // checkBerzerkOnMonsterTypes
+            // checkBerzerkOnMonsterRarity
             // 
-            checkBerzerkOnMonsterTypes.AutoSize = true;
-            checkBerzerkOnMonsterTypes.BackColor = System.Drawing.Color.Transparent;
-            checkBerzerkOnMonsterTypes.Depth = 0;
-            checkBerzerkOnMonsterTypes.Location = new System.Drawing.Point(21, 112);
-            checkBerzerkOnMonsterTypes.Margin = new System.Windows.Forms.Padding(0);
-            checkBerzerkOnMonsterTypes.MouseLocation = new System.Drawing.Point(-1, -1);
-            checkBerzerkOnMonsterTypes.Name = "checkBerzerkOnMonsterTypes";
-            checkBerzerkOnMonsterTypes.Ripple = true;
-            checkBerzerkOnMonsterTypes.Size = new System.Drawing.Size(190, 30);
-            checkBerzerkOnMonsterTypes.TabIndex = 4;
-            checkBerzerkOnMonsterTypes.Text = "Enter berzerk mode when attack specific monster type";
-            checkBerzerkOnMonsterTypes.UseVisualStyleBackColor = false;
-            checkBerzerkOnMonsterTypes.CheckedChanged += settings_CheckedChanged;
+            checkBerzerkOnMonsterRarity.AutoSize = true;
+            checkBerzerkOnMonsterRarity.BackColor = System.Drawing.Color.Transparent;
+            checkBerzerkOnMonsterRarity.Depth = 0;
+            checkBerzerkOnMonsterRarity.Location = new System.Drawing.Point(21, 112);
+            checkBerzerkOnMonsterRarity.Margin = new System.Windows.Forms.Padding(0);
+            checkBerzerkOnMonsterRarity.MouseLocation = new System.Drawing.Point(-1, -1);
+            checkBerzerkOnMonsterRarity.Name = "checkBerzerkOnMonsterRarity";
+            checkBerzerkOnMonsterRarity.Ripple = true;
+            checkBerzerkOnMonsterRarity.Size = new System.Drawing.Size(190, 30);
+            checkBerzerkOnMonsterRarity.TabIndex = 4;
+            checkBerzerkOnMonsterRarity.Text = "Enter berzerk mode when attack specific monster type";
+            checkBerzerkOnMonsterRarity.UseVisualStyleBackColor = false;
+            checkBerzerkOnMonsterRarity.CheckedChanged += settings_CheckedChanged;
             // 
             // groupBoxBerserk
             // 
@@ -712,7 +712,7 @@
         private SDUI.Controls.CheckBox checkUseSpeedDrug;
         private SDUI.Controls.CheckBox checkCastBuffs;
         private SDUI.Controls.CheckBox checkBerzerkWhenFull;
-        private SDUI.Controls.CheckBox checkBerzerkOnMonsterTypes;
+        private SDUI.Controls.CheckBox checkBerzerkOnMonsterRarity;
         private SDUI.Controls.ListView lvAvoidance;
         private SDUI.Controls.ContextMenuStrip ctxAvoidance;
         private System.Windows.Forms.ToolStripMenuItem btnAvoid;
