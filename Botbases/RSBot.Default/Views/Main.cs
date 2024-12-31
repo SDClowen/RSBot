@@ -177,6 +177,7 @@ public partial class Main : DoubleBufferedControl
 
         PlayerConfig.SetArray("RSBot.Avoidance.Avoid", avoid);
         PlayerConfig.SetArray("RSBot.Avoidance.Prefer", prefer);
+        PlayerConfig.SetArray("RSBot.Avoidance.Berserk", berserk);
     }
 
     /// <summary>
@@ -186,8 +187,9 @@ public partial class Main : DoubleBufferedControl
     {
         var prefer = PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Prefer").ToLookup(p => "Prefer", p => p);
         var avoid = PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Avoid").ToLookup(p => "Avoid", p => p);
+        var berserk = PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Berserk").ToLookup(p => "Berserk", p => p);
 
-        foreach (var group in avoid.Union(prefer))
+        foreach (var group in avoid.Union(prefer).Union(berserk))
         foreach (var item in group)
         {
             var listViewItem = lvAvoidance.Items.Cast<ListViewItem>()
