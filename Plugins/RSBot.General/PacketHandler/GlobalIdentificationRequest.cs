@@ -68,7 +68,7 @@ internal class GlobalIdentificationRequest : IPacketHandler
                 response.WriteString(selectedAccount.Password);
 
             response.WriteByte(Game.ReferenceManager.DivisionInfo.Locale);
-            response.WriteByteArray(new byte[6]);
+            response.WriteBytes(new byte[6]);
             PacketManager.SendPacket(response, PacketDestination.Server);
         }
     }

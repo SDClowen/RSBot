@@ -63,12 +63,12 @@ internal class BuyItemHook : IPacketHook
         {
             amount = packet.ReadUShort();
             itemAmount = packet.ReadByte();
-            destinationSlots = packet.ReadByteArray(itemAmount);
+            destinationSlots = packet.ReadBytes(itemAmount);
         }
         else
         {
             itemAmount = packet.ReadByte();
-            destinationSlots = packet.ReadByteArray(itemAmount);
+            destinationSlots = packet.ReadBytes(itemAmount);
             amount = packet.ReadUShort();
         }
 

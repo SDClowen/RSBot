@@ -138,9 +138,9 @@ public class Proxy
         IsConnectedToAgentserver = false;
 
         Server = new Server();
-        Server.OnConnected += Server_OnConnected;
-        Server.OnDisconnected += Server_OnDisconnected;
-        Server.OnPacketReceived += Server_OnPacketReceived;
+        Server.Connected += Server_OnConnected;
+        Server.Disconnected += Server_OnDisconnected;
+        Server.PacketReceived += Server_OnPacketReceived;
     }
 
     /// <summary>
@@ -150,9 +150,9 @@ public class Proxy
     private void CreateNewClientInstance(ushort clientPort)
     {
         Client = new Client();
-        Client.OnConnected += Client_OnConnected;
-        Client.OnPacketReceived += Client_OnPacketReceived;
-        Client.OnDisconnected += Client_OnDisconnected;
+        Client.Connected += Client_OnConnected;
+        Client.PacketReceived += Client_OnPacketReceived;
+        Client.Disconnected += Client_OnDisconnected;
         Client.Listen(clientPort);
     }
 
@@ -162,6 +162,9 @@ public class Proxy
     /// <param name="packet">The packet</param>
     private void HandleReceivedPacket(Packet packet, PacketDestination destination)
     {
+        //if(packet.Opcode != 0x2002)
+         //   Log.Notify(packet.ToString());
+        
         try
         {
             packet = PacketManager.CallHook(packet, destination);

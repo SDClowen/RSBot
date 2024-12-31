@@ -79,7 +79,7 @@ internal class CharacterDataEndResponse : IPacketHandler
                 packet.ReadUInt();
 
             if (Game.ClientType == GameClientType.Rigid)
-                packet.ReadByteArray(12);
+                packet.ReadBytes(12);
 
             if (Game.ClientType == GameClientType.VTC_Game)
                 packet.ReadByte(); // ??

@@ -48,8 +48,7 @@ public class EventManager
                 select o.handler).ToArray();
 
             foreach (var target in targets)
-                if (Thread.CurrentThread.Name == "Proxy.Network.Server.PacketProcessor" ||
-                    Thread.CurrentThread.Name == "Proxy.Network.Client.PacketProcessor")
+                if (Thread.CurrentThread.Name == "Network.PacketProcessor")
                     Task.Run(() => target.DynamicInvoke(parameters));
                 else
                     target.DynamicInvoke(parameters);

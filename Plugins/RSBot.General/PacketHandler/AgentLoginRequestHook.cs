@@ -53,7 +53,7 @@ internal class AgentLoginRequestHook : IPacketHook
             packet.WriteString(selectedAccount.Password);
 
         packet.WriteByte(Game.ReferenceManager.DivisionInfo.Locale);
-        packet.WriteByteArray(new byte[6]);
+        packet.WriteBytes(new byte[6]);
         packet.Lock();
 
         return packet;

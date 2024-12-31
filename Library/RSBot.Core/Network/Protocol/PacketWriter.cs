@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace RSBot.Core.Network.SecurityAPI;
+namespace RSBot.Core.Network.Protocol;
 
 internal class PacketWriter : BinaryWriter
 {

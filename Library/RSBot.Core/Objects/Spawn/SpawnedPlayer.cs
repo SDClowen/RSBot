@@ -329,7 +329,7 @@ public sealed class SpawnedPlayer : SpawnedBionic
             Stall = SpawnedPlayerStall.FromPacket(packet);
 
         if (Game.ClientType >= GameClientType.Global)
-            packet.ReadByteArray(9);
+            packet.ReadBytes(9);
 
         packet.ReadByte(); //Equipment Cooldown
 

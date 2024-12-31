@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RSBot.Core.Network.SecurityAPI;
+namespace RSBot.Core.Network.Protocol;
 
 public class Blowfish
 {

@@ -5,7 +5,7 @@ using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Network;
-using RSBot.Core.Network.SecurityAPI;
+using RSBot.Core.Network.Protocol;
 using RSBot.General.Models;
 
 using System.Linq;
@@ -125,7 +125,7 @@ internal static class AutoLogin
         var packet = new Packet(0x6117, true);
         packet.WriteByte(4);
         packet.WriteUShort(secondaryPassword.Length);
-        packet.WriteByteArray(encodedBuffer);
+        packet.WriteBytes(encodedBuffer);
         PacketManager.SendPacket(packet, PacketDestination.Server);
     }
 
@@ -149,7 +149,7 @@ internal static class AutoLogin
 
         if (Game.ClientType == GameClientType.Turkey ||
             Game.ClientType == GameClientType.VTC_Game)
-            loginPacket.WriteByteArray(new byte[6]); // mac
+            loginPacket.WriteBytes(new byte[6]); // mac
 
         loginPacket.WriteUShort(server.Id);
 

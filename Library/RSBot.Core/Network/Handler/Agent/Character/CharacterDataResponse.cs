@@ -27,6 +27,6 @@ internal class CharacterDataResponse : IPacketHandler
         if (Game.ChunkedPacket == null)
             return;
 
-        Game.ChunkedPacket.WriteByteArray(packet.GetBytes());
+        Game.ChunkedPacket.WriteBytes(packet.GetBytes());
     }
 }

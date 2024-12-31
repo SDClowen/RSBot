@@ -341,7 +341,7 @@ public static class SpawnManager
         lock (_lock)
         {
             //Entities.Clear();
-            _entities = new List<SpawnedEntity>();
+            _entities = [];
         }
     }
 }

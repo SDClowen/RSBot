@@ -310,12 +310,12 @@ internal class InventoryOperationResponse : IPacketHandler
         {
             amount = packet.ReadUShort();
             itemAmount = packet.ReadByte();
-            destinationSlots = packet.ReadByteArray(itemAmount);
+            destinationSlots = packet.ReadBytes(itemAmount);
         }
         else
         {
             itemAmount = packet.ReadByte();
-            destinationSlots = packet.ReadByteArray(itemAmount);
+            destinationSlots = packet.ReadBytes(itemAmount);
             amount = packet.ReadUShort();
         }
 
@@ -643,7 +643,7 @@ internal class InventoryOperationResponse : IPacketHandler
 
         if (refShopGoodObj != null && itemInfo != null)
         {
-            var itemSlots = packet.ReadByteArray(itemCount);
+            var itemSlots = packet.ReadBytes(itemCount);
             var quantity = packet.ReadUShort();
 
             var amount = refShopGoodObj.Data;

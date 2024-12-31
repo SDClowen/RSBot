@@ -36,7 +36,7 @@ internal class GatewayLoginRequest : IPacketHandler
         if ((packet.Opcode == 0x610A &&
              Game.ClientType == GameClientType.Turkey) ||
             Game.ClientType == GameClientType.VTC_Game)
-            packet.ReadByteArray(6);
+            packet.ReadBytes(6);
 
         var shardId = packet.ReadUShort();
 

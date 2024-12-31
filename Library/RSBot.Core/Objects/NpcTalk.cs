@@ -39,7 +39,7 @@ public class NpcTalk
                 Game.ClientType == GameClientType.VTC_Game)
                 count = 7;
 
-            Options = packet.ReadByteArray(count);
+            Options = packet.ReadBytes(count);
         }
 
         // pandora box, after spawned mobs

@@ -1,29 +1,12 @@
-﻿using System;
+﻿using RSBot.Core.Network.Protocol;
+using System;
 using System.Net;
 using System.Net.Sockets;
-using System.Threading;
-using RSBot.Core.Network.SecurityAPI;
 
 namespace RSBot.Core.Network;
 
-public class Client
+public class Client() : NetBase(isClient: true)
 {
-    public delegate void ConnectedEventHandler();
-
-    public delegate void DisconnectedEventHandler();
-
-    public delegate void PacketReceivedEventHandler(Packet packet);
-
-    public delegate void PacketSentEventHandler(Packet packet);
-
-    /// <summary>
-    ///     Gets or sets the packet dispatcher thread.
-    /// </summary>
-    /// <value>
-    ///     The dispatcher thread.
-    /// </value>
-    private Thread _dispatcherThread;
-
     /// <summary>
     ///     Gets or sets the listener.
     /// </summary>
@@ -31,51 +14,6 @@ public class Client
     ///     The listener.
     /// </value>
     public Socket _listener;
-
-    /// <summary>
-    ///     Gets or sets the security protocol.
-    /// </summary>
-    /// <value>
-    ///     The protocol.
-    /// </value>
-    private SecurityProtocol _protocol;
-
-    /// <summary>
-    ///     Gets or sets the socket.
-    /// </summary>
-    /// <value>
-    ///     The socket.
-    /// </value>
-    public Socket _socket;
-
-    /// <summary>
-    ///     The enable packet processor
-    /// </summary>
-    /// <value>
-    ///     <c>true</c> if the packet processor enabled; otherwise, <c>false</c>.
-    /// </value>
-    public bool EnablePacketDispatcher;
-
-    /// <summary>
-    ///     Gets or sets a value indicating whether this instance is closing.
-    /// </summary>
-    /// <value>
-    ///     <c>true</c> if this instance is closing; otherwise, <c>false</c>.
-    /// </value>
-    public bool IsClosing;
-
-    /// <summary>
-    ///     Get the allocated buffer.
-    /// </summary>
-    /// <value>
-    ///     The allocated buffer.
-    /// </value>
-    private byte[] _buffer { get; } = new byte[4096];
-
-    public event ConnectedEventHandler OnConnected;
-    public event DisconnectedEventHandler OnDisconnected;
-    public event PacketReceivedEventHandler OnPacketReceived;
-    public event PacketSentEventHandler OnPacketSent;
 
     /// <summary>
     ///     Listens the specified port.
@@ -87,14 +25,7 @@ public class Client
         {
             _listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-            //Thread Management
-            _dispatcherThread = new Thread(PacketDispatcherCallback)
-            {
-                Name = "Proxy.Network.Client.PacketProcessor",
-                IsBackground = true
-            };
-
-            _dispatcherThread.Start();
+            StartNetWorker();
 
             _listener.Bind(new IPEndPoint(IPAddress.Loopback, port));
             _listener.Listen(1);
@@ -180,11 +111,11 @@ public class Client
 
             _socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, OnBeginReceiveCallback, null);
 
-            OnConnected?.Invoke();
+            OnConnected();
         }
         catch (Exception)
         {
-            OnDisconnected?.Invoke();
+            OnDisconnected();
             Listen();
         }
     }
@@ -205,19 +136,20 @@ public class Client
             receivedSize = _socket.EndReceive(ar, out var error);
             if (receivedSize == 0 || error != SocketError.Success)
             {
-                OnDisconnected?.Invoke();
+                OnDisconnected();
                 Listen();
                 return;
             }
 
             _protocol.Recv(_buffer, 0, receivedSize);
+
         }
         catch (SocketException se)
         {
             if (se.SocketErrorCode ==
                 SocketError.ConnectionReset) //Client OnDisconnected > Mostly occurs during GW->AS switch
             {
-                OnDisconnected?.Invoke();
+                OnDisconnected();
 
                 Listen();
             }
@@ -238,73 +170,6 @@ public class Client
             catch
             {
             }
-        }
-    }
-
-    /// <summary>
-    ///     Sends the specified packet.
-    /// </summary>
-    /// <param name="packet">The packet.</param>
-    public void Send(Packet packet)
-    {
-        OnPacketSent?.Invoke(packet);
-
-        _protocol?.Send(packet);
-    }
-
-    /// <summary>
-    ///     Threadeds the packet processing.
-    /// </summary>
-    private void PacketDispatcherCallback()
-    {
-        try
-        {
-            while (!EnablePacketDispatcher && !IsClosing)
-                Thread.Sleep(1);
-
-            while (EnablePacketDispatcher && !IsClosing)
-            {
-                ProcessQueuedPackets();
-                Thread.Sleep(1);
-            }
-
-            if (IsClosing)
-                return;
-
-            PacketDispatcherCallback();
-        }
-        catch
-        {
-        }
-    }
-
-    /// <summary>
-    ///     Processes the client packets.
-    /// </summary>
-    private void ProcessQueuedPackets()
-    {
-        try
-        {
-            if (IsClosing || !EnablePacketDispatcher || _protocol == null)
-                return;
-
-            var receiveds = _protocol.TransferIncoming();
-            if (receiveds != null)
-                foreach (var packet in receiveds)
-                {
-                    if (packet.Opcode == 0x5000 || packet.Opcode == 0x9000 || packet.Opcode == 0x2001)
-                        continue;
-
-                    OnPacketReceived?.Invoke(packet);
-                }
-
-            foreach (var buffer in _protocol.TransferOutgoing())
-                //if (_socket == null || IsClosing || !EnablePacketProcessor || !_socket.Connected)
-                //return;
-                _socket.Send(buffer);
-        }
-        catch
-        {
         }
     }
 }

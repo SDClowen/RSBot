@@ -1,6 +1,6 @@
-﻿namespace RSBot.Core.Network.SecurityAPI;
+﻿namespace RSBot.Core.Network.Protocol;
 
-internal class TransferBuffer
+public class TransferBuffer
 {
     private byte[] m_buffer;
     private readonly object m_lock;

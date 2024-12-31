@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace RSBot.Core.Network.SecurityAPI;
+namespace RSBot.Core.Network.Protocol;
 
-internal class SecurityProtocol
+public class SecurityProtocol
 {
     private readonly object _lock;
     private bool m_accepted_handshake;
@@ -365,7 +365,7 @@ internal class SecurityProtocol
                                 if (m_massive_packet == null)
                                     throw new HandshakeSecurityException(
                                         "[SecurityAPI::Recv] A malformed 0x600D packet was received.");
-                                m_massive_packet.WriteByteArray(packet_data.ReadBytes(packet_size - 1));
+                                m_massive_packet.WriteBytes(packet_data.ReadBytes(packet_size - 1));
                                 m_massive_count--;
                                 if (m_massive_count == 0)
                                 {

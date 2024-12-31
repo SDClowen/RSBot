@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace RSBot.Core.Network.SecurityAPI;
+namespace RSBot.Core.Network.Protocol;
 
 internal class Utility
 {

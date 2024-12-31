@@ -27,6 +27,6 @@ internal class EntityGroupSpawnDataResponse : IPacketHandler
         if (Game.SpawnInfo == null)
             return; //No active spawn!
 
-        Game.SpawnInfo.Packet.WriteByteArray(packet.GetBytes());
+        Game.SpawnInfo.Packet.WriteBytes(packet.GetBytes());
     }
 }

@@ -24,6 +24,6 @@ internal class InventoryStorageDataResponse : IPacketHandler
     /// <param name="packet">The packet.</param>
     public void Invoke(Packet packet)
     {
-        Game.ChunkedPacket.WriteByteArray(packet.GetBytes());
+        Game.ChunkedPacket.WriteBytes(packet.GetBytes());
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json;
 using RSBot.Core;
 using RSBot.Core.Components;
-using RSBot.Core.Network.SecurityAPI;
+using RSBot.Core.Network.Protocol;
 using RSBot.General.Models;
 
 namespace RSBot.General.Components;

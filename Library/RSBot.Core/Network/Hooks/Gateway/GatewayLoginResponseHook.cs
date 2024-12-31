@@ -45,8 +45,8 @@ internal class GatewayLoginResponseHook : IPacketHook
         resultPacket.WriteString("127.0.0.1");
         resultPacket.WriteUShort(Kernel.Proxy.Port);
 
-        if (packet.ReaderRemain > 0)
-            resultPacket.WriteByteArray(packet.ReadByteArray(packet.ReaderRemain));
+        if (packet.Remaining > 0)
+            resultPacket.WriteBytes(packet.ReadBytes(packet.Remaining));
         /*
         //unknown value
         if (Game.ClientType == GameClientType.Japanese_Old)

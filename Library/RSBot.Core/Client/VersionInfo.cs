@@ -1,8 +1,7 @@
-﻿using System.IO;
+﻿using RSBot.Core.Event;
+using RSBot.Core.Network.Protocol;
+using System.IO;
 using System.Text;
-using RSBot.Core.Event;
-using RSBot.Core.Extensions;
-using RSBot.Core.Network.SecurityAPI;
 
 namespace RSBot.Core.Client;
 
