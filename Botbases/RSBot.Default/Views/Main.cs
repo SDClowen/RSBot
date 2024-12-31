@@ -166,11 +166,14 @@ public partial class Main : DoubleBufferedControl
     {
         var avoid = new List<MonsterRarity>();
         var prefer = new List<MonsterRarity>();
+        var berserk = new List<MonsterRarity>(); 
         foreach (ListViewItem item in lvAvoidance.Items)
             if (item.Group == lvAvoidance.Groups["grpAvoid"])
                 avoid.Add((MonsterRarity)item.Tag);
             else if (item.Group == lvAvoidance.Groups["grpPrefer"])
                 prefer.Add((MonsterRarity)item.Tag);
+            else if (item.Group == lvAvoidance.Groups["grpBerserk"])
+                berserk.Add((MonsterRarity)item.Tag);
 
         PlayerConfig.SetArray("RSBot.Avoidance.Avoid", avoid);
         PlayerConfig.SetArray("RSBot.Avoidance.Prefer", prefer);
@@ -293,6 +296,20 @@ public partial class Main : DoubleBufferedControl
         if (lvAvoidance.SelectedItems.Count <= 0) return;
         foreach (ListViewItem item in lvAvoidance.SelectedItems)
             item.Group = lvAvoidance.Groups["grpPrefer"];
+
+        SaveAvoidance();
+    }
+
+    /// <summary>
+    ///     Handles the Click event of the btnBerserk control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+    private void btnBerserk_Click(object sender, EventArgs e)
+    {
+        if (lvAvoidance.SelectedItems.Count <= 0) return;
+        foreach (ListViewItem item in lvAvoidance.SelectedItems)
+            item.Group = lvAvoidance.Groups["grpBerserk"];
 
         SaveAvoidance();
     }
