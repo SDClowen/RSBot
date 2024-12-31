@@ -174,7 +174,7 @@
             btnBerserk.Name = "btnBerserk";
             btnBerserk.Size = new System.Drawing.Size(182, 22);
             btnBerserk.Text = "Berserk";
-            btnBerserk.Click += btnPrefer_Click;
+            btnBerserk.Click += btnBerserk_Click;
             // 
             // toolStripSeparator1
             // 
