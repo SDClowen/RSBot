@@ -31,6 +31,7 @@
             System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Avoid", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Prefer", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("No custom behavior", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Berzerk", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("General");
             System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Champion");
             System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("Giant");
@@ -47,6 +48,7 @@
             ctxAvoidance = new SDUI.Controls.ContextMenuStrip();
             btnAvoid = new System.Windows.Forms.ToolStripMenuItem();
             btnPrefer = new System.Windows.Forms.ToolStripMenuItem();
+            btnBerserk = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             btnNoCustomBehavior = new System.Windows.Forms.ToolStripMenuItem();
             groupBoxWalkback = new SDUI.Controls.GroupBox();
@@ -119,7 +121,9 @@
             listViewGroup2.Name = "grpPrefer";
             listViewGroup3.Header = "No custom behavior";
             listViewGroup3.Name = "grpNone";
-            lvAvoidance.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] { listViewGroup1, listViewGroup2, listViewGroup3 });
+            listViewGroup4.Header = "Berzerk";
+            listViewGroup4.Name = "grpBerzerk";
+            lvAvoidance.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] { listViewGroup1, listViewGroup2, listViewGroup3, listViewGroup4 });
             lvAvoidance.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             listViewItem1.Group = listViewGroup3;
             listViewItem2.Group = listViewGroup3;
@@ -164,6 +168,13 @@
             btnPrefer.Size = new System.Drawing.Size(182, 22);
             btnPrefer.Text = "Prefer";
             btnPrefer.Click += btnPrefer_Click;
+            // 
+            // btnBerserk
+            // 
+            btnBerserk.Name = "btnBerserk";
+            btnBerserk.Size = new System.Drawing.Size(182, 22);
+            btnBerserk.Text = "Berserk";
+            btnBerserk.Click += btnPrefer_Click;
             // 
             // toolStripSeparator1
             // 
@@ -328,6 +339,22 @@
             checkBerzerkWhenFull.Text = "Enter berzerk mode when full";
             checkBerzerkWhenFull.UseVisualStyleBackColor = false;
             checkBerzerkWhenFull.CheckedChanged += settings_CheckedChanged;
+            // 
+            // checkBerzerkOnMonsterTypes
+            // 
+            checkBerzerkOnMonsterTypes.AutoSize = true;
+            checkBerzerkOnMonsterTypes.BackColor = System.Drawing.Color.Transparent;
+            checkBerzerkOnMonsterTypes.Depth = 0;
+            checkBerzerkOnMonsterTypes.Location = new System.Drawing.Point(21, 112);
+            checkBerzerkOnMonsterTypes.Margin = new System.Windows.Forms.Padding(0);
+            checkBerzerkOnMonsterTypes.MouseLocation = new System.Drawing.Point(-1, -1);
+            checkBerzerkOnMonsterTypes.Name = "checkBerzerkOnMonsterTypes";
+            checkBerzerkOnMonsterTypes.Ripple = true;
+            checkBerzerkOnMonsterTypes.Size = new System.Drawing.Size(190, 30);
+            checkBerzerkOnMonsterTypes.TabIndex = 4;
+            checkBerzerkOnMonsterTypes.Text = "Enter berzerk mode when attack specific monster type";
+            checkBerzerkOnMonsterTypes.UseVisualStyleBackColor = false;
+            checkBerzerkOnMonsterTypes.CheckedChanged += settings_CheckedChanged;
             // 
             // groupBoxBerserk
             // 
@@ -685,10 +712,12 @@
         private SDUI.Controls.CheckBox checkUseSpeedDrug;
         private SDUI.Controls.CheckBox checkCastBuffs;
         private SDUI.Controls.CheckBox checkBerzerkWhenFull;
+        private SDUI.Controls.CheckBox checkBerzerkOnMonsterTypes;
         private SDUI.Controls.ListView lvAvoidance;
         private SDUI.Controls.ContextMenuStrip ctxAvoidance;
         private System.Windows.Forms.ToolStripMenuItem btnAvoid;
         private System.Windows.Forms.ToolStripMenuItem btnPrefer;
+        private System.Windows.Forms.ToolStripMenuItem btnBerserk;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem btnNoCustomBehavior;
         private SDUI.Controls.GroupBox groupBoxBerserk;
