@@ -61,6 +61,7 @@
             txtWalkscript = new SDUI.Controls.TextBox();
             label4 = new SDUI.Controls.Label();
             checkBerzerkWhenFull = new SDUI.Controls.CheckBox();
+            checkBerzerkOnMonsterRarity = new SDUI.Controls.CheckBox();
             groupBoxBerserk = new SDUI.Controls.GroupBox();
             label7 = new SDUI.Controls.Label();
             numBerzerkMonsterAmount = new SDUI.Controls.NumUpDown();
@@ -364,6 +365,7 @@
             groupBoxBerserk.Controls.Add(checkBerzerkAvoidance);
             groupBoxBerserk.Controls.Add(checkBerzerkMonsterAmount);
             groupBoxBerserk.Controls.Add(checkBerzerkWhenFull);
+            groupBoxBerserk.Controls.Add(checkBerzerkOnMonsterRarity);
             groupBoxBerserk.Location = new System.Drawing.Point(262, 144);
             groupBoxBerserk.Name = "groupBoxBerserk";
             groupBoxBerserk.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
