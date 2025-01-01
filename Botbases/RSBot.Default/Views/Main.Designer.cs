@@ -152,7 +152,7 @@
             // 
             // ctxAvoidance
             // 
-            ctxAvoidance.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { btnAvoid, btnPrefer, toolStripSeparator1, btnNoCustomBehavior });
+            ctxAvoidance.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { btnAvoid, btnPrefer, btnBerserk, toolStripSeparator1, btnNoCustomBehavior });
             ctxAvoidance.Name = "ctxAvoidance";
             ctxAvoidance.Size = new System.Drawing.Size(183, 76);
             // 
@@ -371,7 +371,7 @@
             groupBoxBerserk.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             groupBoxBerserk.Radius = 10;
             groupBoxBerserk.ShadowDepth = 4;
-            groupBoxBerserk.Size = new System.Drawing.Size(478, 125);
+            groupBoxBerserk.Size = new System.Drawing.Size(478, 150);
             groupBoxBerserk.TabIndex = 5;
             groupBoxBerserk.TabStop = false;
             groupBoxBerserk.Text = "Berzerk";
@@ -625,7 +625,7 @@
             groupBoxAdvanced.Controls.Add(linkAttackWeakerMobsHelp);
             groupBoxAdvanced.Controls.Add(checkAttackWeakerFirst);
             groupBoxAdvanced.Controls.Add(checkBoxDimensionPillar);
-            groupBoxAdvanced.Location = new System.Drawing.Point(262, 275);
+            groupBoxAdvanced.Location = new System.Drawing.Point(262, 300);
             groupBoxAdvanced.Name = "groupBoxAdvanced";
             groupBoxAdvanced.Padding = new System.Windows.Forms.Padding(3, 8, 3, 3);
             groupBoxAdvanced.Radius = 10;
