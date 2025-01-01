@@ -47,6 +47,7 @@ internal class BerzerkBundle : IBundle
             && Bundles.Avoidance.UseBerserkOnMonster(e.Rarity)) 
             {
                 Game.Player.EnterBerzerkMode();
+                return;
             }
         }
 
@@ -71,7 +72,7 @@ internal class BerzerkBundle : IBundle
             BeeingAttackedByAwareMonster = PlayerConfig.Get<bool>("RSBot.Training.checkBerzerkAvoidance"),
             SurroundedByMonsters = PlayerConfig.Get<bool>("RSBot.Training.checkBerzerkMonsterAmount"),
             SurroundingMonsterAmount = PlayerConfig.Get<byte>("RSBot.Training.numBerzerkMonsterAmount", 5),
-            WhenTargetSpecificRartiyMonster = PlayerConfig.Get<bool>("RSBot.Training.checkBerzerkOnMonsterRarity"),
+            WhenTargetSpecificRartiyMonster = PlayerConfig.Get<bool>("RSBot.Training.checkBerserkOnMonsterRarity"),
         };
     }
 
