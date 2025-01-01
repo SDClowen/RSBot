@@ -30,8 +30,8 @@
         {
             System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Avoid", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Prefer", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("No custom behavior", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Berzerk", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("No custom behavior", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("General");
             System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Champion");
             System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("Giant");
@@ -61,7 +61,7 @@
             txtWalkscript = new SDUI.Controls.TextBox();
             label4 = new SDUI.Controls.Label();
             checkBerzerkWhenFull = new SDUI.Controls.CheckBox();
-            checkBerzerkOnMonsterRarity = new SDUI.Controls.CheckBox();
+            checkBerserkOnMonsterRarity = new SDUI.Controls.CheckBox();
             groupBoxBerserk = new SDUI.Controls.GroupBox();
             label7 = new SDUI.Controls.Label();
             numBerzerkMonsterAmount = new SDUI.Controls.NumUpDown();
@@ -122,9 +122,9 @@
             listViewGroup2.Name = "grpPrefer";
             listViewGroup3.Header = "No custom behavior";
             listViewGroup3.Name = "grpNone";
-            listViewGroup4.Header = "Berzerk";
-            listViewGroup4.Name = "grpBerzerk";
-            lvAvoidance.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] { listViewGroup1, listViewGroup2, listViewGroup3, listViewGroup4 });
+            listViewGroup4.Header = "Berserk";
+            listViewGroup4.Name = "grpBerserk";
+            lvAvoidance.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] { listViewGroup1, listViewGroup2, listViewGroup4, listViewGroup3 });
             lvAvoidance.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             listViewItem1.Group = listViewGroup3;
             listViewItem2.Group = listViewGroup3;
@@ -341,21 +341,21 @@
             checkBerzerkWhenFull.UseVisualStyleBackColor = false;
             checkBerzerkWhenFull.CheckedChanged += settings_CheckedChanged;
             // 
-            // checkBerzerkOnMonsterRarity
+            // checkBerserkOnMonsterRarity
             // 
-            checkBerzerkOnMonsterRarity.AutoSize = true;
-            checkBerzerkOnMonsterRarity.BackColor = System.Drawing.Color.Transparent;
-            checkBerzerkOnMonsterRarity.Depth = 0;
-            checkBerzerkOnMonsterRarity.Location = new System.Drawing.Point(21, 112);
-            checkBerzerkOnMonsterRarity.Margin = new System.Windows.Forms.Padding(0);
-            checkBerzerkOnMonsterRarity.MouseLocation = new System.Drawing.Point(-1, -1);
-            checkBerzerkOnMonsterRarity.Name = "checkBerzerkOnMonsterRarity";
-            checkBerzerkOnMonsterRarity.Ripple = true;
-            checkBerzerkOnMonsterRarity.Size = new System.Drawing.Size(190, 30);
-            checkBerzerkOnMonsterRarity.TabIndex = 4;
-            checkBerzerkOnMonsterRarity.Text = "Enter berzerk mode when attack specific monster type";
-            checkBerzerkOnMonsterRarity.UseVisualStyleBackColor = false;
-            checkBerzerkOnMonsterRarity.CheckedChanged += settings_CheckedChanged;
+            checkBerserkOnMonsterRarity.AutoSize = true;
+            checkBerserkOnMonsterRarity.BackColor = System.Drawing.Color.Transparent;
+            checkBerserkOnMonsterRarity.Depth = 0;
+            checkBerserkOnMonsterRarity.Location = new System.Drawing.Point(21, 112);
+            checkBerserkOnMonsterRarity.Margin = new System.Windows.Forms.Padding(0);
+            checkBerserkOnMonsterRarity.MouseLocation = new System.Drawing.Point(-1, -1);
+            checkBerserkOnMonsterRarity.Name = "checkBerserkOnMonsterRarity";
+            checkBerserkOnMonsterRarity.Ripple = true;
+            checkBerserkOnMonsterRarity.Size = new System.Drawing.Size(190, 30);
+            checkBerserkOnMonsterRarity.TabIndex = 4;
+            checkBerserkOnMonsterRarity.Text = "Enter berserk mode when attack specific monster type";
+            checkBerserkOnMonsterRarity.UseVisualStyleBackColor = false;
+            checkBerserkOnMonsterRarity.CheckedChanged += settings_CheckedChanged;
             // 
             // groupBoxBerserk
             // 
@@ -365,7 +365,7 @@
             groupBoxBerserk.Controls.Add(checkBerzerkAvoidance);
             groupBoxBerserk.Controls.Add(checkBerzerkMonsterAmount);
             groupBoxBerserk.Controls.Add(checkBerzerkWhenFull);
-            groupBoxBerserk.Controls.Add(checkBerzerkOnMonsterRarity);
+            groupBoxBerserk.Controls.Add(checkBerserkOnMonsterRarity);
             groupBoxBerserk.Location = new System.Drawing.Point(262, 144);
             groupBoxBerserk.Name = "groupBoxBerserk";
             groupBoxBerserk.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
@@ -374,7 +374,7 @@
             groupBoxBerserk.Size = new System.Drawing.Size(478, 150);
             groupBoxBerserk.TabIndex = 5;
             groupBoxBerserk.TabStop = false;
-            groupBoxBerserk.Text = "Berzerk";
+            groupBoxBerserk.Text = "Berserk";
             // 
             // label7
             // 
@@ -714,7 +714,7 @@
         private SDUI.Controls.CheckBox checkUseSpeedDrug;
         private SDUI.Controls.CheckBox checkCastBuffs;
         private SDUI.Controls.CheckBox checkBerzerkWhenFull;
-        private SDUI.Controls.CheckBox checkBerzerkOnMonsterRarity;
+        private SDUI.Controls.CheckBox checkBerserkOnMonsterRarity;
         private SDUI.Controls.ListView lvAvoidance;
         private SDUI.Controls.ContextMenuStrip ctxAvoidance;
         private System.Windows.Forms.ToolStripMenuItem btnAvoid;
