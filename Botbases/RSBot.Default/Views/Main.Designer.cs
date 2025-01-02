@@ -30,6 +30,7 @@
         {
             System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Avoid", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Prefer", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Berzerk", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("No custom behavior", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("General");
             System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Champion");
@@ -47,6 +48,7 @@
             ctxAvoidance = new SDUI.Controls.ContextMenuStrip();
             btnAvoid = new System.Windows.Forms.ToolStripMenuItem();
             btnPrefer = new System.Windows.Forms.ToolStripMenuItem();
+            btnBerserk = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             btnNoCustomBehavior = new System.Windows.Forms.ToolStripMenuItem();
             groupBoxWalkback = new SDUI.Controls.GroupBox();
@@ -59,6 +61,7 @@
             txtWalkscript = new SDUI.Controls.TextBox();
             label4 = new SDUI.Controls.Label();
             checkBerzerkWhenFull = new SDUI.Controls.CheckBox();
+            checkBerserkOnMonsterRarity = new SDUI.Controls.CheckBox();
             groupBoxBerserk = new SDUI.Controls.GroupBox();
             label7 = new SDUI.Controls.Label();
             numBerzerkMonsterAmount = new SDUI.Controls.NumUpDown();
@@ -119,7 +122,9 @@
             listViewGroup2.Name = "grpPrefer";
             listViewGroup3.Header = "No custom behavior";
             listViewGroup3.Name = "grpNone";
-            lvAvoidance.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] { listViewGroup1, listViewGroup2, listViewGroup3 });
+            listViewGroup4.Header = "Berserk";
+            listViewGroup4.Name = "grpBerserk";
+            lvAvoidance.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] { listViewGroup1, listViewGroup2, listViewGroup4, listViewGroup3 });
             lvAvoidance.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             listViewItem1.Group = listViewGroup3;
             listViewItem2.Group = listViewGroup3;
@@ -147,7 +152,7 @@
             // 
             // ctxAvoidance
             // 
-            ctxAvoidance.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { btnAvoid, btnPrefer, toolStripSeparator1, btnNoCustomBehavior });
+            ctxAvoidance.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { btnAvoid, btnPrefer, btnBerserk, toolStripSeparator1, btnNoCustomBehavior });
             ctxAvoidance.Name = "ctxAvoidance";
             ctxAvoidance.Size = new System.Drawing.Size(183, 76);
             // 
@@ -164,6 +169,13 @@
             btnPrefer.Size = new System.Drawing.Size(182, 22);
             btnPrefer.Text = "Prefer";
             btnPrefer.Click += btnPrefer_Click;
+            // 
+            // btnBerserk
+            // 
+            btnBerserk.Name = "btnBerserk";
+            btnBerserk.Size = new System.Drawing.Size(182, 22);
+            btnBerserk.Text = "Berserk";
+            btnBerserk.Click += btnBerserk_Click;
             // 
             // toolStripSeparator1
             // 
@@ -329,6 +341,22 @@
             checkBerzerkWhenFull.UseVisualStyleBackColor = false;
             checkBerzerkWhenFull.CheckedChanged += settings_CheckedChanged;
             // 
+            // checkBerserkOnMonsterRarity
+            // 
+            checkBerserkOnMonsterRarity.AutoSize = true;
+            checkBerserkOnMonsterRarity.BackColor = System.Drawing.Color.Transparent;
+            checkBerserkOnMonsterRarity.Depth = 0;
+            checkBerserkOnMonsterRarity.Location = new System.Drawing.Point(21, 112);
+            checkBerserkOnMonsterRarity.Margin = new System.Windows.Forms.Padding(0);
+            checkBerserkOnMonsterRarity.MouseLocation = new System.Drawing.Point(-1, -1);
+            checkBerserkOnMonsterRarity.Name = "checkBerserkOnMonsterRarity";
+            checkBerserkOnMonsterRarity.Ripple = true;
+            checkBerserkOnMonsterRarity.Size = new System.Drawing.Size(190, 30);
+            checkBerserkOnMonsterRarity.TabIndex = 4;
+            checkBerserkOnMonsterRarity.Text = "Enter berserk mode when attack specific monster type";
+            checkBerserkOnMonsterRarity.UseVisualStyleBackColor = false;
+            checkBerserkOnMonsterRarity.CheckedChanged += settings_CheckedChanged;
+            // 
             // groupBoxBerserk
             // 
             groupBoxBerserk.BackColor = System.Drawing.Color.Transparent;
@@ -337,15 +365,16 @@
             groupBoxBerserk.Controls.Add(checkBerzerkAvoidance);
             groupBoxBerserk.Controls.Add(checkBerzerkMonsterAmount);
             groupBoxBerserk.Controls.Add(checkBerzerkWhenFull);
+            groupBoxBerserk.Controls.Add(checkBerserkOnMonsterRarity);
             groupBoxBerserk.Location = new System.Drawing.Point(262, 144);
             groupBoxBerserk.Name = "groupBoxBerserk";
             groupBoxBerserk.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
             groupBoxBerserk.Radius = 10;
             groupBoxBerserk.ShadowDepth = 4;
-            groupBoxBerserk.Size = new System.Drawing.Size(478, 125);
+            groupBoxBerserk.Size = new System.Drawing.Size(478, 150);
             groupBoxBerserk.TabIndex = 5;
             groupBoxBerserk.TabStop = false;
-            groupBoxBerserk.Text = "Berzerk";
+            groupBoxBerserk.Text = "Berserk";
             // 
             // label7
             // 
@@ -596,7 +625,7 @@
             groupBoxAdvanced.Controls.Add(linkAttackWeakerMobsHelp);
             groupBoxAdvanced.Controls.Add(checkAttackWeakerFirst);
             groupBoxAdvanced.Controls.Add(checkBoxDimensionPillar);
-            groupBoxAdvanced.Location = new System.Drawing.Point(262, 275);
+            groupBoxAdvanced.Location = new System.Drawing.Point(262, 300);
             groupBoxAdvanced.Name = "groupBoxAdvanced";
             groupBoxAdvanced.Padding = new System.Windows.Forms.Padding(3, 8, 3, 3);
             groupBoxAdvanced.Radius = 10;
@@ -685,10 +714,12 @@
         private SDUI.Controls.CheckBox checkUseSpeedDrug;
         private SDUI.Controls.CheckBox checkCastBuffs;
         private SDUI.Controls.CheckBox checkBerzerkWhenFull;
+        private SDUI.Controls.CheckBox checkBerserkOnMonsterRarity;
         private SDUI.Controls.ListView lvAvoidance;
         private SDUI.Controls.ContextMenuStrip ctxAvoidance;
         private System.Windows.Forms.ToolStripMenuItem btnAvoid;
         private System.Windows.Forms.ToolStripMenuItem btnPrefer;
+        private System.Windows.Forms.ToolStripMenuItem btnBerserk;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem btnNoCustomBehavior;
         private SDUI.Controls.GroupBox groupBoxBerserk;
