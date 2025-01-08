@@ -22,6 +22,14 @@ internal class AvoidanceBundle : IBundle
     /// </value>
     public MonsterRarity[] PreferanceList => PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Prefer");
 
+     /// <summary>
+    ///     Gets the berserk list.
+    /// </summary>
+    /// <value>
+    ///     The berserk list.
+    /// </value>
+    public MonsterRarity[] BerserkerList => PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Berserk");
+
     /// <summary>
     ///     Invokes this instance.
     /// </summary>
@@ -55,4 +63,11 @@ internal class AvoidanceBundle : IBundle
     /// <param name="rarity">The rarity.</param>
     /// <returns></returns>
     public bool PreferMonster(MonsterRarity rarity) => PreferanceList.Contains(rarity);
+
+    /// <summary>
+    ///     Use Berserk on monster.
+    /// </summary>
+    /// <param name="rarity">The rarity.</param>
+    /// <returns></returns>
+    public bool UseBerserkOnMonster(MonsterRarity rarity) => BerserkerList.Contains(rarity);
 }

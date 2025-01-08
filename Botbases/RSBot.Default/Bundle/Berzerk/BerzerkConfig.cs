@@ -33,4 +33,6 @@ internal class BerzerkConfig
     ///     <c>true</c> if [beeing attacked by aware monster]; otherwise, <c>false</c>.
     /// </value>
     public bool BeeingAttackedByAwareMonster { get; set; }
+
+    public bool WhenTargetSpecificRartiyMonster { get; set; }
 }

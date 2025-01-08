@@ -1,4 +1,5 @@
-﻿using RSBot.Core;
+﻿using System.Windows.Forms.VisualStyles;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Objects.Spawn;
 
@@ -40,6 +41,16 @@ internal class BerzerkBundle : IBundle
             }
         }
 
+        if (Config.WhenTargetSpecificRartiyMonster)
+        {
+            if (Game.SelectedEntity is SpawnedMonster e 
+            && Bundles.Avoidance.UseBerserkOnMonster(e.Rarity)) 
+            {
+                Game.Player.EnterBerzerkMode();
+                return;
+            }
+        }
+
         if (!Config.BeeingAttackedByAwareMonster)
             return;
 
@@ -60,7 +71,8 @@ internal class BerzerkBundle : IBundle
             WhenFull = PlayerConfig.Get<bool>("RSBot.Training.checkBerzerkWhenFull"),
             BeeingAttackedByAwareMonster = PlayerConfig.Get<bool>("RSBot.Training.checkBerzerkAvoidance"),
             SurroundedByMonsters = PlayerConfig.Get<bool>("RSBot.Training.checkBerzerkMonsterAmount"),
-            SurroundingMonsterAmount = PlayerConfig.Get<byte>("RSBot.Training.numBerzerkMonsterAmount", 5)
+            SurroundingMonsterAmount = PlayerConfig.Get<byte>("RSBot.Training.numBerzerkMonsterAmount", 5),
+            WhenTargetSpecificRartiyMonster = PlayerConfig.Get<bool>("RSBot.Training.checkBerserkOnMonsterRarity"),
         };
     }
 
