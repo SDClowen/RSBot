@@ -1,24 +1,19 @@
-﻿using System;
+﻿using RSBot.Core;
+using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Components;
+using RSBot.Core.Event;
+using RSBot.Core.Objects;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using RSBot.Core;
-using RSBot.Core.Client.ReferenceObjects;
-using RSBot.Core.Components;
-using RSBot.Core.Event;
-using RSBot.Core.Extensions;
-using RSBot.Core.Objects;
-using SDUI.Controls;
-using CheckBox = SDUI.Controls.CheckBox;
-using GroupBox = SDUI.Controls.GroupBox;
-using ListViewExtensions = RSBot.Core.Extensions.ListViewExtensions;
 
 namespace RSBot.Items.Views;
 
 [ToolboxItem(false)]
-public partial class Main : DoubleBufferedControl
+public partial class Main : UserControl
 {
     private List<RefShopGroup> _accessoryTrader;
     private List<RefShopGroup> _potionTrader;

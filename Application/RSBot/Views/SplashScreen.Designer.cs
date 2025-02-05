@@ -31,18 +31,17 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SplashScreen));
             pictureBox = new System.Windows.Forms.PictureBox();
             referenceDataLoader = new System.ComponentModel.BackgroundWorker();
-            logoLabel = new SDUI.Controls.Label();
-            labelVersion = new SDUI.Controls.Label();
-            label2 = new SDUI.Controls.Label();
-            label3 = new SDUI.Controls.Label();
-            lblLoading = new SDUI.Controls.Label();
-            progressLoading = new SDUI.Controls.ProgressBar();
+            logoLabel = new System.Windows.Forms.Label();
+            labelVersion = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
+            label3 = new System.Windows.Forms.Label();
+            lblLoading = new System.Windows.Forms.Label();
+            progressLoading = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
             SuspendLayout();
             // 
             // pictureBox
             // 
-            pictureBox.BackColor = System.Drawing.Color.Transparent;
             pictureBox.Dock = System.Windows.Forms.DockStyle.Top;
             pictureBox.Image = Properties.Resources.app;
             pictureBox.Location = new System.Drawing.Point(0, 0);
@@ -61,17 +60,9 @@
             // 
             // logoLabel
             // 
-            logoLabel.ApplyGradient = true;
-            logoLabel.BackColor = System.Drawing.Color.Transparent;
             logoLabel.Dock = System.Windows.Forms.DockStyle.Top;
-            logoLabel.Font = new System.Drawing.Font("Segoe UI Black", 65.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            logoLabel.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            logoLabel.Gradient = new System.Drawing.Color[]
-    {
-    System.Drawing.Color.DodgerBlue,
-    System.Drawing.Color.SlateBlue
-    };
-            logoLabel.GradientAnimation = true;
+            logoLabel.Font = new System.Drawing.Font("Segoe UI", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 162);
+            logoLabel.ForeColor = System.Drawing.Color.DodgerBlue;
             logoLabel.Location = new System.Drawing.Point(0, 91);
             logoLabel.Name = "logoLabel";
             logoLabel.Size = new System.Drawing.Size(533, 100);
@@ -82,118 +73,75 @@
             // labelVersion
             // 
             labelVersion.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            labelVersion.ApplyGradient = false;
             labelVersion.AutoSize = true;
             labelVersion.BackColor = System.Drawing.Color.Transparent;
             labelVersion.Enabled = false;
-            labelVersion.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelVersion.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 162);
             labelVersion.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            labelVersion.Gradient = new System.Drawing.Color[]
-    {
-    System.Drawing.Color.DodgerBlue,
-    System.Drawing.Color.DeepSkyBlue
-    };
-            labelVersion.GradientAnimation = false;
-            labelVersion.Location = new System.Drawing.Point(121, 170);
+            labelVersion.Location = new System.Drawing.Point(333, 91);
             labelVersion.Name = "labelVersion";
-            labelVersion.Size = new System.Drawing.Size(51, 21);
+            labelVersion.Size = new System.Drawing.Size(53, 30);
             labelVersion.TabIndex = 4;
             labelVersion.Text = "v1.0.0";
             labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            labelVersion.UseCompatibleTextRendering = true;
             // 
             // label2
             // 
-            label2.ApplyGradient = false;
-            label2.BackColor = System.Drawing.Color.Transparent;
+            label2.BackColor = System.Drawing.SystemColors.Control;
             label2.Dock = System.Windows.Forms.DockStyle.Bottom;
             label2.Enabled = false;
-            label2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label2.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 162);
             label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label2.Gradient = new System.Drawing.Color[]
-    {
-    System.Drawing.Color.RosyBrown,
-    System.Drawing.Color.FromArgb(74, 74, 74)
-    };
-            label2.GradientAnimation = false;
-            label2.Location = new System.Drawing.Point(0, 214);
+            label2.Location = new System.Drawing.Point(0, 223);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(533, 32);
+            label2.Size = new System.Drawing.Size(533, 23);
             label2.TabIndex = 5;
             label2.Text = "Free powerful bot for Silkroad Online servers";
             label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label3
             // 
-            label3.ApplyGradient = false;
-            label3.BackColor = System.Drawing.Color.Transparent;
+            label3.BackColor = System.Drawing.SystemColors.Control;
             label3.Dock = System.Windows.Forms.DockStyle.Bottom;
             label3.Enabled = false;
-            label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic);
             label3.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label3.Gradient = new System.Drawing.Color[]
-    {
-    System.Drawing.Color.Gray,
-    System.Drawing.Color.Black
-    };
-            label3.GradientAnimation = false;
             label3.Location = new System.Drawing.Point(0, 246);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(533, 26);
             label3.TabIndex = 5;
-            label3.Text = "Created with contributions from the community";
             label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblLoading
             // 
-            lblLoading.ApplyGradient = false;
-            lblLoading.BackColor = System.Drawing.Color.Transparent;
+            lblLoading.BackColor = System.Drawing.SystemColors.Control;
             lblLoading.Dock = System.Windows.Forms.DockStyle.Top;
-            lblLoading.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            lblLoading.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic);
             lblLoading.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            lblLoading.Gradient = new System.Drawing.Color[]
-    {
-    System.Drawing.Color.Gray,
-    System.Drawing.Color.Black
-    };
-            lblLoading.GradientAnimation = false;
             lblLoading.Location = new System.Drawing.Point(0, 191);
             lblLoading.Name = "lblLoading";
             lblLoading.Size = new System.Drawing.Size(533, 21);
-            lblLoading.TabIndex = 6;
+            lblLoading.TabIndex = 8;
             lblLoading.Text = "Loading";
             lblLoading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // progressLoading
             // 
-            progressLoading.BackColor = System.Drawing.Color.Transparent;
+            progressLoading.BackColor = System.Drawing.SystemColors.Control;
             progressLoading.Dock = System.Windows.Forms.DockStyle.Bottom;
-            progressLoading.DrawHatch = false;
-            progressLoading.Gradient = new System.Drawing.Color[]
-    {
-    System.Drawing.Color.DodgerBlue,
-    System.Drawing.Color.SlateBlue
-    };
-            progressLoading.HatchType = System.Drawing.Drawing2D.HatchStyle.Percent10;
             progressLoading.Location = new System.Drawing.Point(0, 272);
-            progressLoading.Maximum = 100L;
-            progressLoading.MaxPercentShowValue = 100F;
             progressLoading.Name = "progressLoading";
-            progressLoading.PercentIndices = 0;
-            progressLoading.Radius = 4;
-            progressLoading.ShowAsPercent = false;
-            progressLoading.ShowValue = false;
             progressLoading.Size = new System.Drawing.Size(533, 18);
             progressLoading.TabIndex = 7;
             progressLoading.Text = "0 / 100";
-            progressLoading.Value = 0L;
             // 
             // SplashScreen
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             BackColor = System.Drawing.SystemColors.Control;
             BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            BorderColor = System.Drawing.Color.Empty;
             ClientSize = new System.Drawing.Size(533, 290);
             ControlBox = false;
             Controls.Add(label2);
@@ -204,20 +152,14 @@
             Controls.Add(logoLabel);
             Controls.Add(pictureBox);
             Cursor = System.Windows.Forms.Cursors.AppStarting;
-            DrawTitleBorder = false;
-            Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            Hatch = System.Drawing.Drawing2D.HatchStyle.Percent30;
+            Font = new System.Drawing.Font("Segoe UI", 12F);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
-            Location = new System.Drawing.Point(0, 0);
             Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            Movable = false;
             Name = "SplashScreen";
-            Padding = new System.Windows.Forms.Padding(0);
-            ShowTitle = false;
             SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Tag = "";
-            TopMost = false;
             Load += SplashScreen_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox).EndInit();
             ResumeLayout(false);
@@ -228,11 +170,11 @@
 
         private System.Windows.Forms.PictureBox pictureBox;
         private System.ComponentModel.BackgroundWorker referenceDataLoader;
-        private SDUI.Controls.Label logoLabel;
-        private SDUI.Controls.Label labelVersion;
-        private SDUI.Controls.Label label2;
-        private SDUI.Controls.Label label3;
-        private SDUI.Controls.Label lblLoading;
-        private SDUI.Controls.ProgressBar progressLoading;
+        private System.Windows.Forms.Label logoLabel;
+        private System.Windows.Forms.Label labelVersion;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblLoading;
+        private System.Windows.Forms.ProgressBar progressLoading;
     }
 }

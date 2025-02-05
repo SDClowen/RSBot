@@ -6,12 +6,12 @@ using RSBot.CommandCenter.Views.Controls;
 using RSBot.Core;
 using RSBot.Core.Components;
 using SDUI;
-using SDUI.Controls;
+
 
 namespace RSBot.CommandCenter.Views;
 
 [ToolboxItem(false)]
-public partial class Main : DoubleBufferedControl
+public partial class Main : UserControl
 {
     public Main()
     {
@@ -26,8 +26,8 @@ public partial class Main : DoubleBufferedControl
         panelActions.Hide();
         panelActions.Controls.Clear();
 
-        lblChatCommandDescriptions.BackColor = ColorScheme.BackColor;
-        lblChatCommandDescriptions.ForeColor = ColorScheme.ForeColor;
+        
+        
 
         PopulateEmoticonActions();
         PopulateChatCommandPage();

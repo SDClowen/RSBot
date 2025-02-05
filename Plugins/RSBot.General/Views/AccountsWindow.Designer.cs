@@ -28,67 +28,58 @@
         /// </summary>
         private void InitializeComponent()
         {
-            textBoxSecondaryPassword = new SDUI.Controls.TextBox();
-            comboBoxChannel = new SDUI.Controls.ComboBox();
-            buttonRemove = new SDUI.Controls.Button();
+            textBoxSecondaryPassword = new System.Windows.Forms.TextBox();
+            comboBoxChannel = new System.Windows.Forms.ComboBox();
+            buttonRemove = new System.Windows.Forms.Button();
             listAccounts = new System.Windows.Forms.ListBox();
-            label2 = new SDUI.Controls.Label();
-            txtUsername = new SDUI.Controls.TextBox();
-            label3 = new SDUI.Controls.Label();
-            txtPassword = new SDUI.Controls.TextBox();
-            label5 = new SDUI.Controls.Label();
-            label4 = new SDUI.Controls.Label();
-            txtServername = new SDUI.Controls.TextBox();
-            btnSave = new SDUI.Controls.Button();
-            btnAdd = new SDUI.Controls.Button();
+            label2 = new System.Windows.Forms.Label();
+            txtUsername = new System.Windows.Forms.TextBox();
+            label3 = new System.Windows.Forms.Label();
+            txtPassword = new System.Windows.Forms.TextBox();
+            label5 = new System.Windows.Forms.Label();
+            label4 = new System.Windows.Forms.Label();
+            txtServername = new System.Windows.Forms.TextBox();
+            btnSave = new System.Windows.Forms.Button();
+            btnAdd = new System.Windows.Forms.Button();
             linkLabelPwShowHide = new System.Windows.Forms.LinkLabel();
             linkLabelSecondaryPassword = new System.Windows.Forms.LinkLabel();
-            label1 = new SDUI.Controls.Label();
-            btnOK = new SDUI.Controls.Button();
-            btnCancel = new SDUI.Controls.Button();
-            panel1 = new SDUI.Controls.Panel();
+            label1 = new System.Windows.Forms.Label();
+            btnOK = new System.Windows.Forms.Button();
+            btnCancel = new System.Windows.Forms.Button();
+            panel1 = new System.Windows.Forms.Panel();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // textBoxSecondaryPassword
             // 
-            textBoxSecondaryPassword.Location = new System.Drawing.Point(197, 126);
-            textBoxSecondaryPassword.MaxLength = 32767;
-            textBoxSecondaryPassword.MultiLine = false;
+            textBoxSecondaryPassword.Location = new System.Drawing.Point(246, 158);
+            textBoxSecondaryPassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             textBoxSecondaryPassword.Name = "textBoxSecondaryPassword";
-            textBoxSecondaryPassword.PassFocusShow = false;
-            textBoxSecondaryPassword.Radius = 2;
-            textBoxSecondaryPassword.Size = new System.Drawing.Size(119, 21);
+            textBoxSecondaryPassword.Size = new System.Drawing.Size(148, 27);
             textBoxSecondaryPassword.TabIndex = 2;
-            textBoxSecondaryPassword.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
             textBoxSecondaryPassword.UseSystemPasswordChar = true;
             // 
             // comboBoxChannel
             // 
-            comboBoxChannel.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             comboBoxChannel.DropDownHeight = 100;
             comboBoxChannel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             comboBoxChannel.FormattingEnabled = true;
             comboBoxChannel.IntegralHeight = false;
-            comboBoxChannel.ItemHeight = 17;
+            comboBoxChannel.ItemHeight = 20;
             comboBoxChannel.Items.AddRange(new object[] { "Joymax", "JCPlanet" });
-            comboBoxChannel.Location = new System.Drawing.Point(320, 126);
+            comboBoxChannel.Location = new System.Drawing.Point(400, 158);
+            comboBoxChannel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             comboBoxChannel.Name = "comboBoxChannel";
-            comboBoxChannel.Radius = 5;
-            comboBoxChannel.ShadowDepth = 4F;
-            comboBoxChannel.Size = new System.Drawing.Size(74, 23);
+            comboBoxChannel.Size = new System.Drawing.Size(92, 28);
             comboBoxChannel.TabIndex = 11;
             // 
             // buttonRemove
             // 
-            buttonRemove.Color = System.Drawing.Color.DarkRed;
-            buttonRemove.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            buttonRemove.ForeColor = System.Drawing.Color.White;
-            buttonRemove.Location = new System.Drawing.Point(195, 207);
+            buttonRemove.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            buttonRemove.Location = new System.Drawing.Point(244, 259);
+            buttonRemove.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             buttonRemove.Name = "buttonRemove";
-            buttonRemove.Radius = 6;
-            buttonRemove.ShadowDepth = 4F;
-            buttonRemove.Size = new System.Drawing.Size(72, 21);
+            buttonRemove.Size = new System.Drawing.Size(90, 26);
             buttonRemove.TabIndex = 10;
             buttonRemove.Text = "Remove";
             buttonRemove.UseVisualStyleBackColor = true;
@@ -97,130 +88,86 @@
             // listAccounts
             // 
             listAccounts.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            listAccounts.ItemHeight = 15;
-            listAccounts.Location = new System.Drawing.Point(8, 12);
+            listAccounts.Location = new System.Drawing.Point(10, 15);
+            listAccounts.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             listAccounts.Name = "listAccounts";
-            listAccounts.Size = new System.Drawing.Size(178, 212);
+            listAccounts.Size = new System.Drawing.Size(222, 262);
             listAccounts.TabIndex = 18;
             listAccounts.SelectedIndexChanged += listAccounts_SelectedIndexChanged;
             // 
             // label2
             // 
-            label2.ApplyGradient = false;
             label2.AutoSize = true;
-            label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label2.Gradient = new System.Drawing.Color[]
-    {
-    System.Drawing.Color.Gray,
-    System.Drawing.Color.Black
-    };
-            label2.GradientAnimation = false;
-            label2.Location = new System.Drawing.Point(194, 12);
+            label2.Location = new System.Drawing.Point(242, 15);
+            label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(63, 15);
+            label2.Size = new System.Drawing.Size(78, 20);
             label2.TabIndex = 7;
             label2.Text = "Username:";
             // 
             // txtUsername
             // 
-            txtUsername.Location = new System.Drawing.Point(197, 29);
-            txtUsername.MaxLength = 32767;
-            txtUsername.MultiLine = false;
+            txtUsername.Location = new System.Drawing.Point(246, 36);
+            txtUsername.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             txtUsername.Name = "txtUsername";
-            txtUsername.PassFocusShow = false;
-            txtUsername.Radius = 2;
-            txtUsername.Size = new System.Drawing.Size(197, 21);
+            txtUsername.Size = new System.Drawing.Size(245, 27);
             txtUsername.TabIndex = 0;
-            txtUsername.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
-            txtUsername.UseSystemPasswordChar = false;
             // 
             // label3
             // 
-            label3.ApplyGradient = false;
             label3.AutoSize = true;
-            label3.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label3.Gradient = new System.Drawing.Color[]
-    {
-    System.Drawing.Color.Gray,
-    System.Drawing.Color.Black
-    };
-            label3.GradientAnimation = false;
-            label3.Location = new System.Drawing.Point(194, 60);
+            label3.Location = new System.Drawing.Point(242, 75);
+            label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(60, 15);
+            label3.Size = new System.Drawing.Size(73, 20);
             label3.TabIndex = 6;
             label3.Text = "Password:";
             // 
             // txtPassword
             // 
-            txtPassword.Location = new System.Drawing.Point(197, 77);
-            txtPassword.MaxLength = 32767;
-            txtPassword.MultiLine = false;
+            txtPassword.Location = new System.Drawing.Point(246, 96);
+            txtPassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             txtPassword.Name = "txtPassword";
-            txtPassword.PassFocusShow = false;
-            txtPassword.Radius = 2;
-            txtPassword.Size = new System.Drawing.Size(197, 21);
+            txtPassword.Size = new System.Drawing.Size(245, 27);
             txtPassword.TabIndex = 1;
-            txtPassword.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
             txtPassword.UseSystemPasswordChar = true;
             // 
             // label5
             // 
-            label5.ApplyGradient = false;
             label5.AutoSize = true;
-            label5.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label5.Gradient = new System.Drawing.Color[]
-    {
-    System.Drawing.Color.Gray,
-    System.Drawing.Color.Black
-    };
-            label5.GradientAnimation = false;
-            label5.Location = new System.Drawing.Point(192, 109);
+            label5.Location = new System.Drawing.Point(240, 136);
+            label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(163, 15);
+            label5.Size = new System.Drawing.Size(204, 20);
             label5.TabIndex = 6;
             label5.Text = "Secondary Password: (Global)";
             // 
             // label4
             // 
-            label4.ApplyGradient = false;
             label4.AutoSize = true;
-            label4.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label4.Gradient = new System.Drawing.Color[]
-    {
-    System.Drawing.Color.Gray,
-    System.Drawing.Color.Black
-    };
-            label4.GradientAnimation = false;
-            label4.Location = new System.Drawing.Point(192, 161);
+            label4.Location = new System.Drawing.Point(240, 201);
+            label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(75, 15);
+            label4.Size = new System.Drawing.Size(94, 20);
             label4.TabIndex = 5;
             label4.Text = "Server name:";
             // 
             // txtServername
             // 
-            txtServername.Location = new System.Drawing.Point(195, 178);
-            txtServername.MaxLength = 32767;
-            txtServername.MultiLine = false;
+            txtServername.Location = new System.Drawing.Point(244, 222);
+            txtServername.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             txtServername.Name = "txtServername";
-            txtServername.PassFocusShow = false;
-            txtServername.Radius = 2;
-            txtServername.Size = new System.Drawing.Size(199, 21);
+            txtServername.Size = new System.Drawing.Size(248, 27);
             txtServername.TabIndex = 3;
-            txtServername.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
-            txtServername.UseSystemPasswordChar = false;
             // 
             // btnSave
             // 
-            btnSave.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            btnSave.Color = System.Drawing.Color.Transparent;
+            btnSave.AutoSize = true;
             btnSave.Enabled = false;
-            btnSave.Location = new System.Drawing.Point(322, 207);
+            btnSave.Location = new System.Drawing.Point(402, 259);
+            btnSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             btnSave.Name = "btnSave";
-            btnSave.Radius = 6;
-            btnSave.ShadowDepth = 4F;
-            btnSave.Size = new System.Drawing.Size(72, 21);
+            btnSave.Size = new System.Drawing.Size(90, 30);
             btnSave.TabIndex = 5;
             btnSave.Text = "Save";
             btnSave.UseVisualStyleBackColor = true;
@@ -228,14 +175,12 @@
             // 
             // btnAdd
             // 
-            btnAdd.Color = System.Drawing.Color.FromArgb(33, 150, 243);
-            btnAdd.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            btnAdd.ForeColor = System.Drawing.Color.White;
-            btnAdd.Location = new System.Drawing.Point(195, 207);
+            btnAdd.AutoSize = true;
+            btnAdd.Font = new System.Drawing.Font("Segoe UI", 9F);
+            btnAdd.Location = new System.Drawing.Point(244, 259);
+            btnAdd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             btnAdd.Name = "btnAdd";
-            btnAdd.Radius = 6;
-            btnAdd.ShadowDepth = 4F;
-            btnAdd.Size = new System.Drawing.Size(72, 21);
+            btnAdd.Size = new System.Drawing.Size(90, 30);
             btnAdd.TabIndex = 4;
             btnAdd.Text = "Add";
             btnAdd.UseVisualStyleBackColor = true;
@@ -244,12 +189,11 @@
             // linkLabelPwShowHide
             // 
             linkLabelPwShowHide.AutoSize = true;
-            linkLabelPwShowHide.BackColor = System.Drawing.Color.DimGray;
-            linkLabelPwShowHide.ForeColor = System.Drawing.Color.White;
-            linkLabelPwShowHide.LinkColor = System.Drawing.Color.White;
-            linkLabelPwShowHide.Location = new System.Drawing.Point(354, 80);
+            linkLabelPwShowHide.LinkColor = System.Drawing.SystemColors.ActiveCaptionText;
+            linkLabelPwShowHide.Location = new System.Drawing.Point(442, 100);
+            linkLabelPwShowHide.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             linkLabelPwShowHide.Name = "linkLabelPwShowHide";
-            linkLabelPwShowHide.Size = new System.Drawing.Size(36, 15);
+            linkLabelPwShowHide.Size = new System.Drawing.Size(45, 20);
             linkLabelPwShowHide.TabIndex = 9;
             linkLabelPwShowHide.TabStop = true;
             linkLabelPwShowHide.Text = "Show";
@@ -258,12 +202,11 @@
             // linkLabelSecondaryPassword
             // 
             linkLabelSecondaryPassword.AutoSize = true;
-            linkLabelSecondaryPassword.BackColor = System.Drawing.Color.DimGray;
-            linkLabelSecondaryPassword.ForeColor = System.Drawing.Color.White;
             linkLabelSecondaryPassword.LinkColor = System.Drawing.Color.White;
-            linkLabelSecondaryPassword.Location = new System.Drawing.Point(276, 129);
+            linkLabelSecondaryPassword.Location = new System.Drawing.Point(345, 161);
+            linkLabelSecondaryPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             linkLabelSecondaryPassword.Name = "linkLabelSecondaryPassword";
-            linkLabelSecondaryPassword.Size = new System.Drawing.Size(36, 15);
+            linkLabelSecondaryPassword.Size = new System.Drawing.Size(45, 20);
             linkLabelSecondaryPassword.TabIndex = 9;
             linkLabelSecondaryPassword.TabStop = true;
             linkLabelSecondaryPassword.Text = "Show";
@@ -271,29 +214,22 @@
             // 
             // label1
             // 
-            label1.ApplyGradient = false;
             label1.AutoSize = true;
-            label1.Gradient = new System.Drawing.Color[]
-    {
-    System.Drawing.Color.Gray,
-    System.Drawing.Color.Black
-    };
-            label1.GradientAnimation = false;
             label1.Location = new System.Drawing.Point(0, 0);
+            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(0, 15);
+            label1.Size = new System.Drawing.Size(0, 20);
             label1.TabIndex = 1;
             // 
             // btnOK
             // 
             btnOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            btnOK.Color = System.Drawing.Color.Transparent;
+            btnOK.AutoSize = true;
             btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            btnOK.Location = new System.Drawing.Point(12, 12);
+            btnOK.Location = new System.Drawing.Point(13, 13);
+            btnOK.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             btnOK.Name = "btnOK";
-            btnOK.Radius = 6;
-            btnOK.ShadowDepth = 4F;
-            btnOK.Size = new System.Drawing.Size(72, 21);
+            btnOK.Size = new System.Drawing.Size(76, 30);
             btnOK.TabIndex = 6;
             btnOK.Text = "OK";
             btnOK.UseVisualStyleBackColor = true;
@@ -302,39 +238,35 @@
             // btnCancel
             // 
             btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            btnCancel.Color = System.Drawing.Color.Transparent;
+            btnCancel.AutoSize = true;
+            btnCancel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            btnCancel.Location = new System.Drawing.Point(328, 12);
+            btnCancel.Location = new System.Drawing.Point(434, 13);
+            btnCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             btnCancel.Name = "btnCancel";
-            btnCancel.Radius = 6;
-            btnCancel.ShadowDepth = 4F;
-            btnCancel.Size = new System.Drawing.Size(72, 21);
+            btnCancel.Size = new System.Drawing.Size(63, 30);
             btnCancel.TabIndex = 7;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
-            panel1.BackColor = System.Drawing.Color.Transparent;
-            panel1.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
-            panel1.BorderColor = System.Drawing.Color.Transparent;
             panel1.Controls.Add(btnCancel);
             panel1.Controls.Add(btnOK);
             panel1.Controls.Add(label1);
             panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            panel1.Location = new System.Drawing.Point(0, 242);
+            panel1.Location = new System.Drawing.Point(0, 303);
+            panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             panel1.Name = "panel1";
-            panel1.Radius = 0;
-            panel1.ShadowDepth = 4F;
-            panel1.Size = new System.Drawing.Size(408, 45);
+            panel1.Size = new System.Drawing.Size(510, 56);
             panel1.TabIndex = 7;
             // 
             // AccountsWindow
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             BackColor = System.Drawing.Color.White;
-            ClientSize = new System.Drawing.Size(408, 283);
+            ClientSize = new System.Drawing.Size(510, 359);
             ControlBox = false;
             Controls.Add(listAccounts);
             Controls.Add(linkLabelSecondaryPassword);
@@ -352,9 +284,10 @@
             Controls.Add(buttonRemove);
             Controls.Add(comboBoxChannel);
             Controls.Add(textBoxSecondaryPassword);
-            Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            Font = new System.Drawing.Font("Segoe UI", 9F);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            MinimumSize = new System.Drawing.Size(410, 293);
+            Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            MinimumSize = new System.Drawing.Size(511, 365);
             Name = "AccountsWindow";
             ShowIcon = false;
             SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
@@ -368,24 +301,24 @@
 
         #endregion
 
-        private SDUI.Controls.TextBox textBoxSecondaryPassword;
-        private SDUI.Controls.ComboBox comboBoxChannel;
-        private SDUI.Controls.Button buttonRemove;
+        private System.Windows.Forms.TextBox textBoxSecondaryPassword;
+        private System.Windows.Forms.ComboBox comboBoxChannel;
+        private System.Windows.Forms.Button buttonRemove;
         private System.Windows.Forms.ListBox listAccounts;
-        private SDUI.Controls.Label label2;
-        private SDUI.Controls.TextBox txtUsername;
-        private SDUI.Controls.Label label3;
-        private SDUI.Controls.TextBox txtPassword;
-        private SDUI.Controls.Label label5;
-        private SDUI.Controls.Label label4;
-        private SDUI.Controls.TextBox txtServername;
-        private SDUI.Controls.Button btnSave;
-        private SDUI.Controls.Button btnAdd;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtUsername;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtPassword;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtServername;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.LinkLabel linkLabelPwShowHide;
         private System.Windows.Forms.LinkLabel linkLabelSecondaryPassword;
-        private SDUI.Controls.Label label1;
-        private SDUI.Controls.Button btnOK;
-        private SDUI.Controls.Button btnCancel;
-        private SDUI.Controls.Panel panel1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Panel panel1;
     }
 }

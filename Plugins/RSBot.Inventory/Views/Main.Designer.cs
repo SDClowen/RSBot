@@ -28,12 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            lblFreeSlots = new SDUI.Controls.Label();
-            listViewMain = new SDUI.Controls.ListView();
+            components = new System.ComponentModel.Container();
+            lblFreeSlots = new System.Windows.Forms.Label();
+            listViewMain = new System.Windows.Forms.ListView();
             colName = new System.Windows.Forms.ColumnHeader();
             colAmount = new System.Windows.Forms.ColumnHeader();
             colGenderRace = new System.Windows.Forms.ColumnHeader();
-            contextMenuStrip = new SDUI.Controls.ContextMenuStrip();
+            contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(components);
             useToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             dropToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             moveToPetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,21 +44,20 @@
             selectMapLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             useItemAtTrainingPlaceMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             autoUseAccordingToPurposeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            panel1 = new SDUI.Controls.Panel();
-            pbInventoryStatus = new SDUI.Controls.ShapeProgressBar();
-            checkAutoSort = new SDUI.Controls.CheckBox();
-            btnSort = new SDUI.Controls.Button();
-            buttonInventory = new SDUI.Controls.Button();
-            buttonEquipment = new SDUI.Controls.Button();
-            buttonAvatars = new SDUI.Controls.Button();
-            buttonGrabpet = new SDUI.Controls.Button();
-            topPanel = new SDUI.Controls.Panel();
-            buttonSpecialty = new SDUI.Controls.Button();
-            buttonGuildStorage = new SDUI.Controls.Button();
-            buttonFellowPet = new SDUI.Controls.Button();
-            buttonJobTransport = new SDUI.Controls.Button();
-            buttonStorage = new SDUI.Controls.Button();
-            buttonJobEquipment = new SDUI.Controls.Button();
+            panel1 = new System.Windows.Forms.Panel();
+            checkAutoSort = new System.Windows.Forms.CheckBox();
+            btnSort = new System.Windows.Forms.Button();
+            buttonInventory = new System.Windows.Forms.Button();
+            buttonEquipment = new System.Windows.Forms.Button();
+            buttonAvatars = new System.Windows.Forms.Button();
+            buttonGrabpet = new System.Windows.Forms.Button();
+            topPanel = new System.Windows.Forms.Panel();
+            buttonSpecialty = new System.Windows.Forms.Button();
+            buttonGuildStorage = new System.Windows.Forms.Button();
+            buttonFellowPet = new System.Windows.Forms.Button();
+            buttonJobTransport = new System.Windows.Forms.Button();
+            buttonStorage = new System.Windows.Forms.Button();
+            buttonJobEquipment = new System.Windows.Forms.Button();
             contextMenuStrip.SuspendLayout();
             panel1.SuspendLayout();
             topPanel.SuspendLayout();
@@ -66,33 +66,28 @@
             // lblFreeSlots
             // 
             lblFreeSlots.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            lblFreeSlots.ApplyGradient = false;
             lblFreeSlots.AutoSize = true;
-            lblFreeSlots.BackColor = System.Drawing.Color.Transparent;
-            lblFreeSlots.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            lblFreeSlots.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            lblFreeSlots.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
-            lblFreeSlots.GradientAnimation = false;
-            lblFreeSlots.Location = new System.Drawing.Point(47, 13);
+            lblFreeSlots.Font = new System.Drawing.Font("Segoe UI", 11.25F);
+            lblFreeSlots.Location = new System.Drawing.Point(11, 9);
+            lblFreeSlots.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblFreeSlots.Name = "lblFreeSlots";
-            lblFreeSlots.Size = new System.Drawing.Size(17, 20);
+            lblFreeSlots.Size = new System.Drawing.Size(22, 25);
             lblFreeSlots.TabIndex = 4;
             lblFreeSlots.Text = "0";
             // 
             // listViewMain
             // 
-            listViewMain.BackColor = System.Drawing.Color.White;
             listViewMain.BorderStyle = System.Windows.Forms.BorderStyle.None;
             listViewMain.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { colName, colAmount, colGenderRace });
             listViewMain.ContextMenuStrip = contextMenuStrip;
             listViewMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            listViewMain.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             listViewMain.FullRowSelect = true;
             listViewMain.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            listViewMain.Location = new System.Drawing.Point(0, 38);
+            listViewMain.Location = new System.Drawing.Point(0, 48);
+            listViewMain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             listViewMain.MultiSelect = false;
             listViewMain.Name = "listViewMain";
-            listViewMain.Size = new System.Drawing.Size(792, 375);
+            listViewMain.Size = new System.Drawing.Size(990, 476);
             listViewMain.TabIndex = 2;
             listViewMain.UseCompatibleStateImageBehavior = false;
             listViewMain.View = System.Windows.Forms.View.Details;
@@ -115,153 +110,120 @@
             // 
             // contextMenuStrip
             // 
+            contextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { useToolStripMenuItem, dropToolStripMenuItem, moveToPetToolStripMenuItem, moveToPlayerToolStripMenuItem, moveToLastDeathPositionToolStripMenuItem, moveToLastRecallPositionToolStripMenuItem, selectMapLocationToolStripMenuItem, useItemAtTrainingPlaceMenuItem, autoUseAccordingToPurposeToolStripMenuItem });
             contextMenuStrip.Name = "contextMenuStrip";
-            contextMenuStrip.Size = new System.Drawing.Size(238, 202);
+            contextMenuStrip.Size = new System.Drawing.Size(283, 220);
             contextMenuStrip.Opening += contextMenuStrip_Opening;
             // 
             // useToolStripMenuItem
             // 
-            useToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             useToolStripMenuItem.Name = "useToolStripMenuItem";
-            useToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            useToolStripMenuItem.Size = new System.Drawing.Size(282, 24);
             useToolStripMenuItem.Text = "Use";
             useToolStripMenuItem.Click += buttonUseItem_Click;
             // 
             // dropToolStripMenuItem
             // 
-            dropToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             dropToolStripMenuItem.Name = "dropToolStripMenuItem";
-            dropToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            dropToolStripMenuItem.Size = new System.Drawing.Size(282, 24);
             dropToolStripMenuItem.Text = "Drop";
             dropToolStripMenuItem.Click += dropToolStripMenuItem_Click;
             // 
             // moveToPetToolStripMenuItem
             // 
-            moveToPetToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             moveToPetToolStripMenuItem.Name = "moveToPetToolStripMenuItem";
-            moveToPetToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            moveToPetToolStripMenuItem.Size = new System.Drawing.Size(282, 24);
             moveToPetToolStripMenuItem.Text = "Move to active pet";
             moveToPetToolStripMenuItem.Click += moveToPetToolStripMenuItem_Click;
             // 
             // moveToPlayerToolStripMenuItem
             // 
-            moveToPlayerToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             moveToPlayerToolStripMenuItem.Name = "moveToPlayerToolStripMenuItem";
-            moveToPlayerToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            moveToPlayerToolStripMenuItem.Size = new System.Drawing.Size(282, 24);
             moveToPlayerToolStripMenuItem.Text = "Move to player";
             moveToPlayerToolStripMenuItem.Click += moveToPlayerToolStripMenuItem_Click;
             // 
             // moveToLastDeathPositionToolStripMenuItem
             // 
-            moveToLastDeathPositionToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             moveToLastDeathPositionToolStripMenuItem.Name = "moveToLastDeathPositionToolStripMenuItem";
-            moveToLastDeathPositionToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            moveToLastDeathPositionToolStripMenuItem.Size = new System.Drawing.Size(282, 24);
             moveToLastDeathPositionToolStripMenuItem.Text = "Move to last death position";
             moveToLastDeathPositionToolStripMenuItem.Click += moveToLastDeathPositionToolStripMenuItem_Click;
             // 
             // moveToLastRecallPositionToolStripMenuItem
             // 
-            moveToLastRecallPositionToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             moveToLastRecallPositionToolStripMenuItem.Name = "moveToLastRecallPositionToolStripMenuItem";
-            moveToLastRecallPositionToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            moveToLastRecallPositionToolStripMenuItem.Size = new System.Drawing.Size(282, 24);
             moveToLastRecallPositionToolStripMenuItem.Text = "Move to Last recall position";
             moveToLastRecallPositionToolStripMenuItem.Click += moveToLastRecallPositionToolStripMenuItem_Click;
             // 
             // selectMapLocationToolStripMenuItem
             // 
-            selectMapLocationToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             selectMapLocationToolStripMenuItem.Name = "selectMapLocationToolStripMenuItem";
-            selectMapLocationToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            selectMapLocationToolStripMenuItem.Size = new System.Drawing.Size(282, 24);
             selectMapLocationToolStripMenuItem.Text = "Select Map Location";
             // 
             // useItemAtTrainingPlaceMenuItem
             // 
-            useItemAtTrainingPlaceMenuItem.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             useItemAtTrainingPlaceMenuItem.Name = "useItemAtTrainingPlaceMenuItem";
-            useItemAtTrainingPlaceMenuItem.Size = new System.Drawing.Size(237, 22);
+            useItemAtTrainingPlaceMenuItem.Size = new System.Drawing.Size(282, 24);
             useItemAtTrainingPlaceMenuItem.Text = "Use item at training place";
             useItemAtTrainingPlaceMenuItem.Click += useItemAtTrainingPlaceMenuItem_Click;
             // 
             // autoUseAccordingToPurposeToolStripMenuItem
             // 
-            autoUseAccordingToPurposeToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             autoUseAccordingToPurposeToolStripMenuItem.Name = "autoUseAccordingToPurposeToolStripMenuItem";
-            autoUseAccordingToPurposeToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            autoUseAccordingToPurposeToolStripMenuItem.Size = new System.Drawing.Size(282, 24);
             autoUseAccordingToPurposeToolStripMenuItem.Text = "Auto use according to purpose";
             autoUseAccordingToPurposeToolStripMenuItem.Click += autoUseAccordingToPurposeToolStripMenuItem_Click;
             // 
             // panel1
             // 
-            panel1.BackColor = System.Drawing.Color.Transparent;
-            panel1.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
-            panel1.BorderColor = System.Drawing.Color.Transparent;
-            panel1.Controls.Add(pbInventoryStatus);
             panel1.Controls.Add(checkAutoSort);
             panel1.Controls.Add(btnSort);
             panel1.Controls.Add(lblFreeSlots);
             panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            panel1.Location = new System.Drawing.Point(0, 413);
+            panel1.Location = new System.Drawing.Point(0, 524);
+            panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             panel1.Name = "panel1";
-            panel1.Padding = new System.Windows.Forms.Padding(3);
-            panel1.Radius = 0;
-            panel1.ShadowDepth = 4F;
-            panel1.Size = new System.Drawing.Size(792, 45);
+            panel1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            panel1.Size = new System.Drawing.Size(990, 48);
             panel1.TabIndex = 6;
-            // 
-            // pbInventoryStatus
-            // 
-            pbInventoryStatus.BackColor = System.Drawing.Color.Transparent;
-            pbInventoryStatus.DrawHatch = false;
-            pbInventoryStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            pbInventoryStatus.Gradient = new System.Drawing.Color[] { System.Drawing.Color.FromArgb(224, 224, 224), System.Drawing.Color.Teal };
-            pbInventoryStatus.HatchType = System.Drawing.Drawing2D.HatchStyle.Horizontal;
-            pbInventoryStatus.Location = new System.Drawing.Point(9, 7);
-            pbInventoryStatus.Maximum = 100L;
-            pbInventoryStatus.Name = "pbInventoryStatus";
-            pbInventoryStatus.Size = new System.Drawing.Size(32, 32);
-            pbInventoryStatus.TabIndex = 7;
-            pbInventoryStatus.Value = 50L;
-            pbInventoryStatus.Weight = 4F;
             // 
             // checkAutoSort
             // 
-            checkAutoSort.BackColor = System.Drawing.Color.Transparent;
-            checkAutoSort.Depth = 0;
-            checkAutoSort.Location = new System.Drawing.Point(636, 7);
+            checkAutoSort.AutoSize = true;
+            checkAutoSort.Location = new System.Drawing.Point(792, 12);
             checkAutoSort.Margin = new System.Windows.Forms.Padding(0);
-            checkAutoSort.MouseLocation = new System.Drawing.Point(-1, -1);
             checkAutoSort.Name = "checkAutoSort";
-            checkAutoSort.Ripple = true;
-            checkAutoSort.Size = new System.Drawing.Size(72, 15);
+            checkAutoSort.Size = new System.Drawing.Size(92, 24);
             checkAutoSort.TabIndex = 6;
             checkAutoSort.Text = "Auto sort";
-            checkAutoSort.UseVisualStyleBackColor = false;
+            checkAutoSort.UseVisualStyleBackColor = true;
             checkAutoSort.CheckedChanged += checkAutoSort_CheckedChanged;
             // 
             // btnSort
             // 
-            btnSort.Color = System.Drawing.Color.FromArgb(56, 155, 90);
-            btnSort.ForeColor = System.Drawing.Color.White;
-            btnSort.Location = new System.Drawing.Point(714, 2);
+            btnSort.AutoSize = true;
+            btnSort.Location = new System.Drawing.Point(888, 8);
+            btnSort.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             btnSort.Name = "btnSort";
-            btnSort.Radius = 6;
-            btnSort.ShadowDepth = 4F;
-            btnSort.Size = new System.Drawing.Size(75, 23);
+            btnSort.Size = new System.Drawing.Size(94, 30);
             btnSort.TabIndex = 5;
             btnSort.Text = "Sort";
-            btnSort.UseVisualStyleBackColor = false;
+            btnSort.UseVisualStyleBackColor = true;
             btnSort.Click += btnSort_Click;
             // 
             // buttonInventory
             // 
-            buttonInventory.Color = System.Drawing.Color.Transparent;
-            buttonInventory.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            buttonInventory.Location = new System.Drawing.Point(9, 8);
+            buttonInventory.AutoSize = true;
+            buttonInventory.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            buttonInventory.Font = new System.Drawing.Font("Segoe UI", 9F);
+            buttonInventory.Location = new System.Drawing.Point(11, 10);
+            buttonInventory.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             buttonInventory.Name = "buttonInventory";
-            buttonInventory.Radius = 6;
-            buttonInventory.ShadowDepth = 4F;
-            buttonInventory.Size = new System.Drawing.Size(62, 22);
+            buttonInventory.Size = new System.Drawing.Size(80, 30);
             buttonInventory.TabIndex = 0;
             buttonInventory.Text = "Inventory";
             buttonInventory.UseVisualStyleBackColor = true;
@@ -269,13 +231,13 @@
             // 
             // buttonEquipment
             // 
-            buttonEquipment.Color = System.Drawing.Color.Transparent;
-            buttonEquipment.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            buttonEquipment.Location = new System.Drawing.Point(77, 8);
+            buttonEquipment.AutoSize = true;
+            buttonEquipment.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            buttonEquipment.Font = new System.Drawing.Font("Segoe UI", 9F);
+            buttonEquipment.Location = new System.Drawing.Point(99, 10);
+            buttonEquipment.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             buttonEquipment.Name = "buttonEquipment";
-            buttonEquipment.Radius = 6;
-            buttonEquipment.ShadowDepth = 4F;
-            buttonEquipment.Size = new System.Drawing.Size(69, 22);
+            buttonEquipment.Size = new System.Drawing.Size(91, 30);
             buttonEquipment.TabIndex = 1;
             buttonEquipment.Text = "Equipment";
             buttonEquipment.UseVisualStyleBackColor = true;
@@ -283,13 +245,13 @@
             // 
             // buttonAvatars
             // 
-            buttonAvatars.Color = System.Drawing.Color.Transparent;
-            buttonAvatars.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            buttonAvatars.Location = new System.Drawing.Point(245, 8);
+            buttonAvatars.AutoSize = true;
+            buttonAvatars.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            buttonAvatars.Font = new System.Drawing.Font("Segoe UI", 9F);
+            buttonAvatars.Location = new System.Drawing.Point(324, 10);
+            buttonAvatars.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             buttonAvatars.Name = "buttonAvatars";
-            buttonAvatars.Radius = 6;
-            buttonAvatars.ShadowDepth = 4F;
-            buttonAvatars.Size = new System.Drawing.Size(57, 22);
+            buttonAvatars.Size = new System.Drawing.Size(68, 30);
             buttonAvatars.TabIndex = 2;
             buttonAvatars.Text = "Avatars";
             buttonAvatars.UseVisualStyleBackColor = true;
@@ -297,13 +259,13 @@
             // 
             // buttonGrabpet
             // 
-            buttonGrabpet.Color = System.Drawing.Color.Transparent;
-            buttonGrabpet.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            buttonGrabpet.Location = new System.Drawing.Point(308, 8);
+            buttonGrabpet.AutoSize = true;
+            buttonGrabpet.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            buttonGrabpet.Font = new System.Drawing.Font("Segoe UI", 9F);
+            buttonGrabpet.Location = new System.Drawing.Point(400, 10);
+            buttonGrabpet.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             buttonGrabpet.Name = "buttonGrabpet";
-            buttonGrabpet.Radius = 6;
-            buttonGrabpet.ShadowDepth = 4F;
-            buttonGrabpet.Size = new System.Drawing.Size(59, 22);
+            buttonGrabpet.Size = new System.Drawing.Size(75, 30);
             buttonGrabpet.TabIndex = 3;
             buttonGrabpet.Text = "Grab Pet";
             buttonGrabpet.UseVisualStyleBackColor = true;
@@ -311,9 +273,6 @@
             // 
             // topPanel
             // 
-            topPanel.BackColor = System.Drawing.Color.Transparent;
-            topPanel.Border = new System.Windows.Forms.Padding(0, 0, 0, 1);
-            topPanel.BorderColor = System.Drawing.Color.Transparent;
             topPanel.Controls.Add(buttonSpecialty);
             topPanel.Controls.Add(buttonGuildStorage);
             topPanel.Controls.Add(buttonGrabpet);
@@ -326,22 +285,21 @@
             topPanel.Controls.Add(buttonAvatars);
             topPanel.Dock = System.Windows.Forms.DockStyle.Top;
             topPanel.Location = new System.Drawing.Point(0, 0);
+            topPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             topPanel.Name = "topPanel";
-            topPanel.Padding = new System.Windows.Forms.Padding(8);
-            topPanel.Radius = 0;
-            topPanel.ShadowDepth = 4F;
-            topPanel.Size = new System.Drawing.Size(792, 38);
+            topPanel.Padding = new System.Windows.Forms.Padding(10, 10, 10, 10);
+            topPanel.Size = new System.Drawing.Size(990, 48);
             topPanel.TabIndex = 8;
             // 
             // buttonSpecialty
             // 
-            buttonSpecialty.Color = System.Drawing.Color.Transparent;
-            buttonSpecialty.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            buttonSpecialty.Location = new System.Drawing.Point(553, 8);
+            buttonSpecialty.AutoSize = true;
+            buttonSpecialty.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            buttonSpecialty.Font = new System.Drawing.Font("Segoe UI", 9F);
+            buttonSpecialty.Location = new System.Drawing.Point(693, 10);
+            buttonSpecialty.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             buttonSpecialty.Name = "buttonSpecialty";
-            buttonSpecialty.Radius = 6;
-            buttonSpecialty.ShadowDepth = 4F;
-            buttonSpecialty.Size = new System.Drawing.Size(66, 22);
+            buttonSpecialty.Size = new System.Drawing.Size(79, 30);
             buttonSpecialty.TabIndex = 7;
             buttonSpecialty.Text = "Specialty";
             buttonSpecialty.UseVisualStyleBackColor = true;
@@ -349,13 +307,13 @@
             // 
             // buttonGuildStorage
             // 
-            buttonGuildStorage.Color = System.Drawing.Color.Transparent;
-            buttonGuildStorage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            buttonGuildStorage.Location = new System.Drawing.Point(684, 8);
+            buttonGuildStorage.AutoSize = true;
+            buttonGuildStorage.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            buttonGuildStorage.Font = new System.Drawing.Font("Segoe UI", 9F);
+            buttonGuildStorage.Location = new System.Drawing.Point(859, 10);
+            buttonGuildStorage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             buttonGuildStorage.Name = "buttonGuildStorage";
-            buttonGuildStorage.Radius = 6;
-            buttonGuildStorage.ShadowDepth = 4F;
-            buttonGuildStorage.Size = new System.Drawing.Size(81, 22);
+            buttonGuildStorage.Size = new System.Drawing.Size(110, 30);
             buttonGuildStorage.TabIndex = 5;
             buttonGuildStorage.Text = "Guild Storage";
             buttonGuildStorage.UseVisualStyleBackColor = true;
@@ -363,13 +321,13 @@
             // 
             // buttonFellowPet
             // 
-            buttonFellowPet.Color = System.Drawing.Color.Transparent;
-            buttonFellowPet.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            buttonFellowPet.Location = new System.Drawing.Point(373, 8);
+            buttonFellowPet.AutoSize = true;
+            buttonFellowPet.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            buttonFellowPet.Font = new System.Drawing.Font("Segoe UI", 9F);
+            buttonFellowPet.Location = new System.Drawing.Point(483, 10);
+            buttonFellowPet.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             buttonFellowPet.Name = "buttonFellowPet";
-            buttonFellowPet.Radius = 6;
-            buttonFellowPet.ShadowDepth = 4F;
-            buttonFellowPet.Size = new System.Drawing.Size(84, 22);
+            buttonFellowPet.Size = new System.Drawing.Size(86, 30);
             buttonFellowPet.TabIndex = 9;
             buttonFellowPet.Text = "Fellow Pet";
             buttonFellowPet.UseVisualStyleBackColor = true;
@@ -377,13 +335,13 @@
             // 
             // buttonJobTransport
             // 
-            buttonJobTransport.Color = System.Drawing.Color.Transparent;
-            buttonJobTransport.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            buttonJobTransport.Location = new System.Drawing.Point(463, 8);
+            buttonJobTransport.AutoSize = true;
+            buttonJobTransport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            buttonJobTransport.Font = new System.Drawing.Font("Segoe UI", 9F);
+            buttonJobTransport.Location = new System.Drawing.Point(577, 10);
+            buttonJobTransport.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             buttonJobTransport.Name = "buttonJobTransport";
-            buttonJobTransport.Radius = 6;
-            buttonJobTransport.ShadowDepth = 4F;
-            buttonJobTransport.Size = new System.Drawing.Size(84, 22);
+            buttonJobTransport.Size = new System.Drawing.Size(108, 30);
             buttonJobTransport.TabIndex = 6;
             buttonJobTransport.Text = "Job Transport";
             buttonJobTransport.UseVisualStyleBackColor = true;
@@ -391,13 +349,13 @@
             // 
             // buttonStorage
             // 
-            buttonStorage.Color = System.Drawing.Color.Transparent;
-            buttonStorage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            buttonStorage.Location = new System.Drawing.Point(625, 8);
+            buttonStorage.AutoSize = true;
+            buttonStorage.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            buttonStorage.Font = new System.Drawing.Font("Segoe UI", 9F);
+            buttonStorage.Location = new System.Drawing.Point(780, 10);
+            buttonStorage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             buttonStorage.Name = "buttonStorage";
-            buttonStorage.Radius = 6;
-            buttonStorage.ShadowDepth = 4F;
-            buttonStorage.Size = new System.Drawing.Size(53, 22);
+            buttonStorage.Size = new System.Drawing.Size(71, 30);
             buttonStorage.TabIndex = 4;
             buttonStorage.Text = "Storage";
             buttonStorage.UseVisualStyleBackColor = true;
@@ -405,13 +363,13 @@
             // 
             // buttonJobEquipment
             // 
-            buttonJobEquipment.Color = System.Drawing.Color.Transparent;
-            buttonJobEquipment.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            buttonJobEquipment.Location = new System.Drawing.Point(152, 8);
+            buttonJobEquipment.AutoSize = true;
+            buttonJobEquipment.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            buttonJobEquipment.Font = new System.Drawing.Font("Segoe UI", 9F);
+            buttonJobEquipment.Location = new System.Drawing.Point(198, 10);
+            buttonJobEquipment.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             buttonJobEquipment.Name = "buttonJobEquipment";
-            buttonJobEquipment.Radius = 6;
-            buttonJobEquipment.ShadowDepth = 4F;
-            buttonJobEquipment.Size = new System.Drawing.Size(87, 22);
+            buttonJobEquipment.Size = new System.Drawing.Size(118, 30);
             buttonJobEquipment.TabIndex = 8;
             buttonJobEquipment.Text = "Job Equipment";
             buttonJobEquipment.UseVisualStyleBackColor = true;
@@ -419,42 +377,44 @@
             // 
             // Main
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             Controls.Add(listViewMain);
             Controls.Add(topPanel);
             Controls.Add(panel1);
-            Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            Font = new System.Drawing.Font("Segoe UI", 9F);
+            Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             Name = "Main";
-            Size = new System.Drawing.Size(792, 458);
+            Size = new System.Drawing.Size(990, 572);
             Load += Main_Load;
             VisibleChanged += Main_VisibleChanged;
             contextMenuStrip.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             topPanel.ResumeLayout(false);
+            topPanel.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
-        private SDUI.Controls.ListView listViewMain;
+        private System.Windows.Forms.ListView listViewMain;
         private System.Windows.Forms.ColumnHeader colName;
         private System.Windows.Forms.ColumnHeader colAmount;
-        private SDUI.Controls.Label label2;
-        private SDUI.Controls.Label lblFreeSlots;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblFreeSlots;
         private System.Windows.Forms.ColumnHeader colGenderRace;
-        private SDUI.Controls.Panel panel1;
-        private SDUI.Controls.Button buttonInventory;
-        private SDUI.Controls.Button buttonEquipment;
-        private SDUI.Controls.Button buttonAvatars;
-        private SDUI.Controls.Button buttonGrabpet;
-        private SDUI.Controls.Panel topPanel;
-        private SDUI.Controls.Button buttonSpecialty;
-        private SDUI.Controls.Button buttonGuildStorage;
-        private SDUI.Controls.Button buttonJobTransport;
-        private SDUI.Controls.Button buttonStorage;
-        private SDUI.Controls.Button buttonJobEquipment;
-        private SDUI.Controls.ContextMenuStrip contextMenuStrip;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button buttonInventory;
+        private System.Windows.Forms.Button buttonEquipment;
+        private System.Windows.Forms.Button buttonAvatars;
+        private System.Windows.Forms.Button buttonGrabpet;
+        private System.Windows.Forms.Panel topPanel;
+        private System.Windows.Forms.Button buttonSpecialty;
+        private System.Windows.Forms.Button buttonGuildStorage;
+        private System.Windows.Forms.Button buttonJobTransport;
+        private System.Windows.Forms.Button buttonStorage;
+        private System.Windows.Forms.Button buttonJobEquipment;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem useToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dropToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem moveToLastDeathPositionToolStripMenuItem;
@@ -462,11 +422,10 @@
         private System.Windows.Forms.ToolStripMenuItem selectMapLocationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem moveToPetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem moveToPlayerToolStripMenuItem;
-        private SDUI.Controls.Button buttonFellowPet;
-        private SDUI.Controls.Button btnSort;
-        private SDUI.Controls.CheckBox checkAutoSort;
+        private System.Windows.Forms.Button buttonFellowPet;
+        private System.Windows.Forms.Button btnSort;
+        private System.Windows.Forms.CheckBox checkAutoSort;
         private System.Windows.Forms.ToolStripMenuItem useItemAtTrainingPlaceMenuItem;
         private System.Windows.Forms.ToolStripMenuItem autoUseAccordingToPurposeToolStripMenuItem;
-        private SDUI.Controls.ShapeProgressBar pbInventoryStatus;
     }
 }

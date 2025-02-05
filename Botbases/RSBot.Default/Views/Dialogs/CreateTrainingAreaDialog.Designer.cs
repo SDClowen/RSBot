@@ -28,19 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.separator1 = new SDUI.Controls.Separator();
-            this.buttonCancel = new SDUI.Controls.Button();
-            this.buttonAccept = new SDUI.Controls.Button();
-            this.TrainingName = new SDUI.Controls.TextBox();
-            this.Radius = new SDUI.Controls.NumUpDown();
-            this.labelArea = new SDUI.Controls.Label();
-            this.labelPos = new SDUI.Controls.Label();
-            this.label2 = new SDUI.Controls.Label();
-            this.label1 = new SDUI.Controls.Label();
-            this.label3 = new SDUI.Controls.Label();
-            this.bottomPanel = new SDUI.Controls.Panel();
+            this.separator1 = new System.Windows.Forms.Panel();
+            this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonAccept = new System.Windows.Forms.Button();
+            this.TrainingName = new System.Windows.Forms.TextBox();
+            
+            this.labelArea = new System.Windows.Forms.Label();
+            this.labelPos = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.bottomPanel = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.Radius = new System.Windows.Forms.NumericUpDown();
             this.bottomPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -48,7 +49,6 @@
             // 
             // separator1
             // 
-            this.separator1.IsVertical = false;
             this.separator1.Location = new System.Drawing.Point(66, 108);
             this.separator1.Name = "separator1";
             this.separator1.Size = new System.Drawing.Size(120, 10);
@@ -57,12 +57,10 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Color = System.Drawing.Color.Transparent;
+
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Location = new System.Drawing.Point(165, 6);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Radius = 6;
-            this.buttonCancel.ShadowDepth = 4F;
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 3;
             this.buttonCancel.Text = "Cancel";
@@ -70,13 +68,11 @@
             // 
             // buttonAccept
             // 
-            this.buttonAccept.Color = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+
             this.buttonAccept.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonAccept.ForeColor = System.Drawing.Color.White;
+
             this.buttonAccept.Location = new System.Drawing.Point(5, 6);
             this.buttonAccept.Name = "buttonAccept";
-            this.buttonAccept.Radius = 6;
-            this.buttonAccept.ShadowDepth = 4F;
             this.buttonAccept.Size = new System.Drawing.Size(75, 23);
             this.buttonAccept.TabIndex = 2;
             this.buttonAccept.Text = "Accept";
@@ -87,19 +83,18 @@
             // 
             this.TrainingName.Location = new System.Drawing.Point(8, 26);
             this.TrainingName.MaxLength = 32767;
-            this.TrainingName.MultiLine = false;
+            this.TrainingName.Multiline = false;
             this.TrainingName.Name = "TrainingName";
-            this.TrainingName.Radius = 2;
             this.TrainingName.Size = new System.Drawing.Size(234, 21);
             this.TrainingName.TabIndex = 0;
             this.TrainingName.Text = "My training area";
-            this.TrainingName.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+
             this.TrainingName.UseSystemPasswordChar = false;
             // 
             // Radius
             // 
-            this.Radius.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
-            this.Radius.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+
+
             this.Radius.Location = new System.Drawing.Point(8, 78);
             this.Radius.Minimum = new decimal(new int[] {
             5,
@@ -117,7 +112,7 @@
             // 
             // labelArea
             // 
-            this.labelArea.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+
             this.labelArea.Location = new System.Drawing.Point(8, 145);
             this.labelArea.Name = "labelArea";
             this.labelArea.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -128,7 +123,7 @@
             // 
             // labelPos
             // 
-            this.labelPos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+
             this.labelPos.Location = new System.Drawing.Point(8, 121);
             this.labelPos.Name = "labelPos";
             this.labelPos.Size = new System.Drawing.Size(234, 17);
@@ -139,7 +134,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+
             this.label2.Location = new System.Drawing.Point(6, 58);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(42, 15);
@@ -149,7 +144,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+
             this.label1.Location = new System.Drawing.Point(6, 6);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(39, 15);
@@ -160,7 +155,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+
             this.label3.Location = new System.Drawing.Point(55, 9);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(140, 20);
@@ -169,16 +164,14 @@
             // 
             // bottomPanel
             // 
-            this.bottomPanel.BackColor = System.Drawing.Color.Transparent;
-            this.bottomPanel.Border = new System.Windows.Forms.Padding(0, 0, 0, 1);
-            this.bottomPanel.BorderColor = System.Drawing.Color.Transparent;
+
+
+
             this.bottomPanel.Controls.Add(this.buttonAccept);
             this.bottomPanel.Controls.Add(this.buttonCancel);
             this.bottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.bottomPanel.Location = new System.Drawing.Point(1, 207);
             this.bottomPanel.Name = "bottomPanel";
-            this.bottomPanel.Radius = 0;
-            this.bottomPanel.ShadowDepth = 4F;
             this.bottomPanel.Size = new System.Drawing.Size(251, 35);
             this.bottomPanel.TabIndex = 6;
             // 
@@ -239,18 +232,18 @@
 
         #endregion
 
-        private SDUI.Controls.GroupBox groupBox;
-        private SDUI.Controls.Label label1;
-        private SDUI.Controls.Label label2;
-        private SDUI.Controls.Button buttonCancel;
-        private SDUI.Controls.Button buttonAccept;
-        public SDUI.Controls.TextBox TrainingName;
-        public SDUI.Controls.NumUpDown Radius;
-        private SDUI.Controls.Label labelPos;
-        private SDUI.Controls.Separator separator1;
-        private SDUI.Controls.Label labelArea;
-        private SDUI.Controls.Label label3;
-        private SDUI.Controls.Panel bottomPanel;
+        private System.Windows.Forms.GroupBox groupBox;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Button buttonAccept;
+        public System.Windows.Forms.TextBox TrainingName;
+        public System.Windows.Forms.NumericUpDown Radius;
+        private System.Windows.Forms.Label labelPos;
+        private System.Windows.Forms.Panel separator1;
+        private System.Windows.Forms.Label labelArea;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Panel bottomPanel;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
     }

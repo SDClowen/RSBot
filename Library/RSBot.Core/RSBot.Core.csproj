@@ -12,11 +12,18 @@
 	  <PackageReadmeFile></PackageReadmeFile>
 	  <RepositoryUrl>https://github.com/SDClowen/RSBot</RepositoryUrl>
 	  <PlatformTarget>x86</PlatformTarget>
+	  <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\RSBot.FileSystem\RSBot.FileSystem.csproj" />
     <ProjectReference Include="..\RSBot.NavMeshApi\RSBot.NavMeshApi.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="UI\InputDailog.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>

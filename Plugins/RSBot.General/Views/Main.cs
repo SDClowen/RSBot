@@ -14,12 +14,12 @@ using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.General.Components;
 using RSBot.General.Models;
-using SDUI.Controls;
+
 
 namespace RSBot.General.Views;
 
 [ToolboxItem(false)]
-internal partial class Main : DoubleBufferedControl
+internal partial class Main : UserControl
 {
     private bool _clientVisible;
 
@@ -125,7 +125,7 @@ internal partial class Main : DoubleBufferedControl
         if (File.Exists(GlobalConfig.Get<string>("RSBot.SilkroadDirectory") + "\\media.pk2"))
             return;
 
-        txtSilkroadPath.BackColor = Color.Red;
+        
     }
 
     /// <summary>

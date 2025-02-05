@@ -2,13 +2,13 @@
 using System.Windows.Forms;
 
 
-using ComboBox = SDUI.Controls.ComboBox;
-using GroupBox = SDUI.Controls.GroupBox;
-using Label = SDUI.Controls.Label;
-using ListView = SDUI.Controls.ListView;
-using TabControl = SDUI.Controls.TabControl;
-using Panel = SDUI.Controls.Panel;
-using RadioButton = SDUI.Controls.Radio;
+using ComboBox = System.Windows.Forms.ComboBox;
+using GroupBox = System.Windows.Forms.GroupBox;
+using Label = System.Windows.Forms.Label;
+using ListView = System.Windows.Forms.ListView;
+using TabControl = System.Windows.Forms.TabControl;
+using Panel = System.Windows.Forms.Panel;
+using RadioButton = System.Windows.Forms.RadioButton;
 
 namespace RSBot.Alchemy.Views
 {
@@ -72,7 +72,7 @@ namespace RSBot.Alchemy.Views
             // 
             // groupItem
             // 
-            groupItem.BackColor = Color.Transparent;
+            
             groupItem.Controls.Add(lblOptLevel);
             groupItem.Controls.Add(tabControlItemInfo);
             groupItem.Controls.Add(comboItem);
@@ -85,8 +85,8 @@ namespace RSBot.Alchemy.Views
             groupItem.Margin = new Padding(4, 3, 4, 3);
             groupItem.Name = "groupItem";
             groupItem.Padding = new Padding(4, 12, 4, 3);
-            groupItem.Radius = 10;
-            groupItem.ShadowDepth = 4;
+            
+            
             groupItem.Size = new Size(322, 331);
             groupItem.TabIndex = 0;
             groupItem.TabStop = false;
@@ -94,11 +94,11 @@ namespace RSBot.Alchemy.Views
             // 
             // lblOptLevel
             // 
-            lblOptLevel.ApplyGradient = false;
+            
             lblOptLevel.AutoSize = true;
             lblOptLevel.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
-            lblOptLevel.ForeColor = Color.FromArgb(0, 0, 0);
-            lblOptLevel.Gradient = (new Color[] { Color.Gray, Color.Black });
+            
+            
             lblOptLevel.Location = new Point(118, 102);
             lblOptLevel.Margin = new Padding(4, 0, 4, 0);
             lblOptLevel.Name = "lblOptLevel";
@@ -120,7 +120,7 @@ namespace RSBot.Alchemy.Views
             // 
             // tabMagicOptions
             // 
-            tabMagicOptions.BackColor = Color.White;
+            
             tabMagicOptions.Controls.Add(listMagicOptions);
             tabMagicOptions.Location = new Point(4, 28);
             tabMagicOptions.Margin = new Padding(4, 3, 4, 3);
@@ -143,7 +143,7 @@ namespace RSBot.Alchemy.Views
             // 
             // tabPageAttributes
             // 
-            tabPageAttributes.BackColor = Color.White;
+            
             tabPageAttributes.Controls.Add(listAttributes);
             tabPageAttributes.Location = new Point(4, 28);
             tabPageAttributes.Margin = new Padding(4, 3, 4, 3);
@@ -166,7 +166,7 @@ namespace RSBot.Alchemy.Views
             // 
             // comboItem
             // 
-            comboItem.DrawMode = DrawMode.OwnerDrawFixed;
+            comboItem.DrawMode = DrawMode.Normal;
             comboItem.DropDownHeight = 100;
             comboItem.DropDownStyle = ComboBoxStyle.DropDownList;
             comboItem.FormattingEnabled = true;
@@ -175,18 +175,18 @@ namespace RSBot.Alchemy.Views
             comboItem.Location = new Point(21, 47);
             comboItem.Margin = new Padding(4, 3, 4, 3);
             comboItem.Name = "comboItem";
-            comboItem.Radius = 5;
-            comboItem.ShadowDepth = 4F;
+            
+            
             comboItem.Size = new Size(255, 23);
             comboItem.TabIndex = 4;
             comboItem.SelectedIndexChanged += comboItem_SelectedIndexChanged;
             // 
             // lblOptLevelText
             // 
-            lblOptLevelText.ApplyGradient = false;
+            
             lblOptLevelText.AutoSize = true;
-            lblOptLevelText.ForeColor = Color.FromArgb(0, 0, 0);
-            lblOptLevelText.Gradient = (new Color[] { Color.Gray, Color.Black });
+            
+            
             lblOptLevelText.Location = new Point(18, 102);
             lblOptLevelText.Margin = new Padding(4, 0, 4, 0);
             lblOptLevelText.Name = "lblOptLevelText";
@@ -196,10 +196,10 @@ namespace RSBot.Alchemy.Views
             // 
             // lblItemSelection
             // 
-            lblItemSelection.ApplyGradient = false;
+            
             lblItemSelection.AutoSize = true;
-            lblItemSelection.ForeColor = Color.FromArgb(0, 0, 0);
-            lblItemSelection.Gradient = (new Color[] { Color.Gray, Color.Black });
+            
+            
             lblItemSelection.Location = new Point(18, 29);
             lblItemSelection.Margin = new Padding(4, 0, 4, 0);
             lblItemSelection.Name = "lblItemSelection";
@@ -209,11 +209,11 @@ namespace RSBot.Alchemy.Views
             // 
             // lblDegree
             // 
-            lblDegree.ApplyGradient = false;
+            
             lblDegree.AutoSize = true;
             lblDegree.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
-            lblDegree.ForeColor = Color.FromArgb(0, 0, 0);
-            lblDegree.Gradient = (new Color[] { Color.Gray, Color.Black });
+            
+            
             lblDegree.Location = new Point(118, 75);
             lblDegree.Margin = new Padding(4, 0, 4, 0);
             lblDegree.Name = "lblDegree";
@@ -223,10 +223,10 @@ namespace RSBot.Alchemy.Views
             // 
             // lblDegreeText
             // 
-            lblDegreeText.ApplyGradient = false;
+            
             lblDegreeText.AutoSize = true;
-            lblDegreeText.ForeColor = Color.FromArgb(0, 0, 0);
-            lblDegreeText.Gradient = (new Color[] { Color.Gray, Color.Black });
+            
+            
             lblDegreeText.Location = new Point(18, 75);
             lblDegreeText.Margin = new Padding(4, 0, 4, 0);
             lblDegreeText.Name = "lblDegreeText";
@@ -236,12 +236,12 @@ namespace RSBot.Alchemy.Views
             // 
             // linkRefreshItemList
             // 
-            linkRefreshItemList.ApplyGradient = false;
+            
             linkRefreshItemList.AutoSize = true;
             linkRefreshItemList.Cursor = Cursors.Hand;
             linkRefreshItemList.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            linkRefreshItemList.ForeColor = Color.FromArgb(0, 0, 0);
-            linkRefreshItemList.Gradient = (new Color[] { Color.Gray, Color.Black });
+            
+            
             linkRefreshItemList.Location = new Point(272, 39);
             linkRefreshItemList.Margin = new Padding(4, 0, 4, 0);
             linkRefreshItemList.Name = "linkRefreshItemList";
@@ -252,9 +252,9 @@ namespace RSBot.Alchemy.Views
             // 
             // lvLog
             // 
-            lvLog.BackColor = Color.White;
+            
             lvLog.Columns.AddRange(new ColumnHeader[] { colItem, colResult });
-            lvLog.ForeColor = Color.FromArgb(0, 0, 0);
+            
             lvLog.FullRowSelect = true;
             lvLog.Location = new Point(16, 351);
             lvLog.Margin = new Padding(4, 3, 4, 3);
@@ -276,38 +276,38 @@ namespace RSBot.Alchemy.Views
             // 
             // panelSettingsGroup
             // 
-            panelSettingsGroup.BackColor = Color.Transparent;
-            panelSettingsGroup.Border = new Padding(0, 0, 0, 0);
-            panelSettingsGroup.BorderColor = Color.Transparent;
+            
+            
+            
             panelSettingsGroup.Controls.Add(panelSettings);
             panelSettingsGroup.Controls.Add(panel2);
             panelSettingsGroup.Location = new Point(351, 14);
             panelSettingsGroup.Margin = new Padding(4, 3, 4, 3);
             panelSettingsGroup.Name = "panelSettingsGroup";
-            panelSettingsGroup.Radius = 1;
-            panelSettingsGroup.ShadowDepth = 4F;
+            
+            
             panelSettingsGroup.Size = new Size(424, 331);
             panelSettingsGroup.TabIndex = 7;
             // 
             // panelSettings
             // 
-            panelSettings.BackColor = Color.Transparent;
-            panelSettings.Border = new Padding(0, 0, 0, 0);
-            panelSettings.BorderColor = Color.Transparent;
+            
+            
+            
             panelSettings.Dock = DockStyle.Fill;
             panelSettings.Location = new Point(0, 38);
             panelSettings.Margin = new Padding(0);
             panelSettings.Name = "panelSettings";
-            panelSettings.Radius = 0;
-            panelSettings.ShadowDepth = 4F;
+            
+            
             panelSettings.Size = new Size(424, 293);
             panelSettings.TabIndex = 1;
             // 
             // panel2
             // 
-            panel2.BackColor = Color.Transparent;
-            panel2.Border = new Padding(0, 0, 0, 0);
-            panel2.BorderColor = Color.Transparent;
+            
+            
+            
             panel2.Controls.Add(radioAttributes);
             panel2.Controls.Add(radioMagicOptions);
             panel2.Controls.Add(radioEnhance);
@@ -315,8 +315,8 @@ namespace RSBot.Alchemy.Views
             panel2.Location = new Point(0, 0);
             panel2.Margin = new Padding(4, 3, 4, 3);
             panel2.Name = "panel2";
-            panel2.Radius = 1;
-            panel2.ShadowDepth = 4F;
+            
+            
             panel2.Size = new Size(424, 38);
             panel2.TabIndex = 0;
             // 
@@ -326,7 +326,7 @@ namespace RSBot.Alchemy.Views
             radioAttributes.Location = new Point(235, 8);
             radioAttributes.Margin = new Padding(0);
             radioAttributes.Name = "radioAttributes";
-            radioAttributes.Ripple = true;
+            
             radioAttributes.Size = new Size(57, 30);
             radioAttributes.TabIndex = 2;
             radioAttributes.Text = "Stats";
@@ -338,7 +338,7 @@ namespace RSBot.Alchemy.Views
             radioMagicOptions.Location = new Point(135, 8);
             radioMagicOptions.Margin = new Padding(0);
             radioMagicOptions.Name = "radioMagicOptions";
-            radioMagicOptions.Ripple = true;
+            
             radioMagicOptions.Size = new Size(59, 30);
             radioMagicOptions.TabIndex = 1;
             radioMagicOptions.Text = "Blues";
@@ -351,7 +351,7 @@ namespace RSBot.Alchemy.Views
             radioEnhance.Location = new Point(10, 8);
             radioEnhance.Margin = new Padding(0);
             radioEnhance.Name = "radioEnhance";
-            radioEnhance.Ripple = true;
+            
             radioEnhance.Size = new Size(96, 30);
             radioEnhance.TabIndex = 0;
             radioEnhance.TabStop = true;

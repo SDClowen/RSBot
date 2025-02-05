@@ -7,13 +7,13 @@ using RSBot.Core;
 using RSBot.Core.Event;
 using RSBot.Core.Objects.Skill;
 using RSBot.Protection.Components.Player;
-using SDUI.Controls;
-using CheckBox = SDUI.Controls.CheckBox;
+
+using CheckBox = System.Windows.Forms.CheckBox;
 
 namespace RSBot.Protection.Views;
 
 [ToolboxItem(false)]
-public partial class Main : DoubleBufferedControl
+public partial class Main : UserControl
 {
     public Main()
     {
@@ -45,7 +45,7 @@ public partial class Main : DoubleBufferedControl
         foreach (var checkbox in groupHPMP.Controls.OfType<CheckBox>())
             checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var num in groupHPMP.Controls.OfType<NumUpDown>())
+        foreach (var num in groupHPMP.Controls.OfType<System.Windows.Forms.NumericUpDown>())
             num.Value = PlayerConfig.Get(key + num.Name, num.Value);
 
         foreach (var checkbox in groupBadStatus.Controls.OfType<CheckBox>())
@@ -54,19 +54,19 @@ public partial class Main : DoubleBufferedControl
         foreach (var checkbox in groupPet.Controls.OfType<CheckBox>())
             checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var num in groupPet.Controls.OfType<NumUpDown>())
+        foreach (var num in groupPet.Controls.OfType<System.Windows.Forms.NumericUpDown>())
             num.Value = PlayerConfig.Get(key + num.Name, num.Value);
 
         foreach (var checkbox in groupBackTown.Controls.OfType<CheckBox>())
             checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var num in groupBackTown.Controls.OfType<NumUpDown>())
+        foreach (var num in groupBackTown.Controls.OfType<System.Windows.Forms.NumericUpDown>())
             num.Value = PlayerConfig.Get(key + num.Name, num.Value);
 
         foreach (var checkbox in groupStatPoints.Controls.OfType<CheckBox>())
             checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var num in groupStatPoints.Controls.OfType<NumUpDown>())
+        foreach (var num in groupStatPoints.Controls.OfType<System.Windows.Forms.NumericUpDown>())
             num.Value = PlayerConfig.Get(key + num.Name, num.Value);
     }
 
@@ -79,7 +79,7 @@ public partial class Main : DoubleBufferedControl
         foreach (var checkbox in groupHPMP.Controls.OfType<CheckBox>())
             PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var num in groupHPMP.Controls.OfType<NumUpDown>())
+        foreach (var num in groupHPMP.Controls.OfType<System.Windows.Forms.NumericUpDown>())
             PlayerConfig.Set(key + num.Name, num.Value);
 
         foreach (var checkbox in groupBadStatus.Controls.OfType<CheckBox>())
@@ -88,19 +88,19 @@ public partial class Main : DoubleBufferedControl
         foreach (var checkbox in groupPet.Controls.OfType<CheckBox>())
             PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var num in groupPet.Controls.OfType<NumUpDown>())
+        foreach (var num in groupPet.Controls.OfType<System.Windows.Forms.NumericUpDown>())
             PlayerConfig.Set(key + num.Name, num.Value);
 
         foreach (var checkbox in groupBackTown.Controls.OfType<CheckBox>())
             PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var num in groupBackTown.Controls.OfType<NumUpDown>())
+        foreach (var num in groupBackTown.Controls.OfType<System.Windows.Forms.NumericUpDown>())
             PlayerConfig.Set(key + num.Name, num.Value);
 
         foreach (var checkbox in groupStatPoints.Controls.OfType<CheckBox>())
             PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var num in groupStatPoints.Controls.OfType<NumUpDown>())
+        foreach (var num in groupStatPoints.Controls.OfType<System.Windows.Forms.NumericUpDown>())
             PlayerConfig.Set(key + num.Name, num.Value);
 
         SkillInfo skill = null;

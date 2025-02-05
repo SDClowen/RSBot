@@ -6,12 +6,12 @@ using RSBot.Core;
 using RSBot.Core.Event;
 using RSBot.Core.Objects.Quests;
 using SDUI;
-using SDUI.Controls;
+
 
 namespace RSBot.Quest.Views;
 
 [ToolboxItem(false)]
-public partial class Main : DoubleBufferedControl
+public partial class Main : UserControl
 {
     /// <summary>
     ///     Initializes a new instance of the <see cref="Main" /> class.
@@ -27,8 +27,8 @@ public partial class Main : DoubleBufferedControl
 
     private void ApplyTheme()
     {
-        treeQuests.BackColor = ColorScheme.BackColor;
-        treeQuests.ForeColor = ColorScheme.ForeColor;
+        
+        
     }
 
     private void SubscribeEvents()

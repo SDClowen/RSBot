@@ -1,25 +1,20 @@
-﻿using System;
+﻿using RSBot.Core;
+using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Event;
+using RSBot.Core.Network;
+using RSBot.Core.Objects;
+using RSBot.Core.Objects.Inventory;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using RSBot.Core;
-using RSBot.Core.Client.ReferenceObjects;
-using RSBot.Core.Event;
-using RSBot.Core.Extensions;
-using RSBot.Core.Network;
-using RSBot.Core.Objects;
-using RSBot.Core.Objects.Inventory;
-using SDUI;
-using SDUI.Controls;
-using Button = SDUI.Controls.Button;
-using ListViewExtensions = RSBot.Core.Extensions.ListViewExtensions;
 
 namespace RSBot.Inventory.Views;
 
 [ToolboxItem(false)]
-public partial class Main : DoubleBufferedControl
+public partial class Main : UserControl
 {
     /// <summary>
     ///     <inheritdoc />
@@ -41,10 +36,6 @@ public partial class Main : DoubleBufferedControl
         SubscribeEvents();
 
         listViewMain.SmallImageList = ListViewExtensions.StaticItemsImageList;
-
-        var backColor = ColorScheme.BorderColor.Determine().Alpha(85);
-        buttonInventory.ForeColor = backColor.Determine();
-        buttonInventory.Color = backColor;
     }
 
     /// <summary>
@@ -119,8 +110,6 @@ public partial class Main : DoubleBufferedControl
                         AddItem(item);
 
                     lblFreeSlots.Text = Game.Player.Inventory.FreeSlots + "/" + Game.Player.Inventory.Capacity;
-                    pbInventoryStatus.Value = Game.Player.Inventory.FreeSlots;
-                    pbInventoryStatus.Maximum = Game.Player.Inventory.Capacity;
                     break;
 
                 case 1:
@@ -131,8 +120,6 @@ public partial class Main : DoubleBufferedControl
 
                     lblFreeSlots.Text = items.Count + " / 13";
 
-                    pbInventoryStatus.Value = items.Count;
-                    pbInventoryStatus.Maximum = 13;
 
                     break;
 
@@ -143,8 +130,6 @@ public partial class Main : DoubleBufferedControl
 
                     lblFreeSlots.Text = "0";
 
-                    pbInventoryStatus.Value = Game.Player.Avatars.FreeSlots;
-                    pbInventoryStatus.Maximum = Game.Player.Avatars.Capacity;
 
                     break;
 
@@ -162,8 +147,6 @@ public partial class Main : DoubleBufferedControl
                     lblFreeSlots.Text = Game.Player.AbilityPet.Inventory.FreeSlots + "/" +
                                         Game.Player.AbilityPet.Inventory.Capacity;
 
-                    pbInventoryStatus.Value = Game.Player.AbilityPet.Inventory.FreeSlots;
-                    pbInventoryStatus.Maximum = Game.Player.AbilityPet.Inventory.Capacity;
 
                     break;
 
@@ -180,8 +163,6 @@ public partial class Main : DoubleBufferedControl
 
                     lblFreeSlots.Text = Game.Player.Storage.FreeSlots + "/" + Game.Player.Storage.Capacity;
 
-                    pbInventoryStatus.Value = Game.Player.Storage.FreeSlots;
-                    pbInventoryStatus.Maximum = Game.Player.Storage.Capacity;
 
                     break;
 
@@ -198,8 +179,6 @@ public partial class Main : DoubleBufferedControl
 
                     lblFreeSlots.Text = Game.Player.GuildStorage.FreeSlots + "/" + Game.Player.GuildStorage.Capacity;
 
-                    pbInventoryStatus.Value = Game.Player.GuildStorage.FreeSlots;
-                    pbInventoryStatus.Maximum = Game.Player.GuildStorage.Capacity;
 
                     break;
 
@@ -217,8 +196,6 @@ public partial class Main : DoubleBufferedControl
                     lblFreeSlots.Text = Game.Player.JobTransport.Inventory.FreeSlots + "/" +
                                         Game.Player.JobTransport.Inventory.Capacity;
 
-                    pbInventoryStatus.Value = Game.Player.JobTransport.Inventory.FreeSlots;
-                    pbInventoryStatus.Maximum = Game.Player.JobTransport.Inventory.Capacity;
 
                     break;
 
@@ -236,8 +213,6 @@ public partial class Main : DoubleBufferedControl
                     lblFreeSlots.Text = Game.Player.Job2SpecialtyBag.FreeSlots + "/" +
                                         Game.Player.Job2SpecialtyBag.Capacity;
 
-                    pbInventoryStatus.Value = Game.Player.Job2SpecialtyBag.FreeSlots;
-                    pbInventoryStatus.Maximum = Game.Player.Job2SpecialtyBag.Capacity;
 
                     break;
 
@@ -254,8 +229,6 @@ public partial class Main : DoubleBufferedControl
 
                     lblFreeSlots.Text = Game.Player.Job2.FreeSlots + "/" + Game.Player.Job2.Capacity;
 
-                    pbInventoryStatus.Value = Game.Player.Job2.FreeSlots;
-                    pbInventoryStatus.Maximum = Game.Player.Job2.Capacity;
 
                     break;
 
@@ -273,8 +246,6 @@ public partial class Main : DoubleBufferedControl
                     lblFreeSlots.Text = Game.Player.Fellow.Inventory.FreeSlots + "/" +
                                         Game.Player.Fellow.Inventory.Capacity;
 
-                    pbInventoryStatus.Value = Game.Player.Fellow.Inventory.FreeSlots;
-                    pbInventoryStatus.Maximum = Game.Player.Fellow.Inventory.Capacity;
 
                     break;
             }
@@ -378,15 +349,6 @@ public partial class Main : DoubleBufferedControl
         {
             if (control.TabIndex > 9)
                 continue;
-
-            control.Color = Color.Transparent;
-
-            if (control == button)
-            {
-                var backColor = ColorScheme.BorderColor.Determine().Alpha(85);
-                control.ForeColor = backColor.Determine();
-                control.Color = backColor;
-            }
 
             control.Invalidate();
         }

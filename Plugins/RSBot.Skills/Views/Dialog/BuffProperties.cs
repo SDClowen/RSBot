@@ -1,13 +1,14 @@
 ﻿using System.ComponentModel;
 using System.Drawing;
+using System.Windows.Forms;
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Skill;
-using SDUI.Controls;
+
 
 namespace RSBot.Skills.Views;
 
-public partial class BuffProperties : UIWindowBase
+public partial class BuffProperties : Form
 {
     public BuffProperties(SkillInfo skillInfo)
     {

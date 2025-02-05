@@ -1,11 +1,15 @@
-﻿using System.Drawing;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Skill;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
-namespace RSBot.Core.Extensions;
+namespace System.Windows.Forms;
 
 public static class ListViewExtensions
 {
@@ -41,6 +45,53 @@ public static class ListViewExtensions
     ///     The sync object
     /// </summary>
     private static object _lock { get; } = new();
+
+    /// <summary>
+    /// Append string to type in the text controls
+    /// </summary>
+    /// <param name="value">The TextBoxBase</param>
+    /// <param name="str">The string to type in the <seealso cref="TextBoxBase"/></param>
+    /// <param name="time">The time</param>
+    public static void Write(this TextBoxBase value, string str, bool time = true, bool writeToFile = false, string filePath = "")
+    {
+        var stringBuilder = new StringBuilder();
+        if (time)
+            stringBuilder.Append(DateTime.Now.ToString("[hh:mm:ss]\t"));
+
+        stringBuilder.Append(str);
+        stringBuilder.Append(Environment.NewLine);
+
+        value.RunInUIThread(() =>
+        {
+            value.AppendText(stringBuilder.ToString());
+            value.ScrollToCaret();
+        });
+
+        if (writeToFile)
+        {
+            lock (_lock)
+            {
+                if (!Directory.Exists(filePath))
+                    Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+
+                using (var stream = File.AppendText(filePath))
+                    stream.Write(stringBuilder.ToString());
+            }
+        }
+    }
+
+    /// <summary>
+    /// Run action a required thread on controls
+    /// </summary>
+    /// <param name="target">The target</param>
+    /// <param name="action">The action</param>
+    public static void RunInUIThread(this Control target, Action action)
+    {
+        if (target.InvokeRequired)
+            target.Invoke(action);
+        else
+            action();
+    }
 
     /// <summary>
     ///     Load the skill image into the ImageList of the <seealso cref="ListViewItem" />
@@ -141,5 +192,48 @@ public static class ListViewExtensions
             await item.LoadSkillImage();
 
         listView.EndUpdate();
+    }
+
+    /// <summary>
+    /// Move the selected items by <seealso cref="MoveDirection"/>
+    /// </summary>
+    /// <param name="sender">The ListView</param>
+    /// <param name="direction">The move direction</param>
+    public static void MoveSelectedItems(this ListView sender, MoveDirection direction)
+    {
+        var valid = sender.SelectedItems.Count > 0 &&
+                    ((direction == MoveDirection.Down && (sender.SelectedItems[sender.SelectedItems.Count - 1].Index < sender.Items.Count - 1))
+                    || (direction == MoveDirection.Up && (sender.SelectedItems[0].Index > 0)));
+
+        if (valid)
+        {
+            var firstIndex = sender.SelectedItems[0].Index;
+            var selectedItems = sender.SelectedItems.Cast<ListViewItem>().ToList();
+
+            sender.BeginUpdate();
+
+            foreach (ListViewItem item in sender.SelectedItems)
+                item.Remove();
+
+            if (direction == MoveDirection.Up)
+            {
+                var insertTo = firstIndex - 1;
+                foreach (var item in selectedItems)
+                {
+                    sender.Items.Insert(insertTo, item);
+                    insertTo++;
+                }
+            }
+            else
+            {
+                var insertTo = firstIndex + 1;
+                foreach (var item in selectedItems)
+                {
+                    sender.Items.Insert(insertTo, item);
+                    insertTo++;
+                }
+            }
+            sender.EndUpdate();
+        }
     }
 }

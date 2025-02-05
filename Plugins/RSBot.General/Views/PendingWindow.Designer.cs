@@ -30,116 +30,95 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PendingWindow));
-            labelServerName = new SDUI.Controls.Label();
-            labelNumberOfPeopleWaiting = new SDUI.Controls.Label();
-            label1 = new SDUI.Controls.Label();
-            labelPending = new SDUI.Controls.Label();
-            labelAvgWaitingTime = new SDUI.Controls.Label();
-            labelMyWaitingTime = new SDUI.Controls.Label();
-            label5 = new SDUI.Controls.Label();
-            buttonCancel = new SDUI.Controls.Button();
-            buttonHide = new SDUI.Controls.Button();
+            labelServerName = new System.Windows.Forms.Label();
+            labelNumberOfPeopleWaiting = new System.Windows.Forms.Label();
+            label1 = new System.Windows.Forms.Label();
+            labelPending = new System.Windows.Forms.Label();
+            labelAvgWaitingTime = new System.Windows.Forms.Label();
+            labelMyWaitingTime = new System.Windows.Forms.Label();
+            label5 = new System.Windows.Forms.Label();
+            buttonCancel = new System.Windows.Forms.Button();
+            buttonHide = new System.Windows.Forms.Button();
             notifyIcon = new System.Windows.Forms.NotifyIcon(components);
             SuspendLayout();
             // 
             // labelServerName
             // 
-            labelServerName.ApplyGradient = false;
             labelServerName.AutoSize = true;
-            labelServerName.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            labelServerName.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            labelServerName.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-            labelServerName.Location = new System.Drawing.Point(63, 10);
+            labelServerName.Font = new System.Drawing.Font("Segoe UI", 11.25F);
+            labelServerName.Location = new System.Drawing.Point(72, 13);
             labelServerName.Name = "labelServerName";
-            labelServerName.Size = new System.Drawing.Size(286, 20);
+            labelServerName.Size = new System.Drawing.Size(365, 25);
             labelServerName.TabIndex = 0;
             labelServerName.Text = "{SERVER} is pending for server connection";
             // 
             // labelNumberOfPeopleWaiting
             // 
-            labelNumberOfPeopleWaiting.ApplyGradient = false;
             labelNumberOfPeopleWaiting.AutoSize = true;
-            labelNumberOfPeopleWaiting.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            labelNumberOfPeopleWaiting.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            labelNumberOfPeopleWaiting.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-            labelNumberOfPeopleWaiting.Location = new System.Drawing.Point(79, 61);
+            labelNumberOfPeopleWaiting.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            labelNumberOfPeopleWaiting.Location = new System.Drawing.Point(90, 81);
             labelNumberOfPeopleWaiting.Name = "labelNumberOfPeopleWaiting";
-            labelNumberOfPeopleWaiting.Size = new System.Drawing.Size(165, 17);
+            labelNumberOfPeopleWaiting.Size = new System.Drawing.Size(214, 23);
             labelNumberOfPeopleWaiting.TabIndex = 0;
             labelNumberOfPeopleWaiting.Text = "Number of people waiting:";
             // 
             // label1
             // 
-            label1.ApplyGradient = false;
             label1.AutoSize = true;
-            label1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            label1.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label1.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-            label1.Location = new System.Drawing.Point(34, 112);
+            label1.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            label1.Location = new System.Drawing.Point(39, 149);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(137, 17);
+            label1.Size = new System.Drawing.Size(180, 23);
             label1.TabIndex = 0;
             label1.Text = "Average waiting time: ";
             // 
             // labelPending
             // 
-            labelPending.ApplyGradient = false;
             labelPending.AutoSize = true;
-            labelPending.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            labelPending.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-            labelPending.Location = new System.Drawing.Point(259, 61);
+            labelPending.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            labelPending.Location = new System.Drawing.Point(296, 81);
             labelPending.Name = "labelPending";
-            labelPending.Size = new System.Drawing.Size(0, 17);
+            labelPending.Size = new System.Drawing.Size(0, 23);
             labelPending.TabIndex = 0;
             // 
             // labelAvgWaitingTime
             // 
-            labelAvgWaitingTime.ApplyGradient = false;
             labelAvgWaitingTime.AutoSize = true;
-            labelAvgWaitingTime.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            labelAvgWaitingTime.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            labelAvgWaitingTime.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-            labelAvgWaitingTime.Location = new System.Drawing.Point(194, 112);
+            labelAvgWaitingTime.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            labelAvgWaitingTime.Location = new System.Drawing.Point(222, 149);
             labelAvgWaitingTime.Name = "labelAvgWaitingTime";
-            labelAvgWaitingTime.Size = new System.Drawing.Size(15, 17);
+            labelAvgWaitingTime.Size = new System.Drawing.Size(19, 23);
             labelAvgWaitingTime.TabIndex = 0;
             labelAvgWaitingTime.Text = "0";
             // 
             // labelMyWaitingTime
             // 
-            labelMyWaitingTime.ApplyGradient = false;
             labelMyWaitingTime.AutoSize = true;
-            labelMyWaitingTime.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            labelMyWaitingTime.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            labelMyWaitingTime.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-            labelMyWaitingTime.Location = new System.Drawing.Point(194, 147);
+            labelMyWaitingTime.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            labelMyWaitingTime.Location = new System.Drawing.Point(222, 196);
             labelMyWaitingTime.Name = "labelMyWaitingTime";
-            labelMyWaitingTime.Size = new System.Drawing.Size(15, 17);
+            labelMyWaitingTime.Size = new System.Drawing.Size(19, 23);
             labelMyWaitingTime.TabIndex = 0;
             labelMyWaitingTime.Text = "0";
             // 
             // label5
             // 
-            label5.ApplyGradient = false;
             label5.AutoSize = true;
-            label5.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            label5.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label5.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-            label5.Location = new System.Drawing.Point(64, 147);
+            label5.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            label5.Location = new System.Drawing.Point(73, 196);
             label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(103, 17);
+            label5.Size = new System.Drawing.Size(136, 23);
             label5.TabIndex = 0;
             label5.Text = "My waiting time:";
             // 
             // buttonCancel
             // 
-            buttonCancel.Color = System.Drawing.Color.Transparent;
-            buttonCancel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            buttonCancel.Location = new System.Drawing.Point(152, 207);
+            buttonCancel.AutoSize = true;
+            buttonCancel.Font = new System.Drawing.Font("Segoe UI", 11.25F);
+            buttonCancel.Location = new System.Drawing.Point(174, 276);
+            buttonCancel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             buttonCancel.Name = "buttonCancel";
-            buttonCancel.Radius = 6;
-            buttonCancel.ShadowDepth = 4F;
-            buttonCancel.Size = new System.Drawing.Size(191, 23);
+            buttonCancel.Size = new System.Drawing.Size(218, 35);
             buttonCancel.TabIndex = 1;
             buttonCancel.Text = "Cancel the waiting";
             buttonCancel.UseVisualStyleBackColor = true;
@@ -147,13 +126,12 @@
             // 
             // buttonHide
             // 
-            buttonHide.Color = System.Drawing.Color.Transparent;
-            buttonHide.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            buttonHide.Location = new System.Drawing.Point(70, 207);
+            buttonHide.AutoSize = true;
+            buttonHide.Font = new System.Drawing.Font("Segoe UI", 11.25F);
+            buttonHide.Location = new System.Drawing.Point(80, 276);
+            buttonHide.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             buttonHide.Name = "buttonHide";
-            buttonHide.Radius = 6;
-            buttonHide.ShadowDepth = 4F;
-            buttonHide.Size = new System.Drawing.Size(72, 23);
+            buttonHide.Size = new System.Drawing.Size(82, 35);
             buttonHide.TabIndex = 2;
             buttonHide.Text = "Hide";
             buttonHide.UseVisualStyleBackColor = true;
@@ -169,10 +147,10 @@
             // 
             // PendingWindow
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.White;
-            ClientSize = new System.Drawing.Size(401, 240);
+            ClientSize = new System.Drawing.Size(458, 320);
             Controls.Add(buttonHide);
             Controls.Add(buttonCancel);
             Controls.Add(label5);
@@ -182,12 +160,13 @@
             Controls.Add(labelPending);
             Controls.Add(labelNumberOfPeopleWaiting);
             Controls.Add(labelServerName);
-            Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            Font = new System.Drawing.Font("Segoe UI", 9F);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             MaximizeBox = false;
-            MaximumSize = new System.Drawing.Size(401, 240);
+            MaximumSize = new System.Drawing.Size(458, 320);
             MinimizeBox = false;
-            MinimumSize = new System.Drawing.Size(401, 240);
+            MinimumSize = new System.Drawing.Size(458, 320);
             Name = "PendingWindow";
             Opacity = 0.95D;
             Padding = new System.Windows.Forms.Padding(1);
@@ -200,15 +179,15 @@
 
         #endregion
 
-        private SDUI.Controls.Label labelServerName;
-        private SDUI.Controls.Label labelNumberOfPeopleWaiting;
-        private SDUI.Controls.Label label1;
-        private SDUI.Controls.Label labelPending;
-        private SDUI.Controls.Label labelAvgWaitingTime;
-        private SDUI.Controls.Label labelMyWaitingTime;
-        private SDUI.Controls.Label label5;
-        private SDUI.Controls.Button buttonCancel;
-        private SDUI.Controls.Button buttonHide;
+        private System.Windows.Forms.Label labelServerName;
+        private System.Windows.Forms.Label labelNumberOfPeopleWaiting;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelPending;
+        private System.Windows.Forms.Label labelAvgWaitingTime;
+        private System.Windows.Forms.Label labelMyWaitingTime;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Button buttonHide;
         private System.Windows.Forms.NotifyIcon notifyIcon;
     }
 }

@@ -30,14 +30,29 @@
         {
             SuspendLayout();
             // 
+            // labelLevel
+            // 
+            labelLevel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            // 
+            // lblPetName
+            // 
+            lblPetName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            // 
+            // progressHP
+            // 
+            progressHP.Location = new System.Drawing.Point(60, 56);
+            progressHP.Margin = new System.Windows.Forms.Padding(4);
+            progressHP.Size = new System.Drawing.Size(225, 20);
+            // 
             // Ability
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            MaximumSize = new System.Drawing.Size(242, 70);
-            MinimumSize = new System.Drawing.Size(242, 70);
+            Margin = new System.Windows.Forms.Padding(4);
+            MaximumSize = new System.Drawing.Size(302, 88);
+            MinimumSize = new System.Drawing.Size(302, 88);
             Name = "Ability";
-            Size = new System.Drawing.Size(242, 70);
+            Size = new System.Drawing.Size(302, 88);
             ResumeLayout(false);
             PerformLayout();
         }

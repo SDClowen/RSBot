@@ -5,11 +5,11 @@ using System.Windows.Forms;
 using RSBot.Core.Components;
 using RSBot.General.Components;
 using RSBot.General.Models;
-using SDUI.Controls;
+
 
 namespace RSBot.General.Views;
 
-public partial class AccountsWindow : UIWindowBase
+public partial class AccountsWindow : Form
 {
     /// <summary>
     ///     Initializes a new instance of the <see cref="AccountsWindow" /> class.

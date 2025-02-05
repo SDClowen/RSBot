@@ -7,13 +7,13 @@ using RSBot.Core;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.Default.Views.Dialogs;
-using SDUI.Controls;
-using CheckBox = SDUI.Controls.CheckBox;
+
+using CheckBox = System.Windows.Forms.CheckBox;
 
 namespace RSBot.Default.Views;
 
 [ToolboxItem(false)]
-public partial class Main : DoubleBufferedControl
+public partial class Main : UserControl
 {
     private const int ScriptRecorderOwnerId = 2000;
 
@@ -66,7 +66,7 @@ public partial class Main : DoubleBufferedControl
         foreach (var checkbox in groupBoxBerserk.Controls.OfType<CheckBox>())
             checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var num in groupBoxBerserk.Controls.OfType<NumUpDown>())
+        foreach (var num in groupBoxBerserk.Controls.OfType<System.Windows.Forms.NumericUpDown>())
             num.Value = PlayerConfig.Get(key + num.Name, num.Value);
 
         foreach (var checkbox in groupBoxWalkback.Controls.OfType<CheckBox>())
@@ -91,7 +91,7 @@ public partial class Main : DoubleBufferedControl
         foreach (var checkbox in groupBoxBerserk.Controls.OfType<CheckBox>())
             PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var num in groupBoxBerserk.Controls.OfType<NumUpDown>())
+        foreach (var num in groupBoxBerserk.Controls.OfType<System.Windows.Forms.NumericUpDown>())
             PlayerConfig.Set(key + num.Name, num.Value);
 
         foreach (var checkbox in groupBoxWalkback.Controls.OfType<CheckBox>())

@@ -1,24 +1,20 @@
+using RSBot.Core;
+using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Components;
+using RSBot.Core.Event;
+using RSBot.Core.Objects;
+using RSBot.Core.Objects.Skill;
+using RSBot.Skills.Components;
 using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using RSBot.Core;
-using RSBot.Core.Client.ReferenceObjects;
-using RSBot.Core.Components;
-using RSBot.Core.Event;
-using RSBot.Core.Extensions;
-using RSBot.Core.Objects;
-using RSBot.Core.Objects.Skill;
-using RSBot.Skills.Components;
-using SDUI.Controls;
-using CheckBox = SDUI.Controls.CheckBox;
-using ListViewExtensions = RSBot.Core.Extensions.ListViewExtensions;
 
 namespace RSBot.Skills.Views;
 
 [ToolboxItem(false)]
-public partial class Main : DoubleBufferedControl
+public partial class Main : UserControl
 {
     /// <summary>
     ///     Initializes a new instance of the <see cref="Main" /> class.
@@ -148,7 +144,7 @@ public partial class Main : DoubleBufferedControl
         foreach (var checkbox in grpMasteryUpdate.Controls.OfType<CheckBox>())
             checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var num in grpMasteryUpdate.Controls.OfType<NumUpDown>())
+        foreach (var num in grpMasteryUpdate.Controls.OfType<System.Windows.Forms.NumericUpDown>())
             num.Value = PlayerConfig.Get(key + num.Name, num.Value);
 
         foreach (var checkbox in groupAdvancedSetup.Controls.OfType<CheckBox>())
@@ -176,7 +172,7 @@ public partial class Main : DoubleBufferedControl
         foreach (var checkbox in grpMasteryUpdate.Controls.OfType<CheckBox>())
             PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
 
-        foreach (var num in grpMasteryUpdate.Controls.OfType<NumUpDown>())
+        foreach (var num in grpMasteryUpdate.Controls.OfType<System.Windows.Forms.NumericUpDown>())
             PlayerConfig.Set(key + num.Name, num.Value);
 
         foreach (var checkbox in groupAdvancedSetup.Controls.OfType<CheckBox>())

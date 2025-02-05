@@ -1,4 +1,9 @@
-﻿using System;
+﻿using RSBot.Core;
+using RSBot.Core.Components;
+using RSBot.Core.Event;
+using RSBot.Core.Objects.Party;
+using RSBot.Core.Objects.Skill;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -6,21 +11,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using RSBot.Core;
-using RSBot.Core.Components;
-using RSBot.Core.Event;
-using RSBot.Core.Extensions;
-using RSBot.Core.Objects.Party;
-using RSBot.Core.Objects.Skill;
-using SDUI;
-using SDUI.Controls;
-using Button = SDUI.Controls.Button;
-using ListViewExtensions = RSBot.Core.Extensions.ListViewExtensions;
 
 namespace RSBot.Party.Views;
 
 [ToolboxItem(false)]
-public partial class Main : DoubleBufferedControl
+public partial class Main : UserControl
 {
     /// <summary>
     ///     <inheritdoc />
@@ -249,7 +244,7 @@ public partial class Main : DoubleBufferedControl
                 {
                     listItem.Font = new Font(Font, FontStyle.Bold);
 
-                    listItem.BackColor = ControlPaint.Light(ColorScheme.BackColor, .15f);
+                    
                     listItem.Font = new Font(Font, FontStyle.Bold);
 
                     listViewItems.Insert(0, listItem);
@@ -394,9 +389,10 @@ public partial class Main : DoubleBufferedControl
             item.UseItemStyleForSubItems = false;
 
             if (limit == 0)
-                subItem.ForeColor = Color.DarkGreen;
+                item.BackColor = Color.LightGray;
             else
-                subItem.ForeColor = Color.DarkRed;
+                item.BackColor = count >= limit ? Color.LightCoral : Color.LightGreen;
+
 
             subItem.Font = new Font("Segoe UI", 9f, FontStyle.Bold);
 
@@ -1064,7 +1060,7 @@ public partial class Main : DoubleBufferedControl
         textBoxJoinByTitle.Text = PlayerConfig.Get("RSBot.Party.AutoJoin.Title", string.Empty);
         topPartyPanel.Height = 162;
 
-        buttonAutoJoinConfig.Color = ColorScheme.BackColor;
+        
     }
 
     private void buttonConfirmJoinConfig_Click(object sender, EventArgs e)
@@ -1080,7 +1076,7 @@ public partial class Main : DoubleBufferedControl
 
         Bundle.Container.Refresh();
 
-        buttonAutoJoinConfig.Color = Color.Transparent;
+        
         topPartyPanel.Height = 47;
     }
 

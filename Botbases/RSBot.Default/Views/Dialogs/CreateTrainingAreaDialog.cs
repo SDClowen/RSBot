@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Windows.Forms;
 using RSBot.Core;
-using SDUI.Controls;
+
 
 namespace RSBot.Default.Views.Dialogs;
 
-public partial class CreateTrainingAreaDialog : UIWindowBase
+public partial class CreateTrainingAreaDialog : Form
 {
     public CreateTrainingAreaDialog()
     {

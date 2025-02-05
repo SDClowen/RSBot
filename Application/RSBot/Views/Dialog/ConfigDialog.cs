@@ -3,11 +3,11 @@ using System.Text;
 using System.Windows.Forms;
 using RSBot.Core;
 using RSBot.Core.Components;
-using SDUI.Controls;
+
 
 namespace RSBot.Views;
 
-public partial class ConfigDialog : UIWindowBase
+public partial class ConfigDialog : Form
 {
     public ConfigDialog()
     {

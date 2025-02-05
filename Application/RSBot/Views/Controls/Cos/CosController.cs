@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 using RSBot.Core.Event;
-using SDUI.Controls;
+
 using CosAbility = RSBot.Core.Objects.Cos.Ability;
 using CosBase = RSBot.Core.Objects.Cos.Cos;
 using CosFellow = RSBot.Core.Objects.Cos.Fellow;
@@ -14,7 +14,7 @@ using CosTransport = RSBot.Core.Objects.Cos.Transport;
 namespace RSBot.Views.Controls.Cos;
 
 [ToolboxItem(true)]
-public partial class CosController : DoubleBufferedControl
+public partial class CosController : UserControl
 {
     private readonly Dictionary<string, CosControlBase> _cachedControls;
     private int _selectedIndex;

@@ -74,7 +74,7 @@ public struct Area
             return false;
 
         area.Position = new Position(regionId, xOffset, yOffset, zOffset);
-        area.Radius = Math.Clamp(radius, 5, 100);
+        
 
         return true;
     }

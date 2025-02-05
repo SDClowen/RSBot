@@ -11,7 +11,7 @@ using RSBot.Core;
 
 namespace RSBot.Views;
 
-public partial class Updater : Form
+public partial class Updater : System.Windows.Forms.Form
 {
     /// <summary>
     ///     Update address

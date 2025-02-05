@@ -33,7 +33,7 @@
             // 
             // propItem
             // 
-            this.propItem.BackColor = System.Drawing.SystemColors.Control;
+
             this.propItem.CategoryForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.propItem.CategorySplitterColor = System.Drawing.SystemColors.ControlDark;
             this.propItem.CommandsBackColor = System.Drawing.SystemColors.ControlDark;
@@ -57,7 +57,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.SystemColors.Control;
+            
             this.ClientSize = new System.Drawing.Size(772, 750);
             this.Controls.Add(this.propItem);
             this.Margin = new System.Windows.Forms.Padding(1);

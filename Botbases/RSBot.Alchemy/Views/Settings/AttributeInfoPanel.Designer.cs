@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.comboMaxValue = new SDUI.Controls.ComboBox();
-            this.lblItemAmount = new SDUI.Controls.Label();
-            this.separator1 = new SDUI.Controls.Separator();
-            this.checkSelected = new SDUI.Controls.CheckBox();
+            this.comboMaxValue = new System.Windows.Forms.ComboBox();
+            this.lblItemAmount = new System.Windows.Forms.Label();
+            this.separator1 = new System.Windows.Forms.Panel();
+            this.checkSelected = new System.Windows.Forms.CheckBox();
             this.tipStone = new System.Windows.Forms.ToolTip(this.components);
             this.lblFinished = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // comboMaxValue
             // 
-            this.comboMaxValue.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.comboMaxValue.DrawMode = System.Windows.Forms.DrawMode.Normal;
             this.comboMaxValue.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboMaxValue.FormattingEnabled = true;
             this.comboMaxValue.Items.AddRange(new object[] {
@@ -56,7 +56,7 @@
             // lblItemAmount
             // 
             this.lblItemAmount.AutoSize = true;
-            this.lblItemAmount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+
             this.lblItemAmount.Location = new System.Drawing.Point(324, 8);
             this.lblItemAmount.Name = "lblItemAmount";
             this.lblItemAmount.Size = new System.Drawing.Size(19, 15);
@@ -66,7 +66,6 @@
             // separator1
             // 
             this.separator1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.separator1.IsVertical = false;
             this.separator1.Location = new System.Drawing.Point(0, 32);
             this.separator1.Name = "separator1";
             this.separator1.Size = new System.Drawing.Size(438, 10);
@@ -76,7 +75,7 @@
             // checkSelected
             // 
             this.checkSelected.AutoSize = true;
-            this.checkSelected.BackColor = System.Drawing.Color.Transparent;
+
             this.checkSelected.Checked = false;
             this.checkSelected.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.checkSelected.Location = new System.Drawing.Point(18, 8);
@@ -93,9 +92,9 @@
             // lblFinished
             // 
             this.lblFinished.AutoSize = true;
-            this.lblFinished.BackColor = System.Drawing.Color.Transparent;
+
             this.lblFinished.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblFinished.ForeColor = System.Drawing.Color.Green;
+
             this.lblFinished.Location = new System.Drawing.Point(378, 4);
             this.lblFinished.Name = "lblFinished";
             this.lblFinished.Size = new System.Drawing.Size(27, 25);
@@ -119,10 +118,10 @@
         }
 
         #endregion
-        private SDUI.Controls.ComboBox comboMaxValue;
-        private SDUI.Controls.Label lblItemAmount;
-        private SDUI.Controls.Separator separator1;
-        private SDUI.Controls.CheckBox checkSelected;
+        private System.Windows.Forms.ComboBox comboMaxValue;
+        private System.Windows.Forms.Label lblItemAmount;
+        private System.Windows.Forms.Panel separator1;
+        private System.Windows.Forms.CheckBox checkSelected;
         private System.Windows.Forms.ToolTip tipStone;
         private System.Windows.Forms.Label lblFinished;
     }

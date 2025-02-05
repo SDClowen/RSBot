@@ -5,12 +5,12 @@ using System.Linq;
 using System.Windows.Forms;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
-using SDUI.Controls;
+
 
 namespace RSBot.Alchemy.Views.Settings;
 
 [ToolboxItem(false)]
-public partial class AttributeInfoPanel : DoubleBufferedControl
+public partial class AttributeInfoPanel : UserControl
 {
     public delegate void OnChangedEventHandler(bool @checked, int maxValue);
 

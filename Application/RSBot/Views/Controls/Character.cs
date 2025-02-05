@@ -3,11 +3,11 @@ using System.Windows.Forms;
 using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
-using SDUI.Controls;
+
 
 namespace RSBot.Views.Controls;
 
-public partial class Character : DoubleBufferedControl
+public partial class Character : UserControl
 {
     /// <summary>
     ///     Initializes a new instance of the <see cref="Character" /> class.
@@ -81,8 +81,8 @@ public partial class Character : DoubleBufferedControl
     /// <exception cref="System.NotImplementedException"></exception>
     private void OnExpUpdate()
     {
-        progressEXP.Value = Game.Player.Experience;
-        progressEXP.Maximum = Game.ReferenceManager.GetRefLevel(Game.Player.Level).Exp_C;
+        progressEXP.Maximum = 100;
+        progressEXP.Value = (byte)((Game.Player.Experience / Game.ReferenceManager.GetRefLevel(Game.Player.Level).Exp_C) * 100);
     }
 
     /// <summary>

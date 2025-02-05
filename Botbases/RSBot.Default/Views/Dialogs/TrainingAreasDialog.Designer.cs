@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.contextMenuStrip = new SDUI.Controls.ContextMenuStrip();
+            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
             this.createToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listView = new SDUI.Controls.ListView();
+            this.listView = new System.Windows.Forms.ListView();
             this.columnHeaderId = new System.Windows.Forms.ColumnHeader();
             this.columnHeaderName = new System.Windows.Forms.ColumnHeader();
             this.columnHeaderRegion = new System.Windows.Forms.ColumnHeader();
@@ -38,10 +38,10 @@
             this.columnHeaderY = new System.Windows.Forms.ColumnHeader();
             this.columnHeaderR = new System.Windows.Forms.ColumnHeader();
             this.columnHeaderS = new System.Windows.Forms.ColumnHeader();
-            this.panel1 = new SDUI.Controls.Panel();
-            this.labelPos = new SDUI.Controls.Label();
-            this.buttonCancel = new SDUI.Controls.Button();
-            this.buttonAccept = new SDUI.Controls.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.labelPos = new System.Windows.Forms.Label();
+            this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonAccept = new System.Windows.Forms.Button();
             this.removeSelectedAreaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -57,7 +57,7 @@
             // 
             // createToolStripMenuItem
             // 
-            this.createToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+
             this.createToolStripMenuItem.Name = "createToolStripMenuItem";
             this.createToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.createToolStripMenuItem.Text = "Create";
@@ -116,23 +116,21 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
-            this.panel1.BorderColor = System.Drawing.Color.Transparent;
+
+
+
             this.panel1.Controls.Add(this.labelPos);
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonAccept);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(1, 278);
             this.panel1.Name = "panel1";
-            this.panel1.Radius = 0;
-            this.panel1.ShadowDepth = 0F;
             this.panel1.Size = new System.Drawing.Size(613, 39);
             this.panel1.TabIndex = 2;
             // 
             // labelPos
             // 
-            this.labelPos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+
             this.labelPos.Location = new System.Drawing.Point(203, 1);
             this.labelPos.Name = "labelPos";
             this.labelPos.Size = new System.Drawing.Size(234, 36);
@@ -143,12 +141,10 @@
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Color = System.Drawing.Color.Transparent;
+
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Location = new System.Drawing.Point(526, 8);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Radius = 6;
-            this.buttonCancel.ShadowDepth = 4F;
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 0;
             this.buttonCancel.Text = "Cancel";
@@ -156,13 +152,11 @@
             // 
             // buttonAccept
             // 
-            this.buttonAccept.Color = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(155)))), ((int)(((byte)(90)))));
+
             this.buttonAccept.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonAccept.ForeColor = System.Drawing.Color.White;
+
             this.buttonAccept.Location = new System.Drawing.Point(12, 8);
             this.buttonAccept.Name = "buttonAccept";
-            this.buttonAccept.Radius = 6;
-            this.buttonAccept.ShadowDepth = 4F;
             this.buttonAccept.Size = new System.Drawing.Size(75, 23);
             this.buttonAccept.TabIndex = 0;
             this.buttonAccept.Text = "Accept";
@@ -171,7 +165,7 @@
             // 
             // removeSelectedAreaToolStripMenuItem
             // 
-            this.removeSelectedAreaToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+
             this.removeSelectedAreaToolStripMenuItem.Name = "removeSelectedAreaToolStripMenuItem";
             this.removeSelectedAreaToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.removeSelectedAreaToolStripMenuItem.Text = "Remove selected area";
@@ -205,20 +199,20 @@
         }
 
         #endregion
-        private SDUI.Controls.ContextMenuStrip contextMenuStrip;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem createToolStripMenuItem;
-        private SDUI.Controls.ListView listView;
+        private System.Windows.Forms.ListView listView;
         private System.Windows.Forms.ColumnHeader columnHeaderId;
         private System.Windows.Forms.ColumnHeader columnHeaderName;
         private System.Windows.Forms.ColumnHeader columnHeaderX;
         private System.Windows.Forms.ColumnHeader columnHeaderY;
         private System.Windows.Forms.ColumnHeader columnHeaderR;
         private System.Windows.Forms.ColumnHeader columnHeaderS;
-        private SDUI.Controls.Panel panel1;
-        private SDUI.Controls.Button buttonCancel;
-        private SDUI.Controls.Button buttonAccept;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Button buttonAccept;
         private System.Windows.Forms.ColumnHeader columnHeaderRegion;
-        private SDUI.Controls.Label labelPos;
+        private System.Windows.Forms.Label labelPos;
         private System.Windows.Forms.ToolStripMenuItem removeSelectedAreaToolStripMenuItem;
     }
 }

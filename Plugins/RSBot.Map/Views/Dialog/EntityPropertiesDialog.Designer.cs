@@ -33,7 +33,7 @@
             // 
             // propEntity
             // 
-            this.propEntity.BackColor = System.Drawing.SystemColors.Control;
+
             this.propEntity.CategoryForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.propEntity.CategorySplitterColor = System.Drawing.SystemColors.ControlDark;
             this.propEntity.CommandsBackColor = System.Drawing.SystemColors.ControlDark;

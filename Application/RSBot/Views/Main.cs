@@ -5,8 +5,6 @@ using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Plugins;
 using RSBot.Views.Dialog;
-using SDUI;
-using SDUI.Controls;
 using SDUI.Helpers;
 using System;
 using System.Collections.Generic;
@@ -18,18 +16,15 @@ using System.Windows.Forms;
 
 namespace RSBot.Views;
 
-public partial class Main : UIWindow
+public partial class Main : Form
 {
-    public static readonly Color LightThemeColor = Color.FromArgb(255, 255, 255);
-    public static readonly Color DarkThemeColor = Color.FromArgb(16, 16, 16);
-
     #region Members
 
     /// <summary>
     ///     Bot player name [_cached]
     /// </summary>
     private string _playerName;
-    private readonly Dictionary<string, UIWindow> _pluginWindows = new(8);
+    private readonly Dictionary<string, Form> _pluginWindows = new(8);
 
     #endregion Members
 
@@ -46,6 +41,8 @@ public partial class Main : UIWindow
         RegisterEvents();
 
         Text = "RSBot";
+        WindowsHelper.ApplyBorderColor(Handle, Color.FromArgb(0, 120, 215));
+        WindowsHelper.UseImmersiveDarkMode(Handle, true);
     }
 
     #endregion Constructor
@@ -73,17 +70,13 @@ public partial class Main : UIWindow
     /// <param name="e">The event args</param>
     private void SystemEvents_UserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
     {
-        if (BackColor.IsDark() == WindowsHelper.IsDark())
-            return;
+        //if (BackColor.IsDark() == WindowsHelper.IsDark())
+        //    return;
 
         var detectDarkLight = GlobalConfig.Get("RSBot.Theme.Auto", true);
         if (!detectDarkLight)
             return;
 
-        if (WindowsHelper.IsDark())
-            SetThemeColor(DarkThemeColor);
-        else
-            SetThemeColor(LightThemeColor);
     }
 
     /// <summary>
@@ -93,7 +86,7 @@ public partial class Main : UIWindow
     private void SetThemeColor(Color color)
     {
         GlobalConfig.Set("SDUI.Color", color.ToArgb());
-        ColorScheme.BackColor = color;
+        
         RefreshTheme();
     }
 
@@ -102,10 +95,6 @@ public partial class Main : UIWindow
     /// </summary>
     public void RefreshTheme(bool save = true)
     {
-        BackColor = ColorScheme.BackColor;
-        stripStatus.BackColor = BackColor.IsDark() ? ColorScheme.BorderColor : Color.FromArgb(33, 150, 243);
-        stripStatus.ForeColor = ColorScheme.ForeColor;
-
         if (save)
             GlobalConfig.Save();
     }
@@ -178,9 +167,12 @@ public partial class Main : UIWindow
         var control = newBotbase.Value.View;
         control.Name = newBotbase.Value.Name;
         control.Text = LanguageManager.GetLangBySpecificKey(newBotbase.Value.Name, "TabText", newBotbase.Value.TabText);
-        control.Enabled = Game.Ready;
-        windowPageControl.Controls.Add(control);
-        windowPageControl.Controls.SetChildIndex(control, 1);
+
+        var tabPage = new TabPage(newBotbase.Value.TabText);
+        tabPage.Enabled = Game.Ready;
+        tabPage.Name = control.Name;
+        tabPage.Controls.Add(control);
+        windowPageControl.TabPages.Insert(1, tabPage);
 
         Kernel.Bot?.SetBotbase(newBotbase.Value);
         GlobalConfig.Set("RSBot.BotName", newBotbase.Value.Name);
@@ -191,8 +183,8 @@ public partial class Main : UIWindow
         foreach (ToolStripMenuItem item in botsToolStripMenuItem.DropDown.Items)
             item.Checked = newBotbase.Value.Name == item.Name;
 
-        if (!string.IsNullOrWhiteSpace(oldBotbaseName) && windowPageControl.Controls.ContainsKey(oldBotbaseName))
-            windowPageControl.Controls.RemoveByKey(oldBotbaseName);
+        if (!string.IsNullOrWhiteSpace(oldBotbaseName) && windowPageControl.TabPages.ContainsKey(oldBotbaseName))
+            windowPageControl.TabPages.RemoveByKey(oldBotbaseName);
     }
 
     /// <summary>
@@ -215,10 +207,13 @@ public partial class Main : UIWindow
             control.Name = extension.Value.InternalName;
             control.Text = LanguageManager.GetLangBySpecificKey(extension.Value.InternalName, "DisplayName",
                 extension.Value.DisplayName);
-            control.Enabled = !extension.Value.RequireIngame;
             control.Dock = DockStyle.Fill;
 
-            windowPageControl.Controls.Add(control);
+            var tabPage = new TabPage(control.Text);
+            tabPage.Name = control.Name;
+            tabPage.Enabled = !extension.Value.RequireIngame;
+            tabPage.Controls.Add(control);
+            windowPageControl.TabPages.Add(tabPage);
         }
 
         foreach (var extension in extensions.Where(extension => !extension.Value.DisplayAsTab))
@@ -279,15 +274,14 @@ public partial class Main : UIWindow
 
         if (!_pluginWindows.TryGetValue(plugin.InternalName, out var pluginWindow) || pluginWindow.IsDisposed)
         {
-            pluginWindow = new UIWindow
+            pluginWindow = new Form
             {
                 Text = plugin.DisplayName,
                 Name = plugin.InternalName,
                 MaximizeBox = false,
                 FormBorderStyle = FormBorderStyle.FixedDialog,
                 Icon = Icon,
-                StartPosition = FormStartPosition.CenterParent,
-                ShowTitle = true
+                StartPosition = FormStartPosition.CenterParent
             };
 
             var content = plugin.View;
@@ -380,7 +374,7 @@ public partial class Main : UIWindow
         }
 
         ConfigureSidebar();
-        BackColor = ColorScheme.BackColor;
+
         menuCurrentProfile.Text = "Profile: " + ProfileManager.SelectedProfile;
 
         EventManager.FireEvent("OnInitialized");
@@ -407,7 +401,7 @@ public partial class Main : UIWindow
         {
             plugin.Value.Translate();
 
-            var tabpage = windowPageControl.Controls[plugin.Key];
+            var tabpage = windowPageControl.TabPages[plugin.Key];
             if (tabpage == null)
                 continue;
 
@@ -418,10 +412,10 @@ public partial class Main : UIWindow
         {
             botbase.Value.Translate();
 
-            if (!windowPageControl.Controls.ContainsKey(botbase.Key))
+            if (!windowPageControl.TabPages.ContainsKey(botbase.Key))
                 continue;
 
-            var tabpage = windowPageControl.Controls[botbase.Key];
+            var tabpage = windowPageControl.TabPages[botbase.Key];
             tabpage.Text = LanguageManager.GetLangBySpecificKey(botbase.Key, "DisplayName", tabpage.Text);
         }
 
@@ -591,7 +585,6 @@ public partial class Main : UIWindow
     private void darkToolStripMenuItem_Click(object sender, EventArgs e)
     {
         GlobalConfig.Set("RSBot.Theme.Auto", false);
-        SetThemeColor(DarkThemeColor);
     }
 
     /// <summary>
@@ -602,7 +595,6 @@ public partial class Main : UIWindow
     private void lightToolStripMenuItem_Click(object sender, EventArgs e)
     {
         GlobalConfig.Set("RSBot.Theme.Auto", false);
-        SetThemeColor(LightThemeColor);
     }
 
     /// <summary>
@@ -788,15 +780,6 @@ public partial class Main : UIWindow
     /// </summary>
     private void OnAgentServerDisconnected()
     {
-        foreach (Control control in windowPageControl.Controls)
-        {
-            if (!control.Controls.ContainsKey("overlay"))
-                continue;
-
-            control.Enabled = false;
-            control.Controls["overlay"].Show();
-        }
-
         var disconnectedText = LanguageManager.GetLang("Disconnected");
         if (!Text.EndsWith(disconnectedText))
         {
@@ -846,14 +829,10 @@ public partial class Main : UIWindow
     /// </summary>
     private void OnLoadCharacter()
     {
-        foreach (Control control in windowPageControl.Controls)
-        {
-            control.Enabled = true;
-
-            control.Controls["overlay"]?.Hide();
-        }
-
         foreach (ToolStripItem item in menuPlugins.DropDownItems)
+            item.Enabled = true;
+
+        foreach (TabPage item in windowPageControl.TabPages)
             item.Enabled = true;
 
         _playerName = Game.Player.Name;

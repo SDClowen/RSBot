@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            checkEnabled = new SDUI.Controls.CheckBox();
-            btnReset = new SDUI.Controls.Button();
-            panel1 = new SDUI.Controls.Panel();
-            checkNormal = new SDUI.Controls.CheckBox();
-            checkError = new SDUI.Controls.CheckBox();
-            checkWarning = new SDUI.Controls.CheckBox();
-            checkDebug = new SDUI.Controls.CheckBox();
+            checkEnabled = new System.Windows.Forms.CheckBox();
+            btnReset = new System.Windows.Forms.Button();
+            panel1 = new System.Windows.Forms.Panel();
+            checkNormal = new System.Windows.Forms.CheckBox();
+            checkError = new System.Windows.Forms.CheckBox();
+            checkWarning = new System.Windows.Forms.CheckBox();
+            checkDebug = new System.Windows.Forms.CheckBox();
             txtLog = new System.Windows.Forms.RichTextBox();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -44,13 +44,10 @@
             checkEnabled.AutoSize = true;
             checkEnabled.Checked = true;
             checkEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
-            checkEnabled.Depth = 0;
-            checkEnabled.Location = new System.Drawing.Point(14, 8);
+            checkEnabled.Location = new System.Drawing.Point(10, 12);
             checkEnabled.Margin = new System.Windows.Forms.Padding(0);
-            checkEnabled.MouseLocation = new System.Drawing.Point(-1, -1);
             checkEnabled.Name = "checkEnabled";
-            checkEnabled.Ripple = true;
-            checkEnabled.Size = new System.Drawing.Size(73, 30);
+            checkEnabled.Size = new System.Drawing.Size(85, 24);
             checkEnabled.TabIndex = 1;
             checkEnabled.Text = "Enabled";
             checkEnabled.UseVisualStyleBackColor = true;
@@ -59,12 +56,10 @@
             // btnReset
             // 
             btnReset.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnReset.Color = System.Drawing.Color.Transparent;
-            btnReset.Location = new System.Drawing.Point(624, 13);
+            btnReset.AutoSize = true;
+            btnReset.Location = new System.Drawing.Point(614, 8);
             btnReset.Name = "btnReset";
-            btnReset.Radius = 6;
-            btnReset.ShadowDepth = 4F;
-            btnReset.Size = new System.Drawing.Size(75, 23);
+            btnReset.Size = new System.Drawing.Size(92, 30);
             btnReset.TabIndex = 0;
             btnReset.Text = "Clear";
             btnReset.UseVisualStyleBackColor = true;
@@ -72,8 +67,6 @@
             // 
             // panel1
             // 
-            panel1.Border = new System.Windows.Forms.Padding(0, 0, 0, 1);
-            panel1.BorderColor = System.Drawing.Color.Transparent;
             panel1.Controls.Add(checkNormal);
             panel1.Controls.Add(checkError);
             panel1.Controls.Add(checkWarning);
@@ -83,8 +76,6 @@
             panel1.Dock = System.Windows.Forms.DockStyle.Top;
             panel1.Location = new System.Drawing.Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Radius = 0;
-            panel1.ShadowDepth = 0F;
             panel1.Size = new System.Drawing.Size(719, 46);
             panel1.TabIndex = 2;
             // 
@@ -93,13 +84,10 @@
             checkNormal.AutoSize = true;
             checkNormal.Checked = true;
             checkNormal.CheckState = System.Windows.Forms.CheckState.Checked;
-            checkNormal.Depth = 0;
-            checkNormal.Location = new System.Drawing.Point(100, 8);
+            checkNormal.Location = new System.Drawing.Point(96, 12);
             checkNormal.Margin = new System.Windows.Forms.Padding(0);
-            checkNormal.MouseLocation = new System.Drawing.Point(-1, -1);
             checkNormal.Name = "checkNormal";
-            checkNormal.Ripple = true;
-            checkNormal.Size = new System.Drawing.Size(70, 30);
+            checkNormal.Size = new System.Drawing.Size(81, 24);
             checkNormal.TabIndex = 6;
             checkNormal.Text = "Normal";
             checkNormal.UseVisualStyleBackColor = false;
@@ -109,13 +97,10 @@
             checkError.AutoSize = true;
             checkError.Checked = true;
             checkError.CheckState = System.Windows.Forms.CheckState.Checked;
-            checkError.Depth = 0;
-            checkError.Location = new System.Drawing.Point(332, 8);
+            checkError.Location = new System.Drawing.Point(339, 12);
             checkError.Margin = new System.Windows.Forms.Padding(0);
-            checkError.MouseLocation = new System.Drawing.Point(-1, -1);
             checkError.Name = "checkError";
-            checkError.Ripple = true;
-            checkError.Size = new System.Drawing.Size(56, 30);
+            checkError.Size = new System.Drawing.Size(63, 24);
             checkError.TabIndex = 3;
             checkError.Text = "Error";
             checkError.UseVisualStyleBackColor = false;
@@ -125,13 +110,10 @@
             checkWarning.AutoSize = true;
             checkWarning.Checked = true;
             checkWarning.CheckState = System.Windows.Forms.CheckState.Checked;
-            checkWarning.Depth = 0;
-            checkWarning.Location = new System.Drawing.Point(249, 8);
+            checkWarning.Location = new System.Drawing.Point(253, 12);
             checkWarning.Margin = new System.Windows.Forms.Padding(0);
-            checkWarning.MouseLocation = new System.Drawing.Point(-1, -1);
             checkWarning.Name = "checkWarning";
-            checkWarning.Ripple = true;
-            checkWarning.Size = new System.Drawing.Size(76, 30);
+            checkWarning.Size = new System.Drawing.Size(86, 24);
             checkWarning.TabIndex = 4;
             checkWarning.Text = "Warning";
             checkWarning.UseVisualStyleBackColor = false;
@@ -141,13 +123,10 @@
             checkDebug.AutoSize = true;
             checkDebug.Checked = true;
             checkDebug.CheckState = System.Windows.Forms.CheckState.Checked;
-            checkDebug.Depth = 0;
-            checkDebug.Location = new System.Drawing.Point(175, 8);
+            checkDebug.Location = new System.Drawing.Point(177, 12);
             checkDebug.Margin = new System.Windows.Forms.Padding(0);
-            checkDebug.MouseLocation = new System.Drawing.Point(-1, -1);
             checkDebug.Name = "checkDebug";
-            checkDebug.Ripple = true;
-            checkDebug.Size = new System.Drawing.Size(66, 30);
+            checkDebug.Size = new System.Drawing.Size(76, 24);
             checkDebug.TabIndex = 5;
             checkDebug.Text = "Debug";
             checkDebug.UseVisualStyleBackColor = false;
@@ -164,6 +143,8 @@
             // 
             // Main
             // 
+            AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             Controls.Add(txtLog);
             Controls.Add(panel1);
             Name = "Main";
@@ -174,13 +155,13 @@
         }
 
         #endregion
-        private SDUI.Controls.Button btnReset;
-        private SDUI.Controls.CheckBox checkEnabled;
-        private SDUI.Controls.Panel panel1;
-        private SDUI.Controls.CheckBox checkError;
-        private SDUI.Controls.CheckBox checkWarning;
-        private SDUI.Controls.CheckBox checkDebug;
-        private SDUI.Controls.CheckBox checkNormal;
+        private System.Windows.Forms.Button btnReset;
+        private System.Windows.Forms.CheckBox checkEnabled;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.CheckBox checkError;
+        private System.Windows.Forms.CheckBox checkWarning;
+        private System.Windows.Forms.CheckBox checkDebug;
+        private System.Windows.Forms.CheckBox checkNormal;
         private System.Windows.Forms.RichTextBox txtLog;
     }
 }

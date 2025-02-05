@@ -30,19 +30,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            lblTitle = new SDUI.Controls.Label();
-            pQuests = new SDUI.Controls.Panel();
-            separator1 = new SDUI.Controls.Separator();
+            lblTitle = new System.Windows.Forms.Label();
+            pQuests = new System.Windows.Forms.Panel();
+            separator1 = new System.Windows.Forms.Panel();
             SuspendLayout();
             // 
             // lblTitle
             // 
-            lblTitle.ApplyGradient = false;
+            
             lblTitle.Dock = System.Windows.Forms.DockStyle.Top;
             lblTitle.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            lblTitle.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            lblTitle.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
-            lblTitle.GradientAnimation = false;
+            
+            
+            
             lblTitle.Location = new System.Drawing.Point(0, 0);
             lblTitle.Name = "lblTitle";
             lblTitle.Size = new System.Drawing.Size(250, 30);
@@ -53,21 +53,20 @@
             // pQuests
             // 
             pQuests.AutoScroll = true;
-            pQuests.BackColor = System.Drawing.Color.Transparent;
-            pQuests.Border = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            pQuests.BorderColor = System.Drawing.Color.Transparent;
+            
+            
+            
             pQuests.Dock = System.Windows.Forms.DockStyle.Fill;
             pQuests.Location = new System.Drawing.Point(0, 36);
             pQuests.Name = "pQuests";
-            pQuests.Radius = 0;
-            pQuests.ShadowDepth = 0F;
+            
+            
             pQuests.Size = new System.Drawing.Size(250, 265);
             pQuests.TabIndex = 3;
             // 
             // separator1
             // 
             separator1.Dock = System.Windows.Forms.DockStyle.Top;
-            separator1.IsVertical = false;
             separator1.Location = new System.Drawing.Point(0, 30);
             separator1.Name = "separator1";
             separator1.Size = new System.Drawing.Size(250, 6);
@@ -88,8 +87,8 @@
         }
 
         #endregion
-        private SDUI.Controls.Label lblTitle;
-        private SDUI.Controls.Panel pQuests;
-        private SDUI.Controls.Separator separator1;
+        private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Panel pQuests;
+        private System.Windows.Forms.Panel separator1;
     }
 }

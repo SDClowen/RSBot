@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Windows.Forms;
 using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Item;
-using SDUI.Controls;
+
 
 namespace RSBot.Inventory.Views;
 
-public partial class ItemProperties : UIWindowBase
+public partial class ItemProperties : Form
 {
     #region Constructor
 

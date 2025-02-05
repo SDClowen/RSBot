@@ -29,20 +29,20 @@
         private void InitializeComponent()
         {
             this.rtbUpdateInfo = new System.Windows.Forms.RichTextBox();
-            this.lblInfo = new SDUI.Controls.Label();
-            this.cbChangeLog = new SDUI.Controls.CheckBox();
-            this.label2 = new SDUI.Controls.Label();
-            this.btnDownload = new SDUI.Controls.Button();
-            this.btnSkip = new SDUI.Controls.Button();
-            this.centerPanel = new SDUI.Controls.Panel();
-            this.downloadProgress = new SDUI.Controls.ProgressBar();
-            this.lblDownloadInfo = new SDUI.Controls.Label();
+            this.lblInfo = new System.Windows.Forms.Label();
+            this.cbChangeLog = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnDownload = new System.Windows.Forms.Button();
+            this.btnSkip = new System.Windows.Forms.Button();
+            this.centerPanel = new System.Windows.Forms.Panel();
+            this.downloadProgress = new System.Windows.Forms.ProgressBar();
+            this.lblDownloadInfo = new System.Windows.Forms.Label();
             this.centerPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // rtbUpdateInfo
             // 
-            this.rtbUpdateInfo.BackColor = System.Drawing.Color.White;
+
             this.rtbUpdateInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.rtbUpdateInfo.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.rtbUpdateInfo.Location = new System.Drawing.Point(0, 38);
@@ -143,7 +143,7 @@
             this.AcceptButton = this.btnDownload;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
+            
             this.CancelButton = this.btnSkip;
             this.ClientSize = new System.Drawing.Size(445, 72);
             this.ControlBox = false;
@@ -172,14 +172,14 @@
         #endregion
 
         private System.Windows.Forms.RichTextBox rtbUpdateInfo;
-        private SDUI.Controls.Label lblInfo;
-        private SDUI.Controls.CheckBox cbChangeLog;
-        private SDUI.Controls.Label label2;
-        private SDUI.Controls.Button btnDownload;
-        private SDUI.Controls.Button btnSkip;
-        private SDUI.Controls.Panel centerPanel;
-        private SDUI.Controls.ProgressBar downloadProgress;
-        private SDUI.Controls.Label lblDownloadInfo;
+        private System.Windows.Forms.Label lblInfo;
+        private System.Windows.Forms.CheckBox cbChangeLog;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnDownload;
+        private System.Windows.Forms.Button btnSkip;
+        private System.Windows.Forms.Panel centerPanel;
+        private System.Windows.Forms.ProgressBar downloadProgress;
+        private System.Windows.Forms.Label lblDownloadInfo;
     }
 }
 

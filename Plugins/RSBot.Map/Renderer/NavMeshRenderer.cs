@@ -4,7 +4,7 @@ using RSBot.NavMeshApi.Dungeon;
 using RSBot.NavMeshApi.Mathematics;
 using RSBot.NavMeshApi.Object;
 using RSBot.NavMeshApi.Terrain;
-using SDUI.Controls;
+
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -15,7 +15,7 @@ using System.Windows.Forms;
 
 namespace RSBot.Map.Renderer;
 
-public partial class NavMeshRenderer : DoubleBufferedControl
+public partial class NavMeshRenderer : UserControl
 {
     private bool _isDragging;
     private Point _dragPosition;
@@ -72,7 +72,6 @@ public partial class NavMeshRenderer : DoubleBufferedControl
 
     protected override void OnPaintBackground(PaintEventArgs e)
     {
-        e.Graphics.Clear(SDUI.ColorScheme.BackColor);
     }
 
     protected override void OnPaint(PaintEventArgs e)
@@ -131,7 +130,7 @@ public partial class NavMeshRenderer : DoubleBufferedControl
         matrix.Invert();
         g.MultiplyTransform(matrix);
 
-        var textBrush = new SolidBrush(SDUI.ColorScheme.ForeColor);
+        var textBrush = new SolidBrush(ForeColor);
 
         g.DrawString($"Player: {_transform}", DefaultFont, textBrush, 0, 0);
         g.DrawString($"Cursor: {_mouseTransform}", DefaultFont, textBrush, 0, 12);

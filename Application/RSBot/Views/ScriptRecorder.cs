@@ -11,11 +11,11 @@ using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
 using RSBot.Views.Dialog;
-using SDUI.Controls;
+
 
 namespace RSBot.Views;
 
-public partial class ScriptRecorder : UIWindow
+public partial class ScriptRecorder : Form
 {
     private readonly int _ownerId;
 
@@ -329,8 +329,7 @@ public partial class ScriptRecorder : UIWindow
     {
         btnStartStop.Text = LanguageManager.GetLang("Stop");
         labelStatus.Text = LanguageManager.GetLang("Recording");
-        btnStartStop.Color = Color.DarkRed;
-        TitleColor = btnStartStop.Color;
+        
         _recording = true;
 
         btnRun.Enabled = false;
@@ -340,9 +339,7 @@ public partial class ScriptRecorder : UIWindow
     {
         btnStartStop.Text = LanguageManager.GetLang("Start");
         labelStatus.Text = LanguageManager.GetLang("Idle");
-        btnStartStop.Color = Color.FromArgb(33, 150, 243);
-        TitleColor = btnStartStop.Color;
-
+        
         _recording = false;
         btnRun.Enabled = true;
     }
@@ -414,7 +411,6 @@ public partial class ScriptRecorder : UIWindow
             labelStatus.Text = LanguageManager.GetLang("Idle");
             btnRun.Text = "▶";
             txtScript.ReadOnly = false;
-            TitleColor = Color.Transparent;
 
             _running = false;
         }
@@ -429,7 +425,6 @@ public partial class ScriptRecorder : UIWindow
             labelStatus.Text = LanguageManager.GetLang("Running");
             btnRun.Text = "◘";
             txtScript.ReadOnly = true;
-            TitleColor = Color.DodgerBlue;
 
             _running = true;
         }

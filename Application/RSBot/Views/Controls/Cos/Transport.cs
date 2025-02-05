@@ -24,11 +24,11 @@ public partial class Transport : CosControlBase
     {
         base.Initialize();
 
-        progressHP.Value = Game.Player.Transport.Health;
         progressHP.Maximum = Game.Player.Transport.MaxHealth;
+        progressHP.Value = Game.Player.Transport.Health;
 
-        MiniCosControl.Hp.Value = Game.Player.Transport.Health;
         MiniCosControl.Hp.Maximum = Game.Player.Transport.MaxHealth;
+        MiniCosControl.Hp.Value = Game.Player.Transport.Health;
 
         var record = Game.Player.Transport.Record;
         if (record == null)
@@ -58,10 +58,10 @@ public partial class Transport : CosControlBase
         if (Game.Player.Transport == null)
             return;
 
-        progressHP.Value = Game.Player.Transport.Health;
         progressHP.Maximum = Game.Player.Transport.MaxHealth;
+        progressHP.Value = Game.Player.Transport.Health;
 
-        MiniCosControl.Hp.Value = Game.Player.Transport.Health;
         MiniCosControl.Hp.Maximum = Game.Player.Transport.MaxHealth;
+        MiniCosControl.Hp.Value = Game.Player.Transport.Health;
     }
 }

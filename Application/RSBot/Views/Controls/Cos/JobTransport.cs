@@ -20,11 +20,11 @@ public partial class JobTransport : CosControlBase
     {
         base.Initialize();
 
-        progressHP.Value = Game.Player.JobTransport.Health;
         progressHP.Maximum = Game.Player.JobTransport.MaxHealth;
+        progressHP.Value = Game.Player.JobTransport.Health;
 
-        MiniCosControl.Hp.Value = Game.Player.JobTransport.Health;
         MiniCosControl.Hp.Maximum = Game.Player.JobTransport.MaxHealth;
+        MiniCosControl.Hp.Value = Game.Player.JobTransport.Health;
 
         var record = Game.Player.JobTransport.Record;
         if (record == null)
@@ -54,10 +54,10 @@ public partial class JobTransport : CosControlBase
         if (Game.Player.JobTransport == null)
             return;
 
-        progressHP.Value = Game.Player.JobTransport.Health;
         progressHP.Maximum = Game.Player.JobTransport.MaxHealth;
+        progressHP.Value = Game.Player.JobTransport.Health;
 
-        MiniCosControl.Hp.Value = Game.Player.JobTransport.Health;
         MiniCosControl.Hp.Maximum = Game.Player.JobTransport.MaxHealth;
+        MiniCosControl.Hp.Value = Game.Player.JobTransport.Health;
     }
 }

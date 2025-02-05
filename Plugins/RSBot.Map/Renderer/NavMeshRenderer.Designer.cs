@@ -59,9 +59,10 @@ partial class NavMeshRenderer
         // 
         // contextRenderSettings
         // 
+        contextRenderSettings.ImageScalingSize = new Size(20, 20);
         contextRenderSettings.Items.AddRange(new ToolStripItem[] { displayToolStripMenuItem, raycastMenuItem });
         contextRenderSettings.Name = "contextMenuStrip1";
-        contextRenderSettings.Size = new Size(194, 74);
+        contextRenderSettings.Size = new Size(194, 52);
         // 
         // displayToolStripMenuItem
         // 
@@ -76,7 +77,7 @@ partial class NavMeshRenderer
         regionIDToolStripMenuItem.CheckOnClick = true;
         regionIDToolStripMenuItem.CheckState = CheckState.Checked;
         regionIDToolStripMenuItem.Name = "regionIDToolStripMenuItem";
-        regionIDToolStripMenuItem.Size = new Size(170, 24);
+        regionIDToolStripMenuItem.Size = new Size(184, 26);
         regionIDToolStripMenuItem.Text = "RegionID";
         regionIDToolStripMenuItem.CheckedChanged += regionIDToolStripMenuItem_CheckedChange;
         // 
@@ -86,7 +87,7 @@ partial class NavMeshRenderer
         regionBorderToolStripMenuItem.CheckOnClick = true;
         regionBorderToolStripMenuItem.CheckState = CheckState.Checked;
         regionBorderToolStripMenuItem.Name = "regionBorderToolStripMenuItem";
-        regionBorderToolStripMenuItem.Size = new Size(170, 24);
+        regionBorderToolStripMenuItem.Size = new Size(184, 26);
         regionBorderToolStripMenuItem.Text = "RegionBorder";
         regionBorderToolStripMenuItem.CheckedChanged += regionBorderToolStripMenuItem_CheckedChange;
         // 
@@ -94,21 +95,21 @@ partial class NavMeshRenderer
         // 
         terrainToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { terrainCellIDToolStripMenuItem, toolStripSeparator1, terrainGlobalEdgesToolStripMenuItem, terrainGlobalEdgeIDToolStripMenuItem, toolStripSeparator2, terrainInternalEdgesToolStripMenuItem, terrainInternalEdgeIDToolStripMenuItem });
         terrainToolStripMenuItem.Name = "terrainToolStripMenuItem";
-        terrainToolStripMenuItem.Size = new Size(170, 24);
+        terrainToolStripMenuItem.Size = new Size(184, 26);
         terrainToolStripMenuItem.Text = "Terrain";
         // 
         // terrainCellIDToolStripMenuItem
         // 
         terrainCellIDToolStripMenuItem.CheckOnClick = true;
         terrainCellIDToolStripMenuItem.Name = "terrainCellIDToolStripMenuItem";
-        terrainCellIDToolStripMenuItem.Size = new Size(177, 24);
+        terrainCellIDToolStripMenuItem.Size = new Size(191, 26);
         terrainCellIDToolStripMenuItem.Text = "&CellID";
         terrainCellIDToolStripMenuItem.Click += terrainCellIDToolStripMenuItem_Click;
         // 
         // toolStripSeparator1
         // 
         toolStripSeparator1.Name = "toolStripSeparator1";
-        toolStripSeparator1.Size = new Size(174, 6);
+        toolStripSeparator1.Size = new Size(188, 6);
         // 
         // terrainGlobalEdgesToolStripMenuItem
         // 
@@ -116,7 +117,7 @@ partial class NavMeshRenderer
         terrainGlobalEdgesToolStripMenuItem.CheckOnClick = true;
         terrainGlobalEdgesToolStripMenuItem.CheckState = CheckState.Checked;
         terrainGlobalEdgesToolStripMenuItem.Name = "terrainGlobalEdgesToolStripMenuItem";
-        terrainGlobalEdgesToolStripMenuItem.Size = new Size(177, 24);
+        terrainGlobalEdgesToolStripMenuItem.Size = new Size(191, 26);
         terrainGlobalEdgesToolStripMenuItem.Text = "&GlobalEdges";
         terrainGlobalEdgesToolStripMenuItem.CheckedChanged += globalEdgesToolStripMenuItem_CheckedChanged;
         // 
@@ -124,14 +125,14 @@ partial class NavMeshRenderer
         // 
         terrainGlobalEdgeIDToolStripMenuItem.CheckOnClick = true;
         terrainGlobalEdgeIDToolStripMenuItem.Name = "terrainGlobalEdgeIDToolStripMenuItem";
-        terrainGlobalEdgeIDToolStripMenuItem.Size = new Size(177, 24);
+        terrainGlobalEdgeIDToolStripMenuItem.Size = new Size(191, 26);
         terrainGlobalEdgeIDToolStripMenuItem.Text = "&GlobalEdgeID";
         terrainGlobalEdgeIDToolStripMenuItem.Click += terrainGlobalEdgeIDToolStripMenuItem_Click;
         // 
         // toolStripSeparator2
         // 
         toolStripSeparator2.Name = "toolStripSeparator2";
-        toolStripSeparator2.Size = new Size(174, 6);
+        toolStripSeparator2.Size = new Size(188, 6);
         // 
         // terrainInternalEdgesToolStripMenuItem
         // 
@@ -139,7 +140,7 @@ partial class NavMeshRenderer
         terrainInternalEdgesToolStripMenuItem.CheckOnClick = true;
         terrainInternalEdgesToolStripMenuItem.CheckState = CheckState.Checked;
         terrainInternalEdgesToolStripMenuItem.Name = "terrainInternalEdgesToolStripMenuItem";
-        terrainInternalEdgesToolStripMenuItem.Size = new Size(177, 24);
+        terrainInternalEdgesToolStripMenuItem.Size = new Size(191, 26);
         terrainInternalEdgesToolStripMenuItem.Text = "&InternalEdges";
         terrainInternalEdgesToolStripMenuItem.CheckedChanged += internalEdgesToolStripMenuItem_CheckedChanged;
         // 
@@ -147,7 +148,7 @@ partial class NavMeshRenderer
         // 
         terrainInternalEdgeIDToolStripMenuItem.CheckOnClick = true;
         terrainInternalEdgeIDToolStripMenuItem.Name = "terrainInternalEdgeIDToolStripMenuItem";
-        terrainInternalEdgeIDToolStripMenuItem.Size = new Size(177, 24);
+        terrainInternalEdgeIDToolStripMenuItem.Size = new Size(191, 26);
         terrainInternalEdgeIDToolStripMenuItem.Text = "&InternalEdgeID";
         terrainInternalEdgeIDToolStripMenuItem.Click += terrainInternalEdgeIDToolStripMenuItem_Click;
         // 
@@ -155,14 +156,14 @@ partial class NavMeshRenderer
         // 
         objectsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { objectCellIDToolStripMenuItem, objectGroundToolStripMenuItem, toolStripSeparator3, objectGlobalEdgesToolStripMenuItem1, objectGlobalEdgeIDToolStripMenuItem, toolStripSeparator4, objectInternalEdgesToolStripMenuItem1, objectInternalEdgeIDToolStripMenuItem });
         objectsToolStripMenuItem.Name = "objectsToolStripMenuItem";
-        objectsToolStripMenuItem.Size = new Size(170, 24);
+        objectsToolStripMenuItem.Size = new Size(184, 26);
         objectsToolStripMenuItem.Text = "Objects";
         // 
         // objectCellIDToolStripMenuItem
         // 
         objectCellIDToolStripMenuItem.CheckOnClick = true;
         objectCellIDToolStripMenuItem.Name = "objectCellIDToolStripMenuItem";
-        objectCellIDToolStripMenuItem.Size = new Size(177, 24);
+        objectCellIDToolStripMenuItem.Size = new Size(191, 26);
         objectCellIDToolStripMenuItem.Text = "&CellID";
         objectCellIDToolStripMenuItem.Click += objectCellIDToolStripMenuItem_Click;
         // 
@@ -172,14 +173,14 @@ partial class NavMeshRenderer
         objectGroundToolStripMenuItem.CheckOnClick = true;
         objectGroundToolStripMenuItem.CheckState = CheckState.Checked;
         objectGroundToolStripMenuItem.Name = "objectGroundToolStripMenuItem";
-        objectGroundToolStripMenuItem.Size = new Size(177, 24);
+        objectGroundToolStripMenuItem.Size = new Size(191, 26);
         objectGroundToolStripMenuItem.Text = "&Ground";
         objectGroundToolStripMenuItem.CheckedChanged += groundToolStripMenuItem_CheckedChanged;
         // 
         // toolStripSeparator3
         // 
         toolStripSeparator3.Name = "toolStripSeparator3";
-        toolStripSeparator3.Size = new Size(174, 6);
+        toolStripSeparator3.Size = new Size(188, 6);
         // 
         // objectGlobalEdgesToolStripMenuItem1
         // 
@@ -187,7 +188,7 @@ partial class NavMeshRenderer
         objectGlobalEdgesToolStripMenuItem1.CheckOnClick = true;
         objectGlobalEdgesToolStripMenuItem1.CheckState = CheckState.Checked;
         objectGlobalEdgesToolStripMenuItem1.Name = "objectGlobalEdgesToolStripMenuItem1";
-        objectGlobalEdgesToolStripMenuItem1.Size = new Size(177, 24);
+        objectGlobalEdgesToolStripMenuItem1.Size = new Size(191, 26);
         objectGlobalEdgesToolStripMenuItem1.Text = "&GlobalEdges";
         objectGlobalEdgesToolStripMenuItem1.CheckedChanged += globalEdgesToolStripMenuItem1_CheckedChanged;
         // 
@@ -195,14 +196,14 @@ partial class NavMeshRenderer
         // 
         objectGlobalEdgeIDToolStripMenuItem.CheckOnClick = true;
         objectGlobalEdgeIDToolStripMenuItem.Name = "objectGlobalEdgeIDToolStripMenuItem";
-        objectGlobalEdgeIDToolStripMenuItem.Size = new Size(177, 24);
+        objectGlobalEdgeIDToolStripMenuItem.Size = new Size(191, 26);
         objectGlobalEdgeIDToolStripMenuItem.Text = "&GlobalEdgeID";
         objectGlobalEdgeIDToolStripMenuItem.Click += objectGlobalEdgeIDToolStripMenuItem_Click;
         // 
         // toolStripSeparator4
         // 
         toolStripSeparator4.Name = "toolStripSeparator4";
-        toolStripSeparator4.Size = new Size(174, 6);
+        toolStripSeparator4.Size = new Size(188, 6);
         // 
         // objectInternalEdgesToolStripMenuItem1
         // 
@@ -210,7 +211,7 @@ partial class NavMeshRenderer
         objectInternalEdgesToolStripMenuItem1.CheckOnClick = true;
         objectInternalEdgesToolStripMenuItem1.CheckState = CheckState.Checked;
         objectInternalEdgesToolStripMenuItem1.Name = "objectInternalEdgesToolStripMenuItem1";
-        objectInternalEdgesToolStripMenuItem1.Size = new Size(177, 24);
+        objectInternalEdgesToolStripMenuItem1.Size = new Size(191, 26);
         objectInternalEdgesToolStripMenuItem1.Text = "&InternalEdges";
         objectInternalEdgesToolStripMenuItem1.CheckedChanged += internalEdgesToolStripMenuItem1_CheckedChanged;
         // 
@@ -218,7 +219,7 @@ partial class NavMeshRenderer
         // 
         objectInternalEdgeIDToolStripMenuItem.CheckOnClick = true;
         objectInternalEdgeIDToolStripMenuItem.Name = "objectInternalEdgeIDToolStripMenuItem";
-        objectInternalEdgeIDToolStripMenuItem.Size = new Size(177, 24);
+        objectInternalEdgeIDToolStripMenuItem.Size = new Size(191, 26);
         objectInternalEdgeIDToolStripMenuItem.Text = "&InternalEdgeID";
         objectInternalEdgeIDToolStripMenuItem.Click += objectInternalEdgeIDToolStripMenuItem_Click;
         // 
@@ -232,8 +233,8 @@ partial class NavMeshRenderer
         // 
         // NavMeshRenderer
         // 
-        AutoScaleDimensions = new SizeF(8F, 20F);
-        AutoScaleMode = AutoScaleMode.Font;
+        AutoScaleDimensions = new SizeF(120F, 120F);
+        AutoScaleMode = AutoScaleMode.Dpi;
         BackColor = Color.MidnightBlue;
         ContextMenuStrip = contextRenderSettings;
         DoubleBuffered = true;

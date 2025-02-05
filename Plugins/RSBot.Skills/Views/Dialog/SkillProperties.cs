@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Windows.Forms;
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Objects;
-using SDUI.Controls;
+
 
 namespace RSBot.Skills.Views;
 
-public partial class SkillProperties : UIWindowBase
+public partial class SkillProperties : Form
 {
     #region Constructor
 

@@ -28,59 +28,59 @@
         /// </summary>
         private void InitializeComponent()
         {
-            contextMenuRouteList = new SDUI.Controls.ContextMenuStrip();
+            contextMenuRouteList = new System.Windows.Forms.ContextMenuStrip();
             addScriptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             menuRecordScript = new System.Windows.Forms.ToolStripMenuItem();
             menuChooseScript = new System.Windows.Forms.ToolStripMenuItem();
             menuRemoveScript = new System.Windows.Forms.ToolStripMenuItem();
-            lblHint = new SDUI.Controls.Label();
-            tabControl1 = new SDUI.Controls.TabControl();
+            lblHint = new System.Windows.Forms.Label();
+            tabControl1 = new System.Windows.Forms.TabControl();
             tabPageRoute = new System.Windows.Forms.TabPage();
-            txtTracePlayerName = new SDUI.Controls.TextBox();
-            radioUseRouteList = new SDUI.Controls.Radio();
-            radioTracePlayer = new SDUI.Controls.Radio();
-            buttonDeleteList = new SDUI.Controls.Button();
-            buttonCreateList = new SDUI.Controls.Button();
-            comboRouteList = new SDUI.Controls.ComboBox();
+            txtTracePlayerName = new System.Windows.Forms.TextBox();
+            radioUseRouteList = new System.Windows.Forms.RadioButton();
+            radioTracePlayer = new System.Windows.Forms.RadioButton();
+            buttonDeleteList = new System.Windows.Forms.Button();
+            buttonCreateList = new System.Windows.Forms.Button();
+            comboRouteList = new System.Windows.Forms.ComboBox();
             linkRecord = new System.Windows.Forms.LinkLabel();
-            lvRouteList = new SDUI.Controls.ListView();
+            lvRouteList = new System.Windows.Forms.ListView();
             columnHeader1 = new System.Windows.Forms.ColumnHeader();
             columnHeader2 = new System.Windows.Forms.ColumnHeader();
             columnHeader4 = new System.Windows.Forms.ColumnHeader();
             columnHeader3 = new System.Windows.Forms.ColumnHeader();
-            panel1 = new SDUI.Controls.Panel();
-            checkRunTownscript = new SDUI.Controls.CheckBox();
+            panel1 = new System.Windows.Forms.Panel();
+            checkRunTownscript = new System.Windows.Forms.CheckBox();
             tabPageSettings = new System.Windows.Forms.TabPage();
-            checkAttackThiefPlayers = new SDUI.Controls.CheckBox();
-            groupBox1 = new SDUI.Controls.GroupBox();
-            checkSellGoods = new SDUI.Controls.CheckBox();
-            lblNumGoodsDesc = new SDUI.Controls.Label();
-            checkBuyGoods = new SDUI.Controls.CheckBox();
-            numAmountGoods = new SDUI.Controls.NumUpDown();
-            lblGoods = new SDUI.Controls.Label();
-            checkProtectTransport = new SDUI.Controls.CheckBox();
-            checkCounterAttack = new SDUI.Controls.CheckBox();
-            checkAttackThiefNpc = new SDUI.Controls.CheckBox();
-            groupBox2 = new SDUI.Controls.GroupBox();
-            separator2 = new SDUI.Controls.Separator();
-            checkCastBuffs = new SDUI.Controls.CheckBox();
-            checkWaitForHunter = new SDUI.Controls.CheckBox();
-            label3 = new SDUI.Controls.Label();
-            separator4 = new SDUI.Controls.Separator();
-            label1 = new SDUI.Controls.Label();
-            numMaxDistance = new SDUI.Controls.NumUpDown();
-            checkMountTransport = new SDUI.Controls.CheckBox();
-            separator1 = new SDUI.Controls.Separator();
+            checkAttackThiefPlayers = new System.Windows.Forms.CheckBox();
+            groupBox1 = new System.Windows.Forms.GroupBox();
+            checkSellGoods = new System.Windows.Forms.CheckBox();
+            lblNumGoodsDesc = new System.Windows.Forms.Label();
+            checkBuyGoods = new System.Windows.Forms.CheckBox();
+            numAmountGoods = new System.Windows.Forms.NumericUpDown();
+            lblGoods = new System.Windows.Forms.Label();
+            checkProtectTransport = new System.Windows.Forms.CheckBox();
+            checkCounterAttack = new System.Windows.Forms.CheckBox();
+            checkAttackThiefNpc = new System.Windows.Forms.CheckBox();
+            groupBox2 = new System.Windows.Forms.GroupBox();
+            separator2 = new System.Windows.Forms.Panel();
+            checkCastBuffs = new System.Windows.Forms.CheckBox();
+            checkWaitForHunter = new System.Windows.Forms.CheckBox();
+            label3 = new System.Windows.Forms.Label();
+            separator4 = new System.Windows.Forms.Panel();
+            label1 = new System.Windows.Forms.Label();
+            numMaxDistance = new System.Windows.Forms.NumericUpDown();
+            checkMountTransport = new System.Windows.Forms.CheckBox();
+            separator1 = new System.Windows.Forms.Panel();
             tabPage1 = new System.Windows.Forms.TabPage();
-            lblJobExp = new SDUI.Controls.Label();
-            lblJobLevel = new SDUI.Controls.Label();
-            lblJobAlias = new SDUI.Controls.Label();
-            label9 = new SDUI.Controls.Label();
-            label8 = new SDUI.Controls.Label();
-            label7 = new SDUI.Controls.Label();
-            separator3 = new SDUI.Controls.Separator();
-            lblTradeScale = new SDUI.Controls.Label();
-            label2 = new SDUI.Controls.Label();
+            lblJobExp = new System.Windows.Forms.Label();
+            lblJobLevel = new System.Windows.Forms.Label();
+            lblJobAlias = new System.Windows.Forms.Label();
+            label9 = new System.Windows.Forms.Label();
+            label8 = new System.Windows.Forms.Label();
+            label7 = new System.Windows.Forms.Label();
+            separator3 = new System.Windows.Forms.Panel();
+            lblTradeScale = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
             contextMenuRouteList.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPageRoute.SuspendLayout();
@@ -101,14 +101,14 @@
             // addScriptToolStripMenuItem
             // 
             addScriptToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { menuRecordScript, menuChooseScript });
-            addScriptToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            
             addScriptToolStripMenuItem.Name = "addScriptToolStripMenuItem";
             addScriptToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             addScriptToolStripMenuItem.Text = "Add script";
             // 
             // menuRecordScript
             // 
-            menuRecordScript.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            
             menuRecordScript.Name = "menuRecordScript";
             menuRecordScript.Size = new System.Drawing.Size(142, 22);
             menuRecordScript.Text = "Record";
@@ -116,7 +116,7 @@
             // 
             // menuChooseScript
             // 
-            menuChooseScript.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            
             menuChooseScript.Name = "menuChooseScript";
             menuChooseScript.Size = new System.Drawing.Size(142, 22);
             menuChooseScript.Text = "Choose file...";
@@ -124,7 +124,7 @@
             // 
             // menuRemoveScript
             // 
-            menuRemoveScript.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            
             menuRemoveScript.Name = "menuRemoveScript";
             menuRemoveScript.Size = new System.Drawing.Size(128, 22);
             menuRemoveScript.Text = "Remove";
@@ -132,12 +132,12 @@
             // 
             // lblHint
             // 
-            lblHint.ApplyGradient = false;
+            
             lblHint.AutoSize = true;
             lblHint.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            lblHint.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            lblHint.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-            lblHint.GradientAnimation = false;
+            
+            
+            
             lblHint.Location = new System.Drawing.Point(7, 400);
             lblHint.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             lblHint.Name = "lblHint";
@@ -154,14 +154,14 @@
             tabControl1.Location = new System.Drawing.Point(2, 2);
             tabControl1.Margin = new System.Windows.Forms.Padding(2);
             tabControl1.Name = "tabControl1";
-            tabControl1.Radius = new System.Windows.Forms.Padding(4);
+            
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new System.Drawing.Size(787, 388);
             tabControl1.TabIndex = 8;
             // 
             // tabPageRoute
             // 
-            tabPageRoute.BackColor = System.Drawing.Color.White;
+            
             tabPageRoute.Controls.Add(txtTracePlayerName);
             tabPageRoute.Controls.Add(radioUseRouteList);
             tabPageRoute.Controls.Add(radioTracePlayer);
@@ -184,13 +184,13 @@
             txtTracePlayerName.Location = new System.Drawing.Point(115, 16);
             txtTracePlayerName.Margin = new System.Windows.Forms.Padding(2);
             txtTracePlayerName.MaxLength = 32767;
-            txtTracePlayerName.MultiLine = false;
+            txtTracePlayerName.Multiline = false;
             txtTracePlayerName.Name = "txtTracePlayerName";
-            txtTracePlayerName.PassFocusShow = false;
-            txtTracePlayerName.Radius = 2;
+            
+            
             txtTracePlayerName.Size = new System.Drawing.Size(121, 21);
             txtTracePlayerName.TabIndex = 24;
-            txtTracePlayerName.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            
             txtTracePlayerName.UseSystemPasswordChar = false;
             txtTracePlayerName.TextChanged += txtTracePlayerName_TextChanged;
             // 
@@ -201,7 +201,7 @@
             radioUseRouteList.Location = new System.Drawing.Point(9, 46);
             radioUseRouteList.Margin = new System.Windows.Forms.Padding(0);
             radioUseRouteList.Name = "radioUseRouteList";
-            radioUseRouteList.Ripple = true;
+            
             radioUseRouteList.Size = new System.Drawing.Size(102, 30);
             radioUseRouteList.TabIndex = 23;
             radioUseRouteList.TabStop = true;
@@ -215,7 +215,7 @@
             radioTracePlayer.Location = new System.Drawing.Point(9, 14);
             radioTracePlayer.Margin = new System.Windows.Forms.Padding(0);
             radioTracePlayer.Name = "radioTracePlayer";
-            radioTracePlayer.Ripple = true;
+            
             radioTracePlayer.Size = new System.Drawing.Size(96, 30);
             radioTracePlayer.TabIndex = 22;
             radioTracePlayer.Text = "Trace player";
@@ -224,14 +224,14 @@
             // 
             // buttonDeleteList
             // 
-            buttonDeleteList.Color = System.Drawing.Color.IndianRed;
+            
             buttonDeleteList.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            buttonDeleteList.ForeColor = System.Drawing.Color.White;
+            
             buttonDeleteList.Location = new System.Drawing.Point(243, 45);
             buttonDeleteList.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             buttonDeleteList.Name = "buttonDeleteList";
-            buttonDeleteList.Radius = 6;
-            buttonDeleteList.ShadowDepth = 4F;
+            
+            
             buttonDeleteList.Size = new System.Drawing.Size(22, 26);
             buttonDeleteList.TabIndex = 20;
             buttonDeleteList.Text = "x";
@@ -240,14 +240,14 @@
             // 
             // buttonCreateList
             // 
-            buttonCreateList.Color = System.Drawing.Color.FromArgb(0, 192, 0);
+            
             buttonCreateList.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            buttonCreateList.ForeColor = System.Drawing.Color.White;
+            
             buttonCreateList.Location = new System.Drawing.Point(269, 46);
             buttonCreateList.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             buttonCreateList.Name = "buttonCreateList";
-            buttonCreateList.Radius = 6;
-            buttonCreateList.ShadowDepth = 4F;
+            
+            
             buttonCreateList.Size = new System.Drawing.Size(22, 26);
             buttonCreateList.TabIndex = 21;
             buttonCreateList.Text = "+";
@@ -256,15 +256,15 @@
             // 
             // comboRouteList
             // 
-            comboRouteList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            comboRouteList.DrawMode = System.Windows.Forms.DrawMode.Normal;
             comboRouteList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             comboRouteList.FormattingEnabled = true;
             comboRouteList.Items.AddRange(new object[] { "Default" });
             comboRouteList.Location = new System.Drawing.Point(115, 47);
             comboRouteList.Margin = new System.Windows.Forms.Padding(2);
             comboRouteList.Name = "comboRouteList";
-            comboRouteList.Radius = 5;
-            comboRouteList.ShadowDepth = 4F;
+            
+            
             comboRouteList.Size = new System.Drawing.Size(122, 24);
             comboRouteList.TabIndex = 19;
             comboRouteList.SelectedIndexChanged += comboRouteList_SelectedIndexChanged;
@@ -283,10 +283,10 @@
             // 
             // lvRouteList
             // 
-            lvRouteList.BackColor = System.Drawing.Color.White;
+            
             lvRouteList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader1, columnHeader2, columnHeader4, columnHeader3 });
             lvRouteList.ContextMenuStrip = contextMenuRouteList;
-            lvRouteList.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            
             lvRouteList.FullRowSelect = true;
             lvRouteList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             lvRouteList.Location = new System.Drawing.Point(9, 84);
@@ -320,27 +320,27 @@
             // 
             // panel1
             // 
-            panel1.BackColor = System.Drawing.Color.Transparent;
-            panel1.Border = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            panel1.BorderColor = System.Drawing.Color.Transparent;
+            
+            
+            
             panel1.Controls.Add(checkRunTownscript);
             panel1.Location = new System.Drawing.Point(7, 285);
             panel1.Name = "panel1";
-            panel1.Radius = 10;
-            panel1.ShadowDepth = 4F;
+            
+            
             panel1.Size = new System.Drawing.Size(766, 42);
             panel1.TabIndex = 29;
             // 
             // checkRunTownscript
             // 
             checkRunTownscript.AutoSize = true;
-            checkRunTownscript.BackColor = System.Drawing.Color.Transparent;
-            checkRunTownscript.Depth = 0;
+            
+            
             checkRunTownscript.Location = new System.Drawing.Point(2, 9);
             checkRunTownscript.Margin = new System.Windows.Forms.Padding(0);
-            checkRunTownscript.MouseLocation = new System.Drawing.Point(-1, -1);
+            
             checkRunTownscript.Name = "checkRunTownscript";
-            checkRunTownscript.Ripple = true;
+            
             checkRunTownscript.Size = new System.Drawing.Size(219, 30);
             checkRunTownscript.TabIndex = 27;
             checkRunTownscript.Text = "Run townscript after route finished";
@@ -349,7 +349,7 @@
             // 
             // tabPageSettings
             // 
-            tabPageSettings.BackColor = System.Drawing.Color.White;
+            
             tabPageSettings.Controls.Add(checkAttackThiefPlayers);
             tabPageSettings.Controls.Add(groupBox1);
             tabPageSettings.Controls.Add(checkProtectTransport);
@@ -367,13 +367,13 @@
             // checkAttackThiefPlayers
             // 
             checkAttackThiefPlayers.AutoSize = true;
-            checkAttackThiefPlayers.BackColor = System.Drawing.Color.Transparent;
-            checkAttackThiefPlayers.Depth = 0;
+            
+            
             checkAttackThiefPlayers.Location = new System.Drawing.Point(41, 45);
             checkAttackThiefPlayers.Margin = new System.Windows.Forms.Padding(0);
-            checkAttackThiefPlayers.MouseLocation = new System.Drawing.Point(-1, -1);
+            
             checkAttackThiefPlayers.Name = "checkAttackThiefPlayers";
-            checkAttackThiefPlayers.Ripple = true;
+            
             checkAttackThiefPlayers.Size = new System.Drawing.Size(134, 30);
             checkAttackThiefPlayers.TabIndex = 0;
             checkAttackThiefPlayers.Text = "Attack thief players";
@@ -382,7 +382,7 @@
             // 
             // groupBox1
             // 
-            groupBox1.BackColor = System.Drawing.Color.Transparent;
+            
             groupBox1.Controls.Add(checkSellGoods);
             groupBox1.Controls.Add(lblNumGoodsDesc);
             groupBox1.Controls.Add(checkBuyGoods);
@@ -391,8 +391,8 @@
             groupBox1.Location = new System.Drawing.Point(316, 14);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new System.Windows.Forms.Padding(3, 8, 3, 3);
-            groupBox1.Radius = 10;
-            groupBox1.ShadowDepth = 4;
+            
+            
             groupBox1.Size = new System.Drawing.Size(311, 134);
             groupBox1.TabIndex = 28;
             groupBox1.TabStop = false;
@@ -401,13 +401,13 @@
             // checkSellGoods
             // 
             checkSellGoods.AutoSize = true;
-            checkSellGoods.BackColor = System.Drawing.Color.Transparent;
-            checkSellGoods.Depth = 0;
+            
+            
             checkSellGoods.Location = new System.Drawing.Point(26, 35);
             checkSellGoods.Margin = new System.Windows.Forms.Padding(0);
-            checkSellGoods.MouseLocation = new System.Drawing.Point(-1, -1);
+            
             checkSellGoods.Name = "checkSellGoods";
-            checkSellGoods.Ripple = true;
+            
             checkSellGoods.Size = new System.Drawing.Size(86, 30);
             checkSellGoods.TabIndex = 5;
             checkSellGoods.Text = "Sell goods";
@@ -416,12 +416,12 @@
             // 
             // lblNumGoodsDesc
             // 
-            lblNumGoodsDesc.ApplyGradient = false;
+            
             lblNumGoodsDesc.AutoSize = true;
             lblNumGoodsDesc.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            lblNumGoodsDesc.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            lblNumGoodsDesc.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-            lblNumGoodsDesc.GradientAnimation = false;
+            
+            
+            
             lblNumGoodsDesc.Location = new System.Drawing.Point(84, 95);
             lblNumGoodsDesc.Name = "lblNumGoodsDesc";
             lblNumGoodsDesc.Size = new System.Drawing.Size(96, 13);
@@ -431,13 +431,13 @@
             // checkBuyGoods
             // 
             checkBuyGoods.AutoSize = true;
-            checkBuyGoods.BackColor = System.Drawing.Color.Transparent;
-            checkBuyGoods.Depth = 0;
+            
+            
             checkBuyGoods.Location = new System.Drawing.Point(26, 65);
             checkBuyGoods.Margin = new System.Windows.Forms.Padding(0);
-            checkBuyGoods.MouseLocation = new System.Drawing.Point(-1, -1);
+            
             checkBuyGoods.Name = "checkBuyGoods";
-            checkBuyGoods.Ripple = true;
+            
             checkBuyGoods.Size = new System.Drawing.Size(50, 30);
             checkBuyGoods.TabIndex = 0;
             checkBuyGoods.Text = "Buy ";
@@ -446,9 +446,9 @@
             // 
             // numAmountGoods
             // 
-            numAmountGoods.BackColor = System.Drawing.Color.Transparent;
+            
             numAmountGoods.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            numAmountGoods.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            
             numAmountGoods.Location = new System.Drawing.Point(85, 68);
             numAmountGoods.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
             numAmountGoods.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
@@ -461,11 +461,11 @@
             // 
             // lblGoods
             // 
-            lblGoods.ApplyGradient = false;
+            
             lblGoods.AutoSize = true;
-            lblGoods.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            lblGoods.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-            lblGoods.GradientAnimation = false;
+            
+            
+            
             lblGoods.Location = new System.Drawing.Point(186, 70);
             lblGoods.Name = "lblGoods";
             lblGoods.Size = new System.Drawing.Size(90, 15);
@@ -475,13 +475,13 @@
             // checkProtectTransport
             // 
             checkProtectTransport.AutoSize = true;
-            checkProtectTransport.BackColor = System.Drawing.Color.Transparent;
-            checkProtectTransport.Depth = 0;
+            
+            
             checkProtectTransport.Location = new System.Drawing.Point(41, 124);
             checkProtectTransport.Margin = new System.Windows.Forms.Padding(0);
-            checkProtectTransport.MouseLocation = new System.Drawing.Point(-1, -1);
+            
             checkProtectTransport.Name = "checkProtectTransport";
-            checkProtectTransport.Ripple = true;
+            
             checkProtectTransport.Size = new System.Drawing.Size(122, 30);
             checkProtectTransport.TabIndex = 6;
             checkProtectTransport.Text = "Protect transport";
@@ -491,13 +491,13 @@
             // checkCounterAttack
             // 
             checkCounterAttack.AutoSize = true;
-            checkCounterAttack.BackColor = System.Drawing.Color.Transparent;
-            checkCounterAttack.Depth = 0;
+            
+            
             checkCounterAttack.Location = new System.Drawing.Point(41, 96);
             checkCounterAttack.Margin = new System.Windows.Forms.Padding(0);
-            checkCounterAttack.MouseLocation = new System.Drawing.Point(-1, -1);
+            
             checkCounterAttack.Name = "checkCounterAttack";
-            checkCounterAttack.Ripple = true;
+            
             checkCounterAttack.Size = new System.Drawing.Size(110, 30);
             checkCounterAttack.TabIndex = 2;
             checkCounterAttack.Text = "Counter attack";
@@ -507,13 +507,13 @@
             // checkAttackThiefNpc
             // 
             checkAttackThiefNpc.AutoSize = true;
-            checkAttackThiefNpc.BackColor = System.Drawing.Color.Transparent;
-            checkAttackThiefNpc.Depth = 0;
+            
+            
             checkAttackThiefNpc.Location = new System.Drawing.Point(41, 71);
             checkAttackThiefNpc.Margin = new System.Windows.Forms.Padding(0);
-            checkAttackThiefNpc.MouseLocation = new System.Drawing.Point(-1, -1);
+            
             checkAttackThiefNpc.Name = "checkAttackThiefNpc";
-            checkAttackThiefNpc.Ripple = true;
+            
             checkAttackThiefNpc.Size = new System.Drawing.Size(124, 30);
             checkAttackThiefNpc.TabIndex = 1;
             checkAttackThiefNpc.Text = "Attack thief NPCs";
@@ -522,7 +522,7 @@
             // 
             // groupBox2
             // 
-            groupBox2.BackColor = System.Drawing.Color.Transparent;
+            
             groupBox2.Controls.Add(separator2);
             groupBox2.Controls.Add(checkCastBuffs);
             groupBox2.Controls.Add(checkWaitForHunter);
@@ -536,8 +536,8 @@
             groupBox2.Margin = new System.Windows.Forms.Padding(2);
             groupBox2.Name = "groupBox2";
             groupBox2.Padding = new System.Windows.Forms.Padding(2, 4, 2, 2);
-            groupBox2.Radius = 10;
-            groupBox2.ShadowDepth = 4;
+            
+            
             groupBox2.Size = new System.Drawing.Size(287, 324);
             groupBox2.TabIndex = 29;
             groupBox2.TabStop = false;
@@ -545,7 +545,6 @@
             // 
             // separator2
             // 
-            separator2.IsVertical = false;
             separator2.Location = new System.Drawing.Point(2, 268);
             separator2.Margin = new System.Windows.Forms.Padding(2);
             separator2.Name = "separator2";
@@ -556,13 +555,13 @@
             // checkCastBuffs
             // 
             checkCastBuffs.AutoSize = true;
-            checkCastBuffs.BackColor = System.Drawing.Color.Transparent;
-            checkCastBuffs.Depth = 0;
+            
+            
             checkCastBuffs.Location = new System.Drawing.Point(30, 148);
             checkCastBuffs.Margin = new System.Windows.Forms.Padding(0);
-            checkCastBuffs.MouseLocation = new System.Drawing.Point(-1, -1);
+            
             checkCastBuffs.Name = "checkCastBuffs";
-            checkCastBuffs.Ripple = true;
+            
             checkCastBuffs.Size = new System.Drawing.Size(83, 30);
             checkCastBuffs.TabIndex = 4;
             checkCastBuffs.Text = "Cast buffs";
@@ -573,13 +572,13 @@
             // checkWaitForHunter
             // 
             checkWaitForHunter.AutoSize = true;
-            checkWaitForHunter.BackColor = System.Drawing.Color.Transparent;
-            checkWaitForHunter.Depth = 0;
+            
+            
             checkWaitForHunter.Location = new System.Drawing.Point(28, 281);
             checkWaitForHunter.Margin = new System.Windows.Forms.Padding(0);
-            checkWaitForHunter.MouseLocation = new System.Drawing.Point(-1, -1);
+            
             checkWaitForHunter.Name = "checkWaitForHunter";
-            checkWaitForHunter.Ripple = true;
+            
             checkWaitForHunter.Size = new System.Drawing.Size(163, 30);
             checkWaitForHunter.TabIndex = 30;
             checkWaitForHunter.Text = "Wait for a hunter nearby";
@@ -588,11 +587,11 @@
             // 
             // label3
             // 
-            label3.ApplyGradient = false;
+            
             label3.AutoSize = true;
-            label3.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label3.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-            label3.GradientAnimation = false;
+            
+            
+            
             label3.Location = new System.Drawing.Point(116, 235);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(43, 15);
@@ -601,7 +600,6 @@
             // 
             // separator4
             // 
-            separator4.IsVertical = false;
             separator4.Location = new System.Drawing.Point(0, 176);
             separator4.Margin = new System.Windows.Forms.Padding(2);
             separator4.Name = "separator4";
@@ -611,11 +609,11 @@
             // 
             // label1
             // 
-            label1.ApplyGradient = false;
+            
             label1.AutoSize = true;
-            label1.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label1.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-            label1.GradientAnimation = false;
+            
+            
+            
             label1.Location = new System.Drawing.Point(28, 219);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(83, 15);
@@ -624,9 +622,9 @@
             // 
             // numMaxDistance
             // 
-            numMaxDistance.BackColor = System.Drawing.Color.Transparent;
+            
             numMaxDistance.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            numMaxDistance.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            
             numMaxDistance.Location = new System.Drawing.Point(30, 237);
             numMaxDistance.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
             numMaxDistance.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
@@ -640,13 +638,13 @@
             // checkMountTransport
             // 
             checkMountTransport.AutoSize = true;
-            checkMountTransport.BackColor = System.Drawing.Color.Transparent;
-            checkMountTransport.Depth = 0;
+            
+            
             checkMountTransport.Location = new System.Drawing.Point(28, 186);
             checkMountTransport.Margin = new System.Windows.Forms.Padding(0);
-            checkMountTransport.MouseLocation = new System.Drawing.Point(-1, -1);
+            
             checkMountTransport.Name = "checkMountTransport";
-            checkMountTransport.Ripple = true;
+            
             checkMountTransport.Size = new System.Drawing.Size(119, 30);
             checkMountTransport.TabIndex = 7;
             checkMountTransport.Text = "Mount transport";
@@ -655,7 +653,6 @@
             // 
             // separator1
             // 
-            separator1.IsVertical = false;
             separator1.Location = new System.Drawing.Point(4, 137);
             separator1.Margin = new System.Windows.Forms.Padding(2);
             separator1.Name = "separator1";
@@ -665,7 +662,7 @@
             // 
             // tabPage1
             // 
-            tabPage1.BackColor = System.Drawing.Color.White;
+            
             tabPage1.Controls.Add(lblJobExp);
             tabPage1.Controls.Add(lblJobLevel);
             tabPage1.Controls.Add(lblJobAlias);
@@ -684,11 +681,11 @@
             // 
             // lblJobExp
             // 
-            lblJobExp.ApplyGradient = false;
+            
             lblJobExp.AutoSize = true;
-            lblJobExp.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            lblJobExp.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-            lblJobExp.GradientAnimation = false;
+            
+            
+            
             lblJobExp.Location = new System.Drawing.Point(129, 163);
             lblJobExp.Name = "lblJobExp";
             lblJobExp.Size = new System.Drawing.Size(13, 15);
@@ -697,11 +694,11 @@
             // 
             // lblJobLevel
             // 
-            lblJobLevel.ApplyGradient = false;
+            
             lblJobLevel.AutoSize = true;
-            lblJobLevel.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            lblJobLevel.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-            lblJobLevel.GradientAnimation = false;
+            
+            
+            
             lblJobLevel.Location = new System.Drawing.Point(129, 127);
             lblJobLevel.Name = "lblJobLevel";
             lblJobLevel.Size = new System.Drawing.Size(13, 15);
@@ -710,11 +707,11 @@
             // 
             // lblJobAlias
             // 
-            lblJobAlias.ApplyGradient = false;
+            
             lblJobAlias.AutoSize = true;
-            lblJobAlias.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            lblJobAlias.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-            lblJobAlias.GradientAnimation = false;
+            
+            
+            
             lblJobAlias.Location = new System.Drawing.Point(129, 90);
             lblJobAlias.Name = "lblJobAlias";
             lblJobAlias.Size = new System.Drawing.Size(50, 15);
@@ -723,11 +720,11 @@
             // 
             // label9
             // 
-            label9.ApplyGradient = false;
+            
             label9.AutoSize = true;
-            label9.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label9.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-            label9.GradientAnimation = false;
+            
+            
+            
             label9.Location = new System.Drawing.Point(93, 163);
             label9.Name = "label9";
             label9.Size = new System.Drawing.Size(30, 15);
@@ -736,11 +733,11 @@
             // 
             // label8
             // 
-            label8.ApplyGradient = false;
+            
             label8.AutoSize = true;
-            label8.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label8.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-            label8.GradientAnimation = false;
+            
+            
+            
             label8.Location = new System.Drawing.Point(69, 90);
             label8.Name = "label8";
             label8.Size = new System.Drawing.Size(54, 15);
@@ -749,11 +746,11 @@
             // 
             // label7
             // 
-            label7.ApplyGradient = false;
+            
             label7.AutoSize = true;
-            label7.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label7.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-            label7.GradientAnimation = false;
+            
+            
+            
             label7.Location = new System.Drawing.Point(86, 127);
             label7.Name = "label7";
             label7.Size = new System.Drawing.Size(37, 15);
@@ -762,7 +759,6 @@
             // 
             // separator3
             // 
-            separator3.IsVertical = false;
             separator3.Location = new System.Drawing.Point(20, 67);
             separator3.Name = "separator3";
             separator3.Size = new System.Drawing.Size(365, 10);
@@ -771,11 +767,11 @@
             // 
             // lblTradeScale
             // 
-            lblTradeScale.ApplyGradient = false;
+            
             lblTradeScale.AutoSize = true;
-            lblTradeScale.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            lblTradeScale.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-            lblTradeScale.GradientAnimation = false;
+            
+            
+            
             lblTradeScale.Location = new System.Drawing.Point(144, 37);
             lblTradeScale.Name = "lblTradeScale";
             lblTradeScale.Size = new System.Drawing.Size(57, 15);
@@ -784,11 +780,11 @@
             // 
             // label2
             // 
-            label2.ApplyGradient = false;
+            
             label2.AutoSize = true;
-            label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label2.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-            label2.GradientAnimation = false;
+            
+            
+            
             label2.Location = new System.Drawing.Point(50, 37);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(88, 15);
@@ -824,59 +820,59 @@
         }
 
         #endregion
-        private SDUI.Controls.ContextMenuStrip contextMenuRouteList;
+        private System.Windows.Forms.ContextMenuStrip contextMenuRouteList;
         private System.Windows.Forms.ToolStripMenuItem addScriptToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuRemoveScript;
-        private SDUI.Controls.Label lblHint;
-        private SDUI.Controls.TabControl tabControl1;
+        private System.Windows.Forms.Label lblHint;
+        private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPageRoute;
         private System.Windows.Forms.LinkLabel linkRecord;
-        private SDUI.Controls.ListView lvRouteList;
+        private System.Windows.Forms.ListView lvRouteList;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.TabPage tabPageSettings;
-        private SDUI.Controls.ComboBox comboRouteList;
-        private SDUI.Controls.Button buttonDeleteList;
-        private SDUI.Controls.Button buttonCreateList;
-        private SDUI.Controls.Radio radioUseRouteList;
-        private SDUI.Controls.Radio radioTracePlayer;
-        private SDUI.Controls.TextBox txtTracePlayerName;
-        private SDUI.Controls.CheckBox checkCastBuffs;
-        private SDUI.Controls.Separator separator1;
-        private SDUI.Controls.CheckBox checkCounterAttack;
-        private SDUI.Controls.CheckBox checkAttackThiefNpc;
-        private SDUI.Controls.CheckBox checkAttackThiefPlayers;
+        private System.Windows.Forms.ComboBox comboRouteList;
+        private System.Windows.Forms.Button buttonDeleteList;
+        private System.Windows.Forms.Button buttonCreateList;
+        private System.Windows.Forms.RadioButton radioUseRouteList;
+        private System.Windows.Forms.RadioButton radioTracePlayer;
+        private System.Windows.Forms.TextBox txtTracePlayerName;
+        private System.Windows.Forms.CheckBox checkCastBuffs;
+        private System.Windows.Forms.Panel separator1;
+        private System.Windows.Forms.CheckBox checkCounterAttack;
+        private System.Windows.Forms.CheckBox checkAttackThiefNpc;
+        private System.Windows.Forms.CheckBox checkAttackThiefPlayers;
         private System.Windows.Forms.ToolStripMenuItem menuRecordScript;
         private System.Windows.Forms.ToolStripMenuItem menuChooseScript;
-        private SDUI.Controls.CheckBox checkRunTownscript;
+        private System.Windows.Forms.CheckBox checkRunTownscript;
         private System.Windows.Forms.ColumnHeader columnHeader4;
-        private SDUI.Controls.Panel panel1;
-        private SDUI.Controls.CheckBox checkProtectTransport;
-        private SDUI.Controls.GroupBox groupBox1;
-        private SDUI.Controls.CheckBox checkBuyGoods;
-        private SDUI.Controls.Label lblGoods;
-        private SDUI.Controls.NumUpDown numAmountGoods;
-        private SDUI.Controls.Label lblNumGoodsDesc;
-        private SDUI.Controls.CheckBox checkSellGoods;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.CheckBox checkProtectTransport;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.CheckBox checkBuyGoods;
+        private System.Windows.Forms.Label lblGoods;
+        private System.Windows.Forms.NumericUpDown numAmountGoods;
+        private System.Windows.Forms.Label lblNumGoodsDesc;
+        private System.Windows.Forms.CheckBox checkSellGoods;
         private System.Windows.Forms.TabPage tabPage1;
-        private SDUI.Controls.Label label4;
-        private SDUI.Controls.Label lblTradeScale;
-        private SDUI.Controls.Label label2;
-        private SDUI.Controls.Separator separator3;
-        private SDUI.Controls.Label label9;
-        private SDUI.Controls.Label label8;
-        private SDUI.Controls.Label label7;
-        private SDUI.Controls.Label lblJobExp;
-        private SDUI.Controls.Label lblJobLevel;
-        private SDUI.Controls.Label lblJobAlias;
-        private SDUI.Controls.CheckBox checkMountTransport;
-        private SDUI.Controls.GroupBox groupBox2;
-        private SDUI.Controls.Label label3;
-        private SDUI.Controls.Label label1;
-        private SDUI.Controls.NumUpDown numMaxDistance;
-        private SDUI.Controls.Separator separator4;
-        private SDUI.Controls.Separator separator2;
-        private SDUI.Controls.CheckBox checkWaitForHunter;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblTradeScale;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Panel separator3;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblJobExp;
+        private System.Windows.Forms.Label lblJobLevel;
+        private System.Windows.Forms.Label lblJobAlias;
+        private System.Windows.Forms.CheckBox checkMountTransport;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown numMaxDistance;
+        private System.Windows.Forms.Panel separator4;
+        private System.Windows.Forms.Panel separator2;
+        private System.Windows.Forms.CheckBox checkWaitForHunter;
     }
 }

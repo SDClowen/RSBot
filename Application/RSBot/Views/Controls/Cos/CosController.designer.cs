@@ -28,15 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            separator = new SDUI.Controls.Separator();
+            separator = new System.Windows.Forms.Panel();
             panel = new System.Windows.Forms.Panel();
             topPanel = new System.Windows.Forms.Panel();
             panelTopCenter = new System.Windows.Forms.Panel();
             panelTopRight = new System.Windows.Forms.Panel();
-            buttonNext = new SDUI.Controls.Button();
+            buttonNext = new System.Windows.Forms.Button();
             panelTopLeft = new System.Windows.Forms.Panel();
-            buttonPrev = new SDUI.Controls.Button();
-            separator1 = new SDUI.Controls.Separator();
+            buttonPrev = new System.Windows.Forms.Button();
+            separator1 = new System.Windows.Forms.Panel();
             topPanel.SuspendLayout();
             panelTopRight.SuspendLayout();
             panelTopLeft.SuspendLayout();
@@ -45,7 +45,6 @@
             // separator
             // 
             separator.Dock = System.Windows.Forms.DockStyle.Bottom;
-            separator.IsVertical = false;
             separator.Location = new System.Drawing.Point(3, 95);
             separator.Name = "separator";
             separator.Size = new System.Drawing.Size(242, 4);
@@ -61,7 +60,7 @@
             // 
             // topPanel
             // 
-            topPanel.BackColor = System.Drawing.Color.Transparent;
+            
             topPanel.Controls.Add(panelTopCenter);
             topPanel.Controls.Add(panelTopRight);
             topPanel.Controls.Add(panelTopLeft);
@@ -81,7 +80,7 @@
             // 
             // panelTopRight
             // 
-            panelTopRight.BackColor = System.Drawing.Color.Transparent;
+            
             panelTopRight.Controls.Add(buttonNext);
             panelTopRight.Dock = System.Windows.Forms.DockStyle.Right;
             panelTopRight.Location = new System.Drawing.Point(219, 0);
@@ -91,13 +90,13 @@
             // 
             // buttonNext
             // 
-            buttonNext.Color = System.Drawing.Color.Transparent;
+            
             buttonNext.Dock = System.Windows.Forms.DockStyle.Fill;
             buttonNext.Font = new System.Drawing.Font("Marlett", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             buttonNext.Location = new System.Drawing.Point(0, 0);
             buttonNext.Name = "buttonNext";
-            buttonNext.Radius = 4;
-            buttonNext.ShadowDepth = 4F;
+            
+            
             buttonNext.Size = new System.Drawing.Size(23, 56);
             buttonNext.TabIndex = 1;
             buttonNext.Text = "4";
@@ -107,7 +106,7 @@
             // 
             // panelTopLeft
             // 
-            panelTopLeft.BackColor = System.Drawing.Color.Transparent;
+            
             panelTopLeft.Controls.Add(buttonPrev);
             panelTopLeft.Dock = System.Windows.Forms.DockStyle.Left;
             panelTopLeft.Location = new System.Drawing.Point(0, 0);
@@ -117,13 +116,13 @@
             // 
             // buttonPrev
             // 
-            buttonPrev.Color = System.Drawing.Color.Transparent;
+            
             buttonPrev.Dock = System.Windows.Forms.DockStyle.Fill;
             buttonPrev.Font = new System.Drawing.Font("Marlett", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             buttonPrev.Location = new System.Drawing.Point(0, 0);
             buttonPrev.Name = "buttonPrev";
-            buttonPrev.Radius = 4;
-            buttonPrev.ShadowDepth = 4F;
+            
+            
             buttonPrev.Size = new System.Drawing.Size(23, 56);
             buttonPrev.TabIndex = 2;
             buttonPrev.Text = "3";
@@ -134,7 +133,6 @@
             // separator1
             // 
             separator1.Dock = System.Windows.Forms.DockStyle.Top;
-            separator1.IsVertical = false;
             separator1.Location = new System.Drawing.Point(3, 59);
             separator1.Name = "separator1";
             separator1.Size = new System.Drawing.Size(242, 4);
@@ -158,14 +156,14 @@
         }
 
         #endregion
-        private SDUI.Controls.Separator separator;
+        private System.Windows.Forms.Panel separator;
         private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.Panel topPanel;
         private System.Windows.Forms.Panel panelTopCenter;
         private System.Windows.Forms.Panel panelTopRight;
-        private SDUI.Controls.Button buttonNext;
+        private System.Windows.Forms.Button buttonNext;
         private System.Windows.Forms.Panel panelTopLeft;
-        private SDUI.Controls.Button buttonPrev;
-        private SDUI.Controls.Separator separator1;
+        private System.Windows.Forms.Button buttonPrev;
+        private System.Windows.Forms.Panel separator1;
     }
 }

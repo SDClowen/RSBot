@@ -7,11 +7,11 @@ using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.Trade.Components;
-using SDUI.Controls;
+
 
 namespace RSBot.Trade.Views;
 
-public partial class Main : DoubleBufferedControl
+public partial class Main : UserControl
 {
     private bool _loadingConfig;
 

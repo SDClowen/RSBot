@@ -6,14 +6,14 @@ using System.Windows.Forms;
 using RSBot.Core.Components;
 using RSBot.Core.Components.Scripting;
 using SDUI;
-using SDUI.Controls;
-using Label = SDUI.Controls.Label;
+
+using Label = System.Windows.Forms.Label;
 using Panel = System.Windows.Forms.Panel;
-using TextBox = SDUI.Controls.TextBox;
+using TextBox = System.Windows.Forms.TextBox;
 
 namespace RSBot.Views.Dialog;
 
-public partial class CommandDialog : UIWindowBase
+public partial class CommandDialog : Form
 {
     #region Members
 
@@ -35,8 +35,6 @@ public partial class CommandDialog : UIWindowBase
             var panel = new Panel
             {
                 Dock = DockStyle.Top,
-                BackColor = ColorScheme.BackColor,
-                ForeColor = ColorScheme.ForeColor,
                 Size = new Size(250, 85)
             };
 
@@ -64,7 +62,7 @@ public partial class CommandDialog : UIWindowBase
                     Text = arg.Value,
                     Size = new Size(250, 16)
                 },
-                new Separator
+                new Panel
                 {
                     Location = new Point(0, 75),
                     Dock = DockStyle.Bottom

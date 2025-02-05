@@ -7,12 +7,12 @@ using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Network;
 using RSBot.General.Components;
-using SDUI.Controls;
-using Label = SDUI.Controls.Label;
+
+using Label = System.Windows.Forms.Label;
 
 namespace RSBot.General.Views;
 
-public partial class PendingWindow : UIWindowBase
+public partial class PendingWindow : Form
 {
     /// <summary>
     ///     The Queue Notify Index

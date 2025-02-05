@@ -66,11 +66,11 @@ public partial class Growth : CosControlBase
         if (Game.Player.Growth == null)
             return;
 
-        progressHP.Value = Game.Player.Growth.Health;
         progressHP.Maximum = Game.Player.Growth.MaxHealth;
+        progressHP.Value = Game.Player.Growth.Health;
 
-        MiniCosControl.Hp.Value = Game.Player.Growth.Health;
         MiniCosControl.Hp.Maximum = Game.Player.Growth.MaxHealth;
+        MiniCosControl.Hp.Value = Game.Player.Growth.Health;
     }
 
     /// <summary>
@@ -81,8 +81,8 @@ public partial class Growth : CosControlBase
         if (Game.Player.Growth == null)
             return;
 
-        progressEXP.Value = Game.Player.Growth.Experience;
-        progressEXP.Maximum = Game.Player.Growth.MaxExperience;
+        progressEXP.Maximum = 100;
+        progressEXP.Value = (byte)((Game.Player.Growth.Experience / Game.Player.Growth.MaxExperience) * 100);
     }
 
     /// <summary>
@@ -93,11 +93,11 @@ public partial class Growth : CosControlBase
         if (Game.Player.Growth == null)
             return;
 
-        progressHGP.Value = Game.Player.Growth.CurrentHungerPoints;
         progressHGP.Maximum = Game.Player.Growth.MaxHungerPoints;
+        progressHGP.Value = Game.Player.Growth.CurrentHungerPoints;
 
-        MiniCosControl.Hgp.Value = Game.Player.Growth.CurrentHungerPoints;
         MiniCosControl.Hgp.Maximum = Game.Player.Growth.MaxHungerPoints;
+        MiniCosControl.Hgp.Value = Game.Player.Growth.CurrentHungerPoints;
     }
 
     public override void Initialize()

@@ -5,11 +5,11 @@ using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects.Spawn;
-using SDUI.Controls;
+
 
 namespace RSBot.Views.Controls;
 
-public partial class Entity : DoubleBufferedControl
+public partial class Entity : UserControl
 {
     public Entity()
     {
@@ -49,8 +49,8 @@ public partial class Entity : DoubleBufferedControl
 
         if (entity is SpawnedMonster monster)
         {
-            progressHP.Value = monster.Health;
             progressHP.Maximum = monster.MaxHealth;
+            progressHP.Value = monster.Health;
 
             lblType.Text = monster.Rarity.GetName();
         }
@@ -81,8 +81,8 @@ public partial class Entity : DoubleBufferedControl
 
         if (entity is SpawnedMonster monster)
         {
-            progressHP.Value = monster.Health;
             progressHP.Maximum = monster.MaxHealth;
+            progressHP.Value = monster.Health;
         }
     }
 

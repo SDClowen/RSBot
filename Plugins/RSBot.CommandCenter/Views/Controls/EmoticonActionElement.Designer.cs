@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             picIcon = new System.Windows.Forms.PictureBox();
-            comboAction = new SDUI.Controls.ComboBox();
-            lblName = new SDUI.Controls.Label();
-            separator1 = new SDUI.Controls.Separator();
+            comboAction = new System.Windows.Forms.ComboBox();
+            lblName = new System.Windows.Forms.Label();
+            separator1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)picIcon).BeginInit();
             SuspendLayout();
             // 
@@ -45,23 +45,23 @@
             // 
             // comboAction
             // 
-            comboAction.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            comboAction.DrawMode = System.Windows.Forms.DrawMode.Normal;
             comboAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             comboAction.FormattingEnabled = true;
             comboAction.Location = new System.Drawing.Point(58, 19);
             comboAction.Name = "comboAction";
-            comboAction.Radius = 5;
-            comboAction.ShadowDepth = 4F;
+            
+            
             comboAction.Size = new System.Drawing.Size(188, 24);
             comboAction.TabIndex = 1;
             comboAction.SelectedIndexChanged += comboAction_SelectedIndexChanged;
             // 
             // lblName
             // 
-            lblName.ApplyGradient = false;
+            
             lblName.AutoSize = true;
-            lblName.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            lblName.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            
+            
             lblName.Location = new System.Drawing.Point(58, 3);
             lblName.Name = "lblName";
             lblName.Size = new System.Drawing.Size(53, 15);
@@ -71,7 +71,6 @@
             // separator1
             // 
             separator1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            separator1.IsVertical = false;
             separator1.Location = new System.Drawing.Point(0, 43);
             separator1.Name = "separator1";
             separator1.Size = new System.Drawing.Size(277, 10);
@@ -96,8 +95,8 @@
         #endregion
 
         private System.Windows.Forms.PictureBox picIcon;
-        private SDUI.Controls.ComboBox comboAction;
-        private SDUI.Controls.Label lblName;
-        private SDUI.Controls.Separator separator1;
+        private System.Windows.Forms.ComboBox comboAction;
+        private System.Windows.Forms.Label lblName;
+        private System.Windows.Forms.Panel separator1;
     }
 }

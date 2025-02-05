@@ -4,12 +4,12 @@ using System.IO;
 using System.Windows.Forms;
 using RSBot.Core;
 using RSBot.Core.Event;
-using SDUI.Controls;
+
 
 namespace RSBot.Log.Views;
 
 [ToolboxItem(false)]
-public partial class Main : DoubleBufferedControl
+public partial class Main : UserControl
 {
 
     /// <summary>

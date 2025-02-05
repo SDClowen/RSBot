@@ -3,11 +3,11 @@ using System.Linq;
 using System.Windows.Forms;
 using RSBot.Core;
 using RSBot.Core.Objects;
-using SDUI.Controls;
+
 
 namespace RSBot.Default.Views.Dialogs;
 
-public partial class TrainingAreasDialog : UIWindowBase
+public partial class TrainingAreasDialog : Form
 {
     private const string DIALOG_AREA_NAME = "Enter area name";
     private const string DIALOG_AREA_DESC = "Example: For my custom party at jangan";
@@ -78,7 +78,8 @@ public partial class TrainingAreasDialog : UIWindowBase
             });
 
             if (listViewItem.Index == selectedIndex)
-                listView.SetItemState(listViewItem.Index, 2, 2);
+                listViewItem.Selected = true;
+                    //listView.SetItemState(listViewItem.Index, 2, 2);
         }
 
         listView.EndUpdate();

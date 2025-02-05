@@ -1,4 +1,4 @@
-﻿using SDUI.Controls;
+﻿
 
 namespace RSBot.Alchemy.Views.Settings
 {
@@ -30,7 +30,7 @@ namespace RSBot.Alchemy.Views.Settings
         /// </summary>
         private void InitializeComponent()
         {
-            this.lvMagicOptions = new SDUI.Controls.ListView();
+            this.lvMagicOptions = new System.Windows.Forms.ListView();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
@@ -39,7 +39,7 @@ namespace RSBot.Alchemy.Views.Settings
             // 
             // lvMagicOptions
             // 
-            this.lvMagicOptions.BackColor = System.Drawing.SystemColors.Window;
+
             this.lvMagicOptions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lvMagicOptions.CheckBoxes = true;
             this.lvMagicOptions.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -48,7 +48,7 @@ namespace RSBot.Alchemy.Views.Settings
             this.columnHeader3,
             this.columnHeader4});
             this.lvMagicOptions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvMagicOptions.ForeColor = System.Drawing.Color.Black;
+
             this.lvMagicOptions.FullRowSelect = true;
             this.lvMagicOptions.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lvMagicOptions.Location = new System.Drawing.Point(0, 0);
@@ -93,7 +93,7 @@ namespace RSBot.Alchemy.Views.Settings
 
         #endregion
 
-        private SDUI.Controls.ListView lvMagicOptions;
+        private System.Windows.Forms.ListView lvMagicOptions;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;

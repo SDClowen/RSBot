@@ -29,95 +29,84 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            panel1 = new SDUI.Controls.Panel();
-            btnRemove = new SDUI.Controls.Button();
-            lblObjective = new SDUI.Controls.Label();
-            lblQuestName = new SDUI.Controls.Label();
+            panel1 = new System.Windows.Forms.Panel();
+            btnRemove = new System.Windows.Forms.Button();
+            lblObjective = new System.Windows.Forms.Label();
+            lblQuestName = new System.Windows.Forms.Label();
             toolTipHide = new System.Windows.Forms.ToolTip(components);
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
-            panel1.BackColor = System.Drawing.Color.Transparent;
-            panel1.Border = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            panel1.BorderColor = System.Drawing.Color.Transparent;
             panel1.Controls.Add(btnRemove);
             panel1.Controls.Add(lblObjective);
             panel1.Controls.Add(lblQuestName);
-            panel1.Location = new System.Drawing.Point(4, 4);
-            panel1.Margin = new System.Windows.Forms.Padding(8);
+            panel1.Location = new System.Drawing.Point(5, 5);
+            panel1.Margin = new System.Windows.Forms.Padding(10, 10, 10, 10);
             panel1.Name = "panel1";
-            panel1.Radius = 10;
-            panel1.ShadowDepth = 4F;
-            panel1.Size = new System.Drawing.Size(239, 56);
+            panel1.Size = new System.Drawing.Size(299, 70);
             panel1.TabIndex = 0;
             // 
             // btnRemove
             // 
-            btnRemove.Color = System.Drawing.Color.Empty;
-            btnRemove.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            btnRemove.AutoSize = true;
+            btnRemove.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            btnRemove.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             btnRemove.ImageAlign = System.Drawing.ContentAlignment.TopRight;
-            btnRemove.Location = new System.Drawing.Point(214, 3);
+            btnRemove.Location = new System.Drawing.Point(268, 4);
+            btnRemove.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             btnRemove.Name = "btnRemove";
-            btnRemove.Radius = 16;
-            btnRemove.ShadowDepth = 1F;
-            btnRemove.Size = new System.Drawing.Size(18, 18);
+            btnRemove.Size = new System.Drawing.Size(30, 29);
             btnRemove.TabIndex = 2;
-            btnRemove.Text = "x";
-            btnRemove.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            btnRemove.Text = "✕";
             toolTipHide.SetToolTip(btnRemove, "Unwatch this quest");
             btnRemove.UseVisualStyleBackColor = true;
             btnRemove.Click += btnRemove_Click;
             // 
             // lblObjective
             // 
-            lblObjective.ApplyGradient = false;
             lblObjective.Dock = System.Windows.Forms.DockStyle.Fill;
-            lblObjective.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            lblObjective.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
-            lblObjective.GradientAnimation = false;
-            lblObjective.Location = new System.Drawing.Point(0, 26);
+            lblObjective.Location = new System.Drawing.Point(0, 32);
+            lblObjective.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblObjective.Name = "lblObjective";
-            lblObjective.Padding = new System.Windows.Forms.Padding(6, 2, 4, 4);
+            lblObjective.Padding = new System.Windows.Forms.Padding(8, 2, 5, 5);
             lblObjective.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            lblObjective.Size = new System.Drawing.Size(239, 30);
+            lblObjective.Size = new System.Drawing.Size(299, 38);
             lblObjective.TabIndex = 1;
             lblObjective.Text = "Objective 1 with a very long title";
             // 
             // lblQuestName
             // 
-            lblQuestName.ApplyGradient = false;
             lblQuestName.Dock = System.Windows.Forms.DockStyle.Top;
-            lblQuestName.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            lblQuestName.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            lblQuestName.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
-            lblQuestName.GradientAnimation = false;
+            lblQuestName.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold);
             lblQuestName.Location = new System.Drawing.Point(0, 0);
             lblQuestName.Margin = new System.Windows.Forms.Padding(0);
             lblQuestName.Name = "lblQuestName";
-            lblQuestName.Padding = new System.Windows.Forms.Padding(6, 8, 4, 4);
-            lblQuestName.Size = new System.Drawing.Size(239, 26);
+            lblQuestName.Padding = new System.Windows.Forms.Padding(8, 10, 5, 5);
+            lblQuestName.Size = new System.Drawing.Size(299, 32);
             lblQuestName.TabIndex = 0;
             lblQuestName.Text = "QuestLog A";
             // 
             // QuestItem
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             Controls.Add(panel1);
+            Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             Name = "QuestItem";
-            Size = new System.Drawing.Size(248, 65);
+            Size = new System.Drawing.Size(310, 81);
             panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private SDUI.Controls.Panel panel1;
-        private SDUI.Controls.Label lblObjective;
-        private SDUI.Controls.Label lblQuestName;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lblObjective;
+        private System.Windows.Forms.Label lblQuestName;
         private System.Windows.Forms.ToolTip toolTipHide;
-        private SDUI.Controls.Button btnRemove;
+        private System.Windows.Forms.Button btnRemove;
     }
 }

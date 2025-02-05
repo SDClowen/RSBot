@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel;
 using System.Windows.Forms;
 using RSBot.General.Components;
-using SDUI.Controls;
+
 
 namespace RSBot.ServerInfo.Views;
 
 [ToolboxItem(false)]
-public partial class Main : DoubleBufferedControl
+public partial class Main : UserControl
 {
     public Main()
     {

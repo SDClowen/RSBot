@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Linq;
+using System.Windows.Forms;
 using RSBot.Core;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Party;
-using SDUI.Controls;
+
 
 namespace RSBot.Party.Views;
 
-public partial class AutoFormParty : UIWindowBase
+public partial class AutoFormParty : Form
 {
     public AutoFormParty()
     {
@@ -18,7 +19,7 @@ public partial class AutoFormParty : UIWindowBase
     {
         cb_AutoReform.Checked = Bundle.Container.PartyMatching.Config.AutoReform;
         cb_AutoAccept.Checked = Bundle.Container.PartyMatching.Config.AutoAccept;
-        gbObjective.Controls.OfType<Radio>()
+        gbObjective.Controls.OfType<RadioButton>()
             .FirstOrDefault(p => p.Name == "rbtn_" + Bundle.Container.PartyMatching.Config.Purpose).Checked = true;
 
         if (Game.Player.Inventory.GetItemAt(8) != null)
@@ -72,7 +73,7 @@ public partial class AutoFormParty : UIWindowBase
 
     private void radioCheckedChanged(object sender, EventArgs e)
     {
-        var rbtn = sender as Radio;
+        var rbtn = sender as RadioButton;
         var partyPurpose = (PartyPurpose)(Convert.ToByte(rbtn?.Tag) - 1);
 
         if (partyPurpose == Bundle.Container.PartyMatching.Config.Purpose)

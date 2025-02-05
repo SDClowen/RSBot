@@ -8,7 +8,7 @@ using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
 using RSBot.Map.Renderer;
 using RSBot.NavMeshApi.Dungeon;
-using SDUI.Controls;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,7 +21,7 @@ using Region = RSBot.Core.Objects.Region;
 namespace RSBot.Map.Views;
 
 [ToolboxItem(false)]
-public partial class Main : DoubleBufferedControl
+public partial class Main : UserControl
 {
     /// <summary>
     ///     The grid size
@@ -90,7 +90,7 @@ public partial class Main : DoubleBufferedControl
         if (DesignMode)
             return;
 
-        _cachedImages ??= new();
+        _cachedImages ??= [];
 
         EventManager.SubscribeEvent("OnEnterGame", OnEnterGame);
 
@@ -273,7 +273,7 @@ public partial class Main : DoubleBufferedControl
                     var nextPosition = walkScript[i];
 
                     DrawLineAt(graphics, i != 0 ? walkScript[i - 1] : nextPosition, nextPosition, Pens.LightBlue);
-                    DrawCircleAt(graphics, nextPosition, Color.CornflowerBlue.Alpha(150), 4);
+                    DrawCircleAt(graphics, nextPosition, Color.FromArgb(50, 85, 0, 255), 4);
                 }
             }
 
@@ -282,8 +282,8 @@ public partial class Main : DoubleBufferedControl
                 var position = Kernel.Bot.Botbase.Area.Position;
                 var radius = Kernel.Bot.Botbase.Area.Radius;
 
-                DrawCircleAt(graphics, position, Color.DarkRed.Alpha(100), radius * 2);
-                DrawCircleAt(graphics, position, Color.LawnGreen.Alpha(50), radius);
+                DrawCircleAt(graphics, position, Color.FromArgb(100, 245, 66, 66), radius * 2);
+                DrawCircleAt(graphics, position, Color.FromArgb(50, 0, 255, 0), radius);
             }
 
             if (comboViewType.SelectedIndex == 0 || comboViewType.SelectedIndex == 6)
@@ -294,7 +294,7 @@ public partial class Main : DoubleBufferedControl
                             entry.Record.Level, entry.Movement.Source);
 
                         if (Game.SelectedEntity?.UniqueId == entry.UniqueId)
-                            DrawCircleAt(graphics, entry.Position, Color.Wheat.Alpha(100), 6);
+                            DrawCircleAt(graphics, entry.Position, Color.FromArgb(50, 220, 255, 220), 6);
 
                         if (entry.Rarity == MonsterRarity.Unique || entry.Rarity == MonsterRarity.Unique2)
                             DrawPointAt(graphics, entry.Position, 5);

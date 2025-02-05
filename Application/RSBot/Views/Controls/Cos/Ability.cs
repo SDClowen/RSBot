@@ -13,7 +13,7 @@ public partial class Ability : CosControlBase
         MiniCosControl.Satiety.Visible = false;
         MiniCosControl.Hgp.Visible = false;
         MiniCosControl.Level.Visible = false;
-        progressHP.ShowAsPercent = true;
+        
         SubscribeEvents();
     }
 

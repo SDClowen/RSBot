@@ -9,12 +9,12 @@ using RSBot.Alchemy.Helper;
 using RSBot.Core;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
-using SDUI.Controls;
+
 
 namespace RSBot.Alchemy.Views.Settings;
 
 [ToolboxItem(false)]
-public partial class AttributesSettingsView : DoubleBufferedControl
+public partial class AttributesSettingsView : UserControl
 {
     private List<AttributeInfoPanel> _attributePanels;
 

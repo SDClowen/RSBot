@@ -5,11 +5,11 @@ using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects.Quests;
-using SDUI.Controls;
+
 
 namespace RSBot.Quest.Views.Sidebar;
 
-public partial class QuestItem : DoubleBufferedControl
+public partial class QuestItem : UserControl
 {
     public QuestItem(uint questId)
     {

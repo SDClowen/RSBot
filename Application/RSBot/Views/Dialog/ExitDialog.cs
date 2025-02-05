@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Windows.Forms;
 using RSBot.Core;
 using RSBot.Core.Components;
-using SDUI.Controls;
+
 
 namespace RSBot.Views;
 
-public partial class ExitDialog : UIWindowBase
+public partial class ExitDialog : Form
 {
     public ExitDialog()
     {

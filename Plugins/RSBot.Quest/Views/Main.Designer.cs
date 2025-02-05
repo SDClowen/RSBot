@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             treeQuests = new System.Windows.Forms.TreeView();
-            checkShowCompleted = new SDUI.Controls.CheckBox();
-            contextQuest = new SDUI.Controls.ContextMenuStrip();
+            checkShowCompleted = new System.Windows.Forms.CheckBox();
+            contextQuest = new System.Windows.Forms.ContextMenuStrip();
             watchQuestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             abandonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,12 +50,12 @@
             // checkShowCompleted
             // 
             checkShowCompleted.AutoSize = true;
-            checkShowCompleted.Depth = 0;
+            
             checkShowCompleted.Location = new System.Drawing.Point(17, 447);
             checkShowCompleted.Margin = new System.Windows.Forms.Padding(0);
-            checkShowCompleted.MouseLocation = new System.Drawing.Point(-1, -1);
+            
             checkShowCompleted.Name = "checkShowCompleted";
-            checkShowCompleted.Ripple = true;
+            
             checkShowCompleted.Size = new System.Drawing.Size(121, 30);
             checkShowCompleted.TabIndex = 1;
             checkShowCompleted.Text = "Show completed";
@@ -70,7 +70,7 @@
             // 
             // watchQuestToolStripMenuItem
             // 
-            watchQuestToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            
             watchQuestToolStripMenuItem.Name = "watchQuestToolStripMenuItem";
             watchQuestToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             watchQuestToolStripMenuItem.Text = "Watch / unwatch";
@@ -83,7 +83,7 @@
             // 
             // abandonToolStripMenuItem
             // 
-            abandonToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            
             abandonToolStripMenuItem.Name = "abandonToolStripMenuItem";
             abandonToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             abandonToolStripMenuItem.Text = "Abandon";
@@ -107,8 +107,8 @@
         #endregion
 
         private System.Windows.Forms.TreeView treeQuests;
-        private SDUI.Controls.CheckBox checkShowCompleted;
-        private SDUI.Controls.ContextMenuStrip contextQuest;
+        private System.Windows.Forms.CheckBox checkShowCompleted;
+        private System.Windows.Forms.ContextMenuStrip contextQuest;
         private System.Windows.Forms.ToolStripMenuItem watchQuestToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem abandonToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;

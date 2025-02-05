@@ -28,44 +28,44 @@
         /// </summary>
         private void InitializeComponent()
         {
-            groupBox1 = new SDUI.Controls.GroupBox();
-            label5 = new SDUI.Controls.Label();
-            btnBrowseWalkscript = new SDUI.Controls.Button();
-            txtWalkbackScript = new SDUI.Controls.TextBox();
-            radioStayAtCenter = new SDUI.Controls.Radio();
-            separator4 = new SDUI.Controls.Separator();
-            label7 = new SDUI.Controls.Label();
-            numStayAtCenterSeconds = new SDUI.Controls.NumUpDown();
-            checkStayAtCenter = new SDUI.Controls.CheckBox();
-            btnBrowse = new SDUI.Controls.Button();
-            radioUseScript = new SDUI.Controls.Radio();
-            radioWalkRandomly = new SDUI.Controls.Radio();
+            groupBox1 = new System.Windows.Forms.GroupBox();
+            label5 = new System.Windows.Forms.Label();
+            btnBrowseWalkscript = new System.Windows.Forms.Button();
+            txtWalkbackScript = new System.Windows.Forms.TextBox();
+            radioStayAtCenter = new System.Windows.Forms.RadioButton();
+            separator4 = new System.Windows.Forms.Panel();
+            label7 = new System.Windows.Forms.Label();
+            numStayAtCenterSeconds = new System.Windows.Forms.NumericUpDown();
+            checkStayAtCenter = new System.Windows.Forms.CheckBox();
+            btnBrowse = new System.Windows.Forms.Button();
+            radioUseScript = new System.Windows.Forms.RadioButton();
+            radioWalkRandomly = new System.Windows.Forms.RadioButton();
             linkRecord = new System.Windows.Forms.LinkLabel();
-            txtScriptPath = new SDUI.Controls.TextBox();
-            panel1 = new SDUI.Controls.Panel();
-            btnSetCenter = new SDUI.Controls.Button();
-            lblX = new SDUI.Controls.Label();
-            lblY = new SDUI.Controls.Label();
-            numRadius = new SDUI.Controls.NumUpDown();
-            label1 = new SDUI.Controls.Label();
-            label3 = new SDUI.Controls.Label();
-            label2 = new SDUI.Controls.Label();
-            checkUseNormalAttack = new SDUI.Controls.CheckBox();
-            checkUseHowlingShout = new SDUI.Controls.CheckBox();
-            groupBox3 = new SDUI.Controls.GroupBox();
-            label4 = new SDUI.Controls.Label();
-            checkUseAttackingSkills = new SDUI.Controls.CheckBox();
-            checkNoHowlingAtCenter = new SDUI.Controls.CheckBox();
-            separator1 = new SDUI.Controls.Separator();
-            separator2 = new SDUI.Controls.Separator();
-            numPartyMember = new SDUI.Controls.NumUpDown();
-            checkStopPartyMember = new SDUI.Controls.CheckBox();
-            label6 = new SDUI.Controls.Label();
-            comboMonsterType = new SDUI.Controls.ComboBox();
-            numMonsterType = new SDUI.Controls.NumUpDown();
-            checkStopMonsterType = new SDUI.Controls.CheckBox();
-            numPartyMemberDead = new SDUI.Controls.NumUpDown();
-            checkStopPartyMemberDead = new SDUI.Controls.CheckBox();
+            txtScriptPath = new System.Windows.Forms.TextBox();
+            panel1 = new System.Windows.Forms.Panel();
+            btnSetCenter = new System.Windows.Forms.Button();
+            lblX = new System.Windows.Forms.Label();
+            lblY = new System.Windows.Forms.Label();
+            numRadius = new System.Windows.Forms.NumericUpDown();
+            label1 = new System.Windows.Forms.Label();
+            label3 = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
+            checkUseNormalAttack = new System.Windows.Forms.CheckBox();
+            checkUseHowlingShout = new System.Windows.Forms.CheckBox();
+            groupBox3 = new System.Windows.Forms.GroupBox();
+            label4 = new System.Windows.Forms.Label();
+            checkUseAttackingSkills = new System.Windows.Forms.CheckBox();
+            checkNoHowlingAtCenter = new System.Windows.Forms.CheckBox();
+            separator1 = new System.Windows.Forms.Panel();
+            separator2 = new System.Windows.Forms.Panel();
+            numPartyMember = new System.Windows.Forms.NumericUpDown();
+            checkStopPartyMember = new System.Windows.Forms.CheckBox();
+            label6 = new System.Windows.Forms.Label();
+            comboMonsterType = new System.Windows.Forms.ComboBox();
+            numMonsterType = new System.Windows.Forms.NumericUpDown();
+            checkStopMonsterType = new System.Windows.Forms.CheckBox();
+            numPartyMemberDead = new System.Windows.Forms.NumericUpDown();
+            checkStopPartyMemberDead = new System.Windows.Forms.CheckBox();
             groupBox1.SuspendLayout();
             panel1.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -73,7 +73,7 @@
             // 
             // groupBox1
             // 
-            groupBox1.BackColor = System.Drawing.Color.Transparent;
+            
             groupBox1.Controls.Add(label5);
             groupBox1.Controls.Add(btnBrowseWalkscript);
             groupBox1.Controls.Add(txtWalkbackScript);
@@ -91,8 +91,8 @@
             groupBox1.Location = new System.Drawing.Point(13, 11);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new System.Windows.Forms.Padding(3, 8, 3, 3);
-            groupBox1.Radius = 10;
-            groupBox1.ShadowDepth = 4;
+            
+            
             groupBox1.Size = new System.Drawing.Size(332, 429);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
@@ -100,11 +100,11 @@
             // 
             // label5
             // 
-            label5.ApplyGradient = false;
+            
             label5.AutoSize = true;
-            label5.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label5.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-            label5.GradientAnimation = false;
+            
+            
+            
             label5.Location = new System.Drawing.Point(18, 31);
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(100, 15);
@@ -113,11 +113,11 @@
             // 
             // btnBrowseWalkscript
             // 
-            btnBrowseWalkscript.Color = System.Drawing.Color.Transparent;
+            
             btnBrowseWalkscript.Location = new System.Drawing.Point(279, 52);
             btnBrowseWalkscript.Name = "btnBrowseWalkscript";
-            btnBrowseWalkscript.Radius = 6;
-            btnBrowseWalkscript.ShadowDepth = 4F;
+            
+            
             btnBrowseWalkscript.Size = new System.Drawing.Size(43, 23);
             btnBrowseWalkscript.TabIndex = 28;
             btnBrowseWalkscript.Text = "...";
@@ -128,13 +128,13 @@
             // 
             txtWalkbackScript.Location = new System.Drawing.Point(18, 54);
             txtWalkbackScript.MaxLength = 32767;
-            txtWalkbackScript.MultiLine = false;
+            txtWalkbackScript.Multiline = false;
             txtWalkbackScript.Name = "txtWalkbackScript";
-            txtWalkbackScript.PassFocusShow = false;
-            txtWalkbackScript.Radius = 2;
+            
+            
             txtWalkbackScript.Size = new System.Drawing.Size(259, 21);
             txtWalkbackScript.TabIndex = 27;
-            txtWalkbackScript.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            
             txtWalkbackScript.UseSystemPasswordChar = false;
             // 
             // radioStayAtCenter
@@ -143,7 +143,7 @@
             radioStayAtCenter.Location = new System.Drawing.Point(18, 254);
             radioStayAtCenter.Margin = new System.Windows.Forms.Padding(0);
             radioStayAtCenter.Name = "radioStayAtCenter";
-            radioStayAtCenter.Ripple = true;
+            
             radioStayAtCenter.Size = new System.Drawing.Size(105, 30);
             radioStayAtCenter.TabIndex = 25;
             radioStayAtCenter.Text = "Stay at center";
@@ -152,7 +152,6 @@
             // 
             // separator4
             // 
-            separator4.IsVertical = false;
             separator4.Location = new System.Drawing.Point(2, 348);
             separator4.Name = "separator4";
             separator4.Size = new System.Drawing.Size(328, 10);
@@ -161,11 +160,11 @@
             // 
             // label7
             // 
-            label7.ApplyGradient = false;
+            
             label7.AutoSize = true;
-            label7.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label7.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-            label7.GradientAnimation = false;
+            
+            
+            
             label7.Location = new System.Drawing.Point(255, 374);
             label7.Name = "label7";
             label7.Size = new System.Drawing.Size(58, 15);
@@ -174,9 +173,9 @@
             // 
             // numStayAtCenterSeconds
             // 
-            numStayAtCenterSeconds.BackColor = System.Drawing.Color.Transparent;
+            
             numStayAtCenterSeconds.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            numStayAtCenterSeconds.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            
             numStayAtCenterSeconds.Location = new System.Drawing.Point(169, 368);
             numStayAtCenterSeconds.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
             numStayAtCenterSeconds.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
@@ -190,13 +189,13 @@
             // checkStayAtCenter
             // 
             checkStayAtCenter.AutoSize = true;
-            checkStayAtCenter.BackColor = System.Drawing.Color.Transparent;
-            checkStayAtCenter.Depth = 0;
+            
+            
             checkStayAtCenter.Location = new System.Drawing.Point(18, 367);
             checkStayAtCenter.Margin = new System.Windows.Forms.Padding(0);
-            checkStayAtCenter.MouseLocation = new System.Drawing.Point(-1, -1);
+            
             checkStayAtCenter.Name = "checkStayAtCenter";
-            checkStayAtCenter.Ripple = true;
+            
             checkStayAtCenter.Size = new System.Drawing.Size(123, 30);
             checkStayAtCenter.TabIndex = 22;
             checkStayAtCenter.Text = "Stay at center for";
@@ -205,11 +204,11 @@
             // 
             // btnBrowse
             // 
-            btnBrowse.Color = System.Drawing.Color.Transparent;
+            
             btnBrowse.Location = new System.Drawing.Point(279, 315);
             btnBrowse.Name = "btnBrowse";
-            btnBrowse.Radius = 6;
-            btnBrowse.ShadowDepth = 4F;
+            
+            
             btnBrowse.Size = new System.Drawing.Size(43, 23);
             btnBrowse.TabIndex = 4;
             btnBrowse.Text = "...";
@@ -222,7 +221,7 @@
             radioUseScript.Location = new System.Drawing.Point(18, 282);
             radioUseScript.Margin = new System.Windows.Forms.Padding(0);
             radioUseScript.Name = "radioUseScript";
-            radioUseScript.Ripple = true;
+            
             radioUseScript.Size = new System.Drawing.Size(118, 30);
             radioUseScript.TabIndex = 2;
             radioUseScript.Text = "Use a lure script";
@@ -236,7 +235,7 @@
             radioWalkRandomly.Location = new System.Drawing.Point(18, 226);
             radioWalkRandomly.Margin = new System.Windows.Forms.Padding(0);
             radioWalkRandomly.Name = "radioWalkRandomly";
-            radioWalkRandomly.Ripple = true;
+            
             radioWalkRandomly.Size = new System.Drawing.Size(113, 30);
             radioWalkRandomly.TabIndex = 1;
             radioWalkRandomly.TabStop = true;
@@ -259,20 +258,20 @@
             // 
             txtScriptPath.Location = new System.Drawing.Point(18, 316);
             txtScriptPath.MaxLength = 32767;
-            txtScriptPath.MultiLine = false;
+            txtScriptPath.Multiline = false;
             txtScriptPath.Name = "txtScriptPath";
-            txtScriptPath.PassFocusShow = false;
-            txtScriptPath.Radius = 2;
+            
+            
             txtScriptPath.Size = new System.Drawing.Size(259, 21);
             txtScriptPath.TabIndex = 3;
-            txtScriptPath.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            
             txtScriptPath.UseSystemPasswordChar = false;
             // 
             // panel1
             // 
-            panel1.BackColor = System.Drawing.Color.Transparent;
-            panel1.Border = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            panel1.BorderColor = System.Drawing.Color.Transparent;
+            
+            
+            
             panel1.Controls.Add(btnSetCenter);
             panel1.Controls.Add(lblX);
             panel1.Controls.Add(lblY);
@@ -282,18 +281,18 @@
             panel1.Controls.Add(label2);
             panel1.Location = new System.Drawing.Point(-2, 91);
             panel1.Name = "panel1";
-            panel1.Radius = 10;
-            panel1.ShadowDepth = 4F;
+            
+            
             panel1.Size = new System.Drawing.Size(336, 121);
             panel1.TabIndex = 30;
             // 
             // btnSetCenter
             // 
-            btnSetCenter.Color = System.Drawing.Color.Transparent;
+            
             btnSetCenter.Location = new System.Drawing.Point(135, 84);
             btnSetCenter.Name = "btnSetCenter";
-            btnSetCenter.Radius = 6;
-            btnSetCenter.ShadowDepth = 4F;
+            
+            
             btnSetCenter.Size = new System.Drawing.Size(85, 23);
             btnSetCenter.TabIndex = 10;
             btnSetCenter.Text = "Set center";
@@ -302,12 +301,12 @@
             // 
             // lblX
             // 
-            lblX.ApplyGradient = false;
+            
             lblX.AutoSize = true;
             lblX.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            lblX.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            lblX.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-            lblX.GradientAnimation = false;
+            
+            
+            
             lblX.Location = new System.Drawing.Point(135, 15);
             lblX.Name = "lblX";
             lblX.Size = new System.Drawing.Size(14, 15);
@@ -316,12 +315,12 @@
             // 
             // lblY
             // 
-            lblY.ApplyGradient = false;
+            
             lblY.AutoSize = true;
             lblY.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            lblY.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            lblY.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-            lblY.GradientAnimation = false;
+            
+            
+            
             lblY.Location = new System.Drawing.Point(135, 34);
             lblY.Name = "lblY";
             lblY.Size = new System.Drawing.Size(14, 15);
@@ -330,9 +329,9 @@
             // 
             // numRadius
             // 
-            numRadius.BackColor = System.Drawing.Color.Transparent;
+            
             numRadius.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            numRadius.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            
             numRadius.Location = new System.Drawing.Point(135, 53);
             numRadius.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
             numRadius.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
@@ -345,11 +344,11 @@
             // 
             // label1
             // 
-            label1.ApplyGradient = false;
+            
             label1.AutoSize = true;
-            label1.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label1.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-            label1.GradientAnimation = false;
+            
+            
+            
             label1.Location = new System.Drawing.Point(112, 15);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(17, 15);
@@ -358,11 +357,11 @@
             // 
             // label3
             // 
-            label3.ApplyGradient = false;
+            
             label3.AutoSize = true;
-            label3.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label3.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-            label3.GradientAnimation = false;
+            
+            
+            
             label3.Location = new System.Drawing.Point(84, 59);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(45, 15);
@@ -371,11 +370,11 @@
             // 
             // label2
             // 
-            label2.ApplyGradient = false;
+            
             label2.AutoSize = true;
-            label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label2.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-            label2.GradientAnimation = false;
+            
+            
+            
             label2.Location = new System.Drawing.Point(112, 34);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(17, 15);
@@ -385,13 +384,13 @@
             // checkUseNormalAttack
             // 
             checkUseNormalAttack.AutoSize = true;
-            checkUseNormalAttack.BackColor = System.Drawing.Color.Transparent;
-            checkUseNormalAttack.Depth = 0;
+            
+            
             checkUseNormalAttack.Location = new System.Drawing.Point(26, 87);
             checkUseNormalAttack.Margin = new System.Windows.Forms.Padding(0);
-            checkUseNormalAttack.MouseLocation = new System.Drawing.Point(-1, -1);
+            
             checkUseNormalAttack.Name = "checkUseNormalAttack";
-            checkUseNormalAttack.Ripple = true;
+            
             checkUseNormalAttack.Size = new System.Drawing.Size(230, 30);
             checkUseNormalAttack.TabIndex = 1;
             checkUseNormalAttack.Text = "Use normal attack and switch target*";
@@ -401,13 +400,13 @@
             // checkUseHowlingShout
             // 
             checkUseHowlingShout.AutoSize = true;
-            checkUseHowlingShout.BackColor = System.Drawing.Color.Transparent;
-            checkUseHowlingShout.Depth = 0;
+            
+            
             checkUseHowlingShout.Location = new System.Drawing.Point(26, 36);
             checkUseHowlingShout.Margin = new System.Windows.Forms.Padding(0);
-            checkUseHowlingShout.MouseLocation = new System.Drawing.Point(-1, -1);
+            
             checkUseHowlingShout.Name = "checkUseHowlingShout";
-            checkUseHowlingShout.Ripple = true;
+            
             checkUseHowlingShout.Size = new System.Drawing.Size(186, 30);
             checkUseHowlingShout.TabIndex = 0;
             checkUseHowlingShout.Text = "Cast howling shout (only EU)";
@@ -416,7 +415,7 @@
             // 
             // groupBox3
             // 
-            groupBox3.BackColor = System.Drawing.Color.Transparent;
+            
             groupBox3.Controls.Add(label4);
             groupBox3.Controls.Add(checkUseAttackingSkills);
             groupBox3.Controls.Add(checkNoHowlingAtCenter);
@@ -435,8 +434,8 @@
             groupBox3.Location = new System.Drawing.Point(359, 11);
             groupBox3.Name = "groupBox3";
             groupBox3.Padding = new System.Windows.Forms.Padding(3, 8, 3, 3);
-            groupBox3.Radius = 10;
-            groupBox3.ShadowDepth = 4;
+            
+            
             groupBox3.Size = new System.Drawing.Size(391, 344);
             groupBox3.TabIndex = 2;
             groupBox3.TabStop = false;
@@ -444,11 +443,11 @@
             // 
             // label4
             // 
-            label4.ApplyGradient = false;
+            
             label4.AutoSize = true;
-            label4.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label4.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-            label4.GradientAnimation = false;
+            
+            
+            
             label4.Location = new System.Drawing.Point(26, 315);
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(304, 15);
@@ -458,13 +457,13 @@
             // checkUseAttackingSkills
             // 
             checkUseAttackingSkills.AutoSize = true;
-            checkUseAttackingSkills.BackColor = System.Drawing.Color.Transparent;
-            checkUseAttackingSkills.Depth = 0;
+            
+            
             checkUseAttackingSkills.Location = new System.Drawing.Point(26, 113);
             checkUseAttackingSkills.Margin = new System.Windows.Forms.Padding(0);
-            checkUseAttackingSkills.MouseLocation = new System.Drawing.Point(-1, -1);
+            
             checkUseAttackingSkills.Name = "checkUseAttackingSkills";
-            checkUseAttackingSkills.Ripple = true;
+            
             checkUseAttackingSkills.Size = new System.Drawing.Size(230, 30);
             checkUseAttackingSkills.TabIndex = 27;
             checkUseAttackingSkills.Text = "Use attacking skill and switch target*";
@@ -474,13 +473,13 @@
             // checkNoHowlingAtCenter
             // 
             checkNoHowlingAtCenter.AutoSize = true;
-            checkNoHowlingAtCenter.BackColor = System.Drawing.Color.Transparent;
-            checkNoHowlingAtCenter.Depth = 0;
+            
+            
             checkNoHowlingAtCenter.Location = new System.Drawing.Point(45, 58);
             checkNoHowlingAtCenter.Margin = new System.Windows.Forms.Padding(0);
-            checkNoHowlingAtCenter.MouseLocation = new System.Drawing.Point(-1, -1);
+            
             checkNoHowlingAtCenter.Name = "checkNoHowlingAtCenter";
-            checkNoHowlingAtCenter.Ripple = true;
+            
             checkNoHowlingAtCenter.Size = new System.Drawing.Size(149, 30);
             checkNoHowlingAtCenter.TabIndex = 26;
             checkNoHowlingAtCenter.Text = "Don't cast near center";
@@ -489,7 +488,6 @@
             // 
             // separator1
             // 
-            separator1.IsVertical = false;
             separator1.Location = new System.Drawing.Point(0, 142);
             separator1.Name = "separator1";
             separator1.Size = new System.Drawing.Size(392, 10);
@@ -498,7 +496,6 @@
             // 
             // separator2
             // 
-            separator2.IsVertical = false;
             separator2.Location = new System.Drawing.Point(2, 277);
             separator2.Name = "separator2";
             separator2.Size = new System.Drawing.Size(392, 10);
@@ -507,9 +504,9 @@
             // 
             // numPartyMember
             // 
-            numPartyMember.BackColor = System.Drawing.Color.Transparent;
+            
             numPartyMember.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            numPartyMember.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            
             numPartyMember.Location = new System.Drawing.Point(225, 193);
             numPartyMember.Maximum = new decimal(new int[] { 8, 0, 0, 0 });
             numPartyMember.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
@@ -523,13 +520,13 @@
             // checkStopPartyMember
             // 
             checkStopPartyMember.AutoSize = true;
-            checkStopPartyMember.BackColor = System.Drawing.Color.Transparent;
-            checkStopPartyMember.Depth = 0;
+            
+            
             checkStopPartyMember.Location = new System.Drawing.Point(26, 191);
             checkStopPartyMember.Margin = new System.Windows.Forms.Padding(0);
-            checkStopPartyMember.MouseLocation = new System.Drawing.Point(-1, -1);
+            
             checkStopPartyMember.Name = "checkStopPartyMember";
-            checkStopPartyMember.Ripple = true;
+            
             checkStopPartyMember.Size = new System.Drawing.Size(189, 30);
             checkStopPartyMember.TabIndex = 19;
             checkStopPartyMember.Text = "Stop num party members <=";
@@ -538,11 +535,11 @@
             // 
             // label6
             // 
-            label6.ApplyGradient = false;
+            
             label6.AutoSize = true;
-            label6.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label6.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
-            label6.GradientAnimation = false;
+            
+            
+            
             label6.Location = new System.Drawing.Point(191, 253);
             label6.Name = "label6";
             label6.Size = new System.Drawing.Size(23, 15);
@@ -551,23 +548,23 @@
             // 
             // comboMonsterType
             // 
-            comboMonsterType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            comboMonsterType.DrawMode = System.Windows.Forms.DrawMode.Normal;
             comboMonsterType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             comboMonsterType.FormattingEnabled = true;
             comboMonsterType.Items.AddRange(new object[] { "General (Default)", "Champion", "Giant", "General (Party)", "Champion (Party)", "Giant (Party)", "Elite", "Strong", "Unique", "Event" });
             comboMonsterType.Location = new System.Drawing.Point(45, 250);
             comboMonsterType.Name = "comboMonsterType";
-            comboMonsterType.Radius = 5;
-            comboMonsterType.ShadowDepth = 4F;
+            
+            
             comboMonsterType.Size = new System.Drawing.Size(140, 24);
             comboMonsterType.TabIndex = 17;
             comboMonsterType.SelectedIndexChanged += comboMonsterType_SelectedIndexChanged;
             // 
             // numMonsterType
             // 
-            numMonsterType.BackColor = System.Drawing.Color.Transparent;
+            
             numMonsterType.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            numMonsterType.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            
             numMonsterType.Location = new System.Drawing.Point(225, 246);
             numMonsterType.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
             numMonsterType.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
@@ -581,13 +578,13 @@
             // checkStopMonsterType
             // 
             checkStopMonsterType.AutoSize = true;
-            checkStopMonsterType.BackColor = System.Drawing.Color.Transparent;
-            checkStopMonsterType.Depth = 0;
+            
+            
             checkStopMonsterType.Location = new System.Drawing.Point(26, 221);
             checkStopMonsterType.Margin = new System.Windows.Forms.Padding(0);
-            checkStopMonsterType.MouseLocation = new System.Drawing.Point(-1, -1);
+            
             checkStopMonsterType.Name = "checkStopMonsterType";
-            checkStopMonsterType.Ripple = true;
+            
             checkStopMonsterType.Size = new System.Drawing.Size(183, 30);
             checkStopMonsterType.TabIndex = 15;
             checkStopMonsterType.Text = "Stop if num monster of type";
@@ -596,9 +593,9 @@
             // 
             // numPartyMemberDead
             // 
-            numPartyMemberDead.BackColor = System.Drawing.Color.Transparent;
+            
             numPartyMemberDead.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            numPartyMemberDead.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            
             numPartyMemberDead.Location = new System.Drawing.Point(225, 161);
             numPartyMemberDead.Maximum = new decimal(new int[] { 8, 0, 0, 0 });
             numPartyMemberDead.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
@@ -612,13 +609,13 @@
             // checkStopPartyMemberDead
             // 
             checkStopPartyMemberDead.AutoSize = true;
-            checkStopPartyMemberDead.BackColor = System.Drawing.Color.Transparent;
-            checkStopPartyMemberDead.Depth = 0;
+            
+            
             checkStopPartyMemberDead.Location = new System.Drawing.Point(26, 160);
             checkStopPartyMemberDead.Margin = new System.Windows.Forms.Padding(0);
-            checkStopPartyMemberDead.MouseLocation = new System.Drawing.Point(-1, -1);
+            
             checkStopPartyMemberDead.Name = "checkStopPartyMemberDead";
-            checkStopPartyMemberDead.Ripple = true;
+            
             checkStopPartyMemberDead.Size = new System.Drawing.Size(202, 30);
             checkStopPartyMemberDead.TabIndex = 6;
             checkStopPartyMemberDead.Text = "Stop if dead party members >=";
@@ -645,43 +642,43 @@
 
         #endregion
 
-        private SDUI.Controls.GroupBox groupBox1;
-        private SDUI.Controls.Button btnSetCenter;
-        private SDUI.Controls.Label label3;
-        private SDUI.Controls.Label label2;
-        private SDUI.Controls.Label label1;
-        private SDUI.Controls.Label lblY;
-        private SDUI.Controls.Label lblX;
-        private SDUI.Controls.NumUpDown numRadius;
-        private SDUI.Controls.GroupBox groupBox3;
-        private SDUI.Controls.Button btnBrowse;
-        private SDUI.Controls.TextBox txtScriptPath;
-        private SDUI.Controls.Radio radioUseScript;
-        private SDUI.Controls.Radio radioWalkRandomly;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button btnSetCenter;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblY;
+        private System.Windows.Forms.Label lblX;
+        private System.Windows.Forms.NumericUpDown numRadius;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button btnBrowse;
+        private System.Windows.Forms.TextBox txtScriptPath;
+        private System.Windows.Forms.RadioButton radioUseScript;
+        private System.Windows.Forms.RadioButton radioWalkRandomly;
         private System.Windows.Forms.LinkLabel linkRecord;
-        private SDUI.Controls.Label label6;
-        private SDUI.Controls.ComboBox comboMonsterType;
-        private SDUI.Controls.NumUpDown numMonsterType;
-        private SDUI.Controls.CheckBox checkStopMonsterType;
-        private SDUI.Controls.NumUpDown numPartyMemberDead;
-        private SDUI.Controls.CheckBox checkStopPartyMemberDead;
-        private SDUI.Controls.CheckBox checkUseNormalAttack;
-        private SDUI.Controls.CheckBox checkUseHowlingShout;
-        private SDUI.Controls.NumUpDown numPartyMember;
-        private SDUI.Controls.CheckBox checkStopPartyMember;
-        private SDUI.Controls.Label label7;
-        private SDUI.Controls.NumUpDown numStayAtCenterSeconds;
-        private SDUI.Controls.CheckBox checkStayAtCenter;
-        private SDUI.Controls.Separator separator2;
-        private SDUI.Controls.Separator separator1;
-        private SDUI.Controls.Separator separator4;
-        private SDUI.Controls.Radio radioStayAtCenter;
-        private SDUI.Controls.CheckBox checkNoHowlingAtCenter;
-        private SDUI.Controls.CheckBox checkUseAttackingSkills;
-        private SDUI.Controls.Label label4;
-        private SDUI.Controls.Label label5;
-        private SDUI.Controls.Button btnBrowseWalkscript;
-        private SDUI.Controls.TextBox txtWalkbackScript;
-        private SDUI.Controls.Panel panel1;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox comboMonsterType;
+        private System.Windows.Forms.NumericUpDown numMonsterType;
+        private System.Windows.Forms.CheckBox checkStopMonsterType;
+        private System.Windows.Forms.NumericUpDown numPartyMemberDead;
+        private System.Windows.Forms.CheckBox checkStopPartyMemberDead;
+        private System.Windows.Forms.CheckBox checkUseNormalAttack;
+        private System.Windows.Forms.CheckBox checkUseHowlingShout;
+        private System.Windows.Forms.NumericUpDown numPartyMember;
+        private System.Windows.Forms.CheckBox checkStopPartyMember;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.NumericUpDown numStayAtCenterSeconds;
+        private System.Windows.Forms.CheckBox checkStayAtCenter;
+        private System.Windows.Forms.Panel separator2;
+        private System.Windows.Forms.Panel separator1;
+        private System.Windows.Forms.Panel separator4;
+        private System.Windows.Forms.RadioButton radioStayAtCenter;
+        private System.Windows.Forms.CheckBox checkNoHowlingAtCenter;
+        private System.Windows.Forms.CheckBox checkUseAttackingSkills;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btnBrowseWalkscript;
+        private System.Windows.Forms.TextBox txtWalkbackScript;
+        private System.Windows.Forms.Panel panel1;
     }
 }
