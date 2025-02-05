@@ -5,7 +5,6 @@ using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Plugins;
 using RSBot.Views.Dialog;
-using SDUI.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -41,8 +40,6 @@ public partial class Main : Form
         RegisterEvents();
 
         Text = "RSBot";
-        WindowsHelper.ApplyBorderColor(Handle, Color.FromArgb(0, 120, 215));
-        WindowsHelper.UseImmersiveDarkMode(Handle, true);
     }
 
     #endregion Constructor
@@ -585,6 +582,29 @@ public partial class Main : Form
     private void darkToolStripMenuItem_Click(object sender, EventArgs e)
     {
         GlobalConfig.Set("RSBot.Theme.Auto", false);
+        BackColor = Color.Black;
+        ForeColor = Color.White;
+
+        void loop(Control control)
+        {
+            foreach (Control citem in control.Controls)
+            {
+                citem.BackColor = Color.Black;
+                citem.ForeColor = Color.White;
+                
+                loop(citem);
+            }
+        }
+
+        loop(this);
+
+        foreach (TabPage item in windowPageControl.TabPages)
+        {
+            item.BackColor = Color.Black;
+            item.ForeColor = Color.White;
+
+            loop(item);
+        }
     }
 
     /// <summary>
@@ -595,6 +615,28 @@ public partial class Main : Form
     private void lightToolStripMenuItem_Click(object sender, EventArgs e)
     {
         GlobalConfig.Set("RSBot.Theme.Auto", false);
+        BackColor = Color.WhiteSmoke;
+        ForeColor = Color.Black;
+
+        void loop(Control control)
+        {
+            foreach (Control citem in control.Controls)
+            {
+                citem.BackColor = Color.WhiteSmoke;
+                citem.ForeColor = Color.Black;
+                loop(citem);
+            }
+        }
+
+        loop(this);
+        foreach (TabPage item in windowPageControl.TabPages)
+        {
+            item.BackColor = Color.WhiteSmoke;
+            item.ForeColor = Color.Black;
+
+            loop(item);
+        }
+        GlobalConfig.Set("RSBot.Theme.Auto", false);
     }
 
     /// <summary>
@@ -604,14 +646,14 @@ public partial class Main : Form
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void autoToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        if (WindowsHelper.IsModern)
+        /*if (WindowsHelper.IsModern)
         {
             GlobalConfig.Set("RSBot.Theme.Auto", true);
             SystemEvents_UserPreferenceChanged(null,
                 new UserPreferenceChangedEventArgs(UserPreferenceCategory.Color));
 
             return;
-        }
+        }*/
 
         MessageBox.Show(
             "Unfortunately, it does not support this mode because your operating system is outdated!",

@@ -1,12 +1,10 @@
-﻿using System;
+﻿using RSBot.Core.Components;
+using RSBot.Core.Components.Scripting;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using RSBot.Core.Components;
-using RSBot.Core.Components.Scripting;
-using SDUI;
-
 using Label = System.Windows.Forms.Label;
 using Panel = System.Windows.Forms.Panel;
 using TextBox = System.Windows.Forms.TextBox;

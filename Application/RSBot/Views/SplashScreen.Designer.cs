@@ -78,7 +78,7 @@
             labelVersion.Enabled = false;
             labelVersion.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 162);
             labelVersion.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            labelVersion.Location = new System.Drawing.Point(333, 91);
+            labelVersion.Location = new System.Drawing.Point(401, 137);
             labelVersion.Name = "labelVersion";
             labelVersion.Size = new System.Drawing.Size(53, 30);
             labelVersion.TabIndex = 4;
@@ -144,10 +144,10 @@
             BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             ClientSize = new System.Drawing.Size(533, 290);
             ControlBox = false;
+            Controls.Add(lblLoading);
             Controls.Add(label2);
             Controls.Add(label3);
             Controls.Add(progressLoading);
-            Controls.Add(lblLoading);
             Controls.Add(labelVersion);
             Controls.Add(logoLabel);
             Controls.Add(pictureBox);

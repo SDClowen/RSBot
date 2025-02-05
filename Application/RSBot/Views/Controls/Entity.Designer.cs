@@ -36,73 +36,58 @@
             // 
             // lblType
             // 
-            
-            
             lblType.Dock = System.Windows.Forms.DockStyle.Bottom;
-            
-                        
-            lblType.Location = new System.Drawing.Point(0, 64);
+            lblType.Location = new System.Drawing.Point(0, 80);
+            lblType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblType.Name = "lblType";
-            lblType.Size = new System.Drawing.Size(250, 19);
+            lblType.Size = new System.Drawing.Size(312, 24);
             lblType.TabIndex = 18;
             lblType.Text = "<none>";
             lblType.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label1
             // 
-            
             label1.AutoSize = true;
-            
-                        
-            label1.Location = new System.Drawing.Point(20, 40);
+            label1.Location = new System.Drawing.Point(25, 50);
+            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(26, 15);
+            label1.Size = new System.Drawing.Size(31, 20);
             label1.TabIndex = 17;
             label1.Text = "HP:";
             // 
             // lblEntityName
             // 
-            
             lblEntityName.AutoSize = true;
-            
-                        
-            lblEntityName.Location = new System.Drawing.Point(49, 12);
+            lblEntityName.Location = new System.Drawing.Point(61, 15);
+            lblEntityName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblEntityName.Name = "lblEntityName";
-            lblEntityName.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            lblEntityName.Size = new System.Drawing.Size(108, 15);
+            lblEntityName.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblEntityName.Size = new System.Drawing.Size(137, 20);
             lblEntityName.TabIndex = 16;
             lblEntityName.Text = "No entity selected";
             // 
             // progressHP
             // 
-            
-            
-            
-                        
-            progressHP.Location = new System.Drawing.Point(52, 38);
-            progressHP.Maximum = 100;
-            
+            progressHP.ForeColor = System.Drawing.Color.FromArgb(192, 0, 0);
+            progressHP.Location = new System.Drawing.Point(65, 48);
+            progressHP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             progressHP.Name = "progressHP";
-            
-            
-            
-            
-            progressHP.Size = new System.Drawing.Size(180, 20);
+            progressHP.Size = new System.Drawing.Size(225, 25);
             progressHP.TabIndex = 15;
             progressHP.Text = "0,00%";
-            progressHP.Value = 0;
             // 
             // Entity
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             Controls.Add(lblType);
             Controls.Add(label1);
             Controls.Add(lblEntityName);
             Controls.Add(progressHP);
-            MinimumSize = new System.Drawing.Size(250, 76);
+            Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            MinimumSize = new System.Drawing.Size(312, 95);
             Name = "Entity";
-            Size = new System.Drawing.Size(250, 83);
+            Size = new System.Drawing.Size(312, 104);
             ResumeLayout(false);
             PerformLayout();
         }

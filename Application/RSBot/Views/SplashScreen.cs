@@ -1,14 +1,10 @@
-﻿using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.IO;
-using System.Windows.Forms;
-using RSBot.Core;
+﻿using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Views.Dialog;
-using SDUI;
-
-using SDUI.Helpers;
+using System;
+using System.ComponentModel;
+using System.IO;
+using System.Windows.Forms;
 
 namespace RSBot.Views;
 

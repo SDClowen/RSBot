@@ -1,11 +1,10 @@
-﻿using System;
-using System.ComponentModel;
-using System.Windows.Forms;
-using RSBot.CommandCenter.Components;
+﻿using RSBot.CommandCenter.Components;
 using RSBot.CommandCenter.Views.Controls;
 using RSBot.Core;
 using RSBot.Core.Components;
-using SDUI;
+using System;
+using System.ComponentModel;
+using System.Windows.Forms;
 
 
 namespace RSBot.CommandCenter.Views;

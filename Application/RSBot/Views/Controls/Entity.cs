@@ -49,8 +49,16 @@ public partial class Entity : UserControl
 
         if (entity is SpawnedMonster monster)
         {
-            progressHP.Maximum = monster.MaxHealth;
-            progressHP.Value = monster.Health;
+            try
+            {
+                progressHP.Maximum = monster.MaxHealth;
+                progressHP.Value = monster.Health;
+
+            }
+            catch (Exception)
+            {
+
+            }
 
             lblType.Text = monster.Rarity.GetName();
         }

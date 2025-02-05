@@ -1,11 +1,10 @@
-﻿using System;
+﻿using RSBot.Core;
+using RSBot.Core.Event;
+using RSBot.Core.Objects.Quests;
+using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
-using RSBot.Core;
-using RSBot.Core.Event;
-using RSBot.Core.Objects.Quests;
-using SDUI;
 
 
 namespace RSBot.Quest.Views;
@@ -22,13 +21,6 @@ public partial class Main : UserControl
         InitializeComponent();
 
         SubscribeEvents();
-        ApplyTheme();
-    }
-
-    private void ApplyTheme()
-    {
-        
-        
     }
 
     private void SubscribeEvents()

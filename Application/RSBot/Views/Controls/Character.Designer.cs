@@ -51,7 +51,7 @@
             label3.AutoSize = true;
             label3.Font = new System.Drawing.Font("Segoe UI Semibold", 9.25F, System.Drawing.FontStyle.Bold);
             label3.Location = new System.Drawing.Point(665, 20);
-            label3.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
+            label3.Margin = new System.Windows.Forms.Padding(0);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(49, 21);
             label3.TabIndex = 4;
@@ -62,7 +62,7 @@
             label4.AutoSize = true;
             label4.Font = new System.Drawing.Font("Segoe UI Semibold", 9.25F, System.Drawing.FontStyle.Bold);
             label4.Location = new System.Drawing.Point(682, 48);
-            label4.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
+            label4.Margin = new System.Windows.Forms.Padding(0);
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(32, 21);
             label4.TabIndex = 5;
@@ -82,7 +82,7 @@
             // 
             lblGold.AutoSize = true;
             lblGold.Location = new System.Drawing.Point(722, 21);
-            lblGold.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
+            lblGold.Margin = new System.Windows.Forms.Padding(0);
             lblGold.Name = "lblGold";
             lblGold.Size = new System.Drawing.Size(17, 20);
             lblGold.TabIndex = 7;
@@ -92,7 +92,7 @@
             // 
             lblSP.AutoSize = true;
             lblSP.Location = new System.Drawing.Point(722, 48);
-            lblSP.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
+            lblSP.Margin = new System.Windows.Forms.Padding(0);
             lblSP.Name = "lblSP";
             lblSP.Size = new System.Drawing.Size(17, 20);
             lblSP.TabIndex = 8;
@@ -113,7 +113,7 @@
             // 
             lblStr.AutoSize = true;
             lblStr.Location = new System.Drawing.Point(589, 20);
-            lblStr.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
+            lblStr.Margin = new System.Windows.Forms.Padding(0);
             lblStr.Name = "lblStr";
             lblStr.Size = new System.Drawing.Size(17, 20);
             lblStr.TabIndex = 11;
@@ -124,7 +124,7 @@
             label9.AutoSize = true;
             label9.Font = new System.Drawing.Font("Segoe UI Semibold", 9.25F, System.Drawing.FontStyle.Bold);
             label9.Location = new System.Drawing.Point(539, 20);
-            label9.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
+            label9.Margin = new System.Windows.Forms.Padding(0);
             label9.Name = "label9";
             label9.Size = new System.Drawing.Size(42, 21);
             label9.TabIndex = 10;
@@ -134,7 +134,7 @@
             // 
             lblInt.AutoSize = true;
             lblInt.Location = new System.Drawing.Point(589, 49);
-            lblInt.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
+            lblInt.Margin = new System.Windows.Forms.Padding(0);
             lblInt.Name = "lblInt";
             lblInt.Size = new System.Drawing.Size(17, 20);
             lblInt.TabIndex = 13;
@@ -145,7 +145,7 @@
             label11.AutoSize = true;
             label11.Font = new System.Drawing.Font("Segoe UI Semibold", 9.25F, System.Drawing.FontStyle.Bold);
             label11.Location = new System.Drawing.Point(541, 48);
-            label11.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
+            label11.Margin = new System.Windows.Forms.Padding(0);
             label11.Name = "label11";
             label11.Size = new System.Drawing.Size(40, 21);
             label11.TabIndex = 12;
@@ -153,8 +153,9 @@
             // 
             // progressEXP
             // 
+            progressEXP.ForeColor = System.Drawing.Color.FromArgb(0, 192, 0);
             progressEXP.Location = new System.Drawing.Point(12, 61);
-            progressEXP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            progressEXP.Margin = new System.Windows.Forms.Padding(4);
             progressEXP.Maximum = 1;
             progressEXP.Name = "progressEXP";
             progressEXP.Size = new System.Drawing.Size(504, 25);
@@ -164,7 +165,7 @@
             // progressMP
             // 
             progressMP.Location = new System.Drawing.Point(268, 32);
-            progressMP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            progressMP.Margin = new System.Windows.Forms.Padding(4);
             progressMP.Maximum = 1;
             progressMP.Name = "progressMP";
             progressMP.Size = new System.Drawing.Size(248, 25);
@@ -173,8 +174,9 @@
             // 
             // progressHP
             // 
+            progressHP.ForeColor = System.Drawing.Color.FromArgb(192, 0, 0);
             progressHP.Location = new System.Drawing.Point(12, 32);
-            progressHP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            progressHP.Margin = new System.Windows.Forms.Padding(4);
             progressHP.Maximum = 1;
             progressHP.Name = "progressHP";
             progressHP.Size = new System.Drawing.Size(248, 25);
@@ -185,7 +187,7 @@
             // 
             separator1.Dock = System.Windows.Forms.DockStyle.Bottom;
             separator1.Location = new System.Drawing.Point(0, 92);
-            separator1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            separator1.Margin = new System.Windows.Forms.Padding(4);
             separator1.Name = "separator1";
             separator1.Size = new System.Drawing.Size(869, 2);
             separator1.TabIndex = 14;
@@ -209,7 +211,7 @@
             Controls.Add(progressEXP);
             Controls.Add(progressMP);
             Controls.Add(progressHP);
-            Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            Margin = new System.Windows.Forms.Padding(4);
             Name = "Character";
             Size = new System.Drawing.Size(869, 94);
             ResumeLayout(false);
