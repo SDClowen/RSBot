@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:RSBot.ViewModels.Cos"
+             mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="150"
+             x:Class="RSBot.Views.Controls.Cos.CosManager"
+             x:DataType="vm:CosManagerViewModel">
+
+	<Design.DataContext>
+		<vm:CosManagerViewModel/>
+	</Design.DataContext>
+
+	<UserControl.Styles>
+		<Style Selector="TabItem">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate>
+						<Border x:Name="TabBorder"
+								CornerRadius="6"
+								Background="{TemplateBinding Background}"
+								BorderBrush="{TemplateBinding BorderBrush}"
+								Padding="4">
+							<ContentPresenter Content="{TemplateBinding Header}" />
+						</Border>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+			<Setter Property="Background" Value="Transparent" />
+			<Setter Property="Opacity" Value="0.7" />
+		</Style>
+
+		<Style Selector="TabItem:selected">
+			<Setter Property="Background" Value="rgba(255, 255, 255, .2)" />
+			<Style.Animations>
+				<Animation Duration="0:0:0.4">
+					<KeyFrame Cue="0%">
+						<Setter Property="Background" Value="Transparent" />
+					</KeyFrame>
+					<KeyFrame Cue="100%">
+						<Setter Property="Background" Value="rgba(255, 255, 255, .2)" />
+					</KeyFrame>
+				</Animation>
+				<Animation Duration="0:0:0.4">
+					<KeyFrame Cue="0%">
+						<Setter Property="BorderBrush" Value="Transparent" />
+					</KeyFrame>
+					<KeyFrame Cue="100%">
+						<Setter Property="BorderBrush" Value="Yellow" />
+					</KeyFrame>
+				</Animation>
+			</Style.Animations>
+		</Style>
+	</UserControl.Styles>
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+
+		<Panel Grid.Row="0" Height="4" Background="rgba(255, 255, 255, 0.1)"/>
+
+		<Grid Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+
+			<Button Grid.Column="0" 
+					Content="◀"
+					Width="23"
+					Height="56"
+					Command="{Binding PreviousCommand}"
+					IsVisible="{Binding NavigationVisible}"/>
+
+			<Panel Grid.Column="1" x:Name="panelTopCenter">
+				<ItemsControl ItemsSource="{Binding MiniControls}">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<StackPanel Orientation="Horizontal"/>
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+				</ItemsControl>
+			</Panel>
+
+			<Button Grid.Column="2" 
+					Content="▶"
+					Width="23"
+					Height="56"
+					Command="{Binding NextCommand}"
+					IsVisible="{Binding NavigationVisible}"/>
+		</Grid>
+
+		<Panel Grid.Row="2" Height="4" Background="rgba(255, 255, 255, 0.1)"/>
+
+		<ItemsControl Grid.Row="1" 
+					  ItemsSource="{Binding Controls}"
+					  HorizontalAlignment="Stretch"
+					  VerticalAlignment="Stretch">
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<Panel/>
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+		</ItemsControl>
+	</Grid>
+</UserControl>

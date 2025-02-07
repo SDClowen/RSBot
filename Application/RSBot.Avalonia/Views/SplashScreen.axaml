@@ -1,0 +1,71 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="200"
+        x:Class="RSBot.Views.SplashScreen"
+		xmlns:vm="using:RSBot.ViewModels"
+		xmlns:converter="using:RSBot.Converters"
+		x:DataType="vm:SplashScreenViewModel"
+        Title="RSBot"
+        Width="350" Height="210"
+        WindowStartupLocation="CenterScreen"
+        Background="rgba(0, 0, 0, 0.07)"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome">
+
+    <Design.DataContext>
+        <vm:SplashScreenViewModel/>
+    </Design.DataContext>
+	
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+		<TextBlock Grid.Row="0"
+                   Text="{Binding Version}"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Top"
+                   Foreground="Gray"
+                   FontSize="11"/>
+		
+        <Image Grid.Row="1" 
+               Source="/Assets/app.png"
+               Width="100" Height="100"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+
+        <StackPanel Grid.Row="2" 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Margin="0,10">
+			
+            <TextBlock Text="{Binding LoadingText}"
+                     HorizontalAlignment="Center"
+                     Foreground="White"/>
+            
+            <Panel Margin="0,10,0,0" MinWidth="200">
+                <Border Height="3" 
+                        Background="rgba(255, 255, 255, 0.2)" 
+                        CornerRadius="6"/>
+                <Border Height="8" 
+                        Classes="Progress"
+                        CornerRadius="6"
+						Background="DodgerBlue"
+                        HorizontalAlignment="Left"
+                        MinWidth="0"
+                        Width="{Binding LoadingProgress, Mode=OneWay, Converter={x:Static converter:ProgressToWidthConverter.Instance}}">
+                    <Border.Transitions>
+                        <Transitions>
+							<DoubleTransition Property="Width" Duration="0:0:0.4"/>
+                        </Transitions>
+                    </Border.Transitions>
+                </Border>
+            </Panel>
+        </StackPanel>
+
+    </Grid>
+</Window>

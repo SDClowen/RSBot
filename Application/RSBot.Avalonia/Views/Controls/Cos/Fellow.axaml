@@ -1,0 +1,40 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:cos="using:RSBot.Views.Controls.Cos"
+             mc:Ignorable="d" d:DesignWidth="243" d:DesignHeight="150"
+             x:Class="RSBot.Views.Controls.Cos.Fellow">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+
+		<cos:CosControlBase Grid.Row="0" x:Name="cosControlBase"/>
+		<StackPanel>
+			<TextBlock Name="lblPetName">No Selected</TextBlock>
+			<Separator></Separator>
+			<TextBlock HorizontalAlignment="Left">HP</TextBlock>
+			<ProgressBar Name="progressHP" HorizontalAlignment="Stretch" Margin="5" Height="20"
+							Foreground="Brown"
+							Minimum="0" Maximum="100" Value="44"
+							ShowProgressText="True"/>
+			<TextBlock HorizontalAlignment="Left">Satiety</TextBlock>
+			<ProgressBar Name="progressSatiety" HorizontalAlignment="Stretch" Margin="5" Height="20"
+							Foreground="Yellow"
+							Minimum="0" Maximum="100" Value="44"
+							ShowProgressText="True"/>
+			<TextBlock HorizontalAlignment="Left">Experience</TextBlock>
+			<ProgressBar Name="progressEXP" HorizontalAlignment="Stretch" Margin="5" Height="20"
+							Foreground="rgb(0,192,0)"
+							Minimum="0" Maximum="100" Value="44"
+							ShowProgressText="True"/>
+			<TextBlock HorizontalAlignment="Left">Stored Skill Point</TextBlock>
+			<ProgressBar Name="progressBarStoredSp" HorizontalAlignment="Stretch" Margin="5" Height="20"
+							Foreground="rgb(152,92,132)"
+							Minimum="0" Maximum="100" Value="44"
+							ShowProgressText="True"/>
+		</StackPanel>
+	</Grid>
+</UserControl>

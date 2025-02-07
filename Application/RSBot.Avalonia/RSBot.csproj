@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+		<OutputPath>.\..\..\Build</OutputPath>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<Description>A open source bot for Silkroad Online</Description>
+		<Copyright>Copyright © 2018 - 2024, RSBot Team</Copyright>
+		<PackageProjectUrl>https://github.com/SDClowen/RSBot</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/SDClowen/RSBot</RepositoryUrl>
+		<PlatformTarget>x86</PlatformTarget>
+		<OutputType>WinExe</OutputType>
+	</PropertyGroup>
+	<ItemGroup>
+		<AvaloniaResource Include="Assets\**" />
+	</ItemGroup>
+    <ItemGroup>
+	    <PackageReference Include="Avalonia" Version="11.2.3" />
+	    <PackageReference Include="Avalonia.Desktop" Version="11.2.3" />
+	    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.3" />
+	    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.3" />
+	    <PackageReference Include="Avalonia.ReactiveUI" Version="11.2.3" />
+	    <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+	    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.2.3" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\..\Library\RSBot.Core\RSBot.Core.csproj" />
+    </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\Controls\Cos\CosManager.axaml.cs">
+      <DependentUpon>CosManager.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Controls\Cos\Fellow.axaml.cs">
+      <DependentUpon>Fellow.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Controls\Cos\Ability.axaml.cs">
+      <DependentUpon>Ability.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\TitleBars\MacosTitleBar.axaml.cs">
+      <DependentUpon>MacosTitleBar.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\TextInputDialog.axaml.cs">
+      <DependentUpon>TextInputDialog.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+</Project>

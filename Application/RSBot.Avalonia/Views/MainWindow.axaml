@@ -1,0 +1,166 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		Width="980" Height="650"
+        mc:Ignorable="d" d:DesignWidth="980" d:DesignHeight="650"
+        x:Class="RSBot.Views.MainWindow"
+		xmlns:rs="using:RSBot.Views.Controls"
+		xmlns:rsc="using:RSBot.Views.Controls.Cos"
+		xmlns:vm="using:RSBot.ViewModels"
+		x:DataType="vm:MainWindowViewModel"
+		Icon="/Assets/app.png"
+		Title="RSBot" Foreground="White"
+		Background="rgba(255, 255, 255, 0.07)"
+		RequestedThemeVariant="Dark"
+		WindowStartupLocation="CenterScreen"
+		ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="PreferSystemChrome"
+        ExtendClientAreaTitleBarHeightHint="-1"
+        SystemDecorations="Full">
+
+	<Design.DataContext>
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
+
+	<DockPanel LastChildFill="True">
+		<Border Height="25" Background="rgba(255, 255, 255, 0.07)" BorderBrush="Transparent" BorderThickness="0" DockPanel.Dock="Bottom">
+			<DockPanel>
+				<Button DockPanel.Dock="Right"
+							Margin="0"
+							Content="☰"
+							Width="30"
+							Height="30"
+							VerticalAlignment="Top"
+							Background="Transparent"
+							Foreground="White"
+							HorizontalAlignment="Right">
+					<Button.Flyout>
+						<MenuFlyout Placement="BottomEdgeAlignedRight">
+							<MenuItem Header="File">
+								<MenuItem Header="Profile" Command="{Binding SelectProfileCommand}"/>
+								<MenuItem Header="Settings" Command="{Binding ShowSettingsCommand}"/>
+								<MenuItem Header="Exit" Command="{Binding ExitCommand}"/>
+							</MenuItem>
+							<MenuItem Header="Tools">
+								<MenuItem Header="Script Recorder" Command="{Binding ShowScriptRecorderCommand}"/>
+								<MenuItem Header="Network Config" Command="{Binding ShowNetworkConfigCommand}"/>
+							</MenuItem>
+							<MenuItem Header="Botbase" ItemsSource="{Binding BotBases}">
+								<MenuItem.ItemTemplate>
+									<DataTemplate x:DataType="vm:BotBaseInfo">
+										<MenuItem Header="{Binding DisplayName}"
+												Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).SelectBotBaseCommand}"
+												CommandParameter="{Binding Name}"
+												IsChecked="{Binding IsSelected}"/>
+									</DataTemplate>
+								</MenuItem.ItemTemplate>
+							</MenuItem>
+							<MenuItem Header="Plugins" ItemsSource="{Binding Plugins}">
+								<MenuItem.ItemTemplate>
+									<DataTemplate x:DataType="vm:PluginInfo">
+										<MenuItem Header="{Binding DisplayName}"
+												Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).ShowPluginCommand}"
+												CommandParameter="{Binding}"
+												IsEnabled="{Binding IsEnabled}"/>
+									</DataTemplate>
+								</MenuItem.ItemTemplate>
+							</MenuItem>
+							<MenuItem Header="Help">
+								<MenuItem Header="About" Command="{Binding ShowAboutCommand}"/>
+								<MenuItem Header="Donate" Command="{Binding DonateCommand}"/>
+							</MenuItem>
+						</MenuFlyout>
+					</Button.Flyout>
+				</Button>
+				<TextBlock DockPanel.Dock="Left" Padding="10 0 0 0" VerticalAlignment="Center" Text="{Binding StatusText}"/>
+			</DockPanel>
+		</Border>
+		<Border Width="250" Margin="0 0 0 0" Background="rgba(255, 255, 255, 0.10)" BorderBrush="rgba(255, 255, 255, 0.07)" BorderThickness="1 0 0 0" DockPanel.Dock="Right" Padding="5">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="*"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+				</Grid.RowDefinitions>
+
+				<rsc:CosManager Grid.Row="0" Name="cosManager" Margin="0 30" IsVisible="{Binding CosManagerVisible}"/>
+
+				<rs:Entity Grid.Row="1"/>
+				<StackPanel Grid.Row="2" Height="40" Margin="0 0" HorizontalAlignment="Center" Orientation="Horizontal">
+					<Button Padding="30 5" Command="{Binding ToggleCosManagerCommand}" HorizontalAlignment="Right" Margin="0 0 5 0">Save</Button>
+					<Button Padding="30 5" Name="btnStart" Command="{Binding StartStopCommand}"
+							Content="{Binding StartButtonText}"
+							Background="{Binding StartButtonBackground}"
+							BorderBrush="{Binding StartButtonBorderBrush}"
+							HorizontalAlignment="Right"/>
+				</StackPanel>
+			</Grid>
+		</Border>
+		<Border Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
+			<DockPanel LastChildFill="True">
+				<rs:Character DockPanel.Dock="Top" Height="100"/>
+				<Border VerticalAlignment="Stretch" Background="Transparent">
+					<TabControl FontSize="13.33333" FontWeight="300" Margin="0" Padding="0" Name="mainTabControl">
+						<TabItem Header="General" FontSize="13.33333">
+							<Border Padding="5" CornerRadius="6" Background="rgba(0, 0, 0, .1)">
+
+							</Border>
+						</TabItem>
+						<TabItem Header="Training" FontSize="13.33333">
+							<Border Padding="5" CornerRadius="6" Background="rgba(0, 0, 0, .1)">
+								<TextBlock>Training:This content will "Fill" the remaining space</TextBlock>
+							</Border>
+						</TabItem>
+						<TabItem Header="Skills" FontSize="13.33333">
+							<Border Padding="5" CornerRadius="6" Background="rgba(0, 0, 0, .1)">
+								<TextBlock>Skills:This content will "Fill" the remaining space</TextBlock>
+							</Border>
+						</TabItem>
+						<TabItem Header="Protection" FontSize="13.333333">
+							<Border Padding="5" CornerRadius="6" Background="rgba(0, 0, 0, .1)">
+								<TextBlock>Protection:This content will "Fill" the remaining space</TextBlock>
+							</Border>
+						</TabItem>
+						<TabItem Header="Party" FontSize="13.333333">
+							<Border Padding="5" CornerRadius="6" Background="rgba(0, 0, 0, .1)">
+								<TextBlock>Party:This content will "Fill" the remaining space</TextBlock>
+							</Border>
+						</TabItem>
+						<TabItem Header="Inventory" FontSize="13.333333">
+							<Border Padding="5" CornerRadius="6" Background="rgba(0, 0, 0, .1)">
+								<TextBlock>Inventory:This content will "Fill" the remaining space</TextBlock>
+							</Border>
+						</TabItem>
+						<TabItem Header="Items" FontSize="13.333333">
+							<Border Padding="5" CornerRadius="6" Background="rgba(0, 0, 0, .1)">
+								<TextBlock>Items:This content will "Fill" the remaining space</TextBlock>
+							</Border>
+						</TabItem>
+						<TabItem Header="Map" FontSize="13.333333">
+							<Border Padding="5" CornerRadius="6" Background="rgba(0, 0, 0, .1)">
+								<TextBlock>Map:This content will "Fill" the remaining space</TextBlock>
+							</Border>
+						</TabItem>
+						<TabItem Header="Statistics" FontSize="13.333333">
+							<Border Padding="5" CornerRadius="6" Background="rgba(0, 0, 0, .1)">
+								<TextBlock>Statistics:This content will "Fill" the remaining space</TextBlock>
+							</Border>
+						</TabItem>
+						<TabItem Header="Chat" FontSize="13.333333">
+							<Border Padding="5" CornerRadius="6" Background="rgba(0, 0, 0, .1)">
+
+							</Border>
+						</TabItem>
+						<TabItem Header="Log" FontSize="13.333333">
+							<Border Padding="5" CornerRadius="6" Background="rgba(0, 0, 0, .1)">
+								<TextBlock>Log:This content will "Fill" the remaining space</TextBlock>
+							</Border>
+						</TabItem>
+					</TabControl>
+				</Border>
+			</DockPanel>
+		</Border>
+	</DockPanel>
+
+</Window>

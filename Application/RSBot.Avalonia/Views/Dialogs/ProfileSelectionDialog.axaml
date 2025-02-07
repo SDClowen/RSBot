@@ -1,0 +1,39 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:RSBot.ViewModels.Dialogs"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="300"
+        x:Class="RSBot.Views.Dialogs.ProfileSelectionDialog"
+        Title="Select Profile"
+        Width="400" Height="300"
+        WindowStartupLocation="CenterOwner"
+        Background="rgba(255, 255, 255, 0.07)"
+        ExtendClientAreaToDecorationsHint="True"
+		ExtendClientAreaChromeHints="NoChrome"
+        x:DataType="vm:ProfileSelectionDialogViewModel">
+
+    <Design.DataContext>
+        <vm:ProfileSelectionDialogViewModel/>
+    </Design.DataContext>
+
+    <DockPanel Margin="20">
+        <StackPanel DockPanel.Dock="Bottom" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right" 
+                    Spacing="10">
+            <Button Content="New" Command="{Binding NewCommand}"/>
+            <Button Content="Delete" Command="{Binding DeleteCommand}"/>
+            <Button Content="OK" Command="{Binding OkCommand}"/>
+            <Button Content="Cancel" Command="{Binding CancelCommand}"/>
+        </StackPanel>
+
+        <StackPanel Spacing="10">
+            <TextBlock Text="Select a profile:"/>
+            <ListBox Padding="5" CornerRadius="6" ItemsSource="{Binding Profiles}"
+                     SelectedItem="{Binding SelectedProfile}"
+                     Height="200"
+					 Background="rgba(0, 0, 0, 0.07)"/>
+        </StackPanel>
+    </DockPanel>
+</Window> 

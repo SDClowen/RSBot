@@ -1,0 +1,15 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="RSBot.App"
+             RequestedThemeVariant="Dark"
+    xmlns:semi="https://irihi.tech/semi">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.Styles>
+		<FluentTheme DensityStyle="Compact" />
+		<Style Selector=":is(TopLevel)">
+			<Setter Property="FontSize" Value="13.333333" />
+			<Setter Property="FontWeight" Value="300"/>
+		</Style>
+    </Application.Styles>
+</Application>
