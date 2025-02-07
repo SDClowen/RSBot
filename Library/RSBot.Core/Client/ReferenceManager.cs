@@ -384,7 +384,7 @@ public class ReferenceManager
             filesToLoad.Add(line);
         }
 
-        var files = Game.MediaPk2.GetFileList(ServerDep, filesToLoad.ToArray());
+        var files = Game.MediaPk2.GetFileList(ServerDep, [.. filesToLoad]);
         foreach (var file in files)
             await LoadReferenceFileAsync(file.OpenRead().GetStream(), destination);
     }

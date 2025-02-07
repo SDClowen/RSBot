@@ -3,6 +3,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Buffers;
+using System;
 
 namespace RSBot.Core.Extensions;
 
@@ -43,33 +44,26 @@ public static class StreamReaderExtensions
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
-                var read = await reader.ReadAsync(buffer, 0, BUFFER_SIZE).ConfigureAwait(false);
+                var read = await reader.ReadAsync(buffer.AsMemory(0, 1)).ConfigureAwait(false);
                 if (read == 0) break;
 
-                for (var i = 0; i < read; i++)
+                var c = buffer[0];
+                if (c == CODE_CR)
                 {
-                    var c = buffer[i];
-                    if (c == CODE_CR && i + 1 < read && buffer[i + 1] == CODE_LF)
-                    {
-                        i++; // Skip LF
-                        return builder.ToString();
-                    }
-                    else if (c == CODE_CR && i == read - 1)
-                    {
-                        // CR at end of buffer, check next char
-                        var nextChar = reader.Peek();
-                        if (nextChar == CODE_LF)
-                        {
-                            await reader.ReadAsync(buffer, 0, 1).ConfigureAwait(false); // Skip LF
-                            return builder.ToString();
-                        }
-                    }
-
-                    builder.Append(c);
+                    read = await reader.ReadAsync(buffer.AsMemory(0, 1)).ConfigureAwait(false);
+                    if (read > 0 && buffer[0] == CODE_LF)
+                        break;
+                    
+                    builder.Append((char)c);
+                    if (read > 0)
+                        builder.Append(buffer[0]);
+                    continue;
                 }
+
+                builder.Append(c);
             }
 
-            return builder.Length > 0 ? builder.ToString() : null;
+            return builder.ToString();
         }
         finally
         {
