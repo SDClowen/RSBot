@@ -1,5 +1,6 @@
-﻿using System.Drawing;
-using System.Drawing.Imaging;
+﻿using Avalonia;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform;
 using System.Runtime.InteropServices;
 
 namespace RSBot.Core.Client;
@@ -174,20 +175,25 @@ public class DDSImage
         return pixels;
     }
 
-    public static Bitmap ToBitmap(byte[] ddsBytes)
+    public static WriteableBitmap ToBitmap(byte[] ddsBytes)
     {
-        var Width = GetWidth(ddsBytes);
-        var Height = GetHeight(ddsBytes);
-        var PixelsData = Read(ddsBytes, Colour.ARGB, 0);
+        var width = GetWidth(ddsBytes);
+        var height = GetHeight(ddsBytes);
+        var pixelsData = Read(ddsBytes, Colour.ARGB, 0);
 
-        if (PixelsData == null) return new Bitmap(256, 256);
-        var BMP = new Bitmap(Width, Height, PixelFormat.Format32bppArgb);
-        var BMPData = BMP.LockBits(new Rectangle(0, 0, Width, Height), ImageLockMode.WriteOnly, BMP.PixelFormat);
-        Marshal.Copy(PixelsData, 0, BMPData.Scan0, PixelsData.Length);
-        BMP.UnlockBits(BMPData);
-        BMPData = null;
-        PixelsData = null;
-        return BMP;
+        if (pixelsData == null)
+        {
+            return new WriteableBitmap(new PixelSize(256, 256), new Vector(96, 96), PixelFormat.Bgra8888, AlphaFormat.Premul);
+        }
+
+        var bitmap = new WriteableBitmap(new PixelSize(width, height), new Vector(96, 96), PixelFormat.Bgra8888, AlphaFormat.Premul);
+
+        using (var fb = bitmap.Lock())
+        {
+            Marshal.Copy(pixelsData, 0, fb.Address, pixelsData.Length);
+        }
+
+        return bitmap;
     }
 
     private static int[] decodeDXT1(int width, int height, int offset, byte[] buffer, Colour color)

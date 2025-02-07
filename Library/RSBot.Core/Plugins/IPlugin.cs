@@ -1,66 +1,49 @@
-﻿using System.Windows.Forms;
+﻿using Avalonia.Controls;
 
 namespace RSBot.Core.Plugins;
 
+/// <summary>
+/// Defines the interface for RSBot plugins
+/// </summary>
 public interface IPlugin
 {
     /// <summary>
-    ///     Gets or sets the internal name of the plugin.
-    ///     This value should be unique.
+    /// Gets the internal name of the plugin
     /// </summary>
-    /// <value>
-    ///     The name.
-    /// </value>
-    public string InternalName { get; }
+    string InternalName { get; }
 
     /// <summary>
-    ///     Gets or sets the name that will be displayed in the application.
+    /// Gets the display name of the plugin
     /// </summary>
-    /// <value>
-    ///     The title.
-    /// </value>
-    public string DisplayName { get; }
+    string DisplayName { get; }
 
     /// <summary>
-    ///     Gets or sets a value indicating whether [display as tab].
-    ///     If the value is set to true, the application will display the plugin as new tab-control item.
+    /// Gets a value indicating whether the plugin should be displayed as a tab
     /// </summary>
-    /// <value>
-    ///     <c>true</c> if [display as tab]; otherwise, <c>false</c>.
-    /// </value>
-    public bool DisplayAsTab { get; }
+    bool DisplayAsTab { get; }
 
     /// <summary>
-    ///     Gets or sets the index of the tab.
-    ///     The lower the value the earlier the tab will be displayed.
-    ///     Does not affect anything if <see cref="DisplayAsTab" /> is false.
+    /// Gets the display order of the plugin
     /// </summary>
-    /// <value>
-    ///     The index of the tab.
-    /// </value>
-    public int Index { get; }
+    int Index { get; }
 
     /// <summary>
-    ///     Gets or sets a value indicating whether [require ingame].
-    ///     If set to false, the tab page will be enabled all the time.
+    /// Gets a value indicating whether the plugin requires the game to be running
     /// </summary>
-    /// <value>
-    ///     <c>true</c> if [require ingame]; otherwise, <c>false</c>.
-    /// </value>
-    public bool RequireIngame { get; }
+    bool RequireIngame { get; }
 
     /// <summary>
-    ///     Gets the view that will be displayed as tab page.
+    /// Gets the main view of the plugin
     /// </summary>
     Control View { get; }
 
     /// <summary>
-    ///     Initializes this instance.
+    /// Initializes the plugin
     /// </summary>
     void Initialize();
 
     /// <summary>
-    ///     Translate the plugin
+    /// Translates the plugin's UI elements
     /// </summary>
     void Translate();
 }

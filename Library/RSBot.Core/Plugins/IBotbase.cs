@@ -1,4 +1,4 @@
-﻿using System.Windows.Forms;
+﻿using Avalonia.Controls;
 using RSBot.Core.Objects;
 
 namespace RSBot.Core.Plugins;

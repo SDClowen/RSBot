@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using Avalonia.Media.Imaging;
 using RSBot.Core.Extensions;
 
 namespace RSBot.Core.Client.ReferenceObjects;
@@ -110,28 +111,21 @@ public abstract class RefObjCommon : IReference<uint>
     ///     Gets the icon.
     /// </summary>
     /// <returns></returns>
-    public Image GetIcon()
+    public WriteableBitmap GetIcon()
     {
-        Image bitmap = null;
         try
         {
             var path = $"icon\\{AssocFileIcon}";
-
             if (!Game.MediaPk2.TryGetFile(path, out var file))
-                file = Game.MediaPk2.GetFile("icon\\icon_default.ddj");
+                return Game.MediaPk2.GetFile("icon\\icon_default.ddj").ToImage();
 
-            bitmap = file.ToImage();
+            return file.ToImage();
         }
         catch
         {
         }
-        finally
-        {
-            if (bitmap == null)
-                bitmap = new Bitmap(24, 24);
-        }
 
-        return bitmap;
+        return null;
     }
 
     #region Fields

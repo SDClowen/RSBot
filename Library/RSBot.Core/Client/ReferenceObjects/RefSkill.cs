@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Avalonia.Media.Imaging;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
 
@@ -26,28 +27,21 @@ public class RefSkill : IReference<uint>
     ///     Gets the icon.
     /// </summary>
     /// <returns></returns>
-    public Image GetIcon()
+    public WriteableBitmap GetIcon()
     {
-        Image bitmap = null;
-
         try
         {
             var path = $"icon\\{UI_IconFile}";
             if (!Game.MediaPk2.TryGetFile(path, out var file))
-                bitmap = Game.MediaPk2.GetFile("icon\\icon_default.ddj").ToImage();
+                return Game.MediaPk2.GetFile("icon\\icon_default.ddj").ToImage();
 
-            bitmap = file.ToImage();
+            return file.ToImage();
         }
         catch
         {
         }
-        finally
-        {
-            if (bitmap == null)
-                bitmap = new Bitmap(24, 24);
-        }
 
-        return bitmap;
+        return null;
     }
 
     public override string ToString()
