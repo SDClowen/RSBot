@@ -1,6 +1,6 @@
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
 using ReactiveUI;
-using System;
 
 namespace RSBot.ViewModels.Cos;
 
@@ -9,10 +9,12 @@ namespace RSBot.ViewModels.Cos;
 /// </summary>
 public class MiniCosControlViewModel : ReactiveObject
 {
+    private readonly IBrush activedColor = new SolidColorBrush(Color.FromArgb(80, 40, 40, 40));
+
     private bool _selected;
     private string _name;
     private string _level;
-    private IBrush _borderColor;
+    private IBrush _borderColor = Brushes.Transparent;
     private IImage _imageSource;
     private int _healthMaximum;
     private int _health;
@@ -25,11 +27,14 @@ public class MiniCosControlViewModel : ReactiveObject
 
     public MiniCosControlViewModel()
     {
-        BorderColor = new SolidColorBrush(Colors.Transparent);
         HgpVisible = true;
         _satietyVisible = true;
         _name = "Unknown";
         _level = "lv.1";
+
+        var stream = Avalonia.Platform.AssetLoader.Open(new Uri("avares://RSBot/Assets/app.png"));
+        _imageSource = new Bitmap(stream);
+
     }
 
     public bool Selected
@@ -38,9 +43,12 @@ public class MiniCosControlViewModel : ReactiveObject
         set
         {
             this.RaiseAndSetIfChanged(ref _selected, value);
-            BorderColor = value ? new SolidColorBrush(Colors.Orange) : new SolidColorBrush(Colors.Transparent);
+            BorderColor = value ? activedColor : Brushes.Transparent;
+            this.RaisePropertyChanged(nameof(IsSelected));
         }
     }
+
+    public bool IsSelected => Selected;
 
     public string Name
     {
@@ -119,6 +127,6 @@ public class MiniCosControlViewModel : ReactiveObject
         Selected = false;
         Health = 0;
         HealthMaximum = 0;
-        ImageSource = null;
+        ImageSource = new Bitmap("avares://RSBot/Assets/app.png");
     }
-} 
+}

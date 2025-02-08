@@ -1,8 +1,10 @@
 using ReactiveUI;
 using RSBot.Core.Event;
 using RSBot.Views.Controls.Cos;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Avalonia;
 
 namespace RSBot.ViewModels.Cos;
 
@@ -20,6 +22,10 @@ public class CosManagerViewModel : ReactiveObject
 {
     private int _selectedIndex;
     private bool _navigationVisible;
+    private Vector _scrollOffset;
+    private const int ITEM_WIDTH = 50;
+    private const int ITEM_SPACING = 3 * 4;
+    private const int VISIBLE_ITEMS = 3;
 
     public CosManagerViewModel()
     {
@@ -41,6 +47,17 @@ public class CosManagerViewModel : ReactiveObject
         private set => this.RaiseAndSetIfChanged(ref _navigationVisible, value);
     }
 
+    public bool ShowNavigation => Controls.Count > VISIBLE_ITEMS;
+
+    public Vector ScrollOffset
+    {
+        get => _scrollOffset;
+        private set => this.RaiseAndSetIfChanged(ref _scrollOffset, value);
+    }
+
+    public bool CanGoNext => ShowNavigation && _selectedIndex < Controls.Count - 1;
+    public bool CanGoPrevious => ShowNavigation && _selectedIndex > 0;
+
     public ICommand PreviousCommand { get; }
     public ICommand NextCommand { get; }
 
@@ -50,13 +67,11 @@ public class CosManagerViewModel : ReactiveObject
         EventManager.SubscribeEvent("OnTerminateCos", new Action<CosBase>(OnTerminateCos));
         EventManager.SubscribeEvent("OnAgentServerDisconnected", OnAgentServerDisconnected);
 
-
         TryAddControl<Growth>();
         TryAddControl<Ability>();
         TryAddControl<Fellow>();
         TryAddControl<Transport>();
         TryAddControl<JobTransport>();
-
     }
 
     private void OnAgentServerDisconnected()
@@ -65,6 +80,8 @@ public class CosManagerViewModel : ReactiveObject
         MiniControls.Clear();
         _selectedIndex = 0;
         NavigationVisible = false;
+        ScrollOffset = new Vector(0, 0);
+        UpdateNavigationState();
     }
 
     private void OnSummonCos(CosBase obj)
@@ -126,6 +143,8 @@ public class CosManagerViewModel : ReactiveObject
         Controls.Add(control);
 
         var miniControl = control.MiniCosControl;
+        var miniControlViewModel = new MiniCosControlViewModel();
+        miniControl.DataContext = miniControlViewModel;
         miniControl.PointerPressed += (s, e) => SelectControl(Controls.IndexOf(control));
         MiniControls.Add(miniControl);
 
@@ -144,7 +163,7 @@ public class CosManagerViewModel : ReactiveObject
 
         control.Reset();
 
-        _selectedIndex = Controls.Count - 1;
+        _selectedIndex = Math.Min(_selectedIndex, Controls.Count - 1);
         ReOrder();
     }
 
@@ -154,6 +173,8 @@ public class CosManagerViewModel : ReactiveObject
         if (!NavigationVisible)
         {
             _selectedIndex = 0;
+            ScrollOffset = new Vector(0, 0);
+            UpdateNavigationState();
             return;
         }
 
@@ -161,13 +182,46 @@ public class CosManagerViewModel : ReactiveObject
         {
             var control = Controls[i];
             control.IsVisible = i == _selectedIndex;
-            (MiniControls[i].DataContext as MiniCosControlViewModel).Selected = control.IsVisible;
+            var miniControlVM = MiniControls[i].DataContext as MiniCosControlViewModel;
+            if (miniControlVM != null)
+            {
+                miniControlVM.Selected = control.IsVisible;
+            }
         }
+
+        // calculate scroll
+        if (_selectedIndex >= 0 && _selectedIndex < MiniControls.Count)
+        {
+            var totalItemWidth = ITEM_WIDTH + ITEM_SPACING;
+            var visibleWidth = totalItemWidth * VISIBLE_ITEMS;
+            var maxScroll = Math.Max(0, (MiniControls.Count * totalItemWidth) - visibleWidth);
+            
+            // last check status for last element
+            if (_selectedIndex == MiniControls.Count - 1)
+            {
+                ScrollOffset = new Vector(maxScroll, 0);
+            }
+            else
+            {
+                var targetScroll = (_selectedIndex * totalItemWidth) - ((visibleWidth - totalItemWidth) / 2);
+                var offset = Math.Max(0, Math.Min(targetScroll, maxScroll));
+                ScrollOffset = new Vector(offset, 0);
+            }
+        }
+
+        UpdateNavigationState();
+    }
+
+    private void UpdateNavigationState()
+    {
+        this.RaisePropertyChanged(nameof(ShowNavigation));
+        this.RaisePropertyChanged(nameof(CanGoNext));
+        this.RaisePropertyChanged(nameof(CanGoPrevious));
     }
 
     private void ExecutePrevious()
     {
-        if (_selectedIndex <= 0)
+        if (!CanGoPrevious)
             return;
 
         _selectedIndex--;
@@ -176,7 +230,7 @@ public class CosManagerViewModel : ReactiveObject
 
     private void ExecuteNext()
     {
-        if (_selectedIndex >= Controls.Count - 1)
+        if (!CanGoNext)
             return;
 
         _selectedIndex++;

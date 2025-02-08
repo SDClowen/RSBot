@@ -13,94 +13,94 @@
 	</Design.DataContext>
 
 	<UserControl.Styles>
-		<Style Selector="TabItem">
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate>
-						<Border x:Name="TabBorder"
-								CornerRadius="6"
-								Background="{TemplateBinding Background}"
-								BorderBrush="{TemplateBinding BorderBrush}"
-								Padding="4">
-							<ContentPresenter Content="{TemplateBinding Header}" />
-						</Border>
-					</ControlTemplate>
-				</Setter.Value>
+		<Style Selector="Button.navigation">
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="Width" Value="30"/>
+			<Setter Property="Height" Value="30"/>
+			<Setter Property="CornerRadius" Value="15"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="BorderBrush" Value="rgba(255, 255, 255, 0.3)"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="Padding" Value="0"/>
+			<Setter Property="Transitions">
+				<Transitions>
+					<BrushTransition Property="Background" Duration="0:0:0.2"/>
+					<BrushTransition Property="BorderBrush" Duration="0:0:0.2"/>
+				</Transitions>
 			</Setter>
-			<Setter Property="Background" Value="Transparent" />
-			<Setter Property="Opacity" Value="0.7" />
+		</Style>
+		
+		<Style Selector="Button.navigation:pointerover">
+			<Setter Property="Background" Value="rgba(255, 255, 255, 0.1)"/>
+			<Setter Property="BorderBrush" Value="rgba(255, 255, 255, 0.5)"/>
 		</Style>
 
-		<Style Selector="TabItem:selected">
-			<Setter Property="Background" Value="rgba(255, 255, 255, .2)" />
-			<Style.Animations>
-				<Animation Duration="0:0:0.4">
-					<KeyFrame Cue="0%">
-						<Setter Property="Background" Value="Transparent" />
-					</KeyFrame>
-					<KeyFrame Cue="100%">
-						<Setter Property="Background" Value="rgba(255, 255, 255, .2)" />
-					</KeyFrame>
-				</Animation>
-				<Animation Duration="0:0:0.4">
-					<KeyFrame Cue="0%">
-						<Setter Property="BorderBrush" Value="Transparent" />
-					</KeyFrame>
-					<KeyFrame Cue="100%">
-						<Setter Property="BorderBrush" Value="Yellow" />
-					</KeyFrame>
-				</Animation>
-			</Style.Animations>
+		<Style Selector="Button.navigation:pressed">
+			<Setter Property="Background" Value="rgba(255, 255, 255, 0.2)"/>
+			<Setter Property="BorderBrush" Value="rgba(255, 255, 255, 0.7)"/>
 		</Style>
+
+        <Style Selector="ItemsControl > ContentPresenter">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.3" Easing="CubicEaseOut"/>
+                </Transitions>
+            </Setter>
+        </Style>
 	</UserControl.Styles>
 
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="*"/>
-			<RowDefinition Height="Auto"/>
-		</Grid.RowDefinitions>
-
-		<Panel Grid.Row="0" Height="4" Background="rgba(255, 255, 255, 0.1)"/>
-
-		<Grid Grid.Row="1">
+	<Grid RowDefinitions="Auto,*" Margin="5">
+		<Grid Grid.Row="0" Margin="0 0 0 5">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto"/>
 				<ColumnDefinition Width="*"/>
 				<ColumnDefinition Width="Auto"/>
 			</Grid.ColumnDefinitions>
 
-			<Button Grid.Column="0" 
+			<Button Grid.Column="0"
+					Classes="navigation"
 					Content="◀"
-					Width="23"
-					Height="56"
 					Command="{Binding PreviousCommand}"
-					IsVisible="{Binding NavigationVisible}"/>
+					IsVisible="{Binding ShowNavigation}"
+					IsEnabled="{Binding CanGoPrevious}"
+					Margin="0 0 5 0"/>
 
-			<Panel Grid.Column="1" x:Name="panelTopCenter">
+			<ScrollViewer Grid.Column="1"
+						HorizontalScrollBarVisibility="Hidden"
+						VerticalScrollBarVisibility="Disabled"
+						Offset="{Binding ScrollOffset}">
+                <ScrollViewer.Transitions>
+                    <Transitions>
+                        <VectorTransition Property="Offset" Duration="0:0:0.3" Easing="CubicEaseOut"/>
+                    </Transitions>
+                </ScrollViewer.Transitions>
 				<ItemsControl ItemsSource="{Binding MiniControls}">
 					<ItemsControl.ItemsPanel>
 						<ItemsPanelTemplate>
-							<StackPanel Orientation="Horizontal"/>
+							<StackPanel Orientation="Horizontal" Spacing="5"/>
 						</ItemsPanelTemplate>
 					</ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <ContentControl Content="{Binding}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
 				</ItemsControl>
-			</Panel>
+			</ScrollViewer>
 
-			<Button Grid.Column="2" 
+			<Button Grid.Column="2"
+					Classes="navigation"
 					Content="▶"
-					Width="23"
-					Height="56"
 					Command="{Binding NextCommand}"
-					IsVisible="{Binding NavigationVisible}"/>
+					IsVisible="{Binding ShowNavigation}"
+					IsEnabled="{Binding CanGoNext}"
+					Margin="5 0 0 0"/>
 		</Grid>
 
-		<Panel Grid.Row="2" Height="4" Background="rgba(255, 255, 255, 0.1)"/>
-
 		<ItemsControl Grid.Row="1" 
-					  ItemsSource="{Binding Controls}"
-					  HorizontalAlignment="Stretch"
-					  VerticalAlignment="Stretch">
+					ItemsSource="{Binding Controls}"
+					Margin="0 5">
 			<ItemsControl.ItemsPanel>
 				<ItemsPanelTemplate>
 					<Panel/>

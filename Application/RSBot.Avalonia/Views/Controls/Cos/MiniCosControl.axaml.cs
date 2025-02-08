@@ -1,3 +1,4 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using RSBot.ViewModels.Cos;
@@ -12,13 +13,6 @@ public partial class MiniCosControl : UserControl
     public MiniCosControl()
     {
         InitializeComponent();
-        DataContext = new MiniCosControlViewModel();
-
-        this.PointerPressed += (s, e) =>
-        {
-            if (DataContext is MiniCosControlViewModel viewModel)
-                viewModel.Selected = !viewModel.Selected;
-        };
     }
 
     public void Reset()
