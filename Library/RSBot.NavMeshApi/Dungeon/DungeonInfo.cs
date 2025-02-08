@@ -18,31 +18,22 @@ public class DungeonInfo
             var line = reader.ReadLine();
 
             if (string.IsNullOrEmpty(line) || line.StartsWith("//"))
-            {
                 continue;
-            }
 
-            // We are reading values from the end, because the structure of Data.pk2\Dungeon\dungeoninfo.txt is different for VSRO and BlackRogue for example
-            // VSRO: service    id  path
-            // BlackRogue:   id  path
-            var stack = new Stack<string>(line.Split('\t'));
+            var match = Regex.Match(line, @"^(?:(?<service>0|1)\t)?(?<id>\d+)\t""(?<path>.+)""$");
 
-            var dungeonPath = Regex.Match(stack.Pop(), "\"(?<path>.*)\"").Groups["path"].Value;
+            if (!match.Success)
+                throw new Exception($"Failed to load dungeon info: invalid format on {line}");
 
-            if (string.IsNullOrEmpty(dungeonPath))
-            {
-                throw new Exception($"Failed to load dungeon info: malformed path on {line}");
-            }
+            if (int.TryParse(match.Groups["service"].Value, out int service) && service == 0)
+                continue;
 
-            if (!short.TryParse(stack.Pop(), out short dungeonId))
-            {
+            if (!short.TryParse(match.Groups["id"].Value, out short dungeonId))
                 throw new Exception($"Failed to load dungeon info: malformed id on {line}");
-            }
 
-            if (stack.Count > 0 && int.TryParse(stack.Pop(), out int service) && service == 0)
-            {
-                continue;
-            }
+            var dungeonPath = match.Groups["path"].Value;
+            if (string.IsNullOrEmpty(dungeonPath))
+                throw new Exception($"Failed to load dungeon info: malformed path on {line}");
 
             _dungeons.Add(new RID(dungeonId) { IsDungeon = true }, dungeonPath);
         }
