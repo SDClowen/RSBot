@@ -48,7 +48,7 @@
 							</MenuItem>
 							<MenuItem Header="Botbase" ItemsSource="{Binding BotBases}">
 								<MenuItem.ItemTemplate>
-									<DataTemplate x:DataType="vm:BotBaseInfo">
+									<DataTemplate x:DataType="vm:ExtensionInfo">
 										<MenuItem Header="{Binding DisplayName}"
 												Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).SelectBotBaseCommand}"
 												CommandParameter="{Binding Name}"
@@ -100,65 +100,56 @@
 		<Border Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
 			<DockPanel LastChildFill="True">
 				<rs:Character DockPanel.Dock="Top" Height="100"/>
-				<Border VerticalAlignment="Stretch" Background="Transparent">
-					<TabControl FontSize="13.33333" FontWeight="300" Margin="0" Padding="0" Name="mainTabControl">
-						<TabItem Header="General" FontSize="13.33333">
-							<Border Padding="5" CornerRadius="6" Background="rgba(0, 0, 0, .1)">
+				<TabControl FontSize="13.33333" VerticalAlignment="Stretch" Background="Transparent" FontWeight="300" Margin="0" Padding="0" Name="mainTabControl" ItemsSource="{Binding Plugins}">
+					<TabControl.Styles>
+						<Style Selector="TabItem">
+							<Setter Property="Template">
+								<Setter.Value>
+									<ControlTemplate x:DataType="vm:PluginInfo">
+										<Border x:Name="TabBorder"
+												CornerRadius="6"
+												Background="{TemplateBinding Background}"
+												BorderBrush="{TemplateBinding BorderBrush}"
+												Padding="4">
+											<TextBlock FontSize="13.3333" Text="{TemplateBinding Header}" />
+										</Border>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+							<Setter Property="Background" Value="Transparent" />
+							<Setter Property="Opacity" Value="0.7" />
+						</Style>
 
-							</Border>
-						</TabItem>
-						<TabItem Header="Training" FontSize="13.33333">
+						<Style Selector="TabItem:selected">
+							<Setter Property="Background" Value="rgba(255, 255, 255, .2)" />
+							<Style.Animations>
+								<Animation Duration="0:0:0.4">
+									<KeyFrame Cue="0%">
+										<Setter Property="Background" Value="Transparent" />
+									</KeyFrame>
+									<KeyFrame Cue="100%">
+										<Setter Property="Background" Value="rgba(255, 255, 255, .2)" />
+									</KeyFrame>
+								</Animation>
+								<Animation Duration="0:0:0.4">
+									<KeyFrame Cue="0%">
+										<Setter Property="BorderBrush" Value="Transparent" />
+									</KeyFrame>
+									<KeyFrame Cue="100%">
+										<Setter Property="BorderBrush" Value="Yellow" />
+									</KeyFrame>
+								</Animation>
+							</Style.Animations>
+						</Style>
+					</TabControl.Styles>
+					<TabControl.ContentTemplate>
+						<DataTemplate x:DataType="vm:PluginInfo">
 							<Border Padding="5" CornerRadius="6" Background="rgba(0, 0, 0, .1)">
-								<TextBlock>Training:This content will "Fill" the remaining space</TextBlock>
+								<ContentPresenter Content="{Binding View}"/>
 							</Border>
-						</TabItem>
-						<TabItem Header="Skills" FontSize="13.33333">
-							<Border Padding="5" CornerRadius="6" Background="rgba(0, 0, 0, .1)">
-								<TextBlock>Skills:This content will "Fill" the remaining space</TextBlock>
-							</Border>
-						</TabItem>
-						<TabItem Header="Protection" FontSize="13.333333">
-							<Border Padding="5" CornerRadius="6" Background="rgba(0, 0, 0, .1)">
-								<TextBlock>Protection:This content will "Fill" the remaining space</TextBlock>
-							</Border>
-						</TabItem>
-						<TabItem Header="Party" FontSize="13.333333">
-							<Border Padding="5" CornerRadius="6" Background="rgba(0, 0, 0, .1)">
-								<TextBlock>Party:This content will "Fill" the remaining space</TextBlock>
-							</Border>
-						</TabItem>
-						<TabItem Header="Inventory" FontSize="13.333333">
-							<Border Padding="5" CornerRadius="6" Background="rgba(0, 0, 0, .1)">
-								<TextBlock>Inventory:This content will "Fill" the remaining space</TextBlock>
-							</Border>
-						</TabItem>
-						<TabItem Header="Items" FontSize="13.333333">
-							<Border Padding="5" CornerRadius="6" Background="rgba(0, 0, 0, .1)">
-								<TextBlock>Items:This content will "Fill" the remaining space</TextBlock>
-							</Border>
-						</TabItem>
-						<TabItem Header="Map" FontSize="13.333333">
-							<Border Padding="5" CornerRadius="6" Background="rgba(0, 0, 0, .1)">
-								<TextBlock>Map:This content will "Fill" the remaining space</TextBlock>
-							</Border>
-						</TabItem>
-						<TabItem Header="Statistics" FontSize="13.333333">
-							<Border Padding="5" CornerRadius="6" Background="rgba(0, 0, 0, .1)">
-								<TextBlock>Statistics:This content will "Fill" the remaining space</TextBlock>
-							</Border>
-						</TabItem>
-						<TabItem Header="Chat" FontSize="13.333333">
-							<Border Padding="5" CornerRadius="6" Background="rgba(0, 0, 0, .1)">
-
-							</Border>
-						</TabItem>
-						<TabItem Header="Log" FontSize="13.333333">
-							<Border Padding="5" CornerRadius="6" Background="rgba(0, 0, 0, .1)">
-								<TextBlock>Log:This content will "Fill" the remaining space</TextBlock>
-							</Border>
-						</TabItem>
-					</TabControl>
-				</Border>
+						</DataTemplate>
+					</TabControl.ContentTemplate>
+				</TabControl>
 			</DockPanel>
 		</Border>
 	</DockPanel>

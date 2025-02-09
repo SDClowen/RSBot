@@ -33,7 +33,7 @@ public class PluginManager
     {
         if (Extensions != null) return false;
 
-        Extensions = new Dictionary<string, IPlugin>();
+        Extensions = [];
 
         try
         {

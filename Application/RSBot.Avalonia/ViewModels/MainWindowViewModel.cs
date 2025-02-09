@@ -7,6 +7,7 @@ using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.Core.Plugins;
+using RSBot.Views;
 using RSBot.Views.Controls;
 using RSBot.Views.Dialogs;
 using System;
@@ -47,16 +48,14 @@ public class MainWindowViewModel : ReactiveObject
     public MainWindowViewModel(Window mainWindow)
     {
         _mainWindow = mainWindow;
-        Character = new CharacterViewModel();
-        Entity = new EntityViewModel();
         StartButtonBackground = new SolidColorBrush(Colors.DodgerBlue);
         StartButtonBorderBrush = new SolidColorBrush(Colors.Gray);
 
-        BotBases = new ObservableCollection<BotBaseInfo>();
-        Plugins = new ObservableCollection<PluginInfo>();
-        Languages = new ObservableCollection<KeyValuePair<string, string>>();
-        Divisions = new ObservableCollection<string>();
-        Servers = new ObservableCollection<string>();
+        BotBases = [];
+        Plugins = [];
+        Languages = [];
+        Divisions = [];
+        Servers = [];
 
         InitializeCommands();
         SubscribeEvents();
@@ -68,19 +67,9 @@ public class MainWindowViewModel : ReactiveObject
     #region Public Properties
 
     /// <summary>
-    /// Gets the character view model
-    /// </summary>
-    public CharacterViewModel Character { get; }
-
-    /// <summary>
-    /// Gets the entity view model
-    /// </summary>
-    public EntityViewModel Entity { get; }
-
-    /// <summary>
     /// Gets the collection of available bot bases
     /// </summary>
-    public ObservableCollection<BotBaseInfo> BotBases { get; }
+    public ObservableCollection<ExtensionInfo> BotBases { get; }
 
     /// <summary>
     /// Gets the collection of available plugins
@@ -665,7 +654,7 @@ public class MainWindowViewModel : ReactiveObject
         BotBases.Clear();
         foreach (var botBase in Kernel.BotbaseManager.Bots)
         {
-            BotBases.Add(new BotBaseInfo
+            BotBases.Add(new ExtensionInfo
             {
                 Name = botBase.Value.Name,
                 DisplayName = botBase.Value.DisplayName,
@@ -680,15 +669,18 @@ public class MainWindowViewModel : ReactiveObject
     private void LoadPlugins()
     {
         Plugins.Clear();
+
         foreach (var plugin in Kernel.PluginManager.Extensions)
         {
-            Plugins.Add(new PluginInfo
+            var pluginInfo = new PluginInfo
             {
                 Name = plugin.Value.InternalName,
                 DisplayName = plugin.Value.DisplayName,
-                IsEnabled = !plugin.Value.RequireIngame,
+                IsEnabled = plugin.Value.RequireIngame,
                 View = plugin.Value.View
-            });
+            };
+
+            Plugins.Add(pluginInfo);
         }
     }
 
@@ -743,7 +735,7 @@ public class MainWindowViewModel : ReactiveObject
 /// <summary>
 /// Represents information about a bot base
 /// </summary>
-public class BotBaseInfo
+public class ExtensionInfo
 {
     /// <summary>
     /// Gets or sets the name of the bot base
@@ -756,33 +748,28 @@ public class BotBaseInfo
     public string DisplayName { get; set; }
 
     /// <summary>
+    /// Gets or sets whether the bot base is enabled
+    /// </summary>
+    public bool IsEnabled { get; set; }
+
+    /// <summary>
     /// Gets or sets whether the bot base is selected
     /// </summary>
     public bool IsSelected { get; set; }
+
+    /// <summary>
+    /// Gets or sets the view associated with the plugin
+    /// </summary>
+    public Control View { get; set; }
 }
 
 /// <summary>
 /// Represents information about a plugin
 /// </summary>
-public class PluginInfo
+public class PluginInfo : ExtensionInfo
 {
-    /// <summary>
-    /// Gets or sets the name of the plugin
-    /// </summary>
-    public string Name { get; set; }
-
-    /// <summary>
-    /// Gets or sets the display name of the plugin
-    /// </summary>
-    public string DisplayName { get; set; }
-
-    /// <summary>
-    /// Gets or sets whether the plugin is enabled
-    /// </summary>
-    public bool IsEnabled { get; set; }
-
-    /// <summary>
-    /// Gets or sets the view associated with the plugin
-    /// </summary>
-    public object View { get; set; }
-} 
+    public override string ToString()
+    {
+        return DisplayName;
+    }
+}
