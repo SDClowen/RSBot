@@ -95,7 +95,7 @@ public class ClientManager
 
             var address = FindPattern(
                 Game.ClientType == GameClientType.Turkey ?
-                "6A 00 68 60 B7 2D 01 68 74 B7 2D 01" :
+                "6A 00 68 B0 28 3C 01 68 C4 28 3C 01" :
                 "6A 00 68 48 A2 38 01 68 5C A2 38 01",
                 moduleMemory);
             if (address == IntPtr.Zero)
