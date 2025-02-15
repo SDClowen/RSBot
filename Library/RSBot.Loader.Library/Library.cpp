@@ -83,6 +83,19 @@ HANDLE WINAPI User_CreateSemaphoreA(LPSECURITY_ATTRIBUTES lpSemaphoreAttributes,
 	return Real_CreateSemaphoreA(lpSemaphoreAttributes, lInitialCount, lMaximumCount, lpName);
 }
 
+extern "C" HANDLE(WINAPI* Real_CreateSemaphoreW)(LPSECURITY_ATTRIBUTES lpSemaphoreAttributes, LONG lInitialCount, LONG lMaximumCount, LPCWSTR lpName) = CreateSemaphoreW;
+HANDLE WINAPI User_CreateSemaphoreW(LPSECURITY_ATTRIBUTES lpSemaphoreAttributes, LONG lInitialCount, LONG lMaximumCount, LPCWSTR lpName)
+{
+	if (lpName && wcscmp(lpName, L"Global\\Silkroad Client") == 0)
+	{
+		wchar_t newName[128] = { 0 };
+
+		_snwprintf_s(newName, sizeof(newName), sizeof(newName) / sizeof(newName[0]) - 1, L"Global\\Silkroad Client_%lld", 0xFFFFFFFF & __rdtsc());
+		return Real_CreateSemaphoreW(lpSemaphoreAttributes, lInitialCount, lMaximumCount, newName);
+	}
+	return Real_CreateSemaphoreW(lpSemaphoreAttributes, lInitialCount, lMaximumCount, lpName);
+}
+
 extern "C" DWORD(WINAPI* Real_GetAdaptersInfo)(PIP_ADAPTER_INFO pAdapterInfo, PULONG pOutBufLen) = GetAdaptersInfo;
 DWORD WINAPI User_GetAdaptersInfo(PIP_ADAPTER_INFO pAdapterInfo, PULONG pOutBufLen)
 {
@@ -148,6 +161,7 @@ void Install()
 	DetourAttach(&(PVOID&)Real_bind, User_bind);
 	DetourAttach(&(PVOID&)Real_GetAdaptersInfo, User_GetAdaptersInfo);
 	DetourAttach(&(PVOID&)Real_CreateSemaphoreA, User_CreateSemaphoreA);
+	DetourAttach(&(PVOID&)Real_CreateSemaphoreW, User_CreateSemaphoreW);
 	DetourAttach(&(PVOID&)Real_connect, Detour_connect);
 
 	DetourTransactionCommit();
