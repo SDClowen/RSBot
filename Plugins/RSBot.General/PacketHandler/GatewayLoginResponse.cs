@@ -83,7 +83,9 @@ internal class GatewayLoginResponse : IPacketHandler
 
                 break;
 
+            case 28: // isro block
             case 29: // ksro block
+                Log.WarnLang("ServerFull");
                 AutoLogin.Handle();
                 break;
 
