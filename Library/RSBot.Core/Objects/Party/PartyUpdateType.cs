@@ -6,5 +6,6 @@ internal enum PartyUpdateType
     Joined = 2,
     Leave = 3,
     Member = 6,
-    Leader = 7 // 0x09 ??
+    Leader = 7, // 0x09 ??
+    LeaderChange = 9
 }
