@@ -114,6 +114,11 @@ internal class PartyUpdateResponse : IPacketHandler
                 EventManager.FireEvent("OnPartyLeaderChange");
                 break;
 
+            case PartyUpdateType.LeaderChange:
+                Game.Party.Leader = Game.Party.GetMemberById(packet.ReadUInt());
+                EventManager.FireEvent("OnPartyLeaderChange");
+                break;
+
             default:
                 Log.Debug($"Unknow party type:{type} opcode: {packet.Opcode}");
                 break;
