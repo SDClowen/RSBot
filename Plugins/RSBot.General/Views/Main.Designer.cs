@@ -450,7 +450,7 @@
             numLoginDelay.Name = "numLoginDelay";
             numLoginDelay.Size = new System.Drawing.Size(80, 25);
             numLoginDelay.TabIndex = 30;
-            numLoginDelay.Value = new decimal(new int[] { 10, 0, 0, 0 });
+            numLoginDelay.Value = new decimal(new int[] { 3, 0, 0, 0 });
             numLoginDelay.ValueChanged += numLoginDelay_ValueChanged;
             // 
             // checkEnableLoginDelay
@@ -674,7 +674,7 @@
             comboCharacter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             comboCharacter.FormattingEnabled = true;
             comboCharacter.ItemHeight = 18;
-            comboCharacter.Items.AddRange(new object[] { "No Selected" });
+            comboCharacter.Items.AddRange(new object[] { "Not Selected" });
             comboCharacter.Location = new System.Drawing.Point(66, 36);
             comboCharacter.Name = "comboCharacter";
             comboCharacter.Radius = 5;

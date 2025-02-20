@@ -518,7 +518,7 @@
             checkLearnMasteryBotStopped.Ripple = true;
             checkLearnMasteryBotStopped.Size = new System.Drawing.Size(165, 30);
             checkLearnMasteryBotStopped.TabIndex = 25;
-            checkLearnMasteryBotStopped.Text = "Enabled if bot is stopped";
+            checkLearnMasteryBotStopped.Text = "Increase even if bot is stopped";
             checkLearnMasteryBotStopped.UseVisualStyleBackColor = false;
             checkLearnMasteryBotStopped.CheckedChanged += settings_CheckedChanged;
             // 

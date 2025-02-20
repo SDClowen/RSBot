@@ -486,7 +486,7 @@
             label6.Name = "label6";
             label6.Size = new System.Drawing.Size(159, 15);
             label6.TabIndex = 7;
-            label6.Text = "If there is no enemy nearby...";
+            label6.Text = "If there is no monster nearby...";
             // 
             // label5
             // 

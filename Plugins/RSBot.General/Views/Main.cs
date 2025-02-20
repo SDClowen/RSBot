@@ -104,7 +104,7 @@ internal partial class Main : DoubleBufferedControl
         checkBoxBotTrayMinimized.Checked = GlobalConfig.Get<bool>("RSBot.General.TrayWhenMinimize");
         txtStaticCaptcha.Text = GlobalConfig.Get<string>("RSBot.General.StaticCaptcha");
         checkEnableLoginDelay.Checked = GlobalConfig.Get<bool>("RSBot.General.EnableLoginDelay");
-        numLoginDelay.Value = GlobalConfig.Get("RSBot.General.LoginDelay", 10);
+        numLoginDelay.Value = GlobalConfig.Get("RSBot.General.LoginDelay", 3);
         checkHideClient.Checked = GlobalConfig.Get<bool>("RSBot.General.HideOnStartClient");
         checkCharAutoSelect.Checked = GlobalConfig.Get<bool>("RSBot.General.CharacterAutoSelect");
         radioAutoSelectFirst.Checked = GlobalConfig.Get<bool>("RSBot.General.CharacterAutoSelectFirst");
@@ -142,7 +142,7 @@ internal partial class Main : DoubleBufferedControl
     private void LoadAccounts()
     {
         comboAccounts.Items.Clear();
-        comboAccounts.Items.Add(LanguageManager.GetLang("NoSelected"));
+        comboAccounts.Items.Add(LanguageManager.GetLang("NotSelected"));
 
         var autoLoginUserName = GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername");
         foreach (var account in Accounts.SavedAccounts)
@@ -162,7 +162,7 @@ internal partial class Main : DoubleBufferedControl
     private void LoadCharacters()
     {
         comboCharacter.Items.Clear();
-        comboCharacter.Items.Add(LanguageManager.GetLang("NoSelected"));
+        comboCharacter.Items.Add(LanguageManager.GetLang("NotSelected"));
 
         var selectedAccount = comboAccounts.SelectedItem as Account;
         if (selectedAccount?.Characters == null)

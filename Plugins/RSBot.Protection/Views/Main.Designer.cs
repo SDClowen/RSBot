@@ -1044,7 +1044,7 @@
             checkIncBotStopped.Ripple = true;
             checkIncBotStopped.Size = new System.Drawing.Size(165, 30);
             checkIncBotStopped.TabIndex = 24;
-            checkIncBotStopped.Text = "Enabled if bot is stopped";
+            checkIncBotStopped.Text = "Increase even if bot is stopped";
             checkIncBotStopped.UseVisualStyleBackColor = false;
             checkIncBotStopped.CheckedChanged += settings_CheckedChanged;
             // 
