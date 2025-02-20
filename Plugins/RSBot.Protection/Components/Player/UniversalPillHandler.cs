@@ -27,7 +27,7 @@ public class UniversalPillHandler
     /// </summary>
     private static void OnPlayerBadEffect()
     {
-        var useUniversalPill = PlayerConfig.Get("RSBot.Protection.checkUseUniversalPills", true);
+        var useUniversalPill = PlayerConfig.Get<bool>("RSBot.Protection.checkUseUniversalPills", true);
         if (!useUniversalPill)
             return;
 

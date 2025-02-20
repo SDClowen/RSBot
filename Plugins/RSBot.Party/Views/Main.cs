@@ -276,9 +276,9 @@ public partial class Main : DoubleBufferedControl
 
         Bundle.Container.Refresh();
 
-        checkAutoExpAutoShare.Checked = PlayerConfig.Get<bool>("RSBot.Party.EXPAutoShare");
-        checkAutoItemAutoShare.Checked = PlayerConfig.Get<bool>("RSBot.Party.ItemAutoShare");
-        checkAutoAllowInvitations.Checked = PlayerConfig.Get<bool>("RSBot.Party.AllowInvitations");
+        checkAutoExpAutoShare.Checked = PlayerConfig.Get<bool>("RSBot.Party.EXPAutoShare", true);
+        checkAutoItemAutoShare.Checked = PlayerConfig.Get<bool>("RSBot.Party.ItemAutoShare", true);
+        checkAutoAllowInvitations.Checked = PlayerConfig.Get<bool>("RSBot.Party.AllowInvitations", true);
         checkAcceptAtTrainingPlace.Checked = Bundle.Container.AutoParty.Config.OnlyAtTrainingPlace;
         checkInviteAll.Checked = Bundle.Container.AutoParty.Config.InviteAll;
         checkInviteFromList.Checked = Bundle.Container.AutoParty.Config.InviteFromList;

@@ -252,6 +252,7 @@
             checkUseSpeedDrug.Text = "Use speed drug";
             checkUseSpeedDrug.UseVisualStyleBackColor = false;
             checkUseSpeedDrug.CheckedChanged += settings_CheckedChanged;
+            checkUseSpeedDrug.Checked = true;
             // 
             // checkCastBuffs
             // 
@@ -268,6 +269,7 @@
             checkCastBuffs.Text = "Cast buffs";
             checkCastBuffs.UseVisualStyleBackColor = false;
             checkCastBuffs.CheckedChanged += settings_CheckedChanged;
+            checkCastBuffs.Checked = true;
             // 
             // checkUseMount
             // 
@@ -284,6 +286,7 @@
             checkUseMount.Text = "Use mount if available";
             checkUseMount.UseVisualStyleBackColor = false;
             checkUseMount.CheckedChanged += settings_CheckedChanged;
+            checkUseMount.Checked = true;
             // 
             // btnBrowse
             // 

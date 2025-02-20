@@ -27,7 +27,7 @@ internal class CosBadStatusHandler
     /// </summary>
     private static void OnTick()
     {
-        if (!PlayerConfig.Get<bool>("RSBot.Protection.checkUseAbnormalStatePotion"))
+        if (!PlayerConfig.Get<bool>("RSBot.Protection.checkUseAbnormalStatePotion", true))
             return;
 
         if (Game.Player.Growth != null &&

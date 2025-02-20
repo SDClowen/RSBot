@@ -27,7 +27,7 @@ public static class CosHealthRecoveryHandler
         if (!useHPPotions)
             return;
 
-        var minHp = PlayerConfig.Get("RSBot.Protection.numPetMinHP", 50);
+        var minHp = PlayerConfig.Get("RSBot.Protection.numPetMinHP", 80);
 
         if (cos == null)
             return;

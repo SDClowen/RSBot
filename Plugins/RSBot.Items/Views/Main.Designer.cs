@@ -978,7 +978,7 @@ namespace RSBot.Items.Views
             check2HSword.Ripple = true;
             check2HSword.Size = new Size(100, 30);
             check2HSword.TabIndex = 6;
-            check2HSword.Text = "2h Sword";
+            check2HSword.Text = "2H Sword";
             check2HSword.UseVisualStyleBackColor = false;
             // 
             // check1HSword
@@ -993,7 +993,7 @@ namespace RSBot.Items.Views
             check1HSword.Ripple = true;
             check1HSword.Size = new Size(100, 30);
             check1HSword.TabIndex = 5;
-            check1HSword.Text = "1h Sword";
+            check1HSword.Text = "1H Sword";
             check1HSword.UseVisualStyleBackColor = false;
             // 
             // checkStaff

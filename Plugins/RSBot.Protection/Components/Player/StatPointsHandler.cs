@@ -32,7 +32,7 @@ public class StatPointsHandler
     /// </summary>
     private static void OnPlayerLevelUp(byte oldLevel)
     {
-        var enabledIfBotIsStopped = PlayerConfig.Get<bool>("RSBot.Protection.checkIncBotStopped");
+        var enabledIfBotIsStopped = PlayerConfig.Get<bool>("RSBot.Protection.checkIncBotStopped", true);
         if (!Kernel.Bot.Running && !enabledIfBotIsStopped)
             return;
 
