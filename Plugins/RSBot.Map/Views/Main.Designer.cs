@@ -175,8 +175,6 @@ namespace RSBot.Map.Views
             // 
             checkEnableCollisions.AutoSize = true;
             checkEnableCollisions.BackColor = System.Drawing.Color.Transparent;
-            checkEnableCollisions.Checked = true;
-            checkEnableCollisions.CheckState = System.Windows.Forms.CheckState.Checked;
             checkEnableCollisions.Depth = 0;
             checkEnableCollisions.Location = new System.Drawing.Point(23, 355);
             checkEnableCollisions.Margin = new System.Windows.Forms.Padding(0);

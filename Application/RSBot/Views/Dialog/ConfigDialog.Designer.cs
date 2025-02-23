@@ -119,7 +119,7 @@
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(53, 15);
             label1.TabIndex = 3;
-            label1.Text = "Proxy Ip:";
+            label1.Text = "Proxy IP:";
             // 
             // label2
             // 

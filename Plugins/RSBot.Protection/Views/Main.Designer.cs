@@ -386,6 +386,7 @@
             checkUseUniversalPills.Text = "Use Universal Pills *";
             checkUseUniversalPills.UseVisualStyleBackColor = false;
             checkUseUniversalPills.CheckedChanged += settings_CheckedChanged;
+            checkUseUniversalPills.Checked = true;
             // 
             // groupHPMP
             // 
@@ -661,7 +662,7 @@
             numPlayerMPPotionMin.Name = "numPlayerMPPotionMin";
             numPlayerMPPotionMin.Size = new System.Drawing.Size(80, 25);
             numPlayerMPPotionMin.TabIndex = 11;
-            numPlayerMPPotionMin.Value = new decimal(new int[] { 50, 0, 0, 0 });
+            numPlayerMPPotionMin.Value = new decimal(new int[] { 75, 0, 0, 0 });
             numPlayerMPPotionMin.ValueChanged += numSettings_ValueChanged;
             // 
             // label4
@@ -702,7 +703,7 @@
             numPlayerHPPotionMin.Name = "numPlayerHPPotionMin";
             numPlayerHPPotionMin.Size = new System.Drawing.Size(80, 25);
             numPlayerHPPotionMin.TabIndex = 8;
-            numPlayerHPPotionMin.Value = new decimal(new int[] { 50, 0, 0, 0 });
+            numPlayerHPPotionMin.Value = new decimal(new int[] { 75, 0, 0, 0 });
             numPlayerHPPotionMin.ValueChanged += numSettings_ValueChanged;
             // 
             // label1
@@ -765,6 +766,7 @@
             checkUseHPPotionsPlayer.Text = "Use HP potions if HP *";
             checkUseHPPotionsPlayer.UseVisualStyleBackColor = false;
             checkUseHPPotionsPlayer.CheckedChanged += settings_CheckedChanged;
+            checkUseHPPotionsPlayer.Checked = true;
             // 
             // checkUseVigorMP
             // 
@@ -797,6 +799,7 @@
             checkUseMPPotionsPlayer.Text = "Use MP potions if MP *";
             checkUseMPPotionsPlayer.UseVisualStyleBackColor = false;
             checkUseMPPotionsPlayer.CheckedChanged += settings_CheckedChanged;
+            checkUseMPPotionsPlayer.Checked = true;
             // 
             // checkUseVigorHP
             // 
@@ -850,7 +853,7 @@
             checkAutoSummonAttackPet.Ripple = true;
             checkAutoSummonAttackPet.Size = new System.Drawing.Size(215, 30);
             checkAutoSummonAttackPet.TabIndex = 27;
-            checkAutoSummonAttackPet.Text = "Auto summon growth / fellow pet";
+            checkAutoSummonAttackPet.Text = "Auto summon growth & fellow pet";
             checkAutoSummonAttackPet.UseVisualStyleBackColor = false;
             checkAutoSummonAttackPet.CheckedChanged += settings_CheckedChanged;
             // 
@@ -869,6 +872,7 @@
             checkUseAbnormalStatePotion.Text = "Use abnormal state recovery potions *";
             checkUseAbnormalStatePotion.UseVisualStyleBackColor = false;
             checkUseAbnormalStatePotion.CheckedChanged += settings_CheckedChanged;
+            checkUseAbnormalStatePotion.Checked = true;
             // 
             // checkReviveAttackPet
             // 
@@ -911,7 +915,7 @@
             numPetMinHGP.Name = "numPetMinHGP";
             numPetMinHGP.Size = new System.Drawing.Size(80, 25);
             numPetMinHGP.TabIndex = 19;
-            numPetMinHGP.Value = new decimal(new int[] { 50, 0, 0, 0 });
+            numPetMinHGP.Value = new decimal(new int[] { 90, 0, 0, 0 });
             numPetMinHGP.ValueChanged += numSettings_ValueChanged;
             // 
             // label14
@@ -952,7 +956,7 @@
             numPetMinHP.Name = "numPetMinHP";
             numPetMinHP.Size = new System.Drawing.Size(80, 25);
             numPetMinHP.TabIndex = 16;
-            numPetMinHP.Value = new decimal(new int[] { 50, 0, 0, 0 });
+            numPetMinHP.Value = new decimal(new int[] { 80, 0, 0, 0 });
             numPetMinHP.ValueChanged += numSettings_ValueChanged;
             // 
             // label16
@@ -983,6 +987,7 @@
             checkUsePetHP.Text = "Use HP potions if HP *";
             checkUsePetHP.UseVisualStyleBackColor = false;
             checkUsePetHP.CheckedChanged += settings_CheckedChanged;
+            checkUsePetHP.Checked = true;
             // 
             // checkUseHGP
             // 
@@ -999,6 +1004,7 @@
             checkUseHGP.Text = "Use HGP / Saiety potions if hunger *";
             checkUseHGP.UseVisualStyleBackColor = false;
             checkUseHGP.CheckedChanged += settings_CheckedChanged;
+            checkUseHGP.Checked = true;
             // 
             // groupStatPoints
             // 
@@ -1044,9 +1050,10 @@
             checkIncBotStopped.Ripple = true;
             checkIncBotStopped.Size = new System.Drawing.Size(165, 30);
             checkIncBotStopped.TabIndex = 24;
-            checkIncBotStopped.Text = "Enabled if bot is stopped";
+            checkIncBotStopped.Text = "Increase even if bot is stopped";
             checkIncBotStopped.UseVisualStyleBackColor = false;
             checkIncBotStopped.CheckedChanged += settings_CheckedChanged;
+            checkIncBotStopped.Checked = true;
             // 
             // numIncStr
             // 

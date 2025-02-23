@@ -60,10 +60,10 @@ internal class LoopBundle : IBundle
         Config = new LoopConfig
         {
             WalkScript = PlayerConfig.Get<string>("RSBot.Walkback.File"),
-            UseSpeedDrug = PlayerConfig.Get<bool>("RSBot.Training.checkUseSpeedDrug"),
-            UseVehicle = PlayerConfig.Get("RSBot.Training.checkUseMount", true),
-            CastBuffs = PlayerConfig.Get("RSBot.Training.checkCastBuffs", true),
-            UseReverse = PlayerConfig.Get("RSBot.Training.checkBoxUseReverse", false)
+            UseSpeedDrug = PlayerConfig.Get<bool>("RSBot.Training.checkUseSpeedDrug", true),
+            UseVehicle = PlayerConfig.Get<bool>("RSBot.Training.checkUseMount", true),
+            CastBuffs = PlayerConfig.Get<bool>("RSBot.Training.checkCastBuffs", true),
+            UseReverse = PlayerConfig.Get<bool>("RSBot.Training.checkBoxUseReverse", false)
         };
     }
 

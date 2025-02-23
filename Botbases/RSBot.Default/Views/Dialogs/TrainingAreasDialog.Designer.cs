@@ -137,7 +137,7 @@
             this.labelPos.Name = "labelPos";
             this.labelPos.Size = new System.Drawing.Size(234, 36);
             this.labelPos.TabIndex = 1;
-            this.labelPos.Text = "Experimental Window\r\nRight Click for create new";
+            this.labelPos.Text = "Experimental Window\r\nRight Click to create a new training area";
             this.labelPos.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // buttonCancel
