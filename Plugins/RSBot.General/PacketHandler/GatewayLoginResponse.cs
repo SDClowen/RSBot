@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Avalonia.Threading;
 using RSBot.Core;
 using RSBot.Core.Network;
 using RSBot.General.Components;
@@ -72,13 +70,13 @@ internal class GatewayLoginResponse : IPacketHandler
                 var count = packet.ReadUShort();
                 var timestamp = packet.ReadInt();
 
-                Task.Factory.StartNew(() =>
+                Dispatcher.UIThread.Post(() =>
                 {
-                    SynchronizationContext.SetSynchronizationContext(new WindowsFormsSynchronizationContext());
+                    SynchronizationContext.SetSynchronizationContext(new AvaloniaSynchronizationContext());
 
                     View.PendingWindow.Start(count, timestamp);
                     if (!GlobalConfig.Get<bool>("RSBot.General.AutoHidePendingWindow"))
-                        View.PendingWindow.ShowAtTop(View.Instance);
+                        View.PendingWindow.ShowAtTop();
                 });
 
                 break;

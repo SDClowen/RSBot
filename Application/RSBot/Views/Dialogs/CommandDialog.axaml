@@ -1,0 +1,37 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="268"
+        x:Class="RSBot.Views.Dialogs.CommandDialog"
+        Title="Add command"
+        Width="268"
+        WindowStartupLocation="CenterOwner"
+        Background="rgba(255, 255, 255, 0.07)"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaToDecorationsHint="True">
+
+    <DockPanel LastChildFill="True">
+        <!-- Dynamic content will be added here programmatically -->
+        <StackPanel x:Name="ArgumentsPanel" DockPanel.Dock="Top">
+        </StackPanel>
+
+        <Border DockPanel.Dock="Bottom" 
+                Padding="0" 
+                Margin="0">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Margin="0,4,0,4"
+                        Spacing="6">
+                <Button Name="btnAdd"
+                        Width="75" Height="32"
+                        Content="Add"/>
+                <Button Name="btnCancel"
+                        Width="75" Height="32"
+                        Content="Cancel"
+                        Margin="0,0,4,0"/>
+            </StackPanel>
+        </Border>
+    </DockPanel>
+</Window> 

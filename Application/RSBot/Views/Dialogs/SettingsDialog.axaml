@@ -1,0 +1,85 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:RSBot.ViewModels.Dialogs"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="450"
+        x:Class="RSBot.Views.Dialogs.SettingsDialog"
+        Title="Settings"
+        Width="500" Height="450"
+        WindowStartupLocation="CenterOwner"
+        Background="rgba(255, 255, 255, 0.85)"
+		Foreground="Black"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaToDecorationsHint="True"
+        x:DataType="vm:SettingsDialogViewModel">
+
+    <Design.DataContext>
+        <vm:SettingsDialogViewModel/>
+    </Design.DataContext>
+
+    <DockPanel Margin="20">
+        <StackPanel DockPanel.Dock="Bottom" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right" 
+                    Spacing="10">
+            <Button Content="Save" Command="{Binding SaveCommand}"/>
+            <Button Content="Cancel" Command="{Binding CancelCommand}"/>
+        </StackPanel>
+
+        <TabControl>
+            <TabItem Header="General">
+                <StackPanel Spacing="10">
+                    <StackPanel>
+                        <TextBlock Text="Language"/>
+                        <ComboBox ItemsSource="{Binding Languages}"
+                                  SelectedItem="{Binding SelectedLanguage}"/>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <TextBlock Text="Client Type"/>
+                        <ComboBox ItemsSource="{Binding ClientTypes}"
+                                  SelectedItem="{Binding SelectedClientType}"/>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <TextBlock Text="Silkroad Directory"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Text="{Binding SilkroadDirectory}" IsReadOnly="True"/>
+                            <Button Grid.Column="1" Content="Browse" Command="{Binding BrowseCommand}"/>
+                        </Grid>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+
+            <TabItem Header="Network">
+                <StackPanel Spacing="10">
+                    <StackPanel>
+                        <TextBlock Text="Proxy"/>
+                        <TextBox Text="{Binding ProxyAddress}"/>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <TextBlock Text="Port"/>
+                        <TextBox Text="{Binding ProxyPort}"/>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+
+            <TabItem Header="Plugins">
+                <ListBox ItemsSource="{Binding Plugins}" Background="Transparent">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate x:DataType="vm:PluginInfo">
+                            <CheckBox Content="{Binding Name}" 
+                                      IsChecked="{Binding IsEnabled}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window> 

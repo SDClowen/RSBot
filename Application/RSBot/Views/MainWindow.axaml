@@ -1,0 +1,164 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		Width="980" Height="650"
+        mc:Ignorable="d" d:DesignWidth="980" d:DesignHeight="650"
+        x:Class="RSBot.Views.MainWindow"
+		xmlns:rs="using:RSBot.Views.Controls"
+		xmlns:rsc="using:RSBot.Views.Controls.Cos"
+		xmlns:vm="using:RSBot.ViewModels"
+		x:DataType="vm:MainWindowViewModel"
+		Icon="/Assets/app.png"
+		Title="RSBot" Foreground="White"
+		Background="rgba(20, 20, 20, 0.98)"
+		WindowStartupLocation="CenterScreen"
+		ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="PreferSystemChrome"
+        ExtendClientAreaTitleBarHeightHint="-1">
+
+	<Design.DataContext>
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
+
+	<DockPanel LastChildFill="True">
+		<Border Height="25" Background="rgba(255, 255, 255, 0.05)" BorderBrush="rgba(255, 255, 255, 0.15)" BorderThickness="1" DockPanel.Dock="Bottom">
+			<DockPanel>
+				<Button DockPanel.Dock="Right"
+							Margin="0"
+							Content="☰"
+							Width="30"
+							Height="30"
+							VerticalAlignment="Top"
+							Background="Transparent"
+							Foreground="White"
+							HorizontalAlignment="Right">
+					<Button.Flyout>
+						<MenuFlyout Placement="BottomEdgeAlignedRight">
+							<MenuItem Header="File">
+								<MenuItem Header="Profile" Command="{Binding SelectProfileCommand}"/>
+								<MenuItem Header="Settings" Command="{Binding ShowSettingsCommand}"/>
+								<MenuItem Header="Exit" Command="{Binding ExitCommand}"/>
+							</MenuItem>
+							<MenuItem Header="Tools">
+								<MenuItem Header="Script Recorder" Command="{Binding ShowScriptRecorderCommand}"/>
+								<MenuItem Header="Network Config" Command="{Binding ShowNetworkConfigCommand}"/>
+							</MenuItem>
+							<MenuItem Header="Theme">
+								<MenuItem Header="Dark" Command="{Binding ThemeChangerDarkCommand}"/>
+								<MenuItem Header="Light" Command="{Binding ThemeChangerLightCommand}"/>
+								<MenuItem Header="Auto" Command="{Binding ThemeChangerAutoCommand}"/>
+							</MenuItem>
+							<MenuItem Header="Botbase" ItemsSource="{Binding BotBases}">
+								<MenuItem.ItemTemplate>
+									<DataTemplate x:DataType="vm:ExtensionInfo">
+										<MenuItem Header="{Binding DisplayName}"
+												Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).SelectBotBaseCommand}"
+												CommandParameter="{Binding Name}"
+												IsChecked="{Binding IsSelected}"/>
+									</DataTemplate>
+								</MenuItem.ItemTemplate>
+							</MenuItem>
+							<MenuItem Header="Plugins" ItemsSource="{Binding Plugins}">
+								<MenuItem.ItemTemplate>
+									<DataTemplate x:DataType="vm:PluginInfo">
+										<MenuItem Header="{Binding DisplayName}"
+												Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).ShowPluginCommand}"
+												CommandParameter="{Binding}"
+												IsEnabled="{Binding IsEnabled}"/>
+									</DataTemplate>
+								</MenuItem.ItemTemplate>
+							</MenuItem>
+							<MenuItem Header="Help">
+								<MenuItem Header="About" Command="{Binding ShowAboutCommand}"/>
+								<MenuItem Header="Donate" Command="{Binding DonateCommand}"/>
+							</MenuItem>
+						</MenuFlyout>
+					</Button.Flyout>
+				</Button>
+				<TextBlock DockPanel.Dock="Left" Padding="10 0 0 0" VerticalAlignment="Center" Text="{Binding StatusText}"/>
+			</DockPanel>
+		</Border>
+		<Border Width="250" Margin="0 0 0 0" Background="rgba(255, 255, 255, 0.05)" BorderBrush="rgba(255, 255, 255, 0.15)" BorderThickness="1 0 0 0" DockPanel.Dock="Right" Padding="5">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="*"></RowDefinition>
+				</Grid.RowDefinitions>
+
+				<rsc:CosManager Grid.Row="0" Name="cosManager" Margin="0 30 0 0" IsVisible="{Binding CosManagerVisible}"/>
+
+				<Border Grid.Row="1" Margin="5" CornerRadius="6" Background="rgba(255, 255, 255, .06)" Padding="10">
+					<rs:Entity/>
+				</Border>
+				
+				<StackPanel Grid.Row="2" Height="40" Margin="0 0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal">
+					<Button Padding="30 5" Command="{Binding ToggleCosManagerCommand}" HorizontalAlignment="Right" Margin="0 0 5 0">Save</Button>
+					<Button Padding="30 5" Name="btnStart" Command="{Binding StartStopCommand}"
+							Content="{Binding StartButtonText}"
+							Background="{Binding StartButtonBackground}"
+							BorderBrush="{Binding StartButtonBorderBrush}"
+							HorizontalAlignment="Right"/>
+				</StackPanel>
+			</Grid>
+		</Border>
+		<DockPanel LastChildFill="True">
+			<rs:Character DockPanel.Dock="Top" Height="100" Background="rgba(255, 255, 255, 0.05)"/>
+			<TabControl FontSize="13" Margin="4" VerticalAlignment="Stretch" Background="Transparent" FontWeight="300" Padding="0" Name="mainTabControl" ItemsSource="{Binding Plugins}">
+				<TabControl.Styles>
+					<Style Selector="TabItem">
+						<Setter Property="Template">
+							<Setter.Value>
+								<ControlTemplate x:DataType="vm:PluginInfo">
+									<Border x:Name="TabBorder"
+											CornerRadius="4"
+											Background="{TemplateBinding Background}"
+											BorderBrush="{TemplateBinding BorderBrush}"
+											Padding="15 3"
+											Margin="1 5"
+											BoxShadow="0 0 2 #00202020">
+										<TextBlock FontSize="13.3333" Text="{TemplateBinding Header}" />
+									</Border>
+								</ControlTemplate>
+							</Setter.Value>
+						</Setter>
+						<Setter Property="Background" Value="Transparent" />
+						<Setter Property="BorderBrush" Value="Transparent" />
+					</Style>
+
+					<Style Selector="TabItem:selected">
+						<Setter Property="Background" Value="rgba(255, 255, 255, .1)" />
+						<Style.Animations>
+							<Animation Duration="0:0:0.4">
+								<KeyFrame Cue="0%">
+									<Setter Property="Background" Value="Transparent" />
+								</KeyFrame>
+								<KeyFrame Cue="100%">
+									<Setter Property="Background" Value="rgba(255, 255, 255, .1)" />
+								</KeyFrame>
+							</Animation>
+							<Animation Duration="0:0:0.4">
+								<KeyFrame Cue="0%">
+									<Setter Property="BorderBrush" Value="Transparent" />
+								</KeyFrame>
+								<KeyFrame Cue="100%">
+									<Setter Property="BorderBrush" Value="Yellow" />
+								</KeyFrame>
+							</Animation>
+						</Style.Animations>
+					</Style>
+				</TabControl.Styles>
+				<TabControl.ContentTemplate>
+					<DataTemplate x:DataType="vm:PluginInfo">
+						<Border Padding="5" CornerRadius="6" Background="rgba(0, 0, 0, .1)">
+							<ContentPresenter Content="{Binding View}"/>
+						</Border>
+					</DataTemplate>
+				</TabControl.ContentTemplate>
+			</TabControl>
+		</DockPanel>
+
+	</DockPanel>
+
+</Window>

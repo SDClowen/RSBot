@@ -1,0 +1,104 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:RSBot.Inventory.Avalonia.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="RSBot.Inventory.Avalonia.Views.Main">
+
+    <Design.DataContext>
+        <vm:MainViewModel />
+    </Design.DataContext>
+
+    <Grid RowDefinitions="Auto,*,Auto">
+        <!-- Tab buttons -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5">
+            <Button Content="Inventory" Command="{Binding SwitchTabCommand}" CommandParameter="0" />
+            <Button Content="Equipment" Command="{Binding SwitchTabCommand}" CommandParameter="1" />
+            <Button Content="Avatars" Command="{Binding SwitchTabCommand}" CommandParameter="2" />
+            <Button Content="Grab Pet" Command="{Binding SwitchTabCommand}" CommandParameter="3" />
+            <Button Content="Storage" Command="{Binding SwitchTabCommand}" CommandParameter="4" />
+            <Button Content="Guild Storage" Command="{Binding SwitchTabCommand}" CommandParameter="5" />
+            <Button Content="Job Transport" Command="{Binding SwitchTabCommand}" CommandParameter="6" />
+            <Button Content="Job Equipment" Command="{Binding SwitchTabCommand}" CommandParameter="7" />
+            <Button Content="Specialty" Command="{Binding SwitchTabCommand}" CommandParameter="8" />
+            <Button Content="Fellow Pet" Command="{Binding SwitchTabCommand}" CommandParameter="9" />
+        </StackPanel>
+
+        <!-- DataGrid -->
+        <DataGrid Grid.Row="1" 
+                  ItemsSource="{Binding Items}"
+                  SelectedItem="{Binding SelectedItem}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  CanUserSortColumns="True"
+                  SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Icon" Width="32">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Icon}" Width="32" Height="32" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" />
+                <DataGridTextColumn Header="Rarity" Binding="{Binding Rarity}" />
+            </DataGrid.Columns>
+			<DataGrid.ContextMenu>
+				<ContextMenu Opening="DataGrid_ContextMenuOpening">
+                    <MenuItem Header="Use" 
+                              Command="{Binding DataContext.UseItemCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                              CommandParameter="{Binding}"
+                              Name="useMenuItem" />
+                    <MenuItem Header="Drop" 
+                              Command="{Binding DataContext.DropItemCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                              CommandParameter="{Binding}"
+                              Name="dropMenuItem" />
+                    <MenuItem Header="Move to Pet" 
+                              Command="{Binding DataContext.MoveToPetCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                              CommandParameter="{Binding}"
+                              Name="moveToPetMenuItem" />
+                    <MenuItem Header="Move to Player" 
+                              Command="{Binding DataContext.MoveToPlayerCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                              CommandParameter="{Binding}"
+                              Name="moveToPlayerMenuItem" />
+                    <MenuItem Header="Use at Training Place" 
+                              Command="{Binding DataContext.ToggleUseAtTrainingPlaceCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                              CommandParameter="{Binding}"
+                              Name="useAtTrainingPlaceMenuItem" />
+                    <MenuItem Header="Auto Use According to Purpose" 
+                              Command="{Binding DataContext.ToggleAutoUseAccordingToPurposeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                              CommandParameter="{Binding}"
+                              Name="autoUseAccordingToPurposeMenuItem" />
+                    <Separator />
+                    <MenuItem Header="Move to Last Death Position" 
+                              Command="{Binding DataContext.MoveToLastDeathPositionCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                              CommandParameter="{Binding}"
+                              Name="moveToLastDeathPositionMenuItem" />
+                    <MenuItem Header="Move to Last Recall Position" 
+                              Command="{Binding DataContext.MoveToLastRecallPositionCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                              CommandParameter="{Binding}"
+                              Name="moveToLastRecallPositionMenuItem" />
+                    <MenuItem Header="Select Map Location" 
+                              Command="{Binding DataContext.SelectMapLocationCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                              CommandParameter="{Binding}"
+                              Name="selectMapLocationMenuItem" />
+                    <Separator />
+                    <MenuItem Header="Properties" 
+                              Command="{Binding DataContext.ShowPropertiesCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                              CommandParameter="{Binding}"
+                              Name="propertiesMenuItem" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+
+        <!-- Bottom panel -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="5">
+            <TextBlock Text="{Binding FreeSlots}" VerticalAlignment="Center" Margin="5" />
+            <Button Content="Sort" Command="{Binding SortCommand}" Margin="5,0" />
+            <CheckBox Content="Auto Sort" IsChecked="{Binding AutoSort}" Margin="5,0" />
+        </StackPanel>
+    </Grid>
+
+</UserControl> 

@@ -1,0 +1,86 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:RSBot.Party.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="450"
+        x:Class="RSBot.Party.Views.AutoFormPartyView"
+        Title="Auto Form Party"
+        Width="400" Height="450"
+        WindowStartupLocation="CenterScreen">
+
+    <Design.DataContext>
+        <vm:AutoFormPartyViewModel />
+    </Design.DataContext>
+
+    <Grid RowDefinitions="Auto,Auto,Auto,Auto" Margin="20">
+        <!-- Title -->
+        <Border Classes="card" Grid.Row="0">
+            <StackPanel Spacing="10">
+                <TextBlock Classes="h2" Text="Party Title" />
+                <TextBox Text="{Binding Title}" Watermark="Enter party title..." />
+            </StackPanel>
+        </Border>
+
+        <!-- Level Range -->
+        <Border Classes="card" Grid.Row="1" Margin="0,10">
+            <StackPanel Spacing="10">
+                <TextBlock Classes="h2" Text="Level Range" />
+                <Grid ColumnDefinitions="Auto,*,Auto,*" RowDefinitions="Auto" Margin="0,10">
+                    <TextBlock Grid.Column="0" Text="Min Level:" VerticalAlignment="Center" Margin="0,0,10,0" />
+                    <NumericUpDown Grid.Column="1" Value="{Binding MinLevel}" Minimum="1" Maximum="255" />
+                    <TextBlock Grid.Column="2" Text="Max Level:" VerticalAlignment="Center" Margin="10,0" />
+                    <NumericUpDown Grid.Column="3" Value="{Binding MaxLevel}" Minimum="1" Maximum="255" />
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <!-- Purpose -->
+        <Border Classes="card" Grid.Row="2" Margin="0,10">
+            <StackPanel Spacing="10">
+                <TextBlock Classes="h2" Text="Purpose" />
+                <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto">
+                    <RadioButton Grid.Row="0" Grid.Column="0" 
+                               Content="Hunting" 
+                               IsChecked="{Binding IsHunting}"
+                               GroupName="Purpose" />
+                    <RadioButton Grid.Row="0" Grid.Column="1" 
+                               Content="Quest" 
+                               IsChecked="{Binding IsQuest}"
+                               GroupName="Purpose" />
+                    <RadioButton Grid.Row="1" Grid.Column="0" 
+                               Content="Trade" 
+                               IsChecked="{Binding IsTrade}"
+                               IsEnabled="{Binding CanTrade}"
+                               GroupName="Purpose" />
+                    <RadioButton Grid.Row="1" Grid.Column="1" 
+                               Content="Thief" 
+                               IsChecked="{Binding IsThief}"
+                               IsEnabled="{Binding CanThief}"
+                               GroupName="Purpose" />
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <!-- Auto Settings -->
+        <Border Classes="card" Grid.Row="3" Margin="0,10">
+            <StackPanel Spacing="10">
+                <TextBlock Classes="h2" Text="Auto Settings" />
+                <CheckBox Content="Auto Reform" IsChecked="{Binding AutoReform}" />
+                <CheckBox Content="Auto Accept" IsChecked="{Binding AutoAccept}" />
+
+                <Grid ColumnDefinitions="*,*" Margin="0,10,0,0">
+                    <Button Grid.Column="0" 
+                            Content="Cancel" 
+                            Command="{Binding CancelCommand}"
+                            HorizontalAlignment="Left" />
+                    <Button Grid.Column="1" 
+                            Content="Start" 
+                            Command="{Binding StartCommand}"
+                            Classes="accent"
+                            HorizontalAlignment="Right" />
+                </Grid>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window> 

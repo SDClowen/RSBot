@@ -1,0 +1,21 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:RSBot.Inventory.Avalonia.ViewModels"
+		xmlns:pgc="clr-namespace:Avalonia.PropertyGrid.Controls;assembly=Avalonia.PropertyGrid"
+        mc:Ignorable="d" d:DesignWidth="620" d:DesignHeight="800"
+        x:Class="RSBot.Inventory.Avalonia.Views.ItemProperties"
+        Title="{Binding WindowTitle}"
+        Width="620" Height="800">
+
+    <Design.DataContext>
+        <vm:ItemPropertiesViewModel />
+    </Design.DataContext>
+
+    <pgc:PropertyGrid Name="propItem"
+                  DataContext="{Binding ItemDebugInfo}"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch" />
+
+</Window> 

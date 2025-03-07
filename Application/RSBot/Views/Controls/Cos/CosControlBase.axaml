@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:cos="using:RSBot.Views.Controls.Cos"
+             mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="150"
+             x:Class="RSBot.Views.Controls.Cos.CosControlBase"
+			 xmlns:vm="using:RSBot.ViewModels.Cos"
+			 x:DataType="vm:CosControlBaseViewModel">
+
+	<Design.DataContext>
+		<vm:CosControlBaseViewModel/>
+	</Design.DataContext>
+
+	<StackPanel Orientation="Vertical" Spacing="4">
+		<DockPanel Margin="0">
+			<TextBlock Text="{Binding Level}"
+					 DockPanel.Dock="Right"/>
+			<TextBlock Text="{Binding PetName}"
+					 DockPanel.Dock="Left"/>
+		</DockPanel>
+
+		<Separator></Separator>
+		
+		<TextBlock Text="HP:" Margin="0 10 0 0" VerticalAlignment="Center"/>
+
+		<Grid>
+			<ProgressBar
+					 Height="20"
+					 Minimum="0"
+					 Maximum="{Binding HealthMaximum}"
+					 Value="{Binding Health}"
+					 Foreground="rgb(180, 60, 60)"/>
+
+			<TextBlock HorizontalAlignment="Center"
+					 VerticalAlignment="Center"
+					 Foreground="White">
+				<TextBlock.Text>
+					<MultiBinding StringFormat="{}{0} / {1}">
+						<Binding Path="Health"/>
+						<Binding Path="HealthMaximum"/>
+					</MultiBinding>
+				</TextBlock.Text>
+			</TextBlock>
+		</Grid>
+	</StackPanel>
+</UserControl>

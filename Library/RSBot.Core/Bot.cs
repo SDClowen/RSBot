@@ -89,13 +89,13 @@ public class Bot
             TokenSource.Cancel();
 
         EventManager.FireEvent("OnStopBot");
-        Log.Notify($"Stopping bot {Botbase.Name}");
+        Log.Notify($"Stopping bot {Botbase.InternalName}");
 
         Game.SelectedEntity = null;
         Botbase.Stop();
         Running = false;
 
-        Log.Notify($"Stoped bot {Botbase.Name}");
+        Log.Notify($"Stoped bot {Botbase.InternalName}");
         Log.Status("Bot stopped");
     }
 }

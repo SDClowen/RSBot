@@ -1,0 +1,104 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:RSBot.ViewModels.Dialog;assembly=RSBot"
+        mc:Ignorable="d" d:DesignWidth="409" d:DesignHeight="454"
+        x:Class="RSBot.Views.Dialog.ConfigDialog"
+        x:DataType="vm:ConfigDialogViewModel"
+        Title="Proxy Config"
+        Width="409" Height="454"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False"
+        ShowInTaskbar="False">
+
+    <Design.DataContext>
+        <vm:ConfigDialogViewModel />
+    </Design.DataContext>
+
+    <DockPanel LastChildFill="True">
+        <Border DockPanel.Dock="Bottom" 
+                Height="61"
+                Padding="4">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Stretch">
+                <Button Command="{Binding SaveCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                        Width="94" Height="29"
+                        Content="Confirm"
+                        HorizontalAlignment="Left"
+                        Margin="15,18,0,0"/>
+                
+                <Button Command="{Binding CancelCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                        Width="94" Height="29"
+                        Content="Cancel"
+                        HorizontalAlignment="Right"
+                        Margin="186,18,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <StackPanel Margin="15,11,15,0" Spacing="8">
+            <CheckBox IsChecked="{Binding IsActive}"
+                      Content="Activate"
+                      Margin="0,0,0,20"/>
+
+            <StackPanel Orientation="Horizontal" Spacing="9">
+                <StackPanel Width="274">
+                    <TextBlock Text="Proxy Ip:"
+                             Foreground="Black"/>
+                    <TextBox Text="{Binding ProxyIp}"
+                            Height="27"
+                            Margin="0,4,0,0"/>
+                </StackPanel>
+
+                <StackPanel Width="93">
+                    <TextBlock Text="Proxy Port:"
+                             Foreground="Black"/>
+                    <TextBox Text="{Binding ProxyPort}"
+                            Height="27"
+                            Margin="0,4,0,0"/>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Margin="0,20,0,0">
+                <TextBlock Text="Proxy Username:"
+                          Foreground="Black"/>
+                <TextBox Text="{Binding Username}"
+                        Height="27"
+                        Margin="0,4,0,0"/>
+                <TextBlock Text="If you don't want to use it, you can leave it blank."
+                          FontSize="11"
+                          FontStyle="Italic"
+                          Foreground="Black"
+                          Margin="0,4,0,0"/>
+            </StackPanel>
+
+            <StackPanel Margin="0,20,0,0">
+                <TextBlock Text="Proxy password:"
+                          Foreground="Black"/>
+                <TextBox Text="{Binding Password}"
+                        Height="27"
+                        PasswordChar="*"
+                        Margin="0,4,0,0"/>
+                <TextBlock Text="If you don't want to use it, you can leave it blank."
+                          FontSize="11"
+                          FontStyle="Italic"
+                          Foreground="Black"
+                          Margin="0,4,0,0"/>
+            </StackPanel>
+
+            <StackPanel Margin="0,20,0,0">
+                <TextBlock Text="Proxy Type:"
+                          Foreground="Black"/>
+                <ComboBox SelectedIndex="{Binding SelectedProxyVersionIndex}"
+                         Height="28"
+                         HorizontalAlignment="Stretch"
+                         Margin="0,4,0,0">
+                    <ComboBoxItem>Socks4</ComboBoxItem>
+                    <ComboBoxItem>Socks5</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+        </StackPanel>
+    </DockPanel>
+</Window> 

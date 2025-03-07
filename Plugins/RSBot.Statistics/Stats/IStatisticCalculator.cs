@@ -2,7 +2,7 @@
 
 namespace RSBot.Statistics.Stats;
 
-internal interface IStatisticCalculator
+public interface IStatisticCalculator
 {
     /// <summary>
     ///     Gets the name.

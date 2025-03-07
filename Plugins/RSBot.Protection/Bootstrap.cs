@@ -1,10 +1,11 @@
-﻿using System.Windows.Forms;
+﻿using Avalonia.Controls;
 using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Plugins;
 using RSBot.Protection.Components.Pet;
 using RSBot.Protection.Components.Player;
 using RSBot.Protection.Components.Town;
+using RSBot.Protection.Views;
 
 namespace RSBot.Protection;
 
@@ -53,7 +54,7 @@ public class Bootstrap : IPlugin
     }
 
     /// <inheritdoc />
-    public Control View => Views.View.Instance;
+    public Control View => Main.Instance;
 
     /// <inheritdoc />
     public void Translate()

@@ -1,0 +1,82 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:RSBot.CommandCenter.Avalonia.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="405"
+             x:Class="RSBot.CommandCenter.Avalonia.Views.Main">
+
+    <Design.DataContext>
+        <vm:MainViewModel />
+    </Design.DataContext>
+
+    <Grid RowDefinitions="*,Auto">
+        <!-- Content -->
+        <TabControl Grid.Row="0" 
+                   SelectedIndex="{Binding SelectedTabIndex}"
+                   Margin="8,4,8,4">
+            
+            <!-- Emote Commands Tab -->
+            <TabItem Header="Emote Commands">
+                <ScrollViewer>
+                    <ItemsControl ItemsSource="{Binding EmoticonActions}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ContentControl Content="{Binding}" Margin="0,5" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- Chat Commands Tab -->
+            <TabItem Header="Chat Commands">
+                <Grid RowDefinitions="Auto,*" Margin="8">
+                    <TextBlock Grid.Row="0" 
+                             Text="Type the following commands into the game chat"
+                             Margin="0,0,0,8" />
+                    
+                    <TextBox Grid.Row="1"
+                            Text="{Binding ChatCommandDescriptions}"
+                            IsReadOnly="True"
+                            AcceptsReturn="True"
+                            TextWrapping="Wrap" />
+                </Grid>
+            </TabItem>
+
+            <!-- Notifications Tab -->
+            <TabItem Header="Notifications">
+                <Grid>
+                    <TextBlock Text="&lt;coming soon&gt;"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center" />
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <!-- Footer -->
+        <Grid Grid.Row="1" 
+              Margin="8,0,8,8"
+              ColumnDefinitions="Auto,*,Auto">
+            
+            <!-- Reset Button -->
+            <Button Grid.Column="0"
+                    Content="Reset to defaults"
+                    Command="{Binding ResetToDefaultsCommand}" />
+
+            <!-- Enable Checkbox -->
+            <CheckBox Grid.Column="1"
+                     Content="Enable command center"
+                     IsChecked="{Binding IsEnabled}"
+                     Margin="8,0,0,0"
+                     VerticalAlignment="Center" />
+
+            <!-- Save Button -->
+            <Button Grid.Column="2"
+                    Content="Save"
+                    Command="{Binding SaveCommand}"
+                    Classes="accent" />
+        </Grid>
+    </Grid>
+
+</UserControl> 

@@ -10,40 +10,38 @@ using RSBot.General.Models;
 
 namespace RSBot.General.Components;
 
+/// <summary>
+/// Manages user accounts, including saving and loading account data
+/// </summary>
 internal class Accounts
 {
     /// <summary>
-    ///     Gets or sets the saved accounts.
+    /// Gets or sets the list of saved accounts
     /// </summary>
-    /// <value>
-    ///     The saved accounts.
-    /// </value>
     public static List<Account> SavedAccounts { get; set; }
 
     /// <summary>
-    ///     Gets or sets the joined account.
+    /// Gets or sets the currently logged in account
     /// </summary>
     public static Account Joined { get; set; }
 
     /// <summary>
-    ///     Get the data file path
+    /// Gets the path to the account data file
     /// </summary>
     private static string _filePath =>
         Path.Combine(Kernel.BasePath, "User", ProfileManager.SelectedProfile, "autologin.data");
 
     /// <summary>
-    ///     Check the saving directory
+    /// Ensures the directory for the account data file exists
     /// </summary>
-    /// <returns></returns>
     private static void EnsureDirectoryExists()
     {
         var directory = Path.GetDirectoryName(_filePath);
-
         Directory.CreateDirectory(directory);
     }
 
     /// <summary>
-    ///     Loads this instance.
+    /// Loads saved accounts from the data file
     /// </summary>
     public static void Load()
     {
@@ -76,7 +74,7 @@ internal class Accounts
     }
 
     /// <summary>
-    ///     Saves this instance.
+    /// Saves the current accounts to the data file
     /// </summary>
     public static void Save()
     {

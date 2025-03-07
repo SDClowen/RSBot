@@ -1,0 +1,94 @@
+&lt;Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:RSBot.ViewModels;assembly=RSBot"
+        mc:Ignorable="d" d:DesignWidth="616" d:DesignHeight="701"
+        x:Class="RSBot.Views.ScriptRecorder"
+        x:DataType="vm:ScriptRecorderViewModel"
+        Title="RSBot - File recorder"
+        Width="616" Height="701"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False"
+        ShowInTaskbar="False">
+
+    <Design.DataContext>
+        <vm:ScriptRecorderViewModel />
+    </Design.DataContext>
+
+    <DockPanel LastChildFill="True">
+        <!-- Top Panel -->
+        <Border DockPanel.Dock="Top"
+                Height="66"
+                Padding="4">
+            <StackPanel Orientation="Horizontal"
+                        Spacing="4">
+                <Button Command="{Binding StartStopCommand}"
+                        Content="{Binding IsRecording, Converter={x:Static BoolConverters.ToString}, ConverterParameter='Stop|Start'}"
+                        Width="76" Height="30"
+                        Margin="16,19,0,0"/>
+
+                <Button Command="{Binding ClearCommand}"
+                        Content="Clear"
+                        Width="53" Height="30"
+                        Margin="4,19,0,0"/>
+
+                <Button Command="{Binding RunCommand}"
+                        Content="{Binding IsRunning, Converter={x:Static BoolConverters.ToString}, ConverterParameter='◘|▶'}"
+                        Width="44" Height="30"
+                        Margin="4,19,0,0"/>
+
+                <TextBlock Text="{Binding Status}"
+                          VerticalAlignment="Center"
+                          FontSize="14"
+                          Margin="8,19,0,0"/>
+
+                <Button Command="{Binding SaveCommand}"
+                        Content="Save"
+                        Width="98" Height="30"
+                        HorizontalAlignment="Right"
+                        Margin="186,19,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Script TextBox -->
+        <Border DockPanel.Dock="Bottom"
+                Height="96"
+                Background="{DynamicResource SystemControlBackgroundBaseLowBrush}">
+            <Grid Margin="25,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal"
+                           Spacing="8">
+                    <TextBlock Text="Command:"
+                             VerticalAlignment="Center"/>
+
+                    <ComboBox ItemsSource="{Binding Commands}"
+                             SelectedIndex="{Binding SelectedCommandIndex}"
+                             Width="194"
+                             Height="28"
+                             MaxDropDownHeight="100"/>
+
+                    <Button Command="{Binding AddCommandCommand}"
+                            Content="Add"
+                            Width="63" Height="30"/>
+                </StackPanel>
+
+                <TextBlock Grid.Row="1"
+                          Text="Hint: Make sure you add the &quot;dismount&quot; command to your script&#x0a;before teleportations to be able to enter it"
+                          Margin="0,8,0,0"/>
+            </Grid>
+        </Border>
+
+        <!-- Main Content -->
+        <TextBox Text="{Binding ScriptText}"
+                 AcceptsReturn="True"
+                 TextWrapping="NoWrap"
+                 ScrollViewer.VerticalScrollBarVisibility="Visible"
+                 FontFamily="Consolas"
+                 Margin="0"/>
+    </DockPanel>
+</Window> 

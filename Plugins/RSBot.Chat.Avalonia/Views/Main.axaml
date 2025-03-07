@@ -1,0 +1,94 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:RSBot.Chat.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="RSBot.Chat.Views.Main">
+
+    <Design.DataContext>
+        <vm:MainViewModel />
+    </Design.DataContext>
+
+    <TabControl>
+        <!-- All Tab -->
+        <TabItem Header="All">
+            <Grid RowDefinitions="*,Auto,Auto">
+                <TextBox Grid.Row="0" Text="{Binding AllChat.DisplayText}" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" />
+                <GridSplitter Grid.Row="1" Height="1" Background="{DynamicResource SystemAccentColor}" />
+                <TextBox Grid.Row="2" Text="{Binding AllChat.SendText}" Height="30" 
+                         KeyDown="OnSendAllKeyDown" Watermark="Type your message..." />
+            </Grid>
+        </TabItem>
+
+        <!-- Private Tab -->
+        <TabItem Header="Private">
+            <Grid RowDefinitions="*,Auto,Auto">
+                <TextBox Grid.Row="0" Text="{Binding PrivateChat.DisplayText}" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" />
+                <GridSplitter Grid.Row="1" Height="1" Background="{DynamicResource SystemAccentColor}" />
+                <Grid Grid.Row="2" ColumnDefinitions="Auto,*" Height="30">
+                    <TextBox Grid.Column="0" Text="{Binding ReceiverText}" Width="150" 
+                             Watermark="Receiver name..." Margin="0,0,5,0" />
+                    <TextBox Grid.Column="1" Text="{Binding PrivateChat.SendText}" 
+                             KeyDown="OnSendPrivateKeyDown" Watermark="Type your message..." />
+                </Grid>
+            </Grid>
+        </TabItem>
+
+        <!-- Party Tab -->
+        <TabItem Header="Party">
+            <Grid RowDefinitions="*,Auto,Auto">
+                <TextBox Grid.Row="0" Text="{Binding PartyChat.DisplayText}" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" />
+                <GridSplitter Grid.Row="1" Height="1" Background="{DynamicResource SystemAccentColor}" />
+                <TextBox Grid.Row="2" Text="{Binding PartyChat.SendText}" Height="30" 
+                         KeyDown="OnSendPartyKeyDown" Watermark="Type your message..." />
+            </Grid>
+        </TabItem>
+
+        <!-- Guild Tab -->
+        <TabItem Header="Guild">
+            <Grid RowDefinitions="*,Auto,Auto">
+                <TextBox Grid.Row="0" Text="{Binding GuildChat.DisplayText}" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" />
+                <GridSplitter Grid.Row="1" Height="1" Background="{DynamicResource SystemAccentColor}" />
+                <TextBox Grid.Row="2" Text="{Binding GuildChat.SendText}" Height="30" 
+                         KeyDown="OnSendGuildKeyDown" Watermark="Type your message..." />
+            </Grid>
+        </TabItem>
+
+        <!-- Union Tab -->
+        <TabItem Header="Union">
+            <Grid RowDefinitions="*,Auto,Auto">
+                <TextBox Grid.Row="0" Text="{Binding UnionChat.DisplayText}" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" />
+                <GridSplitter Grid.Row="1" Height="1" Background="{DynamicResource SystemAccentColor}" />
+                <TextBox Grid.Row="2" Text="{Binding UnionChat.SendText}" Height="30" 
+                         KeyDown="OnSendUnionKeyDown" Watermark="Type your message..." />
+            </Grid>
+        </TabItem>
+
+        <!-- Academy Tab -->
+        <TabItem Header="Academy">
+            <Grid RowDefinitions="*,Auto,Auto">
+                <TextBox Grid.Row="0" Text="{Binding AcademyChat.DisplayText}" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" />
+                <GridSplitter Grid.Row="1" Height="1" Background="{DynamicResource SystemAccentColor}" />
+                <TextBox Grid.Row="2" Text="{Binding AcademyChat.SendText}" Height="30" 
+                         KeyDown="OnSendAcademyKeyDown" Watermark="Type your message..." />
+            </Grid>
+        </TabItem>
+
+        <!-- Global Tab -->
+        <TabItem Header="Global / Notice">
+            <TextBox Text="{Binding GlobalChat.DisplayText}" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" />
+        </TabItem>
+
+        <!-- Stall Tab -->
+        <TabItem Header="Stall">
+            <TextBox Text="{Binding StallChat.DisplayText}" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" />
+        </TabItem>
+
+        <!-- Unique Tab -->
+        <TabItem Header="Unique">
+            <TextBox Text="{Binding UniqueChat.DisplayText}" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" />
+        </TabItem>
+    </TabControl>
+
+</UserControl> 

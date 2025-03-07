@@ -17,22 +17,6 @@ public static class Kernel
     private static CancellationTokenSource _updaterTokenSource;
 
     /// <summary>
-    ///     Gets or sets the botbase manager.
-    /// </summary>
-    /// <value>
-    ///     The botbase manager.
-    /// </value>
-    public static BotbaseManager BotbaseManager { get; private set; }
-
-    /// <summary>
-    ///     Gets the plugin manager.
-    /// </summary>
-    /// <value>
-    ///     The plugin manager.
-    /// </value>
-    public static PluginManager PluginManager { get; private set; }
-
-    /// <summary>
     ///     Gets the proxy.
     /// </summary>
     /// <value>
@@ -91,9 +75,7 @@ public static class Kernel
     /// </summary>
     public static void Initialize()
     {
-        Bot = new Bot();
-        BotbaseManager = new BotbaseManager();
-        PluginManager = new PluginManager();
+        Bot = new();
 
         //Network handlers/hooks
         RegisterNetworkHandlers();

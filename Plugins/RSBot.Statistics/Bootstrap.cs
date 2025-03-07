@@ -1,4 +1,4 @@
-﻿using System.Windows.Forms;
+﻿using Avalonia.Controls;
 using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Plugins;
@@ -30,7 +30,7 @@ public class Bootstrap : IPlugin
     }
 
     /// <inheritdoc />
-    public Control View => Views.View.Instance;
+    public Control View => Views.Main.Instance;
 
     /// <inheritdoc />
     public void Translate()

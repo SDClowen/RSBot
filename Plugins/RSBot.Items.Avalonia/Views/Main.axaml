@@ -1,0 +1,196 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:RSBot.Items.Avalonia.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="RSBot.Items.Avalonia.Views.Main"
+             x:DataType="vm:MainViewModel">
+
+    <Grid RowDefinitions="Auto,*">
+        <!-- Store Selection -->
+        <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Button Content="Potion trader" 
+                        Command="{Binding SwitchTabCommand}" 
+                        CommandParameter="0"
+                        Classes="StoreButton"
+                        IsEnabled="{Binding !IsSearchMode}"/>
+                <Button Content="Stable keeper" 
+                        Command="{Binding SwitchTabCommand}" 
+                        CommandParameter="1"
+                        Classes="StoreButton"
+                        IsEnabled="{Binding !IsSearchMode}"/>
+                <Button Content="Protector trader" 
+                        Command="{Binding SwitchTabCommand}" 
+                        CommandParameter="2"
+                        Classes="StoreButton"
+                        IsEnabled="{Binding !IsSearchMode}"/>
+                <Button Content="Weapon trader" 
+                        Command="{Binding SwitchTabCommand}" 
+                        CommandParameter="3"
+                        Classes="StoreButton"
+                        IsEnabled="{Binding !IsSearchMode}"/>
+                <Button Content="Accessory trader" 
+                        Command="{Binding SwitchTabCommand}" 
+                        CommandParameter="4"
+                        Classes="StoreButton"
+                        IsEnabled="{Binding !IsSearchMode}"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1" ColumnDefinitions="*,*" Margin="5">
+            <!-- Left Panel -->
+            <Border Grid.Column="0" BorderBrush="{DynamicResource SystemControlHighlightBaseMediumLowBrush}" 
+                    BorderThickness="1" Margin="0,0,5,0">
+                <Grid RowDefinitions="Auto,Auto,*">
+                    <!-- Search Box -->
+                    <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Margin="5">
+                        <TextBox Grid.Column="0" 
+                                Text="{Binding SearchText}"
+                                Watermark="Search items..."
+                                Margin="0,0,5,0"/>
+                        <CheckBox Grid.Column="1" 
+                                 Content="Show equipment" 
+                                 IsChecked="{Binding ShowEquipment}"
+                                 IsEnabled="{Binding !IsSearchMode}"/>
+                    </Grid>
+
+                    <!-- Filter Panel -->
+                    <Expander Grid.Row="1" Header="Filters" IsExpanded="False" Margin="5">
+                        <ScrollViewer MaxHeight="200">
+                            <StackPanel>
+                                <!-- Weapons -->
+                                <TextBlock Text="Weapons" FontWeight="Bold" Margin="0,5"/>
+                                <WrapPanel>
+                                    <CheckBox Content="Sword" IsChecked="{Binding Filters.WeaponSword}" Margin="5"/>
+                                    <CheckBox Content="Blade" IsChecked="{Binding Filters.WeaponBlade}" Margin="5"/>
+                                    <CheckBox Content="Spear" IsChecked="{Binding Filters.WeaponSpear}" Margin="5"/>
+                                    <CheckBox Content="Glave" IsChecked="{Binding Filters.WeaponGlave}" Margin="5"/>
+                                    <CheckBox Content="Bow" IsChecked="{Binding Filters.WeaponBow}" Margin="5"/>
+                                    <CheckBox Content="1H Sword" IsChecked="{Binding Filters.Weapon1HSword}" Margin="5"/>
+                                    <CheckBox Content="2H Sword" IsChecked="{Binding Filters.Weapon2HSword}" Margin="5"/>
+                                    <CheckBox Content="Axe" IsChecked="{Binding Filters.WeaponAxe}" Margin="5"/>
+                                    <CheckBox Content="Staff" IsChecked="{Binding Filters.WeaponStaff}" Margin="5"/>
+                                    <CheckBox Content="Crossbow" IsChecked="{Binding Filters.WeaponXBow}" Margin="5"/>
+                                    <CheckBox Content="Dagger" IsChecked="{Binding Filters.WeaponDagger}" Margin="5"/>
+                                    <CheckBox Content="Harp" IsChecked="{Binding Filters.WeaponHarp}" Margin="5"/>
+                                    <CheckBox Content="Cleric Rod" IsChecked="{Binding Filters.WeaponCRod}" Margin="5"/>
+                                </WrapPanel>
+
+                                <!-- Armor -->
+                                <TextBlock Text="Armor" FontWeight="Bold" Margin="0,5"/>
+                                <WrapPanel>
+                                    <CheckBox Content="Clothes" IsChecked="{Binding Filters.ArmorClothes}" Margin="5"/>
+                                    <CheckBox Content="Light" IsChecked="{Binding Filters.ArmorLight}" Margin="5"/>
+                                    <CheckBox Content="Heavy" IsChecked="{Binding Filters.ArmorHeavy}" Margin="5"/>
+                                </WrapPanel>
+
+                                <!-- Other -->
+                                <TextBlock Text="Other" FontWeight="Bold" Margin="0,5"/>
+                                <WrapPanel>
+                                    <CheckBox Content="Quest" IsChecked="{Binding Filters.OtherQuest}" Margin="5"/>
+                                    <CheckBox Content="Ammunition" IsChecked="{Binding Filters.OtherAmmo}" Margin="5"/>
+                                    <CheckBox Content="Coin" IsChecked="{Binding Filters.OtherCoin}" Margin="5"/>
+                                    <CheckBox Content="Other" IsChecked="{Binding Filters.OtherOther}" Margin="5"/>
+                                </WrapPanel>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Expander>
+
+                    <!-- Products List -->
+                    <DataGrid Grid.Row="2" 
+                             ItemsSource="{Binding Products}"
+                             AutoGenerateColumns="False"
+                             IsReadOnly="True"
+                             Margin="5">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Icon" Width="40">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding AssocFileIcon}" 
+                                               Width="32" Height="32"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Name" 
+                                              Binding="{Binding GetRealName}"
+                                              Width="*"/>
+                            <DataGridTextColumn Header="Group" 
+                                              Binding="{Binding GroupName}"
+                                              Width="100"/>
+                        </DataGrid.Columns>
+
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Add to shopping list">
+                                    <MenuItem Header="1x" Command="{Binding AddToShoppingListCommand}" 
+                                              CommandParameter="{Binding DataContext.SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType=DataGrid}}, 1"/>
+                                    <MenuItem Header="10x" Command="{Binding AddToShoppingListCommand}"
+                                              CommandParameter="{Binding DataContext.SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType=DataGrid}}, 10"/>
+                                    <MenuItem Header="100x" Command="{Binding AddToShoppingListCommand}"
+                                              CommandParameter="{Binding DataContext.SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType=DataGrid}}, 100"/>
+                                </MenuItem>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+                </Grid>
+            </Border>
+
+            <!-- Right Panel -->
+            <Border Grid.Column="1" BorderBrush="{DynamicResource SystemControlHighlightBaseMediumLowBrush}"
+                    BorderThickness="1" Margin="5,0,0,0">
+                <Grid RowDefinitions="Auto,*">
+                    <TextBlock Text="Shopping List" 
+                              HorizontalAlignment="Center"
+                              Margin="0,5,0,5"
+                              FontWeight="Bold"/>
+
+                    <ListBox Grid.Row="1" 
+                            ItemsSource="{Binding ShoppingList}"
+                            Margin="5">
+                        <ListBox.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Remove" 
+                                        Command="{Binding RemoveFromShoppingListCommand}"
+                                        CommandParameter="{Binding DataContext.SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType=ListBox}}"/>
+                                <MenuItem Header="Change amount">
+                                    <MenuItem Header="1" Command="{Binding ChangeAmountCommand}"
+                                              CommandParameter="{Binding DataContext.SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType=ListBox}}, 1"/>
+                                    <MenuItem Header="10" Command="{Binding ChangeAmountCommand}"
+                                              CommandParameter="{Binding DataContext.SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType=ListBox}}, 10"/>
+                                    <MenuItem Header="100" Command="{Binding ChangeAmountCommand}"
+                                              CommandParameter="{Binding DataContext.SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType=ListBox}}, 100"/>
+                                </MenuItem>
+                            </ContextMenu>
+                        </ListBox.ContextMenu>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="{Binding Icon}" Width="32" Height="32"/>
+                                    <StackPanel Margin="5,0,0,0">
+                                        <TextBlock Text="{Binding Name}"/>
+                                        <TextBlock Text="{Binding Amount, StringFormat='Amount: {0}'}"
+                                                 Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+
+    <UserControl.Styles>
+        <Style Selector="Button.StoreButton">
+            <Setter Property="Margin" Value="0,0,5,0"/>
+            <Setter Property="MinWidth" Value="120"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+    </UserControl.Styles>
+
+</UserControl> 

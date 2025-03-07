@@ -1,0 +1,33 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="150"
+        x:Class="RSBot.Views.Dialog.TextInputDialog"
+        Title="{Binding Title}"
+        Width="400" Height="150"
+        WindowStartupLocation="CenterOwner">
+
+    <Grid RowDefinitions="Auto,*,Auto" Margin="20">
+        <TextBlock Grid.Row="0" 
+                  Text="{Binding Message}"
+                  TextWrapping="Wrap"
+                  Margin="0,0,0,10"/>
+
+        <TextBox Grid.Row="1"
+                 Name="textInput"
+                 VerticalAlignment="Center"/>
+
+        <StackPanel Grid.Row="2" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right" 
+                    Spacing="10"
+                    Margin="0,10,0,0">
+            <Button Content="OK" 
+                    Click="OkButton_Click"
+                    Classes="accent"/>
+            <Button Content="Cancel" 
+                    Click="CancelButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window> 

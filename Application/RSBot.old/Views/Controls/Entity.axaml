@@ -1,0 +1,60 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="312" d:DesignHeight="95"
+             x:Class="RSBot.Views.Controls.Entity"
+             MinWidth="312" MinHeight="95">
+
+    <Border Classes="card">
+        <Grid RowDefinitions="Auto,Auto,Auto">
+            <!-- Entity Name -->
+            <TextBlock Grid.Row="0"
+                      Name="lblEntityName"
+                      Text="No target"
+                      FontWeight="Bold"
+                      HorizontalAlignment="Center"
+                      Margin="0,5"/>
+
+            <!-- HP Bar -->
+            <Grid Grid.Row="1" 
+                  ColumnDefinitions="Auto,*,Auto" 
+                  Margin="5,0">
+                <TextBlock Grid.Column="0" 
+                          Text="HP"
+                          VerticalAlignment="Center"
+                          Margin="0,0,5,0"/>
+                <ProgressBar Grid.Column="1"
+                            Name="progressHP"
+                            Height="15"
+                            Foreground="Red"
+                            ShowProgressText="True"/>
+                <TextBlock Grid.Column="2"
+                          Name="lblHP"
+                          Text="0 / 0"
+                          VerticalAlignment="Center"
+                          Margin="5,0,0,0"/>
+            </Grid>
+
+            <!-- MP Bar -->
+            <Grid Grid.Row="2" 
+                  ColumnDefinitions="Auto,*,Auto"
+                  Margin="5,5">
+                <TextBlock Grid.Column="0" 
+                          Text="MP"
+                          VerticalAlignment="Center"
+                          Margin="0,0,5,0"/>
+                <ProgressBar Grid.Column="1"
+                            Name="progressMP"
+                            Height="15"
+                            Foreground="Blue"
+                            ShowProgressText="True"/>
+                <TextBlock Grid.Column="2"
+                          Name="lblMP"
+                          Text="0 / 0"
+                          VerticalAlignment="Center"
+                          Margin="5,0,0,0"/>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl> 

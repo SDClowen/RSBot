@@ -76,7 +76,7 @@ public partial class InputDialog : Window
         return (result, dialog.Value);
     }
 
-    private void BtnOK_Click(object sender, RoutedEventArgs e)
+    private async void BtnOK_Click(object sender, RoutedEventArgs e)
     {
         object value = null;
         switch (_inputType)
@@ -94,8 +94,7 @@ public partial class InputDialog : Window
 
         if (_inputType == InputType.Textbox && string.IsNullOrWhiteSpace(value?.ToString()))
         {
-            // In Avalonia we use MessageBox from the community toolkit
-            //_ = MessageBoxManager.Show("Error", "The value cannot be empty!");
+            await MessageBox.Show(this, "The value cannot be empty!", "Error", MessageBoxButtons.Ok);
             return;
         }
 

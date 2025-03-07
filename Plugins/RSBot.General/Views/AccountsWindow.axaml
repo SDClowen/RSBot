@@ -1,0 +1,117 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:RSBot.General.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="400"
+        x:Class="RSBot.General.Views.AccountsWindow"
+        x:DataType="vm:AccountsWindowViewModel"
+        Title="Auto Login Settings"
+        Width="600" Height="400"
+        WindowStartupLocation="CenterOwner">
+
+	<Design.DataContext>
+		<vm:AccountsWindowViewModel/>
+	</Design.DataContext>
+	<DockPanel Margin="10">
+		<StackPanel DockPanel.Dock="Right" Width="200" Margin="10,0,0,0">
+			<Border Classes="GroupBox">
+				<StackPanel>
+                    <TextBlock Classes="h2"
+                              Text="{Binding EditMode, StringFormat='{}{0} Account'}"
+                              Margin="0,0,0,10"/>
+
+					<StackPanel Spacing="5">
+						<TextBlock Text="Username:"/>
+						<TextBox Text="{Binding Username}"/>
+
+						<TextBlock Text="Password:"/>
+						<TextBox Text="{Binding Password}" PasswordChar="*"/>
+
+						<TextBlock Text="Secondary Password:"/>
+						<TextBox Text="{Binding SecondaryPassword}" PasswordChar="*"/>
+
+						<TextBlock Text="Server:"/>
+						<TextBox Text="{Binding SelectedServer}"/>
+
+						<TextBlock Text="Channel:"/>
+						<ComboBox ItemsSource="{Binding Channels}"
+                                 SelectedIndex="{Binding SelectedChannel}"
+                                 HorizontalAlignment="Stretch"/>
+
+						<Button Content="{Binding EditMode, StringFormat='{}{0} Account'}"
+                                Command="{Binding SaveAccountCommand}"
+                                HorizontalAlignment="Stretch"
+                                Margin="0,10,0,0"
+                                Classes="accent"/>
+
+						<Button Content="Clear"
+                                Command="{Binding ClearCommand}"
+                                HorizontalAlignment="Stretch"
+                                Margin="0,5,0,0"/>
+					</StackPanel>
+				</StackPanel>
+			</Border>
+		</StackPanel>
+
+		<Border Classes="GroupBox">
+			<DockPanel>
+				<TextBlock Classes="h2" Text="Saved Accounts" DockPanel.Dock="Top" Margin="0,0,0,10"/>
+
+				<DataGrid ItemsSource="{Binding SavedAccounts}"
+                         SelectedItem="{Binding SelectedAccount}"
+                         AutoGenerateColumns="False"
+                         IsReadOnly="True"
+                         GridLinesVisibility="All"
+                         BorderThickness="1"
+                         Margin="0,0,0,10">
+					<DataGrid.Columns>
+						<DataGridTextColumn Header="Username" Binding="{Binding Username}" Width="*"/>
+						<DataGridTextColumn Header="Server" Binding="{Binding Servername}" Width="*"/>
+						<DataGridTemplateColumn Width="Auto">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<Button Content="Remove"
+                                            Command="{Binding $parent[DataGrid].((vm:AccountsWindowViewModel)DataContext).RemoveAccountCommand}"
+                                            CommandParameter="{Binding}"
+                                            Classes="danger"
+                                            Margin="5"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+					</DataGrid.Columns>
+				</DataGrid>
+			</DockPanel>
+		</Border>
+	</DockPanel>
+
+	<Window.Styles>
+		<Style Selector="Border.GroupBox">
+			<Setter Property="BorderBrush" Value="{DynamicResource SystemBaseMediumLowColor}"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="CornerRadius" Value="4"/>
+			<Setter Property="Padding" Value="10"/>
+			<Setter Property="Background" Value="Transparent"/>
+		</Style>
+
+		<Style Selector="TextBlock.h2">
+			<Setter Property="FontSize" Value="16"/>
+			<Setter Property="FontWeight" Value="SemiBold"/>
+		</Style>
+
+		<Style Selector="Button.accent">
+			<Setter Property="Background" Value="{DynamicResource SystemAccentColor}"/>
+			<Setter Property="Foreground" Value="White"/>
+		</Style>
+
+		<Style Selector="Button.danger">
+			<Setter Property="Background" Value="DarkRed"/>
+			<Setter Property="Foreground" Value="White"/>
+		</Style>
+
+		<Style Selector="DataGrid">
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="RowBackground" Value="Transparent"/>
+		</Style>
+	</Window.Styles>
+</Window>

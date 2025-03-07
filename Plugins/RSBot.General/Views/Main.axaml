@@ -1,0 +1,140 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:RSBot.General.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+             x:Class="RSBot.General.Views.Main"
+             x:DataType="vm:MainViewModel">
+
+    <Design.DataContext>
+        <vm:MainViewModel/>
+    </Design.DataContext>
+
+    <ScrollViewer>
+        <StackPanel Margin="20" Spacing="20">
+            <!-- Client Settings -->
+            <Border Classes="GroupBox">
+                <StackPanel>
+                    <TextBlock Classes="h2" Text="Client Settings" Margin="0,0,0,10"/>
+                    
+                    <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto" Margin="0,0,0,10">
+                        <TextBlock Text="Silkroad Path:" Grid.Row="0" Grid.Column="0" Margin="0,0,10,0"/>
+                        <TextBox Text="{Binding SilkroadPath}" Grid.Row="0" Grid.Column="1" IsReadOnly="True"/>
+                        <Button Content="Browse" Command="{Binding BrowseCommand}" Grid.Row="0" Grid.Column="2" Margin="5,0,0,0"/>
+
+                        <TextBlock Text="Client Type:" Grid.Row="1" Grid.Column="0" Margin="0,10,10,0"/>
+                        <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                                  ItemsSource="{Binding ClientTypes}"
+                                  SelectedItem="{Binding SelectedClientType}"
+                                  HorizontalAlignment="Stretch"
+                                  Margin="0,10,0,0"/>
+                    </Grid>
+
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Button Content="Start Client" Command="{Binding StartClientCommand}" Classes="accent"/>
+                        <Button Content="Start Clientless" Command="{Binding StartClientlessCommand}"/>
+                        <Button Content="Go Clientless" Command="{Binding GoClientlessCommand}"/>
+                        <Button Content="Toggle Client" Command="{Binding ToggleClientVisibilityCommand}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Auto Login Settings -->
+            <Border Classes="GroupBox">
+                <StackPanel>
+                    <DockPanel LastChildFill="True" Margin="0,0,0,10">
+                        <TextBlock Classes="h2" Text="Auto Login Settings" DockPanel.Dock="Left"/>
+                        <Button Content="Show Accounts" Command="{Binding ShowAutoLoginSettingsCommand}" 
+                                DockPanel.Dock="Right" HorizontalAlignment="Right"/>
+                    </DockPanel>
+
+                    <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto" Margin="0,0,0,10">
+                        <CheckBox Content="Enable Auto Login" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                                  IsChecked="{Binding EnableAutoLogin}"/>
+
+                        <TextBlock Text="Account:" Grid.Row="1" Grid.Column="0" Margin="20,10,10,0"/>
+                        <ComboBox Grid.Row="1" Grid.Column="1" Margin="0,10,0,0"
+                                  ItemsSource="{Binding Accounts}"
+                                  SelectedItem="{Binding SelectedAccount}"
+                                  HorizontalAlignment="Stretch"/>
+
+                        <TextBlock Text="Character:" Grid.Row="2" Grid.Column="0" Margin="20,10,10,0"/>
+                        <ComboBox Grid.Row="2" Grid.Column="1" Margin="0,10,0,0"
+                                  ItemsSource="{Binding Characters}"
+                                  SelectedItem="{Binding SelectedCharacter}"
+                                  HorizontalAlignment="Stretch"/>
+
+                        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="20,10,0,0">
+                            <CheckBox Content="Enable Static Captcha" IsChecked="{Binding EnableStaticCaptcha}"/>
+                            <DockPanel Margin="20,5,0,0" IsEnabled="{Binding EnableStaticCaptcha}">
+                                <TextBlock Text="Static Captcha:" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding StaticCaptcha}" Margin="5,0,0,0"/>
+                            </DockPanel>
+
+                            <CheckBox Content="Enable Login Delay" IsChecked="{Binding EnableLoginDelay}"/>
+                            <DockPanel Margin="20,5,0,0" IsEnabled="{Binding EnableLoginDelay}">
+                                <TextBlock Text="Login Delay (ms):" VerticalAlignment="Center"/>
+                                <NumericUpDown Value="{Binding LoginDelay}"
+                                             Minimum="0"
+                                             Maximum="60000"
+                                             Increment="1000"
+                                             Margin="5,0,0,0"/>
+                            </DockPanel>
+
+                            <CheckBox Content="Hide Client On Start" IsChecked="{Binding HideClientOnStart}"/>
+                            <CheckBox Content="Auto Select Character" IsChecked="{Binding AutoSelectCharacter}"/>
+                            <CheckBox Content="Auto Select First" IsChecked="{Binding AutoSelectFirst}"/>
+                            <CheckBox Content="Start Bot After Login" IsChecked="{Binding StartBotAfterLogin}"/>
+                            <CheckBox Content="Use Return Scroll" IsChecked="{Binding UseReturnScroll}"/>
+                            <CheckBox Content="Stay Connected" IsChecked="{Binding StayConnected}"/>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- Additional Settings -->
+            <Border Classes="GroupBox">
+                <StackPanel>
+                    <TextBlock Classes="h2" Text="Additional Settings" Margin="0,0,0,10"/>
+
+                    <StackPanel Spacing="5">
+                        <CheckBox Content="Minimize to Tray" IsChecked="{Binding MinimizeToTray}"/>
+                        <CheckBox Content="Auto Hide Pending Window" IsChecked="{Binding AutoHidePendingWindow}"/>
+                        <CheckBox Content="Enable Queue Logs" IsChecked="{Binding EnableQueueLogs}"/>
+                        <CheckBox Content="Enable Queue Notification" IsChecked="{Binding EnableQueueNotification}"/>
+                        
+                        <DockPanel Margin="20,5,0,0" IsEnabled="{Binding EnableQueueNotification}">
+                            <TextBlock Text="Notification threshold:" VerticalAlignment="Center"/>
+                            <NumericUpDown Value="{Binding QueueNotificationThreshold}"
+                                         Minimum="1"
+                                         Maximum="1000"
+                                         Increment="1"
+                                         Margin="5,0,0,0"/>
+                        </DockPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+
+    <UserControl.Styles>
+        <Style Selector="Border.GroupBox">
+            <Setter Property="BorderBrush" Value="{DynamicResource SystemBaseMediumLowColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+
+        <Style Selector="TextBlock.h2">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+        <Style Selector="Button.accent">
+            <Setter Property="Background" Value="{DynamicResource SystemAccentColor}"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+    </UserControl.Styles>
+</UserControl> 

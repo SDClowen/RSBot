@@ -1,0 +1,46 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:RSBot.Log.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="719" d:DesignHeight="459"
+             x:Class="RSBot.Log.Views.Main"
+             x:DataType="vm:MainViewModel">
+
+    <Design.DataContext>
+        <vm:MainViewModel/>
+    </Design.DataContext>
+
+    <DockPanel>
+        <Border DockPanel.Dock="Top" 
+                Padding="8,4"
+                Background="rgba(0, 0, 0, 0.07)">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <CheckBox Content="Enabled" 
+                          IsChecked="{Binding IsEnabled}"/>
+                <CheckBox Content="Normal" 
+                          IsChecked="{Binding ShowNormal}"/>
+                <CheckBox Content="Debug" 
+                          IsChecked="{Binding ShowDebug}"/>
+                <CheckBox Content="Warning" 
+                          IsChecked="{Binding ShowWarning}"/>
+                <CheckBox Content="Error" 
+                          IsChecked="{Binding ShowError}"/>
+                
+                <Button Content="Clear" 
+                        Command="{Binding ClearCommand}"
+                        HorizontalAlignment="Right"/>
+            </StackPanel>
+        </Border>
+
+        <TextBox Text="{Binding LogText}"
+				 BorderBrush="Transparent"
+                 IsReadOnly="True"
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap"
+                 BorderThickness="0"
+                 Background="Transparent"
+                 Margin="0,4,0,0"
+                 CaretIndex="{Binding LogText.Length}"/>
+    </DockPanel>
+</UserControl> 

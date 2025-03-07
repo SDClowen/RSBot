@@ -8,28 +8,25 @@ using RSBot.Core.Network;
 using RSBot.Core.Network.Protocol;
 using RSBot.General.Models;
 
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Server = RSBot.General.Models.Server;
-
 namespace RSBot.General.Components;
 
+/// <summary>
+/// Handles automated login functionality including server selection, credentials, and game entry
+/// </summary>
 internal static class AutoLogin
 {
     /// <summary>
-    ///     Is the auto login pending <c>true</c> otherwise; <c>false</c>
+    /// Gets or sets whether auto login is currently pending
     /// </summary>
     public static bool Pending;
 
     /// <summary>
-    ///     Is the auto login handling <c>true</c> otherwise; <c>false</c>
+    /// Gets or sets whether auto login is currently processing
     /// </summary>
     private static bool _busy;
 
     /// <summary>
-    ///     Does the automatic login.
+    /// Handles the automated login process
     /// </summary>
     public static async void Handle()
     {
@@ -73,7 +70,7 @@ internal static class AutoLogin
             Log.NotifyLang("SelectedFirstServer", server.Name);
         }
 
-        // is server check [Lazy :)]
+        // Check if server is online
         if (!server.Status)
         {
             _busy = false;
@@ -97,7 +94,7 @@ internal static class AutoLogin
     }
 
     /// <summary>
-    ///     Sends the secondary password if have.
+    /// Sends the secondary password if configured
     /// </summary>
     internal static void SendSecondaryPassword()
     {
@@ -116,7 +113,7 @@ internal static class AutoLogin
         byte[] key = { 0x0F, 0x07, 0x3D, 0x20, 0x56, 0x62, 0xC9, 0xEB };
 
         if (Game.ClientType == GameClientType.Rigid)
-            key = key.Reverse().ToArray();
+            key = [.. key.Reverse()];
 
         blowfish.Initialize(key);
 
@@ -130,11 +127,11 @@ internal static class AutoLogin
     }
 
     /// <summary>
-    ///     Sends the login request.
+    /// Sends the login request with account credentials
     /// </summary>
-    /// <param name="account">The account.</param>
-    /// <param name="server">The server.</param>
-    private static void SendLoginRequest(Account account, Server server)
+    /// <param name="account">The account to log in with</param>
+    /// <param name="server">The server to connect to</param>
+    private static void SendLoginRequest(Account account, Models.Server server)
     {
         Log.NotifyLang("LoginCredentials", server.Name);
 
@@ -165,7 +162,7 @@ internal static class AutoLogin
     }
 
     /// <summary>
-    ///     Sends the static captcha.
+    /// Sends the static captcha response if enabled
     /// </summary>
     public static void SendStaticCaptcha()
     {
@@ -184,9 +181,9 @@ internal static class AutoLogin
     }
 
     /// <summary>
-    ///     Enters the game.
+    /// Enters the game with the specified character
     /// </summary>
-    /// <param name="character">The character.</param>
+    /// <param name="character">The character name to enter with</param>
     public static void EnterGame(string character)
     {
         if (!GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin"))

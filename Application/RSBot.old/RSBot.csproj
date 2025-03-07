@@ -1,0 +1,105 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<Nullable>disable</Nullable>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<OutputPath>.\..\..\Build</OutputPath>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<Description>A open source bot for Silkroad Online</Description>
+		<Copyright>Copyright © 2024, RSBot Team</Copyright>
+		<PackageProjectUrl>https://github.com/SDClowen/RSBot</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/SDClowen/RSBot</RepositoryUrl>
+		<OutputType>WinExe</OutputType>
+		<ApplicationIcon>app.ico</ApplicationIcon>
+		<AssemblyVersion>2.9.9</AssemblyVersion>
+		<PlatformTarget>x86</PlatformTarget>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <AvaloniaXaml Remove="Properties\**" />
+	  <Compile Remove="Properties\**" />
+	  <EmbeddedResource Remove="Properties\**" />
+	  <None Remove="Properties\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Views\Controls\Character.cs" />
+	  <Compile Remove="Views\Controls\Character.Designer.cs" />
+	  <Compile Remove="Views\Controls\Cos\Ability.cs" />
+	  <Compile Remove="Views\Controls\Cos\Ability.designer.cs" />
+	  <Compile Remove="Views\Controls\Cos\CosControlBase.cs" />
+	  <Compile Remove="Views\Controls\Cos\CosController.cs" />
+	  <Compile Remove="Views\Controls\Cos\CosController.designer.cs" />
+	  <Compile Remove="Views\Controls\Cos\Fellow.cs" />
+	  <Compile Remove="Views\Controls\Cos\Fellow.designer.cs" />
+	  <Compile Remove="Views\Controls\Cos\Growth.cs" />
+	  <Compile Remove="Views\Controls\Cos\Growth.designer.cs" />
+	  <Compile Remove="Views\Controls\Cos\JobTransport.cs" />
+	  <Compile Remove="Views\Controls\Cos\JobTransport.designer.cs" />
+	  <Compile Remove="Views\Controls\Cos\MiniCosControl.cs" />
+	  <Compile Remove="Views\Controls\Cos\MiniCosControl.designer.cs" />
+	  <Compile Remove="Views\Controls\Cos\Transport.cs" />
+	  <Compile Remove="Views\Controls\Cos\Transport.designer.cs" />
+	  <Compile Remove="Views\Controls\Entity.cs" />
+	  <Compile Remove="Views\Controls\Entity.Designer.cs" />
+	  <Compile Remove="Views\Dialog\AboutDialog.cs" />
+	  <Compile Remove="Views\Dialog\AboutDialog.Designer.cs" />
+	  <Compile Remove="Views\Dialog\CommandDialog.cs" />
+	  <Compile Remove="Views\Dialog\CommandDialog.Designer.cs" />
+	  <Compile Remove="Views\Dialog\ConfigDialog.cs" />
+	  <Compile Remove="Views\Dialog\ConfigDialog.Designer.cs" />
+	  <Compile Remove="Views\Dialog\ExitDialog.cs" />
+	  <Compile Remove="Views\Dialog\ExitDialog.Designer.cs" />
+	  <Compile Remove="Views\Dialog\ProfileSelectionDialog.cs" />
+	  <Compile Remove="Views\Dialog\ProfileSelectionDialog.Designer.cs" />
+	  <Compile Remove="Views\Main.cs" />
+	  <Compile Remove="Views\Main.Designer.cs" />
+	  <Compile Remove="Views\ScriptRecorder.cs" />
+	  <Compile Remove="Views\ScriptRecorder.Designer.cs" />
+	  <Compile Remove="Views\SplashScreen.cs" />
+	  <Compile Remove="Views\SplashScreen.Designer.cs" />
+	  <Compile Remove="Views\Updater.cs" />
+	  <Compile Remove="Views\Updater.Designer.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Remove="Views\Controls\Character.resx" />
+	  <EmbeddedResource Remove="Views\Controls\Cos\Ability.resx" />
+	  <EmbeddedResource Remove="Views\Controls\Cos\CosControlBase.resx" />
+	  <EmbeddedResource Remove="Views\Controls\Cos\CosController.resx" />
+	  <EmbeddedResource Remove="Views\Controls\Cos\Fellow.resx" />
+	  <EmbeddedResource Remove="Views\Controls\Cos\Growth.resx" />
+	  <EmbeddedResource Remove="Views\Controls\Cos\JobTransport.resx" />
+	  <EmbeddedResource Remove="Views\Controls\Cos\MiniCosControl.resx" />
+	  <EmbeddedResource Remove="Views\Controls\Cos\Transport.resx" />
+	  <EmbeddedResource Remove="Views\Controls\Entity.resx" />
+	  <EmbeddedResource Remove="Views\Dialog\AboutDialog.resx" />
+	  <EmbeddedResource Remove="Views\Dialog\CommandDialog.resx" />
+	  <EmbeddedResource Remove="Views\Dialog\ConfigDialog.resx" />
+	  <EmbeddedResource Remove="Views\Dialog\ExitDialog.resx" />
+	  <EmbeddedResource Remove="Views\Dialog\ProfileSelectionDialog.resx" />
+	  <EmbeddedResource Remove="Views\Main.resx" />
+	  <EmbeddedResource Remove="Views\ScriptRecorder.resx" />
+	  <EmbeddedResource Remove="Views\SplashScreen.resx" />
+	  <EmbeddedResource Remove="Views\Updater.resx" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Avalonia" Version="11.2.3" />
+		<PackageReference Include="Avalonia.Desktop" Version="11.2.3" />
+		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.3" />
+		<PackageReference Include="Avalonia.ReactiveUI" Version="11.2.3" />
+		<PackageReference Include="Avalonia.Diagnostics" Version="11.2.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="app.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Library\RSBot.Core\RSBot.Core.csproj">
+			<Private>True</Private>
+		</ProjectReference>
+	</ItemGroup>
+</Project>

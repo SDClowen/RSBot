@@ -1,52 +1,37 @@
 ﻿namespace RSBot.General.Models;
 
+/// <summary>
+/// Represents a game server with its status and capacity information
+/// </summary>
 public class Server
 {
     /// <summary>
-    ///     Gets or sets the identifier.
+    /// Gets or sets the server identifier
     /// </summary>
-    /// <value>
-    ///     The identifier.
-    /// </value>
     public ushort Id { get; set; }
 
     /// <summary>
-    ///     Gets or sets the name.
+    /// Gets or sets the server name
     /// </summary>
-    /// <value>
-    ///     The name.
-    /// </value>
     public string Name { get; set; }
 
     /// <summary>
-    ///     Gets or sets the current capacity.
+    /// Gets or sets the current number of players
     /// </summary>
-    /// <value>
-    ///     The current capacity.
-    /// </value>
     public ushort CurrentCapacity { get; set; }
 
     /// <summary>
-    ///     Gets or sets the maximum capacity.
+    /// Gets or sets the maximum number of players allowed
     /// </summary>
-    /// <value>
-    ///     The maximum capacity.
-    /// </value>
     public ushort MaxCapacity { get; set; }
 
     /// <summary>
-    ///     Gets or sets the status.
+    /// Gets or sets whether the server is online
     /// </summary>
-    /// <value>
-    ///     The status.
-    /// </value>
     public bool Status { get; set; }
 
     /// <summary>
-    ///     Gets or sets the server capacity state.
+    /// Gets or sets the server capacity state description
     /// </summary>
-    /// <value>
-    ///     The status.
-    /// </value>
     public string State { get; set; }
 }

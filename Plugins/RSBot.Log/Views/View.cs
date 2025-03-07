@@ -2,11 +2,11 @@
 
 internal class View
 {
+    private static Main _instance;
+
     /// <summary>
-    ///     Gets or sets the instance.
+    /// Gets the singleton instance of the Main view
     /// </summary>
-    /// <value>
-    ///     The instance.
-    /// </value>
-    public static Main Instance { get; } = new();
+    public static Main Instance => _instance ??= new Main();
+
 }

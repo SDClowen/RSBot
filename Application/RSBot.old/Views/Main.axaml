@@ -1,0 +1,134 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:RSBot.Views.Controls"
+        xmlns:cos="clr-namespace:RSBot.Views.Controls.Cos"
+        mc:Ignorable="d" d:DesignWidth="1255" d:DesignHeight="832"
+        x:Class="RSBot.Views.Main"
+        Title="RSBot"
+        MinWidth="1255" MinHeight="832"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid RowDefinitions="Auto,*,Auto,Auto">
+        <!-- Menu -->
+        <Menu Grid.Row="0">
+            <MenuItem Header="File">
+                <MenuItem Header="Select Profile" 
+                          Name="menuSelectProfile"
+                          Click="menuSelectProfile_Click"/>
+                <MenuItem Header="Network Config"
+                          Name="networkConfigToolStripMenuItem"/>
+                <MenuItem Header="Exit" 
+                          Name="menuItemExit"
+                          Click="menuItemExit_Click"/>
+            </MenuItem>
+            <MenuItem Header="View">
+                <MenuItem Header="Sidebar" 
+                          Name="menuSidebar"
+                          Click="menuSidebar_Click"/>
+            </MenuItem>
+            <MenuItem Header="Tools">
+                <MenuItem Header="Script Recorder" 
+                          Name="menuScriptRecorder"/>
+                <MenuItem Header="Plugins" 
+                          Name="menuPlugins"/>
+            </MenuItem>
+            <MenuItem Header="Bots" 
+                      Name="botsToolStripMenuItem"/>
+            <MenuItem Header="Language" 
+                      Name="languageToolStripMenuItem"/>
+            <MenuItem Header="Theme">
+                <MenuItem Header="Dark" 
+                          Name="darkToolStripMenuItem"
+                          Click="darkToolStripMenuItem_Click"/>
+                <MenuItem Header="Light" 
+                          Name="lightToolStripMenuItem"
+                          Click="lightToolStripMenuItem_Click"/>
+                <MenuItem Header="Auto" 
+                          Name="autoToolStripMenuItem"
+                          Click="autoToolStripMenuItem_Click"/>
+                <MenuItem Header="Colored" 
+                          Name="coloredToolStripMenuItem"
+                          Click="coloredToolStripMenuItem_Click"/>
+            </MenuItem>
+            <MenuItem Header="About" 
+                      Name="aboutToolStripMenuItem"/>
+        </Menu>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1" ColumnDefinitions="*,Auto">
+            <!-- Tab Control -->
+            <TabControl Grid.Column="0" 
+                       Name="windowPageControl"/>
+
+            <!-- Sidebar -->
+            <Grid Grid.Column="1" 
+                  Width="312"
+                  Name="pSidebar"
+                  RowDefinitions="Auto,Auto,*">
+                <cos:CosController Grid.Row="0" 
+                                  Name="cosController"
+                                  IsVisible="False"/>
+                <controls:Entity Grid.Row="1" 
+                               Name="entity1"
+                               MinHeight="95"/>
+                <Panel Grid.Row="2" 
+                       Name="pSidebarCustom"
+                       Margin="0,20,0,0"/>
+            </Grid>
+        </Grid>
+
+        <!-- Bottom Panel -->
+        <Grid Grid.Row="2" 
+              Height="65"
+              Name="bottomPanel"
+              ColumnDefinitions="Auto,Auto,Auto,*,Auto,Auto">
+            <ComboBox Grid.Column="0"
+                     Name="comboDivision"
+                     Width="113"
+                     Margin="18,19,0,0"
+                     SelectionChanged="comboDivision_SelectedIndexChanged"/>
+            <ComboBox Grid.Column="1"
+                     Name="comboServer"
+                     Width="164"
+                     Margin="8,19,0,0"
+                     SelectionChanged="comboServer_SelectedIndexChanged"/>
+            <Button Grid.Column="2"
+                    Name="buttonConfig"
+                    Content="IP Bind"
+                    Margin="8,19,0,0"
+                    Click="buttonConfig_Click"/>
+            <Button Grid.Column="4"
+                    Name="btnSave"
+                    Content="Save"
+                    Width="125"
+                    Margin="0,19,8,0"
+                    Click="btnSave_Click"/>
+            <Button Grid.Column="5"
+                    Name="btnStartStop"
+                    Content="START BOT"
+                    Width="125"
+                    Margin="0,19,18,0"
+                    Click="btnStartStop_Click"/>
+        </Grid>
+
+        <!-- Status Bar -->
+        <Grid Grid.Row="3" 
+              Height="26"
+              Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+              ColumnDefinitions="*,Auto">
+            <TextBlock Grid.Column="0"
+                      Name="lblIngameStatus"
+                      Text="Not in game"
+                      VerticalAlignment="Center"
+                      Margin="5,0"/>
+            <TextBlock Grid.Column="1"
+                      Name="menuCurrentProfile"
+                      Text="Profile: Default"
+                      VerticalAlignment="Center"
+                      Margin="5,0"
+                      Tapped="menuSelectProfile_Click"/>
+        </Grid>
+    </Grid>
+</Window> 

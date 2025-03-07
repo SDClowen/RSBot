@@ -1,7 +1,7 @@
-﻿using System.Windows.Forms;
-using RSBot.Core;
+﻿using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Network;
+using RSBot.Core.UI;
 
 namespace RSBot.General.PacketHandler;
 
@@ -57,7 +57,7 @@ public class GatewayPatchResponse : IPacketHandler
 
                     title = LanguageManager.GetLang("PatchMsgBoxTitle2");
                     message = LanguageManager.GetLang("PatchMsgBoxContent2");
-                    MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
 
                     break;
 
@@ -66,7 +66,6 @@ public class GatewayPatchResponse : IPacketHandler
                     title = LanguageManager.GetLang("PatchMsgBoxTitle1");
                     message = LanguageManager.GetLang("PatchMsgBoxContent1");
 
-                    MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
 
                 default:
@@ -74,9 +73,11 @@ public class GatewayPatchResponse : IPacketHandler
                     title = LanguageManager.GetLang("PatchMsgBoxTitle");
                     message = LanguageManager.GetLang("PatchMsgBoxContent");
 
-                    MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
             }
+
+            if(!string.IsNullOrEmpty(title) && !string.IsNullOrEmpty(message))
+                new MessageBox(message, title, MessageBoxButtons.Ok).Show();
         }
     }
 }

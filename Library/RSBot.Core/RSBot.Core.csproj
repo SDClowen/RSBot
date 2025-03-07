@@ -15,7 +15,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="LocalizationManager.cs" />
+    <Compile Remove="UI\ListViewExtensions.cs" />
+    <Compile Remove="UI\MoveDirection.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Avalonia" Version="11.2.3" />
+	  <PackageReference Include="Avalonia.ReactiveUI" Version="11.2.3" />
   </ItemGroup>
 
   <ItemGroup>

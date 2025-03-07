@@ -1,0 +1,15 @@
+- Bu solution daki bütün winform projelerini avalonia ile değiştir.
+- ReactiveUI kullanılacak.
+- RSBot.Core kısmında yapılacak değişiklikler avalonia ile uyumlu olarak yapılacak.
+- Hangi kodu gördüysen onu geliştirecek rastgele kod yazmayacaksın
+- Sınıflarda ve fonksiyonlarda yapılacak değişiklikler avalonia ile uyumlu olarak yapılacak.
+- Sınıflarda ve fonksiyonlarda summary içinde açıklamalar o sınfıın yada fonksiyonun amacını açıklayacak şekilde yazılacak ve bunlar ingilizce yazılacak 
+- Winform designler dosyalarını iyice inceleyip aynısını avalonia ile uyumlu hale getireceksin.
+- Tüm açıklamalar ingilizce yazılacak
+- Okunabilir temiz kod yazılacak 
+- Olabildiğince az ram ve cpu kullanacak şekilde yazılacak
+- Orjinal projenin tüm özellikleri korunacak
+- Avalonia'nin en son sürümü kullanılacak
+- Avalonia'da groupbox yerine border ve stackpanel kullanılacak
+- .Net 8.0 kullanılacak
+- Avalonia 11.2.3 kullanılacak
