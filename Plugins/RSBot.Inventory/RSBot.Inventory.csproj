@@ -1,21 +1,29 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0-windows</TargetFramework>
-    <Nullable>disable</Nullable>
-    <UseWindowsForms>true</UseWindowsForms>
-    <ImplicitUsings>disable</ImplicitUsings>
-	<OutputPath>.\..\..\Build\Data\Plugins</OutputPath>
-	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-	<Description>A open source bot for Silkroad Online</Description>
-	<Copyright>Copyright ©  2018 - 2024, RSBot Team</Copyright>
-	<PackageProjectUrl>https://github.com/SDClowen/RSBot</PackageProjectUrl>
-	<RepositoryUrl>https://github.com/SDClowen/RSBot</RepositoryUrl>
-	<OutputType>Library</OutputType>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	  <OutputPath>.\..\..\Build\Data\Plugins</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <Description>Inventory managament plugin for RSBot</Description>
+    <Copyright>Copyright © 2024</Copyright>
+    <PackageProjectUrl>https://github.com/SDClowen/RSBot</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/SDClowen/RSBot</RepositoryUrl>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.2.3" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.2.3" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.2.3" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.3" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.3" />
+    <PackageReference Include="bodong.Avalonia.PropertyGrid" Version="11.2.3.4" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Library\RSBot.Core\RSBot.Core.csproj" />
   </ItemGroup>
 
-</Project>
+</Project> 

@@ -25,7 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.CommandCenter", "Plug
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.Items.Avalonia", "Plugins\RSBot.Items.Avalonia\RSBot.Items.Avalonia.csproj", "{D88DC9B2-9426-1A4A-A7E0-54C35BE0B231}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.Inventory.Avalonia", "Plugins\RSBot.Inventory.Avalonia\RSBot.Inventory.Avalonia.csproj", "{74625FB0-0F36-117B-4D4E-3580925D917E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.Inventory", "Plugins\RSBot.Inventory\RSBot.Inventory.csproj", "{74625FB0-0F36-117B-4D4E-3580925D917E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.General", "Plugins\RSBot.General\RSBot.General.csproj", "{01600862-6803-9EA6-D437-BF58942EDF8D}"
 EndProject
