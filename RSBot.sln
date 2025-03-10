@@ -19,9 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSBot.FileSystem", "Library
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSBot.NavMeshApi", "Library\RSBot.NavMeshApi\RSBot.NavMeshApi.csproj", "{E4DC5C65-9956-4696-9B89-043B20029EAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.Chat", "Plugins\RSBot.Chat.Avalonia\RSBot.Chat.csproj", "{42F9297E-5CFC-86A2-3361-D44DA3ACF5D8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.Chat", "Plugins\RSBot.Chat\RSBot.Chat.csproj", "{42F9297E-5CFC-86A2-3361-D44DA3ACF5D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.CommandCenter.Avalonia", "Plugins\RSBot.CommandCenter.Avalonia\RSBot.CommandCenter.Avalonia.csproj", "{81BDCF1F-A4C1-51C9-CA2D-B4E1D6877CA4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.CommandCenter", "Plugins\RSBot.CommandCenter\RSBot.CommandCenter.csproj", "{81BDCF1F-A4C1-51C9-CA2D-B4E1D6877CA4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSBot.Items.Avalonia", "Plugins\RSBot.Items.Avalonia\RSBot.Items.Avalonia.csproj", "{D88DC9B2-9426-1A4A-A7E0-54C35BE0B231}"
 EndProject

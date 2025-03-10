@@ -1,33 +1,29 @@
-﻿using System.Windows.Forms;
 using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Network;
-using View = RSBot.Chat.Views.View;
+using RSBot.Chat.Views;
 
-namespace RSBot.Chat.Network;
+namespace RSBot.Chat.Bundle.Network;
 
+/// <summary>
+/// Handles agent notification packets
+/// </summary>
 internal class AgentNotifyResponse : IPacketHandler
 {
     /// <summary>
-    ///     Gets or sets the opcode.
+    /// Gets the opcode for this packet handler
     /// </summary>
-    /// <value>
-    ///     The opcode.
-    /// </value>
     public ushort Opcode => 0x300C;
 
     /// <summary>
-    ///     Gets or sets the destination.
+    /// Gets the destination for this packet
     /// </summary>
-    /// <value>
-    ///     The destination.
-    /// </value>
     public PacketDestination Destination => PacketDestination.Client;
 
     /// <summary>
-    ///     Handles the packet.
+    /// Processes the incoming agent notification packet
     /// </summary>
-    /// <param name="packet">The packet.</param>
+    /// <param name="packet">The packet to process</param>
     public void Invoke(Packet packet)
     {
         var noticeType = packet.ReadByte();
@@ -42,13 +38,11 @@ internal class AgentNotifyResponse : IPacketHandler
                 if (!Game.ReferenceManager.CharacterData.TryGetValue(refObjId, out var obj))
                     return;
 
-                View.Instance.UniqueText.Write(LanguageManager.GetLang("UniqueAppeared", obj.GetRealName()));
-
+                View.Instance.AppendUniqueMessage(LanguageManager.GetLang("UniqueAppeared", obj.GetRealName()));
                 break;
 
             //[%s] has disappeared or killed
             case 0x6:
-
                 refObjId = packet.ReadUInt();
                 if (!Game.ReferenceManager.CharacterData.TryGetValue(refObjId, out obj))
                     return;
@@ -58,14 +52,12 @@ internal class AgentNotifyResponse : IPacketHandler
                 // If name equals "???" then "[%s] has disappeared." is displayed.
                 if (characterName == "???")
                 {
-                    View.Instance.UniqueText.Write($"{obj.GetRealName()} has disappeared.");
+                    View.Instance.AppendUniqueMessage($"{obj.GetRealName()} has disappeared.");
                     return;
                 }
 
-                View.Instance.UniqueText.Write(
-                    LanguageManager.GetLang("UniqueKilled", characterName, obj.GetRealName()));
-
+                View.Instance.AppendUniqueMessage(LanguageManager.GetLang("UniqueKilled", characterName, obj.GetRealName()));
                 break;
         }
     }
-}
+} 

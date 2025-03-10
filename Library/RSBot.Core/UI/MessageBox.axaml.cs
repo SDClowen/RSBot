@@ -1,4 +1,6 @@
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using System.Threading.Tasks;
 
@@ -45,10 +47,16 @@ public partial class MessageBox : Window
     /// <param name="title">The title of the message box</param>
     /// <param name="buttons">The buttons to show in the message box</param>
     /// <returns>The result indicating which button was clicked</returns>
-    public static void Show(string message, string title = "Message", MessageBoxButtons buttons = MessageBoxButtons.Ok)
+    public static async Task<MessageBoxResult> Show(string message, string title = "Message", MessageBoxButtons buttons = MessageBoxButtons.Ok)
     {
-        var messageBox = new MessageBox(title, message, buttons);
-        messageBox.Show();
+        if(Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktopLifetime)
+        {
+            var owner = desktopLifetime.MainWindow;
+            var messageBox = new MessageBox(title, message, buttons);
+            return await messageBox.ShowDialog<MessageBoxResult>(owner);
+        }
+
+        return MessageBoxResult.None;
     }
 }
 

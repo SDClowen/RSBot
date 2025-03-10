@@ -1,16 +1,28 @@
-﻿using RSBot.Core;
+using RSBot.Core;
 using RSBot.Core.Components.Command;
 using RSBot.Core.Event;
 
-namespace RSBot.CommandCenter.Components.Command;
+namespace RSBot.CommandCenter.Avalonia.Components.Command;
 
+/// <summary>
+/// Executes the area command to set the training area
+/// </summary>
 internal class AreaCommandExecutor : ICommandExecutor
 {
+    /// <summary>
+    /// Gets the name of the command
+    /// </summary>
     public string CommandName => "area";
 
+    /// <summary>
+    /// Gets the description of the command
+    /// </summary>
     public string CommandDescription => "Set the training area";
 
-    public bool Execute(bool silent)
+    /// <summary>
+    /// Executes the area command
+    /// </summary>
+    public bool Execute(bool silent = false)
     {
         if (!silent)
             Game.ShowNotification(
@@ -26,4 +38,4 @@ internal class AreaCommandExecutor : ICommandExecutor
 
         return true;
     }
-}
+} 

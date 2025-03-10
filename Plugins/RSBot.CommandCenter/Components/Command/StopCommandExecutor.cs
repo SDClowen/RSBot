@@ -1,15 +1,27 @@
-﻿using RSBot.Core;
+using RSBot.Core;
 using RSBot.Core.Components.Command;
 
-namespace RSBot.CommandCenter.Components.Command;
+namespace RSBot.CommandCenter.Avalonia.Components.Command;
 
+/// <summary>
+/// Executes the stop command to stop the bot
+/// </summary>
 internal class StopCommandExecutor : ICommandExecutor
 {
+    /// <summary>
+    /// Gets the name of the command
+    /// </summary>
     public string CommandName => "stop";
 
+    /// <summary>
+    /// Gets the description of the command
+    /// </summary>
     public string CommandDescription => "Stop the bot";
 
-    public bool Execute(bool silent)
+    /// <summary>
+    /// Executes the stop command
+    /// </summary>
+    public bool Execute(bool silent = false)
     {
         if (!silent)
             Game.ShowNotification($"[RSBot] Stopping bot [{Kernel.Bot?.Botbase.DisplayName}]");
@@ -18,4 +30,4 @@ internal class StopCommandExecutor : ICommandExecutor
 
         return Kernel.Bot?.Running == false;
     }
-}
+} 

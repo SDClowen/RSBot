@@ -1,13 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
+using System.Collections.Generic;
 using System.Linq;
+using Avalonia;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform;
 using RSBot.Core;
 using RSBot.Core.Extensions;
 
-namespace RSBot.CommandCenter.Components;
+namespace RSBot.CommandCenter.Avalonia.Components;
 
+/// <summary>
+/// Manages emoticon items and their default commands
+/// </summary>
 internal static class Emoticons
 {
+    /// <summary>
+    /// Gets the list of available emoticons
+    /// </summary>
     public static List<EmoticonItem> Items => new()
     {
         new EmoticonItem("emoticon.hi", "Hi", "icon\\action\\emot_act_greeting.ddj", EmoticonType.Hi),
@@ -19,6 +27,10 @@ internal static class Emoticons
         new EmoticonItem("emoticon.no", "No", "icon\\action\\emot_act_no.ddj", EmoticonType.No)
     };
 
+    /// <summary>
+    /// Gets the default command for the specified emoticon
+    /// </summary>
+    /// <param name="emoticonName">The name of the emoticon</param>
     public static string GetEmoticonDefaultCommand(string emoticonName)
     {
         return emoticonName switch
@@ -32,13 +44,20 @@ internal static class Emoticons
         };
     }
 
+    /// <summary>
+    /// Gets an emoticon item by its type
+    /// </summary>
+    /// <param name="type">The type of emoticon</param>
     public static EmoticonItem GetEmoticonItemByType(EmoticonType type)
     {
         return Items.FirstOrDefault(e => e.Type == type);
     }
 }
 
-internal enum EmoticonType : byte
+/// <summary>
+/// Represents the type of emoticon
+/// </summary>
+public enum EmoticonType : byte
 {
     Hi = 0,
     Greeting = 1,
@@ -49,12 +68,18 @@ internal enum EmoticonType : byte
     Smile = 6
 }
 
-internal record EmoticonItem(string Name, string Label, string Icon, EmoticonType Type)
+/// <summary>
+/// Represents an emoticon item with its properties
+/// </summary>
+public record EmoticonItem(string Name, string Label, string Icon, EmoticonType Type)
 {
-    public Image GetIconImage()
+    /// <summary>
+    /// Gets the icon image for the emoticon
+    /// </summary>
+    public Bitmap GetIconImage()
     {
         if (!Game.MediaPk2.TryGetFile(Icon, out var iconFile))
-            return new Bitmap(32, 32);
+            return new WriteableBitmap(new PixelSize(256, 256), new Vector(96, 96), PixelFormat.Bgra8888, AlphaFormat.Premul);
 
         return iconFile.ToImage();
     }
@@ -63,4 +88,4 @@ internal record EmoticonItem(string Name, string Label, string Icon, EmoticonTyp
     {
         return Label;
     }
-}
+} 

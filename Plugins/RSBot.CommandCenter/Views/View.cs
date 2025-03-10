@@ -1,17 +1,12 @@
-﻿namespace RSBot.CommandCenter.Views;
+namespace RSBot.CommandCenter.Avalonia.Views;
 
-internal static class View
+/// <summary>
+/// Static class to manage the main view instance
+/// </summary>
+internal class View
 {
-    private static Main _main = new();
-
-    public static Main Main
-    {
-        get
-        {
-            if (_main == null || _main.IsDisposed)
-                _main = new Main();
-
-            return _main;
-        }
-    }
-}
+    /// <summary>
+    /// Gets the singleton instance of the main view
+    /// </summary>
+    public static Main Instance { get; } = new();
+} 

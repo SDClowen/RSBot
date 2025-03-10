@@ -1,39 +1,35 @@
-﻿using RSBot.Chat.Views;
 using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Extensions;
 using RSBot.Core.Network;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
+using RSBot.Chat.Views;
 
-namespace RSBot.Chat.Network;
+namespace RSBot.Chat.Bundle.Network;
 
+/// <summary>
+/// Handles incoming chat response packets
+/// </summary>
 internal class ChatResponse : IPacketHandler
 {
     /// <summary>
-    ///     Gets or sets the opcode.
+    /// Gets the opcode for this packet handler
     /// </summary>
-    /// <value>
-    ///     The opcode.
-    /// </value>
     public ushort Opcode => 0x3026;
 
     /// <summary>
-    ///     Gets or sets the destination.
+    /// Gets the destination for this packet
     /// </summary>
-    /// <value>
-    ///     The destination.
-    /// </value>
     public PacketDestination Destination => PacketDestination.Client;
 
     /// <summary>
-    ///     Handles the packet.
+    /// Processes the incoming chat packet
     /// </summary>
-    /// <param name="packet">The packet.</param>
+    /// <param name="packet">The packet to process</param>
     public void Invoke(Packet packet)
     {
         var type = (ChatType)packet.ReadByte();
-
         var message = string.Empty;
 
         switch (type)
@@ -54,13 +50,10 @@ internal class ChatResponse : IPacketHandler
                 {
                     View.Instance.AppendMessage(message, Game.Player.Name, ChatType.All);
                 }
-
                 break;
 
             case ChatType.Notice:
-
                 message = packet.ReadConditonalString();
-
                 View.Instance.AppendMessage(message, "Notice", type);
                 break;
 
@@ -71,9 +64,8 @@ internal class ChatResponse : IPacketHandler
             default:
                 var sender = packet.ReadString();
                 message = packet.ReadConditonalString();
-
                 View.Instance.AppendMessage(message, sender, type);
                 break;
         }
     }
-}
+} 
