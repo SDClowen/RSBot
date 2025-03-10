@@ -28,23 +28,27 @@ public class ScriptRecorderViewModel : ReactiveObject
 {
     #region Private Fields
 
+    private readonly Window _owner;
     private readonly int _ownerId;
     private bool _isRecording;
     private bool _isRunning;
     private string _scriptText = string.Empty;
     private string _status = "Idle";
-    private bool _canRun;
+    private bool _canRun = true;
+    private bool _isReadOnly;
     private int _selectedCommandIndex;
     private IBrush _highlightBrush;
+    private string _runButtonText = "▶";
+    private string _recordButtonText = "RECORD";
 
     #endregion Private Fields
 
     #region Constructor
 
-    public ScriptRecorderViewModel(int ownerId = 0, bool startRecording = false)
+    public ScriptRecorderViewModel(Window owner, int ownerId = 0, bool startRecording = false)
     {
+        _owner = owner;
         _ownerId = ownerId;
-        _canRun = true;
         _highlightBrush = new SolidColorBrush(Colors.CornflowerBlue);
 
         InitializeCommands();
@@ -59,6 +63,20 @@ public class ScriptRecorderViewModel : ReactiveObject
             {
                 this.RaisePropertyChanged(nameof(CanSave));
                 this.RaisePropertyChanged(nameof(CanClear));
+            });
+
+        this.WhenAnyValue(x => x.IsRecording)
+            .Subscribe(recording => 
+            {
+                RecordButtonText = recording ? "Stop" : "RECORD";
+                CanRun = !recording;
+            });
+
+        this.WhenAnyValue(x => x.IsRunning)
+            .Subscribe(running => 
+            {
+                RunButtonText = running ? "◘" : "▶";
+                IsReadOnly = running;
             });
     }
 
@@ -96,8 +114,26 @@ public class ScriptRecorderViewModel : ReactiveObject
         set => this.RaiseAndSetIfChanged(ref _canRun, value);
     }
 
+    public bool IsReadOnly
+    {
+        get => _isReadOnly;
+        set => this.RaiseAndSetIfChanged(ref _isReadOnly, value);
+    }
+
     public bool CanSave => !string.IsNullOrWhiteSpace(ScriptText);
     public bool CanClear => !string.IsNullOrWhiteSpace(ScriptText);
+
+    public string RunButtonText
+    {
+        get => _runButtonText;
+        set => this.RaiseAndSetIfChanged(ref _runButtonText, value);
+    }
+
+    public string RecordButtonText
+    {
+        get => _recordButtonText;
+        set => this.RaiseAndSetIfChanged(ref _recordButtonText, value);
+    }
 
     public int SelectedCommandIndex
     {
@@ -123,10 +159,14 @@ public class ScriptRecorderViewModel : ReactiveObject
 
     private void InitializeCommands()
     {
+        var canClear = this.WhenAnyValue(x => x.CanClear);
+        var canSave = this.WhenAnyValue(x => x.CanSave);
+        var canRun = this.WhenAnyValue(x => x.CanRun);
+
         StartStopCommand = ReactiveCommand.Create(ExecuteStartStop);
-        RunCommand = ReactiveCommand.Create(ExecuteRun);
-        ClearCommand = ReactiveCommand.Create(ExecuteClear);
-        SaveCommand = ReactiveCommand.Create(ExecuteSave);
+        RunCommand = ReactiveCommand.Create(ExecuteRun, canRun);
+        ClearCommand = ReactiveCommand.Create(ExecuteClear, canClear);
+        SaveCommand = ReactiveCommand.Create(ExecuteSave, canSave);
         AddCommandCommand = ReactiveCommand.Create(ExecuteAddCommand);
     }
 
@@ -150,20 +190,23 @@ public class ScriptRecorderViewModel : ReactiveObject
         EventManager.SubscribeEvent("OnFinishScript", new Action<bool>(OnFinishScript));
         EventManager.SubscribeEvent("OnCastSkill", new Action<uint>(OnCastSkill));
         EventManager.SubscribeEvent("AppendScriptCommand", new Action<string>(AppendScriptCommand));
+
+        EventManager.SubscribeEvent("OnBuyItemRequest", new Action<byte, byte, ushort, uint>(OnBuyItemRequest));
+        EventManager.SubscribeEvent("OnSellItemRequest", new Action<byte, ushort, uint>(OnSellItemRequest));
+        EventManager.SubscribeEvent("OnBuyItemToCosRequest", new Action<byte, byte, ushort, uint>(OnBuyItemToCos));
+        EventManager.SubscribeEvent("OnSellItemFromCosRequest", new Action<byte, ushort, uint>(OnSellItemFromCos));
     }
 
     private void StartRecording()
     {
         Status = LanguageManager.GetLang("Recording");
         IsRecording = true;
-        CanRun = false;
     }
 
     private void StopRecording()
     {
         Status = LanguageManager.GetLang("Idle");
         IsRecording = false;
-        CanRun = true;
     }
 
     #region Command Executions
@@ -205,6 +248,9 @@ public class ScriptRecorderViewModel : ReactiveObject
 
     private void ExecuteClear()
     {
+        if (ScriptManager.Running)
+            return;
+
         ScriptText = string.Empty;
     }
 
@@ -217,10 +263,11 @@ public class ScriptRecorderViewModel : ReactiveObject
         {
             Title = LanguageManager.GetLang("SaveRecordedScript"),
             InitialFileName = "script.rbs",
-            DefaultExtension = "rbs"
+            DefaultExtension = "rbs",
+            Directory = ScriptManager.InitialDirectory
         };
 
-        var file = await dialog.ShowAsync(null);
+        var file = await dialog.ShowAsync(_owner);
         if (!string.IsNullOrEmpty(file))
         {
             EventManager.FireEvent("OnSaveScript", _ownerId, file);
@@ -240,7 +287,6 @@ public class ScriptRecorderViewModel : ReactiveObject
             return;
         }
 
-        // Command dialog will be handled by the view
         EventManager.FireEvent("ShowCommandDialog", selectedCommand);
     }
 
@@ -260,7 +306,7 @@ public class ScriptRecorderViewModel : ReactiveObject
         AppendScriptCommand($"cast {Game.ReferenceManager.GetRefSkill(skillId).Basic_Code}");
     }
 
-    private void AppendScriptCommand(string command)
+    public void AppendScriptCommand(string command)
     {
         if (!IsRecording) return;
         ScriptText += command + Environment.NewLine;
@@ -358,6 +404,38 @@ public class ScriptRecorderViewModel : ReactiveObject
     {
         if (!IsRecording) return;
         AppendScriptCommand("wait 5000");
+    }
+
+    private void OnBuyItemRequest(byte tab, byte index, ushort quantity, uint npcUniqueId)
+    {
+        if (!IsRecording) return;
+        if (!SpawnManager.TryGetEntity<SpawnedBionic>(npcUniqueId, out var entity)) return;
+
+        AppendScriptCommand($"buy-item {entity.Record.CodeName} {tab} {index} {quantity}");
+    }
+
+    private void OnSellItemRequest(byte slot, ushort quantity, uint npcUniqueId)
+    {
+        if (!IsRecording) return;
+        if (!SpawnManager.TryGetEntity<SpawnedBionic>(npcUniqueId, out var entity)) return;
+
+        AppendScriptCommand($"sell-item {entity.Record.CodeName} {slot} {quantity}");
+    }
+
+    private void OnBuyItemToCos(byte tab, byte index, ushort quantity, uint npcUniqueId)
+    {
+        if (!IsRecording) return;
+        if (!SpawnManager.TryGetEntity<SpawnedBionic>(npcUniqueId, out var entity)) return;
+
+        AppendScriptCommand($"buy-item-cos {entity.Record.CodeName} {tab} {index} {quantity}");
+    }
+
+    private void OnSellItemFromCos(byte slot, ushort quantity, uint npcUniqueId)
+    {
+        if (!IsRecording) return;
+        if (!SpawnManager.TryGetEntity<SpawnedBionic>(npcUniqueId, out var entity)) return;
+
+        AppendScriptCommand($"sell-item-cos {entity.Record.CodeName} {slot} {quantity}");
     }
 
     #endregion Event Handlers

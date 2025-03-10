@@ -1,7 +1,6 @@
-﻿using ReactiveUI;
+﻿using Avalonia.Controls;
+using ReactiveUI;
 using RSBot.Core;
-using RSBot.Core.Components;
-using System;
 using System.Reactive;
 using System.Text;
 using System.Windows.Input;
@@ -15,6 +14,7 @@ namespace RSBot.ViewModels.Dialog
     {
         #region Private Fields
 
+        private Window _window;
         private bool _isActive;
         private string _proxyIp = string.Empty;
         private string _proxyPort = "0";
@@ -26,12 +26,13 @@ namespace RSBot.ViewModels.Dialog
 
         #region Constructor
 
-        public ConfigDialogViewModel()
+        public ConfigDialogViewModel(Window window)
         {
             LoadConfig();
 
+            _window = window;
             SaveCommand = ReactiveCommand.Create(ExecuteSave);
-            CancelCommand = ReactiveCommand.Create<ICloseable>(ExecuteCancel);
+            CancelCommand = ReactiveCommand.Create(ExecuteCancel);
 
             this.WhenAnyValue(x => x.ProxyIp, x => x.ProxyPort)
                 .Subscribe(_ => ValidateInput());
@@ -83,8 +84,8 @@ namespace RSBot.ViewModels.Dialog
 
         #region Commands
 
-        public ICommand SaveCommand { get; }
-        public ICommand CancelCommand { get; }
+        public ReactiveCommand<Unit, Unit> SaveCommand { get; }
+        public ReactiveCommand<Unit, Unit> CancelCommand { get; }
 
         #endregion Commands
 
@@ -136,18 +137,16 @@ namespace RSBot.ViewModels.Dialog
             builder.AppendFormat("{0}", SelectedProxyVersionIndex == 0 ? 4 : 5);
 
             GlobalConfig.Set("RSBot.Network.Proxy", builder.ToString());
+            GlobalConfig.Save();
+            
+            _window.Close();
         }
 
-        private void ExecuteCancel(ICloseable window)
+        private void ExecuteCancel()
         {
-            window?.Close();
+            _window?.Close();
         }
 
         #endregion Private Methods
-    }
-
-    public interface ICloseable
-    {
-        void Close();
     }
 }

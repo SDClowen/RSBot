@@ -1,94 +1,155 @@
-&lt;Window xmlns="https://github.com/avaloniaui"
+<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:RSBot.ViewModels;assembly=RSBot"
+        xmlns:base="clr-namespace:RSBot.Views.Base;assembly=RSBot"
         mc:Ignorable="d" d:DesignWidth="616" d:DesignHeight="701"
         x:Class="RSBot.Views.ScriptRecorder"
         x:DataType="vm:ScriptRecorderViewModel"
-        Title="RSBot - File recorder"
+        Title="RSBot - Script Recorder"
         Width="616" Height="701"
-        WindowStartupLocation="CenterOwner"
         CanResize="False"
         ShowInTaskbar="False">
+
+    <Window.Styles>
+        <Style Selector="Button">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="6,2"/>
+            <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundBaseLowBrush}"/>
+            <Setter Property="CornerRadius" Value="3"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+        <Style Selector="Button.accent">
+            <Setter Property="Background" Value="{DynamicResource SystemAccentColor}"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style Selector="ComboBox">
+            <Setter Property="CornerRadius" Value="3"/>
+            <Setter Property="Padding" Value="6,2"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+        <Style Selector="TextBox">
+            <Setter Property="CornerRadius" Value="3"/>
+            <Setter Property="Padding" Value="6"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+        <Style Selector="TextBlock">
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+    </Window.Styles>
 
     <Design.DataContext>
         <vm:ScriptRecorderViewModel />
     </Design.DataContext>
 
-    <DockPanel LastChildFill="True">
+    <DockPanel LastChildFill="True" Margin="8,0,8,8">
         <!-- Top Panel -->
         <Border DockPanel.Dock="Top"
-                Height="66"
-                Padding="4">
+                Height="48"
+                Padding="6"
+                Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                CornerRadius="4"
+                BoxShadow="0 1 3 0 #20000000"
+                Margin="0,0,0,6">
             <StackPanel Orientation="Horizontal"
-                        Spacing="4">
+                        Spacing="6">
                 <Button Command="{Binding StartStopCommand}"
-                        Content="{Binding IsRecording, Converter={x:Static BoolConverters.ToString}, ConverterParameter='Stop|Start'}"
-                        Width="76" Height="30"
-                        Margin="16,19,0,0"/>
+                        Content="{Binding RecordButtonText}"
+                        Width="64" Height="28"
+                        Classes="accent"
+                        IsEnabled="{Binding !IsRunning}"
+                        Margin="6,0,0,0"/>
 
                 <Button Command="{Binding ClearCommand}"
                         Content="Clear"
-                        Width="53" Height="30"
-                        Margin="4,19,0,0"/>
+                        Width="48" Height="28"
+                        IsEnabled="{Binding !IsRunning}"/>
 
                 <Button Command="{Binding RunCommand}"
-                        Content="{Binding IsRunning, Converter={x:Static BoolConverters.ToString}, ConverterParameter='◘|▶'}"
-                        Width="44" Height="30"
-                        Margin="4,19,0,0"/>
+                        Content="{Binding RunButtonText}"
+                        Width="36" Height="28"
+                        Classes="accent"
+                        IsEnabled="{Binding CanRun}"/>
 
                 <TextBlock Text="{Binding Status}"
                           VerticalAlignment="Center"
-                          FontSize="14"
-                          Margin="8,19,0,0"/>
+                          Margin="6,0,0,0"/>
 
                 <Button Command="{Binding SaveCommand}"
                         Content="Save"
-                        Width="98" Height="30"
+                        Width="64" Height="28"
+                        IsEnabled="{Binding CanSave}"
                         HorizontalAlignment="Right"
-                        Margin="186,19,0,0"/>
+                        Margin="186,0,0,0"/>
             </StackPanel>
         </Border>
 
         <!-- Script TextBox -->
         <Border DockPanel.Dock="Bottom"
-                Height="96"
-                Background="{DynamicResource SystemControlBackgroundBaseLowBrush}">
-            <Grid Margin="25,10">
+                Height="80"
+                Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                CornerRadius="4"
+                BoxShadow="0 1 3 0 #20000000"
+                Margin="0,6,0,0">
+            <Grid Margin="12,8">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <StackPanel Orientation="Horizontal"
-                           Spacing="8">
+                           Spacing="6">
                     <TextBlock Text="Command:"
-                             VerticalAlignment="Center"/>
+                             VerticalAlignment="Center"
+                             Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
 
                     <ComboBox ItemsSource="{Binding Commands}"
                              SelectedIndex="{Binding SelectedCommandIndex}"
-                             Width="194"
+                             Width="180"
                              Height="28"
-                             MaxDropDownHeight="100"/>
+                             MaxDropDownHeight="200">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"
+                                         Margin="2,1"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
 
                     <Button Command="{Binding AddCommandCommand}"
                             Content="Add"
-                            Width="63" Height="30"/>
+                            Classes="accent"
+                            Width="48" Height="28"/>
                 </StackPanel>
 
                 <TextBlock Grid.Row="1"
-                          Text="Hint: Make sure you add the &quot;dismount&quot; command to your script&#x0a;before teleportations to be able to enter it"
-                          Margin="0,8,0,0"/>
+                          Text="Hint: Make sure you add the &quot;dismount&quot; command to your script before teleportations to be able to enter it"
+                          Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                          FontStyle="Italic"
+                          FontSize="11"
+                          Margin="0,6,0,0"/>
             </Grid>
         </Border>
 
         <!-- Main Content -->
-        <TextBox Text="{Binding ScriptText}"
-                 AcceptsReturn="True"
-                 TextWrapping="NoWrap"
-                 ScrollViewer.VerticalScrollBarVisibility="Visible"
-                 FontFamily="Consolas"
-                 Margin="0"/>
+        <Border Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                CornerRadius="4"
+                BoxShadow="0 1 3 0 #20000000"
+                Margin="0,6">
+            <TextBox Name="ScriptText"
+                     Text="{Binding ScriptText}"
+                     AcceptsReturn="True"
+                     TextWrapping="NoWrap"
+                     IsReadOnly="{Binding IsReadOnly}"
+                     ScrollViewer.VerticalScrollBarVisibility="Visible"
+                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                     FontFamily="Consolas"
+                     Background="Transparent"
+                     BorderThickness="0"
+                     Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
+                     Margin="3"/>
+        </Border>
     </DockPanel>
 </Window> 
