@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using RSBot.Core;
 
-namespace RSBot.CommandCenter.Avalonia.Components;
+namespace RSBot.CommandCenter.Components;
 
 /// <summary>
 /// Manages plugin configuration and settings

@@ -1,7 +1,7 @@
 using Avalonia.Controls;
-using RSBot.CommandCenter.Avalonia.ViewModels;
+using RSBot.CommandCenter.ViewModels;
 
-namespace RSBot.CommandCenter.Avalonia.Views;
+namespace RSBot.CommandCenter.Views;
 
 /// <summary>
 /// Main view for the Command Center plugin that provides interface for managing emoticon and chat commands

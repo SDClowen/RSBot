@@ -1,8 +1,8 @@
 using Avalonia.Controls;
-using RSBot.CommandCenter.Avalonia.Components;
-using RSBot.CommandCenter.Avalonia.ViewModels;
+using RSBot.CommandCenter.Components;
+using RSBot.CommandCenter.ViewModels;
 
-namespace RSBot.CommandCenter.Avalonia.Views.Controls;
+namespace RSBot.CommandCenter.Views.Controls;
 
 /// <summary>
 /// Control for managing emoticon actions

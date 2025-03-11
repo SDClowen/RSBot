@@ -1,11 +1,11 @@
-using RSBot.CommandCenter.Avalonia.Components;
+using RSBot.CommandCenter.Components;
 using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Extensions;
 using RSBot.Core.Network;
 using RSBot.Core.Objects;
 
-namespace RSBot.CommandCenter.Avalonia.Network.Hook;
+namespace RSBot.CommandCenter.Network.Hook;
 
 /// <summary>
 /// Hooks chat request packets to handle commands

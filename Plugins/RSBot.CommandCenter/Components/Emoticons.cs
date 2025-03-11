@@ -6,7 +6,7 @@ using Avalonia.Platform;
 using RSBot.Core;
 using RSBot.Core.Extensions;
 
-namespace RSBot.CommandCenter.Avalonia.Components;
+namespace RSBot.CommandCenter.Components;
 
 /// <summary>
 /// Manages emoticon items and their default commands

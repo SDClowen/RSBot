@@ -3,7 +3,7 @@ using RSBot.Core.Components;
 using RSBot.Core.Components.Command;
 using RSBot.Core.Objects;
 
-namespace RSBot.CommandCenter.Avalonia.Components.Command;
+namespace RSBot.CommandCenter.Components.Command;
 
 /// <summary>
 /// Executes the buff command to toggle buff mode

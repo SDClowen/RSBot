@@ -1,11 +1,11 @@
 using Avalonia.Media.Imaging;
 using ReactiveUI;
-using RSBot.CommandCenter.Avalonia.Components;
+using RSBot.CommandCenter.Components;
 using RSBot.Core;
 using RSBot.Core.Components;
 using System.Collections.ObjectModel;
 
-namespace RSBot.CommandCenter.Avalonia.ViewModels;
+namespace RSBot.CommandCenter.ViewModels;
 
 /// <summary>
 /// View model for the emoticon action element

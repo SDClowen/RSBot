@@ -2,7 +2,7 @@ using RSBot.Core;
 using RSBot.Core.Components.Command;
 using RSBot.Core.Event;
 
-namespace RSBot.CommandCenter.Avalonia.Components.Command;
+namespace RSBot.CommandCenter.Components.Command;
 
 /// <summary>
 /// Executes the show command to show/hide the bot window

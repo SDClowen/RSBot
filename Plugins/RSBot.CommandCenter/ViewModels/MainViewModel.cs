@@ -4,12 +4,12 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Avalonia.Controls;
-using RSBot.CommandCenter.Avalonia.Components;
-using RSBot.CommandCenter.Avalonia.Views.Controls;
+using RSBot.CommandCenter.Components;
+using RSBot.CommandCenter.Views.Controls;
 using RSBot.Core;
 using RSBot.Core.Components;
 
-namespace RSBot.CommandCenter.Avalonia.ViewModels;
+namespace RSBot.CommandCenter.ViewModels;
 
 /// <summary>
 /// Main ViewModel for the Command Center plugin that manages the UI state and interactions

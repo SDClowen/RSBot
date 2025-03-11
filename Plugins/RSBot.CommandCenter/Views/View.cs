@@ -1,4 +1,4 @@
-namespace RSBot.CommandCenter.Avalonia.Views;
+namespace RSBot.CommandCenter.Views;
 
 /// <summary>
 /// Static class to manage the main view instance

@@ -1,7 +1,7 @@
 using RSBot.Core;
 using RSBot.Core.Components.Command;
 
-namespace RSBot.CommandCenter.Avalonia.Components.Command;
+namespace RSBot.CommandCenter.Components.Command;
 
 /// <summary>
 /// Executes the start command to start the bot

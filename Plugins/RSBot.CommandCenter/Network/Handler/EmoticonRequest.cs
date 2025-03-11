@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
-using RSBot.CommandCenter.Avalonia.Components;
+using RSBot.CommandCenter.Components;
 using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Network;
 
-namespace RSBot.CommandCenter.Avalonia.Network.Handler;
+namespace RSBot.CommandCenter.Network.Handler;
 
 /// <summary>
 /// Handles emoticon request packets from the server

@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using RSBot.CommandCenter.Avalonia.Components;
+using RSBot.CommandCenter.Components;
 
-namespace RSBot.CommandCenter.Avalonia.ViewModels
+namespace RSBot.CommandCenter.ViewModels
 {
     /// <summary>
     /// ViewModel for managing emoticon actions, handling the binding between emoticons and their associated commands

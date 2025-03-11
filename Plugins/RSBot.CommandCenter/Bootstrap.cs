@@ -2,9 +2,9 @@ using Avalonia.Controls;
 using RSBot.Core.Plugins;
 using RSBot.Core;
 using RSBot.Core.Components;
-using RSBot.CommandCenter.Avalonia.Components;
+using RSBot.CommandCenter.Components;
 
-namespace RSBot.CommandCenter.Avalonia;
+namespace RSBot.CommandCenter;
 
 /// <summary>
 /// Bootstrap class for the command center plugin
@@ -14,7 +14,7 @@ public class Bootstrap : IPlugin
     /// <summary>
     /// Gets the internal name of the plugin
     /// </summary>
-    public string InternalName => "RSBot.CommandCenter.Avalonia";
+    public string InternalName => "RSBot.CommandCenter";
 
     /// <summary>
     /// Gets the display name of the plugin
