@@ -1,5 +1,6 @@
 ﻿using System;
 using RSBot.Core;
+using RSBot.Core.Components;
 
 namespace RSBot.Statistics.Stats.Calculators.Static;
 
@@ -9,7 +10,7 @@ internal class BottingTime : IStatisticCalculator
 
     public string Name => "BottingTime";
 
-    public string Label => "Time botting";
+    public string Label => LanguageManager.GetLang("Calculators.TimeBotting.Label");
 
     public StatisticsGroup Group => StatisticsGroup.Bot;
 

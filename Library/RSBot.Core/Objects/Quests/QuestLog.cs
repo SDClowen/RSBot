@@ -97,7 +97,7 @@ public class QuestLog
                 {
                     Id = packet.ReadByte(),
                     InProgress = packet.ReadBool(),
-                    NameStrId = packet.ReadString(),
+                    NameStrId = Game.ClientType == GameClientType.RuSro ? packet.ReadString(1251) : packet.ReadString(),
                     Tasks = packet.ReadUIntArray(packet.ReadByte())
                 };
 

@@ -281,7 +281,7 @@ public sealed class SpawnedPlayer : SpawnedBionic
 
         ParseBionicDetails(packet);
 
-        Name = packet.ReadString();
+        Name = Game.ClientType == GameClientType.RuSro ? packet.ReadString(1251) : packet.ReadString();
         Job = (JobType)packet.ReadByte();
 
         if (Game.ClientType >= GameClientType.Chinese && WearsJobSuite)
@@ -310,7 +310,7 @@ public sealed class SpawnedPlayer : SpawnedBionic
         if (Game.ClientType < GameClientType.Chinese)
             packet.ReadByte(); //unkByte4
 
-        var guildName = packet.ReadString();
+        var guildName = Game.ClientType == GameClientType.RuSro ? packet.ReadString(1251) : packet.ReadString();
 
         //Check if the player is wearing job suite, if not the GUILD object has to be parsed!
         if (!WearsJobSuite)

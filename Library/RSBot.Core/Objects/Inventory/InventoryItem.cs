@@ -324,6 +324,7 @@ public class InventoryItem
                     case GameClientType.Global:
                     case GameClientType.Turkey:
                     case GameClientType.Rigid:
+                    case GameClientType.RuSro:
                         bindingCount = 4;
                         break;
                     case GameClientType.VTC_Game:
@@ -349,7 +350,7 @@ public class InventoryItem
             if (item.State != InventoryItemState.Inactive)
             {
                 item.Cos.Id = packet.ReadUInt(); //RefCharID
-                item.Cos.Name = packet.ReadString(); //Name
+                item.Cos.Name = Game.ClientType == GameClientType.RuSro ? packet.ReadString(1251) : packet.ReadString(); //Name
 
                 if (record.TypeID4 == 2)
                     item.Cos.Rental = RentInfo.FromPacket(packet);

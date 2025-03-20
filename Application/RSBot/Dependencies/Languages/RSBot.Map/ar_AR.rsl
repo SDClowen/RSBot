@@ -1,0 +1,8 @@
+DisplayName="Map"
+RSBot.Map.Main.label3="لا تعمل هذه الوظيفة أثناء نشاط البوت.
+ إذا كنت تريد أن يهاجم الروبوت تلقائيا أثناء النشاط ،
+ تعيين التجنب."
+RSBot.Map.Main.checkBoxAutoSelectUniques="تلقائيا اختيار اليونيك"
+RSBot.Map.Main.label4="إظهار"
+RSBot.Map.Main.lblRegion="ليس في اللعبة"
+NoName="<No name>"

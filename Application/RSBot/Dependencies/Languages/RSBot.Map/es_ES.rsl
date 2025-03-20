@@ -1,0 +1,9 @@
+DisplayName="Mapa"
+RSBot.Map.Main.label3="Esta opcion no funciona mientras el bot está activo.
+Si desea que el bot ataque automático mientras está activo,
+debe establecer en evitar."
+RSBot.Map.Main.checkEnableCollisions="Habilitar la detección de colisiones"
+RSBot.Map.Main.checkBoxAutoSelectUniques="Seleccionar únicos automáticamente"
+RSBot.Map.Main.label4="Ver:"
+RSBot.Map.Main.lblRegion="Desconectado"
+NoName="<No name>"

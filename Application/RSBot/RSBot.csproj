@@ -8,7 +8,7 @@
 		<OutputPath>.\..\..\Build</OutputPath>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<Description>A open source bot for Silkroad Online</Description>
-		<Copyright>Copyright © 2024, RSBot Team</Copyright>
+		<Copyright>Copyright © 2025, RSBot Team</Copyright>
 		<PackageProjectUrl>https://github.com/SDClowen/RSBot</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/SDClowen/RSBot</RepositoryUrl>
 		<OutputType>WinExe</OutputType>
@@ -27,5 +27,17 @@
 		  <Private>True</Private>
 		</ProjectReference>
 		<ProjectReference Include="..\..\SDUI\SDUI\SDUI.csproj" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	  <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.3.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="Dependencies\**\*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>Data\%(RecursiveDir)%(Filename)%(Extension)</Link>
+		</Content>
 	</ItemGroup>
 </Project>

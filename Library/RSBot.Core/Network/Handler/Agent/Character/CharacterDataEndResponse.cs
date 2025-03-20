@@ -75,7 +75,8 @@ internal class CharacterDataEndResponse : IPacketHandler
             packet.ReadByte();
 
             if (Game.ClientType == GameClientType.Turkey ||
-                Game.ClientType == GameClientType.VTC_Game)
+                Game.ClientType == GameClientType.VTC_Game ||
+                Game.ClientType == GameClientType.RuSro)
                 packet.ReadUInt();
 
             if (Game.ClientType == GameClientType.Rigid)
@@ -124,7 +125,7 @@ internal class CharacterDataEndResponse : IPacketHandler
 
         character.ParseBionicDetails(packet);
 
-        character.Name = packet.ReadString();
+        character.Name = Game.ClientType == GameClientType.RuSro ? packet.ReadString(1251) : packet.ReadString();
         character.JobInformation = JobInfo.FromPacket(packet);
         character.State.PvpState = (PvpState)packet.ReadByte();
         character.OnTransport = packet.ReadBool(); //On transport?
@@ -146,7 +147,8 @@ internal class CharacterDataEndResponse : IPacketHandler
 
         if (Game.ClientType > GameClientType.Chinese &&
             Game.ClientType != GameClientType.Global &&
-            Game.ClientType != GameClientType.Rigid)
+            Game.ClientType != GameClientType.Rigid &&
+            Game.ClientType != GameClientType.RuSro)
         {
             packet.ReadByte(); // 0xFF
             packet.ReadUShort(); // 0xFF
@@ -159,7 +161,7 @@ internal class CharacterDataEndResponse : IPacketHandler
         else
             packet.ReadUInt();
 
-        if (Game.ClientType == GameClientType.Chinese || Game.ClientType == GameClientType.Global)
+        if (Game.ClientType == GameClientType.Chinese || Game.ClientType == GameClientType.Global || Game.ClientType == GameClientType.RuSro)
             packet.ReadByte();
 
         character.JID = packet.ReadUInt();

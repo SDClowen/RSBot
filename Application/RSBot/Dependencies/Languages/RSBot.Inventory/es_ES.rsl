@@ -1,0 +1,22 @@
+DisplayName="Inventario"
+RSBot.Inventory.Main.Panel.buttonUseItem="Usar"
+RSBot.Inventory.Main.Panel.buttonInventory="Inventario"
+RSBot.Inventory.Main.Panel.buttonJobTransport="Job Transp."
+RSBot.Inventory.Main.Panel.buttonEquipment="Equipo"
+RSBot.Inventory.Main.Panel.buttonAvatars="Avatars"
+RSBot.Inventory.Main.Panel.buttonStorage="Storage"
+RSBot.Inventory.Main.Panel.buttonGuildStorage="Gremio Store"
+RSBot.Inventory.Main.Panel.buttonSpecialty="Especial"
+RSBot.Inventory.Main.Panel.buttonGrabpet="Grab Pet"
+RSBot.Inventory.Main.Panel.buttonJobEquipment="Job Equipo"
+RSBot.Inventory.Main.Panel.label1="Inventario:"
+RSBot.Inventory.Main.Panel.label2="Sitios libres:"
+RSBot.Inventory.UseItemDialog.label2="Artículo según su propia decisión
+  puedes usar. Se abrirá una ventana de condición
+y allí puedes establecer lo que quieras"
+RSBot.Inventory.UseItemDialog.label1="Si desea utilizar el elemento directamente,
+ simplemente haga clic en el botón"
+RSBot.Inventory.UseItemDialog.buttonCancel="Usar con condiciones"
+RSBot.Inventory.UseItemDialog.buttonOk="Usar directamente"
+RSBot.Inventory.Main.UseItemDialog.useToolStripMenuItem="Usa1"
+RSBot.Inventory.UseItemDialog.useItemAtTrainingPlaceMenuItem="Usa1"

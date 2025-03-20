@@ -135,6 +135,7 @@ internal class BuyItemHook : IPacketHook
                             case GameClientType.Global:
                             case GameClientType.Turkey:
                             case GameClientType.Rigid:
+                            case GameClientType.RuSro:
                                 bindingCount = 4;
                                 break;
                             case GameClientType.VTC_Game:

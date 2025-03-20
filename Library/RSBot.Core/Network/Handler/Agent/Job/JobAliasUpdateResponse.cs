@@ -32,7 +32,7 @@ internal class JobAliasUpdateResponse : IPacketHandler
             return;
 
         packet.ReadByte(); //IsUpdate
-        Game.Player.JobInformation.Name = packet.ReadString();
+        Game.Player.JobInformation.Name = Game.ClientType == GameClientType.RuSro ? packet.ReadString(1251) : packet.ReadString();
 
         Log.Notify($"[Job] New job alias assigned: {Game.Player.JobInformation.Name}");
 

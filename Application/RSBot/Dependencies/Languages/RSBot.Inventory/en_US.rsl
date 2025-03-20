@@ -1,0 +1,11 @@
+DisplayName="Inventory"
+RSBot.Inventory.Main.Panel.buttonUseItem="Use"
+RSBot.Inventory.Main.Panel.label1="Inventory:"
+RSBot.Inventory.Main.Panel.label2="Free Slots:"
+RSBot.Inventory.UseItemDialog.label2="Item according to your own decision
+  you can use. A condition window will open
+and from there you can set the terms you want"
+RSBot.Inventory.UseItemDialog.label1="If you want to use the item directly,
+ just click the button"
+RSBot.Inventory.UseItemDialog.buttonCancel="Use with conditions"
+RSBot.Inventory.UseItemDialog.buttonOk="Use Directly"

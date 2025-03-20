@@ -74,7 +74,7 @@ internal class CosUpdateResponse : IPacketHandler
                     break;
 
                 case 5:
-                    Game.Player.Growth.Name = packet.ReadString();
+                    Game.Player.Growth.Name = Game.ClientType == GameClientType.RuSro ? packet.ReadString(1251) : packet.ReadString();
                     EventManager.FireEvent("OnGrowthNameChange");
                     break;
 
@@ -140,7 +140,7 @@ internal class CosUpdateResponse : IPacketHandler
                     break;
 
                 case 5:
-                    Game.Player.Fellow.Name = packet.ReadString();
+                    Game.Player.Fellow.Name = Game.ClientType == GameClientType.RuSro ? packet.ReadString(1251) : packet.ReadString();
                     EventManager.FireEvent("OnFellowNameChange");
                     break;
 
@@ -176,7 +176,7 @@ internal class CosUpdateResponse : IPacketHandler
                     break;
 
                 case 5:
-                    Game.Player.AbilityPet.Name = packet.ReadString();
+                    Game.Player.AbilityPet.Name = Game.ClientType == GameClientType.RuSro ? packet.ReadString(1251) : packet.ReadString();
                     EventManager.FireEvent("OnAbilityPetNameChange");
                     break;
             }

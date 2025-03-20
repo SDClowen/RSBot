@@ -1,0 +1,8 @@
+DisplayName="Bản Đồ"
+RSBot.Map.Main.label3="Chức năng này không hoạt động trong khi bot đang chạy.
+  Nếu bạn muốn bot tự động tấn công khi đang hoạt động,
+  đặt Tránh."
+RSBot.Map.Main.checkBoxAutoSelectUniques="Tự động lựa chọn"
+RSBot.Map.Main.label4="Hiện:"
+RSBot.Map.Main.lblRegion="Không trong trò chơi"
+NoName="<Chưa đặt tên>"

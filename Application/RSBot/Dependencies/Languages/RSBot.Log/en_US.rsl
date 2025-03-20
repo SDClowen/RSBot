@@ -1,0 +1,7 @@
+DisplayName="Log"
+RSBot.Log.Main.Panel.checkNormal="Normal"
+RSBot.Log.Main.Panel.checkError="Error"
+RSBot.Log.Main.Panel.checkWarning="Warning"
+RSBot.Log.Main.Panel.checkDebug="Debug"
+RSBot.Log.Main.Panel.btnReset="Clear"
+RSBot.Log.Main.Panel.checkEnabled="Enabled"

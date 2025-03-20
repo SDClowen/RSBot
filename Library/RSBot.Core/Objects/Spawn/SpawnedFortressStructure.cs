@@ -69,6 +69,6 @@ public sealed class SpawnedFortressStructure : SpawnedNpc
         base.Deserialize(packet);
 
         GuildId = packet.ReadUInt();
-        GuildName = packet.ReadString();
+        GuildName = Game.ClientType == GameClientType.RuSro ? packet.ReadString(1251) : packet.ReadString();
     }
 }

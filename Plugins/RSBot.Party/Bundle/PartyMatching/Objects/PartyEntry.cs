@@ -93,7 +93,7 @@ internal class PartyEntry
             Game.ClientType != GameClientType.Rigid)
             packet.ReadUInt(); // unknown
 
-        result.Leader = packet.ReadString();
+        result.Leader = Game.ClientType == GameClientType.RuSro ? packet.ReadString(1251) : packet.ReadString();
         result.Race = (ObjectCountry)packet.ReadByte();
         result.MemberCount = packet.ReadByte();
         result.Settings = PartySettings.FromType(packet.ReadByte());
