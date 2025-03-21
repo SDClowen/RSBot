@@ -55,7 +55,14 @@ public class ClientManager
         if (Game.ClientType == GameClientType.RuSro)
         {
             AddDllImportToClient(path, libraryDllName, libraryDllFunc);
-            File.Copy(Path.Combine(Kernel.BasePath, libraryDllName), Path.Combine(silkroadDirectory, libraryDllName), true);
+            try
+            {
+                File.Copy(Path.Combine(Kernel.BasePath, libraryDllName), Path.Combine(silkroadDirectory, libraryDllName), true);
+            }
+            catch (IOException)
+            {
+                Log.Debug($"DLL is using, can't replace");
+            }
             string login = GlobalConfig.Get<string>("RSBot.RuSro.login");
             string password = GlobalConfig.Get<string>("RSBot.RuSro.password");
             full = $"\"{silkroadDirectory}\\Frost\\sro.exe\" -LOGIN:{login} -PASSWORD:{password} -frostGame \"{path}\" -frostOptions 1 -frostGameNameType silk-ru_live";
