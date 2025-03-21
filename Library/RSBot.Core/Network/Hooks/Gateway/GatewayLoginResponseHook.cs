@@ -29,7 +29,13 @@ internal class GatewayLoginResponseHook : IPacketHook
         if (result == 0x01)
         {
             Kernel.Proxy.Token = packet.ReadUInt();
-            Kernel.Proxy.SetAgentserverAddress(packet.ReadString(), packet.ReadUShort());
+            if (Game.ClientType == GameClientType.RuSro)
+            {
+                packet.ReadString();
+                Kernel.Proxy.SetAgentserverAddress("109.105.146.10", packet.ReadUShort());
+            }
+            else
+                Kernel.Proxy.SetAgentserverAddress(packet.ReadString(), packet.ReadUShort());
 
             if (Game.Clientless)
                 return null;

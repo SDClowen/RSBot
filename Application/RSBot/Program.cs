@@ -43,7 +43,7 @@ internal static class Program
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
         Application.EnableVisualStyles();
-        Application.SetCompatibleTextRenderingDefault(true);
+        Application.SetCompatibleTextRenderingDefault(false);
         Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
         Application.Run(new SplashScreen());
     }

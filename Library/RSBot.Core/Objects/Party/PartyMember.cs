@@ -97,12 +97,12 @@ public class PartyMember
 
         packet.ReadByte(); //FF
         result.MemberId = packet.ReadUInt();
-        result.Name = packet.ReadString();
+        result.Name = Game.ClientType == GameClientType.RuSro ? packet.ReadString(1251) : packet.ReadString();
         result.ObjectId = packet.ReadUInt();
         result.Level = packet.ReadByte();
         result.HealthMana = packet.ReadByte(); //0-A|0-A -> 0%-100%|0%-100%
         result.Position = Position.FromPacketConditional(packet);
-        result.Guild = packet.ReadString();
+        result.Guild = Game.ClientType == GameClientType.RuSro ? packet.ReadString(1251) : packet.ReadString();
 
         packet.ReadByte(); //04
 

@@ -43,7 +43,8 @@ internal class GatewayServerListResponse : IPacketHandler
             var id = packet.ReadUShort();
             var serverName = Game.ClientType == GameClientType.Turkey ||
                             Game.ClientType == GameClientType.Global || 
-                            Game.ClientType == GameClientType.VTC_Game
+                            Game.ClientType == GameClientType.VTC_Game ||
+                            Game.ClientType == GameClientType.RuSro
                                  ? packet.ReadUnicode()
                                  : packet.ReadString();
 

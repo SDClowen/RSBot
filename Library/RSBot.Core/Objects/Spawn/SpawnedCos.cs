@@ -64,9 +64,9 @@ public sealed class SpawnedCos : SpawnedNpc
             if (refObj.TypeID4 == 3 || // NPC_COS_P_GROWTH
                 refObj.TypeID4 == 4 || //NPC_COS_P_ABILITY
                 refObj.TypeID4 == 9) // COS_PET2
-                Name = packet.ReadString();
+                Name = Game.ClientType == GameClientType.RuSro ? packet.ReadString(1251) : packet.ReadString();
             else if (refObj.TypeID4 == 5) //NPC_COS_GUILD
-                GuildName = packet.ReadString();
+                GuildName = Game.ClientType == GameClientType.RuSro ? packet.ReadString(1251) : packet.ReadString();
 
             if (refObj.TypeID4 == 2 //NPC_COS_TRASNPORT
                 || refObj.TypeID4 == 3 //NPC_COS_P_GROWTH
@@ -75,7 +75,7 @@ public sealed class SpawnedCos : SpawnedNpc
                 || refObj.TypeID4 == 6 //NPC_COS_CAPTURED
                 || refObj.TypeID4 == 9) //COS_PET2
             {
-                OwnerName = packet.ReadString();
+                OwnerName = Game.ClientType == GameClientType.RuSro ? packet.ReadString(1251) : packet.ReadString();
 
                 if (refObj.TypeID4 == 2 //NPC_COS_TRASNPORT
                     || refObj.TypeID4 == 3 //NPC_COS_P_GROWTH

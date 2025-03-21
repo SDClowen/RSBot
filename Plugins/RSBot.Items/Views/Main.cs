@@ -661,10 +661,16 @@ public partial class Main : DoubleBufferedControl
                 continue;
             }
 
-            var newListItem = (ListViewItem)listItem.Clone();
+            //var newListItem = (ListViewItem)listItem.Clone();
+            //newListItem.Group = listShoppingList.Groups[comboStore.SelectedIndex];
+            var newListItem = new ListViewItem(listItem.Text)
+            {
+                Tag = listItem.Tag // Копируем Tag из исходного элемента
+            };
             newListItem.Group = listShoppingList.Groups[comboStore.SelectedIndex];
-
             newListItem.SubItems.Add("x" + dialog.Value);
+
+            //newListItem.SubItems.Add("x" + dialog.Value);
             listShoppingList.Items.Add(newListItem);
         }
 

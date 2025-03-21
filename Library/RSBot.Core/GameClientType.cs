@@ -13,5 +13,6 @@ public enum GameClientType : byte
     Turkey,
     VTC_Game,
     Korean,
+    RuSro,
     Rigid
 }

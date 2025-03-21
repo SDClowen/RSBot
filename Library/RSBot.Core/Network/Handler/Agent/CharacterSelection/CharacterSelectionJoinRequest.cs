@@ -26,7 +26,7 @@ internal class CharacterSelectionJoinRequest : IPacketHandler
     /// <param name="packet">The packet.</param>
     public void Invoke(Packet packet)
     {
-        var characterName = packet.ReadString();
+        var characterName = Game.ClientType == GameClientType.RuSro ? packet.ReadString(1251) : packet.ReadString();
 
         PlayerConfig.Load(characterName);
 

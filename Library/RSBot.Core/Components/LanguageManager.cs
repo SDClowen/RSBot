@@ -41,56 +41,30 @@ public class LanguageManager
     public static LangDict ParseLanguageFile(string file)
     {
         var languages = new LangDict();
+        var lines = File.ReadAllLines(file);
 
-        var text = File.ReadAllText(file);
-
-        var builder = new StringBuilder();
-
-        var key = string.Empty;
-        var value = string.Empty;
-
-        var doubleQuotes = false;
-        var skipDoubleQuotes = false;
-
-        foreach (var c in text)
+        foreach (var line in lines)
         {
-            if (c == '=')
-            {
-                key = builder.ToString().Trim();
-                builder = new StringBuilder();
-                value = string.Empty;
-
-                if (languages.ContainsKey(key))
-                {
-                    key = string.Empty;
-                    skipDoubleQuotes = true;
-                }
-
+            var trimmedLine = line.Trim();
+            if (string.IsNullOrEmpty(trimmedLine) || !trimmedLine.Contains("="))
                 continue;
-            }
 
-            if (c == '"')
+            var parts = trimmedLine.Split(new[] { '=' }, 2);
+            if (parts.Length < 2)
+                continue;
+
+            var key = parts[0].Trim();
+            var value = parts[1].Trim().Trim('"');
+
+            value = value
+                .Replace("\\r\\n", "\r\n") // CRLF
+                .Replace("\\n", "\n")       // LF
+                .Replace("\\r", "\r");      // CR
+
+            if (!languages.ContainsKey(key))
             {
-                doubleQuotes = !doubleQuotes;
-                if (skipDoubleQuotes)
-                    continue;
-
-                value = builder.ToString(); /*.Trim()*/
-                builder.Clear();
-
                 languages[key] = value;
-                value = string.Empty;
-
-                continue;
             }
-
-            if (doubleQuotes && skipDoubleQuotes)
-                continue;
-
-            if ((c == '\r' || c == '\n') && !doubleQuotes)
-                continue;
-
-            builder.Append(c);
         }
 
         return languages;
@@ -232,7 +206,7 @@ public class LanguageManager
         //var instance = (Control)Activator.CreateInstance(type);
 
         var values = ParseLanguageFile(path);
-        //CheckMissings(path, assembly, instance, values);
+        //CheckMissings(path, assembly, view, values);
 
 
         _values[assembly] = values;

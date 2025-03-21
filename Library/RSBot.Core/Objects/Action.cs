@@ -108,7 +108,8 @@ public class Action
         action.TargetId = packet.ReadUInt();
         if (Game.ClientType == GameClientType.Turkey ||
             Game.ClientType == GameClientType.Global ||
-            Game.ClientType == GameClientType.VTC_Game)
+            Game.ClientType == GameClientType.VTC_Game ||
+            Game.ClientType == GameClientType.RuSro)
         {
             packet.ReadByte();
             action.Flag = (ActionStateFlag)packet.ReadByte();

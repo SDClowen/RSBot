@@ -12,7 +12,7 @@ public class Ability : Cos
     public override void Deserialize(Packet packet)
     {
         Settings = packet.ReadInt();
-        Name = packet.ReadString();
+        Name = Game.ClientType == GameClientType.RuSro ? packet.ReadString(1251) : packet.ReadString();
 
         Inventory = new InventoryItemCollection(packet);
         OwnerUniqueId = packet.ReadUInt();

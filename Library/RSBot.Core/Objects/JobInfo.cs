@@ -88,7 +88,7 @@ public class JobInfo
 
         return new JobInfo
         {
-            Name = packet.ReadString(),
+            Name = Game.ClientType == GameClientType.RuSro ? packet.ReadString(1251) : packet.ReadString(),
             Title = packet.ReadByte(),
             Rank = packet.ReadByte(),
             Type = (JobType)packet.ReadByte(),

@@ -69,7 +69,7 @@ internal class ChatResponse : IPacketHandler
                 break;
 
             default:
-                var sender = packet.ReadString();
+                var sender = Game.ClientType == GameClientType.RuSro ? packet.ReadString(1251) : packet.ReadString();
                 message = packet.ReadConditonalString();
 
                 View.Instance.AppendMessage(message, sender, type);

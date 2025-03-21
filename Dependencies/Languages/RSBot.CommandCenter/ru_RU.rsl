@@ -1,0 +1,8 @@
+RSBot.CommandCenter.Main.TabControl.TabPage.label1="Пишите эти команды в чат игры"
+RSBot.CommandCenter.Main.TabControl.TabPage.label2="<скоро>"
+RSBot.CommandCenter.Main.TabControl.tabPage1="Команды эмоций"
+RSBot.CommandCenter.Main.TabControl.tabPage2="Команды чата"
+RSBot.CommandCenter.Main.TabControl.tabPage3="Уведомления"
+RSBot.CommandCenter.Main.btnSave="Сохранить"
+RSBot.CommandCenter.Main.btnResetToDefaults="По умолчанию"
+RSBot.CommandCenter.Main.checkEnable="Включить Command center"
