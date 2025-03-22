@@ -1,4 +1,6 @@
-﻿namespace RSBot.Core.Network.Hooks;
+﻿using System.Collections.Generic;
+
+namespace RSBot.Core.Network.Hooks;
 
 internal class GatewayLoginResponseHook : IPacketHook
 {
@@ -31,8 +33,13 @@ internal class GatewayLoginResponseHook : IPacketHook
             Kernel.Proxy.Token = packet.ReadUInt();
             if (Game.ClientType == GameClientType.RuSro)
             {
-                packet.ReadString();
-                Kernel.Proxy.SetAgentserverAddress("109.105.146.10", packet.ReadUShort());
+                Dictionary<string, string> localPublicIP = new()
+                {
+                    { "10.96.4.66", "109.105.146.10" },
+                    { "10.96.4.67", "109.105.146.11" }
+                };
+
+                Kernel.Proxy.SetAgentserverAddress(localPublicIP[packet.ReadString()], packet.ReadUShort());
             }
             else
                 Kernel.Proxy.SetAgentserverAddress(packet.ReadString(), packet.ReadUShort());
