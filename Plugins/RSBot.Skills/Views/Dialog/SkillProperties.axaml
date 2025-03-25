@@ -1,0 +1,32 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:RSBot.Skills.ViewModels.Dialog"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="RSBot.Skills.Views.Dialog.SkillProperties"
+        Title="Skill Properties"
+        Width="600"
+        Height="400"
+        WindowStartupLocation="CenterOwner">
+
+  <Design.DataContext>
+    <vm:SkillPropertiesViewModel/>
+  </Design.DataContext>
+
+  <Grid Margin="10">
+    <DataGrid Name="PropertiesGrid"
+              ItemsSource="{Binding Properties}"
+              AutoGenerateColumns="False"
+              IsReadOnly="True"
+              GridLinesVisibility="All"
+              BorderThickness="1"
+              BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="150"/>
+        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="200"/>
+        <DataGridTextColumn Header="Value" Binding="{Binding Value}" Width="*"/>
+      </DataGrid.Columns>
+    </DataGrid>
+  </Grid>
+</Window> 

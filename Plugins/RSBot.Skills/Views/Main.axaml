@@ -1,0 +1,304 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:RSBot.Skills.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+             x:Class="RSBot.Skills.Views.Main"
+             x:DataType="vm:MainViewModel">
+    
+    <Design.DataContext>
+        <vm:MainViewModel />
+    </Design.DataContext>
+
+	<ScrollViewer>
+	<Grid RowDefinitions="Auto,*" Margin="10">
+        <!-- Top Section -->
+        <Border Grid.Row="0" Classes="card" Margin="0,0,0,10">
+            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto">
+                <!-- Left Column -->
+                <StackPanel Grid.Column="0" Grid.Row="0" Spacing="5">
+                    <CheckBox Content="Use skills in order" IsChecked="{Binding UseSkillsInOrder}" />
+                    <CheckBox Content="No attack" IsChecked="{Binding NoAttack}" />
+                    <CheckBox Content="Use teleport skill" IsChecked="{Binding UseTeleportSkill}" />
+                    <CheckBox Content="Use default attack" IsChecked="{Binding UseDefaultAttack}" />
+                    <CheckBox Content="Warlock mode" IsChecked="{Binding WarlockMode}" />
+                </StackPanel>
+
+                <!-- Right Column -->
+                <StackPanel Grid.Column="1" Grid.Row="0" Spacing="5">
+                    <CheckBox Content="Learn mastery" IsChecked="{Binding LearnMastery}" />
+                    <CheckBox Content="Learn mastery when bot stopped" IsChecked="{Binding LearnMasteryBotStopped}" />
+                    <CheckBox Content="Auto accept resurrection" IsChecked="{Binding AutoAcceptResurrection}" />
+                    <CheckBox Content="Auto resurrect party members" IsChecked="{Binding AutoResurrectPartyMembers}" />
+                </StackPanel>
+
+                <!-- Bottom Row -->
+                <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Spacing="5" Margin="0,10,0,0">
+                    <CheckBox Content="Cast buffs in towns" IsChecked="{Binding CastBuffsInTowns}" />
+                    <CheckBox Content="Cast buffs during walk back" IsChecked="{Binding CastBuffsDuringWalkBack}" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Main Content -->
+        <TabControl Grid.Row="1">
+            <!-- Skills Tab -->
+            <TabItem Header="Skills">
+                <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,*">
+                    <!-- Filters -->
+                    <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" Spacing="10" Margin="0,0,0,10">
+                        <CheckBox Content="Show Attacks" IsChecked="{Binding ShowAttacks}" />
+                        <CheckBox Content="Show Buffs" IsChecked="{Binding ShowBuffs}" />
+                        <CheckBox Content="Hide Lower Level Skills" IsChecked="{Binding HideLowerLevelSkills}" />
+                    </StackPanel>
+
+                    <!-- Skills List -->
+                    <Border Grid.Row="1" Grid.Column="0" Classes="card" Margin="0,0,5,0">
+                        <Grid RowDefinitions="Auto,*">
+                            <TextBlock Text="Available Skills" Classes="h2" Margin="0,0,0,10"/>
+                            <ListBox Grid.Row="1" 
+                                     ItemsSource="{Binding Skills}"
+                                     SelectedItem="{Binding SelectedSkill}">
+                                <ListBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Add To Attacks" Command="{Binding AddToAttacksCommand}"/>
+                                        <Separator/>
+                                        <MenuItem Header="Add To Buffs" Command="{Binding AddToBuffsCommand}"/>
+                                        <Separator/>
+                                        <MenuItem Header="Use" Command="{Binding UseSkillCommand}"/>
+                                        <MenuItem Header="Use to party member">
+                                            <MenuItem.ItemsSource>
+                                                <Binding Path="PartyMembers"/>
+                                            </MenuItem.ItemsSource>
+                                            <MenuItem.ItemTemplate>
+                                                <DataTemplate>
+                                                    <MenuItem Header="{Binding Name}"
+                                                              Command="{Binding DataContext.UseSkillOnPartyMemberCommand, 
+                                                                        RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                                              CommandParameter="{Binding}"/>
+                                                </DataTemplate>
+                                            </MenuItem.ItemTemplate>
+                                        </MenuItem>
+                                        <Separator/>
+                                        <MenuItem Header="Properties" 
+                                                  Command="{Binding ShowSkillPropertiesCommand}"
+                                                  IsVisible="{Binding Kernel.Debug}"/>
+                                    </ContextMenu>
+                                </ListBox.ContextMenu>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid ColumnDefinitions="*,Auto">
+                                            <TextBlock Text="{Binding Record.Name}" Grid.Column="0"/>
+                                            <TextBlock Text="{Binding Record.Basic_Level, StringFormat='Lv. {0}'}" 
+                                                       Grid.Column="1" Margin="10,0,0,0"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+                    </Border>
+
+                    <!-- Skill Actions -->
+                    <Grid Grid.Row="1" Grid.Column="1" RowDefinitions="Auto,*,Auto,*">
+                        <!-- Attack Skills -->
+                        <Grid RowDefinitions="Auto,Auto" Margin="0,0,0,10">
+                            <TextBlock Text="Attack Skills" Classes="h2"/>
+                            <ComboBox Grid.Row="1" 
+                                      ItemsSource="{Binding MonsterTypes}"
+                                      SelectedItem="{Binding SelectedMonsterType}"
+                                      HorizontalAlignment="Stretch"/>
+                        </Grid>
+
+                        <Border Grid.Row="1" Classes="card" Margin="0,0,0,10">
+                            <Grid RowDefinitions="*,Auto">
+                                <ListBox ItemsSource="{Binding AttackingSkills}">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Record.Name}" />
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                                <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="5" Margin="0,10,0,0">
+                                    <Button Content="Add" Command="{Binding AddToAttacksCommand}"/>
+                                    <Button Content="Remove" Command="{Binding RemoveAttackingSkillCommand}"/>
+                                    <Button Content="Up" Command="{Binding MoveAttackingSkillUpCommand}"/>
+                                    <Button Content="Down" Command="{Binding MoveAttackingSkillDownCommand}"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+
+                        <!-- Buff Skills -->
+                        <TextBlock Grid.Row="2" Text="Buff Skills" Classes="h2" Margin="0,0,0,10"/>
+                        <Border Grid.Row="3" Classes="card">
+                            <Grid RowDefinitions="*,Auto">
+                                <ListBox ItemsSource="{Binding ActiveBuffs}">
+                                    <ListBox.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Header="Properties" 
+                                                      Command="{Binding ShowBuffPropertiesCommand}"
+                                                      IsVisible="{Binding Kernel.Debug}"/>
+                                        </ContextMenu>
+                                    </ListBox.ContextMenu>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid ColumnDefinitions="*,Auto">
+                                                <TextBlock Text="{Binding Record.Name}" Grid.Column="0"/>
+                                                <TextBlock Text="{Binding Record.Basic_Level, StringFormat='Lv. {0}'}" 
+                                                           Grid.Column="1" Margin="10,0,0,0"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                                <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="5" Margin="0,10,0,0">
+                                    <Button Content="Add" Command="{Binding AddToBuffsCommand}"/>
+                                    <Button Content="Remove" Command="{Binding RemoveBuffSkillCommand}"/>
+                                    <Button Content="Up" Command="{Binding MoveBuffSkillUpCommand}"/>
+                                    <Button Content="Down" Command="{Binding MoveBuffSkillDownCommand}"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <!-- Advanced Tab -->
+            <TabItem Header="Advanced">
+                <Grid RowDefinitions="Auto,*" Margin="0,10,0,0">
+                    <!-- Mastery Settings -->
+                    <Border Classes="card" Margin="0,0,0,10">
+                        <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto" Margin="5">
+                            <TextBlock Text="Mastery:" VerticalAlignment="Center"/>
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding Masteries}"
+                                      SelectedItem="{Binding SelectedMastery}"
+                                      HorizontalAlignment="Stretch"/>
+
+                            <TextBlock Grid.Row="1" Text="Gap:" VerticalAlignment="Center" Margin="0,10,0,0"/>
+                            <NumericUpDown Grid.Row="1" Grid.Column="1"
+                                          Value="{Binding MasteryGap}"
+                                          Minimum="0"
+                                          Maximum="100"
+                                          Increment="1"
+                                          Margin="0,10,0,0"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Skills Configuration -->
+                    <Border Grid.Row="1" Classes="card">
+                        <Grid RowDefinitions="Auto,Auto,Auto" Margin="5">
+                            <!-- Teleport Skills -->
+                            <Grid ColumnDefinitions="Auto,*" Margin="0,0,0,10">
+                                <TextBlock Text="Teleport Skill:" VerticalAlignment="Center"/>
+                                <ComboBox Grid.Column="1"
+                                          ItemsSource="{Binding TeleportSkills}"
+                                          SelectedItem="{Binding SelectedTeleportSkill}"
+                                          HorizontalAlignment="Stretch">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Record.Name}" />
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </Grid>
+
+                            <!-- Resurrection Skills -->
+                            <Grid Grid.Row="1" ColumnDefinitions="Auto,*" Margin="0,0,0,10">
+                                <TextBlock Text="Resurrection Skill:" VerticalAlignment="Center"/>
+                                <ComboBox Grid.Column="1"
+                                          ItemsSource="{Binding ResurrectionSkills}"
+                                          SelectedItem="{Binding SelectedResurrectionSkill}"
+                                          HorizontalAlignment="Stretch">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Record.Name}" />
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </Grid>
+
+                            <!-- Imbue Skills -->
+                            <Grid Grid.Row="2" ColumnDefinitions="Auto,*">
+                                <TextBlock Text="Imbue Skill:" VerticalAlignment="Center"/>
+                                <ComboBox Grid.Column="1"
+                                          ItemsSource="{Binding ImbueSkills}"
+                                          SelectedItem="{Binding SelectedImbueSkill}"
+                                          HorizontalAlignment="Stretch">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Record.Name}" />
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </TabItem>
+
+            <!-- Buffs Tab -->
+            <TabItem Header="Buffs">
+                <Grid RowDefinitions="Auto,*">
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5">
+                        <CheckBox Content="Show buffs" IsChecked="{Binding ShowBuffs}" />
+                    </StackPanel>
+                    <ListBox Grid.Row="1" 
+                             ItemsSource="{Binding Buffs}"
+                             SelectedItem="{Binding SelectedBuff}"
+                             Margin="5">
+                        <ListBox.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Properties" Command="{Binding ShowBuffPropertiesCommand}" />
+                            </ContextMenu>
+                        </ListBox.ContextMenu>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Record.Name}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </TabItem>
+
+            <!-- Active Buffs Tab -->
+            <TabItem Header="Active Buffs">
+                <Grid RowDefinitions="*">
+                    <ListBox Grid.Row="0" 
+                             ItemsSource="{Binding ActiveBuffs}"
+                             SelectedItem="{Binding SelectedActiveBuff}"
+                             Margin="5">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Record.Name}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+	</ScrollViewer>
+    <UserControl.Styles>
+        <Style Selector="Border.card">
+            <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundAltHighBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseLowBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Padding" Value="10"/>
+        </Style>
+
+        <Style Selector="TextBlock.h2">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+        <Style Selector="Button">
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="MinWidth" Value="60"/>
+        </Style>
+
+        <Style Selector="ComboBox">
+            <Setter Property="Margin" Value="5,0,0,0"/>
+        </Style>
+    </UserControl.Styles>
+</UserControl> 

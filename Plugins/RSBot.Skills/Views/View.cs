@@ -14,7 +14,7 @@ internal class View
     {
         get
         {
-            if (_instance == null || _instance.IsDisposed || _instance.Disposing)
+            if (_instance == null)
                 _instance = new Main();
 
             return _instance;
