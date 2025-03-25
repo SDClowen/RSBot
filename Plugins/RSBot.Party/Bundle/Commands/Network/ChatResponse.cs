@@ -57,7 +57,7 @@ internal class ChatResponse : IPacketHandler
             // in party
             case ChatType.Private:
             case ChatType.Party:
-                var sender = Game.ClientType == GameClientType.RuSro ? packet.ReadString(1251) : packet.ReadString();
+                var sender = packet.ReadString();
                 message = packet.ReadConditonalString();
 
                 if (!SpawnManager.TryGetEntity(p => p.Name == sender, out player))

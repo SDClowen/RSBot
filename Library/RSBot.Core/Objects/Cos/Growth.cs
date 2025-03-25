@@ -46,7 +46,7 @@ public class Growth : Cos
         Level = packet.ReadByte();
         CurrentHungerPoints = packet.ReadUShort();
         Settings = packet.ReadInt();
-        Name = Game.ClientType == GameClientType.RuSro ? packet.ReadString(1251) : packet.ReadString();
+        Name = packet.ReadString();
 
         packet.ReadByte(); // ??
         OwnerUniqueId = packet.ReadUInt();

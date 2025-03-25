@@ -71,7 +71,7 @@ public sealed class SpawnedPortal : SpawnedBionic
         else if (unkByte3 == 6)
         {
             //Dimension hole
-            result.OwnerName = Game.ClientType == GameClientType.RuSro ? packet.ReadString(1251) : packet.ReadString();
+            result.OwnerName = packet.ReadString();
             result.OwnerUniqueId = packet.ReadUInt();
         }
 

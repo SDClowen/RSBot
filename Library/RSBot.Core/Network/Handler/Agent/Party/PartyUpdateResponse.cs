@@ -78,7 +78,7 @@ internal class PartyUpdateResponse : IPacketHandler
                 switch (memberUpdateType)
                 {
                     case PartyMemberUpdateType.NameRefObjID:
-                        member.Name = Game.ClientType == GameClientType.RuSro ? packet.ReadString(1251) : packet.ReadString();
+                        member.Name = packet.ReadString();
                         member.ObjectId = packet.ReadUInt();
                         break;
 
@@ -102,7 +102,7 @@ internal class PartyUpdateResponse : IPacketHandler
                         break;
 
                     case PartyMemberUpdateType.Guild:
-                        member.Guild = Game.ClientType == GameClientType.RuSro ? packet.ReadString(1251) : packet.ReadString();
+                        member.Guild = packet.ReadString();
                         break;
                 }
 

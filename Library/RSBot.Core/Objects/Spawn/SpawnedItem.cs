@@ -76,7 +76,7 @@ public class SpawnedItem : SpawnedEntity
         else if (result.Record.IsGold)
             result.Amount = packet.ReadUInt();
         else if (result.Record.IsQuest || result.Record.IsTrading)
-            result.OwnerName = Game.ClientType == GameClientType.RuSro ? packet.ReadString(1251) : packet.ReadString();
+            result.OwnerName = packet.ReadString();
 
         result.UniqueId = packet.ReadUInt();
         result.Movement.Source = Position.FromPacket(packet);

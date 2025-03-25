@@ -665,7 +665,7 @@ public partial class Main : DoubleBufferedControl
             //newListItem.Group = listShoppingList.Groups[comboStore.SelectedIndex];
             var newListItem = new ListViewItem(listItem.Text)
             {
-                Tag = listItem.Tag // Копируем Tag из исходного элемента
+                Tag = listItem.Tag
             };
             newListItem.Group = listShoppingList.Groups[comboStore.SelectedIndex];
             newListItem.SubItems.Add("x" + dialog.Value);

@@ -64,7 +64,7 @@ public class SpawnedPlayerGuild
             Id = packet.ReadUInt(),
             Member = new SpawnedPlayerGuildMember
             {
-                Nickname = Game.ClientType == GameClientType.RuSro ? packet.ReadString(1251) : packet.ReadString()
+                Nickname = packet.ReadString()
             },
             LastCrestRev = packet.ReadUInt(),
             Union = new SpawnedPlayerUnion

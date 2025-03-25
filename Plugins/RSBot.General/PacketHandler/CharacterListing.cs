@@ -49,7 +49,7 @@ internal class CharacterListing : IPacketHandler
         {
             packet.ReadInt(); //Model
 
-            var name = Game.ClientType == GameClientType.RuSro ? packet.ReadString(1251) : packet.ReadString();
+            var name = packet.ReadString();
 
             if (Game.ClientType > GameClientType.Chinese)
                 packet.ReadString(); // what is this?

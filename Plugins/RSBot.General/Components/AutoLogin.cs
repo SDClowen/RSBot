@@ -202,10 +202,7 @@ internal static class AutoLogin
             return;
 
         var packet = new Packet(0x7001);
-        if (Game.ClientType == GameClientType.RuSro)
-            packet.WriteString(character, 1251);
-        else
-            packet.WriteString(character);
+        packet.WriteString(character);
         PacketManager.SendPacket(packet, PacketDestination.Server);
 
         PlayerConfig.Load(character);

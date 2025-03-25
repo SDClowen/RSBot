@@ -29,10 +29,7 @@ internal class Chat
             chatPacket.WriteByte(0);
 
         if (type == ChatType.Private)
-            if (Game.ClientType == GameClientType.RuSro)
-                chatPacket.WriteString(reciever, 1251);
-            else
-                chatPacket.WriteString(reciever);
+            chatPacket.WriteString(reciever);
 
         chatPacket.WriteConditonalString(message);
 

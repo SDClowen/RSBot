@@ -160,7 +160,7 @@ public class Fellow : Cos
         StoredSp = packet.ReadInt();
         var unknown2 = packet.ReadInt();
         Settings = packet.ReadInt();
-        Name = Game.ClientType == GameClientType.RuSro ? packet.ReadString(1251) : packet.ReadString();
+        Name = packet.ReadString();
         Inventory = new InventoryItemCollection(packet);
 
         if (string.IsNullOrWhiteSpace(Name))

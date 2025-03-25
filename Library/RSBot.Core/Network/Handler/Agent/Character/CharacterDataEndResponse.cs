@@ -125,7 +125,7 @@ internal class CharacterDataEndResponse : IPacketHandler
 
         character.ParseBionicDetails(packet);
 
-        character.Name = Game.ClientType == GameClientType.RuSro ? packet.ReadString(1251) : packet.ReadString();
+        character.Name = packet.ReadString();
         character.JobInformation = JobInfo.FromPacket(packet);
         character.State.PvpState = (PvpState)packet.ReadByte();
         character.OnTransport = packet.ReadBool(); //On transport?
