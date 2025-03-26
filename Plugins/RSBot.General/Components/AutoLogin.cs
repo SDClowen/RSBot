@@ -144,11 +144,20 @@ internal static class AutoLogin
 
         var loginPacket = new Packet(opcode, true);
         loginPacket.WriteByte(Game.ReferenceManager.DivisionInfo.Locale);
-        loginPacket.WriteString(account.Username);
-        loginPacket.WriteString(account.Password);
+        if (Game.ClientType == GameClientType.RuSro)
+        {
+            loginPacket.WriteString(GlobalConfig.Get<string>("RSBot.RuSro.login"));
+            loginPacket.WriteString(GlobalConfig.Get<string>("RSBot.RuSro.password"));
+        }
+        else
+        {
+            loginPacket.WriteString(account.Username);
+            loginPacket.WriteString(account.Password);
+        }
 
         if (Game.ClientType == GameClientType.Turkey ||
-            Game.ClientType == GameClientType.VTC_Game)
+            Game.ClientType == GameClientType.VTC_Game ||
+            Game.ClientType == GameClientType.RuSro)
             loginPacket.WriteBytes(new byte[6]); // mac
 
         loginPacket.WriteUShort(server.Id);

@@ -44,13 +44,23 @@ internal class AgentLoginRequestHook : IPacketHook
 
         packet = new Packet(packet.Opcode, packet.Encrypted);
         packet.WriteUInt(Kernel.Proxy.Token);
-        packet.WriteString(selectedAccount.Username);
 
-        if (Game.ClientType == GameClientType.Turkey ||
-            Game.ClientType == GameClientType.VTC_Game)
-            packet.WriteString(Sha256.ComputeHash(selectedAccount.Password));
+        if (Game.ClientType == GameClientType.RuSro)
+        { 
+            packet.WriteString(GlobalConfig.Get<string>("RSBot.RuSro.login"));
+            packet.WriteString(Sha256.ComputeHash(GlobalConfig.Get<string>("RSBot.RuSro.password")));
+        }
         else
-            packet.WriteString(selectedAccount.Password);
+        { 
+            packet.WriteString(selectedAccount.Username);
+
+            if (Game.ClientType == GameClientType.Turkey ||
+            Game.ClientType == GameClientType.VTC_Game
+            )
+                packet.WriteString(Sha256.ComputeHash(selectedAccount.Password));
+            else
+                packet.WriteString(selectedAccount.Password);
+        }
 
         packet.WriteByte(Game.ReferenceManager.DivisionInfo.Locale);
         packet.WriteBytes(new byte[6]);

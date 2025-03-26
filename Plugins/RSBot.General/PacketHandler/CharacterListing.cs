@@ -48,6 +48,7 @@ internal class CharacterListing : IPacketHandler
         for (var i = 0; i < charCount; i++)
         {
             packet.ReadInt(); //Model
+
             var name = packet.ReadString();
 
             if (Game.ClientType > GameClientType.Chinese)

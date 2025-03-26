@@ -58,14 +58,24 @@ internal class GlobalIdentificationRequest : IPacketHandler
             var opcode = (ushort)(Game.ClientType == GameClientType.Rigid ? 0x6118 : 0x6103);
             var response = new Packet(opcode, true);
             response.WriteUInt(Kernel.Proxy.Token);
-            response.WriteString(selectedAccount.Username);
 
-            if (Game.ClientType == GameClientType.Turkey ||
-                Game.ClientType == GameClientType.VTC_Game ||
-                Game.ClientType == GameClientType.Global)
-                response.WriteString(Sha256.ComputeHash(selectedAccount.Password));
+            if (Game.ClientType == GameClientType.RuSro)
+            {
+                response.WriteString(GlobalConfig.Get<string>("RSBot.RuSro.login"));
+                response.WriteString(Sha256.ComputeHash(GlobalConfig.Get<string>("RSBot.RuSro.password")));
+            }
             else
-                response.WriteString(selectedAccount.Password);
+            {
+                response.WriteString(selectedAccount.Username);
+
+                if (Game.ClientType == GameClientType.Turkey ||
+                    Game.ClientType == GameClientType.VTC_Game ||
+                    Game.ClientType == GameClientType.Global
+                    )
+                    response.WriteString(Sha256.ComputeHash(selectedAccount.Password));
+                else
+                    response.WriteString(selectedAccount.Password);
+            }
 
             response.WriteByte(Game.ReferenceManager.DivisionInfo.Locale);
             response.WriteBytes(new byte[6]);

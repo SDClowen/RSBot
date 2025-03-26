@@ -566,6 +566,9 @@ namespace RSBot.Core.Network
                 var length = _reader.ReadUInt16();
                 var bytes = _reader.ReadBytes(length);
 
+                if (Game.ClientType == GameClientType.RuSro)
+                    codepage = 1251;
+
                 return Encoding.GetEncoding(codepage).GetString(bytes);
             }
         }
@@ -1098,6 +1101,9 @@ namespace RSBot.Core.Network
 
                 if (value == null)
                     value = string.Empty;
+
+                if (Game.ClientType == GameClientType.RuSro)
+                    codePage = 1251;
 
                 var bytes = Encoding.GetEncoding(codePage).GetBytes(value);
                 _writer.Write((ushort)bytes.Length);

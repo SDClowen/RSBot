@@ -305,8 +305,10 @@ internal partial class Main : DoubleBufferedControl
     {
         Kernel.Bot.Stop();
 
+        var ruSroAuthenticated = await HandleRuSroAuth();
+
         // Skiped: Cuz managing from ClientlessManager
-        if (Game.Clientless)
+        if (Game.Clientless && ruSroAuthenticated)
             return;
 
         // If user disconnected with manual from clientless, we dont need open the client automatically again.
@@ -322,7 +324,10 @@ internal partial class Main : DoubleBufferedControl
 
             Thread.Sleep(2000);
 
-            await StartClientProcess().ConfigureAwait(false);
+            if (ruSroAuthenticated)
+            {
+                await StartClientProcess().ConfigureAwait(false);
+            }
             return;
         }
 
@@ -507,7 +512,7 @@ internal partial class Main : DoubleBufferedControl
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private async void btnStartClientless_Click(object sender, EventArgs e)
     {
-        await Task.Run(() =>
+        await Task.Run(async () =>
         {
             if (!Game.Clientless)
             {
@@ -527,7 +532,14 @@ internal partial class Main : DoubleBufferedControl
                 Game.Clientless = true;
                 Log.StatusLang("StartingClientless");
                 btnStartClientless.Text = LanguageManager.GetLang("Disconnect");
-                Game.Start();
+
+                var ruSroAuthenticated = await HandleRuSroAuth();
+
+                if (ruSroAuthenticated)
+                {
+                    Game.Start();
+                }
+
             }
             else
             {
@@ -555,7 +567,7 @@ internal partial class Main : DoubleBufferedControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    private void btnStartClient_Click(object sender, EventArgs e)
+    private async void btnStartClient_Click(object sender, EventArgs e)
     {
         if (!Game.Clientless && Kernel.Proxy != null && Kernel.Proxy.IsConnectedToAgentserver)
         {
@@ -572,7 +584,20 @@ internal partial class Main : DoubleBufferedControl
             return;
         }
 
-        StartClientProcess();
+        var ruSroAuthenticated = await HandleRuSroAuth();
+
+        if (ruSroAuthenticated)
+        {
+            await StartClientProcess();
+        }
+    }
+
+    private async Task<bool> HandleRuSroAuth()
+    {
+        var clientType = (GameClientType) comboBoxClientType.SelectedIndex;
+        if (clientType != GameClientType.RuSro) return true;
+
+        return await RuSroAuthService.Auth();
     }
 
     /// <summary>
@@ -639,6 +664,11 @@ internal partial class Main : DoubleBufferedControl
             captchaPanel.Visible = true;
         else
             captchaPanel.Visible = false;
+
+        if (clientType == GameClientType.RuSro)
+            groupBoxRuSroPin.Visible = true;
+        else
+            groupBoxRuSroPin.Visible = false;
     }
 
     /// <summary>
@@ -771,5 +801,15 @@ internal partial class Main : DoubleBufferedControl
     private void numQueueLeft_ValueChanged(object sender, EventArgs e)
     {
         GlobalConfig.Set("RSBot.General.QueueLeft", numQueueLeft.Value);
+    }
+
+    /// <summary>
+    ///     Handles the TextChanged event of the txtRadius control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+    private void textRuSroPin_TextChanged(object sender, EventArgs e)
+    {
+        GlobalConfig.Set("RSBot.RuSro.Pin", textRuSroPin.Text);
     }
 }
