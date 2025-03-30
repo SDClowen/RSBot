@@ -129,3 +129,5 @@ RSBot.General.AccountsWindow.label5="Дополнительный пароль: 
 RSBot.General.AccountsWindow.label3="Пароль:"
 RSBot.General.AccountsWindow.label2="Имя пользователя:"
 RSBot.General.AccountsWindow.buttonRemove="Удалить"
+RSBot.General.Main.GroupBox.Panel.checkWaitAfterDC="Ждать после ДК"
+RSBot.General.Main.GroupBox.Panel.lblWaitAfterDC="мин."

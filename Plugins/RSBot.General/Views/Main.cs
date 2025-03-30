@@ -105,6 +105,8 @@ internal partial class Main : DoubleBufferedControl
         txtStaticCaptcha.Text = GlobalConfig.Get<string>("RSBot.General.StaticCaptcha");
         checkEnableLoginDelay.Checked = GlobalConfig.Get<bool>("RSBot.General.EnableLoginDelay");
         numLoginDelay.Value = GlobalConfig.Get("RSBot.General.LoginDelay", 3);
+        checkWaitAfterDC.Checked = GlobalConfig.Get<bool>("RSBot.General.EnableWaitAfterDC");
+        numWaitAfterDC.Value = GlobalConfig.Get("RSBot.General.WaitAfterDC", 3);
         checkHideClient.Checked = GlobalConfig.Get<bool>("RSBot.General.HideOnStartClient");
         checkCharAutoSelect.Checked = GlobalConfig.Get<bool>("RSBot.General.CharacterAutoSelect");
         radioAutoSelectFirst.Checked = GlobalConfig.Get<bool>("RSBot.General.CharacterAutoSelectFirst", true);
@@ -322,7 +324,9 @@ internal partial class Main : DoubleBufferedControl
             btnStartClient.Enabled = false;
             btnStartClientless.Enabled = false;
 
-            Thread.Sleep(2000);
+            int delay = GlobalConfig.Get<int>("RSBot.General.WaitAfterDC") * 60 * 1000;
+            Log.Warn($"Attempting relogin in {delay / 1000} seconds...");
+            Thread.Sleep(delay);
 
             if (ruSroAuthenticated)
             {
@@ -693,6 +697,26 @@ internal partial class Main : DoubleBufferedControl
     private void numLoginDelay_ValueChanged(object sender, EventArgs e)
     {
         GlobalConfig.Set("RSBot.General.LoginDelay", numLoginDelay.Value);
+    }
+
+    /// <summary>
+    ///     Handles the CheckedChanged event of the checkWaitAfterDC control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+    private void checkWaitAfterDC_CheckedChanged(object sender, EventArgs e)
+    {
+        GlobalConfig.Set("RSBot.General.EnableWaitAfterDC", checkWaitAfterDC.Checked);
+    }
+
+    /// <summary>
+    ///     Handles the ValueChanged event of the numWaitAfterDC control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+    private void numWaitAfterDC_ValueChanged(object sender, EventArgs e)
+    {
+        GlobalConfig.Set("RSBot.General.WaitAfterDC", numWaitAfterDC.Value);
     }
 
     /// <summary>

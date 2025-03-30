@@ -47,8 +47,9 @@ public class ClientlessManager
         if (!Game.Clientless)
             return;
 
-        Log.Warn("Attempting relogin in 10 seconds...");
-        await Task.Delay(10000);
+        int delay = GlobalConfig.Get<int>("RSBot.General.WaitAfterDC") * 60 * 1000;
+        Log.Warn($"Attempting relogin in {delay / 1000} seconds...");
+        await Task.Delay(delay);
 
         Game.Start();
     }

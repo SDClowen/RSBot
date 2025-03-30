@@ -63,7 +63,7 @@ internal class AgentLoginRequestHook : IPacketHook
         }
 
         packet.WriteByte(Game.ReferenceManager.DivisionInfo.Locale);
-        packet.WriteBytes(new byte[6]);
+        packet.WriteBytes(Game.MacAddress);
         packet.Lock();
 
         return packet;

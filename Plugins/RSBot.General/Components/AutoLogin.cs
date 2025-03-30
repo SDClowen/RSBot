@@ -7,12 +7,9 @@ using RSBot.Core.Event;
 using RSBot.Core.Network;
 using RSBot.Core.Network.Protocol;
 using RSBot.General.Models;
-
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Server = RSBot.General.Models.Server;
+using System.Threading;
+using System;
 
 namespace RSBot.General.Components;
 
@@ -22,6 +19,8 @@ internal static class AutoLogin
     ///     Is the auto login pending <c>true</c> otherwise; <c>false</c>
     /// </summary>
     public static bool Pending;
+
+    public static CancellationTokenSource? Cts { get; private set; }
 
     /// <summary>
     ///     Is the auto login handling <c>true</c> otherwise; <c>false</c>
@@ -87,10 +86,27 @@ internal static class AutoLogin
         }
 
         //Wait for the configured delay before sending the login request
+        //It is possible to cancel in case of manual login to the server
         if (GlobalConfig.Get("RSBot.General.EnableLoginDelay", false))
         {
             var delay = GlobalConfig.Get("RSBot.General.LoginDelay", 10) * 1000;
-            await Task.Delay(delay);
+            Cts = new CancellationTokenSource();
+
+            try
+            {
+                await Task.Delay(delay, Cts.Token);
+            }
+            catch (TaskCanceledException)
+            {
+                _busy = false;
+                Log.Debug("Manual login has been detected. AutoLogin is cancelled this time!");
+                return;
+            }
+            finally
+            {
+                Cts.Dispose();
+                Cts = null;
+            }
         }
 
         SendLoginRequest(selectedAccount, server);
@@ -158,7 +174,8 @@ internal static class AutoLogin
         if (Game.ClientType == GameClientType.Turkey ||
             Game.ClientType == GameClientType.VTC_Game ||
             Game.ClientType == GameClientType.RuSro)
-            loginPacket.WriteBytes(new byte[6]); // mac
+            Game.MacAddress = new byte[6]; // pseudo mac
+            loginPacket.WriteBytes(Game.MacAddress);
 
         loginPacket.WriteUShort(server.Id);
 

@@ -43,8 +43,8 @@
             btnStartClientless = new SDUI.Controls.Button();
             btnGoClientless = new SDUI.Controls.Button();
             groupBox1 = new SDUI.Controls.GroupBox();
-            separator1 = new SDUI.Controls.Separator();
             panel3 = new System.Windows.Forms.Panel();
+            separator1 = new SDUI.Controls.Separator();
             radioAutoSelectHigher = new SDUI.Controls.Radio();
             radioAutoSelectFirst = new SDUI.Controls.Radio();
             checkCharAutoSelect = new SDUI.Controls.CheckBox();
@@ -78,6 +78,9 @@
             btnShowPending = new SDUI.Controls.Button();
             groupBoxRuSroPin = new SDUI.Controls.GroupBox();
             textRuSroPin = new SDUI.Controls.TextBox();
+            lblWaitAfterDC = new SDUI.Controls.Label();
+            numWaitAfterDC = new SDUI.Controls.NumUpDown();
+            checkWaitAfterDC = new SDUI.Controls.CheckBox();
             groupBox4.SuspendLayout();
             groupBox3.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -326,7 +329,6 @@
             // 
             groupBox1.AutoSize = true;
             groupBox1.BackColor = System.Drawing.Color.Transparent;
-            groupBox1.Controls.Add(separator1);
             groupBox1.Controls.Add(panel3);
             groupBox1.Controls.Add(captchaPanel);
             groupBox1.Controls.Add(autoLoginTopPanel);
@@ -336,23 +338,17 @@
             groupBox1.Padding = new System.Windows.Forms.Padding(3, 13, 3, 4);
             groupBox1.Radius = 10;
             groupBox1.ShadowDepth = 4;
-            groupBox1.Size = new System.Drawing.Size(417, 432);
+            groupBox1.Size = new System.Drawing.Size(417, 457);
             groupBox1.TabIndex = 14;
             groupBox1.TabStop = false;
             groupBox1.Text = "Automated login";
             // 
-            // separator1
-            // 
-            separator1.Dock = System.Windows.Forms.DockStyle.Top;
-            separator1.IsVertical = false;
-            separator1.Location = new System.Drawing.Point(3, 269);
-            separator1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            separator1.Name = "separator1";
-            separator1.Size = new System.Drawing.Size(411, 3);
-            separator1.TabIndex = 19;
-            // 
             // panel3
             // 
+            panel3.Controls.Add(lblWaitAfterDC);
+            panel3.Controls.Add(numWaitAfterDC);
+            panel3.Controls.Add(checkWaitAfterDC);
+            panel3.Controls.Add(separator1);
             panel3.Controls.Add(radioAutoSelectHigher);
             panel3.Controls.Add(radioAutoSelectFirst);
             panel3.Controls.Add(checkCharAutoSelect);
@@ -366,15 +362,25 @@
             panel3.Location = new System.Drawing.Point(3, 269);
             panel3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             panel3.Name = "panel3";
-            panel3.Size = new System.Drawing.Size(411, 159);
+            panel3.Size = new System.Drawing.Size(411, 184);
             panel3.TabIndex = 1;
+            // 
+            // separator1
+            // 
+            separator1.Dock = System.Windows.Forms.DockStyle.Top;
+            separator1.IsVertical = false;
+            separator1.Location = new System.Drawing.Point(0, 0);
+            separator1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            separator1.Name = "separator1";
+            separator1.Size = new System.Drawing.Size(411, 3);
+            separator1.TabIndex = 19;
             // 
             // radioAutoSelectHigher
             // 
             radioAutoSelectHigher.AutoSize = true;
             radioAutoSelectHigher.Enabled = false;
             radioAutoSelectHigher.Font = new System.Drawing.Font("Segoe UI", 9F);
-            radioAutoSelectHigher.Location = new System.Drawing.Point(226, 116);
+            radioAutoSelectHigher.Location = new System.Drawing.Point(226, 151);
             radioAutoSelectHigher.Margin = new System.Windows.Forms.Padding(0);
             radioAutoSelectHigher.Name = "radioAutoSelectHigher";
             radioAutoSelectHigher.Ripple = true;
@@ -390,7 +396,7 @@
             radioAutoSelectFirst.Checked = true;
             radioAutoSelectFirst.Enabled = false;
             radioAutoSelectFirst.Font = new System.Drawing.Font("Segoe UI", 9F);
-            radioAutoSelectFirst.Location = new System.Drawing.Point(75, 116);
+            radioAutoSelectFirst.Location = new System.Drawing.Point(75, 151);
             radioAutoSelectFirst.Margin = new System.Windows.Forms.Padding(0);
             radioAutoSelectFirst.Name = "radioAutoSelectFirst";
             radioAutoSelectFirst.Ripple = true;
@@ -407,7 +413,7 @@
             checkCharAutoSelect.BackColor = System.Drawing.Color.Transparent;
             checkCharAutoSelect.Depth = 0;
             checkCharAutoSelect.Enabled = false;
-            checkCharAutoSelect.Location = new System.Drawing.Point(75, 85);
+            checkCharAutoSelect.Location = new System.Drawing.Point(75, 120);
             checkCharAutoSelect.Margin = new System.Windows.Forms.Padding(0);
             checkCharAutoSelect.MouseLocation = new System.Drawing.Point(-1, -1);
             checkCharAutoSelect.Name = "checkCharAutoSelect";
@@ -423,7 +429,7 @@
             checkHideClient.AutoSize = true;
             checkHideClient.BackColor = System.Drawing.Color.Transparent;
             checkHideClient.Depth = 0;
-            checkHideClient.Location = new System.Drawing.Point(226, 85);
+            checkHideClient.Location = new System.Drawing.Point(226, 120);
             checkHideClient.Margin = new System.Windows.Forms.Padding(0);
             checkHideClient.MouseLocation = new System.Drawing.Point(-1, -1);
             checkHideClient.Name = "checkHideClient";
@@ -489,7 +495,7 @@
             checkStartBot.AutoSize = true;
             checkStartBot.BackColor = System.Drawing.Color.Transparent;
             checkStartBot.Depth = 0;
-            checkStartBot.Location = new System.Drawing.Point(75, 53);
+            checkStartBot.Location = new System.Drawing.Point(75, 88);
             checkStartBot.Margin = new System.Windows.Forms.Padding(0);
             checkStartBot.MouseLocation = new System.Drawing.Point(-1, -1);
             checkStartBot.Name = "checkStartBot";
@@ -505,7 +511,7 @@
             checkUseReturnScroll.AutoSize = true;
             checkUseReturnScroll.BackColor = System.Drawing.Color.Transparent;
             checkUseReturnScroll.Depth = 0;
-            checkUseReturnScroll.Location = new System.Drawing.Point(226, 53);
+            checkUseReturnScroll.Location = new System.Drawing.Point(226, 88);
             checkUseReturnScroll.Margin = new System.Windows.Forms.Padding(0);
             checkUseReturnScroll.MouseLocation = new System.Drawing.Point(-1, -1);
             checkUseReturnScroll.Name = "checkUseReturnScroll";
@@ -857,7 +863,7 @@
             btnShowPending.Name = "btnShowPending";
             btnShowPending.Radius = 6;
             btnShowPending.ShadowDepth = 4F;
-            btnShowPending.Size = new System.Drawing.Size(214, 31);
+            btnShowPending.Size = new System.Drawing.Size(187, 23);
             btnShowPending.TabIndex = 24;
             btnShowPending.Text = "Toggle Pending Window";
             btnShowPending.UseVisualStyleBackColor = true;
@@ -894,6 +900,56 @@
             textRuSroPin.UseSystemPasswordChar = false;
             textRuSroPin.TextChanged += textRuSroPin_TextChanged;
             // 
+            // lblWaitAfterDC
+            // 
+            lblWaitAfterDC.ApplyGradient = false;
+            lblWaitAfterDC.AutoSize = true;
+            lblWaitAfterDC.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            lblWaitAfterDC.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            lblWaitAfterDC.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            lblWaitAfterDC.GradientAnimation = false;
+            lblWaitAfterDC.Location = new System.Drawing.Point(325, 60);
+            lblWaitAfterDC.Name = "lblWaitAfterDC";
+            lblWaitAfterDC.Size = new System.Drawing.Size(58, 19);
+            lblWaitAfterDC.TabIndex = 39;
+            lblWaitAfterDC.Text = "minutes";
+            // 
+            // numWaitAfterDC
+            // 
+            numWaitAfterDC.BackColor = System.Drawing.Color.Transparent;
+            numWaitAfterDC.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            numWaitAfterDC.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            numWaitAfterDC.Location = new System.Drawing.Point(226, 54);
+            numWaitAfterDC.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            numWaitAfterDC.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
+            numWaitAfterDC.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numWaitAfterDC.MinimumSize = new System.Drawing.Size(91, 33);
+            numWaitAfterDC.Name = "numWaitAfterDC";
+            numWaitAfterDC.Size = new System.Drawing.Size(91, 33);
+            numWaitAfterDC.TabIndex = 41;
+            numWaitAfterDC.Value = new decimal(new int[] { 3, 0, 0, 0 });
+            numWaitAfterDC.ValueChanged += numWaitAfterDC_ValueChanged;
+            // 
+            // checkWaitAfterDC
+            // 
+            checkWaitAfterDC.AutoSize = true;
+            checkWaitAfterDC.BackColor = System.Drawing.Color.Transparent;
+            checkWaitAfterDC.Depth = 0;
+            checkWaitAfterDC.Location = new System.Drawing.Point(75, 52);
+            checkWaitAfterDC.Margin = new System.Windows.Forms.Padding(0);
+            checkWaitAfterDC.MouseLocation = new System.Drawing.Point(-1, -1);
+            checkWaitAfterDC.Name = "checkWaitAfterDC";
+            checkWaitAfterDC.Ripple = true;
+            checkWaitAfterDC.Size = new System.Drawing.Size(124, 30);
+            checkWaitAfterDC.TabIndex = 40;
+            checkWaitAfterDC.Text = "Wait after DC";
+            checkWaitAfterDC.UseVisualStyleBackColor = false;
+            checkWaitAfterDC.CheckedChanged += checkWaitAfterDC_CheckedChanged;
+            // 
             // Main
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -913,7 +969,7 @@
             Font = new System.Drawing.Font("Segoe UI", 9F);
             Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             Name = "Main";
-            Size = new System.Drawing.Size(874, 661);
+            Size = new System.Drawing.Size(832, 619);
             groupBox4.ResumeLayout(false);
             groupBox4.PerformLayout();
             groupBox3.ResumeLayout(false);
@@ -985,5 +1041,8 @@
         private SDUI.Controls.CheckBox checkEnableQueueLogs;
         private SDUI.Controls.GroupBox groupBoxRuSroPin;
         private SDUI.Controls.TextBox textRuSroPin;
+        private SDUI.Controls.Label lblWaitAfterDC;
+        private SDUI.Controls.NumUpDown numWaitAfterDC;
+        private SDUI.Controls.CheckBox checkWaitAfterDC;
     }
 }

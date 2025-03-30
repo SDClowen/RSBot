@@ -332,9 +332,9 @@ internal static class RuSroAuthService
                     Log.Debug("License agreement not accepted, attempting to accept it...");
 
                     var errorData = error.GetProperty("data");
-                    string licenseAgreementId = errorData.GetProperty("licenseAgreementId").GetString();
+                    int licenseAgreementId = errorData.GetProperty("licenseAgreementId").GetInt32();
 
-                    string acceptLicensePayload = $"{{\"jsonrpc\":\"2.0\",\"method\":\"acceptLicense\",\"params\":{{\"userId\":{sub},\"licenseAgreementId\":\"{licenseAgreementId}\",\"lang\":\"ru\"}},\"id\":\"{Guid.NewGuid()}\"}}";
+                    string acceptLicensePayload = $"{{\"jsonrpc\":\"2.0\",\"method\":\"acceptLicense\",\"params\":{{\"userId\":{sub},\"licenseAgreementId\":{licenseAgreementId},\"lang\":\"ru\"}},\"id\":\"{Guid.NewGuid()}\"}}";
 
                     Log.Debug($"Sending acceptLicense payload: {acceptLicensePayload}");
                     await SendMessage(clientWebSocket, acceptLicensePayload);
