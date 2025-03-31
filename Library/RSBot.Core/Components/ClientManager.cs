@@ -86,6 +86,7 @@ public class ClientManager
             Process sroClientProcess;
             var startTime = DateTime.Now;
 
+            Thread.Sleep(500); //wait for init new process
             do
             {
                 sroClientProcess = Process.GetProcessesByName("sro_client")
