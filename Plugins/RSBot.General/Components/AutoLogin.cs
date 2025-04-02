@@ -171,12 +171,10 @@ internal static class AutoLogin
             loginPacket.WriteString(account.Password);
         }
 
-        var random = new Random();
         if (Game.ClientType == GameClientType.Turkey ||
             Game.ClientType == GameClientType.VTC_Game ||
             Game.ClientType == GameClientType.RuSro)
-            Game.MacAddress = new byte[6]; // pseudo mac
-            random.NextBytes(Game.MacAddress);
+            Game.MacAddress = GenerateMacAddress();
             loginPacket.WriteBytes(Game.MacAddress);
 
         loginPacket.WriteUShort(server.Id);
@@ -190,6 +188,25 @@ internal static class AutoLogin
         Serverlist.Joining = server;
 
         _busy = false;
+    }
+
+    /// <summary>
+    ///     Generates valid MAC address.
+    /// </summary>
+    /// <returns></returns>
+    private static byte[] GenerateMacAddress()
+    {
+        Random rand = new Random();
+        byte firstByte = (byte)(rand.Next(0, 256) & 0xFE);
+
+        byte[] macBytes = new byte[6];
+        macBytes[0] = firstByte;
+        for (int i = 1; i < 6; i++)
+        {
+            macBytes[i] = (byte)rand.Next(0, 256);
+        }
+
+        return macBytes;
     }
 
     /// <summary>

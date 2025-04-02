@@ -293,13 +293,41 @@ internal static class RuSroAuthService
         Log.Debug($"Sending payload: {payload}");
         await SendMessage(clientWebSocket, payload);
 
-        string response = await ReceiveMessage(clientWebSocket);
-        Log.Debug($"Received: {response}");
-
-        using (JsonDocument document = JsonDocument.Parse(response))
+        int attempts = 0;
+        const int maxAttempts = 10;
+        while (attempts < maxAttempts)
         {
-            return document.RootElement.GetProperty("result")[0].GetProperty("login").GetString();
+            attempts++;
+            string response = await ReceiveMessage(clientWebSocket);
+            Log.Debug($"Received: {response}");
+
+            using (JsonDocument document = JsonDocument.Parse(response))
+            {
+                if (document.RootElement.TryGetProperty("notification", out var notification) &&
+                    notification.GetString() == "invalidate" &&
+                    document.RootElement.TryGetProperty("params", out var paramsElement) &&
+                    paramsElement.EnumerateArray().Any(p =>
+                        p.TryGetProperty("type", out var type) &&
+                        type.GetString() == "webshopOwnPromoCodes"))
+                {
+                    string getWebshopOwnPromoCodesPayload = $"{{\"jsonrpc\":\"2.0\",\"method\":\"getWebshopOwnPromoCodes\",\"params\":{{ \"userId\":{sub},\"from\":0,\"count\":20,\"lang\":\"ru\"}},\"id\":\"{Guid.NewGuid()}\"}}";
+                    Log.Debug($"Some promocodes has experied. Sending promocodes update request: {getWebshopOwnPromoCodesPayload}");
+                    await SendMessage(clientWebSocket, payload);
+
+                    string getWebshopOwnPromoCodesResponse = await ReceiveMessage(clientWebSocket);
+                    continue;
+                }
+
+                if (!document.RootElement.TryGetProperty("result", out JsonElement resultElement))
+                {
+                    Log.Error($"Response does not contain 'result': {response}");
+                    throw new Exception("Unexpected response format: 'result' key is missing");
+                }
+
+                return resultElement[0].GetProperty("login").GetString();
+            }
         }
+        throw new Exception("Max attempts reached, exiting getGameAccount loop.");
     }
 
     private static async Task<(string, string)> SendCreateGameTokenCodeRequest(ClientWebSocket clientWebSocket,
@@ -310,18 +338,28 @@ internal static class RuSroAuthService
         Log.Debug($"Sending first payload: {payload}");
         await SendMessage(clientWebSocket, payload);
 
-        while (true)
+        int attempts = 0;
+        const int maxAttempts = 10;
+        while (attempts < maxAttempts)
         {
+            attempts++;
             string response = await ReceiveMessage(clientWebSocket);
             Log.Debug($"Received response: {response}");
 
             using (JsonDocument document = JsonDocument.Parse(response))
             {
-                if (document.RootElement.TryGetProperty("notification", out JsonElement notification) &&
-                    notification.GetString() == "invalidate")
+                if (document.RootElement.TryGetProperty("notification", out var notification) &&
+                    notification.GetString() == "invalidate" &&
+                    document.RootElement.TryGetProperty("params", out var paramsElement) &&
+                    paramsElement.EnumerateArray().Any(p =>
+                        p.TryGetProperty("type", out var type) &&
+                        type.GetString() == "webshopOwnPromoCodes"))
                 {
-                    Log.Debug("Received 'invalidate' notification, resending payload...");
+                    string getWebshopOwnPromoCodesPayload = $"{{\"jsonrpc\":\"2.0\",\"method\":\"getWebshopOwnPromoCodes\",\"params\":{{ \"userId\":{sub},\"from\":0,\"count\":20,\"lang\":\"ru\"}},\"id\":\"{Guid.NewGuid()}\"}}";
+                    Log.Debug($"Some promocodes has experied. Sending promocodes update request: {getWebshopOwnPromoCodesPayload}");
                     await SendMessage(clientWebSocket, payload);
+
+                    string getWebshopOwnPromoCodesResponse = await ReceiveMessage(clientWebSocket);
                     continue;
                 }
 
@@ -358,12 +396,18 @@ internal static class RuSroAuthService
                     }
                 }
 
-                var resultElement = document.RootElement.GetProperty("result");
+                if (!document.RootElement.TryGetProperty("result", out JsonElement resultElement))
+                {
+                    Log.Error($"Response does not contain 'result': {response}");
+                    throw new Exception("Unexpected response format: 'result' key is missing");
+                }
+
                 string extractedLogin = resultElement.GetProperty("login").GetString();
                 string password = resultElement.GetProperty("password").GetString();
                 return (extractedLogin, password);
             }
         }
+        throw new Exception("Max attempts reached, exiting createGameTokenCode loop.");
     }
 
     private static async Task SendMessage(ClientWebSocket clientWebSocket, string message)
