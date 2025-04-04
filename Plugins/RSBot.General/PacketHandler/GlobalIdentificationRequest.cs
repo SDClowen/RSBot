@@ -78,7 +78,7 @@ internal class GlobalIdentificationRequest : IPacketHandler
             }
 
             response.WriteByte(Game.ReferenceManager.DivisionInfo.Locale);
-            response.WriteBytes(new byte[6]);
+            response.WriteBytes(Game.MacAddress);
             PacketManager.SendPacket(response, PacketDestination.Server);
         }
     }

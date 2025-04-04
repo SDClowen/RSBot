@@ -67,6 +67,10 @@ internal class GatewayLoginResponse : IPacketHandler
                 AutoLogin.Handle();
                 break;
 
+            case 15:
+                Log.WarnLang("APIServerError");
+                break;
+
             case 26: // queue
 
                 var count = packet.ReadUShort();
@@ -87,6 +91,10 @@ internal class GatewayLoginResponse : IPacketHandler
             case 29: // ksro block
                 Log.WarnLang("ServerFull");
                 AutoLogin.Handle();
+                break;
+
+            case 43:
+                Log.WarnLang("TooManyAttempts");
                 break;
 
             default:
