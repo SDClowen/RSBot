@@ -134,7 +134,7 @@ public class SkillInfo
             if (_testTick == 0)
                 return false;
 
-            return Kernel.TickCount - _testTick > _duration + 10000;
+            return Kernel.TickCount - _testTick > _duration + 10000 && _duration != 0; //bards have buffs with duration = 0
         }
     }
 

@@ -29,13 +29,13 @@ internal class ActionBuffRemoveResponse : IPacketHandler
                 var playerSkill = Game.Player.Skills.GetSkillInfoById(buff.Id);
                 playerSkill?.Reset();
 
-                return;
+                continue;
             }
 
             if (!SpawnManager.TryGetEntity<SpawnedBionic>(p => p.State.TryGetActiveBuff(token, out _), out var bionic))
             {
                 Log.Warn($"{token} not found while trying remove buff with token!");
-                return;
+                continue;
             }
 
             bionic.State.TryRemoveActiveBuff(token, out _);
