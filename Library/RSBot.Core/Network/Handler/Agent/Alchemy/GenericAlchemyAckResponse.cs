@@ -34,6 +34,7 @@ internal static class GenericAlchemyAckResponse
         }
 
         var isSuccess = packet.ReadBool();
+        packet.ReadByte(); //???
         var slot = packet.ReadByte();
 
         var oldItem = Game.Player.Inventory.GetItemAt(slot);
