@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using RSBot.Core;
 using RSBot.Core.Event;
+using RSBot.Core.Objects;
 using RSBot.Core.Objects.Party;
 
 namespace RSBot.Default.Bundle.PartyBuffing;
@@ -57,9 +58,7 @@ internal class PartyBuffingBundle : IBundle
                 continue;
 
             //if party member is dead, dont try to buff
-            var memberHPMP = member.HealthMana.ToString("X2");
-            int hpPer = Convert.ToByte(memberHPMP[0].ToString(), 16) * 10;
-            if (hpPer == 0)
+            if (member.Player.State.LifeState == LifeState.Dead)
                 continue;
 
             Log.Status($"Buffing party");
@@ -73,7 +72,7 @@ internal class PartyBuffingBundle : IBundle
                 if (skill == null || skill.HasCooldown)
                     continue;
                 var isActive = member.Player.State.HasActiveBuff(skill, out var info);
-                if (skill.Isbugged && info.Isbugged)
+                if (isActive && skill.Isbugged && info.Isbugged)
                 {
                     Log.Notify($"The buff on {member.Name} [{skill.Token}-{skill.Record?.GetRealName()}] expired");
 
