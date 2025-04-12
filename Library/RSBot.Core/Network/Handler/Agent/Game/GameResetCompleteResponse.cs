@@ -29,6 +29,11 @@ internal class GameResetRequest : IPacketHandler
         Game.Ready = false;
         Log.Debug("Game client is loading...");
 
+        Packet gameResetResponse = null;
+        if (Game.Clientless)
+            gameResetResponse = new Packet(0x34B6);
+            PacketManager.SendPacket(gameResetResponse, PacketDestination.Server);
+
         if (Game.Player.Teleportation == null)
             return;
 
