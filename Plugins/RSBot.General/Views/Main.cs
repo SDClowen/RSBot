@@ -671,11 +671,6 @@ internal partial class Main : DoubleBufferedControl
             captchaPanel.Visible = true;
         else
             captchaPanel.Visible = false;
-
-        if (clientType == GameClientType.RuSro)
-            groupBoxRuSroPin.Visible = true;
-        else
-            groupBoxRuSroPin.Visible = false;
     }
 
     /// <summary>
@@ -828,15 +823,5 @@ internal partial class Main : DoubleBufferedControl
     private void numQueueLeft_ValueChanged(object sender, EventArgs e)
     {
         GlobalConfig.Set("RSBot.General.QueueLeft", numQueueLeft.Value);
-    }
-
-    /// <summary>
-    ///     Handles the TextChanged event of the txtRadius control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    private void textRuSroPin_TextChanged(object sender, EventArgs e)
-    {
-        GlobalConfig.Set("RSBot.RuSro.Pin", textRuSroPin.Text);
     }
 }

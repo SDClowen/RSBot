@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net;
@@ -13,6 +14,7 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 using RSBot.Core;
 using RSBot.Core.Components;
+using SDUI.Controls;
 
 namespace RSBot.General.Components;
 
@@ -30,13 +32,13 @@ internal static class RuSroAuthService
         var selectedAccount = Accounts.SavedAccounts?.Find(p =>
             p.Username == GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername"));
 
-        Log.Debug(selectedAccount?.Username);
-
         if (selectedAccount == null)
         {
             MessageBox.Show("No account selected", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return false;
         }
+
+        Log.Debug(selectedAccount?.Username);
 
         string username = selectedAccount.Username;
         string password = selectedAccount.Password;
@@ -59,10 +61,9 @@ internal static class RuSroAuthService
         return false;
     }
 
-    private static async Task<SESSION_STATE> Activate()
+    private static async Task<SESSION_STATE> Activate(string confirmationCode)
     {
         var sessionId = GlobalConfig.Get<string>("RSBot.RuSro.sessionId", "").Trim();
-        string confirmationCode = GlobalConfig.Get("RSBot.RuSro.Pin", "").Trim();
         Log.Debug($"Sessions ID: {sessionId}");
         Log.Debug($"PIN: {confirmationCode}");
 
@@ -97,7 +98,7 @@ internal static class RuSroAuthService
 
         if (confirmationResponse.IsSuccessStatusCode)
         {
-            MessageBox.Show("Successfully activated", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Log.Notify("Successfully activated");
             return SESSION_STATE.SUCCESSFULLY_ACTIVATED;
         }
 
@@ -113,13 +114,26 @@ internal static class RuSroAuthService
 
     public static async Task<string> TokenResponse(string username, string password)
     {
-        var tokenRequestContent = new FormUrlEncodedContent(new[]
+        var parameters = new List<KeyValuePair<string, string>>();
+        string refreshToken = GlobalConfig.Get<string>("RSBot.RuSro.refreshToken");
+        string accessToken = GlobalConfig.Get<string>("RSBot.RuSro.accessToken");
+        if (!string.IsNullOrEmpty(refreshToken) && 
+            !string.IsNullOrEmpty(accessToken) && 
+            ExtractUsernameEmailFromToken(accessToken).Contains(username.ToLower()))
         {
-            new KeyValuePair<string, string>("username", username),
-            new KeyValuePair<string, string>("password", password),
-            new KeyValuePair<string, string>("secure", "true"),
-            new KeyValuePair<string, string>("grant_type", "password")
-        });
+            parameters.Add(new KeyValuePair<string, string>("grant_type", "refresh_token"));
+            parameters.Add(new KeyValuePair<string, string>("refresh_token", refreshToken));
+
+        }
+        else
+        {
+            parameters.Add(new KeyValuePair<string, string>("username", username));
+            parameters.Add(new KeyValuePair<string, string>("password", password));
+            parameters.Add(new KeyValuePair<string, string>("secure", "true"));
+            parameters.Add(new KeyValuePair<string, string>("grant_type", "password"));
+        }
+        var tokenRequestContent = new FormUrlEncodedContent(parameters);
+
         var hwid = GlobalConfig.Get<string>("RSBot.RuSro.hwid", randomHwid);
         var launcherId = GlobalConfig.Get<string>("RSBot.RuSro.launcherid", randomLauncherId);
 
@@ -136,27 +150,47 @@ internal static class RuSroAuthService
         var tokenResponse =
             await client.PostAsync("https://launcherbff.ru.4game.com/connect/token", tokenRequestContent);
         var tokenResponseContent = await tokenResponse.Content.ReadAsStringAsync();
-        // var tokenResponseContent =
-        // "{\"error\":{\"data\":{\"length\":6,\"alphabet\":\"0123456789\",\"isResend\":false,\"contact\":\"b.s*******@outlook.de\",\"sessionId\":\"8756c1eb-0ba5-4404-bf9a-3e9c4274e46d\",\"requester\":\"guard\",\"resendTimeout\":\"00:00:30\",\"method\":\"^login$\"},\"description\":\"Need to confirm with code from email\",\"code\":\"guard.emailcoderequired\"}}";
         return tokenResponseContent;
     }
 
     private static async Task<string> GetAccessTokenAsync(string username, string password)
     {
-        SESSION_STATE sessionState = await Activate();
-        Log.Debug("Sessions State: " + sessionState);
         string tokenResponseContent = await TokenResponse(username, password);
 
-        if (tokenResponseContent.Contains("Need to confirm with code from email"))
+        if (tokenResponseContent.Contains("guard.emailcoderequired"))
         {
             GlobalConfig.Set("RSBot.RuSro.sessionId", ExtractSessionId(tokenResponseContent));
-            MessageBox.Show("You have got an email with PIN", "Information",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
-            return "";
+
+            string dialogFormTitle = LanguageManager.GetLangBySpecificKey("RSBot.General", "RuSroConfirmationCodeFormTitle", "Confirmation code");
+            string dialogTitle = LanguageManager.GetLangBySpecificKey("RSBot.General", "RuSroConfirmationCodeTitle", "You have got an email with PIN");
+            string dialogContent = LanguageManager.GetLangBySpecificKey("RSBot.General", "RuSroConfirmationCodeContent", "Enter it and press OK");
+
+            var inputDialog = new InputDialog(dialogFormTitle, dialogTitle, dialogContent);
+            if (inputDialog.ShowDialog() != DialogResult.OK)
+                return string.Empty;
+
+            string confirmationCode = (string)inputDialog.Value;
+            SESSION_STATE sessionState = await Activate(confirmationCode);
+            Log.Debug("Sessions State: " + sessionState);
+
+            if (sessionState == SESSION_STATE.SUCCESSFULLY_ACTIVATED)
+                tokenResponseContent = await TokenResponse(username, password);
+            else
+                return string.Empty;
         }
 
         string accessToken = ExtractAccessToken(tokenResponseContent);
+        string refreshToken = ExtractRefreshToken(tokenResponseContent);
         GlobalConfig.Set("RSBot.RuSro.accessToken", accessToken);
+        GlobalConfig.Set("RSBot.RuSro.refreshToken", refreshToken);
+        GlobalConfig.Save();
+
+        if (string.IsNullOrEmpty(accessToken))
+        {
+            MessageBox.Show(tokenResponseContent, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return string.Empty;
+        }
+
         return accessToken;
     }
 
@@ -172,6 +206,24 @@ internal static class RuSroAuthService
         // Extract the access_token from the response
         var jsonResponse = JsonConvert.DeserializeObject<dynamic>(responseContent);
         return jsonResponse.access_token;
+    }
+
+    private static string ExtractRefreshToken(string responseContent)
+    {
+        // Extract the refresh_token from the response
+        var jsonResponse = JsonConvert.DeserializeObject<dynamic>(responseContent);
+        return jsonResponse.refresh_token;
+    }
+
+    private static string[] ExtractUsernameEmailFromToken(string accessToken)
+    {
+        var handler = new JwtSecurityTokenHandler();
+        var jwtToken = handler.ReadJwtToken(accessToken);
+
+        string[] result = [
+            jwtToken.Claims.FirstOrDefault(c => c.Type == "username")?.Value.ToLower(),
+            jwtToken.Claims.FirstOrDefault(c => c.Type == "email")?.Value.ToLower() ];
+        return result;
     }
 
     private static string GenerateRandomString(int length = 64)

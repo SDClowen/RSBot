@@ -76,8 +76,6 @@
             checkAutoHidePendingWindow = new SDUI.Controls.CheckBox();
             checkEnableQueueNotification = new SDUI.Controls.CheckBox();
             btnShowPending = new SDUI.Controls.Button();
-            groupBoxRuSroPin = new SDUI.Controls.GroupBox();
-            textRuSroPin = new SDUI.Controls.TextBox();
             lblWaitAfterDC = new SDUI.Controls.Label();
             numWaitAfterDC = new SDUI.Controls.NumUpDown();
             checkWaitAfterDC = new SDUI.Controls.CheckBox();
@@ -89,7 +87,6 @@
             captchaPanel.SuspendLayout();
             autoLoginTopPanel.SuspendLayout();
             groupBox5.SuspendLayout();
-            groupBoxRuSroPin.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -869,37 +866,6 @@
             btnShowPending.UseVisualStyleBackColor = true;
             btnShowPending.Click += btnShowPending_Click;
             // 
-            // groupBoxRuSroPin
-            // 
-            groupBoxRuSroPin.BackColor = System.Drawing.Color.Transparent;
-            groupBoxRuSroPin.Controls.Add(textRuSroPin);
-            groupBoxRuSroPin.Location = new System.Drawing.Point(451, 576);
-            groupBoxRuSroPin.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            groupBoxRuSroPin.Name = "groupBoxRuSroPin";
-            groupBoxRuSroPin.Padding = new System.Windows.Forms.Padding(3, 11, 3, 4);
-            groupBoxRuSroPin.Radius = 10;
-            groupBoxRuSroPin.ShadowDepth = 4;
-            groupBoxRuSroPin.Size = new System.Drawing.Size(403, 80);
-            groupBoxRuSroPin.TabIndex = 30;
-            groupBoxRuSroPin.TabStop = false;
-            groupBoxRuSroPin.Text = "Email Pin";
-            // 
-            // textRuSroPin
-            // 
-            textRuSroPin.Font = new System.Drawing.Font("Segoe UI", 12F);
-            textRuSroPin.Location = new System.Drawing.Point(26, 40);
-            textRuSroPin.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            textRuSroPin.MaxLength = 32767;
-            textRuSroPin.MultiLine = false;
-            textRuSroPin.Name = "textRuSroPin";
-            textRuSroPin.PassFocusShow = false;
-            textRuSroPin.Radius = 2;
-            textRuSroPin.Size = new System.Drawing.Size(321, 32);
-            textRuSroPin.TabIndex = 1;
-            textRuSroPin.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
-            textRuSroPin.UseSystemPasswordChar = false;
-            textRuSroPin.TextChanged += textRuSroPin_TextChanged;
-            // 
             // lblWaitAfterDC
             // 
             lblWaitAfterDC.ApplyGradient = false;
@@ -955,7 +921,6 @@
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             AutoScroll = true;
-            Controls.Add(groupBoxRuSroPin);
             Controls.Add(groupBox5);
             Controls.Add(comboBoxClientType);
             Controls.Add(groupBox4);
@@ -984,7 +949,6 @@
             autoLoginTopPanel.PerformLayout();
             groupBox5.ResumeLayout(false);
             groupBox5.PerformLayout();
-            groupBoxRuSroPin.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1039,8 +1003,6 @@
         private SDUI.Controls.CheckBox checkAutoHidePendingWindow;
         private SDUI.Controls.Label label3;
         private SDUI.Controls.CheckBox checkEnableQueueLogs;
-        private SDUI.Controls.GroupBox groupBoxRuSroPin;
-        private SDUI.Controls.TextBox textRuSroPin;
         private SDUI.Controls.Label lblWaitAfterDC;
         private SDUI.Controls.NumUpDown numWaitAfterDC;
         private SDUI.Controls.CheckBox checkWaitAfterDC;
