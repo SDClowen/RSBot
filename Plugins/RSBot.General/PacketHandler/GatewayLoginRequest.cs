@@ -37,7 +37,7 @@ internal class GatewayLoginRequest : IPacketHandler
              Game.ClientType == GameClientType.Turkey) ||
             Game.ClientType == GameClientType.VTC_Game ||
             Game.ClientType == GameClientType.RuSro)
-            Game.MacAddress = packet.ReadBytes(6);
+            packet.ReadBytes(6);
 
         var shardId = packet.ReadUShort();
 
