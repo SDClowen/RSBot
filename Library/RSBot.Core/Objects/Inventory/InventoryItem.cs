@@ -248,7 +248,7 @@ public class InventoryItem
     /// <summary>
     ///     Drop the item
     /// </summary>
-    public bool Drop(bool cos = false, uint cosUniqueId = 0)
+    public bool Drop(bool cos = false, uint? cosUniqueId = 0)
     {
         if (Record.CanDrop == ObjectDropType.No)
             return false;

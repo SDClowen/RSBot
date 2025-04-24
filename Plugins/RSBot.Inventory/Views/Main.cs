@@ -405,7 +405,7 @@ public partial class Main : DoubleBufferedControl
             return;
 
         var cos = _selectedIndex == 3;
-        inventoryItem?.Drop(cos, Game.Player.AbilityPet.UniqueId);
+        inventoryItem?.Drop(cos, Game.Player.AbilityPet?.UniqueId);
     }
 
     private void contextMenuStrip_Opening(object sender, CancelEventArgs e)
