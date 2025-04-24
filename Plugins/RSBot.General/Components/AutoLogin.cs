@@ -171,10 +171,11 @@ internal static class AutoLogin
             loginPacket.WriteString(account.Password);
         }
 
+        Game.MacAddress = GenerateMacAddress();
+
         if (Game.ClientType == GameClientType.Turkey ||
             Game.ClientType == GameClientType.VTC_Game ||
             Game.ClientType == GameClientType.RuSro)
-            Game.MacAddress = GenerateMacAddress();
             loginPacket.WriteBytes(Game.MacAddress);
 
         loginPacket.WriteUShort(server.Id);
