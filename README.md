@@ -41,7 +41,7 @@ Hello reputable Silkroad Online community. This is a free and open source Silkro
 ## Building the project
 
 1. Clone the repository (`git clone --recursive https://github.com/SDClowen/RSBot.git`)
-2. Open the project in Visual Studio
+2. Open the project in Visual Studio 2022 (Required workloads are `.NET desktop development` and `Desktop development with C++`)
 3. Built the project (`Ctrl+Shift+B`)
 4. Copy the contents of `Dependencies` directory to `Build\Data`
 5. Run the executable from `Build\RSBot.exe`
