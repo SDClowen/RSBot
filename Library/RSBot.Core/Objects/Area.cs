@@ -98,8 +98,8 @@ public struct Area
     {
         var angle = _random.Next(360);
 
-        var newPosX = Position.X + Radius / 2 * MathF.Cos(angle);
-        var newPosY = Position.Y + Radius / 2 * MathF.Sin(angle);
+        var newPosX = Position.X + Radius / 1.5f * MathF.Cos(angle);
+        var newPosY = Position.Y + Radius / 1.5f * MathF.Sin(angle);
 
         return new Position(newPosX, newPosY, Position.Region);
     }
