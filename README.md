@@ -17,6 +17,7 @@ Hello reputable Silkroad Online community. This is a free and open source Silkro
 | Global          | iSRO (International Silkroad)      |
 | Turkey          | TRSRO                              |
 | Korean          | KSRO                               |
+| Russia          | RuSro                              |
 | Rigid           | iSRO (International Silkroad 2015) |
 | ~~Chinese Old~~ | ~~MHTC~~                           |
 | ~~Japanese-R~~  |                                    |
