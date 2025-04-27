@@ -37,6 +37,7 @@ internal class GatewayLoginResponse : IPacketHandler
             Log.NotifyLang("AuthGetewaySuccess");
             AutoLogin.Pending = false;
             View.PendingWindow?.Hide();
+            View.PendingWindow?.StopClientlessQueueTask();
 
             return;
         }

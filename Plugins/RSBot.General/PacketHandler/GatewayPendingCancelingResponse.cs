@@ -32,6 +32,7 @@ internal class GatewayPendingCancelingResponse : IPacketHandler
         {
             AutoLogin.Pending = false;
             View.PendingWindow?.Hide();
+            View.PendingWindow?.StopClientlessQueueTask();
         }
     }
 }

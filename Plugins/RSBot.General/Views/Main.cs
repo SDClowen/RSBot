@@ -68,6 +68,7 @@ internal partial class Main : DoubleBufferedControl
     {
         AutoLogin.Pending = false;
         View.PendingWindow?.Hide();
+        View.PendingWindow?.StopClientlessQueueTask();
 
         if (!Kernel.Proxy.IsConnectedToAgentserver)
         {

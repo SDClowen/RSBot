@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net;
@@ -185,6 +184,18 @@ internal static class RuSroAuthService
         GlobalConfig.Set("RSBot.RuSro.refreshToken", refreshToken);
         GlobalConfig.Save();
 
+        if (tokenResponseContent.Contains("unauthorized"))
+        {
+            MessageBox.Show($"Session is expired, try again!\n4game error: {ExtractErrorDescription(tokenResponseContent)}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return string.Empty;
+        }
+
+        if (tokenResponseContent.Contains("auth.datanotfound"))
+        {
+            MessageBox.Show($"Check your login and password!\n4game error: {ExtractErrorDescription(tokenResponseContent)}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return string.Empty;
+        }
+
         if (string.IsNullOrEmpty(accessToken))
         {
             MessageBox.Show(tokenResponseContent, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -201,16 +212,21 @@ internal static class RuSroAuthService
         return sessionId;
     }
 
+    private static string ExtractErrorDescription(string responseContent)
+    {
+        var jsonResponse = JsonConvert.DeserializeObject<ErrorResponse>(responseContent);
+        var errorDescription = jsonResponse?.Error?.Description;
+        return errorDescription;
+    }
+
     private static string ExtractAccessToken(string responseContent)
     {
-        // Extract the access_token from the response
         var jsonResponse = JsonConvert.DeserializeObject<dynamic>(responseContent);
         return jsonResponse.access_token;
     }
 
     private static string ExtractRefreshToken(string responseContent)
     {
-        // Extract the refresh_token from the response
         var jsonResponse = JsonConvert.DeserializeObject<dynamic>(responseContent);
         return jsonResponse.refresh_token;
     }
@@ -362,11 +378,23 @@ internal static class RuSroAuthService
                         p.TryGetProperty("type", out var type) &&
                         type.GetString() == "webshopOwnPromoCodes"))
                 {
-                    string getWebshopOwnPromoCodesPayload = $"{{\"jsonrpc\":\"2.0\",\"method\":\"getWebshopOwnPromoCodes\",\"params\":{{ \"userId\":{sub},\"from\":0,\"count\":20,\"lang\":\"ru\"}},\"id\":\"{Guid.NewGuid()}\"}}";
-                    Log.Debug($"Some promocodes has experied. Sending promocodes update request: {getWebshopOwnPromoCodesPayload}");
+                    //string getWebshopOwnPromoCodesPayload = $"{{\"jsonrpc\":\"2.0\",\"method\":\"getWebshopOwnPromoCodes\",\"params\":{{ \"userId\":{sub},\"from\":0,\"count\":20,\"lang\":\"ru\"}},\"id\":\"{Guid.NewGuid()}\"}}";
+                    //Log.Debug($"Some promocodes has experied. Sending promocodes update request: {getWebshopOwnPromoCodesPayload}");
                     await SendMessage(clientWebSocket, payload);
 
-                    string getWebshopOwnPromoCodesResponse = await ReceiveMessage(clientWebSocket);
+                    //string getWebshopOwnPromoCodesResponse = await ReceiveMessage(clientWebSocket);
+                    //Log.Debug($"getWebshopOwnPromoCodesResponse: {getWebshopOwnPromoCodesResponse}");
+                    continue;
+                }
+
+                if (document.RootElement.TryGetProperty("notification", out notification) &&
+                    notification.GetString() == "invalidate" &&
+                    document.RootElement.TryGetProperty("params", out paramsElement) &&
+                    paramsElement.EnumerateArray().Any(p =>
+                        p.TryGetProperty("type", out var type) &&
+                        type.GetString() == "pushNotification"))
+                {
+                    Log.Notify($"4game pushed notification: {response}");
                     continue;
                 }
 
@@ -407,11 +435,23 @@ internal static class RuSroAuthService
                         p.TryGetProperty("type", out var type) &&
                         type.GetString() == "webshopOwnPromoCodes"))
                 {
-                    string getWebshopOwnPromoCodesPayload = $"{{\"jsonrpc\":\"2.0\",\"method\":\"getWebshopOwnPromoCodes\",\"params\":{{ \"userId\":{sub},\"from\":0,\"count\":20,\"lang\":\"ru\"}},\"id\":\"{Guid.NewGuid()}\"}}";
-                    Log.Debug($"Some promocodes has experied. Sending promocodes update request: {getWebshopOwnPromoCodesPayload}");
+                    //string getWebshopOwnPromoCodesPayload = $"{{\"jsonrpc\":\"2.0\",\"method\":\"getWebshopOwnPromoCodes\",\"params\":{{ \"userId\":{sub},\"from\":0,\"count\":20,\"lang\":\"ru\"}},\"id\":\"{Guid.NewGuid()}\"}}";
+                    //Log.Debug($"Some promocodes has experied. Sending promocodes update request: {getWebshopOwnPromoCodesPayload}");
                     await SendMessage(clientWebSocket, payload);
 
-                    string getWebshopOwnPromoCodesResponse = await ReceiveMessage(clientWebSocket);
+                    //string getWebshopOwnPromoCodesResponse = await ReceiveMessage(clientWebSocket);
+                    //Log.Debug($"getWebshopOwnPromoCodesResponse: {getWebshopOwnPromoCodesResponse}");
+                    continue;
+                }
+
+                if (document.RootElement.TryGetProperty("notification", out notification) &&
+                    notification.GetString() == "invalidate" &&
+                    document.RootElement.TryGetProperty("params", out paramsElement) &&
+                    paramsElement.EnumerateArray().Any(p =>
+                        p.TryGetProperty("type", out var type) &&
+                        type.GetString() == "pushNotification"))
+                {
+                    Log.Notify($"4game pushed notification: {response}");
                     continue;
                 }
 
