@@ -17,6 +17,7 @@ Hello reputable Silkroad Online community. This is a free and open source Silkro
 | Global          | iSRO (International Silkroad)      |
 | Turkey          | TRSRO                              |
 | Korean          | KSRO                               |
+| Russia          | RuSro                              |
 | Rigid           | iSRO (International Silkroad 2015) |
 | ~~Chinese Old~~ | ~~MHTC~~                           |
 | ~~Japanese-R~~  |                                    |
@@ -37,6 +38,14 @@ Hello reputable Silkroad Online community. This is a free and open source Silkro
 
 ![Language](https://img.shields.io/badge/language-CSharp-blue.svg)
 [![GitHub License](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/SDClowen/RSBot/blob/master/LICENSE)
+
+## Building the project
+
+1. Clone the repository (`git clone --recursive https://github.com/SDClowen/RSBot.git`)
+2. Open the project in Visual Studio 2022 (Required workloads are `.NET desktop development` and `Desktop development with C++`)
+3. Built the project (`Ctrl+Shift+B`)
+4. Copy the contents of `Dependencies` directory to `Build\Data`
+5. Run the executable from `Build\RSBot.exe`
 
 ## Support the project
 
