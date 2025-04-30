@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 using RSBot.Core;
 using RSBot.Core.Components;
@@ -23,6 +25,11 @@ public partial class PendingWindow : UIWindowBase
     ///     The Started tick
     /// </summary>
     private int _startedTick;
+
+    /// <summary>
+    ///     CancellationTokenSource for clientless queue task
+    /// </summary>
+    private CancellationTokenSource _clientlessQueueTaskTokenSource;
 
     public PendingWindow()
     {
@@ -85,6 +92,50 @@ public partial class PendingWindow : UIWindowBase
 
         PrintTime(labelAvgWaitingTime, timestamp);
         LogPending(count, count);
+
+        StartClientlessQueueTask();
+    }
+
+    private void StartClientlessQueueTask()
+    {
+        StopClientlessQueueTask();
+
+        if (!Game.Clientless)
+            return;
+
+        _clientlessQueueTaskTokenSource = new CancellationTokenSource();
+        var token = _clientlessQueueTaskTokenSource.Token;
+
+        Task.Run(async () =>
+        {
+            try
+            {
+                while (!token.IsCancellationRequested)
+                {
+                    ClientlessManager.RequestServerList();
+
+                    await Task.Delay(5000, token);
+                }
+            }
+            catch (TaskCanceledException)
+            {
+                // Task stopped
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"ClientlessQueueTask error: {ex}");
+            }
+        }, token);
+    }
+
+    internal void StopClientlessQueueTask()
+    {
+        if (_clientlessQueueTaskTokenSource != null)
+        {
+            _clientlessQueueTaskTokenSource.Cancel();
+            _clientlessQueueTaskTokenSource.Dispose();
+            _clientlessQueueTaskTokenSource = null;
+        }
     }
 
     private void OnClock()
