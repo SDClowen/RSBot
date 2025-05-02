@@ -45,7 +45,7 @@ jobs:
           Set-Content -Path "commit_log.md" -Value $gitLog -Encoding UTF8
           $currentLog = Get-Content -Path commit_log.md -Raw
           $logWithHeader = "# What's Changed`n" + $currentLog
-          Set-Content -Path $commit_log.md -Value $logWithHeader
+          Set-Content -Path commit_log.md -Value $logWithHeader
 
       - name: Install .NET Core
         if: steps.check_commits.outputs.has_new_commits == 'true'
