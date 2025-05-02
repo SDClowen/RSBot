@@ -74,9 +74,9 @@ jobs:
         with:
           name: RSBot Nightly ${{ env.date }}
           tag_name: ${{ env.date }}
-          generate_release_notes: true
+          # generate_release_notes: true
           append_body: true
-          body: Nightly release
+          body: "# What's Changed"
           body_path: commit_log.md
           prerelease: true
           files: RSBot.${{ env.date }}.zip
