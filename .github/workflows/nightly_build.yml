@@ -1,0 +1,86 @@
+name: Nightly
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * 1"
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Get latest commit SHA
+        id: get_sha
+        run: |
+          echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+          git rev-parse HEAD | Out-File -FilePath last_sha.txt -Encoding ascii -NoNewline
+
+      - name: Download last SHA artifact
+        id: download_artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: last-sha
+        continue-on-error: true
+
+      - name: Retrieve last SHA
+        id: last_sha
+        shell: pwsh
+        run: |
+          if (Test-Path last_sha.txt) {
+            $lastSha = Get-Content last_sha.txt -Raw
+          } else {
+            $lastSha = ''
+          }
+          Write-Output "last_sha=$lastSha" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -NoNewline
+
+      - name: Check for new commits
+        if: steps.get_sha.outputs.sha == steps.last_sha.outputs.last_sha
+        run: |
+          echo "No new commits since last release. Exiting."
+          exit 0
+
+      - name: Install .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Setup MSBuild.exe
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Handle Dependencies
+        run: |
+          echo "date=$(Get-Date -Format 'yyyy-MM-dd')" | Out-File -FilePath $Env:GITHUB_ENV -Append
+          dotnet restore RSBot.sln
+
+      - name: Create the app package
+        run: |
+          msbuild /p:Configuration=Release /p:Platform="x86"
+          Copy-Item -Path "Dependencies\*" -Destination "Build\Data" -Recurse
+          cd Build
+          Compress-Archive -Path ".\*" -DestinationPath ".\..\RSBot.${{ env.date }}.zip"
+          cd ..
+
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.date }}
+          body: Nightly release
+          prerelease: true
+          files: RSBot.${{ env.date }}.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload last SHA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: last-sha
+          path: last_sha.txt
+          overwrite: true
