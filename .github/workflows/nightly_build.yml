@@ -40,6 +40,13 @@ jobs:
           }
           Write-Output "last_sha=$lastSha" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -NoNewline
 
+      - name: Upload last SHA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: last-sha
+          path: last_sha.txt
+          overwrite: true
+
       - name: Check for new commits
         if: steps.get_sha.outputs.sha == steps.last_sha.outputs.last_sha
         run: |
@@ -77,10 +84,3 @@ jobs:
           files: RSBot.${{ env.date }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload last SHA artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: last-sha
-          path: last_sha.txt
-          overwrite: true
