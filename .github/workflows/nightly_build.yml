@@ -43,6 +43,9 @@ jobs:
         run: |
           $gitLog = git log "${{ steps.check_commits.outputs.latest_tag_sha }}..HEAD" --pretty="format:- [%s](https://github.com/SDClowen/RSBot/commit/%H) - @%an"
           Set-Content -Path "commit_log.md" -Value $gitLog -Encoding UTF8
+          $currentLog = Get-Content -Path $commit_log.md -Raw
+          $logWithHeader = "# What's changed`n" + $currentLog
+          Set-Content -Path $commit_log.md -Value $logWithHeader
 
       - name: Install .NET Core
         if: steps.check_commits.outputs.has_new_commits == 'true'
@@ -74,7 +77,6 @@ jobs:
         with:
           name: RSBot Nightly ${{ env.date }}
           tag_name: ${{ env.date }}
-          body: "# What's Changed"
           body_path: commit_log.md
           prerelease: true
           files: RSBot.${{ env.date }}.zip
