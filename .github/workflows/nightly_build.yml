@@ -43,8 +43,8 @@ jobs:
         run: |
           $gitLog = git log "${{ steps.check_commits.outputs.latest_tag_sha }}..HEAD" --pretty="format:- [%s](https://github.com/SDClowen/RSBot/commit/%H) - @%an"
           Set-Content -Path "commit_log.md" -Value $gitLog -Encoding UTF8
-          $currentLog = Get-Content -Path $commit_log.md -Raw
-          $logWithHeader = "# What's changed`n" + $currentLog
+          $currentLog = Get-Content -Path commit_log.md -Raw
+          $logWithHeader = "# What's Changed`n" + $currentLog
           Set-Content -Path $commit_log.md -Value $logWithHeader
 
       - name: Install .NET Core
