@@ -16,57 +16,53 @@ jobs:
           fetch-depth: 0
           submodules: recursive
 
-      - name: Get latest commit SHA
-        id: get_sha
-        run: |
-          echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
-          git rev-parse HEAD | Out-File -FilePath last_sha.txt -Encoding ascii -NoNewline
-
-      - name: Download last SHA artifact
-        id: download_artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: last-sha
-        continue-on-error: true
-
-      - name: Retrieve last SHA
-        id: last_sha
+      - name: Check for new commits since last tag
+        id: check_commits
         shell: pwsh
         run: |
-          if (Test-Path last_sha.txt) {
-            $lastSha = Get-Content last_sha.txt -Raw
-          } else {
-            $lastSha = ''
+          $latest_tag = git describe --tags --abbrev=0
+          $latestTagCommitSha = git rev-list --tags --max-count=1
+          $latestCommitSha = git rev-parse HEAD
+          echo "latest_tag=$latest_tag" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          if ($latestTagCommitSha -ne $latestCommitSha) {
+            echo "has_new_commits=true" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+            echo "latest_tag_sha=$latestTagCommitSha" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
           }
-          Write-Output "last_sha=$lastSha" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -NoNewline
+          else {
+            echo "has_new_commits=false" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          }
 
-      - name: Upload last SHA artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: last-sha
-          path: last_sha.txt
-          overwrite: true
+      - name: Get current date
+        if: steps.check_commits.outputs.has_new_commits == 'true'
+        shell: pwsh
+        run: echo "date=$(Get-Date -Format 'yyyy-MM-dd')" | Out-File -FilePath $Env:GITHUB_ENV -Append
 
-      - name: Check for new commits
-        if: steps.get_sha.outputs.sha == steps.last_sha.outputs.last_sha
+      - name: Create changelog
+        if: steps.check_commits.outputs.has_new_commits == 'true'
+        shell: pwsh
         run: |
-          echo "No new commits since last release. Exiting."
-          exit 0
+          $gitLog = git log "${{ steps.check_commits.outputs.latest_tag_sha }}..HEAD" --pretty="format:- [%s](https://github.com/SDClowen/RSBot/commit/%H) - @%an"
+          Set-Content -Path "commit_log.md" -Value $gitLog -Encoding UTF8
+          $currentLog = Get-Content -Path commit_log.md -Raw
+          $logWithHeader = "## What's Changed`n" + $currentLog
+          Set-Content -Path commit_log.md -Value $logWithHeader
 
       - name: Install .NET Core
+        if: steps.check_commits.outputs.has_new_commits == 'true'
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
 
       - name: Setup MSBuild.exe
+        if: steps.check_commits.outputs.has_new_commits == 'true'
         uses: microsoft/setup-msbuild@v2
 
-      - name: Handle Dependencies
-        run: |
-          echo "date=$(Get-Date -Format 'yyyy-MM-dd')" | Out-File -FilePath $Env:GITHUB_ENV -Append
-          dotnet restore RSBot.sln
+      - name: Handle dependencies
+        if: steps.check_commits.outputs.has_new_commits == 'true'
+        run: dotnet restore RSBot.sln
 
       - name: Create the app package
+        if: steps.check_commits.outputs.has_new_commits == 'true'
         run: |
           msbuild /p:Configuration=Release /p:Platform="x86"
           Copy-Item -Path "Dependencies\*" -Destination "Build\Data" -Recurse
@@ -74,12 +70,14 @@ jobs:
           Compress-Archive -Path ".\*" -DestinationPath ".\..\RSBot.${{ env.date }}.zip"
           cd ..
 
-      - name: Create Release
+      - name: Create release
+        if: steps.check_commits.outputs.has_new_commits == 'true'
         id: create_release
         uses: softprops/action-gh-release@v2
         with:
+          name: RSBot Nightly ${{ env.date }}
           tag_name: ${{ env.date }}
-          body: Nightly release
+          body_path: commit_log.md
           prerelease: true
           files: RSBot.${{ env.date }}.zip
         env:
