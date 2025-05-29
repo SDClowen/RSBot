@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,6 +25,45 @@ public class ClientManager
     ///     Get, has client exited <c>true</c> otherwise; <c>false</c>
     /// </summary>
     public static bool IsRunning => _process != null && !_process.HasExited;
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct PROCESS_BASIC_INFORMATION
+    {
+        public IntPtr Reserved1;
+        public IntPtr PebBaseAddress;
+        public IntPtr Reserved2_0;
+        public IntPtr Reserved2_1;
+        public IntPtr UniqueProcessId;
+        public IntPtr InheritedFromUniqueProcessId;
+    }
+
+    [DllImport("ntdll.dll")]
+    private static extern int NtQueryInformationProcess(
+        IntPtr processHandle,
+        int processInformationClass,
+        ref PROCESS_BASIC_INFORMATION processInformation,
+        uint processInformationLength,
+        out uint returnLength);
+
+    static int? GetParentProcessId(Process process)
+    {
+        var pbi = new PROCESS_BASIC_INFORMATION();
+        uint returnLength;
+        int status = NtQueryInformationProcess(
+            process.Handle,
+            0, // ProcessBasicInformation
+            ref pbi,
+            (uint)Marshal.SizeOf(pbi),
+            out returnLength
+        );
+
+        if (status == 0) // STATUS_SUCCESS
+        {
+            return pbi.InheritedFromUniqueProcessId.ToInt32();
+        }
+
+        return null;
+    }
 
     /// <summary>
     ///     Start the game client
@@ -88,9 +128,8 @@ public class ClientManager
 
             do
             {
-                sroClientProcess = Process.GetProcessesByName("sro_client")
-                    .OrderByDescending(p => p.StartTime)
-                    .FirstOrDefault();
+                Process[] sroClientProcesses = Process.GetProcessesByName("sro_client");
+                sroClientProcess = sroClientProcesses.FirstOrDefault(p => GetParentProcessId(p) == pi.dwProcessId);
 
                 if ((DateTime.Now - startTime).TotalSeconds > 10)
                 {
@@ -352,8 +391,8 @@ public class ClientManager
             Log.Debug($"Client {exePath} was patched with {dllName}");
         }
         else
-        { 
-            Log.Debug($"Client {exePath} is already patched with {dllName}. Patching skipped"); 
+        {
+            Log.Debug($"Client {exePath} is already patched with {dllName}. Patching skipped");
         }
     }
 }

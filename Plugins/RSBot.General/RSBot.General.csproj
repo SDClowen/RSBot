@@ -15,10 +15,10 @@
 </PropertyGroup>
 	
 <ItemGroup>
-		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.3.0" />
-		<ProjectReference Include="..\..\Library\RSBot.Core\RSBot.Core.csproj"/>
-		<ProjectReference Include="..\..\SDUI\SDUI\SDUI.csproj"/>
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.10.0" />
+		<ProjectReference Include="..\..\Library\RSBot.Core\RSBot.Core.csproj" />
+		<ProjectReference Include="..\..\SDUI\SDUI\SDUI.csproj" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 </ItemGroup>
 	
 </Project>
