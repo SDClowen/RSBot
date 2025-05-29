@@ -36,7 +36,10 @@ public partial class Main : DoubleBufferedControl
         if (!Enum.TryParse<ChatType>(sender.Tag.ToString(), out var chatType))
             return;
 
-        Bundle.Chat.SendChatPacket(chatType, sender.Text, txtRecievePrivate.Text);
+        if (chatType == ChatType.Global)
+            Bundle.Chat.SendGlobalChatPacket(sender.Text);
+        else
+            Bundle.Chat.SendChatPacket(chatType, sender.Text, txtRecievePrivate.Text);
 
         if (chatType == ChatType.Private)
             PlayerConfig.Set("RSBot.Chat.LastWhisper", txtRecievePrivate.Text);
