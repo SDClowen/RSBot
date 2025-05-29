@@ -42,11 +42,12 @@ internal class Chat
 
     internal static void SendGlobalChatPacket(string message)
     {
-        var globalChatPacket = new Packet(0x704C);
-
         var inventoryItem = Game.Player.Inventory.GetItem(new TypeIdFilter(3, 3, 3, 5)); //3, 3, 3, 22 for VIP global
+
         if (inventoryItem != null)
         {
+            var globalChatPacket = new Packet(0x704C);
+
             globalChatPacket.WriteByte(inventoryItem.Slot);
 
             if (Game.ClientType > GameClientType.Vietnam)
@@ -60,8 +61,8 @@ internal class Chat
             }
                 
             globalChatPacket.WriteConditonalString(message);
-        }
 
-        PacketManager.SendPacket(globalChatPacket, PacketDestination.Server);
+            PacketManager.SendPacket(globalChatPacket, PacketDestination.Server);
+        }
     }
 }
