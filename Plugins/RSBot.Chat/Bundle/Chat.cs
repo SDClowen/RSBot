@@ -2,6 +2,9 @@
 using RSBot.Core.Extensions;
 using RSBot.Core.Network;
 using RSBot.Core.Objects;
+using System.Net.Sockets;
+using System;
+using System.Text;
 
 namespace RSBot.Chat.Bundle;
 
@@ -35,5 +38,31 @@ internal class Chat
 
         PacketManager.SendPacket(chatPacket, PacketDestination.Server);
         IgnoreChatResponsePacket = true;
+    }
+
+    internal static void SendGlobalChatPacket(string message)
+    {
+        var inventoryItem = Game.Player.Inventory.GetItem(new TypeIdFilter(3, 3, 3, 5)); //3, 3, 3, 22 for VIP global
+
+        if (inventoryItem != null)
+        {
+            var globalChatPacket = new Packet(0x704C);
+
+            globalChatPacket.WriteByte(inventoryItem.Slot);
+
+            if (Game.ClientType > GameClientType.Vietnam)
+            {
+                globalChatPacket.WriteInt(inventoryItem.Record.Tid);
+                globalChatPacket.WriteByte(0); //0-3 linked items. max 500 chars when 1-3
+            }
+            else
+            {
+                globalChatPacket.WriteUShort(inventoryItem.Record.Tid);
+            }
+                
+            globalChatPacket.WriteConditonalString(message);
+
+            PacketManager.SendPacket(globalChatPacket, PacketDestination.Server);
+        }
     }
 }
