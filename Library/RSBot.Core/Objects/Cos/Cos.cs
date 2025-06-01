@@ -209,7 +209,7 @@ public class Cos : SpawnedEntity
             }
 
             return AwaitCallbackResult.Fail;
-        }, 0xB0C5);
+        }, 0xB034); //0xB0C5 in docs but not sent even in 1.188
 
         PacketManager.SendPacket(packet, PacketDestination.Server, callback);
         callback.AwaitResponse();

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Avoid", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Prefer", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Berserk", System.Windows.Forms.HorizontalAlignment.Left);
@@ -84,6 +85,7 @@
             linkAttackWeakerMobsHelp = new System.Windows.Forms.LinkLabel();
             checkAttackWeakerFirst = new SDUI.Controls.CheckBox();
             checkBoxDimensionPillar = new SDUI.Controls.CheckBox();
+            timerGrabByAbilityPet = new System.Windows.Forms.Timer(components);
             groupBox2.SuspendLayout();
             ctxAvoidance.SuspendLayout();
             groupBoxWalkback.SuspendLayout();
@@ -736,6 +738,12 @@
             checkBoxDimensionPillar.UseVisualStyleBackColor = false;
             checkBoxDimensionPillar.CheckedChanged += settings_CheckedChanged;
             // 
+            // timerGrabByAbilityPet
+            // 
+            timerGrabByAbilityPet.Enabled = true;
+            timerGrabByAbilityPet.Interval = 2500;
+            timerGrabByAbilityPet.Tick += timerGrabByAbilityPet_Tick;
+            // 
             // Main
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -807,5 +815,6 @@
         private SDUI.Controls.CheckBox checkAttackWeakerFirst;
         private System.Windows.Forms.LinkLabel linkAttackWeakerMobsHelp;
         private System.Windows.Forms.LinkLabel linkRecord;
+        private System.Windows.Forms.Timer timerGrabByAbilityPet;
     }
 }
