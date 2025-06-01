@@ -741,7 +741,7 @@
             // timerGrabByAbilityPet
             // 
             timerGrabByAbilityPet.Enabled = true;
-            timerGrabByAbilityPet.Interval = 2500;
+            timerGrabByAbilityPet.Interval = 500;
             timerGrabByAbilityPet.Tick += timerGrabByAbilityPet_Tick;
             // 
             // Main
