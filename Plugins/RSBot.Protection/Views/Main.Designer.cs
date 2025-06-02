@@ -172,7 +172,7 @@
             numDeadTimeout.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             numDeadTimeout.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numDeadTimeout.Location = new System.Drawing.Point(153, 37);
-            numDeadTimeout.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
+            numDeadTimeout.Maximum = new decimal(new int[] { 600, 0, 0, 0 });
             numDeadTimeout.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numDeadTimeout.MinimumSize = new System.Drawing.Size(80, 25);
             numDeadTimeout.Name = "numDeadTimeout";
