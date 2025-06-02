@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using RSBot.Core.Components;
 using RSBot.Core.Network;
 using RSBot.Core.Objects.Inventory;
@@ -195,7 +196,7 @@ public class Cos : SpawnedEntity
         packet.WriteByte(CosCommand.Pickup);
         packet.WriteUInt(itemUniqueId);
 
-        var callback = new AwaitCallback(response =>
+        var predicate = new AwaitCallbackPredicate(response =>
         {
             var result = response.ReadByte();
 
@@ -209,12 +210,19 @@ public class Cos : SpawnedEntity
             }
 
             return AwaitCallbackResult.Fail;
-        }, 0xB034); //0xB0C5 in docs but not sent even in 1.188
+        });
 
-        PacketManager.SendPacket(packet, PacketDestination.Server, callback);
-        callback.AwaitResponse();
+        var callbackItemGrabbed = new AwaitCallback(predicate, 0xB034);
+        var callbackItemStolen = new AwaitCallback(predicate, 0xB0C5);
 
-        return callback.IsCompleted;
+        PacketManager.SendPacket(packet, PacketDestination.Server, callbackItemGrabbed, callbackItemStolen);
+
+        var task1 = Task.Run(() => callbackItemGrabbed.AwaitResponse());
+        var task2 = Task.Run(() => callbackItemStolen.AwaitResponse());
+
+        Task.WaitAny(task1, task2);
+
+        return callbackItemGrabbed.IsCompleted || callbackItemStolen.IsCompleted;
     }
 
     /// <summary>
