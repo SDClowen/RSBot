@@ -407,8 +407,9 @@ public class NavMeshTerrain : NavMesh
         int raycastCount = 0;
         while (true)
         {
-            //if (raycastCount++ > 100)
-                //throw new Exception("raycastCount (terrain) above 100");
+            //Uncommented for RuSro, because if btnNvmResetToPlayer is not pressed before start, it gets stuck in that loop forever
+            if (raycastCount++ > 100)
+                throw new Exception("raycastCount (terrain) above 100");
 
             var result = NavMeshHitResult.None;
 

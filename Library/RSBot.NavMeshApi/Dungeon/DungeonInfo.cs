@@ -1,5 +1,4 @@
 ﻿using RSBot.NavMeshApi.Mathematics;
-
 using System.Text.RegularExpressions;
 
 namespace RSBot.NavMeshApi.Dungeon;
@@ -12,40 +11,39 @@ public class DungeonInfo
     {
         _dungeons.Clear();
 
-        using (var reader = new StreamReader(stream))
+        using var reader = new StreamReader(stream);
+
+        while (!reader.EndOfStream)
         {
-            while (!reader.EndOfStream)
-            {
-                var line = reader.ReadLine();
-                if (line.StartsWith("//"))
-                    continue;
+            var line = reader.ReadLine();
 
-                var match = Regex.Match(line, "(?<service>0|1)\\t(?<id>\\d*)\t\"(?<path>.*)\"");
+            if (string.IsNullOrEmpty(line) || line.StartsWith("//"))
+                continue;
 
-                var data = line.Split('\t');
-                if (!int.TryParse(match.Groups["service"].Value, out int service))
-                    throw new Exception($"Failed to load dungeon info: malformed service on {line}");
+            var match = Regex.Match(line, @"^(?:(?<service>0|1)\t)?(?<id>\d+)\t""(?<path>.+)""$");
 
-                if (!short.TryParse(match.Groups["id"].Value, out short dungeonId))
-                    throw new Exception($"Failed to load dungeon info: malformed id on {line}");
+            if (!match.Success)
+                throw new Exception($"Failed to load dungeon info: invalid format on {line}");
 
-                var dungeonPath = match.Groups["path"].Value;
-                if (string.IsNullOrEmpty(dungeonPath))
-                    throw new Exception($"Failed to load dungeon info: malformed path on {line}");
+            if (int.TryParse(match.Groups["service"].Value, out int service) && service == 0)
+                continue;
 
-                if (service == 0)
-                    continue;
+            if (!short.TryParse(match.Groups["id"].Value, out short dungeonId))
+                throw new Exception($"Failed to load dungeon info: malformed id on {line}");
 
-                _dungeons.Add(new RID(dungeonId) { IsDungeon = true }, dungeonPath);
-            }
+            var dungeonPath = match.Groups["path"].Value;
+            if (string.IsNullOrEmpty(dungeonPath))
+                throw new Exception($"Failed to load dungeon info: malformed path on {line}");
+
+            _dungeons.Add(new RID(dungeonId) { IsDungeon = true }, dungeonPath);
         }
     }
 
-    public string this[RID region]
+    public string? this[RID region]
     {
         get
         {
-            if (_dungeons.TryGetValue(region, out string value))
+            if (_dungeons.TryGetValue(region, out string? value))
                 return value;
 
             return null;

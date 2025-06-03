@@ -21,6 +21,14 @@ public class Game
     public static AcceptanceRequest AcceptanceRequest;
 
     /// <summary>
+    /// Gets or sets the MAC address.
+    /// </summary>
+    /// <value>
+    ///     The MAC address.
+    /// </value>
+    public static byte[] MacAddress { get; set; }
+
+    /// <summary>
     ///     Gets or sets the port.
     /// </summary>
     /// <value>

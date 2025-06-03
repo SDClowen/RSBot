@@ -7,6 +7,7 @@ namespace RSBot.Core.Extensions;
 public static class NativeExtensions
 {
     public const uint CREATE_SUSPENDED = 0x00000004;
+    public const uint THREAD_SUSPEND_RESUME = 0x0002;
     public const uint PROCESS_ALL_ACCESS = 0x1F0FFF;
     public const uint MEM_COMMIT = 0x00001000;
     public const uint MEM_RESERVE = 0x00002000;
@@ -84,12 +85,15 @@ public static class NativeExtensions
         IntPtr lpThreadId);
 
     [DllImport("kernel32.dll")]
+    public static extern IntPtr OpenThread(uint dwDesiredAccess, bool bInheritHandle, uint dwThreadId);
+
+    [DllImport("kernel32.dll")]
     public static extern uint ResumeThread(IntPtr hThread);
 
     [DllImport("kernel32.dll")]
     public static extern uint SuspendThread(IntPtr hThread);
 
-    [DllImport("kernel32.dll")]
+    [DllImport("kernel32.dll", SetLastError = true)]
     public static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, uint flAllocationType,
         uint flProtect);
 

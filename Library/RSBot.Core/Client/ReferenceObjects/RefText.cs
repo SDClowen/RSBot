@@ -55,6 +55,9 @@ public class RefText : IReference<string>
             return false;
 
         var languageTab = 8;
+        if (Game.ClientType == GameClientType.RuSro)
+            languageTab = 12;
+
         var maxTabs = parser.GetColumnCount();
 
         //Try parse with the already set language tab

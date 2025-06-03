@@ -3,9 +3,11 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using PeNet;
 using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using static RSBot.Core.Extensions.NativeExtensions;
@@ -24,6 +26,45 @@ public class ClientManager
     /// </summary>
     public static bool IsRunning => _process != null && !_process.HasExited;
 
+    [StructLayout(LayoutKind.Sequential)]
+    public struct PROCESS_BASIC_INFORMATION
+    {
+        public IntPtr Reserved1;
+        public IntPtr PebBaseAddress;
+        public IntPtr Reserved2_0;
+        public IntPtr Reserved2_1;
+        public IntPtr UniqueProcessId;
+        public IntPtr InheritedFromUniqueProcessId;
+    }
+
+    [DllImport("ntdll.dll")]
+    private static extern int NtQueryInformationProcess(
+        IntPtr processHandle,
+        int processInformationClass,
+        ref PROCESS_BASIC_INFORMATION processInformation,
+        uint processInformationLength,
+        out uint returnLength);
+
+    static int? GetParentProcessId(Process process)
+    {
+        var pbi = new PROCESS_BASIC_INFORMATION();
+        uint returnLength;
+        int status = NtQueryInformationProcess(
+            process.Handle,
+            0, // ProcessBasicInformation
+            ref pbi,
+            (uint)Marshal.SizeOf(pbi),
+            out returnLength
+        );
+
+        if (status == 0) // STATUS_SUCCESS
+        {
+            return pbi.InheritedFromUniqueProcessId.ToInt32();
+        }
+
+        return null;
+    }
+
     /// <summary>
     ///     Start the game client
     /// </summary>
@@ -36,7 +77,9 @@ public class ClientManager
             GlobalConfig.Get<string>("RSBot.SilkroadExecutable")
         );
 
-        var buffer = Encoding.UTF8.GetBytes(Path.Combine(Kernel.BasePath, "Client.Library.dll"));
+        string libraryDllName = "Client.Library.dll";
+        string libraryDllFunc = "_DllMain@12";
+        var buffer = Encoding.UTF8.GetBytes(Path.Combine(Kernel.BasePath, libraryDllName));
         var pathLen = (uint)buffer.Length;
 
         var gatewayIndex = GlobalConfig.Get<byte>("RSBot.GatewayIndex");
@@ -48,86 +91,157 @@ public class ClientManager
         var si = new STARTUPINFO();
 
         var full = $"\"{path}\" {args}";
-        var result = CreateProcess(null, full, IntPtr.Zero, IntPtr.Zero, false, CREATE_SUSPENDED, IntPtr.Zero,
-            silkroadDirectory, ref si, out var pi);
-        if (!result)
-            return false;
 
-        PrepareTempConfigFile(pi.dwProcessId, divisionIndex);
-
-        var semaphore = new Semaphore(0, 1, pi.dwProcessId.ToString());
-
-        var handle = OpenProcess(PROCESS_ALL_ACCESS, false, pi.dwProcessId);
-        if (handle == IntPtr.Zero)
-            return false;
-
-        var kernelHandle = GetModuleHandleA("kernel32.dll");
-
-        var loadLibAddr = GetProcAddress(kernelHandle, "LoadLibraryA");
-        if (loadLibAddr == IntPtr.Zero)
-            return false;
-
-        var dereercomp = VirtualAllocEx(handle, IntPtr.Zero, pathLen, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
-        if (dereercomp == IntPtr.Zero)
-            return false;
-
-        if (!WriteProcessMemory(handle, dereercomp, buffer, pathLen, out var numberOfBytesWritten))
-            return false;
-
-        var remoteThread = CreateRemoteThread(handle, IntPtr.Zero, 0, loadLibAddr, dereercomp, 0, IntPtr.Zero);
-        if (remoteThread == IntPtr.Zero)
-            return false;
-
-        var process = Process.GetProcessById((int)pi.dwProcessId);
-        if (process == null || process.HasExited)
-            return false;
-
-        if (Game.ClientType == GameClientType.VTC_Game ||
-            Game.ClientType == GameClientType.Turkey)
+        if (Game.ClientType == GameClientType.RuSro)
         {
-            var moduleMemory = new byte[process.MainModule.ModuleMemorySize];
-            ReadProcessMemory(process.Handle, process.MainModule.BaseAddress, moduleMemory,
-                process.MainModule.ModuleMemorySize, out _);
-
-            var patchNop = new byte[] { 0x90, 0x90 };
-            var patchNop2 = new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90 };
-            var patchJmp = new byte[] { 0xEB };
-
-            var address = FindPattern(
-                Game.ClientType == GameClientType.Turkey ?
-                "6A 00 68 60 B7 2D 01 68 74 B7 2D 01" :
-                "6A 00 68 48 A2 38 01 68 5C A2 38 01",
-                moduleMemory);
-            if (address == IntPtr.Zero)
+            AddDllImportToClient(path, libraryDllName, libraryDllFunc);
+            try
             {
-                Log.Error("XIGNCODE patching error! Maybe signatures are wrong?");
+                File.Copy(Path.Combine(Kernel.BasePath, libraryDllName), Path.Combine(silkroadDirectory, libraryDllName), true);
+            }
+            catch (IOException)
+            {
+                Log.Debug($"DLL is using, can't replace");
+            }
+            string login = GlobalConfig.Get<string>("RSBot.RuSro.login");
+            string password = GlobalConfig.Get<string>("RSBot.RuSro.password");
+            full = $"\"{silkroadDirectory}\\Frost\\sro.exe\" -LOGIN:{login} -PASSWORD:{password} -frostGame \"{path}\" -frostOptions 1 -frostGameNameType silk-ru_live";
+            Log.Debug("Full path: " + full);
+
+            var result = CreateProcess(
+                null,
+                full,
+                IntPtr.Zero,
+                IntPtr.Zero,
+                false,
+                0,
+                IntPtr.Zero,
+                silkroadDirectory,
+                ref si,
+                out var pi
+            );
+            if (!result)
                 return false;
+
+            Process sroClientProcess;
+            var startTime = DateTime.Now;
+
+            do
+            {
+                Process[] sroClientProcesses = Process.GetProcessesByName("sro_client");
+                sroClientProcess = sroClientProcesses.FirstOrDefault(p => GetParentProcessId(p) == pi.dwProcessId);
+
+                if ((DateTime.Now - startTime).TotalSeconds > 10)
+                {
+                    Log.Error("sro_client.exe was not started in 10 seconds!");
+                    return false;
+                }
+
+                Thread.Sleep(10);
+            } while (sroClientProcess == null);
+
+            SuspendProcess(sroClientProcess);
+
+            PrepareTempConfigFile((uint)sroClientProcess.Id, divisionIndex);
+
+            ResumeProcess(sroClientProcess);
+
+            var kernelHandle = GetModuleHandleA("kernel32.dll");
+
+            var loadLibAddr = GetProcAddress(kernelHandle, "LoadLibraryA");
+            if (loadLibAddr == IntPtr.Zero)
+                return false;
+
+            if (sroClientProcess.HasExited)
+                return await Task.FromResult(false);
+
+            sroClientProcess.EnableRaisingEvents = true;
+            sroClientProcess.Exited += ClientProcess_Exited;
+            _process = sroClientProcess;
+        }
+        else
+        {
+            var result = CreateProcess(null, full, IntPtr.Zero, IntPtr.Zero, false, CREATE_SUSPENDED, IntPtr.Zero,
+            silkroadDirectory, ref si, out var pi);
+            if (!result)
+                return false;
+
+            PrepareTempConfigFile(pi.dwProcessId, divisionIndex);
+
+            var semaphore = new Semaphore(0, 1, pi.dwProcessId.ToString());
+
+            var handle = OpenProcess(PROCESS_ALL_ACCESS, false, pi.dwProcessId);
+            if (handle == IntPtr.Zero)
+                return false;
+
+            var kernelHandle = GetModuleHandleA("kernel32.dll");
+
+            var loadLibAddr = GetProcAddress(kernelHandle, "LoadLibraryA");
+            if (loadLibAddr == IntPtr.Zero)
+                return false;
+
+            var dereercomp = VirtualAllocEx(handle, IntPtr.Zero, pathLen, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
+            if (dereercomp == IntPtr.Zero)
+                return false;
+
+            if (!WriteProcessMemory(handle, dereercomp, buffer, pathLen, out var numberOfBytesWritten))
+                return false;
+
+            var remoteThread = CreateRemoteThread(handle, IntPtr.Zero, 0, loadLibAddr, dereercomp, 0, IntPtr.Zero);
+            if (remoteThread == IntPtr.Zero)
+                return false;
+
+            var process = Process.GetProcessById((int)pi.dwProcessId);
+            if (process == null || process.HasExited)
+                return false;
+
+            if (Game.ClientType == GameClientType.VTC_Game ||
+                Game.ClientType == GameClientType.Turkey)
+            {
+                var moduleMemory = new byte[process.MainModule.ModuleMemorySize];
+                ReadProcessMemory(process.Handle, process.MainModule.BaseAddress, moduleMemory,
+                    process.MainModule.ModuleMemorySize, out _);
+
+                var patchNop = new byte[] { 0x90, 0x90 };
+                var patchNop2 = new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90 };
+                var patchJmp = new byte[] { 0xEB };
+
+                var address = FindPattern(
+                    Game.ClientType == GameClientType.Turkey ?
+                    "6A 00 68 18 3A 3C 01 68 2C 3A 3C 01" :
+                    "6A 00 68 48 A2 38 01 68 5C A2 38 01",
+                    moduleMemory);
+                if (address == IntPtr.Zero)
+                {
+                    Log.Error("XIGNCODE patching error! Maybe signatures are wrong?");
+                    return false;
+                }
+
+                WriteProcessMemory(pi.hProcess, address - 0x6F, patchJmp, 1, out _);
+                WriteProcessMemory(pi.hProcess, address + 0x13, patchJmp, 1, out _);
+                WriteProcessMemory(pi.hProcess, address + 0xC, patchNop2, 5, out _);
+                WriteProcessMemory(pi.hProcess, address + 0x95, patchJmp, 1, out _);
+
+                moduleMemory = null;
+                GC.Collect();
             }
 
-            WriteProcessMemory(pi.hProcess, address - 0x6F, patchJmp, 1, out _);
-            WriteProcessMemory(pi.hProcess, address + 0x13, patchJmp, 1, out _);
-            WriteProcessMemory(pi.hProcess, address + 0xC, patchNop2, 5, out _);
-            WriteProcessMemory(pi.hProcess, address + 0x95, patchJmp, 1, out _);
+            WaitForSingleObject(remoteThread, uint.MaxValue);
+            VirtualFreeEx(handle, dereercomp, pathLen, MEM_RELEASE);
 
-            moduleMemory = null;
-            GC.Collect();
+            CloseHandle(remoteThread);
+            CloseHandle(handle);
+
+            ResumeThread(pi.hThread);
+            ResumeThread(pi.hProcess);
+
+            if (process.HasExited)
+                return await Task.FromResult(false);
+
+            process.EnableRaisingEvents = true;
+            process.Exited += ClientProcess_Exited;
+            _process = process;
         }
-
-        WaitForSingleObject(remoteThread, uint.MaxValue);
-        VirtualFreeEx(handle, dereercomp, pathLen, MEM_RELEASE);
-
-        CloseHandle(remoteThread);
-        CloseHandle(handle);
-
-        ResumeThread(pi.hThread);
-        ResumeThread(pi.hProcess);
-
-        if (process.HasExited)
-            return await Task.FromResult(false);
-
-        process.EnableRaisingEvents = true;
-        process.Exited += ClientProcess_Exited;
-        _process = process;
 
         EventManager.FireEvent("OnStartClient");
 
@@ -231,5 +345,54 @@ public class ClientManager
         }
 
         return IntPtr.Zero;
+    }
+
+    private static void SuspendProcess(Process process)
+    {
+        foreach (ProcessThread thread in process.Threads)
+        {
+            IntPtr threadHandle = OpenThread(THREAD_SUSPEND_RESUME, false, (uint)thread.Id);
+            if (threadHandle != IntPtr.Zero)
+            {
+                SuspendThread(threadHandle);
+                CloseHandle(threadHandle);
+            }
+        }
+    }
+
+    private static void ResumeProcess(Process process)
+    {
+        foreach (ProcessThread thread in process.Threads)
+        {
+            IntPtr threadHandle = OpenThread(THREAD_SUSPEND_RESUME, false, (uint)thread.Id);
+            if (threadHandle != IntPtr.Zero)
+            {
+                ResumeThread(threadHandle);
+                CloseHandle(threadHandle);
+            }
+        }
+    }
+
+    private static void AddDllImportToClient(string exePath, string dllName, string funcName)
+    {
+        var peFile = new PeFile(exePath);
+        bool isDllInjected = false;
+
+        foreach (var imp in peFile.ImportedFunctions)
+        {
+            if (imp.DLL.Contains(dllName, StringComparison.OrdinalIgnoreCase))
+                isDllInjected = true;
+        }
+
+        if (!isDllInjected)
+        {
+            peFile.AddImport(dllName, funcName);
+            File.WriteAllBytes(exePath, peFile.RawFile.ToArray());
+            Log.Debug($"Client {exePath} was patched with {dllName}");
+        }
+        else
+        {
+            Log.Debug($"Client {exePath} is already patched with {dllName}. Patching skipped");
+        }
     }
 }

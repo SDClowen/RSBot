@@ -74,7 +74,7 @@ public struct Area
             return false;
 
         area.Position = new Position(regionId, xOffset, yOffset, zOffset);
-        
+        area.Radius = Math.Clamp(radius, 5, 100);
 
         return true;
     }
@@ -97,9 +97,10 @@ public struct Area
     public Position GetRandomPosition()
     {
         var angle = _random.Next(360);
+        var radians = angle * (MathF.PI / 180f);
 
-        var newPosX = Position.X + Radius / 2 * MathF.Cos(angle);
-        var newPosY = Position.Y + Radius / 2 * MathF.Sin(angle);
+        var newPosX = Position.X + Radius / 1.5f * MathF.Cos(radians);
+        var newPosY = Position.Y + Radius / 1.5f * MathF.Sin(radians);
 
         return new Position(newPosX, newPosY, Position.Region);
     }
