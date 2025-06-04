@@ -188,8 +188,9 @@ public class Cos : SpawnedEntity
     /// <summary>
     ///     Pickups the specified item unique identifier.
     /// </summary>
-    /// <param name="itemUniqueId">The item unique identifier.</param>
-    public virtual bool Pickup(uint itemUniqueId)
+    /// <param name="itemUniqueId"></param>
+    /// <returns>true if item is grabbed by pet</returns>
+    public virtual async Task<bool> PickupAsync(uint itemUniqueId)
     {
         var packet = new Packet(0x70C5);
         packet.WriteUInt(UniqueId);
@@ -217,10 +218,14 @@ public class Cos : SpawnedEntity
 
         PacketManager.SendPacket(packet, PacketDestination.Server, callbackItemGrabbed, callbackItemStolen);
 
-        var task1 = Task.Run(() => callbackItemGrabbed.AwaitResponse());
-        var task2 = Task.Run(() => callbackItemStolen.AwaitResponse());
+        using var cts = new CancellationTokenSource();
 
-        Task.WaitAny(task1, task2);
+        var task1 = callbackItemGrabbed.AwaitResponseAsync(cancellationToken: cts.Token);
+        var task2 = callbackItemStolen.AwaitResponseAsync(cancellationToken: cts.Token);
+
+        await Task.WhenAny(task1, task2);
+
+        cts.Cancel();
 
         return callbackItemGrabbed.IsCompleted || callbackItemStolen.IsCompleted;
     }
