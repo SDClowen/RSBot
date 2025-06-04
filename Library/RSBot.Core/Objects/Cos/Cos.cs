@@ -188,8 +188,8 @@ public class Cos : SpawnedEntity
     /// <summary>
     ///     Pickups the specified item unique identifier.
     /// </summary>
-    /// <param name="itemUniqueId"></param>
-    /// <returns>true if item is grabbed by pet</returns>
+    /// <param name="itemUniqueId">The item unique identifier.</param>
+    /// <returns>true if item is grabbed by pet.</returns>
     public virtual async Task<bool> PickupAsync(uint itemUniqueId)
     {
         var packet = new Packet(0x70C5);
