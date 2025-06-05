@@ -4,8 +4,10 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using RSBot.Core;
+using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
+using RSBot.Default.Bundle;
 using RSBot.Default.Views.Dialogs;
 using SDUI.Controls;
 using CheckBox = SDUI.Controls.CheckBox;
@@ -328,6 +330,14 @@ public partial class Main : DoubleBufferedControl
             item.Group = lvAvoidance.Groups["grpNone"];
 
         SaveAvoidance();
+    }
+
+    private void timerGrabByAbilityPet_Tick(object sender, EventArgs e)
+    {
+        if (Kernel.Bot.Running || !Game.Ready)
+            return;
+        if (Bundles.Loot.Config.UseAbilityPet && Game.Player.HasActiveAbilityPet && !PickupManager.RunningAbilityPetPickup)
+            PickupManager.RunAbilityPet(Game.Player.Position);
     }
 
     /// <summary>

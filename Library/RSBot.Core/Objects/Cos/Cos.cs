@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using RSBot.Core.Components;
 using RSBot.Core.Network;
 using RSBot.Core.Objects.Inventory;
@@ -188,14 +189,15 @@ public class Cos : SpawnedEntity
     ///     Pickups the specified item unique identifier.
     /// </summary>
     /// <param name="itemUniqueId">The item unique identifier.</param>
-    public virtual bool Pickup(uint itemUniqueId)
+    /// <returns>true if item is grabbed by pet.</returns>
+    public virtual async Task<bool> PickupAsync(uint itemUniqueId)
     {
         var packet = new Packet(0x70C5);
         packet.WriteUInt(UniqueId);
         packet.WriteByte(CosCommand.Pickup);
         packet.WriteUInt(itemUniqueId);
 
-        var callback = new AwaitCallback(response =>
+        var predicate = new AwaitCallbackPredicate(response =>
         {
             var result = response.ReadByte();
 
@@ -209,12 +211,23 @@ public class Cos : SpawnedEntity
             }
 
             return AwaitCallbackResult.Fail;
-        }, 0xB0C5);
+        });
 
-        PacketManager.SendPacket(packet, PacketDestination.Server, callback);
-        callback.AwaitResponse();
+        var callbackItemGrabbed = new AwaitCallback(predicate, 0xB034);
+        var callbackItemStolen = new AwaitCallback(predicate, 0xB0C5);
 
-        return callback.IsCompleted;
+        PacketManager.SendPacket(packet, PacketDestination.Server, callbackItemGrabbed, callbackItemStolen);
+
+        using var cts = new CancellationTokenSource();
+
+        var task1 = callbackItemGrabbed.AwaitResponseAsync(cancellationToken: cts.Token);
+        var task2 = callbackItemStolen.AwaitResponseAsync(cancellationToken: cts.Token);
+
+        await Task.WhenAny(task1, task2);
+
+        cts.Cancel();
+
+        return callbackItemGrabbed.IsCompleted || callbackItemStolen.IsCompleted;
     }
 
     /// <summary>

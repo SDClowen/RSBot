@@ -235,4 +235,42 @@ public class AwaitCallback
             }
         }).Wait();
     }
+
+    public async Task AwaitResponseAsync(int milliseconds = TIMEOUT_DEFAULT, CancellationToken cancellationToken = default)
+    {
+        if (_waited)
+            return;
+
+        _waited = true;
+
+        if (milliseconds < TIMEOUT_STEP)
+            milliseconds = TIMEOUT_STEP;
+
+        var invoked = false;
+
+        try
+        {
+            do
+            {
+                await Task.Delay(TIMEOUT_STEP, cancellationToken);
+                milliseconds -= TIMEOUT_STEP;
+
+                lock (_lock)
+                {
+                    invoked = _invoked;
+                }
+            } while (!invoked && milliseconds > 0 && !cancellationToken.IsCancellationRequested);
+        }
+        catch (TaskCanceledException)
+        {
+        }
+
+        lock (_lock)
+        {
+            _timeout = !_invoked && !cancellationToken.IsCancellationRequested;
+
+            if (_timeout)
+                Log.Debug($"Callback timeout, ResponseOpcode: 0x{ResponseOpcode:X}");
+        }
+    }
 }
