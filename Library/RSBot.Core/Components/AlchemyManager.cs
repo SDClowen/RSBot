@@ -66,7 +66,7 @@ public class AlchemyManager
         var elixirInInventory = Game.Player.Inventory.GetItemAt(elixir.Slot);
         var powderInInventory = Game.Player.Inventory.GetItemAt(powder.Slot);
         var isProofItem = powderInInventory != null ?
-                new TypeIdFilter(3, 3, 10, 8).EqualsRefItem(powderInInventory?.Record) :
+                new TypeIdFilter(3, 3, 10, 8).EqualsRefItem(powderInInventory!.Record) :
                 false;
         var alchemyType = isProofItem ?
                 AlchemyType.EnhancerElixir :

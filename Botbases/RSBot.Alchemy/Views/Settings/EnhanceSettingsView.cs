@@ -6,7 +6,6 @@ using System.Windows.Forms;
 using RSBot.Alchemy.Bot;
 using RSBot.Alchemy.Bundle.Enhance;
 using RSBot.Alchemy.Helper;
-using RSBot.Core;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using SDUI.Controls;
