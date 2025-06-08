@@ -53,7 +53,7 @@ internal static class RefMagicOptExtension
     public static string GetFusingTranslation(this RefMagicOpt magicOption, uint value)
     {
         //TODO: Use and extend GetGroupTranslation instead of hard coding this
-        switch (magicOption.Group)
+        switch (magicOption?.Group)
         {
             case "MATTR_INT":
             case "MATTR_AVATAR_INT":
@@ -153,7 +153,7 @@ internal static class RefMagicOptExtension
                 return $"Maximum durability {value}% Reduce";
         }
 
-        return magicOption.Group;
+        return magicOption?.Group ?? $"Error. Mag. opt. value: {value}";
     }
 
     #endregion Methods
