@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using RSBot.Alchemy.Bot;
 using RSBot.Alchemy.Bundle.Enhance;
 using RSBot.Alchemy.Helper;
+using RSBot.Core;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using SDUI.Controls;
@@ -108,7 +109,7 @@ public partial class EnhanceSettingsView : DoubleBufferedControl
         if (armorTypeId3.Contains(_selectedItem.Record.TypeID3) && _selectedItem.Record.TypeID2 == 1)
             type = AlchemyItemHelper.ElixirType.Protector;
 
-        var matchingElixirs = AlchemyItemHelper.GetElixirItems(type);
+        var matchingElixirs = AlchemyItemHelper.GetElixirItems(_selectedItem.Record.Degree, type);
 
         comboElixir.Items.Clear();
 

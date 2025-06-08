@@ -65,6 +65,12 @@ public class AlchemyManager
         var itemInInventory = Game.Player.Inventory.GetItemAt(item.Slot);
         var elixirInInventory = Game.Player.Inventory.GetItemAt(elixir.Slot);
         var powderInInventory = Game.Player.Inventory.GetItemAt(powder.Slot);
+        var isProofItem = powderInInventory != null ?
+                new TypeIdFilter(3, 3, 10, 8).EqualsRefItem(powderInInventory?.Record) :
+                false;
+        var alchemyType = isProofItem ?
+                AlchemyType.EnhancerElixir :
+                AlchemyType.Elixir;
 
         if (itemInInventory?.ItemId != item.ItemId ||
             elixirInInventory?.ItemId != elixir.ItemId ||
@@ -81,7 +87,7 @@ public class AlchemyManager
 
         var packet = new Packet(0x7150);
         packet.WriteByte(AlchemyAction.Fuse); //fuse
-        packet.WriteByte(AlchemyType.Elixir); //type (Elixir)
+        packet.WriteByte(alchemyType); // type
         packet.WriteByte(powder != null ? (byte)3 : (byte)2); //Slot count
         packet.WriteByte(item.Slot);
         packet.WriteByte(elixir.Slot);
