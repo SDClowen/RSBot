@@ -131,7 +131,7 @@ internal class MagicBundle : IAlchemyBundle
                 continue;
 
             //Gets the current magic option info from the selected item if available
-            var current = config.Item.MagicOptions.FirstOrDefault(m => m.Record.Group == stone.Value.Group);
+            var current = config.Item.MagicOptions.FirstOrDefault(m => m.Record?.Group == stone.Value.Group);
 
             //Enough immortal to fuse the astral stone?
             if (stone.Value.Group == RefMagicOpt.MaterialAstral)
