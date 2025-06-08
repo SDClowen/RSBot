@@ -78,7 +78,8 @@ internal class TeleportScriptCommand : IScriptCommand
         packet.WriteByte(0x02);
         packet.WriteUInt(destination);
 
-        var callback = new AwaitCallback(null, 0x3012); //Game Ready
+        var gameReadyOpcode = (ushort)(Game.ClientType == GameClientType.Rigid ? 0x3077 : 0x3012);
+        var callback = new AwaitCallback(null, gameReadyOpcode); // Game Ready
         PacketManager.SendPacket(packet, PacketDestination.Server, callback);
 
         callback.AwaitResponse(30_000); //For some really slow PCs
