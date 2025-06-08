@@ -43,7 +43,8 @@ public partial class AttributesSettingsView : DoubleBufferedControl
                 if (attributePanel.Stones != null && attributePanel.Stones.Any())
                     attributes.Add(new AttributeBundleConfig.AttributeBundleConfigItem
                     {
-                        Group = attributePanel.AttributeGroup, MaxValue = attributePanel.MaxValue,
+                        Group = attributePanel.AttributeGroup,
+                        MaxValue = attributePanel.MaxValue,
                         Stone = attributePanel.Stones.First()
                     });
             }
@@ -99,7 +100,8 @@ public partial class AttributesSettingsView : DoubleBufferedControl
                     Globals.Botbase.AttributeBundleConfig.Attributes.FirstOrDefault(x => x.Group == attributeGroup);
 
                 var panel = new AttributeInfoPanel(attributeGroup, matchingStones, selectedItem,
-                    config == null ? 0 : config.MaxValue) { Dock = DockStyle.Top };
+                    config == null ? 0 : config.MaxValue)
+                { Dock = DockStyle.Top };
                 _attributePanels.Add(panel);
 
                 if (config == null || !matchingStones.Any())
@@ -113,12 +115,13 @@ public partial class AttributesSettingsView : DoubleBufferedControl
                 panel.OnChange += PanelOnChange;
             }
 
-            Hide();
-            Controls.Clear();
-            BeginInvoke(() => {
+            BeginInvoke(() =>
+            {
+                Hide();
+                Controls.Clear();
                 Controls.AddRange(_attributePanels.ToArray());
+                Show();
             });
-            Show();
 
             Globals.Botbase.AttributeBundleConfig = BundleConfig;
         }
