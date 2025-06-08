@@ -91,10 +91,10 @@ public class TradeBotbase : IBotbase
         if (Game.Player == null)
             return false;
 
-        var isUpdatedJobSystem = Game.ClientType >= GameClientType.Chinese;
-        if (!isUpdatedJobSystem && Game.Player.JobInformation is not { Type: JobType.Trade })
+        var gameIsJob2 = Game.ClientType > GameClientType.Vietnam;
+        if (!gameIsJob2 && Game.Player.JobInformation is not { Type: JobType.Trade })
             return false;
-        else if (isUpdatedJobSystem && Game.Player.JobInformation is { Type: JobType.None })
+        else if (gameIsJob2 && Game.Player.JobInformation is { Type: JobType.None })
             return false;
 
         if (Game.Player.Inventory.GetEquippedPartItems().FirstOrDefault(i => i.Record.IsJobOutfit) == null)
