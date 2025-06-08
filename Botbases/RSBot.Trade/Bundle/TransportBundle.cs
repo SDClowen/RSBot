@@ -70,8 +70,9 @@ internal class TransportBundle
 
     public void Tick()
     {
-        //Summon new transport?
-        if (Game.Player.JobTransport == null)
+        // Summon new transport?
+        if (!Bundles.RouteBundle.ScriptManaggerIsRunning &&
+            Game.Player.JobTransport == null)
         {
             if (Game.Player.State.BattleState == BattleState.InBattle || Game.Player.InAction)
                 return;
