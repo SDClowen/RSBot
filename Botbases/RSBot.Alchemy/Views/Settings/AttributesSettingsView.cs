@@ -115,7 +115,9 @@ public partial class AttributesSettingsView : DoubleBufferedControl
 
             Hide();
             Controls.Clear();
-            Controls.AddRange(_attributePanels.ToArray());
+            BeginInvoke(() => {
+                Controls.AddRange(_attributePanels.ToArray());
+            });
             Show();
 
             Globals.Botbase.AttributeBundleConfig = BundleConfig;
