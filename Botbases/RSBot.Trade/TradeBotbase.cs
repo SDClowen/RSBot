@@ -44,8 +44,8 @@ public class TradeBotbase : IBotbase
     {
         if (!AssertPlayerIsTrader())
         {
-            MessageBox.Show("The active character is not a trader! Make sure that you have the trader job and suite.",
-                "Not a trader", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show("The active character can't trade goods! Make sure that you have the correct job and suite equiped.",
+                "Can't trade", MessageBoxButtons.OK, MessageBoxIcon.Error);
             Kernel.Bot.Stop();
 
             return;
@@ -91,7 +91,10 @@ public class TradeBotbase : IBotbase
         if (Game.Player == null)
             return false;
 
-        if (Game.Player.JobInformation is not { Type: JobType.Trade })
+        var isUpdatedJobSystem = Game.ClientType >= GameClientType.Chinese;
+        if (!isUpdatedJobSystem && Game.Player.JobInformation is not { Type: JobType.Trade })
+            return false;
+        else if (isUpdatedJobSystem && Game.Player.JobInformation is { Type: JobType.None })
             return false;
 
         if (Game.Player.Inventory.GetEquippedPartItems().FirstOrDefault(i => i.Record.IsJobOutfit) == null)
