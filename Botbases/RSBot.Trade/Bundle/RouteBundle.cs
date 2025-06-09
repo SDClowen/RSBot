@@ -44,6 +44,11 @@ internal class RouteBundle
     public bool WaitingForTracePlayer { get; private set; }
 
     /// <summary>
+    ///     A value indicating if the bot is in a state of executing a command
+    /// </summary>
+    public bool ScriptManaggerIsRunning { get => ScriptManager.Running; }
+
+    /// <summary>
     ///     Initializes the bundle.
     /// </summary>
     public void Initialize()
