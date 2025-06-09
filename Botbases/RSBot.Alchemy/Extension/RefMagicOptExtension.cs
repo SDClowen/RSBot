@@ -13,7 +13,7 @@ internal static class RefMagicOptExtension
     /// <returns></returns>
     public static string GetGroupTranslation(this RefMagicOpt magicOption)
     {
-        var translationGroup = magicOption.Group.Replace("MATTR", "PARAM").Replace("AVATAR_", "");
+        var translationGroup = magicOption.Group?.Replace("MATTR", "PARAM").Replace("AVATAR_", "") ?? $"Error, ";
 
         switch (translationGroup)
         {
