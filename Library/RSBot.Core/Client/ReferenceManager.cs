@@ -48,7 +48,7 @@ public class ReferenceManager
     public List<RefMagicOpt> MagicOptions { get; } = new(1024);
     public List<RefMagicOptAssign> MagicOptionAssignments { get; } = new(128);
 
-    
+
     public void Load(int languageTab, BackgroundWorker worker)
     {
         LanguageTab = languageTab; //until language wizard is reworked?
@@ -140,8 +140,11 @@ public class ReferenceManager
     private void LoadAlchemyData()
     {
         LoadReferenceFile($"{ServerDep}\\magicoption.txt", MagicOptions);
+        if (MagicOptions.Count <= 1)
+        {
+            LoadReferenceFile($"{ServerDep}\\magicoption_all.txt", MagicOptions);
+        }
         LoadReferenceFile($"{ServerDep}\\magicoptionassign.txt", MagicOptionAssignments);
-
     }
 
     private void LoadTeleportData()
@@ -293,7 +296,7 @@ public class ReferenceManager
     {
         if (Game.MediaPk2.TryGetFile(fileName, out var file))
             LoadReferenceListFile(file.OpenRead().GetStream(), destination);
-        
+
     }
 
     private void LoadReferenceListFile<TKey, TReference>(string fileName, IDictionary<TKey, TReference> destination)
@@ -324,7 +327,7 @@ public class ReferenceManager
 
         using var reader = new StreamReader(stream);
         var builder = new StringBuilder(1024);
-        
+
         while (!reader.EndOfStream)
         {
             var line = reader.ReadLineByCRLF(builder);
@@ -357,7 +360,7 @@ public class ReferenceManager
             //Skip invalid
             if (string.IsNullOrEmpty(line) || line.StartsWith("//"))
                 continue;
-                        
+
             filesToLoad.Add(line);
         }
 
@@ -588,12 +591,12 @@ public class ReferenceManager
     public List<RefShopGood> GetRefShopGoods(RefShopGroup group)
     {
         return (from shop in @group.GetShops()
-            where shop != null
-            from tab in shop.GetTabs()
-            where tab != null
-            from good in tab.GetGoods()
-            where good != null
-            select good).ToList();
+                where shop != null
+                from tab in shop.GetTabs()
+                where tab != null
+                from good in tab.GetGoods()
+                where good != null
+                select good).ToList();
     }
 
     public byte GetRefShopGoodTabIndex(string npcCodeName, RefShopGood good)
