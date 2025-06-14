@@ -261,10 +261,24 @@ public class Cos : SpawnedEntity
 
         PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallback);
         awaitCallback.AwaitResponse();
-        var distance = Game.Player.Movement.Source.DistanceTo(destination);
-        //Wait to finish the step
+
+        // Wait to finish the step
         if (sleep)
-            Thread.Sleep(Convert.ToInt32(distance / Game.Player.ActualSpeed * 10000));
+        {
+            var startedAt = DateTime.Now;
+            var distance = Game.Player.Movement.Source.DistanceTo(destination);
+            var moveTime = TimeSpan.FromMilliseconds(Convert.ToInt32(distance / Game.Player.ActualSpeed * 10000));
+
+            while (distance > 1)
+            {
+                Thread.Sleep(250);
+                // return when more time elapsed than calculated time to finish movement
+                if (DateTime.Now.Subtract(startedAt) >= moveTime)
+                    break;
+
+                distance = Game.Player.Movement.Source.DistanceTo(destination);
+            }
+        }
     }
 
     /// <summary>
