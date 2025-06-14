@@ -273,7 +273,7 @@ public class Cos : SpawnedEntity
             {
                 Thread.Sleep(250);
                 // return when more time elapsed than calculated time to finish movement
-                if (DateTime.Now.Subtract(startedAt) > moveTime)
+                if (DateTime.Now.Subtract(startedAt) >= moveTime)
                     break;
 
                 distance = Game.Player.Movement.Source.DistanceTo(destination);
