@@ -9,6 +9,9 @@ namespace RSBot.Default.Bundle.Buff;
 internal class BuffBundle : IBundle
 {
     private bool _invoked;
+    private bool _buffBetweenAttacks { get; set; }
+
+
 
     /// <summary>
     ///     Invokes this instance.
@@ -18,7 +21,9 @@ internal class BuffBundle : IBundle
         if (_invoked)
             return;
 
-        if (Game.Player.Untouchable || Game.Player.InAction)
+        if ((Game.Player.Untouchable || Game.Player.InAction) && !_buffBetweenAttacks)
+            return;
+        if ((Game.Player.Untouchable || Game.Player.Berzerking) && _buffBetweenAttacks)
             return;
 
         try
@@ -85,6 +90,7 @@ internal class BuffBundle : IBundle
     /// </summary>
     public void Refresh()
     {
+        _buffBetweenAttacks = PlayerConfig.Get<bool>("RSBot.Skills.checkCastBuffsBetweenAttacks", false);
         _invoked = false;
     }
 
