@@ -269,7 +269,7 @@ public class Cos : SpawnedEntity
             var distance = Game.Player.Movement.Source.DistanceTo(destination);
             var moveTime = TimeSpan.FromMilliseconds(Convert.ToInt32(distance / Game.Player.ActualSpeed * 10000));
 
-            while (Game.Player.Movement.Source.DistanceTo(destination) > 1)
+            while (distance > 1)
             {
                 Thread.Sleep(250);
                 // return when more time elapsed than calculated time to finish movement
