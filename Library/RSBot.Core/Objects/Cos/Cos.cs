@@ -264,7 +264,33 @@ public class Cos : SpawnedEntity
         var distance = Game.Player.Movement.Source.DistanceTo(destination);
         //Wait to finish the step
         if (sleep)
-            Thread.Sleep(Convert.ToInt32(distance / Game.Player.ActualSpeed * 10000));
+        {
+            var vehicle = Game.Player.Vehicle;
+            if (vehicle != null
+                && SpawnManager.TryGetEntity<SpawnedCos>(vehicle.UniqueId, out SpawnedCos spawnedCos))
+            {
+                Thread.Sleep(Convert.ToInt32(distance / spawnedCos.ActualSpeed * 10000));
+            }
+            else
+            {
+                Thread.Sleep(Convert.ToInt32(distance / Game.Player.ActualSpeed * 10000));
+            }
+        }
+    }
+
+    /// <summary>
+    ///     Casts a skill on the player
+    /// </summary>
+    /// <param name="codeName">Skill code name</param>
+    public void CastSkill(string codeName)
+    {
+        var packet = new Packet(0x70C5);
+        packet.WriteUInt(UniqueId);
+        packet.WriteByte(CosCommand.Cast);
+        packet.WriteUInt(Game.ReferenceManager.GetRefSkill(codeName).ID);
+        packet.WriteUInt(Game.Player.UniqueId);
+
+        PacketManager.SendPacket(packet, PacketDestination.Server);
     }
 
     /// <summary>

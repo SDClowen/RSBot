@@ -6,5 +6,6 @@ public enum CosCommand : byte
     Attack = 2,
     Pickup = 8,
     Follow = 9,
-    Charm = 11
+    Charm = 11,
+    Cast = 13
 }
