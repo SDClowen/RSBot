@@ -317,7 +317,7 @@ public partial class Main : DoubleBufferedControl
                      s.CanBeCasted && s.Record.Action_ActionDuration == 0 && s.Record.Params[2] == 500))
         {
             var index = comboTeleportSkill.Items.Add(new TeleportSkillComboBoxItem
-                { Level = skill.Record.Basic_Level, Record = skill.Record });
+            { Level = skill.Record.Basic_Level, Record = skill.Record });
 
             if (selectedTeleportSkill == skill.Record.ID)
             {

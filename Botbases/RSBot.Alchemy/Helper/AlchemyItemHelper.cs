@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
@@ -39,8 +40,18 @@ internal class AlchemyItemHelper
     /// <returns></returns>
     public static IEnumerable<InventoryItem> GetLuckyPowders(InventoryItem targetItem)
     {
-        return Game.Player.Inventory.GetItems(new TypeIdFilter(3, 3, 10, 2))
+        var items = Game.Player.Inventory.GetItems(new TypeIdFilter(3, 3, 10, 2))
             .Where(i => i.Record.ItemClass == targetItem.Record.Degree);
+        
+        if (Game.ClientType > GameClientType.Chinese && targetItem.Record.Degree >= 12)
+        {
+            var proofs = Game.Player.Inventory
+                .GetItems(new TypeIdFilter(3, 3, 10, 8))
+                .Where(x => x.Record.Param1 == targetItem.Record.ItemClass);
+            items = items.Concat(proofs);
+        }
+
+        return items;
     }
 
     /// <summary>
@@ -135,19 +146,31 @@ internal class AlchemyItemHelper
     /// </summary>
     /// <param name="elixirType">Type of the elixir.</param>
     /// <returns></returns>
-    public static IEnumerable<InventoryItem> GetElixirItems(ElixirType elixirType = ElixirType.Unspecified)
+    public static IEnumerable<InventoryItem> GetElixirItems(int degree, ElixirType elixirType = ElixirType.Unspecified)
     {
+        Func<int, Func<InventoryItem, bool>> elixirsAndEnhancers = degree switch
+        {
+            >= 12 => paramValue => item => item.Record.Param1 == degree &&
+                item.Record.Param3 == paramValue,
+            _ => paramValue => item => item.Record.Param1 == paramValue,
+        };
+        var predicate = Game.ClientType switch
+        {
+            > GameClientType.Chinese => elixirsAndEnhancers,
+            _ => paramValue => item => item.Record.Param1 == paramValue
+        };
+
         if (elixirType == ElixirType.Protector)
-            return Game.Player.Inventory.Where(i => i.Record.Param1 == ParamProtectorElixir);
+            return Game.Player.Inventory.Where(predicate(ParamProtectorElixir));
 
         if (elixirType == ElixirType.Weapon)
-            return Game.Player.Inventory.Where(i => i.Record.Param1 == ParamWeaponElixir);
+            return Game.Player.Inventory.Where(predicate(ParamWeaponElixir));
 
         if (elixirType == ElixirType.Accessory)
-            return Game.Player.Inventory.Where(i => i.Record.Param1 == ParamAccessoryElixir);
+            return Game.Player.Inventory.Where(predicate(ParamAccessoryElixir));
 
         if (elixirType == ElixirType.Shield)
-            return Game.Player.Inventory.Where(i => i.Record.Param1 == ParamShieldElixir);
+            return Game.Player.Inventory.Where(predicate(ParamShieldElixir));
 
         if (elixirType == ElixirType.Unspecified)
             return Game.Player.Inventory.GetItems(new TypeIdFilter(3, 3, 10, 1));

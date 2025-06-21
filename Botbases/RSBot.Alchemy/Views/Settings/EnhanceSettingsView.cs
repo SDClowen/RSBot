@@ -108,7 +108,7 @@ public partial class EnhanceSettingsView : DoubleBufferedControl
         if (armorTypeId3.Contains(_selectedItem.Record.TypeID3) && _selectedItem.Record.TypeID2 == 1)
             type = AlchemyItemHelper.ElixirType.Protector;
 
-        var matchingElixirs = AlchemyItemHelper.GetElixirItems(type);
+        var matchingElixirs = AlchemyItemHelper.GetElixirItems(_selectedItem.Record.Degree, type);
 
         comboElixir.Items.Clear();
 
