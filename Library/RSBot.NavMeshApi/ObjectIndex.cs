@@ -26,9 +26,17 @@ public class ObjectIndex : IEnumerable<ObjectIndexEntry>
             //_objects.EnsureCapacity(objectCount);
             for (int i = 0; i < objectCount; i++)
             {
-                var line = reader.ReadLine();
-                var match = Regex.Match(line, "(?<id>\\d{5}) (?<flag>0x[a-fA-F0-9]{8}) \"(?<path>.+?)\"");
+                var line = reader.ReadLine()?.Trim();
+                if (string.IsNullOrEmpty(line))
+                    continue;
 
+                var quoteCount = line.Count(c => c == '"');
+                if (quoteCount == 1 && !line.EndsWith("\""))
+                    line += "\"";
+
+                var regex = "(?<id>\\d{5}) (?<flag>0x[a-fA-F0-9]{8}) \"(?<path>.+?)\"";
+
+                var match = Regex.Match(line, regex);
                 if (!int.TryParse(match.Groups["id"].Value, out int objectId))
                     throw new Exception($"Failed to load object index: malformed object id in {line}");
 
