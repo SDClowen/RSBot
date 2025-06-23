@@ -25,6 +25,11 @@ internal class MoveScriptCommand : IScriptCommand
     public bool IsBusy { get; private set; }
 
     /// <summary>
+    ///     Gets or sets flag if you must dismount for teleporting.
+    /// </summary>
+    public static bool MustDismount { get; set; }
+
+    /// <summary>
     ///     Gets the arguments.
     /// </summary>
     /// <value>
@@ -116,17 +121,40 @@ internal class MoveScriptCommand : IScriptCommand
             return false; //Invalid format
         }
 
+        Position previousPosition = Game.Player.Position;
         Position pos = new(xSector, ySector, xOffset, yOffset, zOffset);
 
         if (PlayerConfig.Get("RSBot.Training.checkUseMount", true))
+        {
+            if (!Game.Player.HasActiveVehicle && !Game.Player.InAction)
+            {
+                Game.Player.SummonFellow();
+
+                var fellow = Game.Player.Fellow;
+
+                if (fellow != null)
+                {
+                    fellow.CastSkill("P2SKILL_SPECIAL_SP_GET_A"); //SP Recall
+
+                    double distanceToFellow = previousPosition.DistanceTo(fellow.Position);
+                    if (distanceToFellow <= 5.0)
+                    {
+                        fellow.Mount();
+                    }
+                    else
+                        Log.Debug($"Can't mount fellow pet because it's {distanceToFellow}m away");
+                }
+            }
+
             if (!Game.Player.HasActiveVehicle && !Game.Player.IsInDungeon && !Game.Player.InAction)
                 Game.Player.SummonVehicle();
+        }
 
         //Check if the new position is nearby a cave entrance.
         //If so dismount the vehicle
         //TODO: Find out how to get the ingame positions of ground teleporters like dw cave...
 
-        var distance = pos.DistanceTo(Game.Player.Position);
+        var distance = pos.DistanceTo(previousPosition);
         if (distance > 100)
         {
             Log.Warn("[Script] Target position too far away, bot logic aborted!");
@@ -137,7 +165,18 @@ internal class MoveScriptCommand : IScriptCommand
 
         Log.Debug($"[Script] Move to position {pos.Region}({pos.Region.X},{pos.Region.Y}) X={pos.X}, Y={pos.Y}");
 
-        return Game.Player.MoveTo(pos);
+        
+        bool posResult = Game.Player.MoveTo(pos);
+
+        if (MustDismount)
+        {
+            MustDismount = false;
+            Game.Player.Vehicle.Dismount();
+            bool previousPositionResult = Game.Player.MoveTo(previousPosition);
+            return previousPositionResult;
+        }
+        else
+            return posResult;
     }
 
     public void Stop()

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using RSBot.Core.Components;
@@ -261,24 +261,36 @@ public class Cos : SpawnedEntity
 
         PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallback);
         awaitCallback.AwaitResponse();
-
-        // Wait to finish the step
+        var distance = Game.Player.Movement.Source.DistanceTo(destination);
+        //Wait to finish the step
         if (sleep)
         {
-            var startedAt = DateTime.Now;
-            var distance = Game.Player.Movement.Source.DistanceTo(destination);
-            var moveTime = TimeSpan.FromMilliseconds(Convert.ToInt32(distance / Game.Player.ActualSpeed * 10000));
-
-            while (distance > 1)
+            var vehicle = Game.Player.Vehicle;
+            if (vehicle != null
+                && SpawnManager.TryGetEntity<SpawnedCos>(vehicle.UniqueId, out SpawnedCos spawnedCos))
             {
-                Thread.Sleep(250);
-                // return when more time elapsed than calculated time to finish movement
-                if (DateTime.Now.Subtract(startedAt) >= moveTime)
-                    break;
-
-                distance = Game.Player.Movement.Source.DistanceTo(destination);
+                Thread.Sleep(Convert.ToInt32(distance / spawnedCos.ActualSpeed * 10000));
+            }
+            else
+            {
+                Thread.Sleep(Convert.ToInt32(distance / Game.Player.ActualSpeed * 10000));
             }
         }
+    }
+
+    /// <summary>
+    ///     Casts a skill on the player
+    /// </summary>
+    /// <param name="codeName">Skill code name</param>
+    public void CastSkill(string codeName)
+    {
+        var packet = new Packet(0x70C5);
+        packet.WriteUInt(UniqueId);
+        packet.WriteByte(CosCommand.Cast);
+        packet.WriteUInt(Game.ReferenceManager.GetRefSkill(codeName).ID);
+        packet.WriteUInt(Game.Player.UniqueId);
+
+        PacketManager.SendPacket(packet, PacketDestination.Server);
     }
 
     /// <summary>
