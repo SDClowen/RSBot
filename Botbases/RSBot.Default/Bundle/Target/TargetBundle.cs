@@ -93,14 +93,14 @@ internal class TargetBundle : IBundle
         }
 
         var warlockModeEnabled = PlayerConfig.Get("RSBot.Skills.checkWarlockMode", false);
-        if (warlockModeEnabled && Game.SelectedEntity.State.HasTwoDots())
+        if (warlockModeEnabled && Game.SelectedEntity?.State.HasTwoDots() == true)
+            return;
+
+        if (Game.SelectedEntity?.State.LifeState == LifeState.Alive)
             return;
 
         if (Game.SelectedEntity != null && Game.SelectedEntity is not SpawnedMonster)
             Game.SelectedEntity = null;
-
-        if (Game.SelectedEntity?.State.LifeState == LifeState.Alive)
-            return;
 
         var monster = GetNearestEnemy();
         if (monster == null)
