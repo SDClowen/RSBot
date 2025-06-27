@@ -7,18 +7,12 @@ using RSBot.Core;
 using RSBot.Core.Client;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
-using RSBot.Core.Objects;
 using RSBot.Core.Plugins;
 using RSBot.Core.UI;
 using RSBot.Views;
-using RSBot.Views.Controls;
 using RSBot.Views.Dialogs;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Net;
 using System.Windows.Input;
 
 namespace RSBot.ViewModels;
@@ -55,7 +49,8 @@ public class MainWindowViewModel : ReactiveObject
         StartButtonBorderBrush = new SolidColorBrush(Colors.Gray);
 
         BotBases = [];
-        Plugins = [];
+        WindowPlugins = [];
+        TabPlugins = [];
         Languages = [];
         Divisions = [];
         Servers = [];
@@ -77,7 +72,12 @@ public class MainWindowViewModel : ReactiveObject
     /// <summary>
     /// Gets the collection of available plugins
     /// </summary>
-    public ObservableCollection<PluginInfo> Plugins { get; }
+    public ObservableCollection<ExtensionInfo> WindowPlugins { get; }
+
+    /// <summary>
+    /// Gets the collection of available plugins
+    /// </summary>
+    public ObservableCollection<ExtensionInfo> TabPlugins { get; }
 
     /// <summary>
     /// Gets the collection of available languages
@@ -271,7 +271,7 @@ public class MainWindowViewModel : ReactiveObject
         ThemeChangerAutoCommand = ReactiveCommand.Create(ExecuteThemeChangerAuto);
         ShowNetworkConfigCommand = ReactiveCommand.Create(ExecuteShowNetworkConfig);
         SelectBotBaseCommand = ReactiveCommand.Create<string>(ExecuteSelectBotBase);
-        ShowPluginCommand = ReactiveCommand.Create<PluginInfo>(ExecuteShowPlugin);
+        ShowPluginCommand = ReactiveCommand.Create<ExtensionInfo>(ExecuteShowPlugin);
         SelectLanguageCommand = ReactiveCommand.Create<string>(ExecuteSelectLanguage);
         SetThemeCommand = ReactiveCommand.Create<string>(ExecuteSetTheme);
         SetCustomThemeCommand = ReactiveCommand.Create(ExecuteSetCustomTheme);
@@ -304,7 +304,10 @@ public class MainWindowViewModel : ReactiveObject
         _playerName = Game.Player.Name;
         StatusText = $"Connected: {_playerName}";
 
-        foreach (var plugin in Plugins)
+        foreach (var plugin in TabPlugins)
+            plugin.IsEnabled = true;
+
+        foreach (var plugin in WindowPlugins)
             plugin.IsEnabled = true;
 
         if (Game.Clientless)
@@ -448,10 +451,7 @@ public class MainWindowViewModel : ReactiveObject
     /// </summary>
     private async void ExecuteExit()
     {
-        if (_isBotRunning)
-            Kernel.Bot.Stop();
-
-        if (Kernel.Proxy?.ClientConnected == true && GlobalConfig.Get("RSBot.showExitDialog", true))
+        if (Kernel.Proxy?.ClientConnected == true || GlobalConfig.Get("RSBot.showExitDialog", true))
         {
             var result = await MessageBox.Show(_mainWindow, 
                 LanguageManager.GetLang("AreYouSureWantToExit"), 
@@ -462,9 +462,14 @@ public class MainWindowViewModel : ReactiveObject
                 return;
         }
 
+        if (_isBotRunning)
+            Kernel.Bot.Stop();
+
         GlobalConfig.Save();
         PlayerConfig.Save();
-        ClientManager.Kill();
+
+        if(Kernel.Proxy?.ClientConnected == true)
+            ClientManager.Kill();
 
         Environment.Exit(0);
     }
@@ -597,8 +602,14 @@ public class MainWindowViewModel : ReactiveObject
     /// <summary>
     /// Executes the show plugin command
     /// </summary>
-    private void ExecuteShowPlugin(PluginInfo plugin)
+    private void ExecuteShowPlugin(ExtensionInfo plugin)
     {
+        if(plugin.IsWindow == false)
+        {
+            Log.Warn($"Plugin {plugin.Name} is not a window plugin and cannot be shown as a window.");
+            return;
+        }
+
         if (!_pluginWindows.TryGetValue(plugin.Name, out var pluginWindow))
         {
             pluginWindow = new Window
@@ -706,7 +717,8 @@ public class MainWindowViewModel : ReactiveObject
             {
                 Name = botBase.InternalName,
                 DisplayName = botBase.DisplayName,
-                IsSelected = botBase.InternalName == GlobalConfig.Get("RSBot.BotName", "RSBot.Default")
+                IsSelected = botBase.InternalName == GlobalConfig.Get("RSBot.BotName", "RSBot.Default"),
+                //IsWindow = !botBase.DisplayAsTab
             });
         }
     }
@@ -716,19 +728,24 @@ public class MainWindowViewModel : ReactiveObject
     /// </summary>
     private void LoadPlugins()
     {
-        Plugins.Clear();
+        TabPlugins.Clear();
+        WindowPlugins.Clear();
 
         foreach (var plugin in ExtensionManager.Plugins)
         {
-            var pluginInfo = new PluginInfo
+            var pluginInfo = new ExtensionInfo
             {
                 Name = plugin.InternalName,
                 DisplayName = plugin.DisplayName,
                 IsEnabled = plugin.RequireIngame,
-                View = plugin.View
+                View = plugin.View,
+                IsWindow = !plugin.DisplayAsTab
             };
 
-            Plugins.Add(pluginInfo);
+            if(pluginInfo.IsWindow)
+                WindowPlugins.Add(pluginInfo);
+            else
+                TabPlugins.Add(pluginInfo);
 
             plugin.Initialize();
         }
@@ -788,36 +805,38 @@ public class MainWindowViewModel : ReactiveObject
 public class ExtensionInfo
 {
     /// <summary>
-    /// Gets or sets the name of the bot base
+    /// Gets or sets the name of the plugin
     /// </summary>
     public string Name { get; set; }
 
     /// <summary>
-    /// Gets or sets the display name of the bot base
+    /// Gets or sets the display name of the plugin
     /// </summary>
     public string DisplayName { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the bot base is enabled
+    /// Gets or sets whether the plugin is enabled
     /// </summary>
     public bool IsEnabled { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the bot base is selected
+    /// Gets or sets whether the plugin is selected
     /// </summary>
     public bool IsSelected { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the plugin is selected
+    /// </summary>
+    public bool IsWindow { get; set; }
 
     /// <summary>
     /// Gets or sets the view associated with the plugin
     /// </summary>
     public Control View { get; set; }
-}
 
-/// <summary>
-/// Represents information about a plugin
-/// </summary>
-public class PluginInfo : ExtensionInfo
-{
+    /// <summary>
+    /// Get the display name of the plugin
+    /// </summary>
     public override string ToString()
     {
         return DisplayName;

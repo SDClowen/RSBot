@@ -15,7 +15,8 @@
 		WindowStartupLocation="CenterScreen"
 		ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="PreferSystemChrome"
-        ExtendClientAreaTitleBarHeightHint="-1">
+        ExtendClientAreaTitleBarHeightHint="-1"
+		Name="mainWindow">
 
 	<Design.DataContext>
 		<vm:MainWindowViewModel/>
@@ -59,16 +60,19 @@
 									</DataTemplate>
 								</MenuItem.ItemTemplate>
 							</MenuItem>
-							<MenuItem Header="Plugins" ItemsSource="{Binding Plugins}">
+
+							<MenuItem Header="Plugins" ItemsSource="{Binding WindowPlugins}">
 								<MenuItem.ItemTemplate>
-									<DataTemplate x:DataType="vm:PluginInfo">
+									<DataTemplate x:DataType="vm:ExtensionInfo">
 										<MenuItem Header="{Binding DisplayName}"
-												Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).ShowPluginCommand}"
-												CommandParameter="{Binding}"
-												IsEnabled="{Binding IsEnabled}"/>
+												  IsEnabled="{Binding IsEnabled}"
+												  Command="{Binding #mainWindow.DataContext.ShowPluginCommand}"
+												  CommandParameter="{Binding}" />
 									</DataTemplate>
 								</MenuItem.ItemTemplate>
+								
 							</MenuItem>
+
 							<MenuItem Header="Help">
 								<MenuItem Header="About" Command="{Binding ShowAboutCommand}"/>
 								<MenuItem Header="Donate" Command="{Binding DonateCommand}"/>
@@ -92,7 +96,7 @@
 				<Border Grid.Row="1" Margin="5" CornerRadius="6" Background="rgba(255, 255, 255, .06)" Padding="10">
 					<rs:Entity/>
 				</Border>
-				
+
 				<StackPanel Grid.Row="2" Height="40" Margin="0 0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal">
 					<Button Padding="30 5" Command="{Binding ToggleCosManagerCommand}" HorizontalAlignment="Right" Margin="0 0 5 0">Save</Button>
 					<Button Padding="30 5" Name="btnStart" Command="{Binding StartStopCommand}"
@@ -105,12 +109,12 @@
 		</Border>
 		<DockPanel LastChildFill="True">
 			<rs:Character DockPanel.Dock="Top" Height="100" Background="rgba(255, 255, 255, 0.05)"/>
-			<TabControl FontSize="13" Margin="4" VerticalAlignment="Stretch" Background="Transparent" FontWeight="300" Padding="0" Name="mainTabControl" ItemsSource="{Binding Plugins}">
+			<TabControl FontSize="13" Margin="4" VerticalAlignment="Stretch" Background="Transparent" FontWeight="300" Padding="0" Name="mainTabControl" ItemsSource="{Binding TabPlugins}">
 				<TabControl.Styles>
 					<Style Selector="TabItem">
 						<Setter Property="Template">
 							<Setter.Value>
-								<ControlTemplate x:DataType="vm:PluginInfo">
+								<ControlTemplate x:DataType="vm:ExtensionInfo">
 									<Border x:Name="TabBorder"
 											CornerRadius="4"
 											Background="{TemplateBinding Background}"
@@ -150,7 +154,7 @@
 					</Style>
 				</TabControl.Styles>
 				<TabControl.ContentTemplate>
-					<DataTemplate x:DataType="vm:PluginInfo">
+					<DataTemplate x:DataType="vm:ExtensionInfo">
 						<Border Padding="5" CornerRadius="6" Background="rgba(0, 0, 0, .1)">
 							<ContentPresenter Content="{Binding View}"/>
 						</Border>

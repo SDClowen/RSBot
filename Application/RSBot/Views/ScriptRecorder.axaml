@@ -4,11 +4,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:RSBot.ViewModels;assembly=RSBot"
         xmlns:base="clr-namespace:RSBot.Views.Base;assembly=RSBot"
-        mc:Ignorable="d" d:DesignWidth="616" d:DesignHeight="701"
+        mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="600"
         x:Class="RSBot.Views.ScriptRecorder"
         x:DataType="vm:ScriptRecorderViewModel"
         Title="RSBot - Script Recorder"
-        Width="616" Height="701"
+        Width="450" Height="600"
         CanResize="False"
         ShowInTaskbar="False">
 
