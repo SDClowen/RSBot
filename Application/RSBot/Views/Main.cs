@@ -276,6 +276,13 @@ public partial class Main : UIWindow
     {
         var menuItem = (ToolStripMenuItem)sender;
         var plugin = (IPlugin)menuItem.Tag;
+        var content = plugin.View;
+
+        if (content == null)
+        {
+            Log.Debug($"Plugin [{plugin.InternalName}] does not have a view defined!");
+            return;
+        }
 
         if (!_pluginWindows.TryGetValue(plugin.InternalName, out var pluginWindow) || pluginWindow.IsDisposed)
         {
@@ -290,7 +297,6 @@ public partial class Main : UIWindow
                 ShowTitle = true
             };
 
-            var content = plugin.View;
             content.Dock = DockStyle.Fill;
 
             plugin.Translate();
