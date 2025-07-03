@@ -1,37 +1,46 @@
-﻿using System;
-using System.Linq;
-using System.Windows.Forms;
+using Avalonia.Controls;
+using Avalonia.Interactivity;
 using RSBot.Core;
 using RSBot.Core.Objects;
-
+using RSBot.Core.UI;
+using RSBot.Default.Views.Models;
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace RSBot.Default.Views.Dialogs;
 
-public partial class TrainingAreasDialog : Form
+public partial class TrainingAreasDialog : Window
 {
+    public DialogResult Result { get; private set; } = DialogResult.None;
+
+    public ObservableCollection<AreaViewModel> Areas { get; }
+
     private const string DIALOG_AREA_NAME = "Enter area name";
     private const string DIALOG_AREA_DESC = "Example: For my custom party at jangan";
 
     public TrainingAreasDialog()
     {
         InitializeComponent();
+        DataContext = this;
+        Areas = [];
     }
 
-    private void buttonAccept_Click(object sender, EventArgs e)
+    private async void buttonAccept_Click(object sender, RoutedEventArgs e)
     {
-        if (listView.SelectedIndices.Count <= 0)
+        if (ListView.SelectedItems.Count <= 0)
         {
-            MessageBox.Show("Please select a training area!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            DialogResult = DialogResult.Retry;
+            await MessageBox.Show("Please select a training area!", "Warning", MessageBoxButtons.Ok);
+            e.Handled = false;
             return;
         }
 
-        var selectedItem = listView.SelectedItems[0];
-        PlayerConfig.Set("RSBot.Training.Index", selectedItem.Index);
+        var selectedItem = ListView.SelectedItems[0];
+        PlayerConfig.Set("RSBot.Training.Index", ListView.SelectedIndex);
 
-        if (selectedItem.Tag is not Area trainingArea)
+        if (selectedItem is not Area trainingArea)
         {
-            DialogResult = DialogResult.Retry;
+            e.Handled = false;
             return;
         }
 
@@ -40,14 +49,12 @@ public partial class TrainingAreasDialog : Form
         PlayerConfig.Set("RSBot.Area.Y", trainingArea.Position.YOffset);
         PlayerConfig.Set("RSBot.Area.Z", trainingArea.Position.ZOffset);
         PlayerConfig.Set("RSBot.Area.Radius", trainingArea.Radius);
+        Result = DialogResult.Ok;
     }
 
     private void TrainingAreas_Load(object sender, EventArgs e)
     {
         var selectedIndex = PlayerConfig.Get("RSBot.Training.Index", 0);
-
-        listView.BeginUpdate();
-        listView.Items.Clear();
 
         var areas = PlayerConfig.GetArray<string>("RSBot.Training.Areas");
         foreach (var area in areas)
@@ -58,44 +65,34 @@ public partial class TrainingAreasDialog : Form
 
             if (!Area.TryParse(split, out var trainingArea))
                 continue;
-
+            
             var regionName = Game.ReferenceManager.GetTranslation(trainingArea.Position.Region.ToString());
 
-            var listViewItem = listView.Items.Add(new ListViewItem
+            var areaViewModel = new AreaViewModel
             {
-                Tag = trainingArea
-            });
-            listViewItem.Text = (listViewItem.Index + 1).ToString();
+                Name = trainingArea.Name,
+                Region = regionName,
+                X = trainingArea.Position.X,
+                Y = trainingArea.Position.Y,
+                Radius = trainingArea.Radius,
+                IsSelected = ListView.SelectedIndex == selectedIndex
+            };
 
-            listViewItem.SubItems.AddRange(new[]
-            {
-                trainingArea.Name,
-                regionName,
-                trainingArea.Position.X.ToString("0.0"),
-                trainingArea.Position.Y.ToString("0.0"),
-                trainingArea.Radius.ToString(),
-                listViewItem.Index == selectedIndex ? "Yes" : "No"
-            });
-
-            if (listViewItem.Index == selectedIndex)
-                listViewItem.Selected = true;
-                    //listView.SetItemState(listViewItem.Index, 2, 2);
+            Areas.Add(areaViewModel);
         }
-
-        listView.EndUpdate();
     }
 
-    private void TrainingAreas_FormClosing(object sender, FormClosingEventArgs e)
+    private void TrainingAreas_FormClosing(object sender, WindowClosingEventArgs e)
     {
-        if (DialogResult == DialogResult.Retry)
+        if (Result == DialogResult.Retry)
             e.Cancel = true;
     }
 
-    private void createToolStripMenuItem_Click(object sender, EventArgs e)
+    private async void Create_Click(object sender, RoutedEventArgs e)
     {
         var dialog = new CreateTrainingAreaDialog();
-
-        if (dialog.ShowDialog() == DialogResult.OK)
+        await dialog.ShowDialog(this);
+        if (dialog.Result == DialogResult.Ok)
         {
             var position = Game.Player.Position;
 
@@ -108,20 +105,17 @@ public partial class TrainingAreasDialog : Form
 
             var regionName = Game.ReferenceManager.GetTranslation(trainingArea.Position.Region.ToString());
 
-            var listViewItem = listView.Items.Add(new ListViewItem
+            var area = new AreaViewModel
             {
-                Tag = trainingArea
-            });
-            listViewItem.Text = (listViewItem.Index + 1).ToString();
-            listViewItem.SubItems.AddRange(new[]
-            {
-                trainingArea.Name,
-                regionName,
-                trainingArea.Position.X.ToString("0.0"),
-                trainingArea.Position.Y.ToString("0.0"),
-                trainingArea.Radius.ToString(),
-                "No"
-            });
+                Name = trainingArea.Name,
+                Region = regionName,
+                X = trainingArea.Position.X,
+                Y = trainingArea.Position.Y,
+                Radius = trainingArea.Radius,
+                IsSelected = false
+            };
+
+            Areas.Add(area);
 
             var areas = PlayerConfig.GetArray<string>("RSBot.Training.Areas").ToList();
             areas.Add(
@@ -130,17 +124,22 @@ public partial class TrainingAreasDialog : Form
         }
     }
 
-    private void removeSelectedAreaToolStripMenuItem_Click(object sender, EventArgs e)
+    private void RemoveSelected_Click(object sender, RoutedEventArgs e)
     {
-        if (listView.SelectedItems.Count <= 0)
+        if (ListView.SelectedItems.Count <= 0)
             return;
 
-        var selectedIndex = listView.SelectedIndices[0];
         var areas = PlayerConfig.GetArray<string>("RSBot.Training.Areas").ToList();
-        areas.RemoveAt(selectedIndex);
+        areas.RemoveAt(ListView.SelectedIndex);
 
-        listView.Items.RemoveAt(selectedIndex);
+        Areas.RemoveAt(ListView.SelectedIndex);
 
         PlayerConfig.SetArray("RSBot.Training.Areas", areas.ToArray());
+    }
+
+    private void CancelButton_Click(object sender, RoutedEventArgs e)
+    {
+        Result = DialogResult.Cancel;
+        this.Close(DialogResult.Cancel);
     }
 }

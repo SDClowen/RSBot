@@ -54,7 +54,7 @@
 								<MenuItem.ItemTemplate>
 									<DataTemplate x:DataType="vm:ExtensionInfo">
 										<MenuItem Header="{Binding DisplayName}"
-												Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).SelectBotBaseCommand}"
+												Command="{Binding #mainWindow.DataContext.SelectBotBaseCommand}"
 												CommandParameter="{Binding Name}"
 												IsChecked="{Binding IsSelected}"/>
 									</DataTemplate>

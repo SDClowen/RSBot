@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Styling;
+using DynamicData;
 using ReactiveUI;
 using RSBot.Core;
 using RSBot.Core.Client;
@@ -58,8 +59,6 @@ public class MainWindowViewModel : ReactiveObject
         InitializeCommands();
         SubscribeEvents();
         LoadLanguages();
-        LoadBotBases();
-        LoadPlugins();
     }
 
     #region Public Properties
@@ -355,7 +354,7 @@ public class MainWindowViewModel : ReactiveObject
     private void OnLoadBotbases()
     {
         LoadBotBases();
-        SelectBotBase(GlobalConfig.Get("RSBot.BotName", "RSBot.Default"));
+        ExecuteSelectBotBase(GlobalConfig.Get("RSBot.BotName", "RSBot.Default"));
     }
 
     /// <summary>
@@ -403,7 +402,7 @@ public class MainWindowViewModel : ReactiveObject
             StartButtonText = "Stop Bot";
             StartButtonBackground = new SolidColorBrush(Colors.Red);
             StartButtonBorderBrush = new SolidColorBrush(Colors.Red);
-            
+
             _isBotRunning = true;
             Kernel.Bot.Start();
             Log.Notify("Bot started");
@@ -413,7 +412,7 @@ public class MainWindowViewModel : ReactiveObject
             StartButtonText = "Start Bot";
             StartButtonBackground = new SolidColorBrush(Colors.DodgerBlue);
             StartButtonBorderBrush = new SolidColorBrush(Colors.Gray);
-            
+
             _isBotRunning = false;
             Kernel.Bot.Stop();
             Log.Notify("Bot stopped");
@@ -453,9 +452,9 @@ public class MainWindowViewModel : ReactiveObject
     {
         if (Kernel.Proxy?.ClientConnected == true || GlobalConfig.Get("RSBot.showExitDialog", true))
         {
-            var result = await MessageBox.Show(_mainWindow, 
-                LanguageManager.GetLang("AreYouSureWantToExit"), 
-                LanguageManager.GetLang("ExitConfirmation"), 
+            var result = await MessageBox.Show(_mainWindow,
+                LanguageManager.GetLang("AreYouSureWantToExit"),
+                LanguageManager.GetLang("ExitConfirmation"),
                 MessageBoxButtons.YesNo);
 
             if (result != MessageBoxResult.Yes)
@@ -468,7 +467,7 @@ public class MainWindowViewModel : ReactiveObject
         GlobalConfig.Save();
         PlayerConfig.Save();
 
-        if(Kernel.Proxy?.ClientConnected == true)
+        if (Kernel.Proxy?.ClientConnected == true)
             ClientManager.Kill();
 
         Environment.Exit(0);
@@ -573,30 +572,20 @@ public class MainWindowViewModel : ReactiveObject
         GlobalConfig.Set("RSBot.BotName", newBotbase.InternalName);
 
         foreach (var botBase in BotBases)
+        {
             botBase.IsSelected = botBase.Name == botBaseName;
+
+            if (BotBases.Any(p => TabPlugins.Count >= 1 && p == TabPlugins.ElementAt(1)))
+                TabPlugins.RemoveAt(1);
+
+            if (TabPlugins.Count > 1)
+                TabPlugins.Insert(1, botBase);
+            else
+                TabPlugins.Add(botBase);
+        }
 
         if (Game.Player != null)
             EventManager.FireEvent("OnLoadCharacter");
-    }
-
-    /// <summary>
-    /// Selects a bot base by name
-    /// </summary>
-    private void SelectBotBase(string botBaseName)
-    {
-        var botBase = ExtensionManager.Bots.FirstOrDefault(bot => bot.InternalName == botBaseName);
-        if (botBase == null)
-        {
-            Log.Error($"Botbase [{botBaseName}] could not be found!");
-            return;
-        }
-
-        botBase.Translate();
-        Kernel.Bot?.SetBotbase(botBase);
-        GlobalConfig.Set("RSBot.BotName", botBase.InternalName);
-
-        foreach (var bot in BotBases)
-            bot.IsSelected = bot.Name == botBaseName;
     }
 
     /// <summary>
@@ -604,7 +593,7 @@ public class MainWindowViewModel : ReactiveObject
     /// </summary>
     private void ExecuteShowPlugin(ExtensionInfo plugin)
     {
-        if(plugin.IsWindow == false)
+        if (plugin.IsWindow == false)
         {
             Log.Warn($"Plugin {plugin.Name} is not a window plugin and cannot be shown as a window.");
             return;
@@ -711,15 +700,21 @@ public class MainWindowViewModel : ReactiveObject
     private void LoadBotBases()
     {
         BotBases.Clear();
-        foreach (var botBase in ExtensionManager.Bots)
+
+        foreach (var plugin in ExtensionManager.Bots)
         {
-            BotBases.Add(new ExtensionInfo
+            var pluginInfo = new ExtensionInfo
             {
-                Name = botBase.InternalName,
-                DisplayName = botBase.DisplayName,
-                IsSelected = botBase.InternalName == GlobalConfig.Get("RSBot.BotName", "RSBot.Default"),
-                //IsWindow = !botBase.DisplayAsTab
-            });
+                Name = plugin.InternalName,
+                DisplayName = plugin.DisplayName,
+                IsEnabled = true,
+                View = plugin.View,
+                IsWindow = false
+            };
+
+            BotBases.Add(pluginInfo);
+
+            plugin.Register();
         }
     }
 
@@ -742,7 +737,7 @@ public class MainWindowViewModel : ReactiveObject
                 IsWindow = !plugin.DisplayAsTab
             };
 
-            if(pluginInfo.IsWindow)
+            if (pluginInfo.IsWindow)
                 WindowPlugins.Add(pluginInfo);
             else
                 TabPlugins.Add(pluginInfo);

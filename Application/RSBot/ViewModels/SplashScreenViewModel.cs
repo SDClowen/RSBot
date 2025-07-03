@@ -118,28 +118,8 @@ public class SplashScreenViewModel : ReactiveObject
             Game.Initialize();
         });
 
-        LoadingText = "Loading plugins...";
-        LoadingProgress = 40;
-
-        if (!await Task.Run(() => ExtensionManager.LoadAssemblies<IPlugin>()))
-        {
-            await MessageBox.Show(_owner, "Failed to load plugins. Process canceled!", "Initialize Application - Error");
-            return;
-        }
-
-        LoadingText = "Loading botbases...";
-        LoadingProgress = 50;
-
-        if (!await Task.Run(() => ExtensionManager.LoadAssemblies<IBotbase>()))
-            await MessageBox.Show(_owner, "Failed to load botbases. Process canceled!", "Initialize Application - Error");
-
-        LoadingText = "Initializing commands...";
-        LoadingProgress = 60;
-
-        CommandManager.Initialize();
-
         LoadingText = "Loading game data...";
-        LoadingProgress = 70;
+        LoadingProgress = 40;
 
         if (!Game.InitializeArchiveFiles())
         {
@@ -151,12 +131,31 @@ public class SplashScreenViewModel : ReactiveObject
         {
             await Game.ReferenceManager.LoadAsync(GlobalConfig.Get("RSBot.TranslationIndex", 9), (progress, text) =>
             {
-                LoadingProgress = 70 + (int)(progress * 0.3); // 70 to 100
+                LoadingProgress = 40 + (int)(progress * 0.3); // 70 to 100
                 LoadingText = $"Loading {text} data...";
             });
         });
 
-        
+        LoadingText = "Loading plugins...";
+        LoadingProgress = 70;
+
+        if (!ExtensionManager.LoadAssemblies<IPlugin>())
+        {
+            await MessageBox.Show(_owner, "Failed to load plugins. Process canceled!", "Initialize Application - Error");
+            return;
+        }
+
+        LoadingText = "Loading botbases...";
+        LoadingProgress = 80;
+
+        //if (!await Task.Run(() => ExtensionManager.LoadAssemblies<IBotbase>()))
+        if (!ExtensionManager.LoadAssemblies<IBotbase>())
+            await MessageBox.Show(_owner, "Failed to load botbases. Process canceled!", "Initialize Application - Error");
+
+        LoadingText = "Initializing commands...";
+        LoadingProgress = 90;
+
+        CommandManager.Initialize();
 
         LoadingProgress = 100;
         LoadingText = "Initialization complete!";

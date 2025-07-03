@@ -1,0 +1,214 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="RSBot.Default.Views.Main"
+			 Loaded="Main_Load">
+
+	<Grid VerticalAlignment="Stretch" ColumnDefinitions="*,2*" HorizontalAlignment="Stretch">
+
+		<StackPanel Grid.Column="0">
+			<!-- Area GroupBox -->
+			<Border Margin="5"
+					Classes="groupbox">
+				<StackPanel>
+					<Border Classes="groupbox-header">
+						<TextBlock Text="Area" Classes="groupbox-header-content" />
+					</Border>
+					<StackPanel Margin="5">
+						<StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="5">
+							<TextBlock Text="X:" HorizontalAlignment="Stretch" Margin="0 0 3 0" VerticalAlignment="Center" />
+							<TextBox Width="55" x:Name="txtXCoord" Margin="0 0 5 0" TextChanged="txtXCoord_TextChanged" />
+
+							<TextBlock Text="Y:" VerticalAlignment="Center" Margin="0 0 3 0"/>
+							<TextBox Width="55" x:Name="txtYCoord" Margin="0 0 5 0" TextChanged="txtYCoord_TextChanged" />
+
+							<TextBlock Text="R:" Margin="0 0 3 0" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+							<TextBox x:Name="txtRadius" Width="40" TextChanged="txtRadius_TextChanged" />
+						</StackPanel>
+						<Grid ColumnDefinitions="*,20,*" Margin="10 5" HorizontalAlignment="Stretch">
+							<Button Grid.Column="0" x:Name="btnGetCurrent" Content="Current" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" Click="btnGetCurrent_Click"/>
+							<Button Grid.Column="2" x:Name="buttonSelectTrainingArea" Content="Areas" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" Click="buttonSelectTrainingArea_Click"/>
+						</Grid>
+						<StackPanel Margin="8">
+							<Separator/>
+							<TextBlock Text="If there is no enemy nearby..." Margin="0,5,0,10" />
+
+							<RadioButton
+										 x:Name="radioCenter"
+										 Content="Go back to center"
+										 Margin="20,0,0,5"
+										 Click="settings_CheckedChanged" />
+
+							<RadioButton
+										 x:Name="radioWalkAround"
+										 Content="Walk around"
+										 IsChecked="True"
+										 Margin="20,0,0,0"
+										 Click="settings_CheckedChanged" />
+						</StackPanel>
+					</StackPanel>
+				</StackPanel>
+			</Border>
+
+			<!-- Avoidance GroupBox -->
+			<Border Margin="5"
+					Classes="groupbox">
+				<StackPanel>
+					<Border Classes="groupbox-header">
+						<TextBlock Text="Avoidance" Classes="groupbox-header-content" />
+					</Border>
+					<TreeView x:Name="lvAvoidance" Height="200">
+						<TreeView.ContextMenu>
+							<ContextMenu>
+								<MenuItem x:Name="btnAvoid" Header="Avoid" />
+								<MenuItem x:Name="btnPrefer" Header="Prefer" />
+								<MenuItem x:Name="btnBerserk" Header="Berserk" />
+								<Separator />
+								<MenuItem x:Name="btnNoCustomBehavior" Header="No custom behavior" />
+							</ContextMenu>
+						</TreeView.ContextMenu>
+
+						<!-- Grouped Items -->
+						<TreeViewItem Header="General" />
+						<TreeViewItem Header="Champion" />
+						<TreeViewItem Header="Giant" />
+						<TreeViewItem Header="General (party)" />
+						<TreeViewItem Header="Champion (party)" />
+						<TreeViewItem Header="Giant (party)" />
+						<TreeViewItem Header="Unique" />
+						<TreeViewItem Header="Strong" />
+						<TreeViewItem Header="Elite" />
+						<TreeViewItem Header="Event" ToolTip.Tip="Event Mobs" />
+					</TreeView>
+				</StackPanel>
+			</Border>
+
+		</StackPanel>
+
+		<ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+			<StackPanel>
+				<!-- Back to training GroupBox -->
+				<Border Margin="5"  Classes="groupbox">
+					<StackPanel>
+						<Border Classes="groupbox-header">
+							<TextBlock Text="Back to training" Classes="groupbox-header-content" />
+						</Border>
+						<Border Padding="5">
+							<StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+								<Grid ColumnDefinitions="Auto,*" Margin="5 0">
+									<TextBlock Grid.Column="0" Text="Walkscript:" VerticalAlignment="Center"/>
+									<Button Grid.Column="1" x:Name="linkRecord" HorizontalAlignment="Right" VerticalAlignment="Center" Content="[Record]" Click="linkRecord_LinkClicked" />
+								</Grid>
+
+								<Grid ColumnDefinitions="*,Auto" HorizontalAlignment="Stretch" Margin="5">
+									<TextBox Grid.Column="0" x:Name="txtWalkscript"/>
+									<Button Grid.Column="1" x:Name="btnBrowse" Margin="5 0 0 0" Content="..." Click="btnBrowse_Click" />
+								</Grid>
+
+								<WrapPanel Margin="5 0" Orientation="Horizontal">
+									<CheckBox Margin="3" x:Name="checkUseMount" Content="Use mount if available" Click="settings_CheckedChanged" />
+									<CheckBox Margin="3" x:Name="checkCastBuffs" Content="Cast buffs" Click="settings_CheckedChanged" />
+									<CheckBox Margin="3" x:Name="checkUseSpeedDrug" Content="Use speed drug" Click="settings_CheckedChanged" />
+									<CheckBox Margin="3" x:Name="checkBoxUseReverse" Content="Use Reverse" Click="settings_CheckedChanged" />
+								</WrapPanel>
+							</StackPanel>
+						</Border>
+					</StackPanel>
+				</Border>
+
+				<!-- Berserk GroupBox -->
+				<Border Margin="5"
+						Classes="groupbox">
+					<StackPanel>
+						<Border Classes="groupbox-header">
+							<TextBlock Text="Berserk" Classes="groupbox-header-content" />
+						</Border>
+						<StackPanel Margin="10" Spacing="5">
+							<CheckBox x:Name="checkBerzerkWhenFull"
+									  Content="Enter berzerk mode when full"
+									  Click="settings_CheckedChanged" />
+
+							<StackPanel Orientation="Horizontal">
+								<CheckBox x:Name="checkBerzerkMonsterAmount"
+										  Content="Being attacked by more than"
+										  VerticalAlignment="Center"
+										  Click="settings_CheckedChanged" />
+								<NumericUpDown x:Name="numBerzerkMonsterAmount"
+											   Value="5"
+											   VerticalContentAlignment="Center"
+											   Minimum="2"
+											   Maximum="10"
+											   Width="120"
+											   Margin="10 0"
+											   ValueChanged="numSettings_ValueChanged" />
+								<TextBlock Text="monsters" VerticalAlignment="Center" />
+							</StackPanel>
+
+							<CheckBox x:Name="checkBerzerkAvoidance"
+									  Content="If being attacked by a monster type that should be avoided"
+									  Click="settings_CheckedChanged" />
+
+							<CheckBox x:Name="checkBerserkOnMonsterRarity"
+									  Content="Enter berserk mode when attack specific monster type"
+									  Click="settings_CheckedChanged" />
+						</StackPanel>
+					</StackPanel>
+				</Border>
+
+				<!-- Advanced GroupBox -->
+				<Border Margin="5"
+						Classes="groupbox"
+						VerticalAlignment="Top">
+					<StackPanel MaxHeight="200">
+						<Border Classes="groupbox-header">
+							<TextBlock Text="Advanced" Classes="groupbox-header-content" />
+						</Border>
+						<StackPanel Margin="10">
+							<CheckBox x:Name="checkBoxDimensionPillar"
+									  Content="Ignore Dimension Pillar"
+									  Margin="0,0,0,10"
+									  Click="settings_CheckedChanged" />
+
+							<StackPanel Orientation="Horizontal">
+								<CheckBox x:Name="checkAttackWeakerFirst"
+										  Content="If avoided: counter attack weaker mobs first"
+										  VerticalAlignment="Center"
+										  Click="settings_CheckedChanged" />
+								<Button x:Name="linkAttackWeakerMobsHelp"
+										Content="?"
+										Width="20"
+										Height="20"
+										Background="Transparent"
+										BorderThickness="0"
+										Foreground="Blue"
+										Margin="10,0,0,0"
+										Click="linkAttackWeakerMobsHelp_LinkClicked" />
+							</StackPanel>
+						</StackPanel>
+					</StackPanel>
+				</Border>
+			</StackPanel>
+		</ScrollViewer>
+	</Grid>
+
+	<UserControl.Styles>
+		<Style Selector="Border.groupbox">
+			<Setter Property="BorderBrush" Value="rgba(255, 255, 255, .15)" />
+			<Setter Property="BorderThickness" Value="1" />
+			<Setter Property="Background" Value="rgba(255, 255, 255, .08)" />
+			<Setter Property="CornerRadius" Value="6" />
+		</Style>
+		<Style Selector="Border.groupbox-header">
+			<Setter Property="Background" Value="rgba(255, 255, 255, .15)" />
+			<Setter Property="CornerRadius" Value="6 6 0 0" />
+		</Style>
+
+		<Style Selector="TextBlock.groupbox-header-content">
+			<Setter Property="Margin" Value="5" />
+			<Setter Property="TextAlignment" Value="Center" />
+			<Setter Property="VerticalAlignment" Value="Center" />
+		</Style>
+	</UserControl.Styles>
+</UserControl>

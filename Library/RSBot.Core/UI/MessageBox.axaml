@@ -6,10 +6,11 @@
         xmlns:vm="using:RSBot.Core.UI"
         mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="200"
         Width="400" Height="200"
-        WindowStartupLocation="CenterOwner"
-        Background="rgba(255, 255, 255, 0.07)"
-       ExtendClientAreaChromeHints="NoChrome"
-        ExtendClientAreaToDecorationsHint="True"
+		Background="rgba(255, 20, 20, 0.98)"
+		WindowStartupLocation="CenterScreen"
+		ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="PreferSystemChrome"
+        ExtendClientAreaTitleBarHeightHint="-1"
         x:DataType="vm:MessageBoxViewModel">
 
     <Design.DataContext>

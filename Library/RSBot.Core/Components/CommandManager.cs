@@ -7,7 +7,7 @@ namespace RSBot.Core.Components;
 
 public static class CommandManager
 {
-    private static List<ICommandExecutor> _commands;
+    private static List<ICommandExecutor> _commands = [];
 
     /// <summary>
     ///     Initializes the command manager.

@@ -1,0 +1,49 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="RSBot.Default.Views.Dialogs.TrainingAreasDialog"
+        Width="620" Height="330"
+        CanResize="False"
+        ShowInTaskbar="False"
+		xmlns:vm="using:RSBot.Default.Views.Models"
+        WindowStartupLocation="CenterOwner"
+        Title="Training Areas - Right click for create"
+		Opened="TrainingAreas_Load"
+		Closing="TrainingAreas_FormClosing">
+
+	<!-- Context Menu Definition -->
+	<Window.Resources>
+		<ContextMenu x:Key="ListViewContextMenu">
+			<MenuItem Header="Create" Click="Create_Click"/>
+			<MenuItem Header="Remove selected area" Click="RemoveSelected_Click"/>
+		</ContextMenu>
+	</Window.Resources>
+
+	<DockPanel Background="rgba(255, 255, 255, .1)">
+
+		<!-- Bottom Panel -->
+		<Grid ColumnDefinitions="Auto,*, Auto" Margin="10" DockPanel.Dock="Bottom" HorizontalAlignment="Stretch">
+			<Button Grid.Column="0" x:Name="AcceptButton" Content="Accept" Click="buttonAccept_Click" HorizontalAlignment="Left" VerticalAlignment="Center" />
+			<TextBlock Grid.Column="1" x:Name="labelPos"
+                       Text="Right click for create new area"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Center"
+                       TextAlignment="Center"
+                       Margin="10,0"/>
+			<Button  Grid.Column="2" x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Right" VerticalAlignment="Center" Click="CancelButton_Click"/>
+		</Grid>
+
+		<Border Background="rgba(20, 20, 20, 0.98)" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+			<DataGrid Background="Red" x:Name="ListView" ItemsSource="{Binding Areas}" Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ContextMenu="{DynamicResource ListViewContextMenu}"
+			  AutoGenerateColumns="True" IsReadOnly="True"
+			  GridLinesVisibility="All"
+			  BorderThickness="1" BorderBrush="Gray">
+				<DataGrid.Columns>
+					<DataGridTextColumn Header="First Name"/>
+					<DataGridTextColumn Header="Last Name" />
+					<DataGridCheckBoxColumn Header="Fictitious?" />
+				</DataGrid.Columns>
+			</DataGrid>
+		</Border>
+
+	</DockPanel>
+</Window>

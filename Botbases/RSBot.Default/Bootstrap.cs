@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using Avalonia.Controls;
 using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Objects;
@@ -8,12 +7,13 @@ using RSBot.Default.Bot;
 using RSBot.Default.Bundle;
 using RSBot.Default.Components;
 using RSBot.Default.Subscriber;
+using System;
 
 namespace RSBot.Default;
 
 public class Bootstrap : IBotbase
 {
-    public string Name => "RSBot.Default";
+    public string InternalName => "RSBot.Default";
 
     public string DisplayName => "Training";
 
@@ -61,7 +61,7 @@ public class Bootstrap : IBotbase
     }
 
     /// <summary>
-    ///     Gets the view.
+    /// Gets the view.
     /// </summary>
     /// <returns></returns>
     public Control View => Container.View;

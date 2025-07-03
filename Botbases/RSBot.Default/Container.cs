@@ -5,8 +5,6 @@ namespace RSBot.Default;
 
 internal static class Container
 {
-    private static Main _mainView;
-
     /// <summary>
     ///     Gets or sets the bot.
     /// </summary>
@@ -21,16 +19,7 @@ internal static class Container
     /// <value>
     ///     The view.
     /// </value>
-    public static Main View
-    {
-        get
-        {
-            if (_mainView == null || _mainView.Disposing || _mainView.IsDisposed)
-                _mainView = new Main();
-
-            return _mainView;
-        }
-    }
+    public static Main View { get; } = new();
 
     /// <summary>
     ///     Gets or sets the lock.

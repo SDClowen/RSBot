@@ -1,0 +1,46 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="RSBot.Default.Views.Dialogs.CreateTrainingAreaDialog"
+        Width="260" Height="250"
+        CanResize="False"
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterOwner"
+        Title="Create training area" 
+	Closing="CreateTrainingAreaDialog_FormClosing"
+	Opened="CreateTrainingAreaDialog_Load">
+    
+    <DockPanel Margin="4">
+
+        <!-- Top Title -->
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,10" HorizontalAlignment="Center">
+            <TextBlock Text="Create training area"
+                       FontSize="16"
+                       FontWeight="SemiBold"/>
+        </StackPanel>
+
+        <!-- Bottom Buttons -->
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="5">
+            <Button x:Name="AcceptButton" Click="buttonAccept_Click" Width="75" Height="25" Content="Accept"/>
+            <Button x:Name="CancelButton" Width="75" Height="25" Content="Cancel" Click="buttonCancel_Click" IsCancel="True"/>
+        </StackPanel>
+
+        <!-- Main Content -->
+        <StackPanel Spacing="8">
+            <!-- Name -->
+            <TextBlock Text="Name"/>
+            <TextBox x:Name="TrainingName" Text="My training area" Width="234"/>
+
+            <!-- Radius -->
+            <TextBlock Text="Radius"/>
+            <NumericUpDown x:Name="Radius" Minimum="5" Value="50" Width="234"/>
+
+            <!-- Spacer / Separator -->
+            <Border Height="10" Background="Gray" Margin="0,5"/>
+
+            <!-- Position / Area Info -->
+            <TextBlock x:Name="labelPos" Text="Coordinate" HorizontalAlignment="Center"/>
+            <TextBlock x:Name="labelArea" Text="Area" HorizontalAlignment="Center"/>
+        </StackPanel>
+
+    </DockPanel>
+</Window>
