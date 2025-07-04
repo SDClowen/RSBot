@@ -13,6 +13,7 @@ RSBot.Skills.Main.TabControl.TabPage.GroupBox.checkAcceptResurrection="Прин�
 RSBot.Skills.Main.TabControl.TabPage.GroupBox.label3="Рес скилл"
 RSBot.Skills.Main.TabControl.TabPage.GroupBox.checkResurrectParty="Автовоскрешение членов группы"
 RSBot.Skills.Main.TabControl.TabPage.GroupBox.checkCastBuffsDuringWalkBack="Каст баффов во время скрипта"
+RSBot.Skills.Main.TabControl.TabPage.GroupBox.checkCastBuffsBetweenAttacks="Каст баффов между атакующими скиллами"
 RSBot.Skills.Main.TabControl.TabPage.GroupBox.checkCastBuffsInTowns="Каст баффов в городе"
 RSBot.Skills.Main.TabControl.TabPage.groupBox3="Автовоскрешение"
 RSBot.Skills.Main.TabControl.TabPage.groupBox4="Расширенные настройки баффов"
