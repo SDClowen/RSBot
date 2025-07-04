@@ -4,9 +4,7 @@ using RSBot.Core;
 using RSBot.Core.Objects;
 using RSBot.Core.UI;
 using RSBot.Default.Views.Models;
-using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace RSBot.Default.Views.Dialogs;
 
@@ -24,19 +22,20 @@ public partial class TrainingAreasDialog : Window
         InitializeComponent();
         DataContext = this;
         Areas = [];
+        listView.ItemsSource = Areas;
     }
 
     private async void buttonAccept_Click(object sender, RoutedEventArgs e)
     {
-        if (ListView.SelectedItems.Count <= 0)
+        if (listView.SelectedItems.Count <= 0)
         {
             await MessageBox.Show("Please select a training area!", "Warning", MessageBoxButtons.Ok);
             e.Handled = false;
             return;
         }
 
-        var selectedItem = ListView.SelectedItems[0];
-        PlayerConfig.Set("RSBot.Training.Index", ListView.SelectedIndex);
+        var selectedItem = listView.SelectedItems[0];
+        PlayerConfig.Set("RSBot.Training.Index", listView.SelectedIndex);
 
         if (selectedItem is not Area trainingArea)
         {
@@ -75,7 +74,7 @@ public partial class TrainingAreasDialog : Window
                 X = trainingArea.Position.X,
                 Y = trainingArea.Position.Y,
                 Radius = trainingArea.Radius,
-                IsSelected = ListView.SelectedIndex == selectedIndex
+                IsSelected = listView.SelectedIndex == selectedIndex
             };
 
             Areas.Add(areaViewModel);
@@ -126,13 +125,13 @@ public partial class TrainingAreasDialog : Window
 
     private void RemoveSelected_Click(object sender, RoutedEventArgs e)
     {
-        if (ListView.SelectedItems.Count <= 0)
+        if (listView.SelectedItems.Count <= 0)
             return;
 
         var areas = PlayerConfig.GetArray<string>("RSBot.Training.Areas").ToList();
-        areas.RemoveAt(ListView.SelectedIndex);
+        areas.RemoveAt(listView.SelectedIndex);
 
-        Areas.RemoveAt(ListView.SelectedIndex);
+        Areas.RemoveAt(listView.SelectedIndex);
 
         PlayerConfig.SetArray("RSBot.Training.Areas", areas.ToArray());
     }

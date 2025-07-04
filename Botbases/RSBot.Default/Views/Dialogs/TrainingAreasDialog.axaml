@@ -33,15 +33,10 @@
 		</Grid>
 
 		<Border Background="rgba(20, 20, 20, 0.98)" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-			<DataGrid Background="Red" x:Name="ListView" ItemsSource="{Binding Areas}" Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ContextMenu="{DynamicResource ListViewContextMenu}"
+			<DataGrid Background="Red" Name="listView" Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ContextMenu="{DynamicResource ListViewContextMenu}"
 			  AutoGenerateColumns="True" IsReadOnly="True"
 			  GridLinesVisibility="All"
 			  BorderThickness="1" BorderBrush="Gray">
-				<DataGrid.Columns>
-					<DataGridTextColumn Header="First Name"/>
-					<DataGridTextColumn Header="Last Name" />
-					<DataGridCheckBoxColumn Header="Fictitious?" />
-				</DataGrid.Columns>
 			</DataGrid>
 		</Border>
 
