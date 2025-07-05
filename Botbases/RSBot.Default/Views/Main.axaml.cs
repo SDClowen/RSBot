@@ -48,18 +48,21 @@ public partial class Main : UserControl
     {
         const string key = "RSBot.Training.";
 
+        checkUseMount.IsChecked = PlayerConfig.Get(key + checkUseMount.Name, true);
+        checkCastBuffs.IsChecked = PlayerConfig.Get(key + checkCastBuffs.Name, true);
+        checkUseSpeedDrug.IsChecked = PlayerConfig.Get(key + checkUseSpeedDrug.Name, true);
+        checkBoxUseReverse.IsChecked = PlayerConfig.Get(key + checkBoxUseReverse.Name, true);
 
-        //foreach (var checkbox in groupBoxAdvanced.Controls.OfType<CheckBox>())
-        //    checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
 
-        //foreach (var checkbox in groupBoxBerserk.Controls.OfType<CheckBox>())
-        //    checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
+        checkBerzerkWhenFull.IsChecked = PlayerConfig.Get(key + checkBerzerkWhenFull.Name, true);
+        checkBerzerkMonsterAmount.IsChecked = PlayerConfig.Get(key + checkBerzerkMonsterAmount.Name, true);
+        checkBerzerkAvoidance.IsChecked = PlayerConfig.Get(key + checkBerzerkAvoidance.Name, true);
+        checkBerserkOnMonsterRarity.IsChecked = PlayerConfig.Get(key + checkBerserkOnMonsterRarity.Name, true);
 
-        //foreach (var num in groupBoxBerserk.Controls.OfType<System.Windows.Forms.NumericUpDown>())
-        //    num.Value = PlayerConfig.Get(key + num.Name, num.Value);
+        numBerzerkMonsterAmount.Value = PlayerConfig.Get(key + numBerzerkMonsterAmount.Name, numBerzerkMonsterAmount.Value);
 
-        //foreach (var checkbox in groupBoxWalkback.Controls.OfType<CheckBox>())
-        //    checkbox.Checked = PlayerConfig.Get(key + checkbox.Name, checkbox.Checked);
+        checkBoxDimensionPillar.IsChecked = PlayerConfig.Get(key + checkBoxDimensionPillar.Name, true);
+        checkAttackWeakerFirst.IsChecked = PlayerConfig.Get(key + checkAttackWeakerFirst.Name, true);
 
         radioCenter.IsChecked = PlayerConfig.Get(key + radioCenter.Name, false);
         radioWalkAround.IsChecked = PlayerConfig.Get(key + radioWalkAround.Name, true);
@@ -74,20 +77,23 @@ public partial class Main : UserControl
     {
         const string key = "RSBot.Training.";
 
-        //foreach (var checkbox in groupBoxAdvanced.Controls.OfType<CheckBox>())
-        //    PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
+        PlayerConfig.Set(key + checkUseMount.Name, checkUseMount.IsChecked ?? false);
+        PlayerConfig.Set(key + checkCastBuffs.Name, checkCastBuffs.IsChecked ?? false);
+        PlayerConfig.Set(key + checkUseSpeedDrug.Name, checkUseSpeedDrug.IsChecked ?? false);
+        PlayerConfig.Set(key + checkBoxUseReverse.Name, checkBoxUseReverse.IsChecked ?? false);
 
-        //foreach (var checkbox in groupBoxBerserk.Controls.OfType<CheckBox>())
-        //    PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
+        PlayerConfig.Set(key + checkBerzerkWhenFull.Name, checkBerzerkWhenFull.IsChecked ?? false);
+        PlayerConfig.Set(key + checkBerzerkMonsterAmount.Name, checkBerzerkMonsterAmount.IsChecked ?? false);
+        PlayerConfig.Set(key + checkBerzerkAvoidance.Name, checkBerzerkAvoidance.IsChecked ?? false);
+        PlayerConfig.Set(key + checkBerserkOnMonsterRarity.Name, checkBerserkOnMonsterRarity.IsChecked ?? false);
 
-        //foreach (var num in groupBoxBerserk.Controls.OfType<System.Windows.Forms.NumericUpDown>())
-        //    PlayerConfig.Set(key + num.Name, num.Value);
+        PlayerConfig.Set(key + numBerzerkMonsterAmount.Name, numBerzerkMonsterAmount.Value);
 
-        //foreach (var checkbox in groupBoxWalkback.Controls.OfType<CheckBox>())
-        //    PlayerConfig.Set(key + checkbox.Name, checkbox.Checked);
+        PlayerConfig.Set(key + checkBoxDimensionPillar.Name, checkBoxDimensionPillar.IsChecked ?? false);
+        PlayerConfig.Set(key + checkAttackWeakerFirst.Name, checkAttackWeakerFirst.IsChecked ?? false);
 
-        PlayerConfig.Set(key + radioCenter.Name, radioCenter.IsChecked);
-        PlayerConfig.Set(key + radioWalkAround.Name, radioWalkAround.IsChecked);
+        PlayerConfig.Set(key + radioCenter.Name, radioCenter.IsChecked ?? false);
+        PlayerConfig.Set(key + radioWalkAround.Name, radioWalkAround.IsChecked ?? false);
     }
 
     /// <summary>
