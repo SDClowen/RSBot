@@ -6,7 +6,9 @@
 
     <Application.Styles>
 		<FluentTheme DensityStyle="Compact" />
+		<StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
 		<Style Selector=":is(TopLevel)">
+			
 			<Setter Property="FontSize" Value="13.333333" />
 			<Setter Property="FontWeight" Value="300"/>
 		</Style>

@@ -37,6 +37,9 @@ public partial class CreateTrainingAreaDialog : Window
 
     private void CreateTrainingAreaDialog_Load(object sender, EventArgs e)
     {
+        if (!Game.Ready)
+            return;
+
         var pos = Game.Player.Movement.Source;
         labelPos.Text = $"X: {pos.X:0.0}  Y:{pos.Y:0.0}";
         labelArea.Text = Game.ReferenceManager.GetTranslation(pos.Region.ToString());
