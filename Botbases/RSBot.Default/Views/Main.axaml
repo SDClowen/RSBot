@@ -2,9 +2,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:vm="clr-namespace:RSBot.Default.Views.Models;assembly=RSBot.Default"
+             xmlns:core="clr-namespace:RSBot.Core.UI;assembly=RSBot.Core"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="RSBot.Default.Views.Main"
-			 Loaded="Main_Load">
+			 Loaded="Main_Load"
+		x:DataType="vm:MainViewModel">
+
+	<Design.DataContext>
+		<vm:MainViewModel />
+	</Design.DataContext>
 
 	<Grid VerticalAlignment="Stretch" ColumnDefinitions="*,2*" HorizontalAlignment="Stretch">
 
@@ -59,32 +66,29 @@
 					<Border Classes="groupbox-header">
 						<TextBlock Text="Avoidance" Classes="groupbox-header-content" />
 					</Border>
-					<TreeView x:Name="lvAvoidance" Height="200">
+					<TreeView ItemsSource="{Binding Groups}" x:Name="lvAvoidance" Height="200">
 						<TreeView.ContextMenu>
 							<ContextMenu>
-								<MenuItem x:Name="btnAvoid" Header="Avoid" />
-								<MenuItem x:Name="btnPrefer" Header="Prefer" />
-								<MenuItem x:Name="btnBerserk" Header="Berserk" />
+								<MenuItem Tag="0" x:Name="btnAvoid" Click="OnAvoidance_Click" Header="Avoid" />
+								<MenuItem Tag="1" x:Name="btnPrefer" Click="OnAvoidance_Click" Header="Prefer" />
+								<MenuItem Tag="2" x:Name="btnBerserk" Click="OnAvoidance_Click" Header="Berserk" />
 								<Separator />
-								<MenuItem x:Name="btnNoCustomBehavior" Header="No custom behavior" />
+								<MenuItem Tag="3" x:Name="btnNoCustomBehavior" Click="OnAvoidance_Click" Header="No custom behavior" />
 							</ContextMenu>
 						</TreeView.ContextMenu>
 
-						<!-- Grouped Items -->
-						<TreeViewItem Header="General" />
-						<TreeViewItem Header="Champion" />
-						<TreeViewItem Header="Giant" />
-						<TreeViewItem Header="General (party)" />
-						<TreeViewItem Header="Champion (party)" />
-						<TreeViewItem Header="Giant (party)" />
-						<TreeViewItem Header="Unique" />
-						<TreeViewItem Header="Strong" />
-						<TreeViewItem Header="Elite" />
-						<TreeViewItem Header="Event" ToolTip.Tip="Event Mobs" />
+						<TreeView.DataTemplates>
+							<TreeDataTemplate DataType="{x:Type core:TreeViewGroup}" ItemsSource="{Binding Children}">
+								<TextBlock Text="{Binding Header}" FontWeight="Bold"/>
+							</TreeDataTemplate>
+
+							<DataTemplate DataType="{x:Type core:TreeViewItem}">
+								<TextBlock Text="{Binding Name}"/>
+							</DataTemplate>
+						</TreeView.DataTemplates>
 					</TreeView>
 				</StackPanel>
 			</Border>
-
 		</StackPanel>
 
 		<ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">

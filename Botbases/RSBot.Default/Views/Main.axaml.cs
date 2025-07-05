@@ -5,18 +5,17 @@ using Avalonia.VisualTree;
 using DynamicData;
 using RSBot.Core;
 using RSBot.Core.Event;
+using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
 using RSBot.Core.UI;
 using RSBot.Default.Views.Dialogs;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+using RSBot.Default.Views.Models;
 
 namespace RSBot.Default.Views;
 
 public partial class Main : UserControl
 {
+    private MainViewModel _viewModel = new();
     private const int ScriptRecorderOwnerId = 2000;
 
     private bool _settingsLoaded;
@@ -27,20 +26,9 @@ public partial class Main : UserControl
     public Main()
     {
         InitializeComponent();
-        DataContext = this;
+        DataContext = _viewModel;
 
         SubscribeEvents();
-
-        lvAvoidance.Items.Add(MonsterRarity.General);
-        lvAvoidance.Items.Add(MonsterRarity.Champion);
-        lvAvoidance.Items.Add(MonsterRarity.Giant);
-        lvAvoidance.Items.Add(MonsterRarity.GeneralParty);
-        lvAvoidance.Items.Add(MonsterRarity.ChampionParty);
-        lvAvoidance.Items.Add(MonsterRarity.GiantParty);
-        lvAvoidance.Items.Add(MonsterRarity.Unique | MonsterRarity.Unique2);
-        lvAvoidance.Items.Add(MonsterRarity.EliteStrong);
-        lvAvoidance.Items.Add(MonsterRarity.Elite);
-        lvAvoidance.Items.Add(MonsterRarity.Event);
     }
 
     /// <summary>
@@ -159,16 +147,22 @@ public partial class Main : UserControl
     /// </summary>
     private void SaveAvoidance()
     {
-        var avoid = new List<MonsterRarity>();
-        var prefer = new List<MonsterRarity>();
-        var berserk = new List<MonsterRarity>();
-        //foreach (Monst item in lvAvoidance.Items)
-        //    if (item.Group == lvAvoidance.Groups["grpAvoid"])
-        //        avoid.Add((MonsterRarity)item.Tag);
-        //    else if (item.Group == lvAvoidance.Groups["grpPrefer"])
-        //        prefer.Add((MonsterRarity)item.Tag);
-        //    else if (item.Group == lvAvoidance.Groups["grpBerserk"])
-        //        berserk.Add((MonsterRarity)item.Tag);
+        var avoid = _viewModel.Groups
+            .Where(g => g.Header == "Avoid")
+            .SelectMany(g => g.Children)
+            .OfType<MonsterRarity>();
+
+
+        var prefer = _viewModel.Groups
+            .Where(g => g.Header == "Avoid")
+            .SelectMany(g => g.Children)
+            .OfType<MonsterRarity>();
+
+
+        var berserk = _viewModel.Groups
+            .Where(g => g.Header == "Avoid")
+            .SelectMany(g => g.Children)
+            .OfType<MonsterRarity>();
 
         PlayerConfig.SetArray("RSBot.Avoidance.Avoid", avoid);
         PlayerConfig.SetArray("RSBot.Avoidance.Prefer", prefer);
@@ -180,20 +174,45 @@ public partial class Main : UserControl
     /// </summary>
     private void LoadAvoidance()
     {
-        var prefer = PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Prefer").ToLookup(p => "Prefer", p => p);
-        var avoid = PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Avoid").ToLookup(p => "Avoid", p => p);
-        var berserk = PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Berserk").ToLookup(p => "Berserk", p => p);
+        var avoid = PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Avoid");
+        var prefer = PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Prefer");
+        var berserk = PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Berserk");
 
-        foreach (var group in avoid.Union(prefer).Union(berserk))
-            foreach (var item in group)
+        foreach (var item in avoid)
+        {
+            _viewModel.Groups[0].Children.Add(new Core.UI.TreeViewItem
             {
-                var listViewItem = lvAvoidance.Items.Cast<MonsterRarity>()
-                    .FirstOrDefault(p => (p & item) == item);
-                if (listViewItem == null)
-                    continue;
+                Parent = _viewModel.Groups[0],
+                Name = item.GetName(),
+                Tag = item
+            });
 
-                //listViewItem.Group = lvAvoidance..Groups[$"grp{group.Key}"];
-            }
+            _viewModel.Groups[3].Children.Remove(item);
+        }
+
+        foreach (var item in prefer)
+        {
+            _viewModel.Groups[1].Children.Add(new Core.UI.TreeViewItem
+            {
+                Parent = _viewModel.Groups[1],
+                Name = item.GetName(),
+                Tag = item
+            });
+
+            _viewModel.Groups[3].Children.Remove(item);
+        }
+
+        foreach (var item in berserk)
+        {
+            _viewModel.Groups[2].Children.Add(new Core.UI.TreeViewItem
+            {
+                Parent = _viewModel.Groups[2],
+                Name = item.GetName(),
+                Tag = item
+            });
+
+            _viewModel.Groups[3].Children.Remove(item);
+        }
     }
 
     /// <summary>
@@ -228,7 +247,7 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    ///     Handles the TextChanged event of the txtYCoord control.
+    /// Handles the TextChanged event of the txtYCoord control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
@@ -261,7 +280,7 @@ public partial class Main : UserControl
         var topLevel = TopLevel.GetTopLevel(this);
         if (topLevel == null)
             return;
-        
+
         var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
         {
             Title = @"Browse for a walkback script",
@@ -283,59 +302,32 @@ public partial class Main : UserControl
     }
 
     /// <summary>
-    ///     Handles the Click event of the btnAvoid control.
+    /// Handles the Click event of the avodiance controls.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.RoutedEventArgs" /> instance containing the event data.</param>
-    private void btnAvoid_Click(object sender, RoutedEventArgs e)
+    private void OnAvoidance_Click(object sender, RoutedEventArgs e)
     {
+        var groupIndex = Convert.ToInt32((sender as MenuItem).Tag);
+
         if (lvAvoidance.SelectedItems.Count <= 0)
             return;
 
-        //foreach (ListViewItem item in lvAvoidance.SelectedItems)
-        //    item.Group = lvAvoidance.Groups["grpAvoid"];
+        for (var i = lvAvoidance.SelectedItems.Count - 1; i >= 0; i--)
+        {
+            if (lvAvoidance.SelectedItems[i] is not Core.UI.TreeViewItem item)
+                continue;
 
-        SaveAvoidance();
-    }
+            var index = Enum.GetNames(typeof(MonsterRarity)).IndexOf(item.Tag.ToString());
+            _viewModel.Groups.Where(g => g.Children.Contains(item))
+                .ToList()
+                .ForEach(g => g.Children.Remove(item));
 
-    /// <summary>
-    ///     Handles the Click event of the btnPrefer control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
-    private void btnPrefer_Click(object sender, RoutedEventArgs e)
-    {
-        //if (lvAvoidance.SelectedItems.Count <= 0) return;
-        //foreach (ListViewItem item in lvAvoidance.SelectedItems)
-        //    item.Group = lvAvoidance.Groups["grpPrefer"];
-
-        SaveAvoidance();
-    }
-
-    /// <summary>
-    ///     Handles the Click event of the btnBerserk control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
-    private void btnBerserk_Click(object sender, RoutedEventArgs e)
-    {
-        //if (lvAvoidance.SelectedItems.Count <= 0) return;
-        //foreach (ListViewItem item in lvAvoidance.SelectedItems)
-        //    item.Group = lvAvoidance.Groups["grpBerserk"];
-
-        SaveAvoidance();
-    }
-
-    /// <summary>
-    /// Handles the Click event of the btnNoCustomBehavior control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
-    private void btnNoCustomBehavior_Click(object sender, RoutedEventArgs e)
-    {
-        //if (lvAvoidance.SelectedItems.Count <= 0) return;
-        //foreach (ListViewItem item in lvAvoidance.SelectedItems)
-        //    item.Group = lvAvoidance.Groups["grpNone"];
+            if(_viewModel.Groups[groupIndex].Children.Count - 1 >= index)
+                _viewModel.Groups[groupIndex].Children.Insert(index, item);
+            else
+                _viewModel.Groups[groupIndex].Children.Add(item);
+        }
 
         SaveAvoidance();
     }
@@ -345,11 +337,11 @@ public partial class Main : UserControl
     private void OnLoadCharacter()
     {
         var area = Kernel.Bot.Botbase.Area;
-        //Training Area
+
         txtXCoord.Text = area.Position.X.ToString("0.0");
         txtYCoord.Text = area.Position.Y.ToString("0.0");
         txtRadius.Text = area.Radius.ToString();
-        //Walkback
+
         txtWalkscript.Text = PlayerConfig.Get<string>("RSBot.Walkback.File");
     }
 
@@ -363,9 +355,9 @@ public partial class Main : UserControl
 
     private async void linkAttackWeakerMobsHelp_LinkClicked(object sender, RoutedEventArgs e)
     {
-       await MessageBox.Show(
-            "If the player is under attack by a monster that is set to be avoided the bot will counter attack weaker mobs that are currently attacking the player first before targeting the avoided monster again. The bot will only kill weaker monsters that are attacking the player and won't start to pull new mobs to the battle.",
-            "Attack weaker mobs first", MessageBoxButtons.Ok);
+        await MessageBox.Show(
+             "If the player is under attack by a monster that is set to be avoided the bot will counter attack weaker mobs that are currently attacking the player first before targeting the avoided monster again. The bot will only kill weaker monsters that are attacking the player and won't start to pull new mobs to the battle.",
+             "Attack weaker mobs first", MessageBoxButtons.Ok);
     }
 
     private void linkRecord_LinkClicked(object sender, RoutedEventArgs e)

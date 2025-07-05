@@ -6,13 +6,18 @@ namespace RSBot.Core.Objects;
 
 public struct Area
 {
+    ///<summary>
+    /// Gets or sets a value indicating whether this area is selected.
+    ///</summary>
+    public bool IsSelected { get; set; }
+
     /// <summary>
     ///     Gets or sets the name.
     /// </summary>
     /// <value>
     ///     The center name.
     /// </value>
-    public string Name;
+    public string Name { get; set; }
 
     /// <summary>
     ///     Gets or sets the center position.
@@ -21,6 +26,21 @@ public struct Area
     ///     The center position.
     /// </value>
     public Position Position;
+    
+    ///<summary>
+    /// Gets the X-coordinate of the current position.
+    ///</summary>
+    public float X => Position.X;
+
+    ///<summary>
+    /// Gets the Y-coordinate of the current position.
+    ///</summary>
+    public float Y => Position.Y;
+
+    ///<summary>
+    /// Gets the Z-coordinate of the current position.
+    ///</summary>
+    public string RegionName => Game.ReferenceManager.GetTranslation(Position.Region.ToString());
 
     /// <summary>
     ///     Gets or sets the radius.
@@ -28,7 +48,7 @@ public struct Area
     /// <value>
     ///     The radius.
     /// </value>
-    public int Radius;
+    public int Radius { get; set; }
 
     /// <summary>
     ///     The random

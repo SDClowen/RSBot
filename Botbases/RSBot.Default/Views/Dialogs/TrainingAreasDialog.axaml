@@ -4,21 +4,20 @@
         Width="620" Height="330"
         CanResize="False"
         ShowInTaskbar="False"
-		xmlns:vm="using:RSBot.Default.Views.Models"
+		xmlns:vm="clr-namespace:RSBot.Default.Views.Models;assembly=RSBot.Default"
+		xmlns:core="clr-namespace:RSBot.Core.Objects;assembly=RSBot.Core"
         WindowStartupLocation="CenterOwner"
         Title="Training Areas - Right click for create"
 		Opened="TrainingAreas_Load"
-		Closing="TrainingAreas_FormClosing">
+		Closing="TrainingAreas_FormClosing"
+		x:DataType="vm:TrainingAreasDialogModel">
 
-	<!-- Context Menu Definition -->
-	<Window.Resources>
-		<ContextMenu x:Key="ListViewContextMenu">
-			<MenuItem Header="Create" Click="Create_Click"/>
-			<MenuItem Header="Remove selected area" Click="RemoveSelected_Click"/>
-		</ContextMenu>
-	</Window.Resources>
+	<Design.DataContext>
+		<vm:TrainingAreasDialogModel/>
+	</Design.DataContext>
 
 	<DockPanel Background="rgba(255, 255, 255, .1)">
+
 
 		<!-- Bottom Panel -->
 		<Grid ColumnDefinitions="Auto,*, Auto" Margin="10" DockPanel.Dock="Bottom" HorizontalAlignment="Stretch">
@@ -32,11 +31,26 @@
 			<Button  Grid.Column="2" x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Right" VerticalAlignment="Center" Click="CancelButton_Click"/>
 		</Grid>
 
-		<Border Background="rgba(20, 20, 20, 0.98)" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-			<DataGrid Background="Red" Name="listView" Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ContextMenu="{DynamicResource ListViewContextMenu}"
-			  AutoGenerateColumns="True" IsReadOnly="True"
+		<Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+			<DataGrid ItemsSource ="{Binding Areas}" Background="Blue" x:Name="listView" Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+			  AutoGenerateColumns="False"
+					   IsReadOnly="True"
 			  GridLinesVisibility="All"
 			  BorderThickness="1" BorderBrush="Gray">
+				<DataGrid.ContextMenu>
+					<ContextMenu>
+						<MenuItem Header="Create" Click="Create_Click"/>
+						<MenuItem Header="Remove selected area" Click="RemoveSelected_Click"/>
+					</ContextMenu>
+				</DataGrid.ContextMenu>
+				<DataGrid.Columns>
+					<DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="2*"/>
+					<DataGridTextColumn Header="X" Binding="{Binding X}" Width="1*"/>
+					<DataGridTextColumn Header="Y" Binding="{Binding Y}" Width="1*"/>
+					<DataGridTextColumn Header="Radius" Binding="{Binding Radius}" Width="1*"/>
+					<DataGridTextColumn Header="Region" Binding="{Binding RegionName}" Width="1*"/>
+					<DataGridTextColumn Header="Is Selected" Binding="{Binding IsSelected}" Width="1*"/>
+				</DataGrid.Columns>
 			</DataGrid>
 		</Border>
 

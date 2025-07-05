@@ -1,40 +1,36 @@
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using RSBot.Core;
 using RSBot.Core.Objects;
 using RSBot.Core.UI;
 using RSBot.Default.Views.Models;
-using System.Collections.ObjectModel;
 
 namespace RSBot.Default.Views.Dialogs;
 
 public partial class TrainingAreasDialog : Window
 {
+    private TrainingAreasDialogModel _model;
     public DialogResult Result { get; private set; } = DialogResult.None;
-
-    public ObservableCollection<AreaViewModel> Areas { get; }
-
-    private const string DIALOG_AREA_NAME = "Enter area name";
-    private const string DIALOG_AREA_DESC = "Example: For my custom party at jangan";
 
     public TrainingAreasDialog()
     {
         InitializeComponent();
-        DataContext = this;
-        Areas = [];
-        listView.ItemsSource = Areas;
+
+        _model = new();
+        DataContext = _model;
     }
 
     private async void buttonAccept_Click(object sender, RoutedEventArgs e)
     {
         if (listView.SelectedItems.Count <= 0)
         {
-            await MessageBox.Show("Please select a training area!", "Warning", MessageBoxButtons.Ok);
+            await MessageBox.Show("Please select a training area!", "Warning", MessageBoxButtons.YesNoCancel);
             e.Handled = false;
             return;
         }
 
-        var selectedItem = listView.SelectedItems[0];
+        var selectedItem = listView.SelectedItem;
         PlayerConfig.Set("RSBot.Training.Index", listView.SelectedIndex);
 
         if (selectedItem is not Area trainingArea)
@@ -67,17 +63,14 @@ public partial class TrainingAreasDialog : Window
             
             var regionName = Game.ReferenceManager.GetTranslation(trainingArea.Position.Region.ToString());
 
-            var areaViewModel = new AreaViewModel
+            var areaViewModel = new Area
             {
                 Name = trainingArea.Name,
-                Region = regionName,
-                X = trainingArea.Position.X,
-                Y = trainingArea.Position.Y,
                 Radius = trainingArea.Radius,
                 IsSelected = listView.SelectedIndex == selectedIndex
             };
 
-            Areas.Add(areaViewModel);
+            _model.Areas.Add(areaViewModel);
         }
     }
 
@@ -102,19 +95,14 @@ public partial class TrainingAreasDialog : Window
                 Radius = (int)dialog.Radius.Value
             };
 
-            var regionName = Game.ReferenceManager.GetTranslation(trainingArea.Position.Region.ToString());
-
-            var area = new AreaViewModel
+            var area = new Area
             {
                 Name = trainingArea.Name,
-                Region = regionName,
-                X = trainingArea.Position.X,
-                Y = trainingArea.Position.Y,
                 Radius = trainingArea.Radius,
                 IsSelected = false
             };
 
-            Areas.Add(area);
+            _model.Areas.Add(area);
 
             var areas = PlayerConfig.GetArray<string>("RSBot.Training.Areas").ToList();
             areas.Add(
@@ -131,7 +119,7 @@ public partial class TrainingAreasDialog : Window
         var areas = PlayerConfig.GetArray<string>("RSBot.Training.Areas").ToList();
         areas.RemoveAt(listView.SelectedIndex);
 
-        Areas.RemoveAt(listView.SelectedIndex);
+        _model.Areas.RemoveAt(listView.SelectedIndex);
 
         PlayerConfig.SetArray("RSBot.Training.Areas", areas.ToArray());
     }

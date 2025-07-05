@@ -4,12 +4,11 @@ public enum MonsterRarity : byte
 {
     General = 0,
     Champion = 1,
-    Unique = 3,
+    Unique = 3 | 8,
     Giant = 4,
     Titan = 5,
     Elite = 6,
     EliteStrong = 7,
-    Unique2 = 8,
     GeneralParty = 16,
     ChampionParty = 17,
     UniqueParty = 19,

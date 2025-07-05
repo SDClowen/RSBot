@@ -246,7 +246,7 @@ public class PackFileSystem : IFileSystem
         if (entry is not PackEntry packEntry)
             throw new ArgumentException("Entry should be of type PackEntry");
 
-        Debug.WriteLine($"Reading file '{packEntry.Name}' (Offset: 0x{packEntry.DataPosition:X}, Size: {packEntry.Size}B)");
+        //Debug.WriteLine($"Reading file '{packEntry.Name}' (Offset: 0x{packEntry.DataPosition:X}, Size: {packEntry.Size}B)");
 
         var bsRead = new BsReader(_fileStream);
         bsRead.BaseStream.Position = packEntry.DataPosition;

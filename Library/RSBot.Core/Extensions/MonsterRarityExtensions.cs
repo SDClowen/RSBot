@@ -17,9 +17,6 @@ public static class MonsterRarityExtensions
             case MonsterRarity.Event:
                 return rarity.ToString();
 
-            case MonsterRarity.Unique2:
-                return "Unique";
-
             case MonsterRarity.EliteStrong:
                 return "Elite (Strong)";
 
