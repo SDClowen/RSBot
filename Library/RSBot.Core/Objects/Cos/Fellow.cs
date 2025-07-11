@@ -146,10 +146,10 @@ public class Fellow : Cos
         return true;
     }
 
-    public override bool UseBadStatusPotion()
-    {
-        return false;
-    }
+    //public override bool UseBadStatusPotion()
+    //{
+    //    return false;
+    //}
 
     public override void Deserialize(Packet packet)
     {
