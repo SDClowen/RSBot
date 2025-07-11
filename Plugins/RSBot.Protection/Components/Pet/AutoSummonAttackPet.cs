@@ -42,8 +42,8 @@ public class AutoSummonAttackPet
         if (!PlayerConfig.Get<bool>("RSBot.Protection.checkAutoSummonAttackPet"))
             return;
 
-        if (Game.Player.State.BattleState != BattleState.InPeace)
-            return;
+        //if (Game.Player.State.BattleState != BattleState.InPeace)
+        //    return;
 
         if (Game.Player.SummonFellow())
             return;
