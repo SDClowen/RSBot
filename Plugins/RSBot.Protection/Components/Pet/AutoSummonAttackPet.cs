@@ -20,19 +20,19 @@ public class AutoSummonAttackPet
     /// </summary>
     private static void SubscribeEvents()
     {
-        EventManager.SubscribeEvent("OnUpdateEntityBattleState", new Action<uint>(OnEntityBattleStateChanged));
+        EventManager.SubscribeEvent("OnKillSelectedEnemy", OnKillSelectedEnemy);
         EventManager.SubscribeEvent("OnStartBot", OnStartBot);
     }
 
     /// <summary>
     /// </summary>
     /// <param name="uniqueId">The unique identifier.</param>
-    private static void OnEntityBattleStateChanged(uint uniqueId)
+    private static void OnKillSelectedEnemy()
     {
         if (!Kernel.Bot.Running)
             return;
 
-        if (uniqueId != Game.Player.UniqueId)
+        if (Game.Player.State.LifeState == LifeState.Dead)
             return;
 
         if (Game.Player.Growth != null ||

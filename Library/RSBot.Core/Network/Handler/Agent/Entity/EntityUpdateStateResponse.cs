@@ -110,9 +110,10 @@ internal class EntityUpdateStateResponse : IPacketHandler
                 var scrollState = (ScrollState)state;
                 entity.State.ScrollState = scrollState;
 
-                if (uniqueId == Game.Player.UniqueId)
-                    if (scrollState == ScrollState.Cancel && Kernel.Bot.Running)
-                        Kernel.Bot.Stop();
+                //Do not stop bot on scroll cancel, it will stop bot on death while teleporting.
+                //if (uniqueId == Game.Player.UniqueId)
+                //    if (scrollState == ScrollState.Cancel && Kernel.Bot.Running)
+                //        Kernel.Bot.Stop();
 
                 EventManager.FireEvent("OnUpdateEntityScrollState", uniqueId);
 

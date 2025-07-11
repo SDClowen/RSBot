@@ -39,6 +39,8 @@ public class CosReviveHandler
         if (item == null)
             return;
 
+        System.Threading.Thread.Sleep(1000);
+
         var itemRecord = item.Record;
 
         if (!itemRecord.IsPet)
