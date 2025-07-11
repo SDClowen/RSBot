@@ -39,8 +39,6 @@ public class CosReviveHandler
         if (item == null)
             return;
 
-        System.Threading.Thread.Sleep(1000);
-
         var itemRecord = item.Record;
 
         if (!itemRecord.IsPet)
@@ -48,6 +46,8 @@ public class CosReviveHandler
 
         if (item.State != InventoryItemState.Dead)
             return;
+
+        System.Threading.Thread.Sleep(5000);
 
         if (itemRecord.IsGrowthPet)
             Game.Player.ReviveGrowth();
