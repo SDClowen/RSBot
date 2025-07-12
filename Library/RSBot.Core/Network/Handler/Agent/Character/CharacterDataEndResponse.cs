@@ -71,7 +71,7 @@ internal class CharacterDataEndResponse : IPacketHandler
         if (Game.ClientType >= GameClientType.Global)
         {
             packet.ReadByte();
-            packet.ReadUInt();
+            packet.ReadUInt(); //You can use VIP service until this time
             packet.ReadByte();
 
             if (Game.ClientType == GameClientType.Turkey ||
