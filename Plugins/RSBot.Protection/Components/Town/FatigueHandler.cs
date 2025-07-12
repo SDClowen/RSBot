@@ -61,12 +61,8 @@ public class FatigueHandler : AbstractTownHandler
         Kernel.Bot.Stop();
         Game.Player.UseReturnScroll();
         Log.WarnLang("ReturnToTownAndDC");
-        EventManager.SubscribeEvent("OnTeleportComplete", OnTeleportComplete);
-    }
 
-    private static void OnTeleportComplete()
-    {
-        Thread.Sleep(5000);
+        Thread.Sleep(40000); // for slowest return scrolls and teleportation lag
         Kernel.Proxy?.Shutdown();
     }
 
