@@ -20,7 +20,7 @@ public class FatigueHandler : AbstractTownHandler
         EventManager.SubscribeEvent("OnAgentServerDisconnected", OnAgentServerDisconnected);
     }
 
-    public static void OnFatigueTimeUpdate()
+    private static void OnFatigueTimeUpdate()
     {
         _disconnectTimer?.Dispose();
         _disconnectTimer = null;
