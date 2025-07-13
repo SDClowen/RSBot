@@ -69,6 +69,6 @@ public class DeadHandler : AbstractTownHandler
 
         var packet = new Packet(0x3053);
         packet.WriteByte(1);
-        PacketManager.SendPacket(packet, PacketDestination.Server);
+        PacketManager.SendPacket(packet, PacketDestination.Server); //Only works if not teleporting at that moment
     }
 }
