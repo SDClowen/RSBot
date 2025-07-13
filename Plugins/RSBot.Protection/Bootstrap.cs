@@ -50,6 +50,7 @@ public class Bootstrap : IPlugin
         NoHealthPotionsHandler.Initialize();
         LevelUpHandler.Initialize();
         DurabilityLowHandler.Initialize();
+        FatigueHandler.Initialize();
     }
 
     /// <inheritdoc />

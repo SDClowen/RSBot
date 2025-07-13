@@ -47,8 +47,11 @@ public class NoHealthPotionsHandler : AbstractTownHandler
         if (PlayerInTownScriptRegion())
             return;
 
+        if (Game.Player.State.LifeState == LifeState.Dead)
+            return;
+
         var typeIdFilter = new TypeIdFilter(3, 3, 1, 1);
-        if (Game.Player.Inventory.GetSumAmount(typeIdFilter) > 0)
+        if (Game.Player.Inventory.GetSumAmount(typeIdFilter) > PlayerConfig.Get<int>("RSBot.Protection.numHPPotionsLeft"))
             return;
 
         Game.Player.UseReturnScroll();

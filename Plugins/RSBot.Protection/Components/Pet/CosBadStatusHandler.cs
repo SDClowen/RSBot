@@ -36,9 +36,8 @@ internal class CosBadStatusHandler
             Game.Player.Growth.UseBadStatusPotion();
 
         if (Game.Player.Fellow != null &&
-            ((Game.Player.Fellow.BadEffect & BadEffectAll.UniversallPillEffects) != 0 ||
-             (Game.Player.Fellow.BadEffect & BadEffectAll.PurificationPillEffects) != 0))
-            Game.Player.Fellow.UseBadStatusPotion();
+            (Game.Player.Fellow.BadEffect & BadEffectAll.UniversallPillEffects) != 0)
+            Game.Player.Fellow.UseBadStatusPotion(); //PurificationPillEffects are not removed on fellow by pills
 
         if (Game.Player.Transport != null &&
             ((Game.Player.Transport.BadEffect & BadEffectAll.UniversallPillEffects) != 0 ||
