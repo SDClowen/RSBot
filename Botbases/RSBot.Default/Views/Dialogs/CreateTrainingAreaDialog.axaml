@@ -19,10 +19,10 @@
         </StackPanel>
 
         <!-- Bottom Buttons -->
-        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="5">
-            <Button x:Name="AcceptButton" Click="buttonAccept_Click" Width="75" Height="25" Content="Accept"/>
-            <Button x:Name="CancelButton" Width="75" Height="25" Content="Cancel" Click="buttonCancel_Click" IsCancel="True"/>
-        </StackPanel>
+        <Grid DockPanel.Dock="Bottom">
+            <Button x:Name="AcceptButton" Click="buttonAccept_Click" Content="Accept" HorizontalAlignment="Left"/>
+            <Button x:Name="CancelButton" Content="Cancel" Click="buttonCancel_Click" HorizontalAlignment="Right" IsCancel="True"/>
+        </Grid>
 
         <!-- Main Content -->
         <StackPanel Spacing="8">
@@ -35,7 +35,7 @@
             <NumericUpDown x:Name="Radius" Minimum="5" Value="50" Width="234"/>
 
             <!-- Spacer / Separator -->
-            <Border Height="10" Background="Gray" Margin="0,5"/>
+            <Border Height="2" Background="Gray" Margin="5"/>
 
             <!-- Position / Area Info -->
             <TextBlock x:Name="labelPos" Text="Coordinate" HorizontalAlignment="Center"/>

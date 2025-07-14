@@ -144,6 +144,7 @@
 											   VerticalContentAlignment="Center"
 											   Minimum="2"
 											   Maximum="10"
+											   Height="24"
 											   Width="120"
 											   Margin="10 0"
 											   ValueChanged="numSettings_ValueChanged" />

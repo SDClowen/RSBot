@@ -37,7 +37,7 @@ public partial class MainWindow : Window
 
         this.Opened += (_, __) =>
         {
-            this.EnableMica(WindowsHelper.DwmSystemBackdropType.Acrylic);
+            this.EnableMica(WindowsHelper.DwmSystemBackdropType.Tabbed);
             this.EnableDarkMode(); 
             
             InitializeTransforms();

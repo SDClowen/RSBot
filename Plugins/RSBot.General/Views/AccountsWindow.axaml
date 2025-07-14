@@ -1,0 +1,62 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        x:Class="RSBot.General.Views.AccountsWindow"
+        Title="Accounts"
+         Width="450" Height="320"
+		Loaded="Accounts_Load">
+
+
+	<Grid>
+		<Grid ColumnDefinitions="*, 1*" RowDefinitions="Auto">
+			<!-- Accounts List -->
+			<Border Grid.Column="0" Padding="5" Margin="5" CornerRadius="8" BorderBrush="rgba(220, 220, 220, .1)" Background="rgba(220, 220, 220, .2)">
+				<ListBox Name="listAccounts" Background="Transparent" SelectionChanged="listAccounts_SelectedIndexChanged"/>
+			</Border>
+
+			<Border Grid.Column="1" Padding="5" Margin="5" CornerRadius="8" BorderBrush="rgba(220, 220, 220, .1)" Background="rgba(220, 220, 220, .2)">
+				<StackPanel Spacing="5">
+					<TextBlock Text="Username:"/>
+					<TextBox Name="txtUsername"/>
+
+					<TextBlock Text="Password:"/>
+					<Grid ColumnDefinitions="*">
+						<TextBox Name="txtPassword" PasswordChar='*' />
+						<ToggleButton Padding="0" Width="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Height="20" Margin="0 0 6 0" Name="btnShowHidePassword"  Click="linkLabelPwShowHide_LinkClicked" Content="👁"/>
+					</Grid>
+
+					<TextBlock Text="Secondary Password:"/>
+					<Grid ColumnDefinitions="2*, 1*">
+						<TextBox Grid.Column="0" HorizontalAlignment="Stretch" Name="textBoxSecondaryPassword" PasswordChar='*' />
+						<ToggleButton Padding="0" Width="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Height="20" Margin="0 0 6 0" Name="btnShowHideSecondaryPassword" Click="linkLabelSecondaryPassword_LinkClicked" Content="👁"/>
+
+						<ComboBox Grid.Column="2" Name="comboBoxChannel" HorizontalAlignment="Stretch">
+							<ComboBoxItem>Joymax</ComboBoxItem>
+							<ComboBoxItem>JCPlanet</ComboBoxItem>
+						</ComboBox>
+					</Grid>
+
+					<!-- Server Name -->
+					<TextBlock Text="Server Name:"/>
+					<TextBox Name="txtServername"/>
+
+					<!-- Buttons -->
+					<StackPanel Orientation="Horizontal" Spacing="4">
+						<Button Click="btnAdd_Click" Name="btnAdd" Content="Add"/>
+						<Button Click="btnSave_Click" Name="btnSave" Content="Save" IsEnabled="False"/>
+						<Button Click="buttonRemove_Click" Name="buttonRemove" Content="Remove" Background="DarkRed" Foreground="White"/>
+					</StackPanel>
+				</StackPanel>
+			</Border>
+
+		</Grid>
+
+		<!-- Bottom Panel with OK and Cancel -->
+		<StackPanel Grid.Row="1" VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Stretch" Background="rgba(220, 220, 220, .1)">
+			<Button Name="btnOK" Click="btnOK_Click" Margin="10" Content="OK" HorizontalAlignment="Left"/>
+			<Button Name="btnCancel" Content="Cancel" HorizontalAlignment="Right"/>
+		</StackPanel>
+	</Grid>
+</Window>

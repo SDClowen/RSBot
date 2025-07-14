@@ -5,29 +5,41 @@
 		<Nullable>enable</Nullable>
 		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
 		<OutputPath>.\..\..\Build</OutputPath>
+		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<Description>A open source bot for Silkroad Online</Description>
 		<Copyright>Copyright © 2018 - 2025, RSBot Team</Copyright>
 		<PackageProjectUrl>https://github.com/SDClowen/RSBot</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/SDClowen/RSBot</RepositoryUrl>
 		<PlatformTarget>x86</PlatformTarget>
+		<RuntimeIdentifier>win-x86</RuntimeIdentifier>
 		<OutputType>WinExe</OutputType>
 		<AssemblyVersion>3.0.0</AssemblyVersion>
 	</PropertyGroup>
 	<ItemGroup>
 		<AvaloniaResource Include="Assets\**" />
 	</ItemGroup>
-    <ItemGroup>
-	    <PackageReference Include="Avalonia" Version="11.3.2" />
+	<ItemGroup>
+		<PackageReference Include="Avalonia" Version="11.3.2" />
 		<PackageReference Include="Avalonia.Controls.DataGrid" Version="11.3.2" />
-	    <PackageReference Include="Avalonia.Desktop" Version="11.3.2" />
-	    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.2" />
-	    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.2" />
-	    <PackageReference Include="Avalonia.ReactiveUI" Version="11.3.2" />
-	    <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-	    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.3.2" />
-    </ItemGroup>
-    <ItemGroup>
-      <ProjectReference Include="..\..\Library\RSBot.Core\RSBot.Core.csproj" />
-    </ItemGroup>
+		<PackageReference Include="Avalonia.Desktop" Version="11.3.2" />
+		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.2" />
+		<PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.2" />
+		<PackageReference Include="Avalonia.ReactiveUI" Version="11.3.2" />
+		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.3.2" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\Library\RSBot.Core\RSBot.Core.csproj" />
+	</ItemGroup>
+
+
+	<PropertyGroup>
+		<PublishSingleFile>true</PublishSingleFile>
+		<SelfContained>true</SelfContained>
+		<PublishTrimmed>true</PublishTrimmed>
+		<PublishReadyToRun>true</PublishReadyToRun>
+	</PropertyGroup>
+	
+
 </Project>

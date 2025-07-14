@@ -7,6 +7,7 @@ public enum MessageBoxButtons
     /// Shows only an OK button
     /// </summary>
     Ok,
+    OK,
 
     /// <summary>
     /// Shows Yes and No buttons

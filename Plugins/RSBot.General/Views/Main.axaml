@@ -1,0 +1,210 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+			 d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="RSBot.General.Views.Main">
+
+	<UserControl.Styles>
+		<Style Selector="Border.groupbox">
+			<Setter Property="BorderBrush" Value="rgba(255, 255, 255, .15)" />
+			<Setter Property="BorderThickness" Value="1" />
+			<Setter Property="Background" Value="rgba(255, 255, 255, .08)" />
+			<Setter Property="CornerRadius" Value="6" />
+		</Style>
+		<Style Selector="Border.groupbox-header">
+			<Setter Property="Background" Value="rgba(255, 255, 255, .15)" />
+			<Setter Property="CornerRadius" Value="6 6 0 0" />
+		</Style>
+		<Style Selector="TextBlock.groupbox-header-content">
+			<Setter Property="Margin" Value="5" />
+			<Setter Property="TextAlignment" Value="Center" />
+			<Setter Property="VerticalAlignment" Value="Center" />
+		</Style>
+		<Style Selector="Separator">
+			<Setter Property="Background" Value="rgba(255, 255, 255, .15)" />
+			<Setter Property="Height" Value="1" />
+			<Setter Property="Margin" Value="0,5" />
+		</Style>
+	</UserControl.Styles>
+
+	<ScrollViewer>
+		<StackPanel Margin="10" Spacing="10">
+			<!-- Top Path Section -->
+			<StackPanel Spacing="5">
+				<Grid>
+					<TextBlock HorizontalAlignment="Left" Text="Silkroad executable path:" VerticalAlignment="Center"/>
+					<TextBlock x:Name="lblVersion" Text="v1.000" HorizontalAlignment="Right"/>
+				</Grid>
+				<Grid ColumnSpacing="5" ColumnDefinitions="*, Auto, Auto">
+					<TextBox Grid.Column="0" x:Name="txtSilkroadPath"/>
+
+					<ComboBox Grid.Column="1" x:Name="comboBoxClientType" VerticalAlignment="Center" Width="120"
+							  SelectionChanged="comboBoxClientType_SelectedIndexChanged"/>
+
+					<Button Grid.Column="2" x:Name="btnBrowseSilkroadPath" Content="..." Click="btnBrowseSilkroadPath_Click"/>
+				</Grid>
+			</StackPanel>
+
+			<!-- Client Type Dropdown -->
+
+			<!-- Main Content Grid -->
+			<Grid ColumnDefinitions="*, 10, *">
+
+				<!-- Left Column -->
+				<StackPanel Grid.Column="0" Spacing="10">
+					<!-- Start Game Group -->
+					<Border Margin="5" Classes="groupbox">
+						<StackPanel>
+							<Border Classes="groupbox-header">
+								<TextBlock Text="Start game" Classes="groupbox-header-content" />
+							</Border>
+							<Grid ColumnSpacing="10" RowSpacing="10" Margin="10" ColumnDefinitions="*, Auto" RowDefinitions="Auto, Auto">
+								<Button Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" x:Name="btnStartClient" HorizontalContentAlignment="Center" Content="Start Client" Width="145" Click="btnStartClient_Click"/>
+								<Button Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" x:Name="btnStartClientless" HorizontalContentAlignment="Center" Content="Start Clientless" Width="145" Click="btnStartClientless_Click"/>
+								<Button Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" x:Name="btnClientHideShow" HorizontalContentAlignment="Center" Content="Client Visibility" Width="145" IsEnabled="False" Click="btnClientHideShow_Click"/>
+								<Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" x:Name="btnGoClientless" HorizontalContentAlignment="Center" Content="Go Clientless" Width="145" IsEnabled="False" Click="btnGoClientless_Click"/>
+							</Grid>
+						</StackPanel>
+					</Border>
+
+					<!-- Automated Login Group -->
+					<Border Margin="5" Classes="groupbox">
+						<StackPanel>
+							<Border Classes="groupbox-header">
+								<TextBlock Text="Automated login" Classes="groupbox-header-content" />
+							</Border>
+							<StackPanel Margin="5" Spacing="10">
+								<!-- Account Selection -->
+								<Grid RowDefinitions="*, *" ColumnDefinitions="*,*" RowSpacing="5" ColumnSpacing="5">
+									<TextBlock Grid.Row="0" Grid.Column="0" Text="Account:"/>
+									<ComboBox Grid.Row="1" Grid.Column="0" Width="140" x:Name="comboAccounts" SelectionChanged="comboAccounts_SelectedIndexChanged"/>
+
+									<TextBlock Grid.Row="0" Grid.Column="1" Text="Player:"/>
+									<ComboBox Grid.Row="1" Grid.Column="1" Width="140" x:Name="comboCharacter" SelectionChanged="comboCharacter_SelectedIndexChanged">
+										<ComboBoxItem>Not Selected</ComboBoxItem>
+									</ComboBox>
+								</Grid>
+
+								<StackPanel Orientation="Horizontal" Spacing="5">
+									<CheckBox x:Name="checkEnableAutoLogin" Content="Enable automated login" Click="checkEnableAutoLogin_CheckedChanged"/>
+									<Button x:Name="btnAutoLoginSettings" Content="Setup" Click="btnAutoLoginSettings_Click"/>
+								</StackPanel>
+
+								<!-- Captcha Panel -->
+								<StackPanel x:Name="captchaPanel" IsVisible="False" Margin="0,5,0,0">
+									<Separator/>
+									<TextBlock Text="Captcha:"/>
+									<TextBox x:Name="txtStaticCaptcha" TextChanged="txtStaticCaptcha_TextChanged"/>
+									<CheckBox x:Name="checkEnableStaticCaptcha" Content="Enable static captcha solve"
+                                              Click="checkEnableStaticCaptcha_CheckedChanged"/>
+									<TextBlock Text="Please use this only if the captcha never changes." FontSize="12"/>
+								</StackPanel>
+
+								<!-- Additional Options -->
+								<Separator/>
+
+								<StackPanel Orientation="Horizontal" Spacing="5">
+									<CheckBox x:Name="checkEnableLoginDelay" Content="Enable login delay"
+                                              Click="checkEnableLoginDelay_CheckedChanged"/>
+									<NumericUpDown MinWidth="100" Height="24" VerticalContentAlignment="Center" x:Name="numLoginDelay" Minimum="1" Maximum="60" Value="3"
+                                                   ValueChanged="numLoginDelay_ValueChanged" FormatString="N0" ParsingNumberStyle="Integer"/>
+									<TextBlock Text="seconds" VerticalAlignment="Center"/>
+								</StackPanel>
+
+								<StackPanel Orientation="Horizontal" Spacing="5" Margin="0,5,0,0">
+									<CheckBox x:Name="checkWaitAfterDC" Content="Wait after DC"
+                                              Click="checkWaitAfterDC_CheckedChanged"/>
+									<NumericUpDown Height="24" VerticalContentAlignment="Center" x:Name="numWaitAfterDC" Minimum="1" Maximum="10" Value="3"
+                                                   ValueChanged="numWaitAfterDC_ValueChanged" FormatString="N0" ParsingNumberStyle="Integer"/>
+									<TextBlock Text="minutes" VerticalAlignment="Center"/>
+								</StackPanel>
+
+								<StackPanel Orientation="Horizontal" Spacing="5" Margin="0,5,0,0">
+									<CheckBox x:Name="checkStartBot" Content="Auto start bot"
+                                              Click="checkAutoStartBot_CheckedChanged"/>
+									<CheckBox x:Name="checkUseReturnScroll" Content="Use return scroll"
+                                              Click="checkUseReturnScroll_CheckedChanged"/>
+								</StackPanel>
+
+								<StackPanel Orientation="Horizontal" Spacing="5" Margin="0,5,0,0">
+									<CheckBox x:Name="checkCharAutoSelect" Content="Auto Char Select" IsEnabled="False"
+                                              Click="checkCharAutoSelect_CheckedChanged"/>
+									<CheckBox x:Name="checkHideClient" Content="Auto Hide Client"
+                                              Click="checkHideClient_CheckedChanged"/>
+								</StackPanel>
+
+								<StackPanel Orientation="Horizontal" Spacing="5" Margin="0,5,0,0">
+									<RadioButton x:Name="radioAutoSelectFirst" Content="Auto Select (First)" IsChecked="True"
+                                                 IsEnabled="False" Click="radioAutoSelectFirst_CheckedChanged"/>
+									<RadioButton x:Name="radioAutoSelectHigher" Content="Auto Select (Higher)" IsEnabled="False"
+                                                 Click="radioAutoSelectHigher_CheckedChanged"/>
+								</StackPanel>
+							</StackPanel>
+						</StackPanel>
+					</Border>
+				</StackPanel>
+
+				<!-- Right Column -->
+				<StackPanel Grid.Column="2" Spacing="5">
+					<!-- Client Settings Group -->
+					<Border Margin="5" Classes="groupbox">
+						<StackPanel>
+							<Border Classes="groupbox-header">
+								<TextBlock Text="Client settings" Classes="groupbox-header-content" />
+							</Border>
+							<StackPanel Margin="5" Spacing="10">
+								<CheckBox x:Name="checkStayConnected" Content="Stay connected if client exits unexpectedly"
+                                          Click="checkStayConnected_CheckedChanged"/>
+								<TextBlock Text="If the client exits due to a crash, the bot will automatically switch to clientless mode and continue its tasks"
+                                          FontSize="12" Margin="0,5,0,0" TextWrapping="Wrap"/>
+							</StackPanel>
+						</StackPanel>
+					</Border>
+
+					<!-- Bot Settings Group -->
+					<Border Margin="5" Classes="groupbox">
+						<StackPanel>
+							<Border Classes="groupbox-header">
+								<TextBlock Text="Bot Settings" Classes="groupbox-header-content" />
+							</Border>
+							<StackPanel Margin="5" Spacing="5">
+								<CheckBox x:Name="checkBoxBotTrayMinimized" Content="Move bot to system tray when minimized"
+                                         Click="checkBoxBotTrayMinimized_CheckedChanged"/>
+								<TextBlock Text="If activated, when the bot is minimized, the bot will automatically switch to tray mode and continue to run there."
+                                          FontSize="12" Margin="0,5,0,0" TextWrapping="Wrap"/>
+							</StackPanel>
+						</StackPanel>
+					</Border>
+
+					<!-- Server Pending Group -->
+					<Border Margin="5" Classes="groupbox">
+						<StackPanel>
+							<Border Classes="groupbox-header">
+								<TextBlock Text="Server Pending" Classes="groupbox-header-content" />
+							</Border>
+							<StackPanel Margin="5" Spacing="5">
+								<CheckBox x:Name="checkAutoHidePendingWindow" Content="Auto hide the pending window"
+                                         Click="checkDontShowPendingOnStartClient_CheckedChanged"/>
+								<CheckBox x:Name="checkEnableQueueLogs" Content="Enable pending queue logs"
+                                         Click="checkEnableQueueLogs_CheckedChanged"/>
+
+								<StackPanel Orientation="Horizontal" Spacing="5">
+									<CheckBox x:Name="checkEnableQueueNotification" Content="Enable queue notification on"
+                                             Click="checkEnableQueueNotification_CheckedChanged"/>
+									<NumericUpDown MinWidth="100" Height="24" VerticalContentAlignment="Center" x:Name="numQueueLeft" Minimum="0" Maximum="9999" Value="0"
+                                                   ValueChanged="numQueueLeft_ValueChanged" FormatString="N0" ParsingNumberStyle="Integer"/>
+								</StackPanel>
+									<TextBlock Text="people left" VerticalAlignment="Center"/>
+
+								<Button x:Name="btnShowPending" Content="Toggle Pending Window" Margin="0,5,0,0"
+                                        Click="btnShowPending_Click"/>
+							</StackPanel>
+						</StackPanel>
+					</Border>
+				</StackPanel>
+			</Grid>
+		</StackPanel>
+	</ScrollViewer>
+</UserControl>

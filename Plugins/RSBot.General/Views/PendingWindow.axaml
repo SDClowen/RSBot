@@ -1,0 +1,43 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        x:Class="RSBot.General.Views.PendingWindow"
+        Width="401" Height="240"
+        MinWidth="401" MinHeight="240"
+        MaxWidth="401" MaxHeight="240"
+        WindowStartupLocation="CenterOwner"
+        TransparencyLevelHint="Transparent"
+        CanResize="False"
+        ShowInTaskbar="False"
+        ExtendClientAreaToDecorationsHint="True">
+
+	<Grid Margin="10">
+
+		<StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Spacing="10">
+			<TextBlock Name="labelServerName" FontSize="14" FontWeight="Normal" Text="SERVER is pending for server connection"/>
+
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+				<TextBlock Text="Number of people waiting: "/>
+				<TextBlock Name="labelPending" FontWeight="Bold"/>
+			</StackPanel>
+
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+				<TextBlock Text="Average waiting time: "/>
+				<TextBlock Name="labelAvgWaitingTime" FontWeight="Bold" Text="0"/>
+			</StackPanel>
+
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+				<TextBlock Text="My waiting time: "/>
+				<TextBlock Name="labelMyWaitingTime" FontWeight="Bold" Text="0"/>
+			</StackPanel>
+		</StackPanel>
+
+		<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Spacing="10">
+			<Button Name="buttonHide" Content="Hide" Click="buttonHide_Click" Width="70" />
+			<Button Name="buttonCancel" Content="Cancel the waiting" Click="buttonCancel_Click" Width="150"/>
+		</StackPanel>
+
+	</Grid>
+</Window>
