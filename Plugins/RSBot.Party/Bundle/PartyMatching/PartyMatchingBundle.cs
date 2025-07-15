@@ -2,6 +2,8 @@
 using RSBot.Core.Extensions;
 using RSBot.Core.Network;
 using RSBot.Party.Bundle.PartyMatching.Objects;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace RSBot.Party.Bundle.PartyMatching;
 
@@ -23,6 +25,8 @@ internal class PartyMatchingBundle
     ///     Party matching Id
     /// </summary>
     public uint Id;
+
+    private CancellationTokenSource _deletionCts;
 
     /// <summary>
     ///     Creates the specified settings.
@@ -89,7 +93,40 @@ internal class PartyMatchingBundle
         PacketManager.SendPacket(packet, PacketDestination.Server, callback);
         callback.AwaitResponse(2000);
 
-        return callback.IsCompleted;
+        if (callback.IsCompleted)
+        {
+            CancelScheduledDeletion();
+
+            _deletionCts = new CancellationTokenSource();
+            _ = ScheduleDeletion(_deletionCts.Token);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private async Task ScheduleDeletion(CancellationToken token)
+    {
+        try
+        {
+            await Task.Delay(15 * 60 * 1000, token);
+            if (!token.IsCancellationRequested)
+                Delete();
+        }
+        catch (TaskCanceledException)
+        {
+        }
+    }
+
+    public void CancelScheduledDeletion()
+    {
+        if (_deletionCts != null)
+        {
+            _deletionCts.Cancel();
+            _deletionCts.Dispose();
+            _deletionCts = null;
+        }
     }
 
     public void Delete()

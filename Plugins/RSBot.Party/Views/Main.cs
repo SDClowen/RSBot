@@ -506,7 +506,8 @@ public partial class Main : DoubleBufferedControl
     private void OnPartyMemberJoin(PartyMember member)
     {
         Log.NotifyLang("UserJoinedParty", member.Name);
-        AddNewPartyMember(member);
+        if(!Game.Party.Members.Contains(member))
+            AddNewPartyMember(member);
     }
 
     private void OnPartyMemberLeave(PartyMember member)
