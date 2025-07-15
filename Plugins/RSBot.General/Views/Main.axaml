@@ -30,7 +30,7 @@
 	</UserControl.Styles>
 
 	<ScrollViewer>
-		<StackPanel Margin="10" Spacing="10">
+		<StackPanel Margin="5" Spacing="10">
 			<!-- Top Path Section -->
 			<StackPanel Spacing="5">
 				<Grid>
@@ -53,7 +53,7 @@
 			<Grid ColumnDefinitions="*, 10, *">
 
 				<!-- Left Column -->
-				<StackPanel Grid.Column="0" Spacing="10">
+				<StackPanel Grid.Column="0" Spacing="5">
 					<!-- Start Game Group -->
 					<Border Margin="5" Classes="groupbox">
 						<StackPanel>
