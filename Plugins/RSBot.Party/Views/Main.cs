@@ -517,6 +517,12 @@ public partial class Main : DoubleBufferedControl
         Log.NotifyLang("UserLeftParty", member.Name);
 
         listParty.Items.RemoveByKey(member.Name);
+
+        if (Bundle.Container.PartyMatching.Config.AutoReform)
+            if (Game.Party != null 
+                && Game.Party.Members?.Count < Game.Party.Settings.MaxMember 
+                && !Bundle.Container.PartyMatching.HasMatchingEntry)
+                Bundle.Container.PartyMatching.Create();
     }
 
     private void OnPartyMemberBanned(PartyMember member)
