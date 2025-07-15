@@ -85,6 +85,9 @@ public partial class Main : DoubleBufferedControl
     /// <param name="member"></param>
     public void AddNewPartyMember(PartyMember member)
     {
+        if (listParty.Items.ContainsKey(member.Name))
+            return;
+
         var viewItem = listParty.Items.Add(member.Name, member.Name, 0);
         viewItem.UseItemStyleForSubItems = false;
         viewItem.Tag = member;
@@ -506,8 +509,7 @@ public partial class Main : DoubleBufferedControl
     private void OnPartyMemberJoin(PartyMember member)
     {
         Log.NotifyLang("UserJoinedParty", member.Name);
-        if(!listParty.Items.ContainsKey(member.Name))
-            AddNewPartyMember(member);
+        AddNewPartyMember(member);
     }
 
     private void OnPartyMemberLeave(PartyMember member)

@@ -26,7 +26,7 @@ internal class PartyMatchingBundle
     /// </summary>
     public uint Id;
 
-    private CancellationTokenSource _deletionCts;
+    public CancellationTokenSource DeletionCts;
 
     /// <summary>
     ///     Creates the specified settings.
@@ -93,24 +93,14 @@ internal class PartyMatchingBundle
         PacketManager.SendPacket(packet, PacketDestination.Server, callback);
         callback.AwaitResponse(2000);
 
-        if (callback.IsCompleted)
-        {
-            CancelScheduledDeletion();
-
-            _deletionCts = new CancellationTokenSource();
-            _ = ScheduleDeletion(_deletionCts.Token);
-
-            return true;
-        }
-
-        return false;
+        return callback.IsCompleted;
     }
 
-    private async Task ScheduleDeletion(CancellationToken token)
+    public async Task ScheduleDeletion(CancellationToken token)
     {
         try
         {
-            await Task.Delay(15 * 60 * 1000, token);
+            await Task.Delay(20 * 60 * 1000, token);
             if (!token.IsCancellationRequested)
                 Delete();
         }
@@ -121,11 +111,11 @@ internal class PartyMatchingBundle
 
     public void CancelScheduledDeletion()
     {
-        if (_deletionCts != null)
+        if (DeletionCts != null)
         {
-            _deletionCts.Cancel();
-            _deletionCts.Dispose();
-            _deletionCts = null;
+            DeletionCts.Cancel();
+            DeletionCts.Dispose();
+            DeletionCts = null;
         }
     }
 

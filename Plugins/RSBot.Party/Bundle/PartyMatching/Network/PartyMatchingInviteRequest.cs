@@ -1,5 +1,6 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Network;
+using System.Threading.Tasks;
 
 namespace RSBot.Party.Bundle.PartyMatching.Network;
 
@@ -31,6 +32,6 @@ internal class PartyMatchingInviteRequest : IPacketHandler
 
         if (Container.PartyMatching.Config.AutoReform)
             if (Game.Party != null && Game.Party.Members?.Count + 1 >= Game.Party.Settings.MaxMember)
-                Container.PartyMatching.RequestPartyList();
+                _ = Task.Run(() => Container.PartyMatching.RequestPartyList());
     }
 }
