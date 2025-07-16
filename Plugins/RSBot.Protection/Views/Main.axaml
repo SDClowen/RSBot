@@ -1,0 +1,226 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:RSBot.Protection.ViewModels"
+             mc:Ignorable="d"
+             d:DesignWidth="970" d:DesignHeight="621"
+             x:Class="RSBot.Protection.Views.Main"
+			 Loaded="Main_Load">
+
+	<UserControl.Styles>
+		<Style Selector="Border.groupbox">
+			<Setter Property="BorderBrush" Value="rgba(255, 255, 255, .15)" />
+			<Setter Property="BorderThickness" Value="1" />
+			<Setter Property="Background" Value="rgba(255, 255, 255, .08)" />
+			<Setter Property="CornerRadius" Value="6" />
+		</Style>
+		<Style Selector="Border.groupbox-header">
+			<Setter Property="Background" Value="rgba(255, 255, 255, .15)" />
+			<Setter Property="CornerRadius" Value="6 6 0 0" />
+		</Style>
+		<Style Selector="TextBlock.groupbox-header-content">
+			<Setter Property="Margin" Value="5" />
+			<Setter Property="TextAlignment" Value="Center" />
+			<Setter Property="VerticalAlignment" Value="Center" />
+		</Style>
+		<Style Selector="Separator">
+			<Setter Property="Background" Value="rgba(255, 255, 255, .15)" />
+			<Setter Property="Height" Value="1" />
+			<Setter Property="Margin" Value="0,5" />
+		</Style>
+	</UserControl.Styles>
+
+	<Design.DataContext>
+		<vm:MainViewModel2 />
+	</Design.DataContext>
+	<ScrollViewer>
+		<Grid Margin="5">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
+
+			<!-- Left Column -->
+			<StackPanel Grid.Column="0" Spacing="10">
+				<!-- Health/Mana Recovery Group -->
+				<Border Margin="5" Classes="groupbox">
+					<StackPanel>
+						<Border Classes="groupbox-header">
+							<TextBlock Text="Health / Mana recovery" Classes="groupbox-header-content" />
+						</Border>
+
+						<StackPanel Margin="10" Spacing="5">
+							<!-- HP Potions -->
+							<CheckBox Content="Use HP potions if HP *" IsChecked="{Binding UseHPPotionsPlayer}" />
+							<StackPanel Orientation="Horizontal" IsVisible="{Binding UseHPPotionsPlayer}">
+								<TextBlock Text="HP less than" VerticalAlignment="Center" Margin="5,0" />
+								<NumericUpDown Value="{Binding PlayerHPPotionMin}" Minimum="1" Maximum="100" Width="100" />
+								<TextBlock Text="%" VerticalAlignment="Center" Margin="5,0" />
+							</StackPanel>
+
+							<!-- MP Potions -->
+							<CheckBox Content="Use MP potions if MP *" IsChecked="{Binding UseMPPotionsPlayer}" />
+							<StackPanel Orientation="Horizontal" IsVisible="{Binding UseMPPotionsPlayer}">
+								<TextBlock Text="MP less than" VerticalAlignment="Center" Margin="5,0" />
+								<NumericUpDown Value="{Binding PlayerMPPotionMin}" Minimum="1" Maximum="100" Width="100" />
+								<TextBlock Text="%" VerticalAlignment="Center" Margin="5,0" />
+							</StackPanel>
+
+							<!-- Vigor HP -->
+							<CheckBox Content="Use Vigor Potions if HP" IsChecked="{Binding UseVigorHP}" />
+							<StackPanel Orientation="Horizontal" IsVisible="{Binding UseVigorHP}">
+								<TextBlock Text="HP less than" VerticalAlignment="Center" Margin="5,0" />
+								<NumericUpDown Value="{Binding PlayerHPVigorPotionMin}" Minimum="1" Maximum="100" Width="100" />
+								<TextBlock Text="%" VerticalAlignment="Center" Margin="5,0" />
+							</StackPanel>
+
+							<!-- Vigor MP -->
+							<CheckBox Content="Use Vigor Potions if MP" IsChecked="{Binding UseVigorMP}" />
+							<StackPanel Orientation="Horizontal" IsVisible="{Binding UseVigorMP}">
+								<TextBlock Text="MP less than" VerticalAlignment="Center" Margin="5,0" />
+								<NumericUpDown Value="{Binding PlayerMPVigorPotionMin}" Minimum="1" Maximum="100" Width="100" />
+								<TextBlock Text="%" VerticalAlignment="Center" Margin="5,0" />
+							</StackPanel>
+
+							<!-- Skill HP -->
+							<CheckBox Content="Use skill if HP" IsChecked="{Binding UseSkillHP}" />
+							<StackPanel Orientation="Horizontal" IsVisible="{Binding UseSkillHP}">
+								<TextBlock Text="HP less than" VerticalAlignment="Center" Margin="5,0" />
+								<NumericUpDown Value="{Binding PlayerSkillHPMin}" Minimum="1" Maximum="100" Width="100" />
+								<TextBlock Text="%" VerticalAlignment="Center" Margin="5,0" />
+								<TextBlock Text="Skill:" VerticalAlignment="Center" Margin="10,0,5,0" />
+								<ComboBox ItemsSource="{Binding Skills}" SelectedItem="{Binding SelectedSkillHP}" Width="80" />
+							</StackPanel>
+
+							<!-- Skill MP -->
+							<CheckBox Content="Use skill if MP" IsChecked="{Binding UseSkillMP}" />
+							<StackPanel Orientation="Horizontal" IsVisible="{Binding UseSkillMP}">
+								<TextBlock Text="MP less than" VerticalAlignment="Center" Margin="5,0" />
+								<NumericUpDown Value="{Binding PlayerSkillMPMin}" Minimum="1" Maximum="100" Width="100" />
+								<TextBlock Text="%" VerticalAlignment="Center" Margin="5,0" />
+								<TextBlock Text="Skill:" VerticalAlignment="Center" Margin="10,0,5,0" />
+								<ComboBox ItemsSource="{Binding Skills}" SelectedItem="{Binding SelectedSkillMP}" Width="80" />
+							</StackPanel>
+						</StackPanel>
+					</StackPanel>
+				</Border>
+
+				<!-- Bad Status Group -->
+				<Border Margin="5" Classes="groupbox">
+					<StackPanel>
+						<Border Classes="groupbox-header">
+							<TextBlock Text="Bad status" Classes="groupbox-header-content" />
+						</Border>
+
+						<StackPanel Margin="10" Spacing="5">
+							<CheckBox Content="Use Universal Pills *" IsChecked="{Binding UseUniversalPills}" />
+							<StackPanel Orientation="Horizontal" IsVisible="{Binding UseBadStatusSkill}">
+								<CheckBox Content="Use Skill" IsChecked="{Binding UseBadStatusSkill}" />
+								<ComboBox ItemsSource="{Binding Skills}" Margin="5 0" VerticalAlignment="Center" SelectedItem="{Binding SelectedBadStatusSkill}" Width="80" />
+							</StackPanel>
+						</StackPanel>
+					</StackPanel>
+				</Border>
+
+				<!-- Pet Recovery Group -->
+				<Border Margin="5" Classes="groupbox">
+					<StackPanel>
+						<Border Classes="groupbox-header">
+							<TextBlock Text="Recovery - Pet" Classes="groupbox-header-content" />
+						</Border>
+
+						<StackPanel Margin="10" Spacing="5">
+							<CheckBox Content="Use HP potions if HP *" IsChecked="{Binding UsePetHP}" />
+							<StackPanel Orientation="Horizontal" IsVisible="{Binding UsePetHP}">
+								<TextBlock Text="HP less than" VerticalAlignment="Center" Margin="5,0" />
+								<NumericUpDown Value="{Binding PetMinHP}" Minimum="1" Maximum="100" Width="100" />
+								<TextBlock Text="%" VerticalAlignment="Center" Margin="5,0" />
+							</StackPanel>
+							<CheckBox Content="Use HGP / Saiety potions if hunger *" IsChecked="{Binding UseHGP}" />
+							<StackPanel Orientation="Horizontal" IsVisible="{Binding UseHGP}">
+								<TextBlock Text="HGP less than" VerticalAlignment="Center" Margin="5,0" />
+								<NumericUpDown Value="{Binding PetMinHGP}" Minimum="1" Maximum="100" Width="100" />
+								<TextBlock Text="%" VerticalAlignment="Center" Margin="5,0" />
+							</StackPanel>
+							<CheckBox Content="Use abnormal state recovery potions *" IsChecked="{Binding UseAbnormalStatePotion}" />
+							<CheckBox Content="Revive growth or fellow pet" IsChecked="{Binding ReviveAttackPet}" />
+							<CheckBox Content="Auto summon growth and fellow pet" IsChecked="{Binding AutoSummonAttackPet}" />
+						</StackPanel>
+					</StackPanel>
+				</Border>
+			</StackPanel>
+
+			<!-- Right Column -->
+			<StackPanel Grid.Column="1" Spacing="10" Width="318">
+				<!-- Back to Town Group -->
+				<Border Margin="5" Classes="groupbox">
+					<StackPanel>
+						<Border Classes="groupbox-header">
+							<TextBlock Text="Back to town" Classes="groupbox-header-content" />
+						</Border>
+
+						<StackPanel Margin="10" Spacing="5">
+							<CheckBox Content="Dead with delay of" IsChecked="{Binding Dead}" />
+							<StackPanel Orientation="Horizontal" IsVisible="{Binding Dead}">
+								<NumericUpDown Value="{Binding DeadTimeout}" Minimum="1" Maximum="600" Width="100" Height="24" Margin="5 0" />
+								<TextBlock Text="seconds" VerticalAlignment="Center" Margin="5,0" />
+							</StackPanel>
+
+							<CheckBox Content="Stop bot when back in town" IsChecked="{Binding StopBotOnReturnToTown}" />
+							<CheckBox Content="No arrows / bolts left" IsChecked="{Binding NoArrows}" />
+							<CheckBox Content="Full inventory" IsChecked="{Binding Inventory}" />
+							<CheckBox Content="Full pet inventory" IsChecked="{Binding FullPetInventory}" />
+
+							<StackPanel Orientation="Horizontal" IsVisible="{Binding NoHPPotions}">
+								<CheckBox Content="HP Potions left" IsChecked="{Binding NoHPPotions}" />
+								<NumericUpDown Value="{Binding HPPotionsLeft}" Minimum="0" Maximum="9999" Width="100" Height="24" Margin="5 0" />
+							</StackPanel>
+
+							<StackPanel Orientation="Horizontal" IsVisible="{Binding NoMPPotions}">
+								<CheckBox Content="MP Potions left" IsChecked="{Binding NoMPPotions}" />
+								<NumericUpDown Value="{Binding MPPotionsLeft}" Minimum="0" Maximum="9999" Width="100" Height="24" Margin="5 0" />
+							</StackPanel>
+
+							<CheckBox Content="Equipment durability low" IsChecked="{Binding Durability}" />
+							<CheckBox Content="Level up" IsChecked="{Binding LevelUp}" />
+
+							<StackPanel Orientation="Horizontal" IsVisible="{Binding ShardFatigue}">
+								<CheckBox Content="Shard fatigue" IsChecked="{Binding ShardFatigue}"
+										  ToolTip.Tip="Return and disconnect when Shard fatigue reaches that time"/>
+								<NumericUpDown Value="{Binding ShardFatigueMinToDC}" Minimum="0" Maximum="300" Width="100" Height="24" Margin="5 0" />
+								<TextBlock Text="min" VerticalAlignment="Center" Margin="5,0" />
+							</StackPanel>
+						</StackPanel>
+					</StackPanel>
+				</Border>
+
+				<!-- Stat Points Group -->
+				<Border Margin="5" Classes="groupbox">
+					<StackPanel>
+						<Border Classes="groupbox-header">
+							<TextBlock Text="Stat points" Classes="groupbox-header-content" />
+						</Border>
+
+						<StackPanel Margin="10" Spacing="5">
+							<StackPanel Orientation="Horizontal" IsVisible="{Binding IncInt}">
+								<CheckBox Content="Increase INT" IsChecked="{Binding IncInt}" />
+								<NumericUpDown Value="{Binding IncIntValue}" Minimum="0" Maximum="3" Width="100" Height="24" Margin="10,0" />
+							</StackPanel>
+
+							<StackPanel Orientation="Horizontal" IsVisible="{Binding IncStr}">
+								<CheckBox Content="Increase STR" IsChecked="{Binding IncStr}" />
+								<NumericUpDown Value="{Binding IncStrValue}" Minimum="0" Maximum="3" Width="100" Height="24" Margin="10,0" />
+							</StackPanel>
+
+							<CheckBox Content="Increase even if bot is stopped" IsChecked="{Binding IncBotStopped}" />
+							<Button Content="{Binding RunButtonText}" Command="{Binding RunCommand}" HorizontalAlignment="Center" Margin="0,10" />
+						</StackPanel>
+					</StackPanel>
+				</Border>
+
+				<TextBlock Text="* Will also be executed, if the bot is not started." Margin="5" />
+			</StackPanel>
+		</Grid>
+	</ScrollViewer>
+</UserControl>
