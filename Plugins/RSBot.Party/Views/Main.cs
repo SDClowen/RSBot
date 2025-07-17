@@ -353,7 +353,9 @@ public partial class Main : DoubleBufferedControl
     {
         await Task.Delay(5000);
 
-        if (Game.Ready && Bundle.Container.PartyMatching.Config.AutoReform)
+        if (Game.Ready 
+            && Bundle.Container.PartyMatching.Config.AutoReform
+            && !Bundle.Container.PartyMatching.HasMatchingEntry)
             Bundle.Container.PartyMatching.Create();
     }
 
