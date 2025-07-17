@@ -68,6 +68,7 @@ public partial class Main : DoubleBufferedControl
     private void SubscribeEvents()
     {
         EventManager.SubscribeEvent("OnLoadCharacter", OnLoadCharacter);
+        EventManager.SubscribeEvent("OnEnterGame", OnEnterGame);
         EventManager.SubscribeEvent("OnCreatePartyEntry", OnCreatePartyEntry);
         EventManager.SubscribeEvent("OnChangePartyEntry", OnChangePartyEntry);
         EventManager.SubscribeEvent("OnDeletePartyEntry", OnDeletePartyEntry);
@@ -346,6 +347,14 @@ public partial class Main : DoubleBufferedControl
         }
 
         RefreshGroupMembers();
+    }
+
+    private async void OnEnterGame()
+    {
+        await Task.Delay(5000);
+
+        if (Game.Ready && Bundle.Container.PartyMatching.Config.AutoReform)
+            Bundle.Container.PartyMatching.Create();
     }
 
     /// <summary>
