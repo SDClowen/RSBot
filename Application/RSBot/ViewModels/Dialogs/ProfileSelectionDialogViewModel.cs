@@ -1,32 +1,29 @@
 using Avalonia.Controls;
+using PeNet.Header.Resource;
 using ReactiveUI;
-using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.UI;
-using RSBot.Views.Dialogs;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
+using System.Reactive;
 
 namespace RSBot.ViewModels.Dialogs;
 
-/// <summary>
-/// View model for the profile selection dialog
-/// </summary>
 public class ProfileSelectionDialogViewModel : ReactiveObject
 {
-    private readonly Window _owner;
+    private bool _saveSelection;
     private string _selectedProfile;
+    private readonly Window _owner;
 
-    public ProfileSelectionDialogViewModel(Window owner)
+    public ProfileSelectionDialogViewModel(Window owner = null)
     {
         _owner = owner;
-        Profiles = [.. ProfileManager.Profiles];
-        SelectedProfile = ProfileManager.SelectedProfile;
 
-        NewCommand = ReactiveCommand.Create(ExecuteNew);
-        DeleteCommand = ReactiveCommand.Create(ExecuteDelete);
-        OkCommand = ReactiveCommand.Create(ExecuteOk);
-        CancelCommand = ReactiveCommand.Create(ExecuteCancel);
+        Profiles = new ObservableCollection<string>();
+        LoadProfiles();
+
+        ContinueCommand = ReactiveCommand.Create(Continue);
+        CreateProfileCommand = ReactiveCommand.CreateFromTask(CreateProfileAsync);
+        DeleteProfileCommand = ReactiveCommand.CreateFromTask(DeleteProfileAsync);
     }
 
     public ObservableCollection<string> Profiles { get; }
@@ -34,52 +31,86 @@ public class ProfileSelectionDialogViewModel : ReactiveObject
     public string SelectedProfile
     {
         get => _selectedProfile;
-        set
+        set => this.RaiseAndSetIfChanged(ref _selectedProfile, value);
+    }
+
+    public bool SaveSelection
+    {
+        get => _saveSelection;
+        set => this.RaiseAndSetIfChanged(ref _saveSelection, value);
+    }
+
+    public bool CanDeleteProfile =>
+        SelectedProfile != null &&
+        SelectedProfile != "Default" &&
+        SelectedProfile != ProfileManager.SelectedProfile;
+
+    public ReactiveCommand<Unit, Unit> ContinueCommand { get; }
+    public ReactiveCommand<Unit, Unit> CreateProfileCommand { get; }
+    public ReactiveCommand<Unit, Unit> DeleteProfileCommand { get; }
+
+    private void LoadProfiles()
+    {
+        Profiles.Clear();
+
+        if (!ProfileManager.Any())
+            ProfileManager.Add("Default");
+
+        foreach (var profile in ProfileManager.Profiles)
+            Profiles.Add(profile);
+
+        SelectedProfile = Profiles.FirstOrDefault(p => p == ProfileManager.SelectedProfile);
+        SaveSelection = !ProfileManager.ShowProfileDialog;
+    }
+
+    private void Continue()
+    {
+        ProfileManager.ShowProfileDialog = !SaveSelection;
+        _owner?.Close();
+    }
+
+    private async Task CreateProfileAsync()
+    {
+        while (true)
         {
-            this.RaiseAndSetIfChanged(ref _selectedProfile, value);
+            var dialog = new TextInputDialog("New Profile", "Enter profile name:");
+            var profile = await dialog.ShowDialog<string>(_owner);
+            if(ProfileManager.ProfileExists(profile))
+            {
+                await MessageBox.Show(_owner,
+                    "Invalid name",
+                    $"The profile name '{profile}' already exists!"
+                );
 
-            ProfileManager.SetSelectedProfile(value);
+                continue;
+            }
+
+            if (!string.IsNullOrEmpty(profile))
+            {
+                ProfileManager.Add(profile);
+                Profiles.Add(profile);
+                SelectedProfile = profile;
+            }
+
+            break;
         }
+
+        LoadProfiles();
     }
 
-    public ICommand NewCommand { get; }
-    public ICommand DeleteCommand { get; }
-    public ICommand OkCommand { get; }
-    public ICommand CancelCommand { get; }
-
-    private async void ExecuteNew()
+    private async Task DeleteProfileAsync()
     {
-        var dialog = new TextInputDialog("New Profile", "Enter profile name:");
-        var result = await dialog.ShowDialog<string>(_owner);
+        if (!CanDeleteProfile) return;
 
-        if (!string.IsNullOrEmpty(result))
+        var result = await MessageBox.Show(_owner,
+            "Cannot delete profile",
+             $"Do you want to delete the profile {SelectedProfile} from the list?\nThis will not delete the user data.",
+             MessageBoxButtons.YesNo);
+
+        if (result == MessageBoxResult.Yes)
         {
-            ProfileManager.Add(result);
-            Profiles.Add(result);
-            SelectedProfile = result;
+            ProfileManager.Remove(SelectedProfile);
+            LoadProfiles();
         }
-    }
-
-    private void ExecuteDelete()
-    {
-        if (SelectedProfile == null || SelectedProfile == "Default")
-            return;
-
-        ProfileManager.Remove(SelectedProfile);
-        Profiles.Remove(SelectedProfile);
-        SelectedProfile = "Default";
-    }
-
-    private void ExecuteOk()
-    {
-        if (SelectedProfile != null)
-        {
-            _owner.Close(true);
-        }
-    }
-
-    private void ExecuteCancel()
-    {
-        _owner.Close(false);
     }
 }
