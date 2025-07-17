@@ -77,6 +77,8 @@ public partial class Main : DoubleBufferedControl
         EventManager.SubscribeEvent("OnPartyMemberBanned", new Action<PartyMember>(OnPartyMemberBanned));
         EventManager.SubscribeEvent("OnPartyMemberUpdate", new Action<PartyMember>(OnPartyMemberUpdate));
         EventManager.SubscribeEvent("OnPartyDismiss", OnPartyDismiss);
+        EventManager.SubscribeEvent("OnPartyLeaderChange", OnPartyData);
+        EventManager.SubscribeEvent("OnAgentServerDisconnected", OnPartyDismiss);
     }
 
     /// <summary>
@@ -85,7 +87,7 @@ public partial class Main : DoubleBufferedControl
     /// <param name="member"></param>
     public void AddNewPartyMember(PartyMember member)
     {
-        if (listParty.Items.ContainsKey(member.Name))
+        if (listParty.Items.ContainsKey(member?.Name))
             return;
 
         var viewItem = listParty.Items.Add(member.Name, member.Name, 0);
@@ -482,7 +484,7 @@ public partial class Main : DoubleBufferedControl
         btnJoinFormedParty.Enabled = true;
         grbAutoPartySettings.Enabled = true;
 
-        if (Bundle.Container.PartyMatching.Config.AutoReform)
+        if (Game.Ready && Bundle.Container.PartyMatching.Config.AutoReform)
             Bundle.Container.PartyMatching.Create();
     }
 
@@ -520,8 +522,8 @@ public partial class Main : DoubleBufferedControl
 
         if (Bundle.Container.PartyMatching.Config.AutoReform)
             if (Game.Party != null 
-                && Game.Party.Members?.Count < Game.Party.Settings.MaxMember 
-                && !Bundle.Container.PartyMatching.HasMatchingEntry)
+                && !Bundle.Container.PartyMatching.HasMatchingEntry
+                && Game.Party.Members?.Count < Game.Party.Settings.MaxMember)
                 Bundle.Container.PartyMatching.Create();
     }
 
@@ -535,8 +537,8 @@ public partial class Main : DoubleBufferedControl
 
             if (Bundle.Container.PartyMatching.Config.AutoReform)
                 if (Game.Party != null
-                    && Game.Party.Members?.Count < Game.Party.Settings.MaxMember
-                    && !Bundle.Container.PartyMatching.HasMatchingEntry)
+                    && !Bundle.Container.PartyMatching.HasMatchingEntry
+                    && Game.Party.Members?.Count < Game.Party.Settings.MaxMember)
                     Bundle.Container.PartyMatching.Create();
         }
         else
