@@ -171,7 +171,7 @@ public class PickupManager
                 if (item.Record.IsSpecialtyGoodBox && Game.Player.Job2SpecialtyBag.Full)
                     continue;
 
-                Game.Player.AbilityPet.Pickup(item.UniqueId);
+                await Game.Player.AbilityPet.PickupAsync(item.UniqueId);
                 await Task.Yield();
             }
         }

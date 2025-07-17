@@ -43,7 +43,7 @@ public static class ByteArrayExtensions
             else
             {
                 output.Append("   ");
-                ascii_output.Append('.');
+                ascii_output.Append(".");
             }
         }
 

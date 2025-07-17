@@ -156,6 +156,10 @@ public class State
     /// <returns></returns>
     public bool HasActiveBuff(SkillInfo skill, out SkillInfo buff)
     {
+        buff = null;
+        if (skill == null || skill.Record == null)
+            return false;
+
         buff = ActiveBuffs.Find(p =>
             p.Record.Action_Overlap == skill.Record.Action_Overlap &&
             p.Record.Basic_Activity == skill.Record.Basic_Activity);

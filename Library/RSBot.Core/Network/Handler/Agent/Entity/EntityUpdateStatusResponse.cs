@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
@@ -293,9 +292,6 @@ internal class EntityUpdateStatusResponse : IPacketHandler
         {
             var health = packet.ReadInt();
             bionic.Health = health;
-
-            if (health > bionic.Record.MaxHealth)
-                Debug.WriteIf(health > bionic.Record.MaxHealth, "wtf");
 
             if (health <= 0 && Game.SelectedEntity?.UniqueId == bionic.UniqueId)
                 Game.SelectedEntity = null;
