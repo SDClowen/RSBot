@@ -68,6 +68,7 @@ public partial class Main : DoubleBufferedControl
     private void SubscribeEvents()
     {
         EventManager.SubscribeEvent("OnLoadCharacter", OnLoadCharacter);
+        EventManager.SubscribeEvent("OnEnterGame", OnEnterGame);
         EventManager.SubscribeEvent("OnCreatePartyEntry", OnCreatePartyEntry);
         EventManager.SubscribeEvent("OnChangePartyEntry", OnChangePartyEntry);
         EventManager.SubscribeEvent("OnDeletePartyEntry", OnDeletePartyEntry);
@@ -77,6 +78,8 @@ public partial class Main : DoubleBufferedControl
         EventManager.SubscribeEvent("OnPartyMemberBanned", new Action<PartyMember>(OnPartyMemberBanned));
         EventManager.SubscribeEvent("OnPartyMemberUpdate", new Action<PartyMember>(OnPartyMemberUpdate));
         EventManager.SubscribeEvent("OnPartyDismiss", OnPartyDismiss);
+        EventManager.SubscribeEvent("OnPartyLeaderChange", OnPartyData);
+        EventManager.SubscribeEvent("OnAgentServerDisconnected", OnPartyDismiss);
     }
 
     /// <summary>
@@ -85,6 +88,9 @@ public partial class Main : DoubleBufferedControl
     /// <param name="member"></param>
     public void AddNewPartyMember(PartyMember member)
     {
+        if (listParty.Items.ContainsKey(member?.Name))
+            return;
+
         var viewItem = listParty.Items.Add(member.Name, member.Name, 0);
         viewItem.UseItemStyleForSubItems = false;
         viewItem.Tag = member;
@@ -343,6 +349,16 @@ public partial class Main : DoubleBufferedControl
         RefreshGroupMembers();
     }
 
+    private async void OnEnterGame()
+    {
+        await Task.Delay(5000);
+
+        if (Game.Ready 
+            && Bundle.Container.PartyMatching.Config.AutoReform
+            && !Bundle.Container.PartyMatching.HasMatchingEntry)
+            Bundle.Container.PartyMatching.Create();
+    }
+
     /// <summary>
     ///     Load party related buffs
     /// </summary>
@@ -479,7 +495,7 @@ public partial class Main : DoubleBufferedControl
         btnJoinFormedParty.Enabled = true;
         grbAutoPartySettings.Enabled = true;
 
-        if (Bundle.Container.PartyMatching.Config.AutoReform)
+        if (Game.Ready && Bundle.Container.PartyMatching.Config.AutoReform)
             Bundle.Container.PartyMatching.Create();
     }
 
@@ -514,6 +530,12 @@ public partial class Main : DoubleBufferedControl
         Log.NotifyLang("UserLeftParty", member.Name);
 
         listParty.Items.RemoveByKey(member.Name);
+
+        if (Bundle.Container.PartyMatching.Config.AutoReform)
+            if (Game.Party != null 
+                && !Bundle.Container.PartyMatching.HasMatchingEntry
+                && Game.Party.Members?.Count < Game.Party.Settings.MaxMember)
+                Bundle.Container.PartyMatching.Create();
     }
 
     private void OnPartyMemberBanned(PartyMember member)
@@ -521,7 +543,15 @@ public partial class Main : DoubleBufferedControl
         Log.NotifyLang("UserBannedParty", member.Name);
 
         if (member.Name != Game.Player.Name)
+        {
             listParty.Items.RemoveByKey(member.Name);
+
+            if (Bundle.Container.PartyMatching.Config.AutoReform)
+                if (Game.Party != null
+                    && !Bundle.Container.PartyMatching.HasMatchingEntry
+                    && Game.Party.Members?.Count < Game.Party.Settings.MaxMember)
+                    Bundle.Container.PartyMatching.Create();
+        }
         else
             OnPartyDismiss();
     }

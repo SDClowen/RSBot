@@ -3,6 +3,7 @@ using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Network;
 using RSBot.Core.Objects.Party;
+using System.Threading;
 
 namespace RSBot.Party.Bundle.PartyMatching.Network;
 
@@ -40,6 +41,11 @@ internal class PartyMatchingFormResponse : IPacketHandler
         Container.PartyMatching.Config.LevelFrom = packet.ReadByte();
         Container.PartyMatching.Config.LevelTo = packet.ReadByte();
         Container.PartyMatching.Config.Title = packet.ReadConditonalString();
+
+        Container.PartyMatching.CancelScheduledDeletion();
+
+        Container.PartyMatching.DeletionCts = new CancellationTokenSource();
+        _ = Container.PartyMatching.ScheduleDeletion(Container.PartyMatching.DeletionCts.Token);
 
         EventManager.FireEvent("OnCreatePartyEntry");
     }

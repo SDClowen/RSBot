@@ -30,7 +30,10 @@ public class PartyMatchingDeleteResponse : IPacketHandler
         Log.NotifyLang("PartyEntryRemoved");
 
         if (Container.PartyMatching != null)
+        {
+            Container.PartyMatching.CancelScheduledDeletion();
             Container.PartyMatching.HasMatchingEntry = false;
+        }
 
         EventManager.FireEvent("OnDeletePartyEntry");
     }
