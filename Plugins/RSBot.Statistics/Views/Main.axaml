@@ -1,0 +1,142 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="RSBot.Statistics.Views.Main"
+             xmlns:vm="using:RSBot.Protection.ViewModels">
+
+	<Design.DataContext>
+		<vm:MainViewModel2 />
+	</Design.DataContext>
+
+	<UserControl.Styles>
+		<Style Selector="Border.groupbox">
+			<Setter Property="BorderBrush" Value="rgba(255, 255, 255, .15)" />
+			<Setter Property="BorderThickness" Value="1" />
+			<Setter Property="Background" Value="rgba(255, 255, 255, .08)" />
+			<Setter Property="CornerRadius" Value="6" />
+		</Style>
+		<Style Selector="Border.groupbox-header">
+			<Setter Property="Background" Value="rgba(255, 255, 255, .15)" />
+			<Setter Property="CornerRadius" Value="6 6 0 0" />
+		</Style>
+		<Style Selector="TextBlock.groupbox-header-content">
+			<Setter Property="Margin" Value="5" />
+			<Setter Property="TextAlignment" Value="Center" />
+			<Setter Property="VerticalAlignment" Value="Center" />
+		</Style>
+		<Style Selector="Separator">
+			<Setter Property="Background" Value="rgba(255, 255, 255, .15)" />
+			<Setter Property="Height" Value="1" />
+			<Setter Property="Margin" Value="0,5" />
+		</Style>
+	</UserControl.Styles>
+
+	<ScrollViewer>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="318" />
+				<ColumnDefinition Width="5" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+
+			<!-- Left Panel -->
+			<StackPanel Grid.Column="0" Margin="10">
+				<!-- Live Filters GroupBox -->
+				<Border Classes="groupbox" Height="238" Margin="0,0,0,5">
+					<StackPanel>
+						<Border Classes="groupbox-header">
+							<TextBlock Text="Prognosis" Classes="groupbox-header-content" />
+						</Border>
+						<ScrollViewer Margin="10">
+							<ItemsControl ItemsSource="{Binding LiveFilters}">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<CheckBox Content="{Binding Label}"
+												  IsChecked="{Binding IsEnabled}"
+												  Margin="0,2" />
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+						</ScrollViewer>
+					</StackPanel>
+				</Border>
+
+				<!-- Separator -->
+				<Separator Height="2" Margin="0,0,0,5" />
+
+				<!-- Static Filters GroupBox -->
+				<Border Classes="groupbox" Margin="0,0,0,5">
+					<StackPanel>
+						<Border Classes="groupbox-header">
+							<TextBlock Text="Tracking" Classes="groupbox-header-content" />
+						</Border>
+						<ScrollViewer Margin="10">
+							<ItemsControl ItemsSource="{Binding StaticFilters}">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<CheckBox Content="{Binding Label}"
+												  IsChecked="{Binding IsEnabled}"
+												  Margin="0,2" />
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+						</ScrollViewer>
+					</StackPanel>
+				</Border>
+			</StackPanel>
+
+			<!-- Splitter -->
+			<GridSplitter Grid.Column="1" Width="5" Background="Transparent" />
+
+			<!-- Right Panel -->
+			<Grid Grid.Column="2" Margin="10">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+
+				<Border Classes="groupbox" Margin="0,0,0,5">
+					<StackPanel>
+						<Border Classes="groupbox-header">
+							<TextBlock Text="Live" Classes="groupbox-header-content" />
+						</Border>
+
+						<!-- Statistics ListView -->
+						<ListBox Grid.Row="0"
+								 ItemsSource="{Binding Statistics}"
+								 SelectedItem="{Binding SelectedStatistic}"
+								 SelectionMode="Multiple"
+								 Margin="0"
+								 Background="Transparent">
+							<ListBox.ContextMenu>
+								<ContextMenu>
+									<MenuItem Header="Reset" Command="{Binding ResetSelectedCommand}" />
+								</ContextMenu>
+							</ListBox.ContextMenu>
+							<ListBox.ItemTemplate>
+								<DataTemplate>
+									<Grid>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="245" />
+											<ColumnDefinition Width="*" />
+										</Grid.ColumnDefinitions>
+										<TextBlock Grid.Column="0" Text="{Binding Name}" />
+										<TextBlock Grid.Column="1" Text="{Binding Value}" />
+									</Grid>
+								</DataTemplate>
+							</ListBox.ItemTemplate>
+						</ListBox>
+					</StackPanel>
+				</Border>
+
+				<!-- Bottom Panel -->
+				<StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Height="44">
+					<Button Content="Reset"
+							HorizontalContentAlignment="Center"
+							Width="94" Height="29"
+							Command="{Binding ResetAllCommand}"
+							Margin="0,8,0,0" />
+				</StackPanel>
+			</Grid>
+		</Grid>
+	</ScrollViewer>
+</UserControl>
