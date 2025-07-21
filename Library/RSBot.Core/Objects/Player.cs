@@ -1035,6 +1035,10 @@ public class Player : SpawnedBionic
         if (petItem.State == InventoryItemState.Summoned || petItem.State == InventoryItemState.Dead)
             return false;
 
+        var usingItem = Game.Player.Inventory.GetItem(p => p.Record.IsFellowHpPotion);
+        if (usingItem == null)
+            return false;
+
         return petItem.Use();
     }
 
