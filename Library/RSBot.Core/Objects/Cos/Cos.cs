@@ -201,13 +201,23 @@ public class Cos : SpawnedEntity
         {
             var result = response.ReadByte();
 
-            if (result == 0x01)
+            if (response.Opcode == 0xB034)
             {
-                response.ReadByte(); //command
+                var type = (InventoryOperation)response.ReadByte();
+                if (type != InventoryOperation.SP_PICK_ITEM_BY_OTHER)
+                   return AwaitCallbackResult.ConditionFailed;
 
                 return response.ReadUInt() == UniqueId
                     ? AwaitCallbackResult.Success
                     : AwaitCallbackResult.ConditionFailed;
+            }
+
+            if (response.Opcode == 0xB0C5)
+            {
+                if (result == 2 &&
+                    (CosCommand)response.ReadByte() == CosCommand.Pickup)
+                    return AwaitCallbackResult.Success;
+                return AwaitCallbackResult.ConditionFailed;
             }
 
             return AwaitCallbackResult.Fail;
