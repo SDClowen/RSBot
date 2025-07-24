@@ -148,7 +148,8 @@ internal class CharacterDataEndResponse : IPacketHandler
         if (Game.ClientType > GameClientType.Chinese &&
             Game.ClientType != GameClientType.Global &&
             Game.ClientType != GameClientType.Rigid &&
-            Game.ClientType != GameClientType.RuSro)
+            Game.ClientType != GameClientType.RuSro &&
+            Game.ClientType != GameClientType.Korean)
         {
             packet.ReadByte(); // 0xFF
             packet.ReadUShort(); // 0xFF
