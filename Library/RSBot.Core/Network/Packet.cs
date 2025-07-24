@@ -569,6 +569,9 @@ namespace RSBot.Core.Network
                 if (Game.ClientType == GameClientType.RuSro)
                     codepage = 1251;
 
+                if (Game.ClientType == GameClientType.Global)
+                    codepage = 65001;
+
                 return Encoding.GetEncoding(codepage).GetString(bytes);
             }
         }
@@ -1104,6 +1107,9 @@ namespace RSBot.Core.Network
 
                 if (Game.ClientType == GameClientType.RuSro)
                     codePage = 1251;
+
+                if (Game.ClientType == GameClientType.Global)
+                    codePage = 65001;
 
                 var bytes = Encoding.GetEncoding(codePage).GetBytes(value);
                 _writer.Write((ushort)bytes.Length);

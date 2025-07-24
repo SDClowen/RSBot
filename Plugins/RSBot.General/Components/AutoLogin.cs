@@ -175,7 +175,8 @@ internal static class AutoLogin
 
         if (Game.ClientType == GameClientType.Turkey ||
             Game.ClientType == GameClientType.VTC_Game ||
-            Game.ClientType == GameClientType.RuSro)
+            Game.ClientType == GameClientType.RuSro ||
+            Game.ClientType == GameClientType.Korean)
             loginPacket.WriteBytes(Game.MacAddress);
 
         loginPacket.WriteUShort(server.Id);

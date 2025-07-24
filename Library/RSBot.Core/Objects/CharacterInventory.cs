@@ -13,7 +13,17 @@ public class CharacterInventory : InventoryItemCollection
     /// <summary>
     ///     Minimum slot of NormalPart.
     /// </summary>
-    public const byte NORMAL_PART_MIN_SLOT = 13;
+    public static byte NORMAL_PART_MIN_SLOT
+    {
+        get
+        {
+            return (Game.ClientType == GameClientType.Global || 
+                Game.ClientType == GameClientType.Korean)
+                ? (byte)17 //4 slots for relics
+                : (byte)13;
+        }
+    }
+
 
     /// <summary>
     ///     The constructor.
@@ -44,6 +54,11 @@ public class CharacterInventory : InventoryItemCollection
     ///     <c>true</c> if this instance is sorting; otherwise, <c>false</c>.
     /// </value>
     public bool IsSorting { get; private set; }
+
+    /// <summary>
+    ///     Gets the number of free slots in NormalPart inventory.
+    /// </summary>
+    public new byte FreeSlots => (byte)(NormalPartSize - GetNormalPartItems().Count);
 
     /// <summary>
     ///     Gets the first free slot number inside NormalPart.

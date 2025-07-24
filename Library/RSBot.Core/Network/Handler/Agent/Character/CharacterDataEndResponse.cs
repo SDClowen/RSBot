@@ -161,7 +161,10 @@ internal class CharacterDataEndResponse : IPacketHandler
         else
             packet.ReadUInt();
 
-        if (Game.ClientType == GameClientType.Chinese || Game.ClientType == GameClientType.Global || Game.ClientType == GameClientType.RuSro)
+        if (Game.ClientType == GameClientType.Chinese || 
+            Game.ClientType == GameClientType.Global || 
+            Game.ClientType == GameClientType.RuSro || 
+            Game.ClientType == GameClientType.Korean)
             packet.ReadByte();
 
         character.JID = packet.ReadUInt();

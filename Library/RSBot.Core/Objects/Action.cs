@@ -109,7 +109,8 @@ public class Action
         if (Game.ClientType == GameClientType.Turkey ||
             Game.ClientType == GameClientType.Global ||
             Game.ClientType == GameClientType.VTC_Game ||
-            Game.ClientType == GameClientType.RuSro)
+            Game.ClientType == GameClientType.RuSro ||
+            Game.ClientType == GameClientType.Korean)
         {
             packet.ReadByte();
             action.Flag = (ActionStateFlag)packet.ReadByte();

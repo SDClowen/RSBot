@@ -56,7 +56,8 @@ internal class AgentLoginRequestHook : IPacketHook
 
             if (Game.ClientType == GameClientType.Turkey ||
             Game.ClientType == GameClientType.VTC_Game ||
-            Game.ClientType == GameClientType.Global
+            Game.ClientType == GameClientType.Global ||
+            Game.ClientType == GameClientType.Korean
             )
                 packet.WriteString(Sha256.ComputeHash(selectedAccount.Password));
             else

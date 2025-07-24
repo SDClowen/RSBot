@@ -118,9 +118,9 @@ public partial class Main : DoubleBufferedControl
                     foreach (var item in itemsPlayer)
                         AddItem(item);
 
-                    lblFreeSlots.Text = Game.Player.Inventory.FreeSlots + "/" + Game.Player.Inventory.Capacity;
+                    lblFreeSlots.Text = Game.Player.Inventory.FreeSlots + "/" + Game.Player.Inventory.NormalPartSize;
                     pbInventoryStatus.Value = Game.Player.Inventory.FreeSlots;
-                    pbInventoryStatus.Maximum = Game.Player.Inventory.Capacity;
+                    pbInventoryStatus.Maximum = Game.Player.Inventory.NormalPartSize;
                     break;
 
                 case 1:
@@ -129,10 +129,13 @@ public partial class Main : DoubleBufferedControl
                     foreach (var item in items)
                         AddItem(item);
 
-                    lblFreeSlots.Text = items.Count + " / 13";
+                    int maxSlots = (Game.ClientType == GameClientType.Global || 
+                        Game.ClientType == GameClientType.Korean) ? 17 : 13; //4 slots for relics
 
-                    pbInventoryStatus.Value = items.Count;
-                    pbInventoryStatus.Maximum = 13;
+                    lblFreeSlots.Text = (maxSlots - items.Count) + " / " + maxSlots;
+
+                    pbInventoryStatus.Value = (maxSlots - items.Count);
+                    pbInventoryStatus.Maximum = maxSlots;
 
                     break;
 
@@ -141,7 +144,7 @@ public partial class Main : DoubleBufferedControl
                     foreach (var item in Game.Player.Avatars)
                         AddItem(item);
 
-                    lblFreeSlots.Text = "0";
+                    lblFreeSlots.Text = Game.Player.Avatars.FreeSlots + " / " + Game.Player.Avatars.Capacity;
 
                     pbInventoryStatus.Value = Game.Player.Avatars.FreeSlots;
                     pbInventoryStatus.Maximum = Game.Player.Avatars.Capacity;
