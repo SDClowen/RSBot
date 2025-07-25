@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using RSBot.Core.Client.ReferenceObjects;
+﻿using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Network;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Cos;
 using RSBot.Core.Objects.Inventory;
 using RSBot.Core.Objects.Spawn;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using static RSBot.Core.Game;
 
 namespace RSBot.Core.Components;
@@ -299,6 +299,75 @@ public static class ShoppingManager
         var awaitResult = new AwaitCallback(null, 0xB034);
         PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
         awaitResult.AwaitResponse();
+    }
+
+    public static void ReceiveSupplies(string npcCodeName)
+    {
+        Finished = false;
+        Running = true;
+
+        uint questId = GetQuestId(npcCodeName);
+        CloseShop();
+
+        var currentWeapon = Game.Player.Weapon;
+        IEnumerable<RefEventRewardItems> items = null;
+
+        var excludedItemCodeNames = new List<string>();
+
+        if (currentWeapon.Record.TypeID4 == 6) // Bow
+            excludedItemCodeNames.Add("ITEM_ETC_LEVEL_BOLT");
+        else if (currentWeapon.Record.TypeID4 == 12) // Crossbow
+            excludedItemCodeNames.Add("ITEM_ETC_LEVEL_ARROW");
+        else
+            excludedItemCodeNames.AddRange(["ITEM_ETC_LEVEL_ARROW", "ITEM_ETC_LEVEL_BOLT"]);
+
+        items = ReferenceManager.GetEventRewardItems(questId)
+            .Where(r =>
+                Game.Player.Level >= r.MinRequiredLevel &&
+                Game.Player.Level <= r.MaxRequiredLevel &&
+                !excludedItemCodeNames.Contains(r.ItemCodeName));
+
+        foreach (var item in items)
+        {
+            ReceiveQuestReward(npcCodeName, questId, item.Item.ID);
+        }
+
+        Finished = true;
+        Running = false;
+    }
+
+    public static uint GetQuestId(string npcCodeName)
+    {
+        ChooseTalkOption(npcCodeName, TalkOption.Quest);
+
+        var packet = new Packet(0x30D4); //AGENT_QUEST_TALK
+        packet.WriteByte(5);
+
+        uint questId = 0;
+
+        var awaitCallback = new AwaitCallback(response =>
+        {
+            questId = response.ReadUInt();
+            return AwaitCallbackResult.Success;
+        }, 0x3514); //AGENT_QUEST_REWARD_TALK
+
+        PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallback);
+        awaitCallback.AwaitResponse();
+
+        return questId;
+    }
+
+    public static void ReceiveQuestReward(string npcCodeName, uint questId, uint rewardId)
+    {
+        GetQuestId(npcCodeName);
+
+        var packet = new Packet(0x7515); //AGENT_QUEST_REWAD_SELECT
+        packet.WriteUInt(questId);
+        packet.WriteByte(1);
+        packet.WriteUInt(rewardId);
+        PacketManager.SendPacket(packet, PacketDestination.Server);
+
+        CloseShop();
     }
 
     /// <summary>
