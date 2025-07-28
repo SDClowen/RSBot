@@ -1,16 +1,16 @@
-﻿using System;
+﻿using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Cryptography;
+using RSBot.Core.Event;
+using RSBot.Core.Extensions;
+using RSBot.Core.Objects;
+using RSBot.NavMeshApi;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using RSBot.Core.Client.ReferenceObjects;
-using RSBot.Core.Cryptography;
-using RSBot.Core.Event;
-using RSBot.Core.Extensions;
-using RSBot.Core.Objects;
-using RSBot.NavMeshApi;
 
 namespace RSBot.Core.Client;
 
@@ -42,6 +42,7 @@ public class ReferenceManager
     public Dictionary<int, RefOptionalTeleport> OptionalTeleports { get; } = new(32);
     public Dictionary<uint, RefQuestReward> QuestRewards { get; } = new(1024);
     public List<RefQuestRewardItem> QuestRewardItems { get; } = new(1024);
+    public List<RefEventRewardItems> EventRewardItems { get; } = new(32);
     public GatewayInfo GatewayInfo { get; private set; }
     public DivisionInfo DivisionInfo { get; private set; }
     public VersionInfo VersionInfo { get; private set; }
@@ -88,6 +89,7 @@ public class ReferenceManager
         worker.ReportProgress(90, "Misc");
         LoadOptLevelData();
         LoadLevelData();
+        LoadEventRewardData();
 
         sw.Stop();
 
@@ -185,6 +187,11 @@ public class ReferenceManager
         else
             LoadReferenceFile($"{ServerDep}\\questdata.txt", QuestData);
 
+    }
+
+    private void LoadEventRewardData()
+    {
+        LoadReferenceFile($"{ServerDep}\\refeventrewarditems.txt", EventRewardItems);
     }
 
     private void LoadTextData()
@@ -796,6 +803,11 @@ public class ReferenceManager
         return result;
     }
 
+    public List<RefEventRewardItems> GetEventRewardItems(uint eventId)
+    {
+        return EventRewardItems.Where(r => r.EventId == eventId).ToList();
+    }
+
     private string GetDebugInfo()
     {
         var builder = new StringBuilder("\n=== Reference information === \n");
@@ -808,6 +820,7 @@ public class ReferenceManager
         builder.AppendFormat("QuestData: {0}\n", QuestData.Count);
         builder.AppendFormat("QuestRewards: {0}\n", QuestRewards.Count);
         builder.AppendFormat("QuestRewardItems: {0}\n", QuestRewardItems.Count);
+        builder.AppendFormat("EventRewardItems: {0}\n", EventRewardItems.Count);
         builder.AppendFormat("TeleportData: {0}\n", TeleportData.Count);
         builder.AppendFormat("TeleportLinks: {0}\n", TeleportLinks.Count);
         builder.AppendFormat("OptionalTeleports: {0}\n", OptionalTeleports.Count);
