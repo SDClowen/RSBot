@@ -168,7 +168,7 @@ public class RefSkill : IReference<uint>
 
         parser.TryParse(3, out Basic_Code);
         //parser.TryParseString(4, out Basic_Name);
-        //parser.TryParseString(5, out Basic_Group);
+        parser.TryParse(5, out Basic_Group);
         //parser.TryParseInt(6, out Basic_Original);
         parser.TryParse(7, out Basic_Level);
         parser.TryParse(8, out Basic_Activity);
