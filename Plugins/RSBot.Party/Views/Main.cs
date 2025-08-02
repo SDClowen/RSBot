@@ -387,7 +387,19 @@ public partial class Main : DoubleBufferedControl
         var skills = Game.Player.Skills.KnownSkills
             .Where(s => s.Enabled && s.Record.TargetGroup_Party && !s.Record.TargetEtc_SelectDeadBody);
 
-        foreach (var skill in skills)
+        List<string> additionalGroups = [
+            "SKILL_EU_BARD_SPEEDUPA_MSPEED_A", //Moving March
+            "SKILL_EU_BARD_SPEEDUPA_MSPEED_B", //Swing March
+            "SKILL_EU_CLERIC_SAINTA_ABNORMAL_B", //Holy Spell
+            "SKILL_EU_CLERIC_SAINTA_ABNORMAL_B_1" //God's Spell
+            ];
+
+        var additionalSkills = Game.Player.Skills.KnownSkills
+            .Where(s => s.Enabled && additionalGroups.Contains(s.Record.Basic_Group));
+
+        IEnumerable<SkillInfo> partyBuffSkills = skills.Union(additionalSkills);
+
+        foreach (var skill in partyBuffSkills)
         {
             if (skill.IsPassive)
                 continue;

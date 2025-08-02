@@ -1843,7 +1843,7 @@
             checkHideLowerLevelSkills.TabIndex = 10;
             checkHideLowerLevelSkills.Text = "Hide lower level skills";
             checkHideLowerLevelSkills.UseVisualStyleBackColor = false;
-            checkHideLowerLevelSkills.Visible = false;
+            //checkHideLowerLevelSkills.Visible = false;
             checkHideLowerLevelSkills.CheckedChanged += checkHideLowerLevelSkills_CheckedChanged;
             // 
             // Main
