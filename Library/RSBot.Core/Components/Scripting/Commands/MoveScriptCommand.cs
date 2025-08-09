@@ -126,7 +126,8 @@ internal class MoveScriptCommand : IScriptCommand
 
         if (PlayerConfig.Get("RSBot.Training.checkUseMount", true))
         {
-            if (!Game.Player.HasActiveVehicle && !Game.Player.InAction)
+            if (!Game.Player.HasActiveVehicle && !Game.Player.InAction
+                && !(ScriptManager.Running && ScriptManager.File == PlayerConfig.Get("RSBot.Lure.SelectedScriptPath", string.Empty)))
             {
                 Game.Player.SummonFellow();
 
