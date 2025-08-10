@@ -6,6 +6,12 @@ namespace RSBot.Lure.Components;
 
 internal static class LureConfig
 {
+    public static bool UseSpeedDrug
+    {
+        get => PlayerConfig.Get("RSBot.Training.checkUseSpeedDrug", true);
+        set => PlayerConfig.Set("RSBot.Training.checkUseSpeedDrug", value);
+    }
+
     public static bool UseHowlingShout
     {
         get => PlayerConfig.Get("RSBot.Lure.UseHowlingShout", false) && Game.Player.Race == ObjectCountry.Europe;

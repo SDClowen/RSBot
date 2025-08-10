@@ -1,10 +1,11 @@
-﻿using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using RSBot.Core;
+﻿using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
+using RSBot.Core.Objects;
 using RSBot.Lure.Components;
+using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace RSBot.Lure.Bundle;
 
@@ -12,6 +13,14 @@ internal static class MovementBundle
 {
     public static void Tick()
     {
+        if (LureConfig.UseSpeedDrug &&
+            Game.Player.State.ActiveBuffs.FindIndex(p => p.Record.Params.Contains(1752396901)) < 0)
+        {
+            var item = Game.Player.Inventory.GetItem(new TypeIdFilter(3, 3, 13, 1),
+                p => p.Record.Desc1.Contains("_SPEED_"));
+            item?.Use();
+        }
+
         //Return to center?
         if (LureConfig.Area.Position.DistanceToPlayer() > 5 && LureConfig.StayAtCenterFor && !ScriptManager.Running)
         {
