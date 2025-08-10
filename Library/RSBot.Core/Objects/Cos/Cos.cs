@@ -215,8 +215,12 @@ public class Cos : SpawnedEntity
             if (response.Opcode == 0xB0C5)
             {
                 if (result == 2 &&
-                    (CosCommand)response.ReadByte() == CosCommand.Pickup)
-                    return AwaitCallbackResult.Success;
+                   (CosCommand)response.ReadByte() == CosCommand.Pickup)
+                { 
+                    ushort errorCode = response.ReadUShort();
+                    if (errorCode == 3) //3 - stolen or disappeared; 6297 - stuck. Not spam retrying because of DC
+                        return AwaitCallbackResult.Success;
+                }
                 return AwaitCallbackResult.ConditionFailed;
             }
 
