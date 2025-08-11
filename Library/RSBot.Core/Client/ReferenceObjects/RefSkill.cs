@@ -117,7 +117,7 @@ public class RefSkill : IReference<uint>
     //public byte ReqLearn_SkillLevel3;
     //public int ReqLearn_SP;
 
-    //public byte ReqLearn_Race;
+    public byte ReqLearn_Race;
     //public byte Req_Restriction1;
     //public byte Req_Restriction2;
     public WeaponType ReqCast_Weapon1;
@@ -214,7 +214,7 @@ public class RefSkill : IReference<uint>
         //ReqLearn_SkillLevel2 = byte.Parse(data[44]);
         //ReqLearn_SkillLevel3 = byte.Parse(data[45]);
         //parser.TryParseInt(46, out ReqLearn_SP);
-        //ReqLearn_Race = byte.Parse(data[47]);
+        parser.TryParse(47, out ReqLearn_Race);
         //Req_Restriction1 = byte.Parse(data[48]);
         //Req_Restriction2 = byte.Parse(data[49]);
         parser.TryParse(50, out ReqCast_Weapon1);
