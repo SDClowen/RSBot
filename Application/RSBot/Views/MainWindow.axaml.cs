@@ -2,6 +2,7 @@
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.ViewModels;
@@ -193,4 +194,11 @@ public partial class MainWindow : Window
         _translateTransform.Y = newY;
     }
 
+    protected override void OnClosed(EventArgs e)
+    {
+        base.OnClosed(e);
+
+        GlobalConfig.Save();
+        Environment.Exit(0);
+    }
 }

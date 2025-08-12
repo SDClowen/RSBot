@@ -715,6 +715,7 @@ public class MainWindowViewModel : ReactiveObject
             BotBases.Add(pluginInfo);
 
             plugin.Register();
+            plugin.Translate();
         }
     }
 
@@ -743,6 +744,7 @@ public class MainWindowViewModel : ReactiveObject
                 TabPlugins.Add(pluginInfo);
 
             plugin.Initialize();
+            plugin.Translate();
         }
     }
 

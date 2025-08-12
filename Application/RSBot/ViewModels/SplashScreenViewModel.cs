@@ -63,6 +63,64 @@ public class SplashScreenViewModel : ReactiveObject
         try
         {
             await LoadProfileConfigAsync();
+
+            Kernel.Language = GlobalConfig.Get("RSBot.Language", "en_US");
+            LanguageManager.Translate(_owner, Kernel.Language);
+
+            if (!GlobalConfig.Exists("RSBot.SilkroadDirectory") ||
+                !File.Exists(GlobalConfig.Get<string>("RSBot.SilkroadDirectory") + "\\media.pk2"))
+            {
+                var dialog = new OpenFileDialog
+                {
+                    Title = LanguageManager.GetLang("OpenFileDialogTitle"),
+                    Filters = new List<FileDialogFilter>
+                {
+                    new FileDialogFilter { Name = "Executable", Extensions = new List<string> { "exe" } }
+                },
+                    InitialFileName = "sro_client.exe"
+                };
+
+                var result = await dialog.ShowAsync(_owner);
+                if (result != null && result.Length > 0)
+                {
+                    var silkroadDirectory = Path.GetDirectoryName(result[0]);
+                    if (File.Exists(Path.Combine(silkroadDirectory, "media.pk2")))
+                    {
+                        GlobalConfig.Set("RSBot.SilkroadDirectory", silkroadDirectory);
+                        GlobalConfig.Set("RSBot.SilkroadExecutable", Path.GetFileName(result[0]));
+
+                        var title = LanguageManager.GetLang("ClientTypeInputDialogTitle");
+                        var content = LanguageManager.GetLang("ClientTypeInputDialogContent");
+
+                        var clientTypeDialog = new InputDialog(title, title, content, InputDialog.InputType.Combobox);
+                        clientTypeDialog.Selector.ItemsSource = Enum.GetNames(typeof(GameClientType));
+                        clientTypeDialog.Selector.SelectedIndex = 2;
+
+                        var dialogResult = await clientTypeDialog.ShowDialog<bool>(_owner);
+                        if (dialogResult)
+                        {
+                            if (Enum.TryParse<GameClientType>(clientTypeDialog.Value.ToString(), out var clientType))
+                                GlobalConfig.Set("RSBot.Game.ClientType", clientType);
+                        }
+                        else
+                        {
+                            await MessageBox.Show(_owner, LanguageManager.GetLang("ClientTypeNotSelected"));
+                            GlobalConfig.Set("RSBot.Game.ClientType", GameClientType.Vietnam);
+                        }
+                    }
+                    else
+                    {
+                        await MessageBox.Show(_owner, LanguageManager.GetLang("SelectSroDirWarn"));
+                        Environment.Exit(0);
+                    }
+                }
+                else
+                {
+                    await MessageBox.Show(_owner, LanguageManager.GetLang("SelectSroDirWarn"));
+                    Environment.Exit(0);
+                }
+            }
+
             await InitializeBot();
         }
         catch (Exception ex)
@@ -160,5 +218,7 @@ public class SplashScreenViewModel : ReactiveObject
         LoadingProgress = 100;
         LoadingText = "Initialization complete!";
         await Task.Delay(500);
+
+        GlobalConfig.Save();
     }
 }

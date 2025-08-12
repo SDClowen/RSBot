@@ -1,8 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using HarfBuzzSharp;
-using RSBot.Core.Components;
 using RSBot.ViewModels;
 using RSBot.Views;
 
@@ -21,10 +19,9 @@ public partial class App : Application
         {
             var main = new MainWindow();
 
-            var splashScreen = new SplashScreen(); 
+            var splashScreen = new SplashScreen(main);
             desktop.MainWindow = splashScreen;
-            splashScreen.Show();
-            
+
             if (splashScreen.DataContext is SplashScreenViewModel viewModel)
                 await viewModel.InitializeAsync();
 

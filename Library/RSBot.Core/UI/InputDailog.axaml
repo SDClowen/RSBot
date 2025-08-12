@@ -4,7 +4,10 @@
         Title="{Binding Title}"
         Width="400"
         Height="200"
-        WindowStartupLocation="CenterOwner">
+		WindowStartupLocation="CenterScreen"
+		ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="PreferSystemChrome"
+        ExtendClientAreaTitleBarHeightHint="-1">
     
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -44,9 +47,11 @@
                     Spacing="10">
             <Button x:Name="_btnOK"
                     Content="OK"
+					HorizontalContentAlignment="Center"
                     Width="80"/>
             <Button x:Name="_btnCancel"
                     Content="Cancel"
+					HorizontalContentAlignment="Center"
                     Width="80"/>
         </StackPanel>
     </Grid>

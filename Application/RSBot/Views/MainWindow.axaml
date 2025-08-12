@@ -11,7 +11,7 @@
 		x:DataType="vm:MainWindowViewModel"
 		Icon="/Assets/app.png"
 		Title="RSBot" Foreground="White"
-		Background="rgba(20, 20, 20, 0.98)"
+		Background="rgba(15, 15, 15, 0.95)"
 		WindowStartupLocation="CenterScreen"
 		ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="PreferSystemChrome"
@@ -26,14 +26,16 @@
 		<Border Height="25" Background="rgba(255, 255, 255, 0.05)" BorderBrush="rgba(255, 255, 255, 0.15)" BorderThickness="1" DockPanel.Dock="Bottom">
 			<DockPanel>
 				<Button DockPanel.Dock="Right"
-							Margin="0"
-							Content="☰"
-							Width="30"
-							Height="30"
-							VerticalAlignment="Top"
+							Margin="5 0"
+							VerticalAlignment="Center"
 							Background="Transparent"
 							Foreground="White"
 							HorizontalAlignment="Right">
+					<Path Stroke="White" Width="16" Height="16" StrokeThickness=".3" Stretch="Uniform">
+						<Path.Data>
+							<StreamGeometry>M2 4.5C2 4.22386 2.22386 4 2.5 4H17.5C17.7761 4 18 4.22386 18 4.5C18 4.77614 17.7761 5 17.5 5H2.5C2.22386 5 2 4.77614 2 4.5Z M2 9.5C2 9.22386 2.22386 9 2.5 9H17.5C17.7761 9 18 9.22386 18 9.5C18 9.77614 17.7761 10 17.5 10H2.5C2.22386 10 2 9.77614 2 9.5Z M2.5 14C2.22386 14 2 14.2239 2 14.5C2 14.7761 2.22386 15 2.5 15H17.5C17.7761 15 18 14.7761 18 14.5C18 14.2239 17.7761 14 17.5 14H2.5Z</StreamGeometry>
+						</Path.Data>
+					</Path>
 					<Button.Flyout>
 						<MenuFlyout Placement="BottomEdgeAlignedRight">
 							<MenuItem Header="File">
@@ -70,7 +72,7 @@
 												  CommandParameter="{Binding}" />
 									</DataTemplate>
 								</MenuItem.ItemTemplate>
-								
+
 							</MenuItem>
 
 							<MenuItem Header="Help">

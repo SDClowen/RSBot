@@ -20,6 +20,9 @@
 		<AvaloniaResource Include="Assets\**" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Content Include="Assets\app.ico" />
+	</ItemGroup>
+	<ItemGroup>
 		<PackageReference Include="Avalonia" Version="11.3.2" />
 		<PackageReference Include="Avalonia.Controls.DataGrid" Version="11.3.2" />
 		<PackageReference Include="Avalonia.Desktop" Version="11.3.2" />
@@ -32,6 +35,11 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\Library\RSBot.Core\RSBot.Core.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Compile Update="Views\SplashScreen.axaml.cs">
+	    <DependentUpon>SplashScreen.axaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
 
 
 	<PropertyGroup>
@@ -39,6 +47,12 @@
 		<SelfContained>true</SelfContained>
 		<PublishTrimmed>true</PublishTrimmed>
 		<PublishReadyToRun>true</PublishReadyToRun>
+	</PropertyGroup>
+
+
+	<PropertyGroup Label="Avalonia">
+	  <AvaloniaXamlIlDebuggerLaunch>True</AvaloniaXamlIlDebuggerLaunch>
+	  <ApplicationIcon>Assets\app.ico</ApplicationIcon>
 	</PropertyGroup>
 	
 
