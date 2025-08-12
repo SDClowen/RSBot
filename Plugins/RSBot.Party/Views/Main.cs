@@ -353,7 +353,7 @@ public partial class Main : DoubleBufferedControl
     {
         await Task.Delay(5000);
 
-        if (Game.Ready 
+        if (Game.Ready
             && Bundle.Container.PartyMatching.Config.AutoReform
             && !Bundle.Container.PartyMatching.HasMatchingEntry)
             Bundle.Container.PartyMatching.Create();
@@ -544,7 +544,7 @@ public partial class Main : DoubleBufferedControl
         listParty.Items.RemoveByKey(member.Name);
 
         if (Bundle.Container.PartyMatching.Config.AutoReform)
-            if (Game.Party != null 
+            if (Game.Party != null
                 && !Bundle.Container.PartyMatching.HasMatchingEntry
                 && Game.Party.Members?.Count < Game.Party.Settings.MaxMember)
                 Bundle.Container.PartyMatching.Create();
@@ -893,9 +893,15 @@ public partial class Main : DoubleBufferedControl
             if (skill == null)
                 continue;
 
+            // TODO: Some buffs have Action_Overlap = 0. When filtering only by indirect criteria, such as Action_Overlap,
+            // there are situations when the buff is not added, because another buff is detected as this buff (Physical Screen = Morale Screen).
+            // We need to find an attribute that allows us to accurately determine the inheritance of buffs from another books (Body Deity -> Angel's Body).
+            // As a temporary solution, we are filtering only the skills of one group, but in this case,
+            // buffs from different books/series are not considered inheritable.
             if (buffingMember.Buffs.Any(id => id == skill.Id ||
                                               (Game.ReferenceManager.SkillData.TryGetValue(id, out var refSkill) &&
-                                               refSkill.Action_Overlap == skill.Record.Action_Overlap)))
+                                               refSkill.Action_Overlap == skill.Record.Action_Overlap &&
+                                               refSkill.Basic_Group == skill.Record.Basic_Group)))
                 continue;
 
             buffingMember.Buffs.Add(skill.Id);
