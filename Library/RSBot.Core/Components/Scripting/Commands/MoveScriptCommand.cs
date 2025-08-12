@@ -124,6 +124,17 @@ internal class MoveScriptCommand : IScriptCommand
         Position previousPosition = Game.Player.Position;
         Position pos = new(xSector, ySector, xOffset, yOffset, zOffset);
 
+        if (PlayerConfig.Get("RSBot.Training.checkUseSpeedDrug", true))
+        {
+            if (!Game.Player.HasActiveVehicle && !Game.Player.InAction &&
+                Game.Player.State.ActiveBuffs.FindIndex(p => p.Record.Params.Contains(1752396901)) < 0)
+            {
+                var item = Game.Player.Inventory.GetItem(new TypeIdFilter(3, 3, 13, 1),
+                    p => p.Record.Desc1.Contains("_SPEED_"));
+                item?.Use();
+            }
+        }
+
         if (PlayerConfig.Get("RSBot.Training.checkUseMount", true))
         {
             if (!Game.Player.HasActiveVehicle && !Game.Player.InAction
