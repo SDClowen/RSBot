@@ -162,7 +162,12 @@ public class State
 
         buff = ActiveBuffs.Find(p =>
             p.Record.Action_Overlap == skill.Record.Action_Overlap &&
-            p.Record.Basic_Activity == skill.Record.Basic_Activity);
+            p.Record.Basic_Activity == skill.Record.Basic_Activity &&
+            p.Record.ReqCast_Weapon1 == skill.Record.ReqCast_Weapon1 &&
+            p.Record.ReqCast_Weapon2 == skill.Record.ReqCast_Weapon2 &&
+            p.Record.TargetType_Animal == skill.Record.TargetType_Animal &&
+            p.Record.Target_Required == skill.Record.Target_Required &&
+            p.Record.ReqLearn_Race == skill.Record.ReqLearn_Race);
 
         return buff != null;
     }
