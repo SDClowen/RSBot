@@ -17,8 +17,11 @@ internal static class HowlingShoutBundle
             return;
 
         var howlingShout =
-            Game.Player.Skills.KnownSkills.FirstOrDefault(s =>
-                s.Record.GroupID == 537); //SKILL_EU_WARRIOR_FRENZYA_TOUNT_AREA_A_04
+            Game.Player.Skills.KnownSkills.Where(s =>
+                s.Record.Basic_Group == "SKILL_EU_WARRIOR_FRENZYA_TOUNT_AREA_B" ||
+                s.Record.Basic_Group == "SKILL_EU_WARRIOR_FRENZYA_TOUNT_AREA_A" ||
+                s.Record.Basic_Group == "SKILL_EU_WARRIOR_FRENZYA_TOUNT_A")
+            .MaxBy(s => s.Record.ID);
         if (howlingShout == null || howlingShout.CanNotBeCasted)
             return;
 
