@@ -22,9 +22,9 @@ internal static class HowlingShoutBundle
                 s.Record.Basic_Group == "SKILL_EU_WARRIOR_FRENZYA_TOUNT_AREA_A" ||
                 s.Record.Basic_Group == "SKILL_EU_WARRIOR_FRENZYA_TOUNT_A")
             .MaxBy(s => s.Record.ID);
-        if (howlingShout == null || howlingShout.CanNotBeCasted)
+        if (howlingShout == null || howlingShout.CanNotBeCasted || howlingShout.HasCooldown)
             return;
 
-        SkillManager.CastBuff(howlingShout, awaitBuffResponse: false);
+        SkillManager.CastBuff(howlingShout);
     }
 }
