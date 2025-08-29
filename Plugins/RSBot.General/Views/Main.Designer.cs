@@ -119,9 +119,9 @@
     System.Drawing.Color.Black
     };
             lblVersion.GradientAnimation = false;
-            lblVersion.Location = new System.Drawing.Point(808, 15);
+            lblVersion.Location = new System.Drawing.Point(802, 15);
             lblVersion.Name = "lblVersion";
-            lblVersion.Size = new System.Drawing.Size(46, 20);
+            lblVersion.Size = new System.Drawing.Size(52, 21);
             lblVersion.TabIndex = 3;
             lblVersion.Text = "v1.000";
             // 

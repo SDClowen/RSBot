@@ -442,9 +442,9 @@
             // tabGlobal
             // 
             tabGlobal.BackColor = System.Drawing.Color.White;
+            tabGlobal.Controls.Add(txtGlobal);
             tabGlobal.Controls.Add(separator7);
             tabGlobal.Controls.Add(txtSendGlobal);
-            tabGlobal.Controls.Add(txtGlobal);
             tabGlobal.Location = new System.Drawing.Point(4, 28);
             tabGlobal.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             tabGlobal.Name = "tabGlobal";
