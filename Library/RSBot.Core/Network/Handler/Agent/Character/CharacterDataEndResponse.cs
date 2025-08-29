@@ -149,7 +149,8 @@ internal class CharacterDataEndResponse : IPacketHandler
             Game.ClientType != GameClientType.Global &&
             Game.ClientType != GameClientType.Rigid &&
             Game.ClientType != GameClientType.RuSro &&
-            Game.ClientType != GameClientType.Korean)
+            Game.ClientType != GameClientType.Korean &&
+            Game.ClientType != GameClientType.VTC_Game)
         {
             packet.ReadByte(); // 0xFF
             packet.ReadUShort(); // 0xFF
@@ -165,7 +166,8 @@ internal class CharacterDataEndResponse : IPacketHandler
         if (Game.ClientType == GameClientType.Chinese || 
             Game.ClientType == GameClientType.Global || 
             Game.ClientType == GameClientType.RuSro || 
-            Game.ClientType == GameClientType.Korean)
+            Game.ClientType == GameClientType.Korean ||
+            Game.ClientType == GameClientType.VTC_Game)
             packet.ReadByte();
 
         character.JID = packet.ReadUInt();
