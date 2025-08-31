@@ -105,7 +105,7 @@ public class ClientManager
             }
             string login = GlobalConfig.Get<string>("RSBot.RuSro.login");
             string password = GlobalConfig.Get<string>("RSBot.RuSro.password");
-            full = $"\"{silkroadDirectory}\\Frost\\sro.exe\" -LOGIN:{login} -PASSWORD:{password} -frostGame \"{path}\" -frostOptions 1 -frostGameNameType silk-ru_live";
+            full = $"\"{silkroadDirectory}\\Frost\\sro.exe\" -LOGIN:{login} -PASSWORD:{password} -torosGame \"{path}\" -torosOptions 1 -torosGameNameType silk-ru_live";
             Log.Debug("Full path: " + full);
 
             var result = CreateProcess(
@@ -208,7 +208,7 @@ public class ClientManager
 
                 var address = FindPattern(
                     Game.ClientType == GameClientType.Turkey ?
-                    "6A 00 68 18 3A 3C 01 68 2C 3A 3C 01" :
+                    "6A 00 68 38 6A 3E 01 68 4C 6A 3E 01" :
                     "6A 00 68 C8 D2 38 01 68 DC D2 38 01",
                     moduleMemory);
                 if (address == IntPtr.Zero)
