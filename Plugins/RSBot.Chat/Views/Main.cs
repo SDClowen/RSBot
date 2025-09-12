@@ -1,10 +1,11 @@
-﻿using System;
-using System.ComponentModel;
-using System.Windows.Forms;
-using RSBot.Core;
+﻿using RSBot.Core;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using SDUI.Controls;
+using System;
+using System.ComponentModel;
+using System.IO;
+using System.Windows.Forms;
 
 namespace RSBot.Chat.Views;
 

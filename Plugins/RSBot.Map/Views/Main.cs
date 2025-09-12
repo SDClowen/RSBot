@@ -15,6 +15,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Windows.Forms;
 using Region = RSBot.Core.Objects.Region;
 
@@ -80,6 +81,17 @@ public partial class Main : DoubleBufferedControl
     /// The region name
     /// </summary>
     private string _regionName;
+
+    /// <summary>
+    ///     Auxiliary variable to auto select unique
+    /// </summary>
+    private bool _autoSelectUnqiue = false;
+
+    /// <summary>
+    ///     Auxiliary variable, so sound is only played once if unique is spotted.
+    /// </summary>
+    private bool _isUniqueSpotted = false;
+
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="Main" /> class.
@@ -558,29 +570,6 @@ public partial class Main : DoubleBufferedControl
         mapCanvas.Invalidate();
     }
 
-    private void checkBoxAutoSelectUniques_CheckedChanged(object sender, EventArgs e)
-    {
-        PlayerConfig.Set("RSBot.Map.AutoSelectUnique", checkBoxAutoSelectUniques.Checked);
-        timerUniqueChecker.Enabled = checkBoxAutoSelectUniques.Checked;
-    }
-
-    private void timerUniqueChecker_Tick(object sender, EventArgs e)
-    {
-        if (!checkBoxAutoSelectUniques.Checked)
-            return;
-
-        if (Kernel.Bot.Running)
-            return;
-
-        if (Game.SelectedEntity?.Record.Rarity == ObjectRarity.ClassD)
-            return;
-
-        if (SpawnManager.TryGetEntity<SpawnedMonster>(
-                p => p.Record.Rarity == ObjectRarity.ClassD || p.Record.Rarity == ObjectRarity.ClassI,
-                out var uniqueEntity))
-            uniqueEntity.TrySelect();
-    }
-
     private float GetMapX(Position gamePosition)
     {
         return mapCanvas.Width / 2f + (gamePosition.X - Game.Player.Movement.Source.X) * _scale;
@@ -615,8 +604,11 @@ public partial class Main : DoubleBufferedControl
     /// <param name="e"></param>
     private void Main_Load(object sender, EventArgs e)
     {
-        checkBoxAutoSelectUniques.Checked = PlayerConfig.Get("RSBot.Map.AutoSelectUnique", false);
-        timerUniqueChecker.Enabled = checkBoxAutoSelectUniques.Checked;
+        _autoSelectUnqiue = PlayerConfig.Get("RSBot.Map.AutoSelectUnique", false);
+        checkBoxAutoSelectUniques.Checked = _autoSelectUnqiue;
+
+        checkBoxAutoSelectUniques.Enabled = Game.Player != null;
+        timerUniqueChecker.Enabled = _autoSelectUnqiue && Game.Player != null;        
     }
 
     private void btnNvmResetToPlayer_Click(object sender, EventArgs e)
@@ -628,5 +620,86 @@ public partial class Main : DoubleBufferedControl
     private void tabMinimap_Paint(object sender, PaintEventArgs e)
     {
         bufferedGraphics.Render();
+    }
+
+    /// <summary>
+    ///     Initialize all objects for uniques.
+    /// </summary>
+    public void InitUniqueObjects()
+    {
+        _autoSelectUnqiue = PlayerConfig.Get("RSBot.Map.AutoSelectUnique", false);
+
+        checkBoxAutoSelectUniques.Enabled = true;
+        timerUniqueChecker.Enabled = _autoSelectUnqiue;        
+    }
+
+    /// <summary>
+    /// Auto select uniuqe
+    /// </summary>
+    private void checkBoxAutoSelectUniques_CheckedChanged(object sender, EventArgs e)
+    {
+        PlayerConfig.Set("RSBot.Map.AutoSelectUnique", checkBoxAutoSelectUniques.Checked);        
+        _autoSelectUnqiue = checkBoxAutoSelectUniques.Checked;
+
+        timerUniqueChecker.Enabled = _autoSelectUnqiue;
+    }
+
+    /// <summary>
+    /// Ticker Event for auto select unique
+    /// </summary>
+    private void timerUniqueChecker_Tick(object sender, EventArgs e)
+    {
+        if (Game.Player == null)
+            return;
+
+        if (!_autoSelectUnqiue)
+            return;
+
+        if (Kernel.Bot.Running)
+            return;
+
+        // Check if Unique is on map.
+        if (SpawnManager.TryGetEntities<SpawnedMonster>(out var monsters))
+        {
+            bool atleastOneUnqiueFound = false;
+
+            foreach (var entry in monsters)
+            {
+                if ((entry.Rarity == MonsterRarity.Unique || entry.Rarity == MonsterRarity.Unique2))
+                {
+                    // Check if unique was already discovered.
+                    // If yes => dont play sound again.
+                    if (false == _isUniqueSpotted)
+                    {
+                        _isUniqueSpotted = true;
+
+                        Game.Player.NotificationSounds?.PlayUniqueInRange();
+
+                    }
+
+                    atleastOneUnqiueFound = true;
+                }
+            }
+
+            // If no unique was discovered, reset
+            // _uniqueSpotted, so sound can play
+            // again if unique is in sight again.
+            if (!atleastOneUnqiueFound)
+            {
+                _isUniqueSpotted = false;
+            }
+        }
+        else
+        {
+            _isUniqueSpotted = false;
+        }
+
+        if (Game.SelectedEntity?.Record.Rarity == ObjectRarity.ClassD || Game.SelectedEntity?.Record.Rarity == ObjectRarity.ClassI)
+            return;
+
+        if (SpawnManager.TryGetEntity<SpawnedMonster>(
+                p => p.Record.Rarity == ObjectRarity.ClassD || p.Record.Rarity == ObjectRarity.ClassI,
+                out var uniqueEntity))
+            uniqueEntity.TrySelect();
     }
 }

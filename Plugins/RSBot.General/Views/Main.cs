@@ -602,7 +602,7 @@ internal partial class Main : DoubleBufferedControl
 
     private async Task<bool> HandleRuSroAuth()
     {
-        var clientType = (GameClientType) comboBoxClientType.SelectedIndex;
+        var clientType = (GameClientType)comboBoxClientType.SelectedIndex;
         if (clientType != GameClientType.RuSro) return true;
 
         return await RuSroAuthService.Auth();
@@ -824,5 +824,16 @@ internal partial class Main : DoubleBufferedControl
     private void numQueueLeft_ValueChanged(object sender, EventArgs e)
     {
         GlobalConfig.Set("RSBot.General.QueueLeft", numQueueLeft.Value);
+    }
+
+    /// <summary>
+    /// Handes the SoundSetting event for open dialog
+    /// </summary>
+    private void btnSoundSettingSetup_Click(object sender, EventArgs e)
+    {
+        if (View.SoundNotificationWindow.ShowDialog() == DialogResult.OK)
+        {
+            // nothing
+        }
     }
 }

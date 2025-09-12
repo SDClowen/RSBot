@@ -21,4 +21,10 @@
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 </ItemGroup>
 	
+<ItemGroup>
+  <Compile Update="Views\SoundNotificationWindow .cs">
+    <SubType>Form</SubType>
+  </Compile>
+</ItemGroup>
+	
 </Project>

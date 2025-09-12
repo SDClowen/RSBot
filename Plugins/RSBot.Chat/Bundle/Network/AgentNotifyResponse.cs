@@ -42,7 +42,12 @@ internal class AgentNotifyResponse : IPacketHandler
                 if (!Game.ReferenceManager.CharacterData.TryGetValue(refObjId, out var obj))
                     return;
 
-                View.Instance.UniqueText.Write(LanguageManager.GetLang("UniqueAppeared", obj.GetRealName()));
+                string realName = obj.GetRealName();
+
+                View.Instance.UniqueText.Write(LanguageManager.GetLang("UniqueAppeared", realName));
+
+                // Play sound.
+                Game.Player.NotificationSounds.PlayUniqueAppeared(realName);
 
                 break;
 

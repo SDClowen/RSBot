@@ -39,4 +39,10 @@ public class Bootstrap : IPlugin
         LanguageManager.Translate(Views.View.PendingWindow, Kernel.Language);
         LanguageManager.Translate(Views.View.AccountsWindow, Kernel.Language);
     }
+
+    /// <inheritdoc />
+    public void OnLoadCharacter()
+    {
+        // do nothing
+    }
 }
