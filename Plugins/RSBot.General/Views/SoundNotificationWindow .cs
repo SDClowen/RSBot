@@ -66,7 +66,7 @@ public partial class SoundNotificationWindow : UIWindowBase
 
         chkDemonChaitan.Enabled = playerLoaded;
         txtDemonChaitan.Enabled = playerLoaded;
-        btnLordYarkan.Enabled = playerLoaded;
+        btnDemonChaitan.Enabled = playerLoaded;
 
         chkUniqueInRange.Enabled = playerLoaded;
         txtUniqueInRange.Enabled = playerLoaded;

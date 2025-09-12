@@ -37,7 +37,7 @@ namespace RSBot.General.Views
             chkUniqueInRange = new SDUI.Controls.CheckBox();
             btnUniqueInRange = new System.Windows.Forms.Button();
             chkUniqueAppearedGeneral = new SDUI.Controls.CheckBox();
-            btnUniqueAppearedGeneral = new SDUI.SK.Button();
+            btnUniqueAppearedGeneral = new System.Windows.Forms.Button();
             txtRegex = new System.Windows.Forms.TextBox();
             lblRegex = new SDUI.Controls.Label();
             txtUniqueAppearedGeneral = new System.Windows.Forms.TextBox();
@@ -182,14 +182,11 @@ namespace RSBot.General.Views
             btnUniqueAppearedGeneral.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnUniqueAppearedGeneral.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             btnUniqueAppearedGeneral.BackColor = System.Drawing.Color.Transparent;
-            btnUniqueAppearedGeneral.Color = System.Drawing.Color.Transparent;
             btnUniqueAppearedGeneral.DialogResult = System.Windows.Forms.DialogResult.None;
             btnUniqueAppearedGeneral.Enabled = false;
             btnUniqueAppearedGeneral.Image = null;
             btnUniqueAppearedGeneral.Location = new System.Drawing.Point(372, 36);
             btnUniqueAppearedGeneral.Name = "btnUniqueAppearedGeneral";
-            btnUniqueAppearedGeneral.Radius = 6;
-            btnUniqueAppearedGeneral.ShadowDepth = 4F;
             btnUniqueAppearedGeneral.Size = new System.Drawing.Size(42, 23);
             btnUniqueAppearedGeneral.TabIndex = 12;
             btnUniqueAppearedGeneral.Text = "...";
@@ -612,7 +609,7 @@ namespace RSBot.General.Views
         private SDUI.Controls.CheckBox chkUniqueInRange;
         private System.Windows.Forms.Button btnUniqueInRange;
         private SDUI.Controls.CheckBox chkUniqueAppearedGeneral;
-        private SDUI.SK.Button btnUniqueAppearedGeneral;
+        private System.Windows.Forms.Button btnUniqueAppearedGeneral;
         private System.Windows.Forms.TextBox txtRegex;
         private SDUI.Controls.Label lblRegex;
         private System.Windows.Forms.TextBox txtUniqueAppearedGeneral;
