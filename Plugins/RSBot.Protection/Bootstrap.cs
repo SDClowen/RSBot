@@ -61,4 +61,10 @@ public class Bootstrap : IPlugin
     {
         LanguageManager.Translate(View, Kernel.Language);
     }
+
+    /// <inheritdoc />
+    public void OnLoadCharacter()
+    {
+       // do nothing
+    }
 }

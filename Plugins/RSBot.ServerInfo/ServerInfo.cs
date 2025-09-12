@@ -36,4 +36,10 @@ public class ServerInfo : IPlugin
     {
         LanguageManager.Translate(View, Kernel.Language);
     }
+
+    /// <inheritdoc />
+    public void OnLoadCharacter()
+    {
+        // do nothing
+    }
 }
