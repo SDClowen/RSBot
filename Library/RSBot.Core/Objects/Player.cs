@@ -565,6 +565,11 @@ public class Player : SpawnedBionic
     public TradeInfo TradeInfo { get; internal set; } = null;
 
     /// <summary>
+    ///     Notification sounds
+    /// </summary>
+    public NotificationSounds NotificationSounds { get; private set; } = new();
+
+    /// <summary>
     ///     Gets a value indicating whether this player is able to attack.
     /// </summary>
     /// <value>

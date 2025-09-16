@@ -25,4 +25,12 @@ internal class View
     ///     The instance.
     /// </value>
     public static AccountsWindow AccountsWindow { get; } = new();
+
+    /// <summary>
+    ///     Gets or sets the instance.
+    /// </summary>
+    /// <value>
+    ///     The instance.
+    /// </value>
+    public static SoundNotificationWindow SoundNotificationWindow { get; } = new();
 }

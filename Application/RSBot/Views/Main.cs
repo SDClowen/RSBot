@@ -871,6 +871,17 @@ public partial class Main : UIWindow
 
         if (Kernel.Debug)
             Text += $@" [JID = {Game.Player.JID}]";
+
+        ApplyPlayerConfig();
+    }
+
+    /// <summary>
+    /// Applys all player settings to plugins
+    /// </summary>
+    private static void ApplyPlayerConfig()
+    {
+        foreach (var plugin in Kernel.PluginManager.Extensions.Values)
+            plugin.OnLoadCharacter();
     }
 
     #endregion Core events

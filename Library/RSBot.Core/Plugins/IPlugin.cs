@@ -60,6 +60,11 @@ public interface IPlugin
     void Initialize();
 
     /// <summary>
+    ///     Initialzes objects when user is loaded.
+    /// </summary>
+    void OnLoadCharacter();
+
+    /// <summary>
     ///     Translate the plugin
     /// </summary>
     void Translate();

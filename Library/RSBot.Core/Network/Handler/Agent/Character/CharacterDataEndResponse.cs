@@ -173,6 +173,9 @@ internal class CharacterDataEndResponse : IPacketHandler
         character.JID = packet.ReadUInt();
         character.IsGameMaster = packet.ReadBool();
 
+        // Load Notification sound settings
+        character.NotificationSounds.LoadPlayerSettings();
+
         //Set instance..
         Game.Player = character;
         Game.ChunkedPacket = null;

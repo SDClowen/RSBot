@@ -168,7 +168,7 @@ namespace RSBot.Map.Views
             // timerUniqueChecker
             // 
             timerUniqueChecker.Enabled = true;
-            timerUniqueChecker.Interval = 2500;
+            timerUniqueChecker.Interval = 700;
             timerUniqueChecker.Tick += timerUniqueChecker_Tick;
             // 
             // checkEnableCollisions
