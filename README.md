@@ -22,6 +22,7 @@ However every week, if there's been any development, nightly binaries are availa
 | Chinese         | cSRO/-R                            |
 | Global          | iSRO (International Silkroad)      |
 | Turkey          | TRSRO                              |
+| Vietnam         | VTC Game                           |
 | Korean          | KSRO                               |
 | Russia          | RuSro                              |
 | Rigid           | iSRO (International Silkroad 2015) |
