@@ -27,7 +27,7 @@ internal class ChatRequestHook : IPacketHook
         if (Game.ClientType > GameClientType.Vietnam)
             packet.ReadByte(); // has linking
 
-        if (Game.ClientType >= GameClientType.Chinese)
+        if (Game.ClientType >= GameClientType.Chinese_Old)
             packet.ReadByte();
 
         var message = packet.ReadConditonalString();

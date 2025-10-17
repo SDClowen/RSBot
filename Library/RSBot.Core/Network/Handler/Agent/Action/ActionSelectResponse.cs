@@ -46,7 +46,7 @@ internal class ActionSelectResponse : IPacketHandler
             if (hasHealth)
                 entity.Health = packet.ReadInt();
 
-            /*if (Game.ClientType >= GameClientType.Global)
+            /*if (Game.ClientType >= GameClientType.Chinese)
                 packet.ReadUInt(); // ??*/
 
             //entity.Talk.Deserialize(packet);

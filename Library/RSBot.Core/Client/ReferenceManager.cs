@@ -127,12 +127,12 @@ public class ReferenceManager
         LoadReferenceFile($"{ServerDep}\\RefMappingShopGroup.txt", ShopGroupMapping);
         LoadReferenceFile($"{ServerDep}\\RefMappingShopWithTab.txt", ShopTabMapping);
 
-        if (Game.ClientType > GameClientType.Chinese)
+        if (Game.ClientType >= GameClientType.Chinese)
             LoadReferenceListFile($"{ServerDep}\\RefScrapOfPackageItem.txt", PackageItemScrap);
         else
             LoadReferenceFile($"{ServerDep}\\RefScrapOfPackageItem.txt", PackageItemScrap);
 
-        if (Game.ClientType > GameClientType.Chinese)
+        if (Game.ClientType >= GameClientType.Chinese)
             LoadReferenceListFile($"{ServerDep}\\RefShopGoods.txt", ShopGoods);
         else
             LoadReferenceFile($"{ServerDep}\\RefShopGoods.txt", ShopGoods);
@@ -173,7 +173,7 @@ public class ReferenceManager
             LoadReferenceFile($"{ServerDep}\\refskillbyitemoptleveldata.txt", SkillByItemOptLevels);
         }
 
-        if (Game.ClientType >= GameClientType.Chinese)
+        if (Game.ClientType >= GameClientType.Chinese_Old)
             LoadReferenceFile($"{ServerDep}\\refextraabilitybyequipitemoptlevel.txt", ExtraAbilityByEquipItemOptLevel);
     }
 
@@ -182,7 +182,7 @@ public class ReferenceManager
         LoadReferenceFile($"{ServerDep}\\refquestrewarditems.txt", QuestRewardItems);
         LoadReferenceFile($"{ServerDep}\\refqusetreward.txt", QuestRewards);
 
-        if (Game.ClientType > GameClientType.Chinese)
+        if (Game.ClientType >= GameClientType.Chinese)
             LoadConditionalData($"{ServerDep}\\QuestData.txt", QuestData);
         else
             LoadReferenceFile($"{ServerDep}\\questdata.txt", QuestData);
@@ -196,16 +196,16 @@ public class ReferenceManager
 
     private void LoadTextData()
     {
-        if (Game.ClientType >= GameClientType.Global)
+        if (Game.ClientType >= GameClientType.Chinese)
             LoadReferenceListFile($"{ServerDep}\\TextUISystem.txt", TextData);
         else
             LoadReferenceFile($"{ServerDep}\\TextUISystem.txt", TextData);
 
-        if (Game.ClientType >= GameClientType.Global)
+        if (Game.ClientType >= GameClientType.Chinese)
             LoadReferenceListFile($"{ServerDep}\\TextZoneName.txt", TextData);
         else
             LoadReferenceFile($"{ServerDep}\\TextZoneName.txt", TextData);
-        if (Game.ClientType >= GameClientType.Global)
+        if (Game.ClientType >= GameClientType.Chinese)
         {
             LoadReferenceListFile($"{ServerDep}\\TextQuest_OtherString.txt", TextData);
             LoadReferenceListFile($"{ServerDep}\\TextData_Object.txt", TextData);
@@ -507,7 +507,8 @@ public class ReferenceManager
 
     public RefSkillMastery GetRefSkillMastery(uint id)
     {
-        if (Game.ClientType == GameClientType.Chinese &&
+        if ((Game.ClientType == GameClientType.Chinese_Old ||
+            Game.ClientType == GameClientType.Chinese) &&
             id >= 273 && id <= 275)
             id = 277; // csro shit
 

@@ -23,7 +23,7 @@ internal class PartyMatchingInviteRequest : IPacketHandler
             //var member = PartyMember.FromPacket(packet);
 
             ushort opcode = 0x306E;
-            if (Game.ClientType > GameClientType.Chinese)
+            if (Game.ClientType >= GameClientType.Chinese)
                 opcode = 0x308D;
 
             var requestPacket = new Packet(opcode);

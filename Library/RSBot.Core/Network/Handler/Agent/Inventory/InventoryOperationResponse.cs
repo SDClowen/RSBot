@@ -305,7 +305,7 @@ internal class InventoryOperationResponse : IPacketHandler
         var tabIndex = packet.ReadByte();
         var tabSlot = packet.ReadByte();
 
-        if (Game.ClientType > GameClientType.Chinese &&
+        if (Game.ClientType >= GameClientType.Chinese &&
             Game.ClientType != GameClientType.Rigid)
         {
             amount = packet.ReadUShort();

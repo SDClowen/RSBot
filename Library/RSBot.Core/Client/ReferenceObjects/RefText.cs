@@ -48,7 +48,7 @@ public class RefText : IReference<string>
             return false;
 
         var nameStrIndex = 1;
-        if (Game.ClientType >= GameClientType.Global)
+        if (Game.ClientType >= GameClientType.Chinese)
             nameStrIndex = 2;
 
         if (!parser.TryParse(nameStrIndex, out NameStrId))

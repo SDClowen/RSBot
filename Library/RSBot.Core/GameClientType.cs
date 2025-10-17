@@ -8,6 +8,7 @@ public enum GameClientType : byte
     Taiwan,
     Vietnam193,
     Vietnam274,
+    Chinese_Old,
     Chinese,
     Global,
     Turkey,

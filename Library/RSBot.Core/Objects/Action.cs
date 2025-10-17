@@ -102,7 +102,7 @@ public class Action
             Id = packet.ReadUInt()
         };
 
-        if (Game.ClientType >= GameClientType.Global)
+        if (Game.ClientType > GameClientType.Chinese)
             action.UnknownId = packet.ReadUInt();
 
         action.TargetId = packet.ReadUInt();
@@ -126,7 +126,7 @@ public class Action
             action.Flag = (ActionStateFlag)packet.ReadByte();
         }
 
-        /*if (Game.ClientType >= GameClientType.Global)
+        /*if (Game.ClientType >= GameClientType.Chinese)
             packet.ReadByte();
 
         action.Flag = (ActionStateFlag)packet.ReadByte();*/

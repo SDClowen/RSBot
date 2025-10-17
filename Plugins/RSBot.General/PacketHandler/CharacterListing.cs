@@ -51,7 +51,7 @@ internal class CharacterListing : IPacketHandler
 
             var name = packet.ReadString();
 
-            if (Game.ClientType > GameClientType.Chinese)
+            if (Game.ClientType >= GameClientType.Chinese)
                 packet.ReadString(); // what is this?
 
             packet.ReadByte(); //Scale
@@ -61,13 +61,13 @@ internal class CharacterListing : IPacketHandler
             packet.ReadUShort(); //Intelligence
             packet.ReadUShort(); //Stat point(s)
 
-            if (Game.ClientType >= GameClientType.Chinese)
+            if (Game.ClientType >= GameClientType.Chinese_Old)
                 packet.ReadInt(); // skill point
 
             packet.ReadInt(); //Health
             packet.ReadInt(); //Mana
 
-            if (Game.ClientType >= GameClientType.Chinese)
+            if (Game.ClientType >= GameClientType.Chinese_Old)
                 packet.ReadUShort(); // Region
 
             //Check if the character is being deleted
@@ -75,7 +75,7 @@ internal class CharacterListing : IPacketHandler
             if (characterDeletionFlag)
                 packet.ReadInt(); //Time till deletion
 
-            if (Game.ClientType > GameClientType.Chinese)
+            if (Game.ClientType >= GameClientType.Chinese)
                 packet.ReadUInt(); // last logged out timestamp
 
             packet.ReadByte(); //Has guild?

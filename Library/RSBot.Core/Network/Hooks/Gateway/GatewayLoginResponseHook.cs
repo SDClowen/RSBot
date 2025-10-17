@@ -65,7 +65,7 @@ internal class GatewayLoginResponseHook : IPacketHook
         if (Game.ClientType == GameClientType.Japanese_Old)
             resultPacket.WriteInt(packet.ReadInt());
 
-        if (Game.ClientType >= GameClientType.Global)
+        if (Game.ClientType >= GameClientType.Chinese)
         {
             var unk1 = packet.ReadByte();
             resultPacket.WriteByte(unk1);

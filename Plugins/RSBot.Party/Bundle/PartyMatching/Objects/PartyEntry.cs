@@ -89,7 +89,7 @@ internal class PartyEntry
 
         packet.ReadUInt(); // leaderUniqueId
 
-        if (Game.ClientType >= GameClientType.Global &&
+        if (Game.ClientType >= GameClientType.Chinese &&
             Game.ClientType != GameClientType.Rigid)
             packet.ReadUInt(); // unknown
 

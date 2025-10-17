@@ -26,7 +26,7 @@ public class SpawnedSpellArea : SpawnedEntity
     internal static SpawnedSpellArea FromPacket(Packet packet)
     {
         //UNK0
-        if (Game.ClientType > GameClientType.Chinese)
+        if (Game.ClientType >= GameClientType.Chinese)
             packet.ReadUInt();
         else
             packet.ReadUShort();

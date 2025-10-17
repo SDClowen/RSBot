@@ -28,7 +28,7 @@ internal class Chat
         if (Game.ClientType > GameClientType.Vietnam)
             chatPacket.WriteByte(0); // has linking
 
-        if (Game.ClientType >= GameClientType.Chinese)
+        if (Game.ClientType >= GameClientType.Chinese_Old)
             chatPacket.WriteByte(0);
 
         if (type == ChatType.Private)

@@ -34,7 +34,7 @@ public class RefSkillMastery : IReference<uint>
     {
         parser.TryParse(0, out ID);
         //parser.TryParseString(1, out Name);
-        if (Game.ClientType >= GameClientType.Chinese)
+        if (Game.ClientType >= GameClientType.Chinese_Old)
             parser.TryParse(3, out NameCode);
         else
             parser.TryParse(2, out NameCode);
