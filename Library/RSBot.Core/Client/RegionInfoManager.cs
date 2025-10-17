@@ -26,7 +26,7 @@ public class RegionInfoManager
         using var reader = new StreamReader(stream);
 
         //Older sro -> Uses groups
-        if (Game.ClientType < GameClientType.Chinese)
+        if (Game.ClientType < GameClientType.Chinese_Old)
         {
             while (!reader.EndOfStream)
             {

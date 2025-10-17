@@ -74,7 +74,7 @@ internal class GatewayServerListResponse : IPacketHandler
                 if (serverName.EndsWith("Thien_Kim"))
                     serverName = serverName.Remove(0, 3);
 
-            var state = Game.ClientType >= GameClientType.Global
+            var state = Game.ClientType >= GameClientType.Chinese
                     ? $"{(ServerStatusModern)status}"
                     : $"{currentCapacity}/{maxCapacity}";
 
@@ -84,7 +84,7 @@ internal class GatewayServerListResponse : IPacketHandler
                 Name = serverName,
                 CurrentCapacity = currentCapacity,
                 MaxCapacity = maxCapacity,
-                Status = Game.ClientType >= GameClientType.Global ? status != 4 : status == 1,
+                Status = Game.ClientType >= GameClientType.Chinese ? status != 4 : status == 1,
                 State = state
             });
 

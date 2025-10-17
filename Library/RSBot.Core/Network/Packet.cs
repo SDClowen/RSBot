@@ -569,6 +569,9 @@ namespace RSBot.Core.Network
                 if (Game.ClientType == GameClientType.RuSro)
                     codepage = 1251;
 
+                if (Game.ClientType == GameClientType.Chinese)
+                    codepage = 950;
+
                 if (Game.ClientType == GameClientType.Global)
                     codepage = 65001;
 
@@ -1107,6 +1110,9 @@ namespace RSBot.Core.Network
 
                 if (Game.ClientType == GameClientType.RuSro)
                     codePage = 1251;
+
+                if (Game.ClientType == GameClientType.Chinese)
+                    codePage = 950;
 
                 if (Game.ClientType == GameClientType.Global)
                     codePage = 65001;

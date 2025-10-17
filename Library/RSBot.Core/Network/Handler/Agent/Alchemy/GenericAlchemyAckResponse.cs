@@ -35,7 +35,7 @@ internal static class GenericAlchemyAckResponse
 
         var isSuccess = packet.ReadBool();
 
-        if (Game.ClientType >= GameClientType.Global)
+        if (Game.ClientType >= GameClientType.Chinese)
             packet.ReadByte(); //???
 
         var slot = packet.ReadByte();

@@ -41,7 +41,7 @@ internal class GatewayLoginRequest : IPacketHandler
 
         var shardId = packet.ReadUShort();
 
-        if (Game.ClientType >= GameClientType.Global)
+        if (Game.ClientType >= GameClientType.Chinese)
             packet.ReadByte(); // channel
 
         Serverlist.SetJoining(shardId);

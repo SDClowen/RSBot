@@ -12,7 +12,7 @@ public class RefLevel : IReference<byte>
         parser.TryParse(1, out Exp_C);
         parser.TryParse(2, out Exp_M);
 
-        if (Game.ClientType >= GameClientType.Chinese)
+        if (Game.ClientType >= GameClientType.Chinese_Old)
         {
             parser.TryParse(9, out Exp_C_Pet2);
             parser.TryParse(10, out StoredSp_Pet2);

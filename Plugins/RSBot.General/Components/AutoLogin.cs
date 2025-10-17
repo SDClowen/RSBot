@@ -155,7 +155,7 @@ internal static class AutoLogin
         Log.NotifyLang("LoginCredentials", server.Name);
 
         ushort opcode = 0x6102;
-        if (Game.ClientType >= GameClientType.Global)
+        if (Game.ClientType >= GameClientType.Chinese)
             opcode = 0x610A;
 
         var loginPacket = new Packet(opcode, true);

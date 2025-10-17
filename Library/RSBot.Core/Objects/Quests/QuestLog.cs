@@ -72,7 +72,7 @@ public class QuestLog
             activeQuest.RequiredShareParty = packet.ReadByte();
         }
 
-        if (Game.ClientType > GameClientType.Chinese)
+        if (Game.ClientType >= GameClientType.Chinese)
         {
             activeQuest.Unknown1 = packet.ReadByte();
             activeQuest.Unknown2 = packet.ReadByte();
