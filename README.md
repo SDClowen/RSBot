@@ -19,7 +19,8 @@ However every week, if there's been any development, nightly binaries are availa
 | Vietnam         | vSRO 193                           |
 | Vietnam         | vSRO 274                           |
 | Taiwan          | TSRO 110                           |
-| Chinese         | cSRO/-R                            |
+| Chinese Old     | cSRO/-R                            |
+| Chinese         | ICCGame                            |
 | Global          | iSRO (International Silkroad)      |
 | Turkey          | TRSRO                              |
 | Vietnam         | VTC Game                           |
