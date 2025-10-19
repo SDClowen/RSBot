@@ -569,8 +569,11 @@ namespace RSBot.Core.Network
                 if (Game.ClientType == GameClientType.RuSro)
                     codepage = 1251;
 
-                if (Game.ClientType == GameClientType.Chinese)
+                if (Game.ClientType == GameClientType.Chinese || Game.ClientType == GameClientType.Taiwan)
                     codepage = 950;
+
+                if (Game.ClientType == GameClientType.Japanese)
+                    codepage = 932;
 
                 if (Game.ClientType == GameClientType.Global)
                     codepage = 65001;
@@ -1111,8 +1114,11 @@ namespace RSBot.Core.Network
                 if (Game.ClientType == GameClientType.RuSro)
                     codePage = 1251;
 
-                if (Game.ClientType == GameClientType.Chinese)
+                if (Game.ClientType == GameClientType.Chinese || Game.ClientType == GameClientType.Taiwan)
                     codePage = 950;
+
+                if (Game.ClientType == GameClientType.Japanese)
+                    codePage = 932;
 
                 if (Game.ClientType == GameClientType.Global)
                     codePage = 65001;

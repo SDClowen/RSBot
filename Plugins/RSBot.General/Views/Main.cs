@@ -308,10 +308,10 @@ internal partial class Main : DoubleBufferedControl
     {
         Kernel.Bot.Stop();
 
-        var ruSroAuthenticated = await HandleRuSroAuth();
+        var userAuthenticated = await HandleRegionalAuth();
 
         // Skiped: Cuz managing from ClientlessManager
-        if (Game.Clientless && ruSroAuthenticated)
+        if (Game.Clientless && userAuthenticated)
             return;
 
         // If user disconnected with manual from clientless, we dont need open the client automatically again.
@@ -332,7 +332,7 @@ internal partial class Main : DoubleBufferedControl
             Log.Warn($"Attempting relogin in {delay / 1000} seconds...");
             Thread.Sleep(delay);
 
-            if (ruSroAuthenticated)
+            if (userAuthenticated)
             {
                 await StartClientProcess().ConfigureAwait(false);
             }
@@ -541,9 +541,9 @@ internal partial class Main : DoubleBufferedControl
                 Log.StatusLang("StartingClientless");
                 btnStartClientless.Text = LanguageManager.GetLang("Disconnect");
 
-                var ruSroAuthenticated = await HandleRuSroAuth();
+                var userAuthenticated = await HandleRegionalAuth();
 
-                if (ruSroAuthenticated)
+                if (userAuthenticated)
                 {
                     Game.Start();
                 }
@@ -592,20 +592,23 @@ internal partial class Main : DoubleBufferedControl
             return;
         }
 
-        var ruSroAuthenticated = await HandleRuSroAuth();
+        var userAuthenticated = await HandleRegionalAuth();
 
-        if (ruSroAuthenticated)
+        if (userAuthenticated)
         {
             await StartClientProcess();
         }
     }
 
-    private async Task<bool> HandleRuSroAuth()
+    private async Task<bool> HandleRegionalAuth()
     {
         var clientType = (GameClientType)comboBoxClientType.SelectedIndex;
-        if (clientType != GameClientType.RuSro) return true;
 
-        return await RuSroAuthService.Auth();
+        if (clientType == GameClientType.RuSro)
+            return await RuSroAuthService.Auth();
+        else if (clientType == GameClientType.Japanese)
+            return await JSROAuthService.GetTokenAsync();
+        return true;
     }
 
     /// <summary>

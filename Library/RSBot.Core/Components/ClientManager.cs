@@ -159,8 +159,70 @@ public class ClientManager
             sroClientProcess.Exited += ClientProcess_Exited;
             _process = sroClientProcess;
         }
+        else if (Game.ClientType == GameClientType.Global || Game.ClientType == GameClientType.Korean) // TODO: Remove this hack when more elegant solution is found (issue #877)
+        {
+            AddDllImportToClient(path, libraryDllName, libraryDllFunc);
+            try
+            {
+                File.Copy(Path.Combine(Kernel.BasePath, libraryDllName), Path.Combine(silkroadDirectory, libraryDllName), true);
+            }
+            catch (IOException)
+            {
+                Log.Debug($"DLL is using, can't replace");
+            }
+
+            var result = CreateProcess(null, full, IntPtr.Zero, IntPtr.Zero, false, CREATE_SUSPENDED, IntPtr.Zero,
+            silkroadDirectory, ref si, out var pi);
+            if (!result)
+                return false;
+
+            Process sroClientProcess;
+            var startTime = DateTime.Now;
+
+            do
+            {
+                Process[] sroClientProcesses = Process.GetProcessesByName("sro_client");
+                sroClientProcess = sroClientProcesses.FirstOrDefault(p => p.Id == pi.dwProcessId);
+
+                if ((DateTime.Now - startTime).TotalSeconds > 10)
+                {
+                    Log.Error("sro_client.exe was not started in 10 seconds!");
+                    return false;
+                }
+
+                Thread.Sleep(10);
+            } while (sroClientProcess == null);
+
+            PrepareTempConfigFile((uint)sroClientProcess.Id, divisionIndex);
+
+            ResumeProcess(sroClientProcess);
+
+            var kernelHandle = GetModuleHandleA("kernel32.dll");
+
+            var loadLibAddr = GetProcAddress(kernelHandle, "LoadLibraryA");
+            if (loadLibAddr == IntPtr.Zero)
+                return false;
+
+            if (sroClientProcess.HasExited)
+                return await Task.FromResult(false);
+
+            sroClientProcess.EnableRaisingEvents = true;
+            sroClientProcess.Exited += ClientProcess_Exited;
+            _process = sroClientProcess;
+        }
         else
         {
+            if (Game.ClientType == GameClientType.Japanese)
+            {
+                var token = GlobalConfig.Get<string>("RSBot.JSRO.token");
+                if (string.IsNullOrEmpty(token))
+                {
+                    Log.Error("Failed to get JSRO Auth Token.");
+                    return false;
+                }
+                full = full + " " + token;
+            }
+
             var result = CreateProcess(null, full, IntPtr.Zero, IntPtr.Zero, false, CREATE_SUSPENDED, IntPtr.Zero,
             silkroadDirectory, ref si, out var pi);
             if (!result)
@@ -196,7 +258,8 @@ public class ClientManager
                 return false;
 
             if (Game.ClientType == GameClientType.VTC_Game ||
-                Game.ClientType == GameClientType.Turkey)
+                Game.ClientType == GameClientType.Turkey ||
+                Game.ClientType == GameClientType.Taiwan)
             {
                 var moduleMemory = new byte[process.MainModule.ModuleMemorySize];
                 ReadProcessMemory(process.Handle, process.MainModule.BaseAddress, moduleMemory,
@@ -206,11 +269,22 @@ public class ClientManager
                 var patchNop2 = new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90 };
                 var patchJmp = new byte[] { 0xEB };
 
-                var address = FindPattern(
-                    Game.ClientType == GameClientType.Turkey ?
-                    "6A 00 68 38 6A 3E 01 68 4C 6A 3E 01" :
-                    "6A 00 68 C8 D2 38 01 68 DC D2 38 01",
-                    moduleMemory);
+                string signature = string.Empty;
+
+                switch (Game.ClientType)
+                {
+                    case GameClientType.Turkey:
+                        signature = "6A 00 68 38 6A 3E 01 68 4C 6A 3E 01";
+                        break;
+                    case GameClientType.VTC_Game:
+                        signature = "6A 00 68 C8 D2 38 01 68 DC D2 38 01";
+                        break;
+                    case GameClientType.Taiwan:
+                        signature = "6A 00 68 E0 98 3C 01 68 F4 98 3C 01";
+                        break;
+                }
+
+                var address = FindPattern(signature, moduleMemory);
                 if (address == IntPtr.Zero)
                 {
                     Log.Error("XIGNCODE patching error! Maybe signatures are wrong?");

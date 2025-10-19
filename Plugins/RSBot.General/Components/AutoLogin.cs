@@ -165,6 +165,11 @@ internal static class AutoLogin
             loginPacket.WriteString(GlobalConfig.Get<string>("RSBot.RuSro.login"));
             loginPacket.WriteString(GlobalConfig.Get<string>("RSBot.RuSro.password"));
         }
+        else if (Game.ClientType == GameClientType.Japanese)
+        {
+            loginPacket.WriteString(string.Empty);
+            loginPacket.WriteString(GlobalConfig.Get<string>("RSBot.JSRO.token"));
+        }
         else
         {
             loginPacket.WriteString(account.Username);
@@ -176,7 +181,9 @@ internal static class AutoLogin
         if (Game.ClientType == GameClientType.Turkey ||
             Game.ClientType == GameClientType.VTC_Game ||
             Game.ClientType == GameClientType.RuSro ||
-            Game.ClientType == GameClientType.Korean)
+            Game.ClientType == GameClientType.Korean ||
+            Game.ClientType == GameClientType.Japanese ||
+            Game.ClientType == GameClientType.Taiwan)
             loginPacket.WriteBytes(Game.MacAddress);
 
         loginPacket.WriteUShort(server.Id);

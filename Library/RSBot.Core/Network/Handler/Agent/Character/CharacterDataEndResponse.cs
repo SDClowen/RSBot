@@ -78,7 +78,8 @@ internal class CharacterDataEndResponse : IPacketHandler
 
             if (Game.ClientType == GameClientType.Turkey ||
                 Game.ClientType == GameClientType.VTC_Game ||
-                Game.ClientType == GameClientType.RuSro)
+                Game.ClientType == GameClientType.RuSro ||
+                Game.ClientType == GameClientType.Taiwan)
                 packet.ReadUInt();
 
             if (Game.ClientType == GameClientType.Rigid)
@@ -87,11 +88,15 @@ internal class CharacterDataEndResponse : IPacketHandler
             if (Game.ClientType == GameClientType.VTC_Game)
                 packet.ReadByte(); // ??
 
+            if (Game.ClientType == GameClientType.Taiwan)
+                packet.ReadBytes(5);
+
             var serverCap = packet.ReadByte();
             Log.Notify($"The game server cap is {serverCap}!");
 
             if (Game.ClientType != GameClientType.Korean 
-                && Game.ClientType != GameClientType.Chinese)
+                && Game.ClientType != GameClientType.Chinese
+                && Game.ClientType != GameClientType.Japanese)
                 packet.ReadUShort();
         }
 
@@ -153,7 +158,8 @@ internal class CharacterDataEndResponse : IPacketHandler
             Game.ClientType != GameClientType.Rigid &&
             Game.ClientType != GameClientType.RuSro &&
             Game.ClientType != GameClientType.Korean &&
-            Game.ClientType != GameClientType.VTC_Game)
+            Game.ClientType != GameClientType.VTC_Game &&
+            Game.ClientType != GameClientType.Japanese)
         {
             packet.ReadByte(); // 0xFF
             packet.ReadUShort(); // 0xFF
@@ -171,7 +177,8 @@ internal class CharacterDataEndResponse : IPacketHandler
             Game.ClientType == GameClientType.Global || 
             Game.ClientType == GameClientType.RuSro || 
             Game.ClientType == GameClientType.Korean ||
-            Game.ClientType == GameClientType.VTC_Game)
+            Game.ClientType == GameClientType.VTC_Game ||
+            Game.ClientType == GameClientType.Japanese)
             packet.ReadByte();
 
         if (Game.ClientType == GameClientType.Chinese)

@@ -5,7 +5,7 @@ public enum GameClientType : byte
     Japanese_Old,
     Thailand,
     Vietnam,
-    Taiwan,
+    Taiwan_Old,
     Vietnam193,
     Vietnam274,
     Chinese_Old,
@@ -13,7 +13,9 @@ public enum GameClientType : byte
     Global,
     Turkey,
     VTC_Game,
+    Taiwan,
     Korean,
+    Japanese,
     RuSro,
     Rigid
 }

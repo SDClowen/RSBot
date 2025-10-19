@@ -327,6 +327,8 @@ public class InventoryItem
                     case GameClientType.Rigid:
                     case GameClientType.RuSro:
                     case GameClientType.VTC_Game:
+                    case GameClientType.Japanese:
+                    case GameClientType.Taiwan:
                         bindingCount = 4;
                         break;
                     case GameClientType.Korean:

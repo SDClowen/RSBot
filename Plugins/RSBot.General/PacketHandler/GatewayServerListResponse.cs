@@ -45,7 +45,9 @@ internal class GatewayServerListResponse : IPacketHandler
                             Game.ClientType == GameClientType.Global || 
                             Game.ClientType == GameClientType.VTC_Game ||
                             Game.ClientType == GameClientType.RuSro ||
-                            Game.ClientType == GameClientType.Korean
+                            Game.ClientType == GameClientType.Korean ||
+                            Game.ClientType == GameClientType.Japanese ||
+                            Game.ClientType == GameClientType.Taiwan
                                  ? packet.ReadUnicode()
                                  : packet.ReadString();
 

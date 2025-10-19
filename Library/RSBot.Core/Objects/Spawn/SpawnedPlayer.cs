@@ -212,6 +212,9 @@ public sealed class SpawnedPlayer : SpawnedBionic
         if (Game.ClientType > GameClientType.Chinese)
             packet.ReadByte(); // Archievement Title
 
+        if (Game.ClientType == GameClientType.Taiwan)
+            packet.ReadUInt();
+
         InventorySize = packet.ReadByte();
 
         var itemCount = packet.ReadByte();
