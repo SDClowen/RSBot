@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 
 namespace RSBot.Map.Views
 {
@@ -94,7 +95,7 @@ namespace RSBot.Map.Views
             // trmInterval
             // 
             trmInterval.Enabled = true;
-            trmInterval.Interval = 50;
+            trmInterval.Interval = 150;
             trmInterval.Tick += trmInterval_Tick;
             // 
             // lvMonster
@@ -103,10 +104,11 @@ namespace RSBot.Map.Views
             lvMonster.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { colName, colType, colLevel, colPosition });
             lvMonster.Dock = System.Windows.Forms.DockStyle.Top;
             lvMonster.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            lvMonster.Scrollable = true;
             lvMonster.FullRowSelect = true;
             lvMonster.Location = new System.Drawing.Point(0, 49);
             lvMonster.Name = "lvMonster";
-            lvMonster.Size = new System.Drawing.Size(384, 291);
+            lvMonster.Size = new System.Drawing.Size(380, 291);
             lvMonster.TabIndex = 8;
             lvMonster.UseCompatibleStateImageBehavior = false;
             lvMonster.View = System.Windows.Forms.View.Details;
@@ -129,7 +131,7 @@ namespace RSBot.Map.Views
             // colPosition
             // 
             colPosition.Text = "Position";
-            colPosition.Width = 125;
+            colPosition.Width = 120;
             // 
             // checkBoxAutoSelectUniques
             // 
@@ -206,7 +208,7 @@ namespace RSBot.Map.Views
             mapCanvas.Location = new System.Drawing.Point(4, 28);
             mapCanvas.Name = "mapCanvas";
             mapCanvas.Padding = new System.Windows.Forms.Padding(3);
-            mapCanvas.Size = new System.Drawing.Size(358, 469);
+            mapCanvas.ClientSize = new System.Drawing.Size(358, 469);
             mapCanvas.TabIndex = 0;
             mapCanvas.Text = "Minimap";
             mapCanvas.Paint += tabMinimap_Paint;

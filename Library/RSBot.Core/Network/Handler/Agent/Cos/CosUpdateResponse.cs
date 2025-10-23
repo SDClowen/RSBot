@@ -153,6 +153,13 @@ internal class CosUpdateResponse : IPacketHandler
 
                     break;
 
+                case 8:
+                    packet.ReadULong(); //gained pet exp
+                    packet.ReadULong(); //gained skill exp
+                    packet.ReadUInt(); //total stored SP
+                    packet.ReadUInt(); //mob id
+                    break;
+
                 default:
 
                     Log.Debug("Pet update: " + type.ToString("X"));

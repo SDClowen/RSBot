@@ -157,6 +157,12 @@ public partial class Main : DoubleBufferedControl
     /// <param name="position"></param>
     private void AddGridItem(string name, string type, byte level, Position position)
     {
+        if (lvMonster.InvokeRequired)
+        {
+            lvMonster.Invoke(() => AddGridItem(name, type, level, position));
+            return;
+        }
+
         if (string.IsNullOrWhiteSpace(name))
             name = LanguageManager.GetLang("NoName");
 
@@ -260,6 +266,9 @@ public partial class Main : DoubleBufferedControl
     /// </summary>
     private void PopulateMapAndGrid(Graphics graphics)
     {
+        int topIndex = lvMonster.TopItem?.Index ?? 0;
+        int selectedIndex = lvMonster.SelectedIndices.Count > 0 ? lvMonster.SelectedIndices[0] : -1;
+
         lvMonster.BeginUpdate();
         lvMonster.Items.Clear();
 
@@ -373,6 +382,15 @@ public partial class Main : DoubleBufferedControl
         }
 
         lvMonster.EndUpdate();
+
+        if (lvMonster.Items.Count > 0)
+        {
+            if (topIndex < lvMonster.Items.Count)
+                lvMonster.TopItem = lvMonster.Items[topIndex];
+
+            if (selectedIndex >= 0 && selectedIndex < lvMonster.Items.Count)
+                lvMonster.Items[selectedIndex].Selected = true;
+        }
     }
 
     private Image LoadSectorImage(string sectorImgName)
@@ -397,10 +415,18 @@ public partial class Main : DoubleBufferedControl
     /// </summary>
     private void RedrawMap()
     {
-        if (bufferedGraphicsContext.MaximumBuffer.Width != mapCanvas.Width + 1)
-        {
-            bufferedGraphicsContext.MaximumBuffer = mapCanvas.Size;
+        var size = mapCanvas.ClientSize;
 
+        if (bufferedGraphicsContext.MaximumBuffer.Width < size.Width ||
+            bufferedGraphicsContext.MaximumBuffer.Height < size.Height)
+        {
+            bufferedGraphicsContext.MaximumBuffer = new Size(size.Width + 1, size.Height + 1);
+        }
+
+        if (bufferedGraphics == null || bufferedGraphics.Graphics.VisibleClipBounds.Width != size.Width ||
+            bufferedGraphics.Graphics.VisibleClipBounds.Height != size.Height)
+        {
+            bufferedGraphics?.Dispose(); // освобождаем старый буфер
             bufferedGraphics = bufferedGraphicsContext.Allocate(mapCanvas.CreateGraphics(), mapCanvas.ClientRectangle);
         }
 
