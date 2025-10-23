@@ -18,7 +18,7 @@ internal class LoopConditionValidator
 
         if (!CheckNumPartyMemberDead())
             return
-                $"[Lure] Pausing lure bot because there more than {LureConfig.NumPartyMember} people in the party are dead.";
+                $"[Lure] Pausing lure bot because there more than {LureConfig.NumPartyMemberDead} people in the party are dead.";
 
         if (!CheckNumMonsterType())
             return
