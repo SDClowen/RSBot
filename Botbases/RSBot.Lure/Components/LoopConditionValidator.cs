@@ -36,7 +36,7 @@ internal class LoopConditionValidator
         if (Game.Party == null || Game.Party.Members == null)
             return true;
 
-        return Game.Party.Members.Count <= LureConfig.NumPartyMember;
+        return Game.Party.Members.Count > LureConfig.NumPartyMember;
     }
 
     private static bool CheckNumPartyMemberDead()
@@ -48,7 +48,7 @@ internal class LoopConditionValidator
         if (Game.Party == null || Game.Party.Members == null)
             return true;
 
-        return Game.Party.Members.Count(p => p.Player != null && p.Player.State.LifeState == LifeState.Dead) <=
+        return Game.Party.Members.Count(p => p.Player != null && p.Player.State.LifeState == LifeState.Dead) <
                LureConfig.NumPartyMemberDead;
     }
 
@@ -62,6 +62,6 @@ internal class LoopConditionValidator
                 out var mobs))
             return true;
 
-        return mobs.Count() <= LureConfig.NumMonsterType;
+        return mobs.Count() < LureConfig.NumMonsterType;
     }
 }
