@@ -432,7 +432,8 @@ public partial class Main : DoubleBufferedControl
             comboResurrectionSkill.Items.Add("None");
 
             foreach (var skill in Game.Player.Skills.KnownSkills.Where(
-                         s => s.Record != null && s.Record.TargetEtc_SelectDeadBody && !s.Record.TargetGroup_Enemy_M))
+                         s => s.Record != null && ((s.Record.TargetEtc_SelectDeadBody && !s.Record.TargetGroup_Enemy_M) ||
+                         s.Record.GroupID == 659)))  //group res
             {
                 if (skill.IsLowLevel())
                     continue;

@@ -229,6 +229,16 @@ public partial class Main : DoubleBufferedControl
     {
         if (!float.TryParse(txtXCoord.Text, out var result))
             return;
+
+        var area = Kernel.Bot.Botbase.Area;
+        Position pos = new(result, area.Position.Y);
+
+        PlayerConfig.Set("RSBot.Area.Region", pos.Region);
+        PlayerConfig.Set("RSBot.Area.X", pos.XOffset);
+        PlayerConfig.Set("RSBot.Area.Y", pos.YOffset);
+        PlayerConfig.Set("RSBot.Area.Z", pos.ZOffset);
+
+        EventManager.FireEvent("OnSetTrainingArea");
     }
 
     /// <summary>
@@ -240,6 +250,16 @@ public partial class Main : DoubleBufferedControl
     {
         if (!float.TryParse(txtYCoord.Text, out var result))
             return;
+
+        var area = Kernel.Bot.Botbase.Area;
+        Position pos = new(area.Position.X, result);
+
+        PlayerConfig.Set("RSBot.Area.Region", pos.Region);
+        PlayerConfig.Set("RSBot.Area.X", pos.XOffset);
+        PlayerConfig.Set("RSBot.Area.Y", pos.YOffset);
+        PlayerConfig.Set("RSBot.Area.Z", pos.ZOffset);
+
+        EventManager.FireEvent("OnSetTrainingArea");
     }
 
     /// <summary>
