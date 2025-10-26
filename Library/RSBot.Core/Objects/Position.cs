@@ -101,36 +101,6 @@ public struct Position
     }
 
     /// <summary>
-    ///     Creates a position by using world map coordinates without region
-    /// </summary>
-    public Position(float x, float y)
-    : this()
-    {
-        var xOffset = MathF.Abs(x) % 192.0f * 10.0f;
-        if (x < 0)
-            xOffset = 1920.0f - xOffset;
-
-        var yOffset = MathF.Abs(y) % 192.0f * 10.0f;
-        if (y < 0)
-            yOffset = 1920.0f - yOffset;
-
-        byte regionX = (byte)Math.Round((x - xOffset / 10.0f) / 192.0f + 135.0f);
-        byte regionY = (byte)Math.Round((y - yOffset / 10.0f) / 192.0f + 92.0f);
-
-        Region = new((ushort)((regionY << 8) | regionX));
-
-        if (!Region.IsDungeon)
-        {
-            XOffset = xOffset;
-            YOffset = yOffset;
-            return;
-        }
-
-        XOffset = x * 10;
-        YOffset = y * 10;
-    }
-
-    /// <summary>
     ///     Creates a position using sector offsets
     /// </summary>
     /// <param name="region">The region identifier.</param>
