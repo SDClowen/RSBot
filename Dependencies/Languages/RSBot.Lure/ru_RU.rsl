@@ -8,6 +8,7 @@ RSBot.Lure.Main.GroupBox.checkUseHowlingShout="Кастовать howling shout 
 RSBot.Lure.Main.GroupBox.checkStopPartyMember="Стоп, если в пати <="
 RSBot.Lure.Main.GroupBox.checkStopMonsterType="Стоп, если кол-во мобов заданного типа"
 RSBot.Lure.Main.GroupBox.checkStopPartyMemberDead="Стоп, если умерло >="
+RSBot.Lure.Main.GroupBox.checkNumPartyMembersOnSpot="Стоп, если на споте <="
 RSBot.Lure.Main.GroupBox.Panel.btnSetCenter="Уст.центр"
 RSBot.Lure.Main.GroupBox.Panel.label1="X:"
 RSBot.Lure.Main.GroupBox.Panel.label3="Радиус:"
