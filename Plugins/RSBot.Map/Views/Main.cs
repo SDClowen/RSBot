@@ -426,7 +426,7 @@ public partial class Main : DoubleBufferedControl
         if (bufferedGraphics == null || bufferedGraphics.Graphics.VisibleClipBounds.Width != size.Width ||
             bufferedGraphics.Graphics.VisibleClipBounds.Height != size.Height)
         {
-            bufferedGraphics?.Dispose(); // освобождаем старый буфер
+            bufferedGraphics?.Dispose();
             bufferedGraphics = bufferedGraphicsContext.Allocate(mapCanvas.CreateGraphics(), mapCanvas.ClientRectangle);
         }
 
