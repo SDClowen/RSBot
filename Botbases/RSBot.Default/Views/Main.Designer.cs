@@ -90,6 +90,7 @@
             checkBoxDimensionPillar = new SDUI.Controls.CheckBox();
             timerGrabByAbilityPet = new System.Windows.Forms.Timer(components);
             toolTip1 = new System.Windows.Forms.ToolTip(components);
+            checkBoxDontFollowMobs = new SDUI.Controls.CheckBox();
             groupBox2.SuspendLayout();
             ctxAvoidance.SuspendLayout();
             groupBoxWalkback.SuspendLayout();
@@ -667,8 +668,8 @@
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(20, 20);
             label2.TabIndex = 1;
-            toolTip1.SetToolTip(label2, "The coordinates of the dungeons should be divided by 10");
             label2.Text = "Y:";
+            toolTip1.SetToolTip(label2, "The coordinates of the dungeons should be divided by 10");
             // 
             // label1
             // 
@@ -686,8 +687,8 @@
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(21, 20);
             label1.TabIndex = 1;
-            toolTip1.SetToolTip(label1, "The coordinates of the dungeons should be divided by 10");
             label1.Text = "X:";
+            toolTip1.SetToolTip(label1, "The coordinates of the dungeons should be divided by 10");
             // 
             // txtRadius
             // 
@@ -737,6 +738,7 @@
             // groupBoxAdvanced
             // 
             groupBoxAdvanced.BackColor = System.Drawing.Color.Transparent;
+            groupBoxAdvanced.Controls.Add(checkBoxDontFollowMobs);
             groupBoxAdvanced.Controls.Add(linkAttackWeakerMobsHelp);
             groupBoxAdvanced.Controls.Add(checkAttackWeakerFirst);
             groupBoxAdvanced.Controls.Add(checkBoxDimensionPillar);
@@ -746,7 +748,7 @@
             groupBoxAdvanced.Padding = new System.Windows.Forms.Padding(4, 10, 4, 4);
             groupBoxAdvanced.Radius = 10;
             groupBoxAdvanced.ShadowDepth = 4;
-            groupBoxAdvanced.Size = new System.Drawing.Size(598, 125);
+            groupBoxAdvanced.Size = new System.Drawing.Size(598, 132);
             groupBoxAdvanced.TabIndex = 6;
             groupBoxAdvanced.TabStop = false;
             groupBoxAdvanced.Text = "Advanced";
@@ -754,7 +756,7 @@
             // linkAttackWeakerMobsHelp
             // 
             linkAttackWeakerMobsHelp.AutoSize = true;
-            linkAttackWeakerMobsHelp.Location = new System.Drawing.Point(358, 80);
+            linkAttackWeakerMobsHelp.Location = new System.Drawing.Point(358, 73);
             linkAttackWeakerMobsHelp.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             linkAttackWeakerMobsHelp.Name = "linkAttackWeakerMobsHelp";
             linkAttackWeakerMobsHelp.Size = new System.Drawing.Size(16, 20);
@@ -768,7 +770,7 @@
             checkAttackWeakerFirst.AutoSize = true;
             checkAttackWeakerFirst.BackColor = System.Drawing.Color.Transparent;
             checkAttackWeakerFirst.Depth = 0;
-            checkAttackWeakerFirst.Location = new System.Drawing.Point(26, 71);
+            checkAttackWeakerFirst.Location = new System.Drawing.Point(26, 64);
             checkAttackWeakerFirst.Margin = new System.Windows.Forms.Padding(0);
             checkAttackWeakerFirst.MouseLocation = new System.Drawing.Point(-1, -1);
             checkAttackWeakerFirst.Name = "checkAttackWeakerFirst";
@@ -800,6 +802,22 @@
             timerGrabByAbilityPet.Enabled = true;
             timerGrabByAbilityPet.Interval = 200;
             timerGrabByAbilityPet.Tick += timerGrabByAbilityPet_Tick;
+            // 
+            // checkBoxDontFollowMobs
+            // 
+            checkBoxDontFollowMobs.AutoSize = true;
+            checkBoxDontFollowMobs.BackColor = System.Drawing.Color.Transparent;
+            checkBoxDontFollowMobs.Depth = 0;
+            checkBoxDontFollowMobs.Location = new System.Drawing.Point(26, 94);
+            checkBoxDontFollowMobs.Margin = new System.Windows.Forms.Padding(0);
+            checkBoxDontFollowMobs.MouseLocation = new System.Drawing.Point(-1, -1);
+            checkBoxDontFollowMobs.Name = "checkBoxDontFollowMobs";
+            checkBoxDontFollowMobs.Ripple = true;
+            checkBoxDontFollowMobs.Size = new System.Drawing.Size(299, 30);
+            checkBoxDontFollowMobs.TabIndex = 8;
+            checkBoxDontFollowMobs.Text = "Don't follow mobs outside the training area";
+            checkBoxDontFollowMobs.UseVisualStyleBackColor = false;
+            checkBoxDontFollowMobs.CheckedChanged += settings_CheckedChanged;
             // 
             // Main
             // 
@@ -877,5 +895,6 @@
         private SDUI.Controls.TextBox txtRegion;
         private SDUI.Controls.Button btnApplyArea;
         private System.Windows.Forms.ToolTip toolTip1;
+        private SDUI.Controls.CheckBox checkBoxDontFollowMobs;
     }
 }

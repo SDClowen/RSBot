@@ -186,17 +186,24 @@ public class PickupManager
     }
 
     private static bool Condition(
-        SpawnedItem e,
-        Position centerPosition,
-        int radius,
-        bool applyPickOnlyChar = false,
-        bool pickOnlyChar = false
-    )
+    SpawnedItem e,
+    Position centerPosition,
+    int radius,
+    bool applyPickOnlyChar = false,
+    bool pickOnlyChar = false
+)
     {
         var playerJid = Game.Player.JID;
 
         if (JustPickMyItems && e.OwnerJID != playerJid)
             return false;
+
+        if (Game.Party.IsInParty && PickupGold && e.Record.IsGold)
+        {
+            var partyType = Game.Party.Settings.GetPartyType();
+            if ((partyType is 2 or 3 or 6 or 7) && !(applyPickOnlyChar && pickOnlyChar))
+                return true;
+        }
 
         // Don't pickup items that still belong to another player
         if (e.HasOwner && e.OwnerJID != playerJid)
@@ -207,40 +214,22 @@ public class PickupManager
 
         // Check if Item is within the training area + tolerance
         const int tolerance = 15;
-        var isInside = e.Movement.Source.DistanceTo(centerPosition) <= radius + tolerance;
-        if (!isInside)
+        if (e.Movement.Source.DistanceTo(centerPosition) > radius + tolerance)
             return false;
 
-        if (PickupGold && e.Record.IsGold &&
-            !(applyPickOnlyChar && pickOnlyChar))
+        if (PickupGold && e.Record.IsGold && !(applyPickOnlyChar && pickOnlyChar))
             return true;
 
-        if (PickupRareItems && (byte)e.Rarity >= 2)
+        if ((PickupRareItems && (byte)e.Rarity >= 2) ||
+            (PickupBlueItems && (byte)e.Rarity >= 1) ||
+            (PickupAnyEquips && e.Record.IsEquip) ||
+            (PickupQuestItems && e.Record.IsQuest) ||
+            PickupEverything)
             return true;
 
-        if (PickupBlueItems && (byte)e.Rarity >= 1)
-            return true;
-
-        if (PickupAnyEquips && e.Record.IsEquip)
-            return true;
-
-        if (PickupQuestItems && e.Record.IsQuest)
-            return true;
-
-        if (PickupEverything)
-            return true;
-
-        if (applyPickOnlyChar)
-        {
-            if (PickupFilter.Any(p => p.CodeName == e.Record.CodeName && p.PickOnlyChar == pickOnlyChar))
-                return true;
-        }
-        else if (PickupFilter.Any(p => p.CodeName == e.Record.CodeName))
-        {
-            return true;
-        }
-
-        return false;
+        return applyPickOnlyChar
+            ? PickupFilter.Any(p => p.CodeName == e.Record.CodeName && p.PickOnlyChar == pickOnlyChar)
+            : PickupFilter.Any(p => p.CodeName == e.Record.CodeName);
     }
 
     public static void AddFilter(string codeName, bool pickOnlyChar = false)
