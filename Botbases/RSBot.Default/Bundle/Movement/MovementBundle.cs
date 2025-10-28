@@ -25,21 +25,25 @@ internal class MovementBundle : IBundle
     public bool LastEntityWasBehindObstacle { get; set; }
 
     /// <summary>
-    ///     Invokes this instance.
+    -    ///     Botun ana hareket döngüsünü tetikler.
     /// </summary>
     public void Invoke()
     {
+        // Eğer bir hedef seçiliyse veya son hedef bir engelin arkasında kalmadıysa, serbestçe hareket etme.
         if (Game.SelectedEntity != null && !LastEntityWasBehindObstacle)
             return;
 
+        // Oyuncu saldırı altındaysa ve özel bir durum (engel) yoksa, yerinde kal.
         var playerUnderAttack =
             SpawnManager.Any<SpawnedMonster>(m => m.AttackingPlayer && Container.Bot.Area.IsInSight(m));
         if (playerUnderAttack && !LastEntityWasBehindObstacle)
             return;
 
+        // Oyuncu zaten hareket ediyorsa, yeni bir komut gönderme.
         if (Game.Player.Movement.Moving)
             return;
 
+        // Parti liderini takip etme modu aktifse ve oyuncu lider değilse...
         if (PlayerConfig.Get("RSBot.Party.AlwaysFollowPartyMaster", false) &&
             Game.Party.IsInParty &&
             !Game.Party.IsLeader)
@@ -47,6 +51,7 @@ internal class MovementBundle : IBundle
             if (Game.Player.InAction)
                 return;
 
+            // Liderle aradaki mesafe 10 birimden fazlaysa, lidere doğru yürü.
             var player = Game.Party.Leader?.Player;
             if (player != null && player.Position.DistanceToPlayer() >= 10) Game.Player.MoveTo(player.Position);
 
@@ -56,7 +61,7 @@ internal class MovementBundle : IBundle
         var distance = Game.Player.Position.DistanceTo(Container.Bot.Area.Position);
         var hasCollision = Game.Player.Position.HasCollisionBetween(Container.Bot.Area.Position);
 
-        //Go back if the player is out of the radius
+        // Oyuncu eğitim alanının dışına çıktıysa veya merkeze yürüme modunda çok uzaklaştıysa, merkeze geri dön.
         if ((distance > Container.Bot.Area.Radius || (Config.WalkToCenter && distance > 3)) && !hasCollision)
         {
             Log.Status("Walking to center");
@@ -65,13 +70,14 @@ internal class MovementBundle : IBundle
             return;
         }
 
+        // Sadece merkeze yürüme modu aktifse, rastgele hareket etme.
         if (Config.WalkToCenter)
             return;
 
         Log.Status("Walking around");
 
-        //Find a not colliding position. Do it in a while loop to prevent the bot from processing it in the next cycle (tick).
-        //This is how we can find our next position very fast instead of waiting for the next circle to come.
+        // Alan içinde, arada engel olmayan rastgele bir nokta bul ve oraya yürü.
+        // Bu, botun sıkışmasını önler ve sürekli aktif kalmasını sağlar.
         var destination = Container.Bot.Area.GetRandomPosition();
 
         var attempt = 0;
