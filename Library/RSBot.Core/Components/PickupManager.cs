@@ -185,6 +185,15 @@ public class PickupManager
         }
     }
 
+    /// <summary>
+    /// Bir eşyanın (item) alınıp alınmayacağını belirleyen merkezi filtreleme metodudur.
+    /// </summary>
+    /// <param name="e">Kontrol edilecek eşya.</param>
+    /// <param name="centerPosition">Eğitim alanının merkezi.</param>
+    /// <param name="radius">Eğitim alanının yarıçapı.</param>
+    /// <param name="applyPickOnlyChar">Sadece karakterin alabileceği eşyalar filtresini uygula (pet için farklı davranış).</param>
+    /// <param name="pickOnlyChar">Eşyanın sadece karakter tarafından mı alınacağını belirtir.</param>
+    /// <returns>Eşya alınacaksa true, aksi takdirde false.</returns>
     private static bool Condition(
         SpawnedItem e,
         Position centerPosition,
@@ -195,24 +204,26 @@ public class PickupManager
     {
         var playerJid = Game.Player.JID;
 
+        // "Sadece benim eşyalarımı topla" ayarı aktifse ve eşyanın sahibi biz değilsek, toplama.
         if (JustPickMyItems && e.OwnerJID != playerJid)
             return false;
 
-        // Don't pickup items that still belong to another player
+        // Eşyanın hala başka bir sahibe ait bir düşme koruması varsa, toplama.
         if (e.HasOwner && e.OwnerJID != playerJid)
             return false;
 
+        // Eğer bu kontrol pet için yapılıyorsa ve eşya bir engelin arkasındaysa, toplama.
         if (applyPickOnlyChar && e.IsBehindObstacle)
             return false;
 
-        // Check if Item is within the training area + tolerance
+        // Eşyanın eğitim alanı içinde olup olmadığını küçük bir toleransla kontrol et.
         const int tolerance = 15;
         var isInside = e.Movement.Source.DistanceTo(centerPosition) <= radius + tolerance;
         if (!isInside)
             return false;
 
-        if (PickupGold && e.Record.IsGold &&
-            !(applyPickOnlyChar && pickOnlyChar))
+        // Genel toplama ayarları (Config'den gelen):
+        if (PickupGold && e.Record.IsGold && !(applyPickOnlyChar && pickOnlyChar))
             return true;
 
         if (PickupRareItems && (byte)e.Rarity >= 2)
@@ -230,6 +241,7 @@ public class PickupManager
         if (PickupEverything)
             return true;
 
+        // Özel filtre listesi (kullanıcının eklediği item'lar):
         if (applyPickOnlyChar)
         {
             if (PickupFilter.Any(p => p.CodeName == e.Record.CodeName && p.PickOnlyChar == pickOnlyChar))
@@ -240,6 +252,7 @@ public class PickupManager
             return true;
         }
 
+        // Yukarıdaki koşulların hiçbiri karşılanmazsa, eşyayı toplama.
         return false;
     }
 
