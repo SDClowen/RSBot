@@ -1,46 +1,19 @@
-﻿using RSBot.Core;
 using RSBot.Core.Components;
-using RSBot.Lure.Components;
 
 namespace RSBot.Lure.Bundle;
 
 internal static class AttackBundle
 {
-    private static uint _lastTargetId;
-
+    /// <summary>
+    /// Merkezi Saldırı Servisi'ni çağırarak saldırı mantığını yürütür.
+    /// </summary>
     public static void Tick()
     {
-        if (Game.SelectedEntity == null || Game.Player.InAction || !Game.Player.CanAttack ||
-            Game.SelectedEntity.IsBehindObstacle)
-            return;
-
-        if (_lastTargetId == Game.SelectedEntity.UniqueId)
+        // Lure botunun kendine özgü saldırı koşulları burada kontrol edilebilir.
+        // Örneğin, sadece belirli ayarlar aktifken saldırı servisini çağır.
+        if (Components.LureConfig.UseAttackingSkills || Components.LureConfig.UseNormalAttack)
         {
-            if (Game.Player.InAction)
-                SkillManager.CancelAction();
-
-            return;
+            AttackService.Execute();
         }
-
-        if (LureConfig.UseAttackingSkills)
-        {
-            var skill = SkillManager.GetNextSkill();
-
-            if (skill == null && !LureConfig.UseNormalAttack)
-                return;
-
-            Log.Status("Attacking");
-            SkillManager.CancelAction();
-
-            var uniqueId = Game.SelectedEntity?.UniqueId;
-            if (uniqueId == null)
-                return;
-
-            skill?.Cast(uniqueId.Value);
-            _lastTargetId = uniqueId.Value;
-        }
-
-        if (LureConfig.UseNormalAttack && !Game.Player.InAction)
-            SkillManager.CastAutoAttack();
     }
 }

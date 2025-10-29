@@ -734,67 +734,65 @@ public class Player : SpawnedBionic
         return false;
     }
 
+    /// <summary>
+    /// Belirtilen filtreye uygun bir iksiri (potion), bekleme süresini (cooldown) kontrol ederek kullanır.
+    /// Bu, tüm pot kullanma eylemleri için merkezi mantıktır.
+    /// </summary>
+    /// <param name="filter">Kullanılacak iksirin türünü belirleyen filtre.</param>
+    /// <param name="tick">Bu türdeki son potun ne zaman kullanıldığını tutan zaman damgası.</param>
+    /// <param name="duration">Bu türdeki potun bekleme süresi.</param>
+    /// <returns>İksir başarıyla kullanılırsa true, aksi takdirde false.</returns>
     private bool UsePotion(TypeIdFilter filter, ref int tick, ref int duration)
     {
         lock (_lock)
         {
+            // Oyuncu ölü ise veya bir NPC ile etkileşimdeyse pot kullanma.
             if (State.LifeState == LifeState.Dead)
                 return false;
 
             if (Game.SelectedEntity is SpawnedNpcNpc)
                 return false;
 
+            // Envanterde uygun potu bul.
             var potionItem = Inventory.GetItem(filter);
             if (potionItem == null)
                 return false;
 
+            // Potun bekleme süresini ilk defa ayarla (eğer daha önce ayarlanmamışsa).
             if (duration == 0)
             {
                 var record = potionItem.Record;
-                // potion
-                if (record.Param1 > 0 || record.Param3 > 0)
+                if (record.Param1 > 0 || record.Param3 > 0) // Normal potlar
                 {
                     if (Race == ObjectCountry.Chinese)
                         duration = 1050;
                     else
                         duration = 15050;
                 }
-                // grain
-                else if (record.Param2 > 0 || record.Param4 > 0)
+                else if (record.Param2 > 0 || record.Param4 > 0) // Vigor gibi özel potlar
                 {
                     duration = 4050;
                 }
-                else
-                {
-                    Log.Debug($"Unknown poion type: {record}");
-                }
             }
 
+            // Bekleme süresinin geçip geçmediğini kontrol et.
             var elapsed = Kernel.TickCount - tick;
-
             if (elapsed < duration)
                 return false;
 
+            // Potu kullan.
             var result = potionItem.Use();
-
             if (result)
             {
-                tick = Kernel.TickCount;
-
+                tick = Kernel.TickCount; // Son kullanım zamanını güncelle.
                 Log.Debug($"Potion [{potionItem.Record.GetRealName()}] used");
             }
-            else
-            {
-                Log.Debug(
-                    $"[ERROR] Potion [{potionItem.Record.GetRealName()}] used Elapsed:{elapsed} Duration:{duration} Condition:{elapsed < duration}");
-            }
-
             return result;
         }
     }
 
     /// <summary>
-    ///     Uses the health potion.
+    /// Envanterdeki en uygun Can (HP) iksirini kullanır.
     /// </summary>
     public bool UseHealthPotion()
     {
@@ -802,7 +800,7 @@ public class Player : SpawnedBionic
     }
 
     /// <summary>
-    ///     Uses the health potion.
+    /// Envanterdeki en uygun Mana (MP) iksirini kullanır.
     /// </summary>
     public bool UseManaPotion()
     {
