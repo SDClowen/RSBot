@@ -603,4 +603,48 @@ public static class SkillManager
 
         return callback.IsCompleted;
     }
+
+    /// <summary>
+    /// Oyuncunun eksik olan ve bekleme süresinde olmayan tüm güçlendirme (buff) yeteneklerini sırayla kullanır.
+    /// Bu, farklı modüller arasında tekrar eden buff basma mantığını merkezileştirir.
+    /// </summary>
+    public static void CastAvailableBuffs()
+    {
+        // Bug #377 için geçici düzeltme: Bazen süresi biten buff'lar listeden temizlenmiyor.
+        // Bu blok, bu "takılı kalmış" buff'ları manuel olarak temizler.
+        foreach (var buff in Buffs.Union(new[] { ImbueSkill, ResurrectionSkill }))
+        {
+            if (buff == null)
+                continue;
+
+            var isActive = Game.Player.State.HasActiveBuff(buff, out var info);
+            if (isActive && buff.Isbugged && info.Isbugged)
+            {
+                Log.Notify($"[#377] The buff [{buff.Token}-{buff.Record?.GetRealName()}] expired");
+                EventManager.FireEvent("OnRemoveBuff", buff);
+
+                var playerSkill = Game.Player.Skills.GetSkillInfoById(buff.Id);
+                playerSkill?.Reset();
+                Game.Player.State.TryRemoveActiveBuff(info.Token, out _);
+            }
+        }
+
+        // Oyuncu üzerinde aktif olmayan ve bekleme süresi (cooldown) bitmiş olan tüm buff'ları bul.
+        var buffsToCast = Buffs.FindAll(p => !Game.Player.State.HasActiveBuff(p, out _) && p.CanBeCasted);
+        if (buffsToCast == null || buffsToCast.Count == 0)
+            return;
+
+        Log.Status("Buffing");
+
+        // Bulunan her bir buff'ı sırayla bas.
+        foreach (var buff in buffsToCast)
+        {
+            // Eğer oyuncu öldüyse veya bir binek üzerindeyse döngüyü durdur.
+            if (Game.Player.State.LifeState != LifeState.Alive || Game.Player.HasActiveVehicle)
+                break;
+
+            Log.Debug($"Trying to cast buff: {buff} {buff.Record.Basic_Code}");
+            buff.Cast(buff: true);
+        }
+    }
 }
