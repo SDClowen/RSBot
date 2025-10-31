@@ -42,8 +42,8 @@ public class LureBotbase : IBotbase
             return;
         }
 
-        EventManager.FireEvent("Bundle.Buff.Invoke");
         EventManager.FireEvent("Bundle.Resurrect.Invoke");
+        EventManager.FireEvent("Bundle.Buff.Invoke");
         EventManager.FireEvent("Bundle.PartyBuffing.Invoke");
 
         var interruptMessage = LoopConditionValidator.CheckLoopConditions();

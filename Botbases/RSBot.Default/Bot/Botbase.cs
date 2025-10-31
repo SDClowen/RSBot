@@ -73,14 +73,14 @@ internal class Botbase
         //Check for protection
         Bundles.Protection.Invoke();
 
+        //Resurrect party members if needed
+        Bundles.Resurrect.Invoke();
+
         //Cast buffs
         Bundles.Buff.Invoke();
 
         // Buff the configured party members if needed
         Bundles.PartyBuff.Invoke();
-
-        //Resurrect party members if needed
-        Bundles.Resurrect.Invoke();
 
         //Loot items
         Bundles.Loot.Invoke();
