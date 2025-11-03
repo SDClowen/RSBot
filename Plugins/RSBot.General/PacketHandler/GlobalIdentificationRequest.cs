@@ -64,6 +64,11 @@ internal class GlobalIdentificationRequest : IPacketHandler
                 response.WriteString(GlobalConfig.Get<string>("RSBot.RuSro.login"));
                 response.WriteString(Sha256.ComputeHash(GlobalConfig.Get<string>("RSBot.RuSro.password")));
             }
+            else if (Game.ClientType == GameClientType.Japanese)
+            {
+                response.WriteString(GlobalConfig.Get<string>("RSBot.JSRO.login"));
+                response.WriteString(Sha256.ComputeHash(GlobalConfig.Get<string>("RSBot.JSRO.token")));
+            }
             else
             {
                 response.WriteString(selectedAccount.Username);
@@ -71,7 +76,8 @@ internal class GlobalIdentificationRequest : IPacketHandler
                 if (Game.ClientType == GameClientType.Turkey ||
                     Game.ClientType == GameClientType.VTC_Game ||
                     Game.ClientType == GameClientType.Global ||
-                    Game.ClientType == GameClientType.Korean
+                    Game.ClientType == GameClientType.Korean ||
+                    Game.ClientType == GameClientType.Taiwan
                     )
                     response.WriteString(Sha256.ComputeHash(selectedAccount.Password));
                 else

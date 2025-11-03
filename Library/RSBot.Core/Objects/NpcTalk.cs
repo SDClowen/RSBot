@@ -38,7 +38,9 @@ public class NpcTalk
                 Game.ClientType == GameClientType.Turkey ||
                 Game.ClientType == GameClientType.VTC_Game ||
                 Game.ClientType == GameClientType.RuSro ||
-                Game.ClientType == GameClientType.Korean)
+                Game.ClientType == GameClientType.Korean ||
+                Game.ClientType == GameClientType.Japanese ||
+                Game.ClientType == GameClientType.Taiwan)
                 count = 7;
 
             Options = packet.ReadBytes(count);

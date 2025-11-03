@@ -117,6 +117,7 @@ public partial class Main : DoubleBufferedControl
         LureConfig.StopIfNumMonsterType = checkStopMonsterType.Checked;
         LureConfig.StopIfNumPartyMemberDead = checkStopPartyMemberDead.Checked;
         LureConfig.StopIfNumPartyMember = checkStopPartyMember.Checked;
+        LureConfig.StopIfNumPartyMembersOnSpot = checkNumPartyMembersOnSpot.Checked;
         LureConfig.StayAtCenterFor = checkStayAtCenter.Checked;
         LureConfig.UseScript = radioUseScript.Checked;
         LureConfig.WalkRandomly = radioWalkRandomly.Checked;
@@ -124,6 +125,7 @@ public partial class Main : DoubleBufferedControl
         LureConfig.NumMonsterType = (int)numMonsterType.Value;
         LureConfig.NumPartyMember = (int)numPartyMember.Value;
         LureConfig.NumPartyMemberDead = (int)numPartyMemberDead.Value;
+        LureConfig.NumPartyMembersOnSpot = (int)numPartyMembersOnSpot.Value;
         LureConfig.StayAtCenterForSeconds = (int)numStayAtCenterSeconds.Value;
         LureConfig.NoHowlingAtCenter = checkNoHowlingAtCenter.Checked;
         LureConfig.UseAttackingSkills = checkUseAttackingSkills.Checked;

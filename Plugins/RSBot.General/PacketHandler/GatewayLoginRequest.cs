@@ -36,12 +36,14 @@ internal class GatewayLoginRequest : IPacketHandler
         if ((packet.Opcode == 0x610A &&
              Game.ClientType == GameClientType.Turkey) ||
             Game.ClientType == GameClientType.VTC_Game ||
-            Game.ClientType == GameClientType.RuSro)
+            Game.ClientType == GameClientType.RuSro ||
+            Game.ClientType == GameClientType.Japanese ||
+            Game.ClientType == GameClientType.Taiwan)
             Game.MacAddress = packet.ReadBytes(6); //reassigned in case of manual login when auto is enabled
 
         var shardId = packet.ReadUShort();
 
-        if (Game.ClientType >= GameClientType.Global)
+        if (Game.ClientType >= GameClientType.Chinese)
             packet.ReadByte(); // channel
 
         Serverlist.SetJoining(shardId);

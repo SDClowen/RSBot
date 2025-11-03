@@ -1,9 +1,10 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using RSBot.Core;
+﻿using RSBot.Core;
 using RSBot.Core.Network;
 using RSBot.General.Components;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 using View = RSBot.General.Views.View;
 
 namespace RSBot.General.PacketHandler;
@@ -38,6 +39,15 @@ internal class GatewayLoginResponse : IPacketHandler
             AutoLogin.Pending = false;
             View.PendingWindow?.Hide();
             View.PendingWindow?.StopClientlessQueueTask();
+
+            if (Game.ClientType == GameClientType.Japanese)
+            {
+                packet.ReadUInt(); //Token
+                packet.ReadString(); //IP
+                packet.ReadUShort(); //Port
+                GlobalConfig.Set("RSBot.JSRO.login", packet.ReadString()); //Login
+                packet.ReadByte(); //Channel
+            }
 
             return;
         }

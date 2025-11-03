@@ -20,6 +20,9 @@ public static class PacketExtensions
             case GameClientType.Rigid:
             case GameClientType.VTC_Game:
             case GameClientType.RuSro:
+            case GameClientType.Chinese:
+            case GameClientType.Japanese:
+            case GameClientType.Taiwan:
                 return packet.ReadUnicode();
 
             default:
@@ -42,6 +45,9 @@ public static class PacketExtensions
             case GameClientType.Korean:
             case GameClientType.Rigid:
             case GameClientType.RuSro:
+            case GameClientType.Chinese:
+            case GameClientType.Japanese:
+            case GameClientType.Taiwan:
                 packet.WriteUnicode(str);
                 break;
 

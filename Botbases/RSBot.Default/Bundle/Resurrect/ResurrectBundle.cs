@@ -32,7 +32,8 @@ internal class ResurrectBundle : IBundle
                 member.Player == null)
                 continue;
 
-            if (member.Player.Movement.Source.DistanceTo(Game.Player.Movement.Source) > 100)
+            if (member.Player.Movement.Source.DistanceTo(Game.Player.Movement.Source) > 100 ||
+                member.Player.Movement.Source.HasCollisionBetween(Game.Player.Movement.Source))
                 continue;
 
             if (member.Player.State.LifeState != LifeState.Dead)
@@ -42,6 +43,10 @@ internal class ResurrectBundle : IBundle
                 _lastResurrectedPlayers.Add(member.Name, Kernel.TickCount);
             else
                 _lastResurrectedPlayers[member.Name] = Kernel.TickCount;
+
+            var moved = Game.Player.MoveTo(member.Player.Movement.Source, false);
+            if (!moved)
+                continue;
 
             Log.Status($"Resurrecting player {member.Name}");
             SkillManager.ResurrectionSkill?.Cast(member.Player.UniqueId, true);

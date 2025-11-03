@@ -66,6 +66,18 @@ internal static class LureConfig
         set => PlayerConfig.Set("RSBot.Lure.NumMonsterType", value);
     }
 
+    public static bool StopIfNumPartyMembersOnSpot
+    {
+        get => PlayerConfig.Get("RSBot.Lure.StopIfNumPartyMembersOnSpot", false);
+        set => PlayerConfig.Set("RSBot.Lure.StopIfNumPartyMembersOnSpot", value);
+    }
+
+    public static int NumPartyMembersOnSpot
+    {
+        get => PlayerConfig.Get("RSBot.Lure.NumPartyMembersOnSpot", 3);
+        set => PlayerConfig.Set("RSBot.Lure.NumPartyMembersOnSpot", value);
+    }
+
     public static bool UseScript
     {
         get => PlayerConfig.Get("RSBot.Lure.UseScript", false);

@@ -32,6 +32,20 @@ internal class AttackBundle : IBundle
             return;
         }
 
+        var dontFollowMobs = PlayerConfig.Get<bool>("RSBot.Training.checkBoxDontFollowMobs");
+        if (dontFollowMobs && !Kernel.Bot.Botbase.Area.IsInSight(Game.SelectedEntity))
+        {
+            Log.Debug("Deselecting entity because it moved far away from training area!");
+
+            if (Game.Player.InAction)
+                SkillManager.CancelAction();
+
+            Game.SelectedEntity?.TryDeselect();
+            Game.SelectedEntity = null;
+
+            return;
+        }
+
         if (SkillManager.ImbueSkill != null &&
             !Game.Player.State.HasActiveBuff(SkillManager.ImbueSkill, out _) &&
             SkillManager.ImbueSkill.CanBeCasted)

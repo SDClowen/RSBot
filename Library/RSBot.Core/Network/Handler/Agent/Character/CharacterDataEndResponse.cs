@@ -54,7 +54,7 @@ internal class CharacterDataEndResponse : IPacketHandler
         character.Mana = packet.ReadInt();
         character.AutoInverstExperience = (AutoInverstType)packet.ReadByte();
 
-        if (Game.ClientType == GameClientType.Chinese)
+        if (Game.ClientType == GameClientType.Chinese_Old)
             character.DailyPK = (byte)packet.ReadUShort();
         else
             character.DailyPK = packet.ReadByte();
@@ -68,15 +68,18 @@ internal class CharacterDataEndResponse : IPacketHandler
         if (Game.ClientType > GameClientType.Thailand)
             character.PvpFlag = (PvpFlag)packet.ReadByte();
 
-        if (Game.ClientType >= GameClientType.Global)
+        if (Game.ClientType >= GameClientType.Chinese)
         {
-            packet.ReadByte();
+            if (Game.ClientType != GameClientType.Chinese)
+                packet.ReadByte();
+            
             packet.ReadUInt(); //You can use VIP service until this time
             packet.ReadByte();
 
             if (Game.ClientType == GameClientType.Turkey ||
                 Game.ClientType == GameClientType.VTC_Game ||
-                Game.ClientType == GameClientType.RuSro)
+                Game.ClientType == GameClientType.RuSro ||
+                Game.ClientType == GameClientType.Taiwan)
                 packet.ReadUInt();
 
             if (Game.ClientType == GameClientType.Rigid)
@@ -85,10 +88,15 @@ internal class CharacterDataEndResponse : IPacketHandler
             if (Game.ClientType == GameClientType.VTC_Game)
                 packet.ReadByte(); // ??
 
+            if (Game.ClientType == GameClientType.Taiwan)
+                packet.ReadBytes(5);
+
             var serverCap = packet.ReadByte();
             Log.Notify($"The game server cap is {serverCap}!");
 
-            if (Game.ClientType != GameClientType.Korean)
+            if (Game.ClientType != GameClientType.Korean 
+                && Game.ClientType != GameClientType.Chinese
+                && Game.ClientType != GameClientType.Japanese)
                 packet.ReadUShort();
         }
 
@@ -131,13 +139,13 @@ internal class CharacterDataEndResponse : IPacketHandler
         character.OnTransport = packet.ReadBool(); //On transport?
         character.InCombat = packet.ReadBool();
 
-        if (Game.ClientType > GameClientType.Chinese)
+        if (Game.ClientType >= GameClientType.Chinese)
             packet.ReadByte();
 
         if (character.OnTransport)
             character.TransportUniqueId = packet.ReadUInt();
 
-        if (Game.ClientType > GameClientType.Chinese)
+        if (Game.ClientType >= GameClientType.Chinese)
             packet.ReadUInt(); //unkUint2 i think it is using for balloon event or buff for events
 
         if (Game.ClientType > GameClientType.Vietnam)
@@ -150,7 +158,8 @@ internal class CharacterDataEndResponse : IPacketHandler
             Game.ClientType != GameClientType.Rigid &&
             Game.ClientType != GameClientType.RuSro &&
             Game.ClientType != GameClientType.Korean &&
-            Game.ClientType != GameClientType.VTC_Game)
+            Game.ClientType != GameClientType.VTC_Game &&
+            Game.ClientType != GameClientType.Japanese)
         {
             packet.ReadByte(); // 0xFF
             packet.ReadUShort(); // 0xFF
@@ -163,11 +172,16 @@ internal class CharacterDataEndResponse : IPacketHandler
         else
             packet.ReadUInt();
 
-        if (Game.ClientType == GameClientType.Chinese || 
+        if (Game.ClientType == GameClientType.Chinese_Old ||
+            Game.ClientType == GameClientType.Chinese || 
             Game.ClientType == GameClientType.Global || 
             Game.ClientType == GameClientType.RuSro || 
             Game.ClientType == GameClientType.Korean ||
-            Game.ClientType == GameClientType.VTC_Game)
+            Game.ClientType == GameClientType.VTC_Game ||
+            Game.ClientType == GameClientType.Japanese)
+            packet.ReadByte();
+
+        if (Game.ClientType == GameClientType.Chinese)
             packet.ReadByte();
 
         character.JID = packet.ReadUInt();

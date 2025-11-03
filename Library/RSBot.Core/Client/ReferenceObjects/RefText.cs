@@ -48,7 +48,7 @@ public class RefText : IReference<string>
             return false;
 
         var nameStrIndex = 1;
-        if (Game.ClientType >= GameClientType.Global)
+        if (Game.ClientType >= GameClientType.Chinese)
             nameStrIndex = 2;
 
         if (!parser.TryParse(nameStrIndex, out NameStrId))
@@ -57,6 +57,9 @@ public class RefText : IReference<string>
         var languageTab = 8;
         if (Game.ClientType == GameClientType.RuSro)
             languageTab = 12;
+
+        if (Game.ClientType == GameClientType.Japanese)
+            languageTab = 9;
 
         var maxTabs = parser.GetColumnCount();
 

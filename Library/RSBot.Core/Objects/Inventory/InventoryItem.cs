@@ -320,12 +320,15 @@ public class InventoryItem
                 var bindingCount = 2;
                 switch (Game.ClientType)
                 {
+                    case GameClientType.Chinese_Old:
                     case GameClientType.Chinese:
                     case GameClientType.Global:
                     case GameClientType.Turkey:
                     case GameClientType.Rigid:
                     case GameClientType.RuSro:
                     case GameClientType.VTC_Game:
+                    case GameClientType.Japanese:
+                    case GameClientType.Taiwan:
                         bindingCount = 4;
                         break;
                     case GameClientType.Korean:
@@ -354,7 +357,7 @@ public class InventoryItem
 
                 if (record.TypeID4 == 2)
                     item.Cos.Rental = RentInfo.FromPacket(packet);
-                else if (Game.ClientType >= GameClientType.Chinese)
+                else if (Game.ClientType >= GameClientType.Chinese_Old)
                     item.Cos.Level = packet.ReadByte(); // cos level
 
                 var buffCount = packet.ReadByte();

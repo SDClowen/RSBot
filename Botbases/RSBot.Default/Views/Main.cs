@@ -157,6 +157,7 @@ public partial class Main : DoubleBufferedControl
         txtXCoord.Text = area.Position.X.ToString("0.0");
         txtYCoord.Text = area.Position.Y.ToString("0.0");
         txtRadius.Text = area.Radius.ToString();
+        txtRegion.Text = area.Position.Region.Id.ToString();
 
         EventManager.FireEvent("AppendScriptCommand", area.GetScriptLine());
     }
@@ -256,6 +257,45 @@ public partial class Main : DoubleBufferedControl
     }
 
     /// <summary>
+    ///     Handles the TextChanged event of the txtRegion control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+    private void txtRegion_TextChanged(object sender, EventArgs e)
+    {
+        if (!ushort.TryParse(txtRegion.Text, out ushort result))
+            return;
+    }
+
+    /// <summary>
+    ///     Handles the Click event of the btnApplyArea control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+    private void btnApplyArea_Click(object sender, EventArgs e)
+    {
+        if (!float.TryParse(txtYCoord.Text, out var y) ||
+            !float.TryParse(txtXCoord.Text, out var x) ||
+            !ushort.TryParse(txtRegion.Text, out ushort region))
+        {
+            Log.Warn("[Training area] Check that the X, Y, and Region coordinates have been entered correctly.");
+            return;
+        }
+
+        var area = Kernel.Bot.Botbase.Area;
+        Position pos = new(x, y, region);
+
+        PlayerConfig.Set("RSBot.Area.Region", pos.Region);
+        PlayerConfig.Set("RSBot.Area.X", pos.XOffset);
+        PlayerConfig.Set("RSBot.Area.Y", pos.YOffset);
+        PlayerConfig.Set("RSBot.Area.Z", pos.ZOffset);
+
+        Log.Notify("[Training area] New training area coordinates set. " +
+            $"X: {pos.XOffset}, Y: {pos.YOffset}, Z: {pos.ZOffset}, Region: {pos.Region}");
+        EventManager.FireEvent("OnSetTrainingArea");
+    }
+
+    /// <summary>
     ///     Handles the Click event of the btnBrowse control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
@@ -352,6 +392,7 @@ public partial class Main : DoubleBufferedControl
         txtXCoord.Text = area.Position.X.ToString("0.0");
         txtYCoord.Text = area.Position.Y.ToString("0.0");
         txtRadius.Text = area.Radius.ToString();
+        txtRegion.Text = area.Position.Region.Id.ToString();
         //Walkback
         txtWalkscript.Text = PlayerConfig.Get<string>("RSBot.Walkback.File");
     }

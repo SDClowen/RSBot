@@ -36,6 +36,6 @@ internal class BundleSubscriber
         EventManager.SubscribeEvent("Bundle.Resurrect.Invoke", Bundles.Resurrect.Invoke);
 
         EventManager.SubscribeEvent("Bundle.Protection.Stop", Bundles.Protection.Stop);
-        EventManager.SubscribeEvent("Bundle.Resurrect.Invoke", Bundles.Protection.Invoke);
+        EventManager.SubscribeEvent("Bundle.Protection.Invoke", Bundles.Protection.Invoke);
     }
 }

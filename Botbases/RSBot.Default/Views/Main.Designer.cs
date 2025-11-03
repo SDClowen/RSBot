@@ -69,6 +69,9 @@
             checkBerzerkAvoidance = new SDUI.Controls.CheckBox();
             checkBerzerkMonsterAmount = new SDUI.Controls.CheckBox();
             groupBoxArea = new SDUI.Controls.GroupBox();
+            btnApplyArea = new SDUI.Controls.Button();
+            label8 = new SDUI.Controls.Label();
+            txtRegion = new SDUI.Controls.TextBox();
             buttonSelectTrainingArea = new SDUI.Controls.Button();
             label6 = new SDUI.Controls.Label();
             label5 = new SDUI.Controls.Label();
@@ -86,6 +89,8 @@
             checkAttackWeakerFirst = new SDUI.Controls.CheckBox();
             checkBoxDimensionPillar = new SDUI.Controls.CheckBox();
             timerGrabByAbilityPet = new System.Windows.Forms.Timer(components);
+            toolTip1 = new System.Windows.Forms.ToolTip(components);
+            checkBoxDontFollowMobs = new SDUI.Controls.CheckBox();
             groupBox2.SuspendLayout();
             ctxAvoidance.SuspendLayout();
             groupBoxWalkback.SuspendLayout();
@@ -98,7 +103,7 @@
             // 
             groupBox2.BackColor = System.Drawing.Color.Transparent;
             groupBox2.Controls.Add(lvAvoidance);
-            groupBox2.Location = new System.Drawing.Point(29, 312);
+            groupBox2.Location = new System.Drawing.Point(29, 341);
             groupBox2.Margin = new System.Windows.Forms.Padding(4);
             groupBox2.Name = "groupBox2";
             groupBox2.Padding = new System.Windows.Forms.Padding(2, 9, 2, 4);
@@ -466,6 +471,9 @@
             // groupBoxArea
             // 
             groupBoxArea.BackColor = System.Drawing.Color.Transparent;
+            groupBoxArea.Controls.Add(btnApplyArea);
+            groupBoxArea.Controls.Add(label8);
+            groupBoxArea.Controls.Add(txtRegion);
             groupBoxArea.Controls.Add(buttonSelectTrainingArea);
             groupBoxArea.Controls.Add(label6);
             groupBoxArea.Controls.Add(label5);
@@ -484,16 +492,64 @@
             groupBoxArea.Padding = new System.Windows.Forms.Padding(4, 12, 4, 4);
             groupBoxArea.Radius = 10;
             groupBoxArea.ShadowDepth = 4;
-            groupBoxArea.Size = new System.Drawing.Size(276, 285);
+            groupBoxArea.Size = new System.Drawing.Size(276, 313);
             groupBoxArea.TabIndex = 0;
             groupBoxArea.TabStop = false;
             groupBoxArea.Text = "Area";
+            // 
+            // btnApplyArea
+            // 
+            btnApplyArea.Color = System.Drawing.Color.Transparent;
+            btnApplyArea.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 204);
+            btnApplyArea.Location = new System.Drawing.Point(56, 174);
+            btnApplyArea.Margin = new System.Windows.Forms.Padding(4);
+            btnApplyArea.Name = "btnApplyArea";
+            btnApplyArea.Radius = 6;
+            btnApplyArea.ShadowDepth = 4F;
+            btnApplyArea.Size = new System.Drawing.Size(30, 30);
+            btnApplyArea.TabIndex = 10;
+            btnApplyArea.Text = "v";
+            btnApplyArea.UseVisualStyleBackColor = true;
+            btnApplyArea.Click += btnApplyArea_Click;
+            // 
+            // label8
+            // 
+            label8.ApplyGradient = false;
+            label8.AutoSize = true;
+            label8.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label8.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label8.GradientAnimation = false;
+            label8.Location = new System.Drawing.Point(34, 109);
+            label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label8.Name = "label8";
+            label8.Size = new System.Drawing.Size(59, 20);
+            label8.TabIndex = 9;
+            label8.Text = "Region:";
+            // 
+            // txtRegion
+            // 
+            txtRegion.Location = new System.Drawing.Point(95, 105);
+            txtRegion.Margin = new System.Windows.Forms.Padding(4);
+            txtRegion.MaxLength = 32767;
+            txtRegion.MultiLine = false;
+            txtRegion.Name = "txtRegion";
+            txtRegion.PassFocusShow = false;
+            txtRegion.Radius = 2;
+            txtRegion.Size = new System.Drawing.Size(121, 25);
+            txtRegion.TabIndex = 8;
+            txtRegion.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            txtRegion.UseSystemPasswordChar = false;
+            txtRegion.TextChanged += txtRegion_TextChanged;
             // 
             // buttonSelectTrainingArea
             // 
             buttonSelectTrainingArea.Color = System.Drawing.Color.Transparent;
             buttonSelectTrainingArea.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 204);
-            buttonSelectTrainingArea.Location = new System.Drawing.Point(224, 134);
+            buttonSelectTrainingArea.Location = new System.Drawing.Point(224, 174);
             buttonSelectTrainingArea.Margin = new System.Windows.Forms.Padding(4);
             buttonSelectTrainingArea.Name = "buttonSelectTrainingArea";
             buttonSelectTrainingArea.Radius = 6;
@@ -515,7 +571,7 @@
     System.Drawing.Color.Black
     };
             label6.GradientAnimation = false;
-            label6.Location = new System.Drawing.Point(18, 181);
+            label6.Location = new System.Drawing.Point(18, 221);
             label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label6.Name = "label6";
             label6.Size = new System.Drawing.Size(207, 20);
@@ -532,7 +588,7 @@
     System.Drawing.Color.Black
     };
             label5.GradientAnimation = false;
-            label5.Location = new System.Drawing.Point(14, 178);
+            label5.Location = new System.Drawing.Point(8, 208);
             label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(250, 2);
@@ -542,7 +598,7 @@
             // 
             radioWalkAround.AutoSize = true;
             radioWalkAround.Checked = true;
-            radioWalkAround.Location = new System.Drawing.Point(44, 240);
+            radioWalkAround.Location = new System.Drawing.Point(44, 280);
             radioWalkAround.Margin = new System.Windows.Forms.Padding(0);
             radioWalkAround.Name = "radioWalkAround";
             radioWalkAround.Ripple = true;
@@ -555,7 +611,7 @@
             // radioCenter
             // 
             radioCenter.AutoSize = true;
-            radioCenter.Location = new System.Drawing.Point(44, 208);
+            radioCenter.Location = new System.Drawing.Point(44, 248);
             radioCenter.Margin = new System.Windows.Forms.Padding(0);
             radioCenter.Name = "radioCenter";
             radioCenter.Ripple = true;
@@ -567,7 +623,7 @@
             // btnGetCurrent
             // 
             btnGetCurrent.Color = System.Drawing.Color.Transparent;
-            btnGetCurrent.Location = new System.Drawing.Point(95, 134);
+            btnGetCurrent.Location = new System.Drawing.Point(95, 174);
             btnGetCurrent.Margin = new System.Windows.Forms.Padding(4);
             btnGetCurrent.Name = "btnGetCurrent";
             btnGetCurrent.Radius = 6;
@@ -589,7 +645,7 @@
     System.Drawing.Color.Black
     };
             label3.GradientAnimation = false;
-            label3.Location = new System.Drawing.Point(34, 105);
+            label3.Location = new System.Drawing.Point(34, 145);
             label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(56, 20);
@@ -613,6 +669,7 @@
             label2.Size = new System.Drawing.Size(20, 20);
             label2.TabIndex = 1;
             label2.Text = "Y:";
+            toolTip1.SetToolTip(label2, "The coordinates of the dungeons should be divided by 10");
             // 
             // label1
             // 
@@ -631,10 +688,11 @@
             label1.Size = new System.Drawing.Size(21, 20);
             label1.TabIndex = 1;
             label1.Text = "X:";
+            toolTip1.SetToolTip(label1, "The coordinates of the dungeons should be divided by 10");
             // 
             // txtRadius
             // 
-            txtRadius.Location = new System.Drawing.Point(95, 101);
+            txtRadius.Location = new System.Drawing.Point(95, 141);
             txtRadius.Margin = new System.Windows.Forms.Padding(4);
             txtRadius.MaxLength = 32767;
             txtRadius.MultiLine = false;
@@ -680,6 +738,7 @@
             // groupBoxAdvanced
             // 
             groupBoxAdvanced.BackColor = System.Drawing.Color.Transparent;
+            groupBoxAdvanced.Controls.Add(checkBoxDontFollowMobs);
             groupBoxAdvanced.Controls.Add(linkAttackWeakerMobsHelp);
             groupBoxAdvanced.Controls.Add(checkAttackWeakerFirst);
             groupBoxAdvanced.Controls.Add(checkBoxDimensionPillar);
@@ -689,7 +748,7 @@
             groupBoxAdvanced.Padding = new System.Windows.Forms.Padding(4, 10, 4, 4);
             groupBoxAdvanced.Radius = 10;
             groupBoxAdvanced.ShadowDepth = 4;
-            groupBoxAdvanced.Size = new System.Drawing.Size(598, 125);
+            groupBoxAdvanced.Size = new System.Drawing.Size(598, 132);
             groupBoxAdvanced.TabIndex = 6;
             groupBoxAdvanced.TabStop = false;
             groupBoxAdvanced.Text = "Advanced";
@@ -697,7 +756,7 @@
             // linkAttackWeakerMobsHelp
             // 
             linkAttackWeakerMobsHelp.AutoSize = true;
-            linkAttackWeakerMobsHelp.Location = new System.Drawing.Point(358, 80);
+            linkAttackWeakerMobsHelp.Location = new System.Drawing.Point(358, 73);
             linkAttackWeakerMobsHelp.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             linkAttackWeakerMobsHelp.Name = "linkAttackWeakerMobsHelp";
             linkAttackWeakerMobsHelp.Size = new System.Drawing.Size(16, 20);
@@ -711,7 +770,7 @@
             checkAttackWeakerFirst.AutoSize = true;
             checkAttackWeakerFirst.BackColor = System.Drawing.Color.Transparent;
             checkAttackWeakerFirst.Depth = 0;
-            checkAttackWeakerFirst.Location = new System.Drawing.Point(26, 71);
+            checkAttackWeakerFirst.Location = new System.Drawing.Point(26, 64);
             checkAttackWeakerFirst.Margin = new System.Windows.Forms.Padding(0);
             checkAttackWeakerFirst.MouseLocation = new System.Drawing.Point(-1, -1);
             checkAttackWeakerFirst.Name = "checkAttackWeakerFirst";
@@ -743,6 +802,22 @@
             timerGrabByAbilityPet.Enabled = true;
             timerGrabByAbilityPet.Interval = 200;
             timerGrabByAbilityPet.Tick += timerGrabByAbilityPet_Tick;
+            // 
+            // checkBoxDontFollowMobs
+            // 
+            checkBoxDontFollowMobs.AutoSize = true;
+            checkBoxDontFollowMobs.BackColor = System.Drawing.Color.Transparent;
+            checkBoxDontFollowMobs.Depth = 0;
+            checkBoxDontFollowMobs.Location = new System.Drawing.Point(26, 94);
+            checkBoxDontFollowMobs.Margin = new System.Windows.Forms.Padding(0);
+            checkBoxDontFollowMobs.MouseLocation = new System.Drawing.Point(-1, -1);
+            checkBoxDontFollowMobs.Name = "checkBoxDontFollowMobs";
+            checkBoxDontFollowMobs.Ripple = true;
+            checkBoxDontFollowMobs.Size = new System.Drawing.Size(299, 30);
+            checkBoxDontFollowMobs.TabIndex = 8;
+            checkBoxDontFollowMobs.Text = "Don't follow mobs outside the training area";
+            checkBoxDontFollowMobs.UseVisualStyleBackColor = false;
+            checkBoxDontFollowMobs.CheckedChanged += settings_CheckedChanged;
             // 
             // Main
             // 
@@ -816,5 +891,10 @@
         private System.Windows.Forms.LinkLabel linkAttackWeakerMobsHelp;
         private System.Windows.Forms.LinkLabel linkRecord;
         private System.Windows.Forms.Timer timerGrabByAbilityPet;
+        private SDUI.Controls.Label label8;
+        private SDUI.Controls.TextBox txtRegion;
+        private SDUI.Controls.Button btnApplyArea;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private SDUI.Controls.CheckBox checkBoxDontFollowMobs;
     }
 }

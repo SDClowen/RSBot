@@ -102,7 +102,7 @@ public class Action
             Id = packet.ReadUInt()
         };
 
-        if (Game.ClientType >= GameClientType.Global)
+        if (Game.ClientType > GameClientType.Chinese && Game.ClientType != GameClientType.Japanese)
             action.UnknownId = packet.ReadUInt();
 
         action.TargetId = packet.ReadUInt();
@@ -110,7 +110,9 @@ public class Action
             Game.ClientType == GameClientType.Global ||
             Game.ClientType == GameClientType.VTC_Game ||
             Game.ClientType == GameClientType.RuSro ||
-            Game.ClientType == GameClientType.Korean)
+            Game.ClientType == GameClientType.Korean ||
+            Game.ClientType == GameClientType.Japanese ||
+            Game.ClientType == GameClientType.Taiwan)
         {
             packet.ReadByte();
             action.Flag = (ActionStateFlag)packet.ReadByte();
@@ -126,7 +128,7 @@ public class Action
             action.Flag = (ActionStateFlag)packet.ReadByte();
         }
 
-        /*if (Game.ClientType >= GameClientType.Global)
+        /*if (Game.ClientType >= GameClientType.Chinese)
             packet.ReadByte();
 
         action.Flag = (ActionStateFlag)packet.ReadByte();*/

@@ -1077,7 +1077,7 @@ public class Player : SpawnedBionic
             if (item.HasAbility(out var abilityItem))
                 abilitySkills.AddRange(abilityItem.GetLinks().Select(skillId => new SkillInfo(skillId, true)));
 
-            if (Game.ClientType >= GameClientType.Chinese)
+            if (Game.ClientType >= GameClientType.Chinese_Old)
             {
                 if (!item.HasExtraAbility(out var extraAbilityItems))
                     continue;

@@ -77,7 +77,7 @@ public class RentInfo
             case 1:
                 result.CanDelete = packet.ReadUShort();
 
-                if (Game.ClientType >= GameClientType.Chinese &&
+                if (Game.ClientType >= GameClientType.Chinese_Old &&
                     Game.ClientType != GameClientType.Rigid)
                 {
                     result.PeriodBeginTime = packet.ReadULong();
@@ -95,7 +95,7 @@ public class RentInfo
                 result.CanDelete = packet.ReadUShort();
                 result.CanRecharge = packet.ReadUShort();
 
-                /*if (Game.ClientType >= GameClientType.Chinese)
+                /*if (Game.ClientType >= GameClientType.Chinese_Old)
                     result.MeterRateTime = packet.ReadULong();
                 else*/
                 result.MeterRateTime = packet.ReadUInt();
@@ -106,7 +106,7 @@ public class RentInfo
                 result.CanDelete = packet.ReadUShort();
                 result.CanRecharge = packet.ReadUShort();
 
-                if (Game.ClientType >= GameClientType.Chinese &&
+                if (Game.ClientType >= GameClientType.Chinese_Old &&
                     Game.ClientType != GameClientType.Rigid)
                 {
                     result.PeriodBeginTime = packet.ReadULong();

@@ -76,7 +76,8 @@ public sealed class SpawnedMonster : SpawnedNpc
         if (Record.IsEventMob)
             Rarity = MonsterRarity.Event;
 
-        if (Game.ClientType >= GameClientType.Global)
+        if (Game.ClientType > GameClientType.Chinese && 
+            Game.ClientType != GameClientType.Japanese)
             packet.ReadUInt();
 
         if (Record.TypeID4 == 2 || Record.TypeID4 == 3) //NPC_MOB_TIEF, NPC_MOB_HUNTER
