@@ -18,7 +18,7 @@ public static class PacketExtensions
             case GameClientType.Turkey:
             case GameClientType.Korean:
             case GameClientType.Rigid:
-            case GameClientType.VTC_Game:
+            //case GameClientType.VTC_Game:
             case GameClientType.RuSro:
             case GameClientType.Chinese:
             case GameClientType.Japanese:

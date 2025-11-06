@@ -18,7 +18,8 @@ public class CharacterInventory : InventoryItemCollection
         get
         {
             return (Game.ClientType == GameClientType.Global || 
-                Game.ClientType == GameClientType.Korean)
+                Game.ClientType == GameClientType.Korean ||
+                Game.ClientType == GameClientType.VTC_Game)
                 ? (byte)17 //4 slots for relics
                 : (byte)13;
         }
