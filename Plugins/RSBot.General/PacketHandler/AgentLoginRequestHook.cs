@@ -56,8 +56,11 @@ internal class AgentLoginRequestHook : IPacketHook
             packet.WriteString(Sha256.ComputeHash(GlobalConfig.Get<string>("RSBot.JSRO.token")));
         }
         else
-        { 
-            packet.WriteString(selectedAccount.Username);
+        {
+            if (Game.ClientType == GameClientType.Global && selectedAccount.Channel == 0x02)
+                packet.WriteString(GlobalConfig.Get<string>("RSBot.JCPlanet.login"));
+            else
+                packet.WriteString(selectedAccount.Username);
 
             if (Game.ClientType == GameClientType.Turkey ||
             Game.ClientType == GameClientType.VTC_Game ||

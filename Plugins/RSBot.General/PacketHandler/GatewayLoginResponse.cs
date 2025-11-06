@@ -49,6 +49,18 @@ internal class GatewayLoginResponse : IPacketHandler
                 packet.ReadByte(); //Channel
             }
 
+            var selectedAccount = Accounts.SavedAccounts?.Find(p =>
+            p.Username == GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername"));
+
+            if (Game.ClientType == GameClientType.Global && selectedAccount.Channel == 0x02)
+            {
+                packet.ReadUInt(); //Token
+                packet.ReadString(); //IP
+                packet.ReadUShort(); //Port
+                packet.ReadByte(); //Channel
+                GlobalConfig.Set("RSBot.JCPlanet.login", packet.ReadString()); //Login
+            }
+
             return;
         }
 

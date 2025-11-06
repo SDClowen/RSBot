@@ -71,7 +71,10 @@ internal class GlobalIdentificationRequest : IPacketHandler
             }
             else
             {
-                response.WriteString(selectedAccount.Username);
+                if (Game.ClientType == GameClientType.Global && selectedAccount.Channel == 0x02)
+                    response.WriteString(GlobalConfig.Get<string>("RSBot.JCPlanet.login"));
+                else
+                    response.WriteString(selectedAccount.Username);
 
                 if (Game.ClientType == GameClientType.Turkey ||
                     Game.ClientType == GameClientType.VTC_Game ||
