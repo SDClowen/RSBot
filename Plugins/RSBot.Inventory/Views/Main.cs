@@ -130,7 +130,8 @@ public partial class Main : DoubleBufferedControl
                         AddItem(item);
 
                     int maxSlots = (Game.ClientType == GameClientType.Global || 
-                        Game.ClientType == GameClientType.Korean) ? 17 : 13; //4 slots for relics
+                        Game.ClientType == GameClientType.Korean ||
+                        Game.ClientType == GameClientType.VTC_Game) ? 17 : 13; //4 slots for relics
 
                     lblFreeSlots.Text = (maxSlots - items.Count) + " / " + maxSlots;
 

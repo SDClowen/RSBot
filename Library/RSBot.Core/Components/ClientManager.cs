@@ -65,6 +65,17 @@ public class ClientManager
         return null;
     }
 
+    private static string GetSignature(GameClientType type)
+    {
+        return type switch
+        {
+            GameClientType.Turkey => "6A 00 68 38 6A 3E 01 68 4C 6A 3E 01",
+            GameClientType.VTC_Game => "6A 00 68 F8 91 3F 01 68 0C 92 3F 01",
+            GameClientType.Taiwan => "6A 00 68 E0 98 3C 01 68 F4 98 3C 01",
+            _ => throw new ArgumentOutOfRangeException(nameof(type))
+        };
+    }
+
     /// <summary>
     ///     Start the game client
     /// </summary>
@@ -165,7 +176,9 @@ public class ClientManager
             sroClientProcess.Exited += ClientProcess_Exited;
             _process = sroClientProcess;
         }
-        else if (Game.ClientType == GameClientType.Global || Game.ClientType == GameClientType.Korean) // TODO: Remove this hack when more elegant solution is found (issue #877)
+        else if (Game.ClientType == GameClientType.Global ||
+            Game.ClientType == GameClientType.Korean ||
+            Game.ClientType == GameClientType.VTC_Game) // TODO: Remove this hack when more elegant solution is found (issue #877)
         {
             AddDllImportToClient(path, libraryDllName, libraryDllFunc);
             try
@@ -200,6 +213,40 @@ public class ClientManager
             } while (sroClientProcess == null);
 
             PrepareTempConfigFile((uint)sroClientProcess.Id, divisionIndex);
+
+            if (Game.ClientType == GameClientType.VTC_Game ||
+                Game.ClientType == GameClientType.Turkey ||
+                Game.ClientType == GameClientType.Taiwan)
+            {
+                ResumeThread(pi.hThread);
+                Thread.Sleep(150);
+                SuspendThread(pi.hThread);
+
+                var moduleMemory = new byte[sroClientProcess.MainModule.ModuleMemorySize];
+                ReadProcessMemory(sroClientProcess.Handle, sroClientProcess.MainModule.BaseAddress, moduleMemory,
+                    sroClientProcess.MainModule.ModuleMemorySize, out _);
+
+                var patchNop = new byte[] { 0x90, 0x90 };
+                var patchNop2 = new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90 };
+                var patchJmp = new byte[] { 0xEB };
+
+                string signature = GetSignature(Game.ClientType);
+
+                var address = FindPattern(signature, moduleMemory);
+                if (address == IntPtr.Zero)
+                {
+                    Log.Error("XIGNCODE patching error! Maybe signatures are wrong?");
+                    return false;
+                }
+
+                WriteProcessMemory(pi.hProcess, address - 0x6F, patchJmp, 1, out _);
+                WriteProcessMemory(pi.hProcess, address + 0x13, patchJmp, 1, out _);
+                WriteProcessMemory(pi.hProcess, address + 0xC, patchNop2, 5, out _);
+                WriteProcessMemory(pi.hProcess, address + 0x95, patchJmp, 1, out _);
+
+                moduleMemory = null;
+                GC.Collect();
+            }
 
             ResumeProcess(sroClientProcess);
 
@@ -275,20 +322,7 @@ public class ClientManager
                 var patchNop2 = new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90 };
                 var patchJmp = new byte[] { 0xEB };
 
-                string signature = string.Empty;
-
-                switch (Game.ClientType)
-                {
-                    case GameClientType.Turkey:
-                        signature = "6A 00 68 38 6A 3E 01 68 4C 6A 3E 01";
-                        break;
-                    case GameClientType.VTC_Game:
-                        signature = "6A 00 68 C8 D2 38 01 68 DC D2 38 01";
-                        break;
-                    case GameClientType.Taiwan:
-                        signature = "6A 00 68 E0 98 3C 01 68 F4 98 3C 01";
-                        break;
-                }
+                string signature = GetSignature(Game.ClientType);
 
                 var address = FindPattern(signature, moduleMemory);
                 if (address == IntPtr.Zero)
