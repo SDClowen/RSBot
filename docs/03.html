@@ -1,0 +1,158 @@
+<h1 id="menu-bar">Menu bar</h1>
+<figure>
+  <img src="assets/03-Menu-bar.png" alt="Menu-Bar" />
+  <figcaption aria-hidden="true">Menu-Bar</figcaption>
+</figure>
+<h2 id="file">File</h2>
+<h3 id="file-select-profile">File &gt; Select Profile</h3>
+<figure>
+  <img src="assets/03-Menu-bar_File_Select-Profile.png" alt="Menu-bar_File_Select-Profile" />
+  <figcaption aria-hidden="true">Menu-bar_File_Select-Profile</figcaption>
+</figure>
+<p>You can delete, add, save selection of profiles with a pop-up. You can alternatively summon the same pop-up on top right <code>%profile-name%</code>.</p>
+<blockquote>
+  <p>[!TIP] Bot will save the configurations for only one character, so if you were to login to another character it won’t have the same configuration as the other character.</p>
+</blockquote>
+<blockquote>
+  <p>[!TIP] You can use profiles to automatically select your desired account / character with the profile pargs.</p>
+</blockquote>
+<blockquote>
+  <p>[!IMPORTANT] If you create a login entry, that entry will only show up on the profile you have selected.</p>
+</blockquote>
+<blockquote>
+  <p>[!WARNING] Profiles will only store data in the general tab, auto-login etc.</p>
+</blockquote>
+<h3 id="file-proxy-config">File &gt; Proxy Config</h3>
+<p>Settings regarding proxy.</p>
+<figure>
+  <img src="assets/03-Menu-bar_File_Proxy_Config.png" alt="Menu-bar_File_Proxy-Config" />
+  <figcaption aria-hidden="true">Menu-bar_File_Proxy-Config</figcaption>
+</figure>
+<h3 id="file-exit">File &gt; Exit</h3>
+<p>Exits the bot.</p>
+<h2 id="view-sidebar">View &gt; Sidebar</h2>
+<p>Shows your pets and targeted entities if you’ve ticked it.</p>
+<figure>
+  <img src="assets/03-Menu-bar_View_Sidebar.png" alt="Menu-bar_View_Sidebar" />
+  <figcaption aria-hidden="true">Menu-bar_View_Sidebar</figcaption>
+</figure>
+<h2 id="tools-script-recorder">Tools &gt; Script Recorder</h2>
+<p>Script recording tool.</p>
+<figure>
+  <img src="assets/03-Menu-bar_Tools_Script-Recorder.png" alt="Menu-bar_Tools_Script-Recorder" />
+  <figcaption aria-hidden="true">Menu-bar_Tools_Script-Recorder</figcaption>
+</figure>
+<blockquote>
+  <p>[!TIP] If you’re going to make a script to go to the training area, let the bot execute town script and then start recording to get to the town loop’s last coordinate as a starting point to avoid any collision.</p>
+</blockquote>
+<blockquote>
+  <p>[!TIP] You can cast skills, it’ll be logged into the script.</p>
+</blockquote>
+<blockquote>
+  <p>[!TIP] For teleportation you need NPC’s type and teleportation option’s name. Type can be found in the <code>Map</code> &gt; <code>Entity list</code> and name is the name of the teleportation without the square brackets e.g. <code>Sigia Drock</code>.</p>
+</blockquote>
+<blockquote>
+  <p>[!TIP] The town scripts are created using this. You can edit them if you feel like it.</p>
+</blockquote>
+<blockquote>
+  <p>[!WARNING] Don’t go too far between 2 points. Bot won’t be able to execute the movement to the specified coordinates, causing your script to fail.</p>
+</blockquote>
+<h2 id="plugins">Plugins</h2>
+<p>Every aspect of the bot is essentially a plugin, you may integrate any 3rd party plugins you may desire on <code>&lt;RSBOT directory&gt;/Data/Plugins</code>. You can find minor plugins here.</p>
+<h3 id="plugins-quests">Plugins &gt; Quests</h3>
+<p>Shows your quests.</p>
+<figure>
+  <img src="assets/03-Menu-bar_Plugins_Quests.png" alt="Menu-bar_Plugins_Quests" />
+  <figcaption aria-hidden="true">Menu-bar_Plugins_Quests</figcaption>
+</figure>
+<h3 id="plugins-command-center">Plugins &gt; Command Center</h3>
+<p>Allows you to control the bot directly from the client. Available actions are:</p>
+<ul>
+  <li>Set the training area</li>
+  <li>Cast all buffs</li>
+  <li>Show the bot window</li>
+  <li>Start the bot</li>
+  <li>Set training area and start bot</li>
+  <li>Stop the bot</li>
+</ul>
+<p>You can invoke them through the chat or emotes. Defaults are:</p>
+<table>
+  <colgroup>
+    <col style="width: 47%" />
+    <col style="width: 31%" />
+    <col style="width: 20%" />
+  </colgroup>
+  <thead>
+    <tr>
+      <th style="text-align: left">Bot command</th>
+      <th style="text-align: left">Emote action</th>
+      <th style="text-align: left">Chat command</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Set the training area</td>
+      <td style="text-align: left"><code>Rush</code> | <code>Greeting</code></td>
+      <td style="text-align: left"><code>\here</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Cast all buffs</td>
+      <td style="text-align: left">unbound</td>
+      <td style="text-align: left"><code>\buff</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Show the bot window</td>
+      <td style="text-align: left"><code>Smile</code></td>
+      <td style="text-align: left"><code>\show</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Start the bot</td>
+      <td style="text-align: left"><code>Yes</code></td>
+      <td style="text-align: left"><code>\start</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Set training area and start bot</td>
+      <td style="text-align: left">unbound</td>
+      <td style="text-align: left"><code>\here</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Stop the bot</td>
+      <td style="text-align: left"><code>No</code></td>
+      <td style="text-align: left"><code>\stop</code></td>
+    </tr>
+  </tbody>
+</table>
+<figure>
+  <img src="assets/03-Menu-bar_Plugins_Command-Center.png" alt="Menu-bar_Plugins_Command-Center" />
+  <figcaption aria-hidden="true">Menu-bar_Plugins_Command-Center</figcaption>
+</figure>
+<h3 id="plugins-server-information">Plugins &gt; Server Information</h3>
+<p>Shows information about the server like server name and their capacity.</p>
+<figure>
+  <img src="assets/03-Menu-bar_Plugins_Server-Information.png" alt="Menu-bar_Plugins_Server-Information" />
+  <figcaption aria-hidden="true">Menu-bar_Plugins_Server-Information</figcaption>
+</figure>
+<h2 id="bots">Bots</h2>
+<p>Allows you to choose a bot base to determine what the bot will do while it’s working. There are currently 4 bot bases:</p>
+<ul>
+  <li><a href="05.-Alchemy.md">Alchemy</a></li>
+  <li><a href="04.-Training.md">Training</a> (Default)</li>
+  <li><a href="06.-Lure.md">Lure</a></li>
+  <li><a href="07.-Trade.md">Trade</a></li>
+</ul>
+<p>When you select another bot base, the second tab will be replaced with the bot base you’ve selected.</p>
+<h2 id="language">Language</h2>
+<p>Lets you select your desired language. Currently supported languages are:</p>
+<ul>
+  <li>English</li>
+  <li>German</li>
+  <li>Turkish</li>
+  <li>Spanish</li>
+  <li>Vietnamase</li>
+  <li>Russian</li>
+  <li>Arabic</li>
+</ul>
+<h2 id="theme">Theme</h2>
+<p>Lets you determine the color theme of the UI. Dark, Light, Auto or user specified color.</p>
+<h2 id="about">About</h2>
+<p>Displays links that are connected with the bot.</p>

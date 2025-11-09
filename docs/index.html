@@ -1,0 +1,113 @@
+<h1 id="rsbot-v2.9.9">RSBot <a href="https://github.com/SDClowen/RSBot/releases/latest">v2.9.9</a></h1>
+<p>
+  Welcome to the RSBot Wiki!<br />
+  Contents are subject to major change, as there have been 8 major releases since the wiki’s initial write. More text will be added to describe each specific option.
+</p>
+<h2 id="links">Links</h2>
+<ul>
+  <li>If you have any feedback or suggestions visit the <a href="https://discord.gg/MuY5ejEU3r">Discord</a>.</li>
+  <li>If you’d like to report bugs you’ve encountered, use <a href="https://github.com/SDClowen/RSBot/issues">GitHub</a>.</li>
+  <li><a href="https://github.com/SDClowen/RSBot">Repo</a></li>
+  <li><a href="https://app.fossa.com/projects/git%2Bgithub.com%2FSDClowen%2FRSBot?ref=badge_shield">FOSSA</a></li>
+  <li><a href="https://github.com/SDClowen/RSBot/blob/master/LICENSE">LICENSE</a></li>
+  <li><a href="https://www.facebook.com/rsbotofficial">Facebook</a></li>
+  <li><a href="https://www.buymeacoffee.com/sdclowen">Sponsor the project!</a></li>
+</ul>
+<h2 id="supported-clients">Supported clients</h2>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Region</th>
+      <th style="text-align: left">Version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Japanese Old</td>
+      <td style="text-align: left">JSRO_SL</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Thailand</td>
+      <td style="text-align: left">Blackrogue 100</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Thailand</td>
+      <td style="text-align: left">Blackrogue 110</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Vietnam</td>
+      <td style="text-align: left">vSRO 188</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Vietnam</td>
+      <td style="text-align: left">vSRO 193</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Vietnam</td>
+      <td style="text-align: left">vSRO 274</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Taiwan</td>
+      <td style="text-align: left">TSRO 110</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Chinese</td>
+      <td style="text-align: left">cSRO/-R</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Global</td>
+      <td style="text-align: left">iSRO (International Silkroad)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Turkey</td>
+      <td style="text-align: left">TRSRO</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Korean</td>
+      <td style="text-align: left">KSRO</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Rigid</td>
+      <td style="text-align: left">iSRO (International Silkroad 2015)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><del>Chinese Old</del></td>
+      <td style="text-align: left"><del>MHTC</del></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><del>Japanese-R</del></td>
+      <td style="text-align: left"></td>
+    </tr>
+  </tbody>
+</table>
+<h2 id="faq">FAQ</h2>
+<h3 id="how-to-run-multiple-clients-easily">How to run multiple clients (easily)</h3>
+<p>Create new profiles for each character you want to open for demonstration purposes. Let’s say you name them 1 through 8.</p>
+<p>To launch a new bot instance with the new profiles while starting the bot, you’ve to pass in the name of the profile as an argument to the executable. Here are some ways to do this:</p>
+<h3 id="terminal">1 Terminal</h3>
+<p>Run <code>..\RSBot.exe &lt;1-8&gt;</code></p>
+<h3 id="scripts">2 Scripts</h3>
+<p>You can create a batch script like so:</p>
+<div class="sourceCode" id="cb1">
+  <pre class="sourceCode bat"><code class="sourceCode dosbat"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">START</span> <span class="st">&quot;&quot;</span> RSBot.exe 1</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>timeout <span class="at">/t</span> 1 <span class="at">/nobreak</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">START</span> <span class="st">&quot;&quot;</span> RSBot.exe 2</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>timeout <span class="at">/t</span> 1 <span class="at">/nobreak</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">START</span> <span class="st">&quot;&quot;</span> RSBot.exe 3</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>...</span></code></pre>
+</div>
+<blockquote>
+  <p>[!IMPORTANT] The delay between launching each bot instance is required because of some initialization conflicting with each other. Increase the delay if your computer is slow,</p>
+</blockquote>
+<h3 id="shortcuts">3 Shortcuts</h3>
+<ol type="1">
+  <li>Create a shortcut pointing to the executable</li>
+  <li>Go to the properties of the shortcut</li>
+  <li>On the line <code>Target</code> append profile name <code>..\RSBot.exe &lt;1-8&gt;</code></li>
+  <li>Launch each profile using the shortcuts</li>
+</ol>
+<h3 id="client-gets-stuck-when-issued-to-train">Client gets stuck when issued to train</h3>
+<p>Disable <code>Enable collision detection</code> from <code>Map</code> subsection</p>
+<h2 id="contributors-of-the-wiki">Contributors of the Wiki</h2>
+<h3 id="main-writermaintainer-of-the-wiki">Main writer/maintainer of the wiki</h3>
+<p><a href="https://github.com/Egezenn">Egezenn</a></p>
