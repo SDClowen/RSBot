@@ -353,7 +353,7 @@ public partial class Main : DoubleBufferedControl
                     {
                         if (Game.Party != null && Game.Party.Members != null &&
                             Game.Party.GetMemberByName(entry.Name) != null)
-                            return;
+                            continue;
 
                         AddGridItem(entry.Name, "Player", 0, entry.Movement.Source);
                         DrawPointAt(graphics, entry.Movement.Source, 3);
