@@ -8,11 +8,10 @@ To join the conversation, get recent updates/announcements, join our [Discord se
 
 [![GitHub Issues](https://img.shields.io/github/issues/sdclowen/rsbot?label=Open%20Issues)](https://github.com/sdclowen/rsbot/issues)
 [![downloads](https://img.shields.io/github/downloads/SDClowen/RSBot/total?label=Total%20Downloads)](https://github.com/SDClowen/RSBot/releases)
-[![downloads-latest](https://img.shields.io/github/downloads/SDClowen/RSBot/latest/total?label=Last%20release)](https://github.com/SDClowen/RSBot/releases/latest)
+[![downloads-latest](https://img.shields.io/github/downloads/SDClowen/RSBot/latest/total?label=Latest%20release)](https://github.com/SDClowen/RSBot/releases/latest)
 
-[![GitHub Repo](https://img.shields.io/badge/github-sdclowen/rsbot-green?style=social)](https://github.com/SDClowen/RSBot)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-SDClowen/RSBot-green?style=social)](https://github.com/SDClowen/RSBot)
 [![Discord](https://img.shields.io/discord/454345032846016515?label=Discord%20Server)](https://discord.gg/rmd96aus9A)
-[![Facebook](https://img.shields.io/badge/Facebook-rsbotofficial%20-blue?style=social)](https://www.facebook.com/rsbotofficial)
 
 [![Coffee](https://img.shields.io/badge/Donate_@_Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/sdclowen)
 

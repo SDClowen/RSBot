@@ -1,0 +1,105 @@
+body {
+  background-color: #212529;
+  color: #dee2e6;
+}
+
+img {
+  margin-bottom: 1rem;
+}
+
+.sidebar {
+  background-color: #343a40;
+  padding: 1rem;
+  border-radius: 16px 0 0 16px;
+  height: fit-content;
+}
+
+.footer {
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.content {
+  padding: 1rem;
+}
+
+.nav-link {
+  color: #dee2e6;
+}
+
+.nav-link:hover {
+  color: #fff;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  background-color: #495057;
+}
+
+.admonition {
+  padding: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.admonition-title {
+  font-weight: bold;
+}
+
+.admonition.note {
+  color: white;
+  border-color: #3b82f6; 
+  background-color: rgb(59 130 246 / 10%);
+}
+
+.admonition.note .admonition-title {
+  color: #a2d2ff; 
+}
+
+.admonition.tip {
+  color: white;
+  border-color: #10b981; 
+  background-color: rgb(16 185 129 / 10%);
+}
+
+.admonition.tip .admonition-title {
+  color: #a7f3d0; 
+}
+
+.admonition.important {
+  color: white;
+  border-color: #f59e0b; 
+  background-color: rgb(245 158 11 / 10%);
+}
+
+.admonition.important .admonition-title {
+  color: #fcd34d; 
+}
+
+.admonition.warning {
+  color: white;
+  border-color: #ef4444; 
+  background-color: rgb(239 68 68 / 10%);
+}
+
+.admonition.warning .admonition-title {
+  color: #fca5a5; 
+}
+
+.admonition.caution {
+  color: white;
+  border-color: #ef4444; 
+  background-color: rgb(239 68 68 / 10%);
+}
+
+.admonition.caution .admonition-title {
+  color: #fca5a5; 
+}
+
+@media (width <= 768px) {
+  .sidebar {
+    border-radius: 0;
+  }
+}
