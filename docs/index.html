@@ -134,15 +134,14 @@
           <p>Run <code>..\RSBot.exe &lt;1-8&gt;</code></p>
           <h3>2 Scripts</h3>
           <p>You can create a batch script like so:</p>
-          <div class="sourceCode" id="cb1">
-            <pre
-              class="sourceCode bat"
-            ><code class="sourceCode dosbat"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">START</span> <span class="st">""</span> RSBot.exe 1</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>timeout <span class="at">/t</span> 1 <span class="at">/nobreak</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">START</span> <span class="st">""</span> RSBot.exe 2</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>timeout <span class="at">/t</span> 1 <span class="at">/nobreak</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">START</span> <span class="st">""</span> RSBot.exe 3</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>...</span></code></pre>
+          <div class="sourceCode">
+            <pre class="sourceCode bat"><code class="sourceCode dosbat">START "" RSBot.exe 1
+timeout /t 1 /nobreak
+START "" RSBot.exe 2
+timeout /t 1 /nobreak
+START "" RSBot.exe 3
+...</code>
+</pre>
           </div>
           <blockquote>
             <p>
