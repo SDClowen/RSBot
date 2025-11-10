@@ -28,15 +28,14 @@ internal class ResurrectBundle : IBundle
                 Kernel.TickCount - _lastResurrectedPlayers[member.Name] < 180 * 1000)
                 continue;
 
-            if (member.Player == null ||
-                member.Player == null)
+            if ((member.Player?.Movement.Source.DistanceTo(Game.Player.Movement.Source) ?? 
+                member.Position.DistanceTo(Game.Player.Movement.Source)) > 100 ||
+                (member.Player?.Movement.Source.HasCollisionBetween(Game.Player.Movement.Source) ?? 
+                member.Position.HasCollisionBetween(Game.Player.Movement.Source)))
                 continue;
 
-            if (member.Player.Movement.Source.DistanceTo(Game.Player.Movement.Source) > 100 ||
-                member.Player.Movement.Source.HasCollisionBetween(Game.Player.Movement.Source))
-                continue;
-
-            if (member.Player.State.LifeState != LifeState.Dead)
+            if (member.Player?.State.LifeState != LifeState.Dead &&
+                (member.HealthMana & 0x0F) != 0)
                 continue;
 
             if (!_lastResurrectedPlayers.ContainsKey(member.Name))
@@ -44,12 +43,12 @@ internal class ResurrectBundle : IBundle
             else
                 _lastResurrectedPlayers[member.Name] = Kernel.TickCount;
 
-            var moved = Game.Player.MoveTo(member.Player.Movement.Source, false);
+            var moved = Game.Player.MoveTo(member.Player?.Movement.Source ?? member.Position, true);
             if (!moved)
                 continue;
 
             Log.Status($"Resurrecting player {member.Name}");
-            SkillManager.ResurrectionSkill?.Cast(member.Player.UniqueId, true);
+            SkillManager.ResurrectionSkill?.Cast(member.Player?.UniqueId ?? member.MemberId, true);
         }
     }
 
