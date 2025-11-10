@@ -3,7 +3,7 @@ body {
   color: #dee2e6;
 }
 
-img {
+img:not([src="assets/app.ico"]) {
   margin-bottom: 1rem;
   width: fit-content;
 }
