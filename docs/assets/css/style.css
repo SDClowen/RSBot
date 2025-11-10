@@ -15,6 +15,10 @@ img {
   margin-top: 2rem;
   padding: 1rem;
   width: fit-content;
+
+  & > nav > .nav-link:hover {
+    background-color: #474c52;
+  }
 }
 
 .footer {
@@ -109,6 +113,7 @@ img {
 @media (width <= 768px) {
   .sidebar {
     border-radius: 0;
+    width: 100%;
   }
 }
 
