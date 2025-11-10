@@ -1,66 +1,70 @@
-# RSBot - An Open Source Silkroad Online Bot
+# RSBot
 
-Hello reputable Silkroad Online community. This is a free and open source Silkroad Online bot which is being maintained and developed by the community. You can edit the code as you wish, you can open pull requests for the changes you've made to support the bot. The supported clients that are listed below are a result of prolonged work. If you encounter any errors, you can create a ticket in our [Discord](https://discord.gg/MuY5ejEU3r) or create issues at [GitHub](https://github.com/SDClowen/RSBot/issues), to get the recent updates/announcements you can follow the repository or join the Discord server.
+Free, open source Silkroad Online bot for everyone to use!
+
+Feel free to edit the code, create pull requests for any and all improvements, create issues and request features. [Supported clients](#supported-clients) that are listed below are a result of prolonged community work, do not hesitate to accompany us!
+
+To join the conversation, get recent updates/announcements, join our [Discord server](https://discord.gg/MuY5ejEU3r).
+
+[![GitHub Issues](https://img.shields.io/github/issues/sdclowen/rsbot?label=Open%20Issues)](https://github.com/sdclowen/rsbot/issues)
+[![downloads](https://img.shields.io/github/downloads/SDClowen/RSBot/total?label=Total%20Downloads)](https://github.com/SDClowen/RSBot/releases)
+[![downloads-latest](https://img.shields.io/github/downloads/SDClowen/RSBot/latest/total?label=Latest%20release)](https://github.com/SDClowen/RSBot/releases/latest)
+
+[![GitHub Repo](https://img.shields.io/badge/GitHub-SDClowen/RSBot-green?style=social)](https://github.com/SDClowen/RSBot)
+[![Discord](https://img.shields.io/discord/454345032846016515?label=Discord%20Server)](https://discord.gg/rmd96aus9A)
+
+[![Coffee](https://img.shields.io/badge/Donate_@_Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/sdclowen)
+
 
 ## Download links
 
-Stable binaries are available [here](https://github.com/SDClowen/RSBot/releases/latest).
+[![Version](https://img.shields.io/github/v/release/SDClowen/RSBot?label=Latest%20Stable&style=for-the-badge)](https://github.com/SDClowen/RSBot/releases/latest)
 
-However every week, if there's been any development, nightly binaries are available as pre-releases [here](https://github.com/SDClowen/RSBot/releases).
+In addition to stable releases we provide seperate nightly releases if to test, provide the latest additions before an official stable release!
 
-## Supported clients
+[![release-all](https://img.shields.io/badge/Latest%20Release-Nightly-FF0000?style=for-the-badge)](https://github.com/SDClowen/RSBot/releases)
 
-| Region          | Version                            |
-|:----------------|:-----------------------------------|
-| Japanese Old    | JSRO_SL                            |
-| Thailand        | Blackrogue 100                     |
-| Thailand        | Blackrogue 110                     |
-| Vietnam         | vSRO 188                           |
-| Vietnam         | vSRO 193                           |
-| Vietnam         | vSRO 274                           |
-| Taiwan Old      | TSRO 110                           |
-| Chinese Old     | cSRO/-R                            |
-| Chinese         | ICCGame                            |
-| Global          | iSRO (International Silkroad)      |
-| Turkey          | TRSRO                              |
-| Vietnam         | VTC Game                           |
-| Taiwan          | Digeam                             |
-| Korean          | KSRO                               |
-| Japanese        | JSRO                               |
-| Russia          | RuSro                              |
-| Rigid           | iSRO (International Silkroad 2015) |
-| ~~Chinese Old~~ | ~~MHTC~~                           |
-| ~~Japanese-R~~  |                                    |
+A simple manager can also be found below.
 
-## Links for development and community
-
-[![GitHub Repo](https://img.shields.io/badge/github-sdclowen/rsbot-green.svg)](https://github.com/SDClowen/RSBot)
-[![Discord](https://img.shields.io/discord/454345032846016515.svg)](https://discord.gg/rmd96aus9A)
-[![Facebook](https://img.shields.io/badge/facebook-page%20-blue)](https://www.facebook.com/rsbotofficial/)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSDClowen%2FRSBot.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FSDClowen%2FRSBot?ref=badge_shield)
-
-## Issues and status
-
-[![GitHub Issues](https://img.shields.io/github/issues/sdclowen/rsbot.svg)](https://github.com/sdclowen/rsbot/issues)
-[![Version](https://img.shields.io/badge/version-v2.9.9-maroon.svg)](https://github.com/SDClowen/RSBot)
-
-## Project info
-
-![Language](https://img.shields.io/badge/language-CSharp-blue.svg)
-[![GitHub License](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/SDClowen/RSBot/blob/master/LICENSE)
+[![release-all](https://img.shields.io/badge/Latest%20Release-Manager-00DD00?style=for-the-badge)](https://github.com/warofmine/Rsbot-Manager/releases/latest)
 
 ## Building the project
 
 1. Clone the repository (`git clone --recursive https://github.com/SDClowen/RSBot.git`)
 2. Open the project in Visual Studio 2022 (Required workloads are `.NET desktop development` and `Desktop development with C++`)
-3. Built the project (`Ctrl+Shift+B`)
+3. Built the project (<kbd>Ctrl+Shift+B</kbd>)
 4. Copy the contents of `Dependencies` directory to `Build\Data`
-5. Run the executable from `Build\RSBot.exe`
+5. Run the compiled executable from `Build\RSBot.exe`
 
-## Support the project
+## Supported clients
 
-[![Coffee](https://img.shields.io/badge/Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/sdclowen)
+| Region          | Version                       |
+| :-------------- | :---------------------------- |
+| Chinese         | ICCGame                       |
+| Chinese Old     | cSRO/-R                       |
+| Global          | iSRO (International Silkroad) |
+| Japanese        | JSRO                          |
+| Japanese Old    | JSRO_SL                       |
+| Korean          | KSRO                          |
+| Rigid           | iSRO 2015                     |
+| Russia          | RuSro                         |
+| Taiwan          | Digeam                        |
+| Taiwan Old      | TSRO 110                      |
+| Thailand        | Blackrogue 100                |
+| Thailand        | Blackrogue 110                |
+| Turkey          | TRSRO                         |
+| Vietnam         | vSRO 188                      |
+| Vietnam         | vSRO 193                      |
+| Vietnam         | vSRO 274                      |
+| Vietnam         | VTC Game                      |
+| ~~Chinese Old~~ | ~~MHTC~~                      |
+| ~~Japanese-R~~  |                               |
 
-## License
+
+## Project info
+
+![Language](https://img.shields.io/badge/language-CSharp-blue)
+[![GitHub License](https://img.shields.io/badge/License-GPLv3-blue)](https://github.com/SDClowen/RSBot/blob/master/LICENSE)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSDClowen%2FRSBot.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FSDClowen%2FRSBot?ref=badge_shield)
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSDClowen%2FRSBot.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FSDClowen%2FRSBot?ref=badge_large)

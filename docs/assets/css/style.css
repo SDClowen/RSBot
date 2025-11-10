@@ -1,0 +1,153 @@
+body {
+  background-color: #212529;
+  color: #dee2e6;
+}
+
+img:not([src="assets/app.ico"]) {
+  margin-bottom: 1rem;
+  width: fit-content;
+}
+
+.sidebar {
+  background-color: #343a40;
+  border-radius: 16px;
+  height: fit-content;
+  margin-top: 2rem;
+  padding: 1rem;
+  width: fit-content;
+
+  & > nav > .nav-link:hover {
+    background-color: #474c52;
+  }
+}
+
+.footer {
+  padding: 1rem 0;
+  text-align: center;
+}
+
+.content {
+  padding: 1rem;
+}
+
+.nav-link {
+  color: #dee2e6;
+}
+
+.nav-link:hover {
+  color: #fff;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  background-color: #495057;
+}
+
+.admonition {
+  border: 1px solid transparent;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding: 15px;
+  width: fit-content;
+}
+
+.admonition-title {
+  font-weight: bold;
+}
+
+.admonition.note {
+  background-color: rgb(59 130 246 / 10%);
+  border-color: #3b82f6;
+  color: white;
+}
+
+.admonition.note .admonition-title {
+  color: #a2d2ff;
+}
+
+.admonition.tip {
+  background-color: rgb(16 185 129 / 10%);
+  border-color: #10b981;
+  color: white;
+}
+
+.admonition.tip .admonition-title {
+  color: #a7f3d0;
+}
+
+.admonition.important {
+  background-color: rgb(245 158 11 / 10%);
+  border-color: #f59e0b;
+  color: white;
+}
+
+.admonition.important .admonition-title {
+  color: #fcd34d;
+}
+
+.admonition.warning {
+  background-color: rgb(239 68 68 / 10%);
+  border-color: #ef4444;
+  color: white;
+}
+
+.admonition.warning .admonition-title {
+  color: #fca5a5;
+}
+
+.admonition.caution {
+  background-color: rgb(239 68 68 / 10%);
+  border-color: #ef4444;
+  color: white;
+}
+
+.admonition.caution .admonition-title {
+  color: #fca5a5;
+}
+
+.navbar-custom {
+  background-color: #343a40 !important;
+}
+
+@media (width <= 768px) {
+  .sidebar {
+    border-radius: 0;
+    width: 100%;
+  }
+}
+
+@media (width >= 1400px) {
+  .container-fluid {
+    margin: 0 auto;
+    max-width: 1320px;
+  }
+}
+
+table {
+  border-collapse: collapse;
+  color: #dee2e6;
+  margin-bottom: 1rem;
+}
+
+th,
+td {
+  border-top: 1px solid #495057;
+  padding: 0.75rem;
+  vertical-align: top;
+}
+
+thead th {
+  background-color: rgb(255 255 255 / 10%);
+  border-bottom: 2px solid #495057;
+  vertical-align: bottom;
+}
+
+tbody + tbody {
+  border-top: 2px solid #495057;
+}
+
+table tbody tr:hover {
+  background-color: rgb(255 255 255 / 7.5%);
+  color: #fff;
+}
