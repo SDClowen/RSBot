@@ -1,4 +1,4 @@
-# RSBot - An Open Source Silkroad Online Bot
+# RSBot
 
 Free, open source Silkroad Online bot for everyone to use!
 

@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Header
   header.classList.add("sticky-top");
   header.innerHTML = `
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-custom">
         <div class="container-fluid">
             <a class="navbar-brand" href="index.html">
                 <img src="assets/app.ico" alt="RSBot Icon" width="30" height="24" class="d-inline-block align-text-top">

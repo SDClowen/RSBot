@@ -5,18 +5,21 @@ body {
 
 img {
   margin-bottom: 1rem;
+  width: fit-content;
 }
 
 .sidebar {
   background-color: #343a40;
-  padding: 1rem;
-  border-radius: 16px 0 0 16px;
+  border-radius: 16px;
   height: fit-content;
+  margin-top: 2rem;
+  padding: 1rem;
+  width: fit-content;
 }
 
 .footer {
-  text-align: center;
   padding: 1rem 0;
+  text-align: center;
 }
 
 .content {
@@ -37,11 +40,12 @@ img {
 }
 
 .admonition {
-  padding: 15px;
-  margin-top: 20px;
-  margin-bottom: 20px;
   border: 1px solid transparent;
   border-radius: 4px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding: 15px;
+  width: fit-content;
 }
 
 .admonition-title {
@@ -49,57 +53,96 @@ img {
 }
 
 .admonition.note {
-  color: white;
-  border-color: #3b82f6; 
   background-color: rgb(59 130 246 / 10%);
+  border-color: #3b82f6;
+  color: white;
 }
 
 .admonition.note .admonition-title {
-  color: #a2d2ff; 
+  color: #a2d2ff;
 }
 
 .admonition.tip {
-  color: white;
-  border-color: #10b981; 
   background-color: rgb(16 185 129 / 10%);
+  border-color: #10b981;
+  color: white;
 }
 
 .admonition.tip .admonition-title {
-  color: #a7f3d0; 
+  color: #a7f3d0;
 }
 
 .admonition.important {
-  color: white;
-  border-color: #f59e0b; 
   background-color: rgb(245 158 11 / 10%);
+  border-color: #f59e0b;
+  color: white;
 }
 
 .admonition.important .admonition-title {
-  color: #fcd34d; 
+  color: #fcd34d;
 }
 
 .admonition.warning {
-  color: white;
-  border-color: #ef4444; 
   background-color: rgb(239 68 68 / 10%);
+  border-color: #ef4444;
+  color: white;
 }
 
 .admonition.warning .admonition-title {
-  color: #fca5a5; 
+  color: #fca5a5;
 }
 
 .admonition.caution {
-  color: white;
-  border-color: #ef4444; 
   background-color: rgb(239 68 68 / 10%);
+  border-color: #ef4444;
+  color: white;
 }
 
 .admonition.caution .admonition-title {
-  color: #fca5a5; 
+  color: #fca5a5;
+}
+
+.navbar-custom {
+  background-color: #343a40 !important;
 }
 
 @media (width <= 768px) {
   .sidebar {
     border-radius: 0;
   }
+}
+
+@media (width >= 1400px) {
+  .container-fluid {
+    margin: 0 auto;
+    max-width: 1320px;
+  }
+}
+
+table {
+  border-collapse: collapse;
+  color: #dee2e6;
+  margin-bottom: 1rem;
+}
+
+th,
+td {
+  border-top: 1px solid #495057;
+  padding: 0.75rem;
+  vertical-align: top;
+}
+
+thead th {
+  background-color: rgb(255 255 255 / 10%);
+  border-bottom: 2px solid #495057;
+  vertical-align: bottom;
+}
+
+tbody + tbody {
+  border-top: 2px solid #495057;
+}
+
+table tbody tr:hover {
+  background-color: rgb(255 255 255 / 7.5%);
+  color: #fff;
 }
