@@ -64,8 +64,8 @@ internal class LoopConditionValidator
         if (Game.Party == null || Game.Party.Members == null)
             return true;
 
-        return Game.Party.Members.Count(p => p.Position.DistanceTo(LureConfig.Area.Position) < 100 ||
-            (p.Player?.Movement.Source.DistanceTo(LureConfig.Area.Position) ?? float.MaxValue) < 100) >
+        return Game.Party.Members.Count(p => (p.Player?.Movement.Source.DistanceTo(LureConfig.Area.Position) ??
+        p.Position.DistanceTo(LureConfig.Area.Position)) < 100) >
                 LureConfig.NumPartyMembersOnSpot;
     }
 
