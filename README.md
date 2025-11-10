@@ -38,27 +38,27 @@ A simple manager can also be found below.
 
 ## Supported clients
 
-| Region          | Version                            |
-| :-------------- | :--------------------------------- |
-| Chinese         | ICCGame                            |
-| Chinese Old     | cSRO/-R                            |
-| Global          | iSRO (International Silkroad)      |
-| Japanese        | JSRO                               |
-| Japanese Old    | JSRO_SL                            |
-| Korean          | KSRO                               |
-| Rigid           | iSRO (International Silkroad 2015) |
-| Russia          | RuSro                              |
-| Taiwan          | Digeam                             |
-| Taiwan Old      | TSRO 110                           |
-| Thailand        | Blackrogue 100                     |
-| Thailand        | Blackrogue 110                     |
-| Turkey          | TRSRO                              |
-| Vietnam         | vSRO 188                           |
-| Vietnam         | vSRO 193                           |
-| Vietnam         | vSRO 274                           |
-| Vietnam         | VTC Game                           |
-| ~~Chinese Old~~ | ~~MHTC~~                           |
-| ~~Japanese-R~~  |                                    |
+| Region          | Version                       |
+| :-------------- | :---------------------------- |
+| Chinese         | ICCGame                       |
+| Chinese Old     | cSRO/-R                       |
+| Global          | iSRO (International Silkroad) |
+| Japanese        | JSRO                          |
+| Japanese Old    | JSRO_SL                       |
+| Korean          | KSRO                          |
+| Rigid           | iSRO 2015                     |
+| Russia          | RuSro                         |
+| Taiwan          | Digeam                        |
+| Taiwan Old      | TSRO 110                      |
+| Thailand        | Blackrogue 100                |
+| Thailand        | Blackrogue 110                |
+| Turkey          | TRSRO                         |
+| Vietnam         | vSRO 188                      |
+| Vietnam         | vSRO 193                      |
+| Vietnam         | vSRO 274                      |
+| Vietnam         | VTC Game                      |
+| ~~Chinese Old~~ | ~~MHTC~~                      |
+| ~~Japanese-R~~  |                               |
 
 
 ## Project info
