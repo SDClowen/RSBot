@@ -31,11 +31,16 @@ public class Config
         _config = new ConcurrentDictionary<string, string>();
         foreach (var line in File.ReadAllLines(_path))
         {
-            if (string.IsNullOrWhiteSpace(line))
+            if (string.IsNullOrWhiteSpace(line) || !line.Contains('{') || !line.Contains('}'))
                 continue;
 
-            var key = line.Split('{')[0];
-            var value = line.Split('{')[1].Split('}')[0];
+            var parts = line.Split(new[] { '{' }, 2);
+            if (parts.Length < 2)
+                continue;
+
+            var key = parts[0];
+            var valueParts = parts[1].Split('}');
+            var value = valueParts[0];
 
             if (!_config.ContainsKey(key))
                 _config.TryAdd(key, value);

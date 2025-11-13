@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RSBot Wiki - Starting off</title>
+    <title>RSBot Wiki - FAQ</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="assets/css/style.css" rel="stylesheet" />
     <link rel="icon" href="assets/app.ico" />
@@ -14,46 +14,58 @@
     <div class="container-fluid">
       <div class="row">
         <main id="content" class="col-md-9 ms-sm-auto col-lg-10 px-md-4 content">
-          <h1>Starting off</h1>
-          <ul>
+          <h1>FAQ</h1>
+
+          <h2>How to run multiple clients (easily)</h2>
+          <p>
+            Create new profiles for each character you want to open for demonstration purposes. Let’s say you name them
+            1 through 8.
+          </p>
+          <p>
+            To launch a new bot instance with the new profiles while starting the bot, you’ve to pass in the name of the
+            profile as an argument to the executable. Here are some ways to do this:
+          </p>
+
+          <h3>1 Manager</h3>
+          <p>
+            Get latest release of the manager from
+            <a href="https://github.com/warofmine/Rsbot-Manager/releases/latest">here</a>.
+          </p>
+
+          <h3>2 Terminal</h3>
+          <p>Run <code>..\RSBot.exe &lt;1-8&gt;</code></p>
+
+          <h3>3 Scripts</h3>
+          <p>You can create a batch script like so:</p>
+          <div class="sourceCode">
+            <pre class="sourceCode bat"><code class="sourceCode dosbat">START "" RSBot.exe 1
+timeout /t 1 /nobreak
+START "" RSBot.exe 2
+timeout /t 1 /nobreak
+START "" RSBot.exe 3
+...</code>
+</pre>
+          </div>
+          <blockquote>
+            <p>
+              [!IMPORTANT] The delay between launching each bot instance is required because of some initialization
+              conflicting with each other. Increase the delay if your computer is slow,
+            </p>
+          </blockquote>
+
+          <h3>4 Shortcuts</h3>
+          <ol>
+            <li>Create a shortcut pointing to the executable</li>
+            <li>Go to the properties of the shortcut</li>
             <li>
-              Download the bot from
-              <a href="https://github.com/SDClowen/RSBot/releases/latest">here</a>
-              and extract the contents of it to a path of your choosing.
+              On the line <code>Target</code> append profile name
+              <code>..\RSBot.exe &lt;1-8&gt;</code>
             </li>
-          </ul>
-          <blockquote>
-            <p>[!IMPORTANT] If you don’t have .NET Runtime, the bot will prompt you to install it on launch.</p>
-          </blockquote>
-          <blockquote>
-            <p>
-              [!IMPORTANT] Exclude your bot’s installation path from the antivirus software that you’re using if you’re
-              encountering issues.
-            </p>
-          </blockquote>
-          <ul>
-            <li>
-              Once you lauch the bot, it will prompt you to locate
-              <code>sro_client.exe</code> in your silkroad folder, after that the main bot window should open.
-            </li>
-          </ul>
-          <blockquote>
-            <p>
-              [!WARNING] Unlike other old bots you don’t have to have multiple bot folders to have multiple instances,
-              each containing the bot software’s contents. Instead there is a profile system which allows you to do the
-              same thing.
-            </p>
-          </blockquote>
-          <ul>
-            <li>After the program opens you’ll need to select your client type.</li>
-          </ul>
-          <blockquote>
-            <p>
-              [!IMPORTANT] You’ve to select <code>Vietnam</code> for most private servers, there are 3 versions for it,
-              try other versions if one doesn’t seem to work.<br />
-              <code>Global</code> for iSRO, <code>Turkey</code> for TRSRO so on and so forth.
-            </p>
-          </blockquote>
+            <li>Launch each profile using the shortcuts</li>
+          </ol>
+
+          <h2>Client gets stuck when issued to train</h2>
+          <p>Disable <code>Enable collision detection</code> from <code>Map</code> subsection</p>
         </main>
         <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar"></nav>
       </div>

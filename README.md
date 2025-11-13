@@ -1,4 +1,4 @@
-# RSBot
+# [RSBot](https://sdclowen.github.io/RSBot)
 
 Free, open source Silkroad Online bot for everyone to use!
 
@@ -15,18 +15,12 @@ To join the conversation, get recent updates/announcements, join our [Discord se
 
 [![Coffee](https://img.shields.io/badge/Donate_@_Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/sdclowen)
 
-
-## Download links
-
-[![Version](https://img.shields.io/github/v/release/SDClowen/RSBot?label=Latest%20Stable&style=for-the-badge)](https://github.com/SDClowen/RSBot/releases/latest)
-
-In addition to stable releases we provide seperate nightly releases if to test, provide the latest additions before an official stable release!
-
-[![release-all](https://img.shields.io/badge/Latest%20Release-Nightly-FF0000?style=for-the-badge)](https://github.com/SDClowen/RSBot/releases)
-
-A simple manager can also be found below.
-
-[![release-all](https://img.shields.io/badge/Latest%20Release-Manager-00DD00?style=for-the-badge)](https://github.com/warofmine/Rsbot-Manager/releases/latest)
+| Links                                                                                                                                                                    |                                            |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------ |
+| [![release-latest](https://img.shields.io/github/v/release/SDClowen/RSBot?label=Latest%20Stable&style=for-the-badge)](https://github.com/SDClowen/RSBot/releases/latest) | Latest stable release                      |
+| [![release-all](https://img.shields.io/badge/Latest%20Release-Nightly-FF0000?style=for-the-badge)](https://github.com/SDClowen/RSBot/releases)                           | Nightly releases for most recent features  |
+| [![release-manager](https://img.shields.io/badge/Latest%20Release-Manager-00DD00?style=for-the-badge)](https://github.com/warofmine/Rsbot-Manager/releases/latest)       | Manager for multiple bot profiles          |
+| [![wiki](https://img.shields.io/badge/RSBot-Wiki-FF00FF?style=for-the-badge)](https://sdclowen.github.io/RSBot)                                                          | Documentation, tips & tricks and tutorials |
 
 ## Building the project
 
