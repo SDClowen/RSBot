@@ -47,7 +47,7 @@ public partial class SplashScreen : UIWindow
             return;
         }
 
-        Kernel.Language = GlobalConfig.Get("RSBot.Language", "en_US");
+        Kernel.Language = SystemConfig.Get("RSBot.Language", "en_US");
 
         LanguageManager.Translate(_mainForm, Kernel.Language);
 

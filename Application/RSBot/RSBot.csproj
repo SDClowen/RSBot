@@ -34,4 +34,10 @@
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	  <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.10.0" />
 	</ItemGroup>
+  <Target Name="CopyDependencies" AfterTargets="Build">
+    <ItemGroup>
+      <DependencyFiles Include="..\..\Dependencies\**\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(DependencyFiles)" DestinationFolder="..\..\Build\Data\%(RecursiveDir)" />
+  </Target>
 </Project>
