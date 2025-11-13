@@ -13,6 +13,8 @@ public static class GlobalConfig
     /// </summary>
     private static Config _config;
 
+    private static FileSystemWatcher _watcher;
+
     /// <summary>
     ///     Load config from file
     /// </summary>
@@ -22,7 +24,42 @@ public static class GlobalConfig
 
         _config = new Config(path);
 
+        _watcher?.Dispose();
+        _watcher = new FileSystemWatcher
+        {
+            Path = Path.GetDirectoryName(path),
+            Filter = Path.GetFileName(path),
+            NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size,
+            EnableRaisingEvents = true
+        };
+
+        _watcher.Changed += OnConfigFileChanged;
+
         Log.Notify("[Global] settings have been loaded!");
+    }
+
+    private static void OnConfigFileChanged(object sender, FileSystemEventArgs e)
+    {
+        if (e.ChangeType != WatcherChangeTypes.Changed)
+            return;
+
+        try
+        {
+            _watcher.EnableRaisingEvents = false;
+            
+            // The file is still being written, wait a bit.
+            System.Threading.Thread.Sleep(100);
+
+            var path = Path.Combine(Kernel.BasePath, "User", ProfileManager.SelectedProfile + ".rs");
+            _config = new Config(path);
+
+            Log.Notify("[Global] settings have been reloaded from external changes!");
+            EventManager.FireEvent("OnReloadGlobalConfig");
+        }
+        finally
+        {
+            _watcher.EnableRaisingEvents = true;
+        }
     }
 
     /// <summary>
@@ -112,9 +149,17 @@ public static class GlobalConfig
         if (_config == null)
             return;
 
-        _config.Save();
+        try
+        {
+            _watcher.EnableRaisingEvents = false;
+            _config.Save();
+        }
+        finally
+        {
+            _watcher.EnableRaisingEvents = true;
+        }
 
-        Log.Notify("[Global] have been saved!");
+        Log.Notify("[Global] settings have been saved!");
         EventManager.FireEvent("OnSaveGlobalConfig");
     }
 }
