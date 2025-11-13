@@ -40,6 +40,7 @@ public partial class SplashScreen : UIWindow
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void SplashScreen_Load(object sender, EventArgs e)
     {
+        SystemConfig.Load();
         if (!LoadProfileConfig())
         {
             Environment.Exit(0);
@@ -50,7 +51,7 @@ public partial class SplashScreen : UIWindow
 
         LanguageManager.Translate(_mainForm, Kernel.Language);
 
-        if (!GlobalConfig.Get("RSBot.SkipSilkroadDirectoryCheck", false))
+        if (!SystemConfig.Get("RSBot.SkipSilkroadDirectoryCheck", false))
         {
             if (!GlobalConfig.Exists("RSBot.SilkroadDirectory") ||
                 !File.Exists(GlobalConfig.Get<string>("RSBot.SilkroadDirectory") + "\\media.pk2"))

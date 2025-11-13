@@ -1,5 +1,6 @@
 using System.Linq;
 using RSBot.Core;
+using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Network;
 using RSBot.General.Components;
@@ -119,7 +120,12 @@ internal class CharacterListing : IPacketHandler
 
         EventManager.FireEvent("OnCharacterListReceived");
 
-        if (string.IsNullOrWhiteSpace(selectedAccount.SelectedCharacter) ||
+        if (!string.IsNullOrWhiteSpace(ProfileManager.SelectedCharacter) &&
+            lobbyCharacters.Any(p => p.name == ProfileManager.SelectedCharacter))
+        {
+            selectedAccount.SelectedCharacter = ProfileManager.SelectedCharacter;
+        }
+        else if (string.IsNullOrWhiteSpace(selectedAccount.SelectedCharacter) ||
             !lobbyCharacters.Any(p => p.name == selectedAccount.SelectedCharacter))
         {
             if (charCount == 0)

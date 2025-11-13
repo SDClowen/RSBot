@@ -39,6 +39,11 @@ public class ProfileManager
     public static bool IsProfileLoadedByArgs { get; set; }
 
     /// <summary>
+    ///     The selected character
+    /// </summary>
+    public static string SelectedCharacter { get; set; }
+
+    /// <summary>
     ///     The selected profile
     /// </summary>
     public static string SelectedProfile => _config.Get("RSBot.SelectedProfile", "Default");

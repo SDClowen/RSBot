@@ -367,3 +367,4 @@ FodyWeavers.xsd
 .idea/
 
 !RSBot.Log
+build.log

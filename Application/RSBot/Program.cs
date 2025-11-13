@@ -23,16 +23,33 @@ internal static class Program
     [STAThread]
     private static void Main(string[] args)
     {
-        if (args.Length == 1)
+        for (var i = 0; i < args.Length; i++)
         {
-            var profile = args[0];
-            if (ProfileManager.ProfileExists(profile))
-                ProfileManager.SetSelectedProfile(profile);
-            else
-                ProfileManager.Add(profile);
+            switch (args[i])
+            {
+                case "-p":
+                    if (i + 1 < args.Length)
+                    {
+                        var profile = args[i + 1];
+                        if (ProfileManager.ProfileExists(profile))
+                            ProfileManager.SetSelectedProfile(profile);
+                        else
+                            ProfileManager.Add(profile);
 
-            ProfileManager.IsProfileLoadedByArgs = true;
-            Log.Debug($"Selected profile by args: {profile}");
+                        ProfileManager.IsProfileLoadedByArgs = true;
+                        Log.Debug($"Selected profile by args: {profile}");
+                    }
+                    break;
+
+                case "-c":
+                    if (i + 1 < args.Length)
+                    {
+                        var character = args[i + 1];
+                        ProfileManager.SelectedCharacter = character;
+                        Log.Debug($"Selected character by args: {character}");
+                    }
+                    break;
+            }
         }
 
         //CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
