@@ -27,11 +27,12 @@ internal static class Program
         {
             var profile = args[0];
             if (ProfileManager.ProfileExists(profile))
-            {
                 ProfileManager.SetSelectedProfile(profile);
-                ProfileManager.IsProfileLoadedByArgs = true;
-                Log.Debug($"Selected profile by args: {profile}");
-            }
+            else
+                ProfileManager.Add(profile);
+
+            ProfileManager.IsProfileLoadedByArgs = true;
+            Log.Debug($"Selected profile by args: {profile}");
         }
 
         //CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
