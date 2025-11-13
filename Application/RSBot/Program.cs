@@ -63,6 +63,11 @@ internal static class Program
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(false);
         Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
-        Application.Run(new SplashScreen());
+
+        Main mainForm = new Main();
+        SplashScreen splashScreen = new SplashScreen(mainForm);
+        splashScreen.ShowDialog();
+
+        Application.Run(mainForm);
     }
 }

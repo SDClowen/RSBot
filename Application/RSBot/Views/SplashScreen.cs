@@ -14,12 +14,16 @@ namespace RSBot.Views;
 
 public partial class SplashScreen : UIWindow
 {
-    private readonly Main _mainForm;
+    public readonly Main _mainForm;
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="SplashScreen" /> class.
     /// </summary>
-    public SplashScreen()
+    public SplashScreen() : this(new Main())
+    {
+    }
+
+    public SplashScreen(Main mainForm)
     {
         InitializeComponent();
 
@@ -27,7 +31,7 @@ public partial class SplashScreen : UIWindow
         BackColor = Main.DarkThemeColor;
         CheckForIllegalCrossThreadCalls = false;
 
-        _mainForm = new Main();
+        _mainForm = mainForm;
 
         labelVersion.Text = Program.AssemblyVersion;
         referenceDataLoader.RunWorkerCompleted += ReferenceDataLoaderCompleted;
@@ -130,11 +134,9 @@ public partial class SplashScreen : UIWindow
             ColorScheme.BackColor = Color.FromArgb(GlobalConfig.Get("SDUI.Color", Color.White.ToArgb()));
         }
 
-        _mainForm.Show(this);
         _mainForm.RefreshTheme();
-        _mainForm.BringToFront();
 
-        Hide();
+        Close();
     }
 
     /// <summary>

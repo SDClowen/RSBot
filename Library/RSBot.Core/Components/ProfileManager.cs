@@ -110,6 +110,10 @@ public class ProfileManager
     /// <returns>Is created <c>true</c>; otherwise <c>false</c></returns>
     public static bool Add(string profile, bool useAsBase = false)
     {
+        if (profile.Equals("System", StringComparison.InvariantCultureIgnoreCase) ||
+            profile.Equals("Profiles", StringComparison.InvariantCultureIgnoreCase))
+            return false;
+
         if (profile == SelectedProfile)
             return true;
 
