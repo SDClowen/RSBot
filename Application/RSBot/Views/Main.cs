@@ -30,6 +30,7 @@ public partial class Main : UIWindow
     /// </summary>
     private string _playerName;
     private readonly Dictionary<string, UIWindow> _pluginWindows = new(8);
+    private bool _isWindowLoaded;
 
     #endregion Members
 
@@ -46,6 +47,7 @@ public partial class Main : UIWindow
         RegisterEvents();
 
         Text = "RSBot";
+        Shown += Main_Shown;
     }
 
     #endregion Constructor
@@ -165,6 +167,8 @@ public partial class Main : UIWindow
             return;
 
         var oldBotbaseName = Kernel.Bot?.Botbase?.Name;
+        var previousSelectedIndex = windowPageControl.SelectedIndex;
+
         var newBotbase = Kernel.BotbaseManager.Bots.FirstOrDefault(bot => bot.Value.Name == name);
         if (newBotbase.Value == null)
         {
@@ -180,7 +184,30 @@ public partial class Main : UIWindow
         control.Text = LanguageManager.GetLangBySpecificKey(newBotbase.Value.Name, "TabText", newBotbase.Value.TabText);
         control.Enabled = Game.Ready;
         windowPageControl.Controls.Add(control);
-        windowPageControl.Controls.SetChildIndex(control, 1);
+
+        var generalTab = windowPageControl.Controls.Find("RSBot.General", false).FirstOrDefault();
+        var botbaseIndex = 1;
+        if (generalTab != null)
+            botbaseIndex = windowPageControl.Controls.GetChildIndex(generalTab) + 1;
+
+        windowPageControl.Controls.SetChildIndex(control, botbaseIndex);
+
+        if (_isWindowLoaded)
+        {
+            if (!string.IsNullOrWhiteSpace(oldBotbaseName) && previousSelectedIndex == botbaseIndex)
+            {
+                // If a botbase was previously selected and the new one replaces it at the same index,
+                // move to the next tab if available.
+                if (botbaseIndex + 1 < windowPageControl.Controls.Count)
+                    windowPageControl.SelectedIndex = botbaseIndex + 1;
+                else
+                    windowPageControl.SelectedIndex = botbaseIndex; // Fallback to the same index if no next tab
+            }
+            else
+            {
+                windowPageControl.SelectedIndex = botbaseIndex;
+            }
+        }
 
         Kernel.Bot?.SetBotbase(newBotbase.Value);
         GlobalConfig.Set("RSBot.BotName", newBotbase.Value.Name);
@@ -260,6 +287,11 @@ public partial class Main : UIWindow
             comboServer.SelectedIndex = comboServer.Items.Count - 1 >= gatewayIndex ? gatewayIndex : 0;
 
         GlobalConfig.Set("RSBot.GatewayIndex", comboServer.SelectedIndex.ToString());
+    }
+
+    private void Main_Shown(object sender, EventArgs e)
+    {
+        _isWindowLoaded = true;
     }
 
     #endregion Methods
