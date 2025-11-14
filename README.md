@@ -54,7 +54,6 @@ To join the conversation, get recent updates/announcements, join our [Discord se
 | ~~Chinese Old~~ | ~~MHTC~~                      |
 | ~~Japanese-R~~  |                               |
 
-
 ## Project info
 
 ![Language](https://img.shields.io/badge/language-CSharp-blue)
