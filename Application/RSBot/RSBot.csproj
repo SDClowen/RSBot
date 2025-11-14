@@ -14,6 +14,7 @@
 		<OutputType>WinExe</OutputType>
 		<ApplicationIcon>app.ico</ApplicationIcon>
 		<AssemblyVersion>2.9.9</AssemblyVersion>
+		<InformationalVersion>2.9.9</InformationalVersion>
 		<PlatformTarget>x86</PlatformTarget>
 		<UseWPF>False</UseWPF>
 	</PropertyGroup>
@@ -30,6 +31,7 @@
 	</ItemGroup>
 	
 	<ItemGroup>
+	  <PackageReference Include="CommandLineParser" Version="2.9.1" />
 	  <PackageReference Include="Microsoft.Net.Sdk.Compilers.Toolset" Version="9.0.300" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	  <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.10.0" />

@@ -1,56 +1,69 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
+using CommandLine;
+using CommandLine.Text;
 using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Views;
+using System.Runtime.InteropServices;
 
 namespace RSBot;
 
 internal static class Program
 {
+
+
+
+
     public static string AssemblyTitle =
         Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyProductAttribute>()?.Product;
 
     public static string AssemblyVersion =
-        $"v{Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version}";
+        $"v{Assembly.GetExecutingAssembly().GetName().Version}";
 
     public static string AssemblyDescription =
         Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyDescriptionAttribute>()?.Description;
 
+    public class CommandLineOptions
+    {
+        [Option('c', "character", Required = false, HelpText = "Set the character name to use.")]
+        public string Character { get; set; }
+
+        [Option('p', "profile", Required = false, HelpText = "Set the profile name to use.")]
+        public string Profile { get; set; }
+    }
+
+    private static void DisplayHelp(ParserResult<CommandLineOptions> result)
+    {
+        var helpText = HelpText.AutoBuild(result, h =>
+        {
+            h.AdditionalNewLineAfterOption = false;
+            h.AddDashesToOption = true;
+            return HelpText.DefaultParsingErrorsHandler(result, h);
+        });
+        MessageBox.Show(helpText, AssemblyTitle + " " + AssemblyVersion, MessageBoxButtons.OK, MessageBoxIcon.Information);
+    }
+
     [STAThread]
     private static void Main(string[] args)
     {
-        for (var i = 0; i < args.Length; i++)
-        {
-            switch (args[i])
+        var parser = new Parser(with => with.HelpWriter = Console.Out);
+        var parserResult = parser.ParseArguments<CommandLineOptions>(args);
+
+        parserResult
+            .WithParsed(options =>
             {
-                case "-p":
-                    if (i + 1 < args.Length)
-                    {
-                        var profile = args[i + 1];
-                        if (ProfileManager.ProfileExists(profile))
-                            ProfileManager.SetSelectedProfile(profile);
-                        else
-                            ProfileManager.Add(profile);
-
-                        ProfileManager.IsProfileLoadedByArgs = true;
-                        Log.Debug($"Selected profile by args: {profile}");
-                    }
-                    break;
-
-                case "-c":
-                    if (i + 1 < args.Length)
-                    {
-                        var character = args[i + 1];
-                        ProfileManager.SelectedCharacter = character;
-                        Log.Debug($"Selected character by args: {character}");
-                    }
-                    break;
-            }
-        }
+                RunOptions(options);
+            })
+            .WithNotParsed(errs =>
+            {
+                DisplayHelp(parserResult);
+                Environment.Exit(1);
+            });
 
         //CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
 
@@ -70,4 +83,27 @@ internal static class Program
 
         Application.Run(mainForm);
     }
+
+    private static void RunOptions(CommandLineOptions options)
+    {
+        if (!string.IsNullOrEmpty(options.Profile))
+        {
+            var profile = options.Profile;
+            if (ProfileManager.ProfileExists(profile))
+                ProfileManager.SetSelectedProfile(profile);
+            else
+                ProfileManager.Add(profile);
+
+            ProfileManager.IsProfileLoadedByArgs = true;
+            Log.Debug($"Selected profile by args: {profile}");
+        }
+
+        if (!string.IsNullOrEmpty(options.Character))
+        {
+            var character = options.Character;
+            ProfileManager.SelectedCharacter = character;
+            Log.Debug($"Selected character by args: {character}");
+        }
+    }
+
 }
