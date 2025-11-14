@@ -28,6 +28,10 @@ Project has a modular system.
 | `.\Library`           | Generic behavior                       |
 | `.\Plugins`           | Rest of the miscellaneous behavior     |
 
+Desired executable is placed at `.\Build\RSBot.exe`
+
+UI is handled by the submodule `.\SDUI`. If you encounter any issues where it doesn't exist, run `git submodule update --init --recursive` to pull it.
+
 ## Instructions
 
 - Never edit `.csproj`, `.Designer.cs` and other auto-generated files without explicit confirmation from the user.
