@@ -51,7 +51,7 @@
             label3.ApplyGradient = false;
             label3.AutoSize = true;
             label3.BackColor = System.Drawing.Color.Transparent;
-            label3.Font = new System.Drawing.Font("Segoe UI Semibold", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label3.Font = new System.Drawing.Font("Segoe UI Semibold", 9.25F, System.Drawing.FontStyle.Bold);
             label3.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label3.Gradient = new System.Drawing.Color[]
     {
@@ -70,7 +70,7 @@
             label4.ApplyGradient = false;
             label4.AutoSize = true;
             label4.BackColor = System.Drawing.Color.Transparent;
-            label4.Font = new System.Drawing.Font("Segoe UI Semibold", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label4.Font = new System.Drawing.Font("Segoe UI Semibold", 9.25F, System.Drawing.FontStyle.Bold);
             label4.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label4.Gradient = new System.Drawing.Color[]
     {
@@ -143,7 +143,7 @@
             lblPlayerName.ApplyGradient = false;
             lblPlayerName.AutoSize = true;
             lblPlayerName.BackColor = System.Drawing.Color.Transparent;
-            lblPlayerName.Font = new System.Drawing.Font("Segoe UI Semibold", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            lblPlayerName.Font = new System.Drawing.Font("Segoe UI Semibold", 9.25F, System.Drawing.FontStyle.Bold);
             lblPlayerName.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             lblPlayerName.Gradient = new System.Drawing.Color[]
     {
@@ -180,7 +180,7 @@
             label9.ApplyGradient = false;
             label9.AutoSize = true;
             label9.BackColor = System.Drawing.Color.Transparent;
-            label9.Font = new System.Drawing.Font("Segoe UI Semibold", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label9.Font = new System.Drawing.Font("Segoe UI Semibold", 9.25F, System.Drawing.FontStyle.Bold);
             label9.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label9.Gradient = new System.Drawing.Color[]
     {
@@ -217,7 +217,7 @@
             label11.ApplyGradient = false;
             label11.AutoSize = true;
             label11.BackColor = System.Drawing.Color.Transparent;
-            label11.Font = new System.Drawing.Font("Segoe UI Semibold", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label11.Font = new System.Drawing.Font("Segoe UI Semibold", 9.25F, System.Drawing.FontStyle.Bold);
             label11.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label11.Gradient = new System.Drawing.Color[]
     {

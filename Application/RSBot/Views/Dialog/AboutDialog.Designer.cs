@@ -51,7 +51,7 @@
             // 
             buttonOk.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
             buttonOk.Color = System.Drawing.Color.DodgerBlue;
-            buttonOk.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            buttonOk.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
             buttonOk.ForeColor = System.Drawing.Color.White;
             buttonOk.Location = new System.Drawing.Point(12, 317);
             buttonOk.Name = "buttonOk";
@@ -78,7 +78,7 @@
             // 
             labelName.ApplyGradient = false;
             labelName.AutoSize = true;
-            labelName.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelName.Font = new System.Drawing.Font("Segoe UI", 14.25F);
             labelName.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             labelName.Gradient = new System.Drawing.Color[]
     {
@@ -96,7 +96,7 @@
             // 
             labelDescription.ApplyGradient = false;
             labelDescription.AutoSize = true;
-            labelDescription.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelDescription.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             labelDescription.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             labelDescription.Gradient = new System.Drawing.Color[]
     {
@@ -114,7 +114,7 @@
             // 
             labelVersion.ApplyGradient = false;
             labelVersion.AutoSize = true;
-            labelVersion.Font = new System.Drawing.Font("Segoe UI", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelVersion.Font = new System.Drawing.Font("Segoe UI", 10.25F);
             labelVersion.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             labelVersion.Gradient = new System.Drawing.Color[]
     {
@@ -140,9 +140,10 @@
             Controls.Add(labelName);
             Controls.Add(richTextBox);
             Controls.Add(pictureBox1);
-            Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            Font = new System.Drawing.Font("Segoe UI", 9F);
             ForeColor = System.Drawing.Color.Black;
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            Location = new System.Drawing.Point(0, 0);
             MaximizeBox = false;
             MaximumSize = new System.Drawing.Size(604, 400);
             MinimizeBox = false;

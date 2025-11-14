@@ -69,9 +69,13 @@
             lblFreeSlots.ApplyGradient = false;
             lblFreeSlots.AutoSize = true;
             lblFreeSlots.BackColor = System.Drawing.Color.Transparent;
-            lblFreeSlots.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            lblFreeSlots.Font = new System.Drawing.Font("Segoe UI", 11.25F);
             lblFreeSlots.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            lblFreeSlots.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
+            lblFreeSlots.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
             lblFreeSlots.GradientAnimation = false;
             lblFreeSlots.Location = new System.Drawing.Point(47, 13);
             lblFreeSlots.Name = "lblFreeSlots";
@@ -213,8 +217,12 @@
             // 
             pbInventoryStatus.BackColor = System.Drawing.Color.Transparent;
             pbInventoryStatus.DrawHatch = false;
-            pbInventoryStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            pbInventoryStatus.Gradient = new System.Drawing.Color[] { System.Drawing.Color.FromArgb(224, 224, 224), System.Drawing.Color.Teal };
+            pbInventoryStatus.Font = new System.Drawing.Font("Segoe UI", 9F);
+            pbInventoryStatus.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.FromArgb(224, 224, 224),
+    System.Drawing.Color.Teal
+    };
             pbInventoryStatus.HatchType = System.Drawing.Drawing2D.HatchStyle.Horizontal;
             pbInventoryStatus.Location = new System.Drawing.Point(9, 7);
             pbInventoryStatus.Maximum = 100L;
@@ -256,7 +264,7 @@
             // buttonInventory
             // 
             buttonInventory.Color = System.Drawing.Color.Transparent;
-            buttonInventory.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            buttonInventory.Font = new System.Drawing.Font("Segoe UI", 9F);
             buttonInventory.Location = new System.Drawing.Point(9, 8);
             buttonInventory.Name = "buttonInventory";
             buttonInventory.Radius = 6;
@@ -270,7 +278,7 @@
             // buttonEquipment
             // 
             buttonEquipment.Color = System.Drawing.Color.Transparent;
-            buttonEquipment.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            buttonEquipment.Font = new System.Drawing.Font("Segoe UI", 9F);
             buttonEquipment.Location = new System.Drawing.Point(77, 8);
             buttonEquipment.Name = "buttonEquipment";
             buttonEquipment.Radius = 6;
@@ -284,7 +292,7 @@
             // buttonAvatars
             // 
             buttonAvatars.Color = System.Drawing.Color.Transparent;
-            buttonAvatars.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            buttonAvatars.Font = new System.Drawing.Font("Segoe UI", 9F);
             buttonAvatars.Location = new System.Drawing.Point(245, 8);
             buttonAvatars.Name = "buttonAvatars";
             buttonAvatars.Radius = 6;
@@ -298,7 +306,7 @@
             // buttonGrabpet
             // 
             buttonGrabpet.Color = System.Drawing.Color.Transparent;
-            buttonGrabpet.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            buttonGrabpet.Font = new System.Drawing.Font("Segoe UI", 9F);
             buttonGrabpet.Location = new System.Drawing.Point(308, 8);
             buttonGrabpet.Name = "buttonGrabpet";
             buttonGrabpet.Radius = 6;
@@ -336,7 +344,7 @@
             // buttonSpecialty
             // 
             buttonSpecialty.Color = System.Drawing.Color.Transparent;
-            buttonSpecialty.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            buttonSpecialty.Font = new System.Drawing.Font("Segoe UI", 9F);
             buttonSpecialty.Location = new System.Drawing.Point(553, 8);
             buttonSpecialty.Name = "buttonSpecialty";
             buttonSpecialty.Radius = 6;
@@ -350,7 +358,7 @@
             // buttonGuildStorage
             // 
             buttonGuildStorage.Color = System.Drawing.Color.Transparent;
-            buttonGuildStorage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            buttonGuildStorage.Font = new System.Drawing.Font("Segoe UI", 9F);
             buttonGuildStorage.Location = new System.Drawing.Point(684, 8);
             buttonGuildStorage.Name = "buttonGuildStorage";
             buttonGuildStorage.Radius = 6;
@@ -364,7 +372,7 @@
             // buttonFellowPet
             // 
             buttonFellowPet.Color = System.Drawing.Color.Transparent;
-            buttonFellowPet.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            buttonFellowPet.Font = new System.Drawing.Font("Segoe UI", 9F);
             buttonFellowPet.Location = new System.Drawing.Point(373, 8);
             buttonFellowPet.Name = "buttonFellowPet";
             buttonFellowPet.Radius = 6;
@@ -378,7 +386,7 @@
             // buttonJobTransport
             // 
             buttonJobTransport.Color = System.Drawing.Color.Transparent;
-            buttonJobTransport.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            buttonJobTransport.Font = new System.Drawing.Font("Segoe UI", 9F);
             buttonJobTransport.Location = new System.Drawing.Point(463, 8);
             buttonJobTransport.Name = "buttonJobTransport";
             buttonJobTransport.Radius = 6;
@@ -392,7 +400,7 @@
             // buttonStorage
             // 
             buttonStorage.Color = System.Drawing.Color.Transparent;
-            buttonStorage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            buttonStorage.Font = new System.Drawing.Font("Segoe UI", 9F);
             buttonStorage.Location = new System.Drawing.Point(625, 8);
             buttonStorage.Name = "buttonStorage";
             buttonStorage.Radius = 6;
@@ -406,7 +414,7 @@
             // buttonJobEquipment
             // 
             buttonJobEquipment.Color = System.Drawing.Color.Transparent;
-            buttonJobEquipment.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            buttonJobEquipment.Font = new System.Drawing.Font("Segoe UI", 9F);
             buttonJobEquipment.Location = new System.Drawing.Point(152, 8);
             buttonJobEquipment.Name = "buttonJobEquipment";
             buttonJobEquipment.Radius = 6;
@@ -424,7 +432,7 @@
             Controls.Add(listViewMain);
             Controls.Add(topPanel);
             Controls.Add(panel1);
-            Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            Font = new System.Drawing.Font("Segoe UI", 9F);
             Name = "Main";
             Size = new System.Drawing.Size(792, 458);
             Load += Main_Load;

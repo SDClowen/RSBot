@@ -28,93 +28,100 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.comboMaxValue = new SDUI.Controls.ComboBox();
-            this.lblItemAmount = new SDUI.Controls.Label();
-            this.separator1 = new SDUI.Controls.Separator();
-            this.checkSelected = new SDUI.Controls.CheckBox();
-            this.tipStone = new System.Windows.Forms.ToolTip(this.components);
-            this.lblFinished = new System.Windows.Forms.Label();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            comboMaxValue = new SDUI.Controls.ComboBox();
+            lblItemAmount = new SDUI.Controls.Label();
+            separator1 = new SDUI.Controls.Separator();
+            checkSelected = new SDUI.Controls.CheckBox();
+            tipStone = new System.Windows.Forms.ToolTip(components);
+            lblFinished = new System.Windows.Forms.Label();
+            SuspendLayout();
             // 
             // comboMaxValue
             // 
-            this.comboMaxValue.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.comboMaxValue.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboMaxValue.FormattingEnabled = true;
-            this.comboMaxValue.Items.AddRange(new object[] {
-            "22%",
-            "41%",
-            "61%",
-            "80%",
-            "100%"});
-            this.comboMaxValue.Location = new System.Drawing.Point(197, 5);
-            this.comboMaxValue.Name = "comboMaxValue";
-            this.comboMaxValue.Size = new System.Drawing.Size(121, 24);
-            this.comboMaxValue.TabIndex = 1;
+            comboMaxValue.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            comboMaxValue.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            comboMaxValue.FormattingEnabled = true;
+            comboMaxValue.Items.AddRange(new object[] { "22%", "41%", "61%", "80%", "100%" });
+            comboMaxValue.Location = new System.Drawing.Point(197, 5);
+            comboMaxValue.Name = "comboMaxValue";
+            comboMaxValue.Radius = 5;
+            comboMaxValue.ShadowDepth = 4F;
+            comboMaxValue.Size = new System.Drawing.Size(121, 24);
+            comboMaxValue.TabIndex = 1;
             // 
             // lblItemAmount
             // 
-            this.lblItemAmount.AutoSize = true;
-            this.lblItemAmount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblItemAmount.Location = new System.Drawing.Point(324, 8);
-            this.lblItemAmount.Name = "lblItemAmount";
-            this.lblItemAmount.Size = new System.Drawing.Size(19, 15);
-            this.lblItemAmount.TabIndex = 2;
-            this.lblItemAmount.Text = "x0";
+            lblItemAmount.ApplyGradient = false;
+            lblItemAmount.AutoSize = true;
+            lblItemAmount.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            lblItemAmount.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            lblItemAmount.GradientAnimation = false;
+            lblItemAmount.Location = new System.Drawing.Point(324, 8);
+            lblItemAmount.Name = "lblItemAmount";
+            lblItemAmount.Size = new System.Drawing.Size(18, 15);
+            lblItemAmount.TabIndex = 2;
+            lblItemAmount.Text = "x0";
             // 
             // separator1
             // 
-            this.separator1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.separator1.IsVertical = false;
-            this.separator1.Location = new System.Drawing.Point(0, 32);
-            this.separator1.Name = "separator1";
-            this.separator1.Size = new System.Drawing.Size(438, 10);
-            this.separator1.TabIndex = 3;
-            this.separator1.Text = "separator1";
+            separator1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            separator1.IsVertical = false;
+            separator1.Location = new System.Drawing.Point(0, 32);
+            separator1.Name = "separator1";
+            separator1.Size = new System.Drawing.Size(438, 10);
+            separator1.TabIndex = 3;
             // 
             // checkSelected
             // 
-            this.checkSelected.AutoSize = true;
-            this.checkSelected.BackColor = System.Drawing.Color.Transparent;
-            this.checkSelected.Checked = false;
-            this.checkSelected.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.checkSelected.Location = new System.Drawing.Point(18, 8);
-            this.checkSelected.Name = "checkSelected";
-            this.checkSelected.Size = new System.Drawing.Size(96, 15);
-            this.checkSelected.TabIndex = 4;
-            this.checkSelected.Text = "Phy. reinforce";
+            checkSelected.AutoSize = true;
+            checkSelected.BackColor = System.Drawing.Color.Transparent;
+            checkSelected.Depth = 0;
+            checkSelected.Font = new System.Drawing.Font("Segoe UI", 9F);
+            checkSelected.Location = new System.Drawing.Point(18, 8);
+            checkSelected.Margin = new System.Windows.Forms.Padding(0);
+            checkSelected.MouseLocation = new System.Drawing.Point(-1, -1);
+            checkSelected.Name = "checkSelected";
+            checkSelected.Ripple = true;
+            checkSelected.Size = new System.Drawing.Size(106, 30);
+            checkSelected.TabIndex = 4;
+            checkSelected.Text = "Phy. reinforce";
+            checkSelected.UseVisualStyleBackColor = false;
             // 
             // tipStone
             // 
-            this.tipStone.AutomaticDelay = 0;
-            this.tipStone.IsBalloon = true;
+            tipStone.AutomaticDelay = 0;
+            tipStone.IsBalloon = true;
             // 
             // lblFinished
             // 
-            this.lblFinished.AutoSize = true;
-            this.lblFinished.BackColor = System.Drawing.Color.Transparent;
-            this.lblFinished.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblFinished.ForeColor = System.Drawing.Color.Green;
-            this.lblFinished.Location = new System.Drawing.Point(378, 4);
-            this.lblFinished.Name = "lblFinished";
-            this.lblFinished.Size = new System.Drawing.Size(27, 25);
-            this.lblFinished.TabIndex = 5;
-            this.lblFinished.Text = "✓";
+            lblFinished.AutoSize = true;
+            lblFinished.BackColor = System.Drawing.Color.Transparent;
+            lblFinished.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
+            lblFinished.ForeColor = System.Drawing.Color.Green;
+            lblFinished.Location = new System.Drawing.Point(378, 4);
+            lblFinished.Name = "lblFinished";
+            lblFinished.Size = new System.Drawing.Size(27, 25);
+            lblFinished.TabIndex = 5;
+            lblFinished.Text = "✓";
             // 
             // AttributeInfoPanel
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.lblFinished);
-            this.Controls.Add(this.separator1);
-            this.Controls.Add(this.lblItemAmount);
-            this.Controls.Add(this.comboMaxValue);
-            this.Controls.Add(this.checkSelected);
-            this.Name = "AttributeInfoPanel";
-            this.Size = new System.Drawing.Size(438, 42);
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(lblFinished);
+            Controls.Add(separator1);
+            Controls.Add(lblItemAmount);
+            Controls.Add(comboMaxValue);
+            Controls.Add(checkSelected);
+            Name = "AttributeInfoPanel";
+            Size = new System.Drawing.Size(438, 42);
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 

@@ -56,7 +56,7 @@
             // btnRemove
             // 
             btnRemove.Color = System.Drawing.Color.Empty;
-            btnRemove.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            btnRemove.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             btnRemove.ImageAlign = System.Drawing.ContentAlignment.TopRight;
             btnRemove.Location = new System.Drawing.Point(214, 3);
             btnRemove.Name = "btnRemove";
@@ -75,7 +75,11 @@
             lblObjective.ApplyGradient = false;
             lblObjective.Dock = System.Windows.Forms.DockStyle.Fill;
             lblObjective.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            lblObjective.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
+            lblObjective.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
             lblObjective.GradientAnimation = false;
             lblObjective.Location = new System.Drawing.Point(0, 26);
             lblObjective.Name = "lblObjective";
@@ -89,9 +93,13 @@
             // 
             lblQuestName.ApplyGradient = false;
             lblQuestName.Dock = System.Windows.Forms.DockStyle.Top;
-            lblQuestName.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            lblQuestName.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold);
             lblQuestName.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            lblQuestName.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
+            lblQuestName.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
             lblQuestName.GradientAnimation = false;
             lblQuestName.Location = new System.Drawing.Point(0, 0);
             lblQuestName.Margin = new System.Windows.Forms.Padding(0);

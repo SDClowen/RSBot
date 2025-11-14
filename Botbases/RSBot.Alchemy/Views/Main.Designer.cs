@@ -59,9 +59,9 @@ namespace RSBot.Alchemy.Views
             panelSettingsGroup = new Panel();
             panelSettings = new Panel();
             panel2 = new Panel();
-            radioAttributes = new RadioButton();
-            radioMagicOptions = new RadioButton();
-            radioEnhance = new RadioButton();
+            radioAttributes = new SDUI.Controls.Radio();
+            radioMagicOptions = new SDUI.Controls.Radio();
+            radioEnhance = new SDUI.Controls.Radio();
             groupItem.SuspendLayout();
             tabControlItemInfo.SuspendLayout();
             tabMagicOptions.SuspendLayout();
@@ -96,9 +96,14 @@ namespace RSBot.Alchemy.Views
             // 
             lblOptLevel.ApplyGradient = false;
             lblOptLevel.AutoSize = true;
-            lblOptLevel.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblOptLevel.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold);
             lblOptLevel.ForeColor = Color.FromArgb(0, 0, 0);
-            lblOptLevel.Gradient = (new Color[] { Color.Gray, Color.Black });
+            lblOptLevel.Gradient = new Color[]
+    {
+    Color.Gray,
+    Color.Black
+    };
+            lblOptLevel.GradientAnimation = false;
             lblOptLevel.Location = new Point(118, 102);
             lblOptLevel.Margin = new Padding(4, 0, 4, 0);
             lblOptLevel.Name = "lblOptLevel";
@@ -114,6 +119,7 @@ namespace RSBot.Alchemy.Views
             tabControlItemInfo.Location = new Point(9, 146);
             tabControlItemInfo.Margin = new Padding(4, 3, 4, 3);
             tabControlItemInfo.Name = "tabControlItemInfo";
+            tabControlItemInfo.Radius = new Padding(4);
             tabControlItemInfo.SelectedIndex = 0;
             tabControlItemInfo.Size = new Size(304, 179);
             tabControlItemInfo.TabIndex = 5;
@@ -186,7 +192,12 @@ namespace RSBot.Alchemy.Views
             lblOptLevelText.ApplyGradient = false;
             lblOptLevelText.AutoSize = true;
             lblOptLevelText.ForeColor = Color.FromArgb(0, 0, 0);
-            lblOptLevelText.Gradient = (new Color[] { Color.Gray, Color.Black });
+            lblOptLevelText.Gradient = new Color[]
+    {
+    Color.Gray,
+    Color.Black
+    };
+            lblOptLevelText.GradientAnimation = false;
             lblOptLevelText.Location = new Point(18, 102);
             lblOptLevelText.Margin = new Padding(4, 0, 4, 0);
             lblOptLevelText.Name = "lblOptLevelText";
@@ -199,7 +210,12 @@ namespace RSBot.Alchemy.Views
             lblItemSelection.ApplyGradient = false;
             lblItemSelection.AutoSize = true;
             lblItemSelection.ForeColor = Color.FromArgb(0, 0, 0);
-            lblItemSelection.Gradient = (new Color[] { Color.Gray, Color.Black });
+            lblItemSelection.Gradient = new Color[]
+    {
+    Color.Gray,
+    Color.Black
+    };
+            lblItemSelection.GradientAnimation = false;
             lblItemSelection.Location = new Point(18, 29);
             lblItemSelection.Margin = new Padding(4, 0, 4, 0);
             lblItemSelection.Name = "lblItemSelection";
@@ -211,9 +227,14 @@ namespace RSBot.Alchemy.Views
             // 
             lblDegree.ApplyGradient = false;
             lblDegree.AutoSize = true;
-            lblDegree.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblDegree.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold);
             lblDegree.ForeColor = Color.FromArgb(0, 0, 0);
-            lblDegree.Gradient = (new Color[] { Color.Gray, Color.Black });
+            lblDegree.Gradient = new Color[]
+    {
+    Color.Gray,
+    Color.Black
+    };
+            lblDegree.GradientAnimation = false;
             lblDegree.Location = new Point(118, 75);
             lblDegree.Margin = new Padding(4, 0, 4, 0);
             lblDegree.Name = "lblDegree";
@@ -226,7 +247,12 @@ namespace RSBot.Alchemy.Views
             lblDegreeText.ApplyGradient = false;
             lblDegreeText.AutoSize = true;
             lblDegreeText.ForeColor = Color.FromArgb(0, 0, 0);
-            lblDegreeText.Gradient = (new Color[] { Color.Gray, Color.Black });
+            lblDegreeText.Gradient = new Color[]
+    {
+    Color.Gray,
+    Color.Black
+    };
+            lblDegreeText.GradientAnimation = false;
             lblDegreeText.Location = new Point(18, 75);
             lblDegreeText.Margin = new Padding(4, 0, 4, 0);
             lblDegreeText.Name = "lblDegreeText";
@@ -239,9 +265,14 @@ namespace RSBot.Alchemy.Views
             linkRefreshItemList.ApplyGradient = false;
             linkRefreshItemList.AutoSize = true;
             linkRefreshItemList.Cursor = Cursors.Hand;
-            linkRefreshItemList.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            linkRefreshItemList.Font = new Font("Segoe UI", 15.75F);
             linkRefreshItemList.ForeColor = Color.FromArgb(0, 0, 0);
-            linkRefreshItemList.Gradient = (new Color[] { Color.Gray, Color.Black });
+            linkRefreshItemList.Gradient = new Color[]
+    {
+    Color.Gray,
+    Color.Black
+    };
+            linkRefreshItemList.GradientAnimation = false;
             linkRefreshItemList.Location = new Point(272, 39);
             linkRefreshItemList.Margin = new Padding(4, 0, 4, 0);
             linkRefreshItemList.Name = "linkRefreshItemList";
@@ -365,8 +396,7 @@ namespace RSBot.Alchemy.Views
             Controls.Add(panelSettingsGroup);
             Controls.Add(lvLog);
             Controls.Add(groupItem);
-            DoubleBuffered = true;
-            Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Segoe UI", 9F);
             Margin = new Padding(4, 3, 4, 3);
             Name = "Main";
             Size = new Size(791, 503);

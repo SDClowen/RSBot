@@ -126,7 +126,7 @@
             Level.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             Level.AutoSize = true;
             Level.BackColor = System.Drawing.Color.FromArgb(150, 0, 0, 0);
-            Level.Font = new System.Drawing.Font("Arial", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            Level.Font = new System.Drawing.Font("Arial", 6.75F);
             Level.ForeColor = System.Drawing.Color.White;
             Level.Location = new System.Drawing.Point(0, 23);
             Level.Name = "Level";
@@ -157,7 +157,7 @@
             // MiniCosControl
             // 
             Controls.Add(panel);
-            Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            Font = new System.Drawing.Font("Segoe UI", 9F);
             Margin = new System.Windows.Forms.Padding(0);
             Name = "MiniCosControl";
             Padding = new System.Windows.Forms.Padding(1);

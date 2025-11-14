@@ -55,11 +55,11 @@
             panel1.Controls.Add(btnCancel);
             panel1.Controls.Add(btnConfirm);
             panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            panel1.Location = new System.Drawing.Point(0, 314);
+            panel1.Location = new System.Drawing.Point(0, 308);
             panel1.Name = "panel1";
             panel1.Radius = 0;
             panel1.ShadowDepth = 4F;
-            panel1.Size = new System.Drawing.Size(327, 49);
+            panel1.Size = new System.Drawing.Size(321, 49);
             panel1.TabIndex = 1;
             // 
             // btnCancel
@@ -67,7 +67,7 @@
             btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnCancel.Color = System.Drawing.Color.Transparent;
             btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            btnCancel.Location = new System.Drawing.Point(236, 14);
+            btnCancel.Location = new System.Drawing.Point(230, 14);
             btnCancel.Name = "btnCancel";
             btnCancel.Radius = 6;
             btnCancel.ShadowDepth = 4F;
@@ -117,7 +117,7 @@
             label1.GradientAnimation = false;
             label1.Location = new System.Drawing.Point(12, 54);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(53, 15);
+            label1.Size = new System.Drawing.Size(52, 15);
             label1.TabIndex = 3;
             label1.Text = "Proxy IP:";
             // 
@@ -134,7 +134,7 @@
             label2.GradientAnimation = false;
             label2.Location = new System.Drawing.Point(240, 54);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(65, 15);
+            label2.Size = new System.Drawing.Size(64, 15);
             label2.TabIndex = 3;
             label2.Text = "Proxy Port:";
             // 
@@ -194,7 +194,7 @@
             label4.GradientAnimation = false;
             label4.Location = new System.Drawing.Point(14, 110);
             label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(96, 15);
+            label4.Size = new System.Drawing.Size(95, 15);
             label4.TabIndex = 3;
             label4.Text = "Proxy Username:";
             // 
@@ -208,7 +208,7 @@
             checkBoxOnOf.MouseLocation = new System.Drawing.Point(-1, -1);
             checkBoxOnOf.Name = "checkBoxOnOf";
             checkBoxOnOf.Ripple = true;
-            checkBoxOnOf.Size = new System.Drawing.Size(73, 30);
+            checkBoxOnOf.Size = new System.Drawing.Size(76, 30);
             checkBoxOnOf.TabIndex = 8;
             checkBoxOnOf.Text = "Activate";
             checkBoxOnOf.UseVisualStyleBackColor = false;
@@ -239,7 +239,7 @@
             label6.GradientAnimation = false;
             label6.Location = new System.Drawing.Point(14, 181);
             label6.Name = "label6";
-            label6.Size = new System.Drawing.Size(93, 15);
+            label6.Size = new System.Drawing.Size(92, 15);
             label6.TabIndex = 3;
             label6.Text = "Proxy password:";
             // 
@@ -247,7 +247,7 @@
             // 
             label7.ApplyGradient = false;
             label7.AutoSize = true;
-            label7.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            label7.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic);
             label7.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label7.Gradient = new System.Drawing.Color[]
     {
@@ -265,7 +265,7 @@
             // 
             label8.ApplyGradient = false;
             label8.AutoSize = true;
-            label8.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            label8.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic);
             label8.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label8.Gradient = new System.Drawing.Color[]
     {
@@ -300,7 +300,7 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             BackColor = System.Drawing.Color.White;
             CancelButton = btnCancel;
-            ClientSize = new System.Drawing.Size(327, 363);
+            ClientSize = new System.Drawing.Size(321, 357);
             Controls.Add(textBoxPort);
             Controls.Add(checkBoxOnOf);
             Controls.Add(comboBoxProxyVersion);
@@ -317,6 +317,7 @@
             Controls.Add(panel1);
             DwmMargin = -1;
             ForeColor = System.Drawing.Color.Black;
+            Location = new System.Drawing.Point(0, 0);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "ConfigDialog";

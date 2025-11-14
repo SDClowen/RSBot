@@ -82,7 +82,7 @@
             // buttonRemove
             // 
             buttonRemove.Color = System.Drawing.Color.DarkRed;
-            buttonRemove.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            buttonRemove.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             buttonRemove.ForeColor = System.Drawing.Color.White;
             buttonRemove.Location = new System.Drawing.Point(195, 207);
             buttonRemove.Name = "buttonRemove";
@@ -229,7 +229,7 @@
             // btnAdd
             // 
             btnAdd.Color = System.Drawing.Color.FromArgb(33, 150, 243);
-            btnAdd.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            btnAdd.Font = new System.Drawing.Font("Segoe UI", 9F);
             btnAdd.ForeColor = System.Drawing.Color.White;
             btnAdd.Location = new System.Drawing.Point(195, 207);
             btnAdd.Name = "btnAdd";
@@ -334,7 +334,7 @@
             AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             BackColor = System.Drawing.Color.White;
-            ClientSize = new System.Drawing.Size(408, 283);
+            ClientSize = new System.Drawing.Size(408, 287);
             ControlBox = false;
             Controls.Add(listAccounts);
             Controls.Add(linkLabelSecondaryPassword);
@@ -352,8 +352,9 @@
             Controls.Add(buttonRemove);
             Controls.Add(comboBoxChannel);
             Controls.Add(textBoxSecondaryPassword);
-            Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            Font = new System.Drawing.Font("Segoe UI", 9F);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            Location = new System.Drawing.Point(0, 0);
             MinimumSize = new System.Drawing.Size(410, 293);
             Name = "AccountsWindow";
             ShowIcon = false;

@@ -56,7 +56,7 @@
             checkShowCompleted.MouseLocation = new System.Drawing.Point(-1, -1);
             checkShowCompleted.Name = "checkShowCompleted";
             checkShowCompleted.Ripple = true;
-            checkShowCompleted.Size = new System.Drawing.Size(121, 30);
+            checkShowCompleted.Size = new System.Drawing.Size(122, 30);
             checkShowCompleted.TabIndex = 1;
             checkShowCompleted.Text = "Show completed";
             checkShowCompleted.UseVisualStyleBackColor = true;
@@ -66,26 +66,26 @@
             // 
             contextQuest.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { watchQuestToolStripMenuItem, toolStripSeparator1, abandonToolStripMenuItem });
             contextQuest.Name = "contextMenuStrip1";
-            contextQuest.Size = new System.Drawing.Size(181, 76);
+            contextQuest.Size = new System.Drawing.Size(166, 54);
             // 
             // watchQuestToolStripMenuItem
             // 
             watchQuestToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             watchQuestToolStripMenuItem.Name = "watchQuestToolStripMenuItem";
-            watchQuestToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            watchQuestToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             watchQuestToolStripMenuItem.Text = "Watch / unwatch";
             watchQuestToolStripMenuItem.Click += watchQuestToolStripMenuItem_Click;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            toolStripSeparator1.Size = new System.Drawing.Size(162, 6);
             // 
             // abandonToolStripMenuItem
             // 
             abandonToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             abandonToolStripMenuItem.Name = "abandonToolStripMenuItem";
-            abandonToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            abandonToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             abandonToolStripMenuItem.Text = "Abandon";
             abandonToolStripMenuItem.Click += abandonToolStripMenuItem_Click;
             // 
@@ -95,7 +95,7 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             Controls.Add(checkShowCompleted);
             Controls.Add(treeQuests);
-            Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            Font = new System.Drawing.Font("Segoe UI", 9F);
             Name = "Main";
             Size = new System.Drawing.Size(460, 490);
             Load += Main_Load;

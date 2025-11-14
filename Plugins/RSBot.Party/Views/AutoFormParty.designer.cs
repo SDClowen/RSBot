@@ -177,10 +177,15 @@
             label2.ApplyGradient = false;
             label2.AutoSize = true;
             label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label2.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label2.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label2.GradientAnimation = false;
             label2.Location = new System.Drawing.Point(172, 35);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(33, 15);
+            label2.Size = new System.Drawing.Size(32, 15);
             label2.TabIndex = 1;
             label2.Text = "Max.";
             // 
@@ -189,7 +194,12 @@
             label1.ApplyGradient = false;
             label1.AutoSize = true;
             label1.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label1.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label1.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label1.GradientAnimation = false;
             label1.Location = new System.Drawing.Point(26, 35);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(31, 15);
@@ -198,8 +208,8 @@
             // 
             // max_level
             // 
-            max_level.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
-            max_level.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            max_level.BackColor = System.Drawing.Color.Transparent;
+            max_level.Font = new System.Drawing.Font("Segoe UI", 9.25F);
             max_level.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             max_level.Location = new System.Drawing.Point(209, 32);
             max_level.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
@@ -212,8 +222,8 @@
             // 
             // min_level
             // 
-            min_level.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
-            min_level.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            min_level.BackColor = System.Drawing.Color.Transparent;
+            min_level.Font = new System.Drawing.Font("Segoe UI", 9.25F);
             min_level.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             min_level.Location = new System.Drawing.Point(63, 32);
             min_level.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
@@ -246,7 +256,12 @@
             label_partytype2.ApplyGradient = false;
             label_partytype2.AutoSize = true;
             label_partytype2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label_partytype2.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label_partytype2.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label_partytype2.GradientAnimation = false;
             label_partytype2.Location = new System.Drawing.Point(206, 32);
             label_partytype2.Name = "label_partytype2";
             label_partytype2.Size = new System.Drawing.Size(92, 15);
@@ -257,9 +272,14 @@
             // 
             label5.ApplyGradient = false;
             label5.AutoSize = true;
-            label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             label5.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label5.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label5.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label5.GradientAnimation = false;
             label5.Location = new System.Drawing.Point(181, 27);
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(19, 21);
@@ -271,10 +291,15 @@
             label_partytype.ApplyGradient = false;
             label_partytype.AutoSize = true;
             label_partytype.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label_partytype.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label_partytype.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label_partytype.GradientAnimation = false;
             label_partytype.Location = new System.Drawing.Point(63, 32);
             label_partytype.Name = "label_partytype";
-            label_partytype.Size = new System.Drawing.Size(87, 15);
+            label_partytype.Size = new System.Drawing.Size(86, 15);
             label_partytype.TabIndex = 1;
             label_partytype.Text = "Exp Auto Share";
             // 
@@ -282,9 +307,14 @@
             // 
             label3.ApplyGradient = false;
             label3.AutoSize = true;
-            label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             label3.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label3.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label3.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label3.GradientAnimation = false;
             label3.Location = new System.Drawing.Point(40, 27);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(19, 21);
@@ -378,8 +408,9 @@
             Controls.Add(gbObjective);
             Controls.Add(btnCancel);
             Controls.Add(btnAccept);
-            Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            Font = new System.Drawing.Font("Segoe UI", 9F);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            Location = new System.Drawing.Point(0, 0);
             MaximizeBox = false;
             MinimizeBox = false;
             MinimumSize = new System.Drawing.Size(360, 355);

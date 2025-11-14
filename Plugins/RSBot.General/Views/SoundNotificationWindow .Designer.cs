@@ -182,9 +182,7 @@ namespace RSBot.General.Views
             btnUniqueAppearedGeneral.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnUniqueAppearedGeneral.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             btnUniqueAppearedGeneral.BackColor = System.Drawing.Color.Transparent;
-            btnUniqueAppearedGeneral.DialogResult = System.Windows.Forms.DialogResult.None;
             btnUniqueAppearedGeneral.Enabled = false;
-            btnUniqueAppearedGeneral.Image = null;
             btnUniqueAppearedGeneral.Location = new System.Drawing.Point(372, 36);
             btnUniqueAppearedGeneral.Name = "btnUniqueAppearedGeneral";
             btnUniqueAppearedGeneral.Size = new System.Drawing.Size(42, 23);
@@ -215,7 +213,7 @@ namespace RSBot.General.Views
             lblRegex.GradientAnimation = false;
             lblRegex.Location = new System.Drawing.Point(53, 68);
             lblRegex.Name = "lblRegex";
-            lblRegex.Size = new System.Drawing.Size(87, 15);
+            lblRegex.Size = new System.Drawing.Size(86, 15);
             lblRegex.TabIndex = 14;
             lblRegex.Text = "Match (Regex):";
             // 
@@ -249,7 +247,7 @@ namespace RSBot.General.Views
             chkTigerGirl.MouseLocation = new System.Drawing.Point(-1, -1);
             chkTigerGirl.Name = "chkTigerGirl";
             chkTigerGirl.Ripple = true;
-            chkTigerGirl.Size = new System.Drawing.Size(86, 30);
+            chkTigerGirl.Size = new System.Drawing.Size(87, 30);
             chkTigerGirl.TabIndex = 17;
             chkTigerGirl.Text = "Tiger Girl::";
             chkTigerGirl.UseVisualStyleBackColor = true;

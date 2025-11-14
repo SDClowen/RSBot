@@ -46,9 +46,14 @@
             // 
             labelServerName.ApplyGradient = false;
             labelServerName.AutoSize = true;
-            labelServerName.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelServerName.Font = new System.Drawing.Font("Segoe UI", 11.25F);
             labelServerName.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            labelServerName.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            labelServerName.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            labelServerName.GradientAnimation = false;
             labelServerName.Location = new System.Drawing.Point(63, 10);
             labelServerName.Name = "labelServerName";
             labelServerName.Size = new System.Drawing.Size(286, 20);
@@ -59,9 +64,14 @@
             // 
             labelNumberOfPeopleWaiting.ApplyGradient = false;
             labelNumberOfPeopleWaiting.AutoSize = true;
-            labelNumberOfPeopleWaiting.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelNumberOfPeopleWaiting.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             labelNumberOfPeopleWaiting.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            labelNumberOfPeopleWaiting.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            labelNumberOfPeopleWaiting.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            labelNumberOfPeopleWaiting.GradientAnimation = false;
             labelNumberOfPeopleWaiting.Location = new System.Drawing.Point(79, 61);
             labelNumberOfPeopleWaiting.Name = "labelNumberOfPeopleWaiting";
             labelNumberOfPeopleWaiting.Size = new System.Drawing.Size(165, 17);
@@ -72,9 +82,14 @@
             // 
             label1.ApplyGradient = false;
             label1.AutoSize = true;
-            label1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label1.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             label1.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label1.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label1.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label1.GradientAnimation = false;
             label1.Location = new System.Drawing.Point(34, 112);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(137, 17);
@@ -85,8 +100,13 @@
             // 
             labelPending.ApplyGradient = false;
             labelPending.AutoSize = true;
-            labelPending.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            labelPending.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            labelPending.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            labelPending.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            labelPending.GradientAnimation = false;
             labelPending.Location = new System.Drawing.Point(259, 61);
             labelPending.Name = "labelPending";
             labelPending.Size = new System.Drawing.Size(0, 17);
@@ -96,9 +116,14 @@
             // 
             labelAvgWaitingTime.ApplyGradient = false;
             labelAvgWaitingTime.AutoSize = true;
-            labelAvgWaitingTime.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelAvgWaitingTime.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
             labelAvgWaitingTime.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            labelAvgWaitingTime.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            labelAvgWaitingTime.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            labelAvgWaitingTime.GradientAnimation = false;
             labelAvgWaitingTime.Location = new System.Drawing.Point(194, 112);
             labelAvgWaitingTime.Name = "labelAvgWaitingTime";
             labelAvgWaitingTime.Size = new System.Drawing.Size(15, 17);
@@ -109,9 +134,14 @@
             // 
             labelMyWaitingTime.ApplyGradient = false;
             labelMyWaitingTime.AutoSize = true;
-            labelMyWaitingTime.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            labelMyWaitingTime.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
             labelMyWaitingTime.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            labelMyWaitingTime.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            labelMyWaitingTime.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            labelMyWaitingTime.GradientAnimation = false;
             labelMyWaitingTime.Location = new System.Drawing.Point(194, 147);
             labelMyWaitingTime.Name = "labelMyWaitingTime";
             labelMyWaitingTime.Size = new System.Drawing.Size(15, 17);
@@ -122,9 +152,14 @@
             // 
             label5.ApplyGradient = false;
             label5.AutoSize = true;
-            label5.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label5.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             label5.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label5.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label5.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label5.GradientAnimation = false;
             label5.Location = new System.Drawing.Point(64, 147);
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(103, 17);
@@ -134,7 +169,7 @@
             // buttonCancel
             // 
             buttonCancel.Color = System.Drawing.Color.Transparent;
-            buttonCancel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            buttonCancel.Font = new System.Drawing.Font("Segoe UI", 11.25F);
             buttonCancel.Location = new System.Drawing.Point(152, 207);
             buttonCancel.Name = "buttonCancel";
             buttonCancel.Radius = 6;
@@ -148,7 +183,7 @@
             // buttonHide
             // 
             buttonHide.Color = System.Drawing.Color.Transparent;
-            buttonHide.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            buttonHide.Font = new System.Drawing.Font("Segoe UI", 11.25F);
             buttonHide.Location = new System.Drawing.Point(70, 207);
             buttonHide.Name = "buttonHide";
             buttonHide.Radius = 6;
@@ -182,8 +217,9 @@
             Controls.Add(labelPending);
             Controls.Add(labelNumberOfPeopleWaiting);
             Controls.Add(labelServerName);
-            Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            Font = new System.Drawing.Font("Segoe UI", 9F);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            Location = new System.Drawing.Point(0, 0);
             MaximizeBox = false;
             MaximumSize = new System.Drawing.Size(401, 240);
             MinimizeBox = false;

@@ -51,22 +51,23 @@
             labelInfo.GradientAnimation = false;
             labelInfo.Location = new System.Drawing.Point(160, 26);
             labelInfo.Name = "labelInfo";
-            labelInfo.Size = new System.Drawing.Size(265, 45);
+            labelInfo.Size = new System.Drawing.Size(266, 45);
             labelInfo.TabIndex = 0;
             labelInfo.Text = "Are you sure that you want to exit RSBot?\r\nThis will disconnect you from the Silkroad Server!\r\n\r\n";
             // 
             // panel1
             // 
+            panel1.BackColor = System.Drawing.Color.Transparent;
             panel1.Border = new System.Windows.Forms.Padding(0, 1, 0, 0);
             panel1.BorderColor = System.Drawing.Color.Transparent;
             panel1.Controls.Add(btnNo);
             panel1.Controls.Add(btnYes);
             panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            panel1.Location = new System.Drawing.Point(0, 129);
+            panel1.Location = new System.Drawing.Point(0, 123);
             panel1.Name = "panel1";
             panel1.Radius = 0;
             panel1.ShadowDepth = 0F;
-            panel1.Size = new System.Drawing.Size(441, 49);
+            panel1.Size = new System.Drawing.Size(435, 49);
             panel1.TabIndex = 1;
             // 
             // btnNo
@@ -127,12 +128,13 @@
             AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             CancelButton = btnNo;
-            ClientSize = new System.Drawing.Size(441, 178);
+            ClientSize = new System.Drawing.Size(435, 172);
             Controls.Add(labelInfo);
             Controls.Add(checkDontAskAgain);
             Controls.Add(pictureBox1);
             Controls.Add(panel1);
             ForeColor = System.Drawing.Color.Black;
+            Location = new System.Drawing.Point(0, 0);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "ExitDialog";

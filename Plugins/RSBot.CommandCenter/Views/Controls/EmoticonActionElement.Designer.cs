@@ -61,7 +61,12 @@
             lblName.ApplyGradient = false;
             lblName.AutoSize = true;
             lblName.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            lblName.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            lblName.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            lblName.GradientAnimation = false;
             lblName.Location = new System.Drawing.Point(58, 3);
             lblName.Name = "lblName";
             lblName.Size = new System.Drawing.Size(53, 15);
@@ -76,7 +81,6 @@
             separator1.Name = "separator1";
             separator1.Size = new System.Drawing.Size(277, 10);
             separator1.TabIndex = 3;
-            separator1.Text = "separator1";
             // 
             // EmoticonActionElement
             // 

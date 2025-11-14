@@ -97,7 +97,6 @@
             separator1.Name = "separator1";
             separator1.Size = new System.Drawing.Size(235, 12);
             separator1.TabIndex = 10;
-            separator1.Text = "separator1";
             // 
             // panelLiveFilters
             // 
@@ -199,7 +198,7 @@
             AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             Controls.Add(splitContainer1);
-            Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            Font = new System.Drawing.Font("Segoe UI", 9F);
             Name = "Main";
             Size = new System.Drawing.Size(762, 506);
             Load += Main_Load;

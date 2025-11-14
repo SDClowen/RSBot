@@ -50,7 +50,7 @@
             checkEnabled.MouseLocation = new System.Drawing.Point(-1, -1);
             checkEnabled.Name = "checkEnabled";
             checkEnabled.Ripple = true;
-            checkEnabled.Size = new System.Drawing.Size(73, 30);
+            checkEnabled.Size = new System.Drawing.Size(75, 30);
             checkEnabled.TabIndex = 1;
             checkEnabled.Text = "Enabled";
             checkEnabled.UseVisualStyleBackColor = true;
@@ -72,6 +72,7 @@
             // 
             // panel1
             // 
+            panel1.BackColor = System.Drawing.Color.Transparent;
             panel1.Border = new System.Windows.Forms.Padding(0, 0, 0, 1);
             panel1.BorderColor = System.Drawing.Color.Transparent;
             panel1.Controls.Add(checkNormal);
@@ -99,7 +100,7 @@
             checkNormal.MouseLocation = new System.Drawing.Point(-1, -1);
             checkNormal.Name = "checkNormal";
             checkNormal.Ripple = true;
-            checkNormal.Size = new System.Drawing.Size(70, 30);
+            checkNormal.Size = new System.Drawing.Size(73, 30);
             checkNormal.TabIndex = 6;
             checkNormal.Text = "Normal";
             checkNormal.UseVisualStyleBackColor = false;
@@ -115,7 +116,7 @@
             checkError.MouseLocation = new System.Drawing.Point(-1, -1);
             checkError.Name = "checkError";
             checkError.Ripple = true;
-            checkError.Size = new System.Drawing.Size(56, 30);
+            checkError.Size = new System.Drawing.Size(58, 30);
             checkError.TabIndex = 3;
             checkError.Text = "Error";
             checkError.UseVisualStyleBackColor = false;
@@ -131,7 +132,7 @@
             checkWarning.MouseLocation = new System.Drawing.Point(-1, -1);
             checkWarning.Name = "checkWarning";
             checkWarning.Ripple = true;
-            checkWarning.Size = new System.Drawing.Size(76, 30);
+            checkWarning.Size = new System.Drawing.Size(78, 30);
             checkWarning.TabIndex = 4;
             checkWarning.Text = "Warning";
             checkWarning.UseVisualStyleBackColor = false;
@@ -147,7 +148,7 @@
             checkDebug.MouseLocation = new System.Drawing.Point(-1, -1);
             checkDebug.Name = "checkDebug";
             checkDebug.Ripple = true;
-            checkDebug.Size = new System.Drawing.Size(66, 30);
+            checkDebug.Size = new System.Drawing.Size(68, 30);
             checkDebug.TabIndex = 5;
             checkDebug.Text = "Debug";
             checkDebug.UseVisualStyleBackColor = false;

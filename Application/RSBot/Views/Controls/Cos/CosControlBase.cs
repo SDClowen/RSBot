@@ -69,9 +69,8 @@ public class CosControlBase : DoubleBufferedControl
         // lblPetName
         // 
         lblPetName.ApplyGradient = false;
-        lblPetName.AutoSize = true;
         lblPetName.Dock = System.Windows.Forms.DockStyle.Left;
-        lblPetName.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+        lblPetName.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
         lblPetName.ForeColor = Color.FromArgb(0, 0, 0);
         lblPetName.Gradient = new Color[]
 {
@@ -81,7 +80,7 @@ public class CosControlBase : DoubleBufferedControl
         lblPetName.GradientAnimation = false;
         lblPetName.Location = new Point(0, 0);
         lblPetName.Name = "lblPetName";
-        lblPetName.Size = new Size(81, 15);
+        lblPetName.Size = new Size(180, 21);
         lblPetName.TabIndex = 19;
         lblPetName.Text = "No pet found";
         // 
@@ -128,7 +127,7 @@ public class CosControlBase : DoubleBufferedControl
         labelLevel.ApplyGradient = false;
         labelLevel.AutoSize = true;
         labelLevel.Dock = System.Windows.Forms.DockStyle.Left;
-        labelLevel.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+        labelLevel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
         labelLevel.ForeColor = Color.FromArgb(0, 0, 0);
         labelLevel.Gradient = new Color[]
 {
@@ -136,7 +135,7 @@ public class CosControlBase : DoubleBufferedControl
     Color.Black
 };
         labelLevel.GradientAnimation = false;
-        labelLevel.Location = new Point(81, 0);
+        labelLevel.Location = new Point(180, 0);
         labelLevel.Name = "labelLevel";
         labelLevel.Size = new Size(0, 15);
         labelLevel.TabIndex = 20;

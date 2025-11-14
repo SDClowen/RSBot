@@ -39,9 +39,13 @@
             // 
             lblTitle.ApplyGradient = false;
             lblTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            lblTitle.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            lblTitle.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             lblTitle.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            lblTitle.Gradient = new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black };
+            lblTitle.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
             lblTitle.GradientAnimation = false;
             lblTitle.Location = new System.Drawing.Point(0, 0);
             lblTitle.Name = "lblTitle";
@@ -72,7 +76,6 @@
             separator1.Name = "separator1";
             separator1.Size = new System.Drawing.Size(250, 6);
             separator1.TabIndex = 4;
-            separator1.Text = "separator1";
             // 
             // QuestSidebarElement
             // 
@@ -81,7 +84,6 @@
             Controls.Add(pQuests);
             Controls.Add(separator1);
             Controls.Add(lblTitle);
-            DoubleBuffered = true;
             Name = "QuestSidebarElement";
             Size = new System.Drawing.Size(250, 301);
             ResumeLayout(false);

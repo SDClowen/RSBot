@@ -109,7 +109,7 @@
             progressHP.ShowValue = true;
             progressHP.Size = new System.Drawing.Size(180, 20);
             progressHP.TabIndex = 15;
-            progressHP.Text = "0,00%";
+            progressHP.Text = "0.00%";
             progressHP.Value = 0L;
             // 
             // Entity

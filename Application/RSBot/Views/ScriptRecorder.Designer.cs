@@ -68,7 +68,7 @@
             btnStartStop.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             btnStartStop.BackColor = System.Drawing.Color.Gold;
             btnStartStop.Color = System.Drawing.Color.Navy;
-            btnStartStop.Font = new System.Drawing.Font("Segoe UI Semibold", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnStartStop.Font = new System.Drawing.Font("Segoe UI Semibold", 9.25F, System.Drawing.FontStyle.Bold);
             btnStartStop.ForeColor = System.Drawing.Color.White;
             btnStartStop.Location = new System.Drawing.Point(13, 15);
             btnStartStop.Name = "btnStartStop";
@@ -87,7 +87,7 @@
             btnSave.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnSave.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             btnSave.Color = System.Drawing.Color.FromArgb(56, 155, 90);
-            btnSave.Font = new System.Drawing.Font("Segoe UI Semibold", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnSave.Font = new System.Drawing.Font("Segoe UI Semibold", 9.25F, System.Drawing.FontStyle.Bold);
             btnSave.ForeColor = System.Drawing.Color.White;
             btnSave.Location = new System.Drawing.Point(384, 15);
             btnSave.Name = "btnSave";
@@ -105,7 +105,7 @@
             // 
             labelStatus.ApplyGradient = false;
             labelStatus.AutoSize = true;
-            labelStatus.Font = new System.Drawing.Font("Segoe UI", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelStatus.Font = new System.Drawing.Font("Segoe UI", 9.25F);
             labelStatus.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             labelStatus.Gradient = new System.Drawing.Color[]
     {
@@ -122,7 +122,7 @@
             // btnRun
             // 
             btnRun.Color = System.Drawing.Color.Transparent;
-            btnRun.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnRun.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold);
             btnRun.ForeColor = System.Drawing.Color.Green;
             btnRun.Location = new System.Drawing.Point(174, 15);
             btnRun.Name = "btnRun";
@@ -138,7 +138,7 @@
             // btnClear
             // 
             btnClear.Color = System.Drawing.Color.RosyBrown;
-            btnClear.Font = new System.Drawing.Font("Segoe UI Semibold", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnClear.Font = new System.Drawing.Font("Segoe UI Semibold", 9.25F, System.Drawing.FontStyle.Bold);
             btnClear.ForeColor = System.Drawing.Color.White;
             btnClear.Location = new System.Drawing.Point(93, 15);
             btnClear.Name = "btnClear";
@@ -198,7 +198,7 @@
             // btnAddCommand
             // 
             btnAddCommand.Color = System.Drawing.Color.FromArgb(33, 150, 243);
-            btnAddCommand.Font = new System.Drawing.Font("Segoe UI Semibold", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            btnAddCommand.Font = new System.Drawing.Font("Segoe UI Semibold", 9.25F, System.Drawing.FontStyle.Bold);
             btnAddCommand.ForeColor = System.Drawing.Color.White;
             btnAddCommand.Location = new System.Drawing.Point(255, 8);
             btnAddCommand.Name = "btnAddCommand";

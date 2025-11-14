@@ -93,7 +93,7 @@
             // 
             buttonNext.Color = System.Drawing.Color.Transparent;
             buttonNext.Dock = System.Windows.Forms.DockStyle.Fill;
-            buttonNext.Font = new System.Drawing.Font("Marlett", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            buttonNext.Font = new System.Drawing.Font("Marlett", 9F, System.Drawing.FontStyle.Bold);
             buttonNext.Location = new System.Drawing.Point(0, 0);
             buttonNext.Name = "buttonNext";
             buttonNext.Radius = 4;
@@ -119,7 +119,7 @@
             // 
             buttonPrev.Color = System.Drawing.Color.Transparent;
             buttonPrev.Dock = System.Windows.Forms.DockStyle.Fill;
-            buttonPrev.Font = new System.Drawing.Font("Marlett", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            buttonPrev.Font = new System.Drawing.Font("Marlett", 9F, System.Drawing.FontStyle.Bold);
             buttonPrev.Location = new System.Drawing.Point(0, 0);
             buttonPrev.Name = "buttonPrev";
             buttonPrev.Radius = 4;

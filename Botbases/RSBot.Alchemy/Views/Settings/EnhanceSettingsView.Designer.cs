@@ -70,7 +70,7 @@ namespace RSBot.Alchemy.Views.Settings
             lblMaxOptLevel.GradientAnimation = false;
             lblMaxOptLevel.Location = new System.Drawing.Point(13, 34);
             lblMaxOptLevel.Name = "lblMaxOptLevel";
-            lblMaxOptLevel.Size = new System.Drawing.Size(133, 20);
+            lblMaxOptLevel.Size = new System.Drawing.Size(108, 15);
             lblMaxOptLevel.TabIndex = 0;
             lblMaxOptLevel.Text = "Max enhancement:";
             // 
@@ -102,7 +102,7 @@ namespace RSBot.Alchemy.Views.Settings
             lblPlus.GradientAnimation = false;
             lblPlus.Location = new System.Drawing.Point(152, 34);
             lblPlus.Name = "lblPlus";
-            lblPlus.Size = new System.Drawing.Size(19, 20);
+            lblPlus.Size = new System.Drawing.Size(15, 15);
             lblPlus.TabIndex = 2;
             lblPlus.Text = "+";
             // 
@@ -116,7 +116,7 @@ namespace RSBot.Alchemy.Views.Settings
             checkUseLuckyStones.MouseLocation = new System.Drawing.Point(-1, -1);
             checkUseLuckyStones.Name = "checkUseLuckyStones";
             checkUseLuckyStones.Ripple = true;
-            checkUseLuckyStones.Size = new System.Drawing.Size(142, 30);
+            checkUseLuckyStones.Size = new System.Drawing.Size(120, 30);
             checkUseLuckyStones.TabIndex = 3;
             checkUseLuckyStones.Text = "Use lucky stones";
             checkUseLuckyStones.UseVisualStyleBackColor = false;
@@ -132,7 +132,7 @@ namespace RSBot.Alchemy.Views.Settings
             checkUseImmortalStones.MouseLocation = new System.Drawing.Point(-1, -1);
             checkUseImmortalStones.Name = "checkUseImmortalStones";
             checkUseImmortalStones.Ripple = true;
-            checkUseImmortalStones.Size = new System.Drawing.Size(170, 30);
+            checkUseImmortalStones.Size = new System.Drawing.Size(141, 30);
             checkUseImmortalStones.TabIndex = 4;
             checkUseImmortalStones.Text = "Use immortal stones";
             checkUseImmortalStones.UseVisualStyleBackColor = false;
@@ -151,7 +151,7 @@ namespace RSBot.Alchemy.Views.Settings
             lblElixir.GradientAnimation = false;
             lblElixir.Location = new System.Drawing.Point(83, 70);
             lblElixir.Name = "lblElixir";
-            lblElixir.Size = new System.Drawing.Size(44, 20);
+            lblElixir.Size = new System.Drawing.Size(34, 15);
             lblElixir.TabIndex = 5;
             lblElixir.Text = "Elixir:";
             // 
@@ -187,7 +187,7 @@ namespace RSBot.Alchemy.Views.Settings
             linkRefreshItemList.GradientAnimation = false;
             linkRefreshItemList.Location = new System.Drawing.Point(328, 60);
             linkRefreshItemList.Name = "linkRefreshItemList";
-            linkRefreshItemList.Size = new System.Drawing.Size(44, 37);
+            linkRefreshItemList.Size = new System.Drawing.Size(34, 30);
             linkRefreshItemList.TabIndex = 7;
             linkRefreshItemList.Text = "🗘";
             linkRefreshItemList.Click += linkRefreshItemList_Click;
@@ -202,7 +202,7 @@ namespace RSBot.Alchemy.Views.Settings
             checkUseAstralStones.MouseLocation = new System.Drawing.Point(-1, -1);
             checkUseAstralStones.Name = "checkUseAstralStones";
             checkUseAstralStones.Ripple = true;
-            checkUseAstralStones.Size = new System.Drawing.Size(145, 30);
+            checkUseAstralStones.Size = new System.Drawing.Size(120, 30);
             checkUseAstralStones.TabIndex = 8;
             checkUseAstralStones.Text = "Use astral stones";
             checkUseAstralStones.UseVisualStyleBackColor = false;
@@ -221,7 +221,7 @@ namespace RSBot.Alchemy.Views.Settings
             lblLuckyCount.GradientAnimation = false;
             lblLuckyCount.Location = new System.Drawing.Point(328, 134);
             lblLuckyCount.Name = "lblLuckyCount";
-            lblLuckyCount.Size = new System.Drawing.Size(24, 20);
+            lblLuckyCount.Size = new System.Drawing.Size(18, 15);
             lblLuckyCount.TabIndex = 9;
             lblLuckyCount.Text = "x0";
             // 
@@ -238,7 +238,7 @@ namespace RSBot.Alchemy.Views.Settings
             lblImmortalCount.GradientAnimation = false;
             lblImmortalCount.Location = new System.Drawing.Point(328, 157);
             lblImmortalCount.Name = "lblImmortalCount";
-            lblImmortalCount.Size = new System.Drawing.Size(24, 20);
+            lblImmortalCount.Size = new System.Drawing.Size(18, 15);
             lblImmortalCount.TabIndex = 9;
             lblImmortalCount.Text = "x0";
             // 
@@ -255,7 +255,7 @@ namespace RSBot.Alchemy.Views.Settings
             lblAstralCount.GradientAnimation = false;
             lblAstralCount.Location = new System.Drawing.Point(328, 180);
             lblAstralCount.Name = "lblAstralCount";
-            lblAstralCount.Size = new System.Drawing.Size(24, 20);
+            lblAstralCount.Size = new System.Drawing.Size(18, 15);
             lblAstralCount.TabIndex = 9;
             lblAstralCount.Text = "x0";
             // 
@@ -269,7 +269,7 @@ namespace RSBot.Alchemy.Views.Settings
             checkUseSteadyStones.MouseLocation = new System.Drawing.Point(-1, -1);
             checkUseSteadyStones.Name = "checkUseSteadyStones";
             checkUseSteadyStones.Ripple = true;
-            checkUseSteadyStones.Size = new System.Drawing.Size(152, 30);
+            checkUseSteadyStones.Size = new System.Drawing.Size(126, 30);
             checkUseSteadyStones.TabIndex = 8;
             checkUseSteadyStones.Text = "Use steady stones";
             checkUseSteadyStones.UseVisualStyleBackColor = false;
@@ -288,7 +288,7 @@ namespace RSBot.Alchemy.Views.Settings
             lblSteadyStonesCount.GradientAnimation = false;
             lblSteadyStonesCount.Location = new System.Drawing.Point(328, 203);
             lblSteadyStonesCount.Name = "lblSteadyStonesCount";
-            lblSteadyStonesCount.Size = new System.Drawing.Size(24, 20);
+            lblSteadyStonesCount.Size = new System.Drawing.Size(18, 15);
             lblSteadyStonesCount.TabIndex = 9;
             lblSteadyStonesCount.Text = "x0";
             // 
@@ -305,7 +305,7 @@ namespace RSBot.Alchemy.Views.Settings
             lblLuckyPowderCount.GradientAnimation = false;
             lblLuckyPowderCount.Location = new System.Drawing.Point(328, 111);
             lblLuckyPowderCount.Name = "lblLuckyPowderCount";
-            lblLuckyPowderCount.Size = new System.Drawing.Size(24, 20);
+            lblLuckyPowderCount.Size = new System.Drawing.Size(18, 15);
             lblLuckyPowderCount.TabIndex = 11;
             lblLuckyPowderCount.Text = "x0";
             // 
@@ -321,7 +321,7 @@ namespace RSBot.Alchemy.Views.Settings
             checkStopLuckyPowder.MouseLocation = new System.Drawing.Point(-1, -1);
             checkStopLuckyPowder.Name = "checkStopLuckyPowder";
             checkStopLuckyPowder.Ripple = true;
-            checkStopLuckyPowder.Size = new System.Drawing.Size(183, 30);
+            checkStopLuckyPowder.Size = new System.Drawing.Size(150, 30);
             checkStopLuckyPowder.TabIndex = 10;
             checkStopLuckyPowder.Text = "Stop if 0 lucky powder";
             checkStopLuckyPowder.UseVisualStyleBackColor = false;
@@ -343,7 +343,7 @@ namespace RSBot.Alchemy.Views.Settings
             lblCurrentOptLevel.GradientAnimation = false;
             lblCurrentOptLevel.Location = new System.Drawing.Point(255, 30);
             lblCurrentOptLevel.Name = "lblCurrentOptLevel";
-            lblCurrentOptLevel.Size = new System.Drawing.Size(38, 27);
+            lblCurrentOptLevel.Size = new System.Drawing.Size(31, 22);
             lblCurrentOptLevel.TabIndex = 12;
             lblCurrentOptLevel.Text = "+0";
             // 

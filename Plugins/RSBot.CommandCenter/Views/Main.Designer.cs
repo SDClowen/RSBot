@@ -55,7 +55,7 @@
             checkEnable.MouseLocation = new System.Drawing.Point(-1, -1);
             checkEnable.Name = "checkEnable";
             checkEnable.Ripple = true;
-            checkEnable.Size = new System.Drawing.Size(161, 30);
+            checkEnable.Size = new System.Drawing.Size(162, 30);
             checkEnable.TabIndex = 0;
             checkEnable.Text = "Enable command center";
             checkEnable.UseVisualStyleBackColor = false;
@@ -82,6 +82,7 @@
             tabControl1.ItemSize = new System.Drawing.Size(80, 24);
             tabControl1.Location = new System.Drawing.Point(8, 4);
             tabControl1.Name = "tabControl1";
+            tabControl1.Radius = new System.Windows.Forms.Padding(4);
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new System.Drawing.Size(385, 359);
             tabControl1.TabIndex = 1;
@@ -138,9 +139,14 @@
             // 
             label1.ApplyGradient = false;
             label1.AutoSize = true;
-            label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             label1.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label1.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label1.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label1.GradientAnimation = false;
             label1.Location = new System.Drawing.Point(16, 15);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(281, 15);
@@ -163,7 +169,12 @@
             label2.ApplyGradient = false;
             label2.AutoSize = true;
             label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label2.Gradient = (new System.Drawing.Color[] { System.Drawing.Color.Gray, System.Drawing.Color.Black });
+            label2.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label2.GradientAnimation = false;
             label2.Location = new System.Drawing.Point(134, 157);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(93, 15);

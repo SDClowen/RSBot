@@ -106,7 +106,7 @@
             label1.GradientAnimation = false;
             label1.Location = new System.Drawing.Point(16, 11);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(142, 15);
+            label1.Size = new System.Drawing.Size(141, 15);
             label1.TabIndex = 0;
             label1.Text = "Silkroad executable path: ";
             label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -240,7 +240,7 @@
             checkStayConnected.MouseLocation = new System.Drawing.Point(-1, -1);
             checkStayConnected.Name = "checkStayConnected";
             checkStayConnected.Ripple = true;
-            checkStayConnected.Size = new System.Drawing.Size(257, 30);
+            checkStayConnected.Size = new System.Drawing.Size(255, 30);
             checkStayConnected.TabIndex = 17;
             checkStayConnected.Text = "Stay connected if client exits unexpectedly";
             checkStayConnected.UseVisualStyleBackColor = false;
@@ -888,7 +888,7 @@
             btnShowPending.Name = "btnShowPending";
             btnShowPending.Radius = 6;
             btnShowPending.ShadowDepth = 4F;
-            btnShowPending.Size = new System.Drawing.Size(152, 23);
+            btnShowPending.Size = new System.Drawing.Size(153, 23);
             btnShowPending.TabIndex = 24;
             btnShowPending.Text = "Toggle Pending Window";
             btnShowPending.UseVisualStyleBackColor = true;
@@ -939,7 +939,7 @@
             Controls.Add(label1);
             Font = new System.Drawing.Font("Segoe UI", 9F);
             Name = "Main";
-            Size = new System.Drawing.Size(677, 413);
+            Size = new System.Drawing.Size(660, 396);
             groupBox4.ResumeLayout(false);
             groupBox4.PerformLayout();
             groupBox3.ResumeLayout(false);
