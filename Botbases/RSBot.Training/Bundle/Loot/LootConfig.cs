@@ -1,4 +1,4 @@
-﻿namespace RSBot.Default.Bundle.Loot;
+﻿namespace RSBot.Training.Bundle.Loot;
 
 internal class LootConfig
 {

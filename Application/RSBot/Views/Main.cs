@@ -435,7 +435,7 @@ public partial class Main : UIWindow
 
         dropdown.Checked = true;
 
-        GlobalConfig.Set("RSBot.Language", Kernel.Language);
+        SystemConfig.Set("RSBot.Language", Kernel.Language);
         GlobalConfig.Save();
     }
 

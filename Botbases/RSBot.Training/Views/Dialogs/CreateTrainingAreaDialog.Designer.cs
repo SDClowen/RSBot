@@ -1,4 +1,4 @@
-﻿namespace RSBot.Default.Views.Dialogs
+﻿namespace RSBot.Training.Views.Dialogs
 {
     partial class CreateTrainingAreaDialog
     {

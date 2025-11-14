@@ -1,6 +1,6 @@
 ﻿using RSBot.Core;
 
-namespace RSBot.Default.Bundle.Protection;
+namespace RSBot.Training.Bundle.Protection;
 
 internal class HealthRecovery
 {

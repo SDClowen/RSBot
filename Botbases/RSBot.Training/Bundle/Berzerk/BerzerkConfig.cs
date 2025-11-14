@@ -1,4 +1,4 @@
-﻿namespace RSBot.Default.Bundle.Berzerk;
+﻿namespace RSBot.Training.Bundle.Berzerk;
 
 internal class BerzerkConfig
 {

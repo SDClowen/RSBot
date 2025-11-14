@@ -2,7 +2,7 @@
 using RSBot.Core;
 using RSBot.Core.Objects;
 
-namespace RSBot.Default.Bundle.Avoidance;
+namespace RSBot.Training.Bundle.Avoidance;
 
 internal class AvoidanceBundle : IBundle
 {
@@ -22,7 +22,7 @@ internal class AvoidanceBundle : IBundle
     /// </value>
     public MonsterRarity[] PreferanceList => PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Prefer");
 
-     /// <summary>
+    /// <summary>
     ///     Gets the berserk list.
     /// </summary>
     /// <value>

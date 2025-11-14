@@ -21,4 +21,13 @@ public static class SystemConfig
 
         return _config.Get(key, defaultValue);
     }
+
+    public static void Set<T>(string key, T value)
+    {
+        if (_config != null)
+        {
+            _config.Set(key, value);
+            _config.Save();
+        }
+    }
 }

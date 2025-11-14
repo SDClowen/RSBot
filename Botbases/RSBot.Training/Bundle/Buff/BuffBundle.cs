@@ -4,7 +4,7 @@ using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 
-namespace RSBot.Default.Bundle.Buff;
+namespace RSBot.Training.Bundle.Buff;
 
 internal class BuffBundle : IBundle
 {

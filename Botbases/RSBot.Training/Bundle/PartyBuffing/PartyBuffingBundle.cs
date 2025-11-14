@@ -6,7 +6,7 @@ using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Party;
 
-namespace RSBot.Default.Bundle.PartyBuffing;
+namespace RSBot.Training.Bundle.PartyBuffing;
 
 internal class PartyBuffingBundle : IBundle
 {

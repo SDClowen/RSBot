@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using RSBot.Core;
 using SDUI.Controls;
 
-namespace RSBot.Default.Views.Dialogs;
+namespace RSBot.Training.Views.Dialogs;
 
 public partial class CreateTrainingAreaDialog : UIWindowBase
 {

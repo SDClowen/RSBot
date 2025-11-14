@@ -1,7 +1,7 @@
 ﻿using RSBot.Core.Event;
-using RSBot.Default.Bundle;
+using RSBot.Training.Bundle;
 
-namespace RSBot.Default.Subscriber;
+namespace RSBot.Training.Subscriber;
 
 internal class ConfigSubscriber
 {

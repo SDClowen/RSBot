@@ -8,7 +8,7 @@ using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
 
-namespace RSBot.Default.Bundle.Target;
+namespace RSBot.Training.Bundle.Target;
 
 internal class TargetBundle : IBundle
 {

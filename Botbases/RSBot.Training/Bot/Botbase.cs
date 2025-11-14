@@ -4,9 +4,9 @@ using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
-using RSBot.Default.Bundle;
+using RSBot.Training.Bundle;
 
-namespace RSBot.Default.Bot;
+namespace RSBot.Training.Bot;
 
 internal class Botbase
 {

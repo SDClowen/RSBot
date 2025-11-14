@@ -2,7 +2,7 @@
 using RSBot.Core.Components;
 using RSBot.Core.Objects;
 
-namespace RSBot.Default.Bundle.Attack;
+namespace RSBot.Training.Bundle.Attack;
 
 internal class AttackBundle : IBundle
 {

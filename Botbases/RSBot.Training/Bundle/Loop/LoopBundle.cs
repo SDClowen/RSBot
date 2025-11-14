@@ -4,7 +4,7 @@ using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Objects;
 
-namespace RSBot.Default.Bundle.Loop;
+namespace RSBot.Training.Bundle.Loop;
 
 internal class LoopBundle : IBundle
 {

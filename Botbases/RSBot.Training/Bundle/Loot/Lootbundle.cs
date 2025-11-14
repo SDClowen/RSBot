@@ -3,7 +3,7 @@ using RSBot.Core.Components;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
 
-namespace RSBot.Default.Bundle.Loot;
+namespace RSBot.Training.Bundle.Loot;
 
 internal class LootBundle : IBundle
 {

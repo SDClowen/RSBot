@@ -5,7 +5,7 @@ using RSBot.Core;
 using RSBot.Core.Objects;
 using SDUI.Controls;
 
-namespace RSBot.Default.Views.Dialogs;
+namespace RSBot.Training.Views.Dialogs;
 
 public partial class TrainingAreasDialog : UIWindowBase
 {

@@ -3,7 +3,7 @@ using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Objects.Spawn;
 
-namespace RSBot.Default.Bundle.Movement;
+namespace RSBot.Training.Bundle.Movement;
 
 internal class MovementBundle : IBundle
 {

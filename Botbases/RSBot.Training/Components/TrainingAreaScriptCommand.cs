@@ -4,7 +4,7 @@ using RSBot.Core.Components.Scripting;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 
-namespace RSBot.Default.Components;
+namespace RSBot.Training.Components;
 
 internal class TrainingAreaScriptCommand : IScriptCommand
 {
