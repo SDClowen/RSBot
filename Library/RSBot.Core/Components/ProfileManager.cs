@@ -39,6 +39,11 @@ public class ProfileManager
     public static bool IsProfileLoadedByArgs { get; set; }
 
     /// <summary>
+    ///     The selected character
+    /// </summary>
+    public static string SelectedCharacter { get; set; }
+
+    /// <summary>
     ///     The selected profile
     /// </summary>
     public static string SelectedProfile => _config.Get("RSBot.SelectedProfile", "Default");
@@ -105,6 +110,9 @@ public class ProfileManager
     /// <returns>Is created <c>true</c>; otherwise <c>false</c></returns>
     public static bool Add(string profile, bool useAsBase = false)
     {
+        if (profile.Equals("Profiles", StringComparison.InvariantCultureIgnoreCase))
+            return false;
+
         if (profile == SelectedProfile)
             return true;
 

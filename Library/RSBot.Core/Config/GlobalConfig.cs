@@ -114,7 +114,7 @@ public static class GlobalConfig
 
         _config.Save();
 
-        Log.Notify("[Global] have been saved!");
+        Log.Notify("[Global] settings have been saved!");
         EventManager.FireEvent("OnSaveGlobalConfig");
     }
 }
