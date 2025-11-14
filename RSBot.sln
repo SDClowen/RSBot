@@ -33,7 +33,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Botbases", "Botbases", "{98
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{AC1664CE-FD32-4A07-8C5C-0C96D973960C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSBot.Default", "Botbases\RSBot.Default\RSBot.Default.csproj", "{BDDCA486-B41F-4CB5-AAB8-F15A5BBD0638}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSBot.Training", "Botbases\RSBot.Training\RSBot.Training.csproj", "{BDDCA486-B41F-4CB5-AAB8-F15A5BBD0638}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSBot", "Application\RSBot\RSBot.csproj", "{259A396E-2479-493E-A360-6CAD48E3CB5E}"
 	ProjectSection(ProjectDependencies) = postProject
