@@ -14,6 +14,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RSBot.Views;
@@ -30,6 +31,7 @@ public partial class Main : UIWindow
     /// </summary>
     private string _playerName;
     private readonly Dictionary<string, UIWindow> _pluginWindows = new(8);
+    private bool _isWindowLoaded;
 
     #endregion Members
 
@@ -46,6 +48,7 @@ public partial class Main : UIWindow
         RegisterEvents();
 
         Text = "RSBot";
+        Shown += Main_Shown;
     }
 
     #endregion Constructor
@@ -159,12 +162,14 @@ public partial class Main : UIWindow
     ///     Selects the botbase.
     /// </summary>
     /// <param name="index">The index.</param>
-    private void SelectBotbase(string name)
+    private async Task SelectBotbase(string name)
     {
         if (Kernel.Bot.Running)
             return;
 
         var oldBotbaseName = Kernel.Bot?.Botbase?.Name;
+        var previousSelectedIndex = windowPageControl.SelectedIndex;
+
         var newBotbase = Kernel.BotbaseManager.Bots.FirstOrDefault(bot => bot.Value.Name == name);
         if (newBotbase.Value == null)
         {
@@ -180,7 +185,29 @@ public partial class Main : UIWindow
         control.Text = LanguageManager.GetLangBySpecificKey(newBotbase.Value.Name, "TabText", newBotbase.Value.TabText);
         control.Enabled = Game.Ready;
         windowPageControl.Controls.Add(control);
-        windowPageControl.Controls.SetChildIndex(control, 1);
+
+        var botbaseIndex = 1;
+
+        windowPageControl.Controls.SetChildIndex(control, botbaseIndex);
+
+        if (_isWindowLoaded)
+        {
+            if (!string.IsNullOrWhiteSpace(oldBotbaseName) && previousSelectedIndex == botbaseIndex)
+            {
+                // If a botbase was previously selected and the new one replaces it at the same index,
+                // move to the next tab if available.
+                if (botbaseIndex + 1 < windowPageControl.Controls.Count)
+                {
+                    windowPageControl.SelectedIndex = botbaseIndex + 1;
+                    await Task.Delay(100);
+                    windowPageControl.SelectedIndex = botbaseIndex;
+                }
+            }
+            else
+            {
+                windowPageControl.SelectedIndex = botbaseIndex;
+            }
+        }
 
         Kernel.Bot?.SetBotbase(newBotbase.Value);
         GlobalConfig.Set("RSBot.BotName", newBotbase.Value.Name);
@@ -260,6 +287,11 @@ public partial class Main : UIWindow
             comboServer.SelectedIndex = comboServer.Items.Count - 1 >= gatewayIndex ? gatewayIndex : 0;
 
         GlobalConfig.Set("RSBot.GatewayIndex", comboServer.SelectedIndex.ToString());
+    }
+
+    private void Main_Shown(object sender, EventArgs e)
+    {
+        _isWindowLoaded = true;
     }
 
     #endregion Methods
@@ -774,7 +806,7 @@ public partial class Main : UIWindow
             botsToolStripMenuItem.DropDown.Items.Add(item);
         }
 
-        SelectBotbase(GlobalConfig.Get("RSBot.BotName", "RSBot.Default"));
+        SelectBotbase(GlobalConfig.Get("RSBot.BotName", "RSBot.Default")); // TODO: Change to Training after rename
     }
 
     /// <summary>
@@ -783,10 +815,10 @@ public partial class Main : UIWindow
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     /// <exception cref="System.NotImplementedException"></exception>
-    private void Item_Click(object? sender, EventArgs e)
+    private async void Item_Click(object? sender, EventArgs e)
     {
         var item = sender as ToolStripMenuItem;
-        SelectBotbase(item.Name);
+        await SelectBotbase(item.Name);
     }
 
     /// <summary>
