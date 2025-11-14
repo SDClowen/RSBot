@@ -14,6 +14,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RSBot.Views;
@@ -161,7 +162,7 @@ public partial class Main : UIWindow
     ///     Selects the botbase.
     /// </summary>
     /// <param name="index">The index.</param>
-    private void SelectBotbase(string name)
+    private async Task SelectBotbase(string name)
     {
         if (Kernel.Bot.Running)
             return;
@@ -199,7 +200,11 @@ public partial class Main : UIWindow
                 // If a botbase was previously selected and the new one replaces it at the same index,
                 // move to the next tab if available.
                 if (botbaseIndex + 1 < windowPageControl.Controls.Count)
+                {
                     windowPageControl.SelectedIndex = botbaseIndex + 1;
+                    await Task.Delay(100);
+                    windowPageControl.SelectedIndex = botbaseIndex;
+                }
                 else
                     windowPageControl.SelectedIndex = botbaseIndex; // Fallback to the same index if no next tab
             }
@@ -815,10 +820,10 @@ public partial class Main : UIWindow
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     /// <exception cref="System.NotImplementedException"></exception>
-    private void Item_Click(object? sender, EventArgs e)
+    private async void Item_Click(object? sender, EventArgs e)
     {
         var item = sender as ToolStripMenuItem;
-        SelectBotbase(item.Name);
+        await SelectBotbase(item.Name);
     }
 
     /// <summary>
