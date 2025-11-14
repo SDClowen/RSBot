@@ -13,6 +13,7 @@
 		<RepositoryUrl>https://github.com/SDClowen/RSBot</RepositoryUrl>
 		<OutputType>WinExe</OutputType>
 		<ApplicationIcon>app.ico</ApplicationIcon>
+		<InformationalVersion>2.9.9</InformationalVersion>
 		<AssemblyVersion>2.9.9</AssemblyVersion>
 		<PlatformTarget>x86</PlatformTarget>
 		<UseWPF>False</UseWPF>
@@ -34,4 +35,10 @@
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	  <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.10.0" />
 	</ItemGroup>
+  <Target Name="CopyDependencies" AfterTargets="Build">
+    <ItemGroup>
+      <DependencyFiles Include="..\..\Dependencies\**\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(DependencyFiles)" DestinationFolder="..\..\Build\Data\%(RecursiveDir)" />
+  </Target>
 </Project>
