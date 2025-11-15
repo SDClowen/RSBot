@@ -20,7 +20,7 @@ To join the conversation, get recent updates/announcements, join our [Discord se
 | [![release-latest](https://img.shields.io/github/v/release/SDClowen/RSBot?label=Latest%20Stable&style=for-the-badge)](https://github.com/SDClowen/RSBot/releases/latest) | Latest stable release                      |
 | [![release-all](https://img.shields.io/badge/Latest%20Release-Nightly-FF0000?style=for-the-badge)](https://github.com/SDClowen/RSBot/releases)                           | Nightly releases for most recent features  |
 | [![release-manager](https://img.shields.io/badge/Latest%20Release-Manager-00DD00?style=for-the-badge)](https://github.com/warofmine/Rsbot-Manager/releases/latest)       | Manager for multiple bot profiles          |
-| [![wiki](https://img.shields.io/badge/RSBot-Wiki-FF00FF?style=for-the-badge)](https://sdclowen.github.io/RSBot)                                                          | Documentation, tips & tricks and tutorials |
+| [![docs](https://img.shields.io/badge/RSBot-Docs-FF00FF?style=for-the-badge)](https://sdclowen.github.io/RSBot)                                                          | Documentation, tips & tricks and tutorials |
 
 ## Building the project
 
