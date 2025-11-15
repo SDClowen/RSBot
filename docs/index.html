@@ -18,32 +18,32 @@
             RSBot
             <a href="https://github.com/SDClowen/RSBot/releases/latest">v2.9.9</a>
           </h1>
-          <p>
-            Welcome to the RSBot Wiki!<br />
-            Contents are subject to major change, as there have been 8 minor releases and many nightly builds since the
-            wiki’s initial write. More text will be added to describe each specific option.
-          </p>
-          <h2>Links</h2>
-          <ul>
-            <li>
-              If you have any feedback or suggestions visit the
-              <a href="https://discord.gg/MuY5ejEU3r">Discord</a>.
-            </li>
-            <li>
-              If you’d like to report bugs you’ve encountered, use
-              <a href="https://github.com/SDClowen/RSBot/issues">GitHub</a>.
-            </li>
-            <li><a href="https://github.com/SDClowen/RSBot">Repo</a></li>
-            <li>
-              <a href="https://app.fossa.com/projects/git%2Bgithub.com%2FSDClowen%2FRSBot?ref=badge_shield">FOSSA</a>
-            </li>
-            <li>
-              <a href="https://github.com/SDClowen/RSBot/blob/master/LICENSE">LICENSE</a>
-            </li>
-            <li>
-              <a href="https://www.buymeacoffee.com/sdclowen">Sponsor the project!</a>
-            </li>
-          </ul>
+          <p>Welcome to the RSBot Documentation!</p>
+
+          <div>
+            <img src="https://img.shields.io/github/downloads/SDClowen/RSBot/total?label=Total%20Downloads" />
+            <img src="https://img.shields.io/github/downloads/SDClowen/RSBot/latest/total?label=Latest%20release" />
+            <img src="https://img.shields.io/discord/454345032846016515?label=Discord%20Server" />
+          </div>
+          <div>
+            <a href="https://buymeacoffee.com/sdclowen">
+              <img
+                src="https://img.shields.io/badge/Donate_@_Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black"
+            /></a>
+          </div>
+          <div>
+            <a href="https://github.com/SDClowen/RSBot/releases/latest"
+              ><img
+                src="https://img.shields.io/github/v/release/SDClowen/RSBot?label=Latest%20Stable&style=for-the-badge"
+            /></a>
+            <a href="https://github.com/SDClowen/RSBot/releases"
+              ><img src="https://img.shields.io/badge/Latest%20Release-Nightly-FF0000?style=for-the-badge"
+            /></a>
+            <a href="https://github.com/warofmine/Rsbot-Manager/releases/latest"
+              ><img src="https://img.shields.io/badge/Latest%20Release-Manager-00DD00?style=for-the-badge"
+            /></a>
+          </div>
+
           <h2>Supported clients</h2>
           <table>
             <thead>
@@ -119,50 +119,8 @@
               </tr>
             </tbody>
           </table>
-          <h2>FAQ</h2>
-          <h3>How to run multiple clients (easily)</h3>
-          <p>
-            Create new profiles for each character you want to open for demonstration purposes. Let’s say you name them
-            1 through 8.
-          </p>
-          <p>
-            To launch a new bot instance with the new profiles while starting the bot, you’ve to pass in the name of the
-            profile as an argument to the executable. Here are some ways to do this:
-          </p>
-          <h3>1 Terminal</h3>
-          <p>Run <code>..\RSBot.exe &lt;1-8&gt;</code></p>
-          <h3>2 Scripts</h3>
-          <p>You can create a batch script like so:</p>
-          <div class="sourceCode">
-            <pre class="sourceCode bat"><code class="sourceCode dosbat">START "" RSBot.exe 1
-timeout /t 1 /nobreak
-START "" RSBot.exe 2
-timeout /t 1 /nobreak
-START "" RSBot.exe 3
-...</code>
-</pre>
-          </div>
-          <blockquote>
-            <p>
-              [!IMPORTANT] The delay between launching each bot instance is required because of some initialization
-              conflicting with each other. Increase the delay if your computer is slow,
-            </p>
-          </blockquote>
-          <h3>3 Shortcuts</h3>
-          <ol type="1">
-            <li>Create a shortcut pointing to the executable</li>
-            <li>Go to the properties of the shortcut</li>
-            <li>
-              On the line <code>Target</code> append profile name
-              <code>..\RSBot.exe &lt;1-8&gt;</code>
-            </li>
-            <li>Launch each profile using the shortcuts</li>
-          </ol>
-          <h3>Client gets stuck when issued to train</h3>
-          <p>Disable <code>Enable collision detection</code> from <code>Map</code> subsection</p>
-          <h2>Contributors of the Wiki</h2>
-          <h3>Main writer/maintainer of the wiki</h3>
-          <p><a href="https://github.com/Egezenn">Egezenn</a></p>
+
+          <h2>Main writer/maintainer of the wiki: <a href="https://github.com/Egezenn">Egezenn</a></h2>
         </main>
         <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar"></nav>
       </div>

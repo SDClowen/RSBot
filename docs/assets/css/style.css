@@ -151,3 +151,7 @@ table tbody tr:hover {
   background-color: rgb(255 255 255 / 7.5%);
   color: #fff;
 }
+
+a {
+  text-decoration: none;
+}
