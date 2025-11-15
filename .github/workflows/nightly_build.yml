@@ -64,8 +64,7 @@ jobs:
       - name: Create the app package
         if: steps.check_commits.outputs.has_new_commits == 'true'
         run: |
-          msbuild /p:Configuration=Release /p:Platform="x86"
-          Copy-Item -Path "Dependencies\*" -Destination "Build\Data" -Recurse
+          msbuild /p:Configuration=Release /p:Platform=x86
           cd Build
           Compress-Archive -Path ".\*" -DestinationPath ".\..\RSBot.${{ env.date }}.zip"
           cd ..

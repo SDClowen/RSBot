@@ -806,7 +806,7 @@ public partial class Main : UIWindow
             botsToolStripMenuItem.DropDown.Items.Add(item);
         }
 
-        SelectBotbase(GlobalConfig.Get("RSBot.BotName", "RSBot.Default")); // TODO: Change to Training after rename
+        SelectBotbase(GlobalConfig.Get("RSBot.BotName", "RSBot.Training"));
     }
 
     /// <summary>
