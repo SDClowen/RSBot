@@ -31,6 +31,7 @@
 	</ItemGroup>
 	
 	<ItemGroup>
+	  <PackageReference Include="CommandLineParser" Version="2.9.1" />
 	  <PackageReference Include="Microsoft.Net.Sdk.Compilers.Toolset" Version="9.0.300" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	  <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.10.0" />

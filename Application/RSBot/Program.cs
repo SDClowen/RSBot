@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
+using CommandLine;
+using CommandLine.Text;
 using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Views;
+using System.Runtime.InteropServices;
 
 namespace RSBot;
 
@@ -20,19 +24,42 @@ internal static class Program
     public static string AssemblyDescription =
         Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyDescriptionAttribute>()?.Description;
 
+    public class CommandLineOptions
+    {
+        [Option('c', "character", Required = false, HelpText = "Set the character name to use.")]
+        public string Character { get; set; }
+
+        [Option('p', "profile", Required = false, HelpText = "Set the profile name to use.")]
+        public string Profile { get; set; }
+    }
+
+    private static void DisplayHelp(ParserResult<CommandLineOptions> result)
+    {
+        var helpText = HelpText.AutoBuild(result, h =>
+        {
+            h.AdditionalNewLineAfterOption = false;
+            h.AddDashesToOption = true;
+            return HelpText.DefaultParsingErrorsHandler(result, h);
+        });
+        MessageBox.Show(helpText, AssemblyTitle + " " + AssemblyVersion, MessageBoxButtons.OK, MessageBoxIcon.Information);
+    }
+
     [STAThread]
     private static void Main(string[] args)
     {
-        if (args.Length == 1)
-        {
-            var profile = args[0];
-            if (ProfileManager.ProfileExists(profile))
+        var parser = new Parser(with => with.HelpWriter = Console.Out);
+        var parserResult = parser.ParseArguments<CommandLineOptions>(args);
+
+        parserResult
+            .WithParsed(options =>
             {
-                ProfileManager.SetSelectedProfile(profile);
-                ProfileManager.IsProfileLoadedByArgs = true;
-                Log.Debug($"Selected profile by args: {profile}");
-            }
-        }
+                RunOptions(options);
+            })
+            .WithNotParsed(errs =>
+            {
+                DisplayHelp(parserResult);
+                Environment.Exit(1);
+            });
 
         //CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
 
@@ -52,4 +79,27 @@ internal static class Program
 
         Application.Run(mainForm);
     }
+
+    private static void RunOptions(CommandLineOptions options)
+    {
+        if (!string.IsNullOrEmpty(options.Profile))
+        {
+            var profile = options.Profile;
+            if (ProfileManager.ProfileExists(profile))
+                ProfileManager.SetSelectedProfile(profile);
+            else
+                ProfileManager.Add(profile);
+
+            ProfileManager.IsProfileLoadedByArgs = true;
+            Log.Debug($"Selected profile by args: {profile}");
+        }
+
+        if (!string.IsNullOrEmpty(options.Character))
+        {
+            var character = options.Character;
+            ProfileManager.SelectedCharacter = character;
+            Log.Debug($"Selected character by args: {character}");
+        }
+    }
+
 }
