@@ -7,7 +7,7 @@ public class LocalFolder : IFolder
     {
         Path = path;
         FileSystem = fileSystem;
-        
+
         _directoryInfo = new DirectoryInfo(path);
     }
 
@@ -17,9 +17,9 @@ public class LocalFolder : IFolder
     public IFolder Parent => FileSystem.GetFolder(System.IO.Path.GetDirectoryName(Path) ?? string.Empty);
 
     public long CreationTime => _directoryInfo.CreationTime.Ticks;
-    
+
     public long ModifyTime => _directoryInfo.LastWriteTime.Ticks;
-    
+
     public IFolder[] GetFolders()
     {
         return FileSystem.GetFolders(Path);

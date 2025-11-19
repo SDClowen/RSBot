@@ -2,7 +2,6 @@
 using System.Numerics;
 using RSBot.Core.Network;
 using RSBot.NavMeshApi;
-using RSBot.NavMeshApi.Dungeon;
 
 namespace RSBot.Core.Objects;
 

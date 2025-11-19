@@ -6,7 +6,6 @@ using RSBot.Core.Objects;
 using RSBot.Core.Objects.Party;
 using RSBot.Core.Objects.Spawn;
 using RSBot.FileSystem;
-using RSBot.NavMeshApi;
 
 using System;
 using System.IO;

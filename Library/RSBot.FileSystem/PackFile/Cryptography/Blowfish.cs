@@ -259,8 +259,8 @@ public class Blowfish
         for (i = 0; i < 18; ++i) PArray[i] = bf_P[i];
 
         for (i = 0; i < 4; ++i)
-        for (j = 0; j < 256; ++j)
-            SBoxes[i, j] = bf_S[i, j];
+            for (j = 0; j < 256; ++j)
+                SBoxes[i, j] = bf_S[i, j];
 
         var temp = new byte[4];
         j = 0;
@@ -286,12 +286,12 @@ public class Blowfish
         }
 
         for (i = 0; i < 4; ++i)
-        for (j = 0; j < 256; j += 2)
-        {
-            Blowfish_encipher(ref datal, ref datar);
-            SBoxes[i, j] = datal;
-            SBoxes[i, j + 1] = datar;
-        }
+            for (j = 0; j < 256; j += 2)
+            {
+                Blowfish_encipher(ref datal, ref datar);
+                SBoxes[i, j] = datal;
+                SBoxes[i, j + 1] = datar;
+            }
     }
 
     // Returns the output length based on the size. This can be used to

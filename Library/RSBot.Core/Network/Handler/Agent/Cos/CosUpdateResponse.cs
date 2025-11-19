@@ -183,7 +183,7 @@ internal class CosUpdateResponse : IPacketHandler
                     break;
 
                 case 5:
-                    Game.Player.AbilityPet.Name =  packet.ReadString();
+                    Game.Player.AbilityPet.Name = packet.ReadString();
                     EventManager.FireEvent("OnAbilityPetNameChange");
                     break;
             }

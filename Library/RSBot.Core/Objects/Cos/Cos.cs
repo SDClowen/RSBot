@@ -205,7 +205,7 @@ public class Cos : SpawnedEntity
             {
                 var type = (InventoryOperation)response.ReadByte();
                 if (type != InventoryOperation.SP_PICK_ITEM_BY_OTHER)
-                   return AwaitCallbackResult.ConditionFailed;
+                    return AwaitCallbackResult.ConditionFailed;
 
                 return response.ReadUInt() == UniqueId
                     ? AwaitCallbackResult.Success

@@ -308,7 +308,7 @@ namespace RSBot.Core.Network
         public override string ToString()
         {
             if (Locked)
-                return _readerBytes != null ? "\n0x" + Opcode.ToString("X2") + "\n " + _readerBytes.HexDump() + "\n": "Empty";
+                return _readerBytes != null ? "\n0x" + Opcode.ToString("X2") + "\n " + _readerBytes.HexDump() + "\n" : "Empty";
 
             //Get the bytes from the writer
             //lock (_lock)

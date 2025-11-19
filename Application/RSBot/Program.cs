@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 using System.Text;
@@ -9,7 +8,6 @@ using CommandLine.Text;
 using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Views;
-using System.Runtime.InteropServices;
 
 namespace RSBot;
 

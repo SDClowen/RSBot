@@ -83,7 +83,7 @@ public class DivisionInfo
 
                 result.Divisions.Add(division);
             }
-            
+
         }
 
         EventManager.FireEvent("OnLoadDivisionInfo", result);

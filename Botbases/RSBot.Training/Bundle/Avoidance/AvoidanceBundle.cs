@@ -22,7 +22,7 @@ internal class AvoidanceBundle : IBundle
     /// </value>
     public MonsterRarity[] PreferanceList => PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Prefer");
 
-     /// <summary>
+    /// <summary>
     ///     Gets the berserk list.
     /// </summary>
     /// <value>

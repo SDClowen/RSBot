@@ -41,8 +41,8 @@ internal class PackResolver
         foreach (var subFolderName in paths)
         {
             //Search in all blocks for the subfolder
-            var subFolderEntry = _caseSensitive 
-                ? blocks.GetEntries().FirstOrDefault(e => e.Name == subFolderName && e.Type == PackEntryType.Folder) 
+            var subFolderEntry = _caseSensitive
+                ? blocks.GetEntries().FirstOrDefault(e => e.Name == subFolderName && e.Type == PackEntryType.Folder)
                 : blocks.GetEntries().FirstOrDefault(e => e.Name.IndexOf(subFolderName, StringComparison.OrdinalIgnoreCase) == 0 && e.Type == PackEntryType.Folder);
 
             //Path not found
@@ -50,7 +50,7 @@ internal class PackResolver
                 return Array.Empty<PackBlock>();
 
             currentPath = PathUtil.Append(currentPath, subFolderName);
-            if (_blocksInMemory.TryGetValue(currentPath, out blocks)) 
+            if (_blocksInMemory.TryGetValue(currentPath, out blocks))
                 continue;
 
             blocks = _packReader.ReadBlocksAt(subFolderEntry.DataPosition);
@@ -69,7 +69,7 @@ internal class PackResolver
         var fileName = PathUtil.GetFileName(path);
         var resolvedFolderBlock = ResolveBlock(parentFolderPath);
 
-        var entry = _caseSensitive 
+        var entry = _caseSensitive
             ? resolvedFolderBlock.GetEntries().FirstOrDefault(e => e.Type == PackEntryType.File && e.Name == fileName)
             : resolvedFolderBlock.GetEntries().FirstOrDefault(e => e.Type == PackEntryType.File && e.Name.IndexOf(fileName, StringComparison.OrdinalIgnoreCase) == 0);
 

@@ -1,5 +1,4 @@
-﻿using System;
-using RSBot.Core;
+﻿using RSBot.Core;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 

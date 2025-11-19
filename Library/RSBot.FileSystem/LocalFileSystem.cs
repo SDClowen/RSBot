@@ -14,7 +14,7 @@ public class LocalFileSystem : IFileSystem
 
         Root = new LocalFolder("", this);
     }
-    
+
 
     public bool ReadOnly { get; }
 

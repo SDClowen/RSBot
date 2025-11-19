@@ -5,7 +5,6 @@ using RSBot.Core.Objects;
 using RSBot.Core.Plugins;
 using RSBot.Lure.Bundle;
 using RSBot.Lure.Components;
-using System.Data.Common;
 using System.Windows.Forms;
 
 namespace RSBot.Lure;

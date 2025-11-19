@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows.Forms;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
 using SDUI.Controls;

@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using RSBot.Core.Extensions;
 
 namespace RSBot.Core.Client.ReferenceObjects;

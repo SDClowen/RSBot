@@ -54,7 +54,7 @@ public class VersionInfo
             var decodedVersionBuffer = blowfish.Decode(versionBuffer);
             result.Version = int.Parse(Encoding.ASCII.GetString(decodedVersionBuffer, 0, 4));
         }
-        
+
 
         EventManager.FireEvent("OnLoadVersionInfo", result);
         return result;
