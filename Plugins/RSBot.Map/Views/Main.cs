@@ -7,7 +7,9 @@ using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
 using RSBot.Map.Renderer;
+using RSBot.NavMeshApi;
 using RSBot.NavMeshApi.Dungeon;
+using RSBot.NavMeshApi.Terrain;
 using SDUI.Controls;
 using System;
 using System.Collections.Generic;
@@ -16,6 +18,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using Region = RSBot.Core.Objects.Region;
 
@@ -573,8 +576,13 @@ public partial class Main : DoubleBufferedControl
             return;
 
         if (Kernel.Debug)
+        {
             labelSectorInfo.Text =
                 $"{Game.Player.Movement.Source.Region} ({Game.Player.Movement.Source.Region.X}x{Game.Player.Movement.Source.Region.Y})";
+
+            if (Kernel.EnableCollisionDetection && Game.Player.Position.TryGetNavMeshTransform(out var playerTransform))
+                _navMeshRenderer?.Update(playerTransform);
+        }
 
         bufferedGraphics.Graphics.Clear(Color.Black);
         RedrawMap();
@@ -608,7 +616,7 @@ public partial class Main : DoubleBufferedControl
 
     private void mapCanvas_MouseClick(object sender, MouseEventArgs e)
     {
-        if(!Game.Ready) return;
+        if (!Game.Ready) return;
 
         var position = Game.Player.Movement.Source;
         position.XOffset = Game.Player.Movement.Source.XOffset +
@@ -634,7 +642,7 @@ public partial class Main : DoubleBufferedControl
         checkBoxAutoSelectUniques.Checked = _autoSelectUnqiue;
 
         checkBoxAutoSelectUniques.Enabled = Game.Player != null;
-        timerUniqueChecker.Enabled = _autoSelectUnqiue && Game.Player != null;        
+        timerUniqueChecker.Enabled = _autoSelectUnqiue && Game.Player != null;
     }
 
     private void btnNvmResetToPlayer_Click(object sender, EventArgs e)
@@ -656,7 +664,7 @@ public partial class Main : DoubleBufferedControl
         _autoSelectUnqiue = PlayerConfig.Get("RSBot.Map.AutoSelectUnique", false);
 
         checkBoxAutoSelectUniques.Enabled = true;
-        timerUniqueChecker.Enabled = _autoSelectUnqiue;        
+        timerUniqueChecker.Enabled = _autoSelectUnqiue;
     }
 
     /// <summary>
@@ -664,7 +672,7 @@ public partial class Main : DoubleBufferedControl
     /// </summary>
     private void checkBoxAutoSelectUniques_CheckedChanged(object sender, EventArgs e)
     {
-        PlayerConfig.Set("RSBot.Map.AutoSelectUnique", checkBoxAutoSelectUniques.Checked);        
+        PlayerConfig.Set("RSBot.Map.AutoSelectUnique", checkBoxAutoSelectUniques.Checked);
         _autoSelectUnqiue = checkBoxAutoSelectUniques.Checked;
 
         timerUniqueChecker.Enabled = _autoSelectUnqiue;

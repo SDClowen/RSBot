@@ -117,6 +117,8 @@ public partial class NavMeshRenderer : DoubleBufferedControl
             }
         }
 
+        g.FillEllipse(Brushes.Red, _transform.Offset.X - 5, _transform.Offset.Z - 5, 10, 10);
+
         var localMouseOffset = RID.Transform(_mouseTransform.Offset, _transform.Region, _mouseTransform.Region);
         if (_raycastVisualizer)
         {
