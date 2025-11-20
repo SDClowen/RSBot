@@ -1,5 +1,4 @@
-﻿using System.Windows.Forms.VisualStyles;
-using RSBot.Core;
+﻿using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Objects.Spawn;
 
@@ -43,8 +42,8 @@ internal class BerzerkBundle : IBundle
 
         if (Config.WhenTargetSpecificRartiyMonster)
         {
-            if (Game.SelectedEntity is SpawnedMonster e 
-            && Bundles.Avoidance.UseBerserkOnMonster(e.Rarity)) 
+            if (Game.SelectedEntity is SpawnedMonster e
+            && Bundles.Avoidance.UseBerserkOnMonster(e.Rarity))
             {
                 Game.Player.EnterBerzerkMode();
                 return;

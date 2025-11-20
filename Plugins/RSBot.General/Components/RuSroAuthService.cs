@@ -107,7 +107,7 @@ internal static class RuSroAuthService
             return SESSION_STATE.ALREADY_ACTIVATED;
         }
 
-        MessageBox.Show(confirmationResponseContent,"Error",  MessageBoxButtons.OK, MessageBoxIcon.Error);
+        MessageBox.Show(confirmationResponseContent, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         return SESSION_STATE.INVALID_REQUEST;
     }
 
@@ -116,8 +116,8 @@ internal static class RuSroAuthService
         var parameters = new List<KeyValuePair<string, string>>();
         string refreshToken = GlobalConfig.Get<string>("RSBot.RuSro.refreshToken");
         string accessToken = GlobalConfig.Get<string>("RSBot.RuSro.accessToken");
-        if (!string.IsNullOrEmpty(refreshToken) && 
-            !string.IsNullOrEmpty(accessToken) && 
+        if (!string.IsNullOrEmpty(refreshToken) &&
+            !string.IsNullOrEmpty(accessToken) &&
             ExtractUsernameEmailFromToken(accessToken).Contains(username.ToLower()))
         {
             parameters.Add(new KeyValuePair<string, string>("grant_type", "refresh_token"));

@@ -38,12 +38,12 @@ public class PluginManager
         try
         {
             foreach (var extension in from file in Directory.GetFiles(InitialDirectory)
-                     let fileInfo = new FileInfo(file)
-                     where fileInfo.Extension == ".dll"
-                     select GetExtensionsFromAssembly(file)
+                                      let fileInfo = new FileInfo(file)
+                                      where fileInfo.Extension == ".dll"
+                                      select GetExtensionsFromAssembly(file)
                      into loadedExtensions
-                     from extension in loadedExtensions
-                     select extension)
+                                      from extension in loadedExtensions
+                                      select extension)
             {
                 Extensions.Add(extension.Key, extension.Value);
                 Log.Debug($"Loaded plugin [{extension.Value.InternalName}]");
@@ -81,8 +81,8 @@ public class PluginManager
             var assemblyTypes = assembly.GetTypes();
 
             foreach (var extension in (from type in assemblyTypes
-                         where type.IsPublic && !type.IsAbstract && type.GetInterface("IPlugin") != null
-                         select Activator.CreateInstance(type)).OfType<IPlugin>())
+                                       where type.IsPublic && !type.IsAbstract && type.GetInterface("IPlugin") != null
+                                       select Activator.CreateInstance(type)).OfType<IPlugin>())
                 result.Add(extension.InternalName, extension);
 
             if (result.Count == 0)

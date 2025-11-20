@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="PeNet" Version="4.1.2" />
+    <PackageReference Include="PeNet" Version="5.1.0" />
   </ItemGroup>
 
   <ItemGroup>

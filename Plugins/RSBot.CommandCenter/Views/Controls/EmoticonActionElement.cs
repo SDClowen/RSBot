@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Windows.Forms;
 using RSBot.CommandCenter.Components;
 using RSBot.Core;
 using RSBot.Core.Components;

@@ -66,7 +66,7 @@ public static class NavMeshManager
         {
             raycastCount++;
             //if (raycastCount > 100)
-                //throw new Exception("raycastCount above 100");
+            //throw new Exception("raycastCount above 100");
 
             // Move destination into the same region space as source.
             if (dst.Region != src.Region)

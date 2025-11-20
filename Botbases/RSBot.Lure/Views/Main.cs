@@ -149,7 +149,7 @@ public partial class Main : DoubleBufferedControl
     private void btnBrowse_Click(object sender, EventArgs e)
     {
         var fileBrowser = new OpenFileDialog
-            { Title = "RSBot - Choose lure script", Filter = "RSBot script (*.rbs)|*.rbs", Multiselect = false };
+        { Title = "RSBot - Choose lure script", Filter = "RSBot script (*.rbs)|*.rbs", Multiselect = false };
 
         if (fileBrowser.ShowDialog() != DialogResult.OK)
             return;
@@ -172,7 +172,7 @@ public partial class Main : DoubleBufferedControl
     private void btnBrowseWalkscript_Click(object sender, EventArgs e)
     {
         var fileBrowser = new OpenFileDialog
-            { Title = "RSBot - Choose walkback script", Filter = "RSBot script (*.rbs)|*.rbs", Multiselect = false };
+        { Title = "RSBot - Choose walkback script", Filter = "RSBot script (*.rbs)|*.rbs", Multiselect = false };
 
         if (fileBrowser.ShowDialog() != DialogResult.OK)
             return;

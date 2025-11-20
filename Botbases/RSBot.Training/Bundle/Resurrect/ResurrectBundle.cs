@@ -28,9 +28,9 @@ internal class ResurrectBundle : IBundle
                 Kernel.TickCount - _lastResurrectedPlayers[member.Name] < 180 * 1000)
                 continue;
 
-            if ((member.Player?.Movement.Source.DistanceTo(Game.Player.Movement.Source) ?? 
+            if ((member.Player?.Movement.Source.DistanceTo(Game.Player.Movement.Source) ??
                 member.Position.DistanceTo(Game.Player.Movement.Source)) > 100 ||
-                (member.Player?.Movement.Source.HasCollisionBetween(Game.Player.Movement.Source) ?? 
+                (member.Player?.Movement.Source.HasCollisionBetween(Game.Player.Movement.Source) ??
                 member.Position.HasCollisionBetween(Game.Player.Movement.Source)))
                 continue;
 

@@ -72,7 +72,7 @@ internal class CharacterDataEndResponse : IPacketHandler
         {
             if (Game.ClientType != GameClientType.Chinese)
                 packet.ReadByte();
-            
+
             packet.ReadUInt(); //You can use VIP service until this time
             packet.ReadByte();
 
@@ -94,7 +94,7 @@ internal class CharacterDataEndResponse : IPacketHandler
             var serverCap = packet.ReadByte();
             Log.Notify($"The game server cap is {serverCap}!");
 
-            if (Game.ClientType != GameClientType.Korean 
+            if (Game.ClientType != GameClientType.Korean
                 && Game.ClientType != GameClientType.Chinese
                 && Game.ClientType != GameClientType.Japanese)
                 packet.ReadUShort();
@@ -173,9 +173,9 @@ internal class CharacterDataEndResponse : IPacketHandler
             packet.ReadUInt();
 
         if (Game.ClientType == GameClientType.Chinese_Old ||
-            Game.ClientType == GameClientType.Chinese || 
-            Game.ClientType == GameClientType.Global || 
-            Game.ClientType == GameClientType.RuSro || 
+            Game.ClientType == GameClientType.Chinese ||
+            Game.ClientType == GameClientType.Global ||
+            Game.ClientType == GameClientType.RuSro ||
             Game.ClientType == GameClientType.Korean ||
             Game.ClientType == GameClientType.VTC_Game ||
             Game.ClientType == GameClientType.Japanese)

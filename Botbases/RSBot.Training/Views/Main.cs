@@ -169,7 +169,7 @@ public partial class Main : DoubleBufferedControl
     {
         var avoid = new List<MonsterRarity>();
         var prefer = new List<MonsterRarity>();
-        var berserk = new List<MonsterRarity>(); 
+        var berserk = new List<MonsterRarity>();
         foreach (ListViewItem item in lvAvoidance.Items)
             if (item.Group == lvAvoidance.Groups["grpAvoid"])
                 avoid.Add((MonsterRarity)item.Tag);
@@ -193,15 +193,15 @@ public partial class Main : DoubleBufferedControl
         var berserk = PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Berserk").ToLookup(p => "Berserk", p => p);
 
         foreach (var group in avoid.Union(prefer).Union(berserk))
-        foreach (var item in group)
-        {
-            var listViewItem = lvAvoidance.Items.Cast<ListViewItem>()
-                .FirstOrDefault(p => ((MonsterRarity)p.Tag & item) == item);
-            if (listViewItem == null)
-                continue;
+            foreach (var item in group)
+            {
+                var listViewItem = lvAvoidance.Items.Cast<ListViewItem>()
+                    .FirstOrDefault(p => ((MonsterRarity)p.Tag & item) == item);
+                if (listViewItem == null)
+                    continue;
 
-            listViewItem.Group = lvAvoidance.Groups[$"grp{group.Key}"];
-        }
+                listViewItem.Group = lvAvoidance.Groups[$"grp{group.Key}"];
+            }
     }
 
     /// <summary>

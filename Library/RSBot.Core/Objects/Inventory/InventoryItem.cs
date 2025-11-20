@@ -481,4 +481,9 @@ public class InventoryItem
     {
         return (InventoryItem)MemberwiseClone();
     }
+
+    public override int GetHashCode()
+    {
+        throw new System.NotImplementedException();
+    }
 }

@@ -146,7 +146,7 @@ public class Config
         var serializedConfig = new string[_config.Count];
         var index = 0;
 
-        foreach (var element in _config)
+        foreach (var element in _config.OrderBy(c => c.Key))
         {
             serializedConfig[index] = element.Key + "{" + element.Value + "}";
             index++;

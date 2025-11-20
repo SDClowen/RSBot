@@ -150,7 +150,7 @@ public partial class MagicOptionsSettingsView : DoubleBufferedControl
                                 AlchemyItemHelper.GetStonesByGroup(magicOption.Record.Level, assignment.Group);
 
                             currentMagicOptionInfo = new MagicOptionInfo
-                                { Id = actualMagicOption.Id, Value = magicOption.Value };
+                            { Id = actualMagicOption.Id, Value = magicOption.Value };
                         }
                         else
                         {

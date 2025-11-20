@@ -122,7 +122,7 @@ public class ClientManager
                 full = $"\"{silkroadDirectory}\\Frost\\sro.exe\" -LOGIN:{login} -PASSWORD:{password} -torosGame \"{path}\" -torosOptions 1 -torosGameNameType silk-ru_live";
             else
                 full = $"\"{silkroadDirectory}\\Frost\\sro.exe\" -LOGIN:{login} -PASSWORD:{password} -frostGame \"{path}\" -frostOptions 1 -frostGameNameType silk-ru_live";
-            
+
             Log.Debug("Full path: " + full);
 
             var result = CreateProcess(

@@ -197,28 +197,28 @@ public class DDSImage
         var w = (width + 3) / 4;
         var h = (height + 3) / 4;
         for (var i = 0; i < h; i++)
-        for (var j = 0; j < w; j++)
-        {
-            var c0 = (buffer[index] & 0xFF) | ((buffer[index + 1] & 0xFF) << 8);
-            index += 2;
-            var c1 = (buffer[index] & 0xFF) | ((buffer[index + 1] & 0xFF) << 8);
-            index += 2;
-            for (var k = 0; k < 4; k++)
+            for (var j = 0; j < w; j++)
             {
-                if (4 * i + k >= height) break;
-                var t0 = buffer[index] & 0x03;
-                var t1 = (buffer[index] & 0x0C) >> 2;
-                var t2 = (buffer[index] & 0x30) >> 4;
-                var t3 = (buffer[index++] & 0xC0) >> 6;
-                pixels[4 * width * i + 4 * j + width * k + 0] = getDXTColor(c0, c1, 0xFF, t0, color);
-                if (4 * j + 1 >= width) continue;
-                pixels[4 * width * i + 4 * j + width * k + 1] = getDXTColor(c0, c1, 0xFF, t1, color);
-                if (4 * j + 2 >= width) continue;
-                pixels[4 * width * i + 4 * j + width * k + 2] = getDXTColor(c0, c1, 0xFF, t2, color);
-                if (4 * j + 3 >= width) continue;
-                pixels[4 * width * i + 4 * j + width * k + 3] = getDXTColor(c0, c1, 0xFF, t3, color);
+                var c0 = (buffer[index] & 0xFF) | ((buffer[index + 1] & 0xFF) << 8);
+                index += 2;
+                var c1 = (buffer[index] & 0xFF) | ((buffer[index + 1] & 0xFF) << 8);
+                index += 2;
+                for (var k = 0; k < 4; k++)
+                {
+                    if (4 * i + k >= height) break;
+                    var t0 = buffer[index] & 0x03;
+                    var t1 = (buffer[index] & 0x0C) >> 2;
+                    var t2 = (buffer[index] & 0x30) >> 4;
+                    var t3 = (buffer[index++] & 0xC0) >> 6;
+                    pixels[4 * width * i + 4 * j + width * k + 0] = getDXTColor(c0, c1, 0xFF, t0, color);
+                    if (4 * j + 1 >= width) continue;
+                    pixels[4 * width * i + 4 * j + width * k + 1] = getDXTColor(c0, c1, 0xFF, t1, color);
+                    if (4 * j + 2 >= width) continue;
+                    pixels[4 * width * i + 4 * j + width * k + 2] = getDXTColor(c0, c1, 0xFF, t2, color);
+                    if (4 * j + 3 >= width) continue;
+                    pixels[4 * width * i + 4 * j + width * k + 3] = getDXTColor(c0, c1, 0xFF, t3, color);
+                }
             }
-        }
 
         return pixels;
     }
@@ -236,40 +236,40 @@ public class DDSImage
         var pixels = new int[width * height];
         var alphaTable = new int[16];
         for (var i = 0; i < h; i++)
-        for (var j = 0; j < w; j++)
-        {
-            // create alpha table(4bit to 8bit)
-            for (var k = 0; k < 4; k++)
+            for (var j = 0; j < w; j++)
             {
-                var a0 = buffer[index++] & 0xFF;
-                var a1 = buffer[index++] & 0xFF;
-                // 4bit alpha to 8bit alpha
-                alphaTable[4 * k + 0] = 17 * ((a0 & 0xF0) >> 4);
-                alphaTable[4 * k + 1] = 17 * (a0 & 0x0F);
-                alphaTable[4 * k + 2] = 17 * ((a1 & 0xF0) >> 4);
-                alphaTable[4 * k + 3] = 17 * (a1 & 0x0F);
-            }
+                // create alpha table(4bit to 8bit)
+                for (var k = 0; k < 4; k++)
+                {
+                    var a0 = buffer[index++] & 0xFF;
+                    var a1 = buffer[index++] & 0xFF;
+                    // 4bit alpha to 8bit alpha
+                    alphaTable[4 * k + 0] = 17 * ((a0 & 0xF0) >> 4);
+                    alphaTable[4 * k + 1] = 17 * (a0 & 0x0F);
+                    alphaTable[4 * k + 2] = 17 * ((a1 & 0xF0) >> 4);
+                    alphaTable[4 * k + 3] = 17 * (a1 & 0x0F);
+                }
 
-            var c0 = (buffer[index] & 0xFF) | ((buffer[index + 1] & 0xFF) << 8);
-            index += 2;
-            var c1 = (buffer[index] & 0xFF) | ((buffer[index + 1] & 0xFF) << 8);
-            index += 2;
-            for (var k = 0; k < 4; k++)
-            {
-                if (4 * i + k >= height) break;
-                var t0 = buffer[index] & 0x03;
-                var t1 = (buffer[index] & 0x0C) >> 2;
-                var t2 = (buffer[index] & 0x30) >> 4;
-                var t3 = (buffer[index++] & 0xC0) >> 6;
-                pixels[4 * width * i + 4 * j + width * k + 0] = getDXTColor(c0, c1, alphaTable[4 * k + 0], t0, color);
-                if (4 * j + 1 >= width) continue;
-                pixels[4 * width * i + 4 * j + width * k + 1] = getDXTColor(c0, c1, alphaTable[4 * k + 1], t1, color);
-                if (4 * j + 2 >= width) continue;
-                pixels[4 * width * i + 4 * j + width * k + 2] = getDXTColor(c0, c1, alphaTable[4 * k + 2], t2, color);
-                if (4 * j + 3 >= width) continue;
-                pixels[4 * width * i + 4 * j + width * k + 3] = getDXTColor(c0, c1, alphaTable[4 * k + 3], t3, color);
+                var c0 = (buffer[index] & 0xFF) | ((buffer[index + 1] & 0xFF) << 8);
+                index += 2;
+                var c1 = (buffer[index] & 0xFF) | ((buffer[index + 1] & 0xFF) << 8);
+                index += 2;
+                for (var k = 0; k < 4; k++)
+                {
+                    if (4 * i + k >= height) break;
+                    var t0 = buffer[index] & 0x03;
+                    var t1 = (buffer[index] & 0x0C) >> 2;
+                    var t2 = (buffer[index] & 0x30) >> 4;
+                    var t3 = (buffer[index++] & 0xC0) >> 6;
+                    pixels[4 * width * i + 4 * j + width * k + 0] = getDXTColor(c0, c1, alphaTable[4 * k + 0], t0, color);
+                    if (4 * j + 1 >= width) continue;
+                    pixels[4 * width * i + 4 * j + width * k + 1] = getDXTColor(c0, c1, alphaTable[4 * k + 1], t1, color);
+                    if (4 * j + 2 >= width) continue;
+                    pixels[4 * width * i + 4 * j + width * k + 2] = getDXTColor(c0, c1, alphaTable[4 * k + 2], t2, color);
+                    if (4 * j + 3 >= width) continue;
+                    pixels[4 * width * i + 4 * j + width * k + 3] = getDXTColor(c0, c1, alphaTable[4 * k + 3], t3, color);
+                }
             }
-        }
 
         return pixels;
     }
@@ -287,66 +287,66 @@ public class DDSImage
         var pixels = new int[width * height];
         var alphaTable = new int[16];
         for (var i = 0; i < h; i++)
-        for (var j = 0; j < w; j++)
-        {
-            // create alpha table
-            var a0 = buffer[index++] & 0xFF;
-            var a1 = buffer[index++] & 0xFF;
-            var b0 = (buffer[index] & 0xFF) | ((buffer[index + 1] & 0xFF) << 8) | ((buffer[index + 2] & 0xFF) << 16);
-            index += 3;
-            var b1 = (buffer[index] & 0xFF) | ((buffer[index + 1] & 0xFF) << 8) | ((buffer[index + 2] & 0xFF) << 16);
-            index += 3;
-            alphaTable[0] = b0 & 0x07;
-            alphaTable[1] = (b0 >> 3) & 0x07;
-            alphaTable[2] = (b0 >> 6) & 0x07;
-            alphaTable[3] = (b0 >> 9) & 0x07;
-            alphaTable[4] = (b0 >> 12) & 0x07;
-            alphaTable[5] = (b0 >> 15) & 0x07;
-            alphaTable[6] = (b0 >> 18) & 0x07;
-            alphaTable[7] = (b0 >> 21) & 0x07;
-            alphaTable[8] = b1 & 0x07;
-            alphaTable[9] = (b1 >> 3) & 0x07;
-            alphaTable[10] = (b1 >> 6) & 0x07;
-            alphaTable[11] = (b1 >> 9) & 0x07;
-            alphaTable[12] = (b1 >> 12) & 0x07;
-            alphaTable[13] = (b1 >> 15) & 0x07;
-            alphaTable[14] = (b1 >> 18) & 0x07;
-            alphaTable[15] = (b1 >> 21) & 0x07;
-
-            var c0 = (buffer[index] & 0xFF) | ((buffer[index + 1] & 0xFF) << 8);
-            index += 2;
-            var c1 = (buffer[index] & 0xFF) | ((buffer[index + 1] & 0xFF) << 8);
-            index += 2;
-
-            for (var k = 0; k < 4; k++)
+            for (var j = 0; j < w; j++)
             {
-                if (4 * i + k >= height)
-                    break;
+                // create alpha table
+                var a0 = buffer[index++] & 0xFF;
+                var a1 = buffer[index++] & 0xFF;
+                var b0 = (buffer[index] & 0xFF) | ((buffer[index + 1] & 0xFF) << 8) | ((buffer[index + 2] & 0xFF) << 16);
+                index += 3;
+                var b1 = (buffer[index] & 0xFF) | ((buffer[index + 1] & 0xFF) << 8) | ((buffer[index + 2] & 0xFF) << 16);
+                index += 3;
+                alphaTable[0] = b0 & 0x07;
+                alphaTable[1] = (b0 >> 3) & 0x07;
+                alphaTable[2] = (b0 >> 6) & 0x07;
+                alphaTable[3] = (b0 >> 9) & 0x07;
+                alphaTable[4] = (b0 >> 12) & 0x07;
+                alphaTable[5] = (b0 >> 15) & 0x07;
+                alphaTable[6] = (b0 >> 18) & 0x07;
+                alphaTable[7] = (b0 >> 21) & 0x07;
+                alphaTable[8] = b1 & 0x07;
+                alphaTable[9] = (b1 >> 3) & 0x07;
+                alphaTable[10] = (b1 >> 6) & 0x07;
+                alphaTable[11] = (b1 >> 9) & 0x07;
+                alphaTable[12] = (b1 >> 12) & 0x07;
+                alphaTable[13] = (b1 >> 15) & 0x07;
+                alphaTable[14] = (b1 >> 18) & 0x07;
+                alphaTable[15] = (b1 >> 21) & 0x07;
 
-                var t0 = buffer[index] & 0x03;
-                var t1 = (buffer[index] & 0x0C) >> 2;
-                var t2 = (buffer[index] & 0x30) >> 4;
-                var t3 = (buffer[index++] & 0xC0) >> 6;
+                var c0 = (buffer[index] & 0xFF) | ((buffer[index + 1] & 0xFF) << 8);
+                index += 2;
+                var c1 = (buffer[index] & 0xFF) | ((buffer[index + 1] & 0xFF) << 8);
+                index += 2;
 
-                pixels[4 * width * i + 4 * j + width * k + 0] =
-                    getDXTColor(c0, c1, getDXT5Alpha(a0, a1, alphaTable[4 * k + 0]), t0, color);
-                if (4 * j + 1 >= width)
-                    continue;
+                for (var k = 0; k < 4; k++)
+                {
+                    if (4 * i + k >= height)
+                        break;
 
-                pixels[4 * width * i + 4 * j + width * k + 1] =
-                    getDXTColor(c0, c1, getDXT5Alpha(a0, a1, alphaTable[4 * k + 1]), t1, color);
-                if (4 * j + 2 >= width)
-                    continue;
+                    var t0 = buffer[index] & 0x03;
+                    var t1 = (buffer[index] & 0x0C) >> 2;
+                    var t2 = (buffer[index] & 0x30) >> 4;
+                    var t3 = (buffer[index++] & 0xC0) >> 6;
 
-                pixels[4 * width * i + 4 * j + width * k + 2] =
-                    getDXTColor(c0, c1, getDXT5Alpha(a0, a1, alphaTable[4 * k + 2]), t2, color);
-                if (4 * j + 3 >= width)
-                    continue;
+                    pixels[4 * width * i + 4 * j + width * k + 0] =
+                        getDXTColor(c0, c1, getDXT5Alpha(a0, a1, alphaTable[4 * k + 0]), t0, color);
+                    if (4 * j + 1 >= width)
+                        continue;
 
-                pixels[4 * width * i + 4 * j + width * k + 3] =
-                    getDXTColor(c0, c1, getDXT5Alpha(a0, a1, alphaTable[4 * k + 3]), t3, color);
+                    pixels[4 * width * i + 4 * j + width * k + 1] =
+                        getDXTColor(c0, c1, getDXT5Alpha(a0, a1, alphaTable[4 * k + 1]), t1, color);
+                    if (4 * j + 2 >= width)
+                        continue;
+
+                    pixels[4 * width * i + 4 * j + width * k + 2] =
+                        getDXTColor(c0, c1, getDXT5Alpha(a0, a1, alphaTable[4 * k + 2]), t2, color);
+                    if (4 * j + 3 >= width)
+                        continue;
+
+                    pixels[4 * width * i + 4 * j + width * k + 3] =
+                        getDXTColor(c0, c1, getDXT5Alpha(a0, a1, alphaTable[4 * k + 3]), t3, color);
+                }
             }
-        }
 
         return pixels;
     }

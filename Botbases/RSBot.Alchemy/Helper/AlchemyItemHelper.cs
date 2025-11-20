@@ -42,7 +42,7 @@ internal class AlchemyItemHelper
     {
         var items = Game.Player.Inventory.GetItems(new TypeIdFilter(3, 3, 10, 2))
             .Where(i => i.Record.ItemClass == targetItem.Record.Degree);
-        
+
         if (Game.ClientType >= GameClientType.Chinese && targetItem.Record.Degree >= 12)
         {
             var proofs = Game.Player.Inventory

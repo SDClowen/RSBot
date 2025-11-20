@@ -234,13 +234,13 @@ public static class SpawnManager
                     switch (obj.TypeID2)
                     {
                         case 1:
-                        {
-                            var spawnedPlayer = new SpawnedPlayer(refObjId);
-                            spawnedPlayer.Deserialize(packet);
+                            {
+                                var spawnedPlayer = new SpawnedPlayer(refObjId);
+                                spawnedPlayer.Deserialize(packet);
 
-                            _entities.Add(spawnedPlayer);
-                            EventManager.FireEvent("OnSpawnPlayer", spawnedPlayer);
-                        }
+                                _entities.Add(spawnedPlayer);
+                                EventManager.FireEvent("OnSpawnPlayer", spawnedPlayer);
+                            }
                             break;
 
                         case 2:
@@ -248,42 +248,42 @@ public static class SpawnManager
                             switch (obj.TypeID3)
                             {
                                 case 1:
-                                {
-                                    var spawnedMonster = new SpawnedMonster(refObjId);
-                                    spawnedMonster.Deserialize(packet);
+                                    {
+                                        var spawnedMonster = new SpawnedMonster(refObjId);
+                                        spawnedMonster.Deserialize(packet);
 
-                                    _entities.Add(spawnedMonster);
-                                    EventManager.FireEvent("OnSpawnMonster", spawnedMonster);
-                                }
+                                        _entities.Add(spawnedMonster);
+                                        EventManager.FireEvent("OnSpawnMonster", spawnedMonster);
+                                    }
                                     break;
 
                                 case 3:
-                                {
-                                    var spawnedCos = new SpawnedCos(refObjId);
-                                    spawnedCos.Deserialize(packet);
-                                    _entities.Add(spawnedCos);
-                                    EventManager.FireEvent("OnSpawnCos", spawnedCos);
-                                }
+                                    {
+                                        var spawnedCos = new SpawnedCos(refObjId);
+                                        spawnedCos.Deserialize(packet);
+                                        _entities.Add(spawnedCos);
+                                        EventManager.FireEvent("OnSpawnCos", spawnedCos);
+                                    }
                                     break;
 
                                 case 5:
-                                {
-                                    var spawnedFortressStructure = new SpawnedFortressStructure(refObjId);
-                                    spawnedFortressStructure.Deserialize(packet);
-                                    _entities.Add(spawnedFortressStructure);
+                                    {
+                                        var spawnedFortressStructure = new SpawnedFortressStructure(refObjId);
+                                        spawnedFortressStructure.Deserialize(packet);
+                                        _entities.Add(spawnedFortressStructure);
 
-                                    EventManager.FireEvent("OnSpawnFortressStructure", spawnedFortressStructure);
-                                }
+                                        EventManager.FireEvent("OnSpawnFortressStructure", spawnedFortressStructure);
+                                    }
                                     break;
 
                                 default:
-                                {
-                                    var spawnedNpc = new SpawnedNpcNpc(refObjId);
-                                    spawnedNpc.ParseBionicDetails(packet);
-                                    spawnedNpc.Deserialize(packet);
-                                    _entities.Add(spawnedNpc);
-                                    EventManager.FireEvent("OnSpawnNpc", spawnedNpc);
-                                }
+                                    {
+                                        var spawnedNpc = new SpawnedNpcNpc(refObjId);
+                                        spawnedNpc.ParseBionicDetails(packet);
+                                        spawnedNpc.Deserialize(packet);
+                                        _entities.Add(spawnedNpc);
+                                        EventManager.FireEvent("OnSpawnNpc", spawnedNpc);
+                                    }
                                     break;
                             }
 
