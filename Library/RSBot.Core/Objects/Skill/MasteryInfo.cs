@@ -36,10 +36,6 @@ public class MasteryInfo
     /// <returns></returns>
     internal static MasteryInfo FromPacket(Packet packet)
     {
-        return new MasteryInfo
-        {
-            Id = packet.ReadUInt(),
-            Level = packet.ReadByte()
-        };
+        return new MasteryInfo { Id = packet.ReadUInt(), Level = packet.ReadByte() };
     }
 }

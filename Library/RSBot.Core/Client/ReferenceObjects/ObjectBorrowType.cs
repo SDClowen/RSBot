@@ -22,5 +22,5 @@ public enum ObjectBorrowType : byte
     Bit3 = 8,
     Bit2 = 4,
     Bit1 = 2,
-    Bit0 = 1
+    Bit0 = 1,
 }

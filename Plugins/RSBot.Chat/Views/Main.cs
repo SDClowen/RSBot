@@ -1,11 +1,11 @@
-﻿using RSBot.Core;
-using RSBot.Core.Event;
-using RSBot.Core.Objects;
-using SDUI.Controls;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
+using RSBot.Core;
+using RSBot.Core.Event;
+using RSBot.Core.Objects;
+using SDUI.Controls;
 
 namespace RSBot.Chat.Views;
 
@@ -119,7 +119,8 @@ public partial class Main : DoubleBufferedControl
     /// <param name="e">The <see cref="PreviewKeyDownEventArgs" /> instance containing the event data.</param>
     private void MessagePreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
     {
-        if (e.KeyCode != Keys.Enter) return;
+        if (e.KeyCode != Keys.Enter)
+            return;
         SendChatMessage((Control)sender);
         ((Control)sender).ResetText();
     }

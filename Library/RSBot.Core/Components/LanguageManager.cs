@@ -57,8 +57,8 @@ public class LanguageManager
 
             value = value
                 .Replace("\\r\\n", "\r\n") // CRLF
-                .Replace("\\n", "\n")       // LF
-                .Replace("\\r", "\r");      // CR
+                .Replace("\\n", "\n") // LF
+                .Replace("\\r", "\r"); // CR
 
             if (!languages.ContainsKey(key))
             {
@@ -90,8 +90,7 @@ public class LanguageManager
 
                 foreach (var item in menuItems)
                 {
-                    if (string.IsNullOrEmpty(item.Name) ||
-                        string.IsNullOrEmpty(item.Text))
+                    if (string.IsNullOrEmpty(item.Name) || string.IsNullOrEmpty(item.Text))
                         continue;
 
                     var menuItemCheckName = $"{headerEx}.{item.Name}";
@@ -109,16 +108,17 @@ public class LanguageManager
 
             CheckMissings(file, headerEx, control, languages);
 
-            if (!(control is Label) &&
-                !(control is GroupBox) &&
-                !(control is ButtonBase) &&
-                !(control is TabControl) &&
-                !(control is TabPage) &&
-                !(control is ToolStrip))
+            if (
+                !(control is Label)
+                && !(control is GroupBox)
+                && !(control is ButtonBase)
+                && !(control is TabControl)
+                && !(control is TabPage)
+                && !(control is ToolStrip)
+            )
                 continue;
 
-            if (string.IsNullOrEmpty(control.Name) ||
-                string.IsNullOrEmpty(control.Text))
+            if (string.IsNullOrEmpty(control.Name) || string.IsNullOrEmpty(control.Text))
                 continue;
 
             var checkName = $"{headerEx}.{control.Name}";
@@ -207,7 +207,6 @@ public class LanguageManager
         var values = ParseLanguageFile(path);
         //CheckMissings(path, assembly, view, values);
 
-
         _values[assembly] = values;
 
         TranslateControls(values, view, assembly);
@@ -252,7 +251,6 @@ public class LanguageManager
             Environment.Exit(0);
         }
 
-        return File.ReadAllLines(filePath)
-            .ToDictionary(p => p.Split(':')[0], p => p.Split(':')[1]);
+        return File.ReadAllLines(filePath).ToDictionary(p => p.Split(':')[0], p => p.Split(':')[1]);
     }
 }

@@ -26,7 +26,8 @@ internal class PartyMatchingChangeResponse : IPacketHandler
     /// <param name="packet">The packet.</param>
     public void Invoke(Packet packet)
     {
-        if (packet.ReadByte() != 0x01) return;
+        if (packet.ReadByte() != 0x01)
+            return;
 
         Container.PartyMatching.Id = packet.ReadUInt();
         packet.ReadUInt();

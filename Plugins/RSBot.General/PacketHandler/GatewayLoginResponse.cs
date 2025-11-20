@@ -1,9 +1,9 @@
-﻿using RSBot.Core;
-using RSBot.Core.Network;
-using RSBot.General.Components;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using RSBot.Core;
+using RSBot.Core.Network;
+using RSBot.General.Components;
 using View = RSBot.General.Views.View;
 
 namespace RSBot.General.PacketHandler;
@@ -49,7 +49,8 @@ internal class GatewayLoginResponse : IPacketHandler
             }
 
             var selectedAccount = Accounts.SavedAccounts?.Find(p =>
-            p.Username == GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername"));
+                p.Username == GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername")
+            );
 
             if (Game.ClientType == GameClientType.Global && selectedAccount.Channel == 0x02)
             {

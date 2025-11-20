@@ -129,8 +129,10 @@ public partial class Main : DoubleBufferedControl
     /// </summary>
     private void SaveBuffingGroups()
     {
-        PlayerConfig.SetArray("RSBot.Party.Buffing.Groups",
-            listViewGroups.Items.Cast<ListViewItem>().Select(p => p.Text));
+        PlayerConfig.SetArray(
+            "RSBot.Party.Buffing.Groups",
+            listViewGroups.Items.Cast<ListViewItem>().Select(p => p.Text)
+        );
     }
 
     /// <summary>
@@ -171,8 +173,10 @@ public partial class Main : DoubleBufferedControl
     /// </summary>
     private void SaveAutoPartyPlayerList()
     {
-        PlayerConfig.SetArray("RSBot.Party.AutoPartyList",
-            listAutoParty.Items.OfType<ListViewItem>().Select(p => p.Text).ToArray());
+        PlayerConfig.SetArray(
+            "RSBot.Party.AutoPartyList",
+            listAutoParty.Items.OfType<ListViewItem>().Select(p => p.Text).ToArray()
+        );
 
         Bundle.Container.Refresh();
     }
@@ -182,8 +186,10 @@ public partial class Main : DoubleBufferedControl
     /// </summary>
     private void SaveCommandPlayersList()
     {
-        PlayerConfig.SetArray("RSBot.Party.Commands.PlayersList",
-            listCommandPlayers.Items.OfType<ListViewItem>().Select(p => p.Text).ToArray());
+        PlayerConfig.SetArray(
+            "RSBot.Party.Commands.PlayersList",
+            listCommandPlayers.Items.OfType<ListViewItem>().Select(p => p.Text).ToArray()
+        );
 
         Bundle.Container.Refresh();
     }
@@ -249,9 +255,11 @@ public partial class Main : DoubleBufferedControl
                 listItem.SubItems.Add(party.MinLevel + "~" + party.MaxLevel);
 
                 listItem.ToolTipText = party.Settings.ToString();
-                if (party.Leader == Game.Player.Name ||
-                    party.Leader == Game.Player.JobInformation.Name ||
-                    Game.Party?.Leader?.Name == party.Leader)
+                if (
+                    party.Leader == Game.Player.Name
+                    || party.Leader == Game.Player.JobInformation.Name
+                    || Game.Party?.Leader?.Name == party.Leader
+                )
                 {
                     listItem.Font = new Font(Font, FontStyle.Bold);
 
@@ -353,9 +361,11 @@ public partial class Main : DoubleBufferedControl
     {
         await Task.Delay(5000);
 
-        if (Game.Ready
+        if (
+            Game.Ready
             && Bundle.Container.PartyMatching.Config.AutoReform
-            && !Bundle.Container.PartyMatching.HasMatchingEntry)
+            && !Bundle.Container.PartyMatching.HasMatchingEntry
+        )
             Bundle.Container.PartyMatching.Create();
     }
 
@@ -378,24 +388,28 @@ public partial class Main : DoubleBufferedControl
 
         foreach (var mastery in Game.Player.Skills.Masteries)
         {
-            var group = new ListViewGroup(Game.ReferenceManager.GetTranslation(mastery.Record.NameCode) + " (lv. " +
-                                          mastery.Level + ")");
+            var group = new ListViewGroup(
+                Game.ReferenceManager.GetTranslation(mastery.Record.NameCode) + " (lv. " + mastery.Level + ")"
+            );
             group.Tag = mastery.Id;
             listPartyBuffSkills.Groups.Add(group);
         }
 
-        var skills = Game.Player.Skills.KnownSkills
-            .Where(s => s.Enabled && s.Record.TargetGroup_Party && !s.Record.TargetEtc_SelectDeadBody);
+        var skills = Game.Player.Skills.KnownSkills.Where(s =>
+            s.Enabled && s.Record.TargetGroup_Party && !s.Record.TargetEtc_SelectDeadBody
+        );
 
-        List<string> additionalGroups = [
+        List<string> additionalGroups =
+        [
             "SKILL_EU_BARD_SPEEDUPA_MSPEED_A", //Moving March
             "SKILL_EU_BARD_SPEEDUPA_MSPEED_B", //Swing March
             "SKILL_EU_CLERIC_SAINTA_ABNORMAL_B", //Holy Spell
-            "SKILL_EU_CLERIC_SAINTA_ABNORMAL_B_1" //God's Spell
-            ];
+            "SKILL_EU_CLERIC_SAINTA_ABNORMAL_B_1", //God's Spell
+        ];
 
-        var additionalSkills = Game.Player.Skills.KnownSkills
-            .Where(s => s.Enabled && additionalGroups.Contains(s.Record.Basic_Group));
+        var additionalSkills = Game.Player.Skills.KnownSkills.Where(s =>
+            s.Enabled && additionalGroups.Contains(s.Record.Basic_Group)
+        );
 
         IEnumerable<SkillInfo> partyBuffSkills = skills.Union(additionalSkills);
 
@@ -428,8 +442,11 @@ public partial class Main : DoubleBufferedControl
 
             subItem.Font = new Font("Segoe UI", 9f, FontStyle.Bold);
 
-            foreach (var group in listPartyBuffSkills.Groups.Cast<ListViewGroup>()
-                         .Where(group => Convert.ToInt32(group.Tag) == skill.Record.ReqCommon_Mastery1))
+            foreach (
+                var group in listPartyBuffSkills
+                    .Groups.Cast<ListViewGroup>()
+                    .Where(group => Convert.ToInt32(group.Tag) == skill.Record.ReqCommon_Mastery1)
+            )
                 item.Group = group;
 
             listPartyBuffSkills.Items.Add(item);
@@ -457,8 +474,11 @@ public partial class Main : DoubleBufferedControl
                 return;
             }
 
-            foreach (var member in Game.Party.Members.FindAll(p =>
-                         p.Name != Game.Player.Name || p.Name != Game.Player.JobInformation.Name))
+            foreach (
+                var member in Game.Party.Members.FindAll(p =>
+                    p.Name != Game.Player.Name || p.Name != Game.Player.JobInformation.Name
+                )
+            )
                 AddNewPartyMember(member);
 
             menuBanish.Enabled = Game.Party.IsLeader;
@@ -477,9 +497,7 @@ public partial class Main : DoubleBufferedControl
             btnLeaveParty.Enabled = true;
             menuLeave.Enabled = true;
         }
-        catch
-        {
-        }
+        catch { }
 
         listParty.EndUpdate();
     }
@@ -494,9 +512,11 @@ public partial class Main : DoubleBufferedControl
 
     private void OnDeletePartyEntry()
     {
-        if (tabMain.SelectedTab == tpPartyMatching &&
-            lvPartyMatching.Items.Count > 0 &&
-            lvPartyMatching.Items[0].Name == Bundle.Container.PartyMatching.Id.ToString())
+        if (
+            tabMain.SelectedTab == tpPartyMatching
+            && lvPartyMatching.Items.Count > 0
+            && lvPartyMatching.Items[0].Name == Bundle.Container.PartyMatching.Id.ToString()
+        )
             lvPartyMatching.Items.Remove(lvPartyMatching.Items[0]);
 
         Bundle.Container.PartyMatching.Id = 0;
@@ -544,9 +564,11 @@ public partial class Main : DoubleBufferedControl
         listParty.Items.RemoveByKey(member.Name);
 
         if (Bundle.Container.PartyMatching.Config.AutoReform)
-            if (Game.Party != null
+            if (
+                Game.Party != null
                 && !Bundle.Container.PartyMatching.HasMatchingEntry
-                && Game.Party.Members?.Count < Game.Party.Settings.MaxMember)
+                && Game.Party.Members?.Count < Game.Party.Settings.MaxMember
+            )
                 Bundle.Container.PartyMatching.Create();
     }
 
@@ -559,9 +581,11 @@ public partial class Main : DoubleBufferedControl
             listParty.Items.RemoveByKey(member.Name);
 
             if (Bundle.Container.PartyMatching.Config.AutoReform)
-                if (Game.Party != null
+                if (
+                    Game.Party != null
                     && !Bundle.Container.PartyMatching.HasMatchingEntry
-                    && Game.Party.Members?.Count < Game.Party.Settings.MaxMember)
+                    && Game.Party.Members?.Count < Game.Party.Settings.MaxMember
+                )
                     Bundle.Container.PartyMatching.Create();
         }
         else
@@ -668,7 +692,8 @@ public partial class Main : DoubleBufferedControl
         var dialog = new InputDialog(
             "Input",
             LanguageManager.GetLang("CharName"),
-            LanguageManager.GetLang("EnterCharNameForPartyList"));
+            LanguageManager.GetLang("EnterCharNameForPartyList")
+        );
 
         if (dialog.ShowDialog(this) != DialogResult.OK)
             return;
@@ -812,7 +837,8 @@ public partial class Main : DoubleBufferedControl
         if (!string.IsNullOrWhiteSpace(tbPartySearchName.Text))
             //No case sensitivity
             lvItems.RemoveAll(p =>
-                !p.SubItems[2].Text.ToLowerInvariant().Contains(tbPartySearchName.Text.ToLowerInvariant()));
+                !p.SubItems[2].Text.ToLowerInvariant().Contains(tbPartySearchName.Text.ToLowerInvariant())
+            );
 
         if (nudPartySearchMin.Value > 1 || nudPartySearchMax.Value < 140)
         {
@@ -838,8 +864,10 @@ public partial class Main : DoubleBufferedControl
 
     private void listViewGroups_SelectedIndexChanged(object sender, EventArgs e)
     {
-        if (listViewGroups.SelectedIndices.Count == 0 ||
-            listViewGroups.SelectedIndices[0] == _selectedBuffingGroup.Index)
+        if (
+            listViewGroups.SelectedIndices.Count == 0
+            || listViewGroups.SelectedIndices[0] == _selectedBuffingGroup.Index
+        )
             return;
 
         _selectedBuffingGroup = listViewGroups.SelectedItems[0];
@@ -862,7 +890,8 @@ public partial class Main : DoubleBufferedControl
 
         foreach (var skillId in member.Buffs)
         {
-            var listViewItemOfMainList = listPartyBuffSkills.Items.Cast<ListViewItem>()
+            var listViewItemOfMainList = listPartyBuffSkills
+                .Items.Cast<ListViewItem>()
                 .FirstOrDefault(p => ((SkillInfo)p.Tag).Id == skillId);
             if (listViewItemOfMainList == null)
                 continue;
@@ -898,10 +927,16 @@ public partial class Main : DoubleBufferedControl
             // We need to find an attribute that allows us to accurately determine the inheritance of buffs from another books (Body Deity -> Angel's Body).
             // As a temporary solution, we are filtering only the skills of one group, but in this case,
             // buffs from different books/series are not considered inheritable.
-            if (buffingMember.Buffs.Any(id => id == skill.Id ||
-                                              (Game.ReferenceManager.SkillData.TryGetValue(id, out var refSkill) &&
-                                               refSkill.Action_Overlap == skill.Record.Action_Overlap &&
-                                               refSkill.Basic_Group == skill.Record.Basic_Group)))
+            if (
+                buffingMember.Buffs.Any(id =>
+                    id == skill.Id
+                    || (
+                        Game.ReferenceManager.SkillData.TryGetValue(id, out var refSkill)
+                        && refSkill.Action_Overlap == skill.Record.Action_Overlap
+                        && refSkill.Basic_Group == skill.Record.Basic_Group
+                    )
+                )
+            )
                 continue;
 
             buffingMember.Buffs.Add(skill.Id);
@@ -969,9 +1004,7 @@ public partial class Main : DoubleBufferedControl
         var dialogDesc = LanguageManager.GetLang("SelectGroupDesc");
         var dialog = new InputDialog(dialogTitle, dialogTitle, dialogDesc, InputDialog.InputType.Combobox);
 
-        var groups = listViewGroups.Items.Cast<ListViewItem>()
-            .Select(p => p.Text)
-            .ToArray();
+        var groups = listViewGroups.Items.Cast<ListViewItem>().Select(p => p.Text).ToArray();
 
         dialog.Selector.Items.AddRange(groups);
 
@@ -987,11 +1020,7 @@ public partial class Main : DoubleBufferedControl
                 return;
             }
 
-            _buffings.Add(new BuffingPartyMember
-            {
-                Name = partyMember.Name,
-                Group = dialogValue
-            });
+            _buffings.Add(new BuffingPartyMember { Name = partyMember.Name, Group = dialogValue });
 
             if (dialogValue == _selectedBuffingGroup.Text)
                 RefreshGroupMembers();
@@ -1042,8 +1071,10 @@ public partial class Main : DoubleBufferedControl
             return;
         }
 
-        if (MessageBox.Show(this, LanguageManager.GetLang("GroupDeleteWarn", count),
-                "Warning", MessageBoxButtons.YesNo) == DialogResult.Yes)
+        if (
+            MessageBox.Show(this, LanguageManager.GetLang("GroupDeleteWarn", count), "Warning", MessageBoxButtons.YesNo)
+            == DialogResult.Yes
+        )
         {
             if (group != "Default")
                 selectedItem.Remove();
@@ -1063,8 +1094,10 @@ public partial class Main : DoubleBufferedControl
         if (listViewPartyMembers.SelectedItems.Count == 0)
             return;
 
-        if (MessageBox.Show(this, LanguageManager.GetLang("GroupCharDeleteWarn"),
-                "Warning", MessageBoxButtons.YesNo) == DialogResult.Yes)
+        if (
+            MessageBox.Show(this, LanguageManager.GetLang("GroupCharDeleteWarn"), "Warning", MessageBoxButtons.YesNo)
+            == DialogResult.Yes
+        )
         {
             var selectedItem = listViewPartyMembers.SelectedItems[0];
             var name = selectedItem.Text;
@@ -1085,7 +1118,8 @@ public partial class Main : DoubleBufferedControl
         var diag = new InputDialog(
             "Input",
             LanguageManager.GetLang("CharName"),
-            LanguageManager.GetLang("EnterCharNameForCommandList"));
+            LanguageManager.GetLang("EnterCharNameForCommandList")
+        );
 
         if (diag.ShowDialog(this) != DialogResult.OK)
             return;

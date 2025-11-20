@@ -17,5 +17,5 @@ public enum GameClientType : byte
     Korean,
     Japanese,
     RuSro,
-    Rigid
+    Rigid,
 }

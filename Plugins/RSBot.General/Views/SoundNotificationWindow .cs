@@ -1,7 +1,7 @@
-﻿using RSBot.Core;
-using SDUI.Controls;
-using System;
+﻿using System;
 using System.Windows.Forms;
+using RSBot.Core;
+using SDUI.Controls;
 
 namespace RSBot.General.Views;
 
@@ -112,7 +112,6 @@ public partial class SoundNotificationWindow : UIWindowBase
         UpdateControlState();
     }
 
-
     /// <summary>
     ///     Handles the Click event of the btnOK control.
     /// </summary>
@@ -149,7 +148,10 @@ public partial class SoundNotificationWindow : UIWindowBase
     /// </summary>
     public void UpdateControlState()
     {
-        txtUniqueAppearedGeneral.Enabled = btnUniqueAppearedGeneral.Enabled = txtRegex.Enabled = chkUniqueAppearedGeneral.Checked;
+        txtUniqueAppearedGeneral.Enabled =
+            btnUniqueAppearedGeneral.Enabled =
+            txtRegex.Enabled =
+                chkUniqueAppearedGeneral.Checked;
         txtUniqueInRange.Enabled = btnUniqueInRange.Enabled = chkUniqueInRange.Checked;
 
         txtTigerGirl.Enabled = btnTigerGirl.Enabled = chkTigerGirl.Checked;
@@ -199,7 +201,6 @@ public partial class SoundNotificationWindow : UIWindowBase
 
         tmp.UpdatePlayerSettings("RSBot.Sounds.PathUniqueAlarmDemonShaitan", txtDemonChaitan.Text);
         tmp.UpdatePlayerSettings("RSBot.Sounds.PlayUniqueAlarmDemonShaitan", chkDemonChaitan.Checked);
-
     }
 
     /// <summary>
@@ -335,5 +336,4 @@ public partial class SoundNotificationWindow : UIWindowBase
             }
         }
     }
-
 }

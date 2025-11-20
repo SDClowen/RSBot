@@ -113,14 +113,22 @@ public class PickupManager
         try
         {
             var flag = UseAbilityPet && Game.Player.HasActiveAbilityPet;
-            if (!SpawnManager.TryGetEntities<SpawnedItem>(i => Condition(i, centerPosition, radius, flag, flag),
-                    out var entities))
+            if (
+                !SpawnManager.TryGetEntities<SpawnedItem>(
+                    i => Condition(i, centerPosition, radius, flag, flag),
+                    out var entities
+                )
+            )
             {
                 RunningPlayerPickup = false;
                 return;
             }
 
-            foreach (var item in entities.OrderBy(item => item.Movement.Source.DistanceTo(playerPosition) /*.Take(5)*/))
+            foreach (
+                var item in entities.OrderBy(item =>
+                    item.Movement.Source.DistanceTo(playerPosition) /*.Take(5)*/
+                )
+            )
             {
                 if (!RunningPlayerPickup)
                     return;
@@ -155,15 +163,20 @@ public class PickupManager
 
         try
         {
-            if (!SpawnManager.TryGetEntities<SpawnedItem>(i => Condition(i, centerPosition, radius, true),
-                    out var entities))
+            if (
+                !SpawnManager.TryGetEntities<SpawnedItem>(
+                    i => Condition(i, centerPosition, radius, true),
+                    out var entities
+                )
+            )
             {
                 RunningAbilityPetPickup = false;
                 return;
             }
 
-            foreach (var item in entities.OrderBy(item =>
-                         item.Movement.Source.DistanceTo(Game.Player.AbilityPet.Position)))
+            foreach (
+                var item in entities.OrderBy(item => item.Movement.Source.DistanceTo(Game.Player.AbilityPet.Position))
+            )
             {
                 if (!RunningAbilityPetPickup)
                     return;
@@ -186,12 +199,12 @@ public class PickupManager
     }
 
     private static bool Condition(
-    SpawnedItem e,
-    Position centerPosition,
-    int radius,
-    bool applyPickOnlyChar = false,
-    bool pickOnlyChar = false
-)
+        SpawnedItem e,
+        Position centerPosition,
+        int radius,
+        bool applyPickOnlyChar = false,
+        bool pickOnlyChar = false
+    )
     {
         var playerJid = Game.Player.JID;
 
@@ -220,11 +233,13 @@ public class PickupManager
         if (PickupGold && e.Record.IsGold && !(applyPickOnlyChar && pickOnlyChar))
             return true;
 
-        if ((PickupRareItems && (byte)e.Rarity >= 2) ||
-            (PickupBlueItems && (byte)e.Rarity >= 1) ||
-            (PickupAnyEquips && e.Record.IsEquip) ||
-            (PickupQuestItems && e.Record.IsQuest) ||
-            PickupEverything)
+        if (
+            (PickupRareItems && (byte)e.Rarity >= 2)
+            || (PickupBlueItems && (byte)e.Rarity >= 1)
+            || (PickupAnyEquips && e.Record.IsEquip)
+            || (PickupQuestItems && e.Record.IsQuest)
+            || PickupEverything
+        )
             return true;
 
         return applyPickOnlyChar

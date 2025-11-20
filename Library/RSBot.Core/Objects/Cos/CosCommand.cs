@@ -7,5 +7,5 @@ public enum CosCommand : byte
     Pickup = 8,
     Follow = 9,
     Charm = 11,
-    Cast = 13
+    Cast = 13,
 }

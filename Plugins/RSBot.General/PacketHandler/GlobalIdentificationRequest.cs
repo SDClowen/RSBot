@@ -46,7 +46,8 @@ internal class GlobalIdentificationRequest : IPacketHandler
         else if (serviceName == "AgentServer")
         {
             var selectedAccount = Accounts.SavedAccounts.Find(p =>
-                p.Username == GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername"));
+                p.Username == GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername")
+            );
             if (selectedAccount == null)
             {
                 Log.WarnLang("RSBot.General", "AgentServerConnectingError");
@@ -76,12 +77,13 @@ internal class GlobalIdentificationRequest : IPacketHandler
                 else
                     response.WriteString(selectedAccount.Username);
 
-                if (Game.ClientType == GameClientType.Turkey ||
-                    Game.ClientType == GameClientType.VTC_Game ||
-                    Game.ClientType == GameClientType.Global ||
-                    Game.ClientType == GameClientType.Korean ||
-                    Game.ClientType == GameClientType.Taiwan
-                    )
+                if (
+                    Game.ClientType == GameClientType.Turkey
+                    || Game.ClientType == GameClientType.VTC_Game
+                    || Game.ClientType == GameClientType.Global
+                    || Game.ClientType == GameClientType.Korean
+                    || Game.ClientType == GameClientType.Taiwan
+                )
                     response.WriteString(Sha256.ComputeHash(selectedAccount.Password));
                 else
                     response.WriteString(selectedAccount.Password);

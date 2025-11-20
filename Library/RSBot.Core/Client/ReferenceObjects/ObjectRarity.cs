@@ -13,7 +13,7 @@ public enum ObjectRarity : byte
     ClassF = 5, //                   MOB=Titan
     ClassG = 6, //ITEM=ROC,SET_11_B  MOB=Elite
     ClassH = 7, //ITEM=LEGEND        MOB=Elite (Strong)
-    ClassI = 8 //                    MOB=Unique (TQ, GOD, SD)
+    ClassI = 8, //                    MOB=Unique (TQ, GOD, SD)
 
     //Party = 10
     //For ITEM_: see above, this rarity is also used in SERVER_AGENT_OBJECT_SPAWN when OBJECT equals ITEM...

@@ -67,8 +67,8 @@ internal class Experience : IStatisticCalculator
             return;
 
         //EXP Percent
-        _initialValue = Game.Player.Experience /
-            (double)Game.ReferenceManager.GetRefLevel(Game.Player.Level).Exp_C * 100;
+        _initialValue =
+            Game.Player.Experience / (double)Game.ReferenceManager.GetRefLevel(Game.Player.Level).Exp_C * 100;
 
         _initialOffset = _initialValue;
 
@@ -84,7 +84,7 @@ internal class Experience : IStatisticCalculator
     private void OnLevelUp()
     {
         //EXP Percent
-        _initialValue = Game.Player.Experience /
-            (double)Game.ReferenceManager.GetRefLevel(Game.Player.Level).Exp_C * 100;
+        _initialValue =
+            Game.Player.Experience / (double)Game.ReferenceManager.GetRefLevel(Game.Player.Level).Exp_C * 100;
     }
 }

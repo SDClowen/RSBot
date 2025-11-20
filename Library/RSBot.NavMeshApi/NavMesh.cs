@@ -1,7 +1,6 @@
-﻿using RSBot.NavMeshApi.Cells;
+﻿using System.Numerics;
+using RSBot.NavMeshApi.Cells;
 using RSBot.NavMeshApi.Mathematics;
-
-using System.Numerics;
 
 namespace RSBot.NavMeshApi;
 
@@ -16,7 +15,12 @@ public abstract class NavMesh
 
     public virtual bool ResolveCellAndHeight(NavMeshTransform position) => throw new NotImplementedException();
 
-    public virtual NavMeshRaycastResult Raycast(NavMeshTransform src, NavMeshTransform dst, NavMeshRaycastType type, out NavMeshRaycastHit hit) => throw new NotImplementedException();
+    public virtual NavMeshRaycastResult Raycast(
+        NavMeshTransform src,
+        NavMeshTransform dst,
+        NavMeshRaycastType type,
+        out NavMeshRaycastHit hit
+    ) => throw new NotImplementedException();
 
     public override string ToString() => $"[{this.Type}] {this.Region}";
 }

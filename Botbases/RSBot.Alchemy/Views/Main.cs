@@ -28,18 +28,20 @@ public partial class Main : DoubleBufferedControl
 
         InitializeComponent();
         SetStyle(
-            ControlStyles.UserPaint |
-            ControlStyles.AllPaintingInWmPaint |
-            ControlStyles.OptimizedDoubleBuffer,
-            true);
+            ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer,
+            true
+        );
 
-        EventManager.SubscribeEvent("OnLoadCharacter", () =>
-        {
-            if (IsDisposed || Disposing)
-                return;
+        EventManager.SubscribeEvent(
+            "OnLoadCharacter",
+            () =>
+            {
+                if (IsDisposed || Disposing)
+                    return;
 
-            ReloadItemList();
-        });
+                ReloadItemList();
+            }
+        );
 
         EventManager.SubscribeEvent("OnAlchemy", new Action<AlchemyType>(OnAlchemy));
 
@@ -135,7 +137,8 @@ public partial class Main : DoubleBufferedControl
 
         comboItem.Items.Clear();
 
-        var items = Game.Player.Inventory.Where(i => i.Record.IsEquip && !i.Record.IsAvatar && !i.Record.IsJobOutfit)
+        var items = Game
+            .Player.Inventory.Where(i => i.Record.IsEquip && !i.Record.IsAvatar && !i.Record.IsJobOutfit)
             .ToList();
 
         try
@@ -172,7 +175,8 @@ public partial class Main : DoubleBufferedControl
     {
         listAttributes.Items.Clear();
 
-        if (item.Attributes == 0) return;
+        if (item.Attributes == 0)
+            return;
 
         var availableAttributes = ItemAttributesInfo.GetAvailableAttributeGroupsForItem(item.Record);
 
@@ -196,7 +200,8 @@ public partial class Main : DoubleBufferedControl
     {
         listMagicOptions.Items.Clear();
 
-        if (item.MagicOptions == null) return;
+        if (item.MagicOptions == null)
+            return;
 
         foreach (var magicOption in item.MagicOptions)
         {
@@ -249,11 +254,13 @@ public partial class Main : DoubleBufferedControl
     {
         IsRefreshing = true;
 
-        if (comboItem.SelectedIndex < 0) return;
+        if (comboItem.SelectedIndex < 0)
+            return;
         var selectedItem = (InventoryItemComboboxItem)comboItem.Items[comboItem.SelectedIndex];
         SelectedItem = selectedItem.InventoryItem;
 
-        if (SelectedItem == null) return;
+        if (SelectedItem == null)
+            return;
 
         Invoke(() => PopulateAttributes(SelectedItem));
         Invoke(() => PopulateMagicOptions(SelectedItem));

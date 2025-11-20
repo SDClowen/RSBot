@@ -41,9 +41,7 @@ public partial class ConfigDialog : UIWindowBase
 
             comboBoxProxyVersion.SelectedIndex = version == 4 ? 0 : 1;
         }
-        catch
-        {
-        }
+        catch { }
     }
 
     private void ConfigDialog_FormClosing(object sender, FormClosingEventArgs e)

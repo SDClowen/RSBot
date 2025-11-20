@@ -1,11 +1,11 @@
-﻿using RSBot.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using RSBot.Core;
 
 namespace RSBot.General.Components;
 
@@ -19,20 +19,25 @@ internal static class JSROAuthService
             CookieContainer = cookies,
             UseCookies = true,
             AllowAutoRedirect = true,
-            AutomaticDecompression = DecompressionMethods.All
+            AutomaticDecompression = DecompressionMethods.All,
         };
 
         HttpClient client = new(handler);
 
-        client.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent",
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36");
-        client.DefaultRequestHeaders.TryAddWithoutValidation("Accept",
-            "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7");
+        client.DefaultRequestHeaders.TryAddWithoutValidation(
+            "User-Agent",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+        );
+        client.DefaultRequestHeaders.TryAddWithoutValidation(
+            "Accept",
+            "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+        );
         client.DefaultRequestHeaders.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9");
         client.DefaultRequestHeaders.TryAddWithoutValidation("Connection", "keep-alive");
 
         var selectedAccount = Accounts.SavedAccounts?.Find(p =>
-            p.Username == GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername"));
+            p.Username == GlobalConfig.Get<string>("RSBot.General.AutoLoginAccountUsername")
+        );
 
         if (selectedAccount == null)
         {
@@ -47,10 +52,9 @@ internal static class JSROAuthService
 
         try
         {
-            var content = new FormUrlEncodedContent(
-            [
+            var content = new FormUrlEncodedContent([
                 new KeyValuePair<string, string>("txtPortalID", username),
-                new KeyValuePair<string, string>("txtPortalPW", password)
+                new KeyValuePair<string, string>("txtPortalPW", password),
             ]);
 
             string body = await content.ReadAsStringAsync();

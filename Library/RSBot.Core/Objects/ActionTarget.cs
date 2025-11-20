@@ -4,5 +4,5 @@ public enum ActionTarget
 {
     None = 0,
     Entity = 1,
-    Area = 2
+    Area = 2,
 }

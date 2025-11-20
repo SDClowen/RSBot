@@ -58,8 +58,7 @@ internal class BuyItemHook : IPacketHook
         byte[] destinationSlots = null;
         ushort amount = 0;
         byte itemAmount = 0;
-        if (Game.ClientType >= GameClientType.Chinese &&
-            Game.ClientType != GameClientType.Rigid)
+        if (Game.ClientType >= GameClientType.Chinese && Game.ClientType != GameClientType.Rigid)
         {
             amount = packet.ReadUShort();
             itemAmount = packet.ReadByte();

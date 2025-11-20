@@ -36,15 +36,14 @@ internal class PartyBuffingBundle : IBundle
         if (_refreshing)
             return;
 
-        if (Game.Party == null ||
-            Game.Party.Members == null ||
-            Game.Player.HasActiveVehicle)
+        if (Game.Party == null || Game.Party.Members == null || Game.Player.HasActiveVehicle)
             return;
 
         var selectedGroup = PlayerConfig.Get("RSBot.Party.Buffing.SelectedGroup", "Default");
 
-        var members = Game.Party.Members
-            .Where(p => BuffingPartyMembers.Any(s => s.Group == selectedGroup && s.Name == p.Name));
+        var members = Game.Party.Members.Where(p =>
+            BuffingPartyMembers.Any(s => s.Group == selectedGroup && s.Name == p.Name)
+        );
         foreach (var member in members)
         {
             if (member.Player == null)

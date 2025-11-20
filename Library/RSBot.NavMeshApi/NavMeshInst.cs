@@ -1,9 +1,8 @@
-﻿using RSBot.NavMeshApi.Cells;
+﻿using System.Numerics;
+using RSBot.NavMeshApi.Cells;
 using RSBot.NavMeshApi.Edges;
 using RSBot.NavMeshApi.Mathematics;
 using RSBot.NavMeshApi.Object;
-
-using System.Numerics;
 
 namespace RSBot.NavMeshApi;
 
@@ -38,5 +37,6 @@ public abstract class NavMeshInst
 
     public override string ToString() => $"INS:{this.ID} ({this.NavMeshObj?.Name})";
 
-    public bool TryGetLinkEdge(int edgeID, out NavMeshLinkEdge linkEdge) => this.LinkEdges.TryGetValue(edgeID, out linkEdge);
+    public bool TryGetLinkEdge(int edgeID, out NavMeshLinkEdge linkEdge) =>
+        this.LinkEdges.TryGetValue(edgeID, out linkEdge);
 }

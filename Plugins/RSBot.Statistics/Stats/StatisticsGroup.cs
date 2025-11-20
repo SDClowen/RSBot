@@ -5,5 +5,5 @@ internal enum StatisticsGroup
     Player,
     Loot,
     Enemy,
-    Bot
+    Bot,
 }

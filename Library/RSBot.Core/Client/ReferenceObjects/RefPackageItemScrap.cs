@@ -81,7 +81,6 @@ public class RefPackageItemScrap : IReference<string>
     ///     The data.
     /// </value>
     public int Data; //Actually durability!
-
     #endregion Fields
 }
 

@@ -18,7 +18,12 @@ public struct CircleF
     {
         var min = line.Min.ToVector2();
         var max = line.Max.ToVector2();
-        var intersectionCount = this.FindLineIntersections(min, max, out Vector2 intersection0, out Vector2 intersection1);
+        var intersectionCount = this.FindLineIntersections(
+            min,
+            max,
+            out Vector2 intersection0,
+            out Vector2 intersection1
+        );
         if (intersectionCount == 1)
         {
             point = intersection0;

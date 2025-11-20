@@ -17,7 +17,8 @@ public class EventManager
     /// <param name="handler">The handler.</param>
     public static void SubscribeEvent(string name, Delegate handler)
     {
-        if (handler == null) return;
+        if (handler == null)
+            return;
 
         _listeners.Add((name, handler));
     }
@@ -29,7 +30,8 @@ public class EventManager
     /// <param name="handler">The handler.</param>
     public static void SubscribeEvent(string name, Action handler)
     {
-        if (handler == null) return;
+        if (handler == null)
+            return;
 
         _listeners.Add((name, handler));
     }
@@ -43,9 +45,11 @@ public class EventManager
     {
         try
         {
-            var targets = (from o in _listeners
-                           where o.name == name && o.handler.Method.GetParameters().Length == parameters.Length
-                           select o.handler).ToArray();
+            var targets = (
+                from o in _listeners
+                where o.name == name && o.handler.Method.GetParameters().Length == parameters.Length
+                select o.handler
+            ).ToArray();
 
             foreach (var target in targets)
                 if (Thread.CurrentThread.Name == "Network.PacketProcessor")

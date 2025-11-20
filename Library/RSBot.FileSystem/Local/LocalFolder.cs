@@ -3,6 +3,7 @@ namespace RSBot.FileSystem.Local;
 public class LocalFolder : IFolder
 {
     private readonly DirectoryInfo _directoryInfo;
+
     public LocalFolder(string path, IFileSystem fileSystem)
     {
         Path = path;

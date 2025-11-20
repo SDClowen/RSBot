@@ -37,13 +37,14 @@ public class BotbaseManager
         {
             Bots = new Dictionary<string, IBotbase>();
 
-            foreach (var extension in from file in Directory.GetFiles(DirectoryPath)
-                                      let fileInfo = new FileInfo(file)
-                                      where fileInfo.Extension == ".dll"
-                                      select GetExtensionsFromAssembly(file)
-                     into loadedExtensions
-                                      from extension in loadedExtensions
-                                      select extension)
+            foreach (
+                var extension in from file in Directory.GetFiles(DirectoryPath)
+                let fileInfo = new FileInfo(file)
+                where fileInfo.Extension == ".dll"
+                select GetExtensionsFromAssembly(file) into loadedExtensions
+                from extension in loadedExtensions
+                select extension
+            )
             {
                 Bots.Add(extension.Key, extension.Value);
                 extension.Value.Register();
@@ -57,8 +58,10 @@ public class BotbaseManager
         }
         catch (Exception ex)
         {
-            File.WriteAllText(Kernel.BasePath + "\\boot-error.log",
-                $"The botbase manager encountered a problem: \n{ex.Message} at {ex.StackTrace}");
+            File.WriteAllText(
+                Kernel.BasePath + "\\boot-error.log",
+                $"The botbase manager encountered a problem: \n{ex.Message} at {ex.StackTrace}"
+            );
             return false;
         }
     }
@@ -78,10 +81,14 @@ public class BotbaseManager
         {
             var types = assembly.GetTypes();
 
-            foreach (var extension in (from type in types
-                                       where type.IsPublic && !type.IsAbstract && type.GetInterface("IBotbase") != null
-                                       select Activator.CreateInstance(type))
-                     .OfType<IBotbase>()) result.Add(extension.Name, extension);
+            foreach (
+                var extension in (
+                    from type in types
+                    where type.IsPublic && !type.IsAbstract && type.GetInterface("IBotbase") != null
+                    select Activator.CreateInstance(type)
+                ).OfType<IBotbase>()
+            )
+                result.Add(extension.Name, extension);
         }
         catch
         {

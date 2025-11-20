@@ -46,7 +46,10 @@ internal class RouteBundle
     /// <summary>
     ///     A value indicating if the bot is in a state of executing a command
     /// </summary>
-    public bool ScriptManaggerIsRunning { get => ScriptManager.Running; }
+    public bool ScriptManaggerIsRunning
+    {
+        get => ScriptManager.Running;
+    }
 
     /// <summary>
     ///     Initializes the bundle.
@@ -102,8 +105,11 @@ internal class RouteBundle
         if (!TradeConfig.RunTownScript)
             return null;
 
-        var filename = Path.Combine(ScriptManager.InitialDirectory, "Towns",
-            Game.Player.Movement.Source.Region + ".rbs");
+        var filename = Path.Combine(
+            ScriptManager.InitialDirectory,
+            "Towns",
+            Game.Player.Movement.Source.Region + ".rbs"
+        );
 
         if (!File.Exists(filename))
             return null;
@@ -147,9 +153,7 @@ internal class RouteBundle
             return;
 
         //Interrupt in case of attack or waiting for the transport
-        if ((ScriptManager.Running &&
-             Bundles.TransportBundle.Busy) ||
-            Bundles.AttackBundle.Busy)
+        if ((ScriptManager.Running && Bundles.TransportBundle.Busy) || Bundles.AttackBundle.Busy)
         {
             if (!ScriptManager.Paused && ScriptManager.Running)
                 ScriptManager.Pause();
@@ -247,9 +251,9 @@ internal class RouteBundle
     /// <returns></returns>
     private bool CheckHunterNearby()
     {
-        var hunterNearby = !TradeConfig.WaitForHunter || SpawnManager.TryGetEntity<SpawnedPlayer>(
-            p => p.WearsJobSuite && p.Job == JobType.Hunter,
-            out _);
+        var hunterNearby =
+            !TradeConfig.WaitForHunter
+            || SpawnManager.TryGetEntity<SpawnedPlayer>(p => p.WearsJobSuite && p.Job == JobType.Hunter, out _);
 
         WaitingForHunter = !hunterNearby;
 
@@ -305,12 +309,16 @@ internal class RouteBundle
     {
         _blockedByRouteDialog = true;
 
-        var inputDialog = new InputDialog("Select route", "Select route",
-            "Select the route to start from at the current location.", InputDialog.InputType.Combobox)
+        var inputDialog = new InputDialog(
+            "Select route",
+            "Select route",
+            "Select the route to start from at the current location.",
+            InputDialog.InputType.Combobox
+        )
         {
             TopLevel = true,
             StartPosition = FormStartPosition.CenterScreen,
-            ShowInTaskbar = true
+            ShowInTaskbar = true,
         };
 
         if (TradeConfig.RouteScriptList.Count < TradeConfig.SelectedRouteListIndex)
@@ -320,8 +328,7 @@ internal class RouteBundle
         if (selectedRouteList == null || !TradeConfig.RouteScripts.ContainsKey(selectedRouteList))
             return null;
 
-        foreach (var fileName in TradeConfig.RouteScripts[selectedRouteList]
-                     .Select(Path.GetFileNameWithoutExtension))
+        foreach (var fileName in TradeConfig.RouteScripts[selectedRouteList].Select(Path.GetFileNameWithoutExtension))
             inputDialog.Selector.Items.Add(fileName);
 
         if (inputDialog.ShowDialog(Application.OpenForms[0]) != DialogResult.OK)
@@ -337,10 +344,10 @@ internal class RouteBundle
 
         _blockedByRouteDialog = false;
 
-        return TradeConfig.RouteScripts[selectedRouteList].FirstOrDefault(s =>
-            Path.GetFileNameWithoutExtension(s) == inputDialog.Selector.SelectedItem.ToString());
+        return TradeConfig
+            .RouteScripts[selectedRouteList]
+            .FirstOrDefault(s => Path.GetFileNameWithoutExtension(s) == inputDialog.Selector.SelectedItem.ToString());
     }
-
 
     /// <summary>
     ///     Returns the route file name
@@ -360,8 +367,7 @@ internal class RouteBundle
         var random = new Random();
 
         //Randomize next route
-        foreach (var file in TradeConfig.RouteScripts[selectedRouteList]
-                     .OrderBy(_ => random.Next(0, 100)))
+        foreach (var file in TradeConfig.RouteScripts[selectedRouteList].OrderBy(_ => random.Next(0, 100)))
         {
             ScriptManager.Load(file);
 

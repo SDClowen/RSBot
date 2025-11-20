@@ -10,8 +10,12 @@ internal static class AttackBundle
 
     public static void Tick()
     {
-        if (Game.SelectedEntity == null || Game.Player.InAction || !Game.Player.CanAttack ||
-            Game.SelectedEntity.IsBehindObstacle)
+        if (
+            Game.SelectedEntity == null
+            || Game.Player.InAction
+            || !Game.Player.CanAttack
+            || Game.SelectedEntity.IsBehindObstacle
+        )
             return;
 
         if (_lastTargetId == Game.SelectedEntity.UniqueId)

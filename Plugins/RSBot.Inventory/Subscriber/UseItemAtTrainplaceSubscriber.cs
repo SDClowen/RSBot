@@ -53,7 +53,8 @@ internal class UseItemAtTrainplaceSubscriber
             _blacklistedItems.Add(invItem.Record.CodeName);
 
             Log.Warn(
-                $"Can not use item [{invItem.Record.GetRealName()}] at training place. Blacklisting it for 5 minutes before next try.");
+                $"Can not use item [{invItem.Record.GetRealName()}] at training place. Blacklisting it for 5 minutes before next try."
+            );
         }
     }
 }

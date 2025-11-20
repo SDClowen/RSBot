@@ -34,13 +34,15 @@ public class NpcTalk
             if (Game.ClientType > GameClientType.Thailand)
                 count = packet.ReadByte();
 
-            if (Game.ClientType == GameClientType.Global ||
-                Game.ClientType == GameClientType.Turkey ||
-                Game.ClientType == GameClientType.VTC_Game ||
-                Game.ClientType == GameClientType.RuSro ||
-                Game.ClientType == GameClientType.Korean ||
-                Game.ClientType == GameClientType.Japanese ||
-                Game.ClientType == GameClientType.Taiwan)
+            if (
+                Game.ClientType == GameClientType.Global
+                || Game.ClientType == GameClientType.Turkey
+                || Game.ClientType == GameClientType.VTC_Game
+                || Game.ClientType == GameClientType.RuSro
+                || Game.ClientType == GameClientType.Korean
+                || Game.ClientType == GameClientType.Japanese
+                || Game.ClientType == GameClientType.Taiwan
+            )
                 count = 7;
 
             Options = packet.ReadBytes(count);

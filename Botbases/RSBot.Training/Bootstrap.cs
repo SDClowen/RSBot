@@ -46,8 +46,10 @@ public class Bootstrap : IBotbase
             return;
 
         //Nothing if in scroll state!
-        if (Game.Player.State.ScrollState == ScrollState.NormalScroll ||
-            Game.Player.State.ScrollState == ScrollState.ThiefScroll)
+        if (
+            Game.Player.State.ScrollState == ScrollState.NormalScroll
+            || Game.Player.State.ScrollState == ScrollState.ThiefScroll
+        )
             return;
 
         try

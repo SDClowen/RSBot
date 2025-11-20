@@ -10,5 +10,5 @@ internal enum EntityUpdateStatusFlag : byte
     MP = 2,
     HPMP = HP | MP,
     BadEffect = 4,
-    Fellow = 13
+    Fellow = 13,
 }

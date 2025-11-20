@@ -1,4 +1,11 @@
-﻿using RSBot.Core;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.Windows.Forms;
+using RSBot.Core;
 using RSBot.Core.Client;
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Components;
@@ -9,13 +16,6 @@ using RSBot.Core.Objects.Spawn;
 using RSBot.Map.Renderer;
 using RSBot.NavMeshApi.Dungeon;
 using SDUI.Controls;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
-using System.Windows.Forms;
 using Region = RSBot.Core.Objects.Region;
 
 namespace RSBot.Map.Views;
@@ -52,7 +52,6 @@ public partial class Main : DoubleBufferedControl
     ///     The Y Sector identifier
     /// </summary>
     private byte _currentYSec;
-
 
     /// <summary>
     ///     The map points
@@ -91,7 +90,6 @@ public partial class Main : DoubleBufferedControl
     /// </summary>
     private bool _isUniqueSpotted = false;
 
-
     /// <summary>
     ///     Initializes a new instance of the <see cref="Main" /> class.
     /// </summary>
@@ -116,10 +114,7 @@ public partial class Main : DoubleBufferedControl
 
         if (Kernel.Debug)
         {
-            _navMeshRenderer = new NavMeshRenderer()
-            {
-                Dock = DockStyle.Fill,
-            };
+            _navMeshRenderer = new NavMeshRenderer() { Dock = DockStyle.Fill };
 
             panelNavMeshRendererCanvas.Controls.Add(_navMeshRenderer);
             labelSectorInfo.Visible = true;
@@ -141,7 +136,7 @@ public partial class Main : DoubleBufferedControl
                 Game.MediaPk2.GetFile("interface\\minimap\\mm_sign_monster.ddj").ToImage(),
                 Game.MediaPk2.GetFile("interface\\minimap\\mm_sign_unique.ddj").ToImage(),
                 Game.MediaPk2.GetFile("interface\\minimap\\mm_sign_party.ddj").ToImage(),
-                Game.MediaPk2.GetFile("interface\\minimap\\mm_sign_unique.ddj").ToImage()
+                Game.MediaPk2.GetFile("interface\\minimap\\mm_sign_unique.ddj").ToImage(),
             };
     }
 
@@ -189,15 +184,15 @@ public partial class Main : DoubleBufferedControl
             using var img = (Image)_mapEntityImages[entityIndex].Clone();
 
             if (entityIndex == 0)
-                gfx.DrawImage(RotateImage(img, Geometry.RadianToDegree(Game.Player.Movement.Angle)),
+                gfx.DrawImage(
+                    RotateImage(img, Geometry.RadianToDegree(Game.Player.Movement.Angle)),
                     x - img.Width / 2,
-                    y - img.Height / 2);
+                    y - img.Height / 2
+                );
             else
                 gfx.DrawImage(img, x - img.Width / 2, y - img.Height / 2);
         }
-        catch
-        {
-        }
+        catch { }
     }
 
     private void DrawRectangleAt(Graphics gfx, Position position, Brush brush, Size size, string label = "")
@@ -216,9 +211,7 @@ public partial class Main : DoubleBufferedControl
 
             gfx.FillRectangle(brush, new RectangleF(new PointF(x, y), size));
         }
-        catch
-        {
-        }
+        catch { }
     }
 
     private void DrawLineAt(Graphics gfx, Position source, Position destination, Pen color)
@@ -255,9 +248,7 @@ public partial class Main : DoubleBufferedControl
             gfx.FillEllipse(brush, new RectangleF(point, new SizeF(diameterF, diameterF)));
             gfx.DrawEllipse(new Pen(color), new RectangleF(point, new SizeF(diameterF, diameterF)));
         }
-        catch
-        {
-        }
+        catch { }
     }
 
     /// <summary>
@@ -310,8 +301,12 @@ public partial class Main : DoubleBufferedControl
                 if (SpawnManager.TryGetEntities<SpawnedMonster>(out var monsters))
                     foreach (var entry in monsters)
                     {
-                        AddGridItem(entry.Record.GetRealName(), entry.Rarity.GetName(),
-                            entry.Record.Level, entry.Movement.Source);
+                        AddGridItem(
+                            entry.Record.GetRealName(),
+                            entry.Rarity.GetName(),
+                            entry.Record.Level,
+                            entry.Movement.Source
+                        );
 
                         if (Game.SelectedEntity?.UniqueId == entry.UniqueId)
                             DrawCircleAt(graphics, entry.Position, Color.Wheat.Alpha(100), 6);
@@ -350,8 +345,11 @@ public partial class Main : DoubleBufferedControl
                 if (SpawnManager.TryGetEntities<SpawnedPlayer>(out var players))
                     foreach (var entry in players)
                     {
-                        if (Game.Party != null && Game.Party.Members != null &&
-                            Game.Party.GetMemberByName(entry.Name) != null)
+                        if (
+                            Game.Party != null
+                            && Game.Party.Members != null
+                            && Game.Party.GetMemberByName(entry.Name) != null
+                        )
                             continue;
 
                         AddGridItem(entry.Name, "Player", 0, entry.Movement.Source);
@@ -362,8 +360,12 @@ public partial class Main : DoubleBufferedControl
                 if (SpawnManager.TryGetEntities<SpawnedNpcNpc>(out var npcs))
                     foreach (var entry in npcs)
                     {
-                        AddGridItem(entry.Record.GetRealName(), entry.UniqueId.ToString(),
-                            entry.Record.Level, entry.Movement.Source);
+                        AddGridItem(
+                            entry.Record.GetRealName(),
+                            entry.UniqueId.ToString(),
+                            entry.Record.Level,
+                            entry.Movement.Source
+                        );
                         DrawPointAt(graphics, entry.Movement.Source, 2);
                     }
 
@@ -408,7 +410,6 @@ public partial class Main : DoubleBufferedControl
         return new Bitmap(SectorSize, SectorSize);
     }
 
-
     /// <summary>
     ///     Redraw the map image
     /// </summary>
@@ -416,14 +417,19 @@ public partial class Main : DoubleBufferedControl
     {
         var size = mapCanvas.ClientSize;
 
-        if (bufferedGraphicsContext.MaximumBuffer.Width < size.Width ||
-            bufferedGraphicsContext.MaximumBuffer.Height < size.Height)
+        if (
+            bufferedGraphicsContext.MaximumBuffer.Width < size.Width
+            || bufferedGraphicsContext.MaximumBuffer.Height < size.Height
+        )
         {
             bufferedGraphicsContext.MaximumBuffer = new Size(size.Width + 1, size.Height + 1);
         }
 
-        if (bufferedGraphics == null || bufferedGraphics.Graphics.VisibleClipBounds.Width != size.Width ||
-            bufferedGraphics.Graphics.VisibleClipBounds.Height != size.Height)
+        if (
+            bufferedGraphics == null
+            || bufferedGraphics.Graphics.VisibleClipBounds.Width != size.Width
+            || bufferedGraphics.Graphics.VisibleClipBounds.Height != size.Height
+        )
         {
             bufferedGraphics?.Dispose();
             bufferedGraphics = bufferedGraphicsContext.Allocate(mapCanvas.CreateGraphics(), mapCanvas.ClientRectangle);
@@ -498,7 +504,6 @@ public partial class Main : DoubleBufferedControl
                         using var pen = new Pen(Color.Black);
                         pen.DashStyle = DashStyle.Dot;
                         gfx.DrawRectangle(pen, new Rectangle(pos, new Size(SectorSize, SectorSize)));
-
                     }
                 }
             }
@@ -508,6 +513,7 @@ public partial class Main : DoubleBufferedControl
             Log.Warn($"Error in minimap: {e.Message}");
         }
     }
+
     private string GetMinimapFileName(Region region, string dungeonName, string floorName)
     {
         if (!string.IsNullOrWhiteSpace(dungeonName) && !string.IsNullOrWhiteSpace(floorName))
@@ -553,7 +559,7 @@ public partial class Main : DoubleBufferedControl
             PointF point = new()
             {
                 X = mapCanvas.Width / 2f - SectorSize - Game.Player.Movement.Source.XSectorOffset / 10f * _scale,
-                Y = mapCanvas.Height / 2f - SectorSize * 2f + Game.Player.Movement.Source.YSectorOffset / 10f * _scale
+                Y = mapCanvas.Height / 2f - SectorSize * 2f + Game.Player.Movement.Source.YSectorOffset / 10f * _scale,
             };
 
             graphics.DrawImage(_currentSectorGraphic, point);
@@ -612,11 +618,12 @@ public partial class Main : DoubleBufferedControl
 
     private void mapCanvas_MouseClick(object sender, MouseEventArgs e)
     {
-        if (!Game.Ready) return;
+        if (!Game.Ready)
+            return;
 
         var position = Game.Player.Movement.Source;
-        position.XOffset = Game.Player.Movement.Source.XOffset +
-                           (mapCanvas.Width / 2f - e.X) / SectorSize * 192f * 10 * -1f;
+        position.XOffset =
+            Game.Player.Movement.Source.XOffset + (mapCanvas.Width / 2f - e.X) / SectorSize * 192f * 10 * -1f;
         position.YOffset = Game.Player.Movement.Source.YOffset + (mapCanvas.Height / 2f - e.Y) / SectorSize * 192f * 10;
 
         Game.Player.MoveTo(position, false);
@@ -704,7 +711,6 @@ public partial class Main : DoubleBufferedControl
                         _isUniqueSpotted = true;
 
                         Game.Player.NotificationSounds?.PlayUniqueInRange();
-
                     }
 
                     atleastOneUnqiueFound = true;
@@ -724,12 +730,18 @@ public partial class Main : DoubleBufferedControl
             _isUniqueSpotted = false;
         }
 
-        if (Game.SelectedEntity?.Record.Rarity == ObjectRarity.ClassD || Game.SelectedEntity?.Record.Rarity == ObjectRarity.ClassI)
+        if (
+            Game.SelectedEntity?.Record.Rarity == ObjectRarity.ClassD
+            || Game.SelectedEntity?.Record.Rarity == ObjectRarity.ClassI
+        )
             return;
 
-        if (SpawnManager.TryGetEntity<SpawnedMonster>(
+        if (
+            SpawnManager.TryGetEntity<SpawnedMonster>(
                 p => p.Record.Rarity == ObjectRarity.ClassD || p.Record.Rarity == ObjectRarity.ClassI,
-                out var uniqueEntity))
+                out var uniqueEntity
+            )
+        )
             uniqueEntity.TrySelect();
     }
 }

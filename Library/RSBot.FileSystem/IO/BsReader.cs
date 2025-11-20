@@ -7,17 +7,20 @@ public class BsReader : BinaryReader
 {
     private readonly Encoding _encoding;
 
-    public BsReader(Stream input) : base(input)
+    public BsReader(Stream input)
+        : base(input)
     {
         _encoding = Encoding.GetEncoding(Encoding.ASCII.CodePage);
     }
 
-    public BsReader(Stream input, Encoding encoding) : base(input, encoding)
+    public BsReader(Stream input, Encoding encoding)
+        : base(input, encoding)
     {
         _encoding = encoding;
     }
 
-    public BsReader(Stream input, Encoding encoding, bool leaveOpen) : base(input, encoding, leaveOpen)
+    public BsReader(Stream input, Encoding encoding, bool leaveOpen)
+        : base(input, encoding, leaveOpen)
     {
         _encoding = encoding;
     }

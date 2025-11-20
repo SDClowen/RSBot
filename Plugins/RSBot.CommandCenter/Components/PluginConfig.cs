@@ -13,8 +13,10 @@ internal class PluginConfig
 
         foreach (var emoticon in Emoticons.Items)
         {
-            var actionName = PlayerConfig.Get($"RSBot.CommandCenter.MappedEmotes.{emoticon.Name}",
-                Emoticons.GetEmoticonDefaultCommand(emoticon.Name));
+            var actionName = PlayerConfig.Get(
+                $"RSBot.CommandCenter.MappedEmotes.{emoticon.Name}",
+                Emoticons.GetEmoticonDefaultCommand(emoticon.Name)
+            );
 
             result.Add(emoticon.Name, actionName);
         }

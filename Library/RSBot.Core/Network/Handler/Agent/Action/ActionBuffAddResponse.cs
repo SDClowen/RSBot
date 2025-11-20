@@ -19,7 +19,6 @@ internal class ActionBuffAddResponse : IPacketHandler
         if (token == 0)
             return;
 
-
         var buff = new SkillInfo(skillId, token);
         if (targetId == Game.Player.UniqueId)
         {

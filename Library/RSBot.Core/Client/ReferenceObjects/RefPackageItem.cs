@@ -8,7 +8,8 @@ public class RefPackageItem
     /// <param name="data">The data.</param>
     public RefPackageItem(string[] data)
     {
-        if (data == null) return;
+        if (data == null)
+            return;
         Service = byte.Parse(data[0]);
         Country = int.Parse(data[1]);
         RefPackageItemCodeName = data[2];
@@ -75,6 +76,5 @@ public class RefPackageItem
     ///     The data.
     /// </value>
     public int Data; //Actually durability!
-
     #endregion Fields
 }

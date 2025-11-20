@@ -56,10 +56,7 @@ public class QuestLog
 
     public static ActiveQuest ParseActiveQuest(Packet packet, uint questId)
     {
-        var activeQuest = new ActiveQuest
-        {
-            Id = questId
-        };
+        var activeQuest = new ActiveQuest { Id = questId };
 
         if (Game.ClientType == GameClientType.Vietnam274)
         {
@@ -98,7 +95,7 @@ public class QuestLog
                     Id = packet.ReadByte(),
                     InProgress = packet.ReadBool(),
                     NameStrId = packet.ReadString(),
-                    Tasks = packet.ReadUIntArray(packet.ReadByte())
+                    Tasks = packet.ReadUIntArray(packet.ReadByte()),
                 };
 
                 activeQuest.Objectives[i] = objective;
@@ -107,7 +104,6 @@ public class QuestLog
 
         if ((activeQuest.Type & QuestType.RefObjects) == QuestType.RefObjects)
             activeQuest.Npcs = packet.ReadUIntArray(packet.ReadByte());
-
 
         //var typeFlags = (byte)activeQuest.Type;
 

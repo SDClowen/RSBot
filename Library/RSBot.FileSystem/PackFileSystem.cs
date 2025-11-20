@@ -1,11 +1,10 @@
+using System.Diagnostics;
+using System.Text;
 using RSBot.FileSystem.IO;
 using RSBot.FileSystem.PackFile;
 using RSBot.FileSystem.PackFile.Cryptography;
 using RSBot.FileSystem.PackFile.IO;
 using RSBot.FileSystem.PackFile.Struct;
-
-using System.Diagnostics;
-using System.Text;
 
 namespace RSBot.FileSystem;
 
@@ -26,16 +25,21 @@ public class PackFileSystem : IFileSystem
     #region Properties
 
     /// <inheritdoc />
-    public IFolder Root => new PackFolder("", new PackEntry
-    {
-        CreationTime = DateTime.Now.Ticks,
-        ModifyTime = DateTime.Now.Ticks,
-        DataPosition = 256,
-        Name = string.Empty,
-        NextBlock = 0,
-        Size = 0,
-        Type = PackEntryType.Folder
-    }, this);
+    public IFolder Root =>
+        new PackFolder(
+            "",
+            new PackEntry
+            {
+                CreationTime = DateTime.Now.Ticks,
+                ModifyTime = DateTime.Now.Ticks,
+                DataPosition = 256,
+                Name = string.Empty,
+                NextBlock = 0,
+                Size = 0,
+                Type = PackEntryType.Folder,
+            },
+            this
+        );
 
     /// <inheritdoc />
     public string BasePath { get; }
@@ -81,10 +85,8 @@ public class PackFileSystem : IFileSystem
         PathUtil.PathSeparator = this.PathSeparator;
     }
 
-    public PackFileSystem(string path, string password) : this(path, password,
-        new byte[] { 0x03, 0xF8, 0xE4, 0x44, 0x88, 0x99, 0x3F, 0x64, 0xFE, 0x35 })
-    {
-    }
+    public PackFileSystem(string path, string password)
+        : this(path, password, new byte[] { 0x03, 0xF8, 0xE4, 0x44, 0x88, 0x99, 0x3F, 0x64, 0xFE, 0x35 }) { }
 
     #endregion
 
@@ -161,7 +163,8 @@ public class PackFileSystem : IFileSystem
     {
         this.AssertFolderExists(folderPath);
 
-        if (!_archive.TryGetBlock(folderPath, out var block)) return Array.Empty<IFolder>();
+        if (!_archive.TryGetBlock(folderPath, out var block))
+            return Array.Empty<IFolder>();
 
         var entries = block!.GetEntries().Where(e => e.Type == PackEntryType.Folder).ToArray();
 
@@ -236,7 +239,6 @@ public class PackFileSystem : IFileSystem
         return new PackFileReader(new MemoryStream(buffer));
     }
 
-
     /// <inheritdoc />
     public IFileReader OpenRead(object entry)
     {
@@ -246,7 +248,9 @@ public class PackFileSystem : IFileSystem
         if (entry is not PackEntry packEntry)
             throw new ArgumentException("Entry should be of type PackEntry");
 
-        Debug.WriteLine($"Reading file '{packEntry.Name}' (Offset: 0x{packEntry.DataPosition:X}, Size: {packEntry.Size}B)");
+        Debug.WriteLine(
+            $"Reading file '{packEntry.Name}' (Offset: 0x{packEntry.DataPosition:X}, Size: {packEntry.Size}B)"
+        );
 
         var bsRead = new BsReader(_fileStream);
         bsRead.BaseStream.Position = packEntry.DataPosition;

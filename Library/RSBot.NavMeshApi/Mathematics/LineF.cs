@@ -30,12 +30,14 @@ public readonly struct LineF
     public bool IsBetween(Vector2 point)
     {
         // https://stackoverflow.com/questions/328107/how-can-you-determine-a-point-is-between-two-other-points-on-a-line-segment
-        var cross = ((this.Max.Z - this.Min.Z) * (point.X - this.Min.X)) - ((this.Max.X - this.Min.X) * (point.Y - this.Min.Z));
+        var cross =
+            ((this.Max.Z - this.Min.Z) * (point.X - this.Min.X)) - ((this.Max.X - this.Min.X) * (point.Y - this.Min.Z));
 
         if (MathF.Abs(cross).IsApproximatelyZero())
             return false;
 
-        var dot = ((this.Max.X - this.Min.X) * (point.X - this.Min.X)) + ((this.Max.Z - this.Min.Z) * (point.Y - this.Min.Z));
+        var dot =
+            ((this.Max.X - this.Min.X) * (point.X - this.Min.X)) + ((this.Max.Z - this.Min.Z) * (point.Y - this.Min.Z));
         if (dot < 0)
             return false;
 
@@ -45,12 +47,22 @@ public readonly struct LineF
     public bool Intersects(LineF other, out Vector3 point)
     {
         //http://thirdpartyninjas.com/blog/2008/10/07/line-segment-intersection/
-        float denominator = ((other.Max.Z - other.Min.Z) * (this.Max.X - this.Min.X)) - ((other.Max.X - other.Min.X) * (this.Max.Z - this.Min.Z));
+        float denominator =
+            ((other.Max.Z - other.Min.Z) * (this.Max.X - this.Min.X))
+            - ((other.Max.X - other.Min.X) * (this.Max.Z - this.Min.Z));
 
         if (denominator != 0)
         {
-            float u_a = (((other.Max.X - other.Min.X) * (this.Min.Z - other.Min.Z)) - ((other.Max.Z - other.Min.Z) * (this.Min.X - other.Min.X))) / denominator;
-            float u_b = (((this.Max.X - this.Min.X) * (this.Min.Z - other.Min.Z)) - ((this.Max.Z - this.Min.Z) * (this.Min.X - other.Min.X))) / denominator;
+            float u_a =
+                (
+                    ((other.Max.X - other.Min.X) * (this.Min.Z - other.Min.Z))
+                    - ((other.Max.Z - other.Min.Z) * (this.Min.X - other.Min.X))
+                ) / denominator;
+            float u_b =
+                (
+                    ((this.Max.X - this.Min.X) * (this.Min.Z - other.Min.Z))
+                    - ((this.Max.Z - this.Min.Z) * (this.Min.X - other.Min.X))
+                ) / denominator;
 
             //if (u_a > 0f && u_a < 1f && u_b > 0f && u_b < 1f) //
             if (u_a >= 0f && u_a <= 1f && u_b >= 0f && u_b <= 1f)

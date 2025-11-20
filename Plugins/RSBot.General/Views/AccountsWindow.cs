@@ -186,7 +186,7 @@ public partial class AccountsWindow : UIWindowBase
             Servername = txtServername.Text,
             SelectedCharacter = string.Empty,
             Channel = (byte)(comboBoxChannel.SelectedIndex + 1),
-            Characters = new List<string>(4)
+            Characters = new List<string>(4),
         };
 
         Accounts.SavedAccounts.Add(account);

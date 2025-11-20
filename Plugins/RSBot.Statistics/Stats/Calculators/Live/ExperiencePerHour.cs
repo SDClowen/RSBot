@@ -43,8 +43,8 @@ internal class ExperiencePerHour : IStatisticCalculator
         if (!Game.Ready)
             return 0;
 
-        var currentPercent = Game.Player.Experience /
-            (double)Game.ReferenceManager.GetRefLevel(Game.Player.Level).Exp_C * 100;
+        var currentPercent =
+            Game.Player.Experience / (double)Game.ReferenceManager.GetRefLevel(Game.Player.Level).Exp_C * 100;
 
         if (++_currentTickIndex >= _values.Length)
             _currentTickIndex = 0;
@@ -61,8 +61,8 @@ internal class ExperiencePerHour : IStatisticCalculator
         if (!Game.Ready)
             return;
 
-        _lastTickValue = Game.Player.Experience /
-            (double)Game.ReferenceManager.GetRefLevel(Game.Player.Level).Exp_C * 100;
+        _lastTickValue =
+            Game.Player.Experience / (double)Game.ReferenceManager.GetRefLevel(Game.Player.Level).Exp_C * 100;
 
         _values = new double[60];
     }

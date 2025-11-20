@@ -35,7 +35,7 @@ public struct ExchangeItem
         {
             SourceSlot = hasSource ? packet.ReadByte() : (byte)0,
             ExchangeSlot = packet.ReadByte(),
-            Item = InventoryItem.FromPacket(packet, 0xFF)
+            Item = InventoryItem.FromPacket(packet, 0xFF),
         };
     }
 }

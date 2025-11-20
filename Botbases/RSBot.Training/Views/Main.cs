@@ -125,7 +125,6 @@ public partial class Main : DoubleBufferedControl
             ApplySettings();
     }
 
-
     /// <summary>
     ///     Called when the script recorder saves a script.
     /// </summary>
@@ -193,15 +192,16 @@ public partial class Main : DoubleBufferedControl
         var berserk = PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Berserk").ToLookup(p => "Berserk", p => p);
 
         foreach (var group in avoid.Union(prefer).Union(berserk))
-            foreach (var item in group)
-            {
-                var listViewItem = lvAvoidance.Items.Cast<ListViewItem>()
-                    .FirstOrDefault(p => ((MonsterRarity)p.Tag & item) == item);
-                if (listViewItem == null)
-                    continue;
+        foreach (var item in group)
+        {
+            var listViewItem = lvAvoidance
+                .Items.Cast<ListViewItem>()
+                .FirstOrDefault(p => ((MonsterRarity)p.Tag & item) == item);
+            if (listViewItem == null)
+                continue;
 
-                listViewItem.Group = lvAvoidance.Groups[$"grp{group.Key}"];
-            }
+            listViewItem.Group = lvAvoidance.Groups[$"grp{group.Key}"];
+        }
     }
 
     /// <summary>
@@ -274,9 +274,11 @@ public partial class Main : DoubleBufferedControl
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void btnApplyArea_Click(object sender, EventArgs e)
     {
-        if (!float.TryParse(txtYCoord.Text, out var y) ||
-            !float.TryParse(txtXCoord.Text, out var x) ||
-            !ushort.TryParse(txtRegion.Text, out ushort region))
+        if (
+            !float.TryParse(txtYCoord.Text, out var y)
+            || !float.TryParse(txtXCoord.Text, out var x)
+            || !ushort.TryParse(txtRegion.Text, out ushort region)
+        )
         {
             Log.Warn("[Training area] Check that the X, Y, and Region coordinates have been entered correctly.");
             return;
@@ -290,8 +292,10 @@ public partial class Main : DoubleBufferedControl
         PlayerConfig.Set("RSBot.Area.Y", pos.YOffset);
         PlayerConfig.Set("RSBot.Area.Z", pos.ZOffset);
 
-        Log.Notify("[Training area] New training area coordinates set. " +
-            $"X: {pos.XOffset}, Y: {pos.YOffset}, Z: {pos.ZOffset}, Region: {pos.Region}");
+        Log.Notify(
+            "[Training area] New training area coordinates set. "
+                + $"X: {pos.XOffset}, Y: {pos.YOffset}, Z: {pos.ZOffset}, Region: {pos.Region}"
+        );
         EventManager.FireEvent("OnSetTrainingArea");
     }
 
@@ -305,10 +309,11 @@ public partial class Main : DoubleBufferedControl
         var diag = new OpenFileDialog
         {
             Filter = @"RSBot Bot script (*.rbs)|*.rbs",
-            Title = @"Browse for a walkback script"
+            Title = @"Browse for a walkback script",
         };
 
-        if (diag.ShowDialog() != DialogResult.OK) return;
+        if (diag.ShowDialog() != DialogResult.OK)
+            return;
 
         txtWalkscript.Text = diag.FileName;
         PlayerConfig.Set("RSBot.Walkback.File", txtWalkscript.Text);
@@ -337,7 +342,8 @@ public partial class Main : DoubleBufferedControl
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void btnPrefer_Click(object sender, EventArgs e)
     {
-        if (lvAvoidance.SelectedItems.Count <= 0) return;
+        if (lvAvoidance.SelectedItems.Count <= 0)
+            return;
         foreach (ListViewItem item in lvAvoidance.SelectedItems)
             item.Group = lvAvoidance.Groups["grpPrefer"];
 
@@ -351,7 +357,8 @@ public partial class Main : DoubleBufferedControl
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void btnBerserk_Click(object sender, EventArgs e)
     {
-        if (lvAvoidance.SelectedItems.Count <= 0) return;
+        if (lvAvoidance.SelectedItems.Count <= 0)
+            return;
         foreach (ListViewItem item in lvAvoidance.SelectedItems)
             item.Group = lvAvoidance.Groups["grpBerserk"];
 
@@ -365,7 +372,8 @@ public partial class Main : DoubleBufferedControl
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void btnNoCustomBehavior_Click(object sender, EventArgs e)
     {
-        if (lvAvoidance.SelectedItems.Count <= 0) return;
+        if (lvAvoidance.SelectedItems.Count <= 0)
+            return;
         foreach (ListViewItem item in lvAvoidance.SelectedItems)
             item.Group = lvAvoidance.Groups["grpNone"];
 
@@ -376,7 +384,11 @@ public partial class Main : DoubleBufferedControl
     {
         if (Kernel.Bot.Running || !Game.Ready)
             return;
-        if (Bundles.Loot.Config.UseAbilityPet && Game.Player.HasActiveAbilityPet && !PickupManager.RunningAbilityPetPickup)
+        if (
+            Bundles.Loot.Config.UseAbilityPet
+            && Game.Player.HasActiveAbilityPet
+            && !PickupManager.RunningAbilityPetPickup
+        )
             PickupManager.RunAbilityPet(Game.Player.Position);
     }
 
@@ -408,7 +420,10 @@ public partial class Main : DoubleBufferedControl
     {
         MessageBox.Show(
             "If the player is under attack by a monster that is set to be avoided the bot will counter attack weaker mobs that are currently attacking the player first before targeting the avoided monster again. The bot will only kill weaker monsters that are attacking the player and won't start to pull new mobs to the battle.",
-            "Attack weaker mobs first", MessageBoxButtons.OK, MessageBoxIcon.Question);
+            "Attack weaker mobs first",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Question
+        );
     }
 
     private void linkRecord_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

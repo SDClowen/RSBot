@@ -37,39 +37,37 @@ public partial class CommandDialog : UIWindowBase
                 Dock = DockStyle.Top,
                 BackColor = ColorScheme.BackColor,
                 ForeColor = ColorScheme.ForeColor,
-                Size = new Size(250, 85)
+                Size = new Size(250, 85),
             };
 
             var input = new TextBox
             {
                 Location = new Point(16, 26),
                 Size = new Size(200, 28),
-                Name = arg.Key
+                Name = arg.Key,
             };
 
             input.TextChanged += Input_TextChanged;
 
-            panel.Controls.AddRange(new Control[]
-            {
-                new Label
+            panel.Controls.AddRange(
+                new Control[]
                 {
-                    Location = new Point(13, 2),
-                    Text = arg.Key,
-                    BackColor = Color.Transparent
-                },
-                input,
-                new Label
-                {
-                    Location = new Point(13, 50),
-                    Text = arg.Value,
-                    Size = new Size(250, 16)
-                },
-                new Separator
-                {
-                    Location = new Point(0, 75),
-                    Dock = DockStyle.Bottom
+                    new Label
+                    {
+                        Location = new Point(13, 2),
+                        Text = arg.Key,
+                        BackColor = Color.Transparent,
+                    },
+                    input,
+                    new Label
+                    {
+                        Location = new Point(13, 50),
+                        Text = arg.Value,
+                        Size = new Size(250, 16),
+                    },
+                    new Separator { Location = new Point(0, 75), Dock = DockStyle.Bottom },
                 }
-            });
+            );
 
             Controls.Add(panel);
         }
@@ -105,8 +103,10 @@ public partial class CommandDialog : UIWindowBase
     {
         get
         {
-            return Arguments.Aggregate(_command.Name,
-                (current, arg) => current + ScriptManager.ArgumentSeparator + arg.Value);
+            return Arguments.Aggregate(
+                _command.Name,
+                (current, arg) => current + ScriptManager.ArgumentSeparator + arg.Value
+            );
         }
     }
 

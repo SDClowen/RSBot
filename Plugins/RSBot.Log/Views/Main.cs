@@ -11,7 +11,6 @@ namespace RSBot.Log.Views;
 [ToolboxItem(false)]
 public partial class Main : DoubleBufferedControl
 {
-
     /// <summary>
     ///     Initializes a new instance of the <see cref="Main" /> class.
     /// </summary>
@@ -20,7 +19,6 @@ public partial class Main : DoubleBufferedControl
         CheckForIllegalCrossThreadCalls = false;
         InitializeComponent();
         LoadConfig();
-
 
         EventManager.SubscribeEvent("OnAddLog", new Action<string, LogLevel>(AppendLog));
 
@@ -43,8 +41,13 @@ public partial class Main : DoubleBufferedControl
         if (!checkEnabled.Checked)
             return;
 
-        var logFile = Path.Combine(Kernel.BasePath, "User", "Logs",
-            Game.Player == null ? "Environment" : Game.Player.Name, $"{DateTime.Now:dd-MM-yyyy}.txt");
+        var logFile = Path.Combine(
+            Kernel.BasePath,
+            "User",
+            "Logs",
+            Game.Player == null ? "Environment" : Game.Player.Name,
+            $"{DateTime.Now:dd-MM-yyyy}.txt"
+        );
 
         if (level == LogLevel.Debug && !checkDebug.Checked)
             return;

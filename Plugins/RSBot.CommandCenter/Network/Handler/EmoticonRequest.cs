@@ -25,7 +25,8 @@ internal class EmoticonRequest : IPacketHandler
         {
             if (!CommandManager.Execute(assignedCommand))
                 Log.Debug(
-                    $"[Command center] Command execution of the command [{assignedCommand}] for emoticon [{emoticon.Name}] failed.");
+                    $"[Command center] Command execution of the command [{assignedCommand}] for emoticon [{emoticon.Name}] failed."
+                );
         });
     }
 }

@@ -12,5 +12,5 @@ public enum ItemUpdateFlag : byte
     Quanity = 8,
     Durability = 16,
     MagParams = 32,
-    State = 64
+    State = 64,
 }

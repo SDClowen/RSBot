@@ -22,8 +22,9 @@ internal class ActionTalkResponse : IPacketHandler
 
         var talkOption = (TalkOption)packet.ReadByte();
 
-        Game.Player.State.DialogState.Npc =
-            SpawnManager.GetEntity<SpawnedNpc>(Game.Player.State.DialogState.RequestedNpcId);
+        Game.Player.State.DialogState.Npc = SpawnManager.GetEntity<SpawnedNpc>(
+            Game.Player.State.DialogState.RequestedNpcId
+        );
         Game.Player.State.DialogState.TalkOption = talkOption;
 
         if (talkOption == TalkOption.Trade)

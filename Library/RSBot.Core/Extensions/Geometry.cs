@@ -52,7 +52,8 @@ public static class Geometry
 
     public static bool Close(float a, float b, float eps)
     {
-        if (Math.Abs(eps) < float.Epsilon) eps = (float)1e-9;
+        if (Math.Abs(eps) < float.Epsilon)
+            eps = (float)1e-9;
         return Math.Abs(a - b) <= eps;
     }
 
@@ -60,21 +61,26 @@ public static class Geometry
     {
         if (Close(v1.X, 0, 0))
         {
-            if (v1.Y > 0) return 90;
+            if (v1.Y > 0)
+                return 90;
             return v1.Y < 0 ? 270 : 0;
         }
 
         var theta = RadianToDegree(Math.Atan(v1.Y / v1.X));
-        if (v1.X < 0) theta = theta + 180;
-        if (theta < 0) theta = theta + 360;
+        if (v1.X < 0)
+            theta = theta + 180;
+        if (theta < 0)
+            theta = theta + 360;
         return theta;
     }
 
     public static float AngleBetween(this Vector2 p1, Vector2 p2)
     {
         var theta = p1.Polar() - p2.Polar();
-        if (theta < 0) theta = theta + 360;
-        if (theta > 180) theta = 360 - theta;
+        if (theta < 0)
+            theta = theta + 360;
+        if (theta > 180)
+            theta = 360 - theta;
         return theta;
     }
 
@@ -126,11 +132,7 @@ public static class Geometry
     /// <returns></returns>
     public static Point ToPoint(this Vector2 vector)
     {
-        return new Point
-        {
-            X = Convert.ToInt32(vector.X),
-            Y = Convert.ToInt32(vector.Y)
-        };
+        return new Point { X = Convert.ToInt32(vector.X), Y = Convert.ToInt32(vector.Y) };
     }
 
     /// <summary>

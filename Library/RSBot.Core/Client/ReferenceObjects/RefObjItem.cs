@@ -295,7 +295,6 @@ public class RefObjItem : RefObjCommon
             //    Val : 27 F
             //Per: 87 % ?
 
-
             //Durability:
             //    Different min / max: 22
             //27 % von 68 = 18.36

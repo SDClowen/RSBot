@@ -53,5 +53,5 @@ public enum InventoryOperation : byte
     SP_MOVE_ITEM_JOB_PC,
     SP_MISSING_TYPE_49,
     SP_MISSING_TYPE_50,
-    SP_DELETE_BAG_ITEM_BY_SERVER
+    SP_DELETE_BAG_ITEM_BY_SERVER,
 }

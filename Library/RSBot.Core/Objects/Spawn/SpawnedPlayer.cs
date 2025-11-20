@@ -12,9 +12,7 @@ public sealed class SpawnedPlayer : SpawnedBionic
     /// </summary>
     /// <param name="objId">The obj id</param>
     public SpawnedPlayer(uint objId)
-        : base(objId)
-    {
-    }
+        : base(objId) { }
 
     /// <summary>
     ///     Gets or sets the name.

@@ -29,7 +29,6 @@ public class Log
         EventManager.FireEvent("OnAddLog", message, logLevel);
     }
 
-
     /// <summary>
     ///     Appends the specified message.
     /// </summary>

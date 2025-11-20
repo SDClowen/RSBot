@@ -83,7 +83,8 @@ public class ExchangeInstance
     /// </summary>
     public void Complete()
     {
-        if (ReceivingItems == null) return;
+        if (ReceivingItems == null)
+            return;
 
         foreach (var item in ReceivingItems)
         {

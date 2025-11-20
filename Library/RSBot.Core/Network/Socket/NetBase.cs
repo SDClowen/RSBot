@@ -1,7 +1,7 @@
-﻿using RSBot.Core.Network.Protocol;
-using System;
+﻿using System;
 using System.Net.Sockets;
 using System.Threading;
+using RSBot.Core.Network.Protocol;
 
 namespace RSBot.Core.Network;
 
@@ -108,13 +108,12 @@ public class NetBase(bool isClient = false)
 
     protected void StartNetWorker()
     {
-
         if (_dispatcherThread == null)
         {
             _dispatcherThread = new Thread(ProcessPacketsThreaded)
             {
                 Name = "Network.PacketProcessor",
-                IsBackground = true
+                IsBackground = true,
             };
             _dispatcherThread.Start();
         }
@@ -141,9 +140,7 @@ public class NetBase(bool isClient = false)
 
             ProcessPacketsThreaded();
         }
-        catch
-        {
-        }
+        catch { }
     }
 
     /// <summary>
@@ -171,9 +168,7 @@ public class NetBase(bool isClient = false)
                     {
                         OnPacketReceived(packet);
                     }
-                    catch (Exception)
-                    {
-                    }
+                    catch (Exception) { }
                 }
             }
 
@@ -189,9 +184,7 @@ public class NetBase(bool isClient = false)
                 _socket.Send(buffer);
             }
         }
-        catch
-        {
-        }
+        catch { }
     }
 
     /// <summary>

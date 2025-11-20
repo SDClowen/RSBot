@@ -15,5 +15,5 @@ public enum PackEntryType : byte
     /// <summary>
     ///     For file entries.
     /// </summary>
-    File = 2
+    File = 2,
 }

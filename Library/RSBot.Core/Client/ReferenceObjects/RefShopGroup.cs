@@ -69,8 +69,9 @@ public class RefShopGroup : IReference<string>
     {
         var mappedShops = Game.ReferenceManager.ShopGroupMapping.Where(m => m.Group == CodeName);
 
-        return mappedShops.Select(mapping =>
-            Game.ReferenceManager.Shops.FirstOrDefault(s => s.Value.CodeName == mapping.Shop).Value).ToList();
+        return mappedShops
+            .Select(mapping => Game.ReferenceManager.Shops.FirstOrDefault(s => s.Value.CodeName == mapping.Shop).Value)
+            .ToList();
     }
 }
 

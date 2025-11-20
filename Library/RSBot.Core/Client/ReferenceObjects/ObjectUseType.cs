@@ -12,5 +12,5 @@ public enum ObjectUseType : byte
     No = 0,
     Yes = 1,
     Unknown = 126, //in CanUse:255 (ITEM_MALL_DUNGEON_FREE_TICKET_FORGOTTEN_WORLD)
-    Ask = 128
+    Ask = 128,
 }

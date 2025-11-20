@@ -51,7 +51,8 @@ public class Bot
 
         TokenSource = new CancellationTokenSource();
 
-        Task.Factory.StartNew(async e =>
+        Task.Factory.StartNew(
+            async e =>
             {
                 Running = true;
 
@@ -67,7 +68,9 @@ public class Bot
                     await Task.Delay(100);
                 }
             },
-            TokenSource.Token, TaskCreationOptions.LongRunning);
+            TokenSource.Token,
+            TaskCreationOptions.LongRunning
+        );
     }
 
     /// <summary>

@@ -33,8 +33,12 @@ public partial class QuestSidebarElement : DoubleBufferedControl
 
         if (TrackedQuests.Count >= 4 && !TrackedQuests.Contains(questId))
         {
-            MessageBox.Show("You can only track a maximum of 4 quests at a time", "Track quest",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(
+                "You can only track a maximum of 4 quests at a time",
+                "Track quest",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+            );
 
             return;
         }
@@ -47,12 +51,15 @@ public partial class QuestSidebarElement : DoubleBufferedControl
         {
             Name = questId.ToString(),
             Dock = DockStyle.Top,
-            Tag = questId
+            Tag = questId,
         };
 
         PlayerConfig.SetArray("RSBot.QuestLog.TrackedQuests", TrackedQuests);
 
-        pQuests.BeginInvoke(() => { pQuests.Controls.Add(questItem); });
+        pQuests.BeginInvoke(() =>
+        {
+            pQuests.Controls.Add(questItem);
+        });
 
         Refresh();
     }
@@ -61,7 +68,10 @@ public partial class QuestSidebarElement : DoubleBufferedControl
     {
         TrackedQuests = PlayerConfig.GetArray<uint>("RSBot.QuestLog.TrackedQuests").ToList();
 
-        pQuests.BeginInvoke(() => { pQuests.Controls.RemoveByKey(questId.ToString()); });
+        pQuests.BeginInvoke(() =>
+        {
+            pQuests.Controls.RemoveByKey(questId.ToString());
+        });
 
         TrackedQuests.Remove(questId);
 

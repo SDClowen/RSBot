@@ -4,5 +4,5 @@ public enum AmmunitionType
 {
     None = 0,
     Arrow = 1,
-    Bolt = 2
+    Bolt = 2,
 }

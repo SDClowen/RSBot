@@ -9,5 +9,5 @@ public enum LogLevel
     Debug,
     Warning,
     Error,
-    Fatal
+    Fatal,
 }

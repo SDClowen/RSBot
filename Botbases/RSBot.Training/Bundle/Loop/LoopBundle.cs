@@ -37,7 +37,8 @@ internal class LoopBundle : IBundle
     /// </summary>
     public void Invoke()
     {
-        if (!Running) return;
+        if (!Running)
+            return;
 
         if (Config.UseVehicle && !Game.Player.HasActiveVehicle && !Game.Player.IsInDungeon)
         {
@@ -63,7 +64,7 @@ internal class LoopBundle : IBundle
             UseSpeedDrug = PlayerConfig.Get<bool>("RSBot.Training.checkUseSpeedDrug", true),
             UseVehicle = PlayerConfig.Get<bool>("RSBot.Training.checkUseMount", true),
             CastBuffs = PlayerConfig.Get<bool>("RSBot.Training.checkCastBuffs", true),
-            UseReverse = PlayerConfig.Get<bool>("RSBot.Training.checkBoxUseReverse", false)
+            UseReverse = PlayerConfig.Get<bool>("RSBot.Training.checkBoxUseReverse", false),
         };
     }
 
@@ -99,8 +100,11 @@ internal class LoopBundle : IBundle
         if (ScriptManager.Running)
             return;
 
-        var filename = Path.Combine(ScriptManager.InitialDirectory, "Towns",
-            Game.Player.Movement.Source.Region + ".rbs");
+        var filename = Path.Combine(
+            ScriptManager.InitialDirectory,
+            "Towns",
+            Game.Player.Movement.Source.Region + ".rbs"
+        );
 
         //The player is in town, therefore, we need to run the town script first.
         if (!File.Exists(filename))
@@ -155,10 +159,12 @@ internal class LoopBundle : IBundle
     /// </summary>
     public void CheckForWalkbackScript(bool startFromTown = false)
     {
-        if (Config.WalkScript == null ||
-            ScriptManager.Running ||
-            !File.Exists(Config.WalkScript) ||
-            !Kernel.Bot.Running)
+        if (
+            Config.WalkScript == null
+            || ScriptManager.Running
+            || !File.Exists(Config.WalkScript)
+            || !Kernel.Bot.Running
+        )
             return;
 
         Invoke();

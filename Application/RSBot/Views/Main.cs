@@ -1,4 +1,12 @@
-﻿using Microsoft.Win32;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using Microsoft.Win32;
 using RSBot.Core;
 using RSBot.Core.Client;
 using RSBot.Core.Components;
@@ -8,14 +16,6 @@ using RSBot.Views.Dialog;
 using SDUI;
 using SDUI.Controls;
 using SDUI.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace RSBot.Views;
 
@@ -65,7 +65,8 @@ public partial class Main : UIWindow
     {
         Process.Start(new ProcessStartInfo { FileName = "https://buymeacoffee.com/sdclowen", UseShellExecute = true });
         Process.Start(
-            new ProcessStartInfo { FileName = "https://github.com/sponsors/SDClowen", UseShellExecute = true });
+            new ProcessStartInfo { FileName = "https://github.com/sponsors/SDClowen", UseShellExecute = true }
+        );
         Process.Start(new ProcessStartInfo { FileName = "https://www.patreon.com/sdclowen", UseShellExecute = true });
     }
 
@@ -230,9 +231,9 @@ public partial class Main : UIWindow
         foreach (var plugin in Kernel.PluginManager.Extensions.Values)
             plugin.Initialize();
 
-        var extensions =
-            Kernel.PluginManager.Extensions.OrderBy(entry => entry.Value.Index)
-                .ToDictionary(x => x.Key, x => x.Value);
+        var extensions = Kernel
+            .PluginManager.Extensions.OrderBy(entry => entry.Value.Index)
+            .ToDictionary(x => x.Key, x => x.Value);
 
         foreach (var extension in extensions.Where(extension => extension.Value.DisplayAsTab))
         {
@@ -240,8 +241,11 @@ public partial class Main : UIWindow
 
             var control = extension.Value.View;
             control.Name = extension.Value.InternalName;
-            control.Text = LanguageManager.GetLangBySpecificKey(extension.Value.InternalName, "DisplayName",
-                extension.Value.DisplayName);
+            control.Text = LanguageManager.GetLangBySpecificKey(
+                extension.Value.InternalName,
+                "DisplayName",
+                extension.Value.DisplayName
+            );
             control.Enabled = !extension.Value.RequireIngame;
             control.Dock = DockStyle.Fill;
 
@@ -250,12 +254,12 @@ public partial class Main : UIWindow
 
         foreach (var extension in extensions.Where(extension => !extension.Value.DisplayAsTab))
         {
-            var menuItemText = LanguageManager.GetLangBySpecificKey(extension.Value.InternalName, "DisplayName",
-                extension.Value.DisplayName);
-            var menuItem = new ToolStripMenuItem(menuItemText)
-            {
-                Enabled = !extension.Value.RequireIngame
-            };
+            var menuItemText = LanguageManager.GetLangBySpecificKey(
+                extension.Value.InternalName,
+                "DisplayName",
+                extension.Value.DisplayName
+            );
+            var menuItem = new ToolStripMenuItem(menuItemText) { Enabled = !extension.Value.RequireIngame };
             menuItem.Click += PluginMenuItem_Click;
             menuItem.Tag = extension.Value;
 
@@ -326,7 +330,7 @@ public partial class Main : UIWindow
                 FormBorderStyle = FormBorderStyle.FixedDialog,
                 Icon = Icon,
                 StartPosition = FormStartPosition.CenterParent,
-                ShowTitle = true
+                ShowTitle = true,
             };
 
             content.Dock = DockStyle.Fill;
@@ -341,7 +345,6 @@ public partial class Main : UIWindow
 
         if (!pluginWindow.Visible)
             pluginWindow.Show();
-
     }
 
     /// <summary>
@@ -653,8 +656,7 @@ public partial class Main : UIWindow
         if (WindowsHelper.IsModern)
         {
             GlobalConfig.Set("RSBot.Theme.Auto", true);
-            SystemEvents_UserPreferenceChanged(null,
-                new UserPreferenceChangedEventArgs(UserPreferenceCategory.Color));
+            SystemEvents_UserPreferenceChanged(null, new UserPreferenceChangedEventArgs(UserPreferenceCategory.Color));
 
             return;
         }
@@ -674,10 +676,7 @@ public partial class Main : UIWindow
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void coloredToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        var colorDialog = new ColorDialog
-        {
-            CustomColors = GlobalConfig.GetArray<int>("SDUI.CustomColors")
-        };
+        var colorDialog = new ColorDialog { CustomColors = GlobalConfig.GetArray<int>("SDUI.CustomColors") };
 
         if (colorDialog.ShowDialog() == DialogResult.OK)
         {
@@ -708,8 +707,14 @@ public partial class Main : UIWindow
         var tempNewConfig = new Config(ProfileManager.GetProfileFile(dialog.SelectedProfile));
 
         if (oldSroPath != tempNewConfig.Get("RSBot.SilkroadDirectory", ""))
-            if (MessageBox.Show("This profile references to a different client, do you want to restart the bot?",
-                    "Restart bot?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+            if (
+                MessageBox.Show(
+                    "This profile references to a different client, do you want to restart the bot?",
+                    "Restart bot?",
+                    MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Warning
+                ) == DialogResult.OK
+            )
                 Application.Restart();
 
         ProfileManager.SetSelectedProfile(dialog.SelectedProfile);
@@ -786,8 +791,12 @@ public partial class Main : UIWindow
         {
             var title = LanguageManager.GetLang("NoBotbaseDetected");
             var message = LanguageManager.GetLang("NoBotbaseDetectedDesc");
-            var messageResult =
-                MessageBox.Show(message, title, MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
+            var messageResult = MessageBox.Show(
+                message,
+                title,
+                MessageBoxButtons.AbortRetryIgnore,
+                MessageBoxIcon.Error
+            );
 
             if (messageResult == DialogResult.Retry)
                 Kernel.BotbaseManager.LoadAssemblies();
@@ -797,11 +806,7 @@ public partial class Main : UIWindow
 
         foreach (var bot in Kernel.BotbaseManager.Bots)
         {
-            var item = new ToolStripMenuItem
-            {
-                Name = bot.Value.Name,
-                Text = bot.Value.DisplayName
-            };
+            var item = new ToolStripMenuItem { Name = bot.Value.Name, Text = bot.Value.DisplayName };
             item.Click += Item_Click;
             botsToolStripMenuItem.DropDown.Items.Add(item);
         }

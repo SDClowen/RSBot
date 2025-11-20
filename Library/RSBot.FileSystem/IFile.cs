@@ -22,7 +22,6 @@ public interface IFile
 
     public IFileReader OpenRead();
 
-
     public byte[] Read(int position, int length)
     {
         return OpenRead().Read(position, length);

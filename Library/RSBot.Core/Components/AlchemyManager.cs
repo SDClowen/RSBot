@@ -65,25 +65,26 @@ public class AlchemyManager
         var itemInInventory = Game.Player.Inventory.GetItemAt(item.Slot);
         var elixirInInventory = Game.Player.Inventory.GetItemAt(elixir.Slot);
         var powderInInventory = Game.Player.Inventory.GetItemAt(powder.Slot);
-        var isProofItem = powderInInventory != null ?
-                new TypeIdFilter(3, 3, 10, 8).EqualsRefItem(powderInInventory!.Record) :
-                false;
-        var alchemyType = isProofItem ?
-                AlchemyType.EnhancerElixir :
-                AlchemyType.Elixir;
+        var isProofItem =
+            powderInInventory != null ? new TypeIdFilter(3, 3, 10, 8).EqualsRefItem(powderInInventory!.Record) : false;
+        var alchemyType = isProofItem ? AlchemyType.EnhancerElixir : AlchemyType.Elixir;
 
-        if (itemInInventory?.ItemId != item.ItemId ||
-            elixirInInventory?.ItemId != elixir.ItemId ||
-            (powderInInventory != null && powderInInventory.ItemId != powder.ItemId))
+        if (
+            itemInInventory?.ItemId != item.ItemId
+            || elixirInInventory?.ItemId != elixir.ItemId
+            || (powderInInventory != null && powderInInventory.ItemId != powder.ItemId)
+        )
         {
             Log.Warn("[Alchemy] Requested to fuse an item that does not match the current item at the specified slot.");
 
             return false;
         }
 
-        Log.Notify(powder == null
-            ? $"[Alchemy] Fusing elixir {elixir.Record.GetRealName()} to {item.Record.GetRealName()}"
-            : $"[Alchemy] Fusing elixir {elixir.Record.GetRealName()} to {item.Record.GetRealName()} using powder {powder.Record.GetRealName()}");
+        Log.Notify(
+            powder == null
+                ? $"[Alchemy] Fusing elixir {elixir.Record.GetRealName()} to {item.Record.GetRealName()}"
+                : $"[Alchemy] Fusing elixir {elixir.Record.GetRealName()} to {item.Record.GetRealName()} using powder {powder.Record.GetRealName()}"
+        );
 
         var packet = new Packet(0x7150);
         packet.WriteByte(AlchemyAction.Fuse); //fuse
@@ -114,17 +115,18 @@ public class AlchemyManager
         var itemInInventory = Game.Player.Inventory.GetItemAt(item.Slot);
         var stoneInInventory = Game.Player.Inventory.GetItemAt(magicStone.Slot);
 
-        if (itemInInventory?.ItemId != item.ItemId ||
-            stoneInInventory?.ItemId != magicStone.ItemId)
+        if (itemInInventory?.ItemId != item.ItemId || stoneInInventory?.ItemId != magicStone.ItemId)
         {
             Log.Debug(
-                "[Alchemy] Requested to fuse an item that does not match the current item at the specified slot.");
+                "[Alchemy] Requested to fuse an item that does not match the current item at the specified slot."
+            );
 
             return false;
         }
 
         Log.Notify(
-            $"[Alchemy] Fusing magic stone {magicStone.Record.GetRealName()} to item {item.Record.GetRealName()}");
+            $"[Alchemy] Fusing magic stone {magicStone.Record.GetRealName()} to item {item.Record.GetRealName()}"
+        );
 
         var packet = new Packet(0x7151);
 
@@ -154,8 +156,7 @@ public class AlchemyManager
         var itemInInventory = Game.Player.Inventory.GetItemAt(item.Slot);
         var stoneInInventory = Game.Player.Inventory.GetItemAt(attributeStone.Slot);
 
-        if (itemInInventory?.ItemId != item.ItemId ||
-            stoneInInventory?.ItemId != attributeStone.ItemId)
+        if (itemInInventory?.ItemId != item.ItemId || stoneInInventory?.ItemId != attributeStone.ItemId)
         {
             Log.Warn("[Alchemy] Requested to fuse an item that does not match the current item at the specified slot.");
 
@@ -163,7 +164,8 @@ public class AlchemyManager
         }
 
         Log.Notify(
-            $"[Alchemy] Fusing attribute stone {attributeStone.Record.GetRealName()} to item {item.Record.GetRealName()}");
+            $"[Alchemy] Fusing attribute stone {attributeStone.Record.GetRealName()} to item {item.Record.GetRealName()}"
+        );
 
         var packet = new Packet(0x7151);
 
@@ -190,11 +192,7 @@ public class AlchemyManager
         IsFusing = true;
 
         //An alchemy operation should not take longer than 10s
-        _fusingTimer = new Timer(10_000)
-        {
-            AutoReset = false,
-            Enabled = false
-        };
+        _fusingTimer = new Timer(10_000) { AutoReset = false, Enabled = false };
 
         _fusingTimer.Elapsed += FusingActionFusingTimerElapsed;
         _fusingTimer.Start();

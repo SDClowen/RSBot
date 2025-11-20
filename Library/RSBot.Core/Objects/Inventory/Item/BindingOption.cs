@@ -46,7 +46,7 @@ public class BindingOption
             Type = type,
             Slot = packet.ReadByte(),
             Id = packet.ReadUInt(),
-            Value = packet.ReadUInt()
+            Value = packet.ReadUInt(),
         };
     }
 }
@@ -54,5 +54,5 @@ public class BindingOption
 public enum BindingOptionType : byte
 {
     Socket = 1,
-    AdvancedElixir = 2
+    AdvancedElixir = 2,
 }

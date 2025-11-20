@@ -37,10 +37,6 @@ public class SpawnedPlayerStall
     /// <returns></returns>
     internal static SpawnedPlayerStall FromPacket(Packet packet)
     {
-        return new SpawnedPlayerStall
-        {
-            Name = packet.ReadConditonalString(),
-            DecorationId = packet.ReadUInt()
-        };
+        return new SpawnedPlayerStall { Name = packet.ReadConditonalString(), DecorationId = packet.ReadUInt() };
     }
 }

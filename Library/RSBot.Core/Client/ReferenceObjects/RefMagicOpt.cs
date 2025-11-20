@@ -54,7 +54,8 @@ public class RefMagicOpt : IReference
 
     public bool Load(ReferenceParser parser)
     {
-        if (parser == null) return false;
+        if (parser == null)
+            return false;
 
         AvailableValues = new List<ushort>(8);
         parser.TryParse(0, out Active);
@@ -95,7 +96,8 @@ public class RefMagicOpt : IReference
     /// <returns>The maximum value</returns>
     public ushort GetMaxValue()
     {
-        if (AvailableValues == null) return 0;
+        if (AvailableValues == null)
+            return 0;
 
         return AvailableValues.Max();
     }

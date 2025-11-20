@@ -20,9 +20,7 @@ public class PartySettings
     /// <summary>
     ///     Initializes a new instance of the <see cref="PartySettings" /> class.
     /// </summary>
-    public PartySettings()
-    {
-    }
+    public PartySettings() { }
 
     /// <summary>
     ///     Gets or sets a value indicating whether [allow invitation].
@@ -73,50 +71,29 @@ public class PartySettings
                 return new PartySettings();
 
             case 1:
-                return new PartySettings
-                {
-                    ExperienceAutoShare = true
-                };
+                return new PartySettings { ExperienceAutoShare = true };
 
             case 2:
-                return new PartySettings
-                {
-                    ItemAutoShare = true
-                };
+                return new PartySettings { ItemAutoShare = true };
 
             case 3:
-                return new PartySettings
-                {
-                    ItemAutoShare = true,
-                    ExperienceAutoShare = true
-                };
+                return new PartySettings { ItemAutoShare = true, ExperienceAutoShare = true };
 
             case 4:
-                return new PartySettings
-                {
-                    AllowInvitation = true
-                };
+                return new PartySettings { AllowInvitation = true };
 
             case 5:
-                return new PartySettings
-                {
-                    ExperienceAutoShare = true,
-                    AllowInvitation = true
-                };
+                return new PartySettings { ExperienceAutoShare = true, AllowInvitation = true };
 
             case 6:
-                return new PartySettings
-                {
-                    ItemAutoShare = true,
-                    AllowInvitation = true
-                };
+                return new PartySettings { ItemAutoShare = true, AllowInvitation = true };
 
             case 7:
                 return new PartySettings
                 {
                     ItemAutoShare = true,
                     ExperienceAutoShare = true,
-                    AllowInvitation = true
+                    AllowInvitation = true,
                 };
         }
 

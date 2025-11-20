@@ -34,8 +34,7 @@ public class AutoSummonAttackPet
         if (Game.Player.State.LifeState == LifeState.Dead)
             return;
 
-        if (Game.Player.Growth != null ||
-            Game.Player.Fellow != null)
+        if (Game.Player.Growth != null || Game.Player.Fellow != null)
             return;
 
         if (!PlayerConfig.Get<bool>("RSBot.Protection.checkAutoSummonAttackPet"))
@@ -54,8 +53,7 @@ public class AutoSummonAttackPet
     /// </summary>
     private static void OnStartBot()
     {
-        if (Game.Player.Growth != null ||
-            Game.Player.Fellow != null)
+        if (Game.Player.Growth != null || Game.Player.Fellow != null)
             return;
 
         if (!PlayerConfig.Get<bool>("RSBot.Protection.checkAutoSummonAttackPet"))

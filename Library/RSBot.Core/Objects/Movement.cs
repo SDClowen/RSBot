@@ -45,7 +45,8 @@ public struct Movement
     /// </summary>
     public float Angle;
 
-    internal double MovingX, MovingY;
+    internal double MovingX,
+        MovingY;
     internal TimeSpan RemainingTime;
 
     /// <summary>
@@ -55,10 +56,7 @@ public struct Movement
     /// <returns></returns>
     public static Movement MotionFromPacket(Packet packet)
     {
-        var result = new Movement
-        {
-            HasDestination = packet.ReadBool()
-        };
+        var result = new Movement { HasDestination = packet.ReadBool() };
 
         if (result.HasDestination)
         {
@@ -74,10 +72,7 @@ public struct Movement
         result.HasSource = packet.ReadBool();
         if (result.HasSource)
         {
-            result.Source = new Position
-            {
-                Region = packet.ReadUShort()
-            };
+            result.Source = new Position { Region = packet.ReadUShort() };
 
             if (result.Source.Region.IsDungeon)
             {
@@ -107,7 +102,7 @@ public struct Movement
         {
             Source = Position.FromPacket(packet),
             HasDestination = packet.ReadBool(),
-            Type = (MovementType)packet.ReadByte()
+            Type = (MovementType)packet.ReadByte(),
         };
 
         if (result.HasDestination)

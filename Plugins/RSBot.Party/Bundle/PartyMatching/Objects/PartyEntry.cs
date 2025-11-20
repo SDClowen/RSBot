@@ -82,15 +82,11 @@ internal class PartyEntry
 
     public static PartyEntry FromPacket(Packet packet)
     {
-        var result = new PartyEntry
-        {
-            Id = packet.ReadUInt()
-        };
+        var result = new PartyEntry { Id = packet.ReadUInt() };
 
         packet.ReadUInt(); // leaderUniqueId
 
-        if (Game.ClientType >= GameClientType.Chinese &&
-            Game.ClientType != GameClientType.Rigid)
+        if (Game.ClientType >= GameClientType.Chinese && Game.ClientType != GameClientType.Rigid)
             packet.ReadUInt(); // unknown
 
         result.Leader = packet.ReadString();

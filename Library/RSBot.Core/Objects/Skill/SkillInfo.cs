@@ -103,8 +103,7 @@ public class SkillInfo
     /// <value>
     ///     <c>true</c> if this instance has cooldown; otherwise, <c>false</c>.
     /// </value>
-    public bool HasCooldown
-        => Kernel.TickCount - _cooldownTick < Record.Action_ReuseDelay;
+    public bool HasCooldown => Kernel.TickCount - _cooldownTick < Record.Action_ReuseDelay;
 
     /// <summary>
     ///     Gets or sets a value indicating whether this instance can be used.

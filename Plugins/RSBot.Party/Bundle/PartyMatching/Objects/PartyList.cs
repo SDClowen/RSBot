@@ -52,7 +52,7 @@ internal class PartyList
             Parties = new List<PartyEntry>(),
             PageCount = packet.ReadByte(),
             Page = packet.ReadByte(),
-            PartyCount = packet.ReadByte()
+            PartyCount = packet.ReadByte(),
         };
 
         for (var i = 0; i < result.PartyCount; i++)

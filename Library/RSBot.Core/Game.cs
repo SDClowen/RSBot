@@ -1,4 +1,6 @@
-﻿using RSBot.Core.Client;
+﻿using System;
+using System.IO;
+using RSBot.Core.Client;
 using RSBot.Core.Components;
 using RSBot.Core.Extensions;
 using RSBot.Core.Network;
@@ -6,9 +8,6 @@ using RSBot.Core.Objects;
 using RSBot.Core.Objects.Party;
 using RSBot.Core.Objects.Spawn;
 using RSBot.FileSystem;
-
-using System;
-using System.IO;
 
 namespace RSBot.Core;
 
@@ -144,8 +143,11 @@ public class Game
         Port = NetworkUtilities.GetFreePort(1500, 2000, 1);
 
         Kernel.Proxy = new Proxy();
-        Kernel.Proxy.Start(Port, ReferenceManager.DivisionInfo.Divisions[divisionIndex].GatewayServers[severIndex],
-            ReferenceManager.GatewayInfo.Port);
+        Kernel.Proxy.Start(
+            Port,
+            ReferenceManager.DivisionInfo.Divisions[divisionIndex].GatewayServers[severIndex],
+            ReferenceManager.GatewayInfo.Port
+        );
 
         Started = true;
     }

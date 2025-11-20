@@ -39,11 +39,7 @@ public class DivisionInfo
     /// <returns></returns>
     internal static DivisionInfo Load()
     {
-        var result = new DivisionInfo
-        {
-            Divisions = new List<Division>(),
-            Locale = 0
-        };
+        var result = new DivisionInfo { Divisions = new List<Division>(), Locale = 0 };
 
         if (Game.MediaPk2 == null)
         {
@@ -65,11 +61,7 @@ public class DivisionInfo
             var divisionCount = reader.ReadByte();
             for (var divisionIndex = 0; divisionIndex < divisionCount; divisionIndex++)
             {
-                var division = new Division
-                {
-                    Name = reader.ReadJoymaxString(),
-                    GatewayServers = new List<string>()
-                };
+                var division = new Division { Name = reader.ReadJoymaxString(), GatewayServers = new List<string>() };
                 reader.ReadByte(); //Null terminator for NameStrID
 
                 var gatewayCount = reader.ReadByte();
@@ -83,7 +75,6 @@ public class DivisionInfo
 
                 result.Divisions.Add(division);
             }
-
         }
 
         EventManager.FireEvent("OnLoadDivisionInfo", result);

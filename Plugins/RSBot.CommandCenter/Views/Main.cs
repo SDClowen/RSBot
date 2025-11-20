@@ -61,14 +61,21 @@ public partial class Main : DoubleBufferedControl
 
     private void btnResetToDefaults_Click(object sender, EventArgs e)
     {
-        if (MessageBox.Show(@"Do you really want to reset all settings to default?", @"Reset",
+        if (
+            MessageBox.Show(
+                @"Do you really want to reset all settings to default?",
+                @"Reset",
                 MessageBoxButtons.OKCancel,
-                MessageBoxIcon.Warning) != DialogResult.OK)
+                MessageBoxIcon.Warning
+            ) != DialogResult.OK
+        )
             return;
 
         foreach (var emoticon in Emoticons.Items)
-            PlayerConfig.Set($"RSBot.CommandCenter.MappedEmotes.{emoticon.Name}",
-                Emoticons.GetEmoticonDefaultCommand(emoticon.Name));
+            PlayerConfig.Set(
+                $"RSBot.CommandCenter.MappedEmotes.{emoticon.Name}",
+                Emoticons.GetEmoticonDefaultCommand(emoticon.Name)
+            );
 
         RefreshView();
     }
