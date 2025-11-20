@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using RSBot.Core;
 using RSBot.Core.Event;
 using RSBot.Core.Objects.Skill;

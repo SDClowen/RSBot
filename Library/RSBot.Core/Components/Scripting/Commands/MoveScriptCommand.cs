@@ -177,7 +177,7 @@ internal class MoveScriptCommand : IScriptCommand
 
         Log.Debug($"[Script] Move to position {pos.Region}({pos.Region.X},{pos.Region.Y}) X={pos.X}, Y={pos.Y}");
 
-        
+
         bool posResult = Game.Player.MoveTo(pos);
 
         if (MustDismount)

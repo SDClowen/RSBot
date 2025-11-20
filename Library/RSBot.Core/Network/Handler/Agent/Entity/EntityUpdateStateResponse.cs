@@ -86,7 +86,7 @@ internal class EntityUpdateStateResponse : IPacketHandler
             case 4:
 
                 entity.State.BodyState = (BodyState)state;
-                
+
                 EventManager.FireEvent("OnUpdateEntityBodyState", uniqueId);
                 break;
 

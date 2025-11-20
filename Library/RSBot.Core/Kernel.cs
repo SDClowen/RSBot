@@ -77,10 +77,11 @@ public static class Kernel
     /// </summary>
     public static bool Debug
     {
-        get {
-            #if DEBUG
+        get
+        {
+#if DEBUG
             return true;
-            #endif
+#endif
             return GlobalConfig.Get("RSBot.DebugEnvironment", false);
         }
         set => GlobalConfig.Set("RSBot.DebugEnvironments", value);

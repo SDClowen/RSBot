@@ -46,7 +46,7 @@ internal class AgentLoginRequestHook : IPacketHook
         packet.WriteUInt(Kernel.Proxy.Token);
 
         if (Game.ClientType == GameClientType.RuSro)
-        { 
+        {
             packet.WriteString(GlobalConfig.Get<string>("RSBot.RuSro.login"));
             packet.WriteString(Sha256.ComputeHash(GlobalConfig.Get<string>("RSBot.RuSro.password")));
         }

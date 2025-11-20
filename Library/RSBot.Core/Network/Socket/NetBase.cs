@@ -1,6 +1,5 @@
 ﻿using RSBot.Core.Network.Protocol;
 using System;
-using System.Collections.Concurrent;
 using System.Net.Sockets;
 using System.Threading;
 
@@ -158,7 +157,7 @@ public class NetBase(bool isClient = false)
                 return;
 
             var packets = _protocol.TransferIncoming();
-            if(packets != null)
+            if (packets != null)
             {
                 foreach (var packet in packets)
                 {

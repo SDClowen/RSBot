@@ -65,6 +65,6 @@ public class Bootstrap : IPlugin
     /// <inheritdoc />
     public void OnLoadCharacter()
     {
-       // do nothing
+        // do nothing
     }
 }

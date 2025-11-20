@@ -22,7 +22,7 @@ public class LocalFile : IFile
     public long Size => _fileInfo.Length;
 
     public long CreateTime => _fileInfo.CreationTime.Ticks;
-    
+
     public long ModifyTime => _fileInfo.LastWriteTime.Ticks;
 
     public IFileReader OpenRead()

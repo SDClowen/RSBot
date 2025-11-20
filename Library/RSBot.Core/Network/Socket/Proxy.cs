@@ -163,8 +163,8 @@ public class Proxy
     private void HandleReceivedPacket(Packet packet, PacketDestination destination)
     {
         //if(packet.Opcode != 0x2002)
-         //   Log.Notify(packet.ToString());
-        
+        //   Log.Notify(packet.ToString());
+
         try
         {
             packet = PacketManager.CallHook(packet, destination);

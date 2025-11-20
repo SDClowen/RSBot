@@ -207,5 +207,5 @@ public class State
     /// </summary>
     /// <returns></returns>
     public bool HasTwoDots() => ActiveBuffs.Count(b => b.IsDot) >= 2;
-    
+
 }

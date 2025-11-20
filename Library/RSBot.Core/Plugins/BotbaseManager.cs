@@ -38,12 +38,12 @@ public class BotbaseManager
             Bots = new Dictionary<string, IBotbase>();
 
             foreach (var extension in from file in Directory.GetFiles(DirectoryPath)
-                     let fileInfo = new FileInfo(file)
-                     where fileInfo.Extension == ".dll"
-                     select GetExtensionsFromAssembly(file)
+                                      let fileInfo = new FileInfo(file)
+                                      where fileInfo.Extension == ".dll"
+                                      select GetExtensionsFromAssembly(file)
                      into loadedExtensions
-                     from extension in loadedExtensions
-                     select extension)
+                                      from extension in loadedExtensions
+                                      select extension)
             {
                 Bots.Add(extension.Key, extension.Value);
                 extension.Value.Register();
@@ -79,8 +79,8 @@ public class BotbaseManager
             var types = assembly.GetTypes();
 
             foreach (var extension in (from type in types
-                         where type.IsPublic && !type.IsAbstract && type.GetInterface("IBotbase") != null
-                         select Activator.CreateInstance(type))
+                                       where type.IsPublic && !type.IsAbstract && type.GetInterface("IBotbase") != null
+                                       select Activator.CreateInstance(type))
                      .OfType<IBotbase>()) result.Add(extension.Name, extension);
         }
         catch

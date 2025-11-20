@@ -44,8 +44,8 @@ public class EventManager
         try
         {
             var targets = (from o in _listeners
-                where o.name == name && o.handler.Method.GetParameters().Length == parameters.Length
-                select o.handler).ToArray();
+                           where o.name == name && o.handler.Method.GetParameters().Length == parameters.Length
+                           select o.handler).ToArray();
 
             foreach (var target in targets)
                 if (Thread.CurrentThread.Name == "Network.PacketProcessor")

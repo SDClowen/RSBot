@@ -1,6 +1,6 @@
 ﻿namespace RSBot.Core.Client.ReferenceObjects;
 
-public enum PrimarySkillParam: int
+public enum PrimarySkillParam : int
 {
     Meele = 0,
     Ranged = 1,

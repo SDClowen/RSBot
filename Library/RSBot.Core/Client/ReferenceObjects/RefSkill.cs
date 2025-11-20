@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using RSBot.Core.Extensions;
 using RSBot.Core.Objects;
 
@@ -144,7 +143,7 @@ public class RefSkill : IReference<uint>
     //public byte AI_SkillType;
     public List<int> Params = new(50);
 
-    public PrimarySkillParam Type => (PrimarySkillParam) Params[0];
+    public PrimarySkillParam Type => (PrimarySkillParam)Params[0];
 
     #endregion Fields
 

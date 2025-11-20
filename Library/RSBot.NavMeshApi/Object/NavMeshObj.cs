@@ -287,7 +287,7 @@ public class NavMeshObj : NavMesh
         while (true)
         {
             //if (raycastCount++ > 100)
-               //throw new Exception("raycastCount (obj) above 100");
+            //throw new Exception("raycastCount (obj) above 100");
 
             if (curCell == dst.Cell)
             {

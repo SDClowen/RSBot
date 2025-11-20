@@ -2,9 +2,6 @@
 using RSBot.Core.Extensions;
 using RSBot.Core.Network;
 using RSBot.Core.Objects;
-using System.Net.Sockets;
-using System;
-using System.Text;
 
 namespace RSBot.Chat.Bundle;
 
@@ -59,7 +56,7 @@ internal class Chat
             {
                 globalChatPacket.WriteUShort(inventoryItem.Record.Tid);
             }
-                
+
             globalChatPacket.WriteConditonalString(message);
 
             PacketManager.SendPacket(globalChatPacket, PacketDestination.Server);

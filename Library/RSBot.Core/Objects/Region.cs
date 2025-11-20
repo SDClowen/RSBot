@@ -41,7 +41,7 @@ public struct Region
     {
         if (this.IsDungeon)
         {
-            return new[] {this};
+            return new[] { this };
         }
         return new Region[]
         {

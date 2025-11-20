@@ -129,7 +129,7 @@ public partial class Main : DoubleBufferedControl
                     foreach (var item in items)
                         AddItem(item);
 
-                    int maxSlots = (Game.ClientType == GameClientType.Global || 
+                    int maxSlots = (Game.ClientType == GameClientType.Global ||
                         Game.ClientType == GameClientType.Korean ||
                         Game.ClientType == GameClientType.VTC_Game) ? 17 : 13; //4 slots for relics
 
