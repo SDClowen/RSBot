@@ -65,8 +65,10 @@ public struct RectangleF
             return true;
 
         // Check if any rectangle edge is intersecting with the line
-        return line.Intersects(this.Left, out Vector3 _) || line.Intersects(this.Top, out Vector3 _) ||
-               line.Intersects(this.Right, out Vector3 _) || line.Intersects(this.Bottom, out Vector3 _);
+        return line.Intersects(this.Left, out Vector3 _)
+            || line.Intersects(this.Top, out Vector3 _)
+            || line.Intersects(this.Right, out Vector3 _)
+            || line.Intersects(this.Bottom, out Vector3 _);
     }
 
     public bool Intersects(TriangleF triangle)
@@ -78,7 +80,12 @@ public struct RectangleF
             return true;
 
         // Check if any rectangle vertex is inside the triangle (triangle contains rectangle)
-        if (triangle.Contains(this.BottomLeft) || triangle.Contains(this.TopLeft) || triangle.Contains(this.BottomRight) || triangle.Contains(this.TopRight))
+        if (
+            triangle.Contains(this.BottomLeft)
+            || triangle.Contains(this.TopLeft)
+            || triangle.Contains(this.BottomRight)
+            || triangle.Contains(this.TopRight)
+        )
             return true;
 
         // Check if any triangle edge intersects with any rectangle edge
@@ -115,13 +122,17 @@ public struct RectangleF
 
     #region Operators
 
-    public static RectangleF operator +(RectangleF left, RectangleF right) => new RectangleF(left._min + right._min, left._max + right._max);
+    public static RectangleF operator +(RectangleF left, RectangleF right) =>
+        new RectangleF(left._min + right._min, left._max + right._max);
 
-    public static RectangleF operator -(RectangleF left, RectangleF right) => new RectangleF(left._min - right._min, left._max - right._max);
+    public static RectangleF operator -(RectangleF left, RectangleF right) =>
+        new RectangleF(left._min - right._min, left._max - right._max);
 
-    public static RectangleF operator *(RectangleF left, RectangleF right) => new RectangleF(left._min * right._min, left._max * right._max);
+    public static RectangleF operator *(RectangleF left, RectangleF right) =>
+        new RectangleF(left._min * right._min, left._max * right._max);
 
-    public static RectangleF operator /(RectangleF left, RectangleF right) => new RectangleF(left._min / right._min, left._max / right._max);
+    public static RectangleF operator /(RectangleF left, RectangleF right) =>
+        new RectangleF(left._min / right._min, left._max / right._max);
 
     #endregion Operators
 }

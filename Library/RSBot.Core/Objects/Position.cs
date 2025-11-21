@@ -7,7 +7,6 @@ namespace RSBot.Core.Objects;
 
 public struct Position
 {
-
     /// <summary>
     ///     Gets the regional id.
     /// </summary>
@@ -22,6 +21,7 @@ public struct Position
     ///     Gets or set the position Y from map.
     /// </summary>
     public float YOffset { get; set; }
+
     /// <summary>
     ///     Gets or set the position Z from map.
     /// </summary>
@@ -45,7 +45,10 @@ public struct Position
     /// <value>
     ///     The x coordinate.
     /// </value>
-    public float X => XOffset == 0 ? 0 : Region.IsDungeon ? XOffset / 10 : (Region.X - 135) * 192 + XOffset / 10;
+    public float X =>
+        XOffset == 0 ? 0
+        : Region.IsDungeon ? XOffset / 10
+        : (Region.X - 135) * 192 + XOffset / 10;
 
     /// <summary>
     ///     Gets the y coordinate.
@@ -53,7 +56,10 @@ public struct Position
     /// <value>
     ///     The y coordinate.
     /// </value>
-    public float Y => YOffset == 0 ? 0 : Region.IsDungeon ? YOffset / 10 : (Region.Y - 92) * 192 + YOffset / 10;
+    public float Y =>
+        YOffset == 0 ? 0
+        : Region.IsDungeon ? YOffset / 10
+        : (Region.Y - 92) * 192 + YOffset / 10;
 
     /// <summary>
     ///     Gets offset from x sector.
@@ -156,7 +162,7 @@ public struct Position
             XOffset = packet.ReadFloat(),
             ZOffset = packet.ReadFloat(),
             YOffset = packet.ReadFloat(),
-            Angle = packet.ReadShort()
+            Angle = packet.ReadShort(),
         };
     }
 
@@ -172,7 +178,7 @@ public struct Position
             Region = packet.ReadUShort(),
             XOffset = packet.ReadInt(),
             ZOffset = packet.ReadInt(),
-            YOffset = packet.ReadInt()
+            YOffset = packet.ReadInt(),
         };
     }
 
@@ -183,10 +189,7 @@ public struct Position
     /// <returns></returns>
     public static Position FromPacketConditional(Packet packet, bool parseLayerWorldId = true)
     {
-        Position position = new()
-        {
-            Region = packet.ReadUShort()
-        };
+        Position position = new() { Region = packet.ReadUShort() };
 
         if (!position.Region.IsDungeon)
         {
@@ -251,8 +254,7 @@ public struct Position
         if (!Kernel.EnableCollisionDetection)
             return false;
 
-        if (!TryGetNavMeshTransform(out var srcTransform)
-            || !destination.TryGetNavMeshTransform(out var destTransform))
+        if (!TryGetNavMeshTransform(out var srcTransform) || !destination.TryGetNavMeshTransform(out var destTransform))
             return false;
 
         return !NavMeshManager.Raycast(srcTransform, destTransform, type);

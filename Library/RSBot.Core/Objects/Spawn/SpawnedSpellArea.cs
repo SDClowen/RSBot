@@ -31,11 +31,7 @@ public class SpawnedSpellArea : SpawnedEntity
         else
             packet.ReadUShort();
 
-        var spellArea = new SpawnedSpellArea
-        {
-            SkillId = packet.ReadUInt(),
-            UniqueId = packet.ReadUInt()
-        };
+        var spellArea = new SpawnedSpellArea { SkillId = packet.ReadUInt(), UniqueId = packet.ReadUInt() };
 
         spellArea.Movement.Source = Position.FromPacket(packet);
 

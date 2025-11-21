@@ -1,12 +1,11 @@
-﻿using RSBot.NavMeshApi.Cells;
+﻿using System.Diagnostics;
+using System.Numerics;
+using System.Runtime.CompilerServices;
+using RSBot.NavMeshApi.Cells;
 using RSBot.NavMeshApi.Edges;
 using RSBot.NavMeshApi.Extensions;
 using RSBot.NavMeshApi.Mathematics;
 using RSBot.NavMeshApi.Object;
-
-using System.Diagnostics;
-using System.Numerics;
-using System.Runtime.CompilerServices;
 
 namespace RSBot.NavMeshApi.Terrain;
 
@@ -73,10 +72,7 @@ public class NavMeshTerrain : NavMesh
             this.Cells.Capacity = totalCellCount;
             for (int i = 0; i < totalCellCount; i++)
             {
-                var cell = new NavMeshCellQuad(this, i)
-                {
-                    RectangleF = reader.ReadRectangle(),
-                };
+                var cell = new NavMeshCellQuad(this, i) { RectangleF = reader.ReadRectangle() };
 
                 instanceCount = reader.ReadByte();
                 cell.Instances.Capacity = instanceCount;
@@ -96,8 +92,14 @@ public class NavMeshTerrain : NavMesh
 
                 //edge.Flag |= NavMeshEdgeFlag.Global;
 
-                Debug.Assert((edge.Flag & NavMeshEdgeFlag.Entrance) == 0, $"Bit5 found in {nameof(NavMeshEdgeGlobal)} #{edge.Index}");
-                Debug.Assert((edge.Flag & NavMeshEdgeFlag.Bit6) == 0, $"Bit6 found in {nameof(NavMeshEdgeGlobal)} #{edge.Index}");
+                Debug.Assert(
+                    (edge.Flag & NavMeshEdgeFlag.Entrance) == 0,
+                    $"Bit5 found in {nameof(NavMeshEdgeGlobal)} #{edge.Index}"
+                );
+                Debug.Assert(
+                    (edge.Flag & NavMeshEdgeFlag.Bit6) == 0,
+                    $"Bit6 found in {nameof(NavMeshEdgeGlobal)} #{edge.Index}"
+                );
 
                 this.GlobalEdges.Add(edge);
             }
@@ -112,8 +114,14 @@ public class NavMeshTerrain : NavMesh
 
                 //edge.Flag |= NavMeshEdgeFlag.Internal;
 
-                Debug.Assert((edge.Flag & NavMeshEdgeFlag.Entrance) == 0, $"Bit5 found in {nameof(NavMeshEdgeInternal)} #{edge.Index}");
-                Debug.Assert((edge.Flag & NavMeshEdgeFlag.Bit6) == 0, $"Bit6 found in {nameof(NavMeshEdgeInternal)} #{edge.Index}");
+                Debug.Assert(
+                    (edge.Flag & NavMeshEdgeFlag.Entrance) == 0,
+                    $"Bit5 found in {nameof(NavMeshEdgeInternal)} #{edge.Index}"
+                );
+                Debug.Assert(
+                    (edge.Flag & NavMeshEdgeFlag.Bit6) == 0,
+                    $"Bit6 found in {nameof(NavMeshEdgeInternal)} #{edge.Index}"
+                );
 
                 this.InternalEdges.Add(edge);
             }
@@ -207,10 +215,21 @@ public class NavMeshTerrain : NavMesh
         float fractionX = (vPos.X - (integerX * NavMeshTile.Width)) / NavMeshTile.Width;
         float fractionZ = (vPos.Z - (integerZ * NavMeshTile.Length)) / NavMeshTile.Length;
 
-        vPos.Y = ((1 - fractionX) * (((1 - fractionZ) * this.GetHeight(integerX, integerZ))
-            + (fractionZ * this.GetHeight(integerX, integerZ + 1))))
-            + (fractionX * (((1 - fractionZ) * this.GetHeight(integerX + 1, integerZ))
-            + (fractionZ * this.GetHeight(integerX + 1, integerZ + 1))));
+        vPos.Y =
+            (
+                (1 - fractionX)
+                * (
+                    ((1 - fractionZ) * this.GetHeight(integerX, integerZ))
+                    + (fractionZ * this.GetHeight(integerX, integerZ + 1))
+                )
+            )
+            + (
+                fractionX
+                * (
+                    ((1 - fractionZ) * this.GetHeight(integerX + 1, integerZ))
+                    + (fractionZ * this.GetHeight(integerX + 1, integerZ + 1))
+                )
+            );
 
         // Is it a slippery situation?
         var xBlock = integerX / (int)(NavMeshPlane.Width / NavMeshTile.Width);
@@ -232,10 +251,21 @@ public class NavMeshTerrain : NavMesh
         float fractionX = (vPos.X - (integerX * NavMeshTile.Width)) / NavMeshTile.Width;
         float fractionZ = (vPos.Z - (integerZ * NavMeshTile.Length)) / NavMeshTile.Length;
 
-        vPos.Y = ((1 - fractionX) * (((1 - fractionZ) * this.GetHeight(integerX, integerZ))
-            + (fractionZ * this.GetHeight(integerX, integerZ + 1))))
-            + (fractionX * (((1 - fractionZ) * this.GetHeight(integerX + 1, integerZ))
-            + (fractionZ * this.GetHeight(integerX + 1, integerZ + 1))));
+        vPos.Y =
+            (
+                (1 - fractionX)
+                * (
+                    ((1 - fractionZ) * this.GetHeight(integerX, integerZ))
+                    + (fractionZ * this.GetHeight(integerX, integerZ + 1))
+                )
+            )
+            + (
+                fractionX
+                * (
+                    ((1 - fractionZ) * this.GetHeight(integerX + 1, integerZ))
+                    + (fractionZ * this.GetHeight(integerX + 1, integerZ + 1))
+                )
+            );
 
         return true;
     }
@@ -295,7 +325,12 @@ public class NavMeshTerrain : NavMesh
         return this.Cells[index];
     }
 
-    private NavMeshHitResult GetCellIntersection(in LineF line, NavMeshCellQuad curCell, NavMeshCellQuad prevCell, out NavMeshRaycastHit hit)
+    private NavMeshHitResult GetCellIntersection(
+        in LineF line,
+        NavMeshCellQuad curCell,
+        NavMeshCellQuad prevCell,
+        out NavMeshRaycastHit hit
+    )
     {
         var direction = line.GetDirection();
 
@@ -352,27 +387,30 @@ public class NavMeshTerrain : NavMesh
             if (!obj.Grid.Rectangle.Intersects(localLine))
                 continue;
 
-            obj.Grid.Raytrace(localLine, (tile) =>
-            {
-                foreach (var edge in tile.GlobalEdges)
+            obj.Grid.Raytrace(
+                localLine,
+                (tile) =>
                 {
-                    // bridges are not considered blocked from outside.
-                    if (edge.IsRailing)
-                        continue;
-
-                    if (!edge.Intersects(localLine, out Vector3 point))
-                        continue;
-
-                    var distanceSqrt = (localLine.Min - point).LengthSquared();
-                    if (hitEdge == null || hitDistanceSqrt > distanceSqrt)
+                    foreach (var edge in tile.GlobalEdges)
                     {
-                        hitInstance = instance;
-                        hitEdge = edge;
-                        hitPoint = point;
-                        hitDistanceSqrt = distanceSqrt;
+                        // bridges are not considered blocked from outside.
+                        if (edge.IsRailing)
+                            continue;
+
+                        if (!edge.Intersects(localLine, out Vector3 point))
+                            continue;
+
+                        var distanceSqrt = (localLine.Min - point).LengthSquared();
+                        if (hitEdge == null || hitDistanceSqrt > distanceSqrt)
+                        {
+                            hitInstance = instance;
+                            hitEdge = edge;
+                            hitPoint = point;
+                            hitDistanceSqrt = distanceSqrt;
+                        }
                     }
                 }
-            });
+            );
         }
 
         // Did we hit anything?
@@ -394,7 +432,12 @@ public class NavMeshTerrain : NavMesh
         return NavMeshHitResult.Object;
     }
 
-    public override NavMeshRaycastResult Raycast(NavMeshTransform src, NavMeshTransform dst, NavMeshRaycastType rayType, out NavMeshRaycastHit hit)
+    public override NavMeshRaycastResult Raycast(
+        NavMeshTransform src,
+        NavMeshTransform dst,
+        NavMeshRaycastType rayType,
+        out NavMeshRaycastHit hit
+    )
     {
         if (src.Instance != null)
             return src.Instance.NavMeshObj.Raycast(src, dst, rayType, out hit);
@@ -464,7 +507,9 @@ public class NavMeshTerrain : NavMesh
                     var eventZone = objectHit.Edge.EventZone;
                     if (!(NavMeshManager.EventZoneHandler?.Invoke(eventZoneInvoker, eventZone) ?? false))
                     {
-                        Debug.WriteLine($"EventZone ({eventZoneInvoker.NavMeshObj.Events[eventZone.Index]}, {eventZone.Flag}) returned collision.");
+                        Debug.WriteLine(
+                            $"EventZone ({eventZoneInvoker.NavMeshObj.Events[eventZone.Index]}, {eventZone.Flag}) returned collision."
+                        );
                         hit = objectHit;
                         hit.Region = _region;
                         return NavMeshRaycastResult.Collision;
@@ -479,7 +524,9 @@ public class NavMeshTerrain : NavMesh
                     var eventZone = remoteCell.EventZone;
                     if (!(NavMeshManager.EventZoneHandler?.Invoke(eventZoneInvoker, eventZone) ?? false))
                     {
-                        Debug.WriteLine($"EventZone ({eventZoneInvoker.NavMeshObj.Events[eventZone.Index]}, {eventZone.Flag}) returned collision.");
+                        Debug.WriteLine(
+                            $"EventZone ({eventZoneInvoker.NavMeshObj.Events[eventZone.Index]}, {eventZone.Flag}) returned collision."
+                        );
                         hit = objectHit;
                         hit.Region = _region;
                         return NavMeshRaycastResult.Collision;

@@ -268,7 +268,8 @@ public partial class Main : DoubleBufferedControl
         StatPointsHandler.CancellationRequested = false;
         var stepSize = numIncInt.Value + numIncStr.Value;
 
-        if (stepSize == 0) return;
+        if (stepSize == 0)
+            return;
         //Only run if at least 3 stat points can be increased
         if (Game.Player.StatPoints < stepSize)
             return;
@@ -278,7 +279,8 @@ public partial class Main : DoubleBufferedControl
         if (Game.Player.StatPoints == stepSize)
             availableSteps = 1;
 
-        if (availableSteps == 0) return;
+        if (availableSteps == 0)
+            return;
 
         Task.Run(() => StatPointsHandler.IncreaseStatPoints((int)availableSteps));
 

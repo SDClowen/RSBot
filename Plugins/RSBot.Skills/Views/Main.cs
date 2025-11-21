@@ -70,7 +70,8 @@ public partial class Main : DoubleBufferedControl
         {
             var listItem = listActiveBuffs.Items[i];
 
-            if (listItem?.Tag is not ItemPerk perkInfo || perkInfo.Token != removedPerk.Token) continue;
+            if (listItem?.Tag is not ItemPerk perkInfo || perkInfo.Token != removedPerk.Token)
+                continue;
 
             listItem.Remove();
             return;
@@ -88,11 +89,7 @@ public partial class Main : DoubleBufferedControl
             return;
 
         var perk = Game.Player.State.ActiveItemPerks[token];
-        var item = new ListViewItem
-        {
-            Text = perk.Item?.GetRealName(),
-            Tag = perk
-        };
+        var item = new ListViewItem { Text = perk.Item?.GetRealName(), Tag = perk };
 
         listActiveBuffs.Items.Add(item);
 
@@ -104,18 +101,21 @@ public partial class Main : DoubleBufferedControl
     /// </summary>
     private void OnSpUpdated()
     {
-        if (_selectedMastery == null || !checkLearnMastery.Checked) return;
+        if (_selectedMastery == null || !checkLearnMastery.Checked)
+            return;
 
         while (_selectedMastery.Level + numMasteryGap.Value < Game.Player.Level)
         {
-            if (!checkLearnMasteryBotStopped.Checked && !Kernel.Bot.Running) break;
+            if (!checkLearnMasteryBotStopped.Checked && !Kernel.Bot.Running)
+                break;
 
             var nextMasteryLevel = Game.ReferenceManager.GetRefLevel((byte)(_selectedMastery.Level + 1));
 
             if (nextMasteryLevel.Exp_M > Game.Player.SkillPoints)
             {
                 Log.Debug(
-                    $"Auto. upping mastery cancelled due to insufficient skill points. Required: {nextMasteryLevel.Exp_M}");
+                    $"Auto. upping mastery cancelled due to insufficient skill points. Required: {nextMasteryLevel.Exp_M}"
+                );
 
                 break;
             }
@@ -313,11 +313,15 @@ public partial class Main : DoubleBufferedControl
         comboTeleportSkill.Items.Clear();
 
         var selectedTeleportSkill = PlayerConfig.Get<uint>("RSBot.Skills.TeleportSkill");
-        foreach (var skill in Game.Player.Skills.KnownSkills.Where(s =>
-                     s.CanBeCasted && s.Record.Action_ActionDuration == 0 && s.Record.Params[2] == 500))
+        foreach (
+            var skill in Game.Player.Skills.KnownSkills.Where(s =>
+                s.CanBeCasted && s.Record.Action_ActionDuration == 0 && s.Record.Params[2] == 500
+            )
+        )
         {
-            var index = comboTeleportSkill.Items.Add(new TeleportSkillComboBoxItem
-            { Level = skill.Record.Basic_Level, Record = skill.Record });
+            var index = comboTeleportSkill.Items.Add(
+                new TeleportSkillComboBoxItem { Level = skill.Record.Basic_Level, Record = skill.Record }
+            );
 
             if (selectedTeleportSkill == skill.Record.ID)
             {
@@ -431,9 +435,12 @@ public partial class Main : DoubleBufferedControl
             comboResurrectionSkill.Items.Clear();
             comboResurrectionSkill.Items.Add("None");
 
-            foreach (var skill in Game.Player.Skills.KnownSkills.Where(
-                         s => s.Record != null && ((s.Record.TargetEtc_SelectDeadBody && !s.Record.TargetGroup_Enemy_M) ||
-                         s.Record.GroupID == 659)))  //group res
+            foreach (
+                var skill in Game.Player.Skills.KnownSkills.Where(s =>
+                    s.Record != null
+                    && ((s.Record.TargetEtc_SelectDeadBody && !s.Record.TargetGroup_Enemy_M) || s.Record.GroupID == 659)
+                )
+            ) //group res
             {
                 if (skill.IsLowLevel())
                     continue;
@@ -474,10 +481,7 @@ public partial class Main : DoubleBufferedControl
 
             if (Game.Player.TryGetAbilitySkills(out var abilitySkills))
             {
-                var group = new ListViewGroup("Ability")
-                {
-                    Tag = 0
-                };
+                var group = new ListViewGroup("Ability") { Tag = 0 };
                 listSkills.Groups.Add(group);
 
                 foreach (var skill in abilitySkills)
@@ -496,14 +500,16 @@ public partial class Main : DoubleBufferedControl
 
             foreach (var mastery in player.Skills.Masteries)
             {
-                var group = new ListViewGroup(Game.ReferenceManager.GetTranslation(mastery.Record.NameCode) + " (lv. " +
-                                              mastery.Level + ")");
+                var group = new ListViewGroup(
+                    Game.ReferenceManager.GetTranslation(mastery.Record.NameCode) + " (lv. " + mastery.Level + ")"
+                );
                 group.Tag = mastery.Id;
                 listSkills.Groups.Add(group);
             }
 
-            foreach (var skill in
-                     player.Skills.KnownSkills.Where(s => s.Enabled && s.Record.ReqCommon_Mastery1 != 1000))
+            foreach (
+                var skill in player.Skills.KnownSkills.Where(s => s.Enabled && s.Record.ReqCommon_Mastery1 != 1000)
+            )
             {
                 if (skill.IsPassive)
                     continue;
@@ -522,8 +528,11 @@ public partial class Main : DoubleBufferedControl
                 var item = new ListViewItem(name) { Tag = skill };
                 item.SubItems.Add("lv. " + skill.Record.Basic_Level);
 
-                foreach (var group in listSkills.Groups.Cast<ListViewGroup>().Where(group =>
-                             Convert.ToInt32(group.Tag) == skill.Record.ReqCommon_Mastery1))
+                foreach (
+                    var group in listSkills
+                        .Groups.Cast<ListViewGroup>()
+                        .Where(group => Convert.ToInt32(group.Tag) == skill.Record.ReqCommon_Mastery1)
+                )
                     item.Group = group;
 
                 if (skill.IsAttack && checkShowAttacks.Checked)
@@ -570,20 +579,14 @@ public partial class Main : DoubleBufferedControl
     {
         try
         {
-            var item = new ListViewItem
-            {
-                Text = buffInfo.Record.GetRealName(),
-                Tag = buffInfo
-            };
+            var item = new ListViewItem { Text = buffInfo.Record.GetRealName(), Tag = buffInfo };
 
             item.SubItems.Add("lv. " + buffInfo.Record.Basic_Level);
 
             listActiveBuffs.Items.Add(item);
             item.LoadSkillImageAsync();
         }
-        catch
-        {
-        }
+        catch { }
     }
 
     /// <summary>
@@ -601,18 +604,18 @@ public partial class Main : DoubleBufferedControl
                     continue;
 
                 var itemBuffInfo = listItem.Tag as SkillInfo;
-                if (itemBuffInfo != null &&
-                    itemBuffInfo.Id == removingBuff.Id &&
-                    itemBuffInfo.Token == removingBuff.Token)
+                if (
+                    itemBuffInfo != null
+                    && itemBuffInfo.Id == removingBuff.Id
+                    && itemBuffInfo.Token == removingBuff.Token
+                )
                 {
                     listItem?.Remove();
                     return;
                 }
             }
         }
-        catch
-        {
-        }
+        catch { }
     }
 
     /// <summary>
@@ -671,7 +674,6 @@ public partial class Main : DoubleBufferedControl
 
             PlayerConfig.Set("RSBot.Skills.Imbue", selectedImbue);
         }
-
 
         var selectedTeleportSkill = PlayerConfig.Get<uint>("RSBot.Skills.TeleportSkill");
         if (selectedTeleportSkill == oldSkill.Id)
@@ -903,9 +905,14 @@ public partial class Main : DoubleBufferedControl
         {
             var selectedRefSkill = item.Tag as SkillInfo;
 
-            if (listAttackingSkills.Items.Cast<ListViewItem>()
-                .Any(p => ((SkillInfo)p.Tag).Record.Action_Overlap != 0 && ((SkillInfo)p.Tag).Record.Action_Overlap ==
-                    selectedRefSkill.Record.Action_Overlap))
+            if (
+                listAttackingSkills
+                    .Items.Cast<ListViewItem>()
+                    .Any(p =>
+                        ((SkillInfo)p.Tag).Record.Action_Overlap != 0
+                        && ((SkillInfo)p.Tag).Record.Action_Overlap == selectedRefSkill.Record.Action_Overlap
+                    )
+            )
                 continue;
 
             //if (selectedRefSkill != null && selectedRefSkill.IsAttack)
@@ -926,9 +933,14 @@ public partial class Main : DoubleBufferedControl
         foreach (ListViewItem item in listSkills.SelectedItems)
         {
             var selectedRefSkill = item.Tag as SkillInfo;
-            if (listBuffs.Items.Cast<ListViewItem>()
-                .Any(p => ((SkillInfo)p.Tag).Record.Action_Overlap != 0 && ((SkillInfo)p.Tag).Record.Action_Overlap ==
-                    selectedRefSkill.Record.Action_Overlap))
+            if (
+                listBuffs
+                    .Items.Cast<ListViewItem>()
+                    .Any(p =>
+                        ((SkillInfo)p.Tag).Record.Action_Overlap != 0
+                        && ((SkillInfo)p.Tag).Record.Action_Overlap == selectedRefSkill.Record.Action_Overlap
+                    )
+            )
                 continue;
 
             if (selectedRefSkill != null && !selectedRefSkill.IsAttack && !selectedRefSkill.Record.TargetGroup_Enemy_M)
@@ -940,7 +952,8 @@ public partial class Main : DoubleBufferedControl
 
     private void comboLearnMastery_SelectedIndexChanged(object sender, EventArgs e)
     {
-        if (comboLearnMastery.SelectedIndex < 0) return;
+        if (comboLearnMastery.SelectedIndex < 0)
+            return;
 
         var selectedItem = (MasteryComboBoxItem)comboLearnMastery.SelectedItem;
         _selectedMastery = selectedItem;
@@ -989,33 +1002,35 @@ public partial class Main : DoubleBufferedControl
             if (member == null)
                 return;
 
-            useToPartyMemberToolStripMenuItem.DropDown.Items.Add(member.Name, null, (menuItemSender, _2) =>
-            {
-                try
+            useToPartyMemberToolStripMenuItem.DropDown.Items.Add(
+                member.Name,
+                null,
+                (menuItemSender, _2) =>
                 {
-                    if (listSkills.SelectedItems.Count <= 0)
-                        return;
+                    try
+                    {
+                        if (listSkills.SelectedItems.Count <= 0)
+                            return;
 
-                    if (listSkills.SelectedItems[0].Tag is not SkillInfo skillInfo)
-                        return;
+                        if (listSkills.SelectedItems[0].Tag is not SkillInfo skillInfo)
+                            return;
 
-                    if (skillInfo.IsAttack)
-                        return;
+                        if (skillInfo.IsAttack)
+                            return;
 
-                    var menuItem = menuItemSender as ToolStripMenuItem;
-                    if (menuItem == null)
-                        return;
+                        var menuItem = menuItemSender as ToolStripMenuItem;
+                        if (menuItem == null)
+                            return;
 
-                    var member = Game.Party.GetMemberByName(menuItem.Text);
-                    if (member == null)
-                        return;
+                        var member = Game.Party.GetMemberByName(menuItem.Text);
+                        if (member == null)
+                            return;
 
-                    skillInfo.Cast(member.Player.UniqueId, true);
+                        skillInfo.Cast(member.Player.UniqueId, true);
+                    }
+                    catch { }
                 }
-                catch
-                {
-                }
-            });
+            );
         }
     }
 
@@ -1028,7 +1043,7 @@ public partial class Main : DoubleBufferedControl
         {
             SkillInfo skillInfo => new BuffProperties(skillInfo),
             ItemPerk itemPerk => new BuffProperties(itemPerk),
-            _ => null
+            _ => null,
         };
 
         propertiesWindow?.Show();

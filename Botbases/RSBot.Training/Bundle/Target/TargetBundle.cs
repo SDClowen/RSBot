@@ -59,14 +59,16 @@ internal class TargetBundle : IBundle
     /// </summary>
     public void Invoke()
     {
-        _blacklist?.RemoveAll((uniqueId, tick) =>
-        {
-            var flag = Kernel.TickCount - tick > BLACKLIST_TIMEOUT;
-            if (flag)
-                Log.Debug($"Removed mob [{uniqueId} from blacklist!");
+        _blacklist?.RemoveAll(
+            (uniqueId, tick) =>
+            {
+                var flag = Kernel.TickCount - tick > BLACKLIST_TIMEOUT;
+                if (flag)
+                    Log.Debug($"Removed mob [{uniqueId} from blacklist!");
 
-            return flag;
-        });
+                return flag;
+            }
+        );
 
         var attacker = GetFromCurrentAttackers();
         if (attacker != null && Game.SelectedEntity == null)
@@ -79,9 +81,11 @@ internal class TargetBundle : IBundle
             return;
         }
 
-        if (attacker != null &&
-            SpawnManager.TryGetEntity<SpawnedMonster>(Game.SelectedEntity.UniqueId, out var selectedMonster) &&
-            (byte)attacker.Rarity < (byte)selectedMonster.Rarity)
+        if (
+            attacker != null
+            && SpawnManager.TryGetEntity<SpawnedMonster>(Game.SelectedEntity.UniqueId, out var selectedMonster)
+            && (byte)attacker.Rarity < (byte)selectedMonster.Rarity
+        )
         {
             Log.Debug("[TargetBundle] Emergency situation: Found a weaker mob to attack first, switching target!");
 
@@ -118,11 +122,16 @@ internal class TargetBundle : IBundle
         if (!attackWeakerFirst || !IsEmergencySituation())
             return null;
 
-        if (!SpawnManager.TryGetEntities<SpawnedMonster>(e => e.AttackingPlayer && e.State.LifeState == LifeState.Alive,
-                out var entities))
+        if (
+            !SpawnManager.TryGetEntities<SpawnedMonster>(
+                e => e.AttackingPlayer && e.State.LifeState == LifeState.Alive,
+                out var entities
+            )
+        )
             return null;
 
-        return entities.OrderBy(e => (byte)e.Rarity)
+        return entities
+            .OrderBy(e => (byte)e.Rarity)
             .OrderBy(e => e.Record.Level)
             .OrderByDescending(e => e.Position.DistanceToPlayer())
             .FirstOrDefault();
@@ -131,7 +140,8 @@ internal class TargetBundle : IBundle
     private bool IsEmergencySituation()
     {
         return SpawnManager.Any<SpawnedMonster>(e =>
-            e.AttackingPlayer && e.State.LifeState == LifeState.Alive && Bundles.Avoidance.AvoidMonster(e.Rarity));
+            e.AttackingPlayer && e.State.LifeState == LifeState.Alive && Bundles.Avoidance.AvoidMonster(e.Rarity)
+        );
     }
 
     /// <summary>
@@ -143,19 +153,33 @@ internal class TargetBundle : IBundle
         var warlockModeEnabled = PlayerConfig.Get<bool>("RSBot.Skills.checkWarlockMode");
         var ignorePillar = PlayerConfig.Get<bool>("RSBot.Training.checkBoxDimensionPillar");
 
-        if (!SpawnManager.TryGetEntities<SpawnedMonster>(m =>
-                m.State.LifeState == LifeState.Alive && //Only alive
-                !(warlockModeEnabled && m.State.HasTwoDots()) && //Has two Dots?
-                m.IsBehindObstacle == false && //Is not behind obstacle
-                (_blacklist == null || !_blacklist.ContainsKey(m.UniqueId)) && //Is not blacklisted
-                (m.AttackingPlayer || !Bundles.Avoidance.AvoidMonster(m.Rarity)) && //Is attacking player or shouldn't be avoided
-                Container.Bot.Area.IsInSight(m) && //Is in training area
-                !m.Record.IsPandora && //Isn't pandora box
-                !(m.Record.IsDimensionPillar && ignorePillar) && //Isn't dimension pillar
-                !m.Record.IsSummonFlower, out var entities))
+        if (
+            !SpawnManager.TryGetEntities<SpawnedMonster>(
+                m =>
+                    m.State.LifeState == LifeState.Alive
+                    && //Only alive
+                    !(warlockModeEnabled && m.State.HasTwoDots())
+                    && //Has two Dots?
+                    m.IsBehindObstacle == false
+                    && //Is not behind obstacle
+                    (_blacklist == null || !_blacklist.ContainsKey(m.UniqueId))
+                    && //Is not blacklisted
+                    (m.AttackingPlayer || !Bundles.Avoidance.AvoidMonster(m.Rarity))
+                    && //Is attacking player or shouldn't be avoided
+                    Container.Bot.Area.IsInSight(m)
+                    && //Is in training area
+                    !m.Record.IsPandora
+                    && //Isn't pandora box
+                    !(m.Record.IsDimensionPillar && ignorePillar)
+                    && //Isn't dimension pillar
+                    !m.Record.IsSummonFlower,
+                out var entities
+            )
+        )
             return default;
 
-        return entities.OrderBy(m => m.Movement.Source.DistanceTo(Container.Bot.Area.Position))
+        return entities
+            .OrderBy(m => m.Movement.Source.DistanceTo(Container.Bot.Area.Position))
             .OrderBy(m => Bundles.Avoidance.PreferMonster(m.Rarity))
             .OrderByDescending(m => m.AttackingPlayer)
             .FirstOrDefault();

@@ -10,9 +10,8 @@ namespace RSBot.Core.Extensions;
 
 public class SocketProxyException : Exception
 {
-    public SocketProxyException(string message) : base(message)
-    {
-    }
+    public SocketProxyException(string message)
+        : base(message) { }
 }
 
 public struct ProxyConfig
@@ -32,7 +31,7 @@ public struct ProxyConfig
         {
             Ip = ip,
             Port = port,
-            TimeOut = 5000
+            TimeOut = 5000,
         };
 
         var values = GlobalConfig.GetArray<string>("RSBot.Network.Proxy", '|', StringSplitOptions.TrimEntries);
@@ -76,18 +75,15 @@ public static class SocketExtensions
     public static async Task<bool> ConnectViaProxy(this Socket socket, ProxyConfig config)
     {
         Log.Notify(
-            $"Trying to connect to proxy server [{config.ProxyIp}:{config.ProxyPort} / Version: {config.Version}]...");
+            $"Trying to connect to proxy server [{config.ProxyIp}:{config.ProxyPort} / Version: {config.Version}]..."
+        );
         await socket.ConnectAsync(config.ProxyIp, config.ProxyPort);
         if (!socket.Connected)
             return false;
 
         Log.Notify("Successfully connected to proxy server...");
 
-        var portBuffer = new byte[2]
-        {
-            Convert.ToByte(config.Port / 256),
-            Convert.ToByte(config.Port % 256)
-        };
+        var portBuffer = new byte[2] { Convert.ToByte(config.Port / 256), Convert.ToByte(config.Port % 256) };
 
         var addressType = GetAddressType(config.Ip);
         var addressBytes = GetHostAddressBytes(addressType, config.Ip);
@@ -97,8 +93,12 @@ public static class SocketExtensions
             await socket.SendAsync(
                 new byte[3]
                 {
-                    5, 1, (byte)(string.IsNullOrEmpty(config.UserName) && string.IsNullOrEmpty(config.Password) ? 0 : 2)
-                }, SocketFlags.None);
+                    5,
+                    1,
+                    (byte)(string.IsNullOrEmpty(config.UserName) && string.IsNullOrEmpty(config.Password) ? 0 : 2),
+                },
+                SocketFlags.None
+            );
 
             var response = new byte[2];
             await socket.ReceiveAsync(response, SocketFlags.None);
@@ -107,14 +107,16 @@ public static class SocketExtensions
             {
                 socket.Close();
                 throw new SocketProxyException(
-                    "The proxy destination does not accept the supported proxy client authentication methods.");
+                    "The proxy destination does not accept the supported proxy client authentication methods."
+                );
             }
 
             if (acceptedAuthMethod == 0x02 && string.IsNullOrWhiteSpace(config.UserName))
             {
                 socket.Close();
                 throw new SocketProxyException(
-                    "The proxy destination requires a username and password for authentication.");
+                    "The proxy destination requires a username and password for authentication."
+                );
             }
 
             if (acceptedAuthMethod == 2)
@@ -125,8 +127,13 @@ public static class SocketExtensions
                 Array.Copy(Encoding.ASCII.GetBytes(config.UserName), 0, authBuffer, 2, config.UserName.Length);
                 authBuffer[2 + config.UserName.Length] = (byte)config.Password.Length;
 
-                Array.Copy(Encoding.ASCII.GetBytes(config.Password), 0, authBuffer, config.UserName.Length + 3,
-                    config.Password.Length);
+                Array.Copy(
+                    Encoding.ASCII.GetBytes(config.Password),
+                    0,
+                    authBuffer,
+                    config.UserName.Length + 3,
+                    config.Password.Length
+                );
 
                 await socket.SendAsync(authBuffer, SocketFlags.None);
 
@@ -203,13 +210,19 @@ public static class SocketExtensions
             6 => "the time to live (TTL) has expired",
             7 => "the command issued by the proxy client is not supported by the proxy destination",
             8 => "the address type specified is not supported",
-            _ => string.Format(CultureInfo.InvariantCulture,
+            _ => string.Format(
+                CultureInfo.InvariantCulture,
                 "an unknown SOCKS reply with the code value '{0}' was received",
-                replyCode.ToString(CultureInfo.InvariantCulture))
+                replyCode.ToString(CultureInfo.InvariantCulture)
+            ),
         };
-        var exceptionMsg = string.Format(CultureInfo.InvariantCulture,
+        var exceptionMsg = string.Format(
+            CultureInfo.InvariantCulture,
             "proxy error: {0} for destination host {1} port number {2}.",
-            proxyErrorText, destinationHost, destinationPort);
+            proxyErrorText,
+            destinationHost,
+            destinationPort
+        );
 
         throw new SocketProxyException(exceptionMsg);
     }
@@ -224,9 +237,13 @@ public static class SocketExtensions
             AddressFamily.InterNetwork => 1,
             AddressFamily.InterNetworkV6 => 4,
             _ => throw new SocketProxyException(
-                string.Format("The host addess {0} of type '{1}' is not a supported address type.\n" +
-                              "The supported types are InterNetwork and InterNetworkV6.", host,
-                    Enum.GetName(typeof(AddressFamily), ipAddr.AddressFamily)))
+                string.Format(
+                    "The host addess {0} of type '{1}' is not a supported address type.\n"
+                        + "The supported types are InterNetwork and InterNetworkV6.",
+                    host,
+                    Enum.GetName(typeof(AddressFamily), ipAddr.AddressFamily)
+                )
+            ),
         };
     }
 
@@ -265,8 +282,6 @@ public static class SocketExtensions
     {
         var favoredFamily = favorIpV6 ? AddressFamily.InterNetworkV6 : AddressFamily.InterNetwork;
         var addrs = Dns.GetHostAddresses(hostNameOrAddress);
-        return addrs.FirstOrDefault(addr => addr.AddressFamily == favoredFamily)
-               ??
-               addrs.FirstOrDefault();
+        return addrs.FirstOrDefault(addr => addr.AddressFamily == favoredFamily) ?? addrs.FirstOrDefault();
     }
 }

@@ -5,5 +5,5 @@ public enum PartyPurpose : byte
     Hunting,
     Quest,
     Trade,
-    Thief
+    Thief,
 }

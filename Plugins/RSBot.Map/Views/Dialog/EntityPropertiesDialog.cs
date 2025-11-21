@@ -13,6 +13,4 @@ public partial class EntityDetailsDialog : UIWindowBase
     }
 }
 
-public class EntityDebugInformation : SpawnedEntity
-{
-}
+public class EntityDebugInformation : SpawnedEntity { }

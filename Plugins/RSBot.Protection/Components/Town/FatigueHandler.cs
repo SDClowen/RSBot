@@ -1,7 +1,7 @@
-﻿using RSBot.Core;
-using RSBot.Core.Event;
-using System;
+﻿using System;
 using System.Threading;
+using RSBot.Core;
+using RSBot.Core.Event;
 
 namespace RSBot.Protection.Components.Town;
 
@@ -38,13 +38,20 @@ public class FatigueHandler : AbstractTownHandler
         if (Kernel.Bot.Running && PlayerConfig.Get<bool>("RSBot.Protection.checkShardFatigue"))
         {
             TimeSpan remaining = TimeSpan.FromSeconds(secondsToDC);
-            Log.Debug($"You will be teleported and disconnected after {remaining.Hours}hr {remaining.Minutes}min {remaining.Seconds}s");
+            Log.Debug(
+                $"You will be teleported and disconnected after {remaining.Hours}hr {remaining.Minutes}min {remaining.Seconds}s"
+            );
         }
 
-        _disconnectTimer = new Timer(_ =>
-        {
-            ReturnToTown();
-        }, null, secondsToDC * 1000, Timeout.Infinite);
+        _disconnectTimer = new Timer(
+            _ =>
+            {
+                ReturnToTown();
+            },
+            null,
+            secondsToDC * 1000,
+            Timeout.Infinite
+        );
     }
 
     private static void ReturnToTown()

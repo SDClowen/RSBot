@@ -6,5 +6,5 @@ public enum ActionType : byte
     Pickup = 2,
     Trace = 3,
     Cast = 4,
-    Dispel = 5
+    Dispel = 5,
 }

@@ -67,18 +67,14 @@ public class RentInfo
     /// <returns></returns>
     internal static RentInfo FromPacket(Packet packet)
     {
-        var result = new RentInfo
-        {
-            Type = packet.ReadUInt()
-        };
+        var result = new RentInfo { Type = packet.ReadUInt() };
 
         switch (result.Type)
         {
             case 1:
                 result.CanDelete = packet.ReadUShort();
 
-                if (Game.ClientType >= GameClientType.Chinese_Old &&
-                    Game.ClientType != GameClientType.Rigid)
+                if (Game.ClientType >= GameClientType.Chinese_Old && Game.ClientType != GameClientType.Rigid)
                 {
                     result.PeriodBeginTime = packet.ReadULong();
                     result.PeriodEndTime = packet.ReadULong();
@@ -106,8 +102,7 @@ public class RentInfo
                 result.CanDelete = packet.ReadUShort();
                 result.CanRecharge = packet.ReadUShort();
 
-                if (Game.ClientType >= GameClientType.Chinese_Old &&
-                    Game.ClientType != GameClientType.Rigid)
+                if (Game.ClientType >= GameClientType.Chinese_Old && Game.ClientType != GameClientType.Rigid)
                 {
                     result.PeriodBeginTime = packet.ReadULong();
                     result.PeriodEndTime = packet.ReadULong();

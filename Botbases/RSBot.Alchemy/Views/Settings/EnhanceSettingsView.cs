@@ -31,10 +31,9 @@ public partial class EnhanceSettingsView : DoubleBufferedControl
         CheckForIllegalCrossThreadCalls = false;
         InitializeComponent();
         SetStyle(
-            ControlStyles.UserPaint |
-            ControlStyles.AllPaintingInWmPaint |
-            ControlStyles.OptimizedDoubleBuffer,
-            true);
+            ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer,
+            true
+        );
 
         EventManager.SubscribeEvent("OnEnterGame", SubscribeMainFormEvents);
     }
@@ -69,7 +68,8 @@ public partial class EnhanceSettingsView : DoubleBufferedControl
     /// </summary>
     private void SubscribeMainFormEvents()
     {
-        if (Globals.View == null) return;
+        if (Globals.View == null)
+            return;
 
         Globals.View.EngineChanged += View_EngineChanged;
         Globals.View.ItemChanged += View_ItemChanged;
@@ -203,7 +203,7 @@ public partial class EnhanceSettingsView : DoubleBufferedControl
             UseSteadyStones = checkUseSteadyStones.Checked,
             Elixirs = (comboElixir.SelectedItem as ElixirComboboxItem)?.Items,
             MaxOptLevel = (byte)numMaxEnhancement.Value,
-            StopIfLuckyPowderEmpty = checkStopLuckyPowder.Checked
+            StopIfLuckyPowderEmpty = checkStopLuckyPowder.Checked,
         };
     }
 

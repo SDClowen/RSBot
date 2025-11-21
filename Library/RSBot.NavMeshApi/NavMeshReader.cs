@@ -1,8 +1,7 @@
-﻿using RSBot.NavMeshApi.Mathematics;
-
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Numerics;
 using System.Text;
+using RSBot.NavMeshApi.Mathematics;
 
 namespace RSBot.NavMeshApi;
 
@@ -10,17 +9,20 @@ public class NavMeshReader : BinaryReader
 {
     private protected readonly Encoding _encoding;
 
-    public NavMeshReader(Stream input) : base(input)
+    public NavMeshReader(Stream input)
+        : base(input)
     {
         _encoding = Encoding.ASCII;
     }
 
-    public NavMeshReader(Stream input, Encoding encoding) : base(input, encoding)
+    public NavMeshReader(Stream input, Encoding encoding)
+        : base(input, encoding)
     {
         _encoding = encoding;
     }
 
-    public NavMeshReader(Stream input, Encoding encoding, bool leaveOpen) : base(input, encoding, leaveOpen)
+    public NavMeshReader(Stream input, Encoding encoding, bool leaveOpen)
+        : base(input, encoding, leaveOpen)
     {
         _encoding = encoding;
     }

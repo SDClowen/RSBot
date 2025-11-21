@@ -95,8 +95,10 @@ internal partial class Main : DoubleBufferedControl
 
         //Load and display config
 
-        txtSilkroadPath.Text = Path.Combine(GlobalConfig.Get<string>("RSBot.SilkroadDirectory"),
-            GlobalConfig.Get<string>("RSBot.SilkroadExecutable"));
+        txtSilkroadPath.Text = Path.Combine(
+            GlobalConfig.Get<string>("RSBot.SilkroadDirectory"),
+            GlobalConfig.Get<string>("RSBot.SilkroadExecutable")
+        );
         checkEnableStaticCaptcha.Checked = GlobalConfig.Get<bool>("RSBot.General.EnableStaticCaptcha");
         checkEnableAutoLogin.Checked = GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin");
         checkStartBot.Checked = GlobalConfig.Get<bool>("RSBot.General.StartBot");
@@ -181,8 +183,7 @@ internal partial class Main : DoubleBufferedControl
                 comboCharacter.SelectedIndex = index;
         }
 
-        if (comboCharacter.SelectedIndex == -1 ||
-            string.IsNullOrWhiteSpace(selectedAccount.SelectedCharacter))
+        if (comboCharacter.SelectedIndex == -1 || string.IsNullOrWhiteSpace(selectedAccount.SelectedCharacter))
             comboCharacter.SelectedIndex = 0;
     }
 
@@ -500,8 +501,11 @@ internal partial class Main : DoubleBufferedControl
         var msgBoxTitle = LanguageManager.GetLang("GoClientlessMsgBoxTitle");
         var msgBoxContent = LanguageManager.GetLang("GoClientlessMsgBoxContent");
 
-        if (MessageBox.Show(msgBoxContent, msgBoxTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) !=
-            DialogResult.Yes) return;
+        if (
+            MessageBox.Show(msgBoxContent, msgBoxTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+            != DialogResult.Yes
+        )
+            return;
 
         ClientlessManager.GoClientless();
         ClientManager.Kill();
@@ -547,15 +551,18 @@ internal partial class Main : DoubleBufferedControl
                 {
                     Game.Start();
                 }
-
             }
             else
             {
                 var msgBoxTitle = LanguageManager.GetLang("MsgBoxDisconnectDialogTitle");
                 var msgBoxContent = LanguageManager.GetLang("MsgBoxDisconnectDialogContent");
 
-                var result = MessageBox.Show(msgBoxContent, msgBoxTitle, MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning);
+                var result = MessageBox.Show(
+                    msgBoxContent,
+                    msgBoxTitle,
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning
+                );
                 if (result == DialogResult.No)
                     return;
 
@@ -748,7 +755,6 @@ internal partial class Main : DoubleBufferedControl
             radioAutoSelectFirst.Enabled = false;
             radioAutoSelectHigher.Enabled = false;
         }
-
 
         GlobalConfig.Set("RSBot.General.CharacterAutoSelect", checkCharAutoSelect.Checked);
     }

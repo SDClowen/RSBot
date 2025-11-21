@@ -6,5 +6,5 @@ public enum StoreType
     WeaponTrader,
     ProtectorTrader,
     CosTrader,
-    AccessoryTrader
+    AccessoryTrader,
 }

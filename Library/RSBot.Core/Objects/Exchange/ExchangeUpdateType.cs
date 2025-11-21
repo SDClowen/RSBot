@@ -3,5 +3,5 @@
 public enum ExchangeUpdateType : byte
 {
     Item = 1,
-    Gold = 2
+    Gold = 2,
 }

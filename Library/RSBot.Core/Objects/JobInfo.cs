@@ -83,7 +83,7 @@ public class JobInfo
                 Level = packet.ReadByte(),
                 Experience = packet.ReadUInt(),
                 Contribution = packet.ReadUInt(),
-                Reward = packet.ReadUInt()
+                Reward = packet.ReadUInt(),
             };
 
         return new JobInfo
@@ -93,7 +93,7 @@ public class JobInfo
             Rank = packet.ReadByte(),
             Type = (JobType)packet.ReadByte(),
             Level = packet.ReadByte(),
-            Experience = packet.ReadLong()
+            Experience = packet.ReadLong(),
         };
     }
 }

@@ -53,10 +53,7 @@ public struct Area
     /// </summary>
     public static bool TryParse(string[] split, out Area area)
     {
-        area = new Area
-        {
-            Name = split[0]
-        };
+        area = new Area { Name = split[0] };
 
         if (!Region.TryParse(split[1], out var regionId))
             return false;

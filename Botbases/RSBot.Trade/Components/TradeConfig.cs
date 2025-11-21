@@ -117,7 +117,6 @@ internal static class TradeConfig
         set => PlayerConfig.SetArray("RSBot.Trade.RouteScriptList", value, ";");
     }
 
-
     public static Dictionary<string, List<string>> RouteScripts
     {
         get
@@ -126,9 +125,12 @@ internal static class TradeConfig
 
             foreach (var scriptList in RouteScriptList)
             {
-                var scripts = PlayerConfig.GetArray<string>($"RSBot.Trade.RouteScriptList.{scriptList}")
-                                  .Where(File.Exists).ToList() ??
-                              new List<string>();
+                var scripts =
+                    PlayerConfig
+                        .GetArray<string>($"RSBot.Trade.RouteScriptList.{scriptList}")
+                        .Where(File.Exists)
+                        .ToList()
+                    ?? new List<string>();
 
                 result.Add(scriptList, scripts);
             }

@@ -38,11 +38,7 @@ public class Skills
     /// <returns></returns>
     internal static Skills FromPacket(Packet packet)
     {
-        var result = new Skills
-        {
-            KnownSkills = new List<SkillInfo>(),
-            Masteries = new List<MasteryInfo>()
-        };
+        var result = new Skills { KnownSkills = new List<SkillInfo>(), Masteries = new List<MasteryInfo>() };
 
         packet.ReadByte(); //unknown
 
@@ -94,7 +90,6 @@ public class Skills
     {
         return KnownSkills.Find(s => s.Id == skillId);
     }
-
 
     /// <summary>
     ///     Gets the skill information by the group identifier.

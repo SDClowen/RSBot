@@ -231,7 +231,8 @@ internal class InventoryOperationResponse : IPacketHandler
 
             default:
                 Log.Error(
-                    $"If you see this message i, please open an issue by explaining your last inventory operation! InventoryOperationType: {type}");
+                    $"If you see this message i, please open an issue by explaining your last inventory operation! InventoryOperationType: {type}"
+                );
                 break;
         }
 
@@ -277,14 +278,16 @@ internal class InventoryOperationResponse : IPacketHandler
 
             EventManager.FireEvent("OnUpdateInventoryItem", itemAtSlot.Slot);
             Log.Debug(
-                $"[Floor->Inventory] Merge item {itemAtSlot.Record.GetRealName()} (slot={destinationSlot}, amount={item.Amount})");
+                $"[Floor->Inventory] Merge item {itemAtSlot.Record.GetRealName()} (slot={destinationSlot}, amount={item.Amount})"
+            );
         }
         else
         {
             inventory.Add(item);
 
             Log.Debug(
-                $"[Floor->Inventory] Add item {item.Record.GetRealName()} (slot={destinationSlot}, amount={item.Amount}");
+                $"[Floor->Inventory] Add item {item.Record.GetRealName()} (slot={destinationSlot}, amount={item.Amount}"
+            );
         }
 
         Log.Notify($"Picked up item [{item.Record.GetRealName(true)}]");
@@ -305,8 +308,7 @@ internal class InventoryOperationResponse : IPacketHandler
         var tabIndex = packet.ReadByte();
         var tabSlot = packet.ReadByte();
 
-        if (Game.ClientType >= GameClientType.Chinese &&
-            Game.ClientType != GameClientType.Rigid)
+        if (Game.ClientType >= GameClientType.Chinese && Game.ClientType != GameClientType.Rigid)
         {
             amount = packet.ReadUShort();
             itemAmount = packet.ReadByte();
@@ -337,15 +339,17 @@ internal class InventoryOperationResponse : IPacketHandler
         //_ETC_
         if (itemAmount != destinationSlots.Length)
         {
-            inventory.Add(new InventoryItem
-            {
-                Slot = destinationSlots[0],
-                Amount = amount,
-                ItemId = item.ID,
-                Durability = (uint)refShopGoodObj.Data,
-                Attributes = new ItemAttributesInfo((ulong)refShopGoodObj.Variance),
-                OptLevel = refShopGoodObj.OptLevel
-            });
+            inventory.Add(
+                new InventoryItem
+                {
+                    Slot = destinationSlots[0],
+                    Amount = amount,
+                    ItemId = item.ID,
+                    Durability = (uint)refShopGoodObj.Data,
+                    Attributes = new ItemAttributesInfo((ulong)refShopGoodObj.Variance),
+                    OptLevel = refShopGoodObj.OptLevel,
+                }
+            );
 
             EventManager.FireEvent("OnBuyItem", destinationSlots[0], entityUniqueId);
         }
@@ -353,15 +357,17 @@ internal class InventoryOperationResponse : IPacketHandler
         {
             foreach (var slot in destinationSlots)
             {
-                inventory.Add(new InventoryItem
-                {
-                    Slot = slot,
-                    Amount = amount,
-                    ItemId = item.ID,
-                    Durability = (uint)refShopGoodObj.Data,
-                    Attributes = new ItemAttributesInfo((ulong)refShopGoodObj.Variance),
-                    OptLevel = refShopGoodObj.OptLevel
-                });
+                inventory.Add(
+                    new InventoryItem
+                    {
+                        Slot = slot,
+                        Amount = amount,
+                        ItemId = item.ID,
+                        Durability = (uint)refShopGoodObj.Data,
+                        Attributes = new ItemAttributesInfo((ulong)refShopGoodObj.Variance),
+                        OptLevel = refShopGoodObj.OptLevel,
+                    }
+                );
 
                 EventManager.FireEvent("OnBuyItem", slot, entityUniqueId);
             }
@@ -415,14 +421,16 @@ internal class InventoryOperationResponse : IPacketHandler
             inventory.RemoveAt(sourceSlot);
 
             Log.Debug(
-                $"[Inventory->NPC] Remove item {itemAtSlot.Record.GetRealName()} (slot={sourceSlot}, amount={amount})");
+                $"[Inventory->NPC] Remove item {itemAtSlot.Record.GetRealName()} (slot={sourceSlot}, amount={amount})"
+            );
         }
         else
         {
             inventory.UpdateItemAmount(sourceSlot, (ushort)(itemAtSlot.Amount - amount));
 
             Log.Debug(
-                $"[Inventory->NPC] Update item {itemAtSlot.Record.GetRealName()} (slot={sourceSlot}, amount={amount})");
+                $"[Inventory->NPC] Update item {itemAtSlot.Record.GetRealName()} (slot={sourceSlot}, amount={amount})"
+            );
         }
 
         Log.Notify($"Sold item [{itemAtSlot.Record.GetRealName()}] x {amount}");
@@ -535,7 +543,6 @@ internal class InventoryOperationResponse : IPacketHandler
         if (cos == null)
             return;
 
-
         cos.Inventory.Move(packet);
     }
 
@@ -637,8 +644,12 @@ internal class InventoryOperationResponse : IPacketHandler
         var slotIndex = packet.ReadByte();
         var itemCount = packet.ReadByte();
 
-        var refShopGoodObj =
-            Game.ReferenceManager.GetRefPackageItemById(refShopGroupId, groupIndex, tabIndex, slotIndex);
+        var refShopGoodObj = Game.ReferenceManager.GetRefPackageItemById(
+            refShopGroupId,
+            groupIndex,
+            tabIndex,
+            slotIndex
+        );
         var itemInfo = Game.ReferenceManager.GetRefItem(refShopGoodObj.RefItemCodeName);
 
         if (refShopGoodObj != null && itemInfo != null)
@@ -663,7 +674,7 @@ internal class InventoryOperationResponse : IPacketHandler
                     ItemId = itemInfo.ID,
                     Durability = (uint)refShopGoodObj.Data,
                     Attributes = new ItemAttributesInfo((ulong)refShopGoodObj.Variance),
-                    OptLevel = refShopGoodObj.OptLevel
+                    OptLevel = refShopGoodObj.OptLevel,
                 };
 
                 if (Game.ClientType > GameClientType.Thailand)
@@ -753,7 +764,8 @@ internal class InventoryOperationResponse : IPacketHandler
 
         foreach (var item in ShoppingManager.BuybackList)
         {
-            if (item.Key == sourceSlot) continue;
+            if (item.Key == sourceSlot)
+                continue;
 
             newBuybackList.Add(item.Key > sourceSlot ? (byte)(item.Key - 1) : item.Key, item.Value);
         }

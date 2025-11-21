@@ -66,14 +66,14 @@ public class DurabilityLowHandler : AbstractTownHandler
         for (byte slot = 0; slot < 8; slot++)
         {
             var item = Game.Player.Inventory.GetItemAt(slot);
-            if (item == null ||
-                !item.Record.IsEquip ||
-                item.Durability > 6)
+            if (item == null || !item.Record.IsEquip || item.Durability > 6)
                 continue;
 
             var itemsToUse = PlayerConfig.GetArray<string>("RSBot.Inventory.AutoUseAccordingToPurpose");
-            var inventoryItem = Game.Player.Inventory.GetItem(new TypeIdFilter(3, 3, 13, 7),
-                p => itemsToUse.Contains(p.Record.CodeName));
+            var inventoryItem = Game.Player.Inventory.GetItem(
+                new TypeIdFilter(3, 3, 13, 7),
+                p => itemsToUse.Contains(p.Record.CodeName)
+            );
             if (inventoryItem != null)
             {
                 inventoryItem.Use();

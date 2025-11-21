@@ -82,8 +82,11 @@ public static class GlobalConfig
     /// <param name="key">The key.</param>
     /// <param name="delimiter">The delimiter.</param>
     /// <returns></returns>
-    public static T[] GetArray<T>(string key, char delimiter = ',',
-        StringSplitOptions options = StringSplitOptions.RemoveEmptyEntries)
+    public static T[] GetArray<T>(
+        string key,
+        char delimiter = ',',
+        StringSplitOptions options = StringSplitOptions.RemoveEmptyEntries
+    )
     {
         if (_config == null)
             return new T[] { };

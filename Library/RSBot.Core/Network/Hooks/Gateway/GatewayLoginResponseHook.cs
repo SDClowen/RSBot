@@ -36,7 +36,7 @@ internal class GatewayLoginResponseHook : IPacketHook
                 Dictionary<string, string> localPublicIP = new()
                 {
                     { "10.96.4.66", "109.105.146.10" },
-                    { "10.96.4.67", "109.105.146.11" }
+                    { "10.96.4.67", "109.105.146.11" },
                 };
 
                 Kernel.Proxy.SetAgentserverAddress(localPublicIP[packet.ReadString()], packet.ReadUShort());

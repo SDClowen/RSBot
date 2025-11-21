@@ -146,7 +146,7 @@ internal static class LureConfig
             {
                 Name = "Lure",
                 Position = new Position(region, x, y, z),
-                Radius = r
+                Radius = r,
             };
         }
         set

@@ -17,23 +17,22 @@ public class CharacterInventory : InventoryItemCollection
     {
         get
         {
-            return (Game.ClientType == GameClientType.Global ||
-                Game.ClientType == GameClientType.Korean ||
-                Game.ClientType == GameClientType.VTC_Game)
+            return (
+                Game.ClientType == GameClientType.Global
+                || Game.ClientType == GameClientType.Korean
+                || Game.ClientType == GameClientType.VTC_Game
+            )
                 ? (byte)17 //4 slots for relics
                 : (byte)13;
         }
     }
-
 
     /// <summary>
     ///     The constructor.
     /// </summary>
     /// <param name="size">The size.</param>
     public CharacterInventory(Packet packet)
-        : base(packet)
-    {
-    }
+        : base(packet) { }
 
     /// <summary>
     ///     Gets the size of NormalPart.
@@ -133,23 +132,26 @@ public class CharacterInventory : InventoryItemCollection
         packet.WriteByte(destinationSlot);
         packet.WriteUShort(amount);
 
-        var asyncResult = new AwaitCallback(response =>
-        {
-            var result = response.ReadByte();
-            if (result == 0x01)
+        var asyncResult = new AwaitCallback(
+            response =>
             {
-                var operation = response.ReadByte();
-                if (operation != 0)
-                    return AwaitCallbackResult.ConditionFailed;
+                var result = response.ReadByte();
+                if (result == 0x01)
+                {
+                    var operation = response.ReadByte();
+                    if (operation != 0)
+                        return AwaitCallbackResult.ConditionFailed;
 
-                var source = response.ReadByte();
-                var destination = response.ReadByte();
-                if (source == sourceSlot && destination == destinationSlot)
-                    return AwaitCallbackResult.Success;
-            }
+                    var source = response.ReadByte();
+                    var destination = response.ReadByte();
+                    if (source == sourceSlot && destination == destinationSlot)
+                        return AwaitCallbackResult.Success;
+                }
 
-            return AwaitCallbackResult.Fail;
-        }, 0xB034);
+                return AwaitCallbackResult.Fail;
+            },
+            0xB034
+        );
 
         PacketManager.SendPacket(packet, PacketDestination.Server, asyncResult);
         asyncResult.AwaitResponse(500);
@@ -177,16 +179,17 @@ public class CharacterInventory : InventoryItemCollection
             iterations++;
 
             var itemsToStackGroups = this.Where(i =>
-                    i.Slot > 12 && i.Record.IsStackable && i.Record.MaxStack > i.Amount &&
-                    !blacklistedItems.Contains(i.ItemId))
+                    i.Slot > 12
+                    && i.Record.IsStackable
+                    && i.Record.MaxStack > i.Amount
+                    && !blacklistedItems.Contains(i.ItemId)
+                )
                 .GroupBy(i => i.ItemId);
 
             if (!itemsToStackGroups.Any())
                 break;
 
-            var itemsToStack = itemsToStackGroups.FirstOrDefault(g => g.Count() >= 2)
-                ?.OrderBy(i => i.Slot)
-                .ToList();
+            var itemsToStack = itemsToStackGroups.FirstOrDefault(g => g.Count() >= 2)?.OrderBy(i => i.Slot).ToList();
 
             if (itemsToStack == null)
                 break;

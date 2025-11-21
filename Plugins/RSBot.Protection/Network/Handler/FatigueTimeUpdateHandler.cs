@@ -27,8 +27,13 @@ namespace RSBot.Protection.Network.Handler
 
                 packet.ReadBytes(4); //???
 
-                FatigueHandler.ShardFatigueFullExpSeconds = GetFullExpSeconds(serviceFatigueSecondsSpent, serviceFatigueGreenHours);
-                Log.Debug($"Service fatigue : {FatigueHandler.ShardFatigueFullExpSeconds / 3600}hr {(FatigueHandler.ShardFatigueFullExpSeconds % 3600) / 60}min");
+                FatigueHandler.ShardFatigueFullExpSeconds = GetFullExpSeconds(
+                    serviceFatigueSecondsSpent,
+                    serviceFatigueGreenHours
+                );
+                Log.Debug(
+                    $"Service fatigue : {FatigueHandler.ShardFatigueFullExpSeconds / 3600}hr {(FatigueHandler.ShardFatigueFullExpSeconds % 3600) / 60}min"
+                );
             }
             else
             {
@@ -54,8 +59,13 @@ namespace RSBot.Protection.Network.Handler
                 packet.ReadByte(); //shardFatigue???
                 packet.ReadByte(); //shardFatigue???
 
-                FatigueHandler.ShardFatigueFullExpSeconds = GetFullExpSeconds(shardFatigueSecondsSpent, shardFatigueBlueHours);
-                Log.Debug($"Shard fatigue : {FatigueHandler.ShardFatigueFullExpSeconds / 3600}hr {(FatigueHandler.ShardFatigueFullExpSeconds % 3600) / 60}min");
+                FatigueHandler.ShardFatigueFullExpSeconds = GetFullExpSeconds(
+                    shardFatigueSecondsSpent,
+                    shardFatigueBlueHours
+                );
+                Log.Debug(
+                    $"Shard fatigue : {FatigueHandler.ShardFatigueFullExpSeconds / 3600}hr {(FatigueHandler.ShardFatigueFullExpSeconds % 3600) / 60}min"
+                );
             }
 
             EventManager.FireEvent("OnFatigueTimeUpdate");

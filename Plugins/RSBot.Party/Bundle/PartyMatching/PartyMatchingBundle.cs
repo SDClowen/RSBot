@@ -1,9 +1,9 @@
-﻿using RSBot.Core;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using RSBot.Core;
 using RSBot.Core.Extensions;
 using RSBot.Core.Network;
 using RSBot.Party.Bundle.PartyMatching.Objects;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace RSBot.Party.Bundle.PartyMatching;
 
@@ -52,9 +52,10 @@ internal class PartyMatchingBundle
         packet.WriteByte(Config.LevelTo);
         packet.WriteConditonalString(Config.Title);
 
-        var callback =
-            new AwaitCallback(
-                response => response.ReadByte() == 1 ? AwaitCallbackResult.Success : AwaitCallbackResult.Fail, 0xB06A);
+        var callback = new AwaitCallback(
+            response => response.ReadByte() == 1 ? AwaitCallbackResult.Success : AwaitCallbackResult.Fail,
+            0xB06A
+        );
 
         PacketManager.SendPacket(packet, PacketDestination.Server, callback);
         callback.AwaitResponse(2000);
@@ -86,9 +87,10 @@ internal class PartyMatchingBundle
         packet.WriteByte(Config.LevelTo);
         packet.WriteConditonalString(Config.Title);
 
-        var callback =
-            new AwaitCallback(
-                response => response.ReadByte() == 1 ? AwaitCallbackResult.Success : AwaitCallbackResult.Fail, 0xB069);
+        var callback = new AwaitCallback(
+            response => response.ReadByte() == 1 ? AwaitCallbackResult.Success : AwaitCallbackResult.Fail,
+            0xB069
+        );
 
         PacketManager.SendPacket(packet, PacketDestination.Server, callback);
         callback.AwaitResponse(2000);
@@ -104,9 +106,7 @@ internal class PartyMatchingBundle
             if (!token.IsCancellationRequested)
                 Delete();
         }
-        catch (TaskCanceledException)
-        {
-        }
+        catch (TaskCanceledException) { }
     }
 
     public void CancelScheduledDeletion()
@@ -142,20 +142,23 @@ internal class PartyMatchingBundle
         packet.WriteUInt(id);
 
         var joiningResult = 0;
-        var callback = new AwaitCallback(response =>
-        {
-            var result = response.ReadByte();
-            if (result == 1)
+        var callback = new AwaitCallback(
+            response =>
             {
-                // 0 => canceled
-                // 1 => accepted
-                // 2 => didnt answer
-                joiningResult = response.ReadByte();
-                return AwaitCallbackResult.Success;
-            }
+                var result = response.ReadByte();
+                if (result == 1)
+                {
+                    // 0 => canceled
+                    // 1 => accepted
+                    // 2 => didnt answer
+                    joiningResult = response.ReadByte();
+                    return AwaitCallbackResult.Success;
+                }
 
-            return AwaitCallbackResult.Fail;
-        }, 0xB06D);
+                return AwaitCallbackResult.Fail;
+            },
+            0xB06D
+        );
 
         PacketManager.SendPacket(packet, PacketDestination.Server, callback);
         callback.AwaitResponse(10000);
@@ -175,11 +178,14 @@ internal class PartyMatchingBundle
 
         var partyList = PartyList.FromPacket(null); //placeholder for the callback
 
-        var callback = new AwaitCallback(response =>
-        {
-            partyList = PartyList.FromPacket(response);
-            return AwaitCallbackResult.Success;
-        }, 0xB06C);
+        var callback = new AwaitCallback(
+            response =>
+            {
+                partyList = PartyList.FromPacket(response);
+                return AwaitCallbackResult.Success;
+            },
+            0xB06C
+        );
 
         PacketManager.SendPacket(packet, PacketDestination.Server, callback);
         callback.AwaitResponse();

@@ -1,16 +1,16 @@
-﻿using RSBot.Core.Client.ReferenceObjects;
-using RSBot.Core.Cryptography;
-using RSBot.Core.Event;
-using RSBot.Core.Extensions;
-using RSBot.Core.Objects;
-using RSBot.NavMeshApi;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using RSBot.Core.Client.ReferenceObjects;
+using RSBot.Core.Cryptography;
+using RSBot.Core.Event;
+using RSBot.Core.Extensions;
+using RSBot.Core.Objects;
+using RSBot.NavMeshApi;
 
 namespace RSBot.Core.Client;
 
@@ -48,7 +48,6 @@ public class ReferenceManager
     public VersionInfo VersionInfo { get; private set; }
     public List<RefMagicOpt> MagicOptions { get; } = new(1024);
     public List<RefMagicOptAssign> MagicOptionAssignments { get; } = new(128);
-
 
     public void Load(int languageTab, BackgroundWorker worker)
     {
@@ -100,7 +99,6 @@ public class ReferenceManager
         EventManager.FireEvent("OnLoadGameData");
     }
 
-
     private void LoadClientInfo()
     {
         DivisionInfo = DivisionInfo.Load();
@@ -136,7 +134,6 @@ public class ReferenceManager
             LoadReferenceListFile($"{ServerDep}\\RefShopGoods.txt", ShopGoods);
         else
             LoadReferenceFile($"{ServerDep}\\RefShopGoods.txt", ShopGoods);
-
     }
 
     private void LoadAlchemyData()
@@ -186,7 +183,6 @@ public class ReferenceManager
             LoadConditionalData($"{ServerDep}\\QuestData.txt", QuestData);
         else
             LoadReferenceFile($"{ServerDep}\\questdata.txt", QuestData);
-
     }
 
     private void LoadEventRewardData()
@@ -246,8 +242,7 @@ public class ReferenceManager
 
     private void LoadSkillData()
     {
-        if (Game.ClientType == GameClientType.Vietnam ||
-            Game.ClientType == GameClientType.Vietnam274)
+        if (Game.ClientType == GameClientType.Vietnam || Game.ClientType == GameClientType.Vietnam274)
             LoadReferenceListFileEnc($"{ServerDep}\\SkillDataEnc.txt", SkillData);
         else if (Game.ClientType < GameClientType.Thailand)
             LoadReferenceFile($"{ServerDep}\\SkillData.txt", SkillData);
@@ -303,7 +298,6 @@ public class ReferenceManager
     {
         if (Game.MediaPk2.TryGetFile(fileName, out var file))
             LoadReferenceListFile(file.OpenRead().GetStream(), destination);
-
     }
 
     private void LoadReferenceListFile<TKey, TReference>(string fileName, IDictionary<TKey, TReference> destination)
@@ -431,7 +425,8 @@ public class ReferenceManager
 
     public IEnumerable<uint> GetBaseSkills()
     {
-        return SkillData.Where(p => p.Value.Basic_Code.EndsWith("_BASE_01") && p.Value.Basic_Group != "xxx")
+        return SkillData
+            .Where(p => p.Value.Basic_Code.EndsWith("_BASE_01") && p.Value.Basic_Group != "xxx")
             .Select(p => p.Key);
     }
 
@@ -507,9 +502,11 @@ public class ReferenceManager
 
     public RefSkillMastery GetRefSkillMastery(uint id)
     {
-        if ((Game.ClientType == GameClientType.Chinese_Old ||
-            Game.ClientType == GameClientType.Chinese) &&
-            id >= 273 && id <= 275)
+        if (
+            (Game.ClientType == GameClientType.Chinese_Old || Game.ClientType == GameClientType.Chinese)
+            && id >= 273
+            && id <= 275
+        )
             id = 277; // csro shit
 
         if (SkillMasteryData.TryGetValue(id, out var data))
@@ -555,8 +552,13 @@ public class ReferenceManager
     public RefPackageItemScrap GetRefPackageItemById(ushort id, byte group, byte tab, byte slot)
     {
         return PackageItemScrap[
-            GetRefShopGroupById(id).GetShops()[group].GetTabs()[tab].GetGoods().FirstOrDefault(s => s.SlotIndex == slot)
-                .RefPackageItemCodeName];
+            GetRefShopGroupById(id)
+                .GetShops()[group]
+                .GetTabs()[tab]
+                .GetGoods()
+                .FirstOrDefault(s => s.SlotIndex == slot)
+                .RefPackageItemCodeName
+        ];
     }
 
     public RefPackageItemScrap GetRefPackageItem(string codeName)
@@ -572,15 +574,19 @@ public class ReferenceManager
         var result = new List<RefPackageItemScrap>();
         foreach (var shop in group.GetShops())
         {
-            if (shop == null) continue;
+            if (shop == null)
+                continue;
             foreach (var tab in shop.GetTabs())
             {
-                if (tab == null) continue;
+                if (tab == null)
+                    continue;
                 foreach (var good in tab.GetGoods())
                 {
-                    if (good == null) continue;
+                    if (good == null)
+                        continue;
 
-                    if (!PackageItemScrap.ContainsKey(good.RefPackageItemCodeName)) continue;
+                    if (!PackageItemScrap.ContainsKey(good.RefPackageItemCodeName))
+                        continue;
 
                     if (result.FirstOrDefault(g => g.RefPackageItemCodeName == good.RefPackageItemCodeName) == null)
                         result.Add(PackageItemScrap[good.RefPackageItemCodeName]);
@@ -598,19 +604,22 @@ public class ReferenceManager
 
     public List<RefShopGood> GetRefShopGoods(RefShopGroup group)
     {
-        return (from shop in @group.GetShops()
-                where shop != null
-                from tab in shop.GetTabs()
-                where tab != null
-                from good in tab.GetGoods()
-                where good != null
-                select good).ToList();
+        return (
+            from shop in @group.GetShops()
+            where shop != null
+            from tab in shop.GetTabs()
+            where tab != null
+            from good in tab.GetGoods()
+            where good != null
+            select good
+        ).ToList();
     }
 
     public byte GetRefShopGoodTabIndex(string npcCodeName, RefShopGood good)
     {
         var shopGroup = GetRefShopGroup(npcCodeName);
-        if (shopGroup == null) return 0xFF;
+        if (shopGroup == null)
+            return 0xFF;
 
         var availableShops = shopGroup.GetShops();
 
@@ -621,8 +630,7 @@ public class ReferenceManager
             for (byte i = 0; i < availableTabs.Count; i++)
             {
                 var goods = availableTabs[i].GetGoods();
-                var availableGood =
-                    goods.FirstOrDefault(g => g.RefPackageItemCodeName == good.RefPackageItemCodeName);
+                var availableGood = goods.FirstOrDefault(g => g.RefPackageItemCodeName == good.RefPackageItemCodeName);
 
                 if (availableGood != null)
                     return i;
@@ -647,7 +655,8 @@ public class ReferenceManager
         byte degreeTo = 0,
         ObjectGender gender = ObjectGender.Neutral,
         bool rare = false,
-        string searchPattern = null)
+        string searchPattern = null
+    )
     {
         var result = new List<RefObjItem>(10000);
         foreach (var refItem in ItemData.Values)
@@ -747,7 +756,6 @@ public class ReferenceManager
         return MagicOptions?.FirstOrDefault(m => m.Group == group && m.Level == degree);
     }
 
-
     /// <summary>
     ///     Gets a list of magic options for the specified type ids
     /// </summary>
@@ -756,8 +764,10 @@ public class ReferenceManager
     /// <returns></returns>
     public List<RefMagicOpt> GetAssignments(byte typeId3, byte typeId4)
     {
-        return MagicOptionAssignments.FirstOrDefault(a => a.TypeId3 == typeId3 && a.TypeId4 == typeId4)
-            ?.AvailableMagicOptions.Select(GetMagicOption).ToList();
+        return MagicOptionAssignments
+            .FirstOrDefault(a => a.TypeId3 == typeId3 && a.TypeId4 == typeId4)
+            ?.AvailableMagicOptions.Select(GetMagicOption)
+            .ToList();
     }
 
     /// <summary>

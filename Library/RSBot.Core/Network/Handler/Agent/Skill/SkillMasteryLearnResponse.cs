@@ -28,7 +28,8 @@ internal class SkillMasteryLearnResponse : IPacketHandler
     {
         var result = packet.ReadByte();
 
-        if (result != 1) return;
+        if (result != 1)
+            return;
 
         var masteryId = packet.ReadUInt();
         var level = packet.ReadByte();

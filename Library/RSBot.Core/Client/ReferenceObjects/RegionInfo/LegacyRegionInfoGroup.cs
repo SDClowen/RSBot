@@ -47,6 +47,5 @@ public class LegacyRegionInfoGroup : IReference
             return null;
 
         return info;
-
     }
 }

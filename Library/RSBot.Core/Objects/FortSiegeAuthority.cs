@@ -8,5 +8,5 @@ public enum FortSiegeAuthority
     FortressWarAdministrator = 4,
     ProductionAdministrator = 8,
     TrainingAdministrator = 16,
-    MilitaryEngineer = 32
+    MilitaryEngineer = 32,
 }

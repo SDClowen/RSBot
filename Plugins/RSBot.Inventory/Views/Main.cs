@@ -129,9 +129,14 @@ public partial class Main : DoubleBufferedControl
                     foreach (var item in items)
                         AddItem(item);
 
-                    int maxSlots = (Game.ClientType == GameClientType.Global ||
-                        Game.ClientType == GameClientType.Korean ||
-                        Game.ClientType == GameClientType.VTC_Game) ? 17 : 13; //4 slots for relics
+                    int maxSlots =
+                        (
+                            Game.ClientType == GameClientType.Global
+                            || Game.ClientType == GameClientType.Korean
+                            || Game.ClientType == GameClientType.VTC_Game
+                        )
+                            ? 17
+                            : 13; //4 slots for relics
 
                     lblFreeSlots.Text = (maxSlots - items.Count) + " / " + maxSlots;
 
@@ -163,8 +168,8 @@ public partial class Main : DoubleBufferedControl
                     foreach (var item in Game.Player.AbilityPet.Inventory)
                         AddItem(item);
 
-                    lblFreeSlots.Text = Game.Player.AbilityPet.Inventory.FreeSlots + "/" +
-                                        Game.Player.AbilityPet.Inventory.Capacity;
+                    lblFreeSlots.Text =
+                        Game.Player.AbilityPet.Inventory.FreeSlots + "/" + Game.Player.AbilityPet.Inventory.Capacity;
 
                     pbInventoryStatus.Value = Game.Player.AbilityPet.Inventory.FreeSlots;
                     pbInventoryStatus.Maximum = Game.Player.AbilityPet.Inventory.Capacity;
@@ -218,8 +223,10 @@ public partial class Main : DoubleBufferedControl
                     foreach (var item in Game.Player.JobTransport.Inventory)
                         AddItem(item);
 
-                    lblFreeSlots.Text = Game.Player.JobTransport.Inventory.FreeSlots + "/" +
-                                        Game.Player.JobTransport.Inventory.Capacity;
+                    lblFreeSlots.Text =
+                        Game.Player.JobTransport.Inventory.FreeSlots
+                        + "/"
+                        + Game.Player.JobTransport.Inventory.Capacity;
 
                     pbInventoryStatus.Value = Game.Player.JobTransport.Inventory.FreeSlots;
                     pbInventoryStatus.Maximum = Game.Player.JobTransport.Inventory.Capacity;
@@ -237,8 +244,8 @@ public partial class Main : DoubleBufferedControl
                     foreach (var item in Game.Player.Job2SpecialtyBag)
                         AddItem(item);
 
-                    lblFreeSlots.Text = Game.Player.Job2SpecialtyBag.FreeSlots + "/" +
-                                        Game.Player.Job2SpecialtyBag.Capacity;
+                    lblFreeSlots.Text =
+                        Game.Player.Job2SpecialtyBag.FreeSlots + "/" + Game.Player.Job2SpecialtyBag.Capacity;
 
                     pbInventoryStatus.Value = Game.Player.Job2SpecialtyBag.FreeSlots;
                     pbInventoryStatus.Maximum = Game.Player.Job2SpecialtyBag.Capacity;
@@ -274,8 +281,8 @@ public partial class Main : DoubleBufferedControl
                     foreach (var item in Game.Player.Fellow.Inventory)
                         AddItem(item);
 
-                    lblFreeSlots.Text = Game.Player.Fellow.Inventory.FreeSlots + "/" +
-                                        Game.Player.Fellow.Inventory.Capacity;
+                    lblFreeSlots.Text =
+                        Game.Player.Fellow.Inventory.FreeSlots + "/" + Game.Player.Fellow.Inventory.Capacity;
 
                     pbInventoryStatus.Value = Game.Player.Fellow.Inventory.FreeSlots;
                     pbInventoryStatus.Maximum = Game.Player.Fellow.Inventory.Capacity;
@@ -309,8 +316,7 @@ public partial class Main : DoubleBufferedControl
 
         if (_selectedIndex == 0)
         {
-            var useItemsAtTrainingPlace =
-                PlayerConfig.GetArray<string>("RSBot.Inventory.ItemsAtTrainplace");
+            var useItemsAtTrainingPlace = PlayerConfig.GetArray<string>("RSBot.Inventory.ItemsAtTrainplace");
 
             if (useItemsAtTrainingPlace.Contains(item.Record.CodeName))
                 lvItem.Font = new Font(lvItem.Font, FontStyle.Bold);
@@ -480,7 +486,10 @@ public partial class Main : DoubleBufferedControl
 
                     var menuItem = new ToolStripMenuItem { Text = mapName };
 
-                    menuItem.Click += (itemSender, itemEvent) => { inventoryItem.UseTo(7, item.Value.ID); };
+                    menuItem.Click += (itemSender, itemEvent) =>
+                    {
+                        inventoryItem.UseTo(7, item.Value.ID);
+                    };
 
                     selectMapLocationToolStripMenuItem.DropDownItems.Add(menuItem);
                 }

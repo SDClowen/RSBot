@@ -51,7 +51,10 @@ public class NoHealthPotionsHandler : AbstractTownHandler
             return;
 
         var typeIdFilter = new TypeIdFilter(3, 3, 1, 1);
-        if (Game.Player.Inventory.GetSumAmount(typeIdFilter) > PlayerConfig.Get<int>("RSBot.Protection.numHPPotionsLeft"))
+        if (
+            Game.Player.Inventory.GetSumAmount(typeIdFilter)
+            > PlayerConfig.Get<int>("RSBot.Protection.numHPPotionsLeft")
+        )
             return;
 
         Game.Player.UseReturnScroll();

@@ -11,10 +11,7 @@ internal class WaitScriptCommand : IScriptCommand
 
     public bool IsBusy { get; private set; }
 
-    public Dictionary<string, string> Arguments => new()
-    {
-        { "Time", "The time to wait in seconds" }
-    };
+    public Dictionary<string, string> Arguments => new() { { "Time", "The time to wait in seconds" } };
 
     #endregion Properties
 

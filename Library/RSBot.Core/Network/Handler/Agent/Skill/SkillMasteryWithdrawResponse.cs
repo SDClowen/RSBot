@@ -26,14 +26,16 @@ internal class SkillMasteryWithdrawResponse : IPacketHandler
     /// <param name="packet">The packet.</param>
     public void Invoke(Packet packet)
     {
-        if (packet.ReadByte() != 0x01) return;
+        if (packet.ReadByte() != 0x01)
+            return;
 
         var masteryId = packet.ReadUInt();
         var level = packet.ReadByte();
 
         Game.Player.Skills.UpdateMasteryLevel(masteryId, level);
         Log.Notify(
-            $"The mastery [{Game.Player.Skills.GetMasteryInfoById(masteryId).Record.Name}] was withdrawn to [lv.{level}]");
+            $"The mastery [{Game.Player.Skills.GetMasteryInfoById(masteryId).Record.Name}] was withdrawn to [lv.{level}]"
+        );
         EventManager.FireEvent("OnWithdrawMastery", masteryId, level);
     }
 }

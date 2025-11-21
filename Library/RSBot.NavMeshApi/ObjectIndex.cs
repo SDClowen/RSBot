@@ -40,7 +40,14 @@ public class ObjectIndex : IEnumerable<ObjectIndexEntry>
                 if (!int.TryParse(match.Groups["id"].Value, out int objectId))
                     throw new Exception($"Failed to load object index: malformed object id in {line}");
 
-                if (!int.TryParse(match.Groups["flag"].Value.Substring(2), NumberStyles.HexNumber, NumberFormatInfo.InvariantInfo, out int objectFlag))
+                if (
+                    !int.TryParse(
+                        match.Groups["flag"].Value.Substring(2),
+                        NumberStyles.HexNumber,
+                        NumberFormatInfo.InvariantInfo,
+                        out int objectFlag
+                    )
+                )
                     throw new Exception($"Failed to load object index: malformed object flag in {line}");
 
                 var objectPath = match.Groups["path"].Value;

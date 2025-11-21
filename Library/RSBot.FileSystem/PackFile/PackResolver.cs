@@ -19,10 +19,7 @@ internal class PackResolver
         Root = packReader.ReadBlocksAt(256);
 
         //Add root block to memory
-        _blocksInMemory = new Dictionary<string, IEnumerable<PackBlock>>(128)
-        {
-            [""] = Root
-        };
+        _blocksInMemory = new Dictionary<string, IEnumerable<PackBlock>>(128) { [""] = Root };
     }
 
     public IEnumerable<PackBlock> Root { get; }
@@ -43,7 +40,12 @@ internal class PackResolver
             //Search in all blocks for the subfolder
             var subFolderEntry = _caseSensitive
                 ? blocks.GetEntries().FirstOrDefault(e => e.Name == subFolderName && e.Type == PackEntryType.Folder)
-                : blocks.GetEntries().FirstOrDefault(e => e.Name.IndexOf(subFolderName, StringComparison.OrdinalIgnoreCase) == 0 && e.Type == PackEntryType.Folder);
+                : blocks
+                    .GetEntries()
+                    .FirstOrDefault(e =>
+                        e.Name.IndexOf(subFolderName, StringComparison.OrdinalIgnoreCase) == 0
+                        && e.Type == PackEntryType.Folder
+                    );
 
             //Path not found
             if (subFolderEntry == null)
@@ -71,7 +73,11 @@ internal class PackResolver
 
         var entry = _caseSensitive
             ? resolvedFolderBlock.GetEntries().FirstOrDefault(e => e.Type == PackEntryType.File && e.Name == fileName)
-            : resolvedFolderBlock.GetEntries().FirstOrDefault(e => e.Type == PackEntryType.File && e.Name.IndexOf(fileName, StringComparison.OrdinalIgnoreCase) == 0);
+            : resolvedFolderBlock
+                .GetEntries()
+                .FirstOrDefault(e =>
+                    e.Type == PackEntryType.File && e.Name.IndexOf(fileName, StringComparison.OrdinalIgnoreCase) == 0
+                );
 
         return entry ?? null;
     }
@@ -80,7 +86,10 @@ internal class PackResolver
     {
         var parentEntries = ResolveBlock(parentFolder).GetEntries();
 
-        return parentEntries.Where(e => fileNamesToFilter.Any(f => f.IndexOf(e.Name, StringComparison.OrdinalIgnoreCase) == 0) && e.Type == PackEntryType.File);
+        return parentEntries.Where(e =>
+            fileNamesToFilter.Any(f => f.IndexOf(e.Name, StringComparison.OrdinalIgnoreCase) == 0)
+            && e.Type == PackEntryType.File
+        );
     }
 
     private string[] ExplodePath(string path)

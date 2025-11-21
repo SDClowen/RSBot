@@ -13,11 +13,13 @@ internal class TargetBundle
             return;
 
         SpawnManager.TryGetEntity<SpawnedMonster>(
-            f => f.AttackingPlayer == false
-                 && Game.SelectedEntity?.UniqueId != f.UniqueId
-                 && f.Position.DistanceTo(LureConfig.Area.Position) > 15
-                 && f.Position.DistanceTo(LureConfig.Area.Position) <= LureConfig.Area.Radius,
-            out var mob);
+            f =>
+                f.AttackingPlayer == false
+                && Game.SelectedEntity?.UniqueId != f.UniqueId
+                && f.Position.DistanceTo(LureConfig.Area.Position) > 15
+                && f.Position.DistanceTo(LureConfig.Area.Position) <= LureConfig.Area.Radius,
+            out var mob
+        );
 
         if (Game.Player.InAction)
             SkillManager.CancelAction();

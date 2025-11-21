@@ -31,27 +31,28 @@ public class PluginManager
     /// </summary>
     public bool LoadAssemblies()
     {
-        if (Extensions != null) return false;
+        if (Extensions != null)
+            return false;
 
         Extensions = new Dictionary<string, IPlugin>();
 
         try
         {
-            foreach (var extension in from file in Directory.GetFiles(InitialDirectory)
-                                      let fileInfo = new FileInfo(file)
-                                      where fileInfo.Extension == ".dll"
-                                      select GetExtensionsFromAssembly(file)
-                     into loadedExtensions
-                                      from extension in loadedExtensions
-                                      select extension)
+            foreach (
+                var extension in from file in Directory.GetFiles(InitialDirectory)
+                let fileInfo = new FileInfo(file)
+                where fileInfo.Extension == ".dll"
+                select GetExtensionsFromAssembly(file) into loadedExtensions
+                from extension in loadedExtensions
+                select extension
+            )
             {
                 Extensions.Add(extension.Key, extension.Value);
                 Log.Debug($"Loaded plugin [{extension.Value.InternalName}]");
             }
 
             //order by index, not alphabeticaly
-            Extensions = Extensions.OrderBy(entry => entry.Value.Index)
-                .ToDictionary(x => x.Key, x => x.Value);
+            Extensions = Extensions.OrderBy(entry => entry.Value.Index).ToDictionary(x => x.Key, x => x.Value);
 
             EventManager.FireEvent("OnLoadPlugins");
 
@@ -59,8 +60,10 @@ public class PluginManager
         }
         catch (Exception ex)
         {
-            File.WriteAllText(Kernel.BasePath + "\\boot-error.log",
-                $"The plugin manager encountered a problem: \n{ex.Message} at {ex.StackTrace}");
+            File.WriteAllText(
+                Kernel.BasePath + "\\boot-error.log",
+                $"The plugin manager encountered a problem: \n{ex.Message} at {ex.StackTrace}"
+            );
             return false;
         }
     }
@@ -80,9 +83,13 @@ public class PluginManager
         {
             var assemblyTypes = assembly.GetTypes();
 
-            foreach (var extension in (from type in assemblyTypes
-                                       where type.IsPublic && !type.IsAbstract && type.GetInterface("IPlugin") != null
-                                       select Activator.CreateInstance(type)).OfType<IPlugin>())
+            foreach (
+                var extension in (
+                    from type in assemblyTypes
+                    where type.IsPublic && !type.IsAbstract && type.GetInterface("IPlugin") != null
+                    select Activator.CreateInstance(type)
+                ).OfType<IPlugin>()
+            )
                 result.Add(extension.InternalName, extension);
 
             if (result.Count == 0)
@@ -91,14 +98,12 @@ public class PluginManager
             var handlerType = typeof(IPacketHandler);
             var hookType = typeof(IPacketHook);
 
-            var types = assemblyTypes
-                .Where(p => handlerType.IsAssignableFrom(p) && !p.IsInterface).ToArray();
+            var types = assemblyTypes.Where(p => handlerType.IsAssignableFrom(p) && !p.IsInterface).ToArray();
 
             foreach (var handler in types)
                 PacketManager.RegisterHandler((IPacketHandler)Activator.CreateInstance(handler));
 
-            types = assemblyTypes
-                .Where(p => hookType.IsAssignableFrom(p) && !p.IsInterface).ToArray();
+            types = assemblyTypes.Where(p => hookType.IsAssignableFrom(p) && !p.IsInterface).ToArray();
 
             foreach (var hook in types)
                 PacketManager.RegisterHook((IPacketHook)Activator.CreateInstance(hook));

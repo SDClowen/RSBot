@@ -20,5 +20,5 @@ public enum SkillLearnErrorCode : ushort
     /// <summary>
     ///     You can't learn the current skill due to insufficient skill points.
     /// </summary>
-    UIIT_STT_SKILL_POINT_INSUFFICIENCY = 0x0A34
+    UIIT_STT_SKILL_POINT_INSUFFICIENCY = 0x0A34,
 }

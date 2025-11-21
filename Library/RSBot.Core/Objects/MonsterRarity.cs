@@ -17,5 +17,5 @@ public enum MonsterRarity : byte
     TitanParty = 21,
     EliteParty = 22,
     Unique2Party = 24,
-    Event = 0xFF
+    Event = 0xFF,
 }

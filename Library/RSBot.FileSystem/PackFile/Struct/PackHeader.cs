@@ -48,7 +48,8 @@ public record PackHeader
 
         if (EncryptionChecksum.Length != 16)
             throw new IOException(
-                $"The length of the encryption checksum should be 16. The provided length is: {Signature.Length}");
+                $"The length of the encryption checksum should be 16. The provided length is: {Signature.Length}"
+            );
 
         var buffer = new byte[256];
         var payload = new byte[205];

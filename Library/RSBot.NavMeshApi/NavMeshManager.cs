@@ -1,12 +1,11 @@
-﻿using RSBot.FileSystem;
+﻿using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
+using System.Numerics;
+using RSBot.FileSystem;
 using RSBot.NavMeshApi.Dungeon;
 using RSBot.NavMeshApi.Mathematics;
 using RSBot.NavMeshApi.Object;
 using RSBot.NavMeshApi.Terrain;
-
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Numerics;
 
 namespace RSBot.NavMeshApi;
 
@@ -53,7 +52,12 @@ public static class NavMeshManager
         Debug.WriteLine($"Object.ifo: {ObjectIndex.Count()} objects");
     }
 
-    public static bool Raycast(NavMeshTransform src, NavMeshTransform dst, NavMeshRaycastType type, [NotNullWhen(true)] out NavMeshRaycastHit? hit)
+    public static bool Raycast(
+        NavMeshTransform src,
+        NavMeshTransform dst,
+        NavMeshRaycastType type,
+        [NotNullWhen(true)] out NavMeshRaycastHit? hit
+    )
     {
         if (src.Region == dst.Region && src.Offset == dst.Offset)
         {
@@ -92,7 +96,8 @@ public static class NavMeshManager
         }
     }
 
-    public static bool Raycast(NavMeshTransform src, NavMeshTransform dst, NavMeshRaycastType type) => Raycast(src, dst, type, out _);
+    public static bool Raycast(NavMeshTransform src, NavMeshTransform dst, NavMeshRaycastType type) =>
+        Raycast(src, dst, type, out _);
 
     public static bool ResolveCellAndHeight(NavMeshTransform transform)
     {
@@ -178,10 +183,17 @@ public static class NavMeshManager
     {
         switch (fileName[fileName.Length - 1])
         {
-            case /*cp*/'d': return LoadNavMeshObjFromCompound(fileName);
-            case /*bs*/'r': return LoadNavMeshObjFromResource(fileName);
-            case /*bm*/'s': return LoadNavMeshObjFromPrimMesh(fileName);
-            default: return null;
+            case /*cp*/
+            'd':
+                return LoadNavMeshObjFromCompound(fileName);
+            case /*bs*/
+            'r':
+                return LoadNavMeshObjFromResource(fileName);
+            case /*bm*/
+            's':
+                return LoadNavMeshObjFromPrimMesh(fileName);
+            default:
+                return null;
         }
     }
 

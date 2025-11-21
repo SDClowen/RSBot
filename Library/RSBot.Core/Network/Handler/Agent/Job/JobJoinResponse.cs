@@ -36,7 +36,7 @@ internal class JobJoinResponse : IPacketHandler
         {
             Type = (JobType)packet.ReadByte(),
             Level = packet.ReadByte(),
-            Experience = packet.ReadUInt()
+            Experience = packet.ReadUInt(),
         };
 
         Log.Notify($"[Job] Joined job guild {Game.Player.JobInformation.Type}.");

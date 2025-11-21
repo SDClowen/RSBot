@@ -11,8 +11,6 @@ internal class BuffBundle : IBundle
     private bool _invoked;
     private bool _buffBetweenAttacks { get; set; }
 
-
-
     /// <summary>
     ///     Invokes this instance.
     /// </summary>
@@ -40,8 +38,9 @@ internal class BuffBundle : IBundle
              *          ActionBuffRemoveResponse:0xb072 does not calling
              *          There have another opcode for remove buff with token
              */
-            foreach (var buff in SkillManager.Buffs.Union(new[]
-                         { SkillManager.ImbueSkill, SkillManager.ResurrectionSkill }))
+            foreach (
+                var buff in SkillManager.Buffs.Union(new[] { SkillManager.ImbueSkill, SkillManager.ResurrectionSkill })
+            )
             {
                 if (buff == null)
                     continue;

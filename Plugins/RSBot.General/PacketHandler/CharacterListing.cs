@@ -120,13 +120,17 @@ internal class CharacterListing : IPacketHandler
 
         EventManager.FireEvent("OnCharacterListReceived");
 
-        if (!string.IsNullOrWhiteSpace(ProfileManager.SelectedCharacter) &&
-            lobbyCharacters.Any(p => p.name == ProfileManager.SelectedCharacter))
+        if (
+            !string.IsNullOrWhiteSpace(ProfileManager.SelectedCharacter)
+            && lobbyCharacters.Any(p => p.name == ProfileManager.SelectedCharacter)
+        )
         {
             selectedAccount.SelectedCharacter = ProfileManager.SelectedCharacter;
         }
-        else if (string.IsNullOrWhiteSpace(selectedAccount.SelectedCharacter) ||
-            !lobbyCharacters.Any(p => p.name == selectedAccount.SelectedCharacter))
+        else if (
+            string.IsNullOrWhiteSpace(selectedAccount.SelectedCharacter)
+            || !lobbyCharacters.Any(p => p.name == selectedAccount.SelectedCharacter)
+        )
         {
             if (charCount == 0)
             {

@@ -46,9 +46,11 @@ internal class AttackBundle : IBundle
             return;
         }
 
-        if (SkillManager.ImbueSkill != null &&
-            !Game.Player.State.HasActiveBuff(SkillManager.ImbueSkill, out _) &&
-            SkillManager.ImbueSkill.CanBeCasted)
+        if (
+            SkillManager.ImbueSkill != null
+            && !Game.Player.State.HasActiveBuff(SkillManager.ImbueSkill, out _)
+            && SkillManager.ImbueSkill.CanBeCasted
+        )
             SkillManager.ImbueSkill.Cast(buff: true);
 
         if (Kernel.TickCount - _lastTick < 500)
@@ -133,7 +135,8 @@ internal class AttackBundle : IBundle
                 SkillManager.TeleportSkill.CastAt(Game.SelectedEntity.Position);
 
                 Log.Debug(
-                    $"Used teleportation skill [{SkillManager.TeleportSkill.Record.GetRealName()}] (before: {distanceToMonster}m, after: {distanceAfterCasting}m, traveled: {availableDistance}m)");
+                    $"Used teleportation skill [{SkillManager.TeleportSkill.Record.GetRealName()}] (before: {distanceToMonster}m, after: {distanceAfterCasting}m, traveled: {availableDistance}m)"
+                );
 
                 return true;
             }

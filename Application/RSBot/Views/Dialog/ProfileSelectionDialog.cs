@@ -1,9 +1,9 @@
-﻿using RSBot.Core.Components;
-using SDUI;
-using SDUI.Controls;
-using System;
+﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using RSBot.Core.Components;
+using SDUI;
+using SDUI.Controls;
 
 namespace RSBot.Views.Dialog;
 
@@ -48,16 +48,24 @@ public partial class ProfileSelectionDialog : UIWindowBase
 
         if (profile.LastIndexOfAny(Path.GetInvalidFileNameChars(), 0) != -1)
         {
-            MessageBox.Show("The profile name contains invalid characters!", "Invalid name", MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
+            MessageBox.Show(
+                "The profile name contains invalid characters!",
+                "Invalid name",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error
+            );
 
             return string.Empty;
         }
 
         if (ProfileManager.ProfileExists(profile))
         {
-            MessageBox.Show($"The profile name '{profile}' already exists!", "Invalid name", MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
+            MessageBox.Show(
+                $"The profile name '{profile}' already exists!",
+                "Invalid name",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error
+            );
 
             return string.Empty;
         }
@@ -88,23 +96,36 @@ public partial class ProfileSelectionDialog : UIWindowBase
     {
         if (comboProfiles.SelectedIndex == 0) //Default
         {
-            MessageBox.Show("You can not delete the default profile!", "Default profile",
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(
+                "You can not delete the default profile!",
+                "Default profile",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error
+            );
 
             return;
         }
 
         if (ProfileManager.SelectedProfile == (string)comboProfiles.SelectedItem) //Active profile?
         {
-            MessageBox.Show("You can not delete the active profile!", "Profile active",
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(
+                "You can not delete the active profile!",
+                "Profile active",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error
+            );
 
             return;
         }
 
-        if (MessageBox.Show(
+        if (
+            MessageBox.Show(
                 $"Do you want to delete the profile {comboProfiles.SelectedItem} from the list?\nThis will not delete the user data.",
-                "Delete profile?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+                "Delete profile?",
+                MessageBoxButtons.OKCancel,
+                MessageBoxIcon.Question
+            ) != DialogResult.OK
+        )
             return;
 
         ProfileManager.Remove((string)comboProfiles.SelectedItem);

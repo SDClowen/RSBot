@@ -76,7 +76,7 @@ internal class CommandsBundle
         {
             PlayerList = PlayerConfig.GetArray<string>("RSBot.Party.Commands.PlayersList"),
             ListenFromList = PlayerConfig.Get<bool>("RSBot.Party.Commands.ListenOnlyList"),
-            ListenOnlyMaster = PlayerConfig.Get<bool>("RSBot.Party.Commands.ListenFromMaster")
+            ListenOnlyMaster = PlayerConfig.Get<bool>("RSBot.Party.Commands.ListenFromMaster"),
         };
     }
 }

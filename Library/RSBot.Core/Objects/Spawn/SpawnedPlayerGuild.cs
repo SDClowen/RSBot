@@ -62,16 +62,9 @@ public class SpawnedPlayerGuild
         var result = new SpawnedPlayerGuild
         {
             Id = packet.ReadUInt(),
-            Member = new SpawnedPlayerGuildMember
-            {
-                Nickname = packet.ReadString()
-            },
+            Member = new SpawnedPlayerGuildMember { Nickname = packet.ReadString() },
             LastCrestRev = packet.ReadUInt(),
-            Union = new SpawnedPlayerUnion
-            {
-                Id = packet.ReadUInt(),
-                LastCrestRev = packet.ReadUInt()
-            }
+            Union = new SpawnedPlayerUnion { Id = packet.ReadUInt(), LastCrestRev = packet.ReadUInt() },
         };
 
         if (Game.ClientType >= GameClientType.Thailand)

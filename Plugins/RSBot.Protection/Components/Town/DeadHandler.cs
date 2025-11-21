@@ -50,8 +50,10 @@ public class DeadHandler : AbstractTownHandler
             return;
 
         var itemsToUse = PlayerConfig.GetArray<string>("RSBot.Inventory.AutoUseAccordingToPurpose");
-        var inventoryItem =
-            Game.Player.Inventory.GetItem(new TypeIdFilter(3, 3, 13, 6), p => itemsToUse.Contains(p.Record.CodeName));
+        var inventoryItem = Game.Player.Inventory.GetItem(
+            new TypeIdFilter(3, 3, 13, 6),
+            p => itemsToUse.Contains(p.Record.CodeName)
+        );
         if (inventoryItem != null)
         {
             inventoryItem.Use();

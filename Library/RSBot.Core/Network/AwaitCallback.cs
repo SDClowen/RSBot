@@ -22,7 +22,7 @@ public enum AwaitCallbackResult
     /// <summary>
     ///     If your received packet responsed with error code, or could not read required data from received.
     /// </summary>
-    Fail
+    Fail,
 }
 
 /// <summary>
@@ -213,30 +213,34 @@ public class AwaitCallback
             milliseconds = TIMEOUT_STEP;
 
         Task.Factory.StartNew(() =>
-        {
-            var invoked = false;
-            do
             {
-                Thread.Sleep(TIMEOUT_STEP);
-                milliseconds -= TIMEOUT_STEP;
+                var invoked = false;
+                do
+                {
+                    Thread.Sleep(TIMEOUT_STEP);
+                    milliseconds -= TIMEOUT_STEP;
+
+                    lock (_lock)
+                    {
+                        invoked = _invoked;
+                    }
+                } while (!invoked && milliseconds > 0);
 
                 lock (_lock)
                 {
-                    invoked = _invoked;
+                    _timeout = !_invoked;
+
+                    if (_timeout)
+                        Log.Debug($"Callback timeout, ResponseOpcode: 0x{ResponseOpcode:X}");
                 }
-            } while (!invoked && milliseconds > 0);
-
-            lock (_lock)
-            {
-                _timeout = !_invoked;
-
-                if (_timeout)
-                    Log.Debug($"Callback timeout, ResponseOpcode: 0x{ResponseOpcode:X}");
-            }
-        }).Wait();
+            })
+            .Wait();
     }
 
-    public async Task AwaitResponseAsync(int milliseconds = TIMEOUT_DEFAULT, CancellationToken cancellationToken = default)
+    public async Task AwaitResponseAsync(
+        int milliseconds = TIMEOUT_DEFAULT,
+        CancellationToken cancellationToken = default
+    )
     {
         if (_waited)
             return;
@@ -261,9 +265,7 @@ public class AwaitCallback
                 }
             } while (!invoked && milliseconds > 0 && !cancellationToken.IsCancellationRequested);
         }
-        catch (TaskCanceledException)
-        {
-        }
+        catch (TaskCanceledException) { }
 
         lock (_lock)
         {

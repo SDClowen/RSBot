@@ -351,9 +351,11 @@ public class InventoryItemCollection : ICollection<InventoryItem>
             }
             else
             {
-                if (item.Record.ReqLevel1 > nearestItem.Record.ReqLevel1 &&
-                    item.OptLevel >= nearestItem.OptLevel &&
-                    item.CanBeEquipped())
+                if (
+                    item.Record.ReqLevel1 > nearestItem.Record.ReqLevel1
+                    && item.OptLevel >= nearestItem.OptLevel
+                    && item.CanBeEquipped()
+                )
                     nearestItem = item;
             }
 
@@ -404,12 +406,14 @@ public class InventoryItemCollection : ICollection<InventoryItem>
                 Add(newInventoryItem);
 
                 Log.Debug(
-                    $"[InventoryItemCollection::Move] Split item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={itemAtSource.Amount}) to (slot={destinationSlot}, amount={amount}");
+                    $"[InventoryItemCollection::Move] Split item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={itemAtSource.Amount}) to (slot={destinationSlot}, amount={amount}"
+                );
                 return;
             }
 
             Log.Debug(
-                $"[InventoryItemCollection::Move]  Move item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={amount}) to (slot= {destinationSlot})");
+                $"[InventoryItemCollection::Move]  Move item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={amount}) to (slot= {destinationSlot})"
+            );
 
             itemAtSource.Slot = destinationSlot;
         }
@@ -426,7 +430,8 @@ public class InventoryItemCollection : ICollection<InventoryItem>
                     itemAtSource.Slot = destinationSlot;
 
                     Log.Debug(
-                        $"[InventoryItemCollection::Move]  Switch item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}) with (slot={itemAtDestination.Slot}) because the max stack was reached.");
+                        $"[InventoryItemCollection::Move]  Switch item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}) with (slot={itemAtDestination.Slot}) because the max stack was reached."
+                    );
                 }
                 else
                 {
@@ -437,7 +442,8 @@ public class InventoryItemCollection : ICollection<InventoryItem>
                         RemoveAt(sourceSlot);
 
                     Log.Debug(
-                        $"[InventoryItemCollection::Move]  Merge item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={itemAtSource.Amount}) with (slot={itemAtDestination.Slot}, amount={itemAtDestination.Amount})");
+                        $"[InventoryItemCollection::Move]  Merge item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}, amount={itemAtSource.Amount}) with (slot={itemAtDestination.Slot}, amount={itemAtDestination.Amount})"
+                    );
                 }
             }
             else
@@ -445,7 +451,8 @@ public class InventoryItemCollection : ICollection<InventoryItem>
                 itemAtDestination.Slot = sourceSlot;
                 itemAtSource.Slot = destinationSlot;
                 Log.Debug(
-                    $"[InventoryItemCollection::Move]  Switch item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}) with (slot={itemAtDestination.Slot}) because the items are not identically.");
+                    $"[InventoryItemCollection::Move]  Switch item {itemAtSource.Record.GetRealName()} (slot={itemAtSource.Slot}) with (slot={itemAtDestination.Slot}) because the items are not identically."
+                );
             }
         }
     }
@@ -465,7 +472,8 @@ public class InventoryItemCollection : ICollection<InventoryItem>
         inventory.Add(sourceItem);
 
         Log.Debug(
-            $"[InventoryItemCollection::MoveTo] Move item {sourceItem.Record.GetRealName()} (slot={sourceSlot}) to storage (slot={destinationSlot}");
+            $"[InventoryItemCollection::MoveTo] Move item {sourceItem.Record.GetRealName()} (slot={sourceSlot}) to storage (slot={destinationSlot}"
+        );
     }
 
     /// <summary>
@@ -483,9 +491,7 @@ public class InventoryItemCollection : ICollection<InventoryItem>
         {
             var item = InventoryItem.FromPacket(packet);
 
-            if (item == null)
-            {
-            }
+            if (item == null) { }
 
             _collection.Add(item);
         }

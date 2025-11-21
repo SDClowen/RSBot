@@ -1,18 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
     <Nullable>disable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>disable</ImplicitUsings>
-	<OutputPath>.\..\..\Build\Data\Bots</OutputPath>
-	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-	<Description>A open source bot for Silkroad Online</Description>
-	<Copyright>Copyright ©  2018 - 2025, RSBot Team</Copyright>
-	<PackageProjectUrl>https://github.com/SDClowen/RSBot</PackageProjectUrl>
-	<RepositoryUrl>https://github.com/SDClowen/RSBot</RepositoryUrl>
-	<OutputType>Library</OutputType>
-	<PlatformTarget>x86</PlatformTarget>
+    <OutputPath>.\..\..\Build\Data\Bots</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <Description>A open source bot for Silkroad Online</Description>
+    <Copyright>Copyright ©  2018 - 2025, RSBot Team</Copyright>
+    <PackageProjectUrl>https://github.com/SDClowen/RSBot</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/SDClowen/RSBot</RepositoryUrl>
+    <OutputType>Library</OutputType>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,5 +20,4 @@
     </ProjectReference>
     <ProjectReference Include="..\..\SDUI\SDUI\SDUI.csproj" />
   </ItemGroup>
-
 </Project>

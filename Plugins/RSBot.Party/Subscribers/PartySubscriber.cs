@@ -24,17 +24,24 @@ internal class PartySubscriber
     private static bool CheckRequest()
     {
         //Check for the pending request
-        if (!Game.Party.HasPendingRequest) return false;
+        if (!Game.Party.HasPendingRequest)
+            return false;
 
         Log.NotifyLang("PartyPlayerInvite", Game.AcceptanceRequest.Player.Name);
 
         //Check if we are near the training place
-        if (Container.AutoParty.Config.OnlyAtTrainingPlace &&
-            Game.Player.Movement.Source.DistanceTo(Container.AutoParty.Config.CenterPosition) > 50) return false;
+        if (
+            Container.AutoParty.Config.OnlyAtTrainingPlace
+            && Game.Player.Movement.Source.DistanceTo(Container.AutoParty.Config.CenterPosition) > 50
+        )
+            return false;
 
         //Check if the inviting player matches out party list
-        if (Container.AutoParty.Config.AcceptFromList &&
-            Container.AutoParty.Config.PlayerList.Contains(Game.AcceptanceRequest.Player.Name)) return true;
+        if (
+            Container.AutoParty.Config.AcceptFromList
+            && Container.AutoParty.Config.PlayerList.Contains(Game.AcceptanceRequest.Player.Name)
+        )
+            return true;
 
         return Container.AutoParty.Config.AcceptAll;
     }
@@ -44,7 +51,8 @@ internal class PartySubscriber
     /// </summary>
     private static void OnPartyRequest()
     {
-        if (!Kernel.Bot.Running && !Container.AutoParty.Config.AcceptIfBotIsStopped) return;
+        if (!Kernel.Bot.Running && !Container.AutoParty.Config.AcceptIfBotIsStopped)
+            return;
 
         if (CheckRequest())
             Game.AcceptanceRequest.Accept();

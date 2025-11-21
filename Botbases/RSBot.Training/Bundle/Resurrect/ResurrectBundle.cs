@@ -14,9 +14,7 @@ internal class ResurrectBundle : IBundle
 
     public void Invoke()
     {
-        if (Game.Party == null ||
-            Game.Party.Members == null ||
-            Game.Player.HasActiveVehicle)
+        if (Game.Party == null || Game.Party.Members == null || Game.Player.HasActiveVehicle)
             return;
 
         if (!PlayerConfig.Get<bool>("RSBot.Skills.checkResurrectParty"))
@@ -24,18 +22,25 @@ internal class ResurrectBundle : IBundle
 
         foreach (var member in Game.Party.Members)
         {
-            if (_lastResurrectedPlayers.ContainsKey(member.Name) &&
-                Kernel.TickCount - _lastResurrectedPlayers[member.Name] < 180 * 1000)
+            if (
+                _lastResurrectedPlayers.ContainsKey(member.Name)
+                && Kernel.TickCount - _lastResurrectedPlayers[member.Name] < 180 * 1000
+            )
                 continue;
 
-            if ((member.Player?.Movement.Source.DistanceTo(Game.Player.Movement.Source) ??
-                member.Position.DistanceTo(Game.Player.Movement.Source)) > 100 ||
-                (member.Player?.Movement.Source.HasCollisionBetween(Game.Player.Movement.Source) ??
-                member.Position.HasCollisionBetween(Game.Player.Movement.Source)))
+            if (
+                (
+                    member.Player?.Movement.Source.DistanceTo(Game.Player.Movement.Source)
+                    ?? member.Position.DistanceTo(Game.Player.Movement.Source)
+                ) > 100
+                || (
+                    member.Player?.Movement.Source.HasCollisionBetween(Game.Player.Movement.Source)
+                    ?? member.Position.HasCollisionBetween(Game.Player.Movement.Source)
+                )
+            )
                 continue;
 
-            if (member.Player?.State.LifeState != LifeState.Dead &&
-                (member.HealthMana & 0x0F) != 0)
+            if (member.Player?.State.LifeState != LifeState.Dead && (member.HealthMana & 0x0F) != 0)
                 continue;
 
             if (!_lastResurrectedPlayers.ContainsKey(member.Name))

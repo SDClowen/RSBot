@@ -35,7 +35,7 @@ internal class CharacterDataEndResponse : IPacketHandler
         packet.Lock();
 
         if (Game.ClientType >= GameClientType.Thailand)
-            packet.ReadUInt(); // serverTimestamp 
+            packet.ReadUInt(); // serverTimestamp
 
         var modelId = packet.ReadUInt();
 
@@ -76,10 +76,12 @@ internal class CharacterDataEndResponse : IPacketHandler
             packet.ReadUInt(); //You can use VIP service until this time
             packet.ReadByte();
 
-            if (Game.ClientType == GameClientType.Turkey ||
-                Game.ClientType == GameClientType.VTC_Game ||
-                Game.ClientType == GameClientType.RuSro ||
-                Game.ClientType == GameClientType.Taiwan)
+            if (
+                Game.ClientType == GameClientType.Turkey
+                || Game.ClientType == GameClientType.VTC_Game
+                || Game.ClientType == GameClientType.RuSro
+                || Game.ClientType == GameClientType.Taiwan
+            )
                 packet.ReadUInt();
 
             if (Game.ClientType == GameClientType.Rigid)
@@ -94,9 +96,11 @@ internal class CharacterDataEndResponse : IPacketHandler
             var serverCap = packet.ReadByte();
             Log.Notify($"The game server cap is {serverCap}!");
 
-            if (Game.ClientType != GameClientType.Korean
+            if (
+                Game.ClientType != GameClientType.Korean
                 && Game.ClientType != GameClientType.Chinese
-                && Game.ClientType != GameClientType.Japanese)
+                && Game.ClientType != GameClientType.Japanese
+            )
                 packet.ReadUShort();
         }
 
@@ -153,13 +157,15 @@ internal class CharacterDataEndResponse : IPacketHandler
 
         packet.ReadByte(); //PVP dress for the CTF event //0 = Red Side, 1 = Blue Side, 0xFF = None
 
-        if (Game.ClientType > GameClientType.Chinese &&
-            Game.ClientType != GameClientType.Global &&
-            Game.ClientType != GameClientType.Rigid &&
-            Game.ClientType != GameClientType.RuSro &&
-            Game.ClientType != GameClientType.Korean &&
-            Game.ClientType != GameClientType.VTC_Game &&
-            Game.ClientType != GameClientType.Japanese)
+        if (
+            Game.ClientType > GameClientType.Chinese
+            && Game.ClientType != GameClientType.Global
+            && Game.ClientType != GameClientType.Rigid
+            && Game.ClientType != GameClientType.RuSro
+            && Game.ClientType != GameClientType.Korean
+            && Game.ClientType != GameClientType.VTC_Game
+            && Game.ClientType != GameClientType.Japanese
+        )
         {
             packet.ReadByte(); // 0xFF
             packet.ReadUShort(); // 0xFF
@@ -172,13 +178,15 @@ internal class CharacterDataEndResponse : IPacketHandler
         else
             packet.ReadUInt();
 
-        if (Game.ClientType == GameClientType.Chinese_Old ||
-            Game.ClientType == GameClientType.Chinese ||
-            Game.ClientType == GameClientType.Global ||
-            Game.ClientType == GameClientType.RuSro ||
-            Game.ClientType == GameClientType.Korean ||
-            Game.ClientType == GameClientType.VTC_Game ||
-            Game.ClientType == GameClientType.Japanese)
+        if (
+            Game.ClientType == GameClientType.Chinese_Old
+            || Game.ClientType == GameClientType.Chinese
+            || Game.ClientType == GameClientType.Global
+            || Game.ClientType == GameClientType.RuSro
+            || Game.ClientType == GameClientType.Korean
+            || Game.ClientType == GameClientType.VTC_Game
+            || Game.ClientType == GameClientType.Japanese
+        )
             packet.ReadByte();
 
         if (Game.ClientType == GameClientType.Chinese)

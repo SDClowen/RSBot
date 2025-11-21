@@ -3,7 +3,6 @@
 namespace RSBot.Core.Network.Handler.Agent.Alchemy;
 
 internal class MagicOptionGrantResponse : IPacketHandler
-
 {
     public ushort Opcode => 0x34A9;
 

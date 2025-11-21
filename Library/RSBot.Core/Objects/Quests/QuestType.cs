@@ -12,5 +12,5 @@ public enum QuestType : byte
     Objective = 0x10,
     UnkBit5 = 0x20,
     RefObjects = 0x40,
-    UnkBit7 = 0x80 //MARK
+    UnkBit7 = 0x80, //MARK
 }

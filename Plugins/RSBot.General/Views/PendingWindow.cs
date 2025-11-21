@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using RSBot.Core;
 using RSBot.Core.Components;
@@ -106,26 +106,29 @@ public partial class PendingWindow : UIWindowBase
         _clientlessQueueTaskTokenSource = new CancellationTokenSource();
         var token = _clientlessQueueTaskTokenSource.Token;
 
-        Task.Run(async () =>
-        {
-            try
+        Task.Run(
+            async () =>
             {
-                while (!token.IsCancellationRequested)
+                try
                 {
-                    ClientlessManager.RequestServerList();
+                    while (!token.IsCancellationRequested)
+                    {
+                        ClientlessManager.RequestServerList();
 
-                    await Task.Delay(5000, token);
+                        await Task.Delay(5000, token);
+                    }
                 }
-            }
-            catch (TaskCanceledException)
-            {
-                // Task stopped
-            }
-            catch (Exception ex)
-            {
-                Log.Error($"ClientlessQueueTask error: {ex}");
-            }
-        }, token);
+                catch (TaskCanceledException)
+                {
+                    // Task stopped
+                }
+                catch (Exception ex)
+                {
+                    Log.Error($"ClientlessQueueTask error: {ex}");
+                }
+            },
+            token
+        );
     }
 
     internal void StopClientlessQueueTask()

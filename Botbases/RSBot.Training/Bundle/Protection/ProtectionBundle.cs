@@ -15,7 +15,6 @@ internal class ProtectionBundle : IBundle
         if (ManaRecovery.Active && ManaRecovery.Value > ManaRecovery.Current && !IsActive(ManaRecovery.SkillId))
             SkillManager.CastBuff(Game.Player.Skills.GetSkillInfoById(ManaRecovery.SkillId));
 
-
         if (BadStateRecovery.Active)
         {
             if (BadStateRecovery.IsUniversall && !IsActive(BadStateRecovery.SkillIdForUniversall))

@@ -1,9 +1,8 @@
-﻿using RSBot.NavMeshApi.Extensions;
+﻿using System.Diagnostics;
+using System.Numerics;
+using RSBot.NavMeshApi.Extensions;
 using RSBot.NavMeshApi.Helper;
 using RSBot.NavMeshApi.Mathematics;
-
-using System.Diagnostics;
-using System.Numerics;
 
 namespace RSBot.NavMeshApi.Object;
 
@@ -25,10 +24,7 @@ public class NavMeshObjGrid
 
     public NavMeshObjGridTile this[int index]
     {
-        get
-        {
-            return _tiles[index];
-        }
+        get { return _tiles[index]; }
     }
 
     public NavMeshObjGridTile this[int x, int y]
@@ -57,7 +53,12 @@ public class NavMeshObjGrid
         this.Origin = reader.ReadVector2();
         this.Width = reader.ReadInt32();
         this.Height = reader.ReadInt32();
-        this.Rectangle = new RectangleF(this.Origin.X, this.Origin.Y, this.Width * NavMeshObjGridTile.Width, this.Height * NavMeshObjGridTile.Height);
+        this.Rectangle = new RectangleF(
+            this.Origin.X,
+            this.Origin.Y,
+            this.Width * NavMeshObjGridTile.Width,
+            this.Height * NavMeshObjGridTile.Height
+        );
 
         var tileCount = reader.ReadInt32();
         _tiles = new NavMeshObjGridTile[tileCount];
@@ -72,7 +73,9 @@ public class NavMeshObjGrid
                 var index = reader.ReadInt16();
                 if (index >= _obj.GlobalEdges.Count || index < 0)
                 {
-                    Debug.WriteLine($"Odd GlobalEdgeIndex '{index}' (max is {_obj.GlobalEdges.Count - 1}) in NavMeshObjGridTile {tile}");
+                    Debug.WriteLine(
+                        $"Odd GlobalEdgeIndex '{index}' (max is {_obj.GlobalEdges.Count - 1}) in NavMeshObjGridTile {tile}"
+                    );
                     continue;
                 }
                 tile.AddGlobalEdge(_obj.GlobalEdges[index]);
@@ -86,12 +89,16 @@ public class NavMeshObjGrid
     {
         var v0 = (line.Min.ToVector2() - this.Origin) / NavMeshObjGridTile.Size;
         var v1 = (line.Max.ToVector2() - this.Origin) / NavMeshObjGridTile.Size;
-        this.Raytrace(v0, v1, (tileX, tileY) =>
-         {
-             var tile = this[tileX, tileY];
-             if (tile != null)
-                 callback(tile);
-         });
+        this.Raytrace(
+            v0,
+            v1,
+            (tileX, tileY) =>
+            {
+                var tile = this[tileX, tileY];
+                if (tile != null)
+                    callback(tile);
+            }
+        );
     }
 
     private void Raytrace(Vector2 v0, Vector2 v1, Action<int, int> callback)

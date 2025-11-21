@@ -1,9 +1,9 @@
-﻿using RSBot.Core;
+﻿using System.Threading;
+using RSBot.Core;
 using RSBot.Core.Event;
 using RSBot.Core.Extensions;
 using RSBot.Core.Network;
 using RSBot.Core.Objects.Party;
-using System.Threading;
 
 namespace RSBot.Party.Bundle.PartyMatching.Network;
 
@@ -28,7 +28,8 @@ internal class PartyMatchingFormResponse : IPacketHandler
     /// <param name="packet">The packet.</param>
     public void Invoke(Packet packet)
     {
-        if (packet.ReadByte() != 0x01) return;
+        if (packet.ReadByte() != 0x01)
+            return;
 
         if (Container.PartyMatching != null)
             Container.PartyMatching.HasMatchingEntry = true;

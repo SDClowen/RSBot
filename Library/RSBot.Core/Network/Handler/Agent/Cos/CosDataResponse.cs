@@ -47,7 +47,7 @@ internal class CosDataResponse : IPacketHandler
                         Id = objectId,
                         UniqueId = uniqueId,
                         Health = hp,
-                        MaxHealth = maxHp
+                        MaxHealth = maxHp,
                     };
 
                     Game.Player.StopMoving();
@@ -66,7 +66,7 @@ internal class CosDataResponse : IPacketHandler
                         Health = hp,
                         MaxHealth = maxHp,
                         Inventory = new InventoryItemCollection(packet),
-                        OwnerUniqueId = packet.ReadUInt()
+                        OwnerUniqueId = packet.ReadUInt(),
                     };
 
                     EventManager.FireEvent("OnSummonJobTransport");
@@ -83,7 +83,7 @@ internal class CosDataResponse : IPacketHandler
                         Id = objectId,
                         UniqueId = uniqueId,
                         Health = hp,
-                        MaxHealth = maxHp
+                        MaxHealth = maxHp,
                     };
                     Game.Player.Growth.Deserialize(packet);
 
@@ -98,7 +98,7 @@ internal class CosDataResponse : IPacketHandler
                         Id = objectId,
                         UniqueId = uniqueId,
                         Health = hp,
-                        MaxHealth = maxHp
+                        MaxHealth = maxHp,
                     };
 
                     Game.Player.AbilityPet.Deserialize(packet);
@@ -113,7 +113,7 @@ internal class CosDataResponse : IPacketHandler
                         Id = objectId,
                         UniqueId = uniqueId,
                         Health = hp,
-                        MaxHealth = maxHp
+                        MaxHealth = maxHp,
                     };
 
                     Game.Player.Fellow.Deserialize(packet);

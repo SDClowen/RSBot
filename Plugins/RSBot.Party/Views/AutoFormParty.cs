@@ -18,13 +18,15 @@ public partial class AutoFormParty : UIWindowBase
     {
         cb_AutoReform.Checked = Bundle.Container.PartyMatching.Config.AutoReform;
         cb_AutoAccept.Checked = Bundle.Container.PartyMatching.Config.AutoAccept;
-        gbObjective.Controls.OfType<Radio>()
-            .FirstOrDefault(p => p.Name == "rbtn_" + Bundle.Container.PartyMatching.Config.Purpose).Checked = true;
+        gbObjective
+            .Controls.OfType<Radio>()
+            .FirstOrDefault(p => p.Name == "rbtn_" + Bundle.Container.PartyMatching.Config.Purpose)
+            .Checked = true;
 
         if (Game.Player.Inventory.GetItemAt(8) != null)
         {
-            rbtn_Trade.Enabled = Game.Player.JobInformation.Type == JobType.Trade ||
-                                 Game.Player.JobInformation.Type == JobType.Hunter;
+            rbtn_Trade.Enabled =
+                Game.Player.JobInformation.Type == JobType.Trade || Game.Player.JobInformation.Type == JobType.Hunter;
             rbtn_Trade.Checked = rbtn_Trade.Enabled;
 
             rbtn_Thief.Enabled = Game.Player.JobInformation.Type == JobType.Thief;
@@ -38,7 +40,8 @@ public partial class AutoFormParty : UIWindowBase
             rbtn_Hunting.Checked = true;
         }
 
-        var settingStr = Game.Party.Settings.ToString()
+        var settingStr = Game
+            .Party.Settings.ToString()
             .Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
         label_partytype.Text = settingStr[0];
         label_partytype2.Text = settingStr[1];
@@ -46,8 +49,7 @@ public partial class AutoFormParty : UIWindowBase
         min_level.Value = Bundle.Container.PartyMatching.Config.LevelFrom;
         max_level.Value = Bundle.Container.PartyMatching.Config.LevelTo;
 
-        if (!Game.Party.Settings.ExperienceAutoShare &&
-            !Game.Party.Settings.ItemAutoShare)
+        if (!Game.Party.Settings.ExperienceAutoShare && !Game.Party.Settings.ItemAutoShare)
             tb_Title.Text = "Auto LTP - RSBot";
         else
             tb_Title.Text = Bundle.Container.PartyMatching.Config.Title;
@@ -80,8 +82,7 @@ public partial class AutoFormParty : UIWindowBase
 
         Bundle.Container.PartyMatching.Config.Purpose = partyPurpose;
 
-        if (!Game.Party.Settings.ExperienceAutoShare &&
-            !Game.Party.Settings.ItemAutoShare)
+        if (!Game.Party.Settings.ExperienceAutoShare && !Game.Party.Settings.ItemAutoShare)
         {
             tb_Title.Text = "Auto LTP - RSBot";
         }

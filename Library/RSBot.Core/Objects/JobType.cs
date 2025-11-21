@@ -5,5 +5,5 @@ public enum JobType
     None = 0,
     Trade = 1,
     Thief = 2,
-    Hunter = 3
+    Hunter = 3,
 }

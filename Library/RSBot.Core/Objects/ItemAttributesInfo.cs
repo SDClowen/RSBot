@@ -26,7 +26,7 @@ public enum ItemAttributeGroup
     PhysicalDefense,
     MagicalDefense,
     PhysicalAbsorbRatio,
-    MagicalAbsorbRatio
+    MagicalAbsorbRatio,
 }
 
 public struct ItemAttributesInfo : IEquatable<ItemAttributesInfo>
@@ -188,33 +188,39 @@ public struct ItemAttributesInfo : IEquatable<ItemAttributesInfo>
         if (item.IsArmor)
             return new[]
             {
-                ItemAttributeGroup.Durability, ItemAttributeGroup.PhysicalSpecialize,
+                ItemAttributeGroup.Durability,
+                ItemAttributeGroup.PhysicalSpecialize,
                 ItemAttributeGroup.MagicalSpecialize,
-                ItemAttributeGroup.PhysicalDefense, ItemAttributeGroup.MagicalDefense, ItemAttributeGroup.EvasionRatio
+                ItemAttributeGroup.PhysicalDefense,
+                ItemAttributeGroup.MagicalDefense,
+                ItemAttributeGroup.EvasionRatio,
             };
 
         if (item.IsWeapon)
             return new[]
             {
-                ItemAttributeGroup.Durability, ItemAttributeGroup.PhysicalSpecialize,
+                ItemAttributeGroup.Durability,
+                ItemAttributeGroup.PhysicalSpecialize,
                 ItemAttributeGroup.MagicalSpecialize,
-                ItemAttributeGroup.HitRatio, ItemAttributeGroup.PhysicalDamage, ItemAttributeGroup.MagicalDamage,
-                ItemAttributeGroup.Critical
+                ItemAttributeGroup.HitRatio,
+                ItemAttributeGroup.PhysicalDamage,
+                ItemAttributeGroup.MagicalDamage,
+                ItemAttributeGroup.Critical,
             };
 
         if (item.IsShield)
             return new[]
             {
-                ItemAttributeGroup.Durability, ItemAttributeGroup.PhysicalSpecialize,
+                ItemAttributeGroup.Durability,
+                ItemAttributeGroup.PhysicalSpecialize,
                 ItemAttributeGroup.MagicalSpecialize,
-                ItemAttributeGroup.BlockRatio, ItemAttributeGroup.PhysicalDefense, ItemAttributeGroup.MagicalDefense
+                ItemAttributeGroup.BlockRatio,
+                ItemAttributeGroup.PhysicalDefense,
+                ItemAttributeGroup.MagicalDefense,
             };
 
         if (item.IsAccessory)
-            return new[]
-            {
-                ItemAttributeGroup.PhysicalAbsorbRatio, ItemAttributeGroup.MagicalAbsorbRatio
-            };
+            return new[] { ItemAttributeGroup.PhysicalAbsorbRatio, ItemAttributeGroup.MagicalAbsorbRatio };
 
         return null;
     }
@@ -346,7 +352,6 @@ public struct ItemAttributesInfo : IEquatable<ItemAttributesInfo>
     }
 
     public static byte GetAttributeSlotForItem(ItemAttributeGroup group, RefObjItem item)
-
     {
         //Weapon attributes
         if (item.IsWeapon && group == ItemAttributeGroup.Durability)
@@ -416,7 +421,8 @@ public struct ItemAttributesInfo : IEquatable<ItemAttributesInfo>
             return ArmorEvasionRatio;
 
         throw new ArgumentException(
-            $"Could not identify slot for the attribute {group.GetTranslation()} [ItemId = {item.ID}]");
+            $"Could not identify slot for the attribute {group.GetTranslation()} [ItemId = {item.ID}]"
+        );
     }
 
     #endregion Methods

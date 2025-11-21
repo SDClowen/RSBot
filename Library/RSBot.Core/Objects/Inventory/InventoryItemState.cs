@@ -5,5 +5,5 @@ public enum InventoryItemState
     Inactive = 1,
     Summoned = 2,
     Active = 3,
-    Dead = 4
+    Dead = 4,
 }

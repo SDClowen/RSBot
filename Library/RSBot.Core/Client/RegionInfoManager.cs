@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using RSBot.Core.Objects;
 using RSBot.Core.Client.ReferenceObjects.RegionInfo;
+using RSBot.Core.Objects;
 
 namespace RSBot.Core.Client;
 

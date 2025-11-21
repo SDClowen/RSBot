@@ -1,8 +1,7 @@
-﻿using RSBot.NavMeshApi.Cells;
+﻿using System.Numerics;
+using RSBot.NavMeshApi.Cells;
 using RSBot.NavMeshApi.Edges;
 using RSBot.NavMeshApi.Mathematics;
-
-using System.Numerics;
 
 namespace RSBot.NavMeshApi;
 

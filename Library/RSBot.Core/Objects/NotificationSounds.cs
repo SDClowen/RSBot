@@ -9,7 +9,6 @@ namespace RSBot.Core.Objects
     /// </summary>
     public class NotificationSounds
     {
-
         #region Unique in range
 
         /// <summary>
@@ -282,7 +281,6 @@ namespace RSBot.Core.Objects
             // General
             if (PlayUniqueAlarmGeneral)
             {
-
                 if (RegexUniqueAlarmGeneral.IsMatch(name))
                 {
                     _playerUniqueAlarmGeneral?.Play();
@@ -311,7 +309,6 @@ namespace RSBot.Core.Objects
             {
                 PlayerConfig.Set(key, stingValue);
                 UpdateSoundPlayerString(key, stingValue);
-
             }
             else if (value is bool boolValue)
             {
@@ -527,7 +524,6 @@ namespace RSBot.Core.Objects
                     RegexUniqueAlarmGeneral = new Regex("^.*$");
                 }
             }
-
         }
 
         /// <summary>
@@ -654,7 +650,6 @@ namespace RSBot.Core.Objects
                 {
                     RegexUniqueAlarmGeneral = new Regex("^.*$");
                 }
-
             }
             catch
             {

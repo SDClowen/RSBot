@@ -117,7 +117,8 @@ public class PartyMember
     /// </summary>
     public void Banish()
     {
-        if (!Game.Party.IsLeader) return;
+        if (!Game.Party.IsLeader)
+            return;
 
         var packet = new Packet(0x7063);
         packet.WriteUInt(MemberId);

@@ -15,7 +15,6 @@ public class LocalFileSystem : IFileSystem
         Root = new LocalFolder("", this);
     }
 
-
     public bool ReadOnly { get; }
 
     /// <summary>
@@ -82,8 +81,9 @@ public class LocalFileSystem : IFileSystem
 
         var folderNames = Directory.GetDirectories(absolutePath);
         var result = new List<IFolder>(folderNames.Length);
-        result.AddRange(folderNames.Select(GetRelativePath)
-            .Select(relativePath => new LocalFolder(relativePath, this)));
+        result.AddRange(
+            folderNames.Select(GetRelativePath).Select(relativePath => new LocalFolder(relativePath, this))
+        );
 
         return result.ToArray();
     }
@@ -198,8 +198,5 @@ public class LocalFileSystem : IFileSystem
             throw new FileNotFoundException($"The file {path} does not exist.");
     }
 
-    public void Dispose()
-    {
-
-    }
+    public void Dispose() { }
 }
