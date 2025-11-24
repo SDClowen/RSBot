@@ -493,6 +493,6 @@ public class InventoryItem
 
     public override int GetHashCode()
     {
-        throw new System.NotImplementedException();
+        return Record.GetHashCode();
     }
 }
