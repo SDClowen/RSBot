@@ -54,6 +54,11 @@ public static class Kernel
     public static string Language { get; set; }
 
     /// <summary>
+    ///     Start mode set by command line arguments (startcl or startcls)
+    /// </summary>
+    public static string StartMode { get; set; }
+    
+    /// <summary>
     ///     Get environment fixed tick count
     /// </summary>
     public static int TickCount => Environment.TickCount & int.MaxValue;
