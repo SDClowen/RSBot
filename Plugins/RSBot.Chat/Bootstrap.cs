@@ -23,9 +23,7 @@ public class Bootstrap : IPlugin
     public bool RequireIngame => true;
 
     /// <inheritdoc />
-    public void Initialize()
-    {
-    }
+    public void Initialize() { }
 
     /// <inheritdoc />
     public Control View => Views.View.Instance;

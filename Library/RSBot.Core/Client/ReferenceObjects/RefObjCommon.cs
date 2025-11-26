@@ -121,9 +121,7 @@ public abstract class RefObjCommon : IReference<uint>
 
             bitmap = file.ToImage();
         }
-        catch
-        {
-        }
+        catch { }
         finally
         {
             if (bitmap == null)
@@ -166,7 +164,6 @@ public abstract class RefObjCommon : IReference<uint>
         }
     }
 
-
     //public int DecayTime; //time in milliseconds until object despawns
     public ObjectCountry Country; //Indicates where object is from
 
@@ -182,6 +179,7 @@ public abstract class RefObjCommon : IReference<uint>
     //public byte CanRepair; //bool
     //public byte CanRevive; //bool
     public ObjectUseType CanUse; //link to ObjectUseType
+
     //public byte CanThrow; //bool -> only ITEM_FORT_SHOCK_BOMB
 
     //public int Price;

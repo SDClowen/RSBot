@@ -182,7 +182,6 @@ public static class SpawnManager
         }
     }
 
-
     /// <summary>
     ///     Clears this instance.
     /// </summary>

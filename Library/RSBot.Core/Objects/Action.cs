@@ -99,20 +99,22 @@ public class Action
             Code = actionCode,
             SkillId = packet.ReadUInt(),
             ExecutorId = packet.ReadUInt(),
-            Id = packet.ReadUInt()
+            Id = packet.ReadUInt(),
         };
 
         if (Game.ClientType > GameClientType.Chinese && Game.ClientType != GameClientType.Japanese)
             action.UnknownId = packet.ReadUInt();
 
         action.TargetId = packet.ReadUInt();
-        if (Game.ClientType == GameClientType.Turkey ||
-            Game.ClientType == GameClientType.Global ||
-            Game.ClientType == GameClientType.VTC_Game ||
-            Game.ClientType == GameClientType.RuSro ||
-            Game.ClientType == GameClientType.Korean ||
-            Game.ClientType == GameClientType.Japanese ||
-            Game.ClientType == GameClientType.Taiwan)
+        if (
+            Game.ClientType == GameClientType.Turkey
+            || Game.ClientType == GameClientType.Global
+            || Game.ClientType == GameClientType.VTC_Game
+            || Game.ClientType == GameClientType.RuSro
+            || Game.ClientType == GameClientType.Korean
+            || Game.ClientType == GameClientType.Japanese
+            || Game.ClientType == GameClientType.Taiwan
+        )
         {
             packet.ReadByte();
             action.Flag = (ActionStateFlag)packet.ReadByte();
@@ -187,13 +189,10 @@ public class Action
                     {
                         var critStatus = packet.ReadByte(); // 0x01: normal 0x02 critical
 
-                        var damage = BitConverter.ToInt32(new byte[]
-                        {
-                            packet.ReadByte(),
-                            packet.ReadByte(),
-                            packet.ReadByte(),
+                        var damage = BitConverter.ToInt32(
+                            new byte[] { packet.ReadByte(), packet.ReadByte(), packet.ReadByte(), 0 },
                             0
-                        }, 0);
+                        );
 
                         //if(entity.Health < damage)
                         //damage = entity.Health;
@@ -240,7 +239,8 @@ public class Action
     /// <summary>
     ///     Gets the executor.
     /// </summary>
-    public bool TryGetExecutor<T>(out T entity) where T : SpawnedBionic
+    public bool TryGetExecutor<T>(out T entity)
+        where T : SpawnedBionic
     {
         return SpawnManager.TryGetEntity(ExecutorId, out entity);
     }
@@ -249,7 +249,8 @@ public class Action
     ///     Gets the target.
     /// </summary>
     /// <returns></returns>
-    public bool TryGetTarget<T>(out T entity) where T : SpawnedBionic
+    public bool TryGetTarget<T>(out T entity)
+        where T : SpawnedBionic
     {
         return SpawnManager.TryGetEntity(TargetId, out entity);
     }

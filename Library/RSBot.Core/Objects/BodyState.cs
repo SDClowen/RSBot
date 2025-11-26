@@ -9,5 +9,5 @@ public enum BodyState
     GameMasterInvisible = 4,
     Berzerk = 5,
     Stealth = 6,
-    Invisible = 7
+    Invisible = 7,
 }

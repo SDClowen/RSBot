@@ -1,17 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
     <Nullable>disable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>disable</ImplicitUsings>
-	  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-	  <Description>Acts as RSBot Library- includes all neccessary logic that the bot and 3rd party applications require.</Description>
-	  <Copyright>Copyright ©  2018 - 2025, RSBot Team</Copyright>
-	  <PackageProjectUrl>https://github.com/SDClowen/RSBot</PackageProjectUrl>
-	  <PackageReadmeFile></PackageReadmeFile>
-	  <RepositoryUrl>https://github.com/SDClowen/RSBot</RepositoryUrl>
-	  <PlatformTarget>x86</PlatformTarget>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <Description>Acts as RSBot Library- includes all neccessary logic that the bot and 3rd party applications require.</Description>
+    <Copyright>Copyright ©  2018 - 2025, RSBot Team</Copyright>
+    <PackageProjectUrl>https://github.com/SDClowen/RSBot</PackageProjectUrl>
+    <PackageReadmeFile></PackageReadmeFile>
+    <RepositoryUrl>https://github.com/SDClowen/RSBot</RepositoryUrl>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,5 +21,4 @@
     <ProjectReference Include="..\RSBot.FileSystem\RSBot.FileSystem.csproj" />
     <ProjectReference Include="..\RSBot.NavMeshApi\RSBot.NavMeshApi.csproj" />
   </ItemGroup>
-
 </Project>

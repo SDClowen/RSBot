@@ -61,21 +61,20 @@ public partial class TrainingAreasDialog : UIWindowBase
 
             var regionName = Game.ReferenceManager.GetTranslation(trainingArea.Position.Region.ToString());
 
-            var listViewItem = listView.Items.Add(new ListViewItem
-            {
-                Tag = trainingArea
-            });
+            var listViewItem = listView.Items.Add(new ListViewItem { Tag = trainingArea });
             listViewItem.Text = (listViewItem.Index + 1).ToString();
 
-            listViewItem.SubItems.AddRange(new[]
-            {
-                trainingArea.Name,
-                regionName,
-                trainingArea.Position.X.ToString("0.0"),
-                trainingArea.Position.Y.ToString("0.0"),
-                trainingArea.Radius.ToString(),
-                listViewItem.Index == selectedIndex ? "Yes" : "No"
-            });
+            listViewItem.SubItems.AddRange(
+                new[]
+                {
+                    trainingArea.Name,
+                    regionName,
+                    trainingArea.Position.X.ToString("0.0"),
+                    trainingArea.Position.Y.ToString("0.0"),
+                    trainingArea.Radius.ToString(),
+                    listViewItem.Index == selectedIndex ? "Yes" : "No",
+                }
+            );
 
             if (listViewItem.Index == selectedIndex)
                 listView.SetItemState(listViewItem.Index, 2, 2);
@@ -102,29 +101,29 @@ public partial class TrainingAreasDialog : UIWindowBase
             {
                 Name = dialog.TrainingName.Text,
                 Position = position,
-                Radius = (int)dialog.Radius.Value
+                Radius = (int)dialog.Radius.Value,
             };
 
             var regionName = Game.ReferenceManager.GetTranslation(trainingArea.Position.Region.ToString());
 
-            var listViewItem = listView.Items.Add(new ListViewItem
-            {
-                Tag = trainingArea
-            });
+            var listViewItem = listView.Items.Add(new ListViewItem { Tag = trainingArea });
             listViewItem.Text = (listViewItem.Index + 1).ToString();
-            listViewItem.SubItems.AddRange(new[]
-            {
-                trainingArea.Name,
-                regionName,
-                trainingArea.Position.X.ToString("0.0"),
-                trainingArea.Position.Y.ToString("0.0"),
-                trainingArea.Radius.ToString(),
-                "No"
-            });
+            listViewItem.SubItems.AddRange(
+                new[]
+                {
+                    trainingArea.Name,
+                    regionName,
+                    trainingArea.Position.X.ToString("0.0"),
+                    trainingArea.Position.Y.ToString("0.0"),
+                    trainingArea.Radius.ToString(),
+                    "No",
+                }
+            );
 
             var areas = PlayerConfig.GetArray<string>("RSBot.Training.Areas").ToList();
             areas.Add(
-                $"{trainingArea.Name}|{trainingArea.Position.Region:0.0}|{trainingArea.Position.XOffset:0.0}|{trainingArea.Position.YOffset:0.0}|{trainingArea.Position.ZOffset:0.0}|{trainingArea.Radius}");
+                $"{trainingArea.Name}|{trainingArea.Position.Region:0.0}|{trainingArea.Position.XOffset:0.0}|{trainingArea.Position.YOffset:0.0}|{trainingArea.Position.ZOffset:0.0}|{trainingArea.Radius}"
+            );
             PlayerConfig.SetArray("RSBot.Training.Areas", areas);
         }
     }

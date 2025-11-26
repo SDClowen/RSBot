@@ -7,10 +7,11 @@ public class ItemPerk
 {
     #region Properties
 
-    [Required] public uint ItemId { get; init; }
+    [Required]
+    public uint ItemId { get; init; }
 
-    [Required] public uint Token { get; init; }
-
+    [Required]
+    public uint Token { get; init; }
 
     public uint Value { get; set; }
 

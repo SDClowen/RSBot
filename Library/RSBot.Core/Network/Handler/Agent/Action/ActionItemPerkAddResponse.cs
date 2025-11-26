@@ -26,17 +26,19 @@ internal class ActionItemPerkAddResponse : IPacketHandler
             target.State.ActiveItemPerks[token].Value = value;
             target.State.ActiveItemPerks[token].RemainingTime = remainingTime;
 
-
             EventManager.FireEvent("OnUpdateItemPerk", targetId, token);
         }
         else
         {
-            target.State.ActiveItemPerks.Add(token, new ItemPerk
-            {
-                ItemId = refObjItemId,
-                RemainingTime = remainingTime,
-                Value = value
-            });
+            target.State.ActiveItemPerks.Add(
+                token,
+                new ItemPerk
+                {
+                    ItemId = refObjItemId,
+                    RemainingTime = remainingTime,
+                    Value = value,
+                }
+            );
 
             EventManager.FireEvent("OnAddItemPerk", targetId, token);
         }

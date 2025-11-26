@@ -30,10 +30,14 @@ internal class AttributeBundle : IAlchemyBundle
 
     public void SubscribeEvents()
     {
-        EventManager.SubscribeEvent("OnAlchemySuccess",
-            new Action<InventoryItem, InventoryItem, AlchemyType>(OnStoneAlchemySuccess));
-        EventManager.SubscribeEvent("OnAlchemyFailed",
-            new Action<InventoryItem, InventoryItem, AlchemyType>(OnStoneAlchemyFailed));
+        EventManager.SubscribeEvent(
+            "OnAlchemySuccess",
+            new Action<InventoryItem, InventoryItem, AlchemyType>(OnStoneAlchemySuccess)
+        );
+        EventManager.SubscribeEvent(
+            "OnAlchemyFailed",
+            new Action<InventoryItem, InventoryItem, AlchemyType>(OnStoneAlchemyFailed)
+        );
         EventManager.SubscribeEvent("OnAlchemyError", new Action<ushort, AlchemyType>(OnStoneAlchemyError));
         EventManager.SubscribeEvent("OnAlchemy", new Action<AlchemyType>(OnStoneAlchemy));
         EventManager.SubscribeEvent("OnFuseRequest", new Action<AlchemyAction, AlchemyType>(OnFuseRequest));
@@ -148,8 +152,10 @@ internal class AttributeBundle : IAlchemyBundle
             var attributeGroup = ItemAttributesInfo.GetAttributeGroupBySlot(newItem.Record, slot);
             var attributeValue = newItem.Attributes.GetPercentage(slot);
 
-            Globals.View.AddLog(newItem.Record.GetRealName(),
-                $"The attribute [{attributeGroup.GetTranslation()}] changed to [+{attributeValue}%]");
+            Globals.View.AddLog(
+                newItem.Record.GetRealName(),
+                $"The attribute [{attributeGroup.GetTranslation()}] changed to [+{attributeValue}%]"
+            );
         }
 
         _shouldRun = true;
@@ -166,8 +172,10 @@ internal class AttributeBundle : IAlchemyBundle
         if (type != AlchemyType.AttributeStone || !Bootstrap.IsActive)
             return;
 
-        Globals.View.AddLog(newItem.Record.GetRealName(),
-            Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL"));
+        Globals.View.AddLog(
+            newItem.Record.GetRealName(),
+            Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL")
+        );
 
         _shouldRun = true;
     }
@@ -184,8 +192,10 @@ internal class AttributeBundle : IAlchemyBundle
 
         _shouldRun = true;
 
-        Globals.View.AddLog(Globals.Botbase.AttributeBundleConfig?.Item?.Record?.GetRealName(),
-            Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL"));
+        Globals.View.AddLog(
+            Globals.Botbase.AttributeBundleConfig?.Item?.Record?.GetRealName(),
+            Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL")
+        );
     }
 
     #endregion Events

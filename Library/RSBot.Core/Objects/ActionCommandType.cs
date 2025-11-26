@@ -3,5 +3,5 @@
 public enum ActionCommandType : byte
 {
     Execute = 1,
-    Cancel = 2
+    Cancel = 2,
 }

@@ -67,12 +67,15 @@ internal class AutoPartyBundle
             AutoJoinByTitle = PlayerConfig.Get("RSBot.Party.AutoJoin.ByTitle", false),
             AutoJoinByNameContent = PlayerConfig.Get("RSBot.Party.AutoJoin.Name", string.Empty),
             AutoJoinByTitleContent = PlayerConfig.Get("RSBot.Party.AutoJoin.Title", string.Empty),
-            AlwaysFollowThePartyMaster = PlayerConfig.Get("RSBot.Party.AlwaysFollowPartyMaster", false)
+            AlwaysFollowThePartyMaster = PlayerConfig.Get("RSBot.Party.AlwaysFollowPartyMaster", false),
         };
 
         if (!Game.Party.IsInParty)
-            Game.Party.Settings =
-                new PartySettings(Config.ExperienceAutoShare, Config.ItemAutoShare, Config.AllowInvitations);
+            Game.Party.Settings = new PartySettings(
+                Config.ExperienceAutoShare,
+                Config.ItemAutoShare,
+                Config.AllowInvitations
+            );
     }
 
     public void OnTick()
@@ -134,7 +137,8 @@ internal class AutoPartyBundle
         if (Config.AutoJoinByTitle)
         {
             var partyEntry = _partyEntriesCache.Find(p =>
-                p.Title.Contains(Config.AutoJoinByTitleContent, StringComparison.CurrentCultureIgnoreCase));
+                p.Title.Contains(Config.AutoJoinByTitleContent, StringComparison.CurrentCultureIgnoreCase)
+            );
             if (partyEntry == null)
                 return;
 
@@ -147,10 +151,12 @@ internal class AutoPartyBundle
     /// </summary>
     public void CheckForPlayers()
     {
-        if (Game.Party.IsInParty &&
-            !Game.Party.IsLeader &&
-            Config.LeaveIfMasterNot &&
-            !string.IsNullOrWhiteSpace(Config.LeaveIfMasterNotName))
+        if (
+            Game.Party.IsInParty
+            && !Game.Party.IsLeader
+            && Config.LeaveIfMasterNot
+            && !string.IsNullOrWhiteSpace(Config.LeaveIfMasterNotName)
+        )
             if (Config.LeaveIfMasterNotName != Game.Party.Leader.Name)
                 Game.Party.Leave();
 
@@ -164,8 +170,7 @@ internal class AutoPartyBundle
         if (Game.Party.Members?.Count > limit)
             return;
 
-        if (Config.OnlyAtTrainingPlace &&
-            Game.Player.Movement.Source.DistanceTo(Config.CenterPosition) > 50)
+        if (Config.OnlyAtTrainingPlace && Game.Player.Movement.Source.DistanceTo(Config.CenterPosition) > 50)
             return;
 
         if (!SpawnManager.TryGetEntities<SpawnedPlayer>(out var players))

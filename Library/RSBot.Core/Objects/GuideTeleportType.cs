@@ -10,5 +10,5 @@ public enum GuideTeleportType : byte
     /// <summary>
     ///     Teleport to place where you died.
     /// </summary>
-    Death = 3
+    Death = 3,
 }

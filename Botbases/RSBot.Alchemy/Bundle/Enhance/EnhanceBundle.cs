@@ -64,13 +64,19 @@ internal class EnhanceBundle : IAlchemyBundle
     /// </summary>
     private void SubscribeEvents()
     {
-        EventManager.SubscribeEvent("OnAlchemyDestroyed",
-            new Action<InventoryItem, AlchemyType>(OnElixirAlchemyDestroyed));
-        EventManager.SubscribeEvent("OnAlchemySuccess",
-            new Action<InventoryItem, InventoryItem, AlchemyType>(OnElixirAlchemySuccess));
+        EventManager.SubscribeEvent(
+            "OnAlchemyDestroyed",
+            new Action<InventoryItem, AlchemyType>(OnElixirAlchemyDestroyed)
+        );
+        EventManager.SubscribeEvent(
+            "OnAlchemySuccess",
+            new Action<InventoryItem, InventoryItem, AlchemyType>(OnElixirAlchemySuccess)
+        );
         EventManager.SubscribeEvent("OnAlchemy", OnElixirAlchemy);
-        EventManager.SubscribeEvent("OnAlchemyFailed",
-            new Action<InventoryItem, InventoryItem, AlchemyType>(OnElixirAlchemyFailed));
+        EventManager.SubscribeEvent(
+            "OnAlchemyFailed",
+            new Action<InventoryItem, InventoryItem, AlchemyType>(OnElixirAlchemyFailed)
+        );
         EventManager.SubscribeEvent("OnFuseRequest", new Action<AlchemyAction, AlchemyType>(OnFuseRequest));
     }
 
@@ -122,8 +128,12 @@ internal class EnhanceBundle : IAlchemyBundle
             Log.Warn("[Alchemy] No lucky powder left, stopping alchemy now!");
 
             Kernel.Bot.Stop();
-            MessageBox.Show("No more lucky powder left in the inventory.", "Lucky powder", MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
+            MessageBox.Show(
+                "No more lucky powder left in the inventory.",
+                "Lucky powder",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+            );
             return;
         }
 
@@ -132,8 +142,10 @@ internal class EnhanceBundle : IAlchemyBundle
         {
             Log.Warn($"[Alchemy] Item is already +{config.Item.OptLevel}");
 
-            Globals.View.AddLog(config.Item.Record.GetRealName(),
-                $"The item's option level is {config.Item.OptLevel}/{config.MaxOptLevel}");
+            Globals.View.AddLog(
+                config.Item.Record.GetRealName(),
+                $"The item's option level is {config.Item.OptLevel}/{config.MaxOptLevel}"
+            );
             Kernel.Bot.Stop();
 
             return;
@@ -144,8 +156,11 @@ internal class EnhanceBundle : IAlchemyBundle
         {
             var steadyStone = AlchemyItemHelper.GetSteadyStone(config.Item);
 
-            if (steadyStone != null && steadyStone.Amount > 0 &&
-                !AlchemyItemHelper.HasMagicOption(config.Item, RefMagicOpt.MaterialSteady))
+            if (
+                steadyStone != null
+                && steadyStone.Amount > 0
+                && !AlchemyItemHelper.HasMagicOption(config.Item, RefMagicOpt.MaterialSteady)
+            )
             {
                 if (!AlchemyManager.TryFuseMagicStone(_config.Item, steadyStone))
                     return;
@@ -162,8 +177,11 @@ internal class EnhanceBundle : IAlchemyBundle
         {
             var luckyStone = AlchemyItemHelper.GetLuckyStone(config.Item);
 
-            if (luckyStone != null && luckyStone.Amount > 0 &&
-                !AlchemyItemHelper.HasMagicOption(config.Item, RefMagicOpt.MaterialLuck))
+            if (
+                luckyStone != null
+                && luckyStone.Amount > 0
+                && !AlchemyItemHelper.HasMagicOption(config.Item, RefMagicOpt.MaterialLuck)
+            )
             {
                 if (!AlchemyManager.TryFuseMagicStone(_config.Item, luckyStone))
                     return;
@@ -180,8 +198,10 @@ internal class EnhanceBundle : IAlchemyBundle
         {
             var immortalStone = AlchemyItemHelper.GetImmortalStone(config.Item);
 
-            if (immortalStone?.Amount > 0 &&
-                !AlchemyItemHelper.HasMagicOption(config.Item, RefMagicOpt.MaterialImmortal))
+            if (
+                immortalStone?.Amount > 0
+                && !AlchemyItemHelper.HasMagicOption(config.Item, RefMagicOpt.MaterialImmortal)
+            )
             {
                 if (!AlchemyManager.TryFuseMagicStone(_config.Item, immortalStone))
                     return;
@@ -198,20 +218,25 @@ internal class EnhanceBundle : IAlchemyBundle
         {
             var astralStone = AlchemyItemHelper.GetAstralStone(config.Item);
 
-            if (astralStone != null && astralStone.Amount > 0 &&
-                !AlchemyItemHelper.HasMagicOption(config.Item, RefMagicOpt.MaterialAstral))
+            if (
+                astralStone != null
+                && astralStone.Amount > 0
+                && !AlchemyItemHelper.HasMagicOption(config.Item, RefMagicOpt.MaterialAstral)
+            )
             {
                 //Is immortal high enough?
-                var magicOption =
-                    Game.ReferenceManager.GetMagicOption(RefMagicOpt.MaterialImmortal,
-                        (byte)config.Item.Record.Degree);
+                var magicOption = Game.ReferenceManager.GetMagicOption(
+                    RefMagicOpt.MaterialImmortal,
+                    (byte)config.Item.Record.Degree
+                );
 
                 //Can not fuse if immortal is not available (or not high enough)
                 var magicOptionInfo = config.Item.MagicOptions?.FirstOrDefault(m => m.Id == magicOption.Id);
                 if (magicOptionInfo == null)
                 {
                     Log.Notify(
-                        $"[Alchemy] Could not fuse {astralStone.Record.GetRealName()} because the immortality option is not high enough");
+                        $"[Alchemy] Could not fuse {astralStone.Record.GetRealName()} because the immortality option is not high enough"
+                    );
 
                     _config.UseAstralStones = false;
                     return;
@@ -281,7 +306,8 @@ internal class EnhanceBundle : IAlchemyBundle
         if (type != AlchemyType.Elixir)
             return;
 
-        var message = Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_SUCCESS")
+        var message = Game
+            .ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_SUCCESS")
             .JoymaxFormat(newItem.OptLevel);
 
         Log.Notify(message);
@@ -318,18 +344,21 @@ internal class EnhanceBundle : IAlchemyBundle
         Log.Warn(message);
         Globals.View.AddLog(newItem.Record.GetRealName(), message);
 
-        if (oldItem == null) return;
+        if (oldItem == null)
+            return;
 
         message = string.Empty;
         if (newItem.Durability < oldItem.Durability)
-            message = Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAILDOWN_DURABILITY")
+            message = Game
+                .ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAILDOWN_DURABILITY")
                 .JoymaxFormat(newItem.Durability);
 
         if (oldItem.OptLevel > 0 && newItem.OptLevel == 0)
             message = Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL_RESULT_OPTLV_ZERO");
 
         if (oldItem.OptLevel > 0 && oldItem.OptLevel < newItem.OptLevel)
-            message = Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL_RESULT_OPTLV_DOWN")
+            message = Game
+                .ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL_RESULT_OPTLV_DOWN")
                 .JoymaxFormat(newItem.OptLevel, _config.Item.OptLevel - newItem.OptLevel);
 
         //Additional message

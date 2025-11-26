@@ -1,11 +1,11 @@
-﻿using RSBot.Core;
+﻿using System.Windows.Forms;
+using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.Core.Plugins;
 using RSBot.Lure.Bundle;
 using RSBot.Lure.Components;
-using System.Windows.Forms;
 
 namespace RSBot.Lure;
 

@@ -82,8 +82,11 @@ public class PacketManager
         if (Handlers == null)
             return;
 
-        foreach (var handler in Handlers.Where(handler =>
-                     handler != null && handler.Opcode == packet.Opcode && handler.Destination == destination))
+        foreach (
+            var handler in Handlers.Where(handler =>
+                handler != null && handler.Opcode == packet.Opcode && handler.Destination == destination
+            )
+        )
         {
             handler.Invoke(packet);
             packet.SeekRead(0, SeekOrigin.Begin);
@@ -99,7 +102,8 @@ public class PacketManager
     internal static Packet CallHook(Packet packet, PacketDestination destination)
     {
         var hooks = Hooks?.Where(hook =>
-            packet != null && hook.Opcode == packet.Opcode && hook.Destination == destination);
+            packet != null && hook.Opcode == packet.Opcode && hook.Destination == destination
+        );
         foreach (var hook in hooks)
             packet = hook.ReplacePacket(packet);
 

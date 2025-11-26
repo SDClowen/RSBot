@@ -7,5 +7,5 @@ public enum ActionStateFlag : byte
 {
     None = 0,
     Attack = 1,
-    Teleport = 8
+    Teleport = 8,
 }

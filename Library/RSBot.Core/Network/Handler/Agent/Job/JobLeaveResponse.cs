@@ -32,10 +32,7 @@ internal class JobLeaveResponse : IPacketHandler
         if (result != 1)
             return;
 
-        Game.Player.JobInformation = new JobInfo
-        {
-            Type = JobType.None
-        };
+        Game.Player.JobInformation = new JobInfo { Type = JobType.None };
 
         Log.Notify("[Job] Left previous job guild.");
 

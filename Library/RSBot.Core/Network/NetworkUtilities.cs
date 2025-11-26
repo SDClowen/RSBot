@@ -23,7 +23,8 @@ internal class NetworkUtilities
 
         for (var port = start; port < end; port += step)
         {
-            if (usedPorts.Contains(port)) continue;
+            if (usedPorts.Contains(port))
+                continue;
             result = port;
             break;
         }

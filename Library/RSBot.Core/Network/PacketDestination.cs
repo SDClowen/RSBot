@@ -3,5 +3,5 @@
 public enum PacketDestination
 {
     Server = 1,
-    Client = 2
+    Client = 2,
 }

@@ -12,11 +12,8 @@ internal class TeleportScriptCommand : IScriptCommand
 
     public bool IsBusy { get; private set; }
 
-    public Dictionary<string, string> Arguments => new()
-    {
-        { "Codename", "The code name of the NPC" },
-        { "Destination", "The id of the destination" }
-    };
+    public Dictionary<string, string> Arguments =>
+        new() { { "Codename", "The code name of the NPC" }, { "Destination", "The id of the destination" } };
 
     #endregion Properties
 

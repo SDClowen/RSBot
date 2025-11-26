@@ -24,10 +24,20 @@ To join the conversation, get recent updates/announcements, join our [Discord se
 
 ## Building the project
 
-1. Clone the repository (`git clone --recursive https://github.com/SDClowen/RSBot.git`)
-2. Open the project in Visual Studio 2022 (Required workloads are `.NET desktop development` and `Desktop development with C++`)
-3. Built the project (<kbd>Ctrl+Shift+B</kbd>)
-4. Run the compiled executable from `Build\RSBot.exe`
+- Clone the repository with the command `git clone --recursive https://github.com/SDClowen/RSBot.git`)
+
+### Visual Studio
+
+- Open the project in [Visual Studio 2026](https://visualstudio.microsoft.com/downloads/) (Required workloads are `.NET desktop development` and `Desktop development with C++`)
+- Build the project (<kbd>Ctrl+Shift+B</kbd>)
+- Run the compiled executable from `Build\RSBot.exe`
+
+### Other
+
+Run the commands below (You still need MSBuild tooling via Visual Studio):
+
+- `dotnet restore`
+- `powershell -ExecutionPolicy Bypass .\build.ps1`
 
 ## Supported clients
 

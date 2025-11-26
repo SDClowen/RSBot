@@ -39,8 +39,11 @@ public partial class Updater : Form
         rtbUpdateInfo.SuspendLayout();
         rtbUpdateInfo.Select(rtbUpdateInfo.TextLength, text.Length);
         rtbUpdateInfo.SelectionColor = color;
-        rtbUpdateInfo.SelectionFont =
-            new Font(Font.FontFamily, emSize == 0 ? rtbUpdateInfo.Font.Size : emSize, fontStyle);
+        rtbUpdateInfo.SelectionFont = new Font(
+            Font.FontFamily,
+            emSize == 0 ? rtbUpdateInfo.Font.Size : emSize,
+            fontStyle
+        );
         rtbUpdateInfo.Write(text);
         rtbUpdateInfo.ResumeLayout();
     }
@@ -56,9 +59,11 @@ public partial class Updater : Form
         try
         {
             downloadProgress.Value = e.ProgressPercentage;
-            lblDownloadInfo.Text = string.Format("{0} MB / {1} MB",
+            lblDownloadInfo.Text = string.Format(
+                "{0} MB / {1} MB",
                 (e.BytesReceived / 1024d / 1024d).ToString("0.00"),
-                (e.TotalBytesToReceive / 1024d / 1024d).ToString("0.00"));
+                (e.TotalBytesToReceive / 1024d / 1024d).ToString("0.00")
+            );
         }
         catch (Exception ex)
         {
@@ -115,9 +120,10 @@ public partial class Updater : Form
         try
         {
             _webClient = new WebClient();
-            var updateInfo =
-                (await _webClient.DownloadStringTaskAsync(_updateUrl + "/latest.txt")).Split(
-                    new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            var updateInfo = (await _webClient.DownloadStringTaskAsync(_updateUrl + "/latest.txt")).Split(
+                new[] { Environment.NewLine },
+                StringSplitOptions.RemoveEmptyEntries
+            );
 
             var version = new Version(updateInfo[0]);
 

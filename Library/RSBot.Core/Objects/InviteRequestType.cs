@@ -9,5 +9,5 @@ public enum InviteRequestType : byte
     UnionInvite = 6,
     Resurrection2 = 8,
     Accademy = 9,
-    GuildWar = 10
+    GuildWar = 10,
 }

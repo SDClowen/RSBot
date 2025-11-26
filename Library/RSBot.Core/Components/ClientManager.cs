@@ -43,7 +43,8 @@ public class ClientManager
         int processInformationClass,
         ref PROCESS_BASIC_INFORMATION processInformation,
         uint processInformationLength,
-        out uint returnLength);
+        out uint returnLength
+    );
 
     static int? GetParentProcessId(Process process)
     {
@@ -72,7 +73,7 @@ public class ClientManager
             GameClientType.Turkey => "6A 00 68 38 6A 3E 01 68 4C 6A 3E 01",
             GameClientType.VTC_Game => "6A 00 68 F8 91 3F 01 68 0C 92 3F 01",
             GameClientType.Taiwan => "6A 00 68 E0 98 3C 01 68 F4 98 3C 01",
-            _ => throw new ArgumentOutOfRangeException(nameof(type))
+            _ => throw new ArgumentOutOfRangeException(nameof(type)),
         };
     }
 
@@ -83,10 +84,7 @@ public class ClientManager
     public static async Task<bool> Start()
     {
         var silkroadDirectory = GlobalConfig.Get<string>("RSBot.SilkroadDirectory");
-        var path = Path.Combine(
-            silkroadDirectory,
-            GlobalConfig.Get<string>("RSBot.SilkroadExecutable")
-        );
+        var path = Path.Combine(silkroadDirectory, GlobalConfig.Get<string>("RSBot.SilkroadExecutable"));
 
         string libraryDllName = "Client.Library.dll";
         string libraryDllFunc = "_DllMain@12";
@@ -108,7 +106,11 @@ public class ClientManager
             AddDllImportToClient(path, libraryDllName, libraryDllFunc);
             try
             {
-                File.Copy(Path.Combine(Kernel.BasePath, libraryDllName), Path.Combine(silkroadDirectory, libraryDllName), true);
+                File.Copy(
+                    Path.Combine(Kernel.BasePath, libraryDllName),
+                    Path.Combine(silkroadDirectory, libraryDllName),
+                    true
+                );
             }
             catch (IOException)
             {
@@ -119,9 +121,11 @@ public class ClientManager
 
             FileVersionInfo info = FileVersionInfo.GetVersionInfo($"{silkroadDirectory}\\Frost\\sro.exe");
             if (info.ProductName == "Toros game launcher")
-                full = $"\"{silkroadDirectory}\\Frost\\sro.exe\" -LOGIN:{login} -PASSWORD:{password} -torosGame \"{path}\" -torosOptions 1 -torosGameNameType silk-ru_live";
+                full =
+                    $"\"{silkroadDirectory}\\Frost\\sro.exe\" -LOGIN:{login} -PASSWORD:{password} -torosGame \"{path}\" -torosOptions 1 -torosGameNameType silk-ru_live";
             else
-                full = $"\"{silkroadDirectory}\\Frost\\sro.exe\" -LOGIN:{login} -PASSWORD:{password} -frostGame \"{path}\" -frostOptions 1 -frostGameNameType silk-ru_live";
+                full =
+                    $"\"{silkroadDirectory}\\Frost\\sro.exe\" -LOGIN:{login} -PASSWORD:{password} -frostGame \"{path}\" -frostOptions 1 -frostGameNameType silk-ru_live";
 
             Log.Debug("Full path: " + full);
 
@@ -176,22 +180,38 @@ public class ClientManager
             sroClientProcess.Exited += ClientProcess_Exited;
             _process = sroClientProcess;
         }
-        else if (Game.ClientType == GameClientType.Global ||
-            Game.ClientType == GameClientType.Korean ||
-            Game.ClientType == GameClientType.VTC_Game) // TODO: Remove this hack when more elegant solution is found (issue #877)
+        else if (
+            Game.ClientType == GameClientType.Global
+            || Game.ClientType == GameClientType.Korean
+            || Game.ClientType == GameClientType.VTC_Game
+        ) // TODO: Remove this hack when more elegant solution is found (issue #877)
         {
             AddDllImportToClient(path, libraryDllName, libraryDllFunc);
             try
             {
-                File.Copy(Path.Combine(Kernel.BasePath, libraryDllName), Path.Combine(silkroadDirectory, libraryDllName), true);
+                File.Copy(
+                    Path.Combine(Kernel.BasePath, libraryDllName),
+                    Path.Combine(silkroadDirectory, libraryDllName),
+                    true
+                );
             }
             catch (IOException)
             {
                 Log.Debug($"DLL is using, can't replace");
             }
 
-            var result = CreateProcess(null, full, IntPtr.Zero, IntPtr.Zero, false, CREATE_SUSPENDED, IntPtr.Zero,
-            silkroadDirectory, ref si, out var pi);
+            var result = CreateProcess(
+                null,
+                full,
+                IntPtr.Zero,
+                IntPtr.Zero,
+                false,
+                CREATE_SUSPENDED,
+                IntPtr.Zero,
+                silkroadDirectory,
+                ref si,
+                out var pi
+            );
             if (!result)
                 return false;
 
@@ -214,17 +234,24 @@ public class ClientManager
 
             PrepareTempConfigFile((uint)sroClientProcess.Id, divisionIndex);
 
-            if (Game.ClientType == GameClientType.VTC_Game ||
-                Game.ClientType == GameClientType.Turkey ||
-                Game.ClientType == GameClientType.Taiwan)
+            if (
+                Game.ClientType == GameClientType.VTC_Game
+                || Game.ClientType == GameClientType.Turkey
+                || Game.ClientType == GameClientType.Taiwan
+            )
             {
                 ResumeThread(pi.hThread);
                 Thread.Sleep(150);
                 SuspendThread(pi.hThread);
 
                 var moduleMemory = new byte[sroClientProcess.MainModule.ModuleMemorySize];
-                ReadProcessMemory(sroClientProcess.Handle, sroClientProcess.MainModule.BaseAddress, moduleMemory,
-                    sroClientProcess.MainModule.ModuleMemorySize, out _);
+                ReadProcessMemory(
+                    sroClientProcess.Handle,
+                    sroClientProcess.MainModule.BaseAddress,
+                    moduleMemory,
+                    sroClientProcess.MainModule.ModuleMemorySize,
+                    out _
+                );
 
                 var patchNop = new byte[] { 0x90, 0x90 };
                 var patchNop2 = new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90 };
@@ -276,8 +303,18 @@ public class ClientManager
                 full = full + " " + token;
             }
 
-            var result = CreateProcess(null, full, IntPtr.Zero, IntPtr.Zero, false, CREATE_SUSPENDED, IntPtr.Zero,
-            silkroadDirectory, ref si, out var pi);
+            var result = CreateProcess(
+                null,
+                full,
+                IntPtr.Zero,
+                IntPtr.Zero,
+                false,
+                CREATE_SUSPENDED,
+                IntPtr.Zero,
+                silkroadDirectory,
+                ref si,
+                out var pi
+            );
             if (!result)
                 return false;
 
@@ -310,13 +347,20 @@ public class ClientManager
             if (process == null || process.HasExited)
                 return false;
 
-            if (Game.ClientType == GameClientType.VTC_Game ||
-                Game.ClientType == GameClientType.Turkey ||
-                Game.ClientType == GameClientType.Taiwan)
+            if (
+                Game.ClientType == GameClientType.VTC_Game
+                || Game.ClientType == GameClientType.Turkey
+                || Game.ClientType == GameClientType.Taiwan
+            )
             {
                 var moduleMemory = new byte[process.MainModule.ModuleMemorySize];
-                ReadProcessMemory(process.Handle, process.MainModule.BaseAddress, moduleMemory,
-                    process.MainModule.ModuleMemorySize, out _);
+                ReadProcessMemory(
+                    process.Handle,
+                    process.MainModule.BaseAddress,
+                    moduleMemory,
+                    process.MainModule.ModuleMemorySize,
+                    out _
+                );
 
                 var patchNop = new byte[] { 0x90, 0x90 };
                 var patchNop2 = new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90 };
@@ -374,9 +418,7 @@ public class ClientManager
         {
             _process.Kill();
         }
-        catch
-        {
-        }
+        catch { }
     }
 
     /// <summary>
@@ -425,8 +467,9 @@ public class ClientManager
         var gatewayPort = Game.ReferenceManager.GatewayInfo.Port;
 
         var redirectIp = "127.0.0.1";
-        using var writer =
-            new BinaryWriter(new FileStream(Path.Combine(Path.GetTempPath(), tmpConfigFile), FileMode.OpenOrCreate));
+        using var writer = new BinaryWriter(
+            new FileStream(Path.Combine(Path.GetTempPath(), tmpConfigFile), FileMode.OpenOrCreate)
+        );
 
         writer.Write(GlobalConfig.Get<bool>("RSBot.Loader.DebugMode"));
         writer.WriteAscii(redirectIp);
@@ -440,9 +483,7 @@ public class ClientManager
 
     private static IntPtr FindPattern(string stringPattern, byte[] buffer)
     {
-        var pattern = stringPattern.Split(' ')
-            .Select(p => byte.Parse(p, NumberStyles.AllowHexSpecifier))
-            .ToArray();
+        var pattern = stringPattern.Split(' ').Select(p => byte.Parse(p, NumberStyles.AllowHexSpecifier)).ToArray();
 
         for (uint i = 0; i < buffer.Length - pattern.Length; i++)
         {

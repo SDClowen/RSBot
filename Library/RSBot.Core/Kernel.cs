@@ -102,8 +102,12 @@ public static class Kernel
 
         _updaterTokenSource = new CancellationTokenSource();
 
-        Task.Factory.StartNew(ComponentUpdaterAsync, _updaterTokenSource.Token, TaskCreationOptions.LongRunning,
-            TaskScheduler.Current);
+        Task.Factory.StartNew(
+            ComponentUpdaterAsync,
+            _updaterTokenSource.Token,
+            TaskCreationOptions.LongRunning,
+            TaskScheduler.Current
+        );
     }
 
     private static async Task ComponentUpdaterAsync()
@@ -157,9 +161,11 @@ public static class Kernel
     private static void RegisterNetworkHandlers()
     {
         var type = typeof(IPacketHandler);
-        var types = AppDomain.CurrentDomain.GetAssemblies()
+        var types = AppDomain
+            .CurrentDomain.GetAssemblies()
             .SelectMany(s => s.GetTypes())
-            .Where(p => type.IsAssignableFrom(p) && !p.IsInterface).ToArray();
+            .Where(p => type.IsAssignableFrom(p) && !p.IsInterface)
+            .ToArray();
 
         foreach (var handler in types)
         {
@@ -175,9 +181,11 @@ public static class Kernel
     private static void RegisterNetworkHooks()
     {
         var type = typeof(IPacketHook);
-        var types = AppDomain.CurrentDomain.GetAssemblies()
+        var types = AppDomain
+            .CurrentDomain.GetAssemblies()
             .SelectMany(s => s.GetTypes())
-            .Where(p => type.IsAssignableFrom(p) && !p.IsInterface).ToArray();
+            .Where(p => type.IsAssignableFrom(p) && !p.IsInterface)
+            .ToArray();
 
         foreach (var hook in types)
         {

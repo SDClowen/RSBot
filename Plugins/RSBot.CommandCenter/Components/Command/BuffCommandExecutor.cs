@@ -24,8 +24,11 @@ internal class BuffCommandExecutor : ICommandExecutor
 
         foreach (var buff in buffs)
         {
-            if (Game.Player.State.LifeState != LifeState.Alive || Game.Player.HasActiveVehicle ||
-                Game.Player.Untouchable)
+            if (
+                Game.Player.State.LifeState != LifeState.Alive
+                || Game.Player.HasActiveVehicle
+                || Game.Player.Untouchable
+            )
                 break;
 
             Log.Debug($"[ActionMapper] Casting buff {buff} ({buff.Record.Basic_Code})");

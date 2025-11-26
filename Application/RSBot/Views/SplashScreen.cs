@@ -50,14 +50,16 @@ public partial class SplashScreen : UIWindow
 
         LanguageManager.Translate(_mainForm, Kernel.Language);
 
-        if (!GlobalConfig.Exists("RSBot.SilkroadDirectory") ||
-            !File.Exists(GlobalConfig.Get<string>("RSBot.SilkroadDirectory") + "\\media.pk2"))
+        if (
+            !GlobalConfig.Exists("RSBot.SilkroadDirectory")
+            || !File.Exists(GlobalConfig.Get<string>("RSBot.SilkroadDirectory") + "\\media.pk2")
+        )
         {
             var dialog = new OpenFileDialog
             {
                 Title = LanguageManager.GetLang("OpenFileDialogTitle"),
                 Filter = "Executable (*.exe)|*.exe",
-                FileName = "sro_client.exe"
+                FileName = "sro_client.exe",
             };
 
             var result = dialog.ShowDialog(this);
@@ -177,15 +179,23 @@ public partial class SplashScreen : UIWindow
         //---- Load Plugins ----
         if (!Kernel.PluginManager.LoadAssemblies())
         {
-            MessageBox.Show(@"Failed to load plugins. Process canceled!", @"Initialize Application - Error",
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(
+                @"Failed to load plugins. Process canceled!",
+                @"Initialize Application - Error",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error
+            );
             return;
         }
 
         //---- Load Botbases ----
         if (!Kernel.BotbaseManager.LoadAssemblies())
-            MessageBox.Show(@"Failed to load botbases. Process canceled!", @"Initialize Application - Error",
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(
+                @"Failed to load botbases. Process canceled!",
+                @"Initialize Application - Error",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error
+            );
 
         CommandManager.Initialize();
     }
@@ -199,8 +209,12 @@ public partial class SplashScreen : UIWindow
     {
         if (!Game.InitializeArchiveFiles())
         {
-            MessageBox.Show(@"Failed to load game data. Boot process canceled!", @"Initialize Application - Error",
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(
+                @"Failed to load game data. Boot process canceled!",
+                @"Initialize Application - Error",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error
+            );
             return;
         }
 

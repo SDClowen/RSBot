@@ -68,7 +68,8 @@ internal class AgentNotifyResponse : IPacketHandler
                 }
 
                 View.Instance.UniqueText.Write(
-                    LanguageManager.GetLang("UniqueKilled", characterName, obj.GetRealName()));
+                    LanguageManager.GetLang("UniqueKilled", characterName, obj.GetRealName())
+                );
 
                 break;
         }

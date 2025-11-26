@@ -37,9 +37,7 @@ public class RefSkill : IReference<uint>
 
             bitmap = file.ToImage();
         }
-        catch
-        {
-        }
+        catch { }
         finally
         {
             if (bitmap == null)
@@ -105,6 +103,7 @@ public class RefSkill : IReference<uint>
     public byte ReqCommon_MasteryLevel1;
 
     public byte ReqCommon_MasteryLevel2;
+
     //public short ReqCommon_Str;
     //public short ReqCommon_Int;
 
@@ -117,6 +116,7 @@ public class RefSkill : IReference<uint>
     //public int ReqLearn_SP;
 
     public byte ReqLearn_Race;
+
     //public byte Req_Restriction1;
     //public byte Req_Restriction2;
     public WeaponType ReqCast_Weapon1;
@@ -162,7 +162,9 @@ public class RefSkill : IReference<uint>
             return false;
 
         //Skip invalid group (MSKILL, HSKILL, TSKILL, GSKILL, PSKILL, P2SKILL) to save memory
-        if (!parser.TryParse(2, out GroupID) /*|| GroupID == 0*/)
+        if (
+            !parser.TryParse(2, out GroupID) /*|| GroupID == 0*/
+        )
             return false;
 
         parser.TryParse(3, out Basic_Code);

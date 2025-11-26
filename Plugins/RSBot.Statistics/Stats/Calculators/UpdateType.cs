@@ -3,5 +3,5 @@
 internal enum UpdateType
 {
     Live,
-    Static
+    Static,
 }

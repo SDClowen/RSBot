@@ -26,16 +26,19 @@ internal class BuyItemSubscriber
             return;
 
         var itemsOfSameKind = Game.Player.Inventory.GetNormalPartItems(itemAtSlot.ItemId);
-        if (itemsOfSameKind.Count == 1) return;
+        if (itemsOfSameKind.Count == 1)
+            return;
 
         foreach (var item in itemsOfSameKind)
         {
-            if (item.Slot == slot) continue;
+            if (item.Slot == slot)
+                continue;
 
             if (item.Record.MaxStack - item.Amount >= itemAtSlot.Amount)
             {
                 Log.Debug(
-                    $"Merging item {itemAtSlot.Record.GetRealName()} ({itemAtSlot.Amount}) with {item.Record.GetRealName()} ({item.Amount})");
+                    $"Merging item {itemAtSlot.Record.GetRealName()} ({itemAtSlot.Amount}) with {item.Record.GetRealName()} ({item.Amount})"
+                );
                 Game.Player.Inventory.MoveItem(slot, item.Slot, item.Amount);
                 break;
             }

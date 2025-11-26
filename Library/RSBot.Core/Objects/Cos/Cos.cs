@@ -153,16 +153,18 @@ public class Cos : SpawnedEntity
         packet.WriteByte(0);
         packet.WriteInt(UniqueId);
 
-        var awaitCallback = new AwaitCallback(response =>
-        {
-            var result = response.ReadByte();
+        var awaitCallback = new AwaitCallback(
+            response =>
+            {
+                var result = response.ReadByte();
 
-            return result == 1 ? AwaitCallbackResult.Success : AwaitCallbackResult.Fail;
-        }, 0xB0CB);
+                return result == 1 ? AwaitCallbackResult.Success : AwaitCallbackResult.Fail;
+            },
+            0xB0CB
+        );
 
         PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallback);
         awaitCallback.AwaitResponse();
-
 
         return true;
     }
@@ -172,12 +174,13 @@ public class Cos : SpawnedEntity
         var packet = new Packet(0x70C6);
         packet.WriteInt(UniqueId);
 
-        var awaitCallback = new AwaitCallback(response =>
-        {
-            return response.ReadByte() == 1
-                ? AwaitCallbackResult.Success
-                : AwaitCallbackResult.ConditionFailed;
-        }, 0xB0C6);
+        var awaitCallback = new AwaitCallback(
+            response =>
+            {
+                return response.ReadByte() == 1 ? AwaitCallbackResult.Success : AwaitCallbackResult.ConditionFailed;
+            },
+            0xB0C6
+        );
 
         PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallback);
         awaitCallback.AwaitResponse();
@@ -220,8 +223,7 @@ public class Cos : SpawnedEntity
                     switch (result)
                     {
                         case 1:
-                            if (response.ReadUInt() == UniqueId &&
-                                response.ReadUInt() == itemUniqueId)
+                            if (response.ReadUInt() == UniqueId && response.ReadUInt() == itemUniqueId)
                                 return AwaitCallbackResult.Success;
                             break;
 
@@ -280,9 +282,11 @@ public class Cos : SpawnedEntity
             packet.WriteInt(destination.YOffset);
         }
 
-        var awaitCallback = new AwaitCallback(response => response.ReadUInt() == UniqueId
-            ? AwaitCallbackResult.Success
-            : AwaitCallbackResult.ConditionFailed, 0xB021);
+        var awaitCallback = new AwaitCallback(
+            response =>
+                response.ReadUInt() == UniqueId ? AwaitCallbackResult.Success : AwaitCallbackResult.ConditionFailed,
+            0xB021
+        );
 
         PacketManager.SendPacket(packet, PacketDestination.Server, awaitCallback);
         awaitCallback.AwaitResponse();
@@ -291,8 +295,7 @@ public class Cos : SpawnedEntity
         if (sleep)
         {
             var vehicle = Game.Player.Vehicle;
-            if (vehicle != null
-                && SpawnManager.TryGetEntity<SpawnedCos>(vehicle.UniqueId, out SpawnedCos spawnedCos))
+            if (vehicle != null && SpawnManager.TryGetEntity<SpawnedCos>(vehicle.UniqueId, out SpawnedCos spawnedCos))
             {
                 Thread.Sleep(Convert.ToInt32(distance / spawnedCos.ActualSpeed * 10000));
             }
@@ -341,9 +344,10 @@ public class Cos : SpawnedEntity
         packet.WriteUShort(amount);
         packet.WriteUInt(npc.UniqueId);
 
-        var awaitResult = new AwaitCallback(packet =>
-                packet.ReadByte() == 1 ? AwaitCallbackResult.Success : AwaitCallbackResult.Fail
-            , 0xB034);
+        var awaitResult = new AwaitCallback(
+            packet => packet.ReadByte() == 1 ? AwaitCallbackResult.Success : AwaitCallbackResult.Fail,
+            0xB034
+        );
         PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
 
         awaitResult.AwaitResponse();
@@ -372,10 +376,13 @@ public class Cos : SpawnedEntity
         packet.WriteUShort(item.Amount);
         packet.WriteUInt(entity.UniqueId);
 
-        var awaitResult =
-            new AwaitCallback(
-                packet => { return packet.ReadByte() == 1 ? AwaitCallbackResult.Success : AwaitCallbackResult.Fail; },
-                0xB034);
+        var awaitResult = new AwaitCallback(
+            packet =>
+            {
+                return packet.ReadByte() == 1 ? AwaitCallbackResult.Success : AwaitCallbackResult.Fail;
+            },
+            0xB034
+        );
         PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
         awaitResult.AwaitResponse();
 
@@ -384,9 +391,7 @@ public class Cos : SpawnedEntity
         return awaitResult.IsCompleted;
     }
 
-    public virtual void Deserialize(Packet packet)
-    {
-    }
+    public virtual void Deserialize(Packet packet) { }
 
     public override bool Update(int delta)
     {

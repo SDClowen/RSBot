@@ -33,10 +33,7 @@ public class BuffingPartyMember
 
         Name = split[0];
         Group = split[1];
-        Buffs = split[2].Split(',')
-            .Where(p => uint.TryParse(p, out _))
-            .Select(p => uint.Parse(p))
-            .ToList();
+        Buffs = split[2].Split(',').Where(p => uint.TryParse(p, out _)).Select(p => uint.Parse(p)).ToList();
     }
 
     /// <summary>

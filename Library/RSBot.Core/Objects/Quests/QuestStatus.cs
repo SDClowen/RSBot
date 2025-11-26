@@ -17,5 +17,5 @@ public enum QuestStatus : byte
     Unavailable = 0x05,
     Cancelled = 0x06,
     StartedByUser = 0x07,
-    CompletedByUserButNotSupplied = 0x08
+    CompletedByUserButNotSupplied = 0x08,
 }

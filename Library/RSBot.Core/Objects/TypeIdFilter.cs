@@ -31,9 +31,7 @@ public class TypeIdFilter
     /// <summary>
     ///     Initializes a new instance of the <see cref="TypeIdFilter" /> class.
     /// </summary>
-    public TypeIdFilter()
-    {
-    }
+    public TypeIdFilter() { }
 
     public byte TypeID1 { get; set; }
     public byte TypeID2 { get; set; }

@@ -4,5 +4,5 @@ public enum ScrollMode
 {
     None = 0,
     ReturnScroll = 1,
-    BanditReturnScroll = 2
+    BanditReturnScroll = 2,
 }

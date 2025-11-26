@@ -7,5 +7,5 @@ public enum AutoInverstType : byte
 {
     None = 0,
     Beginner = 1,
-    Helpful = 2
+    Helpful = 2,
 }

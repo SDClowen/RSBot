@@ -16,7 +16,8 @@ internal class Utility
         var output = new StringBuilder();
         var ascii_output = new StringBuilder();
         var length = count;
-        if (length % bytesPerLine != 0) length += bytesPerLine - length % bytesPerLine;
+        if (length % bytesPerLine != 0)
+            length += bytesPerLine - length % bytesPerLine;
         for (var x = 0; x <= length; ++x)
         {
             if (x % bytesPerLine == 0)
@@ -27,7 +28,8 @@ internal class Utility
                     ascii_output.Clear();
                 }
 
-                if (x != length) output.AppendFormat("{0:d10}   ", x);
+                if (x != length)
+                    output.AppendFormat("{0:d10}   ", x);
             }
 
             if (x < count)

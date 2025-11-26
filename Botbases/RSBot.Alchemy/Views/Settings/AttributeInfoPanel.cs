@@ -33,8 +33,12 @@ public partial class AttributeInfoPanel : DoubleBufferedControl
     /// <param name="group">The group.</param>
     /// <param name="stones">The stones.</param>
     /// <param name="item">The item.</param>
-    public AttributeInfoPanel(ItemAttributeGroup group, IEnumerable<InventoryItem>? stones, InventoryItem item,
-        int maxValue = 22)
+    public AttributeInfoPanel(
+        ItemAttributeGroup group,
+        IEnumerable<InventoryItem>? stones,
+        InventoryItem item,
+        int maxValue = 22
+    )
     {
         CheckForIllegalCrossThreadCalls = false;
 
@@ -117,7 +121,6 @@ public partial class AttributeInfoPanel : DoubleBufferedControl
     public bool Checked
     {
         get => checkSelected.Checked;
-
         set => checkSelected.Checked = GetMaxValue() > _currentAttribute.GetPercentage(_currentAttributeSlot) && value;
     }
 
@@ -162,7 +165,7 @@ public partial class AttributeInfoPanel : DoubleBufferedControl
             2 => 61,
             3 => 80,
             4 => 100,
-            _ => 22
+            _ => 22,
         };
     }
 

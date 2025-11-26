@@ -1,6 +1,5 @@
-﻿using RSBot.NavMeshApi.Helper;
-
-using System.Numerics;
+﻿using System.Numerics;
+using RSBot.NavMeshApi.Helper;
 
 namespace RSBot.NavMeshApi.Mathematics;
 
@@ -77,5 +76,6 @@ public struct RegionPosition
         }
     }
 
-    public override string ToString() => $"RID: {Region:X4}, X: {_localPosition.X}, Y: {_localPosition.Y}, Z: {_localPosition.Z}";
+    public override string ToString() =>
+        $"RID: {Region:X4}, X: {_localPosition.X}, Y: {_localPosition.Y}, Z: {_localPosition.Z}";
 }

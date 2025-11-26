@@ -1,6 +1,6 @@
-﻿using RSBot.Core;
+﻿using System.Threading.Tasks;
+using RSBot.Core;
 using RSBot.Core.Network;
-using System.Threading.Tasks;
 
 namespace RSBot.Party.Bundle.PartyMatching.Network;
 

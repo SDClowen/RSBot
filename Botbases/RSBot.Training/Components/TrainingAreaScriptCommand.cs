@@ -14,14 +14,15 @@ internal class TrainingAreaScriptCommand : IScriptCommand
 
     public bool IsBusy { get; private set; }
 
-    public Dictionary<string, string> Arguments => new()
-    {
-        { "Region", "The Region" },
-        { "XOffset", "The X" },
-        { "YOffset", "The Y" },
-        { "ZOffset", "The Z" },
-        { "Radius", "The radius" }
-    };
+    public Dictionary<string, string> Arguments =>
+        new()
+        {
+            { "Region", "The Region" },
+            { "XOffset", "The X" },
+            { "YOffset", "The Y" },
+            { "ZOffset", "The Z" },
+            { "Radius", "The radius" },
+        };
 
     #endregion Properties
 
@@ -49,11 +50,13 @@ internal class TrainingAreaScriptCommand : IScriptCommand
 
             Log.Notify("[Script] Setting training area");
 
-            if (!Region.TryParse(arguments[0], out var region)
+            if (
+                !Region.TryParse(arguments[0], out var region)
                 || !float.TryParse(arguments[1], out var xPos)
                 || !float.TryParse(arguments[2], out var yPos)
                 || !float.TryParse(arguments[3], out var zPos)
-                || !int.TryParse(arguments[4], out var radius))
+                || !int.TryParse(arguments[4], out var radius)
+            )
                 return false;
 
             PlayerConfig.Set("RSBot.Area.Region", region);

@@ -33,9 +33,7 @@ public sealed class SpawnedPortal : SpawnedBionic
     /// </summary>
     /// <param name="objId">The ref obj id</param>
     public SpawnedPortal(uint objId)
-        : base(objId)
-    {
-    }
+        : base(objId) { }
 
     /// <summary>
     ///     Froms the packet.
@@ -51,7 +49,8 @@ public sealed class SpawnedPortal : SpawnedBionic
 
         var teleportObj = Game.ReferenceManager.GetRefObjChar(result.Id);
         if (teleportObj != null)
-            result.Links = Game.ReferenceManager.TeleportData.FirstOrDefault(t => t.AssocRefObjId == teleportObj.ID)
+            result.Links = Game
+                .ReferenceManager.TeleportData.FirstOrDefault(t => t.AssocRefObjId == teleportObj.ID)
                 ?.GetLinks();
 
         if (Game.ClientType < GameClientType.Vietnam)

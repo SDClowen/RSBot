@@ -155,10 +155,13 @@ public partial class Main : DoubleBufferedControl
         if (comboRouteList.SelectedIndex <= 0)
             return;
 
-        if (MessageBox.Show(
-                $"Do you realy want to delete the route list {comboRouteList.SelectedItem}?", "Delete list",
-                MessageBoxButtons.YesNo) !=
-            DialogResult.Yes)
+        if (
+            MessageBox.Show(
+                $"Do you realy want to delete the route list {comboRouteList.SelectedItem}?",
+                "Delete list",
+                MessageBoxButtons.YesNo
+            ) != DialogResult.Yes
+        )
             return;
 
         var selectedIndex = comboRouteList.SelectedIndex - 1; //- default
@@ -174,8 +177,11 @@ public partial class Main : DoubleBufferedControl
 
     private void buttonCreateList_Click(object sender, EventArgs e)
     {
-        var dialog = new InputDialog("New route list", "New route list",
-            "Please enter the name for the new route list");
+        var dialog = new InputDialog(
+            "New route list",
+            "New route list",
+            "Please enter the name for the new route list"
+        );
         if (dialog.ShowDialog() != DialogResult.OK)
             return;
 
@@ -183,17 +189,19 @@ public partial class Main : DoubleBufferedControl
 
         if (userInput.Contains(';'))
         {
-            MessageBox.Show("The character ';' is invalid in route list names", "Invalid character",
-                MessageBoxButtons.OK);
+            MessageBox.Show(
+                "The character ';' is invalid in route list names",
+                "Invalid character",
+                MessageBoxButtons.OK
+            );
 
             return;
         }
 
-        //ToDO: Refactor the config handling completely to JSON so it's possible to have whitespaces and such in names -> Or create a key value pair 
+        //ToDO: Refactor the config handling completely to JSON so it's possible to have whitespaces and such in names -> Or create a key value pair
         if (userInput.Contains(' '))
         {
-            MessageBox.Show("The name can not have a whitespace character", "Invalid character",
-                MessageBoxButtons.OK);
+            MessageBox.Show("The name can not have a whitespace character", "Invalid character", MessageBoxButtons.OK);
 
             return;
         }
@@ -201,8 +209,7 @@ public partial class Main : DoubleBufferedControl
         userInput = userInput.Trim();
         if (TradeConfig.RouteScriptList.Contains(userInput))
         {
-            MessageBox.Show("The name can not have a whitespace character", "Invalid character",
-                MessageBoxButtons.OK);
+            MessageBox.Show("The name can not have a whitespace character", "Invalid character", MessageBoxButtons.OK);
 
             return;
         }
@@ -223,7 +230,7 @@ public partial class Main : DoubleBufferedControl
             Title = "Select RSBot script file(s)",
             AddExtension = true,
             CheckFileExists = true,
-            Multiselect = true
+            Multiselect = true,
         };
 
         if (openFileDiag.ShowDialog() != DialogResult.OK)
@@ -328,9 +335,12 @@ public partial class Main : DoubleBufferedControl
         if (!ScriptManager.Running)
             EventManager.FireEvent("OnShowScriptRecorder", 2000, true);
         else
-            MessageBox.Show("Can not record a new script while a script is running! Stop the bot and try again.",
+            MessageBox.Show(
+                "Can not record a new script while a script is running! Stop the bot and try again.",
                 "Script manager busy",
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error
+            );
     }
 
     private void menuRecordScript_Click(object sender, EventArgs e)

@@ -122,13 +122,14 @@ public partial class Main : DoubleBufferedControl
         {
             var goods = Game.ReferenceManager.GetRefShopGoods(group);
 
-            if (goods == null) continue;
+            if (goods == null)
+                continue;
 
             foreach (var good in goods)
             {
-                var tabName =
-                    Game.ReferenceManager.GetTranslation(Game.ReferenceManager.GetTab(good.RefTabCodeName)
-                        .StrID128_Tab);
+                var tabName = Game.ReferenceManager.GetTranslation(
+                    Game.ReferenceManager.GetTab(good.RefTabCodeName).StrID128_Tab
+                );
 
                 var lvGroup = new ListViewGroup(tabName) { Name = tabName };
                 if (!listAvailableProducts.Groups.Contains(lvGroup))
@@ -146,11 +147,17 @@ public partial class Main : DoubleBufferedControl
                 var realItemName = item.GetRealName();
 
                 //Apply filters
-                if (refPackageItem.RefItemCodeName.Contains("_MALL_")) continue;
-                if (filter != "" && !realItemName.Contains(filter)) continue;
+                if (refPackageItem.RefItemCodeName.Contains("_MALL_"))
+                    continue;
+                if (filter != "" && !realItemName.Contains(filter))
+                    continue;
 
                 var listItem = new ListViewItem(realItemName)
-                { Tag = good, Name = item.CodeName, Group = listAvailableProducts.Groups[tabName] };
+                {
+                    Tag = good,
+                    Name = item.CodeName,
+                    Group = listAvailableProducts.Groups[tabName],
+                };
                 listItem.LoadItemImageAsync(good);
 
                 if (!listAvailableProducts.Items.ContainsKey(item.CodeName))
@@ -344,30 +351,30 @@ public partial class Main : DoubleBufferedControl
         }
 
         for (var x = 0; x < 3; x++)
-            for (var z = 0; z < 2; z++)
-            {
-                var cloth = clothTypes[x, z];
-                if (cloth == 0)
-                    continue;
+        for (var z = 0; z < 2; z++)
+        {
+            var cloth = clothTypes[x, z];
+            if (cloth == 0)
+                continue;
 
-                if (checkHead.Checked)
-                    filters.Add(new TypeIdFilter(3, 1, cloth, 1));
+            if (checkHead.Checked)
+                filters.Add(new TypeIdFilter(3, 1, cloth, 1));
 
-                if (checkShoulder.Checked)
-                    filters.Add(new TypeIdFilter(3, 1, cloth, 2));
+            if (checkShoulder.Checked)
+                filters.Add(new TypeIdFilter(3, 1, cloth, 2));
 
-                if (checkChest.Checked)
-                    filters.Add(new TypeIdFilter(3, 1, cloth, 3));
+            if (checkChest.Checked)
+                filters.Add(new TypeIdFilter(3, 1, cloth, 3));
 
-                if (checkLegs.Checked)
-                    filters.Add(new TypeIdFilter(3, 1, cloth, 4));
+            if (checkLegs.Checked)
+                filters.Add(new TypeIdFilter(3, 1, cloth, 4));
 
-                if (checkHand.Checked)
-                    filters.Add(new TypeIdFilter(3, 1, cloth, 5));
+            if (checkHand.Checked)
+                filters.Add(new TypeIdFilter(3, 1, cloth, 5));
 
-                if (checkBoot.Checked)
-                    filters.Add(new TypeIdFilter(3, 1, cloth, 6));
-            }
+            if (checkBoot.Checked)
+                filters.Add(new TypeIdFilter(3, 1, cloth, 6));
+        }
 
         #region Accessory
 
@@ -443,11 +450,7 @@ public partial class Main : DoubleBufferedControl
             filters.Add(new TypeIdFilter(3, 3, 5, 1));
 
         if (checkOther.Checked)
-            filters.Add(new TypeIdFilter
-            {
-                CompareByTypeID2 = true,
-                TypeID2 = 3
-            });
+            filters.Add(new TypeIdFilter { CompareByTypeID2 = true, TypeID2 = 3 });
 
         if (filters.Count == 0)
             filters.Add(new TypeIdFilter { CompareByTypeID1 = true, TypeID1 = 3 });
@@ -467,8 +470,14 @@ public partial class Main : DoubleBufferedControl
             gender = ObjectGender.Female;
         }
 
-        var items = Game.ReferenceManager.GetFilteredItems(filters, Convert.ToByte(numDegreeFrom.Value),
-            Convert.ToByte(numDegreeTo.Value), gender, checkBoxRareItems.Checked, txtSellSearch.Text);
+        var items = Game.ReferenceManager.GetFilteredItems(
+            filters,
+            Convert.ToByte(numDegreeFrom.Value),
+            Convert.ToByte(numDegreeTo.Value),
+            gender,
+            checkBoxRareItems.Checked,
+            txtSellSearch.Text
+        );
         if (items.Count == 0)
         {
             listFilter.Visible = true;
@@ -515,8 +524,8 @@ public partial class Main : DoubleBufferedControl
                     ((ObjectGender)item.ReqGender).ToString(),
                     getSubItemString(item),
                     ShoppingManager.SellFilter.Contains(item.CodeName) ? "√" : "•",
-                    ShoppingManager.StoreFilter.Contains(item.CodeName) ? "√" : "•"
-                }
+                    ShoppingManager.StoreFilter.Contains(item.CodeName) ? "√" : "•",
+                },
             };
 
             listViewItems[i] = listViewItem;
@@ -541,10 +550,26 @@ public partial class Main : DoubleBufferedControl
         var result = new List<TypeIdFilter>();
 
         for (byte i = 1; i <= 3; i++)
-            result.Add(new TypeIdFilter { TypeID1 = 3, TypeID2 = 3, TypeID3 = 10, TypeID4 = i });
+            result.Add(
+                new TypeIdFilter
+                {
+                    TypeID1 = 3,
+                    TypeID2 = 3,
+                    TypeID3 = 10,
+                    TypeID4 = i,
+                }
+            );
 
         for (byte i = 1; i <= 10; i++)
-            result.Add(new TypeIdFilter { TypeID1 = 3, TypeID2 = 3, TypeID3 = 11, TypeID4 = i });
+            result.Add(
+                new TypeIdFilter
+                {
+                    TypeID1 = 3,
+                    TypeID2 = 3,
+                    TypeID3 = 11,
+                    TypeID4 = i,
+                }
+            );
 
         return result;
     }
@@ -663,10 +688,7 @@ public partial class Main : DoubleBufferedControl
 
             //var newListItem = (ListViewItem)listItem.Clone();
             //newListItem.Group = listShoppingList.Groups[comboStore.SelectedIndex];
-            var newListItem = new ListViewItem(listItem.Text)
-            {
-                Tag = listItem.Tag
-            };
+            var newListItem = new ListViewItem(listItem.Text) { Tag = listItem.Tag };
             newListItem.Group = listShoppingList.Groups[comboStore.SelectedIndex];
             newListItem.SubItems.Add("x" + dialog.Value);
 
@@ -714,7 +736,6 @@ public partial class Main : DoubleBufferedControl
 
         SaveShoppingList();
     }
-
 
     private void checkShoppingSetting_CheckedChanged(object sender, EventArgs e)
     {
@@ -881,8 +902,8 @@ public partial class Main : DoubleBufferedControl
     private void btnResetFilter_Click(object sender, EventArgs e)
     {
         foreach (var group in filterPanel.Controls.OfType<GroupBox>())
-            foreach (var checkBox in group.Controls.OfType<CheckBox>())
-                checkBox.Checked = false;
+        foreach (var checkBox in group.Controls.OfType<CheckBox>())
+            checkBox.Checked = false;
 
         listFilter.Items.Clear();
         numDegreeFrom.Value = 0;

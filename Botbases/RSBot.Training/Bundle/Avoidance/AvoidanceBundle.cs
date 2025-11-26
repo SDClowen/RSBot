@@ -33,17 +33,12 @@ internal class AvoidanceBundle : IBundle
     /// <summary>
     ///     Invokes this instance.
     /// </summary>
-    public void Invoke()
-    {
-    }
+    public void Invoke() { }
 
     /// <summary>
     ///     Refreshes this instance.
     /// </summary>
-    public void Refresh()
-    {
-
-    }
+    public void Refresh() { }
 
     public void Stop()
     {

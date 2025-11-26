@@ -18,5 +18,5 @@ public enum ObjectReqLevelType
     MasteryWizard = 514, //위저드202
     MasteryWarlock = 516, //워락204
     MasteryBard = 517, //바드205
-    MasteryCleric = 518 //클레릭206
+    MasteryCleric = 518, //클레릭206
 }

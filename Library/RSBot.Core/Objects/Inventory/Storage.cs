@@ -12,7 +12,5 @@ public class Storage : InventoryItemCollection
     /// </summary>
     /// <param name="size">The standart 150(5 page)</param>
     public Storage(byte size = 150)
-        : base(size)
-    {
-    }
+        : base(size) { }
 }

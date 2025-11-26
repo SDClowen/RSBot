@@ -18,5 +18,5 @@ public enum WeaponType
     Harp = 14,
     ClericRod = 15,
     FortressHammer = 16,
-    Any = 255
+    Any = 255,
 }

@@ -30,23 +30,34 @@ internal class CosBadStatusHandler
         if (!PlayerConfig.Get<bool>("RSBot.Protection.checkUseAbnormalStatePotion", true))
             return;
 
-        if (Game.Player.Growth != null &&
-            ((Game.Player.Growth.BadEffect & BadEffectAll.UniversallPillEffects) != 0 ||
-             (Game.Player.Growth.BadEffect & BadEffectAll.PurificationPillEffects) != 0))
+        if (
+            Game.Player.Growth != null
+            && (
+                (Game.Player.Growth.BadEffect & BadEffectAll.UniversallPillEffects) != 0
+                || (Game.Player.Growth.BadEffect & BadEffectAll.PurificationPillEffects) != 0
+            )
+        )
             Game.Player.Growth.UseBadStatusPotion();
 
-        if (Game.Player.Fellow != null &&
-            (Game.Player.Fellow.BadEffect & BadEffectAll.UniversallPillEffects) != 0)
+        if (Game.Player.Fellow != null && (Game.Player.Fellow.BadEffect & BadEffectAll.UniversallPillEffects) != 0)
             Game.Player.Fellow.UseBadStatusPotion(); //PurificationPillEffects are not removed on fellow by pills
 
-        if (Game.Player.Transport != null &&
-            ((Game.Player.Transport.BadEffect & BadEffectAll.UniversallPillEffects) != 0 ||
-             (Game.Player.Transport.BadEffect & BadEffectAll.PurificationPillEffects) != 0))
+        if (
+            Game.Player.Transport != null
+            && (
+                (Game.Player.Transport.BadEffect & BadEffectAll.UniversallPillEffects) != 0
+                || (Game.Player.Transport.BadEffect & BadEffectAll.PurificationPillEffects) != 0
+            )
+        )
             Game.Player.Transport.UseBadStatusPotion();
 
-        if (Game.Player.JobTransport != null &&
-            ((Game.Player.JobTransport.BadEffect & BadEffectAll.UniversallPillEffects) != 0 ||
-             (Game.Player.JobTransport.BadEffect & BadEffectAll.PurificationPillEffects) != 0))
+        if (
+            Game.Player.JobTransport != null
+            && (
+                (Game.Player.JobTransport.BadEffect & BadEffectAll.UniversallPillEffects) != 0
+                || (Game.Player.JobTransport.BadEffect & BadEffectAll.PurificationPillEffects) != 0
+            )
+        )
             Game.Player.JobTransport.UseBadStatusPotion();
     }
 }

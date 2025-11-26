@@ -1,17 +1,17 @@
-﻿using RSBot.Core.Extensions;
-using RSBot.NavMeshApi;
-using RSBot.NavMeshApi.Dungeon;
-using RSBot.NavMeshApi.Mathematics;
-using RSBot.NavMeshApi.Object;
-using RSBot.NavMeshApi.Terrain;
-using SDUI.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Numerics;
 using System.Windows.Forms;
+using RSBot.Core.Extensions;
+using RSBot.NavMeshApi;
+using RSBot.NavMeshApi.Dungeon;
+using RSBot.NavMeshApi.Mathematics;
+using RSBot.NavMeshApi.Object;
+using RSBot.NavMeshApi.Terrain;
+using SDUI.Controls;
 
 namespace RSBot.Map.Renderer;
 
@@ -271,9 +271,7 @@ public partial class NavMeshRenderer : DoubleBufferedControl
                         label = $"{edge} [{obj.Events[edge.EventZone.Index]}, {edge.EventZone.Flag}]";
                     g.DrawString(label, _smallFont, Brushes.White, edge.Line.Center.ToPointF());
                 }
-
             }
-
         }
 
         if (_drawObjectInternalEdges)
@@ -329,7 +327,11 @@ public partial class NavMeshRenderer : DoubleBufferedControl
         }
 
         _mouseTransform.Region = _transform.Region;
-        _mouseTransform.Offset = new Vector3(_transform.Offset.X - 960.0f + (e.X * (RID.Width / this.Width)), 0.0f, _transform.Offset.Z - 960.0f + (e.Y * (RID.Length / this.Height)));
+        _mouseTransform.Offset = new Vector3(
+            _transform.Offset.X - 960.0f + (e.X * (RID.Width / this.Width)),
+            0.0f,
+            _transform.Offset.Z - 960.0f + (e.Y * (RID.Length / this.Height))
+        );
         _mouseTransform.Normalize();
 
         NavMeshManager.ResolveCellAndHeight(_transform);
@@ -363,6 +365,7 @@ public partial class NavMeshRenderer : DoubleBufferedControl
             _isDragging = true;
         }
     }
+
     protected override void OnMouseUp(MouseEventArgs e)
     {
         base.OnMouseUp(e);
@@ -377,7 +380,10 @@ public partial class NavMeshRenderer : DoubleBufferedControl
         var source = new NavMeshTransform(_transform);
         var destination = new NavMeshTransform(_mouseTransform);
 
-        if (!NavMeshManager.Raycast(source, destination, NavMeshRaycastType.Move, out NavMeshRaycastHit? hit) && hit != null)
+        if (
+            !NavMeshManager.Raycast(source, destination, NavMeshRaycastType.Move, out NavMeshRaycastHit? hit)
+            && hit != null
+        )
         {
             _hit = hit;
             return;

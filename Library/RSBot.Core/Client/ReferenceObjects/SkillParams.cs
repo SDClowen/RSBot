@@ -6,5 +6,5 @@ public enum PrimarySkillParam : int
     Ranged = 1,
     Reserved = 2, //Unknown / not used
     Buff = 3,
-    Passive = 4
+    Passive = 4,
 }

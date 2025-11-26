@@ -24,17 +24,9 @@ public static class ListViewExtensions
     /// </summary>
     static ListViewExtensions()
     {
-        StaticImageList = new ImageList
-        {
-            ColorDepth = ColorDepth.Depth32Bit,
-            ImageSize = new Size(24, 24)
-        };
+        StaticImageList = new ImageList { ColorDepth = ColorDepth.Depth32Bit, ImageSize = new Size(24, 24) };
 
-        StaticItemsImageList = new ImageList
-        {
-            ColorDepth = ColorDepth.Depth32Bit,
-            ImageSize = new Size(24, 24)
-        };
+        StaticItemsImageList = new ImageList { ColorDepth = ColorDepth.Depth32Bit, ImageSize = new Size(24, 24) };
     }
 
     /// <summary>
@@ -125,9 +117,7 @@ public static class ListViewExtensions
 
             await listViewItem.LoadItemImage(refItem);
         }
-        catch
-        {
-        }
+        catch { }
     }
 
     /// <summary>

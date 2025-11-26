@@ -1,6 +1,5 @@
-﻿using RSBot.NavMeshApi.Extensions;
-
-using System.Numerics;
+﻿using System.Numerics;
+using RSBot.NavMeshApi.Extensions;
 
 namespace RSBot.NavMeshApi.Mathematics;
 
@@ -29,7 +28,9 @@ public struct TriangleF
 
     //https://math.stackexchange.com/questions/1324179/how-to-tell-if-3-connected-points-are-connected-clockwise-or-counter-clockwise
     //https://en.wikipedia.org/wiki/Curve_orientation
-    public bool IsClockwise => (_p1.X * _p2.Z) + (_p3.X * _p1.Z) + (_p2.X * _p3.Z) - (_p1.X * _p3.Z) - (_p3.X * _p2.Z) - (_p2.X * _p1.Z) > 0.0f;
+    public bool IsClockwise =>
+        (_p1.X * _p2.Z) + (_p3.X * _p1.Z) + (_p2.X * _p3.Z) - (_p1.X * _p3.Z) - (_p3.X * _p2.Z) - (_p2.X * _p1.Z)
+        > 0.0f;
 
     public bool FindHeight(ref Vector3 vPos)
     {

@@ -9,9 +9,7 @@ public class SpawnedNpc : SpawnedBionic
     /// </summary>
     /// <param name="objId">The ref obj id</param>
     public SpawnedNpc(uint objId)
-        : base(objId)
-    {
-    }
+        : base(objId) { }
 
     /// <summary>
     ///     Gets or sets the npc talk.

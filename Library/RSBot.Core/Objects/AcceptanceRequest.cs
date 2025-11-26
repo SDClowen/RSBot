@@ -77,7 +77,7 @@ public class AcceptanceRequest
         return new AcceptanceRequest
         {
             Type = (InviteRequestType)packet.ReadByte(),
-            PlayerUniqueId = packet.ReadUInt()
+            PlayerUniqueId = packet.ReadUInt(),
         };
     }
 }

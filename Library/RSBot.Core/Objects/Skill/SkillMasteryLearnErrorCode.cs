@@ -20,5 +20,5 @@ public enum SkillMasteryLearnErrorCodes : ushort
     /// <summary>
     ///     Cannot learn due to total mastery limit.
     /// </summary>
-    UIIT_STT_SKILL_LEARN_MASTERY_TOTAL_LIMIT = 0x0538
+    UIIT_STT_SKILL_LEARN_MASTERY_TOTAL_LIMIT = 0x0538,
 }

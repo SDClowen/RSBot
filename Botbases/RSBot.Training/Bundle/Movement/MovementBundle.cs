@@ -32,23 +32,27 @@ internal class MovementBundle : IBundle
         if (Game.SelectedEntity != null && !LastEntityWasBehindObstacle)
             return;
 
-        var playerUnderAttack =
-            SpawnManager.Any<SpawnedMonster>(m => m.AttackingPlayer && Container.Bot.Area.IsInSight(m));
+        var playerUnderAttack = SpawnManager.Any<SpawnedMonster>(m =>
+            m.AttackingPlayer && Container.Bot.Area.IsInSight(m)
+        );
         if (playerUnderAttack && !LastEntityWasBehindObstacle)
             return;
 
         if (Game.Player.Movement.Moving)
             return;
 
-        if (PlayerConfig.Get("RSBot.Party.AlwaysFollowPartyMaster", false) &&
-            Game.Party.IsInParty &&
-            !Game.Party.IsLeader)
+        if (
+            PlayerConfig.Get("RSBot.Party.AlwaysFollowPartyMaster", false)
+            && Game.Party.IsInParty
+            && !Game.Party.IsLeader
+        )
         {
             if (Game.Player.InAction)
                 return;
 
             var player = Game.Party.Leader?.Player;
-            if (player != null && player.Position.DistanceToPlayer() >= 10) Game.Player.MoveTo(player.Position);
+            if (player != null && player.Position.DistanceToPlayer() >= 10)
+                Game.Player.MoveTo(player.Position);
 
             return;
         }
@@ -75,8 +79,7 @@ internal class MovementBundle : IBundle
         var destination = Container.Bot.Area.GetRandomPosition();
 
         var attempt = 0;
-        while (Game.Player.Position.HasCollisionBetween(destination) &&
-               distance < Container.Bot.Area.Radius)
+        while (Game.Player.Position.HasCollisionBetween(destination) && distance < Container.Bot.Area.Radius)
         {
             destination = Container.Bot.Area.GetRandomPosition();
             if (attempt++ > 3)
@@ -96,7 +99,7 @@ internal class MovementBundle : IBundle
         Config = new MovementConfig
         {
             WalkAround = PlayerConfig.Get("RSBot.Training.radioWalkAround", true),
-            WalkToCenter = PlayerConfig.Get<bool>("RSBot.Training.radioCenter")
+            WalkToCenter = PlayerConfig.Get<bool>("RSBot.Training.radioCenter"),
         };
     }
 

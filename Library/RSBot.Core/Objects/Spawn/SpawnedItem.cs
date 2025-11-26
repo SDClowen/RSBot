@@ -109,17 +109,20 @@ public class SpawnedItem : SpawnedEntity
         packet.WriteByte(ActionTarget.Entity);
         packet.WriteUInt(UniqueId);
 
-        var asyncResult = new AwaitCallback(response =>
-        {
-            var actionState = (ActionState)response.ReadByte();
-            var repeatAction = response.ReadBool();
+        var asyncResult = new AwaitCallback(
+            response =>
+            {
+                var actionState = (ActionState)response.ReadByte();
+                var repeatAction = response.ReadBool();
 
-            Log.Debug($"Picked up item response: State={actionState} Repeat={repeatAction}");
+                Log.Debug($"Picked up item response: State={actionState} Repeat={repeatAction}");
 
-            return actionState is ActionState.Begin or ActionState.End
-                ? AwaitCallbackResult.Success
-                : AwaitCallbackResult.ConditionFailed;
-        }, 0xB074);
+                return actionState is ActionState.Begin or ActionState.End
+                    ? AwaitCallbackResult.Success
+                    : AwaitCallbackResult.ConditionFailed;
+            },
+            0xB074
+        );
 
         Log.Status("Picking up...");
         PacketManager.SendPacket(packet, PacketDestination.Server, asyncResult);

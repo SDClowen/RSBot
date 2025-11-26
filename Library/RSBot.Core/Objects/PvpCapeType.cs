@@ -7,5 +7,5 @@ public enum PvpCapeType
     Gray = 2,
     Blue = 3,
     White = 4,
-    Gold = 5
+    Gold = 5,
 }

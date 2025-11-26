@@ -38,8 +38,11 @@ public static class AttributesInfoExtension
             ItemAttributeGroup.MagicalDefense => "PARAM_MD",
             ItemAttributeGroup.PhysicalAbsorbRatio => "PARAM_PR",
             ItemAttributeGroup.MagicalAbsorbRatio => "PARAM_MR",
-            _ => throw new ArgumentOutOfRangeException(nameof(group), group,
-                "The specified attribute group is unavailable")
+            _ => throw new ArgumentOutOfRangeException(
+                nameof(group),
+                group,
+                "The specified attribute group is unavailable"
+            ),
         };
     }
 }

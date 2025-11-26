@@ -13,14 +13,18 @@ namespace RSBot;
 
 internal static class Program
 {
-    public static string AssemblyTitle =
-        Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyProductAttribute>()?.Product;
+    public static string AssemblyTitle = Assembly
+        .GetExecutingAssembly()
+        .GetCustomAttribute<AssemblyProductAttribute>()
+        ?.Product;
 
     public static string AssemblyVersion =
         $"v{Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version}";
 
-    public static string AssemblyDescription =
-        Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyDescriptionAttribute>()?.Description;
+    public static string AssemblyDescription = Assembly
+        .GetExecutingAssembly()
+        .GetCustomAttribute<AssemblyDescriptionAttribute>()
+        ?.Description;
 
     public class CommandLineOptions
     {
@@ -33,13 +37,21 @@ internal static class Program
 
     private static void DisplayHelp(ParserResult<CommandLineOptions> result)
     {
-        var helpText = HelpText.AutoBuild(result, h =>
-        {
-            h.AdditionalNewLineAfterOption = false;
-            h.AddDashesToOption = true;
-            return HelpText.DefaultParsingErrorsHandler(result, h);
-        });
-        MessageBox.Show(helpText, AssemblyTitle + " " + AssemblyVersion, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        var helpText = HelpText.AutoBuild(
+            result,
+            h =>
+            {
+                h.AdditionalNewLineAfterOption = false;
+                h.AddDashesToOption = true;
+                return HelpText.DefaultParsingErrorsHandler(result, h);
+            }
+        );
+        MessageBox.Show(
+            helpText,
+            AssemblyTitle + " " + AssemblyVersion,
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Information
+        );
     }
 
     [STAThread]
@@ -99,5 +111,4 @@ internal static class Program
             Log.Debug($"Selected character by args: {character}");
         }
     }
-
 }

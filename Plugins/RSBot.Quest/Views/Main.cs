@@ -57,7 +57,8 @@ public partial class Main : DoubleBufferedControl
                     treeQuests.Nodes.Add(node);
                 }
 
-                if (!checkShowCompleted.Checked) return;
+                if (!checkShowCompleted.Checked)
+                    return;
 
                 var completedNode = new TreeNode("Completed");
                 foreach (var questId in Game.Player.QuestLog.CompletedQuests)
@@ -225,8 +226,13 @@ public partial class Main : DoubleBufferedControl
         if (!Game.Player.QuestLog.ActiveQuests.TryGetValue(questId, out var activeQuest))
             return;
 
-        if (MessageBox.Show($"Do you really want to abandon the quest [{activeQuest.Quest.GetTranslatedName()}]?",
-                "Abandon quest", MessageBoxButtons.YesNo) == DialogResult.Yes)
+        if (
+            MessageBox.Show(
+                $"Do you really want to abandon the quest [{activeQuest.Quest.GetTranslatedName()}]?",
+                "Abandon quest",
+                MessageBoxButtons.YesNo
+            ) == DialogResult.Yes
+        )
             Game.Player.QuestLog.AbandonQuest(questId);
     }
 }

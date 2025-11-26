@@ -30,9 +30,11 @@ internal static class CalculatorRegistry
     private static void LoadCalculators()
     {
         var type = typeof(IStatisticCalculator);
-        var types = AppDomain.CurrentDomain.GetAssemblies()
+        var types = AppDomain
+            .CurrentDomain.GetAssemblies()
             .SelectMany(s => s.GetTypes())
-            .Where(p => type.IsAssignableFrom(p) && !p.IsInterface).ToArray();
+            .Where(p => type.IsAssignableFrom(p) && !p.IsInterface)
+            .ToArray();
 
         foreach (var handler in types)
         {

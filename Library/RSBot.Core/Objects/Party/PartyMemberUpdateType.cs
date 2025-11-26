@@ -7,5 +7,5 @@ internal enum PartyMemberUpdateType
     HPMP = 4,
     Mastery = 8,
     Position = 32,
-    Guild = 64
+    Guild = 64,
 }

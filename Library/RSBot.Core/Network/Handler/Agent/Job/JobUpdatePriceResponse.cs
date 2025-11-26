@@ -4,7 +4,6 @@ using RSBot.Core.Event;
 namespace RSBot.Core.Network.Handler.Agent.Job;
 
 internal class JobUpdatePriceResponse : IPacketHandler
-
 {
     /// <summary>
     ///     Gets or sets the opcode.

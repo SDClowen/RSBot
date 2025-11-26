@@ -175,8 +175,11 @@ public class Config
     /// <param name="key">The key.</param>
     /// <param name="delimiter">The delimiter.</param>
     /// <returns></returns>
-    public T[] GetArray<T>(string key, char delimiter = ',',
-        StringSplitOptions options = StringSplitOptions.RemoveEmptyEntries)
+    public T[] GetArray<T>(
+        string key,
+        char delimiter = ',',
+        StringSplitOptions options = StringSplitOptions.RemoveEmptyEntries
+    )
     {
         if (!_isLoaded)
             return new T[] { };

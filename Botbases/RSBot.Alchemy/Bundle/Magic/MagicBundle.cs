@@ -35,10 +35,14 @@ internal class MagicBundle : IAlchemyBundle
     /// </summary>
     private void SubscribeEvents()
     {
-        EventManager.SubscribeEvent("OnAlchemySuccess",
-            new Action<InventoryItem, InventoryItem, AlchemyType>(OnStoneAlchemySuccess));
-        EventManager.SubscribeEvent("OnAlchemyFailed",
-            new Action<InventoryItem, InventoryItem, AlchemyType>(OnStoneAlchemyFailed));
+        EventManager.SubscribeEvent(
+            "OnAlchemySuccess",
+            new Action<InventoryItem, InventoryItem, AlchemyType>(OnStoneAlchemySuccess)
+        );
+        EventManager.SubscribeEvent(
+            "OnAlchemyFailed",
+            new Action<InventoryItem, InventoryItem, AlchemyType>(OnStoneAlchemyFailed)
+        );
         EventManager.SubscribeEvent("OnAlchemyError", new Action<ushort, AlchemyType>(OnStoneAlchemyError));
         EventManager.SubscribeEvent("OnAlchemy", new Action<AlchemyType>(OnStoneAlchemy));
         EventManager.SubscribeEvent("OnFuseRequest", new Action<AlchemyAction, AlchemyType>(OnFuseRequest));
@@ -114,8 +118,13 @@ internal class MagicBundle : IAlchemyBundle
             return;
         }
 
-        if (config == null || _shouldRun is false || config.Item == null || config.MagicStones == null ||
-            config.MagicStones?.Count == 0)
+        if (
+            config == null
+            || _shouldRun is false
+            || config.Item == null
+            || config.MagicStones == null
+            || config.MagicStones?.Count == 0
+        )
             return;
 
         //Loops over every stone that should be fused
@@ -137,7 +146,8 @@ internal class MagicBundle : IAlchemyBundle
             if (stone.Value.Group == RefMagicOpt.MaterialAstral)
             {
                 var immortalInfo = config.Item.MagicOptions.FirstOrDefault(m =>
-                    Game.ReferenceManager.GetMagicOption(m.Id).Group == RefMagicOpt.MaterialImmortal);
+                    Game.ReferenceManager.GetMagicOption(m.Id).Group == RefMagicOpt.MaterialImmortal
+                );
 
                 //Not enough immortal attribute -> Need to skip astral
                 if (immortalInfo?.Value <= current?.Value)
@@ -148,8 +158,10 @@ internal class MagicBundle : IAlchemyBundle
             if (current != null && current.Record.Level != config.Item.Record.Degree)
             {
                 //Fix in case the server sends a lower magic option id than expected (dunno why this happens)
-                var actualMagicOption = Game.ReferenceManager.GetMagicOption(current.Record.Group,
-                    (byte)config.Item.Record.Degree);
+                var actualMagicOption = Game.ReferenceManager.GetMagicOption(
+                    current.Record.Group,
+                    (byte)config.Item.Record.Degree
+                );
 
                 current = new MagicOptionInfo { Id = actualMagicOption.Id, Value = current.Value };
             }
@@ -243,16 +255,22 @@ internal class MagicBundle : IAlchemyBundle
             break;
         }
 
-        if (changedOption == null) return;
+        if (changedOption == null)
+            return;
 
         //Print the messages
         var record = Game.ReferenceManager.GetMagicOption(changedOption.Id);
 
         var message = !isNew
-            ? Game.ReferenceManager.GetTranslation("UIIT_MSG_ALCHEMY_CHANGE_CATTR").JoymaxFormat(
-                newItem.Record.GetRealName(), record.GetGroupTranslation(),
-                $"{oldItem.MagicOptions.FirstOrDefault(m => m.Id == changedOption.Id).Value} -> {changedOption.Value}")
-            : Game.ReferenceManager.GetTranslation("UIIT_MSG_ALCHEMY_APPEND_ATTR")
+            ? Game
+                .ReferenceManager.GetTranslation("UIIT_MSG_ALCHEMY_CHANGE_CATTR")
+                .JoymaxFormat(
+                    newItem.Record.GetRealName(),
+                    record.GetGroupTranslation(),
+                    $"{oldItem.MagicOptions.FirstOrDefault(m => m.Id == changedOption.Id).Value} -> {changedOption.Value}"
+                )
+            : Game
+                .ReferenceManager.GetTranslation("UIIT_MSG_ALCHEMY_APPEND_ATTR")
                 .JoymaxFormat(record.GetGroupTranslation(), newItem.Record.GetRealName());
 
         Globals.View.AddLog(newItem.Record.GetRealName(), message);
@@ -269,8 +287,10 @@ internal class MagicBundle : IAlchemyBundle
         if (type != AlchemyType.MagicStone || !Bootstrap.IsActive)
             return;
 
-        Globals.View.AddLog(newItem.Record.GetRealName(),
-            Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL"));
+        Globals.View.AddLog(
+            newItem.Record.GetRealName(),
+            Game.ReferenceManager.GetTranslation("UIIT_MSG_REINFORCERR_FAIL")
+        );
 
         _shouldRun = true;
     }
@@ -289,7 +309,9 @@ internal class MagicBundle : IAlchemyBundle
         Globals.View.AddLog(
             AlchemyManager.ActiveAlchemyItems?.Count > 0
                 ? AlchemyManager.ActiveAlchemyItems.First().Record.GetRealName()
-                : "", Game.ReferenceManager.GetTranslation(translationName));
+                : "",
+            Game.ReferenceManager.GetTranslation(translationName)
+        );
 
         _shouldRun = true;
     }

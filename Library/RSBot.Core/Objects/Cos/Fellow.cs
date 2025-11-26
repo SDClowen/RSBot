@@ -135,9 +135,13 @@ public class Fellow : Cos
     /// <returns></returns>
     public bool UseSatietyPotion()
     {
-        var item = Game.Player.Inventory.GetItem(p => p.Record.IsPet2SatietyPotion &&
-                                                      (p.Record.ReqLevelType1 == ObjectReqLevelType.None ||
-                                                       (Level >= p.Record.ReqLevel1 && Level <= p.Record.ReqLevel2)));
+        var item = Game.Player.Inventory.GetItem(p =>
+            p.Record.IsPet2SatietyPotion
+            && (
+                p.Record.ReqLevelType1 == ObjectReqLevelType.None
+                || (Level >= p.Record.ReqLevel1 && Level <= p.Record.ReqLevel2)
+            )
+        );
         if (item == null)
             return false;
 

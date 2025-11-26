@@ -22,11 +22,7 @@ internal static class GenericAlchemyRequestHandler
             var socketItem = Game.Player.Inventory.GetItemAt(packet.ReadByte()); //Target item
 
             if (item != null && socketItem != null)
-                AlchemyManager.ActiveAlchemyItems = new List<InventoryItem>
-                {
-                    item,
-                    socketItem
-                };
+                AlchemyManager.ActiveAlchemyItems = new List<InventoryItem> { item, socketItem };
 
             return;
         }

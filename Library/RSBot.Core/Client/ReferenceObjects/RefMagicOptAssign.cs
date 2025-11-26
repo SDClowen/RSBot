@@ -8,7 +8,8 @@ public class RefMagicOptAssign : IReference
 
     public bool Load(ReferenceParser parser)
     {
-        if (parser == null) return false;
+        if (parser == null)
+            return false;
 
         parser.TryParse(1, out Race);
         parser.TryParse(2, out TypeId3);

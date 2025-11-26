@@ -28,10 +28,7 @@ internal class StoreScriptCommand : IScriptCommand
     /// <value>
     ///     The arguments.
     /// </value>
-    public Dictionary<string, string> Arguments => new()
-    {
-        { "Codename", "The code name of the NPC" }
-    };
+    public Dictionary<string, string> Arguments => new() { { "Codename", "The code name of the NPC" } };
 
     #endregion Properties
 

@@ -56,8 +56,10 @@ public partial class ScriptRecorder : UIWindow
         EventManager.SubscribeEvent("OnRequestTeleport", new Action<uint, string>(OnRequestTeleport));
         EventManager.SubscribeEvent("OnTerminateVehicle", OnTerminateVehicle);
         EventManager.SubscribeEvent("OnTeleportComplete", OnTeleportComplete);
-        EventManager.SubscribeEvent("OnScriptStartExecuteCommand",
-            new Action<IScriptCommand, int>(OnScriptStartExecuteCommand));
+        EventManager.SubscribeEvent(
+            "OnScriptStartExecuteCommand",
+            new Action<IScriptCommand, int>(OnScriptStartExecuteCommand)
+        );
         EventManager.SubscribeEvent("OnNpcRepairRequest", new Action<uint, byte, byte>(OnNpcRepairRequest));
         EventManager.SubscribeEvent("OnStorageOpenRequest", new Action<uint>(StorageOpenRequest));
         EventManager.SubscribeEvent("OnTalkRequest", new Action<uint, TalkOption>(OnTalkRequest));
@@ -178,7 +180,8 @@ public partial class ScriptRecorder : UIWindow
 
     private void OnNpcRepairRequest(uint entityId, byte type, byte slot)
     {
-        if (!_recording) return;
+        if (!_recording)
+            return;
 
         if (!SpawnManager.TryGetEntity<SpawnedBionic>(entityId, out var entity))
             return;
@@ -215,9 +218,7 @@ public partial class ScriptRecorder : UIWindow
 
         var destination = entity.Movement.Destination;
 
-        StringBuilder
-            stepString =
-                new(); //you prefer it like this? so its not problem var stepString = new StringBuilder() same for me so np :D kk
+        StringBuilder stepString = new(); //you prefer it like this? so its not problem var stepString = new StringBuilder() same for me so np :D kk
         stepString.Append($"move {destination.XOffset:0}");
         stepString.Append($" {destination.YOffset:0}");
         stepString.Append($" {destination.ZOffset:0}");
@@ -304,7 +305,8 @@ public partial class ScriptRecorder : UIWindow
 
     private void OnTeleportComplete()
     {
-        if (!_recording) return;
+        if (!_recording)
+            return;
 
         txtScript.AppendText("wait 5000\n");
     }
@@ -354,8 +356,14 @@ public partial class ScriptRecorder : UIWindow
     /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
     private void btnClear_Click(object sender, EventArgs e)
     {
-        if (MessageBox.Show(@"Do you really want to clear the script?", @"Are you sure?",
-                MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) != DialogResult.Yes)
+        if (
+            MessageBox.Show(
+                @"Do you really want to clear the script?",
+                @"Are you sure?",
+                MessageBoxButtons.YesNoCancel,
+                MessageBoxIcon.Question
+            ) != DialogResult.Yes
+        )
             return;
 
         txtScript.Clear();
@@ -375,7 +383,7 @@ public partial class ScriptRecorder : UIWindow
         {
             Title = LanguageManager.GetLang("SaveRecordedScript"),
             Filter = "RSBot Botbase File|*.rbs",
-            InitialDirectory = ScriptManager.InitialDirectory
+            InitialDirectory = ScriptManager.InitialDirectory,
         };
 
         if (diag.ShowDialog() == DialogResult.OK)
@@ -442,7 +450,8 @@ public partial class ScriptRecorder : UIWindow
 
     private void btnAddCommand_Click(object sender, EventArgs e)
     {
-        if (!(comboCommand.SelectedItem is CommandComboBoxItem selectedItem)) return;
+        if (!(comboCommand.SelectedItem is CommandComboBoxItem selectedItem))
+            return;
 
         if (selectedItem.Command.Arguments == null || selectedItem.Command.Arguments.Count == 0)
         {

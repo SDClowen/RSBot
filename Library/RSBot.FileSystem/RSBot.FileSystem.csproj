@@ -1,11 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <TargetFramework>net8.0</TargetFramework>
-        <RootNamespace>RSBot.FileSystem</RootNamespace>
-        <PlatformTarget>x86</PlatformTarget>
-    </PropertyGroup>
-
+  <PropertyGroup>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>RSBot.FileSystem</RootNamespace>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
 </Project>
