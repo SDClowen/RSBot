@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.Reflection;
 using System.Text;
@@ -11,7 +11,7 @@ using RSBot.Views;
 
 namespace RSBot;
 
-internal static class Program
+public static class Program
 {
     public static string AssemblyTitle = Assembly
         .GetExecutingAssembly()
@@ -33,6 +33,7 @@ internal static class Program
 
         [Option('p', "profile", Required = false, HelpText = "Set the profile name to use.")]
         public string Profile { get; set; }
+
     }
 
     private static void DisplayHelp(ParserResult<CommandLineOptions> result)
@@ -57,6 +58,21 @@ internal static class Program
     [STAThread]
     private static void Main(string[] args)
     {
+        // Check for startcl and startcls commands
+        foreach (var arg in args)
+        {
+            if (arg.Equals("startcl", StringComparison.OrdinalIgnoreCase))
+            {
+                Kernel.StartMode = "client";
+                Log.Debug("Start mode set to: client");
+            }
+            else if (arg.Equals("startcls", StringComparison.OrdinalIgnoreCase))
+            {
+                Kernel.StartMode = "clientless";
+                Log.Debug("Start mode set to: clientless");
+            }
+        }
+
         var parser = new Parser(with => with.HelpWriter = Console.Out);
         var parserResult = parser.ParseArguments<CommandLineOptions>(args);
 
@@ -67,8 +83,11 @@ internal static class Program
             })
             .WithNotParsed(errs =>
             {
-                DisplayHelp(parserResult);
-                Environment.Exit(1);
+                // Only display help if there are actual parsing errors and no start commands
+                var hasStartCommand = !string.IsNullOrEmpty(Kernel.StartMode);
+                
+                if (!hasStartCommand)
+                    DisplayHelp(parserResult);
             });
 
         //CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
