@@ -26,7 +26,9 @@ if ($Clean) {
 }
 
 Write-Output "Building with '$Configuration' configuration..."
-& "C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe" /p:Configuration=$Configuration /p:Platform=x86 RSBot.sln > build.log
+$vsPath = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -property installationPath
+$msBuildPath = Join-Path $vsPath "MSBuild\Current\Bin\MSBuild.exe"
+& $msBuildPath /p:Configuration=$Configuration /p:Platform=x86 RSBot.sln > build.log
 Write-Output "NOTE: This is a truncated view of the build logs. For the full log, refer to .\build.log"
 Get-Content -Path "build.log" -Tail 100
 
