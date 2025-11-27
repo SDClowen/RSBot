@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
@@ -30,6 +31,16 @@ public class Bot
     public IBotbase Botbase { get; private set; }
 
     /// <summary>
+    ///     Gets the start time.
+    /// </summary>
+    public DateTime StartTime { get; private set; }
+
+    /// <summary>
+    ///     Gets the uptime.
+    /// </summary>
+    public TimeSpan Uptime => Running ? DateTime.Now - StartTime : TimeSpan.Zero;
+
+    /// <summary>
     ///     Sets the botbase.
     /// </summary>
     /// <param name="botBase">The bot base.</param>
@@ -49,6 +60,7 @@ public class Bot
         if (Running || Botbase == null)
             return;
 
+        StartTime = DateTime.Now;
         TokenSource = new CancellationTokenSource();
 
         Task.Factory.StartNew(

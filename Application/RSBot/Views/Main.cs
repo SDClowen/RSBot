@@ -130,6 +130,27 @@ public partial class Main : UIWindow
         EventManager.SubscribeEvent("OnAgentServerDisconnected", OnAgentServerDisconnected);
         EventManager.SubscribeEvent("OnShowScriptRecorder", new Action<int, bool>(OnShowScriptRecorder));
         EventManager.SubscribeEvent("OnAddSidebarElement", new Action<Control>(OnAddSidebarElement));
+        EventManager.SubscribeEvent("OnSetVisibility", new Action<bool>(OnSetVisibility));
+        EventManager.SubscribeEvent("OnGoClientless", OnGoClientless);
+    }
+
+    private void OnGoClientless()
+    {
+        ClientlessManager.GoClientless();
+    }
+
+    private void OnSetVisibility(bool visible)
+    {
+        if (InvokeRequired)
+        {
+            Invoke(new Action<bool>(OnSetVisibility), visible);
+            return;
+        }
+
+        if (visible)
+            Show();
+        else
+            Hide();
     }
 
     private void OnAddSidebarElement(Control obj)

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.Reflection;
 using System.Text;
@@ -13,6 +13,8 @@ namespace RSBot;
 
 internal static class Program
 {
+    public static Main MainForm { get; private set; }
+
     public static string AssemblyTitle = Assembly
         .GetExecutingAssembly()
         .GetCustomAttribute<AssemblyProductAttribute>()
@@ -33,6 +35,9 @@ internal static class Program
 
         [Option('p', "profile", Required = false, HelpText = "Set the profile name to use.")]
         public string Profile { get; set; }
+
+        [Option("listen", Required = false, HelpText = "Enable IPC and listen on the specified pipe name.")]
+        public string Listen { get; set; }
     }
 
     private static void DisplayHelp(ParserResult<CommandLineOptions> result)
@@ -83,11 +88,11 @@ internal static class Program
         Application.SetCompatibleTextRenderingDefault(false);
         Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
 
-        Main mainForm = new Main();
-        SplashScreen splashScreen = new SplashScreen(mainForm);
+        MainForm = new Main();
+        SplashScreen splashScreen = new SplashScreen(MainForm);
         splashScreen.ShowDialog();
 
-        Application.Run(mainForm);
+        Application.Run(MainForm);
     }
 
     private static void RunOptions(CommandLineOptions options)
@@ -109,6 +114,11 @@ internal static class Program
             var character = options.Character;
             ProfileManager.SelectedCharacter = character;
             Log.Debug($"Selected character by args: {character}");
+        }
+
+        if (!string.IsNullOrEmpty(options.Listen))
+        {
+            IpcManager.Initialize(options.Listen);
         }
     }
 }

@@ -23,6 +23,7 @@ if (-not (Test-Path ".\SDUI")) {
 
 taskkill /F /IM RSBot.exe
 taskkill /F /IM sro_client.exe
+taskkill /F /IM RSBot.Server.exe
 
 if ($Clean) {
     Write-Output "Performing a clean build..."
