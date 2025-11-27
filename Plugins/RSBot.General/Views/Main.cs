@@ -127,10 +127,37 @@ internal partial class Main : DoubleBufferedControl
 
         comboBoxClientType.SelectedIndex = (int)Game.ClientType;
 
-        if (File.Exists(GlobalConfig.Get<string>("RSBot.SilkroadDirectory") + "\\media.pk2"))
-            return;
+                if (!File.Exists(GlobalConfig.Get<string>("RSBot.SilkroadDirectory") + "\\media.pk2"))
+            txtSilkroadPath.BackColor = Color.Red;
 
-        txtSilkroadPath.BackColor = Color.Red;
+        // Auto-start based on command line arguments
+        if (!string.IsNullOrEmpty(Kernel.StartMode))
+        {
+            Task.Run(async () =>
+            {
+                // Wait a bit for UI to fully load
+                await Task.Delay(1000);
+
+                if (Kernel.StartMode == "client")
+                {
+                    // Start with client
+                    await Task.Delay(500);
+                    BeginInvoke(new Action(() =>
+                    {
+                        btnStartClient_Click(btnStartClient, EventArgs.Empty);
+                    }));
+                }
+                else if (Kernel.StartMode == "clientless")
+                {
+                    // Start clientless
+                    await Task.Delay(500);
+                    BeginInvoke(new Action(() =>
+                    {
+                        btnStartClientless_Click(btnStartClientless, EventArgs.Empty);
+                    }));
+                }
+            });
+        }
     }
 
     /// <summary>
