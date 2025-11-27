@@ -7,8 +7,14 @@
 param(
     [string]$Configuration = "Debug",
     [switch]$Clean,
+    [switch]$CleanRepo,
     [switch]$DoNotStart
 )
+
+if ($CleanRepo) {
+    Write-Output "Performing a full clean build..."
+    git clean -dfX
+}
 
 if (-not (Test-Path ".\SDUI")) {
     Write-Output "SDUI submodule is missing. Initializing and updating submodules..."
