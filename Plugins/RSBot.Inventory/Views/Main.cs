@@ -134,6 +134,7 @@ public partial class Main : DoubleBufferedControl
                             Game.ClientType == GameClientType.Global
                             || Game.ClientType == GameClientType.Korean
                             || Game.ClientType == GameClientType.VTC_Game
+                            || Game.ClientType == GameClientType.RuSro
                         )
                             ? 17
                             : 13; //4 slots for relics
