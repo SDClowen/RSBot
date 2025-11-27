@@ -36,7 +36,7 @@ internal static class Program
         [Option('p', "profile", Required = false, HelpText = "Set the profile name to use.")]
         public string Profile { get; set; }
 
-        [Option("listen", Required = false, HelpText = "Enable IPC and listen on the specified pipe name.")]
+        [Option('l', "listen", Required = false, HelpText = "Enable IPC and listen on the specified pipe name.")]
         public string Listen { get; set; }
     }
 

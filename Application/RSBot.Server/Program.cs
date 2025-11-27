@@ -5,44 +5,92 @@ using System.Threading.Tasks;
 using CommandLine;
 using Newtonsoft.Json;
 using RSBot.IPC;
+using System.IO;
+using System.Reflection;
+using System.Text;
+using Newtonsoft.Json.Linq;
 
 namespace RSBot.Server
 {
     internal class Program
     {
+        public class TimestampedTextWriter : TextWriter
+        {
+            private readonly TextWriter _innerWriter;
+
+            public TimestampedTextWriter(TextWriter innerWriter)
+            {
+                _innerWriter = innerWriter;
+            }
+
+            public override Encoding Encoding => _innerWriter.Encoding;
+
+            public override void Write(char value)
+            {
+                _innerWriter.Write(value);
+            }
+
+            public override void Write(string value)
+            {
+                _innerWriter.Write($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}] {value}");
+            }
+
+            public override void WriteLine(string value)
+            {
+                _innerWriter.WriteLine($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}] {value}");
+            }
+        }
+
         private static NamedPipeServer _serverPipe;
-        private static readonly ConcurrentDictionary<string, string> _botClientConnections = new ConcurrentDictionary<string, string>(); // Profile -> ClientPipeId
-        private static readonly ConcurrentDictionary<string, string> _cliRequestMap = new ConcurrentDictionary<string, string>(); // RequestId -> CliClientPipeId
+        private static readonly ConcurrentDictionary<string, string> _botClientConnections = new ConcurrentDictionary<string, string>();
+        private static readonly ConcurrentDictionary<string, string> _cliRequestMap = new ConcurrentDictionary<string, string>();
 
         public class Options
         {
-            [Option("pipename", Required = false, HelpText = "The name of the pipe to listen on.", Default = "RSBotIpcServer")]
+            [Option("pipename", Required = false, HelpText = "The name of the pipe to listen on.", Default = "RSBotIPC")]
             public string PipeName { get; set; }
         }
 
-        static void Main(string[] args)
+        private static TaskCompletionSource<bool> _serverStopped = new TaskCompletionSource<bool>();
+
+        static async Task Main(string[] args)
         {
-            Parser.Default.ParseArguments<Options>(args)
-                   .WithParsed<Options>(o =>
+            SetupLogging("Server.log");
+            await Parser.Default.ParseArguments<Options>(args)
+                   .WithParsedAsync(async o =>
                    {
-                       RunServer(o.PipeName);
+                       await RunServer(o.PipeName);
                    });
         }
 
-        static void RunServer(string pipeName)
+        private static void SetupLogging(string logFileName)
+        {
+            string buildDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string logDirectory = Path.Combine(buildDirectory, "User", "Logs", "Environment");
+            Directory.CreateDirectory(logDirectory);
+
+            string logFilePath = Path.Combine(logDirectory, logFileName);
+            FileStream fileStream = new FileStream(logFilePath, FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
+            StreamWriter streamWriter = new StreamWriter(fileStream) { AutoFlush = true };
+            TextWriter timestampedWriter = new TimestampedTextWriter(streamWriter);
+
+            Console.SetOut(timestampedWriter);
+            Console.SetError(timestampedWriter);
+        }
+
+        static async Task RunServer(string pipeName)
         {
             Console.WriteLine("RSBot IPC Server Starting...");
 
             _serverPipe = new NamedPipeServer(pipeName);
             _serverPipe.ClientConnected += OnClientConnected;
             _serverPipe.ClientDisconnected += OnClientDisconnected;
-            _serverPipe.MessageReceived += OnMessageReceived;
+            _serverPipe.MessageReceived += async (clientPipeId, message) => await OnMessageReceived(clientPipeId, message);
 
             _serverPipe.Start();
 
             Console.WriteLine($"IPC Server listening on pipe: {pipeName}");
-            Console.WriteLine("Press any key to stop the server.");
-            Console.ReadKey();
+            await _serverStopped.Task;
 
             _serverPipe.Stop();
             Console.WriteLine("RSBot IPC Server Stopped.");
@@ -56,16 +104,12 @@ namespace RSBot.Server
         private static void OnClientDisconnected(string clientPipeId)
         {
             Console.WriteLine($"Client disconnected: {clientPipeId}");
-
-            // Remove from bot client connections
             var botEntry = _botClientConnections.FirstOrDefault(x => x.Value == clientPipeId);
             if (botEntry.Key != null)
             {
                 _botClientConnections.TryRemove(botEntry.Key, out _);
                 Console.WriteLine($"Bot client '{botEntry.Key}' removed.");
             }
-
-            // Also check if the disconnected client has pending requests in the map
             var requestsToRemove = _cliRequestMap.Where(kvp => kvp.Value == clientPipeId).Select(kvp => kvp.Key).ToList();
             foreach (var requestId in requestsToRemove)
             {
@@ -74,87 +118,130 @@ namespace RSBot.Server
             }
         }
 
-        private static async void OnMessageReceived(string clientPipeId, string message)
+        private static async Task OnMessageReceived(string clientPipeId, string message)
         {
             Console.WriteLine($"Message received from {clientPipeId}: {message}");
-
-            // Try to parse as IpcCommand first
+            JObject jsonObject;
             try
             {
-                IpcCommand command = IpcCommand.FromJson(message);
-                if (command != null)
+                jsonObject = JObject.Parse(message);
+            }
+            catch (JsonException ex)
+            {
+                Console.WriteLine($"JsonException when parsing message as JObject: {ex.Message}. Message: {message}");
+                return;
+            }
+
+            if (jsonObject.ContainsKey("CommandType"))
+            {
+                try
                 {
-                    if (command.CommandType == CommandType.RegisterBot)
+                    IpcCommand command = jsonObject.ToObject<IpcCommand>();
+                    if (command != null)
                     {
-                        // This is a registration command from a bot client
-                        string profileName = command.Profile;
-                        if (!string.IsNullOrEmpty(profileName))
+                        if (command.CommandType == CommandType.RegisterBot)
                         {
-                            _botClientConnections[profileName] = clientPipeId;
-                            Console.WriteLine($"Bot client for profile '{profileName}' registered with pipe ID {clientPipeId}.");
-                        }
-                    }
-                    else
-                    {
-                        // This is a command from a CLI client
-                        if (!string.IsNullOrEmpty(command.RequestId))
-                        {
-                            _cliRequestMap[command.RequestId] = clientPipeId;
-                        }
-
-                        Console.WriteLine($"Received command '{command.CommandType}' for profile '{command.Profile}' from CLI client {clientPipeId}");
-
-                        if (_botClientConnections.TryGetValue(command.Profile, out string botClientPipeId))
-                        {
-                            Console.WriteLine($"Routing command to bot client {botClientPipeId} for profile '{command.Profile}'");
-                            await _serverPipe.SendMessageToClientAsync(botClientPipeId, message);
+                            string profileName = command.Profile;
+                            if (!string.IsNullOrEmpty(profileName))
+                            {
+                                _botClientConnections[profileName] = clientPipeId;
+                                Console.WriteLine($"Bot client for profile '{profileName}' registered with pipe ID {clientPipeId}.");
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Received RegisterBot command with empty profile from {clientPipeId}. Ignoring.");
+                            }
                         }
                         else
                         {
-                            // Bot client not found, send error response back to CLI client
-                            IpcResponse errorResponse = new IpcResponse
+                            if (!string.IsNullOrEmpty(command.RequestId))
                             {
-                                RequestId = command.RequestId,
-                                Success = false,
-                                Message = $"Bot client for profile '{command.Profile}' not found.",
-                                Payload = ""
-                            };
-                            await _serverPipe.SendMessageToClientAsync(clientPipeId, errorResponse.ToJson());
-                            _cliRequestMap.TryRemove(command.RequestId, out _); // Clean up the request map
+                                _cliRequestMap[command.RequestId] = clientPipeId;
+                                Console.WriteLine($"CLI client request '{command.RequestId}' mapped to {clientPipeId}.");
+                            }
+
+                            Console.WriteLine($"Received command '{command.CommandType}' for profile '{command.Profile}' from CLI client {clientPipeId}");
+
+                            if (_botClientConnections.TryGetValue(command.Profile, out string botClientPipeId))
+                            {
+                                Console.WriteLine($"Routing command '{command.CommandType}' to bot client {botClientPipeId} for profile '{command.Profile}'.");
+                                try
+                                {
+                                    await _serverPipe.SendMessageToClientAsync(botClientPipeId, message);
+                                    Console.WriteLine($"Command '{command.CommandType}' successfully routed to bot client {botClientPipeId}.");
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine($"Error routing command '{command.CommandType}' to bot client {botClientPipeId}: {ex.Message}");
+                                    IpcResponse errorResponse = new IpcResponse
+                                    {
+                                        RequestId = command.RequestId,
+                                        Success = false,
+                                        Message = $"Error routing command to bot client for profile '{command.Profile}': {ex.Message}",
+                                        Payload = ""
+                                    };
+                                    await _serverPipe.SendMessageToClientAsync(clientPipeId, errorResponse.ToJson());
+                                    _cliRequestMap.TryRemove(command.RequestId, out _);
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Bot client for profile '{command.Profile}' not found. Sending error response to CLI client {clientPipeId}.");
+                                IpcResponse errorResponse = new IpcResponse
+                                {
+                                    RequestId = command.RequestId,
+                                    Success = false,
+                                    Message = $"Bot client for profile '{command.Profile}' not found.",
+                                    Payload = ""
+                                };
+                                await _serverPipe.SendMessageToClientAsync(clientPipeId, errorResponse.ToJson());
+                                _cliRequestMap.TryRemove(command.RequestId, out _);
+                            }
                         }
                     }
-                    return;
                 }
-            }
-            catch (JsonException) { /* Not an IpcCommand, proceed to check if it's an IpcResponse */ }
-
-            // Try to parse as IpcResponse
-            try
-            {
-                IpcResponse response = IpcResponse.FromJson(message);
-                if (response != null && !string.IsNullOrEmpty(response.RequestId))
+                catch (Exception ex)
                 {
-                    // This is a response from a bot client
-                    Console.WriteLine($"Received response for request '{response.RequestId}' from bot client {clientPipeId}");
-
-                    if (_cliRequestMap.TryRemove(response.RequestId, out string cliClientPipeId))
-                    {
-                        Console.WriteLine($"Routing response back to CLI client {cliClientPipeId}");
-                        await _serverPipe.SendMessageToClientAsync(cliClientPipeId, message);
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Could not find originating CLI client for request ID '{response.RequestId}'.");
-                    }
+                    Console.WriteLine($"Error processing message as IpcCommand: {ex.Message}. Message: {message}");
                 }
             }
-            catch (JsonException)
+            else if (jsonObject.ContainsKey("Success"))
             {
-                Console.WriteLine($"Received unparseable message from {clientPipeId}: {message}");
+                try
+                {
+                    IpcResponse response = jsonObject.ToObject<IpcResponse>();
+                    if (response != null && !string.IsNullOrEmpty(response.RequestId))
+                    {
+                        Console.WriteLine($"Received response for request '{response.RequestId}' from bot client {clientPipeId}");
+
+                        if (_cliRequestMap.TryRemove(response.RequestId, out string cliClientPipeId))
+                        {
+                            Console.WriteLine($"Routing response for request '{response.RequestId}' back to CLI client {cliClientPipeId}.");
+                            try
+                            {
+                                Console.WriteLine($"Attempting to send response to CLI client {cliClientPipeId}: {message}");
+                                await _serverPipe.SendMessageToClientAsync(cliClientPipeId, message);
+                                Console.WriteLine($"Response successfully sent to CLI client {cliClientPipeId}.");
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine($"Error sending response to CLI client {cliClientPipeId}: {ex.Message}");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Could not find originating CLI client for request ID '{response.RequestId}'. Message: {message}");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error processing message as IpcResponse: {ex.Message}. Message: {message}");
+                }
             }
-            catch (Exception ex)
+            else
             {
-                Console.WriteLine($"Error processing message from {clientPipeId}: {ex.Message}");
+                Console.WriteLine($"Unknown message type received from {clientPipeId}: {message}");
             }
         }
     }

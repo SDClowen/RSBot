@@ -1,14 +1,8 @@
-# Usage:
-# `build.ps1
-# -Clean[False, optional]
-# -DoNotStart[False, optional]
-# -Configuration[Debug, optional]`
-
 param(
     [string]$Configuration = "Debug",
     [switch]$Clean,
     [switch]$CleanRepo,
-    [switch]$DoNotStart
+    [switch]$Start
 )
 
 if ($CleanRepo) {
@@ -21,9 +15,10 @@ if (-not (Test-Path ".\SDUI")) {
     git submodule update --init --recursive
 }
 
-taskkill /F /IM RSBot.exe
 taskkill /F /IM sro_client.exe
+taskkill /F /IM RSBot.exe
 taskkill /F /IM RSBot.Server.exe
+taskkill /F /IM RSBot.Controller.exe
 
 if ($Clean) {
     Write-Output "Performing a clean build..."
@@ -44,7 +39,7 @@ if ($Clean) {
     Remove-Item -Recurse -Force ".\temp" -ErrorAction SilentlyContinue > $null
 }
 
-if (!$DoNotStart) {
+if ($Start) {
     Write-Output "Starting RSBot..."
     & ".\Build\RSBot.exe"
 }

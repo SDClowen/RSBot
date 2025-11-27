@@ -18,7 +18,7 @@ namespace RSBot.Controller
             [Option('d', "data", Required = false, HelpText = "The data payload for the command.")]
             public string Data { get; set; }
 
-            [Option("pipename", Required = false, HelpText = "The name of the pipe to connect to.", Default = "RSBotIpcServer")]
+            [Option('x', "pipename", Required = false, HelpText = "The name of the pipe to connect to.", Default = "RSBotIPC")]
             public string PipeName { get; set; }
         }
 
@@ -45,7 +45,7 @@ namespace RSBot.Controller
             };
 
             var pipeClient = new NamedPipeClient(opts.PipeName, Console.WriteLine);
-            bool responseReceived = false;
+            var responseTcs = new TaskCompletionSource<bool>();
 
             pipeClient.MessageReceived += (message) =>
             {
@@ -60,40 +60,44 @@ namespace RSBot.Controller
                         {
                             Console.WriteLine($"Payload: {response.Payload}");
                         }
-                        responseReceived = true;
-                        pipeClient.Disconnect();
+                        responseTcs.TrySetResult(true);
                     }
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Error processing response: {ex.Message}");
-                    responseReceived = true;
-
+                    responseTcs.TrySetResult(false);
                 }
             };
 
             pipeClient.Disconnected += () =>
             {
-                if (!responseReceived)
+                if (!responseTcs.Task.IsCompleted)
                 {
                     Console.WriteLine("Disconnected from server before receiving a response.");
+                    responseTcs.TrySetResult(false);
                 }
             };
 
             await pipeClient.ConnectAsync();
-            await pipeClient.SendMessageAsync(command.ToJson());
 
-            // Wait for a response or timeout
-            var timeout = Task.Delay(5000); // 5 second timeout
-            while (!responseReceived)
+            await pipeClient.SendMessageAsync(command.ToJson());
+            var timeoutTask = Task.Delay(5000);
+            var completedTask = await Task.WhenAny(responseTcs.Task, timeoutTask);
+
+            if (completedTask == timeoutTask)
             {
-                if (await Task.WhenAny(timeout) == timeout)
-                {
-                    Console.WriteLine("Timeout waiting for a response from the server.");
-                    break;
-                }
-                await Task.Delay(100);
+                Console.WriteLine("Timeout waiting for a response from the server.");
             }
+            else if (responseTcs.Task.Result)
+            {
+            }
+            else
+            {
+                Console.WriteLine("Failed to receive a valid response or disconnected unexpectedly.");
+            }
+
+            pipeClient.Disconnect();
         }
     }
 }

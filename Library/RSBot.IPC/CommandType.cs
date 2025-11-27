@@ -2,7 +2,7 @@ namespace RSBot.IPC
 {
     public enum CommandType
     {
-        RegisterBot, // Added for bot registration
+        RegisterBot,
         Stop,
         Start,
         GetInfo,

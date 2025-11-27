@@ -2,7 +2,7 @@ using System;
 using System.IO.Pipes;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections.Concurrent; // Added for ConcurrentDictionary
+using System.Collections.Concurrent;
 
 namespace RSBot.IPC
 {
@@ -12,9 +12,9 @@ namespace RSBot.IPC
         private readonly ConcurrentDictionary<string, NamedPipeServerStream> _clientPipesMap = new ConcurrentDictionary<string, NamedPipeServerStream>();
         private bool _isRunning;
 
-        public event Action<string, string> MessageReceived; // clientPipeId, message
-        public event Action<string> ClientConnected; // clientPipeId
-        public event Action<string> ClientDisconnected; // clientPipeId
+        public event Func<string, string, Task> MessageReceived;
+        public event Action<string> ClientConnected;
+        public event Action<string> ClientDisconnected;
 
         public NamedPipeServer(string pipeName)
         {
@@ -48,7 +48,7 @@ namespace RSBot.IPC
                     NamedPipeServerStream pipeServer = new NamedPipeServerStream(
                         _pipeName,
                         PipeDirection.InOut,
-                        NamedPipeServerStream.MaxAllowedServerInstances, // Max number of server instances
+                        NamedPipeServerStream.MaxAllowedServerInstances,
                         PipeTransmissionMode.Byte,
                         PipeOptions.Asynchronous);
                     Console.WriteLine("Waiting for a client to connect...");
@@ -57,7 +57,7 @@ namespace RSBot.IPC
                     if (_isRunning)
                     {
                         Console.WriteLine("Client connected.");
-                        string clientPipeId = Guid.NewGuid().ToString(); // Unique ID for this client connection
+                        string clientPipeId = Guid.NewGuid().ToString();
                         _clientPipesMap.TryAdd(clientPipeId, pipeServer);
                         ClientConnected?.Invoke(clientPipeId);
                         _ = HandleClientConnection(pipeServer, clientPipeId);
@@ -90,7 +90,6 @@ namespace RSBot.IPC
                     }
                     else if (bytesRead == 0)
                     {
-                        // Client disconnected
                         break;
                     }
                 }

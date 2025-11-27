@@ -9,7 +9,9 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
+    <OutputPath>..\..\Build\</OutputPath>
     <TargetFramework>net8.0</TargetFramework>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>

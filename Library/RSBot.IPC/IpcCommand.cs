@@ -5,7 +5,7 @@ namespace RSBot.IPC
 {
     public class IpcCommand
     {
-        public string RequestId { get; set; } // Unique identifier for the request
+        public string RequestId { get; set; }
         public CommandType CommandType { get; set; }
         public string Profile { get; set; }
         public string Payload { get; set; }

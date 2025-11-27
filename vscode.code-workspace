@@ -1,0 +1,31 @@
+{
+  "folders": [
+    { "path": ".", "name": "root" },
+    { "path": "Build" },
+    { "path": "Build/User" },
+    { "path": "Application" },
+    { "path": "Botbases" },
+    { "path": "Library" },
+    { "path": "Plugins" }
+  ],
+  "settings": {
+    "files.exclude": {
+      ".github": true,
+      ".editorconfig": true,
+      ".gitattributes": true,
+      ".gitignore": true,
+      ".gitmodules": true,
+      "LICENSE": true,
+      "README.md": true,
+      "AGREEMENT.md": true,
+      "**/obj": true,
+      "**/bin": true,
+      "**/*.dll": true,
+      "**/*.pdb": true,
+      "**/*.lib": true,
+      "**/*.deps.json": true,
+      "**/*.runtimeconfig.json": true,
+      "runtimes": true
+    }
+  }
+}

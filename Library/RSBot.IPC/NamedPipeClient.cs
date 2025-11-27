@@ -32,10 +32,10 @@ namespace RSBot.IPC
             try
             {
                 Log($"Attempting to connect to pipe {_pipeName}...");
-                await _pipeClient.ConnectAsync(5000); // 5 second timeout
+                await _pipeClient.ConnectAsync(5000);
                 Log("Successfully connected to pipe.");
                 Connected?.Invoke();
-                _ = ReadMessagesAsync(); // Start listening for messages
+                _ = ReadMessagesAsync();
             }
             catch (TimeoutException)
             {
@@ -78,7 +78,6 @@ namespace RSBot.IPC
                     }
                     else if (bytesRead == 0)
                     {
-                        // Pipe was closed
                         break;
                     }
                 }

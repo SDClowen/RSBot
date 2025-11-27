@@ -28,7 +28,6 @@ namespace RSBot.Core.Components
         {
             Log.Debug("IPC: Connected to server.");
 
-            // Register the bot with the server
             var profileName = ProfileManager.SelectedProfile;
             if (!string.IsNullOrEmpty(profileName))
             {
@@ -46,7 +45,6 @@ namespace RSBot.Core.Components
         private static void OnDisconnected()
         {
             Log.Debug("IPC: Disconnected from server. Reconnecting...");
-            // Implement reconnection logic if needed
             Task.Delay(5000).ContinueWith(t => _pipeClient.ConnectAsync());
         }
 
@@ -59,10 +57,8 @@ namespace RSBot.Core.Components
                 IpcCommand command = IpcCommand.FromJson(message);
                 if (command != null)
                 {
-                    // Process the command
                     IpcResponse response = await HandleCommand(command);
 
-                    // Send the response
                     if (response != null)
                     {
                         await _pipeClient.SendMessageAsync(response.ToJson());
@@ -87,19 +83,16 @@ namespace RSBot.Core.Components
             switch (command.CommandType)
             {
                 case CommandType.Stop:
-                    // Logic to stop the bot
                     Kernel.Bot.Stop();
                     response.Message = "Bot stopped.";
                     break;
 
                 case CommandType.Start:
-                    // Logic to start the bot
                     Kernel.Bot.Start();
                     response.Message = "Bot started.";
                     break;
 
                 case CommandType.GetInfo:
-                    // Logic to get bot info
                     response.Payload = new
                     {
                         Profile = ProfileManager.SelectedProfile,
@@ -122,7 +115,6 @@ namespace RSBot.Core.Components
                     response.Message = "Switched to clientless mode.";
                     break;
 
-                // Add other command handlers here...
 
                 default:
                     response.Success = false;

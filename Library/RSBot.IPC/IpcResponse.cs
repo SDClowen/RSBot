@@ -4,7 +4,7 @@ namespace RSBot.IPC
 {
     public class IpcResponse
     {
-        public string RequestId { get; set; } // Unique identifier for the request this is a response to
+        public string RequestId { get; set; }
         public bool Success { get; set; }
         public string Message { get; set; }
         public string Payload { get; set; }
