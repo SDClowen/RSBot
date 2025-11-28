@@ -14,7 +14,7 @@ The project is built using `MSBuild`.
 - Use `.\build.ps1` to take builds.
 - For execution policy issues use with `powershell.exe -ExecutionPolicy Bypass .\build.ps1`
 
-- There are arguments that can be passed to the build script, `-Clean` for a clean build, `-Configuration` for the intended build configuration and `-DoNotStart` for not starting the main application.
+- There are arguments that can be passed to the build script, `-Clean` for a clean build, `-Configuration` for the intended build configuration and `-Start` for starting the main application.
 - If you fail to make a build ask the user to build it. Check the `.\build.log` for any errors after user confirms the build.
 
 ## Instructions

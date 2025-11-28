@@ -2,7 +2,7 @@
 
 namespace RSBot.General.Models;
 
-internal class Account
+public class Account
 {
     /// <summary>
     ///     Gets or sets the username.
