@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CommandLine;
@@ -154,48 +155,95 @@ namespace RSBot.Server
                         }
                         else
                         {
-                            if (!string.IsNullOrEmpty(command.RequestId))
+                            lock (_cliRequestMap)
                             {
-                                _cliRequestMap[command.RequestId] = clientPipeId;
-                                Console.WriteLine($"CLI client request '{command.RequestId}' mapped to {clientPipeId}.");
+                                if (!string.IsNullOrEmpty(command.RequestId))
+                                {
+                                    _cliRequestMap[command.RequestId] = clientPipeId;
+                                    Console.WriteLine($"CLI client request '{command.RequestId}' mapped to {clientPipeId}.");
+                                }
                             }
 
                             Console.WriteLine($"Received command '{command.CommandType}' for profile '{command.Profile}' from CLI client {clientPipeId}");
 
-                            if (_botClientConnections.TryGetValue(command.Profile, out string botClientPipeId))
+                            if (command.TargetAllProfiles)
                             {
-                                Console.WriteLine($"Routing command '{command.CommandType}' to bot client {botClientPipeId} for profile '{command.Profile}'.");
-                                try
+                                Console.WriteLine($"Broadcasting command '{command.CommandType}' to all connected bot clients.");
+                                if (_botClientConnections.Any())
                                 {
-                                    await _serverPipe.SendMessageToClientAsync(botClientPipeId, message);
-                                    Console.WriteLine($"Command '{command.CommandType}' successfully routed to bot client {botClientPipeId}.");
+                                    foreach (var botPipeId in _botClientConnections.Values)
+                                    {
+                                        try
+                                        {
+                                            await _serverPipe.SendMessageToClientAsync(botPipeId, message);
+                                            Console.WriteLine($"Command '{command.CommandType}' successfully broadcasted to bot client {botPipeId}.");
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            Console.WriteLine($"Error broadcasting command '{command.CommandType}' to bot client {botPipeId}: {ex.Message}");
+                                        }
+                                    }
                                 }
-                                catch (Exception ex)
+                                else
                                 {
-                                    Console.WriteLine($"Error routing command '{command.CommandType}' to bot client {botClientPipeId}: {ex.Message}");
+                                    Console.WriteLine("No bot clients connected to broadcast command to. Sending error response to CLI client.");
                                     IpcResponse errorResponse = new IpcResponse
                                     {
                                         RequestId = command.RequestId,
                                         Success = false,
-                                        Message = $"Error routing command to bot client for profile '{command.Profile}': {ex.Message}",
+                                        Message = "No bot clients connected.",
                                         Payload = ""
                                     };
                                     await _serverPipe.SendMessageToClientAsync(clientPipeId, errorResponse.ToJson());
-                                    _cliRequestMap.TryRemove(command.RequestId, out _);
+                                    lock (_cliRequestMap)
+                                    {
+                                        _cliRequestMap.TryRemove(command.RequestId, out _);
+                                    }
                                 }
                             }
                             else
                             {
-                                Console.WriteLine($"Bot client for profile '{command.Profile}' not found. Sending error response to CLI client {clientPipeId}.");
-                                IpcResponse errorResponse = new IpcResponse
+                                if (_botClientConnections.TryGetValue(command.Profile, out string botClientPipeId))
                                 {
-                                    RequestId = command.RequestId,
-                                    Success = false,
-                                    Message = $"Bot client for profile '{command.Profile}' not found.",
-                                    Payload = ""
-                                };
-                                await _serverPipe.SendMessageToClientAsync(clientPipeId, errorResponse.ToJson());
-                                _cliRequestMap.TryRemove(command.RequestId, out _);
+                                    Console.WriteLine($"Routing command '{command.CommandType}' to bot client {botClientPipeId} for profile '{command.Profile}'.");
+                                    try
+                                    {
+                                        await _serverPipe.SendMessageToClientAsync(botClientPipeId, message);
+                                        Console.WriteLine($"Command '{command.CommandType}' successfully routed to bot client {botClientPipeId}.");
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Console.WriteLine($"Error routing command '{command.CommandType}' to bot client {botClientPipeId}: {ex.Message}");
+                                        IpcResponse errorResponse = new IpcResponse
+                                        {
+                                            RequestId = command.RequestId,
+                                            Success = false,
+                                            Message = $"Error routing command to bot client for profile '{command.Profile}': {ex.Message}",
+                                            Payload = ""
+                                        };
+                                        await _serverPipe.SendMessageToClientAsync(clientPipeId, errorResponse.ToJson());
+                                        lock (_cliRequestMap)
+                                        {
+                                            _cliRequestMap.TryRemove(command.RequestId, out _);
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"Bot client for profile '{command.Profile}' not found. Sending error response to CLI client {clientPipeId}.");
+                                    IpcResponse errorResponse = new IpcResponse
+                                    {
+                                        RequestId = command.RequestId,
+                                        Success = false,
+                                        Message = $"Bot client for profile '{command.Profile}' not found.",
+                                        Payload = ""
+                                    };
+                                    await _serverPipe.SendMessageToClientAsync(clientPipeId, errorResponse.ToJson());
+                                    lock (_cliRequestMap)
+                                    {
+                                        _cliRequestMap.TryRemove(command.RequestId, out _);
+                                    }
+                                }
                             }
                         }
                     }
@@ -214,23 +262,26 @@ namespace RSBot.Server
                     {
                         Console.WriteLine($"Received response for request '{response.RequestId}' from bot client {clientPipeId}");
 
-                        if (_cliRequestMap.TryRemove(response.RequestId, out string cliClientPipeId))
+                        lock (_cliRequestMap)
                         {
-                            Console.WriteLine($"Routing response for request '{response.RequestId}' back to CLI client {cliClientPipeId}.");
-                            try
+                            if (_cliRequestMap.TryRemove(response.RequestId, out string cliClientPipeId))
                             {
-                                Console.WriteLine($"Attempting to send response to CLI client {cliClientPipeId}: {message}");
-                                await _serverPipe.SendMessageToClientAsync(cliClientPipeId, message);
-                                Console.WriteLine($"Response successfully sent to CLI client {cliClientPipeId}.");
+                                Console.WriteLine($"Routing response for request '{response.RequestId}' back to CLI client {cliClientPipeId}.");
+                                try
+                                {
+                                    Console.WriteLine($"Attempting to send response to CLI client {cliClientPipeId}: {message}");
+                                    await _serverPipe.SendMessageToClientAsync(cliClientPipeId, message);
+                                    Console.WriteLine($"Response successfully sent to CLI client {cliClientPipeId}.");
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine($"Error sending response to CLI client {cliClientPipeId}: {ex.Message}");
+                                }
                             }
-                            catch (Exception ex)
+                            else
                             {
-                                Console.WriteLine($"Error sending response to CLI client {cliClientPipeId}: {ex.Message}");
+                                Console.WriteLine($"Could not find originating CLI client for request ID '{response.RequestId}'. Message: {message}");
                             }
-                        }
-                        else
-                        {
-                            Console.WriteLine($"Could not find originating CLI client for request ID '{response.RequestId}'. Message: {message}");
                         }
                     }
                 }

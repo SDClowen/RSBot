@@ -9,6 +9,7 @@ namespace RSBot.IPC
         public CommandType CommandType { get; set; }
         public string Profile { get; set; }
         public string Payload { get; set; }
+        public bool TargetAllProfiles { get; set; }
 
         public string ToJson()
         {

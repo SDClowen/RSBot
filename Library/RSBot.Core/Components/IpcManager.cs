@@ -115,6 +115,23 @@ namespace RSBot.Core.Components
                     response.Message = "Switched to clientless mode.";
                     break;
 
+                case CommandType.SetClientVisibility:
+                    bool clientVisible = bool.Parse(command.Payload);
+                    ClientManager.SetVisible(clientVisible);
+                    response.Message = $"Client window visibility set to {clientVisible}.";
+                    break;
+
+                case CommandType.LaunchClient:
+                    var started = await ClientManager.Start();
+                    response.Success = started;
+                    response.Message = started ? "Client launched successfully." : "Failed to launch client.";
+                    break;
+
+                case CommandType.KillClient:
+                    ClientManager.Kill();
+                    response.Message = "Client killed.";
+                    break;
+
 
                 default:
                     response.Success = false;

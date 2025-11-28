@@ -8,6 +8,7 @@ namespace RSBot.IPC
         GetInfo,
         SetVisibility,
         GoClientless,
+        SetClientVisibility,
         LaunchClient,
         KillClient,
         SetOptions,

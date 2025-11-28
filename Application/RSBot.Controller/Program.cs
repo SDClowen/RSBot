@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using CommandLine;
 using RSBot.IPC;
@@ -9,7 +11,7 @@ namespace RSBot.Controller
     {
         public class Options
         {
-            [Option('p', "profile", Required = true, HelpText = "The profile name to target.")]
+            [Option('p', "profile", Required = false, HelpText = "The profile name to target. Required unless --all is used.")]
             public string Profile { get; set; }
 
             [Option('c', "command", Required = true, HelpText = "The command to execute.")]
@@ -20,32 +22,47 @@ namespace RSBot.Controller
 
             [Option('x', "pipename", Required = false, HelpText = "The name of the pipe to connect to.", Default = "RSBotIPC")]
             public string PipeName { get; set; }
+
+            [Option('a', "all", Required = false, HelpText = "Send command to all listening bot instances.", Default = false)]
+            public bool AllProfiles { get; set; }
         }
 
         static async Task Main(string[] args)
         {
             await Parser.Default.ParseArguments<Options>(args)
-                .WithParsedAsync(RunOptions);
+                .WithParsedAsync(async opts =>
+                {
+                    if (!opts.AllProfiles && string.IsNullOrEmpty(opts.Profile))
+                    {
+                        Console.WriteLine("Error: Either --profile or --all must be specified.");
+                        return;
+                    }
+
+                    if (!Enum.TryParse<CommandType>(opts.Command, true, out var commandType))
+                    {
+                        Console.WriteLine($"Error: Invalid command '{opts.Command}'.");
+                        return;
+                    }
+
+                    var command = new IpcCommand
+                    {
+                        RequestId = Guid.NewGuid().ToString(),
+                        CommandType = commandType,
+                        Profile = opts.Profile,
+                        Payload = opts.Data,
+                        TargetAllProfiles = opts.AllProfiles
+                    };
+
+                    await ExecuteCommand(command, opts.PipeName);
+                });
         }
 
-        static async Task RunOptions(Options opts)
+        static async Task ExecuteCommand(IpcCommand command, string pipeName)
         {
-            if (!Enum.TryParse<CommandType>(opts.Command, true, out var commandType))
-            {
-                Console.WriteLine($"Error: Invalid command '{opts.Command}'.");
-                return;
-            }
-
-            var command = new IpcCommand
-            {
-                RequestId = Guid.NewGuid().ToString(),
-                CommandType = commandType,
-                Profile = opts.Profile,
-                Payload = opts.Data
-            };
-
-            var pipeClient = new NamedPipeClient(opts.PipeName, Console.WriteLine);
-            var responseTcs = new TaskCompletionSource<bool>();
+            var pipeClient = new NamedPipeClient(pipeName, Console.WriteLine);
+            var collectedResponses = new ConcurrentBag<IpcResponse>();
+            var singleResponseTcs = new TaskCompletionSource<bool>();
+            const int BATCH_COMMAND_TIMEOUT_MS = 5000;
 
             pipeClient.MessageReceived += (message) =>
             {
@@ -54,47 +71,69 @@ namespace RSBot.Controller
                     var response = IpcResponse.FromJson(message);
                     if (response != null && response.RequestId == command.RequestId)
                     {
-                        Console.WriteLine($"Success: {response.Success}");
-                        Console.WriteLine($"Message: {response.Message}");
-                        if (!string.IsNullOrEmpty(response.Payload))
+                        collectedResponses.Add(response);
+                        if (!command.TargetAllProfiles)
                         {
-                            Console.WriteLine($"Payload: {response.Payload}");
+                            singleResponseTcs.TrySetResult(true);
                         }
-                        responseTcs.TrySetResult(true);
                     }
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Error processing response: {ex.Message}");
-                    responseTcs.TrySetResult(false);
+                    if (!command.TargetAllProfiles)
+                    {
+                        singleResponseTcs.TrySetResult(false);
+                    }
                 }
             };
 
             pipeClient.Disconnected += () =>
             {
-                if (!responseTcs.Task.IsCompleted)
+                if (!command.TargetAllProfiles && !singleResponseTcs.Task.IsCompleted)
                 {
                     Console.WriteLine("Disconnected from server before receiving a response.");
-                    responseTcs.TrySetResult(false);
+                    singleResponseTcs.TrySetResult(false);
                 }
             };
 
             await pipeClient.ConnectAsync();
 
             await pipeClient.SendMessageAsync(command.ToJson());
-            var timeoutTask = Task.Delay(5000);
-            var completedTask = await Task.WhenAny(responseTcs.Task, timeoutTask);
 
-            if (completedTask == timeoutTask)
+            Task completedTask;
+            if (command.TargetAllProfiles)
             {
-                Console.WriteLine("Timeout waiting for a response from the server.");
-            }
-            else if (responseTcs.Task.Result)
-            {
+                // For batch commands, wait for a fixed duration to collect multiple responses
+                completedTask = await Task.WhenAny(Task.Delay(BATCH_COMMAND_TIMEOUT_MS), singleResponseTcs.Task);
             }
             else
             {
+                // For single commands, wait for a single response or timeout
+                completedTask = await Task.WhenAny(singleResponseTcs.Task, Task.Delay(BATCH_COMMAND_TIMEOUT_MS));
+            }
+
+            if (completedTask == singleResponseTcs.Task && !singleResponseTcs.Task.Result)
+            {
                 Console.WriteLine("Failed to receive a valid response or disconnected unexpectedly.");
+            }
+            else if (collectedResponses.IsEmpty)
+            {
+                Console.WriteLine("Timeout waiting for a response from the server, or no responses received.");
+            }
+            else
+            {
+                Console.WriteLine($"--- Responses for Request ID: {command.RequestId} ---");
+                foreach (var response in collectedResponses)
+                {
+                    Console.WriteLine($"  Success: {response.Success}");
+                    Console.WriteLine($"  Message: {response.Message}");
+                    if (!string.IsNullOrEmpty(response.Payload))
+                    {
+                        Console.WriteLine($"  Payload: {response.Payload}");
+                    }
+                    Console.WriteLine("-------------------------------------");
+                }
             }
 
             pipeClient.Disconnect();
