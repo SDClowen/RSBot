@@ -10,7 +10,7 @@ using RSBot.General.Models;
 
 namespace RSBot.General.Components;
 
-internal class Accounts
+public class Accounts
 {
     /// <summary>
     ///     Gets or sets the saved accounts.

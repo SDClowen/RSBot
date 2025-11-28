@@ -304,34 +304,42 @@ namespace RSBot.Server
                             $"Received response for request '{response.RequestId}' from bot client {clientPipeId}"
                         );
 
+                        string cliClientPipeId = null;
+                        bool foundClient = false;
+
                         lock (_cliRequestMap)
                         {
-                            if (_cliRequestMap.TryRemove(response.RequestId, out string cliClientPipeId))
+                            if (_cliRequestMap.TryRemove(response.RequestId, out cliClientPipeId))
+                            {
+                                foundClient = true;
+                            }
+                        }
+
+                        if (foundClient)
+                        {
+                            Console.WriteLine(
+                                $"Routing response for request '{response.RequestId}' back to CLI client {cliClientPipeId}."
+                            );
+                            try
                             {
                                 Console.WriteLine(
-                                    $"Routing response for request '{response.RequestId}' back to CLI client {cliClientPipeId}."
+                                    $"Attempting to send response to CLI client {cliClientPipeId}: {message}"
                                 );
-                                try
-                                {
-                                    Console.WriteLine(
-                                        $"Attempting to send response to CLI client {cliClientPipeId}: {message}"
-                                    );
-                                    await _serverPipe.SendMessageToClientAsync(cliClientPipeId, message);
-                                    Console.WriteLine($"Response successfully sent to CLI client {cliClientPipeId}.");
-                                }
-                                catch (Exception ex)
-                                {
-                                    Console.WriteLine(
-                                        $"Error sending response to CLI client {cliClientPipeId}: {ex.Message}"
-                                    );
-                                }
+                                await _serverPipe.SendMessageToClientAsync(cliClientPipeId, message);
+                                Console.WriteLine($"Response successfully sent to CLI client {cliClientPipeId}.");
                             }
-                            else
+                            catch (Exception ex)
                             {
                                 Console.WriteLine(
-                                    $"Could not find originating CLI client for request ID '{response.RequestId}'. Message: {message}"
+                                    $"Error sending response to CLI client {cliClientPipeId}: {ex.Message}"
                                 );
                             }
+                        }
+                        else
+                        {
+                            Console.WriteLine(
+                                $"Could not find originating CLI client for request ID '{response.RequestId}'. Message: {message}"
+                            );
                         }
                     }
                 }
