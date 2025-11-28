@@ -51,6 +51,7 @@ namespace RSBot.Server
         public class Options
         {
             [Option(
+                'x',
                 "pipename",
                 Required = false,
                 HelpText = "The name of the pipe to listen on.",
