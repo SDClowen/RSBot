@@ -57,13 +57,19 @@ internal static class Program
 
         [Option("provider-name", Required = false, HelpText = "Provider name (e.g., Joymax, JCPlanet).")]
         public string ProviderName { get; set; }
-        
+
         [Option("server", Required = false, HelpText = "Server name for the autologin entry.")]
         public string Server { get; set; }
 
-        [Option('a', "select-autologin", Required = false, HelpText = "Select an existing autologin entry by username.")]
+        [Option(
+            'a',
+            "select-autologin",
+            Required = false,
+            HelpText = "Select an existing autologin entry by username."
+        )]
         public string SelectAutologin { get; set; }
     }
+
     private static void DisplayHelp(ParserResult<CommandLineOptions> result)
     {
         var helpText = HelpText.AutoBuild(
@@ -176,7 +182,8 @@ internal static class Program
                 }
             }
             // Default to Joymax if no provider name is specified, matching UI default behavior.
-            if (channel == 0) channel = 1;
+            if (channel == 0)
+                channel = 1;
 
             var newAccount = new Account
             {
@@ -185,7 +192,7 @@ internal static class Program
                 SecondaryPassword = options.SecondaryPassword,
                 Servername = options.Server,
                 Channel = channel,
-                Characters = new List<string>() // Initialize empty character list
+                Characters = new List<string>(), // Initialize empty character list
             };
 
             // Check if an account with the same username already exists
