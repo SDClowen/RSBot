@@ -1,7 +1,7 @@
-using RSBot.IPC;
 using System;
 using System.Threading.Tasks;
 using RSBot.Core.Event;
+using RSBot.IPC;
 
 namespace RSBot.Core.Components
 {
@@ -35,7 +35,7 @@ namespace RSBot.Core.Components
                 {
                     CommandType = CommandType.RegisterBot,
                     Profile = profileName,
-                    RequestId = Guid.NewGuid().ToString()
+                    RequestId = Guid.NewGuid().ToString(),
                 };
                 await _pipeClient.SendMessageAsync(command.ToJson());
                 Log.Debug($"IPC: Sent registration for profile '{profileName}'.");
@@ -77,7 +77,7 @@ namespace RSBot.Core.Components
             {
                 RequestId = command.RequestId,
                 Success = true,
-                Message = "Command processed."
+                Message = "Command processed.",
             };
 
             switch (command.CommandType)
@@ -100,7 +100,7 @@ namespace RSBot.Core.Components
                         Location = Game.Player?.Position.ToString(),
                         Uptime = Kernel.Bot.Uptime,
                         Botbase = Kernel.Bot.Botbase?.Name,
-                        ClientVisible = !Game.Clientless
+                        ClientVisible = !Game.Clientless,
                     }.ToString();
                     break;
 
@@ -131,7 +131,6 @@ namespace RSBot.Core.Components
                     ClientManager.Kill();
                     response.Message = "Client killed.";
                     break;
-
 
                 default:
                     response.Success = false;

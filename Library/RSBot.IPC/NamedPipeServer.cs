@@ -1,15 +1,16 @@
 using System;
+using System.Collections.Concurrent;
 using System.IO.Pipes;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections.Concurrent;
 
 namespace RSBot.IPC
 {
     public class NamedPipeServer
     {
         private readonly string _pipeName;
-        private readonly ConcurrentDictionary<string, NamedPipeServerStream> _clientPipesMap = new ConcurrentDictionary<string, NamedPipeServerStream>();
+        private readonly ConcurrentDictionary<string, NamedPipeServerStream> _clientPipesMap =
+            new ConcurrentDictionary<string, NamedPipeServerStream>();
         private bool _isRunning;
 
         public event Func<string, string, Task> MessageReceived;
@@ -50,7 +51,8 @@ namespace RSBot.IPC
                         PipeDirection.InOut,
                         NamedPipeServerStream.MaxAllowedServerInstances,
                         PipeTransmissionMode.Byte,
-                        PipeOptions.Asynchronous);
+                        PipeOptions.Asynchronous
+                    );
                     Console.WriteLine("Waiting for a client to connect...");
                     await pipeServer.WaitForConnectionAsync();
 

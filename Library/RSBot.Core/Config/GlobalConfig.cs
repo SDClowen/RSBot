@@ -23,10 +23,7 @@ public static class GlobalConfig
         _config = new Config(path);
 
         // Migration: PR #934 "RSBot.Default" was moved to "RSBot.Training"
-        if (
-            _config.Exists("RSBot.BotName")
-            && _config.Get<string>("RSBot.BotName") == "RSBot.Default"
-        )
+        if (_config.Exists("RSBot.BotName") && _config.Get<string>("RSBot.BotName") == "RSBot.Default")
         {
             _config.Set("RSBot.BotName", "RSBot.Training");
             _config.Save();

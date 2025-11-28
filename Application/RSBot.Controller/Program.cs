@@ -11,7 +11,12 @@ namespace RSBot.Controller
     {
         public class Options
         {
-            [Option('p', "profile", Required = false, HelpText = "The profile name to target. Required unless --all is used.")]
+            [Option(
+                'p',
+                "profile",
+                Required = false,
+                HelpText = "The profile name to target. Required unless --all is used."
+            )]
             public string Profile { get; set; }
 
             [Option('c', "command", Required = true, HelpText = "The command to execute.")]
@@ -20,16 +25,29 @@ namespace RSBot.Controller
             [Option('d', "data", Required = false, HelpText = "The data payload for the command.")]
             public string Data { get; set; }
 
-            [Option('x', "pipename", Required = false, HelpText = "The name of the pipe to connect to.", Default = "RSBotIPC")]
+            [Option(
+                'x',
+                "pipename",
+                Required = false,
+                HelpText = "The name of the pipe to connect to.",
+                Default = "RSBotIPC"
+            )]
             public string PipeName { get; set; }
 
-            [Option('a', "all", Required = false, HelpText = "Send command to all listening bot instances.", Default = false)]
+            [Option(
+                'a',
+                "all",
+                Required = false,
+                HelpText = "Send command to all listening bot instances.",
+                Default = false
+            )]
             public bool AllProfiles { get; set; }
         }
 
         static async Task Main(string[] args)
         {
-            await Parser.Default.ParseArguments<Options>(args)
+            await Parser
+                .Default.ParseArguments<Options>(args)
                 .WithParsedAsync(async opts =>
                 {
                     if (!opts.AllProfiles && string.IsNullOrEmpty(opts.Profile))
@@ -50,7 +68,7 @@ namespace RSBot.Controller
                         CommandType = commandType,
                         Profile = opts.Profile,
                         Payload = opts.Data,
-                        TargetAllProfiles = opts.AllProfiles
+                        TargetAllProfiles = opts.AllProfiles,
                     };
 
                     await ExecuteCommand(command, opts.PipeName);
