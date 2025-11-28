@@ -17,6 +17,7 @@ namespace RSBot;
 internal static class Program
 {
     public static Main MainForm { get; private set; }
+    private static string _commandLineSelectAutologinUsername;
 
     public static string AssemblyTitle = Assembly
         .GetExecutingAssembly()
@@ -59,6 +60,9 @@ internal static class Program
         
         [Option("server", Required = false, HelpText = "Server name for the autologin entry.")]
         public string Server { get; set; }
+
+        [Option('a', "select-autologin", Required = false, HelpText = "Select an existing autologin entry by username.")]
+        public string SelectAutologin { get; set; }
     }
     private static void DisplayHelp(ParserResult<CommandLineOptions> result)
     {
@@ -111,6 +115,13 @@ internal static class Program
         MainForm = new Main();
         SplashScreen splashScreen = new SplashScreen(MainForm);
         splashScreen.ShowDialog();
+
+        if (!string.IsNullOrEmpty(_commandLineSelectAutologinUsername))
+        {
+            GlobalConfig.Set("RSBot.General.AutoLoginAccountUsername", _commandLineSelectAutologinUsername);
+            GlobalConfig.Save();
+            Log.Debug($"Autologin entry '{_commandLineSelectAutologinUsername}' applied and saved from command line.");
+        }
 
         Application.Run(MainForm);
     }
@@ -194,6 +205,12 @@ internal static class Program
         if (!string.IsNullOrEmpty(options.Listen))
         {
             IpcManager.Initialize(options.Listen);
+        }
+
+        if (!string.IsNullOrEmpty(options.SelectAutologin))
+        {
+            _commandLineSelectAutologinUsername = options.SelectAutologin;
+            Log.Debug($"Autologin entry '{options.SelectAutologin}' marked for selection.");
         }
     }
 }
