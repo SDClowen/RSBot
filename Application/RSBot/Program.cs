@@ -35,10 +35,10 @@ internal static class Program
         public string Profile { get; set; }
 
         [Option("launch-client", Required = false, HelpText = "Start with client")]
-        public bool StartClient { get; set; }
+        public bool LaunchClient { get; set; }
 
         [Option("launch-clientless", Required = false, HelpText = "Start clientless")]
-        public bool StartClientless { get; set; }
+        public bool LaunchClientless { get; set; }
     }
 
     private static void DisplayHelp(ParserResult<CommandLineOptions> result)
