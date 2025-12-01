@@ -54,6 +54,11 @@ public static class Kernel
     public static string Language { get; set; }
 
     /// <summary>
+    ///     Launch mode set by command line arguments (launch-client, launch-clientless)
+    /// </summary>
+    public static string LaunchMode { get; set; }
+
+    /// <summary>
     ///     Get environment fixed tick count
     /// </summary>
     public static int TickCount => Environment.TickCount & int.MaxValue;

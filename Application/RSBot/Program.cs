@@ -33,6 +33,12 @@ internal static class Program
 
         [Option('p', "profile", Required = false, HelpText = "Set the profile name to use.")]
         public string Profile { get; set; }
+
+        [Option("launch-client", Required = false, HelpText = "Start with client")]
+        public bool LaunchClient { get; set; }
+
+        [Option("launch-clientless", Required = false, HelpText = "Start clientless")]
+        public bool LaunchClientless { get; set; }
     }
 
     private static void DisplayHelp(ParserResult<CommandLineOptions> result)
@@ -92,6 +98,17 @@ internal static class Program
 
     private static void RunOptions(CommandLineOptions options)
     {
+        if (options.LaunchClient)
+        {
+            Kernel.LaunchMode = "client";
+            Log.Debug("Launching with client dictated by launch paramaters");
+        }
+        else if (options.LaunchClientless)
+        {
+            Kernel.LaunchMode = "clientless";
+            Log.Debug("Launching client as clientless dictated by launch paramaters");
+        }
+
         if (!string.IsNullOrEmpty(options.Profile))
         {
             var profile = options.Profile;
