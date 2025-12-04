@@ -192,16 +192,16 @@ public partial class Main : DoubleBufferedControl
         var berserk = PlayerConfig.GetEnums<MonsterRarity>("RSBot.Avoidance.Berserk").ToLookup(p => "Berserk", p => p);
 
         foreach (var group in avoid.Union(prefer).Union(berserk))
-        foreach (var item in group)
-        {
-            var listViewItem = lvAvoidance
-                .Items.Cast<ListViewItem>()
-                .FirstOrDefault(p => ((MonsterRarity)p.Tag & item) == item);
-            if (listViewItem == null)
-                continue;
+            foreach (var item in group)
+            {
+                var listViewItem = lvAvoidance
+                    .Items.Cast<ListViewItem>()
+                    .FirstOrDefault(p => ((MonsterRarity)p.Tag & item) == item);
+                if (listViewItem == null)
+                    continue;
 
-            listViewItem.Group = lvAvoidance.Groups[$"grp{group.Key}"];
-        }
+                listViewItem.Group = lvAvoidance.Groups[$"grp{group.Key}"];
+            }
     }
 
     /// <summary>
@@ -317,6 +317,7 @@ public partial class Main : DoubleBufferedControl
 
         txtWalkscript.Text = diag.FileName;
         PlayerConfig.Set("RSBot.Walkback.File", txtWalkscript.Text);
+        btnRemove.Visible = true;
     }
 
     /// <summary>
@@ -407,6 +408,7 @@ public partial class Main : DoubleBufferedControl
         txtRegion.Text = area.Position.Region.Id.ToString();
         //Walkback
         txtWalkscript.Text = PlayerConfig.Get<string>("RSBot.Walkback.File");
+        btnRemove.Visible = !string.IsNullOrEmpty(txtWalkscript.Text);
     }
 
     private void buttonSelectTrainingArea_Click(object sender, EventArgs e)
@@ -436,5 +438,12 @@ public partial class Main : DoubleBufferedControl
         _settingsLoaded = false;
         LoadSettings();
         _settingsLoaded = true;
+    }
+
+    private void btnRemove_Click(object sender, EventArgs e)
+    {
+        txtWalkscript.Text = string.Empty;
+        PlayerConfig.Set("RSBot.Walkback.File", txtWalkscript.Text);
+        btnRemove.Visible = false;
     }
 }
