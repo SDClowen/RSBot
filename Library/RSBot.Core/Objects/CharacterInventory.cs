@@ -22,6 +22,7 @@ public class CharacterInventory : InventoryItemCollection
                 || Game.ClientType == GameClientType.Korean
                 || Game.ClientType == GameClientType.VTC_Game
                 || Game.ClientType == GameClientType.RuSro
+                || Game.ClientType == GameClientType.Turkey
             )
                 ? (byte)17 //4 slots for relics
                 : (byte)13;

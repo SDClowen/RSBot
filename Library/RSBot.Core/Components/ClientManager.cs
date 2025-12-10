@@ -70,7 +70,7 @@ public class ClientManager
     {
         return type switch
         {
-            GameClientType.Turkey => "6A 00 68 38 6A 3E 01 68 4C 6A 3E 01",
+            GameClientType.Turkey => "6A 00 68 78 18 43 01 68 8C 18 43 01",
             GameClientType.VTC_Game => "6A 00 68 F8 91 3F 01 68 0C 92 3F 01",
             GameClientType.Taiwan => "6A 00 68 E0 98 3C 01 68 F4 98 3C 01",
             _ => throw new ArgumentOutOfRangeException(nameof(type)),
@@ -184,6 +184,7 @@ public class ClientManager
             Game.ClientType == GameClientType.Global
             || Game.ClientType == GameClientType.Korean
             || Game.ClientType == GameClientType.VTC_Game
+            || Game.ClientType == GameClientType.Turkey
         ) // TODO: Remove this hack when more elegant solution is found (issue #877)
         {
             AddDllImportToClient(path, libraryDllName, libraryDllFunc);
