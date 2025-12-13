@@ -15,7 +15,7 @@ public static class PacketExtensions
         {
             case GameClientType.Thailand:
             //case GameClientType.Global:
-            case GameClientType.Turkey:
+            //case GameClientType.Turkey:
             case GameClientType.Korean:
             case GameClientType.Rigid:
             //case GameClientType.VTC_Game:
@@ -41,7 +41,7 @@ public static class PacketExtensions
         {
             case GameClientType.Thailand:
             //case GameClientType.Global:
-            case GameClientType.Turkey:
+            //case GameClientType.Turkey:
             case GameClientType.Korean:
             case GameClientType.Rigid:
             case GameClientType.RuSro:
