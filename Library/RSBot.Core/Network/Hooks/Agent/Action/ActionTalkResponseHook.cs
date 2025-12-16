@@ -27,8 +27,8 @@ internal class ActionTalkResponseHook : IPacketHook
     /// <returns></returns>
     public Packet ReplacePacket(Packet packet)
     {
-        if (Kernel.Bot.Running || ShoppingManager.Running)
-            return null;
+        //if (Kernel.Bot.Running || ShoppingManager.Running)
+        //    return null;
 
         return packet;
     }

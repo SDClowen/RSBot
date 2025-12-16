@@ -382,9 +382,9 @@ public partial class Main : DoubleBufferedControl
 
         _selectedIndex = button.TabIndex;
 
-        //Only character inventory sorting is supported for now!
+        //Only character inventory, storage and guild storage sorting is supported for now!
         btnSort.Visible = _selectedIndex == 0;
-        checkAutoSort.Visible = _selectedIndex == 0;
+        checkAutoSort.Visible = _selectedIndex is 0 or 4 or 5;
 
         foreach (var control in topPanel.Controls.OfType<Button>())
         {

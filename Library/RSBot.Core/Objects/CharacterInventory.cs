@@ -176,12 +176,20 @@ public class CharacterInventory : InventoryItemCollection
         //Ignore items which move operations failed in the next iteration
         var blacklistedItems = new List<uint>(4);
 
+        int firstSlot = 13;
+        if (Game.ClientType == GameClientType.Global
+            || Game.ClientType == GameClientType.Korean
+            || Game.ClientType == GameClientType.VTC_Game
+            || Game.ClientType == GameClientType.RuSro
+            || Game.ClientType == GameClientType.Turkey)
+            firstSlot = 17; //4 slots for relics
+
         for (var iIteration = 0; iIteration < maxIterations; iIteration++)
         {
             iterations++;
 
             var itemsToStackGroups = this.Where(i =>
-                    i.Slot > 12
+                    i.Slot >= firstSlot
                     && i.Record.IsStackable
                     && i.Record.MaxStack > i.Amount
                     && !blacklistedItems.Contains(i.ItemId)

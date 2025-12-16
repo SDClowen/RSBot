@@ -27,7 +27,7 @@ internal class InventoryGuildStorageDataBeginResponse : IPacketHandler
     public void Invoke(Packet packet)
     {
         Game.ChunkedPacket = new Packet(0);
-        Game.Player.GuildStorage = Game.Player.GuildStorage ?? new Storage();
+        Game.Player.GuildStorage = new Storage();
         Game.Player.GuildStorage.Gold = packet.ReadULong();
     }
 }
