@@ -23,6 +23,8 @@ public class CharacterInventory : InventoryItemCollection
                 || Game.ClientType == GameClientType.VTC_Game
                 || Game.ClientType == GameClientType.RuSro
                 || Game.ClientType == GameClientType.Turkey
+                || Game.ClientType == GameClientType.Taiwan
+                || Game.ClientType == GameClientType.Japanese
             )
                 ? (byte)17 //4 slots for relics
                 : (byte)13;
@@ -181,7 +183,9 @@ public class CharacterInventory : InventoryItemCollection
             || Game.ClientType == GameClientType.Korean
             || Game.ClientType == GameClientType.VTC_Game
             || Game.ClientType == GameClientType.RuSro
-            || Game.ClientType == GameClientType.Turkey)
+            || Game.ClientType == GameClientType.Turkey
+            || Game.ClientType == GameClientType.Taiwan
+            || Game.ClientType == GameClientType.Japanese)
             firstSlot = 17; //4 slots for relics
 
         for (var iIteration = 0; iIteration < maxIterations; iIteration++)

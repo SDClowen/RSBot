@@ -437,7 +437,9 @@ public static class ShoppingManager
             || Game.ClientType == GameClientType.Korean
             || Game.ClientType == GameClientType.VTC_Game
             || Game.ClientType == GameClientType.RuSro
-            || Game.ClientType == GameClientType.Turkey)
+            || Game.ClientType == GameClientType.Turkey
+            || Game.ClientType == GameClientType.Taiwan
+            || Game.ClientType == GameClientType.Japanese)
             firstSlot = 17; //4 slots for relics
 
         var tempInventory = Game.Player.Inventory.GetItems(item =>
