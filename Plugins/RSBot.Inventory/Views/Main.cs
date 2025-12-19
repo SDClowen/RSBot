@@ -136,6 +136,8 @@ public partial class Main : DoubleBufferedControl
                             || Game.ClientType == GameClientType.VTC_Game
                             || Game.ClientType == GameClientType.RuSro
                             || Game.ClientType == GameClientType.Turkey
+                            || Game.ClientType == GameClientType.Taiwan
+                            || Game.ClientType == GameClientType.Japanese
                         )
                             ? 17
                             : 13; //4 slots for relics
@@ -382,9 +384,9 @@ public partial class Main : DoubleBufferedControl
 
         _selectedIndex = button.TabIndex;
 
-        //Only character inventory sorting is supported for now!
+        //Only character inventory, storage and guild storage sorting is supported for now!
         btnSort.Visible = _selectedIndex == 0;
-        checkAutoSort.Visible = _selectedIndex == 0;
+        checkAutoSort.Visible = _selectedIndex is 0 or 4 or 5;
 
         foreach (var control in topPanel.Controls.OfType<Button>())
         {
