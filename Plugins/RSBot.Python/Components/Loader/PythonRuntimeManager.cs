@@ -5,17 +5,20 @@ using System;
 using System.IO;
 using System.Linq;
 
+
 namespace RSBot.Python.Components.Loader
 {
     public class PythonRuntimeManager
     {
         public bool IsInitialized { get; private set; }
+
         public void Initialize(string projectDir, Action<string> log)
         {
             if (IsInitialized) return;
 
             string pythonHome = Path.Combine(projectDir, "Data", "Python", "PyRuntime");
             string pythonDll = Directory.GetFiles(pythonHome, "python31*.dll").FirstOrDefault();
+            string zipPath = Directory.GetFiles(pythonHome, "python31*.zip").FirstOrDefault();
 
             if (pythonDll == null)
             {
@@ -24,8 +27,9 @@ namespace RSBot.Python.Components.Loader
             }
 
             Runtime.PythonDLL = pythonDll;
+
             PythonEngine.PythonHome = pythonHome;
-            PythonEngine.PythonPath = pythonHome + ";" + Path.Combine(pythonHome, "Lib");
+            PythonEngine.PythonPath = $"{pythonHome};{zipPath};{Path.Combine(pythonHome, "Lib")}";
 
             PythonEngine.Initialize();
             PythonEngine.BeginAllowThreads();
@@ -65,10 +69,8 @@ RSBot.GUI = WFAPI.GUI
                     IsInitialized = false;
                 }
             }
-
-                
         }
-        
+
         public static void GenerateStub(string path)
         {
             string stubPath = Path.Combine(path, "Data", "Python", "Plugins", "RSBot.pyi");
