@@ -97,11 +97,17 @@ namespace RSBot.Python.Components.API.Core
                 return false;
             }
         }
-        private void SendServer(ushort opcode, byte[] data)
+        private void SendServer(ushort opcode, byte[] data, bool encrypted = false)
         {
-            Packet packet = new Packet(opcode);
+            Packet packet = new Packet(opcode,encrypted);
             packet.WriteBytes(data);
             PacketManager.SendPacket(packet, PacketDestination.Server);
+        }
+        private void SendClient(ushort opcode, byte[] data, bool encrypted = false)
+        {
+            Packet packet = new Packet(opcode, encrypted);
+            packet.WriteBytes(data);
+            PacketManager.SendPacket(packet, PacketDestination.Client);
         }
         public void log(params object[] args)
         {
@@ -135,9 +141,13 @@ namespace RSBot.Python.Components.API.Core
         {
             return StopBot();
         }
-        public void send_server(ushort opcode, byte[] data)
+        public void send_server(ushort opcode, byte[] data, bool encrypted)
         {
-            SendServer(opcode, data);
+            SendServer(opcode, data, encrypted);
+        }
+        public void send_client(ushort opcode, byte[] data, bool encrypted)
+        {
+            SendClient(opcode, data, encrypted);
         }
     }
 }

@@ -12,7 +12,6 @@
 		<PackageProjectUrl>https://github.com/SDClowen)RSBot</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/SDClowen/RSBot</RepositoryUrl>
 		<OutputType>Library</OutputType>
-
 		<PythonVersion>3.13.11</PythonVersion>
 		<PythonRuntimeDir>$(OutputPath)\..\Python\PyRuntime\</PythonRuntimeDir>
 	</PropertyGroup>
