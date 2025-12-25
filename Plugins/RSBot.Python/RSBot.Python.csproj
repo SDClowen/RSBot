@@ -40,7 +40,7 @@
 			<PythonExePath>$(PythonRuntimeDir)python.exe</PythonExePath>
 		</PropertyGroup>
 
-		<Message Importance="high" Text="[Python-Build] Pruefe Python Runtime in: $(PythonRuntimeDir)" />
+		<Message Importance="high" Text="[Python-Build] Checking for PythonRuntime at: $(PythonRuntimeDir)" />
 
 		<MakeDir Directories="$(PythonRuntimeDir)" Condition="!Exists('$(PythonExePath)')" />
 
@@ -52,7 +52,7 @@
 
 		<Exec Command="powershell -Command &quot;$pth = Get-ChildItem '$(PythonRuntimeDir)*._pth'; if($pth) { (Get-Content $pth) -replace '#import site', 'import site' | Set-Content $pth }&quot;" Condition="Exists('$(PythonExePath)')" />
 
-		<Message Importance="high" Text="[Python-Build] Python Check/Installation abgeschlossen." />
+		<Message Importance="high" Text="[Python-Build] Python Check/Installation finished succesfully." />
 	</Target>
 
 </Project>
