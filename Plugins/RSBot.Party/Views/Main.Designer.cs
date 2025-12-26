@@ -1089,12 +1089,12 @@
             // 
             buttonConfirmJoinConfig.Color = System.Drawing.Color.Green;
             buttonConfirmJoinConfig.ForeColor = System.Drawing.Color.White;
-            buttonConfirmJoinConfig.Location = new System.Drawing.Point(345, 166);
+            buttonConfirmJoinConfig.Location = new System.Drawing.Point(640, 80);
             buttonConfirmJoinConfig.Margin = new System.Windows.Forms.Padding(4);
             buttonConfirmJoinConfig.Name = "buttonConfirmJoinConfig";
             buttonConfirmJoinConfig.Radius = 6;
             buttonConfirmJoinConfig.ShadowDepth = 4F;
-            buttonConfirmJoinConfig.Size = new System.Drawing.Size(76, 29);
+            buttonConfirmJoinConfig.Size = new System.Drawing.Size(100, 29);
             buttonConfirmJoinConfig.TabIndex = 23;
             buttonConfirmJoinConfig.Text = "Confirm";
             buttonConfirmJoinConfig.UseVisualStyleBackColor = true;
@@ -1102,7 +1102,7 @@
             // 
             // textBoxJoinByTitle
             // 
-            textBoxJoinByTitle.Location = new System.Drawing.Point(345, 140);
+            textBoxJoinByTitle.Location = new System.Drawing.Point(345, 86);
             textBoxJoinByTitle.Margin = new System.Windows.Forms.Padding(4);
             textBoxJoinByTitle.MaxLength = 32767;
             textBoxJoinByTitle.MultiLine = false;
@@ -1116,7 +1116,7 @@
             // 
             // textBoxJoinByName
             // 
-            textBoxJoinByName.Location = new System.Drawing.Point(345, 86);
+            textBoxJoinByName.Location = new System.Drawing.Point(90, 86);
             textBoxJoinByName.Margin = new System.Windows.Forms.Padding(4);
             textBoxJoinByName.MaxLength = 32767;
             textBoxJoinByName.MultiLine = false;
@@ -1133,7 +1133,7 @@
             checkBoxJoinByTitle.AutoSize = true;
             checkBoxJoinByTitle.BackColor = System.Drawing.Color.Transparent;
             checkBoxJoinByTitle.Depth = 0;
-            checkBoxJoinByTitle.Location = new System.Drawing.Point(345, 120);
+            checkBoxJoinByTitle.Location = new System.Drawing.Point(345, 66);
             checkBoxJoinByTitle.Margin = new System.Windows.Forms.Padding(0);
             checkBoxJoinByTitle.MouseLocation = new System.Drawing.Point(-1, -1);
             checkBoxJoinByTitle.Name = "checkBoxJoinByTitle";
@@ -1148,7 +1148,7 @@
             checkBoxJoinByName.AutoSize = true;
             checkBoxJoinByName.BackColor = System.Drawing.Color.Transparent;
             checkBoxJoinByName.Depth = 0;
-            checkBoxJoinByName.Location = new System.Drawing.Point(345, 66);
+            checkBoxJoinByName.Location = new System.Drawing.Point(90, 66);
             checkBoxJoinByName.Margin = new System.Windows.Forms.Padding(0);
             checkBoxJoinByName.MouseLocation = new System.Drawing.Point(-1, -1);
             checkBoxJoinByName.Name = "checkBoxJoinByName";
