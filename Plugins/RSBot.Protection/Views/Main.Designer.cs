@@ -31,6 +31,11 @@
             components = new System.ComponentModel.Container();
             label22 = new SDUI.Controls.Label();
             groupBackTown = new SDUI.Controls.GroupBox();
+            label19 = new SDUI.Controls.Label();
+            numShardFatigueMinToDC = new SDUI.Controls.NumUpDown();
+            numMPPotionsLeft = new SDUI.Controls.NumUpDown();
+            numHPPotionsLeft = new SDUI.Controls.NumUpDown();
+            checkShardFatigue = new SDUI.Controls.CheckBox();
             checkStopBotOnReturnToTown = new SDUI.Controls.CheckBox();
             label21 = new SDUI.Controls.Label();
             numDeadTimeout = new SDUI.Controls.NumUpDown();
@@ -94,23 +99,27 @@
             numIncInt = new SDUI.Controls.NumUpDown();
             checkIncStr = new SDUI.Controls.CheckBox();
             checkIncInt = new SDUI.Controls.CheckBox();
-            checkShardFatigue = new SDUI.Controls.CheckBox();
-            numHPPotionsLeft = new SDUI.Controls.NumUpDown();
-            numMPPotionsLeft = new SDUI.Controls.NumUpDown();
-            numShardFatigueMinToDC = new SDUI.Controls.NumUpDown();
             toolTip1 = new System.Windows.Forms.ToolTip(components);
-            label19 = new SDUI.Controls.Label();
+            panel1 = new SDUI.Controls.Panel();
+            panel3 = new SDUI.Controls.Panel();
+            flowLayoutPanel2 = new SDUI.Controls.FlowLayoutPanel();
+            panel2 = new SDUI.Controls.Panel();
+            flowLayoutPanel1 = new SDUI.Controls.FlowLayoutPanel();
             groupBackTown.SuspendLayout();
             groupBadStatus.SuspendLayout();
             groupHPMP.SuspendLayout();
             groupPet.SuspendLayout();
             groupStatPoints.SuspendLayout();
+            panel1.SuspendLayout();
+            panel3.SuspendLayout();
+            flowLayoutPanel2.SuspendLayout();
+            panel2.SuspendLayout();
+            flowLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // label22
             // 
             label22.ApplyGradient = false;
-            label22.AutoSize = true;
             label22.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label22.Gradient = new System.Drawing.Color[]
     {
@@ -118,10 +127,10 @@
     System.Drawing.Color.Black
     };
             label22.GradientAnimation = false;
-            label22.Location = new System.Drawing.Point(625, 588);
-            label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label22.Location = new System.Drawing.Point(7, 582);
+            label22.Margin = new System.Windows.Forms.Padding(7, 5, 0, 0);
             label22.Name = "label22";
-            label22.Size = new System.Drawing.Size(322, 20);
+            label22.Size = new System.Drawing.Size(330, 20);
             label22.TabIndex = 16;
             label22.Text = "* Will also be executed, if the bot is not started.";
             // 
@@ -144,16 +153,99 @@
             groupBackTown.Controls.Add(checkDead);
             groupBackTown.Controls.Add(checkInventory);
             groupBackTown.Controls.Add(checkNoArrows);
-            groupBackTown.Location = new System.Drawing.Point(625, 9);
-            groupBackTown.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            groupBackTown.Location = new System.Drawing.Point(7, 5);
+            groupBackTown.Margin = new System.Windows.Forms.Padding(7, 5, 0, 0);
             groupBackTown.Name = "groupBackTown";
             groupBackTown.Padding = new System.Windows.Forms.Padding(4, 12, 4, 4);
             groupBackTown.Radius = 10;
             groupBackTown.ShadowDepth = 4;
-            groupBackTown.Size = new System.Drawing.Size(318, 356);
+            groupBackTown.Size = new System.Drawing.Size(330, 356);
             groupBackTown.TabIndex = 17;
             groupBackTown.TabStop = false;
             groupBackTown.Text = "Back to town";
+            // 
+            // label19
+            // 
+            label19.ApplyGradient = false;
+            label19.AutoSize = true;
+            label19.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            label19.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            label19.GradientAnimation = false;
+            label19.Location = new System.Drawing.Point(286, 323);
+            label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label19.Name = "label19";
+            label19.Size = new System.Drawing.Size(34, 20);
+            label19.TabIndex = 16;
+            label19.Text = "min";
+            // 
+            // numShardFatigueMinToDC
+            // 
+            numShardFatigueMinToDC.BackColor = System.Drawing.Color.Transparent;
+            numShardFatigueMinToDC.Font = new System.Drawing.Font("Segoe UI", 9.25F);
+            numShardFatigueMinToDC.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            numShardFatigueMinToDC.Location = new System.Drawing.Point(183, 318);
+            numShardFatigueMinToDC.Margin = new System.Windows.Forms.Padding(4);
+            numShardFatigueMinToDC.Maximum = new decimal(new int[] { 300, 0, 0, 0 });
+            numShardFatigueMinToDC.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
+            numShardFatigueMinToDC.MinimumSize = new System.Drawing.Size(100, 31);
+            numShardFatigueMinToDC.Name = "numShardFatigueMinToDC";
+            numShardFatigueMinToDC.Size = new System.Drawing.Size(100, 31);
+            numShardFatigueMinToDC.TabIndex = 15;
+            numShardFatigueMinToDC.Value = new decimal(new int[] { 15, 0, 0, 0 });
+            numShardFatigueMinToDC.ValueChanged += numSettings_ValueChanged;
+            // 
+            // numMPPotionsLeft
+            // 
+            numMPPotionsLeft.BackColor = System.Drawing.Color.Transparent;
+            numMPPotionsLeft.Font = new System.Drawing.Font("Segoe UI", 9.25F);
+            numMPPotionsLeft.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            numMPPotionsLeft.Location = new System.Drawing.Point(183, 228);
+            numMPPotionsLeft.Margin = new System.Windows.Forms.Padding(4);
+            numMPPotionsLeft.Maximum = new decimal(new int[] { 9999, 0, 0, 0 });
+            numMPPotionsLeft.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
+            numMPPotionsLeft.MinimumSize = new System.Drawing.Size(100, 31);
+            numMPPotionsLeft.Name = "numMPPotionsLeft";
+            numMPPotionsLeft.Size = new System.Drawing.Size(100, 31);
+            numMPPotionsLeft.TabIndex = 14;
+            numMPPotionsLeft.Value = new decimal(new int[] { 15, 0, 0, 0 });
+            numMPPotionsLeft.ValueChanged += numSettings_ValueChanged;
+            // 
+            // numHPPotionsLeft
+            // 
+            numHPPotionsLeft.BackColor = System.Drawing.Color.Transparent;
+            numHPPotionsLeft.Font = new System.Drawing.Font("Segoe UI", 9.25F);
+            numHPPotionsLeft.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            numHPPotionsLeft.Location = new System.Drawing.Point(183, 194);
+            numHPPotionsLeft.Margin = new System.Windows.Forms.Padding(4);
+            numHPPotionsLeft.Maximum = new decimal(new int[] { 9999, 0, 0, 0 });
+            numHPPotionsLeft.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
+            numHPPotionsLeft.MinimumSize = new System.Drawing.Size(100, 31);
+            numHPPotionsLeft.Name = "numHPPotionsLeft";
+            numHPPotionsLeft.Size = new System.Drawing.Size(100, 31);
+            numHPPotionsLeft.TabIndex = 13;
+            numHPPotionsLeft.Value = new decimal(new int[] { 15, 0, 0, 0 });
+            numHPPotionsLeft.ValueChanged += numSettings_ValueChanged;
+            // 
+            // checkShardFatigue
+            // 
+            checkShardFatigue.AutoSize = true;
+            checkShardFatigue.BackColor = System.Drawing.Color.Transparent;
+            checkShardFatigue.Depth = 0;
+            checkShardFatigue.Location = new System.Drawing.Point(15, 319);
+            checkShardFatigue.Margin = new System.Windows.Forms.Padding(0);
+            checkShardFatigue.MouseLocation = new System.Drawing.Point(-1, -1);
+            checkShardFatigue.Name = "checkShardFatigue";
+            checkShardFatigue.Ripple = true;
+            checkShardFatigue.Size = new System.Drawing.Size(124, 30);
+            checkShardFatigue.TabIndex = 12;
+            checkShardFatigue.Text = "Shard fatigue";
+            toolTip1.SetToolTip(checkShardFatigue, "Return and disconnect when Shard fatigue reaches that time");
+            checkShardFatigue.UseVisualStyleBackColor = false;
+            checkShardFatigue.CheckedChanged += settings_CheckedChanged;
             // 
             // checkStopBotOnReturnToTown
             // 
@@ -195,7 +287,7 @@
             numDeadTimeout.Font = new System.Drawing.Font("Segoe UI", 9.25F);
             numDeadTimeout.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numDeadTimeout.Location = new System.Drawing.Point(183, 46);
-            numDeadTimeout.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            numDeadTimeout.Margin = new System.Windows.Forms.Padding(4);
             numDeadTimeout.Maximum = new decimal(new int[] { 600, 0, 0, 0 });
             numDeadTimeout.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numDeadTimeout.MinimumSize = new System.Drawing.Size(100, 31);
@@ -340,8 +432,8 @@
             groupBadStatus.Controls.Add(comboSkillBadStatus);
             groupBadStatus.Controls.Add(checkUseBadStatusSkill);
             groupBadStatus.Controls.Add(checkUseUniversalPills);
-            groupBadStatus.Location = new System.Drawing.Point(19, 282);
-            groupBadStatus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            groupBadStatus.Location = new System.Drawing.Point(7, 276);
+            groupBadStatus.Margin = new System.Windows.Forms.Padding(7, 5, 0, 0);
             groupBadStatus.Name = "groupBadStatus";
             groupBadStatus.Padding = new System.Windows.Forms.Padding(4, 12, 4, 4);
             groupBadStatus.Radius = 10;
@@ -378,7 +470,7 @@
             comboSkillBadStatus.IntegralHeight = false;
             comboSkillBadStatus.ItemHeight = 17;
             comboSkillBadStatus.Location = new System.Drawing.Point(398, 74);
-            comboSkillBadStatus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            comboSkillBadStatus.Margin = new System.Windows.Forms.Padding(4);
             comboSkillBadStatus.Name = "comboSkillBadStatus";
             comboSkillBadStatus.Radius = 5;
             comboSkillBadStatus.ShadowDepth = 4F;
@@ -450,8 +542,8 @@
             groupHPMP.Controls.Add(checkUseVigorMP);
             groupHPMP.Controls.Add(checkUseMPPotionsPlayer);
             groupHPMP.Controls.Add(checkUseVigorHP);
-            groupHPMP.Location = new System.Drawing.Point(19, 9);
-            groupHPMP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            groupHPMP.Location = new System.Drawing.Point(7, 5);
+            groupHPMP.Margin = new System.Windows.Forms.Padding(7, 5, 0, 0);
             groupHPMP.Name = "groupHPMP";
             groupHPMP.Padding = new System.Windows.Forms.Padding(4, 12, 4, 4);
             groupHPMP.Radius = 10;
@@ -488,7 +580,7 @@
             comboSkillPlayerMP.IntegralHeight = false;
             comboSkillPlayerMP.ItemHeight = 17;
             comboSkillPlayerMP.Location = new System.Drawing.Point(415, 224);
-            comboSkillPlayerMP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            comboSkillPlayerMP.Margin = new System.Windows.Forms.Padding(4);
             comboSkillPlayerMP.Name = "comboSkillPlayerMP";
             comboSkillPlayerMP.Radius = 5;
             comboSkillPlayerMP.ShadowDepth = 4F;
@@ -505,7 +597,7 @@
             comboSkillPlayerHP.IntegralHeight = false;
             comboSkillPlayerHP.ItemHeight = 17;
             comboSkillPlayerHP.Location = new System.Drawing.Point(415, 190);
-            comboSkillPlayerHP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            comboSkillPlayerHP.Margin = new System.Windows.Forms.Padding(4);
             comboSkillPlayerHP.Name = "comboSkillPlayerHP";
             comboSkillPlayerHP.Radius = 5;
             comboSkillPlayerHP.ShadowDepth = 4F;
@@ -537,7 +629,7 @@
             numPlayerSkillMPMin.Font = new System.Drawing.Font("Segoe UI", 9.25F);
             numPlayerSkillMPMin.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numPlayerSkillMPMin.Location = new System.Drawing.Point(275, 224);
-            numPlayerSkillMPMin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            numPlayerSkillMPMin.Margin = new System.Windows.Forms.Padding(4);
             numPlayerSkillMPMin.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
             numPlayerSkillMPMin.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numPlayerSkillMPMin.MinimumSize = new System.Drawing.Size(100, 31);
@@ -589,7 +681,7 @@
             numPlayerSkillHPMin.Font = new System.Drawing.Font("Segoe UI", 9.25F);
             numPlayerSkillHPMin.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numPlayerSkillHPMin.Location = new System.Drawing.Point(275, 190);
-            numPlayerSkillHPMin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            numPlayerSkillHPMin.Margin = new System.Windows.Forms.Padding(4);
             numPlayerSkillHPMin.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
             numPlayerSkillHPMin.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numPlayerSkillHPMin.MinimumSize = new System.Drawing.Size(100, 31);
@@ -641,7 +733,7 @@
             numPlayerMPVigorPotionMin.Font = new System.Drawing.Font("Segoe UI", 9.25F);
             numPlayerMPVigorPotionMin.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numPlayerMPVigorPotionMin.Location = new System.Drawing.Point(275, 148);
-            numPlayerMPVigorPotionMin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            numPlayerMPVigorPotionMin.Margin = new System.Windows.Forms.Padding(4);
             numPlayerMPVigorPotionMin.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
             numPlayerMPVigorPotionMin.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numPlayerMPVigorPotionMin.MinimumSize = new System.Drawing.Size(100, 31);
@@ -693,7 +785,7 @@
             numPlayerHPVigorPotionMin.Font = new System.Drawing.Font("Segoe UI", 9.25F);
             numPlayerHPVigorPotionMin.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numPlayerHPVigorPotionMin.Location = new System.Drawing.Point(275, 114);
-            numPlayerHPVigorPotionMin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            numPlayerHPVigorPotionMin.Margin = new System.Windows.Forms.Padding(4);
             numPlayerHPVigorPotionMin.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
             numPlayerHPVigorPotionMin.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numPlayerHPVigorPotionMin.MinimumSize = new System.Drawing.Size(100, 31);
@@ -745,7 +837,7 @@
             numPlayerMPPotionMin.Font = new System.Drawing.Font("Segoe UI", 9.25F);
             numPlayerMPPotionMin.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numPlayerMPPotionMin.Location = new System.Drawing.Point(275, 75);
-            numPlayerMPPotionMin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            numPlayerMPPotionMin.Margin = new System.Windows.Forms.Padding(4);
             numPlayerMPPotionMin.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
             numPlayerMPPotionMin.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numPlayerMPPotionMin.MinimumSize = new System.Drawing.Size(100, 31);
@@ -797,7 +889,7 @@
             numPlayerHPPotionMin.Font = new System.Drawing.Font("Segoe UI", 9.25F);
             numPlayerHPPotionMin.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numPlayerHPPotionMin.Location = new System.Drawing.Point(275, 41);
-            numPlayerHPPotionMin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            numPlayerHPPotionMin.Margin = new System.Windows.Forms.Padding(4);
             numPlayerHPPotionMin.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
             numPlayerHPPotionMin.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numPlayerHPPotionMin.MinimumSize = new System.Drawing.Size(100, 31);
@@ -939,8 +1031,8 @@
             groupPet.Controls.Add(label16);
             groupPet.Controls.Add(checkUsePetHP);
             groupPet.Controls.Add(checkUseHGP);
-            groupPet.Location = new System.Drawing.Point(19, 406);
-            groupPet.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            groupPet.Location = new System.Drawing.Point(7, 397);
+            groupPet.Margin = new System.Windows.Forms.Padding(7, 5, 0, 0);
             groupPet.Name = "groupPet";
             groupPet.Padding = new System.Windows.Forms.Padding(4, 12, 4, 4);
             groupPet.Radius = 10;
@@ -952,7 +1044,6 @@
             // 
             // checkAutoSummonAttackPet
             // 
-            checkAutoSummonAttackPet.AutoSize = true;
             checkAutoSummonAttackPet.BackColor = System.Drawing.Color.Transparent;
             checkAutoSummonAttackPet.Depth = 0;
             checkAutoSummonAttackPet.Location = new System.Drawing.Point(14, 161);
@@ -960,7 +1051,7 @@
             checkAutoSummonAttackPet.MouseLocation = new System.Drawing.Point(-1, -1);
             checkAutoSummonAttackPet.Name = "checkAutoSummonAttackPet";
             checkAutoSummonAttackPet.Ripple = true;
-            checkAutoSummonAttackPet.Size = new System.Drawing.Size(254, 30);
+            checkAutoSummonAttackPet.Size = new System.Drawing.Size(280, 30);
             checkAutoSummonAttackPet.TabIndex = 27;
             checkAutoSummonAttackPet.Text = "Auto summon growth & fellow pet";
             checkAutoSummonAttackPet.UseVisualStyleBackColor = false;
@@ -1024,7 +1115,7 @@
             numPetMinHGP.Font = new System.Drawing.Font("Segoe UI", 9.25F);
             numPetMinHGP.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numPetMinHGP.Location = new System.Drawing.Point(334, 74);
-            numPetMinHGP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            numPetMinHGP.Margin = new System.Windows.Forms.Padding(4);
             numPetMinHGP.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
             numPetMinHGP.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numPetMinHGP.MinimumSize = new System.Drawing.Size(100, 31);
@@ -1076,7 +1167,7 @@
             numPetMinHP.Font = new System.Drawing.Font("Segoe UI", 9.25F);
             numPetMinHP.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numPetMinHP.Location = new System.Drawing.Point(334, 39);
-            numPetMinHP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            numPetMinHP.Margin = new System.Windows.Forms.Padding(4);
             numPetMinHP.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
             numPetMinHP.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numPetMinHP.MinimumSize = new System.Drawing.Size(100, 31);
@@ -1149,13 +1240,13 @@
             groupStatPoints.Controls.Add(numIncInt);
             groupStatPoints.Controls.Add(checkIncStr);
             groupStatPoints.Controls.Add(checkIncInt);
-            groupStatPoints.Location = new System.Drawing.Point(625, 373);
-            groupStatPoints.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            groupStatPoints.Location = new System.Drawing.Point(7, 366);
+            groupStatPoints.Margin = new System.Windows.Forms.Padding(7, 5, 0, 0);
             groupStatPoints.Name = "groupStatPoints";
             groupStatPoints.Padding = new System.Windows.Forms.Padding(4, 12, 4, 4);
             groupStatPoints.Radius = 10;
             groupStatPoints.ShadowDepth = 4;
-            groupStatPoints.Size = new System.Drawing.Size(318, 211);
+            groupStatPoints.Size = new System.Drawing.Size(330, 211);
             groupStatPoints.TabIndex = 18;
             groupStatPoints.TabStop = false;
             groupStatPoints.Text = "Stat points";
@@ -1164,7 +1255,7 @@
             // 
             buttonRun.Color = System.Drawing.Color.Transparent;
             buttonRun.Location = new System.Drawing.Point(79, 171);
-            buttonRun.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            buttonRun.Margin = new System.Windows.Forms.Padding(4);
             buttonRun.Name = "buttonRun";
             buttonRun.Radius = 6;
             buttonRun.ShadowDepth = 4F;
@@ -1198,7 +1289,7 @@
             numIncStr.Font = new System.Drawing.Font("Segoe UI", 9.25F);
             numIncStr.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numIncStr.Location = new System.Drawing.Point(166, 95);
-            numIncStr.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            numIncStr.Margin = new System.Windows.Forms.Padding(4);
             numIncStr.Maximum = new decimal(new int[] { 3, 0, 0, 0 });
             numIncStr.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
             numIncStr.MinimumSize = new System.Drawing.Size(100, 31);
@@ -1214,7 +1305,7 @@
             numIncInt.Font = new System.Drawing.Font("Segoe UI", 9.25F);
             numIncInt.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             numIncInt.Location = new System.Drawing.Point(166, 56);
-            numIncInt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            numIncInt.Margin = new System.Windows.Forms.Padding(4);
             numIncInt.Maximum = new decimal(new int[] { 3, 0, 0, 0 });
             numIncInt.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
             numIncInt.MinimumSize = new System.Drawing.Size(100, 31);
@@ -1256,101 +1347,93 @@
             checkIncInt.UseVisualStyleBackColor = false;
             checkIncInt.CheckedChanged += settings_CheckedChanged;
             // 
-            // checkShardFatigue
+            // panel1
             // 
-            checkShardFatigue.AutoSize = true;
-            checkShardFatigue.BackColor = System.Drawing.Color.Transparent;
-            checkShardFatigue.Depth = 0;
-            checkShardFatigue.Location = new System.Drawing.Point(15, 319);
-            checkShardFatigue.Margin = new System.Windows.Forms.Padding(0);
-            checkShardFatigue.MouseLocation = new System.Drawing.Point(-1, -1);
-            checkShardFatigue.Name = "checkShardFatigue";
-            checkShardFatigue.Ripple = true;
-            checkShardFatigue.Size = new System.Drawing.Size(124, 30);
-            checkShardFatigue.TabIndex = 12;
-            checkShardFatigue.Text = "Shard fatigue";
-            toolTip1.SetToolTip(checkShardFatigue, "Return and disconnect when Shard fatigue reaches that time");
-            checkShardFatigue.UseVisualStyleBackColor = false;
-            checkShardFatigue.CheckedChanged += settings_CheckedChanged;
+            panel1.BackColor = System.Drawing.Color.Transparent;
+            panel1.Border = new System.Windows.Forms.Padding(0, 0, 0, 0);
+            panel1.BorderColor = System.Drawing.Color.Transparent;
+            panel1.Controls.Add(panel3);
+            panel1.Controls.Add(panel2);
+            panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel1.Location = new System.Drawing.Point(0, 0);
+            panel1.Margin = new System.Windows.Forms.Padding(0);
+            panel1.Name = "panel1";
+            panel1.Radius = 10;
+            panel1.ShadowDepth = 4F;
+            panel1.Size = new System.Drawing.Size(970, 621);
+            panel1.TabIndex = 19;
             // 
-            // numHPPotionsLeft
+            // panel3
             // 
-            numHPPotionsLeft.BackColor = System.Drawing.Color.Transparent;
-            numHPPotionsLeft.Font = new System.Drawing.Font("Segoe UI", 9.25F);
-            numHPPotionsLeft.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            numHPPotionsLeft.Location = new System.Drawing.Point(183, 194);
-            numHPPotionsLeft.Margin = new System.Windows.Forms.Padding(4);
-            numHPPotionsLeft.Maximum = new decimal(new int[] { 9999, 0, 0, 0 });
-            numHPPotionsLeft.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
-            numHPPotionsLeft.MinimumSize = new System.Drawing.Size(100, 31);
-            numHPPotionsLeft.Name = "numHPPotionsLeft";
-            numHPPotionsLeft.Size = new System.Drawing.Size(100, 31);
-            numHPPotionsLeft.TabIndex = 13;
-            numHPPotionsLeft.Value = new decimal(new int[] { 15, 0, 0, 0 });
-            numHPPotionsLeft.ValueChanged += numSettings_ValueChanged;
+            panel3.BackColor = System.Drawing.Color.Transparent;
+            panel3.Border = new System.Windows.Forms.Padding(0, 0, 0, 0);
+            panel3.BorderColor = System.Drawing.Color.Transparent;
+            panel3.Controls.Add(flowLayoutPanel2);
+            panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel3.Location = new System.Drawing.Point(610, 0);
+            panel3.Margin = new System.Windows.Forms.Padding(0);
+            panel3.Name = "panel3";
+            panel3.Radius = 10;
+            panel3.ShadowDepth = 4F;
+            panel3.Size = new System.Drawing.Size(360, 621);
+            panel3.TabIndex = 1;
             // 
-            // numMPPotionsLeft
+            // flowLayoutPanel2
             // 
-            numMPPotionsLeft.BackColor = System.Drawing.Color.Transparent;
-            numMPPotionsLeft.Font = new System.Drawing.Font("Segoe UI", 9.25F);
-            numMPPotionsLeft.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            numMPPotionsLeft.Location = new System.Drawing.Point(183, 228);
-            numMPPotionsLeft.Margin = new System.Windows.Forms.Padding(4);
-            numMPPotionsLeft.Maximum = new decimal(new int[] { 9999, 0, 0, 0 });
-            numMPPotionsLeft.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
-            numMPPotionsLeft.MinimumSize = new System.Drawing.Size(100, 31);
-            numMPPotionsLeft.Name = "numMPPotionsLeft";
-            numMPPotionsLeft.Size = new System.Drawing.Size(100, 31);
-            numMPPotionsLeft.TabIndex = 14;
-            numMPPotionsLeft.Value = new decimal(new int[] { 15, 0, 0, 0 });
-            numMPPotionsLeft.ValueChanged += numSettings_ValueChanged;
+            flowLayoutPanel2.BackColor = System.Drawing.Color.Transparent;
+            flowLayoutPanel2.Border = new System.Windows.Forms.Padding(0, 0, 0, 0);
+            flowLayoutPanel2.BorderColor = System.Drawing.Color.Transparent;
+            flowLayoutPanel2.Controls.Add(groupBackTown);
+            flowLayoutPanel2.Controls.Add(groupStatPoints);
+            flowLayoutPanel2.Controls.Add(label22);
+            flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            flowLayoutPanel2.Location = new System.Drawing.Point(0, 0);
+            flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
+            flowLayoutPanel2.Name = "flowLayoutPanel2";
+            flowLayoutPanel2.Radius = 10;
+            flowLayoutPanel2.ShadowDepth = 4F;
+            flowLayoutPanel2.Size = new System.Drawing.Size(360, 621);
+            flowLayoutPanel2.TabIndex = 0;
             // 
-            // numShardFatigueMinToDC
+            // panel2
             // 
-            numShardFatigueMinToDC.BackColor = System.Drawing.Color.Transparent;
-            numShardFatigueMinToDC.Font = new System.Drawing.Font("Segoe UI", 9.25F);
-            numShardFatigueMinToDC.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            numShardFatigueMinToDC.Location = new System.Drawing.Point(183, 318);
-            numShardFatigueMinToDC.Margin = new System.Windows.Forms.Padding(4);
-            numShardFatigueMinToDC.Maximum = new decimal(new int[] { 300, 0, 0, 0 });
-            numShardFatigueMinToDC.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
-            numShardFatigueMinToDC.MinimumSize = new System.Drawing.Size(100, 31);
-            numShardFatigueMinToDC.Name = "numShardFatigueMinToDC";
-            numShardFatigueMinToDC.Size = new System.Drawing.Size(100, 31);
-            numShardFatigueMinToDC.TabIndex = 15;
-            numShardFatigueMinToDC.Value = new decimal(new int[] { 15, 0, 0, 0 });
-            numShardFatigueMinToDC.ValueChanged += numSettings_ValueChanged;
+            panel2.BackColor = System.Drawing.Color.Transparent;
+            panel2.Border = new System.Windows.Forms.Padding(0, 0, 0, 0);
+            panel2.BorderColor = System.Drawing.Color.Transparent;
+            panel2.Controls.Add(flowLayoutPanel1);
+            panel2.Dock = System.Windows.Forms.DockStyle.Left;
+            panel2.Location = new System.Drawing.Point(0, 0);
+            panel2.Margin = new System.Windows.Forms.Padding(0);
+            panel2.Name = "panel2";
+            panel2.Radius = 10;
+            panel2.ShadowDepth = 4F;
+            panel2.Size = new System.Drawing.Size(610, 621);
+            panel2.TabIndex = 0;
             // 
-            // label19
+            // flowLayoutPanel1
             // 
-            label19.ApplyGradient = false;
-            label19.AutoSize = true;
-            label19.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
-            label19.Gradient = new System.Drawing.Color[]
-    {
-    System.Drawing.Color.Gray,
-    System.Drawing.Color.Black
-    };
-            label19.GradientAnimation = false;
-            label19.Location = new System.Drawing.Point(286, 323);
-            label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label19.Name = "label19";
-            label19.Size = new System.Drawing.Size(34, 20);
-            label19.TabIndex = 16;
-            label19.Text = "min";
+            flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
+            flowLayoutPanel1.Border = new System.Windows.Forms.Padding(0, 0, 0, 0);
+            flowLayoutPanel1.BorderColor = System.Drawing.Color.Transparent;
+            flowLayoutPanel1.Controls.Add(groupHPMP);
+            flowLayoutPanel1.Controls.Add(groupBadStatus);
+            flowLayoutPanel1.Controls.Add(groupPet);
+            flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Radius = 10;
+            flowLayoutPanel1.ShadowDepth = 4F;
+            flowLayoutPanel1.Size = new System.Drawing.Size(610, 621);
+            flowLayoutPanel1.TabIndex = 0;
             // 
             // Main
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            Controls.Add(groupStatPoints);
-            Controls.Add(groupBackTown);
-            Controls.Add(label22);
-            Controls.Add(groupBadStatus);
-            Controls.Add(groupHPMP);
-            Controls.Add(groupPet);
+            Controls.Add(panel1);
             Font = new System.Drawing.Font("Segoe UI", 9F);
-            Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            Margin = new System.Windows.Forms.Padding(4);
             Name = "Main";
             Size = new System.Drawing.Size(970, 621);
             Load += Main_Load;
@@ -1364,8 +1447,12 @@
             groupPet.PerformLayout();
             groupStatPoints.ResumeLayout(false);
             groupStatPoints.PerformLayout();
+            panel1.ResumeLayout(false);
+            panel3.ResumeLayout(false);
+            flowLayoutPanel2.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            flowLayoutPanel1.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -1443,5 +1530,10 @@
         private SDUI.Controls.NumUpDown numHPPotionsLeft;
         private SDUI.Controls.CheckBox checkShardFatigue;
         private System.Windows.Forms.ToolTip toolTip1;
+        private SDUI.Controls.Panel panel1;
+        private SDUI.Controls.Panel panel3;
+        private SDUI.Controls.FlowLayoutPanel flowLayoutPanel2;
+        private SDUI.Controls.Panel panel2;
+        private SDUI.Controls.FlowLayoutPanel flowLayoutPanel1;
     }
 }
