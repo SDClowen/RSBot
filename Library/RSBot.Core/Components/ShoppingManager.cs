@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using RSBot.Core.Client.ReferenceObjects;
+﻿using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Network;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Cos;
 using RSBot.Core.Objects.Inventory;
 using RSBot.Core.Objects.Spawn;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Xml;
 using static RSBot.Core.Game;
 
 namespace RSBot.Core.Components;
@@ -431,8 +432,18 @@ public static class ShoppingManager
     /// <param name="npcCodeName">Name of the NPC code.</param>
     public static void StoreItems(string npcCodeName)
     {
+        int firstSlot = 13;
+        if (Game.ClientType == GameClientType.Global
+            || Game.ClientType == GameClientType.Korean
+            || Game.ClientType == GameClientType.VTC_Game
+            || Game.ClientType == GameClientType.RuSro
+            || Game.ClientType == GameClientType.Turkey
+            || Game.ClientType == GameClientType.Taiwan
+            || Game.ClientType == GameClientType.Japanese)
+            firstSlot = 17; //4 slots for relics
+
         var tempInventory = Game.Player.Inventory.GetItems(item =>
-            item.Slot > 13 && StoreFilter.Any(p => p == item.Record.CodeName)
+            item.Slot >= firstSlot && StoreFilter.Any(p => p == item.Record.CodeName)
         );
 
         SelectNPC(npcCodeName);
@@ -443,10 +454,18 @@ public static class ShoppingManager
             return;
         }
 
-        OpenStorage(npc.UniqueId);
-
-        if (Game.Player.Storage == null)
-            return;
+        if (npc.Record.CodeName.Contains("WAREHOUSE"))
+        {
+            OpenStorage(npc.UniqueId);
+            if (Game.Player.Storage == null)
+                return;
+        }
+        else
+        {
+            OpenGuildStorage(npc.UniqueId);
+            if (Game.Player.GuildStorage == null)
+                return;
+        }
 
         Log.Status("Storing items");
         foreach (var item in tempInventory)
@@ -468,8 +487,129 @@ public static class ShoppingManager
                 }
             }
         }
+        if (!npc.Record.CodeName.Contains("WAREHOUSE"))
+            CloseGuildStorage(npc.UniqueId);
 
-        CloseShop();
+        if (Game.Clientless || npc.Record.CodeName.Contains("WAREHOUSE"))
+            CloseShop();
+        else
+            CloseGuildShop();
+    }
+
+    public static void SortItems(string npcCodeName)
+    {
+        SelectNPC(npcCodeName);
+        var npc = SelectedEntity;
+        if (npc == null)
+        {
+            Log.Debug("Cannot sort items because there is no storage NPC selected!");
+            return;
+        }
+
+        IList<InventoryItem> allStorageItems = null;
+
+        if (npc.Record.CodeName.Contains("WAREHOUSE"))
+        {
+            OpenStorage(npc.UniqueId);
+            Game.Player.Storage.Sort(npc);
+            allStorageItems = Game.Player.Storage.GetItems(item => true);
+        }
+        else
+        {
+            OpenGuildStorage(npc.UniqueId);
+            Game.Player.GuildStorage.Sort(npc);
+            allStorageItems = Game.Player.GuildStorage.GetItems(item => true);
+        }
+        
+        if (allStorageItems == null || allStorageItems.Count == 0)
+        {
+            if (!npc.Record.CodeName.Contains("WAREHOUSE"))
+                CloseGuildStorage(npc.UniqueId);
+
+            if (Game.Clientless || npc.Record.CodeName.Contains("WAREHOUSE"))
+                CloseShop();
+            else
+                CloseGuildShop();
+
+            return;
+        }
+
+        byte minSlot = allStorageItems.Min(i => i.Slot);
+        byte maxSlot = allStorageItems.Max(i => i.Slot);
+
+        for (byte i = minSlot; i <= maxSlot; i++)
+        {
+            // Get remaining items at or after slot i, ordered by grouping key
+            List<InventoryItem> remaining = null;
+            if (npc.Record.CodeName.Contains("WAREHOUSE"))
+            { 
+                remaining = Game.Player.Storage
+                    .GetItems(it => it.Slot >= i)
+                    .OrderBy(it => it.ItemId)
+                    .ThenBy(it => it.Slot)
+                    .ToList();
+            }
+            else
+            {
+                remaining = Game.Player.GuildStorage
+                    .GetItems(it => it.Slot >= i)
+                    .OrderBy(it => it.ItemId)
+                    .ThenBy(it => it.Slot)
+                    .ToList();
+            }
+
+            if (remaining == null || remaining.Count == 0)
+                continue;
+
+            var groupKey = remaining[0].Record.CodeName;
+
+            // Find smallest slot among remaining items that match the group key
+            var candidateSlots = remaining
+                .Where(it => it.Record.CodeName == groupKey)
+                .Select(it => it.Slot)
+                .OrderBy(s => s)
+                .ToList();
+
+            if (candidateSlots == null || candidateSlots.Count == 0)
+                break;
+
+            var fromSlot = candidateSlots[0];
+
+            if (fromSlot == i)
+                continue;
+
+            Log.Debug($"[ShoppingManager] Reordering storage: moving slot {fromSlot} to slot {i}");
+
+            // Move the entire stack from 'fromSlot' to 'i'
+            InventoryItem itemToMove;
+            if (npc.Record.CodeName.Contains("WAREHOUSE"))
+            {
+                itemToMove = Game.Player.Storage.GetItemAt(fromSlot);
+                if (itemToMove != null)
+                {
+                    Game.Player.Storage.MoveItem(fromSlot, i, (ushort)itemToMove.Amount, npc);
+                    Thread.Sleep(100);
+                }
+            }
+            else
+            {
+                itemToMove = Game.Player.GuildStorage.GetItemAt(fromSlot);
+                if (itemToMove != null)
+                {
+                    Game.Player.GuildStorage.MoveItem(fromSlot, i, (ushort)itemToMove.Amount, npc);
+                    Thread.Sleep(100);
+                }
+            }
+
+        }
+
+        if (!npc.Record.CodeName.Contains("WAREHOUSE"))
+            CloseGuildStorage(npc.UniqueId);
+
+        if (Game.Clientless || npc.Record.CodeName.Contains("WAREHOUSE"))
+            CloseShop();
+        else
+            CloseGuildShop();
     }
 
     /// <summary>
@@ -481,6 +621,31 @@ public static class ShoppingManager
 
         if (SelectedEntity != null && SelectedEntity.TryDeselect())
             SelectedEntity = null;
+    }
+
+    /// <summary>
+    ///     Closes the guild shop.
+    /// </summary>
+    public static void CloseGuildShop()
+    {
+        Running = false;
+
+        if (SelectedEntity != null)
+            SelectedEntity = null;
+    }
+
+    /// <summary>
+    ///     Closes the guild storage.
+    /// </summary>
+    public static void CloseGuildStorage(uint uniqueId)
+    {
+        var packet = new Packet(0x7251);
+        packet.WriteUInt(uniqueId);
+        var awaitResult = new AwaitCallback(null, 0xB251);
+        PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
+        awaitResult.AwaitResponse();
+
+        Thread.Sleep(2000);
     }
 
     /// <summary>
@@ -510,6 +675,34 @@ public static class ShoppingManager
     }
 
     /// <summary>
+    ///     Opens the guild storage.
+    /// </summary>
+    private static void OpenGuildStorage(uint uniqueId)
+    {
+        var packet = new Packet(0x7046);
+        packet.WriteUInt(uniqueId);
+        packet.WriteByte(0x0D);
+        var awaitResult = new AwaitCallback(null, 0xB046);
+        PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
+        awaitResult.AwaitResponse();
+
+        Thread.Sleep(2000);
+
+        if (Game.Clientless)
+        {
+            packet = new Packet(0x7250);
+            packet.WriteInt(uniqueId);
+            awaitResult = new AwaitCallback(null, 0xB250);
+            PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
+            awaitResult.AwaitResponse();
+
+            packet = new Packet(0x7252);
+            packet.WriteInt(uniqueId);
+            PacketManager.SendPacket(packet, PacketDestination.Server);
+        }
+    }
+
+    /// <summary>
     ///     Opens the shop.
     /// </summary>
     /// <param name="npcCodeName">Name of the NPC code.</param>
@@ -534,39 +727,24 @@ public static class ShoppingManager
     /// <param name="item">Item to put in storage.</param>
     private static void StoreItem(InventoryItem item, SpawnedBionic npc)
     {
-        //Use later to merge item!
-        var existingItem = Game.Player.Storage.GetItem(item.Record.ID);
-
         //Store item
-        var destinationSlot = Game.Player.Storage.GetFreeSlot();
+        byte destinationSlot;
+        if (npc.Record.CodeName.Contains("WAREHOUSE"))
+        {
+            destinationSlot = Game.Player.Storage.GetFreeSlot();
+        }
+        else
+        {
+            destinationSlot = Game.Player.GuildStorage.GetFreeSlot();
+        }
         var packet = new Packet(0x7034);
-        packet.WriteByte(0x02); //Store Item Flag
+        packet.WriteByte(npc.Record.CodeName.Contains("WAREHOUSE") ? 0x02 : 0x1E); //Store Item Flag (02 - warehouse; 1E - guild)
         packet.WriteByte(item.Slot);
         packet.WriteByte(destinationSlot);
         packet.WriteUInt(npc.UniqueId);
 
         var awaitResult = new AwaitCallback(null, 0xB034);
         PacketManager.SendPacket(packet, PacketDestination.Server, awaitResult);
-        awaitResult.AwaitResponse();
-
-        if (item.Record.MaxStack <= 1 || existingItem == null)
-            return;
-
-        //Merge with existing item.
-        var mergeAmount =
-            existingItem.Amount + item.Amount <= existingItem.Record.MaxStack
-                ? item.Amount
-                : existingItem.Record.MaxStack - existingItem.Amount;
-
-        var mergePacket = new Packet(0x7034);
-        mergePacket.WriteByte(0x01); //Store Item Flag
-        mergePacket.WriteByte(destinationSlot);
-        mergePacket.WriteByte(existingItem.Slot);
-        mergePacket.WriteUShort(mergeAmount);
-        mergePacket.WriteUInt(npc.UniqueId);
-
-        awaitResult = new AwaitCallback(null, 0xB034);
-        PacketManager.SendPacket(mergePacket, PacketDestination.Server, awaitResult);
         awaitResult.AwaitResponse();
     }
 
