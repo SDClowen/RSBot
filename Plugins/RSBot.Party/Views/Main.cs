@@ -933,7 +933,7 @@ public partial class Main : DoubleBufferedControl
                     || (
                         Game.ReferenceManager.SkillData.TryGetValue(id, out var refSkill)
                         && refSkill.Action_Overlap == skill.Record.Action_Overlap
-                        && refSkill.Basic_Group == skill.Record.Basic_Group
+                        && refSkill.Basic_Group.StartsWith(skill.Record.Basic_Group)
                     )
                 )
             )
@@ -1144,7 +1144,7 @@ public partial class Main : DoubleBufferedControl
         checkBoxJoinByTitle.Checked = PlayerConfig.Get("RSBot.Party.AutoJoin.ByTitle", false);
         textBoxJoinByName.Text = PlayerConfig.Get("RSBot.Party.AutoJoin.Name", string.Empty);
         textBoxJoinByTitle.Text = PlayerConfig.Get("RSBot.Party.AutoJoin.Title", string.Empty);
-        topPartyPanel.Height = 162;
+        topPartyPanel.Height = 120;
 
         buttonAutoJoinConfig.Color = ColorScheme.BackColor;
     }
