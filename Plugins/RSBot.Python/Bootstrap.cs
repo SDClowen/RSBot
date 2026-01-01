@@ -11,7 +11,7 @@ public class Bootstrap : IPlugin
     public string InternalName => "RSBot.Python";
 
     /// <inheritdoc />
-    public string DisplayName => "Plugins";
+    public string DisplayName => "PyPlugins";
 
     /// <inheritdoc />
     public bool DisplayAsTab => true;

@@ -122,9 +122,13 @@ namespace RSBot.Python.Components.API.GUI
             }));
         }
 
-        private Label CreateLabel(string pluginName, int x, int y, string text, int? width = null, int? height = null)
+        private SDUI.Controls.Label CreateLabel(string pluginName, int x, int y, string text, int? width = null, int? height = null)
         {
-            Label lbl = new Label { Text = text, Left = x, Top = y, AutoSize = true };
+            var lbl = new SDUI.Controls.Label();
+            lbl.Text = text;
+            lbl.Left = x;
+            lbl.Top = y;
+            lbl.AutoSize = true;
             if (width.HasValue) lbl.Width = width.Value;
             if (height.HasValue) lbl.Height = height.Value;
 
@@ -132,9 +136,13 @@ namespace RSBot.Python.Components.API.GUI
             return lbl;
         }
 
-        private Button CreateButton(string pluginName, int x, int y, string text, int? width = null, int? height = null)
+        private SDUI.Controls.Button CreateButton(string pluginName, int x, int y, string text, int? width = null, int? height = null)
         {
-            Button btn = new Button { Text = text, Left = x, Top = y, AutoSize = true };
+            var btn = new SDUI.Controls.Button();
+            btn.Text = text;
+            btn.Left = x;
+            btn.Top = y;
+            btn.AutoSize = true;
             if (width.HasValue)
             {
                 btn.Width = width.Value;                
@@ -147,27 +155,28 @@ namespace RSBot.Python.Components.API.GUI
             return btn;
         }
 
-        private CheckBox CreateCheckBox(string pluginName, int x, int y, string text, int? width = null, int? height = null)
+        private SDUI.Controls.CheckBox CreateCheckBox(string pluginName, int x, int y, string text, int? width = null, int? height = null)
         {
-            CheckBox cb = new CheckBox { Text = text, Left = x, Top = y, AutoSize = true };
+            var cb = new SDUI.Controls.CheckBox();
+            cb.Text = text;
+            cb.Left = x;
+            cb.Top = y;
+            cb.AutoSize = true;
             if (width.HasValue) cb.Width = width.Value;
             if (height.HasValue) cb.Height = height.Value;
             AddControl(pluginName, cb);
             return cb;
         }
 
-        private TextBox CreateTextBox(string pluginName, int x, int y, string defaultText,int? width = null,int? height = null)
+        private SDUI.Controls.TextBox CreateTextBox(string pluginName, int x, int y, string defaultText,int? width = null,int? height = null)
         {
-            TextBox tb = new TextBox
-            {
-                Text = defaultText,
-                Left = x,
-                Top = y,
-                Width = width ?? 150
-            };
+            var tb = new SDUI.Controls.TextBox();
+            tb.Text = defaultText;
+            tb.Left = x;
+            tb.Top = y;
+            tb.Width = width ?? 150;
             if (height.HasValue)
             {
-                tb.Multiline = true;
                 tb.Height = height.Value;
             }
 
@@ -175,16 +184,14 @@ namespace RSBot.Python.Components.API.GUI
             return tb;
         }
 
-        private ComboBox CreateComboBox(string pluginName, int x, int y, string? text = null, int? width = null, int? height = null)
+        private SDUI.Controls.ComboBox CreateComboBox(string pluginName, int x, int y, string? text = null, int? width = null, int? height = null)
         {
-            ComboBox cb = new ComboBox
-            {
-                Text = text,
-                Left = x,
-                Top = y,
-                Width = 150,
-                DropDownStyle = ComboBoxStyle.DropDownList
-            };
+            var cb = new SDUI.Controls.ComboBox();
+            cb.Text = text;
+            cb.Left = x;
+            cb.Top = y;
+            cb.Width = 150;
+            cb.DropDownStyle = ComboBoxStyle.DropDownList;
             if (height.HasValue) cb.Height= height.Value;
             if (width.HasValue) cb.Width = width.Value;
 
@@ -206,9 +213,13 @@ namespace RSBot.Python.Components.API.GUI
             AddControl(pluginName, lb);
             return lb;
         }
-        private RadioButton CreateRadioButton(string pluginName, int x, int y, string text, int? width = null, int? height = null)
+        private SDUI.Controls.Radio CreateRadioButton(string pluginName, int x, int y, string text, int? width = null, int? height = null)
         {
-            RadioButton rb = new RadioButton { Text = text, Left = x, Top = y, AutoSize = true };
+            var rb = new SDUI.Controls.Radio();
+            rb.Text = text;
+            rb.Left = x;
+            rb.Top = y;
+            rb.AutoSize = true;
             if (width.HasValue) rb.Width = width.Value;
             if (height.HasValue) rb.Height = height.Value;
             AddControl(pluginName, rb);

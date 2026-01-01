@@ -1,7 +1,7 @@
-﻿using System.Windows.Forms;
-using Python.Runtime;
+﻿using Python.Runtime;
 using RSBot.Python.Components.API.GUI.Wrapper;
 using RSBot.Python.Views;
+using SDUI.Controls;
 
 namespace RSBot.Python.Components.API.GUI.Controls
 {
@@ -9,7 +9,7 @@ namespace RSBot.Python.Components.API.GUI.Controls
     {
         private PyObject _callback;
 
-        public RadioButtonWrapper(RadioButton rb, Main form, PyObject callback = null)
+        public RadioButtonWrapper(Radio rb, Main form, PyObject callback = null)
             : base(rb, form)
         {
             _callback = callback;
@@ -36,12 +36,12 @@ namespace RSBot.Python.Components.API.GUI.Controls
 
         private bool GetChecked()
         {
-            return ((RadioButton)Control).Checked;
+            return ((Radio)Control).Checked;
         }
 
         private void SetChecked(bool value)
         {
-            Invoke(() => ((RadioButton)Control).Checked = value);
+            Invoke(() => ((Radio)Control).Checked = value);
         }
 
         public bool get_checked()

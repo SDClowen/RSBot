@@ -1,8 +1,7 @@
-﻿using System;
-using System.Windows.Forms;
-using Python.Runtime;
+﻿using Python.Runtime;
 using RSBot.Python.Components.API.GUI.Wrapper;
 using RSBot.Python.Views;
+using SDUI.Controls;
 
 namespace RSBot.Python.Components.API.GUI.Controls
 {
@@ -36,12 +35,12 @@ namespace RSBot.Python.Components.API.GUI.Controls
 
         private string GetText()
         {
-            return ((TextBox)Control).Text;
+            return ((SDUI.Controls.TextBox)Control).Text;
         }
 
         private void SetTextValue(string text)
         {
-            Invoke(() => ((TextBox)Control).Text = text);
+            Invoke(() => ((SDUI.Controls.TextBox)Control).Text = text);
         }
         public string get_text()
         {

@@ -1,6 +1,6 @@
 ﻿using RSBot.Python.Components.API.GUI.Wrapper;
 using RSBot.Python.Views;
-using System.Windows.Forms;
+using SDUI.Controls;
 
 namespace RSBot.Python.Components.API.GUI.Controls
 {

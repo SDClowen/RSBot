@@ -1,8 +1,7 @@
-﻿using System;
-using System.Windows.Forms;
-using Python.Runtime;
+﻿using Python.Runtime;
 using RSBot.Python.Components.API.GUI.Wrapper;
 using RSBot.Python.Views;
+using SDUI.Controls;
 
 namespace RSBot.Python.Components.API.GUI.Controls
 {
