@@ -19,8 +19,9 @@ public partial class App : Application
         {
             var main = new MainWindow();
 
-            var splashScreen = new SplashScreen(main);
+            var splashScreen = new SplashScreen();
             desktop.MainWindow = splashScreen;
+            splashScreen.Show();
 
             if (splashScreen.DataContext is SplashScreenViewModel viewModel)
                 await viewModel.InitializeAsync();

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace RSBot.General.Models;
 
@@ -68,4 +69,13 @@ internal class Account
     {
         return Username;
     }
+}
+
+/// <summary>
+///     JSON serialization context for Account model
+/// </summary>
+[JsonSourceGenerationOptions(WriteIndented = false)]
+[JsonSerializable(typeof(List<Account>))]
+internal partial class AccountJsonContext : JsonSerializerContext
+{
 }

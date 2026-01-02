@@ -9,8 +9,8 @@
 		Loaded="Accounts_Load">
 
 
-	<Grid>
-		<Grid ColumnDefinitions="*, 1*" RowDefinitions="Auto">
+	<Grid RowDefinitions="*, Auto">
+		<Grid Grid.Row="0" ColumnDefinitions="*, 1*">
 			<!-- Accounts List -->
 			<Border Grid.Column="0" Padding="5" Margin="5" CornerRadius="8" BorderBrush="rgba(220, 220, 220, .1)" Background="rgba(220, 220, 220, .2)">
 				<ListBox Name="listAccounts" Background="Transparent" SelectionChanged="listAccounts_SelectedIndexChanged"/>
@@ -56,7 +56,7 @@
 		<!-- Bottom Panel with OK and Cancel -->
 		<StackPanel Grid.Row="1" VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Stretch" Background="rgba(220, 220, 220, .1)">
 			<Button Name="btnOK" Click="btnOK_Click" Margin="10" Content="OK" HorizontalAlignment="Left"/>
-			<Button Name="btnCancel" Content="Cancel" HorizontalAlignment="Right"/>
+			<Button Name="btnCancel" Click="btnCancel_Click" Margin="10" Content="Cancel" HorizontalAlignment="Right"/>
 		</StackPanel>
 	</Grid>
 </Window>

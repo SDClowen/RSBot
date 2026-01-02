@@ -43,9 +43,8 @@ public partial class MainWindow : Window
             
             InitializeTransforms();
             SetupZoomAndPan();
+            EventManager.FireEvent("OnInitialized");
         };
-
-        EventManager.FireEvent("OnInitialized");
     }
 
     /// <summary>

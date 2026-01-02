@@ -28,7 +28,6 @@ public class MainWindowViewModel : ReactiveObject
     private string _startButtonText = "Start Bot";
     private IBrush _startButtonBackground;
     private IBrush _startButtonBorderBrush;
-    private bool _cosManagerVisible = false;
     private string _statusText = "Waiting for user login";
     private bool _isBotRunning;
     private string _playerName;
@@ -121,15 +120,6 @@ public class MainWindowViewModel : ReactiveObject
     }
 
     /// <summary>
-    /// Gets or sets whether the COS manager is visible
-    /// </summary>
-    public bool CosManagerVisible
-    {
-        get => _cosManagerVisible;
-        set => this.RaiseAndSetIfChanged(ref _cosManagerVisible, value);
-    }
-
-    /// <summary>
     /// Gets or sets the status text displayed in the status bar
     /// </summary>
     public string StatusText
@@ -176,7 +166,7 @@ public class MainWindowViewModel : ReactiveObject
     /// <summary>
     /// Gets the command to toggle the COS manager visibility
     /// </summary>
-    public ICommand ToggleCosManagerCommand { get; private set; }
+    public ICommand SaveCommand { get; private set; }
 
     /// <summary>
     /// Gets the command to show the settings dialog
@@ -259,7 +249,7 @@ public class MainWindowViewModel : ReactiveObject
     private void InitializeCommands()
     {
         StartStopCommand = ReactiveCommand.Create(ExecuteStartStop);
-        ToggleCosManagerCommand = ReactiveCommand.Create(ExecuteToggleCosManager);
+        SaveCommand = ReactiveCommand.Create(ExecuteSave);
         ShowSettingsCommand = ReactiveCommand.Create(ExecuteShowSettings);
         ShowAboutCommand = ReactiveCommand.Create(ExecuteShowAbout);
         ExitCommand = ReactiveCommand.Create(ExecuteExit);
@@ -422,9 +412,10 @@ public class MainWindowViewModel : ReactiveObject
     /// <summary>
     /// Executes the toggle COS manager command
     /// </summary>
-    private void ExecuteToggleCosManager()
+    private void ExecuteSave()
     {
-        CosManagerVisible = !CosManagerVisible;
+        GlobalConfig.Save();
+        PlayerConfig.Save();
     }
 
     /// <summary>

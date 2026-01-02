@@ -15,12 +15,13 @@
 		<RuntimeIdentifier>win-x86</RuntimeIdentifier>
 		<OutputType>WinExe</OutputType>
 		<AssemblyVersion>3.0.0</AssemblyVersion>
+		<PublishAot>false</PublishAot>
 	</PropertyGroup>
 	<ItemGroup>
 		<AvaloniaResource Include="Assets\**" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Content Include="Assets\app.ico" />
+		<Content Include="Assets\app.ico" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Avalonia" Version="11.3.2" />
@@ -36,9 +37,9 @@
 		<ProjectReference Include="..\..\Library\RSBot.Core\RSBot.Core.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Compile Update="Views\SplashScreen.axaml.cs">
-	    <DependentUpon>SplashScreen.axaml</DependentUpon>
-	  </Compile>
+		<Compile Update="Views\SplashScreen.axaml.cs">
+			<DependentUpon>SplashScreen.axaml</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 
@@ -51,9 +52,9 @@
 
 
 	<PropertyGroup Label="Avalonia">
-	  <AvaloniaXamlIlDebuggerLaunch>True</AvaloniaXamlIlDebuggerLaunch>
-	  <ApplicationIcon>Assets\app.ico</ApplicationIcon>
+		<AvaloniaXamlIlDebuggerLaunch>True</AvaloniaXamlIlDebuggerLaunch>
+		<ApplicationIcon>Assets\app.ico</ApplicationIcon>
 	</PropertyGroup>
-	
+
 
 </Project>

@@ -34,9 +34,6 @@ public partial class Main : UserControl
     {
         InitializeComponent();
         SubscribeEvents();
-
-        //btnStartClient.SetUseAsync(true);
-        //btnStartClientless.SetUseAsync(true);
     }
 
     /// <summary>

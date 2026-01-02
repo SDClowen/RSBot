@@ -66,7 +66,7 @@ internal class Accounts
 
             var serialized = Encoding.UTF8.GetString(buffer).Trim('\0');
 
-            SavedAccounts = JsonSerializer.Deserialize<List<Account>>(serialized) ?? new List<Account>(4);
+            SavedAccounts = JsonSerializer.Deserialize(serialized, AccountJsonContext.Default.ListAccount) ?? new List<Account>(4);
         }
         catch (Exception ex)
         {
@@ -88,7 +88,7 @@ internal class Accounts
         try
         {
             //Encode user credentials
-            var buffer = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(SavedAccounts));
+            var buffer = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(SavedAccounts, AccountJsonContext.Default.ListAccount));
 
             //Maybe add some password protection and use blowfish.initialize(password)
             var blowfish = new Blowfish();

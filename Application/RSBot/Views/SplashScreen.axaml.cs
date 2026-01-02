@@ -8,7 +8,7 @@ namespace RSBot.Views;
 /// </summary>
 public partial class SplashScreen : Window
 {
-    public SplashScreen(MainWindow window)
+    public SplashScreen()
     {
         InitializeComponent();
         DataContext = new SplashScreenViewModel(this);

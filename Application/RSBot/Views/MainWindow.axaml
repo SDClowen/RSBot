@@ -93,14 +93,14 @@
 					<RowDefinition Height="*"></RowDefinition>
 				</Grid.RowDefinitions>
 
-				<rsc:CosManager Grid.Row="0" Name="cosManager" Margin="0 30 0 0" IsVisible="{Binding CosManagerVisible}"/>
+				<rsc:CosManager Grid.Row="0" Name="cosManager" Margin="0 30 0 0"/>
 
 				<Border Grid.Row="1" Margin="5" CornerRadius="6" Background="rgba(255, 255, 255, .06)" Padding="10">
 					<rs:Entity/>
 				</Border>
 
 				<StackPanel Grid.Row="2" Height="40" Margin="0 0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal">
-					<Button Padding="30 5" Command="{Binding ToggleCosManagerCommand}" HorizontalAlignment="Right" Margin="0 0 5 0">Save</Button>
+					<Button Padding="30 5" Command="{Binding SaveCommand}" HorizontalAlignment="Right" Margin="0 0 5 0">Save</Button>
 					<Button Padding="30 5" Name="btnStart" Command="{Binding StartStopCommand}"
 							Content="{Binding StartButtonText}"
 							Background="{Binding StartButtonBackground}"
