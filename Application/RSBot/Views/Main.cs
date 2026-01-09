@@ -241,6 +241,7 @@ public partial class Main : UIWindow
 
             var control = extension.Value.View;
             control.Name = extension.Value.InternalName;
+            
             control.Text = LanguageManager.GetLangBySpecificKey(
                 extension.Value.InternalName,
                 "DisplayName",
@@ -248,8 +249,10 @@ public partial class Main : UIWindow
             );
             control.Enabled = !extension.Value.RequireIngame;
             control.Dock = DockStyle.Fill;
-
+            
             windowPageControl.Controls.Add(control);
+            if (control.Name == "RSBot.Python" && !GlobalConfig.Get("RSBot.ShowPythonPlugins", true))
+                windowPageControl.Controls.Remove(control);
         }
 
         foreach (var extension in extensions.Where(extension => !extension.Value.DisplayAsTab))
@@ -408,6 +411,7 @@ public partial class Main : UIWindow
     private void Main_Load(object sender, EventArgs e)
     {
         menuSidebar.Checked = GlobalConfig.Get("RSBot.ShowSidebar", true);
+        pyPluginsToolStripMenuItem.Checked = GlobalConfig.Get("RSBot.ShowPythonPlugins", true);
 
         foreach (var item in LanguageManager.GetLanguages())
         {
@@ -761,7 +765,30 @@ public partial class Main : UIWindow
 
         GlobalConfig.Set("RSBot.Network.BindIp", ipAddress.ToString());
     }
+    private void pyPluginsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        pyPluginsToolStripMenuItem.Checked = !pyPluginsToolStripMenuItem.Checked;
+        GlobalConfig.Set("RSBot.ShowPythonPlugins", pyPluginsToolStripMenuItem.Checked.ToString());
+        foreach( var plugin in Kernel.PluginManager.Extensions.Values)
+        {
+            if (plugin.InternalName == "RSBot.Python")
+            {
+                var control = plugin.View;
+                var pluginIndex = windowPageControl.Controls.IndexOf(control);
+                var currentIndex = windowPageControl.SelectedIndex;
 
+                if (pyPluginsToolStripMenuItem.Checked && !windowPageControl.Controls.Contains(control))
+                    windowPageControl.Controls.Add(control);
+                else if (!pyPluginsToolStripMenuItem.Checked && windowPageControl.Controls.Contains(control))
+                {
+                    windowPageControl.Controls.Remove(control);
+                    if (pluginIndex == currentIndex)
+                        windowPageControl.SelectedIndex = 0;
+                }
+                    
+            }
+        }
+    }
     #endregion Form events
 
     #region Core events
@@ -922,4 +949,6 @@ public partial class Main : UIWindow
     }
 
     #endregion Core events
+
+    
 }
