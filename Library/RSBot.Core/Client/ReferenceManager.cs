@@ -20,27 +20,27 @@ public class ReferenceManager
 
     public int LanguageTab { get; set; }
 
-    public Dictionary<string, RefText> TextData { get; } = new(50000);
+    public Dictionary<string, RefText> TextData { get; } = new(70000);
     public Dictionary<uint, RefObjChar> CharacterData { get; } = new(20000);
-    public Dictionary<uint, RefObjItem> ItemData { get; } = new(20000);
+    public Dictionary<uint, RefObjItem> ItemData { get; } = new(30000);
     public Dictionary<byte, RefLevel> LevelData { get; } = new(128);
-    public Dictionary<uint, RefQuest> QuestData { get; } = new(1024);
-    public Dictionary<uint, RefSkill> SkillData { get; } = new(35000);
+    public Dictionary<uint, RefQuest> QuestData { get; } = new(2048);
+    public Dictionary<uint, RefSkill> SkillData { get; } = new(40000);
     public Dictionary<uint, RefSkillMastery> SkillMasteryData { get; } = new(32);
-    public Dictionary<int, RefAbilityByItemOptLevel> AbilityItemByOptLevel { get; } = new(256);
-    public List<RefSkillByItemOptLevel> SkillByItemOptLevels { get; } = new(256);
-    public List<RefExtraAbilityByEquipItemOptLevel> ExtraAbilityByEquipItemOptLevel { get; } = new(4096);
+    public Dictionary<int, RefAbilityByItemOptLevel> AbilityItemByOptLevel { get; } = new(512);
+    public List<RefSkillByItemOptLevel> SkillByItemOptLevels { get; } = new(1024);
+    public List<RefExtraAbilityByEquipItemOptLevel> ExtraAbilityByEquipItemOptLevel { get; } = new(50000);
     public Dictionary<string, RefShop> Shops { get; } = new(128);
-    public Dictionary<string, RefShopTab> ShopTabs { get; } = new(256);
+    public Dictionary<string, RefShopTab> ShopTabs { get; } = new(512);
     public Dictionary<string, RefShopGroup> ShopGroups { get; } = new(128);
     public List<RefMappingShopGroup> ShopGroupMapping { get; } = new(128);
-    public List<RefMappingShopWithTab> ShopTabMapping { get; } = new(128);
-    public List<RefShopGood> ShopGoods { get; } = new(4096);
-    public Dictionary<string, RefPackageItemScrap> PackageItemScrap { get; } = new(2048);
-    public List<RefTeleport> TeleportData { get; } = new(256);
-    public List<RefTeleportLink> TeleportLinks { get; } = new(256);
-    public Dictionary<int, RefOptionalTeleport> OptionalTeleports { get; } = new(32);
-    public Dictionary<uint, RefQuestReward> QuestRewards { get; } = new(1024);
+    public List<RefMappingShopWithTab> ShopTabMapping { get; } = new(256);
+    public List<RefShopGood> ShopGoods { get; } = new(8192);
+    public Dictionary<string, RefPackageItemScrap> PackageItemScrap { get; } = new(8192);
+    public List<RefTeleport> TeleportData { get; } = new(512);
+    public List<RefTeleportLink> TeleportLinks { get; } = new(512);
+    public Dictionary<int, RefOptionalTeleport> OptionalTeleports { get; } = new(64);
+    public Dictionary<uint, RefQuestReward> QuestRewards { get; } = new(2048);
     public List<RefQuestRewardItem> QuestRewardItems { get; } = new(1024);
     public List<RefEventRewardItems> EventRewardItems { get; } = new(32);
     public GatewayInfo GatewayInfo { get; private set; }
@@ -138,10 +138,15 @@ public class ReferenceManager
 
     private void LoadAlchemyData()
     {
-        LoadReferenceFile($"{ServerDep}\\magicoption.txt", MagicOptions);
-        if (MagicOptions.Count <= 1)
+        if (Game.ClientType >= GameClientType.Chinese)
+            LoadReferenceListFile($"{ServerDep}\\magicoption.txt", MagicOptions);
+        else
         {
-            LoadReferenceFile($"{ServerDep}\\magicoption_all.txt", MagicOptions);
+            LoadReferenceFile($"{ServerDep}\\magicoption.txt", MagicOptions);
+            if (MagicOptions.Count <= 1)
+            {
+                LoadReferenceFile($"{ServerDep}\\magicoption_all.txt", MagicOptions);
+            }
         }
         LoadReferenceFile($"{ServerDep}\\magicoptionassign.txt", MagicOptionAssignments);
     }
