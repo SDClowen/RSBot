@@ -5,6 +5,8 @@ using RSBot.Core.Extensions;
 using RSBot.Core.Network;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace RSBot.Chat.Network;
 
@@ -43,6 +45,8 @@ internal class ChatResponse : IPacketHandler
                 var senderId = packet.ReadUInt();
                 message = packet.ReadConditonalString();
 
+                message = ReadChatWithLinkedItems(message);
+
                 if (senderId != Game.Player.UniqueId)
                 {
                     if (!SpawnManager.TryGetEntity<SpawnedPlayer>(senderId, out var player))
@@ -61,6 +65,8 @@ internal class ChatResponse : IPacketHandler
 
                 message = packet.ReadConditonalString();
 
+                message = ReadChatWithLinkedItems(message);
+
                 View.Instance.AppendMessage(message, "Notice", type);
                 break;
 
@@ -72,8 +78,41 @@ internal class ChatResponse : IPacketHandler
                 var sender = packet.ReadString();
                 message = packet.ReadConditonalString();
 
+                message = ReadChatWithLinkedItems(message);
+
                 View.Instance.AppendMessage(message, sender, type);
                 break;
         }
+    }
+
+    public static string ReadChatWithLinkedItems(string message)
+    {
+        string pattern = "\u0002(.*?)\u0003";
+        HashSet<uint> idsToRemove = new HashSet<uint>();
+
+        string result = Regex.Replace(message, pattern, match =>
+        {
+            string rawValue = match.Groups[1].Value;
+
+            if (uint.TryParse(rawValue, out uint uid))
+            {
+                if (Bundle.Chat.LinkedItems.TryGetValue(uid, out var data) && data.itemName != null)
+                {
+                    idsToRemove.Add(uid);
+
+                    return data.amount > 1
+                        ? $" < {data.itemName} > [{data.amount}] "
+                        : $" < {data.itemName} > ";
+                }
+            }
+            return match.Value;
+        });
+
+        foreach (uint id in idsToRemove)
+        {
+            Bundle.Chat.LinkedItems.Remove(id);
+        }
+
+        return result;
     }
 }

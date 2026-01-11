@@ -211,16 +211,23 @@ public class PickupManager
         if (JustPickMyItems && e.OwnerJID != playerJid)
             return false;
 
-        if (Game.Party.IsInParty && PickupGold && e.Record.IsGold)
+        bool isItemAutoShareParty = Game.Party.IsInParty &&
+                            Game.Party.Settings.GetPartyType() is 2 or 3 or 6 or 7;
+
+        if (isItemAutoShareParty && PickupGold && e.Record.IsGold)
         {
-            var partyType = Game.Party.Settings.GetPartyType();
-            if ((partyType is 2 or 3 or 6 or 7) && !(applyPickOnlyChar && pickOnlyChar))
+            if (!(applyPickOnlyChar && pickOnlyChar))
                 return true;
         }
 
-        // Don't pickup items that still belong to another player
         if (e.HasOwner && e.OwnerJID != playerJid)
-            return false;
+        {
+            if (!isItemAutoShareParty)
+                return false;
+
+            if (e.Record.IsQuest && Game.Party.Members.Any(m => m.MemberId == e.OwnerJID))
+                return false;
+        }
 
         if (applyPickOnlyChar && e.IsBehindObstacle)
             return false;

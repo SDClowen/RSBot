@@ -2,12 +2,15 @@
 using RSBot.Core.Extensions;
 using RSBot.Core.Network;
 using RSBot.Core.Objects;
+using System.Collections.Generic;
 
 namespace RSBot.Chat.Bundle;
 
 internal class Chat
 {
     internal static bool IgnoreChatResponsePacket;
+
+    internal static Dictionary<uint, (string itemName, ushort amount)> LinkedItems = [];
 
     /// <summary>
     ///     Sends the chat packet.
