@@ -114,14 +114,12 @@ public partial class MagicOptionsSettingsView : DoubleBufferedControl
 
         try
         {
-            lvMagicOptions.BeginUpdate();
             lvMagicOptions.Items.Clear();
             _reloadConfig = false;
 
             var selectedItem = Globals.View.SelectedItem;
             if (selectedItem == null)
             {
-                lvMagicOptions.EndUpdate();
                 return;
             }
 
@@ -187,7 +185,7 @@ public partial class MagicOptionsSettingsView : DoubleBufferedControl
                 if (refMagicOption == null)
                     continue;
 
-                var item = new ListViewItem(assignment.GetGroupTranslation())
+                var item = new SDUI.Controls.ListViewItem(assignment.GetGroupTranslation())
                 {
                     Tag = new MagicStoneListViewItemTag
                     {
@@ -218,7 +216,6 @@ public partial class MagicOptionsSettingsView : DoubleBufferedControl
                 lvMagicOptions.Items.Add(item);
             }
 
-            lvMagicOptions.EndUpdate();
             _reloadConfig = true;
 
             ReloadConfig();
@@ -245,7 +242,7 @@ public partial class MagicOptionsSettingsView : DoubleBufferedControl
 
         try
         {
-            foreach (ListViewItem item in lvMagicOptions.CheckedItems)
+            foreach (SDUI.Controls.ListViewItem item in lvMagicOptions.CheckedItems)
             {
                 var invItem = (MagicStoneListViewItemTag)item.Tag;
 

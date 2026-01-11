@@ -7,13 +7,14 @@ using SDUI.Controls;
 
 namespace RSBot.Views.Dialog;
 
-public partial class ProfileSelectionDialog : UIWindowBase
+public partial class ProfileSelectionDialog : UIWindow
 {
     public ProfileSelectionDialog()
     {
         InitializeComponent();
-
+        ShowTitle = false;
         LoadProfiles();
+     
         checkSaveSelection.Checked = !ProfileManager.ShowProfileDialog;
         BackColor = ColorScheme.BackColor;
     }

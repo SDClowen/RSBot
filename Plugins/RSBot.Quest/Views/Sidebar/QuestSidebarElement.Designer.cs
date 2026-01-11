@@ -7,8 +7,6 @@
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        protected override bool DoubleBuffered { get; set; } = true;
-
         /// <summary> 
         /// Verwendete Ressourcen bereinigen.
         /// </summary>

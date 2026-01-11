@@ -13,6 +13,9 @@ using RSBot.Core.Objects;
 using SDUI.Controls;
 using CheckBox = SDUI.Controls.CheckBox;
 using GroupBox = SDUI.Controls.GroupBox;
+using ListViewItem = SDUI.Controls.ListViewItem;
+using ListViewGroup = SDUI.Controls.ListViewGroup;
+using ListView = SDUI.Controls.ListView;
 using ListViewExtensions = RSBot.Core.Extensions.ListViewExtensions;
 
 namespace RSBot.Items.Views;
@@ -88,7 +91,6 @@ public partial class Main : DoubleBufferedControl
         if (index < 0)
             return;
 
-        listAvailableProducts.BeginUpdate();
         listAvailableProducts.Items.Clear();
 
         List<RefShopGroup> groups;
@@ -164,8 +166,6 @@ public partial class Main : DoubleBufferedControl
                     listAvailableProducts.Items.Add(listItem);
             }
         }
-
-        listAvailableProducts.EndUpdate();
     }
 
     /// <summary>
@@ -173,8 +173,6 @@ public partial class Main : DoubleBufferedControl
     /// </summary>
     private async void LoadSearchResultItemImagesAsync()
     {
-        listFilter.BeginUpdate();
-
         foreach (ListViewItem item in listFilter.Items)
         {
             var refItem = (RefObjItem)item.Tag;
@@ -184,8 +182,6 @@ public partial class Main : DoubleBufferedControl
 
             item.ImageKey = refItem.CodeName;
         }
-
-        listFilter.EndUpdate();
 
         await Task.Yield();
     }
@@ -225,7 +221,6 @@ public partial class Main : DoubleBufferedControl
     /// </summary>
     private void LoadShoppingList()
     {
-        listShoppingList.BeginUpdate();
         listShoppingList.Items.Clear();
 
         foreach (ListViewGroup group in listShoppingList.Groups)
@@ -255,8 +250,6 @@ public partial class Main : DoubleBufferedControl
                     ShoppingManager.ShoppingList.Add(good, int.Parse(amount));
             }
         }
-
-        listShoppingList.EndUpdate();
     }
 
     /// <summary>
@@ -267,9 +260,7 @@ public partial class Main : DoubleBufferedControl
         await Task.Delay(1).ConfigureAwait(false);
 
         listFilter.Visible = false;
-        listFilter.BeginUpdate();
         listFilter.Items.Clear();
-        listFilter.EndUpdate();
 
         var filters = new List<TypeIdFilter>();
 
@@ -481,7 +472,7 @@ public partial class Main : DoubleBufferedControl
         if (items.Count == 0)
         {
             listFilter.Visible = true;
-            MessageBox.Show(this, LanguageManager.GetLang("NoResultsFound"), "Warning");
+            MessageBox.Show(LanguageManager.GetLang("NoResultsFound"), "Warning");
             return;
         }
 
@@ -495,8 +486,6 @@ public partial class Main : DoubleBufferedControl
     /// <param name="items">The items.</param>
     private async Task PopulateSellListAsync(List<RefObjItem> items)
     {
-        listFilter.BeginUpdate();
-
         string getSubItemString(RefObjItem item)
         {
             var filter = PickupManager.PickupFilter.Find(p => p.CodeName == item.CodeName);
@@ -532,7 +521,6 @@ public partial class Main : DoubleBufferedControl
         }
 
         listFilter.Items.AddRange(listViewItems);
-        listFilter.EndUpdate();
 
         //LoadSearchResultItemImagesAsync();
 
@@ -673,7 +661,7 @@ public partial class Main : DoubleBufferedControl
             var content = LanguageManager.GetLang("InputDialogContent");
             var itemNameTrans = LanguageManager.GetLang("InputDialogItemName", refItem.GetRealName(), refItem.MaxStack);
             var dialog = new InputDialog(title, itemNameTrans, content, InputDialog.InputType.Numeric);
-            if (dialog.ShowDialog(this) == DialogResult.Cancel)
+            if (dialog.ShowDialog(this.FindForm()) == DialogResult.Cancel)
                 return;
 
             if (listShoppingList.Items.ContainsKey(listItem.Name))
@@ -728,7 +716,7 @@ public partial class Main : DoubleBufferedControl
             var dialog = new InputDialog(title, item.Text, content, InputDialog.InputType.Numeric);
             dialog.Numeric.Value = defaultValue;
 
-            if (dialog.ShowDialog(this) == DialogResult.Cancel)
+            if (dialog.ShowDialog(this.FindForm()) == DialogResult.Cancel)
                 return;
 
             item.SubItems[1].Text = "x" + dialog.Value;

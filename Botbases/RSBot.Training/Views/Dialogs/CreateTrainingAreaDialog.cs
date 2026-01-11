@@ -5,11 +5,12 @@ using SDUI.Controls;
 
 namespace RSBot.Training.Views.Dialogs;
 
-public partial class CreateTrainingAreaDialog : UIWindowBase
+public partial class CreateTrainingAreaDialog : UIWindow
 {
     public CreateTrainingAreaDialog()
     {
         InitializeComponent();
+        ShowTitle = false;
     }
 
     private void buttonAccept_Click(object sender, EventArgs e)

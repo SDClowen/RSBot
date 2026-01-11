@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using SDUI.Controls;
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Skill;
@@ -12,21 +12,21 @@ public static class ListViewExtensions
     /// <summary>
     ///     The cached image list for skills
     /// </summary>
-    public static ImageList StaticImageList;
+    public static System.Windows.Forms.ImageList StaticImageList;
 
     /// <summary>
     ///     The cached image list for items
     /// </summary>
-    public static ImageList StaticItemsImageList;
+    public static System.Windows.Forms.ImageList StaticItemsImageList;
 
     /// <summary>
     ///     <inheritdoc />
     /// </summary>
     static ListViewExtensions()
     {
-        StaticImageList = new ImageList { ColorDepth = ColorDepth.Depth32Bit, ImageSize = new Size(24, 24) };
+        StaticImageList = new() { ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit, ImageSize = new Size(24, 24) };
 
-        StaticItemsImageList = new ImageList { ColorDepth = ColorDepth.Depth32Bit, ImageSize = new Size(24, 24) };
+        StaticItemsImageList = new(){ ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit, ImageSize = new Size(24, 24) };
     }
 
     /// <summary>
@@ -125,11 +125,7 @@ public static class ListViewExtensions
     /// </summary>
     public static async void LoadSkillImagesAsync(this ListView listView)
     {
-        listView.BeginUpdate();
-
         foreach (ListViewItem item in listView.Items)
             await item.LoadSkillImage();
-
-        listView.EndUpdate();
     }
 }

@@ -33,9 +33,8 @@
             btnNo = new SDUI.Controls.Button();
             btnYes = new SDUI.Controls.Button();
             checkDontAskAgain = new SDUI.Controls.CheckBox();
-            pictureBox1 = new System.Windows.Forms.PictureBox();
+            pictureBox1 = new SDUI.Controls.PictureBox();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // labelInfo
@@ -141,7 +140,6 @@
             StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             Load += ExitDialog_Load;
             panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -150,7 +148,7 @@
 
         private SDUI.Controls.Label labelInfo;
         private SDUI.Controls.Panel panel1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private SDUI.Controls.PictureBox pictureBox1;
         private SDUI.Controls.Button btnNo;
         private SDUI.Controls.Button btnYes;
         private SDUI.Controls.CheckBox checkDontAskAgain;

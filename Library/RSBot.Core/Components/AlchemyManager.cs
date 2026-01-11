@@ -28,7 +28,7 @@ public class AlchemyManager
     ///     Attention! This object is only set during alchemy operations and will be set to NULL if any ACK response has been
     ///     received!
     /// </summary>
-    public static List<InventoryItem>? ActiveAlchemyItems { get; internal set; }
+    public static List<InventoryItem> ActiveAlchemyItems { get; internal set; }
 
     /// <summary>
     ///     Gets a value indicating whether this instance is fusing.
@@ -60,7 +60,7 @@ public class AlchemyManager
     /// <param name="item">The item.</param>
     /// <param name="elixir">The elixir.</param>
     /// <param name="powder">The powder.</param>
-    public static bool TryFuseElixir(InventoryItem item, InventoryItem elixir, InventoryItem? powder)
+    public static bool TryFuseElixir(InventoryItem item, InventoryItem elixir, InventoryItem powder)
     {
         var itemInInventory = Game.Player.Inventory.GetItemAt(item.Slot);
         var elixirInInventory = Game.Player.Inventory.GetItemAt(elixir.Slot);
@@ -214,7 +214,7 @@ public class AlchemyManager
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="ElapsedEventArgs" /> instance containing the event data.</param>
-    private static void FusingActionFusingTimerElapsed(object? sender, ElapsedEventArgs e)
+    private static void FusingActionFusingTimerElapsed(object sender, ElapsedEventArgs e)
     {
         StopTimer();
     }

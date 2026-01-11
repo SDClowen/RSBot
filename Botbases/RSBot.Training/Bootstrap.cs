@@ -8,6 +8,7 @@ using RSBot.Training.Bot;
 using RSBot.Training.Bundle;
 using RSBot.Training.Components;
 using RSBot.Training.Subscriber;
+using SDUI.Controls;
 
 namespace RSBot.Training;
 
@@ -66,7 +67,7 @@ public class Bootstrap : IBotbase
     ///     Gets the view.
     /// </summary>
     /// <returns></returns>
-    public Control View => Container.View;
+    public IUIElement View => Container.View;
 
     /// <summary>
     ///     Starts this instance.

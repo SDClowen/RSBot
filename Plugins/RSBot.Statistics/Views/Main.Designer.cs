@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Player", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Loot", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Enemy", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Bot", System.Windows.Forms.HorizontalAlignment.Left);
-            splitContainer1 = new System.Windows.Forms.SplitContainer();
+            SDUI.Controls.ListViewGroup listViewGroup1 = new SDUI.Controls.ListViewGroup("Player", System.Windows.Forms.HorizontalAlignment.Left);
+            SDUI.Controls.ListViewGroup listViewGroup2 = new SDUI.Controls.ListViewGroup("Loot", System.Windows.Forms.HorizontalAlignment.Left);
+            SDUI.Controls.ListViewGroup listViewGroup3 = new SDUI.Controls.ListViewGroup("Enemy", System.Windows.Forms.HorizontalAlignment.Left);
+            SDUI.Controls.ListViewGroup listViewGroup4 = new SDUI.Controls.ListViewGroup("Bot", System.Windows.Forms.HorizontalAlignment.Left);
+            splitContainer1 = new SDUI.Controls.SplitContainer();
             panelStaticFilters = new SDUI.Controls.GroupBox();
             separator1 = new SDUI.Controls.Separator();
             panelLiveFilters = new SDUI.Controls.GroupBox();
@@ -41,11 +41,10 @@
             columnHeader1 = new System.Windows.Forms.ColumnHeader();
             columnHeader2 = new System.Windows.Forms.ColumnHeader();
             contextMenuStrip = new SDUI.Controls.ContextMenuStrip();
-            resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            resetToolStripMenuItem = new SDUI.Controls.ToolStripMenuItem();
             panel1 = new SDUI.Controls.Panel();
             btnReset = new SDUI.Controls.Button();
             timer = new System.Windows.Forms.Timer(components);
-            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
@@ -129,7 +128,7 @@
             listViewGroup3.Name = "grpEnemy";
             listViewGroup4.Header = "Bot";
             listViewGroup4.Name = "grpBot";
-            lvStatistics.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] { listViewGroup1, listViewGroup2, listViewGroup3, listViewGroup4 });
+            lvStatistics.Groups.AddRange(new SDUI.Controls.ListViewGroup[] { listViewGroup1, listViewGroup2, listViewGroup3, listViewGroup4 });
             lvStatistics.Location = new System.Drawing.Point(10, 10);
             lvStatistics.Name = "lvStatistics";
             lvStatistics.Size = new System.Drawing.Size(483, 451);
@@ -149,7 +148,7 @@
             // 
             // contextMenuStrip
             // 
-            contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { resetToolStripMenuItem });
+            contextMenuStrip.Items.Add(resetToolStripMenuItem);
             contextMenuStrip.Name = "contextMenuStrip";
             contextMenuStrip.Size = new System.Drawing.Size(103, 26);
             // 
@@ -205,7 +204,6 @@
             Load += Main_Load;
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
             contextMenuStrip.ResumeLayout(false);
             panel1.ResumeLayout(false);
@@ -214,7 +212,7 @@
 
         #endregion
 
-        private System.Windows.Forms.SplitContainer splitContainer1;
+        private SDUI.Controls.SplitContainer splitContainer1;
         private SDUI.Controls.ListView lvStatistics;
         private SDUI.Controls.Panel panel1;
         private SDUI.Controls.Button btnReset;
@@ -225,6 +223,6 @@
         private SDUI.Controls.Separator separator1;
         private System.Windows.Forms.Timer timer;
         private SDUI.Controls.ContextMenuStrip contextMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
+        private SDUI.Controls.MenuItem resetToolStripMenuItem;
     }
 }

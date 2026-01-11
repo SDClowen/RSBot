@@ -33,7 +33,7 @@
             btnRemove = new SDUI.Controls.Button();
             lblObjective = new SDUI.Controls.Label();
             lblQuestName = new SDUI.Controls.Label();
-            toolTipHide = new System.Windows.Forms.ToolTip(components);
+            toolTipHide = new SDUI.Controls.ToolTip(components);
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -117,7 +117,7 @@
         private SDUI.Controls.Panel panel1;
         private SDUI.Controls.Label lblObjective;
         private SDUI.Controls.Label lblQuestName;
-        private System.Windows.Forms.ToolTip toolTipHide;
+        private SDUI.Controls.ToolTip toolTipHide;
         private SDUI.Controls.Button btnRemove;
     }
 }

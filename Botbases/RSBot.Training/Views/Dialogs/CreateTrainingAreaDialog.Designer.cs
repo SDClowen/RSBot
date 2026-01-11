@@ -39,8 +39,8 @@
             this.label1 = new SDUI.Controls.Label();
             this.label3 = new SDUI.Controls.Label();
             this.bottomPanel = new SDUI.Controls.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel1 = new SDUI.Controls.Panel();
+            this.panel2 = new SDUI.Controls.Panel();
             this.bottomPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -251,7 +251,7 @@
         private SDUI.Controls.Label labelArea;
         private SDUI.Controls.Label label3;
         private SDUI.Controls.Panel bottomPanel;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
+        private SDUI.Controls.Panel panel1;
+        private SDUI.Controls.Panel panel2;
     }
 }

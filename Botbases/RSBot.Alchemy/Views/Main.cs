@@ -27,11 +27,6 @@ public partial class Main : DoubleBufferedControl
         CheckForIllegalCrossThreadCalls = false;
 
         InitializeComponent();
-        SetStyle(
-            ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer,
-            true
-        );
-
         EventManager.SubscribeEvent(
             "OnLoadCharacter",
             () =>
@@ -229,7 +224,7 @@ public partial class Main : DoubleBufferedControl
     /// <param name="message"></param>
     public void AddLog(string itemName, string message)
     {
-        var item = new ListViewItem(itemName);
+        var item = new SDUI.Controls.ListViewItem(itemName);
 
         item.SubItems.Add(message);
 

@@ -22,8 +22,8 @@ public partial class SplashScreen : UIWindow
     public SplashScreen(Main mainForm)
     {
         InitializeComponent();
+        ShowTitle = false;
 
-        ColorScheme.BackColor = Main.DarkThemeColor;
         BackColor = Main.DarkThemeColor;
         CheckForIllegalCrossThreadCalls = false;
 
@@ -118,14 +118,11 @@ public partial class SplashScreen : UIWindow
         var detectDarkLight = GlobalConfig.Get("RSBot.Theme.Auto", true);
         if (detectDarkLight)
         {
-            if (WindowsHelper.IsDark())
-                ColorScheme.BackColor = Main.DarkThemeColor;
-            else
-                ColorScheme.BackColor = Main.LightThemeColor;
+            ColorScheme.SetThemeInstant(WindowsHelper.IsDark());
         }
         else
         {
-            ColorScheme.BackColor = Color.FromArgb(GlobalConfig.Get("SDUI.Color", Color.White.ToArgb()));
+            ColorScheme.SetPrimarySeedColor(Color.FromArgb(GlobalConfig.Get("SDUI.Color", Color.White.ToArgb())));
         }
 
         _mainForm.RefreshTheme();

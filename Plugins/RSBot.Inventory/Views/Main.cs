@@ -108,7 +108,6 @@ public partial class Main : DoubleBufferedControl
 
         lock (_lock)
         {
-            listViewMain.BeginUpdate();
             listViewMain.Items.Clear();
 
             switch (_selectedIndex)
@@ -165,7 +164,6 @@ public partial class Main : DoubleBufferedControl
 
                     if (!Game.Player.HasActiveAbilityPet)
                     {
-                        listViewMain.EndUpdate();
                         return;
                     }
 
@@ -184,7 +182,6 @@ public partial class Main : DoubleBufferedControl
 
                     if (Game.Player.Storage == null)
                     {
-                        listViewMain.EndUpdate();
                         return;
                     }
 
@@ -202,7 +199,6 @@ public partial class Main : DoubleBufferedControl
 
                     if (Game.Player.GuildStorage == null)
                     {
-                        listViewMain.EndUpdate();
                         return;
                     }
 
@@ -220,7 +216,6 @@ public partial class Main : DoubleBufferedControl
 
                     if (Game.Player.JobTransport == null)
                     {
-                        listViewMain.EndUpdate();
                         return;
                     }
 
@@ -241,7 +236,6 @@ public partial class Main : DoubleBufferedControl
 
                     if (Game.Player.Job2SpecialtyBag == null)
                     {
-                        listViewMain.EndUpdate();
                         return;
                     }
 
@@ -260,7 +254,6 @@ public partial class Main : DoubleBufferedControl
 
                     if (Game.Player.Job2 == null)
                     {
-                        listViewMain.EndUpdate();
                         return;
                     }
 
@@ -278,7 +271,6 @@ public partial class Main : DoubleBufferedControl
 
                     if (!Game.Player.HasActiveFellowPet)
                     {
-                        listViewMain.EndUpdate();
                         return;
                     }
 
@@ -293,8 +285,6 @@ public partial class Main : DoubleBufferedControl
 
                     break;
             }
-
-            listViewMain.EndUpdate();
         }
     }
 
@@ -488,7 +478,7 @@ public partial class Main : DoubleBufferedControl
                 {
                     var mapName = Game.ReferenceManager.GetTranslation(item.Value.Region.ToString());
 
-                    var menuItem = new ToolStripMenuItem { Text = mapName };
+                    var menuItem = new SDUI.Controls.ToolStripMenuItem { Text = mapName };
 
                     menuItem.Click += (itemSender, itemEvent) =>
                     {

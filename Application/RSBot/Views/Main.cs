@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using RSBot.Core;
 using RSBot.Core.Client;
 using RSBot.Core.Components;
@@ -16,6 +8,14 @@ using RSBot.Views.Dialog;
 using SDUI;
 using SDUI.Controls;
 using SDUI.Helpers;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace RSBot.Views;
 
@@ -60,6 +60,27 @@ public partial class Main : UIWindow
     #endregion
 
     #region Methods
+    private static async Task ApplyThemeAndSyncWindowAsync(UIWindow parent, Action startTransition, int durationMs = 260)
+    {
+        void SyncWindowBackground(object _, EventArgs __)
+        {
+            if (parent.IsDisposed) return;
+            parent.BackColor = ColorScheme.Surface;
+            parent.Invalidate();
+        }
+
+        ColorScheme.ThemeChanged += SyncWindowBackground;
+        try
+        {
+            startTransition();
+            SyncWindowBackground(null, EventArgs.Empty);
+            await Task.Delay(durationMs);
+        }
+        finally
+        {
+            ColorScheme.ThemeChanged -= SyncWindowBackground;
+        }
+    }
 
     private void donateButton_Click(object sender, EventArgs e)
     {
@@ -94,10 +115,10 @@ public partial class Main : UIWindow
     ///     Set theme color
     /// </summary>
     /// <param name="color">The color</param>
-    private void SetThemeColor(Color color)
+    private async void SetThemeColor(Color color)
     {
         GlobalConfig.Set("SDUI.Color", color.ToArgb());
-        ColorScheme.BackColor = color;
+        await ApplyThemeAndSyncWindowAsync(this, () => ColorScheme.StartThemeTransition(color));
         RefreshTheme();
     }
 
@@ -129,10 +150,10 @@ public partial class Main : UIWindow
         EventManager.SubscribeEvent("OnStopBot", OnStopBot);
         EventManager.SubscribeEvent("OnAgentServerDisconnected", OnAgentServerDisconnected);
         EventManager.SubscribeEvent("OnShowScriptRecorder", new Action<int, bool>(OnShowScriptRecorder));
-        EventManager.SubscribeEvent("OnAddSidebarElement", new Action<Control>(OnAddSidebarElement));
+        EventManager.SubscribeEvent("OnAddSidebarElement", new Action<UIElementBase>(OnAddSidebarElement));
     }
 
-    private void OnAddSidebarElement(Control obj)
+    private void OnAddSidebarElement(UIElementBase obj)
     {
         pSidebarCustom.Controls.Add(obj);
     }
@@ -148,8 +169,8 @@ public partial class Main : UIWindow
     /// </summary>
     private void OnShowBotWindow()
     {
-        if (WindowState == FormWindowState.Minimized)
-            WindowState = FormWindowState.Normal;
+        if (WindowState == System.Windows.Forms.FormWindowState.Minimized)
+            WindowState = System.Windows.Forms.FormWindowState.Normal;
 
         TopMost = true;
 
@@ -216,7 +237,7 @@ public partial class Main : UIWindow
         if (Game.Player != null)
             EventManager.FireEvent("OnLoadCharacter");
 
-        foreach (ToolStripMenuItem item in botsToolStripMenuItem.DropDown.Items)
+        foreach (MenuItem item in botsToolStripMenuItem.DropDownItems)
             item.Checked = newBotbase.Value.Name == item.Name;
 
         if (!string.IsNullOrWhiteSpace(oldBotbaseName) && windowPageControl.Controls.ContainsKey(oldBotbaseName))
@@ -259,7 +280,7 @@ public partial class Main : UIWindow
                 "DisplayName",
                 extension.Value.DisplayName
             );
-            var menuItem = new ToolStripMenuItem(menuItemText) { Enabled = !extension.Value.RequireIngame };
+            var menuItem = new MenuItem(menuItemText) { Enabled = !extension.Value.RequireIngame };
             menuItem.Click += PluginMenuItem_Click;
             menuItem.Tag = extension.Value;
 
@@ -310,7 +331,7 @@ public partial class Main : UIWindow
     /// <exception cref="System.NotImplementedException"></exception>
     private void PluginMenuItem_Click(object sender, EventArgs e)
     {
-        var menuItem = (ToolStripMenuItem)sender;
+        var menuItem = (MenuItem)sender;
         var plugin = (IPlugin)menuItem.Tag;
         var content = plugin.View;
 
@@ -411,7 +432,7 @@ public partial class Main : UIWindow
 
         foreach (var item in LanguageManager.GetLanguages())
         {
-            var dropdown = new ToolStripMenuItem(item.Value);
+            var dropdown = new MenuItem(item.Value);
             dropdown.Click += LanguageDropdown_Click;
             dropdown.Tag = item.Key;
             languageToolStripMenuItem.DropDownItems.Add(dropdown);
@@ -435,13 +456,13 @@ public partial class Main : UIWindow
     /// <exception cref="System.NotImplementedException"></exception>
     private void LanguageDropdown_Click(object sender, EventArgs e)
     {
-        var dropdown = sender as ToolStripMenuItem;
+        var dropdown = sender as MenuItem;
         if (dropdown.Checked)
             return;
 
         Kernel.Language = dropdown.Tag.ToString();
 
-        foreach (ToolStripMenuItem item in languageToolStripMenuItem.DropDownItems)
+        foreach (var item in languageToolStripMenuItem.DropDownItems)
             item.Checked = false;
 
         foreach (var plugin in Kernel.PluginManager.Extensions)
@@ -806,9 +827,9 @@ public partial class Main : UIWindow
 
         foreach (var bot in Kernel.BotbaseManager.Bots)
         {
-            var item = new ToolStripMenuItem { Name = bot.Value.Name, Text = bot.Value.DisplayName };
+            var item = new MenuItem { Name = bot.Value.Name, Text = bot.Value.DisplayName };
             item.Click += Item_Click;
-            botsToolStripMenuItem.DropDown.Items.Add(item);
+            botsToolStripMenuItem.DropDownItems.Add(item);
         }
 
         SelectBotbase(GlobalConfig.Get("RSBot.BotName", "RSBot.Training"));
@@ -822,7 +843,7 @@ public partial class Main : UIWindow
     /// <exception cref="System.NotImplementedException"></exception>
     private async void Item_Click(object? sender, EventArgs e)
     {
-        var item = sender as ToolStripMenuItem;
+        var item = sender as MenuItem;
         await SelectBotbase(item.Name);
     }
 
@@ -831,7 +852,7 @@ public partial class Main : UIWindow
     /// </summary>
     private void OnAgentServerDisconnected()
     {
-        foreach (Control control in windowPageControl.Controls)
+        foreach (IUIElement control in windowPageControl.Controls)
         {
             if (!control.Controls.ContainsKey("overlay"))
                 continue;
@@ -889,14 +910,14 @@ public partial class Main : UIWindow
     /// </summary>
     private void OnLoadCharacter()
     {
-        foreach (Control control in windowPageControl.Controls)
+        foreach (IUIElement control in windowPageControl.Controls)
         {
             control.Enabled = true;
 
             control.Controls["overlay"]?.Hide();
         }
 
-        foreach (ToolStripItem item in menuPlugins.DropDownItems)
+        foreach (var item in menuPlugins.DropDownItems)
             item.Enabled = true;
 
         _playerName = Game.Player.Name;

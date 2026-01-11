@@ -18,7 +18,6 @@ public class CosControlBase : DoubleBufferedControl
 
     public CosControlBase()
     {
-        SetStyle(System.Windows.Forms.ControlStyles.Opaque, true);
         MiniCosControl = new MiniCosControl();
         MiniCosControl.Dock = System.Windows.Forms.DockStyle.Left;
         InitializeComponent();

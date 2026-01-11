@@ -28,11 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            picIcon = new System.Windows.Forms.PictureBox();
+            picIcon = new SDUI.Controls.PictureBox();
             comboAction = new SDUI.Controls.ComboBox();
             lblName = new SDUI.Controls.Label();
             separator1 = new SDUI.Controls.Separator();
-            ((System.ComponentModel.ISupportInitialize)picIcon).BeginInit();
             SuspendLayout();
             // 
             // picIcon
@@ -88,14 +87,13 @@
             Controls.Add(picIcon);
             Name = "EmoticonActionElement";
             Size = new System.Drawing.Size(277, 53);
-            ((System.ComponentModel.ISupportInitialize)picIcon).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox picIcon;
+        private SDUI.Controls.PictureBox picIcon;
         private SDUI.Controls.ComboBox comboAction;
         private SDUI.Controls.Label lblName;
         private SDUI.Controls.Separator separator1;

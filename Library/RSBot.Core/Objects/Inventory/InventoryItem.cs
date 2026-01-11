@@ -67,7 +67,7 @@ public class InventoryItem
 
             var advancedElixirOptLevel = BindingOptions
                 .Where(b => b.Type == BindingOptionType.AdvancedElixir)
-                .Sum(b => b.Value != null ? b.Value : 0);
+                .Sum(b => b.Value);
 
             if (_optLevel + advancedElixirOptLevel > byte.MaxValue)
                 return byte.MaxValue;
@@ -478,7 +478,7 @@ public class InventoryItem
         return false;
     }
 
-    public RefSkill? GetRefSkill()
+    public RefSkill GetRefSkill()
     {
         if (string.IsNullOrEmpty(Record.Desc1))
             return null;

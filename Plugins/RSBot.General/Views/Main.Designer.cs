@@ -43,7 +43,7 @@
             btnStartClientless = new SDUI.Controls.Button();
             btnGoClientless = new SDUI.Controls.Button();
             groupBox1 = new SDUI.Controls.GroupBox();
-            panel3 = new System.Windows.Forms.Panel();
+            panel3 = new SDUI.Controls.Panel();
             lblWaitAfterDC = new SDUI.Controls.Label();
             numWaitAfterDC = new SDUI.Controls.NumUpDown();
             checkWaitAfterDC = new SDUI.Controls.CheckBox();
@@ -57,13 +57,13 @@
             checkEnableLoginDelay = new SDUI.Controls.CheckBox();
             checkStartBot = new SDUI.Controls.CheckBox();
             checkUseReturnScroll = new SDUI.Controls.CheckBox();
-            captchaPanel = new System.Windows.Forms.Panel();
+            captchaPanel = new SDUI.Controls.Panel();
             separator2 = new SDUI.Controls.Separator();
             label6 = new SDUI.Controls.Label();
             label5 = new SDUI.Controls.Label();
             txtStaticCaptcha = new SDUI.Controls.TextBox();
             checkEnableStaticCaptcha = new SDUI.Controls.CheckBox();
-            autoLoginTopPanel = new System.Windows.Forms.Panel();
+            autoLoginTopPanel = new SDUI.Controls.Panel();
             comboAccounts = new SDUI.Controls.ComboBox();
             label7 = new SDUI.Controls.Label();
             label4 = new SDUI.Controls.Label();
@@ -990,9 +990,9 @@
         private SDUI.Controls.Label label8;
         private SDUI.Controls.CheckBox checkBoxBotTrayMinimized;
         private SDUI.Controls.ComboBox comboBoxClientType;
-        private System.Windows.Forms.Panel captchaPanel;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Panel autoLoginTopPanel;
+        private SDUI.Controls.Panel captchaPanel;
+        private SDUI.Controls.Panel panel3;
+        private SDUI.Controls.Panel autoLoginTopPanel;
         private SDUI.Controls.Separator separator2;
         private SDUI.Controls.Separator separator1;
         private SDUI.Controls.Label lblLoginDelaySeconds;

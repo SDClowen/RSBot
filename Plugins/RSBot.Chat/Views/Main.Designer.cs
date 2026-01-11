@@ -29,38 +29,38 @@
         private void InitializeComponent()
         {
             tabMain = new SDUI.Controls.TabControl();
-            tabAll = new System.Windows.Forms.TabPage();
-            txtAll = new System.Windows.Forms.RichTextBox();
+            tabAll = new SDUI.Controls.TabPage();
+            txtAll = new SDUI.Controls.RichTextBox();
             separator6 = new SDUI.Controls.Separator();
             txtSendAll = new SDUI.Controls.TextBox();
-            tabPrivate = new System.Windows.Forms.TabPage();
-            txtPrivate = new System.Windows.Forms.RichTextBox();
+            tabPrivate = new SDUI.Controls.TabPage();
+            txtPrivate = new SDUI.Controls.RichTextBox();
             separator5 = new SDUI.Controls.Separator();
-            panel1 = new System.Windows.Forms.Panel();
+            panel1 = new SDUI.Controls.Panel();
             textBoxPrivateMsg = new SDUI.Controls.TextBox();
             txtRecievePrivate = new SDUI.Controls.TextBox();
-            tabParty = new System.Windows.Forms.TabPage();
-            txtParty = new System.Windows.Forms.RichTextBox();
+            tabParty = new SDUI.Controls.TabPage();
+            txtParty = new SDUI.Controls.RichTextBox();
             separator4 = new SDUI.Controls.Separator();
             txtSendParty = new SDUI.Controls.TextBox();
-            tabGuild = new System.Windows.Forms.TabPage();
-            txtGuild = new System.Windows.Forms.RichTextBox();
+            tabGuild = new SDUI.Controls.TabPage();
+            txtGuild = new SDUI.Controls.RichTextBox();
             separator3 = new SDUI.Controls.Separator();
             txtSendGuild = new SDUI.Controls.TextBox();
-            tabUnion = new System.Windows.Forms.TabPage();
-            txtUnion = new System.Windows.Forms.RichTextBox();
+            tabUnion = new SDUI.Controls.TabPage();
+            txtUnion = new SDUI.Controls.RichTextBox();
             separator2 = new SDUI.Controls.Separator();
             txtSendUnion = new SDUI.Controls.TextBox();
-            tabAcademy = new System.Windows.Forms.TabPage();
-            txtAcademy = new System.Windows.Forms.RichTextBox();
+            tabAcademy = new SDUI.Controls.TabPage();
+            txtAcademy = new SDUI.Controls.RichTextBox();
             separator1 = new SDUI.Controls.Separator();
             txtSendAcademy = new SDUI.Controls.TextBox();
-            tabGlobal = new System.Windows.Forms.TabPage();
-            txtGlobal = new System.Windows.Forms.RichTextBox();
-            tabStall = new System.Windows.Forms.TabPage();
-            txtStall = new System.Windows.Forms.RichTextBox();
-            tabUnique = new System.Windows.Forms.TabPage();
-            UniqueText = new System.Windows.Forms.RichTextBox();
+            tabGlobal = new SDUI.Controls.TabPage();
+            txtGlobal = new SDUI.Controls.RichTextBox();
+            tabStall = new SDUI.Controls.TabPage();
+            txtStall = new SDUI.Controls.RichTextBox();
+            tabUnique = new SDUI.Controls.TabPage();
+            UniqueText = new SDUI.Controls.RichTextBox();
             separator7 = new SDUI.Controls.Separator();
             txtSendGlobal = new SDUI.Controls.TextBox();
             tabMain.SuspendLayout();
@@ -88,11 +88,9 @@
             tabMain.Controls.Add(tabStall);
             tabMain.Controls.Add(tabUnique);
             tabMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            tabMain.ItemSize = new System.Drawing.Size(80, 24);
             tabMain.Location = new System.Drawing.Point(0, 0);
             tabMain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             tabMain.Name = "tabMain";
-            tabMain.Radius = new System.Windows.Forms.Padding(4);
             tabMain.SelectedIndex = 0;
             tabMain.Size = new System.Drawing.Size(942, 596);
             tabMain.TabIndex = 0;
@@ -148,7 +146,7 @@
             txtSendAll.Tag = "1";
             txtSendAll.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
             txtSendAll.UseSystemPasswordChar = false;
-            txtSendAll.PreviewKeyDown += MessagePreviewKeyDown;
+            txtSendAll.KeyDown += MessagePreviewKeyDown;
             // 
             // tabPrivate
             // 
@@ -211,7 +209,7 @@
             textBoxPrivateMsg.Tag = "2";
             textBoxPrivateMsg.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
             textBoxPrivateMsg.UseSystemPasswordChar = false;
-            textBoxPrivateMsg.PreviewKeyDown += MessagePreviewKeyDown;
+            textBoxPrivateMsg.KeyDown += MessagePreviewKeyDown;
             // 
             // txtRecievePrivate
             // 
@@ -278,7 +276,7 @@
             txtSendParty.Tag = "4";
             txtSendParty.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
             txtSendParty.UseSystemPasswordChar = false;
-            txtSendParty.PreviewKeyDown += MessagePreviewKeyDown;
+            txtSendParty.KeyDown += MessagePreviewKeyDown;
             // 
             // tabGuild
             // 
@@ -331,7 +329,7 @@
             txtSendGuild.Tag = "5";
             txtSendGuild.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
             txtSendGuild.UseSystemPasswordChar = false;
-            txtSendGuild.PreviewKeyDown += MessagePreviewKeyDown;
+            txtSendGuild.KeyDown += MessagePreviewKeyDown;
             // 
             // tabUnion
             // 
@@ -384,7 +382,7 @@
             txtSendUnion.Tag = "11";
             txtSendUnion.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
             txtSendUnion.UseSystemPasswordChar = false;
-            txtSendUnion.PreviewKeyDown += MessagePreviewKeyDown;
+            txtSendUnion.KeyDown += MessagePreviewKeyDown;
             // 
             // tabAcademy
             // 
@@ -437,7 +435,7 @@
             txtSendAcademy.Tag = "16";
             txtSendAcademy.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
             txtSendAcademy.UseSystemPasswordChar = false;
-            txtSendAcademy.PreviewKeyDown += MessagePreviewKeyDown;
+            txtSendAcademy.KeyDown += MessagePreviewKeyDown;
             // 
             // tabGlobal
             // 
@@ -538,7 +536,7 @@
             txtSendGlobal.Tag = "6";
             txtSendGlobal.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
             txtSendGlobal.UseSystemPasswordChar = false;
-            txtSendGlobal.PreviewKeyDown += MessagePreviewKeyDown;
+            txtSendGlobal.KeyDown += MessagePreviewKeyDown;
             // 
             // Main
             // 
@@ -566,38 +564,38 @@
         #endregion
 
         private SDUI.Controls.TabControl tabMain;
-        private System.Windows.Forms.TabPage tabAll;
-        private System.Windows.Forms.TabPage tabPrivate;
-        private System.Windows.Forms.TabPage tabParty;
-        private System.Windows.Forms.TabPage tabGuild;
-        private System.Windows.Forms.TabPage tabAcademy;
-        private System.Windows.Forms.TabPage tabGlobal;
-        private System.Windows.Forms.TabPage tabStall;
+        private SDUI.Controls.TabPage tabAll;
+        private SDUI.Controls.TabPage tabPrivate;
+        private SDUI.Controls.TabPage tabParty;
+        private SDUI.Controls.TabPage tabGuild;
+        private SDUI.Controls.TabPage tabAcademy;
+        private SDUI.Controls.TabPage tabGlobal;
+        private SDUI.Controls.TabPage tabStall;
         private SDUI.Controls.TextBox txtSendAll;
-        private System.Windows.Forms.RichTextBox txtAll;
+        private SDUI.Controls.RichTextBox txtAll;
         private SDUI.Controls.TextBox txtSendParty;
-        private System.Windows.Forms.RichTextBox txtParty;
+        private SDUI.Controls.RichTextBox txtParty;
         private SDUI.Controls.TextBox txtSendGuild;
-        private System.Windows.Forms.RichTextBox txtGuild;
+        private SDUI.Controls.RichTextBox txtGuild;
         private SDUI.Controls.TextBox txtSendAcademy;
-        private System.Windows.Forms.RichTextBox txtAcademy;
-        private System.Windows.Forms.RichTextBox txtGlobal;
-        private System.Windows.Forms.RichTextBox txtStall;
+        private SDUI.Controls.RichTextBox txtAcademy;
+        private SDUI.Controls.RichTextBox txtGlobal;
+        private SDUI.Controls.RichTextBox txtStall;
         private SDUI.Controls.TextBox txtRecievePrivate;
-        private System.Windows.Forms.TabPage tabUnion;
+        private SDUI.Controls.TabPage tabUnion;
         private SDUI.Controls.TextBox txtSendUnion;
-        private System.Windows.Forms.RichTextBox txtUnion;
-        private System.Windows.Forms.TabPage tabUnique;
-        internal System.Windows.Forms.RichTextBox UniqueText;
+        private SDUI.Controls.RichTextBox txtUnion;
+        private SDUI.Controls.TabPage tabUnique;
+        internal SDUI.Controls.RichTextBox UniqueText;
         private SDUI.Controls.Separator separator1;
         private SDUI.Controls.Separator separator2;
         private SDUI.Controls.Separator separator3;
         private SDUI.Controls.Separator separator4;
         private SDUI.Controls.Separator separator5;
         private SDUI.Controls.Separator separator6;
-        private System.Windows.Forms.RichTextBox txtPrivate;
+        private SDUI.Controls.RichTextBox txtPrivate;
         private SDUI.Controls.TextBox textBoxPrivateMsg;
-        private System.Windows.Forms.Panel panel1;
+        private SDUI.Controls.Panel panel1;
         private SDUI.Controls.Separator separator7;
         private SDUI.Controls.TextBox txtSendGlobal;
     }

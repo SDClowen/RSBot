@@ -32,7 +32,7 @@ public partial class Main : DoubleBufferedControl
     ///     Sends the chat message.
     /// </summary>
     /// <param name="sender">The sender.</param>
-    private void SendChatMessage(Control sender)
+    private void SendChatMessage(IUIElement sender)
     {
         if (!Enum.TryParse<ChatType>(sender.Tag.ToString(), out var chatType))
             return;
@@ -117,11 +117,11 @@ public partial class Main : DoubleBufferedControl
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="PreviewKeyDownEventArgs" /> instance containing the event data.</param>
-    private void MessagePreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+    private void MessagePreviewKeyDown(object sender, KeyEventArgs e)
     {
         if (e.KeyCode != Keys.Enter)
             return;
-        SendChatMessage((Control)sender);
-        ((Control)sender).ResetText();
+        SendChatMessage((IUIElement)sender);
+        ((IUIElement)sender).Text = "";
     }
 }

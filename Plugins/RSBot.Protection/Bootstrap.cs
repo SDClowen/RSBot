@@ -5,6 +5,7 @@ using RSBot.Core.Plugins;
 using RSBot.Protection.Components.Pet;
 using RSBot.Protection.Components.Player;
 using RSBot.Protection.Components.Town;
+using SDUI.Controls;
 
 namespace RSBot.Protection;
 
@@ -54,7 +55,7 @@ public class Bootstrap : IPlugin
     }
 
     /// <inheritdoc />
-    public Control View => Views.View.Instance;
+    public IUIElement View => Views.View.Instance;
 
     /// <inheritdoc />
     public void Translate()

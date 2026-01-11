@@ -1,10 +1,10 @@
-﻿using System.Windows.Forms;
-using RSBot.Alchemy.Bot;
+﻿using RSBot.Alchemy.Bot;
 using RSBot.Alchemy.Subscriber;
 using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Objects;
 using RSBot.Core.Plugins;
+using SDUI.Controls;
 
 namespace RSBot.Alchemy;
 
@@ -22,7 +22,7 @@ public class Bootstrap : IBotbase
 
     public Area Area => new();
 
-    public Control View => Globals.View;
+    public IUIElement View => Globals.View;
 
     public void Start()
     {

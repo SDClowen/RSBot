@@ -99,7 +99,7 @@
             numIncInt = new SDUI.Controls.NumUpDown();
             checkIncStr = new SDUI.Controls.CheckBox();
             checkIncInt = new SDUI.Controls.CheckBox();
-            toolTip1 = new System.Windows.Forms.ToolTip(components);
+            toolTip1 = new SDUI.Controls.ToolTip(components);
             panel1 = new SDUI.Controls.Panel();
             panel3 = new SDUI.Controls.Panel();
             flowLayoutPanel2 = new SDUI.Controls.FlowLayoutPanel();
@@ -1529,7 +1529,7 @@
         private SDUI.Controls.NumUpDown numMPPotionsLeft;
         private SDUI.Controls.NumUpDown numHPPotionsLeft;
         private SDUI.Controls.CheckBox checkShardFatigue;
-        private System.Windows.Forms.ToolTip toolTip1;
+        private SDUI.Controls.ToolTip toolTip1;
         private SDUI.Controls.Panel panel1;
         private SDUI.Controls.Panel panel3;
         private SDUI.Controls.FlowLayoutPanel flowLayoutPanel2;

@@ -183,7 +183,7 @@ public struct ItemAttributesInfo : IEquatable<ItemAttributesInfo>
         return (byte)value;
     }
 
-    public static IEnumerable<ItemAttributeGroup>? GetAvailableAttributeGroupsForItem(RefObjItem item)
+    public static IEnumerable<ItemAttributeGroup> GetAvailableAttributeGroupsForItem(RefObjItem item)
     {
         if (item.IsArmor)
             return new[]
@@ -279,7 +279,7 @@ public struct ItemAttributesInfo : IEquatable<ItemAttributesInfo>
         throw new Exception($"Unknown attribute type requested! [slot={slot}]");
     }
 
-    public static string? GetActualAttributeGroupNameForItem(RefObjItem item, ItemAttributeGroup group)
+    public static string GetActualAttributeGroupNameForItem(RefObjItem item, ItemAttributeGroup group)
     {
         //Weapon attributes
         if (item.IsWeapon && group == ItemAttributeGroup.Durability)

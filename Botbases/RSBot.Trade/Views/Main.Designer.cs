@@ -29,20 +29,20 @@
         private void InitializeComponent()
         {
             contextMenuRouteList = new SDUI.Controls.ContextMenuStrip();
-            addScriptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            menuRecordScript = new System.Windows.Forms.ToolStripMenuItem();
-            menuChooseScript = new System.Windows.Forms.ToolStripMenuItem();
-            menuRemoveScript = new System.Windows.Forms.ToolStripMenuItem();
+            addScriptToolStripMenuItem = new SDUI.Controls.ToolStripMenuItem();
+            menuRecordScript = new SDUI.Controls.ToolStripMenuItem();
+            menuChooseScript = new SDUI.Controls.ToolStripMenuItem();
+            menuRemoveScript = new SDUI.Controls.ToolStripMenuItem();
             lblHint = new SDUI.Controls.Label();
             tabControl1 = new SDUI.Controls.TabControl();
-            tabPageRoute = new System.Windows.Forms.TabPage();
+            tabPageRoute = new SDUI.Controls.TabPage();
             txtTracePlayerName = new SDUI.Controls.TextBox();
             radioUseRouteList = new SDUI.Controls.Radio();
             radioTracePlayer = new SDUI.Controls.Radio();
             buttonDeleteList = new SDUI.Controls.Button();
             buttonCreateList = new SDUI.Controls.Button();
             comboRouteList = new SDUI.Controls.ComboBox();
-            linkRecord = new System.Windows.Forms.LinkLabel();
+            linkRecord = new SDUI.Controls.Button();
             lvRouteList = new SDUI.Controls.ListView();
             columnHeader1 = new System.Windows.Forms.ColumnHeader();
             columnHeader2 = new System.Windows.Forms.ColumnHeader();
@@ -50,7 +50,7 @@
             columnHeader3 = new System.Windows.Forms.ColumnHeader();
             panel1 = new SDUI.Controls.Panel();
             checkRunTownscript = new SDUI.Controls.CheckBox();
-            tabPageSettings = new System.Windows.Forms.TabPage();
+            tabPageSettings = new SDUI.Controls.TabPage();
             checkAttackThiefPlayers = new SDUI.Controls.CheckBox();
             checkAttackThiefNpc = new SDUI.Controls.CheckBox();
             checkCounterAttack = new SDUI.Controls.CheckBox();
@@ -71,7 +71,7 @@
             numMaxDistance = new SDUI.Controls.NumUpDown();
             checkMountTransport = new SDUI.Controls.CheckBox();
             separator1 = new SDUI.Controls.Separator();
-            tabPage1 = new System.Windows.Forms.TabPage();
+            tabPage1 = new SDUI.Controls.TabPage();
             lblJobExp = new SDUI.Controls.Label();
             lblJobLevel = new SDUI.Controls.Label();
             lblJobAlias = new SDUI.Controls.Label();
@@ -94,13 +94,13 @@
             // contextMenuRouteList
             // 
             contextMenuRouteList.ImageScalingSize = new System.Drawing.Size(20, 20);
-            contextMenuRouteList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { addScriptToolStripMenuItem, menuRemoveScript });
+            contextMenuRouteList.Items.AddRange(new SDUI.Controls.MenuItem[] { addScriptToolStripMenuItem, menuRemoveScript });
             contextMenuRouteList.Name = "contextMenuStrip1";
             contextMenuRouteList.Size = new System.Drawing.Size(147, 52);
             // 
             // addScriptToolStripMenuItem
             // 
-            addScriptToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { menuRecordScript, menuChooseScript });
+            addScriptToolStripMenuItem.DropDownItems.AddRange(new SDUI.Controls.MenuItem[] { menuRecordScript, menuChooseScript });
             addScriptToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             addScriptToolStripMenuItem.Name = "addScriptToolStripMenuItem";
             addScriptToolStripMenuItem.Size = new System.Drawing.Size(146, 24);
@@ -153,11 +153,9 @@
             tabControl1.Controls.Add(tabPageRoute);
             tabControl1.Controls.Add(tabPageSettings);
             tabControl1.Controls.Add(tabPage1);
-            tabControl1.ItemSize = new System.Drawing.Size(80, 24);
             tabControl1.Location = new System.Drawing.Point(2, 2);
             tabControl1.Margin = new System.Windows.Forms.Padding(2);
             tabControl1.Name = "tabControl1";
-            tabControl1.Radius = new System.Windows.Forms.Padding(4);
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new System.Drawing.Size(984, 485);
             tabControl1.TabIndex = 8;
@@ -282,7 +280,7 @@
             linkRecord.TabIndex = 16;
             linkRecord.TabStop = true;
             linkRecord.Text = "[Record]";
-            linkRecord.LinkClicked += linkRecord_LinkClicked;
+            linkRecord.Click += linkRecord_LinkClicked;
             // 
             // lvRouteList
             // 
@@ -294,7 +292,6 @@
             lvRouteList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             lvRouteList.Location = new System.Drawing.Point(11, 105);
             lvRouteList.Margin = new System.Windows.Forms.Padding(2);
-            lvRouteList.MultiSelect = false;
             lvRouteList.Name = "lvRouteList";
             lvRouteList.Size = new System.Drawing.Size(952, 258);
             lvRouteList.TabIndex = 1;
@@ -581,7 +578,6 @@
             checkCastBuffs.Size = new System.Drawing.Size(100, 30);
             checkCastBuffs.TabIndex = 4;
             checkCastBuffs.Text = "Cast buffs";
-            checkCastBuffs.UseCompatibleTextRendering = true;
             checkCastBuffs.UseVisualStyleBackColor = false;
             checkCastBuffs.CheckedChanged += checkBoxSetting_CheckedChanged;
             // 
@@ -889,17 +885,17 @@
 
         #endregion
         private SDUI.Controls.ContextMenuStrip contextMenuRouteList;
-        private System.Windows.Forms.ToolStripMenuItem addScriptToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem menuRemoveScript;
+        private SDUI.Controls.ToolStripMenuItem addScriptToolStripMenuItem;
+        private SDUI.Controls.ToolStripMenuItem menuRemoveScript;
         private SDUI.Controls.Label lblHint;
         private SDUI.Controls.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPageRoute;
-        private System.Windows.Forms.LinkLabel linkRecord;
+        private SDUI.Controls.TabPage tabPageRoute;
+        private SDUI.Controls.Button linkRecord;
         private SDUI.Controls.ListView lvRouteList;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.TabPage tabPageSettings;
+        private SDUI.Controls.TabPage tabPageSettings;
         private SDUI.Controls.ComboBox comboRouteList;
         private SDUI.Controls.Button buttonDeleteList;
         private SDUI.Controls.Button buttonCreateList;
@@ -911,8 +907,8 @@
         private SDUI.Controls.CheckBox checkCounterAttack;
         private SDUI.Controls.CheckBox checkAttackThiefNpc;
         private SDUI.Controls.CheckBox checkAttackThiefPlayers;
-        private System.Windows.Forms.ToolStripMenuItem menuRecordScript;
-        private System.Windows.Forms.ToolStripMenuItem menuChooseScript;
+        private SDUI.Controls.ToolStripMenuItem menuRecordScript;
+        private SDUI.Controls.ToolStripMenuItem menuChooseScript;
         private SDUI.Controls.CheckBox checkRunTownscript;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private SDUI.Controls.Panel panel1;
@@ -923,7 +919,7 @@
         private SDUI.Controls.NumUpDown numAmountGoods;
         private SDUI.Controls.Label lblNumGoodsDesc;
         private SDUI.Controls.CheckBox checkSellGoods;
-        private System.Windows.Forms.TabPage tabPage1;
+        private SDUI.Controls.TabPage tabPage1;
         private SDUI.Controls.Label lblTradeScale;
         private SDUI.Controls.Label label2;
         private SDUI.Controls.Separator separator3;

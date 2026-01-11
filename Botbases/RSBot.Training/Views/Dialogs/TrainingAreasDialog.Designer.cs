@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.contextMenuStrip = new SDUI.Controls.ContextMenuStrip();
-            this.createToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createToolStripMenuItem = new SDUI.Controls.ToolStripMenuItem();
             this.listView = new SDUI.Controls.ListView();
             this.columnHeaderId = new System.Windows.Forms.ColumnHeader();
             this.columnHeaderName = new System.Windows.Forms.ColumnHeader();
@@ -42,14 +42,14 @@
             this.labelPos = new SDUI.Controls.Label();
             this.buttonCancel = new SDUI.Controls.Button();
             this.buttonAccept = new SDUI.Controls.Button();
-            this.removeSelectedAreaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeSelectedAreaToolStripMenuItem = new SDUI.Controls.ToolStripMenuItem();
             this.contextMenuStrip.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // contextMenuStrip
             // 
-            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextMenuStrip.Items.AddRange(new SDUI.Controls.MenuItem[] {
             this.createToolStripMenuItem,
             this.removeSelectedAreaToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
@@ -206,7 +206,7 @@
 
         #endregion
         private SDUI.Controls.ContextMenuStrip contextMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem createToolStripMenuItem;
+        private SDUI.Controls.ToolStripMenuItem createToolStripMenuItem;
         private SDUI.Controls.ListView listView;
         private System.Windows.Forms.ColumnHeader columnHeaderId;
         private System.Windows.Forms.ColumnHeader columnHeaderName;
@@ -219,6 +219,6 @@
         private SDUI.Controls.Button buttonAccept;
         private System.Windows.Forms.ColumnHeader columnHeaderRegion;
         private SDUI.Controls.Label labelPos;
-        private System.Windows.Forms.ToolStripMenuItem removeSelectedAreaToolStripMenuItem;
+        private SDUI.Controls.ToolStripMenuItem removeSelectedAreaToolStripMenuItem;
     }
 }

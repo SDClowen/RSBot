@@ -3,7 +3,7 @@ using SDUI.Controls;
 
 namespace RSBot.Views;
 
-internal partial class AboutDialog : UIWindowBase
+internal partial class AboutDialog : UIWindow
 {
     public AboutDialog()
     {

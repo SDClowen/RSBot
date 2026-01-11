@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SplashScreen));
-            pictureBox = new System.Windows.Forms.PictureBox();
+            pictureBox = new SDUI.Controls.PictureBox();
             referenceDataLoader = new System.ComponentModel.BackgroundWorker();
             logoLabel = new SDUI.Controls.Label();
             labelVersion = new SDUI.Controls.Label();
@@ -37,7 +37,6 @@
             label3 = new SDUI.Controls.Label();
             lblLoading = new SDUI.Controls.Label();
             progressLoading = new SDUI.Controls.ProgressBar();
-            ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
             SuspendLayout();
             // 
             // pictureBox
@@ -219,14 +218,13 @@
             Tag = "";
             TopMost = false;
             Load += SplashScreen_Load;
-            ((System.ComponentModel.ISupportInitialize)pictureBox).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox;
+        private SDUI.Controls.PictureBox pictureBox;
         private System.ComponentModel.BackgroundWorker referenceDataLoader;
         private SDUI.Controls.Label logoLabel;
         private SDUI.Controls.Label labelVersion;

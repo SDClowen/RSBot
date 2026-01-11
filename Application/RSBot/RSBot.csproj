@@ -1,43 +1,44 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net8.0-windows</TargetFramework>
-    <Nullable>disable</Nullable>
-    <UseWindowsForms>true</UseWindowsForms>
-    <ImplicitUsings>disable</ImplicitUsings>
-    <OutputPath>.\..\..\Build</OutputPath>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <Description>A open source bot for Silkroad Online</Description>
-    <Copyright>Copyright © 2025, RSBot Team</Copyright>
-    <PackageProjectUrl>https://github.com/SDClowen/RSBot</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/SDClowen/RSBot</RepositoryUrl>
-    <OutputType>WinExe</OutputType>
-    <ApplicationIcon>app.ico</ApplicationIcon>
-    <InformationalVersion>2.9.9</InformationalVersion>
-    <AssemblyVersion>2.9.9</AssemblyVersion>
-    <PlatformTarget>x86</PlatformTarget>
-    <UseWPF>False</UseWPF>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<Nullable>disable</Nullable>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<OutputPath>.\..\..\Build</OutputPath>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<Description>A open source bot for Silkroad Online</Description>
+		<Copyright>Copyright © 2025, RSBot Team</Copyright>
+		<PackageProjectUrl>https://github.com/SDClowen/RSBot</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/SDClowen/RSBot</RepositoryUrl>
+		<OutputType>WinExe</OutputType>
+		<ApplicationIcon>app.ico</ApplicationIcon>
+		<InformationalVersion>2.9.9</InformationalVersion>
+		<AssemblyVersion>2.9.9</AssemblyVersion>
+		<PlatformTarget>x86</PlatformTarget>
+		<UseWPF>False</UseWPF>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Content Include="app.ico" />
-  </ItemGroup>
+	<ItemGroup>
+		<Content Include="app.ico" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Library\RSBot.Core\RSBot.Core.csproj">
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\SDUI\SDUI\SDUI.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\sdui\SDUI\SDUI.csproj" />
+		<ProjectReference Include="..\..\Library\RSBot.Core\RSBot.Core.csproj">
+			<Private>True</Private>
+		</ProjectReference>
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="CommandLineParser" Version="2.9.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.15.0" />
-  </ItemGroup>
-  <Target Name="CopyDependencies" AfterTargets="Build">
-    <ItemGroup>
-      <DependencyFiles Include="..\..\Dependencies\**\*.*" />
-    </ItemGroup>
-    <Copy SourceFiles="@(DependencyFiles)" DestinationFolder="..\..\Build\Data\%(RecursiveDir)" />
-  </Target>
+	<ItemGroup>
+		<PackageReference Include="CommandLineParser" Version="2.9.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.15.0" />
+	</ItemGroup>
+	<Target Name="CopyDependencies" AfterTargets="Build">
+		<ItemGroup>
+			<DependencyFiles Include="..\..\Dependencies\**\*.*" />
+		</ItemGroup>
+		<Copy SourceFiles="@(DependencyFiles)" DestinationFolder="..\..\Build\Data\%(RecursiveDir)" />
+	</Target>
 </Project>

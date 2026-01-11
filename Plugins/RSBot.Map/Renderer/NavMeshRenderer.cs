@@ -1,17 +1,21 @@
-﻿using System;
+﻿using RSBot.Core.Extensions;
+using RSBot.NavMeshApi;
+using RSBot.NavMeshApi.Dungeon;
+using RSBot.NavMeshApi.Mathematics;
+using RSBot.NavMeshApi.Object;
+using RSBot.NavMeshApi.Terrain;
+using SDUI;
+using SDUI.Controls;
+using SDUI.Helpers;
+using SkiaSharp;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Numerics;
 using System.Windows.Forms;
-using RSBot.Core.Extensions;
-using RSBot.NavMeshApi;
-using RSBot.NavMeshApi.Dungeon;
-using RSBot.NavMeshApi.Mathematics;
-using RSBot.NavMeshApi.Object;
-using RSBot.NavMeshApi.Terrain;
-using SDUI.Controls;
+using Vortice.Mathematics;
 
 namespace RSBot.Map.Renderer;
 
@@ -50,13 +54,17 @@ public partial class NavMeshRenderer : DoubleBufferedControl
     {
         this.InitializeComponent();
 
-        if (this.DesignMode)
-            return;
-
         _font = new Font("Arial", 64f);
         _smallFont = new Font("Arial", 32f);
         _transform = new NavMeshTransform(Vector3.Zero);
         _mouseTransform = new NavMeshTransform(Vector3.Zero);
+
+        this.MouseWheel += NavMeshRenderer_MouseWheel;
+        this.MouseMove += NavMeshRenderer_MouseMove;
+        this.MouseDown += NavMeshRenderer_MouseDown;
+        this.MouseUp += NavMeshRenderer_MouseUp;
+        this.Paint += NavMeshRenderer_Paint;
+
     }
 
     public void Update(NavMeshTransform transform)
@@ -70,25 +78,24 @@ public partial class NavMeshRenderer : DoubleBufferedControl
         this.Invalidate();
     }
 
-    protected override void OnPaintBackground(PaintEventArgs e)
+    private void NavMeshRenderer_Paint(object sender, SKPaintSurfaceEventArgs e)
     {
-        e.Graphics.Clear(SDUI.ColorScheme.BackColor);
-    }
-
-    protected override void OnPaint(PaintEventArgs e)
-    {
-        base.OnPaint(e);
-
         if (_transform?.Region == 0u)
             return;
 
-        var g = e.Graphics;
+        var canvas = e.Surface.Canvas;
+        canvas.Clear(SKColors.Black);
 
-        var matrix = new Matrix();
+        var scaleX = Width / 1920f * _zoom;
+        var scaleY = Height / 1920f * _zoom;
 
-        matrix.Scale(this.Width / 1920.0f * _zoom, this.Height / 1920.0f * _zoom);
-        matrix.Translate(960.0f - _transform.Offset.X, 960 - _transform.Offset.Z);
-        g.MultiplyTransform(matrix);
+        var worldMatrix =
+            SKMatrix.CreateScale(scaleX, scaleY)
+            .PostConcat(SKMatrix.CreateTranslation(
+                960f - _transform.Offset.X,
+                960f - _transform.Offset.Z));
+
+        canvas.Concat(worldMatrix);
 
         var set = new HashSet<int>();
 
@@ -97,12 +104,11 @@ public partial class NavMeshRenderer : DoubleBufferedControl
             if (!NavMeshManager.TryGetNavMeshDungeon(_transform.Region, out var dungeon))
                 return;
 
-            this.DrawNavMeshDungeon(set, g, dungeon);
+            DrawNavMeshDungeon(set, canvas, dungeon);
         }
         else
         {
             for (int rz = _transform.Region.Z - 1; rz < _transform.Region.Z + 2; rz++)
-            {
                 for (int rx = _transform.Region.X - 1; rx < _transform.Region.X + 2; rx++)
                 {
                     var rid = new RID((byte)rx, (byte)rz);
@@ -112,191 +118,172 @@ public partial class NavMeshRenderer : DoubleBufferedControl
                     foreach (var edge in terrain.GlobalEdges)
                         edge.Link();
 
-                    this.DrawTerrain(set, g, terrain);
+                    DrawTerrain(set, canvas, terrain);
                 }
-            }
         }
 
-        g.FillEllipse(Brushes.Red, _transform.Offset.X - 5, _transform.Offset.Z - 5, 10, 10);
+        using var redCirclePaint = new SKPaint()
+        {
+            Color = SKColors.Red,
+            IsStroke = false,
+            IsAntialias = true
+        };
 
-        var localMouseOffset = RID.Transform(_mouseTransform.Offset, _transform.Region, _mouseTransform.Region);
+        canvas.DrawCircle(
+            _transform.Offset.X,
+            _transform.Offset.Z,
+            5,
+            redCirclePaint);
+
+        var localMouse = RID.Transform(_mouseTransform.Offset, _transform.Region, _mouseTransform.Region);
+
         if (_raycastVisualizer)
         {
-            g.DrawLine(Pens.White, _transform.Offset.X, _transform.Offset.Z, localMouseOffset.X, localMouseOffset.Z);
+            using var whitePaint = new SKPaint()
+            {
+                Color = SKColors.White,
+                IsStroke = true,
+                StrokeWidth = 1f,
+                IsAntialias = true
+            };
+
+            canvas.DrawLine(
+                _transform.Offset.X,
+                _transform.Offset.Z,
+                localMouse.X,
+                localMouse.Z,
+                whitePaint);
+
             if (_hit != null)
             {
-                var localHitOffset = RID.Transform(_hit.Position, _transform.Region, _hit.Region);
-                g.DrawLine(Pens.Red, _transform.Offset.X, _transform.Offset.Z, localHitOffset.X, localHitOffset.Z);
+                using var redPaint = new SKPaint()
+                {
+                    Color = SKColors.Red,
+                    IsStroke = true,
+                    StrokeWidth = 1f,
+                    IsAntialias = true
+                };
+
+                var localHit = RID.Transform(_hit.Position, _transform.Region, _hit.Region);
+                canvas.DrawLine(
+                    _transform.Offset.X,
+                    _transform.Offset.Z,
+                    localHit.X,
+                    localHit.Z,
+                    redPaint);
             }
         }
 
-        matrix.Invert();
-        g.MultiplyTransform(matrix);
+        canvas.SetMatrix(SKMatrix.Identity);
 
-        var textBrush = new SolidBrush(SDUI.ColorScheme.ForeColor);
 
-        g.DrawString($"Player: {_transform}", DefaultFont, textBrush, 0, 0);
-        g.DrawString($"Cursor: {_mouseTransform}", DefaultFont, textBrush, 0, 12);
+        TextRenderingHelper.DrawText(canvas, $"Player: {_transform}", 0, 12, SKColors.White);
+        TextRenderingHelper.DrawText(canvas, $"Cursor: {_mouseTransform}", 0, 24, SKColors.White);
+
         if (_hit != null)
-            g.DrawString($"Hit: {_hit}", DefaultFont, Brushes.Red, 0, 24);
+            TextRenderingHelper.DrawText(canvas, $"Hit: {_hit}", 0, 36, SKColors.Red);
     }
 
-    private void DrawNavMeshDungeon(HashSet<int> set, Graphics g, NavMeshDungeon dungeon)
+    private void DrawNavMeshDungeon(HashSet<int> set, SKCanvas c, NavMeshDungeon dungeon)
     {
         if (_transform.Instance is not NavMeshInstBlock currentBlock)
             return;
 
         foreach (var block in dungeon.Blocks.Where(b => b.FloorIndex == currentBlock.FloorIndex))
         {
-            var blockMatrix = new Matrix();
-            blockMatrix.RotateAt(block.Yaw * (180.0f / MathF.PI), block.LocalPosition.ToPointF());
-            blockMatrix.Translate(block.LocalPosition.X, block.LocalPosition.Z);
+            var m =
+                SKMatrix.CreateRotation(
+                    block.Yaw,
+                    block.LocalPosition.X,
+                    block.LocalPosition.Z)
+                .PostConcat(SKMatrix.CreateTranslation(
+                    block.LocalPosition.X,
+                    block.LocalPosition.Z));
 
-            g.MultiplyTransform(blockMatrix);
+            c.Concat(m);
 
-            this.DrawNavMeshObj(g, block.ID, block.NavMeshObj);
+            DrawNavMeshObj(c, block.ID, block.NavMeshObj);
 
-            blockMatrix.Invert();
-            g.MultiplyTransform(blockMatrix);
+            c.SetMatrix(SKMatrix.Identity);
 
             set.Add(block.ID);
 
+
+            using var redPaint = new SKPaint()
+            {
+                Color = SKColors.Red,
+                IsStroke = true,
+                StrokeWidth = 1f,
+                IsAntialias = true
+            };
+
             foreach (var obj in block.ObjectList)
-                g.DrawCircle(Pens.Red, obj.Circle);
+                c.DrawCircle(obj.Circle.Position.X, obj.Circle.Position.Y, obj.Circle.Radius, redPaint);
         }
     }
 
-    private void DrawTerrain(HashSet<int> set, Graphics g, NavMeshTerrain terrain)
+    private void DrawTerrain(HashSet<int> set, SKCanvas c, NavMeshTerrain terrain)
     {
         var dx = (terrain.Region.X - _transform.Region.X) * RID.Width;
         var dz = (terrain.Region.Z - _transform.Region.Z) * RID.Length;
 
-        var matrix = new Matrix();
-        matrix.Translate(dx, dz);
-
-        g.MultiplyTransform(matrix);
+        c.Concat(SKMatrix.CreateTranslation(dx, dz));
 
         if (_drawRegionBorder)
-            g.DrawRectangle(Pens.Magenta, 0, 0, 1920 - 1, 1920 - 1);
-
-        if (_drawTerrainCellID)
         {
-            foreach (var cell in terrain.Cells)
-                g.DrawString($"{cell}", _smallFont, Brushes.White, cell.RectangleF.Center.ToPointF());
+            using var magentaPaint = new SKPaint()
+            {
+                Color = SKColors.Magenta,
+                IsStroke = true,
+                StrokeWidth = 1f,
+                IsAntialias = true
+            };
+
+            c.DrawRect(0, 0, 1919, 1919, magentaPaint);
         }
 
         if (_drawTerrainGlobalEdges)
-        {
-            foreach (var edge in terrain.GlobalEdges)
-            {
-                var pen = edge.Flag.ToPen();
-                g.DrawLine(pen, edge.Line);
-
-                if (_drawTerrainGlobalEdgeID)
-                    g.DrawString($"{edge}", _smallFont, Brushes.White, edge.Line.Center.ToPointF());
-            }
-        }
-
-        if (_drawTerrainInternalEdges)
-        {
-            foreach (var edge in terrain.InternalEdges)
-            {
-                var pen = edge.Flag.ToPen();
-                g.DrawLine(pen, edge.Line);
-
-                if (_drawTerrainInternalEdgeID)
-                    g.DrawString($"{edge}", _smallFont, Brushes.White, edge.Line.Center.ToPointF());
-            }
-        }
+            foreach (var e in terrain.GlobalEdges)
+                c.DrawLine(e.Flag.ToStroke(), e.Line);
 
         foreach (var obj in terrain.Instances)
         {
             if (set.Contains(obj.WorldUID))
                 continue;
 
-            var objMatrix = new Matrix();
-            objMatrix.RotateAt(obj.Yaw * (180.0f / MathF.PI), obj.LocalPosition.ToPointF());
-            objMatrix.Translate(obj.LocalPosition.X, obj.LocalPosition.Z);
+            var m =
+                SKMatrix.CreateRotation(
+                    obj.Yaw,
+                    obj.LocalPosition.X,
+                    obj.LocalPosition.Z)
+                .PostConcat(SKMatrix.CreateTranslation(
+                    obj.LocalPosition.X,
+                    obj.LocalPosition.Z));
 
-            g.MultiplyTransform(objMatrix);
-
-            this.DrawNavMeshObj(g, obj.WorldUID, obj.NavMeshObj);
-
-            objMatrix.Invert();
-            g.MultiplyTransform(objMatrix);
+            c.Concat(m);
+            DrawNavMeshObj(c, obj.WorldUID, obj.NavMeshObj);
+            c.SetMatrix(SKMatrix.Identity);
 
             set.Add(obj.WorldUID);
         }
-
-        if (_drawRegionId)
-            g.DrawString($"{terrain.Region}", _font, Brushes.White, 0, 0);
-
-        matrix.Invert();
-        g.MultiplyTransform(matrix);
     }
-
-    private void DrawNavMeshObj(Graphics g, int id, NavMeshObj obj)
+    private void DrawNavMeshObj(SKCanvas c, int id, NavMeshObj obj)
     {
         if (_drawObjectGround)
         {
-            var brush = new SolidBrush(id.ToColor());
             foreach (var cell in obj.Cells)
-            {
-                g.FillTriangleF(brush, cell.Triangle);
-
-                if (_drawObjectCellID)
-                {
-                    string label;
-                    if (cell.EventZone == NavMeshEventZone.Empty)
-                        label = $"{cell}";
-                    else
-                        label = $"{cell} [{obj.Events[cell.EventZone.Index]}, {cell.EventZone.Flag}]";
-                    g.DrawString(label, _smallFont, Brushes.White, cell.Triangle.Center.ToPointF());
-                }
-            }
+                c.FillTriangleF(id, cell.Triangle);
         }
 
         if (_drawObjectGlobalEdges)
-        {
-            foreach (var edge in obj.GlobalEdges)
-            {
-                g.DrawLine(edge.Flag.ToPen(), edge.Line);
-
-                if (_drawObjectGlobalEdgeID)
-                {
-                    string label;
-                    if (edge.EventZone == NavMeshEventZone.Empty)
-                        label = $"{edge}";
-                    else
-                        label = $"{edge} [{obj.Events[edge.EventZone.Index]}, {edge.EventZone.Flag}]";
-                    g.DrawString(label, _smallFont, Brushes.White, edge.Line.Center.ToPointF());
-                }
-            }
-        }
-
-        if (_drawObjectInternalEdges)
-        {
-            foreach (var edge in obj.InternalEdges)
-            {
-                g.DrawLine(edge.Flag.ToPen(), edge.Line);
-
-                if (_drawObjectInternalEdgeID)
-                {
-                    string label;
-                    if (edge.EventZone == NavMeshEventZone.Empty)
-                        label = $"{edge}";
-                    else
-                        label = $"{edge} [{obj.Events[edge.EventZone.Index]}, {edge.EventZone.Flag}]";
-                    g.DrawString(label, _smallFont, Brushes.White, edge.Line.Center.ToPointF());
-                }
-            }
-        }
+            foreach (var e in obj.GlobalEdges)
+                c.DrawLine(e.Flag.ToStroke(), e.Line);
     }
 
-    protected override void OnMouseWheel(MouseEventArgs e)
-    {
-        base.OnMouseWheel(e);
 
+
+    private void NavMeshRenderer_MouseWheel(object sender, MouseEventArgs e)
+    {
         if (_raycastVisualizer)
             return;
 
@@ -311,10 +298,8 @@ public partial class NavMeshRenderer : DoubleBufferedControl
         this.Invalidate();
     }
 
-    protected override void OnMouseMove(MouseEventArgs e)
+    private void NavMeshRenderer_MouseMove(object sender, MouseEventArgs e)
     {
-        base.OnMouseMove(e);
-
         if (_isDragging)
         {
             var dx = _dragPosition.X - e.X;
@@ -340,10 +325,8 @@ public partial class NavMeshRenderer : DoubleBufferedControl
         this.Invalidate();
     }
 
-    protected override void OnMouseDown(MouseEventArgs e)
+    private void NavMeshRenderer_MouseDown(object sender, MouseEventArgs e)
     {
-        base.OnMouseDown(e);
-
         if (e.Button == MouseButtons.Left && _raycastVisualizer)
         {
             try
@@ -352,7 +335,7 @@ public partial class NavMeshRenderer : DoubleBufferedControl
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                RSBot.Core.Log.Fatal(ex);
             }
         }
 
@@ -366,10 +349,8 @@ public partial class NavMeshRenderer : DoubleBufferedControl
         }
     }
 
-    protected override void OnMouseUp(MouseEventArgs e)
+    private void NavMeshRenderer_MouseUp(object sender, MouseEventArgs e)
     {
-        base.OnMouseUp(e);
-
         if (e.Button == MouseButtons.Middle)
             _isDragging = false;
     }

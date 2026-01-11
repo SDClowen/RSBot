@@ -1,4 +1,6 @@
-﻿namespace RSBot.Party.Views
+﻿using SDUI.Controls;
+
+namespace RSBot.Party.Views
 {
     partial class Main
     {
@@ -29,7 +31,7 @@
         private void InitializeComponent()
         {
             tabMain = new SDUI.Controls.TabControl();
-            tabCurrentParty = new System.Windows.Forms.TabPage();
+            tabCurrentParty = new SDUI.Controls.TabPage();
             listParty = new SDUI.Controls.ListView();
             colMemberName = new System.Windows.Forms.ColumnHeader();
             colLevel = new System.Windows.Forms.ColumnHeader();
@@ -37,9 +39,9 @@
             colMasteries = new System.Windows.Forms.ColumnHeader();
             colLocation = new System.Windows.Forms.ColumnHeader();
             contextParty = new SDUI.Controls.ContextMenuStrip();
-            menuBanish = new System.Windows.Forms.ToolStripMenuItem();
-            menuLeave = new System.Windows.Forms.ToolStripMenuItem();
-            menuItemAddToBuffing = new System.Windows.Forms.ToolStripMenuItem();
+            menuBanish = new SDUI.Controls.ToolStripMenuItem();
+            menuLeave = new SDUI.Controls.ToolStripMenuItem();
+            menuItemAddToBuffing = new SDUI.Controls.ToolStripMenuItem();
             separator3 = new SDUI.Controls.Separator();
             panel1 = new SDUI.Controls.Panel();
             btnLeaveParty = new SDUI.Controls.Button();
@@ -49,7 +51,7 @@
             checkCurrentAllowInvitations = new SDUI.Controls.CheckBox();
             checkCurrentAutoShareItems = new SDUI.Controls.CheckBox();
             checkCurrentAutoShareEXP = new SDUI.Controls.CheckBox();
-            tpAutoParty = new System.Windows.Forms.TabPage();
+            tpAutoParty = new SDUI.Controls.TabPage();
             groupBox2 = new SDUI.Controls.GroupBox();
             checkBoxFollowMaster = new SDUI.Controls.CheckBox();
             separator10 = new SDUI.Controls.Separator();
@@ -68,7 +70,7 @@
             checkAcceptFromList = new SDUI.Controls.CheckBox();
             checkAcceptAll = new SDUI.Controls.CheckBox();
             separator6 = new SDUI.Controls.Separator();
-            panel2 = new System.Windows.Forms.Panel();
+            panel2 = new SDUI.Controls.Panel();
             groupBox7 = new SDUI.Controls.GroupBox();
             listCommandPlayers = new SDUI.Controls.ListView();
             columnHeader3 = new System.Windows.Forms.ColumnHeader();
@@ -87,7 +89,7 @@
             checkAutoAllowInvitations = new SDUI.Controls.CheckBox();
             checkAutoItemAutoShare = new SDUI.Controls.CheckBox();
             checkAutoExpAutoShare = new SDUI.Controls.CheckBox();
-            tpPartyMatching = new System.Windows.Forms.TabPage();
+            tpPartyMatching = new SDUI.Controls.TabPage();
             lvPartyMatching = new SDUI.Controls.ListView();
             chPartyMatchNo = new System.Windows.Forms.ColumnHeader();
             chPartyMatchRace = new System.Windows.Forms.ColumnHeader();
@@ -124,7 +126,7 @@
             btnPrev = new SDUI.Controls.Button();
             btnNext = new SDUI.Controls.Button();
             lbl_partyPageRange = new SDUI.Controls.Label();
-            tpPartyBuffing = new System.Windows.Forms.TabPage();
+            tpPartyBuffing = new SDUI.Controls.TabPage();
             groupBox4 = new SDUI.Controls.GroupBox();
             btnAddBuffToMember = new SDUI.Controls.Button();
             buttonRemoveCharFromBuffing = new SDUI.Controls.Button();
@@ -149,7 +151,7 @@
             columnName = new System.Windows.Forms.ColumnHeader();
             columnLimit = new System.Windows.Forms.ColumnHeader();
             contextPartyBuffs = new SDUI.Controls.ContextMenuStrip();
-            menuItemRefreshBuffs = new System.Windows.Forms.ToolStripMenuItem();
+            menuItemRefreshBuffs = new SDUI.Controls.ToolStripMenuItem();
             panel5 = new SDUI.Controls.Panel();
             checkHideLowerLevelSkills = new SDUI.Controls.CheckBox();
             tabMain.SuspendLayout();
@@ -184,11 +186,9 @@
             tabMain.Controls.Add(tpPartyMatching);
             tabMain.Controls.Add(tpPartyBuffing);
             tabMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            tabMain.ItemSize = new System.Drawing.Size(80, 24);
             tabMain.Location = new System.Drawing.Point(0, 0);
             tabMain.Margin = new System.Windows.Forms.Padding(4);
             tabMain.Name = "tabMain";
-            tabMain.Radius = new System.Windows.Forms.Padding(4);
             tabMain.SelectedIndex = 0;
             tabMain.Size = new System.Drawing.Size(942, 584);
             tabMain.TabIndex = 0;
@@ -221,7 +221,6 @@
             listParty.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             listParty.Location = new System.Drawing.Point(4, 116);
             listParty.Margin = new System.Windows.Forms.Padding(4);
-            listParty.MultiSelect = false;
             listParty.Name = "listParty";
             listParty.Size = new System.Drawing.Size(926, 392);
             listParty.TabIndex = 0;
@@ -255,7 +254,7 @@
             // contextParty
             // 
             contextParty.ImageScalingSize = new System.Drawing.Size(20, 20);
-            contextParty.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { menuBanish, menuLeave, menuItemAddToBuffing });
+            contextParty.Items.AddRange(new MenuItem[] { menuBanish, menuLeave, menuItemAddToBuffing });
             contextParty.Name = "contextParty";
             contextParty.Size = new System.Drawing.Size(177, 76);
             // 
@@ -761,7 +760,6 @@
             listCommandPlayers.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             listCommandPlayers.Location = new System.Drawing.Point(1, 30);
             listCommandPlayers.Margin = new System.Windows.Forms.Padding(4);
-            listCommandPlayers.MultiSelect = false;
             listCommandPlayers.Name = "listCommandPlayers";
             listCommandPlayers.Size = new System.Drawing.Size(274, 124);
             listCommandPlayers.TabIndex = 18;
@@ -853,7 +851,6 @@
             listAutoParty.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             listAutoParty.Location = new System.Drawing.Point(1, 30);
             listAutoParty.Margin = new System.Windows.Forms.Padding(4);
-            listAutoParty.MultiSelect = false;
             listAutoParty.Name = "listAutoParty";
             listAutoParty.Size = new System.Drawing.Size(274, 152);
             listAutoParty.TabIndex = 17;
@@ -1011,7 +1008,6 @@
             lvPartyMatching.FullRowSelect = true;
             lvPartyMatching.Location = new System.Drawing.Point(4, 63);
             lvPartyMatching.Margin = new System.Windows.Forms.Padding(4);
-            lvPartyMatching.MultiSelect = false;
             lvPartyMatching.Name = "lvPartyMatching";
             lvPartyMatching.ShowItemToolTips = true;
             lvPartyMatching.Size = new System.Drawing.Size(926, 421);
@@ -1590,7 +1586,6 @@
             listViewPartyMembers.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             listViewPartyMembers.Location = new System.Drawing.Point(2, 30);
             listViewPartyMembers.Margin = new System.Windows.Forms.Padding(4);
-            listViewPartyMembers.MultiSelect = false;
             listViewPartyMembers.Name = "listViewPartyMembers";
             listViewPartyMembers.Size = new System.Drawing.Size(265, 226);
             listViewPartyMembers.TabIndex = 10;
@@ -1677,7 +1672,6 @@
             listViewGroups.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             listViewGroups.Location = new System.Drawing.Point(2, 30);
             listViewGroups.Margin = new System.Windows.Forms.Padding(4);
-            listViewGroups.MultiSelect = false;
             listViewGroups.Name = "listViewGroups";
             listViewGroups.Size = new System.Drawing.Size(265, 148);
             listViewGroups.TabIndex = 1;
@@ -1801,7 +1795,7 @@
             // contextPartyBuffs
             // 
             contextPartyBuffs.ImageScalingSize = new System.Drawing.Size(20, 20);
-            contextPartyBuffs.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { menuItemRefreshBuffs });
+            contextPartyBuffs.Items.AddRange(new MenuItem[] { menuItemRefreshBuffs });
             contextPartyBuffs.Name = "contextPartyBuffs";
             contextPartyBuffs.Size = new System.Drawing.Size(165, 28);
             // 
@@ -1887,7 +1881,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.TabPage tabCurrentParty;
+        private SDUI.Controls.TabPage tabCurrentParty;
         private SDUI.Controls.ListView listParty;
         private System.Windows.Forms.ColumnHeader colMemberName;
         private System.Windows.Forms.ColumnHeader colLevel;
@@ -1902,11 +1896,11 @@
         private SDUI.Controls.GroupBox grpPartySettings;
         private SDUI.Controls.ContextMenuStrip contextParty;
         private SDUI.Controls.ContextMenuStrip contextPartyBuffs;
-        private System.Windows.Forms.ToolStripMenuItem menuBanish;
-        private System.Windows.Forms.ToolStripMenuItem menuLeave;
-        private System.Windows.Forms.ToolStripMenuItem menuItemRefreshBuffs;
-        private System.Windows.Forms.TabPage tpAutoParty;
-        private System.Windows.Forms.TabPage tpPartyMatching;
+        private SDUI.Controls.ToolStripMenuItem menuBanish;
+        private SDUI.Controls.ToolStripMenuItem menuLeave;
+        private SDUI.Controls.ToolStripMenuItem menuItemRefreshBuffs;
+        private SDUI.Controls.TabPage tpAutoParty;
+        private SDUI.Controls.TabPage tpPartyMatching;
         private SDUI.Controls.GroupBox grbAutoPartySettings;
         private SDUI.Controls.CheckBox checkAutoAllowInvitations;
         private SDUI.Controls.CheckBox checkAutoItemAutoShare;
@@ -1953,7 +1947,7 @@
         private SDUI.Controls.CheckBox checkAcceptIfBotStopped;
         private SDUI.Controls.Panel panel1;
         private System.Windows.Forms.ColumnHeader colLocation;
-        private System.Windows.Forms.TabPage tpPartyBuffing;
+        private SDUI.Controls.TabPage tpPartyBuffing;
         private SDUI.Controls.GroupBox groupBox1;
         private SDUI.Controls.ListView listPartyBuffSkills;
         private System.Windows.Forms.ColumnHeader columnName;
@@ -1974,7 +1968,7 @@
         private System.Windows.Forms.ColumnHeader columnHeaderMembersCount;
         private SDUI.Controls.Button btnAddBuffToMember;
         private SDUI.Controls.Button btnRemoveBuffFromMember;
-        private System.Windows.Forms.ToolStripMenuItem menuItemAddToBuffing;
+        private SDUI.Controls.ToolStripMenuItem menuItemAddToBuffing;
         private SDUI.Controls.Button buttonRemoveCharFromBuffing;
         private SDUI.Controls.TextBox textBoxLeaveIfMasterNotName;
         private SDUI.Controls.CheckBox checkBoxLeaveIfMasterNot;
@@ -1991,7 +1985,7 @@
         private SDUI.Controls.TabControl tabMain;
         private SDUI.Controls.Separator separator3;
         private SDUI.Controls.Separator separator6;
-        private System.Windows.Forms.Panel panel2;
+        private SDUI.Controls.Panel panel2;
         private SDUI.Controls.Separator separator4;
         private SDUI.Controls.Separator separator5;
         private SDUI.Controls.Panel panel5;

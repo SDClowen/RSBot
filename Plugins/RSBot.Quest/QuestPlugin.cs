@@ -1,9 +1,9 @@
-﻿using System.Windows.Forms;
-using RSBot.Core;
+﻿using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Plugins;
 using RSBot.Quest.Views.Sidebar;
+using SDUI.Controls;
 
 namespace RSBot.Quest;
 
@@ -22,7 +22,7 @@ public class QuestPlugin : IPlugin
         EventManager.FireEvent("OnAddSidebarElement", Views.View.SidebarElement);
     }
 
-    public Control View => Views.View.Main;
+    public IUIElement View => Views.View.Main;
 
     public void Translate()
     {

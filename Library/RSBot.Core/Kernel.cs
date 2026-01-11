@@ -81,16 +81,7 @@ public static class Kernel
     /// Returns a value indicating if this is a debug environment.
     /// </summary>
     public static bool Debug
-    {
-        get
-        {
-#if DEBUG
-            return true;
-#endif
-            return GlobalConfig.Get("RSBot.DebugEnvironment", false);
-        }
-        set => GlobalConfig.Set("RSBot.DebugEnvironments", value);
-    }
+        => GlobalConfig.Get("RSBot.DebugEnvironment", false);
 
     /// <summary>
     ///     Initializes this instance.

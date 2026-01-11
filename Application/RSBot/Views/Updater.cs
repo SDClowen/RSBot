@@ -8,10 +8,11 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using RSBot.Core;
+using SDUI.Controls;
 
 namespace RSBot.Views;
 
-public partial class Updater : Form
+public partial class Updater : UIWindow
 {
     /// <summary>
     ///     Update address

@@ -18,6 +18,6 @@
     <ProjectReference Include="..\..\Library\RSBot.Core\RSBot.Core.csproj">
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\SDUI\SDUI\SDUI.csproj" />
+    <ProjectReference Include="..\..\..\sdui\SDUI\SDUI.csproj" />
   </ItemGroup>
 </Project>

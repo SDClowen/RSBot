@@ -830,7 +830,7 @@ internal partial class Main : DoubleBufferedControl
             return;
 
         if (View.PendingWindow?.Visible == false)
-            View.PendingWindow.ShowAtTop(View.Instance);
+            View.PendingWindow.ShowAtTop(View.PendingWindow.FindForm());
         else
             View.PendingWindow.Hide();
     }

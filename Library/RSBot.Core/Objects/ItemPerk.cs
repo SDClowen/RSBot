@@ -17,7 +17,7 @@ public class ItemPerk
 
     public uint RemainingTime { get; set; }
 
-    public RefObjItem? Item => Game.ReferenceManager.GetRefItem(ItemId);
+    public RefObjItem Item => Game.ReferenceManager.GetRefItem(ItemId);
 
     #endregion Properties
 }

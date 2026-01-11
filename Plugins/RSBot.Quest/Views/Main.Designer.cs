@@ -1,4 +1,6 @@
-﻿namespace RSBot.Quest.Views
+﻿using SDUI.Controls;
+
+namespace RSBot.Quest.Views
 {
     partial class Main
     {
@@ -28,12 +30,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            treeQuests = new System.Windows.Forms.TreeView();
+            treeQuests = new SDUI.Controls.TreeView();
             checkShowCompleted = new SDUI.Controls.CheckBox();
             contextQuest = new SDUI.Controls.ContextMenuStrip();
-            watchQuestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            abandonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            watchQuestToolStripMenuItem = new SDUI.Controls.ToolStripMenuItem();
+            toolStripSeparator1 = new SDUI.Controls.MenuItemSeparator();
+            abandonToolStripMenuItem = new SDUI.Controls.ToolStripMenuItem();
             contextQuest.SuspendLayout();
             SuspendLayout();
             // 
@@ -46,6 +48,7 @@
             treeQuests.Size = new System.Drawing.Size(424, 431);
             treeQuests.TabIndex = 0;
             treeQuests.NodeMouseClick += treeQuests_NodeMouseClick;
+            treeQuests.ContextMenuStrip = contextQuest;
             // 
             // checkShowCompleted
             // 
@@ -64,7 +67,7 @@
             // 
             // contextQuest
             // 
-            contextQuest.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { watchQuestToolStripMenuItem, toolStripSeparator1, abandonToolStripMenuItem });
+            contextQuest.Items.AddRange(new MenuItem[] { watchQuestToolStripMenuItem, toolStripSeparator1, abandonToolStripMenuItem });
             contextQuest.Name = "contextMenuStrip1";
             contextQuest.Size = new System.Drawing.Size(181, 76);
             // 
@@ -106,11 +109,11 @@
 
         #endregion
 
-        private System.Windows.Forms.TreeView treeQuests;
+        private SDUI.Controls.TreeView treeQuests;
         private SDUI.Controls.CheckBox checkShowCompleted;
         private SDUI.Controls.ContextMenuStrip contextQuest;
-        private System.Windows.Forms.ToolStripMenuItem watchQuestToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem abandonToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private SDUI.Controls.MenuItem watchQuestToolStripMenuItem;
+        private SDUI.Controls.MenuItem abandonToolStripMenuItem;
+        private SDUI.Controls.MenuItemSeparator toolStripSeparator1;
     }
 }

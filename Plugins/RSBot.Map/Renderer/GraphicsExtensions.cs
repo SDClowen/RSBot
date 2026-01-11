@@ -1,42 +1,42 @@
-﻿using System.Drawing;
-using RSBot.NavMeshApi.Mathematics;
+﻿using RSBot.NavMeshApi.Mathematics;
+using SkiaSharp;
 
 namespace RSBot.Map.Renderer;
 
+
 public static class GraphicsExtensions
 {
-    public static void DrawLine(this Graphics g, Pen pen, LineF line) =>
-        g.DrawLine(pen, line.Min.X, line.Min.Z, line.Max.X, line.Max.Z);
+    public static void DrawLine(this SKCanvas c, SKPaint p, LineF l) =>
+        c.DrawLine(l.Min.X, l.Min.Z, l.Max.X, l.Max.Z, p);
 
-    public static void DrawCircle(this Graphics g, Pen pen, CircleF circle) =>
-        g.DrawEllipse(
-            pen,
-            circle.Position.X - circle.Radius,
-            circle.Position.Y - circle.Radius,
-            circle.Radius * 2,
-            circle.Radius * 2
-        );
+    public static void DrawCircle(this SKCanvas c, SKPaint p, CircleF circle) =>
+        c.DrawCircle(circle.Position.X, circle.Position.Y, circle.Radius, p);
 
-    public static void FillTriangleF(this Graphics g, Brush brush, TriangleF triangle) =>
-        g.FillPolygon(
-            brush,
-            new PointF[]
-            {
-                new PointF(triangle.P1.X, triangle.P1.Z),
-                new PointF(triangle.P2.X, triangle.P2.Z),
-                new PointF(triangle.P3.X, triangle.P3.Z),
-            }
-        );
+    public static void FillTriangleF(this SKCanvas c, int id, TriangleF t)
+    {
+        using SKPaint p = new()
+        {
+            Color = id.ToSKColor(),
+            IsStroke = false,
+            IsAntialias = true
+        };
 
-    public static void FillRectangleF(this Graphics g, Brush brush, NavMeshApi.Mathematics.RectangleF rectangle) =>
-        g.FillPolygon(
-            brush,
-            new PointF[]
-            {
-                new PointF(rectangle.TopLeft.X, 1920.0f - rectangle.TopLeft.Y),
-                new PointF(rectangle.TopRight.X, 1920.0f - rectangle.TopRight.Y),
-                new PointF(rectangle.BottomRight.X, 1920.0f - rectangle.BottomRight.Y),
-                new PointF(rectangle.BottomLeft.X, 1920.0f - rectangle.BottomLeft.Y),
-            }
-        );
+        using var path = new SKPath();
+        path.MoveTo(t.P1.X, t.P1.Z);
+        path.LineTo(t.P2.X, t.P2.Z);
+        path.LineTo(t.P3.X, t.P3.Z);
+        path.Close();
+        c.DrawPath(path, p);
+    }
+
+    public static void FillRectangleF(this SKCanvas c, SKPaint p, NavMeshApi.Mathematics.RectangleF r)
+    {
+        using var path = new SKPath();
+        path.MoveTo(r.TopLeft.X, 1920 - r.TopLeft.Y);
+        path.LineTo(r.TopRight.X, 1920 - r.TopRight.Y);
+        path.LineTo(r.BottomRight.X, 1920 - r.BottomRight.Y);
+        path.LineTo(r.BottomLeft.X, 1920 - r.BottomLeft.Y);
+        path.Close();
+        c.DrawPath(path, p);
+    }
 }

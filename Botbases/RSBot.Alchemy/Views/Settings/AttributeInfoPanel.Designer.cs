@@ -33,8 +33,8 @@
             this.lblItemAmount = new SDUI.Controls.Label();
             this.separator1 = new SDUI.Controls.Separator();
             this.checkSelected = new SDUI.Controls.CheckBox();
-            this.tipStone = new System.Windows.Forms.ToolTip(this.components);
-            this.lblFinished = new System.Windows.Forms.Label();
+            this.tipStone = new SDUI.Controls.ToolTip(this.components);
+            this.lblFinished = new SDUI.Controls.Label();
             this.SuspendLayout();
             // 
             // comboMaxValue
@@ -123,7 +123,7 @@
         private SDUI.Controls.Label lblItemAmount;
         private SDUI.Controls.Separator separator1;
         private SDUI.Controls.CheckBox checkSelected;
-        private System.Windows.Forms.ToolTip tipStone;
-        private System.Windows.Forms.Label lblFinished;
+        private SDUI.Controls.ToolTip tipStone;
+        private SDUI.Controls.Label lblFinished;
     }
 }

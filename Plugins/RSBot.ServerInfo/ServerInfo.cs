@@ -2,6 +2,7 @@
 using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Plugins;
+using SDUI.Controls;
 
 namespace RSBot.ServerInfo;
 
@@ -29,7 +30,7 @@ public class ServerInfo : IPlugin
     }
 
     /// <inheritdoc />
-    public Control View => Views.View.Main;
+    public IUIElement View => Views.View.Main;
 
     /// <inheritdoc />
     public void Translate()

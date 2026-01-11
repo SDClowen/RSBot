@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.rtbUpdateInfo = new System.Windows.Forms.RichTextBox();
+            this.rtbUpdateInfo = new SDUI.Controls.RichTextBox();
             this.lblInfo = new SDUI.Controls.Label();
             this.cbChangeLog = new SDUI.Controls.CheckBox();
             this.label2 = new SDUI.Controls.Label();
@@ -49,7 +49,6 @@
             this.rtbUpdateInfo.Name = "rtbUpdateInfo";
             this.rtbUpdateInfo.ReadOnly = true;
             this.rtbUpdateInfo.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.rtbUpdateInfo.ShortcutsEnabled = false;
             this.rtbUpdateInfo.Size = new System.Drawing.Size(430, 267);
             this.rtbUpdateInfo.TabIndex = 0;
             this.rtbUpdateInfo.Text = "";
@@ -171,7 +170,7 @@
 
         #endregion
 
-        private System.Windows.Forms.RichTextBox rtbUpdateInfo;
+        private SDUI.Controls.RichTextBox rtbUpdateInfo;
         private SDUI.Controls.Label lblInfo;
         private SDUI.Controls.CheckBox cbChangeLog;
         private SDUI.Controls.Label label2;

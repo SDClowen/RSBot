@@ -16,12 +16,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Library\RSBot.Core\RSBot.Core.csproj" />
-    <ProjectReference Include="..\..\SDUI\SDUI\SDUI.csproj" />
+    <ProjectReference Include="..\..\..\sdui\SDUI\SDUI.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\Main.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Update="Views\Main.cs" />
   </ItemGroup>
 </Project>

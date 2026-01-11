@@ -8,12 +8,12 @@ using RSBot.Core.Components.Scripting;
 using SDUI;
 using SDUI.Controls;
 using Label = SDUI.Controls.Label;
-using Panel = System.Windows.Forms.Panel;
+using Panel = SDUI.Controls.Panel;
 using TextBox = SDUI.Controls.TextBox;
 
 namespace RSBot.Views.Dialog;
 
-public partial class CommandDialog : UIWindowBase
+public partial class CommandDialog : UIWindow
 {
     #region Members
 
@@ -25,6 +25,7 @@ public partial class CommandDialog : UIWindowBase
 
     public CommandDialog(IScriptCommand command)
     {
+        ShowTitle = false;
         _command = command;
         Arguments = new Dictionary<string, string>(command.Arguments.Count);
         InitializeComponent();
@@ -50,8 +51,7 @@ public partial class CommandDialog : UIWindowBase
             input.TextChanged += Input_TextChanged;
 
             panel.Controls.AddRange(
-                new Control[]
-                {
+                [
                     new Label
                     {
                         Location = new Point(13, 2),
@@ -66,7 +66,7 @@ public partial class CommandDialog : UIWindowBase
                         Size = new Size(250, 16),
                     },
                     new Separator { Location = new Point(0, 75), Dock = DockStyle.Bottom },
-                }
+                ]
             );
 
             Controls.Add(panel);

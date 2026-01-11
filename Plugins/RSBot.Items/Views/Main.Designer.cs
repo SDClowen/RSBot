@@ -1,4 +1,5 @@
 ﻿using RSBot.Items.Properties;
+using SDUI.Controls;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -34,20 +35,20 @@ namespace RSBot.Items.Views
         private void InitializeComponent()
         {
             components = new Container();
-            ListViewGroup listViewGroup6 = new ListViewGroup("Potion trader", HorizontalAlignment.Left);
-            ListViewGroup listViewGroup7 = new ListViewGroup("Stable keeper", HorizontalAlignment.Left);
-            ListViewGroup listViewGroup8 = new ListViewGroup("Protector trader", HorizontalAlignment.Left);
-            ListViewGroup listViewGroup9 = new ListViewGroup("Weapon trader", HorizontalAlignment.Left);
-            ListViewGroup listViewGroup10 = new ListViewGroup("Accessory trader", HorizontalAlignment.Left);
+            SDUI.Controls.ListViewGroup listViewGroup6 = new SDUI.Controls.ListViewGroup("Potion trader", HorizontalAlignment.Left);
+            SDUI.Controls.ListViewGroup listViewGroup7 = new SDUI.Controls.ListViewGroup("Stable keeper", HorizontalAlignment.Left);
+            SDUI.Controls.ListViewGroup listViewGroup8 = new SDUI.Controls.ListViewGroup("Protector trader", HorizontalAlignment.Left);
+            SDUI.Controls.ListViewGroup listViewGroup9 = new SDUI.Controls.ListViewGroup("Weapon trader", HorizontalAlignment.Left);
+            SDUI.Controls.ListViewGroup listViewGroup10 = new SDUI.Controls.ListViewGroup("Accessory trader", HorizontalAlignment.Left);
             contextShoppingList = new SDUI.Controls.ContextMenuStrip();
-            menuChangeAmount = new ToolStripMenuItem();
-            toolStripSeparator1 = new ToolStripSeparator();
-            menuRemoveItem = new ToolStripMenuItem();
+            menuChangeAmount = new SDUI.Controls.ToolStripMenuItem();
+            toolStripSeparator1 = new SDUI.Controls.ToolStripSeparator();
+            menuRemoveItem = new SDUI.Controls.ToolStripMenuItem();
             contextAvailableProducts = new SDUI.Controls.ContextMenuStrip();
-            menuAddToShoppingList = new ToolStripMenuItem();
+            menuAddToShoppingList = new SDUI.Controls.ToolStripMenuItem();
             tabMain = new SDUI.Controls.TabControl();
-            tabBuyFilter = new TabPage();
-            splitContainer = new SplitContainer();
+            tabBuyFilter = new SDUI.Controls.TabPage();
+            splitContainer = new SDUI.Controls.SplitContainer();
             listAvailableProducts = new SDUI.Controls.ListView();
             colAvailableName = new ColumnHeader();
             panel1 = new SDUI.Controls.Panel();
@@ -66,7 +67,7 @@ namespace RSBot.Items.Views
             checkStoreItemsFromPet = new SDUI.Controls.CheckBox();
             checkRepairGear = new SDUI.Controls.CheckBox();
             checkEnable = new SDUI.Controls.CheckBox();
-            tabSellFilter = new TabPage();
+            tabSellFilter = new SDUI.Controls.TabPage();
             listFilter = new SDUI.Controls.ListView();
             colItemName = new ColumnHeader();
             colItemLevel = new ColumnHeader();
@@ -75,14 +76,14 @@ namespace RSBot.Items.Views
             colSell = new ColumnHeader();
             collStore = new ColumnHeader();
             contextList = new SDUI.Controls.ContextMenuStrip();
-            btnAddToSell = new ToolStripMenuItem();
-            btnAddToStore = new ToolStripMenuItem();
-            btnPickup = new ToolStripMenuItem();
-            btnPickOnlyCharacter = new ToolStripMenuItem();
-            toolStripSeparator2 = new ToolStripSeparator();
-            btnDontSell = new ToolStripMenuItem();
-            btnDontStore = new ToolStripMenuItem();
-            btnDontPickup = new ToolStripMenuItem();
+            btnAddToSell = new SDUI.Controls.ToolStripMenuItem();
+            btnAddToStore = new SDUI.Controls.ToolStripMenuItem();
+            btnPickup = new SDUI.Controls.ToolStripMenuItem();
+            btnPickOnlyCharacter = new SDUI.Controls.ToolStripMenuItem();
+            toolStripSeparator2 = new SDUI.Controls.ToolStripSeparator();
+            btnDontSell = new SDUI.Controls.ToolStripMenuItem();
+            btnDontStore = new SDUI.Controls.ToolStripMenuItem();
+            btnDontPickup = new SDUI.Controls.ToolStripMenuItem();
             searchImageList = new ImageList(components);
             filterPanel = new SDUI.Controls.Panel();
             groupOthers = new SDUI.Controls.GroupBox();
@@ -142,8 +143,8 @@ namespace RSBot.Items.Views
             btnSearch = new SDUI.Controls.Button();
             btnReload = new SDUI.Controls.Button();
             txtSellSearch = new SDUI.Controls.TextBox();
-            pictureBox1 = new PictureBox();
-            tabPage1 = new TabPage();
+            pictureBox1 = new SDUI.Controls.PictureBox();
+            tabPage1 = new SDUI.Controls.TabPage();
             groupBoxOptions = new SDUI.Controls.GroupBox();
             checkPickupGold = new SDUI.Controls.CheckBox();
             checkAllEquips = new SDUI.Controls.CheckBox();
@@ -160,7 +161,6 @@ namespace RSBot.Items.Views
             contextAvailableProducts.SuspendLayout();
             tabMain.SuspendLayout();
             tabBuyFilter.SuspendLayout();
-            ((ISupportInitialize)splitContainer).BeginInit();
             splitContainer.Panel1.SuspendLayout();
             splitContainer.Panel2.SuspendLayout();
             splitContainer.SuspendLayout();
@@ -175,7 +175,6 @@ namespace RSBot.Items.Views
             groupClothes.SuspendLayout();
             groupGender.SuspendLayout();
             panel3.SuspendLayout();
-            ((ISupportInitialize)pictureBox1).BeginInit();
             tabPage1.SuspendLayout();
             groupBoxOptions.SuspendLayout();
             groupBoxGeneral.SuspendLayout();
@@ -184,7 +183,7 @@ namespace RSBot.Items.Views
             // contextShoppingList
             // 
             contextShoppingList.ImageScalingSize = new Size(20, 20);
-            contextShoppingList.Items.AddRange(new ToolStripItem[] { menuChangeAmount, toolStripSeparator1, menuRemoveItem });
+            contextShoppingList.Items.AddRange(new MenuItem[] { menuChangeAmount, toolStripSeparator1, menuRemoveItem });
             contextShoppingList.Name = "contextShoppingList";
             contextShoppingList.ShowImageMargin = false;
             contextShoppingList.Size = new Size(159, 58);
@@ -213,7 +212,7 @@ namespace RSBot.Items.Views
             // contextAvailableProducts
             // 
             contextAvailableProducts.ImageScalingSize = new Size(20, 20);
-            contextAvailableProducts.Items.AddRange(new ToolStripItem[] { menuAddToShoppingList });
+            contextAvailableProducts.Items.AddRange(new MenuItem[] { menuAddToShoppingList });
             contextAvailableProducts.Name = "contextAvailableProducts";
             contextAvailableProducts.ShowImageMargin = false;
             contextAvailableProducts.Size = new Size(189, 28);
@@ -232,11 +231,7 @@ namespace RSBot.Items.Views
             tabMain.Controls.Add(tabSellFilter);
             tabMain.Controls.Add(tabPage1);
             tabMain.Dock = DockStyle.Fill;
-            tabMain.ItemSize = new Size(80, 24);
-            tabMain.Location = new Point(0, 0);
-            tabMain.Margin = new Padding(4, 4, 4, 4);
             tabMain.Name = "tabMain";
-            tabMain.Radius = new Padding(4);
             tabMain.SelectedIndex = 0;
             tabMain.Size = new Size(942, 591);
             tabMain.TabIndex = 7;
@@ -425,7 +420,7 @@ namespace RSBot.Items.Views
             listViewGroup9.Name = "groupWeapon";
             listViewGroup10.Header = "Accessory trader";
             listViewGroup10.Name = "groupAccessory";
-            listShoppingList.Groups.AddRange(new ListViewGroup[] { listViewGroup6, listViewGroup7, listViewGroup8, listViewGroup9, listViewGroup10 });
+            listShoppingList.Groups.AddRange(new SDUI.Controls.ListViewGroup[] { listViewGroup6, listViewGroup7, listViewGroup8, listViewGroup9, listViewGroup10 });
             listShoppingList.HeaderStyle = ColumnHeaderStyle.Nonclickable;
             listShoppingList.Location = new Point(0, 71);
             listShoppingList.Margin = new Padding(4, 4, 4, 4);
@@ -592,7 +587,6 @@ namespace RSBot.Items.Views
             listFilter.TabIndex = 5;
             listFilter.UseCompatibleStateImageBehavior = false;
             listFilter.View = System.Windows.Forms.View.Details;
-            listFilter.VirtualListSize = 15000;
             // 
             // colItemName
             // 
@@ -625,7 +619,7 @@ namespace RSBot.Items.Views
             // 
             contextList.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 162);
             contextList.ImageScalingSize = new Size(24, 24);
-            contextList.Items.AddRange(new ToolStripItem[] { btnAddToSell, btnAddToStore, btnPickup, btnPickOnlyCharacter, toolStripSeparator2, btnDontSell, btnDontStore, btnDontPickup });
+            contextList.Items.AddRange(new MenuItem[] { btnAddToSell, btnAddToStore, btnPickup, btnPickOnlyCharacter, toolStripSeparator2, btnDontSell, btnDontStore, btnDontPickup });
             contextList.Name = "contextSellList";
             contextList.ShowCheckMargin = true;
             contextList.ShowImageMargin = false;
@@ -1862,7 +1856,6 @@ namespace RSBot.Items.Views
             tabBuyFilter.ResumeLayout(false);
             splitContainer.Panel1.ResumeLayout(false);
             splitContainer.Panel2.ResumeLayout(false);
-            ((ISupportInitialize)splitContainer).EndInit();
             splitContainer.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -1883,7 +1876,6 @@ namespace RSBot.Items.Views
             groupGender.PerformLayout();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
-            ((ISupportInitialize)pictureBox1).EndInit();
             tabPage1.ResumeLayout(false);
             groupBoxOptions.ResumeLayout(false);
             groupBoxOptions.PerformLayout();
@@ -1894,13 +1886,13 @@ namespace RSBot.Items.Views
 
         #endregion
         private SDUI.Controls.ContextMenuStrip contextAvailableProducts;
-        private ToolStripMenuItem menuAddToShoppingList;
+        private SDUI.Controls.ToolStripMenuItem menuAddToShoppingList;
         private SDUI.Controls.ContextMenuStrip contextShoppingList;
-        private ToolStripMenuItem menuChangeAmount;
-        private ToolStripSeparator toolStripSeparator1;
-        private ToolStripMenuItem menuRemoveItem;
+        private SDUI.Controls.ToolStripMenuItem menuChangeAmount;
+        private SDUI.Controls.ToolStripSeparator toolStripSeparator1;
+        private SDUI.Controls.ToolStripMenuItem menuRemoveItem;
         private SDUI.Controls.TabControl tabMain;
-        private TabPage tabSellFilter;
+        private SDUI.Controls.TabPage tabSellFilter;
         private SDUI.Controls.ListView listFilter;
         private ColumnHeader colItemName;
         private ColumnHeader colItemLevel;
@@ -1909,12 +1901,12 @@ namespace RSBot.Items.Views
         private SDUI.Controls.TextBox txtSellSearch;
         private ColumnHeader colGender;
         private SDUI.Controls.ContextMenuStrip contextList;
-        private ToolStripMenuItem btnAddToSell;
-        private ToolStripMenuItem btnAddToStore;
+        private SDUI.Controls.ToolStripMenuItem btnAddToSell;
+        private SDUI.Controls.ToolStripMenuItem btnAddToStore;
         private SDUI.Controls.Button btnSearch;
-        private ToolStripSeparator toolStripSeparator2;
-        private ToolStripMenuItem btnDontSell;
-        private ToolStripMenuItem btnDontStore;
+        private SDUI.Controls.ToolStripSeparator toolStripSeparator2;
+        private SDUI.Controls.ToolStripMenuItem btnDontSell;
+        private SDUI.Controls.ToolStripMenuItem btnDontStore;
         private SDUI.Controls.Panel filterPanel;
         private SDUI.Controls.GroupBox groupOthers;
         private SDUI.Controls.CheckBox checkAlchemy;
@@ -1955,10 +1947,10 @@ namespace RSBot.Items.Views
         private SDUI.Controls.CheckBox checkAxe;
         private SDUI.Controls.CheckBox checkLegs;
         private SDUI.Controls.CheckBox checkHand;
-        private ToolStripMenuItem btnPickup;
-        private ToolStripMenuItem btnDontPickup;
-        private PictureBox pictureBox1;
-        private TabPage tabPage1;
+        private SDUI.Controls.ToolStripMenuItem btnPickup;
+        private SDUI.Controls.ToolStripMenuItem btnDontPickup;
+        private SDUI.Controls.PictureBox pictureBox1;
+        private SDUI.Controls.TabPage tabPage1;
         private SDUI.Controls.GroupBox groupBoxGeneral;
         private SDUI.Controls.CheckBox checkPickupGold;
         private ColumnHeader colPickup;
@@ -1980,12 +1972,12 @@ namespace RSBot.Items.Views
         private SDUI.Controls.CheckBox checkQuest;
         private SDUI.Controls.CheckBox checkCoin;
         private SDUI.Controls.CheckBox checkAmmo;
-        private TabPage tabBuyFilter;
+        private SDUI.Controls.TabPage tabBuyFilter;
         private SDUI.Controls.GroupBox groupBox1;
         private SDUI.Controls.CheckBox checkSellItemsFromPet;
         private SDUI.Controls.CheckBox checkRepairGear;
         private SDUI.Controls.CheckBox checkEnable;
-        private SplitContainer splitContainer;
+        private SDUI.Controls.SplitContainer splitContainer;
         private SDUI.Controls.ListView listAvailableProducts;
         private ColumnHeader colAvailableName;
         private SDUI.Controls.Panel panel1;
@@ -2005,7 +1997,7 @@ namespace RSBot.Items.Views
         private SDUI.Controls.Separator separator5;
         private SDUI.Controls.CheckBox checkStoreItemsFromPet;
         private SDUI.Controls.CheckBox checkPickupBlue;
-        private ToolStripMenuItem btnPickOnlyCharacter;
+        private SDUI.Controls.ToolStripMenuItem btnPickOnlyCharacter;
         private SDUI.Controls.CheckBox checkQuestItems;
         private SDUI.Controls.CheckBox checkAllEquips;
         private SDUI.Controls.CheckBox checkEverything;

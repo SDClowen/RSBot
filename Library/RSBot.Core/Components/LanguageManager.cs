@@ -1,9 +1,9 @@
-﻿using System;
+﻿using SDUI.Controls;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 
 namespace RSBot.Core.Components;
 
@@ -23,10 +23,10 @@ public class LanguageManager
     /// </summary>
     /// <param name="menuItem">The toolstrip menu item</param>
     /// <returns></returns>
-    private static List<ToolStripMenuItem> GetAllMenuItems(ToolStripMenuItem menuItem)
+    private static List<MenuItem> GetAllMenuItems(MenuItem menuItem)
     {
-        var collection = new List<ToolStripMenuItem> { menuItem };
-        foreach (ToolStripMenuItem item in menuItem.DropDownItems)
+        var collection = new List<MenuItem> { menuItem };
+        foreach (MenuItem item in menuItem.DropDownItems)
             collection.AddRange(GetAllMenuItems(item));
 
         return collection;
@@ -75,17 +75,17 @@ public class LanguageManager
     /// <param name="file">The language file path</param>
     /// <param name="controls">The controls</param>
     /// <param name="languages">the parsed languages list</param>
-    private static void CheckMissings(string file, string header, Control main, LangDict languages)
+    private static void CheckMissings(string file, string header, UIElementBase main, LangDict languages)
     {
         var contents = new List<string>();
 
-        foreach (Control control in main.Controls)
+        foreach (UIElementBase control in main.Controls)
         {
             var headerEx = $"{header}.{control.Parent.GetType().Name}";
             if (control is ToolStrip toolStrip)
             {
-                var menuItems = new List<ToolStripItem>();
-                foreach (var menuItem in toolStrip.Items.OfType<ToolStripMenuItem>())
+                var menuItems = new List<MenuItem>();
+                foreach (var menuItem in toolStrip.Items)
                     menuItems.AddRange(GetAllMenuItems(menuItem));
 
                 foreach (var item in menuItems)
@@ -111,7 +111,7 @@ public class LanguageManager
             if (
                 !(control is Label)
                 && !(control is GroupBox)
-                && !(control is ButtonBase)
+                && !(control is Button)
                 && !(control is TabControl)
                 && !(control is TabPage)
                 && !(control is ToolStrip)
@@ -183,7 +183,7 @@ public class LanguageManager
     /// </summary>
     /// <param name="view">The control view</param>
     /// <param name="file">The language file path</param>
-    public static void Translate(Control view, string language = "en_US")
+    public static void Translate(IUIElement view, string language = "en_US")
     {
         var type = view.GetType();
 
@@ -212,9 +212,9 @@ public class LanguageManager
         TranslateControls(values, view, assembly);
     }
 
-    private static void TranslateControls(LangDict values, Control view, string header)
+    private static void TranslateControls(LangDict values, IUIElement view, string header)
     {
-        foreach (Control control in view.Controls)
+        foreach (IUIElement control in view.Controls)
         {
             var headerEx = $"{header}.{control.Parent.GetType().Name}";
 
@@ -242,12 +242,12 @@ public class LanguageManager
         }
     }
 
-    public static Dictionary<string, string> GetLanguages()
+    public static LangDict GetLanguages()
     {
         var filePath = Path.Combine(_path, "langs.rsl");
         if (!File.Exists(filePath))
         {
-            MessageBox.Show($"Language list file is missing! \n {filePath}");
+            Log.Error($"Language list file is missing! \n {filePath}");
             Environment.Exit(0);
         }
 

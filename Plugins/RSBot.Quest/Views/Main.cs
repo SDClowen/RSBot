@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows.Forms;
 using RSBot.Core;
 using RSBot.Core.Event;
 using RSBot.Core.Objects.Quests;
@@ -41,7 +40,7 @@ public partial class Main : DoubleBufferedControl
     {
         try
         {
-            if (!treeQuests.Created)
+            if (!treeQuests.IsHandleCreated)
                 return;
 
             treeQuests.Invoke(() =>
@@ -51,8 +50,6 @@ public partial class Main : DoubleBufferedControl
                 {
                     var node = CreateNode(activeQuest.Value);
                     node.Tag = activeQuest.Key;
-
-                    node.ContextMenuStrip = contextQuest;
 
                     treeQuests.Nodes.Add(node);
                 }
@@ -78,67 +75,67 @@ public partial class Main : DoubleBufferedControl
         }
     }
 
-    private TreeNode CreateNode(ActiveQuest quest)
+    private SDUI.Controls.TreeNode CreateNode(ActiveQuest quest)
     {
         if (quest.Quest == null)
-            return new TreeNode($"Unknown quest [{quest.Id}]");
+            return new SDUI.Controls.TreeNode($"Unknown quest [{quest.Id}]");
 
         var name = Game.ReferenceManager.GetTranslation(quest.Quest.NameString);
 
-        var node = new TreeNode(name);
-        node.Nodes.Add($"Id: {quest.Id}");
-        node.Nodes.Add($"Level: {quest.Quest.Level}");
-        node.Nodes.Add($"Status: {GetStatusText(quest.Status)}");
+        var node = new SDUI.Controls.TreeNode(name);
+        node.Nodes.Add(new ($"Id: {quest.Id}"));
+        node.Nodes.Add(new($"Level: {quest.Quest.Level}"));
+        node.Nodes.Add(new($"Status: {GetStatusText(quest.Status)}"));
 
         node.Tag = quest.Id;
 
         if (quest.Npcs?.Length > 0)
         {
-            var npcNode = new TreeNode("NPCs");
+            var npcNode = new SDUI.Controls.TreeNode("NPCs");
             foreach (var npcId in quest.Npcs)
             {
                 var npc = Game.ReferenceManager.GetRefObjChar(npcId);
                 var npcName = Game.ReferenceManager.GetTranslation(npc.NameStrID);
-                npcNode.Nodes.Add(npcName);
+                npcNode.Nodes.Add(new(npcName));
             }
 
             node.Nodes.Add(npcNode);
         }
 
-        var rewardNode = new TreeNode("Rewards");
+        var rewardNode = new SDUI.Controls.TreeNode("Rewards");
 
         if (quest.Quest.Reward != null)
         {
             if (quest.Quest.Reward.Exp > 0)
-                rewardNode.Nodes.Add($"Exp: {quest.Quest.Reward.Exp}");
+                rewardNode.Nodes.Add(new($"Exp: {quest.Quest.Reward.Exp}"));
 
             if (quest.Quest.Reward.Gold > 0)
-                rewardNode.Nodes.Add($"Gold: {quest.Quest.Reward.Gold}");
+                rewardNode.Nodes.Add(new($"Gold: {quest.Quest.Reward.Gold}"));
 
             if (quest.Quest.Reward.SP > 0)
-                rewardNode.Nodes.Add($"Skill points: {quest.Quest.Reward.Gold}");
+                rewardNode.Nodes.Add(new($"Skill points: {quest.Quest.Reward.Gold}"));
 
             if (quest.Quest.Reward.SP > 0)
-                rewardNode.Nodes.Add($"Skill Exp: {quest.Quest.Reward.Gold}");
+                rewardNode.Nodes.Add(new($"Skill Exp: {quest.Quest.Reward.Gold}"));
 
             if (quest.Quest.Reward.InventorySlots > 0)
-                rewardNode.Nodes.Add($"Inv. slots: {quest.Quest.Reward.Gold}");
+                rewardNode.Nodes.Add(new($"Inv. slots: {quest.Quest.Reward.Gold}"));
 
             if (quest.Quest.Reward.Hwan > 0)
-                rewardNode.Nodes.Add($"Hwan: {quest.Quest.Reward.Gold}");
+                rewardNode.Nodes.Add(new($"Hwan: {quest.Quest.Reward.Gold}"));
         }
 
         if (quest.Quest.RewardItems != null && quest.Quest.RewardItems.Any())
         {
-            var itemsNode = new TreeNode("Items");
+            var itemsNode = new SDUI.Controls.TreeNode("Items");
 
             foreach (var rewardItem in quest.Quest.RewardItems)
             {
                 if (rewardItem.Item != null)
-                    itemsNode.Nodes.Add($"{rewardItem.Item.GetRealName()}");
+                    itemsNode.Nodes.Add(new($"{rewardItem.Item.GetRealName()}"));
 
                 if (rewardItem.OptionalItem != null)
-                    itemsNode.Nodes.Add($"{rewardItem.OptionalItem.GetRealName()}");
+                    itemsNode.Nodes.Add(new($"{rewardItem.OptionalItem.GetRealName()}"));
             }
 
             rewardNode.Nodes.Add(itemsNode);
@@ -152,15 +149,15 @@ public partial class Main : DoubleBufferedControl
                 var objectiveName = Game.ReferenceManager.GetTranslation(objective.NameStrId);
                 var objectiveSubNode = new TreeNode(objectiveName);
                 if (objective.InProgress)
-                    objectiveSubNode.Nodes.Add("Status: In progress");
+                    objectiveSubNode.Nodes.Add(new("Status: In progress"));
                 else
-                    objectiveSubNode.Nodes.Add("Status: Complete");
+                    objectiveSubNode.Nodes.Add(new("Status: Complete"));
 
                 foreach (var task in objective.Tasks)
                 {
                     var actualTitle = objectiveName.Replace("%d", task.ToString());
 
-                    objectiveSubNode.Nodes.Add($"Progress: {task}");
+                    objectiveSubNode.Nodes.Add(new($"Progress: {task}"));
                     objectiveSubNode.Text = actualTitle;
                 }
 
@@ -227,11 +224,11 @@ public partial class Main : DoubleBufferedControl
             return;
 
         if (
-            MessageBox.Show(
+            System.Windows.Forms.MessageBox.Show(
                 $"Do you really want to abandon the quest [{activeQuest.Quest.GetTranslatedName()}]?",
                 "Abandon quest",
-                MessageBoxButtons.YesNo
-            ) == DialogResult.Yes
+                System.Windows.Forms.MessageBoxButtons.YesNo
+            ) == System.Windows.Forms.DialogResult.Yes
         )
             Game.Player.QuestLog.AbandonQuest(questId);
     }

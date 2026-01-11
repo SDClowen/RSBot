@@ -35,7 +35,7 @@
             checkError = new SDUI.Controls.CheckBox();
             checkWarning = new SDUI.Controls.CheckBox();
             checkDebug = new SDUI.Controls.CheckBox();
-            txtLog = new System.Windows.Forms.RichTextBox();
+            txtLog = new SDUI.Controls.RichTextBox();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -181,6 +181,6 @@
         private SDUI.Controls.CheckBox checkWarning;
         private SDUI.Controls.CheckBox checkDebug;
         private SDUI.Controls.CheckBox checkNormal;
-        private System.Windows.Forms.RichTextBox txtLog;
+        private SDUI.Controls.RichTextBox txtLog;
     }
 }

@@ -9,7 +9,7 @@ using SDUI.Controls;
 
 namespace RSBot.General.Views;
 
-public partial class AccountsWindow : UIWindowBase
+public partial class AccountsWindow : UIWindow
 {
     /// <summary>
     ///     Initializes a new instance of the <see cref="AccountsWindow" /> class.
@@ -17,6 +17,7 @@ public partial class AccountsWindow : UIWindowBase
     public AccountsWindow()
     {
         InitializeComponent();
+        ShowTitle = false;
         comboBoxChannel.SelectedIndex = 0;
         Text = "Accounts";
     }
@@ -123,7 +124,7 @@ public partial class AccountsWindow : UIWindowBase
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    private void linkLabelPwShowHide_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+    private void linkLabelPwShowHide_LinkClicked(object sender, EventArgs e)
     {
         if (txtPassword.UseSystemPasswordChar)
         {
@@ -142,7 +143,7 @@ public partial class AccountsWindow : UIWindowBase
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    private void linkLabelSecondaryPassword_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+    private void linkLabelSecondaryPassword_LinkClicked(object sender, EventArgs e)
     {
         if (textBoxSecondaryPassword.UseSystemPasswordChar)
         {

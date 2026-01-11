@@ -15,11 +15,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\sdui\SDUI\SDUI.csproj" />
     <ProjectReference Include="..\..\Library\RSBot.Core\RSBot.Core.csproj">
       <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\SDUI\SDUI\SDUI.csproj">
-      <Private></Private>
     </ProjectReference>
   </ItemGroup>
 </Project>

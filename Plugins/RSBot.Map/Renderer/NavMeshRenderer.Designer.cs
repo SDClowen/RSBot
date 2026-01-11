@@ -1,29 +1,19 @@
 ﻿using System.Drawing;
-using System.Windows.Forms;
+using SDUI.Controls;
+using SDUI.Enums;
 
 namespace RSBot.Map.Renderer;
 
 partial class NavMeshRenderer
 {
     /// <summary> 
-    /// Erforderliche Designervariable.
-    /// </summary>
-    private System.ComponentModel.IContainer components = null;
-
-    /// <summary> 
     /// Verwendete Ressourcen bereinigen.
     /// </summary>
     /// <param name="disposing">True, wenn verwaltete Ressourcen gelöscht werden sollen; andernfalls False.</param>
     protected override void Dispose(bool disposing)
     {
-        if (disposing && (components != null))
-        {
-            components.Dispose();
-        }
         base.Dispose(disposing);
     }
-
-    #region Vom Komponenten-Designer generierter Code
 
     /// <summary> 
     /// Erforderliche Methode für die Designerunterstützung. 
@@ -31,8 +21,7 @@ partial class NavMeshRenderer
     /// </summary>
     private void InitializeComponent()
     {
-        components = new System.ComponentModel.Container();
-        contextRenderSettings = new ContextMenuStrip(components);
+        contextRenderSettings = new ContextMenuStrip();
         displayToolStripMenuItem = new ToolStripMenuItem();
         regionIDToolStripMenuItem = new ToolStripMenuItem();
         regionBorderToolStripMenuItem = new ToolStripMenuItem();
@@ -233,18 +222,17 @@ partial class NavMeshRenderer
         // NavMeshRenderer
         // 
         AutoScaleDimensions = new SizeF(8F, 20F);
-        AutoScaleMode = AutoScaleMode.Font;
+        AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         BackColor = Color.MidnightBlue;
         ContextMenuStrip = contextRenderSettings;
         DoubleBuffered = true;
-        Margin = new Padding(3, 4, 3, 4);
+        Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
         Name = "NavMeshRenderer";
         Size = new Size(293, 341);
         contextRenderSettings.ResumeLayout(false);
         ResumeLayout(false);
     }
 
-    #endregion
 
     private ContextMenuStrip contextRenderSettings;
     private ToolStripMenuItem displayToolStripMenuItem;

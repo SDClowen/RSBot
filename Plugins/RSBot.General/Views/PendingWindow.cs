@@ -14,7 +14,7 @@ using Label = SDUI.Controls.Label;
 
 namespace RSBot.General.Views;
 
-public partial class PendingWindow : UIWindowBase
+public partial class PendingWindow : UIWindow
 {
     /// <summary>
     ///     The Queue Notify Index
@@ -35,6 +35,7 @@ public partial class PendingWindow : UIWindowBase
     {
         InitializeComponent();
         CheckForIllegalCrossThreadCalls = false;
+        ShowTitle = false;
         Text = "Pending";
 
         EventManager.SubscribeEvent("OnClock", OnClock);

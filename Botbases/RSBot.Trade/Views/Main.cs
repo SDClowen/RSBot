@@ -132,7 +132,7 @@ public partial class Main : DoubleBufferedControl
             var originRegionName = Game.ReferenceManager.GetTranslation(origin.Region.ToString());
             var destinationRegionName = Game.ReferenceManager.GetTranslation(destination.Region.ToString());
 
-            var lvItem = new ListViewItem(Path.GetFileNameWithoutExtension(fileName)) { Tag = fileName };
+            var lvItem = new SDUI.Controls.ListViewItem(Path.GetFileNameWithoutExtension(fileName)) { Tag = fileName };
             lvItem.SubItems.Add(originRegionName);
             lvItem.SubItems.Add(destinationRegionName);
             lvItem.SubItems.Add(walkScript.Count.ToString());
@@ -325,7 +325,7 @@ public partial class Main : DoubleBufferedControl
         TradeConfig.MaxTransportDistance = Convert.ToInt32(numMaxDistance.Value);
     }
 
-    private void linkRecord_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+    private void linkRecord_LinkClicked(object sender, EventArgs e)
     {
         ShowScriptRecorder();
     }

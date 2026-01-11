@@ -35,7 +35,7 @@
             labelStatus = new SDUI.Controls.Label();
             btnRun = new SDUI.Controls.Button();
             btnClear = new SDUI.Controls.Button();
-            txtScript = new System.Windows.Forms.RichTextBox();
+            txtScript = new SDUI.Controls.RichTextBox();
             panel2 = new SDUI.Controls.Panel();
             label1 = new SDUI.Controls.Label();
             btnAddCommand = new SDUI.Controls.Button();
@@ -271,7 +271,7 @@
         #endregion
 
         private SDUI.Controls.Panel panel1;
-        private System.Windows.Forms.RichTextBox txtScript;
+        private SDUI.Controls.RichTextBox txtScript;
         private SDUI.Controls.Button btnClear;
         private SDUI.Controls.Button btnRun;
         private SDUI.Controls.Label labelStatus;

@@ -86,7 +86,6 @@ public partial class Main : DoubleBufferedControl
     /// </summary>
     private void PopulateStatisticsList()
     {
-        lvStatistics.BeginUpdate();
         lvStatistics.Items.Clear();
 
         foreach (var calculator in CalculatorRegistry.Calculators)
@@ -94,7 +93,7 @@ public partial class Main : DoubleBufferedControl
             if (!StatatisticActive(calculator.Name))
                 continue;
 
-            var lvItem = new ListViewItem(calculator.Label) { Tag = calculator };
+            var lvItem = new SDUI.Controls.ListViewItem(calculator.Label) { Tag = calculator };
             lvItem.SubItems.Add("0");
 
             switch (calculator.Group)
@@ -117,8 +116,6 @@ public partial class Main : DoubleBufferedControl
 
             lvStatistics.Items.Add(lvItem);
         }
-
-        lvStatistics.EndUpdate();
     }
 
     /// <summary>
@@ -126,7 +123,7 @@ public partial class Main : DoubleBufferedControl
     /// </summary>
     private void UpdateStatistics()
     {
-        foreach (ListViewItem item in lvStatistics.Items)
+        foreach (SDUI.Controls.ListViewItem item in lvStatistics.Items)
         {
             var calculator = (IStatisticCalculator)item?.Tag;
 
@@ -187,7 +184,7 @@ public partial class Main : DoubleBufferedControl
 
     private void resetToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        foreach (ListViewItem lvItem in lvStatistics.SelectedItems)
+        foreach (SDUI.Controls.ListViewItem lvItem in lvStatistics.SelectedItems)
             if (lvItem.Tag is IStatisticCalculator calculator)
                 calculator.Reset();
     }

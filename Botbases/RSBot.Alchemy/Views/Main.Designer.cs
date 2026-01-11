@@ -6,7 +6,9 @@ using ComboBox = SDUI.Controls.ComboBox;
 using GroupBox = SDUI.Controls.GroupBox;
 using Label = SDUI.Controls.Label;
 using ListView = SDUI.Controls.ListView;
+using ListBox = SDUI.Controls.ListBox;
 using TabControl = SDUI.Controls.TabControl;
+using TabPage = SDUI.Controls.TabPage;
 using Panel = SDUI.Controls.Panel;
 using RadioButton = SDUI.Controls.Radio;
 
@@ -110,7 +112,6 @@ namespace RSBot.Alchemy.Views
             // 
             tabControlItemInfo.Controls.Add(tabMagicOptions);
             tabControlItemInfo.Controls.Add(tabPageAttributes);
-            tabControlItemInfo.ItemSize = new Size(80, 24);
             tabControlItemInfo.Location = new Point(9, 146);
             tabControlItemInfo.Margin = new Padding(4, 3, 4, 3);
             tabControlItemInfo.Name = "tabControlItemInfo";
@@ -393,12 +394,12 @@ namespace RSBot.Alchemy.Views
         private Label lblDegree;
         private Label lblDegreeText;
         private Label lblOptLevel;
-        private ListBox listMagicOptions;
+        private SDUI.Controls.ListBox listMagicOptions;
         private TabControl tabControlItemInfo;
-        private TabPage tabPageAttributes;
-        private TabPage tabMagicOptions;
+        private SDUI.Controls.TabPage tabPageAttributes;
+        private SDUI.Controls.TabPage tabMagicOptions;
         private Label lblItemSelection;
-        private ListBox listAttributes;
+        private SDUI.Controls.ListBox listAttributes;
         private Panel panelSettingsGroup;
         private Panel panel2;
         private RadioButton radioEnhance;

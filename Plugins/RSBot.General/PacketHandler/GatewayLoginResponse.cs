@@ -105,7 +105,7 @@ internal class GatewayLoginResponse : IPacketHandler
 
                     View.PendingWindow.Start(count, timestamp);
                     if (!GlobalConfig.Get<bool>("RSBot.General.AutoHidePendingWindow"))
-                        View.PendingWindow.ShowAtTop(View.Instance);
+                        View.PendingWindow.ShowAtTop(View.PendingWindow.FindForm());
                 });
 
                 break;

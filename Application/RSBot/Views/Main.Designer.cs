@@ -1,4 +1,5 @@
 using RSBot.Views.Controls;
+using SDUI.Controls;
 using System.Windows.Forms;
 
 namespace RSBot.Views
@@ -33,9 +34,9 @@ namespace RSBot.Views
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
-            stripStatus = new StatusStrip();
-            lblIngameStatus = new ToolStripStatusLabel();
-            menuCurrentProfile = new ToolStripMenuItem();
+            stripStatus = new SDUI.Controls.StatusStrip();
+            lblIngameStatus = new SDUI.Controls.ToolStripStatusLabel();
+            menuCurrentProfile = new SDUI.Controls.MenuItem();
             cosController = new RSBot.Views.Controls.Cos.CosController();
             bottomPanel = new SDUI.Controls.Panel();
             buttonConfig = new SDUI.Controls.Button();
@@ -46,28 +47,28 @@ namespace RSBot.Views
             pSidebar = new SDUI.Controls.Panel();
             pSidebarCustom = new SDUI.Controls.Panel();
             entity1 = new Entity();
-            botbase1ToolStripMenuItem1 = new ToolStripMenuItem();
-            botbase1ToolStripMenuItem = new ToolStripMenuItem();
+            botbase1ToolStripMenuItem1 = new SDUI.Controls.MenuItem();
+            botbase1ToolStripMenuItem = new SDUI.Controls.MenuItem();
             notifyIcon = new NotifyIcon(components);
-            fileToolStripMenuItem = new ToolStripMenuItem();
-            menuSelectProfile = new ToolStripMenuItem();
-            networkConfigToolStripMenuItem = new ToolStripMenuItem();
-            menuItemExit = new ToolStripMenuItem();
-            viewToolStripMenuItem = new ToolStripMenuItem();
-            menuSidebar = new ToolStripMenuItem();
-            toolsToolStripMenuItem = new ToolStripMenuItem();
-            menuScriptRecorder = new ToolStripMenuItem();
-            menuPlugins = new ToolStripMenuItem();
-            aboutToolStripMenuItem = new ToolStripMenuItem();
-            thisToolStripMenuItem = new ToolStripMenuItem();
+            fileToolStripMenuItem = new SDUI.Controls.MenuItem();
+            menuSelectProfile = new SDUI.Controls.MenuItem();
+            networkConfigToolStripMenuItem = new SDUI.Controls.MenuItem();
+            menuItemExit = new SDUI.Controls.MenuItem();
+            viewToolStripMenuItem = new SDUI.Controls.MenuItem();
+            menuSidebar = new SDUI.Controls.MenuItem();
+            toolsToolStripMenuItem = new SDUI.Controls.MenuItem();
+            menuScriptRecorder = new SDUI.Controls.MenuItem();
+            menuPlugins = new SDUI.Controls.MenuItem();
+            aboutToolStripMenuItem = new SDUI.Controls.MenuItem();
+            thisToolStripMenuItem = new SDUI.Controls.MenuItem();
             menuStrip = new SDUI.Controls.ContextMenuStrip();
-            botsToolStripMenuItem = new ToolStripMenuItem();
-            languageToolStripMenuItem = new ToolStripMenuItem();
-            themeToolStripMenuItem = new ToolStripMenuItem();
-            darkToolStripMenuItem = new ToolStripMenuItem();
-            lightToolStripMenuItem = new ToolStripMenuItem();
-            autoToolStripMenuItem = new ToolStripMenuItem();
-            coloredToolStripMenuItem = new ToolStripMenuItem();
+            botsToolStripMenuItem = new SDUI.Controls.MenuItem();
+            languageToolStripMenuItem = new SDUI.Controls.MenuItem();
+            themeToolStripMenuItem = new SDUI.Controls.MenuItem();
+            darkToolStripMenuItem = new SDUI.Controls.MenuItem();
+            lightToolStripMenuItem = new SDUI.Controls.MenuItem();
+            autoToolStripMenuItem = new SDUI.Controls.MenuItem();
+            coloredToolStripMenuItem = new SDUI.Controls.MenuItem();
             topCharacter = new Character();
             windowPageControl = new SDUI.Controls.WindowPageControl();
             stripStatus.SuspendLayout();
@@ -81,7 +82,7 @@ namespace RSBot.Views
             stripStatus.BackColor = System.Drawing.Color.FromArgb(33, 150, 243);
             stripStatus.GripMargin = new Padding(2, 2, 0, 2);
             stripStatus.ImageScalingSize = new System.Drawing.Size(17, 17);
-            stripStatus.Items.AddRange(new ToolStripItem[] { lblIngameStatus, menuCurrentProfile });
+            stripStatus.Items.AddRange(new SDUI.Controls.MenuItem[] { lblIngameStatus, menuCurrentProfile });
             stripStatus.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
             stripStatus.Location = new System.Drawing.Point(0, 806);
             stripStatus.Name = "stripStatus";
@@ -291,7 +292,7 @@ namespace RSBot.Views
             // 
             // fileToolStripMenuItem
             // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { menuSelectProfile, networkConfigToolStripMenuItem, menuItemExit });
+            fileToolStripMenuItem.DropDownItems.AddRange(new SDUI.Controls.MenuItem[] { menuSelectProfile, networkConfigToolStripMenuItem, menuItemExit });
             fileToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             fileToolStripMenuItem.Size = new System.Drawing.Size(148, 26);
@@ -323,7 +324,7 @@ namespace RSBot.Views
             // 
             // viewToolStripMenuItem
             // 
-            viewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { menuSidebar });
+            viewToolStripMenuItem.DropDownItems.AddRange(new SDUI.Controls.MenuItem[] { menuSidebar });
             viewToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             viewToolStripMenuItem.Size = new System.Drawing.Size(148, 26);
@@ -338,7 +339,7 @@ namespace RSBot.Views
             // 
             // toolsToolStripMenuItem
             // 
-            toolsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { menuScriptRecorder });
+            toolsToolStripMenuItem.DropDownItems.AddRange(new SDUI.Controls.MenuItem[] { menuScriptRecorder });
             toolsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             toolsToolStripMenuItem.Size = new System.Drawing.Size(148, 26);
@@ -361,7 +362,7 @@ namespace RSBot.Views
             // 
             // aboutToolStripMenuItem
             // 
-            aboutToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { thisToolStripMenuItem });
+            aboutToolStripMenuItem.DropDownItems.AddRange(new SDUI.Controls.MenuItem[] { thisToolStripMenuItem });
             aboutToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             aboutToolStripMenuItem.Size = new System.Drawing.Size(148, 26);
@@ -380,7 +381,7 @@ namespace RSBot.Views
             menuStrip.BackColor = System.Drawing.Color.FromArgb(0, 0, 0, 0);
             menuStrip.Font = new System.Drawing.Font("Segoe UI", 9.25F);
             menuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
-            menuStrip.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, viewToolStripMenuItem, toolsToolStripMenuItem, menuPlugins, botsToolStripMenuItem, languageToolStripMenuItem, themeToolStripMenuItem, aboutToolStripMenuItem });
+            menuStrip.Items.AddRange(new MenuItem[] { fileToolStripMenuItem, viewToolStripMenuItem, toolsToolStripMenuItem, menuPlugins, botsToolStripMenuItem, languageToolStripMenuItem, themeToolStripMenuItem, aboutToolStripMenuItem });
             menuStrip.Name = "menuStrip";
             menuStrip.Size = new System.Drawing.Size(149, 212);
             // 
@@ -400,7 +401,7 @@ namespace RSBot.Views
             // 
             // themeToolStripMenuItem
             // 
-            themeToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { darkToolStripMenuItem, lightToolStripMenuItem, autoToolStripMenuItem, coloredToolStripMenuItem });
+            themeToolStripMenuItem.DropDownItems.AddRange(new SDUI.Controls.MenuItem[] { darkToolStripMenuItem, lightToolStripMenuItem, autoToolStripMenuItem, coloredToolStripMenuItem });
             themeToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             themeToolStripMenuItem.Name = "themeToolStripMenuItem";
             themeToolStripMenuItem.Size = new System.Drawing.Size(148, 26);
@@ -471,7 +472,7 @@ namespace RSBot.Views
             Controls.Add(pSidebar);
             Controls.Add(bottomPanel);
             Controls.Add(stripStatus);
-            DwmMargin = 0;
+            DwmMargin = -1;
             ExtendBox = true;
             ExtendMenu = menuStrip;
             Hatch = System.Drawing.Drawing2D.HatchStyle.Percent20;
@@ -497,40 +498,40 @@ namespace RSBot.Views
         }
 
         #endregion
-        private System.Windows.Forms.StatusStrip stripStatus;
+        private SDUI.Controls.StatusStrip stripStatus;
         private SDUI.Controls.Panel bottomPanel;
         private SDUI.Controls.Panel pSidebar;
-        private System.Windows.Forms.ToolStripStatusLabel lblIngameStatus;
+        private SDUI.Controls.ToolStripStatusLabel lblIngameStatus;
         private SDUI.Controls.Button btnStartStop;
         private SDUI.Controls.Button btnSave;
         private Controls.Character topCharacter;
         private Controls.Cos.CosController cosController;
         private SDUI.Controls.ComboBox comboServer;
         private SDUI.Controls.ComboBox comboDivision;
-        private System.Windows.Forms.ToolStripMenuItem botbase1ToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem botbase1ToolStripMenuItem;
+        private SDUI.Controls.MenuItem botbase1ToolStripMenuItem1;
+        private SDUI.Controls.MenuItem botbase1ToolStripMenuItem;
         private System.Windows.Forms.NotifyIcon notifyIcon;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem menuItemExit;
-        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem menuSidebar;
-        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem menuScriptRecorder;
-        private System.Windows.Forms.ToolStripMenuItem menuPlugins;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem thisToolStripMenuItem;
+        private SDUI.Controls.MenuItem fileToolStripMenuItem;
+        private SDUI.Controls.MenuItem menuItemExit;
+        private SDUI.Controls.MenuItem viewToolStripMenuItem;
+        private SDUI.Controls.MenuItem menuSidebar;
+        private SDUI.Controls.MenuItem toolsToolStripMenuItem;
+        private SDUI.Controls.MenuItem menuScriptRecorder;
+        private SDUI.Controls.MenuItem menuPlugins;
+        private SDUI.Controls.MenuItem aboutToolStripMenuItem;
+        private SDUI.Controls.MenuItem thisToolStripMenuItem;
         private SDUI.Controls.ContextMenuStrip menuStrip;
-        private System.Windows.Forms.ToolStripMenuItem themeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem darkToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem lightToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem coloredToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem languageToolStripMenuItem;
-        private ToolStripMenuItem menuSelectProfile;
-        private ToolStripMenuItem botsToolStripMenuItem;
-        private ToolStripMenuItem autoToolStripMenuItem;
+        private SDUI.Controls.MenuItem themeToolStripMenuItem;
+        private SDUI.Controls.MenuItem darkToolStripMenuItem;
+        private SDUI.Controls.MenuItem lightToolStripMenuItem;
+        private SDUI.Controls.MenuItem coloredToolStripMenuItem;
+        private SDUI.Controls.MenuItem languageToolStripMenuItem;
+        private SDUI.Controls.MenuItem menuSelectProfile;
+        private SDUI.Controls.MenuItem botsToolStripMenuItem;
+        private SDUI.Controls.MenuItem autoToolStripMenuItem;
         private SDUI.Controls.Button buttonConfig;
-        private ToolStripMenuItem networkConfigToolStripMenuItem;
-        private ToolStripMenuItem menuCurrentProfile;
+        private SDUI.Controls.MenuItem networkConfigToolStripMenuItem;
+        private SDUI.Controls.MenuItem menuCurrentProfile;
         private SDUI.Controls.WindowPageControl windowPageControl;
         private Entity entity1;
         private SDUI.Controls.Panel pSidebarCustom;

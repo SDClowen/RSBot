@@ -30,10 +30,6 @@ public partial class EnhanceSettingsView : DoubleBufferedControl
     {
         CheckForIllegalCrossThreadCalls = false;
         InitializeComponent();
-        SetStyle(
-            ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer,
-            true
-        );
 
         EventManager.SubscribeEvent("OnEnterGame", SubscribeMainFormEvents);
     }

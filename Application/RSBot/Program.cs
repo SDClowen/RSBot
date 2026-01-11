@@ -85,12 +85,12 @@ internal static class Program
 
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-        Application.EnableVisualStyles();
-        Application.SetCompatibleTextRenderingDefault(false);
-        Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
+        //Application.EnableVisualStyles();
+        //Application.SetCompatibleTextRenderingDefault(false);
+        //Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
 
-        Main mainForm = new Main();
-        SplashScreen splashScreen = new SplashScreen(mainForm);
+        Main mainForm = new();
+        SplashScreen splashScreen = new(mainForm);
         splashScreen.ShowDialog();
 
         Application.Run(mainForm);

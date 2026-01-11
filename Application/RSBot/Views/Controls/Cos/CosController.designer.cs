@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             separator = new SDUI.Controls.Separator();
-            panel = new System.Windows.Forms.Panel();
-            topPanel = new System.Windows.Forms.Panel();
-            panelTopCenter = new System.Windows.Forms.Panel();
-            panelTopRight = new System.Windows.Forms.Panel();
+            panel = new SDUI.Controls.Panel();
+            topPanel = new SDUI.Controls.Panel();
+            panelTopCenter = new SDUI.Controls.Panel();
+            panelTopRight = new SDUI.Controls.Panel();
             buttonNext = new SDUI.Controls.Button();
-            panelTopLeft = new System.Windows.Forms.Panel();
+            panelTopLeft = new SDUI.Controls.Panel();
             buttonPrev = new SDUI.Controls.Button();
             separator1 = new SDUI.Controls.Separator();
             topPanel.SuspendLayout();
@@ -159,12 +159,12 @@
 
         #endregion
         private SDUI.Controls.Separator separator;
-        private System.Windows.Forms.Panel panel;
-        private System.Windows.Forms.Panel topPanel;
-        private System.Windows.Forms.Panel panelTopCenter;
-        private System.Windows.Forms.Panel panelTopRight;
+        private SDUI.Controls.Panel panel;
+        private SDUI.Controls.Panel topPanel;
+        private SDUI.Controls.Panel panelTopCenter;
+        private SDUI.Controls.Panel panelTopRight;
         private SDUI.Controls.Button buttonNext;
-        private System.Windows.Forms.Panel panelTopLeft;
+        private SDUI.Controls.Panel panelTopLeft;
         private SDUI.Controls.Button buttonPrev;
         private SDUI.Controls.Separator separator1;
     }

@@ -7,7 +7,7 @@ public class ModernRegionInfo : LegacyRegionInfo, IReference
     public string Type;
     public string Name;
 
-    public bool Load(ReferenceParser parser)
+    public new bool Load(ReferenceParser parser)
     {
         parser.TryParse(0, out Type);
         parser.TryParse(1, out Name);

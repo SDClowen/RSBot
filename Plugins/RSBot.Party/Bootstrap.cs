@@ -1,8 +1,9 @@
-﻿using System.Windows.Forms;
-using RSBot.Core;
+﻿using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Plugins;
 using RSBot.Party.Subscribers;
+using SDUI.Controls;
+using System.Windows.Forms;
 
 namespace RSBot.Party;
 
@@ -30,7 +31,7 @@ public class Bootstrap : IPlugin
     }
 
     /// <inheritdoc />
-    public Control View => Views.View.Instance;
+    public IUIElement View => Views.View.Instance;
 
     /// <inheritdoc />
     public void Translate()

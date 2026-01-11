@@ -26,7 +26,7 @@ public class Bootstrap : IPlugin
     public void Initialize() { }
 
     /// <inheritdoc />
-    public Control View => Views.View.Instance;
+    public SDUI.Controls.IUIElement View => Views.View.Instance;
 
     /// <inheritdoc />
     public void Translate()

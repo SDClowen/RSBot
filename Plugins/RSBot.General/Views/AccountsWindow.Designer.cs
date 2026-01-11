@@ -31,7 +31,7 @@
             textBoxSecondaryPassword = new SDUI.Controls.TextBox();
             comboBoxChannel = new SDUI.Controls.ComboBox();
             buttonRemove = new SDUI.Controls.Button();
-            listAccounts = new System.Windows.Forms.ListBox();
+            listAccounts = new SDUI.Controls.ListBox();
             label2 = new SDUI.Controls.Label();
             txtUsername = new SDUI.Controls.TextBox();
             label3 = new SDUI.Controls.Label();
@@ -41,8 +41,8 @@
             txtServername = new SDUI.Controls.TextBox();
             btnSave = new SDUI.Controls.Button();
             btnAdd = new SDUI.Controls.Button();
-            linkLabelPwShowHide = new System.Windows.Forms.LinkLabel();
-            linkLabelSecondaryPassword = new System.Windows.Forms.LinkLabel();
+            linkLabelPwShowHide = new SDUI.Controls.Label();
+            linkLabelSecondaryPassword = new SDUI.Controls.Label();
             label1 = new SDUI.Controls.Label();
             btnOK = new SDUI.Controls.Button();
             btnCancel = new SDUI.Controls.Button();
@@ -246,28 +246,26 @@
             linkLabelPwShowHide.AutoSize = true;
             linkLabelPwShowHide.BackColor = System.Drawing.Color.DimGray;
             linkLabelPwShowHide.ForeColor = System.Drawing.Color.White;
-            linkLabelPwShowHide.LinkColor = System.Drawing.Color.White;
             linkLabelPwShowHide.Location = new System.Drawing.Point(354, 80);
             linkLabelPwShowHide.Name = "linkLabelPwShowHide";
             linkLabelPwShowHide.Size = new System.Drawing.Size(36, 15);
             linkLabelPwShowHide.TabIndex = 9;
             linkLabelPwShowHide.TabStop = true;
             linkLabelPwShowHide.Text = "Show";
-            linkLabelPwShowHide.LinkClicked += linkLabelPwShowHide_LinkClicked;
+            linkLabelPwShowHide.Click += linkLabelPwShowHide_LinkClicked;
             // 
             // linkLabelSecondaryPassword
             // 
             linkLabelSecondaryPassword.AutoSize = true;
             linkLabelSecondaryPassword.BackColor = System.Drawing.Color.DimGray;
             linkLabelSecondaryPassword.ForeColor = System.Drawing.Color.White;
-            linkLabelSecondaryPassword.LinkColor = System.Drawing.Color.White;
             linkLabelSecondaryPassword.Location = new System.Drawing.Point(276, 129);
             linkLabelSecondaryPassword.Name = "linkLabelSecondaryPassword";
             linkLabelSecondaryPassword.Size = new System.Drawing.Size(36, 15);
             linkLabelSecondaryPassword.TabIndex = 9;
             linkLabelSecondaryPassword.TabStop = true;
             linkLabelSecondaryPassword.Text = "Show";
-            linkLabelSecondaryPassword.LinkClicked += linkLabelSecondaryPassword_LinkClicked;
+            linkLabelSecondaryPassword.Click += linkLabelSecondaryPassword_LinkClicked;
             // 
             // label1
             // 
@@ -371,7 +369,7 @@
         private SDUI.Controls.TextBox textBoxSecondaryPassword;
         private SDUI.Controls.ComboBox comboBoxChannel;
         private SDUI.Controls.Button buttonRemove;
-        private System.Windows.Forms.ListBox listAccounts;
+        private SDUI.Controls.ListBox listAccounts;
         private SDUI.Controls.Label label2;
         private SDUI.Controls.TextBox txtUsername;
         private SDUI.Controls.Label label3;
@@ -381,8 +379,8 @@
         private SDUI.Controls.TextBox txtServername;
         private SDUI.Controls.Button btnSave;
         private SDUI.Controls.Button btnAdd;
-        private System.Windows.Forms.LinkLabel linkLabelPwShowHide;
-        private System.Windows.Forms.LinkLabel linkLabelSecondaryPassword;
+        private SDUI.Controls.Label linkLabelPwShowHide;
+        private SDUI.Controls.Label linkLabelSecondaryPassword;
         private SDUI.Controls.Label label1;
         private SDUI.Controls.Button btnOK;
         private SDUI.Controls.Button btnCancel;

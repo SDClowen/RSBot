@@ -15,6 +15,8 @@ using RSBot.Core.Objects.Skill;
 using SDUI;
 using SDUI.Controls;
 using Button = SDUI.Controls.Button;
+using ListViewItem = SDUI.Controls.ListViewItem;
+using ListViewGroup = SDUI.Controls.ListViewGroup;
 using ListViewExtensions = RSBot.Core.Extensions.ListViewExtensions;
 
 namespace RSBot.Party.Views;
@@ -226,7 +228,6 @@ public partial class Main : DoubleBufferedControl
     {
         Task.Run(() =>
         {
-            lvPartyMatching.BeginUpdate();
             lvPartyMatching.Items.Clear();
 
             var listViewItems = new List<ListViewItem>();
@@ -276,8 +277,6 @@ public partial class Main : DoubleBufferedControl
 
             foreach (var item in listViewItems)
                 lvPartyMatching.Items.Add(item);
-
-            lvPartyMatching.EndUpdate();
         });
     }
 
@@ -382,7 +381,6 @@ public partial class Main : DoubleBufferedControl
         if (Game.Player == null)
             return;
 
-        listPartyBuffSkills.BeginUpdate();
         listPartyBuffSkills.Items.Clear();
         listPartyBuffSkills.Groups.Clear();
 
@@ -453,8 +451,6 @@ public partial class Main : DoubleBufferedControl
 
             item.LoadSkillImageAsync();
         }
-
-        listPartyBuffSkills.EndUpdate();
     }
 
     /// <summary>
@@ -462,14 +458,12 @@ public partial class Main : DoubleBufferedControl
     /// </summary>
     public void OnPartyData()
     {
-        listParty.BeginUpdate();
         try
         {
             listParty.Items.Clear();
 
             if (Game.Party.Members == null)
             {
-                listParty.EndUpdate();
                 OnPartyDismiss();
                 return;
             }
@@ -498,22 +492,20 @@ public partial class Main : DoubleBufferedControl
             menuLeave.Enabled = true;
         }
         catch { }
-
-        listParty.EndUpdate();
     }
 
     private void OnChangePartyEntry()
     {
         Log.NotifyLang("FormedPartyChanged", Bundle.Container.PartyMatching.Id);
 
-        if (tabMain.SelectedTab == tpPartyMatching)
+        if (tabMain.SelectedPage == tpPartyMatching)
             RequestPartyList();
     }
 
     private void OnDeletePartyEntry()
     {
         if (
-            tabMain.SelectedTab == tpPartyMatching
+            tabMain.SelectedPage == tpPartyMatching
             && lvPartyMatching.Items.Count > 0
             && lvPartyMatching.Items[0].Name == Bundle.Container.PartyMatching.Id.ToString()
         )
@@ -547,7 +539,7 @@ public partial class Main : DoubleBufferedControl
         checkCurrentAutoShareItems.Checked = Game.Party.Settings.ItemAutoShare;
         _applySettings = true;
 
-        if (tabMain.SelectedTab == tpPartyMatching)
+        if (tabMain.SelectedPage == tpPartyMatching)
             RequestPartyList();
     }
 
@@ -695,7 +687,7 @@ public partial class Main : DoubleBufferedControl
             LanguageManager.GetLang("EnterCharNameForPartyList")
         );
 
-        if (dialog.ShowDialog(this) != DialogResult.OK)
+        if (dialog.ShowDialog(this.FindForm()) != DialogResult.OK)
             return;
 
         listAutoParty.Items.Add(dialog.Value.ToString());
@@ -779,7 +771,7 @@ public partial class Main : DoubleBufferedControl
     /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
     private void tabMain_SelectedIndexChanged(object sender, EventArgs e)
     {
-        if (tabMain.SelectedTab == tpPartyMatching)
+        if (tabMain.SelectedPage == tpPartyMatching)
             RequestPartyList();
     }
 
@@ -974,7 +966,7 @@ public partial class Main : DoubleBufferedControl
                 continue;
 
             buffingMember.Buffs.Remove(skill.Id);
-            viewItem.Remove();
+            selectedMemberBuffs.Items.Remove(viewItem);
 
             var mainItem = listPartyBuffSkills.Items.Cast<ListViewItem>().FirstOrDefault(p => p.Tag == skill);
             if (mainItem == null)
@@ -1010,7 +1002,7 @@ public partial class Main : DoubleBufferedControl
 
         dialog.Selector.SelectedIndex = 0;
 
-        if (dialog.ShowDialog(this) == DialogResult.OK)
+        if (dialog.ShowDialog(this.FindForm()) == DialogResult.OK)
         {
             var dialogValue = dialog.Value.ToString();
 
@@ -1042,7 +1034,7 @@ public partial class Main : DoubleBufferedControl
         var desc = LanguageManager.GetLang("CreateNewGroupDesc");
 
         var dialog = new InputDialog(title, title, desc);
-        if (dialog.ShowDialog(this) == DialogResult.OK)
+        if (dialog.ShowDialog(this.FindForm()) == DialogResult.OK)
         {
             var value = dialog.Value.ToString();
             var item = listViewGroups.Items.Add(value, value, 0);
@@ -1064,7 +1056,7 @@ public partial class Main : DoubleBufferedControl
         var count = _buffings.Count(p => p.Group == group);
         if (count == 0)
         {
-            selectedItem.Remove();
+            listViewGroups.Items.Remove(selectedItem);
 
             SaveBuffingGroups();
 
@@ -1072,12 +1064,12 @@ public partial class Main : DoubleBufferedControl
         }
 
         if (
-            MessageBox.Show(this, LanguageManager.GetLang("GroupDeleteWarn", count), "Warning", MessageBoxButtons.YesNo)
+            MessageBox.Show(this.FindForm(), LanguageManager.GetLang("GroupDeleteWarn", count), "Warning", MessageBoxButtons.YesNo)
             == DialogResult.Yes
         )
         {
             if (group != "Default")
-                selectedItem.Remove();
+                listViewGroups.Items.Remove(selectedItem);
 
             var affected = _buffings.RemoveAll(p => p.Group == group) > 0;
 
@@ -1095,7 +1087,7 @@ public partial class Main : DoubleBufferedControl
             return;
 
         if (
-            MessageBox.Show(this, LanguageManager.GetLang("GroupCharDeleteWarn"), "Warning", MessageBoxButtons.YesNo)
+            MessageBox.Show(this.FindForm(), LanguageManager.GetLang("GroupCharDeleteWarn"), "Warning", MessageBoxButtons.YesNo)
             == DialogResult.Yes
         )
         {
@@ -1105,7 +1097,7 @@ public partial class Main : DoubleBufferedControl
             var affected = _buffings.RemoveAll(p => p.Name == name);
             if (affected > 0)
             {
-                selectedItem.Remove();
+                listViewPartyMembers.Items.Remove(selectedItem);
                 RefreshGroupMembers();
                 SaveBuffingPartyMembers();
                 LoadPartyBuffSkills();
@@ -1121,7 +1113,7 @@ public partial class Main : DoubleBufferedControl
             LanguageManager.GetLang("EnterCharNameForCommandList")
         );
 
-        if (diag.ShowDialog(this) != DialogResult.OK)
+        if (diag.ShowDialog(this.FindForm()) != DialogResult.OK)
             return;
 
         listCommandPlayers.Items.Add(diag.Value.ToString());

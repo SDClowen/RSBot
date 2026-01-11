@@ -163,7 +163,7 @@ public partial class Main : DoubleBufferedControl
         LureConfig.SelectedScriptPath = fileBrowser.FileName;
     }
 
-    private void linkRecord_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+    private void linkRecord_LinkClicked(object sender, EventArgs e)
     {
         if (!ScriptManager.Running)
             EventManager.FireEvent("OnShowScriptRecorder", ScriptRecorderOwnerId, true);

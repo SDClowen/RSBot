@@ -31,8 +31,8 @@
             Hp = new SDUI.Controls.ProgressBar();
             Hgp = new SDUI.Controls.ProgressBar();
             Satiety = new SDUI.Controls.ProgressBar();
-            Icon = new System.Windows.Forms.Panel();
-            Level = new System.Windows.Forms.Label();
+            Icon = new SDUI.Controls.Panel();
+            Level = new SDUI.Controls.Label();
             panel = new SDUI.Controls.Panel();
             Icon.SuspendLayout();
             panel.SuspendLayout();
@@ -172,8 +172,8 @@
         public SDUI.Controls.ProgressBar Hp;
         public SDUI.Controls.ProgressBar Satiety;
         public SDUI.Controls.ProgressBar Hgp;
-        public System.Windows.Forms.Label Level;
+        public SDUI.Controls.Label Level;
         private SDUI.Controls.Panel panel;
-        public System.Windows.Forms.Panel Icon;
+        public SDUI.Controls.Panel Icon;
     }
 }

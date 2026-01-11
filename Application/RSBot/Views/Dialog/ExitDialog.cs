@@ -5,11 +5,12 @@ using SDUI.Controls;
 
 namespace RSBot.Views;
 
-public partial class ExitDialog : UIWindowBase
+public partial class ExitDialog : UIWindow
 {
     public ExitDialog()
     {
         InitializeComponent();
+        ShowTitle = false;
     }
 
     private void checkDontAskAgain_CheckedChanged(object sender, EventArgs e)

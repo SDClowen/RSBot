@@ -28,13 +28,12 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutDialog));
-            pictureBox1 = new System.Windows.Forms.PictureBox();
+            pictureBox1 = new SDUI.Controls.PictureBox();
             buttonOk = new SDUI.Controls.Button();
-            richTextBox = new System.Windows.Forms.RichTextBox();
+            richTextBox = new SDUI.Controls.RichTextBox();
             labelName = new SDUI.Controls.Label();
             labelDescription = new SDUI.Controls.Label();
             labelVersion = new SDUI.Controls.Label();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
@@ -151,16 +150,15 @@
             ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             Text = "♣";
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private SDUI.Controls.PictureBox pictureBox1;
         private SDUI.Controls.Button buttonOk;
-        private System.Windows.Forms.RichTextBox richTextBox;
+        private SDUI.Controls.RichTextBox richTextBox;
         private SDUI.Controls.Label labelName;
         private SDUI.Controls.Label labelDescription;
         private SDUI.Controls.Label labelVersion;

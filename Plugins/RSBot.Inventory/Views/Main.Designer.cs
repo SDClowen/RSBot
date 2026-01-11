@@ -34,15 +34,15 @@
             colAmount = new System.Windows.Forms.ColumnHeader();
             colGenderRace = new System.Windows.Forms.ColumnHeader();
             contextMenuStrip = new SDUI.Controls.ContextMenuStrip();
-            useToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            dropToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            moveToPetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            moveToPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            moveToLastDeathPositionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            moveToLastRecallPositionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            selectMapLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            useItemAtTrainingPlaceMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            autoUseAccordingToPurposeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            useToolStripMenuItem = new SDUI.Controls.ToolStripMenuItem();
+            dropToolStripMenuItem = new SDUI.Controls.ToolStripMenuItem();
+            moveToPetToolStripMenuItem = new SDUI.Controls.ToolStripMenuItem();
+            moveToPlayerToolStripMenuItem = new SDUI.Controls.ToolStripMenuItem();
+            moveToLastDeathPositionToolStripMenuItem = new SDUI.Controls.ToolStripMenuItem();
+            moveToLastRecallPositionToolStripMenuItem = new SDUI.Controls.ToolStripMenuItem();
+            selectMapLocationToolStripMenuItem = new SDUI.Controls.ToolStripMenuItem();
+            useItemAtTrainingPlaceMenuItem = new SDUI.Controls.ToolStripMenuItem();
+            autoUseAccordingToPurposeToolStripMenuItem = new SDUI.Controls.ToolStripMenuItem();
             panel1 = new SDUI.Controls.Panel();
             pbInventoryStatus = new SDUI.Controls.ShapeProgressBar();
             checkAutoSort = new SDUI.Controls.CheckBox();
@@ -90,7 +90,6 @@
             listViewMain.FullRowSelect = true;
             listViewMain.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             listViewMain.Location = new System.Drawing.Point(0, 38);
-            listViewMain.MultiSelect = false;
             listViewMain.Name = "listViewMain";
             listViewMain.Size = new System.Drawing.Size(792, 375);
             listViewMain.TabIndex = 2;
@@ -115,7 +114,7 @@
             // 
             // contextMenuStrip
             // 
-            contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { useToolStripMenuItem, dropToolStripMenuItem, moveToPetToolStripMenuItem, moveToPlayerToolStripMenuItem, moveToLastDeathPositionToolStripMenuItem, moveToLastRecallPositionToolStripMenuItem, selectMapLocationToolStripMenuItem, useItemAtTrainingPlaceMenuItem, autoUseAccordingToPurposeToolStripMenuItem });
+            contextMenuStrip.Items.AddRange(new SDUI.Controls.ToolStripItem[] { useToolStripMenuItem, dropToolStripMenuItem, moveToPetToolStripMenuItem, moveToPlayerToolStripMenuItem, moveToLastDeathPositionToolStripMenuItem, moveToLastRecallPositionToolStripMenuItem, selectMapLocationToolStripMenuItem, useItemAtTrainingPlaceMenuItem, autoUseAccordingToPurposeToolStripMenuItem });
             contextMenuStrip.Name = "contextMenuStrip";
             contextMenuStrip.Size = new System.Drawing.Size(238, 202);
             contextMenuStrip.Opening += contextMenuStrip_Opening;
@@ -455,18 +454,18 @@
         private SDUI.Controls.Button buttonStorage;
         private SDUI.Controls.Button buttonJobEquipment;
         private SDUI.Controls.ContextMenuStrip contextMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem useToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem dropToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem moveToLastDeathPositionToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem moveToLastRecallPositionToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem selectMapLocationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem moveToPetToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem moveToPlayerToolStripMenuItem;
+        private SDUI.Controls.ToolStripMenuItem useToolStripMenuItem;
+        private SDUI.Controls.ToolStripMenuItem dropToolStripMenuItem;
+        private SDUI.Controls.ToolStripMenuItem moveToLastDeathPositionToolStripMenuItem;
+        private SDUI.Controls.ToolStripMenuItem moveToLastRecallPositionToolStripMenuItem;
+        private SDUI.Controls.ToolStripMenuItem selectMapLocationToolStripMenuItem;
+        private SDUI.Controls.ToolStripMenuItem moveToPetToolStripMenuItem;
+        private SDUI.Controls.ToolStripMenuItem moveToPlayerToolStripMenuItem;
         private SDUI.Controls.Button buttonFellowPet;
         private SDUI.Controls.Button btnSort;
         private SDUI.Controls.CheckBox checkAutoSort;
-        private System.Windows.Forms.ToolStripMenuItem useItemAtTrainingPlaceMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem autoUseAccordingToPurposeToolStripMenuItem;
+        private SDUI.Controls.ToolStripMenuItem useItemAtTrainingPlaceMenuItem;
+        private SDUI.Controls.ToolStripMenuItem autoUseAccordingToPurposeToolStripMenuItem;
         private SDUI.Controls.ShapeProgressBar pbInventoryStatus;
     }
 }

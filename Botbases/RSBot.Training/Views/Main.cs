@@ -169,7 +169,7 @@ public partial class Main : DoubleBufferedControl
         var avoid = new List<MonsterRarity>();
         var prefer = new List<MonsterRarity>();
         var berserk = new List<MonsterRarity>();
-        foreach (ListViewItem item in lvAvoidance.Items)
+        foreach (SDUI.Controls.ListViewItem item in lvAvoidance.Items)
             if (item.Group == lvAvoidance.Groups["grpAvoid"])
                 avoid.Add((MonsterRarity)item.Tag);
             else if (item.Group == lvAvoidance.Groups["grpPrefer"])
@@ -195,7 +195,7 @@ public partial class Main : DoubleBufferedControl
             foreach (var item in group)
             {
                 var listViewItem = lvAvoidance
-                    .Items.Cast<ListViewItem>()
+                    .Items.Cast<SDUI.Controls.ListViewItem>()
                     .FirstOrDefault(p => ((MonsterRarity)p.Tag & item) == item);
                 if (listViewItem == null)
                     continue;
@@ -330,7 +330,7 @@ public partial class Main : DoubleBufferedControl
         if (lvAvoidance.SelectedItems.Count <= 0)
             return;
 
-        foreach (ListViewItem item in lvAvoidance.SelectedItems)
+        foreach (SDUI.Controls.ListViewItem item in lvAvoidance.SelectedItems)
             item.Group = lvAvoidance.Groups["grpAvoid"];
 
         SaveAvoidance();
@@ -345,7 +345,7 @@ public partial class Main : DoubleBufferedControl
     {
         if (lvAvoidance.SelectedItems.Count <= 0)
             return;
-        foreach (ListViewItem item in lvAvoidance.SelectedItems)
+        foreach (SDUI.Controls.ListViewItem item in lvAvoidance.SelectedItems)
             item.Group = lvAvoidance.Groups["grpPrefer"];
 
         SaveAvoidance();
@@ -360,7 +360,7 @@ public partial class Main : DoubleBufferedControl
     {
         if (lvAvoidance.SelectedItems.Count <= 0)
             return;
-        foreach (ListViewItem item in lvAvoidance.SelectedItems)
+        foreach (SDUI.Controls.ListViewItem item in lvAvoidance.SelectedItems)
             item.Group = lvAvoidance.Groups["grpBerserk"];
 
         SaveAvoidance();
@@ -375,7 +375,7 @@ public partial class Main : DoubleBufferedControl
     {
         if (lvAvoidance.SelectedItems.Count <= 0)
             return;
-        foreach (ListViewItem item in lvAvoidance.SelectedItems)
+        foreach (SDUI.Controls.ListViewItem item in lvAvoidance.SelectedItems)
             item.Group = lvAvoidance.Groups["grpNone"];
 
         SaveAvoidance();
@@ -414,11 +414,11 @@ public partial class Main : DoubleBufferedControl
     private void buttonSelectTrainingArea_Click(object sender, EventArgs e)
     {
         var trainingArea = new TrainingAreasDialog();
-        if (trainingArea.ShowDialog(this) == DialogResult.OK)
+        if (trainingArea.ShowDialog(this.FindForm()) == DialogResult.OK)
             EventManager.FireEvent("OnSetTrainingArea");
     }
 
-    private void linkAttackWeakerMobsHelp_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+    private void linkAttackWeakerMobsHelp_LinkClicked(object sender, EventArgs e)
     {
         MessageBox.Show(
             "If the player is under attack by a monster that is set to be avoided the bot will counter attack weaker mobs that are currently attacking the player first before targeting the avoided monster again. The bot will only kill weaker monsters that are attacking the player and won't start to pull new mobs to the battle.",
@@ -428,7 +428,7 @@ public partial class Main : DoubleBufferedControl
         );
     }
 
-    private void linkRecord_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+    private void linkRecord_LinkClicked(object sender, EventArgs e)
     {
         EventManager.FireEvent("OnShowScriptRecorder", ScriptRecorderOwnerId, true);
     }

@@ -73,7 +73,7 @@ public class Skills
     /// </summary>
     /// <param name="name">The name.</param>
     /// <returns></returns>
-    public SkillInfo? GetSkillRecordByName(string name)
+    public SkillInfo GetSkillRecordByName(string name)
     {
         if (KnownSkills == null || name == null)
             return null;

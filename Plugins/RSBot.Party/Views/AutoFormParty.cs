@@ -7,11 +7,12 @@ using SDUI.Controls;
 
 namespace RSBot.Party.Views;
 
-public partial class AutoFormParty : UIWindowBase
+public partial class AutoFormParty : UIWindow
 {
     public AutoFormParty()
     {
         InitializeComponent();
+        ShowTitle = false;
     }
 
     private void AutoFormParty_Load(object sender, EventArgs e)

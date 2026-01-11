@@ -40,7 +40,7 @@
             btnBrowse = new SDUI.Controls.Button();
             radioUseScript = new SDUI.Controls.Radio();
             radioWalkRandomly = new SDUI.Controls.Radio();
-            linkRecord = new System.Windows.Forms.LinkLabel();
+            linkRecord = new SDUI.Controls.Button();
             txtScriptPath = new SDUI.Controls.TextBox();
             panel1 = new SDUI.Controls.Panel();
             btnSetCenter = new SDUI.Controls.Button();
@@ -268,7 +268,7 @@
             linkRecord.TabIndex = 5;
             linkRecord.TabStop = true;
             linkRecord.Text = "[Record]";
-            linkRecord.LinkClicked += linkRecord_LinkClicked;
+            linkRecord.Click += linkRecord_LinkClicked;
             // 
             // txtScriptPath
             // 
@@ -745,7 +745,7 @@
         private SDUI.Controls.TextBox txtScriptPath;
         private SDUI.Controls.Radio radioUseScript;
         private SDUI.Controls.Radio radioWalkRandomly;
-        private System.Windows.Forms.LinkLabel linkRecord;
+        private SDUI.Controls.Button linkRecord;
         private SDUI.Controls.Label label6;
         private SDUI.Controls.ComboBox comboMonsterType;
         private SDUI.Controls.NumUpDown numMonsterType;

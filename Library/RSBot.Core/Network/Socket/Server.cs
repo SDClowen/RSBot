@@ -144,16 +144,6 @@ public class Server : NetBase
     }
 
     /// <summary>
-    ///     Sends the specified packet.
-    /// </summary>
-    /// <param name="packet">The packet.</param>
-    public void Send(Packet packet)
-    {
-        OnPacketSent(packet);
-        _protocol.Send(packet);
-    }
-
-    /// <summary>
     ///     Disconnects this instance.
     /// </summary>
     public void Disconnect()

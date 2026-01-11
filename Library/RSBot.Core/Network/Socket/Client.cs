@@ -146,7 +146,7 @@ public class Client() : NetBase(isClient: true)
                 Listen();
             }
         }
-        catch (HandshakeSecurityException ex)
+        catch (HandshakeSecurityException)
         {
             Log.Error("[Fatal]: Could not handshake the client, restarting client process now...");
 

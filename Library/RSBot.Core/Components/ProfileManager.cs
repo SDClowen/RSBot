@@ -72,7 +72,7 @@ public class ProfileManager
     /// <summary>
     ///     Called after Profiles are changed
     /// </summary>
-    private static void Profiles_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    private static void Profiles_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
     {
         _config.SetArray("RSBot.Profiles", _profiles, "|");
         _config.Save();

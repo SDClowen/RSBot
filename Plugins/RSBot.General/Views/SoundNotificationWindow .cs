@@ -5,7 +5,7 @@ using SDUI.Controls;
 
 namespace RSBot.General.Views;
 
-public partial class SoundNotificationWindow : UIWindowBase
+public partial class SoundNotificationWindow : UIWindow
 {
     /// <summary>
     ///     Initializes a new instance of the <see cref="SoundNotificationWindow " /> class.
@@ -13,6 +13,7 @@ public partial class SoundNotificationWindow : UIWindowBase
     public SoundNotificationWindow()
     {
         InitializeComponent();
+        ShowTitle = false;
         Text = "Notification Sounds";
     }
 

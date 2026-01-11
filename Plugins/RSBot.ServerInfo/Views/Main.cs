@@ -25,7 +25,7 @@ public partial class Main : DoubleBufferedControl
 
         foreach (var server in Serverlist.Servers)
         {
-            var toInsert = new ListViewItem(new[] { server.Name, server.State });
+            var toInsert = new SDUI.Controls.ListViewItem(new[] { server.Name, server.State });
             lvServerInfo.Items.Add(toInsert);
         }
     }

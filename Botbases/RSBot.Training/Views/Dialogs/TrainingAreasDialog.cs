@@ -7,7 +7,7 @@ using SDUI.Controls;
 
 namespace RSBot.Training.Views.Dialogs;
 
-public partial class TrainingAreasDialog : UIWindowBase
+public partial class TrainingAreasDialog : UIWindow
 {
     private const string DIALOG_AREA_NAME = "Enter area name";
     private const string DIALOG_AREA_DESC = "Example: For my custom party at jangan";
@@ -15,6 +15,7 @@ public partial class TrainingAreasDialog : UIWindowBase
     public TrainingAreasDialog()
     {
         InitializeComponent();
+        ShowTitle = false;
     }
 
     private void buttonAccept_Click(object sender, EventArgs e)
@@ -46,7 +47,6 @@ public partial class TrainingAreasDialog : UIWindowBase
     {
         var selectedIndex = PlayerConfig.Get("RSBot.Training.Index", 0);
 
-        listView.BeginUpdate();
         listView.Items.Clear();
 
         var areas = PlayerConfig.GetArray<string>("RSBot.Training.Areas");
@@ -61,7 +61,7 @@ public partial class TrainingAreasDialog : UIWindowBase
 
             var regionName = Game.ReferenceManager.GetTranslation(trainingArea.Position.Region.ToString());
 
-            var listViewItem = listView.Items.Add(new ListViewItem { Tag = trainingArea });
+            var listViewItem = listView.Items.Add(new SDUI.Controls.ListViewItem { Tag = trainingArea });
             listViewItem.Text = (listViewItem.Index + 1).ToString();
 
             listViewItem.SubItems.AddRange(
@@ -77,10 +77,8 @@ public partial class TrainingAreasDialog : UIWindowBase
             );
 
             if (listViewItem.Index == selectedIndex)
-                listView.SetItemState(listViewItem.Index, 2, 2);
+                listViewItem.Selected = true;
         }
-
-        listView.EndUpdate();
     }
 
     private void TrainingAreas_FormClosing(object sender, FormClosingEventArgs e)
@@ -106,7 +104,7 @@ public partial class TrainingAreasDialog : UIWindowBase
 
             var regionName = Game.ReferenceManager.GetTranslation(trainingArea.Position.Region.ToString());
 
-            var listViewItem = listView.Items.Add(new ListViewItem { Tag = trainingArea });
+            var listViewItem = listView.Items.Add(new SDUI.Controls.ListViewItem { Tag = trainingArea });
             listViewItem.Text = (listViewItem.Index + 1).ToString();
             listViewItem.SubItems.AddRange(
                 new[]

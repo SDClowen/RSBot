@@ -31,12 +31,12 @@
             checkEnable = new SDUI.Controls.CheckBox();
             btnResetToDefaults = new SDUI.Controls.Button();
             tabControl1 = new SDUI.Controls.TabControl();
-            tabPage1 = new System.Windows.Forms.TabPage();
+            tabPage1 = new SDUI.Controls.TabPage();
             panelActions = new SDUI.Controls.Panel();
-            tabPage2 = new System.Windows.Forms.TabPage();
-            lblChatCommandDescriptions = new System.Windows.Forms.TextBox();
+            tabPage2 = new SDUI.Controls.TabPage();
+            lblChatCommandDescriptions = new SDUI.Controls.TextBox();
             label1 = new SDUI.Controls.Label();
-            tabPage3 = new System.Windows.Forms.TabPage();
+            tabPage3 = new SDUI.Controls.TabPage();
             label2 = new SDUI.Controls.Label();
             btnSave = new SDUI.Controls.Button();
             tabControl1.SuspendLayout();
@@ -79,7 +79,6 @@
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Controls.Add(tabPage3);
-            tabControl1.ItemSize = new System.Drawing.Size(80, 24);
             tabControl1.Location = new System.Drawing.Point(8, 4);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -128,7 +127,7 @@
             // 
             lblChatCommandDescriptions.BorderStyle = System.Windows.Forms.BorderStyle.None;
             lblChatCommandDescriptions.Location = new System.Drawing.Point(21, 47);
-            lblChatCommandDescriptions.Multiline = true;
+            lblChatCommandDescriptions.MultiLine = true;
             lblChatCommandDescriptions.Name = "lblChatCommandDescriptions";
             lblChatCommandDescriptions.ReadOnly = true;
             lblChatCommandDescriptions.Size = new System.Drawing.Size(335, 277);
@@ -209,12 +208,12 @@
         private SDUI.Controls.CheckBox checkEnable;
         private SDUI.Controls.Button btnResetToDefaults;
         private SDUI.Controls.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
+        private SDUI.Controls.TabPage tabPage1;
         private SDUI.Controls.Panel panelActions;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage3;
+        private SDUI.Controls.TabPage tabPage2;
+        private SDUI.Controls.TabPage tabPage3;
         private SDUI.Controls.Label label1;
-        private System.Windows.Forms.TextBox lblChatCommandDescriptions;
+        private SDUI.Controls.TextBox lblChatCommandDescriptions;
         private SDUI.Controls.Label label2;
         private SDUI.Controls.Button btnSave;
     }

@@ -28,7 +28,6 @@ internal partial class EmoticonActionElement : DoubleBufferedControl
 
     private void PopulateActions()
     {
-        comboAction.BeginUpdate();
         comboAction.Items.Clear();
 
         foreach (var command in CommandManager.GetCommandDescriptions())
@@ -38,8 +37,6 @@ internal partial class EmoticonActionElement : DoubleBufferedControl
             if (SelectedActionName == command.Key)
                 comboAction.SelectedIndex = index;
         }
-
-        comboAction.EndUpdate();
     }
 
     private void comboAction_SelectedIndexChanged(object sender, EventArgs e)

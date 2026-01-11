@@ -29,32 +29,32 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Avoid", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Prefer", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Berserk", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("No custom behavior", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("General");
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Champion");
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("Giant");
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("General (party)");
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("Champion (party)");
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("Giant (party)");
-            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("Unique");
-            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("Strong");
-            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem("Elite");
-            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem("Event");
+            SDUI.Controls.ListViewGroup listViewGroup1 = new SDUI.Controls.ListViewGroup("Avoid", System.Windows.Forms.HorizontalAlignment.Left);
+            SDUI.Controls.ListViewGroup listViewGroup2 = new SDUI.Controls.ListViewGroup("Prefer", System.Windows.Forms.HorizontalAlignment.Left);
+            SDUI.Controls.ListViewGroup listViewGroup3 = new SDUI.Controls.ListViewGroup("Berserk", System.Windows.Forms.HorizontalAlignment.Left);
+            SDUI.Controls.ListViewGroup listViewGroup4 = new SDUI.Controls.ListViewGroup("No custom behavior", System.Windows.Forms.HorizontalAlignment.Left);
+            SDUI.Controls.ListViewItem listViewItem1 = new SDUI.Controls.ListViewItem("General");
+            SDUI.Controls.ListViewItem listViewItem2 = new SDUI.Controls.ListViewItem("Champion");
+            SDUI.Controls.ListViewItem listViewItem3 = new SDUI.Controls.ListViewItem("Giant");
+            SDUI.Controls.ListViewItem listViewItem4 = new SDUI.Controls.ListViewItem("General (party)");
+            SDUI.Controls.ListViewItem listViewItem5 = new SDUI.Controls.ListViewItem("Champion (party)");
+            SDUI.Controls.ListViewItem listViewItem6 = new SDUI.Controls.ListViewItem("Giant (party)");
+            SDUI.Controls.ListViewItem listViewItem7 = new SDUI.Controls.ListViewItem("Unique");
+            SDUI.Controls.ListViewItem listViewItem8 = new SDUI.Controls.ListViewItem("Strong");
+            SDUI.Controls.ListViewItem listViewItem9 = new SDUI.Controls.ListViewItem("Elite");
+            SDUI.Controls.ListViewItem listViewItem10 = new SDUI.Controls.ListViewItem("Event");
             groupBox2 = new SDUI.Controls.GroupBox();
             lvAvoidance = new SDUI.Controls.ListView();
             columnHeader1 = new System.Windows.Forms.ColumnHeader();
             ctxAvoidance = new SDUI.Controls.ContextMenuStrip();
-            btnAvoid = new System.Windows.Forms.ToolStripMenuItem();
-            btnPrefer = new System.Windows.Forms.ToolStripMenuItem();
-            btnBerserk = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            btnNoCustomBehavior = new System.Windows.Forms.ToolStripMenuItem();
+            btnAvoid = new SDUI.Controls.ToolStripMenuItem();
+            btnPrefer = new SDUI.Controls.ToolStripMenuItem();
+            btnBerserk = new SDUI.Controls.ToolStripMenuItem();
+            toolStripSeparator1 = new SDUI.Controls.ToolStripSeparator();
+            btnNoCustomBehavior = new SDUI.Controls.ToolStripMenuItem();
             groupBoxWalkback = new SDUI.Controls.GroupBox();
             btnRemove = new SDUI.Controls.Button();
-            linkRecord = new System.Windows.Forms.LinkLabel();
+            linkRecord = new SDUI.Controls.Button();
             checkBoxUseReverse = new SDUI.Controls.CheckBox();
             checkUseSpeedDrug = new SDUI.Controls.CheckBox();
             checkCastBuffs = new SDUI.Controls.CheckBox();
@@ -87,11 +87,11 @@
             txtXCoord = new SDUI.Controls.TextBox();
             groupBoxAdvanced = new SDUI.Controls.GroupBox();
             checkBoxDontFollowMobs = new SDUI.Controls.CheckBox();
-            linkAttackWeakerMobsHelp = new System.Windows.Forms.LinkLabel();
+            linkAttackWeakerMobsHelp = new SDUI.Controls.Button();
             checkAttackWeakerFirst = new SDUI.Controls.CheckBox();
             checkBoxDimensionPillar = new SDUI.Controls.CheckBox();
             timerGrabByAbilityPet = new System.Windows.Forms.Timer(components);
-            toolTip1 = new System.Windows.Forms.ToolTip(components);
+            toolTip1 = new SDUI.Controls.ToolTip(components);
             groupBox2.SuspendLayout();
             ctxAvoidance.SuspendLayout();
             groupBoxWalkback.SuspendLayout();
@@ -116,7 +116,6 @@
             // 
             // lvAvoidance
             // 
-            lvAvoidance.Alignment = System.Windows.Forms.ListViewAlignment.Default;
             lvAvoidance.BackColor = System.Drawing.Color.White;
             lvAvoidance.BorderStyle = System.Windows.Forms.BorderStyle.None;
             lvAvoidance.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader1 });
@@ -132,7 +131,7 @@
             listViewGroup3.Name = "grpBerserk";
             listViewGroup4.Header = "No custom behavior";
             listViewGroup4.Name = "grpNone";
-            lvAvoidance.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] { listViewGroup1, listViewGroup2, listViewGroup3, listViewGroup4 });
+            lvAvoidance.Groups.AddRange(new SDUI.Controls.ListViewGroup[] { listViewGroup1, listViewGroup2, listViewGroup3, listViewGroup4 });
             lvAvoidance.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             listViewItem1.Group = listViewGroup4;
             listViewItem2.Group = listViewGroup4;
@@ -145,12 +144,11 @@
             listViewItem9.Group = listViewGroup4;
             listViewItem10.Group = listViewGroup4;
             listViewItem10.ToolTipText = "Event Mobs";
-            lvAvoidance.Items.AddRange(new System.Windows.Forms.ListViewItem[] { listViewItem1, listViewItem2, listViewItem3, listViewItem4, listViewItem5, listViewItem6, listViewItem7, listViewItem8, listViewItem9, listViewItem10 });
+            lvAvoidance.Items.AddRange(new SDUI.Controls.ListViewItem[] { listViewItem1, listViewItem2, listViewItem3, listViewItem4, listViewItem5, listViewItem6, listViewItem7, listViewItem8, listViewItem9, listViewItem10 });
             lvAvoidance.Location = new System.Drawing.Point(2, 23);
             lvAvoidance.Name = "lvAvoidance";
             lvAvoidance.Size = new System.Drawing.Size(217, 188);
             lvAvoidance.TabIndex = 5;
-            lvAvoidance.TileSize = new System.Drawing.Size(168, 16);
             lvAvoidance.UseCompatibleStateImageBehavior = false;
             lvAvoidance.View = System.Windows.Forms.View.Details;
             // 
@@ -161,7 +159,7 @@
             // ctxAvoidance
             // 
             ctxAvoidance.ImageScalingSize = new System.Drawing.Size(20, 20);
-            ctxAvoidance.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { btnAvoid, btnPrefer, btnBerserk, toolStripSeparator1, btnNoCustomBehavior });
+            ctxAvoidance.Items.AddRange(new SDUI.Controls.MenuItem[] { btnAvoid, btnPrefer, btnBerserk, toolStripSeparator1, btnNoCustomBehavior });
             ctxAvoidance.Name = "ctxAvoidance";
             ctxAvoidance.Size = new System.Drawing.Size(183, 98);
             // 
@@ -243,7 +241,7 @@
             linkRecord.TabIndex = 7;
             linkRecord.TabStop = true;
             linkRecord.Text = "[Record]";
-            linkRecord.LinkClicked += linkRecord_LinkClicked;
+            linkRecord.Click += linkRecord_LinkClicked;
             // 
             // checkBoxUseReverse
             // 
@@ -769,7 +767,7 @@
             linkAttackWeakerMobsHelp.TabIndex = 7;
             linkAttackWeakerMobsHelp.TabStop = true;
             linkAttackWeakerMobsHelp.Text = "?";
-            linkAttackWeakerMobsHelp.LinkClicked += linkAttackWeakerMobsHelp_LinkClicked;
+            linkAttackWeakerMobsHelp.Click += linkAttackWeakerMobsHelp_LinkClicked;
             // 
             // checkAttackWeakerFirst
             // 
@@ -848,11 +846,11 @@
         private SDUI.Controls.CheckBox checkBerserkOnMonsterRarity;
         private SDUI.Controls.ListView lvAvoidance;
         private SDUI.Controls.ContextMenuStrip ctxAvoidance;
-        private System.Windows.Forms.ToolStripMenuItem btnAvoid;
-        private System.Windows.Forms.ToolStripMenuItem btnPrefer;
-        private System.Windows.Forms.ToolStripMenuItem btnBerserk;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem btnNoCustomBehavior;
+        private SDUI.Controls.ToolStripMenuItem btnAvoid;
+        private SDUI.Controls.ToolStripMenuItem btnPrefer;
+        private SDUI.Controls.ToolStripMenuItem btnBerserk;
+        private SDUI.Controls.ToolStripSeparator toolStripSeparator1;
+        private SDUI.Controls.ToolStripMenuItem btnNoCustomBehavior;
         private SDUI.Controls.GroupBox groupBoxBerserk;
         private SDUI.Controls.NumUpDown numBerzerkMonsterAmount;
         private SDUI.Controls.CheckBox checkBerzerkAvoidance;
@@ -877,13 +875,13 @@
         private SDUI.Controls.GroupBox groupBoxAdvanced;
         private SDUI.Controls.CheckBox checkBoxDimensionPillar;
         private SDUI.Controls.CheckBox checkAttackWeakerFirst;
-        private System.Windows.Forms.LinkLabel linkAttackWeakerMobsHelp;
-        private System.Windows.Forms.LinkLabel linkRecord;
+        private SDUI.Controls.Button linkAttackWeakerMobsHelp;
+        private SDUI.Controls.Button linkRecord;
         private System.Windows.Forms.Timer timerGrabByAbilityPet;
         private SDUI.Controls.Label label8;
         private SDUI.Controls.TextBox txtRegion;
         private SDUI.Controls.Button btnApplyArea;
-        private System.Windows.Forms.ToolTip toolTip1;
+        private SDUI.Controls.ToolTip toolTip1;
         private SDUI.Controls.CheckBox checkBoxDontFollowMobs;
         private SDUI.Controls.Button btnRemove;
     }

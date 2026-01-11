@@ -72,7 +72,7 @@ public class Game
     /// <value>
     ///     The selected entity.
     /// </value>
-    public static SpawnedBionic? SelectedEntity { get; set; }
+    public static SpawnedBionic SelectedEntity { get; set; }
 
     /// <summary>
     ///     Gets or sets the spawn information.

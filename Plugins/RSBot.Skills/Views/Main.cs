@@ -13,7 +13,11 @@ using RSBot.Core.Objects.Skill;
 using RSBot.Skills.Components;
 using SDUI.Controls;
 using CheckBox = SDUI.Controls.CheckBox;
+using ListView = SDUI.Controls.ListView;
+using ListViewItem = SDUI.Controls.ListViewItem;
+using ListViewGroup = SDUI.Controls.ListViewGroup;
 using ListViewExtensions = RSBot.Core.Extensions.ListViewExtensions;
+using SDUI;
 
 namespace RSBot.Skills.Views;
 
@@ -73,7 +77,7 @@ public partial class Main : DoubleBufferedControl
             if (listItem?.Tag is not ItemPerk perkInfo || perkInfo.Token != removedPerk.Token)
                 continue;
 
-            listItem.Remove();
+            listActiveBuffs.Items.Remove(listItem);
             return;
         }
     }
@@ -289,7 +293,6 @@ public partial class Main : DoubleBufferedControl
     private void LoadMasteries()
     {
         var selectedMastery = PlayerConfig.Get<string>("RSBot.Skills.selectedMastery");
-        comboLearnMastery.BeginUpdate();
         comboLearnMastery.Items.Clear();
 
         foreach (var mastery in Game.Player.Skills.Masteries)
@@ -298,10 +301,6 @@ public partial class Main : DoubleBufferedControl
         foreach (MasteryComboBoxItem item in comboLearnMastery.Items)
             if (item.Record.NameCode == selectedMastery)
                 comboLearnMastery.SelectedItem = item;
-
-        comboLearnMastery.EndUpdate();
-
-        comboLearnMastery.Update();
     }
 
     /// <summary>
@@ -309,7 +308,6 @@ public partial class Main : DoubleBufferedControl
     /// </summary>
     private void LoadTeleportSkills()
     {
-        comboTeleportSkill.BeginUpdate();
         comboTeleportSkill.Items.Clear();
 
         var selectedTeleportSkill = PlayerConfig.Get<uint>("RSBot.Skills.TeleportSkill");
@@ -329,8 +327,6 @@ public partial class Main : DoubleBufferedControl
                 SkillManager.TeleportSkill = skill;
             }
         }
-
-        comboLearnMastery.EndUpdate();
     }
 
     /// <summary>
@@ -341,7 +337,6 @@ public partial class Main : DoubleBufferedControl
     {
         lock (_lock)
         {
-            listAttackingSkills.BeginUpdate();
             listAttackingSkills.Items.Clear();
 
             var skillArray = PlayerConfig.GetArray<uint>("RSBot.Skills.Attacks_" + index);
@@ -356,8 +351,6 @@ public partial class Main : DoubleBufferedControl
                 listAttackingSkills.Items.Add(item);
                 item.LoadSkillImageAsync();
             }
-
-            listAttackingSkills.EndUpdate();
         }
     }
 
@@ -368,7 +361,6 @@ public partial class Main : DoubleBufferedControl
     {
         lock (_lock)
         {
-            listBuffs.BeginUpdate();
             listBuffs.Items.Clear();
 
             Game.Player.TryGetAbilitySkills(out var abilitySkills);
@@ -390,8 +382,6 @@ public partial class Main : DoubleBufferedControl
                 listBuffs.Items.Add(item);
                 item.LoadSkillImageAsync();
             }
-
-            listBuffs.EndUpdate();
         }
     }
 
@@ -475,7 +465,6 @@ public partial class Main : DoubleBufferedControl
             LoadMasteries();
             LoadAttacks(comboMonsterType.SelectedIndex);
 
-            listSkills.BeginUpdate();
             listSkills.Items.Clear();
             listSkills.Groups.Clear();
 
@@ -542,8 +531,6 @@ public partial class Main : DoubleBufferedControl
 
                 item.LoadSkillImage();
             }
-
-            listSkills.EndUpdate();
         }
     }
 
@@ -610,7 +597,7 @@ public partial class Main : DoubleBufferedControl
                     && itemBuffInfo.Token == removingBuff.Token
                 )
                 {
-                    listItem?.Remove();
+                    listActiveBuffs.Items.Remove(listItem);
                     return;
                 }
             }
@@ -814,8 +801,8 @@ public partial class Main : DoubleBufferedControl
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void btnRemoveAttackSkill_Click(object sender, EventArgs e)
     {
-        foreach (ListViewItem item in listAttackingSkills.SelectedItems)
-            item.Remove();
+        for (int i = 0; i < listAttackingSkills.SelectedIndices.Count; i++)
+            listAttackingSkills.Items.RemoveAt(listAttackingSkills.SelectedIndices[i]);
 
         SaveAttacks();
     }
@@ -827,8 +814,8 @@ public partial class Main : DoubleBufferedControl
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void btnRemoveBuffSkill_Click(object sender, EventArgs e)
     {
-        foreach (ListViewItem item in listBuffs.SelectedItems)
-            item.Remove();
+        for (int i = 0; i < listBuffs.SelectedIndices.Count; i++)
+            listBuffs.Items.RemoveAt(listBuffs.SelectedIndices[i]);
 
         SaveBuffs();
     }
@@ -1002,35 +989,34 @@ public partial class Main : DoubleBufferedControl
             if (member == null)
                 return;
 
-            useToPartyMemberToolStripMenuItem.DropDown.Items.Add(
-                member.Name,
-                null,
-                (menuItemSender, _2) =>
+            var dropdownItem = new MenuItem(member.Name);
+            dropdownItem.Click += (menuItemSender, _2) =>
+            {
+                try
                 {
-                    try
-                    {
-                        if (listSkills.SelectedItems.Count <= 0)
-                            return;
+                    if (listSkills.SelectedItems.Count <= 0)
+                        return;
 
-                        if (listSkills.SelectedItems[0].Tag is not SkillInfo skillInfo)
-                            return;
+                    if (listSkills.SelectedItems[0].Tag is not SkillInfo skillInfo)
+                        return;
 
-                        if (skillInfo.IsAttack)
-                            return;
+                    if (skillInfo.IsAttack)
+                        return;
 
-                        var menuItem = menuItemSender as ToolStripMenuItem;
-                        if (menuItem == null)
-                            return;
+                    var menuItem = menuItemSender as MenuItem;
+                    if (menuItem == null)
+                        return;
 
-                        var member = Game.Party.GetMemberByName(menuItem.Text);
-                        if (member == null)
-                            return;
+                    var member = Game.Party.GetMemberByName(menuItem.Text);
+                    if (member == null)
+                        return;
 
-                        skillInfo.Cast(member.Player.UniqueId, true);
-                    }
-                    catch { }
+                    skillInfo.Cast(member.Player.UniqueId, true);
                 }
-            );
+                catch { }
+            };
+
+            useToPartyMemberToolStripMenuItem.DropDownItems.Add(dropdownItem);
         }
     }
 
