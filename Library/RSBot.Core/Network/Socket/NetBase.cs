@@ -1,6 +1,6 @@
-﻿using RSBot.Core.Network.Protocol;
+﻿using Avalonia.Threading;
+using RSBot.Core.Network.Protocol;
 using System;
-using System.Collections.Concurrent;
 using System.Net.Sockets;
 using System.Threading;
 
@@ -89,12 +89,12 @@ public class NetBase(bool isClient = false)
 
     public virtual void OnConnected()
     {
-        Connected?.Invoke();
+        Dispatcher.UIThread.Invoke(() => Connected?.Invoke());
     }
 
     public virtual void OnDisconnected()
     {
-        Disconnected?.Invoke();
+        Dispatcher.UIThread.Invoke(() => Disconnected?.Invoke()); 
     }
 
     public virtual void OnPacketReceived(Packet packet)
@@ -170,7 +170,7 @@ public class NetBase(bool isClient = false)
 
                     try
                     {
-                        OnPacketReceived(packet);
+                        Dispatcher.UIThread.Invoke(() => OnPacketReceived(packet));
                     }
                     catch (Exception)
                     {

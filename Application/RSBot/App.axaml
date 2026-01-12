@@ -10,7 +10,7 @@
 		<Style Selector=":is(TopLevel)">
 			
 			<Setter Property="FontSize" Value="13.333333" />
-			<Setter Property="FontWeight" Value="300"/>
+			<Setter Property="FontWeight" Value="400"/>
 		</Style>
     </Application.Styles>
 </Application>

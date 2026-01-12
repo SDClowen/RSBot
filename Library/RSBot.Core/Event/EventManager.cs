@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Avalonia.Threading;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -49,9 +50,9 @@ public class EventManager
 
             foreach (var target in targets)
                 if (Thread.CurrentThread.Name == "Network.PacketProcessor")
-                    Task.Run(() => target.DynamicInvoke(parameters));
+                    Dispatcher.UIThread.InvokeAsync(() => { target.DynamicInvoke(parameters); });
                 else
-                    target.DynamicInvoke(parameters);
+                    Dispatcher.UIThread.Invoke(() => { target.DynamicInvoke(parameters);  });
         }
         catch (Exception e)
         {
