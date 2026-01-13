@@ -106,7 +106,7 @@ internal class ChatResponse : IPacketHandler
                     string rightPadding = hasSpaceAfter ? "" : " ";
 
                     string displayName = data.amount > 1
-                        ? $"{data.itemName} > [{data.amount}]"
+                        ? $"{data.itemName} [{data.amount}]"
                         : data.itemName;
 
                     return $"{leftPadding}< {displayName} >{rightPadding}";
