@@ -87,10 +87,9 @@ internal class ChatResponse : IPacketHandler
 
     public static string ReadChatWithLinkedItems(string message)
     {
-        string pattern = "\u0002(.*?)\u0003";
-        HashSet<uint> idsToRemove = new HashSet<uint>();
+        const string pattern = "\u0002(.*?)\u0003";
 
-        string result = Regex.Replace(message, pattern, match =>
+        return Regex.Replace(message, pattern, match =>
         {
             string rawValue = match.Groups[1].Value;
 
@@ -98,21 +97,22 @@ internal class ChatResponse : IPacketHandler
             {
                 if (Bundle.Chat.LinkedItems.TryGetValue(uid, out var data) && data.itemName != null)
                 {
-                    idsToRemove.Add(uid);
+                    bool hasSpaceBefore = match.Index > 0 && char.IsWhiteSpace(message[match.Index - 1]);
 
-                    return data.amount > 1
-                        ? $" < {data.itemName} > [{data.amount}] "
-                        : $" < {data.itemName} > ";
+                    int endOfMatch = match.Index + match.Length;
+                    bool hasSpaceAfter = endOfMatch < message.Length && char.IsWhiteSpace(message[endOfMatch]);
+
+                    string leftPadding = hasSpaceBefore ? "" : " ";
+                    string rightPadding = hasSpaceAfter ? "" : " ";
+
+                    string displayName = data.amount > 1
+                        ? $"{data.itemName} > [{data.amount}]"
+                        : data.itemName;
+
+                    return $"{leftPadding}< {displayName} >{rightPadding}";
                 }
             }
             return match.Value;
         });
-
-        foreach (uint id in idsToRemove)
-        {
-            Bundle.Chat.LinkedItems.Remove(id);
-        }
-
-        return result;
     }
 }

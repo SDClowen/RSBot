@@ -1,6 +1,7 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Network;
+using System.Collections.Generic;
 
 namespace RSBot.Chat.Bundle.Network
 {
@@ -9,6 +10,10 @@ namespace RSBot.Chat.Bundle.Network
         public ushort Opcode => 0xB504;
 
         public PacketDestination Destination => PacketDestination.Client;
+
+        private const int MaxCacheSize = 100;
+
+        private static readonly Queue<uint> _itemHistory = new();
 
         public void Invoke(Packet packet)
         {
@@ -26,9 +31,12 @@ namespace RSBot.Chat.Bundle.Network
                 }
                 uint ID = packet.ReadUInt(); //item ID
                 RefObjItem item = Game.ReferenceManager.GetRefItem(ID);
+                if (item == null)
+                {
+                    Log.Debug($"[LinkedItemResponseHandler] Unknown item ID: {ID}");
+                }
                 ushort amount = 1;
                 string itemName;
-                //add here IFs for pet types
                 if (item.IsGrowthPet)
                 {
                     packet.ReadUInt(); //???
@@ -38,7 +46,8 @@ namespace RSBot.Chat.Bundle.Network
                     packet.ReadByte(); //???
 
                     itemName = item.GetRealName() ?? ID.ToString();
-                    Chat.LinkedItems[UID] = (itemName, amount);
+
+                    AddToCache(UID, itemName, amount);
                     continue;
                 }
                 if (item.IsGrabPet)
@@ -50,7 +59,7 @@ namespace RSBot.Chat.Bundle.Network
                     packet.ReadByte(); //???
 
                     itemName = item.GetRealName() ?? ID.ToString();
-                    Chat.LinkedItems[UID] = (itemName, amount);
+                    AddToCache(UID, itemName, amount);
                     continue;
                 }
                 if (item.IsFellowPet)
@@ -68,7 +77,7 @@ namespace RSBot.Chat.Bundle.Network
                     }
 
                     itemName = item.GetRealName() ?? ID.ToString();
-                    Chat.LinkedItems[UID] = (itemName, amount);
+                    AddToCache(UID, itemName, amount);
                     continue;
                 }
                 if (item.IsStackable)
@@ -125,8 +134,24 @@ namespace RSBot.Chat.Bundle.Network
                     }
                 }
                 itemName = item.GetRealName() ?? ID.ToString();
-                Chat.LinkedItems[UID] = (itemName, amount);
+                AddToCache(UID, itemName, amount);
             }
+        }
+
+        private void AddToCache(uint uid, string name, ushort amount)
+        {
+            if (!Chat.LinkedItems.ContainsKey(uid))
+            {
+                _itemHistory.Enqueue(uid);
+
+                if (_itemHistory.Count > MaxCacheSize)
+                {
+                    uint oldId = _itemHistory.Dequeue();
+                    Chat.LinkedItems.Remove(oldId);
+                }
+            }
+
+            Chat.LinkedItems[uid] = (name, amount);
         }
     }
 }
