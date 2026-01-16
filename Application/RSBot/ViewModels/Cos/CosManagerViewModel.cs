@@ -140,10 +140,34 @@ public class CosManagerViewModel : ReactiveObject
     {
         var control = new T();
         control.Initialize();
+        var miniControlViewModel = new MiniCosControlViewModel();
+
+        switch (control)
+        {
+            case Growth:
+                control.DataContext = new GrowthViewModel(miniControlViewModel);
+                break;
+
+            case Ability:
+                control.DataContext = new AbilityViewModel(miniControlViewModel);
+                break;
+
+            case Fellow:
+                control.DataContext = new FellowViewModel(miniControlViewModel);
+                break;
+
+            case Transport:
+                control.DataContext = new TransportViewModel(miniControlViewModel);
+                break;
+
+            case JobTransport:
+                control.DataContext = new JobTransportViewModel(miniControlViewModel);
+                break;
+        }
+
         Controls.Add(control);
 
         var miniControl = control.MiniCosControl;
-        var miniControlViewModel = new MiniCosControlViewModel();
         miniControl.DataContext = miniControlViewModel;
         miniControl.PointerPressed += (s, e) => SelectControl(Controls.IndexOf(control));
         MiniControls.Add(miniControl);

@@ -1,9 +1,6 @@
-using Avalonia.Media;
 using ReactiveUI;
 using RSBot.Core;
-using RSBot.Core.Components;
 using RSBot.Core.Event;
-using System;
 
 namespace RSBot.ViewModels.Cos;
 

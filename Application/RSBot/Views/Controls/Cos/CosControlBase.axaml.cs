@@ -8,7 +8,7 @@ namespace RSBot.Views.Controls.Cos;
 /// </summary>
 public partial class CosControlBase : UserControl
 {
-    private MiniCosControl _miniCosControl;
+    private MiniCosControl? _miniCosControl;
 
     /// <summary>
     /// Gets the mini COS control associated with this control
@@ -21,13 +21,12 @@ public partial class CosControlBase : UserControl
     public CosControlBase()
     {
         InitializeComponent();
-        DataContext = new CosControlBaseViewModel(new MiniCosControlViewModel());
     }
 
     /// <summary>
     /// Initializes the control and its associated view model
     /// </summary>
-    public virtual void Initialize()
+    public void Initialize()
     {
         if (DataContext is CosControlBaseViewModel viewModel)
             viewModel.Initialize();
@@ -36,9 +35,9 @@ public partial class CosControlBase : UserControl
     /// <summary>
     /// Resets the control and its associated view model to their default states
     /// </summary>
-    public virtual void Reset()
+    public void Reset()
     {
         if (DataContext is CosControlBaseViewModel viewModel)
             viewModel.Reset();
     }
-} 
+}

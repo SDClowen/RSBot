@@ -1,6 +1,4 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Input;
 using RSBot.ViewModels.Cos;
 
 namespace RSBot.Views.Controls.Cos;

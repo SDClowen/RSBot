@@ -84,7 +84,7 @@ public partial class Main : UserControl
     /// <summary>
     ///     Called when main window loaded.
     /// </summary>
-    private void OnInitialized()
+    protected override void OnInitialized()
     {
         foreach (var item in Enum.GetNames(typeof(GameClientType)))
             comboBoxClientType.Items.Add(item);
@@ -456,6 +456,9 @@ public partial class Main : UserControl
     /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
     private void comboAccounts_SelectedIndexChanged(object sender, RoutedEventArgs e)
     {
+        if (comboAccounts.Items.Count == 0)
+            return;
+
         var selectedAccount = comboAccounts.SelectedIndex == 0 ? string.Empty : comboAccounts.SelectedItem.ToString();
 
         GlobalConfig.Set("RSBot.General.AutoLoginAccountUsername", selectedAccount);

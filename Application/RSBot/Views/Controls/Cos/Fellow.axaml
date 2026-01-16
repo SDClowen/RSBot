@@ -11,26 +11,27 @@
 	<Design.DataContext>
 		<vm:FellowViewModel/>
 	</Design.DataContext>
-	
-	<StackPanel Spacing="4">
-		<cos:CosControlBase/>
+	<cos:CosControlBase x:Name="cosControlBase">
+		<StackPanel Spacing="4">
 
-		<TextBlock HorizontalAlignment="Left">Satiety</TextBlock>
-		<ProgressBar HorizontalAlignment="Stretch" Height="20"
-						Foreground="rgb(70, 100, 190)"
-						Minimum="0" Maximum="{Binding SatietyMaximum}" Value="{Binding SatietyValue}"
-						ShowProgressText="True"/>
-		
-		<TextBlock HorizontalAlignment="Left">Experience</TextBlock>
-		<ProgressBar HorizontalAlignment="Stretch" Height="20"
-						Foreground="rgb(70, 170, 90)"
-						Minimum="0" Maximum="{Binding ExperienceMaximum}" Value="{Binding ExperienceValue}"
-						ShowProgressText="True"/>
-		
-		<TextBlock HorizontalAlignment="Left">Stored Skill Point</TextBlock>
-		<ProgressBar HorizontalAlignment="Stretch" Height="20"
-						Foreground="rgb(152,92,132)"
-						Minimum="0" Maximum="{Binding StoredSpMaximum}" Value="{Binding StoredSpValue}"
-						ShowProgressText="True"/>
-	</StackPanel>
+
+			<TextBlock HorizontalAlignment="Left">Satiety</TextBlock>
+			<ProgressBar HorizontalAlignment="Stretch" Height="20"
+							Foreground="rgb(70, 100, 190)"
+							Minimum="0" Maximum="{Binding SatietyMaximum}" Value="{Binding SatietyValue}"
+							ShowProgressText="True"/>
+
+			<TextBlock HorizontalAlignment="Left">Experience</TextBlock>
+			<ProgressBar HorizontalAlignment="Stretch" Height="20"
+							Foreground="rgb(70, 170, 90)"
+							Minimum="0" Maximum="{Binding ExperienceMaximum}" Value="{Binding ExperienceValue}"
+							ShowProgressText="True"/>
+
+			<TextBlock HorizontalAlignment="Left">Stored Skill Point</TextBlock>
+			<ProgressBar HorizontalAlignment="Stretch" Height="20"
+							Foreground="rgb(152,92,132)"
+							Minimum="0" Maximum="{Binding StoredSpMaximum}" Value="{Binding StoredSpValue}"
+							ShowProgressText="True"/>
+		</StackPanel>
+	</cos:CosControlBase>
 </UserControl>

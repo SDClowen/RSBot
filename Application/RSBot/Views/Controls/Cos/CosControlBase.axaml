@@ -44,5 +44,6 @@
 				</TextBlock.Text>
 			</TextBlock>
 		</Grid>
+		<ContentPresenter/>
 	</StackPanel>
 </UserControl>

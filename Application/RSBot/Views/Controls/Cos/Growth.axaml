@@ -12,39 +12,40 @@
 		<vm:GrowthViewModel/>
 	</Design.DataContext>
 
-	<StackPanel Spacing="4">
-		<cos:CosControlBase x:Name="cosControlBase"/>
-		<TextBlock Text="Exp:"
-					 DockPanel.Dock="Left"
-					 VerticalAlignment="Center"/>
-		<Grid DockPanel.Dock="Right">
-			<ProgressBar
-					 Height="20"
-					 Minimum="0"
-					 Maximum="{Binding ExperienceMaximum}"
-					 Value="{Binding ExperienceValue}"
-					 Foreground="rgb(70, 170, 90)"/>
+	<cos:CosControlBase>
+		<StackPanel Spacing="4">
+			<TextBlock Text="Exp:"
+						 DockPanel.Dock="Left"
+						 VerticalAlignment="Center"/>
+			<Grid DockPanel.Dock="Right">
+				<ProgressBar
+						 Height="20"
+						 Minimum="0"
+						 Maximum="{Binding ExperienceMaximum}"
+						 Value="{Binding ExperienceValue}"
+						 Foreground="rgb(70, 170, 90)"/>
 
-			<TextBlock HorizontalAlignment="Center"
-					 VerticalAlignment="Center"
-					 Foreground="White">
-				<TextBlock.Text>
-					<MultiBinding StringFormat="{}{0} / {1}">
-						<Binding Path="ExperienceValue"/>
-						<Binding Path="ExperienceMaximum"/>
-					</MultiBinding>
-				</TextBlock.Text>
-			</TextBlock>
-		</Grid>
-		
-		<TextBlock Text="HGP:" DockPanel.Dock="Left" VerticalAlignment="Center"/>
+				<TextBlock HorizontalAlignment="Center"
+						 VerticalAlignment="Center"
+						 Foreground="White">
+					<TextBlock.Text>
+						<MultiBinding StringFormat="{}{0} / {1}">
+							<Binding Path="ExperienceValue"/>
+							<Binding Path="ExperienceMaximum"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+			</Grid>
 
-		<ProgressBar DockPanel.Dock="Right"
-					 Height="20"
-					 Minimum="0"
-					 Maximum="{Binding HungerPointsMaximum}"
-					 Value="{Binding HungerPointsValue}"
-					 Foreground="rgb(190, 160, 70)"
-					 ShowProgressText="True"/>
-	</StackPanel>
+			<TextBlock Text="HGP:" DockPanel.Dock="Left" VerticalAlignment="Center"/>
+
+			<ProgressBar DockPanel.Dock="Right"
+						 Height="20"
+						 Minimum="0"
+						 Maximum="{Binding HungerPointsMaximum}"
+						 Value="{Binding HungerPointsValue}"
+						 Foreground="rgb(190, 160, 70)"
+						 ShowProgressText="True"/>
+		</StackPanel>
+	</cos:CosControlBase>
 </UserControl>
