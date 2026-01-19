@@ -5,6 +5,8 @@ using RSBot.Core.Extensions;
 using RSBot.Core.Network;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Spawn;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace RSBot.Chat.Network;
 
@@ -43,6 +45,8 @@ internal class ChatResponse : IPacketHandler
                 var senderId = packet.ReadUInt();
                 message = packet.ReadConditonalString();
 
+                message = ReadChatWithLinkedItems(message);
+
                 if (senderId != Game.Player.UniqueId)
                 {
                     if (!SpawnManager.TryGetEntity<SpawnedPlayer>(senderId, out var player))
@@ -61,6 +65,8 @@ internal class ChatResponse : IPacketHandler
 
                 message = packet.ReadConditonalString();
 
+                message = ReadChatWithLinkedItems(message);
+
                 View.Instance.AppendMessage(message, "Notice", type);
                 break;
 
@@ -72,8 +78,41 @@ internal class ChatResponse : IPacketHandler
                 var sender = packet.ReadString();
                 message = packet.ReadConditonalString();
 
+                message = ReadChatWithLinkedItems(message);
+
                 View.Instance.AppendMessage(message, sender, type);
                 break;
         }
+    }
+
+    public static string ReadChatWithLinkedItems(string message)
+    {
+        const string pattern = "\u0002(.*?)\u0003";
+
+        return Regex.Replace(message, pattern, match =>
+        {
+            string rawValue = match.Groups[1].Value;
+
+            if (uint.TryParse(rawValue, out uint uid))
+            {
+                if (Bundle.Chat.LinkedItems.TryGetValue(uid, out var data) && data.itemName != null)
+                {
+                    bool hasSpaceBefore = match.Index > 0 && char.IsWhiteSpace(message[match.Index - 1]);
+
+                    int endOfMatch = match.Index + match.Length;
+                    bool hasSpaceAfter = endOfMatch < message.Length && char.IsWhiteSpace(message[endOfMatch]);
+
+                    string leftPadding = hasSpaceBefore ? "" : " ";
+                    string rightPadding = hasSpaceAfter ? "" : " ";
+
+                    string displayName = data.amount > 1
+                        ? $"{data.itemName} [{data.amount}]"
+                        : data.itemName;
+
+                    return $"{leftPadding}< {displayName} >{rightPadding}";
+                }
+            }
+            return match.Value;
+        });
     }
 }
