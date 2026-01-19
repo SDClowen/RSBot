@@ -366,7 +366,6 @@ namespace RSBot.Alchemy.Views
             Controls.Add(panelSettingsGroup);
             Controls.Add(lvLog);
             Controls.Add(groupItem);
-            DoubleBuffered = true;
             Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             Margin = new Padding(4, 3, 4, 3);
             Name = "Main";

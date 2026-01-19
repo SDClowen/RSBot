@@ -25,11 +25,11 @@ public partial class Main : DoubleBufferedControl
 {
     private const int GridSize = 3;
     private const int SectorSize = 256;
-    private readonly Dictionary<string, Image> _cachedImages;
-    private Image _currentSectorGraphic;
+    private readonly Dictionary<string, SKBitmap> _cachedImages;
+    private SKBitmap _currentSectorGraphic;
     private byte _currentXSec;
     private byte _currentYSec;
-    private Image[] _mapEntityImages;
+    private SKBitmap[] _mapEntityImages;
     private readonly float _scale = SectorSize / 192.0f;
     private readonly NavMeshRenderer _navMeshRenderer;
     private string _regionName;
@@ -63,14 +63,14 @@ public partial class Main : DoubleBufferedControl
         if (_mapEntityImages == null)
             _mapEntityImages =
             [
-                Game.MediaPk2.GetFile("interface\\minimap\\mm_sign_character.ddj").ToImage(),
-                Game.MediaPk2.GetFile("interface\\minimap\\mm_sign_animal.ddj").ToImage(),
-                Game.MediaPk2.GetFile("interface\\minimap\\mm_sign_npc.ddj").ToImage(),
-                Game.MediaPk2.GetFile("interface\\minimap\\mm_sign_otherplayer.ddj").ToImage(),
-                Game.MediaPk2.GetFile("interface\\minimap\\mm_sign_monster.ddj").ToImage(),
-                Game.MediaPk2.GetFile("interface\\minimap\\mm_sign_unique.ddj").ToImage(),
-                Game.MediaPk2.GetFile("interface\\minimap\\mm_sign_party.ddj").ToImage(),
-                Game.MediaPk2.GetFile("interface\\minimap\\mm_sign_unique.ddj").ToImage(),
+                Game.MediaPk2.GetFile("interface\\minimap\\mm_sign_character.ddj").ToSKImage(),
+                Game.MediaPk2.GetFile("interface\\minimap\\mm_sign_animal.ddj").ToSKImage(),
+                Game.MediaPk2.GetFile("interface\\minimap\\mm_sign_npc.ddj").ToSKImage(),
+                Game.MediaPk2.GetFile("interface\\minimap\\mm_sign_otherplayer.ddj").ToSKImage(),
+                Game.MediaPk2.GetFile("interface\\minimap\\mm_sign_monster.ddj").ToSKImage(),
+                Game.MediaPk2.GetFile("interface\\minimap\\mm_sign_unique.ddj").ToSKImage(),
+                Game.MediaPk2.GetFile("interface\\minimap\\mm_sign_party.ddj").ToSKImage(),
+                Game.MediaPk2.GetFile("interface\\minimap\\mm_sign_unique.ddj").ToSKImage(),
             ];
     }
 
@@ -87,7 +87,7 @@ public partial class Main : DoubleBufferedControl
 
         if (_mapEntityImages == null || entityIndex >= _mapEntityImages.Length) return;
 
-        using (var skBitmap = _mapEntityImages[entityIndex].ToSKBitmap())
+        using (var skBitmap = _mapEntityImages[entityIndex].Copy())
         {
             canvas.Save();
             canvas.Translate(x, y);
@@ -257,22 +257,22 @@ public partial class Main : DoubleBufferedControl
         }
     }
 
-    private Image LoadSectorImage(string sectorImgName)
+    private SKBitmap LoadSectorImage(string sectorImgName)
     {
         if (_cachedImages.ContainsKey(sectorImgName))
-            return (Image)_cachedImages[sectorImgName].Clone();
+            return _cachedImages[sectorImgName].Copy();
 
         if (Game.MediaPk2.FileExists(sectorImgName) && Game.MediaPk2.TryGetFile(sectorImgName, out var file))
         {
-            var img = file.ToImage();
+            var img = file.ToSKImage();
             _cachedImages.Add(sectorImgName, img);
-            return (Image)img.Clone();
+            return img.Copy();
         }
 
-        return new Bitmap(SectorSize, SectorSize);
+        return new SKBitmap(SectorSize, SectorSize);
     }
 
-    private void RedrawMap()
+    private void RedrawMap(SKCanvas canvas)
     {
         var p = Game.Player.Movement.Source;
         var tempX = p.Region.X;
@@ -293,8 +293,7 @@ public partial class Main : DoubleBufferedControl
 
         try
         {
-            _currentSectorGraphic = new Bitmap(SectorSize * 3, SectorSize * 3, PixelFormat.Format32bppArgb);
-            using var gfx = Graphics.FromImage(_currentSectorGraphic);
+            _currentSectorGraphic = new SKBitmap(SectorSize * 3, SectorSize * 3);
             
             var floorName = string.Empty;
             var dungeonName = string.Empty;
@@ -317,7 +316,7 @@ public partial class Main : DoubleBufferedControl
                     var ySector = (byte)(_currentYSec + z - 1);
                     var sectorImgName = GetMinimapFileName(new Region(xSector, ySector), dungeonName, floorName);
                     using var bitmap = LoadSectorImage(sectorImgName);
-                    gfx.DrawImage(bitmap, new Point(bitmap.Width * x, bitmap.Height * (GridSize - 1 - z)));
+                    canvas.DrawBitmap(bitmap, new SKPoint(bitmap.Width * x, bitmap.Height * (GridSize - 1 - z)));
                 }
             }
         }
@@ -352,11 +351,11 @@ public partial class Main : DoubleBufferedControl
 
         if (Game.Player == null) return;
 
-        RedrawMap();
+        RedrawMap(canvas);
 
         if (_currentSectorGraphic != null)
         {
-            using (var skMap = _currentSectorGraphic.ToSKBitmap())
+            using (var skMap = _currentSectorGraphic.Copy())
             {
                 float mapX = mapCanvas.Width / 2f - SectorSize - Game.Player.Movement.Source.XSectorOffset / 10f * _scale;
                 float mapY = mapCanvas.Height / 2f - SectorSize * 2f + Game.Player.Movement.Source.YSectorOffset / 10f * _scale;
@@ -387,9 +386,9 @@ public partial class Main : DoubleBufferedControl
         float xPos = mapCanvas.Width - textBounds.Width - 15;
         
         paint.Color = SKColors.Black;
-        canvas.DrawText(posText, xPos + 2, 22, paint);
+        canvas.DrawText(posText, xPos + 2, 42, paint);
         paint.Color = SKColors.White;
-        canvas.DrawText(posText, xPos, 20, paint);
+        canvas.DrawText(posText, xPos, 40, paint);
     }
 
     private float GetMapX(Position gamePosition) => mapCanvas.Width / 2f + (gamePosition.X - Game.Player.Movement.Source.X) * _scale;

@@ -79,7 +79,6 @@
             Controls.Add(pQuests);
             Controls.Add(separator1);
             Controls.Add(lblTitle);
-            DoubleBuffered = true;
             Name = "QuestSidebarElement";
             Size = new System.Drawing.Size(250, 301);
             ResumeLayout(false);

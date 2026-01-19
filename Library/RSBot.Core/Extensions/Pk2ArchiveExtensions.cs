@@ -2,6 +2,7 @@
 using System.Drawing;
 using RSBot.Core.Client;
 using RSBot.FileSystem;
+using SkiaSharp;
 
 namespace RSBot.Core.Extensions;
 
@@ -25,6 +26,27 @@ public static class Pk2Extensions
         catch
         {
             return new Bitmap(16, 16);
+        }
+    }
+
+    /// <summary>
+    ///     Gets the stream from a DDJ file in the Pk2 archive and converts the DDS Format to System.Image.
+    /// </summary>
+    /// <param name="file">The archive.</param>
+    /// <returns></returns>
+    public static SKBitmap ToSKImage(this IFile file)
+    {
+        var ddjBuffer = file.OpenRead().ReadAllBytes();
+
+        try
+        {
+            var ddsBuffer = new byte[ddjBuffer.Length - 20];
+            Array.ConstrainedCopy(ddjBuffer, 20, ddsBuffer, 0, ddjBuffer.Length - 20); //Cuts the first 20 bytes.
+            return DDSImage.ToSKBitmap(ddsBuffer);
+        }
+        catch
+        {
+            return new SKBitmap(16, 16);
         }
     }
 }

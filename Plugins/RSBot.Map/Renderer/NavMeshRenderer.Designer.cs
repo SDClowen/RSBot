@@ -225,7 +225,6 @@ partial class NavMeshRenderer
         AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         BackColor = Color.MidnightBlue;
         ContextMenuStrip = contextRenderSettings;
-        DoubleBuffered = true;
         Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
         Name = "NavMeshRenderer";
         Size = new Size(293, 341);

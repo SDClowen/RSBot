@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using SkiaSharp;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 
@@ -270,6 +271,24 @@ public class DDSImage
         }
 
         return pixels;
+    }
+
+    public static SKBitmap ToSKBitmap(byte[] ddsBytes)
+    {
+        var width = GetWidth(ddsBytes);
+        var height = GetHeight(ddsBytes);
+        var pixelsData = Read(ddsBytes, Colour.ARGB, 0);
+
+        if (pixelsData == null)
+        {
+            return new SKBitmap(width, height, SKColorType.Bgra8888, SKAlphaType.Premul);
+        }
+
+        var bitmap = new SKBitmap(width, height, SKColorType.Bgra8888, SKAlphaType.Premul);
+        bitmap.TryAllocPixels(bitmap.Info);
+        bitmap.InstallPixels(bitmap.Info, Marshal.UnsafeAddrOfPinnedArrayElement(pixelsData, 0), width * 4);
+
+        return bitmap;
     }
 
     public static Bitmap ToBitmap(byte[] ddsBytes)
