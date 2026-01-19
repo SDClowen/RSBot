@@ -35,13 +35,13 @@ namespace RSBot.General.Views
             btnCancel = new SDUI.Controls.Button();
             panel1 = new SDUI.Controls.Panel();
             chkUniqueInRange = new SDUI.Controls.CheckBox();
-            btnUniqueInRange = new System.Windows.Forms.Button();
+            btnUniqueInRange = new SDUI.Controls.Button();
             chkUniqueAppearedGeneral = new SDUI.Controls.CheckBox();
-            btnUniqueAppearedGeneral = new System.Windows.Forms.Button();
-            txtRegex = new System.Windows.Forms.TextBox();
+            btnUniqueAppearedGeneral = new SDUI.Controls.Button();
+            txtRegex = new SDUI.Controls.TextBox();
             lblRegex = new SDUI.Controls.Label();
-            txtUniqueAppearedGeneral = new System.Windows.Forms.TextBox();
-            txtUniqueInRange = new System.Windows.Forms.TextBox();
+            txtUniqueAppearedGeneral = new SDUI.Controls.TextBox();
+            txtUniqueInRange = new SDUI.Controls.TextBox();
             chkTigerGirl = new SDUI.Controls.CheckBox();
             chkIvy = new SDUI.Controls.CheckBox();
             chkUruchi = new SDUI.Controls.CheckBox();
@@ -49,21 +49,21 @@ namespace RSBot.General.Views
             chkIsyutaru = new SDUI.Controls.CheckBox();
             chkLordYarkan = new SDUI.Controls.CheckBox();
             chkDemonChaitan = new SDUI.Controls.CheckBox();
-            txtTigerGirl = new System.Windows.Forms.TextBox();
-            txtCerberus = new System.Windows.Forms.TextBox();
-            txtIvy = new System.Windows.Forms.TextBox();
-            txtUruchi = new System.Windows.Forms.TextBox();
-            txtIsyutaru = new System.Windows.Forms.TextBox();
-            txtLordYarkan = new System.Windows.Forms.TextBox();
-            txtDemonChaitan = new System.Windows.Forms.TextBox();
-            btnTigerGirl = new System.Windows.Forms.Button();
-            btnCerberus = new System.Windows.Forms.Button();
-            btnIvy = new System.Windows.Forms.Button();
-            btnUruchi = new System.Windows.Forms.Button();
-            btnIsyutaru = new System.Windows.Forms.Button();
-            btnLordYarkan = new System.Windows.Forms.Button();
-            btnDemonChaitan = new System.Windows.Forms.Button();
-            lblPlayerMustBeLoggedIn = new System.Windows.Forms.Label();
+            txtTigerGirl = new SDUI.Controls.TextBox();
+            txtCerberus = new SDUI.Controls.TextBox();
+            txtIvy = new SDUI.Controls.TextBox();
+            txtUruchi = new SDUI.Controls.TextBox();
+            txtIsyutaru = new SDUI.Controls.TextBox();
+            txtLordYarkan = new SDUI.Controls.TextBox();
+            txtDemonChaitan = new SDUI.Controls.TextBox();
+            btnTigerGirl = new SDUI.Controls.Button();
+            btnCerberus = new SDUI.Controls.Button();
+            btnIvy = new SDUI.Controls.Button();
+            btnUruchi = new SDUI.Controls.Button();
+            btnIsyutaru = new SDUI.Controls.Button();
+            btnLordYarkan = new SDUI.Controls.Button();
+            btnDemonChaitan = new SDUI.Controls.Button();
+            lblPlayerMustBeLoggedIn = new SDUI.Controls.Label();
             gbxUnique = new SDUI.Controls.GroupBox();
             panel1.SuspendLayout();
             gbxUnique.SuspendLayout();
@@ -80,8 +80,9 @@ namespace RSBot.General.Views
     };
             label1.GradientAnimation = false;
             label1.Location = new System.Drawing.Point(0, 0);
+            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(0, 15);
+            label1.Size = new System.Drawing.Size(0, 20);
             label1.TabIndex = 1;
             // 
             // btnOK
@@ -90,11 +91,12 @@ namespace RSBot.General.Views
             btnOK.Color = System.Drawing.Color.Transparent;
             btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             btnOK.Enabled = false;
-            btnOK.Location = new System.Drawing.Point(12, 12);
+            btnOK.Location = new System.Drawing.Point(15, 15);
+            btnOK.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             btnOK.Name = "btnOK";
             btnOK.Radius = 6;
             btnOK.ShadowDepth = 4F;
-            btnOK.Size = new System.Drawing.Size(72, 21);
+            btnOK.Size = new System.Drawing.Size(90, 26);
             btnOK.TabIndex = 6;
             btnOK.Text = "OK";
             btnOK.UseVisualStyleBackColor = true;
@@ -105,11 +107,12 @@ namespace RSBot.General.Views
             btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             btnCancel.Color = System.Drawing.Color.Transparent;
             btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            btnCancel.Location = new System.Drawing.Point(367, 12);
+            btnCancel.Location = new System.Drawing.Point(459, 15);
+            btnCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             btnCancel.Name = "btnCancel";
             btnCancel.Radius = 6;
             btnCancel.ShadowDepth = 4F;
-            btnCancel.Size = new System.Drawing.Size(72, 21);
+            btnCancel.Size = new System.Drawing.Size(90, 26);
             btnCancel.TabIndex = 7;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = true;
@@ -124,11 +127,12 @@ namespace RSBot.General.Views
             panel1.Controls.Add(btnOK);
             panel1.Controls.Add(label1);
             panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            panel1.Location = new System.Drawing.Point(0, 393);
+            panel1.Location = new System.Drawing.Point(0, 492);
+            panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             panel1.Name = "panel1";
             panel1.Radius = 0;
             panel1.ShadowDepth = 4F;
-            panel1.Size = new System.Drawing.Size(447, 45);
+            panel1.Size = new System.Drawing.Size(559, 56);
             panel1.TabIndex = 7;
             // 
             // chkUniqueInRange
@@ -136,12 +140,12 @@ namespace RSBot.General.Views
             chkUniqueInRange.AutoSize = true;
             chkUniqueInRange.Depth = 0;
             chkUniqueInRange.Enabled = false;
-            chkUniqueInRange.Location = new System.Drawing.Point(10, 312);
+            chkUniqueInRange.Location = new System.Drawing.Point(12, 390);
             chkUniqueInRange.Margin = new System.Windows.Forms.Padding(0);
             chkUniqueInRange.MouseLocation = new System.Drawing.Point(-1, -1);
             chkUniqueInRange.Name = "chkUniqueInRange";
             chkUniqueInRange.Ripple = true;
-            chkUniqueInRange.Size = new System.Drawing.Size(120, 30);
+            chkUniqueInRange.Size = new System.Drawing.Size(143, 30);
             chkUniqueInRange.TabIndex = 8;
             chkUniqueInRange.Text = "Unique in range:";
             chkUniqueInRange.UseVisualStyleBackColor = true;
@@ -152,10 +156,14 @@ namespace RSBot.General.Views
             btnUniqueInRange.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnUniqueInRange.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             btnUniqueInRange.BackColor = System.Drawing.Color.Transparent;
+            btnUniqueInRange.Color = System.Drawing.Color.Transparent;
             btnUniqueInRange.Enabled = false;
-            btnUniqueInRange.Location = new System.Drawing.Point(372, 316);
+            btnUniqueInRange.Location = new System.Drawing.Point(465, 395);
+            btnUniqueInRange.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             btnUniqueInRange.Name = "btnUniqueInRange";
-            btnUniqueInRange.Size = new System.Drawing.Size(42, 23);
+            btnUniqueInRange.Radius = 6;
+            btnUniqueInRange.ShadowDepth = 4F;
+            btnUniqueInRange.Size = new System.Drawing.Size(52, 29);
             btnUniqueInRange.TabIndex = 9;
             btnUniqueInRange.Text = "...";
             btnUniqueInRange.UseVisualStyleBackColor = true;
@@ -166,12 +174,12 @@ namespace RSBot.General.Views
             chkUniqueAppearedGeneral.AutoSize = true;
             chkUniqueAppearedGeneral.Depth = 0;
             chkUniqueAppearedGeneral.Enabled = false;
-            chkUniqueAppearedGeneral.Location = new System.Drawing.Point(13, 32);
+            chkUniqueAppearedGeneral.Location = new System.Drawing.Point(16, 40);
             chkUniqueAppearedGeneral.Margin = new System.Windows.Forms.Padding(0);
             chkUniqueAppearedGeneral.MouseLocation = new System.Drawing.Point(-1, -1);
             chkUniqueAppearedGeneral.Name = "chkUniqueAppearedGeneral";
             chkUniqueAppearedGeneral.Ripple = true;
-            chkUniqueAppearedGeneral.Size = new System.Drawing.Size(126, 30);
+            chkUniqueAppearedGeneral.Size = new System.Drawing.Size(153, 30);
             chkUniqueAppearedGeneral.TabIndex = 10;
             chkUniqueAppearedGeneral.Text = "Unique appeared:";
             chkUniqueAppearedGeneral.UseVisualStyleBackColor = true;
@@ -182,12 +190,14 @@ namespace RSBot.General.Views
             btnUniqueAppearedGeneral.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnUniqueAppearedGeneral.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             btnUniqueAppearedGeneral.BackColor = System.Drawing.Color.Transparent;
-            btnUniqueAppearedGeneral.DialogResult = System.Windows.Forms.DialogResult.None;
+            btnUniqueAppearedGeneral.Color = System.Drawing.Color.Transparent;
             btnUniqueAppearedGeneral.Enabled = false;
-            btnUniqueAppearedGeneral.Image = null;
-            btnUniqueAppearedGeneral.Location = new System.Drawing.Point(372, 36);
+            btnUniqueAppearedGeneral.Location = new System.Drawing.Point(465, 45);
+            btnUniqueAppearedGeneral.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             btnUniqueAppearedGeneral.Name = "btnUniqueAppearedGeneral";
-            btnUniqueAppearedGeneral.Size = new System.Drawing.Size(42, 23);
+            btnUniqueAppearedGeneral.Radius = 6;
+            btnUniqueAppearedGeneral.ShadowDepth = 4F;
+            btnUniqueAppearedGeneral.Size = new System.Drawing.Size(52, 29);
             btnUniqueAppearedGeneral.TabIndex = 12;
             btnUniqueAppearedGeneral.Text = "...";
             btnUniqueAppearedGeneral.UseVisualStyleBackColor = true;
@@ -197,10 +207,17 @@ namespace RSBot.General.Views
             // 
             txtRegex.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             txtRegex.Enabled = false;
-            txtRegex.Location = new System.Drawing.Point(146, 65);
+            txtRegex.Location = new System.Drawing.Point(182, 81);
+            txtRegex.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            txtRegex.MaxLength = 32767;
+            txtRegex.MultiLine = false;
             txtRegex.Name = "txtRegex";
-            txtRegex.Size = new System.Drawing.Size(220, 23);
+            txtRegex.PassFocusShow = false;
+            txtRegex.Radius = 2;
+            txtRegex.Size = new System.Drawing.Size(275, 25);
             txtRegex.TabIndex = 13;
+            txtRegex.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            txtRegex.UseSystemPasswordChar = false;
             // 
             // lblRegex
             // 
@@ -213,9 +230,10 @@ namespace RSBot.General.Views
     System.Drawing.Color.Black
     };
             lblRegex.GradientAnimation = false;
-            lblRegex.Location = new System.Drawing.Point(53, 68);
+            lblRegex.Location = new System.Drawing.Point(66, 85);
+            lblRegex.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblRegex.Name = "lblRegex";
-            lblRegex.Size = new System.Drawing.Size(87, 15);
+            lblRegex.Size = new System.Drawing.Size(108, 20);
             lblRegex.TabIndex = 14;
             lblRegex.Text = "Match (Regex):";
             // 
@@ -223,33 +241,45 @@ namespace RSBot.General.Views
             // 
             txtUniqueAppearedGeneral.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             txtUniqueAppearedGeneral.Enabled = false;
-            txtUniqueAppearedGeneral.Location = new System.Drawing.Point(146, 36);
+            txtUniqueAppearedGeneral.Location = new System.Drawing.Point(182, 45);
+            txtUniqueAppearedGeneral.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            txtUniqueAppearedGeneral.MaxLength = 32767;
+            txtUniqueAppearedGeneral.MultiLine = false;
             txtUniqueAppearedGeneral.Name = "txtUniqueAppearedGeneral";
-            txtUniqueAppearedGeneral.ReadOnly = true;
-            txtUniqueAppearedGeneral.Size = new System.Drawing.Size(220, 23);
+            txtUniqueAppearedGeneral.PassFocusShow = false;
+            txtUniqueAppearedGeneral.Radius = 2;
+            txtUniqueAppearedGeneral.Size = new System.Drawing.Size(275, 25);
             txtUniqueAppearedGeneral.TabIndex = 15;
+            txtUniqueAppearedGeneral.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            txtUniqueAppearedGeneral.UseSystemPasswordChar = false;
             // 
             // txtUniqueInRange
             // 
             txtUniqueInRange.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             txtUniqueInRange.Enabled = false;
-            txtUniqueInRange.Location = new System.Drawing.Point(146, 316);
+            txtUniqueInRange.Location = new System.Drawing.Point(182, 395);
+            txtUniqueInRange.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            txtUniqueInRange.MaxLength = 32767;
+            txtUniqueInRange.MultiLine = false;
             txtUniqueInRange.Name = "txtUniqueInRange";
-            txtUniqueInRange.ReadOnly = true;
-            txtUniqueInRange.Size = new System.Drawing.Size(220, 23);
+            txtUniqueInRange.PassFocusShow = false;
+            txtUniqueInRange.Radius = 2;
+            txtUniqueInRange.Size = new System.Drawing.Size(275, 25);
             txtUniqueInRange.TabIndex = 16;
+            txtUniqueInRange.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            txtUniqueInRange.UseSystemPasswordChar = false;
             // 
             // chkTigerGirl
             // 
             chkTigerGirl.AutoSize = true;
             chkTigerGirl.Depth = 0;
             chkTigerGirl.Enabled = false;
-            chkTigerGirl.Location = new System.Drawing.Point(10, 97);
+            chkTigerGirl.Location = new System.Drawing.Point(12, 121);
             chkTigerGirl.Margin = new System.Windows.Forms.Padding(0);
             chkTigerGirl.MouseLocation = new System.Drawing.Point(-1, -1);
             chkTigerGirl.Name = "chkTigerGirl";
             chkTigerGirl.Ripple = true;
-            chkTigerGirl.Size = new System.Drawing.Size(86, 30);
+            chkTigerGirl.Size = new System.Drawing.Size(102, 30);
             chkTigerGirl.TabIndex = 17;
             chkTigerGirl.Text = "Tiger Girl::";
             chkTigerGirl.UseVisualStyleBackColor = true;
@@ -260,12 +290,12 @@ namespace RSBot.General.Views
             chkIvy.AutoSize = true;
             chkIvy.Depth = 0;
             chkIvy.Enabled = false;
-            chkIvy.Location = new System.Drawing.Point(10, 155);
+            chkIvy.Location = new System.Drawing.Point(12, 194);
             chkIvy.Margin = new System.Windows.Forms.Padding(0);
             chkIvy.MouseLocation = new System.Drawing.Point(-1, -1);
             chkIvy.Name = "chkIvy";
             chkIvy.Ripple = true;
-            chkIvy.Size = new System.Drawing.Size(95, 30);
+            chkIvy.Size = new System.Drawing.Size(111, 30);
             chkIvy.TabIndex = 18;
             chkIvy.Text = "Captain Ivy:";
             chkIvy.UseVisualStyleBackColor = true;
@@ -276,12 +306,12 @@ namespace RSBot.General.Views
             chkUruchi.AutoSize = true;
             chkUruchi.Depth = 0;
             chkUruchi.Enabled = false;
-            chkUruchi.Location = new System.Drawing.Point(10, 183);
+            chkUruchi.Location = new System.Drawing.Point(12, 229);
             chkUruchi.Margin = new System.Windows.Forms.Padding(0);
             chkUruchi.MouseLocation = new System.Drawing.Point(-1, -1);
             chkUruchi.Name = "chkUruchi";
             chkUruchi.Ripple = true;
-            chkUruchi.Size = new System.Drawing.Size(71, 30);
+            chkUruchi.Size = new System.Drawing.Size(80, 30);
             chkUruchi.TabIndex = 19;
             chkUruchi.Text = "Uruchi:";
             chkUruchi.UseVisualStyleBackColor = true;
@@ -292,12 +322,12 @@ namespace RSBot.General.Views
             chkCerberus.AutoSize = true;
             chkCerberus.Depth = 0;
             chkCerberus.Enabled = false;
-            chkCerberus.Location = new System.Drawing.Point(10, 126);
+            chkCerberus.Location = new System.Drawing.Point(12, 158);
             chkCerberus.Margin = new System.Windows.Forms.Padding(0);
             chkCerberus.MouseLocation = new System.Drawing.Point(-1, -1);
             chkCerberus.Name = "chkCerberus";
             chkCerberus.Ripple = true;
-            chkCerberus.Size = new System.Drawing.Size(83, 30);
+            chkCerberus.Size = new System.Drawing.Size(96, 30);
             chkCerberus.TabIndex = 20;
             chkCerberus.Text = "Cerberus:";
             chkCerberus.UseVisualStyleBackColor = true;
@@ -308,12 +338,12 @@ namespace RSBot.General.Views
             chkIsyutaru.AutoSize = true;
             chkIsyutaru.Depth = 0;
             chkIsyutaru.Enabled = false;
-            chkIsyutaru.Location = new System.Drawing.Point(10, 213);
+            chkIsyutaru.Location = new System.Drawing.Point(12, 266);
             chkIsyutaru.Margin = new System.Windows.Forms.Padding(0);
             chkIsyutaru.MouseLocation = new System.Drawing.Point(-1, -1);
             chkIsyutaru.Name = "chkIsyutaru";
             chkIsyutaru.Ripple = true;
-            chkIsyutaru.Size = new System.Drawing.Size(78, 30);
+            chkIsyutaru.Size = new System.Drawing.Size(89, 30);
             chkIsyutaru.TabIndex = 21;
             chkIsyutaru.Text = "Isyutaru:";
             chkIsyutaru.UseVisualStyleBackColor = true;
@@ -324,12 +354,12 @@ namespace RSBot.General.Views
             chkLordYarkan.AutoSize = true;
             chkLordYarkan.Depth = 0;
             chkLordYarkan.Enabled = false;
-            chkLordYarkan.Location = new System.Drawing.Point(10, 242);
+            chkLordYarkan.Location = new System.Drawing.Point(12, 302);
             chkLordYarkan.Margin = new System.Windows.Forms.Padding(0);
             chkLordYarkan.MouseLocation = new System.Drawing.Point(-1, -1);
             chkLordYarkan.Name = "chkLordYarkan";
             chkLordYarkan.Ripple = true;
-            chkLordYarkan.Size = new System.Drawing.Size(98, 30);
+            chkLordYarkan.Size = new System.Drawing.Size(115, 30);
             chkLordYarkan.TabIndex = 22;
             chkLordYarkan.Text = "Lord Yarkan:";
             chkLordYarkan.UseVisualStyleBackColor = true;
@@ -340,12 +370,12 @@ namespace RSBot.General.Views
             chkDemonChaitan.AutoSize = true;
             chkDemonChaitan.Depth = 0;
             chkDemonChaitan.Enabled = false;
-            chkDemonChaitan.Location = new System.Drawing.Point(10, 271);
+            chkDemonChaitan.Location = new System.Drawing.Point(12, 339);
             chkDemonChaitan.Margin = new System.Windows.Forms.Padding(0);
             chkDemonChaitan.MouseLocation = new System.Drawing.Point(-1, -1);
             chkDemonChaitan.Name = "chkDemonChaitan";
             chkDemonChaitan.Ripple = true;
-            chkDemonChaitan.Size = new System.Drawing.Size(117, 30);
+            chkDemonChaitan.Size = new System.Drawing.Size(140, 30);
             chkDemonChaitan.TabIndex = 23;
             chkDemonChaitan.Text = "Demon Shaitan:";
             chkDemonChaitan.UseVisualStyleBackColor = true;
@@ -355,81 +385,127 @@ namespace RSBot.General.Views
             // 
             txtTigerGirl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             txtTigerGirl.Enabled = false;
-            txtTigerGirl.Location = new System.Drawing.Point(146, 101);
+            txtTigerGirl.Location = new System.Drawing.Point(182, 126);
+            txtTigerGirl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            txtTigerGirl.MaxLength = 32767;
+            txtTigerGirl.MultiLine = false;
             txtTigerGirl.Name = "txtTigerGirl";
-            txtTigerGirl.ReadOnly = true;
-            txtTigerGirl.Size = new System.Drawing.Size(220, 23);
+            txtTigerGirl.PassFocusShow = false;
+            txtTigerGirl.Radius = 2;
+            txtTigerGirl.Size = new System.Drawing.Size(275, 25);
             txtTigerGirl.TabIndex = 24;
+            txtTigerGirl.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            txtTigerGirl.UseSystemPasswordChar = false;
             // 
             // txtCerberus
             // 
             txtCerberus.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             txtCerberus.Enabled = false;
-            txtCerberus.Location = new System.Drawing.Point(146, 130);
+            txtCerberus.Location = new System.Drawing.Point(182, 162);
+            txtCerberus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            txtCerberus.MaxLength = 32767;
+            txtCerberus.MultiLine = false;
             txtCerberus.Name = "txtCerberus";
-            txtCerberus.ReadOnly = true;
-            txtCerberus.Size = new System.Drawing.Size(220, 23);
+            txtCerberus.PassFocusShow = false;
+            txtCerberus.Radius = 2;
+            txtCerberus.Size = new System.Drawing.Size(275, 25);
             txtCerberus.TabIndex = 25;
+            txtCerberus.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            txtCerberus.UseSystemPasswordChar = false;
             // 
             // txtIvy
             // 
             txtIvy.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             txtIvy.Enabled = false;
-            txtIvy.Location = new System.Drawing.Point(146, 159);
+            txtIvy.Location = new System.Drawing.Point(182, 199);
+            txtIvy.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            txtIvy.MaxLength = 32767;
+            txtIvy.MultiLine = false;
             txtIvy.Name = "txtIvy";
-            txtIvy.ReadOnly = true;
-            txtIvy.Size = new System.Drawing.Size(220, 23);
+            txtIvy.PassFocusShow = false;
+            txtIvy.Radius = 2;
+            txtIvy.Size = new System.Drawing.Size(275, 25);
             txtIvy.TabIndex = 26;
+            txtIvy.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            txtIvy.UseSystemPasswordChar = false;
             // 
             // txtUruchi
             // 
             txtUruchi.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             txtUruchi.Enabled = false;
-            txtUruchi.Location = new System.Drawing.Point(146, 188);
+            txtUruchi.Location = new System.Drawing.Point(182, 235);
+            txtUruchi.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            txtUruchi.MaxLength = 32767;
+            txtUruchi.MultiLine = false;
             txtUruchi.Name = "txtUruchi";
-            txtUruchi.ReadOnly = true;
-            txtUruchi.Size = new System.Drawing.Size(220, 23);
+            txtUruchi.PassFocusShow = false;
+            txtUruchi.Radius = 2;
+            txtUruchi.Size = new System.Drawing.Size(275, 25);
             txtUruchi.TabIndex = 27;
+            txtUruchi.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            txtUruchi.UseSystemPasswordChar = false;
             // 
             // txtIsyutaru
             // 
             txtIsyutaru.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             txtIsyutaru.Enabled = false;
-            txtIsyutaru.Location = new System.Drawing.Point(146, 217);
+            txtIsyutaru.Location = new System.Drawing.Point(182, 271);
+            txtIsyutaru.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            txtIsyutaru.MaxLength = 32767;
+            txtIsyutaru.MultiLine = false;
             txtIsyutaru.Name = "txtIsyutaru";
-            txtIsyutaru.ReadOnly = true;
-            txtIsyutaru.Size = new System.Drawing.Size(220, 23);
+            txtIsyutaru.PassFocusShow = false;
+            txtIsyutaru.Radius = 2;
+            txtIsyutaru.Size = new System.Drawing.Size(275, 25);
             txtIsyutaru.TabIndex = 28;
+            txtIsyutaru.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            txtIsyutaru.UseSystemPasswordChar = false;
             // 
             // txtLordYarkan
             // 
             txtLordYarkan.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             txtLordYarkan.Enabled = false;
-            txtLordYarkan.Location = new System.Drawing.Point(146, 246);
+            txtLordYarkan.Location = new System.Drawing.Point(182, 308);
+            txtLordYarkan.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            txtLordYarkan.MaxLength = 32767;
+            txtLordYarkan.MultiLine = false;
             txtLordYarkan.Name = "txtLordYarkan";
-            txtLordYarkan.ReadOnly = true;
-            txtLordYarkan.Size = new System.Drawing.Size(220, 23);
+            txtLordYarkan.PassFocusShow = false;
+            txtLordYarkan.Radius = 2;
+            txtLordYarkan.Size = new System.Drawing.Size(275, 25);
             txtLordYarkan.TabIndex = 29;
+            txtLordYarkan.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            txtLordYarkan.UseSystemPasswordChar = false;
             // 
             // txtDemonChaitan
             // 
             txtDemonChaitan.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             txtDemonChaitan.Enabled = false;
-            txtDemonChaitan.Location = new System.Drawing.Point(146, 275);
+            txtDemonChaitan.Location = new System.Drawing.Point(182, 344);
+            txtDemonChaitan.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            txtDemonChaitan.MaxLength = 32767;
+            txtDemonChaitan.MultiLine = false;
             txtDemonChaitan.Name = "txtDemonChaitan";
-            txtDemonChaitan.ReadOnly = true;
-            txtDemonChaitan.Size = new System.Drawing.Size(220, 23);
+            txtDemonChaitan.PassFocusShow = false;
+            txtDemonChaitan.Radius = 2;
+            txtDemonChaitan.Size = new System.Drawing.Size(275, 25);
             txtDemonChaitan.TabIndex = 30;
+            txtDemonChaitan.TextAlignment = System.Windows.Forms.HorizontalAlignment.Left;
+            txtDemonChaitan.UseSystemPasswordChar = false;
             // 
             // btnTigerGirl
             // 
             btnTigerGirl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnTigerGirl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             btnTigerGirl.BackColor = System.Drawing.Color.Transparent;
+            btnTigerGirl.Color = System.Drawing.Color.Transparent;
             btnTigerGirl.Enabled = false;
-            btnTigerGirl.Location = new System.Drawing.Point(372, 101);
+            btnTigerGirl.Location = new System.Drawing.Point(465, 126);
+            btnTigerGirl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             btnTigerGirl.Name = "btnTigerGirl";
-            btnTigerGirl.Size = new System.Drawing.Size(42, 23);
+            btnTigerGirl.Radius = 6;
+            btnTigerGirl.ShadowDepth = 4F;
+            btnTigerGirl.Size = new System.Drawing.Size(52, 29);
             btnTigerGirl.TabIndex = 31;
             btnTigerGirl.Text = "...";
             btnTigerGirl.UseVisualStyleBackColor = true;
@@ -440,10 +516,14 @@ namespace RSBot.General.Views
             btnCerberus.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnCerberus.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             btnCerberus.BackColor = System.Drawing.Color.Transparent;
+            btnCerberus.Color = System.Drawing.Color.Transparent;
             btnCerberus.Enabled = false;
-            btnCerberus.Location = new System.Drawing.Point(372, 130);
+            btnCerberus.Location = new System.Drawing.Point(465, 162);
+            btnCerberus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             btnCerberus.Name = "btnCerberus";
-            btnCerberus.Size = new System.Drawing.Size(42, 23);
+            btnCerberus.Radius = 6;
+            btnCerberus.ShadowDepth = 4F;
+            btnCerberus.Size = new System.Drawing.Size(52, 29);
             btnCerberus.TabIndex = 32;
             btnCerberus.Text = "...";
             btnCerberus.UseVisualStyleBackColor = true;
@@ -454,10 +534,14 @@ namespace RSBot.General.Views
             btnIvy.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnIvy.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             btnIvy.BackColor = System.Drawing.Color.Transparent;
+            btnIvy.Color = System.Drawing.Color.Transparent;
             btnIvy.Enabled = false;
-            btnIvy.Location = new System.Drawing.Point(372, 159);
+            btnIvy.Location = new System.Drawing.Point(465, 199);
+            btnIvy.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             btnIvy.Name = "btnIvy";
-            btnIvy.Size = new System.Drawing.Size(42, 23);
+            btnIvy.Radius = 6;
+            btnIvy.ShadowDepth = 4F;
+            btnIvy.Size = new System.Drawing.Size(52, 29);
             btnIvy.TabIndex = 33;
             btnIvy.Text = "...";
             btnIvy.UseVisualStyleBackColor = true;
@@ -468,10 +552,14 @@ namespace RSBot.General.Views
             btnUruchi.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnUruchi.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             btnUruchi.BackColor = System.Drawing.Color.Transparent;
+            btnUruchi.Color = System.Drawing.Color.Transparent;
             btnUruchi.Enabled = false;
-            btnUruchi.Location = new System.Drawing.Point(372, 188);
+            btnUruchi.Location = new System.Drawing.Point(465, 235);
+            btnUruchi.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             btnUruchi.Name = "btnUruchi";
-            btnUruchi.Size = new System.Drawing.Size(42, 23);
+            btnUruchi.Radius = 6;
+            btnUruchi.ShadowDepth = 4F;
+            btnUruchi.Size = new System.Drawing.Size(52, 29);
             btnUruchi.TabIndex = 34;
             btnUruchi.Text = "...";
             btnUruchi.UseVisualStyleBackColor = true;
@@ -482,10 +570,14 @@ namespace RSBot.General.Views
             btnIsyutaru.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnIsyutaru.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             btnIsyutaru.BackColor = System.Drawing.Color.Transparent;
+            btnIsyutaru.Color = System.Drawing.Color.Transparent;
             btnIsyutaru.Enabled = false;
-            btnIsyutaru.Location = new System.Drawing.Point(372, 217);
+            btnIsyutaru.Location = new System.Drawing.Point(465, 271);
+            btnIsyutaru.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             btnIsyutaru.Name = "btnIsyutaru";
-            btnIsyutaru.Size = new System.Drawing.Size(42, 23);
+            btnIsyutaru.Radius = 6;
+            btnIsyutaru.ShadowDepth = 4F;
+            btnIsyutaru.Size = new System.Drawing.Size(52, 29);
             btnIsyutaru.TabIndex = 35;
             btnIsyutaru.Text = "...";
             btnIsyutaru.UseVisualStyleBackColor = true;
@@ -496,10 +588,14 @@ namespace RSBot.General.Views
             btnLordYarkan.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnLordYarkan.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             btnLordYarkan.BackColor = System.Drawing.Color.Transparent;
+            btnLordYarkan.Color = System.Drawing.Color.Transparent;
             btnLordYarkan.Enabled = false;
-            btnLordYarkan.Location = new System.Drawing.Point(372, 246);
+            btnLordYarkan.Location = new System.Drawing.Point(465, 308);
+            btnLordYarkan.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             btnLordYarkan.Name = "btnLordYarkan";
-            btnLordYarkan.Size = new System.Drawing.Size(42, 23);
+            btnLordYarkan.Radius = 6;
+            btnLordYarkan.ShadowDepth = 4F;
+            btnLordYarkan.Size = new System.Drawing.Size(52, 29);
             btnLordYarkan.TabIndex = 36;
             btnLordYarkan.Text = "...";
             btnLordYarkan.UseVisualStyleBackColor = true;
@@ -510,10 +606,14 @@ namespace RSBot.General.Views
             btnDemonChaitan.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnDemonChaitan.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             btnDemonChaitan.BackColor = System.Drawing.Color.Transparent;
+            btnDemonChaitan.Color = System.Drawing.Color.Transparent;
             btnDemonChaitan.Enabled = false;
-            btnDemonChaitan.Location = new System.Drawing.Point(372, 275);
+            btnDemonChaitan.Location = new System.Drawing.Point(465, 344);
+            btnDemonChaitan.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             btnDemonChaitan.Name = "btnDemonChaitan";
-            btnDemonChaitan.Size = new System.Drawing.Size(42, 23);
+            btnDemonChaitan.Radius = 6;
+            btnDemonChaitan.ShadowDepth = 4F;
+            btnDemonChaitan.Size = new System.Drawing.Size(52, 29);
             btnDemonChaitan.TabIndex = 37;
             btnDemonChaitan.Text = "...";
             btnDemonChaitan.UseVisualStyleBackColor = true;
@@ -521,11 +621,19 @@ namespace RSBot.General.Views
             // 
             // lblPlayerMustBeLoggedIn
             // 
+            lblPlayerMustBeLoggedIn.ApplyGradient = false;
             lblPlayerMustBeLoggedIn.AutoSize = true;
             lblPlayerMustBeLoggedIn.ForeColor = System.Drawing.Color.Red;
-            lblPlayerMustBeLoggedIn.Location = new System.Drawing.Point(13, 352);
+            lblPlayerMustBeLoggedIn.Gradient = new System.Drawing.Color[]
+    {
+    System.Drawing.Color.Gray,
+    System.Drawing.Color.Black
+    };
+            lblPlayerMustBeLoggedIn.GradientAnimation = false;
+            lblPlayerMustBeLoggedIn.Location = new System.Drawing.Point(16, 440);
+            lblPlayerMustBeLoggedIn.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblPlayerMustBeLoggedIn.Name = "lblPlayerMustBeLoggedIn";
-            lblPlayerMustBeLoggedIn.Size = new System.Drawing.Size(141, 15);
+            lblPlayerMustBeLoggedIn.Size = new System.Drawing.Size(177, 20);
             lblPlayerMustBeLoggedIn.TabIndex = 38;
             lblPlayerMustBeLoggedIn.Text = "Player must be logged in.";
             // 
@@ -563,30 +671,32 @@ namespace RSBot.General.Views
             gbxUnique.Controls.Add(chkLordYarkan);
             gbxUnique.Controls.Add(txtTigerGirl);
             gbxUnique.Controls.Add(chkDemonChaitan);
-            gbxUnique.Location = new System.Drawing.Point(6, 6);
+            gbxUnique.Location = new System.Drawing.Point(8, 8);
+            gbxUnique.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             gbxUnique.Name = "gbxUnique";
-            gbxUnique.Padding = new System.Windows.Forms.Padding(3, 8, 3, 3);
+            gbxUnique.Padding = new System.Windows.Forms.Padding(4, 10, 4, 4);
             gbxUnique.Radius = 10;
             gbxUnique.ShadowDepth = 4;
-            gbxUnique.Size = new System.Drawing.Size(434, 383);
+            gbxUnique.Size = new System.Drawing.Size(542, 479);
             gbxUnique.TabIndex = 39;
             gbxUnique.TabStop = false;
             gbxUnique.Text = "Unique";
             // 
             // SoundNotificationWindow
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             BackColor = System.Drawing.Color.White;
-            ClientSize = new System.Drawing.Size(447, 438);
+            ClientSize = new System.Drawing.Size(559, 548);
             ControlBox = false;
             Controls.Add(gbxUnique);
             Controls.Add(panel1);
             Font = new System.Drawing.Font("Segoe UI", 9F);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             Location = new System.Drawing.Point(0, 0);
-            MaximumSize = new System.Drawing.Size(453, 444);
-            MinimumSize = new System.Drawing.Size(453, 444);
+            Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            MaximumSize = new System.Drawing.Size(565, 554);
+            MinimumSize = new System.Drawing.Size(565, 554);
             Name = "SoundNotificationWindow";
             ShowIcon = false;
             SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
@@ -601,19 +711,19 @@ namespace RSBot.General.Views
 
         #endregion
 
-        private System.Windows.Forms.Label lblPlayerMustBeLoggedIn;
+        private SDUI.Controls.Label lblPlayerMustBeLoggedIn;
         private SDUI.Controls.Label label1;
         private SDUI.Controls.Button btnOK;
         private SDUI.Controls.Button btnCancel;
         private SDUI.Controls.Panel panel1;
         private SDUI.Controls.CheckBox chkUniqueInRange;
-        private System.Windows.Forms.Button btnUniqueInRange;
+        private SDUI.Controls.Button btnUniqueInRange;
         private SDUI.Controls.CheckBox chkUniqueAppearedGeneral;
-        private System.Windows.Forms.Button btnUniqueAppearedGeneral;
-        private System.Windows.Forms.TextBox txtRegex;
+        private SDUI.Controls.Button btnUniqueAppearedGeneral;
+        private SDUI.Controls.TextBox txtRegex;
         private SDUI.Controls.Label lblRegex;
-        private System.Windows.Forms.TextBox txtUniqueAppearedGeneral;
-        private System.Windows.Forms.TextBox txtUniqueInRange;
+        private SDUI.Controls.TextBox txtUniqueAppearedGeneral;
+        private SDUI.Controls.TextBox txtUniqueInRange;
         private SDUI.Controls.CheckBox chkTigerGirl;
         private SDUI.Controls.CheckBox chkIvy;
         private SDUI.Controls.CheckBox chkUruchi;
@@ -621,20 +731,20 @@ namespace RSBot.General.Views
         private SDUI.Controls.CheckBox chkIsyutaru;
         private SDUI.Controls.CheckBox chkLordYarkan;
         private SDUI.Controls.CheckBox chkDemonChaitan;
-        private System.Windows.Forms.TextBox txtTigerGirl;
-        private System.Windows.Forms.TextBox txtCerberus;
-        private System.Windows.Forms.TextBox txtIvy;
-        private System.Windows.Forms.TextBox txtUruchi;
-        private System.Windows.Forms.TextBox txtIsyutaru;
-        private System.Windows.Forms.TextBox txtLordYarkan;
-        private System.Windows.Forms.TextBox txtDemonChaitan;
-        private System.Windows.Forms.Button btnTigerGirl;
-        private System.Windows.Forms.Button btnCerberus;
-        private System.Windows.Forms.Button btnIvy;
-        private System.Windows.Forms.Button btnUruchi;
-        private System.Windows.Forms.Button btnIsyutaru;
-        private System.Windows.Forms.Button btnLordYarkan;
-        private System.Windows.Forms.Button btnDemonChaitan;
+        private SDUI.Controls.TextBox txtTigerGirl;
+        private SDUI.Controls.TextBox txtCerberus;
+        private SDUI.Controls.TextBox txtIvy;
+        private SDUI.Controls.TextBox txtUruchi;
+        private SDUI.Controls.TextBox txtIsyutaru;
+        private SDUI.Controls.TextBox txtLordYarkan;
+        private SDUI.Controls.TextBox txtDemonChaitan;
+        private SDUI.Controls.Button btnTigerGirl;
+        private SDUI.Controls.Button btnCerberus;
+        private SDUI.Controls.Button btnIvy;
+        private SDUI.Controls.Button btnUruchi;
+        private SDUI.Controls.Button btnIsyutaru;
+        private SDUI.Controls.Button btnLordYarkan;
+        private SDUI.Controls.Button btnDemonChaitan;
         private SDUI.Controls.GroupBox gbxUnique;
     }
 }

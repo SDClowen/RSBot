@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\SoundNotificationWindow .cs">
+    <Compile Update="Views\SoundNotificationWindow.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

@@ -102,9 +102,7 @@
             toolTip1 = new System.Windows.Forms.ToolTip(components);
             panel1 = new SDUI.Controls.Panel();
             panel3 = new SDUI.Controls.Panel();
-            flowLayoutPanel2 = new SDUI.Controls.FlowLayoutPanel();
             panel2 = new SDUI.Controls.Panel();
-            flowLayoutPanel1 = new SDUI.Controls.FlowLayoutPanel();
             groupBackTown.SuspendLayout();
             groupBadStatus.SuspendLayout();
             groupHPMP.SuspendLayout();
@@ -112,9 +110,7 @@
             groupStatPoints.SuspendLayout();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
-            flowLayoutPanel2.SuspendLayout();
             panel2.SuspendLayout();
-            flowLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // label22
@@ -1368,7 +1364,9 @@
             panel3.BackColor = System.Drawing.Color.Transparent;
             panel3.Border = new System.Windows.Forms.Padding(0, 0, 0, 0);
             panel3.BorderColor = System.Drawing.Color.Transparent;
-            panel3.Controls.Add(flowLayoutPanel2);
+            panel3.Controls.Add(groupBackTown);
+            panel3.Controls.Add(groupStatPoints);
+            panel3.Controls.Add(label22);
             panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             panel3.Location = new System.Drawing.Point(610, 0);
             panel3.Margin = new System.Windows.Forms.Padding(0);
@@ -1378,29 +1376,14 @@
             panel3.Size = new System.Drawing.Size(360, 621);
             panel3.TabIndex = 1;
             // 
-            // flowLayoutPanel2
-            // 
-            flowLayoutPanel2.BackColor = System.Drawing.Color.Transparent;
-            flowLayoutPanel2.Border = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            flowLayoutPanel2.BorderColor = System.Drawing.Color.Transparent;
-            flowLayoutPanel2.Controls.Add(groupBackTown);
-            flowLayoutPanel2.Controls.Add(groupStatPoints);
-            flowLayoutPanel2.Controls.Add(label22);
-            flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            flowLayoutPanel2.Location = new System.Drawing.Point(0, 0);
-            flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
-            flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Radius = 10;
-            flowLayoutPanel2.ShadowDepth = 4F;
-            flowLayoutPanel2.Size = new System.Drawing.Size(360, 621);
-            flowLayoutPanel2.TabIndex = 0;
-            // 
             // panel2
             // 
             panel2.BackColor = System.Drawing.Color.Transparent;
             panel2.Border = new System.Windows.Forms.Padding(0, 0, 0, 0);
             panel2.BorderColor = System.Drawing.Color.Transparent;
-            panel2.Controls.Add(flowLayoutPanel1);
+            panel2.Controls.Add(groupHPMP);
+            panel2.Controls.Add(groupBadStatus);
+            panel2.Controls.Add(groupPet);
             panel2.Dock = System.Windows.Forms.DockStyle.Left;
             panel2.Location = new System.Drawing.Point(0, 0);
             panel2.Margin = new System.Windows.Forms.Padding(0);
@@ -1409,23 +1392,6 @@
             panel2.ShadowDepth = 4F;
             panel2.Size = new System.Drawing.Size(610, 621);
             panel2.TabIndex = 0;
-            // 
-            // flowLayoutPanel1
-            // 
-            flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
-            flowLayoutPanel1.Border = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            flowLayoutPanel1.BorderColor = System.Drawing.Color.Transparent;
-            flowLayoutPanel1.Controls.Add(groupHPMP);
-            flowLayoutPanel1.Controls.Add(groupBadStatus);
-            flowLayoutPanel1.Controls.Add(groupPet);
-            flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Radius = 10;
-            flowLayoutPanel1.ShadowDepth = 4F;
-            flowLayoutPanel1.Size = new System.Drawing.Size(610, 621);
-            flowLayoutPanel1.TabIndex = 0;
             // 
             // Main
             // 
@@ -1449,9 +1415,7 @@
             groupStatPoints.PerformLayout();
             panel1.ResumeLayout(false);
             panel3.ResumeLayout(false);
-            flowLayoutPanel2.ResumeLayout(false);
             panel2.ResumeLayout(false);
-            flowLayoutPanel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -1532,8 +1496,6 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private SDUI.Controls.Panel panel1;
         private SDUI.Controls.Panel panel3;
-        private SDUI.Controls.FlowLayoutPanel flowLayoutPanel2;
         private SDUI.Controls.Panel panel2;
-        private SDUI.Controls.FlowLayoutPanel flowLayoutPanel1;
     }
 }

@@ -47,7 +47,7 @@
             label2.GradientAnimation = false;
             label2.Location = new System.Drawing.Point(6, 65);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(34, 15);
+            label2.Size = new System.Drawing.Size(41, 20);
             label2.TabIndex = 15;
             label2.Text = "HGP:";
             // 
@@ -64,7 +64,7 @@
             label3.GradientAnimation = false;
             label3.Location = new System.Drawing.Point(9, 86);
             label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(30, 15);
+            label3.Size = new System.Drawing.Size(37, 20);
             label3.TabIndex = 16;
             label3.Text = "EXP:";
             // 
@@ -89,7 +89,7 @@
             progressEXP.ShowValue = true;
             progressEXP.Size = new System.Drawing.Size(180, 16);
             progressEXP.TabIndex = 12;
-            progressEXP.Text = "0.00%";
+            progressEXP.Text = "0,00%";
             progressEXP.Value = 0L;
             // 
             // progressHGP
@@ -113,7 +113,7 @@
             progressHGP.ShowValue = true;
             progressHGP.Size = new System.Drawing.Size(180, 16);
             progressHGP.TabIndex = 11;
-            progressHGP.Text = "0.00%";
+            progressHGP.Text = "0,00%";
             progressHGP.Value = 0L;
             // 
             // Growth

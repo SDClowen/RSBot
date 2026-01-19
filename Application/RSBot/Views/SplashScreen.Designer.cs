@@ -64,7 +64,7 @@
             logoLabel.ApplyGradient = true;
             logoLabel.BackColor = System.Drawing.Color.Transparent;
             logoLabel.Dock = System.Windows.Forms.DockStyle.Top;
-            logoLabel.Font = new System.Drawing.Font("Segoe UI Black", 65.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            logoLabel.Font = new System.Drawing.Font("Segoe UI Black", 65.25F, System.Drawing.FontStyle.Bold);
             logoLabel.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             logoLabel.Gradient = new System.Drawing.Color[]
     {
@@ -81,12 +81,12 @@
             // 
             // labelVersion
             // 
-            labelVersion.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            labelVersion.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             labelVersion.ApplyGradient = false;
             labelVersion.AutoSize = true;
             labelVersion.BackColor = System.Drawing.Color.Transparent;
             labelVersion.Enabled = false;
-            labelVersion.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelVersion.Font = new System.Drawing.Font("Segoe UI", 12F);
             labelVersion.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             labelVersion.Gradient = new System.Drawing.Color[]
     {
@@ -94,12 +94,12 @@
     System.Drawing.Color.DeepSkyBlue
     };
             labelVersion.GradientAnimation = false;
-            labelVersion.Location = new System.Drawing.Point(121, 170);
+            labelVersion.Location = new System.Drawing.Point(443, 129);
             labelVersion.Name = "labelVersion";
-            labelVersion.Size = new System.Drawing.Size(51, 21);
+            labelVersion.Size = new System.Drawing.Size(63, 28);
             labelVersion.TabIndex = 4;
             labelVersion.Text = "v1.0.0";
-            labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label2
             // 
@@ -107,7 +107,7 @@
             label2.BackColor = System.Drawing.Color.Transparent;
             label2.Dock = System.Windows.Forms.DockStyle.Bottom;
             label2.Enabled = false;
-            label2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label2.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             label2.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label2.Gradient = new System.Drawing.Color[]
     {
@@ -115,7 +115,7 @@
     System.Drawing.Color.FromArgb(74, 74, 74)
     };
             label2.GradientAnimation = false;
-            label2.Location = new System.Drawing.Point(0, 214);
+            label2.Location = new System.Drawing.Point(0, 232);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(533, 32);
             label2.TabIndex = 5;
@@ -128,7 +128,7 @@
             label3.BackColor = System.Drawing.Color.Transparent;
             label3.Dock = System.Windows.Forms.DockStyle.Bottom;
             label3.Enabled = false;
-            label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic);
             label3.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             label3.Gradient = new System.Drawing.Color[]
     {
@@ -136,7 +136,7 @@
     System.Drawing.Color.Black
     };
             label3.GradientAnimation = false;
-            label3.Location = new System.Drawing.Point(0, 246);
+            label3.Location = new System.Drawing.Point(0, 264);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(533, 26);
             label3.TabIndex = 5;
@@ -148,7 +148,7 @@
             lblLoading.ApplyGradient = false;
             lblLoading.BackColor = System.Drawing.Color.Transparent;
             lblLoading.Dock = System.Windows.Forms.DockStyle.Top;
-            lblLoading.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            lblLoading.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic);
             lblLoading.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             lblLoading.Gradient = new System.Drawing.Color[]
     {
@@ -166,46 +166,46 @@
             // progressLoading
             // 
             progressLoading.BackColor = System.Drawing.Color.Transparent;
-            progressLoading.Dock = System.Windows.Forms.DockStyle.Bottom;
-            progressLoading.DrawHatch = false;
+            progressLoading.DrawHatch = true;
+            progressLoading.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 162);
             progressLoading.Gradient = new System.Drawing.Color[]
     {
     System.Drawing.Color.DodgerBlue,
     System.Drawing.Color.SlateBlue
     };
             progressLoading.HatchType = System.Drawing.Drawing2D.HatchStyle.Percent10;
-            progressLoading.Location = new System.Drawing.Point(0, 272);
+            progressLoading.Location = new System.Drawing.Point(0, 40);
             progressLoading.Maximum = 100L;
             progressLoading.MaxPercentShowValue = 100F;
             progressLoading.Name = "progressLoading";
             progressLoading.PercentIndices = 0;
             progressLoading.Radius = 4;
-            progressLoading.ShowAsPercent = false;
-            progressLoading.ShowValue = false;
-            progressLoading.Size = new System.Drawing.Size(533, 18);
+            progressLoading.ShowAsPercent = true;
+            progressLoading.ShowValue = true;
+            progressLoading.Size = new System.Drawing.Size(533, 290);
             progressLoading.TabIndex = 7;
-            progressLoading.Text = "0 / 100";
+            progressLoading.Text = "0,0%";
             progressLoading.Value = 0L;
             // 
             // SplashScreen
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             BackColor = System.Drawing.SystemColors.Control;
             BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             BorderColor = System.Drawing.Color.Empty;
             ClientSize = new System.Drawing.Size(533, 290);
             ControlBox = false;
+            Controls.Add(labelVersion);
             Controls.Add(label2);
             Controls.Add(label3);
-            Controls.Add(progressLoading);
             Controls.Add(lblLoading);
-            Controls.Add(labelVersion);
             Controls.Add(logoLabel);
             Controls.Add(pictureBox);
+            Controls.Add(progressLoading);
             Cursor = System.Windows.Forms.Cursors.AppStarting;
             DrawTitleBorder = false;
-            Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            Font = new System.Drawing.Font("Segoe UI", 12F);
             Hatch = System.Drawing.Drawing2D.HatchStyle.Percent30;
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Location = new System.Drawing.Point(0, 0);
@@ -217,7 +217,6 @@
             SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Tag = "";
-            TopMost = false;
             Load += SplashScreen_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox).EndInit();
             ResumeLayout(false);

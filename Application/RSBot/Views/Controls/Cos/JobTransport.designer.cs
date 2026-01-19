@@ -30,14 +30,21 @@
         {
             SuspendLayout();
             // 
+            // progressHP
+            // 
+            progressHP.Location = new System.Drawing.Point(55, 60);
+            progressHP.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            progressHP.Size = new System.Drawing.Size(206, 21);
+            // 
             // JobTransport
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            MaximumSize = new System.Drawing.Size(242, 70);
-            MinimumSize = new System.Drawing.Size(242, 70);
+            Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            MaximumSize = new System.Drawing.Size(277, 93);
+            MinimumSize = new System.Drawing.Size(277, 93);
             Name = "JobTransport";
-            Size = new System.Drawing.Size(242, 70);
+            Size = new System.Drawing.Size(277, 93);
             ResumeLayout(false);
             PerformLayout();
         }
