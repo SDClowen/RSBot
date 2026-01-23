@@ -32,7 +32,7 @@ internal class AttackBundle : IBundle
             return;
         }
 
-        var dontFollowMobs = PlayerConfig.Get<bool>("RSBot.Training.checkBoxDontFollowMobs");
+        bool dontFollowMobs = PlayerConfig.Get<bool>("RSBot.Training.checkBoxDontFollowMobs");
         if (dontFollowMobs && !Kernel.Bot.Botbase.Area.IsInSight(Game.SelectedEntity))
         {
             Log.Debug("Deselecting entity because it moved far away from training area!");
@@ -42,6 +42,12 @@ internal class AttackBundle : IBundle
 
             Game.SelectedEntity?.TryDeselect();
             Game.SelectedEntity = null;
+
+            double distance = Game.Player.Position.DistanceTo(Container.Bot.Area.Position);
+            bool hasCollision = Game.Player.Position.HasCollisionBetween(Container.Bot.Area.Position);
+
+            if (distance > Container.Bot.Area.Radius && !hasCollision)
+                Game.Player.MoveTo(Container.Bot.Area.Position, false);
 
             return;
         }
