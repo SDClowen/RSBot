@@ -99,11 +99,11 @@ internal class TargetBundle : IBundle
         if (warlockModeEnabled && Game.SelectedEntity?.State.HasTwoDots() == true)
             return;
 
-        if (Game.SelectedEntity?.State.LifeState == LifeState.Alive)
-            return;
-
         if (Game.SelectedEntity != null && Game.SelectedEntity is not SpawnedMonster)
             Game.SelectedEntity = null;
+
+        if (Game.SelectedEntity?.State.LifeState == LifeState.Alive)
+            return;
 
         var monster = GetNearestEnemy();
         if (monster == null)

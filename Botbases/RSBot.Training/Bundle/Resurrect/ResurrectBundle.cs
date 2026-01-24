@@ -20,11 +20,14 @@ internal class ResurrectBundle : IBundle
         if (!PlayerConfig.Get<bool>("RSBot.Skills.checkResurrectParty"))
             return;
 
+        ushort resDelay = PlayerConfig.Get<ushort?>("RSBot.Skills.numResDelay") ?? 120;
+        ushort resRadius = PlayerConfig.Get<ushort?>("RSBot.Skills.numResRadius") ?? 100;
+
         foreach (var member in Game.Party.Members)
         {
             if (
                 _lastResurrectedPlayers.ContainsKey(member.Name)
-                && Kernel.TickCount - _lastResurrectedPlayers[member.Name] < 180 * 1000
+                && Kernel.TickCount - _lastResurrectedPlayers[member.Name] < resDelay * 1000
             )
                 continue;
 
@@ -32,7 +35,7 @@ internal class ResurrectBundle : IBundle
                 (
                     member.Player?.Movement.Source.DistanceTo(Game.Player.Movement.Source)
                     ?? member.Position.DistanceTo(Game.Player.Movement.Source)
-                ) > 100
+                ) > resRadius
                 || (
                     member.Player?.Movement.Source.HasCollisionBetween(Game.Player.Movement.Source)
                     ?? member.Position.HasCollisionBetween(Game.Player.Movement.Source)
