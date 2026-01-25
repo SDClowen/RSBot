@@ -100,17 +100,11 @@
             checkIncStr = new SDUI.Controls.CheckBox();
             checkIncInt = new SDUI.Controls.CheckBox();
             toolTip1 = new System.Windows.Forms.ToolTip(components);
-            panel1 = new SDUI.Controls.Panel();
-            panel3 = new SDUI.Controls.Panel();
-            panel2 = new SDUI.Controls.Panel();
             groupBackTown.SuspendLayout();
             groupBadStatus.SuspendLayout();
             groupHPMP.SuspendLayout();
             groupPet.SuspendLayout();
             groupStatPoints.SuspendLayout();
-            panel1.SuspendLayout();
-            panel3.SuspendLayout();
-            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // label22
@@ -132,6 +126,7 @@
             // 
             // groupBackTown
             // 
+            groupBackTown.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             groupBackTown.BackColor = System.Drawing.Color.Transparent;
             groupBackTown.Controls.Add(label19);
             groupBackTown.Controls.Add(numShardFatigueMinToDC);
@@ -149,7 +144,7 @@
             groupBackTown.Controls.Add(checkDead);
             groupBackTown.Controls.Add(checkInventory);
             groupBackTown.Controls.Add(checkNoArrows);
-            groupBackTown.Location = new System.Drawing.Point(7, 5);
+            groupBackTown.Location = new System.Drawing.Point(599, 5);
             groupBackTown.Margin = new System.Windows.Forms.Padding(7, 5, 0, 0);
             groupBackTown.Name = "groupBackTown";
             groupBackTown.Padding = new System.Windows.Forms.Padding(4, 12, 4, 4);
@@ -575,7 +570,7 @@
             comboSkillPlayerMP.FormattingEnabled = true;
             comboSkillPlayerMP.IntegralHeight = false;
             comboSkillPlayerMP.ItemHeight = 17;
-            comboSkillPlayerMP.Location = new System.Drawing.Point(415, 224);
+            comboSkillPlayerMP.Location = new System.Drawing.Point(415, 227);
             comboSkillPlayerMP.Margin = new System.Windows.Forms.Padding(4);
             comboSkillPlayerMP.Name = "comboSkillPlayerMP";
             comboSkillPlayerMP.Radius = 5;
@@ -592,7 +587,7 @@
             comboSkillPlayerHP.FormattingEnabled = true;
             comboSkillPlayerHP.IntegralHeight = false;
             comboSkillPlayerHP.ItemHeight = 17;
-            comboSkillPlayerHP.Location = new System.Drawing.Point(415, 190);
+            comboSkillPlayerHP.Location = new System.Drawing.Point(415, 196);
             comboSkillPlayerHP.Margin = new System.Windows.Forms.Padding(4);
             comboSkillPlayerHP.Name = "comboSkillPlayerHP";
             comboSkillPlayerHP.Radius = 5;
@@ -934,7 +929,7 @@
             checkUseSkillMP.AutoSize = true;
             checkUseSkillMP.BackColor = System.Drawing.Color.Transparent;
             checkUseSkillMP.Depth = 0;
-            checkUseSkillMP.Location = new System.Drawing.Point(11, 219);
+            checkUseSkillMP.Location = new System.Drawing.Point(14, 223);
             checkUseSkillMP.Margin = new System.Windows.Forms.Padding(0);
             checkUseSkillMP.MouseLocation = new System.Drawing.Point(-1, -1);
             checkUseSkillMP.Name = "checkUseSkillMP";
@@ -1229,6 +1224,7 @@
             // 
             // groupStatPoints
             // 
+            groupStatPoints.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             groupStatPoints.BackColor = System.Drawing.Color.Transparent;
             groupStatPoints.Controls.Add(buttonRun);
             groupStatPoints.Controls.Add(checkIncBotStopped);
@@ -1236,7 +1232,7 @@
             groupStatPoints.Controls.Add(numIncInt);
             groupStatPoints.Controls.Add(checkIncStr);
             groupStatPoints.Controls.Add(checkIncInt);
-            groupStatPoints.Location = new System.Drawing.Point(7, 366);
+            groupStatPoints.Location = new System.Drawing.Point(599, 377);
             groupStatPoints.Margin = new System.Windows.Forms.Padding(7, 5, 0, 0);
             groupStatPoints.Name = "groupStatPoints";
             groupStatPoints.Padding = new System.Windows.Forms.Padding(4, 12, 4, 4);
@@ -1343,61 +1339,16 @@
             checkIncInt.UseVisualStyleBackColor = false;
             checkIncInt.CheckedChanged += settings_CheckedChanged;
             // 
-            // panel1
-            // 
-            panel1.BackColor = System.Drawing.Color.Transparent;
-            panel1.Border = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            panel1.BorderColor = System.Drawing.Color.Transparent;
-            panel1.Controls.Add(panel3);
-            panel1.Controls.Add(panel2);
-            panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            panel1.Location = new System.Drawing.Point(0, 0);
-            panel1.Margin = new System.Windows.Forms.Padding(0);
-            panel1.Name = "panel1";
-            panel1.Radius = 10;
-            panel1.ShadowDepth = 4F;
-            panel1.Size = new System.Drawing.Size(970, 621);
-            panel1.TabIndex = 19;
-            // 
-            // panel3
-            // 
-            panel3.BackColor = System.Drawing.Color.Transparent;
-            panel3.Border = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            panel3.BorderColor = System.Drawing.Color.Transparent;
-            panel3.Controls.Add(groupBackTown);
-            panel3.Controls.Add(groupStatPoints);
-            panel3.Controls.Add(label22);
-            panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            panel3.Location = new System.Drawing.Point(610, 0);
-            panel3.Margin = new System.Windows.Forms.Padding(0);
-            panel3.Name = "panel3";
-            panel3.Radius = 10;
-            panel3.ShadowDepth = 4F;
-            panel3.Size = new System.Drawing.Size(360, 621);
-            panel3.TabIndex = 1;
-            // 
-            // panel2
-            // 
-            panel2.BackColor = System.Drawing.Color.Transparent;
-            panel2.Border = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            panel2.BorderColor = System.Drawing.Color.Transparent;
-            panel2.Controls.Add(groupHPMP);
-            panel2.Controls.Add(groupBadStatus);
-            panel2.Controls.Add(groupPet);
-            panel2.Dock = System.Windows.Forms.DockStyle.Left;
-            panel2.Location = new System.Drawing.Point(0, 0);
-            panel2.Margin = new System.Windows.Forms.Padding(0);
-            panel2.Name = "panel2";
-            panel2.Radius = 10;
-            panel2.ShadowDepth = 4F;
-            panel2.Size = new System.Drawing.Size(610, 621);
-            panel2.TabIndex = 0;
-            // 
             // Main
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            Controls.Add(panel1);
+            Controls.Add(groupBackTown);
+            Controls.Add(groupStatPoints);
+            Controls.Add(label22);
+            Controls.Add(groupHPMP);
+            Controls.Add(groupBadStatus);
+            Controls.Add(groupPet);
             Font = new System.Drawing.Font("Segoe UI", 9F);
             Margin = new System.Windows.Forms.Padding(4);
             Name = "Main";
@@ -1413,9 +1364,6 @@
             groupPet.PerformLayout();
             groupStatPoints.ResumeLayout(false);
             groupStatPoints.PerformLayout();
-            panel1.ResumeLayout(false);
-            panel3.ResumeLayout(false);
-            panel2.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -1494,8 +1442,5 @@
         private SDUI.Controls.NumUpDown numHPPotionsLeft;
         private SDUI.Controls.CheckBox checkShardFatigue;
         private System.Windows.Forms.ToolTip toolTip1;
-        private SDUI.Controls.Panel panel1;
-        private SDUI.Controls.Panel panel3;
-        private SDUI.Controls.Panel panel2;
     }
 }

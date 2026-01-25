@@ -234,7 +234,7 @@ namespace RSBot.Items.Views
             tabMain.Dock = DockStyle.Fill;
             tabMain.ItemSize = new Size(80, 24);
             tabMain.Location = new Point(0, 0);
-            tabMain.Margin = new Padding(4, 4, 4, 4);
+            tabMain.Margin = new Padding(4);
             tabMain.Name = "tabMain";
             tabMain.Radius = new Padding(4);
             tabMain.SelectedIndex = 0;
@@ -248,9 +248,9 @@ namespace RSBot.Items.Views
             tabBuyFilter.Controls.Add(separator5);
             tabBuyFilter.Controls.Add(groupBox1);
             tabBuyFilter.Location = new Point(4, 28);
-            tabBuyFilter.Margin = new Padding(4, 4, 4, 4);
+            tabBuyFilter.Margin = new Padding(4);
             tabBuyFilter.Name = "tabBuyFilter";
-            tabBuyFilter.Padding = new Padding(10, 10, 10, 10);
+            tabBuyFilter.Padding = new Padding(10);
             tabBuyFilter.Size = new Size(934, 559);
             tabBuyFilter.TabIndex = 0;
             tabBuyFilter.Text = "Shopping";
@@ -259,7 +259,7 @@ namespace RSBot.Items.Views
             // 
             splitContainer.Dock = DockStyle.Fill;
             splitContainer.Location = new Point(10, 10);
-            splitContainer.Margin = new Padding(4, 4, 4, 4);
+            splitContainer.Margin = new Padding(4);
             splitContainer.Name = "splitContainer";
             // 
             // splitContainer.Panel1
@@ -287,7 +287,7 @@ namespace RSBot.Items.Views
             listAvailableProducts.FullRowSelect = true;
             listAvailableProducts.HeaderStyle = ColumnHeaderStyle.Nonclickable;
             listAvailableProducts.Location = new Point(0, 71);
-            listAvailableProducts.Margin = new Padding(4, 4, 4, 4);
+            listAvailableProducts.Margin = new Padding(4);
             listAvailableProducts.Name = "listAvailableProducts";
             listAvailableProducts.Size = new Size(420, 381);
             listAvailableProducts.TabIndex = 4;
@@ -311,7 +311,7 @@ namespace RSBot.Items.Views
             panel1.Controls.Add(label1);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(4, 4, 4, 4);
+            panel1.Margin = new Padding(4);
             panel1.Name = "panel1";
             panel1.Radius = 0;
             panel1.ShadowDepth = 4F;
@@ -356,7 +356,7 @@ namespace RSBot.Items.Views
             // txtShopSearch
             // 
             txtShopSearch.Location = new Point(76, 36);
-            txtShopSearch.Margin = new Padding(4, 4, 4, 4);
+            txtShopSearch.Margin = new Padding(4);
             txtShopSearch.MaxLength = 32767;
             txtShopSearch.MultiLine = false;
             txtShopSearch.Name = "txtShopSearch";
@@ -378,7 +378,7 @@ namespace RSBot.Items.Views
             comboStore.ItemHeight = 17;
             comboStore.Items.AddRange(new object[] { "Potion trader", "Stable keeper", "Protector trader", "Weapon trader", "Accessory trader" });
             comboStore.Location = new Point(76, 5);
-            comboStore.Margin = new Padding(4, 4, 4, 4);
+            comboStore.Margin = new Padding(4);
             comboStore.Name = "comboStore";
             comboStore.Radius = 5;
             comboStore.ShadowDepth = 4F;
@@ -428,7 +428,7 @@ namespace RSBot.Items.Views
             listShoppingList.Groups.AddRange(new ListViewGroup[] { listViewGroup6, listViewGroup7, listViewGroup8, listViewGroup9, listViewGroup10 });
             listShoppingList.HeaderStyle = ColumnHeaderStyle.Nonclickable;
             listShoppingList.Location = new Point(0, 71);
-            listShoppingList.Margin = new Padding(4, 4, 4, 4);
+            listShoppingList.Margin = new Padding(4);
             listShoppingList.Name = "listShoppingList";
             listShoppingList.Size = new Size(493, 381);
             listShoppingList.TabIndex = 3;
@@ -453,7 +453,7 @@ namespace RSBot.Items.Views
             panel2.Dock = DockStyle.Top;
             panel2.Font = new Font("Segoe UI", 8.25F);
             panel2.Location = new Point(0, 0);
-            panel2.Margin = new Padding(4, 4, 4, 4);
+            panel2.Margin = new Padding(4);
             panel2.Name = "panel2";
             panel2.Radius = 0;
             panel2.ShadowDepth = 4F;
@@ -465,7 +465,7 @@ namespace RSBot.Items.Views
             separator5.Dock = DockStyle.Bottom;
             separator5.IsVertical = false;
             separator5.Location = new Point(10, 462);
-            separator5.Margin = new Padding(4, 4, 4, 4);
+            separator5.Margin = new Padding(4);
             separator5.Name = "separator5";
             separator5.Size = new Size(914, 12);
             separator5.TabIndex = 9;
@@ -479,7 +479,7 @@ namespace RSBot.Items.Views
             groupBox1.Controls.Add(checkEnable);
             groupBox1.Dock = DockStyle.Bottom;
             groupBox1.Location = new Point(10, 474);
-            groupBox1.Margin = new Padding(4, 4, 4, 4);
+            groupBox1.Margin = new Padding(4);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new Padding(4, 12, 4, 4);
             groupBox1.Radius = 10;
@@ -569,7 +569,7 @@ namespace RSBot.Items.Views
             tabSellFilter.Controls.Add(panel3);
             tabSellFilter.Controls.Add(pictureBox1);
             tabSellFilter.Location = new Point(4, 28);
-            tabSellFilter.Margin = new Padding(4, 4, 4, 4);
+            tabSellFilter.Margin = new Padding(4);
             tabSellFilter.Name = "tabSellFilter";
             tabSellFilter.Size = new Size(934, 559);
             tabSellFilter.TabIndex = 1;
@@ -585,7 +585,7 @@ namespace RSBot.Items.Views
             listFilter.ForeColor = Color.FromArgb(0, 0, 0);
             listFilter.FullRowSelect = true;
             listFilter.Location = new Point(331, 0);
-            listFilter.Margin = new Padding(4, 4, 4, 4);
+            listFilter.Margin = new Padding(4);
             listFilter.Name = "listFilter";
             listFilter.Size = new Size(603, 514);
             listFilter.SmallImageList = searchImageList;
@@ -718,9 +718,9 @@ namespace RSBot.Items.Views
             filterPanel.Controls.Add(groupGender);
             filterPanel.Dock = DockStyle.Left;
             filterPanel.Location = new Point(0, 0);
-            filterPanel.Margin = new Padding(4, 4, 4, 4);
+            filterPanel.Margin = new Padding(4);
             filterPanel.Name = "filterPanel";
-            filterPanel.Padding = new Padding(15, 15, 15, 15);
+            filterPanel.Padding = new Padding(15);
             filterPanel.Radius = 0;
             filterPanel.ShadowDepth = 4F;
             filterPanel.Size = new Size(331, 514);
@@ -736,7 +736,7 @@ namespace RSBot.Items.Views
             groupOthers.Controls.Add(checkOther);
             groupOthers.Dock = DockStyle.Top;
             groupOthers.Location = new Point(15, 761);
-            groupOthers.Margin = new Padding(4, 4, 4, 4);
+            groupOthers.Margin = new Padding(4);
             groupOthers.Name = "groupOthers";
             groupOthers.Padding = new Padding(4, 12, 4, 4);
             groupOthers.Radius = 10;
@@ -826,7 +826,7 @@ namespace RSBot.Items.Views
             separator1.Dock = DockStyle.Top;
             separator1.IsVertical = false;
             separator1.Location = new Point(15, 749);
-            separator1.Margin = new Padding(4, 4, 4, 4);
+            separator1.Margin = new Padding(4);
             separator1.Name = "separator1";
             separator1.Size = new Size(280, 12);
             separator1.TabIndex = 5;
@@ -851,7 +851,7 @@ namespace RSBot.Items.Views
             groupWeapons.Controls.Add(checkBlade);
             groupWeapons.Dock = DockStyle.Top;
             groupWeapons.Location = new Point(15, 478);
-            groupWeapons.Margin = new Padding(8, 8, 8, 8);
+            groupWeapons.Margin = new Padding(8);
             groupWeapons.Name = "groupWeapons";
             groupWeapons.Padding = new Padding(4, 12, 4, 4);
             groupWeapons.Radius = 10;
@@ -1091,7 +1091,7 @@ namespace RSBot.Items.Views
             separator2.Dock = DockStyle.Top;
             separator2.IsVertical = false;
             separator2.Location = new Point(15, 466);
-            separator2.Margin = new Padding(4, 4, 4, 4);
+            separator2.Margin = new Padding(4);
             separator2.Name = "separator2";
             separator2.Size = new Size(280, 12);
             separator2.TabIndex = 45;
@@ -1104,7 +1104,7 @@ namespace RSBot.Items.Views
             groupAccessories.Controls.Add(checkRing);
             groupAccessories.Dock = DockStyle.Top;
             groupAccessories.Location = new Point(15, 394);
-            groupAccessories.Margin = new Padding(4, 4, 4, 4);
+            groupAccessories.Margin = new Padding(4);
             groupAccessories.Name = "groupAccessories";
             groupAccessories.Padding = new Padding(4, 12, 4, 4);
             groupAccessories.Radius = 10;
@@ -1164,7 +1164,7 @@ namespace RSBot.Items.Views
             separator3.Dock = DockStyle.Top;
             separator3.IsVertical = false;
             separator3.Location = new Point(15, 382);
-            separator3.Margin = new Padding(4, 4, 4, 4);
+            separator3.Margin = new Padding(4);
             separator3.Name = "separator3";
             separator3.Size = new Size(280, 12);
             separator3.TabIndex = 46;
@@ -1183,7 +1183,7 @@ namespace RSBot.Items.Views
             groupClothes.Controls.Add(checkHead);
             groupClothes.Dock = DockStyle.Top;
             groupClothes.Location = new Point(15, 201);
-            groupClothes.Margin = new Padding(4, 4, 4, 4);
+            groupClothes.Margin = new Padding(4);
             groupClothes.Name = "groupClothes";
             groupClothes.Padding = new Padding(4, 12, 4, 4);
             groupClothes.Radius = 10;
@@ -1333,7 +1333,7 @@ namespace RSBot.Items.Views
             separator4.Dock = DockStyle.Top;
             separator4.IsVertical = false;
             separator4.Location = new Point(15, 189);
-            separator4.Margin = new Padding(4, 4, 4, 4);
+            separator4.Margin = new Padding(4);
             separator4.Name = "separator4";
             separator4.Size = new Size(280, 12);
             separator4.TabIndex = 47;
@@ -1352,7 +1352,7 @@ namespace RSBot.Items.Views
             groupGender.Controls.Add(label4);
             groupGender.Dock = DockStyle.Top;
             groupGender.Location = new Point(15, 15);
-            groupGender.Margin = new Padding(8, 8, 8, 8);
+            groupGender.Margin = new Padding(8);
             groupGender.Name = "groupGender";
             groupGender.Padding = new Padding(4, 12, 4, 4);
             groupGender.Radius = 10;
@@ -1461,7 +1461,7 @@ namespace RSBot.Items.Views
             numDegreeFrom.Font = new Font("Segoe UI", 9.25F);
             numDegreeFrom.ForeColor = Color.FromArgb(0, 0, 0);
             numDegreeFrom.Location = new Point(72, 136);
-            numDegreeFrom.Margin = new Padding(4, 4, 4, 4);
+            numDegreeFrom.Margin = new Padding(4);
             numDegreeFrom.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
             numDegreeFrom.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
             numDegreeFrom.MinimumSize = new Size(100, 31);
@@ -1476,7 +1476,7 @@ namespace RSBot.Items.Views
             numDegreeTo.Font = new Font("Segoe UI", 9.25F);
             numDegreeTo.ForeColor = Color.FromArgb(0, 0, 0);
             numDegreeTo.Location = new Point(175, 136);
-            numDegreeTo.Margin = new Padding(4, 4, 4, 4);
+            numDegreeTo.Margin = new Padding(4);
             numDegreeTo.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
             numDegreeTo.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
             numDegreeTo.MinimumSize = new Size(100, 31);
@@ -1559,7 +1559,7 @@ namespace RSBot.Items.Views
             // 
             btnResetFilter.Color = Color.Transparent;
             btnResetFilter.Location = new Point(15, 9);
-            btnResetFilter.Margin = new Padding(4, 4, 4, 4);
+            btnResetFilter.Margin = new Padding(4);
             btnResetFilter.Name = "btnResetFilter";
             btnResetFilter.Radius = 6;
             btnResetFilter.ShadowDepth = 4F;
@@ -1576,7 +1576,7 @@ namespace RSBot.Items.Views
             btnSearch.Font = new Font("Segoe UI", 9F);
             btnSearch.ForeColor = Color.White;
             btnSearch.Location = new Point(836, 8);
-            btnSearch.Margin = new Padding(4, 4, 4, 4);
+            btnSearch.Margin = new Padding(4);
             btnSearch.Name = "btnSearch";
             btnSearch.Radius = 6;
             btnSearch.ShadowDepth = 4F;
@@ -1590,7 +1590,7 @@ namespace RSBot.Items.Views
             // 
             btnReload.Color = Color.Transparent;
             btnReload.Location = new Point(140, 9);
-            btnReload.Margin = new Padding(4, 4, 4, 4);
+            btnReload.Margin = new Padding(4);
             btnReload.Name = "btnReload";
             btnReload.Radius = 6;
             btnReload.ShadowDepth = 4F;
@@ -1605,7 +1605,7 @@ namespace RSBot.Items.Views
             txtSellSearch.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             txtSellSearch.Font = new Font("Segoe UI", 9F);
             txtSellSearch.Location = new Point(554, 9);
-            txtSellSearch.Margin = new Padding(4, 4, 4, 4);
+            txtSellSearch.Margin = new Padding(4);
             txtSellSearch.MaxLength = 32767;
             txtSellSearch.MultiLine = false;
             txtSellSearch.Name = "txtSellSearch";
@@ -1621,7 +1621,7 @@ namespace RSBot.Items.Views
             // 
             pictureBox1.Image = Resources.loading;
             pictureBox1.Location = new Point(581, 186);
-            pictureBox1.Margin = new Padding(4, 4, 4, 4);
+            pictureBox1.Margin = new Padding(4);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(151, 86);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
@@ -1634,9 +1634,9 @@ namespace RSBot.Items.Views
             tabPage1.Controls.Add(groupBoxOptions);
             tabPage1.Controls.Add(groupBoxGeneral);
             tabPage1.Location = new Point(4, 28);
-            tabPage1.Margin = new Padding(4, 4, 4, 4);
+            tabPage1.Margin = new Padding(4);
             tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(4, 4, 4, 4);
+            tabPage1.Padding = new Padding(4);
             tabPage1.Size = new Size(934, 559);
             tabPage1.TabIndex = 2;
             tabPage1.Text = "Pickup settings";
@@ -1651,7 +1651,7 @@ namespace RSBot.Items.Views
             groupBoxOptions.Controls.Add(checkQuestItems);
             groupBoxOptions.Controls.Add(checkPickupBlue);
             groupBoxOptions.Location = new Point(8, 146);
-            groupBoxOptions.Margin = new Padding(4, 4, 4, 4);
+            groupBoxOptions.Margin = new Padding(4);
             groupBoxOptions.Name = "groupBoxOptions";
             groupBoxOptions.Padding = new Padding(4, 10, 4, 4);
             groupBoxOptions.Radius = 10;
@@ -1769,7 +1769,7 @@ namespace RSBot.Items.Views
             groupBoxGeneral.Controls.Add(checkDontPickupInBerzerk);
             groupBoxGeneral.Controls.Add(checkEnableAbilityPet);
             groupBoxGeneral.Location = new Point(8, 8);
-            groupBoxGeneral.Margin = new Padding(4, 4, 4, 4);
+            groupBoxGeneral.Margin = new Padding(4);
             groupBoxGeneral.Name = "groupBoxGeneral";
             groupBoxGeneral.Padding = new Padding(4, 12, 4, 4);
             groupBoxGeneral.Radius = 10;
@@ -1785,7 +1785,7 @@ namespace RSBot.Items.Views
             cbDontPickupWhileBotting.AutoSize = true;
             cbDontPickupWhileBotting.BackColor = Color.Transparent;
             cbDontPickupWhileBotting.Depth = 0;
-            cbDontPickupWhileBotting.Location = new Point(359, 70);
+            cbDontPickupWhileBotting.Location = new Point(351, 76);
             cbDontPickupWhileBotting.Margin = new Padding(0);
             cbDontPickupWhileBotting.MouseLocation = new Point(-1, -1);
             cbDontPickupWhileBotting.Name = "cbDontPickupWhileBotting";
@@ -1801,7 +1801,7 @@ namespace RSBot.Items.Views
             cbJustpickmyitems.AutoSize = true;
             cbJustpickmyitems.BackColor = Color.Transparent;
             cbJustpickmyitems.Depth = 0;
-            cbJustpickmyitems.Location = new Point(351, 32);
+            cbJustpickmyitems.Location = new Point(351, 38);
             cbJustpickmyitems.Margin = new Padding(0);
             cbJustpickmyitems.MouseLocation = new Point(-1, -1);
             cbJustpickmyitems.Name = "cbJustpickmyitems";
@@ -1818,7 +1818,7 @@ namespace RSBot.Items.Views
             checkDontPickupInBerzerk.AutoSize = true;
             checkDontPickupInBerzerk.BackColor = Color.Transparent;
             checkDontPickupInBerzerk.Depth = 0;
-            checkDontPickupInBerzerk.Location = new Point(28, 70);
+            checkDontPickupInBerzerk.Location = new Point(19, 76);
             checkDontPickupInBerzerk.Margin = new Padding(0);
             checkDontPickupInBerzerk.MouseLocation = new Point(-1, -1);
             checkDontPickupInBerzerk.Name = "checkDontPickupInBerzerk";
@@ -1836,7 +1836,7 @@ namespace RSBot.Items.Views
             checkEnableAbilityPet.Checked = true;
             checkEnableAbilityPet.CheckState = CheckState.Checked;
             checkEnableAbilityPet.Depth = 0;
-            checkEnableAbilityPet.Location = new Point(19, 32);
+            checkEnableAbilityPet.Location = new Point(19, 38);
             checkEnableAbilityPet.Margin = new Padding(0);
             checkEnableAbilityPet.MouseLocation = new Point(-1, -1);
             checkEnableAbilityPet.Name = "checkEnableAbilityPet";
@@ -1853,7 +1853,7 @@ namespace RSBot.Items.Views
             AutoScaleMode = AutoScaleMode.Dpi;
             Controls.Add(tabMain);
             Font = new Font("Segoe UI", 9F);
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             Name = "Main";
             Size = new Size(942, 591);
             contextShoppingList.ResumeLayout(false);

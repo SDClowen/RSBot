@@ -80,6 +80,9 @@ internal class AutoPartyBundle
 
     public void OnTick()
     {
+        if (!Game.Ready)
+            return;
+
         var elapsed = Kernel.TickCount - _lastTick;
         if (elapsed > 5000)
         {
@@ -95,7 +98,7 @@ internal class AutoPartyBundle
     /// </summary>
     private void CheckForAutoPartyJoin()
     {
-        if (Game.Party.IsInParty)
+        if (Game.Party.IsInParty || Config == null)
             return;
 
         if (!Config.AutoJoinByName && !Config.AutoJoinByTitle)

@@ -116,7 +116,7 @@ public sealed class SpawnedPlayer : SpawnedBionic
     /// <value>
     ///     The PVP cape.
     /// </value>
-    public PvpCapeType PvpCape { get; set; }
+    public PvpFlag PvpCape { get; set; }
 
     /// <summary>
     ///     Gets or sets the automatic inverst exp.
@@ -203,7 +203,7 @@ public sealed class SpawnedPlayer : SpawnedBionic
             HwanLevel = packet.ReadByte();
 
         if (Game.ClientType > GameClientType.Thailand)
-            PvpCape = (PvpCapeType)packet.ReadByte();
+            PvpCape = (PvpFlag)packet.ReadByte();
 
         AutoInverstExp = (AutoInverstType)packet.ReadByte();
 

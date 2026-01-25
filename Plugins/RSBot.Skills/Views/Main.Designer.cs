@@ -50,9 +50,7 @@
             btnRemoveBuffSkill = new SDUI.Controls.Button();
             tabControl1 = new SDUI.Controls.TabControl();
             tabPage1 = new System.Windows.Forms.TabPage();
-            flowLayoutPanel1 = new SDUI.Controls.FlowLayoutPanel();
             tabPage2 = new System.Windows.Forms.TabPage();
-            flowLayoutPanel2 = new SDUI.Controls.FlowLayoutPanel();
             groupBoxAutomatedResurrection = new SDUI.Controls.GroupBox();
             lblResRadius = new SDUI.Controls.Label();
             numResRadius = new SDUI.Controls.NumUpDown();
@@ -103,9 +101,7 @@
             groupBox2.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
-            flowLayoutPanel1.SuspendLayout();
             tabPage2.SuspendLayout();
-            flowLayoutPanel2.SuspendLayout();
             groupBoxAutomatedResurrection.SuspendLayout();
             groupBoxAdvancedBuff.SuspendLayout();
             grpMasteryUpdate.SuspendLayout();
@@ -415,7 +411,8 @@
             // tabPage1
             // 
             tabPage1.BackColor = System.Drawing.Color.White;
-            tabPage1.Controls.Add(flowLayoutPanel1);
+            tabPage1.Controls.Add(groupBoxAttackingSkills);
+            tabPage1.Controls.Add(groupBox2);
             tabPage1.Location = new System.Drawing.Point(4, 28);
             tabPage1.Margin = new System.Windows.Forms.Padding(0);
             tabPage1.Name = "tabPage1";
@@ -423,48 +420,19 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "General setup";
             // 
-            // flowLayoutPanel1
-            // 
-            flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
-            flowLayoutPanel1.Border = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            flowLayoutPanel1.BorderColor = System.Drawing.Color.Transparent;
-            flowLayoutPanel1.Controls.Add(groupBoxAttackingSkills);
-            flowLayoutPanel1.Controls.Add(groupBox2);
-            flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Radius = 10;
-            flowLayoutPanel1.ShadowDepth = 4F;
-            flowLayoutPanel1.Size = new System.Drawing.Size(482, 552);
-            flowLayoutPanel1.TabIndex = 3;
-            // 
             // tabPage2
             // 
             tabPage2.BackColor = System.Drawing.Color.White;
-            tabPage2.Controls.Add(flowLayoutPanel2);
+            tabPage2.Controls.Add(groupBoxAutomatedResurrection);
+            tabPage2.Controls.Add(groupBoxAdvancedBuff);
+            tabPage2.Controls.Add(grpMasteryUpdate);
+            tabPage2.Controls.Add(groupAdvancedSetup);
             tabPage2.Location = new System.Drawing.Point(4, 28);
             tabPage2.Margin = new System.Windows.Forms.Padding(0);
             tabPage2.Name = "tabPage2";
             tabPage2.Size = new System.Drawing.Size(482, 552);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Advanced setup";
-            // 
-            // flowLayoutPanel2
-            // 
-            flowLayoutPanel2.BackColor = System.Drawing.Color.Transparent;
-            flowLayoutPanel2.Border = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            flowLayoutPanel2.BorderColor = System.Drawing.Color.Transparent;
-            flowLayoutPanel2.Controls.Add(groupBoxAutomatedResurrection);
-            flowLayoutPanel2.Controls.Add(groupBoxAdvancedBuff);
-            flowLayoutPanel2.Controls.Add(grpMasteryUpdate);
-            flowLayoutPanel2.Controls.Add(groupAdvancedSetup);
-            flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            flowLayoutPanel2.Location = new System.Drawing.Point(0, 0);
-            flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Radius = 10;
-            flowLayoutPanel2.ShadowDepth = 4F;
-            flowLayoutPanel2.Size = new System.Drawing.Size(482, 552);
-            flowLayoutPanel2.TabIndex = 15;
             // 
             // groupBoxAutomatedResurrection
             // 
@@ -918,9 +886,8 @@
             tabPage3.Controls.Add(listSkills);
             tabPage3.Controls.Add(panelPlayerSkills);
             tabPage3.Location = new System.Drawing.Point(4, 28);
-            tabPage3.Margin = new System.Windows.Forms.Padding(4);
+            tabPage3.Margin = new System.Windows.Forms.Padding(0);
             tabPage3.Name = "tabPage3";
-            tabPage3.Padding = new System.Windows.Forms.Padding(4);
             tabPage3.Size = new System.Drawing.Size(444, 552);
             tabPage3.TabIndex = 0;
             tabPage3.Text = "Player skills";
@@ -935,10 +902,10 @@
             listSkills.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             listSkills.FullRowSelect = true;
             listSkills.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            listSkills.Location = new System.Drawing.Point(4, 4);
+            listSkills.Location = new System.Drawing.Point(0, 0);
             listSkills.Margin = new System.Windows.Forms.Padding(4);
             listSkills.Name = "listSkills";
-            listSkills.Size = new System.Drawing.Size(436, 498);
+            listSkills.Size = new System.Drawing.Size(444, 506);
             listSkills.TabIndex = 5;
             listSkills.UseCompatibleStateImageBehavior = false;
             listSkills.View = System.Windows.Forms.View.Details;
@@ -1014,12 +981,12 @@
             panelPlayerSkills.Controls.Add(checkShowAttacks);
             panelPlayerSkills.Controls.Add(checkShowBuffs);
             panelPlayerSkills.Dock = System.Windows.Forms.DockStyle.Bottom;
-            panelPlayerSkills.Location = new System.Drawing.Point(4, 502);
-            panelPlayerSkills.Margin = new System.Windows.Forms.Padding(4);
+            panelPlayerSkills.Location = new System.Drawing.Point(0, 506);
+            panelPlayerSkills.Margin = new System.Windows.Forms.Padding(0);
             panelPlayerSkills.Name = "panelPlayerSkills";
             panelPlayerSkills.Radius = 0;
             panelPlayerSkills.ShadowDepth = 4F;
-            panelPlayerSkills.Size = new System.Drawing.Size(436, 46);
+            panelPlayerSkills.Size = new System.Drawing.Size(444, 46);
             panelPlayerSkills.TabIndex = 9;
             // 
             // panel2
@@ -1033,7 +1000,7 @@
             panel2.Name = "panel2";
             panel2.Radius = 1;
             panel2.ShadowDepth = 4F;
-            panel2.Size = new System.Drawing.Size(436, 1);
+            panel2.Size = new System.Drawing.Size(444, 1);
             panel2.TabIndex = 9;
             // 
             // checkHideLowerLevelSkills
@@ -1095,7 +1062,6 @@
             tabPage4.Location = new System.Drawing.Point(4, 28);
             tabPage4.Margin = new System.Windows.Forms.Padding(4);
             tabPage4.Name = "tabPage4";
-            tabPage4.Padding = new System.Windows.Forms.Padding(4);
             tabPage4.Size = new System.Drawing.Size(444, 552);
             tabPage4.TabIndex = 1;
             tabPage4.Text = "Active buffs";
@@ -1109,10 +1075,10 @@
             listActiveBuffs.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             listActiveBuffs.FullRowSelect = true;
             listActiveBuffs.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            listActiveBuffs.Location = new System.Drawing.Point(4, 4);
+            listActiveBuffs.Location = new System.Drawing.Point(0, 0);
             listActiveBuffs.Margin = new System.Windows.Forms.Padding(4);
             listActiveBuffs.Name = "listActiveBuffs";
-            listActiveBuffs.Size = new System.Drawing.Size(436, 544);
+            listActiveBuffs.Size = new System.Drawing.Size(444, 552);
             listActiveBuffs.TabIndex = 6;
             listActiveBuffs.UseCompatibleStateImageBehavior = false;
             listActiveBuffs.View = System.Windows.Forms.View.Details;
@@ -1130,8 +1096,8 @@
             // 
             // Main
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             Controls.Add(tabControl2);
             Controls.Add(tabControl1);
             Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -1145,9 +1111,7 @@
             groupBox2.PerformLayout();
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
-            flowLayoutPanel1.ResumeLayout(false);
             tabPage2.ResumeLayout(false);
-            flowLayoutPanel2.ResumeLayout(false);
             groupBoxAutomatedResurrection.ResumeLayout(false);
             groupBoxAutomatedResurrection.PerformLayout();
             groupBoxAdvancedBuff.ResumeLayout(false);
@@ -1230,8 +1194,6 @@
         private SDUI.Controls.ComboBox comboTeleportSkill;
         private SDUI.Controls.CheckBox checkUseTeleportSkill;
         private SDUI.Controls.CheckBox checkCastBuffsBetweenAttacks;
-        private SDUI.Controls.FlowLayoutPanel flowLayoutPanel1;
-        private SDUI.Controls.FlowLayoutPanel flowLayoutPanel2;
         private SDUI.Controls.Label lblResDelay;
         private SDUI.Controls.NumUpDown numResDelay;
         private SDUI.Controls.Label lblResDelaySec;
