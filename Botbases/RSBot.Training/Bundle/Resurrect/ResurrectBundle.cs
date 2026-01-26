@@ -20,8 +20,8 @@ internal class ResurrectBundle : IBundle
         if (!PlayerConfig.Get<bool>("RSBot.Skills.checkResurrectParty"))
             return;
 
-        ushort resDelay = PlayerConfig.Get<ushort?>("RSBot.Skills.numResDelay") ?? 120;
-        ushort resRadius = PlayerConfig.Get<ushort?>("RSBot.Skills.numResRadius") ?? 100;
+        ushort resDelay = PlayerConfig.Get<ushort>("RSBot.Skills.numResDelay", 120);
+        ushort resRadius = PlayerConfig.Get<ushort>("RSBot.Skills.numResRadius", 100);
 
         foreach (var member in Game.Party.Members)
         {

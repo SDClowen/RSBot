@@ -192,7 +192,7 @@ public static class ShoppingManager
 
                 PurchaseItem(tabIndex, actualItem.SlotIndex, (ushort)amountStep);
                 totalAmountToBuy -= amountStep; //One stack bought, substract from total amount!
-                Thread.Sleep(100);
+                Thread.Sleep(500);
             }
 
             //merge stacks
@@ -214,7 +214,7 @@ public static class ShoppingManager
                         (ushort)Math.Min(refItem.MaxStack - nonFullStacks[0].Amount, nonFullStacks[1].Amount)
                     );
                     nonFullStacks = getItems();
-                    Thread.Sleep(100);
+                    Thread.Sleep(500);
                 }
             }
         }
@@ -588,7 +588,7 @@ public static class ShoppingManager
                 if (itemToMove != null)
                 {
                     Game.Player.Storage.MoveItem(fromSlot, i, (ushort)itemToMove.Amount, npc);
-                    Thread.Sleep(100);
+                    Thread.Sleep(500);
                 }
             }
             else
@@ -597,7 +597,7 @@ public static class ShoppingManager
                 if (itemToMove != null)
                 {
                     Game.Player.GuildStorage.MoveItem(fromSlot, i, (ushort)itemToMove.Amount, npc);
-                    Thread.Sleep(100);
+                    Thread.Sleep(500);
                 }
             }
 
