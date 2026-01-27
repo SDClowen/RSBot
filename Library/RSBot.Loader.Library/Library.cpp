@@ -137,6 +137,9 @@ int WINAPI Detour_connect(SOCKET s, const struct sockaddr* name, int len)
 
 	for (auto& gatewayAddress : g_RealGatewayAddresses)
 	{
+		struct hostent* remoteHost = gethostbyname(gatewayAddress.c_str());
+		if (remoteHost == NULL || remoteHost->h_addr_list[0] == NULL) continue;
+
 		struct in_addr maddr = { 0 };
 		maddr.s_addr = *(u_long*)gethostbyname(gatewayAddress.c_str())->h_addr_list[0];
 		if (strcmp(inet_ntoa(editing->sin_addr), inet_ntoa(maddr)) == 0 && htons(editing->sin_port) == g_RealGatewayPort)
