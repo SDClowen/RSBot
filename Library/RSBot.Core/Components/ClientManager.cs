@@ -86,7 +86,15 @@ public class ClientManager
                 args = $"-LOGIN:{login} -PASSWORD:{password}";
             }
 
-            uint creationFlags = (Game.ClientType == GameClientType.RuSro) ? 0 : CREATE_SUSPENDED;
+            uint creationFlags = 0;
+            if (
+                Game.ClientType == GameClientType.VTC_Game
+                || Game.ClientType == GameClientType.Turkey
+                || Game.ClientType == GameClientType.Taiwan
+            )
+            {
+                creationFlags = CREATE_SUSPENDED; //for XIGNCODE patching
+            }
 
             var result = CreateProcess(
                 null,
@@ -109,14 +117,7 @@ public class ClientManager
 
             if (creationFlags == CREATE_SUSPENDED)
             {
-                if (
-                    Game.ClientType == GameClientType.VTC_Game
-                    || Game.ClientType == GameClientType.Turkey
-                    || Game.ClientType == GameClientType.Taiwan
-                )
-                {
-                    ApplyXigncodePatch(sroProcess, pi);
-                }
+                ApplyXigncodePatch(sroProcess, pi);
                 ResumeThread(pi.hThread);
             }
 
