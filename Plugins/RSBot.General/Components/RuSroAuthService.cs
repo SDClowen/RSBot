@@ -498,6 +498,19 @@ internal static class RuSroAuthService
                     && document.RootElement.TryGetProperty("params", out paramsElement)
                     && paramsElement
                         .EnumerateArray()
+                        .Any(p => p.TryGetProperty("type", out var type) && type.GetString() == "serviceStatusChanged")
+                )
+                {
+                    Log.Notify($"4game service status changed: {response}");
+                    continue;
+                }
+
+                if (
+                    document.RootElement.TryGetProperty("notification", out notification)
+                    && notification.GetString() == "invalidate"
+                    && document.RootElement.TryGetProperty("params", out paramsElement)
+                    && paramsElement
+                        .EnumerateArray()
                         .Any(p => p.TryGetProperty("type", out var type) && type.GetString() == "pushNotification")
                 )
                 {

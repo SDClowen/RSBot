@@ -1,7 +1,6 @@
 #include <Windows.h>
 #include <stdio.h>
 #include <string>
-#include <map>
 #include <vector>
 #include <iostream>
 #include <sstream>
@@ -12,6 +11,7 @@
 
 #pragma comment(lib, "IPHLPAPI.lib")
 #pragma comment(lib, "ws2_32.lib")
+#pragma comment(linker, "/export:Direct3DCreate9=C:\\Windows\\System32\\d3d9.Direct3DCreate9")
 
 using namespace std;
 
@@ -21,6 +21,7 @@ HANDLE g_Thread = NULL;
 BYTE g_IsDebug;
 string g_RedirectIP = "127.0.0.1";
 WORD g_RedirectPort = 1500;
+bool g_Activated = false;
 
 vector<string> g_RealGatewayAddresses;
 WORD g_RealGatewayPort = 15779;
@@ -199,55 +200,57 @@ void LoadConfig()
 {
 	char* tempFolder = NULL;
 	_dupenv_s(&tempFolder, NULL, "TMP");
+	if (!tempFolder) return;
 
 	stringstream payloadPath;
 	payloadPath << tempFolder << "\\RSBot_" << GetCurrentProcessId() << ".tmp";
 
-	ifstream stream(payloadPath.str(), ifstream::binary);
+	for (int i = 0; i < 30; i++) {
+		ifstream stream(payloadPath.str(), ifstream::binary);
+		if (stream.is_open()) {
+			g_Activated = true;
+			PayloadRead(stream, g_IsDebug);
+			PayloadReadString(stream, g_RedirectIP);
+			PayloadRead(stream, g_RedirectPort);
 
-	PayloadRead(stream, g_IsDebug);
-	PayloadReadString(stream, g_RedirectIP);
-	PayloadRead(stream, g_RedirectPort);
+			DWORD nRealGatewayAddressCount = 0;
+			PayloadRead(stream, nRealGatewayAddressCount);
+			for (size_t j = 0; j < nRealGatewayAddressCount; j++)
+			{
+				string address;
+				PayloadReadString(stream, address);
+				g_RealGatewayAddresses.push_back(address);
+			}
+			PayloadRead(stream, g_RealGatewayPort);
 
-	DWORD nRealGatewayAddressCount = 0;
-	PayloadRead(stream, nRealGatewayAddressCount);
-	for (size_t i = 0; i < nRealGatewayAddressCount; i++)
-	{
-		string address;
-		PayloadReadString(stream, address);
+			stream.close();
+			DeleteFileA(payloadPath.str().c_str());
+			return;
+		}
+		Sleep(100);
+	}
+}
 
-		g_RealGatewayAddresses.push_back(address);
+DWORD WINAPI Initialize(LPVOID lpParam) {
+	LoadConfig();
+
+	if (!g_Activated) {
+		return 0;
 	}
 
-	PayloadRead(stream, g_RealGatewayPort);
+	if (g_IsDebug) {
+		AllocConsole();
+		freopen_s((FILE**)stdout, "CONOUT$", "w", stdout);
+	}
 
-	stream.close();
-	DeleteFileA(payloadPath.str().c_str());
+	Install();
+	return 0;
 }
 
 extern "C" _declspec(dllexport) BOOL APIENTRY DllMain(HMODULE hModule, DWORD ulReason, LPVOID lpReserved)
 {
-	if (DetourIsHelperProcess())
-	{
-		return true;
-	}
-
-	if (ulReason == DLL_PROCESS_ATTACH)
-	{
-		LoadConfig();
-		if (g_IsDebug)
-		{
-			AllocConsole();
-			freopen("CONOUT$", "w", stdout);
-			freopen("CONIN$", "r", stdin);
-		}
-
-		Install();
-
-	}
-	else if (ulReason == DLL_PROCESS_DETACH)
-	{
-		Uninstall();
+	if (ulReason == DLL_PROCESS_ATTACH) {
+		CloseHandle(CreateThread(NULL, 0, Initialize, NULL, 0, NULL));
 	}
 	return TRUE;
 }
