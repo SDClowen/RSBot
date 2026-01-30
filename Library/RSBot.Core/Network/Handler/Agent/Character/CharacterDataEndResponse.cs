@@ -66,7 +66,7 @@ internal class CharacterDataEndResponse : IPacketHandler
             character.BerzerkLevel = packet.ReadByte();
 
         if (Game.ClientType > GameClientType.Thailand)
-            character.PvpFlag = (PvpFlag)packet.ReadByte();
+            /*character.PvpFlag = (PvpFlag)*/packet.ReadByte();
 
         if (Game.ClientType >= GameClientType.Chinese)
         {
