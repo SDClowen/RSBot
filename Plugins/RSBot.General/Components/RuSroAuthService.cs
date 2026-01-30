@@ -90,7 +90,7 @@ internal static class RuSroAuthService
         );
 
         var confirmationResponse = await client.PostAsync(
-            "https://webbff.ru.4game.ru/api/guard/accesscodes/activate",
+            "https://launcherbff.ru.4game.com/api/guard/accesscodes/activate",
             confirmationRequestContent
         );
         var confirmationResponseContent = await confirmationResponse.Content.ReadAsStringAsync();
@@ -436,6 +436,19 @@ internal static class RuSroAuthService
                 )
                 {
                     Log.Notify($"4game pushed notification: {response}");
+                    continue;
+                }
+
+                if (
+                    document.RootElement.TryGetProperty("notification", out notification)
+                    && notification.GetString() == "invalidate"
+                    && document.RootElement.TryGetProperty("params", out paramsElement)
+                    && paramsElement
+                        .EnumerateArray()
+                        .Any(p => p.TryGetProperty("type", out var type) && type.GetString() == "webFeed")
+                )
+                {
+                    Log.Notify($"4game pushed webFeed: {response}");
                     continue;
                 }
 
