@@ -5,6 +5,8 @@ using RSBot.Core;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.Core.Objects.Party;
+using RSBot.Core.Components;
+using RSBot.Core.Objects.Spawn;
 
 namespace RSBot.Training.Bundle.PartyBuffing;
 
@@ -36,19 +38,18 @@ internal class PartyBuffingBundle : IBundle
         if (_refreshing)
             return;
 
-        if (Game.Party == null || Game.Party.Members == null || Game.Player.HasActiveVehicle)
+        if (Game.Player.HasActiveVehicle)
             return;
 
         var selectedGroup = PlayerConfig.Get("RSBot.Party.Buffing.SelectedGroup", "Default");
 
-        var members = Game.Party.Members.Where(p =>
-            BuffingPartyMembers.Any(s => s.Group == selectedGroup && s.Name == p.Name)
+        SpawnManager.TryGetEntities<SpawnedPlayer>(p =>
+            BuffingPartyMembers.Any(s => s.Group == selectedGroup && s.Name == p.Name),
+            out var members
         );
+
         foreach (var member in members)
         {
-            if (member.Player == null)
-                continue;
-
             var buffingMember = BuffingPartyMembers.Find(p => p.Name == member.Name);
             if (buffingMember == null)
                 continue;
@@ -57,12 +58,12 @@ internal class PartyBuffingBundle : IBundle
                 continue;
 
             //if party member is dead, dont try to buff
-            if (member.Player.State.LifeState == LifeState.Dead)
+            if (member.State.LifeState == LifeState.Dead)
                 continue;
 
             Log.Status($"Buffing party");
 
-            var activeBuffs = member.Player.State.ActiveBuffs;
+            var activeBuffs = member.State.ActiveBuffs;
 
             foreach (var buff in buffingMember.Buffs)
             {
@@ -70,7 +71,7 @@ internal class PartyBuffingBundle : IBundle
 
                 if (skill == null || skill.HasCooldown)
                     continue;
-                var isActive = member.Player.State.HasActiveBuff(skill, out var info);
+                var isActive = member.State.HasActiveBuff(skill, out var info);
                 if (isActive && skill.Isbugged && info.Isbugged)
                 {
                     Log.Notify($"The buff on {member.Name} [{skill.Token}-{skill.Record?.GetRealName()}] expired");
@@ -82,11 +83,8 @@ internal class PartyBuffingBundle : IBundle
                 if (isActive)
                     continue;
 
-                if (member.Player != null)
-                {
-                    Log.Status($"Buffing {skill.Record?.GetRealName()} party member {member.Name}");
-                    skill.Cast(member.Player.UniqueId, true);
-                }
+                Log.Status($"Buffing {skill.Record?.GetRealName()} party member {member.Name}");
+                skill.Cast(member.UniqueId, true);
             }
         }
     }

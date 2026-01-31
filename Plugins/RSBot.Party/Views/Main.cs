@@ -1116,6 +1116,31 @@ public partial class Main : DoubleBufferedControl
         }
     }
 
+    private void buttonAddCharToBuffing_Click(object sender, EventArgs e)
+    {
+        var diag = new InputDialog(
+            "Input",
+            LanguageManager.GetLang("CharName"),
+            LanguageManager.GetLang("EnterCharNameForBuffing")
+        );
+
+        if (diag.ShowDialog(this) != DialogResult.OK)
+            return;
+
+        string name = diag.Value.ToString();
+
+        if (_buffings.Any(p => p.Group == _selectedBuffingGroup.Text && p.Name == name))
+        {
+            MessageBox.Show(LanguageManager.GetLang("MsgBoxGroupAlreadyIn", name));
+            return;
+        }
+
+        _buffings.Add(new BuffingPartyMember { Name = name, Group = _selectedBuffingGroup.Text });
+
+        RefreshGroupMembers();
+        SaveBuffingPartyMembers();
+    }
+
     private void buttonCommandPlayerAdd_Click(object sender, EventArgs e)
     {
         var diag = new InputDialog(
