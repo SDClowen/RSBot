@@ -71,6 +71,14 @@ internal class PartyBuffingBundle : IBundle
 
                 if (skill == null || skill.HasCooldown)
                     continue;
+
+                if (!skill.Record.TargetGroup_Ally &&
+                    skill.Record.TargetGroup_Party &&
+                    !(Game.Party?.Members?.Any(p => p.Name == member.Name) ?? false))
+                {
+                    continue;
+                }
+
                 var isActive = member.State.HasActiveBuff(skill, out var info);
                 if (isActive && skill.Isbugged && info.Isbugged)
                 {
