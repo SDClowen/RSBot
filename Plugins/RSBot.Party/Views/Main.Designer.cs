@@ -126,6 +126,7 @@
             lbl_partyPageRange = new SDUI.Controls.Label();
             tpPartyBuffing = new System.Windows.Forms.TabPage();
             groupBox4 = new SDUI.Controls.GroupBox();
+            buttonAddCharToBuffing = new SDUI.Controls.Button();
             btnAddBuffToMember = new SDUI.Controls.Button();
             buttonRemoveCharFromBuffing = new SDUI.Controls.Button();
             btnRemoveBuffFromMember = new SDUI.Controls.Button();
@@ -1517,6 +1518,7 @@
             // groupBox4
             // 
             groupBox4.BackColor = System.Drawing.Color.Transparent;
+            groupBox4.Controls.Add(buttonAddCharToBuffing);
             groupBox4.Controls.Add(btnAddBuffToMember);
             groupBox4.Controls.Add(buttonRemoveCharFromBuffing);
             groupBox4.Controls.Add(btnRemoveBuffFromMember);
@@ -1532,6 +1534,22 @@
             groupBox4.TabIndex = 11;
             groupBox4.TabStop = false;
             groupBox4.Text = "Party Members";
+            // 
+            // buttonAddCharToBuffing
+            // 
+            buttonAddCharToBuffing.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            buttonAddCharToBuffing.Color = System.Drawing.Color.Green;
+            buttonAddCharToBuffing.Font = new System.Drawing.Font("Webdings", 9.75F);
+            buttonAddCharToBuffing.ForeColor = System.Drawing.Color.White;
+            buttonAddCharToBuffing.Location = new System.Drawing.Point(193, 216);
+            buttonAddCharToBuffing.Margin = new System.Windows.Forms.Padding(4);
+            buttonAddCharToBuffing.Name = "buttonAddCharToBuffing";
+            buttonAddCharToBuffing.Radius = 6;
+            buttonAddCharToBuffing.ShadowDepth = 4F;
+            buttonAddCharToBuffing.Size = new System.Drawing.Size(29, 29);
+            buttonAddCharToBuffing.TabIndex = 13;
+            buttonAddCharToBuffing.Text = "a";
+            buttonAddCharToBuffing.Click += buttonAddCharToBuffing_Click;
             // 
             // btnAddBuffToMember
             // 
@@ -2011,5 +2029,6 @@
         private SDUI.Controls.CheckBox checkBoxJoinByTitle;
         private SDUI.Controls.CheckBox checkBoxJoinByName;
         private SDUI.Controls.CheckBox checkBoxFollowMaster;
+        private SDUI.Controls.Button buttonAddCharToBuffing;
     }
 }
