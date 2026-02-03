@@ -446,13 +446,37 @@ public class NavMeshTerrain : NavMesh
 
         NavMeshCellQuad curCell = src.Cell as NavMeshCellQuad;
         NavMeshCellQuad prevCell = curCell;
+        NavMeshCellQuad lastCell = null;
 
+        int sameCellCount = 0;
         int raycastCount = 0;
+        const int MAX_ITERATIONS = 500;
+        const float HIT_EPS = 1e-4f;
+        const float COLLISION_PUSHBACK = 0.05f;
+
         while (true)
         {
-            //Uncommented for RuSro, because if btnNvmResetToPlayer is not pressed before start, it gets stuck in that loop forever
-            if (raycastCount++ > 100)
-                throw new Exception("raycastCount (terrain) above 100");
+            if (curCell == lastCell)
+            {
+                if (++sameCellCount > 3)
+                {
+                    Debug.WriteLine("[Warning] Raycast stuck in same cell");
+                    hit = null;
+                    return NavMeshRaycastResult.Collision;
+                }
+            }
+            else
+            {
+                sameCellCount = 0;
+                lastCell = curCell;
+            }
+
+            if (raycastCount++ > MAX_ITERATIONS)
+            {
+                Debug.WriteLine($"[Warning] Raycast stuck after {MAX_ITERATIONS} iterations.");
+                hit = null;
+                return NavMeshRaycastResult.Collision;
+            }
 
             var result = NavMeshHitResult.None;
 
@@ -472,19 +496,32 @@ public class NavMeshTerrain : NavMesh
             // Do we have intersections with cells
             result |= this.GetCellIntersection(line, curCell, prevCell, out NavMeshRaycastHit terrainHit);
 
+            if (result == NavMeshHitResult.None)
+            {
+                hit = null;
+                return NavMeshRaycastResult.Reached;
+            }
+
             if ((result & NavMeshHitResult.Any) == NavMeshHitResult.Any)
             {
                 Debug.WriteLine("Object & Terrain hit (keeping closest)");
 
                 // We've hit an object edge AND a terrain edge.
-                var objectDelta = (objectHit.Position - line.Min).ToVector2();
-                var terrainDelta = (terrainHit.Position - line.Min).ToVector2();
+                var objectDistSq = (objectHit.Position - line.Min).LengthSquared();
+                var terrainDistSq = (terrainHit.Position - line.Min).LengthSquared();
 
-                // keep closest hit only...
-                if (objectDelta.LengthSquared() < terrainDelta.LengthSquared())
-                    result ^= NavMeshHitResult.Terrain;
+                if (MathF.Abs(objectDistSq - terrainDistSq) < HIT_EPS)
+                {
+                    result &= ~NavMeshHitResult.Terrain;
+                }
+                else if (objectDistSq < terrainDistSq)
+                {
+                    result &= ~NavMeshHitResult.Terrain;
+                }
                 else
-                    result ^= NavMeshHitResult.Object;
+                {
+                    result &= ~NavMeshHitResult.Object;
+                }
             }
 
             if ((result & NavMeshHitResult.Object) != 0)
@@ -497,6 +534,10 @@ public class NavMeshTerrain : NavMesh
                 {
                     hit = objectHit;
                     hit.Region = _region;
+
+                    var dir = Vector3.Normalize(line.Max - line.Min);
+                    hit.Position -= dir * COLLISION_PUSHBACK;
+
                     return NavMeshRaycastResult.Collision;
                 }
 
@@ -557,6 +598,10 @@ public class NavMeshTerrain : NavMesh
                 {
                     hit = terrainHit;
                     hit.Region = _region;
+
+                    var dir = Vector3.Normalize(line.Max - line.Min);
+                    hit.Position -= dir * COLLISION_PUSHBACK;
+
                     return NavMeshRaycastResult.Collision;
                 }
 
