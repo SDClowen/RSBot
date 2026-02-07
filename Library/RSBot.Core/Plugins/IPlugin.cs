@@ -1,26 +1,7 @@
-﻿using System.Windows.Forms;
+﻿namespace RSBot.Core.Plugins;
 
-namespace RSBot.Core.Plugins;
-
-public interface IPlugin
+public interface IPlugin : IExtension
 {
-    /// <summary>
-    ///     Gets or sets the internal name of the plugin.
-    ///     This value should be unique.
-    /// </summary>
-    /// <value>
-    ///     The name.
-    /// </value>
-    public string InternalName { get; }
-
-    /// <summary>
-    ///     Gets or sets the name that will be displayed in the application.
-    /// </summary>
-    /// <value>
-    ///     The title.
-    /// </value>
-    public string DisplayName { get; }
-
     /// <summary>
     ///     Gets or sets a value indicating whether [display as tab].
     ///     If the value is set to true, the application will display the plugin as new tab-control item.
@@ -50,40 +31,7 @@ public interface IPlugin
     public bool RequireIngame { get; }
 
     /// <summary>
-    ///     Gets or sets a value indicating whether the plugin is enabled.
-    /// </summary>
-    /// <value>
-    ///     <c>true</c> if enabled; otherwise, <c>false</c>.
-    /// </value>
-    public bool Enabled { get; set; }
-
-    /// <summary>
-    ///     Gets the view that will be displayed as tab page.
-    /// </summary>
-    Control View { get; }
-
-    /// <summary>
-    ///     Initializes this instance.
-    /// </summary>
-    void Initialize();
-
-    /// <summary>
     ///     Initialzes objects when user is loaded.
     /// </summary>
     void OnLoadCharacter();
-
-    /// <summary>
-    ///     Translate the plugin
-    /// </summary>
-    void Translate();
-
-    /// <summary>
-    ///     Enables the plugin.
-    /// </summary>
-    void Enable();
-
-    /// <summary>
-    ///     Disables the plugin.
-    /// </summary>
-    void Disable();
 }

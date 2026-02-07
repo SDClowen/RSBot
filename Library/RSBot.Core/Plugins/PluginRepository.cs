@@ -21,7 +21,7 @@ public class PluginRepository
     /// <summary>
     ///     Gets or sets the list of available plugins.
     /// </summary>
-    public List<PluginInfo> Plugins { get; set; } = new List<PluginInfo>();
+    public List<PluginInfo> Plugins { get; set; } = [];
 }
 
 /// <summary>

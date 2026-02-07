@@ -1,13 +1,7 @@
-﻿using RSBot.Core;
-using RSBot.Core.Event;
-using RSBot.Core.Plugins;
+﻿using RSBot.Core.Plugins;
 using RSBot.Views.Controls;
 using SDUI.Controls;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RSBot.Views;
@@ -37,13 +31,13 @@ public partial class PluginManager : UIWindow
         windowPageControl.Controls.Add( webPluginStoreControl );
 
         // Subscribe to download progress
-        Kernel.PluginManager.DownloadProgressChanged += _pluginStoreControl.On_DownloadProgressChanged;
+        ExtensionManager.DownloadProgressChanged += _pluginStoreControl.On_DownloadProgressChanged;
     }
 
     protected override void OnFormClosing(FormClosingEventArgs e)
     {
         _pluginStoreControl.Stop();
-        Kernel.PluginManager.DownloadProgressChanged -= _pluginStoreControl.On_DownloadProgressChanged;
+        ExtensionManager.DownloadProgressChanged -= _pluginStoreControl.On_DownloadProgressChanged;
         base.OnFormClosing(e);
     }
 
@@ -65,7 +59,7 @@ public partial class PluginManager : UIWindow
 
     private void windowPageControl_SelectedIndexChanged(object sender, int e)
     {
-        if (e == 1)
+        if (windowPageControl.SelectedIndex == 1)
         {
             _pluginStoreControl.LoadWebPlugins();
         }

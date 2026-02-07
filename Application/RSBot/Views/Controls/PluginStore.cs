@@ -85,7 +85,8 @@ namespace RSBot.Views.Controls
                 {
                     var repoUrl = "https://raw.githubusercontent.com/sdclowen/rsbot-plugins/main/repository.json";
 
-                    _currentRepository = await Kernel.PluginManager.LoadRepositoryFromUrl(repoUrl);
+
+                    _currentRepository = await ExtensionManager.LoadRepositoryFromUrl(repoUrl);
 
                     if (_currentRepository == null || _currentRepository.Plugins.Count == 0)
                     {
@@ -157,7 +158,7 @@ namespace RSBot.Views.Controls
                 progressBarDownload.Visible = true;
                 labelStatus.Text = $"Starting download: {pluginInfo.DisplayName}...";
 
-                var success = await Kernel.PluginManager.DownloadAndInstallPlugin(
+                var success = await ExtensionManager.DownloadAndInstallPlugin<IPlugin>(
                     pluginInfo.DownloadUrl,
                     autoLoad: true,
                     _downloadCancellation.Token

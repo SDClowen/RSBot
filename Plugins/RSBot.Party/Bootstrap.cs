@@ -24,6 +24,9 @@ public class Bootstrap : IPlugin
     public bool RequireIngame => true;
 
     /// <inheritdoc />
+    public bool Enabled { get; set; }
+
+    /// <inheritdoc />
     public void Initialize()
     {
         PartySubscriber.SubscribeEvents();
@@ -43,5 +46,19 @@ public class Bootstrap : IPlugin
     public void OnLoadCharacter()
     {
         // do nothing
+    }
+
+    /// <inheritdoc />
+    public void Enable()
+    {
+        if (View != null)
+            View.Enabled = true;
+    }
+
+    /// <inheritdoc />
+    public void Disable()
+    {
+        if (View != null)
+            View.Enabled = false;
     }
 }

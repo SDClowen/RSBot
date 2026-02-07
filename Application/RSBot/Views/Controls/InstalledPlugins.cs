@@ -1,5 +1,6 @@
 ﻿using RSBot.Core;
 using RSBot.Core.Event;
+using RSBot.Core.Plugins;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,7 +33,7 @@ namespace RSBot.Views.Controls
                 // Clear all controls at once
                 flowPanelLocal.Controls.Clear();
 
-                if (Kernel.PluginManager?.Extensions == null)
+                if (ExtensionManager.Plugins == null)
                 {
                     lblLocalStatus.Text = "No plugins loaded";
                     return;
@@ -41,7 +42,7 @@ namespace RSBot.Views.Controls
                 // ⭐ Batch create all cards first (without adding to panel)
                 var cards = new List<PluginCard>();
 
-                foreach (var plugin in Kernel.PluginManager.Extensions.Values.OrderBy(p => p.Index))
+                foreach (var plugin in ExtensionManager.Plugins)
                 {
                     var card = new PluginCard
                     {
@@ -54,9 +55,9 @@ namespace RSBot.Views.Controls
                     card.ToggleClicked += (s, e) =>
                     {
                         if (plugin.Enabled)
-                            Kernel.PluginManager.DisablePlugin(plugin.InternalName);
+                            ExtensionManager.DisablePlugin(plugin.InternalName);
                         else
-                            Kernel.PluginManager.EnablePlugin(plugin.InternalName);
+                            ExtensionManager.EnablePlugin(plugin.InternalName);
 
                         LoadLocalPlugins(); // Refresh
                     };
@@ -70,7 +71,7 @@ namespace RSBot.Views.Controls
                     flowPanelLocal.Controls.AddRange(cards.ToArray());
                 }
 
-                var enabledCount = Kernel.PluginManager.Extensions.Values.Count(p => p.Enabled);
+                var enabledCount = ExtensionManager.Plugins.Count(p => p.Enabled);
                 lblLocalStatus.Text = $"Total: {cards.Count} plugins ({enabledCount} enabled)";
             }
             finally
@@ -100,7 +101,7 @@ namespace RSBot.Views.Controls
 
             try
             {
-                if (Kernel.PluginManager.LoadPluginFromFile(openFileDialog.FileName))
+                if (ExtensionManager.LoadPluginFromFile<IPlugin>(openFileDialog.FileName))
                 {
                     LoadLocalPlugins();
                     EventManager.FireEvent("OnPluginListChanged");

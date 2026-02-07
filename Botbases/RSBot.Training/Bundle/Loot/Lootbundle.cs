@@ -25,7 +25,10 @@ internal class LootBundle : IBundle
 
         //If we use the ability pet, we can attack during the work of the Pickup manager
         if (Config.UseAbilityPet && Game.Player.HasActiveAbilityPet && !PickupManager.RunningAbilityPetPickup)
+        {
             PickupManager.RunAbilityPet(Container.Bot.Area.Position, Container.Bot.Area.Radius);
+            return;
+        }
 
         if ((Bundles.Loot.Config.DontPickupInBerzerk && Game.Player.Berzerking) || ScriptManager.Running)
             return;

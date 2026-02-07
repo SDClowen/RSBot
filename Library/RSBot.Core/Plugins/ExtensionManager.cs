@@ -1,4 +1,6 @@
-﻿using System;
+﻿using RSBot.Core.Event;
+using RSBot.Core.Network;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,48 +10,50 @@ using System.Security.Cryptography;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using RSBot.Core.Event;
-using RSBot.Core.Network;
 
 namespace RSBot.Core.Plugins;
 
-public class PluginManager
+public class ExtensionManager
 {
     /// <summary>
-    ///     Gets the extension directory.
+    ///     Gets the extension directory for plugins.
     /// </summary>
-    /// <value>
-    ///     The extension directory.
-    /// </value>
-    public string InitialDirectory => Path.Combine(Kernel.BasePath, "Data", "Plugins");
+    private static readonly string _directoryForPlugins = Path.Combine(Kernel.BasePath, "Data", "Plugins");
+
+    /// <summary>
+    ///     Gets the extension directory for botbases.
+    /// </summary>
+    private static readonly string _directoryForBotbases = Path.Combine(Kernel.BasePath, "Data", "Bots");
 
     /// <summary>
     ///     Gets the extensions.
     /// </summary>
-    /// <value>
-    ///     The extensions.
-    /// </value>
-    public Dictionary<string, IPlugin> Extensions { get; private set; }
+    private static readonly List<IExtension> _extensions = [];
 
     /// <summary>
-    ///     Gets the loaded assemblies.
+    ///    Gets the plugins.
     /// </summary>
-    private Dictionary<string, Assembly> LoadedAssemblies { get; set; }
+    public static IEnumerable<IPlugin> Plugins => _extensions.OfType<IPlugin>().OrderBy(p => p.Index);
+
+    /// <summary>
+    /// Gets the botbases.
+    /// </summary>
+    public static IEnumerable<IBotbase> Bots => _extensions.OfType<IBotbase>();
 
     /// <summary>
     ///     Gets the packet handlers registered by plugins.
     /// </summary>
-    private Dictionary<string, List<IPacketHandler>> PluginHandlers { get; set; }
+    private static Dictionary<string, List<IPacketHandler>> PluginHandlers { get; set; } = [];
 
     /// <summary>
     ///     Gets the packet hooks registered by plugins.
     /// </summary>
-    private Dictionary<string, List<IPacketHook>> PluginHooks { get; set; }
+    private static Dictionary<string, List<IPacketHook>> PluginHooks { get; set; } = [];
 
     /// <summary>
     ///     HTTP client for downloading plugins from web.
     /// </summary>
-    private static readonly HttpClient HttpClient = new HttpClient
+    private static readonly HttpClient HttpClient = new()
     {
         Timeout = TimeSpan.FromMinutes(5)
     };
@@ -57,7 +61,124 @@ public class PluginManager
     /// <summary>
     ///     Event for download progress updates.
     /// </summary>
-    public event EventHandler<DownloadProgressEventArgs> DownloadProgressChanged;
+    public static event EventHandler<DownloadProgressEventArgs> DownloadProgressChanged;
+
+    /// <summary>
+    /// Loads the assemblies.
+    /// </summary>
+    public static bool LoadAssemblies<T>() where T : IExtension
+    {
+        try
+        {
+            var name = typeof(T).Name;
+
+            var disabledList = LoadDisabledPlugins();
+
+            foreach (var extension in from file in
+                                          Directory.GetFiles(name == "IPlugin" ? _directoryForPlugins : _directoryForBotbases)
+                                      let fileInfo = new FileInfo(file)
+                                      where fileInfo.Extension == ".dll"
+                                      select GetExtensionsFromAssembly<T>(file)
+                     into loadedExtensions
+                                      from extension in loadedExtensions
+                                      select extension)
+            {
+                extension.Enabled = !disabledList.Contains(extension.InternalName);
+                _extensions.Add(extension);
+                Log.Debug($"Loaded {name} [{extension.InternalName}]");
+            }
+
+            if (name == "IPlugin")
+                EventManager.FireEvent("OnLoadPlugins");
+            else
+                EventManager.FireEvent("OnLoadBotbases");
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            File.WriteAllText(Kernel.BasePath + "\\boot-error.log",
+                $"The plugin manager encountered a problem: \n{ex.Message} at {ex.StackTrace}");
+            return false;
+        }
+    }
+
+    /// <summary>
+    ///     Gets the extensions from assembly.
+    /// </summary>
+    /// <param name="file">The file.</param>
+    /// <returns></returns>
+    private static List<T> GetExtensionsFromAssembly<T>(string file)
+        where T : IExtension
+    {
+        var result = new List<T>();
+
+        var assembly = Assembly.LoadFrom(file);
+
+        try
+        {
+            var assemblyTypes = assembly.GetTypes();
+
+            foreach (var extension in (from type in assemblyTypes
+                                       where type.IsPublic && !type.IsAbstract && type.GetInterface(typeof(T).Name) != null
+                                       select Activator.CreateInstance(type)).OfType<T>())
+            {
+                result.Add(extension);
+            }
+
+            if (result.Count == 0)
+                return result;
+
+            var handlerType = typeof(IPacketHandler);
+            var hookType = typeof(IPacketHook);
+
+            var types = assemblyTypes
+                .Where(p => handlerType.IsAssignableFrom(p) && !p.IsInterface);
+
+            var handlers = new List<IPacketHandler>();
+            foreach (var handler in types)
+            {
+                var instance = (IPacketHandler)Activator.CreateInstance(handler);
+                PacketManager.RegisterHandler(instance);
+                handlers.Add(instance);
+            }
+
+            types = assemblyTypes
+                .Where(p => hookType.IsAssignableFrom(p) && !p.IsInterface);
+
+            var hooks = new List<IPacketHook>();
+            foreach (var hook in types)
+            {
+                var instance = (IPacketHook)Activator.CreateInstance(hook);
+                PacketManager.RegisterHook(instance);
+                hooks.Add(instance);
+            }
+
+            // Store handlers and hooks for each plugin
+            foreach (var plugin in result)
+            {
+                PluginHandlers[plugin.InternalName] = handlers;
+                PluginHooks[plugin.InternalName] = hooks;
+            }
+        }
+        catch
+        {
+            /* ignore, it's an invalid extension */
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Returns the directory path associated with the specified extension type parameter.
+    /// </summary>
+    /// <typeparam name="T">The extension type for which to retrieve the directory path. Must implement the IExtension interface.</typeparam>
+    /// <returns>The directory path for the specified extension type. Returns the plugin directory if T is IPlugin; otherwise,
+    /// returns the botbase directory.</returns>
+    private static string getPath<T>() where T : IExtension
+    {
+        return typeof(T) == typeof(IPlugin) ? _directoryForPlugins : _directoryForBotbases;
+    }
 
     /// <summary>
     ///     Downloads a plugin from a URL.
@@ -66,7 +187,8 @@ public class PluginManager
     /// <param name="targetFileName">The target file name (without path).</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The path to the downloaded file, or null if failed.</returns>
-    public async Task<string> DownloadPluginFromWeb(string url, string targetFileName = null, CancellationToken cancellationToken = default)
+    public static async Task<string> DownloadPluginFromWeb<T>(string url, string targetFileName = null, CancellationToken cancellationToken = default)
+        where T : IExtension
     {
         try
         {
@@ -77,11 +199,11 @@ public class PluginManager
 
             var totalBytes = response.Content.Headers.ContentLength ?? 0;
             var fileName = targetFileName ?? Path.GetFileName(url);
-            
+
             if (string.IsNullOrEmpty(fileName) || !fileName.EndsWith(".dll", StringComparison.OrdinalIgnoreCase))
                 fileName = "plugin_" + DateTime.Now.Ticks + ".dll";
 
-            var targetPath = Path.Combine(InitialDirectory, fileName);
+            var targetPath = Path.Combine(getPath<T>(), fileName);
             var tempPath = targetPath + ".tmp";
 
             using (var contentStream = await response.Content.ReadAsStreamAsync(cancellationToken))
@@ -99,7 +221,7 @@ public class PluginManager
                     if (totalBytes > 0)
                     {
                         var progress = (int)((totalRead * 100) / totalBytes);
-                        DownloadProgressChanged?.Invoke(this, new DownloadProgressEventArgs
+                        DownloadProgressChanged?.Invoke(null, new DownloadProgressEventArgs
                         {
                             ProgressPercentage = progress,
                             BytesReceived = totalRead,
@@ -113,7 +235,7 @@ public class PluginManager
             // Move temp file to final location
             if (File.Exists(targetPath))
                 File.Delete(targetPath);
-            
+
             File.Move(tempPath, targetPath);
 
             Log.Notify($"Plugin downloaded successfully: {targetPath}");
@@ -133,18 +255,19 @@ public class PluginManager
     /// <param name="autoLoad">If true, loads the plugin immediately after download.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>True if successful, otherwise false.</returns>
-    public async Task<bool> DownloadAndInstallPlugin(string url, bool autoLoad = true, CancellationToken cancellationToken = default)
+    public static async Task<bool> DownloadAndInstallPlugin<T>(string url, bool autoLoad = true, CancellationToken cancellationToken = default)
+        where T : IExtension
     {
         try
         {
-            var downloadedPath = await DownloadPluginFromWeb(url, null, cancellationToken);
-            
+            var downloadedPath = await DownloadPluginFromWeb<T>(url, null, cancellationToken);
+
             if (string.IsNullOrEmpty(downloadedPath))
                 return false;
 
             if (autoLoad)
             {
-                return LoadPluginFromFile(downloadedPath);
+                return LoadPluginFromFile<T>(downloadedPath);
             }
 
             Log.Notify("Plugin downloaded. Restart required to load it.");
@@ -171,7 +294,7 @@ public class PluginManager
             using var stream = File.OpenRead(filePath);
             var hash = sha256.ComputeHash(stream);
             var hashString = BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
-            
+
             return hashString.Equals(expectedHash, StringComparison.OrdinalIgnoreCase);
         }
         catch
@@ -186,7 +309,7 @@ public class PluginManager
     /// <param name="repositoryUrl">The repository JSON URL.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The loaded repository, or null if failed.</returns>
-    public async Task<PluginRepository> LoadRepositoryFromUrl(string repositoryUrl, CancellationToken cancellationToken = default)
+    public static async Task<PluginRepository> LoadRepositoryFromUrl(string repositoryUrl, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -215,165 +338,16 @@ public class PluginManager
     }
 
     /// <summary>
-    ///     Gets the default RSBot plugin repository.
-    /// </summary>
-    /// <returns>The default repository.</returns>
-    public static PluginRepository GetDefaultRepository()
-    {
-        return new PluginRepository
-        {
-            Name = "RSBot Official Repository",
-            Url = "https://raw.githubusercontent.com/sdclowen/rsbot-plugins/main/repository.json",
-            Plugins = []
-        };
-    }
-
-    /// <summary>
-    ///     Loads the assemblies.
-    /// </summary>
-    public bool LoadAssemblies()
-    {
-        if (Extensions != null)
-            return false;
-
-        Extensions = new Dictionary<string, IPlugin>();
-        LoadedAssemblies = new Dictionary<string, Assembly>();
-        PluginHandlers = new Dictionary<string, List<IPacketHandler>>();
-        PluginHooks = new Dictionary<string, List<IPacketHook>>();
-
-        try
-        {
-            // Load disabled plugins list from config
-            var disabledPluginsStr = GlobalConfig.Get("RSBot.DisabledPlugins", "");
-            var disabledPlugins = string.IsNullOrEmpty(disabledPluginsStr) 
-                ? new HashSet<string>() 
-                : new HashSet<string>(disabledPluginsStr.Split(','));
-
-            foreach (
-                var extension in from file in Directory.GetFiles(InitialDirectory)
-                let fileInfo = new FileInfo(file)
-                where fileInfo.Extension == ".dll"
-                select GetExtensionsFromAssembly(file) into loadedExtensions
-                from extension in loadedExtensions
-                select extension
-            )
-            {
-                Extensions.Add(extension.Key, extension.Value);
-                
-                // Set enabled state based on saved config
-                extension.Value.Enabled = !disabledPlugins.Contains(extension.Value.InternalName);
-                
-                Log.Debug($"Loaded plugin [{extension.Value.InternalName}] - Enabled: {extension.Value.Enabled}");
-            }
-
-            //order by index, not alphabeticaly
-            Extensions = Extensions.OrderBy(entry => entry.Value.Index).ToDictionary(x => x.Key, x => x.Value);
-
-            EventManager.FireEvent("OnLoadPlugins");
-
-            return true;
-        }
-        catch (Exception ex)
-        {
-            File.WriteAllText(
-                Kernel.BasePath + "\\boot-error.log",
-                $"The plugin manager encountered a problem: \n{ex.Message} at {ex.StackTrace}"
-            );
-            return false;
-        }
-    }
-
-    /// <summary>
-    ///     Saves the disabled plugins list to config.
-    /// </summary>
-    private void SaveDisabledPlugins()
-    {
-        var disabledPlugins = Extensions.Values
-            .Where(p => !p.Enabled)
-            .Select(p => p.InternalName)
-            .ToArray();
-
-        GlobalConfig.Set("RSBot.DisabledPlugins", string.Join(",", disabledPlugins));
-        GlobalConfig.Save();
-    }
-
-    /// <summary>
-    ///     Gets the extensions from assembly.
-    /// </summary>
-    /// <param name="file">The file.</param>
-    /// <returns></returns>
-    private Dictionary<string, IPlugin> GetExtensionsFromAssembly(string file)
-    {
-        var result = new Dictionary<string, IPlugin>();
-
-        var assembly = Assembly.LoadFrom(file);
-        LoadedAssemblies[file] = assembly;
-
-        try
-        {
-            var assemblyTypes = assembly.GetTypes();
-
-            foreach (
-                var extension in (
-                    from type in assemblyTypes
-                    where type.IsPublic && !type.IsAbstract && type.GetInterface("IPlugin") != null
-                    select Activator.CreateInstance(type)
-                ).OfType<IPlugin>()
-            )
-                result.Add(extension.InternalName, extension);
-
-            if (result.Count == 0)
-                return result;
-
-            var handlerType = typeof(IPacketHandler);
-            var hookType = typeof(IPacketHook);
-
-            var types = assemblyTypes.Where(p => handlerType.IsAssignableFrom(p) && !p.IsInterface).ToArray();
-
-            var handlers = new List<IPacketHandler>();
-            foreach (var handler in types)
-            {
-                var instance = (IPacketHandler)Activator.CreateInstance(handler);
-                PacketManager.RegisterHandler(instance);
-                handlers.Add(instance);
-            }
-
-            types = assemblyTypes.Where(p => hookType.IsAssignableFrom(p) && !p.IsInterface).ToArray();
-
-            var hooks = new List<IPacketHook>();
-            foreach (var hook in types)
-            {
-                var instance = (IPacketHook)Activator.CreateInstance(hook);
-                PacketManager.RegisterHook(instance);
-                hooks.Add(instance);
-            }
-
-            // Store handlers and hooks for each plugin
-            foreach (var plugin in result.Values)
-            {
-                PluginHandlers[plugin.InternalName] = handlers;
-                PluginHooks[plugin.InternalName] = hooks;
-            }
-        }
-        catch
-        {
-            /* ignore, it's an invalid extension */
-        }
-
-        return result;
-    }
-
-    /// <summary>
     ///     Enables a plugin.
     /// </summary>
     /// <param name="internalName">The internal name of the plugin.</param>
     /// <returns>True if successfully enabled, otherwise false.</returns>
-    public bool EnablePlugin(string internalName)
+    public static bool EnablePlugin(string internalName)
     {
-        if (!Extensions.ContainsKey(internalName))
+        if (!_extensions.Any(p => p.InternalName == internalName))
             return false;
 
-        var plugin = Extensions[internalName];
+        var plugin = _extensions.FirstOrDefault(p => p.InternalName == internalName);
         if (plugin.Enabled)
             return true;
 
@@ -414,12 +388,12 @@ public class PluginManager
     /// </summary>
     /// <param name="internalName">The internal name of the plugin.</param>
     /// <returns>True if successfully disabled, otherwise false.</returns>
-    public bool DisablePlugin(string internalName)
+    public static bool DisablePlugin(string internalName)
     {
-        if (!Extensions.ContainsKey(internalName))
+        if (!_extensions.Any(p => p.InternalName == internalName))
             return false;
 
-        var plugin = Extensions[internalName];
+        var plugin = _extensions.FirstOrDefault(p => p.InternalName == internalName);
         if (!plugin.Enabled)
             return true;
 
@@ -460,12 +434,13 @@ public class PluginManager
     /// </summary>
     /// <param name="internalName">The internal name of the plugin.</param>
     /// <returns>The new enabled state.</returns>
-    public bool TogglePlugin(string internalName)
+    public static bool TogglePlugin(string internalName)
     {
-        if (!Extensions.ContainsKey(internalName))
+        if (!_extensions.Any(p => p.InternalName == internalName))
             return false;
 
-        var plugin = Extensions[internalName];
+        var plugin = _extensions.FirstOrDefault(p => p.InternalName == internalName);
+
         return plugin.Enabled ? DisablePlugin(internalName) : EnablePlugin(internalName);
     }
 
@@ -474,17 +449,17 @@ public class PluginManager
     /// </summary>
     /// <param name="internalName">The internal name of the plugin.</param>
     /// <returns>True if successfully reloaded, otherwise false.</returns>
-    public bool ReloadPlugin(string internalName)
+    public static bool ReloadPlugin(string internalName)
     {
-        if (!Extensions.ContainsKey(internalName))
+        if (!_extensions.Any(p => p.InternalName == internalName))
             return false;
 
-        var wasEnabled = Extensions[internalName].Enabled;
+        var plugin = _extensions.FirstOrDefault(p => p.InternalName == internalName);
 
         if (!DisablePlugin(internalName))
             return false;
 
-        if (wasEnabled)
+        if (plugin.Enabled)
             return EnablePlugin(internalName);
 
         return true;
@@ -495,7 +470,8 @@ public class PluginManager
     /// </summary>
     /// <param name="filePath">The path to the plugin DLL file.</param>
     /// <returns>True if successfully loaded, otherwise false.</returns>
-    public bool LoadPluginFromFile(string filePath)
+    public static bool LoadPluginFromFile<T>(string filePath)
+        where T : IExtension
     {
         try
         {
@@ -505,7 +481,7 @@ public class PluginManager
                 return false;
             }
 
-            var newPlugins = GetExtensionsFromAssembly(filePath);
+            var newPlugins = GetExtensionsFromAssembly<T>(filePath);
 
             if (newPlugins.Count == 0)
             {
@@ -513,25 +489,24 @@ public class PluginManager
                 return false;
             }
 
+            var disabledList = LoadDisabledPlugins();
+
             foreach (var plugin in newPlugins)
             {
-                if (Extensions.ContainsKey(plugin.Key))
+                if (!_extensions.Any(p => p.InternalName == plugin.InternalName))
                 {
-                    Log.Warn($"Plugin '{plugin.Key}' is already loaded. Skipping.");
+                    Log.Warn($"Plugin '{plugin.InternalName}' is already loaded. Skipping.");
                     continue;
                 }
 
-                Extensions.Add(plugin.Key, plugin.Value);
-                plugin.Value.Enabled = true;
-                plugin.Value.Initialize();
-                plugin.Value.Translate();
+                _extensions.Add(plugin);
+                plugin.Enabled = !disabledList.Contains(plugin.InternalName);
+                plugin.Initialize();
+                plugin.Translate();
 
-                Log.Notify($"Plugin '{plugin.Value.DisplayName}' loaded successfully!");
-                EventManager.FireEvent("OnPluginLoaded", plugin.Value);
+                Log.Notify($"Plugin '{plugin.DisplayName}' loaded successfully!");
+                EventManager.FireEvent("OnPluginLoaded", plugin);
             }
-
-            // Re-order extensions by index
-            Extensions = Extensions.OrderBy(entry => entry.Value.Index).ToDictionary(x => x.Key, x => x.Value);
 
             return true;
         }
@@ -547,14 +522,14 @@ public class PluginManager
     /// </summary>
     /// <param name="internalName">The internal name of the plugin.</param>
     /// <returns>True if successfully unloaded, otherwise false.</returns>
-    public bool UnloadPlugin(string internalName)
+    public static bool UnloadPlugin(string internalName)
     {
-        if (!Extensions.ContainsKey(internalName))
+        if (!_extensions.Any(p => p.InternalName == internalName))
             return false;
 
         try
         {
-            var plugin = Extensions[internalName];
+            var plugin = _extensions.FirstOrDefault(p => p.InternalName == internalName);
 
             // Disable first
             if (plugin.Enabled)
@@ -564,7 +539,7 @@ public class PluginManager
             }
 
             // Remove from extensions
-            Extensions.Remove(internalName);
+            _extensions.Remove(plugin);
 
             // Remove handlers and hooks
             if (PluginHandlers.ContainsKey(internalName))
@@ -583,5 +558,30 @@ public class PluginManager
             Log.Error($"Failed to unload plugin '{internalName}': {ex.Message}");
             return false;
         }
+    }
+
+
+    /// <summary>
+    /// Get the disabled plugins list from config.
+    /// </summary>
+    private static string[] LoadDisabledPlugins()
+    {
+        var list = GlobalConfig.Get("RSBot.DisabledPlugins", "");
+
+        return list.Split(",", StringSplitOptions.RemoveEmptyEntries);
+    }
+
+    /// <summary>
+    /// Saves the disabled plugins list to config.
+    /// </summary>
+    private static void SaveDisabledPlugins()
+    {
+        var disabledPlugins = _extensions
+            .Where(p => !p.Enabled)
+            .Select(p => p.InternalName)
+            .ToArray();
+
+        GlobalConfig.Set("RSBot.DisabledPlugins", string.Join(",", disabledPlugins));
+        GlobalConfig.Save();
     }
 }

@@ -15,6 +15,8 @@ public class QuestPlugin : IPlugin
     public int Index => 0;
     public bool RequireIngame => true;
 
+    public bool Enabled { get; set; }
+
     public void Initialize()
     {
         Views.View.SidebarElement = new QuestSidebarElement();
@@ -33,5 +35,17 @@ public class QuestPlugin : IPlugin
     public void OnLoadCharacter()
     {
         // do nothing
+    }
+
+    public void Enable()
+    {
+        if (View != null)
+            View.Enabled = true;
+    }
+
+    public void Disable()
+    {
+        if (View != null)
+            View.Enabled = false;
     }
 }

@@ -173,22 +173,22 @@ public partial class Main : UIWindow
         if (Kernel.Bot.Running)
             return;
 
-        var oldBotbaseName = Kernel.Bot?.Botbase?.Name;
+        var oldBotbaseName = Kernel.Bot?.Botbase?.DisplayName;
         var previousSelectedIndex = windowPageControl.SelectedIndex;
 
-        var newBotbase = Kernel.BotbaseManager.Bots.FirstOrDefault(bot => bot.Value.Name == name);
-        if (newBotbase.Value == null)
+        var newBotbase = ExtensionManager.Bots.FirstOrDefault(bot => bot.InternalName == name);
+        if (newBotbase == null)
         {
             Log.Error($"Botbase [{name}] could not be found!");
 
             return;
         }
 
-        newBotbase.Value.Translate();
+        newBotbase.Translate();
 
-        var control = newBotbase.Value.View;
-        control.Name = newBotbase.Value.Name;
-        control.Text = LanguageManager.GetLangBySpecificKey(newBotbase.Value.Name, "TabText", newBotbase.Value.TabText);
+        var control = newBotbase.View;
+        control.Name = newBotbase.InternalName;
+        control.Text = LanguageManager.GetLangBySpecificKey(newBotbase.InternalName, "TabText", newBotbase.DisplayName);
         control.Enabled = Game.Ready;
         windowPageControl.Controls.Add(control);
 
@@ -215,14 +215,14 @@ public partial class Main : UIWindow
             }
         }
 
-        Kernel.Bot?.SetBotbase(newBotbase.Value);
-        GlobalConfig.Set("RSBot.BotName", newBotbase.Value.Name);
+        Kernel.Bot?.SetBotbase(newBotbase);
+        GlobalConfig.Set("RSBot.BotName", newBotbase.InternalName);
 
         if (Game.Player != null)
             EventManager.FireEvent("OnLoadCharacter");
 
         foreach (ToolStripMenuItem item in botsToolStripMenuItem.DropDown.Items)
-            item.Checked = newBotbase.Value.Name == item.Name;
+            item.Checked = newBotbase.InternalName == item.Name;
 
         if (!string.IsNullOrWhiteSpace(oldBotbaseName) && windowPageControl.Controls.ContainsKey(oldBotbaseName))
             windowPageControl.Controls.RemoveByKey(oldBotbaseName);
@@ -233,45 +233,43 @@ public partial class Main : UIWindow
     /// </summary>
     private void LoadExtensions()
     {
-        foreach (var plugin in Kernel.PluginManager.Extensions.Values)
+        foreach (var plugin in ExtensionManager.Plugins)
             plugin.Initialize();
 
-        var extensions = Kernel
-            .PluginManager.Extensions.OrderBy(entry => entry.Value.Index)
-            .ToDictionary(x => x.Key, x => x.Value);
+        var extensions = ExtensionManager.Plugins;
 
-        foreach (var extension in extensions.Where(extension => extension.Value.DisplayAsTab))
+        foreach (var extension in extensions.Where(extension => extension.DisplayAsTab))
         {
-            extension.Value.Translate();
+            extension.Translate();
 
-            var control = extension.Value.View;
-            control.Name = extension.Value.InternalName;
+            var control = extension.View;
+            control.Name = extension.InternalName;
             control.Text = LanguageManager.GetLangBySpecificKey(
-                extension.Value.InternalName,
+                extension.InternalName,
                 "DisplayName",
-                extension.Value.DisplayName
+                extension.DisplayName
             );
-            control.Visible = extension.Value.Enabled;
-            control.Enabled = extension.Value.Enabled && !extension.Value.RequireIngame;
+            control.Visible = extension.Enabled;
+            control.Enabled = extension.Enabled && !extension.RequireIngame;
             control.Dock = DockStyle.Fill;
 
             windowPageControl.Controls.Add(control);
         }
 
-        foreach (var extension in extensions.Where(extension => !extension.Value.DisplayAsTab))
+        foreach (var extension in extensions.Where(extension => !extension.DisplayAsTab))
         {
             var menuItemText = LanguageManager.GetLangBySpecificKey(
-                extension.Value.InternalName,
+                extension.InternalName,
                 "DisplayName",
-                extension.Value.DisplayName
+                extension.DisplayName
             );
             var menuItem = new ToolStripMenuItem(menuItemText)
             {
-                Enabled = extension.Value.Enabled && !extension.Value.RequireIngame,
-                Visible = extension.Value.Enabled,
+                Enabled = extension.Enabled && !extension.RequireIngame,
+                Visible = extension.Enabled,
             };
             menuItem.Click += PluginMenuItem_Click;
-            menuItem.Tag = extension.Value;
+            menuItem.Tag = extension;
 
             menuPlugins.DropDownItems.Add(menuItem);
         }
@@ -496,26 +494,26 @@ public partial class Main : UIWindow
         foreach (ToolStripMenuItem item in languageToolStripMenuItem.DropDownItems)
             item.Checked = false;
 
-        foreach (var plugin in Kernel.PluginManager.Extensions)
+        foreach (var plugin in ExtensionManager.Plugins)
         {
-            plugin.Value.Translate();
+            plugin.Translate();
 
-            var tabpage = windowPageControl.Controls[plugin.Key];
+            var tabpage = windowPageControl.Controls[plugin.InternalName];
             if (tabpage == null)
                 continue;
 
-            tabpage.Text = LanguageManager.GetLangBySpecificKey(plugin.Key, "DisplayName", tabpage.Text);
+            tabpage.Text = LanguageManager.GetLangBySpecificKey(plugin.InternalName, "DisplayName", tabpage.Text);
         }
 
-        foreach (var botbase in Kernel.BotbaseManager.Bots)
+        foreach (var botbase in ExtensionManager.Bots)
         {
-            botbase.Value.Translate();
+            botbase.Translate();
 
-            if (!windowPageControl.Controls.ContainsKey(botbase.Key))
+            if (!windowPageControl.Controls.ContainsKey(botbase.InternalName))
                 continue;
 
-            var tabpage = windowPageControl.Controls[botbase.Key];
-            tabpage.Text = LanguageManager.GetLangBySpecificKey(botbase.Key, "DisplayName", tabpage.Text);
+            var tabpage = windowPageControl.Controls[botbase.InternalName];
+            tabpage.Text = LanguageManager.GetLangBySpecificKey(botbase.InternalName, "DisplayName", tabpage.Text);
         }
 
         LanguageManager.Translate(this, Kernel.Language);
@@ -850,7 +848,7 @@ public partial class Main : UIWindow
     /// </summary>
     private void OnLoadBotbases()
     {
-        if (Kernel.BotbaseManager.Bots == null || Kernel.BotbaseManager.Bots.Count == 0)
+        if (ExtensionManager.Bots == null || ExtensionManager.Bots.Count() == 0)
         {
             var title = LanguageManager.GetLang("NoBotbaseDetected");
             var message = LanguageManager.GetLang("NoBotbaseDetectedDesc");
@@ -862,14 +860,14 @@ public partial class Main : UIWindow
             );
 
             if (messageResult == DialogResult.Retry)
-                Kernel.BotbaseManager.LoadAssemblies();
+                ExtensionManager.LoadAssemblies<IBotbase>();
             else if (messageResult == DialogResult.Abort)
                 Environment.Exit(-1);
         }
 
-        foreach (var bot in Kernel.BotbaseManager.Bots)
+        foreach (var bot in ExtensionManager.Bots)
         {
-            var item = new ToolStripMenuItem { Name = bot.Value.Name, Text = bot.Value.DisplayName };
+            var item = new ToolStripMenuItem { Name = bot.InternalName, Text = bot.DisplayName };
             item.Click += Item_Click;
             botsToolStripMenuItem.DropDown.Items.Add(item);
         }
@@ -980,7 +978,7 @@ public partial class Main : UIWindow
     /// </summary>
     private static void ApplyPlayerConfig()
     {
-        foreach (var plugin in Kernel.PluginManager.Extensions.Values)
+        foreach (var plugin in ExtensionManager.Plugins)
             plugin.OnLoadCharacter();
     }
 

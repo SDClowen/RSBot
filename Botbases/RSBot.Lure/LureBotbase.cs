@@ -1,18 +1,22 @@
-﻿using System.Windows.Forms;
-using RSBot.Core;
+﻿using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
 using RSBot.Core.Objects;
 using RSBot.Core.Plugins;
 using RSBot.Lure.Bundle;
 using RSBot.Lure.Components;
+using System.Windows.Forms;
 
 namespace RSBot.Lure;
 
 public class LureBotbase : IBotbase
 {
     private bool _interrupted;
-    public string Name => "RSBot.Lure";
+    /// <summary>
+    /// Gets or sets a value indicating whether the feature is enabled.
+    /// </summary>
+    public bool Enabled { get; set; }
+    public string InternalName => "RSBot.Lure";
 
     public string DisplayName => "Lure";
 
@@ -115,5 +119,24 @@ public class LureBotbase : IBotbase
     public void Translate()
     {
         LanguageManager.Translate(View, Kernel.Language);
+    }
+
+    /// <inheritdoc />
+    public void Initialize()
+    {
+    }
+
+    /// <inheritdoc />
+    public void Enable()
+    {
+        if (View != null)
+            View.Enabled = true;
+    }
+
+    /// <inheritdoc />
+    public void Disable()
+    {
+        if (View != null)
+            View.Enabled = false;
     }
 }

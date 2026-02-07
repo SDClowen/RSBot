@@ -1,14 +1,15 @@
-﻿using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.IO;
-using System.Windows.Forms;
-using RSBot.Core;
+﻿using RSBot.Core;
 using RSBot.Core.Components;
+using RSBot.Core.Plugins;
 using RSBot.Views.Dialog;
 using SDUI;
 using SDUI.Controls;
 using SDUI.Helpers;
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
 
 namespace RSBot.Views;
 
@@ -177,7 +178,7 @@ public partial class SplashScreen : UIWindowBase
         Game.Initialize();
 
         //---- Load Plugins ----
-        if (!Kernel.PluginManager.LoadAssemblies())
+        if (!ExtensionManager.LoadAssemblies<IPlugin>())
         {
             MessageBox.Show(
                 @"Failed to load plugins. Process canceled!",
@@ -189,7 +190,7 @@ public partial class SplashScreen : UIWindowBase
         }
 
         //---- Load Botbases ----
-        if (!Kernel.BotbaseManager.LoadAssemblies())
+        if (!ExtensionManager.LoadAssemblies<IBotbase>())
             MessageBox.Show(
                 @"Failed to load botbases. Process canceled!",
                 @"Initialize Application - Error",

@@ -13,12 +13,30 @@ namespace RSBot.Training;
 
 public class Bootstrap : IBotbase
 {
-    public string Name => "RSBot.Training";
+    /// <summary>
+    /// Gets or sets a value indicating whether the feature is enabled.
+    /// </summary>
+    public bool Enabled { get; set; }
 
+    /// <summary>
+    /// Gets the internal name identifier for the training module.
+    /// </summary>
+
+    public string InternalName => "RSBot.Training";
+
+    /// <summary>
+    /// Gets the display name for the training module.
+    /// </summary>
     public string DisplayName => "Training";
 
+    /// <summary>
+    /// Gets the text displayed on the tab for this item.
+    /// </summary>
     public string TabText => DisplayName;
 
+    /// <summary>
+    /// Gets the area associated with the bot contained in this container.
+    /// </summary>
     public Area Area => Container.Bot.Area;
 
     /// <summary>
@@ -123,5 +141,23 @@ public class Bootstrap : IBotbase
     public void Translate()
     {
         LanguageManager.Translate(View, Kernel.Language);
+    }
+
+    public void Initialize()
+    {
+    }
+
+    /// <inheritdoc />
+    public void Enable()
+    {
+        if (View != null)
+            View.Enabled = true;
+    }
+
+    /// <inheritdoc />
+    public void Disable()
+    {
+        if (View != null)
+            View.Enabled = false;
     }
 }

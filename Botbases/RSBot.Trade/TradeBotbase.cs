@@ -1,18 +1,23 @@
-﻿using System.Linq;
-using System.Windows.Forms;
-using RSBot.Core;
+﻿using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Objects;
 using RSBot.Core.Plugins;
 using RSBot.Trade.Bundle;
 using RSBot.Trade.Components.Scripting;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace RSBot.Trade;
 
 public class TradeBotbase : IBotbase
 {
-    public static bool IsActive => Kernel.Bot?.Botbase.Name == "RSBot.Trade" && Kernel.Bot.Running;
-    public string Name => "RSBot.Trade";
+    /// <summary>
+    /// Gets or sets a value indicating whether the feature is enabled.
+    /// </summary>
+    public bool Enabled { get; set; }
+
+    public static bool IsActive => Kernel.Bot?.Botbase.InternalName == "RSBot.Trade" && Kernel.Bot.Running;
+    public string InternalName => "RSBot.Trade";
 
     public string DisplayName => "Trade";
 
@@ -105,5 +110,24 @@ public class TradeBotbase : IBotbase
             return false;
 
         return true;
+    }
+
+    /// <inheritdoc />
+    public void Initialize()
+    {
+    }
+
+    /// <inheritdoc />
+    public void Enable()
+    {
+        if (View != null)
+            View.Enabled = true;
+    }
+
+    /// <inheritdoc />
+    public void Disable()
+    {
+        if (View != null)
+            View.Enabled = false;
     }
 }

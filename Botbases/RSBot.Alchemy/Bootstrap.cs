@@ -1,10 +1,10 @@
-﻿using System.Windows.Forms;
-using RSBot.Alchemy.Bot;
+﻿using RSBot.Alchemy.Bot;
 using RSBot.Alchemy.Subscriber;
 using RSBot.Core;
 using RSBot.Core.Components;
 using RSBot.Core.Objects;
 using RSBot.Core.Plugins;
+using System.Windows.Forms;
 
 namespace RSBot.Alchemy;
 
@@ -12,9 +12,14 @@ public class Bootstrap : IBotbase
 {
     private static readonly string _name = "RSBot.Alchemy";
 
-    public static bool IsActive => Kernel.Bot.Running && Kernel.Bot.Botbase.Name == _name;
+    /// <summary>
+    /// Gets or sets a value indicating whether the feature is enabled.
+    /// </summary>
+    public bool Enabled { get; set; }
 
-    public string Name => _name;
+    public static bool IsActive => Kernel.Bot.Running && Kernel.Bot.Botbase.InternalName == _name;
+
+    public string InternalName => _name;
 
     public string DisplayName => "Alchemy";
 
@@ -57,11 +62,26 @@ public class Bootstrap : IBotbase
         LanguageManager.Translate(View, Kernel.Language);
     }
 
+    /// <inheritdoc />
     public void Initialize()
     {
         AlchemyEventsSubscriber.Subscribe();
         Globals.Botbase = new Botbase();
 
         Log.AppendFormat(LogLevel.Notify, "[Alchemy] Initialized botbase");
+    }
+
+    /// <inheritdoc />
+    public void Enable()
+    {
+        if (View != null)
+            View.Enabled = true;
+    }
+
+    /// <inheritdoc />
+    public void Disable()
+    {
+        if (View != null)
+            View.Enabled = false;
     }
 }
