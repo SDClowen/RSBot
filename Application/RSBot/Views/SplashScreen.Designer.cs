@@ -48,7 +48,7 @@
             pictureBox.Location = new System.Drawing.Point(0, 0);
             pictureBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             pictureBox.Name = "pictureBox";
-            pictureBox.Size = new System.Drawing.Size(533, 91);
+            pictureBox.Size = new System.Drawing.Size(521, 91);
             pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             pictureBox.TabIndex = 0;
             pictureBox.TabStop = false;
@@ -69,34 +69,32 @@
             logoLabel.Gradient = new System.Drawing.Color[]
     {
     System.Drawing.Color.DodgerBlue,
-    System.Drawing.Color.SlateBlue
+    System.Drawing.Color.LightBlue
     };
             logoLabel.GradientAnimation = true;
             logoLabel.Location = new System.Drawing.Point(0, 91);
             logoLabel.Name = "logoLabel";
-            logoLabel.Size = new System.Drawing.Size(533, 100);
+            logoLabel.Size = new System.Drawing.Size(521, 100);
             logoLabel.TabIndex = 3;
             logoLabel.Text = "RSBOT";
             logoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelVersion
             // 
-            labelVersion.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            labelVersion.ApplyGradient = false;
-            labelVersion.AutoSize = true;
+            labelVersion.ApplyGradient = true;
             labelVersion.BackColor = System.Drawing.Color.Transparent;
             labelVersion.Enabled = false;
             labelVersion.Font = new System.Drawing.Font("Segoe UI", 12F);
             labelVersion.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             labelVersion.Gradient = new System.Drawing.Color[]
     {
-    System.Drawing.Color.DodgerBlue,
-    System.Drawing.Color.DeepSkyBlue
+    System.Drawing.Color.Aqua,
+    System.Drawing.Color.RoyalBlue
     };
             labelVersion.GradientAnimation = false;
-            labelVersion.Location = new System.Drawing.Point(443, 129);
+            labelVersion.Location = new System.Drawing.Point(442, 125);
             labelVersion.Name = "labelVersion";
-            labelVersion.Size = new System.Drawing.Size(63, 28);
+            labelVersion.Size = new System.Drawing.Size(67, 28);
             labelVersion.TabIndex = 4;
             labelVersion.Text = "v1.0.0";
             labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -115,9 +113,9 @@
     System.Drawing.Color.FromArgb(74, 74, 74)
     };
             label2.GradientAnimation = false;
-            label2.Location = new System.Drawing.Point(0, 232);
+            label2.Location = new System.Drawing.Point(0, 218);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(533, 32);
+            label2.Size = new System.Drawing.Size(521, 32);
             label2.TabIndex = 5;
             label2.Text = "Free powerful bot for Silkroad Online servers";
             label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -136,9 +134,9 @@
     System.Drawing.Color.Black
     };
             label3.GradientAnimation = false;
-            label3.Location = new System.Drawing.Point(0, 264);
+            label3.Location = new System.Drawing.Point(0, 250);
             label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(533, 26);
+            label3.Size = new System.Drawing.Size(521, 26);
             label3.TabIndex = 5;
             label3.Text = "Created with contributions from the community";
             label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -158,7 +156,7 @@
             lblLoading.GradientAnimation = false;
             lblLoading.Location = new System.Drawing.Point(0, 191);
             lblLoading.Name = "lblLoading";
-            lblLoading.Size = new System.Drawing.Size(533, 21);
+            lblLoading.Size = new System.Drawing.Size(521, 21);
             lblLoading.TabIndex = 6;
             lblLoading.Text = "Loading";
             lblLoading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -189,12 +187,11 @@
             // 
             // SplashScreen
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            BackColor = System.Drawing.SystemColors.Control;
+            AutoScaleDimensions = new System.Drawing.SizeF(11F, 28F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.FromArgb(0, 0, 0, 0);
             BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            BorderColor = System.Drawing.Color.Empty;
-            ClientSize = new System.Drawing.Size(533, 290);
+            ClientSize = new System.Drawing.Size(521, 276);
             ControlBox = false;
             Controls.Add(labelVersion);
             Controls.Add(label2);
@@ -204,23 +201,24 @@
             Controls.Add(pictureBox);
             Controls.Add(progressLoading);
             Cursor = System.Windows.Forms.Cursors.AppStarting;
-            DrawTitleBorder = false;
+            DwmMargin = -1;
             Font = new System.Drawing.Font("Segoe UI", 12F);
-            Hatch = System.Drawing.Drawing2D.HatchStyle.Percent30;
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Location = new System.Drawing.Point(0, 0);
             Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            Movable = false;
+            MaximizeBox = false;
+            MaximumSize = new System.Drawing.Size(527, 282);
+            MinimizeBox = false;
+            MinimumSize = new System.Drawing.Size(527, 282);
             Name = "SplashScreen";
-            Padding = new System.Windows.Forms.Padding(0);
-            ShowTitle = false;
+            ShowIcon = false;
             SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Tag = "";
             Load += SplashScreen_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion

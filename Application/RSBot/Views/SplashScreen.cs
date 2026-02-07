@@ -12,7 +12,7 @@ using SDUI.Helpers;
 
 namespace RSBot.Views;
 
-public partial class SplashScreen : UIWindow
+public partial class SplashScreen : UIWindowBase
 {
     public readonly Main _mainForm;
 

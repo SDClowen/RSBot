@@ -57,6 +57,7 @@ namespace RSBot.Views
             menuSidebar = new ToolStripMenuItem();
             toolsToolStripMenuItem = new ToolStripMenuItem();
             menuScriptRecorder = new ToolStripMenuItem();
+            menuPluginManager = new ToolStripMenuItem();
             menuPlugins = new ToolStripMenuItem();
             aboutToolStripMenuItem = new ToolStripMenuItem();
             thisToolStripMenuItem = new ToolStripMenuItem();
@@ -161,6 +162,7 @@ namespace RSBot.Views
             comboServer.DropDownHeight = 100;
             comboServer.DropDownStyle = ComboBoxStyle.DropDownList;
             comboServer.FormattingEnabled = true;
+            comboServer.IntegralHeight = false;
             comboServer.ItemHeight = 22;
             comboServer.Location = new System.Drawing.Point(139, 19);
             comboServer.Margin = new Padding(4);
@@ -177,6 +179,7 @@ namespace RSBot.Views
             comboDivision.DropDownHeight = 100;
             comboDivision.DropDownStyle = ComboBoxStyle.DropDownList;
             comboDivision.FormattingEnabled = true;
+            comboDivision.IntegralHeight = false;
             comboDivision.ItemHeight = 22;
             comboDivision.Location = new System.Drawing.Point(18, 19);
             comboDivision.Margin = new Padding(4);
@@ -340,7 +343,7 @@ namespace RSBot.Views
             // 
             // toolsToolStripMenuItem
             // 
-            toolsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { menuScriptRecorder });
+            toolsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { menuScriptRecorder, menuPluginManager });
             toolsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             toolsToolStripMenuItem.Size = new System.Drawing.Size(148, 26);
@@ -350,9 +353,18 @@ namespace RSBot.Views
             // 
             menuScriptRecorder.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
             menuScriptRecorder.Name = "menuScriptRecorder";
-            menuScriptRecorder.Size = new System.Drawing.Size(201, 26);
+            menuScriptRecorder.Size = new System.Drawing.Size(204, 26);
             menuScriptRecorder.Text = "Script Recorder";
             menuScriptRecorder.Click += menuScriptRecorder_Click;
+            // 
+            // menuPluginManager
+            // 
+            menuPluginManager.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+            menuPluginManager.Name = "menuPluginManager";
+            menuPluginManager.Size = new System.Drawing.Size(204, 26);
+            menuPluginManager.Text = "Plugin Manager";
+            menuPluginManager.ToolTipText = "Manage plugins - Enable, Disable or Load new plugins";
+            menuPluginManager.Click += menuPluginManager_Click;
             // 
             // menuPlugins
             // 
@@ -464,8 +476,8 @@ namespace RSBot.Views
             // 
             // Main
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
-            AutoScaleMode = AutoScaleMode.Dpi;
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1255, 832);
             ControlBox = false;
             Controls.Add(windowPageControl);
@@ -473,7 +485,6 @@ namespace RSBot.Views
             Controls.Add(pSidebar);
             Controls.Add(bottomPanel);
             Controls.Add(stripStatus);
-            DwmMargin = 0;
             ExtendBox = true;
             ExtendMenu = menuStrip;
             Hatch = System.Drawing.Drawing2D.HatchStyle.Percent20;
@@ -518,6 +529,7 @@ namespace RSBot.Views
         private System.Windows.Forms.ToolStripMenuItem menuSidebar;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuScriptRecorder;
+        private System.Windows.Forms.ToolStripMenuItem menuPluginManager;
         private System.Windows.Forms.ToolStripMenuItem menuPlugins;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem thisToolStripMenuItem;

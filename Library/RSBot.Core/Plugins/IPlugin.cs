@@ -50,6 +50,14 @@ public interface IPlugin
     public bool RequireIngame { get; }
 
     /// <summary>
+    ///     Gets or sets a value indicating whether the plugin is enabled.
+    /// </summary>
+    /// <value>
+    ///     <c>true</c> if enabled; otherwise, <c>false</c>.
+    /// </value>
+    public bool Enabled { get; set; }
+
+    /// <summary>
     ///     Gets the view that will be displayed as tab page.
     /// </summary>
     Control View { get; }
@@ -68,4 +76,14 @@ public interface IPlugin
     ///     Translate the plugin
     /// </summary>
     void Translate();
+
+    /// <summary>
+    ///     Enables the plugin.
+    /// </summary>
+    void Enable();
+
+    /// <summary>
+    ///     Disables the plugin.
+    /// </summary>
+    void Disable();
 }

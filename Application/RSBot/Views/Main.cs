@@ -130,6 +130,11 @@ public partial class Main : UIWindow
         EventManager.SubscribeEvent("OnAgentServerDisconnected", OnAgentServerDisconnected);
         EventManager.SubscribeEvent("OnShowScriptRecorder", new Action<int, bool>(OnShowScriptRecorder));
         EventManager.SubscribeEvent("OnAddSidebarElement", new Action<Control>(OnAddSidebarElement));
+        EventManager.SubscribeEvent("OnPluginEnabled", new Action<IPlugin>(OnPluginStateChanged));
+        EventManager.SubscribeEvent("OnPluginDisabled", new Action<IPlugin>(OnPluginStateChanged));
+        EventManager.SubscribeEvent("OnPluginLoaded", new Action<IPlugin>(OnPluginLoaded));
+        EventManager.SubscribeEvent("OnPluginUnloaded", new Action<IPlugin>(OnPluginUnloaded));
+        EventManager.SubscribeEvent("OnPluginListChanged", OnPluginListChanged);
     }
 
     private void OnAddSidebarElement(Control obj)
@@ -246,7 +251,8 @@ public partial class Main : UIWindow
                 "DisplayName",
                 extension.Value.DisplayName
             );
-            control.Enabled = !extension.Value.RequireIngame;
+            control.Visible = extension.Value.Enabled;
+            control.Enabled = extension.Value.Enabled && !extension.Value.RequireIngame;
             control.Dock = DockStyle.Fill;
 
             windowPageControl.Controls.Add(control);
@@ -259,7 +265,11 @@ public partial class Main : UIWindow
                 "DisplayName",
                 extension.Value.DisplayName
             );
-            var menuItem = new ToolStripMenuItem(menuItemText) { Enabled = !extension.Value.RequireIngame };
+            var menuItem = new ToolStripMenuItem(menuItemText)
+            {
+                Enabled = extension.Value.Enabled && !extension.Value.RequireIngame,
+                Visible = extension.Value.Enabled,
+            };
             menuItem.Click += PluginMenuItem_Click;
             menuItem.Tag = extension.Value;
 
@@ -296,6 +306,46 @@ public partial class Main : UIWindow
     private void Main_Shown(object sender, EventArgs e)
     {
         _isWindowLoaded = true;
+        CheckAndShowDonationReminder();
+    }
+
+    /// <summary>
+    ///     Checks and shows donation reminder if needed (once per day)
+    /// </summary>
+    private void CheckAndShowDonationReminder()
+    {
+        if (GlobalConfig.Get("RSBot.DonationReminderDisabled", false))
+            return;
+
+        var lastShownDateStr = GlobalConfig.Get("RSBot.LastDonationReminderDate", string.Empty);
+        var today = DateTime.Now.ToString("yyyy-MM-dd");
+
+        if (lastShownDateStr == today)
+            return;
+
+        var appUsageCount = GlobalConfig.Get("RSBot.AppUsageCount", 0);
+        GlobalConfig.Set("RSBot.AppUsageCount", appUsageCount + 1);
+        GlobalConfig.Save();
+
+        if (appUsageCount < 3)
+            return;
+
+        Task.Delay(2000).ContinueWith(_ =>
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(() =>
+                {
+                    var donationDialog = new DonationReminderDialog();
+                    donationDialog.ShowDialog(this);
+                }));
+            }
+            else
+            {
+                var donationDialog = new DonationReminderDialog();
+                donationDialog.ShowDialog(this);
+            }
+        });
     }
 
     #endregion Methods
@@ -326,11 +376,13 @@ public partial class Main : UIWindow
             {
                 Text = plugin.DisplayName,
                 Name = plugin.InternalName,
+                AutoSize = true,
                 MaximizeBox = false,
                 FormBorderStyle = FormBorderStyle.FixedDialog,
                 Icon = Icon,
                 StartPosition = FormStartPosition.CenterParent,
                 ShowTitle = true,
+                Dock = DockStyle.Fill,
             };
 
             content.Dock = DockStyle.Fill;
@@ -670,6 +722,17 @@ public partial class Main : UIWindow
     }
 
     /// <summary>
+    ///     Handles the Click event of the menuPluginManager control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+    private void menuPluginManager_Click(object sender, EventArgs e)
+    {
+        var pluginManager = new PluginManager();
+        pluginManager.Show();
+    }
+
+    /// <summary>
     ///     Handles the Click event of the coloredToolStripMenuItem control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
@@ -919,6 +982,134 @@ public partial class Main : UIWindow
     {
         foreach (var plugin in Kernel.PluginManager.Extensions.Values)
             plugin.OnLoadCharacter();
+    }
+
+    /// <summary>
+    ///     Called when a plugin's state changes (enabled/disabled).
+    /// </summary>
+    /// <param name="plugin">The plugin that changed state.</param>
+    private void OnPluginStateChanged(IPlugin plugin)
+    {
+        // Update tab control if plugin displays as tab
+        if (plugin.DisplayAsTab)
+        {
+            foreach (Control control in windowPageControl.Controls)
+            {
+                if (control.Name == plugin.InternalName)
+                {
+                    // Hide/Show the tab based on enabled state
+                    control.Visible = plugin.Enabled;
+                    control.Enabled = plugin.Enabled && (!plugin.RequireIngame || Game.Ready);
+                    break;
+                }
+            }
+        }
+        else
+        {
+            // Update menu item
+            foreach (ToolStripItem item in menuPlugins.DropDownItems)
+            {
+                if (item.Tag is IPlugin menuPlugin && menuPlugin.InternalName == plugin.InternalName)
+                {
+                    item.Visible = plugin.Enabled;
+                    item.Enabled = plugin.Enabled && (!plugin.RequireIngame || Game.Ready);
+                    break;
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    ///     Called when a plugin is loaded at runtime.
+    /// </summary>
+    /// <param name="plugin">The plugin that was loaded.</param>
+    private void OnPluginLoaded(IPlugin plugin)
+    {
+        if (plugin.DisplayAsTab)
+        {
+            var control = plugin.View;
+            control.Name = plugin.InternalName;
+            control.Text = LanguageManager.GetLangBySpecificKey(
+                plugin.InternalName,
+                "DisplayName",
+                plugin.DisplayName
+            );
+            control.Visible = plugin.Enabled;
+            control.Enabled = plugin.Enabled && (!plugin.RequireIngame || Game.Ready);
+            control.Dock = DockStyle.Fill;
+
+            windowPageControl.Controls.Add(control);
+        }
+        else
+        {
+            var menuItemText = LanguageManager.GetLangBySpecificKey(
+                plugin.InternalName,
+                "DisplayName",
+                plugin.DisplayName
+            );
+            var menuItem = new ToolStripMenuItem(menuItemText)
+            {
+                Enabled = plugin.Enabled && (!plugin.RequireIngame || Game.Ready),
+                Visible = plugin.Enabled,
+            };
+            menuItem.Click += PluginMenuItem_Click;
+            menuItem.Tag = plugin;
+
+            menuPlugins.DropDownItems.Add(menuItem);
+        }
+
+        Log.Notify($"Plugin '{plugin.DisplayName}' added to UI");
+    }
+
+    /// <summary>
+    ///     Called when a plugin is unloaded at runtime.
+    /// </summary>
+    /// <param name="plugin">The plugin that was unloaded.</param>
+    private void OnPluginUnloaded(IPlugin plugin)
+    {
+        if (plugin.DisplayAsTab)
+        {
+            foreach (Control control in windowPageControl.Controls)
+            {
+                if (control.Name == plugin.InternalName)
+                {
+                    windowPageControl.Controls.Remove(control);
+                    control.Dispose();
+                    break;
+                }
+            }
+
+            Invalidate();
+        }
+        else
+        {
+            ToolStripItem itemToRemove = null;
+            foreach (ToolStripItem item in menuPlugins.DropDownItems)
+            {
+                if (item.Tag is IPlugin menuPlugin && menuPlugin.InternalName == plugin.InternalName)
+                {
+                    itemToRemove = item;
+                    break;
+                }
+            }
+
+            if (itemToRemove != null)
+            {
+                menuPlugins.DropDownItems.Remove(itemToRemove);
+                itemToRemove.Dispose();
+            }
+        }
+
+        Log.Notify($"Plugin '{plugin.DisplayName}' removed from UI");
+    }
+
+    /// <summary>
+    ///     Called when the plugin list changes (for general refresh).
+    /// </summary>
+    private void OnPluginListChanged()
+    {
+        // General refresh if needed
+        Log.Debug("Plugin list changed, UI updated");
     }
 
     #endregion Core events
