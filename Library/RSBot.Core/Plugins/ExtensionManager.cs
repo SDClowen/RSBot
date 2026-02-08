@@ -72,20 +72,17 @@ public class ExtensionManager
         {
             var name = typeof(T).Name;
 
-            var disabledList = LoadDisabledPlugins();
-
             foreach (var extension in from file in
                                           Directory.GetFiles(name == "IPlugin" ? _directoryForPlugins : _directoryForBotbases)
                                       let fileInfo = new FileInfo(file)
                                       where fileInfo.Extension == ".dll"
                                       select GetExtensionsFromAssembly<T>(file)
-                     into loadedExtensions
+                                      into loadedExtensions
                                       from extension in loadedExtensions
                                       select extension)
             {
-                extension.Enabled = !disabledList.Contains(extension.InternalName);
                 _extensions.Add(extension);
-                Log.Debug($"Loaded {name} [{extension.InternalName}]");
+                Log.Debug($"Loaded {name} [{extension.Name}]");
             }
 
             if (name == "IPlugin")
@@ -117,6 +114,7 @@ public class ExtensionManager
 
         try
         {
+            var disabledList = LoadDisabledPlugins();
             var assemblyTypes = assembly.GetTypes();
 
             foreach (var extension in (from type in assemblyTypes
@@ -124,6 +122,9 @@ public class ExtensionManager
                                        select Activator.CreateInstance(type)).OfType<T>())
             {
                 result.Add(extension);
+
+                var plugin = extension as IExtension;
+                plugin.Enabled = !disabledList.Contains(plugin.Name);
             }
 
             if (result.Count == 0)
@@ -157,8 +158,8 @@ public class ExtensionManager
             // Store handlers and hooks for each plugin
             foreach (var plugin in result)
             {
-                PluginHandlers[plugin.InternalName] = handlers;
-                PluginHooks[plugin.InternalName] = hooks;
+                PluginHandlers[plugin.Name] = handlers;
+                PluginHooks[plugin.Name] = hooks;
             }
         }
         catch
@@ -344,10 +345,10 @@ public class ExtensionManager
     /// <returns>True if successfully enabled, otherwise false.</returns>
     public static bool EnablePlugin(string internalName)
     {
-        if (!_extensions.Any(p => p.InternalName == internalName))
+        if (!_extensions.Any(p => p.Name == internalName))
             return false;
 
-        var plugin = _extensions.FirstOrDefault(p => p.InternalName == internalName);
+        var plugin = _extensions.FirstOrDefault(p => p.Name == internalName);
         if (plugin.Enabled)
             return true;
 
@@ -372,13 +373,13 @@ public class ExtensionManager
 
             SaveDisabledPlugins(); // Save state
             EventManager.FireEvent("OnPluginEnabled", plugin);
-            Log.Notify($"Plugin [{plugin.DisplayName}] enabled!");
+            Log.Notify($"Plugin [{plugin.Title}] enabled!");
 
             return true;
         }
         catch (Exception ex)
         {
-            Log.Error($"Failed to enable plugin [{plugin.DisplayName}]: {ex.Message}");
+            Log.Error($"Failed to enable plugin [{plugin.Title}]: {ex.Message}");
             return false;
         }
     }
@@ -390,10 +391,10 @@ public class ExtensionManager
     /// <returns>True if successfully disabled, otherwise false.</returns>
     public static bool DisablePlugin(string internalName)
     {
-        if (!_extensions.Any(p => p.InternalName == internalName))
+        if (!_extensions.Any(p => p.Name == internalName))
             return false;
 
-        var plugin = _extensions.FirstOrDefault(p => p.InternalName == internalName);
+        var plugin = _extensions.FirstOrDefault(p => p.Name == internalName);
         if (!plugin.Enabled)
             return true;
 
@@ -418,13 +419,13 @@ public class ExtensionManager
 
             SaveDisabledPlugins(); // Save state
             EventManager.FireEvent("OnPluginDisabled", plugin);
-            Log.Notify($"Plugin [{plugin.DisplayName}] disabled!");
+            Log.Notify($"Plugin [{plugin.Title}] disabled!");
 
             return true;
         }
         catch (Exception ex)
         {
-            Log.Error($"Failed to disable plugin [{plugin.DisplayName}]: {ex.Message}");
+            Log.Error($"Failed to disable plugin [{plugin.Title}]: {ex.Message}");
             return false;
         }
     }
@@ -436,10 +437,10 @@ public class ExtensionManager
     /// <returns>The new enabled state.</returns>
     public static bool TogglePlugin(string internalName)
     {
-        if (!_extensions.Any(p => p.InternalName == internalName))
+        if (!_extensions.Any(p => p.Name == internalName))
             return false;
 
-        var plugin = _extensions.FirstOrDefault(p => p.InternalName == internalName);
+        var plugin = _extensions.FirstOrDefault(p => p.Name == internalName);
 
         return plugin.Enabled ? DisablePlugin(internalName) : EnablePlugin(internalName);
     }
@@ -451,10 +452,10 @@ public class ExtensionManager
     /// <returns>True if successfully reloaded, otherwise false.</returns>
     public static bool ReloadPlugin(string internalName)
     {
-        if (!_extensions.Any(p => p.InternalName == internalName))
+        if (!_extensions.Any(p => p.Name == internalName))
             return false;
 
-        var plugin = _extensions.FirstOrDefault(p => p.InternalName == internalName);
+        var plugin = _extensions.FirstOrDefault(p => p.Name == internalName);
 
         if (!DisablePlugin(internalName))
             return false;
@@ -489,22 +490,18 @@ public class ExtensionManager
                 return false;
             }
 
-            var disabledList = LoadDisabledPlugins();
 
             foreach (var plugin in newPlugins)
             {
-                if (!_extensions.Any(p => p.InternalName == plugin.InternalName))
+                if (!_extensions.Any(p => p.Name == plugin.Name))
                 {
-                    Log.Warn($"Plugin '{plugin.InternalName}' is already loaded. Skipping.");
+                    Log.Warn($"Plugin '{plugin.Name}' is already loaded. Skipping.");
                     continue;
                 }
 
                 _extensions.Add(plugin);
-                plugin.Enabled = !disabledList.Contains(plugin.InternalName);
-                plugin.Initialize();
-                plugin.Translate();
 
-                Log.Notify($"Plugin '{plugin.DisplayName}' loaded successfully!");
+                Log.Notify($"Plugin '{plugin.Title}' loaded successfully!");
                 EventManager.FireEvent("OnPluginLoaded", plugin);
             }
 
@@ -524,12 +521,12 @@ public class ExtensionManager
     /// <returns>True if successfully unloaded, otherwise false.</returns>
     public static bool UnloadPlugin(string internalName)
     {
-        if (!_extensions.Any(p => p.InternalName == internalName))
+        if (!_extensions.Any(p => p.Name == internalName))
             return false;
 
         try
         {
-            var plugin = _extensions.FirstOrDefault(p => p.InternalName == internalName);
+            var plugin = _extensions.FirstOrDefault(p => p.Name == internalName);
 
             // Disable first
             if (plugin.Enabled)
@@ -549,7 +546,7 @@ public class ExtensionManager
                 PluginHooks.Remove(internalName);
 
             EventManager.FireEvent("OnPluginUnloaded", plugin);
-            Log.Notify($"Plugin '{plugin.DisplayName}' unloaded successfully!");
+            Log.Notify($"Plugin '{plugin.Title}' unloaded successfully!");
 
             return true;
         }
@@ -578,7 +575,7 @@ public class ExtensionManager
     {
         var disabledPlugins = _extensions
             .Where(p => !p.Enabled)
-            .Select(p => p.InternalName)
+            .Select(p => p.Name)
             .ToArray();
 
         GlobalConfig.Set("RSBot.DisabledPlugins", string.Join(",", disabledPlugins));

@@ -1,14 +1,12 @@
 ﻿using RSBot.Core.Plugins;
 using RSBot.Views.Controls;
 using SDUI.Controls;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace RSBot.Views;
 
 public partial class PluginManager : UIWindow
 {
-    private CancellationTokenSource _downloadCancellation;
     private InstalledPlugins _installedPluginsControl;
     private PluginStore _pluginStoreControl;
 

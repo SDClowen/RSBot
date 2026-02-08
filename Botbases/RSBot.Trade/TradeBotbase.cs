@@ -12,22 +12,32 @@ namespace RSBot.Trade;
 public class TradeBotbase : IBotbase
 {
     /// <summary>
-    /// Gets or sets a value indicating whether the feature is enabled.
+    /// Gets a value indicating whether the trade botbase is currently active and running.
     /// </summary>
+    public static bool IsActive => Kernel.Bot?.Botbase.Name == "RSBot.Trade" && Kernel.Bot.Running;
+
+    /// <inheritdoc />
+    public string Author => "RSBot Team";
+
+    /// <inheritdoc />
+    public string Description => "Botbase focused on trading goods in the best areas of the game.";
+
+    /// <inheritdoc />
+    public string Name => "RSBot.Trade";
+
+    /// <inheritdoc />
+    public string Title => "Trade";
+
+    /// <inheritdoc />
+    public string Version => "1.0.0";
+
+    /// <inheritdoc />
     public bool Enabled { get; set; }
 
-    public static bool IsActive => Kernel.Bot?.Botbase.InternalName == "RSBot.Trade" && Kernel.Bot.Running;
-    public string InternalName => "RSBot.Trade";
-
-    public string DisplayName => "Trade";
-
-    public string TabText => DisplayName;
-
+    /// <inheritdoc />
     public Area Area => new();
 
-    /// <summary>
-    ///     Ticks this instance. It's the botbase main-loop
-    /// </summary>
+    /// <inheritdoc />
     public void Tick()
     {
         if (!Game.Ready || Game.Player == null)
@@ -36,15 +46,11 @@ public class TradeBotbase : IBotbase
         Bundles.Tick();
     }
 
-    /// <summary>
-    ///     Gets the view.
-    /// </summary>
-    /// <returns></returns>
+    /// <inheritdoc />
     public Control View => Views.View.Main;
 
-    /// <summary>
-    ///     Starts this instance.
-    /// </summary>
+
+    /// <inheritdoc />
     public void Start()
     {
         if (!AssertPlayerIsTrader())
@@ -63,38 +69,24 @@ public class TradeBotbase : IBotbase
         Bundles.Start();
     }
 
-    /// <summary>
-    ///     Stops this instance.
-    /// </summary>
+    /// <inheritdoc />
     public void Stop()
     {
         Bundles.Stop();
     }
 
-    /// <summary>
-    ///     Triggered after the botbase was registered to the kernel.
-    /// </summary>
-    public void Register()
-    {
-        Log.Debug("[Trade] Botbase registered to the kernel!");
-
-        ScriptManager.CommandHandlers.Add(new BuyGoodsScriptCommand());
-
-        Bundles.Initialize();
-    }
-
-    /// <summary>
-    ///     Translate the botbase plugin
-    /// </summary>
+    /// <inheritdoc />
     public void Translate()
     {
         LanguageManager.Translate(View, Kernel.Language);
     }
 
     /// <summary>
-    ///     Returns a value indicating if the active character is a trader
+    /// Determines whether the current player is considered a trader based on job type and equipped items.
     /// </summary>
-    /// <returns></returns>
+    /// <remarks>A player is considered a trader if they have the appropriate job type and are wearing the
+    /// required job outfit. The criteria may vary depending on the game client type.</remarks>
+    /// <returns>true if the player meets all criteria to be recognized as a trader; otherwise, false.</returns>
     private bool AssertPlayerIsTrader()
     {
         if (Game.Player == null)
@@ -115,6 +107,11 @@ public class TradeBotbase : IBotbase
     /// <inheritdoc />
     public void Initialize()
     {
+        Log.Debug("[Trade] Botbase registered to the kernel!");
+
+        ScriptManager.CommandHandlers.Add(new BuyGoodsScriptCommand());
+
+        Bundles.Initialize();
     }
 
     /// <inheritdoc />

@@ -47,17 +47,15 @@ namespace RSBot.Views.Controls
                     var card = new PluginCard
                     {
                         Plugin = plugin,
-                        Margin = new Padding(10),
-                        Width = 350,
-                        Height = 150
+                        Dock = DockStyle.Top
                     };
 
                     card.ToggleClicked += (s, e) =>
                     {
                         if (plugin.Enabled)
-                            ExtensionManager.DisablePlugin(plugin.InternalName);
+                            ExtensionManager.DisablePlugin(plugin.Name);
                         else
-                            ExtensionManager.EnablePlugin(plugin.InternalName);
+                            ExtensionManager.EnablePlugin(plugin.Name);
 
                         LoadLocalPlugins(); // Refresh
                     };
@@ -68,7 +66,11 @@ namespace RSBot.Views.Controls
                 // ⭐ Add all cards at once (much faster!)
                 if (cards.Count > 0)
                 {
-                    flowPanelLocal.Controls.AddRange(cards.ToArray());
+                    foreach (var cardItem in cards)
+                    {
+                        flowPanelLocal.Controls.Add(new System.Windows.Forms.Panel() { Height = 10, Dock = DockStyle.Top });
+                        flowPanelLocal.Controls.Add(cardItem);
+                    }
                 }
 
                 var enabledCount = ExtensionManager.Plugins.Count(p => p.Enabled);

@@ -8,10 +8,22 @@ namespace RSBot.Map;
 public class Bootstrap : IPlugin
 {
     /// <inheritdoc />
-    public string InternalName => "RSBot.Map";
+    public string Author => "RSBot Team";
 
     /// <inheritdoc />
-    public string DisplayName => "Map";
+    public string Description => "Provides a map interface for navigation and location tracking.";
+
+    /// <inheritdoc />
+    public string Name => "RSBot.Map";
+
+    /// <inheritdoc />
+    public string Title => "Map";
+
+    /// <inheritdoc />
+    public string Version => "1.0.0";
+
+    /// <inheritdoc />
+    public bool Enabled { get; set; }
 
     /// <inheritdoc />
     public bool DisplayAsTab => true;
@@ -21,9 +33,6 @@ public class Bootstrap : IPlugin
 
     /// <inheritdoc />
     public bool RequireIngame => true;
-
-    /// <inheritdoc />
-    public bool Enabled { get; set; }
 
     /// <inheritdoc />
     public void Initialize() { }

@@ -9,10 +9,22 @@ namespace RSBot.General;
 public class Bootstrap : IPlugin
 {
     /// <inheritdoc />
-    public string InternalName => "RSBot.General";
+    public string Author => "RSBot Team";
 
     /// <inheritdoc />
-    public string DisplayName => "General";
+    public string Description => "General plugin for RSBot, providing various utilities and features.";
+
+    /// <inheritdoc />
+    public string Name => "RSBot.General";
+
+    /// <inheritdoc />
+    public string Title => "General";
+
+    /// <inheritdoc />
+    public string Version => "1.0.0";
+
+    /// <inheritdoc />
+    public bool Enabled { get; set; }
 
     /// <inheritdoc />
     public bool DisplayAsTab => true;
@@ -22,9 +34,6 @@ public class Bootstrap : IPlugin
 
     /// <inheritdoc />
     public bool RequireIngame => false;
-
-    /// <inheritdoc />
-    public bool Enabled { get; set; }
 
     /// <inheritdoc />
     public void Initialize()

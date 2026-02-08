@@ -5,6 +5,7 @@ using RSBot.Core.Objects;
 using RSBot.Core.Plugins;
 using RSBot.Lure.Bundle;
 using RSBot.Lure.Components;
+using System;
 using System.Windows.Forms;
 
 namespace RSBot.Lure;
@@ -12,21 +13,29 @@ namespace RSBot.Lure;
 public class LureBotbase : IBotbase
 {
     private bool _interrupted;
-    /// <summary>
-    /// Gets or sets a value indicating whether the feature is enabled.
-    /// </summary>
+
+    /// <inheritdoc />
+    public string Author => "RSBot Team";
+
+    /// <inheritdoc />
+    public string Description => "Botbase focused on luring mobs in the best areas of the game.";
+
+    /// <inheritdoc />
+    public string Name => "RSBot.Lure";
+
+    /// <inheritdoc />
+    public string Title => "Lure";
+
+    /// <inheritdoc />
+    public string Version => "1.0.0";
+
+    /// <inheritdoc />
     public bool Enabled { get; set; }
-    public string InternalName => "RSBot.Lure";
 
-    public string DisplayName => "Lure";
-
-    public string TabText => DisplayName;
-
+    /// <inheritdoc />
     public Area Area => LureConfig.Area;
 
-    /// <summary>
-    ///     Ticks this instance. It's the botbase main-loop
-    /// </summary>
+    /// <inheritdoc />
     public void Tick()
     {
         if (!Kernel.Bot.Running)
@@ -81,23 +90,16 @@ public class LureBotbase : IBotbase
             EventManager.FireEvent("Bundle.Loot.Invoke");
     }
 
-    /// <summary>
-    ///     Gets the view.
-    /// </summary>
-    /// <returns></returns>
+    /// <inheritdoc />
     public Control View => Views.View.Main;
 
-    /// <summary>
-    ///     Starts this instance.
-    /// </summary>
+    /// <inheritdoc />
     public void Start()
     {
         Log.Notify("[Lure] bot started!");
     }
 
-    /// <summary>
-    ///     Stops this instance.
-    /// </summary>
+    /// <inheritdoc />
     public void Stop()
     {
         EventManager.FireEvent("Bundle.Loop.Stop");
@@ -108,14 +110,7 @@ public class LureBotbase : IBotbase
         Log.Notify("[Lure] bot stopped!");
     }
 
-    public void Register()
-    {
-        Log.Debug("[Lure] Botbase registered to the kernel!");
-    }
-
-    /// <summary>
-    ///     Translate the botbase plugin
-    /// </summary>
+    /// <inheritdoc />
     public void Translate()
     {
         LanguageManager.Translate(View, Kernel.Language);
@@ -124,6 +119,7 @@ public class LureBotbase : IBotbase
     /// <inheritdoc />
     public void Initialize()
     {
+        Log.Debug("[Lure] Botbase registered to the kernel!");
     }
 
     /// <inheritdoc />

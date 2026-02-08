@@ -8,10 +8,22 @@ namespace RSBot.Chat;
 public class Bootstrap : IPlugin
 {
     /// <inheritdoc />
-    public string InternalName => "RSBot.Chat";
+    public string Author => "RSBot Team";
 
     /// <inheritdoc />
-    public string DisplayName => "Chat";
+    public string Description => "Chat plugin for RSBot.";
+
+    /// <inheritdoc />
+    public string Name => "RSBot.Chat";
+
+    /// <inheritdoc />
+    public string Title => "Chat";
+
+    /// <inheritdoc />
+    public string Version => "1.0.0";
+
+    /// <inheritdoc />
+    public bool Enabled { get; set; }
 
     /// <inheritdoc />
     public bool DisplayAsTab => true;
@@ -21,9 +33,6 @@ public class Bootstrap : IPlugin
 
     /// <inheritdoc />
     public bool RequireIngame => true;
-
-    /// <inheritdoc />
-    public bool Enabled { get; set; }
 
     /// <inheritdoc />
     public void Initialize() { }

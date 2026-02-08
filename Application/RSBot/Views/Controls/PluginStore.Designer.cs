@@ -34,7 +34,7 @@
             btnSearch = new SDUI.Controls.Button();
             btnRefreshWeb = new SDUI.Controls.Button();
             labelStatus = new SDUI.Controls.Label();
-            flowPanelWeb = new SDUI.Controls.FlowLayoutPanel();
+            flowPanelWeb = new System.Windows.Forms.Panel();
             panelWebTop.SuspendLayout();
             SuspendLayout();
             // 
@@ -139,15 +139,11 @@
             // 
             flowPanelWeb.AutoScroll = true;
             flowPanelWeb.BackColor = System.Drawing.Color.Transparent;
-            flowPanelWeb.Border = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            flowPanelWeb.BorderColor = System.Drawing.Color.Transparent;
             flowPanelWeb.Dock = System.Windows.Forms.DockStyle.Fill;
             flowPanelWeb.Location = new System.Drawing.Point(0, 57);
             flowPanelWeb.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             flowPanelWeb.Name = "flowPanelWeb";
-            flowPanelWeb.Padding = new System.Windows.Forms.Padding(11, 13, 11, 13);
-            flowPanelWeb.Radius = 10;
-            flowPanelWeb.ShadowDepth = 4F;
+            flowPanelWeb.Padding = new System.Windows.Forms.Padding(10);
             flowPanelWeb.Size = new System.Drawing.Size(993, 545);
             flowPanelWeb.TabIndex = 2;
             // 
@@ -170,7 +166,7 @@
         private SDUI.Controls.Button btnSearch;
         private SDUI.Controls.Button btnRefreshWeb;
         private SDUI.Controls.Label labelStatus;
-        private SDUI.Controls.FlowLayoutPanel flowPanelWeb;
+        private System.Windows.Forms.Panel flowPanelWeb;
         private System.Windows.Forms.ProgressBar progressBarDownload;
     }
 }

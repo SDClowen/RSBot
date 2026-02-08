@@ -9,10 +9,22 @@ namespace RSBot.Inventory;
 public class Bootstrap : IPlugin
 {
     /// <inheritdoc />
-    public string InternalName => "RSBot.Inventory";
+    public string Author => "RSBot Team";
 
     /// <inheritdoc />
-    public string DisplayName => "Inventory";
+    public string Description => "Provides inventory management features, including item usage and purchasing.";
+
+    /// <inheritdoc />
+    public string Name => "RSBot.Inventory";
+
+    /// <inheritdoc />
+    public string Title => "Inventory";
+
+    /// <inheritdoc />
+    public string Version => "1.0.0";
+
+    /// <inheritdoc />
+    public bool Enabled { get; set; }
 
     /// <inheritdoc />
     public bool DisplayAsTab => true;
@@ -22,9 +34,6 @@ public class Bootstrap : IPlugin
 
     /// <inheritdoc />
     public bool RequireIngame => true;
-
-    /// <inheritdoc />
-    public bool Enabled { get; set; }
 
     /// <inheritdoc />
     public void Initialize()

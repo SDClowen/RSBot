@@ -13,35 +13,28 @@ namespace RSBot.Training;
 
 public class Bootstrap : IBotbase
 {
-    /// <summary>
-    /// Gets or sets a value indicating whether the feature is enabled.
-    /// </summary>
+    /// <inheritdoc />
+    public string Author => "RSBot Team";
+
+    /// <inheritdoc />
+    public string Description => "Botbase focused on training in the best areas of the game.";
+
+    /// <inheritdoc />
+    public string Name => "RSBot.Training";
+
+    /// <inheritdoc />
+    public string Title => "Training";
+
+    /// <inheritdoc />
+    public string Version => "1.0.0";
+
+    /// <inheritdoc />
     public bool Enabled { get; set; }
 
-    /// <summary>
-    /// Gets the internal name identifier for the training module.
-    /// </summary>
-
-    public string InternalName => "RSBot.Training";
-
-    /// <summary>
-    /// Gets the display name for the training module.
-    /// </summary>
-    public string DisplayName => "Training";
-
-    /// <summary>
-    /// Gets the text displayed on the tab for this item.
-    /// </summary>
-    public string TabText => DisplayName;
-
-    /// <summary>
-    /// Gets the area associated with the bot contained in this container.
-    /// </summary>
+    /// <inheritdoc />
     public Area Area => Container.Bot.Area;
 
-    /// <summary>
-    ///     Ticks this instance. It's the botbase main-loop
-    /// </summary>
+    /// <inheritdoc />
     public void Tick()
     {
         if (!Kernel.Bot.Running)
@@ -80,15 +73,10 @@ public class Bootstrap : IBotbase
         }
     }
 
-    /// <summary>
-    ///     Gets the view.
-    /// </summary>
-    /// <returns></returns>
+    /// <inheritdoc />
     public Control View => Container.View;
 
-    /// <summary>
-    ///     Starts this instance.
-    /// </summary>
+    /// <inheritdoc />
     public void Start()
     {
         if (Kernel.Bot.Botbase.Area.Position.X == 0)
@@ -102,9 +90,7 @@ public class Bootstrap : IBotbase
         //Container.Bot.Reload();
     }
 
-    /// <summary>
-    ///     Stops this instance.
-    /// </summary>
+    /// <inheritdoc />
     public void Stop()
     {
         lock (Container.Lock)
@@ -116,10 +102,14 @@ public class Bootstrap : IBotbase
         }
     }
 
-    /// <summary>
-    ///     Always initialize the botbase so other botbases can make use of its otherwise internal features.
-    /// </summary>
-    public void Register()
+    /// <inheritdoc />
+    public void Translate()
+    {
+        LanguageManager.Translate(View, Kernel.Language);
+    }
+
+    /// <inheritdoc />
+    public void Initialize()
     {
         Container.Lock = new object();
         Container.Bot = new Botbase();
@@ -132,19 +122,6 @@ public class Bootstrap : IBotbase
 
         ScriptManager.CommandHandlers.Add(new TrainingAreaScriptCommand());
         Log.Debug("[Training] Botbase registered to the kernel!");
-    }
-
-    /// <summary>
-    ///     Translate the botbase plugin
-    /// </summary>
-    /// <param name="language">The language</param>
-    public void Translate()
-    {
-        LanguageManager.Translate(View, Kernel.Language);
-    }
-
-    public void Initialize()
-    {
     }
 
     /// <inheritdoc />

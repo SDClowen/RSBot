@@ -36,7 +36,7 @@ public class Bot
     public void SetBotbase(IBotbase botBase)
     {
         Botbase = botBase;
-        //Botbase.Initialize();
+        Botbase.Initialize();
 
         EventManager.FireEvent("OnSetBotbase", botBase);
     }
@@ -92,13 +92,13 @@ public class Bot
             TokenSource.Cancel();
 
         EventManager.FireEvent("OnStopBot");
-        Log.Notify($"Stopping bot {Botbase.DisplayName}");
+        Log.Notify($"Stopping bot {Botbase.Title}");
 
         Game.SelectedEntity = null;
         Botbase.Stop();
         Running = false;
 
-        Log.Notify($"Stoped bot {Botbase.DisplayName}");
+        Log.Notify($"Stoped bot {Botbase.Title}");
         Log.Status("Bot stopped");
     }
 }

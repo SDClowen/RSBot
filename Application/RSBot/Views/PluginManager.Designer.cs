@@ -23,12 +23,11 @@ namespace RSBot.Views
             // 
             // windowPageControl
             // 
-            windowPageControl.BackColor = System.Drawing.Color.FromArgb(64, 64, 64, 100);
             windowPageControl.Dock = DockStyle.Fill;
             windowPageControl.Location = new System.Drawing.Point(0, 38);
             windowPageControl.Name = "windowPageControl";
             windowPageControl.SelectedIndex = -1;
-            windowPageControl.Size = new System.Drawing.Size(1012, 718);
+            windowPageControl.Size = new System.Drawing.Size(877, 573);
             windowPageControl.TabIndex = 2;
             windowPageControl.SelectedIndexChanged += windowPageControl_SelectedIndexChanged;
             // 
@@ -37,10 +36,9 @@ namespace RSBot.Views
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(0, 0, 0, 0);
-            ClientSize = new System.Drawing.Size(1012, 756);
+            ClientSize = new System.Drawing.Size(877, 611);
             ControlBox = false;
             Controls.Add(windowPageControl);
-            FormBorderStyle = FormBorderStyle.FixedDialog;
             Gradient = new System.Drawing.Color[]
     {
     System.Drawing.Color.DodgerBlue,
@@ -57,7 +55,6 @@ namespace RSBot.Views
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             TitleHeight = 31F;
-            TitleTabDesingMode = TabDesingMode.Chromed;
             WindowPageControl = windowPageControl;
             ResumeLayout(false);
         }

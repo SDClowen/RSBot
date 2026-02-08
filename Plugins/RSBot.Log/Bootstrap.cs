@@ -8,10 +8,22 @@ namespace RSBot.Log;
 public class Bootstrap : IPlugin
 {
     /// <inheritdoc />
-    public string InternalName => "RSBot.Log";
+    public string Author => "RSBot Team";
 
     /// <inheritdoc />
-    public string DisplayName => "Log";
+    public string Description => "Plugin responsible for logging item-related events, such as looting, equipping, and using items. It provides a detailed log of item interactions, helping users track their inventory changes and item usage history.";
+
+    /// <inheritdoc />
+    public string Name => "RSBot.Log";
+
+    /// <inheritdoc />
+    public string Title => "Log";
+
+    /// <inheritdoc />
+    public string Version => "1.0.0";
+
+    /// <inheritdoc />
+    public bool Enabled { get; set; }
 
     /// <inheritdoc />
     public bool DisplayAsTab => true;
@@ -21,9 +33,6 @@ public class Bootstrap : IPlugin
 
     /// <inheritdoc />
     public bool RequireIngame => false;
-
-    /// <inheritdoc />
-    public bool Enabled { get; set; }
 
     /// <inheritdoc />
     public void Initialize() { }

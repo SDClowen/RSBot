@@ -8,10 +8,22 @@ namespace RSBot.ServerInfo;
 public class ServerInfo : IPlugin
 {
     /// <inheritdoc />
-    public string InternalName => "RSBot.ServerInfo";
+    public string Author => "RSBot Team";
 
     /// <inheritdoc />
-    public string DisplayName => "Server Information";
+    public string Description => "Provides information about the server, such as uptime, player count, and more.";
+
+    /// <inheritdoc />
+    public string Name => "RSBot.ServerInfo";
+
+    /// <inheritdoc />
+    public string Title => "Server Information";
+
+    /// <inheritdoc />
+    public string Version => "1.0.0";
+
+    /// <inheritdoc />
+    public bool Enabled { get; set; }
 
     /// <inheritdoc />
     public bool DisplayAsTab => false;
@@ -21,9 +33,6 @@ public class ServerInfo : IPlugin
 
     /// <inheritdoc />
     public bool RequireIngame => false;
-
-    /// <inheritdoc />
-    public bool Enabled { get; set; }
 
     /// <inheritdoc />
     public void Initialize()

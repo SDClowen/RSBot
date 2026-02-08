@@ -8,10 +8,22 @@ namespace RSBot.Items;
 public class Bootstrap : IPlugin
 {
     /// <inheritdoc />
-    public string InternalName => "RSBot.Items";
+    public string Author => "RSBot Team";
 
     /// <inheritdoc />
-    public string DisplayName => "Items";
+    public string Description => "A plugin that provides item management features for RSBot.";
+
+    /// <inheritdoc />
+    public string Name => "RSBot.Items";
+
+    /// <inheritdoc />
+    public string Title => "Items";
+
+    /// <inheritdoc />
+    public string Version => "1.0.0";
+
+    /// <inheritdoc />
+    public bool Enabled { get; set; }
 
     /// <inheritdoc />
     public bool DisplayAsTab => true;
@@ -21,9 +33,6 @@ public class Bootstrap : IPlugin
 
     /// <inheritdoc />
     public bool RequireIngame => true;
-
-    /// <inheritdoc />
-    public bool Enabled { get; set; }
 
     /// <inheritdoc />
     public void Initialize() { }

@@ -19,46 +19,45 @@ partial class Main
         }
         base.Dispose(disposing);
     }
-    
+
     private void InitializeComponent()
     {
-            this.lvServerInfo = new SDUI.Controls.ListView();
-            this.colServer = new System.Windows.Forms.ColumnHeader();
-            this.colCapacity = new System.Windows.Forms.ColumnHeader();
-            this.SuspendLayout();
-            // 
-            // lvServerInfo
-            // 
-            this.lvServerInfo.BackColor = System.Drawing.Color.White;
-            this.lvServerInfo.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colServer,
-            this.colCapacity});
-            this.lvServerInfo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lvServerInfo.FullRowSelect = true;
-            this.lvServerInfo.Location = new System.Drawing.Point(35, 28);
-            this.lvServerInfo.Name = "lvServerInfo";
-            this.lvServerInfo.Size = new System.Drawing.Size(257, 245);
-            this.lvServerInfo.TabIndex = 1;
-            this.lvServerInfo.UseCompatibleStateImageBehavior = false;
-            this.lvServerInfo.View = System.Windows.Forms.View.Details;
-            // 
-            // colServer
-            // 
-            this.colServer.Text = "Server";
-            this.colServer.Width = 150;
-            // 
-            // colCapacity
-            // 
-            this.colCapacity.Text = "Capacity";
-            this.colCapacity.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.colCapacity.Width = 100;
-            // 
-            // Main
-            // 
-            this.Controls.Add(this.lvServerInfo);
-            this.Name = "Main";
-            this.Size = new System.Drawing.Size(328, 314);
-            this.ResumeLayout(false);
+        lvServerInfo = new SDUI.Controls.ListView();
+        colServer = new System.Windows.Forms.ColumnHeader();
+        colCapacity = new System.Windows.Forms.ColumnHeader();
+        SuspendLayout();
+        // 
+        // lvServerInfo
+        // 
+        lvServerInfo.BackColor = System.Drawing.Color.White;
+        lvServerInfo.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { colServer, colCapacity });
+        lvServerInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+        lvServerInfo.ForeColor = System.Drawing.Color.FromArgb(0, 0, 0);
+        lvServerInfo.FullRowSelect = true;
+        lvServerInfo.Location = new System.Drawing.Point(0, 0);
+        lvServerInfo.Name = "lvServerInfo";
+        lvServerInfo.Size = new System.Drawing.Size(328, 314);
+        lvServerInfo.TabIndex = 1;
+        lvServerInfo.UseCompatibleStateImageBehavior = false;
+        lvServerInfo.View = System.Windows.Forms.View.Details;
+        // 
+        // colServer
+        // 
+        colServer.Text = "Server";
+        colServer.Width = 150;
+        // 
+        // colCapacity
+        // 
+        colCapacity.Text = "Capacity";
+        colCapacity.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+        colCapacity.Width = 100;
+        // 
+        // Main
+        // 
+        Controls.Add(lvServerInfo);
+        Name = "Main";
+        Size = new System.Drawing.Size(328, 314);
+        ResumeLayout(false);
 
     }
 

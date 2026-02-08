@@ -113,9 +113,7 @@ namespace RSBot.Views.Controls
                         var card = new PluginCard
                         {
                             PluginInfo = pluginInfo,
-                            Margin = new Padding(10),
-                            Width = 350,
-                            Height = 150
+                            Dock = DockStyle.Top,
                         };
 
                         card.DownloadClicked += async (s, e) => await DownloadPlugin(pluginInfo);
@@ -126,7 +124,11 @@ namespace RSBot.Views.Controls
                     // ⭐ Add all cards at once
                     if (cards.Count > 0)
                     {
-                        flowPanelWeb.Controls.AddRange(cards.ToArray());
+                        foreach (var cardItem in cards)
+                        {
+                            flowPanelWeb.Controls.Add(new System.Windows.Forms.Panel() { Height = 10, Dock = DockStyle.Top });
+                            flowPanelWeb.Controls.Add(cardItem);
+                        }
                     }
 
                     labelStatus.Text = $"Found {filteredPlugins.Count} plugins in repository '{_currentRepository.Name}'";

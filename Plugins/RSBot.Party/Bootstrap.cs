@@ -9,10 +9,22 @@ namespace RSBot.Party;
 public class Bootstrap : IPlugin
 {
     /// <inheritdoc />
-    public string InternalName => "RSBot.Party";
+    public string Author => "RSBot Team";
 
     /// <inheritdoc />
-    public string DisplayName => "Party";
+    public string Description => "Plugin responsible for managing party members and their interactions.";
+
+    /// <inheritdoc />
+    public string Name => "RSBot.Party";
+
+    /// <inheritdoc />
+    public string Title => "Party";
+
+    /// <inheritdoc />
+    public string Version => "1.0.0";
+
+    /// <inheritdoc />
+    public bool Enabled { get; set; }
 
     /// <inheritdoc />
     public bool DisplayAsTab => true;
@@ -22,9 +34,6 @@ public class Bootstrap : IPlugin
 
     /// <inheritdoc />
     public bool RequireIngame => true;
-
-    /// <inheritdoc />
-    public bool Enabled { get; set; }
 
     /// <inheritdoc />
     public void Initialize()

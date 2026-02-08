@@ -32,7 +32,7 @@
             btnLoadPlugin = new SDUI.Controls.Button();
             btnRefreshLocal = new SDUI.Controls.Button();
             lblLocalStatus = new SDUI.Controls.Label();
-            flowPanelLocal = new SDUI.Controls.FlowLayoutPanel();
+            flowPanelLocal = new System.Windows.Forms.Panel();
             panelLocalTop.SuspendLayout();
             SuspendLayout();
             // 
@@ -107,14 +107,11 @@
             // 
             flowPanelLocal.AutoScroll = true;
             flowPanelLocal.BackColor = System.Drawing.Color.Transparent;
-            flowPanelLocal.Border = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            flowPanelLocal.BorderColor = System.Drawing.Color.Transparent;
             flowPanelLocal.Dock = System.Windows.Forms.DockStyle.Fill;
             flowPanelLocal.Location = new System.Drawing.Point(0, 47);
             flowPanelLocal.Margin = new System.Windows.Forms.Padding(0);
+            flowPanelLocal.Padding = new System.Windows.Forms.Padding(10);
             flowPanelLocal.Name = "flowPanelLocal";
-            flowPanelLocal.Radius = 0;
-            flowPanelLocal.ShadowDepth = 0F;
             flowPanelLocal.Size = new System.Drawing.Size(1057, 658);
             flowPanelLocal.TabIndex = 2;
             // 
@@ -136,6 +133,6 @@
         private SDUI.Controls.Button btnLoadPlugin;
         private SDUI.Controls.Button btnRefreshLocal;
         private SDUI.Controls.Label lblLocalStatus;
-        private SDUI.Controls.FlowLayoutPanel flowPanelLocal;
+        private System.Windows.Forms.Panel flowPanelLocal;
     }
 }

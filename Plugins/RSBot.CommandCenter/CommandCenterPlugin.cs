@@ -8,10 +8,22 @@ namespace RSBot.CommandCenter;
 public class CommandCenterPlugin : IPlugin
 {
     /// <inheritdoc />
-    public string InternalName => "RSBot.CommandCenter";
+    public string Author => "RSBot Team";
 
     /// <inheritdoc />
-    public string DisplayName => "Command center";
+    public string Description => "A plugin that provides a command center for managing your bot.";
+
+    /// <inheritdoc />
+    public string Name => "RSBot.CommandCenter";
+
+    /// <inheritdoc />
+    public string Title => "Command center";
+
+    /// <inheritdoc />
+    public string Version => "1.0.0";
+
+    /// <inheritdoc />
+    public bool Enabled { get; set; }
 
     /// <inheritdoc />
     public bool DisplayAsTab => false;
@@ -21,9 +33,6 @@ public class CommandCenterPlugin : IPlugin
 
     /// <inheritdoc />
     public bool RequireIngame => true;
-
-    /// <inheritdoc />
-    public bool Enabled { get; set; }
 
     /// <inheritdoc />
     public void Initialize()
