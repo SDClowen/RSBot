@@ -28,11 +28,22 @@ x86/
 [Aa][Rr][Mm]64/
 bld/
 [Bb]in/
-[Bb]uild/
 [Oo]bj/
 [Oo]ut/
 [Ll]og/
 [Ll]ogs/
+
+[Bb]uild/*
+![Bb]uild/Data/
+[Bb]uild/Data/*
+
+[Bb]uild/Data/Scripts/*
+![Bb]uild/Data/Scripts/
+![Bb]uild/Data/Languages/
+![Bb]uild/Data/Scripts/Towns/
+
+![Bb]uild/Data/Languages/**
+![Bb]uild/Data/Scripts/Towns/**
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
