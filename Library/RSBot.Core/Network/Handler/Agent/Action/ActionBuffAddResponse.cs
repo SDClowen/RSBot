@@ -27,6 +27,8 @@ internal class ActionBuffAddResponse : IPacketHandler
             {
                 buff = playerBuff;
                 playerBuff.Token = token;
+                // ensure timing is set when existing skill object is reused for the buff
+                playerBuff.Update();
             }
 
             Game.Player.State.ActiveBuffs.Add(buff);

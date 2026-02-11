@@ -1,9 +1,4 @@
-using System;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading;
-using System.Windows.Forms;
-using RSBot.Core;
+﻿using RSBot.Core;
 using RSBot.Core.Client.ReferenceObjects;
 using RSBot.Core.Components;
 using RSBot.Core.Event;
@@ -12,6 +7,14 @@ using RSBot.Core.Objects;
 using RSBot.Core.Objects.Skill;
 using RSBot.Skills.Components;
 using SDUI.Controls;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Linq;
+using System.Threading;
+using System.Windows.Forms;
 using CheckBox = SDUI.Controls.CheckBox;
 using ListViewExtensions = RSBot.Core.Extensions.ListViewExtensions;
 
@@ -20,6 +23,9 @@ namespace RSBot.Skills.Views;
 [ToolboxItem(false)]
 public partial class Main : DoubleBufferedControl
 {
+    private System.Windows.Forms.Timer _buffTimer;
+    private bool _didFirstDraw;
+
     /// <summary>
     ///     Initializes a new instance of the <see cref="Main" /> class.
     /// </summary>
@@ -31,9 +37,32 @@ public partial class Main : DoubleBufferedControl
         listAttackingSkills.SmallImageList = ListViewExtensions.StaticImageList;
         listBuffs.SmallImageList = ListViewExtensions.StaticImageList;
         listSkills.SmallImageList = ListViewExtensions.StaticImageList;
+        // Details view uses SmallImageList for item icons
         listActiveBuffs.SmallImageList = ListViewExtensions.StaticImageList;
 
         _lock = new object();
+
+        // Start periodic invalidation for active-buff overlays
+        _buffTimer = new() { Interval = 100 };
+        _buffTimer.Tick += BuffTimer_Tick;
+        _buffTimer.Start();
+
+        // Use owner-draw to reliably draw overlay on each item after default rendering
+        listActiveBuffs.OwnerDraw = true;
+        listActiveBuffs.DrawItem += ListSkill_DrawItem;
+
+        // Also owner-draw attack and skill lists to render cooldown overlays on cast
+        listAttackingSkills.OwnerDraw = true;
+        listAttackingSkills.DrawItem += ListSkill_DrawItem;
+
+        listBuffs.OwnerDraw = true;
+        listBuffs.DrawItem += ListSkill_DrawItem;
+
+        listSkills.OwnerDraw = true;
+        listSkills.DrawItem += ListSkill_DrawItem;
+
+        // Ensure timer is disposed when control is disposed
+        this.Disposed += (s, e) => { _buffTimer?.Stop(); _buffTimer?.Dispose(); };
     }
 
     /// <summary>
@@ -93,7 +122,9 @@ public partial class Main : DoubleBufferedControl
 
         listActiveBuffs.Items.Add(item);
 
+        Log.Debug($"OnAddItemPerk: added perk itemId={perk.ItemId} token={token}");
         item.LoadSkillImage();
+        listActiveBuffs.Invalidate();
     }
 
     /// <summary>
@@ -623,6 +654,175 @@ public partial class Main : DoubleBufferedControl
         }
         catch { }
     }
+
+    private void BuffTimer_Tick(object sender, EventArgs e)
+    {
+        // Periodically redraw active buffs so remaining time/arc updates smoothly
+        try
+        {
+            listActiveBuffs.Invalidate();
+            listAttackingSkills.Invalidate();
+            listBuffs.Invalidate();
+            listSkills.Invalidate();
+        }
+        catch { }
+    }
+
+    void DrawRectCooldown(Graphics g, Rectangle rect, float percent, Color baseColor)
+    {
+        percent = Math.Clamp(percent, 0f, 1f);
+        if (percent <= 0f)
+            return;
+
+        int w = rect.Width;
+        int h = rect.Height;
+
+        using var bmp = new Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+        using var bg = Graphics.FromImage(bmp);
+
+        bg.Clear(Color.Transparent);
+
+        float cx = w / 2f;
+        float cy = h / 2f;
+
+        float maxAngle = 360f * percent;
+
+        float fadeStart = 0.15f;
+        float fadeFactor = percent < fadeStart
+            ? percent / fadeStart
+            : 1f;
+
+        int alpha = (int)(160 * fadeFactor);
+        int glowAlpha = (int)(90 * fadeFactor);
+
+        for (int y = 0; y < h; y++)
+        {
+            for (int x = 0; x < w; x++)
+            {
+                float dx = x - cx;
+                float dy = cy - y;
+
+                float angle = (float)(Math.Atan2(dx, dy) * 180.0 / Math.PI);
+                if (angle < 0) angle += 360f;
+
+                angle = 360f - angle;
+
+                if (angle <= maxAngle)
+                {
+                    bmp.SetPixel(x, y, Color.FromArgb(alpha, baseColor));
+                }
+            }
+        }
+
+        using (var glowBrush = new SolidBrush(Color.FromArgb(glowAlpha, baseColor)))
+        {
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+            g.FillRectangle(glowBrush,
+                rect.Left - 1,
+                rect.Top - 1,
+                rect.Width + 2,
+                rect.Height + 2);
+        }
+
+        g.DrawImageUnscaled(bmp, rect.Location);
+    }
+
+
+    private void ListSkill_DrawItem(object sender, DrawListViewItemEventArgs e)
+    {
+        try
+        {
+            var listView = (SDUI.Controls.ListView)sender;
+            var item = e.Item;
+            if (item?.Tag is not SkillInfo skill)
+                return;
+
+            Graphics g = e.Graphics;
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+
+            // background
+            e.DrawBackground();
+
+            // --- ICON RECT
+            Rectangle iconRect = listView.GetItemRect(item.Index, ItemBoundsPortion.Icon);
+
+            // --- DRAW ICON
+            Image img = null;
+            if (!string.IsNullOrEmpty(item.ImageKey) &&
+                listView.SmallImageList?.Images.ContainsKey(item.ImageKey) == true)
+            {
+                img = listView.SmallImageList.Images[item.ImageKey];
+            }
+            else if (item.ImageIndex >= 0 &&
+                     listView.SmallImageList != null &&
+                     item.ImageIndex < listView.SmallImageList.Images.Count)
+            {
+                img = listView.SmallImageList.Images[item.ImageIndex];
+            }
+
+            if (img != null)
+                g.DrawImage(img, iconRect);
+
+            // --- TEXT (skill name)
+            Rectangle textRect = new Rectangle(
+                iconRect.Right + 6,
+                e.Bounds.Top,
+                e.Bounds.Width - (iconRect.Right - e.Bounds.Left) - 6,
+                e.Bounds.Height);
+
+            TextRenderer.DrawText(
+                g,
+                item.Text,
+                listView.Font,
+                textRect,
+                listView.ForeColor,
+                TextFormatFlags.Left |
+                TextFormatFlags.VerticalCenter |
+                TextFormatFlags.EndEllipsis);
+
+            // --- COOLDOWN RECT
+            int size = Math.Min(iconRect.Width, iconRect.Height);
+            Rectangle cooldownRect = new Rectangle(
+                iconRect.Left + (iconRect.Width - size) / 2,
+                iconRect.Top + (iconRect.Height - size) / 2,
+                size,
+                size);
+
+            var percent = (float)skill.CooldownPercent;
+            if (percent <= 0f)
+                return;
+
+            using var bgbrush = new SolidBrush(Color.FromArgb(100, Color.Black));
+            g.FillRectangle(bgbrush, cooldownRect);
+
+            DrawRectCooldown(
+                g,
+                cooldownRect,
+                percent,
+                Color.Black);
+
+
+            // --- CENTERED SECONDS TEXT
+            int seconds = (int)Math.Ceiling(skill.CooldownRemainingMilliseconds / 1000f);
+            string label = seconds > 60 ? (seconds / 60f).ToString("0.0") : seconds.ToString();
+
+            using var sf = new StringFormat
+            {
+                Alignment = StringAlignment.Center,
+                LineAlignment = StringAlignment.Center
+            };
+
+            using var textBrush = new SolidBrush(Color.White);
+
+            using var font = new Font("Arial", 9, FontStyle.Bold);
+            g.DrawString(label, font, textBrush, cooldownRect, sf);
+        }
+        catch
+        {
+            // deliberately swallow – draw loop must never crash
+        }
+    }
+
 
     /// <summary>
     ///     Check the skills upgraded or withdrawn

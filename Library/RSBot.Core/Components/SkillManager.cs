@@ -103,6 +103,14 @@ public static class SkillManager
     private static void OnCastSkill(uint skillId)
     {
         LastCastedSkillId = skillId;
+
+        // Update skill timing so UI trackers can show remaining cooldown immediately
+        try
+        {
+            var skill = Game.Player.Skills.GetSkillInfoById(skillId);
+            skill?.Update();
+        }
+        catch { }
     }
 
     /// <summary>

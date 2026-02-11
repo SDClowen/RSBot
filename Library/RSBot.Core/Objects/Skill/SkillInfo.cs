@@ -41,6 +41,9 @@ public class SkillInfo
         : this(id, false)
     {
         Token = token;
+        // When a buff comes from server we treat the time now as the start so remaining duration can be calculated
+        _lastCastTick = Kernel.TickCount;
+        _testTick = Kernel.TickCount;
     }
 
     /// <summary>
@@ -164,6 +167,77 @@ public class SkillInfo
     ///     Skill Token (using for buffs)
     /// </summary>
     public uint Token { get; set; }
+
+    /// <summary>
+    ///     Remaining duration in milliseconds (based on when buff was applied)
+    /// </summary>
+    public int RemainingMilliseconds => _duration == 0 ? 0 : Math.Max(0, _duration - (Kernel.TickCount - _lastCastTick));
+
+    /// <summary>
+    ///     Remaining percent [0..1]
+    /// </summary>
+    public double RemainingPercent => _duration == 0 ? 0.0 : Math.Max(0.0, Math.Min(1.0, (double)RemainingMilliseconds / _duration));
+
+    /// <summary>
+    ///     Remaining cooldown milliseconds for attack/normal skills
+    /// </summary>
+    public int CooldownRemainingMilliseconds
+    {
+        get
+        {
+            var reuse = Record?.Action_ReuseDelay ?? 0;
+            if (reuse <= 0)
+                return 0;
+
+            var elapsed = Kernel.TickCount - _cooldownTick;
+            return Math.Max(0, reuse - elapsed);
+        }
+    }
+
+    /// <summary>
+    ///     Remaining cooldown time formatted mm:ss
+    /// </summary>
+    public string CooldownFormatted
+    {
+        get
+        {
+            var ms = CooldownRemainingMilliseconds;
+            var seconds = ms / 1000;
+            var minutes = seconds / 60;
+            seconds %= 60;
+            return $"{minutes:D2}:{seconds:D2}";
+        }
+    }
+
+    /// <summary>
+    ///     Remaining cooldown percent [0..1]
+    /// </summary>
+    public double CooldownPercent
+    {
+        get
+        {
+            var reuse = Record?.Action_ReuseDelay ?? 0;
+            if (reuse <= 0)
+                return 0.0;
+
+            return Math.Max(0.0, Math.Min(1.0, (double)CooldownRemainingMilliseconds / (double)reuse));
+        }
+    }
+
+    /// <summary>
+    /// Gets the game tick at which the cooldown period ends for the associated action.
+    /// </summary>
+    public int CooldownEndTick
+    {
+        get
+        {
+            var reuse = Record?.Action_ReuseDelay ?? 0;
+            if (reuse <= 0)
+                return 0;
+
+            return _cooldownTick + reuse;
+        }
+    }
 
     /// <summary>
     ///     Creates a new SkillInfo object from the given packet
