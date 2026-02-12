@@ -489,9 +489,9 @@ namespace RSBot.Views
             ExtendMenu = menuStrip;
             Hatch = System.Drawing.Drawing2D.HatchStyle.Percent20;
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
-            Location = new System.Drawing.Point(0, 0);
             Margin = new Padding(4);
             Name = "Main";
+            Padding = new Padding(0, 40, 0, 0);
             StartPosition = FormStartPosition.CenterScreen;
             Tag = "";
             WindowPageControl = windowPageControl;

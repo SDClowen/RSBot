@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            treeQuests = new System.Windows.Forms.TreeView();
+            treeQuests = new SDUI.Controls.TreeView();
             checkShowCompleted = new SDUI.Controls.CheckBox();
             contextQuest = new SDUI.Controls.ContextMenuStrip();
             watchQuestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -106,7 +106,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TreeView treeQuests;
+        private SDUI.Controls.TreeView treeQuests;
         private SDUI.Controls.CheckBox checkShowCompleted;
         private SDUI.Controls.ContextMenuStrip contextQuest;
         private System.Windows.Forms.ToolStripMenuItem watchQuestToolStripMenuItem;

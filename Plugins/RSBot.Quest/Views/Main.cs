@@ -22,13 +22,6 @@ public partial class Main : DoubleBufferedControl
         InitializeComponent();
 
         SubscribeEvents();
-        ApplyTheme();
-    }
-
-    private void ApplyTheme()
-    {
-        treeQuests.BackColor = ColorScheme.BackColor;
-        treeQuests.ForeColor = ColorScheme.ForeColor;
     }
 
     private void SubscribeEvents()

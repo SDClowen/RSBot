@@ -106,8 +106,8 @@ public partial class Main : UIWindow
     /// </summary>
     public void RefreshTheme(bool save = true)
     {
-        BackColor = ColorScheme.BackColor;
-        stripStatus.BackColor = BackColor.IsDark() ? ColorScheme.BorderColor : Color.FromArgb(33, 150, 243);
+        ApplyThemeAnimated();
+        stripStatus.BackColor = ColorScheme.BackColor.IsDark() ? ColorScheme.BorderColor : Color.FromArgb(33, 150, 243);
         stripStatus.ForeColor = ColorScheme.ForeColor;
 
         if (save)
@@ -145,6 +145,7 @@ public partial class Main : UIWindow
     private void OnShowScriptRecorder(int ownerId, bool startRecording)
     {
         var recorder = new ScriptRecorder(ownerId, startRecording);
+        recorder.FormClosed += (s, _) => ((Form)s).Dispose();
         recorder.Show();
     }
 
@@ -334,13 +335,13 @@ public partial class Main : UIWindow
             {
                 Invoke(new Action(() =>
                 {
-                    var donationDialog = new DonationReminderDialog();
+                    using var donationDialog = new DonationReminderDialog();
                     donationDialog.ShowDialog(this);
                 }));
             }
             else
             {
-                var donationDialog = new DonationReminderDialog();
+                using var donationDialog = new DonationReminderDialog();
                 donationDialog.ShowDialog(this);
             }
         });
@@ -405,6 +406,7 @@ public partial class Main : UIWindow
     private void menuScriptRecorder_Click(object sender, EventArgs e)
     {
         var scriptRecorder = new ScriptRecorder();
+        scriptRecorder.FormClosed += (s, _) => ((Form)s).Dispose();
         scriptRecorder.Show();
     }
 
@@ -577,7 +579,7 @@ public partial class Main : UIWindow
             Environment.Exit(0);
         }
 
-        var exitDialog = new ExitDialog();
+        using var exitDialog = new ExitDialog();
         if (exitDialog.ShowDialog(this) != DialogResult.Yes)
         {
             e.Cancel = true;
@@ -623,7 +625,7 @@ public partial class Main : UIWindow
             Environment.Exit(0);
         }
 
-        var exitDialog = new ExitDialog();
+        using var exitDialog = new ExitDialog();
         if (exitDialog.ShowDialog(this) != DialogResult.Yes)
             return;
 
@@ -660,7 +662,8 @@ public partial class Main : UIWindow
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void menuItemThis_Click(object sender, EventArgs e)
     {
-        new AboutDialog().ShowDialog();
+        using var aboutDialog = new AboutDialog();
+        aboutDialog.ShowDialog(this);
     }
 
     /// <summary>
@@ -727,6 +730,7 @@ public partial class Main : UIWindow
     private void menuPluginManager_Click(object sender, EventArgs e)
     {
         var pluginManager = new PluginManager();
+        pluginManager.FormClosed += (s, _) => ((Form)s).Dispose();
         pluginManager.Show();
     }
 
@@ -737,7 +741,7 @@ public partial class Main : UIWindow
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void coloredToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        var colorDialog = new ColorDialog { CustomColors = GlobalConfig.GetArray<int>("SDUI.CustomColors") };
+        using var colorDialog = new ColorDialog { CustomColors = GlobalConfig.GetArray<int>("SDUI.CustomColors") };
 
         if (colorDialog.ShowDialog() == DialogResult.OK)
         {
@@ -753,7 +757,7 @@ public partial class Main : UIWindow
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     private void menuSelectProfile_Click(object sender, EventArgs e)
     {
-        var dialog = new ProfileSelectionDialog();
+        using var dialog = new ProfileSelectionDialog();
         dialog.StartPosition = FormStartPosition.CenterParent;
         dialog.ShowInTaskbar = false;
         if (dialog.ShowDialog() != DialogResult.OK)
@@ -808,7 +812,7 @@ public partial class Main : UIWindow
         const string message =
             "Use your custom interface ip for connect to game.\nEnter your interface Ip:\t(default: 0.0.0.0)";
 
-        var dialog = new InputDialog(title, title, message, defaultValue: currentBind);
+        using var dialog = new InputDialog(title, title, message, defaultValue: currentBind);
         if (dialog.ShowDialog() != DialogResult.OK)
             return;
 

@@ -201,11 +201,9 @@
             Controls.Add(pictureBox);
             Controls.Add(progressLoading);
             Cursor = System.Windows.Forms.Cursors.AppStarting;
-            DwmMargin = -1;
             Font = new System.Drawing.Font("Segoe UI", 12F);
-            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
-            Location = new System.Drawing.Point(0, 0);
             Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             MaximizeBox = false;
             MaximumSize = new System.Drawing.Size(527, 282);
