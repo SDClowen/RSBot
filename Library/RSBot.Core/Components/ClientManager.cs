@@ -42,11 +42,17 @@ public class ClientManager
     public static async Task<bool> Start()
     {
         var silkroadDirectory = GlobalConfig.Get<string>("RSBot.SilkroadDirectory");
-        var path = Path.Combine(silkroadDirectory, GlobalConfig.Get<string>("RSBot.SilkroadExecutable"));
+        var path = Path.Combine(
+            silkroadDirectory,
+            GlobalConfig.Get<string>("RSBot.SilkroadExecutable")
+        );
 
         string libraryDllName = "Client.Library.dll";
-        var buffer = Encoding.UTF8.GetBytes(Path.Combine(Kernel.BasePath, libraryDllName));
-        var pathLen = (uint)buffer.Length;
+        string fullPath = Path.Combine(Kernel.BasePath, libraryDllName);
+
+        // UTF-16 + null terminator
+        byte[] buffer = Encoding.Unicode.GetBytes(fullPath + "\0");
+        uint pathLen = (uint)buffer.Length;
 
         var gatewayIndex = GlobalConfig.Get<byte>("RSBot.GatewayIndex");
         var divisionIndex = GlobalConfig.Get<byte>("RSBot.DivisionIndex");
@@ -56,21 +62,56 @@ public class ClientManager
 
         var si = new STARTUPINFO();
 
+        bool specialClient =
+            Game.ClientType == GameClientType.RuSro ||
+            Game.ClientType == GameClientType.Global ||
+            Game.ClientType == GameClientType.Korean ||
+            Game.ClientType == GameClientType.VTC_Game ||
+            Game.ClientType == GameClientType.Turkey ||
+            Game.ClientType == GameClientType.Taiwan ||
+            Game.ClientType == GameClientType.Japanese;
+
+        uint creationFlags = 0;
+
         if (
-            Game.ClientType == GameClientType.RuSro
-            || Game.ClientType == GameClientType.Global
-            || Game.ClientType == GameClientType.Korean
-            || Game.ClientType == GameClientType.VTC_Game
-            || Game.ClientType == GameClientType.Turkey
-            || Game.ClientType == GameClientType.Taiwan
-            || Game.ClientType == GameClientType.Japanese
+            Game.ClientType == GameClientType.VTC_Game ||
+            Game.ClientType == GameClientType.Turkey ||
+            Game.ClientType == GameClientType.Taiwan
         )
+        {
+            creationFlags = CREATE_SUSPENDED;
+        }
+
+        // ================================
+        // CREATE PROCESS
+        // ================================
+        if (!CreateProcess(
+            null,
+            $"\"{path}\" {args}",
+            IntPtr.Zero,
+            IntPtr.Zero,
+            false,
+            specialClient ? creationFlags : CREATE_SUSPENDED,
+            IntPtr.Zero,
+            silkroadDirectory,
+            ref si,
+            out var pi
+        ))
+            return false;
+
+        // create temp config once
+        PrepareTempConfigFile(pi.dwProcessId, divisionIndex);
+
+        // ================================
+        // SPECIAL CLIENTS (d3d9.dll)
+        // ================================
+        if (specialClient)
         {
             try
             {
                 File.Copy(
-                    Path.Combine(Kernel.BasePath, libraryDllName), 
-                    Path.Combine(silkroadDirectory, "d3d9.dll"), 
+                    Path.Combine(Kernel.BasePath, libraryDllName),
+                    Path.Combine(silkroadDirectory, "d3d9.dll"),
                     true
                 );
             }
@@ -86,33 +127,6 @@ public class ClientManager
                 args = $"-LOGIN:{login} -PASSWORD:{password}";
             }
 
-            uint creationFlags = 0;
-            if (
-                Game.ClientType == GameClientType.VTC_Game
-                || Game.ClientType == GameClientType.Turkey
-                || Game.ClientType == GameClientType.Taiwan
-            )
-            {
-                creationFlags = CREATE_SUSPENDED; //for XIGNCODE patching
-            }
-
-            var result = CreateProcess(
-                null,
-                $"\"{path}\" {args}",
-                IntPtr.Zero,
-                IntPtr.Zero,
-                false,
-                creationFlags,
-                IntPtr.Zero,
-                silkroadDirectory,
-                ref si,
-                out var pi
-            );
-            if (!result)
-                return false;
-
-            PrepareTempConfigFile(pi.dwProcessId, divisionIndex);
-
             Process sroProcess = Process.GetProcessById((int)pi.dwProcessId);
 
             if (creationFlags == CREATE_SUSPENDED)
@@ -122,59 +136,54 @@ public class ClientManager
             }
 
             _process = sroProcess;
-            _process.EnableRaisingEvents = true;
-            _process.Exited += ClientProcess_Exited;
-
-            return true;
         }
+        // ================================
+        // NORMAL CLIENTS (INJECT)
+        // ================================
         else
         {
-            var result = CreateProcess(
-                null,
-                $"\"{path}\" {args}",
-                IntPtr.Zero,
-                IntPtr.Zero,
-                false,
-                CREATE_SUSPENDED,
-                IntPtr.Zero,
-                silkroadDirectory,
-                ref si,
-                out var pi
-            );
-            if (!result)
-                return false;
-
-            PrepareTempConfigFile(pi.dwProcessId, divisionIndex);
-
-            var semaphore = new Semaphore(0, 1, pi.dwProcessId.ToString());
-
             var handle = OpenProcess(PROCESS_ALL_ACCESS, false, pi.dwProcessId);
             if (handle == IntPtr.Zero)
                 return false;
 
-            var kernelHandle = GetModuleHandleA("kernel32.dll");
+            IntPtr kernelHandle = GetModuleHandleW("kernel32.dll");
+            if (kernelHandle == IntPtr.Zero)
+                return false;
 
-            var loadLibAddr = GetProcAddress(kernelHandle, "LoadLibraryA");
+            IntPtr loadLibAddr = GetProcAddress(kernelHandle, "LoadLibraryW");
             if (loadLibAddr == IntPtr.Zero)
                 return false;
 
-            var dereercomp = VirtualAllocEx(handle, IntPtr.Zero, pathLen, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
-            if (dereercomp == IntPtr.Zero)
+            IntPtr remotePath = VirtualAllocEx(
+                handle,
+                IntPtr.Zero,
+                pathLen,
+                MEM_COMMIT | MEM_RESERVE,
+                PAGE_READWRITE
+            );
+
+            if (remotePath == IntPtr.Zero)
                 return false;
 
-            if (!WriteProcessMemory(handle, dereercomp, buffer, pathLen, out var numberOfBytesWritten))
+            if (!WriteProcessMemory(handle, remotePath, buffer, pathLen, out _))
                 return false;
 
-            var remoteThread = CreateRemoteThread(handle, IntPtr.Zero, 0, loadLibAddr, dereercomp, 0, IntPtr.Zero);
+            IntPtr remoteThread = CreateRemoteThread(
+                handle,
+                IntPtr.Zero,
+                0,
+                loadLibAddr,
+                remotePath,
+                0,
+                IntPtr.Zero
+            );
+
             if (remoteThread == IntPtr.Zero)
                 return false;
 
-            var process = Process.GetProcessById((int)pi.dwProcessId);
-            if (process == null || process.HasExited)
-                return false;
-
             WaitForSingleObject(remoteThread, uint.MaxValue);
-            VirtualFreeEx(handle, dereercomp, pathLen, MEM_RELEASE);
+
+            VirtualFreeEx(handle, remotePath, 0, MEM_RELEASE);
 
             CloseHandle(remoteThread);
             CloseHandle(handle);
@@ -182,18 +191,23 @@ public class ClientManager
             ResumeThread(pi.hThread);
             ResumeThread(pi.hProcess);
 
-            if (process.HasExited)
-                return await Task.FromResult(false);
-
-            process.EnableRaisingEvents = true;
-            process.Exited += ClientProcess_Exited;
-            _process = process;
+            _process = Process.GetProcessById((int)pi.dwProcessId);
+            if (_process == null || _process.HasExited)
+                return false;
         }
 
-        EventManager.FireEvent("OnStartClient");
+        // ================================
+        // FINALIZE
+        // ================================
+        _process.EnableRaisingEvents = true;
+        _process.Exited += ClientProcess_Exited;
 
-        return await Task.FromResult(true);
+        EventManager.FireEvent("OnStartClient");
+        return true;
     }
+
+
+
 
     /// <summary>
     /// Applies an in-memory patch to the XIGNCODE module of the specified process.
@@ -298,7 +312,7 @@ public class ClientManager
 
         var redirectIp = "127.0.0.1";
         using var writer = new BinaryWriter(
-            new FileStream(Path.Combine(Path.GetTempPath(), tmpConfigFile), FileMode.OpenOrCreate)
+            new FileStream(Path.Combine(Path.GetTempPath(), tmpConfigFile), FileMode.Create)
         );
 
         writer.Write(GlobalConfig.Get<bool>("RSBot.Loader.DebugMode"));

@@ -22,6 +22,7 @@ namespace RSBot.General.Views;
 internal partial class Main : DoubleBufferedControl
 {
     private bool _clientVisible;
+    private static int _reloginSeq;
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="Main" /> class.
@@ -64,21 +65,77 @@ internal partial class Main : DoubleBufferedControl
     /// <summary>
     ///     Called when gateway server disconnected.
     /// </summary>
-    private void OnGatewayServerDisconnected()
+    private async void OnGatewayServerDisconnected()
     {
         AutoLogin.Pending = false;
         View.PendingWindow?.Hide();
         View.PendingWindow?.StopClientlessQueueTask();
 
-        if (!Kernel.Proxy.IsConnectedToAgentserver)
+        var wasClientless = Game.Clientless;
+
+        if (!Kernel.Proxy.IsConnectedToAgentserver && !Kernel.Proxy.IsSwitchingToAgentserver)
         {
-            Game.Clientless = false;
+            if (GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin"))
+            {
+                var reloginSeq = Interlocked.Increment(ref _reloginSeq);
+
+                btnStartClient.Enabled = false;
+                btnStartClientless.Enabled = false;
+
+                // Gateway disconnect can happen briefly during Gateway -> Agent switch (or the switch can start late
+                // due to thread scheduling). Give it a short grace period before we decide it's a real DC.
+                await Task.Delay(2000);
+
+                if (reloginSeq != Volatile.Read(ref _reloginSeq))
+                    return;
+
+                if (Kernel.Proxy.IsConnectedToAgentserver || Kernel.Proxy.IsSwitchingToAgentserver)
+                    return;
+
+                btnStartClient.Enabled = true;
+                btnStartClientless.Enabled = true;
+                btnStartClientless.Text = LanguageManager.GetLang("Start") + " Clientless";
+                Log.StatusLang("Ready");
+                Kernel.Proxy.Shutdown();
+
+                int delay = 10000;
+                if (GlobalConfig.Get("RSBot.General.EnableWaitAfterDC", false))
+                    delay = GlobalConfig.Get<int>("RSBot.General.WaitAfterDC") * 60 * 1000;
+
+                Log.Warn($"Attempting relogin in {delay / 1000} seconds...");
+                await Task.Delay(delay);
+
+                // Prevent double-start if the disconnect event fires multiple times.
+                if (reloginSeq != Volatile.Read(ref _reloginSeq))
+                    return;
+
+                if (wasClientless)
+                {
+                    // Clientless relogin: restart proxy flow only.
+                    Game.Clientless = true;
+                    Game.Start();
+                }
+                else
+                {
+                    var userAuthenticated = await HandleRegionalAuth();
+                    if (!userAuthenticated)
+                        Log.Warn("Regional auth failed; starting client anyway for relogin attempt...");
+
+                    // Client relogin: restart client process.
+                    ClientManager.Kill();
+                    await StartClientProcess();
+                }
+
+                return;
+            }
 
             btnStartClient.Enabled = true;
             btnStartClientless.Enabled = true;
             btnStartClientless.Text = LanguageManager.GetLang("Start") + " Clientless";
             Log.StatusLang("Ready");
             Kernel.Proxy.Shutdown();
+
+            Game.Clientless = false;
         }
     }
 
@@ -318,6 +375,9 @@ internal partial class Main : DoubleBufferedControl
     /// </summary>
     private void OnAgentServerConnected()
     {
+        // Cancel any pending relogin timers once we successfully connected.
+        Interlocked.Increment(ref _reloginSeq);
+
         //if (!Game.Clientless)
         //    btnGoClientless.Enabled = true;
     }
@@ -329,10 +389,8 @@ internal partial class Main : DoubleBufferedControl
     {
         Kernel.Bot.Stop();
 
-        var userAuthenticated = await HandleRegionalAuth();
-
         // Skiped: Cuz managing from ClientlessManager
-        if (Game.Clientless && userAuthenticated)
+        if (Game.Clientless)
             return;
 
         // If user disconnected with manual from clientless, we dont need open the client automatically again.
@@ -343,6 +401,8 @@ internal partial class Main : DoubleBufferedControl
 
         if (GlobalConfig.Get<bool>("RSBot.General.EnableAutomatedLogin"))
         {
+            var reloginSeq = Interlocked.Increment(ref _reloginSeq);
+
             btnStartClient.Enabled = false;
             btnStartClientless.Enabled = false;
 
@@ -351,12 +411,17 @@ internal partial class Main : DoubleBufferedControl
                 delay = GlobalConfig.Get<int>("RSBot.General.WaitAfterDC") * 60 * 1000;
 
             Log.Warn($"Attempting relogin in {delay / 1000} seconds...");
-            Thread.Sleep(delay);
+            await Task.Delay(delay);
 
-            if (userAuthenticated)
-            {
-                await StartClientProcess().ConfigureAwait(false);
-            }
+            // Prevent double-start if multiple disconnect events race.
+            if (reloginSeq != Volatile.Read(ref _reloginSeq))
+                return;
+
+            var userAuthenticated = await HandleRegionalAuth();
+            if (!userAuthenticated)
+                Log.Warn("Regional auth failed; starting client anyway for relogin attempt...");
+
+            await StartClientProcess();
             return;
         }
 

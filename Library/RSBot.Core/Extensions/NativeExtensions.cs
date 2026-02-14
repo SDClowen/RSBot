@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace RSBot.Core.Extensions;
@@ -68,6 +69,9 @@ public static class NativeExtensions
 
     [DllImport("kernel32.dll")]
     public static extern IntPtr GetModuleHandleA(string lpModuleName);
+
+    [DllImport("kernel32.dll", CharSet = CharSet.Unicode)]
+    public static extern IntPtr GetModuleHandleW(string lpModuleName);
 
     [DllImport("kernel32.dll")]
     public static extern bool CloseHandle(IntPtr handle);
