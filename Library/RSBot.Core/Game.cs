@@ -140,7 +140,7 @@ public class Game
         var divisionIndex = GlobalConfig.Get<int>("RSBot.DivisionIndex");
         var severIndex = GlobalConfig.Get<int>("RSBot.GatewayIndex");
 
-        Port = NetworkUtilities.GetFreePort(1500, 2000, 1);
+        Port = NetworkUtilities.GetFreePort(33673, 39999, 1);
 
         Kernel.Proxy = new Proxy();
         Kernel.Proxy.Start(
