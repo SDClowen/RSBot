@@ -2,13 +2,15 @@
 
 internal class View
 {
+    private static Main _instance;
+
     /// <summary>
     ///     Gets or sets the instance.
     /// </summary>
     /// <value>
     ///     The instance.
     /// </value>
-    public static Main Instance { get; } = new();
+    public static Main Instance => _instance ??= new();
 
     /// <summary>
     ///     Gets or sets the instance.
