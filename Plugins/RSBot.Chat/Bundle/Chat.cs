@@ -10,7 +10,7 @@ internal class Chat
 {
     internal static bool IgnoreChatResponsePacket;
 
-    internal static Dictionary<uint, (string itemName, ushort amount)> LinkedItems = [];
+    internal static Dictionary<ulong, InventoryItem> LinkedItems = [];
 
     /// <summary>
     ///     Sends the chat packet.

@@ -95,7 +95,8 @@ internal class ChatResponse : IPacketHandler
 
             if (uint.TryParse(rawValue, out uint uid))
             {
-                if (Bundle.Chat.LinkedItems.TryGetValue(uid, out var data) && data.itemName != null)
+                var itemName = string.Empty;
+                if (Bundle.Chat.LinkedItems.TryGetValue(uid, out var data) && (itemName = data.Record.GetRealName()) != null)
                 {
                     bool hasSpaceBefore = match.Index > 0 && char.IsWhiteSpace(message[match.Index - 1]);
 
@@ -105,9 +106,9 @@ internal class ChatResponse : IPacketHandler
                     string leftPadding = hasSpaceBefore ? "" : " ";
                     string rightPadding = hasSpaceAfter ? "" : " ";
 
-                    string displayName = data.amount > 1
-                        ? $"{data.itemName} [{data.amount}]"
-                        : data.itemName;
+                    string displayName = data.Amount > 1
+                        ? $"{itemName} [{data.Amount}]"
+                        : itemName;
 
                     return $"{leftPadding}< {displayName} >{rightPadding}";
                 }
