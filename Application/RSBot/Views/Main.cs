@@ -195,7 +195,7 @@ public partial class Main : UIWindow
 
         var botbaseIndex = 1;
 
-        windowPageControl.Controls.SetChildIndex(control, botbaseIndex);
+        windowPageControl.SetPageIndex(control, botbaseIndex);
 
         if (_isWindowLoaded)
         {
@@ -474,6 +474,8 @@ public partial class Main : UIWindow
 
         ConfigureSidebar();
         BackColor = ColorScheme.BackColor;
+        ApplyTheme();
+
         menuCurrentProfile.Text = "Profile: " + ProfileManager.SelectedProfile;
 
         EventManager.FireEvent("OnInitialized");
